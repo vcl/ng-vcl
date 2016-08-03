@@ -1,0 +1,11 @@
+*.*~
+*.swp
+*.swo
+.cache
+.DS_Store
+.settings
+.project
+.vscode
+npm-debug.log
+node_modules
+dist
