@@ -7,16 +7,13 @@
     "experimentalDecorators": true,
     "removeComments": true,
     "types": [
-      "core-js",
-      "node"
+      "core-js"
     ]
-
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "./components/**/*.ts",
-    "./demo/**/*.ts"
+    "./components/**/*.ts"
   ]
 }

@@ -1,0 +1,99 @@
+const {
+  ContextReplacementPlugin,
+  HotModuleReplacementPlugin,
+  DefinePlugin,
+  ProgressPlugin,
+  optimize: {
+    CommonsChunkPlugin,
+    DedupePlugin
+  }
+} = require('webpack');
+
+const {ForkCheckerPlugin} = require('awesome-typescript-loader');
+
+const path = require('path');
+
+function root(__path = '.') {
+  return path.join(__dirname, __path);
+}
+
+function webpackConfig(options) {
+  const CONSTANTS = {
+    ENV: JSON.stringify(options.ENV),
+    HMR: options.HMR,
+    PORT: 3000,
+    HOST: 'localhost'
+  };
+
+  return {
+    cache: true,
+    devtool: 'source-map',
+    entry: {
+      vendor:    './demo/vendor',
+      main:      './demo/main'
+    },
+    output: {
+      path: root('demo'),
+      filename: '[name].js',
+      sourceMapFilename: '[name].map',
+      chunkFilename: '[id].chunk.js'
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.ts?$/,
+          loaders: [{
+            loader: "awesome-typescript-loader",
+            query: {
+              tsconfig: 'tsconfig.es.json'
+            }
+          }],
+        },
+        {
+          test: /\.html?$/,
+          loaders: ['raw-loader'],
+        },
+        {
+          test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
+          loader: 'file?name=assets/[name].[hash].[ext]'
+        },
+      ]
+    },
+    plugins: [
+      new HotModuleReplacementPlugin(),
+      new ForkCheckerPlugin(),
+      new CommonsChunkPlugin({ name: ['main', 'vendor'], minChunks: Infinity }),
+      new DefinePlugin(CONSTANTS),
+      new ProgressPlugin({})
+    ],
+
+    resolve: {
+      extensions: ['', '.ts', '.js', '.json'],
+    },
+
+    devServer: {
+      contentBase: './demo',
+      port: CONSTANTS.PORT,
+      hot: CONSTANTS.HMR,
+      inline: CONSTANTS.HMR,
+      historyApiFallback: true
+    },
+    node: {
+      global: 'window',
+      process: true,
+      Buffer: false,
+      crypto: 'empty',
+      module: false,
+      clearImmediate: false,
+      setImmediate: false,
+      clearTimeout: true,
+      setTimeout: true
+    }
+  };
+}
+
+
+// Export
+module.exports = webpackConfig;
+
+

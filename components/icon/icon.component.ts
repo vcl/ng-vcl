@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import template from './icon.component.html';
 
 @Component({
   selector: 'vcl-icon',
-  templateUrl: 'icon.component.html'
+  template
 })
 export class IconComponent {
   @Input() class: string;  // CSS classes, usually the class(es) of an icon from an icon font

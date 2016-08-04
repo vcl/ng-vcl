@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {Router, ROUTER_DIRECTIVES} from '@angular/router';
+import template from './app.component.html';
 
 @Component({
   selector: 'app',
   directives: [ROUTER_DIRECTIVES],
-  templateUrl: 'app.component.html'
+  template 
 }) 
 export class AppComponent {
 
@@ -15,4 +16,4 @@ export class AppComponent {
   ngOnInit() {
   }
 }
- 
+  

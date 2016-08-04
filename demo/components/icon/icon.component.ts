@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import template from './icon.component.html';
+import {ICON_DIRECTIVES} from '../../../components/index';
 
 @Component({
-  templateUrl: 'icon.component.html'
+  template,
+  directives: [ICON_DIRECTIVES]
 })
 export class IconComponent implements OnInit {
   constructor() { }

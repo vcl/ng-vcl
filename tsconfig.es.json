@@ -1,22 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "umd",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": true,
-    "types": [
-      "core-js",
-      "node"
-    ]
-
+    "removeComments": false
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "./components/**/*.ts",
-    "./demo/**/*.ts"
+    "./components/**/*.ts"
   ]
 }
