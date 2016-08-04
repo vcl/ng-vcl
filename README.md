@@ -13,8 +13,8 @@ npm install https://github.com/ng-vcl/ng-vcl.git
 
 ```js
 // Import the complete ng-vcl
-import {VCL_DIRECTIVES} from 'ng-vcl';
-// or for specific components
+import { VCL_DIRECTIVES } from 'ng-vcl';
+// or specific components
 import { ICON_DIRECTIVES, LAYER_DIRECTIVES } from 'ng-vcl';
 
 @Component({
@@ -27,11 +27,11 @@ export class AppComponent {
 
 ```
 
-Check demo for the complete API documentation
+Check the demo for the complete API documentation
 
 ## Demo
 
-Browse the components by running the demo:
+Browse the components and check the API by running the demo:
 
 ```
 git clone https://github.com/ng-vcl/ng-vcl.git
