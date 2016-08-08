@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import template from './icon.component.html';
-import {ICON_DIRECTIVES} from '../../../components/index';
+import {ICON_DIRECTIVES} from '../../../src/components/index';
 
 @Component({
   template,

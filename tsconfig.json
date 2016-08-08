@@ -16,7 +16,7 @@
     "node_modules"
   ],
   "include": [
-    "./components/**/*.ts",
+    "./src/**/*.ts",
     "./demo/**/*.ts"
   ]
-}
+} 

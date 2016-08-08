@@ -1,8 +1,7 @@
 <span class="vclIcon {{class}} {{fontIconClass}}">
+  <ng-content></ng-content>
   <img *ngIf="src" src="{{src}}">  
-
   <svg *ngIf="svguse" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
     <use xmlns:xlink="http://www.w3.org/1999/xlink" attr.xlink:href="{{svguse}}"></use>
   </svg>
 </span>
- 
