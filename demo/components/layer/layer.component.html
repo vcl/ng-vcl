@@ -1,0 +1,6 @@
+<button vcl-button (click)="openLayer()" label="open Layer"></button>
+
+<vcl-layer *ngIf="layerOpen" title='Layer title goes here'>
+  <p>Layer text goes here...</p>
+  <p><button vcl-button (click)="closeLayer()" label="close Layer"></button></p>
+</vcl-layer>
