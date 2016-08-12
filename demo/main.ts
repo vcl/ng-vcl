@@ -1,9 +1,8 @@
-import {bootstrap} from "@angular/platform-browser-dynamic";
-import { AppComponent }         from './app.component';
-import { APP_ROUTER_PROVIDERS } from './app.routes';
+import {NgModule} from "@angular/core";
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { platformBrowser } from '@angular/platform-browser';
+import { AppModule } from './app.module';
+// import { AppModuleNgFactory } from '../tmp/demo/app.module.ngfactory';
 
-bootstrap(AppComponent, [
-  APP_ROUTER_PROVIDERS
-])
-.catch(err => console.error(err));
-   
+platformBrowserDynamic().bootstrapModule(AppModule);
+// platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);

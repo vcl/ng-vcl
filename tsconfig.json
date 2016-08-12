@@ -5,12 +5,11 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": true,
+    "outDir": "dist",
     "types": [
       "core-js",
       "node"
     ]
-
   },
   "exclude": [
     "node_modules"

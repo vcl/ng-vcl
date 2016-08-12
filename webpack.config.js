@@ -5,7 +5,8 @@ const {
   ProgressPlugin,
   optimize: {
     CommonsChunkPlugin,
-    DedupePlugin
+    DedupePlugin,
+    UglifyJsPlugin
   }
 } = require('webpack');
 
@@ -18,6 +19,10 @@ function root(__path = '.') {
 }
 
 function webpackConfig(options) {
+  options = options || {
+    ENV: 'development'
+  };
+
   const CONSTANTS = {
     ENV: JSON.stringify(options.ENV),
     HMR: options.HMR,
@@ -42,12 +47,10 @@ function webpackConfig(options) {
       loaders: [
         {
           test: /\.ts?$/,
-          loaders: [{
-            loader: "awesome-typescript-loader",
-            query: {
-              tsconfig: 'tsconfig.es.json'
-            }
-          }],
+          loaders: ['awesome-typescript-loader?tsconfig=tsconfig.esm.json&useWebpackText=true', 'angular2-template-loader'],
+          // query: {
+          //   tsconfig: 'tsconfig.esm.json'
+          // }
         },
         {
           test: /\.html?$/,

@@ -29,3 +29,4 @@ export class IconService {
     return null;
   }
 }
+

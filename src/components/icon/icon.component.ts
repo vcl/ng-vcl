@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import template from './icon.component.html';
+// import template from './icon.component.html';
 import {IconService} from '../../services/icon.service';
 
 /**
@@ -43,7 +43,7 @@ or
 
 @Component({
   selector: 'vcl-icon',
-  template,
+  templateUrl: 'icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [IconService]
 })

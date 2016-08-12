@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import template from './icogram.component.html';
+// import template from './icogram.component.html';
 import { IconComponent } from '../icon/icon.component';
 
 /**
@@ -32,8 +32,7 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
 
 @Component({
   selector: 'vcl-icogram',
-  template,
-  directives: [IconComponent],
+  templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IcogramComponent implements OnInit {

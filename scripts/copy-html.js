@@ -1,13 +1,13 @@
 var cpr = require('cpr');
 
-cpr('components', 'dist', {
+cpr('src', 'dist', {
   overwrite: true,    
   filter: /^(?!.*.html$).*$/
 }, function(err, files) {
     if(err) console.log(err);
 });
 
-cpr('components', 'dist/es', {
+cpr('src', 'dist/es', {
   overwrite: true,    
   filter: /^(?!.*.html$).*$/
 }, function(err, files) {

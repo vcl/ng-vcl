@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es5",
+    "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false
+    "outDir": "dist",
+    "types": [
+      "core-js"
+    ]
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
     "./src/**/*.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "genDir": "tmp"
+  }
 }

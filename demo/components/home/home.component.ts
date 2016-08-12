@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import template from './home.component.html';
 
 @Component({
-  template
+  templateUrl: 'home.component.html'
 })
 export class HomeComponent implements OnInit {
   constructor() { }
