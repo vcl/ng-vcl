@@ -15,7 +15,6 @@ export class OverlayManagerService {
 
     let zIndex = 100;
     for (let i = 0; i < this.components.length; i++) {
-      console.log(this.components[i].zIndex);
       if (this.components[i].zIndex >= zIndex) {
         zIndex = this.components[i].zIndex;
       }
