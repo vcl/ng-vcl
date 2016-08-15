@@ -1,0 +1,39 @@
+import { Component, Input, Output, ElementRef } from '@angular/core';
+
+declare var Tether:any;
+
+@Component({
+  selector: 'vcl-tether',
+  templateUrl: 'tether.component.html'
+})
+export class TetherComponent {
+
+  private id: string;
+
+  @Input()
+  target: string;
+
+  @Input()
+  targetAttachment: string;
+
+  @Input()
+  attachment: string;
+
+  constructor(private myElement: ElementRef) {
+    this.id = 'theterId'+Math.floor(Math.random()*10000);
+  }
+
+  ngAfterViewInit() {
+    try {
+      new Tether({
+        element: '#'+this.id,
+        target: this.target,
+        attachment: this.attachment,
+        targetAttachment: this.targetAttachment
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
+}
+
