@@ -1,15 +1,50 @@
-<button vcl-button (click)="openLayer()" label="open Layer"></button>
+<button vcl-button (click)="openNonModalLayer()" label="open non-modal layer"></button>
+<button vcl-button (click)="openLayer1()" label="open modal layer"></button>
 
-<vcl-layer *ngIf="layerOpen" title='Layer title goes here'>
+
+<vcl-layer [(open)]="layerNonModalOpen" [modal]="false">
   <div class="vclLayerBox vclLayerGutterPadding">
     <div class="vclPanel vclNoMargin">
       <div class="vclPanelHeader">
-        <h3 class="vclPanelTitle">Layer title goes here</h3>
+        <h3 class="vclPanelTitle">Non-modal layer title goes here</h3>
       </div>
       <div class="vclPanelBody">
         <p class="vclPanelContent">
-          Layer text goes here<br><br>
-          <button vcl-button (click)="closeLayer()" label="close Layer"></button>
+          Non-modal layer text goes here<br><br>
+          <button vcl-button (click)="closeNonModalLayer()" label="close Layer"></button>
+        </p>
+      </div>
+    </div>
+  </div>
+</vcl-layer>
+
+<vcl-layer [(open)]="layer1Open">
+  <div class="vclLayerBox vclLayerGutterPadding">
+    <div class="vclPanel vclNoMargin">
+      <div class="vclPanelHeader">
+        <h3 class="vclPanelTitle">Modal layer 1 title goes here</h3>
+      </div>
+      <div class="vclPanelBody">
+        <p class="vclPanelContent">
+          Modal layer 1 text goes here<br><br>
+          <button vcl-button (click)="openLayer2()" label="open Layer2"></button>
+          <button vcl-button (click)="closeLayer1()" label="close Layer"></button>
+        </p>
+      </div>
+    </div>
+  </div>
+</vcl-layer>
+
+<vcl-layer [(open)]="layer2Open" [modal]="false">
+  <div class="vclLayerBox vclLayerGutterPadding">
+    <div class="vclPanel vclNoMargin">
+      <div class="vclPanelHeader">
+        <h3 class="vclPanelTitle">Non-modal layer 2 title goes here</h3>
+      </div>
+      <div class="vclPanelBody">
+        <p class="vclPanelContent">
+          non-modal layer 2 text goes here<br><br>
+          <button vcl-button (click)="closeLayer2()" label="close Layer"></button>
         </p>
       </div>
     </div>

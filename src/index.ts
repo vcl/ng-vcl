@@ -10,6 +10,7 @@ export * from './components/icogram/icogram.module';
 export * from './components/button/button.module';
 
 import { IconService } from './services/icon.service';
+import { OverlayManagerService } from './services/overlayManager.service';
 
 export * from './services/icon.service';
 
@@ -26,6 +27,9 @@ export * from './services/icon.service';
     VCLButtonModule,
     VCLLayerModule,
   ],
-  providers: [IconService],
+  providers: [
+    IconService,
+    OverlayManagerService
+  ],
 })
 export class VCLModule { }
