@@ -14,6 +14,12 @@ export class TetherComponent {
   target: string;
 
   @Input()
+  class: string;
+
+  @Input()
+  zIndex: number;
+
+  @Input()
   targetAttachment: string;
 
   @Input()
