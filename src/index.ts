@@ -5,6 +5,7 @@ import { VCLIcogramModule } from './components/icogram/icogram.module';
 import { VCLButtonModule } from './components/button/button.module';
 import { VCLLayerModule } from './components/layer/layer.module';
 import { VCLTetherModule } from './components/tether/tether.module';
+import { VCLPopoverModule } from './components/popover/popover.module';
 
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';
@@ -22,6 +23,7 @@ export * from './services/icon.service';
     VCLButtonModule,
     VCLLayerModule,
     VCLTetherModule,
+    VCLPopoverModule,
   ],
   exports: [
     VCLIconModule,
@@ -29,6 +31,7 @@ export * from './services/icon.service';
     VCLButtonModule,
     VCLLayerModule,
     VCLTetherModule,
+    VCLPopoverModule,
   ],
   providers: [
     IconService,
