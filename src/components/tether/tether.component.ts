@@ -1,6 +1,5 @@
 import { Component, Input, Output, ElementRef } from '@angular/core';
-
-declare var Tether:any;
+import * as Tether from 'tether';
 
 @Component({
   selector: 'vcl-tether',
@@ -43,3 +42,4 @@ export class TetherComponent {
   }
 }
 
+ 
