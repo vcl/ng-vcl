@@ -39,13 +39,15 @@ or
 @param    icon            optional      Icon generator lookup via icon provider registered in the meta facility
 @param    label           optional      `aria-label`
 @param    hidden          optional      `aria-hidden` state, defaults to `true`, is `false` if there is a `label` given
-*/ 
+*/
 
 @Component({
   selector: 'vcl-icon',
   templateUrl: 'icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [IconService]
+  host: {
+
+  },
 })
 export class IconComponent {
   @Input() src: string;

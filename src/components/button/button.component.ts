@@ -19,8 +19,8 @@ The main control for triggering actions
   host: {
     '(mouseenter)': 'hovered=true',
     '(mouseleave)': 'hovered=false',
-    // '(down)': 'pressed=true',
-    // '(up)': 'pressed=false',
+    '(mousedown)': 'pressed=true',
+    '(mouseup)': 'pressed=false',
     '(onfocus)': 'focused=true;',
     '(onblur)': 'focused=false',
 

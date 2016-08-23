@@ -1,6 +1,6 @@
-<span class="vclIcon {{iconClass}} {{fontIconClass}}">
+<span class="vclIcon {{iconClass}} {{fontIconClass}}" [attr.aria-label]="label | loc" [attr.aria-hidden]="hidden">
   <ng-content></ng-content>
-  <img *ngIf="src" src="{{src}}">  
+  <img *ngIf="src" src="{{src}}">
   <svg *ngIf="svguse" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
     <use xmlns:xlink="http://www.w3.org/1999/xlink" attr.xlink:href="{{svguse}}"></use>
   </svg>

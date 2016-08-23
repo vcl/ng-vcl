@@ -34,7 +34,7 @@ export * from './services/icon.service';
     VCLPopoverModule,
   ],
   providers: [
-    IconService,
+    // IconService,
     OverlayManagerService
   ],
 })
