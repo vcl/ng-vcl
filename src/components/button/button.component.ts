@@ -40,7 +40,6 @@ export class ButtonComponent implements OnInit {
   focused: boolean = false; // `true` if the element is focused  (CSS' :focus)
   busy: boolean = false; // State to indicate that the button is disabled as a operation is in progress
 
-
   selected: boolean = false;
 
   constructor() { }

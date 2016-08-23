@@ -62,13 +62,13 @@ export class IconComponent {
     if(this.icon) {
       return this._iconService.lookup(this.icon);
     }
-  } 
+  }
   get mergedIconClass() : string {
     return `${this.fontIconClass || ''} ${this.iconClass || ''}`;
-  } 
-  
+  }
+
   get isHidden() {
     return (this.hidden || !this.label);
   }
 }
- 
+
