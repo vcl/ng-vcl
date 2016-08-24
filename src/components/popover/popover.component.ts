@@ -16,6 +16,9 @@ export class PopoverComponent implements OverlayManagedComponent {
   target: string;
 
   @Input()
+  style: string;
+
+  @Input()
   class: string = 'vclPopOver';
 
   @Input()

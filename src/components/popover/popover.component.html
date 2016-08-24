@@ -5,5 +5,7 @@
   [target]="target"
   [targetAttachment]="targetAttachment"
   [attachment]="attachment">
-  <ng-content></ng-content>
+  <div [ngStyle]="style">
+    <ng-content></ng-content>
+  </div>
 </vcl-tether>

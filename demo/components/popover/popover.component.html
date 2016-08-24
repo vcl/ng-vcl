@@ -1,17 +1,13 @@
 <button vcl-button (click)="showPopover()" label="show popover"></button>
 
-<vcl-popover target='#target' [(open)]="open">
-  <div style="border: 1px solid red; padding: 20px; ">
-    popover text goes here <br>
-    <button vcl-button (click)="showPopover2()" label="show popover2" id="button1"></button>
-    <button vcl-button (click)="closePopover()" label="close popover"></button>
-  </div>
+<vcl-popover target='#target' [(open)]="open" class='' [style]="style">
+  popover text goes here <br>
+  <button vcl-button (click)="showPopover2()" label="show popover2" id="button1"></button>
+  <button vcl-button (click)="closePopover()" label="close popover"></button>
 </vcl-popover>
 
-<vcl-popover target='#button1' [(open)]="open2">
-  <div style="border: 1px solid red; padding: 20px; ">
-    popover 2 text goes here <br>
-  </div>
+<vcl-popover target='#button1' [(open)]="open2" [style]="style">
+  popover 2 text goes here <br>
 </vcl-popover>
 
 <div id="target" style="position: absolute; top: 200px; left: 200px; padding: 10px; border: 3px double green">
