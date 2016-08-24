@@ -24,6 +24,8 @@ export class PopoverComponent implements OverlayManagedComponent {
   @Input()
   zIndex: number = 10;
 
+  private coverZIndex: number = -1;
+
   @Input()
   targetAttachment: string = 'bottom left';
 
@@ -32,6 +34,9 @@ export class PopoverComponent implements OverlayManagedComponent {
 
   @Input()
   open: boolean = false;
+
+  @Input()
+  public layer: boolean = false;
 
   @Output()
   openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -64,9 +69,11 @@ export class PopoverComponent implements OverlayManagedComponent {
       if(this.zIndexManaged) {
         if (changes.open.currentValue === true) {
           this.zIndex = this.overlayManger.register(this);
+          this.coverZIndex = this.zIndex -1;
           this.opening = true;
         } else if (changes.open.currentValue === false) {
           this.zIndex = this.overlayManger.unregister(this);
+          this.coverZIndex = -1;
         }
       }
     } catch (ex) {}
