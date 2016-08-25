@@ -31,7 +31,7 @@
   "jsnext:main": "dist/ng-vcl.esm.js",
   "module": "dist/ng-vcl.esm.js",
   "jspm": {
-    "main": "dist/ng-vcl.cjs.js",
+    "main": "dist/index.js",
     "format": "cjs"
   },
   "peerDependencies": {
