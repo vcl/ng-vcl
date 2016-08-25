@@ -397,10 +397,18 @@ L10nModule = L10nModule_1 = __decorate([
         providers: [
             // TODO: Remove provider. Should work when marked optional in pipe
             // not sure why it isn't
+            {
+                provide: L10N_CONFIG,
+                useValue: {}
+            },
             L10nService,
             {
                 provide: L10nLoaderService,
                 useClass: L10nNoopLoaderService
+            },
+            {
+                provide: L10N_LOADER_CONFIG,
+                useValue: {}
             },
             {
                 provide: L10nParserService,

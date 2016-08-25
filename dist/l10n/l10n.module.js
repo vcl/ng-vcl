@@ -59,10 +59,18 @@ var L10nModule = (function () {
             providers: [
                 // TODO: Remove provider. Should work when marked optional in pipe
                 // not sure why it isn't
+                {
+                    provide: l10n_service_1.L10N_CONFIG,
+                    useValue: {}
+                },
                 l10n_service_1.L10nService,
                 {
                     provide: l10n_loader_service_1.L10nLoaderService,
                     useClass: l10n_loader_service_1.L10nNoopLoaderService
+                },
+                {
+                    provide: l10n_loader_service_1.L10N_LOADER_CONFIG,
+                    useValue: {}
                 },
                 {
                     provide: l10n_parser_service_1.L10nParserService,
