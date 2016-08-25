@@ -1,9 +1,13 @@
-import { NgModule, ChangeDetectionStrategy, Component, Input, Injectable, Inject, Optional, Pipe, HostBinding, Output, EventEmitter, OpaqueToken } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import 'rxjs';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import * as Tether from 'tether';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var _angular_core = require('@angular/core');
+var _angular_common = require('@angular/common');
+var rxjs = require('rxjs');
+var rxjs_Observable = require('rxjs/Observable');
+var rxjs_BehaviorSubject = require('rxjs/BehaviorSubject');
+var Tether = require('tether');
 
 function __extends(d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -943,4 +947,12 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+exports.VCLModule = VCLModule;
+exports.VCLIconModule = VCLIconModule;
+exports.VCLIcogramModule = VCLIcogramModule;
+exports.VCLButtonModule = VCLButtonModule;
+exports.L10nModule = L10nModule;
+exports.L10nNoopLoaderService = L10nNoopLoaderService;
+exports.L10nStaticLoaderService = L10nStaticLoaderService;
+exports.L10nFormatParserService = L10nFormatParserService;
+exports.L10nService = L10nService;

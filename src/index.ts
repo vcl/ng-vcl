@@ -14,7 +14,6 @@ export * from './l10n/l10n.module';
 
 import { OverlayManagerService } from './services/overlayManager.service';
 
-
 @NgModule({
   imports: [
     VCLIconModule,
@@ -33,7 +32,6 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLPopoverModule,
   ],
   providers: [
-    // IconService,
     OverlayManagerService
   ],
 })
