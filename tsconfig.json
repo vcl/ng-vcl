@@ -5,11 +5,11 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "outDir": "dist"
-    // "types": [
-    //   "core-js",
-    //   "node"
-    // ]
+    "outDir": "dist",
+    "types": [
+      "core-js",
+      "node"
+    ]
   },
   "exclude": [
     "node_modules"
