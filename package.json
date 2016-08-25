@@ -31,8 +31,8 @@
   "jsnext:main": "dist/ng-vcl.esm.js",
   "module": "dist/ng-vcl.esm.js",
   "jspm": {
-    "main": "dist/ng-vcl.esm.js",
-    "format": "esm"
+    "main": "dist/ng-vcl.cjs.js",
+    "format": "cjs"
   },
   "peerDependencies": {
     "@angular/core": "^2.0.0-rc"
