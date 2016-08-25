@@ -91,7 +91,7 @@ IconComponent = __decorate([
     })
 ], IconComponent);
 
-IconService = class IconService {
+let IconService = class IconService {
     fa(icon) {
         return `fa fa-${icon}`;
     }
@@ -870,4 +870,4 @@ VCLModule = __decorate([
     })
 ], VCLModule);
 
-export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, IconService };
+export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };

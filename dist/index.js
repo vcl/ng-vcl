@@ -23,7 +23,6 @@ __export(require('./components/icogram/icogram.module'));
 __export(require('./components/button/button.module'));
 __export(require('./l10n/l10n.module'));
 var overlayManager_service_1 = require('./services/overlayManager.service');
-__export(require('./services/icon.service'));
 var VCLModule = (function () {
     function VCLModule() {
     }

@@ -12,10 +12,8 @@ export * from './components/icogram/icogram.module';
 export * from './components/button/button.module';
 export * from './l10n/l10n.module';
 
-import { IconService } from './services/icon.service';
 import { OverlayManagerService } from './services/overlayManager.service';
 
-export * from './services/icon.service';
 
 @NgModule({
   imports: [
