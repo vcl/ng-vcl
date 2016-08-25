@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostBinding, ElementRef } from '@angular/core';
 /**
 Combination of icon and text of which both are optional and can be permuted.
 Icons can be prepended or appended to a textual label and can be sourced from icon
@@ -36,13 +36,14 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
 @demo example
 */
 export let IcogramComponent = class IcogramComponent {
-    constructor() {
+    // TODO prepIconSrc not implemented but used in example
+    // @Input() prepIconSrc: string;
+    constructor(elRef) {
+        this.el = elRef.nativeElement;
     }
     ngOnInit() { }
-    // If a textual label is given, the icons can be
-    // hidden in terms of a11ly.
-    get a11IconHidden() {
-        return !!this.label;
+    get ariaRole() {
+        return (this.el && this.el.tagName.toLowerCase() !== 'a' && this.href) ? 'link' : null;
     }
 };
 __decorate([
@@ -55,7 +56,7 @@ __decorate([
 ], IcogramComponent.prototype, "href", void 0);
 __decorate([
     Input(), 
-    __metadata('design:type', String)
+    __metadata('design:type', Boolean)
 ], IcogramComponent.prototype, "flexLabel", void 0);
 __decorate([
     Input(), 
@@ -65,11 +66,15 @@ __decorate([
     Input(), 
     __metadata('design:type', String)
 ], IcogramComponent.prototype, "appIcon", void 0);
+__decorate([
+    HostBinding('attr.role'), 
+    __metadata('design:type', Object)
+], IcogramComponent.prototype, "ariaRole", null);
 IcogramComponent = __decorate([
     Component({
-        selector: 'vcl-icogram',
+        selector: 'vcl-icogram, [vcl-icogram]',
         templateUrl: 'icogram.component.html',
         changeDetection: ChangeDetectionStrategy.OnPush
     }), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [ElementRef])
 ], IcogramComponent);

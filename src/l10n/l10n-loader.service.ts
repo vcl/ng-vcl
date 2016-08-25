@@ -1,6 +1,6 @@
-import { Optional } from '@angular/core';
+import { Optional, Inject, Injectable, OpaqueToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Inject, Injectable, OpaqueToken } from '@angular/core';
+// import 'rxjs/operators/add/observable/of';
 
 export interface TranslationPackage {
   [key:string]: string;

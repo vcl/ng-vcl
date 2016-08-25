@@ -1,4 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import 'rxjs';
+
 import { L10nLoaderService, L10nNoopLoaderService, L10nStaticLoaderService, L10nLoaderConfig, L10N_LOADER_CONFIG } from './l10n-loader.service';
 import { L10nParserService, L10nFormatParserService } from './l10n-parser.service';
 import { L10nService, L10N_CONFIG, L10nConfig } from './l10n.service';
@@ -8,15 +10,15 @@ export {L10nNoopLoaderService, L10nStaticLoaderService} from './l10n-loader.serv
 export {L10nFormatParserService} from './l10n-parser.service';
 export {L10nService} from './l10n.service';
 
-declare interface IL10nLoaderService {
+export declare interface IL10nLoaderService {
   new (...args): L10nLoaderService;
 }
 
-declare interface IL10nParserService {
+export declare interface IL10nParserService {
   new (...args): L10nParserService;
 }
 
-declare interface rootConfig {
+export declare interface rootConfig {
   config?: L10nConfig
   loader: IL10nLoaderService,
   loaderConfig: L10nLoaderConfig

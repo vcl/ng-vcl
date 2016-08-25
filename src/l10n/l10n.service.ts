@@ -1,5 +1,7 @@
 import { Injectable, OpaqueToken, Inject } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+// import 'rxjs/operators/add/observable/of';
 
 import {L10nLoaderService, TranslationPackage} from './l10n-loader.service';
 import {L10nParserService } from './l10n-parser.service';
@@ -17,6 +19,9 @@ export class L10nService {
   private packages: { [key:string]: Observable<TranslationPackage> }
   private supportedLocales$: Observable<string[]>;
 
+  private package$: Observable<TranslationPackage>;
+  private fbPackage$: Observable<TranslationPackage>;
+
   public locale: string;
 
   constructor(
@@ -29,6 +34,42 @@ export class L10nService {
 
     this.locale = (config.locale || this.getNavigatorLang() || 'en-us').toLowerCase();
     this.locale$ = new BehaviorSubject<string>(this.locale);
+
+    // Initialize the streams
+
+    let supportedLocales$ = this.getSupportedLocales();
+    
+    // Set up stream of valid locale 
+    let locale$ = Observable.combineLatest<string[], string, string>(supportedLocales$, this.locale$, (supportedLocales, locale)=>{
+      if(supportedLocales.length>0) {
+        // If not supported use first locale as fallback
+        return (supportedLocales.indexOf(locale)>=0) ? locale : supportedLocales[0]; 
+      } else {
+        // If there are no supported locales, presume every locale as supported
+        return locale;
+      }
+    });
+
+    // Set up stream of valid fallback locale
+    let fbLocale$ = Observable.combineLatest<string[], string, string>(supportedLocales$, locale$, (supportedLocales, locale)=>{
+      if(supportedLocales.length>0 && supportedLocales[0]!==locale) {
+        return supportedLocales[0];
+      } else if(supportedLocales.length>1 && supportedLocales[0]===locale) {
+        return supportedLocales[1];
+      } else {
+        return null;
+      }
+    });
+
+    this.package$ = locale$.switchMap(locale=>this.getTranslationPackage(locale));
+
+    let fbPackage$ = fbLocale$.switchMap((fbLocale)=>{
+      return fbLocale ? this.getTranslationPackage(fbLocale) : Observable.of({});
+    });
+ 
+    this.fbPackage$ = Observable.combineLatest(this.package$, fbPackage$, (pkg, fbPkg)=>{
+      return fbPkg ? Object.assign({}, fbPkg, pkg) : pkg;
+    });
   }
 
   /**
@@ -43,31 +84,16 @@ export class L10nService {
   }
 
   /**
-  * Match supportedLocales with provided locale
-  * If supportedLocales are not provided, presume every locale is supported
-  * @internal
-  */
-  getValidLocale() {
-    let supportedLocales$ = this.getSupportedLocales();
-    return Observable.combineLatest(supportedLocales$, this.locale$, (supportedLocales, locale)=>{
-      if(supportedLocales.length>0) {
-        // If not supported use first locale as fallback
-        return (supportedLocales.indexOf(locale)>=0) ? locale : supportedLocales[0]; 
-      } else {
-        return locale;
-      }
-    });
-  }
-
-  /**
   * Gets supported locales
   */
   getSupportedLocales() {
     // Cache supportedLocales and share
     if(!this.supportedLocales$) {
-      this.supportedLocales$ = this.loader.getSupportedLocales().map(supportedLocales=>{
-        return supportedLocales.map(locale=>locale.toLowerCase());
-      }).publishLast().refCount();
+      this.supportedLocales$ = this.loader
+                                   .getSupportedLocales()
+                                   .map(sl=>sl.map(locale=>locale.toLowerCase()))
+                                   .publishLast()
+                                   .refCount();
     }
     return this.supportedLocales$;
   }
@@ -90,24 +116,11 @@ export class L10nService {
   * @returns {Observable<string>} The translated key 
   */
   localize(key:string, ...args:string[]) : Observable<string> {
-    return this.getValidLocale()
-               .switchMap(locale=>this.getTranslationPackage(locale))
-               .switchMap(pkg=>{
-                 if(pkg[key]) {
-                   return Observable.of(pkg)
-                 } else {
-                   return this.getSupportedLocales().map(locales=>{
-                     return locales.length>0?locales[0]:null;
-                   }).switchMap(fbLocale=>{
-                     return fbLocale ? this.getTranslationPackage(fbLocale) : Observable.of({});
-                   }).map(fbPkg=>{
-                     return Object.assign({}, fbPkg, pkg)
-                   });
-                  //  return Observable.combineLatest(fb$, this.package$, (fbPkg, pkg)=>Object.assign({}, fbPkg, pkg));
-                 }
-               }).map(pkg=>{
-                 return pkg[key] ? this.parser.parse(pkg[key], ...args) : key;
-               });
+    return this.package$.switchMap(pkg=>{
+      return pkg[key] ? Observable.of(pkg) : this.fbPackage$;
+    }).map(pkg=>{
+      return pkg[key] ? this.parser.parse(pkg[key], ...args) : key;
+    });
   }
 
   // alias for localize

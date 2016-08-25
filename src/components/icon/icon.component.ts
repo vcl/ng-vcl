@@ -1,6 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-// import template from './icon.component.html';
-import {IconService} from '../../services/icon.service';
+import { IconService } from '../../services/icon.service';
 
 /**
 Icon which can be based on glyphs from icon fonts, inline svg and bitmaps.
@@ -13,23 +12,13 @@ See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
 Usage:
 
 ```html
-<vcl-icon icon="fa:fa-chevron-right" label="chevron right" hidden="false"></vcl-icon>
+<vcl-icon icon="fa:chevron-right" label="chevron right" hidden="false"></vcl-icon>
 ```
-
 or
-
-```html
-<vcl-icon class="fa fa-chevron-right"></vcl-icon>
-```
-
-or
-
 ```html
 <vcl-icon src="..."></vcl-icon>
 ```
-
 or
-
 ```html
 <vcl-icon svguse="..."></vcl-icon>
 ````
@@ -37,17 +26,14 @@ or
 @param    src             optional      URL of a graphics resource
 @param    svguse          optional      Generates an SVG `use` tag referencing the value
 @param    icon            optional      Icon generator lookup via icon provider registered in the meta facility
+@param    iconClass       optional      Additional class
 @param    label           optional      `aria-label`
-@param    hidden          optional      `aria-hidden` state, defaults to `true`, is `false` if there is a `label` given
 */
 
 @Component({
   selector: 'vcl-icon',
   templateUrl: 'icon.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-
-  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconComponent {
   @Input() src: string;
@@ -55,7 +41,8 @@ export class IconComponent {
   @Input() iconClass: string;
   @Input() icon: string;
   @Input() label: string;
-  @Input() hidden: boolean = true;
+
+  ariaRole: string; //TODO: not used?
 
   constructor(private _iconService: IconService) {
   }
@@ -69,8 +56,8 @@ export class IconComponent {
     return `${this.fontIconClass || ''} ${this.iconClass || ''}`;
   }
 
+  // Do not hide when a label is provided
   get isHidden() {
-    return (this.hidden || !this.label);
+    return !this.label;
   }
 }
-

@@ -11,11 +11,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IcogramComponent } from './icogram.component';
 import { VCLIconModule } from '../icon/icon.module';
+import { L10nModule } from '../../l10n/l10n.module';
 export let VCLIcogramModule = class VCLIcogramModule {
 };
 VCLIcogramModule = __decorate([
     NgModule({
-        imports: [CommonModule, VCLIconModule],
+        imports: [CommonModule, VCLIconModule, L10nModule],
         exports: [IcogramComponent],
         declarations: [IcogramComponent],
         providers: [],

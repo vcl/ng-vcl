@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit, ElementRef } from '@angular/core';
 /**
 Combination of icon and text of which both are optional and can be permuted.
 Icons can be prepended or appended to a textual label and can be sourced from icon
@@ -29,10 +29,11 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
 export declare class IcogramComponent implements OnInit {
     label: string;
     href: string;
-    flexLabel: string;
+    flexLabel: boolean;
     prepIcon: string;
     appIcon: string;
-    constructor();
+    private el;
+    constructor(elRef: ElementRef);
     ngOnInit(): void;
-    readonly a11IconHidden: boolean;
+    readonly ariaRole: string;
 }

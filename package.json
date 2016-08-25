@@ -10,8 +10,9 @@
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
     "build:copy": "node scripts/copy-html.js",
     "build:cjs": "tsc --outDir dist --declaration  -p tsconfig.cjs.json",
-    "build:es": "tsc --outDir dist/es --declaration -p tsconfig.esm.json",
-    "build": "npm-run-all build:copy build:es build:cjs",
+    "build:esm": "tsc --outDir dist/es --declaration -p tsconfig.esm.json",
+    "build:esm-rollup": "rollup -c rollup.config.js",
+    "build": "npm-run-all build:copy build:cjs build:esm-rollup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,13 +27,13 @@
   "author": "The ng-vcl authors",
   "license": "MIT",
   "main": "dist/index.js",
-  "jsnext:main": "dist/es/index.js",
-  "module": "dist/es/index.js",
+  "typings": "dist/index.d.ts",
+  "jsnext:main": "dist/ng-vcl.esm.js",
+  "module": "dist/ng-vcl.esm.js",
   "jspm": {
-    "main": "dist/es/index.js",
+    "main": "dist/ng-vcl.esm.js",
     "format": "esm"
   },
-  "typings": "dist/index.d.ts",
   "peerDependencies": {
     "@angular/core": "^2.0.0-rc"
   },
@@ -61,6 +62,9 @@
     "npm-run-all": "^2.3.0",
     "postcss-cli": "^2.5.2",
     "raw-loader": "^0.5.1",
+    "rollup": "^0.34.10",
+    "rollup-plugin-angular": "^0.2.3",
+    "rollup-plugin-typescript": "^0.8.1",
     "rxjs": "5.0.0-beta.11",
     "typescript": "^2.0.0",
     "vcl-core-modules": "^0.1.0",

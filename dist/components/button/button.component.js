@@ -15,21 +15,21 @@ The main control for triggering actions
 ## Usage
 
 ```html
-{{vcl-button label="My Button" action=(action "closureAction")}}
+<button vcl-button label="My Button" (click)=""doSomething()></button>
 ```
 
 @demo example
 
 @property     {String}    label    textual label
-@property     {String}    title    textual title
 */
 var ButtonComponent = (function () {
     function ButtonComponent() {
         this.hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
         this.pressed = false; // `true` if a pointer device is conducting a `down` gesture on the button
         this.focused = false; // `true` if the element is focused  (CSS' :focus)
-        this.busy = false; // State to indicate that the button is disabled as a operation is in progress
         this.selected = false;
+        // TODO: Doc missing. Input attr?
+        this.busy = false; // State to indicate that the button is disabled as a operation is in progress
         this.flexLabel = false;
     }
     ButtonComponent.prototype.domouseenter = function () {
@@ -63,6 +63,11 @@ var ButtonComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
+    ], ButtonComponent.prototype, "busy", void 0);
+    __decorate([
+        // State to indicate that the button is disabled as a operation is in progress
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
     ], ButtonComponent.prototype, "flexLabel", void 0);
     __decorate([
         core_1.Input(), 
@@ -94,8 +99,8 @@ var ButtonComponent = (function () {
             host: {
                 '(mouseenter)': 'hovered=true',
                 '(mouseleave)': 'hovered=false',
-                // '(down)': 'pressed=true',
-                // '(up)': 'pressed=false',
+                '(mousedown)': 'pressed=true',
+                '(mouseup)': 'pressed=false',
                 '(onfocus)': 'focused=true;',
                 '(onblur)': 'focused=false',
                 '[class.vclButton]': 'true',

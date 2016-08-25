@@ -10,23 +10,13 @@ See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
 Usage:
 
 ```html
-<vcl-icon icon="fa:fa-chevron-right" label="chevron right" hidden="false"></vcl-icon>
+<vcl-icon icon="fa:chevron-right" label="chevron right" hidden="false"></vcl-icon>
 ```
-
 or
-
-```html
-<vcl-icon class="fa fa-chevron-right"></vcl-icon>
-```
-
-or
-
 ```html
 <vcl-icon src="..."></vcl-icon>
 ```
-
 or
-
 ```html
 <vcl-icon svguse="..."></vcl-icon>
 ````
@@ -34,8 +24,8 @@ or
 @param    src             optional      URL of a graphics resource
 @param    svguse          optional      Generates an SVG `use` tag referencing the value
 @param    icon            optional      Icon generator lookup via icon provider registered in the meta facility
+@param    iconClass       optional      Additional class
 @param    label           optional      `aria-label`
-@param    hidden          optional      `aria-hidden` state, defaults to `true`, is `false` if there is a `label` given
 */
 export declare class IconComponent {
     private _iconService;
@@ -44,7 +34,7 @@ export declare class IconComponent {
     iconClass: string;
     icon: string;
     label: string;
-    hidden: boolean;
+    ariaRole: string;
     constructor(_iconService: IconService);
     readonly fontIconClass: string;
     readonly mergedIconClass: string;

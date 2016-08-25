@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-// import template from './icogram.component.html';
+import { Component, OnInit, Input, ChangeDetectionStrategy, HostBinding, ElementRef } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 
 /**
@@ -29,9 +28,8 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
 @param    appIcon         optional      Same as `prepIcon` but appended
 @demo example
 */
-
 @Component({
-  selector: 'vcl-icogram',
+  selector: 'vcl-icogram, [vcl-icogram]',
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -39,17 +37,29 @@ export class IcogramComponent implements OnInit {
 
   @Input() label: string;
   @Input() href: string;
-  @Input() flexLabel: string;
+  @Input() flexLabel: boolean;
   @Input() prepIcon: string;
   @Input() appIcon: string;
+  private el: HTMLElement;
 
-  constructor() { }
+  // TODO prepIconSrc not implemented but used in example
+  // @Input() prepIconSrc: string;
+
+  constructor(elRef:ElementRef) {
+    this.el = elRef.nativeElement;
+   }
 
   ngOnInit() { }
 
+  @HostBinding('attr.role') 
+  get ariaRole() {
+    return (this.el && this.el.tagName.toLowerCase()!=='a' && this.href) ? 'link' : null;
+  }
+
+  // TODO: Not necessary: icon is always hidden
   // If a textual label is given, the icons can be
   // hidden in terms of a11ly.
-  get a11IconHidden() {
-   return !!this.label;
-  }
+  // get a11IconHidden() {
+  //  return !!this.label;
+  // }
 }

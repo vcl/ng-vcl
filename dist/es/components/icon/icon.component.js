@@ -20,23 +20,13 @@ See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
 Usage:
 
 ```html
-<vcl-icon icon="fa:fa-chevron-right" label="chevron right" hidden="false"></vcl-icon>
+<vcl-icon icon="fa:chevron-right" label="chevron right" hidden="false"></vcl-icon>
 ```
-
 or
-
-```html
-<vcl-icon class="fa fa-chevron-right"></vcl-icon>
-```
-
-or
-
 ```html
 <vcl-icon src="..."></vcl-icon>
 ```
-
 or
-
 ```html
 <vcl-icon svguse="..."></vcl-icon>
 ````
@@ -44,13 +34,12 @@ or
 @param    src             optional      URL of a graphics resource
 @param    svguse          optional      Generates an SVG `use` tag referencing the value
 @param    icon            optional      Icon generator lookup via icon provider registered in the meta facility
+@param    iconClass       optional      Additional class
 @param    label           optional      `aria-label`
-@param    hidden          optional      `aria-hidden` state, defaults to `true`, is `false` if there is a `label` given
 */
 export let IconComponent = class IconComponent {
     constructor(_iconService) {
         this._iconService = _iconService;
-        this.hidden = true;
     }
     get fontIconClass() {
         if (this.icon) {
@@ -60,8 +49,9 @@ export let IconComponent = class IconComponent {
     get mergedIconClass() {
         return `${this.fontIconClass || ''} ${this.iconClass || ''}`;
     }
+    // Do not hide when a label is provided
     get isHidden() {
-        return (this.hidden || !this.label);
+        return !this.label;
     }
 };
 __decorate([
@@ -84,16 +74,11 @@ __decorate([
     Input(), 
     __metadata('design:type', String)
 ], IconComponent.prototype, "label", void 0);
-__decorate([
-    Input(), 
-    __metadata('design:type', Boolean)
-], IconComponent.prototype, "hidden", void 0);
 IconComponent = __decorate([
     Component({
         selector: 'vcl-icon',
         templateUrl: 'icon.component.html',
-        changeDetection: ChangeDetectionStrategy.OnPush,
-        providers: [IconService]
+        changeDetection: ChangeDetectionStrategy.OnPush
     }), 
     __metadata('design:paramtypes', [IconService])
 ], IconComponent);

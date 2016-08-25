@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// import template from './icon.component.html';
 var icon_service_1 = require('../../services/icon.service');
 /**
 Icon which can be based on glyphs from icon fonts, inline svg and bitmaps.
@@ -22,23 +21,13 @@ See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
 Usage:
 
 ```html
-<vcl-icon icon="fa:fa-chevron-right" label="chevron right" hidden="false"></vcl-icon>
+<vcl-icon icon="fa:chevron-right" label="chevron right" hidden="false"></vcl-icon>
 ```
-
 or
-
-```html
-<vcl-icon class="fa fa-chevron-right"></vcl-icon>
-```
-
-or
-
 ```html
 <vcl-icon src="..."></vcl-icon>
 ```
-
 or
-
 ```html
 <vcl-icon svguse="..."></vcl-icon>
 ````
@@ -46,13 +35,12 @@ or
 @param    src             optional      URL of a graphics resource
 @param    svguse          optional      Generates an SVG `use` tag referencing the value
 @param    icon            optional      Icon generator lookup via icon provider registered in the meta facility
+@param    iconClass       optional      Additional class
 @param    label           optional      `aria-label`
-@param    hidden          optional      `aria-hidden` state, defaults to `true`, is `false` if there is a `label` given
 */
 var IconComponent = (function () {
     function IconComponent(_iconService) {
         this._iconService = _iconService;
-        this.hidden = true;
     }
     Object.defineProperty(IconComponent.prototype, "fontIconClass", {
         get: function () {
@@ -71,8 +59,9 @@ var IconComponent = (function () {
         configurable: true
     });
     Object.defineProperty(IconComponent.prototype, "isHidden", {
+        // Do not hide when a label is provided
         get: function () {
-            return (this.hidden || !this.label);
+            return !this.label;
         },
         enumerable: true,
         configurable: true
@@ -97,16 +86,11 @@ var IconComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], IconComponent.prototype, "label", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], IconComponent.prototype, "hidden", void 0);
     IconComponent = __decorate([
         core_1.Component({
             selector: 'vcl-icon',
             templateUrl: 'icon.component.html',
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush,
-            providers: [icon_service_1.IconService]
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [icon_service_1.IconService])
     ], IconComponent);

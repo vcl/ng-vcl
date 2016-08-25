@@ -5,21 +5,19 @@ The main control for triggering actions
 ## Usage
 
 ```html
-{{vcl-button label="My Button" action=(action "closureAction")}}
+<button vcl-button label="My Button" (click)=""doSomething()></button>
 ```
 
 @demo example
 
 @property     {String}    label    textual label
-@property     {String}    title    textual title
 */
 export declare class ButtonComponent implements OnInit {
     hovered: boolean;
     pressed: boolean;
     focused: boolean;
-    busy: boolean;
     selected: boolean;
-    constructor();
+    busy: boolean;
     flexLabel: boolean;
     busyLabel: string;
     label: string;
@@ -29,6 +27,7 @@ export declare class ButtonComponent implements OnInit {
     appIconBusy: string;
     domouseenter(): void;
     domouseleave(): void;
+    constructor();
     ngOnInit(): void;
     readonly calculatedLabel: string;
     readonly calculatedPrepIcon: string;

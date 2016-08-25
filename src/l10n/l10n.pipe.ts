@@ -1,7 +1,8 @@
 import { Optional, Pipe, PipeTransform, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { L10nService } from './l10n.service';
 import { L10nParserService } from './l10n-parser.service';
-import { Subscription } from 'rxjs';
 
 @Pipe({
   name: 'loc',

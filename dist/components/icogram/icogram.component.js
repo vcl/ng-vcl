@@ -37,14 +37,15 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
 @demo example
 */
 var IcogramComponent = (function () {
-    function IcogramComponent() {
+    // TODO prepIconSrc not implemented but used in example
+    // @Input() prepIconSrc: string;
+    function IcogramComponent(elRef) {
+        this.el = elRef.nativeElement;
     }
     IcogramComponent.prototype.ngOnInit = function () { };
-    Object.defineProperty(IcogramComponent.prototype, "a11IconHidden", {
-        // If a textual label is given, the icons can be
-        // hidden in terms of a11ly.
+    Object.defineProperty(IcogramComponent.prototype, "ariaRole", {
         get: function () {
-            return !!this.label;
+            return (this.el && this.el.tagName.toLowerCase() !== 'a' && this.href) ? 'link' : null;
         },
         enumerable: true,
         configurable: true
@@ -59,7 +60,7 @@ var IcogramComponent = (function () {
     ], IcogramComponent.prototype, "href", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', String)
+        __metadata('design:type', Boolean)
     ], IcogramComponent.prototype, "flexLabel", void 0);
     __decorate([
         core_1.Input(), 
@@ -69,13 +70,17 @@ var IcogramComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], IcogramComponent.prototype, "appIcon", void 0);
+    __decorate([
+        core_1.HostBinding('attr.role'), 
+        __metadata('design:type', Object)
+    ], IcogramComponent.prototype, "ariaRole", null);
     IcogramComponent = __decorate([
         core_1.Component({
-            selector: 'vcl-icogram',
+            selector: 'vcl-icogram, [vcl-icogram]',
             templateUrl: 'icogram.component.html',
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [core_1.ElementRef])
     ], IcogramComponent);
     return IcogramComponent;
 }());

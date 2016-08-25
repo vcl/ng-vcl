@@ -15,10 +15,14 @@ var core_1 = require('@angular/core');
 var icon_module_1 = require('./components/icon/icon.module');
 var icogram_module_1 = require('./components/icogram/icogram.module');
 var button_module_1 = require('./components/button/button.module');
+var layer_module_1 = require('./components/layer/layer.module');
+var tether_module_1 = require('./components/tether/tether.module');
+var popover_module_1 = require('./components/popover/popover.module');
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
 __export(require('./components/button/button.module'));
-var icon_service_1 = require('./services/icon.service');
+__export(require('./l10n/l10n.module'));
+var overlayManager_service_1 = require('./services/overlayManager.service');
 __export(require('./services/icon.service'));
 var VCLModule = (function () {
     function VCLModule() {
@@ -29,13 +33,22 @@ var VCLModule = (function () {
                 icon_module_1.VCLIconModule,
                 icogram_module_1.VCLIcogramModule,
                 button_module_1.VCLButtonModule,
+                layer_module_1.VCLLayerModule,
+                tether_module_1.VCLTetherModule,
+                popover_module_1.VCLPopoverModule,
             ],
             exports: [
                 icon_module_1.VCLIconModule,
                 icogram_module_1.VCLIcogramModule,
                 button_module_1.VCLButtonModule,
+                layer_module_1.VCLLayerModule,
+                tether_module_1.VCLTetherModule,
+                popover_module_1.VCLPopoverModule,
             ],
-            providers: [icon_service_1.IconService],
+            providers: [
+                // IconService,
+                overlayManager_service_1.OverlayManagerService
+            ],
         }), 
         __metadata('design:paramtypes', [])
     ], VCLModule);

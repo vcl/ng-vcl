@@ -6,13 +6,12 @@ The main control for triggering actions
 ## Usage
 
 ```html
-{{vcl-button label="My Button" action=(action "closureAction")}}
+<button vcl-button label="My Button" (click)=""doSomething()></button>
 ```
 
 @demo example
 
 @property     {String}    label    textual label
-@property     {String}    title    textual title
 */
 @Component({
   selector: '[vcl-button]',
@@ -34,15 +33,14 @@ The main control for triggering actions
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent implements OnInit {
-
   hovered: boolean = false; // `true` if a pointer device is hovering the button (CSS' :hover)
   pressed: boolean = false; // `true` if a pointer device is conducting a `down` gesture on the button
   focused: boolean = false; // `true` if the element is focused  (CSS' :focus)
-  busy: boolean = false; // State to indicate that the button is disabled as a operation is in progress
-
   selected: boolean = false;
 
-  constructor() { }
+  // TODO: Doc missing. Input attr?
+  @Input()
+  busy: boolean = false; // State to indicate that the button is disabled as a operation is in progress
 
   @Input()
   flexLabel: boolean = false;
@@ -71,6 +69,8 @@ export class ButtonComponent implements OnInit {
   domouseleave() {
     console.log('mouseleave');
   }
+
+  constructor() { }
 
   ngOnInit() { }
 
