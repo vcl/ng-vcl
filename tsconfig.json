@@ -6,10 +6,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "outDir": "dist"
-    "types": [
-      "core-js",
-      "node"
-    ]
+    // "types": [
+    //   "core-js",
+    //   "node"
+    // ]
   },
   "exclude": [
     "node_modules"

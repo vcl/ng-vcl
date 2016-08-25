@@ -5,10 +5,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "outDir": "dist/es",
-    "types": [
-      "node"
-    ]
+    "outDir": "dist/es"
+    // "types": [
+    //   "node"
+    // ]
   },
   "exclude": [
     "node_modules"
