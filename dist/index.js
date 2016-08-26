@@ -21,6 +21,9 @@ var popover_module_1 = require('./components/popover/popover.module');
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
 __export(require('./components/button/button.module'));
+__export(require('./components/layer/layer.module'));
+__export(require('./components/tether/tether.module'));
+__export(require('./components/popover/popover.module'));
 __export(require('./l10n/l10n.module'));
 var overlayManager_service_1 = require('./services/overlayManager.service');
 var VCLModule = (function () {
