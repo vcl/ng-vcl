@@ -7,5 +7,6 @@ export * from './components/tether/tether.component';
 export * from './components/popover/popover.module';
 export * from './components/popover/popover.component';
 export * from './l10n/l10n.module';
+export * from './services/overlayManager.service';
 export declare class VCLModule {
 }

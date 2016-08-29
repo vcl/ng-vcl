@@ -952,4 +952,4 @@ VCLModule = __decorate([
     __metadata('design:paramtypes', [])
 ], VCLModule);
 
-export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLLayerModule, VCLTetherModule, TetherComponent, VCLPopoverModule, PopoverComponent, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLLayerModule, VCLTetherModule, TetherComponent, VCLPopoverModule, PopoverComponent, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, OverlayManagerService };

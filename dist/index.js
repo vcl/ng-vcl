@@ -27,7 +27,8 @@ __export(require('./components/tether/tether.component'));
 __export(require('./components/popover/popover.module'));
 __export(require('./components/popover/popover.component'));
 __export(require('./l10n/l10n.module'));
-var overlayManager_service_1 = require('./services/overlayManager.service');
+__export(require('./services/overlayManager.service'));
+var overlayManager_service_2 = require('./services/overlayManager.service');
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -50,7 +51,7 @@ var VCLModule = (function () {
                 popover_module_1.VCLPopoverModule,
             ],
             providers: [
-                overlayManager_service_1.OverlayManagerService
+                overlayManager_service_2.OverlayManagerService
             ],
         }), 
         __metadata('design:paramtypes', [])
