@@ -1,14 +1,14 @@
 import { EventEmitter, ElementRef } from '@angular/core';
 import { OverlayManagerService, OverlayManagedComponent } from '../../services/overlayManager.service';
 export declare class PopoverComponent implements OverlayManagedComponent {
-    private overlayManger;
-    private myElement;
-    private opening;
+    protected overlayManger: OverlayManagerService;
+    protected myElement: ElementRef;
+    protected opening: boolean;
     target: string;
     style: string;
     class: string;
     zIndex: number;
-    private coverZIndex;
+    protected coverZIndex: number;
     targetAttachment: string;
     attachment: string;
     open: boolean;

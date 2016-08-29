@@ -10,7 +10,7 @@ import { OverlayManagerService, OverlayManagedComponent } from '../../services/o
 })
 export class PopoverComponent implements OverlayManagedComponent {
 
-  private opening: boolean = false;
+  protected opening: boolean = false;
 
   @Input()
   target: string;
@@ -24,7 +24,7 @@ export class PopoverComponent implements OverlayManagedComponent {
   @Input()
   zIndex: number = 10;
 
-  private coverZIndex: number = -1;
+  protected coverZIndex: number = -1;
 
   @Input()
   targetAttachment: string = 'bottom left';
@@ -48,8 +48,8 @@ export class PopoverComponent implements OverlayManagedComponent {
   expandManaged: boolean = true;
 
   constructor(
-    private overlayManger: OverlayManagerService,
-    private myElement: ElementRef
+    protected overlayManger: OverlayManagerService,
+    protected myElement: ElementRef
   ) {}
 
   close() {
