@@ -25,7 +25,6 @@ __export(require('./components/layer/layer.module'));
 __export(require('./components/tether/tether.module'));
 __export(require('./components/tether/tether.component'));
 __export(require('./components/popover/popover.module'));
-__export(require('./components/popover/popover.component'));
 __export(require('./l10n/l10n.module'));
 __export(require('./services/overlayManager.service'));
 var overlayManager_service_2 = require('./services/overlayManager.service');

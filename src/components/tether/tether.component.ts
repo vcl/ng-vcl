@@ -1,5 +1,5 @@
 import { Component, Input, Output, ElementRef } from '@angular/core';
-import * as Tether from 'tether';
+import Tether from 'tether';
 
 @Component({
   selector: 'vcl-tether',

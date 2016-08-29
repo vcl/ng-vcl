@@ -1608,15 +1608,54 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  height: 0;
-  letter-spacing: 0.05em;
-  font-weight: 700;
-  text-transform: uppercase;
   color: inherit;
+}
+
+.vclDivider> .vclDividerElement.vclDividerBeginElement {
+  padding-left: 0.5em;
+}
+
+.vclDivider> .vclDividerElement.vclDividerEndElement {
+  padding-right: 0.5em;
+}
+
+.vclDivider> .vclDividerElement {
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.vclDivider.vclDividerHorizontal> .vclDividerRule {
+  border-bottom: 1px solid hsl(0, 0%, 75%);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  right: 0;
+}
+
+.vclDivider.vclDividerHorizontal {
   margin: 1rem 0;
 }
 
-.vclDivider .vclIcogram {
+.vclDivider.vclDividerVertical> .vclDividerRule {
+  border-left: 1px solid hsl(0, 0%, 75%);
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+}
+
+.vclDivider.vclDividerVertical> .vclDividerElement {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.vclDivider> .vclIcogram {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   display: inline-block;
 }
 
@@ -1628,72 +1667,16 @@ body {
   font-size: 0.85em;
 }
 
-.vclDivider:not(.vclDividerVertical):not(.vclDividerHorizontal) {
+.vclDivider:empty {
   border-bottom: 1px solid hsl(0, 0%, 75%);
-}
-
-.vclDivider.vclDividerHorizontal::before {
-  margin-left: calc(-50% - 1em);
-}
-
-.vclDivider.vclDividerHorizontal::after,
-.vclDivider.vclDividerHorizontal::before {
-  position: absolute;
-  content: "";
-  z-index: 3;
-  width: 50%;
-  top: 50%;
-  height: 0px;
-  border-top: 1px solid hsl(0, 0%, 75%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2) ;
-}
-
-.vclDivider.vclDividerHorizontal::after {
-  margin-left: 1em;
 }
 
 .vclDivider.vclDividerHorizontal {
   position: relative;
-  height: auto;
-  overflow: hidden;
-  line-height: 1;
-  text-align: center;
-}
-
-.vclDivider.vclDividerVertical::before {
-  top: -100%;
-}
-
-.vclDivider.vclDividerVertical::after,
-.vclDivider.vclDividerVertical::before {
-  position: absolute;
-  left: 50%;
-  content: "";
-  z-index: 3;
-  border-left: 1px solid hsl(0, 0%, 75%);
-  border-right: 1px solid rgba(255, 255, 255, 0.2) ;
-  width: 0px;
-  height: calc(100% - 1em);
-}
-
-.vclDivider.vclDividerVertical::after {
-  top: auto;
-  bottom: 0;
 }
 
 .vclDivider.vclDividerVertical {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  line-height: 0;
-  text-align: center;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  height: 50%;
-  top: 50%;
+  position: relative;
 }
 
 /* HTML based divider should just look the same as the vclDivider */
@@ -3828,7 +3811,6 @@ ol ul {
 .vclNavigation {
   margin-bottom: 1.3em;
   background-color: transparent;
-  display: block;
   position: relative;
   *zoom: 1;
 }

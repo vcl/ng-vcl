@@ -9,8 +9,8 @@
     "dev:vcl": "vcl-preprocessor demo/styles/index.styl | postcss --use autoprefixer -o demo/app.css",
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
     "build:copy": "node scripts/copy-html.js",
-    "build:cjs": "tsc --outDir dist --declaration  -p tsconfig.cjs.json",
-    "build:esm": "tsc --outDir dist/es --declaration -p tsconfig.esm.json",
+    "build:cjs": "tsc --declaration -p tsconfig.cjs.json",
+    "build:esm": "tsc --declaration -p tsconfig.esm.json",
     "build:esm-rollup": "rollup -c rollup.config.js",
     "build": "npm-run-all build:copy build:cjs build:esm-rollup",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -64,6 +64,7 @@
     "raw-loader": "^0.5.1",
     "rollup": "^0.34.10",
     "rollup-plugin-angular": "^0.2.3",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-typescript": "^0.8.1",
     "rxjs": "5.0.0-beta.11",
     "typescript": "^2.0.0",

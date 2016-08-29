@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var popover_component_1 = require('./popover.component');
+exports.PopoverComponent = popover_component_1.PopoverComponent;
 var tether_module_1 = require('../tether/tether.module');
 var VCLPopoverModule = (function () {
     function VCLPopoverModule() {

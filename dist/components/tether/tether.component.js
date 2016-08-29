@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var Tether = require('tether');
+var tether_1 = require('tether');
 var TetherComponent = (function () {
     function TetherComponent(myElement) {
         this.myElement = myElement;
@@ -17,7 +17,7 @@ var TetherComponent = (function () {
     }
     TetherComponent.prototype.ngAfterViewInit = function () {
         try {
-            new Tether({
+            new tether_1.default({
                 element: '#' + this.id,
                 target: this.target,
                 attachment: this.attachment,

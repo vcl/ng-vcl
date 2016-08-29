@@ -1,13 +1,14 @@
-import typescript from 'rollup-plugin-typescript';
 import angular from 'rollup-plugin-angular';
-const ts = require('typescript')
+import typescript from 'rollup-plugin-typescript';
+import ts from 'typescript';
 
 export default {
   entry: 'src/index.ts',
+  format: "es",
   plugins: [
     angular(),
     typescript({
-      target: "es2015",
+      target: "es5",
       module: "es2015",
       typescript: ts
     })  

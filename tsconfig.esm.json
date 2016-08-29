@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "outDir": "dist/es",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist/esm",
     "types": [
+      "core-js",
       "node"
     ]
   },
@@ -17,6 +19,6 @@
     "./src/**/*.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "dist/es"
+    "genDir": "dist/esm"
   }
 }
