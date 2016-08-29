@@ -1,4 +1,4 @@
-import { EventEmitter, NgModule, Input, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, HostBinding, ElementRef, Output } from '@angular/core';
+import { NgModule, Input, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, HostBinding, ElementRef, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
@@ -46,7 +46,7 @@ let IconService = class IconService {
     }
 };
 IconService = __decorate([
-    Injectable(),
+    Injectable(), 
     __metadata('design:paramtypes', [])
 ], IconService);
 
@@ -96,23 +96,23 @@ let IconComponent = class IconComponent {
     }
 };
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IconComponent.prototype, "src", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IconComponent.prototype, "svguse", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IconComponent.prototype, "iconClass", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IconComponent.prototype, "icon", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IconComponent.prototype, "label", void 0);
 IconComponent = __decorate([
@@ -127,7 +127,7 @@ IconComponent = __decorate([
 </span>
 `,
         changeDetection: ChangeDetectionStrategy.OnPush
-    }),
+    }), 
     __metadata('design:paramtypes', [(typeof (_a = typeof IconService !== 'undefined' && IconService) === 'function' && _a) || Object])
 ], IconComponent);
 var _a;
@@ -171,7 +171,7 @@ let L10nStaticLoaderService = class L10nStaticLoaderService extends L10nLoaderSe
 };
 L10nStaticLoaderService = __decorate([
     Injectable(),
-    __param(0, Inject(L10N_LOADER_CONFIG)),
+    __param(0, Inject(L10N_LOADER_CONFIG)), 
     __metadata('design:paramtypes', [Object])
 ], L10nStaticLoaderService);
 let L10nNoopLoaderService = class L10nNoopLoaderService extends L10nLoaderService {
@@ -180,7 +180,7 @@ let L10nNoopLoaderService = class L10nNoopLoaderService extends L10nLoaderServic
     }
 };
 L10nNoopLoaderService = __decorate([
-    Injectable(),
+    Injectable(), 
     __metadata('design:paramtypes', [])
 ], L10nNoopLoaderService);
 
@@ -194,7 +194,7 @@ let L10nFormatParserService = class L10nFormatParserService extends L10nParserSe
     }
 };
 L10nFormatParserService = __decorate([
-    Injectable(),
+    Injectable(), 
     __metadata('design:paramtypes', [])
 ], L10nFormatParserService);
 
@@ -210,7 +210,7 @@ let L10nService = class L10nService {
         this.locale$ = new BehaviorSubject(this.locale);
         // Initialize the streams
         let supportedLocales$ = this.getSupportedLocales();
-        // Set up stream of valid locale
+        // Set up stream of valid locale 
         let locale$ = Observable.combineLatest(supportedLocales$, this.locale$, (supportedLocales, locale) => {
             if (supportedLocales.length > 0) {
                 // If not supported use first locale as fallback
@@ -306,7 +306,7 @@ let L10nService = class L10nService {
 };
 L10nService = __decorate([
     Injectable(),
-    __param(0, Inject(L10N_CONFIG)),
+    __param(0, Inject(L10N_CONFIG)), 
     __metadata('design:paramtypes', [Object, (typeof (_a$1 = typeof L10nLoaderService !== 'undefined' && L10nLoaderService) === 'function' && _a$1) || Object, (typeof (_b = typeof L10nParserService !== 'undefined' && L10nParserService) === 'function' && _b) || Object])
 ], L10nService);
 var _a$1;
@@ -354,7 +354,7 @@ L10nPipe = __decorate([
         name: 'loc',
         pure: false
     }),
-    __param(0, Optional()),
+    __param(0, Optional()), 
     __metadata('design:paramtypes', [(typeof (_a$2 = typeof L10nService !== 'undefined' && L10nService) === 'function' && _a$2) || Object])
 ], L10nPipe);
 var _a$2;
@@ -415,7 +415,7 @@ L10nModule = L10nModule_1 = __decorate([
                 useClass: L10nFormatParserService
             }
         ]
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], L10nModule);
 
@@ -427,7 +427,7 @@ VCLIconModule = __decorate([
         exports: [IconComponent],
         declarations: [IconComponent],
         providers: [IconService],
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], VCLIconModule);
 
@@ -470,27 +470,27 @@ let IcogramComponent = class IcogramComponent {
     }
 };
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IcogramComponent.prototype, "label", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IcogramComponent.prototype, "href", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], IcogramComponent.prototype, "flexLabel", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IcogramComponent.prototype, "prepIcon", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], IcogramComponent.prototype, "appIcon", void 0);
 __decorate([
-    HostBinding('attr.role'),
+    HostBinding('attr.role'), 
     __metadata('design:type', Object)
 ], IcogramComponent.prototype, "ariaRole", null);
 IcogramComponent = __decorate([
@@ -504,7 +504,7 @@ IcogramComponent = __decorate([
 <vcl-icon *ngIf="appIcon" [icon]="appIcon"></vcl-icon>
 `,
         changeDetection: ChangeDetectionStrategy.OnPush
-    }),
+    }), 
     __metadata('design:paramtypes', [(typeof (_a$3 = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a$3) || Object])
 ], IcogramComponent);
 var _a$3;
@@ -517,7 +517,7 @@ VCLIcogramModule = __decorate([
         exports: [IcogramComponent],
         declarations: [IcogramComponent],
         providers: [],
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], VCLIcogramModule);
 
@@ -562,36 +562,36 @@ let ButtonComponent = class ButtonComponent {
     }
 };
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], ButtonComponent.prototype, "busy", void 0);
 __decorate([
     // State to indicate that the button is disabled as a operation is in progress
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], ButtonComponent.prototype, "flexLabel", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], ButtonComponent.prototype, "busyLabel", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], ButtonComponent.prototype, "label", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], ButtonComponent.prototype, "prepIcon", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], ButtonComponent.prototype, "prepIconBusy", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], ButtonComponent.prototype, "appIcon", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], ButtonComponent.prototype, "appIconBusy", void 0);
 ButtonComponent = __decorate([
@@ -622,7 +622,7 @@ ButtonComponent = __decorate([
 `,
         // encapsulation: ViewEncapsulation.None,
         changeDetection: ChangeDetectionStrategy.OnPush,
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], ButtonComponent);
 
@@ -634,7 +634,7 @@ VCLButtonModule = __decorate([
         exports: [ButtonComponent],
         declarations: [ButtonComponent],
         providers: [],
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], VCLButtonModule);
 
@@ -659,7 +659,7 @@ let OverlayManagerService = class OverlayManagerService {
     }
 };
 OverlayManagerService = __decorate([
-    Injectable(),
+    Injectable(), 
     __metadata('design:paramtypes', [])
 ], OverlayManagerService);
 
@@ -698,15 +698,15 @@ let LayerComponent = class LayerComponent {
     }
 };
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], LayerComponent.prototype, "open", void 0);
 __decorate([
-    Output(),
+    Output(), 
     __metadata('design:type', (typeof (_a$4 = typeof EventEmitter !== 'undefined' && EventEmitter) === 'function' && _a$4) || Object)
 ], LayerComponent.prototype, "openChange", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], LayerComponent.prototype, "modal", void 0);
 LayerComponent = __decorate([
@@ -719,7 +719,7 @@ LayerComponent = __decorate([
         host: {
             '(document:click)': 'onClick($event)',
         },
-    }),
+    }), 
     __metadata('design:paramtypes', [(typeof (_b$1 = typeof OverlayManagerService !== 'undefined' && OverlayManagerService) === 'function' && _b$1) || Object, (typeof (_c = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _c) || Object])
 ], LayerComponent);
 var _a$4;
@@ -733,7 +733,7 @@ VCLLayerModule = __decorate([
         imports: [CommonModule],
         exports: [LayerComponent],
         declarations: [LayerComponent]
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], VCLLayerModule);
 
@@ -757,23 +757,23 @@ let TetherComponent = class TetherComponent {
     }
 };
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], TetherComponent.prototype, "target", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], TetherComponent.prototype, "class", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Number)
 ], TetherComponent.prototype, "zIndex", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], TetherComponent.prototype, "targetAttachment", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], TetherComponent.prototype, "attachment", void 0);
 TetherComponent = __decorate([
@@ -783,7 +783,7 @@ TetherComponent = __decorate([
   <ng-content></ng-content>
 </div>
 `
-    }),
+    }), 
     __metadata('design:paramtypes', [(typeof (_a$5 = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a$5) || Object])
 ], TetherComponent);
 var _a$5;
@@ -795,7 +795,7 @@ VCLTetherModule = __decorate([
         imports: [CommonModule],
         exports: [TetherComponent],
         declarations: [TetherComponent]
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], VCLTetherModule);
 
@@ -843,47 +843,47 @@ let PopoverComponent = class PopoverComponent {
     }
 };
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], PopoverComponent.prototype, "target", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], PopoverComponent.prototype, "style", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], PopoverComponent.prototype, "class", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Number)
 ], PopoverComponent.prototype, "zIndex", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], PopoverComponent.prototype, "targetAttachment", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', String)
 ], PopoverComponent.prototype, "attachment", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], PopoverComponent.prototype, "open", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], PopoverComponent.prototype, "layer", void 0);
 __decorate([
-    Output(),
+    Output(), 
     __metadata('design:type', (typeof (_a$6 = typeof EventEmitter !== 'undefined' && EventEmitter) === 'function' && _a$6) || Object)
 ], PopoverComponent.prototype, "openChange", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], PopoverComponent.prototype, "zIndexManaged", void 0);
 __decorate([
-    Input(),
+    Input(), 
     __metadata('design:type', Boolean)
 ], PopoverComponent.prototype, "expandManaged", void 0);
 PopoverComponent = __decorate([
@@ -904,7 +904,7 @@ PopoverComponent = __decorate([
         host: {
             '(document:click)': 'onClick($event)',
         },
-    }),
+    }), 
     __metadata('design:paramtypes', [(typeof (_b$2 = typeof OverlayManagerService !== 'undefined' && OverlayManagerService) === 'function' && _b$2) || Object, (typeof (_c$1 = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _c$1) || Object])
 ], PopoverComponent);
 var _a$6;
@@ -921,7 +921,7 @@ VCLPopoverModule = __decorate([
         ],
         exports: [PopoverComponent],
         declarations: [PopoverComponent]
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], VCLPopoverModule);
 
@@ -948,8 +948,8 @@ VCLModule = __decorate([
         providers: [
             OverlayManagerService
         ],
-    }),
+    }), 
     __metadata('design:paramtypes', [])
 ], VCLModule);
 
-export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLLayerModule, VCLTetherModule, VCLPopoverModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLLayerModule, VCLTetherModule, TetherComponent, VCLPopoverModule, PopoverComponent, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
