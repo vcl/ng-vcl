@@ -12,3 +12,4 @@ import { VCLTetherModule } from '../tether/tether.module';
   declarations: [PopoverComponent]
 })
 export class VCLPopoverModule { }
+export { PopoverComponent }
