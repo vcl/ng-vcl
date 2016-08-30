@@ -1,3 +1,4 @@
+import { VCLInputModule } from './components/input/input.module';
 import {NgModule } from '@angular/core';
 
 import { VCLIconModule,  } from './components/icon/icon.module';
@@ -6,6 +7,9 @@ import { VCLButtonModule } from './components/button/button.module';
 import { VCLLayerModule } from './components/layer/layer.module';
 import { VCLTetherModule } from './components/tether/tether.module';
 import { VCLPopoverModule } from './components/popover/popover.module';
+import { VCLRadioButtonModule } from './components/radio-button/radio-button.module';
+import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
+import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
 
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';
@@ -26,7 +30,11 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLButtonModule,
     VCLLayerModule,
     VCLTetherModule,
+    VCLInputModule,
     VCLPopoverModule,
+    VCLRadioButtonModule,
+    VCLCheckboxModule,
+    VCLFormControlLabelModule
   ],
   exports: [
     VCLIconModule,
@@ -34,7 +42,11 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLButtonModule,
     VCLLayerModule,
     VCLTetherModule,
+    VCLInputModule,
     VCLPopoverModule,
+    VCLRadioButtonModule,
+    VCLCheckboxModule,
+    VCLFormControlLabelModule
   ],
   providers: [
     OverlayManagerService
