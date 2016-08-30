@@ -1,0 +1,14 @@
+Checkable:
+<vcl-checkbox [(checked)]="checkboxChecked"></vcl-checkbox>
+
+<br><br>
+<b>Selected:</b> {{radioButtonChecked}}
+
+<br><br>
+<button vcl-button (click)="checkboxChecked=false">Uncheck checkbox</button>
+
+<br>
+<br>
+Disabled:
+<br>
+<vcl-checkbox [disabled]="true"></vcl-checkbox>
