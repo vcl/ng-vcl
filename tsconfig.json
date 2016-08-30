@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "umd",
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "outDir": "dist", 
     "types": [
-      "core-js",
-      "node"
+      "core-js"
     ]
   },
   "exclude": [

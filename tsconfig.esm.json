@@ -9,7 +9,7 @@
     "outDir": "dist/esm",
     "types": [
       "core-js",
-      "node"
+      "requirejs"
     ]
   },
   "exclude": [

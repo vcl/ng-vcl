@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -9,8 +10,11 @@
     "outDir": "dist",
     "types": [
       "core-js"
-    ]
+    ],
+    "declarations": true
+
   },
+  
   "exclude": [
     "node_modules"
   ],
