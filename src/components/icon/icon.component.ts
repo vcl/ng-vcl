@@ -56,8 +56,8 @@ export class IconComponent {
     return `${this.fontIconClass || ''} ${this.iconClass || ''}`;
   }
 
-  // Do not hide when a label is provided
-  get isHidden() {
+  // Do not hide from aria when a label is provided
+  get isAriaHidden() {
     return !this.label;
   }
 }
