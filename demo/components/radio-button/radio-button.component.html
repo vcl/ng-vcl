@@ -1,0 +1,13 @@
+<vcl-radio-button [(checked)]="radioButtonChecked"></vcl-radio-button>
+
+<br><br>
+<b>Selected:</b> {{radioButtonChecked}}
+
+<br><br>
+<button vcl-button (click)="radioButtonChecked=false">Uncheck radio button</button>
+
+<br>
+<br>
+Disabled:
+<br>
+<vcl-radio-button [disabled]="true"></vcl-radio-button>
