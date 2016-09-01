@@ -16,6 +16,7 @@ import { RadioButtonComponent } from './components/radio-button/radio-button.com
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { FormControlLabelComponent } from './components/form-control-label/form-control-label.component';
 import { InputComponent } from './components/input/input.component';
+import { PopoverComponent } from './components/popover/popover.component';
 
 import { routing, appRoutingProviders } from './app.routes';
 
@@ -46,7 +47,9 @@ import { routing, appRoutingProviders } from './app.routes';
     TetherComponent,
     RadioButtonComponent,
     FormControlLabelComponent,
-    InputComponent
+    InputComponent,
+    PopoverComponent,
+    CheckboxComponent
   ],
   bootstrap:    [ AppComponent ]
 })
