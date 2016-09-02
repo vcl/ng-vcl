@@ -9,19 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var input_component_1 = require('./input.component');
-var VCLInputModule = (function () {
-    function VCLInputModule() {
+var common_1 = require('@angular/common');
+var icon_module_1 = require('./../icon/icon.module');
+var form_control_label_component_1 = require('./form-control-label.component');
+var VCLFormControlLabelModule = (function () {
+    function VCLFormControlLabelModule() {
     }
-    VCLInputModule = __decorate([
+    VCLFormControlLabelModule = __decorate([
         core_1.NgModule({
-            imports: [],
-            exports: [input_component_1.InputComponent],
-            declarations: [input_component_1.InputComponent],
-            providers: [],
+            imports: [common_1.CommonModule, icon_module_1.VCLIconModule],
+            exports: [form_control_label_component_1.FormControlLabelComponent],
+            declarations: [form_control_label_component_1.FormControlLabelComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], VCLInputModule);
-    return VCLInputModule;
+    ], VCLFormControlLabelModule);
+    return VCLFormControlLabelModule;
 }());
-exports.VCLInputModule = VCLInputModule;
+exports.VCLFormControlLabelModule = VCLFormControlLabelModule;

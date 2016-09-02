@@ -38,5 +38,5 @@ export declare class IconComponent {
     constructor(_iconService: IconService);
     readonly fontIconClass: string;
     readonly mergedIconClass: string;
-    readonly isHidden: boolean;
+    readonly isAriaHidden: boolean;
 }

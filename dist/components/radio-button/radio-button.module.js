@@ -9,19 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var input_component_1 = require('./input.component');
-var VCLInputModule = (function () {
-    function VCLInputModule() {
+var common_1 = require('@angular/common');
+var icon_module_1 = require('./../icon/icon.module');
+var radio_button_component_1 = require('./radio-button.component');
+var VCLRadioButtonModule = (function () {
+    function VCLRadioButtonModule() {
     }
-    VCLInputModule = __decorate([
+    VCLRadioButtonModule = __decorate([
         core_1.NgModule({
-            imports: [],
-            exports: [input_component_1.InputComponent],
-            declarations: [input_component_1.InputComponent],
-            providers: [],
+            imports: [common_1.CommonModule, icon_module_1.VCLIconModule],
+            exports: [radio_button_component_1.RadioButtonComponent],
+            declarations: [radio_button_component_1.RadioButtonComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], VCLInputModule);
-    return VCLInputModule;
+    ], VCLRadioButtonModule);
+    return VCLRadioButtonModule;
 }());
-exports.VCLInputModule = VCLInputModule;
+exports.VCLRadioButtonModule = VCLRadioButtonModule;

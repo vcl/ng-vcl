@@ -9,17 +9,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var VCLInputComponent = (function () {
-    function VCLInputComponent() {
+var InputComponent = (function () {
+    function InputComponent(renderer) {
+        this.renderer = renderer;
+        this.valueType = null;
+        this.typedValue = null;
+        this.typedValueChange = new core_1.EventEmitter();
     }
-    VCLInputComponent.prototype.ngOnInit = function () { };
-    VCLInputComponent = __decorate([
-        core_1.Component({
-            selector: 'vcl-input',
-            templateUrl: 'input.component.html'
+    InputComponent.prototype.ngOnInit = function () { };
+    InputComponent.prototype.onChange = function (value) {
+        this.typedValueChange.emit(this.toType(value));
+    };
+    InputComponent.prototype.toType = function (value) {
+        if (this.valueType === 'number') {
+            return value = Number(value);
+        }
+        return value;
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], InputComponent.prototype, "valueType", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], InputComponent.prototype, "typedValue", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], InputComponent.prototype, "typedValueChange", void 0);
+    __decorate([
+        core_1.HostListener('input', ['$event.target.value']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], InputComponent.prototype, "onChange", null);
+    InputComponent = __decorate([
+        core_1.Directive({
+            selector: '[vcl-input]',
+            host: {
+                '[class.vclInput]': 'true',
+            },
         }), 
-        __metadata('design:paramtypes', [])
-    ], VCLInputComponent);
-    return VCLInputComponent;
+        __metadata('design:paramtypes', [core_1.Renderer])
+    ], InputComponent);
+    return InputComponent;
 }());
-exports.VCLInputComponent = VCLInputComponent;
+exports.InputComponent = InputComponent;

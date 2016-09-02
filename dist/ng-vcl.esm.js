@@ -1,4 +1,4 @@
-import { NgModule, ChangeDetectionStrategy, Component, Input, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding, EventEmitter, Output } from '@angular/core';
+import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
@@ -25,6 +25,69 @@ function __metadata(k, v) {
 function __param(paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 }
+
+var InputComponent = (function () {
+    function InputComponent(renderer) {
+        this.renderer = renderer;
+        this.valueType = null;
+        this.typedValue = null;
+        this.typedValueChange = new EventEmitter();
+    }
+    InputComponent.prototype.ngOnInit = function () { };
+    InputComponent.prototype.onChange = function (value) {
+        this.typedValueChange.emit(this.toType(value));
+    };
+    InputComponent.prototype.toType = function (value) {
+        if (this.valueType === 'number') {
+            return value = Number(value);
+        }
+        return value;
+    };
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], InputComponent.prototype, "valueType", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], InputComponent.prototype, "typedValue", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], InputComponent.prototype, "typedValueChange", void 0);
+    __decorate([
+        HostListener('input', ['$event.target.value']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], InputComponent.prototype, "onChange", null);
+    InputComponent = __decorate([
+        Directive({
+            selector: '[vcl-input]',
+            host: {
+                '[class.vclInput]': 'true',
+            },
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof Renderer !== 'undefined' && Renderer) === 'function' && _a) || Object])
+    ], InputComponent);
+    return InputComponent;
+    var _a;
+}());
+
+var VCLInputModule = (function () {
+    function VCLInputModule() {
+    }
+    VCLInputModule = __decorate([
+        NgModule({
+            imports: [],
+            exports: [InputComponent],
+            declarations: [InputComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLInputModule);
+    return VCLInputModule;
+}());
 
 var IconService = (function () {
     function IconService() {
@@ -107,8 +170,8 @@ var IconComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(IconComponent.prototype, "isHidden", {
-        // Do not hide when a label is provided
+    Object.defineProperty(IconComponent.prototype, "isAriaHidden", {
+        // Do not hide from aria when a label is provided
         get: function () {
             return !this.label;
         },
@@ -138,7 +201,7 @@ var IconComponent = (function () {
     IconComponent = __decorate([
         Component({
             selector: 'vcl-icon',
-            template: "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"hidden\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n",
+            template: "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n",
             changeDetection: ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof IconService !== 'undefined' && IconService) === 'function' && _a) || Object])
@@ -991,6 +1054,436 @@ var VCLPopoverModule = (function () {
     return VCLPopoverModule;
 }());
 
+/**
+Radio button.
+
+## Usage
+
+```html+hbs
+<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```
+
+@demo example
+*/
+var RadioButtonComponent = (function () {
+    function RadioButtonComponent(elementRef) {
+        this.elementRef = elementRef;
+        this.checkedIcon = 'fa:dot-circle-o';
+        this.uncheckedIcon = 'fa:circle-o';
+        this.disabled = false;
+        /**
+        Refelects the checked state, `true` is checked and `false` is unchecked
+        @public
+        */
+        this.checked = false;
+        /**
+        Action fired when the `checked` state changes due to user interaction.
+        The first parameter is the value of the `checked` property.
+        @public
+        @action
+        */
+        this.checkedChange = new EventEmitter();
+    }
+    RadioButtonComponent.prototype.ngOnInit = function () { };
+    RadioButtonComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['checked']) {
+            var checked = changes['checked'].currentValue;
+            this.checkedChange.emit(checked);
+            this.focusMaintenance(checked);
+        }
+    };
+    Object.defineProperty(RadioButtonComponent.prototype, "hbVclDisabled", {
+        get: function () {
+            return !!this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioButtonComponent.prototype, "hbAriaDisabled", {
+        get: function () {
+            return !!this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioButtonComponent.prototype, "hbChecked", {
+        get: function () {
+            return !!this.checked;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    RadioButtonComponent.prototype.onKeyup = function (e) {
+        if (e.keyCode === 32) {
+            return this.triggerChangeAction(e);
+        }
+    };
+    RadioButtonComponent.prototype.onClick = function (e) {
+        return this.triggerChangeAction(e);
+    };
+    RadioButtonComponent.prototype.triggerChangeAction = function (e) {
+        e.preventDefault();
+        if (this.disabled)
+            return;
+        this.checked = !this.checked;
+        this.checkedChange.emit(this.checked);
+    };
+    RadioButtonComponent.prototype.focusMaintenance = function (checked) {
+        if (this.checked === true && this.elementRef.nativeElement) {
+            this.elementRef.nativeElement.focus();
+        }
+    };
+    Object.defineProperty(RadioButtonComponent.prototype, "icon", {
+        get: function () {
+            return this.checked ? this.checkedIcon : this.uncheckedIcon;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "checkedIcon", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "uncheckedIcon", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "disabled", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "checked", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "checkedChange", void 0);
+    __decorate([
+        HostBinding('class.vclDisabled'), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "hbVclDisabled", null);
+    __decorate([
+        HostBinding('attr.aria-disabled'), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "hbAriaDisabled", null);
+    __decorate([
+        HostBinding('attr.checked'), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "hbChecked", null);
+    __decorate([
+        HostListener('keyup', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], RadioButtonComponent.prototype, "onKeyup", null);
+    __decorate([
+        HostListener('click', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], RadioButtonComponent.prototype, "onClick", null);
+    RadioButtonComponent = __decorate([
+        Component({
+            selector: 'vcl-radio-button',
+            template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
+            host: {
+                '[attr.ariaRole]': '"radio"',
+                '[class.vclRadioButton]': 'true',
+                '[class.vclScale130p]': 'true',
+            }
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
+    ], RadioButtonComponent);
+    return RadioButtonComponent;
+    var _a;
+}());
+
+var VCLRadioButtonModule = (function () {
+    function VCLRadioButtonModule() {
+    }
+    VCLRadioButtonModule = __decorate([
+        NgModule({
+            imports: [CommonModule, VCLIconModule],
+            exports: [RadioButtonComponent],
+            declarations: [RadioButtonComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLRadioButtonModule);
+    return VCLRadioButtonModule;
+}());
+
+/**
+Checkbox
+
+## Usage
+
+```html+hbs
+<vcl-checkbox [(checked)]="checked"></vcl-checkbox>
+```
+
+@demo example
+*/
+var CheckboxComponent = (function () {
+    function CheckboxComponent(elementRef) {
+        this.elementRef = elementRef;
+        this.checkedIcon = 'fa:check-square-o';
+        this.uncheckedIcon = 'fa:square-o';
+        this.disabled = false;
+        /**
+        Refelects the checked state, `true` is checked and `false` is unchecked
+        @public
+        */
+        this.checked = false;
+        /**
+        Action fired when the `checked` state changes due to user interaction.
+        The first parameter is the value of the `checked` property.
+        @public
+        @action
+        */
+        this.checkedChange = new EventEmitter();
+    }
+    CheckboxComponent.prototype.ngOnInit = function () { };
+    CheckboxComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['checked']) {
+            var checked = changes['checked'].currentValue;
+            this.checkedChange.emit(checked);
+            this.focusMaintenance(checked);
+        }
+    };
+    Object.defineProperty(CheckboxComponent.prototype, "hbVclDisabled", {
+        get: function () {
+            return !!this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CheckboxComponent.prototype, "hbAriaDisabled", {
+        get: function () {
+            return !!this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CheckboxComponent.prototype, "hbChecked", {
+        get: function () {
+            return !!this.checked;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CheckboxComponent.prototype.onKeyup = function (e) {
+        if (e.keyCode === 32) {
+            return this.triggerChangeAction(e);
+        }
+    };
+    CheckboxComponent.prototype.onClick = function (e) {
+        return this.triggerChangeAction(e);
+    };
+    CheckboxComponent.prototype.triggerChangeAction = function (e) {
+        e.preventDefault();
+        if (this.disabled)
+            return;
+        this.checked = !this.checked;
+        this.checkedChange.emit(this.checked);
+    };
+    CheckboxComponent.prototype.focusMaintenance = function (checked) {
+        if (this.checked === true && this.elementRef.nativeElement) {
+            this.elementRef.nativeElement.focus();
+        }
+    };
+    Object.defineProperty(CheckboxComponent.prototype, "icon", {
+        get: function () {
+            return this.checked ? this.checkedIcon : this.uncheckedIcon;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "checkedIcon", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "uncheckedIcon", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "disabled", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "checked", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "checkedChange", void 0);
+    __decorate([
+        HostBinding('class.vclDisabled'), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "hbVclDisabled", null);
+    __decorate([
+        HostBinding('attr.aria-disabled'), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "hbAriaDisabled", null);
+    __decorate([
+        HostBinding('attr.checked'), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "hbChecked", null);
+    __decorate([
+        HostListener('keyup', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], CheckboxComponent.prototype, "onKeyup", null);
+    __decorate([
+        HostListener('click', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], CheckboxComponent.prototype, "onClick", null);
+    CheckboxComponent = __decorate([
+        Component({
+            selector: 'vcl-checkbox',
+            template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
+            host: {
+                '[attr.ariaRole]': '"checkbox"',
+                '[class.vclCheckbox]': 'true',
+                '[class.vclScale130p]': 'true',
+            }
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
+    ], CheckboxComponent);
+    return CheckboxComponent;
+    var _a;
+}());
+
+var VCLCheckboxModule = (function () {
+    function VCLCheckboxModule() {
+    }
+    VCLCheckboxModule = __decorate([
+        NgModule({
+            imports: [CommonModule, VCLIconModule],
+            exports: [CheckboxComponent],
+            declarations: [CheckboxComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLCheckboxModule);
+    return VCLCheckboxModule;
+}());
+
+/**
+Radio button.
+
+## Usage
+
+```html+hbs
+<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```
+
+@demo example
+*/
+var FormControlLabelComponent = (function () {
+    function FormControlLabelComponent() {
+        this.disabled = false;
+        this.requiredIndicatorCharacter = '•';
+        // The label
+        this.label = null;
+        // Optional sub-label
+        this.subLabel = null;
+        // Whether the label prepends the child content
+        this.prepend = false;
+        // Whether the label wraps the labelled control
+        this.wrapping = false;
+        // Whether an indicator that an input in to the labelled control is required
+        this.required = false;
+        // Accessible label for the required indicator
+        this.requiredIndLabel = null;
+    }
+    FormControlLabelComponent.prototype.ngOnInit = function () { };
+    Object.defineProperty(FormControlLabelComponent.prototype, "hbWrapping", {
+        get: function () {
+            return !!this.wrapping;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlLabelComponent.prototype, "hbVclDisabled", {
+        get: function () {
+            return !!this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "disabled", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "requiredIndicatorCharacter", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "label", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "subLabel", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "prepend", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "wrapping", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "required", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "requiredIndLabel", void 0);
+    __decorate([
+        HostBinding('class.vclFormControlLabelWrapping'), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "hbWrapping", null);
+    __decorate([
+        HostBinding('class.vclDisabled'), 
+        __metadata('design:type', Object)
+    ], FormControlLabelComponent.prototype, "hbVclDisabled", null);
+    FormControlLabelComponent = __decorate([
+        Component({
+            selector: '[vcl-form-control-label]',
+            template: "<ng-content *ngIf=\"prepend\"></ng-content>\n{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<label *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">\n  {{subLabel}}\n</label>\n<ng-content *ngIf=\"!prepend\"></ng-content>",
+            host: {
+                '[class.vclFormControlLabel]': 'true',
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], FormControlLabelComponent);
+    return FormControlLabelComponent;
+}());
+
+var VCLFormControlLabelModule = (function () {
+    function VCLFormControlLabelModule() {
+    }
+    VCLFormControlLabelModule = __decorate([
+        NgModule({
+            imports: [CommonModule, VCLIconModule],
+            exports: [FormControlLabelComponent],
+            declarations: [FormControlLabelComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLFormControlLabelModule);
+    return VCLFormControlLabelModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -1002,7 +1495,11 @@ var VCLModule = (function () {
                 VCLButtonModule,
                 VCLLayerModule,
                 VCLTetherModule,
+                VCLInputModule,
                 VCLPopoverModule,
+                VCLRadioButtonModule,
+                VCLCheckboxModule,
+                VCLFormControlLabelModule
             ],
             exports: [
                 VCLIconModule,
@@ -1010,7 +1507,11 @@ var VCLModule = (function () {
                 VCLButtonModule,
                 VCLLayerModule,
                 VCLTetherModule,
+                VCLInputModule,
                 VCLPopoverModule,
+                VCLRadioButtonModule,
+                VCLCheckboxModule,
+                VCLFormControlLabelModule
             ],
             providers: [
                 OverlayManagerService

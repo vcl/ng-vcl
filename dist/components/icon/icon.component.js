@@ -58,8 +58,8 @@ var IconComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(IconComponent.prototype, "isHidden", {
-        // Do not hide when a label is provided
+    Object.defineProperty(IconComponent.prototype, "isAriaHidden", {
+        // Do not hide from aria when a label is provided
         get: function () {
             return !this.label;
         },

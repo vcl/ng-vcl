@@ -9,19 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var input_component_1 = require('./input.component');
-var VCLInputModule = (function () {
-    function VCLInputModule() {
+var common_1 = require('@angular/common');
+var icon_module_1 = require('./../icon/icon.module');
+var checkbox_component_1 = require('./checkbox.component');
+var VCLCheckboxModule = (function () {
+    function VCLCheckboxModule() {
     }
-    VCLInputModule = __decorate([
+    VCLCheckboxModule = __decorate([
         core_1.NgModule({
-            imports: [],
-            exports: [input_component_1.InputComponent],
-            declarations: [input_component_1.InputComponent],
-            providers: [],
+            imports: [common_1.CommonModule, icon_module_1.VCLIconModule],
+            exports: [checkbox_component_1.CheckboxComponent],
+            declarations: [checkbox_component_1.CheckboxComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], VCLInputModule);
-    return VCLInputModule;
+    ], VCLCheckboxModule);
+    return VCLCheckboxModule;
 }());
-exports.VCLInputModule = VCLInputModule;
+exports.VCLCheckboxModule = VCLCheckboxModule;
