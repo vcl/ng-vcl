@@ -8,9 +8,10 @@
     "dev:serve": "webpack-dev-server --env.ENV development",
     "dev:vcl": "vcl-preprocessor demo/styles/index.styl | postcss --use autoprefixer -o demo/app.css",
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
+    "build:lint": "tslint src/**/*.ts",
     "build:desclarations": "tsc --declaration -p tsconfig.cjs.json",
     "build:rollup": "rollup -c rollup.config.js",
-    "build": "npm-run-all build:rollup build:desclarations",
+    "build": "npm-run-all build:lint build:rollup build:desclarations",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -66,6 +67,7 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-typescript": "^0.8.1",
     "rxjs": "5.0.0-beta.11",
+    "tslint": "^3.15.1",
     "typescript": "^2.0.2",
     "vcl-core-modules": "^0.1.1",
     "vcl-default-theme": "^0.1.1",

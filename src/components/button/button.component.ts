@@ -62,7 +62,7 @@ export class ButtonComponent implements OnInit {
 
   @Input()
   appIconBusy: string;
-  
+
   domouseenter() {
     console.log('mouseenter');
   }

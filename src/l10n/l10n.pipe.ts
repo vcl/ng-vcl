@@ -2,7 +2,6 @@ import { Optional, Pipe, PipeTransform, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { L10nService } from './l10n.service';
-import { L10nParserService } from './l10n-parser.service';
 
 @Pipe({
   name: 'loc',
@@ -10,9 +9,9 @@ import { L10nParserService } from './l10n-parser.service';
 })
 export class L10nPipe implements PipeTransform, OnDestroy {
 
-  key:string;
-  args:string[];
-  value:string;
+  key: string;
+  args: string[];
+  value: string;
 
   subscription: Subscription;
 
@@ -25,23 +24,23 @@ export class L10nPipe implements PipeTransform, OnDestroy {
 
   // Check if key and args match
   compare(key, ...args) {
-    return key===this.key &&
+    return key === this.key &&
            args.length === this.args.length &&
-           args.every((v,idx)=>v===this.args[idx])
+           args.every((v, idx) => v === this.args[idx]);
   }
 
   transform(key: string, ...args: string[]): any {
     // Dispose subscription if key or params are different
-    if(!this.compare(key, ...args) && this.subscription) {
+    if (!this.compare(key, ...args) && this.subscription) {
       this._dispose();
     }
 
     // store key and args for comparison
-    this.key=key;
-    this.args=args;
+    this.key = key;
+    this.args = args;
 
-    if(!this.subscription) {
-      this.subscription = this.l10n.localize(key, ...args).subscribe(value=>{
+    if (!this.subscription) {
+      this.subscription = this.l10n.localize(key, ...args).subscribe(value => {
         this.value = value;
       });
     }

@@ -16,7 +16,6 @@ var IconService = (function () {
         return "fa fa-" + icon;
     };
     IconService.prototype.lookup = function (icon) {
-        var className = '';
         if (typeof icon === 'string' && icon) {
             var iconName = icon;
             var providerName = void 0;

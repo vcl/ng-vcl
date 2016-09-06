@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 export interface OverlayManagedComponent {
   zIndex: number;
@@ -20,7 +20,7 @@ export class OverlayManagerService {
       }
     }
     this.components.push(component);
-    return zIndex+10;
+    return zIndex + 10;
   }
 
   unregister(component: OverlayManagedComponent) {

@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var core_1 = require('@angular/core');
 var Observable_1 = require('rxjs/Observable');
 var BehaviorSubject_1 = require('rxjs/BehaviorSubject');
-// import 'rxjs/operators/add/observable/of';
 var l10n_loader_service_1 = require('./l10n-loader.service');
 var l10n_parser_service_1 = require('./l10n-parser.service');
 exports.L10N_CONFIG = new core_1.OpaqueToken('l10n.config');
@@ -30,7 +29,7 @@ var L10nService = (function () {
         this.locale$ = new BehaviorSubject_1.BehaviorSubject(this.locale);
         // Initialize the streams
         var supportedLocales$ = this.getSupportedLocales();
-        // Set up stream of valid locale 
+        // Set up stream of valid locale
         var locale$ = Observable_1.Observable.combineLatest(supportedLocales$, this.locale$, function (supportedLocales, locale) {
             if (supportedLocales.length > 0) {
                 // If not supported use first locale as fallback

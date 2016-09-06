@@ -96,7 +96,6 @@ var IconService = (function () {
         return "fa fa-" + icon;
     };
     IconService.prototype.lookup = function (icon) {
-        var className = '';
         if (typeof icon === 'string' && icon) {
             var iconName = icon;
             var providerName = void 0;
@@ -312,7 +311,7 @@ var L10nService = (function () {
         this.locale$ = new BehaviorSubject(this.locale);
         // Initialize the streams
         var supportedLocales$ = this.getSupportedLocales();
-        // Set up stream of valid locale 
+        // Set up stream of valid locale
         var locale$ = Observable.combineLatest(supportedLocales$, this.locale$, function (supportedLocales, locale) {
             if (supportedLocales.length > 0) {
                 // If not supported use first locale as fallback

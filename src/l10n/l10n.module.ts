@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import 'rxjs';
 
-import { L10nLoaderService, L10nNoopLoaderService, L10nStaticLoaderService, L10nLoaderConfig, L10N_LOADER_CONFIG } from './l10n-loader.service';
+import { L10nLoaderService, L10nNoopLoaderService, L10nLoaderConfig, L10N_LOADER_CONFIG } from './l10n-loader.service';
 import { L10nParserService, L10nFormatParserService } from './l10n-parser.service';
 import { L10nService, L10N_CONFIG, L10nConfig } from './l10n.service';
 import { L10nPipe } from './l10n.pipe';
@@ -18,11 +18,11 @@ export declare interface IL10nParserService {
   new (...args): L10nParserService;
 }
 
-export declare interface rootConfig {
-  config?: L10nConfig
-  loader: IL10nLoaderService,
-  loaderConfig: L10nLoaderConfig
-  parser?: any
+export declare interface RootConfig {
+  config?: L10nConfig;
+  loader: IL10nLoaderService;
+  loaderConfig: L10nLoaderConfig;
+  parser?: any;
 }
 
 @NgModule({
@@ -56,7 +56,7 @@ export declare interface rootConfig {
   ]
 })
 export class L10nModule {
-  static forRoot(config: rootConfig): ModuleWithProviders {
+  static forRoot(config: RootConfig): ModuleWithProviders {
     return {
       ngModule: L10nModule,
       providers: [

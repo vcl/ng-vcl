@@ -12,12 +12,12 @@ export interface IL10nLoaderService {
 export interface IL10nParserService {
     new (...args: any[]): L10nParserService;
 }
-export interface rootConfig {
+export interface RootConfig {
     config?: L10nConfig;
     loader: IL10nLoaderService;
     loaderConfig: L10nLoaderConfig;
     parser?: any;
 }
 export declare class L10nModule {
-    static forRoot(config: rootConfig): ModuleWithProviders;
+    static forRoot(config: RootConfig): ModuleWithProviders;
 }

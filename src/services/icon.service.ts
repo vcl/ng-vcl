@@ -8,8 +8,7 @@ export class IconService {
   }
 
   lookup(icon: string) {
-    let className = '';
-    if (typeof icon==='string' && icon) {
+    if (typeof icon === 'string' && icon) {
       let iconName = icon;
       let providerName: string;
       let iconParts = iconName.split(':');
@@ -20,8 +19,8 @@ export class IconService {
         providerName = 'fa';
       }
 
-      if(!this[providerName]) {
-        throw new Error('Invalid icon provider: ' + providerName )
+      if (!this[providerName]) {
+        throw new Error('Invalid icon provider: ' + providerName );
       }
 
       return this[providerName](iconName);
