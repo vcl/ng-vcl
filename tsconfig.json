@@ -6,9 +6,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "outDir": "dist", 
+    "outDir": "dist",
     "types": [
-      "core-js"
+      "core-js",
+      "requirejs"
     ]
   },
   "exclude": [
@@ -18,4 +19,4 @@
     "./src/**/*.ts",
     "./demo/**/*.ts"
   ]
-} 
+}

@@ -4,14 +4,22 @@ import ts from 'typescript';
 
 export default {
   entry: 'src/index.ts',
-  format: "es",
   plugins: [
     angular(),
     typescript({
       target: "es5",
       module: "es2015",
       typescript: ts
-    })  
+    })
   ],
-  dest: 'dist/ng-vcl.esm.js'
+  targets: [
+    {
+      format: 'es',
+      dest: 'dist/ng-vcl.esm.js',
+    },
+    {
+      format: 'cjs',
+      dest: 'dist/ng-vcl.cjs.js',
+    }
+  ]
 };

@@ -47,7 +47,7 @@ function webpackConfig(options) {
       loaders: [
         {
           test: /\.ts?$/,
-          loaders: ['awesome-typescript-loader?tsconfig=tsconfig.esm.json&useWebpackText=true', 'angular2-template-loader'],
+          loaders: ['awesome-typescript-loader?tsconfig=tsconfig.json&useWebpackText=true', 'angular2-template-loader'],
           // query: {
           //   tsconfig: 'tsconfig.esm.json'
           // }
@@ -94,7 +94,6 @@ function webpackConfig(options) {
     }
   };
 }
-
 
 // Export
 module.exports = webpackConfig;

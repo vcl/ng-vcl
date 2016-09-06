@@ -16,8 +16,5 @@
   ],
   "include": [
     "./src/**/*.ts"
-  ],
-  "angularCompilerOptions": {
-    "genDir": "tmp"
-  }
+  ]
 }
