@@ -1,15 +1,35 @@
-<h1>ng-vcl Demo</h1>
-<nav>
-  <a [routerLink]="['/']">Home</a>
-  <a [routerLink]="['/icon']">Icon</a>
-  <a [routerLink]="['/icogram']">Icogram</a>
-  <a [routerLink]="['/button']">Button</a>
-  <a [routerLink]="['/layer']">Layer</a>
-  <a [routerLink]="['/tether']">Tether</a>
-  <a [routerLink]="['/popover']">Popover</a>
-  <a [routerLink]="['/input']">Input</a>
-  <a [routerLink]="['/radio-button']">Radio Button</a>
-  <a [routerLink]="['/checkbox']">Checkbox</a>
-  <a [routerLink]="['/form-control-label']">Form Control Label</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="vclLayoutVertical">
+  <header class="">
+    <div horizontal="" center="" justified="" layout="">
+      <h1 class="" style="margin-left: 1em;"> <a href="#" title="to index">ng-vcl Demo</a> </h1>
+      <div> <a href="https://github.com/ng-vcl/ng-vcl" target="_blank" title="to Github">
+        <span class="vclIcon fa fa-github fa-3x"></span> </a>
+      </div>
+    </div>
+  </header>
+  <div class="vclContentArea vclLayoutHorizontal">
+    <div class="vclLayoutVertical">
+      <nav class="vclNavigation vclVertical">
+        <ul>
+          <li class="vclNavigationItem" role="presentation" aria-selected="false">
+            <a [routerLink]="'/'" class="vclNavigationItemLabel vclIcogram">
+              <span class="vclText"> Home</span>
+            </a>
+          </li>
+          <li *ngFor="let dc of demoComponents" class="vclNavigationItem" role="presentation" aria-selected="false">
+            <a [routerLink]="'/' + dc.path" class="vclNavigationItemLabel vclIcogram">
+              <span class="vclText"> {{dc.name}}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="vclScrollable vclLayoutFlex">
+      <h2 class="vclArticleHeader"> {{title}}</h2>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+
+
