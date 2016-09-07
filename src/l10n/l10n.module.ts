@@ -65,7 +65,6 @@ export class L10nModule {
           provide: L10N_CONFIG,
           useValue: config.config || {}
         },
-        L10nLoaderService,
         {
           provide: L10nLoaderService,
           useClass: config.loader

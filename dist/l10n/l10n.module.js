@@ -33,7 +33,6 @@ var L10nModule = (function () {
                     provide: l10n_service_1.L10N_CONFIG,
                     useValue: config.config || {}
                 },
-                l10n_loader_service_1.L10nLoaderService,
                 {
                     provide: l10n_loader_service_1.L10nLoaderService,
                     useClass: config.loader

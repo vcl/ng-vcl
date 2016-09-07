@@ -500,7 +500,6 @@ var L10nModule = (function () {
                     provide: L10N_CONFIG,
                     useValue: config.config || {}
                 },
-                L10nLoaderService,
                 {
                     provide: L10nLoaderService,
                     useClass: config.loader
