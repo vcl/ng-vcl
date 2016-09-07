@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 export class CheckboxComponent implements OnInit {
 
   checkboxChecked = false;
-  
+
   constructor() { }
 
   ngOnInit() { }

@@ -8,4 +8,4 @@ export class IcogramComponent implements OnInit {
 
   ngOnInit() { }
 
-} 
+}
