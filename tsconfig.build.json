@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -8,13 +9,14 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "dist",
     "types": [
-      "core-js"
+      "core-js",
+      "requirejs"
     ]
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
     "./src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

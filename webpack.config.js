@@ -39,6 +39,7 @@ function webpackConfig(options) {
     },
     output: {
       path: root('demo'),
+      publicPath: '/',
       filename: '[name].js',
       sourceMapFilename: '[name].map',
       chunkFilename: '[id].chunk.js'
@@ -75,7 +76,7 @@ function webpackConfig(options) {
     },
 
     devServer: {
-      contentBase: './demo',
+      contentBase: './demo', // not working - bug in devserver 2.1 beta 3
       port: CONSTANTS.PORT,
       hot: CONSTANTS.HMR,
       inline: CONSTANTS.HMR,

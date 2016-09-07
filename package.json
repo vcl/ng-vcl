@@ -5,13 +5,13 @@
   "scripts": {
     "demo": "npm run dev",
     "dev": "npm-run-all dev:vcl --parallel dev:serve dev:styles",
-    "dev:serve": "webpack-dev-server --env.ENV development",
+    "dev:serve": "webpack-dev-server --env.ENV development --content-base demo",
     "dev:vcl": "vcl-preprocessor demo/styles/index.styl | postcss --use autoprefixer -o demo/app.css",
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
     "build:lint": "tslint src/**/*.ts",
-    "build:desclarations": "tsc --declaration -p tsconfig.cjs.json",
-    "build:rollup": "rollup -c rollup.config.js",
-    "build": "npm-run-all build:lint build:rollup build:desclarations",
+    "build:declarations": "tsc -p tsconfig.build.json",
+    "build:bundles": "rollup -c rollup.config.js",
+    "build": "npm-run-all build:lint build:bundles build:declarations",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
