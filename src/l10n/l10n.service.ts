@@ -1,6 +1,12 @@
 import { Injectable, OpaqueToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/publishLast';
+
 import {L10nLoaderService, TranslationPackage} from './l10n-loader.service';
 import {L10nParserService } from './l10n-parser.service';
 
