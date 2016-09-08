@@ -1,5 +1,4 @@
 import { ModuleWithProviders } from '@angular/core';
-import 'rxjs';
 import { L10nLoaderService, L10nLoaderConfig } from './l10n-loader.service';
 import { L10nParserService } from './l10n-parser.service';
 import { L10nConfig } from './l10n.service';

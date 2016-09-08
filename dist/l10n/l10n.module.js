@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-require('rxjs');
 var l10n_loader_service_1 = require('./l10n-loader.service');
 var l10n_parser_service_1 = require('./l10n-parser.service');
 var l10n_service_1 = require('./l10n.service');

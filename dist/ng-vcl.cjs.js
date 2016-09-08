@@ -6,9 +6,14 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var _angular_core = require('@angular/core');
 var _angular_common = require('@angular/common');
-var rxjs = require('rxjs');
 var rxjs_Observable = require('rxjs/Observable');
+var rxjs_add_observable_of = require('rxjs/add/observable/of');
 var rxjs_BehaviorSubject = require('rxjs/BehaviorSubject');
+var rxjs_add_observable_combineLatest = require('rxjs/add/observable/combineLatest');
+var rxjs_add_operator_combineLatest = require('rxjs/add/operator/combineLatest');
+var rxjs_add_operator_map = require('rxjs/add/operator/map');
+var rxjs_add_operator_switchMap = require('rxjs/add/operator/switchMap');
+var rxjs_add_operator_publishLast = require('rxjs/add/operator/publishLast');
 var Tether = _interopDefault(require('tether'));
 
 function __extends(d, b) {

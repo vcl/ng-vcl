@@ -18,6 +18,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var core_1 = require('@angular/core');
 var Observable_1 = require('rxjs/Observable');
+require('rxjs/add/observable/of');
 ;
 exports.L10N_LOADER_CONFIG = new core_1.OpaqueToken('l10n.loader.config');
 var L10nLoaderService = (function () {

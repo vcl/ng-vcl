@@ -1,8 +1,13 @@
 import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import 'rxjs';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/publishLast';
 import Tether from 'tether';
 
 function __extends(d, b) {
