@@ -8,7 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var Observable_1 = require('rxjs/Observable');
 var core_1 = require('@angular/core');
+require('hammerjs');
 /**
 The main control for triggering actions
 
@@ -31,13 +33,15 @@ var ButtonComponent = (function () {
         // TODO: Doc missing. Input attr?
         this.busy = false; // State to indicate that the button is disabled as a operation is in progress
         this.flexLabel = false;
+        this._press = new core_1.EventEmitter();
     }
-    ButtonComponent.prototype.domouseenter = function () {
-        console.log('mouseenter');
-    };
-    ButtonComponent.prototype.domouseleave = function () {
-        console.log('mouseleave');
-    };
+    Object.defineProperty(ButtonComponent.prototype, "press", {
+        get: function () {
+            return this._press.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     ButtonComponent.prototype.ngOnInit = function () { };
     Object.defineProperty(ButtonComponent.prototype, "calculatedLabel", {
         get: function () {
@@ -93,6 +97,10 @@ var ButtonComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], ButtonComponent.prototype, "appIconBusy", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Observable_1.Observable)
+    ], ButtonComponent.prototype, "press", null);
     ButtonComponent = __decorate([
         core_1.Component({
             selector: '[vcl-button]',
@@ -103,13 +111,13 @@ var ButtonComponent = (function () {
                 '(mouseup)': 'pressed=false',
                 '(onfocus)': 'focused=true;',
                 '(onblur)': 'focused=false',
+                '(tap)': '_press.emit($event)',
                 '[class.vclButton]': 'true',
                 '[class.vclHovered]': 'hovered',
                 '[class.vclDisabled]': 'disabled',
                 '[class.vclSelected]': 'selected',
             },
             templateUrl: 'button.component.html',
-            // encapsulation: ViewEncapsulation.None,
             changeDetection: core_1.ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [])

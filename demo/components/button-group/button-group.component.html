@@ -1,0 +1,15 @@
+SelectionMode: Single<br>
+<vcl-button-group (change)="selectionChange1($event)">
+  <button vcl-button (click)="buttonClick($event)" label="Action 1"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 2"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 3"></button>
+</vcl-button-group>
+<p>Selected index: {{idx1}}</p>
+
+SelectionMode: Multiple<br>
+<vcl-button-group  (change)="selectionChange2($event)" mode="multiple">
+  <button vcl-button (click)="buttonClick($event)" label="Action 1"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 2"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 3"></button>
+</vcl-button-group>
+<p>Selected index: {{idx2}}</p>

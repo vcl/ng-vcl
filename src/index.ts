@@ -4,6 +4,7 @@ import {NgModule } from '@angular/core';
 import { VCLIconModule,  } from './components/icon/icon.module';
 import { VCLIcogramModule } from './components/icogram/icogram.module';
 import { VCLButtonModule } from './components/button/button.module';
+import { VCLButtonGroupModule } from './components/button-group/button-group.module';
 import { VCLLayerModule } from './components/layer/layer.module';
 import { VCLTetherModule } from './components/tether/tether.module';
 import { VCLPopoverModule } from './components/popover/popover.module';
@@ -14,6 +15,7 @@ import { VCLFormControlLabelModule } from './components/form-control-label/form-
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';
 export * from './components/button/button.module';
+export * from './components/button-group/button-group.module';
 export * from './components/layer/layer.module';
 export * from './components/tether/tether.module';
 export * from './components/tether/tether.component';
@@ -28,6 +30,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLIconModule,
     VCLIcogramModule,
     VCLButtonModule,
+    VCLButtonGroupModule,
     VCLLayerModule,
     VCLTetherModule,
     VCLInputModule,
@@ -40,6 +43,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLIconModule,
     VCLIcogramModule,
     VCLButtonModule,
+    VCLButtonGroupModule,
     VCLLayerModule,
     VCLTetherModule,
     VCLInputModule,

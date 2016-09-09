@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-
+import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import 'hammerjs';
 /**
 The main control for triggering actions
 
@@ -23,13 +24,14 @@ The main control for triggering actions
     '(onfocus)': 'focused=true;',
     '(onblur)': 'focused=false',
 
+    '(tap)': '_press.emit($event)',
+
     '[class.vclButton]': 'true',
     '[class.vclHovered]': 'hovered',
     '[class.vclDisabled]': 'disabled',
     '[class.vclSelected]': 'selected',
   },
   templateUrl: 'button.component.html',
-  // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent implements OnInit {
@@ -63,13 +65,11 @@ export class ButtonComponent implements OnInit {
   @Input()
   appIconBusy: string;
 
-  domouseenter() {
-    console.log('mouseenter');
+  private _press = new EventEmitter<any>();
+  @Output()
+  get press(): Observable<any> {
+    return this._press.asObservable();
   }
-  domouseleave() {
-    console.log('mouseleave');
-  }
-
   constructor() { }
 
   ngOnInit() { }

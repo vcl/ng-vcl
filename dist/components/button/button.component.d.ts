@@ -1,4 +1,6 @@
+import { Observable } from 'rxjs/Observable';
 import { OnInit } from '@angular/core';
+import 'hammerjs';
 /**
 The main control for triggering actions
 
@@ -25,8 +27,8 @@ export declare class ButtonComponent implements OnInit {
     prepIconBusy: string;
     appIcon: string;
     appIconBusy: string;
-    domouseenter(): void;
-    domouseleave(): void;
+    private _press;
+    readonly press: Observable<any>;
     constructor();
     ngOnInit(): void;
     readonly calculatedLabel: string;

@@ -1,4 +1,4 @@
-import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding } from '@angular/core';
+import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -8,6 +8,7 @@ import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
+import 'hammerjs';
 import Tether from 'tether';
 
 function __extends(d, b) {
@@ -677,13 +678,15 @@ var ButtonComponent = (function () {
         // TODO: Doc missing. Input attr?
         this.busy = false; // State to indicate that the button is disabled as a operation is in progress
         this.flexLabel = false;
+        this._press = new EventEmitter();
     }
-    ButtonComponent.prototype.domouseenter = function () {
-        console.log('mouseenter');
-    };
-    ButtonComponent.prototype.domouseleave = function () {
-        console.log('mouseleave');
-    };
+    Object.defineProperty(ButtonComponent.prototype, "press", {
+        get: function () {
+            return this._press.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     ButtonComponent.prototype.ngOnInit = function () { };
     Object.defineProperty(ButtonComponent.prototype, "calculatedLabel", {
         get: function () {
@@ -739,6 +742,10 @@ var ButtonComponent = (function () {
         Input(), 
         __metadata('design:type', String)
     ], ButtonComponent.prototype, "appIconBusy", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', (typeof (_a = typeof Observable !== 'undefined' && Observable) === 'function' && _a) || Object)
+    ], ButtonComponent.prototype, "press", null);
     ButtonComponent = __decorate([
         Component({
             selector: '[vcl-button]',
@@ -749,18 +756,19 @@ var ButtonComponent = (function () {
                 '(mouseup)': 'pressed=false',
                 '(onfocus)': 'focused=true;',
                 '(onblur)': 'focused=false',
+                '(tap)': '_press.emit($event)',
                 '[class.vclButton]': 'true',
                 '[class.vclHovered]': 'hovered',
                 '[class.vclDisabled]': 'disabled',
                 '[class.vclSelected]': 'selected',
             },
             template: "<span>\n  <ng-content></ng-content>\n  <vcl-icogram\n    [label]=\"calculatedLabel | loc\"\n    [flexLabel]=\"flexLabel | loc\"\n    [prepIcon]=\"calculatedPrepIcon\"\n    [appIcon]=\"calculatedAppIcon\">\n  </vcl-icogram>\n</span>\n\n",
-            // encapsulation: ViewEncapsulation.None,
             changeDetection: ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [])
     ], ButtonComponent);
     return ButtonComponent;
+    var _a;
 }());
 
 var VCLButtonModule = (function () {
@@ -776,6 +784,160 @@ var VCLButtonModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLButtonModule);
     return VCLButtonModule;
+}());
+
+/**
+A button group which distributes space for each button
+equally to occupy 100% horizontal space.
+
+## Usage
+
+```html
+<vcl-button-group select=true>
+  ...
+</vcl-button-group>
+```
+
+The buttons must be defined as an item array
+with the following structure:
+
+```js
+buttons: [
+  {
+    index: 0,
+    label: 'Privacy',
+    action: 'tabIndex',
+    selected: true
+  },
+  {
+    index: 1,
+    label: 'Terms',
+    action: 'tabIndex',
+    selected: false
+  }
+]
+```
+
+When a button's action is triggered,
+it emits the given `action` with the `index` as param.
+
+@demo example1
+*/
+var SelectionMode;
+(function (SelectionMode) {
+    SelectionMode[SelectionMode["Single"] = 0] = "Single";
+    SelectionMode[SelectionMode["Multiple"] = 1] = "Multiple";
+})(SelectionMode || (SelectionMode = {}));
+var ButtonGroupComponent = (function () {
+    function ButtonGroupComponent() {
+        this.subscriptions = [];
+        // If `Single`, a single button from the group can be selected. The selection is tracked following the actions.
+        // If `Multiple` multipe buttons can be selected
+        this.selectionMode = SelectionMode.Single;
+        /** Event emitted when the group's value changes. */
+        this._change = new EventEmitter();
+    }
+    Object.defineProperty(ButtonGroupComponent.prototype, "change", {
+        get: function () {
+            return this._change.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ButtonGroupComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['mode']) {
+            if (changes['mode'].currentValue === 'multiple') {
+                this.selectionMode = SelectionMode.Multiple;
+            }
+            else {
+                this.selectionMode = SelectionMode.Single;
+            }
+        }
+    };
+    ButtonGroupComponent.prototype.ngOnInit = function () {
+    };
+    ButtonGroupComponent.prototype.ngOnDestroy = function () {
+        this.dispose();
+    };
+    ButtonGroupComponent.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this.initButtons();
+        this.buttons.changes.subscribe(function (x) {
+            _this.initButtons();
+        });
+    };
+    ButtonGroupComponent.prototype.initButtons = function () {
+        var _this = this;
+        this.dispose();
+        this.subscriptions = this.buttons.map(function (btn, idx) { return btn.press.subscribe(function () {
+            if (_this.selectionMode === SelectionMode.Single) {
+                _this.unselectAll();
+                btn.selected = true;
+                _this._change.emit({
+                    source: btn,
+                    index: idx
+                });
+            }
+            else {
+                btn.selected = !btn.selected;
+                _this._change.emit({
+                    source: btn,
+                    index: _this.buttons.map(function (btn, idx) { return ({ s: btn.selected, idx: idx }); }).filter(function (o) { return o.s; }).map(function (o) { return o.idx; })
+                });
+            }
+        }); });
+    };
+    ButtonGroupComponent.prototype.unselectAll = function () {
+        this.buttons.forEach(function (btn) { return btn.selected = false; });
+    };
+    ButtonGroupComponent.prototype.dispose = function () {
+        this.subscriptions.forEach(function (s) { return s.unsubscribe(); });
+        this.subscriptions = [];
+    };
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], ButtonGroupComponent.prototype, "selectionMode", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], ButtonGroupComponent.prototype, "mode", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', (typeof (_a = typeof Observable !== 'undefined' && Observable) === 'function' && _a) || Object)
+    ], ButtonGroupComponent.prototype, "change", null);
+    __decorate([
+        ContentChildren(ButtonComponent), 
+        __metadata('design:type', (typeof (_b = typeof QueryList !== 'undefined' && QueryList) === 'function' && _b) || Object)
+    ], ButtonGroupComponent.prototype, "buttons", void 0);
+    ButtonGroupComponent = __decorate([
+        Component({
+            selector: 'vcl-button-group',
+            host: {
+                '[class.vclButtonGroup]': 'true',
+            },
+            template: "<ng-content></ng-content>",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ButtonGroupComponent);
+    return ButtonGroupComponent;
+    var _a, _b;
+}());
+
+var VCLButtonGroupModule = (function () {
+    function VCLButtonGroupModule() {
+    }
+    VCLButtonGroupModule = __decorate([
+        NgModule({
+            imports: [CommonModule, VCLButtonModule, L10nModule],
+            exports: [ButtonGroupComponent],
+            declarations: [ButtonGroupComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLButtonGroupModule);
+    return VCLButtonGroupModule;
 }());
 
 var OverlayManagerService = (function () {
@@ -1496,6 +1658,7 @@ var VCLModule = (function () {
                 VCLIconModule,
                 VCLIcogramModule,
                 VCLButtonModule,
+                VCLButtonGroupModule,
                 VCLLayerModule,
                 VCLTetherModule,
                 VCLInputModule,
@@ -1508,6 +1671,7 @@ var VCLModule = (function () {
                 VCLIconModule,
                 VCLIcogramModule,
                 VCLButtonModule,
+                VCLButtonGroupModule,
                 VCLLayerModule,
                 VCLTetherModule,
                 VCLInputModule,
@@ -1525,4 +1689,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLLayerModule, VCLTetherModule, TetherComponent, VCLPopoverModule, PopoverComponent, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, OverlayManagerService };
+export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, VCLLayerModule, VCLTetherModule, TetherComponent, VCLPopoverModule, PopoverComponent, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, OverlayManagerService };

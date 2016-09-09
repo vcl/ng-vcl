@@ -16,6 +16,7 @@ var core_1 = require('@angular/core');
 var icon_module_1 = require('./components/icon/icon.module');
 var icogram_module_1 = require('./components/icogram/icogram.module');
 var button_module_1 = require('./components/button/button.module');
+var button_group_module_1 = require('./components/button-group/button-group.module');
 var layer_module_1 = require('./components/layer/layer.module');
 var tether_module_1 = require('./components/tether/tether.module');
 var popover_module_1 = require('./components/popover/popover.module');
@@ -25,6 +26,7 @@ var form_control_label_module_1 = require('./components/form-control-label/form-
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
 __export(require('./components/button/button.module'));
+__export(require('./components/button-group/button-group.module'));
 __export(require('./components/layer/layer.module'));
 __export(require('./components/tether/tether.module'));
 __export(require('./components/tether/tether.component'));
@@ -41,6 +43,7 @@ var VCLModule = (function () {
                 icon_module_1.VCLIconModule,
                 icogram_module_1.VCLIcogramModule,
                 button_module_1.VCLButtonModule,
+                button_group_module_1.VCLButtonGroupModule,
                 layer_module_1.VCLLayerModule,
                 tether_module_1.VCLTetherModule,
                 input_module_1.VCLInputModule,
@@ -53,6 +56,7 @@ var VCLModule = (function () {
                 icon_module_1.VCLIconModule,
                 icogram_module_1.VCLIcogramModule,
                 button_module_1.VCLButtonModule,
+                button_group_module_1.VCLButtonGroupModule,
                 layer_module_1.VCLLayerModule,
                 tether_module_1.VCLTetherModule,
                 input_module_1.VCLInputModule,
