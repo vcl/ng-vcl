@@ -1,12 +1,3 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -60,60 +51,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
             }
             catch (ex) { }
         };
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], PopoverComponent.prototype, "target", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], PopoverComponent.prototype, "style", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], PopoverComponent.prototype, "class", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Number)
-        ], PopoverComponent.prototype, "zIndex", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], PopoverComponent.prototype, "targetAttachment", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], PopoverComponent.prototype, "attachment", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Boolean)
-        ], PopoverComponent.prototype, "open", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Boolean)
-        ], PopoverComponent.prototype, "layer", void 0);
-        __decorate([
-            core_1.Output(), 
-            __metadata('design:type', core_1.EventEmitter)
-        ], PopoverComponent.prototype, "openChange", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Boolean)
-        ], PopoverComponent.prototype, "zIndexManaged", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Boolean)
-        ], PopoverComponent.prototype, "expandManaged", void 0);
-        PopoverComponent = __decorate([
-            core_1.Component({
-                selector: 'vcl-popover',
-                templateUrl: 'popover.component.html',
-                host: {
-                    '(document:click)': 'onClick($event)',
-                },
-            }), 
-            __metadata('design:paramtypes', [overlayManager_service_1.OverlayManagerService, core_1.ElementRef])
-        ], PopoverComponent);
+        PopoverComponent.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'vcl-popover',
+                        templateUrl: 'popover.component.html',
+                        host: {
+                            '(document:click)': 'onClick($event)',
+                        },
+                    },] },
+        ];
+        /** @nocollapse */
+        PopoverComponent.ctorParameters = [
+            { type: overlayManager_service_1.OverlayManagerService, },
+            { type: core_1.ElementRef, },
+        ];
+        PopoverComponent.propDecorators = {
+            'target': [{ type: core_1.Input },],
+            'style': [{ type: core_1.Input },],
+            'class': [{ type: core_1.Input },],
+            'zIndex': [{ type: core_1.Input },],
+            'targetAttachment': [{ type: core_1.Input },],
+            'attachment': [{ type: core_1.Input },],
+            'open': [{ type: core_1.Input },],
+            'layer': [{ type: core_1.Input },],
+            'openChange': [{ type: core_1.Output },],
+            'zIndexManaged': [{ type: core_1.Input },],
+            'expandManaged': [{ type: core_1.Input },],
+        };
         return PopoverComponent;
     }());
     exports.PopoverComponent = PopoverComponent;

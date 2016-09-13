@@ -1,22 +1,12 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", 'rxjs/Observable', '@angular/core', 'hammerjs'], factory);
+        define(["require", "exports", '@angular/core', 'hammerjs'], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var Observable_1 = require('rxjs/Observable');
     var core_1 = require('@angular/core');
     require('hammerjs');
     /**
@@ -72,64 +62,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
             enumerable: true,
             configurable: true
         });
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Boolean)
-        ], ButtonComponent.prototype, "busy", void 0);
-        __decorate([
-            // State to indicate that the button is disabled as a operation is in progress
-            core_1.Input(), 
-            __metadata('design:type', Boolean)
-        ], ButtonComponent.prototype, "flexLabel", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], ButtonComponent.prototype, "busyLabel", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], ButtonComponent.prototype, "label", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], ButtonComponent.prototype, "prepIcon", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], ButtonComponent.prototype, "prepIconBusy", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], ButtonComponent.prototype, "appIcon", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', String)
-        ], ButtonComponent.prototype, "appIconBusy", void 0);
-        __decorate([
-            core_1.Output(), 
-            __metadata('design:type', Observable_1.Observable)
-        ], ButtonComponent.prototype, "press", null);
-        ButtonComponent = __decorate([
-            core_1.Component({
-                selector: '[vcl-button]',
-                host: {
-                    '(mouseenter)': 'hovered=true',
-                    '(mouseleave)': 'hovered=false',
-                    '(mousedown)': 'pressed=true',
-                    '(mouseup)': 'pressed=false',
-                    '(onfocus)': 'focused=true;',
-                    '(onblur)': 'focused=false',
-                    '(tap)': '_press.emit($event)',
-                    '[class.vclButton]': 'true',
-                    '[class.vclHovered]': 'hovered',
-                    '[class.vclDisabled]': 'disabled',
-                    '[class.vclSelected]': 'selected',
-                },
-                templateUrl: 'button.component.html',
-                changeDetection: core_1.ChangeDetectionStrategy.OnPush,
-            }), 
-            __metadata('design:paramtypes', [])
-        ], ButtonComponent);
+        ButtonComponent.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: '[vcl-button]',
+                        host: {
+                            '(mouseenter)': 'hovered=true',
+                            '(mouseleave)': 'hovered=false',
+                            '(mousedown)': 'pressed=true',
+                            '(mouseup)': 'pressed=false',
+                            '(onfocus)': 'focused=true;',
+                            '(onblur)': 'focused=false',
+                            '(tap)': '_press.emit($event)',
+                            '[class.vclButton]': 'true',
+                            '[class.vclHovered]': 'hovered',
+                            '[class.vclDisabled]': 'disabled',
+                            '[class.vclSelected]': 'selected',
+                        },
+                        templateUrl: 'button.component.html',
+                        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                    },] },
+        ];
+        /** @nocollapse */
+        ButtonComponent.ctorParameters = [];
+        ButtonComponent.propDecorators = {
+            'busy': [{ type: core_1.Input },],
+            'flexLabel': [{ type: core_1.Input },],
+            'busyLabel': [{ type: core_1.Input },],
+            'label': [{ type: core_1.Input },],
+            'prepIcon': [{ type: core_1.Input },],
+            'prepIconBusy': [{ type: core_1.Input },],
+            'appIcon': [{ type: core_1.Input },],
+            'appIconBusy': [{ type: core_1.Input },],
+            'press': [{ type: core_1.Output },],
+        };
         return ButtonComponent;
     }());
     exports.ButtonComponent = ButtonComponent;

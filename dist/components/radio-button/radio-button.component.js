@@ -1,12 +1,3 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -103,62 +94,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
             enumerable: true,
             configurable: true
         });
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "checkedIcon", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "uncheckedIcon", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "disabled", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "checked", void 0);
-        __decorate([
-            core_1.Output(), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "checkedChange", void 0);
-        __decorate([
-            core_1.HostBinding('class.vclDisabled'), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "hbVclDisabled", null);
-        __decorate([
-            core_1.HostBinding('attr.aria-disabled'), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "hbAriaDisabled", null);
-        __decorate([
-            core_1.HostBinding('attr.checked'), 
-            __metadata('design:type', Object)
-        ], RadioButtonComponent.prototype, "hbChecked", null);
-        __decorate([
-            core_1.HostListener('keyup', ['$event']), 
-            __metadata('design:type', Function), 
-            __metadata('design:paramtypes', [Object]), 
-            __metadata('design:returntype', void 0)
-        ], RadioButtonComponent.prototype, "onKeyup", null);
-        __decorate([
-            core_1.HostListener('click', ['$event']), 
-            __metadata('design:type', Function), 
-            __metadata('design:paramtypes', [Object]), 
-            __metadata('design:returntype', void 0)
-        ], RadioButtonComponent.prototype, "onClick", null);
-        RadioButtonComponent = __decorate([
-            core_1.Component({
-                selector: 'vcl-radio-button',
-                template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
-                host: {
-                    '[attr.ariaRole]': '"radio"',
-                    '[class.vclRadioButton]': 'true',
-                    '[class.vclScale130p]': 'true',
-                }
-            }), 
-            __metadata('design:paramtypes', [core_1.ElementRef])
-        ], RadioButtonComponent);
+        RadioButtonComponent.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'vcl-radio-button',
+                        template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
+                        host: {
+                            '[attr.ariaRole]': '"radio"',
+                            '[class.vclRadioButton]': 'true',
+                            '[class.vclScale130p]': 'true',
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        RadioButtonComponent.ctorParameters = [
+            { type: core_1.ElementRef, },
+        ];
+        RadioButtonComponent.propDecorators = {
+            'checkedIcon': [{ type: core_1.Input },],
+            'uncheckedIcon': [{ type: core_1.Input },],
+            'disabled': [{ type: core_1.Input },],
+            'checked': [{ type: core_1.Input },],
+            'checkedChange': [{ type: core_1.Output },],
+            'hbVclDisabled': [{ type: core_1.HostBinding, args: ['class.vclDisabled',] },],
+            'hbAriaDisabled': [{ type: core_1.HostBinding, args: ['attr.aria-disabled',] },],
+            'hbChecked': [{ type: core_1.HostBinding, args: ['attr.checked',] },],
+            'onKeyup': [{ type: core_1.HostListener, args: ['keyup', ['$event'],] },],
+            'onClick': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
+        };
         return RadioButtonComponent;
     }());
     exports.RadioButtonComponent = RadioButtonComponent;

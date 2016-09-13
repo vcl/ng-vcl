@@ -1,12 +1,3 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
@@ -60,56 +51,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
             enumerable: true,
             configurable: true
         });
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "disabled", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "requiredIndicatorCharacter", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "label", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "subLabel", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "prepend", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "wrapping", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "required", void 0);
-        __decorate([
-            core_1.Input(), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "requiredIndLabel", void 0);
-        __decorate([
-            core_1.HostBinding('class.vclFormControlLabelWrapping'), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "hbWrapping", null);
-        __decorate([
-            core_1.HostBinding('class.vclDisabled'), 
-            __metadata('design:type', Object)
-        ], FormControlLabelComponent.prototype, "hbVclDisabled", null);
-        FormControlLabelComponent = __decorate([
-            core_1.Component({
-                selector: '[vcl-form-control-label]',
-                templateUrl: 'form-control-label.component.html',
-                host: {
-                    '[class.vclFormControlLabel]': 'true',
-                }
-            }), 
-            __metadata('design:paramtypes', [])
-        ], FormControlLabelComponent);
+        FormControlLabelComponent.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: '[vcl-form-control-label]',
+                        templateUrl: 'form-control-label.component.html',
+                        host: {
+                            '[class.vclFormControlLabel]': 'true',
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        FormControlLabelComponent.ctorParameters = [];
+        FormControlLabelComponent.propDecorators = {
+            'disabled': [{ type: core_1.Input },],
+            'requiredIndicatorCharacter': [{ type: core_1.Input },],
+            'label': [{ type: core_1.Input },],
+            'subLabel': [{ type: core_1.Input },],
+            'prepend': [{ type: core_1.Input },],
+            'wrapping': [{ type: core_1.Input },],
+            'required': [{ type: core_1.Input },],
+            'requiredIndLabel': [{ type: core_1.Input },],
+            'hbWrapping': [{ type: core_1.HostBinding, args: ['class.vclFormControlLabelWrapping',] },],
+            'hbVclDisabled': [{ type: core_1.HostBinding, args: ['class.vclDisabled',] },],
+        };
         return FormControlLabelComponent;
     }());
     exports.FormControlLabelComponent = FormControlLabelComponent;

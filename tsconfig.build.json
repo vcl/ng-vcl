@@ -18,5 +18,10 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "genDir": "./dist/aot",
+    "skipTemplateCodegen": true,
+    "debug": true
+  }
 }

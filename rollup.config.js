@@ -18,9 +18,8 @@ export default {
       dest: 'dist/ng-vcl.esm.js',
     },
     {
-      moduleName: 'vcl',
-      format: 'umd',
-      dest: 'dist/ng-vcl.umd.js',
+      format: 'cjs',
+      dest: 'dist/ng-vcl.cjs.js',
     }
   ]
 };
