@@ -226,7 +226,8 @@ var L10nLoaderService = (function () {
 }());
 var L10nStaticLoaderService = (function (_super) {
     __extends(L10nStaticLoaderService, _super);
-    function L10nStaticLoaderService(config) {
+    function L10nStaticLoaderService(config // TODO: L10nLoaderConfig - problem with ngc
+        ) {
         _super.call(this);
         this.config = config;
     }
@@ -307,7 +308,8 @@ var L10nFormatParserService = (function (_super) {
 var L10N_CONFIG = new OpaqueToken('l10n.config');
 ;
 var L10nService = (function () {
-    function L10nService(config, loader, parser) {
+    function L10nService(config, // TODO: L10nConfig - problem with ngc
+        loader, parser) {
         var _this = this;
         this.config = config;
         this.loader = loader;

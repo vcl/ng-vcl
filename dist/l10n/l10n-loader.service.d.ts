@@ -17,8 +17,8 @@ export declare abstract class L10nLoaderService {
     getSupportedLocales(): Observable<string[]>;
 }
 export declare class L10nStaticLoaderService extends L10nLoaderService {
-    protected config: L10nLoaderConfig;
-    constructor(config: L10nLoaderConfig);
+    protected config: any;
+    constructor(config: any);
     flatten(locale: string, data: any): TranslationPackage;
     getSupportedLocales(): Observable<string[]>;
     getTranslationPackage(locale: string): Observable<TranslationPackage>;

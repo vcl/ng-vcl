@@ -12,7 +12,8 @@ var l10n_parser_service_1 = require('./l10n-parser.service');
 exports.L10N_CONFIG = new core_1.OpaqueToken('l10n.config');
 ;
 var L10nService = (function () {
-    function L10nService(config, loader, parser) {
+    function L10nService(config, // TODO: L10nConfig - problem with ngc
+        loader, parser) {
         var _this = this;
         this.config = config;
         this.loader = loader;

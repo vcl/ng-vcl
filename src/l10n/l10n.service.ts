@@ -10,7 +10,7 @@ import 'rxjs/add/operator/publishLast';
 import {L10nLoaderService, TranslationPackage} from './l10n-loader.service';
 import {L10nParserService } from './l10n-parser.service';
 
-export let L10N_CONFIG = new OpaqueToken('l10n.config');
+export const L10N_CONFIG = new OpaqueToken('l10n.config');
 
 export interface L10nConfig {
   locale?: string;
@@ -30,7 +30,7 @@ export class L10nService {
 
   constructor(
     @Inject(L10N_CONFIG)
-    private config: L10nConfig,
+    private config: any,  // TODO: L10nConfig - problem with ngc
     private loader: L10nLoaderService,
     private parser: L10nParserService
   ) {

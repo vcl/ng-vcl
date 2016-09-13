@@ -21,7 +21,7 @@ export declare class L10nService {
     private package$;
     private fbPackage$;
     locale: string;
-    constructor(config: L10nConfig, loader: L10nLoaderService, parser: L10nParserService);
+    constructor(config: any, loader: L10nLoaderService, parser: L10nParserService);
     /**
     * @internal
     */

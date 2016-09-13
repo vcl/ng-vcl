@@ -20,7 +20,8 @@ var L10nLoaderService = (function () {
 exports.L10nLoaderService = L10nLoaderService;
 var L10nStaticLoaderService = (function (_super) {
     __extends(L10nStaticLoaderService, _super);
-    function L10nStaticLoaderService(config) {
+    function L10nStaticLoaderService(config // TODO: L10nLoaderConfig - problem with ngc
+        ) {
         _super.call(this);
         this.config = config;
     }

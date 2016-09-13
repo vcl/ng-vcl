@@ -30,7 +30,7 @@ export abstract class L10nLoaderService {
 export class L10nStaticLoaderService extends L10nLoaderService {
     constructor(
       @Inject(L10N_LOADER_CONFIG)
-      protected config: L10nLoaderConfig
+      protected config: any // TODO: L10nLoaderConfig - problem with ngc
     ) {
       super();
     }
