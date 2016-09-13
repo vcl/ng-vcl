@@ -1050,7 +1050,7 @@ var VCLLayerModule = (function () {
 var TetherComponent = (function () {
     function TetherComponent(myElement) {
         this.myElement = myElement;
-        this.id = 'theterId' + Math.floor(Math.random() * 10000);
+        this.id = 'tetherId' + Math.floor(Math.random() * 10000);
     }
     TetherComponent.prototype.ngAfterViewInit = function () {
         try {

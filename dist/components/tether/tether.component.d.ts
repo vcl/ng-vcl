@@ -1,7 +1,7 @@
 import { ElementRef } from '@angular/core';
 export declare class TetherComponent {
     private myElement;
-    private id;
+    id: string;
     target: string;
     class: string;
     zIndex: number;

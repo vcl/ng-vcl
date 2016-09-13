@@ -7,7 +7,7 @@ import Tether from 'tether';
 })
 export class TetherComponent {
 
-  private id: string;
+  id: string;
 
   @Input()
   target: string;
@@ -25,13 +25,13 @@ export class TetherComponent {
   attachment: string;
 
   constructor(private myElement: ElementRef) {
-    this.id = 'theterId'+Math.floor(Math.random()*10000);
+    this.id = 'tetherId' + Math.floor(Math.random()*10000);
   }
 
   ngAfterViewInit() {
     try {
       new Tether({
-        element: '#'+this.id,
+        element: '#' + this.id,
         target: this.target,
         attachment: this.attachment,
         targetAttachment: this.targetAttachment
@@ -42,4 +42,3 @@ export class TetherComponent {
   }
 }
 
- 
