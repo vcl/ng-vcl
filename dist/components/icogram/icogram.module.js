@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,23 +7,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var icogram_component_1 = require('./icogram.component');
-var icon_module_1 = require('../icon/icon.module');
-var l10n_module_1 = require('../../l10n/l10n.module');
-var VCLIcogramModule = (function () {
-    function VCLIcogramModule() {
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
-    VCLIcogramModule = __decorate([
-        core_1.NgModule({
-            imports: [common_1.CommonModule, icon_module_1.VCLIconModule, l10n_module_1.L10nModule],
-            exports: [icogram_component_1.IcogramComponent],
-            declarations: [icogram_component_1.IcogramComponent],
-            providers: [],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLIcogramModule);
-    return VCLIcogramModule;
-}());
-exports.VCLIcogramModule = VCLIcogramModule;
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", '@angular/core', '@angular/common', './icogram.component', '../icon/icon.module', '../../l10n/l10n.module'], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    var core_1 = require('@angular/core');
+    var common_1 = require('@angular/common');
+    var icogram_component_1 = require('./icogram.component');
+    var icon_module_1 = require('../icon/icon.module');
+    var l10n_module_1 = require('../../l10n/l10n.module');
+    var VCLIcogramModule = (function () {
+        function VCLIcogramModule() {
+        }
+        VCLIcogramModule = __decorate([
+            core_1.NgModule({
+                imports: [common_1.CommonModule, icon_module_1.VCLIconModule, l10n_module_1.L10nModule],
+                exports: [icogram_component_1.IcogramComponent],
+                declarations: [icogram_component_1.IcogramComponent],
+                providers: [],
+            }), 
+            __metadata('design:paramtypes', [])
+        ], VCLIcogramModule);
+        return VCLIcogramModule;
+    }());
+    exports.VCLIcogramModule = VCLIcogramModule;
+});

@@ -25,7 +25,7 @@
   ],
   "author": "The ng-vcl authors",
   "license": "MIT",
-  "main": "dist/ng-vcl.cjs.js",
+  "main": "dist/ng-vcl.umd.js",
   "typings": "dist/index.d.ts",
   "jsnext:main": "dist/ng-vcl.esm.js",
   "module": "dist/ng-vcl.esm.js",

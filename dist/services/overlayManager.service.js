@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,30 +7,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var OverlayManagerService = (function () {
-    function OverlayManagerService() {
-        this.components = [];
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
-    OverlayManagerService.prototype.register = function (component) {
-        var zIndex = 100;
-        for (var i = 0; i < this.components.length; i++) {
-            if (this.components[i].zIndex >= zIndex) {
-                zIndex = this.components[i].zIndex;
-            }
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", '@angular/core'], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    var core_1 = require('@angular/core');
+    var OverlayManagerService = (function () {
+        function OverlayManagerService() {
+            this.components = [];
         }
-        this.components.push(component);
-        return zIndex + 10;
-    };
-    OverlayManagerService.prototype.unregister = function (component) {
-        var index = this.components.indexOf(component);
-        this.components.splice(index, 1);
-        return -1;
-    };
-    OverlayManagerService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], OverlayManagerService);
-    return OverlayManagerService;
-}());
-exports.OverlayManagerService = OverlayManagerService;
+        OverlayManagerService.prototype.register = function (component) {
+            var zIndex = 100;
+            for (var i = 0; i < this.components.length; i++) {
+                if (this.components[i].zIndex >= zIndex) {
+                    zIndex = this.components[i].zIndex;
+                }
+            }
+            this.components.push(component);
+            return zIndex + 10;
+        };
+        OverlayManagerService.prototype.unregister = function (component) {
+            var index = this.components.indexOf(component);
+            this.components.splice(index, 1);
+            return -1;
+        };
+        OverlayManagerService = __decorate([
+            core_1.Injectable(), 
+            __metadata('design:paramtypes', [])
+        ], OverlayManagerService);
+        return OverlayManagerService;
+    }());
+    exports.OverlayManagerService = OverlayManagerService;
+});

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,20 +7,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var tether_component_1 = require('./tether.component');
-var VCLTetherModule = (function () {
-    function VCLTetherModule() {
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
-    VCLTetherModule = __decorate([
-        core_1.NgModule({
-            imports: [common_1.CommonModule],
-            exports: [tether_component_1.TetherComponent],
-            declarations: [tether_component_1.TetherComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLTetherModule);
-    return VCLTetherModule;
-}());
-exports.VCLTetherModule = VCLTetherModule;
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", '@angular/core', '@angular/common', './tether.component'], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    var core_1 = require('@angular/core');
+    var common_1 = require('@angular/common');
+    var tether_component_1 = require('./tether.component');
+    var VCLTetherModule = (function () {
+        function VCLTetherModule() {
+        }
+        VCLTetherModule = __decorate([
+            core_1.NgModule({
+                imports: [common_1.CommonModule],
+                exports: [tether_component_1.TetherComponent],
+                declarations: [tether_component_1.TetherComponent]
+            }), 
+            __metadata('design:paramtypes', [])
+        ], VCLTetherModule);
+        return VCLTetherModule;
+    }());
+    exports.VCLTetherModule = VCLTetherModule;
+});

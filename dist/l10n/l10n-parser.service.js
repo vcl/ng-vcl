@@ -1,4 +1,3 @@
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -13,31 +12,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var L10nParserService = (function () {
-    function L10nParserService() {
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
-    return L10nParserService;
-}());
-exports.L10nParserService = L10nParserService;
-var L10nFormatParserService = (function (_super) {
-    __extends(L10nFormatParserService, _super);
-    function L10nFormatParserService() {
-        _super.apply(this, arguments);
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", '@angular/core'], factory);
     }
-    L10nFormatParserService.prototype.parse = function (value) {
-        var args = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            args[_i - 1] = arguments[_i];
+})(function (require, exports) {
+    "use strict";
+    var core_1 = require('@angular/core');
+    var L10nParserService = (function () {
+        function L10nParserService() {
         }
-        return value.replace(/{(\d+)}/g, function (match, idx) {
-            return typeof args[idx] === 'string' ? args[idx] : match;
-        });
-    };
-    L10nFormatParserService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], L10nFormatParserService);
-    return L10nFormatParserService;
-}(L10nParserService));
-exports.L10nFormatParserService = L10nFormatParserService;
+        return L10nParserService;
+    }());
+    exports.L10nParserService = L10nParserService;
+    var L10nFormatParserService = (function (_super) {
+        __extends(L10nFormatParserService, _super);
+        function L10nFormatParserService() {
+            _super.apply(this, arguments);
+        }
+        L10nFormatParserService.prototype.parse = function (value) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            return value.replace(/{(\d+)}/g, function (match, idx) {
+                return typeof args[idx] === 'string' ? args[idx] : match;
+            });
+        };
+        L10nFormatParserService = __decorate([
+            core_1.Injectable(), 
+            __metadata('design:paramtypes', [])
+        ], L10nFormatParserService);
+        return L10nFormatParserService;
+    }(L10nParserService));
+    exports.L10nFormatParserService = L10nFormatParserService;
+});

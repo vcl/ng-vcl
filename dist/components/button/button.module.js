@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,23 +7,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var button_component_1 = require('./button.component');
-var icogram_module_1 = require('../icogram/icogram.module');
-var l10n_module_1 = require('../../l10n/l10n.module');
-var VCLButtonModule = (function () {
-    function VCLButtonModule() {
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
-    VCLButtonModule = __decorate([
-        core_1.NgModule({
-            imports: [common_1.CommonModule, icogram_module_1.VCLIcogramModule, l10n_module_1.L10nModule],
-            exports: [button_component_1.ButtonComponent],
-            declarations: [button_component_1.ButtonComponent],
-            providers: [],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLButtonModule);
-    return VCLButtonModule;
-}());
-exports.VCLButtonModule = VCLButtonModule;
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", '@angular/core', '@angular/common', './button.component', '../icogram/icogram.module', '../../l10n/l10n.module'], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    var core_1 = require('@angular/core');
+    var common_1 = require('@angular/common');
+    var button_component_1 = require('./button.component');
+    var icogram_module_1 = require('../icogram/icogram.module');
+    var l10n_module_1 = require('../../l10n/l10n.module');
+    var VCLButtonModule = (function () {
+        function VCLButtonModule() {
+        }
+        VCLButtonModule = __decorate([
+            core_1.NgModule({
+                imports: [common_1.CommonModule, icogram_module_1.VCLIcogramModule, l10n_module_1.L10nModule],
+                exports: [button_component_1.ButtonComponent],
+                declarations: [button_component_1.ButtonComponent],
+                providers: [],
+            }), 
+            __metadata('design:paramtypes', [])
+        ], VCLButtonModule);
+        return VCLButtonModule;
+    }());
+    exports.VCLButtonModule = VCLButtonModule;
+});

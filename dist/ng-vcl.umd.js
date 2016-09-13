@@ -1,21 +1,10 @@
-'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/add/observable/of'), require('rxjs/BehaviorSubject'), require('rxjs/add/observable/combineLatest'), require('rxjs/add/operator/combineLatest'), require('rxjs/add/operator/map'), require('rxjs/add/operator/switchMap'), require('rxjs/add/operator/publishLast'), require('hammerjs'), require('tether')) :
+  typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Observable', 'rxjs/add/observable/of', 'rxjs/BehaviorSubject', 'rxjs/add/observable/combineLatest', 'rxjs/add/operator/combineLatest', 'rxjs/add/operator/map', 'rxjs/add/operator/switchMap', 'rxjs/add/operator/publishLast', 'hammerjs', 'tether'], factory) :
+  (factory((global.vcl = global.vcl || {}),global._angular_core,global._angular_common,global.rxjs_Observable,global.rxjs_add_observable_of,global.rxjs_BehaviorSubject,global.rxjs_add_observable_combineLatest,global.rxjs_add_operator_combineLatest,global.rxjs_add_operator_map,global.rxjs_add_operator_switchMap,global.rxjs_add_operator_publishLast,global.hammerjs,global.Tether));
+}(this, (function (exports,_angular_core,_angular_common,rxjs_Observable,rxjs_add_observable_of,rxjs_BehaviorSubject,rxjs_add_observable_combineLatest,rxjs_add_operator_combineLatest,rxjs_add_operator_map,rxjs_add_operator_switchMap,rxjs_add_operator_publishLast,hammerjs,Tether) { 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var _angular_core = require('@angular/core');
-var _angular_common = require('@angular/common');
-var rxjs_Observable = require('rxjs/Observable');
-var rxjs_add_observable_of = require('rxjs/add/observable/of');
-var rxjs_BehaviorSubject = require('rxjs/BehaviorSubject');
-var rxjs_add_observable_combineLatest = require('rxjs/add/observable/combineLatest');
-var rxjs_add_operator_combineLatest = require('rxjs/add/operator/combineLatest');
-var rxjs_add_operator_map = require('rxjs/add/operator/map');
-var rxjs_add_operator_switchMap = require('rxjs/add/operator/switchMap');
-var rxjs_add_operator_publishLast = require('rxjs/add/operator/publishLast');
-var hammerjs = require('hammerjs');
-var Tether = _interopDefault(require('tether'));
+Tether = 'default' in Tether ? Tether['default'] : Tether;
 
 function __extends(d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -1711,3 +1700,7 @@ exports.L10nStaticLoaderService = L10nStaticLoaderService;
 exports.L10nFormatParserService = L10nFormatParserService;
 exports.L10nService = L10nService;
 exports.OverlayManagerService = OverlayManagerService;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));

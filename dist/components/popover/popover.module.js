@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,25 +7,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var popover_component_1 = require('./popover.component');
-exports.PopoverComponent = popover_component_1.PopoverComponent;
-var tether_module_1 = require('../tether/tether.module');
-var VCLPopoverModule = (function () {
-    function VCLPopoverModule() {
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
-    VCLPopoverModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                common_1.CommonModule,
-                tether_module_1.VCLTetherModule,
-            ],
-            exports: [popover_component_1.PopoverComponent],
-            declarations: [popover_component_1.PopoverComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLPopoverModule);
-    return VCLPopoverModule;
-}());
-exports.VCLPopoverModule = VCLPopoverModule;
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", '@angular/core', '@angular/common', './popover.component', '../tether/tether.module'], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    var core_1 = require('@angular/core');
+    var common_1 = require('@angular/common');
+    var popover_component_1 = require('./popover.component');
+    exports.PopoverComponent = popover_component_1.PopoverComponent;
+    var tether_module_1 = require('../tether/tether.module');
+    var VCLPopoverModule = (function () {
+        function VCLPopoverModule() {
+        }
+        VCLPopoverModule = __decorate([
+            core_1.NgModule({
+                imports: [
+                    common_1.CommonModule,
+                    tether_module_1.VCLTetherModule,
+                ],
+                exports: [popover_component_1.PopoverComponent],
+                declarations: [popover_component_1.PopoverComponent]
+            }), 
+            __metadata('design:paramtypes', [])
+        ], VCLPopoverModule);
+        return VCLPopoverModule;
+    }());
+    exports.VCLPopoverModule = VCLPopoverModule;
+});
