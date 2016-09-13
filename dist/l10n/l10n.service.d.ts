@@ -7,7 +7,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
 import { L10nLoaderService, TranslationPackage } from './l10n-loader.service';
 import { L10nParserService } from './l10n-parser.service';
-export declare let L10N_CONFIG: OpaqueToken;
+export declare const L10N_CONFIG: OpaqueToken;
 export interface L10nConfig {
     locale?: string;
 }
