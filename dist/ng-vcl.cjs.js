@@ -14,7 +14,10 @@ var rxjs_add_operator_combineLatest = require('rxjs/add/operator/combineLatest')
 var rxjs_add_operator_map = require('rxjs/add/operator/map');
 var rxjs_add_operator_switchMap = require('rxjs/add/operator/switchMap');
 var rxjs_add_operator_publishLast = require('rxjs/add/operator/publishLast');
+<<<<<<< Updated upstream
 var hammerjs = require('hammerjs');
+=======
+>>>>>>> Stashed changes
 var Tether = _interopDefault(require('tether'));
 
 function __extends(d, b) {
@@ -211,6 +214,7 @@ var IconComponent = (function () {
     ], IconComponent.prototype, "label", void 0);
     IconComponent = __decorate([
         _angular_core.Component({
+            moduleId: module.id,
             selector: 'vcl-icon',
             template: "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
@@ -831,6 +835,7 @@ it emits the given `action` with the `index` as param.
 
 @demo example1
 */
+<<<<<<< Updated upstream
 var SelectionMode;
 (function (SelectionMode) {
     SelectionMode[SelectionMode["Single"] = 0] = "Single";
@@ -918,20 +923,76 @@ var ButtonGroupComponent = (function () {
         _angular_core.ContentChildren(ButtonComponent), 
         __metadata('design:type', (typeof (_b = typeof _angular_core.QueryList !== 'undefined' && _angular_core.QueryList) === 'function' && _b) || Object)
     ], ButtonGroupComponent.prototype, "buttons", void 0);
+=======
+var ButtonGroupComponent = (function () {
+    function ButtonGroupComponent() {
+        this.select = false; // If `true`, a single button from the group can be selected. The selection is tracked following the actions.
+        this.multiple = false; // If `true` and in select mode, multipe buttons can be selected
+        this.buttons = [];
+    }
+    ButtonGroupComponent.prototype.ngOnInit = function () {
+        console.log('buttons', this.buttons);
+    };
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], ButtonGroupComponent.prototype, "select", void 0);
+    __decorate([
+        // If `true`, a single button from the group can be selected. The selection is tracked following the actions.
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], ButtonGroupComponent.prototype, "multiple", void 0);
+>>>>>>> Stashed changes
     ButtonGroupComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-button-group',
             host: {
                 '[class.vclButtonGroup]': 'true',
             },
+<<<<<<< Updated upstream
             template: "<ng-content></ng-content>",
+=======
+            template: "<!--{{#each buttons as |button|}}\n  {{vcl-button\n    label=button.label\n    selected=button.selected\n    disabled=button.disabled\n    action=\"trigger\"\n    param=button\n    class=\"vclLayoutFlex\"\n    appIcon=button.appIcon\n    prepIcon=button.prepIcon}}\n{{/each}}-->\n<div>\n</div>\n<ng-content></ng-content>\n",
+>>>>>>> Stashed changes
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [])
     ], ButtonGroupComponent);
     return ButtonGroupComponent;
+<<<<<<< Updated upstream
     var _a, _b;
 }());
+=======
+}());
+// var ButtonGroup = Ember.Component.extend({
+//   layout: layout,
+//   /**
+//   if true then link is underlined else it's not
+//   @public
+//   */
+//   actions: {
+//     trigger: function(button) {
+//       var select = this.get('select');
+//       if (select === true) {
+//         var multiple = this.get('multiple');
+//         var buttons = this.get('buttons');
+//         if (multiple === true) {
+//           Ember.set(button, 'selected', !Ember.get(button, 'selected'));
+//         } else {
+//           buttons.setEach('selected', false);
+//           Ember.set(button, 'selected', true);
+//         }
+//       }
+//       this.triggerAction({
+//         action: button.action,
+//         actionContext: button.index
+//       });
+//     }
+//   }
+// });
+// Utils.registerComponent('vcl-button-group', ButtonGroup);
+// export default ButtonGroup;
+>>>>>>> Stashed changes
 
 var VCLButtonGroupModule = (function () {
     function VCLButtonGroupModule() {

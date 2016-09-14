@@ -32,6 +32,7 @@ The main control for triggering actions
     '[class.vclSelected]': 'selected',
   },
   templateUrl: 'button.component.html',
+  // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent implements OnInit {
