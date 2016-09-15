@@ -14,6 +14,7 @@ var popover_module_1 = require('./components/popover/popover.module');
 var radio_button_module_1 = require('./components/radio-button/radio-button.module');
 var checkbox_module_1 = require('./components/checkbox/checkbox.module');
 var form_control_label_module_1 = require('./components/form-control-label/form-control-label.module');
+var wormhole_1 = require('./directives/wormhole');
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
 __export(require('./components/button/button.module'));
@@ -28,10 +29,10 @@ var overlayManager_service_2 = require('./services/overlayManager.service');
 var VCLModule = (function () {
     function VCLModule() {
     }
-<<<<<<< Updated upstream
     VCLModule.decorators = [
         { type: core_1.NgModule, args: [{
                     imports: [
+                        wormhole_1.VCLWormholeModule,
                         icon_module_1.VCLIconModule,
                         icogram_module_1.VCLIcogramModule,
                         button_module_1.VCLButtonModule,
@@ -45,6 +46,7 @@ var VCLModule = (function () {
                         form_control_label_module_1.VCLFormControlLabelModule
                     ],
                     exports: [
+                        wormhole_1.VCLWormholeModule,
                         icon_module_1.VCLIconModule,
                         icogram_module_1.VCLIcogramModule,
                         button_module_1.VCLButtonModule,
@@ -64,42 +66,6 @@ var VCLModule = (function () {
     ];
     /** @nocollapse */
     VCLModule.ctorParameters = [];
-=======
-    VCLModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                icon_module_1.VCLIconModule,
-                icogram_module_1.VCLIcogramModule,
-                button_module_1.VCLButtonModule,
-                button_group_module_1.VCLButtonGroupModule,
-                layer_module_1.VCLLayerModule,
-                tether_module_1.VCLTetherModule,
-                input_module_1.VCLInputModule,
-                popover_module_1.VCLPopoverModule,
-                radio_button_module_1.VCLRadioButtonModule,
-                checkbox_module_1.VCLCheckboxModule,
-                form_control_label_module_1.VCLFormControlLabelModule
-            ],
-            exports: [
-                icon_module_1.VCLIconModule,
-                icogram_module_1.VCLIcogramModule,
-                button_module_1.VCLButtonModule,
-                button_group_module_1.VCLButtonGroupModule,
-                layer_module_1.VCLLayerModule,
-                tether_module_1.VCLTetherModule,
-                input_module_1.VCLInputModule,
-                popover_module_1.VCLPopoverModule,
-                radio_button_module_1.VCLRadioButtonModule,
-                checkbox_module_1.VCLCheckboxModule,
-                form_control_label_module_1.VCLFormControlLabelModule
-            ],
-            providers: [
-                overlayManager_service_2.OverlayManagerService
-            ],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLModule);
->>>>>>> Stashed changes
     return VCLModule;
 }());
 exports.VCLModule = VCLModule;

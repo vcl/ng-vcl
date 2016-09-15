@@ -57,7 +57,6 @@ var IconComponent = (function () {
         enumerable: true,
         configurable: true
     });
-<<<<<<< Updated upstream
     IconComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-icon',
@@ -76,37 +75,6 @@ var IconComponent = (function () {
         'icon': [{ type: core_1.Input },],
         'label': [{ type: core_1.Input },],
     };
-=======
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "src", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "svguse", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "iconClass", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "icon", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "label", void 0);
-    IconComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'vcl-icon',
-            templateUrl: 'icon.component.html',
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
-        }), 
-        __metadata('design:paramtypes', [icon_service_1.IconService])
-    ], IconComponent);
->>>>>>> Stashed changes
     return IconComponent;
 }());
 exports.IconComponent = IconComponent;

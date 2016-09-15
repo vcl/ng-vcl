@@ -71,6 +71,7 @@ var ButtonComponent = (function () {
                         '[class.vclSelected]': 'selected',
                     },
                     templateUrl: 'button.component.html',
+                    // encapsulation: ViewEncapsulation.None,
                     changeDetection: core_1.ChangeDetectionStrategy.OnPush,
                 },] },
     ];

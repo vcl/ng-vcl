@@ -1,4 +1,4 @@
-import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren } from '@angular/core';
+import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren, TemplateRef, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -8,10 +8,7 @@ import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
-<<<<<<< Updated upstream
 import 'hammerjs';
-=======
->>>>>>> Stashed changes
 import Tether from 'tether';
 
 function __extends(d, b) {
@@ -208,7 +205,6 @@ var IconComponent = (function () {
     ], IconComponent.prototype, "label", void 0);
     IconComponent = __decorate([
         Component({
-            moduleId: module.id,
             selector: 'vcl-icon',
             template: "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n",
             changeDetection: ChangeDetectionStrategy.OnPush
@@ -769,6 +765,7 @@ var ButtonComponent = (function () {
                 '[class.vclSelected]': 'selected',
             },
             template: "<span>\n  <ng-content></ng-content>\n  <vcl-icogram\n    [label]=\"calculatedLabel | loc\"\n    [flexLabel]=\"flexLabel | loc\"\n    [prepIcon]=\"calculatedPrepIcon\"\n    [appIcon]=\"calculatedAppIcon\">\n  </vcl-icogram>\n</span>\n\n",
+            // encapsulation: ViewEncapsulation.None,
             changeDetection: ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [])
@@ -829,7 +826,6 @@ it emits the given `action` with the `index` as param.
 
 @demo example1
 */
-<<<<<<< Updated upstream
 var SelectionMode;
 (function (SelectionMode) {
     SelectionMode[SelectionMode["Single"] = 0] = "Single";
@@ -917,76 +913,20 @@ var ButtonGroupComponent = (function () {
         ContentChildren(ButtonComponent), 
         __metadata('design:type', (typeof (_b = typeof QueryList !== 'undefined' && QueryList) === 'function' && _b) || Object)
     ], ButtonGroupComponent.prototype, "buttons", void 0);
-=======
-var ButtonGroupComponent = (function () {
-    function ButtonGroupComponent() {
-        this.select = false; // If `true`, a single button from the group can be selected. The selection is tracked following the actions.
-        this.multiple = false; // If `true` and in select mode, multipe buttons can be selected
-        this.buttons = [];
-    }
-    ButtonGroupComponent.prototype.ngOnInit = function () {
-        console.log('buttons', this.buttons);
-    };
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], ButtonGroupComponent.prototype, "select", void 0);
-    __decorate([
-        // If `true`, a single button from the group can be selected. The selection is tracked following the actions.
-        Input(), 
-        __metadata('design:type', Object)
-    ], ButtonGroupComponent.prototype, "multiple", void 0);
->>>>>>> Stashed changes
     ButtonGroupComponent = __decorate([
         Component({
             selector: 'vcl-button-group',
             host: {
                 '[class.vclButtonGroup]': 'true',
             },
-<<<<<<< Updated upstream
             template: "<ng-content></ng-content>",
-=======
-            template: "<!--{{#each buttons as |button|}}\n  {{vcl-button\n    label=button.label\n    selected=button.selected\n    disabled=button.disabled\n    action=\"trigger\"\n    param=button\n    class=\"vclLayoutFlex\"\n    appIcon=button.appIcon\n    prepIcon=button.prepIcon}}\n{{/each}}-->\n<div>\n</div>\n<ng-content></ng-content>\n",
->>>>>>> Stashed changes
             changeDetection: ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [])
     ], ButtonGroupComponent);
     return ButtonGroupComponent;
-<<<<<<< Updated upstream
     var _a, _b;
 }());
-=======
-}());
-// var ButtonGroup = Ember.Component.extend({
-//   layout: layout,
-//   /**
-//   if true then link is underlined else it's not
-//   @public
-//   */
-//   actions: {
-//     trigger: function(button) {
-//       var select = this.get('select');
-//       if (select === true) {
-//         var multiple = this.get('multiple');
-//         var buttons = this.get('buttons');
-//         if (multiple === true) {
-//           Ember.set(button, 'selected', !Ember.get(button, 'selected'));
-//         } else {
-//           buttons.setEach('selected', false);
-//           Ember.set(button, 'selected', true);
-//         }
-//       }
-//       this.triggerAction({
-//         action: button.action,
-//         actionContext: button.index
-//       });
-//     }
-//   }
-// });
-// Utils.registerComponent('vcl-button-group', ButtonGroup);
-// export default ButtonGroup;
->>>>>>> Stashed changes
 
 var VCLButtonGroupModule = (function () {
     function VCLButtonGroupModule() {
@@ -1712,12 +1652,117 @@ var VCLFormControlLabelModule = (function () {
     return VCLFormControlLabelModule;
 }());
 
+var Wormhole = (function () {
+    function Wormhole(templateRef) {
+        this.templateRef = templateRef;
+    }
+    Object.defineProperty(Wormhole.prototype, "isConnected", {
+        get: function () {
+            return !!this.source;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Wormhole.prototype.disconnect = function () {
+        this.source = null;
+    };
+    Wormhole.prototype.connect = function (wormhole) {
+        this.source = wormhole;
+    };
+    Wormhole.prototype.getTemplateRef = function () {
+        return this.templateRef;
+    };
+    Wormhole = __decorate([
+        Directive({
+            selector: '[wormhole]',
+            exportAs: 'wormhole',
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof TemplateRef !== 'undefined' && TemplateRef) === 'function' && _a) || Object])
+    ], Wormhole);
+    return Wormhole;
+    var _a;
+}());
+var ConnectWormhole = (function () {
+    function ConnectWormhole(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
+    }
+    Object.defineProperty(ConnectWormhole.prototype, "isConnected", {
+        get: function () {
+            return !!this.connectedWormhole;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectWormhole.prototype, "wormhole", {
+        get: function () {
+            return this._wormhole;
+        },
+        set: function (wormhole) {
+            if (this.isConnected) {
+                this.disconnect();
+            }
+            if (wormhole) {
+                this.connect(wormhole);
+                this._wormhole = wormhole;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ConnectWormhole.prototype.connect = function (wormhole) {
+        this.connectedWormhole = wormhole;
+        wormhole.connect(this);
+        var templateRef = wormhole.getTemplateRef();
+        this.viewContainerRef.createEmbeddedView(templateRef);
+    };
+    ConnectWormhole.prototype.disconnect = function () {
+        if (this.connectedWormhole) {
+            this.connectedWormhole.disconnect();
+        }
+        this.connectedWormhole = null;
+        this.viewContainerRef.clear();
+    };
+    ConnectWormhole.prototype.dispose = function () {
+        if (this.isConnected) {
+            this.disconnect();
+        }
+    };
+    ConnectWormhole.prototype.ngOnDestroy = function () {
+        this.dispose();
+    };
+    __decorate([
+        Input('connectWormhole'), 
+        __metadata('design:type', Wormhole)
+    ], ConnectWormhole.prototype, "wormhole", null);
+    ConnectWormhole = __decorate([
+        Directive({
+            selector: '[connectWormhole]'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof ViewContainerRef !== 'undefined' && ViewContainerRef) === 'function' && _a) || Object])
+    ], ConnectWormhole);
+    return ConnectWormhole;
+    var _a;
+}());
+var VCLWormholeModule = (function () {
+    function VCLWormholeModule() {
+    }
+    VCLWormholeModule = __decorate([
+        NgModule({
+            exports: [Wormhole, ConnectWormhole],
+            declarations: [Wormhole, ConnectWormhole]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLWormholeModule);
+    return VCLWormholeModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
     VCLModule = __decorate([
         NgModule({
             imports: [
+                VCLWormholeModule,
                 VCLIconModule,
                 VCLIcogramModule,
                 VCLButtonModule,
@@ -1731,6 +1776,7 @@ var VCLModule = (function () {
                 VCLFormControlLabelModule
             ],
             exports: [
+                VCLWormholeModule,
                 VCLIconModule,
                 VCLIcogramModule,
                 VCLButtonModule,
