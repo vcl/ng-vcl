@@ -11,6 +11,7 @@ import { VCLPopoverModule } from './components/popover/popover.module';
 import { VCLRadioButtonModule } from './components/radio-button/radio-button.module';
 import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
 import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
+import { VCLWormholeModule } from './directives/wormhole';
 
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';
@@ -27,6 +28,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
 
 @NgModule({
   imports: [
+    VCLWormholeModule,
     VCLIconModule,
     VCLIcogramModule,
     VCLButtonModule,
@@ -40,6 +42,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLFormControlLabelModule
   ],
   exports: [
+    VCLWormholeModule,
     VCLIconModule,
     VCLIcogramModule,
     VCLButtonModule,

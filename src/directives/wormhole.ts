@@ -5,19 +5,19 @@ import { TemplateRef, ViewContainerRef, Directive, NgModule, Input } from '@angu
   exportAs: 'wormhole',
 })
 export class Wormhole {
-  private connector: WormholeConnector;
+  private source: ConnectWormhole;
 
-  constructor(private templateRef: TemplateRef<any>) { }
+  constructor(protected templateRef: TemplateRef<any>) { }
 
   get isConnected(): boolean {
-    return !!this.connector;
+    return !!this.source;
   }
 
   disconnect() {
-    this.connector = null;
+    this.source = null;
   }
-  connect(wormhole: WormholeConnector) {
-    this.connector = wormhole;
+  connect(wormhole: ConnectWormhole) {
+    this.source = wormhole;
   }
 
   getTemplateRef() {
@@ -26,9 +26,9 @@ export class Wormhole {
 }
 
 @Directive({
-  selector: '[wormholeConnector]'
+  selector: '[connectWormhole]'
 })
-export class WormholeConnector {
+export class ConnectWormhole {
   private _wormhole: Wormhole;
   private connectedWormhole: Wormhole;
 
@@ -42,7 +42,7 @@ export class WormholeConnector {
     return this._wormhole;
   }
 
-  @Input('wormholeConnector')
+  @Input('connectWormhole')
   set wormhole(wormhole: Wormhole) {
     if (this.isConnected) {
       this.disconnect();
@@ -82,7 +82,7 @@ export class WormholeConnector {
 }
 
 @NgModule({
-  exports: [Wormhole, WormholeConnector],
-  declarations: [Wormhole, WormholeConnector]
+  exports: [Wormhole, ConnectWormhole],
+  declarations: [Wormhole, ConnectWormhole]
 })
 export class VCLWormholeModule { }
