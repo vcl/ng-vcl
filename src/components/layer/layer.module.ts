@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayerComponent } from './layer.component';
+import {  LayerBaseComponent, LayerDirective } from './layer.component';
+import { VCLWormholeModule } from '../../directives/wormhole';
 
 @NgModule({
-  imports: [CommonModule],
-  exports: [LayerComponent],
-  declarations: [LayerComponent]
+  imports: [CommonModule, VCLWormholeModule],
+  exports: [LayerBaseComponent, LayerDirective],
+  declarations: [LayerBaseComponent, LayerDirective]
 })
 export class VCLLayerModule { }

@@ -1,4 +1,4 @@
-import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren, TemplateRef, ViewContainerRef } from '@angular/core';
+import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren, TemplateRef, ViewContainerRef, ContentChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -943,103 +943,445 @@ var VCLButtonGroupModule = (function () {
     return VCLButtonGroupModule;
 }());
 
-var OverlayManagerService = (function () {
-    function OverlayManagerService() {
-        this.components = [];
+var Wormhole = (function () {
+    function Wormhole(templateRef) {
+        this.templateRef = templateRef;
     }
-    OverlayManagerService.prototype.register = function (component) {
-        var zIndex = 100;
-        for (var i = 0; i < this.components.length; i++) {
-            if (this.components[i].zIndex >= zIndex) {
-                zIndex = this.components[i].zIndex;
+    Object.defineProperty(Wormhole.prototype, "isConnected", {
+        get: function () {
+            return !!this.source;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Wormhole.prototype.disconnect = function () {
+        this.source = null;
+    };
+    Wormhole.prototype.connect = function (wormhole) {
+        this.source = wormhole;
+    };
+    Wormhole.prototype.getTemplateRef = function () {
+        return this.templateRef;
+    };
+    Wormhole = __decorate([
+        Directive({
+            selector: '[wormhole]',
+            exportAs: 'wormhole',
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof TemplateRef !== 'undefined' && TemplateRef) === 'function' && _a) || Object])
+    ], Wormhole);
+    return Wormhole;
+    var _a;
+}());
+var ConnectWormhole = (function () {
+    function ConnectWormhole(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
+    }
+    Object.defineProperty(ConnectWormhole.prototype, "isConnected", {
+        get: function () {
+            return !!this.connectedWormhole;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectWormhole.prototype, "wormhole", {
+        get: function () {
+            return this._wormhole;
+        },
+        set: function (wormhole) {
+            if (this.isConnected) {
+                this.disconnect();
             }
+            if (wormhole) {
+                this.connect(wormhole);
+                this._wormhole = wormhole;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ConnectWormhole.prototype.connect = function (wormhole) {
+        this.connectedWormhole = wormhole;
+        wormhole.connect(this);
+        var templateRef = wormhole.getTemplateRef();
+        this.viewContainerRef.createEmbeddedView(templateRef);
+    };
+    ConnectWormhole.prototype.disconnect = function () {
+        if (this.connectedWormhole) {
+            this.connectedWormhole.disconnect();
         }
-        this.components.push(component);
-        return zIndex + 10;
+        this.connectedWormhole = null;
+        this.viewContainerRef.clear();
     };
-    OverlayManagerService.prototype.unregister = function (component) {
-        var index = this.components.indexOf(component);
-        this.components.splice(index, 1);
-        return -1;
+    ConnectWormhole.prototype.dispose = function () {
+        if (this.isConnected) {
+            this.disconnect();
+        }
     };
-    OverlayManagerService = __decorate([
-        Injectable(), 
+    ConnectWormhole.prototype.ngOnDestroy = function () {
+        this.dispose();
+    };
+    __decorate([
+        Input('connectWormhole'), 
+        __metadata('design:type', Wormhole)
+    ], ConnectWormhole.prototype, "wormhole", null);
+    ConnectWormhole = __decorate([
+        Directive({
+            selector: '[connectWormhole]'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof ViewContainerRef !== 'undefined' && ViewContainerRef) === 'function' && _a) || Object])
+    ], ConnectWormhole);
+    return ConnectWormhole;
+    var _a;
+}());
+var VCLWormholeModule = (function () {
+    function VCLWormholeModule() {
+    }
+    VCLWormholeModule = __decorate([
+        NgModule({
+            exports: [Wormhole, ConnectWormhole],
+            declarations: [Wormhole, ConnectWormhole]
+        }), 
         __metadata('design:paramtypes', [])
-    ], OverlayManagerService);
-    return OverlayManagerService;
+    ], VCLWormholeModule);
+    return VCLWormholeModule;
 }());
 
-var LayerComponent = (function () {
-    function LayerComponent(overlayManger, myElement) {
-        this.overlayManger = overlayManger;
-        this.myElement = myElement;
-        this.open = false;
-        this.openChange = new EventEmitter();
-        this.modal = true;
-        this.zIndex = -1;
-        this.coverZIndex = -1;
+var LayerManagerService = (function () {
+    function LayerManagerService() {
+        this.visibleLayersChanged$ = new EventEmitter();
+        this.layers = new Map();
     }
-    LayerComponent.prototype.close = function () {
-        this.open = false;
-        this.openChange.emit(this.open);
+    Object.defineProperty(LayerManagerService.prototype, "visibleLayersChanged", {
+        get: function () {
+            return this.visibleLayersChanged$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LayerManagerService.prototype, "visibleLayers", {
+        get: function () {
+            return Array.from(this.layers.keys()).filter(function (layer) { return layer.visible; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayerManagerService.prototype, "currentZIndex", {
+        get: function () {
+            return this.visibleLayers
+                .map(function (layer) { return layer.zIndex; })
+                .reduce(function (pzIndex, czIndex) { return Math.max(pzIndex, czIndex); }, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    LayerManagerService.prototype.register = function (layer) {
+        var _this = this;
+        var sub = layer.visibilityChange.subscribe(function (visible) {
+            _this.visibleLayersChanged$.emit(_this.visibleLayers);
+        });
+        this.layers.set(layer, sub);
     };
-    LayerComponent.prototype.onClick = function (event) {
-        //layer covers 100% screen width & height. first element in layer represents 'outside'
-        if (!this.modal && event.target.parentNode === this.myElement.nativeElement) {
+    LayerManagerService.prototype.unregister = function (layer) {
+        layer.close();
+        this.layers.get(layer).unsubscribe();
+        this.layers.delete(layer);
+    };
+    __decorate([
+        Output(), 
+        __metadata('design:type', (typeof (_a = typeof Observable !== 'undefined' && Observable) === 'function' && _a) || Object)
+    ], LayerManagerService.prototype, "visibleLayersChanged", null);
+    LayerManagerService = __decorate([
+        Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], LayerManagerService);
+    return LayerManagerService;
+    var _a;
+}());
+
+/**
+
+layer
+
+## Usage
+
+```html
+<vcl-layer-base></vcl-layer-base>
+```
+
+```html
+
+<button vcl-button (click)="myLayer.open()" label="open modal layer"></button>
+
+<template vcl-layer #myLayer="layer" [modal]="false">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Title</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Content
+        <button vcl-button (click)="myLayer.close()" label="close Layer"></button>
+      </p>
+    </div>
+  </div>
+</template>
+```
+*/
+var LayerBaseComponent = (function () {
+    function LayerBaseComponent(layerManger) {
+        this.layerManger = layerManger;
+        this.visibleLayers = [];
+    }
+    LayerBaseComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.layerManger.visibleLayersChanged.subscribe(function (visibleLayers) {
+            _this.visibleLayers = visibleLayers;
+        });
+    };
+    LayerBaseComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    LayerBaseComponent = __decorate([
+        Component({
+            selector: 'vcl-layer-base',
+            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [connectWormhole]=\"layer\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof LayerManagerService !== 'undefined' && LayerManagerService) === 'function' && _a) || Object])
+    ], LayerBaseComponent);
+    return LayerBaseComponent;
+    var _a;
+}());
+var LayerDirective = (function (_super) {
+    __extends(LayerDirective, _super);
+    function LayerDirective(templateRef, elementRef, layerManger) {
+        _super.call(this, templateRef);
+        this.templateRef = templateRef;
+        this.elementRef = elementRef;
+        this.layerManger = layerManger;
+        this.visibilityChange$ = new EventEmitter();
+        this.modal = true;
+        this.name = 'default';
+        this.visible = false;
+        this.coverzIndex = 10;
+        this.zIndex = 11;
+    }
+    Object.defineProperty(LayerDirective.prototype, "visibilityChange", {
+        get: function () {
+            return this.visibilityChange$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    LayerDirective.prototype.ngOnInit = function () {
+        this.layerManger.register(this);
+    };
+    LayerDirective.prototype.ngOnDestroy = function () {
+        this.layerManger.unregister(this);
+    };
+    LayerDirective.prototype.onClick = function (event) {
+        // layer covers 100% screen width & height. first element in layer represents 'outside'
+        if (!this.modal && event.target.parentNode === this.elementRef.nativeElement) {
             this.close();
         }
     };
-    LayerComponent.prototype.ngOnChanges = function (changes) {
-        try {
-            if (changes.open.currentValue === true) {
-                this.zIndex = this.overlayManger.register(this);
-                this.coverZIndex = this.zIndex - 1;
-            }
-            else if (changes.open.currentValue === false) {
-                this.zIndex = this.overlayManger.unregister(this);
-                this.coverZIndex = -1;
-            }
-        }
-        catch (ex) { }
+    LayerDirective.prototype.setZIndex = function (zIndex) {
+        if (zIndex === void 0) { zIndex = 10; }
+        this.coverzIndex = zIndex;
+        this.zIndex = zIndex + 1;
+    };
+    LayerDirective.prototype.toggle = function () {
+        this.visible = !this.visible;
+        this.visibilityChange$.emit(this.visible);
+    };
+    LayerDirective.prototype.open = function () {
+        this.setZIndex(this.layerManger.currentZIndex + 10);
+        this.visible = true;
+        this.visibilityChange$.emit(this.visible);
+    };
+    LayerDirective.prototype.close = function () {
+        this.setZIndex();
+        this.visible = false;
+        this.visibilityChange$.emit(this.visible);
     };
     __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], LayerComponent.prototype, "open", void 0);
-    __decorate([
         Output(), 
-        __metadata('design:type', (typeof (_a = typeof EventEmitter !== 'undefined' && EventEmitter) === 'function' && _a) || Object)
-    ], LayerComponent.prototype, "openChange", void 0);
+        __metadata('design:type', (typeof (_a = typeof Observable !== 'undefined' && Observable) === 'function' && _a) || Object)
+    ], LayerDirective.prototype, "visibilityChange", null);
     __decorate([
         Input(), 
         __metadata('design:type', Boolean)
-    ], LayerComponent.prototype, "modal", void 0);
-    LayerComponent = __decorate([
-        Component({
-            selector: 'vcl-layer',
-            template: "<div *ngIf=\"open\" class=\"vclLayer\" role=\"dialog\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n<div *ngIf=\"open && modal\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\"></div>",
+    ], LayerDirective.prototype, "modal", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], LayerDirective.prototype, "name", void 0);
+    LayerDirective = __decorate([
+        Directive({
+            selector: '[vcl-layer]',
+            exportAs: 'layer',
             host: {
                 '(document:click)': 'onClick($event)',
             },
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof OverlayManagerService !== 'undefined' && OverlayManagerService) === 'function' && _b) || Object, (typeof (_c = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _c) || Object])
-    ], LayerComponent);
-    return LayerComponent;
-    var _a, _b, _c;
-}());
+        __metadata('design:paramtypes', [(typeof (_b = typeof TemplateRef !== 'undefined' && TemplateRef) === 'function' && _b) || Object, (typeof (_c = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _c) || Object, (typeof (_d = typeof LayerManagerService !== 'undefined' && LayerManagerService) === 'function' && _d) || Object])
+    ], LayerDirective);
+    return LayerDirective;
+    var _a, _b, _c, _d;
+}(Wormhole));
 
 var VCLLayerModule = (function () {
     function VCLLayerModule() {
     }
     VCLLayerModule = __decorate([
         NgModule({
-            imports: [CommonModule],
-            exports: [LayerComponent],
-            declarations: [LayerComponent]
+            imports: [CommonModule, VCLWormholeModule],
+            exports: [LayerBaseComponent, LayerDirective],
+            declarations: [LayerBaseComponent, LayerDirective]
         }), 
         __metadata('design:paramtypes', [])
     ], VCLLayerModule);
     return VCLLayerModule;
+}());
+
+/**
+vcl-tab-nav
+
+## Usage
+
+```html
+
+<vcl-tab-nav>
+  <vcl-tab>
+    <template vcl-tab-label>
+      Tab1
+    </template>
+    <template vcl-tab-content>
+      Content1
+    </template>
+  </vcl-tab>
+  <vcl-tab>
+    <template vcl-tab-label>
+      Tab2
+    </template>
+    <template vcl-tab-content>
+      Content2
+    </template>
+  </vcl-tab>
+  <vcl-tab [disabled]="true">
+    <template vcl-tab-label>
+      Tab3 disabled
+    </template>
+    <template vcl-tab-content>
+      Content2
+    </template>
+  </vcl-tab>
+</vcl-tab-nav>
+```
+*/
+var TabLabelDirective = (function (_super) {
+    __extends(TabLabelDirective, _super);
+    function TabLabelDirective(templateRef) {
+        _super.call(this, templateRef);
+        this.templateRef = templateRef;
+    }
+    TabLabelDirective.prototype.ngOnInit = function () { };
+    TabLabelDirective = __decorate([
+        Directive({
+            selector: '[vcl-tab-label]'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof TemplateRef !== 'undefined' && TemplateRef) === 'function' && _a) || Object])
+    ], TabLabelDirective);
+    return TabLabelDirective;
+    var _a;
+}(Wormhole));
+var TabContentDirective = (function (_super) {
+    __extends(TabContentDirective, _super);
+    function TabContentDirective(templateRef) {
+        _super.call(this, templateRef);
+        this.templateRef = templateRef;
+    }
+    TabContentDirective.prototype.ngOnInit = function () { };
+    TabContentDirective = __decorate([
+        Directive({
+            selector: '[vcl-tab-content]'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof TemplateRef !== 'undefined' && TemplateRef) === 'function' && _a) || Object])
+    ], TabContentDirective);
+    return TabContentDirective;
+    var _a;
+}(Wormhole));
+var TabComponent = (function () {
+    function TabComponent() {
+        this.disabled = false;
+    }
+    TabComponent.prototype.ngAfterViewInit = function () {
+        console.log(this.label);
+    };
+    __decorate([
+        ContentChild(TabLabelDirective), 
+        __metadata('design:type', TabLabelDirective)
+    ], TabComponent.prototype, "label", void 0);
+    __decorate([
+        ContentChild(TabContentDirective), 
+        __metadata('design:type', TabContentDirective)
+    ], TabComponent.prototype, "content", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], TabComponent.prototype, "disabled", void 0);
+    TabComponent = __decorate([
+        Directive({
+            selector: 'vcl-tab'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], TabComponent);
+    return TabComponent;
+}());
+var TabNavComponent = (function () {
+    function TabNavComponent() {
+    }
+    TabNavComponent.prototype.ngAfterViewInit = function () {
+        this.selectTab(0);
+    };
+    TabNavComponent.prototype.selectTab = function (tab) {
+        var tabs = this.tabs.toArray();
+        if (typeof tab === 'number' && tabs[tab]) {
+            tab = tabs[tab];
+        }
+        if (tab instanceof TabComponent && !tab.disabled) {
+            this.currentTab = tab;
+        }
+    };
+    __decorate([
+        ContentChildren(TabComponent), 
+        __metadata('design:type', (typeof (_a = typeof QueryList !== 'undefined' && QueryList) === 'function' && _a) || Object)
+    ], TabNavComponent.prototype, "tabs", void 0);
+    TabNavComponent = __decorate([
+        Component({
+            selector: 'vcl-tab-nav',
+            template: "<div class=\"vclTabbable\">\n  <div class=\"vclTabs\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs\" class=\"vclTab\" role=\"tab\" [class.vclDisabled]=\"tab.disabled\" [class.vclSelected]=\"currentTab===tab\" [class.aria-selected]=\"currentTab===tab\" (tap)=\"selectTab(tab)\">\n      <div [connectWormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"!!currentTab\" class=\"vclTabContent vclNoBorder\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\">\n      <div [connectWormhole]=\"currentTab.content\"></div>\n    </div>\n  </div>\n</div>\n"
+        }), 
+        __metadata('design:paramtypes', [])
+    ], TabNavComponent);
+    return TabNavComponent;
+    var _a;
+}());
+
+var VCLTabModule = (function () {
+    function VCLTabModule() {
+    }
+    VCLTabModule = __decorate([
+        NgModule({
+            imports: [CommonModule, L10nModule, VCLWormholeModule],
+            exports: [TabComponent, TabContentDirective, TabLabelDirective, TabNavComponent],
+            declarations: [TabComponent, TabContentDirective, TabLabelDirective, TabNavComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLTabModule);
+    return VCLTabModule;
 }());
 
 var TetherComponent = (function () {
@@ -1103,6 +1445,32 @@ var VCLTetherModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLTetherModule);
     return VCLTetherModule;
+}());
+
+var OverlayManagerService = (function () {
+    function OverlayManagerService() {
+        this.components = [];
+    }
+    OverlayManagerService.prototype.register = function (component) {
+        var zIndex = 100;
+        for (var i = 0; i < this.components.length; i++) {
+            if (this.components[i].zIndex >= zIndex) {
+                zIndex = this.components[i].zIndex;
+            }
+        }
+        this.components.push(component);
+        return zIndex + 10;
+    };
+    OverlayManagerService.prototype.unregister = function (component) {
+        var index = this.components.indexOf(component);
+        this.components.splice(index, 1);
+        return -1;
+    };
+    OverlayManagerService = __decorate([
+        Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], OverlayManagerService);
+    return OverlayManagerService;
 }());
 
 var PopoverComponent = (function () {
@@ -1652,110 +2020,6 @@ var VCLFormControlLabelModule = (function () {
     return VCLFormControlLabelModule;
 }());
 
-var Wormhole = (function () {
-    function Wormhole(templateRef) {
-        this.templateRef = templateRef;
-    }
-    Object.defineProperty(Wormhole.prototype, "isConnected", {
-        get: function () {
-            return !!this.source;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Wormhole.prototype.disconnect = function () {
-        this.source = null;
-    };
-    Wormhole.prototype.connect = function (wormhole) {
-        this.source = wormhole;
-    };
-    Wormhole.prototype.getTemplateRef = function () {
-        return this.templateRef;
-    };
-    Wormhole = __decorate([
-        Directive({
-            selector: '[wormhole]',
-            exportAs: 'wormhole',
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof TemplateRef !== 'undefined' && TemplateRef) === 'function' && _a) || Object])
-    ], Wormhole);
-    return Wormhole;
-    var _a;
-}());
-var ConnectWormhole = (function () {
-    function ConnectWormhole(viewContainerRef) {
-        this.viewContainerRef = viewContainerRef;
-    }
-    Object.defineProperty(ConnectWormhole.prototype, "isConnected", {
-        get: function () {
-            return !!this.connectedWormhole;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectWormhole.prototype, "wormhole", {
-        get: function () {
-            return this._wormhole;
-        },
-        set: function (wormhole) {
-            if (this.isConnected) {
-                this.disconnect();
-            }
-            if (wormhole) {
-                this.connect(wormhole);
-                this._wormhole = wormhole;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ConnectWormhole.prototype.connect = function (wormhole) {
-        this.connectedWormhole = wormhole;
-        wormhole.connect(this);
-        var templateRef = wormhole.getTemplateRef();
-        this.viewContainerRef.createEmbeddedView(templateRef);
-    };
-    ConnectWormhole.prototype.disconnect = function () {
-        if (this.connectedWormhole) {
-            this.connectedWormhole.disconnect();
-        }
-        this.connectedWormhole = null;
-        this.viewContainerRef.clear();
-    };
-    ConnectWormhole.prototype.dispose = function () {
-        if (this.isConnected) {
-            this.disconnect();
-        }
-    };
-    ConnectWormhole.prototype.ngOnDestroy = function () {
-        this.dispose();
-    };
-    __decorate([
-        Input('connectWormhole'), 
-        __metadata('design:type', Wormhole)
-    ], ConnectWormhole.prototype, "wormhole", null);
-    ConnectWormhole = __decorate([
-        Directive({
-            selector: '[connectWormhole]'
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof ViewContainerRef !== 'undefined' && ViewContainerRef) === 'function' && _a) || Object])
-    ], ConnectWormhole);
-    return ConnectWormhole;
-    var _a;
-}());
-var VCLWormholeModule = (function () {
-    function VCLWormholeModule() {
-    }
-    VCLWormholeModule = __decorate([
-        NgModule({
-            exports: [Wormhole, ConnectWormhole],
-            declarations: [Wormhole, ConnectWormhole]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLWormholeModule);
-    return VCLWormholeModule;
-}());
-
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -1770,6 +2034,7 @@ var VCLModule = (function () {
                 VCLLayerModule,
                 VCLTetherModule,
                 VCLInputModule,
+                VCLTabModule,
                 VCLPopoverModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
@@ -1784,12 +2049,14 @@ var VCLModule = (function () {
                 VCLLayerModule,
                 VCLTetherModule,
                 VCLInputModule,
+                VCLTabModule,
                 VCLPopoverModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule
             ],
             providers: [
+                LayerManagerService,
                 OverlayManagerService
             ],
         }), 
@@ -1798,4 +2065,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, VCLLayerModule, VCLTetherModule, TetherComponent, VCLPopoverModule, PopoverComponent, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, OverlayManagerService };
+export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, VCLLayerModule, VCLTabModule, VCLTetherModule, VCLPopoverModule, PopoverComponent, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, LayerManagerService };

@@ -1,52 +1,48 @@
-<button vcl-button (click)="openNonModalLayer()" label="open non-modal layer"></button>
-<button vcl-button (click)="openLayer1()" label="open modal layer"></button>
 
+<button vcl-button (click)="layerNonModal.open()" label="open non-modal layer per reference"></button>
+<button vcl-button (click)="openLayer1()" label="open non-modal layer programmatically"></button>
+<button vcl-button (click)="layer1.open()" label="open modal layer"></button>
 
-<vcl-layer [(open)]="layerNonModalOpen" [modal]="false">
-  <div class="vclLayerBox vclLayerGutterPadding">
-    <div class="vclPanel vclNoMargin">
-      <div class="vclPanelHeader">
-        <h3 class="vclPanelTitle">Non-modal layer title goes here</h3>
-      </div>
-      <div class="vclPanelBody">
-        <p class="vclPanelContent">
-          Non-modal layer text goes here<br><br>
-          <button vcl-button (click)="closeNonModalLayer()" label="close Layer"></button>
-        </p>
-      </div>
+<template vcl-layer #layerNonModal="layer" [modal]="false">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Non-modal layer title goes here</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Non-modal layer text goes here<br><br>
+        <button vcl-button (click)="layerNonModal.close()" label="close Layer"></button>
+      </p>
     </div>
   </div>
-</vcl-layer>
+</template>
 
-<vcl-layer [(open)]="layer1Open">
-  <div class="vclLayerBox vclLayerGutterPadding">
-    <div class="vclPanel vclNoMargin">
-      <div class="vclPanelHeader">
-        <h3 class="vclPanelTitle">Modal layer 1 title goes here</h3>
-      </div>
-      <div class="vclPanelBody">
-        <p class="vclPanelContent">
-          Modal layer 1 text goes here<br><br>
-          <button vcl-button (click)="openLayer2()" label="open Layer2"></button>
-          <button vcl-button (click)="closeLayer1()" label="close Layer"></button>
-        </p>
-      </div>
+
+<template vcl-layer #layer1="layer">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Modal layer 1 title goes here</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Modal layer 1 text goes here<br><br>
+        <button vcl-button (click)="layer2.open()" label="open Layer2"></button>
+        <button vcl-button (click)="layer1.close()" label="close Layer"></button>
+      </p>
     </div>
   </div>
-</vcl-layer>
+</template>
 
-<vcl-layer [(open)]="layer2Open" [modal]="false">
-  <div class="vclLayerBox vclLayerGutterPadding">
-    <div class="vclPanel vclNoMargin">
-      <div class="vclPanelHeader">
-        <h3 class="vclPanelTitle">Non-modal layer 2 title goes here</h3>
-      </div>
-      <div class="vclPanelBody">
-        <p class="vclPanelContent">
-          non-modal layer 2 text goes here<br><br>
-          <button vcl-button (click)="closeLayer2()" label="close Layer"></button>
-        </p>
-      </div>
+<template vcl-layer #layer2="layer" [modal]="false">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Non-modal layer 2 title goes here</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        non-modal layer 2 text goes here<br><br>
+        <button vcl-button (click)="layer2.close()" label="close Layer"></button>
+      </p>
     </div>
   </div>
-</vcl-layer>
+</template>

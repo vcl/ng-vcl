@@ -29,4 +29,3 @@ export class OverlayManagerService {
     return -1;
   }
 }
-

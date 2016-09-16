@@ -1,58 +1,140 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var wormhole_1 = require('./../../directives/wormhole');
 var core_1 = require('@angular/core');
-var overlayManager_service_1 = require('../../services/overlayManager.service');
-var LayerComponent = (function () {
-    function LayerComponent(overlayManger, myElement) {
-        this.overlayManger = overlayManger;
-        this.myElement = myElement;
-        this.open = false;
-        this.openChange = new core_1.EventEmitter();
-        this.modal = true;
-        this.zIndex = -1;
-        this.coverZIndex = -1;
+var layerManager_service_1 = require('../../services/layerManager.service');
+/**
+
+layer
+
+## Usage
+
+```html
+<vcl-layer-base></vcl-layer-base>
+```
+
+```html
+
+<button vcl-button (click)="myLayer.open()" label="open modal layer"></button>
+
+<template vcl-layer #myLayer="layer" [modal]="false">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Title</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Content
+        <button vcl-button (click)="myLayer.close()" label="close Layer"></button>
+      </p>
+    </div>
+  </div>
+</template>
+```
+*/
+var LayerBaseComponent = (function () {
+    function LayerBaseComponent(layerManger) {
+        this.layerManger = layerManger;
+        this.visibleLayers = [];
     }
-    LayerComponent.prototype.close = function () {
-        this.open = false;
-        this.openChange.emit(this.open);
+    LayerBaseComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.layerManger.visibleLayersChanged.subscribe(function (visibleLayers) {
+            _this.visibleLayers = visibleLayers;
+        });
     };
-    LayerComponent.prototype.onClick = function (event) {
-        //layer covers 100% screen width & height. first element in layer represents 'outside'
-        if (!this.modal && event.target.parentNode === this.myElement.nativeElement) {
+    LayerBaseComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    LayerBaseComponent.decorators = [
+        { type: core_1.Component, args: [{
+                    selector: 'vcl-layer-base',
+                    templateUrl: 'layer-base.component.html'
+                },] },
+    ];
+    /** @nocollapse */
+    LayerBaseComponent.ctorParameters = [
+        { type: layerManager_service_1.LayerManagerService, },
+    ];
+    return LayerBaseComponent;
+}());
+exports.LayerBaseComponent = LayerBaseComponent;
+var LayerDirective = (function (_super) {
+    __extends(LayerDirective, _super);
+    function LayerDirective(templateRef, elementRef, layerManger) {
+        _super.call(this, templateRef);
+        this.templateRef = templateRef;
+        this.elementRef = elementRef;
+        this.layerManger = layerManger;
+        this.visibilityChange$ = new core_1.EventEmitter();
+        this.modal = true;
+        this.name = 'default';
+        this.visible = false;
+        this.coverzIndex = 10;
+        this.zIndex = 11;
+    }
+    Object.defineProperty(LayerDirective.prototype, "visibilityChange", {
+        get: function () {
+            return this.visibilityChange$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    LayerDirective.prototype.ngOnInit = function () {
+        this.layerManger.register(this);
+    };
+    LayerDirective.prototype.ngOnDestroy = function () {
+        this.layerManger.unregister(this);
+    };
+    LayerDirective.prototype.onClick = function (event) {
+        // layer covers 100% screen width & height. first element in layer represents 'outside'
+        if (!this.modal && event.target.parentNode === this.elementRef.nativeElement) {
             this.close();
         }
     };
-    LayerComponent.prototype.ngOnChanges = function (changes) {
-        try {
-            if (changes.open.currentValue === true) {
-                this.zIndex = this.overlayManger.register(this);
-                this.coverZIndex = this.zIndex - 1;
-            }
-            else if (changes.open.currentValue === false) {
-                this.zIndex = this.overlayManger.unregister(this);
-                this.coverZIndex = -1;
-            }
-        }
-        catch (ex) { }
+    LayerDirective.prototype.setZIndex = function (zIndex) {
+        if (zIndex === void 0) { zIndex = 10; }
+        this.coverzIndex = zIndex;
+        this.zIndex = zIndex + 1;
     };
-    LayerComponent.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'vcl-layer',
-                    templateUrl: 'layer.component.html',
+    LayerDirective.prototype.toggle = function () {
+        this.visible = !this.visible;
+        this.visibilityChange$.emit(this.visible);
+    };
+    LayerDirective.prototype.open = function () {
+        this.setZIndex(this.layerManger.currentZIndex + 10);
+        this.visible = true;
+        this.visibilityChange$.emit(this.visible);
+    };
+    LayerDirective.prototype.close = function () {
+        this.setZIndex();
+        this.visible = false;
+        this.visibilityChange$.emit(this.visible);
+    };
+    LayerDirective.decorators = [
+        { type: core_1.Directive, args: [{
+                    selector: '[vcl-layer]',
+                    exportAs: 'layer',
                     host: {
                         '(document:click)': 'onClick($event)',
                     },
                 },] },
     ];
     /** @nocollapse */
-    LayerComponent.ctorParameters = [
-        { type: overlayManager_service_1.OverlayManagerService, },
+    LayerDirective.ctorParameters = [
+        { type: core_1.TemplateRef, },
         { type: core_1.ElementRef, },
+        { type: layerManager_service_1.LayerManagerService, },
     ];
-    LayerComponent.propDecorators = {
-        'open': [{ type: core_1.Input },],
-        'openChange': [{ type: core_1.Output },],
+    LayerDirective.propDecorators = {
+        'visibilityChange': [{ type: core_1.Output },],
         'modal': [{ type: core_1.Input },],
+        'name': [{ type: core_1.Input },],
     };
-    return LayerComponent;
-}());
-exports.LayerComponent = LayerComponent;
+    return LayerDirective;
+}(wormhole_1.Wormhole));
+exports.LayerDirective = LayerDirective;

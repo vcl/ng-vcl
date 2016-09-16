@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from "./components/home/home.component";
 import { DEMO_COMPONENTS } from "./demo-components";
 
-
 import { routing, appRoutingProviders } from './app.routes';
 
 @NgModule({
