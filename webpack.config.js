@@ -68,7 +68,11 @@ function webpackConfig(options) {
       new ForkCheckerPlugin(),
       new CommonsChunkPlugin({ name: ['main', 'vendor'], minChunks: Infinity }),
       new DefinePlugin(CONSTANTS),
-      new ProgressPlugin({})
+      new ProgressPlugin({}),
+      new ContextReplacementPlugin(
+        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+        __dirname
+      ),
     ],
 
     resolve: {
