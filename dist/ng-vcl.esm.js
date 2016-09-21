@@ -1,4 +1,4 @@
-import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, OpaqueToken, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren, TemplateRef, ViewContainerRef, ContentChild } from '@angular/core';
+import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren, TemplateRef, ViewContainerRef, ContentChild, OpaqueToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -2065,4 +2065,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, VCLLayerModule, VCLTabModule, VCLTetherModule, VCLPopoverModule, PopoverComponent, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, LayerManagerService };
+export { VCLModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, VCLLayerModule, VCLTabModule, VCLTetherModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, LayerManagerService };
