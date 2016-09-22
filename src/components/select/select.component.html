@@ -1,6 +1,6 @@
 <div [attr.aria-autocomplete]="ariaRole" class="vclSelect vclInputGroupEmb">
-  <input (tap)="expand()" class="vclInput" value="Some selected value" readonly>
-  <button vcl-button (click)="expand()" class="vclTransparent vclSquare vclAppended" appIcon="fa:chevron-down"></button>
+  <input (tap)="expand()" class="vclInput" [attr.value]="displayValue" readonly>
+  <button vcl-button (click)="expand()" class="vclTransparent vclSquare vclAppended" [appIcon]="expanded ? expandedIcon : collapsedIcon"></button>
   <vcl-dropdown (select)="onSelect($event)"
     [(expanded)]="expanded"
     [items]="items"
