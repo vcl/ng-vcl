@@ -4,6 +4,7 @@ import {NgModule } from '@angular/core';
 import { VCLIconModule,  } from './components/icon/icon.module';
 import { VCLMetalistModule  } from './components/metalist/metalist.module';
 import { VCLDropdownModule  } from './components/dropdown/dropdown.module';
+import { VCLSelectModule  } from './components/select/select.module';
 import { VCLIcogramModule } from './components/icogram/icogram.module';
 import { VCLButtonModule } from './components/button/button.module';
 import { VCLButtonGroupModule } from './components/button-group/button-group.module';
@@ -49,7 +50,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLCheckboxModule,
     VCLFormControlLabelModule,
     VCLMetalistModule,
-    VCLDropdownModule
+    VCLDropdownModule,
+    VCLSelectModule
   ],
   exports: [
     VCLWormholeModule,
@@ -66,7 +68,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLCheckboxModule,
     VCLFormControlLabelModule,
     VCLMetalistModule,
-    VCLDropdownModule
+    VCLDropdownModule,
+    VCLSelectModule
   ],
   providers: [
     LayerManagerService,

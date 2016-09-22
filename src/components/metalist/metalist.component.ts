@@ -1,4 +1,4 @@
-import { Component, Input, Output, ContentChild, TemplateRef, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit } from '@angular/core';
 
 /**
 */
@@ -8,6 +8,9 @@ import { Component, Input, Output, ContentChild, TemplateRef, OnInit } from '@an
   templateUrl: 'metalist.component.html'
 })
 export class MetalistComponent implements OnInit {
+
+  @Output()
+  select = new EventEmitter<any[]>();
 
   @Input() items: any[];
 
@@ -67,6 +70,7 @@ export class MetalistComponent implements OnInit {
     if(this.getSelectedItems().length < this.maxSelectableItems && this.meta[itemIndex]) {
       this.meta[itemIndex].selected = true;
     }
+    this.select.emit(this.getSelectedItems());
   }
 
   deSelectItem(item: any) {
@@ -77,6 +81,7 @@ export class MetalistComponent implements OnInit {
     if(this.meta[itemIndex]) {
       this.meta[itemIndex].selected = false;
     }
+    this.select.emit(this.getSelectedItems());
   }
 
   getSelectedItems() {

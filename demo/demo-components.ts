@@ -1,6 +1,7 @@
 import { IconComponent } from "./components/icon/icon.component";
 import { MetalistComponent } from "./components/metalist/metalist.component";
 import { DropdownComponent } from "./components/dropdown/dropdown.component";
+import { SelectComponent } from "./components/select/select.component";
 import { IcogramComponent } from "./components/icogram/icogram.component";
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
@@ -29,6 +30,11 @@ export const DEMO_COMPONENTS = [
     name: 'Dropdown',
     component: DropdownComponent,
     path: 'dropdown'
+  },
+  {
+    name: 'Select',
+    component: SelectComponent,
+    path: 'select'
   },
   {
     name: 'Icogram',

@@ -1,4 +1,5 @@
 import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
+import { MetalistComponent } from '../metalist/metalist.component';
 
 /**
 */
@@ -13,7 +14,7 @@ export class DropdownComponent {
   constructor() { }
 
   @Output()
-  select = new EventEmitter<any>();
+  select = new EventEmitter<any[]>();
 
   @Input()
   items: any[];
@@ -36,16 +37,22 @@ export class DropdownComponent {
   @Input()
   ariaRole: string = 'listbox';
 
-  onSelect(item: any, meta: any, metalist: any) {
-    if(meta.selected && this.maxSelectableItems !== 1) {
-      metalist.deSelectItem(item);
-    } else {
+  selectItem(item: any, meta, metalist: MetalistComponent) {
+    if (this.maxSelectableItems === 1) {
+      this.expanded = false;
+      this.expandedChange.emit(this.expanded);
       metalist.selectItem(item);
-      if (this.maxSelectableItems === 1) {
-        this.expanded = false;
-        this.expandedChange.emit(this.expanded);
+    } else {
+      if (meta.selected) {
+        metalist.deSelectItem(item);
+      } else {
+        metalist.selectItem(item);
       }
     }
+  }
+
+  onSelect(selectedItems: any[]) {
+    this.select.emit(selectedItems);
   }
 
   metaInformation: any = [];

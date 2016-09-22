@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  templateUrl: 'dropdown.component.html'
+  templateUrl: 'select.component.html'
 })
-export class DropdownComponent implements OnInit {
-
-  selectedItem: any;
-
-  expanded: boolean = true;
-
-  constructor() { }
-
-  ngOnInit() { }
+export class SelectComponent implements OnInit {
 
   items: any[] = [
     { label: 'item 1' },
@@ -26,16 +18,11 @@ export class DropdownComponent implements OnInit {
     { label: 'item 10' }
   ]
 
-  onSelect(selectedItems: any[]) {
-    console.log(selectedItems);
-    if (selectedItems && selectedItems[0]) {
-      this.selectedItem = selectedItems[0];
-    } else {
-      this.selectedItem = null;
-    }
-  }
+  constructor() { }
 
-  expand() {
-    this.expanded = !this.expanded;
+  ngOnInit() { }
+
+  onSelect(items: any[]) {
+    console.log('Selected Items: ', items);
   }
 }
