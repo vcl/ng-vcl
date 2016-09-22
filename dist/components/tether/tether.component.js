@@ -1,6 +1,6 @@
 "use strict";
 var core_1 = require('@angular/core');
-var tether_1 = require('tether');
+var Tether = require('tether');
 var TetherComponent = (function () {
     function TetherComponent(myElement) {
         this.myElement = myElement;
@@ -8,7 +8,7 @@ var TetherComponent = (function () {
     }
     TetherComponent.prototype.ngAfterViewInit = function () {
         try {
-            new tether_1.default({
+            new Tether({
                 element: '#' + this.id,
                 target: this.target,
                 attachment: this.attachment,

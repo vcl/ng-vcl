@@ -5,6 +5,9 @@ function __export(m) {
 var input_module_1 = require('./components/input/input.module');
 var core_1 = require('@angular/core');
 var icon_module_1 = require('./components/icon/icon.module');
+var metalist_module_1 = require('./components/metalist/metalist.module');
+var dropdown_module_1 = require('./components/dropdown/dropdown.module');
+var select_module_1 = require('./components/select/select.module');
 var icogram_module_1 = require('./components/icogram/icogram.module');
 var button_module_1 = require('./components/button/button.module');
 var button_group_module_1 = require('./components/button-group/button-group.module');
@@ -49,7 +52,10 @@ var VCLModule = (function () {
                         popover_module_1.VCLPopoverModule,
                         radio_button_module_1.VCLRadioButtonModule,
                         checkbox_module_1.VCLCheckboxModule,
-                        form_control_label_module_1.VCLFormControlLabelModule
+                        form_control_label_module_1.VCLFormControlLabelModule,
+                        metalist_module_1.VCLMetalistModule,
+                        dropdown_module_1.VCLDropdownModule,
+                        select_module_1.VCLSelectModule
                     ],
                     exports: [
                         wormhole_1.VCLWormholeModule,
@@ -64,7 +70,10 @@ var VCLModule = (function () {
                         popover_module_1.VCLPopoverModule,
                         radio_button_module_1.VCLRadioButtonModule,
                         checkbox_module_1.VCLCheckboxModule,
-                        form_control_label_module_1.VCLFormControlLabelModule
+                        form_control_label_module_1.VCLFormControlLabelModule,
+                        metalist_module_1.VCLMetalistModule,
+                        dropdown_module_1.VCLDropdownModule,
+                        select_module_1.VCLSelectModule
                     ],
                     providers: [
                         layerManager_service_2.LayerManagerService,

@@ -1,4 +1,4 @@
-import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, Inject, Optional, Pipe, ElementRef, HostBinding, QueryList, ContentChildren, TemplateRef, ViewContainerRef, ContentChild, OpaqueToken } from '@angular/core';
+import { NgModule, Renderer, Directive, HostListener, Output, Input, EventEmitter, ChangeDetectionStrategy, Component, Injectable, Inject, Optional, Pipe, TemplateRef, ContentChild, ElementRef, HostBinding, QueryList, ContentChildren, ViewContainerRef, OpaqueToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
 import 'hammerjs';
-import Tether from 'tether';
+import * as Tether from 'tether';
 
 function __extends(d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -567,95 +567,259 @@ var VCLIconModule = (function () {
 }());
 
 /**
-Combination of icon and text of which both are optional and can be permuted.
-Icons can be prepended or appended to a textual label and can be sourced from icon
-fonts or directly from file based imagery.
-The component takes care of accessibility aspects such rendering appropriate aria
-attributes.
-It also renders accessability labels for icons if no label for the icogram is
-provided.
-Note: the optionally generated anchor elemt's default action (follow the link)
-is _not_ supressed when using the `href` property.
-Us the vcl-link component if you want to have a fully fledged anchor tag.
-## Usage
-```html
-<vcl-icogram label="some label" prepIcon="fa fa-chevron-right" flexLabel=true></vcl-icogram>
-<vcl-icogram label="some label" prepIconSrc="..." href="http://example.org"></vcl-icogram>
-<vcl-icogram label="some label" use="..."></vcl-icogram>
-<vcl-icogram>
-  <vcl-icon icon="fa:close"></vcl-icon>
-</vcl-icogram>
-```
-@param    label           optional      textual label
-@param    href            optional      if an href is given an accessible link is generated
-@param    flexLabel       optional      the label gets a `vclLayoutFlex` class if true
-@param    prepIcon        optional      Icon as defined by the icon component
-@param    appIcon         optional      Same as `prepIcon` but appended
-@demo example
 */
-var IcogramComponent = (function () {
-    // TODO prepIconSrc not implemented but used in example
-    // @Input() prepIconSrc: string;
-    function IcogramComponent(elRef) {
-        this.el = elRef.nativeElement;
+var MetalistComponent = (function () {
+    function MetalistComponent() {
+        this.select = new EventEmitter();
+        this.minSelectableItems = 1;
+        this.maxSelectableItems = 1;
+        this.maxItemsSelected = false;
     }
-    IcogramComponent.prototype.ngOnInit = function () { };
-    Object.defineProperty(IcogramComponent.prototype, "ariaRole", {
-        get: function () {
-            return (this.el && this.el.tagName.toLowerCase() !== 'a' && this.href) ? 'link' : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    MetalistComponent.prototype.next = function () {
+        var oldIndex = this.getMarkedItemIndex();
+        if (oldIndex !== -1) {
+            var newIndex = oldIndex + 1;
+            if (this.items.length > newIndex) {
+                this.setMarkedIndex(newIndex);
+            }
+        }
+        else {
+            this.setMarkedIndex(0);
+        }
+    };
+    MetalistComponent.prototype.prev = function () {
+        var oldIndex = this.getMarkedItemIndex();
+        if (oldIndex !== -1) {
+            var newIndex = oldIndex - 1;
+            if (newIndex >= 0) {
+                this.setMarkedIndex(newIndex);
+            }
+        }
+    };
+    MetalistComponent.prototype.ngOnInit = function () {
+        if (!this.meta) {
+            // create meta if not present
+            this.meta = [];
+        }
+    };
+    MetalistComponent.prototype.selectItem = function (item) {
+        var itemIndex = this.items.indexOf(item);
+        if (itemIndex === -1) {
+            return;
+        }
+        // maxSelectableItems === 1 -> deselect old item
+        if (this.maxSelectableItems === 1) {
+            var metaItems = this.meta.filter(function (obj) {
+                return obj && obj.selected === true;
+            });
+            for (var i = 0; i < metaItems.length; i++) {
+                metaItems[i].selected = false;
+            }
+        }
+        if (this.getSelectedItems().length < this.maxSelectableItems && this.meta[itemIndex]) {
+            this.meta[itemIndex].selected = true;
+        }
+        this.select.emit(this.getSelectedItems());
+    };
+    MetalistComponent.prototype.deSelectItem = function (item) {
+        var itemIndex = this.items.indexOf(item);
+        if (itemIndex === -1) {
+            return;
+        }
+        if (this.meta[itemIndex]) {
+            this.meta[itemIndex].selected = false;
+        }
+        this.select.emit(this.getSelectedItems());
+    };
+    MetalistComponent.prototype.getSelectedItems = function () {
+        var metaItems = this.meta.filter(function (obj) {
+            return obj && obj.selected === true;
+        });
+        var result = [];
+        for (var i = 0; i < metaItems.length; i++) {
+            result.push(this.items[this.meta.indexOf(metaItems[i])]);
+        }
+        return result;
+    };
+    MetalistComponent.prototype.setSelectedItems = function () {
+    };
+    MetalistComponent.prototype.getMarkedItemIndex = function () {
+        var meta = this.getMarkedItemMeta();
+        if (meta) {
+            return this.meta.indexOf(meta);
+        }
+        return -1;
+    };
+    MetalistComponent.prototype.getMarkedItemMeta = function () {
+        return this.meta.filter(function (obj) {
+            return obj && obj.marked === true;
+        })[0];
+    };
+    MetalistComponent.prototype.setMarkedIndex = function (index) {
+        // unset old item
+        var oldItem = this.getMarkedItemMeta();
+        if (oldItem) {
+            oldItem.marked = false;
+        }
+        var meta = this.meta[index];
+        if (meta) {
+            meta.marked = true;
+        }
+    };
+    MetalistComponent.prototype.setMarkedItem = function (item) {
+        var markedIndex = this.items.indexOf(item);
+        if (markedIndex !== -1) {
+            this.setMarkedIndex(markedIndex);
+        }
+    };
+    MetalistComponent.prototype.getMeta = function (item) {
+        var key = this.items.indexOf(item);
+        if (!this.meta[key]) {
+            this.meta[key] = {};
+        }
+        return this.meta[key];
+    };
     __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IcogramComponent.prototype, "label", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IcogramComponent.prototype, "href", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], IcogramComponent.prototype, "flexLabel", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IcogramComponent.prototype, "prepIcon", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IcogramComponent.prototype, "appIcon", void 0);
-    __decorate([
-        HostBinding('attr.role'), 
+        Output(), 
         __metadata('design:type', Object)
-    ], IcogramComponent.prototype, "ariaRole", null);
-    IcogramComponent = __decorate([
+    ], MetalistComponent.prototype, "select", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Array)
+    ], MetalistComponent.prototype, "items", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], MetalistComponent.prototype, "meta", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], MetalistComponent.prototype, "minSelectableItems", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], MetalistComponent.prototype, "maxSelectableItems", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Boolean)
+    ], MetalistComponent.prototype, "maxItemsSelected", void 0);
+    __decorate([
+        ContentChild(TemplateRef), 
+        __metadata('design:type', Object)
+    ], MetalistComponent.prototype, "template", void 0);
+    MetalistComponent = __decorate([
         Component({
-            selector: 'vcl-icogram, [vcl-icogram]',
-            template: "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush
+            selector: 'vcl-metalist',
+            template: "<template *ngFor=\"let item of items\" [ngTemplateOutlet]=\"template\" [ngOutletContext]=\"{item: item, meta: getMeta(item) }\"></template>\n"
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
-    ], IcogramComponent);
-    return IcogramComponent;
-    var _a;
+        __metadata('design:paramtypes', [])
+    ], MetalistComponent);
+    return MetalistComponent;
 }());
 
-var VCLIcogramModule = (function () {
-    function VCLIcogramModule() {
+var VCLMetalistModule = (function () {
+    function VCLMetalistModule() {
     }
-    VCLIcogramModule = __decorate([
+    VCLMetalistModule = __decorate([
         NgModule({
-            imports: [CommonModule, VCLIconModule, L10nModule],
-            exports: [IcogramComponent],
-            declarations: [IcogramComponent],
+            imports: [CommonModule, L10nModule],
+            exports: [MetalistComponent],
+            declarations: [MetalistComponent],
             providers: [],
         }), 
         __metadata('design:paramtypes', [])
-    ], VCLIcogramModule);
-    return VCLIcogramModule;
+    ], VCLMetalistModule);
+    return VCLMetalistModule;
+}());
+
+/**
+*/
+var DropdownComponent = (function () {
+    function DropdownComponent() {
+        this.select = new EventEmitter();
+        this.tabindex = 0;
+        this.expanded = false;
+        this.expandedChange = new EventEmitter();
+        this.maxSelectableItems = 1;
+        this.minSelectableItems = 1;
+        this.ariaRole = 'listbox';
+        this.metaInformation = [];
+    }
+    DropdownComponent.prototype.selectItem = function (item, meta, metalist) {
+        if (this.maxSelectableItems === 1) {
+            this.expanded = false;
+            this.expandedChange.emit(this.expanded);
+            metalist.selectItem(item);
+        }
+        else {
+            if (meta.selected) {
+                metalist.deSelectItem(item);
+            }
+            else {
+                metalist.selectItem(item);
+            }
+        }
+    };
+    DropdownComponent.prototype.onSelect = function (selectedItems) {
+        this.select.emit(selectedItems);
+    };
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], DropdownComponent.prototype, "select", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Array)
+    ], DropdownComponent.prototype, "items", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], DropdownComponent.prototype, "tabindex", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], DropdownComponent.prototype, "expanded", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', (typeof (_a = typeof EventEmitter !== 'undefined' && EventEmitter) === 'function' && _a) || Object)
+    ], DropdownComponent.prototype, "expandedChange", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], DropdownComponent.prototype, "maxSelectableItems", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], DropdownComponent.prototype, "minSelectableItems", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], DropdownComponent.prototype, "ariaRole", void 0);
+    DropdownComponent = __decorate([
+        Component({
+            selector: 'vcl-dropdown',
+            template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush
+        }), 
+        __metadata('design:paramtypes', [])
+    ], DropdownComponent);
+    return DropdownComponent;
+    var _a;
+}());
+
+var VCLDropdownModule = (function () {
+    function VCLDropdownModule() {
+    }
+    VCLDropdownModule = __decorate([
+        NgModule({
+            imports: [CommonModule, L10nModule, VCLMetalistModule],
+            exports: [DropdownComponent],
+            declarations: [DropdownComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLDropdownModule);
+    return VCLDropdownModule;
 }());
 
 /**
@@ -774,6 +938,98 @@ var ButtonComponent = (function () {
     var _a;
 }());
 
+/**
+Combination of icon and text of which both are optional and can be permuted.
+Icons can be prepended or appended to a textual label and can be sourced from icon
+fonts or directly from file based imagery.
+The component takes care of accessibility aspects such rendering appropriate aria
+attributes.
+It also renders accessability labels for icons if no label for the icogram is
+provided.
+Note: the optionally generated anchor elemt's default action (follow the link)
+is _not_ supressed when using the `href` property.
+Us the vcl-link component if you want to have a fully fledged anchor tag.
+## Usage
+```html
+<vcl-icogram label="some label" prepIcon="fa fa-chevron-right" flexLabel=true></vcl-icogram>
+<vcl-icogram label="some label" prepIconSrc="..." href="http://example.org"></vcl-icogram>
+<vcl-icogram label="some label" use="..."></vcl-icogram>
+<vcl-icogram>
+  <vcl-icon icon="fa:close"></vcl-icon>
+</vcl-icogram>
+```
+@param    label           optional      textual label
+@param    href            optional      if an href is given an accessible link is generated
+@param    flexLabel       optional      the label gets a `vclLayoutFlex` class if true
+@param    prepIcon        optional      Icon as defined by the icon component
+@param    appIcon         optional      Same as `prepIcon` but appended
+@demo example
+*/
+var IcogramComponent = (function () {
+    // TODO prepIconSrc not implemented but used in example
+    // @Input() prepIconSrc: string;
+    function IcogramComponent(elRef) {
+        this.el = elRef.nativeElement;
+    }
+    IcogramComponent.prototype.ngOnInit = function () { };
+    Object.defineProperty(IcogramComponent.prototype, "ariaRole", {
+        get: function () {
+            return (this.el && this.el.tagName.toLowerCase() !== 'a' && this.href) ? 'link' : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "label", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "href", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], IcogramComponent.prototype, "flexLabel", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "prepIcon", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "appIcon", void 0);
+    __decorate([
+        HostBinding('attr.role'), 
+        __metadata('design:type', Object)
+    ], IcogramComponent.prototype, "ariaRole", null);
+    IcogramComponent = __decorate([
+        Component({
+            selector: 'vcl-icogram, [vcl-icogram]',
+            template: "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
+    ], IcogramComponent);
+    return IcogramComponent;
+    var _a;
+}());
+
+var VCLIcogramModule = (function () {
+    function VCLIcogramModule() {
+    }
+    VCLIcogramModule = __decorate([
+        NgModule({
+            imports: [CommonModule, VCLIconModule, L10nModule],
+            exports: [IcogramComponent],
+            declarations: [IcogramComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLIcogramModule);
+    return VCLIcogramModule;
+}());
+
 var VCLButtonModule = (function () {
     function VCLButtonModule() {
     }
@@ -787,6 +1043,105 @@ var VCLButtonModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLButtonModule);
     return VCLButtonModule;
+}());
+
+/**
+*/
+var SelectComponent = (function () {
+    function SelectComponent() {
+        this.ariaRole = 'list';
+        this.select = new EventEmitter();
+        this.expanded = false;
+        this.minSelectableItems = 1;
+        this.maxSelectableItems = 1;
+        this.expandedIcon = 'fa:chevron-up';
+        this.collapsedIcon = 'fa:chevron-down';
+        this.inputValue = 'label';
+        this.emptyLabel = 'Select value';
+        this.displayValue = this.emptyLabel;
+    }
+    SelectComponent.prototype.expand = function () {
+        this.expanded = !this.expanded;
+    };
+    SelectComponent.prototype.onSelect = function (items) {
+        this.select.emit(items);
+        if (items && items[0] && this.maxSelectableItems === 1) {
+            this.displayValue = items[0][this.inputValue];
+        }
+        else if (!items || items.length === 0) {
+            this.displayValue = this.emptyLabel;
+        }
+        else {
+            var result = '';
+            for (var i = 0; i < items.length; i++) {
+                result += items[i][this.inputValue];
+                if (i !== items.length - 1) {
+                    result += ', ';
+                }
+            }
+            this.displayValue = result;
+        }
+    };
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], SelectComponent.prototype, "select", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], SelectComponent.prototype, "expanded", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Array)
+    ], SelectComponent.prototype, "items", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], SelectComponent.prototype, "minSelectableItems", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], SelectComponent.prototype, "maxSelectableItems", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], SelectComponent.prototype, "expandedIcon", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], SelectComponent.prototype, "collapsedIcon", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], SelectComponent.prototype, "inputValue", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], SelectComponent.prototype, "emptyLabel", void 0);
+    SelectComponent = __decorate([
+        Component({
+            selector: 'vcl-select',
+            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SelectComponent);
+    return SelectComponent;
+}());
+
+var VCLSelectModule = (function () {
+    function VCLSelectModule() {
+    }
+    VCLSelectModule = __decorate([
+        NgModule({
+            imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule],
+            exports: [SelectComponent],
+            declarations: [SelectComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLSelectModule);
+    return VCLSelectModule;
 }());
 
 /**
@@ -2038,7 +2393,10 @@ var VCLModule = (function () {
                 VCLPopoverModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
-                VCLFormControlLabelModule
+                VCLFormControlLabelModule,
+                VCLMetalistModule,
+                VCLDropdownModule,
+                VCLSelectModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -2053,7 +2411,10 @@ var VCLModule = (function () {
                 VCLPopoverModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
-                VCLFormControlLabelModule
+                VCLFormControlLabelModule,
+                VCLMetalistModule,
+                VCLDropdownModule,
+                VCLSelectModule
             ],
             providers: [
                 LayerManagerService,
