@@ -10,6 +10,7 @@ import { VCLButtonModule } from './components/button/button.module';
 import { VCLButtonGroupModule } from './components/button-group/button-group.module';
 import { VCLLayerModule } from './components/layer/layer.module';
 import { VCLTabModule } from './components/tab/tab.module';
+import { VCLToolbarModule } from './components/toolbar/toolbar.module';
 import { VCLTetherModule } from './components/tether/tether.module';
 import { VCLPopoverModule } from './components/popover/popover.module';
 import { VCLRadioButtonModule } from './components/radio-button/radio-button.module';
@@ -23,6 +24,7 @@ export * from './components/button/button.module';
 export * from './components/button-group/button-group.module';
 export * from './components/layer/layer.module';
 export * from './components/tab/tab.module';
+export * from './components/toolbar/toolbar.module';
 export * from './components/tether/tether.module';
 export * from './components/popover/popover.module';
 export * from './components/radio-button/radio-button.module';
@@ -45,6 +47,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLTetherModule,
     VCLInputModule,
     VCLTabModule,
+    VCLToolbarModule,
     VCLPopoverModule,
     VCLRadioButtonModule,
     VCLCheckboxModule,
@@ -63,6 +66,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLTetherModule,
     VCLInputModule,
     VCLTabModule,
+    VCLToolbarModule,
     VCLPopoverModule,
     VCLRadioButtonModule,
     VCLCheckboxModule,

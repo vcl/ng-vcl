@@ -8883,3 +8883,99 @@ li [class*=" fa-"] {
   width: 1.25em;
   text-align: center;
 }
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  margin-top: 0;
+  padding: 1em;
+  position: relative;
+}
+
+.docMain {
+  height: 100%;
+}
+
+.docMetadata {
+  margin-bottom: 1em;
+}
+
+.docMetadata .vclGridSpan-gca,
+.docMetadata .vclGridSpan-gcb {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.docQuicklinks {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+}
+
+.docWelcome {
+  margin: 3em;
+}
+
+.docDemo {
+  margin-top: 15px;
+  margin-bottom: 40px;
+}
+
+.docDemoContent {
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 0;
+  margin: 0;
+  overflow: auto;
+  position: relative;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+
+.docContent {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.docPart {
+  margin-bottom: 20px;
+}
+
+.docNav {
+  padding-top: 10px;
+  padding-right: 15px;
+  padding-left: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  min-width: 15em;
+}
+
+.docMetadata {
+  padding-top: 10px;
+  margin-left: 1.5em;
+}
+
+.docNavHeading a {
+  font-weight: bold !important;
+}
+
+.docNavItem > .vclIcogram {
+  padding-left: 4.5em !important;
+}
+
+.docEditDemoButton {
+  float: right;
+}
+
+code.hljs {
+  white-space: inherit;
+}

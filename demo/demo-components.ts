@@ -13,6 +13,7 @@ import { FormControlLabelComponent } from './components/form-control-label/form-
 import { InputComponent } from './components/input/input.component';
 import { PopoverComponent } from './components/popover/popover.component';
 import { TabComponent } from './components/tab/tab.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WormholeComponent } from './components/wormhole/wormhole.component';
 
 export const DEMO_COMPONENTS = [
@@ -90,6 +91,11 @@ export const DEMO_COMPONENTS = [
     name: 'Tab',
     component: TabComponent,
     path: 'tab'
+  },
+  {
+    name: 'Toolbar',
+    component: ToolbarComponent,
+    path: 'toolbar'
   },
   {
     name: 'Wormhole',
