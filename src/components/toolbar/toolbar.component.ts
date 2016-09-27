@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
     '[class.vclLayoutJustified]': 'true',
     '[class.vclSecondary]': 'ariaLevel == 2',
     '[attr.aria-level]': 'ariaLevel',
-    '[attr.ariaRole]': '"menubar"',
+    '[attr.role]': '"menubar"',
   }
 })
 export class ToolbarComponent {

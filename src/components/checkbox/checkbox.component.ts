@@ -15,7 +15,7 @@ Checkbox
   selector: 'vcl-checkbox',
   template: `<vcl-icon [icon]="icon"></vcl-icon><ng-content></ng-content>`,
   host: {
-    '[attr.ariaRole]': '"checkbox"',
+    '[attr.role]': '"checkbox"',
     '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
   }

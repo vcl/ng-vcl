@@ -15,7 +15,7 @@ Radio button.
   selector: 'vcl-radio-button',
   template: `<vcl-icon [icon]="icon"></vcl-icon><ng-content></ng-content>`,
   host: {
-    '[attr.ariaRole]': '"radio"',
+    '[attr.role]': '"radio"',
     '[class.vclRadioButton]': 'true',
     '[class.vclScale130p]': 'true',
   }
