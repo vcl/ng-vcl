@@ -7,6 +7,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
 import { LayerComponent } from './components/layer/layer.component';
 import { TetherComponent } from './components/tether/tether.component';
+import { LinkComponent } from './components/link/link.component';
 import { RadioButtonComponent } from './components/radio-button/radio-button.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { FormControlLabelComponent } from './components/form-control-label/form-control-label.component';
@@ -61,6 +62,11 @@ export const DEMO_COMPONENTS = [
     name: 'Tether',
     component: TetherComponent,
     path: 'tether'
+  },
+  {
+    name: 'Link',
+    component: LinkComponent,
+    path: 'link',
   },
   {
     name: 'Radio Button',

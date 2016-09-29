@@ -7,7 +7,7 @@ The main control for triggering actions
 ## Usage
 
 ```html
-<button vcl-button label="My Button" (click)=""doSomething()></button>
+<button vcl-button label="My Button" (click)="doSomething()"></button>
 ```
 
 @demo example

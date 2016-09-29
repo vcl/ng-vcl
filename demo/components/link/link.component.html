@@ -1,0 +1,55 @@
+Link with action:
+<br>
+<vcl-link
+  (click)="someAction($event)"
+  [label]="'Trigger test action'"></vcl-link>
+<br><br>
+
+href attribute only (label is automatically created):
+<br>
+<vcl-link
+  [href]="'http://www.example.com'"></vcl-link>
+<br><br>
+
+Label and prepended icon:
+<br>
+<vcl-link
+  [href]="'#'"
+  [label]="'Example Link'"
+  [prepIcon]="'fa:chevron-right'"></vcl-link>
+<br><br>
+
+<!-- 
+Block usage:
+<br>
+<vcl-link [href]="'#'">
+  Label from block
+</vcl-link>
+<br><br>
+-->
+
+Disabled link:
+<br>
+<vcl-link
+  [disabled]="true"
+  [href]="'this is not considered as the link is disabled'"
+  [label]="'Disabled link'"></vcl-link>
+<br><br>
+
+Link with target _blank:
+<br>
+<vcl-link
+  [href]="'https://github.com/ember-vcl'"
+  [target]="'_blank'"
+  [label]="'Target _blank link'"></vcl-link>
+<br><br>
+
+Link with title, additional class and scheme:
+<br>
+<vcl-link
+  [title]="'link title'"
+  [class]="'additionalClass'"
+  [scheme]="'tel'"
+  [href]="'004971122222222'"
+  [label]="'I\'m a telephone number schemed link'"></vcl-link>
+<br><br>
