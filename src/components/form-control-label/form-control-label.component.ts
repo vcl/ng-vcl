@@ -5,11 +5,11 @@ Radio button.
 
 ## Usage
 
-```html+hbs
-<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```html
+<vcl-radio-button
+  [(checked)]="checked">
+</vcl-radio-button>
 ```
-
-@demo example
 */
 @Component({
   selector: '[vcl-form-control-label]',
@@ -52,12 +52,12 @@ export class FormControlLabelComponent implements OnInit {
 
   ngOnInit() { }
 
-  @HostBinding('class.vclFormControlLabelWrapping') 
-  get hbWrapping() { 
+  @HostBinding('class.vclFormControlLabelWrapping')
+  get hbWrapping() {
     return !!this.wrapping;
   }
-  @HostBinding('class.vclDisabled') 
-  get hbVclDisabled() { 
+  @HostBinding('class.vclDisabled')
+  get hbVclDisabled() {
     return !!this.disabled;
   }
 }

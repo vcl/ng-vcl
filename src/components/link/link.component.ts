@@ -13,7 +13,6 @@ The anchor tag with VCL and Angular awareness.
   [label]="'Example Link'"
   [prepIcon]="'fa:chevron-right'">
 ```
-@demo example
 
 @property     {String}    href         `href` attribute
 @property     {String}    target       `target` attribute
@@ -71,7 +70,7 @@ export class LinkComponent {
 
     return this.scheme
       ? `${this.scheme}:${this.href}`
-      : this.href; 
+      : this.href;
   }
 
   get _label(): string {

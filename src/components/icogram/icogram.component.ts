@@ -12,7 +12,9 @@ provided.
 Note: the optionally generated anchor elemt's default action (follow the link)
 is _not_ supressed when using the `href` property.
 Us the vcl-link component if you want to have a fully fledged anchor tag.
+
 ## Usage
+
 ```html
 <vcl-icogram label="some label" prepIcon="fa fa-chevron-right" flexLabel=true></vcl-icogram>
 <vcl-icogram label="some label" prepIconSrc="..." href="http://example.org"></vcl-icogram>
@@ -21,12 +23,12 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
   <vcl-icon icon="fa:close"></vcl-icon>
 </vcl-icogram>
 ```
+
 @param    label           optional      textual label
 @param    href            optional      if an href is given an accessible link is generated
 @param    flexLabel       optional      the label gets a `vclLayoutFlex` class if true
 @param    prepIcon        optional      Icon as defined by the icon component
 @param    appIcon         optional      Same as `prepIcon` but appended
-@demo example
 */
 @Component({
   selector: 'vcl-icogram, [vcl-icogram]',
@@ -51,7 +53,7 @@ export class IcogramComponent implements OnInit {
 
   ngOnInit() { }
 
-  @HostBinding('attr.role') 
+  @HostBinding('attr.role')
   get ariaRole() {
     return (this.el && this.el.tagName.toLowerCase()!=='a' && this.href) ? 'link' : null;
   }

@@ -45,7 +45,7 @@ Check the demo for the complete API documentation
 
 Browse the components and check the API by running the demo:
 
-```
+```sh
 git clone https://github.com/ng-vcl/ng-vcl.git
 cd ng-vcl
 npm install

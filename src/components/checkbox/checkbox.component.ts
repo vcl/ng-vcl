@@ -1,15 +1,15 @@
 import { Component, Input, Output, OnInit, HostBinding, HostListener, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
 
 /**
-Checkbox
+Checkbox.
 
 ## Usage
 
-```html+hbs
-<vcl-checkbox [(checked)]="checked"></vcl-checkbox>
+```html
+<vcl-checkbox
+  [(checked)]="checked">
+</vcl-checkbox>
 ```
-
-@demo example
 */
 @Component({
   selector: 'vcl-checkbox',
@@ -44,9 +44,9 @@ export class CheckboxComponent implements OnInit, OnChanges {
   The first parameter is the value of the `checked` property.
   @public
   @action
-  */  
-  @Output() 
-  checkedChange = new EventEmitter<boolean>();              
+  */
+  @Output()
+  checkedChange = new EventEmitter<boolean>();
 
   constructor(private elementRef: ElementRef) { }
 
@@ -60,18 +60,18 @@ export class CheckboxComponent implements OnInit, OnChanges {
     }
   }
 
-  @HostBinding('class.vclDisabled') 
-  get hbVclDisabled() { 
+  @HostBinding('class.vclDisabled')
+  get hbVclDisabled() {
     return !!this.disabled;
   }
 
-  @HostBinding('attr.aria-disabled') 
-  get hbAriaDisabled() { 
+  @HostBinding('attr.aria-disabled')
+  get hbAriaDisabled() {
     return !!this.disabled;
   }
 
-  @HostBinding('attr.checked') 
-  get hbChecked() { 
+  @HostBinding('attr.checked')
+  get hbChecked() {
     return !!this.checked;
   }
 

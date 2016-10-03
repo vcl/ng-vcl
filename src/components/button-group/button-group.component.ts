@@ -38,8 +38,6 @@ buttons: [
 
 When a button's action is triggered,
 it emits the given `action` with the `index` as param.
-
-@demo example1
 */
 
 export enum SelectionMode {

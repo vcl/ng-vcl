@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import 'hammerjs';
+
 /**
 The main control for triggering actions
 
@@ -9,8 +10,6 @@ The main control for triggering actions
 ```html
 <button vcl-button label="My Button" (click)="doSomething()"></button>
 ```
-
-@demo example
 
 @property     {String}    label    textual label
 */

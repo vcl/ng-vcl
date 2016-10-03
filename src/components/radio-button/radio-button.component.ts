@@ -5,11 +5,11 @@ Radio button.
 
 ## Usage
 
-```html+hbs
-<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```html
+<vcl-radio-button
+  [(checked)]="checked">
+</vcl-radio-button>
 ```
-
-@demo example
 */
 @Component({
   selector: 'vcl-radio-button',
@@ -44,9 +44,9 @@ export class RadioButtonComponent implements OnInit, OnChanges {
   The first parameter is the value of the `checked` property.
   @public
   @action
-  */  
-  @Output() 
-  checkedChange = new EventEmitter<boolean>();              
+  */
+  @Output()
+  checkedChange = new EventEmitter<boolean>();
 
   constructor(private elementRef: ElementRef) { }
 
@@ -60,18 +60,18 @@ export class RadioButtonComponent implements OnInit, OnChanges {
     }
   }
 
-  @HostBinding('class.vclDisabled') 
-  get hbVclDisabled() { 
+  @HostBinding('class.vclDisabled')
+  get hbVclDisabled() {
     return !!this.disabled;
   }
 
-  @HostBinding('attr.aria-disabled') 
-  get hbAriaDisabled() { 
+  @HostBinding('attr.aria-disabled')
+  get hbAriaDisabled() {
     return !!this.disabled;
   }
 
-  @HostBinding('attr.checked') 
-  get hbChecked() { 
+  @HostBinding('attr.checked')
+  get hbChecked() {
     return !!this.checked;
   }
 
