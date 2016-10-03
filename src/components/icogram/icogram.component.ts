@@ -30,13 +30,17 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
 @param    prepIcon        optional      Icon as defined by the icon component
 @param    appIcon         optional      Same as `prepIcon` but appended
 */
+
 @Component({
   selector: 'vcl-icogram, [vcl-icogram]',
+  host: {
+    '[class.vclIcogram]': 'true',
+    '[attr.role]:': 'img'
+  },
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IcogramComponent implements OnInit {
-
   @Input() label: string;
   @Input() href: string;
   @Input() flexLabel: boolean;
@@ -47,9 +51,9 @@ export class IcogramComponent implements OnInit {
   // TODO prepIconSrc not implemented but used in example
   // @Input() prepIconSrc: string;
 
-  constructor(elRef:ElementRef) {
+  constructor(elRef: ElementRef) {
     this.el = elRef.nativeElement;
-   }
+  }
 
   ngOnInit() { }
 

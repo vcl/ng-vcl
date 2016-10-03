@@ -66,7 +66,7 @@ export class PopoverComponent implements OverlayManagedComponent {
 
   ngOnChanges(changes) {
     try {
-      if(this.zIndexManaged) {
+      if (this.zIndexManaged) {
         if (changes.open.currentValue === true) {
           this.zIndex = this.overlayManger.register(this);
           this.coverZIndex = this.zIndex -1;

@@ -27,7 +27,7 @@ export class MetalistComponent implements OnInit {
     let oldIndex = this.getMarkedItemIndex();
     if (oldIndex !== -1) {
       let newIndex = oldIndex + 1;
-      if(this.items.length > newIndex) {
+      if (this.items.length > newIndex) {
         this.setMarkedIndex(newIndex);
       }
     } else {
@@ -39,14 +39,14 @@ export class MetalistComponent implements OnInit {
     let oldIndex = this.getMarkedItemIndex();
     if (oldIndex !== -1) {
       let newIndex = oldIndex - 1;
-      if(newIndex >= 0) {
+      if (newIndex >= 0) {
         this.setMarkedIndex(newIndex);
       }
     }
   }
 
   ngOnInit() {
-    if(!this.meta) {
+    if (!this.meta) {
       // create meta if not present
       this.meta = [];
     }
@@ -54,20 +54,20 @@ export class MetalistComponent implements OnInit {
 
   selectItem(item: any) {
     let itemIndex = this.items.indexOf(item);
-    if(itemIndex === -1) {
+    if (itemIndex === -1) {
       return;
     }
 
     // maxSelectableItems === 1 -> deselect old item
-    if(this.maxSelectableItems === 1) {
+    if (this.maxSelectableItems === 1) {
       let metaItems = this.meta.filter(function(obj) {
         return obj && obj.selected === true;
       });
-      for(let i=0; i < metaItems.length; i++ ) {
+      for (let i = 0; i < metaItems.length; i++ ) {
         metaItems[i].selected = false;
       }
     }
-    if(this.getSelectedItems().length < this.maxSelectableItems && this.meta[itemIndex]) {
+    if (this.getSelectedItems().length < this.maxSelectableItems && this.meta[itemIndex]) {
       this.meta[itemIndex].selected = true;
     }
     this.select.emit(this.getSelectedItems());
@@ -75,10 +75,10 @@ export class MetalistComponent implements OnInit {
 
   deSelectItem(item: any) {
     let itemIndex = this.items.indexOf(item);
-    if(itemIndex === -1) {
+    if (itemIndex === -1) {
       return;
     }
-    if(this.meta[itemIndex]) {
+    if (this.meta[itemIndex]) {
       this.meta[itemIndex].selected = false;
     }
     this.select.emit(this.getSelectedItems());
@@ -89,7 +89,7 @@ export class MetalistComponent implements OnInit {
       return obj && obj.selected === true;
     });
     let result = [];
-    for (let i=0; i < metaItems.length; i++) {
+    for (let i = 0; i < metaItems.length; i++) {
       result.push(this.items[this.meta.indexOf(metaItems[i])]);
     }
     return result;
@@ -138,7 +138,7 @@ export class MetalistComponent implements OnInit {
 
   getMeta(item) {
     let key = this.items.indexOf(item);
-    if(!this.meta[key]) {
+    if (!this.meta[key]) {
       this.meta[key] = {};
     }
     return this.meta[key];

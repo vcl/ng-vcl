@@ -15,7 +15,6 @@ layer
 ```
 
 ```html
-
 <button vcl-button (click)="myLayer.open()" label="open modal layer"></button>
 
 <template vcl-layer #myLayer="layer" [modal]="false">
