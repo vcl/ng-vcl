@@ -1,41 +1,6 @@
+import { Observable } from 'rxjs/Observable';
 import { Wormhole } from './../../directives/wormhole';
-import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewInit } from '@angular/core';
-
-/**
-vcl-tab-nav
-
-## Usage
-
-```html
-
-<vcl-tab-nav>
-  <vcl-tab>
-    <template vcl-tab-label>
-      Tab1
-    </template>
-    <template vcl-tab-content>
-      Content1
-    </template>
-  </vcl-tab>
-  <vcl-tab>
-    <template vcl-tab-label>
-      Tab2
-    </template>
-    <template vcl-tab-content>
-      Content2
-    </template>
-  </vcl-tab>
-  <vcl-tab [disabled]="true">
-    <template vcl-tab-label>
-      Tab3 disabled
-    </template>
-    <template vcl-tab-content>
-      Content2
-    </template>
-  </vcl-tab>
-</vcl-tab-nav>
-```
-*/
+import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter } from '@angular/core';
 
 @Directive({
   selector: '[vcl-tab-label]'
@@ -45,9 +10,6 @@ export class TabLabelDirective extends Wormhole  {
   constructor(protected templateRef: TemplateRef<any>) {
     super(templateRef);
   }
-
-  ngOnInit() { }
-
 }
 
 @Directive({
@@ -58,15 +20,12 @@ export class TabContentDirective extends Wormhole {
   constructor(protected templateRef: TemplateRef<any>) {
     super(templateRef);
   }
-
-  ngOnInit() { }
-
 }
 
 @Directive({
-    selector: 'vcl-tab'
+  selector: 'vcl-tab'
 })
-export class TabComponent implements AfterViewInit {
+export class TabComponent   {
 
   @ContentChild(TabLabelDirective)
   label: TabLabelDirective;
@@ -78,40 +37,48 @@ export class TabComponent implements AfterViewInit {
   disabled = false;
 
   constructor() { }
-
-  ngAfterViewInit() {
-    console.log(this.label);
-   }
-
 }
 
 @Component({
   selector: 'vcl-tab-nav',
   templateUrl: 'tab-nav.component.html'
 })
-export class TabNavComponent implements AfterViewInit {
+export class TabNavComponent {
 
   @ContentChildren(TabComponent)
   tabs: QueryList<TabComponent>;
 
-  currentTab: TabComponent;
+  @Input()
+  selectedTabIndex: number = 0;
 
-  constructor() {
-
+  selectedTabIndexChange$: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  get selectedTabIndexChange(): Observable<number> {
+    return this.selectedTabIndexChange$.asObservable();
   }
 
-  ngAfterViewInit() {
-    this.selectTab(0);
-  }
+  constructor(private _zone: NgZone) {}
 
   selectTab(tab: number | TabComponent) {
     const tabs = this.tabs.toArray();
-    if (typeof tab === 'number' && tabs[tab]) {
-      tab = tabs[tab];
+
+    let tabIdx;
+    let tabComp;
+
+    if (tab instanceof TabComponent) {
+      tabIdx = tabs.indexOf(tab);
+      tabComp = tab;
+    } else if (typeof tab === 'number' && tabs[tab]) {
+      tabIdx = tab;
+      tabComp = tabs[tabIdx];
+    } else {
+      tabIdx = -1;
+      tabComp = null;
     }
 
-    if (tab instanceof TabComponent && !tab.disabled) {
-      this.currentTab = tab;
+    if (tabIdx >= 0 && tab instanceof TabComponent && !tab.disabled) {
+      this.selectedTabIndex = tabIdx;
+      this.selectedTabIndexChange$.emit(tabIdx);
     }
   }
 }

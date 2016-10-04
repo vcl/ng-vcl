@@ -76,7 +76,7 @@ function webpackConfig(options) {
     ],
 
     resolve: {
-      extensions: ['', '.ts', '.js', '.json'],
+      extensions: ['.ts', '.js', '.json'],
     },
 
     devServer: {
@@ -87,7 +87,7 @@ function webpackConfig(options) {
       historyApiFallback: true
     },
     node: {
-      global: 'window',
+      global: true,
       process: true,
       Buffer: false,
       crypto: 'empty',
