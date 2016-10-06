@@ -10,17 +10,9 @@
 <br><br>
 <button vcl-button (click)="someAction($event)" flexLabel=true label="Flexed Label"></button>
 <br><br>
-<!--<button vcl-button onDown="pressedAction" onUp="releasedAction" label="Pressed and Released Action"></button>
-<br><br>-->
 <button vcl-button (click)="someAction($event)" label="Action" busy=true busyLabel='Busy label...'></button>
 <br><br>
 <button vcl-button (click)="someAction($event)" label="Action with appended busy icon" appIcon="fa:bolt" busy=true appIconBusy="fa:spinner fa-pulse"></button>
 <br><br>
 <button vcl-button (click)="someAction($event)" label="Action with prepended busy icon" prepIcon="fa:bolt" busy=true prepIconBusy="fa:refresh fa-spin"></button>
 <br><br>
-<!--<button vcl-button action=(action 'closureAction' 'someparamvalue') label="Closure Action with Param"></button>
-<br><br>
-<button vcl-button action=(action "closureAction" "someparamvalue") label="Closure Action with Param"></button>
-<br><br>
-<button vcl-button onDown=(action "closureAction" "down event") label="Different Events"></button>
--->

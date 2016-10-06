@@ -1,46 +1,31 @@
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef } from '@angular/core';
 import 'hammerjs';
 
-/**
-The main control for triggering actions
-
-## Usage
-
-```html
-<button vcl-button label="My Button" (click)="doSomething()"></button>
-```
-
-@property     {String}    label    textual label
-*/
 @Component({
   selector: '[vcl-button]',
   host: {
-    '(mouseenter)': 'hovered=true',
-    '(mouseleave)': 'hovered=false',
-    '(mousedown)': 'pressed=true',
-    '(mouseup)': 'pressed=false',
-    '(onfocus)': 'focused=true;',
-    '(onblur)': 'focused=false',
-
-    '(tap)': '_press.emit($event)',
-
     '[class.vclButton]': 'true',
-    '[class.vclHovered]': 'hovered',
-    '[class.vclDisabled]': 'disabled',
-    '[class.vclSelected]': 'selected',
   },
   templateUrl: 'button.component.html',
-  // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent implements OnInit {
-  hovered: boolean = false; // `true` if a pointer device is hovering the button (CSS' :hover)
+
   pressed: boolean = false; // `true` if a pointer device is conducting a `down` gesture on the button
   focused: boolean = false; // `true` if the element is focused  (CSS' :focus)
+
+  @HostBinding('class.vclHovered')
+  hovered: boolean = false; // `true` if a pointer device is hovering the button (CSS' :hover)
+
+  @Input()
+  @HostBinding('class.vclSelected')
   selected: boolean = false;
 
-  // TODO: Doc missing. Input attr?
+  @HostBinding('attr.aria-label')
+  @Input()
+  title: string;
+
   @Input()
   busy: boolean = false; // State to indicate that the button is disabled as a operation is in progress
 
@@ -60,6 +45,9 @@ export class ButtonComponent implements OnInit {
   prepIconBusy: string;
 
   @Input()
+  autoBlur: boolean = true;
+
+  @Input()
   appIcon: string;
 
   @Input()
@@ -70,9 +58,39 @@ export class ButtonComponent implements OnInit {
   get press(): Observable<any> {
     return this._press.asObservable();
   }
-  constructor() { }
 
-  ngOnInit() { }
+  constructor(private elementRef: ElementRef) { }
+
+  ngOnInit() {
+    this.press.subscribe(() => {
+      if (this.autoBlur) {
+        if (this.elementRef.nativeElement && this.elementRef.nativeElement.blur) {
+          this.elementRef.nativeElement.blur();
+        }
+      }
+    });
+  }
+
+  @HostListener('mouseenter', ['$event'])
+  onMouseEnter(e) { this.hovered = true; }
+
+  @HostListener('mouseleave', ['$event'])
+  onMouseLeave(e) { this.hovered = false; }
+
+  @HostListener('mouseup', ['$event'])
+  onMouseUp(e) { this.pressed = false; }
+
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(e) { this.pressed = true; }
+
+  @HostListener('onfocus', ['$event'])
+  onFocus(e) { this.focused = true; }
+
+  @HostListener('onblur', ['$event'])
+  onBlur(e) { this.focused = false; }
+
+  @HostListener('tap', ['$event'])
+  onTap(e) { this._press.emit(e); }
 
   get calculatedLabel() {
     return (this.busy && this.busyLabel) ? this.busyLabel : this.label;
