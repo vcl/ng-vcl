@@ -1,19 +1,17 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from "./components/home/home.component";
+import { DemoComponent } from "./components/demo/demo.component";
 import { DEMO_COMPONENTS } from "./demo-components";
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    data: {
-      name: "Home"
-    }
   },
   ...(DEMO_COMPONENTS.map(dc => {
     return {
       path: dc.path,
-      component: dc.component,
+      component: DemoComponent,
       data: dc
     };
   }))

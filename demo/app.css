@@ -1425,7 +1425,6 @@ body {
 .vclDGVAlignMiddle.vclDGCell {
   -webkit-box-align: center;
       -ms-flex-align: center;
-              -ms-grid-row-align: center;
           align-items: center;
 }
 
@@ -1433,7 +1432,6 @@ body {
 .vclDGVAlignBottom.vclDGCell {
   -webkit-box-align: end;
       -ms-flex-align: end;
-              -ms-grid-row-align: flex-end;
           align-items: flex-end;
 }
 
@@ -2234,7 +2232,6 @@ figure figcaption {
 [layout][start] {
   -webkit-box-align: start;
       -ms-flex-align: start;
-              -ms-grid-row-align: flex-start;
           align-items: flex-start;
 }
 
@@ -2244,7 +2241,6 @@ figure figcaption {
 [layout][center-center] {
   -webkit-box-align: center;
       -ms-flex-align: center;
-              -ms-grid-row-align: center;
           align-items: center;
 }
 
@@ -2252,7 +2248,6 @@ figure figcaption {
 [layout][end] {
   -webkit-box-align: end;
       -ms-flex-align: end;
-              -ms-grid-row-align: flex-end;
           align-items: flex-end;
 }
 
@@ -2305,6 +2300,7 @@ figure figcaption {
 .vclLayoutSelfCenter,
 [self-center] {
   -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
       align-self: center;
 }
 
@@ -2317,6 +2313,7 @@ figure figcaption {
 .vclLayoutSelfStretch,
 [self-stretch] {
   -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
       align-self: stretch;
 }
 
@@ -2970,7 +2967,6 @@ legend + .vclInputControlGroup {
   position: relative;
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
-              -ms-grid-row-align: baseline;
           align-items: baseline;
 }
 
