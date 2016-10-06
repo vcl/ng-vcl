@@ -1,15 +1,14 @@
-import { LayerDirective } from './../../../src/components/layer/layer.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { LayerService } from './../../../src/components/layer/layer.module';
+import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'layer.component.html'
+  templateUrl: 'layer.component.html',
 })
 export class LayerComponent {
 
-  @ViewChild('layerNonModal')
-  layer1: LayerDirective;
+  constructor(private layerService: LayerService) {}
 
   openLayer1() {
-    this.layer1.open();
+    this.layerService.open('nonModal');
   }
 }

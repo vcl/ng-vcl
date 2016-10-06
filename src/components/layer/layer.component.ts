@@ -1,51 +1,26 @@
 import { Subscription } from 'rxjs/Subscription';
-import { Wormhole } from './../../directives/wormhole';
-import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef } from '@angular/core';
-import { LayerManagerService } from '../../services/layerManager.service';
 import { Observable } from 'rxjs/Observable';
-
-/**
-
-layer
-
-## Usage
-
-```html
-<vcl-layer-base></vcl-layer-base>
-```
-
-```html
-<button vcl-button (click)="myLayer.open()" label="open modal layer"></button>
-
-<template vcl-layer #myLayer="layer" [modal]="false">
-  <div class="vclPanel vclNoMargin">
-    <div class="vclPanelHeader">
-      <h3 class="vclPanelTitle">Title</h3>
-    </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
-        Content
-        <button vcl-button (click)="myLayer.close()" label="close Layer"></button>
-      </p>
-    </div>
-  </div>
-</template>
-```
-*/
+import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger, state, style, transition, animate } from '@angular/core';
+import { Wormhole } from './../../directives/wormhole';
+import { LayerService } from './layer.service';
 
 @Component({
   selector: 'vcl-layer-base',
-  templateUrl: 'layer-base.component.html'
+  templateUrl: 'layer-base.component.html',
+  animations: [
+    trigger('boxState', []),
+    trigger('layerState', [])
+  ]
 })
 export class LayerBaseComponent {
 
   visibleLayers = [];
   sub: Subscription;
 
-  constructor(private layerManger: LayerManagerService) { }
+  constructor(private layerService: LayerService) { }
 
   ngOnInit() {
-    this.sub = this.layerManger.visibleLayersChanged.subscribe(visibleLayers => {
+    this.sub = this.layerService.visibleLayersChanged.subscribe(visibleLayers => {
       this.visibleLayers = visibleLayers;
     });
   }
@@ -54,7 +29,6 @@ export class LayerBaseComponent {
     this.sub.unsubscribe();
   }
 }
-
 
 @Directive({
   selector: '[vcl-layer]',
@@ -75,22 +49,26 @@ export class LayerDirective extends Wormhole {
   public modal: boolean = true;
 
   @Input()
-  public name = 'default';
+  public name: string;
+
+  get state(){
+    return this.visible ? 'open' : 'closed';
+  }
 
   public visible = false;
   public coverzIndex = 10;
   public zIndex = 11;
 
-  constructor(protected templateRef: TemplateRef<any>, private elementRef: ElementRef, private layerManger: LayerManagerService) {
+  constructor(protected templateRef: TemplateRef<any>, private elementRef: ElementRef, private layerService: LayerService) {
     super(templateRef);
   }
 
   ngOnInit() {
-    this.layerManger.register(this);
+    this.layerService.register(this);
   }
 
   ngOnDestroy() {
-    this.layerManger.unregister(this);
+    this.layerService.unregister(this);
   }
 
   onClick(event) {
@@ -111,7 +89,7 @@ export class LayerDirective extends Wormhole {
   }
 
   open() {
-    this.setZIndex(this.layerManger.currentZIndex + 10);
+    this.setZIndex(this.layerService.currentZIndex + 10);
     this.visible = true;
     this.visibilityChange$.emit(this.visible);
   }

@@ -1,10 +1,10 @@
 import { Subscription } from 'rxjs/Subscription';
-import { LayerDirective } from './../components/layer/layer.component';
+import { LayerDirective } from './layer.component';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class LayerManagerService {
+export class LayerService {
 
   private visibleLayersChanged$ = new EventEmitter<LayerDirective[]>();
   @Output()
@@ -12,10 +12,11 @@ export class LayerManagerService {
     return this.visibleLayersChanged$.asObservable();
   };
 
-  private layers = new Map<LayerDirective, Subscription>();
+  private subscriptions = new Map<LayerDirective, Subscription>();
+  private layers = new Map<string, LayerDirective>();
 
   get visibleLayers() {
-    return Array.from(this.layers.keys()).filter(layer => layer.visible);
+    return Array.from(this.subscriptions.keys()).filter(layer => layer.visible);
   }
 
   get currentZIndex() {
@@ -26,18 +27,36 @@ export class LayerManagerService {
 
   constructor() { }
 
+  open(layerName) {
+    if (this.layers.has(layerName)) {
+      this.layers.get(layerName).open();
+    }
+  }
+
+  close(layerName) {
+    if (this.layers.has(layerName)) {
+      this.layers.get(layerName).close();
+    }
+  }
+
   register(layer: LayerDirective) {
     let sub = layer.visibilityChange.subscribe(visible => {
       this.visibleLayersChanged$.emit(this.visibleLayers);
     });
 
-    this.layers.set(layer, sub);
+    this.subscriptions.set(layer, sub);
+    if (layer.name) {
+      this.layers.set(layer.name, layer);
+    }
   }
 
   unregister(layer: LayerDirective) {
     layer.close();
-    this.layers.get(layer).unsubscribe();
-    this.layers.delete(layer);
+    if (layer.name) {
+      this.layers.delete(name);
+    }
+    this.subscriptions.get(layer).unsubscribe();
+    this.subscriptions.delete(layer);
   }
 }
 

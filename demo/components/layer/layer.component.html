@@ -3,7 +3,7 @@
 <button vcl-button (click)="openLayer1()" label="open non-modal layer programmatically"></button>
 <button vcl-button (click)="layer1.open()" label="open modal layer"></button>
 
-<template vcl-layer #layerNonModal="layer" [modal]="false">
+<template vcl-layer #layerNonModal="layer" [modal]="false" [name]="'nonModal'">
   <div class="vclPanel vclNoMargin">
     <div class="vclPanelHeader">
       <h3 class="vclPanelTitle">Non-modal layer title goes here</h3>
