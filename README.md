@@ -14,7 +14,8 @@ with [VCL](http://vcl.github.io/) based styling.
 
 ## Status
 
-Alpha, breaking API changes might occur.
+ng-vcl is in alpha and under heavy development.
+Breaking API changes might occur during alpha.
 
 ## Installation
 
@@ -26,20 +27,28 @@ npm install https://github.com/ng-vcl/ng-vcl.git
 
 ```js
 // Import the complete ng-vcl
-import { VCL_DIRECTIVES } from 'ng-vcl';
+import { VCLModule } from 'ng-vcl';
 // or specific components
-import { ICON_DIRECTIVES, LAYER_DIRECTIVES } from 'ng-vcl';
+import { VCLIconModule, VCLLayerModule } from 'ng-vcl';
 
-@Component({
-  selector: 'app',
-  directives: [ICON_DIRECTIVES],
-  template: `<vcl-icon [src]="'http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7/36'"></vcl-icon>`
+@NgModule({
+  imports: [
+    VCLIconModule,
+    ...
+  ]
 })
-export class AppComponent {
-}
+export class AppModule { }
 ```
 
-Check the demo for the complete API documentation
+
+## Modules
+
+| Feature          | Status                                       | Docs         |
+|------------------|----------------------------------------------|--------------|
+| vcl-button       |                                        Ready |            - |
+
+ [1]: https://github.com/angular/material2/blob/master/src/lib/button/README.md
+
 
 ## Demo
 
