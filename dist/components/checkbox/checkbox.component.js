@@ -1,15 +1,15 @@
 "use strict";
 var core_1 = require('@angular/core');
 /**
-Checkbox
+Checkbox.
 
 ## Usage
 
-```html+hbs
-<vcl-checkbox [(checked)]="checked"></vcl-checkbox>
+```html
+<vcl-checkbox
+  [(checked)]="checked">
+</vcl-checkbox>
 ```
-
-@demo example
 */
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
@@ -91,7 +91,7 @@ var CheckboxComponent = (function () {
                     selector: 'vcl-checkbox',
                     template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
                     host: {
-                        '[attr.ariaRole]': '"checkbox"',
+                        '[attr.role]': '"checkbox"',
                         '[class.vclCheckbox]': 'true',
                         '[class.vclScale130p]': 'true',
                     }

@@ -1,12 +1,18 @@
 <div class="vclTabbable">
   <div class="vclTabs" role="tablist">
-    <div *ngFor="let tab of tabs" class="vclTab" role="tab" [class.vclDisabled]="tab.disabled" [class.vclSelected]="currentTab===tab" [class.aria-selected]="currentTab===tab" (tap)="selectTab(tab)">
+    <div *ngFor="let tab of tabs; let i = index"
+         class="vclTab" role="tab"
+         [class.vclDisabled]="tab.disabled"
+         [class.vclSelected]="selectedTabIndex===i"
+         [class.aria-selected]="selectedTabIndex===i"
+         (tap)="selectTab(tab)">
       <div [connectWormhole]="tab.label"></div>
     </div>
   </div>
-  <div *ngIf="!!currentTab" class="vclTabContent vclNoBorder">
-    <div role="tabpanel" class="vclTabPanel">
-      <div [connectWormhole]="currentTab.content"></div>
+
+  <div class="vclTabContent vclNoBorder">
+    <div role="tabpanel" class="vclTabPanel" *ngFor="let tab of tabs; let i = index">
+      <div *ngIf="selectedTabIndex===i" [connectWormhole]="tab.content"></div>
     </div>
   </div>
 </div>

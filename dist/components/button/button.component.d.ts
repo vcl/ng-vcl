@@ -1,36 +1,33 @@
 import { Observable } from 'rxjs/Observable';
-import { OnInit } from '@angular/core';
+import { OnInit, ElementRef } from '@angular/core';
 import 'hammerjs';
-/**
-The main control for triggering actions
-
-## Usage
-
-```html
-<button vcl-button label="My Button" (click)=""doSomething()></button>
-```
-
-@demo example
-
-@property     {String}    label    textual label
-*/
 export declare class ButtonComponent implements OnInit {
-    hovered: boolean;
+    private elementRef;
     pressed: boolean;
     focused: boolean;
+    hovered: boolean;
     selected: boolean;
+    title: string;
     busy: boolean;
     flexLabel: boolean;
     busyLabel: string;
     label: string;
     prepIcon: string;
     prepIconBusy: string;
+    autoBlur: boolean;
     appIcon: string;
     appIconBusy: string;
     private _press;
     readonly press: Observable<any>;
-    constructor();
+    constructor(elementRef: ElementRef);
     ngOnInit(): void;
+    onMouseEnter(e: any): void;
+    onMouseLeave(e: any): void;
+    onMouseUp(e: any): void;
+    onMouseDown(e: any): void;
+    onFocus(e: any): void;
+    onBlur(e: any): void;
+    onTap(e: any): void;
     readonly calculatedLabel: string;
     readonly calculatedPrepIcon: string;
     readonly calculatedAppIcon: string;

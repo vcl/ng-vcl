@@ -310,7 +310,7 @@ var L10nFormatParserService = (function (_super) {
 }(L10nParserService));
 
 var L10N_CONFIG = new _angular_core.OpaqueToken('l10n.config');
-;
+
 var L10nService = (function () {
     function L10nService(config, // TODO: L10nConfig - problem with ngc
         loader, parser) {
@@ -826,28 +826,16 @@ var VCLDropdownModule = (function () {
     return VCLDropdownModule;
 }());
 
-/**
-The main control for triggering actions
-
-## Usage
-
-```html
-<button vcl-button label="My Button" (click)=""doSomething()></button>
-```
-
-@demo example
-
-@property     {String}    label    textual label
-*/
 var ButtonComponent = (function () {
-    function ButtonComponent() {
-        this.hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
+    function ButtonComponent(elementRef) {
+        this.elementRef = elementRef;
         this.pressed = false; // `true` if a pointer device is conducting a `down` gesture on the button
         this.focused = false; // `true` if the element is focused  (CSS' :focus)
+        this.hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
         this.selected = false;
-        // TODO: Doc missing. Input attr?
         this.busy = false; // State to indicate that the button is disabled as a operation is in progress
         this.flexLabel = false;
+        this.autoBlur = true;
         this._press = new _angular_core.EventEmitter();
     }
     Object.defineProperty(ButtonComponent.prototype, "press", {
@@ -857,7 +845,23 @@ var ButtonComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    ButtonComponent.prototype.ngOnInit = function () { };
+    ButtonComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.press.subscribe(function () {
+            if (_this.autoBlur) {
+                if (_this.elementRef.nativeElement && _this.elementRef.nativeElement.blur) {
+                    _this.elementRef.nativeElement.blur();
+                }
+            }
+        });
+    };
+    ButtonComponent.prototype.onMouseEnter = function (e) { this.hovered = true; };
+    ButtonComponent.prototype.onMouseLeave = function (e) { this.hovered = false; };
+    ButtonComponent.prototype.onMouseUp = function (e) { this.pressed = false; };
+    ButtonComponent.prototype.onMouseDown = function (e) { this.pressed = true; };
+    ButtonComponent.prototype.onFocus = function (e) { this.focused = true; };
+    ButtonComponent.prototype.onBlur = function (e) { this.focused = false; };
+    ButtonComponent.prototype.onTap = function (e) { this._press.emit(e); };
     Object.defineProperty(ButtonComponent.prototype, "calculatedLabel", {
         get: function () {
             return (this.busy && this.busyLabel) ? this.busyLabel : this.label;
@@ -879,6 +883,22 @@ var ButtonComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    __decorate([
+        // `true` if the element is focused  (CSS' :focus)
+        _angular_core.HostBinding('class.vclHovered'), 
+        __metadata('design:type', Boolean)
+    ], ButtonComponent.prototype, "hovered", void 0);
+    __decorate([
+        // `true` if a pointer device is hovering the button (CSS' :hover)
+        _angular_core.Input(),
+        _angular_core.HostBinding('class.vclSelected'), 
+        __metadata('design:type', Boolean)
+    ], ButtonComponent.prototype, "selected", void 0);
+    __decorate([
+        _angular_core.HostBinding('attr.aria-label'),
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], ButtonComponent.prototype, "title", void 0);
     __decorate([
         _angular_core.Input(), 
         __metadata('design:type', Boolean)
@@ -906,6 +926,10 @@ var ButtonComponent = (function () {
     ], ButtonComponent.prototype, "prepIconBusy", void 0);
     __decorate([
         _angular_core.Input(), 
+        __metadata('design:type', Boolean)
+    ], ButtonComponent.prototype, "autoBlur", void 0);
+    __decorate([
+        _angular_core.Input(), 
         __metadata('design:type', String)
     ], ButtonComponent.prototype, "appIcon", void 0);
     __decorate([
@@ -916,30 +940,61 @@ var ButtonComponent = (function () {
         _angular_core.Output(), 
         __metadata('design:type', (typeof (_a = typeof rxjs_Observable.Observable !== 'undefined' && rxjs_Observable.Observable) === 'function' && _a) || Object)
     ], ButtonComponent.prototype, "press", null);
+    __decorate([
+        _angular_core.HostListener('mouseenter', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], ButtonComponent.prototype, "onMouseEnter", null);
+    __decorate([
+        _angular_core.HostListener('mouseleave', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], ButtonComponent.prototype, "onMouseLeave", null);
+    __decorate([
+        _angular_core.HostListener('mouseup', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], ButtonComponent.prototype, "onMouseUp", null);
+    __decorate([
+        _angular_core.HostListener('mousedown', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], ButtonComponent.prototype, "onMouseDown", null);
+    __decorate([
+        _angular_core.HostListener('onfocus', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], ButtonComponent.prototype, "onFocus", null);
+    __decorate([
+        _angular_core.HostListener('onblur', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], ButtonComponent.prototype, "onBlur", null);
+    __decorate([
+        _angular_core.HostListener('tap', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], ButtonComponent.prototype, "onTap", null);
     ButtonComponent = __decorate([
         _angular_core.Component({
             selector: '[vcl-button]',
             host: {
-                '(mouseenter)': 'hovered=true',
-                '(mouseleave)': 'hovered=false',
-                '(mousedown)': 'pressed=true',
-                '(mouseup)': 'pressed=false',
-                '(onfocus)': 'focused=true;',
-                '(onblur)': 'focused=false',
-                '(tap)': '_press.emit($event)',
                 '[class.vclButton]': 'true',
-                '[class.vclHovered]': 'hovered',
-                '[class.vclDisabled]': 'disabled',
-                '[class.vclSelected]': 'selected',
             },
-            template: "<span>\n  <ng-content></ng-content>\n  <vcl-icogram\n    [label]=\"calculatedLabel | loc\"\n    [flexLabel]=\"flexLabel | loc\"\n    [prepIcon]=\"calculatedPrepIcon\"\n    [appIcon]=\"calculatedAppIcon\">\n  </vcl-icogram>\n</span>\n\n",
-            // encapsulation: ViewEncapsulation.None,
+            template: "<span>\n  <ng-content></ng-content>\n  <vcl-icogram\n    [label]=\"calculatedLabel | loc\"\n    [flexLabel]=\"flexLabel | loc\"\n    [prepIcon]=\"calculatedPrepIcon\"\n    [appIcon]=\"calculatedAppIcon\">\n  </vcl-icogram>\n</span>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_b = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _b) || Object])
     ], ButtonComponent);
     return ButtonComponent;
-    var _a;
+    var _a, _b;
 }());
 
 /**
@@ -953,7 +1008,9 @@ provided.
 Note: the optionally generated anchor elemt's default action (follow the link)
 is _not_ supressed when using the `href` property.
 Us the vcl-link component if you want to have a fully fledged anchor tag.
+
 ## Usage
+
 ```html
 <vcl-icogram label="some label" prepIcon="fa fa-chevron-right" flexLabel=true></vcl-icogram>
 <vcl-icogram label="some label" prepIconSrc="..." href="http://example.org"></vcl-icogram>
@@ -962,12 +1019,12 @@ Us the vcl-link component if you want to have a fully fledged anchor tag.
   <vcl-icon icon="fa:close"></vcl-icon>
 </vcl-icogram>
 ```
+
 @param    label           optional      textual label
 @param    href            optional      if an href is given an accessible link is generated
 @param    flexLabel       optional      the label gets a `vclLayoutFlex` class if true
 @param    prepIcon        optional      Icon as defined by the icon component
 @param    appIcon         optional      Same as `prepIcon` but appended
-@demo example
 */
 var IcogramComponent = (function () {
     // TODO prepIconSrc not implemented but used in example
@@ -1010,6 +1067,10 @@ var IcogramComponent = (function () {
     IcogramComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-icogram, [vcl-icogram]',
+            host: {
+                '[class.vclIcogram]': 'true',
+                '[attr.role]:': 'img'
+            },
             template: "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
@@ -1182,8 +1243,6 @@ buttons: [
 
 When a button's action is triggered,
 it emits the given `action` with the `index` as param.
-
-@demo example1
 */
 var SelectionMode;
 (function (SelectionMode) {
@@ -1406,27 +1465,28 @@ var VCLWormholeModule = (function () {
     return VCLWormholeModule;
 }());
 
-var LayerManagerService = (function () {
-    function LayerManagerService() {
+var LayerService = (function () {
+    function LayerService() {
         this.visibleLayersChanged$ = new _angular_core.EventEmitter();
+        this.subscriptions = new Map();
         this.layers = new Map();
     }
-    Object.defineProperty(LayerManagerService.prototype, "visibleLayersChanged", {
+    Object.defineProperty(LayerService.prototype, "visibleLayersChanged", {
         get: function () {
             return this.visibleLayersChanged$.asObservable();
         },
         enumerable: true,
         configurable: true
     });
-    ;
-    Object.defineProperty(LayerManagerService.prototype, "visibleLayers", {
+    
+    Object.defineProperty(LayerService.prototype, "visibleLayers", {
         get: function () {
-            return Array.from(this.layers.keys()).filter(function (layer) { return layer.visible; });
+            return Array.from(this.subscriptions.keys()).filter(function (layer) { return layer.visible; });
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(LayerManagerService.prototype, "currentZIndex", {
+    Object.defineProperty(LayerService.prototype, "currentZIndex", {
         get: function () {
             return this.visibleLayers
                 .map(function (layer) { return layer.zIndex; })
@@ -1435,67 +1495,54 @@ var LayerManagerService = (function () {
         enumerable: true,
         configurable: true
     });
-    LayerManagerService.prototype.register = function (layer) {
+    LayerService.prototype.open = function (layerName) {
+        if (this.layers.has(layerName)) {
+            this.layers.get(layerName).open();
+        }
+    };
+    LayerService.prototype.close = function (layerName) {
+        if (this.layers.has(layerName)) {
+            this.layers.get(layerName).close();
+        }
+    };
+    LayerService.prototype.register = function (layer) {
         var _this = this;
         var sub = layer.visibilityChange.subscribe(function (visible) {
             _this.visibleLayersChanged$.emit(_this.visibleLayers);
         });
-        this.layers.set(layer, sub);
+        this.subscriptions.set(layer, sub);
+        if (layer.name) {
+            this.layers.set(layer.name, layer);
+        }
     };
-    LayerManagerService.prototype.unregister = function (layer) {
+    LayerService.prototype.unregister = function (layer) {
         layer.close();
-        this.layers.get(layer).unsubscribe();
-        this.layers.delete(layer);
+        if (layer.name) {
+            this.layers.delete(name);
+        }
+        this.subscriptions.get(layer).unsubscribe();
+        this.subscriptions.delete(layer);
     };
     __decorate([
         _angular_core.Output(), 
         __metadata('design:type', (typeof (_a = typeof rxjs_Observable.Observable !== 'undefined' && rxjs_Observable.Observable) === 'function' && _a) || Object)
-    ], LayerManagerService.prototype, "visibleLayersChanged", null);
-    LayerManagerService = __decorate([
+    ], LayerService.prototype, "visibleLayersChanged", null);
+    LayerService = __decorate([
         _angular_core.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], LayerManagerService);
-    return LayerManagerService;
+    ], LayerService);
+    return LayerService;
     var _a;
 }());
 
-/**
-
-layer
-
-## Usage
-
-```html
-<vcl-layer-base></vcl-layer-base>
-```
-
-```html
-
-<button vcl-button (click)="myLayer.open()" label="open modal layer"></button>
-
-<template vcl-layer #myLayer="layer" [modal]="false">
-  <div class="vclPanel vclNoMargin">
-    <div class="vclPanelHeader">
-      <h3 class="vclPanelTitle">Title</h3>
-    </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
-        Content
-        <button vcl-button (click)="myLayer.close()" label="close Layer"></button>
-      </p>
-    </div>
-  </div>
-</template>
-```
-*/
 var LayerBaseComponent = (function () {
-    function LayerBaseComponent(layerManger) {
-        this.layerManger = layerManger;
+    function LayerBaseComponent(layerService) {
+        this.layerService = layerService;
         this.visibleLayers = [];
     }
     LayerBaseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.sub = this.layerManger.visibleLayersChanged.subscribe(function (visibleLayers) {
+        this.sub = this.layerService.visibleLayersChanged.subscribe(function (visibleLayers) {
             _this.visibleLayers = visibleLayers;
         });
     };
@@ -1505,23 +1552,26 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-layer-base',
-            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [connectWormhole]=\"layer\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
+            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [connectWormhole]=\"layer\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
+            animations: [
+                _angular_core.trigger('boxState', []),
+                _angular_core.trigger('layerState', [])
+            ]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof LayerManagerService !== 'undefined' && LayerManagerService) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof LayerService !== 'undefined' && LayerService) === 'function' && _a) || Object])
     ], LayerBaseComponent);
     return LayerBaseComponent;
     var _a;
 }());
 var LayerDirective = (function (_super) {
     __extends(LayerDirective, _super);
-    function LayerDirective(templateRef, elementRef, layerManger) {
+    function LayerDirective(templateRef, elementRef, layerService) {
         _super.call(this, templateRef);
         this.templateRef = templateRef;
         this.elementRef = elementRef;
-        this.layerManger = layerManger;
+        this.layerService = layerService;
         this.visibilityChange$ = new _angular_core.EventEmitter();
         this.modal = true;
-        this.name = 'default';
         this.visible = false;
         this.coverzIndex = 10;
         this.zIndex = 11;
@@ -1533,11 +1583,18 @@ var LayerDirective = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(LayerDirective.prototype, "state", {
+        get: function () {
+            return this.visible ? 'open' : 'closed';
+        },
+        enumerable: true,
+        configurable: true
+    });
     LayerDirective.prototype.ngOnInit = function () {
-        this.layerManger.register(this);
+        this.layerService.register(this);
     };
     LayerDirective.prototype.ngOnDestroy = function () {
-        this.layerManger.unregister(this);
+        this.layerService.unregister(this);
     };
     LayerDirective.prototype.onClick = function (event) {
         // layer covers 100% screen width & height. first element in layer represents 'outside'
@@ -1555,7 +1612,7 @@ var LayerDirective = (function (_super) {
         this.visibilityChange$.emit(this.visible);
     };
     LayerDirective.prototype.open = function () {
-        this.setZIndex(this.layerManger.currentZIndex + 10);
+        this.setZIndex(this.layerService.currentZIndex + 10);
         this.visible = true;
         this.visibilityChange$.emit(this.visible);
     };
@@ -1574,7 +1631,7 @@ var LayerDirective = (function (_super) {
     ], LayerDirective.prototype, "modal", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], LayerDirective.prototype, "name", void 0);
     LayerDirective = __decorate([
         _angular_core.Directive({
@@ -1584,7 +1641,7 @@ var LayerDirective = (function (_super) {
                 '(document:click)': 'onClick($event)',
             },
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof _angular_core.TemplateRef !== 'undefined' && _angular_core.TemplateRef) === 'function' && _b) || Object, (typeof (_c = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _c) || Object, (typeof (_d = typeof LayerManagerService !== 'undefined' && LayerManagerService) === 'function' && _d) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof _angular_core.TemplateRef !== 'undefined' && _angular_core.TemplateRef) === 'function' && _b) || Object, (typeof (_c = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _c) || Object, (typeof (_d = typeof LayerService !== 'undefined' && LayerService) === 'function' && _d) || Object])
     ], LayerDirective);
     return LayerDirective;
     var _a, _b, _c, _d;
@@ -1597,55 +1654,20 @@ var VCLLayerModule = (function () {
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, VCLWormholeModule],
             exports: [LayerBaseComponent, LayerDirective],
-            declarations: [LayerBaseComponent, LayerDirective]
+            declarations: [LayerBaseComponent, LayerDirective],
+            providers: [LayerService]
         }), 
         __metadata('design:paramtypes', [])
     ], VCLLayerModule);
     return VCLLayerModule;
 }());
 
-/**
-vcl-tab-nav
-
-## Usage
-
-```html
-
-<vcl-tab-nav>
-  <vcl-tab>
-    <template vcl-tab-label>
-      Tab1
-    </template>
-    <template vcl-tab-content>
-      Content1
-    </template>
-  </vcl-tab>
-  <vcl-tab>
-    <template vcl-tab-label>
-      Tab2
-    </template>
-    <template vcl-tab-content>
-      Content2
-    </template>
-  </vcl-tab>
-  <vcl-tab [disabled]="true">
-    <template vcl-tab-label>
-      Tab3 disabled
-    </template>
-    <template vcl-tab-content>
-      Content2
-    </template>
-  </vcl-tab>
-</vcl-tab-nav>
-```
-*/
 var TabLabelDirective = (function (_super) {
     __extends(TabLabelDirective, _super);
     function TabLabelDirective(templateRef) {
         _super.call(this, templateRef);
         this.templateRef = templateRef;
     }
-    TabLabelDirective.prototype.ngOnInit = function () { };
     TabLabelDirective = __decorate([
         _angular_core.Directive({
             selector: '[vcl-tab-label]'
@@ -1661,7 +1683,6 @@ var TabContentDirective = (function (_super) {
         _super.call(this, templateRef);
         this.templateRef = templateRef;
     }
-    TabContentDirective.prototype.ngOnInit = function () { };
     TabContentDirective = __decorate([
         _angular_core.Directive({
             selector: '[vcl-tab-content]'
@@ -1675,9 +1696,6 @@ var TabComponent = (function () {
     function TabComponent() {
         this.disabled = false;
     }
-    TabComponent.prototype.ngAfterViewInit = function () {
-        console.log(this.label);
-    };
     __decorate([
         _angular_core.ContentChild(TabLabelDirective), 
         __metadata('design:type', TabLabelDirective)
@@ -1699,33 +1717,60 @@ var TabComponent = (function () {
     return TabComponent;
 }());
 var TabNavComponent = (function () {
-    function TabNavComponent() {
+    function TabNavComponent(_zone) {
+        this._zone = _zone;
+        this.selectedTabIndex = 0;
+        this.selectedTabIndexChange$ = new _angular_core.EventEmitter();
     }
-    TabNavComponent.prototype.ngAfterViewInit = function () {
-        this.selectTab(0);
-    };
+    Object.defineProperty(TabNavComponent.prototype, "selectedTabIndexChange", {
+        get: function () {
+            return this.selectedTabIndexChange$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     TabNavComponent.prototype.selectTab = function (tab) {
         var tabs = this.tabs.toArray();
-        if (typeof tab === 'number' && tabs[tab]) {
-            tab = tabs[tab];
+        var tabIdx;
+        var tabComp;
+        if (tab instanceof TabComponent) {
+            tabIdx = tabs.indexOf(tab);
+            tabComp = tab;
         }
-        if (tab instanceof TabComponent && !tab.disabled) {
-            this.currentTab = tab;
+        else if (typeof tab === 'number' && tabs[tab]) {
+            tabIdx = tab;
+            tabComp = tabs[tabIdx];
+        }
+        else {
+            tabIdx = -1;
+            tabComp = null;
+        }
+        if (tabIdx >= 0 && tab instanceof TabComponent && !tab.disabled) {
+            this.selectedTabIndex = tabIdx;
+            this.selectedTabIndexChange$.emit(tabIdx);
         }
     };
     __decorate([
         _angular_core.ContentChildren(TabComponent), 
         __metadata('design:type', (typeof (_a = typeof _angular_core.QueryList !== 'undefined' && _angular_core.QueryList) === 'function' && _a) || Object)
     ], TabNavComponent.prototype, "tabs", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], TabNavComponent.prototype, "selectedTabIndex", void 0);
+    __decorate([
+        _angular_core.Output(), 
+        __metadata('design:type', (typeof (_b = typeof rxjs_Observable.Observable !== 'undefined' && rxjs_Observable.Observable) === 'function' && _b) || Object)
+    ], TabNavComponent.prototype, "selectedTabIndexChange", null);
     TabNavComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-tab-nav',
-            template: "<div class=\"vclTabbable\">\n  <div class=\"vclTabs\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs\" class=\"vclTab\" role=\"tab\" [class.vclDisabled]=\"tab.disabled\" [class.vclSelected]=\"currentTab===tab\" [class.aria-selected]=\"currentTab===tab\" (tap)=\"selectTab(tab)\">\n      <div [connectWormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"!!currentTab\" class=\"vclTabContent vclNoBorder\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\">\n      <div [connectWormhole]=\"currentTab.content\"></div>\n    </div>\n  </div>\n</div>\n"
+            template: "<div class=\"vclTabbable\">\n  <div class=\"vclTabs\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [connectWormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent vclNoBorder\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [connectWormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n"
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_c = typeof _angular_core.NgZone !== 'undefined' && _angular_core.NgZone) === 'function' && _c) || Object])
     ], TabNavComponent);
     return TabNavComponent;
-    var _a;
+    var _a, _b, _c;
 }());
 
 var VCLTabModule = (function () {
@@ -1741,6 +1786,47 @@ var VCLTabModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLTabModule);
     return VCLTabModule;
+}());
+
+var ToolbarComponent = (function () {
+    function ToolbarComponent() {
+        this.ariaLevel = 1;
+    }
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], ToolbarComponent.prototype, "ariaLevel", void 0);
+    ToolbarComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-toolbar',
+            template: '<ng-content></ng-content>',
+            host: {
+                '[class.vclToolbar]': 'true',
+                '[class.vclLayoutHorizontal]': 'true',
+                '[class.vclLayoutJustified]': 'true',
+                '[class.vclSecondary]': 'ariaLevel == 2',
+                '[attr.aria-level]': 'ariaLevel',
+                '[attr.role]': '"menubar"',
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ToolbarComponent);
+    return ToolbarComponent;
+}());
+
+var VCLToolbarModule = (function () {
+    function VCLToolbarModule() {
+    }
+    VCLToolbarModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule],
+            exports: [ToolbarComponent],
+            declarations: [ToolbarComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLToolbarModule);
+    return VCLToolbarModule;
 }());
 
 var TetherComponent = (function () {
@@ -1804,6 +1890,120 @@ var VCLTetherModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLTetherModule);
     return VCLTetherModule;
+}());
+
+/**
+The anchor tag with VCL and Angular awareness.
+
+## Usage
+
+```html
+<vcl-link
+  [href]="'http://www.example.com'"
+  [label]="'Example Link'"
+  [prepIcon]="'fa:chevron-right'">
+```
+
+@property     {String}    href         `href` attribute
+@property     {String}    target       `target` attribute
+@property     {String}    tabindex     `tabindex` attribute
+@property     {String}    scheme       URL scheme to be used, e. g. `tel`, `mailto` etc.
+@property     {String}    disabled     disabled if `true`
+@property     {String}    label        textual label with automatic Ember-i18n lookup
+@property     {String}    title        textual title with automatic Ember-i18n lookup
+@property     {String}    prepIcon     icon to be prepended to the label
+@property     {String}    appIcon      icon to be appended to the label
+@property     {String}    class        additional class to be added
+*/
+var LinkComponent = (function () {
+    function LinkComponent() {
+    }
+    Object.defineProperty(LinkComponent.prototype, "_href", {
+        get: function () {
+            if (this.disabled)
+                return null;
+            if (!this.href) {
+                this.href = '#';
+            }
+            return this.scheme
+                ? this.scheme + ":" + this.href
+                : this.href;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LinkComponent.prototype, "_label", {
+        get: function () {
+            return this.label
+                ? this.label
+                : this.href;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "href", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "target", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], LinkComponent.prototype, "tabindex", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "scheme", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Boolean)
+    ], LinkComponent.prototype, "disabled", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "label", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "title", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "prepIcon", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "appIcon", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "class", void 0);
+    LinkComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-link',
+            template: "<a class=\"{{class}}\" \n   [attr.href]=\"_href\"\n   [attr.target]=\"target\"\n   [attr.tabindex]=\"tabindex\"\n   [attr.touch-action]=\"touchAction\"\n   [attr.aria-label]=\"title | loc\"\n   [attr.title]=\"title | loc\"\n   [attr.disabled]=\"disabled\"\n   [class.vclDisabled]=\"disabled\">\n  <ng-content></ng-content>\n  <vcl-icogram \n    [label]=\"_label | loc\"\n    [prepIcon]=\"prepIcon\"\n    [appIcon]=\"appIcon\">\n  </vcl-icogram>\n</a>\n",
+        }), 
+        __metadata('design:paramtypes', [])
+    ], LinkComponent);
+    return LinkComponent;
+}());
+
+var VCLLinkModule = (function () {
+    function VCLLinkModule() {
+    }
+    VCLLinkModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule, VCLIcogramModule],
+            exports: [LinkComponent],
+            declarations: [LinkComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLLinkModule);
+    return VCLLinkModule;
 }());
 
 var OverlayManagerService = (function () {
@@ -1954,11 +2154,11 @@ Radio button.
 
 ## Usage
 
-```html+hbs
-<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```html
+<vcl-radio-button
+  [(checked)]="checked">
+</vcl-radio-button>
 ```
-
-@demo example
 */
 var RadioButtonComponent = (function () {
     function RadioButtonComponent(elementRef) {
@@ -2084,7 +2284,7 @@ var RadioButtonComponent = (function () {
             selector: 'vcl-radio-button',
             template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
             host: {
-                '[attr.ariaRole]': '"radio"',
+                '[attr.role]': '"radio"',
                 '[class.vclRadioButton]': 'true',
                 '[class.vclScale130p]': 'true',
             }
@@ -2110,15 +2310,15 @@ var VCLRadioButtonModule = (function () {
 }());
 
 /**
-Checkbox
+Checkbox.
 
 ## Usage
 
-```html+hbs
-<vcl-checkbox [(checked)]="checked"></vcl-checkbox>
+```html
+<vcl-checkbox
+  [(checked)]="checked">
+</vcl-checkbox>
 ```
-
-@demo example
 */
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
@@ -2244,7 +2444,7 @@ var CheckboxComponent = (function () {
             selector: 'vcl-checkbox',
             template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
             host: {
-                '[attr.ariaRole]': '"checkbox"',
+                '[attr.role]': '"checkbox"',
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             }
@@ -2274,11 +2474,11 @@ Radio button.
 
 ## Usage
 
-```html+hbs
-<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```html
+<vcl-radio-button
+  [(checked)]="checked">
+</vcl-radio-button>
 ```
-
-@demo example
 */
 var FormControlLabelComponent = (function () {
     function FormControlLabelComponent() {
@@ -2379,6 +2579,39 @@ var VCLFormControlLabelModule = (function () {
     return VCLFormControlLabelModule;
 }());
 
+function setAnimations(cls, animations) {
+    setAnnotation(cls, 'animations', animations);
+}
+function setAnnotation(cls, key, value) {
+    var annotation = getAnnotation(cls);
+    // Change metadata
+    annotation[key] = value;
+    // Set metadata
+    Reflect.defineMetadata('annotations', [new _angular_core.Component(annotation)], cls);
+}
+function SubComponent(annotation) {
+    return function (cls) {
+        var baseCls = Object.getPrototypeOf(cls.prototype).constructor;
+        var baseClsAnnotation = getAnnotation(baseCls);
+        Object.keys(baseClsAnnotation).forEach(function (key) {
+            if (baseClsAnnotation[key] !== undefined && annotation[key] === undefined) {
+                annotation[key] = baseClsAnnotation[key];
+            }
+        });
+        Reflect.defineMetadata('annotations', [new _angular_core.Component(annotation)], cls);
+    };
+}
+
+function getAnnotation(cls) {
+    // Annotation is an array with 1 entry
+    // TODO: Check if always one entry
+    var clsAnnotations = Reflect.getMetadata('annotations', cls);
+    if (!clsAnnotations && clsAnnotations.length < 1) {
+        throw new Error('Invalid base class');
+    }
+    return clsAnnotations[0];
+}
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -2392,8 +2625,10 @@ var VCLModule = (function () {
                 VCLButtonGroupModule,
                 VCLLayerModule,
                 VCLTetherModule,
+                VCLLinkModule,
                 VCLInputModule,
                 VCLTabModule,
+                VCLToolbarModule,
                 VCLPopoverModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
@@ -2410,8 +2645,10 @@ var VCLModule = (function () {
                 VCLButtonGroupModule,
                 VCLLayerModule,
                 VCLTetherModule,
+                VCLLinkModule,
                 VCLInputModule,
                 VCLTabModule,
+                VCLToolbarModule,
                 VCLPopoverModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
@@ -2421,7 +2658,6 @@ var VCLModule = (function () {
                 VCLSelectModule
             ],
             providers: [
-                LayerManagerService,
                 OverlayManagerService
             ],
         }), 
@@ -2431,15 +2667,23 @@ var VCLModule = (function () {
 }());
 
 exports.VCLModule = VCLModule;
+exports.setAnimations = setAnimations;
+exports.setAnnotation = setAnnotation;
+exports.SubComponent = SubComponent;
 exports.VCLIconModule = VCLIconModule;
 exports.VCLIcogramModule = VCLIcogramModule;
 exports.VCLButtonModule = VCLButtonModule;
 exports.VCLButtonGroupModule = VCLButtonGroupModule;
+exports.LayerBaseComponent = LayerBaseComponent;
+exports.LayerDirective = LayerDirective;
+exports.LayerService = LayerService;
 exports.VCLLayerModule = VCLLayerModule;
 exports.VCLTabModule = VCLTabModule;
+exports.VCLToolbarModule = VCLToolbarModule;
 exports.VCLTetherModule = VCLTetherModule;
-exports.PopoverComponent = PopoverComponent;
+exports.VCLLinkModule = VCLLinkModule;
 exports.VCLPopoverModule = VCLPopoverModule;
+exports.PopoverComponent = PopoverComponent;
 exports.VCLRadioButtonModule = VCLRadioButtonModule;
 exports.VCLCheckboxModule = VCLCheckboxModule;
 exports.Wormhole = Wormhole;
@@ -2450,4 +2694,3 @@ exports.L10nNoopLoaderService = L10nNoopLoaderService;
 exports.L10nStaticLoaderService = L10nStaticLoaderService;
 exports.L10nFormatParserService = L10nFormatParserService;
 exports.L10nService = L10nService;
-exports.LayerManagerService = LayerManagerService;

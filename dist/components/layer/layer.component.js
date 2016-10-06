@@ -4,46 +4,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var wormhole_1 = require('./../../directives/wormhole');
 var core_1 = require('@angular/core');
-var layerManager_service_1 = require('../../services/layerManager.service');
-/**
-
-layer
-
-## Usage
-
-```html
-<vcl-layer-base></vcl-layer-base>
-```
-
-```html
-
-<button vcl-button (click)="myLayer.open()" label="open modal layer"></button>
-
-<template vcl-layer #myLayer="layer" [modal]="false">
-  <div class="vclPanel vclNoMargin">
-    <div class="vclPanelHeader">
-      <h3 class="vclPanelTitle">Title</h3>
-    </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
-        Content
-        <button vcl-button (click)="myLayer.close()" label="close Layer"></button>
-      </p>
-    </div>
-  </div>
-</template>
-```
-*/
+var wormhole_1 = require('./../../directives/wormhole');
+var layer_service_1 = require('./layer.service');
 var LayerBaseComponent = (function () {
-    function LayerBaseComponent(layerManger) {
-        this.layerManger = layerManger;
+    function LayerBaseComponent(layerService) {
+        this.layerService = layerService;
         this.visibleLayers = [];
     }
     LayerBaseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.sub = this.layerManger.visibleLayersChanged.subscribe(function (visibleLayers) {
+        this.sub = this.layerService.visibleLayersChanged.subscribe(function (visibleLayers) {
             _this.visibleLayers = visibleLayers;
         });
     };
@@ -53,26 +24,29 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-layer-base',
-                    templateUrl: 'layer-base.component.html'
+                    templateUrl: 'layer-base.component.html',
+                    animations: [
+                        core_1.trigger('boxState', []),
+                        core_1.trigger('layerState', [])
+                    ]
                 },] },
     ];
     /** @nocollapse */
     LayerBaseComponent.ctorParameters = [
-        { type: layerManager_service_1.LayerManagerService, },
+        { type: layer_service_1.LayerService, },
     ];
     return LayerBaseComponent;
 }());
 exports.LayerBaseComponent = LayerBaseComponent;
 var LayerDirective = (function (_super) {
     __extends(LayerDirective, _super);
-    function LayerDirective(templateRef, elementRef, layerManger) {
+    function LayerDirective(templateRef, elementRef, layerService) {
         _super.call(this, templateRef);
         this.templateRef = templateRef;
         this.elementRef = elementRef;
-        this.layerManger = layerManger;
+        this.layerService = layerService;
         this.visibilityChange$ = new core_1.EventEmitter();
         this.modal = true;
-        this.name = 'default';
         this.visible = false;
         this.coverzIndex = 10;
         this.zIndex = 11;
@@ -84,11 +58,18 @@ var LayerDirective = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(LayerDirective.prototype, "state", {
+        get: function () {
+            return this.visible ? 'open' : 'closed';
+        },
+        enumerable: true,
+        configurable: true
+    });
     LayerDirective.prototype.ngOnInit = function () {
-        this.layerManger.register(this);
+        this.layerService.register(this);
     };
     LayerDirective.prototype.ngOnDestroy = function () {
-        this.layerManger.unregister(this);
+        this.layerService.unregister(this);
     };
     LayerDirective.prototype.onClick = function (event) {
         // layer covers 100% screen width & height. first element in layer represents 'outside'
@@ -106,7 +87,7 @@ var LayerDirective = (function (_super) {
         this.visibilityChange$.emit(this.visible);
     };
     LayerDirective.prototype.open = function () {
-        this.setZIndex(this.layerManger.currentZIndex + 10);
+        this.setZIndex(this.layerService.currentZIndex + 10);
         this.visible = true;
         this.visibilityChange$.emit(this.visible);
     };
@@ -128,7 +109,7 @@ var LayerDirective = (function (_super) {
     LayerDirective.ctorParameters = [
         { type: core_1.TemplateRef, },
         { type: core_1.ElementRef, },
-        { type: layerManager_service_1.LayerManagerService, },
+        { type: layer_service_1.LayerService, },
     ];
     LayerDirective.propDecorators = {
         'visibilityChange': [{ type: core_1.Output },],

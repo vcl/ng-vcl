@@ -5,11 +5,11 @@ Radio button.
 
 ## Usage
 
-```html+hbs
-<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```html
+<vcl-radio-button
+  [(checked)]="checked">
+</vcl-radio-button>
 ```
-
-@demo example
 */
 var RadioButtonComponent = (function () {
     function RadioButtonComponent(elementRef) {
@@ -91,7 +91,7 @@ var RadioButtonComponent = (function () {
                     selector: 'vcl-radio-button',
                     template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
                     host: {
-                        '[attr.ariaRole]': '"radio"',
+                        '[attr.role]': '"radio"',
                         '[class.vclRadioButton]': 'true',
                         '[class.vclScale130p]': 'true',
                     }

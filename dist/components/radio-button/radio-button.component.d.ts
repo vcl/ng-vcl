@@ -4,11 +4,11 @@ Radio button.
 
 ## Usage
 
-```html+hbs
-<vcl-radio-button [(checked)]="checked"></vcl-radio-button>
+```html
+<vcl-radio-button
+  [(checked)]="checked">
+</vcl-radio-button>
 ```
-
-@demo example
 */
 export declare class RadioButtonComponent implements OnInit, OnChanges {
     private elementRef;

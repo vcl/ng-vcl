@@ -1,28 +1,16 @@
 "use strict";
 var core_1 = require('@angular/core');
 require('hammerjs');
-/**
-The main control for triggering actions
-
-## Usage
-
-```html
-<button vcl-button label="My Button" (click)=""doSomething()></button>
-```
-
-@demo example
-
-@property     {String}    label    textual label
-*/
 var ButtonComponent = (function () {
-    function ButtonComponent() {
-        this.hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
+    function ButtonComponent(elementRef) {
+        this.elementRef = elementRef;
         this.pressed = false; // `true` if a pointer device is conducting a `down` gesture on the button
         this.focused = false; // `true` if the element is focused  (CSS' :focus)
+        this.hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
         this.selected = false;
-        // TODO: Doc missing. Input attr?
         this.busy = false; // State to indicate that the button is disabled as a operation is in progress
         this.flexLabel = false;
+        this.autoBlur = true;
         this._press = new core_1.EventEmitter();
     }
     Object.defineProperty(ButtonComponent.prototype, "press", {
@@ -32,7 +20,23 @@ var ButtonComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    ButtonComponent.prototype.ngOnInit = function () { };
+    ButtonComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.press.subscribe(function () {
+            if (_this.autoBlur) {
+                if (_this.elementRef.nativeElement && _this.elementRef.nativeElement.blur) {
+                    _this.elementRef.nativeElement.blur();
+                }
+            }
+        });
+    };
+    ButtonComponent.prototype.onMouseEnter = function (e) { this.hovered = true; };
+    ButtonComponent.prototype.onMouseLeave = function (e) { this.hovered = false; };
+    ButtonComponent.prototype.onMouseUp = function (e) { this.pressed = false; };
+    ButtonComponent.prototype.onMouseDown = function (e) { this.pressed = true; };
+    ButtonComponent.prototype.onFocus = function (e) { this.focused = true; };
+    ButtonComponent.prototype.onBlur = function (e) { this.focused = false; };
+    ButtonComponent.prototype.onTap = function (e) { this._press.emit(e); };
     Object.defineProperty(ButtonComponent.prototype, "calculatedLabel", {
         get: function () {
             return (this.busy && this.busyLabel) ? this.busyLabel : this.label;
@@ -58,35 +62,37 @@ var ButtonComponent = (function () {
         { type: core_1.Component, args: [{
                     selector: '[vcl-button]',
                     host: {
-                        '(mouseenter)': 'hovered=true',
-                        '(mouseleave)': 'hovered=false',
-                        '(mousedown)': 'pressed=true',
-                        '(mouseup)': 'pressed=false',
-                        '(onfocus)': 'focused=true;',
-                        '(onblur)': 'focused=false',
-                        '(tap)': '_press.emit($event)',
                         '[class.vclButton]': 'true',
-                        '[class.vclHovered]': 'hovered',
-                        '[class.vclDisabled]': 'disabled',
-                        '[class.vclSelected]': 'selected',
                     },
                     templateUrl: 'button.component.html',
-                    // encapsulation: ViewEncapsulation.None,
                     changeDetection: core_1.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /** @nocollapse */
-    ButtonComponent.ctorParameters = [];
+    ButtonComponent.ctorParameters = [
+        { type: core_1.ElementRef, },
+    ];
     ButtonComponent.propDecorators = {
+        'hovered': [{ type: core_1.HostBinding, args: ['class.vclHovered',] },],
+        'selected': [{ type: core_1.Input }, { type: core_1.HostBinding, args: ['class.vclSelected',] },],
+        'title': [{ type: core_1.HostBinding, args: ['attr.aria-label',] }, { type: core_1.Input },],
         'busy': [{ type: core_1.Input },],
         'flexLabel': [{ type: core_1.Input },],
         'busyLabel': [{ type: core_1.Input },],
         'label': [{ type: core_1.Input },],
         'prepIcon': [{ type: core_1.Input },],
         'prepIconBusy': [{ type: core_1.Input },],
+        'autoBlur': [{ type: core_1.Input },],
         'appIcon': [{ type: core_1.Input },],
         'appIconBusy': [{ type: core_1.Input },],
         'press': [{ type: core_1.Output },],
+        'onMouseEnter': [{ type: core_1.HostListener, args: ['mouseenter', ['$event'],] },],
+        'onMouseLeave': [{ type: core_1.HostListener, args: ['mouseleave', ['$event'],] },],
+        'onMouseUp': [{ type: core_1.HostListener, args: ['mouseup', ['$event'],] },],
+        'onMouseDown': [{ type: core_1.HostListener, args: ['mousedown', ['$event'],] },],
+        'onFocus': [{ type: core_1.HostListener, args: ['onfocus', ['$event'],] },],
+        'onBlur': [{ type: core_1.HostListener, args: ['onblur', ['$event'],] },],
+        'onTap': [{ type: core_1.HostListener, args: ['tap', ['$event'],] },],
     };
     return ButtonComponent;
 }());

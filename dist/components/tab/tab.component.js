@@ -6,48 +6,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var wormhole_1 = require('./../../directives/wormhole');
 var core_1 = require('@angular/core');
-/**
-vcl-tab-nav
-
-## Usage
-
-```html
-
-<vcl-tab-nav>
-  <vcl-tab>
-    <template vcl-tab-label>
-      Tab1
-    </template>
-    <template vcl-tab-content>
-      Content1
-    </template>
-  </vcl-tab>
-  <vcl-tab>
-    <template vcl-tab-label>
-      Tab2
-    </template>
-    <template vcl-tab-content>
-      Content2
-    </template>
-  </vcl-tab>
-  <vcl-tab [disabled]="true">
-    <template vcl-tab-label>
-      Tab3 disabled
-    </template>
-    <template vcl-tab-content>
-      Content2
-    </template>
-  </vcl-tab>
-</vcl-tab-nav>
-```
-*/
 var TabLabelDirective = (function (_super) {
     __extends(TabLabelDirective, _super);
     function TabLabelDirective(templateRef) {
         _super.call(this, templateRef);
         this.templateRef = templateRef;
     }
-    TabLabelDirective.prototype.ngOnInit = function () { };
     TabLabelDirective.decorators = [
         { type: core_1.Directive, args: [{
                     selector: '[vcl-tab-label]'
@@ -66,7 +30,6 @@ var TabContentDirective = (function (_super) {
         _super.call(this, templateRef);
         this.templateRef = templateRef;
     }
-    TabContentDirective.prototype.ngOnInit = function () { };
     TabContentDirective.decorators = [
         { type: core_1.Directive, args: [{
                     selector: '[vcl-tab-content]'
@@ -83,9 +46,6 @@ var TabComponent = (function () {
     function TabComponent() {
         this.disabled = false;
     }
-    TabComponent.prototype.ngAfterViewInit = function () {
-        console.log(this.label);
-    };
     TabComponent.decorators = [
         { type: core_1.Directive, args: [{
                     selector: 'vcl-tab'
@@ -102,18 +62,37 @@ var TabComponent = (function () {
 }());
 exports.TabComponent = TabComponent;
 var TabNavComponent = (function () {
-    function TabNavComponent() {
+    function TabNavComponent(_zone) {
+        this._zone = _zone;
+        this.selectedTabIndex = 0;
+        this.selectedTabIndexChange$ = new core_1.EventEmitter();
     }
-    TabNavComponent.prototype.ngAfterViewInit = function () {
-        this.selectTab(0);
-    };
+    Object.defineProperty(TabNavComponent.prototype, "selectedTabIndexChange", {
+        get: function () {
+            return this.selectedTabIndexChange$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     TabNavComponent.prototype.selectTab = function (tab) {
         var tabs = this.tabs.toArray();
-        if (typeof tab === 'number' && tabs[tab]) {
-            tab = tabs[tab];
+        var tabIdx;
+        var tabComp;
+        if (tab instanceof TabComponent) {
+            tabIdx = tabs.indexOf(tab);
+            tabComp = tab;
         }
-        if (tab instanceof TabComponent && !tab.disabled) {
-            this.currentTab = tab;
+        else if (typeof tab === 'number' && tabs[tab]) {
+            tabIdx = tab;
+            tabComp = tabs[tabIdx];
+        }
+        else {
+            tabIdx = -1;
+            tabComp = null;
+        }
+        if (tabIdx >= 0 && tab instanceof TabComponent && !tab.disabled) {
+            this.selectedTabIndex = tabIdx;
+            this.selectedTabIndexChange$.emit(tabIdx);
         }
     };
     TabNavComponent.decorators = [
@@ -123,9 +102,13 @@ var TabNavComponent = (function () {
                 },] },
     ];
     /** @nocollapse */
-    TabNavComponent.ctorParameters = [];
+    TabNavComponent.ctorParameters = [
+        { type: core_1.NgZone, },
+    ];
     TabNavComponent.propDecorators = {
         'tabs': [{ type: core_1.ContentChildren, args: [TabComponent,] },],
+        'selectedTabIndex': [{ type: core_1.Input },],
+        'selectedTabIndexChange': [{ type: core_1.Output },],
     };
     return TabNavComponent;
 }());

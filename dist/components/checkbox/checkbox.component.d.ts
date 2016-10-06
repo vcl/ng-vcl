@@ -1,14 +1,14 @@
 import { OnInit, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
 /**
-Checkbox
+Checkbox.
 
 ## Usage
 
-```html+hbs
-<vcl-checkbox [(checked)]="checked"></vcl-checkbox>
+```html
+<vcl-checkbox
+  [(checked)]="checked">
+</vcl-checkbox>
 ```
-
-@demo example
 */
 export declare class CheckboxComponent implements OnInit, OnChanges {
     private elementRef;

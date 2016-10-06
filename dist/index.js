@@ -13,26 +13,29 @@ var button_module_1 = require('./components/button/button.module');
 var button_group_module_1 = require('./components/button-group/button-group.module');
 var layer_module_1 = require('./components/layer/layer.module');
 var tab_module_1 = require('./components/tab/tab.module');
+var toolbar_module_1 = require('./components/toolbar/toolbar.module');
 var tether_module_1 = require('./components/tether/tether.module');
+var link_module_1 = require('./components/link/link.module');
 var popover_module_1 = require('./components/popover/popover.module');
 var radio_button_module_1 = require('./components/radio-button/radio-button.module');
 var checkbox_module_1 = require('./components/checkbox/checkbox.module');
 var form_control_label_module_1 = require('./components/form-control-label/form-control-label.module');
 var wormhole_1 = require('./directives/wormhole');
+__export(require('./reflect'));
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
 __export(require('./components/button/button.module'));
 __export(require('./components/button-group/button-group.module'));
 __export(require('./components/layer/layer.module'));
 __export(require('./components/tab/tab.module'));
+__export(require('./components/toolbar/toolbar.module'));
 __export(require('./components/tether/tether.module'));
+__export(require('./components/link/link.module'));
 __export(require('./components/popover/popover.module'));
 __export(require('./components/radio-button/radio-button.module'));
 __export(require('./components/checkbox/checkbox.module'));
 __export(require('./directives/wormhole'));
 __export(require('./l10n/l10n.module'));
-__export(require('./services/layerManager.service'));
-var layerManager_service_2 = require('./services/layerManager.service');
 var overlayManager_service_1 = require('./services/overlayManager.service');
 var VCLModule = (function () {
     function VCLModule() {
@@ -47,8 +50,10 @@ var VCLModule = (function () {
                         button_group_module_1.VCLButtonGroupModule,
                         layer_module_1.VCLLayerModule,
                         tether_module_1.VCLTetherModule,
+                        link_module_1.VCLLinkModule,
                         input_module_1.VCLInputModule,
                         tab_module_1.VCLTabModule,
+                        toolbar_module_1.VCLToolbarModule,
                         popover_module_1.VCLPopoverModule,
                         radio_button_module_1.VCLRadioButtonModule,
                         checkbox_module_1.VCLCheckboxModule,
@@ -65,8 +70,10 @@ var VCLModule = (function () {
                         button_group_module_1.VCLButtonGroupModule,
                         layer_module_1.VCLLayerModule,
                         tether_module_1.VCLTetherModule,
+                        link_module_1.VCLLinkModule,
                         input_module_1.VCLInputModule,
                         tab_module_1.VCLTabModule,
+                        toolbar_module_1.VCLToolbarModule,
                         popover_module_1.VCLPopoverModule,
                         radio_button_module_1.VCLRadioButtonModule,
                         checkbox_module_1.VCLCheckboxModule,
@@ -76,7 +83,6 @@ var VCLModule = (function () {
                         select_module_1.VCLSelectModule
                     ],
                     providers: [
-                        layerManager_service_2.LayerManagerService,
                         overlayManager_service_1.OverlayManagerService
                     ],
                 },] },
