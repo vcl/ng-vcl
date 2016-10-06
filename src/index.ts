@@ -19,6 +19,8 @@ import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
 import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
 import { VCLWormholeModule } from './directives/wormhole';
 
+export * from './reflect';
+
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';
 export * from './components/button/button.module';
