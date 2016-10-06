@@ -1,16 +1,6 @@
-<a class="{{class}}" 
-   [attr.href]="_href"
-   [attr.target]="target"
-   [attr.tabindex]="tabindex"
-   [attr.touch-action]="touchAction"
-   [attr.aria-label]="title | loc"
-   [attr.title]="title | loc"
-   [attr.disabled]="disabled"
-   [class.vclDisabled]="disabled">
-  <ng-content></ng-content>
-  <vcl-icogram 
-    [label]="_label | loc"
-    [prepIcon]="prepIcon"
-    [appIcon]="appIcon">
-  </vcl-icogram>
-</a>
+<ng-content></ng-content>
+<vcl-icogram 
+  [label]="_label | loc"
+  [prepIcon]="prepIcon"
+  [appIcon]="appIcon">
+</vcl-icogram>

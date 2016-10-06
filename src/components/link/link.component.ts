@@ -27,8 +27,18 @@ The anchor tag with VCL and Angular awareness.
 */
 
 @Component({
-  selector: 'vcl-link',
+  selector: '[vcl-link]',
   templateUrl: 'link.component.html',
+  host: {
+    '[attr.href]': '_href',
+    '[attr.target]': 'target',
+    '[attr.tabindex]': 'tabindex',
+    '[attr.touch-action]': 'touchAction',
+    '[attr.aria-label]': 'title | loc',
+    '[attr.title]': 'title | loc',
+    '[attr.disabled]': 'disabled',
+    '[class.vclDisabled]': 'disabled',
+  },
 })
 export class LinkComponent {
   @Input()
@@ -63,10 +73,6 @@ export class LinkComponent {
 
   get _href(): string {
     if (this.disabled) return null;
-
-    if (!this.href) {
-      this.href = '#';
-    }
 
     return this.scheme
       ? `${this.scheme}:${this.href}`
