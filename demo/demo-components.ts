@@ -15,6 +15,7 @@ import { FormControlLabelComponent } from './components/form-control-label/form-
 import { InputComponent } from './components/input/input.component';
 import { PopoverComponent } from './components/popover/popover.component';
 import { TabComponent } from './components/tab/tab.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WormholeComponent } from './components/wormhole/wormhole.component';
 
@@ -46,7 +47,7 @@ export const DEMO_COMPONENTS = [
   },
   BUTTON_DEMO,
   {
-    name: 'ButtonGroup',
+    name: 'Button Group',
     component: ButtonGroupComponent,
     path: 'button-group'
   },
@@ -69,7 +70,7 @@ export const DEMO_COMPONENTS = [
   {
     name: 'Checkbox',
     component: CheckboxComponent,
-    path: 'checkboc'
+    path: 'checkbox'
   },
   {
     name: 'Form Control Label',
@@ -90,6 +91,11 @@ export const DEMO_COMPONENTS = [
     name: 'Tab',
     component: TabComponent,
     path: 'tab'
+  },
+  {
+    name: 'Navigation',
+    component: NavigationComponent,
+    path: 'navigation'
   },
   {
     name: 'Toolbar',

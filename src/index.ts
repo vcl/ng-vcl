@@ -10,6 +10,7 @@ import { VCLButtonModule } from './components/button/button.module';
 import { VCLButtonGroupModule } from './components/button-group/button-group.module';
 import { VCLLayerModule } from './components/layer/layer.module';
 import { VCLTabModule } from './components/tab/tab.module';
+import { VCLNavigationModule } from './components/navigation/navigation.module';
 import { VCLToolbarModule } from './components/toolbar/toolbar.module';
 import { VCLTetherModule } from './components/tether/tether.module';
 import { VCLLinkModule } from './components/link/link.module';
@@ -27,6 +28,7 @@ export * from './components/button/button.module';
 export * from './components/button-group/button-group.module';
 export * from './components/layer/layer.module';
 export * from './components/tab/tab.module';
+export * from './components/navigation/navigation.module';
 export * from './components/toolbar/toolbar.module';
 export * from './components/tether/tether.module';
 export * from './components/link/link.module';
@@ -50,6 +52,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLLinkModule,
     VCLInputModule,
     VCLTabModule,
+    VCLNavigationModule,
     VCLToolbarModule,
     VCLPopoverModule,
     VCLRadioButtonModule,
@@ -70,6 +73,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLLinkModule,
     VCLInputModule,
     VCLTabModule,
+    VCLNavigationModule,
     VCLToolbarModule,
     VCLPopoverModule,
     VCLRadioButtonModule,

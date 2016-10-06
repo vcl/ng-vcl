@@ -1,0 +1,39 @@
+<nav class="vclNavigation" [class.vclVertical]="isVertical">
+  <ul>
+    <li *ngFor="let item of navigationItems"
+        [class.vclSelected]="item.selected && !item.items"
+        [class.vclOpen]="item.opened"
+        [class.vclClose]="!item.opened"
+        [class.vclNavigationHeading]="item.heading"
+        [class.vclNavigationItem]="!item.heading"
+        [attr.touch-action]="touchAction"
+        [attr.aria-selected]="item.selected"
+        [attr.role]="item.heading && 'sectionhead' || ariaRole"
+        [attr.tabindex]="tabindex">
+
+      <span *ngIf="item.heading">
+        {{item.label | loc}}
+      </span>
+
+      <a vcl-link class="vclNavigationItemLabel"
+        *ngIf="!item.heading"
+        [label]="item.label | loc"
+        [href]="item.href"
+        [prepIcon]="getPrepIcon(item)"
+        [appIcon]="getAppIcon(item)"
+        (click)="item.items && toggleMenu(item)"
+        (click)="selectItem(item)">
+      </a>
+
+      <vcl-navigation *ngIf="item.items"
+          [navigationItems]="item.items"
+          [type]="type"
+          [subLevelHintIconOpened]="subLevelHintIconOpened"
+          [subLevelHintIconClosed]="subLevelHintIconClosed"
+          [subLevelHintIconSide]="subLevelHintIconSide"
+          [selectedItem]="selectedItem"
+          (select)="onSelect($event)">
+      </vcl-navigation>
+    </li>
+  </ul>
+</nav>
