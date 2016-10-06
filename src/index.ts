@@ -33,9 +33,7 @@ export * from './components/radio-button/radio-button.module';
 export * from './components/checkbox/checkbox.module';
 export * from './directives/wormhole';
 export * from './l10n/l10n.module';
-export * from './services/layerManager.service';
 
-import { LayerManagerService } from './services/layerManager.service';
 import { OverlayManagerService } from './services/overlayManager.service';
 
 @NgModule({
@@ -80,7 +78,6 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLSelectModule
   ],
   providers: [
-    LayerManagerService,
     OverlayManagerService
   ],
 })

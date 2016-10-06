@@ -54,7 +54,7 @@ function webpackConfig(options) {
           // }
         },
         {
-          test: /\.html?$/,
+          test: /\.(html|css)?$/,
           loaders: ['raw-loader'],
         },
         {

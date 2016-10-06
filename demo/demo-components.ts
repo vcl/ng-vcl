@@ -1,11 +1,12 @@
+import BUTTON_DEMO from './components/button/button.demo';
+import LAYER_DEMO from './components/layer/layer.demo';
+
 import { IconComponent } from "./components/icon/icon.component";
 import { MetalistComponent } from "./components/metalist/metalist.component";
 import { DropdownComponent } from "./components/dropdown/dropdown.component";
 import { SelectComponent } from "./components/select/select.component";
 import { IcogramComponent } from "./components/icogram/icogram.component";
-import { ButtonComponent } from './components/button/button.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
-import { LayerComponent } from './components/layer/layer.component';
 import { TetherComponent } from './components/tether/tether.component';
 import { LinkComponent } from './components/link/link.component';
 import { RadioButtonComponent } from './components/radio-button/radio-button.component';
@@ -43,21 +44,13 @@ export const DEMO_COMPONENTS = [
     component: IcogramComponent,
     path: 'icogram'
   },
-  {
-    name: 'Button',
-    component: ButtonComponent,
-    path: 'button'
-  },
+  BUTTON_DEMO,
   {
     name: 'ButtonGroup',
     component: ButtonGroupComponent,
     path: 'button-group'
   },
-  {
-    name: 'Layer',
-    component: LayerComponent,
-    path: 'layer'
-  },
+  LAYER_DEMO,
   {
     name: 'Tether',
     component: TetherComponent,
