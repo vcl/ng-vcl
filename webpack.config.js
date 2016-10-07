@@ -9,7 +9,6 @@ const {
     UglifyJsPlugin
   }
 } = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {ForkCheckerPlugin} = require('awesome-typescript-loader');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
@@ -77,11 +76,7 @@ function webpackConfig(options) {
       new ContextReplacementPlugin(
         /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
         __dirname
-      ),
-      new HtmlWebpackPlugin({
-        template: 'demo/index.html',
-        chunksSortMode: 'dependency'
-      }),
+      )
     ],
 
     resolve: {
