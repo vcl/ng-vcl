@@ -3521,7 +3521,9 @@ exports.routes = [
     };
 })));
 exports.appRoutingProviders = [];
-exports.routing = router_1.RouterModule.forRoot(exports.routes);
+exports.routing = router_1.RouterModule.forRoot(exports.routes, {
+    useHash: true
+});
 
 
 /***/ },
