@@ -51,6 +51,10 @@ export class AppModule { }
 
 ## Demo
 
+[https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)
+
+OR
+
 Browse the components and check the API by running the demo:
 
 ```sh
