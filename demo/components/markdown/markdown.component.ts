@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import * as marked from 'marked';
+const style = require("!raw!./markdown.component.css");
 
 marked.setOptions({
   breaks: true
@@ -7,7 +8,7 @@ marked.setOptions({
 
 @Component({
   template: '<div class="markdown-body" [innerHTML]="marked"></div>',
-  styleUrls: ['markdown.component.css'],
+  styles: [style],
   selector: 'markdown',
 })
 export class MarkdownComponent {
