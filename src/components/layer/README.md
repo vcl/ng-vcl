@@ -32,7 +32,7 @@ A layer can be defined anywhere in your application
 
 The `LayerService` can be used to open a Layer without having an actual reference.
 The layer must have a name to use it with the Service.
-Warning: this only works when the layer is actually rendered on the page.
+_This only works when the layer template is actually rendered on the page_
 
 
 ```js
@@ -62,4 +62,4 @@ export class LayerComponent {
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `modal`             | boolean     | false    | Disables user interaction outside of the layer
-| `name`              | string      |          | The layer name when using the LayerService 
+| `name`              | string      |          | The layer name for addressing it in the LayerService 
