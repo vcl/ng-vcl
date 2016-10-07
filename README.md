@@ -44,9 +44,11 @@ export class AppModule { }
 
 | Feature          | Status                                       | Docs         |
 |------------------|----------------------------------------------|--------------|
-| vcl-button       |                                        Ready |            - |
+| vcl-button       |                                        Ready |  [README][1] |
+| vcl-layer        |                                        Ready |  [README][2] |
 
- [1]: https://github.com/angular/material2/blob/master/src/lib/button/README.md
+ [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md
+ [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md
 
 
 ## Demo
@@ -55,14 +57,11 @@ export class AppModule { }
 
 OR
 
-Browse the components and check the API by running the demo:
-
 ```sh
 git clone https://github.com/ng-vcl/ng-vcl.git
 cd ng-vcl
 npm install
 npm run demo
 ```
-Open [http://localhost:3000/](http://localhost:3000/) to see a demo browser
-for all components.
+Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser
 
