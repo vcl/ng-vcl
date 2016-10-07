@@ -3618,8 +3618,8 @@ exports.default = {
     path: 'button',
     tabs: {
         'README.md': __webpack_require__(776),
-        'button.component.html': __webpack_require__(411),
-        'button.component.ts': __webpack_require__(755)
+        'demo.component.html': __webpack_require__(411),
+        'demo.component.ts': __webpack_require__(755)
     }
 };
 
@@ -3895,8 +3895,8 @@ exports.default = {
     path: 'layer',
     tabs: {
         'README.md': __webpack_require__(782),
-        'button.component.html': __webpack_require__(412),
-        'button.component.ts': __webpack_require__(764)
+        'demo.component.html': __webpack_require__(412),
+        'demo.component.ts': __webpack_require__(764)
     }
 };
 
@@ -10887,7 +10887,7 @@ if (true) {
 /***/ 752:
 /***/ function(module, exports) {
 
-module.exports = "# ng-vcl\n\nA comprehensive library of components for Angular 2 with [VCL](http://vcl.github.io/) based styling.\n\n## Features\n\n- Theming/ styling through the [VCL](http://vcl.github.io/)\n- I18n baked in\n- Highly accessible HTML honoring [WAI-ARIA](https://www.w3.org/WAI/intro/aria) recommendations\n- Feature complete, we want you to be able to build standard apps using 80% ng-vcl components\n- Extensibility, it is possible to extend components to accomodate custom features\n- Straightforward APIs\n\n## Status\n\nng-vcl is in alpha and under heavy development.\nBreaking API changes might occur during alpha.\n\n## Installation\n\n```sh\nnpm install https://github.com/ng-vcl/ng-vcl.git\n```\n\n## Usage\n\n```js\n// Import the complete ng-vcl\nimport { VCLModule } from 'ng-vcl';\n// or specific components\nimport { VCLIconModule, VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [\n    VCLIconModule,\n    ...\n  ]\n})\nexport class AppModule { }\n```\n\n\n## Modules\n\n| Feature          | Status                                       | Docs         |\n|------------------|----------------------------------------------|--------------|\n| vcl-button       |                                        Ready |  [README][1] |\n| vcl-layer        |                                        Ready |  [README][2] |\n\n [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md\n [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md\n\n\n## Demo\n\n[https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)\n\nOR\n\n```sh\ngit clone https://github.com/ng-vcl/ng-vcl.git\ncd ng-vcl\nnpm install\nnpm run demo\n```\nOpen [http://localhost:3000/](http://localhost:3000/) to see the demo browser\n\n"
+module.exports = "# ng-vcl\n\nA comprehensive library of components for Angular 2 with [VCL](http://vcl.github.io/) based styling.\n\n## Features\n\n- Theming/ styling through the [VCL](http://vcl.github.io/)\n- I18n baked in\n- Highly accessible HTML honoring [WAI-ARIA](https://www.w3.org/WAI/intro/aria) recommendations\n- Feature complete, we want you to be able to build standard apps using 80% ng-vcl components\n- Extensibility, it is possible to extend components to accomodate custom features\n- Straightforward APIs\n\n## Status\n\nng-vcl is in alpha and under heavy development.\nBreaking API changes might occur during alpha.\n\n## Installation\n\n```sh\nnpm install https://github.com/ng-vcl/ng-vcl.git\n```\n\n## Usage\n\n```js\n// Import the complete ng-vcl\nimport { VCLModule } from 'ng-vcl';\n// or specific components\nimport { VCLIconModule, VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [\n    VCLIconModule,\n    ...\n  ]\n})\nexport class AppModule { }\n```\n\n\n## Modules\n\n| Module           | Status                                       | Docs         |\n|------------------|----------------------------------------------|--------------|\n| vcl-button       |                                        Ready |  [README][1] |\n| vcl-layer        |                                        Ready |  [README][2] |\n\n [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md\n [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md\n\n\n## Demo\n\n[https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)\n\nOR\n\n```sh\ngit clone https://github.com/ng-vcl/ng-vcl.git\ncd ng-vcl\nnpm install\nnpm run demo\n```\nOpen [http://localhost:3000/](http://localhost:3000/) to see the demo browser\n\n"
 
 /***/ },
 
