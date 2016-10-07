@@ -100,26 +100,27 @@ var IconService = (function () {
     function IconService() {
     }
     IconService.prototype.fa = function (icon) {
-        return "fa fa-" + icon;
+        var fa = icon.split(':').join(' fa-');
+        return "fa fa-" + fa;
     };
     IconService.prototype.lookup = function (icon) {
         if (typeof icon === 'string' && icon) {
             var iconName = icon;
             var providerName = void 0;
-            var iconParts = iconName.split(':');
-            if (iconParts.length > 1) {
+            var iconParts = iconName.split(/:(.+)?/);
+            if (iconParts.length === 0) {
+                return icon;
+            }
+            else {
                 providerName = iconParts[0];
                 iconName = iconParts[1];
             }
-            else {
-                providerName = 'fa';
-            }
             if (!this[providerName]) {
-                throw new Error('Invalid icon provider: ' + providerName);
+                return icon;
             }
             return this[providerName](iconName);
         }
-        return null;
+        return icon;
     };
     IconService = __decorate([
         Injectable(), 
@@ -128,34 +129,6 @@ var IconService = (function () {
     return IconService;
 }());
 
-/**
-Icon which can be based on glyphs from icon fonts, inline svg and bitmaps.
-The `label` is never displayed, it is only for accessibility with screen
-readers.
-The `hidden` attribute is only reflected in the `aria-hidden` property which
-allows to hide the icon to screen readers, if it is only of presentational character.
-See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
-
-Usage:
-
-```html
-<vcl-icon icon="fa:chevron-right" label="chevron right" hidden="false"></vcl-icon>
-```
-or
-```html
-<vcl-icon src="..."></vcl-icon>
-```
-or
-```html
-<vcl-icon svguse="..."></vcl-icon>
-````
-
-@param    src             optional      URL of a graphics resource
-@param    svguse          optional      Generates an SVG `use` tag referencing the value
-@param    icon            optional      Icon generator lookup via icon provider registered in the meta facility
-@param    iconClass       optional      Additional class
-@param    label           optional      `aria-label`
-*/
 var IconComponent = (function () {
     function IconComponent(_iconService) {
         this._iconService = _iconService;
@@ -555,6 +528,17 @@ var L10nModule = (function () {
 var VCLIconModule = (function () {
     function VCLIconModule() {
     }
+    VCLIconModule.forRoot = function (config) {
+        return {
+            ngModule: VCLIconModule,
+            providers: [
+                {
+                    provide: IconService,
+                    useClass: config.service || IconService
+                }
+            ]
+        };
+    };
     VCLIconModule = __decorate([
         NgModule({
             imports: [CommonModule, L10nModule],
@@ -2810,4 +2794,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, SubComponent, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, VCLPopoverModule, PopoverComponent, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, VCLPopoverModule, PopoverComponent, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };

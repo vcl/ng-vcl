@@ -1,5 +1,5 @@
 import { VCLInputModule } from './components/input/input.module';
-import {NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { VCLIconModule,  } from './components/icon/icon.module';
 import { VCLMetalistModule  } from './components/metalist/metalist.module';

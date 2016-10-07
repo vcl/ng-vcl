@@ -1,7 +1,7 @@
 import BUTTON_DEMO from './components/button/button.demo';
 import LAYER_DEMO from './components/layer/layer.demo';
+import ICON_DEMO from './components/icon/icon.demo';
 
-import { IconComponent } from "./components/icon/icon.component";
 import { MetalistComponent } from "./components/metalist/metalist.component";
 import { DropdownComponent } from "./components/dropdown/dropdown.component";
 import { SelectComponent } from "./components/select/select.component";
@@ -20,11 +20,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WormholeComponent } from './components/wormhole/wormhole.component';
 
 export const DEMO_COMPONENTS = [
-  {
-    name: 'Icon',
-    component: IconComponent,
-    path: 'icon'
-  },
+  ICON_DEMO,
   {
     name: 'Metalist',
     component: MetalistComponent,
