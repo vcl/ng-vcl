@@ -18,11 +18,25 @@ export class SelectComponent implements OnInit {
     { label: 'item 10' }
   ]
 
+  selectedItemSingle: any;
+
+  selectedItemsMulti: any[];
+
   constructor() { }
 
   ngOnInit() { }
 
   onSelect(items: any[]) {
+    if (items.length) {
+      this.selectedItemSingle = items.pop();
+    } else {
+      this.selectedItemSingle = null;
+    }
+    console.log('Selected Items: ', items);
+  }
+
+  onSelectMulti(items: any[]) {
+    this.selectedItemsMulti = items;
     console.log('Selected Items: ', items);
   }
 }

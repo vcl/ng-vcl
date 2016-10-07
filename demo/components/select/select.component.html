@@ -1,1 +1,17 @@
-<vcl-select [items]="items" (select)="onSelect($event)" [maxSelectableItems]="3"></vcl-select>
+<b>Single select</b><br>
+<vcl-select [items]="items" (select)="onSelect($event)"></vcl-select>
+<div *ngIf="selectedItemSingle">
+  Selected: {{selectedItemSingle.label}}
+</div>
+
+<br>
+<br>
+<b>Multiselect, 3 Items selectable</b><br>
+
+<vcl-select [items]="items" (select)="onSelectMulti($event)" [maxSelectableItems]="3"></vcl-select>
+<div *ngIf="selectedItemsMulti">
+  Selected:
+  <ul>
+    <li *ngFor="let item of selectedItemsMulti">{{item.label}}</li>
+  </ul>
+</div>
