@@ -67,7 +67,7 @@ function webpackConfig(options) {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('app.css'),
+      new ExtractTextPlugin('styles/app.css'),
       new HotModuleReplacementPlugin(),
       new ForkCheckerPlugin(),
       new CommonsChunkPlugin({ name: ['main', 'vendor'], minChunks: Infinity }),
