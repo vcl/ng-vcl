@@ -5,6 +5,7 @@ export * from './components/button/button.module';
 export * from './components/button-group/button-group.module';
 export * from './components/layer/layer.module';
 export * from './components/tab/tab.module';
+export * from './components/navigation/navigation.module';
 export * from './components/toolbar/toolbar.module';
 export * from './components/tether/tether.module';
 export * from './components/link/link.module';

@@ -13,6 +13,7 @@ var rxjs_add_operator_map = require('rxjs/add/operator/map');
 var rxjs_add_operator_switchMap = require('rxjs/add/operator/switchMap');
 var rxjs_add_operator_publishLast = require('rxjs/add/operator/publishLast');
 var hammerjs = require('hammerjs');
+var _angular_router = require('@angular/router');
 var Tether = require('tether');
 
 function __extends(d, b) {
@@ -1788,6 +1789,265 @@ var VCLTabModule = (function () {
     return VCLTabModule;
 }());
 
+var NavigationComponent = (function () {
+    function NavigationComponent(router) {
+        this.router = router;
+        this.ariaRole = 'presentation';
+        this.tabindex = 0;
+        this.touchAction = 'pan-y';
+        this.type = 'horizontal';
+        this.subLevelHintIconClosed = 'fa:chevron-right';
+        this.subLevelHintIconOpened = 'fa:chevron-down';
+        this.subLevelHintIconSide = 'right';
+        this.navigationItems = [];
+        this.select = new _angular_core.EventEmitter();
+    }
+    NavigationComponent.prototype.ngOnInit = function () {
+        var selectedItem = this._navigationItems.filter(function (item) { return item.selected; })[0];
+        if (selectedItem) {
+            this.selectItem(selectedItem);
+        }
+    };
+    Object.defineProperty(NavigationComponent.prototype, "_navigationItems", {
+        get: function () {
+            return this.navigationItems.filter(function (item) { return item.active; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NavigationComponent.prototype, "isVertical", {
+        get: function () {
+            return this.type === 'vertical';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    NavigationComponent.prototype.getPrepIcon = function (item) {
+        return item.items && this.subLevelHintIconSide === 'left'
+            ? item.opened
+                ? this.subLevelHintIconOpened
+                : this.subLevelHintIconClosed
+            : item.prepIcon;
+    };
+    NavigationComponent.prototype.getAppIcon = function (item) {
+        return item.items && this.subLevelHintIconSide === 'right'
+            ? item.opened
+                ? this.subLevelHintIconOpened
+                : this.subLevelHintIconClosed
+            : item.appIcon;
+    };
+    NavigationComponent.prototype.selectItem = function (item) {
+        if (item == this.selectedItem) {
+            return;
+        }
+        if (this.selectedItem) {
+            this.selectedItem.selected = false;
+        }
+        item.selected = true;
+        this.selectedItem = item;
+        if (item.href) {
+            window.location.href = item.href;
+        }
+        else if (item.route) {
+            this.router.navigate(item.route);
+        }
+        this.select.emit(item);
+    };
+    NavigationComponent.prototype.onSelect = function (item) {
+        this.selectedItem.selected = false;
+        this.selectedItem = item;
+        this.select.emit(item);
+    };
+    NavigationComponent.prototype.toggleMenu = function (item) {
+        item.opened = !item.opened;
+    };
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationComponent.prototype, "selectedItem", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], NavigationComponent.prototype, "ariaRole", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], NavigationComponent.prototype, "tabindex", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], NavigationComponent.prototype, "touchAction", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], NavigationComponent.prototype, "type", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], NavigationComponent.prototype, "subLevelHintIconClosed", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], NavigationComponent.prototype, "subLevelHintIconOpened", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationComponent.prototype, "subLevelHintIconSide", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Array)
+    ], NavigationComponent.prototype, "navigationItems", void 0);
+    __decorate([
+        _angular_core.Output(), 
+        __metadata('design:type', Object)
+    ], NavigationComponent.prototype, "select", void 0);
+    NavigationComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-navigation',
+            template: "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\">\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n",
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof _angular_router.Router !== 'undefined' && _angular_router.Router) === 'function' && _a) || Object])
+    ], NavigationComponent);
+    return NavigationComponent;
+    var _a;
+}());
+
+/**
+The anchor tag with VCL and Angular awareness.
+
+## Usage
+
+```html
+<vcl-link
+  [href]="'http://www.example.com'"
+  [label]="'Example Link'"
+  [prepIcon]="'fa:chevron-right'">
+```
+
+@property     {String}    href         `href` attribute
+@property     {String}    target       `target` attribute
+@property     {String}    tabindex     `tabindex` attribute
+@property     {String}    scheme       URL scheme to be used, e. g. `tel`, `mailto` etc.
+@property     {String}    disabled     disabled if `true`
+@property     {String}    label        textual label with automatic Ember-i18n lookup
+@property     {String}    title        textual title with automatic Ember-i18n lookup
+@property     {String}    prepIcon     icon to be prepended to the label
+@property     {String}    appIcon      icon to be appended to the label
+@property     {String}    class        additional class to be added
+*/
+var LinkComponent = (function () {
+    function LinkComponent() {
+    }
+    Object.defineProperty(LinkComponent.prototype, "_href", {
+        get: function () {
+            if (this.disabled)
+                return null;
+            return this.scheme
+                ? this.scheme + ":" + this.href
+                : this.href;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LinkComponent.prototype, "_label", {
+        get: function () {
+            return this.label
+                ? this.label
+                : this.href;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "href", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "target", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], LinkComponent.prototype, "tabindex", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "scheme", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Boolean)
+    ], LinkComponent.prototype, "disabled", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "label", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "title", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "prepIcon", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "appIcon", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "class", void 0);
+    LinkComponent = __decorate([
+        _angular_core.Component({
+            selector: '[vcl-link]',
+            template: "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"_label | loc\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n",
+            host: {
+                '[attr.href]': '_href',
+                '[attr.target]': 'target',
+                '[attr.tabindex]': 'tabindex',
+                '[attr.touch-action]': 'touchAction',
+                '[attr.aria-label]': 'title | loc',
+                '[attr.title]': 'title | loc',
+                '[attr.disabled]': 'disabled',
+                '[class.vclDisabled]': 'disabled',
+            },
+        }), 
+        __metadata('design:paramtypes', [])
+    ], LinkComponent);
+    return LinkComponent;
+}());
+
+var VCLLinkModule = (function () {
+    function VCLLinkModule() {
+    }
+    VCLLinkModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule, VCLIcogramModule],
+            exports: [LinkComponent],
+            declarations: [LinkComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLLinkModule);
+    return VCLLinkModule;
+}());
+
+var VCLNavigationModule = (function () {
+    function VCLNavigationModule() {
+    }
+    VCLNavigationModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule, VCLLinkModule],
+            exports: [NavigationComponent],
+            declarations: [NavigationComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLNavigationModule);
+    return VCLNavigationModule;
+}());
+
 var ToolbarComponent = (function () {
     function ToolbarComponent() {
         this.ariaLevel = 1;
@@ -1890,120 +2150,6 @@ var VCLTetherModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLTetherModule);
     return VCLTetherModule;
-}());
-
-/**
-The anchor tag with VCL and Angular awareness.
-
-## Usage
-
-```html
-<vcl-link
-  [href]="'http://www.example.com'"
-  [label]="'Example Link'"
-  [prepIcon]="'fa:chevron-right'">
-```
-
-@property     {String}    href         `href` attribute
-@property     {String}    target       `target` attribute
-@property     {String}    tabindex     `tabindex` attribute
-@property     {String}    scheme       URL scheme to be used, e. g. `tel`, `mailto` etc.
-@property     {String}    disabled     disabled if `true`
-@property     {String}    label        textual label with automatic Ember-i18n lookup
-@property     {String}    title        textual title with automatic Ember-i18n lookup
-@property     {String}    prepIcon     icon to be prepended to the label
-@property     {String}    appIcon      icon to be appended to the label
-@property     {String}    class        additional class to be added
-*/
-var LinkComponent = (function () {
-    function LinkComponent() {
-    }
-    Object.defineProperty(LinkComponent.prototype, "_href", {
-        get: function () {
-            if (this.disabled)
-                return null;
-            if (!this.href) {
-                this.href = '#';
-            }
-            return this.scheme
-                ? this.scheme + ":" + this.href
-                : this.href;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LinkComponent.prototype, "_label", {
-        get: function () {
-            return this.label
-                ? this.label
-                : this.href;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "href", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "target", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', Number)
-    ], LinkComponent.prototype, "tabindex", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "scheme", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', Boolean)
-    ], LinkComponent.prototype, "disabled", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "label", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "title", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "prepIcon", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "appIcon", void 0);
-    __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "class", void 0);
-    LinkComponent = __decorate([
-        _angular_core.Component({
-            selector: 'vcl-link',
-            template: "<a class=\"{{class}}\" \n   [attr.href]=\"_href\"\n   [attr.target]=\"target\"\n   [attr.tabindex]=\"tabindex\"\n   [attr.touch-action]=\"touchAction\"\n   [attr.aria-label]=\"title | loc\"\n   [attr.title]=\"title | loc\"\n   [attr.disabled]=\"disabled\"\n   [class.vclDisabled]=\"disabled\">\n  <ng-content></ng-content>\n  <vcl-icogram \n    [label]=\"_label | loc\"\n    [prepIcon]=\"prepIcon\"\n    [appIcon]=\"appIcon\">\n  </vcl-icogram>\n</a>\n",
-        }), 
-        __metadata('design:paramtypes', [])
-    ], LinkComponent);
-    return LinkComponent;
-}());
-
-var VCLLinkModule = (function () {
-    function VCLLinkModule() {
-    }
-    VCLLinkModule = __decorate([
-        _angular_core.NgModule({
-            imports: [_angular_common.CommonModule, L10nModule, VCLIcogramModule],
-            exports: [LinkComponent],
-            declarations: [LinkComponent],
-            providers: [],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLLinkModule);
-    return VCLLinkModule;
 }());
 
 var OverlayManagerService = (function () {
@@ -2628,6 +2774,7 @@ var VCLModule = (function () {
                 VCLLinkModule,
                 VCLInputModule,
                 VCLTabModule,
+                VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
                 VCLRadioButtonModule,
@@ -2648,6 +2795,7 @@ var VCLModule = (function () {
                 VCLLinkModule,
                 VCLInputModule,
                 VCLTabModule,
+                VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
                 VCLRadioButtonModule,
@@ -2679,6 +2827,7 @@ exports.LayerDirective = LayerDirective;
 exports.LayerService = LayerService;
 exports.VCLLayerModule = VCLLayerModule;
 exports.VCLTabModule = VCLTabModule;
+exports.VCLNavigationModule = VCLNavigationModule;
 exports.VCLToolbarModule = VCLToolbarModule;
 exports.VCLTetherModule = VCLTetherModule;
 exports.VCLLinkModule = VCLLinkModule;

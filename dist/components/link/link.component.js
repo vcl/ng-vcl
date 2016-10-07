@@ -30,9 +30,6 @@ var LinkComponent = (function () {
         get: function () {
             if (this.disabled)
                 return null;
-            if (!this.href) {
-                this.href = '#';
-            }
             return this.scheme
                 ? this.scheme + ":" + this.href
                 : this.href;
@@ -51,8 +48,18 @@ var LinkComponent = (function () {
     });
     LinkComponent.decorators = [
         { type: core_1.Component, args: [{
-                    selector: 'vcl-link',
+                    selector: '[vcl-link]',
                     templateUrl: 'link.component.html',
+                    host: {
+                        '[attr.href]': '_href',
+                        '[attr.target]': 'target',
+                        '[attr.tabindex]': 'tabindex',
+                        '[attr.touch-action]': 'touchAction',
+                        '[attr.aria-label]': 'title | loc',
+                        '[attr.title]': 'title | loc',
+                        '[attr.disabled]': 'disabled',
+                        '[class.vclDisabled]': 'disabled',
+                    },
                 },] },
     ];
     /** @nocollapse */
