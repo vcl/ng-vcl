@@ -1,6 +1,7 @@
+<vcl-layer-base></vcl-layer-base>
 
 <button vcl-button (click)="layerNonModal.open()" label="open non-modal layer per reference"></button>
-<button vcl-button (click)="openLayer1()" label="open non-modal layer programmatically"></button>
+<button vcl-button (click)="openLayerNonModal()" label="open non-modal layer programmatically"></button>
 <button vcl-button (click)="layer1.open()" label="open modal layer"></button>
 
 <template vcl-layer #layerNonModal="layer" [modal]="false" [name]="'nonModal'">
@@ -16,7 +17,6 @@
     </div>
   </div>
 </template>
-
 
 <template vcl-layer #layer1="layer">
   <div class="vclPanel vclNoMargin">

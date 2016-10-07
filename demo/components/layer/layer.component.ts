@@ -8,7 +8,7 @@ export class LayerComponent {
 
   constructor(private layerService: LayerService) {}
 
-  openLayer1() {
+  openLayerNonModal() {
     this.layerService.open('nonModal');
   }
 }
