@@ -9,9 +9,9 @@ const {
     UglifyJsPlugin
   }
 } = require('webpack');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {ForkCheckerPlugin} = require('awesome-typescript-loader');
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 function root(__path = '.') {
@@ -38,7 +38,7 @@ function webpackConfig(options) {
       main:      './demo/main'
     },
     output: {
-      path: root('demo'),
+      path: root('docs'),
       publicPath: '/',
       filename: '[name].js',
       sourceMapFilename: '[name].map',
@@ -49,21 +49,26 @@ function webpackConfig(options) {
         {
           test: /\.ts?$/,
           loaders: ['awesome-typescript-loader?tsconfig=tsconfig.json&useWebpackText=true', 'angular2-template-loader'],
-          // query: {
-          //   tsconfig: 'tsconfig.esm.json'
-          // }
         },
         {
-          test: /\.(html|css)?$/,
+          test: /\.(html)?$/,
           loaders: ['raw-loader'],
         },
         {
           test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
           loader: 'file?name=assets/[name].[hash].[ext]'
         },
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract({
+            fallbackLoader: "style-loader",
+            loader: "css-loader?-url"
+          })
+        },
       ]
     },
     plugins: [
+      new ExtractTextPlugin('app.css'),
       new HotModuleReplacementPlugin(),
       new ForkCheckerPlugin(),
       new CommonsChunkPlugin({ name: ['main', 'vendor'], minChunks: Infinity }),
@@ -73,6 +78,10 @@ function webpackConfig(options) {
         /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
         __dirname
       ),
+      new HtmlWebpackPlugin({
+        template: 'demo/index.html',
+        chunksSortMode: 'dependency'
+      }),
     ],
 
     resolve: {
