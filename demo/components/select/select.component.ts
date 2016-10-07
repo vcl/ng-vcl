@@ -28,7 +28,7 @@ export class SelectComponent implements OnInit {
 
   onSelect(items: any[]) {
     if (items.length) {
-      this.selectedItemSingle = items.pop();
+      this.selectedItemSingle = items[0];
     } else {
       this.selectedItemSingle = null;
     }
