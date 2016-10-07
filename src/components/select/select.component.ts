@@ -6,11 +6,15 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:click)': 'onOutsideClick($event)',
+  },
 })
 export class SelectComponent {
 
   ariaRole: string = 'list';
+  clickInside: boolean = false;
 
   @Output()
   select = new EventEmitter<any[]>();
@@ -46,10 +50,12 @@ export class SelectComponent {
   }
 
   expand() {
+    this.clickInside = true;
     this.expanded = !this.expanded;
   }
 
   onSelect(items: any[]) {
+    this.clickInside = true;
     this.select.emit(items);
     if(items && items[0] && this.maxSelectableItems === 1) {
       this.displayValue = items[0][this.inputValue];
@@ -65,5 +71,12 @@ export class SelectComponent {
       }
       this.displayValue = result;
     }
+  }
+
+  onOutsideClick(event) {
+    if(!this.clickInside) {
+      this.expanded = false;
+    }
+    this.clickInside = false;
   }
 }
