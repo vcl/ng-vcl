@@ -18,12 +18,12 @@ export class IconComponent {
   constructor(private _iconService: IconService) {
   }
 
-  get fontIconClass() : string {
-    if(this.icon) {
+  get fontIconClass(): string {
+    if (this.icon) {
       return this._iconService.lookup(this.icon);
     }
   }
-  get mergedIconClass() : string {
+  get mergedIconClass(): string {
     return `${this.fontIconClass || ''} ${this.iconClass || ''}`;
   }
 

@@ -63,5 +63,5 @@ cd ng-vcl
 npm install
 npm run demo
 ```
-Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser
+Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 
