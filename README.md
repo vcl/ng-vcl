@@ -42,7 +42,7 @@ export class AppModule { }
 
 ## Modules
 
-| Feature          | Status                                       | Docs         |
+| Module           | Status                                       | Docs         |
 |------------------|----------------------------------------------|--------------|
 | vcl-button       |                                        Ready |  [README][1] |
 | vcl-layer        |                                        Ready |  [README][2] |

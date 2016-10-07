@@ -6,7 +6,7 @@ export default {
   path: 'layer',
   tabs: {
     'README.md': require("!raw!../../../src/components/layer/README.md"),
-    'button.component.html': require("!raw!./layer.component.html"),
-    'button.component.ts': require("!raw!./layer.component.ts")
+    'demo.component.html': require("!raw!./layer.component.html"),
+    'demo.component.ts': require("!raw!./layer.component.ts")
   }
 };

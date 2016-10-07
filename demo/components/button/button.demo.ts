@@ -6,7 +6,7 @@ export default {
   path: 'button',
   tabs: {
     'README.md': require("!raw!../../../src/components/button/README.md"),
-    'button.component.html': require("!raw!./button.component.html"),
-    'button.component.ts': require("!raw!./button.component.ts")
+    'demo.component.html': require("!raw!./button.component.html"),
+    'demo.component.ts': require("!raw!./button.component.ts")
   }
 };
