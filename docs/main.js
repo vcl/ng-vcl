@@ -2976,9 +2976,14 @@ var core_1 = __webpack_require__(1);
 var IconService = (function () {
     function IconService() {
     }
-    IconService.prototype.fa = function (icon) {
-        var fa = icon.split(':').join(' fa-');
-        return "fa fa-" + fa;
+    // A default name resolver following the CSS class name conventions of
+    // the well-known Font Awesome icon font. Bascially it translates
+    // `fa:user` into `fa fa-user`
+    IconService.prototype.defaultNameResolver = function (icon) {
+        var iconParts = icon.split(':');
+        var setName = iconParts[0];
+        var iconName = iconParts[1];
+        return setName + " " + setName + "-" + iconName;
     };
     IconService.prototype.lookup = function (icon) {
         if (typeof icon === 'string' && icon) {
@@ -2990,12 +2995,12 @@ var IconService = (function () {
             }
             else {
                 providerName = iconParts[0];
-                iconName = iconParts[1];
+                // TODO: for now, just hardcode to default resolver, later we need
+                // a mapping between the provider and the resolver or each font
+                // brings its own resolver.
+                providerName = 'defaultNameResolver';
+                return this[providerName](iconName);
             }
-            if (!this[providerName]) {
-                return icon;
-            }
-            return this[providerName](iconName);
         }
         return icon;
     };
@@ -4313,6 +4318,16 @@ var SelectComponent = (function () {
     }
     SelectComponent.prototype.ngOnInit = function () { };
     SelectComponent.prototype.onSelect = function (items) {
+        if (items.length) {
+            this.selectedItemSingle = items[0];
+        }
+        else {
+            this.selectedItemSingle = null;
+        }
+        console.log('Selected Items: ', items);
+    };
+    SelectComponent.prototype.onSelectMulti = function (items) {
+        this.selectedItemsMulti = items;
         console.log('Selected Items: ', items);
     };
     SelectComponent = __decorate([
@@ -6195,6 +6210,7 @@ var core_1 = __webpack_require__(1);
 var SelectComponent = (function () {
     function SelectComponent() {
         this.ariaRole = 'list';
+        this.clickInside = false;
         this.select = new core_1.EventEmitter();
         this.expanded = false;
         this.minSelectableItems = 1;
@@ -6206,9 +6222,11 @@ var SelectComponent = (function () {
         this.displayValue = this.emptyLabel;
     }
     SelectComponent.prototype.expand = function () {
+        this.clickInside = true;
         this.expanded = !this.expanded;
     };
     SelectComponent.prototype.onSelect = function (items) {
+        this.clickInside = true;
         this.select.emit(items);
         if (items && items[0] && this.maxSelectableItems === 1) {
             this.displayValue = items[0][this.inputValue];
@@ -6226,6 +6244,12 @@ var SelectComponent = (function () {
             }
             this.displayValue = result;
         }
+    };
+    SelectComponent.prototype.onOutsideClick = function (event) {
+        if (!this.clickInside) {
+            this.expanded = false;
+        }
+        this.clickInside = false;
     };
     __decorate([
         core_1.Output(), 
@@ -6267,7 +6291,10 @@ var SelectComponent = (function () {
         core_1.Component({
             selector: 'vcl-select',
             template: __webpack_require__(791),
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+            host: {
+                '(document:click)': 'onOutsideClick($event)',
+            },
         }), 
         __metadata('design:paramtypes', [])
     ], SelectComponent);
@@ -10884,14 +10911,14 @@ if (true) {
 /***/ 754:
 /***/ function(module, exports) {
 
-module.exports = "# ng-vcl\n\nA comprehensive library of components for Angular 2 with [VCL](http://vcl.github.io/) based styling.\n\n## Features\n\n- Theming/ styling through the [VCL](http://vcl.github.io/)\n- I18n baked in\n- Highly accessible HTML honoring [WAI-ARIA](https://www.w3.org/WAI/intro/aria) recommendations\n- Feature complete, we want you to be able to build standard apps using 80% ng-vcl components\n- Extensibility, it is possible to extend components to accomodate custom features\n- Straightforward APIs\n\n## Status\n\nng-vcl is in alpha and under heavy development.\nBreaking API changes might occur during alpha.\n\n## Installation\n\n```sh\nnpm install https://github.com/ng-vcl/ng-vcl.git\n```\n\n## Usage\n\n```js\n// Import the complete ng-vcl\nimport { VCLModule } from 'ng-vcl';\n// or specific components\nimport { VCLIconModule, VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [\n    VCLIconModule,\n    ...\n  ]\n})\nexport class AppModule { }\n```\n\n\n## Modules\n\n| Module           | Status                                       | Docs         |\n|------------------|----------------------------------------------|--------------|\n| vcl-button       |                                        Ready |  [README][1] |\n| vcl-layer        |                                        Ready |  [README][2] |\n\n [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md\n [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md\n\n\n## Demo\n\n[https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)\n\nOR\n\n```sh\ngit clone https://github.com/ng-vcl/ng-vcl.git\ncd ng-vcl\nnpm install\nnpm run demo\n```\nOpen [http://localhost:3000/](http://localhost:3000/) to see the demo browser\n\n"
+module.exports = "# ng-vcl\n\nA comprehensive library of components for Angular 2 with [VCL](http://vcl.github.io/) based styling.\n\n## Features\n\n- Theming/ styling through the [VCL](http://vcl.github.io/)\n- I18n baked in\n- Highly accessible HTML honoring [WAI-ARIA](https://www.w3.org/WAI/intro/aria) recommendations\n- Feature complete, we want you to be able to build standard apps using 80% ng-vcl components\n- Extensibility, it is possible to extend components to accomodate custom features\n- Straightforward APIs\n\n## Status\n\nng-vcl is in alpha and under heavy development.\nBreaking API changes might occur during alpha.\n\n## Installation\n\n```sh\nnpm install https://github.com/ng-vcl/ng-vcl.git\n```\n\n## Usage\n\n```js\n// Import the complete ng-vcl\nimport { VCLModule } from 'ng-vcl';\n// or specific components\nimport { VCLIconModule, VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [\n    VCLIconModule,\n    ...\n  ]\n})\nexport class AppModule { }\n```\n\n\n## Modules\n\n| Module           | Status                                       | Docs         |\n|------------------|----------------------------------------------|--------------|\n| vcl-button       |                                        Ready |  [README][1] |\n| vcl-layer        |                                        Ready |  [README][2] |\n\n [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md\n [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md\n\n\n## Demo\n\n[https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)\n\nOR\n\n```sh\ngit clone https://github.com/ng-vcl/ng-vcl.git\ncd ng-vcl\nnpm install\nnpm run demo\n```\nOpen [http://localhost:3000/](http://localhost:3000/) to see the demo browser.\n\n"
 
 /***/ },
 
 /***/ 755:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"vclLayoutVertical\">\n  <header class=\"vclToolbar\">\n    <div horizontal=\"\" center=\"\" justified=\"\" layout=\"\">\n      <h1 class=\"vclNoMargin\"> <a href=\"#\" title=\"to index\">Angular VCL Demo Browser</a> </h1>\n      <div> <a href=\"https://github.com/ng-vcl/ng-vcl\" target=\"_blank\" title=\"to Github\">\n        <span class=\"vclIcon fa fa-github fa-3x\"></span> </a>\n      </div>\n    </div>\n  </header>\n  <div class=\"vclContentArea vclLayoutHorizontal\">\n    <div class=\"vclLayoutVertical\">\n      <nav class=\"vclNavigation vclVertical\">\n        <ul>\n          <li class=\"vclNavigationItem\" role=\"presentation\" aria-selected=\"false\">\n            <a [routerLink]=\"'/'\" class=\"vclNavigationItemLabel vclIcogram\">\n              <span class=\"vclText\"> Home</span>\n            </a>\n          </li>\n          <li *ngFor=\"let dc of demoComponents\" class=\"vclNavigationItem\" role=\"presentation\" aria-selected=\"false\">\n            <a [routerLink]=\"'/' + dc.path\" class=\"vclNavigationItemLabel vclIcogram\">\n              <span class=\"vclText\"> {{dc.name}}</span>\n            </a>\n          </li>\n        </ul>\n      </nav>\n    </div>\n    <div class=\"vclScrollable vclLayoutFlex\">\n      <router-outlet></router-outlet>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"vclLayoutVertical\">\n  <header class=\"vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified\">\n    <div role=\"banner\">\n      <a href=\"#\" class=\"vclLayoutHorizontal vclLayoutCenter\">\n        <img class=\"vclResponsiveImage vclLogo\" role=\"presentation\" src=\"https://cdn.rawgit.com/ng-vcl/ng-vcl/master/gfx/angular_vcl.svg\">\n        <h1 class=\"vclAppName\">Angular VCL Demo Browser</h1>\n      </a>\n    </div>\n    <div><a href=\"https://github.com/ng-vcl/ng-vcl\" target=\"_blank\" title=\"to Github\">\n      <span class=\"vclIcon fa fa-github fa-3x\"></span> </a>\n    </div>\n  </header>\n  <div class=\"vclContentArea vclLayoutHorizontal\">\n    <div class=\"vclLayoutVertical\">\n      <nav class=\"vclNavigation vclVertical\">\n        <ul>\n          <li class=\"vclNavigationItem\" role=\"presentation\" aria-selected=\"false\">\n            <a [routerLink]=\"'/'\" class=\"vclNavigationItemLabel vclIcogram\">\n              <span class=\"vclText\"> Home</span>\n            </a>\n          </li>\n          <li *ngFor=\"let dc of demoComponents\" class=\"vclNavigationItem\" role=\"presentation\" aria-selected=\"false\">\n            <a [routerLink]=\"'/' + dc.path\" class=\"vclNavigationItemLabel vclIcogram\">\n              <span class=\"vclText\"> {{dc.name}}</span>\n            </a>\n          </li>\n        </ul>\n      </nav>\n    </div>\n    <div class=\"vclScrollable vclLayoutFlex\">\n      <router-outlet></router-outlet>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 
@@ -11017,7 +11044,7 @@ module.exports = "<vcl-radio-button [(checked)]=\"radioButtonChecked\"></vcl-rad
 /***/ 773:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-select [items]=\"items\" (select)=\"onSelect($event)\" [maxSelectableItems]=\"3\"></vcl-select>\n"
+module.exports = "<b>Single select</b><br>\n<vcl-select [items]=\"items\" (select)=\"onSelect($event)\"></vcl-select>\n<div *ngIf=\"selectedItemSingle\">\n  Selected: {{selectedItemSingle.label}}\n</div>\n\n<br>\n<br>\n<b>Multiselect, 3 Items selectable</b><br>\n\n<vcl-select [items]=\"items\" (select)=\"onSelectMulti($event)\" [maxSelectableItems]=\"3\"></vcl-select>\n<div *ngIf=\"selectedItemsMulti\">\n  Selected:\n  <ul>\n    <li *ngFor=\"let item of selectedItemsMulti\">{{item.label}}</li>\n  </ul>\n</div>\n"
 
 /***/ },
 
