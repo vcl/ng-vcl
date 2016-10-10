@@ -8891,9 +8891,13 @@ body {
 }
 
 header {
-  margin-top: 0;
   padding: 1em;
   position: relative;
+}
+
+header.vclApplicationHeader {
+  background-color: hsl(0, 0%, 95%);
+  margin: 0;
 }
 
 .docMain {
