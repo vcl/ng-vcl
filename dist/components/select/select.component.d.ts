@@ -3,6 +3,7 @@ import { EventEmitter } from '@angular/core';
 */
 export declare class SelectComponent {
     ariaRole: string;
+    clickInside: boolean;
     select: EventEmitter<any[]>;
     expanded: boolean;
     items: any[];
@@ -16,4 +17,5 @@ export declare class SelectComponent {
     constructor();
     expand(): void;
     onSelect(items: any[]): void;
+    onOutsideClick(event: any): void;
 }

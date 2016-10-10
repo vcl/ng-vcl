@@ -3,9 +3,14 @@ var core_1 = require('@angular/core');
 var IconService = (function () {
     function IconService() {
     }
-    IconService.prototype.fa = function (icon) {
-        var fa = icon.split(':').join(' fa-');
-        return "fa fa-" + fa;
+    // A default name resolver following the CSS class name conventions of
+    // the well-known Font Awesome icon font. Bascially it translates
+    // `fa:user` into `fa fa-user`
+    IconService.prototype.defaultNameResolver = function (icon) {
+        var iconParts = icon.split(':');
+        var setName = iconParts[0];
+        var iconName = iconParts[1];
+        return setName + " " + setName + "-" + iconName;
     };
     IconService.prototype.lookup = function (icon) {
         if (typeof icon === 'string' && icon) {
@@ -17,12 +22,12 @@ var IconService = (function () {
             }
             else {
                 providerName = iconParts[0];
-                iconName = iconParts[1];
+                // TODO: for now, just hardcode to default resolver, later we need
+                // a mapping between the provider and the resolver or each font
+                // brings its own resolver.
+                providerName = 'defaultNameResolver';
+                return this[providerName](iconName);
             }
-            if (!this[providerName]) {
-                return icon;
-            }
-            return this[providerName](iconName);
         }
         return icon;
     };

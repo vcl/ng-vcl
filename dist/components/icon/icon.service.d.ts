@@ -1,4 +1,4 @@
 export declare class IconService {
-    fa(icon: string): string;
+    defaultNameResolver(icon: string): string;
     lookup(icon: string): any;
 }

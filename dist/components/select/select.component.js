@@ -5,6 +5,7 @@ var core_1 = require('@angular/core');
 var SelectComponent = (function () {
     function SelectComponent() {
         this.ariaRole = 'list';
+        this.clickInside = false;
         this.select = new core_1.EventEmitter();
         this.expanded = false;
         this.minSelectableItems = 1;
@@ -16,9 +17,11 @@ var SelectComponent = (function () {
         this.displayValue = this.emptyLabel;
     }
     SelectComponent.prototype.expand = function () {
+        this.clickInside = true;
         this.expanded = !this.expanded;
     };
     SelectComponent.prototype.onSelect = function (items) {
+        this.clickInside = true;
         this.select.emit(items);
         if (items && items[0] && this.maxSelectableItems === 1) {
             this.displayValue = items[0][this.inputValue];
@@ -37,11 +40,20 @@ var SelectComponent = (function () {
             this.displayValue = result;
         }
     };
+    SelectComponent.prototype.onOutsideClick = function (event) {
+        if (!this.clickInside) {
+            this.expanded = false;
+        }
+        this.clickInside = false;
+    };
     SelectComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-select',
                     templateUrl: 'select.component.html',
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
+                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                    host: {
+                        '(document:click)': 'onOutsideClick($event)',
+                    },
                 },] },
     ];
     /** @nocollapse */

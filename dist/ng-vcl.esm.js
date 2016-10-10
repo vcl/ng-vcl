@@ -99,9 +99,14 @@ var VCLInputModule = (function () {
 var IconService = (function () {
     function IconService() {
     }
-    IconService.prototype.fa = function (icon) {
-        var fa = icon.split(':').join(' fa-');
-        return "fa fa-" + fa;
+    // A default name resolver following the CSS class name conventions of
+    // the well-known Font Awesome icon font. Bascially it translates
+    // `fa:user` into `fa fa-user`
+    IconService.prototype.defaultNameResolver = function (icon) {
+        var iconParts = icon.split(':');
+        var setName = iconParts[0];
+        var iconName = iconParts[1];
+        return setName + " " + setName + "-" + iconName;
     };
     IconService.prototype.lookup = function (icon) {
         if (typeof icon === 'string' && icon) {
@@ -113,12 +118,12 @@ var IconService = (function () {
             }
             else {
                 providerName = iconParts[0];
-                iconName = iconParts[1];
+                // TODO: for now, just hardcode to default resolver, later we need
+                // a mapping between the provider and the resolver or each font
+                // brings its own resolver.
+                providerName = 'defaultNameResolver';
+                return this[providerName](iconName);
             }
-            if (!this[providerName]) {
-                return icon;
-            }
-            return this[providerName](iconName);
         }
         return icon;
     };
@@ -1096,6 +1101,7 @@ var VCLButtonModule = (function () {
 var SelectComponent = (function () {
     function SelectComponent() {
         this.ariaRole = 'list';
+        this.clickInside = false;
         this.select = new EventEmitter();
         this.expanded = false;
         this.minSelectableItems = 1;
@@ -1107,9 +1113,11 @@ var SelectComponent = (function () {
         this.displayValue = this.emptyLabel;
     }
     SelectComponent.prototype.expand = function () {
+        this.clickInside = true;
         this.expanded = !this.expanded;
     };
     SelectComponent.prototype.onSelect = function (items) {
+        this.clickInside = true;
         this.select.emit(items);
         if (items && items[0] && this.maxSelectableItems === 1) {
             this.displayValue = items[0][this.inputValue];
@@ -1127,6 +1135,12 @@ var SelectComponent = (function () {
             }
             this.displayValue = result;
         }
+    };
+    SelectComponent.prototype.onOutsideClick = function (event) {
+        if (!this.clickInside) {
+            this.expanded = false;
+        }
+        this.clickInside = false;
     };
     __decorate([
         Output(), 
@@ -1168,7 +1182,10 @@ var SelectComponent = (function () {
         Component({
             selector: 'vcl-select',
             template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            host: {
+                '(document:click)': 'onOutsideClick($event)',
+            },
         }), 
         __metadata('design:paramtypes', [])
     ], SelectComponent);
