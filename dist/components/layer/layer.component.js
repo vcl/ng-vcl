@@ -71,9 +71,8 @@ var LayerDirective = (function (_super) {
     LayerDirective.prototype.ngOnDestroy = function () {
         this.layerService.unregister(this);
     };
-    LayerDirective.prototype.onClick = function (event) {
-        // layer covers 100% screen width & height. first element in layer represents 'outside'
-        if (!this.modal && event.target.parentNode === this.elementRef.nativeElement) {
+    LayerDirective.prototype.offClick = function () {
+        if (!this.modal) {
             this.close();
         }
     };
@@ -100,9 +99,6 @@ var LayerDirective = (function (_super) {
         { type: core_1.Directive, args: [{
                     selector: '[vcl-layer]',
                     exportAs: 'layer',
-                    host: {
-                        '(document:click)': 'onClick($event)',
-                    },
                 },] },
     ];
     /** @nocollapse */

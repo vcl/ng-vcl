@@ -17,7 +17,6 @@ var SelectComponent = (function () {
         this.displayValue = this.emptyLabel;
     }
     SelectComponent.prototype.expand = function () {
-        this.clickInside = true;
         this.expanded = !this.expanded;
     };
     SelectComponent.prototype.onSelect = function (items) {
@@ -41,19 +40,13 @@ var SelectComponent = (function () {
         }
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
-        if (!this.clickInside) {
-            this.expanded = false;
-        }
-        this.clickInside = false;
+        this.expanded = false;
     };
     SelectComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-select',
                     templateUrl: 'select.component.html',
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
-                    host: {
-                        '(document:click)': 'onOutsideClick($event)',
-                    },
+                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */

@@ -1,22 +1,12 @@
 "use strict";
 var core_1 = require('@angular/core');
-/**
-Checkbox.
-
-## Usage
-
-```html
-<vcl-checkbox
-  [(checked)]="checked">
-</vcl-checkbox>
-```
-*/
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:check-square-o';
         this.uncheckedIcon = 'fa:square-o';
         this.disabled = false;
+        this.tabindex = 0;
         /**
         Refelects the checked state, `true` is checked and `false` is unchecked
         @public
@@ -24,17 +14,22 @@ var CheckboxComponent = (function () {
         this.checked = false;
         /**
         Action fired when the `checked` state changes due to user interaction.
-        The first parameter is the value of the `checked` property.
-        @public
-        @action
         */
-        this.checkedChange = new core_1.EventEmitter();
+        this._checkedChange = new core_1.EventEmitter();
     }
+    Object.defineProperty(CheckboxComponent.prototype, "checkedChange", {
+        get: function () {
+            return this._checkedChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
     CheckboxComponent.prototype.ngOnInit = function () { };
     CheckboxComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            this.checkedChange.emit(checked);
+            this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
@@ -72,7 +67,7 @@ var CheckboxComponent = (function () {
         if (this.disabled)
             return;
         this.checked = !this.checked;
-        this.checkedChange.emit(this.checked);
+        this._checkedChange.emit(this.checked);
     };
     CheckboxComponent.prototype.focusMaintenance = function (checked) {
         if (this.checked === true && this.elementRef.nativeElement) {
@@ -94,7 +89,8 @@ var CheckboxComponent = (function () {
                         '[attr.role]': '"checkbox"',
                         '[class.vclCheckbox]': 'true',
                         '[class.vclScale130p]': 'true',
-                    }
+                    },
+                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */
@@ -105,8 +101,9 @@ var CheckboxComponent = (function () {
         'checkedIcon': [{ type: core_1.Input },],
         'uncheckedIcon': [{ type: core_1.Input },],
         'disabled': [{ type: core_1.Input },],
+        'tabindex': [{ type: core_1.HostBinding, args: ['attr.tabindex',] }, { type: core_1.Input },],
         'checked': [{ type: core_1.Input },],
-        'checkedChange': [{ type: core_1.Output },],
+        '_checkedChange': [{ type: core_1.Output },],
         'hbVclDisabled': [{ type: core_1.HostBinding, args: ['class.vclDisabled',] },],
         'hbAriaDisabled': [{ type: core_1.HostBinding, args: ['attr.aria-disabled',] },],
         'hbChecked': [{ type: core_1.HostBinding, args: ['attr.checked',] },],

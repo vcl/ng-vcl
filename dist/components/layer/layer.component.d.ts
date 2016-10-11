@@ -26,7 +26,7 @@ export declare class LayerDirective extends Wormhole {
     constructor(templateRef: TemplateRef<any>, elementRef: ElementRef, layerService: LayerService);
     ngOnInit(): void;
     ngOnDestroy(): void;
-    onClick(event: any): void;
+    offClick(): void;
     setZIndex(zIndex?: number): void;
     toggle(): void;
     open(): void;

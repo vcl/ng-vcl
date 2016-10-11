@@ -1113,7 +1113,6 @@ var SelectComponent = (function () {
         this.displayValue = this.emptyLabel;
     }
     SelectComponent.prototype.expand = function () {
-        this.clickInside = true;
         this.expanded = !this.expanded;
     };
     SelectComponent.prototype.onSelect = function (items) {
@@ -1137,10 +1136,7 @@ var SelectComponent = (function () {
         }
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
-        if (!this.clickInside) {
-            this.expanded = false;
-        }
-        this.clickInside = false;
+        this.expanded = false;
     };
     __decorate([
         Output(), 
@@ -1181,15 +1177,66 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         Component({
             selector: 'vcl-select',
-            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            host: {
-                '(document:click)': 'onOutsideClick($event)',
-            },
+            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
     ], SelectComponent);
     return SelectComponent;
+}());
+
+var OffClickDirective = (function () {
+    function OffClickDirective(elem) {
+        this.elem = elem;
+        this.offClick = new EventEmitter();
+    }
+    OffClickDirective.prototype.createListener = function () {
+        var _this = this;
+        return function (event) {
+            if (event.target && _this.elem.nativeElement !== event.target && !_this.elem.nativeElement.contains(event.target)) {
+                _this.offClick.emit();
+            }
+        };
+    };
+    OffClickDirective.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        if (typeof document !== 'undefined') {
+            this.listener = this.createListener();
+            // Wait for next run loop to attach the listener as it might trigger by accident
+            setTimeout(function () {
+                document.addEventListener('click', _this.listener);
+            }, 0);
+        }
+    };
+    OffClickDirective.prototype.ngOnDestroy = function () {
+        if (typeof document !== 'undefined' && this.listener) {
+            document.removeEventListener('click', this.listener);
+        }
+    };
+    __decorate([
+        Output('off-click'), 
+        __metadata('design:type', Object)
+    ], OffClickDirective.prototype, "offClick", void 0);
+    OffClickDirective = __decorate([
+        Directive({
+            selector: '[off-click]',
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
+    ], OffClickDirective);
+    return OffClickDirective;
+    var _a;
+}());
+var VCLOffClickModule = (function () {
+    function VCLOffClickModule() {
+    }
+    VCLOffClickModule = __decorate([
+        NgModule({
+            declarations: [OffClickDirective],
+            exports: [OffClickDirective]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLOffClickModule);
+    return VCLOffClickModule;
 }());
 
 var VCLSelectModule = (function () {
@@ -1197,7 +1244,7 @@ var VCLSelectModule = (function () {
     }
     VCLSelectModule = __decorate([
         NgModule({
-            imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule],
+            imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule],
             exports: [SelectComponent],
             declarations: [SelectComponent],
             providers: [],
@@ -1561,7 +1608,7 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent = __decorate([
         Component({
             selector: 'vcl-layer-base',
-            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [connectWormhole]=\"layer\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
+            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [connectWormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
             animations: [
                 trigger('boxState', []),
                 trigger('layerState', [])
@@ -1605,9 +1652,8 @@ var LayerDirective = (function (_super) {
     LayerDirective.prototype.ngOnDestroy = function () {
         this.layerService.unregister(this);
     };
-    LayerDirective.prototype.onClick = function (event) {
-        // layer covers 100% screen width & height. first element in layer represents 'outside'
-        if (!this.modal && event.target.parentNode === this.elementRef.nativeElement) {
+    LayerDirective.prototype.offClick = function () {
+        if (!this.modal) {
             this.close();
         }
     };
@@ -1646,9 +1692,6 @@ var LayerDirective = (function (_super) {
         Directive({
             selector: '[vcl-layer]',
             exportAs: 'layer',
-            host: {
-                '(document:click)': 'onClick($event)',
-            },
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof TemplateRef !== 'undefined' && TemplateRef) === 'function' && _b) || Object, (typeof (_c = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _c) || Object, (typeof (_d = typeof LayerService !== 'undefined' && LayerService) === 'function' && _d) || Object])
     ], LayerDirective);
@@ -1661,7 +1704,7 @@ var VCLLayerModule = (function () {
     }
     VCLLayerModule = __decorate([
         NgModule({
-            imports: [CommonModule, VCLWormholeModule],
+            imports: [CommonModule, VCLWormholeModule, VCLOffClickModule],
             exports: [LayerBaseComponent, LayerDirective],
             declarations: [LayerBaseComponent, LayerDirective],
             providers: [LayerService]
@@ -2463,23 +2506,13 @@ var VCLRadioButtonModule = (function () {
     return VCLRadioButtonModule;
 }());
 
-/**
-Checkbox.
-
-## Usage
-
-```html
-<vcl-checkbox
-  [(checked)]="checked">
-</vcl-checkbox>
-```
-*/
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:check-square-o';
         this.uncheckedIcon = 'fa:square-o';
         this.disabled = false;
+        this.tabindex = 0;
         /**
         Refelects the checked state, `true` is checked and `false` is unchecked
         @public
@@ -2487,17 +2520,22 @@ var CheckboxComponent = (function () {
         this.checked = false;
         /**
         Action fired when the `checked` state changes due to user interaction.
-        The first parameter is the value of the `checked` property.
-        @public
-        @action
         */
-        this.checkedChange = new EventEmitter();
+        this._checkedChange = new EventEmitter();
     }
+    Object.defineProperty(CheckboxComponent.prototype, "checkedChange", {
+        get: function () {
+            return this._checkedChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    
     CheckboxComponent.prototype.ngOnInit = function () { };
     CheckboxComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            this.checkedChange.emit(checked);
+            this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
@@ -2535,7 +2573,7 @@ var CheckboxComponent = (function () {
         if (this.disabled)
             return;
         this.checked = !this.checked;
-        this.checkedChange.emit(this.checked);
+        this._checkedChange.emit(this.checked);
     };
     CheckboxComponent.prototype.focusMaintenance = function (checked) {
         if (this.checked === true && this.elementRef.nativeElement) {
@@ -2562,13 +2600,18 @@ var CheckboxComponent = (function () {
         __metadata('design:type', Object)
     ], CheckboxComponent.prototype, "disabled", void 0);
     __decorate([
+        HostBinding('attr.tabindex'),
+        Input(), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "tabindex", void 0);
+    __decorate([
         Input(), 
         __metadata('design:type', Object)
     ], CheckboxComponent.prototype, "checked", void 0);
     __decorate([
         Output(), 
         __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "checkedChange", void 0);
+    ], CheckboxComponent.prototype, "_checkedChange", void 0);
     __decorate([
         HostBinding('class.vclDisabled'), 
         __metadata('design:type', Object)
@@ -2601,7 +2644,8 @@ var CheckboxComponent = (function () {
                 '[attr.role]': '"checkbox"',
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
-            }
+            },
+            changeDetection: ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
     ], CheckboxComponent);
@@ -2790,7 +2834,8 @@ var VCLModule = (function () {
                 VCLFormControlLabelModule,
                 VCLMetalistModule,
                 VCLDropdownModule,
-                VCLSelectModule
+                VCLSelectModule,
+                VCLOffClickModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -2811,7 +2856,8 @@ var VCLModule = (function () {
                 VCLFormControlLabelModule,
                 VCLMetalistModule,
                 VCLDropdownModule,
-                VCLSelectModule
+                VCLSelectModule,
+                VCLOffClickModule
             ],
             providers: [
                 OverlayManagerService
@@ -2822,4 +2868,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, VCLPopoverModule, PopoverComponent, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, VCLPopoverModule, PopoverComponent, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, OffClickDirective, VCLOffClickModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };

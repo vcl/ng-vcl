@@ -1,7 +1,7 @@
 <div *ngFor="let layer of visibleLayers">
   <div class="vclLayer" role="dialog" [@boxState]="layer.state" [style.z-index]="layer.zIndex">
     <div class="vclLayerBox vclLayerGutterPadding">
-      <div [connectWormhole]="layer"></div>
+      <div [connectWormhole]="layer" (off-click)="layer.offClick()"></div>
     </div>
   </div>
   <div *ngIf="layer.modal" class="vclLayerCover" [@layerState]="layer.state" [style.z-index]="layer.coverzIndex"></div>

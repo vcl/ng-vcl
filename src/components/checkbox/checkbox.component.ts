@@ -1,4 +1,5 @@
 import { Component, Input, Output, ChangeDetectionStrategy, OnInit, HostBinding, HostListener, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'vcl-checkbox',
@@ -37,7 +38,7 @@ export class CheckboxComponent implements OnInit, OnChanges {
   */
   @Output()
   _checkedChange = new EventEmitter<boolean>();
-  get checkedChange() {
+  get checkedChange(): Observable<boolean> {
     return this._checkedChange.asObservable();
   };
 
