@@ -1,16 +1,5 @@
-import { Component, Input, Output, OnInit, HostBinding, HostListener, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
+import { Component, Input, Output, ChangeDetectionStrategy, OnInit, HostBinding, HostListener, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
 
-/**
-Checkbox.
-
-## Usage
-
-```html
-<vcl-checkbox
-  [(checked)]="checked">
-</vcl-checkbox>
-```
-*/
 @Component({
   selector: 'vcl-checkbox',
   template: `<vcl-icon [icon]="icon"></vcl-icon><ng-content></ng-content>`,
@@ -18,7 +7,8 @@ Checkbox.
     '[attr.role]': '"checkbox"',
     '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent implements OnInit, OnChanges {
 
@@ -31,6 +21,10 @@ export class CheckboxComponent implements OnInit, OnChanges {
   @Input()
   disabled = false;
 
+  @HostBinding('attr.tabindex')
+  @Input()
+  tabindex = 0;
+
   /**
   Refelects the checked state, `true` is checked and `false` is unchecked
   @public
@@ -38,24 +32,23 @@ export class CheckboxComponent implements OnInit, OnChanges {
   @Input()
   checked = false;
 
-
   /**
   Action fired when the `checked` state changes due to user interaction.
-  The first parameter is the value of the `checked` property.
-  @public
-  @action
   */
   @Output()
-  checkedChange = new EventEmitter<boolean>();
+  _checkedChange = new EventEmitter<boolean>();
+  get checkedChange() {
+    return this._checkedChange.asObservable();
+  };
 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['checked']) {
+    if (changes['checked']) {
       let checked = changes['checked'].currentValue;
-      this.checkedChange.emit(checked);
+      this._checkedChange.emit(checked);
       this.focusMaintenance(checked);
     }
   }
@@ -91,7 +84,7 @@ export class CheckboxComponent implements OnInit, OnChanges {
     e.preventDefault();
     if (this.disabled) return;
     this.checked = !this.checked;
-    this.checkedChange.emit(this.checked);
+    this._checkedChange.emit(this.checked);
   }
 
   focusMaintenance(checked: boolean) {
