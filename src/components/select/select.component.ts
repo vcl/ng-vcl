@@ -6,10 +6,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '(document:click)': 'onOutsideClick($event)',
-  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectComponent {
 
@@ -50,7 +47,6 @@ export class SelectComponent {
   }
 
   expand() {
-    this.clickInside = true;
     this.expanded = !this.expanded;
   }
 
@@ -74,9 +70,6 @@ export class SelectComponent {
   }
 
   onOutsideClick(event) {
-    if(!this.clickInside) {
-      this.expanded = false;
-    }
-    this.clickInside = false;
+    this.expanded = false;
   }
 }

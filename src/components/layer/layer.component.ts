@@ -33,9 +33,6 @@ export class LayerBaseComponent {
 @Directive({
   selector: '[vcl-layer]',
   exportAs: 'layer',
-  host: {
-    '(document:click)': 'onClick($event)',
-  },
 })
 export class LayerDirective extends Wormhole {
 
@@ -71,9 +68,8 @@ export class LayerDirective extends Wormhole {
     this.layerService.unregister(this);
   }
 
-  onClick(event) {
-    // layer covers 100% screen width & height. first element in layer represents 'outside'
-    if (!this.modal && event.target.parentNode === this.elementRef.nativeElement) {
+  offClick() {
+    if (!this.modal) {
       this.close();
     }
   }
