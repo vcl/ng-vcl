@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ButtonGroupComponent implements OnInit {
 
-  idx1;
-  idx2;
+  idx1 = 1;
+  idx2 = [0, 2];
 
   constructor() { }
 
@@ -18,12 +18,9 @@ export class ButtonGroupComponent implements OnInit {
 
   selectionChange1(param) {
     console.log('selectionChange1, param:', param);
-    this.idx1 = param.index;
   }
 
   selectionChange2(param) {
     console.log('selectionChange2, param:', param);
-    this.idx2 = param.index;
   }
-
 }

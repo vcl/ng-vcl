@@ -1211,41 +1211,6 @@ var VCLSelectModule = (function () {
     return VCLSelectModule;
 }());
 
-/**
-A button group which distributes space for each button
-equally to occupy 100% horizontal space.
-
-## Usage
-
-```html
-<vcl-button-group select=true>
-  ...
-</vcl-button-group>
-```
-
-The buttons must be defined as an item array
-with the following structure:
-
-```js
-buttons: [
-  {
-    index: 0,
-    label: 'Privacy',
-    action: 'tabIndex',
-    selected: true
-  },
-  {
-    index: 1,
-    label: 'Terms',
-    action: 'tabIndex',
-    selected: false
-  }
-]
-```
-
-When a button's action is triggered,
-it emits the given `action` with the `index` as param.
-*/
 var SelectionMode;
 (function (SelectionMode) {
     SelectionMode[SelectionMode["Single"] = 0] = "Single";
@@ -1254,12 +1219,34 @@ var SelectionMode;
 var ButtonGroupComponent = (function () {
     function ButtonGroupComponent() {
         this.subscriptions = [];
-        // If `Single`, a single button from the group can be selected. The selection is tracked following the actions.
+        // If `Single`, a single button from the group can be selected
         // If `Multiple` multipe buttons can be selected
         this.selectionMode = SelectionMode.Single;
-        /** Event emitted when the group's value changes. */
+        this._selectedIndexChange = new _angular_core.EventEmitter();
+        /* Event emitted when the group's value changes. */
         this._change = new _angular_core.EventEmitter();
     }
+    Object.defineProperty(ButtonGroupComponent.prototype, "mode", {
+        // String alias for selectionMode
+        set: function (value) {
+            if (value === 'multiple') {
+                this.selectionMode = SelectionMode.Multiple;
+            }
+            else {
+                this.selectionMode = SelectionMode.Single;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ButtonGroupComponent.prototype, "selectedIndexChange", {
+        get: function () {
+            return this._selectedIndexChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    
     Object.defineProperty(ButtonGroupComponent.prototype, "change", {
         get: function () {
             return this._change.asObservable();
@@ -1268,16 +1255,9 @@ var ButtonGroupComponent = (function () {
         configurable: true
     });
     ButtonGroupComponent.prototype.ngOnChanges = function (changes) {
-        if (changes['mode']) {
-            if (changes['mode'].currentValue === 'multiple') {
-                this.selectionMode = SelectionMode.Multiple;
-            }
-            else {
-                this.selectionMode = SelectionMode.Single;
-            }
+        if (changes['selectedIndex'] && changes['selectedIndex'].currentValue !== undefined) {
+            this.initButtons();
         }
-    };
-    ButtonGroupComponent.prototype.ngOnInit = function () {
     };
     ButtonGroupComponent.prototype.ngOnDestroy = function () {
         this.dispose();
@@ -1285,28 +1265,50 @@ var ButtonGroupComponent = (function () {
     ButtonGroupComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         this.initButtons();
-        this.buttons.changes.subscribe(function (x) {
+        // Reinitialize if buttons change
+        this.buttons.changes.subscribe(function () {
             _this.initButtons();
         });
     };
+    // - Dipose old Subscription
+    // - Validate and init selectedIndex
+    // - Subscribe to buttons press event
     ButtonGroupComponent.prototype.initButtons = function () {
         var _this = this;
+        if (!this.buttons) {
+            return;
+        }
+        // Unsubscribe from the old buttons
         this.dispose();
+        // Validate the provided selectedIndex value
+        var selectedIndex;
+        if (this.selectionMode === SelectionMode.Single && typeof this.selectedIndex === 'number') {
+            selectedIndex = [this.selectedIndex];
+        }
+        else if (this.selectionMode === SelectionMode.Multiple &&
+            Array.isArray(this.selectedIndex) &&
+            this.selectedIndex.every(function (n) { return typeof n === 'number'; })) {
+            selectedIndex = this.selectedIndex;
+        }
+        // If valid selectedIndex is provided, change the button selected states
+        if (selectedIndex) {
+            this.buttons.forEach(function (btn, idx) {
+                btn.selected = selectedIndex.indexOf(idx) >= 0;
+            });
+        }
+        // Subscribe to buttons press event
         this.subscriptions = this.buttons.map(function (btn, idx) { return btn.press.subscribe(function () {
             if (_this.selectionMode === SelectionMode.Single) {
                 _this.unselectAll();
                 btn.selected = true;
-                _this._change.emit({
-                    source: btn,
-                    index: idx
-                });
+                _this._change.emit({ source: btn, index: idx });
+                _this._selectedIndexChange.emit(idx);
             }
             else {
                 btn.selected = !btn.selected;
-                _this._change.emit({
-                    source: btn,
-                    index: _this.buttons.map(function (btn, idx) { return ({ s: btn.selected, idx: idx }); }).filter(function (o) { return o.s; }).map(function (o) { return o.idx; })
-                });
+                var indexes = _this.buttons.map(function (btn, idx) { return ({ s: btn.selected, idx: idx }); }).filter(function (o) { return o.s; }).map(function (o) { return o.idx; });
+                _this._change.emit({ source: btn, index: indexes });
+                _this._selectedIndexChange.emit(indexes);
             }
         }); });
     };
@@ -1323,8 +1325,17 @@ var ButtonGroupComponent = (function () {
     ], ButtonGroupComponent.prototype, "selectionMode", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], ButtonGroupComponent.prototype, "mode", void 0);
+        __metadata('design:type', String), 
+        __metadata('design:paramtypes', [String])
+    ], ButtonGroupComponent.prototype, "mode", null);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], ButtonGroupComponent.prototype, "selectedIndex", void 0);
+    __decorate([
+        _angular_core.Output(), 
+        __metadata('design:type', Object)
+    ], ButtonGroupComponent.prototype, "selectedIndexChange", null);
     __decorate([
         _angular_core.Output(), 
         __metadata('design:type', (typeof (_a = typeof rxjs_Observable.Observable !== 'undefined' && rxjs_Observable.Observable) === 'function' && _a) || Object)

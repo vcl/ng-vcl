@@ -1,4 +1,5 @@
 import BUTTON_DEMO from './components/button/button.demo';
+import BUTTON_GROUP_DEMO from './components/button-group/button-group.demo';
 import LAYER_DEMO from './components/layer/layer.demo';
 import ICON_DEMO from './components/icon/icon.demo';
 
@@ -42,11 +43,7 @@ export const DEMO_COMPONENTS = [
     path: 'icogram'
   },
   BUTTON_DEMO,
-  {
-    name: 'Button Group',
-    component: ButtonGroupComponent,
-    path: 'button-group'
-  },
+  BUTTON_GROUP_DEMO,
   LAYER_DEMO,
   {
     name: 'Tether',

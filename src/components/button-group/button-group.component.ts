@@ -4,53 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 
-/**
-A button group which distributes space for each button
-equally to occupy 100% horizontal space.
-
-## Usage
-
-```html
-<vcl-button-group select=true>
-  ...
-</vcl-button-group>
-```
-
-The buttons must be defined as an item array
-with the following structure:
-
-```js
-buttons: [
-  {
-    index: 0,
-    label: 'Privacy',
-    action: 'tabIndex',
-    selected: true
-  },
-  {
-    index: 1,
-    label: 'Terms',
-    action: 'tabIndex',
-    selected: false
-  }
-]
-```
-
-When a button's action is triggered,
-it emits the given `action` with the `index` as param.
-*/
-
 export enum SelectionMode {
   Single,
   Multiple
 }
 
-/** A simple change event emitted by either MdButtonToggle or MdButtonToggleGroup. */
+/* change event paremter. Emitted when selected buttons have changed */
 export interface ButtonGroupChange {
   source: ButtonComponent;
   index: number | number[];
 }
-
 
 @Component({
   selector: 'vcl-button-group',
@@ -60,20 +23,32 @@ export interface ButtonGroupChange {
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnInit, OnDestroy {
+export class ButtonGroupComponent implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  // If `Single`, a single button from the group can be selected. The selection is tracked following the actions.
+  // If `Single`, a single button from the group can be selected
   // If `Multiple` multipe buttons can be selected
   @Input()
   selectionMode: SelectionMode = SelectionMode.Single;
 
-  // string alias forSelectionMode
+  // String alias for selectionMode
   @Input()
-  mode: string;
+  set mode(value: string) {
+    if (value === 'multiple') {
+      this.selectionMode = SelectionMode.Multiple;
+    } else {
+      this.selectionMode = SelectionMode.Single;
+    }
+  }
 
-  /** Event emitted when the group's value changes. */
+  @Input() selectedIndex: number | number[];
+  _selectedIndexChange = new EventEmitter<number | number[]>();
+  @Output() get selectedIndexChange() {
+    return this._selectedIndexChange.asObservable();
+  };
+
+  /* Event emitted when the group's value changes. */
   private _change = new EventEmitter<ButtonGroupChange>();
   @Output()
   get change(): Observable<ButtonGroupChange> {
@@ -83,21 +58,12 @@ export class ButtonGroupComponent implements OnInit, OnDestroy {
   @ContentChildren(ButtonComponent)
   buttons: QueryList<ButtonComponent>;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['mode']) {
-      if (changes['mode'].currentValue === 'multiple') {
-        this.selectionMode = SelectionMode.Multiple;
-      } else {
-        this.selectionMode = SelectionMode.Single;
-      }
+    if (changes['selectedIndex'] && changes['selectedIndex'].currentValue !== undefined) {
+      this.initButtons();
     }
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
@@ -106,27 +72,52 @@ export class ButtonGroupComponent implements OnInit, OnDestroy {
 
   ngAfterContentInit() {
     this.initButtons();
-    this.buttons.changes.subscribe((x) => {
+    // Reinitialize if buttons change
+    this.buttons.changes.subscribe(() => {
       this.initButtons();
     });
   }
 
+  // - Dipose old Subscription
+  // - Validate and init selectedIndex
+  // - Subscribe to buttons press event
   initButtons() {
+    if (!this.buttons) {
+      return;
+    }
+
+    // Unsubscribe from the old buttons
     this.dispose();
+
+    // Validate the provided selectedIndex value
+    let selectedIndex;
+    if (this.selectionMode === SelectionMode.Single && typeof this.selectedIndex === 'number') {
+      selectedIndex = [this.selectedIndex];
+    } else if (this.selectionMode === SelectionMode.Multiple &&
+               Array.isArray(this.selectedIndex) &&
+               this.selectedIndex.every(n => typeof n === 'number') ) {
+      selectedIndex = this.selectedIndex;
+    }
+
+    // If valid selectedIndex is provided, change the button selected states
+    if (selectedIndex) {
+      this.buttons.forEach((btn, idx) => {
+        btn.selected = selectedIndex.indexOf(idx) >= 0;
+      });
+    }
+
+    // Subscribe to buttons press event
     this.subscriptions = this.buttons.map((btn, idx) => btn.press.subscribe(() => {
       if (this.selectionMode === SelectionMode.Single) {
         this.unselectAll();
         btn.selected = true;
-        this._change.emit({
-          source: btn,
-          index: idx
-        });
+        this._change.emit({ source: btn, index: idx });
+        this._selectedIndexChange.emit(idx);
       } else {
         btn.selected = !btn.selected;
-        this._change.emit({
-          source: btn,
-          index: this.buttons.map((btn, idx) => ({s: btn.selected, idx})).filter(o => o.s).map(o => o.idx)
-        });
+        const indexes = this.buttons.map((btn, idx) => ({s: btn.selected, idx})).filter(o => o.s).map(o => o.idx);
+        this._change.emit({ source: btn, index: indexes });
+        this._selectedIndexChange.emit(indexes);
       }
     }));
   }
