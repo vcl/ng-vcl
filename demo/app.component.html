@@ -19,9 +19,9 @@
               <span class="vclText"> Home</span>
             </a>
           </li>
-          <li *ngFor="let dc of demoComponents" class="vclNavigationItem" role="presentation" aria-selected="false">
-            <a [routerLink]="'/' + dc.path" class="vclNavigationItemLabel vclIcogram">
-              <span class="vclText"> {{dc.name}}</span>
+          <li *ngFor="let demo of demos" class="vclNavigationItem" role="presentation" aria-selected="false">
+            <a [routerLink]="'/' + demo.path" class="vclNavigationItemLabel vclIcogram">
+              <span class="vclText"> {{demo.name}}</span>
             </a>
           </li>
         </ul>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DEMO_COMPONENTS } from "./demo-components";
+import { DEMOS } from "./demos";
 
 @Component({
   selector: 'app',
@@ -19,7 +19,7 @@ export class AppComponent {
     });
   }
 
-  get demoComponents() {
-    return DEMO_COMPONENTS;
+  get demos() {
+    return DEMOS;
   }
 }

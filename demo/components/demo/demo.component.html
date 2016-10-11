@@ -1,19 +1,14 @@
 <h2 class="vclArticleHeader"> {{title}}</h2>
 <div *ngIf="tabs.length>0">
   <vcl-tab-nav>
-    <vcl-tab>
-      <template vcl-tab-label>Demo</template>
-      <template vcl-tab-content>
-        <demo-content [component]="component"></demo-content>
-      </template>
-    </vcl-tab>
     <vcl-tab *ngFor="let tab of tabs">
       <template vcl-tab-label>
         {{tab.name}}
       </template>
       <template vcl-tab-content>
-        <markdown *ngIf="tab.markdown" [markdown]="tab.content"></markdown>
-        <div *ngIf="!tab.markdown"><pre>{{tab.content}}</pre></div>
+        <demo-content *ngIf="tab.type==='component'" [component]="tab.content"></demo-content>
+        <markdown *ngIf="tab.type==='markdown'" [markdown]="tab.content"></markdown>
+        <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
       </template>
     </vcl-tab>
   </vcl-tab-nav>

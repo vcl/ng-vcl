@@ -1,20 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from "./components/home/home.component";
-import { DemoComponent } from "./components/demo/demo.component";
-import { DEMO_COMPONENTS } from "./demo-components";
+import { DEMO_ROUTES } from "./demos";
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
   },
-  ...(DEMO_COMPONENTS.map(dc => {
-    return {
-      path: dc.path,
-      component: DemoComponent,
-      data: dc
-    };
-  }))
+  ...DEMO_ROUTES
 ];
 
 export const appRoutingProviders: any[] = [

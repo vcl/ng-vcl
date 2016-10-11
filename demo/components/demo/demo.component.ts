@@ -54,10 +54,20 @@ export class DemoComponent {
         this.component = data.component;
         if (data.tabs) {
           this.tabs = Object.keys(data.tabs).map(key => {
+
+            let type;
+            if (typeof data.tabs[key] === 'string' && key.endsWith('.md')) {
+              type = 'markdown';
+            } else if (typeof data.tabs[key] === 'string') {
+              type = 'text';
+            } else if (typeof data.tabs[key] === 'function') {
+              type = 'component';
+            }
+
             return {
               name: key,
               content: data.tabs[key],
-              markdown: key.endsWith('.md')
+              type
             };
         });
         } else {

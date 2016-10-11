@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from "./components/home/home.component";
 import { MarkdownComponent } from "./components/markdown/markdown.component";
 import { DemoComponent, DemoContentComponent } from "./components/demo/demo.component";
-import { DEMO_COMPONENTS } from "./demo-components";
+import { DEMOS } from "./demos";
 
 import { routing, appRoutingProviders } from './app.routes';
 
@@ -38,10 +38,9 @@ import { routing, appRoutingProviders } from './app.routes';
     DemoComponent,
     MarkdownComponent,
     DemoContentComponent,
-    ...(DEMO_COMPONENTS.map(dc => dc.component))
+    ...(DEMOS.map(dc => Object.keys(dc.tabs).map(key => dc.tabs[key]).filter(o => typeof o === 'function')))
   ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule {
 }
-
