@@ -4,6 +4,16 @@ A container which stacks up in the z-direction.
 
 ## Usage:
 
+```js
+import { VCLLayerModule } from 'ng-vcl';
+
+@NgModule({
+  imports: [ VCLLayerModule ],
+  ...
+})
+export class AppComponent {}
+```
+
 The vcl-layer-base defines the position in the DOM where the layers will appear when visible.
 
 ```html
