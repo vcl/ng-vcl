@@ -8,7 +8,7 @@
     "dev:serve": "webpack-dev-server --env.ENV development --content-base demo",
     "dev:vcl": "vcl-preprocessor demo/styles/index.styl | postcss --use autoprefixer -o demo/app.css",
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
-    "build:docs": "webpack --env.ENV production",
+    "docs": "webpack --env.ENV production",
     "build:lint": "tslint src/**/*.ts",
     "build:ngc": "ngc -p tsconfig.build.json",
     "build:html": "node copy.js",

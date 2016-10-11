@@ -45,15 +45,19 @@ export class AppModule { }
 | Module           | Status                                       | Docs         |
 |------------------|----------------------------------------------|--------------|
 | vcl-button       |                                        Ready |  [README][1] |
-| vcl-layer        |                                        Ready |  [README][2] |
+| vcl-button-group |                                        Ready |  [README][2] |
+| vcl-layer        |                                        Ready |  [README][3] |
+| vcl-icon         |                                        Ready |  [README][4] |
 
  [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md
- [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md
+ [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button-group/README.md
+ [3]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md
+ [4]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/icon/README.md
 
 
-## Demo
+## Demo / Docs
 
-[https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)
+Open [https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)
 
 OR
 
@@ -65,3 +69,8 @@ npm run demo
 ```
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 
+## Create docs
+
+```
+npm run docs
+```
