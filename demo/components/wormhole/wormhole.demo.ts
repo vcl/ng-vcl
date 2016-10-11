@@ -1,7 +1,7 @@
 import { WormholeComponent } from './wormhole.component';
 
 export default {
-  name: 'wormhole',
+  name: 'Wormhole',
   path: 'wormhole',
   tabs: {
     Demo: WormholeComponent,

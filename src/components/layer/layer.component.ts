@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger } from '@angular/core';
 import { Wormhole } from './../../directives/wormhole';
 import { LayerService } from './layer.service';
 
