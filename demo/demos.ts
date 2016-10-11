@@ -19,6 +19,7 @@ import TAB_DEMO from './components/tab/tab.demo';
 import NAVIGATION_DEMO from './components/navigation/navigation.demo';
 import TOOLBAR_DEMO from './components/toolbar/toolbar.demo';
 import WORMHOLE_DEMO from './components/wormhole/wormhole.demo';
+import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 
 interface Demo {
   name: string;
@@ -47,7 +48,8 @@ export const DEMOS: Demo[] = [
   TAB_DEMO,
   NAVIGATION_DEMO,
   TOOLBAR_DEMO,
-  WORMHOLE_DEMO
+  WORMHOLE_DEMO,
+  OFF_CLICK_DEMO
 ];
 
 export const DEMO_DECLARATIONS = DEMOS.map(dc => Object.keys(dc.tabs)

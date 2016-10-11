@@ -1,0 +1,9 @@
+<div (off-click)="offClick()" style="border: 2px solid;background-color:red;width:300px;height:300px">
+  Click somewhere outside to trigger off-click
+  <div style="border: 1px solid;background-color:green;width:50%;margin:auto; height:100px">
+    Also not here
+  </div>
+</div>
+<br>
+<div *ngIf="timestamp>0">off-click triggered: {{timestamp}}</div>
+  
