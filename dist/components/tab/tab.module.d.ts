@@ -1,2 +1,2 @@
-export declare class VCLTabModule {
+export declare class VCLTabNavModule {
 }

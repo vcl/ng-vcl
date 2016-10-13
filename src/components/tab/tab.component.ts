@@ -6,7 +6,6 @@ import { Component, Directive, ContentChild, TemplateRef, ContentChildren, Query
   selector: '[vcl-tab-label]'
 })
 export class TabLabelDirective extends Wormhole  {
-
   constructor(protected templateRef: TemplateRef<any>) {
     super(templateRef);
   }
@@ -16,7 +15,6 @@ export class TabLabelDirective extends Wormhole  {
   selector: '[vcl-tab-content]'
 })
 export class TabContentDirective extends Wormhole {
-
   constructor(protected templateRef: TemplateRef<any>) {
     super(templateRef);
   }
@@ -36,6 +34,9 @@ export class TabComponent   {
   @Input()
   disabled = false;
 
+  @Input()
+  tabClass: string = '';
+
   constructor() { }
 }
 
@@ -49,6 +50,22 @@ export class TabNavComponent {
   tabs: QueryList<TabComponent>;
 
   @Input()
+  layout: string = '';
+
+  @Input()
+  tabbableClass: string = '';
+
+  @Input()
+  tabsClass: string = '';
+
+  @Input()
+  tabContentClass: string = '';
+
+  // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
+  @Input()
+  borders: boolean = false;
+
+  @Input()
   selectedTabIndex: number = 0;
 
   selectedTabIndexChange$: EventEmitter<number> = new EventEmitter<number>();
@@ -57,11 +74,11 @@ export class TabNavComponent {
     return this.selectedTabIndexChange$.asObservable();
   }
 
-  constructor(private _zone: NgZone) {}
+  constructor() {}
 
+  // Sets a valid selectedTabIndex
   selectTab(tab: number | TabComponent) {
     const tabs = this.tabs.toArray();
-
     let tabIdx;
     let tabComp;
 

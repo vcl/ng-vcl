@@ -16,6 +16,7 @@ var IconService = (function () {
         if (typeof icon === 'string' && icon) {
             var iconName = icon;
             var providerName = void 0;
+            // Split on first : occurrence
             var iconParts = iconName.split(/:(.+)?/);
             if (iconParts.length === 0) {
                 return icon;

@@ -45,6 +45,7 @@ exports.TabContentDirective = TabContentDirective;
 var TabComponent = (function () {
     function TabComponent() {
         this.disabled = false;
+        this.tabClass = '';
     }
     TabComponent.decorators = [
         { type: core_1.Directive, args: [{
@@ -57,13 +58,19 @@ var TabComponent = (function () {
         'label': [{ type: core_1.ContentChild, args: [TabLabelDirective,] },],
         'content': [{ type: core_1.ContentChild, args: [TabContentDirective,] },],
         'disabled': [{ type: core_1.Input },],
+        'tabClass': [{ type: core_1.Input },],
     };
     return TabComponent;
 }());
 exports.TabComponent = TabComponent;
 var TabNavComponent = (function () {
-    function TabNavComponent(_zone) {
-        this._zone = _zone;
+    function TabNavComponent() {
+        this.layout = '';
+        this.tabbableClass = '';
+        this.tabsClass = '';
+        this.tabContentClass = '';
+        // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
+        this.borders = false;
         this.selectedTabIndex = 0;
         this.selectedTabIndexChange$ = new core_1.EventEmitter();
     }
@@ -74,6 +81,7 @@ var TabNavComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    // Sets a valid selectedTabIndex
     TabNavComponent.prototype.selectTab = function (tab) {
         var tabs = this.tabs.toArray();
         var tabIdx;
@@ -102,11 +110,14 @@ var TabNavComponent = (function () {
                 },] },
     ];
     /** @nocollapse */
-    TabNavComponent.ctorParameters = [
-        { type: core_1.NgZone, },
-    ];
+    TabNavComponent.ctorParameters = [];
     TabNavComponent.propDecorators = {
         'tabs': [{ type: core_1.ContentChildren, args: [TabComponent,] },],
+        'layout': [{ type: core_1.Input },],
+        'tabbableClass': [{ type: core_1.Input },],
+        'tabsClass': [{ type: core_1.Input },],
+        'tabContentClass': [{ type: core_1.Input },],
+        'borders': [{ type: core_1.Input },],
         'selectedTabIndex': [{ type: core_1.Input },],
         'selectedTabIndexChange': [{ type: core_1.Output },],
     };

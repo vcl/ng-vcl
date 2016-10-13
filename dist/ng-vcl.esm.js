@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Pipe, QueryList, Renderer, TemplateRef, ViewContainerRef, trigger } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, Renderer, TemplateRef, ViewContainerRef, trigger } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -112,6 +112,7 @@ var IconService = (function () {
         if (typeof icon === 'string' && icon) {
             var iconName = icon;
             var providerName = void 0;
+            // Split on first : occurrence
             var iconParts = iconName.split(/:(.+)?/);
             if (iconParts.length === 0) {
                 return icon;
@@ -1747,6 +1748,7 @@ var TabContentDirective = (function (_super) {
 var TabComponent = (function () {
     function TabComponent() {
         this.disabled = false;
+        this.tabClass = '';
     }
     __decorate([
         ContentChild(TabLabelDirective), 
@@ -1760,6 +1762,10 @@ var TabComponent = (function () {
         Input(), 
         __metadata('design:type', Object)
     ], TabComponent.prototype, "disabled", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TabComponent.prototype, "tabClass", void 0);
     TabComponent = __decorate([
         Directive({
             selector: 'vcl-tab'
@@ -1769,8 +1775,13 @@ var TabComponent = (function () {
     return TabComponent;
 }());
 var TabNavComponent = (function () {
-    function TabNavComponent(_zone) {
-        this._zone = _zone;
+    function TabNavComponent() {
+        this.layout = '';
+        this.tabbableClass = '';
+        this.tabsClass = '';
+        this.tabContentClass = '';
+        // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
+        this.borders = false;
         this.selectedTabIndex = 0;
         this.selectedTabIndexChange$ = new EventEmitter();
     }
@@ -1781,6 +1792,7 @@ var TabNavComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    // Sets a valid selectedTabIndex
     TabNavComponent.prototype.selectTab = function (tab) {
         var tabs = this.tabs.toArray();
         var tabIdx;
@@ -1808,6 +1820,26 @@ var TabNavComponent = (function () {
     ], TabNavComponent.prototype, "tabs", void 0);
     __decorate([
         Input(), 
+        __metadata('design:type', String)
+    ], TabNavComponent.prototype, "layout", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TabNavComponent.prototype, "tabbableClass", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TabNavComponent.prototype, "tabsClass", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TabNavComponent.prototype, "tabContentClass", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], TabNavComponent.prototype, "borders", void 0);
+    __decorate([
+        Input(), 
         __metadata('design:type', Number)
     ], TabNavComponent.prototype, "selectedTabIndex", void 0);
     __decorate([
@@ -1817,18 +1849,18 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         Component({
             selector: 'vcl-tab-nav',
-            template: "<div class=\"vclTabbable\">\n  <div class=\"vclTabs\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [connectWormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent vclNoBorder\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [connectWormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n"
+            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [connectWormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [connectWormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
         }), 
-        __metadata('design:paramtypes', [(typeof (_c = typeof NgZone !== 'undefined' && NgZone) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [])
     ], TabNavComponent);
     return TabNavComponent;
-    var _a, _b, _c;
+    var _a, _b;
 }());
 
-var VCLTabModule = (function () {
-    function VCLTabModule() {
+var VCLTabNavModule = (function () {
+    function VCLTabNavModule() {
     }
-    VCLTabModule = __decorate([
+    VCLTabNavModule = __decorate([
         NgModule({
             imports: [CommonModule, L10nModule, VCLWormholeModule],
             exports: [TabComponent, TabContentDirective, TabLabelDirective, TabNavComponent],
@@ -1836,8 +1868,8 @@ var VCLTabModule = (function () {
             providers: [],
         }), 
         __metadata('design:paramtypes', [])
-    ], VCLTabModule);
-    return VCLTabModule;
+    ], VCLTabNavModule);
+    return VCLTabNavModule;
 }());
 
 var NavigationComponent = (function () {
@@ -2825,7 +2857,7 @@ var VCLModule = (function () {
                 VCLTetherModule,
                 VCLLinkModule,
                 VCLInputModule,
-                VCLTabModule,
+                VCLTabNavModule,
                 VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
@@ -2847,7 +2879,7 @@ var VCLModule = (function () {
                 VCLTetherModule,
                 VCLLinkModule,
                 VCLInputModule,
-                VCLTabModule,
+                VCLTabNavModule,
                 VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
@@ -2868,4 +2900,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, OffClickDirective, VCLOffClickModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, OffClickDirective, VCLOffClickModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };

@@ -9,7 +9,7 @@ import { VCLIcogramModule } from './components/icogram/icogram.module';
 import { VCLButtonModule } from './components/button/button.module';
 import { VCLButtonGroupModule } from './components/button-group/button-group.module';
 import { VCLLayerModule } from './components/layer/layer.module';
-import { VCLTabModule } from './components/tab/tab.module';
+import { VCLTabNavModule } from './components/tab/tab.module';
 import { VCLNavigationModule } from './components/navigation/navigation.module';
 import { VCLToolbarModule } from './components/toolbar/toolbar.module';
 import { VCLTetherModule } from './components/tether/tether.module';
@@ -53,7 +53,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLTetherModule,
     VCLLinkModule,
     VCLInputModule,
-    VCLTabModule,
+    VCLTabNavModule,
     VCLNavigationModule,
     VCLToolbarModule,
     VCLPopoverModule,
@@ -75,7 +75,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLTetherModule,
     VCLLinkModule,
     VCLInputModule,
-    VCLTabModule,
+    VCLTabNavModule,
     VCLNavigationModule,
     VCLToolbarModule,
     VCLPopoverModule,

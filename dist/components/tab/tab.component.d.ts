@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Wormhole } from './../../directives/wormhole';
-import { TemplateRef, QueryList, NgZone, EventEmitter } from '@angular/core';
+import { TemplateRef, QueryList, EventEmitter } from '@angular/core';
 export declare class TabLabelDirective extends Wormhole {
     protected templateRef: TemplateRef<any>;
     constructor(templateRef: TemplateRef<any>);
@@ -13,14 +13,19 @@ export declare class TabComponent {
     label: TabLabelDirective;
     content: TabContentDirective;
     disabled: boolean;
+    tabClass: string;
     constructor();
 }
 export declare class TabNavComponent {
-    private _zone;
     tabs: QueryList<TabComponent>;
+    layout: string;
+    tabbableClass: string;
+    tabsClass: string;
+    tabContentClass: string;
+    borders: boolean;
     selectedTabIndex: number;
     selectedTabIndexChange$: EventEmitter<number>;
     readonly selectedTabIndexChange: Observable<number>;
-    constructor(_zone: NgZone);
+    constructor();
     selectTab(tab: number | TabComponent): void;
 }

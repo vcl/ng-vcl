@@ -1,6 +1,6 @@
 <h2 class="vclArticleHeader"> {{title}}</h2>
 <div *ngIf="tabs.length>0">
-  <vcl-tab-nav>
+  <vcl-tab-nav borders=true>
     <vcl-tab *ngFor="let tab of tabs">
       <template vcl-tab-label>
         {{tab.name}}

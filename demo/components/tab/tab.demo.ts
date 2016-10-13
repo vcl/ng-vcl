@@ -5,6 +5,7 @@ export default {
   path: 'tab',
   tabs: {
     Demo: TabComponent,
+    'README.md': require("!raw!../../../src/components/tab/README.md"),
     'demo.component.html': require("!raw!./tab.component.html"),
     'demo.component.ts': require("!raw!./tab.component.ts")
   }

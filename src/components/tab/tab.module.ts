@@ -10,4 +10,4 @@ import { VCLWormholeModule } from '../../directives/wormhole';
   declarations: [TabComponent, TabContentDirective, TabLabelDirective, TabNavComponent],
   providers: [],
 })
-export class VCLTabModule { }
+export class VCLTabNavModule { }

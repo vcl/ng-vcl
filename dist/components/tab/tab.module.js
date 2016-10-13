@@ -4,10 +4,10 @@ var common_1 = require('@angular/common');
 var tab_component_1 = require('./tab.component');
 var l10n_module_1 = require('../../l10n/l10n.module');
 var wormhole_1 = require('../../directives/wormhole');
-var VCLTabModule = (function () {
-    function VCLTabModule() {
+var VCLTabNavModule = (function () {
+    function VCLTabNavModule() {
     }
-    VCLTabModule.decorators = [
+    VCLTabNavModule.decorators = [
         { type: core_1.NgModule, args: [{
                     imports: [common_1.CommonModule, l10n_module_1.L10nModule, wormhole_1.VCLWormholeModule],
                     exports: [tab_component_1.TabComponent, tab_component_1.TabContentDirective, tab_component_1.TabLabelDirective, tab_component_1.TabNavComponent],
@@ -16,7 +16,7 @@ var VCLTabModule = (function () {
                 },] },
     ];
     /** @nocollapse */
-    VCLTabModule.ctorParameters = [];
-    return VCLTabModule;
+    VCLTabNavModule.ctorParameters = [];
+    return VCLTabNavModule;
 }());
-exports.VCLTabModule = VCLTabModule;
+exports.VCLTabNavModule = VCLTabNavModule;
