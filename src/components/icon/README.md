@@ -23,6 +23,8 @@ or
 <vcl-icon svguse="..."></vcl-icon>
 ```
 
+### Class Provider
+
 
 ### API 
 
@@ -30,7 +32,7 @@ or
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
-| `icon`              | string      |          | Icon generator lookup via icon service
+| `icon`              | string      |          | Icon generator lookup via icon class provider
 | `src`               | string      |          | URL of a graphics resource
 | `svguse`            | string      |          | Generates an SVG `use` tag referencing the value
 | `iconClass`         | string      |          | Additional class

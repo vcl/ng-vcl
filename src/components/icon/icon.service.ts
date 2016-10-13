@@ -17,6 +17,7 @@ export class IconService {
     if (typeof icon === 'string' && icon) {
       let iconName = icon;
       let providerName: string;
+      // Split on first : occurrence
       let iconParts = iconName.split(/:(.+)?/);
       if (iconParts.length === 0) {
         return icon;
