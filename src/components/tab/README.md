@@ -42,7 +42,7 @@ export class AppComponent {}
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
-| `selectedTabIndex` [^1]  | number      |        0 | The index of the currently visible tab
+| `selectedTabIndex` *(1)* | number      |        0 | The index of the currently visible tab
 | `borders`                | boolean     |    false | Enables borders for the tab-nav
 | `layout`                 | string      |          | The layout: `null`, `"left"` or `"right"`
 | `tabbableClass`          | string      |          | Modifier classes for vclTabbable
@@ -56,4 +56,4 @@ export class AppComponent {}
 | `disabled`               | boolean     |   false  | Disables the tab when true   
 | `tabClass`               | string      |          | Modifier classes for vclTab   
 
-[^1]: 2-way-binding
+1: Supports Two-way binding

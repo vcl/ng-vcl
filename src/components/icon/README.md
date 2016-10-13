@@ -36,5 +36,6 @@ or
 | `src`               | string      |          | URL of a graphics resource
 | `svguse`            | string      |          | Generates an SVG `use` tag referencing the value
 | `iconClass`         | string      |          | Additional class
-| `label`             | string      |          | `aria-label` 
+| `label` *(1)*       | string      |          | `aria-label` 
 
+1: Supports l10n

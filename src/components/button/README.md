@@ -25,10 +25,9 @@ export class AppComponent {}
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
-| `title`             | string      |          | textual label 
-| `label`             | string      |          | Sets aria-label
+| `label` *(1)*       | string      |          | Sets aria-label
 | `busy`              | boolean     | false    | State to indicate that an operation is in progress
-| `flexLabel`         | boolean     | false    | The label gets a flex layout property if true 
+| `flexLabel` *(1)*   | boolean     | false    | The label gets a flex layout property if true 
 | `prepIcon`          | string      |          | icon to be prepended to the label 
 | `appIcon`           | string      |          | Same as prepIcon but appended 
 | `prepIconBusy`      | string      |          | icon to be prepended to the label - displayed in the busy state 
@@ -41,3 +40,5 @@ export class AppComponent {}
 | Name                | Description
 | ------------        | --------------
 | `press`             | Triggered when the button is pressed
+
+1: Supports l10n
