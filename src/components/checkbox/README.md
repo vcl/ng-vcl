@@ -29,4 +29,4 @@ export class AppComponent {}
 | `uncheckedIcon`     | string      | fa:square-o        | Icon to be displayed when unchecked
 | `tabindex`          | number      | 0                  | The tabindex of the checkbox
 
-1: Supports Two-way binding
+*(1) Supports Two-way binding*

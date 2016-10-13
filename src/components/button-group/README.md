@@ -26,10 +26,10 @@ export class AppComponent {}
 
 #### Properties:
 
-| Name                | Type                   | Default  | Description
-| ------------------- | ---------------------- | -------- |--------------
-| `mode`              | string                 | `single` | `single` or `multiple` 
-| `selectedIndex`     | number, number[]       |          | 2-Way-Binding. The selected buttons.  
+| Name                  | Type                   | Default  | Description
+| --------------------- | ---------------------- | -------- |--------------
+| `mode`                | string                 | `single` | `single` or `multiple` 
+| `selectedIndex` *(1)* | number, number[]       |          | 2-Way-Binding. The selected buttons.  
 
 #### Actions:
 
@@ -45,3 +45,4 @@ interface ButtonGroupChange {
   index: number | number[];
 }
 ```
+*(1) Supports Two-way binding*

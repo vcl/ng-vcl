@@ -56,4 +56,4 @@ export class AppComponent {}
 | `disabled`               | boolean     |   false  | Disables the tab when true   
 | `tabClass`               | string      |          | Modifier classes for vclTab   
 
-1: Supports Two-way binding
+*(1) Supports Two-way binding*

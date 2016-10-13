@@ -41,4 +41,4 @@ export class AppComponent {}
 | ------------        | --------------
 | `press`             | Triggered when the button is pressed
 
-1: Supports l10n
+*(1) Supports l10n*

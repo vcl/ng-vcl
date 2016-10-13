@@ -38,4 +38,4 @@ or
 | `iconClass`         | string      |          | Additional class
 | `label` *(1)*       | string      |          | `aria-label` 
 
-1: Supports l10n
+*(1) Supports l10n*
