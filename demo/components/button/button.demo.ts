@@ -3,6 +3,7 @@ import { ButtonComponent } from './button.component';
 export default {
   name: 'Button',
   path: 'button',
+  category: 'Buttons',
   tabs: {
     Demo: ButtonComponent,
     'README.md': require("!raw!../../../src/components/button/README.md"),

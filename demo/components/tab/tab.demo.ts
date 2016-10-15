@@ -3,6 +3,7 @@ import { TabComponent } from './tab.component';
 export default {
   name: 'Tab',
   path: 'tab',
+  category: 'Navigation',
   tabs: {
     Demo: TabComponent,
     'README.md': require("!raw!../../../src/components/tab/README.md"),

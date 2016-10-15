@@ -3,6 +3,7 @@ import { PopoverComponent } from './popover.component';
 export default {
   name: 'Popover',
   path: 'popover',
+  category: 'Layer',
   tabs: {
     Demo: PopoverComponent,
     'demo.component.html': require("!raw!./popover.component.html"),

@@ -24,6 +24,7 @@ import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 interface Demo {
   name: string;
   path: string;
+  category: string;
   tabs: {
     [key: string]: any
   };
@@ -51,6 +52,32 @@ export const DEMOS: Demo[] = [
   WORMHOLE_DEMO,
   OFF_CLICK_DEMO
 ];
+
+export const GROUPED_DEMOS = function() {
+  var itemsMap = {};
+
+  DEMOS.forEach(c => {
+    if (itemsMap[c.category]) {
+      itemsMap[c.category].push({
+        label: c.name,
+        route: ['/' + c.path],
+        active: true,
+      });
+    } else {
+      itemsMap[c.category] = [{
+        label: c.name,
+        route: ['/' + c.path],
+        active: true,
+      }];
+    }
+  });
+
+  return Object.keys(itemsMap).map(category => ({
+    label: category,
+    items: itemsMap[category],
+    active: true,
+  }));
+}();
 
 export const DEMO_DECLARATIONS = DEMOS.map(dc => Object.keys(dc.tabs)
                                                        .map(key => dc.tabs[key])

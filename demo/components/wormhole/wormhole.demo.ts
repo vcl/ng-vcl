@@ -3,6 +3,7 @@ import { WormholeComponent } from './wormhole.component';
 export default {
   name: 'Wormhole',
   path: 'wormhole',
+  category: 'Other',
   tabs: {
     Demo: WormholeComponent,
     'demo.component.html': require("!raw!./wormhole.component.html"),

@@ -3,6 +3,7 @@ import { CheckboxComponent } from './checkbox.component';
 export default {
   name: 'Checkbox',
   path: 'checkbox',
+  category: 'Inputs',
   tabs: {
     Demo: CheckboxComponent,
     'README.md': require("!raw!../../../src/components/checkbox/README.md"),

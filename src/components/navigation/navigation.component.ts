@@ -71,7 +71,7 @@ export class NavigationComponent {
   }
 
   selectItem(item) { 
-    if(item == this.selectedItem) {
+    if (item == this.selectedItem || item.items) {
       return;
     }
 
@@ -92,7 +92,9 @@ export class NavigationComponent {
   }
 
   onSelect(item) {
-    this.selectedItem.selected = false;
+    if (this.selectedItem) {
+      this.selectedItem.selected = false;
+    }
     this.selectedItem = item;
     this.select.emit(item);
   }

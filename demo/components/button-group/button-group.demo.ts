@@ -3,6 +3,7 @@ import { ButtonGroupComponent } from './button-group.component';
 export default {
   name: 'Button Group',
   path: 'button-group',
+  category: 'Buttons',
   tabs: {
     Demo: ButtonGroupComponent,
     'README.md': require("!raw!../../../src/components/button-group/README.md"),

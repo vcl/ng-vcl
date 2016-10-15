@@ -3,6 +3,7 @@ import { LayerComponent } from './layer.component';
 export default {
   name: 'Layer',
   path: 'layer',
+  category: 'Layer',
   declarations: [LayerComponent],
   tabs: {
     Demo: LayerComponent,

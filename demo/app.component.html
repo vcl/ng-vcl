@@ -1,4 +1,4 @@
-<div class="vclLayoutVertical">
+<div class="vclLayoutVertical docMain">
   <header class="vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified">
     <div role="banner">
       <a href="#" class="vclLayoutHorizontal vclLayoutCenter">
@@ -10,24 +10,35 @@
       <span class="vclIcon fa fa-github fa-3x"></span> </a>
     </div>
   </header>
-  <div class="vclContentArea vclLayoutHorizontal">
-    <div class="vclLayoutVertical">
-      <nav class="vclNavigation vclVertical">
-        <ul>
-          <li class="vclNavigationItem" role="presentation" aria-selected="false">
-            <a [routerLink]="'/'" class="vclNavigationItemLabel vclIcogram">
-              <span class="vclText"> Home</span>
-            </a>
-          </li>
-          <li *ngFor="let demo of demos" class="vclNavigationItem" role="presentation" aria-selected="false">
-            <a [routerLink]="'/' + demo.path" class="vclNavigationItemLabel vclIcogram">
-              <span class="vclText"> {{demo.name}}</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+  <div class="vclContentArea vclLayoutFlex vclLayoutHorizontal">
+    <div class="vclLayoutVertical docNav">
+      <div class="vclInputGroupEmb">
+        <span class="vclPrepended">
+          <vcl-icon icon="fa:search"></vcl-icon>
+        </span>
+
+        <input vcl-input #searchInput (keyup)="search(searchInput.value)"
+          class="vclNoBorder vclPrepItem vclAppItem searchInput"
+          type="search"
+          name="search"
+          placeholder="Search Modules"
+          autocomplete="off"
+          autofocus />
+
+        <button vcl-button *ngIf="searchInput.value"
+          (click)="searchInput.value = ''; search('')" 
+          class="vclButton vclTransparent vclSquare vclAppended"
+          appIcon="fa:times-circle"></button>
+      </div>
+
+      <vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex"
+        [navigationItems]="groupedDemos"
+        [type]="'vertical'"
+        [subLevelHintIconSide]="'left'"
+        [subLevelHintIconOpened]="'fa:angle-down'"
+        [subLevelHintIconClosed]="'fa:angle-right'"></vcl-navigation>
     </div>
-    <div class="vclScrollable vclLayoutFlex">
+    <div class="vclScrollable vclLayoutFlex docContent">
       <router-outlet></router-outlet>
     </div>
   </div>
