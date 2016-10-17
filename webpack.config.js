@@ -84,7 +84,7 @@ function webpackConfig(options) {
     },
 
     devServer: {
-      contentBase: './demo', // not working - bug in devserver 2.1 beta 3
+      contentBase: './demo',
       port: CONSTANTS.PORT,
       hot: CONSTANTS.HMR,
       inline: CONSTANTS.HMR,
