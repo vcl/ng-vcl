@@ -1191,19 +1191,18 @@ var OffClickDirective = (function () {
         this.elem = elem;
         this.offClick = new EventEmitter();
     }
-    OffClickDirective.prototype.createListener = function () {
-        var _this = this;
-        return function (event) {
-            if (event.target && _this.elem.nativeElement !== event.target && !_this.elem.nativeElement.contains(event.target)) {
-                _this.offClick.emit();
-            }
-        };
-    };
     OffClickDirective.prototype.ngAfterViewInit = function () {
         var _this = this;
         if (typeof document !== 'undefined') {
-            this.listener = this.createListener();
-            // Wait for next run loop to attach the listener as it might trigger by accident
+            // Create the listener
+            this.listener = function (ev) {
+                var me = _this.elem.nativeElement;
+                // Check if the target is the off-clicks element or an sub element 
+                if (ev.target && me !== ev.target && !me.contains(ev.target)) {
+                    _this.offClick.emit();
+                }
+            };
+            // Wait for next run loop to attach the listener as it might be triggered by a current click event
             setTimeout(function () {
                 document.addEventListener('click', _this.listener);
             }, 0);
@@ -1227,6 +1226,7 @@ var OffClickDirective = (function () {
     return OffClickDirective;
     var _a;
 }());
+
 var VCLOffClickModule = (function () {
     function VCLOffClickModule() {
     }
@@ -1920,7 +1920,7 @@ var NavigationComponent = (function () {
             : item.appIcon;
     };
     NavigationComponent.prototype.selectItem = function (item) {
-        if (item == this.selectedItem) {
+        if (item == this.selectedItem || item.items) {
             return;
         }
         if (this.selectedItem) {
@@ -1937,7 +1937,9 @@ var NavigationComponent = (function () {
         this.select.emit(item);
     };
     NavigationComponent.prototype.onSelect = function (item) {
-        this.selectedItem.selected = false;
+        if (this.selectedItem) {
+            this.selectedItem.selected = false;
+        }
         this.selectedItem = item;
         this.select.emit(item);
     };
@@ -2900,4 +2902,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, VCLCheckboxModule, Wormhole, ConnectWormhole, VCLWormholeModule, OffClickDirective, VCLOffClickModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, VCLCheckboxModule, VCLOffClickModule, Wormhole, ConnectWormhole, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };

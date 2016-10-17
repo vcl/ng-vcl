@@ -20,9 +20,9 @@ var link_module_1 = require('./components/link/link.module');
 var popover_module_1 = require('./components/popover/popover.module');
 var radio_button_module_1 = require('./components/radio-button/radio-button.module');
 var checkbox_module_1 = require('./components/checkbox/checkbox.module');
+var off_click_module_1 = require('./directives/off-click/off-click.module');
 var form_control_label_module_1 = require('./components/form-control-label/form-control-label.module');
 var wormhole_1 = require('./directives/wormhole');
-var off_click_1 = require('./directives/off-click');
 __export(require('./reflect'));
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
@@ -37,8 +37,8 @@ __export(require('./components/link/link.module'));
 __export(require('./components/popover/popover.module'));
 __export(require('./components/radio-button/radio-button.module'));
 __export(require('./components/checkbox/checkbox.module'));
+__export(require('./directives/off-click/off-click.module'));
 __export(require('./directives/wormhole'));
-__export(require('./directives/off-click'));
 __export(require('./l10n/l10n.module'));
 var overlayManager_service_1 = require('./services/overlayManager.service');
 var VCLModule = (function () {
@@ -66,7 +66,7 @@ var VCLModule = (function () {
                         metalist_module_1.VCLMetalistModule,
                         dropdown_module_1.VCLDropdownModule,
                         select_module_1.VCLSelectModule,
-                        off_click_1.VCLOffClickModule
+                        off_click_module_1.VCLOffClickModule
                     ],
                     exports: [
                         wormhole_1.VCLWormholeModule,
@@ -88,7 +88,7 @@ var VCLModule = (function () {
                         metalist_module_1.VCLMetalistModule,
                         dropdown_module_1.VCLDropdownModule,
                         select_module_1.VCLSelectModule,
-                        off_click_1.VCLOffClickModule
+                        off_click_module_1.VCLOffClickModule
                     ],
                     providers: [
                         overlayManager_service_1.OverlayManagerService

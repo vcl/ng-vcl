@@ -49,7 +49,7 @@ var NavigationComponent = (function () {
             : item.appIcon;
     };
     NavigationComponent.prototype.selectItem = function (item) {
-        if (item == this.selectedItem) {
+        if (item == this.selectedItem || item.items) {
             return;
         }
         if (this.selectedItem) {
@@ -66,7 +66,9 @@ var NavigationComponent = (function () {
         this.select.emit(item);
     };
     NavigationComponent.prototype.onSelect = function (item) {
-        this.selectedItem.selected = false;
+        if (this.selectedItem) {
+            this.selectedItem.selected = false;
+        }
         this.selectedItem = item;
         this.select.emit(item);
     };
