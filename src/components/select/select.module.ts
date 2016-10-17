@@ -4,7 +4,7 @@ import { VCLDropdownModule } from '../dropdown/dropdown.module';
 import { VCLButtonModule } from '../button/button.module';
 import { SelectComponent } from './select.component';
 import { L10nModule } from '../../l10n/l10n.module';
-import { VCLOffClickModule } from '../../directives/off-click';
+import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
 
 @NgModule({
   imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule],
@@ -13,3 +13,4 @@ import { VCLOffClickModule } from '../../directives/off-click';
   providers: [],
 })
 export class VCLSelectModule { }
+

@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
 export class OffClickComponent  {
   constructor() { }
 
-  timestamp: number = 0;
+  clicks: number = 0;
 
   offClick() {
-    this.timestamp = Date.now();
+    this.clicks++;
   }
 }

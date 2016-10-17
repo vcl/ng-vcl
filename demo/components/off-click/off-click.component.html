@@ -1,9 +1,14 @@
 <div (off-click)="offClick()" style="border: 2px solid;background-color:red;width:300px;height:300px">
+  DIV 1
+  <br>
   Click somewhere outside to trigger off-click
   <div style="border: 1px solid;background-color:green;width:50%;margin:auto; height:100px">
-    Also not here
+    DIV 2 
+    <br>
+    This is a subelement of DIV 1 
   </div>
 </div>
 <br>
-<div *ngIf="timestamp>0">off-click triggered: {{timestamp}}</div>
+<div *ngIf="clicks>0">off-click triggered: {{clicks}}</div>
+<div *ngIf="clicks===0">Click anywhere to trigger the off-click</div>
   

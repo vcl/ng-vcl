@@ -17,9 +17,9 @@ import { VCLLinkModule } from './components/link/link.module';
 import { VCLPopoverModule } from './components/popover/popover.module';
 import { VCLRadioButtonModule } from './components/radio-button/radio-button.module';
 import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
+import { VCLOffClickModule } from './directives/off-click/off-click.module';
 import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
 import { VCLWormholeModule } from './directives/wormhole';
-import { VCLOffClickModule } from './directives/off-click';
 
 export * from './reflect';
 
@@ -36,8 +36,8 @@ export * from './components/link/link.module';
 export * from './components/popover/popover.module';
 export * from './components/radio-button/radio-button.module';
 export * from './components/checkbox/checkbox.module';
+export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole';
-export * from './directives/off-click';
 export * from './l10n/l10n.module';
 
 import { OverlayManagerService } from './services/overlayManager.service';

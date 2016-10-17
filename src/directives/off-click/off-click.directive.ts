@@ -7,22 +7,21 @@ export class OffClickDirective {
   @Output('off-click')
   offClick = new EventEmitter();
 
-  private listener;
+  private listener: { (ev: MouseEvent) };
 
   constructor(private elem: ElementRef) { }
 
-  createListener() {
-    return (event) => {
-      if (event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
-        this.offClick.emit();
-      }
-    };
-  }
-
   ngAfterViewInit() {
     if (typeof document !== 'undefined') {
-      this.listener = this.createListener();
-      // Wait for next run loop to attach the listener as it might trigger by accident
+      // Create the listener
+      this.listener = (ev) => {
+        const me = this.elem.nativeElement;
+        // Check if the target is the off-clicks element or an sub element 
+        if (ev.target && me !== ev.target && !me.contains(ev.target)) {
+          this.offClick.emit();
+        }
+      };
+      // Wait for next run loop to attach the listener as it might be triggered by a current click event
       setTimeout(() => {
         document.addEventListener('click', this.listener);
       }, 0);
@@ -36,9 +35,3 @@ export class OffClickDirective {
   }
 }
 
-
-@NgModule({
-  declarations: [OffClickDirective],
-  exports: [OffClickDirective]
-})
-export class VCLOffClickModule {}
