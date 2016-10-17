@@ -7,12 +7,6 @@ import {
   EventEmitter,
 } from '@angular/core';
 
-/**
- * TODO:
- * Fix localization.
- * Add and adjust vcl-calendar and vcl-date-picker classes?
- * Finish demo, do documentation.
- */
 @Component({
   selector: 'vcl-month-picker',
   templateUrl: 'month-picker.component.html',
@@ -20,19 +14,16 @@ import {
 })
 export class MonthPickerComponent implements OnInit {
   months: any[];
+  currentMonth: number = new Date().getUTCMonth();
   yearMeta: any = {};
   currentMeta: any[];
   availableColors: string[];
 
   ngOnInit(): void {
-    let months: string[] = this.useShortNames ? MonthPickerComponent.monthNamesShort :
-      MonthPickerComponent.monthNames;
-    /** TODO: Fix localization. */
-    //localMonths = localMonths.map(month => this.l10n.transform(month));
-
-    this.months = months.map(month => ({
-      label: month
-    }));
+    this.months = (this.useShortNames ? MonthPickerComponent.monthNamesShort :
+      MonthPickerComponent.monthNames).map(month => ({
+        label: month
+      }));
 
     if (!this.maxSelectableItems) {
       this.maxSelectableItems = this.colors && this.colors.length || 1;
@@ -55,6 +46,15 @@ export class MonthPickerComponent implements OnInit {
   private createYearMeta(year: number): any[] {
     return this.months.map(monthMeta => new Object());
   }
+
+  @Input()
+  prevYearBtnIcon: string = "fa:chevron-left";
+
+  @Input()
+  nextYearBtnIcon: string = "fa:chevron-right";
+
+  @Input()
+  closeBtnIcon: string = "fa:times";
 
   @Input()
   monthsPerRow: number = 3;
@@ -124,7 +124,6 @@ export class MonthPickerComponent implements OnInit {
       this.iterateMonthMetas(mMeta => {
         monthMeta.selected = mMeta === monthMeta;
       });
-
     } else if (this.getSelectedDates().length < this.maxSelectableItems) {
       monthMeta.selected = true;
     }
@@ -141,8 +140,8 @@ export class MonthPickerComponent implements OnInit {
   }
 
   isMonthAvailable(month: number, year: number): boolean {
-    return this.isDateInBounds(month, year) && !this.useAvailableMonths ||
-      this.yearMeta[year] && this.yearMeta[year][month].available;
+    return this.isDateInBounds(month, year) && (!this.useAvailableMonths ||
+      this.yearMeta[year] && this.yearMeta[year][month].available);
   }
 
   isDateInBounds(month: number, year: number): boolean {
@@ -284,9 +283,7 @@ export class MonthPickerComponent implements OnInit {
   }
 
   isCurrentMonth(month: number): boolean {
-    if (month == 9) {
-      return true;
-    }
+    return month === this.currentMonth;
   }
 
   static monthNames: string[] = [
@@ -304,18 +301,6 @@ export class MonthPickerComponent implements OnInit {
     'December'
   ];
 
-  static monthNamesShort: string[] = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
+  static monthNamesShort: string[] = MonthPickerComponent.monthNames
+    .map(name => name.substr(0, 3));
 }

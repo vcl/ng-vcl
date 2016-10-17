@@ -1,5 +1,5 @@
 <!--vclCalendar vclDatePicker -->
-<div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput"
+<div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput vclMonthPicker"
   [class.vclClose]="!expanded"
   [attr.role]="grid"
   [attr.tabindex]="tabindex"
@@ -8,11 +8,10 @@
 
   <div class="vclDGRow vclSeparator vclMonthPickerHeader" role="row">
     <div class="vclDGCell vclMonthPickerHeaderLeftCell">
-
       <button vcl-button
         class="vclTransparent vclSquare"
-        [class.vclDisabled]="prevYearAvailable"
-        appIcon="fa:chevron-left"
+        [class.vclDisabled]="!prevYearAvailable"
+        [appIcon]="prevYearBtnIcon"
         (tap)="onPrevYearTap()">
       </button>
 
@@ -22,58 +21,51 @@
 
       <button vcl-button
         class="vclTransparent vclSquare"
-        [class.vclDisabled]="nextYearAvailable"
-        appIcon="fa:chevron-right"
+        [class.vclDisabled]="!nextYearAvailable"
+        [appIcon]="nextYearBtnIcon"
         (tap)="onNextYearTap()">
       </button>
-
     </div>
 
     <div class="vclDGCell vclMonthPickerHeaderRightCell">
       <button vcl-button *ngIf="expandable"
         class="vclTransparent vclSquare"
-        appIcon="fa:times"
+        [appIcon]="closeBtnIcon"
         (tap)="onCloseBtnTap()">
       </button>
     </div>
   </div>
 
-      <!--
-
-      [class.vclAvailable]="!useAvailableMonths || currentMeta[i+j].available"
-      [class.vclUnavailable]="useAvailableMonths && !currentMeta[i+j].available"
-      [class.vclToday]="isCurrentMonth(i+j)"
-      [class.vclOtherMonth]="!isCurrentMonth(i+j)"
-
-      -->
-
   <template ngFor let-iM [ngForOf]="months" let-i="index">
     <div *ngIf="i % monthsPerRow === 0" class="vclDGRow" role="row">
-      <div *ngFor="let jM of months.slice(i,
-        (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)
-        ); let j = index;"
+       <!--
+        Currently removed classes from the below vcCalItem because impossible (?)
+        to override. Either change the underlying classes or introduce new ones.
 
+        [class.vclAvailable]="!useAvailableMonths || currentMeta[i+j].available"
+        [class.vclUnavailable]="useAvailableMonths && !currentMeta[i+j].available"
+        [class.vclToday]="isCurrentMonth(i+j)"
+        [class.vclOtherMonth]="!isCurrentMonth(i+j)"
+      -->
+      <div *ngFor="let jM of months.slice(i, (i + monthsPerRow > months.length ?
+        months.length : i + monthsPerRow)); let j = index;"
+        (tap)="selectMonth(i+j)"
         class="vclDGCell vclCalItem"
-
         [class.vclDisabled]="useAvailableMonths && !currentMeta[i+j].available"
         [class.vclSelected]="currentMeta[i+j].selected"
-
         [style.background]="currentMeta[i+j].color"
+        [style.order]="i+j"
         [attr.aria-selected]="currentMeta[i+j].selected"
         role="gridcell"
-        tabindex="0"
-        order="i+j"
-        (tap)="selectMonth(i+j)">
-
+        tabindex="0">
           <div *ngIf="jM.label" class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel">
-            {{jM.label}}
+            {{jM.label | loc}}
           </div>
 
           <div *ngIf="jM.sublabel" class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel">
-            {{jM.sublabel}}
+            {{jM.sublabel | loc}}
           </div>
       </div>
     </div>
   </template>
-
 </div>
