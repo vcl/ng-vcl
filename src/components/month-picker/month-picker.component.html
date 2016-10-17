@@ -1,0 +1,79 @@
+<!--vclCalendar vclDatePicker -->
+<div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput"
+  [class.vclClose]="!expanded"
+  [attr.role]="grid"
+  [attr.tabindex]="tabindex"
+  [attr.aria-multiselectable]="maxSelectableItems > 1"
+  [attr.aria-expanded]="expanded">
+
+  <div class="vclDGRow vclSeparator vclMonthPickerHeader" role="row">
+    <div class="vclDGCell vclMonthPickerHeaderLeftCell">
+
+      <button vcl-button
+        class="vclTransparent vclSquare"
+        [class.vclDisabled]="prevYearAvailable"
+        appIcon="fa:chevron-left"
+        (tap)="onPrevYearTap()">
+      </button>
+
+      <div class="vclCalHeaderLabel" role="rowheader">
+        {{currentYear}}
+      </div>
+
+      <button vcl-button
+        class="vclTransparent vclSquare"
+        [class.vclDisabled]="nextYearAvailable"
+        appIcon="fa:chevron-right"
+        (tap)="onNextYearTap()">
+      </button>
+
+    </div>
+
+    <div class="vclDGCell vclMonthPickerHeaderRightCell">
+      <button vcl-button *ngIf="expandable"
+        class="vclTransparent vclSquare"
+        appIcon="fa:times"
+        (tap)="onCloseBtnTap()">
+      </button>
+    </div>
+  </div>
+
+      <!--
+
+      [class.vclAvailable]="!useAvailableMonths || currentMeta[i+j].available"
+      [class.vclUnavailable]="useAvailableMonths && !currentMeta[i+j].available"
+      [class.vclToday]="isCurrentMonth(i+j)"
+      [class.vclOtherMonth]="!isCurrentMonth(i+j)"
+
+      -->
+
+  <template ngFor let-iM [ngForOf]="months" let-i="index">
+    <div *ngIf="i % monthsPerRow === 0" class="vclDGRow" role="row">
+      <div *ngFor="let jM of months.slice(i,
+        (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)
+        ); let j = index;"
+
+        class="vclDGCell vclCalItem"
+
+        [class.vclDisabled]="useAvailableMonths && !currentMeta[i+j].available"
+        [class.vclSelected]="currentMeta[i+j].selected"
+
+        [style.background]="currentMeta[i+j].color"
+        [attr.aria-selected]="currentMeta[i+j].selected"
+        role="gridcell"
+        tabindex="0"
+        order="i+j"
+        (tap)="selectMonth(i+j)">
+
+          <div *ngIf="jM.label" class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel">
+            {{jM.label}}
+          </div>
+
+          <div *ngIf="jM.sublabel" class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel">
+            {{jM.sublabel}}
+          </div>
+      </div>
+    </div>
+  </template>
+
+</div>

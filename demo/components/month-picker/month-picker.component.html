@@ -1,0 +1,33 @@
+<vcl-month-picker
+  [prevYearAvailable]="true"
+  [nextYearAvailable]="true"
+  [colors]="['#50E3C2', '#FF3CE6']">
+</vcl-month-picker>
+
+<br><br>
+<br><br>
+
+<br><br>
+<br><br>
+
+<br><br>
+<br><br>
+
+<button vcl-button
+  label="Expand"
+  class="vclSquare"
+  (click)="expandMonthPicker($event)">
+</button>
+
+<vcl-month-picker
+  [expandable]="true"
+  [(expanded)]="expanded"
+  [useShortNames]="true"
+  [monthsPerRow]="4"
+  [maxSelectableItems]="3"
+  (select)="onSelect($event)"
+  (prevYearBtnTap)="onPreviousYearTap()"
+  [prevYearAvailable]="prevYearAvailable"
+  (nextYearBtnTap)="onNextYearTap()"
+  [nextYearAvailable]="nextYearAvailable">
+</vcl-month-picker>
