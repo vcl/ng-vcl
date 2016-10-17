@@ -1,4 +1,4 @@
-# off-click Directive
+# off-click directive
 
 The off-click action fires when a click event is handled and its source is not(!) the element or any of its subelements.  
 

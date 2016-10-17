@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger } from '@angular/core';
-import { Wormhole } from './../../directives/wormhole';
+import { WormholeGenerator } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class LayerBaseComponent {
   selector: '[vcl-layer]',
   exportAs: 'layer',
 })
-export class LayerDirective extends Wormhole {
+export class LayerDirective extends WormholeGenerator {
 
   visibilityChange$: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output()

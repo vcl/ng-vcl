@@ -1,11 +1,12 @@
-import { TemplateRef, ViewContainerRef, Directive, NgModule, Input } from '@angular/core';
+import { TemplateRef, ViewContainerRef, Directive, Input } from '@angular/core';
 
+// The wormhole Directive is just a reference to a template
 @Directive({
-  selector: '[wormhole]',
+  selector: '[generateWormhole]',
   exportAs: 'wormhole',
 })
-export class Wormhole {
-  private source: ConnectWormhole;
+export class WormholeGenerator {
+  private source: Wormhole;
 
   constructor(protected templateRef: TemplateRef<any>) { }
 
@@ -16,7 +17,7 @@ export class Wormhole {
   disconnect() {
     this.source = null;
   }
-  connect(wormhole: ConnectWormhole) {
+  connect(wormhole: Wormhole) {
     this.source = wormhole;
   }
 
@@ -26,11 +27,11 @@ export class Wormhole {
 }
 
 @Directive({
-  selector: '[connectWormhole]'
+  selector: '[wormhole]'
 })
-export class ConnectWormhole {
-  private _wormhole: Wormhole;
-  private connectedWormhole: Wormhole;
+export class Wormhole {
+  private _wormhole: WormholeGenerator;
+  private connectedWormhole: WormholeGenerator;
 
   constructor(private viewContainerRef: ViewContainerRef) {}
 
@@ -38,12 +39,12 @@ export class ConnectWormhole {
     return !!this.connectedWormhole;
   }
 
-  get wormhole(): Wormhole {
+  get wormhole(): WormholeGenerator {
     return this._wormhole;
   }
 
-  @Input('connectWormhole')
-  set wormhole(wormhole: Wormhole) {
+  @Input('wormhole')
+  set wormhole(wormhole: WormholeGenerator) {
     if (this.isConnected) {
       this.disconnect();
     }
@@ -54,7 +55,7 @@ export class ConnectWormhole {
     }
   }
 
-  connect(wormhole: Wormhole) {
+  connect(wormhole: WormholeGenerator) {
     this.connectedWormhole = wormhole;
     wormhole.connect(this);
     const templateRef = wormhole.getTemplateRef();
@@ -80,9 +81,3 @@ export class ConnectWormhole {
     this.dispose();
   }
 }
-
-@NgModule({
-  exports: [Wormhole, ConnectWormhole],
-  declarations: [Wormhole, ConnectWormhole]
-})
-export class VCLWormholeModule { }

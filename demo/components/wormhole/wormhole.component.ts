@@ -1,12 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { Wormhole } from '../../../src/directives/wormhole';
+import { WormholeGenerator } from './../../../src/directives/wormhole/wormhole.module';
 
 @Component({
   templateUrl: 'wormhole.component.html'
 })
-export class WormholeComponent  {
-  constructor() { }
+export class WormholeComponent {
 
-  @ViewChild(Wormhole)
-  source: Wormhole;
+  @ViewChild('myFirstWormhole')
+  myFirstWormhole: WormholeGenerator;
+
+  ngAfterViewInit() {
+    console.log('myFirstWormhole', this.myFirstWormhole);
+  }
 }
