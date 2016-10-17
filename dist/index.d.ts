@@ -13,7 +13,7 @@ export * from './components/popover/popover.module';
 export * from './components/radio-button/radio-button.module';
 export * from './components/checkbox/checkbox.module';
 export * from './directives/off-click/off-click.module';
-export * from './directives/wormhole';
+export * from './directives/wormhole/wormhole.module';
 export * from './l10n/l10n.module';
 export declare class VCLModule {
 }

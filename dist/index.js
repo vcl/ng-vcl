@@ -22,7 +22,7 @@ var radio_button_module_1 = require('./components/radio-button/radio-button.modu
 var checkbox_module_1 = require('./components/checkbox/checkbox.module');
 var off_click_module_1 = require('./directives/off-click/off-click.module');
 var form_control_label_module_1 = require('./components/form-control-label/form-control-label.module');
-var wormhole_1 = require('./directives/wormhole');
+var wormhole_module_1 = require('./directives/wormhole/wormhole.module');
 __export(require('./reflect'));
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
@@ -38,7 +38,7 @@ __export(require('./components/popover/popover.module'));
 __export(require('./components/radio-button/radio-button.module'));
 __export(require('./components/checkbox/checkbox.module'));
 __export(require('./directives/off-click/off-click.module'));
-__export(require('./directives/wormhole'));
+__export(require('./directives/wormhole/wormhole.module'));
 __export(require('./l10n/l10n.module'));
 var overlayManager_service_1 = require('./services/overlayManager.service');
 var VCLModule = (function () {
@@ -47,7 +47,7 @@ var VCLModule = (function () {
     VCLModule.decorators = [
         { type: core_1.NgModule, args: [{
                     imports: [
-                        wormhole_1.VCLWormholeModule,
+                        wormhole_module_1.VCLWormholeModule,
                         icon_module_1.VCLIconModule,
                         icogram_module_1.VCLIcogramModule,
                         button_module_1.VCLButtonModule,
@@ -69,7 +69,7 @@ var VCLModule = (function () {
                         off_click_module_1.VCLOffClickModule
                     ],
                     exports: [
-                        wormhole_1.VCLWormholeModule,
+                        wormhole_module_1.VCLWormholeModule,
                         icon_module_1.VCLIconModule,
                         icogram_module_1.VCLIcogramModule,
                         button_module_1.VCLButtonModule,

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var wormhole_1 = require('./../../directives/wormhole');
+var wormhole_module_1 = require('./../../directives/wormhole/wormhole.module');
 var core_1 = require('@angular/core');
 var TabLabelDirective = (function (_super) {
     __extends(TabLabelDirective, _super);
@@ -22,7 +22,7 @@ var TabLabelDirective = (function (_super) {
         { type: core_1.TemplateRef, },
     ];
     return TabLabelDirective;
-}(wormhole_1.Wormhole));
+}(wormhole_module_1.WormholeGenerator));
 exports.TabLabelDirective = TabLabelDirective;
 var TabContentDirective = (function (_super) {
     __extends(TabContentDirective, _super);
@@ -40,7 +40,7 @@ var TabContentDirective = (function (_super) {
         { type: core_1.TemplateRef, },
     ];
     return TabContentDirective;
-}(wormhole_1.Wormhole));
+}(wormhole_module_1.WormholeGenerator));
 exports.TabContentDirective = TabContentDirective;
 var TabComponent = (function () {
     function TabComponent() {

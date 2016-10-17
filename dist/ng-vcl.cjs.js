@@ -1422,48 +1422,49 @@ var VCLButtonGroupModule = (function () {
     return VCLButtonGroupModule;
 }());
 
-var Wormhole = (function () {
-    function Wormhole(templateRef) {
+// The wormhole Directive is just a reference to a template
+var WormholeGenerator = (function () {
+    function WormholeGenerator(templateRef) {
         this.templateRef = templateRef;
     }
-    Object.defineProperty(Wormhole.prototype, "isConnected", {
+    Object.defineProperty(WormholeGenerator.prototype, "isConnected", {
         get: function () {
             return !!this.source;
         },
         enumerable: true,
         configurable: true
     });
-    Wormhole.prototype.disconnect = function () {
+    WormholeGenerator.prototype.disconnect = function () {
         this.source = null;
     };
-    Wormhole.prototype.connect = function (wormhole) {
+    WormholeGenerator.prototype.connect = function (wormhole) {
         this.source = wormhole;
     };
-    Wormhole.prototype.getTemplateRef = function () {
+    WormholeGenerator.prototype.getTemplateRef = function () {
         return this.templateRef;
     };
-    Wormhole = __decorate([
+    WormholeGenerator = __decorate([
         _angular_core.Directive({
-            selector: '[wormhole]',
+            selector: '[generateWormhole]',
             exportAs: 'wormhole',
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof _angular_core.TemplateRef !== 'undefined' && _angular_core.TemplateRef) === 'function' && _a) || Object])
-    ], Wormhole);
-    return Wormhole;
+    ], WormholeGenerator);
+    return WormholeGenerator;
     var _a;
 }());
-var ConnectWormhole = (function () {
-    function ConnectWormhole(viewContainerRef) {
+var Wormhole = (function () {
+    function Wormhole(viewContainerRef) {
         this.viewContainerRef = viewContainerRef;
     }
-    Object.defineProperty(ConnectWormhole.prototype, "isConnected", {
+    Object.defineProperty(Wormhole.prototype, "isConnected", {
         get: function () {
             return !!this.connectedWormhole;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ConnectWormhole.prototype, "wormhole", {
+    Object.defineProperty(Wormhole.prototype, "wormhole", {
         get: function () {
             return this._wormhole;
         },
@@ -1479,47 +1480,48 @@ var ConnectWormhole = (function () {
         enumerable: true,
         configurable: true
     });
-    ConnectWormhole.prototype.connect = function (wormhole) {
+    Wormhole.prototype.connect = function (wormhole) {
         this.connectedWormhole = wormhole;
         wormhole.connect(this);
         var templateRef = wormhole.getTemplateRef();
         this.viewContainerRef.createEmbeddedView(templateRef);
     };
-    ConnectWormhole.prototype.disconnect = function () {
+    Wormhole.prototype.disconnect = function () {
         if (this.connectedWormhole) {
             this.connectedWormhole.disconnect();
         }
         this.connectedWormhole = null;
         this.viewContainerRef.clear();
     };
-    ConnectWormhole.prototype.dispose = function () {
+    Wormhole.prototype.dispose = function () {
         if (this.isConnected) {
             this.disconnect();
         }
     };
-    ConnectWormhole.prototype.ngOnDestroy = function () {
+    Wormhole.prototype.ngOnDestroy = function () {
         this.dispose();
     };
     __decorate([
-        _angular_core.Input('connectWormhole'), 
-        __metadata('design:type', Wormhole)
-    ], ConnectWormhole.prototype, "wormhole", null);
-    ConnectWormhole = __decorate([
+        _angular_core.Input('wormhole'), 
+        __metadata('design:type', WormholeGenerator)
+    ], Wormhole.prototype, "wormhole", null);
+    Wormhole = __decorate([
         _angular_core.Directive({
-            selector: '[connectWormhole]'
+            selector: '[wormhole]'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof _angular_core.ViewContainerRef !== 'undefined' && _angular_core.ViewContainerRef) === 'function' && _a) || Object])
-    ], ConnectWormhole);
-    return ConnectWormhole;
+    ], Wormhole);
+    return Wormhole;
     var _a;
 }());
+
 var VCLWormholeModule = (function () {
     function VCLWormholeModule() {
     }
     VCLWormholeModule = __decorate([
         _angular_core.NgModule({
-            exports: [Wormhole, ConnectWormhole],
-            declarations: [Wormhole, ConnectWormhole]
+            exports: [Wormhole, WormholeGenerator],
+            declarations: [Wormhole, WormholeGenerator]
         }), 
         __metadata('design:paramtypes', [])
     ], VCLWormholeModule);
@@ -1613,7 +1615,7 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-layer-base',
-            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [connectWormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
+            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [wormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
             animations: [
                 _angular_core.trigger('boxState', []),
                 _angular_core.trigger('layerState', [])
@@ -1702,7 +1704,7 @@ var LayerDirective = (function (_super) {
     ], LayerDirective);
     return LayerDirective;
     var _a, _b, _c, _d;
-}(Wormhole));
+}(WormholeGenerator));
 
 var VCLLayerModule = (function () {
     function VCLLayerModule() {
@@ -1733,7 +1735,7 @@ var TabLabelDirective = (function (_super) {
     ], TabLabelDirective);
     return TabLabelDirective;
     var _a;
-}(Wormhole));
+}(WormholeGenerator));
 var TabContentDirective = (function (_super) {
     __extends(TabContentDirective, _super);
     function TabContentDirective(templateRef) {
@@ -1748,7 +1750,7 @@ var TabContentDirective = (function (_super) {
     ], TabContentDirective);
     return TabContentDirective;
     var _a;
-}(Wormhole));
+}(WormholeGenerator));
 var TabComponent = (function () {
     function TabComponent() {
         this.disabled = false;
@@ -1853,7 +1855,7 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-tab-nav',
-            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [connectWormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [connectWormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
+            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
         }), 
         __metadata('design:paramtypes', [])
     ], TabNavComponent);
@@ -2931,7 +2933,7 @@ exports.VCLRadioButtonModule = VCLRadioButtonModule;
 exports.VCLCheckboxModule = VCLCheckboxModule;
 exports.VCLOffClickModule = VCLOffClickModule;
 exports.Wormhole = Wormhole;
-exports.ConnectWormhole = ConnectWormhole;
+exports.WormholeGenerator = WormholeGenerator;
 exports.VCLWormholeModule = VCLWormholeModule;
 exports.L10nModule = L10nModule;
 exports.L10nNoopLoaderService = L10nNoopLoaderService;

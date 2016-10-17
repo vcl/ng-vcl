@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { EventEmitter, TemplateRef, ElementRef } from '@angular/core';
-import { Wormhole } from './../../directives/wormhole';
+import { WormholeGenerator } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
 export declare class LayerBaseComponent {
     private layerService;
@@ -11,7 +11,7 @@ export declare class LayerBaseComponent {
     ngOnInit(): void;
     ngOnDestroy(): void;
 }
-export declare class LayerDirective extends Wormhole {
+export declare class LayerDirective extends WormholeGenerator {
     protected templateRef: TemplateRef<any>;
     private elementRef;
     private layerService;

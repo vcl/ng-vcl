@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs/Observable';
-import { Wormhole } from './../../directives/wormhole';
+import { WormholeGenerator } from './../../directives/wormhole/wormhole.module';
 import { TemplateRef, QueryList, EventEmitter } from '@angular/core';
-export declare class TabLabelDirective extends Wormhole {
+export declare class TabLabelDirective extends WormholeGenerator {
     protected templateRef: TemplateRef<any>;
     constructor(templateRef: TemplateRef<any>);
 }
-export declare class TabContentDirective extends Wormhole {
+export declare class TabContentDirective extends WormholeGenerator {
     protected templateRef: TemplateRef<any>;
     constructor(templateRef: TemplateRef<any>);
 }

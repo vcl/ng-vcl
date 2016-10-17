@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var wormhole_1 = require('./../../directives/wormhole');
+var wormhole_module_1 = require('./../../directives/wormhole/wormhole.module');
 var layer_service_1 = require('./layer.service');
 var LayerBaseComponent = (function () {
     function LayerBaseComponent(layerService) {
@@ -113,5 +113,5 @@ var LayerDirective = (function (_super) {
         'name': [{ type: core_1.Input },],
     };
     return LayerDirective;
-}(wormhole_1.Wormhole));
+}(wormhole_module_1.WormholeGenerator));
 exports.LayerDirective = LayerDirective;
