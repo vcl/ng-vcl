@@ -13,3 +13,18 @@ Wrapping label:<br>
 <label vcl-form-control-label label="Label 2 text" subLabel="Sub label 2 text">
   <vcl-checkbox [(checked)]="checkBox2Checked" id="form-control-label-demo-checkbox-2"></vcl-checkbox>
 </label>
+
+Disabled label:<br>
+
+<label vcl-form-control-label label="Label 3 disabled" disabled=true></label>
+
+Required label:<br>
+
+<label vcl-form-control-label label="Label 3 required" required=true requiredIndLabel="reqLabel"></label>
+
+Wrapped label:<br>
+
+<label vcl-form-control-label label="Label 3 disabled" wrapping=true>
+  <vcl-checkbox [(checked)]="checkBox2Checked" id="form-control-label-demo-checkbox-2"></vcl-checkbox>
+</label>
+

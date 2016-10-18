@@ -1,16 +1,5 @@
-import { Component, Input, Output, OnInit, HostBinding, HostListener, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, HostBinding } from '@angular/core';
 
-/**
-Radio button.
-
-## Usage
-
-```html
-<vcl-radio-button
-  [(checked)]="checked">
-</vcl-radio-button>
-```
-*/
 @Component({
   selector: '[vcl-form-control-label]',
   templateUrl: 'form-control-label.component.html',
@@ -18,48 +7,39 @@ Radio button.
     '[class.vclFormControlLabel]': 'true',
   }
 })
-export class FormControlLabelComponent implements OnInit {
+export class FormControlLabelComponent {
 
   @Input()
-  disabled = false;
+  @HostBinding('class.vclDisabled')
+  disabled: boolean = false;
 
   @Input()
-  requiredIndicatorCharacter = '•';
+  requiredIndicatorCharacter: string = '•';
 
   // The label
   @Input()
-  label = null;
+  label: string;
 
   // Optional sub-label
   @Input()
-  subLabel = null;
+  subLabel: string;
 
   // Whether the label prepends the child content
   @Input()
-  prepend = false;
+  prepend: boolean = false;
 
   // Whether the label wraps the labelled control
   @Input()
-  wrapping = false;
+  @HostBinding('class.vclFormControlLabelWrapping')
+  wrapping: boolean  = false;
 
   // Whether an indicator that an input in to the labelled control is required
   @Input()
-  required = false;
+  required: boolean  = false;
 
   // Accessible label for the required indicator
   @Input()
-  requiredIndLabel = null;
-
-  ngOnInit() { }
-
-  @HostBinding('class.vclFormControlLabelWrapping')
-  get hbWrapping() {
-    return !!this.wrapping;
-  }
-  @HostBinding('class.vclDisabled')
-  get hbVclDisabled() {
-    return !!this.disabled;
-  }
+  requiredIndLabel: string;
 }
 
 
