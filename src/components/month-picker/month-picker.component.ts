@@ -18,6 +18,9 @@ export class MonthPickerComponent implements OnInit {
   yearMeta: any = {};
   currentMeta: any[];
   availableColors: string[];
+  // https://github.com/vcl/default-theme/blob/master/index.styl#L188
+  // https://github.com/vcl/default-theme-terms/blob/master/index.styl#L29
+  static defaultColor = "#0888BF";
 
   ngOnInit(): void {
     this.months = (this.useShortNames ? MonthPickerComponent.monthNamesShort :
@@ -30,6 +33,8 @@ export class MonthPickerComponent implements OnInit {
     }
 
     if (this.colors) {
+      // This didn't work to override vclSelected color with the custom colors:
+      // this.availableColors = this.colors.map(color => `${color}!important`);
       this.availableColors = this.colors.slice();
     }
 
@@ -185,16 +190,16 @@ export class MonthPickerComponent implements OnInit {
 
   private setMonthBackgroundColor(month: number, year: number): void {
     const color: string = this.getMonthBackgroundColor();
-    if (color) {
-      const monthMeta: any = this.getYearMeta(year)[month];
-      monthMeta.color = color;
-    }
+    const monthMeta: any = this.getYearMeta(year)[month];
+    monthMeta.color = color;
   }
 
   private getMonthBackgroundColor(): string {
     if (this.availableColors && this.availableColors.length) {
       return this.availableColors.shift();
     }
+
+    return MonthPickerComponent.defaultColor;
   }
 
   deselectMonth(month: number, year: number = this.currentYear): void {
@@ -212,13 +217,11 @@ export class MonthPickerComponent implements OnInit {
   }
 
   private clearMonthBackgroundColor(month: number, year: number): void {
-    if (this.availableColors) {
-      const monthMeta: any = this.getYearMeta(year)[month];
-      if (monthMeta.color) {
-        this.availableColors.push(monthMeta.color);
-        monthMeta.color = undefined;
-      }
+    const monthMeta: any = this.getYearMeta(year)[month];
+    if (this.availableColors && monthMeta.color != MonthPickerComponent.defaultColor) {
+      this.availableColors.push(monthMeta.color);
     }
+    monthMeta.color = undefined;
   }
 
   deselectAllMonths(): void {

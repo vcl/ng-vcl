@@ -75,7 +75,7 @@
     "style-loader": "^0.13.1",
     "tslint": "^3.15.1",
     "typescript": "^2.0.3",
-    "vcl-core-modules": "vcl/core-modules",
+    "vcl-core-modules": "^0.1.1",
     "vcl-default-theme": "^0.1.1",
     "vcl-default-theme-terms": "^0.1.0",
     "vcl-font-awesome": "^0.1.0",
