@@ -8,9 +8,14 @@ export class IconService {
   // `fa:user` into `fa fa-user`
   defaultNameResolver(icon: string) {
     const iconParts = icon.split(':');
-    const setName = iconParts[0];
-    const iconName = iconParts[1];
-    return `${setName} ${setName}-${iconName}`;
+    if (iconParts.length > 1) {
+      const setName = iconParts[0];
+      iconParts.shift();
+      const iconClasses = iconParts.join(` ${setName}-`);
+      return `${setName} ${setName}-${iconClasses}`;
+    } else {
+      return icon;
+    }
   }
 
   lookup(icon: string) {

@@ -25,6 +25,7 @@ or
 
 ### Class Provider
 
+TODO
 
 ### API 
 
@@ -37,5 +38,6 @@ or
 | `svguse`            | string      |          | Generates an SVG `use` tag referencing the value
 | `iconClass`         | string      |          | Additional class
 | `label` *(1)*       | string      |          | `aria-label` 
+| `ariaRole`          | string      |          | `aria-role`
 
 *(1) Supports l10n*

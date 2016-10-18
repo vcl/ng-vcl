@@ -12,8 +12,7 @@ export class IconComponent {
   @Input() iconClass: string;
   @Input() icon: string;
   @Input() label: string;
-
-  ariaRole: string; //TODO: not used?
+  @Input() ariaRole: string;
 
   constructor(private _iconService: IconService) {
   }
