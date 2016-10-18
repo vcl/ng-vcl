@@ -21,6 +21,7 @@ import TOOLBAR_DEMO from './components/toolbar/toolbar.demo';
 import WORMHOLE_DEMO from './components/wormhole/wormhole.demo';
 import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 import MONTH_PICKER_DEMO from './components/month-picker/month-picker.demo';
+import L10N_DEMO from './components/l10n/l10n.demo';
 
 interface Demo {
   name: string;
@@ -52,7 +53,8 @@ export const DEMOS: Demo[] = [
   TOOLBAR_DEMO,
   WORMHOLE_DEMO,
   OFF_CLICK_DEMO,
-  MONTH_PICKER_DEMO
+  MONTH_PICKER_DEMO,
+  L10N_DEMO
 ];
 
 export const GROUPED_DEMOS = function() {

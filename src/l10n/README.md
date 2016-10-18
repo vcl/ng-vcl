@@ -1,9 +1,5 @@
 # L10n
 
-## Installation
-
-...
-
 ## Usage
 
 ```js
