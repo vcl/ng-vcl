@@ -2791,7 +2791,6 @@ var VCLFormControlLabelModule = (function () {
 
 var MonthPickerComponent = (function () {
     function MonthPickerComponent() {
-        this.currentMonth = new Date().getUTCMonth();
         this.yearMeta = {};
         this.prevYearBtnIcon = "fa:chevron-left";
         this.nextYearBtnIcon = "fa:chevron-right";
@@ -2847,8 +2846,8 @@ var MonthPickerComponent = (function () {
             return this.deselectMonth(month, year);
         }
         if (this.maxSelectableItems === 1) {
-            this.iterateMonthMetas(function (mMeta) {
-                monthMeta.selected = mMeta === monthMeta;
+            this.iterateMonthMetas(function (month, year, mMeta) {
+                mMeta.selected = mMeta === monthMeta;
             });
         }
         else if (this.getSelectedDates().length < this.maxSelectableItems) {
@@ -2963,16 +2962,16 @@ var MonthPickerComponent = (function () {
         if (this.prevYearAvailable) {
             this.currentYear--;
             this.setYearMeta(this.currentYear);
-            this.prevYearBtnTap.emit();
             this.currentYearChange.emit(this.currentYear);
+            this.prevYearBtnTap.emit();
         }
     };
     MonthPickerComponent.prototype.onNextYearTap = function () {
         if (this.nextYearAvailable) {
             this.currentYear++;
             this.setYearMeta(this.currentYear);
-            this.nextYearBtnTap.emit();
             this.currentYearChange.emit(this.currentYear);
+            this.nextYearBtnTap.emit();
         }
     };
     MonthPickerComponent.prototype.onCloseBtnTap = function () {
@@ -2989,8 +2988,10 @@ var MonthPickerComponent = (function () {
     MonthPickerComponent.prototype.notifyDeselect = function (date) {
         this.deselect.emit(date);
     };
-    MonthPickerComponent.prototype.isCurrentMonth = function (month) {
-        return month === this.currentMonth;
+    MonthPickerComponent.prototype.isCurrentMonth = function (month, year) {
+        if (year === void 0) { year = this.currentYear; }
+        var now = new Date();
+        return now.getFullYear() == year && now.getUTCMonth() === month;
     };
     MonthPickerComponent.monthNames = [
         'January',

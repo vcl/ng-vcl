@@ -1,7 +1,6 @@
 import { OnInit, EventEmitter } from '@angular/core';
 export declare class MonthPickerComponent implements OnInit {
     months: any[];
-    currentMonth: number;
     yearMeta: any;
     currentMeta: any[];
     availableColors: string[];
@@ -52,7 +51,7 @@ export declare class MonthPickerComponent implements OnInit {
     private onCloseBtnTap();
     private notifySelect(date);
     private notifyDeselect(date);
-    isCurrentMonth(month: number): boolean;
+    isCurrentMonth(month: number, year?: number): boolean;
     static monthNames: string[];
     static monthNamesShort: string[];
 }

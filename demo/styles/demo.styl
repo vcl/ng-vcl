@@ -79,18 +79,17 @@ code.hljs
 
 // Month Picker
 .vclDatePicker
-  width: 18em
   .vclButton:nth-of-type(3)
     margin-left: auto
 
 #myStyledMonthPicker
-  .vclCalendar.vclCalInput .vclCalItem:hover
+  .vclCalendar.vclCalInput .vclCalItem:hover:not(.vclSelected)
     color: var(--calendar-item-hover-color) !important
     background-color: var(--calendar-item-hover-bg-color) !important
 
   .vclCalItem.vclToday,
   .vclCalendar.vclCalInput .vclCalItem.vclToday:hover
-    font-weight: 500
+    font-weight:  var(--myfcDefaultFontWeight)
     color: inherit
 
   .vclCalItem.vclOtherMonth,
@@ -101,7 +100,7 @@ code.hljs
   .vclCalendar.vclCalInput .vclCalItem.vclAvailable.vclSelected:hover
     color: var(--calendar-selected-item-color) !important
     background-color: var(--calendar-selected-item-bg-color)
-    font-weight: 500
+    font-weight: var(--myfcDefaultFontWeight)
 
   .vclCalItem.vclDisabled,
   .vclCalendar.vclCalInput .vclCalItem.vclDisabled:hover
@@ -115,4 +114,4 @@ code.hljs
   .vclCalItem.vclUnavailable,
   .vclCalendar.vclCalInput .vclCalItem.vclUnavailable:hover
     background-color: transparent
-  // Month Picker
+    // Month Picker

@@ -6,13 +6,17 @@ import { Component } from '@angular/core';
 })
 export class MonthPickerComponent {
 
-  constructor() { }
-
   expanded: boolean = false;
+
+  thisYear: number = new Date().getUTCFullYear();
+
+  currentYear: number = this.thisYear;
 
   prevYearAvailable: boolean = true;
 
-  nextYearAvailable: boolean = true;
+  nextYearAvailable: boolean = false;
+
+  constructor() { }
 
   ngOnInit() { }
 
@@ -26,10 +30,18 @@ export class MonthPickerComponent {
 
   onPreviousYearTap() {
     console.log('onPreviousYearTap()');
+    console.log('this.currentYear:', this.currentYear);
+    if (this.currentYear < this.thisYear) {
+      this.nextYearAvailable = true;
+    }
   }
 
   onNextYearTap() {
     console.log('onNextYearTap()');
+    console.log('this.currentYear:', this.currentYear);
+    if (this.currentYear === this.thisYear) {
+      this.nextYearAvailable = false;
+    }
   }
 }
 

@@ -7,21 +7,27 @@
 
 <br><br>
 
-<button vcl-button
+<button vcl-button #target
   label="Expand"
   class="vclSquare"
   (click)="expandMonthPicker($event)">
 </button>
 
-<vcl-month-picker
-  [expandable]="true"
-  [(expanded)]="expanded"
-  [useShortNames]="true"
-  [monthsPerRow]="4"
-  [maxSelectableItems]="3"
-  (select)="onSelect($event)"
-  (prevYearBtnTap)="onPreviousYearTap()"
-  [prevYearAvailable]="prevYearAvailable"
-  (nextYearBtnTap)="onNextYearTap()"
-  [nextYearAvailable]="nextYearAvailable">
-</vcl-month-picker>
+<vcl-popover
+  target='#target'
+  targetAttachment='bottom right'
+  attachment='top right'
+  [(open)]="expanded">
+  <vcl-month-picker
+    [expandable]="true"
+    [(expanded)]="expanded"
+    [(currentYear)]="currentYear"
+    [useShortNames]="true"
+    [monthsPerRow]="4"
+    (select)="onSelect($event)"
+    (prevYearBtnTap)="onPreviousYearTap()"
+    [prevYearAvailable]="prevYearAvailable"
+    (nextYearBtnTap)="onNextYearTap()"
+    [nextYearAvailable]="nextYearAvailable">
+  </vcl-month-picker>
+</vcl-popover>

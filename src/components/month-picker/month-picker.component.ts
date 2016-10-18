@@ -14,7 +14,6 @@ import {
 })
 export class MonthPickerComponent implements OnInit {
   months: any[];
-  currentMonth: number = new Date().getUTCMonth();
   yearMeta: any = {};
   currentMeta: any[];
   availableColors: string[];
@@ -121,13 +120,12 @@ export class MonthPickerComponent implements OnInit {
     }
 
     if (this.maxSelectableItems === 1) {
-      this.iterateMonthMetas(mMeta => {
-        monthMeta.selected = mMeta === monthMeta;
+      this.iterateMonthMetas((month, year, mMeta) => {
+        mMeta.selected = mMeta === monthMeta;
       });
     } else if (this.getSelectedDates().length < this.maxSelectableItems) {
       monthMeta.selected = true;
     }
-
     if (monthMeta.selected) {
       this.setMonthBackgroundColor(month, year);
       this.notifySelect(`${year}.${month}`);
@@ -251,8 +249,8 @@ export class MonthPickerComponent implements OnInit {
     if (this.prevYearAvailable) {
       this.currentYear--;
       this.setYearMeta(this.currentYear);
-      this.prevYearBtnTap.emit();
       this.currentYearChange.emit(this.currentYear);
+      this.prevYearBtnTap.emit();
     }
   }
 
@@ -260,8 +258,8 @@ export class MonthPickerComponent implements OnInit {
     if (this.nextYearAvailable) {
       this.currentYear++;
       this.setYearMeta(this.currentYear);
-      this.nextYearBtnTap.emit();
       this.currentYearChange.emit(this.currentYear);
+      this.nextYearBtnTap.emit();
     }
   }
 
@@ -282,8 +280,9 @@ export class MonthPickerComponent implements OnInit {
     this.deselect.emit(date);
   }
 
-  isCurrentMonth(month: number): boolean {
-    return month === this.currentMonth;
+  isCurrentMonth(month: number, year: number = this.currentYear): boolean {
+    const now: Date = new Date();
+    return now.getFullYear() == year && now.getUTCMonth() === month;
   }
 
   static monthNames: string[] = [
