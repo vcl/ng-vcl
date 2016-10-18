@@ -6,7 +6,7 @@
   [attr.aria-multiselectable]="maxSelectableItems > 1"
   [attr.aria-expanded]="expanded">
 
-  <div class="vclDGRow vclSeparator vclMonthPickerHeader" role="row">
+  <div class="vclDGRow vclMonthPickerHeader" role="row">
     <div class="vclDGCell vclMonthPickerHeaderLeftCell">
       <button vcl-button
         class="vclTransparent vclSquare"
@@ -35,6 +35,8 @@
       </button>
     </div>
   </div>
+
+  <div class="vclSeparator"></div>
 
   <template ngFor let-iM [ngForOf]="months" let-i="index">
     <div *ngIf="i % monthsPerRow === 0" class="vclDGRow" role="row">
