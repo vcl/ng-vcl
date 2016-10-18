@@ -46,6 +46,7 @@ var IconComponent = (function () {
         'iconClass': [{ type: core_1.Input },],
         'icon': [{ type: core_1.Input },],
         'label': [{ type: core_1.Input },],
+        'ariaRole': [{ type: core_1.Input },],
     };
     return IconComponent;
 }());

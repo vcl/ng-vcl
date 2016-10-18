@@ -108,9 +108,15 @@ var IconService = (function () {
     // `fa:user` into `fa fa-user`
     IconService.prototype.defaultNameResolver = function (icon) {
         var iconParts = icon.split(':');
-        var setName = iconParts[0];
-        var iconName = iconParts[1];
-        return setName + " " + setName + "-" + iconName;
+        if (iconParts.length > 1) {
+            var setName = iconParts[0];
+            iconParts.shift();
+            var iconClasses = iconParts.join(" " + setName + "-");
+            return setName + " " + setName + "-" + iconClasses;
+        }
+        else {
+            return icon;
+        }
     };
     IconService.prototype.lookup = function (icon) {
         if (typeof icon === 'string' && icon) {
@@ -187,10 +193,14 @@ var IconComponent = (function () {
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], IconComponent.prototype, "label", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "ariaRole", void 0);
     IconComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-icon',
-            template: "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n",
+            template: "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\" [attr.role]=\"ariaRole\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof IconService !== 'undefined' && IconService) === 'function' && _a) || Object])
@@ -3127,7 +3137,7 @@ var MonthPickerComponent = (function () {
     MonthPickerComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-month-picker',
-            template: "<!--vclCalendar vclDatePicker -->\n<div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput vclMonthPicker\"\n  [class.vclClose]=\"!expanded\"\n  [attr.role]=\"grid\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n\n  <div class=\"vclDGRow vclMonthPickerHeader\" role=\"row\">\n    <div class=\"vclDGCell vclMonthPickerHeaderLeftCell\">\n      <button vcl-button\n        class=\"vclTransparent vclSquare\"\n        [class.vclDisabled]=\"!prevYearAvailable\"\n        [appIcon]=\"prevYearBtnIcon\"\n        (tap)=\"onPrevYearTap()\">\n      </button>\n\n      <div class=\"vclCalHeaderLabel\" role=\"rowheader\">\n        {{currentYear}}\n      </div>\n\n      <button vcl-button\n        class=\"vclTransparent vclSquare\"\n        [class.vclDisabled]=\"!nextYearAvailable\"\n        [appIcon]=\"nextYearBtnIcon\"\n        (tap)=\"onNextYearTap()\">\n      </button>\n    </div>\n\n    <div class=\"vclDGCell vclMonthPickerHeaderRightCell\">\n      <button vcl-button *ngIf=\"expandable\"\n        class=\"vclTransparent vclSquare\"\n        [appIcon]=\"closeBtnIcon\"\n        (tap)=\"onCloseBtnTap()\">\n      </button>\n    </div>\n  </div>\n\n  <div class=\"vclSeparator\"></div>\n\n  <template ngFor let-iM [ngForOf]=\"months\" let-i=\"index\">\n    <div *ngIf=\"i % monthsPerRow === 0\" class=\"vclDGRow\" role=\"row\">\n       <!--\n        Currently removed classes from the below vcCalItem because impossible (?)\n        to override. Either change the underlying classes or introduce new ones.\n\n        [class.vclAvailable]=\"!useAvailableMonths || currentMeta[i+j].available\"\n        [class.vclUnavailable]=\"useAvailableMonths && !currentMeta[i+j].available\"\n        [class.vclToday]=\"isCurrentMonth(i+j)\"\n        [class.vclOtherMonth]=\"!isCurrentMonth(i+j)\"\n      -->\n      <div *ngFor=\"let jM of months.slice(i, (i + monthsPerRow > months.length ?\n        months.length : i + monthsPerRow)); let j = index;\"\n        (tap)=\"selectMonth(i+j)\"\n        class=\"vclDGCell vclCalItem\"\n        [class.vclDisabled]=\"useAvailableMonths && !currentMeta[i+j].available\"\n        [class.vclSelected]=\"currentMeta[i+j].selected\"\n        [style.background]=\"currentMeta[i+j].color\"\n        [style.order]=\"i+j\"\n        [attr.aria-selected]=\"currentMeta[i+j].selected\"\n        role=\"gridcell\"\n        tabindex=\"0\">\n          <div *ngIf=\"jM.label\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel\">\n            {{jM.label | loc}}\n          </div>\n\n          <div *ngIf=\"jM.sublabel\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel\">\n            {{jM.sublabel | loc}}\n          </div>\n      </div>\n    </div>\n  </template>\n</div>\n",
+            template: "<div class=\"vclDatePicker\"\n    [class.vclLayoutHidden]=\"!expanded\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput\"\n    [attr.role]=\"grid\"\n    [attr.tabindex]=\"tabindex\"\n    [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n    [attr.aria-expanded]=\"expanded\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\" role=\"menubar\" aria-level=\"1\">\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!prevYearAvailable\"\n          [appIcon]=\"prevYearBtnIcon\"\n          (tap)=\"onPrevYearTap()\">\n        </button>\n\n        <span class=\"vclCalHeaderLabel\">{{ currentYear }}</span>\n\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!nextYearAvailable\"\n          [appIcon]=\"nextYearBtnIcon\"\n          (tap)=\"onNextYearTap()\">\n        </button>\n\n        <button vcl-button *ngIf=\"expandable\" class=\"vclButton vclTransparent vclSquare\"\n          [appIcon]=\"closeBtnIcon\"\n          (tap)=\"onCloseBtnTap()\">\n        </button>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <template ngFor let-iM [ngForOf]=\"months\" let-i=\"index\">\n      <div *ngIf=\"i % monthsPerRow === 0\" class=\"vclDGRow\" role=\"row\">\n        <div *ngFor=\"let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;\"\n          (tap)=\"selectMonth(i+j)\"\n          class=\"vclDGCell vclCalItem\"\n          [class.vclAvailable]=\"!useAvailableMonths || currentMeta[i+j].available\"\n          [class.vclUnavailable]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclToday]=\"isCurrentMonth(i+j)\"\n          [class.vclOtherMonth]=\"!isCurrentMonth(i+j)\"\n          [class.vclDisabled]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclSelected]=\"currentMeta[i+j].selected\"\n          [style.background-color]=\"currentMeta[i+j].color\"\n          [style.order]=\"i+j\"\n          [attr.aria-selected]=\"currentMeta[i+j].selected\"\n          role=\"gridcell\"\n          tabindex=\"0\">\n            <div *ngIf=\"jM.label\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel\">\n              {{jM.label | loc}}\n            </div>\n\n            <div *ngIf=\"jM.sublabel\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel\">\n              {{jM.sublabel | loc}}\n            </div>\n        </div>\n      </div>\n    </template>\n  </div>\n</div>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])

@@ -8,9 +8,15 @@ var IconService = (function () {
     // `fa:user` into `fa fa-user`
     IconService.prototype.defaultNameResolver = function (icon) {
         var iconParts = icon.split(':');
-        var setName = iconParts[0];
-        var iconName = iconParts[1];
-        return setName + " " + setName + "-" + iconName;
+        if (iconParts.length > 1) {
+            var setName = iconParts[0];
+            iconParts.shift();
+            var iconClasses = iconParts.join(" " + setName + "-");
+            return setName + " " + setName + "-" + iconClasses;
+        }
+        else {
+            return icon;
+        }
     };
     IconService.prototype.lookup = function (icon) {
         if (typeof icon === 'string' && icon) {
