@@ -1266,7 +1266,6 @@ span.vclButton[disabled] {
   -webkit-transition: color .25s linear, background-color .25s ease-in-out, border-color .25s ease-in-out;
   transition: color .25s linear, background-color .25s ease-in-out, border-color .25s ease-in-out;
   min-height: 2.5em;
-  outline: 0;
 }
 
 .vclCalendar.vclCalInput {
@@ -1274,7 +1273,6 @@ span.vclButton[disabled] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  outline: 0;
 }
 
 .vclCalendar.vclCalInput .vclCalItem:hover {
@@ -5996,27 +5994,6 @@ sub {
   border-collapse: collapse;
 }
 
-.vclMonthPicker {
-  min-width: 16em;
-  height: inherit;
-}
-
-.vclMonthPicker.vclClose {
-  display: none;
-}
-
-.vclMonthPicker .vclMonthPickerHeaderLeftCell {
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.vclMonthPicker .vclMonthPickerHeaderRightCell {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
 /*!
  *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -9027,8 +9004,8 @@ code.hljs {
   color: inherit;
 }
 
-#myStyledMonthPicker .vclCalItem.vclSelected,
-#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclSelected:hover {
+#myStyledMonthPicker .vclCalItem.vclAvailable.vclSelected,
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclAvailable.vclSelected:hover {
   color: #FFFFFF !important;
   background-color: #0888BF;
   font-weight: 500;

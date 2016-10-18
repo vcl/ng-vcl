@@ -2717,93 +2717,55 @@ var VCLCheckboxModule = (function () {
     return VCLCheckboxModule;
 }());
 
-/**
-Radio button.
-
-## Usage
-
-```html
-<vcl-radio-button
-  [(checked)]="checked">
-</vcl-radio-button>
-```
-*/
 var FormControlLabelComponent = (function () {
     function FormControlLabelComponent() {
         this.disabled = false;
         this.requiredIndicatorCharacter = '•';
-        // The label
-        this.label = null;
-        // Optional sub-label
-        this.subLabel = null;
         // Whether the label prepends the child content
         this.prepend = false;
         // Whether the label wraps the labelled control
         this.wrapping = false;
         // Whether an indicator that an input in to the labelled control is required
         this.required = false;
-        // Accessible label for the required indicator
-        this.requiredIndLabel = null;
     }
-    FormControlLabelComponent.prototype.ngOnInit = function () { };
-    Object.defineProperty(FormControlLabelComponent.prototype, "hbWrapping", {
-        get: function () {
-            return !!this.wrapping;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlLabelComponent.prototype, "hbVclDisabled", {
-        get: function () {
-            return !!this.disabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
     __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', Object)
+        _angular_core.Input(),
+        _angular_core.HostBinding('class.vclDisabled'), 
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "disabled", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "requiredIndicatorCharacter", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "label", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "subLabel", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "prepend", void 0);
     __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', Object)
+        _angular_core.Input(),
+        _angular_core.HostBinding('class.vclFormControlLabelWrapping'), 
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "wrapping", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "required", void 0);
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "requiredIndLabel", void 0);
-    __decorate([
-        _angular_core.HostBinding('class.vclFormControlLabelWrapping'), 
-        __metadata('design:type', Object)
-    ], FormControlLabelComponent.prototype, "hbWrapping", null);
-    __decorate([
-        _angular_core.HostBinding('class.vclDisabled'), 
-        __metadata('design:type', Object)
-    ], FormControlLabelComponent.prototype, "hbVclDisabled", null);
     FormControlLabelComponent = __decorate([
         _angular_core.Component({
             selector: '[vcl-form-control-label]',
-            template: "<ng-content *ngIf=\"prepend\"></ng-content>\n{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<label *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">\n  {{subLabel}}\n</label>\n<ng-content *ngIf=\"!prepend\"></ng-content>",
+            template: "<ng-content *ngIf=\"prepend\"></ng-content>\n{{label | loc}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel | loc\">\n  {{requiredIndicatorCharacter}}\n</em>\n<label *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">\n  {{subLabel | loc}}\n</label>\n<ng-content *ngIf=\"!prepend\"></ng-content>\n",
             host: {
                 '[class.vclFormControlLabel]': 'true',
             }
@@ -2818,7 +2780,7 @@ var VCLFormControlLabelModule = (function () {
     }
     VCLFormControlLabelModule = __decorate([
         _angular_core.NgModule({
-            imports: [_angular_common.CommonModule, VCLIconModule],
+            imports: [_angular_common.CommonModule, VCLIconModule, L10nModule],
             exports: [FormControlLabelComponent],
             declarations: [FormControlLabelComponent]
         }), 

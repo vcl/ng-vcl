@@ -1,9 +1,9 @@
 <ng-content *ngIf="prepend"></ng-content>
-{{label}}
-<em *ngIf="required" class="vclRequiredIndicator" aria-hidden="true" [attr.aria-label]="requiredIndLabel">
+{{label | loc}}
+<em *ngIf="required" class="vclRequiredIndicator" aria-hidden="true" [attr.aria-label]="requiredIndLabel | loc">
   {{requiredIndicatorCharacter}}
 </em>
 <label *ngIf="subLabel" class="vclFormControlSubLabel">
-  {{subLabel}}
+  {{subLabel | loc}}
 </label>
 <ng-content *ngIf="!prepend"></ng-content>
