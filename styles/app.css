@@ -8979,4 +8979,51 @@ header.vclApplicationHeader {
 code.hljs {
   white-space: inherit;
 }
+
+.vclDatePicker {
+  width: 18em;
+}
+
+.vclDatePicker .vclButton:nth-of-type(3) {
+  margin-left: auto;
+}
+
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem:hover {
+  color: hsl(0, 0%, 20%) !important;
+  background-color: hsl(0, 0%, 92%) !important;
+}
+
+#myStyledMonthPicker .vclCalItem.vclToday,
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclToday:hover {
+  font-weight: 500;
+  color: inherit;
+}
+
+#myStyledMonthPicker .vclCalItem.vclOtherMonth,
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclOtherMonth:hover {
+  color: inherit;
+}
+
+#myStyledMonthPicker .vclCalItem.vclAvailable.vclSelected,
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclAvailable.vclSelected:hover {
+  color: #FFFFFF !important;
+  background-color: #0888BF;
+  font-weight: 500;
+}
+
+#myStyledMonthPicker .vclCalItem.vclDisabled,
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclDisabled:hover {
+  color: hsl(0, 0%, 50%) !important;
+  background-color: hsl(0, 0%, 88%) !important;
+}
+
+#myStyledMonthPicker .vclCalItem.vclAvailable,
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclAvailable:hover {
+  background-color: transparent;
+}
+
+#myStyledMonthPicker .vclCalItem.vclUnavailable,
+#myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclUnavailable:hover {
+  background-color: transparent;
+}
 /*# sourceMappingURL=../vendor.map*/

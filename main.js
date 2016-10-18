@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 1100:
+/***/ 1110:
 /***/ function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.3.7 */
@@ -1814,14 +1814,14 @@ return Tether;
 
 /***/ },
 
-/***/ 1101:
+/***/ 1111:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var platform_browser_dynamic_1 = __webpack_require__(180);
 // import { platformBrowser } from '@angular/platform-browser';
-var app_module_1 = __webpack_require__(469);
+var app_module_1 = __webpack_require__(471);
 // import { AppModuleNgFactory } from '../tmp/demo/app.module.ngfactory';
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 // platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
@@ -1829,7 +1829,7 @@ platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1
 
 /***/ },
 
-/***/ 160:
+/***/ 116:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1844,10 +1844,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
+var common_1 = __webpack_require__(9);
 var button_component_1 = __webpack_require__(369);
 var icogram_module_1 = __webpack_require__(161);
-var l10n_module_1 = __webpack_require__(34);
+var l10n_module_1 = __webpack_require__(28);
 var VCLButtonModule = (function () {
     function VCLButtonModule() {
     }
@@ -1882,10 +1882,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var icogram_component_1 = __webpack_require__(641);
+var common_1 = __webpack_require__(9);
+var icogram_component_1 = __webpack_require__(646);
 var icon_module_1 = __webpack_require__(92);
-var l10n_module_1 = __webpack_require__(34);
+var l10n_module_1 = __webpack_require__(28);
 var VCLIcogramModule = (function () {
     function VCLIcogramModule() {
     }
@@ -1920,7 +1920,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var off_click_directive_1 = __webpack_require__(656);
+var off_click_directive_1 = __webpack_require__(662);
 var VCLOffClickModule = (function () {
     function VCLOffClickModule() {
     }
@@ -1944,26 +1944,28 @@ exports.VCLOffClickModule = VCLOffClickModule;
 "use strict";
 "use strict";
 var demo_component_1 = __webpack_require__(366);
-var metalist_demo_1 = __webpack_require__(617);
-var dropdown_demo_1 = __webpack_require__(602);
-var select_demo_1 = __webpack_require__(627);
-var icon_demo_1 = __webpack_require__(608);
-var icogram_demo_1 = __webpack_require__(606);
-var button_demo_1 = __webpack_require__(598);
-var button_group_demo_1 = __webpack_require__(596);
-var layer_demo_1 = __webpack_require__(612);
-var tether_demo_1 = __webpack_require__(631);
-var link_demo_1 = __webpack_require__(614);
-var radio_button_demo_1 = __webpack_require__(625);
-var checkbox_demo_1 = __webpack_require__(600);
-var form_control_label_demo_1 = __webpack_require__(604);
-var input_demo_1 = __webpack_require__(610);
-var popover_demo_1 = __webpack_require__(623);
-var tab_demo_1 = __webpack_require__(629);
-var navigation_demo_1 = __webpack_require__(619);
-var toolbar_demo_1 = __webpack_require__(633);
-var wormhole_demo_1 = __webpack_require__(635);
-var off_click_demo_1 = __webpack_require__(621);
+var metalist_demo_1 = __webpack_require__(620);
+var dropdown_demo_1 = __webpack_require__(604);
+var select_demo_1 = __webpack_require__(632);
+var icon_demo_1 = __webpack_require__(610);
+var icogram_demo_1 = __webpack_require__(608);
+var button_demo_1 = __webpack_require__(600);
+var button_group_demo_1 = __webpack_require__(598);
+var layer_demo_1 = __webpack_require__(615);
+var tether_demo_1 = __webpack_require__(636);
+var link_demo_1 = __webpack_require__(617);
+var radio_button_demo_1 = __webpack_require__(630);
+var checkbox_demo_1 = __webpack_require__(602);
+var form_control_label_demo_1 = __webpack_require__(606);
+var input_demo_1 = __webpack_require__(612);
+var popover_demo_1 = __webpack_require__(628);
+var tab_demo_1 = __webpack_require__(634);
+var navigation_demo_1 = __webpack_require__(624);
+var toolbar_demo_1 = __webpack_require__(638);
+var wormhole_demo_1 = __webpack_require__(640);
+var off_click_demo_1 = __webpack_require__(626);
+var month_picker_demo_1 = __webpack_require__(622);
+var l10n_demo_1 = __webpack_require__(613);
 exports.DEMOS = [
     metalist_demo_1.default,
     dropdown_demo_1.default,
@@ -1984,7 +1986,9 @@ exports.DEMOS = [
     navigation_demo_1.default,
     toolbar_demo_1.default,
     wormhole_demo_1.default,
-    off_click_demo_1.default
+    off_click_demo_1.default,
+    month_picker_demo_1.default,
+    l10n_demo_1.default
 ];
 exports.GROUPED_DEMOS = function () {
     var itemsMap = {};
@@ -2039,8 +2043,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var layer_component_1 = __webpack_require__(645);
+var common_1 = __webpack_require__(9);
+var layer_component_1 = __webpack_require__(650);
 exports.LayerBaseComponent = layer_component_1.LayerBaseComponent;
 exports.LayerDirective = layer_component_1.LayerDirective;
 var layer_service_1 = __webpack_require__(373);
@@ -2081,10 +2085,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var link_component_1 = __webpack_require__(646);
+var common_1 = __webpack_require__(9);
+var link_component_1 = __webpack_require__(651);
 var icogram_module_1 = __webpack_require__(161);
-var l10n_module_1 = __webpack_require__(34);
+var l10n_module_1 = __webpack_require__(28);
 var VCLLinkModule = (function () {
     function VCLLinkModule() {
     }
@@ -2119,8 +2123,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var tether_component_1 = __webpack_require__(654);
+var common_1 = __webpack_require__(9);
+var tether_component_1 = __webpack_require__(660);
 var VCLTetherModule = (function () {
     function VCLTetherModule() {
     }
@@ -2163,7 +2167,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(1);
-__webpack_require__(437);
+__webpack_require__(439);
 ;
 exports.L10N_LOADER_CONFIG = new core_1.OpaqueToken('l10n.loader.config');
 var L10nLoaderService = (function () {
@@ -2305,12 +2309,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(1);
-var BehaviorSubject_1 = __webpack_require__(124);
-__webpack_require__(436);
+var BehaviorSubject_1 = __webpack_require__(125);
 __webpack_require__(438);
-__webpack_require__(439);
-__webpack_require__(441);
 __webpack_require__(440);
+__webpack_require__(441);
+__webpack_require__(443);
+__webpack_require__(442);
 var l10n_loader_service_1 = __webpack_require__(241);
 var l10n_parser_service_1 = __webpack_require__(242);
 exports.L10N_CONFIG = new core_1.OpaqueToken('l10n.config');
@@ -2443,7 +2447,7 @@ exports.L10nService = L10nService;
 
 /***/ },
 
-/***/ 34:
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2461,7 +2465,7 @@ var core_1 = __webpack_require__(0);
 var l10n_loader_service_1 = __webpack_require__(241);
 var l10n_parser_service_1 = __webpack_require__(242);
 var l10n_service_1 = __webpack_require__(243);
-var l10n_pipe_1 = __webpack_require__(659);
+var l10n_pipe_1 = __webpack_require__(665);
 var l10n_loader_service_2 = __webpack_require__(241);
 exports.L10nNoopLoaderService = l10n_loader_service_2.L10nNoopLoaderService;
 exports.L10nStaticLoaderService = l10n_loader_service_2.L10nStaticLoaderService;
@@ -2627,7 +2631,7 @@ var DemoComponent = (function () {
     };
     DemoComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(799)
+            template: __webpack_require__(805)
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object])
     ], DemoComponent);
@@ -2656,11 +2660,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var HomeComponent = (function () {
     function HomeComponent() {
-        this.readme = __webpack_require__(794);
+        this.readme = __webpack_require__(800);
     }
     HomeComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(802)
+            template: __webpack_require__(808)
         }), 
         __metadata('design:paramtypes', [])
     ], HomeComponent);
@@ -2686,10 +2690,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var button_group_component_1 = __webpack_require__(636);
-var button_module_1 = __webpack_require__(160);
-var l10n_module_1 = __webpack_require__(34);
+var common_1 = __webpack_require__(9);
+var button_group_component_1 = __webpack_require__(641);
+var button_module_1 = __webpack_require__(116);
+var l10n_module_1 = __webpack_require__(28);
 var VCLButtonGroupModule = (function () {
     function VCLButtonGroupModule() {
     }
@@ -2725,7 +2729,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var Observable_1 = __webpack_require__(1);
 var core_1 = __webpack_require__(0);
-__webpack_require__(791);
+__webpack_require__(797);
 var ButtonComponent = (function () {
     function ButtonComponent(elementRef) {
         this.elementRef = elementRef;
@@ -2888,7 +2892,7 @@ var ButtonComponent = (function () {
             host: {
                 '[class.vclButton]': 'true',
             },
-            template: __webpack_require__(821),
+            template: __webpack_require__(828),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
@@ -2916,9 +2920,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
+var common_1 = __webpack_require__(9);
 var icon_module_1 = __webpack_require__(92);
-var checkbox_component_1 = __webpack_require__(637);
+var checkbox_component_1 = __webpack_require__(642);
 var VCLCheckboxModule = (function () {
     function VCLCheckboxModule() {
     }
@@ -2952,10 +2956,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var dropdown_component_1 = __webpack_require__(638);
+var common_1 = __webpack_require__(9);
+var dropdown_component_1 = __webpack_require__(643);
 var metalist_module_1 = __webpack_require__(374);
-var l10n_module_1 = __webpack_require__(34);
+var l10n_module_1 = __webpack_require__(28);
 var VCLDropdownModule = (function () {
     function VCLDropdownModule() {
     }
@@ -2998,9 +3002,15 @@ var IconService = (function () {
     // `fa:user` into `fa fa-user`
     IconService.prototype.defaultNameResolver = function (icon) {
         var iconParts = icon.split(':');
-        var setName = iconParts[0];
-        var iconName = iconParts[1];
-        return setName + " " + setName + "-" + iconName;
+        if (iconParts.length > 1) {
+            var setName = iconParts[0];
+            iconParts.shift();
+            var iconClasses = iconParts.join(" " + setName + "-");
+            return setName + " " + setName + "-" + iconClasses;
+        }
+        else {
+            return icon;
+        }
     };
     IconService.prototype.lookup = function (icon) {
         if (typeof icon === 'string' && icon) {
@@ -3138,9 +3148,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var metalist_component_1 = __webpack_require__(647);
-var l10n_module_1 = __webpack_require__(34);
+var common_1 = __webpack_require__(9);
+var metalist_component_1 = __webpack_require__(652);
+var l10n_module_1 = __webpack_require__(28);
 var VCLMetalistModule = (function () {
     function VCLMetalistModule() {
     }
@@ -3175,25 +3185,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var navigation_component_1 = __webpack_require__(648);
-var link_module_1 = __webpack_require__(239);
-var l10n_module_1 = __webpack_require__(34);
-var VCLNavigationModule = (function () {
-    function VCLNavigationModule() {
+var common_1 = __webpack_require__(9);
+var month_picker_component_1 = __webpack_require__(653);
+var button_module_1 = __webpack_require__(116);
+var l10n_module_1 = __webpack_require__(28);
+var VCLMonthPickerModule = (function () {
+    function VCLMonthPickerModule() {
     }
-    VCLNavigationModule = __decorate([
+    VCLMonthPickerModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, l10n_module_1.L10nModule, link_module_1.VCLLinkModule],
-            exports: [navigation_component_1.NavigationComponent],
-            declarations: [navigation_component_1.NavigationComponent],
+            imports: [common_1.CommonModule, button_module_1.VCLButtonModule, l10n_module_1.L10nModule],
+            exports: [month_picker_component_1.MonthPickerComponent],
+            declarations: [month_picker_component_1.MonthPickerComponent],
             providers: [],
         }), 
         __metadata('design:paramtypes', [])
-    ], VCLNavigationModule);
-    return VCLNavigationModule;
+    ], VCLMonthPickerModule);
+    return VCLMonthPickerModule;
 }());
-exports.VCLNavigationModule = VCLNavigationModule;
+exports.VCLMonthPickerModule = VCLMonthPickerModule;
 
 
 /***/ },
@@ -3213,8 +3223,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var popover_component_1 = __webpack_require__(649);
+var common_1 = __webpack_require__(9);
+var navigation_component_1 = __webpack_require__(654);
+var link_module_1 = __webpack_require__(239);
+var l10n_module_1 = __webpack_require__(28);
+var VCLNavigationModule = (function () {
+    function VCLNavigationModule() {
+    }
+    VCLNavigationModule = __decorate([
+        core_1.NgModule({
+            imports: [common_1.CommonModule, l10n_module_1.L10nModule, link_module_1.VCLLinkModule],
+            exports: [navigation_component_1.NavigationComponent],
+            declarations: [navigation_component_1.NavigationComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLNavigationModule);
+    return VCLNavigationModule;
+}());
+exports.VCLNavigationModule = VCLNavigationModule;
+
+
+/***/ },
+
+/***/ 377:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var common_1 = __webpack_require__(9);
+var popover_component_1 = __webpack_require__(655);
 exports.PopoverComponent = popover_component_1.PopoverComponent;
 var tether_module_1 = __webpack_require__(240);
 var VCLPopoverModule = (function () {
@@ -3238,7 +3286,7 @@ exports.VCLPopoverModule = VCLPopoverModule;
 
 /***/ },
 
-/***/ 377:
+/***/ 378:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3253,9 +3301,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
+var common_1 = __webpack_require__(9);
 var icon_module_1 = __webpack_require__(92);
-var radio_button_component_1 = __webpack_require__(650);
+var radio_button_component_1 = __webpack_require__(656);
 var VCLRadioButtonModule = (function () {
     function VCLRadioButtonModule() {
     }
@@ -3274,7 +3322,7 @@ exports.VCLRadioButtonModule = VCLRadioButtonModule;
 
 /***/ },
 
-/***/ 378:
+/***/ 379:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3289,9 +3337,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var tab_component_1 = __webpack_require__(653);
-var l10n_module_1 = __webpack_require__(34);
+var common_1 = __webpack_require__(9);
+var tab_component_1 = __webpack_require__(659);
+var l10n_module_1 = __webpack_require__(28);
 var wormhole_module_1 = __webpack_require__(73);
 var VCLTabNavModule = (function () {
     function VCLTabNavModule() {
@@ -3312,7 +3360,7 @@ exports.VCLTabNavModule = VCLTabNavModule;
 
 /***/ },
 
-/***/ 379:
+/***/ 380:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3327,9 +3375,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var toolbar_component_1 = __webpack_require__(655);
-var l10n_module_1 = __webpack_require__(34);
+var common_1 = __webpack_require__(9);
+var toolbar_component_1 = __webpack_require__(661);
+var l10n_module_1 = __webpack_require__(28);
 var VCLToolbarModule = (function () {
     function VCLToolbarModule() {
     }
@@ -3349,7 +3397,7 @@ exports.VCLToolbarModule = VCLToolbarModule;
 
 /***/ },
 
-/***/ 380:
+/***/ 381:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3394,147 +3442,154 @@ exports.OverlayManagerService = OverlayManagerService;
 
 /***/ },
 
-/***/ 415:
+/***/ 416:
 /***/ function(module, exports) {
 
 module.exports = "SelectionMode: Single<br>\n<vcl-button-group [(selectedIndex)]=\"idx1\" (change)=\"selectionChange1($event)\">\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 1\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 2\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 3\"></button>\n</vcl-button-group>\n<p>Selected index: {{idx1}}</p>\n\nSelectionMode: Multiple<br>\n<vcl-button-group [(selectedIndex)]=\"idx2\" (change)=\"selectionChange2($event)\" mode=\"multiple\">\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 1\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 2\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 3\"></button>\n</vcl-button-group>\n<p>Selected index: {{idx2}}</p>\n"
 
 /***/ },
 
-/***/ 416:
+/***/ 417:
 /***/ function(module, exports) {
 
 module.exports = "<button vcl-button (click)=\"someAction($event)\" label=\"Action\"></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" label=\"Action with appended icon\" appIcon=\"fa:bolt\"></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" label=\"Action with prepended icon\" prepIcon=\"fa:bolt\"></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" class=\"vclSquare\" appIcon=\"fa:bolt\"></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" class=\"vclEmphasized\" label=\"Emphasized button\"></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" flexLabel=true label=\"Flexed Label\"></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" label=\"Action\" busy=true busyLabel='Busy label...'></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" label=\"Action with appended busy icon\" appIcon=\"fa:bolt\" busy=true appIconBusy=\"fa:spinner fa-pulse\"></button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" label=\"Action with prepended busy icon\" prepIcon=\"fa:bolt\" busy=true prepIconBusy=\"fa:refresh fa-spin\"></button>\n<br><br>\n"
 
 /***/ },
 
-/***/ 417:
+/***/ 418:
 /***/ function(module, exports) {
 
 module.exports = "Checkable:\n<vcl-checkbox [(checked)]=\"checkboxChecked\"></vcl-checkbox>\n\n<br><br>\n<b>Selected:</b> {{radioButtonChecked}}\n\n<br><br>\n<button vcl-button (click)=\"checkboxChecked=false\">Uncheck checkbox</button>\n\n<br>\n<br>\nDisabled:\n<br>\n<vcl-checkbox [disabled]=\"true\"></vcl-checkbox>"
 
 /***/ },
 
-/***/ 418:
+/***/ 419:
 /***/ function(module, exports) {
 
 module.exports = "Selected Item: <span *ngIf=\"selectedItem\">{{selectedItem.label}}</span>\n\n<br>\n<br>\n<br>\n<button vcl-button (click)=\"expand()\">Show/hide</button>\n\n<vcl-dropdown (select)=\"onSelect($event)\" [(expanded)]=\"expanded\" [items]=\"items\" [maxSelectableItems]=\"1\" [tabindex]=\"77\" [expanded]=\"true\"></vcl-dropdown>\n"
 
 /***/ },
 
-/***/ 419:
-/***/ function(module, exports) {
-
-module.exports = "Non-wrapping label:\n\n<br>\n\n<label vcl-form-control-label label=\"Label text\" subLabel=\"Sub label text\" for=\"form-control-label-demo-checkbox-1\"></label>\n<vcl-checkbox [(checked)]=\"checkBox1Checked\" id=\"form-control-label-demo-checkbox-1\"></vcl-checkbox>\n\n<br>\n<br>\n\nWrapping label:<br>\n\n<label vcl-form-control-label label=\"Label 2 text\" subLabel=\"Sub label 2 text\">\n  <vcl-checkbox [(checked)]=\"checkBox2Checked\" id=\"form-control-label-demo-checkbox-2\"></vcl-checkbox>\n</label>"
-
-/***/ },
-
 /***/ 420:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-icogram label=\"some label\"></vcl-icogram>\n<br><br>\n<vcl-icogram label=\"icogram with accessible link\" prepIcon=\"fa:chevron-right\" href=\"http://example.org\"></vcl-icogram>\n<br><br>\n<vcl-icogram label=\"prep/app icons\" prepIcon=\"fa:chevron-right\" appIcon=\"fa:chevron-right\"></vcl-icogram>\n<br><br>\n<vcl-icogram label=\"flexed label\" appIcon=\"fa:chevron-right\" flexLabel=true class=\"vclLayoutHorizontal\"></vcl-icogram>\n<br><br>\n<vcl-icogram>\n  <vcl-icon icon=\"fa:cog\" [label]=\"'settings'\" hidden=\"false\"></vcl-icon>\n</vcl-icogram>\n<br><br>\n<vcl-icogram>\n  <span class=\"vclText\" flex>Prepended icon</span>\n  <div class=\"vclIcon fa fa-user\" aria-hidden=\"true\" aria-label=\"account\" role=\"img\"></div>\n</vcl-icogram>\n"
+module.exports = "Non-wrapping label:\n\n<br>\n\n<label vcl-form-control-label label=\"Label text\" subLabel=\"Sub label text\" for=\"form-control-label-demo-checkbox-1\"></label>\n<vcl-checkbox [(checked)]=\"checkBox1Checked\" id=\"form-control-label-demo-checkbox-1\"></vcl-checkbox>\n\n<br>\n<br>\n\nWrapping label:<br>\n\n<label vcl-form-control-label label=\"Label 2 text\" subLabel=\"Sub label 2 text\">\n  <vcl-checkbox [(checked)]=\"checkBox2Checked\" id=\"form-control-label-demo-checkbox-2\"></vcl-checkbox>\n</label>\n\nDisabled label:<br>\n\n<label vcl-form-control-label label=\"Label 3 disabled\" disabled=true></label>\n\nRequired label:<br>\n\n<label vcl-form-control-label label=\"Label 3 required\" required=true requiredIndLabel=\"reqLabel\"></label>\n\nWrapped label:<br>\n\n<label vcl-form-control-label label=\"Label 3 disabled\" wrapping=true>\n  <vcl-checkbox [(checked)]=\"checkBox2Checked\" id=\"form-control-label-demo-checkbox-2\"></vcl-checkbox>\n</label>\n\n"
 
 /***/ },
 
 /***/ 421:
 /***/ function(module, exports) {
 
-module.exports = "Custom icon (from the <i>Font Awesome</i> icon font):\n<vcl-icon iconClass=\"vclIconSize2\" icon=\"fa fa-cog fa-2x\"></vcl-icon>\n\n<br><br>\n\nIcon provider based (from the <i>Font Awesome</i> icon font):\n<vcl-icon iconClass=\"vclIconSize2\" icon=\"fa:cog:2x\"></vcl-icon>\n\n<br><br>\n\nPNG image resource based:\n<vcl-icon [src]=\"'http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7/36'\"></vcl-icon>\n\n<br><br>\n\nSVG image resource based:\n<vcl-icon [src]=\"'http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7'\"></vcl-icon>\n\n<br><br>\n\nSVG use ref based:\n<svg style=\"display: none;\">\n<defs>\n<path id=\"twitter\" d=\"M100.001,17.942c-3.681,1.688-7.633,2.826-11.783,3.339\nc4.236-2.624,7.49-6.779,9.021-11.73c-3.965,2.432-8.354,4.193-13.026,5.146C80.47,10.575,75.138,8,69.234,8\nc-11.33,0-20.518,9.494-20.518,21.205c0,1.662,0.183,3.281,0.533,4.833c-17.052-0.884-32.168-9.326-42.288-22.155\nc-1.767,3.133-2.778,6.773-2.778,10.659c0,7.357,3.622,13.849,9.127,17.65c-3.363-0.109-6.525-1.064-9.293-2.651\nc-0.002,0.089-0.002,0.178-0.002,0.268c0,10.272,7.072,18.845,16.458,20.793c-1.721,0.484-3.534,0.744-5.405,0.744\nc-1.322,0-2.606-0.134-3.859-0.379c2.609,8.424,10.187,14.555,19.166,14.726c-7.021,5.688-15.867,9.077-25.48,9.077\nc-1.656,0-3.289-0.102-4.895-0.297C9.08,88.491,19.865,92,31.449,92c37.737,0,58.374-32.312,58.374-60.336\nc0-0.92-0.02-1.834-0.059-2.743C93.771,25.929,97.251,22.195,100.001,17.942L100.001,17.942z\"></path>\n</defs>\n</svg>\n<vcl-icon [svguse]=\"'#twitter'\" [class]=\"'vclIconSize1'\"></vcl-icon>\n"
+module.exports = "<vcl-icogram label=\"some label\"></vcl-icogram>\n<br><br>\n<vcl-icogram label=\"icogram with accessible link\" prepIcon=\"fa:chevron-right\" href=\"http://example.org\"></vcl-icogram>\n<br><br>\n<vcl-icogram label=\"prep/app icons\" prepIcon=\"fa:chevron-right\" appIcon=\"fa:chevron-right\"></vcl-icogram>\n<br><br>\n<vcl-icogram label=\"flexed label\" appIcon=\"fa:chevron-right\" flexLabel=true class=\"vclLayoutHorizontal\"></vcl-icogram>\n<br><br>\n<vcl-icogram>\n  <vcl-icon icon=\"fa:cog\" [label]=\"'settings'\" hidden=\"false\"></vcl-icon>\n</vcl-icogram>\n<br><br>\n<vcl-icogram>\n  <span class=\"vclText\" flex>Prepended icon</span>\n  <div class=\"vclIcon fa fa-user\" aria-hidden=\"true\" aria-label=\"account\" role=\"img\"></div>\n</vcl-icogram>\n"
 
 /***/ },
 
 /***/ 422:
 /***/ function(module, exports) {
 
-module.exports = "<input vcl-input [(ngModel)]=\"data1\">\n<br>\n<b>Input 1 value:</b> {{data1}}\n\n<br>\n<br>\n<br>\n<input vcl-input [(ngModel)]=\"data2\" selectAllOnFocus=true>\n<br>\n<b>Input 2 value:</b> {{data2}}\n\n<br>\n<br>\n<br>\n<input vcl-input [(typedValue)]=\"data3\" valueType=\"number\" selectAllOnFocus=true>\n<br>\n<b>Input 3 Typed value (number):</b> {{data3}}\n\n<br>\n<br>\n<br>\n<input vcl-input value='readOnly' readOnly=true>\n<br>\n<b>Input 4 (readOnly)</b>\n"
+module.exports = "Custom icon (from the <i>Font Awesome</i> icon font):\n<vcl-icon iconClass=\"vclIconSize2\" icon=\"fa fa-cog fa-2x\"></vcl-icon>\n\n<br><br>\n\nIcon provider based (from the <i>Font Awesome</i> icon font):\n<vcl-icon iconClass=\"vclIconSize2\" icon=\"fa:cog:2x\"></vcl-icon>\n\n<br><br>\n\nPNG image resource based:\n<vcl-icon [src]=\"'http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7/36'\"></vcl-icon>\n\n<br><br>\n\nSVG image resource based:\n<vcl-icon [src]=\"'http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7'\"></vcl-icon>\n\n<br><br>\n\nSVG use ref based:\n<svg style=\"display: none;\">\n<defs>\n<path id=\"twitter\" d=\"M100.001,17.942c-3.681,1.688-7.633,2.826-11.783,3.339\nc4.236-2.624,7.49-6.779,9.021-11.73c-3.965,2.432-8.354,4.193-13.026,5.146C80.47,10.575,75.138,8,69.234,8\nc-11.33,0-20.518,9.494-20.518,21.205c0,1.662,0.183,3.281,0.533,4.833c-17.052-0.884-32.168-9.326-42.288-22.155\nc-1.767,3.133-2.778,6.773-2.778,10.659c0,7.357,3.622,13.849,9.127,17.65c-3.363-0.109-6.525-1.064-9.293-2.651\nc-0.002,0.089-0.002,0.178-0.002,0.268c0,10.272,7.072,18.845,16.458,20.793c-1.721,0.484-3.534,0.744-5.405,0.744\nc-1.322,0-2.606-0.134-3.859-0.379c2.609,8.424,10.187,14.555,19.166,14.726c-7.021,5.688-15.867,9.077-25.48,9.077\nc-1.656,0-3.289-0.102-4.895-0.297C9.08,88.491,19.865,92,31.449,92c37.737,0,58.374-32.312,58.374-60.336\nc0-0.92-0.02-1.834-0.059-2.743C93.771,25.929,97.251,22.195,100.001,17.942L100.001,17.942z\"></path>\n</defs>\n</svg>\n<vcl-icon [svguse]=\"'#twitter'\" [class]=\"'vclIconSize1'\"></vcl-icon>\n"
 
 /***/ },
 
 /***/ 423:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-layer-base></vcl-layer-base>\n\n<button vcl-button (click)=\"layerNonModal.open()\" label=\"open non-modal layer per reference\"></button>\n<button vcl-button (click)=\"openLayerNonModal()\" label=\"open non-modal layer programmatically\"></button>\n<button vcl-button (click)=\"layer1.open()\" label=\"open modal layer\"></button>\n\n<template vcl-layer #layerNonModal=\"layer\" [modal]=\"false\" [name]=\"'nonModal'\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Non-modal layer text goes here<br><br>\n        <button vcl-button (click)=\"layerNonModal.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer1=\"layer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Modal layer 1 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Modal layer 1 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.open()\" label=\"open Layer2\"></button>\n        <button vcl-button (click)=\"layer1.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer2=\"layer\" [modal]=\"false\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer 2 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        non-modal layer 2 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n"
+module.exports = "<input vcl-input [(ngModel)]=\"data1\">\n<br>\n<b>Input 1 value:</b> {{data1}}\n\n<br>\n<br>\n<br>\n<input vcl-input [(ngModel)]=\"data2\" selectAllOnFocus=true>\n<br>\n<b>Input 2 value:</b> {{data2}}\n\n<br>\n<br>\n<br>\n<input vcl-input [(typedValue)]=\"data3\" valueType=\"number\" selectAllOnFocus=true>\n<br>\n<b>Input 3 Typed value (number):</b> {{data3}}\n\n<br>\n<br>\n<br>\n<input vcl-input value='readOnly' readOnly=true>\n<br>\n<b>Input 4 (readOnly)</b>\n"
 
 /***/ },
 
 /***/ 424:
 /***/ function(module, exports) {
 
-module.exports = "Link with action:\n<br>\n<a vcl-link\n  (click)=\"someAction($event)\"\n  [label]=\"'Trigger test action'\"></a>\n<br><br>\n\nhref attribute only (label is automatically created):\n<br>\n<a vcl-link\n  [href]=\"'http://www.example.com'\"></a>\n<br><br>\n\nLabel and prepended icon:\n<br>\n<a vcl-link\n  [href]=\"'#'\"\n  [label]=\"'Example Link'\"\n  [prepIcon]=\"'fa:chevron-right'\"></a>\n<br><br>\n\n<!-- \nBlock usage:\n<br>\n<a vcl-link [href]=\"'#'\">\n  Label from block\n</a>\n<br><br>\n-->\n\nDisabled link:\n<br>\n<a vcl-link\n  [disabled]=\"true\"\n  [href]=\"'this is not considered as the link is disabled'\"\n  [label]=\"'Disabled link'\"></a>\n<br><br>\n\nLink with target _blank:\n<br>\n<a vcl-link\n  [href]=\"'https://github.com/ember-vcl'\"\n  [target]=\"'_blank'\"\n  [label]=\"'Target _blank link'\"></a>\n<br><br>\n\nLink with title, additional class and scheme:\n<br>\n<a vcl-link\n  [title]=\"'link title'\"\n  [class]=\"'additionalClass'\"\n  [scheme]=\"'tel'\"\n  [href]=\"'004971122222222'\"\n  [label]=\"'I\\'m a telephone number schemed link'\"></a>\n<br><br>\n"
+module.exports = "<vcl-layer-base></vcl-layer-base>\n\n<button vcl-button (click)=\"layerNonModal.open()\" label=\"open non-modal layer per reference\"></button>\n<button vcl-button (click)=\"openLayerNonModal()\" label=\"open non-modal layer programmatically\"></button>\n<button vcl-button (click)=\"layer1.open()\" label=\"open modal layer\"></button>\n\n<template vcl-layer #layerNonModal=\"layer\" [modal]=\"false\" [name]=\"'nonModal'\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Non-modal layer text goes here<br><br>\n        <button vcl-button (click)=\"layerNonModal.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer1=\"layer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Modal layer 1 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Modal layer 1 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.open()\" label=\"open Layer2\"></button>\n        <button vcl-button (click)=\"layer1.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer2=\"layer\" [modal]=\"false\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer 2 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        non-modal layer 2 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n"
 
 /***/ },
 
 /***/ 425:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-metalist [items]=\"items\" [meta]=\"metaInformation\" #metalist>\n  <template let-item=\"item\" let-meta=\"meta\">\n    <div (tap)=\"select(meta)\">\n      Some HTML // {{item.name}}<span *ngIf=\"meta.selected\"> // selected</span> <span *ngIf=\"meta.marked\"> // marked</span>\n    </div>\n  </template>\n</vcl-metalist>\n\n<button vcl-button (tap)=\"metalist.prev()\">prev</button>\n<button vcl-button (tap)=\"metalist.next()\">next</button>\n"
+module.exports = "Link with action:\n<br>\n<a vcl-link\n  (click)=\"someAction($event)\"\n  [label]=\"'Trigger test action'\"></a>\n<br><br>\n\nhref attribute only (label is automatically created):\n<br>\n<a vcl-link\n  [href]=\"'http://www.example.com'\"></a>\n<br><br>\n\nLabel and prepended icon:\n<br>\n<a vcl-link\n  [href]=\"'#'\"\n  [label]=\"'Example Link'\"\n  [prepIcon]=\"'fa:chevron-right'\"></a>\n<br><br>\n\n<!-- \nBlock usage:\n<br>\n<a vcl-link [href]=\"'#'\">\n  Label from block\n</a>\n<br><br>\n-->\n\nDisabled link:\n<br>\n<a vcl-link\n  [disabled]=\"true\"\n  [href]=\"'this is not considered as the link is disabled'\"\n  [label]=\"'Disabled link'\"></a>\n<br><br>\n\nLink with target _blank:\n<br>\n<a vcl-link\n  [href]=\"'https://github.com/ember-vcl'\"\n  [target]=\"'_blank'\"\n  [label]=\"'Target _blank link'\"></a>\n<br><br>\n\nLink with title, additional class and scheme:\n<br>\n<a vcl-link\n  [title]=\"'link title'\"\n  [class]=\"'additionalClass'\"\n  [scheme]=\"'tel'\"\n  [href]=\"'004971122222222'\"\n  [label]=\"'I\\'m a telephone number schemed link'\"></a>\n<br><br>\n"
 
 /***/ },
 
 /***/ 426:
 /***/ function(module, exports) {
 
-module.exports = "Horizontal navigation\n<vcl-navigation [navigationItems]=\"items\"></vcl-navigation>\n\nVertical navigation\n<vcl-navigation [navigationItems]=\"items2\" type=\"vertical\"></vcl-navigation>\n"
+module.exports = "<vcl-metalist [items]=\"items\" [meta]=\"metaInformation\" #metalist>\n  <template let-item=\"item\" let-meta=\"meta\">\n    <div (tap)=\"select(meta)\">\n      Some HTML // {{item.name}}<span *ngIf=\"meta.selected\"> // selected</span> <span *ngIf=\"meta.marked\"> // marked</span>\n    </div>\n  </template>\n</vcl-metalist>\n\n<button vcl-button (tap)=\"metalist.prev()\">prev</button>\n<button vcl-button (tap)=\"metalist.next()\">next</button>\n"
 
 /***/ },
 
 /***/ 427:
 /***/ function(module, exports) {
 
-module.exports = "<div (off-click)=\"offClick()\" style=\"border: 2px solid;background-color:red;width:300px;height:300px\">\n  DIV 1\n  <br>\n  Click somewhere outside to trigger off-click\n  <div style=\"border: 1px solid;background-color:green;width:50%;margin:auto; height:100px\">\n    DIV 2 \n    <br>\n    This is a subelement of DIV 1 \n  </div>\n</div>\n<br>\n<div *ngIf=\"clicks>0\">off-click triggered: {{clicks}}</div>\n<div *ngIf=\"clicks===0\">Click anywhere to trigger the off-click</div>\n  \n"
+module.exports = "<vcl-month-picker\n  id=\"myStyledMonthPicker\"\n  [prevYearAvailable]=\"true\"\n  [nextYearAvailable]=\"true\"\n  [colors]=\"['#50E3C2', '#FF3CE6']\">\n</vcl-month-picker>\n\n<br><br>\n\n<button vcl-button\n  label=\"Expand\"\n  class=\"vclSquare\"\n  (click)=\"expandMonthPicker($event)\">\n</button>\n\n<vcl-month-picker\n  [expandable]=\"true\"\n  [(expanded)]=\"expanded\"\n  [useShortNames]=\"true\"\n  [monthsPerRow]=\"4\"\n  [maxSelectableItems]=\"3\"\n  (select)=\"onSelect($event)\"\n  (prevYearBtnTap)=\"onPreviousYearTap()\"\n  [prevYearAvailable]=\"prevYearAvailable\"\n  (nextYearBtnTap)=\"onNextYearTap()\"\n  [nextYearAvailable]=\"nextYearAvailable\">\n</vcl-month-picker>\n"
 
 /***/ },
 
 /***/ 428:
 /***/ function(module, exports) {
 
-module.exports = "<button vcl-button (click)=\"showPopover()\" label=\"show popover\"></button>\n\n<vcl-popover target='#target' [(open)]=\"open\" class='' [style]=\"style\">\n  popover text goes here <br>\n  <button vcl-button (click)=\"showPopover2()\" label=\"show popover2\" id=\"button1\"></button>\n  <button vcl-button (click)=\"closePopover()\" label=\"close popover\"></button>\n</vcl-popover>\n\n<vcl-popover target='#button1' [(open)]=\"open2\" [style]=\"style\">\n  popover 2 text goes here <br>\n</vcl-popover>\n\n<div id=\"target\" style=\"position: absolute; top: 200px; left: 200px; padding: 10px; border: 3px double green\">\n  this is the target\n</div>"
+module.exports = "Horizontal navigation\n<vcl-navigation [navigationItems]=\"items\"></vcl-navigation>\n\nVertical navigation\n<vcl-navigation [navigationItems]=\"items2\" type=\"vertical\"></vcl-navigation>\n"
 
 /***/ },
 
 /***/ 429:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-radio-button [(checked)]=\"radioButtonChecked\"></vcl-radio-button>\n\n<br><br>\n<b>Selected:</b> {{radioButtonChecked}}\n\n<br><br>\n<button vcl-button (click)=\"radioButtonChecked=false\">Uncheck radio button</button>\n\n<br>\n<br>\nDisabled:\n<br>\n<vcl-radio-button [disabled]=\"true\"></vcl-radio-button>\n"
+module.exports = "<div (off-click)=\"offClick()\" style=\"border: 2px solid;background-color:red;width:300px;height:300px\">\n  DIV 1\n  <br>\n  Click somewhere outside to trigger off-click\n  <div style=\"border: 1px solid;background-color:green;width:50%;margin:auto; height:100px\">\n    DIV 2 \n    <br>\n    This is a subelement of DIV 1 \n  </div>\n</div>\n<br>\n<div *ngIf=\"clicks>0\">off-click triggered: {{clicks}}</div>\n<div *ngIf=\"clicks===0\">Click anywhere to trigger the off-click</div>\n  \n"
 
 /***/ },
 
 /***/ 430:
 /***/ function(module, exports) {
 
-module.exports = "<b>Single select</b><br>\n<vcl-select [items]=\"items\" (select)=\"onSelect($event)\"></vcl-select>\n<div *ngIf=\"selectedItemSingle\">\n  Selected: {{selectedItemSingle.label}}\n</div>\n\n<br>\n<br>\n<b>Multiselect, 3 Items selectable</b><br>\n\n<vcl-select [items]=\"items\" (select)=\"onSelectMulti($event)\" [maxSelectableItems]=\"3\"></vcl-select>\n<div *ngIf=\"selectedItemsMulti\">\n  Selected:\n  <ul>\n    <li *ngFor=\"let item of selectedItemsMulti\">{{item.label}}</li>\n  </ul>\n</div>\n"
+module.exports = "<button vcl-button (click)=\"showPopover()\" label=\"show popover\"></button>\n\n<vcl-popover target='#target' [(open)]=\"open\" class='' [style]=\"style\">\n  popover text goes here <br>\n  <button vcl-button (click)=\"showPopover2()\" label=\"show popover2\" id=\"button1\"></button>\n  <button vcl-button (click)=\"closePopover()\" label=\"close popover\"></button>\n</vcl-popover>\n\n<vcl-popover target='#button1' [(open)]=\"open2\" [style]=\"style\">\n  popover 2 text goes here <br>\n</vcl-popover>\n\n<div id=\"target\" style=\"position: absolute; top: 200px; left: 200px; padding: 10px; border: 3px double green\">\n  this is the target\n</div>"
 
 /***/ },
 
 /***/ 431:
 /***/ function(module, exports) {
 
-module.exports = "<h3>Default</h3>\n\n<vcl-tab-nav >\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n  <vcl-tab [disabled]=\"true\"><template vcl-tab-label>Tab3 disabled</template>\n    <template vcl-tab-content>Content3</template>\n  </vcl-tab>\n</vcl-tab-nav>\n\n<hr>\n\n<h3>With layout=\"right\"</h3>\n\n<vcl-tab-nav layout=\"right\" tabContentClass=\"vclSpan-70p\" tabsClass=\"vclSpan-30p\">\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n</vcl-tab-nav>\n\n<hr>\n\n<h3>With layout=\"left\"</h3>\n\n<vcl-tab-nav layout=\"left\" tabContentClass=\"vclSpan-70p\" tabsClass=\"vclSpan-30p\">\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n</vcl-tab-nav>\n\n<hr>\n\n<h3>With borders=true</h3>\n\n<vcl-tab-nav borders=true>\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n</vcl-tab-nav>\n"
+module.exports = "<vcl-radio-button [(checked)]=\"radioButtonChecked\"></vcl-radio-button>\n\n<br><br>\n<b>Selected:</b> {{radioButtonChecked}}\n\n<br><br>\n<button vcl-button (click)=\"radioButtonChecked=false\">Uncheck radio button</button>\n\n<br>\n<br>\nDisabled:\n<br>\n<vcl-radio-button [disabled]=\"true\"></vcl-radio-button>\n"
 
 /***/ },
 
 /***/ 432:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-tether target='#target' targetAttachment='bottom right' attachment='top left' class='tethercontainer' zIndex='7'>\n  <div style=\"border: 1px solid red; padding: 20px; \">\n    tether text goes here\n  </div>\n</vcl-tether>\n\n<div id=\"target\" style=\"position: absolute; top: 200px; left: 200px; padding: 10px; border: 3px double green\">\n  this is the target\n</div>"
+module.exports = "<b>Single select</b><br>\n<vcl-select [items]=\"items\" (select)=\"onSelect($event)\"></vcl-select>\n<div *ngIf=\"selectedItemSingle\">\n  Selected: {{selectedItemSingle.label}}\n</div>\n\n<br>\n<br>\n<b>Multiselect, 3 Items selectable</b><br>\n\n<vcl-select [items]=\"items\" (select)=\"onSelectMulti($event)\" [maxSelectableItems]=\"3\"></vcl-select>\n<div *ngIf=\"selectedItemsMulti\">\n  Selected:\n  <ul>\n    <li *ngFor=\"let item of selectedItemsMulti\">{{item.label}}</li>\n  </ul>\n</div>\n"
 
 /***/ },
 
 /***/ 433:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-toolbar>\n  <button vcl-button class=\"vclTransparent\" appIcon=\"fa:navicon\"></button>\n  <button vcl-button class=\"vclTransparent\" appIcon=\"fa:plus\"></button>\n</vcl-toolbar>\n"
+module.exports = "<h3>Default</h3>\n\n<vcl-tab-nav >\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n  <vcl-tab [disabled]=\"true\"><template vcl-tab-label>Tab3 disabled</template>\n    <template vcl-tab-content>Content3</template>\n  </vcl-tab>\n</vcl-tab-nav>\n\n<hr>\n\n<h3>With layout=\"right\"</h3>\n\n<vcl-tab-nav layout=\"right\" tabContentClass=\"vclSpan-70p\" tabsClass=\"vclSpan-30p\">\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n</vcl-tab-nav>\n\n<hr>\n\n<h3>With layout=\"left\"</h3>\n\n<vcl-tab-nav layout=\"left\" tabContentClass=\"vclSpan-70p\" tabsClass=\"vclSpan-30p\">\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n</vcl-tab-nav>\n\n<hr>\n\n<h3>With borders=true</h3>\n\n<vcl-tab-nav borders=true>\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>Content1</template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>Content2</template>\n  </vcl-tab>\n</vcl-tab-nav>\n"
 
 /***/ },
 
 /***/ 434:
 /***/ function(module, exports) {
 
+module.exports = "<vcl-tether target='#target' targetAttachment='bottom right' attachment='top left' class='tethercontainer' zIndex='7'>\n  <div style=\"border: 1px solid red; padding: 20px; \">\n    tether text goes here\n  </div>\n</vcl-tether>\n\n<div id=\"target\" style=\"position: absolute; top: 200px; left: 200px; padding: 10px; border: 3px double green\">\n  this is the target\n</div>"
+
+/***/ },
+
+/***/ 435:
+/***/ function(module, exports) {
+
+module.exports = "<vcl-toolbar>\n  <button vcl-button class=\"vclTransparent\" appIcon=\"fa:navicon\"></button>\n  <button vcl-button class=\"vclTransparent\" appIcon=\"fa:plus\"></button>\n</vcl-toolbar>\n"
+
+/***/ },
+
+/***/ 436:
+/***/ function(module, exports) {
+
 module.exports = "The wormhole is defined above the hr\n<template generateWormhole #myFirstWormhole=\"wormhole\">\n  But is rendered below\n</template>\n<hr>\n<div [wormhole]=\"myFirstWormhole\">\n</div>\n\n\n"
 
 /***/ },
 
-/***/ 469:
+/***/ 471:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3550,15 +3605,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var forms_1 = __webpack_require__(279);
-var platform_browser_1 = __webpack_require__(130);
-var index_1 = __webpack_require__(658);
-var l10n_module_1 = __webpack_require__(34);
-var app_component_1 = __webpack_require__(593);
+var platform_browser_1 = __webpack_require__(131);
+var index_1 = __webpack_require__(664);
+var l10n_module_1 = __webpack_require__(28);
+var app_component_1 = __webpack_require__(595);
 var home_component_1 = __webpack_require__(367);
-var markdown_component_1 = __webpack_require__(615);
+var markdown_component_1 = __webpack_require__(618);
 var demo_component_1 = __webpack_require__(366);
 var demos_1 = __webpack_require__(237);
-var app_routes_1 = __webpack_require__(594);
+var app_routes_1 = __webpack_require__(596);
 var AppModule = (function () {
     function AppModule() {
     }
@@ -3596,7 +3651,7 @@ exports.AppModule = AppModule;
 
 /***/ },
 
-/***/ 593:
+/***/ 595:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3615,7 +3670,7 @@ var router_1 = __webpack_require__(101);
 var demos_1 = __webpack_require__(237);
 // TODO: update typedef for fuse.js
 // https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/fuse
-var Fuse = __webpack_require__(790);
+var Fuse = __webpack_require__(796);
 var AppComponent = (function () {
     function AppComponent(router, activatedRoute) {
         this.router = router;
@@ -3653,7 +3708,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app',
-            template: __webpack_require__(795)
+            template: __webpack_require__(801)
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object])
     ], AppComponent);
@@ -3665,7 +3720,7 @@ exports.AppComponent = AppComponent;
 
 /***/ },
 
-/***/ 594:
+/***/ 596:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3687,7 +3742,7 @@ exports.routing = router_1.RouterModule.forRoot(exports.routes, {
 
 /***/ },
 
-/***/ 595:
+/***/ 597:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3719,7 +3774,7 @@ var ButtonGroupComponent = (function () {
     };
     ButtonGroupComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(415)
+            template: __webpack_require__(416)
         }), 
         __metadata('design:paramtypes', [])
     ], ButtonGroupComponent);
@@ -3730,12 +3785,12 @@ exports.ButtonGroupComponent = ButtonGroupComponent;
 
 /***/ },
 
-/***/ 596:
+/***/ 598:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var button_group_component_1 = __webpack_require__(595);
+var button_group_component_1 = __webpack_require__(597);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Button Group',
@@ -3743,16 +3798,16 @@ exports.default = {
     category: 'Buttons',
     tabs: {
         Demo: button_group_component_1.ButtonGroupComponent,
-        'README.md': __webpack_require__(819),
-        'demo.component.html': __webpack_require__(415),
-        'demo.component.ts': __webpack_require__(796)
+        'README.md': __webpack_require__(826),
+        'demo.component.html': __webpack_require__(416),
+        'demo.component.ts': __webpack_require__(802)
     }
 };
 
 
 /***/ },
 
-/***/ 597:
+/***/ 599:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3775,7 +3830,7 @@ var ButtonComponent = (function () {
     };
     ButtonComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(416)
+            template: __webpack_require__(417)
         }), 
         __metadata('design:paramtypes', [])
     ], ButtonComponent);
@@ -3786,12 +3841,12 @@ exports.ButtonComponent = ButtonComponent;
 
 /***/ },
 
-/***/ 598:
+/***/ 600:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var button_component_1 = __webpack_require__(597);
+var button_component_1 = __webpack_require__(599);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Button',
@@ -3799,16 +3854,16 @@ exports.default = {
     category: 'Buttons',
     tabs: {
         Demo: button_component_1.ButtonComponent,
-        'README.md': __webpack_require__(820),
-        'demo.component.html': __webpack_require__(416),
-        'demo.component.ts': __webpack_require__(797)
+        'README.md': __webpack_require__(827),
+        'demo.component.html': __webpack_require__(417),
+        'demo.component.ts': __webpack_require__(803)
     }
 };
 
 
 /***/ },
 
-/***/ 599:
+/***/ 601:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3830,7 +3885,7 @@ var CheckboxComponent = (function () {
     CheckboxComponent.prototype.ngOnInit = function () { };
     CheckboxComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(417)
+            template: __webpack_require__(418)
         }), 
         __metadata('design:paramtypes', [])
     ], CheckboxComponent);
@@ -3841,12 +3896,12 @@ exports.CheckboxComponent = CheckboxComponent;
 
 /***/ },
 
-/***/ 600:
+/***/ 602:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var checkbox_component_1 = __webpack_require__(599);
+var checkbox_component_1 = __webpack_require__(601);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Checkbox',
@@ -3854,16 +3909,16 @@ exports.default = {
     category: 'Inputs',
     tabs: {
         Demo: checkbox_component_1.CheckboxComponent,
-        'README.md': __webpack_require__(822),
-        'demo.component.html': __webpack_require__(417),
-        'demo.component.ts': __webpack_require__(798)
+        'README.md': __webpack_require__(829),
+        'demo.component.html': __webpack_require__(418),
+        'demo.component.ts': __webpack_require__(804)
     }
 };
 
 
 /***/ },
 
-/***/ 601:
+/***/ 603:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3909,7 +3964,7 @@ var DropdownComponent = (function () {
     };
     DropdownComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(418)
+            template: __webpack_require__(419)
         }), 
         __metadata('design:paramtypes', [])
     ], DropdownComponent);
@@ -3920,12 +3975,12 @@ exports.DropdownComponent = DropdownComponent;
 
 /***/ },
 
-/***/ 602:
+/***/ 604:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var dropdown_component_1 = __webpack_require__(601);
+var dropdown_component_1 = __webpack_require__(603);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Dropdown',
@@ -3933,62 +3988,8 @@ exports.default = {
     category: 'Inputs',
     tabs: {
         Demo: dropdown_component_1.DropdownComponent,
-        'demo.component.html': __webpack_require__(418),
-        'demo.component.ts': __webpack_require__(800)
-    }
-};
-
-
-/***/ },
-
-/***/ 603:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(0);
-var FormControlLabelComponent = (function () {
-    function FormControlLabelComponent() {
-        this.checkboxChecked = false;
-    }
-    FormControlLabelComponent.prototype.ngOnInit = function () { };
-    FormControlLabelComponent = __decorate([
-        core_1.Component({
-            template: __webpack_require__(419)
-        }), 
-        __metadata('design:paramtypes', [])
-    ], FormControlLabelComponent);
-    return FormControlLabelComponent;
-}());
-exports.FormControlLabelComponent = FormControlLabelComponent;
-
-
-/***/ },
-
-/***/ 604:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var form_control_label_component_1 = __webpack_require__(603);
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
-    name: 'Form Control Label',
-    path: 'form-control-label',
-    category: 'Forms',
-    tabs: {
-        Demo: form_control_label_component_1.FormControlLabelComponent,
         'demo.component.html': __webpack_require__(419),
-        'demo.component.ts': __webpack_require__(801)
+        'demo.component.ts': __webpack_require__(806)
     }
 };
 
@@ -4010,19 +4011,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var IcogramComponent = (function () {
-    function IcogramComponent() {
+var FormControlLabelComponent = (function () {
+    function FormControlLabelComponent() {
+        this.checkboxChecked = false;
     }
-    IcogramComponent.prototype.ngOnInit = function () { };
-    IcogramComponent = __decorate([
+    FormControlLabelComponent.prototype.ngOnInit = function () { };
+    FormControlLabelComponent = __decorate([
         core_1.Component({
             template: __webpack_require__(420)
         }), 
         __metadata('design:paramtypes', [])
-    ], IcogramComponent);
-    return IcogramComponent;
+    ], FormControlLabelComponent);
+    return FormControlLabelComponent;
 }());
-exports.IcogramComponent = IcogramComponent;
+exports.FormControlLabelComponent = FormControlLabelComponent;
 
 
 /***/ },
@@ -4032,16 +4034,17 @@ exports.IcogramComponent = IcogramComponent;
 
 "use strict";
 "use strict";
-var icogram_component_1 = __webpack_require__(605);
+var form_control_label_component_1 = __webpack_require__(605);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
-    name: 'Icogram',
-    path: 'icogram',
-    category: 'Images',
+    name: 'Form Control Label',
+    path: 'form-control-label',
+    category: 'Forms',
     tabs: {
-        Demo: icogram_component_1.IcogramComponent,
+        Demo: form_control_label_component_1.FormControlLabelComponent,
+        'README.md': __webpack_require__(831),
         'demo.component.html': __webpack_require__(420),
-        'demo.component.ts': __webpack_require__(803)
+        'demo.component.ts': __webpack_require__(807)
     }
 };
 
@@ -4063,19 +4066,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var IconComponent = (function () {
-    function IconComponent() {
+var IcogramComponent = (function () {
+    function IcogramComponent() {
     }
-    IconComponent.prototype.ngOnInit = function () { };
-    IconComponent = __decorate([
+    IcogramComponent.prototype.ngOnInit = function () { };
+    IcogramComponent = __decorate([
         core_1.Component({
             template: __webpack_require__(421)
         }), 
         __metadata('design:paramtypes', [])
-    ], IconComponent);
-    return IconComponent;
+    ], IcogramComponent);
+    return IcogramComponent;
 }());
-exports.IconComponent = IconComponent;
+exports.IcogramComponent = IcogramComponent;
 
 
 /***/ },
@@ -4085,17 +4088,16 @@ exports.IconComponent = IconComponent;
 
 "use strict";
 "use strict";
-var icon_component_1 = __webpack_require__(607);
+var icogram_component_1 = __webpack_require__(607);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
-    name: 'Icon',
-    path: 'icon',
+    name: 'Icogram',
+    path: 'icogram',
     category: 'Images',
     tabs: {
-        Demo: icon_component_1.IconComponent,
-        'README.md': __webpack_require__(826),
+        Demo: icogram_component_1.IcogramComponent,
         'demo.component.html': __webpack_require__(421),
-        'demo.component.ts': __webpack_require__(804)
+        'demo.component.ts': __webpack_require__(809)
     }
 };
 
@@ -4117,13 +4119,67 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
+var IconComponent = (function () {
+    function IconComponent() {
+    }
+    IconComponent.prototype.ngOnInit = function () { };
+    IconComponent = __decorate([
+        core_1.Component({
+            template: __webpack_require__(422)
+        }), 
+        __metadata('design:paramtypes', [])
+    ], IconComponent);
+    return IconComponent;
+}());
+exports.IconComponent = IconComponent;
+
+
+/***/ },
+
+/***/ 610:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var icon_component_1 = __webpack_require__(609);
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    name: 'Icon',
+    path: 'icon',
+    category: 'Images',
+    tabs: {
+        Demo: icon_component_1.IconComponent,
+        'README.md': __webpack_require__(834),
+        'demo.component.html': __webpack_require__(422),
+        'demo.component.ts': __webpack_require__(810)
+    }
+};
+
+
+/***/ },
+
+/***/ 611:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
 var InputComponent = (function () {
     function InputComponent() {
     }
     InputComponent.prototype.ngOnInit = function () { };
     InputComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(422)
+            template: __webpack_require__(423)
         }), 
         __metadata('design:paramtypes', [])
     ], InputComponent);
@@ -4134,12 +4190,12 @@ exports.InputComponent = InputComponent;
 
 /***/ },
 
-/***/ 610:
+/***/ 612:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var input_component_1 = __webpack_require__(609);
+var input_component_1 = __webpack_require__(611);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Input',
@@ -4147,15 +4203,33 @@ exports.default = {
     category: 'Inputs',
     tabs: {
         Demo: input_component_1.InputComponent,
-        'demo.component.html': __webpack_require__(422),
-        'demo.component.ts': __webpack_require__(805)
+        'demo.component.html': __webpack_require__(423),
+        'demo.component.ts': __webpack_require__(811)
     }
 };
 
 
 /***/ },
 
-/***/ 611:
+/***/ 613:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    name: 'L10n',
+    path: 'l10n',
+    category: 'Other',
+    tabs: {
+        'README.md': __webpack_require__(849),
+    }
+};
+
+
+/***/ },
+
+/***/ 614:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4180,7 +4254,7 @@ var LayerComponent = (function () {
     };
     LayerComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(423),
+            template: __webpack_require__(424),
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof layer_module_1.LayerService !== 'undefined' && layer_module_1.LayerService) === 'function' && _a) || Object])
     ], LayerComponent);
@@ -4192,12 +4266,12 @@ exports.LayerComponent = LayerComponent;
 
 /***/ },
 
-/***/ 612:
+/***/ 615:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var layer_component_1 = __webpack_require__(611);
+var layer_component_1 = __webpack_require__(614);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Layer',
@@ -4206,16 +4280,16 @@ exports.default = {
     declarations: [layer_component_1.LayerComponent],
     tabs: {
         Demo: layer_component_1.LayerComponent,
-        'README.md': __webpack_require__(828),
-        'demo.component.html': __webpack_require__(423),
-        'demo.component.ts': __webpack_require__(806)
+        'README.md': __webpack_require__(836),
+        'demo.component.html': __webpack_require__(424),
+        'demo.component.ts': __webpack_require__(812)
     }
 };
 
 
 /***/ },
 
-/***/ 613:
+/***/ 616:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4239,7 +4313,7 @@ var LinkComponent = (function () {
     };
     LinkComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(424)
+            template: __webpack_require__(425)
         }), 
         __metadata('design:paramtypes', [])
     ], LinkComponent);
@@ -4250,12 +4324,12 @@ exports.LinkComponent = LinkComponent;
 
 /***/ },
 
-/***/ 614:
+/***/ 617:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var link_component_1 = __webpack_require__(613);
+var link_component_1 = __webpack_require__(616);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Link',
@@ -4263,15 +4337,15 @@ exports.default = {
     category: 'Links',
     tabs: {
         Demo: link_component_1.LinkComponent,
-        'demo.component.html': __webpack_require__(424),
-        'demo.component.ts': __webpack_require__(807)
+        'demo.component.html': __webpack_require__(425),
+        'demo.component.ts': __webpack_require__(813)
     }
 };
 
 
 /***/ },
 
-/***/ 615:
+/***/ 618:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4286,8 +4360,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var marked = __webpack_require__(792);
-var style = __webpack_require__(808);
+var marked = __webpack_require__(798);
+var style = __webpack_require__(814);
 marked.setOptions({
     breaks: true
 });
@@ -4320,7 +4394,7 @@ exports.MarkdownComponent = MarkdownComponent;
 
 /***/ },
 
-/***/ 616:
+/***/ 619:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4362,7 +4436,7 @@ var MetalistComponent = (function () {
     };
     MetalistComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(425)
+            template: __webpack_require__(426)
         }), 
         __metadata('design:paramtypes', [])
     ], MetalistComponent);
@@ -4373,12 +4447,12 @@ exports.MetalistComponent = MetalistComponent;
 
 /***/ },
 
-/***/ 617:
+/***/ 620:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var metalist_component_1 = __webpack_require__(616);
+var metalist_component_1 = __webpack_require__(619);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Metalist',
@@ -4386,15 +4460,84 @@ exports.default = {
     category: 'Component',
     tabs: {
         Demo: metalist_component_1.MetalistComponent,
-        'demo.component.html': __webpack_require__(425),
-        'demo.component.ts': __webpack_require__(809)
+        'demo.component.html': __webpack_require__(426),
+        'demo.component.ts': __webpack_require__(815)
     }
 };
 
 
 /***/ },
 
-/***/ 618:
+/***/ 621:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var MonthPickerComponent = (function () {
+    function MonthPickerComponent() {
+        this.expanded = false;
+        this.prevYearAvailable = true;
+        this.nextYearAvailable = true;
+    }
+    MonthPickerComponent.prototype.ngOnInit = function () { };
+    MonthPickerComponent.prototype.expandMonthPicker = function () {
+        this.expanded = !this.expanded;
+    };
+    MonthPickerComponent.prototype.onSelect = function (date) {
+        console.log('onSelect():', date);
+    };
+    MonthPickerComponent.prototype.onPreviousYearTap = function () {
+        console.log('onPreviousYearTap()');
+    };
+    MonthPickerComponent.prototype.onNextYearTap = function () {
+        console.log('onNextYearTap()');
+    };
+    MonthPickerComponent = __decorate([
+        core_1.Component({
+            selector: 'month-picker',
+            template: __webpack_require__(427),
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MonthPickerComponent);
+    return MonthPickerComponent;
+}());
+exports.MonthPickerComponent = MonthPickerComponent;
+
+
+/***/ },
+
+/***/ 622:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var month_picker_component_1 = __webpack_require__(621);
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    name: 'Month Picker',
+    path: 'month-picker',
+    category: 'Inputs',
+    tabs: {
+        Demo: month_picker_component_1.MonthPickerComponent,
+        'demo.component.html': __webpack_require__(427),
+        'demo.component.ts': __webpack_require__(816)
+    }
+};
+
+
+/***/ },
+
+/***/ 623:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4518,7 +4661,7 @@ var NavigationComponent = (function () {
     NavigationComponent.prototype.ngOnInit = function () { };
     NavigationComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(426)
+            template: __webpack_require__(428)
         }), 
         __metadata('design:paramtypes', [])
     ], NavigationComponent);
@@ -4529,12 +4672,12 @@ exports.NavigationComponent = NavigationComponent;
 
 /***/ },
 
-/***/ 619:
+/***/ 624:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var navigation_component_1 = __webpack_require__(618);
+var navigation_component_1 = __webpack_require__(623);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Navigation',
@@ -4542,15 +4685,15 @@ exports.default = {
     category: 'Navigation',
     tabs: {
         Demo: navigation_component_1.NavigationComponent,
-        'demo.component.html': __webpack_require__(426),
-        'demo.component.ts': __webpack_require__(810)
+        'demo.component.html': __webpack_require__(428),
+        'demo.component.ts': __webpack_require__(817)
     }
 };
 
 
 /***/ },
 
-/***/ 620:
+/***/ 625:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4574,7 +4717,7 @@ var OffClickComponent = (function () {
     };
     OffClickComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(427)
+            template: __webpack_require__(429)
         }), 
         __metadata('design:paramtypes', [])
     ], OffClickComponent);
@@ -4585,12 +4728,12 @@ exports.OffClickComponent = OffClickComponent;
 
 /***/ },
 
-/***/ 621:
+/***/ 626:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var off_click_component_1 = __webpack_require__(620);
+var off_click_component_1 = __webpack_require__(625);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Off Click',
@@ -4598,16 +4741,16 @@ exports.default = {
     category: 'Other',
     tabs: {
         Demo: off_click_component_1.OffClickComponent,
-        'README.md': __webpack_require__(838),
-        'demo.component.html': __webpack_require__(427),
-        'demo.component.ts': __webpack_require__(811)
+        'README.md': __webpack_require__(847),
+        'demo.component.html': __webpack_require__(429),
+        'demo.component.ts': __webpack_require__(818)
     }
 };
 
 
 /***/ },
 
-/***/ 622:
+/***/ 627:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4644,7 +4787,7 @@ var PopoverComponent = (function () {
     };
     PopoverComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(428),
+            template: __webpack_require__(430),
         }), 
         __metadata('design:paramtypes', [])
     ], PopoverComponent);
@@ -4655,12 +4798,12 @@ exports.PopoverComponent = PopoverComponent;
 
 /***/ },
 
-/***/ 623:
+/***/ 628:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var popover_component_1 = __webpack_require__(622);
+var popover_component_1 = __webpack_require__(627);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Popover',
@@ -4668,15 +4811,15 @@ exports.default = {
     category: 'Layer',
     tabs: {
         Demo: popover_component_1.PopoverComponent,
-        'demo.component.html': __webpack_require__(428),
-        'demo.component.ts': __webpack_require__(812)
+        'demo.component.html': __webpack_require__(430),
+        'demo.component.ts': __webpack_require__(819)
     }
 };
 
 
 /***/ },
 
-/***/ 624:
+/***/ 629:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4698,7 +4841,7 @@ var RadioButtonComponent = (function () {
     RadioButtonComponent.prototype.ngOnInit = function () { };
     RadioButtonComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(429)
+            template: __webpack_require__(431)
         }), 
         __metadata('design:paramtypes', [])
     ], RadioButtonComponent);
@@ -4709,12 +4852,12 @@ exports.RadioButtonComponent = RadioButtonComponent;
 
 /***/ },
 
-/***/ 625:
+/***/ 630:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var radio_button_component_1 = __webpack_require__(624);
+var radio_button_component_1 = __webpack_require__(629);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Radio Button',
@@ -4722,15 +4865,15 @@ exports.default = {
     category: 'Inputs',
     tabs: {
         Demo: radio_button_component_1.RadioButtonComponent,
-        'demo.component.html': __webpack_require__(429),
-        'demo.component.ts': __webpack_require__(813)
+        'demo.component.html': __webpack_require__(431),
+        'demo.component.ts': __webpack_require__(820)
     }
 };
 
 
 /***/ },
 
-/***/ 626:
+/***/ 631:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4776,7 +4919,7 @@ var SelectComponent = (function () {
     };
     SelectComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(430)
+            template: __webpack_require__(432)
         }), 
         __metadata('design:paramtypes', [])
     ], SelectComponent);
@@ -4787,12 +4930,12 @@ exports.SelectComponent = SelectComponent;
 
 /***/ },
 
-/***/ 627:
+/***/ 632:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var select_component_1 = __webpack_require__(626);
+var select_component_1 = __webpack_require__(631);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Select',
@@ -4800,15 +4943,15 @@ exports.default = {
     category: 'Inputs',
     tabs: {
         Demo: select_component_1.SelectComponent,
-        'demo.component.html': __webpack_require__(430),
-        'demo.component.ts': __webpack_require__(814)
+        'demo.component.html': __webpack_require__(432),
+        'demo.component.ts': __webpack_require__(821)
     }
 };
 
 
 /***/ },
 
-/***/ 628:
+/***/ 633:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4829,7 +4972,7 @@ var TabComponent = (function () {
     TabComponent.prototype.ngOnInit = function () { };
     TabComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(431)
+            template: __webpack_require__(433)
         }), 
         __metadata('design:paramtypes', [])
     ], TabComponent);
@@ -4840,12 +4983,12 @@ exports.TabComponent = TabComponent;
 
 /***/ },
 
-/***/ 629:
+/***/ 634:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var tab_component_1 = __webpack_require__(628);
+var tab_component_1 = __webpack_require__(633);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Tab',
@@ -4853,16 +4996,16 @@ exports.default = {
     category: 'Navigation',
     tabs: {
         Demo: tab_component_1.TabComponent,
-        'README.md': __webpack_require__(835),
-        'demo.component.html': __webpack_require__(431),
-        'demo.component.ts': __webpack_require__(815)
+        'README.md': __webpack_require__(844),
+        'demo.component.html': __webpack_require__(433),
+        'demo.component.ts': __webpack_require__(822)
     }
 };
 
 
 /***/ },
 
-/***/ 630:
+/***/ 635:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4882,7 +5025,7 @@ var TetherComponent = (function () {
     }
     TetherComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(432)
+            template: __webpack_require__(434)
         }), 
         __metadata('design:paramtypes', [])
     ], TetherComponent);
@@ -4893,12 +5036,12 @@ exports.TetherComponent = TetherComponent;
 
 /***/ },
 
-/***/ 631:
+/***/ 636:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var tether_component_1 = __webpack_require__(630);
+var tether_component_1 = __webpack_require__(635);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Tether',
@@ -4906,15 +5049,15 @@ exports.default = {
     category: 'Other',
     tabs: {
         Demo: tether_component_1.TetherComponent,
-        'demo.component.html': __webpack_require__(432),
-        'demo.component.ts': __webpack_require__(816)
+        'demo.component.html': __webpack_require__(434),
+        'demo.component.ts': __webpack_require__(823)
     }
 };
 
 
 /***/ },
 
-/***/ 632:
+/***/ 637:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4935,7 +5078,7 @@ var ToolbarComponent = (function () {
     ToolbarComponent.prototype.ngOnInit = function () { };
     ToolbarComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(433)
+            template: __webpack_require__(435)
         }), 
         __metadata('design:paramtypes', [])
     ], ToolbarComponent);
@@ -4946,12 +5089,12 @@ exports.ToolbarComponent = ToolbarComponent;
 
 /***/ },
 
-/***/ 633:
+/***/ 638:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var toolbar_component_1 = __webpack_require__(632);
+var toolbar_component_1 = __webpack_require__(637);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Toolbar',
@@ -4959,15 +5102,15 @@ exports.default = {
     category: 'Navigation',
     tabs: {
         Demo: toolbar_component_1.ToolbarComponent,
-        'demo.component.html': __webpack_require__(433),
-        'demo.component.ts': __webpack_require__(817)
+        'demo.component.html': __webpack_require__(435),
+        'demo.component.ts': __webpack_require__(824)
     }
 };
 
 
 /***/ },
 
-/***/ 634:
+/***/ 639:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4995,7 +5138,7 @@ var WormholeComponent = (function () {
     ], WormholeComponent.prototype, "myFirstWormhole", void 0);
     WormholeComponent = __decorate([
         core_1.Component({
-            template: __webpack_require__(434)
+            template: __webpack_require__(436)
         }), 
         __metadata('design:paramtypes', [])
     ], WormholeComponent);
@@ -5007,12 +5150,12 @@ exports.WormholeComponent = WormholeComponent;
 
 /***/ },
 
-/***/ 635:
+/***/ 640:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var wormhole_component_1 = __webpack_require__(634);
+var wormhole_component_1 = __webpack_require__(639);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Wormhole',
@@ -5020,16 +5163,16 @@ exports.default = {
     category: 'Other',
     tabs: {
         Demo: wormhole_component_1.WormholeComponent,
-        'README.md': __webpack_require__(839),
-        'demo.component.html': __webpack_require__(434),
-        'demo.component.ts': __webpack_require__(818)
+        'README.md': __webpack_require__(848),
+        'demo.component.html': __webpack_require__(436),
+        'demo.component.ts': __webpack_require__(825)
     }
 };
 
 
 /***/ },
 
-/***/ 636:
+/***/ 641:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5198,7 +5341,7 @@ exports.ButtonGroupComponent = ButtonGroupComponent;
 
 /***/ },
 
-/***/ 637:
+/***/ 642:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5364,7 +5507,7 @@ exports.CheckboxComponent = CheckboxComponent;
 
 /***/ },
 
-/***/ 638:
+/***/ 643:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5445,7 +5588,7 @@ var DropdownComponent = (function () {
     DropdownComponent = __decorate([
         core_1.Component({
             selector: 'vcl-dropdown',
-            template: __webpack_require__(823),
+            template: __webpack_require__(830),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -5458,7 +5601,7 @@ exports.DropdownComponent = DropdownComponent;
 
 /***/ },
 
-/***/ 639:
+/***/ 644:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5473,93 +5616,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-/**
-Radio button.
-
-## Usage
-
-```html
-<vcl-radio-button
-  [(checked)]="checked">
-</vcl-radio-button>
-```
-*/
 var FormControlLabelComponent = (function () {
     function FormControlLabelComponent() {
         this.disabled = false;
         this.requiredIndicatorCharacter = '•';
-        // The label
-        this.label = null;
-        // Optional sub-label
-        this.subLabel = null;
         // Whether the label prepends the child content
         this.prepend = false;
         // Whether the label wraps the labelled control
         this.wrapping = false;
         // Whether an indicator that an input in to the labelled control is required
         this.required = false;
-        // Accessible label for the required indicator
-        this.requiredIndLabel = null;
     }
-    FormControlLabelComponent.prototype.ngOnInit = function () { };
-    Object.defineProperty(FormControlLabelComponent.prototype, "hbWrapping", {
-        get: function () {
-            return !!this.wrapping;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlLabelComponent.prototype, "hbVclDisabled", {
-        get: function () {
-            return !!this.disabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
+        core_1.Input(),
+        core_1.HostBinding('class.vclDisabled'), 
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "disabled", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "requiredIndicatorCharacter", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "label", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "subLabel", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "prepend", void 0);
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
+        core_1.Input(),
+        core_1.HostBinding('class.vclFormControlLabelWrapping'), 
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "wrapping", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', Boolean)
     ], FormControlLabelComponent.prototype, "required", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], FormControlLabelComponent.prototype, "requiredIndLabel", void 0);
-    __decorate([
-        core_1.HostBinding('class.vclFormControlLabelWrapping'), 
-        __metadata('design:type', Object)
-    ], FormControlLabelComponent.prototype, "hbWrapping", null);
-    __decorate([
-        core_1.HostBinding('class.vclDisabled'), 
-        __metadata('design:type', Object)
-    ], FormControlLabelComponent.prototype, "hbVclDisabled", null);
     FormControlLabelComponent = __decorate([
         core_1.Component({
             selector: '[vcl-form-control-label]',
-            template: __webpack_require__(824),
+            template: __webpack_require__(832),
             host: {
                 '[class.vclFormControlLabel]': 'true',
             }
@@ -5573,7 +5678,7 @@ exports.FormControlLabelComponent = FormControlLabelComponent;
 
 /***/ },
 
-/***/ 640:
+/***/ 645:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5588,15 +5693,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
+var common_1 = __webpack_require__(9);
 var icon_module_1 = __webpack_require__(92);
-var form_control_label_component_1 = __webpack_require__(639);
+var form_control_label_component_1 = __webpack_require__(644);
+var l10n_module_1 = __webpack_require__(28);
 var VCLFormControlLabelModule = (function () {
     function VCLFormControlLabelModule() {
     }
     VCLFormControlLabelModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, icon_module_1.VCLIconModule],
+            imports: [common_1.CommonModule, icon_module_1.VCLIconModule, l10n_module_1.L10nModule],
             exports: [form_control_label_component_1.FormControlLabelComponent],
             declarations: [form_control_label_component_1.FormControlLabelComponent]
         }), 
@@ -5609,7 +5715,7 @@ exports.VCLFormControlLabelModule = VCLFormControlLabelModule;
 
 /***/ },
 
-/***/ 641:
+/***/ 646:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5698,7 +5804,7 @@ var IcogramComponent = (function () {
                 '[class.vclIcogram]': 'true',
                 '[attr.role]:': 'img'
             },
-            template: __webpack_require__(825),
+            template: __webpack_require__(833),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
@@ -5711,7 +5817,7 @@ exports.IcogramComponent = IcogramComponent;
 
 /***/ },
 
-/***/ 642:
+/***/ 647:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5775,10 +5881,14 @@ var IconComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], IconComponent.prototype, "label", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "ariaRole", void 0);
     IconComponent = __decorate([
         core_1.Component({
             selector: 'vcl-icon',
-            template: __webpack_require__(827),
+            template: __webpack_require__(835),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof icon_service_1.IconService !== 'undefined' && icon_service_1.IconService) === 'function' && _a) || Object])
@@ -5791,7 +5901,7 @@ exports.IconComponent = IconComponent;
 
 /***/ },
 
-/***/ 643:
+/***/ 648:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5858,7 +5968,7 @@ exports.InputComponent = InputComponent;
 
 /***/ },
 
-/***/ 644:
+/***/ 649:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5873,7 +5983,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var input_component_1 = __webpack_require__(643);
+var input_component_1 = __webpack_require__(648);
 var VCLInputModule = (function () {
     function VCLInputModule() {
     }
@@ -5893,7 +6003,7 @@ exports.VCLInputModule = VCLInputModule;
 
 /***/ },
 
-/***/ 645:
+/***/ 650:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5933,7 +6043,7 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent = __decorate([
         core_1.Component({
             selector: 'vcl-layer-base',
-            template: __webpack_require__(829),
+            template: __webpack_require__(837),
             animations: [
                 core_1.trigger('boxState', []),
                 core_1.trigger('layerState', [])
@@ -6029,7 +6139,7 @@ exports.LayerDirective = LayerDirective;
 
 /***/ },
 
-/***/ 646:
+/***/ 651:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6133,7 +6243,7 @@ var LinkComponent = (function () {
     LinkComponent = __decorate([
         core_1.Component({
             selector: '[vcl-link]',
-            template: __webpack_require__(830),
+            template: __webpack_require__(838),
             host: {
                 '[attr.href]': '_href',
                 '[attr.target]': 'target',
@@ -6154,7 +6264,7 @@ exports.LinkComponent = LinkComponent;
 
 /***/ },
 
-/***/ 647:
+/***/ 652:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6313,7 +6423,7 @@ var MetalistComponent = (function () {
     MetalistComponent = __decorate([
         core_1.Component({
             selector: 'vcl-metalist',
-            template: __webpack_require__(831)
+            template: __webpack_require__(839)
         }), 
         __metadata('design:paramtypes', [])
     ], MetalistComponent);
@@ -6324,7 +6434,345 @@ exports.MetalistComponent = MetalistComponent;
 
 /***/ },
 
-/***/ 648:
+/***/ 653:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var MonthPickerComponent = (function () {
+    function MonthPickerComponent() {
+        this.currentMonth = new Date().getUTCMonth();
+        this.yearMeta = {};
+        this.prevYearBtnIcon = "fa:chevron-left";
+        this.nextYearBtnIcon = "fa:chevron-right";
+        this.closeBtnIcon = "fa:times";
+        this.monthsPerRow = 3;
+        this.expandable = false;
+        this.expanded = true;
+        this.expandedChange = new core_1.EventEmitter();
+        this.maxYear = Number.MAX_SAFE_INTEGER;
+        this.currentYear = new Date().getUTCFullYear();
+        this.currentYearChange = new core_1.EventEmitter();
+        this.useShortNames = false;
+        this.useAvailableMonths = false;
+        this.colors = null;
+        this.minSelectableItems = 1;
+        this.prevYearAvailable = false;
+        this.nextYearAvailable = false;
+        this.prevYearBtnTap = new core_1.EventEmitter();
+        this.nextYearBtnTap = new core_1.EventEmitter();
+        this.select = new core_1.EventEmitter();
+        this.deselect = new core_1.EventEmitter();
+        this.tabindex = 0;
+    }
+    MonthPickerComponent.prototype.ngOnInit = function () {
+        this.months = (this.useShortNames ? MonthPickerComponent.monthNamesShort :
+            MonthPickerComponent.monthNames).map(function (month) { return ({
+            label: month
+        }); });
+        if (!this.maxSelectableItems) {
+            this.maxSelectableItems = this.colors && this.colors.length || 1;
+        }
+        if (this.colors) {
+            this.availableColors = this.colors.slice();
+        }
+        this.setYearMeta(this.currentYear);
+    };
+    MonthPickerComponent.prototype.setYearMeta = function (year) {
+        if (!this.yearMeta[year]) {
+            this.yearMeta[year] = this.createYearMeta(year);
+        }
+        this.currentMeta = this.yearMeta[year];
+    };
+    MonthPickerComponent.prototype.createYearMeta = function (year) {
+        return this.months.map(function (monthMeta) { return new Object(); });
+    };
+    MonthPickerComponent.prototype.selectMonth = function (month, year) {
+        if (year === void 0) { year = this.currentYear; }
+        if (!this.isMonthAvailable(month, year)) {
+            return;
+        }
+        var monthMeta = this.getYearMeta(year)[month];
+        if (monthMeta.selected) {
+            return this.deselectMonth(month, year);
+        }
+        if (this.maxSelectableItems === 1) {
+            this.iterateMonthMetas(function (mMeta) {
+                monthMeta.selected = mMeta === monthMeta;
+            });
+        }
+        else if (this.getSelectedDates().length < this.maxSelectableItems) {
+            monthMeta.selected = true;
+        }
+        if (monthMeta.selected) {
+            this.setMonthBackgroundColor(month, year);
+            this.notifySelect(year + "." + month);
+            if (this.maxSelectableItems === 1 && this.expandable) {
+                this.expanded = false;
+                this.expandedChange.emit(this.expanded);
+            }
+        }
+    };
+    MonthPickerComponent.prototype.isMonthAvailable = function (month, year) {
+        return this.isDateInBounds(month, year) && (!this.useAvailableMonths ||
+            this.yearMeta[year] && this.yearMeta[year][month].available);
+    };
+    MonthPickerComponent.prototype.isDateInBounds = function (month, year) {
+        return this.isMonthInBounds(month) && this.isYearInBounds(year);
+    };
+    MonthPickerComponent.prototype.isMonthInBounds = function (month) {
+        return month > -1 && month < this.months.length;
+    };
+    MonthPickerComponent.prototype.isYearInBounds = function (year) {
+        return year > -1 && year < this.maxYear;
+    };
+    MonthPickerComponent.prototype.getYearMeta = function (year) {
+        if (!this.yearMeta[year]) {
+            this.yearMeta[year] = this.createYearMeta(year);
+        }
+        return this.yearMeta[year];
+    };
+    MonthPickerComponent.prototype.iterateMonthMetas = function (cb) {
+        var _this = this;
+        Object.keys(this.yearMeta).forEach(function (year) {
+            _this.yearMeta[year].forEach(function (monthMeta, month) {
+                cb(month, +year, monthMeta);
+            });
+        });
+    };
+    MonthPickerComponent.prototype.getSelectedDates = function () {
+        var _this = this;
+        var selectedDates = [];
+        Object.keys(this.yearMeta).forEach(function (year) {
+            _this.yearMeta[year].forEach(function (monthMeta, month) {
+                if (monthMeta.selected) {
+                    selectedDates.push(year + "." + month);
+                }
+            });
+        });
+        return selectedDates;
+    };
+    MonthPickerComponent.prototype.setMonthBackgroundColor = function (month, year) {
+        var color = this.getMonthBackgroundColor();
+        if (color) {
+            var monthMeta = this.getYearMeta(year)[month];
+            monthMeta.color = color;
+        }
+    };
+    MonthPickerComponent.prototype.getMonthBackgroundColor = function () {
+        if (this.availableColors && this.availableColors.length) {
+            return this.availableColors.shift();
+        }
+    };
+    MonthPickerComponent.prototype.deselectMonth = function (month, year) {
+        if (year === void 0) { year = this.currentYear; }
+        if (this.isMonthSelected(month, year)) {
+            var monthMeta = this.getYearMeta(year)[month];
+            monthMeta.selected = false;
+            this.clearMonthBackgroundColor(month, year);
+            this.notifyDeselect(year + "." + month);
+        }
+    };
+    MonthPickerComponent.prototype.isMonthSelected = function (month, year) {
+        return this.isDateInBounds(month, year) &&
+            this.yearMeta[year] && this.yearMeta[year][month].selected;
+    };
+    MonthPickerComponent.prototype.clearMonthBackgroundColor = function (month, year) {
+        if (this.availableColors) {
+            var monthMeta = this.getYearMeta(year)[month];
+            if (monthMeta.color) {
+                this.availableColors.push(monthMeta.color);
+                monthMeta.color = undefined;
+            }
+        }
+    };
+    MonthPickerComponent.prototype.deselectAllMonths = function () {
+        var _this = this;
+        this.iterateMonthMetas(function (month, year, monthMeta) {
+            monthMeta.selected = false;
+            _this.clearMonthBackgroundColor(month, year);
+            _this.notifyDeselect(year + "." + month);
+        });
+    };
+    MonthPickerComponent.prototype.addAvailableMonth = function (month, year) {
+        if (this.isDateInBounds(month, year)) {
+            this.getYearMeta(year)[month].available = true;
+        }
+    };
+    MonthPickerComponent.prototype.removeAvailableMonth = function (month, year) {
+        if (this.isDateInBounds(month, year) && this.yearMeta[year]) {
+            this.yearMeta[year][month].available = false;
+        }
+    };
+    MonthPickerComponent.prototype.removeAllAvailableMonths = function () {
+        this.iterateMonthMetas(function (month, year, monthMeta) {
+            monthMeta.available = false;
+        });
+    };
+    MonthPickerComponent.prototype.onPrevYearTap = function () {
+        if (this.prevYearAvailable) {
+            this.currentYear--;
+            this.setYearMeta(this.currentYear);
+            this.prevYearBtnTap.emit();
+            this.currentYearChange.emit(this.currentYear);
+        }
+    };
+    MonthPickerComponent.prototype.onNextYearTap = function () {
+        if (this.nextYearAvailable) {
+            this.currentYear++;
+            this.setYearMeta(this.currentYear);
+            this.nextYearBtnTap.emit();
+            this.currentYearChange.emit(this.currentYear);
+        }
+    };
+    MonthPickerComponent.prototype.onCloseBtnTap = function () {
+        if (this.expandable) {
+            if (this.expanded) {
+                this.expanded = false;
+                this.expandedChange.emit(this.expanded);
+            }
+        }
+    };
+    MonthPickerComponent.prototype.notifySelect = function (date) {
+        this.select.emit(date);
+    };
+    MonthPickerComponent.prototype.notifyDeselect = function (date) {
+        this.deselect.emit(date);
+    };
+    MonthPickerComponent.prototype.isCurrentMonth = function (month) {
+        return month === this.currentMonth;
+    };
+    MonthPickerComponent.monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ];
+    MonthPickerComponent.monthNamesShort = MonthPickerComponent.monthNames
+        .map(function (name) { return name.substr(0, 3); });
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], MonthPickerComponent.prototype, "prevYearBtnIcon", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], MonthPickerComponent.prototype, "nextYearBtnIcon", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], MonthPickerComponent.prototype, "closeBtnIcon", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], MonthPickerComponent.prototype, "monthsPerRow", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], MonthPickerComponent.prototype, "expandable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], MonthPickerComponent.prototype, "expanded", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', (typeof (_a = typeof core_1.EventEmitter !== 'undefined' && core_1.EventEmitter) === 'function' && _a) || Object)
+    ], MonthPickerComponent.prototype, "expandedChange", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], MonthPickerComponent.prototype, "maxYear", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], MonthPickerComponent.prototype, "currentYear", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', (typeof (_b = typeof core_1.EventEmitter !== 'undefined' && core_1.EventEmitter) === 'function' && _b) || Object)
+    ], MonthPickerComponent.prototype, "currentYearChange", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], MonthPickerComponent.prototype, "useShortNames", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], MonthPickerComponent.prototype, "useAvailableMonths", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], MonthPickerComponent.prototype, "colors", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], MonthPickerComponent.prototype, "maxSelectableItems", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], MonthPickerComponent.prototype, "minSelectableItems", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], MonthPickerComponent.prototype, "prevYearAvailable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], MonthPickerComponent.prototype, "nextYearAvailable", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], MonthPickerComponent.prototype, "prevYearBtnTap", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], MonthPickerComponent.prototype, "nextYearBtnTap", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], MonthPickerComponent.prototype, "select", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], MonthPickerComponent.prototype, "deselect", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], MonthPickerComponent.prototype, "tabindex", void 0);
+    MonthPickerComponent = __decorate([
+        core_1.Component({
+            selector: 'vcl-month-picker',
+            template: __webpack_require__(840),
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MonthPickerComponent);
+    return MonthPickerComponent;
+    var _a, _b;
+}());
+exports.MonthPickerComponent = MonthPickerComponent;
+
+
+/***/ },
+
+/***/ 654:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6457,7 +6905,7 @@ var NavigationComponent = (function () {
     NavigationComponent = __decorate([
         core_1.Component({
             selector: 'vcl-navigation',
-            template: __webpack_require__(832),
+            template: __webpack_require__(841),
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object])
     ], NavigationComponent);
@@ -6469,7 +6917,7 @@ exports.NavigationComponent = NavigationComponent;
 
 /***/ },
 
-/***/ 649:
+/***/ 655:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6484,7 +6932,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var overlayManager_service_1 = __webpack_require__(380);
+var overlayManager_service_1 = __webpack_require__(381);
 var PopoverComponent = (function () {
     function PopoverComponent(overlayManger, myElement) {
         this.overlayManger = overlayManger;
@@ -6574,7 +7022,7 @@ var PopoverComponent = (function () {
     PopoverComponent = __decorate([
         core_1.Component({
             selector: 'vcl-popover',
-            template: __webpack_require__(833),
+            template: __webpack_require__(842),
             host: {
                 '(document:click)': 'onClick($event)',
             },
@@ -6589,7 +7037,7 @@ exports.PopoverComponent = PopoverComponent;
 
 /***/ },
 
-/***/ 650:
+/***/ 656:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6754,7 +7202,7 @@ exports.RadioButtonComponent = RadioButtonComponent;
 
 /***/ },
 
-/***/ 651:
+/***/ 657:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6850,7 +7298,7 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         core_1.Component({
             selector: 'vcl-select',
-            template: __webpack_require__(834),
+            template: __webpack_require__(843),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -6862,7 +7310,7 @@ exports.SelectComponent = SelectComponent;
 
 /***/ },
 
-/***/ 652:
+/***/ 658:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6877,11 +7325,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
+var common_1 = __webpack_require__(9);
 var dropdown_module_1 = __webpack_require__(371);
-var button_module_1 = __webpack_require__(160);
-var select_component_1 = __webpack_require__(651);
-var l10n_module_1 = __webpack_require__(34);
+var button_module_1 = __webpack_require__(116);
+var select_component_1 = __webpack_require__(657);
+var l10n_module_1 = __webpack_require__(28);
 var off_click_module_1 = __webpack_require__(162);
 var VCLSelectModule = (function () {
     function VCLSelectModule() {
@@ -6902,7 +7350,7 @@ exports.VCLSelectModule = VCLSelectModule;
 
 /***/ },
 
-/***/ 653:
+/***/ 659:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7061,7 +7509,7 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         core_1.Component({
             selector: 'vcl-tab-nav',
-            template: __webpack_require__(836)
+            template: __webpack_require__(845)
         }), 
         __metadata('design:paramtypes', [])
     ], TabNavComponent);
@@ -7073,7 +7521,7 @@ exports.TabNavComponent = TabNavComponent;
 
 /***/ },
 
-/***/ 654:
+/***/ 660:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7088,7 +7536,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var Tether = __webpack_require__(1100);
+var Tether = __webpack_require__(1110);
 var TetherComponent = (function () {
     function TetherComponent(myElement) {
         this.myElement = myElement;
@@ -7130,7 +7578,7 @@ var TetherComponent = (function () {
     TetherComponent = __decorate([
         core_1.Component({
             selector: 'vcl-tether',
-            template: __webpack_require__(837)
+            template: __webpack_require__(846)
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
     ], TetherComponent);
@@ -7142,7 +7590,7 @@ exports.TetherComponent = TetherComponent;
 
 /***/ },
 
-/***/ 655:
+/***/ 661:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7187,7 +7635,7 @@ exports.ToolbarComponent = ToolbarComponent;
 
 /***/ },
 
-/***/ 656:
+/***/ 662:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7247,7 +7695,7 @@ exports.OffClickDirective = OffClickDirective;
 
 /***/ },
 
-/***/ 657:
+/***/ 663:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7360,7 +7808,7 @@ exports.Wormhole = Wormhole;
 
 /***/ },
 
-/***/ 658:
+/***/ 664:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7377,45 +7825,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
-var input_module_1 = __webpack_require__(644);
+var input_module_1 = __webpack_require__(649);
 var core_1 = __webpack_require__(0);
 var icon_module_1 = __webpack_require__(92);
 var metalist_module_1 = __webpack_require__(374);
 var dropdown_module_1 = __webpack_require__(371);
-var select_module_1 = __webpack_require__(652);
+var select_module_1 = __webpack_require__(658);
 var icogram_module_1 = __webpack_require__(161);
-var button_module_1 = __webpack_require__(160);
+var button_module_1 = __webpack_require__(116);
 var button_group_module_1 = __webpack_require__(368);
 var layer_module_1 = __webpack_require__(238);
-var tab_module_1 = __webpack_require__(378);
-var navigation_module_1 = __webpack_require__(375);
-var toolbar_module_1 = __webpack_require__(379);
+var tab_module_1 = __webpack_require__(379);
+var navigation_module_1 = __webpack_require__(376);
+var toolbar_module_1 = __webpack_require__(380);
 var tether_module_1 = __webpack_require__(240);
 var link_module_1 = __webpack_require__(239);
-var popover_module_1 = __webpack_require__(376);
-var radio_button_module_1 = __webpack_require__(377);
+var popover_module_1 = __webpack_require__(377);
+var radio_button_module_1 = __webpack_require__(378);
 var checkbox_module_1 = __webpack_require__(370);
 var off_click_module_1 = __webpack_require__(162);
-var form_control_label_module_1 = __webpack_require__(640);
+var form_control_label_module_1 = __webpack_require__(645);
 var wormhole_module_1 = __webpack_require__(73);
-__export(__webpack_require__(660));
+var month_picker_module_1 = __webpack_require__(375);
+__export(__webpack_require__(666));
 __export(__webpack_require__(92));
 __export(__webpack_require__(161));
-__export(__webpack_require__(160));
+__export(__webpack_require__(116));
 __export(__webpack_require__(368));
 __export(__webpack_require__(238));
-__export(__webpack_require__(378));
-__export(__webpack_require__(375));
 __export(__webpack_require__(379));
+__export(__webpack_require__(376));
+__export(__webpack_require__(380));
 __export(__webpack_require__(240));
 __export(__webpack_require__(239));
-__export(__webpack_require__(376));
 __export(__webpack_require__(377));
+__export(__webpack_require__(378));
 __export(__webpack_require__(370));
+__export(__webpack_require__(375));
 __export(__webpack_require__(162));
 __export(__webpack_require__(73));
-__export(__webpack_require__(34));
-var overlayManager_service_1 = __webpack_require__(380);
+__export(__webpack_require__(28));
+var overlayManager_service_1 = __webpack_require__(381);
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -7441,7 +7891,8 @@ var VCLModule = (function () {
                 metalist_module_1.VCLMetalistModule,
                 dropdown_module_1.VCLDropdownModule,
                 select_module_1.VCLSelectModule,
-                off_click_module_1.VCLOffClickModule
+                off_click_module_1.VCLOffClickModule,
+                month_picker_module_1.VCLMonthPickerModule
             ],
             exports: [
                 wormhole_module_1.VCLWormholeModule,
@@ -7463,7 +7914,8 @@ var VCLModule = (function () {
                 metalist_module_1.VCLMetalistModule,
                 dropdown_module_1.VCLDropdownModule,
                 select_module_1.VCLSelectModule,
-                off_click_module_1.VCLOffClickModule
+                off_click_module_1.VCLOffClickModule,
+                month_picker_module_1.VCLMonthPickerModule
             ],
             providers: [
                 overlayManager_service_1.OverlayManagerService
@@ -7478,7 +7930,7 @@ exports.VCLModule = VCLModule;
 
 /***/ },
 
-/***/ 659:
+/***/ 665:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7560,7 +8012,7 @@ exports.L10nPipe = L10nPipe;
 
 /***/ },
 
-/***/ 660:
+/***/ 666:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7620,7 +8072,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var wormhole_directive_1 = __webpack_require__(657);
+var wormhole_directive_1 = __webpack_require__(663);
 exports.WormholeGenerator = wormhole_directive_1.WormholeGenerator;
 exports.Wormhole = wormhole_directive_1.Wormhole;
 var VCLWormholeModule = (function () {
@@ -7640,7 +8092,7 @@ exports.VCLWormholeModule = VCLWormholeModule;
 
 /***/ },
 
-/***/ 790:
+/***/ 796:
 /***/ function(module, exports, __webpack_require__) {
 
 /**
@@ -8447,7 +8899,7 @@ exports.VCLWormholeModule = VCLWormholeModule;
 
 /***/ },
 
-/***/ 791:
+/***/ 797:
 /***/ function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -11097,7 +11549,7 @@ if (true) {
 
 /***/ },
 
-/***/ 792:
+/***/ 798:
 /***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -12391,325 +12843,353 @@ if (true) {
 
 /***/ },
 
-/***/ 794:
+/***/ 800:
 /***/ function(module, exports) {
 
 module.exports = "# ng-vcl\n\nA comprehensive library of components for Angular 2 with [VCL](http://vcl.github.io/) based styling.\n\n## Features\n\n- Theming/ styling through the [VCL](http://vcl.github.io/)\n- I18n baked in\n- Highly accessible HTML honoring [WAI-ARIA](https://www.w3.org/WAI/intro/aria) recommendations\n- Feature complete, we want you to be able to build standard apps using 80% ng-vcl components\n- Extensibility, it is possible to extend components to accomodate custom features\n- Straightforward APIs\n\n## Status\n\nng-vcl is in alpha and under heavy development.\nBreaking API changes might occur during alpha.\n\n## Installation\n\n```sh\nnpm install https://github.com/ng-vcl/ng-vcl.git\n```\n\n## Usage\n\n```js\n// Import the complete ng-vcl\nimport { VCLModule } from 'ng-vcl';\n// or specific components\nimport { VCLIconModule, VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [\n    VCLIconModule,\n    ...\n  ]\n})\nexport class AppModule { }\n```\n\n\n## Modules\n\n| Module           | Status                                       | Docs         |\n|------------------|----------------------------------------------|--------------|\n| vcl-button       |                                        Ready |  [README][1] |\n| vcl-button-group |                                        Ready |  [README][2] |\n| vcl-layer        |                                        Ready |  [README][3] |\n| vcl-icon         |                                        Ready |  [README][4] |\n\n [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md\n [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button-group/README.md\n [3]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md\n [4]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/icon/README.md\n\n\n## Demo / Docs\n\nOpen [https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)\n\nOR\n\n```sh\ngit clone https://github.com/ng-vcl/ng-vcl.git\ncd ng-vcl\nnpm install\nnpm run demo\n```\nOpen [http://localhost:3000/](http://localhost:3000/) to see the demo browser.\n\n## Create docs\n\n```\nnpm run docs\n```\n"
 
 /***/ },
 
-/***/ 795:
+/***/ 801:
 /***/ function(module, exports) {
 
 module.exports = "<div class=\"vclLayoutVertical docMain\">\n  <header class=\"vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified\">\n    <div role=\"banner\">\n      <a href=\"#\" class=\"vclLayoutHorizontal vclLayoutCenter\">\n        <img class=\"vclResponsiveImage vclLogo\" role=\"presentation\" src=\"https://cdn.rawgit.com/ng-vcl/ng-vcl/master/gfx/angular_vcl.svg\">\n        <h1 class=\"vclAppName\">Angular VCL Demo Browser</h1>\n      </a>\n    </div>\n    <div><a href=\"https://github.com/ng-vcl/ng-vcl\" target=\"_blank\" title=\"to Github\">\n      <span class=\"vclIcon fa fa-github fa-3x\"></span> </a>\n    </div>\n  </header>\n  <div class=\"vclContentArea vclLayoutFlex vclLayoutHorizontal\">\n    <div class=\"vclLayoutVertical docNav\">\n      <div class=\"vclInputGroupEmb\">\n        <span class=\"vclPrepended\">\n          <vcl-icon icon=\"fa:search\"></vcl-icon>\n        </span>\n\n        <input vcl-input #searchInput (keyup)=\"search(searchInput.value)\"\n          class=\"vclNoBorder vclPrepItem vclAppItem searchInput\"\n          type=\"search\"\n          name=\"search\"\n          placeholder=\"Search Modules\"\n          autocomplete=\"off\"\n          autofocus />\n\n        <button vcl-button *ngIf=\"searchInput.value\"\n          (click)=\"searchInput.value = ''; search('')\" \n          class=\"vclButton vclTransparent vclSquare vclAppended\"\n          appIcon=\"fa:times-circle\"></button>\n      </div>\n\n      <vcl-navigation class=\"vclScrollable vclYOnHover vclLayoutFlex\"\n        [navigationItems]=\"groupedDemos\"\n        [type]=\"'vertical'\"\n        [subLevelHintIconSide]=\"'left'\"\n        [subLevelHintIconOpened]=\"'fa:angle-down'\"\n        [subLevelHintIconClosed]=\"'fa:angle-right'\"></vcl-navigation>\n    </div>\n    <div class=\"vclScrollable vclLayoutFlex docContent\">\n      <router-outlet></router-outlet>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 
-/***/ 796:
+/***/ 802:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'button-group.component.html'\n})\nexport class ButtonGroupComponent implements OnInit {\n\n  idx1 = 1;\n  idx2 = [0, 2];\n\n  constructor() { }\n\n  ngOnInit() { }\n\n  buttonClick(param) {\n    console.log('buttonClick, param:', param);\n  }\n\n  selectionChange1(param) {\n    console.log('selectionChange1, param:', param);\n  }\n\n  selectionChange2(param) {\n    console.log('selectionChange2, param:', param);\n  }\n}\n"
 
 /***/ },
 
-/***/ 797:
+/***/ 803:
 /***/ function(module, exports) {
 
 module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  templateUrl: 'button.component.html'\n})\nexport class ButtonComponent {\n  someAction(param) {\n    console.log('Action handler, param:', param);\n  }\n}\n"
 
 /***/ },
 
-/***/ 798:
+/***/ 804:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'checkbox.component.html'\n})\nexport class CheckboxComponent implements OnInit {\n\n  checkboxChecked = false;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
 
 /***/ },
 
-/***/ 799:
+/***/ 805:
 /***/ function(module, exports) {
 
 module.exports = "<h2 class=\"vclArticleHeader\"> {{title}}</h2>\n<div *ngIf=\"tabs.length>0\">\n  <vcl-tab-nav borders=true>\n    <vcl-tab *ngFor=\"let tab of tabs\">\n      <template vcl-tab-label>\n        {{tab.name}}\n      </template>\n      <template vcl-tab-content>\n        <demo-content *ngIf=\"tab.type==='component'\" [component]=\"tab.content\"></demo-content>\n        <markdown *ngIf=\"tab.type==='markdown'\" [markdown]=\"tab.content\"></markdown>\n        <div *ngIf=\"tab.type==='text'\"><pre>{{tab.content}}</pre></div>\n      </template>\n    </vcl-tab>\n  </vcl-tab-nav>\n</div>\n<div *ngIf=\"tabs.length===0\">\n  <demo-content [component]=\"component\"></demo-content>\n</div>\n"
 
 /***/ },
 
-/***/ 800:
+/***/ 806:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'dropdown.component.html'\n})\nexport class DropdownComponent implements OnInit {\n\n  selectedItem: any;\n\n  expanded: boolean = true;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n  items: any[] = [\n    { label: 'item 1' },\n    { label: 'item 2' },\n    { label: 'item 3' },\n    { label: 'item 4' },\n    { label: 'item 5' },\n    { label: 'item 6', sublabel: 'sublabel of item 6' },\n    { label: 'item 7', sublabel: 'sublabel of item 7' },\n    { label: 'item 8', sublabel: 'sublabel of item 8' },\n    { label: 'item 9' },\n    { label: 'item 10' }\n  ]\n\n  onSelect(selectedItems: any[]) {\n    console.log(selectedItems);\n    if (selectedItems && selectedItems[0]) {\n      this.selectedItem = selectedItems[0];\n    } else {\n      this.selectedItem = null;\n    }\n  }\n\n  expand() {\n    this.expanded = !this.expanded;\n  }\n}\n"
 
 /***/ },
 
-/***/ 801:
+/***/ 807:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'form-control-label.component.html'\n})\nexport class FormControlLabelComponent implements OnInit {\n\n  checkboxChecked = false;\n  \n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
 
 /***/ },
 
-/***/ 802:
+/***/ 808:
 /***/ function(module, exports) {
 
 module.exports = "<markdown [markdown]=\"readme\"></markdown>\n"
 
 /***/ },
 
-/***/ 803:
+/***/ 809:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'icogram.component.html'\n})\nexport class IcogramComponent implements OnInit {\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
 
 /***/ },
 
-/***/ 804:
+/***/ 810:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'icon.component.html'\n})\nexport class IconComponent implements OnInit {\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
 
 /***/ },
 
-/***/ 805:
+/***/ 811:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'input.component.html'\n})\nexport class InputComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}"
 
 /***/ },
 
-/***/ 806:
+/***/ 812:
 /***/ function(module, exports) {
 
 module.exports = "import { LayerService } from './../../../src/components/layer/layer.module';\nimport { Component } from '@angular/core';\n\n@Component({\n  templateUrl: 'layer.component.html',\n})\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayerNonModal() {\n    this.layerService.open('nonModal');\n  }\n}\n"
 
 /***/ },
 
-/***/ 807:
+/***/ 813:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'link.component.html'\n})\nexport class LinkComponent implements OnInit {\n  constructor() { }\n\n  ngOnInit() { }\n\n  someAction(param) {\n    console.log('Action handler, param:', param);\n  }\n\n}\n"
 
 /***/ },
 
-/***/ 808:
+/***/ 814:
 /***/ function(module, exports) {
 
 module.exports = ".markdown-body {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  line-height: 1.5;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 16px;\n  line-height: 1.5;\n  word-wrap: break-word;\n}\n\n.markdown-body /deep/ .pl-c {\n  color: #969896;\n}\n\n.markdown-body /deep/ .pl-c1,\n.markdown-body /deep/ .pl-s .pl-v {\n  color: #0086b3;\n}\n\n.markdown-body /deep/ .pl-e,\n.markdown-body /deep/ .pl-en {\n  color: #795da3;\n}\n\n.markdown-body /deep/ .pl-smi,\n.markdown-body /deep/ .pl-s .pl-s1 {\n  color: #333;\n}\n\n.markdown-body /deep/ .pl-ent {\n  color: #63a35c;\n}\n\n.markdown-body /deep/ .pl-k {\n  color: #a71d5d;\n}\n\n.markdown-body /deep/ .pl-s,\n.markdown-body /deep/ .pl-pds,\n.markdown-body /deep/ .pl-s .pl-pse .pl-s1,\n.markdown-body /deep/ .pl-sr,\n.markdown-body /deep/ .pl-sr .pl-cce,\n.markdown-body /deep/ .pl-sr .pl-sre,\n.markdown-body /deep/ .pl-sr .pl-sra {\n  color: #183691;\n}\n\n.markdown-body /deep/ .pl-v {\n  color: #ed6a43;\n}\n\n.markdown-body /deep/ .pl-id {\n  color: #b52a1d;\n}\n\n.markdown-body /deep/ .pl-ii {\n  color: #f8f8f8;\n  background-color: #b52a1d;\n}\n\n.markdown-body /deep/ .pl-sr .pl-cce {\n  font-weight: bold;\n  color: #63a35c;\n}\n\n.markdown-body /deep/ .pl-ml {\n  color: #693a17;\n}\n\n.markdown-body /deep/ .pl-mh,\n.markdown-body /deep/ .pl-mh .pl-en,\n.markdown-body /deep/ .pl-ms {\n  font-weight: bold;\n  color: #1d3e81;\n}\n\n.markdown-body /deep/ .pl-mq {\n  color: #008080;\n}\n\n.markdown-body /deep/ .pl-mi {\n  font-style: italic;\n  color: #333;\n}\n\n.markdown-body /deep/ .pl-mb {\n  font-weight: bold;\n  color: #333;\n}\n\n.markdown-body /deep/ .pl-md {\n  color: #bd2c00;\n  background-color: #ffecec;\n}\n\n.markdown-body /deep/ .pl-mi1 {\n  color: #55a532;\n  background-color: #eaffea;\n}\n\n.markdown-body /deep/ .pl-mdr {\n  font-weight: bold;\n  color: #795da3;\n}\n\n.markdown-body /deep/ .pl-mo {\n  color: #1d3e81;\n}\n\n.markdown-body /deep/ .octicon {\n  display: inline-block;\n  vertical-align: text-top;\n  fill: currentColor;\n}\n\n.markdown-body /deep/ a {\n  background-color: transparent;\n  -webkit-text-decoration-skip: objects;\n}\n\n.markdown-body /deep/ a:active,\n.markdown-body /deep/ a:hover {\n  outline-width: 0;\n}\n\n.markdown-body /deep/ strong {\n  font-weight: inherit;\n}\n\n.markdown-body /deep/ strong {\n  font-weight: bolder;\n}\n\n.markdown-body /deep/ h1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n.markdown-body /deep/ img {\n  border-style: none;\n}\n\n.markdown-body /deep/ svg:not(:root) {\n  overflow: hidden;\n}\n\n.markdown-body /deep/ code,\n.markdown-body /deep/ kbd,\n.markdown-body /deep/ pre {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n\n.markdown-body /deep/ hr {\n  box-sizing: content-box;\n  height: 0;\n  overflow: visible;\n}\n\n.markdown-body /deep/ input {\n  font: inherit;\n  margin: 0;\n}\n\n.markdown-body /deep/ input {\n  overflow: visible;\n}\n\n.markdown-body /deep/ [type=\"checkbox\"] {\n  box-sizing: border-box;\n  padding: 0;\n}\n\n.markdown-body /deep/ * {\n  box-sizing: border-box;\n}\n\n.markdown-body /deep/ input {\n  font-family: inherit;\n  font-size: inherit;\n  line-height: inherit;\n}\n\n.markdown-body /deep/ a {\n  color: #4078c0;\n  text-decoration: none;\n}\n\n.markdown-body /deep/ a:hover,\n.markdown-body /deep/ a:active {\n  text-decoration: underline;\n}\n\n.markdown-body /deep/ strong {\n  font-weight: 600;\n}\n\n.markdown-body /deep/ hr {\n  height: 0;\n  margin: 15px 0;\n  overflow: hidden;\n  background: transparent;\n  border: 0;\n  border-bottom: 1px solid #ddd;\n}\n\n.markdown-body /deep/ hr::before {\n  display: table;\n  content: \"\";\n}\n\n.markdown-body /deep/ hr::after {\n  display: table;\n  clear: both;\n  content: \"\";\n}\n\n.markdown-body /deep/ table {\n  border-spacing: 0;\n  border-collapse: collapse;\n}\n\n.markdown-body /deep/ td,\n.markdown-body /deep/ th {\n  padding: 0;\n}\n\n.markdown-body /deep/ h1,\n.markdown-body /deep/ h2,\n.markdown-body /deep/ h3,\n.markdown-body /deep/ h4,\n.markdown-body /deep/ h5,\n.markdown-body /deep/ h6 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.markdown-body /deep/ h1 {\n  font-size: 32px;\n  font-weight: 600;\n}\n\n.markdown-body /deep/ h2 {\n  font-size: 24px;\n  font-weight: 600;\n}\n\n.markdown-body /deep/ h3 {\n  font-size: 20px;\n  font-weight: 600;\n}\n\n.markdown-body /deep/ h4 {\n  font-size: 16px;\n  font-weight: 600;\n}\n\n.markdown-body /deep/ h5 {\n  font-size: 14px;\n  font-weight: 600;\n}\n\n.markdown-body /deep/ h6 {\n  font-size: 12px;\n  font-weight: 600;\n}\n\n.markdown-body /deep/ p {\n  margin-top: 0;\n  margin-bottom: 10px;\n}\n\n.markdown-body /deep/ blockquote {\n  margin: 0;\n}\n\n.markdown-body /deep/ ul,\n.markdown-body /deep/ ol {\n  padding-left: 0;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.markdown-body /deep/ ol ol,\n.markdown-body /deep/ ul ol {\n  list-style-type: lower-roman;\n}\n\n.markdown-body /deep/ ul ul ol,\n.markdown-body /deep/ ul ol ol,\n.markdown-body /deep/ ol ul ol,\n.markdown-body /deep/ ol ol ol {\n  list-style-type: lower-alpha;\n}\n\n.markdown-body /deep/ dd {\n  margin-left: 0;\n}\n\n.markdown-body /deep/ code {\n  font-family: Consolas, \"Liberation Mono\", Menlo, Courier, monospace;\n  font-size: 12px;\n}\n\n.markdown-body /deep/ pre {\n  margin-top: 0;\n  margin-bottom: 0;\n  font: 12px Consolas, \"Liberation Mono\", Menlo, Courier, monospace;\n}\n\n.markdown-body /deep/ .octicon {\n  vertical-align: text-bottom;\n}\n\n.markdown-body /deep/ input {\n  -webkit-font-feature-settings: \"liga\" 0;\n  font-feature-settings: \"liga\" 0;\n}\n\n.markdown-body /deep/ .anchor {\n  float: left;\n  padding-right: 4px;\n  margin-left: -20px;\n  line-height: 1;\n}\n\n.markdown-body /deep/ .anchor:focus {\n  outline: none;\n}\n\n.markdown-body /deep/ p,\n.markdown-body /deep/ blockquote,\n.markdown-body /deep/ ul,\n.markdown-body /deep/ ol,\n.markdown-body /deep/ dl,\n.markdown-body /deep/ table,\n.markdown-body /deep/ pre {\n  margin-top: 0;\n  margin-bottom: 16px;\n}\n\n.markdown-body /deep/ hr {\n  height: 0.25em;\n  padding: 0;\n  margin: 24px 0;\n  background-color: #e7e7e7;\n  border: 0;\n}\n\n.markdown-body /deep/ blockquote {\n  padding: 0 1em;\n  color: #777;\n  border-left: 0.25em solid #ddd;\n}\n\n.markdown-body /deep/ blockquote>:first-child {\n  margin-top: 0;\n}\n\n.markdown-body /deep/ blockquote>:last-child {\n  margin-bottom: 0;\n}\n\n.markdown-body /deep/ kbd {\n  display: inline-block;\n  padding: 3px 5px;\n  font-size: 11px;\n  line-height: 10px;\n  color: #555;\n  vertical-align: middle;\n  background-color: #fcfcfc;\n  border: solid 1px #ccc;\n  border-bottom-color: #bbb;\n  border-radius: 3px;\n  box-shadow: inset 0 -1px 0 #bbb;\n}\n\n.markdown-body /deep/ h1,\n.markdown-body /deep/ h2,\n.markdown-body /deep/ h3,\n.markdown-body /deep/ h4,\n.markdown-body /deep/ h5,\n.markdown-body /deep/ h6 {\n  margin-top: 24px;\n  margin-bottom: 16px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n\n.markdown-body /deep/ h1 .octicon-link,\n.markdown-body /deep/ h2 .octicon-link,\n.markdown-body /deep/ h3 .octicon-link,\n.markdown-body /deep/ h4 .octicon-link,\n.markdown-body /deep/ h5 .octicon-link,\n.markdown-body /deep/ h6 .octicon-link {\n  color: #000;\n  vertical-align: middle;\n  visibility: hidden;\n}\n\n.markdown-body /deep/ h1:hover .anchor,\n.markdown-body /deep/ h2:hover .anchor,\n.markdown-body /deep/ h3:hover .anchor,\n.markdown-body /deep/ h4:hover .anchor,\n.markdown-body /deep/ h5:hover .anchor,\n.markdown-body /deep/ h6:hover .anchor {\n  text-decoration: none;\n}\n\n.markdown-body /deep/ h1:hover .anchor .octicon-link,\n.markdown-body /deep/ h2:hover .anchor .octicon-link,\n.markdown-body /deep/ h3:hover .anchor .octicon-link,\n.markdown-body /deep/ h4:hover .anchor .octicon-link,\n.markdown-body /deep/ h5:hover .anchor .octicon-link,\n.markdown-body /deep/ h6:hover .anchor .octicon-link {\n  visibility: visible;\n}\n\n.markdown-body /deep/ h1 {\n  padding-bottom: 0.3em;\n  font-size: 2em;\n  border-bottom: 1px solid #eee;\n}\n\n.markdown-body /deep/ h2 {\n  padding-bottom: 0.3em;\n  font-size: 1.5em;\n  border-bottom: 1px solid #eee;\n}\n\n.markdown-body /deep/ h3 {\n  font-size: 1.25em;\n}\n\n.markdown-body /deep/ h4 {\n  font-size: 1em;\n}\n\n.markdown-body /deep/ h5 {\n  font-size: 0.875em;\n}\n\n.markdown-body /deep/ h6 {\n  font-size: 0.85em;\n  color: #777;\n}\n\n.markdown-body /deep/ ul,\n.markdown-body /deep/ ol {\n  padding-left: 2em;\n}\n\n.markdown-body /deep/ ul ul,\n.markdown-body /deep/ ul ol,\n.markdown-body /deep/ ol ol,\n.markdown-body /deep/ ol ul {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.markdown-body /deep/ li>p {\n  margin-top: 16px;\n}\n\n.markdown-body /deep/ li+li {\n  margin-top: 0.25em;\n}\n\n.markdown-body /deep/ dl {\n  padding: 0;\n}\n\n.markdown-body /deep/ dl dt {\n  padding: 0;\n  margin-top: 16px;\n  font-size: 1em;\n  font-style: italic;\n  font-weight: bold;\n}\n\n.markdown-body /deep/ dl dd {\n  padding: 0 16px;\n  margin-bottom: 16px;\n}\n\n.markdown-body /deep/ table {\n  display: block;\n  width: 100%;\n  overflow: auto;\n}\n\n.markdown-body /deep/ table th {\n  font-weight: bold;\n}\n\n.markdown-body /deep/ table th,\n.markdown-body /deep/ table td {\n  padding: 6px 13px;\n  border: 1px solid #ddd;\n}\n\n.markdown-body /deep/ table tr {\n  background-color: #fff;\n  border-top: 1px solid #ccc;\n}\n\n.markdown-body /deep/ table tr:nth-child(2n) {\n  background-color: #f8f8f8;\n}\n\n.markdown-body /deep/ img {\n  max-width: 100%;\n  box-sizing: content-box;\n  background-color: #fff;\n}\n\n.markdown-body /deep/ code {\n  padding: 0;\n  padding-top: 0.2em;\n  padding-bottom: 0.2em;\n  margin: 0;\n  font-size: 85%;\n  background-color: rgba(0,0,0,0.04);\n  border-radius: 3px;\n}\n\n.markdown-body /deep/ code::before,\n.markdown-body /deep/ code::after {\n  letter-spacing: -0.2em;\n  content: \"\\00a0\";\n}\n\n.markdown-body /deep/ pre {\n  word-wrap: normal;\n}\n\n.markdown-body /deep/ pre>code {\n  padding: 0;\n  margin: 0;\n  font-size: 100%;\n  word-break: normal;\n  white-space: pre;\n  background: transparent;\n  border: 0;\n}\n\n.markdown-body /deep/ .highlight {\n  margin-bottom: 16px;\n}\n\n.markdown-body /deep/ .highlight pre {\n  margin-bottom: 0;\n  word-break: normal;\n}\n\n.markdown-body /deep/ .highlight pre,\n.markdown-body /deep/ pre {\n  padding: 16px;\n  overflow: auto;\n  font-size: 85%;\n  line-height: 1.45;\n  background-color: #f7f7f7;\n  border-radius: 3px;\n}\n\n.markdown-body /deep/ pre code {\n  display: inline;\n  max-width: auto;\n  padding: 0;\n  margin: 0;\n  overflow: visible;\n  line-height: inherit;\n  word-wrap: normal;\n  background-color: transparent;\n  border: 0;\n}\n\n.markdown-body /deep/ pre code::before,\n.markdown-body /deep/ pre code::after {\n  content: normal;\n}\n\n.markdown-body /deep/ .pl-0 {\n  padding-left: 0 !important;\n}\n\n.markdown-body /deep/ .pl-1 {\n  padding-left: 3px !important;\n}\n\n.markdown-body /deep/ .pl-2 {\n  padding-left: 6px !important;\n}\n\n.markdown-body /deep/ .pl-3 {\n  padding-left: 12px !important;\n}\n\n.markdown-body /deep/ .pl-4 {\n  padding-left: 24px !important;\n}\n\n.markdown-body /deep/ .pl-5 {\n  padding-left: 36px !important;\n}\n\n.markdown-body /deep/ .pl-6 {\n  padding-left: 48px !important;\n}\n\n.markdown-body /deep/ .full-commit .btn-outline:not(:disabled):hover {\n  color: #4078c0;\n  border: 1px solid #4078c0;\n}\n\n.markdown-body /deep/ kbd {\n  display: inline-block;\n  padding: 3px 5px;\n  font: 11px Consolas, \"Liberation Mono\", Menlo, Courier, monospace;\n  line-height: 10px;\n  color: #555;\n  vertical-align: middle;\n  background-color: #fcfcfc;\n  border: solid 1px #ccc;\n  border-bottom-color: #bbb;\n  border-radius: 3px;\n  box-shadow: inset 0 -1px 0 #bbb;\n}\n\n.markdown-body /deep/ :checked+.radio-label {\n  position: relative;\n  z-index: 1;\n  border-color: #4078c0;\n}\n\n.markdown-body /deep/ .task-list-item {\n  list-style-type: none;\n}\n\n.markdown-body /deep/ .task-list-item+.task-list-item {\n  margin-top: 3px;\n}\n\n.markdown-body /deep/ .task-list-item input {\n  margin: 0 0.2em 0.25em -1.6em;\n  vertical-align: middle;\n}\n\n.markdown-body /deep/ hr {\n  border-bottom-color: #eee;\n}`\n"
 
 /***/ },
 
-/***/ 809:
+/***/ 815:
 /***/ function(module, exports) {
 
 module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'metalist.component.html'\n})\nexport class MetalistComponent implements OnInit {\n  constructor() { }\n\n  ngOnInit() { }\n\n  items: any = [\n    { name: 'name 1' },\n    { name: 'name 2' },\n    { name: 'name 3' },\n    { name: 'name 4' },\n    { name: 'name 5' },\n  ]\n\n  metaInformation: any[] = [\n    null,\n    null,\n    { selected: true }\n  ];\n\n  select(meta: any) {\n    if (!meta.selected) {\n      meta.selected = true;\n    } else {\n      meta.selected = false;\n    }\n\n    console.log('Meta informations: ', this.metaInformation);\n  }\n}\n"
 
 /***/ },
 
-/***/ 810:
-/***/ function(module, exports) {
-
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'navigation.component.html'\n})\nexport class NavigationComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() { }\n\n  items = [\n    {\n      label: 'Home',\n      route: ['/navigation'],\n      active: true,\n      prepIcon: 'fa:home',\n    },\n    {\n      label: 'Products',\n      route: ['/navigation'],\n      active: true,\n      appIcon: 'fa:bicycle',\n    },\n    {\n      label: 'Pre-selected Item',\n      route: ['/navigation'],\n      selected: true,\n      active: true\n    },\n    {\n      label: 'External link',\n      href: 'https://searx.me',\n      active: true,\n    }\n  ];\n\n  items2 = [\n    {\n      label: 'Heading',\n      heading: true,\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Another heading',\n      heading: true,\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Nested navigation',\n      route: ['/navigation'],\n      active: true,\n      items: [\n        {\n          label: 'Level 2 Item',\n          route: ['/navigation'],\n          active: true\n        },\n        {\n          label: 'Level 2 Item',\n          route: ['/navigation'],\n          active: true\n        },\n        {\n          label: 'Level 2 navigation',\n          route: ['/navigation'],\n          active: true,\n          items: [\n            {\n              label: 'Level 3 Item',\n              route: ['/navigation'],\n              active: true\n            },\n            {\n              label: 'Level 3 Item',\n              route: ['/navigation'],\n              active: true\n            },\n            {\n              label: 'Level 3 Item',\n              route: ['/navigation'],\n              active: true\n            },\n          ],\n        },\n        {\n          label: 'Level 2 Item',\n          route: ['/navigation'],\n          active: true\n        },\n      ]\n    }\n  ];\n}\n"
-
-/***/ },
-
-/***/ 811:
-/***/ function(module, exports) {
-
-module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  templateUrl: 'off-click.component.html'\n})\nexport class OffClickComponent  {\n  constructor() { }\n\n  clicks: number = 0;\n\n  offClick() {\n    this.clicks++;\n  }\n}\n"
-
-/***/ },
-
-/***/ 812:
-/***/ function(module, exports) {
-
-module.exports = "import { Component, OnInit, Directive, Input,\n  trigger,\n  state,\n  style,\n  transition,\n  animate } from '@angular/core';\n\n@Component({\n  templateUrl: 'popover.component.html',\n})\nexport class PopoverComponent {\n\n  open: boolean = false;\n  open2: boolean = false;\n  state: string = 'inactive';\n\n  style = {\n    border: '3px double red',\n    padding: '20px',\n    overflow: 'hidden'\n  }\n\n  public showPopover() {\n    this.open = true;\n  }\n\n  public closePopover() {\n    this.open = false;\n  }\n\n  public showPopover2() {\n    this.open2 = true;\n  }\n}\n"
-
-/***/ },
-
-/***/ 813:
-/***/ function(module, exports) {
-
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'radio-button.component.html'\n})\nexport class RadioButtonComponent implements OnInit {\n\n  radioButtonChecked = false;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}"
-
-/***/ },
-
-/***/ 814:
-/***/ function(module, exports) {
-
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'select.component.html'\n})\nexport class SelectComponent implements OnInit {\n\n  items: any[] = [\n    { label: 'item 1' },\n    { label: 'item 2' },\n    { label: 'item 3' },\n    { label: 'item 4' },\n    { label: 'item 5' },\n    { label: 'item 6', sublabel: 'sublabel of item 6' },\n    { label: 'item 7', sublabel: 'sublabel of item 7' },\n    { label: 'item 8', sublabel: 'sublabel of item 8' },\n    { label: 'item 9' },\n    { label: 'item 10' }\n  ]\n\n  selectedItemSingle: any;\n\n  selectedItemsMulti: any[];\n\n  constructor() { }\n\n  ngOnInit() { }\n\n  onSelect(items: any[]) {\n    if (items.length) {\n      this.selectedItemSingle = items[0];\n    } else {\n      this.selectedItemSingle = null;\n    }\n    console.log('Selected Items: ', items);\n  }\n\n  onSelectMulti(items: any[]) {\n    this.selectedItemsMulti = items;\n    console.log('Selected Items: ', items);\n  }\n}\n"
-
-/***/ },
-
-/***/ 815:
-/***/ function(module, exports) {
-
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'tab.component.html'\n})\nexport class TabComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
-
-/***/ },
-
 /***/ 816:
 /***/ function(module, exports) {
 
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'tether.component.html'\n})\nexport class TetherComponent {\n\n}"
+module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'month-picker',\n  templateUrl: 'month-picker.component.html',\n})\nexport class MonthPickerComponent {\n\n  constructor() { }\n\n  expanded: boolean = false;\n\n  prevYearAvailable: boolean = true;\n\n  nextYearAvailable: boolean = true;\n\n  ngOnInit() { }\n\n  expandMonthPicker() {\n    this.expanded = !this.expanded;\n  }\n\n  onSelect(date: string) {\n    console.log('onSelect():', date);\n  }\n\n  onPreviousYearTap() {\n    console.log('onPreviousYearTap()');\n  }\n\n  onNextYearTap() {\n    console.log('onNextYearTap()');\n  }\n}\n\n"
 
 /***/ },
 
 /***/ 817:
 /***/ function(module, exports) {
 
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'toolbar.component.html'\n})\nexport class ToolbarComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
+module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'navigation.component.html'\n})\nexport class NavigationComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() { }\n\n  items = [\n    {\n      label: 'Home',\n      route: ['/navigation'],\n      active: true,\n      prepIcon: 'fa:home',\n    },\n    {\n      label: 'Products',\n      route: ['/navigation'],\n      active: true,\n      appIcon: 'fa:bicycle',\n    },\n    {\n      label: 'Pre-selected Item',\n      route: ['/navigation'],\n      selected: true,\n      active: true\n    },\n    {\n      label: 'External link',\n      href: 'https://searx.me',\n      active: true,\n    }\n  ];\n\n  items2 = [\n    {\n      label: 'Heading',\n      heading: true,\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Another heading',\n      heading: true,\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Item',\n      route: ['/navigation'],\n      active: true\n    },\n    {\n      label: 'Nested navigation',\n      route: ['/navigation'],\n      active: true,\n      items: [\n        {\n          label: 'Level 2 Item',\n          route: ['/navigation'],\n          active: true\n        },\n        {\n          label: 'Level 2 Item',\n          route: ['/navigation'],\n          active: true\n        },\n        {\n          label: 'Level 2 navigation',\n          route: ['/navigation'],\n          active: true,\n          items: [\n            {\n              label: 'Level 3 Item',\n              route: ['/navigation'],\n              active: true\n            },\n            {\n              label: 'Level 3 Item',\n              route: ['/navigation'],\n              active: true\n            },\n            {\n              label: 'Level 3 Item',\n              route: ['/navigation'],\n              active: true\n            },\n          ],\n        },\n        {\n          label: 'Level 2 Item',\n          route: ['/navigation'],\n          active: true\n        },\n      ]\n    }\n  ];\n}\n"
 
 /***/ },
 
 /***/ 818:
 /***/ function(module, exports) {
 
-module.exports = "import { Component, ViewChild } from '@angular/core';\nimport { WormholeGenerator } from './../../../src/directives/wormhole/wormhole.module';\n\n@Component({\n  templateUrl: 'wormhole.component.html'\n})\nexport class WormholeComponent {\n\n  @ViewChild('myFirstWormhole')\n  myFirstWormhole: WormholeGenerator;\n\n  ngAfterViewInit() {\n    console.log('myFirstWormhole', this.myFirstWormhole);\n  }\n}\n"
+module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  templateUrl: 'off-click.component.html'\n})\nexport class OffClickComponent  {\n  constructor() { }\n\n  clicks: number = 0;\n\n  offClick() {\n    this.clicks++;\n  }\n}\n"
 
 /***/ },
 
 /***/ 819:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-button-group\n\nA button group which distributes space for each button equally to occupy 100% horizontal space.\n\n## Usage:\n\n```js\nimport { VCLButtonGroupModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLButtonGroupModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n ```html\n<vcl-button-group (change)=\"selectionChanged($event)\" mode=\"single\">\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 1\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 2\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 3\"></button>\n</vcl-button-group>\n ```\n\n### API \n\n#### Properties:\n\n| Name                  | Type                   | Default  | Description\n| --------------------- | ---------------------- | -------- |--------------\n| `mode`                | string                 | `single` | `single` or `multiple` \n| `selectedIndex` *(1)* | number, number[]       |          | 2-Way-Binding. The selected buttons.  \n\n#### Actions:\n\n| Name                | Parameters           | Description\n| ------------        | -------------------- | --------------\n| `change`            | ButtonGroupChange    | Triggered when the button is pressed\n\n#### Interfaces:\n\n```ts\ninterface ButtonGroupChange {\n  source: ButtonComponent;\n  index: number | number[];\n}\n```\n*(1) Supports Two-way binding*\n"
+module.exports = "import { Component, OnInit, Directive, Input,\n  trigger,\n  state,\n  style,\n  transition,\n  animate } from '@angular/core';\n\n@Component({\n  templateUrl: 'popover.component.html',\n})\nexport class PopoverComponent {\n\n  open: boolean = false;\n  open2: boolean = false;\n  state: string = 'inactive';\n\n  style = {\n    border: '3px double red',\n    padding: '20px',\n    overflow: 'hidden'\n  }\n\n  public showPopover() {\n    this.open = true;\n  }\n\n  public closePopover() {\n    this.open = false;\n  }\n\n  public showPopover2() {\n    this.open2 = true;\n  }\n}\n"
 
 /***/ },
 
 /***/ 820:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-button\n\n`vcl-button` enhances the HTML `<button>` with styling and features.\nIt is the main control for triggering actions.\n\n## Usage:\n\n```js\nimport { VCLButtonModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLButtonModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n ```html\n<button vcl-button (click)=\"someAction($event)\" label=\"Action\" appIcon=\"fa:bolt\"></button>\n ```\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `label` *(1)*       | string      |          | Sets aria-label\n| `busy`              | boolean     | false    | State to indicate that an operation is in progress\n| `flexLabel` *(1)*   | boolean     | false    | The label gets a flex layout property if true \n| `prepIcon`          | string      |          | icon to be prepended to the label \n| `appIcon`           | string      |          | Same as prepIcon but appended \n| `prepIconBusy`      | string      |          | icon to be prepended to the label - displayed in the busy state \n| `appIconBusy`       | string      |          | Same as prepIconBusy but appended \n| `title`             | string      |          | Sets aria-label \n| `autoBlur`          | boolean     | true     | if true, the focus is removed via blur() after the action. \n\n#### Actions:\n\n| Name                | Description\n| ------------        | --------------\n| `press`             | Triggered when the button is pressed\n\n*(1) Supports l10n*\n"
+module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'radio-button.component.html'\n})\nexport class RadioButtonComponent implements OnInit {\n\n  radioButtonChecked = false;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}"
 
 /***/ },
 
 /***/ 821:
 /***/ function(module, exports) {
 
-module.exports = "<span>\n  <ng-content></ng-content>\n  <vcl-icogram\n    [label]=\"calculatedLabel | loc\"\n    [flexLabel]=\"flexLabel | loc\"\n    [prepIcon]=\"calculatedPrepIcon\"\n    [appIcon]=\"calculatedAppIcon\">\n  </vcl-icogram>\n</span>\n"
+module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'select.component.html'\n})\nexport class SelectComponent implements OnInit {\n\n  items: any[] = [\n    { label: 'item 1' },\n    { label: 'item 2' },\n    { label: 'item 3' },\n    { label: 'item 4' },\n    { label: 'item 5' },\n    { label: 'item 6', sublabel: 'sublabel of item 6' },\n    { label: 'item 7', sublabel: 'sublabel of item 7' },\n    { label: 'item 8', sublabel: 'sublabel of item 8' },\n    { label: 'item 9' },\n    { label: 'item 10' }\n  ]\n\n  selectedItemSingle: any;\n\n  selectedItemsMulti: any[];\n\n  constructor() { }\n\n  ngOnInit() { }\n\n  onSelect(items: any[]) {\n    if (items.length) {\n      this.selectedItemSingle = items[0];\n    } else {\n      this.selectedItemSingle = null;\n    }\n    console.log('Selected Items: ', items);\n  }\n\n  onSelectMulti(items: any[]) {\n    this.selectedItemsMulti = items;\n    console.log('Selected Items: ', items);\n  }\n}\n"
 
 /***/ },
 
 /***/ 822:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-checkbox\n\nA Checkbox utilizing `vcl-icon`\n\n## Usage:\n\n```js\nimport { VCLCheckboxModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLCheckboxModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n ```html\n<vcl-checkbox [(checked)]=\"checked\"></vcl-checkbox> \n```\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default            | Description\n| ------------        | ----------- | ------------------ |--------------\n| `checked` *(1)*     | boolean     | false              | 2-Way-Binding. State of checkbox \n| `checkedIcon`       | string      | fa:check-square-o  | Icon to be displayed when checked \n| `uncheckedIcon`     | string      | fa:square-o        | Icon to be displayed when unchecked\n| `tabindex`          | number      | 0                  | The tabindex of the checkbox\n\n*(1) Supports Two-way binding*\n"
+module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'tab.component.html'\n})\nexport class TabComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
 
 /***/ },
 
 /***/ 823:
 /***/ function(module, exports) {
 
-module.exports = "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n"
+module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'tether.component.html'\n})\nexport class TetherComponent {\n\n}"
 
 /***/ },
 
 /***/ 824:
 /***/ function(module, exports) {
 
-module.exports = "<ng-content *ngIf=\"prepend\"></ng-content>\n{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<label *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">\n  {{subLabel}}\n</label>\n<ng-content *ngIf=\"!prepend\"></ng-content>"
+module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'toolbar.component.html'\n})\nexport class ToolbarComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
 
 /***/ },
 
 /***/ 825:
 /***/ function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n"
+module.exports = "import { Component, ViewChild } from '@angular/core';\nimport { WormholeGenerator } from './../../../src/directives/wormhole/wormhole.module';\n\n@Component({\n  templateUrl: 'wormhole.component.html'\n})\nexport class WormholeComponent {\n\n  @ViewChild('myFirstWormhole')\n  myFirstWormhole: WormholeGenerator;\n\n  ngAfterViewInit() {\n    console.log('myFirstWormhole', this.myFirstWormhole);\n  }\n}\n"
 
 /***/ },
 
 /***/ 826:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-icon\n\nIcon which can be based on glyphs from icon fonts, inline svg and bitmaps.\n\nThe `label` is never displayed, it is only for accessibility with screen\nreaders.\nThe `hidden` attribute is only reflected in the `aria-hidden` property which\nallows to hide the icon to screen readers, if it is only of presentational character.\nSee http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.\n\n\n## Usage:\n\n```html\n<vcl-icon icon=\"icon-class\" label=\"chevron right\" hidden=\"false\"></vcl-icon>\n```\nor\n```html\n<vcl-icon src=\"...\"></vcl-icon>\n```\nor\n```html\n<vcl-icon svguse=\"...\"></vcl-icon>\n```\n\n### Class Provider\n\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `icon`              | string      |          | Icon generator lookup via icon class provider\n| `src`               | string      |          | URL of a graphics resource\n| `svguse`            | string      |          | Generates an SVG `use` tag referencing the value\n| `iconClass`         | string      |          | Additional class\n| `label` *(1)*       | string      |          | `aria-label` \n\n*(1) Supports l10n*\n"
+module.exports = "# vcl-button-group\n\nA button group which distributes space for each button equally to occupy 100% horizontal space.\n\n## Usage:\n\n```js\nimport { VCLButtonGroupModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLButtonGroupModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n ```html\n<vcl-button-group (change)=\"selectionChanged($event)\" mode=\"single\">\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 1\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 2\"></button>\n  <button vcl-button (click)=\"buttonClick($event)\" label=\"Action 3\"></button>\n</vcl-button-group>\n ```\n\n### API \n\n#### Properties:\n\n| Name                  | Type                   | Default  | Description\n| --------------------- | ---------------------- | -------- |--------------\n| `mode`                | string                 | `single` | `single` or `multiple` \n| `selectedIndex` *(1)* | number, number[]       |          | 2-Way-Binding. The selected buttons.  \n\n#### Actions:\n\n| Name                | Parameters           | Description\n| ------------        | -------------------- | --------------\n| `change`            | ButtonGroupChange    | Triggered when the button is pressed\n\n#### Interfaces:\n\n```ts\ninterface ButtonGroupChange {\n  source: ButtonComponent;\n  index: number | number[];\n}\n```\n*(1) Supports Two-way binding*\n"
 
 /***/ },
 
 /***/ 827:
 /***/ function(module, exports) {
 
-module.exports = "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n"
+module.exports = "# vcl-button\n\n`vcl-button` enhances the HTML `<button>` with styling and features.\nIt is the main control for triggering actions.\n\n## Usage:\n\n```js\nimport { VCLButtonModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLButtonModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n ```html\n<button vcl-button (click)=\"someAction($event)\" label=\"Action\" appIcon=\"fa:bolt\"></button>\n ```\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `label` *(1)*       | string      |          | Sets aria-label\n| `busy`              | boolean     | false    | State to indicate that an operation is in progress\n| `flexLabel` *(1)*   | boolean     | false    | The label gets a flex layout property if true \n| `prepIcon`          | string      |          | icon to be prepended to the label \n| `appIcon`           | string      |          | Same as prepIcon but appended \n| `prepIconBusy`      | string      |          | icon to be prepended to the label - displayed in the busy state \n| `appIconBusy`       | string      |          | Same as prepIconBusy but appended \n| `title`             | string      |          | Sets aria-label \n| `autoBlur`          | boolean     | true     | if true, the focus is removed via blur() after the action. \n\n#### Actions:\n\n| Name                | Description\n| ------------        | --------------\n| `press`             | Triggered when the button is pressed\n\n*(1) Supports l10n*\n"
 
 /***/ },
 
 /***/ 828:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-layer\n\nA container which stacks up in the z-direction.\n\n## Usage:\n\n```js\nimport { VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLLayerModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nThe vcl-layer-base defines the position in the DOM where the layers will appear when visible.\n\n```html\n<vcl-layer-base></vcl-layer-base>\n```\n\nA layer can be defined anywhere in your application\n\n```html\n<template vcl-layer #myLayer=\"layer\" [modal]=\"true\" [name]=\"myLayer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Title</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Content\n        <button vcl-button (click)=\"myLayer.close()\" label=\"Close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<button vcl-button (click)=\"myLayer.open()\" label=\"Open Layer\"></button>\n```\n\nThe `LayerService` can be used to open a Layer without having an actual reference.\nThe layer must have a name to use it with the Service.\n_This only works when the layer template is actually rendered on the page_\n\n\n```js\nimport { LayerService } from 'ng-vcl';\n\n...\n\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayer() {\n    this.layerService.open('myLayer');\n  }\n\n  closeLayer() {\n    this.layerService.close('myLayer');\n  }\n}\n```\n\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `modal`             | boolean     | false    | Disables user interaction outside of the layer\n| `name`              | string      |          | The layer name for addressing it in the LayerService \n"
+module.exports = "<span>\n  <ng-content></ng-content>\n  <vcl-icogram\n    [label]=\"calculatedLabel | loc\"\n    [flexLabel]=\"flexLabel | loc\"\n    [prepIcon]=\"calculatedPrepIcon\"\n    [appIcon]=\"calculatedAppIcon\">\n  </vcl-icogram>\n</span>\n"
 
 /***/ },
 
 /***/ 829:
 /***/ function(module, exports) {
 
-module.exports = "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [wormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
+module.exports = "# vcl-checkbox\n\nA Checkbox utilizing `vcl-icon`\n\n## Usage:\n\n```js\nimport { VCLCheckboxModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLCheckboxModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n ```html\n<vcl-checkbox [(checked)]=\"checked\"></vcl-checkbox> \n```\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default            | Description\n| ------------        | ----------- | ------------------ |--------------\n| `checked` *(1)*     | boolean     | false              | 2-Way-Binding. State of checkbox \n| `checkedIcon`       | string      | fa:check-square-o  | Icon to be displayed when checked \n| `uncheckedIcon`     | string      | fa:square-o        | Icon to be displayed when unchecked\n| `tabindex`          | number      | 0                  | The tabindex of the checkbox\n\n*(1) Supports Two-way binding*\n"
 
 /***/ },
 
 /***/ 830:
 /***/ function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"_label | loc\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n"
+module.exports = "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n"
 
 /***/ },
 
 /***/ 831:
 /***/ function(module, exports) {
 
-module.exports = "<template *ngFor=\"let item of items\" [ngTemplateOutlet]=\"template\" [ngOutletContext]=\"{item: item, meta: getMeta(item) }\"></template>\n"
+module.exports = "# vcl-form-control-label\n\nLabel to describe form controls.\n\n## Usage:\n\nNon-wrapping label\n\n```html\n<label vcl-form-control-label label=\"Label text\" subLabel=\"Sub label text\" for=\"...\"></label>\n```\n\nWrapping label\n\n```html\n<label vcl-form-control-label label=\"Label text\" subLabel=\"Sub label text\">\n  ...\n</label>\n```\n\n### API \n\n#### Properties:\n\n| Name                         | Type        | Default  | Description\n| ---------------------------- | ----------- | -------- |--------------\n| `label` *(1)*                | string      |          | The label \n| `subLabel` *(1)*             | string      |          | The sublabel \n| `disabled`                   | boolean     | false    | Wether the label is disabled or not\n| `required`                   | boolean     | false    | Shows the required indicator when true\n| `requiredIndicatorCharacter` | string      | •        | The required indicator character\n| `requiredIndLabel` *(1)*     | string      |          | Accessible label for the required indicator\n| `wrapping`                   | boolean     | false    | Whether the label wraps the labelled control\n\n*(1) Supports l10n*\n"
 
 /***/ },
 
 /***/ 832:
 /***/ function(module, exports) {
 
-module.exports = "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\">\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n"
+module.exports = "<ng-content *ngIf=\"prepend\"></ng-content>\n{{label | loc}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel | loc\">\n  {{requiredIndicatorCharacter}}\n</em>\n<label *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">\n  {{subLabel | loc}}\n</label>\n<ng-content *ngIf=\"!prepend\"></ng-content>\n"
 
 /***/ },
 
 /***/ 833:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>"
+module.exports = "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n"
 
 /***/ },
 
 /***/ 834:
 /***/ function(module, exports) {
 
-module.exports = "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n"
+module.exports = "# vcl-icon\n\nIcon which can be based on glyphs from icon fonts, inline svg and bitmaps.\n\nThe `label` is never displayed, it is only for accessibility with screen\nreaders.\nThe `hidden` attribute is only reflected in the `aria-hidden` property which\nallows to hide the icon to screen readers, if it is only of presentational character.\nSee http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.\n\n\n## Usage:\n\n```html\n<vcl-icon icon=\"icon-class\" label=\"chevron right\" hidden=\"false\"></vcl-icon>\n```\nor\n```html\n<vcl-icon src=\"...\"></vcl-icon>\n```\nor\n```html\n<vcl-icon svguse=\"...\"></vcl-icon>\n```\n\n### Class Provider\n\nTODO\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `icon`              | string      |          | Icon generator lookup via icon class provider\n| `src`               | string      |          | URL of a graphics resource\n| `svguse`            | string      |          | Generates an SVG `use` tag referencing the value\n| `iconClass`         | string      |          | Additional class\n| `label` *(1)*       | string      |          | `aria-label` \n| `ariaRole`          | string      |          | `aria-role`\n\n*(1) Supports l10n*\n"
 
 /***/ },
 
 /***/ 835:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-tab-nav\nThe tab nav allows to organize content in tabs.\nOnly one tab is visible at a given time.\n\n## Usage:\n\n```js\nimport { VCLTabNavModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLTabNavModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n```html\n<vcl-tab-nav>\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>\n      Content1\n    </template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>\n      Content2\n    </template>\n  </vcl-tab>\n  <vcl-tab [disabled]=\"true\"><template vcl-tab-label>Tab3 (disabled)</template>\n    <template vcl-tab-content>\n      Content3\n    </template>\n  </vcl-tab>\n</vcl-tab-nav>\n```\n\n### API \n\n#### vcl-tab-nav Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `selectedTabIndex` *(1)* | number      |        0 | The index of the currently visible tab\n| `borders`                | boolean     |    false | Enables borders for the tab-nav\n| `layout`                 | string      |          | The layout: `null`, `\"left\"` or `\"right\"`\n| `tabbableClass`          | string      |          | Modifier classes for vclTabbable\n| `tabsClass`              | string      |          | Modifier classes for vclTabs\n| `tabContentClass`        | string      |          | Modifier classes for vclTabContent\n\n#### vcl-tab Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `disabled`               | boolean     |   false  | Disables the tab when true   \n| `tabClass`               | string      |          | Modifier classes for vclTab   \n\n*(1) Supports Two-way binding*\n"
+module.exports = "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\" [attr.role]=\"ariaRole\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n"
 
 /***/ },
 
 /***/ 836:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
+module.exports = "# vcl-layer\n\nA container which stacks up in the z-direction.\n\n## Usage:\n\n```js\nimport { VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLLayerModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nThe vcl-layer-base defines the position in the DOM where the layers will appear when visible.\n\n```html\n<vcl-layer-base></vcl-layer-base>\n```\n\nA layer can be defined anywhere in your application\n\n```html\n<template vcl-layer #myLayer=\"layer\" [modal]=\"true\" [name]=\"myLayer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Title</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Content\n        <button vcl-button (click)=\"myLayer.close()\" label=\"Close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<button vcl-button (click)=\"myLayer.open()\" label=\"Open Layer\"></button>\n```\n\nThe `LayerService` can be used to open a Layer without having an actual reference.\nThe layer must have a name to use it with the Service.\n_This only works when the layer template is actually rendered on the page_\n\n\n```js\nimport { LayerService } from 'ng-vcl';\n\n...\n\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayer() {\n    this.layerService.open('myLayer');\n  }\n\n  closeLayer() {\n    this.layerService.close('myLayer');\n  }\n}\n```\n\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `modal`             | boolean     | false    | Disables user interaction outside of the layer\n| `name`              | string      |          | The layer name for addressing it in the LayerService \n"
 
 /***/ },
 
 /***/ 837:
 /***/ function(module, exports) {
 
-module.exports = "<div [id]=\"id\" [class]=\"class\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n"
+module.exports = "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [wormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
 
 /***/ },
 
 /***/ 838:
 /***/ function(module, exports) {
 
-module.exports = "# off-click directive\n\nThe off-click action fires when a click event is handled and its source is not(!) the element or any of its subelements.  \n\n## Usage:\n\n```js\nimport { VCLOffClickModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLOffClickModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\noffClick() is called when the click`s source is not DIV1 or DIV2  \n\n```html\n<div (off-click)=\"offClick()\">\n  DIV1\n  <div>\n    DIV2\n  </div>\n</div>\n```\n"
+module.exports = "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"_label | loc\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n"
 
 /***/ },
 
 /***/ 839:
 /***/ function(module, exports) {
 
+module.exports = "<template *ngFor=\"let item of items\" [ngTemplateOutlet]=\"template\" [ngOutletContext]=\"{item: item, meta: getMeta(item) }\"></template>\n"
+
+/***/ },
+
+/***/ 840:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"vclDatePicker\"\n    [class.vclLayoutHidden]=\"!expanded\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput\"\n    [attr.role]=\"grid\"\n    [attr.tabindex]=\"tabindex\"\n    [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n    [attr.aria-expanded]=\"expanded\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\" role=\"menubar\" aria-level=\"1\">\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!prevYearAvailable\"\n          [appIcon]=\"prevYearBtnIcon\"\n          (tap)=\"onPrevYearTap()\">\n        </button>\n\n        <span class=\"vclCalHeaderLabel\">{{ currentYear }}</span>\n\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!nextYearAvailable\"\n          [appIcon]=\"nextYearBtnIcon\"\n          (tap)=\"onNextYearTap()\">\n        </button>\n\n        <button vcl-button *ngIf=\"expandable\" class=\"vclButton vclTransparent vclSquare\"\n          [appIcon]=\"closeBtnIcon\"\n          (tap)=\"onCloseBtnTap()\">\n        </button>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <template ngFor let-iM [ngForOf]=\"months\" let-i=\"index\">\n      <div *ngIf=\"i % monthsPerRow === 0\" class=\"vclDGRow\" role=\"row\">\n        <div *ngFor=\"let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;\"\n          (tap)=\"selectMonth(i+j)\"\n          class=\"vclDGCell vclCalItem\"\n          [class.vclAvailable]=\"!useAvailableMonths || currentMeta[i+j].available\"\n          [class.vclUnavailable]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclToday]=\"isCurrentMonth(i+j)\"\n          [class.vclOtherMonth]=\"!isCurrentMonth(i+j)\"\n          [class.vclDisabled]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclSelected]=\"currentMeta[i+j].selected\"\n          [style.background-color]=\"currentMeta[i+j].color\"\n          [style.order]=\"i+j\"\n          [attr.aria-selected]=\"currentMeta[i+j].selected\"\n          role=\"gridcell\"\n          tabindex=\"0\">\n            <div *ngIf=\"jM.label\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel\">\n              {{jM.label | loc}}\n            </div>\n\n            <div *ngIf=\"jM.sublabel\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel\">\n              {{jM.sublabel | loc}}\n            </div>\n        </div>\n      </div>\n    </template>\n  </div>\n</div>\n"
+
+/***/ },
+
+/***/ 841:
+/***/ function(module, exports) {
+
+module.exports = "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\">\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n"
+
+/***/ },
+
+/***/ 842:
+/***/ function(module, exports) {
+
+module.exports = "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>"
+
+/***/ },
+
+/***/ 843:
+/***/ function(module, exports) {
+
+module.exports = "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n"
+
+/***/ },
+
+/***/ 844:
+/***/ function(module, exports) {
+
+module.exports = "# vcl-tab-nav\nThe tab nav allows to organize content in tabs.\nOnly one tab is visible at a given time.\n\n## Usage:\n\n```js\nimport { VCLTabNavModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLTabNavModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n```html\n<vcl-tab-nav>\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>\n      Content1\n    </template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>\n      Content2\n    </template>\n  </vcl-tab>\n  <vcl-tab [disabled]=\"true\"><template vcl-tab-label>Tab3 (disabled)</template>\n    <template vcl-tab-content>\n      Content3\n    </template>\n  </vcl-tab>\n</vcl-tab-nav>\n```\n\n### API \n\n#### vcl-tab-nav Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `selectedTabIndex` *(1)* | number      |        0 | The index of the currently visible tab\n| `borders`                | boolean     |    false | Enables borders for the tab-nav\n| `layout`                 | string      |          | The layout: `null`, `\"left\"` or `\"right\"`\n| `tabbableClass`          | string      |          | Modifier classes for vclTabbable\n| `tabsClass`              | string      |          | Modifier classes for vclTabs\n| `tabContentClass`        | string      |          | Modifier classes for vclTabContent\n\n#### vcl-tab Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `disabled`               | boolean     |   false  | Disables the tab when true   \n| `tabClass`               | string      |          | Modifier classes for vclTab   \n\n*(1) Supports Two-way binding*\n"
+
+/***/ },
+
+/***/ 845:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
+
+/***/ },
+
+/***/ 846:
+/***/ function(module, exports) {
+
+module.exports = "<div [id]=\"id\" [class]=\"class\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n"
+
+/***/ },
+
+/***/ 847:
+/***/ function(module, exports) {
+
+module.exports = "# off-click directive\n\nThe off-click action fires when a click event is handled and its source is not(!) the element or any of its subelements.  \n\n## Usage:\n\n```js\nimport { VCLOffClickModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLOffClickModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\noffClick() is called when the click`s source is not DIV1 or DIV2  \n\n```html\n<div (off-click)=\"offClick()\">\n  DIV1\n  <div>\n    DIV2\n  </div>\n</div>\n```\n"
+
+/***/ },
+
+/***/ 848:
+/***/ function(module, exports) {
+
 module.exports = "# wormhole directive\n\nThe wormhole directive allows to render a template somewhere else in the DOM.\n\n## Usage:\n\n```js\nimport { VCLWormholeModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLWormholeModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nUse the the generateWormhole directive to create a wormhole...\n```html\n\n<template generateWormhole #myFirstWormhole=\"wormhole\">\n  I am a wormhole\n</template>\n```\n\n...and connect it via the wormhole directive.\nThe wormhole template is rendered within the element.\n```html\n<div [wormhole]=\"myFirstWormhole\">\n  <!-- The myFirstWormhole template is rendered here -->\n</div>\n\n```\n\nGet a reference to the generated wormhole by using the @ViewChild(ren)/@ContentChild(ren) annotations\n```js\nimport { VCLWormholeGenerator } from 'ng-vcl';\n\n@Component(...)\nclass MyComp {\n  ...\n  @ViewChild('myFirstWormhole')\n  myFirstWormhole: WormholeGenerator;\n  ...\n}\n```\n"
+
+/***/ },
+
+/***/ 849:
+/***/ function(module, exports) {
+
+module.exports = "# L10n\n\n## Usage\n\n```js\n\nimport { NgModule } from '@angular/core';\nimport { L10nModule } from 'ng2-l10n';\nimport { AppComponent } from './app.component';\n\n@NgModule({\n  imports: [\n    L10nModule.forRoot({\n      loader: MyLoaderService,  // required - loader services class\n      loaderConfig: { ... },    // optional - loader configuration\n      parser: MyParserService,  // optional - parser service class\n      config: {\n        locale: \"en-us\"         // optional - default locale. Uses browsers default language if not provided\n      }\n    })\n  ],\n  declarations: [ AppComponent ],\n  bootstrap: [ AppComponent ]\n})\nexport class AppModule { }\n```\n\nUse the `loc` pipe in a template to localize a text\n\n```html\n\n<p>{{'HELLO_WORLD' | loc}}</p>\n\n```\n\n## Loader services\n\n### Static resource loader\n```\nL10nModule.forRoot({\n  loader: L10nStaticLoaderService,\n  loaderConfig: {\n    \"HELLO_WORLD\": {\n      \"en-us\": \"Hello World!\"\n      \"de-de\": \"Hallo Welt!\"\n    }\n  }\n});\n\n\n```\n\n### HTTP service TODO\n```js\nL10nModule.forRoot({\n  loader: L10nHTTPLoaderService,\n  loaderConfig: {\n    endpoint: 'URL_TO_JSON'\n  }\n});\n```\n\n\n\n```js\n\nclass AnyInjectableClass {\n  constructor(private l10n: L10nHTTPService) {\n    // Refetches the json    \n    this.l10n.refresh();\n  }\n}\n```\n\n## Custom loaders\n\n```js\n@Injectable()\nexport class L10nFancyLoaderService extends L10nLoaderService {\n  constructor(\n    @Inject(L10N_CONFIG) \n    private config: L10nConfig,\n    // other injections\n  ) { \n    super();\n    this.config; // loader config\n  }\n\n  // required\n  fetchTranslationPackage(locale:string) : Observable<TranslationPackage> {\n    // return your translation package as an Observable\n  }\n\n  // optional\n  getSupportedLocales() : Observable<string[]> {\n    // return an array of supported locales as an Observable\n  }\n}\n```\n\n## Template parameters\n\n```json\n{\n  \"HELLO_USER\": {\n    \"en-us\": \"Hello {0}!\",\n    \"de-de\": \"Hallo {0}!\"\n  }\n}\n```\n```json\n<span>{{HELLO_USER | loc:username}}</span>\n```\n"
 
 /***/ },
 
@@ -12728,12 +13208,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var icon_component_1 = __webpack_require__(642);
+var common_1 = __webpack_require__(9);
+var icon_component_1 = __webpack_require__(647);
 exports.IconComponent = icon_component_1.IconComponent;
 var icon_service_1 = __webpack_require__(372);
 exports.IconService = icon_service_1.IconService;
-var l10n_module_1 = __webpack_require__(34);
+var l10n_module_1 = __webpack_require__(28);
 var VCLIconModule = (function () {
     function VCLIconModule() {
     }
@@ -12764,5 +13244,5 @@ exports.VCLIconModule = VCLIconModule;
 
 /***/ }
 
-},[1101]);
+},[1111]);
 //# sourceMappingURL=main.map
