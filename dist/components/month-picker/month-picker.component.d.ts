@@ -52,6 +52,7 @@ export declare class MonthPickerComponent implements OnInit {
     private notifySelect(date);
     private notifyDeselect(date);
     isCurrentMonth(month: number, year?: number): boolean;
+    getMonth(month: number): any;
     static monthNames: string[];
     static monthNamesShort: string[];
 }

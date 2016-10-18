@@ -285,6 +285,10 @@ export class MonthPickerComponent implements OnInit {
     return now.getFullYear() == year && now.getUTCMonth() === month;
   }
 
+  getMonth(month: number): any {
+    return this.isMonthInBounds(month) ? this.months[month] : null;
+  }
+
   static monthNames: string[] = [
     'January',
     'February',

@@ -2989,6 +2989,9 @@ var MonthPickerComponent = (function () {
         var now = new Date();
         return now.getFullYear() == year && now.getUTCMonth() === month;
     };
+    MonthPickerComponent.prototype.getMonth = function (month) {
+        return this.isMonthInBounds(month) ? this.months[month] : null;
+    };
     MonthPickerComponent.monthNames = [
         'January',
         'February',
