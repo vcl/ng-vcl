@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, Renderer, TemplateRef, ViewContainerRef, trigger } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewContainerRef, trigger } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -34,21 +34,39 @@ function __param(paramIndex, decorator) {
 }
 
 var InputComponent = (function () {
-    function InputComponent(renderer) {
-        this.renderer = renderer;
+    function InputComponent(elRef) {
+        this.elRef = elRef;
         this.valueType = null;
         this.typedValue = null;
-        this.typedValueChange = new EventEmitter();
+        this._typedValueChange = new EventEmitter();
+        this.selectAllOnFocus = false;
     }
+    Object.defineProperty(InputComponent.prototype, "typedValueChange", {
+        get: function () {
+            return this._typedValueChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     InputComponent.prototype.ngOnInit = function () { };
     InputComponent.prototype.onChange = function (value) {
-        this.typedValueChange.emit(this.toType(value));
+        this._typedValueChange.emit(this.toType(value));
     };
     InputComponent.prototype.toType = function (value) {
         if (this.valueType === 'number') {
-            return value = Number(value);
+            var tValue = Number(value);
+            return isNaN(tValue) ? 0 : tValue;
         }
-        return value;
+        else {
+            return value;
+        }
+    };
+    InputComponent.prototype.onFocus = function (value) {
+        if (this.selectAllOnFocus) {
+            if (this.elRef && this.elRef.nativeElement) {
+                this.elRef.nativeElement.select();
+            }
+        }
     };
     __decorate([
         Input(), 
@@ -61,13 +79,23 @@ var InputComponent = (function () {
     __decorate([
         Output(), 
         __metadata('design:type', Object)
-    ], InputComponent.prototype, "typedValueChange", void 0);
+    ], InputComponent.prototype, "typedValueChange", null);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], InputComponent.prototype, "selectAllOnFocus", void 0);
     __decorate([
         HostListener('input', ['$event.target.value']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], InputComponent.prototype, "onChange", null);
+    __decorate([
+        HostListener('focus', ['$event.target.value']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], InputComponent.prototype, "onFocus", null);
     InputComponent = __decorate([
         Directive({
             selector: '[vcl-input]',
@@ -75,7 +103,7 @@ var InputComponent = (function () {
                 '[class.vclInput]': 'true',
             },
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof Renderer !== 'undefined' && Renderer) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
     ], InputComponent);
     return InputComponent;
     var _a;
@@ -994,57 +1022,14 @@ var ButtonComponent = (function () {
     var _a, _b;
 }());
 
-/**
-Combination of icon and text of which both are optional and can be permuted.
-Icons can be prepended or appended to a textual label and can be sourced from icon
-fonts or directly from file based imagery.
-The component takes care of accessibility aspects such rendering appropriate aria
-attributes.
-It also renders accessability labels for icons if no label for the icogram is
-provided.
-Note: the optionally generated anchor elemt's default action (follow the link)
-is _not_ supressed when using the `href` property.
-Us the vcl-link component if you want to have a fully fledged anchor tag.
-
-## Usage
-
-```html
-<vcl-icogram label="some label" prepIcon="fa fa-chevron-right" flexLabel=true></vcl-icogram>
-<vcl-icogram label="some label" prepIconSrc="..." href="http://example.org"></vcl-icogram>
-<vcl-icogram label="some label" use="..."></vcl-icogram>
-<vcl-icogram>
-  <vcl-icon icon="fa:close"></vcl-icon>
-</vcl-icogram>
-```
-
-@param    label           optional      textual label
-@param    href            optional      if an href is given an accessible link is generated
-@param    flexLabel       optional      the label gets a `vclLayoutFlex` class if true
-@param    prepIcon        optional      Icon as defined by the icon component
-@param    appIcon         optional      Same as `prepIcon` but appended
-*/
 var IcogramComponent = (function () {
-    // TODO prepIconSrc not implemented but used in example
-    // @Input() prepIconSrc: string;
     function IcogramComponent(elRef) {
-        this.el = elRef.nativeElement;
+        this.elRef = elRef;
     }
-    IcogramComponent.prototype.ngOnInit = function () { };
-    Object.defineProperty(IcogramComponent.prototype, "ariaRole", {
-        get: function () {
-            return (this.el && this.el.tagName.toLowerCase() !== 'a' && this.href) ? 'link' : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
     __decorate([
         Input(), 
         __metadata('design:type', String)
     ], IcogramComponent.prototype, "label", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IcogramComponent.prototype, "href", void 0);
     __decorate([
         Input(), 
         __metadata('design:type', Boolean)
@@ -1058,15 +1043,19 @@ var IcogramComponent = (function () {
         __metadata('design:type', String)
     ], IcogramComponent.prototype, "appIcon", void 0);
     __decorate([
-        HostBinding('attr.role'), 
-        __metadata('design:type', Object)
-    ], IcogramComponent.prototype, "ariaRole", null);
+        Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "prepIconSrc", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "appIconSrc", void 0);
     IcogramComponent = __decorate([
         Component({
             selector: 'vcl-icogram, [vcl-icogram]',
             host: {
                 '[class.vclIcogram]': 'true',
-                '[attr.role]:': 'img'
+                '[attr.role]': 'img'
             },
             template: "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n",
             changeDetection: ChangeDetectionStrategy.OnPush
@@ -2392,23 +2381,13 @@ var VCLPopoverModule = (function () {
     return VCLPopoverModule;
 }());
 
-/**
-Radio button.
-
-## Usage
-
-```html
-<vcl-radio-button
-  [(checked)]="checked">
-</vcl-radio-button>
-```
-*/
 var RadioButtonComponent = (function () {
     function RadioButtonComponent(elementRef) {
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:dot-circle-o';
         this.uncheckedIcon = 'fa:circle-o';
         this.disabled = false;
+        this.tabindex = 0;
         /**
         Refelects the checked state, `true` is checked and `false` is unchecked
         @public
@@ -2416,35 +2395,40 @@ var RadioButtonComponent = (function () {
         this.checked = false;
         /**
         Action fired when the `checked` state changes due to user interaction.
-        The first parameter is the value of the `checked` property.
-        @public
-        @action
         */
-        this.checkedChange = new EventEmitter();
+        this._checkedChange = new EventEmitter();
     }
+    Object.defineProperty(RadioButtonComponent.prototype, "checkedChange", {
+        get: function () {
+            return this._checkedChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    
     RadioButtonComponent.prototype.ngOnInit = function () { };
     RadioButtonComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            this.checkedChange.emit(checked);
+            // this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
-    Object.defineProperty(RadioButtonComponent.prototype, "hbVclDisabled", {
+    Object.defineProperty(RadioButtonComponent.prototype, "clsVclDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(RadioButtonComponent.prototype, "hbAriaDisabled", {
+    Object.defineProperty(RadioButtonComponent.prototype, "attrAriaDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(RadioButtonComponent.prototype, "hbChecked", {
+    Object.defineProperty(RadioButtonComponent.prototype, "attrChecked", {
         get: function () {
             return !!this.checked;
         },
@@ -2464,7 +2448,7 @@ var RadioButtonComponent = (function () {
         if (this.disabled)
             return;
         this.checked = !this.checked;
-        this.checkedChange.emit(this.checked);
+        this._checkedChange.emit(this.checked);
     };
     RadioButtonComponent.prototype.focusMaintenance = function (checked) {
         if (this.checked === true && this.elementRef.nativeElement) {
@@ -2491,25 +2475,30 @@ var RadioButtonComponent = (function () {
         __metadata('design:type', Object)
     ], RadioButtonComponent.prototype, "disabled", void 0);
     __decorate([
+        HostBinding('attr.tabindex'),
+        Input(), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "tabindex", void 0);
+    __decorate([
         Input(), 
         __metadata('design:type', Object)
     ], RadioButtonComponent.prototype, "checked", void 0);
     __decorate([
         Output(), 
-        __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "checkedChange", void 0);
+        __metadata('design:type', (typeof (_a = typeof Observable !== 'undefined' && Observable) === 'function' && _a) || Object)
+    ], RadioButtonComponent.prototype, "checkedChange", null);
     __decorate([
         HostBinding('class.vclDisabled'), 
         __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "hbVclDisabled", null);
+    ], RadioButtonComponent.prototype, "clsVclDisabled", null);
     __decorate([
         HostBinding('attr.aria-disabled'), 
         __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "hbAriaDisabled", null);
+    ], RadioButtonComponent.prototype, "attrAriaDisabled", null);
     __decorate([
         HostBinding('attr.checked'), 
         __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "hbChecked", null);
+    ], RadioButtonComponent.prototype, "attrChecked", null);
     __decorate([
         HostListener('keyup', ['$event']), 
         __metadata('design:type', Function), 
@@ -2528,14 +2517,15 @@ var RadioButtonComponent = (function () {
             template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
             host: {
                 '[attr.role]': '"radio"',
-                '[class.vclRadioButton]': 'true',
+                '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
-            }
+            },
+            changeDetection: ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _b) || Object])
     ], RadioButtonComponent);
     return RadioButtonComponent;
-    var _a;
+    var _a, _b;
 }());
 
 var VCLRadioButtonModule = (function () {
@@ -2581,25 +2571,25 @@ var CheckboxComponent = (function () {
     CheckboxComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            this._checkedChange.emit(checked);
+            // this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
-    Object.defineProperty(CheckboxComponent.prototype, "hbVclDisabled", {
+    Object.defineProperty(CheckboxComponent.prototype, "clsVclDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CheckboxComponent.prototype, "hbAriaDisabled", {
+    Object.defineProperty(CheckboxComponent.prototype, "attrAriaDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CheckboxComponent.prototype, "hbChecked", {
+    Object.defineProperty(CheckboxComponent.prototype, "attrChecked", {
         get: function () {
             return !!this.checked;
         },
@@ -2656,20 +2646,20 @@ var CheckboxComponent = (function () {
     ], CheckboxComponent.prototype, "checked", void 0);
     __decorate([
         Output(), 
-        __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "_checkedChange", void 0);
+        __metadata('design:type', (typeof (_a = typeof Observable !== 'undefined' && Observable) === 'function' && _a) || Object)
+    ], CheckboxComponent.prototype, "checkedChange", null);
     __decorate([
         HostBinding('class.vclDisabled'), 
         __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "hbVclDisabled", null);
+    ], CheckboxComponent.prototype, "clsVclDisabled", null);
     __decorate([
         HostBinding('attr.aria-disabled'), 
         __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "hbAriaDisabled", null);
+    ], CheckboxComponent.prototype, "attrAriaDisabled", null);
     __decorate([
         HostBinding('attr.checked'), 
         __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "hbChecked", null);
+    ], CheckboxComponent.prototype, "attrChecked", null);
     __decorate([
         HostListener('keyup', ['$event']), 
         __metadata('design:type', Function), 
@@ -2691,12 +2681,11 @@ var CheckboxComponent = (function () {
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
-            changeDetection: ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _b) || Object])
     ], CheckboxComponent);
     return CheckboxComponent;
-    var _a;
+    var _a, _b;
 }());
 
 var VCLCheckboxModule = (function () {
@@ -3216,4 +3205,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, VCLCheckboxModule, VCLMonthPickerModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
+export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService };
