@@ -6,6 +6,7 @@ export default {
   category: 'Inputs',
   tabs: {
     Demo: RadioButtonComponent,
+    'README.md': require("!raw!../../../src/components/radio-button/README.md"),
     'demo.component.html': require("!raw!./radio-button.component.html"),
     'demo.component.ts': require("!raw!./radio-button.component.ts")
   }

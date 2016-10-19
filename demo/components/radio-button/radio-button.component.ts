@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RadioButtonComponent implements OnInit {
 
-  radioButtonChecked = false;
+  isChecked = false;
 
   constructor() { }
 

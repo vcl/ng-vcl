@@ -1,24 +1,19 @@
-import { Component, Input, Output, OnInit, HostBinding, HostListener, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+// TODO: This class is just a copy of the checkbox with slight modifications
+// Use inheritance once supported
+// https://github.com/angular/angular/issues/11606
 
-/**
-Radio button.
+import { ChangeDetectionStrategy, Component, Input, Output, OnInit, HostBinding, HostListener, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
 
-## Usage
-
-```html
-<vcl-radio-button
-  [(checked)]="checked">
-</vcl-radio-button>
-```
-*/
 @Component({
   selector: 'vcl-radio-button',
   template: `<vcl-icon [icon]="icon"></vcl-icon><ng-content></ng-content>`,
   host: {
     '[attr.role]': '"radio"',
-    '[class.vclRadioButton]': 'true',
+    '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioButtonComponent implements OnInit, OnChanges {
 
@@ -31,6 +26,10 @@ export class RadioButtonComponent implements OnInit, OnChanges {
   @Input()
   disabled = false;
 
+  @HostBinding('attr.tabindex')
+  @Input()
+  tabindex = 0;
+
   /**
   Refelects the checked state, `true` is checked and `false` is unchecked
   @public
@@ -38,40 +37,39 @@ export class RadioButtonComponent implements OnInit, OnChanges {
   @Input()
   checked = false;
 
-
   /**
   Action fired when the `checked` state changes due to user interaction.
-  The first parameter is the value of the `checked` property.
-  @public
-  @action
   */
+  _checkedChange = new EventEmitter<boolean>();
   @Output()
-  checkedChange = new EventEmitter<boolean>();
+  get checkedChange(): Observable<boolean> {
+    return this._checkedChange.asObservable();
+  };
 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['checked']) {
+    if (changes['checked']) {
       let checked = changes['checked'].currentValue;
-      this.checkedChange.emit(checked);
+      // this._checkedChange.emit(checked);
       this.focusMaintenance(checked);
     }
   }
 
   @HostBinding('class.vclDisabled')
-  get hbVclDisabled() {
+  get clsVclDisabled() {
     return !!this.disabled;
   }
 
   @HostBinding('attr.aria-disabled')
-  get hbAriaDisabled() {
+  get attrAriaDisabled() {
     return !!this.disabled;
   }
 
   @HostBinding('attr.checked')
-  get hbChecked() {
+  get attrChecked() {
     return !!this.checked;
   }
 
@@ -91,7 +89,7 @@ export class RadioButtonComponent implements OnInit, OnChanges {
     e.preventDefault();
     if (this.disabled) return;
     this.checked = !this.checked;
-    this.checkedChange.emit(this.checked);
+    this._checkedChange.emit(this.checked);
   }
 
   focusMaintenance(checked: boolean) {
