@@ -1998,47 +1998,15 @@ var NavigationComponent = (function () {
     var _a;
 }());
 
-/**
-The anchor tag with VCL and Angular awareness.
-
-## Usage
-
-```html
-<vcl-link
-  [href]="'http://www.example.com'"
-  [label]="'Example Link'"
-  [prepIcon]="'fa:chevron-right'">
-```
-
-@property     {String}    href         `href` attribute
-@property     {String}    target       `target` attribute
-@property     {String}    tabindex     `tabindex` attribute
-@property     {String}    scheme       URL scheme to be used, e. g. `tel`, `mailto` etc.
-@property     {String}    disabled     disabled if `true`
-@property     {String}    label        textual label with automatic Ember-i18n lookup
-@property     {String}    title        textual title with automatic Ember-i18n lookup
-@property     {String}    prepIcon     icon to be prepended to the label
-@property     {String}    appIcon      icon to be appended to the label
-@property     {String}    class        additional class to be added
-*/
 var LinkComponent = (function () {
     function LinkComponent() {
     }
-    Object.defineProperty(LinkComponent.prototype, "_href", {
+    Object.defineProperty(LinkComponent.prototype, "attrHref", {
         get: function () {
             if (this.disabled)
                 return null;
             return this.scheme
                 ? this.scheme + ":" + this.href
-                : this.href;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LinkComponent.prototype, "_label", {
-        get: function () {
-            return this.label
-                ? this.label
                 : this.href;
         },
         enumerable: true,
@@ -2051,27 +2019,15 @@ var LinkComponent = (function () {
     __decorate([
         Input(), 
         __metadata('design:type', String)
-    ], LinkComponent.prototype, "target", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], LinkComponent.prototype, "tabindex", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], LinkComponent.prototype, "scheme", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], LinkComponent.prototype, "disabled", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
     ], LinkComponent.prototype, "label", void 0);
     __decorate([
         Input(), 
         __metadata('design:type', String)
     ], LinkComponent.prototype, "title", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "scheme", void 0);
     __decorate([
         Input(), 
         __metadata('design:type', String)
@@ -2081,22 +2037,22 @@ var LinkComponent = (function () {
         __metadata('design:type', String)
     ], LinkComponent.prototype, "appIcon", void 0);
     __decorate([
+        HostBinding('class.vclDisabled'),
         Input(), 
+        __metadata('design:type', Boolean)
+    ], LinkComponent.prototype, "disabled", void 0);
+    __decorate([
+        HostBinding('attr.href'), 
         __metadata('design:type', String)
-    ], LinkComponent.prototype, "class", void 0);
+    ], LinkComponent.prototype, "attrHref", null);
     LinkComponent = __decorate([
         Component({
             selector: '[vcl-link]',
-            template: "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"_label | loc\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n",
+            template: "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"(label | loc) || href\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n",
             host: {
-                '[attr.href]': '_href',
-                '[attr.target]': 'target',
-                '[attr.tabindex]': 'tabindex',
                 '[attr.touch-action]': 'touchAction',
                 '[attr.aria-label]': 'title | loc',
-                '[attr.title]': 'title | loc',
-                '[attr.disabled]': 'disabled',
-                '[class.vclDisabled]': 'disabled',
+                '[attr.title]': 'title | loc'
             },
         }), 
         __metadata('design:paramtypes', [])
