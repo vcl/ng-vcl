@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
     '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
   },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent implements OnInit, OnChanges {
 
@@ -36,8 +36,8 @@ export class CheckboxComponent implements OnInit, OnChanges {
   /**
   Action fired when the `checked` state changes due to user interaction.
   */
-  @Output()
   _checkedChange = new EventEmitter<boolean>();
+  @Output()
   get checkedChange(): Observable<boolean> {
     return this._checkedChange.asObservable();
   };
@@ -49,23 +49,23 @@ export class CheckboxComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['checked']) {
       let checked = changes['checked'].currentValue;
-      this._checkedChange.emit(checked);
+      // this._checkedChange.emit(checked);
       this.focusMaintenance(checked);
     }
   }
 
   @HostBinding('class.vclDisabled')
-  get hbVclDisabled() {
+  get clsVclDisabled() {
     return !!this.disabled;
   }
 
   @HostBinding('attr.aria-disabled')
-  get hbAriaDisabled() {
+  get attrAriaDisabled() {
     return !!this.disabled;
   }
 
   @HostBinding('attr.checked')
-  get hbChecked() {
+  get attrChecked() {
     return !!this.checked;
   }
 

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { VCLIconModule } from './../icon/icon.module';
 import { CheckboxComponent } from './checkbox.component';
 
+export { CheckboxComponent };
+
 @NgModule({
   imports: [CommonModule, VCLIconModule],
   exports: [CheckboxComponent],
