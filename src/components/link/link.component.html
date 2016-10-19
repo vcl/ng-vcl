@@ -1,6 +1,6 @@
 <ng-content></ng-content>
 <vcl-icogram 
-  [label]="_label | loc"
+  [label]="(label | loc) || href"
   [prepIcon]="prepIcon"
   [appIcon]="appIcon">
 </vcl-icogram>
