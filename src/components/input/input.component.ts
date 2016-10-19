@@ -1,4 +1,4 @@
-import { Renderer, Component, OnInit, Directive, HostBinding, Input, EventEmitter, Output, HostListener } from '@angular/core';
+import { OnInit, Directive, Input, EventEmitter, Output, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[vcl-input]',
@@ -13,26 +13,40 @@ export class InputComponent implements OnInit {
 
   @Input()
   typedValue: any = null;
-  @Output() 
-  typedValueChange = new EventEmitter<any>();              
 
+  _typedValueChange = new EventEmitter<any>();
+  @Output()
+  get typedValueChange() {
+    return this._typedValueChange.asObservable();
+  }
 
-  constructor(private renderer: Renderer) { }
+  @Input()
+  selectAllOnFocus: boolean = false;
+
+  constructor(private elRef: ElementRef) { }
 
   ngOnInit() { }
 
   @HostListener('input', ['$event.target.value'])
   onChange(value) {
-    this.typedValueChange.emit(this.toType(value));
+    this._typedValueChange.emit(this.toType(value));
   }
 
   toType(value) {
-    if (this.valueType==='number') {
-      return value = Number(value);
-      // if (isNaN(value)) {
-      //   value = 0;
-      // }
+    if (this.valueType === 'number') {
+      let tValue = Number(value);
+      return isNaN(tValue) ? 0 : tValue;
+    } else {
+      return value;
     }
-    return value;
+  }
+
+  @HostListener('focus', ['$event.target.value'])
+  onFocus(value) {
+    if (this.selectAllOnFocus) {
+      if (this.elRef && this.elRef.nativeElement) {
+        this.elRef.nativeElement.select();
+      }
+    }
   }
 }
