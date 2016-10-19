@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 1110:
+/***/ 1113:
 /***/ function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.3.7 */
@@ -1814,7 +1814,7 @@ return Tether;
 
 /***/ },
 
-/***/ 1111:
+/***/ 1114:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2923,6 +2923,7 @@ var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(9);
 var icon_module_1 = __webpack_require__(92);
 var checkbox_component_1 = __webpack_require__(642);
+exports.CheckboxComponent = checkbox_component_1.CheckboxComponent;
 var VCLCheckboxModule = (function () {
     function VCLCheckboxModule() {
     }
@@ -3459,7 +3460,7 @@ module.exports = "<button vcl-button (click)=\"someAction($event)\" label=\"Acti
 /***/ 418:
 /***/ function(module, exports) {
 
-module.exports = "Checkable:\n<vcl-checkbox [(checked)]=\"checkboxChecked\"></vcl-checkbox>\n\n<br><br>\n<b>Selected:</b> {{radioButtonChecked}}\n\n<br><br>\n<button vcl-button (click)=\"checkboxChecked=false\">Uncheck checkbox</button>\n\n<br>\n<br>\nDisabled:\n<br>\n<vcl-checkbox [disabled]=\"true\"></vcl-checkbox>"
+module.exports = "Checkable:\n<vcl-checkbox [(checked)]=\"isChecked\"></vcl-checkbox>\n\n<br><br>\n<b>Checked:</b> {{isChecked}}\n\n<br><br>\n<button vcl-button (click)=\"isChecked=false\">Uncheck checkbox</button>\n\n<br><br>\nDisabled:\n<vcl-checkbox [disabled]=\"true\"></vcl-checkbox>\n"
 
 /***/ },
 
@@ -3522,7 +3523,7 @@ module.exports = "<vcl-metalist [items]=\"items\" [meta]=\"metaInformation\" #me
 /***/ 427:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-month-picker\n  id=\"myStyledMonthPicker\"\n  [prevYearAvailable]=\"true\"\n  [nextYearAvailable]=\"true\"\n  [colors]=\"['#50E3C2', '#FF3CE6']\">\n</vcl-month-picker>\n\n<br><br>\n\n<button vcl-button\n  label=\"Expand\"\n  class=\"vclSquare\"\n  (click)=\"expandMonthPicker($event)\">\n</button>\n\n<vcl-month-picker\n  [expandable]=\"true\"\n  [(expanded)]=\"expanded\"\n  [useShortNames]=\"true\"\n  [monthsPerRow]=\"4\"\n  [maxSelectableItems]=\"3\"\n  (select)=\"onSelect($event)\"\n  (prevYearBtnTap)=\"onPreviousYearTap()\"\n  [prevYearAvailable]=\"prevYearAvailable\"\n  (nextYearBtnTap)=\"onNextYearTap()\"\n  [nextYearAvailable]=\"nextYearAvailable\">\n</vcl-month-picker>\n"
+module.exports = "<vcl-month-picker\n  id=\"myStyledMonthPicker\"\n  [prevYearAvailable]=\"true\"\n  [nextYearAvailable]=\"true\"\n  [colors]=\"['#50E3C2', '#FF3CE6']\">\n</vcl-month-picker>\n\n<br><br>\n\n<button vcl-button #target\n  label=\"Expand\"\n  class=\"vclSquare\"\n  (click)=\"expandMonthPicker($event)\">\n</button>\n\n<vcl-popover\n  target='#target'\n  targetAttachment='bottom right'\n  attachment='top right'\n  [(open)]=\"expanded\">\n  <vcl-month-picker\n    [expandable]=\"true\"\n    [(expanded)]=\"expanded\"\n    [(currentYear)]=\"currentYear\"\n    [useShortNames]=\"true\"\n    [monthsPerRow]=\"4\"\n    (select)=\"onSelect($event)\"\n    (prevYearBtnTap)=\"onPreviousYearTap()\"\n    [prevYearAvailable]=\"prevYearAvailable\"\n    (nextYearBtnTap)=\"onNextYearTap()\"\n    [nextYearAvailable]=\"nextYearAvailable\">\n  </vcl-month-picker>\n</vcl-popover>\n"
 
 /***/ },
 
@@ -3550,7 +3551,7 @@ module.exports = "<button vcl-button (click)=\"showPopover()\" label=\"show popo
 /***/ 431:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-radio-button [(checked)]=\"radioButtonChecked\"></vcl-radio-button>\n\n<br><br>\n<b>Selected:</b> {{radioButtonChecked}}\n\n<br><br>\n<button vcl-button (click)=\"radioButtonChecked=false\">Uncheck radio button</button>\n\n<br>\n<br>\nDisabled:\n<br>\n<vcl-radio-button [disabled]=\"true\"></vcl-radio-button>\n"
+module.exports = "Checkable:\n<vcl-radio-button [(checked)]=\"isChecked\"></vcl-radio-button>\n\n<br><br>\n<b>Checked:</b> {{isChecked}}\n\n<br><br>\n<button vcl-button (click)=\"isChecked=false\">Uncheck radio button</button>\n\n<br><br>\nDisabled:\n<vcl-radio-button [disabled]=\"true\"></vcl-radio-button>\n"
 
 /***/ },
 
@@ -3880,9 +3881,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var CheckboxComponent = (function () {
     function CheckboxComponent() {
-        this.checkboxChecked = false;
+        this.isChecked = false;
     }
-    CheckboxComponent.prototype.ngOnInit = function () { };
     CheckboxComponent = __decorate([
         core_1.Component({
             template: __webpack_require__(418)
@@ -4096,6 +4096,7 @@ exports.default = {
     category: 'Images',
     tabs: {
         Demo: icogram_component_1.IcogramComponent,
+        'README.md': __webpack_require__(833),
         'demo.component.html': __webpack_require__(421),
         'demo.component.ts': __webpack_require__(809)
     }
@@ -4149,7 +4150,7 @@ exports.default = {
     category: 'Images',
     tabs: {
         Demo: icon_component_1.IconComponent,
-        'README.md': __webpack_require__(834),
+        'README.md': __webpack_require__(835),
         'demo.component.html': __webpack_require__(422),
         'demo.component.ts': __webpack_require__(810)
     }
@@ -4203,6 +4204,7 @@ exports.default = {
     category: 'Inputs',
     tabs: {
         Demo: input_component_1.InputComponent,
+        'README.md': __webpack_require__(837),
         'demo.component.html': __webpack_require__(423),
         'demo.component.ts': __webpack_require__(811)
     }
@@ -4222,7 +4224,7 @@ exports.default = {
     path: 'l10n',
     category: 'Other',
     tabs: {
-        'README.md': __webpack_require__(849),
+        'README.md': __webpack_require__(852),
     }
 };
 
@@ -4280,7 +4282,7 @@ exports.default = {
     declarations: [layer_component_1.LayerComponent],
     tabs: {
         Demo: layer_component_1.LayerComponent,
-        'README.md': __webpack_require__(836),
+        'README.md': __webpack_require__(838),
         'demo.component.html': __webpack_require__(424),
         'demo.component.ts': __webpack_require__(812)
     }
@@ -4486,8 +4488,10 @@ var core_1 = __webpack_require__(0);
 var MonthPickerComponent = (function () {
     function MonthPickerComponent() {
         this.expanded = false;
+        this.thisYear = new Date().getUTCFullYear();
+        this.currentYear = this.thisYear;
         this.prevYearAvailable = true;
-        this.nextYearAvailable = true;
+        this.nextYearAvailable = false;
     }
     MonthPickerComponent.prototype.ngOnInit = function () { };
     MonthPickerComponent.prototype.expandMonthPicker = function () {
@@ -4498,9 +4502,17 @@ var MonthPickerComponent = (function () {
     };
     MonthPickerComponent.prototype.onPreviousYearTap = function () {
         console.log('onPreviousYearTap()');
+        console.log('this.currentYear:', this.currentYear);
+        if (this.currentYear < this.thisYear) {
+            this.nextYearAvailable = true;
+        }
     };
     MonthPickerComponent.prototype.onNextYearTap = function () {
         console.log('onNextYearTap()');
+        console.log('this.currentYear:', this.currentYear);
+        if (this.currentYear === this.thisYear) {
+            this.nextYearAvailable = false;
+        }
     };
     MonthPickerComponent = __decorate([
         core_1.Component({
@@ -4741,7 +4753,7 @@ exports.default = {
     category: 'Other',
     tabs: {
         Demo: off_click_component_1.OffClickComponent,
-        'README.md': __webpack_require__(847),
+        'README.md': __webpack_require__(850),
         'demo.component.html': __webpack_require__(429),
         'demo.component.ts': __webpack_require__(818)
     }
@@ -4836,7 +4848,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var RadioButtonComponent = (function () {
     function RadioButtonComponent() {
-        this.radioButtonChecked = false;
+        this.isChecked = false;
     }
     RadioButtonComponent.prototype.ngOnInit = function () { };
     RadioButtonComponent = __decorate([
@@ -4865,6 +4877,7 @@ exports.default = {
     category: 'Inputs',
     tabs: {
         Demo: radio_button_component_1.RadioButtonComponent,
+        'README.md': __webpack_require__(845),
         'demo.component.html': __webpack_require__(431),
         'demo.component.ts': __webpack_require__(820)
     }
@@ -4996,7 +5009,7 @@ exports.default = {
     category: 'Navigation',
     tabs: {
         Demo: tab_component_1.TabComponent,
-        'README.md': __webpack_require__(844),
+        'README.md': __webpack_require__(847),
         'demo.component.html': __webpack_require__(433),
         'demo.component.ts': __webpack_require__(822)
     }
@@ -5163,7 +5176,7 @@ exports.default = {
     category: 'Other',
     tabs: {
         Demo: wormhole_component_1.WormholeComponent,
-        'README.md': __webpack_require__(848),
+        'README.md': __webpack_require__(851),
         'demo.component.html': __webpack_require__(436),
         'demo.component.ts': __webpack_require__(825)
     }
@@ -5356,6 +5369,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(1);
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
         this.elementRef = elementRef;
@@ -5385,25 +5399,25 @@ var CheckboxComponent = (function () {
     CheckboxComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            this._checkedChange.emit(checked);
+            // this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
-    Object.defineProperty(CheckboxComponent.prototype, "hbVclDisabled", {
+    Object.defineProperty(CheckboxComponent.prototype, "clsVclDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CheckboxComponent.prototype, "hbAriaDisabled", {
+    Object.defineProperty(CheckboxComponent.prototype, "attrAriaDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CheckboxComponent.prototype, "hbChecked", {
+    Object.defineProperty(CheckboxComponent.prototype, "attrChecked", {
         get: function () {
             return !!this.checked;
         },
@@ -5460,20 +5474,20 @@ var CheckboxComponent = (function () {
     ], CheckboxComponent.prototype, "checked", void 0);
     __decorate([
         core_1.Output(), 
-        __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "_checkedChange", void 0);
+        __metadata('design:type', (typeof (_a = typeof Observable_1.Observable !== 'undefined' && Observable_1.Observable) === 'function' && _a) || Object)
+    ], CheckboxComponent.prototype, "checkedChange", null);
     __decorate([
         core_1.HostBinding('class.vclDisabled'), 
         __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "hbVclDisabled", null);
+    ], CheckboxComponent.prototype, "clsVclDisabled", null);
     __decorate([
         core_1.HostBinding('attr.aria-disabled'), 
         __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "hbAriaDisabled", null);
+    ], CheckboxComponent.prototype, "attrAriaDisabled", null);
     __decorate([
         core_1.HostBinding('attr.checked'), 
         __metadata('design:type', Object)
-    ], CheckboxComponent.prototype, "hbChecked", null);
+    ], CheckboxComponent.prototype, "attrChecked", null);
     __decorate([
         core_1.HostListener('keyup', ['$event']), 
         __metadata('design:type', Function), 
@@ -5495,12 +5509,11 @@ var CheckboxComponent = (function () {
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
     ], CheckboxComponent);
     return CheckboxComponent;
-    var _a;
+    var _a, _b;
 }());
 exports.CheckboxComponent = CheckboxComponent;
 
@@ -5730,57 +5743,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-/**
-Combination of icon and text of which both are optional and can be permuted.
-Icons can be prepended or appended to a textual label and can be sourced from icon
-fonts or directly from file based imagery.
-The component takes care of accessibility aspects such rendering appropriate aria
-attributes.
-It also renders accessability labels for icons if no label for the icogram is
-provided.
-Note: the optionally generated anchor elemt's default action (follow the link)
-is _not_ supressed when using the `href` property.
-Us the vcl-link component if you want to have a fully fledged anchor tag.
-
-## Usage
-
-```html
-<vcl-icogram label="some label" prepIcon="fa fa-chevron-right" flexLabel=true></vcl-icogram>
-<vcl-icogram label="some label" prepIconSrc="..." href="http://example.org"></vcl-icogram>
-<vcl-icogram label="some label" use="..."></vcl-icogram>
-<vcl-icogram>
-  <vcl-icon icon="fa:close"></vcl-icon>
-</vcl-icogram>
-```
-
-@param    label           optional      textual label
-@param    href            optional      if an href is given an accessible link is generated
-@param    flexLabel       optional      the label gets a `vclLayoutFlex` class if true
-@param    prepIcon        optional      Icon as defined by the icon component
-@param    appIcon         optional      Same as `prepIcon` but appended
-*/
 var IcogramComponent = (function () {
-    // TODO prepIconSrc not implemented but used in example
-    // @Input() prepIconSrc: string;
     function IcogramComponent(elRef) {
-        this.el = elRef.nativeElement;
+        this.elRef = elRef;
     }
-    IcogramComponent.prototype.ngOnInit = function () { };
-    Object.defineProperty(IcogramComponent.prototype, "ariaRole", {
-        get: function () {
-            return (this.el && this.el.tagName.toLowerCase() !== 'a' && this.href) ? 'link' : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
     ], IcogramComponent.prototype, "label", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], IcogramComponent.prototype, "href", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
@@ -5794,17 +5764,21 @@ var IcogramComponent = (function () {
         __metadata('design:type', String)
     ], IcogramComponent.prototype, "appIcon", void 0);
     __decorate([
-        core_1.HostBinding('attr.role'), 
-        __metadata('design:type', Object)
-    ], IcogramComponent.prototype, "ariaRole", null);
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "prepIconSrc", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], IcogramComponent.prototype, "appIconSrc", void 0);
     IcogramComponent = __decorate([
         core_1.Component({
             selector: 'vcl-icogram, [vcl-icogram]',
             host: {
                 '[class.vclIcogram]': 'true',
-                '[attr.role]:': 'img'
+                '[attr.role]': 'img'
             },
-            template: __webpack_require__(833),
+            template: __webpack_require__(834),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
@@ -5888,7 +5862,7 @@ var IconComponent = (function () {
     IconComponent = __decorate([
         core_1.Component({
             selector: 'vcl-icon',
-            template: __webpack_require__(835),
+            template: __webpack_require__(836),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof icon_service_1.IconService !== 'undefined' && icon_service_1.IconService) === 'function' && _a) || Object])
@@ -5917,21 +5891,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var InputComponent = (function () {
-    function InputComponent(renderer) {
-        this.renderer = renderer;
+    function InputComponent(elRef) {
+        this.elRef = elRef;
         this.valueType = null;
         this.typedValue = null;
-        this.typedValueChange = new core_1.EventEmitter();
+        this._typedValueChange = new core_1.EventEmitter();
+        this.selectAllOnFocus = false;
     }
+    Object.defineProperty(InputComponent.prototype, "typedValueChange", {
+        get: function () {
+            return this._typedValueChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     InputComponent.prototype.ngOnInit = function () { };
     InputComponent.prototype.onChange = function (value) {
-        this.typedValueChange.emit(this.toType(value));
+        this._typedValueChange.emit(this.toType(value));
     };
     InputComponent.prototype.toType = function (value) {
         if (this.valueType === 'number') {
-            return value = Number(value);
+            var tValue = Number(value);
+            return isNaN(tValue) ? 0 : tValue;
         }
-        return value;
+        else {
+            return value;
+        }
+    };
+    InputComponent.prototype.onFocus = function (value) {
+        if (this.selectAllOnFocus) {
+            if (this.elRef && this.elRef.nativeElement) {
+                this.elRef.nativeElement.select();
+            }
+        }
     };
     __decorate([
         core_1.Input(), 
@@ -5944,13 +5936,23 @@ var InputComponent = (function () {
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
-    ], InputComponent.prototype, "typedValueChange", void 0);
+    ], InputComponent.prototype, "typedValueChange", null);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], InputComponent.prototype, "selectAllOnFocus", void 0);
     __decorate([
         core_1.HostListener('input', ['$event.target.value']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], InputComponent.prototype, "onChange", null);
+    __decorate([
+        core_1.HostListener('focus', ['$event.target.value']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], InputComponent.prototype, "onFocus", null);
     InputComponent = __decorate([
         core_1.Directive({
             selector: '[vcl-input]',
@@ -5958,7 +5960,7 @@ var InputComponent = (function () {
                 '[class.vclInput]': 'true',
             },
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.Renderer !== 'undefined' && core_1.Renderer) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
     ], InputComponent);
     return InputComponent;
     var _a;
@@ -6043,7 +6045,7 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent = __decorate([
         core_1.Component({
             selector: 'vcl-layer-base',
-            template: __webpack_require__(837),
+            template: __webpack_require__(839),
             animations: [
                 core_1.trigger('boxState', []),
                 core_1.trigger('layerState', [])
@@ -6243,7 +6245,7 @@ var LinkComponent = (function () {
     LinkComponent = __decorate([
         core_1.Component({
             selector: '[vcl-link]',
-            template: __webpack_require__(838),
+            template: __webpack_require__(840),
             host: {
                 '[attr.href]': '_href',
                 '[attr.target]': 'target',
@@ -6423,7 +6425,7 @@ var MetalistComponent = (function () {
     MetalistComponent = __decorate([
         core_1.Component({
             selector: 'vcl-metalist',
-            template: __webpack_require__(839)
+            template: __webpack_require__(841)
         }), 
         __metadata('design:paramtypes', [])
     ], MetalistComponent);
@@ -6451,7 +6453,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var MonthPickerComponent = (function () {
     function MonthPickerComponent() {
-        this.currentMonth = new Date().getUTCMonth();
         this.yearMeta = {};
         this.prevYearBtnIcon = "fa:chevron-left";
         this.nextYearBtnIcon = "fa:chevron-right";
@@ -6507,8 +6508,8 @@ var MonthPickerComponent = (function () {
             return this.deselectMonth(month, year);
         }
         if (this.maxSelectableItems === 1) {
-            this.iterateMonthMetas(function (mMeta) {
-                monthMeta.selected = mMeta === monthMeta;
+            this.iterateMonthMetas(function (month, year, mMeta) {
+                mMeta.selected = mMeta === monthMeta;
             });
         }
         else if (this.getSelectedDates().length < this.maxSelectableItems) {
@@ -6623,16 +6624,16 @@ var MonthPickerComponent = (function () {
         if (this.prevYearAvailable) {
             this.currentYear--;
             this.setYearMeta(this.currentYear);
-            this.prevYearBtnTap.emit();
             this.currentYearChange.emit(this.currentYear);
+            this.prevYearBtnTap.emit();
         }
     };
     MonthPickerComponent.prototype.onNextYearTap = function () {
         if (this.nextYearAvailable) {
             this.currentYear++;
             this.setYearMeta(this.currentYear);
-            this.nextYearBtnTap.emit();
             this.currentYearChange.emit(this.currentYear);
+            this.nextYearBtnTap.emit();
         }
     };
     MonthPickerComponent.prototype.onCloseBtnTap = function () {
@@ -6649,8 +6650,13 @@ var MonthPickerComponent = (function () {
     MonthPickerComponent.prototype.notifyDeselect = function (date) {
         this.deselect.emit(date);
     };
-    MonthPickerComponent.prototype.isCurrentMonth = function (month) {
-        return month === this.currentMonth;
+    MonthPickerComponent.prototype.isCurrentMonth = function (month, year) {
+        if (year === void 0) { year = this.currentYear; }
+        var now = new Date();
+        return now.getFullYear() == year && now.getUTCMonth() === month;
+    };
+    MonthPickerComponent.prototype.getMonth = function (month) {
+        return this.isMonthInBounds(month) ? this.months[month] : null;
     };
     MonthPickerComponent.monthNames = [
         'January',
@@ -6759,7 +6765,7 @@ var MonthPickerComponent = (function () {
     MonthPickerComponent = __decorate([
         core_1.Component({
             selector: 'vcl-month-picker',
-            template: __webpack_require__(840),
+            template: __webpack_require__(842),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -6905,7 +6911,7 @@ var NavigationComponent = (function () {
     NavigationComponent = __decorate([
         core_1.Component({
             selector: 'vcl-navigation',
-            template: __webpack_require__(841),
+            template: __webpack_require__(843),
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object])
     ], NavigationComponent);
@@ -7022,7 +7028,7 @@ var PopoverComponent = (function () {
     PopoverComponent = __decorate([
         core_1.Component({
             selector: 'vcl-popover',
-            template: __webpack_require__(842),
+            template: __webpack_require__(844),
             host: {
                 '(document:click)': 'onClick($event)',
             },
@@ -7051,24 +7057,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var Observable_1 = __webpack_require__(1);
+// TODO: This class is just a copy of the checkbox with slight modifications
+// Use inheritance once supported
+// https://github.com/angular/angular/issues/11606
 var core_1 = __webpack_require__(0);
-/**
-Radio button.
-
-## Usage
-
-```html
-<vcl-radio-button
-  [(checked)]="checked">
-</vcl-radio-button>
-```
-*/
 var RadioButtonComponent = (function () {
     function RadioButtonComponent(elementRef) {
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:dot-circle-o';
         this.uncheckedIcon = 'fa:circle-o';
         this.disabled = false;
+        this.tabindex = 0;
         /**
         Refelects the checked state, `true` is checked and `false` is unchecked
         @public
@@ -7076,35 +7076,40 @@ var RadioButtonComponent = (function () {
         this.checked = false;
         /**
         Action fired when the `checked` state changes due to user interaction.
-        The first parameter is the value of the `checked` property.
-        @public
-        @action
         */
-        this.checkedChange = new core_1.EventEmitter();
+        this._checkedChange = new core_1.EventEmitter();
     }
+    Object.defineProperty(RadioButtonComponent.prototype, "checkedChange", {
+        get: function () {
+            return this._checkedChange.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
     RadioButtonComponent.prototype.ngOnInit = function () { };
     RadioButtonComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            this.checkedChange.emit(checked);
+            // this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
-    Object.defineProperty(RadioButtonComponent.prototype, "hbVclDisabled", {
+    Object.defineProperty(RadioButtonComponent.prototype, "clsVclDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(RadioButtonComponent.prototype, "hbAriaDisabled", {
+    Object.defineProperty(RadioButtonComponent.prototype, "attrAriaDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(RadioButtonComponent.prototype, "hbChecked", {
+    Object.defineProperty(RadioButtonComponent.prototype, "attrChecked", {
         get: function () {
             return !!this.checked;
         },
@@ -7124,7 +7129,7 @@ var RadioButtonComponent = (function () {
         if (this.disabled)
             return;
         this.checked = !this.checked;
-        this.checkedChange.emit(this.checked);
+        this._checkedChange.emit(this.checked);
     };
     RadioButtonComponent.prototype.focusMaintenance = function (checked) {
         if (this.checked === true && this.elementRef.nativeElement) {
@@ -7151,25 +7156,30 @@ var RadioButtonComponent = (function () {
         __metadata('design:type', Object)
     ], RadioButtonComponent.prototype, "disabled", void 0);
     __decorate([
+        core_1.HostBinding('attr.tabindex'),
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "tabindex", void 0);
+    __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
     ], RadioButtonComponent.prototype, "checked", void 0);
     __decorate([
         core_1.Output(), 
-        __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "checkedChange", void 0);
+        __metadata('design:type', (typeof (_a = typeof Observable_1.Observable !== 'undefined' && Observable_1.Observable) === 'function' && _a) || Object)
+    ], RadioButtonComponent.prototype, "checkedChange", null);
     __decorate([
         core_1.HostBinding('class.vclDisabled'), 
         __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "hbVclDisabled", null);
+    ], RadioButtonComponent.prototype, "clsVclDisabled", null);
     __decorate([
         core_1.HostBinding('attr.aria-disabled'), 
         __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "hbAriaDisabled", null);
+    ], RadioButtonComponent.prototype, "attrAriaDisabled", null);
     __decorate([
         core_1.HostBinding('attr.checked'), 
         __metadata('design:type', Object)
-    ], RadioButtonComponent.prototype, "hbChecked", null);
+    ], RadioButtonComponent.prototype, "attrChecked", null);
     __decorate([
         core_1.HostListener('keyup', ['$event']), 
         __metadata('design:type', Function), 
@@ -7188,14 +7198,15 @@ var RadioButtonComponent = (function () {
             template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
             host: {
                 '[attr.role]': '"radio"',
-                '[class.vclRadioButton]': 'true',
+                '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
-            }
+            },
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
     ], RadioButtonComponent);
     return RadioButtonComponent;
-    var _a;
+    var _a, _b;
 }());
 exports.RadioButtonComponent = RadioButtonComponent;
 
@@ -7298,7 +7309,7 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         core_1.Component({
             selector: 'vcl-select',
-            template: __webpack_require__(843),
+            template: __webpack_require__(846),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -7509,7 +7520,7 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         core_1.Component({
             selector: 'vcl-tab-nav',
-            template: __webpack_require__(845)
+            template: __webpack_require__(848)
         }), 
         __metadata('design:paramtypes', [])
     ], TabNavComponent);
@@ -7536,7 +7547,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var Tether = __webpack_require__(1110);
+var Tether = __webpack_require__(1113);
 var TetherComponent = (function () {
     function TetherComponent(myElement) {
         this.myElement = myElement;
@@ -7578,7 +7589,7 @@ var TetherComponent = (function () {
     TetherComponent = __decorate([
         core_1.Component({
             selector: 'vcl-tether',
-            template: __webpack_require__(846)
+            template: __webpack_require__(849)
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
     ], TetherComponent);
@@ -12874,7 +12885,7 @@ module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  
 /***/ 804:
 /***/ function(module, exports) {
 
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'checkbox.component.html'\n})\nexport class CheckboxComponent implements OnInit {\n\n  checkboxChecked = false;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
+module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  templateUrl: 'checkbox.component.html'\n})\nexport class CheckboxComponent {\n  isChecked = false;\n}\n"
 
 /***/ },
 
@@ -12958,7 +12969,7 @@ module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Compone
 /***/ 816:
 /***/ function(module, exports) {
 
-module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'month-picker',\n  templateUrl: 'month-picker.component.html',\n})\nexport class MonthPickerComponent {\n\n  constructor() { }\n\n  expanded: boolean = false;\n\n  prevYearAvailable: boolean = true;\n\n  nextYearAvailable: boolean = true;\n\n  ngOnInit() { }\n\n  expandMonthPicker() {\n    this.expanded = !this.expanded;\n  }\n\n  onSelect(date: string) {\n    console.log('onSelect():', date);\n  }\n\n  onPreviousYearTap() {\n    console.log('onPreviousYearTap()');\n  }\n\n  onNextYearTap() {\n    console.log('onNextYearTap()');\n  }\n}\n\n"
+module.exports = "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'month-picker',\n  templateUrl: 'month-picker.component.html',\n})\nexport class MonthPickerComponent {\n\n  expanded: boolean = false;\n\n  thisYear: number = new Date().getUTCFullYear();\n\n  currentYear: number = this.thisYear;\n\n  prevYearAvailable: boolean = true;\n\n  nextYearAvailable: boolean = false;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n  expandMonthPicker() {\n    this.expanded = !this.expanded;\n  }\n\n  onSelect(date: string) {\n    console.log('onSelect():', date);\n  }\n\n  onPreviousYearTap() {\n    console.log('onPreviousYearTap()');\n    console.log('this.currentYear:', this.currentYear);\n    if (this.currentYear < this.thisYear) {\n      this.nextYearAvailable = true;\n    }\n  }\n\n  onNextYearTap() {\n    console.log('onNextYearTap()');\n    console.log('this.currentYear:', this.currentYear);\n    if (this.currentYear === this.thisYear) {\n      this.nextYearAvailable = false;\n    }\n  }\n}\n\n"
 
 /***/ },
 
@@ -12986,7 +12997,7 @@ module.exports = "import { Component, OnInit, Directive, Input,\n  trigger,\n  s
 /***/ 820:
 /***/ function(module, exports) {
 
-module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'radio-button.component.html'\n})\nexport class RadioButtonComponent implements OnInit {\n\n  radioButtonChecked = false;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}"
+module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  templateUrl: 'radio-button.component.html'\n})\nexport class RadioButtonComponent implements OnInit {\n\n  isChecked = false;\n\n  constructor() { }\n\n  ngOnInit() { }\n\n}\n"
 
 /***/ },
 
@@ -13077,116 +13088,137 @@ module.exports = "<ng-content *ngIf=\"prepend\"></ng-content>\n{{label | loc}}\n
 /***/ 833:
 /***/ function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n"
+module.exports = "# vcl-icogram\n\nCombination of icon and text of which both are optional and can be permuted.\nIcons can be prepended or appended to a textual label and can be sourced from icon\nfonts or directly from file based imagery.\nThe component takes care of accessibility aspects such rendering appropriate aria\nattributes.\nIt also renders accessability labels for icons if no label for the icogram is\nprovided.\n\n\n## Usage:\n\n```html\n<vcl-icogram label=\"some label\" prepIcon=\"fa:chevron-right\" flexLabel=true></vcl-icogram>\n<vcl-icogram>\n  <vcl-icon icon=\"fa:close\"></vcl-icon>\n</vcl-icogram>\n```\n\n### API \n\n#### Properties:\n\n| Name                         | Type        | Default  | Description\n| ---------------------------- | ----------- | -------- |--------------\n| `label` *(1)*                | string      |          | The textual label \n| `flexLabel`                  | boolean     |          | the label gets a `vclLayoutFlex` class if true\n| `prepIcon`                   | string      |          | Icon as defined by the icon component\n| `appIcon`                    | string      |          | Same as `prepIcon` but appended\n| `prepIconSrc`                | string      |          | Image as defined by the icon component\n| `appIconSrc`                 | string      |          | Same as `prepIconSrc` but appended\n\n*(1) Supports l10n*\n"
 
 /***/ },
 
 /***/ 834:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-icon\n\nIcon which can be based on glyphs from icon fonts, inline svg and bitmaps.\n\nThe `label` is never displayed, it is only for accessibility with screen\nreaders.\nThe `hidden` attribute is only reflected in the `aria-hidden` property which\nallows to hide the icon to screen readers, if it is only of presentational character.\nSee http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.\n\n\n## Usage:\n\n```html\n<vcl-icon icon=\"icon-class\" label=\"chevron right\" hidden=\"false\"></vcl-icon>\n```\nor\n```html\n<vcl-icon src=\"...\"></vcl-icon>\n```\nor\n```html\n<vcl-icon svguse=\"...\"></vcl-icon>\n```\n\n### Class Provider\n\nTODO\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `icon`              | string      |          | Icon generator lookup via icon class provider\n| `src`               | string      |          | URL of a graphics resource\n| `svguse`            | string      |          | Generates an SVG `use` tag referencing the value\n| `iconClass`         | string      |          | Additional class\n| `label` *(1)*       | string      |          | `aria-label` \n| `ariaRole`          | string      |          | `aria-role`\n\n*(1) Supports l10n*\n"
+module.exports = "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n"
 
 /***/ },
 
 /***/ 835:
 /***/ function(module, exports) {
 
-module.exports = "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\" [attr.role]=\"ariaRole\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n"
+module.exports = "# vcl-icon\n\nIcon which can be based on glyphs from icon fonts, inline svg and bitmaps.\n\nThe `label` is never displayed, it is only for accessibility with screen\nreaders.\nThe `hidden` attribute is only reflected in the `aria-hidden` property which\nallows to hide the icon to screen readers, if it is only of presentational character.\nSee http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.\n\n\n## Usage:\n\n```html\n<vcl-icon icon=\"icon-class\" label=\"chevron right\" hidden=\"false\"></vcl-icon>\n```\nor\n```html\n<vcl-icon src=\"...\"></vcl-icon>\n```\nor\n```html\n<vcl-icon svguse=\"...\"></vcl-icon>\n```\n\n### Class Provider\n\nTODO\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `icon`              | string      |          | Icon generator lookup via icon class provider\n| `src`               | string      |          | URL of a graphics resource\n| `svguse`            | string      |          | Generates an SVG `use` tag referencing the value\n| `iconClass`         | string      |          | Additional class\n| `label` *(1)*       | string      |          | `aria-label` \n| `ariaRole`          | string      |          | `aria-role`\n\n*(1) Supports l10n*\n"
 
 /***/ },
 
 /***/ 836:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-layer\n\nA container which stacks up in the z-direction.\n\n## Usage:\n\n```js\nimport { VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLLayerModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nThe vcl-layer-base defines the position in the DOM where the layers will appear when visible.\n\n```html\n<vcl-layer-base></vcl-layer-base>\n```\n\nA layer can be defined anywhere in your application\n\n```html\n<template vcl-layer #myLayer=\"layer\" [modal]=\"true\" [name]=\"myLayer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Title</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Content\n        <button vcl-button (click)=\"myLayer.close()\" label=\"Close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<button vcl-button (click)=\"myLayer.open()\" label=\"Open Layer\"></button>\n```\n\nThe `LayerService` can be used to open a Layer without having an actual reference.\nThe layer must have a name to use it with the Service.\n_This only works when the layer template is actually rendered on the page_\n\n\n```js\nimport { LayerService } from 'ng-vcl';\n\n...\n\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayer() {\n    this.layerService.open('myLayer');\n  }\n\n  closeLayer() {\n    this.layerService.close('myLayer');\n  }\n}\n```\n\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `modal`             | boolean     | false    | Disables user interaction outside of the layer\n| `name`              | string      |          | The layer name for addressing it in the LayerService \n"
+module.exports = "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\" [attr.role]=\"ariaRole\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n"
 
 /***/ },
 
 /***/ 837:
 /***/ function(module, exports) {
 
-module.exports = "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [wormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
+module.exports = "# vcl-input\n\nEnhanced text input\n\n## Usage:\n\n ```html\n<input vcl-input [(ngModel)]=\"data1\">\n<input vcl-input [(ngModel)]=\"data2\" selectAllOnFocus=true>\n<input vcl-input [(typedValue)]=\"data3\" valueType=\"number\">\n```\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default            | Description\n| ------------        | ----------- | ------------------ |--------------\n| `selectAllOnFocus`  | boolean     | false              | Selects \n| `typedValue` *(1)*  | any         |                    | The current value of the input element. Type is converted as specified in `valueType`  \n| `valueType`         | string      | string             | `string` or `number`. Type to use in `typedValue`\n\n*(1) Supports Two-way binding*\n"
 
 /***/ },
 
 /***/ 838:
 /***/ function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"_label | loc\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n"
+module.exports = "# vcl-layer\n\nA container which stacks up in the z-direction.\n\n## Usage:\n\n```js\nimport { VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLLayerModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nThe vcl-layer-base defines the position in the DOM where the layers will appear when visible.\n\n```html\n<vcl-layer-base></vcl-layer-base>\n```\n\nA layer can be defined anywhere in your application\n\n```html\n<template vcl-layer #myLayer=\"layer\" [modal]=\"true\" [name]=\"myLayer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Title</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Content\n        <button vcl-button (click)=\"myLayer.close()\" label=\"Close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<button vcl-button (click)=\"myLayer.open()\" label=\"Open Layer\"></button>\n```\n\nThe `LayerService` can be used to open a Layer without having an actual reference.\nThe layer must have a name to use it with the Service.\n_This only works when the layer template is actually rendered on the page_\n\n\n```js\nimport { LayerService } from 'ng-vcl';\n\n...\n\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayer() {\n    this.layerService.open('myLayer');\n  }\n\n  closeLayer() {\n    this.layerService.close('myLayer');\n  }\n}\n```\n\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `modal`             | boolean     | false    | Disables user interaction outside of the layer\n| `name`              | string      |          | The layer name for addressing it in the LayerService \n"
 
 /***/ },
 
 /***/ 839:
 /***/ function(module, exports) {
 
-module.exports = "<template *ngFor=\"let item of items\" [ngTemplateOutlet]=\"template\" [ngOutletContext]=\"{item: item, meta: getMeta(item) }\"></template>\n"
+module.exports = "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [wormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
 
 /***/ },
 
 /***/ 840:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"vclDatePicker\"\n    [class.vclLayoutHidden]=\"!expanded\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput\"\n    [attr.role]=\"grid\"\n    [attr.tabindex]=\"tabindex\"\n    [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n    [attr.aria-expanded]=\"expanded\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\" role=\"menubar\" aria-level=\"1\">\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!prevYearAvailable\"\n          [appIcon]=\"prevYearBtnIcon\"\n          (tap)=\"onPrevYearTap()\">\n        </button>\n\n        <span class=\"vclCalHeaderLabel\">{{ currentYear }}</span>\n\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!nextYearAvailable\"\n          [appIcon]=\"nextYearBtnIcon\"\n          (tap)=\"onNextYearTap()\">\n        </button>\n\n        <button vcl-button *ngIf=\"expandable\" class=\"vclButton vclTransparent vclSquare\"\n          [appIcon]=\"closeBtnIcon\"\n          (tap)=\"onCloseBtnTap()\">\n        </button>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <template ngFor let-iM [ngForOf]=\"months\" let-i=\"index\">\n      <div *ngIf=\"i % monthsPerRow === 0\" class=\"vclDGRow\" role=\"row\">\n        <div *ngFor=\"let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;\"\n          (tap)=\"selectMonth(i+j)\"\n          class=\"vclDGCell vclCalItem\"\n          [class.vclAvailable]=\"!useAvailableMonths || currentMeta[i+j].available\"\n          [class.vclUnavailable]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclToday]=\"isCurrentMonth(i+j)\"\n          [class.vclOtherMonth]=\"!isCurrentMonth(i+j)\"\n          [class.vclDisabled]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclSelected]=\"currentMeta[i+j].selected\"\n          [style.background-color]=\"currentMeta[i+j].color\"\n          [style.order]=\"i+j\"\n          [attr.aria-selected]=\"currentMeta[i+j].selected\"\n          role=\"gridcell\"\n          tabindex=\"0\">\n            <div *ngIf=\"jM.label\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel\">\n              {{jM.label | loc}}\n            </div>\n\n            <div *ngIf=\"jM.sublabel\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel\">\n              {{jM.sublabel | loc}}\n            </div>\n        </div>\n      </div>\n    </template>\n  </div>\n</div>\n"
+module.exports = "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"_label | loc\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n"
 
 /***/ },
 
 /***/ 841:
 /***/ function(module, exports) {
 
-module.exports = "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\">\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n"
+module.exports = "<template *ngFor=\"let item of items\" [ngTemplateOutlet]=\"template\" [ngOutletContext]=\"{item: item, meta: getMeta(item) }\"></template>\n"
 
 /***/ },
 
 /***/ 842:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>"
+module.exports = "<div class=\"vclDatePicker\"\n    [class.vclLayoutHidden]=\"!expanded\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput\"\n    [attr.role]=\"grid\"\n    [attr.tabindex]=\"tabindex\"\n    [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n    [attr.aria-expanded]=\"expanded\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\" role=\"menubar\" aria-level=\"1\">\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!prevYearAvailable\"\n          [appIcon]=\"prevYearBtnIcon\"\n          (tap)=\"onPrevYearTap()\">\n        </button>\n\n        <span class=\"vclCalHeaderLabel\">{{ currentYear }}</span>\n\n        <button vcl-button class=\"vclButton vclTransparent vclSquare\"\n          [class.vclDisabled]=\"!nextYearAvailable\"\n          [appIcon]=\"nextYearBtnIcon\"\n          (tap)=\"onNextYearTap()\">\n        </button>\n\n        <button vcl-button *ngIf=\"expandable\" class=\"vclButton vclTransparent vclSquare\"\n          [appIcon]=\"closeBtnIcon\"\n          (tap)=\"onCloseBtnTap()\">\n        </button>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <template ngFor let-iM [ngForOf]=\"months\" let-i=\"index\">\n      <div *ngIf=\"i % monthsPerRow === 0\" class=\"vclDGRow\" role=\"row\">\n        <div *ngFor=\"let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;\"\n          (tap)=\"selectMonth(i+j)\"\n          class=\"vclDGCell vclCalItem\"\n          [class.vclAvailable]=\"!useAvailableMonths || currentMeta[i+j].available\"\n          [class.vclUnavailable]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclToday]=\"isCurrentMonth(i+j)\"\n          [class.vclOtherMonth]=\"!isCurrentMonth(i+j)\"\n          [class.vclDisabled]=\"useAvailableMonths && !currentMeta[i+j].available\"\n          [class.vclSelected]=\"currentMeta[i+j].selected\"\n          [style.background-color]=\"currentMeta[i+j].color\"\n          [style.order]=\"i+j\"\n          [attr.aria-selected]=\"currentMeta[i+j].selected\"\n          role=\"gridcell\"\n          tabindex=\"0\">\n            <div *ngIf=\"jM.label\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel\">\n              {{jM.label | loc}}\n            </div>\n\n            <div *ngIf=\"jM.sublabel\" class=\"vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel\">\n              {{jM.sublabel | loc}}\n            </div>\n        </div>\n      </div>\n    </template>\n  </div>\n</div>\n"
 
 /***/ },
 
 /***/ 843:
 /***/ function(module, exports) {
 
-module.exports = "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n"
+module.exports = "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\">\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n"
 
 /***/ },
 
 /***/ 844:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-tab-nav\nThe tab nav allows to organize content in tabs.\nOnly one tab is visible at a given time.\n\n## Usage:\n\n```js\nimport { VCLTabNavModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLTabNavModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n```html\n<vcl-tab-nav>\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>\n      Content1\n    </template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>\n      Content2\n    </template>\n  </vcl-tab>\n  <vcl-tab [disabled]=\"true\"><template vcl-tab-label>Tab3 (disabled)</template>\n    <template vcl-tab-content>\n      Content3\n    </template>\n  </vcl-tab>\n</vcl-tab-nav>\n```\n\n### API \n\n#### vcl-tab-nav Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `selectedTabIndex` *(1)* | number      |        0 | The index of the currently visible tab\n| `borders`                | boolean     |    false | Enables borders for the tab-nav\n| `layout`                 | string      |          | The layout: `null`, `\"left\"` or `\"right\"`\n| `tabbableClass`          | string      |          | Modifier classes for vclTabbable\n| `tabsClass`              | string      |          | Modifier classes for vclTabs\n| `tabContentClass`        | string      |          | Modifier classes for vclTabContent\n\n#### vcl-tab Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `disabled`               | boolean     |   false  | Disables the tab when true   \n| `tabClass`               | string      |          | Modifier classes for vclTab   \n\n*(1) Supports Two-way binding*\n"
+module.exports = "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>"
 
 /***/ },
 
 /***/ 845:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
+module.exports = "# vcl-radio-button\n\nA radio button utilizing `vcl-icon`\n\n## Usage:\n\n ```html\n<vcl-radio-button [(checked)]=\"checked\"></vcl-radio-button>```\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default            | Description\n| ------------        | ----------- | ------------------ |--------------\n| `checked` *(1)*     | boolean     | false              | 2-Way-Binding. State of radio button \n| `checkedIcon`       | string      | fa:check-square-o  | Icon to be displayed when checked \n| `uncheckedIcon`     | string      | fa:square-o        | Icon to be displayed when unchecked\n| `tabindex`          | number      | 0                  | The tabindex of the radio button\n\n*(1) Supports Two-way binding*\n"
 
 /***/ },
 
 /***/ 846:
 /***/ function(module, exports) {
 
-module.exports = "<div [id]=\"id\" [class]=\"class\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n"
+module.exports = "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n"
 
 /***/ },
 
 /***/ 847:
 /***/ function(module, exports) {
 
-module.exports = "# off-click directive\n\nThe off-click action fires when a click event is handled and its source is not(!) the element or any of its subelements.  \n\n## Usage:\n\n```js\nimport { VCLOffClickModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLOffClickModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\noffClick() is called when the click`s source is not DIV1 or DIV2  \n\n```html\n<div (off-click)=\"offClick()\">\n  DIV1\n  <div>\n    DIV2\n  </div>\n</div>\n```\n"
+module.exports = "# vcl-tab-nav\nThe tab nav allows to organize content in tabs.\nOnly one tab is visible at a given time.\n\n## Usage:\n\n```js\nimport { VCLTabNavModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLTabNavModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\n```html\n<vcl-tab-nav>\n  <vcl-tab>\n    <template vcl-tab-label>Tab1</template>\n    <template vcl-tab-content>\n      Content1\n    </template>\n  </vcl-tab>\n  <vcl-tab>\n    <template vcl-tab-label>Tab2</template>\n    <template vcl-tab-content>\n      Content2\n    </template>\n  </vcl-tab>\n  <vcl-tab [disabled]=\"true\"><template vcl-tab-label>Tab3 (disabled)</template>\n    <template vcl-tab-content>\n      Content3\n    </template>\n  </vcl-tab>\n</vcl-tab-nav>\n```\n\n### API \n\n#### vcl-tab-nav Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `selectedTabIndex` *(1)* | number      |        0 | The index of the currently visible tab\n| `borders`                | boolean     |    false | Enables borders for the tab-nav\n| `layout`                 | string      |          | The layout: `null`, `\"left\"` or `\"right\"`\n| `tabbableClass`          | string      |          | Modifier classes for vclTabbable\n| `tabsClass`              | string      |          | Modifier classes for vclTabs\n| `tabContentClass`        | string      |          | Modifier classes for vclTabContent\n\n#### vcl-tab Properties:\n\n| Name                     | Type        | Default  | Description\n| ------------             | ----------- | -------- |--------------\n| `disabled`               | boolean     |   false  | Disables the tab when true   \n| `tabClass`               | string      |          | Modifier classes for vclTab   \n\n*(1) Supports Two-way binding*\n"
 
 /***/ },
 
 /***/ 848:
 /***/ function(module, exports) {
 
-module.exports = "# wormhole directive\n\nThe wormhole directive allows to render a template somewhere else in the DOM.\n\n## Usage:\n\n```js\nimport { VCLWormholeModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLWormholeModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nUse the the generateWormhole directive to create a wormhole...\n```html\n\n<template generateWormhole #myFirstWormhole=\"wormhole\">\n  I am a wormhole\n</template>\n```\n\n...and connect it via the wormhole directive.\nThe wormhole template is rendered within the element.\n```html\n<div [wormhole]=\"myFirstWormhole\">\n  <!-- The myFirstWormhole template is rendered here -->\n</div>\n\n```\n\nGet a reference to the generated wormhole by using the @ViewChild(ren)/@ContentChild(ren) annotations\n```js\nimport { VCLWormholeGenerator } from 'ng-vcl';\n\n@Component(...)\nclass MyComp {\n  ...\n  @ViewChild('myFirstWormhole')\n  myFirstWormhole: WormholeGenerator;\n  ...\n}\n```\n"
+module.exports = "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
 
 /***/ },
 
 /***/ 849:
+/***/ function(module, exports) {
+
+module.exports = "<div [id]=\"id\" [class]=\"class\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n"
+
+/***/ },
+
+/***/ 850:
+/***/ function(module, exports) {
+
+module.exports = "# off-click directive\n\nThe off-click action fires when a click event is handled and its source is not(!) the element or any of its subelements.  \n\n## Usage:\n\n```js\nimport { VCLOffClickModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLOffClickModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\noffClick() is called when the click`s source is not DIV1 or DIV2  \n\n```html\n<div (off-click)=\"offClick()\">\n  DIV1\n  <div>\n    DIV2\n  </div>\n</div>\n```\n"
+
+/***/ },
+
+/***/ 851:
+/***/ function(module, exports) {
+
+module.exports = "# wormhole directive\n\nThe wormhole directive allows to render a template somewhere else in the DOM.\n\n## Usage:\n\n```js\nimport { VCLWormholeModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLWormholeModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nUse the the generateWormhole directive to create a wormhole...\n```html\n\n<template generateWormhole #myFirstWormhole=\"wormhole\">\n  I am a wormhole\n</template>\n```\n\n...and connect it via the wormhole directive.\nThe wormhole template is rendered within the element.\n```html\n<div [wormhole]=\"myFirstWormhole\">\n  <!-- The myFirstWormhole template is rendered here -->\n</div>\n\n```\n\nGet a reference to the generated wormhole by using the @ViewChild(ren)/@ContentChild(ren) annotations\n```js\nimport { VCLWormholeGenerator } from 'ng-vcl';\n\n@Component(...)\nclass MyComp {\n  ...\n  @ViewChild('myFirstWormhole')\n  myFirstWormhole: WormholeGenerator;\n  ...\n}\n```\n"
+
+/***/ },
+
+/***/ 852:
 /***/ function(module, exports) {
 
 module.exports = "# L10n\n\n## Usage\n\n```js\n\nimport { NgModule } from '@angular/core';\nimport { L10nModule } from 'ng2-l10n';\nimport { AppComponent } from './app.component';\n\n@NgModule({\n  imports: [\n    L10nModule.forRoot({\n      loader: MyLoaderService,  // required - loader services class\n      loaderConfig: { ... },    // optional - loader configuration\n      parser: MyParserService,  // optional - parser service class\n      config: {\n        locale: \"en-us\"         // optional - default locale. Uses browsers default language if not provided\n      }\n    })\n  ],\n  declarations: [ AppComponent ],\n  bootstrap: [ AppComponent ]\n})\nexport class AppModule { }\n```\n\nUse the `loc` pipe in a template to localize a text\n\n```html\n\n<p>{{'HELLO_WORLD' | loc}}</p>\n\n```\n\n## Loader services\n\n### Static resource loader\n```\nL10nModule.forRoot({\n  loader: L10nStaticLoaderService,\n  loaderConfig: {\n    \"HELLO_WORLD\": {\n      \"en-us\": \"Hello World!\"\n      \"de-de\": \"Hallo Welt!\"\n    }\n  }\n});\n\n\n```\n\n### HTTP service TODO\n```js\nL10nModule.forRoot({\n  loader: L10nHTTPLoaderService,\n  loaderConfig: {\n    endpoint: 'URL_TO_JSON'\n  }\n});\n```\n\n\n\n```js\n\nclass AnyInjectableClass {\n  constructor(private l10n: L10nHTTPService) {\n    // Refetches the json    \n    this.l10n.refresh();\n  }\n}\n```\n\n## Custom loaders\n\n```js\n@Injectable()\nexport class L10nFancyLoaderService extends L10nLoaderService {\n  constructor(\n    @Inject(L10N_CONFIG) \n    private config: L10nConfig,\n    // other injections\n  ) { \n    super();\n    this.config; // loader config\n  }\n\n  // required\n  fetchTranslationPackage(locale:string) : Observable<TranslationPackage> {\n    // return your translation package as an Observable\n  }\n\n  // optional\n  getSupportedLocales() : Observable<string[]> {\n    // return an array of supported locales as an Observable\n  }\n}\n```\n\n## Template parameters\n\n```json\n{\n  \"HELLO_USER\": {\n    \"en-us\": \"Hello {0}!\",\n    \"de-de\": \"Hallo {0}!\"\n  }\n}\n```\n```json\n<span>{{HELLO_USER | loc:username}}</span>\n```\n"
@@ -13244,5 +13276,5 @@ exports.VCLIconModule = VCLIconModule;
 
 /***/ }
 
-},[1111]);
+},[1114]);
 //# sourceMappingURL=main.map
