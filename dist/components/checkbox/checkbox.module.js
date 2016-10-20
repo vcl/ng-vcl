@@ -3,6 +3,7 @@ var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var icon_module_1 = require('./../icon/icon.module');
 var checkbox_component_1 = require('./checkbox.component');
+exports.CheckboxComponent = checkbox_component_1.CheckboxComponent;
 var VCLCheckboxModule = (function () {
     function VCLCheckboxModule() {
     }

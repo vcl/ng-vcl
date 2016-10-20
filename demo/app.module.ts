@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, trigger, state, style, transition, animate } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,6 +12,24 @@ import { DemoComponent, DemoContentComponent } from "./components/demo/demo.comp
 import { DEMOS } from "./demos";
 
 import { routing, appRoutingProviders } from './app.routes';
+
+
+import { setAnimations, PopoverComponent  } from '../src/index';
+
+setAnimations(PopoverComponent, [
+    trigger('popOverState', [
+      state('open', style({
+        opacity: "1"
+      })),
+      state('void',   style({
+        height: "0px",
+        opacity: "0.5"
+      })),
+      transition('* => *', animate('300ms ease-out'))
+    ])
+  ]
+);
+
 
 @NgModule({
   providers: [

@@ -16,6 +16,7 @@ export declare class PopoverComponent implements OverlayManagedComponent {
     openChange: EventEmitter<boolean>;
     zIndexManaged: boolean;
     expandManaged: boolean;
+    state: string;
     constructor(overlayManger: OverlayManagerService, myElement: ElementRef);
     close(): void;
     onClick(event: any): void;

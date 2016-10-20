@@ -29,25 +29,25 @@ var CheckboxComponent = (function () {
     CheckboxComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            this._checkedChange.emit(checked);
+            // this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
-    Object.defineProperty(CheckboxComponent.prototype, "hbVclDisabled", {
+    Object.defineProperty(CheckboxComponent.prototype, "clsVclDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CheckboxComponent.prototype, "hbAriaDisabled", {
+    Object.defineProperty(CheckboxComponent.prototype, "attrAriaDisabled", {
         get: function () {
             return !!this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CheckboxComponent.prototype, "hbChecked", {
+    Object.defineProperty(CheckboxComponent.prototype, "attrChecked", {
         get: function () {
             return !!this.checked;
         },
@@ -90,7 +90,6 @@ var CheckboxComponent = (function () {
                         '[class.vclCheckbox]': 'true',
                         '[class.vclScale130p]': 'true',
                     },
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */
@@ -103,10 +102,10 @@ var CheckboxComponent = (function () {
         'disabled': [{ type: core_1.Input },],
         'tabindex': [{ type: core_1.HostBinding, args: ['attr.tabindex',] }, { type: core_1.Input },],
         'checked': [{ type: core_1.Input },],
-        '_checkedChange': [{ type: core_1.Output },],
-        'hbVclDisabled': [{ type: core_1.HostBinding, args: ['class.vclDisabled',] },],
-        'hbAriaDisabled': [{ type: core_1.HostBinding, args: ['attr.aria-disabled',] },],
-        'hbChecked': [{ type: core_1.HostBinding, args: ['attr.checked',] },],
+        'checkedChange': [{ type: core_1.Output },],
+        'clsVclDisabled': [{ type: core_1.HostBinding, args: ['class.vclDisabled',] },],
+        'attrAriaDisabled': [{ type: core_1.HostBinding, args: ['attr.aria-disabled',] },],
+        'attrChecked': [{ type: core_1.HostBinding, args: ['attr.checked',] },],
         'onKeyup': [{ type: core_1.HostListener, args: ['keyup', ['$event'],] },],
         'onClick': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
     };

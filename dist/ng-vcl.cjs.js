@@ -3,8 +3,8 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var _angular_core = require('@angular/core');
-var _angular_common = require('@angular/common');
 var rxjs_Observable = require('rxjs/Observable');
+var _angular_common = require('@angular/common');
 var rxjs_add_observable_of = require('rxjs/add/observable/of');
 var rxjs_BehaviorSubject = require('rxjs/BehaviorSubject');
 var rxjs_add_observable_combineLatest = require('rxjs/add/observable/combineLatest');
@@ -82,7 +82,7 @@ var InputComponent = (function () {
     ], InputComponent.prototype, "typedValue", void 0);
     __decorate([
         _angular_core.Output(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', (typeof (_a = typeof rxjs_Observable.Observable !== 'undefined' && rxjs_Observable.Observable) === 'function' && _a) || Object)
     ], InputComponent.prototype, "typedValueChange", null);
     __decorate([
         _angular_core.Input(), 
@@ -107,10 +107,10 @@ var InputComponent = (function () {
                 '[class.vclInput]': 'true',
             },
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _b) || Object])
     ], InputComponent);
     return InputComponent;
-    var _a;
+    var _a, _b;
 }());
 
 var VCLInputModule = (function () {
@@ -2239,8 +2239,10 @@ var PopoverComponent = (function () {
         this.openChange = new _angular_core.EventEmitter();
         this.zIndexManaged = true;
         this.expandManaged = true;
+        this.state = 'open';
     }
     PopoverComponent.prototype.close = function () {
+        this.state = 'void';
         this.open = false;
         this.openChange.emit(this.open);
     };
@@ -2257,8 +2259,10 @@ var PopoverComponent = (function () {
                     this.zIndex = this.overlayManger.register(this);
                     this.coverZIndex = this.zIndex - 1;
                     this.opening = true;
+                    this.state = 'open';
                 }
                 else if (changes.open.currentValue === false) {
+                    this.state = 'void';
                     this.zIndex = this.overlayManger.unregister(this);
                     this.coverZIndex = -1;
                 }
@@ -2313,10 +2317,13 @@ var PopoverComponent = (function () {
     PopoverComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-popover',
-            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>",
+            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>\n",
             host: {
                 '(document:click)': 'onClick($event)',
             },
+            animations: [
+                _angular_core.trigger('popOverState', [])
+            ]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof OverlayManagerService !== 'undefined' && OverlayManagerService) === 'function' && _b) || Object, (typeof (_c = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _c) || Object])
     ], PopoverComponent);

@@ -1,5 +1,7 @@
 import { OnInit, Directive, Input, EventEmitter, Output, HostListener, ElementRef } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+
 @Directive({
   selector: '[vcl-input]',
   host: {
@@ -16,7 +18,7 @@ export class InputComponent implements OnInit {
 
   _typedValueChange = new EventEmitter<any>();
   @Output()
-  get typedValueChange() {
+  get typedValueChange(): Observable<any> {
     return this._typedValueChange.asObservable();
   }
 

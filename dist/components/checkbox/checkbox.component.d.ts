@@ -19,9 +19,9 @@ export declare class CheckboxComponent implements OnInit, OnChanges {
     constructor(elementRef: ElementRef);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
-    readonly hbVclDisabled: boolean;
-    readonly hbAriaDisabled: boolean;
-    readonly hbChecked: boolean;
+    readonly clsVclDisabled: boolean;
+    readonly attrAriaDisabled: boolean;
+    readonly attrChecked: boolean;
     onKeyup(e: any): void;
     onClick(e: any): void;
     triggerChangeAction(e: any): void;

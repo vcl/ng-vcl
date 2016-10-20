@@ -16,8 +16,10 @@ var PopoverComponent = (function () {
         this.openChange = new core_1.EventEmitter();
         this.zIndexManaged = true;
         this.expandManaged = true;
+        this.state = 'open';
     }
     PopoverComponent.prototype.close = function () {
+        this.state = 'void';
         this.open = false;
         this.openChange.emit(this.open);
     };
@@ -34,8 +36,10 @@ var PopoverComponent = (function () {
                     this.zIndex = this.overlayManger.register(this);
                     this.coverZIndex = this.zIndex - 1;
                     this.opening = true;
+                    this.state = 'open';
                 }
                 else if (changes.open.currentValue === false) {
+                    this.state = 'void';
                     this.zIndex = this.overlayManger.unregister(this);
                     this.coverZIndex = -1;
                 }
@@ -50,6 +54,9 @@ var PopoverComponent = (function () {
                     host: {
                         '(document:click)': 'onClick($event)',
                     },
+                    animations: [
+                        core_1.trigger('popOverState', [])
+                    ]
                 },] },
     ];
     /** @nocollapse */
