@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, trigger } from '@angular/core';
 import { OverlayManagerService, OverlayManagedComponent } from '../../services/overlayManager.service';
 
 @Component({
@@ -7,6 +7,9 @@ import { OverlayManagerService, OverlayManagedComponent } from '../../services/o
   host: {
     '(document:click)': 'onClick($event)',
   },
+  animations: [
+    trigger('popOverState', [])
+  ]
 })
 export class PopoverComponent implements OverlayManagedComponent {
 
@@ -47,12 +50,15 @@ export class PopoverComponent implements OverlayManagedComponent {
   @Input()
   expandManaged: boolean = true;
 
+  state: string = 'open';
+
   constructor(
     protected overlayManger: OverlayManagerService,
     protected myElement: ElementRef
   ) {}
 
   close() {
+    this.state = 'void';
     this.open = false;
     this.openChange.emit(this.open);
   }
@@ -71,7 +77,9 @@ export class PopoverComponent implements OverlayManagedComponent {
           this.zIndex = this.overlayManger.register(this);
           this.coverZIndex = this.zIndex -1;
           this.opening = true;
+          this.state = 'open';
         } else if (changes.open.currentValue === false) {
+          this.state = 'void';
           this.zIndex = this.overlayManger.unregister(this);
           this.coverZIndex = -1;
         }
