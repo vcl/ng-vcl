@@ -14,7 +14,7 @@
 
   <div class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
     <div role="tabpanel" class="vclTabPanel" *ngFor="let tab of tabs; let i = index">
-      <div *ngIf="selectedTabIndex===i" [wormhole]="tab.content"></div>
+      <div *ngIf="selectedTabIndex===i" [wormhole]="tab.content" [wormhole-indisposable]="true"></div>
     </div>
   </div>
 </div>

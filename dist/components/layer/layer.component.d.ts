@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { EventEmitter, TemplateRef, ElementRef } from '@angular/core';
@@ -11,6 +12,9 @@ export declare class LayerBaseComponent {
     ngOnInit(): void;
     ngOnDestroy(): void;
 }
+export interface LayerData {
+    [key: string]: any;
+}
 export declare class LayerDirective extends WormholeGenerator {
     protected templateRef: TemplateRef<any>;
     private elementRef;
@@ -19,6 +23,8 @@ export declare class LayerDirective extends WormholeGenerator {
     readonly visibilityChange: Observable<boolean>;
     modal: boolean;
     name: string;
+    _instanceResults: Subject<any>;
+    data: LayerData;
     readonly state: string;
     visible: boolean;
     coverzIndex: number;
@@ -29,6 +35,7 @@ export declare class LayerDirective extends WormholeGenerator {
     offClick(): void;
     setZIndex(zIndex?: number): void;
     toggle(): void;
-    open(): void;
-    close(): void;
+    open(data?: LayerData): Observable<any>;
+    send(result: any): void;
+    close(result?: any): void;
 }

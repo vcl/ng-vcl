@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
 import 'hammerjs';
+import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import * as Tether from 'tether';
 
@@ -1451,6 +1452,10 @@ var WormholeGenerator = (function () {
 var Wormhole = (function () {
     function Wormhole(viewContainerRef) {
         this.viewContainerRef = viewContainerRef;
+        // TODO: workaround. Does not disconnect the view when destroying the element when true
+        // ngOnDestroy is called before the animations are fully traversed. This would remove the wormhole's ContentChild
+        // before it's host is removed from the DOM
+        this.indisposable = false;
     }
     Object.defineProperty(Wormhole.prototype, "isConnected", {
         get: function () {
@@ -1488,18 +1493,19 @@ var Wormhole = (function () {
         this.connectedWormhole = null;
         this.viewContainerRef.clear();
     };
-    Wormhole.prototype.dispose = function () {
-        if (this.isConnected) {
+    Wormhole.prototype.ngOnDestroy = function () {
+        if (this.isConnected && !this.indisposable) {
             this.disconnect();
         }
-    };
-    Wormhole.prototype.ngOnDestroy = function () {
-        this.dispose();
     };
     __decorate([
         Input('wormhole'), 
         __metadata('design:type', WormholeGenerator)
     ], Wormhole.prototype, "wormhole", null);
+    __decorate([
+        Input('wormhole-indisposable'), 
+        __metadata('design:type', Boolean)
+    ], Wormhole.prototype, "indisposable", void 0);
     Wormhole = __decorate([
         Directive({
             selector: '[wormhole]'
@@ -1553,9 +1559,12 @@ var LayerService = (function () {
         enumerable: true,
         configurable: true
     });
-    LayerService.prototype.open = function (layerName) {
+    LayerService.prototype.open = function (layerName, data) {
         if (this.layers.has(layerName)) {
-            this.layers.get(layerName).open();
+            return this.layers.get(layerName).open(data);
+        }
+        else {
+            return Observable.throw('Layer not found. ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {
@@ -1610,7 +1619,7 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent = __decorate([
         Component({
             selector: 'vcl-layer-base',
-            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [wormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
+            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\" (off-click)=\"layer.offClick()\">\n      <div [wormhole]=\"layer\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
             animations: [
                 trigger('boxState', []),
                 trigger('layerState', [])
@@ -1630,6 +1639,7 @@ var LayerDirective = (function (_super) {
         this.layerService = layerService;
         this.visibilityChange$ = new EventEmitter();
         this.modal = true;
+        this.data = {};
         this.visible = false;
         this.coverzIndex = 10;
         this.zIndex = 11;
@@ -1668,12 +1678,30 @@ var LayerDirective = (function (_super) {
         this.visible = !this.visible;
         this.visibilityChange$.emit(this.visible);
     };
-    LayerDirective.prototype.open = function () {
+    LayerDirective.prototype.open = function (data) {
+        if (!this._instanceResults) {
+            this._instanceResults = new Subject();
+        }
+        if (typeof data === 'object' && data) {
+            this.data = data;
+        }
         this.setZIndex(this.layerService.currentZIndex + 10);
         this.visible = true;
         this.visibilityChange$.emit(this.visible);
+        return this._instanceResults.asObservable();
     };
-    LayerDirective.prototype.close = function () {
+    LayerDirective.prototype.send = function (result) {
+        if (result !== undefined && this._instanceResults) {
+            this._instanceResults.next(result);
+        }
+    };
+    LayerDirective.prototype.close = function (result) {
+        if (result !== undefined && this._instanceResults) {
+            this._instanceResults.next(result);
+            this._instanceResults.complete();
+        }
+        this.data = {};
+        this._instanceResults = null;
         this.setZIndex();
         this.visible = false;
         this.visibilityChange$.emit(this.visible);
@@ -1850,7 +1878,7 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         Component({
             selector: 'vcl-tab-nav',
-            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
+            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n</div>\n\n"
         }), 
         __metadata('design:paramtypes', [])
     ], TabNavComponent);

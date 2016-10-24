@@ -15,8 +15,8 @@ export declare class Wormhole {
     constructor(viewContainerRef: ViewContainerRef);
     readonly isConnected: boolean;
     wormhole: WormholeGenerator;
+    indisposable: boolean;
     connect(wormhole: WormholeGenerator): void;
     disconnect(): void;
-    dispose(): void;
     ngOnDestroy(): void;
 }

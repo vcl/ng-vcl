@@ -1,5 +1,6 @@
 "use strict";
 var core_1 = require('@angular/core');
+var Observable_1 = require('rxjs/Observable');
 var LayerService = (function () {
     function LayerService() {
         this.visibleLayersChanged$ = new core_1.EventEmitter();
@@ -30,9 +31,12 @@ var LayerService = (function () {
         enumerable: true,
         configurable: true
     });
-    LayerService.prototype.open = function (layerName) {
+    LayerService.prototype.open = function (layerName, data) {
         if (this.layers.has(layerName)) {
-            this.layers.get(layerName).open();
+            return this.layers.get(layerName).open(data);
+        }
+        else {
+            return Observable_1.Observable.throw('Layer not found. ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {

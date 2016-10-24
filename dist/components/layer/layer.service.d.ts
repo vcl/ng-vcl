@@ -8,7 +8,7 @@ export declare class LayerService {
     readonly visibleLayers: LayerDirective[];
     readonly currentZIndex: number;
     constructor();
-    open(layerName: any): void;
+    open(layerName: any, data?: any): Observable<any>;
     close(layerName: any): void;
     register(layer: LayerDirective): void;
     unregister(layer: LayerDirective): void;

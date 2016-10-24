@@ -4,6 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var Subject_1 = require('rxjs/Subject');
 var core_1 = require('@angular/core');
 var wormhole_module_1 = require('./../../directives/wormhole/wormhole.module');
 var layer_service_1 = require('./layer.service');
@@ -47,6 +48,7 @@ var LayerDirective = (function (_super) {
         this.layerService = layerService;
         this.visibilityChange$ = new core_1.EventEmitter();
         this.modal = true;
+        this.data = {};
         this.visible = false;
         this.coverzIndex = 10;
         this.zIndex = 11;
@@ -85,12 +87,30 @@ var LayerDirective = (function (_super) {
         this.visible = !this.visible;
         this.visibilityChange$.emit(this.visible);
     };
-    LayerDirective.prototype.open = function () {
+    LayerDirective.prototype.open = function (data) {
+        if (!this._instanceResults) {
+            this._instanceResults = new Subject_1.Subject();
+        }
+        if (typeof data === 'object' && data) {
+            this.data = data;
+        }
         this.setZIndex(this.layerService.currentZIndex + 10);
         this.visible = true;
         this.visibilityChange$.emit(this.visible);
+        return this._instanceResults.asObservable();
     };
-    LayerDirective.prototype.close = function () {
+    LayerDirective.prototype.send = function (result) {
+        if (result !== undefined && this._instanceResults) {
+            this._instanceResults.next(result);
+        }
+    };
+    LayerDirective.prototype.close = function (result) {
+        if (result !== undefined && this._instanceResults) {
+            this._instanceResults.next(result);
+            this._instanceResults.complete();
+        }
+        this.data = {};
+        this._instanceResults = null;
         this.setZIndex();
         this.visible = false;
         this.visibilityChange$.emit(this.visible);

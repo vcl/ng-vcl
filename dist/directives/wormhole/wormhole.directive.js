@@ -37,6 +37,10 @@ exports.WormholeGenerator = WormholeGenerator;
 var Wormhole = (function () {
     function Wormhole(viewContainerRef) {
         this.viewContainerRef = viewContainerRef;
+        // TODO: workaround. Does not disconnect the view when destroying the element when true
+        // ngOnDestroy is called before the animations are fully traversed. This would remove the wormhole's ContentChild
+        // before it's host is removed from the DOM
+        this.indisposable = false;
     }
     Object.defineProperty(Wormhole.prototype, "isConnected", {
         get: function () {
@@ -74,13 +78,10 @@ var Wormhole = (function () {
         this.connectedWormhole = null;
         this.viewContainerRef.clear();
     };
-    Wormhole.prototype.dispose = function () {
-        if (this.isConnected) {
+    Wormhole.prototype.ngOnDestroy = function () {
+        if (this.isConnected && !this.indisposable) {
             this.disconnect();
         }
-    };
-    Wormhole.prototype.ngOnDestroy = function () {
-        this.dispose();
     };
     Wormhole.decorators = [
         { type: core_1.Directive, args: [{
@@ -92,6 +93,7 @@ var Wormhole = (function () {
         { type: core_1.ViewContainerRef, },
     ];
     Wormhole.propDecorators = {
+        'indisposable': [{ type: core_1.Input, args: ['wormhole-indisposable',] },],
         'wormhole': [{ type: core_1.Input, args: ['wormhole',] },],
     };
     return Wormhole;
