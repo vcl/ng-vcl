@@ -3090,9 +3090,12 @@ var LayerService = (function () {
         enumerable: true,
         configurable: true
     });
-    LayerService.prototype.open = function (layerName) {
+    LayerService.prototype.open = function (layerName, data) {
         if (this.layers.has(layerName)) {
-            this.layers.get(layerName).open();
+            return this.layers.get(layerName).open(data);
+        }
+        else {
+            return Observable_1.Observable.throw('Layer not found. ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {
@@ -3502,7 +3505,7 @@ module.exports = "<input vcl-input [(ngModel)]=\"data1\">\n<br>\n<b>Input 1 valu
 /***/ 424:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-layer-base></vcl-layer-base>\n\n<button vcl-button (click)=\"layerNonModal.open()\" label=\"open non-modal layer per reference\"></button>\n<button vcl-button (click)=\"openLayerNonModal()\" label=\"open non-modal layer programmatically\"></button>\n<button vcl-button (click)=\"layer1.open()\" label=\"open modal layer\"></button>\n\n<template vcl-layer #layerNonModal=\"layer\" [modal]=\"false\" [name]=\"'nonModal'\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Non-modal layer text goes here<br><br>\n        <button vcl-button (click)=\"layerNonModal.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer1=\"layer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Modal layer 1 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Modal layer 1 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.open()\" label=\"open Layer2\"></button>\n        <button vcl-button (click)=\"layer1.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer2=\"layer\" [modal]=\"false\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer 2 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        non-modal layer 2 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n"
+module.exports = "<vcl-layer-base></vcl-layer-base>\n\n<button vcl-button (click)=\"layerNonModal.open()\" label=\"open non-modal layer per reference\"></button>\n<button vcl-button (click)=\"layer1.open()\" label=\"open modal layer\"></button>\n<button vcl-button (click)=\"openLayerWithData()\" label=\"open layer programmatically\"></button>\n\n<template vcl-layer #layerNonModal=\"layer\" [modal]=\"false\" [name]=\"'nonModal'\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Non-modal layer text goes here<br><br>\n        <button vcl-button (click)=\"layerNonModal.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer1=\"layer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Modal layer 1 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Modal layer 1 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.open()\" label=\"open Layer2\"></button>\n        <button vcl-button (click)=\"layer1.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layer2=\"layer\" [modal]=\"false\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Non-modal layer 2 title goes here</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        non-modal layer 2 text goes here<br><br>\n        <button vcl-button (click)=\"layer2.close()\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<template vcl-layer #layerWithData=\"layer\" [modal]=\"false\" [name]=\"'withData'\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">{{layerWithData.data.title}}</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Send data by pressing the buttons<br><br>\n        <button vcl-button (click)=\"layerWithData.send('send')\" label=\"Send data\"></button>\n        <button vcl-button (click)=\"layerWithData.close('close')\" label=\"close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n"
 
 /***/ },
 
@@ -4251,8 +4254,16 @@ var LayerComponent = (function () {
     function LayerComponent(layerService) {
         this.layerService = layerService;
     }
-    LayerComponent.prototype.openLayerNonModal = function () {
-        this.layerService.open('nonModal');
+    LayerComponent.prototype.openLayerWithData = function () {
+        this.layerService.open('withData', {
+            title: 'This title is provided as an argument'
+        }).subscribe(function (data) {
+            // Layer sends data
+            console.log(data);
+        }, null, function () {
+            // Layer is closed
+            console.log('layer closed');
+        });
     };
     LayerComponent = __decorate([
         core_1.Component({
@@ -5891,6 +5902,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(1);
 var InputComponent = (function () {
     function InputComponent(elRef) {
         this.elRef = elRef;
@@ -5936,7 +5948,7 @@ var InputComponent = (function () {
     ], InputComponent.prototype, "typedValue", void 0);
     __decorate([
         core_1.Output(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', (typeof (_a = typeof Observable_1.Observable !== 'undefined' && Observable_1.Observable) === 'function' && _a) || Object)
     ], InputComponent.prototype, "typedValueChange", null);
     __decorate([
         core_1.Input(), 
@@ -5961,10 +5973,10 @@ var InputComponent = (function () {
                 '[class.vclInput]': 'true',
             },
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
     ], InputComponent);
     return InputComponent;
-    var _a;
+    var _a, _b;
 }());
 exports.InputComponent = InputComponent;
 
@@ -6025,6 +6037,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var Subject_1 = __webpack_require__(11);
 var Observable_1 = __webpack_require__(1);
 var core_1 = __webpack_require__(0);
 var wormhole_module_1 = __webpack_require__(73);
@@ -6067,6 +6080,7 @@ var LayerDirective = (function (_super) {
         this.layerService = layerService;
         this.visibilityChange$ = new core_1.EventEmitter();
         this.modal = true;
+        this.data = {};
         this.visible = false;
         this.coverzIndex = 10;
         this.zIndex = 11;
@@ -6105,12 +6119,30 @@ var LayerDirective = (function (_super) {
         this.visible = !this.visible;
         this.visibilityChange$.emit(this.visible);
     };
-    LayerDirective.prototype.open = function () {
+    LayerDirective.prototype.open = function (data) {
+        if (!this._instanceResults) {
+            this._instanceResults = new Subject_1.Subject();
+        }
+        if (typeof data === 'object' && data) {
+            this.data = data;
+        }
         this.setZIndex(this.layerService.currentZIndex + 10);
         this.visible = true;
         this.visibilityChange$.emit(this.visible);
+        return this._instanceResults.asObservable();
     };
-    LayerDirective.prototype.close = function () {
+    LayerDirective.prototype.send = function (result) {
+        if (result !== undefined && this._instanceResults) {
+            this._instanceResults.next(result);
+        }
+    };
+    LayerDirective.prototype.close = function (result) {
+        if (result !== undefined && this._instanceResults) {
+            this._instanceResults.next(result);
+            this._instanceResults.complete();
+        }
+        this.data = {};
+        this._instanceResults = null;
         this.setZIndex();
         this.visible = false;
         this.visibilityChange$.emit(this.visible);
@@ -6911,8 +6943,10 @@ var PopoverComponent = (function () {
         this.openChange = new core_1.EventEmitter();
         this.zIndexManaged = true;
         this.expandManaged = true;
+        this.state = 'open';
     }
     PopoverComponent.prototype.close = function () {
+        this.state = 'void';
         this.open = false;
         this.openChange.emit(this.open);
     };
@@ -6929,8 +6963,10 @@ var PopoverComponent = (function () {
                     this.zIndex = this.overlayManger.register(this);
                     this.coverZIndex = this.zIndex - 1;
                     this.opening = true;
+                    this.state = 'open';
                 }
                 else if (changes.open.currentValue === false) {
+                    this.state = 'void';
                     this.zIndex = this.overlayManger.unregister(this);
                     this.coverZIndex = -1;
                 }
@@ -6989,6 +7025,9 @@ var PopoverComponent = (function () {
             host: {
                 '(document:click)': 'onClick($event)',
             },
+            animations: [
+                core_1.trigger('popOverState', [])
+            ]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof overlayManager_service_1.OverlayManagerService !== 'undefined' && overlayManager_service_1.OverlayManagerService) === 'function' && _b) || Object, (typeof (_c = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _c) || Object])
     ], PopoverComponent);
@@ -7713,6 +7752,10 @@ exports.WormholeGenerator = WormholeGenerator;
 var Wormhole = (function () {
     function Wormhole(viewContainerRef) {
         this.viewContainerRef = viewContainerRef;
+        // TODO: workaround. Does not disconnect the view when destroying the element when true
+        // ngOnDestroy is called before the animations are fully traversed. This would remove the wormhole's ContentChild
+        // before it's host is removed from the DOM
+        this.indisposable = false;
     }
     Object.defineProperty(Wormhole.prototype, "isConnected", {
         get: function () {
@@ -7750,18 +7793,19 @@ var Wormhole = (function () {
         this.connectedWormhole = null;
         this.viewContainerRef.clear();
     };
-    Wormhole.prototype.dispose = function () {
-        if (this.isConnected) {
+    Wormhole.prototype.ngOnDestroy = function () {
+        if (this.isConnected && !this.indisposable) {
             this.disconnect();
         }
-    };
-    Wormhole.prototype.ngOnDestroy = function () {
-        this.dispose();
     };
     __decorate([
         core_1.Input('wormhole'), 
         __metadata('design:type', WormholeGenerator)
     ], Wormhole.prototype, "wormhole", null);
+    __decorate([
+        core_1.Input('wormhole-indisposable'), 
+        __metadata('design:type', Boolean)
+    ], Wormhole.prototype, "indisposable", void 0);
     Wormhole = __decorate([
         core_1.Directive({
             selector: '[wormhole]'
@@ -12898,7 +12942,7 @@ module.exports = "import { Component, OnInit } from '@angular/core';\n\n@Compone
 /***/ 812:
 /***/ function(module, exports) {
 
-module.exports = "import { LayerService } from './../../../src/components/layer/layer.module';\nimport { Component } from '@angular/core';\n\n@Component({\n  templateUrl: 'layer.component.html',\n})\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayerNonModal() {\n    this.layerService.open('nonModal');\n  }\n}\n"
+module.exports = "import { LayerService } from './../../../src/components/layer/layer.module';\nimport { Component } from '@angular/core';\n\n@Component({\n  templateUrl: 'layer.component.html',\n})\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayerWithData() {\n    this.layerService.open('withData', {\n      title: 'This title is provided as an argument'\n    }).subscribe(data => {\n      // Layer sends data\n      console.log(data);\n    }, null, () => {\n      // Layer is closed\n      console.log('layer closed');\n    });\n  }\n}\n"
 
 /***/ },
 
@@ -13080,14 +13124,14 @@ module.exports = "# vcl-input\n\nEnhanced text input\n\n## Usage:\n\n ```html\n<
 /***/ 838:
 /***/ function(module, exports) {
 
-module.exports = "# vcl-layer\n\nA container which stacks up in the z-direction.\n\n## Usage:\n\n```js\nimport { VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLLayerModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nThe vcl-layer-base defines the position in the DOM where the layers will appear when visible.\n\n```html\n<vcl-layer-base></vcl-layer-base>\n```\n\nA layer can be defined anywhere in your application\n\n```html\n<template vcl-layer #myLayer=\"layer\" [modal]=\"true\" [name]=\"myLayer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Title</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Content\n        <button vcl-button (click)=\"myLayer.close()\" label=\"Close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<button vcl-button (click)=\"myLayer.open()\" label=\"Open Layer\"></button>\n```\n\nThe `LayerService` can be used to open a Layer without having an actual reference.\nThe layer must have a name to use it with the Service.\n_This only works when the layer template is actually rendered on the page_\n\n\n```js\nimport { LayerService } from 'ng-vcl';\n\n...\n\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayer() {\n    this.layerService.open('myLayer');\n  }\n\n  closeLayer() {\n    this.layerService.close('myLayer');\n  }\n}\n```\n\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `modal`             | boolean     | false    | Disables user interaction outside of the layer\n| `name`              | string      |          | The layer name for addressing it in the LayerService \n"
+module.exports = "# vcl-layer\n\nA container which stacks up in the z-direction.\n\n## Usage:\n\n```js\nimport { VCLLayerModule } from 'ng-vcl';\n\n@NgModule({\n  imports: [ VCLLayerModule ],\n  ...\n})\nexport class AppComponent {}\n```\n\nThe vcl-layer-base defines the position in the DOM where the layers will appear when visible.\n\n```html\n<vcl-layer-base></vcl-layer-base>\n```\n\nA layer can be defined anywhere in your application\n\n```html\n<template vcl-layer #myLayer=\"layer\" [modal]=\"true\" [name]=\"myLayer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">Title</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        Content\n        <button vcl-button (click)=\"myLayer.close()\" label=\"Close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<button vcl-button (click)=\"myLayer.open()\" label=\"Open Layer\"></button>\n```\n\nThe `LayerService` can be used to open a Layer without having an actual reference.\nThe layer must have a name to use it with the Service.\n_This only works when the layer template is actually rendered on the page_\n\nAdditionaly you can pass to and receive data from the layer.\n\n```js\nimport { LayerService } from 'ng-vcl';\n\nexport class LayerComponent {\n\n  constructor(private layerService: LayerService) {}\n\n  openLayer() {\n    this.layerService.open('myLayer', {\n      // Data to pass to the Layer\n      title: 'My layers title',\n      content: 'My layers content'\n    }).subscribe(data => {\n      // Triggered when data is send from the layer\n    }, null, () => {\n      // Triggered when the layer is closed\n    });\n  }\n\n  closeLayer() {\n    this.layerService.close('myLayer');\n  }\n}\n```\n\n```html\n<template vcl-layer #myLayer=\"layer\" [modal]=\"true\" [name]=\"myLayer\">\n  <div class=\"vclPanel vclNoMargin\">\n    <div class=\"vclPanelHeader\">\n      <h3 class=\"vclPanelTitle\">{{myLayer.data.title}}</h3>\n    </div>\n    <div class=\"vclPanelBody\">\n      <p class=\"vclPanelContent\">\n        {{myLayer.data.content}}\n        <button vcl-button (click)=\"myLayer.send('data to send 1')\" label=\"Send data\"></button>\n        <button vcl-button (click)=\"myLayer.close('data to send 2')\" label=\"Close Layer\"></button>\n      </p>\n    </div>\n  </div>\n</template>\n\n<button vcl-button (click)=\"myLayer.open()\" label=\"Open Layer\"></button>\n```\n\n### API \n\n#### Properties:\n\n| Name                | Type        | Default  | Description\n| ------------        | ----------- | -------- |--------------\n| `modal`             | boolean     | false    | Disables user interaction outside of the layer\n| `name`              | string      |          | The layer name for addressing it in the LayerService \n"
 
 /***/ },
 
 /***/ 839:
 /***/ function(module, exports) {
 
-module.exports = "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\">\n      <div [wormhole]=\"layer\" (off-click)=\"layer.offClick()\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
+module.exports = "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\" (off-click)=\"layer.offClick()\">\n      <div [wormhole]=\"layer\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n"
 
 /***/ },
 
@@ -13129,7 +13173,7 @@ module.exports = "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\
 /***/ 845:
 /***/ function(module, exports) {
 
-module.exports = "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>"
+module.exports = "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>\n"
 
 /***/ },
 
@@ -13157,7 +13201,7 @@ module.exports = "# vcl-tab-nav\nThe tab nav allows to organize content in tabs.
 /***/ 849:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\"></div>\n    </div>\n  </div>\n</div>\n\n"
+module.exports = "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n</div>\n\n"
 
 /***/ },
 
