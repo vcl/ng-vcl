@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger } from '@angular/core';
@@ -30,6 +31,8 @@ export class LayerBaseComponent {
   }
 }
 
+export interface LayerData { [key: string]: any; }
+
 @Directive({
   selector: '[vcl-layer]',
   exportAs: 'layer',
@@ -47,6 +50,10 @@ export class LayerDirective extends WormholeGenerator {
 
   @Input()
   public name: string;
+
+  _instanceResults: Subject<any>;
+
+  data: LayerData = {};
 
   get state(){
     return this.visible ? 'open' : 'closed';
@@ -84,17 +91,36 @@ export class LayerDirective extends WormholeGenerator {
     this.visibilityChange$.emit(this.visible);
   }
 
-  open() {
+  open(data?: LayerData): Observable<any> {
+    if (!this._instanceResults) {
+      this._instanceResults = new Subject<any>();
+    }
+    if(typeof data === 'object' && data) {
+      this.data = data;
+    }
     this.setZIndex(this.layerService.currentZIndex + 10);
     this.visible = true;
     this.visibilityChange$.emit(this.visible);
+
+    return this._instanceResults.asObservable();
   }
 
-  close() {
+  send(result: any) {
+    if (result !== undefined && this._instanceResults) {
+      this._instanceResults.next(result);
+    }
+  }
+
+  close(result?: any) {
+    if (result !== undefined && this._instanceResults) {
+      this._instanceResults.next(result);
+      this._instanceResults.complete();
+    }
+    this.data = {};
+    this._instanceResults = null;
     this.setZIndex();
     this.visible = false;
     this.visibilityChange$.emit(this.visible);
   }
-
 }
 

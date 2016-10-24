@@ -8,7 +8,15 @@ export class LayerComponent {
 
   constructor(private layerService: LayerService) {}
 
-  openLayerNonModal() {
-    this.layerService.open('nonModal');
+  openLayerWithData() {
+    this.layerService.open('withData', {
+      title: 'This title is provided as an argument'
+    }).subscribe(data => {
+      // Layer sends data
+      console.log(data);
+    }, null, () => {
+      // Layer is closed
+      console.log('layer closed');
+    });
   }
 }

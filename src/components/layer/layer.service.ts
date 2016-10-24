@@ -27,9 +27,11 @@ export class LayerService {
 
   constructor() { }
 
-  open(layerName) {
+  open(layerName, data?): Observable<any> {
     if (this.layers.has(layerName)) {
-      this.layers.get(layerName).open();
+      return this.layers.get(layerName).open(data);
+    } else {
+      return Observable.throw('Layer not found. ' + layerName);
     }
   }
 

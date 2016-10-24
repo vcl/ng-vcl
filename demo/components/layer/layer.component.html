@@ -1,8 +1,8 @@
 <vcl-layer-base></vcl-layer-base>
 
 <button vcl-button (click)="layerNonModal.open()" label="open non-modal layer per reference"></button>
-<button vcl-button (click)="openLayerNonModal()" label="open non-modal layer programmatically"></button>
 <button vcl-button (click)="layer1.open()" label="open modal layer"></button>
+<button vcl-button (click)="openLayerWithData()" label="open layer programmatically"></button>
 
 <template vcl-layer #layerNonModal="layer" [modal]="false" [name]="'nonModal'">
   <div class="vclPanel vclNoMargin">
@@ -42,6 +42,21 @@
       <p class="vclPanelContent">
         non-modal layer 2 text goes here<br><br>
         <button vcl-button (click)="layer2.close()" label="close Layer"></button>
+      </p>
+    </div>
+  </div>
+</template>
+
+<template vcl-layer #layerWithData="layer" [modal]="false" [name]="'withData'">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">{{layerWithData.data.title}}</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Send data by pressing the buttons<br><br>
+        <button vcl-button (click)="layerWithData.send('send')" label="Send data"></button>
+        <button vcl-button (click)="layerWithData.close('close')" label="close Layer"></button>
       </p>
     </div>
   </div>
