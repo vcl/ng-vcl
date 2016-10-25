@@ -1,0 +1,21 @@
+<div class="vclTabbable {{tabbableClass}}" 
+     [class.vclTabsLeft]="layout==='left'"
+     [class.vclTabsRight]="layout==='right'">
+  <div class="vclTabs {{tabsClass}}" [class.vclTabStyleUni]="!!borders" role="tablist">
+    <div *ngFor="let tab of tabs; let i = index"
+         class="vclTab {{tab.tabClass}}" role="tab"
+         [class.vclDisabled]="tab.disabled"
+         [class.vclSelected]="selectedTabIndex===i"
+         [class.aria-selected]="selectedTabIndex===i"
+         (tap)="selectTab(tab)">
+      <div [wormhole]="tab.label"></div>
+    </div>
+  </div>
+
+  <div class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
+    <div role="tabpanel" class="vclTabPanel" *ngFor="let tab of tabs; let i = index">
+      <div *ngIf="selectedTabIndex===i" [wormhole]="tab.content" [wormhole-indisposable]="true"></div>
+    </div>
+  </div>
+</div>
+

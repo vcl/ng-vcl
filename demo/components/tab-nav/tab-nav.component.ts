@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  templateUrl: 'tab.component.html'
+  templateUrl: 'tab-nav.component.html'
 })
-export class TabComponent implements OnInit {
+export class TabNavComponent implements OnInit {
 
   constructor() { }
 

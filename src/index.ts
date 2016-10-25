@@ -9,7 +9,7 @@ import { VCLIcogramModule } from './components/icogram/icogram.module';
 import { VCLButtonModule } from './components/button/button.module';
 import { VCLButtonGroupModule } from './components/button-group/button-group.module';
 import { VCLLayerModule } from './components/layer/layer.module';
-import { VCLTabNavModule } from './components/tab/tab.module';
+import { VCLTabNavModule } from './components/tab-nav/tab-nav.module';
 import { VCLNavigationModule } from './components/navigation/navigation.module';
 import { VCLToolbarModule } from './components/toolbar/toolbar.module';
 import { VCLTetherModule } from './components/tether/tether.module';
@@ -21,7 +21,7 @@ import { VCLOffClickModule } from './directives/off-click/off-click.module';
 import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
 import { VCLWormholeModule } from './directives/wormhole/wormhole.module';
 import { VCLMonthPickerModule } from './components/month-picker/month-picker.module';
-
+ 
 export * from './reflect';
 
 export * from './components/icon/icon.module';
@@ -29,7 +29,7 @@ export * from './components/icogram/icogram.module';
 export * from './components/button/button.module';
 export * from './components/button-group/button-group.module';
 export * from './components/layer/layer.module';
-export * from './components/tab/tab.module';
+export * from './components/tab-nav/tab-nav.module';
 export * from './components/navigation/navigation.module';
 export * from './components/toolbar/toolbar.module';
 export * from './components/tether/tether.module';

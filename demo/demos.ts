@@ -15,7 +15,7 @@ import CHECKBOX_DEMO from './components/checkbox/checkbox.demo';
 import FORM_CONTROL_LABEL_DEMO from './components/form-control-label/form-control-label.demo';
 import INPUT_DEMO from './components/input/input.demo';
 import POPOVER_DEMO from './components/popover/popover.demo';
-import TAB_DEMO from './components/tab/tab.demo';
+import TAB_NAV_DEMO from './components/tab-nav/tab-nav.demo';
 import NAVIGATION_DEMO from './components/navigation/navigation.demo';
 import TOOLBAR_DEMO from './components/toolbar/toolbar.demo';
 import WORMHOLE_DEMO from './components/wormhole/wormhole.demo';
@@ -48,7 +48,7 @@ export const DEMOS: Demo[] = [
   FORM_CONTROL_LABEL_DEMO,
   INPUT_DEMO,
   POPOVER_DEMO,
-  TAB_DEMO,
+  TAB_NAV_DEMO,
   NAVIGATION_DEMO,
   TOOLBAR_DEMO,
   WORMHOLE_DEMO,

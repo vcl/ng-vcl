@@ -12,7 +12,7 @@ var icogram_module_1 = require('./components/icogram/icogram.module');
 var button_module_1 = require('./components/button/button.module');
 var button_group_module_1 = require('./components/button-group/button-group.module');
 var layer_module_1 = require('./components/layer/layer.module');
-var tab_module_1 = require('./components/tab/tab.module');
+var tab_nav_module_1 = require('./components/tab-nav/tab-nav.module');
 var navigation_module_1 = require('./components/navigation/navigation.module');
 var toolbar_module_1 = require('./components/toolbar/toolbar.module');
 var tether_module_1 = require('./components/tether/tether.module');
@@ -30,7 +30,7 @@ __export(require('./components/icogram/icogram.module'));
 __export(require('./components/button/button.module'));
 __export(require('./components/button-group/button-group.module'));
 __export(require('./components/layer/layer.module'));
-__export(require('./components/tab/tab.module'));
+__export(require('./components/tab-nav/tab-nav.module'));
 __export(require('./components/navigation/navigation.module'));
 __export(require('./components/toolbar/toolbar.module'));
 __export(require('./components/tether/tether.module'));
@@ -58,7 +58,7 @@ var VCLModule = (function () {
                         tether_module_1.VCLTetherModule,
                         link_module_1.VCLLinkModule,
                         input_module_1.VCLInputModule,
-                        tab_module_1.VCLTabNavModule,
+                        tab_nav_module_1.VCLTabNavModule,
                         navigation_module_1.VCLNavigationModule,
                         toolbar_module_1.VCLToolbarModule,
                         popover_module_1.VCLPopoverModule,
@@ -81,7 +81,7 @@ var VCLModule = (function () {
                         tether_module_1.VCLTetherModule,
                         link_module_1.VCLLinkModule,
                         input_module_1.VCLInputModule,
-                        tab_module_1.VCLTabNavModule,
+                        tab_nav_module_1.VCLTabNavModule,
                         navigation_module_1.VCLNavigationModule,
                         toolbar_module_1.VCLToolbarModule,
                         popover_module_1.VCLPopoverModule,
