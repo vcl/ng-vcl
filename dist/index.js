@@ -42,6 +42,7 @@ __export(require('./components/month-picker/month-picker.module'));
 __export(require('./directives/off-click/off-click.module'));
 __export(require('./directives/wormhole/wormhole.module'));
 __export(require('./l10n/l10n.module'));
+__export(require('./adv-http/adv-http.module'));
 var overlayManager_service_1 = require('./services/overlayManager.service');
 var VCLModule = (function () {
     function VCLModule() {

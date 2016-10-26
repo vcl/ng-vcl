@@ -16,6 +16,11 @@ var hammerjs = require('hammerjs');
 var rxjs_Subject = require('rxjs/Subject');
 var _angular_router = require('@angular/router');
 var Tether = require('tether');
+var _angular_http = require('@angular/http');
+var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
+var rxjs_add_operator_publish = require('rxjs/add/operator/publish');
+var rxjs_add_operator_catch = require('rxjs/add/operator/catch');
+var rxjs_add_operator_retryWhen = require('rxjs/add/operator/retryWhen');
 
 function __extends(d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -3140,6 +3145,191 @@ function getAnnotation(cls) {
     return clsAnnotations[0];
 }
 
+/**
+ *  Data caching
+ */
+var SyncableObservable = (function (_super) {
+    __extends(SyncableObservable, _super);
+    function SyncableObservable(source) {
+        _super.call(this);
+        this.source = source;
+    }
+    SyncableObservable.prototype._subscribe = function (subscriber) {
+        return this.getDataSubject().subscribe(subscriber);
+    };
+    SyncableObservable.prototype.getDataSubject = function () {
+        var subject = this._dataSubject;
+        if (!subject) {
+            this._dataSubject = new rxjs_ReplaySubject.ReplaySubject(1);
+        }
+        return this._dataSubject;
+    };
+    SyncableObservable.prototype.sync = function () {
+        var _this = this;
+        var dataSubject = this.getDataSubject();
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+        var sync$ = new rxjs_Observable.Observable(function (observer) {
+            var httpSub = _this.source.subscribe(function (data) {
+                dataSubject.next(data);
+                observer.next(data);
+                observer.complete();
+            }, function (err) {
+                observer.error(err);
+            });
+            return function () {
+                httpSub.unsubscribe();
+            };
+        }).publish();
+        this.sub = sync$.connect();
+        return sync$;
+    };
+    return SyncableObservable;
+}(rxjs_Observable.Observable));
+rxjs_Observable.Observable.prototype.syncable = function () {
+    return new SyncableObservable(this);
+};
+/**
+ *  Error handling
+ */
+var ErrorHandlingStrategy;
+(function (ErrorHandlingStrategy) {
+    ErrorHandlingStrategy[ErrorHandlingStrategy["default"] = 0] = "default";
+    ErrorHandlingStrategy[ErrorHandlingStrategy["retry"] = 1] = "retry";
+    ErrorHandlingStrategy[ErrorHandlingStrategy["notify"] = 2] = "notify";
+})(ErrorHandlingStrategy || (ErrorHandlingStrategy = {}));
+var ADV_HTTP_CONFIG = new _angular_core.OpaqueToken('adv.http.config');
+var ErrorHandlerService = (function () {
+    function ErrorHandlerService() {
+    }
+    ErrorHandlerService.prototype.notify = function (err) {
+        console.log(err);
+    };
+    ErrorHandlerService.prototype.retry = function (err, retry, abort) {
+        this.notify(err);
+        abort();
+    };
+    ErrorHandlerService.prototype.transform = function (req$, errorStrategy) {
+        var _this = this;
+        // errorStrategy = errorStrategy || this.config.defaultErrorHandlingStrategy || ErrorHandlingStrategy.default;
+        errorStrategy = errorStrategy || ErrorHandlingStrategy.default;
+        if (errorStrategy && (errorStrategy === ErrorHandlingStrategy.notify || typeof errorStrategy === 'string')) {
+            // Catch an error...
+            req$ = req$.catch(function (err) {
+                // ... and just pass it to the error handler
+                // The error is rethrown so it can be catched
+                if (errorStrategy === ErrorHandlingStrategy.notify) {
+                    _this.notify(err);
+                }
+                else {
+                    if (!_this[errorStrategy]) {
+                        throw 'Error handling strategy not found: ' + errorStrategy;
+                    }
+                    _this[errorStrategy]();
+                }
+                return rxjs_Observable.Observable.throw(err);
+            });
+        }
+        else if (errorStrategy && errorStrategy === ErrorHandlingStrategy.retry) {
+            req$ = req$.retryWhen(function (errors) {
+                return errors.switchMap(function (err) {
+                    return new rxjs_Observable.Observable(function (observer) {
+                        _this.retry(err, function () {
+                            observer.next();
+                        }, function () {
+                            observer.error(err);
+                        });
+                    });
+                });
+            });
+        }
+        return req$;
+    };
+    ErrorHandlerService = __decorate([
+        _angular_core.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], ErrorHandlerService);
+    return ErrorHandlerService;
+}());
+var AdvHttp = (function (_super) {
+    __extends(AdvHttp, _super);
+    function AdvHttp(config, errorHandler, _backend, _defaultOptions) {
+        _super.call(this, _backend, _defaultOptions);
+        this.config = config;
+        this.errorHandler = errorHandler;
+    }
+    AdvHttp.prototype.request = function (url, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.request.call(this, url, options), errorStrategy);
+    };
+    
+    AdvHttp.prototype.get = function (url, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.get.call(this, url, options), errorStrategy);
+    };
+    
+    AdvHttp.prototype.post = function (url, body, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.post.call(this, url, body, options), errorStrategy);
+    };
+    
+    AdvHttp.prototype.put = function (url, body, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.put.call(this, url, body, options), errorStrategy);
+    };
+    
+    AdvHttp.prototype.delete = function (url, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.delete.call(this, url, options), errorStrategy);
+    };
+    
+    AdvHttp.prototype.patch = function (url, body, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.patch.call(this, url, body, options), errorStrategy);
+    };
+    
+    AdvHttp.prototype.head = function (url, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.head.call(this, url, options), errorStrategy);
+    };
+    
+    AdvHttp.prototype.options = function (url, options, errorStrategy) {
+        return this.errorHandler.transform(_super.prototype.options.call(this, url, options), errorStrategy);
+    };
+    
+    AdvHttp = __decorate([
+        _angular_core.Injectable(),
+        __param(0, _angular_core.Inject(ADV_HTTP_CONFIG)), 
+        __metadata('design:paramtypes', [Object, ErrorHandlerService, (typeof (_a = typeof _angular_http.ConnectionBackend !== 'undefined' && _angular_http.ConnectionBackend) === 'function' && _a) || Object, (typeof (_b = typeof _angular_http.RequestOptions !== 'undefined' && _angular_http.RequestOptions) === 'function' && _b) || Object])
+    ], AdvHttp);
+    return AdvHttp;
+    var _a, _b;
+}(_angular_http.Http));
+
+var AdvHttpModule = (function () {
+    function AdvHttpModule() {
+    }
+    AdvHttpModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_http.HttpModule],
+            providers: [
+                AdvHttp,
+                {
+                    provide: ErrorHandlerService,
+                    useClass: ErrorHandlerService
+                },
+                {
+                    provide: AdvHttp,
+                    useFactory: function (config, errorHandler, backend, defaultOptions) {
+                        return new AdvHttp(config, errorHandler, backend, defaultOptions);
+                    },
+                    deps: [ADV_HTTP_CONFIG, ErrorHandlerService, _angular_http.XHRBackend, _angular_http.RequestOptions]
+                },
+                {
+                    provide: ADV_HTTP_CONFIG,
+                    useValue: {}
+                }
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], AdvHttpModule);
+    return AdvHttpModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -3234,3 +3424,4 @@ exports.L10nNoopLoaderService = L10nNoopLoaderService;
 exports.L10nStaticLoaderService = L10nStaticLoaderService;
 exports.L10nFormatParserService = L10nFormatParserService;
 exports.L10nService = L10nService;
+exports.AdvHttpModule = AdvHttpModule;
