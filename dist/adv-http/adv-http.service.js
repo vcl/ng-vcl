@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Observable_1 = require('rxjs/Observable');
 var ReplaySubject_1 = require('rxjs/ReplaySubject');
 require('rxjs/add/operator/publish');
+require('rxjs/add/operator/publish');
 require('rxjs/add/operator/catch');
 require('rxjs/add/operator/retryWhen');
 var http_1 = require('@angular/http');
@@ -53,6 +54,7 @@ var SyncableObservable = (function (_super) {
     };
     return SyncableObservable;
 }(Observable_1.Observable));
+exports.SyncableObservable = SyncableObservable;
 Observable_1.Observable.prototype.syncable = function () {
     return new SyncableObservable(this);
 };

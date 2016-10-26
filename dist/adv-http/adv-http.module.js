@@ -2,6 +2,9 @@
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var adv_http_service_1 = require('./adv-http.service');
+exports.AdvHttp = adv_http_service_1.AdvHttp;
+exports.ErrorHandlerService = adv_http_service_1.ErrorHandlerService;
+exports.ADV_HTTP_CONFIG = adv_http_service_1.ADV_HTTP_CONFIG;
 var AdvHttpModule = (function () {
     function AdvHttpModule() {
     }

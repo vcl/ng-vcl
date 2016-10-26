@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
-import { AdvHttp, ErrorHandlerService, ADV_HTTP_CONFIG, AdvHttpConfig } from './adv-http.service';
+import { AdvHttp, ErrorHandlerService, ADV_HTTP_CONFIG } from './adv-http.service';
+
+export { AdvHttp, ErrorHandlerService, ADV_HTTP_CONFIG };
 
 @NgModule({
   imports: [HttpModule],
@@ -12,7 +14,7 @@ import { AdvHttp, ErrorHandlerService, ADV_HTTP_CONFIG, AdvHttpConfig } from './
     },
     {
       provide: AdvHttp,
-      useFactory: (config: AdvHttpConfig, errorHandler: ErrorHandlerService, backend: XHRBackend, defaultOptions: RequestOptions) => {
+      useFactory: (config: any, errorHandler: ErrorHandlerService, backend: XHRBackend, defaultOptions: RequestOptions) => {
         return new AdvHttp(config, errorHandler, backend, defaultOptions);
       },
       deps: [ ADV_HTTP_CONFIG, ErrorHandlerService, XHRBackend, RequestOptions]

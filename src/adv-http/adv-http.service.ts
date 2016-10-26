@@ -1,8 +1,10 @@
 import { Observable } from 'rxjs/Observable';
+import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 import { Subscription } from 'rxjs/Subscription';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { Subscriber } from 'rxjs/Subscriber';
+import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
@@ -12,7 +14,7 @@ import { Injectable, OpaqueToken, Inject } from '@angular/core';
 /**
  *  Data caching
  */
-class SyncableObservable<T> extends Observable<T> {
+export class SyncableObservable<T> extends Observable<T> {
   protected _dataSubject: Subject<T>;
   protected sub: Subscription;
 
@@ -32,7 +34,7 @@ class SyncableObservable<T> extends Observable<T> {
     return this._dataSubject;
   }
 
-  sync() {
+  sync(): ConnectableObservable<T> {
     const dataSubject = this.getDataSubject();
 
     if (this.sub) {
@@ -66,7 +68,7 @@ Observable.prototype.syncable = function() {
 
 declare module 'rxjs/Observable' {
   interface Observable<T> {
-    syncable: Function;
+    syncable: { (): SyncableObservable<T> };
   }
 }
 

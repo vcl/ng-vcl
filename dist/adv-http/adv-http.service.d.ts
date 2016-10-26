@@ -1,13 +1,32 @@
 /// <reference types="core-js" />
 import { Observable } from 'rxjs/Observable';
+import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
+import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
+import { Subscriber } from 'rxjs/Subscriber';
+import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
 import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
 import { OpaqueToken } from '@angular/core';
+/**
+ *  Data caching
+ */
+export declare class SyncableObservable<T> extends Observable<T> {
+    protected source: Observable<T>;
+    protected _dataSubject: Subject<T>;
+    protected sub: Subscription;
+    constructor(source: Observable<T>);
+    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    protected getDataSubject(): Subject<T>;
+    sync(): ConnectableObservable<T>;
+}
 declare module 'rxjs/Observable' {
     interface Observable<T> {
-        syncable: Function;
+        syncable: {
+            (): SyncableObservable<T>;
+        };
     }
 }
 /**

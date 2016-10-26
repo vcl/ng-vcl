@@ -3424,4 +3424,7 @@ exports.L10nNoopLoaderService = L10nNoopLoaderService;
 exports.L10nStaticLoaderService = L10nStaticLoaderService;
 exports.L10nFormatParserService = L10nFormatParserService;
 exports.L10nService = L10nService;
+exports.AdvHttp = AdvHttp;
+exports.ErrorHandlerService = ErrorHandlerService;
+exports.ADV_HTTP_CONFIG = ADV_HTTP_CONFIG;
 exports.AdvHttpModule = AdvHttpModule;
