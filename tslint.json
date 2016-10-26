@@ -3,7 +3,7 @@
     "adjacent-overload-signatures": true,
     "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-shorthand": true,
-    "only-arrow-functions": [true, "allow-declarations"],
+    "only-arrow-functions": [false],
     "arrow-parens": false,
     "class-name": true,
     "comment-format": [
