@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { Subscriber } from 'rxjs/Subscriber';
-import 'rxjs/add/operator/publish';
+import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
@@ -42,7 +42,6 @@ export class SyncableObservable<T> extends Observable<T> {
     }
 
     const sync$ = new Observable(observer => {
-
       const httpSub = this.source.subscribe(data => {
         dataSubject.next(data);
         observer.next(data);
