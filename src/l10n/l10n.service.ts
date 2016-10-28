@@ -19,7 +19,11 @@ export interface L10nConfig {
 @Injectable()
 export class L10nService {
 
-  private locale$: BehaviorSubject<string>;
+  private _locale$: BehaviorSubject<string>;
+  get locale$() {
+    return this._locale$.asObservable();
+  }
+
   private packages: { [key: string]: Observable<TranslationPackage> };
   private supportedLocales$: Observable<string[]>;
 
@@ -37,7 +41,7 @@ export class L10nService {
     this.packages = {};
 
     this.locale = (config.locale || this.getNavigatorLang() || 'en-us').toLowerCase();
-    this.locale$ = new BehaviorSubject<string>(this.locale);
+    this._locale$ = new BehaviorSubject<string>(this.locale);
 
     // Initialize the streams
 
@@ -67,11 +71,13 @@ export class L10nService {
 
     this.package$ = locale$.switchMap(locale => this.getTranslationPackage(locale));
 
-    let fbPackage$ = fbLocale$.switchMap((fbLocale) => {
+    // Setup the fallback package stream
+    let fbPackageTemp$ = fbLocale$.switchMap((fbLocale) => {
       return fbLocale ? this.getTranslationPackage(fbLocale) : Observable.of({});
     });
 
-    this.fbPackage$ = Observable.combineLatest(this.package$, fbPackage$, (pkg, fbPkg) => {
+    // The real fallback stream is a combination of the latest package and fallback package 
+    this.fbPackage$ = Observable.combineLatest(this.package$, fbPackageTemp$, (pkg, fbPkg) => {
       return fbPkg ? Object.assign({}, fbPkg, pkg) : pkg;
     });
   }
@@ -82,7 +88,10 @@ export class L10nService {
   getTranslationPackage(locale) {
     // Cache package streams and share
     if (!this.packages[locale]) {
-      this.packages[locale] = this.loader.getTranslationPackage(locale).publishLast().refCount();
+      this.packages[locale] = this.loader
+                                  .getTranslationPackage(locale)
+                                  .publishReplay(1)
+                                  .refCount();
     }
     return this.packages[locale];
   }
@@ -96,7 +105,7 @@ export class L10nService {
       this.supportedLocales$ = this.loader
                                    .getSupportedLocales()
                                    .map(sl => sl.map(locale => locale.toLowerCase()))
-                                   .publishLast()
+                                   .publishReplay(1)
                                    .refCount();
     }
     return this.supportedLocales$;
@@ -109,7 +118,7 @@ export class L10nService {
   */
   setLocale(locale: string) {
     this.locale = locale.toLowerCase();
-    this.locale$.next(this.locale);
+    this._locale$.next(this.locale);
   }
 
   /**

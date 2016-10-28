@@ -54,7 +54,8 @@ export class L10nStaticLoaderService extends L10nLoaderService {
       }
     });
     // unique
-    return Observable.of(Array.from(new Set(supportedLocales)));
+    supportedLocales = Array.from(new Set(supportedLocales));
+    return Observable.of(supportedLocales);
   }
 
   getTranslationPackage(locale: string) {
