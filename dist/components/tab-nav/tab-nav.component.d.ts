@@ -27,6 +27,6 @@ export declare class TabNavComponent {
     selectedTabIndex: number;
     selectedTabIndexChange$: EventEmitter<number>;
     readonly selectedTabIndexChange: Observable<number>;
-    constructor();
+    readonly tabsHaveContent: boolean;
     selectTab(tab: number | TabComponent): void;
 }

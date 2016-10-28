@@ -81,6 +81,15 @@ var TabNavComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TabNavComponent.prototype, "tabsHaveContent", {
+        // If any of the tabs has we do not render the shared content template
+        // as it might be one the tabs content templates 
+        get: function () {
+            return this.tabs.some(function (tab) { return !!tab.content; });
+        },
+        enumerable: true,
+        configurable: true
+    });
     // Sets a valid selectedTabIndex
     TabNavComponent.prototype.selectTab = function (tab) {
         var tabs = this.tabs.toArray();

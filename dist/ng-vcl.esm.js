@@ -1840,6 +1840,15 @@ var TabNavComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TabNavComponent.prototype, "tabsHaveContent", {
+        // If any of the tabs has we do not render the shared content template
+        // as it might be one the tabs content templates 
+        get: function () {
+            return this.tabs.some(function (tab) { return !!tab.content; });
+        },
+        enumerable: true,
+        configurable: true
+    });
     // Sets a valid selectedTabIndex
     TabNavComponent.prototype.selectTab = function (tab) {
         var tabs = this.tabs.toArray();
@@ -1901,7 +1910,7 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         Component({
             selector: 'vcl-tab-nav',
-            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i && tab.content\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"content\" role=\"tabpanel\" class=\"vclTabPanel\">\n    <div [wormhole]=\"content\" [wormhole-indisposable]=\"true\"></div>\n  </div>\n</div>\n\n"
+            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"tabsHaveContent\" class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i && tab.content\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"!tabsHaveContent && content\" role=\"tabpanel\" class=\"vclTabPanel\">\n    <div [wormhole]=\"content\" [wormhole-indisposable]=\"true\"></div>\n  </div>\n</div>\n\n"
         }), 
         __metadata('design:paramtypes', [])
     ], TabNavComponent);
