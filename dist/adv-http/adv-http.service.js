@@ -6,7 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Observable_1 = require('rxjs/Observable');
 var ReplaySubject_1 = require('rxjs/ReplaySubject');
-require('rxjs/add/operator/publish');
+require('rxjs/add/operator/publishReplay');
 require('rxjs/add/operator/publish');
 require('rxjs/add/operator/catch');
 require('rxjs/add/operator/retryWhen');

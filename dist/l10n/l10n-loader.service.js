@@ -45,7 +45,8 @@ var L10nStaticLoaderService = (function (_super) {
             }
         });
         // unique
-        return Observable_1.Observable.of(Array.from(new Set(supportedLocales)));
+        supportedLocales = Array.from(new Set(supportedLocales));
+        return Observable_1.Observable.of(supportedLocales);
     };
     L10nStaticLoaderService.prototype.getTranslationPackage = function (locale) {
         var pkg = this.flatten(locale, this.config);

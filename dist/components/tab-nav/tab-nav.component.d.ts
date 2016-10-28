@@ -18,6 +18,7 @@ export declare class TabComponent {
 }
 export declare class TabNavComponent {
     tabs: QueryList<TabComponent>;
+    content: TabContentDirective;
     layout: string;
     tabbableClass: string;
     tabsClass: string;

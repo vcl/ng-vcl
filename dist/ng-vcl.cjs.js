@@ -18,6 +18,7 @@ var _angular_router = require('@angular/router');
 var Tether = require('tether');
 var _angular_http = require('@angular/http');
 var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
+var rxjs_add_operator_publishReplay = require('rxjs/add/operator/publishReplay');
 var rxjs_add_operator_publish = require('rxjs/add/operator/publish');
 var rxjs_add_operator_catch = require('rxjs/add/operator/catch');
 var rxjs_add_operator_retryWhen = require('rxjs/add/operator/retryWhen');
@@ -279,7 +280,8 @@ var L10nStaticLoaderService = (function (_super) {
             }
         });
         // unique
-        return rxjs_Observable.Observable.of(Array.from(new Set(supportedLocales)));
+        supportedLocales = Array.from(new Set(supportedLocales));
+        return rxjs_Observable.Observable.of(supportedLocales);
     };
     L10nStaticLoaderService.prototype.getTranslationPackage = function (locale) {
         var pkg = this.flatten(locale, this.config);
@@ -344,7 +346,7 @@ var L10nService = (function () {
         this.parser = parser;
         this.packages = {};
         this.locale = (config.locale || this.getNavigatorLang() || 'en-us').toLowerCase();
-        this.locale$ = new rxjs_BehaviorSubject.BehaviorSubject(this.locale);
+        this._locale$ = new rxjs_BehaviorSubject.BehaviorSubject(this.locale);
         // Initialize the streams
         var supportedLocales$ = this.getSupportedLocales();
         // Set up stream of valid locale
@@ -371,20 +373,32 @@ var L10nService = (function () {
             }
         });
         this.package$ = locale$.switchMap(function (locale) { return _this.getTranslationPackage(locale); });
-        var fbPackage$ = fbLocale$.switchMap(function (fbLocale) {
+        // Setup the fallback package stream
+        var fbPackageTemp$ = fbLocale$.switchMap(function (fbLocale) {
             return fbLocale ? _this.getTranslationPackage(fbLocale) : rxjs_Observable.Observable.of({});
         });
-        this.fbPackage$ = rxjs_Observable.Observable.combineLatest(this.package$, fbPackage$, function (pkg, fbPkg) {
+        // The real fallback stream is a combination of the latest package and fallback package 
+        this.fbPackage$ = rxjs_Observable.Observable.combineLatest(this.package$, fbPackageTemp$, function (pkg, fbPkg) {
             return fbPkg ? Object.assign({}, fbPkg, pkg) : pkg;
         });
     }
+    Object.defineProperty(L10nService.prototype, "locale$", {
+        get: function () {
+            return this._locale$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
     * @internal
     */
     L10nService.prototype.getTranslationPackage = function (locale) {
         // Cache package streams and share
         if (!this.packages[locale]) {
-            this.packages[locale] = this.loader.getTranslationPackage(locale).publishLast().refCount();
+            this.packages[locale] = this.loader
+                .getTranslationPackage(locale)
+                .publishReplay(1)
+                .refCount();
         }
         return this.packages[locale];
     };
@@ -397,7 +411,7 @@ var L10nService = (function () {
             this.supportedLocales$ = this.loader
                 .getSupportedLocales()
                 .map(function (sl) { return sl.map(function (locale) { return locale.toLowerCase(); }); })
-                .publishLast()
+                .publishReplay(1)
                 .refCount();
         }
         return this.supportedLocales$;
@@ -409,7 +423,7 @@ var L10nService = (function () {
     */
     L10nService.prototype.setLocale = function (locale) {
         this.locale = locale.toLowerCase();
-        this.locale$.next(this.locale);
+        this._locale$.next(this.locale);
     };
     /**
     * Looks up the value for the provided key in the current tranlsation package.
@@ -1857,6 +1871,10 @@ var TabNavComponent = (function () {
         __metadata('design:type', (typeof (_a = typeof _angular_core.QueryList !== 'undefined' && _angular_core.QueryList) === 'function' && _a) || Object)
     ], TabNavComponent.prototype, "tabs", void 0);
     __decorate([
+        _angular_core.ContentChild(TabContentDirective), 
+        __metadata('design:type', TabContentDirective)
+    ], TabNavComponent.prototype, "content", void 0);
+    __decorate([
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], TabNavComponent.prototype, "layout", void 0);
@@ -1887,7 +1905,7 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-tab-nav',
-            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n</div>\n\n"
+            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i && tab.content\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"content\" role=\"tabpanel\" class=\"vclTabPanel\">\n    <div [wormhole]=\"content\" [wormhole-indisposable]=\"true\"></div>\n  </div>\n</div>\n\n"
         }), 
         __metadata('design:paramtypes', [])
     ], TabNavComponent);

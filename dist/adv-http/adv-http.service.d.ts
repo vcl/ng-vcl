@@ -4,7 +4,7 @@ import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Subscriber } from 'rxjs/Subscriber';
-import 'rxjs/add/operator/publish';
+import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';

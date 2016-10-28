@@ -113,6 +113,7 @@ var TabNavComponent = (function () {
     TabNavComponent.ctorParameters = [];
     TabNavComponent.propDecorators = {
         'tabs': [{ type: core_1.ContentChildren, args: [TabComponent,] },],
+        'content': [{ type: core_1.ContentChild, args: [TabContentDirective,] },],
         'layout': [{ type: core_1.Input },],
         'tabbableClass': [{ type: core_1.Input },],
         'tabsClass': [{ type: core_1.Input },],

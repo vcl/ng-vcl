@@ -15,7 +15,8 @@ export declare class L10nService {
     private config;
     private loader;
     private parser;
-    private locale$;
+    private _locale$;
+    readonly locale$: Observable<string>;
     private packages;
     private supportedLocales$;
     private package$;
