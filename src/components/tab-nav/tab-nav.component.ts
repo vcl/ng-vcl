@@ -49,6 +49,9 @@ export class TabNavComponent {
   @ContentChildren(TabComponent)
   tabs: QueryList<TabComponent>;
 
+  @ContentChild(TabContentDirective)
+  content: TabContentDirective;
+
   @Input()
   layout: string = '';
 
