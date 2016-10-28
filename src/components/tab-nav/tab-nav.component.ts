@@ -77,7 +77,11 @@ export class TabNavComponent {
     return this.selectedTabIndexChange$.asObservable();
   }
 
-  constructor() {}
+  // If any of the tabs has we do not render the shared content template
+  // as it might be one the tabs content templates 
+  get tabsHaveContent() {
+    return this.tabs.some(tab => !!tab.content);
+  }
 
   // Sets a valid selectedTabIndex
   selectTab(tab: number | TabComponent) {
