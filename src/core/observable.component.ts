@@ -1,10 +1,12 @@
 import { SimpleChange } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
 
 export abstract class ObservableComponent {
     private changesSubject = new ReplaySubject<{ [key: string]: SimpleChange }>();
-    protected changes$ = this.changesSubject.asObservable();
+    protected changes$: Observable<{ [key: string]: SimpleChange }> = this.changesSubject.asObservable();
 
     ngOnChanges(changes: { [key: string]: SimpleChange }) {
       this.changesSubject.next(changes);

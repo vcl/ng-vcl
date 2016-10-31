@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { ObservableComponent } from './../../core/observable.component';
 import { Subscription } from 'rxjs/Subscription';
 import { Component, Input, HostBinding } from '@angular/core';
@@ -43,7 +44,7 @@ export class LinkComponent extends ObservableComponent {
       : this.href;
   }
 
-  locTitle$ = this.observeProperty<string>('title').switchMap( title => this.l10n.localize(title));
+  locTitle$: Observable<string> = this.observeProperty<string>('title').switchMap( title => this.l10n.localize(title));
   locTitleSub: Subscription;
 
   @HostBinding('attr.title')
