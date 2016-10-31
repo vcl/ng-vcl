@@ -11,9 +11,10 @@ import 'rxjs/add/operator/publishLast';
 import 'hammerjs';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import 'rxjs/add/operator/filter';
 import * as Tether from 'tether';
 import { ConnectionBackend, Http, HttpModule, RequestOptions, XHRBackend } from '@angular/http';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
@@ -2058,8 +2059,29 @@ var NavigationComponent = (function () {
     var _a;
 }());
 
-var LinkComponent = (function () {
-    function LinkComponent() {
+var ObservableComponent = (function () {
+    function ObservableComponent() {
+        this.changesSubject = new ReplaySubject();
+        this.changes$ = this.changesSubject.asObservable();
+    }
+    ObservableComponent.prototype.ngOnChanges = function (changes) {
+        this.changesSubject.next(changes);
+    };
+    ObservableComponent.prototype.observeProperty = function (propertyName) {
+        return this.changes$
+            .filter(function (changes) { return changes.hasOwnProperty(propertyName); })
+            .map(function (changes) { return changes[propertyName].currentValue; });
+    };
+    return ObservableComponent;
+}());
+
+var LinkComponent = (function (_super) {
+    __extends(LinkComponent, _super);
+    function LinkComponent(l10n) {
+        var _this = this;
+        _super.call(this);
+        this.l10n = l10n;
+        this.locTitle$ = this.observeProperty('title').switchMap(function (title) { return _this.l10n.localize(title); });
     }
     Object.defineProperty(LinkComponent.prototype, "attrHref", {
         get: function () {
@@ -2072,6 +2094,13 @@ var LinkComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    LinkComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.locTitleSub = this.locTitle$.subscribe(function (title) { return _this.locTitle = title; });
+    };
+    LinkComponent.prototype.ngOnDestroy = function () {
+        this.locTitleSub.unsubscribe();
+    };
     __decorate([
         Input(), 
         __metadata('design:type', String)
@@ -2105,20 +2134,24 @@ var LinkComponent = (function () {
         HostBinding('attr.href'), 
         __metadata('design:type', String)
     ], LinkComponent.prototype, "attrHref", null);
+    __decorate([
+        HostBinding('attr.title'),
+        HostBinding('attr.aria-label'), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "locTitle", void 0);
     LinkComponent = __decorate([
         Component({
             selector: '[vcl-link]',
             template: "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"(label | loc) || href\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n",
             host: {
-                '[attr.touch-action]': 'touchAction',
-                '[attr.aria-label]': 'title | loc',
-                '[attr.title]': 'title | loc'
+                '[attr.touch-action]': 'touchAction' // TODO - no function?
             },
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof L10nService !== 'undefined' && L10nService) === 'function' && _a) || Object])
     ], LinkComponent);
     return LinkComponent;
-}());
+    var _a;
+}(ObservableComponent));
 
 var VCLLinkModule = (function () {
     function VCLLinkModule() {

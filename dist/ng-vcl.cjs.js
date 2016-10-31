@@ -15,9 +15,10 @@ var rxjs_add_operator_publishLast = require('rxjs/add/operator/publishLast');
 var hammerjs = require('hammerjs');
 var rxjs_Subject = require('rxjs/Subject');
 var _angular_router = require('@angular/router');
+var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
+var rxjs_add_operator_filter = require('rxjs/add/operator/filter');
 var Tether = require('tether');
 var _angular_http = require('@angular/http');
-var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
 var rxjs_add_operator_publishReplay = require('rxjs/add/operator/publishReplay');
 var rxjs_add_operator_publish = require('rxjs/add/operator/publish');
 var rxjs_add_operator_catch = require('rxjs/add/operator/catch');
@@ -2062,8 +2063,29 @@ var NavigationComponent = (function () {
     var _a;
 }());
 
-var LinkComponent = (function () {
-    function LinkComponent() {
+var ObservableComponent = (function () {
+    function ObservableComponent() {
+        this.changesSubject = new rxjs_ReplaySubject.ReplaySubject();
+        this.changes$ = this.changesSubject.asObservable();
+    }
+    ObservableComponent.prototype.ngOnChanges = function (changes) {
+        this.changesSubject.next(changes);
+    };
+    ObservableComponent.prototype.observeProperty = function (propertyName) {
+        return this.changes$
+            .filter(function (changes) { return changes.hasOwnProperty(propertyName); })
+            .map(function (changes) { return changes[propertyName].currentValue; });
+    };
+    return ObservableComponent;
+}());
+
+var LinkComponent = (function (_super) {
+    __extends(LinkComponent, _super);
+    function LinkComponent(l10n) {
+        var _this = this;
+        _super.call(this);
+        this.l10n = l10n;
+        this.locTitle$ = this.observeProperty('title').switchMap(function (title) { return _this.l10n.localize(title); });
     }
     Object.defineProperty(LinkComponent.prototype, "attrHref", {
         get: function () {
@@ -2076,6 +2098,13 @@ var LinkComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    LinkComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.locTitleSub = this.locTitle$.subscribe(function (title) { return _this.locTitle = title; });
+    };
+    LinkComponent.prototype.ngOnDestroy = function () {
+        this.locTitleSub.unsubscribe();
+    };
     __decorate([
         _angular_core.Input(), 
         __metadata('design:type', String)
@@ -2109,20 +2138,24 @@ var LinkComponent = (function () {
         _angular_core.HostBinding('attr.href'), 
         __metadata('design:type', String)
     ], LinkComponent.prototype, "attrHref", null);
+    __decorate([
+        _angular_core.HostBinding('attr.title'),
+        _angular_core.HostBinding('attr.aria-label'), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "locTitle", void 0);
     LinkComponent = __decorate([
         _angular_core.Component({
             selector: '[vcl-link]',
             template: "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"(label | loc) || href\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n",
             host: {
-                '[attr.touch-action]': 'touchAction',
-                '[attr.aria-label]': 'title | loc',
-                '[attr.title]': 'title | loc'
+                '[attr.touch-action]': 'touchAction' // TODO - no function?
             },
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof L10nService !== 'undefined' && L10nService) === 'function' && _a) || Object])
     ], LinkComponent);
     return LinkComponent;
-}());
+    var _a;
+}(ObservableComponent));
 
 var VCLLinkModule = (function () {
     function VCLLinkModule() {
