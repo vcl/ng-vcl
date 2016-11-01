@@ -14,8 +14,10 @@ var SelectComponent = (function () {
         this.collapsedIcon = 'fa:chevron-down';
         this.inputValue = 'label';
         this.emptyLabel = 'Select value';
-        this.displayValue = this.emptyLabel;
     }
+    SelectComponent.prototype.ngOnInit = function () {
+        this.displayValue = this.emptyLabel;
+    };
     SelectComponent.prototype.expand = function () {
         this.expanded = !this.expanded;
     };

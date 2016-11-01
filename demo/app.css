@@ -1266,6 +1266,7 @@ span.vclButton[disabled] {
   -webkit-transition: color .25s linear, background-color .25s ease-in-out, border-color .25s ease-in-out;
   transition: color .25s linear, background-color .25s ease-in-out, border-color .25s ease-in-out;
   min-height: 2.5em;
+  outline: 0;
 }
 
 .vclCalendar.vclCalInput {
@@ -1273,6 +1274,7 @@ span.vclButton[disabled] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  outline: 0;
 }
 
 .vclCalendar.vclCalInput .vclCalItem:hover {
@@ -1291,17 +1293,11 @@ span.vclButton[disabled] {
   color: hsl(0, 0%, 63%);
 }
 
-.vclCalItem.vclSelected,
-.vclCalendar.vclCalInput .vclCalItem.vclSelected:hover {
-  color: #FFFFFF;
-  background-color: #0888BF;
-  font-weight: 500;
-}
-
 .vclCalItem.vclDisabled,
 .vclCalendar.vclCalInput .vclCalItem.vclDisabled:hover {
   color: hsl(0, 0%, 50%);
   background-color: hsl(0, 0%, 88%);
+  cursor: default;
 }
 
 .vclCalItem.vclAvailable,
@@ -1312,6 +1308,13 @@ span.vclButton[disabled] {
 .vclCalItem.vclUnavailable,
 .vclCalendar.vclCalInput .vclCalItem.vclUnavailable:hover {
   background-color: #f2dede;
+}
+
+.vclCalItem.vclSelected,
+.vclCalendar.vclCalInput .vclCalItem.vclSelected:hover {
+  color: #FFFFFF;
+  background-color: #0888BF;
+  font-weight: 500;
 }
 
 .vclCheckbox {

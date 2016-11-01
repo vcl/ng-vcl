@@ -15,6 +15,7 @@ export declare class SelectComponent {
     emptyLabel: string;
     displayValue: string;
     constructor();
+    ngOnInit(): void;
     expand(): void;
     onSelect(items: any[]): void;
     onOutsideClick(event: any): void;

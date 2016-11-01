@@ -21,6 +21,7 @@ import TOOLBAR_DEMO from './components/toolbar/toolbar.demo';
 import WORMHOLE_DEMO from './components/wormhole/wormhole.demo';
 import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 import MONTH_PICKER_DEMO from './components/month-picker/month-picker.demo';
+import MONTH_SELECTOR_DEMO from './components/month-selector/month-selector.demo';
 import L10N_DEMO from './components/l10n/l10n.demo';
 
 interface Demo {
@@ -54,10 +55,11 @@ export const DEMOS: Demo[] = [
   WORMHOLE_DEMO,
   OFF_CLICK_DEMO,
   MONTH_PICKER_DEMO,
-  L10N_DEMO
+  MONTH_SELECTOR_DEMO,
+  L10N_DEMO,
 ];
 
-export const GROUPED_DEMOS = function() {
+export const GROUPED_DEMOS = function () {
   var itemsMap = {};
 
   DEMOS.forEach(c => {
@@ -81,12 +83,12 @@ export const GROUPED_DEMOS = function() {
     items: itemsMap[category],
     active: true,
   }));
-}();
+} ();
 
 export const DEMO_DECLARATIONS = DEMOS.map(dc => Object.keys(dc.tabs)
-                                                       .map(key => dc.tabs[key])
-                                                       .filter(o => typeof o === 'function')
-                                          );
+                                                  .map(key => dc.tabs[key])
+                                                  .filter(o => typeof o === 'function')
+                                                );
 export const DEMO_ROUTES = (DEMOS.map(dc => {
   return {
     path: dc.path,

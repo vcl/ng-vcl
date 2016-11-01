@@ -42,7 +42,9 @@ export class SelectComponent {
 
   displayValue: string;
 
-  constructor() {
+  constructor() { }
+
+  ngOnInit() {
     this.displayValue = this.emptyLabel;
   }
 
@@ -53,15 +55,15 @@ export class SelectComponent {
   onSelect(items: any[]) {
     this.clickInside = true;
     this.select.emit(items);
-    if(items && items[0] && this.maxSelectableItems === 1) {
+    if (items && items[0] && this.maxSelectableItems === 1) {
       this.displayValue = items[0][this.inputValue];
     } else if (!items || items.length === 0) {
       this.displayValue = this.emptyLabel;
     } else {
       let result = '';
-      for (let i=0; i < items.length; i++) {
+      for (let i = 0; i < items.length; i++) {
         result += items[i][this.inputValue];
-        if ( i !== items.length - 1) {
+        if (i !== items.length - 1) {
           result += ', ';
         }
       }
