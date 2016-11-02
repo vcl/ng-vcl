@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   templateUrl: 'select.component.html'
 })
 export class SelectComponent implements OnInit {
+  @ViewChild('select') select;
 
   items: any[] = [
     { label: 'item 1' },
@@ -22,9 +23,16 @@ export class SelectComponent implements OnInit {
 
   selectedItemsMulti: any[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() { }
+
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     this.selectx.selectItem(this.items[5]);
+  //   }, 2000);
+  // }
 
   onSelect(items: any[]) {
     if (items.length) {

@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  ViewChild
+} from '@angular/core';
 
 /**
 */
@@ -9,6 +16,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectComponent {
+  @ViewChild('dropdown') dropdown;
 
   ariaRole: string = 'list';
   clickInside: boolean = false;
@@ -50,6 +58,10 @@ export class SelectComponent {
 
   expand() {
     this.expanded = !this.expanded;
+  }
+
+  selectItem(item: any) {
+    this.dropdown.selectItem(item);
   }
 
   onSelect(items: any[]) {

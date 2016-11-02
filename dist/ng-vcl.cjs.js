@@ -764,7 +764,7 @@ var MetalistComponent = (function () {
     MetalistComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-metalist',
-            template: "<template *ngFor=\"let item of items\" [ngTemplateOutlet]=\"template\" [ngOutletContext]=\"{item: item, meta: getMeta(item) }\"></template>\n"
+            template: "<template\n  *ngFor=\"let item of items\"\n  [ngTemplateOutlet]=\"template\"\n  [ngOutletContext]=\"{item: item, meta: getMeta(item) }\">\n</template>\n"
         }), 
         __metadata('design:paramtypes', [])
     ], MetalistComponent);
@@ -799,7 +799,7 @@ var DropdownComponent = (function () {
         this.ariaRole = 'listbox';
         this.metaInformation = [];
     }
-    DropdownComponent.prototype.selectItem = function (item, meta, metalist) {
+    DropdownComponent.prototype._selectItem = function (item, meta, metalist) {
         if (this.maxSelectableItems === 1) {
             this.expanded = false;
             this.expandedChange.emit(this.expanded);
@@ -814,9 +814,16 @@ var DropdownComponent = (function () {
             }
         }
     };
+    DropdownComponent.prototype.selectItem = function (item) {
+        this.metalist.selectItem(item);
+    };
     DropdownComponent.prototype.onSelect = function (selectedItems) {
         this.select.emit(selectedItems);
     };
+    __decorate([
+        _angular_core.ViewChild('metalist'), 
+        __metadata('design:type', Object)
+    ], DropdownComponent.prototype, "metalist", void 0);
     __decorate([
         _angular_core.Output(), 
         __metadata('design:type', Object)
@@ -852,7 +859,7 @@ var DropdownComponent = (function () {
     DropdownComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-dropdown',
-            template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
+            template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -1142,6 +1149,9 @@ var SelectComponent = (function () {
     SelectComponent.prototype.expand = function () {
         this.expanded = !this.expanded;
     };
+    SelectComponent.prototype.selectItem = function (item) {
+        this.dropdown.selectItem(item);
+    };
     SelectComponent.prototype.onSelect = function (items) {
         this.clickInside = true;
         this.select.emit(items);
@@ -1165,6 +1175,10 @@ var SelectComponent = (function () {
     SelectComponent.prototype.onOutsideClick = function (event) {
         this.expanded = false;
     };
+    __decorate([
+        _angular_core.ViewChild('dropdown'), 
+        __metadata('design:type', Object)
+    ], SelectComponent.prototype, "dropdown", void 0);
     __decorate([
         _angular_core.Output(), 
         __metadata('design:type', Object)
@@ -1204,7 +1218,7 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-select',
-            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
+            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown #dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])

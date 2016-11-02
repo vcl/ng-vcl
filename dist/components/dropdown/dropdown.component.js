@@ -13,7 +13,7 @@ var DropdownComponent = (function () {
         this.ariaRole = 'listbox';
         this.metaInformation = [];
     }
-    DropdownComponent.prototype.selectItem = function (item, meta, metalist) {
+    DropdownComponent.prototype._selectItem = function (item, meta, metalist) {
         if (this.maxSelectableItems === 1) {
             this.expanded = false;
             this.expandedChange.emit(this.expanded);
@@ -28,6 +28,9 @@ var DropdownComponent = (function () {
             }
         }
     };
+    DropdownComponent.prototype.selectItem = function (item) {
+        this.metalist.selectItem(item);
+    };
     DropdownComponent.prototype.onSelect = function (selectedItems) {
         this.select.emit(selectedItems);
     };
@@ -41,6 +44,7 @@ var DropdownComponent = (function () {
     /** @nocollapse */
     DropdownComponent.ctorParameters = [];
     DropdownComponent.propDecorators = {
+        'metalist': [{ type: core_1.ViewChild, args: ['metalist',] },],
         'select': [{ type: core_1.Output },],
         'items': [{ type: core_1.Input },],
         'tabindex': [{ type: core_1.Input },],
