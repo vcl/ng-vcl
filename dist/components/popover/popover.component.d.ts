@@ -3,7 +3,6 @@ import { OverlayManagerService, OverlayManagedComponent } from '../../services/o
 export declare class PopoverComponent implements OverlayManagedComponent {
     protected overlayManger: OverlayManagerService;
     protected myElement: ElementRef;
-    protected opening: boolean;
     target: string;
     style: string;
     class: string;
@@ -19,6 +18,6 @@ export declare class PopoverComponent implements OverlayManagedComponent {
     state: string;
     constructor(overlayManger: OverlayManagerService, myElement: ElementRef);
     close(): void;
-    onClick(event: any): void;
+    offClick(): void;
     ngOnChanges(changes: any): void;
 }

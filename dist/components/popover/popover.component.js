@@ -5,7 +5,6 @@ var PopoverComponent = (function () {
     function PopoverComponent(overlayManger, myElement) {
         this.overlayManger = overlayManger;
         this.myElement = myElement;
-        this.opening = false;
         this.class = 'vclPopOver';
         this.zIndex = 10;
         this.coverZIndex = -1;
@@ -23,11 +22,10 @@ var PopoverComponent = (function () {
         this.open = false;
         this.openChange.emit(this.open);
     };
-    PopoverComponent.prototype.onClick = function (event) {
-        if (!this.opening && this.expandManaged && event.path.indexOf(this.myElement.nativeElement) === -1) {
+    PopoverComponent.prototype.offClick = function () {
+        if (this.expandManaged) {
             this.close();
         }
-        this.opening = false;
     };
     PopoverComponent.prototype.ngOnChanges = function (changes) {
         try {
@@ -35,7 +33,6 @@ var PopoverComponent = (function () {
                 if (changes.open.currentValue === true) {
                     this.zIndex = this.overlayManger.register(this);
                     this.coverZIndex = this.zIndex - 1;
-                    this.opening = true;
                     this.state = 'open';
                 }
                 else if (changes.open.currentValue === false) {
@@ -51,9 +48,6 @@ var PopoverComponent = (function () {
         { type: core_1.Component, args: [{
                     selector: 'vcl-popover',
                     templateUrl: 'popover.component.html',
-                    host: {
-                        '(document:click)': 'onClick($event)',
-                    },
                     animations: [
                         core_1.trigger('popOverState', [])
                     ]

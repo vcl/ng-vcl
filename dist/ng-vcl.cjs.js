@@ -2323,7 +2323,6 @@ var PopoverComponent = (function () {
     function PopoverComponent(overlayManger, myElement) {
         this.overlayManger = overlayManger;
         this.myElement = myElement;
-        this.opening = false;
         this.class = 'vclPopOver';
         this.zIndex = 10;
         this.coverZIndex = -1;
@@ -2341,11 +2340,10 @@ var PopoverComponent = (function () {
         this.open = false;
         this.openChange.emit(this.open);
     };
-    PopoverComponent.prototype.onClick = function (event) {
-        if (!this.opening && this.expandManaged && event.path.indexOf(this.myElement.nativeElement) === -1) {
+    PopoverComponent.prototype.offClick = function () {
+        if (this.expandManaged) {
             this.close();
         }
-        this.opening = false;
     };
     PopoverComponent.prototype.ngOnChanges = function (changes) {
         try {
@@ -2353,7 +2351,6 @@ var PopoverComponent = (function () {
                 if (changes.open.currentValue === true) {
                     this.zIndex = this.overlayManger.register(this);
                     this.coverZIndex = this.zIndex - 1;
-                    this.opening = true;
                     this.state = 'open';
                 }
                 else if (changes.open.currentValue === false) {
@@ -2412,10 +2409,7 @@ var PopoverComponent = (function () {
     PopoverComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-popover',
-            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>\n",
-            host: {
-                '(document:click)': 'onClick($event)',
-            },
+            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\"\n  (off-click)=\"offClick()\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>\n",
             animations: [
                 _angular_core.trigger('popOverState', [])
             ]
@@ -2434,6 +2428,7 @@ var VCLPopoverModule = (function () {
             imports: [
                 _angular_common.CommonModule,
                 VCLTetherModule,
+                VCLOffClickModule
             ],
             exports: [PopoverComponent],
             declarations: [PopoverComponent]

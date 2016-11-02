@@ -1,4 +1,4 @@
-<div class="vclDatePicker"
+<!--<div class="vclDatePicker"
     [class.vclLayoutHidden]="!expanded">
   <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput"
     [attr.role]="grid"
@@ -30,38 +30,5 @@
     </div>
 
     <div class="vclSeparator"></div>
-
-
-
-
-    <!--<template ngFor let-iM [ngForOf]="months" let-i="index">
-      <div *ngIf="i % monthsPerRow === 0" class="vclDGRow" role="row">
-        <div *ngFor="let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;"
-          (tap)="selectMonth(i+j)"
-          class="vclDGCell vclCalItem"
-          [class.vclAvailable]="!useAvailableMonths || currentMeta[i+j].available"
-          [class.vclUnavailable]="useAvailableMonths && !currentMeta[i+j].available"
-          [class.vclToday]="isCurrentMonth(i+j)"
-          [class.vclOtherMonth]="!isCurrentMonth(i+j)"
-          [class.vclDisabled]="useAvailableMonths && !currentMeta[i+j].available"
-          [class.vclSelected]="currentMeta[i+j].selected"
-          [style.background-color]="currentMeta[i+j].color"
-          [style.order]="i+j"
-          [attr.aria-selected]="currentMeta[i+j].selected"
-          role="gridcell"
-          tabindex="0">
-            <div *ngIf="jM.label" class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel">
-              {{jM.label | loc}}
-            </div>
-
-            <div *ngIf="jM.sublabel" class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemSublabel">
-              {{jM.sublabel | loc}}
-            </div>
-        </div>
-      </div>
-    </template>-->
-
-
-
   </div>
-</div>
+</div>-->

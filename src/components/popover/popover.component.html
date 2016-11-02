@@ -5,7 +5,8 @@
   [target]="target"
   [targetAttachment]="targetAttachment"
   [attachment]="attachment">
-  <div [ngStyle]="style" [@popOverState]="state">
+  <div [ngStyle]="style" [@popOverState]="state"
+  (off-click)="offClick()">
     <ng-content></ng-content>
   </div>
 </vcl-tether>

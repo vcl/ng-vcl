@@ -4,16 +4,11 @@ import { OverlayManagerService, OverlayManagedComponent } from '../../services/o
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
-  host: {
-    '(document:click)': 'onClick($event)',
-  },
   animations: [
     trigger('popOverState', [])
   ]
 })
 export class PopoverComponent implements OverlayManagedComponent {
-
-  protected opening: boolean = false;
 
   @Input()
   target: string;
@@ -63,11 +58,10 @@ export class PopoverComponent implements OverlayManagedComponent {
     this.openChange.emit(this.open);
   }
 
-  onClick(event) {
-    if (!this.opening && this.expandManaged && event.path.indexOf(this.myElement.nativeElement) === -1) {
+  offClick() {
+    if (this.expandManaged) {
       this.close();
     }
-    this.opening = false;
   }
 
   ngOnChanges(changes) {
@@ -76,7 +70,6 @@ export class PopoverComponent implements OverlayManagedComponent {
         if (changes.open.currentValue === true) {
           this.zIndex = this.overlayManger.register(this);
           this.coverZIndex = this.zIndex -1;
-          this.opening = true;
           this.state = 'open';
         } else if (changes.open.currentValue === false) {
           this.state = 'void';
