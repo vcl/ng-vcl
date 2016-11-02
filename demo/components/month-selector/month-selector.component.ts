@@ -6,42 +6,42 @@ import { Component } from '@angular/core';
 })
 export class MonthSelectorComponent {
 
-  expanded: boolean = false;
+  // expanded: boolean = false;
 
-  thisYear: number = new Date().getUTCFullYear();
+  // thisYear: number = new Date().getUTCFullYear();
 
-  currentYear: number = this.thisYear;
+  // currentYear: number = this.thisYear;
 
-  prevYearAvailable: boolean = true;
+  // prevYearAvailable: boolean = true;
 
-  nextYearAvailable: boolean = false;
+  // nextYearAvailable: boolean = false;
 
-  constructor() { }
+  // constructor() { }
 
-  ngOnInit() { }
+  // ngOnInit() { }
 
-  expandMonthPicker() {
-    this.expanded = !this.expanded;
-  }
+  // expandMonthPicker() {
+  //   this.expanded = !this.expanded;
+  // }
 
-  onSelect(date: string) {
-    console.log('onSelect():', date);
-  }
+  // onSelect(date: string) {
+  //   console.log('onSelect():', date);
+  // }
 
-  onPreviousYearTap() {
-    console.log('onPreviousYearTap()');
-    console.log('this.currentYear:', this.currentYear);
-    if (this.currentYear < this.thisYear) {
-      this.nextYearAvailable = true;
-    }
-  }
+  // onPreviousYearTap() {
+  //   console.log('onPreviousYearTap()');
+  //   console.log('this.currentYear:', this.currentYear);
+  //   if (this.currentYear < this.thisYear) {
+  //     this.nextYearAvailable = true;
+  //   }
+  // }
 
-  onNextYearTap() {
-    console.log('onNextYearTap()');
-    console.log('this.currentYear:', this.currentYear);
-    if (this.currentYear === this.thisYear) {
-      this.nextYearAvailable = false;
-    }
-  }
+  // onNextYearTap() {
+  //   console.log('onNextYearTap()');
+  //   console.log('this.currentYear:', this.currentYear);
+  //   if (this.currentYear === this.thisYear) {
+  //     this.nextYearAvailable = false;
+  //   }
+  // }
 }
 
