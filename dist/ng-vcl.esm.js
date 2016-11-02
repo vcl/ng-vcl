@@ -2337,7 +2337,7 @@ var PopoverComponent = (function () {
         this.openChange.emit(this.open);
     };
     PopoverComponent.prototype.offClick = function () {
-        if (this.expandManaged) {
+        if (this.expandManaged && !this.layer) {
             this.close();
         }
     };

@@ -59,7 +59,7 @@ export class PopoverComponent implements OverlayManagedComponent {
   }
 
   offClick() {
-    if (this.expandManaged) {
+    if (this.expandManaged && !this.layer) {
       this.close();
     }
   }
