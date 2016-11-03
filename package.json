@@ -14,7 +14,8 @@
     "build:html": "node copy.js",
     "build:bundles": "rollup -c rollup.config.js",
     "build": "npm-run-all build:lint build:bundles build:ngc build:html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run build:lint && tslint demo/**/*.ts"
   },
   "repository": {
     "type": "git",

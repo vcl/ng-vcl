@@ -60,7 +60,7 @@ export const DEMOS: Demo[] = [
 ];
 
 export const GROUPED_DEMOS = function () {
-  var itemsMap = {};
+  const itemsMap = {};
 
   DEMOS.forEach(c => {
     if (itemsMap[c.category]) {

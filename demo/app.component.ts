@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.router.events.subscribe((path) => {
@@ -26,11 +26,11 @@ export class AppComponent {
   searchResults = [];
 
   search(text) {
-    this.searchResults = new Fuse(GROUPED_DEMOS, {keys: ['items.label']})
+    this.searchResults = new Fuse(GROUPED_DEMOS, { keys: ['items.label'] })
       .search(text)
       .reduce((p, demoGroup) => {
-        return p.concat(new Fuse(demoGroup.items, {keys: ['label']}).search(text));
-      }, [])
+        return p.concat(new Fuse(demoGroup.items, { keys: ['label'] }).search(text));
+      }, []);
   }
 
   get demos() {

@@ -44,28 +44,28 @@ export class AppComponent {}
 
 #### vcl-navigation Properties:
 
-| Name                     | Type          | Default            | Description
-| ------------             | ------------- | ------------------ |--------------
-| `selectedItem`     | Object        |                    | The currently selected navitem
-| `ariaRole`               | string        |                    |
-| `tabindex`               | number        |                  0 |
-| `touchAction`            | string        |            'pan-y' |
-| `type`                   | string        |       'horizontal' | Direction (horizontal or vertical)
-| `subLevelHintIconClosed` | string        | 'fa:chevron-right' | Icon-name for nested closed
-| `subLevelHintIconOpened` | string        | 'fa:chevron-down'  | Icon-name for nested opened
-| `subLevelHintIconSide`   | string        |            'left'  | On which side should the icon be displayed
-| `navigationItems`        | vcl-navitem[] |                 [] | vcl-navitem
+| Name                     | Type          | Default            | Description                                  |
+| ------------             | ------------- | ------------------ |----------------------------------------------|
+| `selectedItem`           | Object        |                    | The currently selected navitem               |
+| `ariaRole`               | string        |                    |                                              |
+| `tabindex`               | number        |                  0 |                                              |
+| `touchAction`            | string        |            'pan-y' |                                              |
+| `type`                   | string        |       'horizontal' | Direction (horizontal or vertical)           |
+| `subLevelHintIconClosed` | string        | 'fa:chevron-right' | Icon-name for nested closed                  |
+| `subLevelHintIconOpened` | string        | 'fa:chevron-down'  | Icon-name for nested opened                  |
+| `subLevelHintIconSide`   | string        |            'left'  | On which side should the icon be displayed   |
+| `navigationItems`        | vcl-navitem[] |                 [] | vcl-navitem                                  |
 
 #### vcl-navitem Properties:
 
-| Name                     | Type        | Default  | Description
-| ------------             | ----------- | -------- |--------------
-| `label`                  | string      |          | Label of this item
-| `route`                  | string      |          | Route which is used onSelect
-| `active`                 | boolean     |    true  | if false, this item is hidden
-| `selected`               | boolean     |  false   | if true this item is marked as selected
-| `opened`                 | boolean     |  false   | if true and nested this opens the subitems
-| `heading`                | boolean     |  false   | if true, this is used as hX
-| `href`                   | string      |          | url which is opened onSelect
-| `prepIcon`               | string      |          |
-| `appIcon`                | string      |          |
+| Name                     | Type        | Default  | Description                                   |
+| ------------------------ | ----------- | -------- |-----------------------------------------------|
+| `label`                  | string      |          | Label of this item                            |
+| `route`                  | string      |          | Route which is used onSelect                  |
+| `active`                 | boolean     |    true  | if false, this item is hidden                 |
+| `selected`               | boolean     |  false   | if true this item is marked as selected       |
+| `opened`                 | boolean     |  false   | if true and nested this opens the subitems    |
+| `heading`                | boolean     |  false   | if true, this is used as hX                   |
+| `href`                   | string      |          | url which is opened onSelect                  |
+| `prepIcon`               | string      |          |                                               |
+| `appIcon`                | string      |          | icon which should be displayed                |
