@@ -60,7 +60,6 @@ export class NavigationItemComponent {
   toObject(): Object {
     const ret = {
       label: this.label,
-      route: this.route,
       active: this.active,
       selected: this.selected,
       opened: this.opened,
@@ -69,6 +68,8 @@ export class NavigationItemComponent {
       prepIcon: this.prepIcon,
       appIcon: this.appIcon
     };
+
+    if (this.route) ret['route'] = [this.route];
 
     // add nested items
     const items = [];
