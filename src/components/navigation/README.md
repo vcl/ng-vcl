@@ -1,4 +1,4 @@
-# vcl-nav
+# vcl-navigation
 The nav allows to organize navigation-items.
 
 
@@ -15,45 +15,57 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-tab-nav>
-  <vcl-tab>
-    <template vcl-tab-label>Tab1</template>
-    <template vcl-tab-content>
-      Content1
-    </template>
-  </vcl-tab>
-  <vcl-tab>
-    <template vcl-tab-label>Tab2</template>
-    <template vcl-tab-content>
-      Content2
-    </template>
-  </vcl-tab>
-  <vcl-tab [disabled]="true"><template vcl-tab-label>Tab3 (disabled)</template>
-    <template vcl-tab-content>
-      Content3
-    </template>
-  </vcl-tab>
-</vcl-tab-nav>
+<vcl-navigation>
+  <vcl-navitem [active]=true prepIcon="fa:home" label="Home1"></vcl-navitem>
+  <vcl-navitem [active]=true label="Products" prepIcon="fa:bicycle"></vcl-navitem>
+  <vcl-navitem [active]=true [selected]="true" label="Pre-selected Item"></vcl-navitem>
+  <vcl-navitem [active]=true href="https://example.com/" label="External link"></vcl-navitem>
+</vcl-navigation>
 ```
+
+##Nested:
+```html
+<vcl-navigation type="vertical">
+  <vcl-navitem [active]=true [heading]=true label="Heading" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Nested navigation" route="navigation">
+    <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
+    <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
+    <vcl-navitem [active]=true label="Level 2 navigation" route="navigation">
+      <vcl-navitem [active]=true label="Level 3 Item" route="navigation"></vcl-navitem>
+    </vcl-navitem>
+  </vcl-navitem>
+</vcl-navigation>
+```
+
 
 ### API
 
-#### vcl-tab-nav Properties:
+#### vcl-navigation Properties:
+
+| Name                     | Type          | Default            | Description
+| ------------             | ------------- | ------------------ |--------------
+| `selectedItem`     | Object        |                    | The currently selected navitem
+| `ariaRole`               | string        |                    |
+| `tabindex`               | number        |                  0 |
+| `touchAction`            | string        |            'pan-y' |
+| `type`                   | string        |       'horizontal' | Direction (horizontal or vertical)
+| `subLevelHintIconClosed` | string        | 'fa:chevron-right' | Icon-name for nested closed
+| `subLevelHintIconOpened` | string        | 'fa:chevron-down'  | Icon-name for nested opened
+| `subLevelHintIconSide`   | string        |            'left'  | On which side should the icon be displayed
+| `navigationItems`        | vcl-navitem[] |                 [] | vcl-navitem
+
+#### vcl-navitem Properties:
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
-| `selectedTabIndex` *(1)* | number      |        0 | The index of the currently visible tab
-| `borders`                | boolean     |    false | Enables borders for the tab-nav
-| `layout`                 | string      |          | The layout: `null`, `"left"` or `"right"`
-| `tabbableClass`          | string      |          | Modifier classes for vclTabbable
-| `tabsClass`              | string      |          | Modifier classes for vclTabs
-| `tabContentClass`        | string      |          | Modifier classes for vclTabContent
-
-#### vcl-tab Properties:
-
-| Name                     | Type        | Default  | Description
-| ------------             | ----------- | -------- |--------------
-| `disabled`               | boolean     |   false  | Disables the tab when true   
-| `tabClass`               | string      |          | Modifier classes for vclTab   
-
-*(1) Supports Two-way binding*
+| `label`                  | string      |          | Label of this item
+| `route`                  | string      |          | Route which is used onSelect
+| `active`                 | boolean     |    true  | if false, this item is hidden
+| `selected`               | boolean     |  false   | if true this item is marked as selected
+| `opened`                 | boolean     |  false   | if true and nested this opens the subitems
+| `heading`                | boolean     |  false   | if true, this is used as hX
+| `href`                   | string      |          | url which is opened onSelect
+| `prepIcon`               | string      |          |
+| `appIcon`                | string      |          |

@@ -1,13 +1,13 @@
 Horizontal navigation
-<vcl-navigation ident="hori1">
+<vcl-navigation>
   <vcl-navitem [active]=true prepIcon="fa:home" label="Home1"></vcl-navitem>
   <vcl-navitem [active]=true label="Products" prepIcon="fa:bicycle"></vcl-navitem>
   <vcl-navitem [active]=true [selected]="true" label="Pre-selected Item"></vcl-navitem>
-  <vcl-navitem [active]=true href="https://searx.me/" label="External link"></vcl-navitem>
+  <vcl-navitem [active]=true href="https://example.com/" label="External link"></vcl-navitem>
 </vcl-navigation>
 
 Vertical navigation
-<vcl-navigation type="vertical" ident="nested">
+<vcl-navigation type="vertical">
   <vcl-navitem [active]=true [heading]=true label="Heading" route="navigation"></vcl-navitem>
   <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
   <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>

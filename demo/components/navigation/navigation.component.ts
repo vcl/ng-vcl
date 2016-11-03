@@ -30,7 +30,7 @@ export class NavigationComponent implements OnInit {
     },
     {
       label: 'External link',
-      href: 'https://searx.me',
+      href: 'https://example.com',
       active: true,
     }
   ];

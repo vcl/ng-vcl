@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, Directive, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter } from '@angular/core';
+import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter } from '@angular/core';
 
 
 
@@ -107,7 +107,7 @@ export class NavigationComponent {
   tabindex: number = 0;
 
   @Input()
-  touchAction: string = 'pan-y';
+  touchAction: string = 'pan-y'; // TODO what does this?
 
   @Input()
   type: string = 'horizontal';
