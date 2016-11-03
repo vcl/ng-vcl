@@ -15,9 +15,11 @@ var rxjs_add_operator_publishLast = require('rxjs/add/operator/publishLast');
 var hammerjs = require('hammerjs');
 var rxjs_Subject = require('rxjs/Subject');
 var _angular_router = require('@angular/router');
+var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
+var rxjs_add_operator_filter = require('rxjs/add/operator/filter');
 var Tether = require('tether');
 var _angular_http = require('@angular/http');
-var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
+var rxjs_add_operator_publishReplay = require('rxjs/add/operator/publishReplay');
 var rxjs_add_operator_publish = require('rxjs/add/operator/publish');
 var rxjs_add_operator_catch = require('rxjs/add/operator/catch');
 var rxjs_add_operator_retryWhen = require('rxjs/add/operator/retryWhen');
@@ -279,7 +281,8 @@ var L10nStaticLoaderService = (function (_super) {
             }
         });
         // unique
-        return rxjs_Observable.Observable.of(Array.from(new Set(supportedLocales)));
+        supportedLocales = Array.from(new Set(supportedLocales));
+        return rxjs_Observable.Observable.of(supportedLocales);
     };
     L10nStaticLoaderService.prototype.getTranslationPackage = function (locale) {
         var pkg = this.flatten(locale, this.config);
@@ -344,7 +347,7 @@ var L10nService = (function () {
         this.parser = parser;
         this.packages = {};
         this.locale = (config.locale || this.getNavigatorLang() || 'en-us').toLowerCase();
-        this.locale$ = new rxjs_BehaviorSubject.BehaviorSubject(this.locale);
+        this._locale$ = new rxjs_BehaviorSubject.BehaviorSubject(this.locale);
         // Initialize the streams
         var supportedLocales$ = this.getSupportedLocales();
         // Set up stream of valid locale
@@ -371,20 +374,32 @@ var L10nService = (function () {
             }
         });
         this.package$ = locale$.switchMap(function (locale) { return _this.getTranslationPackage(locale); });
-        var fbPackage$ = fbLocale$.switchMap(function (fbLocale) {
+        // Setup the fallback package stream
+        var fbPackageTemp$ = fbLocale$.switchMap(function (fbLocale) {
             return fbLocale ? _this.getTranslationPackage(fbLocale) : rxjs_Observable.Observable.of({});
         });
-        this.fbPackage$ = rxjs_Observable.Observable.combineLatest(this.package$, fbPackage$, function (pkg, fbPkg) {
+        // The real fallback stream is a combination of the latest package and fallback package 
+        this.fbPackage$ = rxjs_Observable.Observable.combineLatest(this.package$, fbPackageTemp$, function (pkg, fbPkg) {
             return fbPkg ? Object.assign({}, fbPkg, pkg) : pkg;
         });
     }
+    Object.defineProperty(L10nService.prototype, "locale$", {
+        get: function () {
+            return this._locale$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
     * @internal
     */
     L10nService.prototype.getTranslationPackage = function (locale) {
         // Cache package streams and share
         if (!this.packages[locale]) {
-            this.packages[locale] = this.loader.getTranslationPackage(locale).publishLast().refCount();
+            this.packages[locale] = this.loader
+                .getTranslationPackage(locale)
+                .publishReplay(1)
+                .refCount();
         }
         return this.packages[locale];
     };
@@ -397,7 +412,7 @@ var L10nService = (function () {
             this.supportedLocales$ = this.loader
                 .getSupportedLocales()
                 .map(function (sl) { return sl.map(function (locale) { return locale.toLowerCase(); }); })
-                .publishLast()
+                .publishReplay(1)
                 .refCount();
         }
         return this.supportedLocales$;
@@ -409,7 +424,7 @@ var L10nService = (function () {
     */
     L10nService.prototype.setLocale = function (locale) {
         this.locale = locale.toLowerCase();
-        this.locale$.next(this.locale);
+        this._locale$.next(this.locale);
     };
     /**
     * Looks up the value for the provided key in the current tranlsation package.
@@ -749,7 +764,7 @@ var MetalistComponent = (function () {
     MetalistComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-metalist',
-            template: "<template *ngFor=\"let item of items\" [ngTemplateOutlet]=\"template\" [ngOutletContext]=\"{item: item, meta: getMeta(item) }\"></template>\n"
+            template: "<template\n  *ngFor=\"let item of items\"\n  [ngTemplateOutlet]=\"template\"\n  [ngOutletContext]=\"{item: item, meta: getMeta(item) }\">\n</template>\n"
         }), 
         __metadata('design:paramtypes', [])
     ], MetalistComponent);
@@ -784,7 +799,7 @@ var DropdownComponent = (function () {
         this.ariaRole = 'listbox';
         this.metaInformation = [];
     }
-    DropdownComponent.prototype.selectItem = function (item, meta, metalist) {
+    DropdownComponent.prototype._selectItem = function (item, meta, metalist) {
         if (this.maxSelectableItems === 1) {
             this.expanded = false;
             this.expandedChange.emit(this.expanded);
@@ -799,9 +814,16 @@ var DropdownComponent = (function () {
             }
         }
     };
+    DropdownComponent.prototype.selectItem = function (item) {
+        this.metalist.selectItem(item);
+    };
     DropdownComponent.prototype.onSelect = function (selectedItems) {
         this.select.emit(selectedItems);
     };
+    __decorate([
+        _angular_core.ViewChild('metalist'), 
+        __metadata('design:type', Object)
+    ], DropdownComponent.prototype, "metalist", void 0);
     __decorate([
         _angular_core.Output(), 
         __metadata('design:type', Object)
@@ -837,7 +859,7 @@ var DropdownComponent = (function () {
     DropdownComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-dropdown',
-            template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
+            template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -1120,10 +1142,15 @@ var SelectComponent = (function () {
         this.collapsedIcon = 'fa:chevron-down';
         this.inputValue = 'label';
         this.emptyLabel = 'Select value';
-        this.displayValue = this.emptyLabel;
     }
+    SelectComponent.prototype.ngOnInit = function () {
+        this.displayValue = this.emptyLabel;
+    };
     SelectComponent.prototype.expand = function () {
         this.expanded = !this.expanded;
+    };
+    SelectComponent.prototype.selectItem = function (item) {
+        this.dropdown.selectItem(item);
     };
     SelectComponent.prototype.onSelect = function (items) {
         this.clickInside = true;
@@ -1148,6 +1175,10 @@ var SelectComponent = (function () {
     SelectComponent.prototype.onOutsideClick = function (event) {
         this.expanded = false;
     };
+    __decorate([
+        _angular_core.ViewChild('dropdown'), 
+        __metadata('design:type', Object)
+    ], SelectComponent.prototype, "dropdown", void 0);
     __decorate([
         _angular_core.Output(), 
         __metadata('design:type', Object)
@@ -1187,7 +1218,7 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-select',
-            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
+            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown #dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -1830,6 +1861,15 @@ var TabNavComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TabNavComponent.prototype, "tabsHaveContent", {
+        // If any of the tabs has we do not render the shared content template
+        // as it might be one the tabs content templates 
+        get: function () {
+            return this.tabs.some(function (tab) { return !!tab.content; });
+        },
+        enumerable: true,
+        configurable: true
+    });
     // Sets a valid selectedTabIndex
     TabNavComponent.prototype.selectTab = function (tab) {
         var tabs = this.tabs.toArray();
@@ -1856,6 +1896,10 @@ var TabNavComponent = (function () {
         _angular_core.ContentChildren(TabComponent), 
         __metadata('design:type', (typeof (_a = typeof _angular_core.QueryList !== 'undefined' && _angular_core.QueryList) === 'function' && _a) || Object)
     ], TabNavComponent.prototype, "tabs", void 0);
+    __decorate([
+        _angular_core.ContentChild(TabContentDirective), 
+        __metadata('design:type', TabContentDirective)
+    ], TabNavComponent.prototype, "content", void 0);
     __decorate([
         _angular_core.Input(), 
         __metadata('design:type', String)
@@ -1887,7 +1931,7 @@ var TabNavComponent = (function () {
     TabNavComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-tab-nav',
-            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n\n  <div class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n</div>\n\n"
+            template: "<div class=\"vclTabbable {{tabbableClass}}\" \n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (tap)=\"selectTab(tab)\">\n      <div [wormhole]=\"tab.label\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"tabsHaveContent\" class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n    <div role=\"tabpanel\" class=\"vclTabPanel\" *ngFor=\"let tab of tabs; let i = index\">\n      <div *ngIf=\"selectedTabIndex===i && tab.content\" [wormhole]=\"tab.content\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"!tabsHaveContent && content\" role=\"tabpanel\" class=\"vclTabPanel\">\n    <div [wormhole]=\"content\" [wormhole-indisposable]=\"true\"></div>\n  </div>\n</div>\n\n"
         }), 
         __metadata('design:paramtypes', [])
     ], TabNavComponent);
@@ -2035,8 +2079,29 @@ var NavigationComponent = (function () {
     var _a;
 }());
 
-var LinkComponent = (function () {
-    function LinkComponent() {
+var ObservableComponent = (function () {
+    function ObservableComponent() {
+        this.changesSubject = new rxjs_ReplaySubject.ReplaySubject();
+        this.changes$ = this.changesSubject.asObservable();
+    }
+    ObservableComponent.prototype.ngOnChanges = function (changes) {
+        this.changesSubject.next(changes);
+    };
+    ObservableComponent.prototype.observeProperty = function (propertyName) {
+        return this.changes$
+            .filter(function (changes) { return changes.hasOwnProperty(propertyName); })
+            .map(function (changes) { return changes[propertyName].currentValue; });
+    };
+    return ObservableComponent;
+}());
+
+var LinkComponent = (function (_super) {
+    __extends(LinkComponent, _super);
+    function LinkComponent(l10n) {
+        var _this = this;
+        _super.call(this);
+        this.l10n = l10n;
+        this.locTitle$ = this.observeProperty('title').switchMap(function (title) { return _this.l10n.localize(title); });
     }
     Object.defineProperty(LinkComponent.prototype, "attrHref", {
         get: function () {
@@ -2049,6 +2114,13 @@ var LinkComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    LinkComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.locTitleSub = this.locTitle$.subscribe(function (title) { return _this.locTitle = title; });
+    };
+    LinkComponent.prototype.ngOnDestroy = function () {
+        this.locTitleSub.unsubscribe();
+    };
     __decorate([
         _angular_core.Input(), 
         __metadata('design:type', String)
@@ -2082,20 +2154,24 @@ var LinkComponent = (function () {
         _angular_core.HostBinding('attr.href'), 
         __metadata('design:type', String)
     ], LinkComponent.prototype, "attrHref", null);
+    __decorate([
+        _angular_core.HostBinding('attr.title'),
+        _angular_core.HostBinding('attr.aria-label'), 
+        __metadata('design:type', String)
+    ], LinkComponent.prototype, "locTitle", void 0);
     LinkComponent = __decorate([
         _angular_core.Component({
             selector: '[vcl-link]',
             template: "<ng-content></ng-content>\n<vcl-icogram \n  [label]=\"(label | loc) || href\"\n  [prepIcon]=\"prepIcon\"\n  [appIcon]=\"appIcon\">\n</vcl-icogram>\n",
             host: {
-                '[attr.touch-action]': 'touchAction',
-                '[attr.aria-label]': 'title | loc',
-                '[attr.title]': 'title | loc'
+                '[attr.touch-action]': 'touchAction' // TODO - no function?
             },
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof L10nService !== 'undefined' && L10nService) === 'function' && _a) || Object])
     ], LinkComponent);
     return LinkComponent;
-}());
+    var _a;
+}(ObservableComponent));
 
 var VCLLinkModule = (function () {
     function VCLLinkModule() {
@@ -2261,7 +2337,6 @@ var PopoverComponent = (function () {
     function PopoverComponent(overlayManger, myElement) {
         this.overlayManger = overlayManger;
         this.myElement = myElement;
-        this.opening = false;
         this.class = 'vclPopOver';
         this.zIndex = 10;
         this.coverZIndex = -1;
@@ -2279,11 +2354,10 @@ var PopoverComponent = (function () {
         this.open = false;
         this.openChange.emit(this.open);
     };
-    PopoverComponent.prototype.onClick = function (event) {
-        if (!this.opening && this.expandManaged && event.path.indexOf(this.myElement.nativeElement) === -1) {
+    PopoverComponent.prototype.offClick = function () {
+        if (this.expandManaged && !this.layer) {
             this.close();
         }
-        this.opening = false;
     };
     PopoverComponent.prototype.ngOnChanges = function (changes) {
         try {
@@ -2291,7 +2365,6 @@ var PopoverComponent = (function () {
                 if (changes.open.currentValue === true) {
                     this.zIndex = this.overlayManger.register(this);
                     this.coverZIndex = this.zIndex - 1;
-                    this.opening = true;
                     this.state = 'open';
                 }
                 else if (changes.open.currentValue === false) {
@@ -2350,10 +2423,7 @@ var PopoverComponent = (function () {
     PopoverComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-popover',
-            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\" (click)=\"close()\"></div>\n",
-            host: {
-                '(document:click)': 'onClick($event)',
-            },
+            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\"\n  (off-click)=\"offClick()\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\"></div>\n",
             animations: [
                 _angular_core.trigger('popOverState', [])
             ]
@@ -2372,6 +2442,7 @@ var VCLPopoverModule = (function () {
             imports: [
                 _angular_common.CommonModule,
                 VCLTetherModule,
+                VCLOffClickModule
             ],
             exports: [PopoverComponent],
             declarations: [PopoverComponent]
@@ -2800,6 +2871,8 @@ var MonthPickerComponent = (function () {
         this.tabindex = 0;
     }
     MonthPickerComponent.prototype.ngOnInit = function () {
+        // TODO: Localize here instead of in the template so outside components
+        // when calling month-picker.getMonth(month) get calendar's localized and used label.
         this.months = (this.useShortNames ? MonthPickerComponent.monthNamesShort :
             MonthPickerComponent.monthNames).map(function (month) { return ({
             label: month

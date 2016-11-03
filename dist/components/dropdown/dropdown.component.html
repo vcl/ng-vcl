@@ -11,7 +11,7 @@
         [attr.aria-selected]="meta.selected"
         role="menuitem"
         tabindex="0"
-        (tap)="selectItem(item, meta, metalist)">
+        (tap)="_selectItem(item, meta, metalist)">
         <div class="vclDropdownItemLabel">
           {{item.label}}
         </div>

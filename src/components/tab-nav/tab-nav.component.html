@@ -11,11 +11,13 @@
       <div [wormhole]="tab.label"></div>
     </div>
   </div>
-
-  <div class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
+  <div *ngIf="tabsHaveContent" class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
     <div role="tabpanel" class="vclTabPanel" *ngFor="let tab of tabs; let i = index">
-      <div *ngIf="selectedTabIndex===i" [wormhole]="tab.content" [wormhole-indisposable]="true"></div>
+      <div *ngIf="selectedTabIndex===i && tab.content" [wormhole]="tab.content" [wormhole-indisposable]="true"></div>
     </div>
+  </div>
+  <div *ngIf="!tabsHaveContent && content" role="tabpanel" class="vclTabPanel">
+    <div [wormhole]="content" [wormhole-indisposable]="true"></div>
   </div>
 </div>
 

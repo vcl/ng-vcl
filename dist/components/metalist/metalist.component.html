@@ -1,1 +1,5 @@
-<template *ngFor="let item of items" [ngTemplateOutlet]="template" [ngOutletContext]="{item: item, meta: getMeta(item) }"></template>
+<template
+  *ngFor="let item of items"
+  [ngTemplateOutlet]="template"
+  [ngOutletContext]="{item: item, meta: getMeta(item) }">
+</template>

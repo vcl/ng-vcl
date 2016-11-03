@@ -1,4 +1,11 @@
-import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  ChangeDetectionStrategy,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 import { MetalistComponent } from '../metalist/metalist.component';
 
 /**
@@ -10,6 +17,7 @@ import { MetalistComponent } from '../metalist/metalist.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownComponent {
+  @ViewChild('metalist') metalist;
 
   constructor() { }
 
@@ -37,7 +45,7 @@ export class DropdownComponent {
   @Input()
   ariaRole: string = 'listbox';
 
-  selectItem(item: any, meta, metalist: MetalistComponent) {
+  _selectItem(item: any, meta, metalist: MetalistComponent) {
     if (this.maxSelectableItems === 1) {
       this.expanded = false;
       this.expandedChange.emit(this.expanded);
@@ -49,6 +57,10 @@ export class DropdownComponent {
         metalist.selectItem(item);
       }
     }
+  }
+
+  selectItem(item: any) {
+    this.metalist.selectItem(item);
   }
 
   onSelect(selectedItems: any[]) {

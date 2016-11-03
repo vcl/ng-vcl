@@ -26,6 +26,8 @@ var MonthPickerComponent = (function () {
         this.tabindex = 0;
     }
     MonthPickerComponent.prototype.ngOnInit = function () {
+        // TODO: Localize here instead of in the template so outside components
+        // when calling month-picker.getMonth(month) get calendar's localized and used label.
         this.months = (this.useShortNames ? MonthPickerComponent.monthNamesShort :
             MonthPickerComponent.monthNames).map(function (month) { return ({
             label: month

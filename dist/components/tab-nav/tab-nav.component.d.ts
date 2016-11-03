@@ -18,6 +18,7 @@ export declare class TabComponent {
 }
 export declare class TabNavComponent {
     tabs: QueryList<TabComponent>;
+    content: TabContentDirective;
     layout: string;
     tabbableClass: string;
     tabsClass: string;
@@ -26,6 +27,6 @@ export declare class TabNavComponent {
     selectedTabIndex: number;
     selectedTabIndexChange$: EventEmitter<number>;
     readonly selectedTabIndexChange: Observable<number>;
-    constructor();
+    readonly tabsHaveContent: boolean;
     selectTab(tab: number | TabComponent): void;
 }

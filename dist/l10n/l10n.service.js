@@ -20,7 +20,7 @@ var L10nService = (function () {
         this.parser = parser;
         this.packages = {};
         this.locale = (config.locale || this.getNavigatorLang() || 'en-us').toLowerCase();
-        this.locale$ = new BehaviorSubject_1.BehaviorSubject(this.locale);
+        this._locale$ = new BehaviorSubject_1.BehaviorSubject(this.locale);
         // Initialize the streams
         var supportedLocales$ = this.getSupportedLocales();
         // Set up stream of valid locale
@@ -47,20 +47,32 @@ var L10nService = (function () {
             }
         });
         this.package$ = locale$.switchMap(function (locale) { return _this.getTranslationPackage(locale); });
-        var fbPackage$ = fbLocale$.switchMap(function (fbLocale) {
+        // Setup the fallback package stream
+        var fbPackageTemp$ = fbLocale$.switchMap(function (fbLocale) {
             return fbLocale ? _this.getTranslationPackage(fbLocale) : Observable_1.Observable.of({});
         });
-        this.fbPackage$ = Observable_1.Observable.combineLatest(this.package$, fbPackage$, function (pkg, fbPkg) {
+        // The real fallback stream is a combination of the latest package and fallback package 
+        this.fbPackage$ = Observable_1.Observable.combineLatest(this.package$, fbPackageTemp$, function (pkg, fbPkg) {
             return fbPkg ? Object.assign({}, fbPkg, pkg) : pkg;
         });
     }
+    Object.defineProperty(L10nService.prototype, "locale$", {
+        get: function () {
+            return this._locale$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
     * @internal
     */
     L10nService.prototype.getTranslationPackage = function (locale) {
         // Cache package streams and share
         if (!this.packages[locale]) {
-            this.packages[locale] = this.loader.getTranslationPackage(locale).publishLast().refCount();
+            this.packages[locale] = this.loader
+                .getTranslationPackage(locale)
+                .publishReplay(1)
+                .refCount();
         }
         return this.packages[locale];
     };
@@ -73,7 +85,7 @@ var L10nService = (function () {
             this.supportedLocales$ = this.loader
                 .getSupportedLocales()
                 .map(function (sl) { return sl.map(function (locale) { return locale.toLowerCase(); }); })
-                .publishLast()
+                .publishReplay(1)
                 .refCount();
         }
         return this.supportedLocales$;
@@ -85,7 +97,7 @@ var L10nService = (function () {
     */
     L10nService.prototype.setLocale = function (locale) {
         this.locale = locale.toLowerCase();
-        this.locale$.next(this.locale);
+        this._locale$.next(this.locale);
     };
     /**
     * Looks up the value for the provided key in the current tranlsation package.

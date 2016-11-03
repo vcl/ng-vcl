@@ -14,10 +14,15 @@ var SelectComponent = (function () {
         this.collapsedIcon = 'fa:chevron-down';
         this.inputValue = 'label';
         this.emptyLabel = 'Select value';
-        this.displayValue = this.emptyLabel;
     }
+    SelectComponent.prototype.ngOnInit = function () {
+        this.displayValue = this.emptyLabel;
+    };
     SelectComponent.prototype.expand = function () {
         this.expanded = !this.expanded;
+    };
+    SelectComponent.prototype.selectItem = function (item) {
+        this.dropdown.selectItem(item);
     };
     SelectComponent.prototype.onSelect = function (items) {
         this.clickInside = true;
@@ -52,6 +57,7 @@ var SelectComponent = (function () {
     /** @nocollapse */
     SelectComponent.ctorParameters = [];
     SelectComponent.propDecorators = {
+        'dropdown': [{ type: core_1.ViewChild, args: ['dropdown',] },],
         'select': [{ type: core_1.Output },],
         'expanded': [{ type: core_1.Input },],
         'items': [{ type: core_1.Input },],

@@ -1,0 +1,33 @@
+<!--<vcl-month-selector
+  id="myStyledMonthPicker"
+  [prevYearAvailable]="true"
+  [nextYearAvailable]="true"
+  [colors]="['#50E3C2', '#FF3CE6']">
+</vcl-month-selector>
+
+<br><br>
+
+<button vcl-button #target
+  label="Expand"
+  class="vclSquare"
+  (click)="expandMonthPicker($event)">
+</button>
+
+<vcl-popover
+  target='#target'
+  targetAttachment='bottom right'
+  attachment='top right'
+  [(open)]="expanded">
+  <vcl-month-selector
+    [expandable]="true"
+    [(expanded)]="expanded"
+    [(currentYear)]="currentYear"
+    [useShortNames]="true"
+    [monthsPerRow]="4"
+    (select)="onSelect($event)"
+    (prevYearBtnTap)="onPreviousYearTap()"
+    [prevYearAvailable]="prevYearAvailable"
+    (nextYearBtnTap)="onNextYearTap()"
+    [nextYearAvailable]="nextYearAvailable">
+  </vcl-month-selector>
+</vcl-popover>-->

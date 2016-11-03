@@ -1,15 +1,17 @@
+import { Observable } from 'rxjs/Observable';
+import { ObservableComponent } from './../../core/observable.component';
+import { Subscription } from 'rxjs/Subscription';
 import { Component, Input, HostBinding } from '@angular/core';
+import { L10nService } from '../../l10n/l10n.module';
 
 @Component({
   selector: '[vcl-link]',
   templateUrl: 'link.component.html',
   host: {
-    '[attr.touch-action]': 'touchAction', // TODO - no function?
-    '[attr.aria-label]': 'title | loc',
-    '[attr.title]': 'title | loc'
+    '[attr.touch-action]': 'touchAction' // TODO - no function?
   },
 })
-export class LinkComponent {
+export class LinkComponent extends ObservableComponent {
 
   @Input()
   href: string;
@@ -40,5 +42,24 @@ export class LinkComponent {
     return this.scheme
       ? `${this.scheme}:${this.href}`
       : this.href;
+  }
+
+  locTitle$: Observable<string> = this.observeProperty<string>('title').switchMap( title => this.l10n.localize(title));
+  locTitleSub: Subscription;
+
+  @HostBinding('attr.title')
+  @HostBinding('attr.aria-label')
+  locTitle: string;
+
+  constructor(private l10n: L10nService) {
+    super();
+  }
+
+  ngOnInit() {
+    this.locTitleSub = this.locTitle$.subscribe(title => this.locTitle = title);
+  }
+
+  ngOnDestroy() {
+    this.locTitleSub.unsubscribe();
   }
 }

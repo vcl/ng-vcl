@@ -1,5 +1,5 @@
 <b>Single select</b><br>
-<vcl-select [items]="items" (select)="onSelect($event)"></vcl-select>
+<vcl-select #select [items]="items" (select)="onSelect($event)"></vcl-select>
 <div *ngIf="selectedItemSingle">
   Selected: {{selectedItemSingle.label}}
 </div>

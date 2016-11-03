@@ -3,6 +3,7 @@ import { MetalistComponent } from '../metalist/metalist.component';
 /**
 */
 export declare class DropdownComponent {
+    metalist: any;
     constructor();
     select: EventEmitter<any[]>;
     items: any[];
@@ -12,7 +13,8 @@ export declare class DropdownComponent {
     maxSelectableItems: number;
     minSelectableItems: number;
     ariaRole: string;
-    selectItem(item: any, meta: any, metalist: MetalistComponent): void;
+    _selectItem(item: any, meta: any, metalist: MetalistComponent): void;
+    selectItem(item: any): void;
     onSelect(selectedItems: any[]): void;
     metaInformation: any;
 }

@@ -5,8 +5,9 @@
   [target]="target"
   [targetAttachment]="targetAttachment"
   [attachment]="attachment">
-  <div [ngStyle]="style" [@popOverState]="state">
+  <div [ngStyle]="style" [@popOverState]="state"
+  (off-click)="offClick()">
     <ng-content></ng-content>
   </div>
 </vcl-tether>
-<div *ngIf="open && layer" class="vclLayerCover" [style.zIndex]="coverZIndex" (click)="close()"></div>
+<div *ngIf="open && layer" class="vclLayerCover" [style.zIndex]="coverZIndex"></div>
