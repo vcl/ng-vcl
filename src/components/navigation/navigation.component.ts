@@ -1,5 +1,89 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, Directive, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter } from '@angular/core';
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Directive({
+  selector: 'vcl-navitem'
+})
+export class NavigationItemComponent {
+
+  @Input()
+  label;
+
+  @Input()
+  route;
+
+  @ContentChildren(NavigationItemComponent)
+  items: QueryList<NavigationItemComponent>;
+
+  @Input()
+  active: boolean = true;
+
+  @Input()
+  selected: boolean = false;
+
+  @Input()
+  opened = false;
+
+  @Input()
+  heading = false;
+
+  @Input()
+  href;
+
+  @Input()
+  prepIcon;
+
+  @Input()
+  appIcon;
+
+
+
+  constructor() { }
+
+  /**
+   * transforms this NavigationItemComponent insto an object,
+   * so it can be handled the same way as an inputList
+   * @return {Object}
+   */
+  toObject(): Object {
+    const ret = {
+      label: this.label,
+      route: this.route,
+      active: this.active,
+      selected: this.selected,
+      opened: this.opened,
+      heading: this.heading,
+      href: this.href,
+      prepIcon: this.prepIcon,
+      appIcon: this.appIcon
+    };
+
+    // add nested items
+    const items = [];
+    const ar = this.items.toArray();
+    ar.shift(); // remove first because 'this' is contained
+    ar.map(navItemCom => items.push(navItemCom.toObject()));
+    if (items.length > 0) ret['items'] = items; // only add if length>0 to not show nested-icons
+    return ret;
+  }
+
+
+
+}
+
+
 
 @Component({
   selector: 'vcl-navigation',
@@ -8,6 +92,10 @@ import { Router } from '@angular/router';
 export class NavigationComponent {
 
   constructor(private router: Router) { }
+
+
+  @Input()
+  ident: string;
 
   @Input()
   selectedItem;
@@ -33,13 +121,27 @@ export class NavigationComponent {
   @Input()
   subLevelHintIconSide: 'left' | 'right' = 'right';
 
+
+  @ContentChildren(NavigationItemComponent)
+  templateItems: QueryList<NavigationItemComponent>;
+
   @Input()
   navigationItems: any[] = [];
 
   @Output()
   select = new EventEmitter();
 
-  ngOnInit() {
+  ngAfterContentInit() {
+
+
+    let templateItemsAr = this.templateItems.toArray();
+    if (templateItemsAr.length > 0) {
+      const items = [];
+      templateItemsAr.map(i => items.push(i.toObject()));
+      this.navigationItems = items;
+    }
+
+
     const selectedItem = this._navigationItems.filter(item => item.selected)[0];
     if (selectedItem) {
       this.selectItem(selectedItem);
@@ -70,7 +172,7 @@ export class NavigationComponent {
       : item.appIcon;
   }
 
-  selectItem(item) { 
+  selectItem(item) {
     if (item == this.selectedItem || item.items) {
       return;
     }

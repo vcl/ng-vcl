@@ -1,5 +1,30 @@
 Horizontal navigation
-<vcl-navigation [navigationItems]="items"></vcl-navigation>
+<vcl-navigation ident="hori1">
+  <vcl-navitem [active]=true prepIcon="fa:home" label="Home1"></vcl-navitem>
+  <vcl-navitem [active]=true label="Products" prepIcon="fa:bicycle"></vcl-navitem>
+  <vcl-navitem [active]=true [selected]="true" label="Pre-selected Item"></vcl-navitem>
+  <vcl-navitem [active]=true href="https://searx.me/" label="External link"></vcl-navitem>
+</vcl-navigation>
 
 Vertical navigation
+<vcl-navigation type="vertical" ident="nested">
+  <vcl-navitem [active]=true [heading]=true label="Heading" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true [heading]=true label="Another heading" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
+  <vcl-navitem [active]=true label="Nested navigation" route="navigation">
+    <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
+    <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
+    <vcl-navitem [active]=true label="Level 2 navigation" route="navigation">
+      <vcl-navitem [active]=true label="Level 3 Item" route="navigation"></vcl-navitem>
+    </vcl-navitem>
+  </vcl-navitem>
+</vcl-navigation>
+
+Horizontal navigation (listInput)
+<vcl-navigation [navigationItems]="items"></vcl-navigation>
+
+Vertical navigation (listInput)
 <vcl-navigation [navigationItems]="items2" type="vertical"></vcl-navigation>
