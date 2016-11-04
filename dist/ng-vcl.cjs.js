@@ -185,18 +185,10 @@ var IconComponent = (function () {
     function IconComponent(_iconService) {
         this._iconService = _iconService;
     }
-    Object.defineProperty(IconComponent.prototype, "fontIconClass", {
-        get: function () {
-            if (this.icon) {
-                return this._iconService.lookup(this.icon);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(IconComponent.prototype, "mergedIconClass", {
         get: function () {
-            return (this.fontIconClass || '') + " " + (this.iconClass || '');
+            var fontIconClass = this.icon ? this._iconService.lookup(this.icon) : '';
+            return "vclIcon " + fontIconClass + " " + (this.iconClass || '');
         },
         enumerable: true,
         configurable: true
@@ -226,18 +218,31 @@ var IconComponent = (function () {
         __metadata('design:type', String)
     ], IconComponent.prototype, "icon", void 0);
     __decorate([
+        _angular_core.HostBinding('attr.aria-label'),
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], IconComponent.prototype, "label", void 0);
     __decorate([
+        _angular_core.HostBinding('attr.role'),
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], IconComponent.prototype, "ariaRole", void 0);
+    __decorate([
+        _angular_core.HostBinding('class'), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "mergedIconClass", null);
+    __decorate([
+        _angular_core.HostBinding('attr.aria-hidden'), 
+        __metadata('design:type', Object)
+    ], IconComponent.prototype, "isAriaHidden", null);
     IconComponent = __decorate([
         _angular_core.Component({
-            selector: 'vcl-icon',
-            template: "<span class=\"vclIcon {{iconClass}} {{fontIconClass}}\" [attr.aria-label]=\"label | loc\" [attr.aria-hidden]=\"isAriaHidden\" [attr.role]=\"ariaRole\">\n  <ng-content></ng-content>\n  <img *ngIf=\"src\" src=\"{{src}}\">\n  <svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n  </svg>\n</span>\n",
-            changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
+            selector: 'vcl-icon, [vcl-icon]',
+            template: "<ng-content></ng-content>\n<img *ngIf=\"src\" src=\"{{src}}\">\n<svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n  <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n</svg>\n",
+            changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            host: {
+                '[class.vclIcon]': 'true',
+            },
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof IconService !== 'undefined' && IconService) === 'function' && _a) || Object])
     ], IconComponent);
@@ -1089,7 +1094,7 @@ var IcogramComponent = (function () {
                 '[class.vclIcogram]': 'true',
                 '[attr.role]': 'img'
             },
-            template: "<ng-content></ng-content>\n<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></vcl-icon>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></vcl-icon>\n",
+            template: "<ng-content></ng-content>\n<div vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\"></div>\n<span *ngIf=\"!!label\" [class.vclLayoutFlex]=\"!!flexLabel\" class=\"vclText\">\n  {{label | loc}}\n</span>\n<div vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\"></div>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _a) || Object])
