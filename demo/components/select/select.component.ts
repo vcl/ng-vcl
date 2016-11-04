@@ -28,11 +28,11 @@ export class SelectComponent implements OnInit {
 
   ngOnInit() { }
 
-  // ngAfterViewInit() {
-  //   setTimeout(() => {
-  //     this.selectx.selectItem(this.items[5]);
-  //   }, 2000);
-  // }
+  ngAfterViewInit() {
+    // setTimeout(() => {
+    //   this.select.selectItem(this.items[5]);
+    // }, 2000);
+  }
 
   onSelect(items: any[]) {
     if (items.length) {

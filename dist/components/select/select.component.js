@@ -43,6 +43,9 @@ var SelectComponent = (function () {
             }
             this.displayValue = result;
         }
+        // Adjust min input width to fit it's content.
+        this.hide.nativeElement.innerHTML = this.displayValue;
+        this.input.nativeElement.style.minWidth = this.hide.nativeElement.style.width;
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
         this.expanded = false;
@@ -58,6 +61,8 @@ var SelectComponent = (function () {
     SelectComponent.ctorParameters = [];
     SelectComponent.propDecorators = {
         'dropdown': [{ type: core_1.ViewChild, args: ['dropdown',] },],
+        'input': [{ type: core_1.ViewChild, args: ['input',] },],
+        'hide': [{ type: core_1.ViewChild, args: ['hide',] },],
         'select': [{ type: core_1.Output },],
         'expanded': [{ type: core_1.Input },],
         'items': [{ type: core_1.Input },],
