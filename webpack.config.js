@@ -70,7 +70,7 @@ function webpackConfig(options) {
       new ExtractTextPlugin('styles/app.css'),
       new HotModuleReplacementPlugin(),
       new ForkCheckerPlugin(),
-      new CommonsChunkPlugin({ name: ['main', 'vendor'], minChunks: Infinity }),
+      new CommonsChunkPlugin({ name: ['vendor'], minChunks: Infinity }),
       new DefinePlugin(CONSTANTS),
       new ProgressPlugin({}),
       new ContextReplacementPlugin(
@@ -106,5 +106,3 @@ function webpackConfig(options) {
 
 // Export
 module.exports = webpackConfig;
-
-
