@@ -1954,12 +1954,95 @@ var VCLTabNavModule = (function () {
     return VCLTabNavModule;
 }());
 
+var NavigationItemComponent = (function () {
+    function NavigationItemComponent() {
+        this.active = true;
+        this.selected = false;
+        this.opened = false;
+        this.heading = false;
+    }
+    /**
+     * transforms this NavigationItemComponent insto an object,
+     * so it can be handled the same way as an inputList
+     * @return {Object}
+     */
+    NavigationItemComponent.prototype.toObject = function () {
+        var ret = {
+            label: this.label,
+            active: this.active,
+            selected: this.selected,
+            opened: this.opened,
+            heading: this.heading,
+            href: this.href,
+            prepIcon: this.prepIcon,
+            appIcon: this.appIcon
+        };
+        if (this.route)
+            ret['route'] = [this.route];
+        // add nested items
+        var items = [];
+        var ar = this.items.toArray();
+        ar.shift(); // remove first because 'this' is contained
+        ar.map(function (navItemCom) { return items.push(navItemCom.toObject()); });
+        if (items.length > 0)
+            ret['items'] = items; // only add if length>0 to not show nested-icons
+        return ret;
+    };
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationItemComponent.prototype, "label", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationItemComponent.prototype, "route", void 0);
+    __decorate([
+        _angular_core.ContentChildren(NavigationItemComponent), 
+        __metadata('design:type', (typeof (_a = typeof _angular_core.QueryList !== 'undefined' && _angular_core.QueryList) === 'function' && _a) || Object)
+    ], NavigationItemComponent.prototype, "items", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Boolean)
+    ], NavigationItemComponent.prototype, "active", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Boolean)
+    ], NavigationItemComponent.prototype, "selected", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationItemComponent.prototype, "opened", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationItemComponent.prototype, "heading", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationItemComponent.prototype, "href", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationItemComponent.prototype, "prepIcon", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], NavigationItemComponent.prototype, "appIcon", void 0);
+    NavigationItemComponent = __decorate([
+        _angular_core.Directive({
+            selector: 'vcl-navitem'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], NavigationItemComponent);
+    return NavigationItemComponent;
+    var _a;
+}());
 var NavigationComponent = (function () {
     function NavigationComponent(router) {
         this.router = router;
         this.ariaRole = 'presentation';
         this.tabindex = 0;
-        this.touchAction = 'pan-y';
+        this.touchAction = 'pan-y'; // TODO what does this?
         this.type = 'horizontal';
         this.subLevelHintIconClosed = 'fa:chevron-right';
         this.subLevelHintIconOpened = 'fa:chevron-down';
@@ -1967,7 +2050,13 @@ var NavigationComponent = (function () {
         this.navigationItems = [];
         this.select = new _angular_core.EventEmitter();
     }
-    NavigationComponent.prototype.ngOnInit = function () {
+    NavigationComponent.prototype.ngAfterContentInit = function () {
+        var templateItemsAr = this.templateItems.toArray();
+        if (templateItemsAr.length > 0) {
+            var items_1 = [];
+            templateItemsAr.map(function (i) { return items_1.push(i.toObject()); });
+            this.navigationItems = items_1;
+        }
         var selectedItem = this._navigationItems.filter(function (item) { return item.selected; })[0];
         if (selectedItem) {
             this.selectItem(selectedItem);
@@ -2030,6 +2119,10 @@ var NavigationComponent = (function () {
     };
     __decorate([
         _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], NavigationComponent.prototype, "ident", void 0);
+    __decorate([
+        _angular_core.Input(), 
         __metadata('design:type', Object)
     ], NavigationComponent.prototype, "selectedItem", void 0);
     __decorate([
@@ -2045,6 +2138,7 @@ var NavigationComponent = (function () {
         __metadata('design:type', String)
     ], NavigationComponent.prototype, "touchAction", void 0);
     __decorate([
+        // TODO what does this?
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], NavigationComponent.prototype, "type", void 0);
@@ -2061,6 +2155,10 @@ var NavigationComponent = (function () {
         __metadata('design:type', Object)
     ], NavigationComponent.prototype, "subLevelHintIconSide", void 0);
     __decorate([
+        _angular_core.ContentChildren(NavigationItemComponent), 
+        __metadata('design:type', (typeof (_a = typeof _angular_core.QueryList !== 'undefined' && _angular_core.QueryList) === 'function' && _a) || Object)
+    ], NavigationComponent.prototype, "templateItems", void 0);
+    __decorate([
         _angular_core.Input(), 
         __metadata('design:type', Array)
     ], NavigationComponent.prototype, "navigationItems", void 0);
@@ -2073,10 +2171,10 @@ var NavigationComponent = (function () {
             selector: 'vcl-navigation',
             template: "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\">\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n",
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof _angular_router.Router !== 'undefined' && _angular_router.Router) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof _angular_router.Router !== 'undefined' && _angular_router.Router) === 'function' && _b) || Object])
     ], NavigationComponent);
     return NavigationComponent;
-    var _a;
+    var _a, _b;
 }());
 
 var ObservableComponent = (function () {
@@ -2194,8 +2292,8 @@ var VCLNavigationModule = (function () {
     VCLNavigationModule = __decorate([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, L10nModule, VCLLinkModule],
-            exports: [NavigationComponent],
-            declarations: [NavigationComponent],
+            exports: [NavigationComponent, NavigationItemComponent],
+            declarations: [NavigationComponent, NavigationItemComponent],
             providers: [],
         }), 
         __metadata('design:paramtypes', [])

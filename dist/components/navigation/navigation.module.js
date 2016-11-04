@@ -10,8 +10,8 @@ var VCLNavigationModule = (function () {
     VCLNavigationModule.decorators = [
         { type: core_1.NgModule, args: [{
                     imports: [common_1.CommonModule, l10n_module_1.L10nModule, link_module_1.VCLLinkModule],
-                    exports: [navigation_component_1.NavigationComponent],
-                    declarations: [navigation_component_1.NavigationComponent],
+                    exports: [navigation_component_1.NavigationComponent, navigation_component_1.NavigationItemComponent],
+                    declarations: [navigation_component_1.NavigationComponent, navigation_component_1.NavigationItemComponent],
                     providers: [],
                 },] },
     ];
