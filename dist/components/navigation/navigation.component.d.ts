@@ -1,8 +1,29 @@
-import { EventEmitter } from '@angular/core';
+/// <reference types="core-js" />
 import { Router } from '@angular/router';
+import { QueryList, EventEmitter } from '@angular/core';
+export declare class NavigationItemComponent {
+    label: any;
+    route: any;
+    items: QueryList<NavigationItemComponent>;
+    active: boolean;
+    selected: boolean;
+    opened: boolean;
+    heading: boolean;
+    href: any;
+    prepIcon: any;
+    appIcon: any;
+    constructor();
+    /**
+     * transforms this NavigationItemComponent insto an object,
+     * so it can be handled the same way as an inputList
+     * @return {Object}
+     */
+    toObject(): Object;
+}
 export declare class NavigationComponent {
     private router;
     constructor(router: Router);
+    ident: string;
     selectedItem: any;
     ariaRole: string;
     tabindex: number;
@@ -11,9 +32,10 @@ export declare class NavigationComponent {
     subLevelHintIconClosed: string;
     subLevelHintIconOpened: string;
     subLevelHintIconSide: 'left' | 'right';
+    templateItems: QueryList<NavigationItemComponent>;
     navigationItems: any[];
     select: EventEmitter<{}>;
-    ngOnInit(): void;
+    ngAfterContentInit(): void;
     readonly _navigationItems: any[];
     readonly isVertical: boolean;
     getPrepIcon(item: any): string;
