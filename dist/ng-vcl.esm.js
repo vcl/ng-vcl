@@ -1175,6 +1175,7 @@ var SelectComponent = (function () {
         // Adjust min input width to fit it's content.
         this.hide.nativeElement.innerHTML = this.displayValue;
         this.input.nativeElement.style.minWidth = (this.hide.nativeElement.offsetWidth * 1.5) + 'px';
+        this.hide.nativeElement.innerHTML = '';
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
         this.expanded = false;
@@ -1230,7 +1231,7 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         Component({
             selector: 'vcl-select',
-            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <span #hide style=\u201Cdisplay:none\u201D></span>\n  <input #input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown #dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
+            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <span #hide [class.vclLayoutInvisible]=\"true\"></span>\n  <input #input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown #dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
             changeDetection: ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])

@@ -1,5 +1,5 @@
 <div [attr.aria-autocomplete]="ariaRole" class="vclSelect vclInputGroupEmb" (off-click)="onOutsideClick()">
-  <span #hide style=“display:none”></span>
+  <span #hide [class.vclLayoutInvisible]="true"></span>
   <input #input (tap)="expand()" class="vclInput" [attr.value]="displayValue" readonly>
   <button vcl-button (click)="expand()" class="vclTransparent vclSquare vclAppended" [appIcon]="expanded ? expandedIcon : collapsedIcon"></button>
   <vcl-dropdown #dropdown (select)="onSelect($event)"
