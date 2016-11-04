@@ -45,7 +45,7 @@ var SelectComponent = (function () {
         }
         // Adjust min input width to fit it's content.
         this.hide.nativeElement.innerHTML = this.displayValue;
-        this.input.nativeElement.style.minWidth = (this.hide.nativeElement.offsetWidth * 1.5) + 'px';
+        this.input.nativeElement.style.minWidth = (this.hide.nativeElement.offsetWidth * 1.25) + 'px';
         this.hide.nativeElement.innerHTML = '';
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
