@@ -11,21 +11,21 @@ See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
 
 ## Usage:
 
+As component
 ```html
 <vcl-icon icon="icon-class" label="chevron right" hidden="false"></vcl-icon>
 ```
-or
+or as directive
+```html
+<span vcl-icon icon="..."></span>
+With image resource
 ```html
 <vcl-icon src="..."></vcl-icon>
 ```
-or
+With SVG
 ```html
 <vcl-icon svguse="..."></vcl-icon>
 ```
-
-### Class Provider
-
-TODO
 
 ### API 
 
