@@ -5,18 +5,10 @@ var IconComponent = (function () {
     function IconComponent(_iconService) {
         this._iconService = _iconService;
     }
-    Object.defineProperty(IconComponent.prototype, "fontIconClass", {
-        get: function () {
-            if (this.icon) {
-                return this._iconService.lookup(this.icon);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(IconComponent.prototype, "mergedIconClass", {
         get: function () {
-            return (this.fontIconClass || '') + " " + (this.iconClass || '');
+            var fontIconClass = this.icon ? this._iconService.lookup(this.icon) : '';
+            return "vclIcon " + fontIconClass + " " + (this.iconClass || '');
         },
         enumerable: true,
         configurable: true
@@ -31,9 +23,12 @@ var IconComponent = (function () {
     });
     IconComponent.decorators = [
         { type: core_1.Component, args: [{
-                    selector: 'vcl-icon',
+                    selector: 'vcl-icon, [vcl-icon]',
                     templateUrl: 'icon.component.html',
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
+                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                    host: {
+                        '[class.vclIcon]': 'true',
+                    },
                 },] },
     ];
     /** @nocollapse */
@@ -45,8 +40,10 @@ var IconComponent = (function () {
         'svguse': [{ type: core_1.Input },],
         'iconClass': [{ type: core_1.Input },],
         'icon': [{ type: core_1.Input },],
-        'label': [{ type: core_1.Input },],
-        'ariaRole': [{ type: core_1.Input },],
+        'label': [{ type: core_1.HostBinding, args: ['attr.aria-label',] }, { type: core_1.Input },],
+        'ariaRole': [{ type: core_1.HostBinding, args: ['attr.role',] }, { type: core_1.Input },],
+        'mergedIconClass': [{ type: core_1.HostBinding, args: ['class',] },],
+        'isAriaHidden': [{ type: core_1.HostBinding, args: ['attr.aria-hidden',] },],
     };
     return IconComponent;
 }());

@@ -8,7 +8,6 @@ export declare class IconComponent {
     label: string;
     ariaRole: string;
     constructor(_iconService: IconService);
-    readonly fontIconClass: string;
     readonly mergedIconClass: string;
     readonly isAriaHidden: boolean;
 }
