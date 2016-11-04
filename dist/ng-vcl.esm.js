@@ -1041,7 +1041,7 @@ var ButtonComponent = (function () {
             host: {
                 '[class.vclButton]': 'true',
             },
-            template: "<span>\n  <ng-content></ng-content>\n  <vcl-icogram\n    [label]=\"calculatedLabel | loc\"\n    [flexLabel]=\"flexLabel | loc\"\n    [prepIcon]=\"calculatedPrepIcon\"\n    [appIcon]=\"calculatedAppIcon\">\n  </vcl-icogram>\n</span>\n",
+            template: "<vcl-icogram\n  [label]=\"calculatedLabel | loc\"\n  [flexLabel]=\"flexLabel | loc\"\n  [prepIcon]=\"calculatedPrepIcon\"\n  [appIcon]=\"calculatedAppIcon\">\n  <ng-content></ng-content>\n</vcl-icogram>\n",
             changeDetection: ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _b) || Object])
