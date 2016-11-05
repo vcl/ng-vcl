@@ -1266,6 +1266,7 @@ span.vclButton[disabled] {
   -webkit-transition: color .25s linear, background-color .25s ease-in-out, border-color .25s ease-in-out;
   transition: color .25s linear, background-color .25s ease-in-out, border-color .25s ease-in-out;
   min-height: 2.5em;
+  outline: 0;
 }
 
 .vclCalendar.vclCalInput {
@@ -1273,6 +1274,7 @@ span.vclButton[disabled] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  outline: 0;
 }
 
 .vclCalendar.vclCalInput .vclCalItem:hover {
@@ -1291,17 +1293,11 @@ span.vclButton[disabled] {
   color: hsl(0, 0%, 63%);
 }
 
-.vclCalItem.vclSelected,
-.vclCalendar.vclCalInput .vclCalItem.vclSelected:hover {
-  color: #FFFFFF;
-  background-color: #0888BF;
-  font-weight: 500;
-}
-
 .vclCalItem.vclDisabled,
 .vclCalendar.vclCalInput .vclCalItem.vclDisabled:hover {
   color: hsl(0, 0%, 50%);
   background-color: hsl(0, 0%, 88%);
+  cursor: default;
 }
 
 .vclCalItem.vclAvailable,
@@ -1312,6 +1308,13 @@ span.vclButton[disabled] {
 .vclCalItem.vclUnavailable,
 .vclCalendar.vclCalInput .vclCalItem.vclUnavailable:hover {
   background-color: #f2dede;
+}
+
+.vclCalItem.vclSelected,
+.vclCalendar.vclCalInput .vclCalItem.vclSelected:hover {
+  color: #FFFFFF;
+  background-color: #0888BF;
+  font-weight: 500;
 }
 
 .vclCheckbox {
@@ -1331,6 +1334,11 @@ span.vclButton[disabled] {
   text-align: center;
   padding-right: 0.4em;
   padding-left: 0.4em;
+  font-size: 1.16em;
+}
+
+.vclCheckbox:hover > .vclIcon {
+  color: #00ADEF;
 }
 
 .vclCheckbox:focus > .vclIcon {
@@ -1339,6 +1347,10 @@ span.vclButton[disabled] {
 
 .vclCheckbox.vclDisabled > .vclIcon {
   color: hsl(0, 0%, 88%);
+}
+
+.vclFormControlLabel:hover .vclCheckbox:not(.vclDisabled) .vclIcon {
+  color: #00ADEF;
 }
 
 * {
@@ -4468,6 +4480,11 @@ ol ul {
   text-align: center;
   padding-right: 0.4em;
   padding-left: 0.4em;
+  font-size: 1.16em;
+}
+
+.vclRadioButton:hover > .vclIcon {
+  color: #00ADEF;
 }
 
 .vclRadioButton:focus > .vclIcon {
@@ -4476,6 +4493,10 @@ ol ul {
 
 .vclRadioButton.vclDisabled > .vclIcon {
   color: hsl(0, 0%, 88%);
+}
+
+.vclFormControlLabel:hover .vclRadioButton:not(.vclDisabled) .vclIcon {
+  color: #00ADEF;
 }
 
 .vclRating {
@@ -5995,7 +6016,7 @@ sub {
 }
 
 /*!
- *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 
@@ -6004,8 +6025,8 @@ sub {
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../fonts/fontawesome-webfont.eot?v=4.6.3');
-  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
+  src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -8391,6 +8412,7 @@ sub {
 }
 
 .fa-battery-4:before,
+.fa-battery:before,
 .fa-battery-full:before {
   content: "\F240";
 }
@@ -8845,6 +8867,184 @@ sub {
 .fa-fa:before,
 .fa-font-awesome:before {
   content: "\F2B4";
+}
+
+.fa-handshake-o:before {
+  content: "\F2B5";
+}
+
+.fa-envelope-open:before {
+  content: "\F2B6";
+}
+
+.fa-envelope-open-o:before {
+  content: "\F2B7";
+}
+
+.fa-linode:before {
+  content: "\F2B8";
+}
+
+.fa-address-book:before {
+  content: "\F2B9";
+}
+
+.fa-address-book-o:before {
+  content: "\F2BA";
+}
+
+.fa-vcard:before,
+.fa-address-card:before {
+  content: "\F2BB";
+}
+
+.fa-vcard-o:before,
+.fa-address-card-o:before {
+  content: "\F2BC";
+}
+
+.fa-user-circle:before {
+  content: "\F2BD";
+}
+
+.fa-user-circle-o:before {
+  content: "\F2BE";
+}
+
+.fa-user-o:before {
+  content: "\F2C0";
+}
+
+.fa-id-badge:before {
+  content: "\F2C1";
+}
+
+.fa-drivers-license:before,
+.fa-id-card:before {
+  content: "\F2C2";
+}
+
+.fa-drivers-license-o:before,
+.fa-id-card-o:before {
+  content: "\F2C3";
+}
+
+.fa-quora:before {
+  content: "\F2C4";
+}
+
+.fa-free-code-camp:before {
+  content: "\F2C5";
+}
+
+.fa-telegram:before {
+  content: "\F2C6";
+}
+
+.fa-thermometer-4:before,
+.fa-thermometer:before,
+.fa-thermometer-full:before {
+  content: "\F2C7";
+}
+
+.fa-thermometer-3:before,
+.fa-thermometer-three-quarters:before {
+  content: "\F2C8";
+}
+
+.fa-thermometer-2:before,
+.fa-thermometer-half:before {
+  content: "\F2C9";
+}
+
+.fa-thermometer-1:before,
+.fa-thermometer-quarter:before {
+  content: "\F2CA";
+}
+
+.fa-thermometer-0:before,
+.fa-thermometer-empty:before {
+  content: "\F2CB";
+}
+
+.fa-shower:before {
+  content: "\F2CC";
+}
+
+.fa-bathtub:before,
+.fa-s15:before,
+.fa-bath:before {
+  content: "\F2CD";
+}
+
+.fa-podcast:before {
+  content: "\F2CE";
+}
+
+.fa-window-maximize:before {
+  content: "\F2D0";
+}
+
+.fa-window-minimize:before {
+  content: "\F2D1";
+}
+
+.fa-window-restore:before {
+  content: "\F2D2";
+}
+
+.fa-times-rectangle:before,
+.fa-window-close:before {
+  content: "\F2D3";
+}
+
+.fa-times-rectangle-o:before,
+.fa-window-close-o:before {
+  content: "\F2D4";
+}
+
+.fa-bandcamp:before {
+  content: "\F2D5";
+}
+
+.fa-grav:before {
+  content: "\F2D6";
+}
+
+.fa-etsy:before {
+  content: "\F2D7";
+}
+
+.fa-imdb:before {
+  content: "\F2D8";
+}
+
+.fa-ravelry:before {
+  content: "\F2D9";
+}
+
+.fa-eercast:before {
+  content: "\F2DA";
+}
+
+.fa-microchip:before {
+  content: "\F2DB";
+}
+
+.fa-snowflake-o:before {
+  content: "\F2DC";
+}
+
+.fa-superpowers:before {
+  content: "\F2DD";
+}
+
+.fa-wpexplorer:before {
+  content: "\F2DE";
+}
+
+.fa-meetup:before {
+  content: "\F2E0";
 }
 
 .sr-only {
