@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var FormComponent = (function () {
     function FormComponent() {
+        this.layout = 'vertical';
     }
     FormComponent.prototype.ngOnInit = function () { };
     return FormComponent;
@@ -18,7 +19,7 @@ var FormComponent = (function () {
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
-], FormComponent.prototype, "label", void 0);
+], FormComponent.prototype, "layout", void 0);
 FormComponent = __decorate([
     core_1.Component({
         selector: 'vcl-form',

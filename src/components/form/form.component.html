@@ -1,3 +1,5 @@
-<form class="vclForm vclFormInline">
+<form class="vclForm vclFormInline"
+ [class.vclFormInline]="layout=='inline'"
+ [class.vclFormHorizontal]="layout=='horizontal'">
   <ng-content></ng-content>
 </form>

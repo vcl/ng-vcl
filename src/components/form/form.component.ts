@@ -10,8 +10,9 @@ import { Component, Input, OnInit, HostBinding } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
-  @Input()
-  label: string;
+  @Input() layout: string = 'vertical';
+
+
 
   ngOnInit() { }
 
