@@ -22,19 +22,18 @@ function webpackConfig(options) {
     ENV: 'development'
   };
 
-  const CONSTANTS = {
-    ENV: JSON.stringify(options.ENV),
-    HMR: options.HMR,
-    PORT: 3000,
-    HOST: 'localhost'
-  };
+  const ENV = options.ENV || 'development';
+  const HMR = options.HMR || true;
+  const PORT = options.PORT || 3000;
+  const isProd = options.ENV === 'production';
 
   return {
     cache: true,
-    devtool: 'source-map',
+    devtool:  isProd && 'source-map',
     entry: {
-      vendor:    './demo/vendor',
-      main:      './demo/main'
+      main:      './demo/main',
+      lib:    './demo/vendor',
+      polyfills:    './demo/polyfills'
     },
     output: {
       path: root('docs'),
@@ -68,26 +67,38 @@ function webpackConfig(options) {
     },
     plugins: [
       new ExtractTextPlugin('styles/app.css'),
-      new HotModuleReplacementPlugin(),
+      (HMR && !isProd) && new HotModuleReplacementPlugin(),
       new ForkCheckerPlugin(),
-      new CommonsChunkPlugin({ name: ['vendor'], minChunks: Infinity }),
-      new DefinePlugin(CONSTANTS),
+      new CommonsChunkPlugin({
+        name: ['app', 'lib', 'polyfills']
+      }),
+      new DefinePlugin({
+        'ENV': JSON.stringify(ENV)
+      }),
       new ProgressPlugin({}),
       new ContextReplacementPlugin(
         /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
         __dirname
-      )
-    ],
-
+      ),
+      isProd && new UglifyJsPlugin({
+        mangle: {
+          screw_ie8 : true,
+        }, //prod
+        compress: {  //prod
+          screw_ie8: true,
+          warnings: false
+        },
+        comments: false //prod
+      })
+    ].filter(plugin=>!!plugin),
     resolve: {
       extensions: ['.ts', '.js', '.json'],
     },
-
     devServer: {
       contentBase: './demo',
-      port: CONSTANTS.PORT,
-      hot: CONSTANTS.HMR,
-      inline: CONSTANTS.HMR,
+      port: PORT,
+      hot: HMR,
+      inline: HMR,
       historyApiFallback: true
     },
     node: {
