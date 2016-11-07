@@ -3,16 +3,6 @@ import { Component, Directive, ContentChildren, QueryList, Input, Output, EventE
 
 
 
-
-
-
-
-
-
-
-
-
-
 @Directive({
   selector: 'vcl-navitem'
 })

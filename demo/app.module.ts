@@ -11,6 +11,7 @@ import { MarkdownComponent } from "./components/markdown/markdown.component";
 import { DemoComponent, DemoContentComponent } from "./components/demo/demo.component";
 import { DEMOS } from "./demos";
 
+
 import { routing, appRoutingProviders } from './app.routes';
 
 @NgModule({

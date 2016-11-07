@@ -19,9 +19,10 @@ import { VCLRadioButtonModule } from './components/radio-button/radio-button.mod
 import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
 import { VCLOffClickModule } from './directives/off-click/off-click.module';
 import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
+import { VCLFormModule } from './components/form/form.module';
 import { VCLWormholeModule } from './directives/wormhole/wormhole.module';
 import { VCLMonthPickerModule } from './components/month-picker/month-picker.module';
- 
+
 export * from './reflect';
 
 export * from './components/icon/icon.module';
@@ -31,6 +32,7 @@ export * from './components/button-group/button-group.module';
 export * from './components/layer/layer.module';
 export * from './components/tab-nav/tab-nav.module';
 export * from './components/navigation/navigation.module';
+export * from './components/form/form.module';
 export * from './components/toolbar/toolbar.module';
 export * from './components/tether/tether.module';
 export * from './components/link/link.module';
@@ -63,6 +65,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLRadioButtonModule,
     VCLCheckboxModule,
     VCLFormControlLabelModule,
+    VCLFormModule,
     VCLMetalistModule,
     VCLDropdownModule,
     VCLSelectModule,
@@ -86,6 +89,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLRadioButtonModule,
     VCLCheckboxModule,
     VCLFormControlLabelModule,
+    VCLFormModule,
     VCLMetalistModule,
     VCLDropdownModule,
     VCLSelectModule,

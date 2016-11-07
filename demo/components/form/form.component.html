@@ -1,0 +1,27 @@
+<vcl-form>
+
+  Select me:
+  <vcl-select #select [items]="items"></vcl-select>
+
+  <br/>
+  <br/>
+
+
+  Radio me:
+  <vcl-radio-button [(checked)]="checked1"></vcl-radio-button>
+
+  <br/>
+  <br/>
+
+
+  Check me:
+  <vcl-checkbox [(checked)]="checked2"></vcl-checkbox>
+
+
+  <br/>
+  <br/> Input me:
+  <input vcl-input [(ngModel)]="data1">
+  <br/>
+  <b>Input value:</b> {{data1}}
+
+</vcl-form>

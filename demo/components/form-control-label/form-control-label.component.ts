@@ -5,8 +5,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormControlLabelComponent implements OnInit {
 
-  checkboxChecked = false;
-  
+
   constructor() { }
 
   ngOnInit() { }

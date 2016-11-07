@@ -13,6 +13,7 @@ import LINK_DEMO from './components/link/link.demo';
 import RADIO_BUTTON_DEMO from './components/radio-button/radio-button.demo';
 import CHECKBOX_DEMO from './components/checkbox/checkbox.demo';
 import FORM_CONTROL_LABEL_DEMO from './components/form-control-label/form-control-label.demo';
+import FORM_DEMO from './components/form/form.demo';
 import INPUT_DEMO from './components/input/input.demo';
 import POPOVER_DEMO from './components/popover/popover.demo';
 import TAB_NAV_DEMO from './components/tab-nav/tab-nav.demo';
@@ -47,6 +48,7 @@ export const DEMOS: Demo[] = [
   RADIO_BUTTON_DEMO,
   CHECKBOX_DEMO,
   FORM_CONTROL_LABEL_DEMO,
+  FORM_DEMO,
   INPUT_DEMO,
   POPOVER_DEMO,
   TAB_NAV_DEMO,
@@ -59,7 +61,7 @@ export const DEMOS: Demo[] = [
   L10N_DEMO,
 ];
 
-export const GROUPED_DEMOS = function () {
+export const GROUPED_DEMOS = function() {
   const itemsMap = {};
 
   DEMOS.forEach(c => {
@@ -86,9 +88,9 @@ export const GROUPED_DEMOS = function () {
 } ();
 
 export const DEMO_DECLARATIONS = DEMOS.map(dc => Object.keys(dc.tabs)
-                                                  .map(key => dc.tabs[key])
-                                                  .filter(o => typeof o === 'function')
-                                                );
+  .map(key => dc.tabs[key])
+  .filter(o => typeof o === 'function')
+);
 export const DEMO_ROUTES = (DEMOS.map(dc => {
   return {
     path: dc.path,
