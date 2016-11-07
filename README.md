@@ -72,5 +72,8 @@ Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 ## Create docs
 
 ```
-npm run docs
+npm run docs:build
+git add docs
+git commit -m "Docs"
+git run docs:push
 ```
