@@ -7,6 +7,11 @@ export class FormComponent implements OnInit {
 
 
 
+  changed(form) {
+    console.log('form submitted');
+    console.dir(form);
+  }
+
   items = [
     { label: 'item 1' },
     { label: 'item 2' },
@@ -21,6 +26,10 @@ export class FormComponent implements OnInit {
   ];
 
   data1: string = '';
+
+  data: Object = {
+    user: {}
+  };
 
   constructor() { }
 

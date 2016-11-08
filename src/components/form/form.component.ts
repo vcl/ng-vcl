@@ -1,4 +1,15 @@
-import { Component, Input, OnInit, HostBinding } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Component, Input, OnInit, NgModule, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+@Component({
+  selector: 'vcl-input-control-group',
+  template: `<div [class.vclInputControlGroup]="!inline" [class.vclInputInlineControlGroup]="inline"><ng-content></ng-content></div>`
+})
+export class FormInputControlGroup {
+  @Input() inline: boolean = false;
+}
 
 
 @Component({
@@ -10,11 +21,25 @@ import { Component, Input, OnInit, HostBinding } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
-  @Input() layout: string = 'vertical';
+  @Input() layout: 'vertical' | 'horizontal' | 'inline' = 'vertical';
 
+  @Output('ngSubmit') valueChange = new EventEmitter<Object>(); // emits ngForm
+
+  onSubmitTemplateBased() {
+  }
+
+
+  constructor() {
+
+  }
 
 
   ngOnInit() { }
+
+
+  ngSubmit(form) {
+    this.valueChange.emit(form);
+  }
 
   /*  @Input()
     @HostBinding('class.vclDisabled')
