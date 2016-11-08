@@ -2,6 +2,41 @@
   [attr.id]="popoverTarget"
   (tap)="expand()"
   [attr.aria-autocomplete]="list"
+  class="vclLayoutHorizontal vclSelect vclInputGroupEmb">
+
+  <div class="vclInput" readonly>
+    {{displayValue}}
+  </div>
+
+  <button vcl-button
+    tabindex="-1"
+    class="vclTransparent vclSquare vclAppended"
+    [appIcon]="expanded ? expandedIcon : collapsedIcon">
+  </button>
+
+</div>
+
+<vcl-popover
+  [target]="'#' + popoverTarget"
+  targetAttachment='bottom left'
+  attachment='top left'
+  [(open)]="expanded">
+  <vcl-dropdown #dropdown
+    [expanded]="expanded"
+    [items]="items"
+    (select)="onSelect($event)"
+    [minSelectableItems]="minSelectableItems"
+    [maxSelectableItems]="maxSelectableItems"
+    [tabindex]="0">
+  </vcl-dropdown>
+</vcl-popover>
+
+
+
+<!--<div
+  [attr.id]="popoverTarget"
+  (tap)="expand()"
+  [attr.aria-autocomplete]="list"
   class="vclSelect vclInputGroupEmb">
 
   <div class="vclInput" readonly>
@@ -30,3 +65,32 @@
     [tabindex]="0">
   </vcl-dropdown>
 </vcl-popover>
+
+
+<div
+  [attr.id]="popoverTarget"
+  (tap)="expand()"
+  [attr.aria-autocomplete]="list"
+  class="vclLayoutHorizontal vclSelect vclInputGroupEmb">
+  <span class="vclInput" readonly>{{displayValue}}</span>
+  <button vcl-button
+    tabindex="-1"
+    class="vclTransparent vclSquare"
+    [appIcon]="expanded ? expandedIcon : collapsedIcon">
+  </button>
+</div>
+
+<vcl-popover
+  [target]="'#' + popoverTarget"
+  targetAttachment='bottom left'
+  attachment='top left'
+  [(open)]="expanded">
+  <vcl-dropdown #dropdown
+    [expanded]="expanded"
+    [items]="items"
+    (select)="onSelect($event)"
+    [minSelectableItems]="minSelectableItems"
+    [maxSelectableItems]="maxSelectableItems"
+    [tabindex]="0">
+  </vcl-dropdown>
+</vcl-popover>-->

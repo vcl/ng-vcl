@@ -18,6 +18,7 @@ var rxjs_Subject = require('rxjs/Subject');
 var _angular_router = require('@angular/router');
 var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
 var rxjs_add_operator_filter = require('rxjs/add/operator/filter');
+var _angular_forms = require('@angular/forms');
 var _angular_http = require('@angular/http');
 var rxjs_add_operator_publishReplay = require('rxjs/add/operator/publishReplay');
 var rxjs_add_operator_publish = require('rxjs/add/operator/publish');
@@ -1223,7 +1224,7 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-select',
-            template: "<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n",
+            template: "<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclLayoutHorizontal vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n\n\n\n<!--<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n\n\n<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclLayoutHorizontal vclSelect vclInputGroupEmb\">\n  <span class=\"vclInput\" readonly>{{displayValue}}</span>\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>-->\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
@@ -2948,18 +2949,46 @@ var VCLFormControlLabelModule = (function () {
     return VCLFormControlLabelModule;
 }());
 
-var FormComponent = (function () {
-    function FormComponent() {
+var FormInputControlGroup = (function () {
+    function FormInputControlGroup() {
+        this.inline = false;
     }
-    FormComponent.prototype.ngOnInit = function () { };
     __decorate([
         _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], FormComponent.prototype, "label", void 0);
+        __metadata('design:type', Boolean)
+    ], FormInputControlGroup.prototype, "inline", void 0);
+    FormInputControlGroup = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-input-control-group',
+            template: "<div [class.vclInputControlGroup]=\"!inline\" [class.vclInputInlineControlGroup]=\"inline\"><ng-content></ng-content></div>"
+        }), 
+        __metadata('design:paramtypes', [])
+    ], FormInputControlGroup);
+    return FormInputControlGroup;
+}());
+var FormComponent = (function () {
+    function FormComponent() {
+        this.layout = 'vertical';
+        this.valueChange = new _angular_core.EventEmitter(); // emits ngForm
+    }
+    FormComponent.prototype.onSubmitTemplateBased = function () {
+    };
+    FormComponent.prototype.ngOnInit = function () { };
+    FormComponent.prototype.ngSubmit = function (form) {
+        this.valueChange.emit(form);
+    };
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Object)
+    ], FormComponent.prototype, "layout", void 0);
+    __decorate([
+        _angular_core.Output('ngSubmit'), 
+        __metadata('design:type', Object)
+    ], FormComponent.prototype, "valueChange", void 0);
     FormComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-form',
-            template: "<form class=\"vclForm vclFormInline\">\n  <ng-content></ng-content>\n</form>\n",
+            template: "<form  #form=\"ngForm\" class=\"vclForm\"\n [class.vclFormInline]=\"layout=='inline'\"\n [class.vclFormHorizontal]=\"layout=='horizontal'\"\n\n (ngSubmit)=\"ngSubmit(form)\"\n>\n  <ng-content></ng-content>\n</form>\n",
             host: {
                 '[class.vclForm]': 'true',
             }
@@ -2974,9 +3003,9 @@ var VCLFormModule = (function () {
     }
     VCLFormModule = __decorate([
         _angular_core.NgModule({
-            imports: [],
-            exports: [FormComponent],
-            declarations: [FormComponent]
+            imports: [_angular_forms.ReactiveFormsModule, _angular_forms.FormsModule],
+            exports: [FormComponent, FormInputControlGroup],
+            declarations: [FormComponent, FormInputControlGroup]
         }), 
         __metadata('design:paramtypes', [])
     ], VCLFormModule);

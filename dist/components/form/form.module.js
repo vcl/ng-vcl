@@ -1,14 +1,15 @@
 "use strict";
 var core_1 = require('@angular/core');
+var forms_1 = require("@angular/forms");
 var form_component_1 = require('./form.component');
 var VCLFormModule = (function () {
     function VCLFormModule() {
     }
     VCLFormModule.decorators = [
         { type: core_1.NgModule, args: [{
-                    imports: [],
-                    exports: [form_component_1.FormComponent],
-                    declarations: [form_component_1.FormComponent]
+                    imports: [forms_1.ReactiveFormsModule, forms_1.FormsModule],
+                    exports: [form_component_1.FormComponent, form_component_1.FormInputControlGroup],
+                    declarations: [form_component_1.FormComponent, form_component_1.FormInputControlGroup]
                 },] },
     ];
     /** @nocollapse */

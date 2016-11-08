@@ -1,9 +1,34 @@
 "use strict";
 var core_1 = require('@angular/core');
+var FormInputControlGroup = (function () {
+    function FormInputControlGroup() {
+        this.inline = false;
+    }
+    FormInputControlGroup.decorators = [
+        { type: core_1.Component, args: [{
+                    selector: 'vcl-input-control-group',
+                    template: "<div [class.vclInputControlGroup]=\"!inline\" [class.vclInputInlineControlGroup]=\"inline\"><ng-content></ng-content></div>"
+                },] },
+    ];
+    /** @nocollapse */
+    FormInputControlGroup.ctorParameters = [];
+    FormInputControlGroup.propDecorators = {
+        'inline': [{ type: core_1.Input },],
+    };
+    return FormInputControlGroup;
+}());
+exports.FormInputControlGroup = FormInputControlGroup;
 var FormComponent = (function () {
     function FormComponent() {
+        this.layout = 'vertical';
+        this.valueChange = new core_1.EventEmitter(); // emits ngForm
     }
+    FormComponent.prototype.onSubmitTemplateBased = function () {
+    };
     FormComponent.prototype.ngOnInit = function () { };
+    FormComponent.prototype.ngSubmit = function (form) {
+        this.valueChange.emit(form);
+    };
     /*  @Input()
       @HostBinding('class.vclDisabled')
       disabled: boolean = false;
@@ -48,7 +73,8 @@ var FormComponent = (function () {
     /** @nocollapse */
     FormComponent.ctorParameters = [];
     FormComponent.propDecorators = {
-        'label': [{ type: core_1.Input },],
+        'layout': [{ type: core_1.Input },],
+        'valueChange': [{ type: core_1.Output, args: ['ngSubmit',] },],
     };
     return FormComponent;
 }());
