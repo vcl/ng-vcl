@@ -24,7 +24,14 @@ var FormComponent = (function () {
             { label: 'item 10' }
         ];
         this.data1 = '';
+        this.data = {
+            user: {}
+        };
     }
+    FormComponent.prototype.changed = function (form) {
+        console.log('form submitted');
+        console.dir(form);
+    };
     FormComponent.prototype.ngOnInit = function () { };
     return FormComponent;
 }());

@@ -4,10 +4,11 @@ In construction
 
 ## Usage:
 
-Simple form
-
 ```html
-<vcl-form></vcl-form>
+<vcl-form layout="vertical">
+
+
+</vcl-form>
 ```
 
 
@@ -18,7 +19,7 @@ Simple form
 
 | Name                         | Type        | Default  | Description
 | ---------------------------- | ----------- | -------- |--------------
-| `label` *(1)*                | string      |          | The label
-
+| `layout`                     | string      | vertical | Enum('vertical', 'horizontal', 'inline')
+| `ngSubmit`                   | function    |          | fires when data is changed and emits the ngForm
 
 *(1) Supports l10n*
