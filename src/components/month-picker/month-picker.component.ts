@@ -16,7 +16,7 @@ export class MonthPickerComponent implements OnInit {
   months: any[];
   yearMeta: any = {};
   currentMeta: any[];
-  availableColors: string[];
+  availableColors: boolean[];
 
   ngOnInit(): void {
     // TODO: Localize here instead of in the template so outside components
@@ -31,7 +31,7 @@ export class MonthPickerComponent implements OnInit {
     }
 
     if (this.colors) {
-      this.availableColors = this.colors.slice();
+      this.availableColors = this.colors.map(color => true);
     }
 
     this.setYearMeta(this.currentYear);
@@ -192,8 +192,10 @@ export class MonthPickerComponent implements OnInit {
   }
 
   private getMonthBackgroundColor(): string {
-    if (this.availableColors && this.availableColors.length) {
-      return this.availableColors.shift();
+    const index: number = this.availableColors.findIndex(available => available);
+    if (index !== undefined) {
+      this.availableColors[index] = false;
+      return this.colors[index];
     }
   }
 
@@ -215,7 +217,8 @@ export class MonthPickerComponent implements OnInit {
     if (this.availableColors) {
       const monthMeta: any = this.getYearMeta(year)[month];
       if (monthMeta.color) {
-        this.availableColors.unshift(monthMeta.color);
+        const index: number = this.colors.indexOf(monthMeta.color);
+        this.availableColors[index] = true;
         monthMeta.color = undefined;
       }
     }

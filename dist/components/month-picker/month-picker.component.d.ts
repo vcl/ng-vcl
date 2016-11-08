@@ -3,7 +3,7 @@ export declare class MonthPickerComponent implements OnInit {
     months: any[];
     yearMeta: any;
     currentMeta: any[];
-    availableColors: string[];
+    availableColors: boolean[];
     ngOnInit(): void;
     private setYearMeta(year);
     private createYearMeta(year);
