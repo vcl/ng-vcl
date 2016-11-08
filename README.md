@@ -1,7 +1,7 @@
-# [ng-vcl](https://github.com/ng-vcl/ng-vcl)
+# [ng-vcl](https://ng-vcl.github.io/ng-vcl/)
 
 A comprehensive library of components for Angular 2 with [VCL](http://vcl.github.io/) based styling.<br>
-**[Browse the Demo](https://github.com/ng-vcl/ng-vcl)**
+**[Browse the Demo](https://ng-vcl.github.io/ng-vcl/)**
 
 ## Features
 
