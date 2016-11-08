@@ -22,7 +22,7 @@
   attachment='top left'
   [(open)]="expanded">
   <vcl-dropdown #dropdown
-    [expanded]="expanded"
+    [(expanded)]="expanded"
     [items]="items"
     (select)="onSelect($event)"
     [minSelectableItems]="minSelectableItems"

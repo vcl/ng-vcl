@@ -215,7 +215,7 @@ export class MonthPickerComponent implements OnInit {
     if (this.availableColors) {
       const monthMeta: any = this.getYearMeta(year)[month];
       if (monthMeta.color) {
-        this.availableColors.push(monthMeta.color);
+        this.availableColors.unshift(monthMeta.color);
         monthMeta.color = undefined;
       }
     }

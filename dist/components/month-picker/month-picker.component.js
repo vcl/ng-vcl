@@ -143,7 +143,7 @@ var MonthPickerComponent = (function () {
         if (this.availableColors) {
             var monthMeta = this.getYearMeta(year)[month];
             if (monthMeta.color) {
-                this.availableColors.push(monthMeta.color);
+                this.availableColors.unshift(monthMeta.color);
                 monthMeta.color = undefined;
             }
         }
