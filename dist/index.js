@@ -22,6 +22,7 @@ var radio_button_module_1 = require('./components/radio-button/radio-button.modu
 var checkbox_module_1 = require('./components/checkbox/checkbox.module');
 var off_click_module_1 = require('./directives/off-click/off-click.module');
 var form_control_label_module_1 = require('./components/form-control-label/form-control-label.module');
+var form_module_1 = require('./components/form/form.module');
 var wormhole_module_1 = require('./directives/wormhole/wormhole.module');
 var month_picker_module_1 = require('./components/month-picker/month-picker.module');
 __export(require('./reflect'));
@@ -32,6 +33,7 @@ __export(require('./components/button-group/button-group.module'));
 __export(require('./components/layer/layer.module'));
 __export(require('./components/tab-nav/tab-nav.module'));
 __export(require('./components/navigation/navigation.module'));
+__export(require('./components/form/form.module'));
 __export(require('./components/toolbar/toolbar.module'));
 __export(require('./components/tether/tether.module'));
 __export(require('./components/link/link.module'));
@@ -66,6 +68,7 @@ var VCLModule = (function () {
                         radio_button_module_1.VCLRadioButtonModule,
                         checkbox_module_1.VCLCheckboxModule,
                         form_control_label_module_1.VCLFormControlLabelModule,
+                        form_module_1.VCLFormModule,
                         metalist_module_1.VCLMetalistModule,
                         dropdown_module_1.VCLDropdownModule,
                         select_module_1.VCLSelectModule,
@@ -89,6 +92,7 @@ var VCLModule = (function () {
                         radio_button_module_1.VCLRadioButtonModule,
                         checkbox_module_1.VCLCheckboxModule,
                         form_control_label_module_1.VCLFormControlLabelModule,
+                        form_module_1.VCLFormModule,
                         metalist_module_1.VCLMetalistModule,
                         dropdown_module_1.VCLDropdownModule,
                         select_module_1.VCLSelectModule,

@@ -3,10 +3,8 @@ import { EventEmitter } from '@angular/core';
 */
 export declare class SelectComponent {
     dropdown: any;
-    input: any;
-    hide: any;
-    ariaRole: string;
     clickInside: boolean;
+    popoverTarget: string;
     select: EventEmitter<any[]>;
     expanded: boolean;
     items: any[];

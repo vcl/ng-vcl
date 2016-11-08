@@ -9,11 +9,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
 import 'hammerjs';
+import * as Tether from 'tether';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/filter';
-import * as Tether from 'tether';
 import { ConnectionBackend, Http, HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publish';
@@ -1133,8 +1133,8 @@ var VCLButtonModule = (function () {
 */
 var SelectComponent = (function () {
     function SelectComponent() {
-        this.ariaRole = 'list';
         this.clickInside = false;
+        this.popoverTarget = 'popoverTarget' + Math.random().toString().slice(2);
         this.select = new EventEmitter();
         this.expanded = false;
         this.minSelectableItems = 1;
@@ -1172,10 +1172,6 @@ var SelectComponent = (function () {
             }
             this.displayValue = result;
         }
-        // Adjust min input width to fit it's content.
-        this.hide.nativeElement.innerHTML = this.displayValue;
-        this.input.nativeElement.style.minWidth = (this.hide.nativeElement.offsetWidth * 1.25) + 'px';
-        this.hide.nativeElement.innerHTML = '';
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
         this.expanded = false;
@@ -1184,14 +1180,6 @@ var SelectComponent = (function () {
         ViewChild('dropdown'), 
         __metadata('design:type', Object)
     ], SelectComponent.prototype, "dropdown", void 0);
-    __decorate([
-        ViewChild('input'), 
-        __metadata('design:type', Object)
-    ], SelectComponent.prototype, "input", void 0);
-    __decorate([
-        ViewChild('hide'), 
-        __metadata('design:type', Object)
-    ], SelectComponent.prototype, "hide", void 0);
     __decorate([
         Output(), 
         __metadata('design:type', Object)
@@ -1231,12 +1219,202 @@ var SelectComponent = (function () {
     SelectComponent = __decorate([
         Component({
             selector: 'vcl-select',
-            template: "<div [attr.aria-autocomplete]=\"ariaRole\" class=\"vclSelect vclInputGroupEmb\" (off-click)=\"onOutsideClick()\">\n  <span #hide [class.vclLayoutInvisible]=\"true\"></span>\n  <input #input (tap)=\"expand()\" class=\"vclInput\" [attr.value]=\"displayValue\" readonly>\n  <button vcl-button (click)=\"expand()\" class=\"vclTransparent vclSquare vclAppended\" [appIcon]=\"expanded ? expandedIcon : collapsedIcon\"></button>\n  <vcl-dropdown #dropdown (select)=\"onSelect($event)\"\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\" [expanded]=\"true\"></vcl-dropdown>\n</div>\n",
+            template: "<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n",
             changeDetection: ChangeDetectionStrategy.OnPush
         }), 
         __metadata('design:paramtypes', [])
     ], SelectComponent);
     return SelectComponent;
+}());
+
+var OverlayManagerService = (function () {
+    function OverlayManagerService() {
+        this.components = [];
+    }
+    OverlayManagerService.prototype.register = function (component) {
+        var zIndex = 100;
+        for (var i = 0; i < this.components.length; i++) {
+            if (this.components[i].zIndex >= zIndex) {
+                zIndex = this.components[i].zIndex;
+            }
+        }
+        this.components.push(component);
+        return zIndex + 10;
+    };
+    OverlayManagerService.prototype.unregister = function (component) {
+        var index = this.components.indexOf(component);
+        this.components.splice(index, 1);
+        return -1;
+    };
+    OverlayManagerService = __decorate([
+        Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], OverlayManagerService);
+    return OverlayManagerService;
+}());
+
+var PopoverComponent = (function () {
+    function PopoverComponent(overlayManger, myElement) {
+        this.overlayManger = overlayManger;
+        this.myElement = myElement;
+        this.class = 'vclPopOver';
+        this.zIndex = 10;
+        this.coverZIndex = -1;
+        this.targetAttachment = 'bottom left';
+        this.attachment = 'top left';
+        this.open = false;
+        this.layer = false;
+        this.openChange = new EventEmitter();
+        this.zIndexManaged = true;
+        this.expandManaged = true;
+        this.state = 'open';
+    }
+    PopoverComponent.prototype.close = function () {
+        this.state = 'void';
+        this.open = false;
+        this.openChange.emit(this.open);
+    };
+    PopoverComponent.prototype.offClick = function () {
+        if (this.expandManaged && !this.layer) {
+            this.close();
+        }
+    };
+    PopoverComponent.prototype.ngOnChanges = function (changes) {
+        try {
+            if (this.zIndexManaged) {
+                if (changes.open.currentValue === true) {
+                    this.zIndex = this.overlayManger.register(this);
+                    this.coverZIndex = this.zIndex - 1;
+                    this.state = 'open';
+                }
+                else if (changes.open.currentValue === false) {
+                    this.state = 'void';
+                    this.zIndex = this.overlayManger.unregister(this);
+                    this.coverZIndex = -1;
+                }
+            }
+        }
+        catch (ex) { }
+    };
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], PopoverComponent.prototype, "target", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], PopoverComponent.prototype, "style", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], PopoverComponent.prototype, "class", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], PopoverComponent.prototype, "zIndex", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], PopoverComponent.prototype, "targetAttachment", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], PopoverComponent.prototype, "attachment", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], PopoverComponent.prototype, "open", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], PopoverComponent.prototype, "layer", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', (typeof (_a = typeof EventEmitter !== 'undefined' && EventEmitter) === 'function' && _a) || Object)
+    ], PopoverComponent.prototype, "openChange", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], PopoverComponent.prototype, "zIndexManaged", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], PopoverComponent.prototype, "expandManaged", void 0);
+    PopoverComponent = __decorate([
+        Component({
+            selector: 'vcl-popover',
+            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\"\n  (off-click)=\"offClick()\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\"></div>\n",
+            animations: [
+                trigger('popOverState', [])
+            ]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof OverlayManagerService !== 'undefined' && OverlayManagerService) === 'function' && _b) || Object, (typeof (_c = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _c) || Object])
+    ], PopoverComponent);
+    return PopoverComponent;
+    var _a, _b, _c;
+}());
+
+var TetherComponent = (function () {
+    function TetherComponent(myElement) {
+        this.myElement = myElement;
+        this.id = 'tetherId' + Math.floor(Math.random() * 10000);
+    }
+    TetherComponent.prototype.ngAfterViewInit = function () {
+        try {
+            new Tether({
+                element: '#' + this.id,
+                target: this.target,
+                attachment: this.attachment,
+                targetAttachment: this.targetAttachment
+            });
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    };
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TetherComponent.prototype, "target", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TetherComponent.prototype, "class", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], TetherComponent.prototype, "zIndex", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TetherComponent.prototype, "targetAttachment", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], TetherComponent.prototype, "attachment", void 0);
+    TetherComponent = __decorate([
+        Component({
+            selector: 'vcl-tether',
+            template: "<div [id]=\"id\" [class]=\"class\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n"
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
+    ], TetherComponent);
+    return TetherComponent;
+    var _a;
+}());
+
+var VCLTetherModule = (function () {
+    function VCLTetherModule() {
+    }
+    VCLTetherModule = __decorate([
+        NgModule({
+            imports: [CommonModule],
+            exports: [TetherComponent],
+            declarations: [TetherComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLTetherModule);
+    return VCLTetherModule;
 }());
 
 var OffClickDirective = (function () {
@@ -1293,12 +1471,30 @@ var VCLOffClickModule = (function () {
     return VCLOffClickModule;
 }());
 
+var VCLPopoverModule = (function () {
+    function VCLPopoverModule() {
+    }
+    VCLPopoverModule = __decorate([
+        NgModule({
+            imports: [
+                CommonModule,
+                VCLTetherModule,
+                VCLOffClickModule
+            ],
+            exports: [PopoverComponent],
+            declarations: [PopoverComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLPopoverModule);
+    return VCLPopoverModule;
+}());
+
 var VCLSelectModule = (function () {
     function VCLSelectModule() {
     }
     VCLSelectModule = __decorate([
         NgModule({
-            imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule],
+            imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule, VCLPopoverModule],
             exports: [SelectComponent],
             declarations: [SelectComponent],
             providers: [],
@@ -2355,214 +2551,6 @@ var VCLToolbarModule = (function () {
     return VCLToolbarModule;
 }());
 
-var TetherComponent = (function () {
-    function TetherComponent(myElement) {
-        this.myElement = myElement;
-        this.id = 'tetherId' + Math.floor(Math.random() * 10000);
-    }
-    TetherComponent.prototype.ngAfterViewInit = function () {
-        try {
-            new Tether({
-                element: '#' + this.id,
-                target: this.target,
-                attachment: this.attachment,
-                targetAttachment: this.targetAttachment
-            });
-        }
-        catch (ex) {
-            console.log(ex);
-        }
-    };
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], TetherComponent.prototype, "target", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], TetherComponent.prototype, "class", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], TetherComponent.prototype, "zIndex", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], TetherComponent.prototype, "targetAttachment", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], TetherComponent.prototype, "attachment", void 0);
-    TetherComponent = __decorate([
-        Component({
-            selector: 'vcl-tether',
-            template: "<div [id]=\"id\" [class]=\"class\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n"
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _a) || Object])
-    ], TetherComponent);
-    return TetherComponent;
-    var _a;
-}());
-
-var VCLTetherModule = (function () {
-    function VCLTetherModule() {
-    }
-    VCLTetherModule = __decorate([
-        NgModule({
-            imports: [CommonModule],
-            exports: [TetherComponent],
-            declarations: [TetherComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLTetherModule);
-    return VCLTetherModule;
-}());
-
-var OverlayManagerService = (function () {
-    function OverlayManagerService() {
-        this.components = [];
-    }
-    OverlayManagerService.prototype.register = function (component) {
-        var zIndex = 100;
-        for (var i = 0; i < this.components.length; i++) {
-            if (this.components[i].zIndex >= zIndex) {
-                zIndex = this.components[i].zIndex;
-            }
-        }
-        this.components.push(component);
-        return zIndex + 10;
-    };
-    OverlayManagerService.prototype.unregister = function (component) {
-        var index = this.components.indexOf(component);
-        this.components.splice(index, 1);
-        return -1;
-    };
-    OverlayManagerService = __decorate([
-        Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], OverlayManagerService);
-    return OverlayManagerService;
-}());
-
-var PopoverComponent = (function () {
-    function PopoverComponent(overlayManger, myElement) {
-        this.overlayManger = overlayManger;
-        this.myElement = myElement;
-        this.class = 'vclPopOver';
-        this.zIndex = 10;
-        this.coverZIndex = -1;
-        this.targetAttachment = 'bottom left';
-        this.attachment = 'top left';
-        this.open = false;
-        this.layer = false;
-        this.openChange = new EventEmitter();
-        this.zIndexManaged = true;
-        this.expandManaged = true;
-        this.state = 'open';
-    }
-    PopoverComponent.prototype.close = function () {
-        this.state = 'void';
-        this.open = false;
-        this.openChange.emit(this.open);
-    };
-    PopoverComponent.prototype.offClick = function () {
-        if (this.expandManaged && !this.layer) {
-            this.close();
-        }
-    };
-    PopoverComponent.prototype.ngOnChanges = function (changes) {
-        try {
-            if (this.zIndexManaged) {
-                if (changes.open.currentValue === true) {
-                    this.zIndex = this.overlayManger.register(this);
-                    this.coverZIndex = this.zIndex - 1;
-                    this.state = 'open';
-                }
-                else if (changes.open.currentValue === false) {
-                    this.state = 'void';
-                    this.zIndex = this.overlayManger.unregister(this);
-                    this.coverZIndex = -1;
-                }
-            }
-        }
-        catch (ex) { }
-    };
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], PopoverComponent.prototype, "target", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], PopoverComponent.prototype, "style", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], PopoverComponent.prototype, "class", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], PopoverComponent.prototype, "zIndex", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], PopoverComponent.prototype, "targetAttachment", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], PopoverComponent.prototype, "attachment", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], PopoverComponent.prototype, "open", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], PopoverComponent.prototype, "layer", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', (typeof (_a = typeof EventEmitter !== 'undefined' && EventEmitter) === 'function' && _a) || Object)
-    ], PopoverComponent.prototype, "openChange", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], PopoverComponent.prototype, "zIndexManaged", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], PopoverComponent.prototype, "expandManaged", void 0);
-    PopoverComponent = __decorate([
-        Component({
-            selector: 'vcl-popover',
-            template: "<vcl-tether\n  *ngIf=\"open\"\n  [zIndex]=\"zIndex\"\n  [class]=\"class\"\n  [target]=\"target\"\n  [targetAttachment]=\"targetAttachment\"\n  [attachment]=\"attachment\">\n  <div [ngStyle]=\"style\" [@popOverState]=\"state\"\n  (off-click)=\"offClick()\">\n    <ng-content></ng-content>\n  </div>\n</vcl-tether>\n<div *ngIf=\"open && layer\" class=\"vclLayerCover\" [style.zIndex]=\"coverZIndex\"></div>\n",
-            animations: [
-                trigger('popOverState', [])
-            ]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof OverlayManagerService !== 'undefined' && OverlayManagerService) === 'function' && _b) || Object, (typeof (_c = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _c) || Object])
-    ], PopoverComponent);
-    return PopoverComponent;
-    var _a, _b, _c;
-}());
-
-var VCLPopoverModule = (function () {
-    function VCLPopoverModule() {
-    }
-    VCLPopoverModule = __decorate([
-        NgModule({
-            imports: [
-                CommonModule,
-                VCLTetherModule,
-                VCLOffClickModule
-            ],
-            exports: [PopoverComponent],
-            declarations: [PopoverComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLPopoverModule);
-    return VCLPopoverModule;
-}());
-
 var RadioButtonComponent = (function () {
     function RadioButtonComponent(elementRef) {
         this.elementRef = elementRef;
@@ -2954,6 +2942,41 @@ var VCLFormControlLabelModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLFormControlLabelModule);
     return VCLFormControlLabelModule;
+}());
+
+var FormComponent = (function () {
+    function FormComponent() {
+    }
+    FormComponent.prototype.ngOnInit = function () { };
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], FormComponent.prototype, "label", void 0);
+    FormComponent = __decorate([
+        Component({
+            selector: 'vcl-form',
+            template: "<form class=\"vclForm vclFormInline\">\n  <ng-content></ng-content>\n</form>\n",
+            host: {
+                '[class.vclForm]': 'true',
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], FormComponent);
+    return FormComponent;
+}());
+
+var VCLFormModule = (function () {
+    function VCLFormModule() {
+    }
+    VCLFormModule = __decorate([
+        NgModule({
+            imports: [],
+            exports: [FormComponent],
+            declarations: [FormComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLFormModule);
+    return VCLFormModule;
 }());
 
 var MonthPickerComponent = (function () {
@@ -3536,6 +3559,7 @@ var VCLModule = (function () {
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
+                VCLFormModule,
                 VCLMetalistModule,
                 VCLDropdownModule,
                 VCLSelectModule,
@@ -3559,6 +3583,7 @@ var VCLModule = (function () {
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
+                VCLFormModule,
                 VCLMetalistModule,
                 VCLDropdownModule,
                 VCLSelectModule,
@@ -3574,4 +3599,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, AdvHttp, ErrorHandlerService, ADV_HTTP_CONFIG, AdvHttpModule };
+export { VCLModule, setAnimations, setAnnotation, SubComponent, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, AdvHttp, ErrorHandlerService, ADV_HTTP_CONFIG, AdvHttpModule };
