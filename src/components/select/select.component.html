@@ -1,7 +1,11 @@
 <div [attr.aria-autocomplete]="ariaRole" class="vclSelect vclInputGroupEmb" (off-click)="onOutsideClick()">
   <span #hide [class.vclLayoutInvisible]="true"></span>
   <input #input (tap)="expand()" class="vclInput" [attr.value]="displayValue" readonly>
-  <button vcl-button (click)="expand()" class="vclTransparent vclSquare vclAppended" [appIcon]="expanded ? expandedIcon : collapsedIcon"></button>
+
+  <!-- TODO click_todo was renamed from 'click' because it will fire even when another input is focused and enter is pressed. ©dmeyer  -->
+  <button vcl-button
+  (click_todo)="expand()"
+  class="vclTransparent vclSquare vclAppended" [appIcon]="expanded ? expandedIcon : collapsedIcon"></button>
   <vcl-dropdown #dropdown (select)="onSelect($event)"
     [(expanded)]="expanded"
     [items]="items"
