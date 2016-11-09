@@ -36,7 +36,7 @@ export class CheckboxComponent implements OnInit, OnChanges {
   tabindex = 0;
 
   /**
-  Refelects the checked state, `true` is checked and `false` is unchecked
+  Reflects the checked state, `true` is checked and `false` is unchecked
   @public
   */
   @Input()

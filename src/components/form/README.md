@@ -1,6 +1,6 @@
 # vcl-form
 
-In construction
+In construction. Do not use this component yet.
 
 ## Usage:
 
