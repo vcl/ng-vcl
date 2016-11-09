@@ -9,10 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+    provide: forms_1.NG_VALUE_ACCESSOR,
+    useExisting: core_1.forwardRef(function () { return SelectComponent; }),
+    multi: true
+};
 var SelectComponent = (function () {
     function SelectComponent() {
-        this.ariaRole = 'list';
         this.clickInside = false;
+        this.popoverTarget = 'popoverTarget' + Math.random().toString().slice(2);
         this.select = new core_1.EventEmitter();
         this.expanded = false;
         this.minSelectableItems = 1;
@@ -50,12 +56,16 @@ var SelectComponent = (function () {
             }
             this.displayValue = result;
         }
-        this.hide.nativeElement.innerHTML = this.displayValue;
-        this.input.nativeElement.style.minWidth = (this.hide.nativeElement.offsetWidth * 1.25) + 'px';
-        this.hide.nativeElement.innerHTML = '';
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
         this.expanded = false;
+    };
+    SelectComponent.prototype.writeValue = function (value) {
+        return;
+    };
+    SelectComponent.prototype.registerOnChange = function (fn) {
+    };
+    SelectComponent.prototype.registerOnTouched = function (fn) {
     };
     return SelectComponent;
 }());
@@ -63,14 +73,6 @@ __decorate([
     core_1.ViewChild('dropdown'),
     __metadata("design:type", Object)
 ], SelectComponent.prototype, "dropdown", void 0);
-__decorate([
-    core_1.ViewChild('input'),
-    __metadata("design:type", Object)
-], SelectComponent.prototype, "input", void 0);
-__decorate([
-    core_1.ViewChild('hide'),
-    __metadata("design:type", Object)
-], SelectComponent.prototype, "hide", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", Object)
@@ -111,7 +113,8 @@ SelectComponent = __decorate([
     core_1.Component({
         selector: 'vcl-select',
         templateUrl: 'select.component.html',
-        changeDetection: core_1.ChangeDetectionStrategy.OnPush
+        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+        providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
     }),
     __metadata("design:paramtypes", [])
 ], SelectComponent);

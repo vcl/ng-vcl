@@ -1,7 +1,7 @@
 <h1>Template-based</h1>
 <form #f="ngForm" class="vclForm" [class.vclFormHorizontal]="true" novalidate>
 
-  <!--  <vcl-select #select [items]="items"></vcl-select> -->
+  <vcl-select ngModel name="itemselect" [items]="items"></vcl-select>
 
   <br/>
   <br/> Input me:
