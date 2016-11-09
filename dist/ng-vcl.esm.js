@@ -2733,7 +2733,7 @@ var Store = (function (_super) {
         // Reducers stream
         this.reducers$ = this._reducers.asObservable().scan(function (reducers, currentReducers) {
             return Object.assign({}, reducers, currentReducers);
-        });
+        }, {});
         // The state changes when an action is dispatched by running reducers
         // The new state is then cached for further subscribers 
         this.state$ = this.actions$.withLatestFrom(this.reducers$).scan(function (oldState, _a) {
@@ -2749,7 +2749,9 @@ var Store = (function (_super) {
         this.source = this.state$;
         this.effectSubs = [];
         this.addReducers(reducers);
-        this.addEffects(effects);
+        if (effects) {
+            this.addEffects(effects);
+        }
         // Listen to actions by connecting the state observable
         this.stateSub = this.state$.connect();
         // Init action
@@ -2786,6 +2788,7 @@ var Store = (function (_super) {
     Store = __decorate([
         Injectable(),
         __param(1, Inject(STORE_REDUCERS)),
+        __param(2, Optional()),
         __param(2, Inject(STORE_EFFECTS)), 
         __metadata('design:paramtypes', [StoreActions, Object, Array])
     ], Store);
