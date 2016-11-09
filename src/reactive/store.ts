@@ -1,5 +1,5 @@
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
-import { Injectable, NgModule, OpaqueToken, Inject, ModuleWithProviders, Type } from '@angular/core';
+import { Injectable, NgModule, OpaqueToken, Inject, ModuleWithProviders, Type, Optional } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
@@ -90,11 +90,15 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   constructor(
     private actions$: StoreActions,
     @Inject(STORE_REDUCERS) reducers: Reducers,
-    @Inject(STORE_EFFECTS) effects: any[]
+    @Optional()
+    @Inject(STORE_EFFECTS)
+    effects: any[]
   ) {
     super();
     this.addReducers(reducers);
-    this.addEffects(effects);
+    if (effects) {
+      this.addEffects(effects);
+    }
 
     // Listen to actions by connecting the state observable
     this.stateSub = this.state$.connect();
@@ -108,7 +112,7 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   // Reducers stream
   reducers$ = this._reducers.asObservable().scan((reducers, currentReducers) => {
     return Object.assign({}, reducers, currentReducers);
-  });
+  }, {});
 
   // The state changes when an action is dispatched by running reducers
   // The new state is then cached for further subscribers 
