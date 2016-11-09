@@ -9,29 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var FormComponent = (function () {
-    function FormComponent() {
+    function FormComponent(fb) {
+        this.fb = fb;
         this.items = [
             { label: 'item 1' },
             { label: 'item 2' },
-            { label: 'item 3' },
-            { label: 'item 4' },
-            { label: 'item 5' },
-            { label: 'item 6', sublabel: 'sublabel of item 6' },
-            { label: 'item 7', sublabel: 'sublabel of item 7' },
-            { label: 'item 8', sublabel: 'sublabel of item 8' },
-            { label: 'item 9' },
-            { label: 'item 10' }
+            { label: 'item 3' }
         ];
-        this.data1 = '';
-        this.data = {
-            user: {}
-        };
+        this.form = this.fb.group({
+            myname: ['', forms_1.Validators.required]
+        });
+        this.form.patchValue({
+            myname: 'Steven'
+        });
     }
-    FormComponent.prototype.changed = function (form) {
-        console.log('form submitted');
-        console.dir(form);
-    };
     FormComponent.prototype.ngOnInit = function () { };
     return FormComponent;
 }());
@@ -39,6 +32,6 @@ FormComponent = __decorate([
     core_1.Component({
         templateUrl: 'form.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [forms_1.FormBuilder])
 ], FormComponent);
 exports.FormComponent = FormComponent;

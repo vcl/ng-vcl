@@ -1,5 +1,6 @@
 import { FormComponent } from './form.component';
 
+
 export default {
   name: 'Form',
   path: 'form',

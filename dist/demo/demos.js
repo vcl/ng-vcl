@@ -14,6 +14,7 @@ var radio_button_demo_1 = require("./components/radio-button/radio-button.demo")
 var checkbox_demo_1 = require("./components/checkbox/checkbox.demo");
 var form_control_label_demo_1 = require("./components/form-control-label/form-control-label.demo");
 var form_demo_1 = require("./components/form/form.demo");
+var form_error_demo_1 = require("./components/form-error/form-error.demo");
 var input_demo_1 = require("./components/input/input.demo");
 var popover_demo_1 = require("./components/popover/popover.demo");
 var tab_nav_demo_1 = require("./components/tab-nav/tab-nav.demo");
@@ -39,6 +40,7 @@ exports.DEMOS = [
     checkbox_demo_1.default,
     form_control_label_demo_1.default,
     form_demo_1.default,
+    form_error_demo_1.default,
     input_demo_1.default,
     popover_demo_1.default,
     tab_nav_demo_1.default,

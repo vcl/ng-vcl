@@ -1,8 +1,12 @@
 <form  #form="ngForm" class="vclForm"
- [class.vclFormInline]="layout=='inline'"
- [class.vclFormHorizontal]="layout=='horizontal'"
+ [class.vclFormInline]="true"
+ [class.vclFormHorizontal]="layout=='horizontal'">
 
- (ngSubmit)="ngSubmit(form)"
->
-  <ng-content></ng-content>
+
+
+
+
+
+
+
 </form>

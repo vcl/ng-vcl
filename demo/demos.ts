@@ -14,6 +14,7 @@ import RADIO_BUTTON_DEMO from './components/radio-button/radio-button.demo';
 import CHECKBOX_DEMO from './components/checkbox/checkbox.demo';
 import FORM_CONTROL_LABEL_DEMO from './components/form-control-label/form-control-label.demo';
 import FORM_DEMO from './components/form/form.demo';
+import FORM_ERROR_DEMO from './components/form-error/form-error.demo';
 import INPUT_DEMO from './components/input/input.demo';
 import POPOVER_DEMO from './components/popover/popover.demo';
 import TAB_NAV_DEMO from './components/tab-nav/tab-nav.demo';
@@ -49,6 +50,7 @@ export const DEMOS: Demo[] = [
   CHECKBOX_DEMO,
   FORM_CONTROL_LABEL_DEMO,
   FORM_DEMO,
+  FORM_ERROR_DEMO,
   INPUT_DEMO,
   POPOVER_DEMO,
   TAB_NAV_DEMO,

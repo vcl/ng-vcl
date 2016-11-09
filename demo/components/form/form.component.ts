@@ -1,37 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   templateUrl: 'form.component.html'
 })
 export class FormComponent implements OnInit {
 
-
-
-  changed(form) {
-    console.log('form submitted');
-    console.dir(form);
-  }
-
   items = [
     { label: 'item 1' },
     { label: 'item 2' },
-    { label: 'item 3' },
-    { label: 'item 4' },
-    { label: 'item 5' },
-    { label: 'item 6', sublabel: 'sublabel of item 6' },
-    { label: 'item 7', sublabel: 'sublabel of item 7' },
-    { label: 'item 8', sublabel: 'sublabel of item 8' },
-    { label: 'item 9' },
-    { label: 'item 10' }
+    { label: 'item 3' }
   ];
 
-  data1: string = '';
+  form: FormGroup;
 
-  data: Object = {
-    user: {}
-  };
+  constructor(public fb: FormBuilder) {
 
-  constructor() { }
+    // the module-based forms logic is made with the FormBuilder
+    this.form = this.fb.group({
+      myname: ['', Validators.required]
+    });
+    this.form.patchValue({
+      myname: 'Steven'
+    });
+
+
+  }
 
   ngOnInit() { }
 

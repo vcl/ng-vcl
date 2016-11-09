@@ -1,38 +1,40 @@
-<vcl-form layout="vertical"  (ngSubmit)="changed($event)">
+<h1>Template-based</h1>
+<form #f="ngForm" class="vclForm" [class.vclFormHorizontal]="true" novalidate>
 
-  Select me:
-  <vcl-select #select [items]="items"></vcl-select>
-
-  <br/>
-  <br/> Radio me:
-  <vcl-radio-button [(checked)]="checked1"></vcl-radio-button>
-
-  <br/>
-  <br/> Check me:
-  <vcl-checkbox [(checked)]="checked2"></vcl-checkbox>
-
+  <!--  <vcl-select #select [items]="items"></vcl-select> -->
 
   <br/>
   <br/> Input me:
-  <input vcl-input [(ngModel)]="data1" required pattern=".{5,10}">
+  <input vcl-input ngModel name="myname" required pattern=".{5,10}">
+
+</form>
+
+
+<div class="value">
+  <h4>Value: {{ f.value | json }}</h4>
+</div>
+
+<div class="error">
+  <h4>Status: {{ f.control.status }}</h4>
+</div>
+
+
+
+
+<h1>Module-based</h1>
+<form class="vclForm" novalidate [formGroup]="form">
+
   <br/>
-  <b>Input value:</b> {{data1}}
+  <br/> Input me:
+  <input type="text" formControlName="myname">
+
+</form>
 
 
-  <br/>
-  <br/>
-  <br/> Grouped input:
-  <vcl-input-control-group inline="true">
-    <input vcl-input [(ngModel)]="data1">
-    <input vcl-input [(ngModel)]="data1">
-    <input vcl-input [(ngModel)]="data1">
-  </vcl-input-control-group>
+<div class="value">
+  <h4>Value: {{ form.value | json }}</h4>
+</div>
 
-
-  <label>Password:</label>
-  <input type="password" [ngModel]="data.user.password" required>
-
-
-
-
-</vcl-form>
+<div class="error">
+  <h4>Status: {{ form.status }}</h4>
+</div>

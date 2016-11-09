@@ -1,25 +1,17 @@
-# vcl-form
+# Forms
 
-In construction. Do not use this component yet.
+This example describes how to use ng-vcl in forms.
 
-## Usage:
+
+
+## Template-driven:
+Template driven forms should be used to create simple and small forms without any
+complex logic.
 
 ```html
-<vcl-form layout="vertical">
-
-
-</vcl-form>
 ```
 
 
 
-### API
-
-#### Properties:
-
-| Name                         | Type        | Default  | Description
-| ---------------------------- | ----------- | -------- |--------------
-| `layout`                     | string      | vertical | Enum('vertical', 'horizontal', 'inline')
-| `ngSubmit`                   | function    |          | fires when data is changed and emits the ngForm
-
-*(1) Supports l10n*
+## Model-driven:
+For more complex forms, the model-driven approach should be sued.

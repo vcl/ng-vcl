@@ -9,19 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
-var form_component_1 = require("./form.component");
-var VCLFormModule = (function () {
-    function VCLFormModule() {
+var FormErrorComponent = (function () {
+    function FormErrorComponent() {
     }
-    return VCLFormModule;
+    FormErrorComponent.prototype.ngOnInit = function () {
+    };
+    return FormErrorComponent;
 }());
-VCLFormModule = __decorate([
-    core_1.NgModule({
-        imports: [forms_1.ReactiveFormsModule, forms_1.FormsModule],
-        exports: [form_component_1.FormComponent, form_component_1.FormInputControlGroup, forms_1.FormsModule, forms_1.ReactiveFormsModule],
-        declarations: [form_component_1.FormComponent, form_component_1.FormInputControlGroup]
+FormErrorComponent = __decorate([
+    core_1.Component({
+        templateUrl: 'form-error.component.html'
     }),
     __metadata("design:paramtypes", [])
-], VCLFormModule);
-exports.VCLFormModule = VCLFormModule;
+], FormErrorComponent);
+exports.FormErrorComponent = FormErrorComponent;
