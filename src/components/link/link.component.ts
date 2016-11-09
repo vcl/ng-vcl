@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs/Observable';
-import { ObservableComponent } from './../../core/observable.component';
 import { Subscription } from 'rxjs/Subscription';
 import { Component, Input, HostBinding } from '@angular/core';
 import { L10nService } from '../../l10n/l10n.module';
+import { ObservableComponent } from '../../reactive/index';
 
 @Component({
   selector: '[vcl-link]',
@@ -44,7 +44,7 @@ export class LinkComponent extends ObservableComponent {
       : this.href;
   }
 
-  locTitle$: Observable<string> = this.observeProperty<string>('title').switchMap( title => this.l10n.localize(title));
+  locTitle$: Observable<string> = this.observeChange<string>('title').switchMap( title => this.l10n.localize(title));
   locTitleSub: Subscription;
 
   @HostBinding('attr.title')

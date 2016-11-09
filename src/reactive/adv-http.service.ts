@@ -8,8 +8,9 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
-import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
-import { Injectable, OpaqueToken, Inject } from '@angular/core';
+import 'rxjs/add/operator/let';
+import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http, HttpModule, XHRBackend } from '@angular/http';
+import { Injectable, OpaqueToken, Inject, NgModule } from '@angular/core';
 
 /**
  *  Data caching
@@ -61,6 +62,7 @@ export class SyncableObservable<T> extends Observable<T> {
   }
 }
 
+// tslint:disable-next-line:only-arrow-functions
 Observable.prototype.syncable = function() {
   return new SyncableObservable(this);
 };
@@ -81,6 +83,12 @@ export enum ErrorHandlingStrategy {
   notify
 }
 
+declare module 'rxjs/Observable' {
+  interface Observable<T> {
+    handleError: { (errorHandlingStrategy: ErrorHandlingStrategy | string): Observable<T> };
+  }
+}
+
 export const ADV_HTTP_CONFIG = new OpaqueToken('adv.http.config');
 
 @Injectable()
@@ -95,27 +103,27 @@ export class ErrorHandlerService {
     abort();
   }
 
-  transform(req$: Observable<Response>, errorStrategy?: ErrorHandlingStrategy | string): Observable<Response> {
+  attach(source: Observable<any>, errorHandlingStrategy: ErrorHandlingStrategy | string) {
     // errorStrategy = errorStrategy || this.config.defaultErrorHandlingStrategy || ErrorHandlingStrategy.default;
-    errorStrategy = errorStrategy || ErrorHandlingStrategy.default;
+    errorHandlingStrategy = errorHandlingStrategy || ErrorHandlingStrategy.default;
 
-    if (errorStrategy && (errorStrategy === ErrorHandlingStrategy.notify || typeof errorStrategy === 'string')) {
+    if (errorHandlingStrategy && (errorHandlingStrategy === ErrorHandlingStrategy.notify || typeof errorHandlingStrategy === 'string')) {
       // Catch an error...
-      req$ = req$.catch(err => {
+      source = source.catch(err => {
         // ... and just pass it to the error handler
         // The error is rethrown so it can be catched
-        if (errorStrategy === ErrorHandlingStrategy.notify) {
+        if (errorHandlingStrategy === ErrorHandlingStrategy.notify) {
           this.notify(err);
         } else {
-          if (!this[errorStrategy]) {
-            throw 'Error handling strategy not found: ' + errorStrategy;
+          if (!this[errorHandlingStrategy]) {
+            throw 'Error handling strategy not found: ' + errorHandlingStrategy;
           }
-          this[errorStrategy]();
+          this[errorHandlingStrategy]();
         }
         return Observable.throw(err);
       });
-    } else if (errorStrategy && errorStrategy === ErrorHandlingStrategy.retry) {
-      req$ = req$.retryWhen(errors => {
+    } else if (errorHandlingStrategy && errorHandlingStrategy === ErrorHandlingStrategy.retry) {
+      source = source.retryWhen(errors => {
         return errors.switchMap(err => {
           return new Observable<any>(observer => {
             this.retry(err, () => {
@@ -127,7 +135,7 @@ export class ErrorHandlerService {
         });
       });
     }
-    return req$;
+    return source;
   }
 }
 
@@ -148,33 +156,60 @@ export class AdvHttp extends Http {
   }
 
   request(url: string | Request, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.request(url, options), errorStrategy);
+    return super.request(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
 
   get(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.get(url, options), errorStrategy);
+    return super.get(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
 
   post(url: string, body: any, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.post(url, body, options), errorStrategy);
+    return super.post(url, body, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
 
   put(url: string, body: any, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.put(url, body, options), errorStrategy);
+    return super.put(url, body, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
 
   delete (url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.delete(url, options), errorStrategy);
+    return super.delete(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
   patch(url: string, body: any, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.patch(url, body, options), errorStrategy);
+    return super.patch(url, body, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
 
   head(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.head(url, options), errorStrategy);
+    return super.head(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
 
   options(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
-    return this.errorHandler.transform(super.options(url, options), errorStrategy);
+    return super.options(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
 }
+
+@NgModule({
+  imports: [HttpModule],
+  providers: [
+    {
+      provide: ADV_HTTP_CONFIG,
+      useValue: {}
+    },
+    AdvHttp,
+    {
+      provide: ErrorHandlerService,
+      useClass: ErrorHandlerService
+    },
+    {
+      provide: AdvHttp,
+      useFactory: (config: any, errorHandler: ErrorHandlerService, backend: XHRBackend, defaultOptions: RequestOptions) => {
+        return new AdvHttp(config, errorHandler, backend, defaultOptions);
+      },
+      deps: [ ADV_HTTP_CONFIG, ErrorHandlerService, XHRBackend, RequestOptions]
+    },
+    {
+      provide: ADV_HTTP_CONFIG,
+      useValue: {}
+    }
+  ]
+})
+export class AdvHttpModule { }

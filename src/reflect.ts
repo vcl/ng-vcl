@@ -13,20 +13,6 @@ export function setAnnotation(cls: Type<{}>, key: string, value: any) {
   Reflect.defineMetadata('annotations', [ new Component(annotation) ], cls);
 }
 
-export function SubComponent(annotation: Component) {
-  return (cls: Function) => {
-    const baseCls = Object.getPrototypeOf(cls.prototype).constructor;
-    const baseClsAnnotation = getAnnotation(baseCls);
-
-    Object.keys(baseClsAnnotation).forEach(key => {
-      if (baseClsAnnotation[key] !== undefined && annotation[key] === undefined) {
-        annotation[key] = baseClsAnnotation[key];
-      }
-    });
-
-    Reflect.defineMetadata('annotations', [ new Component(annotation) ], cls);
-  };
-};
 
 function getAnnotation(cls: Type<{}>): Component {
   // Annotation is an array with 1 entry
@@ -36,4 +22,39 @@ function getAnnotation(cls: Type<{}>): Component {
     throw new Error('Invalid base class');
   }
   return clsAnnotations[0];
+}
+
+// export function SubComponent(annotation: Component) {
+//   return (cls: Function) => {
+//     const baseCls = Object.getPrototypeOf(cls.prototype).constructor;
+//     const baseClsAnnotation = getAnnotation(baseCls);
+
+//     Object.keys(baseClsAnnotation).forEach(key => {
+//       if (baseClsAnnotation[key] !== undefined && annotation[key] === undefined) {
+//         annotation[key] = baseClsAnnotation[key];
+//       }
+//     });
+
+//     Reflect.defineMetadata('annotations', [ new Component(annotation) ], cls);
+//   };
+// };
+
+const EFFECTS_METADATA_KEY = 'ng-vcl/effects';
+
+export function Effect(): PropertyDecorator {
+  return function(target: any, propertyName: string) {
+    if (!Reflect.hasOwnMetadata(EFFECTS_METADATA_KEY, target)) {
+      Reflect.defineMetadata(EFFECTS_METADATA_KEY, [], target);
+    }
+    const effectProperties: string[] = Reflect.getOwnMetadata(EFFECTS_METADATA_KEY, target);
+    Reflect.defineMetadata(EFFECTS_METADATA_KEY, [ ...effectProperties, propertyName ], target);
+  };
+}
+
+export function getEffectsMetadata(instance: any): string[] {
+  const target = Object.getPrototypeOf(instance);
+  if (!Reflect.hasOwnMetadata(EFFECTS_METADATA_KEY, target)) {
+    return [];
+  }
+  return Reflect.getOwnMetadata(EFFECTS_METADATA_KEY, target);
 }
