@@ -5,4 +5,7 @@ import { Component } from '@angular/core';
 })
 export class CheckboxComponent {
   isChecked = false;
+
+  isChecked2 = false;
+
 }

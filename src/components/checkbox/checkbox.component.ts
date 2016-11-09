@@ -1,14 +1,19 @@
-import { Component, Input, Output, ChangeDetectionStrategy, OnInit, HostBinding, HostListener, OnChanges, SimpleChanges, EventEmitter, ElementRef } from '@angular/core';
+import { Component,
+  Input, Output, OnInit,
+  HostBinding, HostListener,
+  OnChanges, SimpleChanges, EventEmitter,
+  ElementRef, ContentChildren
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'vcl-checkbox',
-  template: `<vcl-icon [icon]="icon"></vcl-icon><ng-content></ng-content>`,
+  templateUrl: 'checkbox.component.html',
   host: {
     '[attr.role]': '"checkbox"',
     '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
-  },
+  }
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent implements OnInit, OnChanges {
@@ -21,6 +26,10 @@ export class CheckboxComponent implements OnInit, OnChanges {
 
   @Input()
   disabled = false;
+
+  @Input('labelPosition')
+  labelPosition: 'left' | 'right' = 'right';
+
 
   @HostBinding('attr.tabindex')
   @Input()
@@ -42,7 +51,8 @@ export class CheckboxComponent implements OnInit, OnChanges {
     return this._checkedChange.asObservable();
   };
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) {
+  }
 
   ngOnInit() { }
 

@@ -1,4 +1,4 @@
-Checkable:
+Checkbox:
 <vcl-checkbox [(checked)]="isChecked"></vcl-checkbox>
 
 <br><br>
@@ -10,3 +10,12 @@ Checkable:
 <br><br>
 Disabled:
 <vcl-checkbox [disabled]="true"></vcl-checkbox>
+<br>
+<br>
+<br>
+Checkbox with label:
+<br>
+<vcl-checkbox [(checked)]="isChecked2" labelPosition="right">rightLabel</vcl-checkbox>
+<br>
+<br>
+<vcl-checkbox [(checked)]="isChecked2" labelPosition="left">leftLabel</vcl-checkbox>
