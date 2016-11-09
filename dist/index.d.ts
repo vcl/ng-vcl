@@ -17,6 +17,6 @@ export * from './components/month-picker/month-picker.module';
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
 export * from './l10n/l10n.module';
-export * from './adv-http/adv-http.module';
+export * from './reactive/index';
 export declare class VCLModule {
 }

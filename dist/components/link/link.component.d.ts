@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
-import { ObservableComponent } from './../../core/observable.component';
 import { Subscription } from 'rxjs/Subscription';
 import { L10nService } from '../../l10n/l10n.module';
+import { ObservableComponent } from '../../reactive/index';
 export declare class LinkComponent extends ObservableComponent {
     private l10n;
     href: string;

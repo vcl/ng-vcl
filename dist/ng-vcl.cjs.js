@@ -17,13 +17,19 @@ var Tether = require('tether');
 var rxjs_Subject = require('rxjs/Subject');
 var _angular_router = require('@angular/router');
 var rxjs_ReplaySubject = require('rxjs/ReplaySubject');
-var rxjs_add_operator_filter = require('rxjs/add/operator/filter');
-var _angular_forms = require('@angular/forms');
-var _angular_http = require('@angular/http');
 var rxjs_add_operator_publishReplay = require('rxjs/add/operator/publishReplay');
 var rxjs_add_operator_publish = require('rxjs/add/operator/publish');
 var rxjs_add_operator_catch = require('rxjs/add/operator/catch');
 var rxjs_add_operator_retryWhen = require('rxjs/add/operator/retryWhen');
+var rxjs_add_operator_let = require('rxjs/add/operator/let');
+var _angular_http = require('@angular/http');
+var rxjs_add_operator_filter = require('rxjs/add/operator/filter');
+var rxjs_observable_merge = require('rxjs/observable/merge');
+var rxjs_add_operator_scan = require('rxjs/add/operator/scan');
+var rxjs_add_operator_pluck = require('rxjs/add/operator/pluck');
+var rxjs_add_operator_distinctUntilChanged = require('rxjs/add/operator/distinctUntilChanged');
+var rxjs_add_operator_withLatestFrom = require('rxjs/add/operator/withLatestFrom');
+var _angular_forms = require('@angular/forms');
 
 function __extends(d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2391,6 +2397,204 @@ var NavigationComponent = (function () {
     var _a, _b;
 }());
 
+/**
+ *  Data caching
+ */
+var SyncableObservable = (function (_super) {
+    __extends(SyncableObservable, _super);
+    function SyncableObservable(source) {
+        _super.call(this);
+        this.source = source;
+    }
+    SyncableObservable.prototype._subscribe = function (subscriber) {
+        return this.getDataSubject().subscribe(subscriber);
+    };
+    SyncableObservable.prototype.getDataSubject = function () {
+        var subject = this._dataSubject;
+        if (!subject) {
+            this._dataSubject = new rxjs_ReplaySubject.ReplaySubject(1);
+        }
+        return this._dataSubject;
+    };
+    SyncableObservable.prototype.sync = function () {
+        var _this = this;
+        var dataSubject = this.getDataSubject();
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+        var sync$ = new rxjs_Observable.Observable(function (observer) {
+            var httpSub = _this.source.subscribe(function (data) {
+                dataSubject.next(data);
+                observer.next(data);
+                observer.complete();
+            }, function (err) {
+                observer.error(err);
+            });
+            return function () {
+                httpSub.unsubscribe();
+            };
+        }).publish();
+        this.sub = sync$.connect();
+        return sync$;
+    };
+    return SyncableObservable;
+}(rxjs_Observable.Observable));
+// tslint:disable-next-line:only-arrow-functions
+rxjs_Observable.Observable.prototype.syncable = function () {
+    return new SyncableObservable(this);
+};
+/**
+ *  Error handling
+ */
+
+(function (ErrorHandlingStrategy) {
+    ErrorHandlingStrategy[ErrorHandlingStrategy["default"] = 0] = "default";
+    ErrorHandlingStrategy[ErrorHandlingStrategy["retry"] = 1] = "retry";
+    ErrorHandlingStrategy[ErrorHandlingStrategy["notify"] = 2] = "notify";
+})(exports.ErrorHandlingStrategy || (exports.ErrorHandlingStrategy = {}));
+var ADV_HTTP_CONFIG = new _angular_core.OpaqueToken('adv.http.config');
+var ErrorHandlerService = (function () {
+    function ErrorHandlerService() {
+    }
+    ErrorHandlerService.prototype.notify = function (err) {
+        console.log(err);
+    };
+    ErrorHandlerService.prototype.retry = function (err, retry, abort) {
+        this.notify(err);
+        abort();
+    };
+    ErrorHandlerService.prototype.attach = function (source, errorHandlingStrategy) {
+        var _this = this;
+        // errorStrategy = errorStrategy || this.config.defaultErrorHandlingStrategy || ErrorHandlingStrategy.default;
+        errorHandlingStrategy = errorHandlingStrategy || exports.ErrorHandlingStrategy.default;
+        if (errorHandlingStrategy && (errorHandlingStrategy === exports.ErrorHandlingStrategy.notify || typeof errorHandlingStrategy === 'string')) {
+            // Catch an error...
+            source = source.catch(function (err) {
+                // ... and just pass it to the error handler
+                // The error is rethrown so it can be catched
+                if (errorHandlingStrategy === exports.ErrorHandlingStrategy.notify) {
+                    _this.notify(err);
+                }
+                else {
+                    if (!_this[errorHandlingStrategy]) {
+                        throw 'Error handling strategy not found: ' + errorHandlingStrategy;
+                    }
+                    _this[errorHandlingStrategy]();
+                }
+                return rxjs_Observable.Observable.throw(err);
+            });
+        }
+        else if (errorHandlingStrategy && errorHandlingStrategy === exports.ErrorHandlingStrategy.retry) {
+            source = source.retryWhen(function (errors) {
+                return errors.switchMap(function (err) {
+                    return new rxjs_Observable.Observable(function (observer) {
+                        _this.retry(err, function () {
+                            observer.next();
+                        }, function () {
+                            observer.error(err);
+                        });
+                    });
+                });
+            });
+        }
+        return source;
+    };
+    ErrorHandlerService = __decorate([
+        _angular_core.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], ErrorHandlerService);
+    return ErrorHandlerService;
+}());
+var AdvHttp = (function (_super) {
+    __extends(AdvHttp, _super);
+    function AdvHttp(config, errorHandler, _backend, _defaultOptions) {
+        _super.call(this, _backend, _defaultOptions);
+        this.config = config;
+        this.errorHandler = errorHandler;
+    }
+    AdvHttp.prototype.request = function (url, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.request.call(this, url, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp.prototype.get = function (url, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.get.call(this, url, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp.prototype.post = function (url, body, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.post.call(this, url, body, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp.prototype.put = function (url, body, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.put.call(this, url, body, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp.prototype.delete = function (url, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.delete.call(this, url, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp.prototype.patch = function (url, body, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.patch.call(this, url, body, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp.prototype.head = function (url, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.head.call(this, url, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp.prototype.options = function (url, options, errorStrategy) {
+        var _this = this;
+        return _super.prototype.options.call(this, url, options).let(function (o) { return _this.errorHandler.attach(o, errorStrategy || _this.config.defaultErrorHandlingStrategy); });
+    };
+    
+    AdvHttp = __decorate([
+        _angular_core.Injectable(),
+        __param(0, _angular_core.Inject(ADV_HTTP_CONFIG)), 
+        __metadata('design:paramtypes', [Object, ErrorHandlerService, (typeof (_a = typeof _angular_http.ConnectionBackend !== 'undefined' && _angular_http.ConnectionBackend) === 'function' && _a) || Object, (typeof (_b = typeof _angular_http.RequestOptions !== 'undefined' && _angular_http.RequestOptions) === 'function' && _b) || Object])
+    ], AdvHttp);
+    return AdvHttp;
+    var _a, _b;
+}(_angular_http.Http));
+var AdvHttpModule = (function () {
+    function AdvHttpModule() {
+    }
+    AdvHttpModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_http.HttpModule],
+            providers: [
+                {
+                    provide: ADV_HTTP_CONFIG,
+                    useValue: {}
+                },
+                AdvHttp,
+                {
+                    provide: ErrorHandlerService,
+                    useClass: ErrorHandlerService
+                },
+                {
+                    provide: AdvHttp,
+                    useFactory: function (config, errorHandler, backend, defaultOptions) {
+                        return new AdvHttp(config, errorHandler, backend, defaultOptions);
+                    },
+                    deps: [ADV_HTTP_CONFIG, ErrorHandlerService, _angular_http.XHRBackend, _angular_http.RequestOptions]
+                },
+                {
+                    provide: ADV_HTTP_CONFIG,
+                    useValue: {}
+                }
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], AdvHttpModule);
+    return AdvHttpModule;
+}());
+
+var METADATA_KEY = '@ng-vcl/ObservableComponent';
 var ObservableComponent = (function () {
     function ObservableComponent() {
         this.changesSubject = new rxjs_ReplaySubject.ReplaySubject();
@@ -2399,12 +2603,247 @@ var ObservableComponent = (function () {
     ObservableComponent.prototype.ngOnChanges = function (changes) {
         this.changesSubject.next(changes);
     };
-    ObservableComponent.prototype.observeProperty = function (propertyName) {
+    ObservableComponent.prototype.observeChange = function (propertyName) {
         return this.changes$
             .filter(function (changes) { return changes.hasOwnProperty(propertyName); })
             .map(function (changes) { return changes[propertyName].currentValue; });
     };
     return ObservableComponent;
+}());
+function Observe(targetProperty) {
+    return function (target, propertyName) {
+        debugger;
+        if (!Reflect.hasOwnMetadata(METADATA_KEY, target)) {
+            Reflect.defineMetadata(METADATA_KEY, [], target);
+        }
+        Reflect.defineMetadata(METADATA_KEY, [propertyName], target);
+    };
+}
+
+function setAnimations(cls, animations) {
+    setAnnotation(cls, 'animations', animations);
+}
+function setAnnotation(cls, key, value) {
+    var annotation = getAnnotation(cls);
+    // Change metadata
+    annotation[key] = value;
+    // Set metadata
+    Reflect.defineMetadata('annotations', [new _angular_core.Component(annotation)], cls);
+}
+function getAnnotation(cls) {
+    // Annotation is an array with 1 entry
+    // TODO: Check if always one entry
+    var clsAnnotations = Reflect.getMetadata('annotations', cls);
+    if (!clsAnnotations && clsAnnotations.length < 1) {
+        throw new Error('Invalid base class');
+    }
+    return clsAnnotations[0];
+}
+// export function SubComponent(annotation: Component) {
+//   return (cls: Function) => {
+//     const baseCls = Object.getPrototypeOf(cls.prototype).constructor;
+//     const baseClsAnnotation = getAnnotation(baseCls);
+//     Object.keys(baseClsAnnotation).forEach(key => {
+//       if (baseClsAnnotation[key] !== undefined && annotation[key] === undefined) {
+//         annotation[key] = baseClsAnnotation[key];
+//       }
+//     });
+//     Reflect.defineMetadata('annotations', [ new Component(annotation) ], cls);
+//   };
+// };
+var EFFECTS_METADATA_KEY = 'ng-vcl/effects';
+function Effect() {
+    return function (target, propertyName) {
+        if (!Reflect.hasOwnMetadata(EFFECTS_METADATA_KEY, target)) {
+            Reflect.defineMetadata(EFFECTS_METADATA_KEY, [], target);
+        }
+        var effectProperties = Reflect.getOwnMetadata(EFFECTS_METADATA_KEY, target);
+        Reflect.defineMetadata(EFFECTS_METADATA_KEY, effectProperties.concat([propertyName]), target);
+    };
+}
+function getEffectsMetadata(instance) {
+    var target = Object.getPrototypeOf(instance);
+    if (!Reflect.hasOwnMetadata(EFFECTS_METADATA_KEY, target)) {
+        return [];
+    }
+    return Reflect.getOwnMetadata(EFFECTS_METADATA_KEY, target);
+}
+
+var STORE_REDUCERS = new _angular_core.OpaqueToken('store.reducers');
+var STORE_EFFECTS = new _angular_core.OpaqueToken('store.effects');
+function select(pathOrMapFn) {
+    var paths = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        paths[_i - 1] = arguments[_i];
+    }
+    var mapped$;
+    if (typeof pathOrMapFn === 'string') {
+        mapped$ = this.pluck.apply(this, [pathOrMapFn].concat(paths));
+    }
+    else if (typeof pathOrMapFn === 'function') {
+        mapped$ = this.map(pathOrMapFn);
+    }
+    else {
+        throw new TypeError(("Unexpected type " + typeof pathOrMapFn + " in select operator,")
+            + " expected 'string' or 'function'");
+    }
+    return mapped$.distinctUntilChanged();
+}
+// tslint:disable-next-line:only-arrow-functions
+rxjs_Observable.Observable.prototype.select = select;
+var InitAction = (function () {
+    function InitAction() {
+    }
+    return InitAction;
+}());
+var StoreActions = (function (_super) {
+    __extends(StoreActions, _super);
+    function StoreActions() {
+        _super.apply(this, arguments);
+        // Action dispatcher
+        this._dispatcher = new rxjs_Subject.Subject();
+        // Action stream ist just the last action
+        this.actions$ = this._dispatcher.asObservable();
+        this.source = this.actions$;
+    }
+    StoreActions.prototype.ofType = function () {
+        var actionClasses = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            actionClasses[_i - 0] = arguments[_i];
+        }
+        return this.actions$.filter(function (action) { return actionClasses.some(function (cls) { return action instanceof cls; }); });
+    };
+    StoreActions.prototype.dispatch = function (action) {
+        this._dispatcher.next(action);
+    };
+    StoreActions.prototype.next = function (action) {
+        this.dispatch(action);
+    };
+    StoreActions.prototype.error = function (err) { };
+    StoreActions.prototype.complete = function () { };
+    StoreActions = __decorate([
+        _angular_core.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], StoreActions);
+    return StoreActions;
+}(rxjs_Observable.Observable));
+var Store = (function (_super) {
+    __extends(Store, _super);
+    function Store(actions$, reducers, effects) {
+        _super.call(this);
+        this.actions$ = actions$;
+        // Reducers dispatcher
+        this._reducers = new rxjs_BehaviorSubject.BehaviorSubject({});
+        // Reducers stream
+        this.reducers$ = this._reducers.asObservable().scan(function (reducers, currentReducers) {
+            return Object.assign({}, reducers, currentReducers);
+        });
+        // The state changes when an action is dispatched by running reducers
+        // The new state is then cached for further subscribers 
+        this.state$ = this.actions$.withLatestFrom(this.reducers$).scan(function (oldState, _a) {
+            var action = _a[0], reducers = _a[1];
+            var state = Object.assign({}, oldState);
+            Object.keys(reducers).forEach(function (key) {
+                var reducer = reducers[key];
+                state[key] = reducer(oldState[key], action) || {};
+            });
+            return state;
+        }, {}).publishReplay(1);
+        // The source of the store observable is also the state stream
+        this.source = this.state$;
+        this.effectSubs = [];
+        this.addReducers(reducers);
+        this.addEffects(effects);
+        // Listen to actions by connecting the state observable
+        this.stateSub = this.state$.connect();
+        // Init action
+        this.dispatch(new InitAction());
+    }
+    Store.prototype.dispatch = function (action) {
+        this.actions$.dispatch(action);
+    };
+    Store.prototype.addReducers = function (reducers) {
+        this._reducers.next(reducers);
+    };
+    Store.prototype.addEffects = function (effectInstances) {
+        var _this = this;
+        var eiArr = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
+        eiArr.forEach(function (instance) {
+            var properties = getEffectsMetadata(instance);
+            var effects$ = rxjs_observable_merge.merge.apply(void 0, (properties.map(function (property) { return instance[property]; })));
+            var sub = effects$.subscribe(function (action) {
+                if (action) {
+                    _this.dispatch(action);
+                }
+            });
+            _this.effectSubs.push(sub);
+        });
+    };
+    Store.prototype.next = function (action) {
+        this.dispatch(action);
+    };
+    Store.prototype.error = function (err) { };
+    Store.prototype.complete = function () { };
+    Store.prototype.ngOnDestroy = function () {
+        [this.stateSub].concat(this.effectSubs).filter(function (sub) { return sub && !sub.closed; }).forEach(function (sub) { return sub.unsubscribe(); });
+    };
+    Store = __decorate([
+        _angular_core.Injectable(),
+        __param(1, _angular_core.Inject(STORE_REDUCERS)),
+        __param(2, _angular_core.Inject(STORE_EFFECTS)), 
+        __metadata('design:paramtypes', [StoreActions, Object, Array])
+    ], Store);
+    return Store;
+}(rxjs_Observable.Observable));
+var compose = function () {
+    var functions = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        functions[_i - 0] = arguments[_i];
+    }
+    return function (arg) {
+        if (functions.length === 0) {
+            return arg;
+        }
+        var last = functions[functions.length - 1];
+        var rest = functions.slice(0, -1);
+        return rest.reduceRight(function (composed, fn) { return fn(composed); }, last(arg));
+    };
+};
+var StoreModule = (function () {
+    function StoreModule() {
+    }
+    StoreModule.forRoot = function (config) {
+        return {
+            ngModule: StoreModule,
+            providers: [
+                StoreActions,
+                Store,
+                {
+                    provide: STORE_REDUCERS,
+                    useValue: config.reducers || {}
+                }
+            ].concat((config.effects || []).map(function (type) {
+                return {
+                    provide: STORE_EFFECTS,
+                    useClass: type,
+                    multi: true
+                };
+            }))
+        };
+    };
+    StoreModule = __decorate([
+        _angular_core.NgModule({
+            providers: [
+                Store,
+                {
+                    provide: STORE_REDUCERS,
+                    useValue: {}
+                },
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], StoreModule);
+    return StoreModule;
 }());
 
 var LinkComponent = (function (_super) {
@@ -2413,7 +2852,7 @@ var LinkComponent = (function (_super) {
         var _this = this;
         _super.call(this);
         this.l10n = l10n;
-        this.locTitle$ = this.observeProperty('title').switchMap(function (title) { return _this.l10n.localize(title); });
+        this.locTitle$ = this.observeChange('title').switchMap(function (title) { return _this.l10n.localize(title); });
     }
     Object.defineProperty(LinkComponent.prototype, "attrHref", {
         get: function () {
@@ -3355,224 +3794,6 @@ var VCLMonthPickerModule = (function () {
     return VCLMonthPickerModule;
 }());
 
-function setAnimations(cls, animations) {
-    setAnnotation(cls, 'animations', animations);
-}
-function setAnnotation(cls, key, value) {
-    var annotation = getAnnotation(cls);
-    // Change metadata
-    annotation[key] = value;
-    // Set metadata
-    Reflect.defineMetadata('annotations', [new _angular_core.Component(annotation)], cls);
-}
-function SubComponent(annotation) {
-    return function (cls) {
-        var baseCls = Object.getPrototypeOf(cls.prototype).constructor;
-        var baseClsAnnotation = getAnnotation(baseCls);
-        Object.keys(baseClsAnnotation).forEach(function (key) {
-            if (baseClsAnnotation[key] !== undefined && annotation[key] === undefined) {
-                annotation[key] = baseClsAnnotation[key];
-            }
-        });
-        Reflect.defineMetadata('annotations', [new _angular_core.Component(annotation)], cls);
-    };
-}
-
-function getAnnotation(cls) {
-    // Annotation is an array with 1 entry
-    // TODO: Check if always one entry
-    var clsAnnotations = Reflect.getMetadata('annotations', cls);
-    if (!clsAnnotations && clsAnnotations.length < 1) {
-        throw new Error('Invalid base class');
-    }
-    return clsAnnotations[0];
-}
-
-/**
- *  Data caching
- */
-var SyncableObservable = (function (_super) {
-    __extends(SyncableObservable, _super);
-    function SyncableObservable(source) {
-        _super.call(this);
-        this.source = source;
-    }
-    SyncableObservable.prototype._subscribe = function (subscriber) {
-        return this.getDataSubject().subscribe(subscriber);
-    };
-    SyncableObservable.prototype.getDataSubject = function () {
-        var subject = this._dataSubject;
-        if (!subject) {
-            this._dataSubject = new rxjs_ReplaySubject.ReplaySubject(1);
-        }
-        return this._dataSubject;
-    };
-    SyncableObservable.prototype.sync = function () {
-        var _this = this;
-        var dataSubject = this.getDataSubject();
-        if (this.sub) {
-            this.sub.unsubscribe();
-        }
-        var sync$ = new rxjs_Observable.Observable(function (observer) {
-            var httpSub = _this.source.subscribe(function (data) {
-                dataSubject.next(data);
-                observer.next(data);
-                observer.complete();
-            }, function (err) {
-                observer.error(err);
-            });
-            return function () {
-                httpSub.unsubscribe();
-            };
-        }).publish();
-        this.sub = sync$.connect();
-        return sync$;
-    };
-    return SyncableObservable;
-}(rxjs_Observable.Observable));
-rxjs_Observable.Observable.prototype.syncable = function () {
-    return new SyncableObservable(this);
-};
-/**
- *  Error handling
- */
-var ErrorHandlingStrategy;
-(function (ErrorHandlingStrategy) {
-    ErrorHandlingStrategy[ErrorHandlingStrategy["default"] = 0] = "default";
-    ErrorHandlingStrategy[ErrorHandlingStrategy["retry"] = 1] = "retry";
-    ErrorHandlingStrategy[ErrorHandlingStrategy["notify"] = 2] = "notify";
-})(ErrorHandlingStrategy || (ErrorHandlingStrategy = {}));
-var ADV_HTTP_CONFIG = new _angular_core.OpaqueToken('adv.http.config');
-var ErrorHandlerService = (function () {
-    function ErrorHandlerService() {
-    }
-    ErrorHandlerService.prototype.notify = function (err) {
-        console.log(err);
-    };
-    ErrorHandlerService.prototype.retry = function (err, retry, abort) {
-        this.notify(err);
-        abort();
-    };
-    ErrorHandlerService.prototype.transform = function (req$, errorStrategy) {
-        var _this = this;
-        // errorStrategy = errorStrategy || this.config.defaultErrorHandlingStrategy || ErrorHandlingStrategy.default;
-        errorStrategy = errorStrategy || ErrorHandlingStrategy.default;
-        if (errorStrategy && (errorStrategy === ErrorHandlingStrategy.notify || typeof errorStrategy === 'string')) {
-            // Catch an error...
-            req$ = req$.catch(function (err) {
-                // ... and just pass it to the error handler
-                // The error is rethrown so it can be catched
-                if (errorStrategy === ErrorHandlingStrategy.notify) {
-                    _this.notify(err);
-                }
-                else {
-                    if (!_this[errorStrategy]) {
-                        throw 'Error handling strategy not found: ' + errorStrategy;
-                    }
-                    _this[errorStrategy]();
-                }
-                return rxjs_Observable.Observable.throw(err);
-            });
-        }
-        else if (errorStrategy && errorStrategy === ErrorHandlingStrategy.retry) {
-            req$ = req$.retryWhen(function (errors) {
-                return errors.switchMap(function (err) {
-                    return new rxjs_Observable.Observable(function (observer) {
-                        _this.retry(err, function () {
-                            observer.next();
-                        }, function () {
-                            observer.error(err);
-                        });
-                    });
-                });
-            });
-        }
-        return req$;
-    };
-    ErrorHandlerService = __decorate([
-        _angular_core.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], ErrorHandlerService);
-    return ErrorHandlerService;
-}());
-var AdvHttp = (function (_super) {
-    __extends(AdvHttp, _super);
-    function AdvHttp(config, errorHandler, _backend, _defaultOptions) {
-        _super.call(this, _backend, _defaultOptions);
-        this.config = config;
-        this.errorHandler = errorHandler;
-    }
-    AdvHttp.prototype.request = function (url, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.request.call(this, url, options), errorStrategy);
-    };
-    
-    AdvHttp.prototype.get = function (url, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.get.call(this, url, options), errorStrategy);
-    };
-    
-    AdvHttp.prototype.post = function (url, body, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.post.call(this, url, body, options), errorStrategy);
-    };
-    
-    AdvHttp.prototype.put = function (url, body, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.put.call(this, url, body, options), errorStrategy);
-    };
-    
-    AdvHttp.prototype.delete = function (url, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.delete.call(this, url, options), errorStrategy);
-    };
-    
-    AdvHttp.prototype.patch = function (url, body, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.patch.call(this, url, body, options), errorStrategy);
-    };
-    
-    AdvHttp.prototype.head = function (url, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.head.call(this, url, options), errorStrategy);
-    };
-    
-    AdvHttp.prototype.options = function (url, options, errorStrategy) {
-        return this.errorHandler.transform(_super.prototype.options.call(this, url, options), errorStrategy);
-    };
-    
-    AdvHttp = __decorate([
-        _angular_core.Injectable(),
-        __param(0, _angular_core.Inject(ADV_HTTP_CONFIG)), 
-        __metadata('design:paramtypes', [Object, ErrorHandlerService, (typeof (_a = typeof _angular_http.ConnectionBackend !== 'undefined' && _angular_http.ConnectionBackend) === 'function' && _a) || Object, (typeof (_b = typeof _angular_http.RequestOptions !== 'undefined' && _angular_http.RequestOptions) === 'function' && _b) || Object])
-    ], AdvHttp);
-    return AdvHttp;
-    var _a, _b;
-}(_angular_http.Http));
-
-var AdvHttpModule = (function () {
-    function AdvHttpModule() {
-    }
-    AdvHttpModule = __decorate([
-        _angular_core.NgModule({
-            imports: [_angular_http.HttpModule],
-            providers: [
-                AdvHttp,
-                {
-                    provide: ErrorHandlerService,
-                    useClass: ErrorHandlerService
-                },
-                {
-                    provide: AdvHttp,
-                    useFactory: function (config, errorHandler, backend, defaultOptions) {
-                        return new AdvHttp(config, errorHandler, backend, defaultOptions);
-                    },
-                    deps: [ADV_HTTP_CONFIG, ErrorHandlerService, _angular_http.XHRBackend, _angular_http.RequestOptions]
-                },
-                {
-                    provide: ADV_HTTP_CONFIG,
-                    useValue: {}
-                }
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AdvHttpModule);
-    return AdvHttpModule;
-}());
-
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -3638,7 +3859,8 @@ var VCLModule = (function () {
 exports.VCLModule = VCLModule;
 exports.setAnimations = setAnimations;
 exports.setAnnotation = setAnnotation;
-exports.SubComponent = SubComponent;
+exports.Effect = Effect;
+exports.getEffectsMetadata = getEffectsMetadata;
 exports.IconComponent = IconComponent;
 exports.IconService = IconService;
 exports.VCLIconModule = VCLIconModule;
@@ -3670,7 +3892,17 @@ exports.L10nNoopLoaderService = L10nNoopLoaderService;
 exports.L10nStaticLoaderService = L10nStaticLoaderService;
 exports.L10nFormatParserService = L10nFormatParserService;
 exports.L10nService = L10nService;
-exports.AdvHttp = AdvHttp;
-exports.ErrorHandlerService = ErrorHandlerService;
 exports.ADV_HTTP_CONFIG = ADV_HTTP_CONFIG;
+exports.SyncableObservable = SyncableObservable;
+exports.ErrorHandlerService = ErrorHandlerService;
+exports.AdvHttp = AdvHttp;
 exports.AdvHttpModule = AdvHttpModule;
+exports.Observe = Observe;
+exports.ObservableComponent = ObservableComponent;
+exports.STORE_REDUCERS = STORE_REDUCERS;
+exports.STORE_EFFECTS = STORE_EFFECTS;
+exports.compose = compose;
+exports.InitAction = InitAction;
+exports.StoreActions = StoreActions;
+exports.Store = Store;
+exports.StoreModule = StoreModule;

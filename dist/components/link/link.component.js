@@ -4,16 +4,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var observable_component_1 = require('./../../core/observable.component');
 var core_1 = require('@angular/core');
 var l10n_module_1 = require('../../l10n/l10n.module');
+var index_1 = require('../../reactive/index');
 var LinkComponent = (function (_super) {
     __extends(LinkComponent, _super);
     function LinkComponent(l10n) {
         var _this = this;
         _super.call(this);
         this.l10n = l10n;
-        this.locTitle$ = this.observeProperty('title').switchMap(function (title) { return _this.l10n.localize(title); });
+        this.locTitle$ = this.observeChange('title').switchMap(function (title) { return _this.l10n.localize(title); });
     }
     Object.defineProperty(LinkComponent.prototype, "attrHref", {
         get: function () {
@@ -58,5 +58,5 @@ var LinkComponent = (function (_super) {
         'locTitle': [{ type: core_1.HostBinding, args: ['attr.title',] }, { type: core_1.HostBinding, args: ['attr.aria-label',] },],
     };
     return LinkComponent;
-}(observable_component_1.ObservableComponent));
+}(index_1.ObservableComponent));
 exports.LinkComponent = LinkComponent;

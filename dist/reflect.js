@@ -12,20 +12,6 @@ function setAnnotation(cls, key, value) {
     Reflect.defineMetadata('annotations', [new core_1.Component(annotation)], cls);
 }
 exports.setAnnotation = setAnnotation;
-function SubComponent(annotation) {
-    return function (cls) {
-        var baseCls = Object.getPrototypeOf(cls.prototype).constructor;
-        var baseClsAnnotation = getAnnotation(baseCls);
-        Object.keys(baseClsAnnotation).forEach(function (key) {
-            if (baseClsAnnotation[key] !== undefined && annotation[key] === undefined) {
-                annotation[key] = baseClsAnnotation[key];
-            }
-        });
-        Reflect.defineMetadata('annotations', [new core_1.Component(annotation)], cls);
-    };
-}
-exports.SubComponent = SubComponent;
-;
 function getAnnotation(cls) {
     // Annotation is an array with 1 entry
     // TODO: Check if always one entry
@@ -35,3 +21,34 @@ function getAnnotation(cls) {
     }
     return clsAnnotations[0];
 }
+// export function SubComponent(annotation: Component) {
+//   return (cls: Function) => {
+//     const baseCls = Object.getPrototypeOf(cls.prototype).constructor;
+//     const baseClsAnnotation = getAnnotation(baseCls);
+//     Object.keys(baseClsAnnotation).forEach(key => {
+//       if (baseClsAnnotation[key] !== undefined && annotation[key] === undefined) {
+//         annotation[key] = baseClsAnnotation[key];
+//       }
+//     });
+//     Reflect.defineMetadata('annotations', [ new Component(annotation) ], cls);
+//   };
+// };
+var EFFECTS_METADATA_KEY = 'ng-vcl/effects';
+function Effect() {
+    return function (target, propertyName) {
+        if (!Reflect.hasOwnMetadata(EFFECTS_METADATA_KEY, target)) {
+            Reflect.defineMetadata(EFFECTS_METADATA_KEY, [], target);
+        }
+        var effectProperties = Reflect.getOwnMetadata(EFFECTS_METADATA_KEY, target);
+        Reflect.defineMetadata(EFFECTS_METADATA_KEY, effectProperties.concat([propertyName]), target);
+    };
+}
+exports.Effect = Effect;
+function getEffectsMetadata(instance) {
+    var target = Object.getPrototypeOf(instance);
+    if (!Reflect.hasOwnMetadata(EFFECTS_METADATA_KEY, target)) {
+        return [];
+    }
+    return Reflect.getOwnMetadata(EFFECTS_METADATA_KEY, target);
+}
+exports.getEffectsMetadata = getEffectsMetadata;
