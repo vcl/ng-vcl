@@ -27,7 +27,7 @@ var RadioButtonComponent = (function () {
         this.checked = false;
         this._checkedChange = new core_1.EventEmitter();
         this._checkedChange.subscribe(function (newVal) {
-            _this.onChangeCallback(newVal);
+            !!_this.onChangeCallback && _this.onChangeCallback(newVal);
         });
     }
     Object.defineProperty(RadioButtonComponent.prototype, "checkedChange", {

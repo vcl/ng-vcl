@@ -62,7 +62,7 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
 
   constructor(private elementRef: ElementRef) {
     this._checkedChange.subscribe(newVal => {
-      this.onChangeCallback(newVal);
+      !!this.onChangeCallback && this.onChangeCallback(newVal);
     });
   }
 
