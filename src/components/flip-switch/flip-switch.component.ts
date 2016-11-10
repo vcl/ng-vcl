@@ -30,11 +30,14 @@ export class FlipSwitchComponent implements ControlValueAccessor {
 
   @Input('value') value: boolean = false;
 
-  @Output() toggle$ = new EventEmitter<any[]>();
+  @Output() toggle$ = new EventEmitter<boolean>();
 
 
 
-
+  onClick() {
+    this.value = !this.value;
+    this.toggle$.emit(this.value);
+  }
 
 
   constructor() {

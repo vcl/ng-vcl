@@ -28,7 +28,8 @@ var FormComponent = (function () {
             itemselect: [''],
             myradio: [''],
             mydropdown: [''],
-            mycheckbox: ['', forms_1.Validators.required]
+            mycheckbox: ['', forms_1.Validators.required],
+            flip: ['']
         }, {
             validator: equalInputMatcher
         });

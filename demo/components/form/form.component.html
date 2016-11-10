@@ -18,6 +18,13 @@
   <br/> Input me:
   <input vcl-input ngModel name="myname" required pattern=".{5,10}">
 
+
+  <br/><br/> FlipSwitch: <br/>
+  <vcl-flip-switch onLabel="An" offLabel="Aus" ngModel name="flip"></vcl-flip-switch>
+
+
+
+
 </form>
 
 
@@ -56,6 +63,10 @@
   <br/>
   <br/> Input me (must be equal):
   <input type="text" formControlName="myname2">
+
+
+  <br/><br/> FlipSwitch: <br/>
+  <vcl-flip-switch onLabel="An" offLabel="Aus" formControlName="flip"></vcl-flip-switch>
 
 </form>
 

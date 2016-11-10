@@ -25,6 +25,10 @@ var FlipSwitchComponent = (function () {
             !!_this.onChangeCallback && _this.onChangeCallback(newVal);
         });
     }
+    FlipSwitchComponent.prototype.onClick = function () {
+        this.value = !this.value;
+        this.toggle$.emit(this.value);
+    };
     FlipSwitchComponent.prototype.writeValue = function (value) {
         if (value !== this.value)
             this.value = value;
