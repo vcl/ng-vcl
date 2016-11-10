@@ -1,5 +1,5 @@
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
-import { Injectable, NgModule, OpaqueToken, Inject, ModuleWithProviders, Type, Optional } from '@angular/core';
+import { Injectable, NgModule, OpaqueToken, Inject, ModuleWithProviders, Type, Optional, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
@@ -105,16 +105,9 @@ export class Store extends Observable<any> implements Observer<StoreState> {
     private initialState: any,
     @Inject(STORE_REDUCERS)
     reducers: Reducers,
-    @Optional()
-    @Inject(STORE_EFFECTS)
-    effects: any[]
   ) {
     super();
     this.addReducers(reducers);
-    if (effects) {
-      this.addEffects(effects);
-    }
-
     // Listen to actions by connecting the state observable
     this.stateSub = this.state$.connect();
     // Init action
@@ -145,31 +138,15 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   // The source of the store observable is also the state stream
   source: ConnectableObservable<StoreState> = this.state$;
 
-  private effectSubs: Subscription[] = [];
-
-
   dispatch(action: any) {
-    this.actions$.dispatch(action);
+    if (action) {
+      this.actions$.dispatch(action);
+    }
   }
 
   addReducers(reducers: Reducers) {
     this._reducers.next(reducers);
   }
-
-  addEffects(effectInstances: any | any[]) {
-    const eiArr: any[] = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
-    eiArr.forEach(instance => {
-      const properties = getEffectsMetadata(instance);
-      const effects$ = merge(...(properties.map(property => instance[property])));
-      const sub = effects$.subscribe(action => {
-        if (action) {
-          this.dispatch(action);
-        }
-      });
-      this.effectSubs.push(sub);
-    });
-  }
-
 
   select<U>(path: { (value: any): U } | string, ...paths: string[]): StoreObservable<U> {
     return select.call(this, path, ...paths);
@@ -184,9 +161,41 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   complete() { }
 
   ngOnDestroy() {
-    [this.stateSub, ...this.effectSubs].filter(sub => sub && !sub.closed).forEach(sub => sub.unsubscribe());
+    if (this.stateSub && !this.stateSub.closed) this.stateSub.unsubscribe();
   }
 }
+
+@Injectable()
+export class Effects implements OnDestroy {
+
+  private effectSubs: Subscription[] = [];
+
+  constructor(
+    private store: Store,
+    @Optional()
+    @Inject(STORE_EFFECTS)
+    effects: any[]
+  ) {
+    this.addEffects(effects);
+  }
+
+  addEffects(effectInstances: any | any[]) {
+    const eiArr: any[] = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
+    eiArr.forEach(instance => {
+      if (instance) {
+        const properties = getEffectsMetadata(instance);
+        const effects$ = merge(...(properties.map(property => instance[property])));
+        const sub = effects$.subscribe(this.store);
+        this.effectSubs.push(sub);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    [...this.effectSubs].filter(sub => sub && !sub.closed).forEach(sub => sub.unsubscribe());
+  }
+}
+
 
 export interface ComposeSignature {
   <A>(): (i: A) => A;
@@ -209,12 +218,6 @@ export const compose: ComposeSignature = (...functions) => {
   };
 };
 
-
-export interface SelectSignature<T> {
-  <R>(...paths: string[]): Observable<R>;
-  <R>(mapFn: (state: T) => R): Observable<R>;
-}
-
 export declare interface StoreConfig {
   reducers?: Reducers;
   effects?: Type<any>[];
@@ -223,7 +226,9 @@ export declare interface StoreConfig {
 
 @NgModule({
   providers: [
+    StoreActions,
     Store,
+    Effects,
     {
       provide: STORE_STATE,
       useValue: {}
@@ -241,6 +246,7 @@ export class StoreModule {
       providers: [
         StoreActions,
         Store,
+        Effects,
         {
           provide: STORE_STATE,
           useValue: config.state || {}
