@@ -69,7 +69,7 @@ export class SelectComponent implements ControlValueAccessor {
   constructor() {
     this.select.subscribe(selectedItems => {
       this.selected = selectedItems;
-      this.onChangeCallback(selectedItems);
+      !!this.onChangeCallback && this.onChangeCallback(selectedItems);
     });
   }
 
@@ -125,7 +125,6 @@ export class SelectComponent implements ControlValueAccessor {
    */
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
-
   writeValue(value: any): void {
     if (value !== this.selected) {
       this.selected = value;
