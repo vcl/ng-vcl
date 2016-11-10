@@ -16,6 +16,7 @@ import { getEffectsMetadata } from '../reflect';
 
 export const STORE_REDUCERS = new OpaqueToken('store.reducers');
 export const STORE_EFFECTS = new OpaqueToken('store.effects');
+export const STORE_STATE = new OpaqueToken('store.state');
 
 export interface Action {
   new(...args: any[]);
@@ -89,7 +90,10 @@ export class Store extends Observable<any> implements Observer<StoreState> {
 
   constructor(
     private actions$: StoreActions,
-    @Inject(STORE_REDUCERS) reducers: Reducers,
+    @Inject(STORE_STATE)
+    private initialState: any,
+    @Inject(STORE_REDUCERS)
+    reducers: Reducers,
     @Optional()
     @Inject(STORE_EFFECTS)
     effects: any[]
@@ -116,14 +120,14 @@ export class Store extends Observable<any> implements Observer<StoreState> {
 
   // The state changes when an action is dispatched by running reducers
   // The new state is then cached for further subscribers 
-  state$ = this.actions$.withLatestFrom(this.reducers$).scan<any, StoreState>((oldState, [action, reducers]) => {
-    let state = Object.assign({}, oldState);
+  state$ = this.actions$.withLatestFrom(this.reducers$).scan<any, StoreState>((currentState, [action, reducers]) => {
+    let state = Object.assign({}, currentState);
     Object.keys(reducers).forEach(key => {
-      let reducer = reducers[key];
-      state[key] = reducer(oldState[key], action) || {};
+      const reducer = reducers[key];
+      state[key] = reducer(currentState[key], action);
     });
     return state;
-  }, {}).publishReplay(1);
+  }, this.initialState).publishReplay(1);
 
   stateSub: Subscription;
 
@@ -198,15 +202,20 @@ export interface SelectSignature<T> {
 export declare interface StoreConfig {
   reducers?: Reducers;
   effects?: Type<any>[];
+  state?: any;
 }
 
 @NgModule({
   providers: [
     Store,
     {
-      provide: STORE_REDUCERS,
+      provide: STORE_STATE,
       useValue: {}
     },
+    {
+      provide: STORE_REDUCERS,
+      useValue: {}
+    }
   ]
 })
 export class StoreModule {
@@ -216,6 +225,10 @@ export class StoreModule {
       providers: [
         StoreActions,
         Store,
+        {
+          provide: STORE_STATE,
+          useValue: config.state || {}
+        },
         {
           provide: STORE_REDUCERS,
           useValue: config.reducers || {}
