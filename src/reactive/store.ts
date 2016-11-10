@@ -33,29 +33,40 @@ export interface Reducers {
   [key: string]: Reducer<any>;
 }
 
-declare module 'rxjs/Observable' {
-  interface Observable<T> {
-    select: { <T>(pathOrMapFn: { (value: any): any } | string, ...paths: string[]): Observable<T> };
-  }
-}
 
-function select<T>(this: Observable<T>, pathOrMapFn: { (value: any): any } | string, ...paths: string[]): Observable<T> {
-  let mapped$: Observable<T>;
-  if (typeof pathOrMapFn === 'string') {
-    mapped$ = this.pluck(pathOrMapFn, ...paths);
+function select<T, U>(this: Observable<U>, path: { (value: U): T } | string, ...paths: string[]): StoreObservable<T> {
+  let select$: Observable<T>;
+  if (typeof path === 'string') {
+    select$ = this.pluck(path, ...paths);
   }
-  else if (typeof pathOrMapFn === 'function') {
-    mapped$ = this.map(pathOrMapFn);
+  else if (typeof path === 'function') {
+    select$ = this.map(path);
   }
   else {
-    throw new TypeError(`Unexpected type ${ typeof pathOrMapFn } in select operator,`
-      + ` expected 'string' or 'function'`);
+    throw new TypeError(`Unexpected type ${ typeof path } in select operator`);
   }
-  return mapped$.distinctUntilChanged();
+  select$ = select$.distinctUntilChanged();
+
+  return new StoreObservable<T>(select$);
 }
 
-// tslint:disable-next-line:only-arrow-functions
-Observable.prototype.select = select;
+export class StoreObservable<T> extends Observable<T> {
+
+  constructor(source) {
+    super();
+    this.source = source;
+  }
+
+  select<U>(path: { (value: T): U } | string, ...paths: string[]): StoreObservable<U> {
+    return select.call(this, path, ...paths);
+  }
+
+  lift(operator) {
+    const observable = new StoreObservable<T>(this);
+    observable.operator = operator;
+    return observable;
+  }
+};
 
 export class InitAction {}
 
@@ -157,6 +168,11 @@ export class Store extends Observable<any> implements Observer<StoreState> {
       });
       this.effectSubs.push(sub);
     });
+  }
+
+
+  select<U>(path: { (value: any): U } | string, ...paths: string[]): StoreObservable<U> {
+    return select.call(this, path, ...paths);
   }
 
   next(action: any) {
