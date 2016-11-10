@@ -7,6 +7,7 @@ export declare class RadioButtonComponent implements OnInit, OnChanges, ControlV
     checkedIcon: string;
     uncheckedIcon: string;
     disabled: boolean;
+    labelPosition: 'left' | 'right';
     tabindex: number;
     /**
     Refelects the checked state, `true` is checked and `false` is unchecked

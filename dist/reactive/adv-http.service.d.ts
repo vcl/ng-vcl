@@ -10,7 +10,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/let';
 import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
-import { OpaqueToken } from '@angular/core';
+import { OpaqueToken, Type, ModuleWithProviders } from '@angular/core';
 /**
  *  Data caching
  */
@@ -67,5 +67,10 @@ export declare class AdvHttp extends Http {
     head(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response>;
     options(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response>;
 }
+export interface AdvHttpConfig {
+    errorHandlerService?: Type<any>;
+    defaultErrorHandlingStrategy: ErrorHandlingStrategy;
+}
 export declare class AdvHttpModule {
+    static forRoot(config: AdvHttpConfig): ModuleWithProviders;
 }

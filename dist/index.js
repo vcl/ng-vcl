@@ -4,6 +4,7 @@ function __export(m) {
 }
 var input_module_1 = require('./components/input/input.module');
 var core_1 = require('@angular/core');
+var flip_switch_module_1 = require('./components/flip-switch/flip-switch.module');
 var icon_module_1 = require('./components/icon/icon.module');
 var metalist_module_1 = require('./components/metalist/metalist.module');
 var dropdown_module_1 = require('./components/dropdown/dropdown.module');
@@ -61,6 +62,7 @@ var VCLModule = (function () {
                         tether_module_1.VCLTetherModule,
                         link_module_1.VCLLinkModule,
                         input_module_1.VCLInputModule,
+                        flip_switch_module_1.VCLFlipSwitchModule,
                         tab_nav_module_1.VCLTabNavModule,
                         navigation_module_1.VCLNavigationModule,
                         toolbar_module_1.VCLToolbarModule,
@@ -85,6 +87,7 @@ var VCLModule = (function () {
                         tether_module_1.VCLTetherModule,
                         link_module_1.VCLLinkModule,
                         input_module_1.VCLInputModule,
+                        flip_switch_module_1.VCLFlipSwitchModule,
                         tab_nav_module_1.VCLTabNavModule,
                         navigation_module_1.VCLNavigationModule,
                         toolbar_module_1.VCLToolbarModule,

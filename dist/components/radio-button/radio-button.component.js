@@ -16,6 +16,7 @@ var RadioButtonComponent = (function () {
         this.checkedIcon = 'fa:dot-circle-o';
         this.uncheckedIcon = 'fa:circle-o';
         this.disabled = false;
+        this.labelPosition = 'right';
         this.tabindex = 0;
         /**
         Refelects the checked state, `true` is checked and `false` is unchecked
@@ -108,7 +109,7 @@ var RadioButtonComponent = (function () {
     RadioButtonComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-radio-button',
-                    template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
+                    templateUrl: 'radio-button.component.html',
                     host: {
                         '[attr.role]': '"radio"',
                         '[class.vclCheckbox]': 'true',
@@ -126,6 +127,7 @@ var RadioButtonComponent = (function () {
         'checkedIcon': [{ type: core_1.Input },],
         'uncheckedIcon': [{ type: core_1.Input },],
         'disabled': [{ type: core_1.Input },],
+        'labelPosition': [{ type: core_1.Input, args: ['labelPosition',] },],
         'tabindex': [{ type: core_1.HostBinding, args: ['attr.tabindex',] }, { type: core_1.Input },],
         'checked': [{ type: core_1.Input },],
         'checkedChange': [{ type: core_1.Output },],

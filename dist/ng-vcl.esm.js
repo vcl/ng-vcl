@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, forwardRef, trigger } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CommonModule } from '@angular/common';
+import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import 'rxjs/add/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/combineLatest';
@@ -8,7 +9,6 @@ import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
-import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 import * as Tether from 'tether';
 import { Subject } from 'rxjs/Subject';
@@ -139,118 +139,212 @@ var VCLInputModule = (function () {
     return VCLInputModule;
 }());
 
-var IconService = (function () {
-    function IconService() {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return FlipSwitchComponent; }),
+    multi: true
+};
+var FlipSwitchComponent = (function () {
+    function FlipSwitchComponent() {
+        var _this = this;
+        this.value = false;
+        this.toggle$ = new EventEmitter();
+        this.toggle$.subscribe(function (newVal) {
+            _this.value = newVal;
+            !!_this.onChangeCallback && _this.onChangeCallback(newVal);
+        });
     }
-    // A default name resolver following the CSS class name conventions of
-    // the well-known Font Awesome icon font. Bascially it translates
-    // `fa:user` into `fa fa-user`
-    IconService.prototype.defaultNameResolver = function (icon) {
-        var iconParts = icon.split(':');
-        if (iconParts.length > 1) {
-            var setName = iconParts[0];
-            iconParts.shift();
-            var iconClasses = iconParts.join(" " + setName + "-");
-            return setName + " " + setName + "-" + iconClasses;
-        }
-        else {
-            return icon;
-        }
+    FlipSwitchComponent.prototype.onClick = function () {
+        this.value = !this.value;
+        this.toggle$.emit(this.value);
     };
-    IconService.prototype.lookup = function (icon) {
-        if (typeof icon === 'string' && icon) {
-            var iconName = icon;
-            var providerName = void 0;
-            // Split on first : occurrence
-            var iconParts = iconName.split(/:(.+)?/);
-            if (iconParts.length === 0) {
-                return icon;
-            }
-            else {
-                providerName = iconParts[0];
-                // TODO: for now, just hardcode to default resolver, later we need
-                // a mapping between the provider and the resolver or each font
-                // brings its own resolver.
-                providerName = 'defaultNameResolver';
-                return this[providerName](iconName);
-            }
-        }
-        return icon;
+    FlipSwitchComponent.prototype.writeValue = function (value) {
+        if (value !== this.value)
+            this.value = value;
     };
-    IconService = __decorate([
-        Injectable(), 
+    FlipSwitchComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    FlipSwitchComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        Input('onLabel'), 
+        __metadata('design:type', String)
+    ], FlipSwitchComponent.prototype, "onLabel", void 0);
+    __decorate([
+        Input('offLabel'), 
+        __metadata('design:type', String)
+    ], FlipSwitchComponent.prototype, "offLabel", void 0);
+    __decorate([
+        Input('value'), 
+        __metadata('design:type', Boolean)
+    ], FlipSwitchComponent.prototype, "value", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], FlipSwitchComponent.prototype, "toggle$", void 0);
+    FlipSwitchComponent = __decorate([
+        Component({
+            selector: 'vcl-flip-switch',
+            template: "<div class=\"vclFlipSwitch\" [class.vclFlipSwitchPressed]=\"value\" touch-action=\"pan-y\" role=\"button\" tabindex=\"0\" aria-pressed=\"true\" aria-labelledby=\"fs-label-0\" (click)=\"onClick()\">\n  <label class=\"vclFlipSwitchLabel\" id=\"fs-label-0\">\n    <div class=\"vclFlipSwitchTrack\">\n      <div class=\"vclFlipSwitchActive\" aria-hidden=\"false\">{{onLabel}}</div>\n      <div class=\"vclFlipSwitchInactive\" aria-hidden=\"true\">{{offLabel}}</div>\n    </div>\n    <div class=\"vclFlipSwitchKnob\"></div>\n  </label>\n</div>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+        }), 
         __metadata('design:paramtypes', [])
-    ], IconService);
-    return IconService;
+    ], FlipSwitchComponent);
+    return FlipSwitchComponent;
 }());
 
-var IconComponent = (function () {
-    function IconComponent(_iconService) {
-        this._iconService = _iconService;
+/**
+*/
+var MetalistComponent = (function () {
+    function MetalistComponent() {
+        this.select = new EventEmitter();
+        this.minSelectableItems = 1;
+        this.maxSelectableItems = 1;
+        this.maxItemsSelected = false;
     }
-    Object.defineProperty(IconComponent.prototype, "mergedIconClass", {
-        get: function () {
-            var fontIconClass = this.icon ? this._iconService.lookup(this.icon) : '';
-            return "vclIcon " + fontIconClass + " " + (this.iconClass || '');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(IconComponent.prototype, "isAriaHidden", {
-        // Do not hide from aria when a label is provided
-        get: function () {
-            return !this.label;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    MetalistComponent.prototype.next = function () {
+        var oldIndex = this.getMarkedItemIndex();
+        if (oldIndex !== -1) {
+            var newIndex = oldIndex + 1;
+            if (this.items.length > newIndex) {
+                this.setMarkedIndex(newIndex);
+            }
+        }
+        else {
+            this.setMarkedIndex(0);
+        }
+    };
+    MetalistComponent.prototype.prev = function () {
+        var oldIndex = this.getMarkedItemIndex();
+        if (oldIndex !== -1) {
+            var newIndex = oldIndex - 1;
+            if (newIndex >= 0) {
+                this.setMarkedIndex(newIndex);
+            }
+        }
+    };
+    MetalistComponent.prototype.ngOnInit = function () {
+        if (!this.meta) {
+            // create meta if not present
+            this.meta = [];
+        }
+    };
+    MetalistComponent.prototype.selectItem = function (item) {
+        var itemIndex = this.items.indexOf(item);
+        if (itemIndex === -1) {
+            return;
+        }
+        // maxSelectableItems === 1 -> deselect old item
+        if (this.maxSelectableItems === 1) {
+            var metaItems = this.meta.filter(function (obj) {
+                return obj && obj.selected === true;
+            });
+            for (var i = 0; i < metaItems.length; i++) {
+                metaItems[i].selected = false;
+            }
+        }
+        if (this.getSelectedItems().length < this.maxSelectableItems && this.meta[itemIndex]) {
+            this.meta[itemIndex].selected = true;
+        }
+        this.select.emit(this.getSelectedItems());
+    };
+    MetalistComponent.prototype.deSelectItem = function (item) {
+        var itemIndex = this.items.indexOf(item);
+        if (itemIndex === -1) {
+            return;
+        }
+        if (this.meta[itemIndex]) {
+            this.meta[itemIndex].selected = false;
+        }
+        this.select.emit(this.getSelectedItems());
+    };
+    MetalistComponent.prototype.getSelectedItems = function () {
+        var metaItems = this.meta.filter(function (obj) {
+            return obj && obj.selected === true;
+        });
+        var result = [];
+        for (var i = 0; i < metaItems.length; i++) {
+            result.push(this.items[this.meta.indexOf(metaItems[i])]);
+        }
+        return result;
+    };
+    MetalistComponent.prototype.setSelectedItems = function () {
+    };
+    MetalistComponent.prototype.getMarkedItemIndex = function () {
+        var meta = this.getMarkedItemMeta();
+        if (meta) {
+            return this.meta.indexOf(meta);
+        }
+        return -1;
+    };
+    MetalistComponent.prototype.getMarkedItemMeta = function () {
+        return this.meta.filter(function (obj) {
+            return obj && obj.marked === true;
+        })[0];
+    };
+    MetalistComponent.prototype.setMarkedIndex = function (index) {
+        // unset old item
+        var oldItem = this.getMarkedItemMeta();
+        if (oldItem) {
+            oldItem.marked = false;
+        }
+        var meta = this.meta[index];
+        if (meta) {
+            meta.marked = true;
+        }
+    };
+    MetalistComponent.prototype.setMarkedItem = function (item) {
+        var markedIndex = this.items.indexOf(item);
+        if (markedIndex !== -1) {
+            this.setMarkedIndex(markedIndex);
+        }
+    };
+    MetalistComponent.prototype.getMeta = function (item) {
+        var key = this.items.indexOf(item);
+        if (!this.meta[key]) {
+            this.meta[key] = {};
+        }
+        return this.meta[key];
+    };
     __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "src", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "svguse", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "iconClass", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "icon", void 0);
-    __decorate([
-        HostBinding('attr.aria-label'),
-        Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "label", void 0);
-    __decorate([
-        HostBinding('attr.role'),
-        Input(), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "ariaRole", void 0);
-    __decorate([
-        HostBinding('class'), 
-        __metadata('design:type', String)
-    ], IconComponent.prototype, "mergedIconClass", null);
-    __decorate([
-        HostBinding('attr.aria-hidden'), 
+        Output(), 
         __metadata('design:type', Object)
-    ], IconComponent.prototype, "isAriaHidden", null);
-    IconComponent = __decorate([
+    ], MetalistComponent.prototype, "select", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Array)
+    ], MetalistComponent.prototype, "items", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], MetalistComponent.prototype, "meta", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], MetalistComponent.prototype, "minSelectableItems", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], MetalistComponent.prototype, "maxSelectableItems", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Boolean)
+    ], MetalistComponent.prototype, "maxItemsSelected", void 0);
+    __decorate([
+        ContentChild(TemplateRef), 
+        __metadata('design:type', Object)
+    ], MetalistComponent.prototype, "template", void 0);
+    MetalistComponent = __decorate([
         Component({
-            selector: 'vcl-icon, [vcl-icon]',
-            template: "<ng-content></ng-content>\n<img *ngIf=\"src\" src=\"{{src}}\">\n<svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n  <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n</svg>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            host: {
-                '[class.vclIcon]': 'true',
-            },
+            selector: 'vcl-metalist',
+            template: "<template\n  *ngFor=\"let item of items\"\n  [ngTemplateOutlet]=\"template\"\n  [ngOutletContext]=\"{item: item, meta: getMeta(item) }\">\n</template>\n"
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof IconService !== 'undefined' && IconService) === 'function' && _a) || Object])
-    ], IconComponent);
-    return IconComponent;
-    var _a;
+        __metadata('design:paramtypes', [])
+    ], MetalistComponent);
+    return MetalistComponent;
 }());
 
 var L10N_LOADER_CONFIG = new OpaqueToken('l10n.loader.config');
@@ -602,6 +696,150 @@ var L10nModule = (function () {
     return L10nModule;
 }());
 
+var VCLMetalistModule = (function () {
+    function VCLMetalistModule() {
+    }
+    VCLMetalistModule = __decorate([
+        NgModule({
+            imports: [CommonModule, L10nModule],
+            exports: [MetalistComponent],
+            declarations: [MetalistComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLMetalistModule);
+    return VCLMetalistModule;
+}());
+
+var VCLFlipSwitchModule = (function () {
+    function VCLFlipSwitchModule() {
+    }
+    VCLFlipSwitchModule = __decorate([
+        NgModule({
+            imports: [CommonModule, L10nModule, VCLMetalistModule],
+            exports: [FlipSwitchComponent],
+            declarations: [FlipSwitchComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLFlipSwitchModule);
+    return VCLFlipSwitchModule;
+}());
+
+var IconService = (function () {
+    function IconService() {
+    }
+    // A default name resolver following the CSS class name conventions of
+    // the well-known Font Awesome icon font. Bascially it translates
+    // `fa:user` into `fa fa-user`
+    IconService.prototype.defaultNameResolver = function (icon) {
+        var iconParts = icon.split(':');
+        if (iconParts.length > 1) {
+            var setName = iconParts[0];
+            iconParts.shift();
+            var iconClasses = iconParts.join(" " + setName + "-");
+            return setName + " " + setName + "-" + iconClasses;
+        }
+        else {
+            return icon;
+        }
+    };
+    IconService.prototype.lookup = function (icon) {
+        if (typeof icon === 'string' && icon) {
+            var iconName = icon;
+            var providerName = void 0;
+            // Split on first : occurrence
+            var iconParts = iconName.split(/:(.+)?/);
+            if (iconParts.length === 0) {
+                return icon;
+            }
+            else {
+                providerName = iconParts[0];
+                // TODO: for now, just hardcode to default resolver, later we need
+                // a mapping between the provider and the resolver or each font
+                // brings its own resolver.
+                providerName = 'defaultNameResolver';
+                return this[providerName](iconName);
+            }
+        }
+        return icon;
+    };
+    IconService = __decorate([
+        Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], IconService);
+    return IconService;
+}());
+
+var IconComponent = (function () {
+    function IconComponent(_iconService) {
+        this._iconService = _iconService;
+    }
+    Object.defineProperty(IconComponent.prototype, "mergedIconClass", {
+        get: function () {
+            var fontIconClass = this.icon ? this._iconService.lookup(this.icon) : '';
+            return "vclIcon " + fontIconClass + " " + (this.iconClass || '');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(IconComponent.prototype, "isAriaHidden", {
+        // Do not hide from aria when a label is provided
+        get: function () {
+            return !this.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "src", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "svguse", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "iconClass", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "icon", void 0);
+    __decorate([
+        HostBinding('attr.aria-label'),
+        Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "label", void 0);
+    __decorate([
+        HostBinding('attr.role'),
+        Input(), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "ariaRole", void 0);
+    __decorate([
+        HostBinding('class'), 
+        __metadata('design:type', String)
+    ], IconComponent.prototype, "mergedIconClass", null);
+    __decorate([
+        HostBinding('attr.aria-hidden'), 
+        __metadata('design:type', Object)
+    ], IconComponent.prototype, "isAriaHidden", null);
+    IconComponent = __decorate([
+        Component({
+            selector: 'vcl-icon, [vcl-icon]',
+            template: "<ng-content></ng-content>\n<img *ngIf=\"src\" src=\"{{src}}\">\n<svg *ngIf=\"svguse\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\">\n  <use xmlns:xlink=\"http://www.w3.org/1999/xlink\" attr.xlink:href=\"{{svguse}}\"></use>\n</svg>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            host: {
+                '[class.vclIcon]': 'true',
+            },
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof IconService !== 'undefined' && IconService) === 'function' && _a) || Object])
+    ], IconComponent);
+    return IconComponent;
+    var _a;
+}());
+
 var VCLIconModule = (function () {
     function VCLIconModule() {
     }
@@ -628,173 +866,7 @@ var VCLIconModule = (function () {
     return VCLIconModule;
 }());
 
-/**
-*/
-var MetalistComponent = (function () {
-    function MetalistComponent() {
-        this.select = new EventEmitter();
-        this.minSelectableItems = 1;
-        this.maxSelectableItems = 1;
-        this.maxItemsSelected = false;
-    }
-    MetalistComponent.prototype.next = function () {
-        var oldIndex = this.getMarkedItemIndex();
-        if (oldIndex !== -1) {
-            var newIndex = oldIndex + 1;
-            if (this.items.length > newIndex) {
-                this.setMarkedIndex(newIndex);
-            }
-        }
-        else {
-            this.setMarkedIndex(0);
-        }
-    };
-    MetalistComponent.prototype.prev = function () {
-        var oldIndex = this.getMarkedItemIndex();
-        if (oldIndex !== -1) {
-            var newIndex = oldIndex - 1;
-            if (newIndex >= 0) {
-                this.setMarkedIndex(newIndex);
-            }
-        }
-    };
-    MetalistComponent.prototype.ngOnInit = function () {
-        if (!this.meta) {
-            // create meta if not present
-            this.meta = [];
-        }
-    };
-    MetalistComponent.prototype.selectItem = function (item) {
-        var itemIndex = this.items.indexOf(item);
-        if (itemIndex === -1) {
-            return;
-        }
-        // maxSelectableItems === 1 -> deselect old item
-        if (this.maxSelectableItems === 1) {
-            var metaItems = this.meta.filter(function (obj) {
-                return obj && obj.selected === true;
-            });
-            for (var i = 0; i < metaItems.length; i++) {
-                metaItems[i].selected = false;
-            }
-        }
-        if (this.getSelectedItems().length < this.maxSelectableItems && this.meta[itemIndex]) {
-            this.meta[itemIndex].selected = true;
-        }
-        this.select.emit(this.getSelectedItems());
-    };
-    MetalistComponent.prototype.deSelectItem = function (item) {
-        var itemIndex = this.items.indexOf(item);
-        if (itemIndex === -1) {
-            return;
-        }
-        if (this.meta[itemIndex]) {
-            this.meta[itemIndex].selected = false;
-        }
-        this.select.emit(this.getSelectedItems());
-    };
-    MetalistComponent.prototype.getSelectedItems = function () {
-        var metaItems = this.meta.filter(function (obj) {
-            return obj && obj.selected === true;
-        });
-        var result = [];
-        for (var i = 0; i < metaItems.length; i++) {
-            result.push(this.items[this.meta.indexOf(metaItems[i])]);
-        }
-        return result;
-    };
-    MetalistComponent.prototype.setSelectedItems = function () {
-    };
-    MetalistComponent.prototype.getMarkedItemIndex = function () {
-        var meta = this.getMarkedItemMeta();
-        if (meta) {
-            return this.meta.indexOf(meta);
-        }
-        return -1;
-    };
-    MetalistComponent.prototype.getMarkedItemMeta = function () {
-        return this.meta.filter(function (obj) {
-            return obj && obj.marked === true;
-        })[0];
-    };
-    MetalistComponent.prototype.setMarkedIndex = function (index) {
-        // unset old item
-        var oldItem = this.getMarkedItemMeta();
-        if (oldItem) {
-            oldItem.marked = false;
-        }
-        var meta = this.meta[index];
-        if (meta) {
-            meta.marked = true;
-        }
-    };
-    MetalistComponent.prototype.setMarkedItem = function (item) {
-        var markedIndex = this.items.indexOf(item);
-        if (markedIndex !== -1) {
-            this.setMarkedIndex(markedIndex);
-        }
-    };
-    MetalistComponent.prototype.getMeta = function (item) {
-        var key = this.items.indexOf(item);
-        if (!this.meta[key]) {
-            this.meta[key] = {};
-        }
-        return this.meta[key];
-    };
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MetalistComponent.prototype, "select", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Array)
-    ], MetalistComponent.prototype, "items", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MetalistComponent.prototype, "meta", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MetalistComponent.prototype, "minSelectableItems", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MetalistComponent.prototype, "maxSelectableItems", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Boolean)
-    ], MetalistComponent.prototype, "maxItemsSelected", void 0);
-    __decorate([
-        ContentChild(TemplateRef), 
-        __metadata('design:type', Object)
-    ], MetalistComponent.prototype, "template", void 0);
-    MetalistComponent = __decorate([
-        Component({
-            selector: 'vcl-metalist',
-            template: "<template\n  *ngFor=\"let item of items\"\n  [ngTemplateOutlet]=\"template\"\n  [ngOutletContext]=\"{item: item, meta: getMeta(item) }\">\n</template>\n"
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MetalistComponent);
-    return MetalistComponent;
-}());
-
-var VCLMetalistModule = (function () {
-    function VCLMetalistModule() {
-    }
-    VCLMetalistModule = __decorate([
-        NgModule({
-            imports: [CommonModule, L10nModule],
-            exports: [MetalistComponent],
-            declarations: [MetalistComponent],
-            providers: [],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLMetalistModule);
-    return VCLMetalistModule;
-}());
-
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$1 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return DropdownComponent; }),
     multi: true
@@ -888,7 +960,7 @@ var DropdownComponent = (function () {
             selector: 'vcl-dropdown',
             template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
             changeDetection: ChangeDetectionStrategy.OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$1]
         }), 
         __metadata('design:paramtypes', [])
     ], DropdownComponent);
@@ -1160,7 +1232,7 @@ var VCLButtonModule = (function () {
  * see
  * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
  */
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$1 = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$2 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return SelectComponent; }),
     multi: true
@@ -1274,7 +1346,7 @@ var SelectComponent = (function () {
             selector: 'vcl-select',
             template: "<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclLayoutHorizontal vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n\n\n\n<!--<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n\n\n<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclLayoutHorizontal vclSelect vclInputGroupEmb\">\n  <span class=\"vclInput\" readonly>{{displayValue}}</span>\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>-->\n",
             changeDetection: ChangeDetectionStrategy.OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$1]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$2]
         }), 
         __metadata('design:paramtypes', [])
     ], SelectComponent);
@@ -2606,6 +2678,29 @@ var AdvHttp = (function (_super) {
 var AdvHttpModule = (function () {
     function AdvHttpModule() {
     }
+    AdvHttpModule.forRoot = function (config) {
+        return {
+            ngModule: AdvHttpModule,
+            providers: [
+                {
+                    provide: ADV_HTTP_CONFIG,
+                    useValue: config
+                },
+                AdvHttp,
+                {
+                    provide: ErrorHandlerService,
+                    useClass: config.errorHandlerService || ErrorHandlerService
+                },
+                {
+                    provide: AdvHttp,
+                    useFactory: function (config, errorHandler, backend, defaultOptions) {
+                        return new AdvHttp(config, errorHandler, backend, defaultOptions);
+                    },
+                    deps: [ADV_HTTP_CONFIG, ErrorHandlerService, XHRBackend, RequestOptions]
+                },
+            ]
+        };
+    };
     AdvHttpModule = __decorate([
         NgModule({
             imports: [HttpModule],
@@ -3093,7 +3188,7 @@ var VCLToolbarModule = (function () {
     return VCLToolbarModule;
 }());
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$2 = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return RadioButtonComponent; }),
     multi: true
@@ -3105,6 +3200,7 @@ var RadioButtonComponent = (function () {
         this.checkedIcon = 'fa:dot-circle-o';
         this.uncheckedIcon = 'fa:circle-o';
         this.disabled = false;
+        this.labelPosition = 'right';
         this.tabindex = 0;
         /**
         Refelects the checked state, `true` is checked and `false` is unchecked
@@ -3207,6 +3303,10 @@ var RadioButtonComponent = (function () {
         __metadata('design:type', Object)
     ], RadioButtonComponent.prototype, "disabled", void 0);
     __decorate([
+        Input('labelPosition'), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "labelPosition", void 0);
+    __decorate([
         HostBinding('attr.tabindex'),
         Input(), 
         __metadata('design:type', Object)
@@ -3246,14 +3346,14 @@ var RadioButtonComponent = (function () {
     RadioButtonComponent = __decorate([
         Component({
             selector: 'vcl-radio-button',
-            template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
+            template: "<vcl-icon [icon]=\"icon\" *ngIf=\"labelPosition=='right'\"></vcl-icon>\n<ng-content></ng-content>\n<vcl-icon [icon]=\"icon\" *ngIf=\"labelPosition=='left'\"></vcl-icon>\n",
             host: {
                 '[attr.role]': '"radio"',
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
             changeDetection: ChangeDetectionStrategy.OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$2]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _b) || Object])
     ], RadioButtonComponent);
@@ -3275,7 +3375,7 @@ var VCLRadioButtonModule = (function () {
     return VCLRadioButtonModule;
 }());
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3 = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return CheckboxComponent; }),
     multi: true
@@ -3439,7 +3539,7 @@ var CheckboxComponent = (function () {
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _b) || Object])
     ], CheckboxComponent);
@@ -3954,6 +4054,7 @@ var VCLModule = (function () {
                 VCLTetherModule,
                 VCLLinkModule,
                 VCLInputModule,
+                VCLFlipSwitchModule,
                 VCLTabNavModule,
                 VCLNavigationModule,
                 VCLToolbarModule,
@@ -3978,6 +4079,7 @@ var VCLModule = (function () {
                 VCLTetherModule,
                 VCLLinkModule,
                 VCLInputModule,
+                VCLFlipSwitchModule,
                 VCLTabNavModule,
                 VCLNavigationModule,
                 VCLToolbarModule,

@@ -187,6 +187,29 @@ exports.AdvHttp = AdvHttp;
 var AdvHttpModule = (function () {
     function AdvHttpModule() {
     }
+    AdvHttpModule.forRoot = function (config) {
+        return {
+            ngModule: AdvHttpModule,
+            providers: [
+                {
+                    provide: exports.ADV_HTTP_CONFIG,
+                    useValue: config
+                },
+                AdvHttp,
+                {
+                    provide: ErrorHandlerService,
+                    useClass: config.errorHandlerService || ErrorHandlerService
+                },
+                {
+                    provide: AdvHttp,
+                    useFactory: function (config, errorHandler, backend, defaultOptions) {
+                        return new AdvHttp(config, errorHandler, backend, defaultOptions);
+                    },
+                    deps: [exports.ADV_HTTP_CONFIG, ErrorHandlerService, http_1.XHRBackend, http_1.RequestOptions]
+                },
+            ]
+        };
+    };
     AdvHttpModule.decorators = [
         { type: core_1.NgModule, args: [{
                     imports: [http_1.HttpModule],
