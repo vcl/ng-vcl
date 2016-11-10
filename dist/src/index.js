@@ -13,6 +13,7 @@ function __export(m) {
 }
 var input_module_1 = require("./components/input/input.module");
 var core_1 = require("@angular/core");
+var flip_switch_module_1 = require("./components/flip-switch/flip-switch.module");
 var icon_module_1 = require("./components/icon/icon.module");
 var metalist_module_1 = require("./components/metalist/metalist.module");
 var dropdown_module_1 = require("./components/dropdown/dropdown.module");
@@ -53,7 +54,7 @@ __export(require("./components/month-picker/month-picker.module"));
 __export(require("./directives/off-click/off-click.module"));
 __export(require("./directives/wormhole/wormhole.module"));
 __export(require("./l10n/l10n.module"));
-__export(require("./adv-http/adv-http.module"));
+__export(require("./reactive/index"));
 var overlayManager_service_1 = require("./services/overlayManager.service");
 var VCLModule = (function () {
     function VCLModule() {
@@ -72,6 +73,7 @@ VCLModule = __decorate([
             tether_module_1.VCLTetherModule,
             link_module_1.VCLLinkModule,
             input_module_1.VCLInputModule,
+            flip_switch_module_1.VCLFlipSwitchModule,
             tab_nav_module_1.VCLTabNavModule,
             navigation_module_1.VCLNavigationModule,
             toolbar_module_1.VCLToolbarModule,
@@ -96,6 +98,7 @@ VCLModule = __decorate([
             tether_module_1.VCLTetherModule,
             link_module_1.VCLLinkModule,
             input_module_1.VCLInputModule,
+            flip_switch_module_1.VCLFlipSwitchModule,
             tab_nav_module_1.VCLTabNavModule,
             navigation_module_1.VCLNavigationModule,
             toolbar_module_1.VCLToolbarModule,

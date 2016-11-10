@@ -16,6 +16,7 @@ import FORM_CONTROL_LABEL_DEMO from './components/form-control-label/form-contro
 import FORM_DEMO from './components/form/form.demo';
 import FORM_ERROR_DEMO from './components/form-error/form-error.demo';
 import INPUT_DEMO from './components/input/input.demo';
+import FLIP_SWITCH_DEMO from './components/flip-switch/flip-switch.demo';
 import POPOVER_DEMO from './components/popover/popover.demo';
 import TAB_NAV_DEMO from './components/tab-nav/tab-nav.demo';
 import NAVIGATION_DEMO from './components/navigation/navigation.demo';
@@ -52,6 +53,7 @@ export const DEMOS: Demo[] = [
   FORM_DEMO,
   FORM_ERROR_DEMO,
   INPUT_DEMO,
+  FLIP_SWITCH_DEMO,
   POPOVER_DEMO,
   TAB_NAV_DEMO,
   NAVIGATION_DEMO,

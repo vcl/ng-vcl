@@ -1,7 +1,9 @@
 import { VCLInputModule } from './components/input/input.module';
 import { NgModule } from '@angular/core';
 
-import { VCLIconModule,  } from './components/icon/icon.module';
+
+import { VCLFlipSwitchModule } from './components/flip-switch/flip-switch.module';
+import { VCLIconModule, } from './components/icon/icon.module';
 import { VCLMetalistModule  } from './components/metalist/metalist.module';
 import { VCLDropdownModule  } from './components/dropdown/dropdown.module';
 import { VCLSelectModule  } from './components/select/select.module';
@@ -58,6 +60,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLTetherModule,
     VCLLinkModule,
     VCLInputModule,
+    VCLFlipSwitchModule,
     VCLTabNavModule,
     VCLNavigationModule,
     VCLToolbarModule,
@@ -82,6 +85,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLTetherModule,
     VCLLinkModule,
     VCLInputModule,
+    VCLFlipSwitchModule,
     VCLTabNavModule,
     VCLNavigationModule,
     VCLToolbarModule,

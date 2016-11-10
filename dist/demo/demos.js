@@ -16,6 +16,7 @@ var form_control_label_demo_1 = require("./components/form-control-label/form-co
 var form_demo_1 = require("./components/form/form.demo");
 var form_error_demo_1 = require("./components/form-error/form-error.demo");
 var input_demo_1 = require("./components/input/input.demo");
+var flip_switch_demo_1 = require("./components/flip-switch/flip-switch.demo");
 var popover_demo_1 = require("./components/popover/popover.demo");
 var tab_nav_demo_1 = require("./components/tab-nav/tab-nav.demo");
 var navigation_demo_1 = require("./components/navigation/navigation.demo");
@@ -42,6 +43,7 @@ exports.DEMOS = [
     form_demo_1.default,
     form_error_demo_1.default,
     input_demo_1.default,
+    flip_switch_demo_1.default,
     popover_demo_1.default,
     tab_nav_demo_1.default,
     navigation_demo_1.default,
