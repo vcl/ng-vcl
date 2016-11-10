@@ -10,7 +10,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/let';
 import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http, HttpModule, XHRBackend } from '@angular/http';
-import { Injectable, OpaqueToken, Inject, NgModule } from '@angular/core';
+import { Injectable, OpaqueToken, Inject, NgModule, Type, ModuleWithProviders } from '@angular/core';
 
 /**
  *  Data caching
@@ -187,6 +187,12 @@ export class AdvHttp extends Http {
   };
 }
 
+export declare interface AdvHttpConfig {
+  errorHandlerService?: Type<any>;
+  defaultErrorHandlingStrategy: ErrorHandlingStrategy;
+}
+
+
 @NgModule({
   imports: [HttpModule],
   providers: [
@@ -212,4 +218,28 @@ export class AdvHttp extends Http {
     }
   ]
 })
-export class AdvHttpModule { }
+export class AdvHttpModule { 
+  static forRoot(config: AdvHttpConfig): ModuleWithProviders {
+    return {
+      ngModule: AdvHttpModule,
+      providers: [
+        {
+          provide: ADV_HTTP_CONFIG,
+          useValue: config
+        },
+        AdvHttp,
+        {
+          provide: ErrorHandlerService,
+          useClass: config.errorHandlerService || ErrorHandlerService
+        },
+        {
+          provide: AdvHttp,
+          useFactory: (config: any, errorHandler: ErrorHandlerService, backend: XHRBackend, defaultOptions: RequestOptions) => {
+            return new AdvHttp(config, errorHandler, backend, defaultOptions);
+          },
+          deps: [ ADV_HTTP_CONFIG, ErrorHandlerService, XHRBackend, RequestOptions]
+        },
+      ]
+    };
+  }
+}
