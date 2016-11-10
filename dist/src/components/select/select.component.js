@@ -17,6 +17,7 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 };
 var SelectComponent = (function () {
     function SelectComponent() {
+        var _this = this;
         this.clickInside = false;
         this.popoverTarget = 'popoverTarget' + Math.random().toString().slice(2);
         this.select = new core_1.EventEmitter();
@@ -27,6 +28,10 @@ var SelectComponent = (function () {
         this.collapsedIcon = 'fa:chevron-down';
         this.inputValue = 'label';
         this.emptyLabel = 'Select value';
+        this.select.subscribe(function (selectedItems) {
+            _this.selected = selectedItems;
+            _this.onChangeCallback(selectedItems);
+        });
     }
     SelectComponent.prototype.ngOnInit = function () {
         this.displayValue = this.emptyLabel;
@@ -61,11 +66,15 @@ var SelectComponent = (function () {
         this.expanded = false;
     };
     SelectComponent.prototype.writeValue = function (value) {
-        return;
+        if (value !== this.selected) {
+            this.selected = value;
+        }
     };
     SelectComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
     };
     SelectComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
     };
     return SelectComponent;
 }());
