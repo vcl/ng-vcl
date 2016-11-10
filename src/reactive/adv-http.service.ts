@@ -218,7 +218,7 @@ export declare interface AdvHttpConfig {
     }
   ]
 })
-export class AdvHttpModule { 
+export class AdvHttpModule {
   static forRoot(config: AdvHttpConfig): ModuleWithProviders {
     return {
       ngModule: AdvHttpModule,
