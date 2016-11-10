@@ -23,6 +23,7 @@ var rxjs_add_operator_publish = require('rxjs/add/operator/publish');
 var rxjs_add_operator_catch = require('rxjs/add/operator/catch');
 var rxjs_add_operator_retryWhen = require('rxjs/add/operator/retryWhen');
 var rxjs_add_operator_let = require('rxjs/add/operator/let');
+var rxjs_add_observable_throw = require('rxjs/add/observable/throw');
 var _angular_http = require('@angular/http');
 var rxjs_add_operator_filter = require('rxjs/add/operator/filter');
 var rxjs_observable_merge = require('rxjs/observable/merge');

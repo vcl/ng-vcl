@@ -11,6 +11,7 @@ require('rxjs/add/operator/publish');
 require('rxjs/add/operator/catch');
 require('rxjs/add/operator/retryWhen');
 require('rxjs/add/operator/let');
+require('rxjs/add/observable/throw');
 var http_1 = require('@angular/http');
 var core_1 = require('@angular/core');
 /**

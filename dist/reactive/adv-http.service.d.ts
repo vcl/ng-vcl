@@ -9,6 +9,7 @@ import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/let';
+import 'rxjs/add/observable/throw';
 import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
 import { OpaqueToken, Type, ModuleWithProviders } from '@angular/core';
 /**

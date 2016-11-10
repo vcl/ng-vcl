@@ -19,6 +19,7 @@ import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/let';
+import 'rxjs/add/observable/throw';
 import { ConnectionBackend, Http, HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import 'rxjs/add/operator/filter';
 import { merge } from 'rxjs/observable/merge';
