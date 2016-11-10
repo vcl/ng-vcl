@@ -20,7 +20,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'vcl-radio-button',
-  template: `<vcl-icon [icon]="icon"></vcl-icon><ng-content></ng-content>`,
+  templateUrl: 'radio-button.component.html',
   host: {
     '[attr.role]': '"radio"',
     '[class.vclCheckbox]': 'true',
@@ -39,6 +39,9 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
 
   @Input()
   disabled = false;
+
+  @Input('labelPosition')
+  labelPosition: 'left' | 'right' = 'right';
 
   @HostBinding('attr.tabindex')
   @Input()
