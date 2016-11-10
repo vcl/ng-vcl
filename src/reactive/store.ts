@@ -1,5 +1,5 @@
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
-import { Injectable, NgModule, OpaqueToken, Inject, ModuleWithProviders, Type, Optional } from '@angular/core';
+import { Injectable, NgModule, OpaqueToken, Inject, ModuleWithProviders, Type, Optional, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
@@ -16,6 +16,7 @@ import { getEffectsMetadata } from '../reflect';
 
 export const STORE_REDUCERS = new OpaqueToken('store.reducers');
 export const STORE_EFFECTS = new OpaqueToken('store.effects');
+export const STORE_STATE = new OpaqueToken('store.state');
 
 export interface Action {
   new(...args: any[]);
@@ -32,29 +33,40 @@ export interface Reducers {
   [key: string]: Reducer<any>;
 }
 
-declare module 'rxjs/Observable' {
-  interface Observable<T> {
-    select: { <T>(pathOrMapFn: { (value: any): any } | string, ...paths: string[]): Observable<T> };
-  }
-}
 
-function select<T>(this: Observable<T>, pathOrMapFn: { (value: any): any } | string, ...paths: string[]): Observable<T> {
-  let mapped$: Observable<T>;
-  if (typeof pathOrMapFn === 'string') {
-    mapped$ = this.pluck(pathOrMapFn, ...paths);
+function select<T, U>(this: Observable<U>, path: { (value: U): T } | string, ...paths: string[]): StoreObservable<T> {
+  let select$: Observable<T>;
+  if (typeof path === 'string') {
+    select$ = this.pluck(path, ...paths);
   }
-  else if (typeof pathOrMapFn === 'function') {
-    mapped$ = this.map(pathOrMapFn);
+  else if (typeof path === 'function') {
+    select$ = this.map(path);
   }
   else {
-    throw new TypeError(`Unexpected type ${ typeof pathOrMapFn } in select operator,`
-      + ` expected 'string' or 'function'`);
+    throw new TypeError(`Unexpected type ${ typeof path } in select operator`);
   }
-  return mapped$.distinctUntilChanged();
+  select$ = select$.distinctUntilChanged();
+
+  return new StoreObservable<T>(select$);
 }
 
-// tslint:disable-next-line:only-arrow-functions
-Observable.prototype.select = select;
+export class StoreObservable<T> extends Observable<T> {
+
+  constructor(source) {
+    super();
+    this.source = source;
+  }
+
+  select<U>(path: { (value: T): U } | string, ...paths: string[]): StoreObservable<U> {
+    return select.call(this, path, ...paths);
+  }
+
+  lift(operator) {
+    const observable = new StoreObservable<T>(this);
+    observable.operator = operator;
+    return observable;
+  }
+};
 
 export class InitAction {}
 
@@ -89,17 +101,13 @@ export class Store extends Observable<any> implements Observer<StoreState> {
 
   constructor(
     private actions$: StoreActions,
-    @Inject(STORE_REDUCERS) reducers: Reducers,
-    @Optional()
-    @Inject(STORE_EFFECTS)
-    effects: any[]
+    @Inject(STORE_STATE)
+    private initialState: any,
+    @Inject(STORE_REDUCERS)
+    reducers: Reducers,
   ) {
     super();
     this.addReducers(reducers);
-    if (effects) {
-      this.addEffects(effects);
-    }
-
     // Listen to actions by connecting the state observable
     this.stateSub = this.state$.connect();
     // Init action
@@ -116,43 +124,32 @@ export class Store extends Observable<any> implements Observer<StoreState> {
 
   // The state changes when an action is dispatched by running reducers
   // The new state is then cached for further subscribers 
-  state$ = this.actions$.withLatestFrom(this.reducers$).scan<any, StoreState>((oldState, [action, reducers]) => {
-    let state = Object.assign({}, oldState);
+  state$ = this.actions$.withLatestFrom(this.reducers$).scan<any, StoreState>((currentState, [action, reducers]) => {
+    let state = Object.assign({}, currentState);
     Object.keys(reducers).forEach(key => {
-      let reducer = reducers[key];
-      state[key] = reducer(oldState[key], action) || {};
+      const reducer = reducers[key];
+      state[key] = reducer(currentState[key], action);
     });
     return state;
-  }, {}).publishReplay(1);
+  }, this.initialState).publishReplay(1);
 
   stateSub: Subscription;
 
   // The source of the store observable is also the state stream
   source: ConnectableObservable<StoreState> = this.state$;
 
-  private effectSubs: Subscription[] = [];
-
-
   dispatch(action: any) {
-    this.actions$.dispatch(action);
+    if (action) {
+      this.actions$.dispatch(action);
+    }
   }
 
   addReducers(reducers: Reducers) {
     this._reducers.next(reducers);
   }
 
-  addEffects(effectInstances: any | any[]) {
-    const eiArr: any[] = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
-    eiArr.forEach(instance => {
-      const properties = getEffectsMetadata(instance);
-      const effects$ = merge(...(properties.map(property => instance[property])));
-      const sub = effects$.subscribe(action => {
-        if (action) {
-          this.dispatch(action);
-        }
-      });
-      this.effectSubs.push(sub);
-    });
+  select<U>(path: { (value: any): U } | string, ...paths: string[]): StoreObservable<U> {
+    return select.call(this, path, ...paths);
   }
 
   next(action: any) {
@@ -164,9 +161,41 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   complete() { }
 
   ngOnDestroy() {
-    [this.stateSub, ...this.effectSubs].filter(sub => sub && !sub.closed).forEach(sub => sub.unsubscribe());
+    if (this.stateSub && !this.stateSub.closed) this.stateSub.unsubscribe();
   }
 }
+
+@Injectable()
+export class Effects implements OnDestroy {
+
+  private effectSubs: Subscription[] = [];
+
+  constructor(
+    private store: Store,
+    @Optional()
+    @Inject(STORE_EFFECTS)
+    effects: any[]
+  ) {
+    this.addEffects(effects);
+  }
+
+  addEffects(effectInstances: any | any[]) {
+    const eiArr: any[] = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
+    eiArr.forEach(instance => {
+      if (instance) {
+        const properties = getEffectsMetadata(instance);
+        const effects$ = merge(...(properties.map(property => instance[property])));
+        const sub = effects$.subscribe(this.store);
+        this.effectSubs.push(sub);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    [...this.effectSubs].filter(sub => sub && !sub.closed).forEach(sub => sub.unsubscribe());
+  }
+}
+
 
 export interface ComposeSignature {
   <A>(): (i: A) => A;
@@ -189,24 +218,25 @@ export const compose: ComposeSignature = (...functions) => {
   };
 };
 
-
-export interface SelectSignature<T> {
-  <R>(...paths: string[]): Observable<R>;
-  <R>(mapFn: (state: T) => R): Observable<R>;
-}
-
 export declare interface StoreConfig {
   reducers?: Reducers;
   effects?: Type<any>[];
+  state?: any;
 }
 
 @NgModule({
   providers: [
+    StoreActions,
     Store,
+    Effects,
+    {
+      provide: STORE_STATE,
+      useValue: {}
+    },
     {
       provide: STORE_REDUCERS,
       useValue: {}
-    },
+    }
   ]
 })
 export class StoreModule {
@@ -216,6 +246,11 @@ export class StoreModule {
       providers: [
         StoreActions,
         Store,
+        Effects,
+        {
+          provide: STORE_STATE,
+          useValue: config.state || {}
+        },
         {
           provide: STORE_REDUCERS,
           useValue: config.reducers || {}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, trigger } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, forwardRef, trigger } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CommonModule } from '@angular/common';
 import 'rxjs/add/observable/of';
@@ -8,6 +8,7 @@ import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/publishLast';
+import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 import * as Tether from 'tether';
 import { Subject } from 'rxjs/Subject';
@@ -25,7 +26,6 @@ import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/withLatestFrom';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 function __extends(d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -794,10 +794,14 @@ var VCLMetalistModule = (function () {
     return VCLMetalistModule;
 }());
 
-/**
-*/
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return DropdownComponent; }),
+    multi: true
+};
 var DropdownComponent = (function () {
     function DropdownComponent() {
+        var _this = this;
         this.select = new EventEmitter();
         this.tabindex = 0;
         this.expanded = false;
@@ -806,6 +810,10 @@ var DropdownComponent = (function () {
         this.minSelectableItems = 1;
         this.ariaRole = 'listbox';
         this.metaInformation = [];
+        this.select.subscribe(function (selectedItems) {
+            _this.selected = selectedItems;
+            !!_this.onChangeCallback && _this.onChangeCallback(selectedItems);
+        });
     }
     DropdownComponent.prototype._selectItem = function (item, meta, metalist) {
         if (this.maxSelectableItems === 1) {
@@ -827,6 +835,17 @@ var DropdownComponent = (function () {
     };
     DropdownComponent.prototype.onSelect = function (selectedItems) {
         this.select.emit(selectedItems);
+    };
+    DropdownComponent.prototype.writeValue = function (value) {
+        if (value !== this.selected) {
+            this.selected = value;
+        }
+    };
+    DropdownComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    DropdownComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
     };
     __decorate([
         ViewChild('metalist'), 
@@ -868,7 +887,8 @@ var DropdownComponent = (function () {
         Component({
             selector: 'vcl-dropdown',
             template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
         }), 
         __metadata('design:paramtypes', [])
     ], DropdownComponent);
@@ -1137,9 +1157,17 @@ var VCLButtonModule = (function () {
 }());
 
 /**
-*/
+ * see
+ * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
+ */
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$1 = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return SelectComponent; }),
+    multi: true
+};
 var SelectComponent = (function () {
     function SelectComponent() {
+        var _this = this;
         this.clickInside = false;
         this.popoverTarget = 'popoverTarget' + Math.random().toString().slice(2);
         this.select = new EventEmitter();
@@ -1150,6 +1178,10 @@ var SelectComponent = (function () {
         this.collapsedIcon = 'fa:chevron-down';
         this.inputValue = 'label';
         this.emptyLabel = 'Select value';
+        this.select.subscribe(function (selectedItems) {
+            _this.selected = selectedItems;
+            !!_this.onChangeCallback && _this.onChangeCallback(selectedItems);
+        });
     }
     SelectComponent.prototype.ngOnInit = function () {
         this.displayValue = this.emptyLabel;
@@ -1160,6 +1192,9 @@ var SelectComponent = (function () {
     SelectComponent.prototype.selectItem = function (item) {
         this.dropdown.selectItem(item);
     };
+    /**
+     * TODO refactor this
+     */
     SelectComponent.prototype.onSelect = function (items) {
         this.clickInside = true;
         this.select.emit(items);
@@ -1182,6 +1217,17 @@ var SelectComponent = (function () {
     };
     SelectComponent.prototype.onOutsideClick = function (event) {
         this.expanded = false;
+    };
+    SelectComponent.prototype.writeValue = function (value) {
+        if (value !== this.selected) {
+            this.selected = value;
+        }
+    };
+    SelectComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    SelectComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
     };
     __decorate([
         ViewChild('dropdown'), 
@@ -1227,7 +1273,8 @@ var SelectComponent = (function () {
         Component({
             selector: 'vcl-select',
             template: "<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclLayoutHorizontal vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [(expanded)]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n\n\n\n<!--<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclSelect vclInputGroupEmb\">\n\n  <div class=\"vclInput\" readonly>\n    {{displayValue}}\n  </div>\n\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare vclAppended\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>\n\n\n<div\n  [attr.id]=\"popoverTarget\"\n  (tap)=\"expand()\"\n  [attr.aria-autocomplete]=\"list\"\n  class=\"vclLayoutHorizontal vclSelect vclInputGroupEmb\">\n  <span class=\"vclInput\" readonly>{{displayValue}}</span>\n  <button vcl-button\n    tabindex=\"-1\"\n    class=\"vclTransparent vclSquare\"\n    [appIcon]=\"expanded ? expandedIcon : collapsedIcon\">\n  </button>\n</div>\n\n<vcl-popover\n  [target]=\"'#' + popoverTarget\"\n  targetAttachment='bottom left'\n  attachment='top left'\n  [(open)]=\"expanded\">\n  <vcl-dropdown #dropdown\n    [expanded]=\"expanded\"\n    [items]=\"items\"\n    (select)=\"onSelect($event)\"\n    [minSelectableItems]=\"minSelectableItems\"\n    [maxSelectableItems]=\"maxSelectableItems\"\n    [tabindex]=\"0\">\n  </vcl-dropdown>\n</vcl-popover>-->\n",
-            changeDetection: ChangeDetectionStrategy.OnPush
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$1]
         }), 
         __metadata('design:paramtypes', [])
     ], SelectComponent);
@@ -2667,26 +2714,46 @@ function getEffectsMetadata(instance) {
 
 var STORE_REDUCERS = new OpaqueToken('store.reducers');
 var STORE_EFFECTS = new OpaqueToken('store.effects');
-function select(pathOrMapFn) {
+var STORE_STATE = new OpaqueToken('store.state');
+function select(path) {
     var paths = [];
     for (var _i = 1; _i < arguments.length; _i++) {
         paths[_i - 1] = arguments[_i];
     }
-    var mapped$;
-    if (typeof pathOrMapFn === 'string') {
-        mapped$ = this.pluck.apply(this, [pathOrMapFn].concat(paths));
+    var select$;
+    if (typeof path === 'string') {
+        select$ = this.pluck.apply(this, [path].concat(paths));
     }
-    else if (typeof pathOrMapFn === 'function') {
-        mapped$ = this.map(pathOrMapFn);
+    else if (typeof path === 'function') {
+        select$ = this.map(path);
     }
     else {
-        throw new TypeError(("Unexpected type " + typeof pathOrMapFn + " in select operator,")
-            + " expected 'string' or 'function'");
+        throw new TypeError("Unexpected type " + typeof path + " in select operator");
     }
-    return mapped$.distinctUntilChanged();
+    select$ = select$.distinctUntilChanged();
+    return new StoreObservable(select$);
 }
-// tslint:disable-next-line:only-arrow-functions
-Observable.prototype.select = select;
+var StoreObservable = (function (_super) {
+    __extends(StoreObservable, _super);
+    function StoreObservable(source) {
+        _super.call(this);
+        this.source = source;
+    }
+    StoreObservable.prototype.select = function (path) {
+        var paths = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            paths[_i - 1] = arguments[_i];
+        }
+        return select.call.apply(select, [this, path].concat(paths));
+    };
+    StoreObservable.prototype.lift = function (operator) {
+        var observable = new StoreObservable(this);
+        observable.operator = operator;
+        return observable;
+    };
+    return StoreObservable;
+}(Observable));
+
 var InitAction = (function () {
     function InitAction() {
     }
@@ -2725,9 +2792,10 @@ var StoreActions = (function (_super) {
 }(Observable));
 var Store = (function (_super) {
     __extends(Store, _super);
-    function Store(actions$, reducers, effects) {
+    function Store(actions$, initialState, reducers) {
         _super.call(this);
         this.actions$ = actions$;
+        this.initialState = initialState;
         // Reducers dispatcher
         this._reducers = new BehaviorSubject({});
         // Reducers stream
@@ -2736,46 +2804,37 @@ var Store = (function (_super) {
         }, {});
         // The state changes when an action is dispatched by running reducers
         // The new state is then cached for further subscribers 
-        this.state$ = this.actions$.withLatestFrom(this.reducers$).scan(function (oldState, _a) {
+        this.state$ = this.actions$.withLatestFrom(this.reducers$).scan(function (currentState, _a) {
             var action = _a[0], reducers = _a[1];
-            var state = Object.assign({}, oldState);
+            var state = Object.assign({}, currentState);
             Object.keys(reducers).forEach(function (key) {
                 var reducer = reducers[key];
-                state[key] = reducer(oldState[key], action) || {};
+                state[key] = reducer(currentState[key], action);
             });
             return state;
-        }, {}).publishReplay(1);
+        }, this.initialState).publishReplay(1);
         // The source of the store observable is also the state stream
         this.source = this.state$;
-        this.effectSubs = [];
         this.addReducers(reducers);
-        if (effects) {
-            this.addEffects(effects);
-        }
         // Listen to actions by connecting the state observable
         this.stateSub = this.state$.connect();
         // Init action
         this.dispatch(new InitAction());
     }
     Store.prototype.dispatch = function (action) {
-        this.actions$.dispatch(action);
+        if (action) {
+            this.actions$.dispatch(action);
+        }
     };
     Store.prototype.addReducers = function (reducers) {
         this._reducers.next(reducers);
     };
-    Store.prototype.addEffects = function (effectInstances) {
-        var _this = this;
-        var eiArr = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
-        eiArr.forEach(function (instance) {
-            var properties = getEffectsMetadata(instance);
-            var effects$ = merge.apply(void 0, (properties.map(function (property) { return instance[property]; })));
-            var sub = effects$.subscribe(function (action) {
-                if (action) {
-                    _this.dispatch(action);
-                }
-            });
-            _this.effectSubs.push(sub);
-        });
+    Store.prototype.select = function (path) {
+        var paths = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            paths[_i - 1] = arguments[_i];
+        }
+        return select.call.apply(select, [this, path].concat(paths));
     };
     Store.prototype.next = function (action) {
         this.dispatch(action);
@@ -2783,17 +2842,46 @@ var Store = (function (_super) {
     Store.prototype.error = function (err) { };
     Store.prototype.complete = function () { };
     Store.prototype.ngOnDestroy = function () {
-        [this.stateSub].concat(this.effectSubs).filter(function (sub) { return sub && !sub.closed; }).forEach(function (sub) { return sub.unsubscribe(); });
+        if (this.stateSub && !this.stateSub.closed)
+            this.stateSub.unsubscribe();
     };
     Store = __decorate([
         Injectable(),
-        __param(1, Inject(STORE_REDUCERS)),
-        __param(2, Optional()),
-        __param(2, Inject(STORE_EFFECTS)), 
-        __metadata('design:paramtypes', [StoreActions, Object, Array])
+        __param(1, Inject(STORE_STATE)),
+        __param(2, Inject(STORE_REDUCERS)), 
+        __metadata('design:paramtypes', [StoreActions, Object, Object])
     ], Store);
     return Store;
 }(Observable));
+var Effects = (function () {
+    function Effects(store, effects) {
+        this.store = store;
+        this.effectSubs = [];
+        this.addEffects(effects);
+    }
+    Effects.prototype.addEffects = function (effectInstances) {
+        var _this = this;
+        var eiArr = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
+        eiArr.forEach(function (instance) {
+            if (instance) {
+                var properties = getEffectsMetadata(instance);
+                var effects$ = merge.apply(void 0, (properties.map(function (property) { return instance[property]; })));
+                var sub = effects$.subscribe(_this.store);
+                _this.effectSubs.push(sub);
+            }
+        });
+    };
+    Effects.prototype.ngOnDestroy = function () {
+        this.effectSubs.slice().filter(function (sub) { return sub && !sub.closed; }).forEach(function (sub) { return sub.unsubscribe(); });
+    };
+    Effects = __decorate([
+        Injectable(),
+        __param(1, Optional()),
+        __param(1, Inject(STORE_EFFECTS)), 
+        __metadata('design:paramtypes', [Store, Array])
+    ], Effects);
+    return Effects;
+}());
 var compose = function () {
     var functions = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -2817,6 +2905,11 @@ var StoreModule = (function () {
             providers: [
                 StoreActions,
                 Store,
+                Effects,
+                {
+                    provide: STORE_STATE,
+                    useValue: config.state || {}
+                },
                 {
                     provide: STORE_REDUCERS,
                     useValue: config.reducers || {}
@@ -2833,11 +2926,17 @@ var StoreModule = (function () {
     StoreModule = __decorate([
         NgModule({
             providers: [
+                StoreActions,
                 Store,
+                Effects,
+                {
+                    provide: STORE_STATE,
+                    useValue: {}
+                },
                 {
                     provide: STORE_REDUCERS,
                     useValue: {}
-                },
+                }
             ]
         }), 
         __metadata('design:paramtypes', [])
@@ -2994,8 +3093,14 @@ var VCLToolbarModule = (function () {
     return VCLToolbarModule;
 }());
 
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$2 = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return RadioButtonComponent; }),
+    multi: true
+};
 var RadioButtonComponent = (function () {
     function RadioButtonComponent(elementRef) {
+        var _this = this;
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:dot-circle-o';
         this.uncheckedIcon = 'fa:circle-o';
@@ -3010,6 +3115,9 @@ var RadioButtonComponent = (function () {
         Action fired when the `checked` state changes due to user interaction.
         */
         this._checkedChange = new EventEmitter();
+        this._checkedChange.subscribe(function (newVal) {
+            !!_this.onChangeCallback && _this.onChangeCallback(newVal);
+        });
     }
     Object.defineProperty(RadioButtonComponent.prototype, "checkedChange", {
         get: function () {
@@ -3075,6 +3183,17 @@ var RadioButtonComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    RadioButtonComponent.prototype.writeValue = function (value) {
+        if (value !== this.checked) {
+            this.checked = value;
+        }
+    };
+    RadioButtonComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    RadioButtonComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
     __decorate([
         Input(), 
         __metadata('design:type', Object)
@@ -3133,7 +3252,8 @@ var RadioButtonComponent = (function () {
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
-            changeDetection: ChangeDetectionStrategy.OnPush
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$2]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _b) || Object])
     ], RadioButtonComponent);
@@ -3155,15 +3275,22 @@ var VCLRadioButtonModule = (function () {
     return VCLRadioButtonModule;
 }());
 
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3 = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return CheckboxComponent; }),
+    multi: true
+};
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
+        var _this = this;
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:check-square-o';
         this.uncheckedIcon = 'fa:square-o';
         this.disabled = false;
+        this.labelPosition = 'right';
         this.tabindex = 0;
         /**
-        Refelects the checked state, `true` is checked and `false` is unchecked
+        Reflects the checked state, `true` is checked and `false` is unchecked
         @public
         */
         this.checked = false;
@@ -3171,6 +3298,9 @@ var CheckboxComponent = (function () {
         Action fired when the `checked` state changes due to user interaction.
         */
         this._checkedChange = new EventEmitter();
+        this._checkedChange.subscribe(function (newVal) {
+            !!_this.onChangeCallback && _this.onChangeCallback(newVal);
+        });
     }
     Object.defineProperty(CheckboxComponent.prototype, "checkedChange", {
         get: function () {
@@ -3236,6 +3366,17 @@ var CheckboxComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    CheckboxComponent.prototype.writeValue = function (value) {
+        if (value !== this.checked) {
+            this.checked = value;
+        }
+    };
+    CheckboxComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    CheckboxComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
     __decorate([
         Input(), 
         __metadata('design:type', Object)
@@ -3248,6 +3389,10 @@ var CheckboxComponent = (function () {
         Input(), 
         __metadata('design:type', Object)
     ], CheckboxComponent.prototype, "disabled", void 0);
+    __decorate([
+        Input('labelPosition'), 
+        __metadata('design:type', Object)
+    ], CheckboxComponent.prototype, "labelPosition", void 0);
     __decorate([
         HostBinding('attr.tabindex'),
         Input(), 
@@ -3288,12 +3433,13 @@ var CheckboxComponent = (function () {
     CheckboxComponent = __decorate([
         Component({
             selector: 'vcl-checkbox',
-            template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
+            template: "  <vcl-icon [icon]=\"icon\" *ngIf=\"labelPosition=='right'\"></vcl-icon>\n  <ng-content></ng-content>\n  <vcl-icon [icon]=\"icon\" *ngIf=\"labelPosition=='left'\"></vcl-icon>\n",
             host: {
                 '[attr.role]': '"checkbox"',
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof ElementRef !== 'undefined' && ElementRef) === 'function' && _b) || Object])
     ], CheckboxComponent);
@@ -3426,7 +3572,7 @@ var FormComponent = (function () {
     FormComponent = __decorate([
         Component({
             selector: 'vcl-form',
-            template: "<form  #form=\"ngForm\" class=\"vclForm\"\n [class.vclFormInline]=\"layout=='inline'\"\n [class.vclFormHorizontal]=\"layout=='horizontal'\"\n\n (ngSubmit)=\"ngSubmit(form)\"\n>\n  <ng-content></ng-content>\n</form>\n",
+            template: "<form  #form=\"ngForm\" class=\"vclForm\"\n [class.vclFormInline]=\"true\"\n [class.vclFormHorizontal]=\"layout=='horizontal'\">\n\n\n\n\n\n\n\n\n</form>\n",
             host: {
                 '[class.vclForm]': 'true',
             }
@@ -3442,7 +3588,7 @@ var VCLFormModule = (function () {
     VCLFormModule = __decorate([
         NgModule({
             imports: [ReactiveFormsModule, FormsModule],
-            exports: [FormComponent, FormInputControlGroup],
+            exports: [FormComponent, FormInputControlGroup, FormsModule, ReactiveFormsModule],
             declarations: [FormComponent, FormInputControlGroup]
         }), 
         __metadata('design:paramtypes', [])
@@ -3855,4 +4001,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, compose, InitAction, StoreActions, Store, StoreModule };
+export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, STORE_STATE, compose, StoreObservable, InitAction, StoreActions, Store, Effects, StoreModule };

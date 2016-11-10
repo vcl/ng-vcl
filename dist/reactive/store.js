@@ -18,26 +18,47 @@ require('rxjs/add/operator/withLatestFrom');
 var reflect_1 = require('../reflect');
 exports.STORE_REDUCERS = new core_1.OpaqueToken('store.reducers');
 exports.STORE_EFFECTS = new core_1.OpaqueToken('store.effects');
-function select(pathOrMapFn) {
+exports.STORE_STATE = new core_1.OpaqueToken('store.state');
+function select(path) {
     var paths = [];
     for (var _i = 1; _i < arguments.length; _i++) {
         paths[_i - 1] = arguments[_i];
     }
-    var mapped$;
-    if (typeof pathOrMapFn === 'string') {
-        mapped$ = this.pluck.apply(this, [pathOrMapFn].concat(paths));
+    var select$;
+    if (typeof path === 'string') {
+        select$ = this.pluck.apply(this, [path].concat(paths));
     }
-    else if (typeof pathOrMapFn === 'function') {
-        mapped$ = this.map(pathOrMapFn);
+    else if (typeof path === 'function') {
+        select$ = this.map(path);
     }
     else {
-        throw new TypeError(("Unexpected type " + typeof pathOrMapFn + " in select operator,")
-            + " expected 'string' or 'function'");
+        throw new TypeError("Unexpected type " + typeof path + " in select operator");
     }
-    return mapped$.distinctUntilChanged();
+    select$ = select$.distinctUntilChanged();
+    return new StoreObservable(select$);
 }
-// tslint:disable-next-line:only-arrow-functions
-Observable_1.Observable.prototype.select = select;
+var StoreObservable = (function (_super) {
+    __extends(StoreObservable, _super);
+    function StoreObservable(source) {
+        _super.call(this);
+        this.source = source;
+    }
+    StoreObservable.prototype.select = function (path) {
+        var paths = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            paths[_i - 1] = arguments[_i];
+        }
+        return select.call.apply(select, [this, path].concat(paths));
+    };
+    StoreObservable.prototype.lift = function (operator) {
+        var observable = new StoreObservable(this);
+        observable.operator = operator;
+        return observable;
+    };
+    return StoreObservable;
+}(Observable_1.Observable));
+exports.StoreObservable = StoreObservable;
+;
 var InitAction = (function () {
     function InitAction() {
     }
@@ -79,9 +100,10 @@ var StoreActions = (function (_super) {
 exports.StoreActions = StoreActions;
 var Store = (function (_super) {
     __extends(Store, _super);
-    function Store(actions$, reducers, effects) {
+    function Store(actions$, initialState, reducers) {
         _super.call(this);
         this.actions$ = actions$;
+        this.initialState = initialState;
         // Reducers dispatcher
         this._reducers = new BehaviorSubject_1.BehaviorSubject({});
         // Reducers stream
@@ -90,46 +112,37 @@ var Store = (function (_super) {
         }, {});
         // The state changes when an action is dispatched by running reducers
         // The new state is then cached for further subscribers 
-        this.state$ = this.actions$.withLatestFrom(this.reducers$).scan(function (oldState, _a) {
+        this.state$ = this.actions$.withLatestFrom(this.reducers$).scan(function (currentState, _a) {
             var action = _a[0], reducers = _a[1];
-            var state = Object.assign({}, oldState);
+            var state = Object.assign({}, currentState);
             Object.keys(reducers).forEach(function (key) {
                 var reducer = reducers[key];
-                state[key] = reducer(oldState[key], action) || {};
+                state[key] = reducer(currentState[key], action);
             });
             return state;
-        }, {}).publishReplay(1);
+        }, this.initialState).publishReplay(1);
         // The source of the store observable is also the state stream
         this.source = this.state$;
-        this.effectSubs = [];
         this.addReducers(reducers);
-        if (effects) {
-            this.addEffects(effects);
-        }
         // Listen to actions by connecting the state observable
         this.stateSub = this.state$.connect();
         // Init action
         this.dispatch(new InitAction());
     }
     Store.prototype.dispatch = function (action) {
-        this.actions$.dispatch(action);
+        if (action) {
+            this.actions$.dispatch(action);
+        }
     };
     Store.prototype.addReducers = function (reducers) {
         this._reducers.next(reducers);
     };
-    Store.prototype.addEffects = function (effectInstances) {
-        var _this = this;
-        var eiArr = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
-        eiArr.forEach(function (instance) {
-            var properties = reflect_1.getEffectsMetadata(instance);
-            var effects$ = merge_1.merge.apply(void 0, (properties.map(function (property) { return instance[property]; })));
-            var sub = effects$.subscribe(function (action) {
-                if (action) {
-                    _this.dispatch(action);
-                }
-            });
-            _this.effectSubs.push(sub);
-        });
+    Store.prototype.select = function (path) {
+        var paths = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            paths[_i - 1] = arguments[_i];
+        }
+        return select.call.apply(select, [this, path].concat(paths));
     };
     Store.prototype.next = function (action) {
         this.dispatch(action);
@@ -137,7 +150,8 @@ var Store = (function (_super) {
     Store.prototype.error = function (err) { };
     Store.prototype.complete = function () { };
     Store.prototype.ngOnDestroy = function () {
-        [this.stateSub].concat(this.effectSubs).filter(function (sub) { return sub && !sub.closed; }).forEach(function (sub) { return sub.unsubscribe(); });
+        if (this.stateSub && !this.stateSub.closed)
+            this.stateSub.unsubscribe();
     };
     Store.decorators = [
         { type: core_1.Injectable },
@@ -145,12 +159,44 @@ var Store = (function (_super) {
     /** @nocollapse */
     Store.ctorParameters = [
         { type: StoreActions, },
+        { type: undefined, decorators: [{ type: core_1.Inject, args: [exports.STORE_STATE,] },] },
         { type: undefined, decorators: [{ type: core_1.Inject, args: [exports.STORE_REDUCERS,] },] },
-        { type: Array, decorators: [{ type: core_1.Optional }, { type: core_1.Inject, args: [exports.STORE_EFFECTS,] },] },
     ];
     return Store;
 }(Observable_1.Observable));
 exports.Store = Store;
+var Effects = (function () {
+    function Effects(store, effects) {
+        this.store = store;
+        this.effectSubs = [];
+        this.addEffects(effects);
+    }
+    Effects.prototype.addEffects = function (effectInstances) {
+        var _this = this;
+        var eiArr = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
+        eiArr.forEach(function (instance) {
+            if (instance) {
+                var properties = reflect_1.getEffectsMetadata(instance);
+                var effects$ = merge_1.merge.apply(void 0, (properties.map(function (property) { return instance[property]; })));
+                var sub = effects$.subscribe(_this.store);
+                _this.effectSubs.push(sub);
+            }
+        });
+    };
+    Effects.prototype.ngOnDestroy = function () {
+        this.effectSubs.slice().filter(function (sub) { return sub && !sub.closed; }).forEach(function (sub) { return sub.unsubscribe(); });
+    };
+    Effects.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    Effects.ctorParameters = [
+        { type: Store, },
+        { type: Array, decorators: [{ type: core_1.Optional }, { type: core_1.Inject, args: [exports.STORE_EFFECTS,] },] },
+    ];
+    return Effects;
+}());
+exports.Effects = Effects;
 exports.compose = function () {
     var functions = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -174,6 +220,11 @@ var StoreModule = (function () {
             providers: [
                 StoreActions,
                 Store,
+                Effects,
+                {
+                    provide: exports.STORE_STATE,
+                    useValue: config.state || {}
+                },
                 {
                     provide: exports.STORE_REDUCERS,
                     useValue: config.reducers || {}
@@ -190,11 +241,17 @@ var StoreModule = (function () {
     StoreModule.decorators = [
         { type: core_1.NgModule, args: [{
                     providers: [
+                        StoreActions,
                         Store,
+                        Effects,
+                        {
+                            provide: exports.STORE_STATE,
+                            useValue: {}
+                        },
                         {
                             provide: exports.STORE_REDUCERS,
                             useValue: {}
-                        },
+                        }
                     ]
                 },] },
     ];

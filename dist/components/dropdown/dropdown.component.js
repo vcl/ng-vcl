@@ -1,9 +1,14 @@
 "use strict";
 var core_1 = require('@angular/core');
-/**
-*/
+var forms_1 = require('@angular/forms');
+exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+    provide: forms_1.NG_VALUE_ACCESSOR,
+    useExisting: core_1.forwardRef(function () { return DropdownComponent; }),
+    multi: true
+};
 var DropdownComponent = (function () {
     function DropdownComponent() {
+        var _this = this;
         this.select = new core_1.EventEmitter();
         this.tabindex = 0;
         this.expanded = false;
@@ -12,6 +17,10 @@ var DropdownComponent = (function () {
         this.minSelectableItems = 1;
         this.ariaRole = 'listbox';
         this.metaInformation = [];
+        this.select.subscribe(function (selectedItems) {
+            _this.selected = selectedItems;
+            !!_this.onChangeCallback && _this.onChangeCallback(selectedItems);
+        });
     }
     DropdownComponent.prototype._selectItem = function (item, meta, metalist) {
         if (this.maxSelectableItems === 1) {
@@ -34,11 +43,23 @@ var DropdownComponent = (function () {
     DropdownComponent.prototype.onSelect = function (selectedItems) {
         this.select.emit(selectedItems);
     };
+    DropdownComponent.prototype.writeValue = function (value) {
+        if (value !== this.selected) {
+            this.selected = value;
+        }
+    };
+    DropdownComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    DropdownComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
     DropdownComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-dropdown',
                     templateUrl: 'dropdown.component.html',
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
+                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                    providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
                 },] },
     ];
     /** @nocollapse */
