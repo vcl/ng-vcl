@@ -2,9 +2,17 @@ import { Component,
   Input, Output, OnInit,
   HostBinding, HostListener,
   OnChanges, SimpleChanges, EventEmitter,
-  ElementRef, ContentChildren
+  ElementRef, forwardRef
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => CheckboxComponent),
+  multi: true
+};
 
 @Component({
   selector: 'vcl-checkbox',
@@ -13,10 +21,11 @@ import { Observable } from 'rxjs/Observable';
     '[attr.role]': '"checkbox"',
     '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
-  }
+  },
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent implements OnInit, OnChanges {
+export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   @Input()
   checkedIcon = 'fa:check-square-o';
@@ -52,6 +61,9 @@ export class CheckboxComponent implements OnInit, OnChanges {
   };
 
   constructor(private elementRef: ElementRef) {
+    this._checkedChange.subscribe(newVal => {
+      !!this.onChangeCallback && this.onChangeCallback(newVal);
+    });
   }
 
   ngOnInit() { }
@@ -106,5 +118,23 @@ export class CheckboxComponent implements OnInit, OnChanges {
 
   get icon() {
     return this.checked ? this.checkedIcon : this.uncheckedIcon;
+  }
+
+
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: any) => void;
+  writeValue(value: any): void {
+    if (value !== this.checked) {
+      this.checked = value;
+    }
+  }
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
   }
 }

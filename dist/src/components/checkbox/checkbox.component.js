@@ -10,8 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
+var forms_1 = require("@angular/forms");
+exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+    provide: forms_1.NG_VALUE_ACCESSOR,
+    useExisting: core_1.forwardRef(function () { return CheckboxComponent; }),
+    multi: true
+};
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
+        var _this = this;
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:check-square-o';
         this.uncheckedIcon = 'fa:square-o';
@@ -20,6 +27,9 @@ var CheckboxComponent = (function () {
         this.tabindex = 0;
         this.checked = false;
         this._checkedChange = new core_1.EventEmitter();
+        this._checkedChange.subscribe(function (newVal) {
+            !!_this.onChangeCallback && _this.onChangeCallback(newVal);
+        });
     }
     Object.defineProperty(CheckboxComponent.prototype, "checkedChange", {
         get: function () {
@@ -84,6 +94,17 @@ var CheckboxComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    CheckboxComponent.prototype.writeValue = function (value) {
+        if (value !== this.checked) {
+            this.checked = value;
+        }
+    };
+    CheckboxComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    CheckboxComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
     return CheckboxComponent;
 }());
 __decorate([
@@ -151,7 +172,8 @@ CheckboxComponent = __decorate([
             '[attr.role]': '"checkbox"',
             '[class.vclCheckbox]': 'true',
             '[class.vclScale130p]': 'true',
-        }
+        },
+        providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
     }),
     __metadata("design:paramtypes", [core_1.ElementRef])
 ], CheckboxComponent);
