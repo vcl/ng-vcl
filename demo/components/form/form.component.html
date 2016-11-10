@@ -35,9 +35,27 @@
 <h1>Module-based</h1>
 <form class="vclForm" novalidate [formGroup]="form">
 
+
+  <vcl-select formControlName="itemselect" [items]="items"></vcl-select>
+
+  <br/><br/> Radio: <br/>
+  <vcl-radio-button formControlName="myradio"></vcl-radio-button>
+
+  <br/><br/> Dropdown: <br/>
+  <vcl-dropdown [items]="items" [maxSelectableItems]="1" [expanded]="true" formControlName="mydropdown"></vcl-dropdown>
+
+
+  <br/><br/> Checkbox: <br/>
+  <vcl-checkbox [checked]="false" formControlName="mycheckbox"></vcl-checkbox>
+
+
   <br/>
   <br/> Input me:
   <input type="text" formControlName="myname">
+
+  <br/>
+  <br/> Input me (must be equal):
+  <input type="text" formControlName="myname2">
 
 </form>
 

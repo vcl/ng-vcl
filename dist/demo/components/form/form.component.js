@@ -10,6 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+function equalInputMatcher(c) {
+    return c.get('myname').value === c.get('myname2').value
+        ? null : { notequal: true };
+}
 var FormComponent = (function () {
     function FormComponent(fb) {
         this.fb = fb;
@@ -19,7 +23,14 @@ var FormComponent = (function () {
             { label: 'item 3' }
         ];
         this.form = this.fb.group({
-            myname: ['', forms_1.Validators.required]
+            myname: ['', forms_1.Validators.required],
+            myname2: ['', forms_1.Validators.required],
+            itemselect: [''],
+            myradio: [''],
+            mydropdown: [''],
+            mycheckbox: ['', forms_1.Validators.required]
+        }, {
+            validator: equalInputMatcher
         });
         this.form.patchValue({
             myname: 'Steven'
