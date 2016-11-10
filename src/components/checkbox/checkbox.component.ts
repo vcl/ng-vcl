@@ -23,7 +23,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclScale130p]': 'true',
   },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccessor {
 
