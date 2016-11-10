@@ -1,14 +1,22 @@
 "use strict";
 var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
+exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+    provide: forms_1.NG_VALUE_ACCESSOR,
+    useExisting: core_1.forwardRef(function () { return CheckboxComponent; }),
+    multi: true
+};
 var CheckboxComponent = (function () {
     function CheckboxComponent(elementRef) {
+        var _this = this;
         this.elementRef = elementRef;
         this.checkedIcon = 'fa:check-square-o';
         this.uncheckedIcon = 'fa:square-o';
         this.disabled = false;
+        this.labelPosition = 'right';
         this.tabindex = 0;
         /**
-        Refelects the checked state, `true` is checked and `false` is unchecked
+        Reflects the checked state, `true` is checked and `false` is unchecked
         @public
         */
         this.checked = false;
@@ -16,6 +24,9 @@ var CheckboxComponent = (function () {
         Action fired when the `checked` state changes due to user interaction.
         */
         this._checkedChange = new core_1.EventEmitter();
+        this._checkedChange.subscribe(function (newVal) {
+            !!_this.onChangeCallback && _this.onChangeCallback(newVal);
+        });
     }
     Object.defineProperty(CheckboxComponent.prototype, "checkedChange", {
         get: function () {
@@ -81,15 +92,27 @@ var CheckboxComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    CheckboxComponent.prototype.writeValue = function (value) {
+        if (value !== this.checked) {
+            this.checked = value;
+        }
+    };
+    CheckboxComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    CheckboxComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
     CheckboxComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-checkbox',
-                    template: "<vcl-icon [icon]=\"icon\"></vcl-icon><ng-content></ng-content>",
+                    templateUrl: 'checkbox.component.html',
                     host: {
                         '[attr.role]': '"checkbox"',
                         '[class.vclCheckbox]': 'true',
                         '[class.vclScale130p]': 'true',
                     },
+                    providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
                 },] },
     ];
     /** @nocollapse */
@@ -100,6 +123,7 @@ var CheckboxComponent = (function () {
         'checkedIcon': [{ type: core_1.Input },],
         'uncheckedIcon': [{ type: core_1.Input },],
         'disabled': [{ type: core_1.Input },],
+        'labelPosition': [{ type: core_1.Input, args: ['labelPosition',] },],
         'tabindex': [{ type: core_1.HostBinding, args: ['attr.tabindex',] }, { type: core_1.Input },],
         'checked': [{ type: core_1.Input },],
         'checkedChange': [{ type: core_1.Output },],
