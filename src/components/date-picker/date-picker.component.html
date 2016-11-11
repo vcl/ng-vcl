@@ -1,7 +1,6 @@
 <div class="vclDatePicker">
   <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput">
 
-
     <div class="vclDGRow">
       <div class="vclDGCell">
         <div class="vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter">
@@ -24,40 +23,28 @@
 
     <div class="vclSeparator"></div>
 
-
     <div class="vclDGRow">
-
       <div *ngIf="displayWeekNumbers" class="vclDGCell timeFragment vclCalItem vclOtherMonth">
         week
       </div>
-
-
       <div *ngFor="let day of viewDate.getWeekDays()" class="vclDGCell vclWeekdayLabel">
         {{day}}
       </div>
     </div>
 
-
-
-
     <div class="vclDGRow" *ngFor="let week of viewDate.getMonthBlock()">
-
       <div *ngIf="displayWeekNumbers && week.length==7" class="vclDGCell">
         {{week[5].getWeekNumber()}}
       </div>
-
-
-      <div *ngFor="let day of week" class="vclDGCell timeFragment vclCalItem" [class.vclDisabled]="!viewDate.isSameMonthAndYear(day)" [class.vclSelected]="pickedDate.isSameDay(day)"
+      <div *ngFor="let day of week" class="vclDGCell timeFragment vclCalItem"
+       [class.vclDisabled]="!viewDate.isSameMonthAndYear(day)"
+       [class.vclSelected]="isMarked(day)"
        (click)="viewDate.isSameMonthAndYear(day) && select(day)"
        [class.vclToday]="highlightSelected && day.isToday()"
-       [class.vclOtherMonth]="!day.isSameMonthAndYear()"
-      >
+       [class.vclOtherMonth]="!day.isSameMonthAndYear()">
         {{day.date.getDate()}}
       </div>
     </div>
-
-
-
 
     <div class="vclDGRow">
       <div class="vclDGCell">
@@ -75,7 +62,6 @@
         </div>
       </div>
     </div>
-
 
   </div>
 </div>

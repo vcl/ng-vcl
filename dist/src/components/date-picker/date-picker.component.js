@@ -18,20 +18,43 @@ var DatePickerComponent = (function () {
         this.highlightSelected = true;
         this.displayWeekNumbers = true;
         this.closeOnSelect = false;
-        this.selectRange = false;
         this.selectedDate = new Date();
+        this.selectRange = true;
         this.pickedDate = PickDate_1.PickDateCreate(this.selectedDate);
-        this.isDateRangeEnd = PickDate_1.PickDateCreate(this.selectedRangeEnd);
+        this.pickedRangeEnd = this.selectedRangeEnd ? PickDate_1.PickDateCreate(this.selectedRangeEnd) : null;
         this.viewDate = PickDate_1.PickDateCreate();
     }
+    DatePickerComponent.prototype.select = function (date) {
+        if (!this.selectRange) {
+            this.pickedDate = date;
+            return;
+        }
+        if (this.pickedDate && this.pickedRangeEnd) {
+            this.pickedDate = null;
+            this.pickedRangeEnd = null;
+        }
+        else if (this.pickedDate && !this.pickedRangeEnd) {
+            this.pickedRangeEnd = date;
+        }
+        else if (!this.pickedDate) {
+            this.pickedDate = date;
+        }
+        if (this.pickedRangeEnd &&
+            this.pickedDate &&
+            this.pickedRangeEnd.date < this.pickedDate.date) {
+            this.pickedRangeEnd.date = [this.pickedDate.date, this.pickedDate.date = this.pickedRangeEnd.date][0];
+        }
+    };
+    DatePickerComponent.prototype.isMarked = function (date) {
+        if (!this.selectRange && this.pickedDate.isSameDay(date))
+            return true;
+        return date.inRange(this.pickedDate, this.pickedRangeEnd);
+    };
     DatePickerComponent.prototype.nextMonth = function () {
         this.viewDate = this.viewDate.incrementMonths(1);
     };
     DatePickerComponent.prototype.prevMonth = function () {
         this.viewDate = this.viewDate.incrementMonths(-1);
-    };
-    DatePickerComponent.prototype.select = function (date) {
-        this.pickedDate = date;
     };
     DatePickerComponent.prototype.gotoToday = function () {
         this.viewDate = PickDate_1.PickDateCreate();
@@ -68,13 +91,13 @@ __decorate([
     __metadata("design:type", Boolean)
 ], DatePickerComponent.prototype, "closeOnSelect", void 0);
 __decorate([
-    core_1.Input('selectRange'),
-    __metadata("design:type", Boolean)
-], DatePickerComponent.prototype, "selectRange", void 0);
-__decorate([
     core_1.Input('selectedTime'),
     __metadata("design:type", Date)
 ], DatePickerComponent.prototype, "selectedDate", void 0);
+__decorate([
+    core_1.Input('selectRange'),
+    __metadata("design:type", Boolean)
+], DatePickerComponent.prototype, "selectRange", void 0);
 __decorate([
     core_1.Input('selectedRangeEnd'),
     __metadata("design:type", Date)

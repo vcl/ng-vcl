@@ -185,6 +185,20 @@ export class PickDate {
     return weekNo;
   }
 
+
+  /**
+   * returns true if this is between the given dates
+   */
+  inRange(from: PickDate, to: PickDate): boolean {
+    try {
+      if (this.isSameDay(from) || this.isSameDay(to)) return true;
+    } catch (e) { }
+
+    if (!from || !to) return false;
+
+    return this.date >= from.date && this.date <= to.date;
+  }
+
   dir() { console.dir(this.date); return ''; };
 }
 

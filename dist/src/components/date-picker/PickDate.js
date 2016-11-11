@@ -89,6 +89,16 @@ var PickDate = (function () {
         var weekNo = Math.ceil((((d.valueOf() - yearStart.valueOf()) / 86400000) + 1) / 7);
         return weekNo;
     };
+    PickDate.prototype.inRange = function (from, to) {
+        try {
+            if (this.isSameDay(from) || this.isSameDay(to))
+                return true;
+        }
+        catch (e) { }
+        if (!from || !to)
+            return false;
+        return this.date >= from.date && this.date <= to.date;
+    };
     PickDate.prototype.dir = function () { console.dir(this.date); return ''; };
     ;
     return PickDate;

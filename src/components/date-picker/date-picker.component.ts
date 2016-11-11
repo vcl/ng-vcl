@@ -22,38 +22,68 @@ export class DatePickerComponent implements OnInit {
   @Input('highlightSelected') highlightSelected: boolean = true;
   @Input('displayWeekNumbers') displayWeekNumbers: boolean = true;
   @Input('closeOnSelect') closeOnSelect: boolean = false;
-  @Input('selectRange') selectRange: boolean = false;
 
   @Input('selectedTime') selectedDate: Date = new Date();
+
+  @Input('selectRange') selectRange: boolean = true;
   @Input('selectedRangeEnd') selectedRangeEnd: Date; // if selectRange==true, this will be used
 
-
-
-
   pickedDate: PickDate = PickDateCreate(this.selectedDate);
-
-  isDateRangeEnd: PickDate = PickDateCreate(this.selectedRangeEnd);
+  pickedRangeEnd: PickDate = this.selectedRangeEnd ? PickDateCreate(this.selectedRangeEnd) : null;
 
 
   viewDate: PickDate = PickDateCreate();
+
 
   constructor() {
   }
 
 
-  nextMonth() {
-    this.viewDate = this.viewDate.incrementMonths(1);
-  }
 
-  prevMonth() {
-    this.viewDate = this.viewDate.incrementMonths(-1);
-  }
 
 
   select(date: PickDate) {
-    this.pickedDate = date;
+    if (!this.selectRange) {
+      this.pickedDate = date;
+      return;
+    }
+
+    if (this.pickedDate && this.pickedRangeEnd) {
+      // reset all
+      this.pickedDate = null;
+      this.pickedRangeEnd = null;
+    } else if (this.pickedDate && !this.pickedRangeEnd) {
+      this.pickedRangeEnd = date;
+    } else if (!this.pickedDate) {
+      this.pickedDate = date;
+    }
+
+    if (
+      this.pickedRangeEnd &&
+      this.pickedDate &&
+      this.pickedRangeEnd.date < this.pickedDate.date
+    ) {
+      this.pickedRangeEnd.date = [this.pickedDate.date, this.pickedDate.date = this.pickedRangeEnd.date][0]; // swap values
+    }
+
   }
 
+
+
+  isMarked(date: PickDate) {
+    if (!this.selectRange && this.pickedDate.isSameDay(date)) return true;
+
+    return date.inRange(this.pickedDate, this.pickedRangeEnd);
+  }
+
+
+
+  nextMonth() {
+    this.viewDate = this.viewDate.incrementMonths(1);
+  }
+  prevMonth() {
+    this.viewDate = this.viewDate.incrementMonths(-1);
+  }
   gotoToday() {
     this.viewDate = PickDateCreate();
   }
