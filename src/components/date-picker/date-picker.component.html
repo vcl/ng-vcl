@@ -5,7 +5,7 @@
     <div class="vclDGRow">
       <div class="vclDGCell">
         <div class="vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter">
-          <button class="vclTransparent vclSquare ember-view vclButton">
+          <button class="vclTransparent vclSquare  vclButton" (click)="prevMonth()">
               <div class="vclIcogram">
                 <span class="vclIcon fa fa-angle-left"></span>
               </div>
@@ -13,7 +13,7 @@
           <span class="vclCalHeaderLabel">
               {{viewDate.getMonthString()}}&nbsp;&nbsp;{{viewDate.getYearString()}}
             </span>
-          <button type="button" class="vclTransparent vclSquare vclButton">
+          <button class="vclTransparent vclSquare vclButton" (click)="nextMonth()">
                <div class="vclIcogram">
                   <span class="vclIcon fa fa-angle-right"></span>
                 </div>
@@ -25,82 +25,57 @@
     <div class="vclSeparator"></div>
 
 
+    <div class="vclDGRow">
 
-    <div class="vclDGRow" *ngFor="let week of viewDate.getMonthBlock()" role="row">
+      <div *ngIf="displayWeekNumbers" class="vclDGCell timeFragment vclCalItem vclOtherMonth">
+        week
+      </div>
 
 
-      <div *ngFor="let day of week" role="option" class="vclDGCell timeFragment vclCalItem
-               vclOtherMonth
-               vclOtherMonth" id="2016-10-31" [class.vclDisabled]="!viewDate.isSameMonthAndYear(day)" [class.vclSelected]="viewDate.isSameDay(day)">
+      <div *ngFor="let day of viewDate.getWeekDays()" class="vclDGCell vclWeekdayLabel">
+        {{day}}
+      </div>
+    </div>
+
+
+
+
+    <div class="vclDGRow" *ngFor="let week of viewDate.getMonthBlock()">
+
+      <div *ngIf="displayWeekNumbers && week.length==7" class="vclDGCell">
+        {{week[5].getWeekNumber()}}
+      </div>
+
+
+      <div *ngFor="let day of week" class="vclDGCell timeFragment vclCalItem" [class.vclDisabled]="!viewDate.isSameMonthAndYear(day)" [class.vclSelected]="pickedDate.isSameDay(day)"
+       (click)="viewDate.isSameMonthAndYear(day) && select(day)"
+       [class.vclToday]="highlightSelected && day.isToday()"
+       [class.vclOtherMonth]="!day.isSameMonthAndYear()"
+      >
         {{day.date.getDate()}}
       </div>
     </div>
 
 
 
-  </div>
-</div>
-
-
-<!-- <div class="vclDatePicker"
-    [class.vclLayoutHidden]="!expanded">
-  <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput"
-    [attr.role]="grid"
-    [attr.tabindex]="tabindex"
-    [attr.aria-multiselectable]="maxSelectableItems > 1"
-    [attr.aria-expanded]="expanded">
 
     <div class="vclDGRow">
-      <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
-        <button vcl-button class="vclButton vclTransparent vclSquare"
-          [class.vclDisabled]="!prevYearAvailable"
-          [appIcon]="prevYearBtnIcon"
-          (tap)="onPrevYearTap()">
-        </button>
-
-        <span class="vclCalHeaderLabel">{{ currentYear }}</span>
-
-        <button vcl-button class="vclButton vclTransparent vclSquare"
-          [class.vclDisabled]="!nextYearAvailable"
-          [appIcon]="nextYearBtnIcon"
-          (tap)="onNextYearTap()">
-        </button>
-
-        <button vcl-button *ngIf="expandable" class="vclButton vclTransparent vclSquare"
-          [appIcon]="closeBtnIcon"
-          (tap)="onCloseBtnTap()">
-        </button>
+      <div class="vclDGCell">
+        <div class="vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified">
+          <button title="go to today" class="vclTransparent vclLayoutFlex vclButton" *ngIf="displayJumpToday" (click)="gotoToday()">
+             <div class=" vclIcogram">
+               <span class="vclText ">go to today</span>
+             </div>
+           </button>
+           <button title="go to selected" class="vclTransparent vclLayoutFlex vclButton" *ngIf="displayJumpSelected" (click)="gotoSelected()">
+              <div class=" vclIcogram">
+                <span class="vclText ">go to selected</span>
+              </div>
+            </button>
+        </div>
       </div>
     </div>
 
-    <div class="vclSeparator"></div>
 
-    <template ngFor let-iM [ngForOf]="dates" let-i="index">
-      <div *ngIf="i % datesPerRow === 0" class="vclDGRow" role="row">
-        <div *ngFor="let jM of dates.slice(i, (i + datesPerRow > dates.length ? dates.length : i + datesPerRow)); let j = index;"
-          (tap)="selectDate(i+j)"
-          class="vclDGCell vclCalItem"
-          [class.vclAvailable]="!useAvailableDates || currentMeta[i+j].available"
-          [class.vclUnavailable]="useAvailableDates && !currentMeta[i+j].available"
-          [class.vclToday]="isCurrentDate(i+j)"
-          [class.vclOtherDate]="!isCurrentDate(i+j)"
-          [class.vclDisabled]="useAvailableDates && !currentMeta[i+j].available"
-          [class.vclSelected]="currentMeta[i+j].selected"
-          [style.background-color]="currentMeta[i+j].color"
-          [style.order]="i+j"
-          [attr.aria-selected]="currentMeta[i+j].selected"
-          role="gridcell"
-          tabindex="0">
-            <div *ngIf="jM.label" class="vclLayoutHorizontal vclLayoutCenterJustified vclDatePickerListItemLabel">
-              {{jM.label | loc}}
-            </div>
-
-            <div *ngIf="jM.sublabel" class="vclLayoutHorizontal vclLayoutCenterJustified vclDatePickerListItemSublabel">
-              {{jM.sublabel | loc}}
-            </div>
-        </div>
-      </div>
-    </template>
   </div>
 </div>
- -->

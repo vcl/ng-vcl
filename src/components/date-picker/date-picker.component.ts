@@ -6,144 +6,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 
-
-
-
-/**
- * this is a helper-class so that the Date-logic
- * is not mashed with the components logic
- */
-class PickDate {
-
-
-  date: Date;
-
-  constructor(date: Date = new Date()) {
-    this.date = date;
-  }
-
-  getMonthString(): string {
-    const monthNr = this.date.getMonth();
-    return [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ][monthNr];
-  }
-
-  getYearString(): string {
-    return this.date.getFullYear().toString();
-  }
-
-
-  /**
-   * gets the first day of the month for the given date's month.
-   */
-  getFirstDateOfMonth(date: Date): Date {
-    return new Date(
-      date.getFullYear(), date.getMonth(), 1,
-      date.getHours(), date.getMinutes(), date.getSeconds()
-    );
-  }
-
-
-  addDays(date: Date, amount = 1): Date {
-    return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
-  }
-
-  /**
-    * Gets the number of days in the month for the given date's month
-    */
-  getNumberOfDaysInMonth(date: Date): number {
-    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-  }
-
-
-  getLastDateOfMonth(date: Date): Date {
-    const dayNr = this.getNumberOfDaysInMonth(date);
-    return new Date(
-      date.getFullYear(), date.getMonth(), dayNr,
-      date.getHours(), date.getMinutes(), date.getSeconds()
-    );
-  }
-
-  /**
-    * Gets whether two dates have the same month and year
-    */
-  isSameMonthAndYear(date: PickDate): boolean {
-    return this.date.getFullYear() === date.date.getFullYear() && this.date.getMonth() === date.date.getMonth();
-  }
-
-  /**
-   * Gets whether two dates are the same day (not not necesarily the same time)
-   */
-  isSameDay(date: PickDate): boolean {
-    return this.date.getDate() == date.date.getDate() && this.isSameMonthAndYear(date);
-  }
-
-  /**
-   * returns a set of days which are in the given month or
-   * are in the same weekNumber as a day in the given month
-   */
-  getMonthBlock(): PickDate[][] {
-
-    let ret = [];
-
-
-    const firstDayOfMonth = this.getFirstDateOfMonth(this.date);
-    const lastDayOfMonth = this.getLastDateOfMonth(this.date);
-    const daysOfMonth = this.getNumberOfDaysInMonth(this.date);
-
-    // all days of this month
-    for (let i = 0; i < daysOfMonth; i++) {
-      ret.push(this.addDays(firstDayOfMonth, i));
-    }
-
-    // days of prev month but in same week
-    let weekDay = firstDayOfMonth.getDay();
-    let minus = 0;
-    while (weekDay > 1) {
-      minus--;
-      ret.unshift(this.addDays(firstDayOfMonth, minus));
-      weekDay--;
-    }
-
-    // days of next month but in same week
-    let addDays = 7 - lastDayOfMonth.getDay();
-    let plus = 0;
-    while (addDays > 0) {
-      plus++;
-      ret.push(this.addDays(lastDayOfMonth, plus));
-      addDays--;
-    }
-
-    ret = ret.map(date => new PickDate(date));
-    const blocks = [];
-
-    // split in weeks
-    let temparray, chunk = 7;
-    for (let i = 0, j = ret.length; i < j; i += chunk) {
-      temparray = ret.slice(i, i + chunk);
-      blocks.push(temparray);
-    }
-    return blocks;
-  }
-
-
-}
-
-
-
-
+import {PickDate, PickDateCreate} from './PickDate';
 
 
 @Component({
@@ -151,33 +14,51 @@ class PickDate {
   templateUrl: 'date-picker.component.html'
 })
 export class DatePickerComponent implements OnInit {
-  dates: any[];
-  yearMeta: any = {};
-  currentMeta: any[];
-  availableColors: boolean[];
 
 
-
-  @Input('displayJumpToday') displayJumpToday: boolean = false;
-  @Input('displayJumpSelected') displayJumpSelected: boolean = false;
+  @Input('displayJumpToday') displayJumpToday: boolean = true;
+  @Input('displayJumpSelected') displayJumpSelected: boolean = true;
   @Input('highlightToday') highlightToday: boolean = true;
-  @Input('displayWeekNumbers') displayWeekNumbers: boolean = false;
+  @Input('highlightSelected') highlightSelected: boolean = true;
+  @Input('displayWeekNumbers') displayWeekNumbers: boolean = true;
   @Input('closeOnSelect') closeOnSelect: boolean = false;
   @Input('selectRange') selectRange: boolean = false;
 
-
-  @Input('selectedTime') selectedTime: Date = new Date();
+  @Input('selectedTime') selectedDate: Date = new Date();
   @Input('selectedRangeEnd') selectedRangeEnd: Date; // if selectRange==true, this will be used
 
 
 
-  isDate: PickDate = new PickDate(this.selectedTime);
-  isDateRangeEnd: PickDate = new PickDate(this.selectedRangeEnd);
+
+  pickedDate: PickDate = PickDateCreate(this.selectedDate);
+
+  isDateRangeEnd: PickDate = PickDateCreate(this.selectedRangeEnd);
 
 
-  viewDate: PickDate = new PickDate();
+  viewDate: PickDate = PickDateCreate();
 
   constructor() {
+  }
+
+
+  nextMonth() {
+    this.viewDate = this.viewDate.incrementMonths(1);
+  }
+
+  prevMonth() {
+    this.viewDate = this.viewDate.incrementMonths(-1);
+  }
+
+
+  select(date: PickDate) {
+    this.pickedDate = date;
+  }
+
+  gotoToday() {
+    this.viewDate = PickDateCreate();
+  }
+  gotoSelected() {
+    this.viewDate = this.pickedDate;
   }
 
 
