@@ -25,6 +25,7 @@ import WORMHOLE_DEMO from './components/wormhole/wormhole.demo';
 import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 import MONTH_PICKER_DEMO from './components/month-picker/month-picker.demo';
 import MONTH_SELECTOR_DEMO from './components/month-selector/month-selector.demo';
+import DATE_PICKER_DEMO from './components/date-picker/date-picker.demo';
 import L10N_DEMO from './components/l10n/l10n.demo';
 
 interface Demo {
@@ -62,6 +63,7 @@ export const DEMOS: Demo[] = [
   OFF_CLICK_DEMO,
   MONTH_PICKER_DEMO,
   MONTH_SELECTOR_DEMO,
+  DATE_PICKER_DEMO,
   L10N_DEMO,
 ];
 
