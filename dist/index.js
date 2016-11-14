@@ -26,6 +26,7 @@ var form_control_label_module_1 = require('./components/form-control-label/form-
 var form_module_1 = require('./components/form/form.module');
 var wormhole_module_1 = require('./directives/wormhole/wormhole.module');
 var month_picker_module_1 = require('./components/month-picker/month-picker.module');
+var date_picker_module_1 = require('./components/date-picker/date-picker.module');
 __export(require('./reflect'));
 __export(require('./components/icon/icon.module'));
 __export(require('./components/icogram/icogram.module'));
@@ -42,6 +43,7 @@ __export(require('./components/popover/popover.module'));
 __export(require('./components/radio-button/radio-button.module'));
 __export(require('./components/checkbox/checkbox.module'));
 __export(require('./components/month-picker/month-picker.module'));
+__export(require('./components/date-picker/date-picker.module'));
 __export(require('./directives/off-click/off-click.module'));
 __export(require('./directives/wormhole/wormhole.module'));
 __export(require('./l10n/l10n.module'));
@@ -75,7 +77,8 @@ var VCLModule = (function () {
                         dropdown_module_1.VCLDropdownModule,
                         select_module_1.VCLSelectModule,
                         off_click_module_1.VCLOffClickModule,
-                        month_picker_module_1.VCLMonthPickerModule
+                        month_picker_module_1.VCLMonthPickerModule,
+                        date_picker_module_1.VCLDatePickerModule
                     ],
                     exports: [
                         wormhole_module_1.VCLWormholeModule,
@@ -100,7 +103,8 @@ var VCLModule = (function () {
                         dropdown_module_1.VCLDropdownModule,
                         select_module_1.VCLSelectModule,
                         off_click_module_1.VCLOffClickModule,
-                        month_picker_module_1.VCLMonthPickerModule
+                        month_picker_module_1.VCLMonthPickerModule,
+                        date_picker_module_1.VCLDatePickerModule
                     ],
                     providers: [
                         overlayManager_service_1.OverlayManagerService

@@ -30,9 +30,7 @@ export class MonthPickerComponent implements OnInit {
       this.maxSelectableItems = this.colors && this.colors.length || 1;
     }
 
-    if (this.colors) {
-      this.availableColors = this.colors.map(color => true);
-    }
+    this.availableColors = this.colors ? this.colors.map(color => true) : [];
 
     this.setYearMeta(this.currentYear);
   }
@@ -193,7 +191,7 @@ export class MonthPickerComponent implements OnInit {
 
   private getMonthBackgroundColor(): string {
     const index: number = this.availableColors.findIndex(available => available);
-    if (index !== undefined) {
+    if (index !== -1) {
       this.availableColors[index] = false;
       return this.colors[index];
     }
