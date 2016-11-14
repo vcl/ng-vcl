@@ -19,7 +19,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'vcl-date-picker',
-  templateUrl: 'date-picker.component.html'
+  templateUrl: 'date-picker.component.html',
+  styles: [`.hidden{display:none;}`]
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
@@ -32,6 +33,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   @Input('highlightToday') highlightToday: boolean = true;
   @Input('highlightSelected') highlightSelected: boolean = true;
   @Input('displayWeekNumbers') displayWeekNumbers: boolean = true;
+  @Input('displayWeekdays') displayWeekdays: boolean = true;
   @Input('prevYearBtnIcon') prevYearBtnIcon: string = "fa:chevron-left";
   @Input('nextYearBtnIcon') nextYearBtnIcon: string = "fa:chevron-right";
   @Input('displayJumpToday') displayJumpToday: boolean = true;
@@ -194,39 +196,6 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
   /*
 
-  private setYearMeta(year: number): void {
-    if (!this.yearMeta[year]) {
-      this.yearMeta[year] = this.createYearMeta(year);
-    }
-    this.currentMeta = this.yearMeta[year];
-  }
-
-  private createYearMeta(year: number): any[] {
-    return this.dates.map(dateMeta => new Object());
-  }
-
-  @Input()
-  prevYearBtnIcon: string = "fa:chevron-left";
-
-  @Input()
-  nextYearBtnIcon: string = "fa:chevron-right";
-
-  @Input()
-  closeBtnIcon: string = "fa:times";
-
-  @Input()
-  datesPerRow: number = 3;
-
-  @Input()
-  expandable: boolean = false;
-
-  @Input()
-  expanded: boolean = true;
-  @Output()
-  expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input()
-  maxYear: number = Number.MAX_SAFE_INTEGER;
 
   @Input()
   currentYear: number = new Date().getUTCFullYear();

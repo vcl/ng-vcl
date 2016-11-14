@@ -22,12 +22,12 @@ export class PickDate {
   ];
   static weekDays = [
     'Mo',
-    'Di',
-    'Mi',
-    'Do',
+    'Tu',
+    'We',
+    'Th',
     'Fr',
     'Sa',
-    'So'
+    'Su'
   ];
 
 

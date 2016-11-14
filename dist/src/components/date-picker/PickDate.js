@@ -133,12 +133,12 @@ PickDate.monthNames = [
 ];
 PickDate.weekDays = [
     'Mo',
-    'Di',
-    'Mi',
-    'Do',
+    'Tu',
+    'We',
+    'Th',
     'Fr',
     'Sa',
-    'So'
+    'Su'
 ];
 function PickDateCreate(date) {
     if (date === void 0) { date = new Date(); }

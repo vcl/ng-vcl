@@ -22,6 +22,7 @@ var DatePickerComponent = (function () {
         this.highlightToday = true;
         this.highlightSelected = true;
         this.displayWeekNumbers = true;
+        this.displayWeekdays = true;
         this.prevYearBtnIcon = "fa:chevron-left";
         this.nextYearBtnIcon = "fa:chevron-right";
         this.displayJumpToday = true;
@@ -126,6 +127,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], DatePickerComponent.prototype, "displayWeekNumbers", void 0);
 __decorate([
+    core_1.Input('displayWeekdays'),
+    __metadata("design:type", Boolean)
+], DatePickerComponent.prototype, "displayWeekdays", void 0);
+__decorate([
     core_1.Input('prevYearBtnIcon'),
     __metadata("design:type", String)
 ], DatePickerComponent.prototype, "prevYearBtnIcon", void 0);
@@ -168,7 +173,8 @@ __decorate([
 DatePickerComponent = __decorate([
     core_1.Component({
         selector: 'vcl-date-picker',
-        templateUrl: 'date-picker.component.html'
+        templateUrl: 'date-picker.component.html',
+        styles: [".hidden{display:none;}"]
     }),
     __metadata("design:paramtypes", [])
 ], DatePickerComponent);

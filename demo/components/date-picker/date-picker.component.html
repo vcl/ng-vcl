@@ -1,35 +1,20 @@
-date picker
+<h2>Default Datepicker</h2>
+<div style="width: 250px;border-style: solid; margin: 20px;">
+  <vcl-date-picker></vcl-date-picker>
+</div>
 
 
-
+<h2>Ranged Datepicker</h2>
 <div style="width: 250px;border-style: solid; margin: 20px;">
   <vcl-date-picker [selectedTime]="selectedTime" [selectedRangeEnd]="selectedRangeEnd"
-[selectRange]="selectRange" [maxRangeLength]="3" [minDate]="minDate"
+[selectRange]="selectRange" [maxRangeLength]="7" [minDate]="minDate"
   ></vcl-date-picker>
 </div>
 
 
-
-<!--
-  <vcl-date-picker id="myStyledDatePicker" [prevYearAvailable]="true" [nextYearAvailable]="true" [colors]="['#50E3C2', '#FF3CE6']">
-  </vcl-date-picker>
-
-
-
-
-<br><br>
-
-
-
-
-<button vcl-button #target label="Expand" class="vclSquare" (click)="expandDatePicker($event)">
-</button>
-
-<vcl-popover target='#target' targetAttachment='bottom right' attachment='top right' [(open)]="expanded">
-  <vcl-date-picker [expandable]="true" [(expanded)]="expanded" [(currentYear)]="currentYear" [useShortNames]="true" [datesPerRow]="4" (select)="onSelect($event)" (prevYearBtnTap)="onPreviousYearTap()" [prevYearAvailable]="prevYearAvailable" (nextYearBtnTap)="onNextYearTap()"
-      [nextYearAvailable]="nextYearAvailable">
-  </vcl-date-picker>
-</vcl-popover>
-
-
--->
+<h2>Minimal Datepicker</h2>
+<div style="width: 250px;border-style: solid; margin: 20px;">
+  <vcl-date-picker [displayJumpToday]="false" [displayJumpSelected]="false"
+  [displayWeekNumbers]="false" [displayWeekdays]="false"
+  ></vcl-date-picker>
+</div>
