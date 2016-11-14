@@ -3761,9 +3761,7 @@ var MonthPickerComponent = (function () {
         if (!this.maxSelectableItems) {
             this.maxSelectableItems = this.colors && this.colors.length || 1;
         }
-        if (this.colors) {
-            this.availableColors = this.colors.map(function (color) { return true; });
-        }
+        this.availableColors = this.colors ? this.colors.map(function (color) { return true; }) : [];
         this.setYearMeta(this.currentYear);
     };
     MonthPickerComponent.prototype.setYearMeta = function (year) {
@@ -3849,7 +3847,7 @@ var MonthPickerComponent = (function () {
     };
     MonthPickerComponent.prototype.getMonthBackgroundColor = function () {
         var index = this.availableColors.findIndex(function (available) { return available; });
-        if (index !== undefined) {
+        if (index !== -1) {
             this.availableColors[index] = false;
             return this.colors[index];
         }
