@@ -9,7 +9,9 @@
         [attr.touch-action]="touchAction"
         [attr.aria-selected]="item.selected"
         [attr.role]="item.heading && 'sectionhead' || ariaRole"
-        [attr.tabindex]="tabindex">
+        [attr.tabindex]="tabindex"
+        [ngClass]="item.class"
+        >
 
       <span *ngIf="item.heading">
         {{item.label | loc}}

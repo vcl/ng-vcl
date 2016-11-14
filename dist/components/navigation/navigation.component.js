@@ -7,6 +7,7 @@ var NavigationItemComponent = (function () {
         this.selected = false;
         this.opened = false;
         this.heading = false;
+        this.class = '';
     }
     /**
      * transforms this NavigationItemComponent insto an object,
@@ -22,7 +23,8 @@ var NavigationItemComponent = (function () {
             heading: this.heading,
             href: this.href,
             prepIcon: this.prepIcon,
-            appIcon: this.appIcon
+            appIcon: this.appIcon,
+            class: this.class
         };
         if (this.route)
             ret['route'] = [this.route];
@@ -53,6 +55,7 @@ var NavigationItemComponent = (function () {
         'href': [{ type: core_1.Input },],
         'prepIcon': [{ type: core_1.Input },],
         'appIcon': [{ type: core_1.Input },],
+        'class': [{ type: core_1.Input, args: ['class',] },],
     };
     return NavigationItemComponent;
 }());
@@ -156,7 +159,7 @@ var NavigationComponent = (function () {
         'type': [{ type: core_1.Input },],
         'subLevelHintIconClosed': [{ type: core_1.Input },],
         'subLevelHintIconOpened': [{ type: core_1.Input },],
-        'subLevelHintIconSide': [{ type: core_1.Input },],
+        'subLevelHintIconSide': [{ type: core_1.Input, args: ['subLevelHintIconSide',] },],
         'templateItems': [{ type: core_1.ContentChildren, args: [NavigationItemComponent,] },],
         'navigationItems': [{ type: core_1.Input },],
         'select': [{ type: core_1.Output },],

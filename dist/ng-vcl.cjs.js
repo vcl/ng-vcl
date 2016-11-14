@@ -1485,14 +1485,23 @@ var PopoverComponent = (function () {
     var _a, _b, _c;
 }());
 
+var tetherID = 10000;
 var TetherComponent = (function () {
     function TetherComponent(myElement) {
         this.myElement = myElement;
-        this.id = 'tetherId' + Math.floor(Math.random() * 10000);
+        this._error = new _angular_core.EventEmitter();
+        this.id = 'vcl-tetherId' + tetherID++;
     }
+    Object.defineProperty(TetherComponent.prototype, "error", {
+        get: function () {
+            return this._error.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     TetherComponent.prototype.ngAfterViewInit = function () {
         try {
-            new Tether({
+            this.tether = new Tether({
                 element: '#' + this.id,
                 target: this.target,
                 attachment: this.attachment,
@@ -1500,8 +1509,14 @@ var TetherComponent = (function () {
             });
         }
         catch (ex) {
-            console.log(ex);
+            this._error.emit(ex);
         }
+    };
+    TetherComponent.prototype.ngOnDestroy = function () {
+        try {
+            this.tether && this.tether.destroy();
+        }
+        catch (ex) { }
     };
     __decorate([
         _angular_core.Input(), 
@@ -1523,15 +1538,19 @@ var TetherComponent = (function () {
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], TetherComponent.prototype, "attachment", void 0);
+    __decorate([
+        _angular_core.Output(), 
+        __metadata('design:type', (typeof (_a = typeof rxjs_Observable.Observable !== 'undefined' && rxjs_Observable.Observable) === 'function' && _a) || Object)
+    ], TetherComponent.prototype, "error", null);
     TetherComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-tether',
             template: "<div [id]=\"id\" [class]=\"class\" [style.z-index]=\"zIndex\">\n  <ng-content></ng-content>\n</div>\n"
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _b) || Object])
     ], TetherComponent);
     return TetherComponent;
-    var _a;
+    var _a, _b;
 }());
 
 var VCLTetherModule = (function () {
@@ -2300,6 +2319,7 @@ var NavigationItemComponent = (function () {
         this.selected = false;
         this.opened = false;
         this.heading = false;
+        this.class = '';
     }
     /**
      * transforms this NavigationItemComponent insto an object,
@@ -2315,7 +2335,8 @@ var NavigationItemComponent = (function () {
             heading: this.heading,
             href: this.href,
             prepIcon: this.prepIcon,
-            appIcon: this.appIcon
+            appIcon: this.appIcon,
+            class: this.class
         };
         if (this.route)
             ret['route'] = [this.route];
@@ -2368,6 +2389,10 @@ var NavigationItemComponent = (function () {
         _angular_core.Input(), 
         __metadata('design:type', Object)
     ], NavigationItemComponent.prototype, "appIcon", void 0);
+    __decorate([
+        _angular_core.Input('class'), 
+        __metadata('design:type', String)
+    ], NavigationItemComponent.prototype, "class", void 0);
     NavigationItemComponent = __decorate([
         _angular_core.Directive({
             selector: 'vcl-navitem'
@@ -2491,7 +2516,7 @@ var NavigationComponent = (function () {
         __metadata('design:type', String)
     ], NavigationComponent.prototype, "subLevelHintIconOpened", void 0);
     __decorate([
-        _angular_core.Input(), 
+        _angular_core.Input('subLevelHintIconSide'), 
         __metadata('design:type', Object)
     ], NavigationComponent.prototype, "subLevelHintIconSide", void 0);
     __decorate([
@@ -2509,7 +2534,7 @@ var NavigationComponent = (function () {
     NavigationComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-navigation',
-            template: "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\">\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n",
+            template: "<nav class=\"vclNavigation\" [class.vclVertical]=\"isVertical\">\n  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\"\n        [ngClass]=\"item.class\"\n        >\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n</nav>\n",
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof _angular_router.Router !== 'undefined' && _angular_router.Router) === 'function' && _b) || Object])
     ], NavigationComponent);
@@ -4044,6 +4069,391 @@ var VCLMonthPickerModule = (function () {
     return VCLMonthPickerModule;
 }());
 
+/**
+ * this is a helper-class so that the Date-logic
+ * is not mashed with the components logic
+ */
+var PickDate = (function () {
+    function PickDate(date) {
+        if (date === void 0) { date = new Date(); }
+        this.date = date;
+    }
+    PickDate.prototype.getMonthString = function () {
+        var monthNr = this.date.getMonth();
+        return PickDate.monthNames[monthNr];
+    };
+    PickDate.prototype.getYearString = function () {
+        return this.date.getFullYear().toString();
+    };
+    /**
+     * gets the first day of the month for the given date's month.
+     */
+    PickDate.prototype.getFirstDateOfMonth = function (date) {
+        return new Date(date.getFullYear(), date.getMonth(), 1, date.getHours(), date.getMinutes(), date.getSeconds());
+    };
+    PickDate.prototype.addDays = function (date, amount) {
+        if (amount === void 0) { amount = 1; }
+        return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
+    };
+    PickDate.prototype.moveDays = function (amount) {
+        this.date = this.addDays(this.date, amount);
+    };
+    /**
+     * returns true if this is greater than that
+     */
+    PickDate.prototype.gt = function (date) {
+        return this.date > date;
+    };
+    /**
+     * returns true if this is lower than that
+     */
+    PickDate.prototype.lt = function (date) {
+        return this.date < date;
+    };
+    /**
+     * Gets a new date incremented by the given number of months. Number of months can be negative.
+     * If the date of the given month does not match the target month, the date will be set to the
+     * last day of the month.
+     */
+    PickDate.prototype.incrementMonths = function (numberOfMonths) {
+        var dateInTargetMonth = new Date(this.date.getFullYear(), this.date.getMonth() + numberOfMonths, 1);
+        var numberOfDaysInMonth = this.getNumberOfDaysInMonth(dateInTargetMonth);
+        if (numberOfDaysInMonth < this.date.getDate()) {
+            dateInTargetMonth.setDate(numberOfDaysInMonth);
+        }
+        else {
+            dateInTargetMonth.setDate(this.date.getDate());
+        }
+        return new PickDate(dateInTargetMonth);
+    };
+    /**
+      * Gets the number of days in the month for the given date's month
+      */
+    PickDate.prototype.getNumberOfDaysInMonth = function (date) {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    };
+    PickDate.prototype.getLastDateOfMonth = function (date) {
+        var dayNr = this.getNumberOfDaysInMonth(date);
+        return new Date(date.getFullYear(), date.getMonth(), dayNr, date.getHours(), date.getMinutes(), date.getSeconds());
+    };
+    /**
+      * Gets whether two dates have the same month and year
+      */
+    PickDate.prototype.isSameMonthAndYear = function (date) {
+        if (date === void 0) { date = new PickDate(); }
+        return this.date.getFullYear() === date.date.getFullYear() && this.date.getMonth() === date.date.getMonth();
+    };
+    /**
+     * Gets whether two dates are the same day (not not necesarily the same time)
+     */
+    PickDate.prototype.isSameDay = function (date) {
+        return this.date.getDate() == date.date.getDate() && this.isSameMonthAndYear(date);
+    };
+    PickDate.prototype.isToday = function () {
+        return this.isSameDay(new PickDate());
+    };
+    /**
+     * returns a set of days which are in the given month or
+     * are in the same weekNumber as a day in the given month
+     */
+    PickDate.prototype.getMonthBlock = function () {
+        var ret = [];
+        var firstDayOfMonth = this.getFirstDateOfMonth(this.date);
+        var lastDayOfMonth = this.getLastDateOfMonth(this.date);
+        var daysOfMonth = this.getNumberOfDaysInMonth(this.date);
+        // all days of this month
+        for (var i = 0; i < daysOfMonth; i++) {
+            ret.push(this.addDays(firstDayOfMonth, i));
+        }
+        // days of prev month but in same week
+        var weekDay = firstDayOfMonth.getDay();
+        var minus = 0;
+        while (weekDay > 1) {
+            minus--;
+            ret.unshift(this.addDays(firstDayOfMonth, minus));
+            weekDay--;
+        }
+        // days of next month but in same week
+        var addDays = 7 - lastDayOfMonth.getDay();
+        var plus = 0;
+        while (addDays > 0 && lastDayOfMonth.getDay() !== 0) {
+            plus++;
+            ret.push(this.addDays(lastDayOfMonth, plus));
+            addDays--;
+        }
+        ret = ret.map(function (date) { return new PickDate(date); });
+        var blocks = [];
+        // split in weeks
+        var temparray, chunk = 7;
+        for (var i = 0, j = ret.length; i < j; i += chunk) {
+            temparray = ret.slice(i, i + chunk);
+            if (temparray.length == 7)
+                blocks.push(temparray);
+        }
+        return blocks;
+    };
+    PickDate.prototype.getWeekDays = function () {
+        return PickDate.weekDays;
+    };
+    PickDate.prototype.getWeekNumber = function () {
+        // Copy date so don't modify original
+        var d = new Date(+this.date);
+        d.setHours(0, 0, 0);
+        // Set to nearest Thursday: current date + 4 - current day number
+        // Make Sunday's day number 7
+        d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+        // Get first day of year
+        var yearStart = new Date(d.getFullYear(), 0, 1);
+        // Calculate full weeks to nearest Thursday
+        var weekNo = Math.ceil((((d.valueOf() - yearStart.valueOf()) / 86400000) + 1) / 7);
+        // Return array of year and week number
+        return weekNo;
+    };
+    /**
+     * returns true if this is between the given dates
+     */
+    PickDate.prototype.inRange = function (from, to) {
+        try {
+            if (this.isSameDay(from) || this.isSameDay(to))
+                return true;
+        }
+        catch (e) { }
+        if (!from || !to)
+            return false;
+        return this.date >= from.date && this.date <= to.date;
+    };
+    PickDate.prototype.daysInRange = function (to) {
+        var oneDay = 24 * 60 * 60 * 1000;
+        return Math.round(Math.abs((this.date.getTime() - to.date.getTime()) / (oneDay))) + 1;
+    };
+    PickDate.prototype.dir = function () { console.dir(this.date); return ''; };
+    
+    PickDate.monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ];
+    PickDate.weekDays = [
+        'Mo',
+        'Tu',
+        'We',
+        'Th',
+        'Fr',
+        'Sa',
+        'Su'
+    ];
+    return PickDate;
+}());
+function PickDateCreate(date) {
+    if (date === void 0) { date = new Date(); }
+    return new PickDate(date);
+}
+
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5 = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return DatePickerComponent; }),
+    multi: true
+};
+var DatePickerComponent = (function () {
+    function DatePickerComponent() {
+        // behaviour
+        this.closeOnSelect = false;
+        // styling
+        this.highlightToday = true;
+        this.highlightSelected = true;
+        this.displayWeekNumbers = true;
+        this.displayWeekdays = true;
+        this.prevYearBtnIcon = "fa:chevron-left";
+        this.nextYearBtnIcon = "fa:chevron-right";
+        this.displayJumpToday = true;
+        this.displayJumpSelected = true;
+        // values
+        this.selectedDate = new Date();
+        this.selectRange = false;
+    }
+    DatePickerComponent.prototype.ngOnInit = function () {
+        if (this.selectedRangeEnd)
+            this.selectRange = true;
+        this.pickedDate = PickDateCreate(this.selectedDate);
+        this.viewDate = PickDateCreate();
+        if (this.selectedRangeEnd) {
+            this.selectRange = true;
+            this.select(PickDateCreate(this.selectedRangeEnd));
+        }
+        if (!this.minDate)
+            this.minDate = new Date(0, 0, 1);
+        if (!this.maxDate)
+            this.maxDate = new Date(10000, 0, 1);
+    };
+    /**
+     * activate the given date
+     */
+    DatePickerComponent.prototype.select = function (date) {
+        if (!this.selectRange) {
+            this.pickedDate = date;
+            return;
+        }
+        if (this.pickedDate && this.pickedRangeEnd) {
+            // reset all
+            this.pickedDate = null;
+            this.pickedRangeEnd = null;
+        }
+        else if (this.pickedDate && !this.pickedRangeEnd) {
+            this.pickedRangeEnd = date;
+        }
+        else if (!this.pickedDate) {
+            this.pickedDate = date;
+        }
+        // swap values if pickedDate > pickedRangeEnd
+        if (this.pickedRangeEnd &&
+            this.pickedDate &&
+            this.pickedRangeEnd.date < this.pickedDate.date) {
+            this.pickedRangeEnd.date = [this.pickedDate.date, this.pickedDate.date = this.pickedRangeEnd.date][0]; // swap values
+        }
+        // if more days selected than maxRangeLength, strip days
+        if (this.selectRange &&
+            this.pickedRangeEnd &&
+            this.pickedDate.daysInRange(this.pickedRangeEnd) > this.maxRangeLength) {
+            var diffDays = this.pickedDate.daysInRange(this.pickedRangeEnd) - this.maxRangeLength;
+            this.pickedRangeEnd.moveDays(diffDays * (-1));
+        }
+        !!this.onChangeCallback && this.onChangeCallback(this.pickedDate);
+    };
+    /**
+     * ui-markers
+     */
+    DatePickerComponent.prototype.isMarked = function (date) {
+        if (!this.selectRange && this.pickedDate.isSameDay(date))
+            return true;
+        return date.inRange(this.pickedDate, this.pickedRangeEnd);
+    };
+    DatePickerComponent.prototype.isDisabled = function (day) {
+        if (!this.viewDate.isSameMonthAndYear(day) ||
+            day.gt(this.maxDate) ||
+            day.lt(this.minDate)) {
+            return true;
+        }
+        return false;
+    };
+    /**
+     * functions to move viewDate
+     */
+    DatePickerComponent.prototype.nextMonth = function () {
+        this.viewDate = this.viewDate.incrementMonths(1);
+    };
+    DatePickerComponent.prototype.prevMonth = function () {
+        this.viewDate = this.viewDate.incrementMonths(-1);
+    };
+    DatePickerComponent.prototype.gotoToday = function () {
+        this.viewDate = PickDateCreate();
+    };
+    DatePickerComponent.prototype.gotoSelected = function () {
+        this.viewDate = this.pickedDate;
+    };
+    DatePickerComponent.prototype.writeValue = function (value) {
+        this.pickedDate = PickDateCreate(value);
+    };
+    DatePickerComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    DatePickerComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        _angular_core.Input('closeOnSelect'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "closeOnSelect", void 0);
+    __decorate([
+        _angular_core.Input('highlightToday'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "highlightToday", void 0);
+    __decorate([
+        _angular_core.Input('highlightSelected'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "highlightSelected", void 0);
+    __decorate([
+        _angular_core.Input('displayWeekNumbers'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "displayWeekNumbers", void 0);
+    __decorate([
+        _angular_core.Input('displayWeekdays'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "displayWeekdays", void 0);
+    __decorate([
+        _angular_core.Input('prevYearBtnIcon'), 
+        __metadata('design:type', String)
+    ], DatePickerComponent.prototype, "prevYearBtnIcon", void 0);
+    __decorate([
+        _angular_core.Input('nextYearBtnIcon'), 
+        __metadata('design:type', String)
+    ], DatePickerComponent.prototype, "nextYearBtnIcon", void 0);
+    __decorate([
+        _angular_core.Input('displayJumpToday'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "displayJumpToday", void 0);
+    __decorate([
+        _angular_core.Input('displayJumpSelected'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "displayJumpSelected", void 0);
+    __decorate([
+        _angular_core.Input('selectedDate'), 
+        __metadata('design:type', Object)
+    ], DatePickerComponent.prototype, "selectedDate", void 0);
+    __decorate([
+        _angular_core.Input('selectRange'), 
+        __metadata('design:type', Boolean)
+    ], DatePickerComponent.prototype, "selectRange", void 0);
+    __decorate([
+        _angular_core.Input('selectedRangeEnd'), 
+        __metadata('design:type', Object)
+    ], DatePickerComponent.prototype, "selectedRangeEnd", void 0);
+    __decorate([
+        _angular_core.Input('maxRangeLength'), 
+        __metadata('design:type', Number)
+    ], DatePickerComponent.prototype, "maxRangeLength", void 0);
+    __decorate([
+        _angular_core.Input('minDate'), 
+        __metadata('design:type', Object)
+    ], DatePickerComponent.prototype, "minDate", void 0);
+    __decorate([
+        _angular_core.Input('maxDate'), 
+        __metadata('design:type', Object)
+    ], DatePickerComponent.prototype, "maxDate", void 0);
+    DatePickerComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-date-picker',
+            template: "<div class=\"vclDatePicker\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter\">\n          <button class=\"vclTransparent vclSquare  vclButton\" (click)=\"prevMonth()\">\n              <div class=\"vclIcogram\">\n                <span class=\"vclIcon fa fa-angle-left\"></span>\n              </div>\n            </button>\n          <span class=\"vclCalHeaderLabel\">\n              {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}\n            </span>\n          <button class=\"vclTransparent vclSquare vclButton\" (click)=\"nextMonth()\">\n               <div class=\"vclIcogram\">\n                  <span class=\"vclIcon fa fa-angle-right\"></span>\n                </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <div class=\"vclDGRow\">\n      <div *ngIf=\"displayWeekNumbers\" class=\"vclDGCell timeFragment vclCalItem vclOtherMonth\">\n        {{'week' | loc}}\n      </div>\n      <div *ngFor=\"let day of viewDate.getWeekDays()\" class=\"vclDGCell vclWeekdayLabel\" [class.hidden]=\"!displayWeekdays\">\n        {{day | loc}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\" *ngFor=\"let week of viewDate.getMonthBlock()\">\n      <div *ngIf=\"displayWeekNumbers && week.length==7\" class=\"vclDGCell\">\n        {{week[5].getWeekNumber()}}\n      </div>\n      <div *ngFor=\"let day of week\" class=\"vclDGCell timeFragment vclCalItem\" [class.vclDisabled]=\"isDisabled(day)\" [class.vclSelected]=\"isMarked(day)\" (click)=\"!isDisabled(day) && select(day)\" [class.vclToday]=\"highlightSelected && day.isToday()\" [class.vclOtherMonth]=\"!day.isSameMonthAndYear()\">\n        {{day.date.getDate()}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified\">\n          <button title=\"go to today\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpToday\" (click)=\"gotoToday()\">\n             <div class=\" vclIcogram\">\n               <span class=\"vclText \">go to today</span>\n             </div>\n           </button>\n          <button title=\"go to selected\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpSelected\" (click)=\"gotoSelected()\">\n              <div class=\" vclIcogram\">\n                <span class=\"vclText \">go to selected</span>\n              </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n</div>\n",
+            styles: [".hidden{display:none;}"]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], DatePickerComponent);
+    return DatePickerComponent;
+}());
+
+var VCLDatePickerModule = (function () {
+    function VCLDatePickerModule() {
+    }
+    VCLDatePickerModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, VCLButtonModule, L10nModule],
+            exports: [DatePickerComponent],
+            declarations: [DatePickerComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLDatePickerModule);
+    return VCLDatePickerModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -4072,7 +4482,8 @@ var VCLModule = (function () {
                 VCLDropdownModule,
                 VCLSelectModule,
                 VCLOffClickModule,
-                VCLMonthPickerModule
+                VCLMonthPickerModule,
+                VCLDatePickerModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -4097,7 +4508,8 @@ var VCLModule = (function () {
                 VCLDropdownModule,
                 VCLSelectModule,
                 VCLOffClickModule,
-                VCLMonthPickerModule
+                VCLMonthPickerModule,
+                VCLDatePickerModule
             ],
             providers: [
                 OverlayManagerService
@@ -4135,6 +4547,7 @@ exports.VCLRadioButtonModule = VCLRadioButtonModule;
 exports.CheckboxComponent = CheckboxComponent;
 exports.VCLCheckboxModule = VCLCheckboxModule;
 exports.VCLMonthPickerModule = VCLMonthPickerModule;
+exports.VCLDatePickerModule = VCLDatePickerModule;
 exports.VCLOffClickModule = VCLOffClickModule;
 exports.Wormhole = Wormhole;
 exports.WormholeGenerator = WormholeGenerator;

@@ -12,6 +12,7 @@ export declare class NavigationItemComponent {
     href: any;
     prepIcon: any;
     appIcon: any;
+    class: string;
     constructor();
     /**
      * transforms this NavigationItemComponent insto an object,
