@@ -17,17 +17,13 @@ export class NavigationItemComponent {
   @ContentChildren(NavigationItemComponent)
   items: QueryList<NavigationItemComponent>;
 
-  @Input()
-  active: boolean = true;
+  @Input() active: boolean = true;
 
-  @Input()
-  selected: boolean = false;
+  @Input() selected: boolean = false;
 
-  @Input()
-  opened = false;
+  @Input() opened = false;
 
-  @Input()
-  heading = false;
+  @Input() heading = false;
 
   @Input()
   href;
@@ -38,7 +34,7 @@ export class NavigationItemComponent {
   @Input()
   appIcon;
 
-
+  @Input('class') class: string = '';
 
   constructor() { }
 
@@ -56,7 +52,8 @@ export class NavigationItemComponent {
       heading: this.heading,
       href: this.href,
       prepIcon: this.prepIcon,
-      appIcon: this.appIcon
+      appIcon: this.appIcon,
+      class: this.class
     };
 
     if (this.route) ret['route'] = [this.route];
@@ -109,8 +106,7 @@ export class NavigationComponent {
   @Input()
   subLevelHintIconOpened: string = 'fa:chevron-down';
 
-  @Input()
-  subLevelHintIconSide: 'left' | 'right' = 'right';
+  @Input('subLevelHintIconSide') subLevelHintIconSide: 'left' | 'right' = 'right';
 
 
   @ContentChildren(NavigationItemComponent)

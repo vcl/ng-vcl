@@ -23,6 +23,7 @@ var NavigationComponent = (function () {
                 route: ['navigation'],
                 active: true,
                 appIcon: 'fa:bicycle',
+                class: 'underline'
             },
             {
                 label: 'Pre-selected Item',
@@ -120,7 +121,8 @@ var NavigationComponent = (function () {
 }());
 NavigationComponent = __decorate([
     core_1.Component({
-        templateUrl: 'navigation.component.html'
+        templateUrl: 'navigation.component.html',
+        styles: []
     }),
     __metadata("design:paramtypes", [])
 ], NavigationComponent);

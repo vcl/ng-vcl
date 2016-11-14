@@ -16,6 +16,7 @@ var NavigationItemComponent = (function () {
         this.selected = false;
         this.opened = false;
         this.heading = false;
+        this.class = '';
     }
     NavigationItemComponent.prototype.toObject = function () {
         var ret = {
@@ -26,7 +27,8 @@ var NavigationItemComponent = (function () {
             heading: this.heading,
             href: this.href,
             prepIcon: this.prepIcon,
-            appIcon: this.appIcon
+            appIcon: this.appIcon,
+            class: this.class
         };
         if (this.route)
             ret['route'] = [this.route];
@@ -80,6 +82,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], NavigationItemComponent.prototype, "appIcon", void 0);
+__decorate([
+    core_1.Input('class'),
+    __metadata("design:type", String)
+], NavigationItemComponent.prototype, "class", void 0);
 NavigationItemComponent = __decorate([
     core_1.Directive({
         selector: 'vcl-navitem'
@@ -202,7 +208,7 @@ __decorate([
     __metadata("design:type", String)
 ], NavigationComponent.prototype, "subLevelHintIconOpened", void 0);
 __decorate([
-    core_1.Input(),
+    core_1.Input('subLevelHintIconSide'),
     __metadata("design:type", String)
 ], NavigationComponent.prototype, "subLevelHintIconSide", void 0);
 __decorate([

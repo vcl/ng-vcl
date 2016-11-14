@@ -56,6 +56,8 @@ export class AppComponent {}
 | `subLevelHintIconSide`   | string        |            'left'  | On which side should the icon be displayed   |
 | `navigationItems`        | vcl-navitem[] |                 [] | vcl-navitem                                  |
 
+
+
 #### vcl-navitem Properties:
 
 | Name                     | Type        | Default  | Description                                   |
@@ -69,3 +71,4 @@ export class AppComponent {}
 | `href`                   | string      |          | url which is opened onSelect                  |
 | `prepIcon`               | string      |          |                                               |
 | `appIcon`                | string      |          | icon which should be displayed                |
+| `class`                  | string      |       '' | any css-classes which will be added           |

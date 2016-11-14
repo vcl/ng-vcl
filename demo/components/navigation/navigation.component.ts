@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  templateUrl: 'navigation.component.html'
+  templateUrl: 'navigation.component.html',
+  styles: []
 })
 export class NavigationComponent implements OnInit {
 
@@ -21,6 +22,7 @@ export class NavigationComponent implements OnInit {
       route: ['navigation'],
       active: true,
       appIcon: 'fa:bicycle',
+      class: 'underline'
     },
     {
       label: 'Pre-selected Item',
