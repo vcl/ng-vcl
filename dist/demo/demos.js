@@ -26,6 +26,7 @@ var off_click_demo_1 = require("./components/off-click/off-click.demo");
 var month_picker_demo_1 = require("./components/month-picker/month-picker.demo");
 var month_selector_demo_1 = require("./components/month-selector/month-selector.demo");
 var date_picker_demo_1 = require("./components/date-picker/date-picker.demo");
+var json_editor_demo_1 = require("./components/json-editor/json-editor.demo");
 var l10n_demo_1 = require("./components/l10n/l10n.demo");
 exports.DEMOS = [
     metalist_demo_1.default,
@@ -54,6 +55,7 @@ exports.DEMOS = [
     month_picker_demo_1.default,
     month_selector_demo_1.default,
     date_picker_demo_1.default,
+    json_editor_demo_1.default,
     l10n_demo_1.default,
 ];
 exports.GROUPED_DEMOS = function () {

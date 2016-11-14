@@ -1,0 +1,8 @@
+Selected Item: <span *ngIf="selectedItem">{{selectedItem.label}}</span>
+
+<br>
+<br>
+<br>
+<button vcl-button (click)="expand()">Show/hide</button>
+
+<vcl-dropdown (select)="onSelect($event)" [(expanded)]="expanded" [items]="items" [maxSelectableItems]="1" [tabindex]="77" [expanded]="true"></vcl-dropdown>

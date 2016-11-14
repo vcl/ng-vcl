@@ -26,6 +26,7 @@ import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 import MONTH_PICKER_DEMO from './components/month-picker/month-picker.demo';
 import MONTH_SELECTOR_DEMO from './components/month-selector/month-selector.demo';
 import DATE_PICKER_DEMO from './components/date-picker/date-picker.demo';
+import JSON_EDITOR_DEMO from './components/json-editor/json-editor.demo';
 import L10N_DEMO from './components/l10n/l10n.demo';
 
 interface Demo {
@@ -64,6 +65,7 @@ export const DEMOS: Demo[] = [
   MONTH_PICKER_DEMO,
   MONTH_SELECTOR_DEMO,
   DATE_PICKER_DEMO,
+  JSON_EDITOR_DEMO,
   L10N_DEMO,
 ];
 
