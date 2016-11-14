@@ -106,8 +106,6 @@ var DatePickerComponent = (function () {
     DatePickerComponent.prototype.registerOnTouched = function (fn) {
         this.onTouchedCallback = fn;
     };
-    DatePickerComponent.prototype.ngOnInit2 = function () {
-    };
     return DatePickerComponent;
 }());
 __decorate([
@@ -147,7 +145,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], DatePickerComponent.prototype, "displayJumpSelected", void 0);
 __decorate([
-    core_1.Input('selectedTime'),
+    core_1.Input('selectedDate'),
     __metadata("design:type", Date)
 ], DatePickerComponent.prototype, "selectedDate", void 0);
 __decorate([

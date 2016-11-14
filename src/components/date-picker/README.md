@@ -30,7 +30,7 @@ export class AppComponent {}
 | `displayWeekdays`                | boolean     | true      | if true the weekday-names will be displayed
 | `displayJumpToday`               | boolean     | true      | if true the button "jump to today" will be shown
 | `displayJumpSelected`            | boolean     | true      | if true the button "jump to selected" will be displayed
-| `selectedTime`                   | Date        | today     | The inital selected time
+| `selectedDate`                   | Date        | today     | The inital selected time
 | `selectRange`                    | boolean     | false     | if true, a range of days can be selected
 | `selectedRangeEnd`               | Date        |           | if set, the initial selected range ends here
 | `maxRangeLength`                 | number      | Infinity  | the max amount of days which can be in range

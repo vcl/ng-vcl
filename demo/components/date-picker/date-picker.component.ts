@@ -20,7 +20,7 @@ export class DatePickerComponent {
   nextYearAvailable: boolean = false;
 
 
-  selectedTime = new Date();
+  selectedDate = new Date();
   selectRange = true;
   selectedRangeEnd = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 3);
 
