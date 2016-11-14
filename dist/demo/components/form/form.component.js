@@ -29,7 +29,8 @@ var FormComponent = (function () {
             myradio: [''],
             mydropdown: [''],
             mycheckbox: ['', forms_1.Validators.required],
-            flip: ['']
+            flip: [''],
+            datepick: ['']
         }, {
             validator: equalInputMatcher
         });

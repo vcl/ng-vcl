@@ -31,7 +31,8 @@ export class FormComponent implements OnInit {
       myradio: [''],
       mydropdown: [''],
       mycheckbox: ['', Validators.required],
-      flip: ['']
+      flip: [''],
+      datepick: ['']
     }, {
         validator: equalInputMatcher
       });

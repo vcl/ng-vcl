@@ -20,7 +20,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-date-picker',
   templateUrl: 'date-picker.component.html',
-  styles: [`.hidden{display:none;}`]
+  styles: [`.hidden{display:none;}`],
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
@@ -79,6 +80,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   select(date: PickDate) {
     if (!this.selectRange) {
       this.pickedDate = date;
+      !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
       return;
     }
 
@@ -113,7 +115,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
       this.pickedRangeEnd.moveDays(diffDays * (-1));
     }
 
-    !!this.onChangeCallback && this.onChangeCallback(this.pickedDate);
+    !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
   }
 
 
@@ -161,10 +163,11 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
    * things needed for ControlValueAccessor-Interface
    */
   private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChangeCallback: (_: Date) => void;
 
   writeValue(value: Date): void {
     this.pickedDate = PickDateCreate(value);
+    if (!value) this.pickedDate = PickDateCreate();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
