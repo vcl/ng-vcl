@@ -22,6 +22,7 @@ import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
 import { VCLOffClickModule } from './directives/off-click/off-click.module';
 import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
 import { VCLFormModule } from './components/form/form.module';
+import { VCLJsonEditorModule } from './components/json-editor/json-editor.module';
 import { VCLWormholeModule } from './directives/wormhole/wormhole.module';
 import { VCLMonthPickerModule } from './components/month-picker/month-picker.module';
 import { VCLDatePickerModule } from './components/date-picker/date-picker.module';
@@ -45,6 +46,7 @@ export * from './components/radio-button/radio-button.module';
 export * from './components/checkbox/checkbox.module';
 export * from './components/month-picker/month-picker.module';
 export * from './components/date-picker/date-picker.module';
+export * from './components/json-editor/json-editor.module';
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
 export * from './l10n/l10n.module';
@@ -77,7 +79,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLSelectModule,
     VCLOffClickModule,
     VCLMonthPickerModule,
-    VCLDatePickerModule
+    VCLDatePickerModule,
+    VCLJsonEditorModule
   ],
   exports: [
     VCLWormholeModule,
@@ -103,7 +106,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLSelectModule,
     VCLOffClickModule,
     VCLMonthPickerModule,
-    VCLDatePickerModule
+    VCLDatePickerModule,
+    VCLJsonEditorModule
   ],
   providers: [
     OverlayManagerService

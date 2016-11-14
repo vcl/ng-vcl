@@ -10,79 +10,42 @@ import {
 import { MetalistComponent } from '../metalist/metalist.component';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+const JSONEditor = require('jsoneditor/dist/jsoneditor.js');
+//require('style!jsoneditor/dist/jsoneditor.css');
+
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => JsonEditorComponent),
   multi: true
 };
 
+
 @Component({
-  selector: 'vcl-dropdown',
-  templateUrl: 'dropdown.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'vcl-json-editor',
+  templateUrl: 'json-editor.component.html',
+//  styles: [require('style!jsoneditor/dist/jsoneditor.css')],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class JsonEditorComponent implements ControlValueAccessor {
-  @ViewChild('metalist') metalist;
 
 
-  @Output()
-  select = new EventEmitter<any[]>();
+  @ViewChild('el') el;
 
-  @Input()
-  items: any[];
+  options: Object = {};
 
-  @Input()
-  tabindex: number = 0;
-
-  @Input()
-  expanded: boolean = false;
-
-  @Output()
-  expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input()
-  maxSelectableItems: number = 1;
-
-  @Input()
-  minSelectableItems: number = 1;
-
-  @Input()
-  ariaRole: string = 'listbox';
-
-  selected: Object[];
-
-
-  _selectItem(item: any, meta, metalist: MetalistComponent) {
-    if (this.maxSelectableItems === 1) {
-      this.expanded = false;
-      this.expandedChange.emit(this.expanded);
-      metalist.selectItem(item);
-    } else {
-      if (meta.selected) {
-        metalist.deSelectItem(item);
-      } else {
-        metalist.selectItem(item);
-      }
-    }
-  }
-
-  selectItem(item: any) {
-    this.metalist.selectItem(item);
-  }
-
-  onSelect(selectedItems: any[]) {
-    this.select.emit(selectedItems);
-  }
-
-  metaInformation: any = [];
-
+  editor: any;
 
   constructor() {
-    this.select.subscribe(selectedItems => {
-      this.selected = selectedItems;
-      !!this.onChangeCallback && this.onChangeCallback(selectedItems);
-    });
+
+  }
+
+
+  ngAfterViewInit() {
+    console.log('...');
+    console.dir(this.el.nativeElement);
+    console.dir(JSONEditor);
+  //  console.dir(x);
+    this.editor = new JSONEditor(this.el.nativeElement, this.options);
   }
 
 
@@ -93,9 +56,6 @@ export class JsonEditorComponent implements ControlValueAccessor {
   private onChangeCallback: (_: any) => void;
 
   writeValue(value: any): void {
-    if (value !== this.selected) {
-      this.selected = value;
-    }
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
