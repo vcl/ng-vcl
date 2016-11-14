@@ -16,6 +16,10 @@ var DatePickerComponent = (function () {
         this.currentYear = this.thisYear;
         this.prevYearAvailable = true;
         this.nextYearAvailable = false;
+        this.selectedTime = new Date();
+        this.selectRange = true;
+        this.selectedRangeEnd = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 3);
+        this.minDate = new Date();
     }
     DatePickerComponent.prototype.ngOnInit = function () { };
     DatePickerComponent.prototype.expandDatePicker = function () {
@@ -23,20 +27,6 @@ var DatePickerComponent = (function () {
     };
     DatePickerComponent.prototype.onSelect = function (date) {
         console.log('onSelect():', date);
-    };
-    DatePickerComponent.prototype.onPreviousYearTap = function () {
-        console.log('onPreviousYearTap()');
-        console.log('this.currentYear:', this.currentYear);
-        if (this.currentYear < this.thisYear) {
-            this.nextYearAvailable = true;
-        }
-    };
-    DatePickerComponent.prototype.onNextYearTap = function () {
-        console.log('onNextYearTap()');
-        console.log('this.currentYear:', this.currentYear);
-        if (this.currentYear === this.thisYear) {
-            this.nextYearAvailable = false;
-        }
     };
     return DatePickerComponent;
 }());

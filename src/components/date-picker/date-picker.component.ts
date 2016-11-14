@@ -4,42 +4,71 @@ import {
   Input,
   Output,
   EventEmitter,
+  forwardRef
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import {PickDate, PickDateCreate} from './PickDate';
 
+
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => DatePickerComponent),
+  multi: true
+};
 
 @Component({
   selector: 'vcl-date-picker',
   templateUrl: 'date-picker.component.html'
 })
-export class DatePickerComponent implements OnInit {
+export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
 
-  @Input('displayJumpToday') displayJumpToday: boolean = true;
-  @Input('displayJumpSelected') displayJumpSelected: boolean = true;
+
+  // behaviour
+  @Input('closeOnSelect') closeOnSelect: boolean = false;
+
+  // styling
   @Input('highlightToday') highlightToday: boolean = true;
   @Input('highlightSelected') highlightSelected: boolean = true;
   @Input('displayWeekNumbers') displayWeekNumbers: boolean = true;
-  @Input('closeOnSelect') closeOnSelect: boolean = false;
+  @Input('prevYearBtnIcon') prevYearBtnIcon: string = "fa:chevron-left";
+  @Input('nextYearBtnIcon') nextYearBtnIcon: string = "fa:chevron-right";
+  @Input('displayJumpToday') displayJumpToday: boolean = true;
+  @Input('displayJumpSelected') displayJumpSelected: boolean = true;
 
+
+  // values
   @Input('selectedTime') selectedDate: Date = new Date();
-
-  @Input('selectRange') selectRange: boolean = true;
+  @Input('selectRange') selectRange: boolean = false;
   @Input('selectedRangeEnd') selectedRangeEnd: Date; // if selectRange==true, this will be used
+  @Input('maxRangeLength') maxRangeLength: number;
+  @Input('minDate') minDate: Date;
+  @Input('maxDate') maxDate: Date;
 
-  pickedDate: PickDate = PickDateCreate(this.selectedDate);
-  pickedRangeEnd: PickDate = this.selectedRangeEnd ? PickDateCreate(this.selectedRangeEnd) : null;
-
-
-  viewDate: PickDate = PickDateCreate();
+  pickedDate: PickDate;
+  pickedRangeEnd: PickDate;
+  viewDate: PickDate;
 
 
   constructor() {
   }
 
 
+  ngOnInit() {
+    if (this.selectedRangeEnd) this.selectRange = true;
+    this.pickedDate = PickDateCreate(this.selectedDate);
+    this.viewDate = PickDateCreate();
 
+
+    if (this.selectedRangeEnd) {
+      this.selectRange = true;
+      this.select(PickDateCreate(this.selectedRangeEnd));
+    }
+
+    if (!this.minDate) this.minDate = new Date(0, 0, 1);
+    if (!this.maxDate) this.maxDate = new Date(10000, 0, 1);
+  }
 
 
   select(date: PickDate) {
@@ -58,6 +87,9 @@ export class DatePickerComponent implements OnInit {
       this.pickedDate = date;
     }
 
+
+
+    // swap values if pickedDate > pickedRangeEnd
     if (
       this.pickedRangeEnd &&
       this.pickedDate &&
@@ -66,14 +98,35 @@ export class DatePickerComponent implements OnInit {
       this.pickedRangeEnd.date = [this.pickedDate.date, this.pickedDate.date = this.pickedRangeEnd.date][0]; // swap values
     }
 
+    // if more days selected than maxRangeLength, strip days
+    if (
+      this.selectRange &&
+      this.pickedRangeEnd &&
+      this.pickedDate.daysInRange(this.pickedRangeEnd) > this.maxRangeLength
+    ) {
+      const diffDays = this.pickedDate.daysInRange(this.pickedRangeEnd) - this.maxRangeLength;
+      this.pickedRangeEnd.moveDays(diffDays * (-1));
+    }
+
+    !!this.onChangeCallback && this.onChangeCallback(this.pickedDate);
   }
 
 
 
-  isMarked(date: PickDate) {
+  isMarked(date: PickDate): boolean {
     if (!this.selectRange && this.pickedDate.isSameDay(date)) return true;
 
     return date.inRange(this.pickedDate, this.pickedRangeEnd);
+  }
+  isDisabled(day: PickDate): boolean {
+    if (
+      !this.viewDate.isSameMonthAndYear(day) ||
+      day.gt(this.maxDate) ||
+      day.lt(this.minDate)
+    ) {
+      return true;
+    }
+    return false;
   }
 
 
@@ -92,7 +145,25 @@ export class DatePickerComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
+
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: any) => void;
+
+  writeValue(value: Date): void {
+    this.pickedDate = PickDateCreate(value);
+  }
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
+
+
+  ngOnInit2(): void {
 
 
 
@@ -380,20 +451,6 @@ export class DatePickerComponent implements OnInit {
     return this.isDateInBounds2(date) ? this.dates[date] : null;
   }
 
-  static dateNames: string[] = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
 
   static dateNamesShort: string[] = DatePickerComponent.dateNames
     .map(name => name.substr(0, 3));

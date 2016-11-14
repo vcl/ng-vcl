@@ -20,7 +20,11 @@ export class DatePickerComponent {
   nextYearAvailable: boolean = false;
 
 
+  selectedTime = new Date();
+  selectRange = true;
+  selectedRangeEnd = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 3);
 
+  minDate = new Date();
 
   constructor() { }
 
@@ -32,21 +36,5 @@ export class DatePickerComponent {
 
   onSelect(date: string) {
     console.log('onSelect():', date);
-  }
-
-  onPreviousYearTap() {
-    console.log('onPreviousYearTap()');
-    console.log('this.currentYear:', this.currentYear);
-    if (this.currentYear < this.thisYear) {
-      this.nextYearAvailable = true;
-    }
-  }
-
-  onNextYearTap() {
-    console.log('onNextYearTap()');
-    console.log('this.currentYear:', this.currentYear);
-    if (this.currentYear === this.thisYear) {
-      this.nextYearAvailable = false;
-    }
   }
 }

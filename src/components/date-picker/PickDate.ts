@@ -60,8 +60,28 @@ export class PickDate {
   }
 
 
+
   addDays(date: Date, amount = 1): Date {
     return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
+  }
+
+  moveDays(amount) {
+    this.date = this.addDays(this.date, amount);
+  }
+
+
+  /**
+   * returns true if this is greater than that
+   */
+  gt(date: Date): boolean {
+    return this.date > date;
+  }
+
+  /**
+   * returns true if this is lower than that
+   */
+  lt(date: Date): boolean {
+    return this.date < date;
   }
 
   /**
@@ -197,6 +217,11 @@ export class PickDate {
     if (!from || !to) return false;
 
     return this.date >= from.date && this.date <= to.date;
+  }
+
+  daysInRange(to: PickDate): number {
+    const oneDay = 24 * 60 * 60 * 1000;
+    return Math.round(Math.abs((this.date.getTime() - to.date.getTime()) / (oneDay))) + 1;
   }
 
   dir() { console.dir(this.date); return ''; };

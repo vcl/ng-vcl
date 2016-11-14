@@ -18,6 +18,15 @@ var PickDate = (function () {
         if (amount === void 0) { amount = 1; }
         return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
     };
+    PickDate.prototype.moveDays = function (amount) {
+        this.date = this.addDays(this.date, amount);
+    };
+    PickDate.prototype.gt = function (date) {
+        return this.date > date;
+    };
+    PickDate.prototype.lt = function (date) {
+        return this.date < date;
+    };
     PickDate.prototype.incrementMonths = function (numberOfMonths) {
         var dateInTargetMonth = new Date(this.date.getFullYear(), this.date.getMonth() + numberOfMonths, 1);
         var numberOfDaysInMonth = this.getNumberOfDaysInMonth(dateInTargetMonth);
@@ -98,6 +107,10 @@ var PickDate = (function () {
         if (!from || !to)
             return false;
         return this.date >= from.date && this.date <= to.date;
+    };
+    PickDate.prototype.daysInRange = function (to) {
+        var oneDay = 24 * 60 * 60 * 1000;
+        return Math.round(Math.abs((this.date.getTime() - to.date.getTime()) / (oneDay))) + 1;
     };
     PickDate.prototype.dir = function () { console.dir(this.date); return ''; };
     ;
