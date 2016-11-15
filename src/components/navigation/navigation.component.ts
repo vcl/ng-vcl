@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 
 
 
@@ -62,21 +62,19 @@ export class NavigationItemComponent {
 @Component({
   selector: 'vcl-navigation',
   host: {
-    '[class.vclNavigation]': 'true',
-    '[class.vclVertical]': 'isVert'
+    '[class.vclNavigation]': 'true'
   },
   templateUrl: 'navigation.component.html',
 })
 export class NavigationComponent {
 
-  isVert: boolean = true;
+//  isVert: boolean = true;
 
   constructor(private router: Router) {
   }
 
 
-  @Input()
-  ident: string;
+  @Input('ident') ident: string;
 
   @Input()
   selectedItem;
@@ -101,7 +99,6 @@ export class NavigationComponent {
 
   @Input('subLevelHintIconSide') subLevelHintIconSide: 'left' | 'right' = 'right';
 
-
   @ContentChildren(NavigationItemComponent)
   templateItems: QueryList<NavigationItemComponent>;
 
@@ -113,10 +110,7 @@ export class NavigationComponent {
 
 
 
-
   ngAfterContentInit() {
-    this.isVert = this.isVertical();
-
     let templateItemsAr = this.templateItems.toArray();
     if (templateItemsAr.length > 0) {
       const items = [];
@@ -124,18 +118,19 @@ export class NavigationComponent {
       this.navigationItems = items;
     }
 
-
     const selectedItem = this._navigationItems.filter(item => item.selected)[0];
     if (selectedItem) {
       this.selectItem(selectedItem);
     }
   }
 
+
   get _navigationItems(): any[] {
     return this.navigationItems.filter(item => item.active);
   }
 
-  isVertical(): boolean {
+  @HostBinding('class.vclVertical')
+  get isVertical() {
     return this.type === 'vertical';
   }
 

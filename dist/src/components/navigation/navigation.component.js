@@ -96,7 +96,6 @@ exports.NavigationItemComponent = NavigationItemComponent;
 var NavigationComponent = (function () {
     function NavigationComponent(router) {
         this.router = router;
-        this.isVert = true;
         this.ariaRole = 'presentation';
         this.tabindex = 0;
         this.touchAction = 'pan-y';
@@ -108,7 +107,6 @@ var NavigationComponent = (function () {
         this.select = new core_1.EventEmitter();
     }
     NavigationComponent.prototype.ngAfterContentInit = function () {
-        this.isVert = this.isVertical();
         var templateItemsAr = this.templateItems.toArray();
         if (templateItemsAr.length > 0) {
             var items_1 = [];
@@ -127,9 +125,13 @@ var NavigationComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    NavigationComponent.prototype.isVertical = function () {
-        return this.type === 'vertical';
-    };
+    Object.defineProperty(NavigationComponent.prototype, "isVertical", {
+        get: function () {
+            return this.type === 'vertical';
+        },
+        enumerable: true,
+        configurable: true
+    });
     NavigationComponent.prototype.getPrepIcon = function (item) {
         return item.items && this.subLevelHintIconSide === 'left'
             ? item.opened
@@ -174,7 +176,7 @@ var NavigationComponent = (function () {
     return NavigationComponent;
 }());
 __decorate([
-    core_1.Input(),
+    core_1.Input('ident'),
     __metadata("design:type", String)
 ], NavigationComponent.prototype, "ident", void 0);
 __decorate([
@@ -221,12 +223,16 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", Object)
 ], NavigationComponent.prototype, "select", void 0);
+__decorate([
+    core_1.HostBinding('class.vclVertical'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [])
+], NavigationComponent.prototype, "isVertical", null);
 NavigationComponent = __decorate([
     core_1.Component({
         selector: 'vcl-navigation',
         host: {
-            '[class.vclNavigation]': 'true',
-            '[class.vclVertical]': 'isVert'
+            '[class.vclNavigation]': 'true'
         },
         templateUrl: 'navigation.component.html',
     }),
