@@ -8,32 +8,20 @@ import { Component, Directive, ContentChildren, QueryList, Input, Output, EventE
 })
 export class NavigationItemComponent {
 
-  @Input()
-  label;
-
-  @Input()
-  route;
+  @Input('label') label: string;
+  @Input('route') route: any;
 
   @ContentChildren(NavigationItemComponent)
   items: QueryList<NavigationItemComponent>;
 
   @Input() active: boolean = true;
-
   @Input() selected: boolean = false;
-
-  @Input() opened = false;
-
+  @Input() opened: boolean = false;
   @Input() heading = false;
 
-  @Input()
-  href;
-
-  @Input()
-  prepIcon;
-
-  @Input()
-  appIcon;
-
+  @Input('href') href: string;
+  @Input('prepIcon') prepIcon: string;
+  @Input('appIcon') appIcon: string;
   @Input('class') class: string = '';
 
   constructor() { }

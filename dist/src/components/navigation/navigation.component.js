@@ -43,11 +43,11 @@ var NavigationItemComponent = (function () {
     return NavigationItemComponent;
 }());
 __decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
+    core_1.Input('label'),
+    __metadata("design:type", String)
 ], NavigationItemComponent.prototype, "label", void 0);
 __decorate([
-    core_1.Input(),
+    core_1.Input('route'),
     __metadata("design:type", Object)
 ], NavigationItemComponent.prototype, "route", void 0);
 __decorate([
@@ -64,23 +64,23 @@ __decorate([
 ], NavigationItemComponent.prototype, "selected", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Object)
+    __metadata("design:type", Boolean)
 ], NavigationItemComponent.prototype, "opened", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], NavigationItemComponent.prototype, "heading", void 0);
 __decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
+    core_1.Input('href'),
+    __metadata("design:type", String)
 ], NavigationItemComponent.prototype, "href", void 0);
 __decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
+    core_1.Input('prepIcon'),
+    __metadata("design:type", String)
 ], NavigationItemComponent.prototype, "prepIcon", void 0);
 __decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
+    core_1.Input('appIcon'),
+    __metadata("design:type", String)
 ], NavigationItemComponent.prototype, "appIcon", void 0);
 __decorate([
     core_1.Input('class'),

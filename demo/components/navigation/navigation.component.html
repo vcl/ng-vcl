@@ -19,7 +19,7 @@ Vertical navigation
     <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
     <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
     <vcl-navitem [active]=true label="Level 2 navigation" route="navigation">
-      <vcl-navitem [active]=true label="Level 3 Item" route="navigation"></vcl-navitem>
+      <vcl-navitem [active]=true label="Level 3 Item last" [route]="['plots-streaming-demo', {outlets: {sidebar: 'sidebar', list: 'list', detail: 'none'}}]"></vcl-navitem>
     </vcl-navitem>
   </vcl-navitem>
 </vcl-navigation>
