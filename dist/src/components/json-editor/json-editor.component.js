@@ -18,15 +18,29 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 };
 var JsonEditorComponent = (function () {
     function JsonEditorComponent() {
+        this.mode = 'tree';
+        this.value = {};
         this.options = {};
+        this.height = '250px';
     }
     JsonEditorComponent.prototype.ngAfterViewInit = function () {
-        console.log('...');
-        console.dir(this.el.nativeElement);
-        console.dir(JSONEditor);
+        var _this = this;
+        this.options.onChange = function () {
+            _this.value = _this.editor.get();
+            !!_this.onChangeCallback && _this.onChangeCallback(_this.value);
+        };
+        this.options.onModeChange = function (newMode) {
+            _this.mode = newMode;
+        };
         this.editor = new JSONEditor(this.el.nativeElement, this.options);
+        this.editor.set(this.value);
+    };
+    JsonEditorComponent.prototype.getValue = function () {
+        return this.editor.get();
     };
     JsonEditorComponent.prototype.writeValue = function (value) {
+        this.value = value;
+        this.editor.set(this.value);
     };
     JsonEditorComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -40,6 +54,22 @@ __decorate([
     core_1.ViewChild('el'),
     __metadata("design:type", Object)
 ], JsonEditorComponent.prototype, "el", void 0);
+__decorate([
+    core_1.Input('mode'),
+    __metadata("design:type", String)
+], JsonEditorComponent.prototype, "mode", void 0);
+__decorate([
+    core_1.Input('value'),
+    __metadata("design:type", Object)
+], JsonEditorComponent.prototype, "value", void 0);
+__decorate([
+    core_1.Input('options'),
+    __metadata("design:type", Object)
+], JsonEditorComponent.prototype, "options", void 0);
+__decorate([
+    core_1.Input('height'),
+    __metadata("design:type", String)
+], JsonEditorComponent.prototype, "height", void 0);
 JsonEditorComponent = __decorate([
     core_1.Component({
         selector: 'vcl-json-editor',

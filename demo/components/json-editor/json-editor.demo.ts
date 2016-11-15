@@ -6,6 +6,7 @@ export default {
   category: 'Inputs',
   tabs: {
     Demo: JsonEditorComponent,
+    'README.md': require("!raw!../../../src/components/json-editor/README.md"),
     'demo.component.html': require("!raw!./json-editor.component.html"),
     'demo.component.ts': require("!raw!./json-editor.component.ts")
   }

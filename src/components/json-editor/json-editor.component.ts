@@ -2,16 +2,16 @@ import {
   Component,
   Input,
   Output,
-  ChangeDetectionStrategy,
   EventEmitter,
   ViewChild,
   forwardRef
 } from '@angular/core';
-import { MetalistComponent } from '../metalist/metalist.component';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const JSONEditor = require('jsoneditor/dist/jsoneditor.js');
-//require('style!jsoneditor/dist/jsoneditor.css');
+
+// TODO include this css-file without breaking everything else
+// require('style!jsoneditor/dist/jsoneditor.css');
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,15 +23,21 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-json-editor',
   templateUrl: 'json-editor.component.html',
-//  styles: [require('style!jsoneditor/dist/jsoneditor.css')],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class JsonEditorComponent implements ControlValueAccessor {
 
-
   @ViewChild('el') el;
 
-  options: Object = {};
+
+  @Input('mode') mode: 'tree' | 'form' | 'text' | 'view' = 'tree';
+  @Input('value') value: Object = {};
+
+  /**
+   * @link https://github.com/josdejong/jsoneditor/blob/master/docs/api.md
+   */
+  @Input('options') options: any = {};
+  @Input('height') height: string = '250px';
 
   editor: any;
 
@@ -41,11 +47,25 @@ export class JsonEditorComponent implements ControlValueAccessor {
 
 
   ngAfterViewInit() {
-    console.log('...');
-    console.dir(this.el.nativeElement);
-    console.dir(JSONEditor);
-  //  console.dir(x);
+
+    this.options.onChange = () => {
+      this.value = this.editor.get();
+      !!this.onChangeCallback && this.onChangeCallback(this.value);
+    };
+
+    this.options.onModeChange = newMode => {
+      this.mode = newMode;
+    };
+
     this.editor = new JSONEditor(this.el.nativeElement, this.options);
+    this.editor.set(this.value);
+  }
+
+  /**
+   * get the current state of the edited json
+   */
+  getValue(): Object {
+    return this.editor.get();
   }
 
 
@@ -56,6 +76,8 @@ export class JsonEditorComponent implements ControlValueAccessor {
   private onChangeCallback: (_: any) => void;
 
   writeValue(value: any): void {
+    this.value = value;
+    this.editor.set(this.value);
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;

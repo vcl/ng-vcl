@@ -9220,3 +9220,7 @@ code.hljs {
 #myStyledMonthPicker .vclCalendar.vclCalInput .vclCalItem.vclUnavailable:hover {
   background-color: transparent;
 }
+
+.jsoneditor-frame input {
+  min-height: 0.5em !important;
+}
