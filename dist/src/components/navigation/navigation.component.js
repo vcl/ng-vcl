@@ -96,6 +96,7 @@ exports.NavigationItemComponent = NavigationItemComponent;
 var NavigationComponent = (function () {
     function NavigationComponent(router) {
         this.router = router;
+        this.isVert = true;
         this.ariaRole = 'presentation';
         this.tabindex = 0;
         this.touchAction = 'pan-y';
@@ -107,6 +108,7 @@ var NavigationComponent = (function () {
         this.select = new core_1.EventEmitter();
     }
     NavigationComponent.prototype.ngAfterContentInit = function () {
+        this.isVert = this.isVertical();
         var templateItemsAr = this.templateItems.toArray();
         if (templateItemsAr.length > 0) {
             var items_1 = [];
@@ -125,13 +127,9 @@ var NavigationComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NavigationComponent.prototype, "isVertical", {
-        get: function () {
-            return this.type === 'vertical';
-        },
-        enumerable: true,
-        configurable: true
-    });
+    NavigationComponent.prototype.isVertical = function () {
+        return this.type === 'vertical';
+    };
     NavigationComponent.prototype.getPrepIcon = function (item) {
         return item.items && this.subLevelHintIconSide === 'left'
             ? item.opened
@@ -226,6 +224,10 @@ __decorate([
 NavigationComponent = __decorate([
     core_1.Component({
         selector: 'vcl-navigation',
+        host: {
+            '[class.vclNavigation]': 'true',
+            '[class.vclVertical]': 'isVert'
+        },
         templateUrl: 'navigation.component.html',
     }),
     __metadata("design:paramtypes", [router_1.Router])

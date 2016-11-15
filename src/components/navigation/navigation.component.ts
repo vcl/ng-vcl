@@ -71,15 +71,20 @@ export class NavigationItemComponent {
 
 }
 
-
-
 @Component({
   selector: 'vcl-navigation',
+  host: {
+    '[class.vclNavigation]': 'true',
+    '[class.vclVertical]': 'isVert'
+  },
   templateUrl: 'navigation.component.html',
 })
 export class NavigationComponent {
 
-  constructor(private router: Router) { }
+  isVert: boolean = true;
+
+  constructor(private router: Router) {
+  }
 
 
   @Input()
@@ -118,8 +123,11 @@ export class NavigationComponent {
   @Output()
   select = new EventEmitter();
 
-  ngAfterContentInit() {
 
+
+
+  ngAfterContentInit() {
+    this.isVert = this.isVertical();
 
     let templateItemsAr = this.templateItems.toArray();
     if (templateItemsAr.length > 0) {
@@ -139,7 +147,7 @@ export class NavigationComponent {
     return this.navigationItems.filter(item => item.active);
   }
 
-  get isVertical(): boolean {
+  isVertical(): boolean {
     return this.type === 'vertical';
   }
 
