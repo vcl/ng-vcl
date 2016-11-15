@@ -45,22 +45,23 @@ var NavigationItemComponent = (function () {
     /** @nocollapse */
     NavigationItemComponent.ctorParameters = [];
     NavigationItemComponent.propDecorators = {
-        'label': [{ type: core_1.Input },],
-        'route': [{ type: core_1.Input },],
+        'label': [{ type: core_1.Input, args: ['label',] },],
+        'route': [{ type: core_1.Input, args: ['route',] },],
         'items': [{ type: core_1.ContentChildren, args: [NavigationItemComponent,] },],
         'active': [{ type: core_1.Input },],
         'selected': [{ type: core_1.Input },],
         'opened': [{ type: core_1.Input },],
         'heading': [{ type: core_1.Input },],
-        'href': [{ type: core_1.Input },],
-        'prepIcon': [{ type: core_1.Input },],
-        'appIcon': [{ type: core_1.Input },],
+        'href': [{ type: core_1.Input, args: ['href',] },],
+        'prepIcon': [{ type: core_1.Input, args: ['prepIcon',] },],
+        'appIcon': [{ type: core_1.Input, args: ['appIcon',] },],
         'class': [{ type: core_1.Input, args: ['class',] },],
     };
     return NavigationItemComponent;
 }());
 exports.NavigationItemComponent = NavigationItemComponent;
 var NavigationComponent = (function () {
+    //  isVert: boolean = true;
     function NavigationComponent(router) {
         this.router = router;
         this.ariaRole = 'presentation';
@@ -143,6 +144,9 @@ var NavigationComponent = (function () {
     NavigationComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-navigation',
+                    host: {
+                        '[class.vclNavigation]': 'true'
+                    },
                     templateUrl: 'navigation.component.html',
                 },] },
     ];
@@ -151,7 +155,7 @@ var NavigationComponent = (function () {
         { type: router_1.Router, },
     ];
     NavigationComponent.propDecorators = {
-        'ident': [{ type: core_1.Input },],
+        'ident': [{ type: core_1.Input, args: ['ident',] },],
         'selectedItem': [{ type: core_1.Input },],
         'ariaRole': [{ type: core_1.Input },],
         'tabindex': [{ type: core_1.Input },],
@@ -163,6 +167,7 @@ var NavigationComponent = (function () {
         'templateItems': [{ type: core_1.ContentChildren, args: [NavigationItemComponent,] },],
         'navigationItems': [{ type: core_1.Input },],
         'select': [{ type: core_1.Output },],
+        'isVertical': [{ type: core_1.HostBinding, args: ['class.vclVertical',] },],
     };
     return NavigationComponent;
 }());

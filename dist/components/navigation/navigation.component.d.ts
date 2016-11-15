@@ -2,16 +2,16 @@
 import { Router } from '@angular/router';
 import { QueryList, EventEmitter } from '@angular/core';
 export declare class NavigationItemComponent {
-    label: any;
+    label: string;
     route: any;
     items: QueryList<NavigationItemComponent>;
     active: boolean;
     selected: boolean;
     opened: boolean;
     heading: boolean;
-    href: any;
-    prepIcon: any;
-    appIcon: any;
+    href: string;
+    prepIcon: string;
+    appIcon: string;
     class: string;
     constructor();
     /**

@@ -44,6 +44,7 @@ var DatePickerComponent = (function () {
     DatePickerComponent.prototype.select = function (date) {
         if (!this.selectRange) {
             this.pickedDate = date;
+            !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
             return;
         }
         if (this.pickedDate && this.pickedRangeEnd) {
@@ -70,7 +71,7 @@ var DatePickerComponent = (function () {
             var diffDays = this.pickedDate.daysInRange(this.pickedRangeEnd) - this.maxRangeLength;
             this.pickedRangeEnd.moveDays(diffDays * (-1));
         }
-        !!this.onChangeCallback && this.onChangeCallback(this.pickedDate);
+        !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
     };
     /**
      * ui-markers
@@ -105,6 +106,8 @@ var DatePickerComponent = (function () {
     };
     DatePickerComponent.prototype.writeValue = function (value) {
         this.pickedDate = PickDate_1.PickDateCreate(value);
+        if (!value)
+            this.pickedDate = PickDate_1.PickDateCreate();
     };
     DatePickerComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -116,7 +119,8 @@ var DatePickerComponent = (function () {
         { type: core_1.Component, args: [{
                     selector: 'vcl-date-picker',
                     templateUrl: 'date-picker.component.html',
-                    styles: [".hidden{display:none;}"]
+                    styles: [".hidden{display:none;}"],
+                    providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
                 },] },
     ];
     /** @nocollapse */

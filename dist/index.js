@@ -24,6 +24,7 @@ var checkbox_module_1 = require('./components/checkbox/checkbox.module');
 var off_click_module_1 = require('./directives/off-click/off-click.module');
 var form_control_label_module_1 = require('./components/form-control-label/form-control-label.module');
 var form_module_1 = require('./components/form/form.module');
+var json_editor_module_1 = require('./components/json-editor/json-editor.module');
 var wormhole_module_1 = require('./directives/wormhole/wormhole.module');
 var month_picker_module_1 = require('./components/month-picker/month-picker.module');
 var date_picker_module_1 = require('./components/date-picker/date-picker.module');
@@ -44,6 +45,7 @@ __export(require('./components/radio-button/radio-button.module'));
 __export(require('./components/checkbox/checkbox.module'));
 __export(require('./components/month-picker/month-picker.module'));
 __export(require('./components/date-picker/date-picker.module'));
+__export(require('./components/json-editor/json-editor.module'));
 __export(require('./directives/off-click/off-click.module'));
 __export(require('./directives/wormhole/wormhole.module'));
 __export(require('./l10n/l10n.module'));
@@ -78,7 +80,8 @@ var VCLModule = (function () {
                         select_module_1.VCLSelectModule,
                         off_click_module_1.VCLOffClickModule,
                         month_picker_module_1.VCLMonthPickerModule,
-                        date_picker_module_1.VCLDatePickerModule
+                        date_picker_module_1.VCLDatePickerModule,
+                        json_editor_module_1.VCLJsonEditorModule
                     ],
                     exports: [
                         wormhole_module_1.VCLWormholeModule,
@@ -104,7 +107,8 @@ var VCLModule = (function () {
                         select_module_1.VCLSelectModule,
                         off_click_module_1.VCLOffClickModule,
                         month_picker_module_1.VCLMonthPickerModule,
-                        date_picker_module_1.VCLDatePickerModule
+                        date_picker_module_1.VCLDatePickerModule,
+                        json_editor_module_1.VCLJsonEditorModule
                     ],
                     providers: [
                         overlayManager_service_1.OverlayManagerService
