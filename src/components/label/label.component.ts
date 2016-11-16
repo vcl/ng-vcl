@@ -20,6 +20,9 @@ export class LabelComponent {
   @Input('subLabel') subLabel: string;
   @Input('type') type: '' | 'primary' | 'sucess' | 'info' | 'warning' | 'error' = '';
 
+  @Input('requiredIndicatorCharacter') requiredIndicatorCharacter: string = '•';
+  @Input('required') required: boolean = false;
+
   labelClass: string = '';
 
   @Input('for') for: string;

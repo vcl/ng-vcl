@@ -12,6 +12,8 @@ var core_1 = require("@angular/core");
 var LabelComponent = (function () {
     function LabelComponent() {
         this.type = '';
+        this.requiredIndicatorCharacter = '•';
+        this.required = false;
         this.labelClass = '';
     }
     LabelComponent.prototype.ngOnInit = function () {
@@ -35,6 +37,14 @@ __decorate([
     core_1.Input('type'),
     __metadata("design:type", String)
 ], LabelComponent.prototype, "type", void 0);
+__decorate([
+    core_1.Input('requiredIndicatorCharacter'),
+    __metadata("design:type", String)
+], LabelComponent.prototype, "requiredIndicatorCharacter", void 0);
+__decorate([
+    core_1.Input('required'),
+    __metadata("design:type", Boolean)
+], LabelComponent.prototype, "required", void 0);
 __decorate([
     core_1.Input('for'),
     __metadata("design:type", String)
