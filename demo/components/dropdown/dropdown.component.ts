@@ -16,7 +16,7 @@ export class DropdownComponent implements OnInit {
   items: any[] = [
     { label: 'item 1' },
     { label: 'item 2' },
-    { label: 'item 3' },
+    { label: 'item 3', class: 'myclass myclass2' },
     { label: 'item 4' },
     { label: 'item 5' },
     { label: 'item 6', sublabel: 'sublabel of item 6' },
@@ -24,10 +24,10 @@ export class DropdownComponent implements OnInit {
     { label: 'item 8', sublabel: 'sublabel of item 8' },
     { label: 'item 9' },
     { label: 'item 10' }
-  ]
+  ];
 
   onSelect(selectedItems: any[]) {
-    console.log(selectedItems);
+    // console.log(selectedItems);
     if (selectedItems && selectedItems[0]) {
       this.selectedItem = selectedItems[0];
     } else {
