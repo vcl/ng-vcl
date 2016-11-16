@@ -4,7 +4,9 @@
   [attr.tabindex]="tabindex"
   [attr.aria-multiselectable]="maxSelectableItems > 1"
   [attr.aria-expanded]="expanded">
-  <vcl-metalist (select)="onSelect($event)" #metalist [items]="items" [meta]="metaInformation" [maxSelectableItems]="maxSelectableItems" [minSelectableItems]="minSelectableItems">
+  <vcl-metalist (select)="onSelect($event)" #metalist [items]="items"
+  [meta]="metaInformation" [maxSelectableItems]="maxSelectableItems"
+  [minSelectableItems]="minSelectableItems">
     <template let-item="item" let-meta="meta">
       <li class="vclDropdownItem"
         [class.vclSelected]="meta.selected"

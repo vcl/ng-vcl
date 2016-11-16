@@ -1,8 +1,5 @@
 import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit } from '@angular/core';
 
-/**
-*/
-
 @Component({
   selector: 'vcl-metalist',
   templateUrl: 'metalist.component.html'
