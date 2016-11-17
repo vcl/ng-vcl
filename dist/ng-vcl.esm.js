@@ -4724,6 +4724,7 @@ var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2 = {
 var TokenInputComponent = (function () {
     function TokenInputComponent() {
         this.addtext = '';
+        this.x = 'asdf222';
     }
     TokenInputComponent.prototype.keydown = function (ev) {
         if (ev.key != 'Enter')

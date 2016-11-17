@@ -141,7 +141,7 @@ export class TokenInputComponent implements ControlValueAccessor {
   @Input('tokens') tokens: any[];
   addtext: string = '';
 
-  x: string = 'asdf';
+  x: string = 'asdf222';
 
   keydown(ev) {
     if (ev.key != 'Enter') return;
