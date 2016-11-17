@@ -34,6 +34,7 @@ export class TokenComponent {
       selected: false
     }
   ];
+
   changed(e) {
     console.log('changed');
     console.dir(e);

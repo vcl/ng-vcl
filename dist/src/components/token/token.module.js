@@ -13,6 +13,7 @@ var common_1 = require("@angular/common");
 var token_component_1 = require("./token.component");
 var metalist_module_1 = require("../metalist/metalist.module");
 var l10n_module_1 = require("../../l10n/l10n.module");
+var forms_1 = require("@angular/forms");
 var VCLTokenModule = (function () {
     function VCLTokenModule() {
     }
@@ -20,9 +21,9 @@ var VCLTokenModule = (function () {
 }());
 VCLTokenModule = __decorate([
     core_1.NgModule({
-        imports: [common_1.CommonModule, l10n_module_1.L10nModule, metalist_module_1.VCLMetalistModule],
-        exports: [token_component_1.TokenComponent, token_component_1.TokenListComponent],
-        declarations: [token_component_1.TokenComponent, token_component_1.TokenListComponent],
+        imports: [common_1.CommonModule, l10n_module_1.L10nModule, metalist_module_1.VCLMetalistModule, forms_1.FormsModule],
+        exports: [token_component_1.TokenComponent, token_component_1.TokenListComponent, token_component_1.TokenInputComponent],
+        declarations: [token_component_1.TokenComponent, token_component_1.TokenListComponent, token_component_1.TokenInputComponent],
         providers: [],
     }),
     __metadata("design:paramtypes", [])

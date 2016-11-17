@@ -32,6 +32,7 @@ export class FormComponent implements OnInit {
       mydropdown: [''],
       mycheckbox: ['', Validators.required],
       flip: [''],
+      tokenlist: [''],
       datepick: ['']
     }, {
         validator: equalInputMatcher
@@ -44,5 +45,25 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+
+  tokenList = [
+    {
+      label: 'alice',
+      selected: false
+    },
+    {
+      label: 'bob',
+      selected: false
+    },
+    {
+      label: 'carol',
+      selected: false
+    },
+    {
+      label: 'dave',
+      selected: false
+    }
+  ];
 
 }

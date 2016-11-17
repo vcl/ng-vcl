@@ -56,20 +56,19 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 };
 var TokenListComponent = (function () {
     function TokenListComponent() {
-        this.selected = [];
+        this.value = [];
         this.onChange = new core_1.EventEmitter();
     }
     TokenListComponent.prototype.ngAfterContentInit = function () { };
     TokenListComponent.prototype.ngOnInit = function () { };
     TokenListComponent.prototype.change = function () {
-        this.selected = this.tokens.filter(function (t) { return t.selected; });
-        this.onChange.emit(this.selected);
-        !!this.onChangeCallback && this.onChangeCallback(this.selected);
+        this.value = this.tokens
+            .filter(function (t) { return t.selected; });
+        this.onChange.emit(this.value);
+        !!this.onChangeCallback && this.onChangeCallback(this.value);
     };
     TokenListComponent.prototype.writeValue = function (value) {
-        if (value !== this.selected) {
-            this.selected = value;
-        }
+        this.value = value;
     };
     TokenListComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -95,9 +94,62 @@ TokenListComponent = __decorate([
     core_1.Component({
         selector: 'vcl-token-list',
         templateUrl: 'tokenlist.component.html',
-        host: {},
+        host: {
+            '[class.vclTokenList]': 'true',
+            '[class.vclTokenContainer]': 'true'
+        },
         providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
     }),
     __metadata("design:paramtypes", [])
 ], TokenListComponent);
 exports.TokenListComponent = TokenListComponent;
+exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2 = {
+    provide: forms_1.NG_VALUE_ACCESSOR,
+    useExisting: core_1.forwardRef(function () { return TokenListComponent; }),
+    multi: true
+};
+var TokenInputComponent = (function () {
+    function TokenInputComponent() {
+        this.addtext = '';
+    }
+    TokenInputComponent.prototype.keydown = function (ev) {
+        if (ev.key != 'Enter')
+            return;
+        if (this.addtext == '')
+            return;
+        this.tokens.push({ label: this.addtext });
+        this.addtext = '';
+        !!this.onChangeCallback && this.onChangeCallback(this.tokens);
+    };
+    TokenInputComponent.prototype.remove = function (token) {
+        this.tokens = this.tokens.filter(function (t) { return t.label != token.label; });
+        !!this.onChangeCallback && this.onChangeCallback(this.tokens);
+    };
+    TokenInputComponent.prototype.writeValue = function (tokens) {
+        this.tokens = tokens;
+    };
+    TokenInputComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    TokenInputComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    return TokenInputComponent;
+}());
+__decorate([
+    core_1.Input('tokens'),
+    __metadata("design:type", Array)
+], TokenInputComponent.prototype, "tokens", void 0);
+TokenInputComponent = __decorate([
+    core_1.Component({
+        selector: 'vcl-token-input',
+        templateUrl: 'tokeninput.component.html',
+        host: {
+            '[class.vclInput]': 'true',
+            '[class.vclTokenInput]': 'true'
+        },
+        providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2]
+    }),
+    __metadata("design:paramtypes", [])
+], TokenInputComponent);
+exports.TokenInputComponent = TokenInputComponent;

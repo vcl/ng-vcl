@@ -22,6 +22,24 @@ var FormComponent = (function () {
             { label: 'item 2' },
             { label: 'item 3' }
         ];
+        this.tokenList = [
+            {
+                label: 'alice',
+                selected: false
+            },
+            {
+                label: 'bob',
+                selected: false
+            },
+            {
+                label: 'carol',
+                selected: false
+            },
+            {
+                label: 'dave',
+                selected: false
+            }
+        ];
         this.form = this.fb.group({
             myname: ['', forms_1.Validators.required],
             myname2: ['', forms_1.Validators.required],
@@ -30,6 +48,7 @@ var FormComponent = (function () {
             mydropdown: [''],
             mycheckbox: ['', forms_1.Validators.required],
             flip: [''],
+            tokenlist: [''],
             datepick: ['']
         }, {
             validator: equalInputMatcher

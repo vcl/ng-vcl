@@ -5,10 +5,12 @@ import {
   EventEmitter,
   ViewChild,
   ContentChildren,
+  ContentChild,
   QueryList,
-  forwardRef
+  forwardRef,
+  HostListener
 } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
 @Component({
@@ -54,14 +56,17 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-token-list',
   templateUrl: 'tokenlist.component.html',
-  host: {},
+  host: {
+    '[class.vclTokenList]': 'true',
+    '[class.vclTokenContainer]': 'true'
+  },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TokenListComponent implements ControlValueAccessor {
 
 
   @Input('tokens') tokens: any[];
-  selected: any[] = [];
+  value: any[] = [];
 
   @Output('onChange') onChange = new EventEmitter();
 
@@ -77,9 +82,10 @@ export class TokenListComponent implements ControlValueAccessor {
 
 
   change() {
-    this.selected = this.tokens.filter(t => t.selected);
-    this.onChange.emit(this.selected);
-    !!this.onChangeCallback && this.onChangeCallback(this.selected);
+    this.value = this.tokens
+      .filter(t => t.selected);
+    this.onChange.emit(this.value);
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
   }
 
 
@@ -91,10 +97,9 @@ export class TokenListComponent implements ControlValueAccessor {
   private onChangeCallback: (_: any) => void;
 
   writeValue(value: any): void {
-    if (value !== this.selected) {
-      this.selected = value;
-    }
+    this.value = value;
   }
+
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
   }
@@ -102,4 +107,67 @@ export class TokenListComponent implements ControlValueAccessor {
     this.onTouchedCallback = fn;
   }
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => TokenListComponent),
+  multi: true
+};
+
+@Component({
+  selector: 'vcl-token-input',
+  templateUrl: 'tokeninput.component.html',
+  host: {
+    '[class.vclInput]': 'true',
+    '[class.vclTokenInput]': 'true'
+  },
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2]
+})
+export class TokenInputComponent implements ControlValueAccessor {
+
+  @Input('tokens') tokens: any[];
+  addtext: string = '';
+
+  keydown(ev) {
+    if (ev.key != 'Enter') return;
+    if (this.addtext == '') return;
+    this.tokens.push({ label: this.addtext });
+    this.addtext = '';
+    !!this.onChangeCallback && this.onChangeCallback(this.tokens);
+  }
+
+  remove(token) {
+    this.tokens = this.tokens.filter(t => t.label != token.label);
+    !!this.onChangeCallback && this.onChangeCallback(this.tokens);
+  }
+
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: any) => void;
+
+  writeValue(tokens: any): void {
+    this.tokens = tokens;
+  }
+
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
 }
