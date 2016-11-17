@@ -44,7 +44,10 @@ export class NavigationItemComponent {
       class: this.class
     };
 
-    if (this.route) ret['route'] = [this.route];
+    if (this.route) {
+      ret['route'] = this.route;
+      if (!ret['route'].length) ret['route'] = [ret['route']]; // force array      
+    }
 
     // add nested items
     const items = [];
@@ -68,7 +71,7 @@ export class NavigationItemComponent {
 })
 export class NavigationComponent {
 
-//  isVert: boolean = true;
+  //  isVert: boolean = true;
 
   constructor(private router: Router) {
   }

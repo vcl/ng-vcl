@@ -30,8 +30,11 @@ var NavigationItemComponent = (function () {
             appIcon: this.appIcon,
             class: this.class
         };
-        if (this.route)
-            ret['route'] = [this.route];
+        if (this.route) {
+            ret['route'] = this.route;
+            if (!ret['route'].length)
+                ret['route'] = [ret['route']];
+        }
         var items = [];
         var ar = this.items.toArray();
         ar.shift();
