@@ -28,6 +28,8 @@ import MONTH_SELECTOR_DEMO from './components/month-selector/month-selector.demo
 import DATE_PICKER_DEMO from './components/date-picker/date-picker.demo';
 import JSON_EDITOR_DEMO from './components/json-editor/json-editor.demo';
 import LABEL_DEMO from './components/label/label.demo';
+import TOKEN_DEMO from './components/token/token.demo';
+
 import L10N_DEMO from './components/l10n/l10n.demo';
 
 interface Demo {
@@ -68,6 +70,7 @@ export const DEMOS: Demo[] = [
   DATE_PICKER_DEMO,
   JSON_EDITOR_DEMO,
   LABEL_DEMO,
+  TOKEN_DEMO,
   L10N_DEMO,
 ];
 

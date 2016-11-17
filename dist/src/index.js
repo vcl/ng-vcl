@@ -38,6 +38,7 @@ var wormhole_module_1 = require("./directives/wormhole/wormhole.module");
 var month_picker_module_1 = require("./components/month-picker/month-picker.module");
 var date_picker_module_1 = require("./components/date-picker/date-picker.module");
 var label_module_1 = require("./components/label/label.module");
+var token_module_1 = require("./components/token/token.module");
 __export(require("./reflect"));
 __export(require("./components/icon/icon.module"));
 __export(require("./components/icogram/icogram.module"));
@@ -57,6 +58,7 @@ __export(require("./components/month-picker/month-picker.module"));
 __export(require("./components/date-picker/date-picker.module"));
 __export(require("./components/json-editor/json-editor.module"));
 __export(require("./components/label/label.module"));
+__export(require("./components/token/token.module"));
 __export(require("./directives/off-click/off-click.module"));
 __export(require("./directives/wormhole/wormhole.module"));
 __export(require("./l10n/l10n.module"));
@@ -95,7 +97,8 @@ VCLModule = __decorate([
             month_picker_module_1.VCLMonthPickerModule,
             date_picker_module_1.VCLDatePickerModule,
             json_editor_module_1.VCLJsonEditorModule,
-            label_module_1.VCLLabelModule
+            label_module_1.VCLLabelModule,
+            token_module_1.VCLTokenModule
         ],
         exports: [
             wormhole_module_1.VCLWormholeModule,
@@ -123,7 +126,8 @@ VCLModule = __decorate([
             month_picker_module_1.VCLMonthPickerModule,
             date_picker_module_1.VCLDatePickerModule,
             json_editor_module_1.VCLJsonEditorModule,
-            label_module_1.VCLLabelModule
+            label_module_1.VCLLabelModule,
+            token_module_1.VCLTokenModule
         ],
         providers: [
             overlayManager_service_1.OverlayManagerService
