@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Label',
     path: 'label',
-    category: 'Inputs',
+    category: 'Buttons',
     tabs: {
         Demo: label_component_1.LabelComponent,
         'README.md': require("!raw!../../../src/components/label/README.md"),

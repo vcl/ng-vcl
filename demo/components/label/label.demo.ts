@@ -3,7 +3,7 @@ import { LabelComponent } from './label.component';
 export default {
   name: 'Label',
   path: 'label',
-  category: 'Inputs',
+  category: 'Buttons',
   tabs: {
     Demo: LabelComponent,
     'README.md': require("!raw!../../../src/components/label/README.md"),
