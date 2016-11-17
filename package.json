@@ -28,6 +28,9 @@
     "angular",
     "VCL"
   ],
+  "pre-commit": [
+    "build"
+  ],
   "author": "The ng-vcl authors",
   "license": "MIT",
   "main": "dist/ng-vcl.cjs.js",
@@ -70,6 +73,7 @@
     "json-loader": "^0.5.4",
     "npm-run-all": "^3.1.1",
     "postcss-cli": "^2.6.0",
+    "pre-commit": "^1.1.3",
     "raw-loader": "^0.5.1",
     "rollup": "^0.36.3",
     "rollup-plugin-angular": "^0.4.3",
