@@ -9,63 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var Token = (function () {
-    function Token() {
-        this.selected = false;
-        this.removeable = false;
-        this.labelClass = '';
-        this.onRemove = new core_1.EventEmitter();
-    }
-    Token.prototype.remove = function () {
-        this.onRemove.emit();
-    };
-    return Token;
-}());
-__decorate([
-    core_1.Input('label'),
-    __metadata("design:type", String)
-], Token.prototype, "label", void 0);
-__decorate([
-    core_1.Input('selected'),
-    __metadata("design:type", Boolean)
-], Token.prototype, "selected", void 0);
-__decorate([
-    core_1.Input('removeable'),
-    __metadata("design:type", Boolean)
-], Token.prototype, "removeable", void 0);
-__decorate([
-    core_1.Input('labelClass'),
-    __metadata("design:type", String)
-], Token.prototype, "labelClass", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", Object)
-], Token.prototype, "onRemove", void 0);
-Token = __decorate([
-    core_1.Component({
-        selector: 'vcl-token',
-        template: "\n    <div class=\"vclToken\"\n      [class.vclSelected]=\"selected\"\n    >\n      <span class=\"vclTokenLabel\">{{ label }}</span>\n      <button *ngIf=\"removeable\" type=\"button\" title=\"Remove\" class=\"vclTransparent vclButton\">\n        <div class=\"vclIcogram\" (tap)=\"remove()\">\n          <span class=\"vclIcon fa fa-remove\"></span>\n        </div>\n      </button>\n    </div>",
-        host: {
-            '[class.vclSelected]': 'selected',
-            '[class]': 'labelClass',
-        }
-    }),
-    __metadata("design:paramtypes", [])
-], Token);
-exports.Token = Token;
+var forms_1 = require("@angular/forms");
 var TokenComponent = (function () {
     function TokenComponent() {
-        this.type = '';
-        this.requiredIndicatorCharacter = '•';
-        this.required = false;
-        this.labelClass = '';
+        this.selected = false;
+        this.removeable = false;
+        this.onRemove = new core_1.EventEmitter();
     }
-    TokenComponent.prototype.ngOnInit = function () {
-        if (this.type != '')
-            this.labelClass = 'vclLabel vcl' + this.ucfirst(this.type);
-    };
-    TokenComponent.prototype.ucfirst = function (str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+    TokenComponent.prototype.remove = function () {
+        this.onRemove.emit();
     };
     return TokenComponent;
 }());
@@ -74,34 +26,78 @@ __decorate([
     __metadata("design:type", String)
 ], TokenComponent.prototype, "label", void 0);
 __decorate([
-    core_1.Input('subLabel'),
-    __metadata("design:type", String)
-], TokenComponent.prototype, "subLabel", void 0);
-__decorate([
-    core_1.Input('type'),
-    __metadata("design:type", String)
-], TokenComponent.prototype, "type", void 0);
-__decorate([
-    core_1.Input('requiredIndicatorCharacter'),
-    __metadata("design:type", String)
-], TokenComponent.prototype, "requiredIndicatorCharacter", void 0);
-__decorate([
-    core_1.Input('required'),
+    core_1.Input('selected'),
     __metadata("design:type", Boolean)
-], TokenComponent.prototype, "required", void 0);
+], TokenComponent.prototype, "selected", void 0);
 __decorate([
-    core_1.Input('for'),
-    __metadata("design:type", String)
-], TokenComponent.prototype, "for", void 0);
+    core_1.Input('removeable'),
+    __metadata("design:type", Boolean)
+], TokenComponent.prototype, "removeable", void 0);
+__decorate([
+    core_1.Output('onRemove'),
+    __metadata("design:type", Object)
+], TokenComponent.prototype, "onRemove", void 0);
 TokenComponent = __decorate([
     core_1.Component({
-        selector: 'vcl-token-list',
-        templateUrl: 'token.component.html',
+        selector: 'vcl-token',
+        template: "\n      <span class=\"vclTokenLabel\">{{ label }}</span>\n      <button *ngIf=\"removeable\" type=\"button\" title=\"Remove\"\n      class=\"vclTransparent vclButton\">\n        <div class=\"vclIcogram\" (tap)=\"remove()\">\n          <span class=\"vclIcon fa fa-remove\"></span>\n        </div>\n      </button>",
         host: {
-            '[class.vclFormControlLabel]': 'true',
-            '[class]': 'labelClass',
+            '[class.vclToken]': 'true',
+            '[class.vclSelected]': 'selected'
         }
     }),
     __metadata("design:paramtypes", [])
 ], TokenComponent);
 exports.TokenComponent = TokenComponent;
+exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
+    provide: forms_1.NG_VALUE_ACCESSOR,
+    useExisting: core_1.forwardRef(function () { return TokenListComponent; }),
+    multi: true
+};
+var TokenListComponent = (function () {
+    function TokenListComponent() {
+        this.selected = [];
+        this.onChange = new core_1.EventEmitter();
+    }
+    TokenListComponent.prototype.ngAfterContentInit = function () { };
+    TokenListComponent.prototype.ngOnInit = function () { };
+    TokenListComponent.prototype.change = function () {
+        this.selected = this.tokens.filter(function (t) { return t.selected; });
+        this.onChange.emit(this.selected);
+        !!this.onChangeCallback && this.onChangeCallback(this.selected);
+    };
+    TokenListComponent.prototype.writeValue = function (value) {
+        if (value !== this.selected) {
+            this.selected = value;
+        }
+    };
+    TokenListComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    TokenListComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    return TokenListComponent;
+}());
+__decorate([
+    core_1.Input('tokens'),
+    __metadata("design:type", Array)
+], TokenListComponent.prototype, "tokens", void 0);
+__decorate([
+    core_1.Output('onChange'),
+    __metadata("design:type", Object)
+], TokenListComponent.prototype, "onChange", void 0);
+__decorate([
+    core_1.ContentChildren(TokenComponent),
+    __metadata("design:type", core_1.QueryList)
+], TokenListComponent.prototype, "templateItems", void 0);
+TokenListComponent = __decorate([
+    core_1.Component({
+        selector: 'vcl-token-list',
+        templateUrl: 'tokenlist.component.html',
+        host: {},
+        providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+    }),
+    __metadata("design:paramtypes", [])
+], TokenListComponent);
+exports.TokenListComponent = TokenListComponent;

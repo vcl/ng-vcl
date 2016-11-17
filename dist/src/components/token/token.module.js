@@ -21,8 +21,8 @@ var VCLTokenModule = (function () {
 VCLTokenModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule, l10n_module_1.L10nModule, metalist_module_1.VCLMetalistModule],
-        exports: [token_component_1.TokenComponent],
-        declarations: [token_component_1.TokenComponent],
+        exports: [token_component_1.TokenComponent, token_component_1.TokenListComponent],
+        declarations: [token_component_1.TokenComponent, token_component_1.TokenListComponent],
         providers: [],
     }),
     __metadata("design:paramtypes", [])

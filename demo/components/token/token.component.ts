@@ -4,8 +4,39 @@ import { Component } from '@angular/core';
   templateUrl: 'token.component.html'
 })
 export class TokenComponent {
-  isChecked = false;
 
-  isChecked2 = false;
+
+  toggleSelect: boolean = true;
+  doToggleSelect() {
+    this.toggleSelect = !this.toggleSelect;
+  }
+
+  removeAlert() {
+    window.alert('removed');
+  }
+
+
+  tokenList = [
+    {
+      label: 'alice',
+      selected: false
+    },
+    {
+      label: 'bob',
+      selected: false
+    },
+    {
+      label: 'carol',
+      selected: false
+    },
+    {
+      label: 'dave',
+      selected: false
+    }
+  ];
+  changed(e) {
+    console.log('changed');
+    console.dir(e);
+  }
 
 }

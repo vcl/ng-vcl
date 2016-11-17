@@ -1,1 +1,16 @@
-my token demo
+single tokens:
+
+<vcl-token label="mytoken" [selected]="false" [removeable]="false" class="myclass"></vcl-token>
+
+<vcl-token label="mytoken2" [selected]="toggleSelect" (tap)="doToggleSelect()" class="myclass2"></vcl-token>
+
+<vcl-token label="mytoken3" [selected]="false" [removeable]="true" (onRemove)="removeAlert()"></vcl-token>
+
+<br/><br/><br/>
+
+
+
+tokenlist:<br/>
+
+
+<vcl-token-list [tokens]="tokenList" (onChange)="changed($event);"></vcl-token-list>

@@ -11,9 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var TokenComponent = (function () {
     function TokenComponent() {
-        this.isChecked = false;
-        this.isChecked2 = false;
+        this.toggleSelect = true;
+        this.tokenList = [
+            {
+                label: 'alice',
+                selected: false
+            },
+            {
+                label: 'bob',
+                selected: false
+            },
+            {
+                label: 'carol',
+                selected: false
+            },
+            {
+                label: 'dave',
+                selected: false
+            }
+        ];
     }
+    TokenComponent.prototype.doToggleSelect = function () {
+        this.toggleSelect = !this.toggleSelect;
+    };
+    TokenComponent.prototype.removeAlert = function () {
+        window.alert('removed');
+    };
+    TokenComponent.prototype.changed = function (e) {
+        console.log('changed');
+        console.dir(e);
+    };
     return TokenComponent;
 }());
 TokenComponent = __decorate([
