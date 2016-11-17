@@ -33,6 +33,7 @@ export class FormComponent implements OnInit {
       mycheckbox: ['', Validators.required],
       flip: [''],
       tokenlist: [''],
+      tokeninput: [''],
       datepick: ['']
     }, {
         validator: equalInputMatcher
@@ -66,4 +67,14 @@ export class FormComponent implements OnInit {
     }
   ];
 
+  tokenList2 = [
+    {
+      label: 'alice',
+      selected: false
+    },
+    {
+      label: 'bob',
+      selected: false
+    }
+  ];
 }

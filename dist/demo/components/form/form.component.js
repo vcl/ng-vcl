@@ -40,6 +40,16 @@ var FormComponent = (function () {
                 selected: false
             }
         ];
+        this.tokenList2 = [
+            {
+                label: 'alice',
+                selected: false
+            },
+            {
+                label: 'bob',
+                selected: false
+            }
+        ];
         this.form = this.fb.group({
             myname: ['', forms_1.Validators.required],
             myname2: ['', forms_1.Validators.required],
@@ -49,6 +59,7 @@ var FormComponent = (function () {
             mycheckbox: ['', forms_1.Validators.required],
             flip: [''],
             tokenlist: [''],
+            tokeninput: [''],
             datepick: ['']
         }, {
             validator: equalInputMatcher

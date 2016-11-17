@@ -4722,19 +4722,21 @@ var TokenListComponent = (function () {
 }());
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
-    useExisting: _angular_core.forwardRef(function () { return TokenListComponent; }),
+    useExisting: _angular_core.forwardRef(function () { return TokenInputComponent; }),
     multi: true
 };
 var TokenInputComponent = (function () {
     function TokenInputComponent() {
+        this.tokens = [];
         this.addtext = '';
-        this.x = 'asdf222';
     }
     TokenInputComponent.prototype.keydown = function (ev) {
         if (ev.key != 'Enter')
             return;
         if (this.addtext == '')
             return;
+        if (!this.tokens)
+            this.tokens = []; // TODO why is default not working?
         this.tokens.push({ label: this.addtext });
         this.addtext = '';
         !!this.onChangeCallback && this.onChangeCallback(this.tokens);

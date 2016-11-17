@@ -123,7 +123,7 @@ export class TokenListComponent implements ControlValueAccessor {
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TokenListComponent),
+  useExisting: forwardRef(() => TokenInputComponent),
   multi: true
 };
 
@@ -138,14 +138,16 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2: any = {
 })
 export class TokenInputComponent implements ControlValueAccessor {
 
-  @Input('tokens') tokens: any[];
-  addtext: string = '';
+  @Input('tokens') tokens: any[] = [];
 
-  x: string = 'asdf222';
+  addtext: string = '';
 
   keydown(ev) {
     if (ev.key != 'Enter') return;
     if (this.addtext == '') return;
+
+    if (!this.tokens) this.tokens = []; // TODO why is default not working?
+
     this.tokens.push({ label: this.addtext });
     this.addtext = '';
     !!this.onChangeCallback && this.onChangeCallback(this.tokens);

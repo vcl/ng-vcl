@@ -31,7 +31,6 @@ export declare const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2: any;
 export declare class TokenInputComponent implements ControlValueAccessor {
     tokens: any[];
     addtext: string;
-    x: string;
     keydown(ev: any): void;
     remove(token: any): void;
     /**
