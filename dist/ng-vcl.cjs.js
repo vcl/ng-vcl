@@ -192,7 +192,7 @@ var FlipSwitchComponent = (function () {
     FlipSwitchComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-flip-switch',
-            template: "<div class=\"vclFlipSwitch\" [class.vclFlipSwitchPressed]=\"value\" touch-action=\"pan-y\" role=\"button\" tabindex=\"0\" aria-pressed=\"true\" aria-labelledby=\"fs-label-0\" (click)=\"onClick()\">\n  <label class=\"vclFlipSwitchLabel\" id=\"fs-label-0\">\n    <div class=\"vclFlipSwitchTrack\">\n      <div class=\"vclFlipSwitchActive\" aria-hidden=\"false\">{{onLabel}}</div>\n      <div class=\"vclFlipSwitchInactive\" aria-hidden=\"true\">{{offLabel}}</div>\n    </div>\n    <div class=\"vclFlipSwitchKnob\"></div>\n  </label>\n</div>\n",
+            template: "<div class=\"vclFlipSwitch\" [class.vclFlipSwitchPressed]=\"value\" touch-action=\"pan-y\" role=\"button\" tabindex=\"0\" aria-pressed=\"true\" aria-labelledby=\"fs-label-0\" (tap)=\"onClick()\">\n  <label class=\"vclFlipSwitchLabel\" id=\"fs-label-0\">\n    <div class=\"vclFlipSwitchTrack\">\n      <div class=\"vclFlipSwitchActive\" aria-hidden=\"false\">{{onLabel}}</div>\n      <div class=\"vclFlipSwitchInactive\" aria-hidden=\"true\">{{offLabel}}</div>\n    </div>\n    <div class=\"vclFlipSwitchKnob\"></div>\n  </label>\n</div>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
         }), 
@@ -201,8 +201,6 @@ var FlipSwitchComponent = (function () {
     return FlipSwitchComponent;
 }());
 
-/**
-*/
 var MetalistComponent = (function () {
     function MetalistComponent() {
         this.select = new _angular_core.EventEmitter();
@@ -963,7 +961,7 @@ var DropdownComponent = (function () {
     DropdownComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-dropdown',
-            template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\" [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\" [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
+            template: "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\"\n  [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\"\n  [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\"\n        [ngClass]=\"item.class\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n",
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$1]
         }), 
@@ -2338,8 +2336,11 @@ var NavigationItemComponent = (function () {
             appIcon: this.appIcon,
             class: this.class
         };
-        if (this.route)
-            ret['route'] = [this.route];
+        if (this.route) {
+            ret['route'] = this.route;
+            if (!ret['route'].length)
+                ret['route'] = [ret['route']]; // force array      
+        }
         // add nested items
         var items = [];
         var ar = this.items.toArray();
@@ -2542,7 +2543,7 @@ var NavigationComponent = (function () {
             host: {
                 '[class.vclNavigation]': 'true'
             },
-            template: "  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\"\n        [ngClass]=\"item.class\"\n        >\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (click)=\"item.items && toggleMenu(item)\"\n        (click)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n",
+            template: "  <ul>\n    <li *ngFor=\"let item of navigationItems\"\n        [class.vclSelected]=\"item.selected && !item.items\"\n        [class.vclOpen]=\"item.opened\"\n        [class.vclClose]=\"!item.opened\"\n        [class.vclNavigationHeading]=\"item.heading\"\n        [class.vclNavigationItem]=\"!item.heading\"\n        [attr.touch-action]=\"touchAction\"\n        [attr.aria-selected]=\"item.selected\"\n        [attr.role]=\"item.heading && 'sectionhead' || ariaRole\"\n        [attr.tabindex]=\"tabindex\"\n        [ngClass]=\"item.class\"\n        >\n\n      <span *ngIf=\"item.heading\">\n        {{item.label | loc}}\n      </span>\n\n      <a vcl-link class=\"vclNavigationItemLabel\"\n        *ngIf=\"!item.heading\"\n        [label]=\"item.label | loc\"\n        [href]=\"item.href\"\n        [prepIcon]=\"getPrepIcon(item)\"\n        [appIcon]=\"getAppIcon(item)\"\n        (tap)=\"item.items && toggleMenu(item)\"\n        (tap)=\"selectItem(item)\">\n      </a>\n\n      <vcl-navigation *ngIf=\"item.items\"\n          [navigationItems]=\"item.items\"\n          [type]=\"type\"\n          [subLevelHintIconOpened]=\"subLevelHintIconOpened\"\n          [subLevelHintIconClosed]=\"subLevelHintIconClosed\"\n          [subLevelHintIconSide]=\"subLevelHintIconSide\"\n          [selectedItem]=\"selectedItem\"\n          (select)=\"onSelect($event)\">\n      </vcl-navigation>\n    </li>\n  </ul>\n",
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof _angular_router.Router !== 'undefined' && _angular_router.Router) === 'function' && _b) || Object])
     ], NavigationComponent);
@@ -4532,7 +4533,7 @@ var DatePickerComponent = (function () {
     DatePickerComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-date-picker',
-            template: "<div class=\"vclDatePicker\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter\">\n          <button class=\"vclTransparent vclSquare  vclButton\" (click)=\"prevMonth()\">\n              <div class=\"vclIcogram\">\n                <span class=\"vclIcon fa fa-angle-left\"></span>\n              </div>\n            </button>\n          <span class=\"vclCalHeaderLabel\">\n              {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}\n            </span>\n          <button class=\"vclTransparent vclSquare vclButton\" (click)=\"nextMonth()\">\n               <div class=\"vclIcogram\">\n                  <span class=\"vclIcon fa fa-angle-right\"></span>\n                </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <div class=\"vclDGRow\">\n      <div *ngIf=\"displayWeekNumbers\" class=\"vclDGCell timeFragment vclCalItem vclOtherMonth\">\n        {{'week' | loc}}\n      </div>\n      <div *ngFor=\"let day of viewDate.getWeekDays()\" class=\"vclDGCell vclWeekdayLabel\" [class.hidden]=\"!displayWeekdays\">\n        {{day | loc}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\" *ngFor=\"let week of viewDate.getMonthBlock()\">\n      <div *ngIf=\"displayWeekNumbers && week.length==7\" class=\"vclDGCell\">\n        {{week[5].getWeekNumber()}}\n      </div>\n      <div *ngFor=\"let day of week\" class=\"vclDGCell timeFragment vclCalItem\" [class.vclDisabled]=\"isDisabled(day)\" [class.vclSelected]=\"isMarked(day)\" (click)=\"!isDisabled(day) && select(day)\" [class.vclToday]=\"highlightSelected && day.isToday()\" [class.vclOtherMonth]=\"!day.isSameMonthAndYear()\">\n        {{day.date.getDate()}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified\">\n          <button title=\"go to today\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpToday\" (click)=\"gotoToday()\">\n             <div class=\" vclIcogram\">\n               <span class=\"vclText \">go to today</span>\n             </div>\n           </button>\n          <button title=\"go to selected\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpSelected\" (click)=\"gotoSelected()\">\n              <div class=\" vclIcogram\">\n                <span class=\"vclText \">go to selected</span>\n              </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n</div>\n",
+            template: "<div class=\"vclDatePicker\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter\">\n          <button class=\"vclTransparent vclSquare  vclButton\" (tap)=\"prevMonth()\">\n              <div class=\"vclIcogram\">\n                <span class=\"vclIcon fa fa-angle-left\"></span>\n              </div>\n            </button>\n          <span class=\"vclCalHeaderLabel\">\n              {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}\n            </span>\n          <button class=\"vclTransparent vclSquare vclButton\" (tap)=\"nextMonth()\">\n               <div class=\"vclIcogram\">\n                  <span class=\"vclIcon fa fa-angle-right\"></span>\n                </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <div class=\"vclDGRow\">\n      <div *ngIf=\"displayWeekNumbers\" class=\"vclDGCell timeFragment vclCalItem vclOtherMonth\">\n        {{'week' | loc}}\n      </div>\n      <div *ngFor=\"let day of viewDate.getWeekDays()\" class=\"vclDGCell vclWeekdayLabel\" [class.hidden]=\"!displayWeekdays\">\n        {{day | loc}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\" *ngFor=\"let week of viewDate.getMonthBlock()\">\n      <div *ngIf=\"displayWeekNumbers && week.length==7\" class=\"vclDGCell\">\n        {{week[5].getWeekNumber()}}\n      </div>\n      <div *ngFor=\"let day of week\" class=\"vclDGCell timeFragment vclCalItem\" [class.vclDisabled]=\"isDisabled(day)\" [class.vclSelected]=\"isMarked(day)\" (tap)=\"!isDisabled(day) && select(day)\" [class.vclToday]=\"highlightSelected && day.isToday()\" [class.vclOtherMonth]=\"!day.isSameMonthAndYear()\">\n        {{day.date.getDate()}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified\">\n          <button title=\"go to today\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpToday\" (tap)=\"gotoToday()\">\n             <div class=\" vclIcogram\">\n               <span class=\"vclText \">go to today</span>\n             </div>\n           </button>\n          <button title=\"go to selected\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpSelected\" (tap)=\"gotoSelected()\">\n              <div class=\" vclIcogram\">\n                <span class=\"vclText \">go to selected</span>\n              </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n</div>\n",
             styles: [".hidden{display:none;}"],
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$6]
         }), 
@@ -4554,6 +4555,234 @@ var VCLDatePickerModule = (function () {
         __metadata('design:paramtypes', [])
     ], VCLDatePickerModule);
     return VCLDatePickerModule;
+}());
+
+var LabelComponent = (function () {
+    function LabelComponent() {
+        this.type = '';
+        this.requiredIndicatorCharacter = '•';
+        this.required = false;
+        this.labelClass = '';
+    }
+    LabelComponent.prototype.ngOnInit = function () {
+        /**
+         * TODO(issue) this overwrites the users classes
+         * @link https://github.com/angular/angular/issues/7289
+         */
+        if (this.type != '')
+            this.labelClass = 'vclLabel vcl' + this.ucfirst(this.type);
+    };
+    LabelComponent.prototype.ucfirst = function (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
+    __decorate([
+        _angular_core.Input('label'), 
+        __metadata('design:type', String)
+    ], LabelComponent.prototype, "label", void 0);
+    __decorate([
+        _angular_core.Input('subLabel'), 
+        __metadata('design:type', String)
+    ], LabelComponent.prototype, "subLabel", void 0);
+    __decorate([
+        _angular_core.Input('type'), 
+        __metadata('design:type', Object)
+    ], LabelComponent.prototype, "type", void 0);
+    __decorate([
+        _angular_core.Input('requiredIndicatorCharacter'), 
+        __metadata('design:type', String)
+    ], LabelComponent.prototype, "requiredIndicatorCharacter", void 0);
+    __decorate([
+        _angular_core.Input('required'), 
+        __metadata('design:type', Boolean)
+    ], LabelComponent.prototype, "required", void 0);
+    __decorate([
+        _angular_core.Input('for'), 
+        __metadata('design:type', String)
+    ], LabelComponent.prototype, "for", void 0);
+    LabelComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-label',
+            template: "{{ label | loc }}\n\n<span *ngIf=\"required\">{{requiredIndicatorCharacter}}</span>\n<ng-content></ng-content>\n\n<label class=\"vclFormControlSubLabel\">\n    {{ subLabel | loc }}\n</label>\n",
+            host: {
+                '[class.vclFormControlLabel]': 'true',
+                '[class]': 'labelClass',
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], LabelComponent);
+    return LabelComponent;
+}());
+
+var VCLLabelModule = (function () {
+    function VCLLabelModule() {
+    }
+    VCLLabelModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule, VCLMetalistModule],
+            exports: [LabelComponent],
+            declarations: [LabelComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLLabelModule);
+    return VCLLabelModule;
+}());
+
+var TokenComponent = (function () {
+    function TokenComponent() {
+        this.selected = false;
+        this.removeable = false;
+        this.onRemove = new _angular_core.EventEmitter();
+    }
+    TokenComponent.prototype.remove = function () {
+        this.onRemove.emit();
+    };
+    __decorate([
+        _angular_core.Input('label'), 
+        __metadata('design:type', String)
+    ], TokenComponent.prototype, "label", void 0);
+    __decorate([
+        _angular_core.Input('selected'), 
+        __metadata('design:type', Boolean)
+    ], TokenComponent.prototype, "selected", void 0);
+    __decorate([
+        _angular_core.Input('removeable'), 
+        __metadata('design:type', Boolean)
+    ], TokenComponent.prototype, "removeable", void 0);
+    __decorate([
+        _angular_core.Output('onRemove'), 
+        __metadata('design:type', Object)
+    ], TokenComponent.prototype, "onRemove", void 0);
+    TokenComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-token',
+            template: "\n      <span class=\"vclTokenLabel\">{{ label }}</span>\n      <button *ngIf=\"removeable\" type=\"button\" title=\"Remove\"\n      class=\"vclTransparent vclButton\">\n        <div class=\"vclIcogram\" (tap)=\"remove()\">\n          <span class=\"vclIcon fa fa-remove\"></span>\n        </div>\n      </button>",
+            host: {
+                '[class.vclToken]': 'true',
+                '[class.vclSelected]': 'selected'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], TokenComponent);
+    return TokenComponent;
+}());
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$7 = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return TokenListComponent; }),
+    multi: true
+};
+var TokenListComponent = (function () {
+    function TokenListComponent() {
+        this.value = [];
+        this.onChange = new _angular_core.EventEmitter();
+    }
+    TokenListComponent.prototype.ngAfterContentInit = function () { };
+    TokenListComponent.prototype.ngOnInit = function () { };
+    TokenListComponent.prototype.change = function () {
+        this.value = this.tokens
+            .filter(function (t) { return t.selected; });
+        this.onChange.emit(this.value);
+        !!this.onChangeCallback && this.onChangeCallback(this.value);
+    };
+    TokenListComponent.prototype.writeValue = function (value) {
+        this.value = value;
+    };
+    TokenListComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    TokenListComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        _angular_core.Input('tokens'), 
+        __metadata('design:type', Array)
+    ], TokenListComponent.prototype, "tokens", void 0);
+    __decorate([
+        _angular_core.Output('onChange'), 
+        __metadata('design:type', Object)
+    ], TokenListComponent.prototype, "onChange", void 0);
+    __decorate([
+        _angular_core.ContentChildren(TokenComponent), 
+        __metadata('design:type', (typeof (_a = typeof _angular_core.QueryList !== 'undefined' && _angular_core.QueryList) === 'function' && _a) || Object)
+    ], TokenListComponent.prototype, "templateItems", void 0);
+    TokenListComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-token-list',
+            template: "<vcl-token *ngFor=\"let token of tokens\"\n [(selected)]=\"token.selected\"\n [label]=\"token.label\"\n (tap)=\"token.selected=!token.selected;change();\"></vcl-token>\n",
+            host: {
+                '[class.vclTokenList]': 'true',
+                '[class.vclTokenContainer]': 'true'
+            },
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$7]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], TokenListComponent);
+    return TokenListComponent;
+    var _a;
+}());
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2 = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return TokenListComponent; }),
+    multi: true
+};
+var TokenInputComponent = (function () {
+    function TokenInputComponent() {
+        this.addtext = '';
+    }
+    TokenInputComponent.prototype.keydown = function (ev) {
+        if (ev.key != 'Enter')
+            return;
+        if (this.addtext == '')
+            return;
+        this.tokens.push({ label: this.addtext });
+        this.addtext = '';
+        !!this.onChangeCallback && this.onChangeCallback(this.tokens);
+    };
+    TokenInputComponent.prototype.remove = function (token) {
+        this.tokens = this.tokens.filter(function (t) { return t.label != token.label; });
+        !!this.onChangeCallback && this.onChangeCallback(this.tokens);
+    };
+    TokenInputComponent.prototype.writeValue = function (tokens) {
+        this.tokens = tokens;
+    };
+    TokenInputComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    TokenInputComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        _angular_core.Input('tokens'), 
+        __metadata('design:type', Array)
+    ], TokenInputComponent.prototype, "tokens", void 0);
+    TokenInputComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-token-input',
+            template: "<div class=\"vclTokenContainer\">\n  <vcl-token *ngFor=\"let token of tokens\"\n  [(selected)]=\"token.selected\"\n  [removeable]=\"true\"\n  (onRemove)=\"remove(token)\"\n  [label]=\"token.label\"></vcl-token>\n</div>\n\n<input placeholder=\"Type to add tokens\" autocomplete=\"off\" type=\"text\"\n  class=\"vclInput\" (keydown)=\"keydown($event)\"\n  [(ngModel)]=\"addtext\" />\n",
+            host: {
+                '[class.vclInput]': 'true',
+                '[class.vclTokenInput]': 'true'
+            },
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], TokenInputComponent);
+    return TokenInputComponent;
+}());
+
+var VCLTokenModule = (function () {
+    function VCLTokenModule() {
+    }
+    VCLTokenModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule, VCLMetalistModule, _angular_forms.FormsModule],
+            exports: [TokenComponent, TokenListComponent, TokenInputComponent],
+            declarations: [TokenComponent, TokenListComponent, TokenInputComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLTokenModule);
+    return VCLTokenModule;
 }());
 
 var VCLModule = (function () {
@@ -4586,7 +4815,9 @@ var VCLModule = (function () {
                 VCLOffClickModule,
                 VCLMonthPickerModule,
                 VCLDatePickerModule,
-                VCLJsonEditorModule
+                VCLJsonEditorModule,
+                VCLLabelModule,
+                VCLTokenModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -4613,7 +4844,9 @@ var VCLModule = (function () {
                 VCLOffClickModule,
                 VCLMonthPickerModule,
                 VCLDatePickerModule,
-                VCLJsonEditorModule
+                VCLJsonEditorModule,
+                VCLLabelModule,
+                VCLTokenModule
             ],
             providers: [
                 OverlayManagerService
@@ -4653,6 +4886,8 @@ exports.VCLCheckboxModule = VCLCheckboxModule;
 exports.VCLMonthPickerModule = VCLMonthPickerModule;
 exports.VCLDatePickerModule = VCLDatePickerModule;
 exports.VCLJsonEditorModule = VCLJsonEditorModule;
+exports.VCLLabelModule = VCLLabelModule;
+exports.VCLTokenModule = VCLTokenModule;
 exports.VCLOffClickModule = VCLOffClickModule;
 exports.Wormhole = Wormhole;
 exports.WormholeGenerator = WormholeGenerator;

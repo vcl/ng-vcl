@@ -1,7 +1,5 @@
 "use strict";
 var core_1 = require('@angular/core');
-/**
-*/
 var MetalistComponent = (function () {
     function MetalistComponent() {
         this.select = new core_1.EventEmitter();

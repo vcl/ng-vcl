@@ -1,6 +1,4 @@
 import { EventEmitter, OnInit } from '@angular/core';
-/**
-*/
 export declare class MetalistComponent implements OnInit {
     select: EventEmitter<any[]>;
     items: any[];
