@@ -22,6 +22,8 @@ export declare class DatePickerComponent implements OnInit, ControlValueAccessor
     pickedDate: PickDate;
     pickedRangeEnd: PickDate;
     viewDate: PickDate;
+    today: PickDate;
+    showYearPick: boolean;
     constructor();
     ngOnInit(): void;
     /**
@@ -40,6 +42,7 @@ export declare class DatePickerComponent implements OnInit, ControlValueAccessor
     prevMonth(): void;
     gotoToday(): void;
     gotoSelected(): void;
+    yearPickSelect(year: number): void;
     /**
      * things needed for ControlValueAccessor-Interface
      */

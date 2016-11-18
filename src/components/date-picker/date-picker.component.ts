@@ -21,7 +21,10 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'vcl-date-picker',
   templateUrl: 'date-picker.component.html',
   styles: [`.hidden{display:none;}`],
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  host: {
+    '[class.vclDatePicker]': 'true'
+  }
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
@@ -52,6 +55,10 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   pickedDate: PickDate;
   pickedRangeEnd: PickDate;
   viewDate: PickDate;
+  today: PickDate = PickDateCreate();
+
+
+  showYearPick: boolean = false;
 
 
   constructor() {
@@ -72,6 +79,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     if (!this.minDate) this.minDate = new Date(0, 0, 1);
     if (!this.maxDate) this.maxDate = new Date(10000, 0, 1);
   }
+
 
 
   /**
@@ -145,16 +153,22 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
    * functions to move viewDate
    */
   nextMonth() {
-    this.viewDate = this.viewDate.incrementMonths(1);
+    if (this.showYearPick) this.viewDate = this.viewDate.addYears(1);
+    else this.viewDate = this.viewDate.incrementMonths(1);
   }
   prevMonth() {
-    this.viewDate = this.viewDate.incrementMonths(-1);
+    if (this.showYearPick) this.viewDate = this.viewDate.addYears(-1);
+    else this.viewDate = this.viewDate.incrementMonths(-1);
   }
   gotoToday() {
     this.viewDate = PickDateCreate();
   }
   gotoSelected() {
     this.viewDate = this.pickedDate;
+  }
+  yearPickSelect(year: number) {
+    this.viewDate = this.viewDate.moveToYear(year);
+    this.showYearPick = false;
   }
 
 

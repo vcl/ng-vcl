@@ -61,6 +61,24 @@ export class PickDate {
 
 
 
+  moveToYear(year: number): PickDate {
+    const newDate = new Date(
+      year, this.date.getMonth(), 1,
+      this.date.getHours(), this.date.getMinutes(), this.date.getSeconds()
+    );
+    return new PickDate(newDate);
+  }
+
+  addYears(amount: number = 1): PickDate {
+    const newDate = new Date(
+      this.date.getFullYear() + amount, this.date.getMonth(), 1,
+      this.date.getHours(), this.date.getMinutes(), this.date.getSeconds()
+    );
+    return new PickDate(newDate);
+  }
+
+
+
   addDays(date: Date, amount = 1): Date {
     return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
   }
@@ -135,6 +153,9 @@ export class PickDate {
     return this.isSameDay(new PickDate());
   }
 
+  isInYear(year: number) {
+    return this.date.getFullYear() === year;
+  }
 
 
   /**
@@ -183,6 +204,26 @@ export class PickDate {
       if (temparray.length == 7) blocks.push(temparray);
     }
     return blocks;
+  }
+
+
+  getYearsBlock() {
+    const years = [];
+    let currentYear = this.date.getFullYear() - 12;
+    while (years.length < 25) {
+      years.push(currentYear);
+      currentYear++;
+    }
+
+    // split rows
+    const ret = [];
+    let temparray, chunk = 5;
+    for (let i = 0, j = years.length; i < j; i += chunk) {
+      temparray = years.slice(i, i + chunk);
+      if (temparray.length == 5) ret.push(temparray);
+    }
+
+    return ret;
   }
 
 

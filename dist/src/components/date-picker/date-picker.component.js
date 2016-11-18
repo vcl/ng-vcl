@@ -29,6 +29,8 @@ var DatePickerComponent = (function () {
         this.displayJumpSelected = true;
         this.selectedDate = new Date();
         this.selectRange = false;
+        this.today = PickDate_1.PickDateCreate();
+        this.showYearPick = false;
     }
     DatePickerComponent.prototype.ngOnInit = function () {
         if (this.selectedRangeEnd)
@@ -87,16 +89,26 @@ var DatePickerComponent = (function () {
         return false;
     };
     DatePickerComponent.prototype.nextMonth = function () {
-        this.viewDate = this.viewDate.incrementMonths(1);
+        if (this.showYearPick)
+            this.viewDate = this.viewDate.addYears(1);
+        else
+            this.viewDate = this.viewDate.incrementMonths(1);
     };
     DatePickerComponent.prototype.prevMonth = function () {
-        this.viewDate = this.viewDate.incrementMonths(-1);
+        if (this.showYearPick)
+            this.viewDate = this.viewDate.addYears(-1);
+        else
+            this.viewDate = this.viewDate.incrementMonths(-1);
     };
     DatePickerComponent.prototype.gotoToday = function () {
         this.viewDate = PickDate_1.PickDateCreate();
     };
     DatePickerComponent.prototype.gotoSelected = function () {
         this.viewDate = this.pickedDate;
+    };
+    DatePickerComponent.prototype.yearPickSelect = function (year) {
+        this.viewDate = this.viewDate.moveToYear(year);
+        this.showYearPick = false;
     };
     DatePickerComponent.prototype.writeValue = function (value) {
         this.pickedDate = PickDate_1.PickDateCreate(value);
@@ -176,7 +188,10 @@ DatePickerComponent = __decorate([
         selector: 'vcl-date-picker',
         templateUrl: 'date-picker.component.html',
         styles: [".hidden{display:none;}"],
-        providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+        providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+        host: {
+            '[class.vclDatePicker]': 'true'
+        }
     }),
     __metadata("design:paramtypes", [])
 ], DatePickerComponent);

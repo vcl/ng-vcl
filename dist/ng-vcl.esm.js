@@ -4180,6 +4180,15 @@ var PickDate = (function () {
     PickDate.prototype.getFirstDateOfMonth = function (date) {
         return new Date(date.getFullYear(), date.getMonth(), 1, date.getHours(), date.getMinutes(), date.getSeconds());
     };
+    PickDate.prototype.moveToYear = function (year) {
+        var newDate = new Date(year, this.date.getMonth(), 1, this.date.getHours(), this.date.getMinutes(), this.date.getSeconds());
+        return new PickDate(newDate);
+    };
+    PickDate.prototype.addYears = function (amount) {
+        if (amount === void 0) { amount = 1; }
+        var newDate = new Date(this.date.getFullYear() + amount, this.date.getMonth(), 1, this.date.getHours(), this.date.getMinutes(), this.date.getSeconds());
+        return new PickDate(newDate);
+    };
     PickDate.prototype.addDays = function (date, amount) {
         if (amount === void 0) { amount = 1; }
         return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
@@ -4241,6 +4250,9 @@ var PickDate = (function () {
     PickDate.prototype.isToday = function () {
         return this.isSameDay(new PickDate());
     };
+    PickDate.prototype.isInYear = function (year) {
+        return this.date.getFullYear() === year;
+    };
     /**
      * returns a set of days which are in the given month or
      * are in the same weekNumber as a day in the given month
@@ -4280,6 +4292,23 @@ var PickDate = (function () {
                 blocks.push(temparray);
         }
         return blocks;
+    };
+    PickDate.prototype.getYearsBlock = function () {
+        var years = [];
+        var currentYear = this.date.getFullYear() - 12;
+        while (years.length < 25) {
+            years.push(currentYear);
+            currentYear++;
+        }
+        // split rows
+        var ret = [];
+        var temparray, chunk = 5;
+        for (var i = 0, j = years.length; i < j; i += chunk) {
+            temparray = years.slice(i, i + chunk);
+            if (temparray.length == 5)
+                ret.push(temparray);
+        }
+        return ret;
     };
     PickDate.prototype.getWeekDays = function () {
         return PickDate.weekDays;
@@ -4368,6 +4397,8 @@ var DatePickerComponent = (function () {
         // values
         this.selectedDate = new Date();
         this.selectRange = false;
+        this.today = PickDateCreate();
+        this.showYearPick = false;
     }
     DatePickerComponent.prototype.ngOnInit = function () {
         if (this.selectedRangeEnd)
@@ -4438,16 +4469,26 @@ var DatePickerComponent = (function () {
      * functions to move viewDate
      */
     DatePickerComponent.prototype.nextMonth = function () {
-        this.viewDate = this.viewDate.incrementMonths(1);
+        if (this.showYearPick)
+            this.viewDate = this.viewDate.addYears(1);
+        else
+            this.viewDate = this.viewDate.incrementMonths(1);
     };
     DatePickerComponent.prototype.prevMonth = function () {
-        this.viewDate = this.viewDate.incrementMonths(-1);
+        if (this.showYearPick)
+            this.viewDate = this.viewDate.addYears(-1);
+        else
+            this.viewDate = this.viewDate.incrementMonths(-1);
     };
     DatePickerComponent.prototype.gotoToday = function () {
         this.viewDate = PickDateCreate();
     };
     DatePickerComponent.prototype.gotoSelected = function () {
         this.viewDate = this.pickedDate;
+    };
+    DatePickerComponent.prototype.yearPickSelect = function (year) {
+        this.viewDate = this.viewDate.moveToYear(year);
+        this.showYearPick = false;
     };
     DatePickerComponent.prototype.writeValue = function (value) {
         this.pickedDate = PickDateCreate(value);
@@ -4523,9 +4564,12 @@ var DatePickerComponent = (function () {
     DatePickerComponent = __decorate([
         Component({
             selector: 'vcl-date-picker',
-            template: "<div class=\"vclDatePicker\">\n  <div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput\">\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter\">\n          <button class=\"vclTransparent vclSquare  vclButton\" (tap)=\"prevMonth()\">\n              <div class=\"vclIcogram\">\n                <span class=\"vclIcon fa fa-angle-left\"></span>\n              </div>\n            </button>\n          <span class=\"vclCalHeaderLabel\">\n              {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}\n            </span>\n          <button class=\"vclTransparent vclSquare vclButton\" (tap)=\"nextMonth()\">\n               <div class=\"vclIcogram\">\n                  <span class=\"vclIcon fa fa-angle-right\"></span>\n                </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"vclSeparator\"></div>\n\n    <div class=\"vclDGRow\">\n      <div *ngIf=\"displayWeekNumbers\" class=\"vclDGCell timeFragment vclCalItem vclOtherMonth\">\n        {{'week' | loc}}\n      </div>\n      <div *ngFor=\"let day of viewDate.getWeekDays()\" class=\"vclDGCell vclWeekdayLabel\" [class.hidden]=\"!displayWeekdays\">\n        {{day | loc}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\" *ngFor=\"let week of viewDate.getMonthBlock()\">\n      <div *ngIf=\"displayWeekNumbers && week.length==7\" class=\"vclDGCell\">\n        {{week[5].getWeekNumber()}}\n      </div>\n      <div *ngFor=\"let day of week\" class=\"vclDGCell timeFragment vclCalItem\" [class.vclDisabled]=\"isDisabled(day)\" [class.vclSelected]=\"isMarked(day)\" (tap)=\"!isDisabled(day) && select(day)\" [class.vclToday]=\"highlightSelected && day.isToday()\" [class.vclOtherMonth]=\"!day.isSameMonthAndYear()\">\n        {{day.date.getDate()}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified\">\n          <button title=\"go to today\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpToday\" (tap)=\"gotoToday()\">\n             <div class=\" vclIcogram\">\n               <span class=\"vclText \">go to today</span>\n             </div>\n           </button>\n          <button title=\"go to selected\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpSelected\" (tap)=\"gotoSelected()\">\n              <div class=\" vclIcogram\">\n                <span class=\"vclText \">go to selected</span>\n              </div>\n            </button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n</div>\n",
+            template: "<div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput\">\n  <div class=\"vclDGRow\">\n    <div class=\"vclDGCell\">\n      <div class=\"vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter\">\n        <button class=\"vclTransparent vclSquare  vclButton\" (tap)=\"prevMonth()\">\n              <div class=\"vclIcogram\">\n                <span class=\"vclIcon fa fa-angle-left\"></span>\n              </div>\n            </button>\n        <span class=\"vclCalHeaderLabel\" (tap)=\"showYearPick=true\">\n              {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}\n            </span>\n        <button class=\"vclTransparent vclSquare vclButton\" (tap)=\"nextMonth()\">\n               <div class=\"vclIcogram\">\n                  <span class=\"vclIcon fa fa-angle-right\"></span>\n                </div>\n            </button>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"vclSeparator\"></div>\n\n  <div *ngIf=\"!showYearPick\">\n    <div class=\"vclDGRow\">\n      <div *ngIf=\"displayWeekNumbers\" class=\"vclDGCell timeFragment vclCalItem vclOtherMonth\">\n        {{'week' | loc}}\n      </div>\n      <div *ngFor=\"let day of viewDate.getWeekDays()\" class=\"vclDGCell vclWeekdayLabel\" [class.hidden]=\"!displayWeekdays\">\n        {{day | loc}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\" *ngFor=\"let week of viewDate.getMonthBlock()\">\n      <div *ngIf=\"displayWeekNumbers && week.length==7\" class=\"vclDGCell\">\n        {{week[5].getWeekNumber()}}\n      </div>\n      <div *ngFor=\"let day of week\" class=\"vclDGCell timeFragment vclCalItem\" [class.vclDisabled]=\"isDisabled(day)\" [class.vclSelected]=\"isMarked(day)\" (tap)=\"!isDisabled(day) && select(day)\" [class.vclToday]=\"highlightSelected && day.isToday()\" [class.vclOtherMonth]=\"!day.isSameMonthAndYear()\">\n        {{day.date.getDate()}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified\">\n          <button title=\"go to today\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpToday\" (tap)=\"gotoToday()\">\n               <div class=\" vclIcogram\">\n                 <span class=\"vclText \">go to today</span>\n               </div>\n             </button>\n          <button title=\"go to selected\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpSelected\" (tap)=\"gotoSelected()\">\n                <div class=\" vclIcogram\">\n                  <span class=\"vclText \">go to selected</span>\n                </div>\n              </button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div *ngIf=\"showYearPick\">\n    <div class=\"vclDGRow\" role=\"row\" *ngFor=\"let row of viewDate.getYearsBlock()\">\n      <div *ngFor=\"let year of row\" class=\"vclDGCell vclCalItem\" role=\"gridcell\"\n      [class.vclSelected]=\"viewDate.date.getFullYear()==year\"\n       (tap)=\"yearPickSelect(year)\" \n       [class.vclToday]=\"highlightSelected && today.isInYear(year)\">\n        {{year}}\n      </div>\n    </div>\n  </div>\n\n</div>\n",
             styles: [".hidden{display:none;}"],
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$6]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$6],
+            host: {
+                '[class.vclDatePicker]': 'true'
+            }
         }), 
         __metadata('design:paramtypes', [])
     ], DatePickerComponent);

@@ -14,6 +14,8 @@ export declare class PickDate {
      * gets the first day of the month for the given date's month.
      */
     getFirstDateOfMonth(date: Date): Date;
+    moveToYear(year: number): PickDate;
+    addYears(amount?: number): PickDate;
     addDays(date: Date, amount?: number): Date;
     moveDays(amount: any): void;
     /**
@@ -44,11 +46,13 @@ export declare class PickDate {
      */
     isSameDay(date: PickDate): boolean;
     isToday(): boolean;
+    isInYear(year: number): boolean;
     /**
      * returns a set of days which are in the given month or
      * are in the same weekNumber as a day in the given month
      */
     getMonthBlock(): PickDate[][];
+    getYearsBlock(): any[];
     getWeekDays(): string[];
     getWeekNumber(): number;
     /**

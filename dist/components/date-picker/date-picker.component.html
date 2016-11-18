@@ -1,28 +1,27 @@
-<div class="vclDatePicker">
-  <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput">
-
-    <div class="vclDGRow">
-      <div class="vclDGCell">
-        <div class="vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter">
-          <button class="vclTransparent vclSquare  vclButton" (tap)="prevMonth()">
+<div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput">
+  <div class="vclDGRow">
+    <div class="vclDGCell">
+      <div class="vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter">
+        <button class="vclTransparent vclSquare  vclButton" (tap)="prevMonth()">
               <div class="vclIcogram">
                 <span class="vclIcon fa fa-angle-left"></span>
               </div>
             </button>
-          <span class="vclCalHeaderLabel">
+        <span class="vclCalHeaderLabel" (tap)="showYearPick=true">
               {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}
             </span>
-          <button class="vclTransparent vclSquare vclButton" (tap)="nextMonth()">
+        <button class="vclTransparent vclSquare vclButton" (tap)="nextMonth()">
                <div class="vclIcogram">
                   <span class="vclIcon fa fa-angle-right"></span>
                 </div>
             </button>
-        </div>
       </div>
     </div>
+  </div>
 
-    <div class="vclSeparator"></div>
+  <div class="vclSeparator"></div>
 
+  <div *ngIf="!showYearPick">
     <div class="vclDGRow">
       <div *ngIf="displayWeekNumbers" class="vclDGCell timeFragment vclCalItem vclOtherMonth">
         {{'week' | loc}}
@@ -45,18 +44,29 @@
       <div class="vclDGCell">
         <div class="vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified">
           <button title="go to today" class="vclTransparent vclLayoutFlex vclButton" *ngIf="displayJumpToday" (tap)="gotoToday()">
-             <div class=" vclIcogram">
-               <span class="vclText ">go to today</span>
-             </div>
-           </button>
+               <div class=" vclIcogram">
+                 <span class="vclText ">go to today</span>
+               </div>
+             </button>
           <button title="go to selected" class="vclTransparent vclLayoutFlex vclButton" *ngIf="displayJumpSelected" (tap)="gotoSelected()">
-              <div class=" vclIcogram">
-                <span class="vclText ">go to selected</span>
-              </div>
-            </button>
+                <div class=" vclIcogram">
+                  <span class="vclText ">go to selected</span>
+                </div>
+              </button>
         </div>
       </div>
     </div>
-
   </div>
+
+  <div *ngIf="showYearPick">
+    <div class="vclDGRow" role="row" *ngFor="let row of viewDate.getYearsBlock()">
+      <div *ngFor="let year of row" class="vclDGCell vclCalItem" role="gridcell"
+      [class.vclSelected]="viewDate.date.getFullYear()==year"
+       (tap)="yearPickSelect(year)" 
+       [class.vclToday]="highlightSelected && today.isInYear(year)">
+        {{year}}
+      </div>
+    </div>
+  </div>
+
 </div>

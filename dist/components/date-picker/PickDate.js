@@ -21,6 +21,15 @@ var PickDate = (function () {
     PickDate.prototype.getFirstDateOfMonth = function (date) {
         return new Date(date.getFullYear(), date.getMonth(), 1, date.getHours(), date.getMinutes(), date.getSeconds());
     };
+    PickDate.prototype.moveToYear = function (year) {
+        var newDate = new Date(year, this.date.getMonth(), 1, this.date.getHours(), this.date.getMinutes(), this.date.getSeconds());
+        return new PickDate(newDate);
+    };
+    PickDate.prototype.addYears = function (amount) {
+        if (amount === void 0) { amount = 1; }
+        var newDate = new Date(this.date.getFullYear() + amount, this.date.getMonth(), 1, this.date.getHours(), this.date.getMinutes(), this.date.getSeconds());
+        return new PickDate(newDate);
+    };
     PickDate.prototype.addDays = function (date, amount) {
         if (amount === void 0) { amount = 1; }
         return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
@@ -82,6 +91,9 @@ var PickDate = (function () {
     PickDate.prototype.isToday = function () {
         return this.isSameDay(new PickDate());
     };
+    PickDate.prototype.isInYear = function (year) {
+        return this.date.getFullYear() === year;
+    };
     /**
      * returns a set of days which are in the given month or
      * are in the same weekNumber as a day in the given month
@@ -121,6 +133,23 @@ var PickDate = (function () {
                 blocks.push(temparray);
         }
         return blocks;
+    };
+    PickDate.prototype.getYearsBlock = function () {
+        var years = [];
+        var currentYear = this.date.getFullYear() - 12;
+        while (years.length < 25) {
+            years.push(currentYear);
+            currentYear++;
+        }
+        // split rows
+        var ret = [];
+        var temparray, chunk = 5;
+        for (var i = 0, j = years.length; i < j; i += chunk) {
+            temparray = years.slice(i, i + chunk);
+            if (temparray.length == 5)
+                ret.push(temparray);
+        }
+        return ret;
     };
     PickDate.prototype.getWeekDays = function () {
         return PickDate.weekDays;
