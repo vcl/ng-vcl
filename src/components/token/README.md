@@ -3,45 +3,55 @@
 ## Usage:
 
 ```javascript
-import { VCLLabelModule } from 'ng-vcl';
+import { VCLTokenModule } from 'ng-vcl';
 
 @NgModule({
-  imports: [ VCLLabelModule ],
+  imports: [ VCLTokenModule ],
   ...
 })
 export class AppComponent {}
 ```
 
-## Normal:
+## single token:
 
 ```html
-<vcl-label label="mylabel" subLabel="with sub"></vcl-label>
+<vcl-token label="mytoken" [selected]="false" [removeable]="false" class="myclass"></vcl-token>
 ```
 
-## Wrapping:
+## token-list:
 
 ```html
-<vcl-label label="Watch my button" subLabel="my button is amazing">
-  <button>button</button>
-</vcl-label>
+<vcl-token-list [tokens]="tokenList" (onChange)="changed($event);"></vcl-token-list>
 ```
 
-## typed
+## token-insert
 
 ```html
-<vcl-label label="mylabel" subLabel="with sub" type="primary"></vcl-label>
-
-<vcl-label label="mylabel" subLabel="with sub" type="sucess"></vcl-label>
-
-<vcl-label label="mylabel" subLabel="with sub" type="info"></vcl-label>
+<vcl-token-input [tokens]="tokenList" (onChange)="changed($event);"></vcl-token-input>
 ```
 
 ### API
 
-#### vcl-navigation Properties:
+#### token:
 
-Name       | Type   | Default | Description
----------- | ------ | ------- | ----------------------------------------------------------
-`label`    | string |         | the main-text
-`subLabel` | string |         | the sub-test
-`type`     | string |         | colored types; ENUM(primary, sucess, info, warning, error)
+Name         | Type    | Default | Description
+------------ | ------- | ------- | ---------------------------------------
+`label`      | string  |         | label-text inside of the token
+`selected`   | boolean | false   | if true, the token is highlighted
+`removeable` | boolean | false   | if true, the remove-cross is shown
+`onRemove`   | event   |         | called when the remove-button is tabbed
+
+#### token-list:
+
+Name         | Type     | Default | Description
+------------ | -------- | ------- | ------------------------------------------------------------
+`tokens`     | object[] | []      | array with token-objects { label: string, selected: boolean}
+`onChange`   | event  |    | called when the selection of token changes
+
+
+#### token-input:
+
+Name         | Type     | Default | Description
+------------ | -------- | ------- | ------------------------------------------------------------
+`tokens`     | object[] | []      | array with token-objects { label: string }
+`onChange`   | event  |    | called when the selection of token changes
