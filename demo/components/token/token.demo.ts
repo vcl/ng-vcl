@@ -3,7 +3,7 @@ import { TokenComponent } from './token.component';
 export default {
   name: 'Token',
   path: 'token',
-  category: 'Buttons',
+  category: 'Form Controls',
   tabs: {
     Demo: TokenComponent,
     'README.md': require("!raw!../../../src/components/token/README.md"),

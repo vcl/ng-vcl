@@ -3,7 +3,7 @@ import { FlipSwitchComponent } from './flip-switch.component';
 export default {
   name: 'Flip-Switch',
   path: 'flip-switch',
-  category: 'Inputs',
+  category: 'Form Controls',
   tabs: {
     Demo: FlipSwitchComponent,
     'demo.component.html': require("!raw!./flip-switch.component.html"),

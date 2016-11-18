@@ -3,7 +3,7 @@ import { RadioButtonComponent } from './radio-button.component';
 export default {
   name: 'Radio Button',
   path: 'radio-button',
-  category: 'Inputs',
+  category: 'Form Controls',
   tabs: {
     Demo: RadioButtonComponent,
     'README.md': require("!raw!../../../src/components/radio-button/README.md"),

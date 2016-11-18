@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Token',
     path: 'token',
-    category: 'Buttons',
+    category: 'Form Controls',
     tabs: {
         Demo: token_component_1.TokenComponent,
         'README.md': require("!raw!../../../src/components/token/README.md"),

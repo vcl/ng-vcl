@@ -3,7 +3,7 @@ import { MonthPickerComponent } from './month-picker.component';
 export default {
   name: 'Month Picker',
   path: 'month-picker',
-  category: 'Inputs',
+  category: 'Form Controls',
   tabs: {
     Demo: MonthPickerComponent,
     'demo.component.html': require("!raw!./month-picker.component.html"),

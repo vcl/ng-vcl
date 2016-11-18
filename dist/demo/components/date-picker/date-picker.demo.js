@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Date Picker',
     path: 'date-picker',
-    category: 'Inputs',
+    category: 'Form Controls',
     tabs: {
         Demo: date_picker_component_1.DatePickerComponent,
         'README.md': require("!raw!../../../src/components/date-picker/README.md"),

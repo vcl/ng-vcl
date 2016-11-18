@@ -3,7 +3,7 @@ import { DatePickerComponent } from './date-picker.component';
 export default {
   name: 'Date Picker',
   path: 'date-picker',
-  category: 'Inputs',
+  category: 'Form Controls',
   tabs: {
     Demo: DatePickerComponent,
     'README.md': require("!raw!../../../src/components/date-picker/README.md"),

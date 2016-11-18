@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'Flip-Switch',
     path: 'flip-switch',
-    category: 'Inputs',
+    category: 'Form Controls',
     tabs: {
         Demo: flip_switch_component_1.FlipSwitchComponent,
         'demo.component.html': require("!raw!./flip-switch.component.html"),

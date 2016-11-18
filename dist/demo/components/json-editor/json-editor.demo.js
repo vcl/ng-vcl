@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'JSON-Editor',
     path: 'json-editor',
-    category: 'Inputs',
+    category: 'Form Controls',
     tabs: {
         Demo: json_editor_component_1.JsonEditorComponent,
         'README.md': require("!raw!../../../src/components/json-editor/README.md"),
