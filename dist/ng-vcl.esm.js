@@ -4822,6 +4822,96 @@ var VCLTokenModule = (function () {
     return VCLTokenModule;
 }());
 
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8 = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return SliderComponent; }),
+    multi: true
+};
+var SliderComponent = (function () {
+    function SliderComponent() {
+        this.value = 0;
+        this.min = 0;
+        this.max = 100;
+        this.step = 100;
+        this.round = 100;
+        this.percentLeftKnob = 0;
+    }
+    SliderComponent.prototype.ngAfterViewInit = function () {
+        this.calculatePercentLeftKnob();
+    };
+    SliderComponent.prototype.calculatePercentLeftKnob = function () {
+        console.log('....');
+        var rangeLength = this.max - this.min;
+        var valueLeft = this.value - this.min;
+        var delta = rangeLength / valueLeft;
+        this.percentLeftKnob = 100 / delta;
+        console.log('aaa');
+        console.log(this.percentLeftKnob);
+    };
+    SliderComponent.prototype.writeValue = function (value) {
+        if (value !== this.value) {
+            this.value = value;
+        }
+    };
+    SliderComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    SliderComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        Input('value'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "value", void 0);
+    __decorate([
+        Input('min'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "min", void 0);
+    __decorate([
+        Input('max'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "max", void 0);
+    __decorate([
+        Input('step'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "step", void 0);
+    __decorate([
+        Input('round'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "round", void 0);
+    __decorate([
+        Input('scaleNames'), 
+        __metadata('design:type', Array)
+    ], SliderComponent.prototype, "scaleNames", void 0);
+    SliderComponent = __decorate([
+        Component({
+            selector: 'vcl-slider',
+            template: "<div class=\"vclSliderRail\">\n  <div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\">\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n  </div>\n  <div class=\"vclSliderKnobContainer\"\n    [style.left]=\"percentLeftKnob + '%'\"\n    >\n    <div class=\"vclSliderKnob\"></div>\n  </div>\n</div>\n<div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\">\n  <div class=\"vclSliderScalePointLabel\">empty</div>\n  <div class=\"vclSliderScalePointLabel\">1/4</div>\n  <div class=\"vclSliderScalePointLabel\">half</div>\n  <div class=\"vclSliderScalePointLabel\">3/4</div>\n  <div class=\"vclSliderScalePointLabel\">full</div>\n</div>\n",
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8],
+            host: {
+                '[class.vclSlider]': 'true'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SliderComponent);
+    return SliderComponent;
+}());
+
+var VCLSliderModule = (function () {
+    function VCLSliderModule() {
+    }
+    VCLSliderModule = __decorate([
+        NgModule({
+            imports: [CommonModule, L10nModule],
+            exports: [SliderComponent],
+            declarations: [SliderComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLSliderModule);
+    return VCLSliderModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -4854,7 +4944,8 @@ var VCLModule = (function () {
                 VCLDatePickerModule,
                 VCLJsonEditorModule,
                 VCLLabelModule,
-                VCLTokenModule
+                VCLTokenModule,
+                VCLSliderModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -4883,7 +4974,8 @@ var VCLModule = (function () {
                 VCLDatePickerModule,
                 VCLJsonEditorModule,
                 VCLLabelModule,
-                VCLTokenModule
+                VCLTokenModule,
+                VCLSliderModule
             ],
             providers: [
                 OverlayManagerService
@@ -4894,4 +4986,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLDatePickerModule, VCLJsonEditorModule, VCLLabelModule, VCLTokenModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, STORE_STATE, compose, StoreObservable, InitAction, StoreActions, Store, Effects, StoreModule };
+export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLDatePickerModule, VCLJsonEditorModule, VCLLabelModule, VCLTokenModule, VCLSliderModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, STORE_STATE, compose, StoreObservable, InitAction, StoreActions, Store, Effects, StoreModule };

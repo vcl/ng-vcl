@@ -4826,6 +4826,96 @@ var VCLTokenModule = (function () {
     return VCLTokenModule;
 }());
 
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8 = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return SliderComponent; }),
+    multi: true
+};
+var SliderComponent = (function () {
+    function SliderComponent() {
+        this.value = 0;
+        this.min = 0;
+        this.max = 100;
+        this.step = 100;
+        this.round = 100;
+        this.percentLeftKnob = 0;
+    }
+    SliderComponent.prototype.ngAfterViewInit = function () {
+        this.calculatePercentLeftKnob();
+    };
+    SliderComponent.prototype.calculatePercentLeftKnob = function () {
+        console.log('....');
+        var rangeLength = this.max - this.min;
+        var valueLeft = this.value - this.min;
+        var delta = rangeLength / valueLeft;
+        this.percentLeftKnob = 100 / delta;
+        console.log('aaa');
+        console.log(this.percentLeftKnob);
+    };
+    SliderComponent.prototype.writeValue = function (value) {
+        if (value !== this.value) {
+            this.value = value;
+        }
+    };
+    SliderComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    SliderComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        _angular_core.Input('value'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "value", void 0);
+    __decorate([
+        _angular_core.Input('min'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "min", void 0);
+    __decorate([
+        _angular_core.Input('max'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "max", void 0);
+    __decorate([
+        _angular_core.Input('step'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "step", void 0);
+    __decorate([
+        _angular_core.Input('round'), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "round", void 0);
+    __decorate([
+        _angular_core.Input('scaleNames'), 
+        __metadata('design:type', Array)
+    ], SliderComponent.prototype, "scaleNames", void 0);
+    SliderComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-slider',
+            template: "<div class=\"vclSliderRail\">\n  <div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\">\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n    <div class=\"vclSliderScalePointMark\"></div>\n  </div>\n  <div class=\"vclSliderKnobContainer\"\n    [style.left]=\"percentLeftKnob + '%'\"\n    >\n    <div class=\"vclSliderKnob\"></div>\n  </div>\n</div>\n<div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\">\n  <div class=\"vclSliderScalePointLabel\">empty</div>\n  <div class=\"vclSliderScalePointLabel\">1/4</div>\n  <div class=\"vclSliderScalePointLabel\">half</div>\n  <div class=\"vclSliderScalePointLabel\">3/4</div>\n  <div class=\"vclSliderScalePointLabel\">full</div>\n</div>\n",
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8],
+            host: {
+                '[class.vclSlider]': 'true'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SliderComponent);
+    return SliderComponent;
+}());
+
+var VCLSliderModule = (function () {
+    function VCLSliderModule() {
+    }
+    VCLSliderModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule],
+            exports: [SliderComponent],
+            declarations: [SliderComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLSliderModule);
+    return VCLSliderModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -4858,7 +4948,8 @@ var VCLModule = (function () {
                 VCLDatePickerModule,
                 VCLJsonEditorModule,
                 VCLLabelModule,
-                VCLTokenModule
+                VCLTokenModule,
+                VCLSliderModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -4887,7 +4978,8 @@ var VCLModule = (function () {
                 VCLDatePickerModule,
                 VCLJsonEditorModule,
                 VCLLabelModule,
-                VCLTokenModule
+                VCLTokenModule,
+                VCLSliderModule
             ],
             providers: [
                 OverlayManagerService
@@ -4929,6 +5021,7 @@ exports.VCLDatePickerModule = VCLDatePickerModule;
 exports.VCLJsonEditorModule = VCLJsonEditorModule;
 exports.VCLLabelModule = VCLLabelModule;
 exports.VCLTokenModule = VCLTokenModule;
+exports.VCLSliderModule = VCLSliderModule;
 exports.VCLOffClickModule = VCLOffClickModule;
 exports.Wormhole = Wormhole;
 exports.WormholeGenerator = WormholeGenerator;

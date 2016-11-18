@@ -28,6 +28,8 @@ import { VCLMonthPickerModule } from './components/month-picker/month-picker.mod
 import { VCLDatePickerModule } from './components/date-picker/date-picker.module';
 import { VCLLabelModule } from './components/label/label.module';
 import { VCLTokenModule } from './components/token/token.module';
+import { VCLSliderModule } from './components/slider/slider.module';
+
 
 export * from './reflect';
 
@@ -50,6 +52,7 @@ export * from './components/date-picker/date-picker.module';
 export * from './components/json-editor/json-editor.module';
 export * from './components/label/label.module';
 export * from './components/token/token.module';
+export * from './components/slider/slider.module';
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
 export * from './l10n/l10n.module';
@@ -85,7 +88,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLDatePickerModule,
     VCLJsonEditorModule,
     VCLLabelModule,
-    VCLTokenModule
+    VCLTokenModule,
+    VCLSliderModule
   ],
   exports: [
     VCLWormholeModule,
@@ -114,7 +118,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLDatePickerModule,
     VCLJsonEditorModule,
     VCLLabelModule,
-    VCLTokenModule
+    VCLTokenModule,
+    VCLSliderModule
   ],
   providers: [
     OverlayManagerService

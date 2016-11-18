@@ -29,6 +29,7 @@ var date_picker_demo_1 = require("./components/date-picker/date-picker.demo");
 var json_editor_demo_1 = require("./components/json-editor/json-editor.demo");
 var label_demo_1 = require("./components/label/label.demo");
 var token_demo_1 = require("./components/token/token.demo");
+var slider_demo_1 = require("./components/slider/slider.demo");
 var l10n_demo_1 = require("./components/l10n/l10n.demo");
 exports.DEMOS = [
     metalist_demo_1.default,
@@ -60,6 +61,7 @@ exports.DEMOS = [
     json_editor_demo_1.default,
     label_demo_1.default,
     token_demo_1.default,
+    slider_demo_1.default,
     l10n_demo_1.default,
 ];
 exports.GROUPED_DEMOS = function () {
