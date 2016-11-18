@@ -30,6 +30,24 @@ var TokenComponent = (function () {
                 selected: false
             }
         ];
+        this.tokenList2 = [
+            {
+                label: 'alice',
+                selected: false
+            },
+            {
+                label: 'bob',
+                selected: false
+            },
+            {
+                label: 'carol',
+                selected: false
+            },
+            {
+                label: 'dave',
+                selected: false
+            }
+        ];
     }
     TokenComponent.prototype.doToggleSelect = function () {
         this.toggleSelect = !this.toggleSelect;

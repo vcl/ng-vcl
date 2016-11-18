@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 })
 export class TokenComponent {
 
-
   toggleSelect: boolean = true;
   doToggleSelect() {
     this.toggleSelect = !this.toggleSelect;
@@ -15,8 +14,26 @@ export class TokenComponent {
     window.alert('removed');
   }
 
-
   tokenList = [
+    {
+      label: 'alice',
+      selected: false
+    },
+    {
+      label: 'bob',
+      selected: false
+    },
+    {
+      label: 'carol',
+      selected: false
+    },
+    {
+      label: 'dave',
+      selected: false
+    }
+  ];
+
+  tokenList2 = [
     {
       label: 'alice',
       selected: false

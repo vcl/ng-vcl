@@ -4666,6 +4666,7 @@ var TokenComponent = (function () {
     ], TokenComponent);
     return TokenComponent;
 }());
+
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$7 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return TokenListComponent; }),
@@ -4720,6 +4721,7 @@ var TokenListComponent = (function () {
     return TokenListComponent;
     var _a;
 }());
+
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return TokenInputComponent; }),
@@ -4761,7 +4763,7 @@ var TokenInputComponent = (function () {
     TokenInputComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-token-input',
-            template: "<div class=\"vclTokenContainer\">\n  <vcl-token *ngFor=\"let token of tokens\"\n  [(selected)]=\"token.selected\"\n  [removeable]=\"true\"\n  (onRemove)=\"remove(token)\"\n  [label]=\"token.label\"></vcl-token>\n</div>\n\n<input placeholder=\"Type to add tokens\" autocomplete=\"off\" type=\"text\"\n  class=\"vclInput\" (keydown)=\"keydown($event)\"\n  [(ngModel)]=\"addtext\" />\n",
+            template: "<div class=\"vclTokenContainer\">\n  <vcl-token *ngFor=\"let token of tokens\"\n  [(selected)]=\"token.selected\"\n  [removeable]=\"true\"\n  (onRemove)=\"remove(token)\"\n  [label]=\"token.label\"></vcl-token>\n</div>\n\n<input placeholder=\"Type to add tokens\" autocomplete=\"off\" type=\"text\"\n  class=\"vclInput\" (keydown)=\"keydown($event)\"\n  [(ngModel)]=\"addtext\" flex />\n",
             host: {
                 '[class.vclInput]': 'true',
                 '[class.vclTokenInput]': 'true'

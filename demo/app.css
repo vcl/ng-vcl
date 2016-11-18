@@ -3141,7 +3141,7 @@ input[type="checkbox"] {
   width: auto;
 }
 
-div.vclInput {
+.vclInput {
   overflow: hidden;
   word-wrap: normal;
   -moz-user-modify: read-write;
