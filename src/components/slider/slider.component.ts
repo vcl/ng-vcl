@@ -26,31 +26,49 @@ export class SliderComponent implements ControlValueAccessor {
 
 
   @Input('value') value: number = 0;
-
   @Input('min') min: number = 0;
   @Input('max') max: number = 100;
-  @Input('step') step: number = 100;
-  @Input('round') round: number = 100;
-
+  @Input('step') step: number = 10;
+  @Input('round') round: number = 0;
   @Input('scaleNames') scaleNames: string[];
 
 
-  ngAfterViewInit() {
+  constructor() {
+
+  }
+
+  ngAfterContentInit() {
     this.calculatePercentLeftKnob();
+    this.getScalePoints();
   }
 
   percentLeftKnob: number = 0;
+  scalePoints: any[];
 
   calculatePercentLeftKnob() {
-    console.log('....');
     const rangeLength = this.max - this.min;
     const valueLeft = this.value - this.min;
     const delta = rangeLength / valueLeft;
     this.percentLeftKnob = 100 / delta;
-    console.log('aaa');
-    console.log(this.percentLeftKnob);
   }
 
+  getScalePoints() {
+    const rangeLength = this.max - this.min;
+    const amount = Math.ceil(rangeLength / this.step);
+    const scalePoints = [];
+    while (scalePoints.length < amount) {
+      scalePoints.push({
+        label: this.scalePointLabel(scalePoints.length)
+      });
+    }
+    this.scalePoints = scalePoints;
+  }
+
+  scalePointLabel(i: number): string {
+    if (!this.scaleNames) return (i * this.step + this.min).toString();
+    if (this.scaleNames[i]) return this.scaleNames[i];
+    return '';
+  }
 
   /**
    * things needed for ControlValueAccessor-Interface

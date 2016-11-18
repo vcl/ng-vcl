@@ -7,9 +7,13 @@ export declare class SliderComponent implements ControlValueAccessor {
     step: number;
     round: number;
     scaleNames: string[];
-    ngAfterViewInit(): void;
+    constructor();
+    ngAfterContentInit(): void;
     percentLeftKnob: number;
+    scalePoints: any[];
     calculatePercentLeftKnob(): void;
+    getScalePoints(): void;
+    scalePointLabel(i: number): string;
     /**
      * things needed for ControlValueAccessor-Interface
      */

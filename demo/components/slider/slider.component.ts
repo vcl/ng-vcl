@@ -6,14 +6,28 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class SliderComponent implements OnInit {
   @ViewChild('select') select;
 
+  customScaleNames = [
+    'Zero',
+    'One',
+    'Two',
+    'Three',
+    'Four',
+    'Five'
+  ];
 
+  customScaleNames2 = [
+    '☀',
+    '☁',
+    '☂',
+    '☃',
+    '☄'
+  ];
 
   selectedItemSingle: any;
 
   selectedItemsMulti: any[];
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() { }
 

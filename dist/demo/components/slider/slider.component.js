@@ -11,6 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var SliderComponent = (function () {
     function SliderComponent() {
+        this.customScaleNames = [
+            'Zero',
+            'One',
+            'Two',
+            'Three',
+            'Four',
+            'Five'
+        ];
+        this.customScaleNames2 = [
+            '☀',
+            '☁',
+            '☂',
+            '☃',
+            '☄'
+        ];
     }
     SliderComponent.prototype.ngOnInit = function () { };
     SliderComponent.prototype.ngAfterViewInit = function () {

@@ -20,21 +20,37 @@ var SliderComponent = (function () {
         this.value = 0;
         this.min = 0;
         this.max = 100;
-        this.step = 100;
-        this.round = 100;
+        this.step = 10;
+        this.round = 0;
         this.percentLeftKnob = 0;
     }
-    SliderComponent.prototype.ngAfterViewInit = function () {
+    SliderComponent.prototype.ngAfterContentInit = function () {
         this.calculatePercentLeftKnob();
+        this.getScalePoints();
     };
     SliderComponent.prototype.calculatePercentLeftKnob = function () {
-        console.log('....');
         var rangeLength = this.max - this.min;
         var valueLeft = this.value - this.min;
         var delta = rangeLength / valueLeft;
         this.percentLeftKnob = 100 / delta;
-        console.log('aaa');
-        console.log(this.percentLeftKnob);
+    };
+    SliderComponent.prototype.getScalePoints = function () {
+        var rangeLength = this.max - this.min;
+        var amount = Math.ceil(rangeLength / this.step);
+        var scalePoints = [];
+        while (scalePoints.length < amount) {
+            scalePoints.push({
+                label: this.scalePointLabel(scalePoints.length)
+            });
+        }
+        this.scalePoints = scalePoints;
+    };
+    SliderComponent.prototype.scalePointLabel = function (i) {
+        if (!this.scaleNames)
+            return (i * this.step + this.min).toString();
+        if (this.scaleNames[i])
+            return this.scaleNames[i];
+        return '';
     };
     SliderComponent.prototype.writeValue = function (value) {
         if (value !== this.value) {
