@@ -101,7 +101,6 @@ var NavigationComponent = (function () {
         this.router = router;
         this.ariaRole = 'presentation';
         this.tabindex = 0;
-        this.touchAction = 'pan-y';
         this.type = 'horizontal';
         this.subLevelHintIconClosed = 'fa:chevron-right';
         this.subLevelHintIconOpened = 'fa:chevron-down';
@@ -194,10 +193,6 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Number)
 ], NavigationComponent.prototype, "tabindex", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], NavigationComponent.prototype, "touchAction", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)

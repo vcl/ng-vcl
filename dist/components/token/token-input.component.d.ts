@@ -1,3 +1,4 @@
+/// <reference types="core-js" />
 import { ControlValueAccessor } from '@angular/forms';
 export declare const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2: any;
 export declare class TokenInputComponent implements ControlValueAccessor {
@@ -10,7 +11,7 @@ export declare class TokenInputComponent implements ControlValueAccessor {
      */
     private onTouchedCallback;
     private onChangeCallback;
-    writeValue(tokens: any): void;
+    writeValue(tokens: Object[]): void;
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;
 }

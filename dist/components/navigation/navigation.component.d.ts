@@ -28,7 +28,6 @@ export declare class NavigationComponent {
     selectedItem: any;
     ariaRole: string;
     tabindex: number;
-    touchAction: string;
     type: string;
     subLevelHintIconClosed: string;
     subLevelHintIconOpened: string;

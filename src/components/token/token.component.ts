@@ -3,14 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild,
-  ContentChildren,
-  ContentChild,
-  QueryList,
-  forwardRef,
-  HostListener
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
 @Component({

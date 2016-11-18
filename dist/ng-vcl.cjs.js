@@ -2339,7 +2339,7 @@ var NavigationItemComponent = (function () {
         if (this.route) {
             ret['route'] = this.route;
             if (!ret['route'].length)
-                ret['route'] = [ret['route']]; // force array      
+                ret['route'] = [ret['route']]; // force array
         }
         // add nested items
         var items = [];
@@ -2409,7 +2409,6 @@ var NavigationComponent = (function () {
         this.router = router;
         this.ariaRole = 'presentation';
         this.tabindex = 0;
-        this.touchAction = 'pan-y'; // TODO what does this?
         this.type = 'horizontal';
         this.subLevelHintIconClosed = 'fa:chevron-right';
         this.subLevelHintIconOpened = 'fa:chevron-down';
@@ -2501,11 +2500,6 @@ var NavigationComponent = (function () {
         __metadata('design:type', Number)
     ], NavigationComponent.prototype, "tabindex", void 0);
     __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', String)
-    ], NavigationComponent.prototype, "touchAction", void 0);
-    __decorate([
-        // TODO what does this?
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], NavigationComponent.prototype, "type", void 0);
@@ -4737,8 +4731,6 @@ var TokenInputComponent = (function () {
             return;
         if (this.addtext == '')
             return;
-        if (!this.tokens)
-            this.tokens = []; // TODO why is default not working?
         this.tokens.push({ label: this.addtext });
         this.addtext = '';
         !!this.onChangeCallback && this.onChangeCallback(this.tokens);

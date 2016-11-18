@@ -19,34 +19,6 @@ export class FormComponent implements OnInit {
     { label: 'item 3' }
   ];
 
-  form: FormGroup;
-
-  constructor(public fb: FormBuilder) {
-
-    // the module-based forms logic is made with the FormBuilder
-    this.form = this.fb.group({
-      myname: ['', Validators.required],
-      myname2: ['', Validators.required],
-      itemselect: [''],
-      myradio: [''],
-      mydropdown: [''],
-      mycheckbox: ['', Validators.required],
-      flip: [''],
-      tokenlist: [''],
-      tokeninput: [''],
-      datepick: ['']
-    }, {
-        validator: equalInputMatcher
-      });
-    this.form.patchValue({
-      myname: 'Steven'
-    });
-
-
-  }
-
-  ngOnInit() { }
-
 
   tokenList = [
     {
@@ -77,4 +49,34 @@ export class FormComponent implements OnInit {
       selected: false
     }
   ];
+
+  form: FormGroup;
+
+  constructor(public fb: FormBuilder) {
+
+    // the module-based forms logic is made with the FormBuilder
+    this.form = this.fb.group({
+      myname: ['', Validators.required],
+      myname2: ['', Validators.required],
+      itemselect: [''],
+      myradio: [''],
+      mydropdown: [''],
+      mycheckbox: ['', Validators.required],
+      flip: [''],
+      tokenlist: [''],
+      tokeninput: [this.tokenList2],
+      datepick: ['']
+    }, {
+        validator: equalInputMatcher
+      });
+    this.form.patchValue({
+      myname: 'Steven'
+    });
+
+
+  }
+
+  ngOnInit() { }
+
+
 }

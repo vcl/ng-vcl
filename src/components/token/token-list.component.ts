@@ -54,7 +54,6 @@ export class TokenListComponent implements ControlValueAccessor {
   }
 
 
-
   /**
    * things needed for ControlValueAccessor-Interface
    */

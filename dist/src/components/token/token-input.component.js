@@ -25,8 +25,6 @@ var TokenInputComponent = (function () {
             return;
         if (this.addtext == '')
             return;
-        if (!this.tokens)
-            this.tokens = [];
         this.tokens.push({ label: this.addtext });
         this.addtext = '';
         !!this.onChangeCallback && this.onChangeCallback(this.tokens);

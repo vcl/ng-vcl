@@ -46,7 +46,7 @@ export class NavigationItemComponent {
 
     if (this.route) {
       ret['route'] = this.route;
-      if (!ret['route'].length) ret['route'] = [ret['route']]; // force array      
+      if (!ret['route'].length) ret['route'] = [ret['route']]; // force array
     }
 
     // add nested items
@@ -87,9 +87,6 @@ export class NavigationComponent {
 
   @Input()
   tabindex: number = 0;
-
-  @Input()
-  touchAction: string = 'pan-y'; // TODO what does this?
 
   @Input()
   type: string = 'horizontal';

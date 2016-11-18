@@ -29,7 +29,7 @@ var NavigationItemComponent = (function () {
         if (this.route) {
             ret['route'] = this.route;
             if (!ret['route'].length)
-                ret['route'] = [ret['route']]; // force array      
+                ret['route'] = [ret['route']]; // force array
         }
         // add nested items
         var items = [];
@@ -69,7 +69,6 @@ var NavigationComponent = (function () {
         this.router = router;
         this.ariaRole = 'presentation';
         this.tabindex = 0;
-        this.touchAction = 'pan-y'; // TODO what does this?
         this.type = 'horizontal';
         this.subLevelHintIconClosed = 'fa:chevron-right';
         this.subLevelHintIconOpened = 'fa:chevron-down';
@@ -162,7 +161,6 @@ var NavigationComponent = (function () {
         'selectedItem': [{ type: core_1.Input },],
         'ariaRole': [{ type: core_1.Input },],
         'tabindex': [{ type: core_1.Input },],
-        'touchAction': [{ type: core_1.Input },],
         'type': [{ type: core_1.Input },],
         'subLevelHintIconClosed': [{ type: core_1.Input },],
         'subLevelHintIconOpened': [{ type: core_1.Input },],

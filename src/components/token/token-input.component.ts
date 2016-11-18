@@ -1,7 +1,7 @@
 import {
   Component,
   Input,
-  forwardRef,
+  forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -28,11 +28,10 @@ export class TokenInputComponent implements ControlValueAccessor {
 
   addtext: string = '';
 
+
   keydown(ev) {
     if (ev.key != 'Enter') return;
     if (this.addtext == '') return;
-
-    if (!this.tokens) this.tokens = []; // TODO why is default not working?
 
     this.tokens.push({ label: this.addtext });
     this.addtext = '';
@@ -50,7 +49,7 @@ export class TokenInputComponent implements ControlValueAccessor {
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
 
-  writeValue(tokens: any): void {
+  writeValue(tokens: Object[]): void {
     this.tokens = tokens;
   }
 

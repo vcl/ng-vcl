@@ -16,8 +16,6 @@ var TokenInputComponent = (function () {
             return;
         if (this.addtext == '')
             return;
-        if (!this.tokens)
-            this.tokens = []; // TODO why is default not working?
         this.tokens.push({ label: this.addtext });
         this.addtext = '';
         !!this.onChangeCallback && this.onChangeCallback(this.tokens);

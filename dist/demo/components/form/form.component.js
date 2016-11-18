@@ -59,7 +59,7 @@ var FormComponent = (function () {
             mycheckbox: ['', forms_1.Validators.required],
             flip: [''],
             tokenlist: [''],
-            tokeninput: [''],
+            tokeninput: [this.tokenList2],
             datepick: ['']
         }, {
             validator: equalInputMatcher
