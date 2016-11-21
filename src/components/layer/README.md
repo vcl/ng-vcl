@@ -31,13 +31,13 @@ A layer can be defined anywhere in your application
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         Content
-        <button vcl-button (click)="myLayer.close()" label="Close Layer"></button>
+        <button vcl-button (tap)="myLayer.close()" label="Close Layer"></button>
       </p>
     </div>
   </div>
 </template>
 
-<button vcl-button (click)="myLayer.open()" label="Open Layer"></button>
+<button vcl-button (tap)="myLayer.open()" label="Open Layer"></button>
 ```
 
 The `LayerService` can be used to open a Layer without having an actual reference.
@@ -80,17 +80,17 @@ export class LayerComponent {
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         {{myLayer.data.content}}
-        <button vcl-button (click)="myLayer.send('data to send 1')" label="Send data"></button>
-        <button vcl-button (click)="myLayer.close('data to send 2')" label="Close Layer"></button>
+        <button vcl-button (tap)="myLayer.send('data to send 1')" label="Send data"></button>
+        <button vcl-button (tap)="myLayer.close('data to send 2')" label="Close Layer"></button>
       </p>
     </div>
   </div>
 </template>
 
-<button vcl-button (click)="myLayer.open()" label="Open Layer"></button>
+<button vcl-button (tap)="myLayer.open()" label="Open Layer"></button>
 ```
 
-### API 
+### API
 
 #### vcl-layer Properties:
 
