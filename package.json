@@ -9,7 +9,7 @@
     "dev:vcl": "vcl-preprocessor demo/styles/index.styl | postcss --use autoprefixer -o demo/app.css",
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
     "docs:build": "webpack --env.ENV production",
-    "docs:push": "git subtree push --prefix docs origin gh-pages",
+    "docs:push": "git push origin `git subtree split --prefix docs master`:gh-pages --force",
     "build:lint": "tslint src/**/*.ts",
     "build:ngc": "ngc -p tsconfig.build.json",
     "build:html": "node copy.js",
