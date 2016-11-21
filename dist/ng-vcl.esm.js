@@ -1957,7 +1957,7 @@ var LayerService = (function () {
             return this.layers.get(layerName).open(data);
         }
         else {
-            return Observable.throw('Layer not found. ' + layerName);
+            return Observable.throw('Layer not found: ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {

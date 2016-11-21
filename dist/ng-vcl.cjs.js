@@ -1961,7 +1961,7 @@ var LayerService = (function () {
             return this.layers.get(layerName).open(data);
         }
         else {
-            return rxjs_Observable.Observable.throw('Layer not found. ' + layerName);
+            return rxjs_Observable.Observable.throw('Layer not found: ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {
