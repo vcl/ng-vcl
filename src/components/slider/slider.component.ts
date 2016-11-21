@@ -30,6 +30,7 @@ export class SliderComponent implements ControlValueAccessor {
   @Input('min') min: number = 0;
   @Input('max') max: number = 100;
   @Input('step') step: number = 10;
+  @Input('stepsOnly') stepsOnly: boolean = false;
   @Input('round') round: number = 0;
   @Input('scaleNames') scaleNames: string[];
 
@@ -65,10 +66,25 @@ export class SliderComponent implements ControlValueAccessor {
     const scalePoints = [];
     while (scalePoints.length < amount) {
       scalePoints.push({
-        label: this.scalePointLabel(scalePoints.length)
+        label: this.scalePointLabel(scalePoints.length),
+        percent: (100 / (amount - 1)) * scalePoints.length
       });
     }
     this.scalePoints = scalePoints;
+  }
+
+
+  closestScalePoint(percentValue): number {
+    let closest = this.scalePoints[0];
+    let dist = 100;
+    this.scalePoints.forEach(sP => {
+      const pDist = Math.abs(sP.percent - percentValue);
+      if (pDist < dist) {
+        closest = sP;
+        dist = pDist;
+      }
+    });
+    return closest.percent;
   }
 
   scalePointLabel(i: number): string {
@@ -88,7 +104,6 @@ export class SliderComponent implements ControlValueAccessor {
   lastPercentLeftKnob: number;
   firstPan: boolean = true;
   onPan(ev) {
-    console.log('onPan '); // TODO remove log
 
     if (this.firstPan) {
       this.firstPan = false;
@@ -101,12 +116,18 @@ export class SliderComponent implements ControlValueAccessor {
     if (this.percentLeftKnob < 0) this.percentLeftKnob = 0;
     if (this.percentLeftKnob > 100) this.percentLeftKnob = 100;
 
+    if (this.stepsOnly) {
+      //calculate closest step and move to there
+      this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
+    }
+
+
 
     if (ev.isFinal) {
       this.firstPan = true;
 
 
-      //TODO calculate closest step and move to there
+
 
       this.value = this.percentToValue(this.percentLeftKnob);
       !!this.onChangeCallback && this.onChangeCallback(this.value);

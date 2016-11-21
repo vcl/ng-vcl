@@ -21,6 +21,7 @@ var SliderComponent = (function () {
         this.min = 0;
         this.max = 100;
         this.step = 10;
+        this.stepsOnly = false;
         this.round = 0;
         this.percentLeftKnob = 0;
         this.firstPan = true;
@@ -46,10 +47,23 @@ var SliderComponent = (function () {
         var scalePoints = [];
         while (scalePoints.length < amount) {
             scalePoints.push({
-                label: this.scalePointLabel(scalePoints.length)
+                label: this.scalePointLabel(scalePoints.length),
+                percent: (100 / (amount - 1)) * scalePoints.length
             });
         }
         this.scalePoints = scalePoints;
+    };
+    SliderComponent.prototype.closestScalePoint = function (percentValue) {
+        var closest = this.scalePoints[0];
+        var dist = 100;
+        this.scalePoints.forEach(function (sP) {
+            var pDist = Math.abs(sP.percent - percentValue);
+            if (pDist < dist) {
+                closest = sP;
+                dist = pDist;
+            }
+        });
+        return closest.percent;
     };
     SliderComponent.prototype.scalePointLabel = function (i) {
         if (!this.scaleNames)
@@ -65,7 +79,6 @@ var SliderComponent = (function () {
         return deltaPer;
     };
     SliderComponent.prototype.onPan = function (ev) {
-        console.log('onPan ');
         if (this.firstPan) {
             this.firstPan = false;
             this.lastPercentLeftKnob = this.percentLeftKnob;
@@ -76,6 +89,9 @@ var SliderComponent = (function () {
             this.percentLeftKnob = 0;
         if (this.percentLeftKnob > 100)
             this.percentLeftKnob = 100;
+        if (this.stepsOnly) {
+            this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
+        }
         if (ev.isFinal) {
             this.firstPan = true;
             this.value = this.percentToValue(this.percentLeftKnob);
@@ -111,6 +127,10 @@ __decorate([
     core_1.Input('step'),
     __metadata("design:type", Number)
 ], SliderComponent.prototype, "step", void 0);
+__decorate([
+    core_1.Input('stepsOnly'),
+    __metadata("design:type", Boolean)
+], SliderComponent.prototype, "stepsOnly", void 0);
 __decorate([
     core_1.Input('round'),
     __metadata("design:type", Number)

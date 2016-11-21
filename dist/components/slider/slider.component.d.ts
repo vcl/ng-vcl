@@ -5,6 +5,7 @@ export declare class SliderComponent implements ControlValueAccessor {
     min: number;
     max: number;
     step: number;
+    stepsOnly: boolean;
     round: number;
     scaleNames: string[];
     scale: any;
@@ -15,6 +16,7 @@ export declare class SliderComponent implements ControlValueAccessor {
     calculatePercentLeftKnob(): void;
     percentToValue(per: number): number;
     getScalePoints(): void;
+    closestScalePoint(percentValue: any): number;
     scalePointLabel(i: number): string;
     deltaPxToPercent(deltaPx: number): number;
     lastPercentLeftKnob: number;
