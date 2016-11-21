@@ -84,7 +84,7 @@ export class StoreActions extends Observable<any> implements Observer<any> {
   }
 
   dispatch(action: any) {
-    this._dispatcher.next(action);
+    setTimeout(() => this._dispatcher.next(action), 0);
   }
 
   next(action: any) {
@@ -123,7 +123,7 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   }, {});
 
   // The state changes when an action is dispatched by running reducers
-  // The new state is then cached for further subscribers 
+  // The new state is then cached for further subscribers
   state$ = this.actions$.withLatestFrom(this.reducers$).scan<any, StoreState>((currentState, [action, reducers]) => {
     let state = Object.assign({}, currentState);
     Object.keys(reducers).forEach(key => {
