@@ -8,6 +8,8 @@ export declare class LayerBaseComponent {
     private layerService;
     visibleLayers: any[];
     sub: Subscription;
+    name: string;
+    zIndex: number;
     constructor(layerService: LayerService);
     ngOnInit(): void;
     ngOnDestroy(): void;
@@ -23,17 +25,15 @@ export declare class LayerDirective extends WormholeGenerator {
     readonly visibilityChange: Observable<boolean>;
     modal: boolean;
     name: string;
+    base: string;
     _instanceResults: Subject<any>;
     data: LayerData;
     readonly state: string;
     visible: boolean;
-    coverzIndex: number;
-    zIndex: number;
     constructor(templateRef: TemplateRef<any>, elementRef: ElementRef, layerService: LayerService);
     ngOnInit(): void;
     ngOnDestroy(): void;
     offClick(): void;
-    setZIndex(zIndex?: number): void;
     toggle(): void;
     open(data?: LayerData): Observable<any>;
     send(result: any): void;

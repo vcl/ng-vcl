@@ -1928,95 +1928,105 @@ var VCLWormholeModule = (function () {
 
 var LayerService = (function () {
     function LayerService() {
-        this.visibleLayersChanged$ = new _angular_core.EventEmitter();
-        this.subscriptions = new Map();
-        this.layers = new Map();
+        this.layerNameMap = new Map();
+        this.layerMap = new Map();
+        this._visibleLayers = new rxjs_Subject.Subject();
+        this._visibleLayers$ = this._visibleLayers.asObservable().scan(function (accLayers, layer) {
+            if (layer.visible) {
+                return accLayers.concat([layer]);
+            }
+            else {
+                return accLayers.filter(function (l) { return layer !== l; });
+            }
+        }, []);
     }
-    Object.defineProperty(LayerService.prototype, "visibleLayersChanged", {
-        get: function () {
-            return this.visibleLayersChanged$.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(LayerService.prototype, "visibleLayers", {
-        get: function () {
-            return Array.from(this.subscriptions.keys()).filter(function (layer) { return layer.visible; });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LayerService.prototype, "currentZIndex", {
-        get: function () {
-            return this.visibleLayers
-                .map(function (layer) { return layer.zIndex; })
-                .reduce(function (pzIndex, czIndex) { return Math.max(pzIndex, czIndex); }, 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
+    LayerService.prototype.visibleLayersFor = function (base) {
+        if (base === void 0) { base = 'default'; }
+        return this._visibleLayers$.map(function (layers) { return layers.filter(function (layer) { return layer.base !== base; }); });
+    };
     LayerService.prototype.open = function (layerName, data) {
-        if (this.layers.has(layerName)) {
-            return this.layers.get(layerName).open(data);
+        if (this.layerNameMap.has(layerName)) {
+            return this.layerNameMap.get(layerName).open(data);
         }
         else {
-            return rxjs_Observable.Observable.throw('Layer not found. ' + layerName);
+            return rxjs_Observable.Observable.throw('Layer not found: ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {
-        if (this.layers.has(layerName)) {
-            this.layers.get(layerName).close();
+        if (this.layerNameMap.has(layerName)) {
+            this.layerNameMap.get(layerName).close();
         }
     };
-    LayerService.prototype.register = function (layer) {
+    LayerService.prototype.register = function (layer, base) {
         var _this = this;
-        var sub = layer.visibilityChange.subscribe(function (visible) {
-            _this.visibleLayersChanged$.emit(_this.visibleLayers);
-        });
-        this.subscriptions.set(layer, sub);
+        if (base === void 0) { base = 'default'; }
+        if (layer.name && this.layerNameMap.has(layer.name)) {
+            throw 'Duplicate layer name: ' + layer.name;
+        }
+        this.layerMap.set(layer, layer.visibilityChange$.subscribe(function () {
+            _this._visibleLayers.next(layer);
+        }));
         if (layer.name) {
-            this.layers.set(layer.name, layer);
+            this.layerNameMap.set(layer.name, layer);
         }
     };
     LayerService.prototype.unregister = function (layer) {
         layer.close();
         if (layer.name) {
-            this.layers.delete(name);
+            this.layerNameMap.delete(layer.name);
         }
-        this.subscriptions.get(layer).unsubscribe();
-        this.subscriptions.delete(layer);
+        var sub = this.layerMap.get(layer);
+        if (sub && !sub.closed) {
+            sub.unsubscribe();
+        }
+        this.layerMap.delete(layer);
     };
-    __decorate([
-        _angular_core.Output(), 
-        __metadata('design:type', (typeof (_a = typeof rxjs_Observable.Observable !== 'undefined' && rxjs_Observable.Observable) === 'function' && _a) || Object)
-    ], LayerService.prototype, "visibleLayersChanged", null);
+    LayerService.prototype.ngOnDestroy = function () {
+        this.layerMap.forEach(function (sub) {
+            if (sub && !sub.closed) {
+                sub.unsubscribe();
+            }
+        });
+        this.layerMap.clear();
+        this.layerNameMap.clear();
+    };
     LayerService = __decorate([
         _angular_core.Injectable(), 
         __metadata('design:paramtypes', [])
     ], LayerService);
     return LayerService;
-    var _a;
 }());
 
 var LayerBaseComponent = (function () {
     function LayerBaseComponent(layerService) {
         this.layerService = layerService;
         this.visibleLayers = [];
+        this.name = 'default';
+        this.zIndex = 1000;
     }
     LayerBaseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.sub = this.layerService.visibleLayersChanged.subscribe(function (visibleLayers) {
+        this.sub = this.layerService.visibleLayersFor(this.name).subscribe(function (visibleLayers) {
             _this.visibleLayers = visibleLayers;
         });
     };
     LayerBaseComponent.prototype.ngOnDestroy = function () {
-        this.sub.unsubscribe();
+        if (this.sub && !this.sub.closed) {
+            this.sub.unsubscribe();
+        }
     };
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LayerBaseComponent.prototype, "name", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], LayerBaseComponent.prototype, "zIndex", void 0);
     LayerBaseComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-layer-base',
-            template: "<div *ngFor=\"let layer of visibleLayers\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"layer.zIndex\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\" (off-click)=\"layer.offClick()\">\n      <div [wormhole]=\"layer\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"layer.coverzIndex\"></div>\n</div>\n",
+            template: "<div *ngFor=\"let layer of visibleLayers; let i = index;\">\n  <div class=\"vclLayer\" role=\"dialog\" [@boxState]=\"layer.state\" [style.z-index]=\"zIndex + (i*10+1)\">\n    <div class=\"vclLayerBox vclLayerGutterPadding\" (off-click)=\"layer.offClick()\">\n      <div [wormhole]=\"layer\" [wormhole-indisposable]=\"true\"></div>\n    </div>\n  </div>\n  <div *ngIf=\"layer.modal\" class=\"vclLayerCover\" [@layerState]=\"layer.state\" [style.z-index]=\"zIndex + (i*10+0)\"></div>\n</div>\n",
             animations: [
                 _angular_core.trigger('boxState', []),
                 _angular_core.trigger('layerState', [])
@@ -2038,8 +2048,6 @@ var LayerDirective = (function (_super) {
         this.modal = true;
         this.data = {};
         this.visible = false;
-        this.coverzIndex = 10;
-        this.zIndex = 11;
     }
     Object.defineProperty(LayerDirective.prototype, "visibilityChange", {
         get: function () {
@@ -2066,11 +2074,6 @@ var LayerDirective = (function (_super) {
             this.close();
         }
     };
-    LayerDirective.prototype.setZIndex = function (zIndex) {
-        if (zIndex === void 0) { zIndex = 10; }
-        this.coverzIndex = zIndex;
-        this.zIndex = zIndex + 1;
-    };
     LayerDirective.prototype.toggle = function () {
         this.visible = !this.visible;
         this.visibilityChange$.emit(this.visible);
@@ -2082,7 +2085,6 @@ var LayerDirective = (function (_super) {
         if (typeof data === 'object' && data) {
             this.data = data;
         }
-        this.setZIndex(this.layerService.currentZIndex + 10);
         this.visible = true;
         this.visibilityChange$.emit(this.visible);
         return this._instanceResults.asObservable();
@@ -2099,7 +2101,6 @@ var LayerDirective = (function (_super) {
         }
         this.data = {};
         this._instanceResults = null;
-        this.setZIndex();
         this.visible = false;
         this.visibilityChange$.emit(this.visible);
     };
@@ -2115,6 +2116,10 @@ var LayerDirective = (function (_super) {
         _angular_core.Input(), 
         __metadata('design:type', String)
     ], LayerDirective.prototype, "name", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], LayerDirective.prototype, "base", void 0);
     LayerDirective = __decorate([
         _angular_core.Directive({
             selector: '[vcl-layer]',

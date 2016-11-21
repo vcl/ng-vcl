@@ -1,9 +1,9 @@
-<button vcl-button (click)="showPopover()" label="show popover"></button>
+<button vcl-button (tap)="showPopover()" label="show popover"></button>
 
 <vcl-popover target='#target' [(open)]="open" class='' [style]="style">
   popover text goes here <br>
-  <button vcl-button (click)="showPopover2()" label="show popover2" id="button1"></button>
-  <button vcl-button (click)="closePopover()" label="close popover"></button>
+  <button vcl-button (tap)="showPopover2()" label="show popover2" id="button1"></button>
+  <button vcl-button (tap)="closePopover()" label="close popover"></button>
 </vcl-popover>
 
 <vcl-popover target='#button1' [(open)]="open2" [style]="style">

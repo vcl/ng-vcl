@@ -1,75 +1,76 @@
 "use strict";
+var Subject_1 = require('rxjs/Subject');
 var core_1 = require('@angular/core');
 var Observable_1 = require('rxjs/Observable');
 var LayerService = (function () {
     function LayerService() {
-        this.visibleLayersChanged$ = new core_1.EventEmitter();
-        this.subscriptions = new Map();
-        this.layers = new Map();
+        this.layerNameMap = new Map();
+        this.layerMap = new Map();
+        this._visibleLayers = new Subject_1.Subject();
+        this._visibleLayers$ = this._visibleLayers.asObservable().scan(function (accLayers, layer) {
+            if (layer.visible) {
+                return accLayers.concat([layer]);
+            }
+            else {
+                return accLayers.filter(function (l) { return layer !== l; });
+            }
+        }, []);
     }
-    Object.defineProperty(LayerService.prototype, "visibleLayersChanged", {
-        get: function () {
-            return this.visibleLayersChanged$.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(LayerService.prototype, "visibleLayers", {
-        get: function () {
-            return Array.from(this.subscriptions.keys()).filter(function (layer) { return layer.visible; });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LayerService.prototype, "currentZIndex", {
-        get: function () {
-            return this.visibleLayers
-                .map(function (layer) { return layer.zIndex; })
-                .reduce(function (pzIndex, czIndex) { return Math.max(pzIndex, czIndex); }, 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
+    LayerService.prototype.visibleLayersFor = function (base) {
+        if (base === void 0) { base = 'default'; }
+        return this._visibleLayers$.map(function (layers) { return layers.filter(function (layer) { return layer.base !== base; }); });
+    };
     LayerService.prototype.open = function (layerName, data) {
-        if (this.layers.has(layerName)) {
-            return this.layers.get(layerName).open(data);
+        if (this.layerNameMap.has(layerName)) {
+            return this.layerNameMap.get(layerName).open(data);
         }
         else {
-            return Observable_1.Observable.throw('Layer not found. ' + layerName);
+            return Observable_1.Observable.throw('Layer not found: ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {
-        if (this.layers.has(layerName)) {
-            this.layers.get(layerName).close();
+        if (this.layerNameMap.has(layerName)) {
+            this.layerNameMap.get(layerName).close();
         }
     };
-    LayerService.prototype.register = function (layer) {
+    LayerService.prototype.register = function (layer, base) {
         var _this = this;
-        var sub = layer.visibilityChange.subscribe(function (visible) {
-            _this.visibleLayersChanged$.emit(_this.visibleLayers);
-        });
-        this.subscriptions.set(layer, sub);
+        if (base === void 0) { base = 'default'; }
+        if (layer.name && this.layerNameMap.has(layer.name)) {
+            throw 'Duplicate layer name: ' + layer.name;
+        }
+        this.layerMap.set(layer, layer.visibilityChange$.subscribe(function () {
+            _this._visibleLayers.next(layer);
+        }));
         if (layer.name) {
-            this.layers.set(layer.name, layer);
+            this.layerNameMap.set(layer.name, layer);
         }
     };
     LayerService.prototype.unregister = function (layer) {
         layer.close();
         if (layer.name) {
-            this.layers.delete(name);
+            this.layerNameMap.delete(layer.name);
         }
-        this.subscriptions.get(layer).unsubscribe();
-        this.subscriptions.delete(layer);
+        var sub = this.layerMap.get(layer);
+        if (sub && !sub.closed) {
+            sub.unsubscribe();
+        }
+        this.layerMap.delete(layer);
+    };
+    LayerService.prototype.ngOnDestroy = function () {
+        this.layerMap.forEach(function (sub) {
+            if (sub && !sub.closed) {
+                sub.unsubscribe();
+            }
+        });
+        this.layerMap.clear();
+        this.layerNameMap.clear();
     };
     LayerService.decorators = [
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
     LayerService.ctorParameters = [];
-    LayerService.propDecorators = {
-        'visibleLayersChanged': [{ type: core_1.Output },],
-    };
     return LayerService;
 }());
 exports.LayerService = LayerService;

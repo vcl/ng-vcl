@@ -12,15 +12,19 @@ var LayerBaseComponent = (function () {
     function LayerBaseComponent(layerService) {
         this.layerService = layerService;
         this.visibleLayers = [];
+        this.name = 'default';
+        this.zIndex = 1000;
     }
     LayerBaseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.sub = this.layerService.visibleLayersChanged.subscribe(function (visibleLayers) {
+        this.sub = this.layerService.visibleLayersFor(this.name).subscribe(function (visibleLayers) {
             _this.visibleLayers = visibleLayers;
         });
     };
     LayerBaseComponent.prototype.ngOnDestroy = function () {
-        this.sub.unsubscribe();
+        if (this.sub && !this.sub.closed) {
+            this.sub.unsubscribe();
+        }
     };
     LayerBaseComponent.decorators = [
         { type: core_1.Component, args: [{
@@ -36,6 +40,10 @@ var LayerBaseComponent = (function () {
     LayerBaseComponent.ctorParameters = [
         { type: layer_service_1.LayerService, },
     ];
+    LayerBaseComponent.propDecorators = {
+        'name': [{ type: core_1.Input },],
+        'zIndex': [{ type: core_1.Input },],
+    };
     return LayerBaseComponent;
 }());
 exports.LayerBaseComponent = LayerBaseComponent;
@@ -50,8 +58,6 @@ var LayerDirective = (function (_super) {
         this.modal = true;
         this.data = {};
         this.visible = false;
-        this.coverzIndex = 10;
-        this.zIndex = 11;
     }
     Object.defineProperty(LayerDirective.prototype, "visibilityChange", {
         get: function () {
@@ -78,11 +84,6 @@ var LayerDirective = (function (_super) {
             this.close();
         }
     };
-    LayerDirective.prototype.setZIndex = function (zIndex) {
-        if (zIndex === void 0) { zIndex = 10; }
-        this.coverzIndex = zIndex;
-        this.zIndex = zIndex + 1;
-    };
     LayerDirective.prototype.toggle = function () {
         this.visible = !this.visible;
         this.visibilityChange$.emit(this.visible);
@@ -94,7 +95,6 @@ var LayerDirective = (function (_super) {
         if (typeof data === 'object' && data) {
             this.data = data;
         }
-        this.setZIndex(this.layerService.currentZIndex + 10);
         this.visible = true;
         this.visibilityChange$.emit(this.visible);
         return this._instanceResults.asObservable();
@@ -111,7 +111,6 @@ var LayerDirective = (function (_super) {
         }
         this.data = {};
         this._instanceResults = null;
-        this.setZIndex();
         this.visible = false;
         this.visibilityChange$.emit(this.visible);
     };
@@ -131,6 +130,7 @@ var LayerDirective = (function (_super) {
         'visibilityChange': [{ type: core_1.Output },],
         'modal': [{ type: core_1.Input },],
         'name': [{ type: core_1.Input },],
+        'base': [{ type: core_1.Input },],
     };
     return LayerDirective;
 }(wormhole_module_1.WormholeGenerator));
