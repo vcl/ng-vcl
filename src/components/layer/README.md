@@ -23,7 +23,7 @@ The vcl-layer-base defines the position in the DOM where the layers will appear 
 A layer can be defined anywhere in your application
 
 ```html
-<template vcl-layer #myLayer="layer" [modal]="true" [name]="myLayer">
+<template vcl-layer #myLayer="layer" [modal]="true" [name]="'myLayer'">
   <div class="vclPanel vclNoMargin">
     <div class="vclPanelHeader">
       <h3 class="vclPanelTitle">Title</h3>
@@ -72,7 +72,7 @@ export class LayerComponent {
 ```
 
 ```html
-<template vcl-layer #myLayer="layer" [modal]="true" [name]="myLayer">
+<template vcl-layer #myLayer="layer" [modal]="true" [name]="'myLayer'">
   <div class="vclPanel vclNoMargin">
     <div class="vclPanelHeader">
       <h3 class="vclPanelTitle">{{myLayer.data.title}}</h3>
@@ -92,9 +92,15 @@ export class LayerComponent {
 
 ### API 
 
-#### Properties:
+#### vcl-layer Properties:
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `modal`             | boolean     | false    | Disables user interaction outside of the layer
-| `name`              | string      |          | The layer name for addressing it in the LayerService 
+| `name`              | string      |          | The layer name for addressing it in the LayerService
+
+#### vcl-layer-base Properties:
+
+| Name                | Type        | Default  | Description
+| ------------        | ----------- | -------- |--------------
+| `zIndex`            | number      | 1000     | The z-index of the first layer opened.

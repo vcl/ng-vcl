@@ -2905,7 +2905,8 @@ var StoreActions = (function (_super) {
         return this.actions$.filter(function (action) { return actionClasses.some(function (cls) { return action instanceof cls; }); });
     };
     StoreActions.prototype.dispatch = function (action) {
-        this._dispatcher.next(action);
+        var _this = this;
+        setTimeout(function () { return _this._dispatcher.next(action); }, 0);
     };
     StoreActions.prototype.next = function (action) {
         this.dispatch(action);
@@ -2931,7 +2932,7 @@ var Store = (function (_super) {
             return Object.assign({}, reducers, currentReducers);
         }, {});
         // The state changes when an action is dispatched by running reducers
-        // The new state is then cached for further subscribers 
+        // The new state is then cached for further subscribers
         this.state$ = this.actions$.withLatestFrom(this.reducers$).scan(function (currentState, _a) {
             var action = _a[0], reducers = _a[1];
             var state = Object.assign({}, currentState);
