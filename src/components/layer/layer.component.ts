@@ -18,16 +18,24 @@ export class LayerBaseComponent {
   visibleLayers = [];
   sub: Subscription;
 
+  @Input()
+  public name: string = 'default';
+
+  @Input()
+  public zIndex: number = 1000;
+
   constructor(private layerService: LayerService) { }
 
   ngOnInit() {
-    this.sub = this.layerService.visibleLayersChanged.subscribe(visibleLayers => {
+    this.sub = this.layerService.visibleLayersFor(this.name).subscribe(visibleLayers => {
       this.visibleLayers = visibleLayers;
     });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub && !this.sub.closed) {
+      this.sub.unsubscribe();
+    }
   }
 }
 
@@ -51,6 +59,9 @@ export class LayerDirective extends WormholeGenerator {
   @Input()
   public name: string;
 
+  @Input()
+  public base: string;
+
   _instanceResults: Subject<any>;
 
   data: LayerData = {};
@@ -60,8 +71,6 @@ export class LayerDirective extends WormholeGenerator {
   }
 
   public visible = false;
-  public coverzIndex = 10;
-  public zIndex = 11;
 
   constructor(protected templateRef: TemplateRef<any>, private elementRef: ElementRef, private layerService: LayerService) {
     super(templateRef);
@@ -81,11 +90,6 @@ export class LayerDirective extends WormholeGenerator {
     }
   }
 
-  setZIndex(zIndex = 10) {
-    this.coverzIndex = zIndex;
-    this.zIndex = zIndex + 1;
-  }
-
   toggle() {
     this.visible = !this.visible;
     this.visibilityChange$.emit(this.visible);
@@ -95,10 +99,9 @@ export class LayerDirective extends WormholeGenerator {
     if (!this._instanceResults) {
       this._instanceResults = new Subject<any>();
     }
-    if(typeof data === 'object' && data) {
+    if (typeof data === 'object' && data) {
       this.data = data;
     }
-    this.setZIndex(this.layerService.currentZIndex + 10);
     this.visible = true;
     this.visibilityChange$.emit(this.visible);
 
@@ -118,7 +121,6 @@ export class LayerDirective extends WormholeGenerator {
     }
     this.data = {};
     this._instanceResults = null;
-    this.setZIndex();
     this.visible = false;
     this.visibilityChange$.emit(this.visible);
   }

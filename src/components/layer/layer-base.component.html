@@ -1,8 +1,8 @@
-<div *ngFor="let layer of visibleLayers">
-  <div class="vclLayer" role="dialog" [@boxState]="layer.state" [style.z-index]="layer.zIndex">
+<div *ngFor="let layer of visibleLayers; let i = index;">
+  <div class="vclLayer" role="dialog" [@boxState]="layer.state" [style.z-index]="zIndex + (i*10+1)">
     <div class="vclLayerBox vclLayerGutterPadding" (off-click)="layer.offClick()">
       <div [wormhole]="layer" [wormhole-indisposable]="true"></div>
     </div>
   </div>
-  <div *ngIf="layer.modal" class="vclLayerCover" [@layerState]="layer.state" [style.z-index]="layer.coverzIndex"></div>
+  <div *ngIf="layer.modal" class="vclLayerCover" [@layerState]="layer.state" [style.z-index]="zIndex + (i*10+0)"></div>
 </div>
