@@ -20,7 +20,8 @@ export class SliderComponent implements OnInit {
     '☁',
     '☂',
     '☃',
-    '☄'
+    '☄',
+    '1'
   ];
 
   selectedItemSingle: any;

@@ -24,7 +24,8 @@ var SliderComponent = (function () {
             '☁',
             '☂',
             '☃',
-            '☄'
+            '☄',
+            '1'
         ];
     }
     SliderComponent.prototype.ngOnInit = function () { };

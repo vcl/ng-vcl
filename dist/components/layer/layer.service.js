@@ -36,7 +36,7 @@ var LayerService = (function () {
             return this.layers.get(layerName).open(data);
         }
         else {
-            return Observable_1.Observable.throw('Layer not found: ' + layerName);
+            return Observable_1.Observable.throw('Layer not found. ' + layerName);
         }
     };
     LayerService.prototype.close = function (layerName) {

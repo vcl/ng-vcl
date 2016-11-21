@@ -14,6 +14,7 @@ var SliderComponent = (function () {
         this.step = 10;
         this.round = 0;
         this.percentLeftKnob = 0;
+        this.firstPan = true;
     }
     SliderComponent.prototype.ngAfterContentInit = function () {
         this.calculatePercentLeftKnob();
@@ -24,6 +25,11 @@ var SliderComponent = (function () {
         var valueLeft = this.value - this.min;
         var delta = rangeLength / valueLeft;
         this.percentLeftKnob = 100 / delta;
+    };
+    SliderComponent.prototype.percentToValue = function (per) {
+        var rangeLength = this.max - this.min;
+        var newVal = (rangeLength / 100) * per;
+        return newVal;
     };
     SliderComponent.prototype.getScalePoints = function () {
         var rangeLength = this.max - this.min;
@@ -42,6 +48,31 @@ var SliderComponent = (function () {
         if (this.scaleNames[i])
             return this.scaleNames[i];
         return '';
+    };
+    SliderComponent.prototype.deltaPxToPercent = function (deltaPx) {
+        var fullPx = this.scale.nativeElement.offsetWidth;
+        var deltaPer = 100 / (fullPx / deltaPx);
+        deltaPer = Math.round(deltaPer * 100) / 100; // round 2 decs
+        return deltaPer;
+    };
+    SliderComponent.prototype.onPan = function (ev) {
+        console.log('onPan '); // TODO remove log
+        if (this.firstPan) {
+            this.firstPan = false;
+            this.lastPercentLeftKnob = this.percentLeftKnob;
+        }
+        var deltaPx = ev.deltaX;
+        this.percentLeftKnob = this.lastPercentLeftKnob + this.deltaPxToPercent(deltaPx);
+        if (this.percentLeftKnob < 0)
+            this.percentLeftKnob = 0;
+        if (this.percentLeftKnob > 100)
+            this.percentLeftKnob = 100;
+        if (ev.isFinal) {
+            this.firstPan = true;
+            //TODO calculate closest step and move to there
+            this.value = this.percentToValue(this.percentLeftKnob);
+            !!this.onChangeCallback && this.onChangeCallback(this.value);
+        }
     };
     SliderComponent.prototype.writeValue = function (value) {
         if (value !== this.value) {
@@ -73,6 +104,7 @@ var SliderComponent = (function () {
         'step': [{ type: core_1.Input, args: ['step',] },],
         'round': [{ type: core_1.Input, args: ['round',] },],
         'scaleNames': [{ type: core_1.Input, args: ['scaleNames',] },],
+        'scale': [{ type: core_1.ViewChild, args: ['scale',] },],
     };
     return SliderComponent;
 }());

@@ -1,6 +1,7 @@
 import {
   Component,
   Input,
+  ViewChild,
   Output,
   EventEmitter,
   forwardRef
@@ -32,6 +33,7 @@ export class SliderComponent implements ControlValueAccessor {
   @Input('round') round: number = 0;
   @Input('scaleNames') scaleNames: string[];
 
+  @ViewChild('scale') scale;
 
   constructor() {
 
@@ -51,6 +53,11 @@ export class SliderComponent implements ControlValueAccessor {
     const delta = rangeLength / valueLeft;
     this.percentLeftKnob = 100 / delta;
   }
+  percentToValue(per: number): number {
+    const rangeLength = this.max - this.min;
+    const newVal = (rangeLength / 100) * per;
+    return newVal;
+  }
 
   getScalePoints() {
     const rangeLength = this.max - this.min;
@@ -69,6 +76,44 @@ export class SliderComponent implements ControlValueAccessor {
     if (this.scaleNames[i]) return this.scaleNames[i];
     return '';
   }
+
+  deltaPxToPercent(deltaPx: number) {
+    const fullPx = this.scale.nativeElement.offsetWidth;
+    let deltaPer = 100 / (fullPx / deltaPx);
+    deltaPer = Math.round(deltaPer * 100) / 100; // round 2 decs
+    return deltaPer;
+  }
+
+
+  lastPercentLeftKnob: number;
+  firstPan: boolean = true;
+  onPan(ev) {
+    console.log('onPan '); // TODO remove log
+
+    if (this.firstPan) {
+      this.firstPan = false;
+      this.lastPercentLeftKnob = this.percentLeftKnob;
+    }
+
+    const deltaPx = ev.deltaX;
+
+    this.percentLeftKnob = this.lastPercentLeftKnob + this.deltaPxToPercent(deltaPx);
+    if (this.percentLeftKnob < 0) this.percentLeftKnob = 0;
+    if (this.percentLeftKnob > 100) this.percentLeftKnob = 100;
+
+
+    if (ev.isFinal) {
+      this.firstPan = true;
+
+
+      //TODO calculate closest step and move to there
+
+      this.value = this.percentToValue(this.percentLeftKnob);
+      !!this.onChangeCallback && this.onChangeCallback(this.value);
+
+    }
+  }
+
 
   /**
    * things needed for ControlValueAccessor-Interface
