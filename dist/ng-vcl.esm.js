@@ -3701,7 +3701,7 @@ var FormComponent = (function () {
     FormComponent = __decorate([
         Component({
             selector: 'vcl-form',
-            template: "<form  #form=\"ngForm\" class=\"vclForm\"\n [class.vclFormInline]=\"true\"\n [class.vclFormHorizontal]=\"layout=='horizontal'\">\n\n\n\n\n\n\n\n\n</form>\n",
+            template: "<form  #form=\"ngForm\" class=\"vclForm\"\n [class.vclFormInline]=\"true\"\n [class.vclFormHorizontal]=\"layout=='horizontal'\">\n</form>\n",
             host: {
                 '[class.vclForm]': 'true',
             }
@@ -4851,6 +4851,7 @@ var SliderComponent = (function () {
     SliderComponent.prototype.percentToValue = function (per) {
         var rangeLength = this.max - this.min;
         var newVal = (rangeLength / 100) * per;
+        newVal = Math.round(newVal);
         return newVal;
     };
     SliderComponent.prototype.getScalePoints = function () {
@@ -4901,10 +4902,8 @@ var SliderComponent = (function () {
             this.percentLeftKnob = 0;
         if (this.percentLeftKnob > 100)
             this.percentLeftKnob = 100;
-        if (this.stepsOnly) {
-            //calculate closest step and move to there
+        if (this.stepsOnly)
             this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
-        }
         if (ev.isFinal) {
             this.firstPan = true;
             this.value = this.percentToValue(this.percentLeftKnob);

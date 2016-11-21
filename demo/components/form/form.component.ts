@@ -19,6 +19,14 @@ export class FormComponent implements OnInit {
     { label: 'item 3' }
   ];
 
+  customScaleNames = [
+    'Zero',
+    'One',
+    'Two',
+    'Three',
+    'Four',
+    'Five'
+  ];
 
   tokenList = [
     {
@@ -65,7 +73,8 @@ export class FormComponent implements OnInit {
       flip: [''],
       tokenlist: [''],
       tokeninput: [this.tokenList2],
-      datepick: ['']
+      datepick: [''],
+      slider: [80]
     }, {
         validator: equalInputMatcher
       });

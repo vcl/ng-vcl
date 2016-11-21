@@ -22,6 +22,14 @@ var FormComponent = (function () {
             { label: 'item 2' },
             { label: 'item 3' }
         ];
+        this.customScaleNames = [
+            'Zero',
+            'One',
+            'Two',
+            'Three',
+            'Four',
+            'Five'
+        ];
         this.tokenList = [
             {
                 label: 'alice',
@@ -60,7 +68,8 @@ var FormComponent = (function () {
             flip: [''],
             tokenlist: [''],
             tokeninput: [this.tokenList2],
-            datepick: ['']
+            datepick: [''],
+            slider: [80]
         }, {
             validator: equalInputMatcher
         });

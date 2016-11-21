@@ -28,6 +28,13 @@
   </div>
 
 
+  <br/><br/> Slider: <br/>
+  <vcl-slider [min]="0" [max]="100" [step]="20" [round]="0"
+  [value]="30" [scaleNames]="customScaleNames2" ngModel name="slider" [stepsOnly]="false">
+  </vcl-slider>
+
+
+
 
 </form>
 
@@ -84,6 +91,12 @@
   <div style="width: 251px;border-style: solid;">
     <vcl-date-picker formControlName="datepick"></vcl-date-picker>
   </div>
+
+  <br/><br/> Slider: <br/>
+  <vcl-slider [min]="0" [max]="100" [step]="20" [round]="0"
+  [value]="30" [scaleNames]="customScaleNames2" formControlName="slider" [stepsOnly]="false">
+  </vcl-slider>
+
 
 </form>
 

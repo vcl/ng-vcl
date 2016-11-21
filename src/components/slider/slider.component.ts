@@ -56,7 +56,8 @@ export class SliderComponent implements ControlValueAccessor {
   }
   percentToValue(per: number): number {
     const rangeLength = this.max - this.min;
-    const newVal = (rangeLength / 100) * per;
+    let newVal = (rangeLength / 100) * per;
+    newVal = Math.round(newVal);
     return newVal;
   }
 
@@ -116,22 +117,14 @@ export class SliderComponent implements ControlValueAccessor {
     if (this.percentLeftKnob < 0) this.percentLeftKnob = 0;
     if (this.percentLeftKnob > 100) this.percentLeftKnob = 100;
 
-    if (this.stepsOnly) {
-      //calculate closest step and move to there
+    if (this.stepsOnly)
       this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
-    }
-
-
 
     if (ev.isFinal) {
       this.firstPan = true;
 
-
-
-
       this.value = this.percentToValue(this.percentLeftKnob);
       !!this.onChangeCallback && this.onChangeCallback(this.value);
-
     }
   }
 

@@ -39,6 +39,7 @@ var SliderComponent = (function () {
     SliderComponent.prototype.percentToValue = function (per) {
         var rangeLength = this.max - this.min;
         var newVal = (rangeLength / 100) * per;
+        newVal = Math.round(newVal);
         return newVal;
     };
     SliderComponent.prototype.getScalePoints = function () {
@@ -89,9 +90,8 @@ var SliderComponent = (function () {
             this.percentLeftKnob = 0;
         if (this.percentLeftKnob > 100)
             this.percentLeftKnob = 100;
-        if (this.stepsOnly) {
+        if (this.stepsOnly)
             this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
-        }
         if (ev.isFinal) {
             this.firstPan = true;
             this.value = this.percentToValue(this.percentLeftKnob);
