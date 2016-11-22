@@ -4885,7 +4885,6 @@ var SliderComponent = (function () {
             });
         }
         this.scalePoints = scalePoints;
-        console.dir(this.scalePoints);
     };
     SliderComponent.prototype.closestScalePoint = function (percentValue) {
         var closest = this.scalePoints[0];

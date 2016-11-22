@@ -61,7 +61,7 @@ export class SliderComponent implements ControlValueAccessor {
 
   getScalePoints() {
     const rangeLength = this.max - this.min;
-    const amount = Math.ceil(rangeLength / this.step) + 1;    
+    const amount = Math.ceil(rangeLength / this.step) + 1;
     const scalePoints = [];
     while (scalePoints.length < amount) {
       scalePoints.push({
@@ -70,7 +70,6 @@ export class SliderComponent implements ControlValueAccessor {
       });
     }
     this.scalePoints = scalePoints;
-    console.dir(this.scalePoints);
   }
 
 
