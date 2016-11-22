@@ -1,17 +1,25 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   ViewChild,
-  forwardRef
+  forwardRef,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const JSONEditor = require('jsoneditor/dist/jsoneditor.js');
 
-// TODO include this css-file without breaking everything else
-// require('style!jsoneditor/dist/jsoneditor.css');
+/**
+ * The JSON editor needs styling and some graphics
+ * We read the raw css and svg files and replace any file reference to the svg with
+ * an inline reference of the data encoded svg file
+ * 
+ * The css must be added as a style with  ViewEncapsulation set to None
+ */
+
+const JSONEditorSVG: string = require('!raw!jsoneditor/dist/img/jsoneditor-icons.svg');
+const JSONEditorCSS: string = require('!raw!jsoneditor/dist/jsoneditor.css')
+                              .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,9 +27,10 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
-
 @Component({
   selector: 'vcl-json-editor',
+  styles: [JSONEditorCSS],
+  encapsulation: ViewEncapsulation.None,
   templateUrl: 'json-editor.component.html',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
@@ -41,10 +50,7 @@ export class JsonEditorComponent implements ControlValueAccessor {
 
   editor: any;
 
-  constructor() {
-
-  }
-
+  constructor() { }
 
   ngAfterViewInit() {
 

@@ -5,7 +5,7 @@
 ```js
 
 import { NgModule } from '@angular/core';
-import { L10nModule } from 'ng2-l10n';
+import { L10nModule } from 'ng2-vcl';
 import { AppComponent } from './app.component';
 
 @NgModule({
