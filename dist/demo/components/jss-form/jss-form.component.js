@@ -18,30 +18,39 @@ var JssFormComponent = (function () {
             properties: {
                 name: {
                     type: 'string',
+                    formType: 'text',
+                    placeholder: 'The heroe\'s name',
                     minLength: 4,
-                    maxLength: 100
+                    maxLength: 100,
                 },
                 color: {
-                    label: 'team',
                     description: 'color defines which team the hero belongs to',
+                    label: 'team',
+                    formType: 'select',
                     type: 'string',
                     enum: ['red', 'green', 'blue', 'yellow']
                 },
                 hp: {
                     type: 'number',
+                    formType: 'slider',
                     min: 0,
-                    max: 100,
-                    default: 100
+                    max: 100
+                },
+                alive: {
+                    type: 'boolean',
+                    formType: 'switch'
                 },
                 mainSkill: {
                     description: 'nested object',
                     type: 'object',
                     properties: {
                         name: {
-                            type: 'string'
+                            type: 'string',
+                            formType: 'text'
                         },
                         damage: {
                             type: 'number',
+                            formType: 'number',
                             min: 0,
                             max: 100
                         }
@@ -51,7 +60,11 @@ var JssFormComponent = (function () {
             },
             required: ['name', 'color']
         };
-        this.value = {};
+        this.value = {
+            color: 'red',
+            alive: true,
+            hp: 50
+        };
     }
     JssFormComponent.prototype.ngOnInit = function () { };
     return JssFormComponent;

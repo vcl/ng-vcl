@@ -1,13 +1,15 @@
 /// <reference types="core-js" />
 import { OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 export declare class JssFormObjectComponent {
     schema: any;
+    parentPath: string;
+    formGroup: FormGroup;
     constructor();
-    inputSwitch(schemaObj: any): string;
+    formType(schemaObj: any): string;
     keys(obj: any): string[];
+    name(parentPath: any, key: any): string;
 }
-export declare const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any;
 export declare class JssFormComponent implements OnInit {
     fb: FormBuilder;
     schema: any;

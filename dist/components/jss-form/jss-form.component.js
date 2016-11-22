@@ -1,20 +1,34 @@
 "use strict";
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
-var schemaToFormGroup_1 = require('./schemaToFormGroup');
 var Validator = require('jsonschema'); // TODO use import { Validator } from 'jsonschema';
 var VALIDATOR;
 var JssFormObjectComponent = (function () {
     function JssFormObjectComponent() {
+        this.parentPath = '';
     }
-    JssFormObjectComponent.prototype.inputSwitch = function (schemaObj) {
-        if (schemaObj.type == 'string')
-            return 'textinput';
+    JssFormObjectComponent.prototype.formType = function (schemaObj) {
+        if (schemaObj.formType)
+            return schemaObj.formType;
+        if (schemaObj.type == 'string') {
+            if (schemaObj.enum) {
+                return 'select';
+            }
+            return 'text';
+        }
         if (schemaObj.type == 'number')
-            return 'numberinput';
+            return 'number';
+        if (schemaObj.type == 'boolean')
+            return 'switch';
     };
     JssFormObjectComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
+    };
+    JssFormObjectComponent.prototype.name = function (parentPath, key) {
+        var name = parentPath + '.' + key;
+        while (name.charAt(0) === '.')
+            name = name.substr(1);
+        return name;
     };
     JssFormObjectComponent.decorators = [
         { type: core_1.Component, args: [{
@@ -26,32 +40,39 @@ var JssFormObjectComponent = (function () {
     JssFormObjectComponent.ctorParameters = [];
     JssFormObjectComponent.propDecorators = {
         'schema': [{ type: core_1.Input, args: ['schema',] },],
+        'parentPath': [{ type: core_1.Input, args: ['parentPath',] },],
+        'formGroup': [{ type: core_1.Input, args: ['formGroup',] },],
     };
     return JssFormObjectComponent;
 }());
 exports.JssFormObjectComponent = JssFormObjectComponent;
-exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: forms_1.NG_VALUE_ACCESSOR,
-    useExisting: core_1.forwardRef(function () { return JssFormComponent; }),
-    multi: true
-};
 var JssFormComponent = (function () {
     function JssFormComponent(fb) {
         this.fb = fb;
         this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () {
-        console.log('constructor:');
-        console.dir(this.schema);
-        // the module-based forms logic is made with the FormBuilder
-        this.form = this.fb.group(schemaToFormGroup_1.schemaToFormGroup(this.schema), {
-            validator: function (c) {
-                return true; // TODO validate if form matches
-                /*        return c.get('myname').value === c.get('myname2').value
-                          ? null : { notequal: true };*/
-            }
+        this.form = this.fb.group({
+            name: ['', forms_1.Validators.required],
+            color: ['', forms_1.Validators.required],
+            hp: ['', forms_1.Validators.required],
+            alive: ['', forms_1.Validators.required],
+            mainSkill: this.fb.group({
+                name: ['', forms_1.Validators.required],
+                damage: ['', forms_1.Validators.required]
+            })
         });
+        // the module-based forms logic is made with the FormBuilder
+        /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
+              validator: (c: AbstractControl) => {
+                return true; // TODO validate if form matches
+    //         return c.get('myname').value === c.get('myname2').value
+    //                      ? null : { notequal: true };
+      }
+    });*/
         this.value && this.form.patchValue(this.value);
+        console.log('formGroup::::');
+        console.dir(this.form);
     };
     JssFormComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
@@ -75,8 +96,7 @@ var JssFormComponent = (function () {
     JssFormComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-jss-form',
-                    templateUrl: 'jss-form.component.html',
-                    providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+                    templateUrl: 'jss-form.component.html'
                 },] },
     ];
     /** @nocollapse */

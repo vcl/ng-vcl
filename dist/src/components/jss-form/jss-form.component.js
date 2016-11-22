@@ -10,20 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var schemaToFormGroup_1 = require("./schemaToFormGroup");
 var Validator = require('jsonschema');
 var VALIDATOR;
 var JssFormObjectComponent = (function () {
     function JssFormObjectComponent() {
+        this.parentPath = '';
     }
-    JssFormObjectComponent.prototype.inputSwitch = function (schemaObj) {
-        if (schemaObj.type == 'string')
-            return 'textinput';
+    JssFormObjectComponent.prototype.formType = function (schemaObj) {
+        if (schemaObj.formType)
+            return schemaObj.formType;
+        if (schemaObj.type == 'string') {
+            if (schemaObj.enum) {
+                return 'select';
+            }
+            return 'text';
+        }
         if (schemaObj.type == 'number')
-            return 'numberinput';
+            return 'number';
+        if (schemaObj.type == 'boolean')
+            return 'switch';
     };
     JssFormObjectComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
+    };
+    JssFormObjectComponent.prototype.name = function (parentPath, key) {
+        var name = parentPath + '.' + key;
+        while (name.charAt(0) === '.')
+            name = name.substr(1);
+        return name;
     };
     return JssFormObjectComponent;
 }());
@@ -31,6 +45,14 @@ __decorate([
     core_1.Input('schema'),
     __metadata("design:type", Object)
 ], JssFormObjectComponent.prototype, "schema", void 0);
+__decorate([
+    core_1.Input('parentPath'),
+    __metadata("design:type", String)
+], JssFormObjectComponent.prototype, "parentPath", void 0);
+__decorate([
+    core_1.Input('formGroup'),
+    __metadata("design:type", forms_1.FormGroup)
+], JssFormObjectComponent.prototype, "formGroup", void 0);
 JssFormObjectComponent = __decorate([
     core_1.Component({
         selector: 'vcl-jss-form-object',
@@ -39,25 +61,25 @@ JssFormObjectComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], JssFormObjectComponent);
 exports.JssFormObjectComponent = JssFormObjectComponent;
-exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: forms_1.NG_VALUE_ACCESSOR,
-    useExisting: core_1.forwardRef(function () { return JssFormComponent; }),
-    multi: true
-};
 var JssFormComponent = (function () {
     function JssFormComponent(fb) {
         this.fb = fb;
         this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () {
-        console.log('constructor:');
-        console.dir(this.schema);
-        this.form = this.fb.group(schemaToFormGroup_1.schemaToFormGroup(this.schema), {
-            validator: function (c) {
-                return true;
-            }
+        this.form = this.fb.group({
+            name: ['', forms_1.Validators.required],
+            color: ['', forms_1.Validators.required],
+            hp: ['', forms_1.Validators.required],
+            alive: ['', forms_1.Validators.required],
+            mainSkill: this.fb.group({
+                name: ['', forms_1.Validators.required],
+                damage: ['', forms_1.Validators.required]
+            })
         });
         this.value && this.form.patchValue(this.value);
+        console.log('formGroup::::');
+        console.dir(this.form);
     };
     JssFormComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
@@ -91,8 +113,7 @@ __decorate([
 JssFormComponent = __decorate([
     core_1.Component({
         selector: 'vcl-jss-form',
-        templateUrl: 'jss-form.component.html',
-        providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+        templateUrl: 'jss-form.component.html'
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder])
 ], JssFormComponent);

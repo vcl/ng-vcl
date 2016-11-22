@@ -1,6 +1,13 @@
 "use strict";
+var forms_1 = require('@angular/forms');
 function schemaToFormGroup(schema) {
-    var fGroupObj = {};
+    var fGroupObj = {
+        name: ['', forms_1.Validators.required],
+        'mainSkill.name': ['', forms_1.Validators.required],
+        mainSkill: {
+            name: ['', forms_1.Validators.required]
+        }
+    };
     function traverse(currentObj, currentPath) {
         if (typeof currentObj !== 'object')
             return;
@@ -11,7 +18,7 @@ function schemaToFormGroup(schema) {
             traverse(currentObj[attributeName], nextPath);
         }
     }
-    traverse(schema, '');
+    // TODO traverse(schema, '');
     return fGroupObj;
 }
 exports.schemaToFormGroup = schemaToFormGroup;

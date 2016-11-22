@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, forwardRef, trigger } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, trigger } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import 'rxjs/add/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/combineLatest';
@@ -3732,8 +3732,16 @@ var VCLFormModule = (function () {
 }());
 
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
-// TODO include this css-file without breaking everything else
-// require('style!jsoneditor/dist/jsoneditor.css');
+/**
+ * The JSON editor needs styling and some graphics
+ * We read the raw css and svg files and replace any file reference to the svg with
+ * an inline reference of the data encoded svg file
+ *
+ * The css must be added as a style with  ViewEncapsulation set to None
+ */
+var JSONEditorSVG = require('!raw!jsoneditor/dist/img/jsoneditor-icons.svg');
+var JSONEditorCSS = require('!raw!jsoneditor/dist/jsoneditor.css')
+    .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return JsonEditorComponent; }),
@@ -3800,6 +3808,8 @@ var JsonEditorComponent = (function () {
     JsonEditorComponent = __decorate([
         Component({
             selector: 'vcl-json-editor',
+            styles: [JSONEditorCSS],
+            encapsulation: ViewEncapsulation.None,
             template: "<div #el [style.height]=\"height\"></div>\n",
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5]
         }), 
@@ -4988,71 +4998,84 @@ var VCLSliderModule = (function () {
     return VCLSliderModule;
 }());
 
-function schemaToFormGroup(schema) {
-    var fGroupObj = {};
-    function traverse(currentObj, currentPath) {
-        if (typeof currentObj !== 'object')
-            return;
-        for (var attributeName in currentObj) {
-            var nextPath = currentPath;
-            if (attributeName != 'properties')
-                nextPath = nextPath + '.' + attributeName;
-            traverse(currentObj[attributeName], nextPath);
-        }
-    }
-    traverse(schema, '');
-    return fGroupObj;
-}
-
 var Validator = require('jsonschema'); // TODO use import { Validator } from 'jsonschema';
 var VALIDATOR;
 var JssFormObjectComponent = (function () {
     function JssFormObjectComponent() {
+        this.parentPath = '';
     }
-    JssFormObjectComponent.prototype.inputSwitch = function (schemaObj) {
-        if (schemaObj.type == 'string')
-            return 'textinput';
+    JssFormObjectComponent.prototype.formType = function (schemaObj) {
+        if (schemaObj.formType)
+            return schemaObj.formType;
+        if (schemaObj.type == 'string') {
+            if (schemaObj.enum) {
+                return 'select';
+            }
+            return 'text';
+        }
         if (schemaObj.type == 'number')
-            return 'numberinput';
+            return 'number';
+        if (schemaObj.type == 'boolean')
+            return 'switch';
     };
     JssFormObjectComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
+    };
+    JssFormObjectComponent.prototype.name = function (parentPath, key) {
+        var name = parentPath + '.' + key;
+        while (name.charAt(0) === '.')
+            name = name.substr(1);
+        return name;
     };
     __decorate([
         Input('schema'), 
         __metadata('design:type', Object)
     ], JssFormObjectComponent.prototype, "schema", void 0);
+    __decorate([
+        Input('parentPath'), 
+        __metadata('design:type', String)
+    ], JssFormObjectComponent.prototype, "parentPath", void 0);
+    __decorate([
+        Input('formGroup'), 
+        __metadata('design:type', (typeof (_a = typeof FormGroup !== 'undefined' && FormGroup) === 'function' && _a) || Object)
+    ], JssFormObjectComponent.prototype, "formGroup", void 0);
     JssFormObjectComponent = __decorate([
         Component({
             selector: 'vcl-jss-form-object',
-            template: "<div *ngFor=\"let key of keys(schema.properties)\" style=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\" [schema]=\"schema.properties[key]\"></vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n\n    <div [ngSwitch]=\"inputSwitch(schema.properties[key])\">\n      <div *ngSwitchCase=\"'textinput'\">\n        <input type=\"text\" />\n      </div>\n      <div *ngSwitchCase=\"'numberinput'\">\n        <input type=\"number\" placeholder=\"number\" />\n      </div>\n    </div>\n\n  </div>\n\n</div>\n",
+            template: "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"schema.properties[key].placeholder\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\" />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <select [formControlName]=\"key\">\n          <option *ngFor=\"let opt of schema.properties[key].enum\">{{opt}}</option>\n        </select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider [min]=\"schema.properties[key].min\" [max]=\"schema.properties[key].max\" [formControlName]=\"key\"></vcl-slider>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n",
         }), 
         __metadata('design:paramtypes', [])
     ], JssFormObjectComponent);
     return JssFormObjectComponent;
+    var _a;
 }());
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9 = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(function () { return JssFormComponent; }),
-    multi: true
-};
 var JssFormComponent = (function () {
     function JssFormComponent(fb) {
         this.fb = fb;
         this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () {
-        console.log('constructor:');
-        console.dir(this.schema);
-        // the module-based forms logic is made with the FormBuilder
-        this.form = this.fb.group(schemaToFormGroup(this.schema), {
-            validator: function (c) {
-                return true; // TODO validate if form matches
-                /*        return c.get('myname').value === c.get('myname2').value
-                          ? null : { notequal: true };*/
-            }
+        this.form = this.fb.group({
+            name: ['', Validators.required],
+            color: ['', Validators.required],
+            hp: ['', Validators.required],
+            alive: ['', Validators.required],
+            mainSkill: this.fb.group({
+                name: ['', Validators.required],
+                damage: ['', Validators.required]
+            })
         });
+        // the module-based forms logic is made with the FormBuilder
+        /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
+              validator: (c: AbstractControl) => {
+                return true; // TODO validate if form matches
+    //         return c.get('myname').value === c.get('myname2').value
+    //                      ? null : { notequal: true };
+      }
+    });*/
         this.value && this.form.patchValue(this.value);
+        console.log('formGroup::::');
+        console.dir(this.form);
     };
     JssFormComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
@@ -5084,8 +5107,7 @@ var JssFormComponent = (function () {
     JssFormComponent = __decorate([
         Component({
             selector: 'vcl-jss-form',
-            template: "<div>\n  <h1>JSS from</h1>\n\n  <vcl-jss-form-object [schema]=\"schema\"></vcl-jss-form-object>\n\n\n</div>\n",
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9]
+            template: "<form class=\"vclForm\" novalidate [formGroup]=\"form\">\n<div>\n  <h1>JSS from</h1>\n\n\n\n  <vcl-jss-form-object [schema]=\"schema\" [formGroup]=\"form\"></vcl-jss-form-object>\n\n\n</div>\n</form>\n\n\n<div class=\"value\">\n  <h4>Value: {{ form.value | json }}</h4>\n</div>\n\n<div class=\"error\">\n  <h4>Status: {{ form.status }}</h4>\n</div>\n"
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof FormBuilder !== 'undefined' && FormBuilder) === 'function' && _a) || Object])
     ], JssFormComponent);
@@ -5098,7 +5120,9 @@ var VCLJssFormModule = (function () {
     }
     VCLJssFormModule = __decorate([
         NgModule({
-            imports: [CommonModule, L10nModule],
+            imports: [CommonModule, L10nModule, FormsModule, ReactiveFormsModule,
+                VCLFlipSwitchModule,
+                VCLSliderModule],
             exports: [JssFormComponent, JssFormObjectComponent],
             declarations: [JssFormComponent, JssFormObjectComponent],
             providers: [],

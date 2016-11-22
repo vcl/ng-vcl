@@ -2,7 +2,13 @@ import { FormGroup, Validators, FormBuilder, AbstractControl  } from '@angular/f
 
 export function schemaToFormGroup(schema: any): any {
 
-  const fGroupObj = {};
+  const fGroupObj = {
+    name: ['', Validators.required],
+    'mainSkill.name': ['', Validators.required],
+    mainSkill: {
+      name: ['', Validators.required]
+    }
+  };
 
   function traverse(currentObj, currentPath) {
 
@@ -13,7 +19,7 @@ export function schemaToFormGroup(schema: any): any {
       traverse(currentObj[attributeName], nextPath);
     }
   }
-  traverse(schema, '');
+  // TODO traverse(schema, '');
 
   return fGroupObj;
 }

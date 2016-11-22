@@ -6,7 +6,7 @@ import {
   OnInit
 } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, AbstractControl,
-  ControlValueAccessor, NG_VALUE_ACCESSOR  } from '@angular/forms';
+  ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule  } from '@angular/forms';
 
 import { schemaToFormGroup } from './schemaToFormGroup';
 const Validator = require('jsonschema'); // TODO use import { Validator } from 'jsonschema';
@@ -23,35 +23,47 @@ let VALIDATOR;
 export class JssFormObjectComponent {
 
   @Input('schema') schema: any;
+  @Input('parentPath') parentPath: string = '';
+  @Input('formGroup') formGroup: FormGroup;
 
   constructor() {
 
   }
 
-  inputSwitch(schemaObj) {
-    if (schemaObj.type == 'string')
-      return 'textinput';
-      if (schemaObj.type == 'number')
-        return 'numberinput';
+  formType(schemaObj): string {
+    if (schemaObj.formType) return schemaObj.formType;
+
+    if (schemaObj.type == 'string') {
+      if (schemaObj.enum) {
+        return 'select';
+      }
+      return 'text';
+    }
+
+    if (schemaObj.type == 'number')
+      return 'number';
+
+    if (schemaObj.type == 'boolean')
+      return 'switch';
+
 
   }
 
   keys(obj) {
     return Object.keys(obj);
   }
+  name(parentPath, key) {
+    let name = parentPath + '.' + key;
+    while (name.charAt(0) === '.')
+      name = name.substr(1);
+    return name;
+  }
 }
-
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => JssFormComponent),
-  multi: true
-};
 
 
 @Component({
   selector: 'vcl-jss-form',
-  templateUrl: 'jss-form.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  templateUrl: 'jss-form.component.html'
 })
 export class JssFormComponent implements OnInit {
 
@@ -65,20 +77,29 @@ export class JssFormComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('constructor:');
-    console.dir(this.schema);
-
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      color: ['', Validators.required],
+      hp: ['', Validators.required],
+      alive: ['', Validators.required],
+      mainSkill: this.fb.group({
+        name: ['', Validators.required],
+        damage: ['', Validators.required]
+      })
+    });
 
     // the module-based forms logic is made with the FormBuilder
-    this.form = this.fb.group(schemaToFormGroup(this.schema), {
-      validator: (c: AbstractControl) => {
-        return true; // TODO validate if form matches
-        /*        return c.get('myname').value === c.get('myname2').value
-                  ? null : { notequal: true };*/
-      }
-    });
+    /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
+          validator: (c: AbstractControl) => {
+            return true; // TODO validate if form matches
+//         return c.get('myname').value === c.get('myname2').value
+//                      ? null : { notequal: true };
+  }
+});*/
     this.value && this.form.patchValue(this.value);
 
+    console.log('formGroup::::');
+    console.dir(this.form);
   }
 
 
