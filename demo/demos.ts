@@ -18,6 +18,7 @@ import FORM_ERROR_DEMO from './components/form-error/form-error.demo';
 import INPUT_DEMO from './components/input/input.demo';
 import FLIP_SWITCH_DEMO from './components/flip-switch/flip-switch.demo';
 import POPOVER_DEMO from './components/popover/popover.demo';
+import PROGRESS_BAR_DEMO from './components/progress-bar/progress-bar.demo';
 import TAB_NAV_DEMO from './components/tab-nav/tab-nav.demo';
 import NAVIGATION_DEMO from './components/navigation/navigation.demo';
 import TOOLBAR_DEMO from './components/toolbar/toolbar.demo';
@@ -63,6 +64,7 @@ export const DEMOS: Demo[] = [
   INPUT_DEMO,
   FLIP_SWITCH_DEMO,
   POPOVER_DEMO,
+  PROGRESS_BAR_DEMO,
   TAB_NAV_DEMO,
   NAVIGATION_DEMO,
   TOOLBAR_DEMO,
