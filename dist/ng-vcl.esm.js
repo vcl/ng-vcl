@@ -4988,6 +4988,74 @@ var VCLSliderModule = (function () {
     return VCLSliderModule;
 }());
 
+// TODO include this css-file without breaking everything else
+// require('style!jsoneditor/dist/jsoneditor.css');
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9 = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return JssFormComponent; }),
+    multi: true
+};
+var JssFormComponent = (function () {
+    function JssFormComponent() {
+        this.mode = 'tree';
+        this.value = {};
+    }
+    JssFormComponent.prototype.ngAfterViewInit = function () {
+    };
+    /**
+     * get the current state of the edited json
+     */
+    JssFormComponent.prototype.getValue = function () {
+        return this.editor.get();
+    };
+    JssFormComponent.prototype.writeValue = function (value) {
+        this.value = value;
+        this.editor.set(this.value);
+    };
+    JssFormComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    JssFormComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        ViewChild('el'), 
+        __metadata('design:type', Object)
+    ], JssFormComponent.prototype, "el", void 0);
+    __decorate([
+        Input('mode'), 
+        __metadata('design:type', Object)
+    ], JssFormComponent.prototype, "mode", void 0);
+    __decorate([
+        Input('value'), 
+        __metadata('design:type', Object)
+    ], JssFormComponent.prototype, "value", void 0);
+    JssFormComponent = __decorate([
+        Component({
+            selector: 'vcl-jss-form',
+            template: "my jss-form\n",
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], JssFormComponent);
+    return JssFormComponent;
+}());
+
+var VCLJssFormModule = (function () {
+    function VCLJssFormModule() {
+    }
+    VCLJssFormModule = __decorate([
+        NgModule({
+            imports: [CommonModule, L10nModule],
+            exports: [JssFormComponent],
+            declarations: [JssFormComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLJssFormModule);
+    return VCLJssFormModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -5021,7 +5089,8 @@ var VCLModule = (function () {
                 VCLJsonEditorModule,
                 VCLLabelModule,
                 VCLTokenModule,
-                VCLSliderModule
+                VCLSliderModule,
+                VCLJssFormModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -5051,7 +5120,8 @@ var VCLModule = (function () {
                 VCLJsonEditorModule,
                 VCLLabelModule,
                 VCLTokenModule,
-                VCLSliderModule
+                VCLSliderModule,
+                VCLJssFormModule
             ],
             providers: [
                 OverlayManagerService
@@ -5062,4 +5132,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLDatePickerModule, VCLJsonEditorModule, VCLLabelModule, VCLTokenModule, VCLSliderModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, STORE_STATE, compose, StoreObservable, InitAction, StoreActions, Store, Effects, StoreModule };
+export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLDatePickerModule, VCLJsonEditorModule, VCLLabelModule, VCLTokenModule, VCLSliderModule, VCLJssFormModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, STORE_STATE, compose, StoreObservable, InitAction, StoreActions, Store, Effects, StoreModule };

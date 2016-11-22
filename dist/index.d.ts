@@ -19,6 +19,7 @@ export * from './components/json-editor/json-editor.module';
 export * from './components/label/label.module';
 export * from './components/token/token.module';
 export * from './components/slider/slider.module';
+export * from './components/jss-form/jss-form.module';
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
 export * from './l10n/l10n.module';

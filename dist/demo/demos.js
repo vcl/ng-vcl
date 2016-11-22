@@ -30,6 +30,7 @@ var json_editor_demo_1 = require("./components/json-editor/json-editor.demo");
 var label_demo_1 = require("./components/label/label.demo");
 var token_demo_1 = require("./components/token/token.demo");
 var slider_demo_1 = require("./components/slider/slider.demo");
+var jss_form_demo_1 = require("./components/jss-form/jss-form.demo");
 var l10n_demo_1 = require("./components/l10n/l10n.demo");
 exports.DEMOS = [
     metalist_demo_1.default,
@@ -62,6 +63,7 @@ exports.DEMOS = [
     label_demo_1.default,
     token_demo_1.default,
     slider_demo_1.default,
+    jss_form_demo_1.default,
     l10n_demo_1.default,
 ];
 exports.GROUPED_DEMOS = function () {

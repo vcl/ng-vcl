@@ -30,6 +30,8 @@ import JSON_EDITOR_DEMO from './components/json-editor/json-editor.demo';
 import LABEL_DEMO from './components/label/label.demo';
 import TOKEN_DEMO from './components/token/token.demo';
 import SLIDER_DEMO from './components/slider/slider.demo';
+import JSS_FORM_DEMO from './components/jss-form/jss-form.demo';
+
 
 import L10N_DEMO from './components/l10n/l10n.demo';
 
@@ -73,6 +75,7 @@ export const DEMOS: Demo[] = [
   LABEL_DEMO,
   TOKEN_DEMO,
   SLIDER_DEMO,
+  JSS_FORM_DEMO,
   L10N_DEMO,
 ];
 

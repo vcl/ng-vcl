@@ -4992,6 +4992,74 @@ var VCLSliderModule = (function () {
     return VCLSliderModule;
 }());
 
+// TODO include this css-file without breaking everything else
+// require('style!jsoneditor/dist/jsoneditor.css');
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9 = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return JssFormComponent; }),
+    multi: true
+};
+var JssFormComponent = (function () {
+    function JssFormComponent() {
+        this.mode = 'tree';
+        this.value = {};
+    }
+    JssFormComponent.prototype.ngAfterViewInit = function () {
+    };
+    /**
+     * get the current state of the edited json
+     */
+    JssFormComponent.prototype.getValue = function () {
+        return this.editor.get();
+    };
+    JssFormComponent.prototype.writeValue = function (value) {
+        this.value = value;
+        this.editor.set(this.value);
+    };
+    JssFormComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    JssFormComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        _angular_core.ViewChild('el'), 
+        __metadata('design:type', Object)
+    ], JssFormComponent.prototype, "el", void 0);
+    __decorate([
+        _angular_core.Input('mode'), 
+        __metadata('design:type', Object)
+    ], JssFormComponent.prototype, "mode", void 0);
+    __decorate([
+        _angular_core.Input('value'), 
+        __metadata('design:type', Object)
+    ], JssFormComponent.prototype, "value", void 0);
+    JssFormComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-jss-form',
+            template: "my jss-form\n",
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], JssFormComponent);
+    return JssFormComponent;
+}());
+
+var VCLJssFormModule = (function () {
+    function VCLJssFormModule() {
+    }
+    VCLJssFormModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, L10nModule],
+            exports: [JssFormComponent],
+            declarations: [JssFormComponent],
+            providers: [],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLJssFormModule);
+    return VCLJssFormModule;
+}());
+
 var VCLModule = (function () {
     function VCLModule() {
     }
@@ -5025,7 +5093,8 @@ var VCLModule = (function () {
                 VCLJsonEditorModule,
                 VCLLabelModule,
                 VCLTokenModule,
-                VCLSliderModule
+                VCLSliderModule,
+                VCLJssFormModule
             ],
             exports: [
                 VCLWormholeModule,
@@ -5055,7 +5124,8 @@ var VCLModule = (function () {
                 VCLJsonEditorModule,
                 VCLLabelModule,
                 VCLTokenModule,
-                VCLSliderModule
+                VCLSliderModule,
+                VCLJssFormModule
             ],
             providers: [
                 OverlayManagerService
@@ -5098,6 +5168,7 @@ exports.VCLJsonEditorModule = VCLJsonEditorModule;
 exports.VCLLabelModule = VCLLabelModule;
 exports.VCLTokenModule = VCLTokenModule;
 exports.VCLSliderModule = VCLSliderModule;
+exports.VCLJssFormModule = VCLJssFormModule;
 exports.VCLOffClickModule = VCLOffClickModule;
 exports.Wormhole = Wormhole;
 exports.WormholeGenerator = WormholeGenerator;
