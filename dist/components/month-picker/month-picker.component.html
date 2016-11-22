@@ -6,7 +6,7 @@
     [attr.aria-multiselectable]="maxSelectableItems > 1"
     [attr.aria-expanded]="expanded">
 
-    <div class="vclDGRow">
+    <div class="vclLayoutFlex vclDGRow vclLayoutAuto">
       <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
         <button vcl-button class="vclButton vclTransparent vclSquare"
           [class.vclDisabled]="!prevYearAvailable"
@@ -32,7 +32,7 @@
     <div class="vclSeparator"></div>
 
     <template ngFor let-iM [ngForOf]="months" let-i="index">
-      <div *ngIf="i % monthsPerRow === 0" class="vclDGRow" role="row">
+      <div *ngIf="i % monthsPerRow === 0" class="vclLayoutFlex vclDGRow vclLayoutAuto" role="row">
         <div *ngFor="let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;"
           (tap)="selectMonth(i+j)"
           class="vclDGCell vclCalItem"
