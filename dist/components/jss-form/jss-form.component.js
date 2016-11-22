@@ -1,7 +1,7 @@
 "use strict";
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
-var Validator = require('jsonschema'); // TODO use import { Validator } from 'jsonschema';
+var Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema';
 var VALIDATOR;
 var JssFormObjectComponent = (function () {
     function JssFormObjectComponent() {
@@ -52,15 +52,24 @@ var JssFormComponent = (function () {
         this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.form = this.fb.group({
-            name: ['', forms_1.Validators.required],
-            color: ['', forms_1.Validators.required],
-            hp: ['', forms_1.Validators.required],
-            alive: ['', forms_1.Validators.required],
+            name: [''],
+            color: [''],
+            hp: [''],
+            alive: [''],
             mainSkill: this.fb.group({
-                name: ['', forms_1.Validators.required],
-                damage: ['', forms_1.Validators.required]
+                name: [''],
+                damage: [4]
             })
+        }, {
+            validator: function (c) {
+                var errors = _this.jsonSchemaValidate(c.value);
+                return errors;
+                /*          console.log('Dddd');
+                          console.dir(errors);
+                          return null;
+                  */ }
         });
         // the module-based forms logic is made with the FormBuilder
         /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
@@ -81,15 +90,9 @@ var JssFormComponent = (function () {
         if (!VALIDATOR)
             VALIDATOR = new Validator();
         var valid = VALIDATOR.validate(obj, this.schema);
-        if (valid.errors.length > 0) {
-            throw new Error(JSON.stringify({
-                name: 'schema mismatch',
-                errors: valid.errors,
-                object: obj,
-                schema: this.schema
-            }));
-        }
-        return true;
+        if (valid.errors.length == 0)
+            return null;
+        return valid.errors;
     };
     JssFormComponent.prototype.ngAfterViewInit = function () {
     };

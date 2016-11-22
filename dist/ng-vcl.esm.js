@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, trigger } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import 'rxjs/add/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/combineLatest';
@@ -4998,7 +4998,7 @@ var VCLSliderModule = (function () {
     return VCLSliderModule;
 }());
 
-var Validator = require('jsonschema'); // TODO use import { Validator } from 'jsonschema';
+var Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema';
 var VALIDATOR;
 var JssFormObjectComponent = (function () {
     function JssFormObjectComponent() {
@@ -5055,15 +5055,24 @@ var JssFormComponent = (function () {
         this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.form = this.fb.group({
-            name: ['', Validators.required],
-            color: ['', Validators.required],
-            hp: ['', Validators.required],
-            alive: ['', Validators.required],
+            name: [''],
+            color: [''],
+            hp: [''],
+            alive: [''],
             mainSkill: this.fb.group({
-                name: ['', Validators.required],
-                damage: ['', Validators.required]
+                name: [''],
+                damage: [4]
             })
+        }, {
+            validator: function (c) {
+                var errors = _this.jsonSchemaValidate(c.value);
+                return errors;
+                /*          console.log('Dddd');
+                          console.dir(errors);
+                          return null;
+                  */ }
         });
         // the module-based forms logic is made with the FormBuilder
         /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
@@ -5084,15 +5093,9 @@ var JssFormComponent = (function () {
         if (!VALIDATOR)
             VALIDATOR = new Validator();
         var valid = VALIDATOR.validate(obj, this.schema);
-        if (valid.errors.length > 0) {
-            throw new Error(JSON.stringify({
-                name: 'schema mismatch',
-                errors: valid.errors,
-                object: obj,
-                schema: this.schema
-            }));
-        }
-        return true;
+        if (valid.errors.length == 0)
+            return null;
+        return valid.errors;
     };
     JssFormComponent.prototype.ngAfterViewInit = function () {
     };

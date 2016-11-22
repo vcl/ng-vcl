@@ -9,7 +9,7 @@ import { FormGroup, Validators, FormBuilder, AbstractControl,
   ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule  } from '@angular/forms';
 
 import { schemaToFormGroup } from './schemaToFormGroup';
-const Validator = require('jsonschema'); // TODO use import { Validator } from 'jsonschema';
+const Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema';
 let VALIDATOR;
 
 
@@ -78,15 +78,23 @@ export class JssFormComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      color: ['', Validators.required],
-      hp: ['', Validators.required],
-      alive: ['', Validators.required],
+      name: [''],
+      color: [''],
+      hp: [''],
+      alive: [''],
       mainSkill: this.fb.group({
-        name: ['', Validators.required],
-        damage: ['', Validators.required]
+        name: [''],
+        damage: [4]
       })
-    });
+    }, {
+        validator: (c: AbstractControl) => {
+          const errors = this.jsonSchemaValidate(c.value);
+          return errors;
+/*          console.log('Dddd');
+          console.dir(errors);
+          return null;
+  */      }
+      });
 
     // the module-based forms logic is made with the FormBuilder
     /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
@@ -111,15 +119,8 @@ export class JssFormComponent implements OnInit {
   jsonSchemaValidate(obj: Object): true {
   if (!VALIDATOR) VALIDATOR = new Validator();
   const valid = VALIDATOR.validate(obj, this.schema);
-  if (valid.errors.length > 0) {
-    throw new Error(JSON.stringify({
-      name: 'schema mismatch',
-      errors: valid.errors,
-      object: obj,
-      schema: this.schema
-    }));
-  }
-  return true;
+  if (valid.errors.length == 0) return null;
+  return valid.errors;
 }
 
 
