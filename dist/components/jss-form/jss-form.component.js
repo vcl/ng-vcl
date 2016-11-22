@@ -79,6 +79,8 @@ var JssFormComponent = (function () {
     //                      ? null : { notequal: true };
       }
     });*/
+        console.log('vvvvalue');
+        console.dir(this.value);
         this.value && this.form.patchValue(this.value);
         console.log('formGroup::::');
         console.dir(this.form);

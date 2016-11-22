@@ -4876,7 +4876,7 @@ var SliderComponent = (function () {
     };
     SliderComponent.prototype.getScalePoints = function () {
         var rangeLength = this.max - this.min;
-        var amount = Math.ceil(rangeLength / this.step);
+        var amount = Math.ceil(rangeLength / this.step) + 1;
         var scalePoints = [];
         while (scalePoints.length < amount) {
             scalePoints.push({
@@ -4885,6 +4885,7 @@ var SliderComponent = (function () {
             });
         }
         this.scalePoints = scalePoints;
+        console.dir(this.scalePoints);
     };
     SliderComponent.prototype.closestScalePoint = function (percentValue) {
         var closest = this.scalePoints[0];
@@ -5086,6 +5087,8 @@ var JssFormComponent = (function () {
     //                      ? null : { notequal: true };
       }
     });*/
+        console.log('vvvvalue');
+        console.dir(this.value);
         this.value && this.form.patchValue(this.value);
         console.log('formGroup::::');
         console.dir(this.form);
