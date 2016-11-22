@@ -9,8 +9,8 @@ var VCLJssFormModule = (function () {
     VCLJssFormModule.decorators = [
         { type: core_1.NgModule, args: [{
                     imports: [common_1.CommonModule, l10n_module_1.L10nModule],
-                    exports: [jss_form_component_1.JssFormComponent],
-                    declarations: [jss_form_component_1.JssFormComponent],
+                    exports: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],
+                    declarations: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],
                     providers: [],
                 },] },
     ];

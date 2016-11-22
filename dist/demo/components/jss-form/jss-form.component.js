@@ -11,14 +11,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var JssFormComponent = (function () {
     function JssFormComponent() {
-        this.myObject = {
-            foo: "baar",
-            names: [
-                'alice',
-                'bob',
-                'carol'
-            ]
+        this.mySchema = {
+            title: 'hero schema',
+            description: 'describes a simple hero',
+            type: 'object',
+            properties: {
+                name: {
+                    type: 'string',
+                    minLength: 4,
+                    maxLength: 100
+                },
+                color: {
+                    label: 'team',
+                    description: 'color defines which team the hero belongs to',
+                    type: 'string',
+                    enum: ['red', 'green', 'blue', 'yellow']
+                },
+                hp: {
+                    type: 'number',
+                    min: 0,
+                    max: 100,
+                    default: 100
+                },
+                mainSkill: {
+                    description: 'nested object',
+                    type: 'object',
+                    properties: {
+                        name: {
+                            type: 'string'
+                        },
+                        damage: {
+                            type: 'number',
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                    required: ['name', 'damage']
+                }
+            },
+            required: ['name', 'color']
         };
+        this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () { };
     return JssFormComponent;

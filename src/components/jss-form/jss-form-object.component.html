@@ -1,0 +1,21 @@
+<div *ngFor="let key of keys(schema.properties)" style="border-style:solid;margin:5px;padding: 5px;">
+
+  <b *ngIf="schema.properties[key].properties">{{key}}:</b>
+  <vcl-jss-form-object *ngIf="schema.properties[key].properties" [schema]="schema.properties[key]"></vcl-jss-form-object>
+
+  <div *ngIf="!schema.properties[key].properties">
+    {{key}}
+
+
+    <div [ngSwitch]="inputSwitch(schema.properties[key])">
+      <div *ngSwitchCase="'textinput'">
+        <input type="text" />
+      </div>
+      <div *ngSwitchCase="'numberinput'">
+        <input type="number" placeholder="number" />
+      </div>
+    </div>
+
+  </div>
+
+</div>
