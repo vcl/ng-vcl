@@ -17,6 +17,7 @@ import { VCLToolbarModule } from './components/toolbar/toolbar.module';
 import { VCLTetherModule } from './components/tether/tether.module';
 import { VCLLinkModule } from './components/link/link.module';
 import { VCLPopoverModule } from './components/popover/popover.module';
+import { VCLProgressBarModule } from './components/progress-bar/progress-bar.module';
 import { VCLRadioButtonModule } from './components/radio-button/radio-button.module';
 import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
 import { VCLOffClickModule } from './directives/off-click/off-click.module';
@@ -46,6 +47,7 @@ export * from './components/toolbar/toolbar.module';
 export * from './components/tether/tether.module';
 export * from './components/link/link.module';
 export * from './components/popover/popover.module';
+export * from './components/progress-bar/progress-bar.module';
 export * from './components/radio-button/radio-button.module';
 export * from './components/checkbox/checkbox.module';
 export * from './components/month-picker/month-picker.module';
@@ -79,6 +81,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLNavigationModule,
     VCLToolbarModule,
     VCLPopoverModule,
+    VCLProgressBarModule,
     VCLRadioButtonModule,
     VCLCheckboxModule,
     VCLFormControlLabelModule,
@@ -110,6 +113,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLNavigationModule,
     VCLToolbarModule,
     VCLPopoverModule,
+    VCLProgressBarModule,
     VCLRadioButtonModule,
     VCLCheckboxModule,
     VCLFormControlLabelModule,
