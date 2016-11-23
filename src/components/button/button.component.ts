@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef } from '@angular/core';
-import 'hammerjs';
 
 @Component({
   selector: '[vcl-button]',

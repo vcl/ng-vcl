@@ -1,7 +1,8 @@
-import { VCLInputModule } from './components/input/input.module';
 import { NgModule } from '@angular/core';
 
+import 'hammerjs';
 
+import { VCLInputModule } from './components/input/input.module';
 import { VCLFlipSwitchModule } from './components/flip-switch/flip-switch.module';
 import { VCLIconModule, } from './components/icon/icon.module';
 import { VCLMetalistModule  } from './components/metalist/metalist.module';

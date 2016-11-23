@@ -266,4 +266,3 @@ export class StoreModule {
     };
   }
 }
-
