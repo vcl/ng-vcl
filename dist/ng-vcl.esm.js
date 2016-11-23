@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, trigger } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, forwardRef, trigger } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -3223,6 +3223,120 @@ var VCLToolbarModule = (function () {
     return VCLToolbarModule;
 }());
 
+var ProgressBarComponent = (function () {
+    function ProgressBarComponent() {
+        this.value = null;
+        this.secondaryValue = null;
+        this.minValue = 0;
+        this.maxValue = 100;
+        this.indeterminate = false;
+        this.label = null;
+    }
+    Object.defineProperty(ProgressBarComponent.prototype, "showIndeterminate", {
+        get: function () {
+            return this.indeterminate && !this.validateValue(this.value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "showValue", {
+        get: function () {
+            return !this.indeterminate || this.validateValue(this.value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "showSecondaryValue", {
+        get: function () {
+            return this.validateValue(this.secondaryValue);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "transformValue", {
+        get: function () {
+            var value = this.validateValue(this.value) ? this.scaleValue(this.value) : 0;
+            return "scaleX(" + value + ")";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "transformSecondaryValue", {
+        get: function () {
+            var value = this.validateValue(this.secondaryValue) ? this.scaleValue(this.secondaryValue) : 0;
+            return "scaleX(" + value + ")";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "range", {
+        get: function () {
+            return this.maxValue - this.minValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ProgressBarComponent.prototype.scaleValue = function (value) {
+        return (value - this.minValue) / this.range;
+    };
+    ProgressBarComponent.prototype.validateValue = function (value) {
+        return typeof value === 'number' &&
+            value !== NaN &&
+            value >= this.minValue &&
+            value <= this.maxValue;
+    };
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "value", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "secondaryValue", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "minValue", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "maxValue", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], ProgressBarComponent.prototype, "indeterminate", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], ProgressBarComponent.prototype, "label", void 0);
+    ProgressBarComponent = __decorate([
+        Component({
+            selector: 'vcl-progress-bar',
+            template: "<div class=\"vclProgressBar\"\n     [attr.aria-valuenow]=\"value\" \n     [attr.aria-valuemin]=\"minValue\" \n     [attr.aria-valuenow]=\"aria-valuemax\" \n     [attr.aria-valuetext]=\"label\"\n     [class.vclIndeterminate]=\"showIndeterminate\"\n     >\n  <div *ngIf=\"showValue\" class=\"vclProgress vclPrimary vclLayoutFit\" [style.transform]=\"transformValue\"></div>\n  <div *ngIf=\"showSecondaryValue\" class=\"vclProgress vclSecondary vclLayoutFit\" [style.transform]=\"transformSecondaryValue\"></div>\n  <div *ngIf=\"showIndeterminate\" class=\"vclProgress vclPrimary vclLayoutFit\"></div>\n</div>\n\n",
+            host: {
+                '[attr.role]': '"progressbar"',
+            },
+            changeDetection: ChangeDetectionStrategy.OnPush,
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ProgressBarComponent);
+    return ProgressBarComponent;
+}());
+
+var VCLProgressBarModule = (function () {
+    function VCLProgressBarModule() {
+    }
+    VCLProgressBarModule = __decorate([
+        NgModule({
+            imports: [CommonModule],
+            exports: [ProgressBarComponent],
+            declarations: [ProgressBarComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLProgressBarModule);
+    return VCLProgressBarModule;
+}());
+
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return RadioButtonComponent; }),
@@ -3732,16 +3846,8 @@ var VCLFormModule = (function () {
 }());
 
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
-/**
- * The JSON editor needs styling and some graphics
- * We read the raw css and svg files and replace any file reference to the svg with
- * an inline reference of the data encoded svg file
- *
- * The css must be added as a style with  ViewEncapsulation set to None
- */
-var JSONEditorSVG = require('!raw!jsoneditor/dist/img/jsoneditor-icons.svg');
-var JSONEditorCSS = require('!raw!jsoneditor/dist/jsoneditor.css')
-    .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
+// TODO include this css-file without breaking everything else
+// require('style!jsoneditor/dist/jsoneditor.css');
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return JsonEditorComponent; }),
@@ -3808,8 +3914,6 @@ var JsonEditorComponent = (function () {
     JsonEditorComponent = __decorate([
         Component({
             selector: 'vcl-json-editor',
-            styles: [JSONEditorCSS],
-            encapsulation: ViewEncapsulation.None,
             template: "<div #el [style.height]=\"height\"></div>\n",
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5]
         }), 
@@ -5157,6 +5261,7 @@ var VCLModule = (function () {
                 VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
+                VCLProgressBarModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
@@ -5188,6 +5293,7 @@ var VCLModule = (function () {
                 VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
+                VCLProgressBarModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
@@ -5213,4 +5319,4 @@ var VCLModule = (function () {
     return VCLModule;
 }());
 
-export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLDatePickerModule, VCLJsonEditorModule, VCLLabelModule, VCLTokenModule, VCLSliderModule, VCLJssFormModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, STORE_STATE, compose, StoreObservable, InitAction, StoreActions, Store, Effects, StoreModule };
+export { VCLModule, setAnimations, setAnnotation, Effect, getEffectsMetadata, IconComponent, IconService, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLButtonGroupModule, LayerBaseComponent, LayerDirective, LayerService, VCLLayerModule, VCLTabNavModule, VCLNavigationModule, VCLFormModule, VCLToolbarModule, VCLTetherModule, VCLLinkModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLMonthPickerModule, VCLDatePickerModule, VCLJsonEditorModule, VCLLabelModule, VCLTokenModule, VCLSliderModule, VCLJssFormModule, VCLOffClickModule, Wormhole, WormholeGenerator, VCLWormholeModule, L10nModule, L10nNoopLoaderService, L10nStaticLoaderService, L10nFormatParserService, L10nService, ErrorHandlingStrategy, ADV_HTTP_CONFIG, SyncableObservable, ErrorHandlerService, AdvHttp, AdvHttpModule, Observe, ObservableComponent, STORE_REDUCERS, STORE_EFFECTS, STORE_STATE, compose, StoreObservable, InitAction, StoreActions, Store, Effects, StoreModule };
