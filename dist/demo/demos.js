@@ -11,6 +11,7 @@ var layer_demo_1 = require("./components/layer/layer.demo");
 var tether_demo_1 = require("./components/tether/tether.demo");
 var link_demo_1 = require("./components/link/link.demo");
 var radio_button_demo_1 = require("./components/radio-button/radio-button.demo");
+var radio_group_demo_1 = require("./components/radio-group/radio-group.demo");
 var checkbox_demo_1 = require("./components/checkbox/checkbox.demo");
 var form_control_label_demo_1 = require("./components/form-control-label/form-control-label.demo");
 var form_demo_1 = require("./components/form/form.demo");
@@ -18,6 +19,7 @@ var form_error_demo_1 = require("./components/form-error/form-error.demo");
 var input_demo_1 = require("./components/input/input.demo");
 var flip_switch_demo_1 = require("./components/flip-switch/flip-switch.demo");
 var popover_demo_1 = require("./components/popover/popover.demo");
+var progress_bar_demo_1 = require("./components/progress-bar/progress-bar.demo");
 var tab_nav_demo_1 = require("./components/tab-nav/tab-nav.demo");
 var navigation_demo_1 = require("./components/navigation/navigation.demo");
 var toolbar_demo_1 = require("./components/toolbar/toolbar.demo");
@@ -44,6 +46,7 @@ exports.DEMOS = [
     tether_demo_1.default,
     link_demo_1.default,
     radio_button_demo_1.default,
+    radio_group_demo_1.default,
     checkbox_demo_1.default,
     form_control_label_demo_1.default,
     form_demo_1.default,
@@ -51,6 +54,7 @@ exports.DEMOS = [
     input_demo_1.default,
     flip_switch_demo_1.default,
     popover_demo_1.default,
+    progress_bar_demo_1.default,
     tab_nav_demo_1.default,
     navigation_demo_1.default,
     toolbar_demo_1.default,

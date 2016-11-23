@@ -19,6 +19,7 @@ import { VCLLinkModule } from './components/link/link.module';
 import { VCLPopoverModule } from './components/popover/popover.module';
 import { VCLProgressBarModule } from './components/progress-bar/progress-bar.module';
 import { VCLRadioButtonModule } from './components/radio-button/radio-button.module';
+import { VCLRadioGroupModule } from './components/radio-group/radio-group.module';
 import { VCLCheckboxModule } from './components/checkbox/checkbox.module';
 import { VCLOffClickModule } from './directives/off-click/off-click.module';
 import { VCLFormControlLabelModule } from './components/form-control-label/form-control-label.module';
@@ -49,6 +50,7 @@ export * from './components/link/link.module';
 export * from './components/popover/popover.module';
 export * from './components/progress-bar/progress-bar.module';
 export * from './components/radio-button/radio-button.module';
+export * from './components/radio-group/radio-group.module';
 export * from './components/checkbox/checkbox.module';
 export * from './components/month-picker/month-picker.module';
 export * from './components/date-picker/date-picker.module';
@@ -83,6 +85,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLPopoverModule,
     VCLProgressBarModule,
     VCLRadioButtonModule,
+    VCLRadioGroupModule,
     VCLCheckboxModule,
     VCLFormControlLabelModule,
     VCLFormModule,
@@ -115,6 +118,7 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLPopoverModule,
     VCLProgressBarModule,
     VCLRadioButtonModule,
+    VCLRadioGroupModule,
     VCLCheckboxModule,
     VCLFormControlLabelModule,
     VCLFormModule,

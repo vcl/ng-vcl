@@ -11,6 +11,7 @@ import LAYER_DEMO from './components/layer/layer.demo';
 import TETHER_DEMO from './components/tether/tether.demo';
 import LINK_DEMO from './components/link/link.demo';
 import RADIO_BUTTON_DEMO from './components/radio-button/radio-button.demo';
+import RADIO_GROUP_DEMO from './components/radio-group/radio-group.demo';
 import CHECKBOX_DEMO from './components/checkbox/checkbox.demo';
 import FORM_CONTROL_LABEL_DEMO from './components/form-control-label/form-control-label.demo';
 import FORM_DEMO from './components/form/form.demo';
@@ -32,7 +33,6 @@ import LABEL_DEMO from './components/label/label.demo';
 import TOKEN_DEMO from './components/token/token.demo';
 import SLIDER_DEMO from './components/slider/slider.demo';
 import JSS_FORM_DEMO from './components/jss-form/jss-form.demo';
-
 
 import L10N_DEMO from './components/l10n/l10n.demo';
 
@@ -57,6 +57,7 @@ export const DEMOS: Demo[] = [
   TETHER_DEMO,
   LINK_DEMO,
   RADIO_BUTTON_DEMO,
+  RADIO_GROUP_DEMO,
   CHECKBOX_DEMO,
   FORM_CONTROL_LABEL_DEMO,
   FORM_DEMO,

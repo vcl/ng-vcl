@@ -28,7 +28,9 @@ var toolbar_module_1 = require("./components/toolbar/toolbar.module");
 var tether_module_1 = require("./components/tether/tether.module");
 var link_module_1 = require("./components/link/link.module");
 var popover_module_1 = require("./components/popover/popover.module");
+var progress_bar_module_1 = require("./components/progress-bar/progress-bar.module");
 var radio_button_module_1 = require("./components/radio-button/radio-button.module");
+var radio_group_module_1 = require("./components/radio-group/radio-group.module");
 var checkbox_module_1 = require("./components/checkbox/checkbox.module");
 var off_click_module_1 = require("./directives/off-click/off-click.module");
 var form_control_label_module_1 = require("./components/form-control-label/form-control-label.module");
@@ -54,7 +56,9 @@ __export(require("./components/toolbar/toolbar.module"));
 __export(require("./components/tether/tether.module"));
 __export(require("./components/link/link.module"));
 __export(require("./components/popover/popover.module"));
+__export(require("./components/progress-bar/progress-bar.module"));
 __export(require("./components/radio-button/radio-button.module"));
+__export(require("./components/radio-group/radio-group.module"));
 __export(require("./components/checkbox/checkbox.module"));
 __export(require("./components/month-picker/month-picker.module"));
 __export(require("./components/date-picker/date-picker.module"));
@@ -90,7 +94,9 @@ VCLModule = __decorate([
             navigation_module_1.VCLNavigationModule,
             toolbar_module_1.VCLToolbarModule,
             popover_module_1.VCLPopoverModule,
+            progress_bar_module_1.VCLProgressBarModule,
             radio_button_module_1.VCLRadioButtonModule,
+            radio_group_module_1.VCLRadioGroupModule,
             checkbox_module_1.VCLCheckboxModule,
             form_control_label_module_1.VCLFormControlLabelModule,
             form_module_1.VCLFormModule,
@@ -121,7 +127,9 @@ VCLModule = __decorate([
             navigation_module_1.VCLNavigationModule,
             toolbar_module_1.VCLToolbarModule,
             popover_module_1.VCLPopoverModule,
+            progress_bar_module_1.VCLProgressBarModule,
             radio_button_module_1.VCLRadioButtonModule,
+            radio_group_module_1.VCLRadioGroupModule,
             checkbox_module_1.VCLCheckboxModule,
             form_control_label_module_1.VCLFormControlLabelModule,
             form_module_1.VCLFormModule,

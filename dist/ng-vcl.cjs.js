@@ -3583,6 +3583,78 @@ var VCLRadioButtonModule = (function () {
 
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return RadioGroupComponent; }),
+    multi: true
+};
+var RadioGroupComponent = (function () {
+    function RadioGroupComponent() {
+        this.disabled = false;
+        /*    this._checkedChange.subscribe(newVal => {
+              !!this.onChangeCallback && this.onChangeCallback(newVal);
+            });
+          */
+    }
+    RadioGroupComponent.prototype.ngOnInit = function () { };
+    RadioGroupComponent.prototype.ngOnChanges = function () { };
+    RadioGroupComponent.prototype.isChecked = function (option) {
+        return option.value == this.value;
+    };
+    RadioGroupComponent.prototype.writeValue = function (value) {
+        /*    if (value !== this.checked) {
+              this.checked = value;
+            }*/
+    };
+    RadioGroupComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    RadioGroupComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    __decorate([
+        _angular_core.Input('value'), 
+        __metadata('design:type', String)
+    ], RadioGroupComponent.prototype, "value", void 0);
+    __decorate([
+        _angular_core.Input('options'), 
+        __metadata('design:type', Array)
+    ], RadioGroupComponent.prototype, "options", void 0);
+    __decorate([
+        _angular_core.Input('disabled'), 
+        __metadata('design:type', Boolean)
+    ], RadioGroupComponent.prototype, "disabled", void 0);
+    RadioGroupComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-radio-group',
+            template: "<vcl-radio-button *ngFor=\"let option of options\" checked=\"isChecked(option)\">{{ option.label }}</vcl-radio-button>\n<br *ngFor=\"let option of options\" />\n",
+            host: {
+                '[attr.role]': '"radio"',
+                '[class.vclCheckbox]': 'true',
+                '[class.vclScale130p]': 'true',
+            },
+            changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], RadioGroupComponent);
+    return RadioGroupComponent;
+}());
+
+var VCLRadioGroupModule = (function () {
+    function VCLRadioGroupModule() {
+    }
+    VCLRadioGroupModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule, VCLIconModule, VCLRadioButtonModule],
+            exports: [RadioGroupComponent],
+            declarations: [RadioGroupComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLRadioGroupModule);
+    return VCLRadioGroupModule;
+}());
+
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5 = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return CheckboxComponent; }),
     multi: true
 };
@@ -3745,7 +3817,7 @@ var CheckboxComponent = (function () {
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof _angular_core.ElementRef !== 'undefined' && _angular_core.ElementRef) === 'function' && _b) || Object])
     ], CheckboxComponent);
@@ -3905,7 +3977,7 @@ var VCLFormModule = (function () {
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
 // TODO include this css-file without breaking everything else
 // require('style!jsoneditor/dist/jsoneditor.css');
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5 = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$6 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return JsonEditorComponent; }),
     multi: true
@@ -3972,7 +4044,7 @@ var JsonEditorComponent = (function () {
         _angular_core.Component({
             selector: 'vcl-json-editor',
             template: "<div #el [style.height]=\"height\"></div>\n",
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$6]
         }), 
         __metadata('design:paramtypes', [])
     ], JsonEditorComponent);
@@ -4553,7 +4625,7 @@ function PickDateCreate(date) {
     return new PickDate(date);
 }
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$6 = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$7 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return DatePickerComponent; }),
     multi: true
@@ -4743,7 +4815,7 @@ var DatePickerComponent = (function () {
             selector: 'vcl-date-picker',
             template: "<div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclNoMargin vclCalInput\">\n  <div class=\"vclDGRow\">\n    <div class=\"vclDGCell\">\n      <div class=\"vclLayoutFlex vclToolbar vclLayoutHorizontal vclLayoutJustified vclPager vclLayoutCenter\">\n        <button class=\"vclTransparent vclSquare  vclButton\" (tap)=\"prevMonth()\">\n              <div class=\"vclIcogram\">\n                <span class=\"vclIcon fa fa-angle-left\"></span>\n              </div>\n            </button>\n        <span class=\"vclCalHeaderLabel\" (tap)=\"showYearPick=true\">\n              {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}\n            </span>\n        <button class=\"vclTransparent vclSquare vclButton\" (tap)=\"nextMonth()\">\n               <div class=\"vclIcogram\">\n                  <span class=\"vclIcon fa fa-angle-right\"></span>\n                </div>\n            </button>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"vclSeparator\"></div>\n\n  <div *ngIf=\"!showYearPick\">\n    <div class=\"vclDGRow\">\n      <div *ngIf=\"displayWeekNumbers\" class=\"vclDGCell timeFragment vclCalItem vclOtherMonth\">\n        {{'week' | loc}}\n      </div>\n      <div *ngFor=\"let day of viewDate.getWeekDays()\" class=\"vclDGCell vclWeekdayLabel\" [class.hidden]=\"!displayWeekdays\">\n        {{day | loc}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\" *ngFor=\"let week of viewDate.getMonthBlock()\">\n      <div *ngIf=\"displayWeekNumbers && week.length==7\" class=\"vclDGCell\">\n        {{week[5].getWeekNumber()}}\n      </div>\n      <div *ngFor=\"let day of week\" class=\"vclDGCell timeFragment vclCalItem\" [class.vclDisabled]=\"isDisabled(day)\" [class.vclSelected]=\"isMarked(day)\" (tap)=\"!isDisabled(day) && select(day)\" [class.vclToday]=\"highlightSelected && day.isToday()\" [class.vclOtherMonth]=\"!day.isSameMonthAndYear()\">\n        {{day.date.getDate()}}\n      </div>\n    </div>\n\n    <div class=\"vclDGRow\">\n      <div class=\"vclDGCell\">\n        <div class=\"vclToolbar vclTransparent vclLayoutFlex vclLayoutHorizontal vclLayoutJustified\">\n          <button title=\"go to today\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpToday\" (tap)=\"gotoToday()\">\n               <div class=\" vclIcogram\">\n                 <span class=\"vclText \">go to today</span>\n               </div>\n             </button>\n          <button title=\"go to selected\" class=\"vclTransparent vclLayoutFlex vclButton\" *ngIf=\"displayJumpSelected\" (tap)=\"gotoSelected()\">\n                <div class=\" vclIcogram\">\n                  <span class=\"vclText \">go to selected</span>\n                </div>\n              </button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div *ngIf=\"showYearPick\">\n    <div class=\"vclDGRow\" role=\"row\" *ngFor=\"let row of viewDate.getYearsBlock()\">\n      <div *ngFor=\"let year of row\" class=\"vclDGCell vclCalItem\" role=\"gridcell\"\n      [class.vclSelected]=\"viewDate.date.getFullYear()==year\"\n       (tap)=\"yearPickSelect(year)\" \n       [class.vclToday]=\"highlightSelected && today.isInYear(year)\">\n        {{year}}\n      </div>\n    </div>\n  </div>\n\n</div>\n",
             styles: [".hidden{display:none;}"],
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$6],
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$7],
             host: {
                 '[class.vclDatePicker]': 'true'
             }
@@ -4878,7 +4950,7 @@ var TokenComponent = (function () {
     return TokenComponent;
 }());
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$7 = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return TokenListComponent; }),
     multi: true
@@ -4925,7 +4997,7 @@ var TokenListComponent = (function () {
                 '[class.vclTokenList]': 'true',
                 '[class.vclTokenContainer]': 'true'
             },
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$7]
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8]
         }), 
         __metadata('design:paramtypes', [])
     ], TokenListComponent);
@@ -4999,7 +5071,7 @@ var VCLTokenModule = (function () {
     return VCLTokenModule;
 }());
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8 = {
+var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return SliderComponent; }),
     multi: true
@@ -5134,7 +5206,7 @@ var SliderComponent = (function () {
         _angular_core.Component({
             selector: 'vcl-slider',
             template: "<div class=\"vclSliderRail\">\n  <div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\" #scale>\n    <div *ngFor=\"let point of scalePoints\" class=\"vclSliderScalePointMark\"></div>\n  </div>\n  <div class=\"vclSliderKnobContainer\" [style.left]=\"percentLeftKnob + '%'\"\n    (pan)=\"onPan($event)\"\n    >\n    <div class=\"vclSliderKnob\"></div>\n  </div>\n</div>\n<div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\">\n  <div *ngFor=\"let point of scalePoints\" class=\"vclSliderScalePointLabel\">{{point.label}}</div>\n</div>\n",
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$8],
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$9],
             host: {
                 '[class.vclSlider]': 'true'
             }
@@ -5333,6 +5405,7 @@ var VCLModule = (function () {
                 VCLPopoverModule,
                 VCLProgressBarModule,
                 VCLRadioButtonModule,
+                VCLRadioGroupModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
                 VCLFormModule,
@@ -5365,6 +5438,7 @@ var VCLModule = (function () {
                 VCLPopoverModule,
                 VCLProgressBarModule,
                 VCLRadioButtonModule,
+                VCLRadioGroupModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
                 VCLFormModule,
@@ -5414,6 +5488,7 @@ exports.PopoverComponent = PopoverComponent;
 exports.VCLPopoverModule = VCLPopoverModule;
 exports.VCLProgressBarModule = VCLProgressBarModule;
 exports.VCLRadioButtonModule = VCLRadioButtonModule;
+exports.VCLRadioGroupModule = VCLRadioGroupModule;
 exports.CheckboxComponent = CheckboxComponent;
 exports.VCLCheckboxModule = VCLCheckboxModule;
 exports.VCLMonthPickerModule = VCLMonthPickerModule;

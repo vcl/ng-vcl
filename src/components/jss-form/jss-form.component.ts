@@ -10,7 +10,6 @@ import {
 import { FormGroup, Validators, FormBuilder, AbstractControl,
   ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule  } from '@angular/forms';
 
-import { schemaToFormGroup } from './schemaToFormGroup';
 const Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema'; when typings available
 let VALIDATOR;
 

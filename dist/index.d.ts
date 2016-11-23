@@ -13,6 +13,7 @@ export * from './components/link/link.module';
 export * from './components/popover/popover.module';
 export * from './components/progress-bar/progress-bar.module';
 export * from './components/radio-button/radio-button.module';
+export * from './components/radio-group/radio-group.module';
 export * from './components/checkbox/checkbox.module';
 export * from './components/month-picker/month-picker.module';
 export * from './components/date-picker/date-picker.module';
