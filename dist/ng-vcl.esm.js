@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, trigger } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, forwardRef, trigger } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -3846,16 +3846,8 @@ var VCLFormModule = (function () {
 }());
 
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
-/**
- * The JSON editor needs styling and some graphics
- * We read the raw css and svg files and replace any file reference to the svg with
- * an inline reference of the data encoded svg file
- *
- * The css must be added as a style with  ViewEncapsulation set to None
- */
-var JSONEditorSVG = require('!raw!jsoneditor/dist/img/jsoneditor-icons.svg');
-var JSONEditorCSS = require('!raw!jsoneditor/dist/jsoneditor.css')
-    .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
+// TODO include this css-file without breaking everything else
+// require('style!jsoneditor/dist/jsoneditor.css');
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5 = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return JsonEditorComponent; }),
@@ -3922,8 +3914,6 @@ var JsonEditorComponent = (function () {
     JsonEditorComponent = __decorate([
         Component({
             selector: 'vcl-json-editor',
-            styles: [JSONEditorCSS],
-            encapsulation: ViewEncapsulation.None,
             template: "<div #el [style.height]=\"height\"></div>\n",
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5]
         }), 

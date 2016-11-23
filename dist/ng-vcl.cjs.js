@@ -3850,16 +3850,8 @@ var VCLFormModule = (function () {
 }());
 
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
-/**
- * The JSON editor needs styling and some graphics
- * We read the raw css and svg files and replace any file reference to the svg with
- * an inline reference of the data encoded svg file
- *
- * The css must be added as a style with  ViewEncapsulation set to None
- */
-var JSONEditorSVG = require('!raw!jsoneditor/dist/img/jsoneditor-icons.svg');
-var JSONEditorCSS = require('!raw!jsoneditor/dist/jsoneditor.css')
-    .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
+// TODO include this css-file without breaking everything else
+// require('style!jsoneditor/dist/jsoneditor.css');
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return JsonEditorComponent; }),
@@ -3926,8 +3918,6 @@ var JsonEditorComponent = (function () {
     JsonEditorComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-json-editor',
-            styles: [JSONEditorCSS],
-            encapsulation: _angular_core.ViewEncapsulation.None,
             template: "<div #el [style.height]=\"height\"></div>\n",
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$5]
         }), 
