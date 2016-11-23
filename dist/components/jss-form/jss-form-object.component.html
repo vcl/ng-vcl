@@ -15,7 +15,7 @@ style="border-style:solid;margin:5px;padding: 5px;">
 
     <div [ngSwitch]="formType(schema.properties[key])">
       <div *ngSwitchCase="'text'">
-        <input vcl-input type="text" [formControlName]="key" [placeholder]="schema.properties[key].placeholder" />
+        <input vcl-input type="text" [formControlName]="key" [placeholder]="placeholder(schema.properties[key])" />
       </div>
       <div *ngSwitchCase="'number'">
         <input type="number" valueType="number" placeholder="number"

@@ -1,5 +1,5 @@
 /// <reference types="core-js" />
-import { OnInit } from '@angular/core';
+import { EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 export declare class JssFormObjectComponent {
     schema: any;
@@ -9,21 +9,25 @@ export declare class JssFormObjectComponent {
     formType(schemaObj: any): string;
     keys(obj: any): string[];
     name(parentPath: any, key: any): string;
+    placeholder(schemaObj: any): any;
 }
 export declare class JssFormComponent implements OnInit {
     fb: FormBuilder;
     schema: any;
     value: Object;
+    error: EventEmitter<any[]>;
     form: any;
     constructor(fb: FormBuilder);
     ngOnInit(): void;
     keys(obj: any): string[];
     /**
      * create the formGroup for the given schema
-     * @param  {Object}    schemaObj
-     * @return {FormGroup}               [description]
      */
     formGroupFromSchema(schemaObj: any): FormGroup;
-    jsonSchemaValidate(obj: Object, schema?: any): true;
+    /**
+     * validate if value matches schema
+     * @return {?Object[]} error-array or null if no errors
+     */
+    jsonSchemaValidate(obj: Object, schema?: any): Object[] | null;
     ngAfterViewInit(): void;
 }

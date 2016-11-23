@@ -69,8 +69,15 @@ export class JssFormComponent implements OnInit {
   };
 
 
+
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+  onError(err) {
+    console.log('error:');
+    console.dir(err);
+  }
 
 }

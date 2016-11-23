@@ -1,6 +1,8 @@
 import {
   Component,
   Input,
+  Output,
+  EventEmitter,
   ViewChild,
   forwardRef,
   OnInit
@@ -9,11 +11,8 @@ import { FormGroup, Validators, FormBuilder, AbstractControl,
   ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule  } from '@angular/forms';
 
 import { schemaToFormGroup } from './schemaToFormGroup';
-const Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema';
+const Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema'; when typings available
 let VALIDATOR;
-
-
-
 
 
 @Component({
@@ -45,8 +44,6 @@ export class JssFormObjectComponent {
 
     if (schemaObj.type == 'boolean')
       return 'switch';
-
-
   }
 
   keys(obj) {
@@ -58,8 +55,13 @@ export class JssFormObjectComponent {
       name = name.substr(1);
     return name;
   }
-}
+  placeholder(schemaObj) {
+    if (typeof schemaObj.placeholder !== "undefined")
+      return schemaObj.placeholder;
 
+    return '';
+  }
+}
 
 @Component({
   selector: 'vcl-jss-form',
@@ -70,10 +72,12 @@ export class JssFormComponent implements OnInit {
   @Input('schema') schema: any;
   @Input('value') value: Object = {};
 
+
+  @Output('error') error = new EventEmitter<any[]>();
+
   form;
 
   constructor(public fb: FormBuilder) { }
-
 
   ngOnInit() {
 
@@ -83,17 +87,12 @@ export class JssFormComponent implements OnInit {
 
   }
 
-
   keys(obj) {
     return Object.keys(obj);
   }
 
-
-
   /**
    * create the formGroup for the given schema
-   * @param  {Object}    schemaObj
-   * @return {FormGroup}               [description]
    */
   formGroupFromSchema(schemaObj: any): FormGroup {
     const ret = {};
@@ -116,14 +115,21 @@ export class JssFormComponent implements OnInit {
     });
   }
 
-
-  jsonSchemaValidate(obj: Object, schema = this.schema): true {
+  /**
+   * validate if value matches schema
+   * @return {?Object[]} error-array or null if no errors
+   */
+  jsonSchemaValidate(obj: Object, schema = this.schema): Object[] | null {
   if (!VALIDATOR) VALIDATOR = new Validator();
   const valid = VALIDATOR.validate(obj, schema);
-  if (valid.errors.length == 0) return null;
+  if (valid.errors.length == 0) {
+    this.error.emit(null);
+    return null;
+  }
+
+  this.error.emit(valid.errors);
   return valid.errors;
 }
-
 
 
 ngAfterViewInit() {

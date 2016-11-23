@@ -1,7 +1,7 @@
 "use strict";
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
-var Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema';
+var Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema'; when typings available
 var VALIDATOR;
 var JssFormObjectComponent = (function () {
     function JssFormObjectComponent() {
@@ -30,6 +30,11 @@ var JssFormObjectComponent = (function () {
             name = name.substr(1);
         return name;
     };
+    JssFormObjectComponent.prototype.placeholder = function (schemaObj) {
+        if (typeof schemaObj.placeholder !== "undefined")
+            return schemaObj.placeholder;
+        return '';
+    };
     JssFormObjectComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-jss-form-object',
@@ -50,6 +55,7 @@ var JssFormComponent = (function () {
     function JssFormComponent(fb) {
         this.fb = fb;
         this.value = {};
+        this.error = new core_1.EventEmitter();
     }
     JssFormComponent.prototype.ngOnInit = function () {
         this.form = this.formGroupFromSchema(this.schema);
@@ -60,8 +66,6 @@ var JssFormComponent = (function () {
     };
     /**
      * create the formGroup for the given schema
-     * @param  {Object}    schemaObj
-     * @return {FormGroup}               [description]
      */
     JssFormComponent.prototype.formGroupFromSchema = function (schemaObj) {
         var _this = this;
@@ -81,13 +85,20 @@ var JssFormComponent = (function () {
             }
         });
     };
+    /**
+     * validate if value matches schema
+     * @return {?Object[]} error-array or null if no errors
+     */
     JssFormComponent.prototype.jsonSchemaValidate = function (obj, schema) {
         if (schema === void 0) { schema = this.schema; }
         if (!VALIDATOR)
             VALIDATOR = new Validator();
         var valid = VALIDATOR.validate(obj, schema);
-        if (valid.errors.length == 0)
+        if (valid.errors.length == 0) {
+            this.error.emit(null);
             return null;
+        }
+        this.error.emit(valid.errors);
         return valid.errors;
     };
     JssFormComponent.prototype.ngAfterViewInit = function () {
@@ -105,6 +116,7 @@ var JssFormComponent = (function () {
     JssFormComponent.propDecorators = {
         'schema': [{ type: core_1.Input, args: ['schema',] },],
         'value': [{ type: core_1.Input, args: ['value',] },],
+        'error': [{ type: core_1.Output, args: ['error',] },],
     };
     return JssFormComponent;
 }());

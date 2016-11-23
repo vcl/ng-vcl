@@ -67,7 +67,12 @@ var JssFormComponent = (function () {
             hp: 50
         };
     }
-    JssFormComponent.prototype.ngOnInit = function () { };
+    JssFormComponent.prototype.ngOnInit = function () {
+    };
+    JssFormComponent.prototype.onError = function (err) {
+        console.log('error:');
+        console.dir(err);
+    };
     return JssFormComponent;
 }());
 JssFormComponent = __decorate([

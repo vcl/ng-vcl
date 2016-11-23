@@ -39,6 +39,11 @@ var JssFormObjectComponent = (function () {
             name = name.substr(1);
         return name;
     };
+    JssFormObjectComponent.prototype.placeholder = function (schemaObj) {
+        if (typeof schemaObj.placeholder !== "undefined")
+            return schemaObj.placeholder;
+        return '';
+    };
     return JssFormObjectComponent;
 }());
 __decorate([
@@ -65,6 +70,7 @@ var JssFormComponent = (function () {
     function JssFormComponent(fb) {
         this.fb = fb;
         this.value = {};
+        this.error = new core_1.EventEmitter();
     }
     JssFormComponent.prototype.ngOnInit = function () {
         this.form = this.formGroupFromSchema(this.schema);
@@ -94,8 +100,11 @@ var JssFormComponent = (function () {
         if (!VALIDATOR)
             VALIDATOR = new Validator();
         var valid = VALIDATOR.validate(obj, schema);
-        if (valid.errors.length == 0)
+        if (valid.errors.length == 0) {
+            this.error.emit(null);
             return null;
+        }
+        this.error.emit(valid.errors);
         return valid.errors;
     };
     JssFormComponent.prototype.ngAfterViewInit = function () {
@@ -110,6 +119,10 @@ __decorate([
     core_1.Input('value'),
     __metadata("design:type", Object)
 ], JssFormComponent.prototype, "value", void 0);
+__decorate([
+    core_1.Output('error'),
+    __metadata("design:type", Object)
+], JssFormComponent.prototype, "error", void 0);
 JssFormComponent = __decorate([
     core_1.Component({
         selector: 'vcl-jss-form',

@@ -1,30 +1,39 @@
 # vcl-jss-form
 
-A json-editor based on [jsoneditor](https://github.com/josdejong/jsoneditor).
+Creates a from from a [jsonschema](http://jsonschema.net/).
 
 ## Usage:
 
 ```javascript
-import { VCLJsonEditorModule } from 'ng-vcl';
+import { VCLJssFormModule } from 'ng-vcl';
 
 @NgModule({
-  imports: [ VCLJsonEditorModule ],
+  imports: [ VCLJssFormModule ],
   ...
 })
 export class AppComponent {}
 ```
 
 ```html
-<vcl-json-editor [value]="myObject"></vcl-json-editor>
+<vcl-jss-form [schema]="mySchema" [(value)]="value"></vcl-jss-form>
 ```
 
 ### API
 
-#### vcl-json-editor properties:
+#### vcl-jss-form properties:
 
-Name      | Type   | Default | Description
---------- | ------ | ------- | -----------------------------------------------------------------------------------------------------------------------
-`mode`    | string | 'tree'  | Editormode ENUM('tree','form','text','view')
-`height`  | string | '250px' | height of the editor-window
-`value`   | string | {}      | An Object to begin editing with
-`options` | object | {}      | Any jsoneditor specific content. See [JSON-EDITOR-API](https://github.com/josdejong/jsoneditor/blob/master/docs/api.md)
+Name     | Type   | Default | Description
+-------- | ------ | ------- | -----------------------------------------------
+`schema` | object |         | a jsonschema to build the form from
+`value`  | object | {}      | An Object to begin editing with (2-way binding)
+`error`  | event  |         | Event-stream which emits schema-errors or null
+
+#### schema properties
+
+In addition to the [generic keywords](https://spacetelescope.github.io/understanding-json-schema/reference/generic.html) of jsonschema, vcl-jss-form is using keywords to let you define the generated form.
+
+Name          | Type   | Default | Description
+------------- | ------ | ------- | --------------------------------------------------------------------------------------
+`label`       | string |         | a label-string. attributeName will be the default
+`placeholder` | string |         | define a placeholder which will be sued for the input-field
+`formType`    | string |         | defines the input-type of the form-element. ENUM(text, number, select, switch, slider)
