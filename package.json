@@ -37,8 +37,14 @@
   ],
   "author": "The ng-vcl authors",
   "license": "MIT",
-  "main": "dist/ng-vcl.js",
+  "main": "dist/ng-vcl.cjs.js",
   "typings": "dist/index.d.ts",
+  "jsnext:main": "dist/ng-vcl.esm.js",
+  "module": "dist/ng-vcl.esm.js",
+  "jspm": {
+    "main": "dist/ng-vcl.esm.js",
+    "format": "esm"
+  },
   "peerDependencies": {
     "@angular/core": "2.1.2",
     "@angular/http": "2.1.2",
