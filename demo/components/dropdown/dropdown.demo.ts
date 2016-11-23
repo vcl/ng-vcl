@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: DropdownComponent,
-    'demo.component.html': require("!raw!./dropdown.component.html"),
-    'demo.component.ts': require("!raw!./dropdown.component.ts")
+    'demo.component.html': require("!raw-loader!./dropdown.component.html"),
+    'demo.component.ts': require("!raw-loader!./dropdown.component.ts")
   }
 };

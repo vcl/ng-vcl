@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import * as marked from 'marked';
-const style = require("!raw!./markdown.component.css");
+const style = require("!raw-loader!./markdown.component.css");
 
 marked.setOptions({
   breaks: true

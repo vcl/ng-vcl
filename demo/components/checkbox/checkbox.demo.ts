@@ -6,8 +6,8 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: CheckboxComponent,
-    'README.md': require("!raw!../../../src/components/checkbox/README.md"),
-    'demo.component.html': require("!raw!./checkbox.component.html"),
-    'demo.component.ts': require("!raw!./checkbox.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/checkbox/README.md"),
+    'demo.component.html': require("!raw-loader!./checkbox.component.html"),
+    'demo.component.ts': require("!raw-loader!./checkbox.component.ts")
   }
 };

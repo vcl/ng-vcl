@@ -6,8 +6,8 @@ export default {
   category: 'Images',
   tabs: {
     Demo: IcogramComponent,
-    'README.md': require("!raw!../../../src/components/icogram/README.md"),
-    'demo.component.html': require("!raw!./icogram.component.html"),
-    'demo.component.ts': require("!raw!./icogram.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/icogram/README.md"),
+    'demo.component.html': require("!raw-loader!./icogram.component.html"),
+    'demo.component.ts': require("!raw-loader!./icogram.component.ts")
   }
 };

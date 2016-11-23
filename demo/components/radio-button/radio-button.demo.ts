@@ -6,8 +6,8 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: RadioButtonComponent,
-    'README.md': require("!raw!../../../src/components/radio-button/README.md"),
-    'demo.component.html': require("!raw!./radio-button.component.html"),
-    'demo.component.ts': require("!raw!./radio-button.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/radio-button/README.md"),
+    'demo.component.html': require("!raw-loader!./radio-button.component.html"),
+    'demo.component.ts': require("!raw-loader!./radio-button.component.ts")
   }
 };

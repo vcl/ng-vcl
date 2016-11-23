@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: MonthSelectorComponent,
-    'demo.component.html': require("!raw!./month-selector.component.html"),
-    'demo.component.ts': require("!raw!./month-selector.component.ts")
+    'demo.component.html': require("!raw-loader!./month-selector.component.html"),
+    'demo.component.ts': require("!raw-loader!./month-selector.component.ts")
   }
 };

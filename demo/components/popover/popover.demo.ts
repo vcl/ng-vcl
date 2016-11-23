@@ -6,7 +6,7 @@ export default {
   category: 'Layer',
   tabs: {
     Demo: PopoverComponent,
-    'demo.component.html': require("!raw!./popover.component.html"),
-    'demo.component.ts': require("!raw!./popover.component.ts")
+    'demo.component.html': require("!raw-loader!./popover.component.html"),
+    'demo.component.ts': require("!raw-loader!./popover.component.ts")
   }
 };

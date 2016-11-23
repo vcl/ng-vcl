@@ -6,7 +6,7 @@ export default {
   category: 'Component',
   tabs: {
     Demo: MetalistComponent,
-    'demo.component.html': require("!raw!./metalist.component.html"),
-    'demo.component.ts': require("!raw!./metalist.component.ts")
+    'demo.component.html': require("!raw-loader!./metalist.component.html"),
+    'demo.component.ts': require("!raw-loader!./metalist.component.ts")
   }
 };

@@ -6,8 +6,8 @@ export default {
   category: 'Forms',
   tabs: {
     Demo: JssFormComponent,
-    'README.md': require("!raw!../../../src/components/jss-form/README.md"),
-    'demo.component.html': require("!raw!./jss-form.component.html"),
-    'demo.component.ts': require("!raw!./jss-form.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/jss-form/README.md"),
+    'demo.component.html': require("!raw-loader!./jss-form.component.html"),
+    'demo.component.ts': require("!raw-loader!./jss-form.component.ts")
   }
 };

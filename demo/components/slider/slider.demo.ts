@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: SliderComponent,
-    'demo.component.html': require("!raw!./slider.component.html"),
-    'demo.component.ts': require("!raw!./slider.component.ts")
+    'demo.component.html': require("!raw-loader!./slider.component.html"),
+    'demo.component.ts': require("!raw-loader!./slider.component.ts")
   }
 };

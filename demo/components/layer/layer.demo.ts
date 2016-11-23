@@ -7,8 +7,8 @@ export default {
   declarations: [LayerComponent],
   tabs: {
     Demo: LayerComponent,
-    'README.md': require("!raw!../../../src/components/layer/README.md"),
-    'demo.component.html': require("!raw!./layer.component.html"),
-    'demo.component.ts': require("!raw!./layer.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/layer/README.md"),
+    'demo.component.html': require("!raw-loader!./layer.component.html"),
+    'demo.component.ts': require("!raw-loader!./layer.component.ts")
   }
 };

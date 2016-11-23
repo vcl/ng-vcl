@@ -6,8 +6,8 @@ export default {
   category: 'Buttons',
   tabs: {
     Demo: ButtonComponent,
-    'README.md': require("!raw!../../../src/components/button/README.md"),
-    'demo.component.html': require("!raw!./button.component.html"),
-    'demo.component.ts': require("!raw!./button.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/button/README.md"),
+    'demo.component.html': require("!raw-loader!./button.component.html"),
+    'demo.component.ts': require("!raw-loader!./button.component.ts")
   }
 };

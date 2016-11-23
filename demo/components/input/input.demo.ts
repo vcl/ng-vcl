@@ -6,8 +6,8 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: InputComponent,
-    'README.md': require("!raw!../../../src/components/input/README.md"),
-    'demo.component.html': require("!raw!./input.component.html"),
-    'demo.component.ts': require("!raw!./input.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/input/README.md"),
+    'demo.component.html': require("!raw-loader!./input.component.html"),
+    'demo.component.ts': require("!raw-loader!./input.component.ts")
   }
 };

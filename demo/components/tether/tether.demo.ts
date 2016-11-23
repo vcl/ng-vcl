@@ -6,7 +6,7 @@ export default {
   category: 'Other',
   tabs: {
     Demo: TetherComponent,
-    'demo.component.html': require("!raw!./tether.component.html"),
-    'demo.component.ts': require("!raw!./tether.component.ts")
+    'demo.component.html': require("!raw-loader!./tether.component.html"),
+    'demo.component.ts': require("!raw-loader!./tether.component.ts")
   }
 };
