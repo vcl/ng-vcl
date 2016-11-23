@@ -7,6 +7,7 @@ export class RadioButtonComponent implements OnInit {
 
   isChecked = false;
   isChecked2 = false;
+  isChecked3 = false;
 
 
   constructor() { }

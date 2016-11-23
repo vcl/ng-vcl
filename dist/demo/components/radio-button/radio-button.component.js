@@ -13,6 +13,7 @@ var RadioButtonComponent = (function () {
     function RadioButtonComponent() {
         this.isChecked = false;
         this.isChecked2 = false;
+        this.isChecked3 = false;
     }
     RadioButtonComponent.prototype.ngOnInit = function () { };
     return RadioButtonComponent;

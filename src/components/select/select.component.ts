@@ -122,7 +122,10 @@ export class SelectComponent implements ControlValueAccessor {
   constructor() {
     this.select.subscribe(selectedItems => {
       this.selected = selectedItems;
-      !!this.onChangeCallback && this.onChangeCallback(selectedItems[0].label);
+
+      if (!this.onChangeCallback) return;
+      const pubValue = this.maxSelectableItems == 1 ? selectedItems[0].label : selectedItems.map(i => i.label);
+      this.onChangeCallback(pubValue);
     });
   }
 
@@ -178,11 +181,6 @@ export class SelectComponent implements ControlValueAccessor {
 
 
 
-
-
-
-
-
   /**
    * things needed for ControlValueAccessor-Interface
    */
@@ -191,6 +189,7 @@ export class SelectComponent implements ControlValueAccessor {
   writeValue(value: any): void {
     if (value !== this.selected) {
       this.selected = value;
+      // TODO preselect the valued items
     }
   }
   registerOnChange(fn: any) {

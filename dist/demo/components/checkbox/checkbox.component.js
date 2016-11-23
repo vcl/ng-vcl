@@ -13,6 +13,7 @@ var CheckboxComponent = (function () {
     function CheckboxComponent() {
         this.isChecked = false;
         this.isChecked2 = false;
+        this.isChecked3 = false;
     }
     return CheckboxComponent;
 }());

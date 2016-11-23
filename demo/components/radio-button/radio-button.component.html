@@ -16,7 +16,11 @@ Disabled:
 <br>
 Radio-Button with label:
 <br>
-<vcl-radio-button [(checked)]="isChecked2" labelPosition="right">rightLabel</vcl-radio-button>
+<vcl-radio-button [(checked)]="isChecked2" labelPosition="right">
+  <label vcl-form-control-label label="rightLabel" subLabel="SubRightLabel"></label>
+</vcl-radio-button>
 <br>
 <br>
-<vcl-radio-button [(checked)]="isChecked2" labelPosition="left">leftLabel</vcl-radio-button>
+<vcl-radio-button [(checked)]="isChecked3" labelPosition="left">
+  <label vcl-form-control-label label="rightLabel" subLabel="SubRightLabel"></label>
+</vcl-radio-button>
