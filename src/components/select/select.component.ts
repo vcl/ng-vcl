@@ -122,7 +122,7 @@ export class SelectComponent implements ControlValueAccessor {
   constructor() {
     this.select.subscribe(selectedItems => {
       this.selected = selectedItems;
-      !!this.onChangeCallback && this.onChangeCallback(selectedItems);
+      !!this.onChangeCallback && this.onChangeCallback(selectedItems[0].label);
     });
   }
 

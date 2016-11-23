@@ -57,7 +57,7 @@ var SelectComponent = (function () {
         this.emptyLabel = 'Select value';
         this.select.subscribe(function (selectedItems) {
             _this.selected = selectedItems;
-            !!_this.onChangeCallback && _this.onChangeCallback(selectedItems);
+            !!_this.onChangeCallback && _this.onChangeCallback(selectedItems[0].label);
         });
     }
     SelectComponent.prototype.ngOnInit = function () {
