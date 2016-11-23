@@ -37,16 +37,15 @@
   ],
   "author": "The ng-vcl authors",
   "license": "MIT",
-  "main": "dist/ng-vcl.cjs.js",
+  "main": "dist/ng-vcl.js",
   "typings": "dist/index.d.ts",
-  "jsnext:main": "dist/ng-vcl.esm.js",
-  "module": "dist/ng-vcl.esm.js",
-  "jspm": {
-    "main": "dist/ng-vcl.esm.js",
-    "format": "esm"
-  },
   "peerDependencies": {
-    "@angular/core": "2.1.2"
+    "@angular/core": "2.1.2",
+    "@angular/http": "2.1.2",
+    "@angular/platform-browser": "2.1.2",
+    "@angular/common": "2.1.2",
+    "@angular/forms": "2.1.2",
+    "@angular/router": "3.1.2"
   },
   "devDependencies": {
     "@angular/common": "2.1.2",
@@ -94,14 +93,13 @@
     "vcl-preprocessor": "^0.1.1",
     "webpack": "2.1.0-beta.20",
     "webpack-dev-server": "2.1.0-beta.3",
-    "zone.js": "0.6.26"
+    "zone.js": "0.6.26",
+    "fuse.js": "^2.5.0"
   },
   "dependencies": {
-    "fuse.js": "^2.5.0",
     "hammerjs": "^2.0.8",
     "jsoneditor": "^5.5.10",
     "jsonschema": "^1.1.0",
-    "marked": "^0.3.6",
     "tether": "^1.3.7"
   }
 }
