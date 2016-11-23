@@ -16,6 +16,7 @@ var forms_1 = require("@angular/forms");
 var flip_switch_module_1 = require("../flip-switch/flip-switch.module");
 var slider_module_1 = require("../slider/slider.module");
 var checkbox_module_1 = require("../checkbox/checkbox.module");
+var select_module_1 = require("../select/select.module");
 var VCLJssFormModule = (function () {
     function VCLJssFormModule() {
     }
@@ -27,7 +28,8 @@ VCLJssFormModule = __decorate([
             common_1.CommonModule, l10n_module_1.L10nModule, forms_1.FormsModule, forms_1.ReactiveFormsModule,
             flip_switch_module_1.VCLFlipSwitchModule,
             slider_module_1.VCLSliderModule,
-            checkbox_module_1.VCLCheckboxModule
+            checkbox_module_1.VCLCheckboxModule,
+            select_module_1.VCLSelectModule
         ],
         exports: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],
         declarations: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],

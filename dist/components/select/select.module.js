@@ -13,9 +13,9 @@ var VCLSelectModule = (function () {
     VCLSelectModule.decorators = [
         { type: core_1.NgModule, args: [{
                     imports: [common_1.CommonModule, l10n_module_1.L10nModule, dropdown_module_1.VCLDropdownModule, button_module_1.VCLButtonModule, off_click_module_1.VCLOffClickModule, popover_module_1.VCLPopoverModule],
-                    exports: [select_component_1.SelectComponent],
-                    declarations: [select_component_1.SelectComponent],
-                    providers: [],
+                    exports: [select_component_1.SelectComponent, select_component_1.SelectOptionComponent],
+                    declarations: [select_component_1.SelectComponent, select_component_1.SelectOptionComponent],
+                    providers: []
                 },] },
     ];
     /** @nocollapse */

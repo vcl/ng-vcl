@@ -1227,6 +1227,43 @@ var VCLButtonModule = (function () {
     return VCLButtonModule;
 }());
 
+var SelectOptionComponent = (function () {
+    function SelectOptionComponent() {
+        this.class = '';
+    }
+    /**
+     * transforms this NavigationItemComponent into an object,
+     * so it can be handled the same way as an inputList
+     * @return {Object}
+     */
+    SelectOptionComponent.prototype.toObject = function () {
+        var ret = {
+            label: this.label,
+            sublabel: this.sublabel,
+            class: this.class
+        };
+        return ret;
+    };
+    __decorate([
+        Input('label'), 
+        __metadata('design:type', String)
+    ], SelectOptionComponent.prototype, "label", void 0);
+    __decorate([
+        Input('sublabel'), 
+        __metadata('design:type', String)
+    ], SelectOptionComponent.prototype, "sublabel", void 0);
+    __decorate([
+        Input('class'), 
+        __metadata('design:type', String)
+    ], SelectOptionComponent.prototype, "class", void 0);
+    SelectOptionComponent = __decorate([
+        Directive({
+            selector: 'vcl-select-option'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SelectOptionComponent);
+    return SelectOptionComponent;
+}());
 /**
  * see
  * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
@@ -1256,6 +1293,14 @@ var SelectComponent = (function () {
     }
     SelectComponent.prototype.ngOnInit = function () {
         this.displayValue = this.emptyLabel;
+    };
+    SelectComponent.prototype.ngAfterContentInit = function () {
+        var templateItemsAr = this.templateItems.toArray();
+        if (templateItemsAr.length > 0) {
+            var items_1 = [];
+            templateItemsAr.map(function (i) { return items_1.push(i.toObject()); });
+            this.items = items_1;
+        }
     };
     SelectComponent.prototype.expand = function () {
         this.expanded = !this.expanded;
@@ -1313,6 +1358,10 @@ var SelectComponent = (function () {
         __metadata('design:type', Boolean)
     ], SelectComponent.prototype, "expanded", void 0);
     __decorate([
+        ContentChildren(SelectOptionComponent), 
+        __metadata('design:type', (typeof (_a = typeof QueryList !== 'undefined' && QueryList) === 'function' && _a) || Object)
+    ], SelectComponent.prototype, "templateItems", void 0);
+    __decorate([
         Input(), 
         __metadata('design:type', Array)
     ], SelectComponent.prototype, "items", void 0);
@@ -1350,6 +1399,7 @@ var SelectComponent = (function () {
         __metadata('design:paramtypes', [])
     ], SelectComponent);
     return SelectComponent;
+    var _a;
 }());
 
 var OverlayManagerService = (function () {
@@ -1639,9 +1689,9 @@ var VCLSelectModule = (function () {
     VCLSelectModule = __decorate([
         NgModule({
             imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule, VCLPopoverModule],
-            exports: [SelectComponent],
-            declarations: [SelectComponent],
-            providers: [],
+            exports: [SelectComponent, SelectOptionComponent],
+            declarations: [SelectComponent, SelectOptionComponent],
+            providers: []
         }), 
         __metadata('design:paramtypes', [])
     ], VCLSelectModule);
@@ -5242,7 +5292,8 @@ var VCLJssFormModule = (function () {
                 CommonModule, L10nModule, FormsModule, ReactiveFormsModule,
                 VCLFlipSwitchModule,
                 VCLSliderModule,
-                VCLCheckboxModule
+                VCLCheckboxModule,
+                VCLSelectModule
             ],
             exports: [JssFormComponent, JssFormObjectComponent],
             declarations: [JssFormComponent, JssFormObjectComponent],

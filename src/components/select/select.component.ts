@@ -1,16 +1,66 @@
 import {
   Component,
+  Directive,
   Input,
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
   ViewChild,
+  ContentChildren,
+  QueryList,
   Optional,
   forwardRef
 } from '@angular/core';
 
 
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+
+
+
+
+
+
+
+
+
+@Directive({
+  selector: 'vcl-select-option'
+})
+export class SelectOptionComponent {
+
+  @Input('label') label: string;
+  @Input('sublabel') sublabel: string;
+  @Input('class') class: string = '';
+
+  constructor() { }
+
+  /**
+   * transforms this NavigationItemComponent into an object,
+   * so it can be handled the same way as an inputList
+   * @return {Object}
+   */
+  toObject(): Object {
+    const ret = {
+      label: this.label,
+      sublabel: this.sublabel,
+      class: this.class
+    };
+    return ret;
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -40,6 +90,9 @@ export class SelectComponent implements ControlValueAccessor {
 
   @Input()
   expanded: boolean = false;
+
+  @ContentChildren(SelectOptionComponent)
+  templateItems: QueryList<SelectOptionComponent>;
 
   @Input()
   items: any[];
@@ -76,6 +129,16 @@ export class SelectComponent implements ControlValueAccessor {
 
   ngOnInit() {
     this.displayValue = this.emptyLabel;
+  }
+
+
+  ngAfterContentInit() {
+    let templateItemsAr = this.templateItems.toArray();
+    if (templateItemsAr.length > 0) {
+      const items = [];
+      templateItemsAr.map(i => items.push(i.toObject()));
+      this.items = items;
+    }
   }
 
   expand() {

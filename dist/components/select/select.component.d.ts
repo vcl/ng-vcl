@@ -1,6 +1,18 @@
 /// <reference types="core-js" />
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+export declare class SelectOptionComponent {
+    label: string;
+    sublabel: string;
+    class: string;
+    constructor();
+    /**
+     * transforms this NavigationItemComponent into an object,
+     * so it can be handled the same way as an inputList
+     * @return {Object}
+     */
+    toObject(): Object;
+}
 /**
  * see
  * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
@@ -12,6 +24,7 @@ export declare class SelectComponent implements ControlValueAccessor {
     popoverTarget: string;
     select: EventEmitter<any[]>;
     expanded: boolean;
+    templateItems: QueryList<SelectOptionComponent>;
     items: any[];
     minSelectableItems: number;
     maxSelectableItems: number;
@@ -23,6 +36,7 @@ export declare class SelectComponent implements ControlValueAccessor {
     selected: Object[];
     constructor();
     ngOnInit(): void;
+    ngAfterContentInit(): void;
     expand(): void;
     selectItem(item: any): void;
     /**

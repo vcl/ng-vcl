@@ -10,6 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var SelectOptionComponent = (function () {
+    function SelectOptionComponent() {
+        this.class = '';
+    }
+    SelectOptionComponent.prototype.toObject = function () {
+        var ret = {
+            label: this.label,
+            sublabel: this.sublabel,
+            class: this.class
+        };
+        return ret;
+    };
+    return SelectOptionComponent;
+}());
+__decorate([
+    core_1.Input('label'),
+    __metadata("design:type", String)
+], SelectOptionComponent.prototype, "label", void 0);
+__decorate([
+    core_1.Input('sublabel'),
+    __metadata("design:type", String)
+], SelectOptionComponent.prototype, "sublabel", void 0);
+__decorate([
+    core_1.Input('class'),
+    __metadata("design:type", String)
+], SelectOptionComponent.prototype, "class", void 0);
+SelectOptionComponent = __decorate([
+    core_1.Directive({
+        selector: 'vcl-select-option'
+    }),
+    __metadata("design:paramtypes", [])
+], SelectOptionComponent);
+exports.SelectOptionComponent = SelectOptionComponent;
 exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
     provide: forms_1.NG_VALUE_ACCESSOR,
     useExisting: core_1.forwardRef(function () { return SelectComponent; }),
@@ -35,6 +68,14 @@ var SelectComponent = (function () {
     }
     SelectComponent.prototype.ngOnInit = function () {
         this.displayValue = this.emptyLabel;
+    };
+    SelectComponent.prototype.ngAfterContentInit = function () {
+        var templateItemsAr = this.templateItems.toArray();
+        if (templateItemsAr.length > 0) {
+            var items_1 = [];
+            templateItemsAr.map(function (i) { return items_1.push(i.toObject()); });
+            this.items = items_1;
+        }
     };
     SelectComponent.prototype.expand = function () {
         this.expanded = !this.expanded;
@@ -90,6 +131,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], SelectComponent.prototype, "expanded", void 0);
+__decorate([
+    core_1.ContentChildren(SelectOptionComponent),
+    __metadata("design:type", core_1.QueryList)
+], SelectComponent.prototype, "templateItems", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Array)

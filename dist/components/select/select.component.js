@@ -1,6 +1,38 @@
 "use strict";
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
+var SelectOptionComponent = (function () {
+    function SelectOptionComponent() {
+        this.class = '';
+    }
+    /**
+     * transforms this NavigationItemComponent into an object,
+     * so it can be handled the same way as an inputList
+     * @return {Object}
+     */
+    SelectOptionComponent.prototype.toObject = function () {
+        var ret = {
+            label: this.label,
+            sublabel: this.sublabel,
+            class: this.class
+        };
+        return ret;
+    };
+    SelectOptionComponent.decorators = [
+        { type: core_1.Directive, args: [{
+                    selector: 'vcl-select-option'
+                },] },
+    ];
+    /** @nocollapse */
+    SelectOptionComponent.ctorParameters = [];
+    SelectOptionComponent.propDecorators = {
+        'label': [{ type: core_1.Input, args: ['label',] },],
+        'sublabel': [{ type: core_1.Input, args: ['sublabel',] },],
+        'class': [{ type: core_1.Input, args: ['class',] },],
+    };
+    return SelectOptionComponent;
+}());
+exports.SelectOptionComponent = SelectOptionComponent;
 /**
  * see
  * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
@@ -30,6 +62,14 @@ var SelectComponent = (function () {
     }
     SelectComponent.prototype.ngOnInit = function () {
         this.displayValue = this.emptyLabel;
+    };
+    SelectComponent.prototype.ngAfterContentInit = function () {
+        var templateItemsAr = this.templateItems.toArray();
+        if (templateItemsAr.length > 0) {
+            var items_1 = [];
+            templateItemsAr.map(function (i) { return items_1.push(i.toObject()); });
+            this.items = items_1;
+        }
     };
     SelectComponent.prototype.expand = function () {
         this.expanded = !this.expanded;
@@ -88,6 +128,7 @@ var SelectComponent = (function () {
         'dropdown': [{ type: core_1.ViewChild, args: ['dropdown',] },],
         'select': [{ type: core_1.Output },],
         'expanded': [{ type: core_1.Input },],
+        'templateItems': [{ type: core_1.ContentChildren, args: [SelectOptionComponent,] },],
         'items': [{ type: core_1.Input },],
         'minSelectableItems': [{ type: core_1.Input },],
         'maxSelectableItems': [{ type: core_1.Input },],
