@@ -30,6 +30,11 @@ var JssFormComponent = (function () {
                     type: 'string',
                     enum: ['red', 'green', 'blue', 'yellow']
                 },
+                isleader: {
+                    label: 'leader',
+                    formType: 'checkbox',
+                    type: 'boolean'
+                },
                 hp: {
                     type: 'number',
                     formType: 'slider',
@@ -62,6 +67,7 @@ var JssFormComponent = (function () {
             required: ['name', 'color']
         };
         this.value = {
+            isleader: true,
             color: 'red',
             alive: true,
             hp: 50

@@ -5151,7 +5151,7 @@ var JssFormObjectComponent = (function () {
     JssFormObjectComponent = __decorate([
         Component({
             selector: 'vcl-jss-form-object',
-            template: "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\" />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <select [formControlName]=\"key\">\n          <option *ngFor=\"let opt of schema.properties[key].enum\">{{opt}}</option>\n        </select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider [min]=\"schema.properties[key].min\" [max]=\"schema.properties[key].max\" [formControlName]=\"key\"></vcl-slider>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n",
+            template: "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\" />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <select [formControlName]=\"key\">\n          <option *ngFor=\"let opt of schema.properties[key].enum\">{{opt}}</option>\n        </select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider [min]=\"schema.properties[key].min\" [max]=\"schema.properties[key].max\" [formControlName]=\"key\"></vcl-slider>\n      </div>\n      <div *ngSwitchCase=\"'checkbox'\">\n        <vcl-checkbox [formControlName]=\"key\"></vcl-checkbox>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n",
         }), 
         __metadata('design:paramtypes', [])
     ], JssFormObjectComponent);
@@ -5238,9 +5238,12 @@ var VCLJssFormModule = (function () {
     }
     VCLJssFormModule = __decorate([
         NgModule({
-            imports: [CommonModule, L10nModule, FormsModule, ReactiveFormsModule,
+            imports: [
+                CommonModule, L10nModule, FormsModule, ReactiveFormsModule,
                 VCLFlipSwitchModule,
-                VCLSliderModule],
+                VCLSliderModule,
+                VCLCheckboxModule
+            ],
             exports: [JssFormComponent, JssFormObjectComponent],
             declarations: [JssFormComponent, JssFormObjectComponent],
             providers: [],

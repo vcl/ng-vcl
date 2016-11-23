@@ -30,6 +30,11 @@ export class JssFormComponent implements OnInit {
         type: 'string',
         enum: ['red', 'green', 'blue', 'yellow']
       },
+      isleader: {
+        label: 'leader',
+        formType: 'checkbox',
+        type: 'boolean'
+      },
       hp: {
         type: 'number',
         formType: 'slider',
@@ -63,6 +68,7 @@ export class JssFormComponent implements OnInit {
   };
 
   value = {
+    isleader: true,
     color: 'red',
     alive: true,
     hp: 50

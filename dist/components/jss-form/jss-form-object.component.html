@@ -33,6 +33,9 @@ style="border-style:solid;margin:5px;padding: 5px;">
       <div *ngSwitchCase="'slider'">
         <vcl-slider [min]="schema.properties[key].min" [max]="schema.properties[key].max" [formControlName]="key"></vcl-slider>
       </div>
+      <div *ngSwitchCase="'checkbox'">
+        <vcl-checkbox [formControlName]="key"></vcl-checkbox>
+      </div>
 
 
     </div>
