@@ -15,6 +15,11 @@
   <h4>Value: {{ form.value | json }}</h4>
 </div>
 
-<div class="error">
+<div class="status">
   <h4>Status: {{ form.status }}</h4>
+</div>
+
+
+<div class="error">
+  <h4>Errors: {{ form.errors | json }}</h4>
 </div>

@@ -3227,6 +3227,120 @@ var VCLToolbarModule = (function () {
     return VCLToolbarModule;
 }());
 
+var ProgressBarComponent = (function () {
+    function ProgressBarComponent() {
+        this.value = null;
+        this.secondaryValue = null;
+        this.minValue = 0;
+        this.maxValue = 100;
+        this.indeterminate = false;
+        this.label = null;
+    }
+    Object.defineProperty(ProgressBarComponent.prototype, "showIndeterminate", {
+        get: function () {
+            return this.indeterminate && !this.validateValue(this.value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "showValue", {
+        get: function () {
+            return !this.indeterminate || this.validateValue(this.value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "showSecondaryValue", {
+        get: function () {
+            return this.validateValue(this.secondaryValue);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "transformValue", {
+        get: function () {
+            var value = this.validateValue(this.value) ? this.scaleValue(this.value) : 0;
+            return "scaleX(" + value + ")";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "transformSecondaryValue", {
+        get: function () {
+            var value = this.validateValue(this.secondaryValue) ? this.scaleValue(this.secondaryValue) : 0;
+            return "scaleX(" + value + ")";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProgressBarComponent.prototype, "range", {
+        get: function () {
+            return this.maxValue - this.minValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ProgressBarComponent.prototype.scaleValue = function (value) {
+        return (value - this.minValue) / this.range;
+    };
+    ProgressBarComponent.prototype.validateValue = function (value) {
+        return typeof value === 'number' &&
+            value !== NaN &&
+            value >= this.minValue &&
+            value <= this.maxValue;
+    };
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "value", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "secondaryValue", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "minValue", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Number)
+    ], ProgressBarComponent.prototype, "maxValue", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', Boolean)
+    ], ProgressBarComponent.prototype, "indeterminate", void 0);
+    __decorate([
+        _angular_core.Input(), 
+        __metadata('design:type', String)
+    ], ProgressBarComponent.prototype, "label", void 0);
+    ProgressBarComponent = __decorate([
+        _angular_core.Component({
+            selector: 'vcl-progress-bar',
+            template: "<div class=\"vclProgressBar\"\n     [attr.aria-valuenow]=\"value\" \n     [attr.aria-valuemin]=\"minValue\" \n     [attr.aria-valuenow]=\"aria-valuemax\" \n     [attr.aria-valuetext]=\"label\"\n     [class.vclIndeterminate]=\"showIndeterminate\"\n     >\n  <div *ngIf=\"showValue\" class=\"vclProgress vclPrimary vclLayoutFit\" [style.transform]=\"transformValue\"></div>\n  <div *ngIf=\"showSecondaryValue\" class=\"vclProgress vclSecondary vclLayoutFit\" [style.transform]=\"transformSecondaryValue\"></div>\n  <div *ngIf=\"showIndeterminate\" class=\"vclProgress vclPrimary vclLayoutFit\"></div>\n</div>\n\n",
+            host: {
+                '[attr.role]': '"progressbar"',
+            },
+            changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ProgressBarComponent);
+    return ProgressBarComponent;
+}());
+
+var VCLProgressBarModule = (function () {
+    function VCLProgressBarModule() {
+    }
+    VCLProgressBarModule = __decorate([
+        _angular_core.NgModule({
+            imports: [_angular_common.CommonModule],
+            exports: [ProgressBarComponent],
+            declarations: [ProgressBarComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLProgressBarModule);
+    return VCLProgressBarModule;
+}());
+
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$3 = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return RadioButtonComponent; }),
@@ -5059,46 +5173,40 @@ var JssFormComponent = (function () {
         this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.form = this.fb.group({
-            name: [''],
-            color: [''],
-            hp: [''],
-            alive: [''],
-            mainSkill: this.fb.group({
-                name: [''],
-                damage: [4]
-            })
-        }, {
-            validator: function (c) {
-                var errors = _this.jsonSchemaValidate(c.value);
-                return errors;
-                /*          console.log('Dddd');
-                          console.dir(errors);
-                          return null;
-                  */ }
-        });
-        // the module-based forms logic is made with the FormBuilder
-        /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
-              validator: (c: AbstractControl) => {
-                return true; // TODO validate if form matches
-    //         return c.get('myname').value === c.get('myname2').value
-    //                      ? null : { notequal: true };
-      }
-    });*/
-        console.log('vvvvalue');
-        console.dir(this.value);
+        this.form = this.formGroupFromSchema(this.schema);
         this.value && this.form.patchValue(this.value);
-        console.log('formGroup::::');
-        console.dir(this.form);
     };
     JssFormComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
     };
-    JssFormComponent.prototype.jsonSchemaValidate = function (obj) {
+    /**
+     * create the formGroup for the given schema
+     * @param  {Object}    schemaObj
+     * @return {FormGroup}               [description]
+     */
+    JssFormComponent.prototype.formGroupFromSchema = function (schemaObj) {
+        var _this = this;
+        var ret = {};
+        // non-objects
+        Object.keys(schemaObj.properties)
+            .filter(function (k) { return schemaObj.properties[k].type != 'object'; })
+            .map(function (k) { return ret[k] = ['']; });
+        // objects
+        Object.keys(schemaObj.properties)
+            .filter(function (k) { return schemaObj.properties[k].type == 'object'; })
+            .map(function (k) { return ret[k] = _this.formGroupFromSchema(schemaObj.properties[k]); });
+        return this.fb.group(ret, {
+            validator: function (c) {
+                var errors = _this.jsonSchemaValidate(c.value, schemaObj);
+                return errors;
+            }
+        });
+    };
+    JssFormComponent.prototype.jsonSchemaValidate = function (obj, schema) {
+        if (schema === void 0) { schema = this.schema; }
         if (!VALIDATOR)
             VALIDATOR = new Validator();
-        var valid = VALIDATOR.validate(obj, this.schema);
+        var valid = VALIDATOR.validate(obj, schema);
         if (valid.errors.length == 0)
             return null;
         return valid.errors;
@@ -5116,7 +5224,7 @@ var JssFormComponent = (function () {
     JssFormComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-jss-form',
-            template: "<form class=\"vclForm\" novalidate [formGroup]=\"form\">\n<div>\n  <h1>JSS from</h1>\n\n\n\n  <vcl-jss-form-object [schema]=\"schema\" [formGroup]=\"form\"></vcl-jss-form-object>\n\n\n</div>\n</form>\n\n\n<div class=\"value\">\n  <h4>Value: {{ form.value | json }}</h4>\n</div>\n\n<div class=\"error\">\n  <h4>Status: {{ form.status }}</h4>\n</div>\n"
+            template: "<form class=\"vclForm\" novalidate [formGroup]=\"form\">\n<div>\n  <h1>JSS from</h1>\n\n\n\n  <vcl-jss-form-object [schema]=\"schema\" [formGroup]=\"form\"></vcl-jss-form-object>\n\n\n</div>\n</form>\n\n\n<div class=\"value\">\n  <h4>Value: {{ form.value | json }}</h4>\n</div>\n\n<div class=\"status\">\n  <h4>Status: {{ form.status }}</h4>\n</div>\n\n\n<div class=\"error\">\n  <h4>Errors: {{ form.errors | json }}</h4>\n</div>\n"
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof _angular_forms.FormBuilder !== 'undefined' && _angular_forms.FormBuilder) === 'function' && _a) || Object])
     ], JssFormComponent);
@@ -5161,6 +5269,7 @@ var VCLModule = (function () {
                 VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
+                VCLProgressBarModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
@@ -5192,6 +5301,7 @@ var VCLModule = (function () {
                 VCLNavigationModule,
                 VCLToolbarModule,
                 VCLPopoverModule,
+                VCLProgressBarModule,
                 VCLRadioButtonModule,
                 VCLCheckboxModule,
                 VCLFormControlLabelModule,
@@ -5240,6 +5350,7 @@ exports.VCLTetherModule = VCLTetherModule;
 exports.VCLLinkModule = VCLLinkModule;
 exports.PopoverComponent = PopoverComponent;
 exports.VCLPopoverModule = VCLPopoverModule;
+exports.VCLProgressBarModule = VCLProgressBarModule;
 exports.VCLRadioButtonModule = VCLRadioButtonModule;
 exports.CheckboxComponent = CheckboxComponent;
 exports.VCLCheckboxModule = VCLCheckboxModule;

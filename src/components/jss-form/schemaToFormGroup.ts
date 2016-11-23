@@ -1,5 +1,8 @@
 import { FormGroup, Validators, FormBuilder, AbstractControl  } from '@angular/forms';
 
+
+// TODO is this function used?
+
 export function schemaToFormGroup(schema: any): any {
 
   const fGroupObj = {

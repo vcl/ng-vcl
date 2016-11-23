@@ -77,39 +77,10 @@ export class JssFormComponent implements OnInit {
 
   ngOnInit() {
 
-    this.form = this.fb.group({
-      name: [''],
-      color: [''],
-      hp: [''],
-      alive: [''],
-      mainSkill: this.fb.group({
-        name: [''],
-        damage: [4]
-      })
-    }, {
-        validator: (c: AbstractControl) => {
-          const errors = this.jsonSchemaValidate(c.value);
-          return errors;
-/*          console.log('Dddd');
-          console.dir(errors);
-          return null;
-  */      }
-      });
+    this.form = this.formGroupFromSchema(this.schema);
 
-    // the module-based forms logic is made with the FormBuilder
-    /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
-          validator: (c: AbstractControl) => {
-            return true; // TODO validate if form matches
-//         return c.get('myname').value === c.get('myname2').value
-//                      ? null : { notequal: true };
-  }
-});*/
-  console.log('vvvvalue');
-  console.dir(this.value);
     this.value && this.form.patchValue(this.value);
 
-    console.log('formGroup::::');
-    console.dir(this.form);
   }
 
 
@@ -118,9 +89,37 @@ export class JssFormComponent implements OnInit {
   }
 
 
-  jsonSchemaValidate(obj: Object): true {
+
+  /**
+   * create the formGroup for the given schema
+   * @param  {Object}    schemaObj
+   * @return {FormGroup}               [description]
+   */
+  formGroupFromSchema(schemaObj: any): FormGroup {
+    const ret = {};
+
+    // non-objects
+    Object.keys(schemaObj.properties)
+      .filter(k => schemaObj.properties[k].type != 'object')
+      .map(k => ret[k] = ['']);
+
+    // objects
+    Object.keys(schemaObj.properties)
+      .filter(k => schemaObj.properties[k].type == 'object')
+      .map(k => ret[k] = this.formGroupFromSchema(schemaObj.properties[k]));
+
+    return this.fb.group(ret, {
+      validator: (c: AbstractControl) => {
+        const errors = this.jsonSchemaValidate(c.value, schemaObj);
+        return errors;
+      }
+    });
+  }
+
+
+  jsonSchemaValidate(obj: Object, schema = this.schema): true {
   if (!VALIDATOR) VALIDATOR = new Validator();
-  const valid = VALIDATOR.validate(obj, this.schema);
+  const valid = VALIDATOR.validate(obj, schema);
   if (valid.errors.length == 0) return null;
   return valid.errors;
 }

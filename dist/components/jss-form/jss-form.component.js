@@ -52,46 +52,40 @@ var JssFormComponent = (function () {
         this.value = {};
     }
     JssFormComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.form = this.fb.group({
-            name: [''],
-            color: [''],
-            hp: [''],
-            alive: [''],
-            mainSkill: this.fb.group({
-                name: [''],
-                damage: [4]
-            })
-        }, {
-            validator: function (c) {
-                var errors = _this.jsonSchemaValidate(c.value);
-                return errors;
-                /*          console.log('Dddd');
-                          console.dir(errors);
-                          return null;
-                  */ }
-        });
-        // the module-based forms logic is made with the FormBuilder
-        /*    this.form = this.fb.group(schemaToFormGroup(this.schema), {
-              validator: (c: AbstractControl) => {
-                return true; // TODO validate if form matches
-    //         return c.get('myname').value === c.get('myname2').value
-    //                      ? null : { notequal: true };
-      }
-    });*/
-        console.log('vvvvalue');
-        console.dir(this.value);
+        this.form = this.formGroupFromSchema(this.schema);
         this.value && this.form.patchValue(this.value);
-        console.log('formGroup::::');
-        console.dir(this.form);
     };
     JssFormComponent.prototype.keys = function (obj) {
         return Object.keys(obj);
     };
-    JssFormComponent.prototype.jsonSchemaValidate = function (obj) {
+    /**
+     * create the formGroup for the given schema
+     * @param  {Object}    schemaObj
+     * @return {FormGroup}               [description]
+     */
+    JssFormComponent.prototype.formGroupFromSchema = function (schemaObj) {
+        var _this = this;
+        var ret = {};
+        // non-objects
+        Object.keys(schemaObj.properties)
+            .filter(function (k) { return schemaObj.properties[k].type != 'object'; })
+            .map(function (k) { return ret[k] = ['']; });
+        // objects
+        Object.keys(schemaObj.properties)
+            .filter(function (k) { return schemaObj.properties[k].type == 'object'; })
+            .map(function (k) { return ret[k] = _this.formGroupFromSchema(schemaObj.properties[k]); });
+        return this.fb.group(ret, {
+            validator: function (c) {
+                var errors = _this.jsonSchemaValidate(c.value, schemaObj);
+                return errors;
+            }
+        });
+    };
+    JssFormComponent.prototype.jsonSchemaValidate = function (obj, schema) {
+        if (schema === void 0) { schema = this.schema; }
         if (!VALIDATOR)
             VALIDATOR = new Validator();
-        var valid = VALIDATOR.validate(obj, this.schema);
+        var valid = VALIDATOR.validate(obj, schema);
         if (valid.errors.length == 0)
             return null;
         return valid.errors;

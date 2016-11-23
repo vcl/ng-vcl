@@ -18,6 +18,12 @@ export declare class JssFormComponent implements OnInit {
     constructor(fb: FormBuilder);
     ngOnInit(): void;
     keys(obj: any): string[];
-    jsonSchemaValidate(obj: Object): true;
+    /**
+     * create the formGroup for the given schema
+     * @param  {Object}    schemaObj
+     * @return {FormGroup}               [description]
+     */
+    formGroupFromSchema(schemaObj: any): FormGroup;
+    jsonSchemaValidate(obj: Object, schema?: any): true;
     ngAfterViewInit(): void;
 }

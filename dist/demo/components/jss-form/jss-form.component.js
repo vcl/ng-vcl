@@ -46,7 +46,8 @@ var JssFormComponent = (function () {
                     properties: {
                         name: {
                             type: 'string',
-                            formType: 'text'
+                            formType: 'text',
+                            minLength: 1
                         },
                         damage: {
                             type: 'number',
