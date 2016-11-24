@@ -46,12 +46,12 @@
     "format": "esm"
   },
   "peerDependencies": {
-    "@angular/common": "^2",
-    "@angular/core": "^2",
-    "@angular/forms": "^",
-    "@angular/http": "^2",
-    "@angular/platform-browser": "^2",
-    "@angular/router": "^2"
+    "@angular/common": "^2.1.0",
+    "@angular/core": "^2.1.0",
+    "@angular/forms": "^2.1.0",
+    "@angular/http": "^2.1.0",
+    "@angular/platform-browser": "^2.1.0",
+    "@angular/router": "^2.1.0"
   },
   "devDependencies": {
     "@angular/common": "^2.2.3",
