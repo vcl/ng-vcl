@@ -2,8 +2,16 @@
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var JSONEditor = require('jsoneditor/dist/jsoneditor.js');
-// TODO include this css-file without breaking everything else
-// require('style!jsoneditor/dist/jsoneditor.css');
+/**
+ * The JSON editor needs styling and some graphics
+ * We read the raw css and svg files and replace any file reference to the svg with
+ * an inline reference of the data encoded svg file
+ *
+ * The css must be added as a style with  ViewEncapsulation set to None
+ */
+var JSONEditorSVG = require('!raw-loader!jsoneditor/dist/img/jsoneditor-icons.svg');
+var JSONEditorCSS = require('!raw-loader!jsoneditor/dist/jsoneditor.css')
+    .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
 exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
     provide: forms_1.NG_VALUE_ACCESSOR,
     useExisting: core_1.forwardRef(function () { return JsonEditorComponent; }),
@@ -50,6 +58,8 @@ var JsonEditorComponent = (function () {
     JsonEditorComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-json-editor',
+                    styles: [JSONEditorCSS],
+                    encapsulation: core_1.ViewEncapsulation.None,
                     templateUrl: 'json-editor.component.html',
                     providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
                 },] },
