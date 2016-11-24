@@ -3585,11 +3585,6 @@ var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4 = {
 };
 var RadioGroupComponent = (function () {
     function RadioGroupComponent() {
-        this.disabled = false;
-        /*    this._checkedChange.subscribe(newVal => {
-              !!this.onChangeCallback && this.onChangeCallback(newVal);
-            });
-          */
     }
     RadioGroupComponent.prototype.ngOnInit = function () {
         console.dir(this.value);
@@ -3600,13 +3595,11 @@ var RadioGroupComponent = (function () {
     };
     RadioGroupComponent.prototype.buttonChanged = function (value, state) {
         console.log('btn changeD:');
-        console.dir(value);
-        console.dir(state);
+        this.value = value;
+        !!this.onChangeCallback && this.onChangeCallback(this.value);
     };
     RadioGroupComponent.prototype.writeValue = function (value) {
-        /*    if (value !== this.checked) {
-              this.checked = value;
-            }*/
+        this.value = value;
     };
     RadioGroupComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -3622,19 +3615,11 @@ var RadioGroupComponent = (function () {
         _angular_core.Input('options'), 
         __metadata('design:type', Array)
     ], RadioGroupComponent.prototype, "options", void 0);
-    __decorate([
-        _angular_core.Input('disabled'), 
-        __metadata('design:type', Boolean)
-    ], RadioGroupComponent.prototype, "disabled", void 0);
     RadioGroupComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-radio-group',
             template: "<vcl-radio-button *ngFor=\"let option of options\"\n [checked]=\"isChecked(option)\"\n (change)=\"buttonChanged(option.value, $event)\"\n>\n  {{ option.label }}\n</vcl-radio-button>\n<br *ngFor=\"let option of options\" />\n",
-            host: {
-                '[attr.role]': '"radio"',
-                '[class.vclCheckbox]': 'true',
-                '[class.vclScale130p]': 'true',
-            },
+            host: {},
             //changeDetection: ChangeDetectionStrategy.OnPush,
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4]
         }), 

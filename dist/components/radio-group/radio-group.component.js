@@ -11,11 +11,6 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 };
 var RadioGroupComponent = (function () {
     function RadioGroupComponent() {
-        this.disabled = false;
-        /*    this._checkedChange.subscribe(newVal => {
-              !!this.onChangeCallback && this.onChangeCallback(newVal);
-            });
-          */
     }
     RadioGroupComponent.prototype.ngOnInit = function () {
         console.dir(this.value);
@@ -26,13 +21,11 @@ var RadioGroupComponent = (function () {
     };
     RadioGroupComponent.prototype.buttonChanged = function (value, state) {
         console.log('btn changeD:');
-        console.dir(value);
-        console.dir(state);
+        this.value = value;
+        !!this.onChangeCallback && this.onChangeCallback(this.value);
     };
     RadioGroupComponent.prototype.writeValue = function (value) {
-        /*    if (value !== this.checked) {
-              this.checked = value;
-            }*/
+        this.value = value;
     };
     RadioGroupComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -44,11 +37,7 @@ var RadioGroupComponent = (function () {
         { type: core_1.Component, args: [{
                     selector: 'vcl-radio-group',
                     templateUrl: 'radio-group.component.html',
-                    host: {
-                        '[attr.role]': '"radio"',
-                        '[class.vclCheckbox]': 'true',
-                        '[class.vclScale130p]': 'true',
-                    },
+                    host: {},
                     //changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
                 },] },
@@ -58,7 +47,6 @@ var RadioGroupComponent = (function () {
     RadioGroupComponent.propDecorators = {
         'value': [{ type: core_1.Input, args: ['value',] },],
         'options': [{ type: core_1.Input, args: ['options',] },],
-        'disabled': [{ type: core_1.Input, args: ['disabled',] },],
     };
     return RadioGroupComponent;
 }());

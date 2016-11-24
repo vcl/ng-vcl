@@ -21,28 +21,20 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-radio-group',
   templateUrl: 'radio-group.component.html',
-  host: {
-    '[attr.role]': '"radio"',
-    '[class.vclCheckbox]': 'true',
-    '[class.vclScale130p]': 'true',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {},
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   @Input('value') value: string;
   @Input('options') options: any[];
-  @Input('disabled') disabled: boolean = false;
 
-  constructor() {
-    /*    this._checkedChange.subscribe(newVal => {
-          !!this.onChangeCallback && this.onChangeCallback(newVal);
-        });
-      */
+  constructor() { }
+
+  ngOnInit() {
+    console.dir(this.value);
   }
-
-  ngOnInit() { }
 
   ngOnChanges() { }
 
@@ -52,16 +44,22 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
     return option.value == this.value;
   }
 
+
+
+  buttonChanged(value, state) {
+    console.log('btn changeD:');
+    this.value = value;
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  }
+
   /**
    * things needed for ControlValueAccessor-Interface
    */
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
 
-  writeValue(value: boolean): void {
-    /*    if (value !== this.checked) {
-          this.checked = value;
-        }*/
+  writeValue(value: string): void {
+    this.value = value;
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;

@@ -17,7 +17,6 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 };
 var RadioGroupComponent = (function () {
     function RadioGroupComponent() {
-        this.disabled = false;
     }
     RadioGroupComponent.prototype.ngOnInit = function () {
         console.dir(this.value);
@@ -28,10 +27,11 @@ var RadioGroupComponent = (function () {
     };
     RadioGroupComponent.prototype.buttonChanged = function (value, state) {
         console.log('btn changeD:');
-        console.dir(value);
-        console.dir(state);
+        this.value = value;
+        !!this.onChangeCallback && this.onChangeCallback(this.value);
     };
     RadioGroupComponent.prototype.writeValue = function (value) {
+        this.value = value;
     };
     RadioGroupComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -49,19 +49,11 @@ __decorate([
     core_1.Input('options'),
     __metadata("design:type", Array)
 ], RadioGroupComponent.prototype, "options", void 0);
-__decorate([
-    core_1.Input('disabled'),
-    __metadata("design:type", Boolean)
-], RadioGroupComponent.prototype, "disabled", void 0);
 RadioGroupComponent = __decorate([
     core_1.Component({
         selector: 'vcl-radio-group',
         templateUrl: 'radio-group.component.html',
-        host: {
-            '[attr.role]': '"radio"',
-            '[class.vclCheckbox]': 'true',
-            '[class.vclScale130p]': 'true',
-        },
+        host: {},
         providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
     }),
     __metadata("design:paramtypes", [])

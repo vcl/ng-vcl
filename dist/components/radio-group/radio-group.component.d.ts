@@ -4,7 +4,6 @@ export declare const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any;
 export declare class RadioGroupComponent implements OnInit, OnChanges, ControlValueAccessor {
     value: string;
     options: any[];
-    disabled: boolean;
     constructor();
     ngOnInit(): void;
     ngOnChanges(): void;
@@ -15,7 +14,7 @@ export declare class RadioGroupComponent implements OnInit, OnChanges, ControlVa
      */
     private onTouchedCallback;
     private onChangeCallback;
-    writeValue(value: boolean): void;
+    writeValue(value: string): void;
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;
 }
