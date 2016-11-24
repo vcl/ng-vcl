@@ -2,7 +2,8 @@ import {
   Component,
   Input,
   ViewChild,
-  forwardRef
+  forwardRef,
+  HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -97,6 +98,26 @@ export class SliderComponent implements ControlValueAccessor {
     let deltaPer = 100 / (fullPx / deltaPx);
     deltaPer = Math.round(deltaPer * 100) / 100; // round 2 decs
     return deltaPer;
+  }
+
+
+  /**
+   * clicking the rail should also reposition the bar
+   */
+  @HostListener('tap', ['$event'])
+  onTap(event) {
+    if (event.target.className == 'vclSliderKnob') return;
+
+    const layerX = event.changedPointers[0].layerX;
+    if (layerX != 0) {
+      this.percentLeftKnob = this.deltaPxToPercent(layerX);
+
+      if (this.stepsOnly)
+        this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
+
+      this.value = this.percentToValue(this.percentLeftKnob);
+      !!this.onChangeCallback && this.onChangeCallback(this.value);
+    }
   }
 
 

@@ -19,6 +19,10 @@ export declare class SliderComponent implements ControlValueAccessor {
     closestScalePoint(percentValue: any): number;
     scalePointLabel(i: number): string;
     deltaPxToPercent(deltaPx: number): number;
+    /**
+     * clicking the rail should also reposition the bar
+     */
+    onTap(event: any): void;
     lastPercentLeftKnob: number;
     firstPan: boolean;
     onPan(ev: any): void;

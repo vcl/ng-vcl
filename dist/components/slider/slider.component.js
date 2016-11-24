@@ -70,6 +70,21 @@ var SliderComponent = (function () {
         deltaPer = Math.round(deltaPer * 100) / 100; // round 2 decs
         return deltaPer;
     };
+    /**
+     * clicking the rail should also reposition the bar
+     */
+    SliderComponent.prototype.onTap = function (event) {
+        if (event.target.className == 'vclSliderKnob')
+            return;
+        var layerX = event.changedPointers[0].layerX;
+        if (layerX != 0) {
+            this.percentLeftKnob = this.deltaPxToPercent(layerX);
+            if (this.stepsOnly)
+                this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
+            this.value = this.percentToValue(this.percentLeftKnob);
+            !!this.onChangeCallback && this.onChangeCallback(this.value);
+        }
+    };
     SliderComponent.prototype.onPan = function (ev) {
         if (this.firstPan) {
             this.firstPan = false;
@@ -121,6 +136,7 @@ var SliderComponent = (function () {
         'round': [{ type: core_1.Input, args: ['round',] },],
         'scaleNames': [{ type: core_1.Input, args: ['scaleNames',] },],
         'scale': [{ type: core_1.ViewChild, args: ['scale',] },],
+        'onTap': [{ type: core_1.HostListener, args: ['tap', ['$event'],] },],
     };
     return SliderComponent;
 }());

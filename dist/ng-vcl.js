@@ -5774,6 +5774,21 @@ var SliderComponent = (function () {
         deltaPer = Math.round(deltaPer * 100) / 100; // round 2 decs
         return deltaPer;
     };
+    /**
+     * clicking the rail should also reposition the bar
+     */
+    SliderComponent.prototype.onTap = function (event) {
+        if (event.target.className == 'vclSliderKnob')
+            return;
+        var layerX = event.changedPointers[0].layerX;
+        if (layerX != 0) {
+            this.percentLeftKnob = this.deltaPxToPercent(layerX);
+            if (this.stepsOnly)
+                this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
+            this.value = this.percentToValue(this.percentLeftKnob);
+            !!this.onChangeCallback && this.onChangeCallback(this.value);
+        }
+    };
     SliderComponent.prototype.onPan = function (ev) {
         if (this.firstPan) {
             this.firstPan = false;
@@ -5836,6 +5851,12 @@ var SliderComponent = (function () {
         core_1.ViewChild('scale'), 
         __metadata('design:type', Object)
     ], SliderComponent.prototype, "scale", void 0);
+    __decorate([
+        core_1.HostListener('tap', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], SliderComponent.prototype, "onTap", null);
     SliderComponent = __decorate([
         core_1.Component({
             selector: 'vcl-slider',
