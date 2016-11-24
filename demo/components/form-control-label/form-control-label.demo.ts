@@ -6,8 +6,8 @@ export default {
   category: 'Forms',
   tabs: {
     Demo: FormControlLabelComponent,
-    'README.md': require("!raw!../../../src/components/form-control-label/README.md"),
-    'demo.component.html': require("!raw!./form-control-label.component.html"),
-    'demo.component.ts': require("!raw!./form-control-label.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/form-control-label/README.md"),
+    'demo.component.html': require("!raw-loader!./form-control-label.component.html"),
+    'demo.component.ts': require("!raw-loader!./form-control-label.component.ts")
   }
 };

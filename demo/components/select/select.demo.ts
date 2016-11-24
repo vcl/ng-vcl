@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: SelectComponent,
-    'demo.component.html': require("!raw!./select.component.html"),
-    'demo.component.ts': require("!raw!./select.component.ts")
+    'demo.component.html': require("!raw-loader!./select.component.html"),
+    'demo.component.ts': require("!raw-loader!./select.component.ts")
   }
 };

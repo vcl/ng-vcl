@@ -6,8 +6,8 @@ export default {
   category: 'Images',
   tabs: {
     Demo: IconComponent,
-    'README.md': require("!raw!../../../src/components/icon/README.md"),
-    'demo.component.html': require("!raw!./icon.component.html"),
-    'demo.component.ts': require("!raw!./icon.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/icon/README.md"),
+    'demo.component.html': require("!raw-loader!./icon.component.html"),
+    'demo.component.ts': require("!raw-loader!./icon.component.ts")
   }
 };

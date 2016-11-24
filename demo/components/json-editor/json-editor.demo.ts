@@ -6,8 +6,8 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: JsonEditorComponent,
-    'README.md': require("!raw!../../../src/components/json-editor/README.md"),
-    'demo.component.html': require("!raw!./json-editor.component.html"),
-    'demo.component.ts': require("!raw!./json-editor.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/json-editor/README.md"),
+    'demo.component.html': require("!raw-loader!./json-editor.component.html"),
+    'demo.component.ts': require("!raw-loader!./json-editor.component.ts")
   }
 };

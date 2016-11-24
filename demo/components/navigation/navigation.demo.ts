@@ -6,8 +6,8 @@ export default {
   category: 'Navigation',
   tabs: {
     Demo: NavigationComponent,
-    'README.md': require("!raw!../../../src/components/navigation/README.md"),
-    'demo.component.html': require("!raw!./navigation.component.html"),
-    'demo.component.ts': require("!raw!./navigation.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/navigation/README.md"),
+    'demo.component.html': require("!raw-loader!./navigation.component.html"),
+    'demo.component.ts': require("!raw-loader!./navigation.component.ts")
   }
 };

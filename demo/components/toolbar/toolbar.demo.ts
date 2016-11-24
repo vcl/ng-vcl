@@ -6,7 +6,7 @@ export default {
   category: 'Navigation',
   tabs: {
     Demo: ToolbarComponent,
-    'demo.component.html': require("!raw!./toolbar.component.html"),
-    'demo.component.ts': require("!raw!./toolbar.component.ts")
+    'demo.component.html': require("!raw-loader!./toolbar.component.html"),
+    'demo.component.ts': require("!raw-loader!./toolbar.component.ts")
   }
 };

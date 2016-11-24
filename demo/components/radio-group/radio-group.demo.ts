@@ -6,8 +6,8 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: RadioGroupComponent,
-    'README.md': require("!raw!../../../src/components/radio-group/README.md"),
-    'demo.component.html': require("!raw!./radio-group.component.html"),
-    'demo.component.ts': require("!raw!./radio-group.component.ts")
+    'README.md': require("!raw-loader!../../../src/components/radio-group/README.md"),
+    'demo.component.html': require("!raw-loader!./radio-group.component.html"),
+    'demo.component.ts': require("!raw-loader!./radio-group.component.ts")
   }
 };
