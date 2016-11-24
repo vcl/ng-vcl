@@ -30,6 +30,12 @@ var JssFormComponent = (function () {
                     type: 'string',
                     enum: ['red', 'green', 'blue', 'yellow']
                 },
+                color2: {
+                    label: 'subcolor',
+                    formType: 'radio',
+                    type: 'string',
+                    enum: ['red', 'green', 'blue', 'yellow']
+                },
                 isleader: {
                     label: 'leader',
                     formType: 'checkbox',

@@ -8,6 +8,7 @@ var flip_switch_module_1 = require('../flip-switch/flip-switch.module');
 var slider_module_1 = require('../slider/slider.module');
 var checkbox_module_1 = require('../checkbox/checkbox.module');
 var select_module_1 = require('../select/select.module');
+var radio_group_module_1 = require('../radio-group/radio-group.module');
 var VCLJssFormModule = (function () {
     function VCLJssFormModule() {
     }
@@ -18,7 +19,8 @@ var VCLJssFormModule = (function () {
                         flip_switch_module_1.VCLFlipSwitchModule,
                         slider_module_1.VCLSliderModule,
                         checkbox_module_1.VCLCheckboxModule,
-                        select_module_1.VCLSelectModule
+                        select_module_1.VCLSelectModule,
+                        radio_group_module_1.VCLRadioGroupModule
                     ],
                     exports: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],
                     declarations: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],

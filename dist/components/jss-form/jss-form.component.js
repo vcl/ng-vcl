@@ -35,6 +35,15 @@ var JssFormObjectComponent = (function () {
             return schemaObj.placeholder;
         return '';
     };
+    JssFormObjectComponent.prototype.radioOptions = function (schemaObj) {
+        var opts = schemaObj.enum.map(function (str) {
+            return {
+                label: str,
+                value: str
+            };
+        });
+        return opts;
+    };
     JssFormObjectComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-jss-form-object',

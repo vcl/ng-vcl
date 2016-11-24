@@ -8,6 +8,7 @@ import { VCLFlipSwitchModule } from '../flip-switch/flip-switch.module';
 import { VCLSliderModule } from '../slider/slider.module';
 import { VCLCheckboxModule } from '../checkbox/checkbox.module';
 import { VCLSelectModule } from '../select/select.module';
+import { VCLRadioGroupModule } from '../radio-group/radio-group.module';
 
 
 
@@ -17,7 +18,8 @@ import { VCLSelectModule } from '../select/select.module';
     VCLFlipSwitchModule,
     VCLSliderModule,
     VCLCheckboxModule,
-    VCLSelectModule
+    VCLSelectModule,
+    VCLRadioGroupModule
   ],
   exports: [JssFormComponent, JssFormObjectComponent],
   declarations: [JssFormComponent, JssFormObjectComponent],

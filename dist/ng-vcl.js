@@ -506,7 +506,7 @@ var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(1);
 var popover_component_1 = __webpack_require__(72);
 exports.PopoverComponent = popover_component_1.PopoverComponent;
-var tether_module_1 = __webpack_require__(16);
+var tether_module_1 = __webpack_require__(17);
 var off_click_module_1 = __webpack_require__(9);
 var VCLPopoverModule = (function () {
     function VCLPopoverModule() {
@@ -580,6 +580,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(1);
+var icon_module_1 = __webpack_require__(5);
+var radio_group_component_1 = __webpack_require__(75);
+var radio_button_module_1 = __webpack_require__(14);
+var VCLRadioGroupModule = (function () {
+    function VCLRadioGroupModule() {
+    }
+    VCLRadioGroupModule = __decorate([
+        core_1.NgModule({
+            imports: [common_1.CommonModule, icon_module_1.VCLIconModule, radio_button_module_1.VCLRadioButtonModule],
+            exports: [radio_group_component_1.RadioGroupComponent],
+            declarations: [radio_group_component_1.RadioGroupComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], VCLRadioGroupModule);
+    return VCLRadioGroupModule;
+}());
+exports.VCLRadioGroupModule = VCLRadioGroupModule;
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var common_1 = __webpack_require__(1);
 var slider_component_1 = __webpack_require__(77);
 var l10n_module_1 = __webpack_require__(2);
 var VCLSliderModule = (function () {
@@ -600,7 +636,7 @@ exports.VCLSliderModule = VCLSliderModule;
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -634,7 +670,7 @@ exports.VCLTetherModule = VCLTetherModule;
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -671,7 +707,7 @@ exports.VCLButtonGroupModule = VCLButtonGroupModule;
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -708,7 +744,7 @@ exports.VCLDatePickerModule = VCLDatePickerModule;
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -742,7 +778,7 @@ exports.VCLFormModule = VCLFormModule;
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -779,7 +815,7 @@ exports.VCLJsonEditorModule = VCLJsonEditorModule;
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -799,9 +835,10 @@ var jss_form_component_1 = __webpack_require__(65);
 var l10n_module_1 = __webpack_require__(2);
 var forms_1 = __webpack_require__(3);
 var flip_switch_module_1 = __webpack_require__(37);
-var slider_module_1 = __webpack_require__(15);
+var slider_module_1 = __webpack_require__(16);
 var checkbox_module_1 = __webpack_require__(11);
 var select_module_1 = __webpack_require__(38);
+var radio_group_module_1 = __webpack_require__(15);
 var VCLJssFormModule = (function () {
     function VCLJssFormModule() {
     }
@@ -812,7 +849,8 @@ var VCLJssFormModule = (function () {
                 flip_switch_module_1.VCLFlipSwitchModule,
                 slider_module_1.VCLSliderModule,
                 checkbox_module_1.VCLCheckboxModule,
-                select_module_1.VCLSelectModule
+                select_module_1.VCLSelectModule,
+                radio_group_module_1.VCLRadioGroupModule
             ],
             exports: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],
             declarations: [jss_form_component_1.JssFormComponent, jss_form_component_1.JssFormObjectComponent],
@@ -826,7 +864,7 @@ exports.VCLJssFormModule = VCLJssFormModule;
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -863,7 +901,7 @@ exports.VCLLabelModule = VCLLabelModule;
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -904,7 +942,7 @@ exports.VCLLayerModule = VCLLayerModule;
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -941,7 +979,7 @@ exports.VCLMonthPickerModule = VCLMonthPickerModule;
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -978,7 +1016,7 @@ exports.VCLNavigationModule = VCLNavigationModule;
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1009,42 +1047,6 @@ var VCLProgressBarModule = (function () {
     return VCLProgressBarModule;
 }());
 exports.VCLProgressBarModule = VCLProgressBarModule;
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(1);
-var icon_module_1 = __webpack_require__(5);
-var radio_group_component_1 = __webpack_require__(75);
-var radio_button_module_1 = __webpack_require__(14);
-var VCLRadioGroupModule = (function () {
-    function VCLRadioGroupModule() {
-    }
-    VCLRadioGroupModule = __decorate([
-        core_1.NgModule({
-            imports: [common_1.CommonModule, icon_module_1.VCLIconModule, radio_button_module_1.VCLRadioButtonModule],
-            exports: [radio_group_component_1.RadioGroupComponent],
-            declarations: [radio_group_component_1.RadioGroupComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VCLRadioGroupModule);
-    return VCLRadioGroupModule;
-}());
-exports.VCLRadioGroupModule = VCLRadioGroupModule;
 
 
 /***/ },
@@ -3770,6 +3772,15 @@ var JssFormObjectComponent = (function () {
             return schemaObj.placeholder;
         return '';
     };
+    JssFormObjectComponent.prototype.radioOptions = function (schemaObj) {
+        var opts = schemaObj.enum.map(function (str) {
+            return {
+                label: str,
+                value: str
+            };
+        });
+        return opts;
+    };
     __decorate([
         core_1.Input('schema'), 
         __metadata('design:type', Object)
@@ -5434,15 +5445,14 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 var RadioGroupComponent = (function () {
     function RadioGroupComponent() {
     }
-    RadioGroupComponent.prototype.ngOnInit = function () {
-        console.dir(this.value);
-    };
+    RadioGroupComponent.prototype.ngOnInit = function () { };
     RadioGroupComponent.prototype.ngOnChanges = function () { };
     RadioGroupComponent.prototype.isChecked = function (option) {
         return option.value == this.value;
     };
     RadioGroupComponent.prototype.buttonChanged = function (value, state) {
-        console.log('btn changeD:');
+        if (this.value == value)
+            return;
         this.value = value;
         !!this.onChangeCallback && this.onChangeCallback(this.value);
     };
@@ -43582,7 +43592,7 @@ module.exports = "<div #el [style.height]=\"height\"></div>\n"
 /* 102 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\" />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <vcl-select [formControlName]=\"key\">\n          <vcl-select-option *ngFor=\"let option of schema.properties[key].enum\" [label]=\"option\" ></vcl-select-option>\n        </vcl-select>\n\n        <!--\n\n        <select [formControlName]=\"key\">\n          <option *ngFor=\"let opt of schema.properties[key].enum\">{{opt}}</option>\n        </select>\n-->\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider [min]=\"schema.properties[key].min\" [max]=\"schema.properties[key].max\" [formControlName]=\"key\"></vcl-slider>\n      </div>\n      <div *ngSwitchCase=\"'checkbox'\">\n        <vcl-checkbox [formControlName]=\"key\"></vcl-checkbox>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n"
+module.exports = "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\" />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <vcl-select [formControlName]=\"key\">\n          <vcl-select-option *ngFor=\"let option of schema.properties[key].enum\" [label]=\"option\" ></vcl-select-option>\n        </vcl-select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider [min]=\"schema.properties[key].min\" [max]=\"schema.properties[key].max\" [formControlName]=\"key\"></vcl-slider>\n      </div>\n      <div *ngSwitchCase=\"'checkbox'\">\n        <vcl-checkbox [formControlName]=\"key\"></vcl-checkbox>\n      </div>\n\n      <div *ngSwitchCase=\"'radio'\">\n        <vcl-radio-group [formControlName]=\"key\" [options]=\"radioOptions(schema.properties[key])\"></vcl-radio-group>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 103 */
@@ -43822,53 +43832,53 @@ var dropdown_module_1 = __webpack_require__(36);
 var select_module_1 = __webpack_require__(38);
 var icogram_module_1 = __webpack_require__(10);
 var button_module_1 = __webpack_require__(6);
-var button_group_module_1 = __webpack_require__(17);
-var layer_module_1 = __webpack_require__(23);
+var button_group_module_1 = __webpack_require__(18);
+var layer_module_1 = __webpack_require__(24);
 var tab_nav_module_1 = __webpack_require__(28);
-var navigation_module_1 = __webpack_require__(25);
+var navigation_module_1 = __webpack_require__(26);
 var toolbar_module_1 = __webpack_require__(30);
-var tether_module_1 = __webpack_require__(16);
+var tether_module_1 = __webpack_require__(17);
 var link_module_1 = __webpack_require__(12);
 var popover_module_1 = __webpack_require__(13);
-var progress_bar_module_1 = __webpack_require__(26);
+var progress_bar_module_1 = __webpack_require__(27);
 var radio_button_module_1 = __webpack_require__(14);
-var radio_group_module_1 = __webpack_require__(27);
+var radio_group_module_1 = __webpack_require__(15);
 var checkbox_module_1 = __webpack_require__(11);
 var off_click_module_1 = __webpack_require__(9);
 var form_control_label_module_1 = __webpack_require__(50);
-var form_module_1 = __webpack_require__(19);
-var json_editor_module_1 = __webpack_require__(20);
+var form_module_1 = __webpack_require__(20);
+var json_editor_module_1 = __webpack_require__(21);
 var wormhole_module_1 = __webpack_require__(7);
-var month_picker_module_1 = __webpack_require__(24);
-var date_picker_module_1 = __webpack_require__(18);
-var label_module_1 = __webpack_require__(22);
+var month_picker_module_1 = __webpack_require__(25);
+var date_picker_module_1 = __webpack_require__(19);
+var label_module_1 = __webpack_require__(23);
 var token_module_1 = __webpack_require__(29);
-var slider_module_1 = __webpack_require__(15);
-var jss_form_module_1 = __webpack_require__(21);
+var slider_module_1 = __webpack_require__(16);
+var jss_form_module_1 = __webpack_require__(22);
 __export(__webpack_require__(40));
 __export(__webpack_require__(5));
 __export(__webpack_require__(10));
 __export(__webpack_require__(6));
-__export(__webpack_require__(17));
-__export(__webpack_require__(23));
+__export(__webpack_require__(18));
+__export(__webpack_require__(24));
 __export(__webpack_require__(28));
-__export(__webpack_require__(25));
-__export(__webpack_require__(19));
+__export(__webpack_require__(26));
+__export(__webpack_require__(20));
 __export(__webpack_require__(30));
-__export(__webpack_require__(16));
+__export(__webpack_require__(17));
 __export(__webpack_require__(12));
 __export(__webpack_require__(13));
-__export(__webpack_require__(26));
-__export(__webpack_require__(14));
 __export(__webpack_require__(27));
-__export(__webpack_require__(11));
-__export(__webpack_require__(24));
-__export(__webpack_require__(18));
-__export(__webpack_require__(20));
-__export(__webpack_require__(22));
-__export(__webpack_require__(29));
+__export(__webpack_require__(14));
 __export(__webpack_require__(15));
+__export(__webpack_require__(11));
+__export(__webpack_require__(25));
+__export(__webpack_require__(19));
 __export(__webpack_require__(21));
+__export(__webpack_require__(23));
+__export(__webpack_require__(29));
+__export(__webpack_require__(16));
+__export(__webpack_require__(22));
 __export(__webpack_require__(9));
 __export(__webpack_require__(7));
 __export(__webpack_require__(2));

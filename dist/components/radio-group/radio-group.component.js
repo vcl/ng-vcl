@@ -12,15 +12,14 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 var RadioGroupComponent = (function () {
     function RadioGroupComponent() {
     }
-    RadioGroupComponent.prototype.ngOnInit = function () {
-        console.dir(this.value);
-    };
+    RadioGroupComponent.prototype.ngOnInit = function () { };
     RadioGroupComponent.prototype.ngOnChanges = function () { };
     RadioGroupComponent.prototype.isChecked = function (option) {
         return option.value == this.value;
     };
     RadioGroupComponent.prototype.buttonChanged = function (value, state) {
-        console.log('btn changeD:');
+        if (this.value == value)
+            return;
         this.value = value;
         !!this.onChangeCallback && this.onChangeCallback(this.value);
     };

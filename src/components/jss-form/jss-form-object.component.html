@@ -26,13 +26,6 @@ style="border-style:solid;margin:5px;padding: 5px;">
         <vcl-select [formControlName]="key">
           <vcl-select-option *ngFor="let option of schema.properties[key].enum" [label]="option" ></vcl-select-option>
         </vcl-select>
-
-        <!--
-
-        <select [formControlName]="key">
-          <option *ngFor="let opt of schema.properties[key].enum">{{opt}}</option>
-        </select>
--->
       </div>
       <div *ngSwitchCase="'switch'">
         <vcl-flip-switch onLabel="{{'Yes' | loc }}" offLabel="{{'No' | loc}}" [formControlName]="key"></vcl-flip-switch>
@@ -42,6 +35,10 @@ style="border-style:solid;margin:5px;padding: 5px;">
       </div>
       <div *ngSwitchCase="'checkbox'">
         <vcl-checkbox [formControlName]="key"></vcl-checkbox>
+      </div>
+
+      <div *ngSwitchCase="'radio'">
+        <vcl-radio-group [formControlName]="key" [options]="radioOptions(schema.properties[key])"></vcl-radio-group>
       </div>
 
 

@@ -60,6 +60,16 @@ export class JssFormObjectComponent {
 
     return '';
   }
+
+  radioOptions(schemaObj: any) {
+    const opts = schemaObj.enum.map(str => {
+      return {
+        label: str,
+        value: str
+      };
+    });
+    return opts;
+  }
 }
 
 @Component({

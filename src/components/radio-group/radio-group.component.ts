@@ -32,9 +32,7 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
 
   constructor() { }
 
-  ngOnInit() {
-    console.dir(this.value);
-  }
+  ngOnInit() { }
 
   ngOnChanges() { }
 
@@ -44,10 +42,8 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
     return option.value == this.value;
   }
 
-
-
   buttonChanged(value, state) {
-    console.log('btn changeD:');
+    if (this.value == value) return;
     this.value = value;
     !!this.onChangeCallback && this.onChangeCallback(this.value);
   }

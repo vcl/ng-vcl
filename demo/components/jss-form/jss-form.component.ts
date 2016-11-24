@@ -30,6 +30,12 @@ export class JssFormComponent implements OnInit {
         type: 'string',
         enum: ['red', 'green', 'blue', 'yellow']
       },
+      color2: {
+        label: 'subcolor',
+        formType: 'radio',
+        type: 'string',
+        enum: ['red', 'green', 'blue', 'yellow']
+      },
       isleader: {
         label: 'leader',
         formType: 'checkbox',
@@ -43,7 +49,7 @@ export class JssFormComponent implements OnInit {
       },
       alive: {
         type: 'boolean',
-        formType: 'switch'
+        formType: 'switch'   
       },
       mainSkill: {
         description: 'nested object',
