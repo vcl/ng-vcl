@@ -18,14 +18,7 @@ var RadioButtonComponent = (function () {
         this.disabled = false;
         this.labelPosition = 'right';
         this.tabindex = 0;
-        /**
-        Refelects the checked state, `true` is checked and `false` is unchecked
-        @public
-        */
         this.checked = false;
-        /**
-        Action fired when the `checked` state changes due to user interaction.
-        */
         this._checkedChange = new core_1.EventEmitter();
         this._checkedChange.subscribe(function (newVal) {
             !!_this.onChangeCallback && _this.onChangeCallback(newVal);
@@ -43,7 +36,6 @@ var RadioButtonComponent = (function () {
     RadioButtonComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            // this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
@@ -80,6 +72,8 @@ var RadioButtonComponent = (function () {
         e.preventDefault();
         if (this.disabled)
             return;
+        if (this.checked == true)
+            return; // radio-buttons cannot be 'unchecked' by definition
         this.checked = !this.checked;
         this._checkedChange.emit(this.checked);
     };
@@ -129,7 +123,7 @@ var RadioButtonComponent = (function () {
         'disabled': [{ type: core_1.Input },],
         'labelPosition': [{ type: core_1.Input, args: ['labelPosition',] },],
         'tabindex': [{ type: core_1.HostBinding, args: ['attr.tabindex',] }, { type: core_1.Input },],
-        'checked': [{ type: core_1.Input },],
+        'checked': [{ type: core_1.Input, args: ['checked',] },],
         '_checkedChange': [{ type: core_1.Output, args: ['change',] },],
         'checkedChange': [{ type: core_1.Output },],
         'clsVclDisabled': [{ type: core_1.HostBinding, args: ['class.vclDisabled',] },],

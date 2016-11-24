@@ -3407,14 +3407,7 @@ var RadioButtonComponent = (function () {
         this.disabled = false;
         this.labelPosition = 'right';
         this.tabindex = 0;
-        /**
-        Refelects the checked state, `true` is checked and `false` is unchecked
-        @public
-        */
         this.checked = false;
-        /**
-        Action fired when the `checked` state changes due to user interaction.
-        */
         this._checkedChange = new _angular_core.EventEmitter();
         this._checkedChange.subscribe(function (newVal) {
             !!_this.onChangeCallback && _this.onChangeCallback(newVal);
@@ -3432,7 +3425,6 @@ var RadioButtonComponent = (function () {
     RadioButtonComponent.prototype.ngOnChanges = function (changes) {
         if (changes['checked']) {
             var checked = changes['checked'].currentValue;
-            // this._checkedChange.emit(checked);
             this.focusMaintenance(checked);
         }
     };
@@ -3469,6 +3461,8 @@ var RadioButtonComponent = (function () {
         e.preventDefault();
         if (this.disabled)
             return;
+        if (this.checked == true)
+            return; // radio-buttons cannot be 'unchecked' by definition
         this.checked = !this.checked;
         this._checkedChange.emit(this.checked);
     };
@@ -3517,8 +3511,8 @@ var RadioButtonComponent = (function () {
         __metadata('design:type', Object)
     ], RadioButtonComponent.prototype, "tabindex", void 0);
     __decorate([
-        _angular_core.Input(), 
-        __metadata('design:type', Object)
+        _angular_core.Input('checked'), 
+        __metadata('design:type', Boolean)
     ], RadioButtonComponent.prototype, "checked", void 0);
     __decorate([
         _angular_core.Output('change'), 
@@ -3604,6 +3598,11 @@ var RadioGroupComponent = (function () {
     RadioGroupComponent.prototype.isChecked = function (option) {
         return option.value == this.value;
     };
+    RadioGroupComponent.prototype.buttonChanged = function (value, state) {
+        console.log('btn changeD:');
+        console.dir(value);
+        console.dir(state);
+    };
     RadioGroupComponent.prototype.writeValue = function (value) {
         /*    if (value !== this.checked) {
               this.checked = value;
@@ -3630,7 +3629,7 @@ var RadioGroupComponent = (function () {
     RadioGroupComponent = __decorate([
         _angular_core.Component({
             selector: 'vcl-radio-group',
-            template: "<vcl-radio-button *ngFor=\"let option of options\"\n [checked]=\"isChecked(option)\"\n>\n  {{ option.label }}\n</vcl-radio-button>\n<br *ngFor=\"let option of options\" />\n",
+            template: "<vcl-radio-button *ngFor=\"let option of options\"\n [checked]=\"isChecked(option)\"\n (change)=\"buttonChanged(option.value, $event)\"\n>\n  {{ option.label }}\n</vcl-radio-button>\n<br *ngFor=\"let option of options\" />\n",
             host: {
                 '[attr.role]': '"radio"',
                 '[class.vclCheckbox]': 'true',

@@ -47,17 +47,7 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
   @Input()
   tabindex = 0;
 
-
-  /**
-  Refelects the checked state, `true` is checked and `false` is unchecked
-  @public
-  */
-  @Input()
-  checked = false;
-
-  /**
-  Action fired when the `checked` state changes due to user interaction.
-  */
+  @Input('checked') checked: boolean = false;
   @Output('change') _checkedChange = new EventEmitter<boolean>();
 
   @Output()
@@ -76,7 +66,6 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
   ngOnChanges(changes: SimpleChanges) {
     if (changes['checked']) {
       let checked = changes['checked'].currentValue;
-      // this._checkedChange.emit(checked);
       this.focusMaintenance(checked);
     }
   }
@@ -111,6 +100,7 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
   triggerChangeAction(e) {
     e.preventDefault();
     if (this.disabled) return;
+    if (this.checked == true) return; // radio-buttons cannot be 'unchecked' by definition
     this.checked = !this.checked;
     this._checkedChange.emit(this.checked);
   }

@@ -79,6 +79,8 @@ var RadioButtonComponent = (function () {
         e.preventDefault();
         if (this.disabled)
             return;
+        if (this.checked == true)
+            return;
         this.checked = !this.checked;
         this._checkedChange.emit(this.checked);
     };
@@ -129,8 +131,8 @@ __decorate([
     __metadata("design:type", Object)
 ], RadioButtonComponent.prototype, "tabindex", void 0);
 __decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
+    core_1.Input('checked'),
+    __metadata("design:type", Boolean)
 ], RadioButtonComponent.prototype, "checked", void 0);
 __decorate([
     core_1.Output('change'),

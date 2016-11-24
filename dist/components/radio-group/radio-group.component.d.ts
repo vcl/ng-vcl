@@ -9,6 +9,7 @@ export declare class RadioGroupComponent implements OnInit, OnChanges, ControlVa
     ngOnInit(): void;
     ngOnChanges(): void;
     isChecked(option: any): boolean;
+    buttonChanged(value: any, state: any): void;
     /**
      * things needed for ControlValueAccessor-Interface
      */

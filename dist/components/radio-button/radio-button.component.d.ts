@@ -9,14 +9,7 @@ export declare class RadioButtonComponent implements OnInit, OnChanges, ControlV
     disabled: boolean;
     labelPosition: 'left' | 'right';
     tabindex: number;
-    /**
-    Refelects the checked state, `true` is checked and `false` is unchecked
-    @public
-    */
     checked: boolean;
-    /**
-    Action fired when the `checked` state changes due to user interaction.
-    */
     _checkedChange: EventEmitter<boolean>;
     readonly checkedChange: Observable<boolean>;
     constructor(elementRef: ElementRef);

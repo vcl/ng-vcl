@@ -24,6 +24,11 @@ var RadioGroupComponent = (function () {
     RadioGroupComponent.prototype.isChecked = function (option) {
         return option.value == this.value;
     };
+    RadioGroupComponent.prototype.buttonChanged = function (value, state) {
+        console.log('btn changeD:');
+        console.dir(value);
+        console.dir(state);
+    };
     RadioGroupComponent.prototype.writeValue = function (value) {
         /*    if (value !== this.checked) {
               this.checked = value;
