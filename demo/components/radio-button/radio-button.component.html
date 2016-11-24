@@ -1,5 +1,5 @@
 Checkable:
-<vcl-radio-button [(checked)]="isChecked"></vcl-radio-button>
+<vcl-radio-button [(checked)]="isChecked" (change)="onChange($event)"></vcl-radio-button>
 
 <br><br>
 <b>Checked:</b> {{isChecked}}

@@ -130,6 +130,7 @@ var RadioButtonComponent = (function () {
         'labelPosition': [{ type: core_1.Input, args: ['labelPosition',] },],
         'tabindex': [{ type: core_1.HostBinding, args: ['attr.tabindex',] }, { type: core_1.Input },],
         'checked': [{ type: core_1.Input },],
+        '_checkedChange': [{ type: core_1.Output, args: ['change',] },],
         'checkedChange': [{ type: core_1.Output },],
         'clsVclDisabled': [{ type: core_1.HostBinding, args: ['class.vclDisabled',] },],
         'attrAriaDisabled': [{ type: core_1.HostBinding, args: ['attr.aria-disabled',] },],

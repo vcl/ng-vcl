@@ -2,8 +2,9 @@
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
-var input_module_1 = require('./components/input/input.module');
 var core_1 = require('@angular/core');
+require('hammerjs');
+var input_module_1 = require('./components/input/input.module');
 var flip_switch_module_1 = require('./components/flip-switch/flip-switch.module');
 var icon_module_1 = require('./components/icon/icon.module');
 var metalist_module_1 = require('./components/metalist/metalist.module');

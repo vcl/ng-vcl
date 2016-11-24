@@ -1,3 +1,4 @@
+import 'hammerjs';
 export * from './reflect';
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';

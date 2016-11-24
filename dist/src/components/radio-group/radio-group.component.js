@@ -19,7 +19,9 @@ var RadioGroupComponent = (function () {
     function RadioGroupComponent() {
         this.disabled = false;
     }
-    RadioGroupComponent.prototype.ngOnInit = function () { };
+    RadioGroupComponent.prototype.ngOnInit = function () {
+        console.dir(this.value);
+    };
     RadioGroupComponent.prototype.ngOnChanges = function () { };
     RadioGroupComponent.prototype.isChecked = function (option) {
         return option.value == this.value;
@@ -55,7 +57,6 @@ RadioGroupComponent = __decorate([
             '[class.vclCheckbox]': 'true',
             '[class.vclScale130p]': 'true',
         },
-        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
         providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
     }),
     __metadata("design:paramtypes", [])

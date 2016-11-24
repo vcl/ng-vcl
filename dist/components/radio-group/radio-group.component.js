@@ -17,7 +17,9 @@ var RadioGroupComponent = (function () {
             });
           */
     }
-    RadioGroupComponent.prototype.ngOnInit = function () { };
+    RadioGroupComponent.prototype.ngOnInit = function () {
+        console.dir(this.value);
+    };
     RadioGroupComponent.prototype.ngOnChanges = function () { };
     RadioGroupComponent.prototype.isChecked = function (option) {
         return option.value == this.value;
@@ -42,7 +44,7 @@ var RadioGroupComponent = (function () {
                         '[class.vclCheckbox]': 'true',
                         '[class.vclScale130p]': 'true',
                     },
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                    //changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
                 },] },
     ];

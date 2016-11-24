@@ -6,7 +6,7 @@ require('rxjs/add/observable/combineLatest');
 require('rxjs/add/operator/combineLatest');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/switchMap');
-require('rxjs/add/operator/publishLast');
+require('rxjs/add/operator/publishReplay');
 var l10n_loader_service_1 = require('./l10n-loader.service');
 var l10n_parser_service_1 = require('./l10n-parser.service');
 exports.L10N_CONFIG = new core_1.OpaqueToken('l10n.config');

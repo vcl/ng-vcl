@@ -11,29 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var RadioGroupComponent = (function () {
     function RadioGroupComponent() {
-        this.isChecked = false;
-        this.isChecked2 = false;
-        this.isChecked3 = false;
+        this.value = '2';
         this.options = [
             {
                 label: 'item1',
-                value: 1
+                value: '1'
             },
             {
                 label: 'item2',
-                value: 2
+                value: '2'
             },
             {
                 label: 'item3',
-                value: 3
+                value: '3'
             },
             {
                 label: 'item4',
-                value: 4
+                value: '4'
             },
             {
                 label: 'item5',
-                value: 5
+                value: '5'
             }
         ];
     }

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Injectable, Input, NgModule, OpaqueToken, Optional, Output, Pipe, QueryList, TemplateRef, ViewChild, ViewContainerRef, forwardRef, trigger } from '@angular/core';
+import 'hammerjs';
 import { Observable } from 'rxjs/Observable';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -8,13 +9,11 @@ import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/publishLast';
-import 'hammerjs';
+import 'rxjs/add/operator/publishReplay';
 import * as Tether from 'tether';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
@@ -3518,6 +3517,10 @@ var RadioButtonComponent = (function () {
         __metadata('design:type', Object)
     ], RadioButtonComponent.prototype, "checked", void 0);
     __decorate([
+        Output('change'), 
+        __metadata('design:type', Object)
+    ], RadioButtonComponent.prototype, "_checkedChange", void 0);
+    __decorate([
         Output(), 
         __metadata('design:type', (typeof (_a = typeof Observable !== 'undefined' && Observable) === 'function' && _a) || Object)
     ], RadioButtonComponent.prototype, "checkedChange", null);
@@ -3590,7 +3593,9 @@ var RadioGroupComponent = (function () {
             });
           */
     }
-    RadioGroupComponent.prototype.ngOnInit = function () { };
+    RadioGroupComponent.prototype.ngOnInit = function () {
+        console.dir(this.value);
+    };
     RadioGroupComponent.prototype.ngOnChanges = function () { };
     RadioGroupComponent.prototype.isChecked = function (option) {
         return option.value == this.value;
@@ -3621,13 +3626,13 @@ var RadioGroupComponent = (function () {
     RadioGroupComponent = __decorate([
         Component({
             selector: 'vcl-radio-group',
-            template: "<vcl-radio-button *ngFor=\"let option of options\" checked=\"isChecked(option)\">{{ option.label }}</vcl-radio-button>\n<br *ngFor=\"let option of options\" />\n",
+            template: "<vcl-radio-button *ngFor=\"let option of options\"\n [checked]=\"isChecked(option)\"\n>\n  {{ option.label }}\n</vcl-radio-button>\n<br *ngFor=\"let option of options\" />\n",
             host: {
                 '[attr.role]': '"radio"',
                 '[class.vclCheckbox]': 'true',
                 '[class.vclScale130p]': 'true',
             },
-            changeDetection: ChangeDetectionStrategy.OnPush,
+            //changeDetection: ChangeDetectionStrategy.OnPush,
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR$4]
         }), 
         __metadata('design:paramtypes', [])

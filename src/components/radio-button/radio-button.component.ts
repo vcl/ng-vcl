@@ -47,6 +47,7 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
   @Input()
   tabindex = 0;
 
+
   /**
   Refelects the checked state, `true` is checked and `false` is unchecked
   @public
@@ -57,7 +58,8 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
   /**
   Action fired when the `checked` state changes due to user interaction.
   */
-  _checkedChange = new EventEmitter<boolean>();
+  @Output('change') _checkedChange = new EventEmitter<boolean>();
+
   @Output()
   get checkedChange(): Observable<boolean> {
     return this._checkedChange.asObservable();

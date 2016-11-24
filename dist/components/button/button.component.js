@@ -1,6 +1,5 @@
 "use strict";
 var core_1 = require('@angular/core');
-require('hammerjs');
 var ButtonComponent = (function () {
     function ButtonComponent(elementRef) {
         this.elementRef = elementRef;

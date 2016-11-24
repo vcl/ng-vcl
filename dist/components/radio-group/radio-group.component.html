@@ -1,2 +1,6 @@
-<vcl-radio-button *ngFor="let option of options" checked="isChecked(option)">{{ option.label }}</vcl-radio-button>
+<vcl-radio-button *ngFor="let option of options"
+ [checked]="isChecked(option)"
+>
+  {{ option.label }}
+</vcl-radio-button>
 <br *ngFor="let option of options" />

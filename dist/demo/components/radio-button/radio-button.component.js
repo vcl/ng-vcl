@@ -15,6 +15,10 @@ var RadioButtonComponent = (function () {
         this.isChecked2 = false;
         this.isChecked3 = false;
     }
+    RadioButtonComponent.prototype.onChange = function (value) {
+        console.log('radio-button onChange fired');
+        console.dir(value);
+    };
     RadioButtonComponent.prototype.ngOnInit = function () { };
     return RadioButtonComponent;
 }());

@@ -10,6 +10,11 @@ export class RadioButtonComponent implements OnInit {
   isChecked3 = false;
 
 
+  onChange(value) {
+    console.log('radio-button onChange fired');
+    console.dir(value);
+  }
+
   constructor() { }
 
   ngOnInit() { }

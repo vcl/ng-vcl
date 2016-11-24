@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { OnInit, ElementRef } from '@angular/core';
-import 'hammerjs';
 export declare class ButtonComponent implements OnInit {
     private elementRef;
     pressed: boolean;

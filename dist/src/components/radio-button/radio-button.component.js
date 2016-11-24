@@ -133,6 +133,10 @@ __decorate([
     __metadata("design:type", Object)
 ], RadioButtonComponent.prototype, "checked", void 0);
 __decorate([
+    core_1.Output('change'),
+    __metadata("design:type", Object)
+], RadioButtonComponent.prototype, "_checkedChange", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", Observable_1.Observable),
     __metadata("design:paramtypes", [])
