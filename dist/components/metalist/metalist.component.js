@@ -75,6 +75,7 @@ var MetalistComponent = (function () {
     };
     MetalistComponent.prototype.setSelectedItems = function () {
     };
+    MetalistComponent.prototype.ngAfterContentInit = function () { };
     MetalistComponent.prototype.getMarkedItemIndex = function () {
         var meta = this.getMarkedItemMeta();
         if (meta) {

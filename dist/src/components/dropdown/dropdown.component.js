@@ -52,6 +52,7 @@ var DropdownComponent = (function () {
     DropdownComponent.prototype.onSelect = function (selectedItems) {
         this.select.emit(selectedItems);
     };
+    DropdownComponent.prototype.ngAfterContentInit = function () { };
     DropdownComponent.prototype.writeValue = function (value) {
         if (value !== this.selected) {
             this.selected = value;

@@ -142,6 +142,7 @@ export class SelectComponent implements ControlValueAccessor {
       templateItemsAr.map(i => items.push(i.toObject()));
       this.items = items;
     }
+
   }
 
   expand() {

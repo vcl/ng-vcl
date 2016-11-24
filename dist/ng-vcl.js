@@ -3088,6 +3088,7 @@ var DropdownComponent = (function () {
     DropdownComponent.prototype.onSelect = function (selectedItems) {
         this.select.emit(selectedItems);
     };
+    DropdownComponent.prototype.ngAfterContentInit = function () { };
     DropdownComponent.prototype.writeValue = function (value) {
         if (value !== this.selected) {
             this.selected = value;
@@ -4311,6 +4312,7 @@ var MetalistComponent = (function () {
     };
     MetalistComponent.prototype.setSelectedItems = function () {
     };
+    MetalistComponent.prototype.ngAfterContentInit = function () { };
     MetalistComponent.prototype.getMarkedItemIndex = function () {
         var meta = this.getMarkedItemMeta();
         if (meta) {
@@ -43550,7 +43552,7 @@ module.exports = "<div class=\"vclDataGrid vclDGVAlignMiddle vclDGAlignCentered 
 /* 95 */
 /***/ function(module, exports) {
 
-module.exports = "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\"\n  [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\"\n  [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\"\n        [ngClass]=\"item.class\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n      </li>\n    </template>\n  </vcl-metalist>\n</ul>\n"
+module.exports = "<ul class=\"vclDropdown\"\n  [class.vclOpen]=\"expanded\"\n  [attr.role]=\"ariaRole\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"maxSelectableItems > 1\"\n  [attr.aria-expanded]=\"expanded\">\n  <vcl-metalist (select)=\"onSelect($event)\" #metalist [items]=\"items\"\n  [meta]=\"metaInformation\" [maxSelectableItems]=\"maxSelectableItems\"\n  [minSelectableItems]=\"minSelectableItems\">\n    <template let-item=\"item\" let-meta=\"meta\">\n      <li class=\"vclDropdownItem\"\n        [class.vclSelected]=\"meta.selected\"\n        [attr.aria-selected]=\"meta.selected\"\n        role=\"menuitem\"\n        tabindex=\"0\"\n        (tap)=\"_selectItem(item, meta, metalist)\"\n        [ngClass]=\"item.class\">\n        <div class=\"vclDropdownItemLabel\">\n          {{item.label}}\n        </div>\n        <div class=\"vclDropdownItemSubLabel\">\n          {{item.sublabel}}\n        </div>\n    </li>\n    </template>\n  </vcl-metalist>\n</ul>\n"
 
 /***/ },
 /* 96 */

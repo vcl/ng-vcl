@@ -60,7 +60,7 @@ export class MetalistComponent implements OnInit {
       let metaItems = this.meta.filter(function(obj) {
         return obj && obj.selected === true;
       });
-      for (let i = 0; i < metaItems.length; i++ ) {
+      for (let i = 0; i < metaItems.length; i++) {
         metaItems[i].selected = false;
       }
     }
@@ -95,6 +95,8 @@ export class MetalistComponent implements OnInit {
   setSelectedItems() {
 
   }
+
+  ngAfterContentInit() { }
 
   getMarkedItemIndex(): number {
     let meta = this.getMarkedItemMeta();

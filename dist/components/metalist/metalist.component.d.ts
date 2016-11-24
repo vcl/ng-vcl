@@ -13,6 +13,7 @@ export declare class MetalistComponent implements OnInit {
     deSelectItem(item: any): void;
     getSelectedItems(): any[];
     setSelectedItems(): void;
+    ngAfterContentInit(): void;
     getMarkedItemIndex(): number;
     getMarkedItemMeta(): any;
     setMarkedIndex(index: number): void;

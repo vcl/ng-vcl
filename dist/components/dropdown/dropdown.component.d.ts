@@ -17,6 +17,7 @@ export declare class DropdownComponent implements ControlValueAccessor {
     _selectItem(item: any, meta: any, metalist: MetalistComponent): void;
     selectItem(item: any): void;
     onSelect(selectedItems: any[]): void;
+    ngAfterContentInit(): void;
     metaInformation: any;
     constructor();
     /**

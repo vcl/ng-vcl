@@ -75,6 +75,8 @@ export class DropdownComponent implements ControlValueAccessor {
     this.select.emit(selectedItems);
   }
 
+  ngAfterContentInit() {  }
+
   metaInformation: any = [];
 
 
