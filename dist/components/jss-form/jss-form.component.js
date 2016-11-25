@@ -44,6 +44,27 @@ var JssFormObjectComponent = (function () {
         });
         return opts;
     };
+    JssFormObjectComponent.prototype.selectItems = function (schemaObj) {
+        if (!schemaObj.items) {
+            // use .enum
+            return schemaObj.enum.map(function (str) {
+                return {
+                    label: str,
+                    value: str
+                };
+            });
+        }
+        else {
+            // use .items
+            return schemaObj.items.map(function (item) {
+                var ret = {
+                    value: item.value
+                };
+                ret['label'] = item.label ? item.label : item.value;
+                return ret;
+            });
+        }
+    };
     JssFormObjectComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'vcl-jss-form-object',

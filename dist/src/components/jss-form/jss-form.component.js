@@ -53,6 +53,25 @@ var JssFormObjectComponent = (function () {
         });
         return opts;
     };
+    JssFormObjectComponent.prototype.selectItems = function (schemaObj) {
+        if (!schemaObj.items) {
+            return schemaObj.enum.map(function (str) {
+                return {
+                    label: str,
+                    value: str
+                };
+            });
+        }
+        else {
+            return schemaObj.items.map(function (item) {
+                var ret = {
+                    value: item.value
+                };
+                ret['label'] = item.label ? item.label : item.value;
+                return ret;
+            });
+        }
+    };
     return JssFormObjectComponent;
 }());
 __decorate([

@@ -3782,6 +3782,27 @@ var JssFormObjectComponent = (function () {
         });
         return opts;
     };
+    JssFormObjectComponent.prototype.selectItems = function (schemaObj) {
+        if (!schemaObj.items) {
+            // use .enum
+            return schemaObj.enum.map(function (str) {
+                return {
+                    label: str,
+                    value: str
+                };
+            });
+        }
+        else {
+            // use .items
+            return schemaObj.items.map(function (item) {
+                var ret = {
+                    value: item.value
+                };
+                ret['label'] = item.label ? item.label : item.value;
+                return ret;
+            });
+        }
+    };
     __decorate([
         core_1.Input('schema'), 
         __metadata('design:type', Object)
@@ -43620,7 +43641,7 @@ module.exports = "<div #el [style.height]=\"height\"></div>\n"
 /* 102 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\"\n      />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <vcl-select [formControlName]=\"key\">\n          <vcl-select-option *ngFor=\"let option of schema.properties[key].enum\" [label]=\"option\" ></vcl-select-option>\n        </vcl-select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider\n         [min]=\"schema.properties[key].min\"\n         [max]=\"schema.properties[key].max\"\n         [formControlName]=\"key\"></vcl-slider>\n      </div>\n      <div *ngSwitchCase=\"'checkbox'\">\n        <vcl-checkbox [formControlName]=\"key\"></vcl-checkbox>\n      </div>\n\n      <div *ngSwitchCase=\"'radio'\">\n        <vcl-radio-group [formControlName]=\"key\" [options]=\"radioOptions(schema.properties[key])\"></vcl-radio-group>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n"
+module.exports = "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\"\n      />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <vcl-select [formControlName]=\"key\">\n          <vcl-select-option *ngFor=\"let option of selectItems(schema.properties[key])\"\n           [label]=\"option.label\"></vcl-select-option>\n        </vcl-select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider\n         [min]=\"schema.properties[key].min\"\n         [max]=\"schema.properties[key].max\"\n         [formControlName]=\"key\"></vcl-slider>\n      </div>\n      <div *ngSwitchCase=\"'checkbox'\">\n        <vcl-checkbox [formControlName]=\"key\"></vcl-checkbox>\n      </div>\n\n      <div *ngSwitchCase=\"'radio'\">\n        <vcl-radio-group [formControlName]=\"key\" [options]=\"radioOptions(schema.properties[key])\"></vcl-radio-group>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 103 */

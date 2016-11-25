@@ -11,6 +11,7 @@ export declare class JssFormObjectComponent {
     name(parentPath: any, key: any): string;
     placeholder(schemaObj: any): any;
     radioOptions(schemaObj: any): any;
+    selectItems(schemaObj: any): any;
 }
 export declare class JssFormComponent implements OnInit {
     fb: FormBuilder;

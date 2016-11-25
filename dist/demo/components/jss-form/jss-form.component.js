@@ -28,7 +28,25 @@ var JssFormComponent = (function () {
                     label: 'team',
                     formType: 'select',
                     type: 'string',
-                    enum: ['red', 'green', 'blue', 'yellow']
+                    enum: ['#ff0000', '#008000', '#0000FF', '#FFFF00'],
+                    items: [
+                        {
+                            label: 'Red',
+                            value: '#ff0000'
+                        },
+                        {
+                            label: 'Green',
+                            value: '#008000'
+                        },
+                        {
+                            label: 'Blue',
+                            value: '#0000FF'
+                        },
+                        {
+                            label: 'Yellow',
+                            value: '#FFFF00'
+                        }
+                    ]
                 },
                 color2: {
                     label: 'subcolor',

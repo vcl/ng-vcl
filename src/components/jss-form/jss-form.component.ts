@@ -70,6 +70,28 @@ export class JssFormObjectComponent {
     });
     return opts;
   }
+
+  selectItems(schemaObj) {
+    if (!schemaObj.items) {
+      // use .enum
+      return schemaObj.enum.map(str => {
+        return {
+          label: str,
+          value: str
+        }
+      });
+    } else {
+      // use .items
+      return schemaObj.items.map(item => {
+        const ret = {
+          value: item.value
+        };
+        ret['label'] = item.label ? item.label : item.value;
+        return ret;
+      });
+    }
+  }
+
 }
 
 @Component({
