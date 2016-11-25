@@ -26,9 +26,9 @@ export class SliderComponent implements ControlValueAccessor {
 
 
   @Input('value') value: number = 0;
-  @Input('min') min: number = 0;
-  @Input('max') max: number = 100;
-  @Input('step') step: number = 10;
+  @Input('min') min: number;
+  @Input('max') max: number;
+  @Input('step') step: number;
   @Input('stepsOnly') stepsOnly: boolean = false;
   @Input('round') round: number = 0;
   @Input('scaleNames') scaleNames: string[];
@@ -36,10 +36,18 @@ export class SliderComponent implements ControlValueAccessor {
   @ViewChild('scale') scale;
 
   constructor() {
-
   }
 
   ngAfterContentInit() {
+    /**
+     * handle defaults
+     * info: this is done here so @Input-values of undefined|null will be handled
+     */
+    this.value = this.value || 0;
+    this.min = this.min || 0;
+    this.max = this.max || 100;
+    this.step = this.step || 10;
+
     this.calculatePercentLeftKnob();
     this.getScalePoints();
   }

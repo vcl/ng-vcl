@@ -43,13 +43,11 @@ export class JssFormComponent implements OnInit {
       },
       hp: {
         type: 'number',
-        formType: 'slider',
-        min: 0,
-        max: 100
+        formType: 'slider'
       },
       alive: {
         type: 'boolean',
-        formType: 'switch'   
+        formType: 'switch'
       },
       mainSkill: {
         description: 'nested object',

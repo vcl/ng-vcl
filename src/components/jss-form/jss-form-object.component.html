@@ -20,7 +20,8 @@ style="border-style:solid;margin:5px;padding: 5px;">
       <div *ngSwitchCase="'number'">
         <input type="number" valueType="number" placeholder="number"
          [name]="name(parentPath,key)"
-         [formControlName]="key" />
+         [formControlName]="key"
+      />
       </div>
       <div *ngSwitchCase="'select'">
         <vcl-select [formControlName]="key">
@@ -31,7 +32,10 @@ style="border-style:solid;margin:5px;padding: 5px;">
         <vcl-flip-switch onLabel="{{'Yes' | loc }}" offLabel="{{'No' | loc}}" [formControlName]="key"></vcl-flip-switch>
       </div>
       <div *ngSwitchCase="'slider'">
-        <vcl-slider [min]="schema.properties[key].min" [max]="schema.properties[key].max" [formControlName]="key"></vcl-slider>
+        <vcl-slider
+         [min]="schema.properties[key].min"
+         [max]="schema.properties[key].max"
+         [formControlName]="key"></vcl-slider>
       </div>
       <div *ngSwitchCase="'checkbox'">
         <vcl-checkbox [formControlName]="key"></vcl-checkbox>

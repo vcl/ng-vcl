@@ -9,15 +9,20 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 var SliderComponent = (function () {
     function SliderComponent() {
         this.value = 0;
-        this.min = 0;
-        this.max = 100;
-        this.step = 10;
         this.stepsOnly = false;
         this.round = 0;
         this.percentLeftKnob = 0;
         this.firstPan = true;
     }
     SliderComponent.prototype.ngAfterContentInit = function () {
+        /**
+         * handle defaults
+         * info: this is done here so @Input-values of undefined|null will be handled
+         */
+        this.value = this.value || 0;
+        this.min = this.min || 0;
+        this.max = this.max || 100;
+        this.step = this.step || 10;
         this.calculatePercentLeftKnob();
         this.getScalePoints();
     };
