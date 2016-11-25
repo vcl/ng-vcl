@@ -1,18 +1,20 @@
 <b>Single select</b><br>
-<vcl-select #select [items]="items" (select)="onSelect($event)"></vcl-select>
+<vcl-select [items]="items" (change)="onChange($event)" [(ngModel)]="selectedItemSingle"></vcl-select>
 <div *ngIf="selectedItemSingle">
-  Selected: {{selectedItemSingle.label}}
+  value: {{selectedItemSingle}}
 </div>
 
 <br>
 <br>
 <b>Multiselect, 3 Items selectable</b><br>
 
-<vcl-select [items]="items" (select)="onSelectMulti($event)" [maxSelectableItems]="3"></vcl-select>
-<div *ngIf="selectedItemsMulti">
-  Selected:
+<vcl-select [items]="items" (change)="onChange($event)" [maxSelectableItems]="3"
+  [(ngModel)]="selectedItemsMulti"
+></vcl-select>
+<div *ngIf="selectedItemsMulti && selectedItemsMulti.length>0">
+  value:
   <ul>
-    <li *ngFor="let item of selectedItemsMulti">{{item.label}}</li>
+    <li *ngFor="let val of selectedItemsMulti">{{val}}</li>
   </ul>
 </div>
 
@@ -21,13 +23,23 @@
 <br>
 <br>
 <b>Options via html</b><br>
-<vcl-select (select)="onSelect($event)">
+<vcl-select (change)="onChange($event)" [(ngModel)]="selectedItemSingleHtml">
   <vcl-select-option label="Item1"></vcl-select-option>
   <vcl-select-option label="Item2"></vcl-select-option>
   <vcl-select-option label="Item3"></vcl-select-option>
   <vcl-select-option label="Item4"></vcl-select-option>
   <vcl-select-option label="Item5"></vcl-select-option>
 </vcl-select>
-<div *ngIf="selectedItemSingle">
-  Selected: {{selectedItemSingle.label}}
+<div *ngIf="selectedItemSingleHtml">
+  Value: {{selectedItemSingleHtml}}
+</div>
+
+
+<hr/>
+<h2>Pre-defined value</h2>
+
+
+<vcl-select [items]="items" (change)="onChange($event)" [(ngModel)]="selectSingleValue"></vcl-select>
+<div *ngIf="selectSingleValue">
+  Value: {{selectSingleValue}}
 </div>

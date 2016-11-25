@@ -4,47 +4,48 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   templateUrl: 'select.component.html'
 })
 export class SelectComponent implements OnInit {
-  @ViewChild('select') select;
-
   items: any[] = [
-    { label: 'item 1' },
-    { label: 'item 2' },
-    { label: 'item 3' },
-    { label: 'item 4' },
-    { label: 'item 5' },
-    { label: 'item 6', sublabel: 'sublabel of item 6' },
-    { label: 'item 7', sublabel: 'sublabel of item 7' },
-    { label: 'item 8', sublabel: 'sublabel of item 8' },
-    { label: 'item 9' },
-    { label: 'item 10' }
-  ]
+    {
+      label: 'item 1',
+      value: 1
+    },
+    {
+      label: 'item 2',
+      value: 2
+    },
+    {
+      label: 'item 3',
+      value: 3
+    },
+    {
+      label: 'item 4',
+      value: 4
+    },
+    {
+      label: 'item 5',
+      value: 5
+    },
+    {
+      label: 'item 6', sublabel: 'sublabel of item 6',
+      value: 6
+    }
+  ];
 
   selectedItemSingle: any;
-
   selectedItemsMulti: any[];
+  selectedItemSingleHtml: any;
+
+
+  selectSingleValue = 5;
+  selectMultiValue = [3, 4];
 
   constructor() {
   }
 
   ngOnInit() { }
 
-  ngAfterViewInit() {
-    // setTimeout(() => {
-    //   this.select.selectItem(this.items[5]);
-    // }, 2000);
-  }
-
-  onSelect(items: any[]) {
-    if (items.length) {
-      this.selectedItemSingle = items[0];
-    } else {
-      this.selectedItemSingle = null;
-    }
-    console.log('Selected Items: ', items);
-  }
-
-  onSelectMulti(items: any[]) {
-    this.selectedItemsMulti = items;
-    console.log('Selected Items: ', items);
+  onChange(newValue) {
+    console.log('onChange:');
+    console.dir(newValue);
   }
 }
