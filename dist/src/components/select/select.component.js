@@ -16,6 +16,7 @@ var SelectOptionComponent = (function () {
     }
     SelectOptionComponent.prototype.toObject = function () {
         var ret = {
+            value: this.value,
             label: this.label,
             sublabel: this.sublabel,
             class: this.class
@@ -24,6 +25,10 @@ var SelectOptionComponent = (function () {
     };
     return SelectOptionComponent;
 }());
+__decorate([
+    core_1.Input('value'),
+    __metadata("design:type", String)
+], SelectOptionComponent.prototype, "value", void 0);
 __decorate([
     core_1.Input('label'),
     __metadata("design:type", String)
@@ -51,68 +56,57 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 var SelectComponent = (function () {
     function SelectComponent() {
         var _this = this;
-        this.clickInside = false;
         this.popoverTarget = 'popoverTarget' + Math.random().toString().slice(2);
         this.select = new core_1.EventEmitter();
         this.expanded = false;
+        this.items = [];
         this.minSelectableItems = 1;
         this.maxSelectableItems = 1;
         this.expandedIcon = 'fa:chevron-up';
         this.collapsedIcon = 'fa:chevron-down';
-        this.inputValue = 'label';
-        this.emptyLabel = 'Select value';
-        this.select.subscribe(function (selectedItems) {
-            _this.selected = selectedItems;
-            if (!_this.onChangeCallback)
-                return;
-            var pubValue = _this.maxSelectableItems == 1 ? selectedItems[0].label : selectedItems.map(function (i) { return i.label; });
-            _this.onChangeCallback(pubValue);
+        this.displayValue = 'Select value';
+        this.changeEE = new core_1.EventEmitter();
+        this.expand = function () { return _this.expanded = !_this.expanded; };
+        this.onOutsideClick = function () { return _this.expanded = false; };
+        this.changeEE.subscribe(function (newValue) {
+            _this.items
+                .filter(function (i) { return i.value == newValue; })
+                .map(function (i) { return _this.displayValue = i.label; });
+            if (_this.value.length) {
+                _this.displayValue = _this.items
+                    .filter(function (i) { return _this.value.includes(i.value); })
+                    .map(function (i) { return i.label; })
+                    .join(', ');
+            }
+            !!_this.onChangeCallback && _this.onChangeCallback(newValue);
         });
     }
-    SelectComponent.prototype.ngOnInit = function () {
-        this.displayValue = this.emptyLabel;
-    };
+    SelectComponent.prototype.ngOnInit = function () { };
     SelectComponent.prototype.ngAfterContentInit = function () {
         var templateItemsAr = this.templateItems.toArray();
         if (templateItemsAr.length > 0) {
-            var items_1 = [];
-            templateItemsAr.map(function (i) { return items_1.push(i.toObject()); });
-            this.items = items_1;
+            this.items = templateItemsAr.map(function (i) { return i.toObject(); });
         }
-    };
-    SelectComponent.prototype.expand = function () {
-        this.expanded = !this.expanded;
-    };
-    SelectComponent.prototype.selectItem = function (item) {
-        this.dropdown.selectItem(item);
+        this.items.map(function (item) {
+            if (!item.value)
+                item.value = item.label;
+            if (!item.label)
+                item.label = item.value;
+            return item;
+        });
     };
     SelectComponent.prototype.onSelect = function (items) {
-        this.clickInside = true;
-        this.select.emit(items);
-        if (items && items[0] && this.maxSelectableItems === 1) {
-            this.displayValue = items[0][this.inputValue];
-        }
-        else if (!items || items.length === 0) {
-            this.displayValue = this.emptyLabel;
-        }
-        else {
-            var result = '';
-            for (var i = 0; i < items.length; i++) {
-                result += items[i][this.inputValue];
-                if (i !== items.length - 1) {
-                    result += ', ';
-                }
-            }
-            this.displayValue = result;
-        }
-    };
-    SelectComponent.prototype.onOutsideClick = function (event) {
-        this.expanded = false;
+        if (this.maxSelectableItems == 1)
+            this.value = items[0].value;
+        else
+            this.value = items.map(function (i) { return i.value; });
+        this.changeEE.emit(this.value);
     };
     SelectComponent.prototype.writeValue = function (value) {
-        if (value !== this.selected) {
-            this.selected = value;
-        }
+        if (this.value == value)
+            return;
+        this.value = value;
+        this.changeEE.emit(this.value);
     };
     SelectComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -123,25 +117,25 @@ var SelectComponent = (function () {
     return SelectComponent;
 }());
 __decorate([
-    core_1.ViewChild('dropdown'),
+    core_1.Input('value'),
     __metadata("design:type", Object)
-], SelectComponent.prototype, "dropdown", void 0);
+], SelectComponent.prototype, "value", void 0);
 __decorate([
-    core_1.Output(),
+    core_1.Output('select'),
     __metadata("design:type", Object)
 ], SelectComponent.prototype, "select", void 0);
 __decorate([
-    core_1.Input(),
+    core_1.Input('expanded'),
     __metadata("design:type", Boolean)
 ], SelectComponent.prototype, "expanded", void 0);
+__decorate([
+    core_1.Input('items'),
+    __metadata("design:type", Array)
+], SelectComponent.prototype, "items", void 0);
 __decorate([
     core_1.ContentChildren(SelectOptionComponent),
     __metadata("design:type", core_1.QueryList)
 ], SelectComponent.prototype, "templateItems", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Array)
-], SelectComponent.prototype, "items", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Number)
@@ -159,18 +153,21 @@ __decorate([
     __metadata("design:type", String)
 ], SelectComponent.prototype, "collapsedIcon", void 0);
 __decorate([
-    core_1.Input(),
+    core_1.Input('displayValue'),
     __metadata("design:type", String)
-], SelectComponent.prototype, "inputValue", void 0);
+], SelectComponent.prototype, "displayValue", void 0);
 __decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], SelectComponent.prototype, "emptyLabel", void 0);
+    core_1.Output('change'),
+    __metadata("design:type", Object)
+], SelectComponent.prototype, "changeEE", void 0);
+__decorate([
+    core_1.ViewChild('dropdown'),
+    __metadata("design:type", Object)
+], SelectComponent.prototype, "dropdown", void 0);
 SelectComponent = __decorate([
     core_1.Component({
         selector: 'vcl-select',
         templateUrl: 'select.component.html',
-        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
         providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
     }),
     __metadata("design:paramtypes", [])

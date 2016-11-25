@@ -9,7 +9,7 @@ import {
   Input, Output,
   OnInit, HostBinding, HostListener, OnChanges,
   SimpleChanges, EventEmitter, ElementRef, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {

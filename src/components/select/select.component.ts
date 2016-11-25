@@ -11,17 +11,7 @@ import {
   Optional,
   forwardRef
 } from '@angular/core';
-
-
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-
-
-
-
-
-
-
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
 @Directive({
@@ -29,6 +19,7 @@ import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/for
 })
 export class SelectOptionComponent {
 
+  @Input('value') value: string;
   @Input('label') label: string;
   @Input('sublabel') sublabel: string;
   @Input('class') class: string = '';
@@ -42,144 +33,104 @@ export class SelectOptionComponent {
    */
   toObject(): Object {
     const ret = {
+      value: this.value,
       label: this.label,
       sublabel: this.sublabel,
       class: this.class
     };
     return ret;
   }
-
-
-
 }
 
 
-
-
-
-
-
-
-
-
-
-/**
- * see
- * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
- */
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SelectComponent),
   multi: true
 };
-
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @ViewChild('dropdown') dropdown;
 
-  clickInside: boolean = false;
-  popoverTarget: string = 'popoverTarget' + Math.random().toString().slice(2);
+  popoverTarget: string = 'popoverTarget' + Math.random().toString().slice(2); // TODO cant this be solved via view/content-childs?
 
-  @Output()
-  select = new EventEmitter<any[]>();
+  @Input('value') value: string | string[];
+  @Output('select') select = new EventEmitter<any[]>();
+  @Input('expanded') expanded: boolean = false;
 
-  @Input()
-  expanded: boolean = false;
-
+  // options
+  @Input('items') items: any[] = [];
   @ContentChildren(SelectOptionComponent)
   templateItems: QueryList<SelectOptionComponent>;
 
-  @Input()
-  items: any[];
+  // multi-select
+  @Input() minSelectableItems: number = 1;
+  @Input() maxSelectableItems: number = 1;
 
-  @Input()
-  minSelectableItems: number = 1;
+  // styling
+  @Input() expandedIcon: string = 'fa:chevron-up';
+  @Input() collapsedIcon: string = 'fa:chevron-down';
+  @Input('displayValue') displayValue: string = 'Select value';
 
-  @Input()
-  maxSelectableItems: number = 1;
+  @Output('change') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
 
-  @Input()
-  expandedIcon: string = 'fa:chevron-up';
+  @ViewChild('dropdown') dropdown;
+  selectedItems: any;
 
-  @Input()
-  collapsedIcon: string = 'fa:chevron-down';
-
-  @Input()
-  inputValue: string = 'label';
-
-  @Input()
-  emptyLabel: string = 'Select value';
-
-  displayValue: string;
-
-  selected: Object[];
 
   constructor() {
-    this.select.subscribe(selectedItems => {
-      this.selected = selectedItems;
+    this.changeEE.subscribe(newValue => {
 
-      if (!this.onChangeCallback) return;
-      const pubValue = this.maxSelectableItems == 1 ? selectedItems[0].label : selectedItems.map(i => i.label);
-      this.onChangeCallback(pubValue);
+      // displayValue
+      this.items
+        .filter(i => i.value == newValue)
+        .map(i => this.displayValue = i.label);
+
+      // displayValue for multiselect
+      if (this.value.length) {
+        this.displayValue = this.items
+          .filter(i => this.value.includes(i.value))
+          .map(i => i.label)
+          .join(', ');
+      }
+
+      // propagate form-change
+      !!this.onChangeCallback && this.onChangeCallback(newValue);
+    });
+  }
+
+  ngOnInit() { }
+
+  ngAfterContentInit() {
+    // transform template-items if available
+    let templateItemsAr = this.templateItems.toArray();
+    if (templateItemsAr.length > 0) {
+      this.items = templateItemsAr.map(i => i.toObject());
+    }
+
+    // make sure value and label exists on every option
+    this.items.map(item => {
+      if (!item.value) item.value = item.label;
+      if (!item.label) item.label = item.value;
+      return item;
     });
   }
 
 
-  ngOnInit() {
-    this.displayValue = this.emptyLabel;
-  }
+  expand = () => this.expanded = !this.expanded;
+  onOutsideClick = () => this.expanded = false;
 
 
-  ngAfterContentInit() {
-    let templateItemsAr = this.templateItems.toArray();
-    if (templateItemsAr.length > 0) {
-      const items = [];
-      templateItemsAr.map(i => items.push(i.toObject()));
-      this.items = items;
-    }
-
-  }
-
-  expand() {
-    this.expanded = !this.expanded;
-  }
-
-  selectItem(item: any) {
-    this.dropdown.selectItem(item);
-  }
-
-
-  /**
-   * TODO refactor this
-   */
   onSelect(items: any[]) {
-    this.clickInside = true;
-    this.select.emit(items);
-    if (items && items[0] && this.maxSelectableItems === 1) {
-      this.displayValue = items[0][this.inputValue];
-    } else if (!items || items.length === 0) {
-      this.displayValue = this.emptyLabel;
-    } else {
-      let result = '';
-      for (let i = 0; i < items.length; i++) {
-        result += items[i][this.inputValue];
-        if (i !== items.length - 1) {
-          result += ', ';
-        }
-      }
-      this.displayValue = result;
-    }
-  }
+    if (this.maxSelectableItems == 1) this.value = items[0].value; // single-select
+    else this.value = items.map(i => i.value);  // multi-select
 
-  onOutsideClick(event) {
-    this.expanded = false;
+    this.changeEE.emit(this.value);
   }
-
 
 
   /**
@@ -188,10 +139,9 @@ export class SelectComponent implements ControlValueAccessor {
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
   writeValue(value: any): void {
-    if (value !== this.selected) {
-      this.selected = value;
-      // TODO preselect the valued items
-    }
+    if (this.value == value) return;
+    this.value = value;
+    this.changeEE.emit(this.value);
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;

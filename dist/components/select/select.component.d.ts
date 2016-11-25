@@ -2,6 +2,7 @@
 import { EventEmitter, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 export declare class SelectOptionComponent {
+    value: string;
     label: string;
     sublabel: string;
     class: string;
@@ -13,37 +14,28 @@ export declare class SelectOptionComponent {
      */
     toObject(): Object;
 }
-/**
- * see
- * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
- */
 export declare const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any;
 export declare class SelectComponent implements ControlValueAccessor {
-    dropdown: any;
-    clickInside: boolean;
     popoverTarget: string;
+    value: string | string[];
     select: EventEmitter<any[]>;
     expanded: boolean;
-    templateItems: QueryList<SelectOptionComponent>;
     items: any[];
+    templateItems: QueryList<SelectOptionComponent>;
     minSelectableItems: number;
     maxSelectableItems: number;
     expandedIcon: string;
     collapsedIcon: string;
-    inputValue: string;
-    emptyLabel: string;
     displayValue: string;
-    selected: Object[];
+    changeEE: EventEmitter<string | string[]>;
+    dropdown: any;
+    selectedItems: any;
     constructor();
     ngOnInit(): void;
     ngAfterContentInit(): void;
-    expand(): void;
-    selectItem(item: any): void;
-    /**
-     * TODO refactor this
-     */
+    expand: () => boolean;
+    onOutsideClick: () => false;
     onSelect(items: any[]): void;
-    onOutsideClick(event: any): void;
     /**
      * things needed for ControlValueAccessor-Interface
      */

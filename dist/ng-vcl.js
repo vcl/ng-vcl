@@ -5539,12 +5539,17 @@ var SelectOptionComponent = (function () {
      */
     SelectOptionComponent.prototype.toObject = function () {
         var ret = {
+            value: this.value,
             label: this.label,
             sublabel: this.sublabel,
             class: this.class
         };
         return ret;
     };
+    __decorate([
+        core_1.Input('value'), 
+        __metadata('design:type', String)
+    ], SelectOptionComponent.prototype, "value", void 0);
     __decorate([
         core_1.Input('label'), 
         __metadata('design:type', String)
@@ -5566,10 +5571,6 @@ var SelectOptionComponent = (function () {
     return SelectOptionComponent;
 }());
 exports.SelectOptionComponent = SelectOptionComponent;
-/**
- * see
- * @link http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
- */
 exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
     provide: forms_1.NG_VALUE_ACCESSOR,
     useExisting: core_1.forwardRef(function () { return SelectComponent; }),
@@ -5578,71 +5579,65 @@ exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 var SelectComponent = (function () {
     function SelectComponent() {
         var _this = this;
-        this.clickInside = false;
-        this.popoverTarget = 'popoverTarget' + Math.random().toString().slice(2);
+        this.popoverTarget = 'popoverTarget' + Math.random().toString().slice(2); // TODO cant this be solved via view/content-childs?
         this.select = new core_1.EventEmitter();
         this.expanded = false;
+        // options
+        this.items = [];
+        // multi-select
         this.minSelectableItems = 1;
         this.maxSelectableItems = 1;
+        // styling
         this.expandedIcon = 'fa:chevron-up';
         this.collapsedIcon = 'fa:chevron-down';
-        this.inputValue = 'label';
-        this.emptyLabel = 'Select value';
-        this.select.subscribe(function (selectedItems) {
-            _this.selected = selectedItems;
-            if (!_this.onChangeCallback)
-                return;
-            var pubValue = _this.maxSelectableItems == 1 ? selectedItems[0].label : selectedItems.map(function (i) { return i.label; });
-            _this.onChangeCallback(pubValue);
+        this.displayValue = 'Select value';
+        this.changeEE = new core_1.EventEmitter(); // string[] if multi-select
+        this.expand = function () { return _this.expanded = !_this.expanded; };
+        this.onOutsideClick = function () { return _this.expanded = false; };
+        this.changeEE.subscribe(function (newValue) {
+            // displayValue
+            _this.items
+                .filter(function (i) { return i.value == newValue; })
+                .map(function (i) { return _this.displayValue = i.label; });
+            // displayValue for multiselect
+            if (_this.value.length) {
+                _this.displayValue = _this.items
+                    .filter(function (i) { return _this.value.includes(i.value); })
+                    .map(function (i) { return i.label; })
+                    .join(', ');
+            }
+            // propagate form-change
+            !!_this.onChangeCallback && _this.onChangeCallback(newValue);
         });
     }
-    SelectComponent.prototype.ngOnInit = function () {
-        this.displayValue = this.emptyLabel;
-    };
+    SelectComponent.prototype.ngOnInit = function () { };
     SelectComponent.prototype.ngAfterContentInit = function () {
+        // transform template-items if available
         var templateItemsAr = this.templateItems.toArray();
         if (templateItemsAr.length > 0) {
-            var items_1 = [];
-            templateItemsAr.map(function (i) { return items_1.push(i.toObject()); });
-            this.items = items_1;
+            this.items = templateItemsAr.map(function (i) { return i.toObject(); });
         }
+        // make sure value and label exists on every option
+        this.items.map(function (item) {
+            if (!item.value)
+                item.value = item.label;
+            if (!item.label)
+                item.label = item.value;
+            return item;
+        });
     };
-    SelectComponent.prototype.expand = function () {
-        this.expanded = !this.expanded;
-    };
-    SelectComponent.prototype.selectItem = function (item) {
-        this.dropdown.selectItem(item);
-    };
-    /**
-     * TODO refactor this
-     */
     SelectComponent.prototype.onSelect = function (items) {
-        this.clickInside = true;
-        this.select.emit(items);
-        if (items && items[0] && this.maxSelectableItems === 1) {
-            this.displayValue = items[0][this.inputValue];
-        }
-        else if (!items || items.length === 0) {
-            this.displayValue = this.emptyLabel;
-        }
-        else {
-            var result = '';
-            for (var i = 0; i < items.length; i++) {
-                result += items[i][this.inputValue];
-                if (i !== items.length - 1) {
-                    result += ', ';
-                }
-            }
-            this.displayValue = result;
-        }
-    };
-    SelectComponent.prototype.onOutsideClick = function (event) {
-        this.expanded = false;
+        if (this.maxSelectableItems == 1)
+            this.value = items[0].value; // single-select
+        else
+            this.value = items.map(function (i) { return i.value; }); // multi-select
+        this.changeEE.emit(this.value);
     };
     SelectComponent.prototype.writeValue = function (value) {
-        if (value !== this.selected) {
-            this.selected = value;
-        }
+        if (this.value == value)
+            return;
+        this.value = value;
+        this.changeEE.emit(this.value);
     };
     SelectComponent.prototype.registerOnChange = function (fn) {
         this.onChangeCallback = fn;
@@ -5651,25 +5646,26 @@ var SelectComponent = (function () {
         this.onTouchedCallback = fn;
     };
     __decorate([
-        core_1.ViewChild('dropdown'), 
+        // TODO cant this be solved via view/content-childs?
+        core_1.Input('value'), 
         __metadata('design:type', Object)
-    ], SelectComponent.prototype, "dropdown", void 0);
+    ], SelectComponent.prototype, "value", void 0);
     __decorate([
-        core_1.Output(), 
+        core_1.Output('select'), 
         __metadata('design:type', Object)
     ], SelectComponent.prototype, "select", void 0);
     __decorate([
-        core_1.Input(), 
+        core_1.Input('expanded'), 
         __metadata('design:type', Boolean)
     ], SelectComponent.prototype, "expanded", void 0);
+    __decorate([
+        core_1.Input('items'), 
+        __metadata('design:type', Array)
+    ], SelectComponent.prototype, "items", void 0);
     __decorate([
         core_1.ContentChildren(SelectOptionComponent), 
         __metadata('design:type', (typeof (_a = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _a) || Object)
     ], SelectComponent.prototype, "templateItems", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], SelectComponent.prototype, "items", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Number)
@@ -5687,18 +5683,23 @@ var SelectComponent = (function () {
         __metadata('design:type', String)
     ], SelectComponent.prototype, "collapsedIcon", void 0);
     __decorate([
-        core_1.Input(), 
+        core_1.Input('displayValue'), 
         __metadata('design:type', String)
-    ], SelectComponent.prototype, "inputValue", void 0);
+    ], SelectComponent.prototype, "displayValue", void 0);
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], SelectComponent.prototype, "emptyLabel", void 0);
+        core_1.Output('change'), 
+        __metadata('design:type', Object)
+    ], SelectComponent.prototype, "changeEE", void 0);
+    __decorate([
+        // string[] if multi-select
+        core_1.ViewChild('dropdown'), 
+        __metadata('design:type', Object)
+    ], SelectComponent.prototype, "dropdown", void 0);
     SelectComponent = __decorate([
         core_1.Component({
             selector: 'vcl-select',
             template: __webpack_require__(114),
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+            //  changeDetection: ChangeDetectionStrategy.OnPush,
             providers: [exports.CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
         }), 
         __metadata('design:paramtypes', [])
@@ -43641,7 +43642,7 @@ module.exports = "<div #el [style.height]=\"height\"></div>\n"
 /* 102 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\"\n      />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <vcl-select [formControlName]=\"key\">\n          <vcl-select-option *ngFor=\"let option of selectItems(schema.properties[key])\"\n           [label]=\"option.label\"></vcl-select-option>\n        </vcl-select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider\n         [min]=\"schema.properties[key].min\"\n         [max]=\"schema.properties[key].max\"\n         [formControlName]=\"key\"></vcl-slider>\n      </div>\n      <div *ngSwitchCase=\"'checkbox'\">\n        <vcl-checkbox [formControlName]=\"key\"></vcl-checkbox>\n      </div>\n\n      <div *ngSwitchCase=\"'radio'\">\n        <vcl-radio-group [formControlName]=\"key\" [options]=\"radioOptions(schema.properties[key])\"></vcl-radio-group>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n"
+module.exports = "<div *ngFor=\"let key of keys(schema.properties)\"\n[formGroup]=\"formGroup\"\nstyle=\"border-style:solid;margin:5px;padding: 5px;\">\n\n  <b *ngIf=\"schema.properties[key].properties\">{{key}}:</b>\n\n  <vcl-jss-form-object *ngIf=\"schema.properties[key].properties\"\n   [schema]=\"schema.properties[key]\"\n   [parentPath]=\"parentPath+'.' + key\"\n   [formGroup]=\"formGroup.controls[key]\">\n </vcl-jss-form-object>\n\n  <div *ngIf=\"!schema.properties[key].properties\">\n    {{key}}\n\n    <div [ngSwitch]=\"formType(schema.properties[key])\">\n      <div *ngSwitchCase=\"'text'\">\n        <input vcl-input type=\"text\" [formControlName]=\"key\" [placeholder]=\"placeholder(schema.properties[key])\" />\n      </div>\n      <div *ngSwitchCase=\"'number'\">\n        <input type=\"number\" valueType=\"number\" placeholder=\"number\"\n         [name]=\"name(parentPath,key)\"\n         [formControlName]=\"key\"\n      />\n      </div>\n      <div *ngSwitchCase=\"'select'\">\n        <vcl-select [formControlName]=\"key\">\n          <vcl-select-option *ngFor=\"let option of selectItems(schema.properties[key])\"\n           [label]=\"option.label\" [value]=\"option.value\"></vcl-select-option>\n        </vcl-select>\n      </div>\n      <div *ngSwitchCase=\"'switch'\">\n        <vcl-flip-switch onLabel=\"{{'Yes' | loc }}\" offLabel=\"{{'No' | loc}}\" [formControlName]=\"key\"></vcl-flip-switch>\n      </div>\n      <div *ngSwitchCase=\"'slider'\">\n        <vcl-slider\n         [min]=\"schema.properties[key].min\"\n         [max]=\"schema.properties[key].max\"\n         [formControlName]=\"key\"></vcl-slider>\n      </div>\n      <div *ngSwitchCase=\"'checkbox'\">\n        <vcl-checkbox [formControlName]=\"key\"></vcl-checkbox>\n      </div>\n\n      <div *ngSwitchCase=\"'radio'\">\n        <vcl-radio-group [formControlName]=\"key\" [options]=\"radioOptions(schema.properties[key])\"></vcl-radio-group>\n      </div>\n\n\n    </div>\n\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 103 */

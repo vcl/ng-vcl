@@ -90,7 +90,6 @@ var JssFormComponent = (function () {
         };
         this.value = {
             isleader: true,
-            color: 'red',
             alive: true,
             hp: 50
         };
@@ -98,8 +97,6 @@ var JssFormComponent = (function () {
     JssFormComponent.prototype.ngOnInit = function () {
     };
     JssFormComponent.prototype.onError = function (err) {
-        console.log('error:');
-        console.dir(err);
     };
     return JssFormComponent;
 }());

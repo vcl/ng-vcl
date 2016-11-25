@@ -26,7 +26,7 @@ style="border-style:solid;margin:5px;padding: 5px;">
       <div *ngSwitchCase="'select'">
         <vcl-select [formControlName]="key">
           <vcl-select-option *ngFor="let option of selectItems(schema.properties[key])"
-           [label]="option.label"></vcl-select-option>
+           [label]="option.label" [value]="option.value"></vcl-select-option>
         </vcl-select>
       </div>
       <div *ngSwitchCase="'switch'">
