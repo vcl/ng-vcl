@@ -29,12 +29,6 @@
     "angular",
     "VCL"
   ],
-  "pre-push": [
-    "build",
-    "docs",
-    "deploy:dist",
-    "deploy:docs"
-  ],
   "author": "The ng-vcl authors",
   "license": "MIT",
   "main": "ng-vcl.js",
@@ -82,7 +76,6 @@
     "marked": "^0.3.6",
     "npm-run-all": "3.1.1",
     "postcss-cli": "2.6.0",
-    "pre-push": "^0.1.1",
     "raw-loader": "0.5.1",
     "rxjs": "5.0.0-rc.1",
     "style-loader": "0.13.1",
