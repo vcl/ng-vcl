@@ -54,25 +54,3 @@ npm run demo
 ```
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 
-## Build and deploy ng-vcl
-
-Build the ng-vcl in the `dist` folder
-```
-npm run build
-```
-Deploy `dist` folder to dist branch
-```
-npm run deploy:dist
-```
-
-## Build and deploy docs
-
-Build the docs in the `docs` folder
-```
-npm run docs
-```
-Deploy `docs` folder to gh-pages branch
-```
-npm run deploy:docs
-```
-
