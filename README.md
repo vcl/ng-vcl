@@ -20,7 +20,7 @@ Breaking API changes might occur during alpha.
 ## Installation
 
 ```sh
-npm install https://github.com/ng-vcl/ng-vcl.git
+npm install ng-vcl/ng-vcl#dist --save
 ```
 
 ## Usage
@@ -40,22 +40,6 @@ import { VCLIconModule, VCLLayerModule } from 'ng-vcl';
 export class AppModule { }
 ```
 
-
-## Modules
-
-| Module           | Status                                       | Docs         |
-|------------------|----------------------------------------------|--------------|
-| vcl-button       |                                        Ready |  [README][1] |
-| vcl-button-group |                                        Ready |  [README][2] |
-| vcl-layer        |                                        Ready |  [README][3] |
-| vcl-icon         |                                        Ready |  [README][4] |
-
- [1]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button/README.md
- [2]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/button-group/README.md
- [3]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/layer/README.md
- [4]: https://github.com/ng-vcl/ng-vcl/blob/master/src/components/icon/README.md
-
-
 ## Demo / Docs
 
 Open [https://ng-vcl.github.io/ng-vcl/](https://ng-vcl.github.io/ng-vcl/)
@@ -70,11 +54,3 @@ npm run demo
 ```
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 
-## Create docs
-
-```
-npm run docs:build
-git add docs
-git commit -m "Docs"
-git run docs:push
-```
