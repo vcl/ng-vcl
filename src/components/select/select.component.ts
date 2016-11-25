@@ -83,24 +83,6 @@ export class SelectComponent implements ControlValueAccessor {
 
 
   constructor() {
-    this.changeEE.subscribe(newValue => {
-
-      // displayValue
-      this.items
-        .filter(i => i.value == newValue)
-        .map(i => this.displayValue = i.label);
-
-      // displayValue for multiselect
-      if (this.value.length) {
-        this.displayValue = this.items
-          .filter(i => this.value.includes(i.value))
-          .map(i => i.label)
-          .join(', ');
-      }
-
-      // propagate form-change
-      !!this.onChangeCallback && this.onChangeCallback(newValue);
-    });
   }
 
   ngOnInit() { }
@@ -118,6 +100,32 @@ export class SelectComponent implements ControlValueAccessor {
       if (!item.label) item.label = item.value;
       return item;
     });
+
+    this.reDisplayValue(this.value);
+
+    this.changeEE.subscribe(newValue => {
+      this.reDisplayValue(newValue);
+
+      // propagate form-change
+      !!this.onChangeCallback && this.onChangeCallback(newValue);
+    });
+  }
+
+  reDisplayValue(newValue) {
+    if (!newValue) return;
+
+    // displayValue
+    this.items
+      .filter(i => i.value == newValue)
+      .map(i => this.displayValue = i.label);
+
+    // displayValue for multiselect
+    if (newValue.length) {
+      this.displayValue = this.items
+        .filter(i => this.value.includes(i.value))
+        .map(i => i.label)
+        .join(', ');
+    }
   }
 
 

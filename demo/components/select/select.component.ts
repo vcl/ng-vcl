@@ -38,6 +38,7 @@ export class SelectComponent implements OnInit {
 
   selectSingleValue = 5;
   selectMultiValue = [3, 4];
+  selectSingleValueHtml = 5;
 
   constructor() {
   }

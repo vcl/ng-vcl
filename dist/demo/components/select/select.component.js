@@ -39,6 +39,7 @@ var SelectComponent = (function () {
         ];
         this.selectSingleValue = 5;
         this.selectMultiValue = [3, 4];
+        this.selectSingleValueHtml = 5;
     }
     SelectComponent.prototype.ngOnInit = function () { };
     SelectComponent.prototype.onChange = function (newValue) {

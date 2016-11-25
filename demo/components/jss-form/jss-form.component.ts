@@ -90,6 +90,7 @@ export class JssFormComponent implements OnInit {
   };
 
   value = {
+    color: '#ff0000',
     isleader: true,
     alive: true,
     hp: 50
@@ -103,8 +104,8 @@ export class JssFormComponent implements OnInit {
   }
 
   onError(err) {
-//    console.log('error:');
-//    console.dir(err);
+    //    console.log('error:');
+    //    console.dir(err);
   }
 
 }
