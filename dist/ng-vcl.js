@@ -5626,11 +5626,11 @@ var SelectComponent = (function () {
             return item;
         });
     };
-    SelectComponent.prototype.onSelect = function (items) {
+    SelectComponent.prototype.onSelect = function (newItems) {
         if (this.maxSelectableItems == 1)
-            this.value = items[0].value; // single-select
+            this.value = newItems[0].value; // single-select
         else
-            this.value = items.map(function (i) { return i.value; }); // multi-select
+            this.value = newItems.map(function (i) { return i.value; }); // multi-select
         this.changeEE.emit(this.value);
     };
     SelectComponent.prototype.writeValue = function (value) {

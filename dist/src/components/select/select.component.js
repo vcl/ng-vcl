@@ -95,11 +95,11 @@ var SelectComponent = (function () {
             return item;
         });
     };
-    SelectComponent.prototype.onSelect = function (items) {
+    SelectComponent.prototype.onSelect = function (newItems) {
         if (this.maxSelectableItems == 1)
-            this.value = items[0].value;
+            this.value = newItems[0].value;
         else
-            this.value = items.map(function (i) { return i.value; });
+            this.value = newItems.map(function (i) { return i.value; });
         this.changeEE.emit(this.value);
     };
     SelectComponent.prototype.writeValue = function (value) {

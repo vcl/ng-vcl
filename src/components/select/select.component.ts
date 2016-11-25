@@ -125,9 +125,9 @@ export class SelectComponent implements ControlValueAccessor {
   onOutsideClick = () => this.expanded = false;
 
 
-  onSelect(items: any[]) {
-    if (this.maxSelectableItems == 1) this.value = items[0].value; // single-select
-    else this.value = items.map(i => i.value);  // multi-select
+  onSelect(newItems: any[]) {
+    if (this.maxSelectableItems == 1) this.value = newItems[0].value; // single-select
+    else this.value = newItems.map(i => i.value);  // multi-select
 
     this.changeEE.emit(this.value);
   }
