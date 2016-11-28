@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-import { FormComponent, FormInputControlGroup } from './form.component';
+import { FormComponent } from './form.component';
 
 @NgModule({
   imports: [ReactiveFormsModule, FormsModule],
-  exports: [FormComponent, FormInputControlGroup, FormsModule, ReactiveFormsModule],
-  declarations: [FormComponent, FormInputControlGroup]
+  exports: [FormComponent, FormsModule, ReactiveFormsModule],
+  declarations: [FormComponent]
 })
 export class VCLFormModule { }

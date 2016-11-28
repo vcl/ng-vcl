@@ -28,8 +28,11 @@ export class InputControlGroup implements OnInit {
   }
 
   ngOnInit() {
-    this.type$ = this.message.map(msg => msg.type);
-    this.value$ = this.message.map(msg => msg.value);
+
+    if (!this.message) return;
+
+    this.type$ = this.message.map(msg => msg.type || null);
+    this.value$ = this.message.map(msg => msg.value || null);
     this.classname$ = this.type$.map(t => {
       if (!t) return '';
       return 'vcl' + this.ucfirst(t);
@@ -44,14 +47,13 @@ export class InputControlGroup implements OnInit {
         el.classList.remove('vclError');
         el.classList.remove('vclWarning');
         el.classList.remove('vclSuccess');
-        console.log('new classname: ' + newClassname);
         if (newClassname != '') el.classList.add(newClassname);
       });
     });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub) this.sub.unsubscribe();
   }
 
   ucfirst(str: string): string {
