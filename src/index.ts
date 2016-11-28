@@ -33,6 +33,7 @@ import { VCLLabelModule } from './components/label/label.module';
 import { VCLTokenModule } from './components/token/token.module';
 import { VCLSliderModule } from './components/slider/slider.module';
 import { VCLJssFormModule } from './components/jss-form/jss-form.module';
+import { VCLInputControlGroupModule } from './components/input-control-group/input-control-group.module';
 
 
 export * from './reflect';
@@ -60,6 +61,7 @@ export * from './components/label/label.module';
 export * from './components/token/token.module';
 export * from './components/slider/slider.module';
 export * from './components/jss-form/jss-form.module';
+export * from './components/input-control-group/input-control-group.module';
 
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
@@ -100,7 +102,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLLabelModule,
     VCLTokenModule,
     VCLSliderModule,
-    VCLJssFormModule
+    VCLJssFormModule,
+    VCLInputControlGroupModule
   ],
   exports: [
     VCLWormholeModule,
@@ -133,7 +136,8 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLLabelModule,
     VCLTokenModule,
     VCLSliderModule,
-    VCLJssFormModule
+    VCLJssFormModule,
+    VCLInputControlGroupModule
   ],
   providers: [
     OverlayManagerService

@@ -3,8 +3,9 @@ import { Component, Input, OnInit, NgModule, EventEmitter, Output } from '@angul
 import { FormGroup, FormControl, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+// TODO can this be deleted?
 @Component({
-  selector: 'vcl-input-control-group',
+  selector: 'vcl-input-control-group-foobar',
   template: `<div [class.vclInputControlGroup]="!inline" [class.vclInputInlineControlGroup]="inline"><ng-content></ng-content></div>`
 })
 export class FormInputControlGroup {
