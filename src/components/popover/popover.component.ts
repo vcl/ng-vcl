@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, trigger } from '@angular/core';
-import { OverlayManagerService, OverlayManagedComponent } from '../../services/overlayManager.service';
+import { OverlayManagerService, OverlayManagedComponent } from './overlayManager.service';
 
 @Component({
   selector: 'vcl-popover',

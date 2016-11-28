@@ -68,8 +68,6 @@ export * from './directives/wormhole/wormhole.module';
 export * from './l10n/l10n.module';
 export * from './reactive/index';
 
-import { OverlayManagerService } from './services/overlayManager.service';
-
 @NgModule({
   imports: [
     VCLWormholeModule,
@@ -139,8 +137,6 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLJssFormModule,
     VCLInputControlGroupModule
   ],
-  providers: [
-    OverlayManagerService
-  ],
+  providers: [],
 })
 export class VCLModule { }
