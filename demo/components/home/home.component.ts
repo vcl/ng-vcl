@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
 export class HomeComponent  {
   constructor() { }
 
-  readme = require("!raw-loader!../../../README.md")
+  readme = require("!raw-loader!../../../README.md");
 }

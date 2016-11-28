@@ -14,7 +14,7 @@ export class MetalistComponent implements OnInit {
     { name: 'name 3' },
     { name: 'name 4' },
     { name: 'name 5' },
-  ]
+  ];
 
   metaInformation: any[] = [
     null,
