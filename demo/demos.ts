@@ -36,6 +36,7 @@ import JSS_FORM_DEMO from './components/jss-form/jss-form.demo';
 import INPUT_CONTROL_GROUP from './components/input-control-group/input-control-group.demo';
 
 import L10N_DEMO from './components/l10n/l10n.demo';
+import STORE_DEMO from './components/store/store.demo';
 
 interface Demo {
   name: string;
@@ -82,6 +83,7 @@ export const DEMOS: Demo[] = [
   JSS_FORM_DEMO,
   INPUT_CONTROL_GROUP,
   L10N_DEMO,
+  STORE_DEMO
 ];
 
 export const GROUPED_DEMOS = function() {

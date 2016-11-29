@@ -11,8 +11,8 @@ import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/observable/throw';
 
-import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http, HttpModule, XHRBackend } from '@angular/http';
-import { Injectable, OpaqueToken, Inject, NgModule, Type, ModuleWithProviders } from '@angular/core';
+import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
+import { Injectable, OpaqueToken, Inject } from '@angular/core';
 
 /**
  *  Data caching
@@ -187,61 +187,4 @@ export class AdvHttp extends Http {
   options(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.options(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
   };
-}
-
-export declare interface AdvHttpConfig {
-  errorHandlerService?: Type<any>;
-  defaultErrorHandlingStrategy: ErrorHandlingStrategy;
-}
-
-
-@NgModule({
-  imports: [HttpModule],
-  providers: [
-    {
-      provide: ADV_HTTP_CONFIG,
-      useValue: {}
-    },
-    AdvHttp,
-    {
-      provide: ErrorHandlerService,
-      useClass: ErrorHandlerService
-    },
-    {
-      provide: AdvHttp,
-      useFactory: (config: any, errorHandler: ErrorHandlerService, backend: XHRBackend, defaultOptions: RequestOptions) => {
-        return new AdvHttp(config, errorHandler, backend, defaultOptions);
-      },
-      deps: [ ADV_HTTP_CONFIG, ErrorHandlerService, XHRBackend, RequestOptions]
-    },
-    {
-      provide: ADV_HTTP_CONFIG,
-      useValue: {}
-    }
-  ]
-})
-export class AdvHttpModule {
-  static forRoot(config: AdvHttpConfig): ModuleWithProviders {
-    return {
-      ngModule: AdvHttpModule,
-      providers: [
-        {
-          provide: ADV_HTTP_CONFIG,
-          useValue: config
-        },
-        AdvHttp,
-        {
-          provide: ErrorHandlerService,
-          useClass: config.errorHandlerService || ErrorHandlerService
-        },
-        {
-          provide: AdvHttp,
-          useFactory: (config: any, errorHandler: ErrorHandlerService, backend: XHRBackend, defaultOptions: RequestOptions) => {
-            return new AdvHttp(config, errorHandler, backend, defaultOptions);
-          },
-          deps: [ ADV_HTTP_CONFIG, ErrorHandlerService, XHRBackend, RequestOptions]
-        },
-      ]
-    };
-  }
 }
