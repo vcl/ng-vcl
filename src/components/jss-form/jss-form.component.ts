@@ -3,12 +3,10 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild,
-  forwardRef,
   OnInit
 } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, AbstractControl,
-  ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule  } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import {Observable} from 'rxjs';
 
 const Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema'; when typings available
 let VALIDATOR;
@@ -18,17 +16,49 @@ let VALIDATOR;
   selector: 'vcl-jss-form-object',
   templateUrl: 'jss-form-object.component.html',
 })
-export class JssFormObjectComponent {
+export class JssFormObjectComponent implements OnInit {
 
   @Input('schema') schema: any;
   @Input('parentPath') parentPath: string = '';
   @Input('formGroup') formGroup: FormGroup;
+  @Input('error') error; // EE
 
-  constructor() {
 
+  fieldErrors = {};
+
+
+  constructor() { }
+
+  ngOnInit() {
+/*    console.log('Aaaa');
+    console.dir(this.error);
+    console.dir(this.schema);
+*/
+
+    if (this.schema.properties) {
+      Object.keys(this.schema.properties)
+        .map(key => {
+
+          this.error
+            .filter(errAr => errAr != null)
+            .map(errAr => errAr
+              .filter(er => er.property.startsWith('instance.' + this.parentPath + key))
+            )
+            .map(errAr => {
+              if (errAr.length == 0) return null;
+              else return errAr.pop().message;
+            })
+            .subscribe(errMsg => this.fieldErrors[key] = errMsg);
+            // TODO unsubscribe on destroy
+        });
+
+    }
   }
 
-  formType(schemaObj): string {
+  /**
+   * if no formType is given, this will guess the right one
+   */
+  formType(schemaObj: any): string {
     if (schemaObj.formType) return schemaObj.formType;
 
     if (schemaObj.type == 'string') {
@@ -48,6 +78,25 @@ export class JssFormObjectComponent {
   keys(obj) {
     return Object.keys(obj);
   }
+
+  keyErrors(parentPath, key): any {
+
+    if (!this.error) return null;
+
+    return this.error
+      .map(errAr => errAr
+        .filter(er => er.property.startsWith('instance.' + parentPath + key))
+      )
+      .map(errAr => {
+        if (errAr.length == 0) return null;
+        else return errAr.pop().message;
+      });
+  }
+
+  keyErrors$(parentPath, key) {
+    return Observable.from(this.keyErrors(parentPath, key));
+  }
+
   name(parentPath, key) {
     let name = parentPath + '.' + key;
     while (name.charAt(0) === '.')
@@ -78,7 +127,7 @@ export class JssFormObjectComponent {
         return {
           label: str,
           value: str
-        }
+        };
       });
     } else {
       // use .items
@@ -148,11 +197,15 @@ export class JssFormComponent implements OnInit {
 
   /**
    * validate if value matches schema
-   * @return {?Object[]} error-array or null if no errors
+   * @return {?any[]} error-array or null if no errors
    */
   jsonSchemaValidate(obj: Object, schema = this.schema): Object[] | null {
   if (!VALIDATOR) VALIDATOR = new Validator();
   const valid = VALIDATOR.validate(obj, schema);
+
+  //  console.log('errrrrrors:');
+  //  console.dir(valid.errors);
+
   if (valid.errors.length == 0) {
     this.error.emit(null);
     return null;

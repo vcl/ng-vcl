@@ -1,15 +1,10 @@
 <form class="vclForm" novalidate [formGroup]="form">
 <div>
   <h1>JSS from</h1>
-
-
-
-  <vcl-jss-form-object [schema]="schema" [formGroup]="form"></vcl-jss-form-object>
-
-
+  <vcl-jss-form-object [schema]="schema" [formGroup]="form"
+   [error]="this.error"></vcl-jss-form-object>
 </div>
 </form>
-
 
 <div class="value">
   <h4>Value: {{ form.value | json }}</h4>
@@ -18,7 +13,6 @@
 <div class="status">
   <h4>Status: {{ form.status }}</h4>
 </div>
-
 
 <div class="error">
   <h4>Errors: {{ form.errors | json }}</h4>

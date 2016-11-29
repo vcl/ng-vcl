@@ -7,6 +7,10 @@ import { Subject, Observable } from 'rxjs';
 export class InputControlGroupComponent implements OnInit {
 
 
+  type: string;
+  label: string;
+
+
   message = new Subject();
   // emit messages over time
   obs = Observable
@@ -23,6 +27,10 @@ export class InputControlGroupComponent implements OnInit {
       if (s == 3) return null;
     })
     .map(type => {
+
+      this.type = type;
+      this.label = 'my custom ' + type;
+
       return {
         type,
         value: 'my custom ' + type

@@ -1,6 +1,8 @@
-<ng-content class="asdfasdf"></ng-content>
+<ng-content></ng-content>
 
-
-<div [class]="(classes$ | async)">
-  {{value$ | async}}
+<div *ngIf="type!=null && label!=null && label!=''" class="vclFormControlHint"
+  [class.vclError]="type=='error'"
+  [class.vclWarning]="type=='warning'"
+  [class.vclSuccess]="type=='success'">
+  {{label}}
 </div>

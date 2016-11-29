@@ -6,8 +6,10 @@ style="border-style:solid;margin:5px;padding: 5px;">
 
   <vcl-jss-form-object *ngIf="schema.properties[key].properties"
    [schema]="schema.properties[key]"
-   [parentPath]="parentPath+'.' + key"
-   [formGroup]="formGroup.controls[key]">
+   [parentPath]="parentPath + key + '.'"
+   [formGroup]="formGroup.controls[key]"
+   [error]="error"
+   >
  </vcl-jss-form-object>
 
   <div *ngIf="!schema.properties[key].properties">
@@ -15,13 +17,17 @@ style="border-style:solid;margin:5px;padding: 5px;">
 
     <div [ngSwitch]="formType(schema.properties[key])">
       <div *ngSwitchCase="'text'">
-        <input vcl-input type="text" [formControlName]="key" [placeholder]="placeholder(schema.properties[key])" />
+        <vcl-input-control-group [type]="'error'" [label]="fieldErrors[key]">
+          <input vcl-input type="text" [formControlName]="key"
+            [placeholder]="placeholder(schema.properties[key])" />
+        </vcl-input-control-group>
       </div>
       <div *ngSwitchCase="'number'">
-        <input type="number" valueType="number" placeholder="number"
-         [name]="name(parentPath,key)"
-         [formControlName]="key"
-      />
+        <vcl-input-control-group [type]="'error'" [label]="fieldErrors[key]">
+          <input type="number" valueType="number" placeholder="number"
+            [name]="name(parentPath,key)"
+            [formControlName]="key" />
+        </vcl-input-control-group>
       </div>
       <div *ngSwitchCase="'select'">
         <vcl-select [formControlName]="key">
@@ -30,7 +36,8 @@ style="border-style:solid;margin:5px;padding: 5px;">
         </vcl-select>
       </div>
       <div *ngSwitchCase="'switch'">
-        <vcl-flip-switch onLabel="{{'Yes' | loc }}" offLabel="{{'No' | loc}}" [formControlName]="key"></vcl-flip-switch>
+        <vcl-flip-switch onLabel="{{'Yes' | loc }}" offLabel="{{'No' | loc}}"
+         [formControlName]="key"></vcl-flip-switch>
       </div>
       <div *ngSwitchCase="'slider'">
         <vcl-slider
@@ -43,7 +50,8 @@ style="border-style:solid;margin:5px;padding: 5px;">
       </div>
 
       <div *ngSwitchCase="'radio'">
-        <vcl-radio-group [formControlName]="key" [options]="radioOptions(schema.properties[key])"></vcl-radio-group>
+        <vcl-radio-group [formControlName]="key"
+         [options]="radioOptions(schema.properties[key])"></vcl-radio-group>
       </div>
 
 

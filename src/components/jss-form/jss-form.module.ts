@@ -9,8 +9,7 @@ import { VCLSliderModule } from '../slider/slider.module';
 import { VCLCheckboxModule } from '../checkbox/checkbox.module';
 import { VCLSelectModule } from '../select/select.module';
 import { VCLRadioGroupModule } from '../radio-group/radio-group.module';
-
-
+import { VCLInputControlGroupModule } from '../input-control-group/input-control-group.module';
 
 @NgModule({
   imports: [
@@ -19,7 +18,8 @@ import { VCLRadioGroupModule } from '../radio-group/radio-group.module';
     VCLSliderModule,
     VCLCheckboxModule,
     VCLSelectModule,
-    VCLRadioGroupModule
+    VCLRadioGroupModule,
+    VCLInputControlGroupModule
   ],
   exports: [JssFormComponent, JssFormObjectComponent],
   declarations: [JssFormComponent, JssFormObjectComponent],
