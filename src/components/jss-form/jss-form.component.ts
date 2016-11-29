@@ -3,7 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
-  OnInit
+  OnInit, OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -16,7 +16,7 @@ let VALIDATOR;
   selector: 'vcl-jss-form-object',
   templateUrl: 'jss-form-object.component.html',
 })
-export class JssFormObjectComponent implements OnInit {
+export class JssFormObjectComponent implements OnInit, OnDestroy {
 
   @Input('schema') schema: any;
   @Input('parentPath') parentPath: string = '';
@@ -25,21 +25,21 @@ export class JssFormObjectComponent implements OnInit {
 
 
   fieldErrors = {};
-
+  subs = [];
 
   constructor() { }
 
   ngOnInit() {
-/*    console.log('Aaaa');
-    console.dir(this.error);
-    console.dir(this.schema);
-*/
+    /*    console.log('Aaaa');
+        console.dir(this.error);
+        console.dir(this.schema);
+    */
 
     if (this.schema.properties) {
       Object.keys(this.schema.properties)
         .map(key => {
 
-          this.error
+          let sub = this.error
             .filter(errAr => errAr != null)
             .map(errAr => errAr
               .filter(er => er.property.startsWith('instance.' + this.parentPath + key))
@@ -49,10 +49,14 @@ export class JssFormObjectComponent implements OnInit {
               else return errAr.pop().message;
             })
             .subscribe(errMsg => this.fieldErrors[key] = errMsg);
-            // TODO unsubscribe on destroy
+          this.subs.push(sub);
         });
 
     }
+  }
+
+  ngOnDestroy() {
+    this.subs.map(sub => sub.unsubscribe());
   }
 
   /**
