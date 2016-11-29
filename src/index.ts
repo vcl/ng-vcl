@@ -35,8 +35,7 @@ import { VCLSliderModule } from './components/slider/slider.module';
 import { VCLJssFormModule } from './components/jss-form/jss-form.module';
 import { VCLInputControlGroupModule } from './components/input-control-group/input-control-group.module';
 
-
-export * from './reflect';
+export * from './core/index';
 
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';
@@ -65,10 +64,10 @@ export * from './components/input-control-group/input-control-group.module';
 
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
-export * from './l10n/l10n.module';
-export * from './reactive/index';
 
-import { OverlayManagerService } from './services/overlayManager.service';
+export * from './l10n/l10n.module';
+export * from './adv-http/index';
+export * from './store/index';
 
 @NgModule({
   imports: [
@@ -139,8 +138,6 @@ import { OverlayManagerService } from './services/overlayManager.service';
     VCLJssFormModule,
     VCLInputControlGroupModule
   ],
-  providers: [
-    OverlayManagerService
-  ],
+  providers: [],
 })
 export class VCLModule { }

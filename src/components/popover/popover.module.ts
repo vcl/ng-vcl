@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PopoverComponent } from './popover.component';
 import { VCLTetherModule } from '../tether/tether.module';
 import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
+import { OverlayManagerService, OverlayManagedComponent } from './overlayManager.service';
 
 @NgModule({
   imports: [
@@ -10,8 +11,10 @@ import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
     VCLTetherModule,
     VCLOffClickModule
   ],
+  providers: [ OverlayManagerService ],
   exports: [PopoverComponent],
   declarations: [PopoverComponent]
 })
+
 export class VCLPopoverModule { }
-export { PopoverComponent }
+export { PopoverComponent, OverlayManagerService, OverlayManagedComponent }

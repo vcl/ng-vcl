@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Component, Input, HostBinding } from '@angular/core';
 import { L10nService } from '../../l10n/l10n.module';
-import { ObservableComponent } from '../../reactive/index';
+import { ObservableComponent } from '../../core/index';
 
 @Component({
   selector: '[vcl-link]',
