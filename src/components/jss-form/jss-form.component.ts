@@ -38,11 +38,11 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
     if (this.schema.properties) {
       Object.keys(this.schema.properties)
         .map(key => {
-
           let sub = this.error
+            .do(() => delete this.fieldErrors[key])
             .filter(errAr => errAr != null)
             .map(errAr => errAr
-              .filter(er => er.property.startsWith('instance.' + this.parentPath + key))
+              .filter(er => er.property == 'instance.' + this.parentPath + key)
             )
             .map(errAr => {
               if (errAr.length == 0) return null;
@@ -51,6 +51,8 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
             .subscribe(errMsg => this.fieldErrors[key] = errMsg);
           this.subs.push(sub);
         });
+      console.log(',,,,,,,,,,,');
+      console.dir(this.fieldErrors);
 
     }
   }
