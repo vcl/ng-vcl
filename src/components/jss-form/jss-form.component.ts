@@ -30,20 +30,13 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    /*    console.log('Aaaa');
-        console.dir(this.error);
-        console.dir(this.schema);
-    */
-
     if (this.schema.properties) {
       Object.keys(this.schema.properties)
         .map(key => {
           let sub = this.error
             .do(() => delete this.fieldErrors[key])
             .filter(errAr => errAr != null)
-            .map(errAr => errAr
-              .filter(er => er.property == 'instance.' + this.parentPath + key)
-            )
+            .map(errAr => errAr.filter(er => er.property == 'instance.' + this.parentPath + key))
             .map(errAr => {
               if (errAr.length == 0) return null;
               else return errAr.pop().message;
@@ -51,9 +44,6 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
             .subscribe(errMsg => this.fieldErrors[key] = errMsg);
           this.subs.push(sub);
         });
-      console.log(',,,,,,,,,,,');
-      console.dir(this.fieldErrors);
-
     }
   }
 
