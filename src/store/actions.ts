@@ -1,6 +1,7 @@
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/filter';
 import { Injectable } from '@angular/core';
 
 export class InitAction {}

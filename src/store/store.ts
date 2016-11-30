@@ -1,15 +1,12 @@
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
-import { Injectable, OpaqueToken, Inject } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/scan';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/pluck';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/distinctUntilChanged';
+import { Injectable, OpaqueToken, Inject } from '@angular/core';
 
 import { StoreActions, InitAction } from './actions';
 import { StoreObservable, select } from './observable';
@@ -57,7 +54,7 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   // The new state is then cached for further subscribers
   state$ = this.actions$.withLatestFrom(this.reducer$).scan<any, StoreState>((currentState, [action, reducer]) => {
     return reducer(currentState, action);
-  }, this.initialState).publishReplay(1);
+  }, this.initialState).distinctUntilChanged().publishReplay(1);
 
   stateSub: Subscription;
 

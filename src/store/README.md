@@ -13,8 +13,9 @@ import { EFFECTS } from './effects';
 @NgModule({
   imports: [
     StoreModule.forRoot({
-      reducers: [ ... ], //  optional - Your reducers
-      effects: [ ... ]   // optional - Effect classes
+      enableRouter: true, // enables the StoreRouter 
+      reducers: [ ... ],  // optional - Your reducers
+      effects: [ ... ]    // optional - Effect classes
     })
   ],
   declarations: [ AppComponent ],

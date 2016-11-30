@@ -36,6 +36,7 @@ import { routing, appRoutingProviders } from './app.routes';
       }
     }),
     StoreModule.forRoot({
+      enableRouter: true,
       reducers: [
         BOOKS_REDUCERS
       ],

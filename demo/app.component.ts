@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Store } from '../src/index';
 import { DEMOS, GROUPED_DEMOS } from "./demos";
 
 // TODO: update typedef for fuse.js
@@ -14,12 +15,15 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private store: Store,
   ) { }
 
   ngOnInit() {
     this.router.events.subscribe((path) => {
       window.scrollTo(0, 0);
+    });
+    this.store.subscribe(state => {
+      console.log('app state changed:', state);
     });
   }
 

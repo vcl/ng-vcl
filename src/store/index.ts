@@ -3,17 +3,20 @@ import { NgModule, ModuleWithProviders, Type } from '@angular/core';
 import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCER, Reducer, Reducers, StoreState } from './store';
 import { StoreActions } from './actions';
 import { Effects, STORE_EFFECTS } from './effects';
+import { routerReducer, StoreRouter, StoreRouterEffects } from './router';
 
 export * from './actions';
 export * from './utils';
 export * from './effects';
 export * from './observable';
 export * from './store';
+export * from './router';
 
 export declare interface StoreConfig {
   reducers?: Reducer<any>[] | Reducers[] | Reducer<StoreState> | Reducers;
   effects?: Type<any>[];
   state?: any;
+  enableRouter?: boolean;
 }
 
 @NgModule({
@@ -27,7 +30,7 @@ export declare interface StoreConfig {
     },
     {
       provide: STORE_INITIAL_REDUCER,
-      useValue: {}
+      useValue: routerReducer
     }
   ]
 })
@@ -55,11 +58,17 @@ export class StoreModule {
       initialReducer = appState => appState;
     }
 
+    // Merge router reducer
+    if (config.enableRouter) {
+      initialReducer = reduceReducers(initialReducer, routerReducer);
+    }
+
     return {
       ngModule: StoreModule,
       providers: [
         StoreActions,
         Store,
+        StoreRouter,
         Effects,
         {
           provide: STORE_INITIAL_STATE,
@@ -69,6 +78,15 @@ export class StoreModule {
           provide: STORE_INITIAL_REDUCER,
           useValue: initialReducer
         },
+        ,
+        ...(config.enableRouter ? [
+          StoreRouter,
+          {
+            provide: STORE_EFFECTS,
+            useClass: StoreRouterEffects,
+            multi: true
+          }
+        ] : []),
         ...(config.effects || []).map(type => {
           return {
             provide: STORE_EFFECTS,
