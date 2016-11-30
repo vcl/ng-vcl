@@ -29,9 +29,8 @@ export class NavigationItemComponent {
   /**
    * transforms this NavigationItemComponent insto an object,
    * so it can be handled the same way as an inputList
-   * @return {Object}
    */
-  toObject(): Object {
+  toObject(): any {
     const ret = {
       label: this.label,
       active: this.active,
@@ -46,7 +45,7 @@ export class NavigationItemComponent {
 
     if (this.route) {
       ret['route'] = this.route;
-      if (!ret['route'].length) ret['route'] = [ret['route']]; // force array
+      if (!Array.isArray(ret['route'])) ret['route'] = [ret['route']]; // force array
     }
 
     // add nested items
