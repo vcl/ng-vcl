@@ -30,7 +30,7 @@ export declare interface StoreConfig {
     },
     {
       provide: STORE_INITIAL_REDUCER,
-      useValue: routerReducer
+      useValue: appState => appState
     }
   ]
 })
