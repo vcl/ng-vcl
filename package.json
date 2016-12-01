@@ -5,7 +5,7 @@
   "scripts": {
     "demo": "npm run dev",
     "dev": "npm-run-all dev:vcl --parallel dev:serve dev:styles",
-    "dev:serve": "webpack-dev-server --config webpack.config.demo.js --env.ENV development",
+    "dev:serve": "webpack-dev-server --config webpack.config.demo.js --env.ENV development --env.HMR true",
     "dev:vcl": "vcl-preprocessor demo/styles/index.styl | postcss --use autoprefixer -o demo/app.css",
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
     "docs": "webpack --config webpack.config.demo.js --env.ENV production",

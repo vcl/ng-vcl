@@ -21,13 +21,8 @@ function root(__path = '.') {
 
 function webpackConfig(options) {
 
-
-  options = options || {
-    ENV: 'development'
-  };
-
   const ENV = options.ENV || 'development';
-  const HMR = options.HMR || true;
+  const HMR = options.HMR === 'true' || options.HMR === true;
   const PORT = options.PORT || 3000;
   const isProd = options.ENV === 'production';
 
@@ -60,13 +55,16 @@ function webpackConfig(options) {
           test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
           loader: 'file?name=assets/[name].[hash].[ext]'
         },
-        {
+        isProd ? {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
             fallbackLoader: "style-loader",
             loader: "css-loader?-url"
           })
-        },
+        } : {
+          test: /\.css$/,
+          loader: "style-loader!css-loader?-url"
+        }
       ]
     },
     plugins: [
