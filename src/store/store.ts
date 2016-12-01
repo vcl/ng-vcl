@@ -48,7 +48,7 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   private _reducer = new BehaviorSubject<Reducer<StoreState>>(this.initialReducer);
   private get reducer$(): Observable<Reducer<StoreState>>  {
     return this._reducer.asObservable();
-  };
+  }
 
   // The state changes when an action is dispatched by running reducers
   // The new state is then cached for further subscribers

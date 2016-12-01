@@ -39,15 +39,15 @@ export class Wormhole {
     return !!this.connectedWormhole;
   }
 
-  get wormhole(): WormholeGenerator {
-    return this._wormhole;
-  }
-
   // TODO: workaround. Does not disconnect the view when destroying the element when true
   // ngOnDestroy is called before the animations are fully traversed. This would remove the wormhole's ContentChild
   // before its host is removed from the DOM
   @Input('wormhole-indisposable')
   indisposable: boolean = false;
+
+  get wormhole(): WormholeGenerator {
+    return this._wormhole;
+  }
 
   @Input('wormhole')
   set wormhole(wormhole: WormholeGenerator) {

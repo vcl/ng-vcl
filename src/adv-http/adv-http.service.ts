@@ -159,32 +159,32 @@ export class AdvHttp extends Http {
 
   request(url: string | Request, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.request(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
 
   get(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.get(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
 
   post(url: string, body: any, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.post(url, body, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
 
   put(url: string, body: any, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.put(url, body, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
 
   delete (url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.delete(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
   patch(url: string, body: any, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.patch(url, body, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
 
   head(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.head(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
 
   options(url: string, options?: RequestOptionsArgs, errorStrategy?: ErrorHandlingStrategy): Observable<Response> {
     return super.options(url, options).let(o => this.errorHandler.attach(o, errorStrategy || this.config.defaultErrorHandlingStrategy));
-  };
+  }
 }

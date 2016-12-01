@@ -41,14 +41,14 @@ export class StoreRouterEffects {
                   });
 
   @Effect()
-  protected navigateEffect = this.actions$
-                                 .ofType(RouterNavigateAction)
-                                 .map((action: RouterNavigateAction) => {
+  private navigateEffect = this.actions$
+                               .ofType(RouterNavigateAction)
+                               .map((action: RouterNavigateAction) => {
     this.router.navigate(action.commands, action.extras);
   });
 
   @Effect()
-  protected navigateByUrlEffect = this.actions$
+  private navigateByUrlEffect = this.actions$
                                  .ofType(RouterNavigateByUrlAction)
                                  .map((action: RouterNavigateByUrlAction) => {
     this.router.navigateByUrl(action.url, action.extras);
