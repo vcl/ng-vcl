@@ -1,3 +1,4 @@
+import { DemoComponent } from './../demo/demo.component';
 import { LayerComponent, LayerDemoCanDeactivateGuard } from './layer.component';
 
 export default {
@@ -5,14 +6,25 @@ export default {
   // route: 'layer',
   route: {
     path: 'layer',
-    component: LayerComponent,
-    canDeactivate: [LayerDemoCanDeactivateGuard]
+    component: DemoComponent,
+    data: {
+      name: 'Layer',
+      tabs: {
+        Demo: LayerComponent,
+        'README.md': require("!raw-loader!../../../src/components/layer/README.md"),
+        'demo.component.html': require("!raw-loader!./layer.component.html"),
+        'demo.component.ts': require("!raw-loader!./layer.component.ts")
+      }
+    }
   },
-  category: 'Layer',
   tabs: {
-    Demo: LayerComponent,
-    'README.md': require("!raw-loader!../../../src/components/layer/README.md"),
-    'demo.component.html': require("!raw-loader!./layer.component.html"),
-    'demo.component.ts': require("!raw-loader!./layer.component.ts")
-  }
+    Demo: LayerComponent
+  },
+  // route: {
+  //   path: 'layer',
+  //   component: LayerComponent,
+  //   canDeactivate: [LayerDemoCanDeactivateGuard]
+  // },
+  category: 'Layer',
+
 };
