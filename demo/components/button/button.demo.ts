@@ -2,7 +2,7 @@ import { ButtonComponent } from './button.component';
 
 export default {
   name: 'Button',
-  path: 'button',
+  route: 'button',
   category: 'Buttons',
   tabs: {
     Demo: ButtonComponent,

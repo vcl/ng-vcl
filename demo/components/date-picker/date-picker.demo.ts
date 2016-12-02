@@ -2,7 +2,7 @@ import { DatePickerComponent } from './date-picker.component';
 
 export default {
   name: 'Date Picker',
-  path: 'date-picker',
+  route: 'date-picker',
   category: 'Form Controls',
   tabs: {
     Demo: DatePickerComponent,

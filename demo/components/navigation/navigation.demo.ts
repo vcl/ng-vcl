@@ -2,7 +2,7 @@ import { NavigationComponent } from './navigation.component';
 
 export default {
   name: 'Navigation',
-  path: 'navigation',
+  route: 'navigation',
   category: 'Navigation',
   tabs: {
     Demo: NavigationComponent,

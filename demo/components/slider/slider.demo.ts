@@ -2,7 +2,7 @@ import { SliderComponent } from './slider.component';
 
 export default {
   name: 'Slider',
-  path: 'slider',
+  route: 'slider',
   category: 'Form Controls',
   tabs: {
     Demo: SliderComponent,

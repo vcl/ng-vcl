@@ -2,7 +2,7 @@ import { PopoverComponent } from './popover.component';
 
 export default {
   name: 'Popover',
-  path: 'popover',
+  route: 'popover',
   category: 'Layer',
   tabs: {
     Demo: PopoverComponent,

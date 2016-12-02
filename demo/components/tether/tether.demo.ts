@@ -2,7 +2,7 @@ import { TetherComponent } from './tether.component';
 
 export default {
   name: 'Tether',
-  path: 'tether',
+  route: 'tether',
   category: 'Other',
   tabs: {
     Demo: TetherComponent,

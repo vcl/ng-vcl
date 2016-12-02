@@ -2,7 +2,7 @@ import { ButtonGroupComponent } from './button-group.component';
 
 export default {
   name: 'Button Group',
-  path: 'button-group',
+  route: 'button-group',
   category: 'Buttons',
   tabs: {
     Demo: ButtonGroupComponent,

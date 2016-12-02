@@ -2,7 +2,7 @@ import { CheckboxComponent } from './checkbox.component';
 
 export default {
   name: 'Checkbox',
-  path: 'checkbox',
+  route: 'checkbox',
   category: 'Form Controls',
   tabs: {
     Demo: CheckboxComponent,

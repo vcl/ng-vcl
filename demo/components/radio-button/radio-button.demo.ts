@@ -2,7 +2,7 @@ import { RadioButtonComponent } from './radio-button.component';
 
 export default {
   name: 'Radio Button',
-  path: 'radio-button',
+  route: 'radio-button',
   category: 'Form Controls',
   tabs: {
     Demo: RadioButtonComponent,

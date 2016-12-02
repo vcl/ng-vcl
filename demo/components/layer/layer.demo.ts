@@ -1,10 +1,14 @@
-import { LayerComponent } from './layer.component';
+import { LayerComponent, LayerDemoCanDeactivateGuard } from './layer.component';
 
 export default {
   name: 'Layer',
-  path: 'layer',
+  // route: 'layer',
+  route: {
+    path: 'layer',
+    component: LayerComponent,
+    canDeactivate: [LayerDemoCanDeactivateGuard]
+  },
   category: 'Layer',
-  declarations: [LayerComponent],
   tabs: {
     Demo: LayerComponent,
     'README.md': require("!raw-loader!../../../src/components/layer/README.md"),

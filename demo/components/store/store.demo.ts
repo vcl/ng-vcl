@@ -2,7 +2,7 @@ import { StoreComponent } from './store.component';
 
 export default {
   name: 'Store',
-  path: 'store',
+  route: 'store',
   category: 'Other',
   tabs: {
     Demo: StoreComponent,

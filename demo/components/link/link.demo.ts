@@ -2,7 +2,7 @@ import { LinkComponent } from './link.component';
 
 export default {
   name: 'Link',
-  path: 'link',
+  route: 'link',
   category: 'Links',
   tabs: {
     Demo: LinkComponent,

@@ -40,7 +40,7 @@ import STORE_DEMO from './components/store/store.demo';
 
 interface Demo {
   name: string;
-  path: string;
+  route: string | any;
   category: string;
   tabs: {
     [key: string]: any
@@ -90,19 +90,12 @@ export const GROUPED_DEMOS = function() {
   const itemsMap = {};
 
   DEMOS.forEach(c => {
-    if (itemsMap[c.category]) {
-      itemsMap[c.category].push({
-        label: c.name,
-        route: ['/' + c.path],
-        active: true,
-      });
-    } else {
-      itemsMap[c.category] = [{
-        label: c.name,
-        route: ['/' + c.path],
-        active: true,
-      }];
-    }
+    if (!itemsMap[c.category]) itemsMap[c.category] = [];
+    itemsMap[c.category].push({
+      label: c.name,
+      route: ['/' + (typeof c.route === 'string' ? c.route : c.route.path)],
+      active: true,
+    });
   });
 
   return Object.keys(itemsMap).map(category => ({
@@ -117,9 +110,9 @@ export const DEMO_DECLARATIONS = DEMOS.map(dc => Object.keys(dc.tabs)
   .filter(o => typeof o === 'function')
 );
 export const DEMO_ROUTES = (DEMOS.map(dc => {
-  return {
-    path: dc.path,
+  return typeof dc.route === 'string' ? {
+    path: dc.route,
     component: DemoComponent,
     data: dc
-  };
+  } : dc.route;
 }));

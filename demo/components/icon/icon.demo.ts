@@ -2,7 +2,7 @@ import { IconComponent } from './icon.component';
 
 export default {
   name: 'Icon',
-  path: 'icon',
+  route: 'icon',
   category: 'Images',
   tabs: {
     Demo: IconComponent,

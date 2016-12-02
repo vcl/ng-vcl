@@ -2,7 +2,7 @@ import { OffClickComponent } from './off-click.component';
 
 export default {
   name: 'Off Click',
-  path: 'off-click',
+  route: 'off-click',
   category: 'Other',
   tabs: {
     Demo: OffClickComponent,

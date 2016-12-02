@@ -2,7 +2,7 @@ import { TabNavComponent } from './tab-nav.component';
 
 export default {
   name: 'Tab Navigation',
-  path: 'tab-nav',
+  route: 'tab-nav',
   category: 'Navigation',
   tabs: {
     Demo: TabNavComponent,

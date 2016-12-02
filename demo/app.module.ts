@@ -11,6 +11,7 @@ import { MarkdownComponent } from "./components/markdown/markdown.component";
 import { DemoComponent, DemoContentComponent } from "./components/demo/demo.component";
 import { BOOKS_REDUCERS } from './components/store/books.reducers';
 import { BooksService, BooksEffects } from './components/store/books.service';
+import { LayerDemoCanDeactivateGuard } from './components/layer/layer.component';
 import { DEMOS } from "./demos";
 
 import { routing, appRoutingProviders } from './app.routes';
@@ -18,7 +19,8 @@ import { routing, appRoutingProviders } from './app.routes';
 @NgModule({
   providers: [
     appRoutingProviders,
-    BooksService
+    BooksService,
+    LayerDemoCanDeactivateGuard
   ],
   imports: [
     FormsModule,

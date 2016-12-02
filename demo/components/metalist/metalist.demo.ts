@@ -2,7 +2,7 @@ import { MetalistComponent } from './metalist.component';
 
 export default {
   name: 'Metalist',
-  path: 'metalist',
+  route: 'metalist',
   category: 'Component',
   tabs: {
     Demo: MetalistComponent,

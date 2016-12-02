@@ -2,7 +2,7 @@ import { JssFormComponent } from './jss-form.component';
 
 export default {
   name: 'JSS-Form',
-  path: 'jss-form',
+  route: 'jss-form',
   category: 'Forms',
   tabs: {
     Demo: JssFormComponent,

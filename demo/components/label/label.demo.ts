@@ -2,7 +2,7 @@ import { LabelComponent } from './label.component';
 
 export default {
   name: 'Label',
-  path: 'label',
+  route: 'label',
   category: 'Buttons',
   tabs: {
     Demo: LabelComponent,

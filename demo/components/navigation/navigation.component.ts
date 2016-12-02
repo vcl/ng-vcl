@@ -13,20 +13,20 @@ export class NavigationComponent implements OnInit {
   items = [
     {
       label: 'Home',
-      route: ['navigation'],
+       route: ['navigation'],
       active: true,
       prepIcon: 'fa:home',
     },
     {
       label: 'Products',
-      route: ['navigation'],
+       route: ['navigation'],
       active: true,
       appIcon: 'fa:bicycle',
       class: 'underline'
     },
     {
       label: 'Pre-selected Item',
-      route: ['navigation'],
+       route: ['navigation'],
       selected: true,
       active: true
     },
@@ -41,75 +41,75 @@ export class NavigationComponent implements OnInit {
     {
       label: 'Heading',
       heading: true,
-      route: ['navigation'],
+       route: ['navigation'],
       active: true
     },
     {
       label: 'Item',
-      route: ['navigation'],
+       route: ['navigation'],
       active: true
     },
     {
       label: 'Item',
-      route: ['navigation'],
+       route: ['navigation'],
       active: true
     },
     {
       label: 'Another heading',
       heading: true,
-      route: ['navigation'],
+       route: ['navigation'],
       active: true
     },
     {
       label: 'Item',
-      route: ['navigation'],
+       route: ['navigation'],
       active: true
     },
     {
       label: 'Item',
-      route: ['navigation'],
+       route: ['navigation'],
       active: true
     },
     {
       label: 'Nested navigation',
-      route: ['navigation'],
+       route: ['navigation'],
       active: true,
       items: [
         {
           label: 'Level 2 Item',
-          route: ['navigation'],
+           route: ['navigation'],
           active: true
         },
         {
           label: 'Level 2 Item',
-          route: ['navigation'],
+           route: ['navigation'],
           active: true
         },
         {
           label: 'Level 2 navigation',
-          route: ['navigation'],
+           route: ['navigation'],
           active: true,
           items: [
             {
               label: 'Level 3 Item',
-              route: ['navigation'],
+               route: ['navigation'],
               active: true
             },
             {
               label: 'Level 3 Item',
-              route: ['navigation'],
+               route: ['navigation'],
               active: true
             },
             {
               label: 'Level 3 Item',
-              route: ['navigation'],
+               route: ['navigation'],
               active: true
             },
           ],
         },
         {
           label: 'Level 2 Item',
-          route: ['navigation'],
+           route: ['navigation'],
           active: true
         },
       ]
