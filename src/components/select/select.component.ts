@@ -128,6 +128,9 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
+  selectItem(item: any) {
+    this.dropdown.selectItem(item);
+  }
 
   expand = () => this.expanded = !this.expanded;
   onOutsideClick = () => this.expanded = false;
