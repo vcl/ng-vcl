@@ -1,10 +1,6 @@
 import { Type, AnimationEntryMetadata, Component } from '@angular/core';
 declare var Reflect: any;
 
-export function setAnimations(cls: Type<{}>, animations: AnimationEntryMetadata[]) {
-  setAnnotation(cls, 'animations', animations);
-}
-
 export function setAnnotation(cls: Type<{}>, key: string, value: any) {
   const annotation = getAnnotation(cls);
   // Change metadata
@@ -24,3 +20,6 @@ function getAnnotation(cls: Type<{}>): Component {
   return clsAnnotations[0];
 }
 
+export function setAnimations(cls: Type<{}>, animations: AnimationEntryMetadata[]) {
+  setAnnotation(cls, 'animations', animations);
+}
