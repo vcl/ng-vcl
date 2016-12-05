@@ -1,3 +1,4 @@
+<h3>Input</h3>
 <input vcl-input [(ngModel)]="data1">
 <br>
 <b>Input 1 value:</b> {{data1}}
@@ -5,6 +6,7 @@
 <br>
 <br>
 <br>
+<h3>Input 2 (selectAllOnFocus)</h3>
 <input vcl-input [(ngModel)]="data2" selectAllOnFocus=true>
 <br>
 <b>Input 2 value:</b> {{data2}}
@@ -12,13 +14,14 @@
 <br>
 <br>
 <br>
+<h3>Input 3 (valueType="number")</h3>
 <input vcl-input [(typedValue)]="data3" valueType="number" selectAllOnFocus=true>
 <br>
-<b>Input 3 Typed value (number):</b> {{data3}}
+<b>Input 3 typed value (number):</b> {{data3}}
 
 <br>
 <br>
 <br>
+<h3>Input (readOnly)</h3>
 <input vcl-input value='readOnly' readOnly=true>
 <br>
-<b>Input 4 (readOnly)</b>
