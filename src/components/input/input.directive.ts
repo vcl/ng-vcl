@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
     '[class.vclInput]': 'true',
   },
 })
-export class InputComponent implements OnInit {
+export class InputDirective implements OnInit {
 
   @Input()
   valueType: string = null;
