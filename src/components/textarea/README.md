@@ -17,5 +17,3 @@ Enhanced textarea
 | `autogrow`          | boolean     | false              | Adjusts the `rows` attribute so it matches the current values number of lines   
 | `minRows`           | number      |                    | The min value for `rows` when using autogrow   
 | `maxRows`           | number      |                    | The max value for `rows` when using autogrow   
-
-*(1) Supports Two-way binding*
