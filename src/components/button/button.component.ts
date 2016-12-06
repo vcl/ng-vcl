@@ -1,5 +1,27 @@
+import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef } from '@angular/core';
+import 'rxjs/add/operator/distinctUntilChanged';
+import { Component, Directive, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef, ContentChild, ContentChildren, TemplateRef, ViewContainerRef, QueryList } from '@angular/core';
+import { ObservableComponent } from '../../core/index';
+
+@Directive({ selector: '[vcl-button-content]' })
+export class ButtonContentDirective {
+  constructor(private viewContainerRef: ViewContainerRef, private tempRef: TemplateRef<any>) { }
+
+  private hasView = false;
+  @Input()
+  state: string = 'enabled';
+
+  render(state: string) {
+    if (this.state === state) {
+      this.hasView = true;
+      this.viewContainerRef.createEmbeddedView(this.tempRef);
+    } else {
+      this.hasView = false;
+      this.viewContainerRef.clear();
+    }
+  }
+}
 
 @Component({
   selector: '[vcl-button]',
@@ -9,7 +31,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
   templateUrl: 'button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent extends ObservableComponent {
 
   pressed: boolean = false; // `true` if a pointer device is conducting a `down` gesture on the button
   focused: boolean = false; // `true` if the element is focused  (CSS' :focus)
@@ -24,6 +46,14 @@ export class ButtonComponent implements OnInit {
   @HostBinding('attr.aria-label')
   @Input()
   title: string;
+
+  @Input()
+  disabled: boolean = false;
+
+  @HostBinding('attr.disabled')
+  get isDisabled(): boolean {
+    return this.disabled ? true : null;
+  }
 
   @Input()
   busy: boolean = false; // State to indicate that the button is disabled as a operation is in progress
@@ -58,16 +88,43 @@ export class ButtonComponent implements OnInit {
     return this._press.asObservable();
   }
 
-  constructor(private elementRef: ElementRef) { }
+  private _stateChange = new EventEmitter<string>();
+  @Output()
+  get stateChange(): Observable<string> {
+    return this._stateChange.asObservable();
+  }
 
-  ngOnInit() {
-    this.press.subscribe(() => {
-      if (this.autoBlur) {
-        if (this.elementRef.nativeElement && this.elementRef.nativeElement.blur) {
-          this.elementRef.nativeElement.blur();
-        }
+  get state(): string {
+    return this.disabled ? 'disabled' : (this.busy ? 'busy' : 'enabled' );
+  }
+
+  state$ = this.observeChange('disabled', 'busy').publishBehavior(this.state).refCount().map(() => this.state).distinctUntilChanged();
+
+  label$ = this.state$.map(state => state === 'busy' && this.busyLabel ? this.busyLabel : this.label );
+  prepIcon$ = this.state$.map(state => state === 'busy' && this.prepIconBusy ? this.prepIconBusy : this.prepIcon );
+  appIcon$ = this.state$.map(state => state === 'busy' && this.appIconBusy ? this.appIconBusy : this.appIcon );
+
+
+  @ContentChildren(ButtonContentDirective)
+  buttonContent: QueryList<ButtonContentDirective> = null;
+
+  stateSub = this.state$.subscribe(state => {
+    if (this.buttonContent) {
+      this.buttonContent.forEach(bc => bc.render(state));
+    }
+    this._stateChange.emit(state);
+  });
+
+  pressSub: Subscription = this.press.subscribe(() => {
+    if (this.autoBlur) {
+      if (this.elementRef.nativeElement && this.elementRef.nativeElement.blur) {
+        this.elementRef.nativeElement.blur();
       }
-    });
+    }
+  });
+
+  constructor(private elementRef: ElementRef) {
+    super();
   }
 
   @HostListener('mouseenter', ['$event'])
@@ -91,16 +148,12 @@ export class ButtonComponent implements OnInit {
   @HostListener('tap', ['$event'])
   onTap(e) { this._press.emit(e); }
 
-  get calculatedLabel() {
-    return (this.busy && this.busyLabel) ? this.busyLabel : this.label;
+  ngAfterViewInit() {
+    this.buttonContent.forEach(bc => bc.render(this.state));
   }
 
-  get calculatedPrepIcon() {
-    return (this.busy && this.prepIconBusy) ? this.prepIconBusy : this.prepIcon;
+  ngOnDestoy() {
+    if (this.stateSub && !this.stateSub.closed) this.stateSub.unsubscribe();
+    if (this.pressSub && !this.pressSub.closed) this.pressSub.unsubscribe();
   }
-
-  get calculatedAppIcon() {
-    return (this.busy && this.appIconBusy) ? this.appIconBusy : this.appIcon;
-  }
-
 }
