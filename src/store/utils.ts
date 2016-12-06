@@ -54,6 +54,6 @@ export function combineReducers(reducers: Reducers): Reducer<any> {
       nextState[key] = nextStateForKey;
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
     }
-    return hasChanged ? nextState : state;
+    return hasChanged ? Object.assign({}, state, nextState) : state;
   };
 }
