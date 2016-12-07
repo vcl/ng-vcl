@@ -1,3 +1,7 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { VCLModule } from './../src/index';
+import { RouterModule } from '@angular/router';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DemoComponent } from "./components/demo/demo.component";
 
 import METALIST_DEMO from "./components/metalist/metalist.demo";
@@ -41,8 +45,13 @@ import STORE_DEMO from './components/store/store.demo';
 
 interface Demo {
   name: string;
-  route: string | any;
+  route: string;
   category: string;
+  declarations?: any[];
+  providers?: any[];
+  imports?: any[];
+  canActivate?: any;
+  canDeactivate?: any;
   tabs: {
     [key: string]: any
   };
@@ -88,6 +97,36 @@ export const DEMOS: Demo[] = [
   STORE_DEMO
 ];
 
+function createDemoModule(demo: Demo) {
+
+  @NgModule({
+    imports: [
+      BrowserModule,
+      VCLModule,
+      RouterModule.forChild([{
+        path: demo.route,
+        component: DemoComponent,
+        data: demo,
+        canActivate: demo.canActivate,
+        canDeactivate: demo.canDeactivate
+      }]),
+      ...(demo.imports || [])
+    ],
+    providers: [
+      ...(demo.providers || [])
+    ],
+    declarations: [
+      Object.keys(demo.tabs).map(key => demo.tabs[key]).filter(o => typeof o === 'function'),
+      ...(demo.declarations || [])
+    ]
+  })
+  class DemoModule { };
+  return DemoModule;
+}
+
+export const DEMO_MODULES = DEMOS.map(demo => createDemoModule(demo));
+
+
 export const GROUPED_DEMOS = function() {
   const itemsMap = {};
 
@@ -106,15 +145,3 @@ export const GROUPED_DEMOS = function() {
     active: true,
   }));
 } ();
-
-export const DEMO_DECLARATIONS = DEMOS.map(dc => Object.keys(dc.tabs)
-  .map(key => dc.tabs[key])
-  .filter(o => typeof o === 'function')
-);
-export const DEMO_ROUTES = (DEMOS.map(dc => {
-  return typeof dc.route === 'string' ? {
-    path: dc.route,
-    component: DemoComponent,
-    data: dc
-  } : dc.route;
-}));
