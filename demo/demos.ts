@@ -134,7 +134,7 @@ export const GROUPED_DEMOS = function() {
     if (!itemsMap[c.category]) itemsMap[c.category] = [];
     itemsMap[c.category].push({
       label: c.name,
-      route: ['/' + (typeof c.route === 'string' ? c.route : c.route.path)],
+      route: ['/' + c.route],
       active: true,
     });
   });
