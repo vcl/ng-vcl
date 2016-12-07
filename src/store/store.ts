@@ -10,10 +10,10 @@ import { Injectable, OpaqueToken, Inject } from '@angular/core';
 
 import { StoreActions, InitAction } from './actions';
 import { StoreObservable, select } from './observable';
-import { combineReducers } from './utils';
+import { combineReducers, reduceReducers } from './utils';
 
-export const STORE_INITIAL_REDUCER = new OpaqueToken('store.reducers');
-export const STORE_INITIAL_STATE = new OpaqueToken('store.state');
+export const STORE_INITIAL_REDUCERS = new OpaqueToken('store.initial.reducers');
+export const STORE_INITIAL_STATE = new OpaqueToken('store.initial.state');
 
 export interface StoreState {
   [key: string]: any;
@@ -26,7 +26,6 @@ export interface Reducers {
   [key: string]: Reducer<any>;
 }
 
-
 @Injectable()
 export class Store extends Observable<any> implements Observer<StoreState> {
 
@@ -34,8 +33,8 @@ export class Store extends Observable<any> implements Observer<StoreState> {
     private actions$: StoreActions,
     @Inject(STORE_INITIAL_STATE)
     private initialState: any,
-    @Inject(STORE_INITIAL_REDUCER)
-    private initialReducer: Reducer<StoreState>,
+    @Inject(STORE_INITIAL_REDUCERS)
+    private initialReducers: Reducer<StoreState>[],
   ) {
     super();
     // Listen to actions by connecting the state observable
@@ -45,7 +44,7 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   }
 
   // The reducer stream
-  private _reducer = new BehaviorSubject<Reducer<StoreState>>(this.initialReducer);
+  private _reducer = new BehaviorSubject<Reducer<StoreState>>(reduceReducers(...this.initialReducers));
   private get reducer$(): Observable<Reducer<StoreState>>  {
     return this._reducer.asObservable();
   }
