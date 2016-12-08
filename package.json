@@ -87,7 +87,7 @@
     "rxjs": "5.0.0-rc.1",
     "style-loader": "0.13.1",
     "tslint": "^4.0.2",
-    "typescript": "^2.0.10",
+    "typescript": "~2.0.10",
     "vcl-core-modules": "^0.1.1",
     "vcl-default-theme": "^0.1.2",
     "vcl-default-theme-terms": "^0.1.0",
