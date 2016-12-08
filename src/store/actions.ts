@@ -19,6 +19,10 @@ export class StoreActions extends Observable<any> implements Observer<any> {
 
   source = this.actions$;
 
+  constructor() {
+    super();
+  }
+
   ofType(...actionClasses: Action[]): Observable<any> {
     return this.actions$.filter((action) => actionClasses.some(cls => action instanceof cls));
   }
