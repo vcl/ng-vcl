@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '../src/index';
-import { DEMOS, GROUPED_DEMOS } from "./demos";
+import { GROUPED_DEMOS } from "./demos";
 
 // TODO: update typedef for fuse.js
 // https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/fuse
@@ -35,10 +35,6 @@ export class AppComponent {
       .reduce((p, demoGroup) => {
         return p.concat(new Fuse(demoGroup.items, { keys: ['label'] }).search(text));
       }, []);
-  }
-
-  get demos() {
-    return DEMOS;
   }
 
   get groupedDemos() {

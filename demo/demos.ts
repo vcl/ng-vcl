@@ -3,6 +3,7 @@ import { VCLModule } from './../src/index';
 import { RouterModule } from '@angular/router';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DemoComponent } from "./components/demo/demo.component";
+import { createDemoModule, Demo } from "./demo.module";
 
 import METALIST_DEMO from "./components/metalist/metalist.demo";
 import DROPDOWN_DEMO from "./components/dropdown/dropdown.demo";
@@ -43,21 +44,7 @@ import INPUT_CONTROL_GROUP from './components/input-control-group/input-control-
 import L10N_DEMO from './components/l10n/l10n.demo';
 import STORE_DEMO from './components/store/store.demo';
 
-interface Demo {
-  name: string;
-  route: string;
-  category: string;
-  declarations?: any[];
-  providers?: any[];
-  imports?: any[];
-  canActivate?: any;
-  canDeactivate?: any;
-  tabs: {
-    [key: string]: any
-  };
-}
-
-export const DEMOS: Demo[] = [
+export const DEMO_MODULES: any[] = [
   METALIST_DEMO,
   DROPDOWN_DEMO,
   SELECT_DEMO,
@@ -95,46 +82,17 @@ export const DEMOS: Demo[] = [
   INPUT_CONTROL_GROUP,
   L10N_DEMO,
   STORE_DEMO
-];
-
-function createDemoModule(demo: Demo) {
-
-  @NgModule({
-    imports: [
-      BrowserModule,
-      VCLModule,
-      RouterModule.forChild([{
-        path: demo.route,
-        component: DemoComponent,
-        data: demo,
-        canActivate: demo.canActivate,
-        canDeactivate: demo.canDeactivate
-      }]),
-      ...(demo.imports || [])
-    ],
-    providers: [
-      ...(demo.providers || [])
-    ],
-    declarations: [
-      Object.keys(demo.tabs).map(key => demo.tabs[key]).filter(o => typeof o === 'function'),
-      ...(demo.declarations || [])
-    ]
-  })
-  class DemoModule { };
-  return DemoModule;
-}
-
-export const DEMO_MODULES = DEMOS.map(demo => createDemoModule(demo));
+].map(module => typeof module === 'function' ? module : createDemoModule(module));
 
 
 export const GROUPED_DEMOS = function() {
   const itemsMap = {};
 
-  DEMOS.forEach(c => {
+  DEMO_MODULES.forEach(c => {
     if (!itemsMap[c.category]) itemsMap[c.category] = [];
     itemsMap[c.category].push({
-      label: c.name,
-      route: ['/' + c.route],
+      label: c.label,
+      route: ['/' + c.path],
       active: true,
     });
   });
