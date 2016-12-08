@@ -1,5 +1,5 @@
 import { reduceReducers, combineReducers } from './utils';
-import { NgModule, ModuleWithProviders, Type } from '@angular/core';
+import { NgModule, ModuleWithProviders, Type, Optional, Inject, OpaqueToken, SkipSelf } from '@angular/core';
 import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCERS, Reducer, Reducers, StoreState } from './store';
 import { StoreActions } from './actions';
 import { Effects, STORE_EFFECTS } from './effects';
@@ -11,6 +11,16 @@ export * from './effects';
 export * from './observable';
 export * from './store';
 export * from './router';
+
+export const STORE_FORROOT_GUARD = new OpaqueToken('STORE_FORROOT_GUARD');
+
+export function provideForRootGuard(store: Store): any {
+  if (store) {
+    throw new Error(
+        `StoreModule.forRoot() called twice. Lazy loaded modules should use StoreModule.forChild() instead.`);
+  }
+  return 'guarded';
+}
 
 export declare interface StoreConfig {
   reducers?: Reducer<any>[] | Reducers[] | Reducer<StoreState> | Reducers;
@@ -63,6 +73,8 @@ function createReducer(reducers: any): Reducer<StoreState> {
   ]
 })
 export class StoreModule {
+  constructor(@Optional() @Inject(STORE_FORROOT_GUARD) guard: any) {}
+
   static forRoot(config: StoreConfig): ModuleWithProviders {
     let initialReducer = createReducer(config.reducers);
 
@@ -70,10 +82,14 @@ export class StoreModule {
     if (config.enableRouter) {
       initialReducer = reduceReducers(initialReducer, routerReducer);
     }
-
     return {
       ngModule: StoreModule,
       providers: [
+        {
+          provide: STORE_FORROOT_GUARD,
+          useFactory: provideForRootGuard,
+          deps: [[Store, new Optional(), new SkipSelf()]]
+        },
         StoreActions,
         Store,
         StoreRouter,
@@ -84,8 +100,8 @@ export class StoreModule {
         },
         {
           provide: STORE_INITIAL_REDUCERS,
-          useValue: initialReducer,
-          multi: true
+          multi: true,
+          useValue: initialReducer
         },
         ,
         ...(config.enableRouter ? [
@@ -108,14 +124,13 @@ export class StoreModule {
   }
   static forChild(config: StoreChildConfig) {
     let initialReducer = createReducer(config.reducers);
-
     return {
       ngModule: StoreModule,
       providers: [
         {
           provide: STORE_INITIAL_REDUCERS,
-          useValue: initialReducer,
-          multi: true
+          multi: true,
+          useValue: initialReducer
         },
         ...(config.effects || []).map(type => {
           return {
