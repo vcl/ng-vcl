@@ -1,13 +1,13 @@
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { OnDestroy, Injectable, Optional, OpaqueToken, Inject } from '@angular/core';
-import { Store } from './store';
+import { Store, StoreErrorAction } from './store';
 
 declare var Reflect: any;
 const EFFECTS_METADATA_KEY = 'ng-vcl/effects';
 
 export const STORE_EFFECTS = new OpaqueToken('store.effects');
-
 
 export function Effect(): PropertyDecorator {
   return function(target: any, propertyName: string) {
@@ -48,7 +48,10 @@ export class Effects implements OnDestroy {
       if (instance) {
         const properties = getEffectsMetadata(instance);
         const effects$ = merge(...(properties.map(property => instance[property])));
-        const sub = effects$.subscribe(this.store);
+        const sub = effects$.catch(err => {
+          // Catch effect error and dispatch StoreErrorAction
+          return Observable.of(new StoreErrorAction(err));
+        }).subscribe(this.store);
         this.effectSubs.push(sub);
       }
     });

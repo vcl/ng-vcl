@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import { Injectable } from '@angular/core';
 
-export class InitAction {}
-
 export interface Action {
   new(...args: any[]);
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '../src/index';
+import { Store, StoreErrorAction } from '../src/index';
 import { GROUPED_DEMOS } from "./demos";
 
 // TODO: update typedef for fuse.js
@@ -23,8 +23,11 @@ export class AppComponent {
       window.scrollTo(0, 0);
     });
     this.store.subscribe(state => {
-      console.log('app state changed:', state);
+      console.log('store: app state changed:', state);
     });
+    this.store.actionOfType(StoreErrorAction).subscribe(errAction => {
+      console.log('store: error', errAction.err);
+    })
   }
 
   searchResults = [];

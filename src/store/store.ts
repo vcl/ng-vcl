@@ -8,7 +8,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Injectable, OpaqueToken, Inject } from '@angular/core';
 
-import { StoreActions, InitAction } from './actions';
+import { StoreActions, Action } from './actions';
 import { StoreObservable, select } from './observable';
 import { combineReducers, reduceReducers } from './utils';
 
@@ -26,11 +26,17 @@ export interface Reducers {
   [key: string]: Reducer<any>;
 }
 
+// Some store actions
+export class StoreInitAction { }
+export class StoreErrorAction {
+  constructor(public err: any) { }
+}
+
 @Injectable()
 export class Store extends Observable<any> implements Observer<StoreState> {
 
   constructor(
-    private actions$: StoreActions,
+    public actions$: StoreActions,
     @Inject(STORE_INITIAL_STATE)
     private initialState: any,
     @Inject(STORE_INITIAL_REDUCERS)
@@ -40,7 +46,7 @@ export class Store extends Observable<any> implements Observer<StoreState> {
     // Listen to actions by connecting the state observable
     this.stateSub = this.state$.connect();
     // Init action
-    this.dispatch(new InitAction());
+    this.dispatch(new StoreInitAction());
   }
 
   // The reducer stream
@@ -78,13 +84,20 @@ export class Store extends Observable<any> implements Observer<StoreState> {
     return select.call(this, path, ...paths);
   }
 
+  actionOfType(...actionClasses: Action[]): Observable<any> {
+    return this.actions$.ofType(...actionClasses);
+  }
+
   next(action: any) {
     this.dispatch(action);
   }
 
-  error(err: any) { }
+  error(err: any) {
+    // Errors result in a StoreErrorAction
+    this.dispatch(new StoreErrorAction(err));
+  }
 
-  complete() { }
+  complete() { /* store never completes */ }
 
   ngOnDestroy() {
     if (this.stateSub && !this.stateSub.closed) this.stateSub.unsubscribe();
