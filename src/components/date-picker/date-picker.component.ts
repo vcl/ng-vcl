@@ -4,7 +4,8 @@ import {
   Input,
   Output,
   EventEmitter,
-  forwardRef
+  forwardRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -22,6 +23,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: 'date-picker.component.html',
   styles: [`.hidden{display:none;}`],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.vclDatePicker]': 'true'
   }
