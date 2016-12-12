@@ -4,6 +4,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { Component, Directive, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef, ContentChild, ContentChildren, TemplateRef, ViewContainerRef, QueryList } from '@angular/core';
 import { ObservableComponent } from '../../core/index';
 
+enum InteractionType { Click, Tap }
+
 @Directive({ selector: '[vcl-button-content]' })
 export class ButtonContentDirective {
   constructor(private viewContainerRef: ViewContainerRef, private tempRef: TemplateRef<any>) { }
@@ -21,6 +23,39 @@ export class ButtonContentDirective {
       this.viewContainerRef.clear();
     }
   }
+}
+
+function dispatch(el, eventType) {
+  const x = 10, y = 10;
+
+  const msEventType = (window as any).MSPointerEvent &&
+                      eventType.replace(/pointer([a-z])/, (_, a) => 'MSPointer' + a.toUpperCase());
+
+  const event = document.createEvent('Event') as any;
+  event.initEvent(msEventType || eventType, true, true);
+
+  event.getCurrentPoint = () => ({x, y});
+  event.setPointerCapture = event.releasePointerCapture = () => { };
+
+  event.pointerId = 0;
+  event.buttons = 1;
+  event.pageX = x;
+  event.pageY = y;
+  event.clientX = x;
+  event.clientY = y;
+  event.screenX = x;
+  event.screenY = y;
+  event.pointerType = 'touch';
+  event.identifier = 0;
+
+  el.dispatchEvent(event);
+}
+
+function dispatchTap(el) {
+  dispatch(el, 'pointerdown');
+  setTimeout(function() {
+    dispatch(el, 'pointerup');
+  }, 100);
 }
 
 @Component({
@@ -49,6 +84,9 @@ export class ButtonComponent extends ObservableComponent {
 
   @Input()
   disabled: boolean = false;
+
+  @Input()
+  disableA11yClick: boolean = false;
 
   @HostBinding('attr.disabled')
   get isDisabled(): boolean {
@@ -104,7 +142,6 @@ export class ButtonComponent extends ObservableComponent {
   prepIcon$ = this.state$.map(state => state === 'busy' && this.prepIconBusy ? this.prepIconBusy : this.prepIcon );
   appIcon$ = this.state$.map(state => state === 'busy' && this.appIconBusy ? this.appIconBusy : this.appIcon );
 
-
   @ContentChildren(ButtonContentDirective)
   buttonContent: QueryList<ButtonContentDirective> = null;
 
@@ -127,6 +164,22 @@ export class ButtonComponent extends ObservableComponent {
     super();
   }
 
+  @HostListener('keypress', ['$event'])
+  onKeypress(ev: KeyboardEvent) {
+    // Trigger a11yClick
+    if (!this.disableA11yClick &&
+        this.elementRef.nativeElement &&
+        (
+          ev.code === 'Space' ||
+          ev.code === 'NumpadEnter' ||
+          ev.code === 'Enter'
+        )) {
+      ev.preventDefault();
+      this.elementRef.nativeElement.click();
+      dispatchTap(this.elementRef.nativeElement);
+    }
+  }
+
   @HostListener('mouseenter', ['$event'])
   onMouseEnter(e) { this.hovered = true; }
 
@@ -146,7 +199,33 @@ export class ButtonComponent extends ObservableComponent {
   onBlur(e) { this.focused = false; }
 
   @HostListener('tap', ['$event'])
-  onTap(e) { this._press.emit(e); }
+  onTap(e) {
+    this.handleGhostClick(InteractionType.Tap, event);
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(e) {
+    this.handleGhostClick(InteractionType.Click, event);
+  }
+
+  latestInteractionTime: number = 0;
+  latestInteractionType: InteractionType;
+
+  handleGhostClick(type: InteractionType, e) {
+    const ANTI_GHOST_DELAY = 2000;
+    const now = Date.now();
+
+    if (type !== this.latestInteractionType ) {
+      if ((now - this.latestInteractionTime) > ANTI_GHOST_DELAY) {
+        this.latestInteractionType = type;
+        this._press.emit(e);
+      }
+    } else {
+      this.latestInteractionType = type;
+      this._press.emit(e);
+    }
+    this.latestInteractionTime = now;
+  }
 
   ngAfterViewInit() {
     this.buttonContent.forEach(bc => bc.render(this.state));

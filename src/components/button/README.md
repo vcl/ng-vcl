@@ -44,6 +44,7 @@ A button can have content that is only visible in a specified state
 | `appIconBusy`       | string      |          | Same as prepIconBusy but appended
 | `title`             | string      |          | Sets aria-label
 | `autoBlur`          | boolean     | true     | if true, the focus is removed via blur() after the action.
+| `disableA11yClick`  | boolean     | false    | Deactivate triggering `click` via spacebar or enter  
 
 #### Actions:
 

@@ -16,6 +16,8 @@
 <br><br>
 <button vcl-button (tap)="someAction($event)" label="Action with prepended busy icon" prepIcon="fa:bolt" busy=true prepIconBusy="fa:refresh fa-spin"></button>
 <br><br>
+<button vcl-button (tap)="someAction($event)" disabled=true label="Disabled button" prepIcon="fa:bolt"></button>
+<br><br>
 <button vcl-button (tap)="changeButtonState()" prepIcon="fa:bolt" [busy]="busy" [disabled]="disabled">
   Content for
   <template vcl-button-content state="enabled">enabled state</template>
