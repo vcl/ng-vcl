@@ -27,7 +27,7 @@ export class AppComponent {
     });
     this.store.actionOfType(StoreErrorAction).subscribe(errAction => {
       console.log('store: error', errAction.err);
-    })
+    });
   }
 
   searchResults = [];
