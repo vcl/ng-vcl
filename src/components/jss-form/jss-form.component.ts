@@ -47,9 +47,7 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.subs.map(sub => sub.unsubscribe());
-  }
+  ngOnDestroy = () => this.subs.map(sub => sub.unsubscribe());
 
   /**
    * if no formType is given, this will guess the right one
@@ -58,10 +56,8 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
     if (schemaObj.formType) return schemaObj.formType;
 
     if (schemaObj.type == 'string') {
-      if (schemaObj.enum) {
-        return 'select';
-      }
-      return 'text';
+      if (schemaObj.enum) return 'select';
+      else return 'text';
     }
 
     if (schemaObj.type == 'number')

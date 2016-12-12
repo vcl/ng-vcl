@@ -4,6 +4,7 @@ import { JssFormComponent, JssFormObjectComponent } from './jss-form.component';
 import { L10nModule } from '../../l10n/l10n.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { VCLDropdownModule } from '../dropdown/dropdown.module';
 import { VCLFlipSwitchModule } from '../flip-switch/flip-switch.module';
 import { VCLSliderModule } from '../slider/slider.module';
 import { VCLCheckboxModule } from '../checkbox/checkbox.module';
@@ -14,6 +15,7 @@ import { VCLInputControlGroupModule } from '../input-control-group/input-control
 @NgModule({
   imports: [
     CommonModule, L10nModule, FormsModule, ReactiveFormsModule,
+    VCLDropdownModule,
     VCLFlipSwitchModule,
     VCLSliderModule,
     VCLCheckboxModule,

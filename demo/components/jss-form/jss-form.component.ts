@@ -54,6 +54,29 @@ export class JssFormComponent implements OnInit {
         type: 'string',
         enum: ['red', 'green', 'blue', 'yellow']
       },
+      color3: {
+        label: 'subsubcolor',
+        formType: 'dropdown',
+        type: 'string',
+        items: [
+          {
+            label: 'Red3',
+            value: '#ff0000'
+          },
+          {
+            label: 'Green3',
+            value: '#008000'
+          },
+          {
+            label: 'Blue3',
+            value: '#0000FF'
+          },
+          {
+            label: 'Yellow3',
+            value: '#FFFF00'
+          }
+        ]
+      },
       isleader: {
         label: 'leader',
         formType: 'checkbox',
@@ -91,6 +114,7 @@ export class JssFormComponent implements OnInit {
 
   value = {
     color: '#ff0000',
+    color3: '#FFFF00',
     isleader: true,
     alive: true,
     hp: 50

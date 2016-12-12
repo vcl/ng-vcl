@@ -36,6 +36,13 @@ style="border-style:solid;margin:5px;padding: 5px;">
           </vcl-select>
         </vcl-input-control-group>
       </div>
+      <div *ngSwitchCase="'dropdown'">
+        <vcl-input-control-group [type]="'error'" [label]="fieldErrors[key]">
+          <vcl-dropdown [expanded]="true" [formControlName]="key"
+           [items]="selectItems(schema.properties[key])" maxSelectableItems="1"
+          ></vcl-dropdown>
+        </vcl-input-control-group>
+      </div>
       <div *ngSwitchCase="'switch'">
         <vcl-flip-switch onLabel="{{'Yes' | loc }}" offLabel="{{'No' | loc}}"
          [formControlName]="key"></vcl-flip-switch>
