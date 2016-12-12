@@ -3,7 +3,7 @@ import { FormComponent } from './form.component';
 
 export default {
   name: 'Form',
-  path: 'form',
+  route: 'form',
   category: 'Forms',
   tabs: {
     Demo: FormComponent,

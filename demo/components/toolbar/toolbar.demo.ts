@@ -2,7 +2,7 @@ import { ToolbarComponent } from './toolbar.component';
 
 export default {
   name: 'Toolbar',
-  path: 'toolbar',
+  route: 'toolbar',
   category: 'Navigation',
   tabs: {
     Demo: ToolbarComponent,

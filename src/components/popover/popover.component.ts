@@ -1,4 +1,3 @@
-import { TetherComponent } from './../../../demo/components/tether/tether.component';
 import { Component, Input, Output, EventEmitter, ElementRef, trigger, NgZone } from '@angular/core';
 import { OverlayManagerService, OverlayManagedComponent } from './overlayManager.service';
 

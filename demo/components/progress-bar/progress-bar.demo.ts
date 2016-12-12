@@ -2,7 +2,7 @@ import { ProgressBarComponent } from './progress-bar.component';
 
 export default {
   name: 'Progress-Bar',
-  path: 'progress-bar',
+  route: 'progress-bar',
   category: 'Status Information',
   tabs: {
     Demo: ProgressBarComponent,

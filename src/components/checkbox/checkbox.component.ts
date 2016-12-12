@@ -39,7 +39,6 @@ export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccesso
   labelPosition: 'left' | 'right' = 'right';
 
 
-  @HostBinding('attr.tabindex')
   @Input()
   tabindex = 0;
 

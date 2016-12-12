@@ -2,7 +2,7 @@
 
 export default {
   name: 'Form Error',
-  path: 'form-error',
+  route: 'form-error',
   category: 'Forms',
   tabs: {
     Demo: FormErrorComponent,

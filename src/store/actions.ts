@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import { Injectable } from '@angular/core';
 
-export class InitAction {}
-
 export interface Action {
   new(...args: any[]);
 }
@@ -18,6 +16,10 @@ export class StoreActions extends Observable<any> implements Observer<any> {
   public actions$ = this._dispatcher.asObservable();
 
   source = this.actions$;
+
+  constructor() {
+    super();
+  }
 
   ofType(...actionClasses: Action[]): Observable<any> {
     return this.actions$.filter((action) => actionClasses.some(cls => action instanceof cls));

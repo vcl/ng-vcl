@@ -69,7 +69,7 @@ export class PickDate {
     return new PickDate(newDate);
   }
 
-  addYears(amount: number = 1): PickDate {
+  addYears(amount = 1): PickDate {
     const newDate = new Date(
       this.date.getFullYear() + amount, this.date.getMonth(), 1,
       this.date.getHours(), this.date.getMinutes(), this.date.getSeconds()
@@ -265,7 +265,9 @@ export class PickDate {
     return Math.round(Math.abs((this.date.getTime() - to.date.getTime()) / (oneDay))) + 1;
   }
 
-  dir() { console.dir(this.date); return ''; };
+  dir() {
+    console.dir(this.date); return '';
+  }
 }
 
 

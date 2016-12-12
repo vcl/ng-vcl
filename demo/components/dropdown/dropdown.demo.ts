@@ -2,7 +2,7 @@ import { DropdownComponent } from './dropdown.component';
 
 export default {
   name: 'Dropdown',
-  path: 'dropdown',
+  route: 'dropdown',
   category: 'Form Controls',
   tabs: {
     Demo: DropdownComponent,

@@ -40,7 +40,6 @@ export class DemoContentComponent {
 export class DemoComponent {
 
   title: string;
-  component: any;
   tabs: {name: string, content: string}[] = [];
 
   constructor(
@@ -49,9 +48,8 @@ export class DemoComponent {
 
   ngOnInit() {
     this.activatedRoute.data.subscribe( (data: any) => {
-      if (data && data.name ) {
-        this.title = data.name;
-        this.component = data.component;
+      if (data && data.label ) {
+        this.title = data.label;
         if (data.tabs) {
           this.tabs = Object.keys(data.tabs).map(key => {
 

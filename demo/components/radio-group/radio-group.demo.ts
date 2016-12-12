@@ -2,7 +2,7 @@ import { RadioGroupComponent } from './radio-group.component';
 
 export default {
   name: 'Radio Group',
-  path: 'radio-group',
+  route: 'radio-group',
   category: 'Form Controls',
   tabs: {
     Demo: RadioGroupComponent,

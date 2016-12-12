@@ -2,7 +2,7 @@ import { TokenComponent } from './token.component';
 
 export default {
   name: 'Token',
-  path: 'token',
+  route: 'token',
   category: 'Form Controls',
   tabs: {
     Demo: TokenComponent,

@@ -58,8 +58,6 @@ export class ButtonGroupComponent implements OnDestroy {
   @ContentChildren(ButtonComponent)
   buttons: QueryList<ButtonComponent>;
 
-  constructor() {}
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedIndex'] && changes['selectedIndex'].currentValue !== undefined) {
       this.initButtons();

@@ -2,7 +2,7 @@ import { JsonEditorComponent } from './json-editor.component';
 
 export default {
   name: 'JSON-Editor',
-  path: 'json-editor',
+  route: 'json-editor',
   category: 'Form Controls',
   tabs: {
     Demo: JsonEditorComponent,

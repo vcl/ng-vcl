@@ -2,7 +2,7 @@ import { FlipSwitchComponent } from './flip-switch.component';
 
 export default {
   name: 'Flip-Switch',
-  path: 'flip-switch',
+  route: 'flip-switch',
   category: 'Form Controls',
   tabs: {
     Demo: FlipSwitchComponent,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '../src/index';
-import { DEMOS, GROUPED_DEMOS } from "./demos";
+import { Store, StoreErrorAction } from '../src/index';
+import { GROUPED_DEMOS } from "./demos";
 
 // TODO: update typedef for fuse.js
 // https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/fuse
@@ -23,7 +23,10 @@ export class AppComponent {
       window.scrollTo(0, 0);
     });
     this.store.subscribe(state => {
-      console.log('app state changed:', state);
+      console.log('store: app state changed:', state);
+    });
+    this.store.actionOfType(StoreErrorAction).subscribe(errAction => {
+      console.log('store: error', errAction.err);
     });
   }
 
@@ -35,10 +38,6 @@ export class AppComponent {
       .reduce((p, demoGroup) => {
         return p.concat(new Fuse(demoGroup.items, { keys: ['label'] }).search(text));
       }, []);
-  }
-
-  get demos() {
-    return DEMOS;
   }
 
   get groupedDemos() {

@@ -2,7 +2,7 @@ import { MonthPickerComponent } from './month-picker.component';
 
 export default {
   name: 'Month Picker',
-  path: 'month-picker',
+  route: 'month-picker',
   category: 'Form Controls',
   tabs: {
     Demo: MonthPickerComponent,

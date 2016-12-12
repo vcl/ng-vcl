@@ -2,7 +2,7 @@ import { InputControlGroupComponent } from './input-control-group.component';
 
 export default {
   name: 'Input Control Group',
-  path: 'input-control-group',
+  route: 'input-control-group',
   category: 'Form Controls',
   tabs: {
     Demo: InputControlGroupComponent,

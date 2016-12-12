@@ -1,7 +1,7 @@
 <vcl-icogram
-  [label]="calculatedLabel | loc"
-  [flexLabel]="flexLabel | loc"
-  [prepIcon]="calculatedPrepIcon"
-  [appIcon]="calculatedAppIcon">
+  [label]="label$ | async "
+  [flexLabel]="flexLabel"
+  [prepIcon]="prepIcon$ | async"
+  [appIcon]="appIcon$ | async">
   <ng-content></ng-content>
 </vcl-icogram>

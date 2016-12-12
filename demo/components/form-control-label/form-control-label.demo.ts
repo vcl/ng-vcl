@@ -2,7 +2,7 @@ import { FormControlLabelComponent } from './form-control-label.component';
 
 export default {
   name: 'Form Control Label',
-  path: 'form-control-label',
+  route: 'form-control-label',
   category: 'Forms',
   tabs: {
     Demo: FormControlLabelComponent,

@@ -2,7 +2,7 @@ import { IcogramComponent } from './icogram.component';
 
 export default {
   name: 'Icogram',
-  path: 'icogram',
+  route: 'icogram',
   category: 'Images',
   tabs: {
     Demo: IcogramComponent,

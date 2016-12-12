@@ -8,12 +8,12 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Injectable, OpaqueToken, Inject } from '@angular/core';
 
-import { StoreActions, InitAction } from './actions';
+import { StoreActions, Action } from './actions';
 import { StoreObservable, select } from './observable';
-import { combineReducers } from './utils';
+import { combineReducers, reduceReducers } from './utils';
 
-export const STORE_INITIAL_REDUCER = new OpaqueToken('store.reducers');
-export const STORE_INITIAL_STATE = new OpaqueToken('store.state');
+export const STORE_INITIAL_REDUCERS = new OpaqueToken('store.initial.reducers');
+export const STORE_INITIAL_STATE = new OpaqueToken('store.initial.state');
 
 export interface StoreState {
   [key: string]: any;
@@ -26,29 +26,34 @@ export interface Reducers {
   [key: string]: Reducer<any>;
 }
 
+// Some store actions
+export class StoreInitAction { }
+export class StoreErrorAction {
+  constructor(public err: any) { }
+}
 
 @Injectable()
 export class Store extends Observable<any> implements Observer<StoreState> {
 
   constructor(
-    private actions$: StoreActions,
+    public actions$: StoreActions,
     @Inject(STORE_INITIAL_STATE)
     private initialState: any,
-    @Inject(STORE_INITIAL_REDUCER)
-    private initialReducer: Reducer<StoreState>,
+    @Inject(STORE_INITIAL_REDUCERS)
+    private initialReducers: Reducer<StoreState>[],
   ) {
     super();
     // Listen to actions by connecting the state observable
     this.stateSub = this.state$.connect();
     // Init action
-    this.dispatch(new InitAction());
+    this.dispatch(new StoreInitAction());
   }
 
   // The reducer stream
-  private _reducer = new BehaviorSubject<Reducer<StoreState>>(this.initialReducer);
+  private _reducer = new BehaviorSubject<Reducer<StoreState>>(reduceReducers(...this.initialReducers));
   private get reducer$(): Observable<Reducer<StoreState>>  {
     return this._reducer.asObservable();
-  };
+  }
 
   // The state changes when an action is dispatched by running reducers
   // The new state is then cached for further subscribers
@@ -79,13 +84,20 @@ export class Store extends Observable<any> implements Observer<StoreState> {
     return select.call(this, path, ...paths);
   }
 
+  actionOfType(...actionClasses: Action[]): Observable<any> {
+    return this.actions$.ofType(...actionClasses);
+  }
+
   next(action: any) {
     this.dispatch(action);
   }
 
-  error(err: any) { }
+  error(err: any) {
+    // Errors result in a StoreErrorAction
+    this.dispatch(new StoreErrorAction(err));
+  }
 
-  complete() { }
+  complete() { /* store never completes */ }
 
   ngOnDestroy() {
     if (this.stateSub && !this.stateSub.closed) this.stateSub.unsubscribe();

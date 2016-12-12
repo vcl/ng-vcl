@@ -2,7 +2,7 @@ import { SelectComponent } from './select.component';
 
 export default {
   name: 'Select',
-  path: 'select',
+  route: 'select',
   category: 'Form Controls',
   tabs: {
     Demo: SelectComponent,

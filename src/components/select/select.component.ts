@@ -58,14 +58,14 @@ export class SelectComponent implements ControlValueAccessor {
 
   popoverTarget: string = 'popoverTarget' + Math.random().toString().slice(2); // TODO cant this be solved via view/content-childs?
 
+  @ViewChild('dropdown') dropdown;
+
   @Input('value') value: string | string[];
-  @Output('select') select = new EventEmitter<any[]>();
   @Input('expanded') expanded: boolean = false;
 
   // options
   @Input('items') items: any[] = [];
-  @ContentChildren(SelectOptionComponent)
-  templateItems: QueryList<SelectOptionComponent>;
+  @ContentChildren(SelectOptionComponent) templateItems: QueryList<SelectOptionComponent>;
 
   // multi-select
   @Input() minSelectableItems: number = 1;
@@ -76,14 +76,12 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() collapsedIcon: string = 'fa:chevron-down';
   @Input('displayValue') displayValue: string = 'Select value';
 
-  @Output('change') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
+  @Output('select') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
 
-  @ViewChild('dropdown') dropdown;
-  selectedItems: any;
+  constructor() { }
 
-
-  constructor() {
-  }
+  expand = () => this.expanded = !this.expanded;
+  onOutsideClick = () => this.expanded = false;
 
   ngOnInit() { }
 
@@ -105,7 +103,6 @@ export class SelectComponent implements ControlValueAccessor {
 
     this.changeEE.subscribe(newValue => {
       this.reDisplayValue(newValue);
-
       // propagate form-change
       !!this.onChangeCallback && this.onChangeCallback(newValue);
     });
@@ -128,10 +125,9 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-
-  expand = () => this.expanded = !this.expanded;
-  onOutsideClick = () => this.expanded = false;
-
+  selectItem(item: any) {
+    this.dropdown.selectItem(item);
+  }
 
   onSelect(newItems: any[]) {
     if (this.maxSelectableItems == 1) this.value = newItems[0].value; // single-select
@@ -140,9 +136,8 @@ export class SelectComponent implements ControlValueAccessor {
     this.changeEE.emit(this.value);
   }
 
-
   /**
-   * things needed for ControlValueAccessor-Interface
+   * Things needed for ControlValueAccessor-Interface.
    */
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;

@@ -2,7 +2,7 @@ import { InputComponent } from './input.component';
 
 export default {
   name: 'Input',
-  path: 'input',
+  route: 'input',
   category: 'Form Controls',
   tabs: {
     Demo: InputComponent,

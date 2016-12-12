@@ -60,7 +60,7 @@ export class LayerDirective extends WormholeGenerator {
   public name: string;
 
   @Input()
-  public base: string;
+  public base: string = 'default';
 
   _instanceResults: Subject<any>;
 
@@ -102,8 +102,10 @@ export class LayerDirective extends WormholeGenerator {
     if (typeof data === 'object' && data) {
       this.data = data;
     }
-    this.visible = true;
-    this.visibilityChange$.emit(this.visible);
+    if (!this.visible) {
+      this.visible = true;
+      this.visibilityChange$.emit(this.visible);
+    }
 
     return this._instanceResults.asObservable();
   }
@@ -115,14 +117,16 @@ export class LayerDirective extends WormholeGenerator {
   }
 
   close(result?: any) {
+    this.data = {};
     if (result !== undefined && this._instanceResults) {
       this._instanceResults.next(result);
       this._instanceResults.complete();
+      this._instanceResults = null;
     }
-    this.data = {};
-    this._instanceResults = null;
-    this.visible = false;
-    this.visibilityChange$.emit(this.visible);
+    if (this.visible) {
+      this.visible = false;
+      this.visibilityChange$.emit(this.visible);
+    }
   }
 }
 

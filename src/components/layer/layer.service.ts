@@ -5,25 +5,37 @@ import { LayerDirective } from './layer.component';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+interface VisibleLayers { [key: string]: LayerDirective[]; };
+
 @Injectable()
 export class LayerService {
 
   private layerNameMap = new Map<string, LayerDirective>();
   private layerMap = new Map<LayerDirective, Subscription>();
-
-  private _visibleLayers = new Subject<LayerDirective>();
-  _visibleLayers$: Observable<LayerDirective[]> = this._visibleLayers.asObservable().scan<LayerDirective, LayerDirective[]>((accLayers, layer) => {
-    if (layer.visible) {
-      return [...accLayers, layer];
-    } else {
-      return accLayers.filter(l => layer !== l);
-    }
-  }, []);
+  private visibleLayers: VisibleLayers = {};
+  private _visibleLayers = new BehaviorSubject<VisibleLayers>(this.visibleLayers);
 
   constructor() { }
 
-  visibleLayersFor(base = 'default') {
-    return this._visibleLayers$.map(layers => layers.filter(layer => layer.base !== base));
+  visibleLayersFor(base = 'default'): Observable<LayerDirective[]> {
+    return this._visibleLayers.asObservable().map(layers => layers[base] || []).distinctUntilChanged();
+  }
+
+  getVisibleLayers(base = 'default') {
+    return this.visibleLayers[base] || [];
+  }
+
+  hasVisibleLayers(base = 'default') {
+    return this.getVisibleLayers(base).length > 0;
+  }
+
+  closeAll(base = 'default') {
+    this.getVisibleLayers(base).forEach(layer => layer.close());
+  }
+
+  closeTop(base = 'default') {
+    const layer = this.getVisibleLayers(base).slice(-1)[0];
+    if (layer) layer.close();
   }
 
   open(layerName: string, data?): Observable<any> {
@@ -40,13 +52,21 @@ export class LayerService {
     }
   }
 
-  register(layer: LayerDirective, base = 'default') {
+  register(layer: LayerDirective) {
     if (layer.name && this.layerNameMap.has(layer.name)) {
       throw 'Duplicate layer name: ' + layer.name;
     }
 
     this.layerMap.set(layer, layer.visibilityChange$.subscribe(() => {
-      this._visibleLayers.next(layer);
+      if (!this.visibleLayers[layer.base]) {
+        this.visibleLayers[layer.base] = [];
+      }
+      if (layer.visible) {
+        this.visibleLayers[layer.base] =  [...this.visibleLayers[layer.base], layer];
+      } else {
+        this.visibleLayers[layer.base] =  this.visibleLayers[layer.base].filter(l => layer !== l);
+      }
+      this._visibleLayers.next(this.visibleLayers);
     }));
     if (layer.name) {
       this.layerNameMap.set(layer.name, layer);

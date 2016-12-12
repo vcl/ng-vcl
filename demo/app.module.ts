@@ -9,16 +9,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from "./components/home/home.component";
 import { MarkdownComponent } from "./components/markdown/markdown.component";
 import { DemoComponent, DemoContentComponent } from "./components/demo/demo.component";
-import { BOOKS_REDUCERS } from './components/store/books.reducers';
-import { BooksService, BooksEffects } from './components/store/books.service';
-import { DEMOS } from "./demos";
+import { DEMO_MODULES } from "./demos";
 
 import { routing, appRoutingProviders } from './app.routes';
 
 @NgModule({
   providers: [
-    appRoutingProviders,
-    BooksService
+    appRoutingProviders
   ],
   imports: [
     FormsModule,
@@ -36,14 +33,9 @@ import { routing, appRoutingProviders } from './app.routes';
       }
     }),
     StoreModule.forRoot({
-      enableRouter: true,
-      reducers: [
-        BOOKS_REDUCERS
-      ],
-      effects: [
-        BooksEffects
-      ]
-    })
+      enableRouter: true
+    }),
+    ...DEMO_MODULES
   ],
   declarations: [
     AppComponent,
@@ -51,7 +43,6 @@ import { routing, appRoutingProviders } from './app.routes';
     DemoComponent,
     MarkdownComponent,
     DemoContentComponent,
-    ...(DEMOS.map(dc => Object.keys(dc.tabs).map(key => dc.tabs[key]).filter(o => typeof o === 'function')))
   ],
   bootstrap: [
     AppComponent

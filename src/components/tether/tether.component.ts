@@ -54,7 +54,18 @@ export class TetherComponent {
 
   ngOnDestroy() {
     try {
-      this.tether && this.tether.destroy();
+      if (this.tether) {
+        this.tether.destroy();
+        // Workaround for a special case when using position:relative 
+        // The target elements are removed from the DOM before tether.js is able to clean the tethered elements.
+        // This workaround removes them manually 
+        const tether = (this.tether as any);
+        const el: HTMLElement = tether.element;
+        const target: HTMLElement = tether.target;
+        if (el && target && el.parentNode && target.offsetParent === null) {
+          el.parentNode.removeChild(el);
+        }
+      }
     } catch (ex) { }
   }
 }
