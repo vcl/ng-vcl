@@ -116,16 +116,15 @@ export class SliderComponent implements ControlValueAccessor {
   onTap(event) {
     if (event.target.className == 'vclSliderKnob') return;
 
-    const layerX = event.changedPointers[0].layerX;
-    if (layerX != 0) {
-      this.percentLeftKnob = this.deltaPxToPercent(layerX);
+    const railX = event.changedPointers[0].offsetX;
+    if (railX <= 0) return;
 
-      if (this.stepsOnly)
-        this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
+    this.percentLeftKnob = this.deltaPxToPercent(railX);
+    if (this.stepsOnly)
+      this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
 
-      this.value = this.percentToValue(this.percentLeftKnob);
-      !!this.onChangeCallback && this.onChangeCallback(this.value);
-    }
+    this.value = this.percentToValue(this.percentLeftKnob);
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
   }
 
 
