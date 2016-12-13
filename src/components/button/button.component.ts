@@ -68,6 +68,9 @@ function dispatchTap(el) {
 })
 export class ButtonComponent extends ObservableComponent {
 
+  private latestInteractionTime: number = 0;
+  private latestInteractionType: InteractionType;
+
   pressed: boolean = false; // `true` if a pointer device is conducting a `down` gesture on the button
   focused: boolean = false; // `true` if the element is focused  (CSS' :focus)
 
@@ -208,10 +211,7 @@ export class ButtonComponent extends ObservableComponent {
     this.handleGhostClick(InteractionType.Click, event);
   }
 
-  latestInteractionTime: number = 0;
-  latestInteractionType: InteractionType;
-
-  handleGhostClick(type: InteractionType, e) {
+  private handleGhostClick(type: InteractionType, e) {
     const ANTI_GHOST_DELAY = 2000;
     const now = Date.now();
 
