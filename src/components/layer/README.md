@@ -14,12 +14,6 @@ import { VCLLayerModule } from 'ng-vcl';
 export class AppComponent {}
 ```
 
-The vcl-layer-base defines the position in the DOM where the layers will appear when visible.
-
-```html
-<vcl-layer-base></vcl-layer-base>
-```
-
 A layer can be defined anywhere in your application
 
 ```html
@@ -88,6 +82,20 @@ export class LayerComponent {
 </template>
 
 <button vcl-button (tap)="myLayer.open()" label="Open Layer"></button>
+```
+
+### Layer base
+
+A vcl-layer-base component defines the position in the DOM where the layers will appear when visible.
+
+```html
+<vcl-layer-base name="sidebar"></vcl-layer-base>
+```
+```html
+<template vcl-layer #mySidebarLayer="layer" [name]="'mySidebarLayer'" [base]="'foo'">
+  ...
+</template>
+
 ```
 
 ### API

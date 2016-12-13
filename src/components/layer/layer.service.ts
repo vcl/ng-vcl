@@ -1,8 +1,8 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { LayerDirective } from './layer.component';
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { LayerDirective, LayerBaseComponent } from './layer.component';
+import { Injectable, EmbeddedViewRef, Output, EventEmitter, ComponentFactoryResolver, ApplicationRef, Injector, ComponentRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 interface VisibleLayers { [key: string]: LayerDirective[]; };
@@ -11,11 +11,10 @@ interface VisibleLayers { [key: string]: LayerDirective[]; };
 export class LayerService {
 
   private layerNameMap = new Map<string, LayerDirective>();
+  private baseNameMap = new Map<string, LayerBaseComponent>();
   private layerMap = new Map<LayerDirective, Subscription>();
   private visibleLayers: VisibleLayers = {};
   private _visibleLayers = new BehaviorSubject<VisibleLayers>(this.visibleLayers);
-
-  constructor() { }
 
   visibleLayersFor(base = 'default'): Observable<LayerDirective[]> {
     return this._visibleLayers.asObservable().map(layers => layers[base] || []).distinctUntilChanged();
@@ -54,7 +53,7 @@ export class LayerService {
 
   register(layer: LayerDirective) {
     if (layer.name && this.layerNameMap.has(layer.name)) {
-      throw 'Duplicate layer name: ' + layer.name;
+      throw 'Duplicate vcl-layer: ' + layer.name;
     }
 
     this.layerMap.set(layer, layer.visibilityChange$.subscribe(() => {
@@ -85,6 +84,17 @@ export class LayerService {
     this.layerMap.delete(layer);
   }
 
+  registerBase(layerBase: LayerBaseComponent) {
+    if (layerBase.name && this.baseNameMap.has(layerBase.name)) {
+      throw 'Duplicate vcl-layer-base: ' + layerBase.name;
+    }
+    this.baseNameMap.set(layerBase.name , layerBase);
+  }
+
+  unregisterBase(layerBase: LayerBaseComponent) {
+    this.baseNameMap.delete(layerBase.name);
+  }
+
   ngOnDestroy() {
     this.layerMap.forEach(sub => {
       if (sub && !sub.closed) {
@@ -95,4 +105,3 @@ export class LayerService {
     this.layerNameMap.clear();
   }
 }
-

@@ -5,40 +5,6 @@ import { Component, Input, Output, EventEmitter, Directive, TemplateRef, Element
 import { WormholeGenerator } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
 
-@Component({
-  selector: 'vcl-layer-base',
-  templateUrl: 'layer-base.component.html',
-  animations: [
-    trigger('boxState', []),
-    trigger('layerState', [])
-  ]
-})
-export class LayerBaseComponent {
-
-  visibleLayers = [];
-  sub: Subscription;
-
-  @Input()
-  public name: string = 'default';
-
-  @Input()
-  public zIndex: number = 1000;
-
-  constructor(private layerService: LayerService) { }
-
-  ngOnInit() {
-    this.sub = this.layerService.visibleLayersFor(this.name).subscribe(visibleLayers => {
-      this.visibleLayers = visibleLayers;
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.sub && !this.sub.closed) {
-      this.sub.unsubscribe();
-    }
-  }
-}
-
 export interface LayerData { [key: string]: any; }
 
 @Directive({
@@ -130,3 +96,39 @@ export class LayerDirective extends WormholeGenerator {
   }
 }
 
+@Component({
+  selector: 'vcl-layer-base',
+  templateUrl: 'layer-base.component.html',
+  animations: [
+    trigger('boxState', []),
+    trigger('layerState', [])
+  ]
+})
+export class LayerBaseComponent {
+
+  visibleLayers: LayerDirective[] = [];
+  sub: Subscription;
+
+  @Input()
+  public name: string = 'default';
+
+  @Input()
+  public zIndex: number = 1000;
+
+  constructor(private layerService: LayerService) { }
+
+  ngOnInit() {
+    this.layerService.registerBase(this);
+    this.sub = this.layerService.visibleLayersFor(this.name).subscribe(visibleLayers => {
+      this.visibleLayers = visibleLayers;
+    });
+  }
+
+  ngOnDestroy() {
+    this.layerService.unregisterBase(this);
+    this.visibleLayers.forEach(layer => layer.close());
+    if (this.sub && !this.sub.closed) {
+      this.sub.unsubscribe();
+    }
+  }
+}
