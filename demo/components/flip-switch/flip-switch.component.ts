@@ -13,13 +13,10 @@ export class FlipSwitchComponent implements OnInit {
 
   ngOnInit() { }
 
-  onSelect(selectedItems: any[]) {
-    console.log(selectedItems);
-    if (selectedItems && selectedItems[0]) {
-      this.selectedItem = selectedItems[0];
-    } else {
-      this.selectedItem = null;
-    }
+
+  onChange(ev) {
+    console.log('changed:');
+    console.dir(ev);
   }
 
 }

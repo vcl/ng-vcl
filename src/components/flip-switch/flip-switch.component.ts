@@ -25,23 +25,23 @@ export class FlipSwitchComponent implements ControlValueAccessor {
 
 
 
-  @Input('onLabel') onLabel: string;
-  @Input('offLabel') offLabel: string;
+  @Input('onLabel') onLabel: string = 'On';
+  @Input('offLabel') offLabel: string = 'Off';
 
   @Input('value') value: boolean = false;
 
-  @Output() toggle$ = new EventEmitter<boolean>();
+  @Output('change') change$ = new EventEmitter<boolean>();
 
 
 
   onClick() {
     this.value = !this.value;
-    this.toggle$.emit(this.value);
+    this.change$.emit(this.value);
   }
 
 
   constructor() {
-    this.toggle$.subscribe(newVal => {
+    this.change$.subscribe(newVal => {
       this.value = newVal;
       !!this.onChangeCallback && this.onChangeCallback(newVal);
     });
