@@ -22,7 +22,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'vcl-radio-group',
   templateUrl: 'radio-group.component.html',
   host: {},
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAccessor {
