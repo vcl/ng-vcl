@@ -23,22 +23,11 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class FlipSwitchComponent implements ControlValueAccessor {
 
-
-
   @Input('onLabel') onLabel: string = 'On';
   @Input('offLabel') offLabel: string = 'Off';
-
   @Input('value') value: boolean = false;
 
   @Output('change') change$ = new EventEmitter<boolean>();
-
-
-
-  onClick() {
-    this.value = !this.value;
-    this.change$.emit(this.value);
-  }
-
 
   constructor() {
     this.change$.subscribe(newVal => {
@@ -47,6 +36,10 @@ export class FlipSwitchComponent implements ControlValueAccessor {
     });
   }
 
+  onClick() {
+    this.value = !this.value;
+    this.change$.emit(this.value);
+  }
 
   /**
    * things needed for ControlValueAccessor-Interface

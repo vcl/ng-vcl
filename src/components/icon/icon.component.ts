@@ -10,17 +10,11 @@ import { IconService } from './icon.service';
   },
 })
 export class IconComponent {
-  @Input()
-  src: string;
 
-  @Input()
-  svguse: string;
-
-  @Input()
-  iconClass: string;
-
-  @Input()
-  icon: string;
+  @Input() src: string;
+  @Input() svguse: string;
+  @Input() iconClass: string;
+  @Input() icon: string;
 
   @HostBinding('attr.aria-label')
   @Input()

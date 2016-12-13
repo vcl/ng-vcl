@@ -25,33 +25,17 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class DropdownComponent implements ControlValueAccessor {
   @ViewChild('metalist') metalist;
 
+  @Input() items: any[];
+  @Input() tabindex: number = 0;
+  @Input() expanded: boolean = false;
+  @Input() maxSelectableItems: number = 1;
+  @Input() minSelectableItems: number = 1;
+  @Input() ariaRole: string = 'listbox';
 
-  @Output()
-  select = new EventEmitter<any[]>();
+  @Output() expandedChange = new EventEmitter<boolean>();
+  @Output() select = new EventEmitter<any[]>();
 
-  @Input()
-  items: any[];
-
-  @Input()
-  tabindex: number = 0;
-
-  @Input()
-  expanded: boolean = false;
-
-  @Output()
-  expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input()
-  maxSelectableItems: number = 1;
-
-  @Input()
-  minSelectableItems: number = 1;
-
-  @Input()
-  ariaRole: string = 'listbox';
-
-  selected: Object[];
-
+  selected: any[];
 
   _selectItem(item: any, meta, metalist: MetalistComponent) {
     if (this.maxSelectableItems === 1) {
@@ -75,7 +59,7 @@ export class DropdownComponent implements ControlValueAccessor {
     this.select.emit(selectedItems);
   }
 
-  ngAfterContentInit() {  }
+  ngAfterContentInit() { }
 
   metaInformation: any = [];
 

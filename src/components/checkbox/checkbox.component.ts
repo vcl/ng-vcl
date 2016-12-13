@@ -2,7 +2,8 @@ import { Component,
   Input, Output, OnInit,
   HostBinding, HostListener,
   OnChanges, SimpleChanges, EventEmitter,
-  ElementRef, forwardRef
+  ElementRef, forwardRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -22,32 +23,22 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
   },
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccessor {
 
-  @Input()
-  checkedIcon = 'fa:check-square-o';
-
-  @Input()
-  uncheckedIcon = 'fa:square-o';
-
-  @Input()
-  disabled = false;
-
-  @Input('labelPosition')
-  labelPosition: 'left' | 'right' = 'right';
-
-
-  @Input()
-  tabindex = 0;
+  @Input() checkedIcon: string = 'fa:check-square-o';
+  @Input() uncheckedIcon: string = 'fa:square-o';
+  @Input() disabled: boolean = false;
+  @Input() labelPosition: 'left' | 'right' = 'right';
+  @Input() tabindex: number = 0;
 
   /**
   Reflects the checked state, `true` is checked and `false` is unchecked
   @public
   */
-  @Input()
-  checked = false;
+  @Input() checked: boolean = false;
 
   /**
   Action fired when the `checked` state changes due to user interaction.

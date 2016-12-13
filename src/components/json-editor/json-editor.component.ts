@@ -3,7 +3,8 @@ import {
   Input,
   ViewChild,
   forwardRef,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -13,7 +14,7 @@ const JSONEditor = require('jsoneditor/dist/jsoneditor.js');
  * The JSON editor needs styling and some graphics
  * We read the raw css and svg files and replace any file reference to the svg with
  * an inline reference of the data encoded svg file
- * 
+ *
  * The css must be added as a style with  ViewEncapsulation set to None
  */
 
@@ -32,7 +33,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   styles: [JSONEditorCSS],
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'json-editor.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JsonEditorComponent implements ControlValueAccessor {
 
@@ -40,7 +42,7 @@ export class JsonEditorComponent implements ControlValueAccessor {
 
 
   @Input('mode') mode: 'tree' | 'form' | 'text' | 'view' = 'tree';
-  @Input('value') value: Object = {};
+  @Input('value') value: any = {};
 
   /**
    * @link https://github.com/josdejong/jsoneditor/blob/master/docs/api.md
