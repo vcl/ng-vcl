@@ -21,7 +21,11 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-date-picker',
   templateUrl: 'date-picker.component.html',
-  styles: [`.hidden{display:none;}`],
+  styles: [
+    `.hidden{display:none;}
+     .date-picker-pointer{cursor: pointer;}
+    `
+  ],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {

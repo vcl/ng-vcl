@@ -7,7 +7,7 @@
                 <span class="vclIcon fa fa-angle-left"></span>
               </div>
             </button>
-        <span class="vclCalHeaderLabel" (tap)="showYearPick=true">
+        <span class="vclCalHeaderLabel" (tap)="showYearPick=true" [class.date-picker-pointer]="!showYearPick">
               {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}
             </span>
         <button class="vclTransparent vclSquare vclButton" (tap)="nextMonth()">
