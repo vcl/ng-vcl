@@ -55,7 +55,7 @@ export class PickDate {
   getFirstDateOfMonth(date: Date): Date {
     return new Date(
       date.getFullYear(), date.getMonth(), 1,
-      date.getHours(), date.getMinutes(), date.getSeconds()
+      12, date.getMinutes(), date.getSeconds()
     );
   }
 
@@ -165,7 +165,6 @@ export class PickDate {
   getMonthBlock(): PickDate[][] {
 
     let ret = [];
-
 
     const firstDayOfMonth = this.getFirstDateOfMonth(this.date);
     const lastDayOfMonth = this.getLastDateOfMonth(this.date);
