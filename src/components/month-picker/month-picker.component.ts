@@ -40,6 +40,7 @@ export class MonthPickerComponent {
   @Input() expandable: boolean = false;
   @Input() prevYearAvailable: boolean = false;
   @Input() nextYearAvailable: boolean = false;
+  @Input() minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
 
   @Input() closeBtnIcon: string = "fa:times";
@@ -53,10 +54,7 @@ export class MonthPickerComponent {
   ngOnInit(): void {
     // TODO: Localize here instead of in the template so outside components
     // when calling month-picker.getMonth(month) get calendar's localized and used label.
-    this.months = (this.useShortNames ? MonthPickerComponent.monthNamesShort :
-      MonthPickerComponent.monthNames).map(month => ({
-        label: month
-      }));
+    this.months = this.useShortNames ? MonthPickerComponent.monthNamesShort : MonthPickerComponent.monthNames;
 
     if (!this.maxSelectableItems) {
       this.maxSelectableItems = this.colors && this.colors.length || 1;
@@ -78,25 +76,25 @@ export class MonthPickerComponent {
     return this.months.map(monthMeta => ({}));
   }
 
-  public selectMonth(month: number, year: number = this.currentYear): void {
-    if (!this.isMonthAvailable(month, year)) {
+  public selectMonth(year: number, month: number): void {
+    if (!this.isMonthAvailable(year, month)) {
       return;
     }
 
     const monthMeta: any = this.getYearMeta(year)[month];
     if (monthMeta.selected) {
-      return this.deselectMonth(month, year);
+      return this.deselectMonth(year, month);
     }
 
     if (this.maxSelectableItems === 1) {
-      this.iterateMonthMetas((month, year, mMeta) => {
+      this.iterateMonthMetas((year, month, mMeta) => {
         mMeta.selected = mMeta === monthMeta;
       });
     } else if (this.getSelectedDates().length < this.maxSelectableItems) {
       monthMeta.selected = true;
     }
     if (monthMeta.selected) {
-      this.setMonthBackgroundColor(month, year);
+      this.setMonthBackgroundColor(year, month);
       this.notifySelect(`${year}.${month}`);
 
       if (this.maxSelectableItems === 1 && this.expandable) {
@@ -106,12 +104,12 @@ export class MonthPickerComponent {
     }
   }
 
-  public isMonthAvailable(month: number, year: number): boolean {
-    return this.isDateInBounds(month, year) && (!this.useAvailableMonths ||
+  public isMonthAvailable(year: number, month: number): boolean {
+    return this.isDateInBounds(year, month) && (!this.useAvailableMonths ||
       this.yearMeta[year] && this.yearMeta[year][month].available);
   }
 
-  public isDateInBounds(month: number, year: number): boolean {
+  public isDateInBounds(year: number, month: number): boolean {
     return this.isMonthInBounds(month) && this.isYearInBounds(year);
   }
 
@@ -120,7 +118,7 @@ export class MonthPickerComponent {
   }
 
   public isYearInBounds(year: number): boolean {
-    return year > -1 && year < this.maxYear;
+    return year > this.minYear && year < this.maxYear;
   }
 
   private getYearMeta(year: number): any[] {
@@ -133,24 +131,22 @@ export class MonthPickerComponent {
   private iterateMonthMetas(cb) {
     Object.keys(this.yearMeta).forEach(year => {
       this.yearMeta[year].forEach((monthMeta, month) => {
-        cb(month, +year, monthMeta);
+        cb(Number(year), month, monthMeta);
       });
     });
   }
 
   public getSelectedDates(): string[] {
     const selectedDates: string[] = [];
-    Object.keys(this.yearMeta).forEach(year => {
-      this.yearMeta[year].forEach((monthMeta, month) => {
-        if (monthMeta.selected) {
-          selectedDates.push(`${year}.${month}`);
-        }
-      });
+    this.iterateMonthMetas((year, month, monthMeta) => {
+      if (monthMeta.selected) {
+        selectedDates.push(`${year}.${month}`);
+      }
     });
     return selectedDates;
   }
 
-  private setMonthBackgroundColor(month: number, year: number): void {
+  private setMonthBackgroundColor(year: number, month: number): void {
     const color: string = this.getMonthBackgroundColor();
     if (color) {
       const monthMeta: any = this.getYearMeta(year)[month];
@@ -166,21 +162,21 @@ export class MonthPickerComponent {
     }
   }
 
-  public deselectMonth(month: number, year: number = this.currentYear): void {
-    if (this.isMonthSelected(month, year)) {
+  public deselectMonth(year: number, month: number): void {
+    if (this.isMonthSelected(year, month)) {
       const monthMeta: any = this.getYearMeta(year)[month];
       monthMeta.selected = false;
-      this.clearMonthBackgroundColor(month, year);
+      this.clearMonthBackgroundColor(year, month);
       this.notifyDeselect(`${year}.${month}`);
     }
   }
 
-  public isMonthSelected(month: number, year: number): boolean {
-    return this.isDateInBounds(month, year) &&
+  public isMonthSelected(year: number, month: number): boolean {
+    return this.isDateInBounds(year, month) &&
       this.yearMeta[year] && this.yearMeta[year][month].selected;
   }
 
-  private clearMonthBackgroundColor(month: number, year: number): void {
+  private clearMonthBackgroundColor(year: number, month: number): void {
     if (this.availableColors) {
       const monthMeta: any = this.getYearMeta(year)[month];
       if (monthMeta.color) {
@@ -192,27 +188,27 @@ export class MonthPickerComponent {
   }
 
   public deselectAllMonths(): void {
-    this.iterateMonthMetas((month, year, monthMeta) => {
+    this.iterateMonthMetas((year, month, monthMeta) => {
       monthMeta.selected = false;
-      this.clearMonthBackgroundColor(month, year);
+      this.clearMonthBackgroundColor(year, month);
       this.notifyDeselect(`${year}.${month}`);
     });
   }
 
-  public addAvailableMonth(month: number, year: number): void {
-    if (this.isDateInBounds(month, year)) {
+  public addAvailableMonth(year: number, month: number): void {
+    if (this.isDateInBounds(year, month)) {
       this.getYearMeta(year)[month].available = true;
     }
   }
 
-  public removeAvailableMonth(month: number, year: number): void {
-    if (this.isDateInBounds(month, year) && this.yearMeta[year]) {
+  public removeAvailableMonth(year: number, month: number): void {
+    if (this.isDateInBounds(year, month) && this.yearMeta[year]) {
       this.yearMeta[year][month].available = false;
     }
   }
 
   public removeAllAvailableMonths(): void {
-    this.iterateMonthMetas((month, year, monthMeta) => {
+    this.iterateMonthMetas((year, month, monthMeta) => {
       monthMeta.available = false;
     });
   }
@@ -252,12 +248,16 @@ export class MonthPickerComponent {
     this.deselect.emit(date);
   }
 
-  public isCurrentMonth(month: number, year: number = this.currentYear): boolean {
+  public isCurrentMonth(year: number, month: number): boolean {
     return this.now.getFullYear() == year && this.now.getMonth() === month;
   }
 
   public getMonth(year: number, month: number): any {
-    return this.isDateInBounds(year, month) ? this.getYearMeta(year)[month] : null;
+    if (this.isDateInBounds(year, month)) {
+      return Object.assign({
+        label: this.months[month]
+      }, this.getYearMeta(year)[month]);
+    }
   }
 
   public static readonly monthNames: string[] = [
@@ -275,6 +275,6 @@ export class MonthPickerComponent {
     'December'
   ];
 
-  public static readonly monthNamesShort: string[] = MonthPickerComponent.monthNames
-    .map(name => name.substr(0, 3));
+  public static readonly monthNamesShort: string[] = MonthPickerComponent.monthNames.
+    map(name => name.substr(0, 3));
 }
