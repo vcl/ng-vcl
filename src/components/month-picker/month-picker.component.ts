@@ -1,22 +1,58 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'vcl-month-picker',
   templateUrl: 'month-picker.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MonthPickerComponent implements OnInit {
-  months: any[];
-  yearMeta: any = {};
-  currentMeta: any[];
-  availableColors: boolean[];
+export class MonthPickerComponent {
+  private static readonly TAG: string = 'MonthPickerComponent';
+
+  private now: Date = new Date();
+
+  private months: any[];
+
+  private yearMeta: any;
+
+  private currentMeta: any[];
+
+  private availableColors: boolean[];
+
+  @Input() expanded: boolean = true;
+  @Output() expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Input() currentYear: number = this.now.getFullYear();
+  @Output() currentYearChange: EventEmitter<number> = new EventEmitter<number>();
+
+  @Output() prevYearBtnTap = new EventEmitter();
+  @Output() nextYearBtnTap = new EventEmitter();
+
+  @Output() select = new EventEmitter<string>();
+  @Output() deselect = new EventEmitter<string>();
+
+  // Customization
+  @Input() colors: string[];
+  @Input() tabindex: number = 0;
+  @Input() monthsPerRow: number = 3;
+  @Input() useShortNames: boolean = false;
+  @Input() useAvailableMonths: boolean = false;
+
+  @Input() expandable: boolean = false;
+  @Input() prevYearAvailable: boolean = false;
+  @Input() nextYearAvailable: boolean = false;
+  @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
+
+  @Input() closeBtnIcon: string = "fa:times";
+  @Input() prevYearBtnIcon: string = "fa:chevron-left";
+  @Input() nextYearBtnIcon: string = "fa:chevron-right";
+
+  @Input() maxSelectableItems: number;
+  @Input() minSelectableItems: number = 1;
+  //
+
+  constructor() {
+    this.yearMeta = {};
+  }
 
   ngOnInit(): void {
     // TODO: Localize here instead of in the template so outside components
@@ -43,73 +79,10 @@ export class MonthPickerComponent implements OnInit {
   }
 
   private createYearMeta(year: number): any[] {
-    return this.months.map(monthMeta => new Object());
+    return this.months.map(monthMeta => ({}));
   }
 
-  @Input()
-  prevYearBtnIcon: string = "fa:chevron-left";
-
-  @Input()
-  nextYearBtnIcon: string = "fa:chevron-right";
-
-  @Input()
-  closeBtnIcon: string = "fa:times";
-
-  @Input()
-  monthsPerRow: number = 3;
-
-  @Input()
-  expandable: boolean = false;
-
-  @Input()
-  expanded: boolean = true;
-  @Output()
-  expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input()
-  maxYear: number = Number.MAX_SAFE_INTEGER;
-
-  @Input()
-  currentYear: number = new Date().getUTCFullYear();
-  @Output()
-  currentYearChange: EventEmitter<number> = new EventEmitter<number>();
-
-  @Input()
-  useShortNames: boolean = false;
-
-  @Input()
-  useAvailableMonths: boolean = false;
-
-  @Input()
-  colors: string[] = null;
-
-  @Input()
-  maxSelectableItems: number;
-
-  @Input()
-  minSelectableItems: number = 1;
-
-  @Input()
-  prevYearAvailable: boolean = false;
-
-  @Input()
-  nextYearAvailable: boolean = false;
-
-  @Output()
-  prevYearBtnTap = new EventEmitter();
-
-  @Output()
-  nextYearBtnTap = new EventEmitter();
-
-  @Output()
-  select = new EventEmitter<string>();
-  @Output()
-  deselect = new EventEmitter<string>();
-
-  @Input()
-  tabindex: number = 0;
-
-  selectMonth(month: number, year: number = this.currentYear): void {
+  public selectMonth(month: number, year: number = this.currentYear): void {
     if (!this.isMonthAvailable(month, year)) {
       return;
     }
@@ -137,20 +110,20 @@ export class MonthPickerComponent implements OnInit {
     }
   }
 
-  isMonthAvailable(month: number, year: number): boolean {
+  public isMonthAvailable(month: number, year: number): boolean {
     return this.isDateInBounds(month, year) && (!this.useAvailableMonths ||
       this.yearMeta[year] && this.yearMeta[year][month].available);
   }
 
-  isDateInBounds(month: number, year: number): boolean {
+  public isDateInBounds(month: number, year: number): boolean {
     return this.isMonthInBounds(month) && this.isYearInBounds(year);
   }
 
-  isMonthInBounds(month: number): boolean {
+  public isMonthInBounds(month: number): boolean {
     return month > -1 && month < this.months.length;
   }
 
-  isYearInBounds(year: number): boolean {
+  public isYearInBounds(year: number): boolean {
     return year > -1 && year < this.maxYear;
   }
 
@@ -169,7 +142,7 @@ export class MonthPickerComponent implements OnInit {
     });
   }
 
-  getSelectedDates(): string[] {
+  public getSelectedDates(): string[] {
     const selectedDates: string[] = [];
     Object.keys(this.yearMeta).forEach(year => {
       this.yearMeta[year].forEach((monthMeta, month) => {
@@ -197,7 +170,7 @@ export class MonthPickerComponent implements OnInit {
     }
   }
 
-  deselectMonth(month: number, year: number = this.currentYear): void {
+  public deselectMonth(month: number, year: number = this.currentYear): void {
     if (this.isMonthSelected(month, year)) {
       const monthMeta: any = this.getYearMeta(year)[month];
       monthMeta.selected = false;
@@ -206,7 +179,7 @@ export class MonthPickerComponent implements OnInit {
     }
   }
 
-  isMonthSelected(month: number, year: number): boolean {
+  public isMonthSelected(month: number, year: number): boolean {
     return this.isDateInBounds(month, year) &&
       this.yearMeta[year] && this.yearMeta[year][month].selected;
   }
@@ -222,7 +195,7 @@ export class MonthPickerComponent implements OnInit {
     }
   }
 
-  deselectAllMonths(): void {
+  public deselectAllMonths(): void {
     this.iterateMonthMetas((month, year, monthMeta) => {
       monthMeta.selected = false;
       this.clearMonthBackgroundColor(month, year);
@@ -230,19 +203,19 @@ export class MonthPickerComponent implements OnInit {
     });
   }
 
-  addAvailableMonth(month: number, year: number): void {
+  public addAvailableMonth(month: number, year: number): void {
     if (this.isDateInBounds(month, year)) {
       this.getYearMeta(year)[month].available = true;
     }
   }
 
-  removeAvailableMonth(month: number, year: number): void {
+  public removeAvailableMonth(month: number, year: number): void {
     if (this.isDateInBounds(month, year) && this.yearMeta[year]) {
       this.yearMeta[year][month].available = false;
     }
   }
 
-  removeAllAvailableMonths(): void {
+  public removeAllAvailableMonths(): void {
     this.iterateMonthMetas((month, year, monthMeta) => {
       monthMeta.available = false;
     });
@@ -283,16 +256,15 @@ export class MonthPickerComponent implements OnInit {
     this.deselect.emit(date);
   }
 
-  isCurrentMonth(month: number, year: number = this.currentYear): boolean {
-    const now: Date = new Date();
-    return now.getFullYear() == year && now.getUTCMonth() === month;
+  public isCurrentMonth(month: number, year: number = this.currentYear): boolean {
+    return this.now.getFullYear() == year && this.now.getMonth() === month;
   }
 
-  getMonth(month: number): any {
+  public getMonth(month: number): any {
     return this.isMonthInBounds(month) ? this.months[month] : null;
   }
 
-  static monthNames: string[] = [
+  public static readonly monthNames: string[] = [
     'January',
     'February',
     'March',
@@ -307,6 +279,6 @@ export class MonthPickerComponent implements OnInit {
     'December'
   ];
 
-  static monthNamesShort: string[] = MonthPickerComponent.monthNames
+  public static readonly monthNamesShort: string[] = MonthPickerComponent.monthNames
     .map(name => name.substr(0, 3));
 }
