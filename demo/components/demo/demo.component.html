@@ -6,7 +6,8 @@
         {{tab.name}}
       </template>
       <template vcl-tab-content>
-        <demo-content *ngIf="tab.type==='component'" [component]="tab.content"></demo-content>
+        <!--<demo-content *ngIf="tab.type==='component'" [component]="tab.content"></demo-content>-->
+        <div *ngIf="tab.type==='component'" [connectWormhole]="tab.content"></div>
         <markdown *ngIf="tab.type==='markdown'" [markdown]="tab.content"></markdown>
         <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
       </template>

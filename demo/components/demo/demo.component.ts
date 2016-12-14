@@ -1,38 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, Directive, Input, ComponentFactoryResolver, ViewContainerRef, Type, ComponentRef } from '@angular/core';
-
-@Directive({
-  selector: 'demo-content',
-})
-export class DemoContentComponent {
-  @Input()
-  component: Type<{}>;
-  currentComponentRef: ComponentRef<{}>;
-
-  constructor(
-    private vcRef: ViewContainerRef,
-    private _componentFactoryResolver: ComponentFactoryResolver,
-  ) {}
-
-  ngOnChanges() {
-    if (this.currentComponentRef) {
-      this.currentComponentRef.destroy();
-    }
-    this.currentComponentRef = this.attachComponentPortal(this.component);
-  }
-
-  ngOnDestroy() {
-    if (this.currentComponentRef) {
-      this.currentComponentRef.destroy();
-    }
-  }
-
-    /** Attach the given ComponentPortal to DOM element using the ComponentFactoryResolver. */
-  attachComponentPortal<T>(cmp: Type<T>): ComponentRef<T> {
-    const componentFactory = this._componentFactoryResolver.resolveComponentFactory<T>(cmp);
-    return this.vcRef.createComponent(componentFactory, this.vcRef.length, this.vcRef.parentInjector);
-  }
-}
+import { ComponentWormhole } from './../../../src/index';
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -54,17 +22,21 @@ export class DemoComponent {
           this.tabs = Object.keys(data.tabs).map(key => {
 
             let type;
+            let content;
             if (typeof data.tabs[key] === 'string' && key.endsWith('.md')) {
               type = 'markdown';
+              content = data.tabs[key];
             } else if (typeof data.tabs[key] === 'string') {
               type = 'text';
+              content = data.tabs[key];
             } else if (typeof data.tabs[key] === 'function') {
               type = 'component';
+              content = new ComponentWormhole(data.tabs[key]);
             }
 
             return {
               name: key,
-              content: data.tabs[key],
+              content,
               type
             };
         });
