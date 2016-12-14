@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/publishBehavior';
 import { Component, Directive, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef, ContentChild, ContentChildren, TemplateRef, ViewContainerRef, QueryList } from '@angular/core';
 import { ObservableComponent } from '../../core/index';
 
@@ -139,7 +139,7 @@ export class ButtonComponent extends ObservableComponent {
     return this.disabled ? 'disabled' : (this.busy ? 'busy' : 'enabled' );
   }
 
-  state$ = this.observeChange('disabled', 'busy').publishBehavior(this.state).refCount().map(() => this.state).distinctUntilChanged();
+  state$ = this.observeChange('disabled', 'busy', 'label', 'busyLabel', 'appIcon', 'appIconBusy').publishBehavior(this.state).refCount().map(() => this.state);
 
   label$ = this.state$.map(state => state === 'busy' && this.busyLabel ? this.busyLabel : this.label );
   prepIcon$ = this.state$.map(state => state === 'busy' && this.prepIconBusy ? this.prepIconBusy : this.prepIcon );
