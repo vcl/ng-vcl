@@ -12,7 +12,7 @@ import ICON_DEMO from './components/icon/icon.demo';
 import ICOGRAM_DEMO from "./components/icogram/icogram.demo";
 import BUTTON_DEMO from './components/button/button.demo';
 import BUTTON_GROUP_DEMO from './components/button-group/button-group.demo';
-import LAYER_DEMO from './components/layer/layer.demo';
+import LAYER_DEMO from './components/layer/demo';
 import TETHER_DEMO from './components/tether/tether.demo';
 import LINK_DEMO from './components/link/link.demo';
 import RADIO_BUTTON_DEMO from './components/radio-button/radio-button.demo';
