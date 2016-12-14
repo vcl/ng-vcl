@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { WormholeGenerator } from './../../directives/wormhole/wormhole.module';
+import { TemplateWormhole } from './../../directives/wormhole/wormhole.module';
 import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter } from '@angular/core';
 
 @Directive({
   selector: '[vcl-tab-label]'
 })
-export class TabLabelDirective extends WormholeGenerator  {
-  constructor(protected templateRef: TemplateRef<any>) {
+export class TabLabelDirective extends TemplateWormhole  {
+  constructor(public templateRef: TemplateRef<any>) {
     super(templateRef);
   }
 }
@@ -14,8 +14,8 @@ export class TabLabelDirective extends WormholeGenerator  {
 @Directive({
   selector: '[vcl-tab-content]'
 })
-export class TabContentDirective extends WormholeGenerator {
-  constructor(protected templateRef: TemplateRef<any>) {
+export class TabContentDirective extends TemplateWormhole {
+  constructor(public templateRef: TemplateRef<any>) {
     super(templateRef);
   }
 }

@@ -1,9 +1,13 @@
-The wormhole is defined above the hr
-<template generateWormhole #myFirstWormhole="wormhole">
+The template wormhole is defined above the hr
+<template wormhole #myFirstTemplateWormhole="wormhole">
   But is rendered below
 </template>
 <hr>
-<div [wormhole]="myFirstWormhole">
+<div [connectWormhole]="myFirstTemplateWormhole">
+</div>
+<hr>
+And this is a component rendered as a component wormhole 
+<div [connectWormhole]="myFirstComponentWormhole">
 </div>
 
 

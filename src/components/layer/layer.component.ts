@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger } from '@angular/core';
-import { WormholeGenerator } from './../../directives/wormhole/wormhole.module';
+import { TemplateWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
 
 export interface LayerData { [key: string]: any; }
@@ -11,7 +11,7 @@ export interface LayerData { [key: string]: any; }
   selector: '[vcl-layer]',
   exportAs: 'layer',
 })
-export class LayerDirective extends WormholeGenerator {
+export class LayerDirective extends TemplateWormhole {
 
   visibilityChange$: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output()
@@ -38,7 +38,7 @@ export class LayerDirective extends WormholeGenerator {
 
   public visible = false;
 
-  constructor(protected templateRef: TemplateRef<any>, private elementRef: ElementRef, private layerService: LayerService) {
+  constructor(public templateRef: TemplateRef<any>, private elementRef: ElementRef, private layerService: LayerService) {
     super(templateRef);
   }
 

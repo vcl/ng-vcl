@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { WormholeGenerator } from './../../../src/directives/wormhole/wormhole.module';
+import { TemplateWormhole, ComponentWormhole } from './../../../src/directives/wormhole/wormhole.module';
+
+@Component({
+  template: '<p>I am a component</p>'
+})
+export class MyComponent { }
 
 @Component({
   templateUrl: 'wormhole.component.html'
@@ -7,9 +12,8 @@ import { WormholeGenerator } from './../../../src/directives/wormhole/wormhole.m
 export class WormholeComponent {
 
   @ViewChild('myFirstWormhole')
-  myFirstWormhole: WormholeGenerator;
+  myFirstTemplateWormhole: TemplateWormhole;
 
-  ngAfterViewInit() {
-    console.log('myFirstWormhole', this.myFirstWormhole);
-  }
+  // Create a component wormhole
+  myFirstComponentWormhole: ComponentWormhole<MyComponent> = new ComponentWormhole(MyComponent);
 }

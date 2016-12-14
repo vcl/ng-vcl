@@ -1,0 +1,64 @@
+Press escape to close the top layer<br><br>
+
+<button vcl-button (tap)="layerNonModal.open()" label="open non-modal layer per reference"></button>
+<button vcl-button (tap)="layer1.open()" label="open modal layer"></button>
+<button vcl-button (tap)="openLayerWithData()" label="open layer programmatically"></button>
+<button vcl-button (tap)="openComponentLayer()" label="open component layer"></button>
+
+<template vcl-layer #layerNonModal="layer" [modal]="false" [name]="'nonModal'">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Non-modal layer title goes here</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Non-modal layer text goes here<br><br>
+        <button vcl-button (tap)="layerNonModal.close()" label="close Layer"></button>
+      </p>
+    </div>
+  </div>
+</template>
+
+<template vcl-layer #layer1="layer">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Modal layer 1 title goes here</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Modal layer 1 text goes here<br><br>
+        <button vcl-button (tap)="layer2.open()" label="open Layer2"></button>
+        <button vcl-button (tap)="layer1.close()" label="close Layer"></button>
+      </p>
+    </div>
+  </div>
+</template>
+
+<template vcl-layer #layer2="layer" [modal]="false">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">Non-modal layer 2 title goes here</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        non-modal layer 2 text goes here<br><br>
+        <button vcl-button (tap)="layer2.close()" label="close Layer"></button>
+      </p>
+    </div>
+  </div>
+</template>
+
+<template vcl-layer #layerWithData="layer" [modal]="false" [name]="'withData'">
+  <div class="vclPanel vclNoMargin">
+    <div class="vclPanelHeader">
+      <h3 class="vclPanelTitle">{{layerWithData.data.title}}</h3>
+    </div>
+    <div class="vclPanelBody">
+      <p class="vclPanelContent">
+        Send data by pressing the buttons<br><br>
+        <button vcl-button (tap)="layerWithData.send('send')" label="Send data"></button>
+        <button vcl-button (tap)="layerWithData.close('close')" label="close Layer"></button>
+      </p>
+    </div>
+  </div>
+</template>

@@ -14,32 +14,31 @@ import { VCLWormholeModule } from 'ng-vcl';
 export class AppComponent {}
 ```
 
-Use the the generateWormhole directive to create a wormhole...
+Use the the wormhole directive to create a wormhole template...
 ```html
 
-<template generateWormhole #myFirstWormhole="wormhole">
+<template wormhole #myFirstWormhole="wormhole">
   I am a wormhole
 </template>
 ```
 
-...and connect it via the wormhole directive.
+...and connect it via the connectWormhole directive.
 The wormhole template is rendered within the element.
 ```html
-<div [wormhole]="myFirstWormhole">
+<div [connectWormhole]="myFirstWormhole">
   <!-- The myFirstWormhole template is rendered here -->
 </div>
 
 ```
 
-Get a reference to the generated wormhole by using the @ViewChild(ren)/@ContentChild(ren) annotations
+Get a reference to the generated wormhole by using the @ViewChild(ren)/@ContentChild(ren) decorators
 ```js
-import { VCLWormholeGenerator } from 'ng-vcl';
 
 @Component(...)
 class MyComp {
   ...
   @ViewChild('myFirstWormhole')
-  myFirstWormhole: WormholeGenerator;
+  myFirstWormhole;
   ...
 }
 ```
