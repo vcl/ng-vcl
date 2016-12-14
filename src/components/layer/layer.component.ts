@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger } from '@angular/core';
-import { TemplateWormhole } from './../../directives/wormhole/wormhole.module';
+import { TemplateWormhole } from './../../directives/wormhole/wormhole';
 import { LayerService } from './layer.service';
 
 export interface LayerData { [key: string]: any; }

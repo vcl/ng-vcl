@@ -8,7 +8,7 @@ import { VCLModule, L10nModule, L10nStaticLoaderService, StoreModule } from '../
 import { AppComponent } from './app.component';
 import { HomeComponent } from "./components/home/home.component";
 import { MarkdownComponent } from "./components/markdown/markdown.component";
-import { DemoComponent, DemoContentComponent } from "./components/demo/demo.component";
+import { DemoComponent } from "./components/demo/demo.component";
 import { DEMO_MODULES } from "./demos";
 
 import { routing, appRoutingProviders } from './app.routes';
@@ -41,8 +41,7 @@ import { routing, appRoutingProviders } from './app.routes';
     AppComponent,
     HomeComponent,
     DemoComponent,
-    MarkdownComponent,
-    DemoContentComponent,
+    MarkdownComponent
   ],
   bootstrap: [
     AppComponent
