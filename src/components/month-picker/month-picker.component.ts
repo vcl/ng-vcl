@@ -12,7 +12,7 @@ export class MonthPickerComponent {
 
   private months: any[];
 
-  private yearMeta: any;
+  private yearMeta: any = {};
 
   private currentMeta: any[];
 
@@ -49,10 +49,6 @@ export class MonthPickerComponent {
   @Input() maxSelectableItems: number;
   @Input() minSelectableItems: number = 1;
   //
-
-  constructor() {
-    this.yearMeta = {};
-  }
 
   ngOnInit(): void {
     // TODO: Localize here instead of in the template so outside components
@@ -260,8 +256,8 @@ export class MonthPickerComponent {
     return this.now.getFullYear() == year && this.now.getMonth() === month;
   }
 
-  public getMonth(month: number): any {
-    return this.isMonthInBounds(month) ? this.months[month] : null;
+  public getMonth(year: number, month: number): any {
+    return this.isDateInBounds(year, month) ? this.getYearMeta(year)[month] : null;
   }
 
   public static readonly monthNames: string[] = [
