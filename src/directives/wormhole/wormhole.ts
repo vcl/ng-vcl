@@ -47,7 +47,7 @@ export class TemplateWormhole extends Wormhole {
 export class ComponentWormhole<T> extends Wormhole {
   compRef: ComponentRef<T>;
 
-  constructor(private componentClass: ComponentType<T>) {
+  constructor(private componentClass: ComponentType<T>, private data?: any) {
     super();
   }
 
@@ -55,6 +55,7 @@ export class ComponentWormhole<T> extends Wormhole {
     const viewContainerRef = this.bridge.viewContainerRef;
     let componentFactory = this.bridge.componentFactoryResolver.resolveComponentFactory<T>(this.componentClass);
     this.compRef = viewContainerRef.createComponent( componentFactory, viewContainerRef.length, viewContainerRef.parentInjector);
+    this.setData(this.data);
   }
   detach() {
     if (this.compRef) {
@@ -63,6 +64,13 @@ export class ComponentWormhole<T> extends Wormhole {
       this.compRef.destroy();
     }
     this.compRef = null;
+  }
+
+  setData(data?: any) {
+    if (data && typeof data === 'object') {
+      Object.assign(this.compRef.instance, data);
+      this.compRef.changeDetectorRef.detectChanges();
+    }
   }
 }
 
