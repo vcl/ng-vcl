@@ -23,7 +23,7 @@
   <vcl-dropdown #dropdown
     [(expanded)]="expanded"
     [items]="items"
-    (select)="onSelect($event)"
+    (change)="onSelect($event)"
     [minSelectableItems]="minSelectableItems"
     [maxSelectableItems]="maxSelectableItems"
     [tabindex]="0">

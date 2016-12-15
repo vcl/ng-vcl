@@ -24,11 +24,11 @@
 <br>
 <b>Options via html</b><br>
 <vcl-select (change)="onChange($event)" [(ngModel)]="selectedItemSingleHtml">
-  <vcl-select-option label="Item1"></vcl-select-option>
-  <vcl-select-option label="Item2"></vcl-select-option>
-  <vcl-select-option label="Item3"></vcl-select-option>
-  <vcl-select-option label="Item4"></vcl-select-option>
-  <vcl-select-option label="Item5"></vcl-select-option>
+  <vcl-select-option value="1">Item 1</vcl-select-option>
+  <vcl-select-option value="2" [selected]="true">Item 2 (preselect)</vcl-select-option>
+  <vcl-select-option value="3">Item 3</vcl-select-option>
+  <vcl-select-option value="4" [disabled]="true">Item 4</vcl-select-option>
+  <vcl-select-option value="5">Item 5</vcl-select-option>
 </vcl-select>
 <div *ngIf="selectedItemSingleHtml">
   Value: {{selectedItemSingleHtml}}
@@ -63,11 +63,11 @@
 <br>
 <b>Options via html</b><br>
 <vcl-select (change)="onChange($event)" [(ngModel)]="selectSingleValueHtml">
-  <vcl-select-option label="Item1" value="1"></vcl-select-option>
-  <vcl-select-option label="Item2" value="2"></vcl-select-option>
-  <vcl-select-option label="Item3" value="3"></vcl-select-option>
-  <vcl-select-option label="Item4" value="4"></vcl-select-option>
-  <vcl-select-option label="Item5" value="5"></vcl-select-option>
+  <vcl-select-option value="1">Item 1</vcl-select-option>
+  <vcl-select-option value="2">Item 2</vcl-select-option>
+  <vcl-select-option value="3">Item 3</vcl-select-option>
+  <vcl-select-option value="4">Item 4</vcl-select-option>
+  <vcl-select-option value="5">Item 5</vcl-select-option>
 </vcl-select>
 <div *ngIf="selectSingleValueHtml">
   Value: {{selectSingleValueHtml}}

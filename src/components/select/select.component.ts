@@ -9,22 +9,44 @@ import {
   ContentChildren,
   QueryList,
   Optional,
-  forwardRef
+  forwardRef,
+  ElementRef,
+  OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
+
+/**
+ * see
+ * @link http://www.w3schools.com/tags/tag_option.asp
+ */
 @Directive({
   selector: 'vcl-select-option'
 })
-export class SelectOptionComponent {
+export class SelectOptionComponent implements OnInit {
 
   @Input('value') value: string;
-  @Input('label') label: string;
   @Input('sublabel') sublabel: string;
+  @Input('label') label: string;
   @Input('class') class: string = '';
 
-  constructor() { }
+  @Input('disabled') disabled: boolean = false;
+  @Input('selected') selected: boolean = false;
+
+
+  constructor(
+    private elementRef: ElementRef
+  ) { }
+
+  ngOnInit() {
+    if (!this.label || this.label == '') {
+      this.label = this.elementRef.nativeElement.innerText;
+      if (!this.label || this.label == '') {
+        this.label = this.value;
+      }
+    }
+  }
 
   /**
    * transforms this NavigationItemComponent into an object,
@@ -36,7 +58,9 @@ export class SelectOptionComponent {
       value: this.value,
       label: this.label,
       sublabel: this.sublabel,
-      class: this.class
+      class: this.class,
+      disabled: this.disabled,
+      selected: this.selected
     };
     return ret;
   }
@@ -129,10 +153,8 @@ export class SelectComponent implements ControlValueAccessor {
     this.dropdown.selectItem(item);
   }
 
-  onSelect(newItems: any[]) {
-    if (this.maxSelectableItems == 1) this.value = newItems[0].value; // single-select
-    else this.value = newItems.map(i => i.value);  // multi-select
-
+  onSelect(newValue: any[]) {
+    this.value = newValue;
     this.changeEE.emit(this.value);
   }
 
