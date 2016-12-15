@@ -8,3 +8,20 @@ Selected Item: <span *ngIf="selectedItem">{{selectedItem.label}}</span>
 <vcl-dropdown (select)="onSelect($event)" [(expanded)]="expanded"
  [items]="items" [maxSelectableItems]="1" [tabindex]="77"
  [expanded]="true"></vcl-dropdown>
+
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+
+
+
+
+ multi-select:
+
+ <button vcl-button (tap)="expand2()">Show/hide</button>
+
+ <vcl-dropdown (select)="onSelect($event)" [(expanded)]="expanded2"
+  [items]="items" [maxSelectableItems]="3" [tabindex]="77"
+  ></vcl-dropdown>

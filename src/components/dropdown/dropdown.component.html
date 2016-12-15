@@ -4,25 +4,21 @@
   [attr.tabindex]="tabindex"
   [attr.aria-multiselectable]="maxSelectableItems > 1"
   [attr.aria-expanded]="expanded">
-  <vcl-metalist (select)="onSelect($event)" #metalist [items]="items"
-  [meta]="metaInformation" [maxSelectableItems]="maxSelectableItems"
-  [minSelectableItems]="minSelectableItems">
-    <template let-item="item" let-meta="meta">
-      <li class="vclDropdownItem"
-        [class.vclSelected]="meta.selected"
-        [attr.aria-selected]="meta.selected"
-        [class.vclDisabled]="item.disabled"
-        role="menuitem"
-        tabindex="0"
-        (tap)="_selectItem(item, meta, metalist)"
-        [ngClass]="item.class">
-        <div class="vclDropdownItemLabel">
-          {{item.label}}
-        </div>
-        <div class="vclDropdownItemSubLabel">
-          {{item.sublabel}}
-        </div>
-    </li>
-    </template>
-  </vcl-metalist>
+  <li
+    *ngFor="let item of items"
+    class="vclDropdownItem"
+    [class.vclSelected]="item.selected"
+    [attr.aria-selected]="item.selected"
+    [class.vclDisabled]="item.disabled"
+    role="menuitem"
+    tabindex="0"
+    (tap)="clickItem(item)"
+    [ngClass]="item.class">
+    <div class="vclDropdownItemLabel">
+      {{item.label}}
+    </div>
+    <div class="vclDropdownItemSubLabel">
+      {{item.sublabel}}
+    </div>
+  </li>
 </ul>

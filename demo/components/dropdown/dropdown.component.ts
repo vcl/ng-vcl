@@ -7,7 +7,8 @@ export class DropdownComponent implements OnInit {
 
   selectedItem: any;
 
-  expanded: boolean = true;
+  expanded: boolean = false;
+  expanded2: boolean = false;
 
   constructor() { }
 
@@ -35,7 +36,11 @@ export class DropdownComponent implements OnInit {
     }
   }
 
-  expand() {
+  expand1() {
     this.expanded = !this.expanded;
   }
+  expand2() {
+    this.expanded2 = !this.expanded2;
+  }
+
 }
