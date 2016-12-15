@@ -23,6 +23,9 @@ export class LayerDirective extends TemplateWormhole {
   public modal: boolean = true;
 
   @Input()
+  public closeOnOffClick: boolean = true;
+
+  @Input()
   public name: string;
 
   @Input()
@@ -51,7 +54,9 @@ export class LayerDirective extends TemplateWormhole {
   }
 
   offClick() {
-    if (!this.modal) {
+    // allow offlick only on non-modal layers
+    const allowOffClick = !this.modal && this.closeOnOffClick;
+    if (allowOffClick) {
       this.close();
     }
   }
