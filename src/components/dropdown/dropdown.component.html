@@ -11,6 +11,7 @@
       <li class="vclDropdownItem"
         [class.vclSelected]="meta.selected"
         [attr.aria-selected]="meta.selected"
+        [class.vclDisabled]="item.disabled"
         role="menuitem"
         tabindex="0"
         (tap)="_selectItem(item, meta, metalist)"
