@@ -38,6 +38,8 @@ export class DropdownComponent implements ControlValueAccessor {
   selected: any[];
 
   _selectItem(item: any, meta, metalist: MetalistComponent) {
+    if (item.disabled) return;
+
     if (this.maxSelectableItems === 1) {
       this.expanded = false;
       this.expandedChange.emit(this.expanded);
