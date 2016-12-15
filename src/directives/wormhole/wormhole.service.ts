@@ -18,13 +18,10 @@ export class WormholeService {
     this.bootstrapReadyResolve();
   }
 
-  attachComponent<T>(componentClass: ComponentType<T>, node?: HTMLElement): {()} {
+  attachComponent<T>(componentClass: ComponentType<T>, node?: HTMLElement) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
     const componentRef = componentFactory.create(this.defaultInjector);
     const componentRefRootNode = this.getComponentRootNode(componentRef);
-
-
-    // const targetNode = node || this.appNode;
 
     this.appRef.attachView(componentRef.hostView);
 
@@ -34,13 +31,16 @@ export class WormholeService {
       }
     });
 
-    return () => {
-      this.appRef.detachView(componentRef.hostView);
-      this.getNode(node).then(targetNode => {
-        if (targetNode) {
-          targetNode.removeChild(componentRefRootNode);
-        }
-      });
+    return {
+      componentRef,
+      dispose: () => {
+        this.appRef.detachView(componentRef.hostView);
+        this.getNode(node).then(targetNode => {
+          if (targetNode) {
+            targetNode.removeChild(componentRefRootNode);
+          }
+        });
+      }
     };
   }
 

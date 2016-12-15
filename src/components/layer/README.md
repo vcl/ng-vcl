@@ -105,6 +105,7 @@ A vcl-layer-base component defines the position in the DOM where the layers will
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `modal`             | boolean     | false    | Disables user interaction outside of the layer
+| `closeOnOffClick`   | boolean     | true     | Wether a non-modal layer should close when clicked outside
 | `name`              | string      |          | The layer name for addressing it in the LayerService
 
 #### vcl-layer-base Properties:

@@ -1,6 +1,6 @@
 <div *ngFor="let layer of visibleLayers; let i = index;">
-  <div class="vclLayer" role="dialog" [@boxState]="layer.state" [style.z-index]="zIndex + (i*10+1)">
-    <div class="vclLayerBox vclLayerGutterPadding" (off-click)="layer.offClick()">
+  <div class="vclLayer" role="dialog" [@boxState]="layer.state" [style.pointer-events]="'none'" [style.z-index]="zIndex + (i*10+1)">
+    <div class="vclLayerBox vclLayerGutterPadding" [style.pointer-events]="'all'" (off-click)="layer.offClick()">
       <div [connectWormhole]="layer" [wormholeIndisposable]="true"></div>
     </div>
   </div>
