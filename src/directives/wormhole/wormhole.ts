@@ -1,4 +1,4 @@
-import { ComponentRef, EmbeddedViewRef, Directive, TemplateRef, ViewContainerRef, ComponentFactoryResolver, Input } from '@angular/core';
+import { ComponentRef, EmbeddedViewRef, Directive, TemplateRef, ViewContainerRef, ComponentFactoryResolver, Input, Injector } from '@angular/core';
 import { ComponentType } from './../../core/index';
 
 export abstract class Wormhole {
@@ -47,14 +47,19 @@ export class TemplateWormhole extends Wormhole {
 export class ComponentWormhole<T> extends Wormhole {
   compRef: ComponentRef<T>;
 
-  constructor(private componentClass: ComponentType<T>, private data?: any) {
+  injector: Injector;
+  data: any;
+
+  constructor(private componentClass: ComponentType<T>, opts: { injector?: Injector, data?: any } = {}) {
     super();
+    this.injector = opts.injector;
+    this.data = opts.data;
   }
 
   attach() {
     const viewContainerRef = this.bridge.viewContainerRef;
     let componentFactory = this.bridge.componentFactoryResolver.resolveComponentFactory<T>(this.componentClass);
-    this.compRef = viewContainerRef.createComponent( componentFactory, viewContainerRef.length, viewContainerRef.parentInjector);
+    this.compRef = viewContainerRef.createComponent( componentFactory, viewContainerRef.length, this.injector || viewContainerRef.parentInjector);
     this.setData(this.data);
   }
   detach() {
