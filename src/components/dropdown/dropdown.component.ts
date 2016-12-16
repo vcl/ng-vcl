@@ -55,9 +55,8 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     return this.items.filter(i => i.selected);
   }
 
-  clickItem(item: any) {
+  public selectItem(item: any) {
     if (item.disabled) return;
-
     if (!item.selected) {
       // prevent overflow maxSelectableItems
       if (this.selectedItems().length >= this.maxSelectableItems)
