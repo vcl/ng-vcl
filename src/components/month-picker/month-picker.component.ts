@@ -182,7 +182,7 @@ export class MonthPickerComponent {
       if (monthMeta.color) {
         const index: number = this.colors.indexOf(monthMeta.color);
         this.availableColors[index] = true;
-        monthMeta.color = undefined;
+        delete monthMeta.color;
       }
     }
   }
@@ -255,6 +255,7 @@ export class MonthPickerComponent {
   public getMonth(year: number, month: number): any {
     if (this.isDateInBounds(year, month)) {
       return Object.assign({
+        date: `${year}.${month}`,
         label: this.months[month]
       }, this.getYearMeta(year)[month]);
     }

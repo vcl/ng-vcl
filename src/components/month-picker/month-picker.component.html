@@ -16,13 +16,15 @@
 
         <span class="vclCalHeaderLabel">{{ currentYear }}</span>
 
-        <button vcl-button class="vclButton vclTransparent vclSquare"
+        <button vcl-button
+          class="vclButton vclTransparent vclSquare"
           [class.vclDisabled]="!nextYearAvailable"
           [appIcon]="nextYearBtnIcon"
           (tap)="onNextYearTap()">
         </button>
 
-        <button vcl-button *ngIf="expandable" class="vclButton vclTransparent vclSquare"
+        <button vcl-button *ngIf="expandable"
+          class="vclButton vclTransparent vclSquare"
           [appIcon]="closeBtnIcon"
           (tap)="onCloseBtnTap()">
         </button>

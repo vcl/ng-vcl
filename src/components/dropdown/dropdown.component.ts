@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  ChangeDetectionStrategy,
-  EventEmitter,
-  forwardRef,
-  OnInit
-} from '@angular/core';
+import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, forwardRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -23,6 +15,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class DropdownComponent implements ControlValueAccessor, OnInit {
 
+  @Output('change') change$ = new EventEmitter<any[]>();
+
   @Input() items: any[];
   @Input() tabindex: number = 0;
   @Input() expanded: boolean = false;
@@ -30,13 +24,6 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   @Input() minSelectableItems: number = 1;
   @Input() ariaRole: string = 'listbox';
 
-  get value(): any {
-    let ret = this.items
-      .filter(i => i.selected)
-      .map(i => i.value);
-    if (this.maxSelectableItems == 1) ret = ret[0];
-    return ret;
-  };
   @Input() set value(v: any) {
     if (!Array.isArray(v)) v = [v];
     this.items
@@ -47,8 +34,13 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     this.onChange();
   }
 
-  @Output('change') change$ = new EventEmitter<any[]>();
-
+  get value(): any {
+    let ret = this.items
+      .filter(i => i.selected)
+      .map(i => i.value);
+    if (this.maxSelectableItems == 1) ret = ret[0];
+    return ret;
+  };
 
   ngOnInit() {
     // ensure items have a value
@@ -58,7 +50,6 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       return i;
     });
   }
-
 
   selectedItems() {
     return this.items.filter(i => i.selected);
@@ -80,7 +71,6 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     item.selected = !item.selected;
     this.onChange();
   }
-
 
   onChange() {
     this.change$.emit(this.value);
