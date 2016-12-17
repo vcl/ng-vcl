@@ -1,5 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { LayerService } from './../../../src/index';
+import { LayerComponent } from './layer.component';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -16,9 +17,20 @@ export class LayerDemoComponent {
     }
   }
 
-  openLayerWithData() {
-    this.layer.open('withData', {
-      title: 'This title is provided as an argument'
+  @ViewChild('layerModal')
+  layerModal;
+  openLayer() {
+    this.layerModal.open();
+  }
+
+  // Register a Component Layer
+  componentLayerRef = this.layer.registerComponent(LayerComponent, {
+    modal: true
+  });
+
+  openComponentLayer() {
+    this.componentLayerRef.open({
+      title: 'Component Layer'
     }).subscribe(data => {
       // Layer sends data
       console.log(data);
@@ -26,9 +38,5 @@ export class LayerDemoComponent {
       // Layer is closed
       console.log('layer closed');
     });
-  }
-
-  openComponentLayer() {
-    this.layer.open('componentLayer');
   }
 }

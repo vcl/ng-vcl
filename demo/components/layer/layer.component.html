@@ -1,13 +1,12 @@
-<template vcl-layer #componentLayer="layer" [modal]="true" [name]="'componentLayer'">
-  <div class="vclPanel vclNoMargin">
-    <div class="vclPanelHeader">
-      <h3 class="vclPanelTitle">componentLayer title goes here</h3>
-    </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
-        componentLayer text goes here<br><br>
-        <button vcl-button (tap)="componentLayer.close()" label="close Layer"></button>
-      </p>
-    </div>
+<div class="vclPanel vclNoMargin">
+  <div class="vclPanelHeader">
+    <h3 class="vclPanelTitle">{{title}}</h3>
   </div>
-</template>
+  <div class="vclPanelBody">
+    <p class="vclPanelContent">
+      Send data by pressing the buttons<br><br>
+      <button vcl-button (tap)="send('send')" label="Send data"></button>
+      <button vcl-button (tap)="close('close')" label="close Layer"></button>
+    </p>
+  </div>
+</div>

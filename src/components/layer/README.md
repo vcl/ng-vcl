@@ -17,7 +17,7 @@ export class AppComponent {}
 A layer can be defined anywhere in your application
 
 ```html
-<template vcl-layer #myLayer="layer" [modal]="true" [name]="'myLayer'">
+<template vcl-layer #myLayer="layer" [modal]="true">
   <div class="vclPanel vclNoMargin">
     <div class="vclPanelHeader">
       <h3 class="vclPanelTitle">Title</h3>

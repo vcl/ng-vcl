@@ -1,27 +1,27 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, ApplicationRef, ComponentFactoryResolver, Inject, Injector, EmbeddedViewRef, ComponentRef, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayerBaseComponent, LayerDirective } from './layer.component';
+import { LayerDirective } from './layer.directive';
+import { LayerBaseComponent } from './layer-base.component';
 import { LayerService } from './layer.service';
 import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
 import { VCLWormholeModule, WormholeService } from '../../directives/wormhole/wormhole.module';
+import { LayerReference, LayerDirectiveReference, LayerComponentReference, LayerOptions, LayerData } from './layer.references';
 
-export { LayerBaseComponent, LayerDirective, LayerService };
+export {LayerBaseComponent, LayerDirective, LayerComponentReference, LayerDirectiveReference, LayerData, LayerOptions, LayerService}
 
 function getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
   return (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-}
-
-function bootstrapLayer(wormholeService: WormholeService) {
-  return () => {
-    wormholeService.attachComponent(LayerBaseComponent);
-  };
 }
 
 const LAYER_BOOTSTRAP = {
   provide: APP_BOOTSTRAP_LISTENER,
   multi: true,
   deps: [ WormholeService ],
-  useFactory: bootstrapLayer
+  useFactory: (wormholeService: WormholeService) => {
+    return () => {
+      wormholeService.attachComponent(LayerBaseComponent);
+    };
+  }
 };
 
 @NgModule({

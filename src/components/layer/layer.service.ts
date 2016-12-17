@@ -1,90 +1,95 @@
+import { Injectable, EmbeddedViewRef, Output, EventEmitter, ComponentFactoryResolver, ApplicationRef, Injector, ComponentRef, ReflectiveInjector } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { LayerDirective, LayerBaseComponent } from './layer.component';
-import { Injectable, EmbeddedViewRef, Output, EventEmitter, ComponentFactoryResolver, ApplicationRef, Injector, ComponentRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-interface VisibleLayers { [key: string]: LayerDirective[]; };
+import { ComponentType } from './../../core/index';
+import { ComponentWormhole } from './../../directives/wormhole/wormhole';
+import { LayerBaseComponent } from './layer-base.component';
+import { LayerDirective } from './layer.directive';
+import { LayerReference, LayerDirectiveReference, LayerComponentReference, LayerOptions } from './layer.references';
 
 @Injectable()
 export class LayerService {
-
-  private layerNameMap = new Map<string, LayerDirective>();
   private baseNameMap = new Map<string, LayerBaseComponent>();
-  private layerMap = new Map<LayerDirective, Subscription>();
-  private visibleLayers: VisibleLayers = {};
-  private _visibleLayers = new BehaviorSubject<VisibleLayers>(this.visibleLayers);
 
-  visibleLayersFor(base = 'default'): Observable<LayerDirective[]> {
-    return this._visibleLayers.asObservable().map(layers => layers[base] || []).distinctUntilChanged();
+  private layerDirectiveMap = new Map<LayerDirective, LayerDirectiveReference>();
+  // private layers = new Set<LayerReference>();
+  private layers = new Map<LayerReference, Subscription>();
+
+  private layersChange = new Subject<LayerReference>();
+
+  constructor(private defaultInjector: Injector) { }
+
+  getVisibleLayersFor$(base = 'default') {
+    return this.layersChange.scan<LayerReference, LayerReference[]>((layers, layerRef) => {
+      if (layerRef.visible) {
+        return [...layers, layerRef];
+      } else {
+        return layers.filter(layer => layer !== layerRef);
+      }
+    }, []);
   }
 
-  getVisibleLayers(base = 'default') {
-    return this.visibleLayers[base] || [];
+  getLayersFor(base = 'default') {
+    return Array.from(this.layers.keys()).filter(li => li.base === base);
+  }
+
+  getVisibleLayersFor(base = 'default') {
+    return this.getLayersFor(base).filter(layer => !!layer.visible);
   }
 
   hasVisibleLayers(base = 'default') {
-    return this.getVisibleLayers(base).length > 0;
+    return this.getLayersFor(base).some(layer => layer.visible);
   }
 
   closeAll(base = 'default') {
-    this.getVisibleLayers(base).forEach(layer => layer.close());
+    this.getVisibleLayersFor(base).forEach(layer => layer.close());
   }
 
   closeTop(base = 'default') {
-    const layer = this.getVisibleLayers(base).slice(-1)[0];
+    const layer = this.getVisibleLayersFor(base).slice(-1)[0];
     if (layer) layer.close();
   }
 
-  open(layerName: string, data?): Observable<any> {
-    if (this.layerNameMap.has(layerName)) {
-      return this.layerNameMap.get(layerName).open(data);
-    } else {
-      return Observable.throw('Layer not found: ' + layerName);
-    }
+  registerComponent<T>(layer: ComponentType<T>, opts: LayerOptions = {}): LayerComponentReference<T> {
+    let layerRef = new LayerComponentReference<T>(opts, this.defaultInjector, layer);
+    this.registerReference(layerRef);
+    return layerRef;
   }
 
-  close(layerName: string) {
-    if (this.layerNameMap.has(layerName)) {
-      this.layerNameMap.get(layerName).close();
-    }
+  registerDirective(layer: LayerDirective, opts: LayerOptions = {}): LayerDirectiveReference {
+    let layerRef = new LayerDirectiveReference(opts, layer);
+    this.layerDirectiveMap.set(layer, layerRef);
+    this.registerReference(layerRef);
+    return layerRef;
   }
 
-  register(layer: LayerDirective) {
-    if (layer.name && this.layerNameMap.has(layer.name)) {
-      throw 'Duplicate vcl-layer: ' + layer.name;
-    }
-
-    this.layerMap.set(layer, layer.visibilityChange$.subscribe(() => {
-      if (!this.visibleLayers[layer.base]) {
-        this.visibleLayers[layer.base] = [];
-      }
-      if (layer.visible) {
-        this.visibleLayers[layer.base] =  [...this.visibleLayers[layer.base], layer];
-      } else {
-        this.visibleLayers[layer.base] =  this.visibleLayers[layer.base].filter(l => layer !== l);
-      }
-      this._visibleLayers.next(this.visibleLayers);
+  private registerReference(layerRef: LayerReference) {
+    this.layers.set(layerRef, layerRef.subscribe(layerRef => {
+      this.layersChange.next(layerRef);
     }));
-    if (layer.name) {
-      this.layerNameMap.set(layer.name, layer);
-    }
   }
 
-  unregister(layer: LayerDirective) {
-    layer.close();
-    if (layer.name) {
-      this.layerNameMap.delete(layer.name);
-    }
-    const sub = this.layerMap.get(layer);
+  public disposeReference(layerRef: LayerReference) {
+    const sub = this.layers.get(layerRef);
     if (sub && !sub.closed) {
       sub.unsubscribe();
     }
-    this.layerMap.delete(layer);
+    this.layers.delete(layerRef);
   }
 
-  registerBase(layerBase: LayerBaseComponent) {
+  unregisterDirective(layer: LayerDirective) {
+    let layerRef = this.layerDirectiveMap.get(layer);
+    if (layerRef) {
+      layerRef.close();
+      this.layers.delete(layerRef);
+      this.layerDirectiveMap.delete(layer);
+      this.disposeReference(layerRef);
+    }
+  }
+
+  registerBase(layerBase: LayerBaseComponent, opts: LayerOptions = {}) {
     if (layerBase.name && this.baseNameMap.has(layerBase.name)) {
       throw 'Duplicate vcl-layer-base: ' + layerBase.name;
     }
@@ -96,12 +101,12 @@ export class LayerService {
   }
 
   ngOnDestroy() {
-    this.layerMap.forEach(sub => {
+    this.layerDirectiveMap.clear();
+    this.layers.forEach((sub) => {
       if (sub && !sub.closed) {
         sub.unsubscribe();
       }
     });
-    this.layerMap.clear();
-    this.layerNameMap.clear();
+    this.layers.clear();
   }
 }
