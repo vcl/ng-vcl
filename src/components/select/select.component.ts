@@ -100,7 +100,7 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() collapsedIcon: string = 'fa:chevron-down';
   @Input('displayValue') displayValue: string = 'Select value';
 
-  @Output('select') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
+  @Output('change') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
 
   constructor() { }
 
@@ -149,7 +149,7 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  selectItem(item: any) {
+  public selectItem(item: any) {
     this.dropdown.selectItem(item);
   }
 

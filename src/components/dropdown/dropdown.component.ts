@@ -14,6 +14,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class DropdownComponent implements ControlValueAccessor, OnInit {
+  private static readonly TAG: string = 'DropdownComponent';
 
   @Output('change') change$ = new EventEmitter<any[]>();
 
