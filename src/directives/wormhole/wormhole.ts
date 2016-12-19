@@ -13,6 +13,9 @@ export abstract class Wormhole {
     this.bridge = null;
   }
   connect(bridge: ConnectWormholeDirective) {
+    if (this.bridge) {
+      this.disconnect();
+    }
     this.bridge = bridge;
     this.attach();
   }
@@ -27,7 +30,9 @@ export abstract class Wormhole {
   exportAs: 'wormhole',
 })
 export class TemplateWormhole extends Wormhole {
+
   viewRef: EmbeddedViewRef<any>;
+
   // The wormhole directive needs a reference to the template
   constructor(public templateRef: TemplateRef<any>) {
     super();
@@ -35,7 +40,11 @@ export class TemplateWormhole extends Wormhole {
 
   attach() {
     this.viewRef = this.bridge.viewContainerRef.createEmbeddedView(this.templateRef);
+    this.viewRef.onDestroy(() => {
+      this.viewRef = null;
+    });
   }
+
   detach() {
     if (this.viewRef) {
       const i = this.bridge.viewContainerRef.indexOf(this.viewRef);
@@ -45,6 +54,7 @@ export class TemplateWormhole extends Wormhole {
 }
 
 export class ComponentWormhole<T> extends Wormhole {
+
   compRef: ComponentRef<T>;
 
   injector: Injector;
@@ -60,21 +70,26 @@ export class ComponentWormhole<T> extends Wormhole {
     const viewContainerRef = this.bridge.viewContainerRef;
     let componentFactory = this.bridge.componentFactoryResolver.resolveComponentFactory<T>(this.componentClass);
     this.compRef = viewContainerRef.createComponent( componentFactory, viewContainerRef.length, this.injector || viewContainerRef.parentInjector);
+    this.compRef.onDestroy(() => {
+     this.compRef = null;
+    });
     this.setData(this.data);
   }
   detach() {
     if (this.compRef) {
       const i = this.bridge.viewContainerRef.indexOf(this.compRef.hostView);
       if (i >= 0) this.bridge.viewContainerRef.remove(i);
-      this.compRef.destroy();
     }
-    this.compRef = null;
   }
 
   setData(data?: any) {
     if (data && typeof data === 'object') {
-      Object.assign(this.compRef.instance, data);
-      this.compRef.changeDetectorRef.detectChanges();
+      if (this.compRef && !this.compRef.hostView.destroyed) {
+        Object.assign(this.compRef.instance, data);
+        this.compRef.changeDetectorRef.detectChanges();
+      } else {
+        this.data = data;
+      }
     }
   }
 }
