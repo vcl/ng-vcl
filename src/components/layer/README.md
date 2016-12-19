@@ -1,23 +1,17 @@
-# vcl-layer
+# vcl-layer (VCLLayerModule)
 
 A container which stacks up in the z-direction.
 
 ## Usage:
 
-```js
-import { VCLLayerModule } from 'ng-vcl';
+### The layer reference
 
-@NgModule({
-  imports: [ VCLLayerModule ],
-  ...
-})
-export class AppComponent {}
-```
+A layer reference is an object from the type `LayerRef` and allows to open, close and receive data from the layer.
+It can be created as a template using the `vcl-layer directive or from a component:
 
-A layer can be defined anywhere in your application
-
+#### Template layer
 ```html
-<template vcl-layer #myLayer="layer" [modal]="true">
+<template vcl-layer #myTemplateLayer="layer" [modal]="true">
   <div class="vclPanel vclNoMargin">
     <div class="vclPanelHeader">
       <h3 class="vclPanelTitle">Title</h3>
@@ -30,35 +24,109 @@ A layer can be defined anywhere in your application
     </div>
   </div>
 </template>
-
-<button vcl-button (tap)="myLayer.open()" label="Open Layer"></button>
 ```
 
-### Layer base
+#### Component layer
+```js
+// Component layer
+@Component({ ... })
+export class MyComponentLayer { 
 
-A vcl-layer-base component defines the position in the DOM where the layers will appear when visible.
+  // layerRef is a reference to the current layer. 
+  // The value is null when the component is not used as a layer
+  constructor(private layerRef: LayerRef) { }
 
-```html
-<vcl-layer-base name="sidebar"></vcl-layer-base>
+  closeMe() {
+    // Close the layer
+    this.layerRef.close();
+  }
+
+  sendData() {
+    // Send data to the subscriber
+    this.layerRef.send('foo');
+  }
+ }
 ```
-```html
-<template vcl-layer #mySidebarLayer="layer" [base]="'foo'">
-  ...
-</template>
 
+#### Using the layers
+```js
+@Component({ ... })
+export class LayerDemoComponent {
+  constructor(private layer: LayerService) {}
+
+  // This is the reference to the template layer
+  @ViewChild('myTemplateLayer')
+  myTemplateLayer: LayerRef;
+
+  // Creates a layerRef from a component
+  myLayerRef = this.layer.create(MyComponentLayer, {
+    // options
+    modal: false,
+    offClickClose: false
+  });
+
+  openTemplateLayer() {
+    this.myTemplateLayer.open();
+  }
+
+  openComponentLayer() {
+    this.myLayerRef.open();
+  }
+}
 ```
 
+#### Setting attributes and receiving data
+
+The open() method allows to pass data to the layer and returns an Observable which 
+allows you to reveive data from the layer.
+
+```js
+this.componentLayerRef.open({
+  // Set attributes on the component
+  title: 'Component Layer'
+}).subscribe(data => {
+  // Layer sends data
+  console.log(data);
+}, null, () => {
+  // Layer is closed
+  console.log('layer closed');
+});
+```
 ### API
+
+```js
+class LayerRef {
+  open(data: LayerData): Observable<any>;
+  close(data?: any);
+  send(data: any);
+  visible: boolean;
+  modal: boolean;
+  offClickClose: boolean;
+}
+
+interface LayerData {
+  [key: string]: any;
+}
+
+class LayerOptions {
+  modal: boolean;
+  offClickClose: boolean;
+}
+
+class LayerService {
+  getLayers(): LayerRef[];
+  getVisibleLayers(): LayerRef[];
+  hasVisibleLayers(): boolean;
+  closeAll();
+  closeTop();
+  create<T>(compClass: ComponentType<T>, opts: LayerOptions = {}): LayerRef;
+}
+```
 
 #### vcl-layer Properties:
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `modal`             | boolean     | false    | Disables user interaction outside of the layer
-| `closeOnOffClick`   | boolean     | true     | Wether a non-modal layer should close when clicked outside
+| `offClickClose`     | boolean     | true     | Wether a non-modal layer should close when clicked outside
 
-#### vcl-layer-base Properties:
-
-| Name                | Type        | Default  | Description
-| ------------        | ----------- | -------- |--------------
-| `zIndex`            | number      | 1000     | The z-index of the first layer opened.

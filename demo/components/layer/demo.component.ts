@@ -1,5 +1,5 @@
 import { Component, HostListener, ViewChild } from '@angular/core';
-import { LayerService } from './../../../src/index';
+import { LayerService, LayerRef } from './../../../src/index';
 import { LayerComponent } from './layer.component';
 
 @Component({
@@ -17,14 +17,15 @@ export class LayerDemoComponent {
     }
   }
 
+  // Reference to the template layer
   @ViewChild('layerModal')
-  layerModal;
+  layerModal: LayerRef;
   openLayer() {
     this.layerModal.open();
   }
 
-  // Register a Component Layer
-  componentLayerRef = this.layer.registerComponent(LayerComponent, {
+  // Create a layer from a component
+  componentLayerRef: LayerRef = this.layer.create(LayerComponent, {
     modal: true
   });
 

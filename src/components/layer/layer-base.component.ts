@@ -4,12 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { TemplateWormhole } from './../../directives/wormhole/wormhole';
 import { LayerService } from './layer.service';
-import { LayerReference } from './layer.references';
+import { LayerRef } from './layer.references';
 
 @Component({
   selector: 'vcl-layer-base',
   templateUrl: 'layer-base.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('boxState', []),
     trigger('layerState', [])
@@ -17,7 +16,7 @@ import { LayerReference } from './layer.references';
 })
 export class LayerBaseComponent {
 
-  layerRefs: LayerReference[];
+  layerRefs: LayerRef[] = [];
   sub: Subscription;
 
   @Input()
@@ -26,13 +25,12 @@ export class LayerBaseComponent {
   @Input()
   public zIndex: number = 1000;
 
-  constructor(private layerService: LayerService, private cdRef: ChangeDetectorRef) { }
+  constructor(private layerService: LayerService) { }
 
   ngOnInit() {
     this.layerService.registerBase(this);
-    this.sub = this.layerService.getVisibleLayersFor$(this.name).subscribe(layerRefs => {
+    this.sub = this.layerService.visibleLayers$(this.name).subscribe(layerRefs => {
       this.layerRefs = layerRefs;
-      this.cdRef.detectChanges();
     });
   }
 
@@ -44,8 +42,8 @@ export class LayerBaseComponent {
     }
   }
 
-  offClick(layerRef: LayerReference) {
-    if (!layerRef.modal && layerRef.closeOnOffClick) {
+  offClick(layerRef: LayerRef) {
+    if (!layerRef.modal && layerRef.offClickClose) {
       layerRef.close();
     }
   }

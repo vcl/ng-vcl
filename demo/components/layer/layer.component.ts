@@ -1,4 +1,4 @@
-import { LayerComponentReference } from './../../../src/index';
+import { LayerRef, LayerService } from './../../../src/index';
 import { Component, Optional, Input } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ export class LayerComponent {
   @Input()
   data: string;
 
-  constructor(@Optional() private layerRef: LayerComponentReference<LayerComponent>) { }
+  constructor(private layerRef: LayerRef) { }
 
   close() {
     this.layerRef.close('close');

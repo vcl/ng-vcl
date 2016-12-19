@@ -5,13 +5,9 @@ import { LayerBaseComponent } from './layer-base.component';
 import { LayerService } from './layer.service';
 import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
 import { VCLWormholeModule, WormholeService } from '../../directives/wormhole/wormhole.module';
-import { LayerReference, LayerDirectiveReference, LayerComponentReference, LayerOptions, LayerData } from './layer.references';
+import { LayerRef, LayerOptions, LayerData } from './layer.references';
 
-export {LayerBaseComponent, LayerDirective, LayerComponentReference, LayerDirectiveReference, LayerData, LayerOptions, LayerService}
-
-function getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
-  return (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-}
+export {LayerBaseComponent, LayerDirective, LayerRef, LayerData, LayerOptions, LayerService}
 
 const LAYER_BOOTSTRAP = {
   provide: APP_BOOTSTRAP_LISTENER,
@@ -29,6 +25,13 @@ const LAYER_BOOTSTRAP = {
   exports: [LayerBaseComponent, LayerDirective],
   declarations: [LayerBaseComponent, LayerDirective],
   entryComponents: [LayerBaseComponent],
-  providers: [ LayerService, LAYER_BOOTSTRAP ]
+  providers: [
+    LayerService,
+    LAYER_BOOTSTRAP,
+    {
+      provide: LayerRef,
+      useValue: null
+    }
+  ]
 })
 export class VCLLayerModule { }

@@ -1,11 +1,10 @@
-import { LayerData } from './layer.directive';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger, ChangeDetectorRef } from '@angular/core';
 import { TemplateWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
-import { LayerDirectiveReference } from './layer.references';
+import { LayerRef, LayerData } from './layer.references';
 
 export interface LayerData { [key: string]: any; }
 
@@ -13,44 +12,37 @@ export interface LayerData { [key: string]: any; }
   selector: '[vcl-layer]',
   exportAs: 'layer',
 })
-export class LayerDirective extends TemplateWormhole {
+export class LayerDirective extends LayerRef {
 
   @Input()
   public modal: boolean = true;
 
   @Input()
-  public closeOnOffClick: boolean = true;
+  public offClickClose: boolean = true;
 
   @Input()
   public base: string = 'default';
 
-  public layerRef: LayerDirectiveReference;
-
-  constructor(public templateRef: TemplateRef<any>, private elementRef: ElementRef, private layerService: LayerService) {
+  constructor(public templateRef: TemplateRef<any>, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
     super(templateRef);
   }
 
   ngOnInit() {
-    this.layerRef = this.layerService.registerDirective(this, {
-      base: this.base,
-      closeOnOffClick: !!this.closeOnOffClick,
-      modal: !!this.modal
-    });
+    this.layerService.register(this);
   }
 
   ngOnDestroy() {
-    this.layerService.unregisterDirective(this);
+    this.layerService.unregister(this);
   }
 
-  open(data?: LayerData): Observable<any> {
-    return this.layerRef.open(data);
+  createWormhole() {
+    return new TemplateWormhole(this.templateRef);
   }
 
-  send(result: any) {
-    this.layerRef.send(result);
-  }
-
-  close(result?: any) {
-    this.layerRef.close();
+  setData(data?: LayerData) {
+    if (data && typeof data === 'object') {
+      Object.assign(this, data);
+      this.cdRef.detectChanges();
+    }
   }
 }

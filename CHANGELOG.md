@@ -7,7 +7,9 @@
   - "select"-event is now "change"
   - the select-event returns now an value-array instead of the items
   - items behave like [html5-options](http://www.w3schools.com/tags/tag_select.asp)
-- layer: Name reference support removed
+- layer:
+  - name reference support removed
+  - introduce component layers and LayerRefs
 
 ## 15979eb (2016-12-14)
 

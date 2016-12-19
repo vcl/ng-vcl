@@ -14,7 +14,7 @@ const LABEL = 'Layer';
   imports: [
     BrowserModule,
     VCLLayerModule,
-    VCLWormholeModule.withRootComponents(LayerComponent),
+    VCLWormholeModule,
     VCLButtonModule,
     RouterModule.forChild([{
       path: PATH,

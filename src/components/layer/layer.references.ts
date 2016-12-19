@@ -8,7 +8,7 @@ import { LayerService } from './layer.service';
 
 export interface LayerOptions {
   modal?: boolean;
-  closeOnOffClick?: boolean;
+  offClickClose?: boolean;
   base?: string;
 }
 
@@ -16,97 +16,91 @@ export interface LayerData {
   [key: string]: any;
 }
 
-export abstract class LayerReference extends Observable<any> {
+@Injectable()
+export abstract class LayerRef {
 
   private results: Subject<any>;
-  private stateChange = new Subject();
+  private visibilityChange = new Subject<boolean>();
 
-  source: Observable<LayerReference> = this.stateChange.asObservable();
+  private _visible: boolean;
+  get visible(): boolean {
+    return this._visible;
+  };
 
-  visible: boolean;
-  modal: boolean;
-  closeOnOffClick: boolean;
-  base: string;
-  data: any;
+  visible$ = this.visibilityChange.asObservable();
+
+  readonly modal: boolean;
+  readonly offClickClose: boolean;
+  readonly base: string;
 
   wormhole: Wormhole;
 
-  constructor(opts: LayerOptions)  {
-    super();
-    this.visible = false;
+  constructor(private opts: LayerOptions = {})  {
     this.base = opts.base || 'default';
     this.modal = !!opts.modal;
-    this.closeOnOffClick = !!opts.closeOnOffClick;
-    this.data = {};
+    this.offClickClose = !!opts.offClickClose;
   }
 
   open(data?: LayerData): Observable<any> {
-    this.visible = true;
-    this.data = data || {};
-    this.wormhole = this.createWormhole();
+    if (!this.wormhole) {
+      this.wormhole = this.createWormhole();
+    }
+    if (!this.visible) {
+      this._visible = true;
+      this.visibilityChange.next(true);
+    }
+    this.setData(data);
 
     if (!this.results) {
       this.results = new Subject<any>();
     }
-    this.stateChange.next(this);
 
     return this.results.asObservable();
   }
 
-  close(result?: any) {
-    this.visible = false;
-    this.data = {};
-    this.wormhole = null;
-    if (typeof result !== 'undefined') {
-      this.results.next(result);
+  close(data?: any) {
+    if (this.visible) {
+      this._visible = false;
+      this.visibilityChange.next(false);
     }
-    this.results.complete();
-    this.results = null;
-
-    this.stateChange.next(this);
-  }
-
-  send(result: any) {
-    if (result !== undefined && this.results) {
-      this.results.next(result);
+    if (typeof data !== 'undefined') {
+      this.results.next(data);
+      this.results.complete();
+      this.results = null;
     }
   }
 
-  abstract createWormhole();
-}
-
-@Injectable()
-export class LayerDirectiveReference extends LayerReference {
-
-  constructor(opts: LayerOptions, private layer: LayerDirective)  {
-    super(opts);
+  send(data: any) {
+    if (data !== undefined && this.results) {
+      this.results.next(data);
+    }
   }
 
-  createWormhole() {
-    return this.layer;
-  }
+  protected abstract setData(data: LayerData);
+  protected abstract createWormhole(): Wormhole;
 }
 
-@Injectable()
-export class LayerComponentReference<T> extends LayerReference {
+export class LayerComponentRef<T> extends LayerRef {
 
   injector: ReflectiveInjector;
 
-  constructor(opts: LayerOptions, private defaultInjector: Injector, private LayerClass: ComponentType<T>)  {
+  constructor(private LayerClass: ComponentType<T>, opts: LayerOptions, private defaultInjector: Injector, )  {
     super(opts);
     this.injector = ReflectiveInjector.resolveAndCreate([{
-      provide: LayerComponentReference,
+      provide: LayerRef,
       useValue: this
     }], this.defaultInjector);
   }
 
-  createWormhole() {
+  setData(data?: LayerData) {
     if (this.wormhole instanceof ComponentWormhole) {
-      // Reuse existing wormhole and update data
+      // Update wormhole data
       // Change detection is triggered within setData() 
-      this.wormhole.setData(this.data);
-      return this.wormhole;
+      this.wormhole.setData(data);
     }
-    return new ComponentWormhole(this.LayerClass, { data: this.data, injector: this.injector });
+  }
+
+  createWormhole() {
+    return new ComponentWormhole(this.LayerClass, { injector: this.injector });
   }
 }

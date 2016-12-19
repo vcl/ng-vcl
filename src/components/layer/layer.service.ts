@@ -7,71 +7,67 @@ import { ComponentType } from './../../core/index';
 import { ComponentWormhole } from './../../directives/wormhole/wormhole';
 import { LayerBaseComponent } from './layer-base.component';
 import { LayerDirective } from './layer.directive';
-import { LayerReference, LayerDirectiveReference, LayerComponentReference, LayerOptions } from './layer.references';
+import { LayerRef, LayerComponentRef, LayerOptions } from './layer.references';
 
 @Injectable()
 export class LayerService {
   private baseNameMap = new Map<string, LayerBaseComponent>();
-
-  private layerDirectiveMap = new Map<LayerDirective, LayerDirectiveReference>();
-  // private layers = new Set<LayerReference>();
-  private layers = new Map<LayerReference, Subscription>();
-
-  private layersChange = new Subject<LayerReference>();
+  private visibleLayers = new Map<string, LayerRef[]>();
+  private layers = new Map<LayerRef, Subscription>();
+  private baseLayersChange = new Subject<string>();
 
   constructor(private defaultInjector: Injector) { }
 
-  getVisibleLayersFor$(base = 'default') {
-    return this.layersChange.scan<LayerReference, LayerReference[]>((layers, layerRef) => {
-      if (layerRef.visible) {
-        return [...layers, layerRef];
-      } else {
-        return layers.filter(layer => layer !== layerRef);
-      }
-    }, []);
+  visibleLayers$(base = 'default') {
+    return this.baseLayersChange.filter(updatedBase => updatedBase === base)
+                                .map(() => this.getVisibleLayers(base))
+                                .distinctUntilChanged();
   }
 
-  getLayersFor(base = 'default') {
+  getLayers(base = 'default') {
     return Array.from(this.layers.keys()).filter(li => li.base === base);
   }
 
-  getVisibleLayersFor(base = 'default') {
-    return this.getLayersFor(base).filter(layer => !!layer.visible);
+  getVisibleLayers(base = 'default') {
+    return this.visibleLayers.get(base) || [];
   }
 
   hasVisibleLayers(base = 'default') {
-    return this.getLayersFor(base).some(layer => layer.visible);
+    return this.getVisibleLayers(base).length > 0;
   }
 
   closeAll(base = 'default') {
-    this.getVisibleLayersFor(base).forEach(layer => layer.close());
+    this.getVisibleLayers(base).forEach(layer => layer.close());
   }
 
   closeTop(base = 'default') {
-    const layer = this.getVisibleLayersFor(base).slice(-1)[0];
+    const layer = this.getVisibleLayers(base).slice(-1)[0];
     if (layer) layer.close();
   }
 
-  registerComponent<T>(layer: ComponentType<T>, opts: LayerOptions = {}): LayerComponentReference<T> {
-    let layerRef = new LayerComponentReference<T>(opts, this.defaultInjector, layer);
-    this.registerReference(layerRef);
-    return layerRef;
+  create<T>(compClass: ComponentType<T>, opts: LayerOptions = {}): LayerRef {
+    if (typeof compClass === 'function') {
+      const layerRef = new LayerComponentRef<T>(compClass, opts, this.defaultInjector);
+      this.register(layerRef);
+      return layerRef;
+    } else {
+      throw 'Invalid component class';
+    }
   }
 
-  registerDirective(layer: LayerDirective, opts: LayerOptions = {}): LayerDirectiveReference {
-    let layerRef = new LayerDirectiveReference(opts, layer);
-    this.layerDirectiveMap.set(layer, layerRef);
-    this.registerReference(layerRef);
-    return layerRef;
-  }
-
-  private registerReference(layerRef: LayerReference) {
-    this.layers.set(layerRef, layerRef.subscribe(layerRef => {
-      this.layersChange.next(layerRef);
+  register(layerRef: LayerRef) {
+    if (!(layerRef instanceof LayerRef)) {
+      throw 'Invalid layerRef';
+    }
+    this.layers.set(layerRef, layerRef.visible$.subscribe(visible => {
+      const layerRefs = this.visibleLayers.get(layerRef.base) || [];
+      this.visibleLayers.set(layerRef.base, visible ? [...layerRefs, layerRef] : layerRefs.filter(lr => lr !== layerRef));
+      this.baseLayersChange.next(layerRef.base);
     }));
   }
 
-  public disposeReference(layerRef: LayerReference) {
+  unregister(layerRef: LayerRef) {
+    layerRef.close();
     const sub = this.layers.get(layerRef);
     if (sub && !sub.closed) {
       sub.unsubscribe();
@@ -79,17 +75,7 @@ export class LayerService {
     this.layers.delete(layerRef);
   }
 
-  unregisterDirective(layer: LayerDirective) {
-    let layerRef = this.layerDirectiveMap.get(layer);
-    if (layerRef) {
-      layerRef.close();
-      this.layers.delete(layerRef);
-      this.layerDirectiveMap.delete(layer);
-      this.disposeReference(layerRef);
-    }
-  }
-
-  registerBase(layerBase: LayerBaseComponent, opts: LayerOptions = {}) {
+  registerBase(layerBase: LayerBaseComponent) {
     if (layerBase.name && this.baseNameMap.has(layerBase.name)) {
       throw 'Duplicate vcl-layer-base: ' + layerBase.name;
     }
@@ -101,12 +87,6 @@ export class LayerService {
   }
 
   ngOnDestroy() {
-    this.layerDirectiveMap.clear();
-    this.layers.forEach((sub) => {
-      if (sub && !sub.closed) {
-        sub.unsubscribe();
-      }
-    });
-    this.layers.clear();
+    this.layers.forEach((sub, layerRef) => this.unregister(layerRef));
   }
 }

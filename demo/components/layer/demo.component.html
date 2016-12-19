@@ -22,27 +22,13 @@ Press escape to close the top layer<br><br>
 <template vcl-layer #layerModal="layer" [modal]="true">
   <div class="vclPanel vclNoMargin">
     <div class="vclPanelHeader">
-      <h3 class="vclPanelTitle">Modal layer 1 title goes here</h3>
+      <h3 class="vclPanelTitle">Modal layer title goes here</h3>
     </div>
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         Modal layer text goes here<br><br>
-        <button vcl-button (tap)="layerModal2.open()" label="open modal layer 2"></button>
+        <button vcl-button (tap)="layerNonModal.open()" label="open non-modal layer"></button>
         <button vcl-button (tap)="layerModal.close()" label="close Layer"></button>
-      </p>
-    </div>
-  </div>
-</template>
-
-<template vcl-layer #layerModal2="layer" [modal]="true">
-  <div class="vclPanel vclNoMargin">
-    <div class="vclPanelHeader">
-      <h3 class="vclPanelTitle">Modal layer 2 title goes here</h3>
-    </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
-        Modal layer 2 text goes here<br><br>
-        <button vcl-button (tap)="layerModal2.close()" label="close Layer"></button>
       </p>
     </div>
   </div>
