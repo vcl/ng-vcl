@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import 'hammerjs';
 
 import { VCLInputModule } from './components/input/input.module';
+import { VCLFileInputModule } from './components/file-input/file-input.module';
 import { VCLTextareaModule } from './components/textarea/textarea.module';
 import { VCLFlipSwitchModule } from './components/flip-switch/flip-switch.module';
 import { VCLIconModule, } from './components/icon/icon.module';
@@ -39,6 +40,7 @@ import { VCLInputControlGroupModule } from './components/input-control-group/inp
 export * from './core/index';
 
 export * from './components/input/input.module';
+export * from './components/file-input/file-input.module';
 export * from './components/textarea/textarea.module';
 export * from './components/icon/icon.module';
 export * from './components/icogram/icogram.module';
@@ -83,6 +85,7 @@ export * from './store/index';
     VCLTetherModule,
     VCLLinkModule,
     VCLInputModule,
+    VCLFileInputModule,
     VCLTextareaModule,
     VCLFlipSwitchModule,
     VCLTabNavModule,
@@ -118,6 +121,7 @@ export * from './store/index';
     VCLTetherModule,
     VCLLinkModule,
     VCLInputModule,
+    VCLFileInputModule,
     VCLTextareaModule,
     VCLFlipSwitchModule,
     VCLTabNavModule,

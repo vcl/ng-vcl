@@ -1,26 +1,29 @@
-import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit } from '@angular/core';
+import {
+  Component, Input, Output,
+  EventEmitter, ContentChild, TemplateRef, OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'vcl-metalist',
-  templateUrl: 'metalist.component.html'
+  templateUrl: 'metalist.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetalistComponent implements OnInit {
 
-  @Output()
-  select = new EventEmitter<any[]>();
-
   @Input() items: any[];
-
   @Input() meta: any;
-
   @Input() minSelectableItems: number = 1;
-
   @Input() maxSelectableItems: number = 1;
+  @Output('select') select = new EventEmitter<any[]>(); // returns all items
 
-  @Output()
-  maxItemsSelected: boolean = false;
+
+  constructor() {
+    
+  }
 
   next() {
+    console.log('next');
     let oldIndex = this.getMarkedItemIndex();
     if (oldIndex !== -1) {
       let newIndex = oldIndex + 1;
@@ -33,6 +36,7 @@ export class MetalistComponent implements OnInit {
   }
 
   prev() {
+    console.log('prev');
     let oldIndex = this.getMarkedItemIndex();
     if (oldIndex !== -1) {
       let newIndex = oldIndex - 1;
@@ -49,28 +53,44 @@ export class MetalistComponent implements OnInit {
     }
   }
 
+
+  metaFromItem(item: any) {
+    const i = this.items.indexOf(item);
+    return this.meta[i];
+  }
+
+
   selectItem(item: any) {
+    console.log('selectItem');
+    if (!this.items.includes(item)) return false;
+
     let itemIndex = this.items.indexOf(item);
-    if (itemIndex === -1) {
-      return;
-    }
+
 
     // maxSelectableItems === 1 -> deselect old item
     if (this.maxSelectableItems === 1) {
+      // TODO is metaItems even used?
       let metaItems = this.meta.filter(function(obj) {
         return obj && obj.selected === true;
       });
       for (let i = 0; i < metaItems.length; i++) {
         metaItems[i].selected = false;
       }
+
     }
-    if (this.getSelectedItems().length < this.maxSelectableItems && this.meta[itemIndex]) {
-      this.meta[itemIndex].selected = true;
-    }
+
+    const metaItem = this.metaFromItem(item);
+    if (
+      this.getSelectedItems().length < this.maxSelectableItems &&
+      metaItem
+    ) metaItem.selected = true;
+
     this.select.emit(this.getSelectedItems());
+    return true;
   }
 
   deSelectItem(item: any) {
+    console.log('deSelectItem');
     let itemIndex = this.items.indexOf(item);
     if (itemIndex === -1) {
       return;
@@ -82,13 +102,10 @@ export class MetalistComponent implements OnInit {
   }
 
   getSelectedItems() {
-    let metaItems = this.meta.filter(function(obj) {
-      return obj && obj.selected === true;
-    });
-    let result = [];
-    for (let i = 0; i < metaItems.length; i++) {
-      result.push(this.items[this.meta.indexOf(metaItems[i])]);
-    }
+    console.log('getSelectedItems');
+    const result = this.meta
+      .filter(obj => obj.selected)
+      .map(metaItem => this.items[this.meta.indexOf(metaItem)]);
     return result;
   }
 
@@ -99,6 +116,7 @@ export class MetalistComponent implements OnInit {
   ngAfterContentInit() { }
 
   getMarkedItemIndex(): number {
+    console.log('getMarkedItemIndex');
     let meta = this.getMarkedItemMeta();
     if (meta) {
       return this.meta.indexOf(meta);
@@ -107,12 +125,13 @@ export class MetalistComponent implements OnInit {
   }
 
   getMarkedItemMeta(): any {
-    return this.meta.filter(function(obj) {
-      return obj && obj.marked === true;
-    })[0];
+
+    console.log('getMarkedItemMeta');
+    return this.meta.filter(obj => obj.marked)[0];
   }
 
   setMarkedIndex(index: number) {
+    console.log('setMarkedIndex');
     // unset old item
     let oldItem = this.getMarkedItemMeta();
     if (oldItem) {
@@ -125,6 +144,7 @@ export class MetalistComponent implements OnInit {
   }
 
   setMarkedItem(item: any) {
+    console.log('setMarkedItem');
     let markedIndex = this.items.indexOf(item);
     if (markedIndex !== -1) {
       this.setMarkedIndex(markedIndex);
@@ -132,14 +152,16 @@ export class MetalistComponent implements OnInit {
   }
 
 
-  @ContentChild(TemplateRef)
-  template: any;
+  @ContentChild(TemplateRef) template1: any;
 
   getMeta(item) {
+    console.log('getMeta');
+    console.dir(this.items);
     let key = this.items.indexOf(item);
     if (!this.meta[key]) {
       this.meta[key] = {};
     }
+    console.dir(JSON.stringify(this.meta[key]));
     return this.meta[key];
   }
 }

@@ -22,6 +22,7 @@ import FORM_CONTROL_LABEL_DEMO from './components/form-control-label/form-contro
 import FORM_DEMO from './components/form/form.demo';
 import FORM_ERROR_DEMO from './components/form-error/form-error.demo';
 import INPUT_DEMO from './components/input/input.demo';
+import FILE_INPUT_DEMO from './components/file-input/file-input.demo';
 import TEXTAREA_DEMO from './components/textarea/textarea.demo';
 import FLIP_SWITCH_DEMO from './components/flip-switch/flip-switch.demo';
 import POPOVER_DEMO from './components/popover/popover.demo';
@@ -61,6 +62,7 @@ export const DEMO_MODULES: any[] = [
   FORM_DEMO,
   FORM_ERROR_DEMO,
   INPUT_DEMO,
+  FILE_INPUT_DEMO,
   TEXTAREA_DEMO,
   FLIP_SWITCH_DEMO,
   POPOVER_DEMO,

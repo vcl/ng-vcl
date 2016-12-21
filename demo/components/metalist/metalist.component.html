@@ -1,7 +1,9 @@
 <vcl-metalist [items]="items" [meta]="metaInformation" #metalist>
   <template let-item="item" let-meta="meta">
     <div (tap)="select(meta)">
-      Some HTML // {{item.name}}<span *ngIf="meta.selected"> // selected</span> <span *ngIf="meta.marked"> // marked</span>
+      Some HTML // {{item.name}}
+      <span *ngIf="meta && meta.selected"> // selected</span>
+      <span *ngIf="meta && meta.marked"> // marked</span>
     </div>
   </template>
 </vcl-metalist>
