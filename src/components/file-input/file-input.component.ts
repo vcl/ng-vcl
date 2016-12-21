@@ -29,8 +29,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  @Input('state') state: 'busy' | 'error' | 'warning' | 'success' | 'focused';
-  @Input('layout') layout: 'horizontal' | 'vertical' = 'vertical';
+  @Input('state') state: 'busy' | 'error' | 'warning' | 'success';
+  @Input('layout') layout: 'horizontal' | 'vertical' = 'horizontal';
   @Input('placeholder') placeholder: string = 'Choose a file or drag it here';
   @Input('accept') accept: string = '*';
   @Input('name') name: string;
