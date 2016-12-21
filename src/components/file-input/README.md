@@ -14,10 +14,10 @@ Enhanced file input
 
 Name          | Type    | Default      | Description
 ------------- | ------- | ------------ | ---------------------------------------------------
-`state`       | string  | ''           | marks the state ENUM(busy, error, warning, success)
+`state`       | string  |              | marks the state ENUM(busy, error, warning, success)
 `layout`      | string  | 'horizontal' | horizontal or vertical
-`placeholder` | string  | ''           |
-`accept`      | string  | '\*'          | like html5 file-input
-`name`        | string  | ''           | value shown on load
+`placeholder` | string  |              |
+`accept`      | string  | *            | like html5 file-input
+`name`        | string  |              | value shown on load
 `disabled`    | boolean | false        |
 `multiple`    | boolean | false        | if true, more than 1 file can be used
