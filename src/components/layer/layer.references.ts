@@ -95,7 +95,7 @@ export class LayerComponentRef<T> extends LayerRef {
   setData(data?: LayerData) {
     if (this.wormhole instanceof ComponentWormhole) {
       // Update wormhole data
-      // Change detection is triggered within setData() 
+      // Change detection is triggered within setData()
       this.wormhole.setData(data);
     }
   }

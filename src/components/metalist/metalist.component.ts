@@ -19,7 +19,7 @@ export class MetalistComponent implements OnInit {
 
 
   constructor() {
-    
+
   }
 
   next() {

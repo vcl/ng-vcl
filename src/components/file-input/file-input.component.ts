@@ -1,9 +1,17 @@
 import {
   OnInit, Component, Input,
   EventEmitter, Output, HostListener, ElementRef,
-  ViewChild, OnDestroy
+  ViewChild, OnDestroy, forwardRef, ChangeDetectionStrategy
 } from '@angular/core';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => FileInputComponent),
+  multi: true
+};
 
 @Component({
   selector: 'vcl-file-input',
@@ -12,36 +20,56 @@ import { Observable } from 'rxjs/Observable';
     '[class.vclFileInput]': 'true',
     '[class.vclDisabled]': 'disabled',
     '[class.vclDragndrop]': 'isDragging',
+    '[class.vclFocused]': 'isFocused',
     role: 'button',
     tabindex: '0'
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class FileInputComponent implements OnInit, OnDestroy {
+export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  @Input('state') state: 'dragndrop' | 'busy' | 'error' | 'warning' | 'success' | 'focused' | 'disabled';
+  @Input('state') state: 'busy' | 'error' | 'warning' | 'success' | 'focused';
   @Input('layout') layout: 'horizontal' | 'vertical' = 'vertical';
   @Input('placeholder') placeholder: string = 'Choose a file or drag it here';
   @Input('accept') accept: string = '*';
   @Input('name') name: string;
   @Input('disabled') disabled: boolean = false;
   @Input('multiple') multiple: boolean = false;
-  @Input('value') value: string = '';
-  @Output('files') files: Observable<FileList>;
+  @Input('value') value: string;
+
+  @Output('files') files$: BehaviorSubject<FileList[]> = new BehaviorSubject([]);
+  value$ = this.files$
+    .filter(fs => fs.length > 0)
+    .map(fs => {
+      let name = fs[0]['name'];
+      if (this.multiple)
+        name += ' (' + fs.length + ')';
+      return name;
+    });
 
   @ViewChild('input') input: any;
 
   subs = [];
   isDragging: boolean = false;
+  isFocused: boolean = false;
 
   constructor(private elRef: ElementRef) {
     const hostEl = elRef.nativeElement;
     // file drop
-    hostEl.addEventListener("dragover", () => {
-      if (!this.disabled) { this.isDragging = true; }
+    hostEl.addEventListener("dragover", e => {
+      if (!this.disabled) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.isDragging = true;
+      }
     }, false);
-    hostEl.addEventListener("dragleave", () => this.isDragging = false, false);
+    hostEl.addEventListener("dragleave", e => {
+      e.stopPropagation();
+      e.preventDefault();
+      this.isDragging = false;
+    }, false);
     hostEl.addEventListener("drop", e => {
-      console.log('aaaaaaaaa');
       this.onDrop(e);
     }, false);
   }
@@ -51,13 +79,19 @@ export class FileInputComponent implements OnInit, OnDestroy {
       Observable.fromEvent(this.input.nativeElement, 'change')
         .subscribe(event => {
           this.value = event['target'].value;
-          this.files['next'](this.files);
+          this.files$.next(event['target'].files);
+          !!this.onChangeCallback && this.onChangeCallback(event['target'].files);
         })
     );
-
-
+    this.subs.push(
+      Observable.fromEvent(this.input.nativeElement, 'focus')
+        .subscribe(event => this.isFocused = true)
+    );
+    this.subs.push(
+      Observable.fromEvent(this.input.nativeElement, 'focus')
+        .subscribe(event => this.isFocused = false)
+    );
   }
-
 
   @HostListener('click', ['$event.target.value'])
   onClick(value) {
@@ -66,14 +100,37 @@ export class FileInputComponent implements OnInit, OnDestroy {
     this.input.nativeElement.click();
   }
 
+  onDrop(e) {
+    if (this.disabled) return;
+    this.isDragging = false;
 
-  onDrop(event) {
-    console.log('onDrop');
-    console.dir(event);
+    // cancel event and hover styling
+    e.stopPropagation();
+    e.preventDefault();
+
+    // fetch FileList object
+    const files = e.target.files || e.dataTransfer.files;
+    this.input.nativeElement.files = files;
   }
+
 
   ngOnDestroy() {
     this.subs.map(sub => sub.unsubscribe());
   }
 
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: any) => void;
+
+  writeValue(files: FileList): void {
+    this.input.nativeElement.files = files;
+  }
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
 }
