@@ -25,9 +25,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'vcl-input',
-  host: {
-    '[class.vclInput]': 'true',
-  },
   templateUrl: 'input.component.html'
 })
 export class InputComponent implements OnInit, OnDestroy, ControlValueAccessor {
