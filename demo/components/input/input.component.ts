@@ -5,6 +5,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputComponent implements OnInit {
 
+  data1 = 'foobar';
+  data2 = 'foobar';
+  data3 = 'foobar';
+
   constructor() { }
 
   ngOnInit() { }
