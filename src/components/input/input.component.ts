@@ -33,8 +33,14 @@ export class InputComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input('type') type: string = 'text';
   @Input('value') value: string = '';
   @Input('placeholder') placeholder: string = '';
-  @Input('readOnly') readOnly: boolean = false;
-  @Input() selectAllOnFocus: boolean = false;
+  @Input('readonly') readonly: boolean = false;
+  @Input('autofocus') autofocus: boolean = false;
+  @Input('required') required: boolean = false;
+  @Input('spellcheck') spellcheck: boolean = false;
+  @Input('tabindex') tabindex = 0;
+  @Input('maxLength') maxLength: number;
+  @Input('minLength') minLength: number;
+  @Input() selectOnFocus: boolean = false;
 
   _valueSubject = new Subject<any>();
   @Output('change') change = this._valueSubject.asObservable();
@@ -66,7 +72,7 @@ export class InputComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
 
   onFocus() {
-    if (this.selectAllOnFocus)
+    if (this.selectOnFocus)
       this.input.nativeElement.select();
   }
 

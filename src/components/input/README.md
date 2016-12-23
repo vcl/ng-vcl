@@ -4,20 +4,21 @@ Enhanced text input
 
 ## Usage:
 
- ```html
-<input vcl-input [(ngModel)]="data1">
-<input vcl-input [(ngModel)]="data2" selectAllOnFocus=true>
-<input vcl-input [(typedValue)]="data3" valueType="number">
+```html
+<input vcl-input [(value)]="data1">
+<input vcl-input [(value)]="data2" selectOnFocus=true>
+<input vcl-input [(value)]="data3" type="number">
 ```
 
-### API 
+### API
 
 #### Properties:
 
-| Name                | Type        | Default            | Description
-| ------------        | ----------- | ------------------ |--------------
-| `selectAllOnFocus`  | boolean     | false              | Selects 
-| `typedValue` *(1)*  | any         |                    | The current value of the input element. Type is converted as specified in `valueType`  
-| `valueType`         | string      | string             | `string` or `number`. Type to use in `typedValue`
+Name            | Type    | Default | Description
+--------------- | ------- | ------- | -----------------------------------------------
+`value` _(1)_   | any     |         | current value of the input
+`type`          | string  | 'text'  | equal to html5-input's attribute 'type'
+`selectOnFocus` | boolean | false   | Selects
+`state`         | string  |         | defines how the input is layouted. ENUM('error' | 'warning' | 'success')
 
-*(1) Supports Two-way binding*
+_(1) Supports Two-way binding_

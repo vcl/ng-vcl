@@ -6,24 +6,24 @@
 <br>
 <br>
 <br>
-<h3>Input 2 (selectAllOnFocus)</h3>
-<vcl-input [(value)]="data2" selectAllOnFocus=true></vcl-input>
+<h3>Input 2 (selectOnFocus)</h3>
+<vcl-input [(value)]="data2" selectOnFocus=true></vcl-input>
 <br>
 <b>Input 2 value:</b> {{data2}}
 
 <br>
 <br>
 <br>
-<h3>Input 3 (valueType="number")</h3>
-<vcl-input [(value)]="data3" type="number" selectAllOnFocus=true></vcl-input>
+<h3>Input 3 (type="number")</h3>
+<vcl-input [(value)]="data3" type="number"></vcl-input>
 <br>
 <b>Input 3 typed value (number):</b> {{data3}}
 
 <br>
 <br>
 <br>
-<h3>Input (readOnly)</h3>
-<vcl-input value='readOnly' readOnly=true></vcl-input>
+<h3>Input (readonly)</h3>
+<vcl-input value='readOnly' readonly=true></vcl-input>
 <br>
 
 
@@ -31,5 +31,5 @@
 <br>
 <br>
 <h3>Input (selectAllOnFocus)</h3>
-<vcl-input value='readOnly' [readOnly]="true" [selectAllOnFocus]="true"></vcl-input>
+<vcl-input value='select' [selectOnFocus]="true"></vcl-input>
 <br>
