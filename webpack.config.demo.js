@@ -70,7 +70,6 @@ function webpackConfig(options) {
     plugins: [
       new ExtractTextPlugin('styles/app.css'),
       (HMR && !isProd) ? new HotModuleReplacementPlugin() : null,
-      new ForkCheckerPlugin(),
       new CommonsChunkPlugin({
         name: ['app', 'lib', 'polyfills']
       }),

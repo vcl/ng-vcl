@@ -70,7 +70,6 @@ function webpackConfig(options) {
       ]
     },
     plugins: [
-      new ForkCheckerPlugin(),
       new ProgressPlugin({}),
       new ContextReplacementPlugin(
         /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,

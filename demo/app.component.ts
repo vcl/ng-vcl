@@ -5,7 +5,7 @@ import { GROUPED_DEMOS } from "./demos";
 
 // TODO: update typedef for fuse.js
 // https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/fuse
-import * as Fuse from 'fuse.js';
+import { Fuse }  from 'fuse.js';
 
 @Component({
   selector: 'app',
@@ -35,7 +35,7 @@ export class AppComponent {
   search(text) {
     this.searchResults = new Fuse(GROUPED_DEMOS, { keys: ['items.label'] })
       .search(text)
-      .reduce((p, demoGroup) => {
+      .reduce<any[]>((p: any[], demoGroup: any) => {
         return p.concat(new Fuse(demoGroup.items, { keys: ['label'] }).search(text));
       }, []);
   }
