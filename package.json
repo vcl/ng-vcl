@@ -98,6 +98,7 @@
     "zone.js": "^0.7.2"
   },
   "dependencies": {
+    "attr-accept": "^1.1.0",
     "hammerjs": "^2.0.8",
     "jsoneditor": "^5.5.10",
     "jsonschema": "^1.1.0",

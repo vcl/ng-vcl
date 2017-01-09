@@ -7,6 +7,8 @@ import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/for
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
+import * as accept from 'attr-accept';
+
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => FileInputComponent),
@@ -21,6 +23,9 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclDisabled]': 'disabled',
     '[class.vclDragndrop]': 'isDragging',
     '[class.vclFocused]': 'isFocused',
+    '[class.vclError]': '(state=="error")',
+    '[class.vclWarning]': '(state=="warning")',
+    '[class.vclSuccess]': '(state=="success")',
     role: 'button',
     tabindex: '0'
   },
@@ -81,6 +86,12 @@ export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccess
           this.value = event['target'].value;
           this.files$.next(event['target'].files);
           !!this.onChangeCallback && this.onChangeCallback(event['target'].files);
+
+          // check file-type
+          let typeOK = true;
+          const wrongFiles = Array.prototype.filter.call(event['target'].files, file => !accept(file, this.accept));
+          if (wrongFiles.length > 0 && this.accept != '*') this.state = 'error'; // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
+          else this.state = 'busy';
         })
     );
     this.subs.push(
@@ -110,6 +121,7 @@ export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccess
 
     // fetch FileList object
     const files = e.target.files || e.dataTransfer.files;
+
     this.input.nativeElement.files = files;
   }
 
