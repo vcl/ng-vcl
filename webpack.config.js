@@ -61,7 +61,7 @@ function webpackConfig(options) {
       loaders: [
         {
           test: /\.ts?$/,
-          loaders: ['awesome-typescript-loader?tsconfig=tsconfig.json&useWebpackText=true', 'angular2-template-loader'],
+          loaders: ['awesome-typescript-loader?configFileName=tsconfig.build.json', 'angular2-template-loader'],
         },
         {
           test: /\.(html)?$/,
