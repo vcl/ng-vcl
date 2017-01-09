@@ -56,21 +56,21 @@ export class LayerDemoComponent {
 
   // This is the reference to the template layer
   @ViewChild('myTemplateLayer')
-  myTemplateLayer: LayerRef;
+  myTemplateLayerRef: LayerRef;
 
   // Creates a layerRef from a component
-  myLayerRef = this.layer.create(MyComponentLayer, {
+  myComponentLayerRef: LayerRef = this.layer.create(MyComponentLayer, {
     // options
     modal: false,
     offClickClose: false
   });
 
   openTemplateLayer() {
-    this.myTemplateLayer.open();
+    this.myTemplateLayerRef.open();
   }
 
   openComponentLayer() {
-    this.myLayerRef.open();
+    this.myComponentLayerRef.open();
   }
 }
 ```
@@ -81,7 +81,7 @@ The open() method allows to pass data to the layer and returns an Observable whi
 allows you to reveive data from the layer.
 
 ```js
-this.componentLayerRef.open({
+this.myComponentLayerRef.open({
   // Set attributes on the component
   title: 'Component Layer'
 }).subscribe(data => {
