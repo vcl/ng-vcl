@@ -6,7 +6,9 @@ import { ObservableComponent } from '../../core/index';
 
 enum InteractionType { Click, Tap }
 
-@Directive({ selector: '[vcl-button-content]' })
+@Directive({
+  selector: '[vcl-button-content]' 
+})
 export class ButtonContentDirective {
   constructor(private viewContainerRef: ViewContainerRef, private tempRef: TemplateRef<any>) { }
 
@@ -59,7 +61,7 @@ function dispatchTap(el) {
 }
 
 @Component({
-  selector: '[vcl-button]',
+  selector: 'button[vcl-button]',
   host: {
     '[class.vclButton]': 'true',
   },
@@ -92,7 +94,7 @@ export class ButtonComponent extends ObservableComponent {
   disableA11yClick: boolean = false;
 
   @HostBinding('attr.disabled')
-  get isDisabled(): boolean {
+  get isDisabled(): boolean | null {
     return this.disabled ? true : null;
   }
 
