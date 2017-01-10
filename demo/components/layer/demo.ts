@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { VCLLayerModule, VCLButtonModule, VCLWormholeModule } from './../../../src/index';
 import { DemoComponent } from './../demo/demo.component';
 import { LayerDemoComponent } from './demo.component';
-import { LayerComponent } from './layer.component';
+import { SomeLayer, SomeComponent } from './some.component';
 import { LayerDemoCanDeactivateGuard } from './demo.guard';
 
 const PATH = 'layer';
@@ -13,7 +13,9 @@ const LABEL = 'Layer';
 @NgModule({
   imports: [
     BrowserModule,
-    VCLLayerModule,
+    VCLLayerModule.withConfig({
+      layers: [SomeLayer]
+    }),
     VCLWormholeModule,
     VCLButtonModule,
     RouterModule.forChild([{
@@ -27,22 +29,22 @@ const LABEL = 'Layer';
           'demo.component.html': require("!raw-loader!./demo.component.html"),
           'demo.component.ts': require("!raw-loader!./demo.component.ts"),
           'demo.guard': require("!raw-loader!./demo.guard"),
-          'layer.component.html': require("!raw-loader!./layer.component.html"),
-          'layer.component.ts': require("!raw-loader!./layer.component.ts")
+          'some.component.html': require("!raw-loader!./some.component.html"),
+          'some.component.ts': require("!raw-loader!./some.component.ts")
         },
       },
       canDeactivate: [LayerDemoCanDeactivateGuard],
     }]),
   ],
   providers: [
-    LayerDemoCanDeactivateGuard
+    LayerDemoCanDeactivateGuard,
   ],
   entryComponents: [
-    LayerComponent
+    SomeComponent
   ],
   declarations: [
     LayerDemoComponent,
-    LayerComponent
+    SomeComponent
   ]
 })
 export default class LayerDemoModule {

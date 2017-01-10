@@ -1,13 +1,16 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild, Inject } from '@angular/core';
 import { LayerService, LayerRef } from './../../../src/index';
-import { LayerComponent } from './layer.component';
+import { SomeLayer } from './some.component';
 
 @Component({
   templateUrl: 'demo.component.html',
 })
 export class LayerDemoComponent {
 
-  constructor(private layer: LayerService) {}
+  constructor(
+    private layer: LayerService,
+    private componentLayerRef: SomeLayer,
+  ) {}
 
   // Close the top layer when escape is pressed
   @HostListener('document:keyup', ['$event'])
@@ -23,11 +26,6 @@ export class LayerDemoComponent {
   openLayer() {
     this.layerModal.open();
   }
-
-  // Create a layer from a component
-  componentLayerRef: LayerRef = this.layer.create(LayerComponent, {
-    modal: true
-  });
 
   openComponentLayer() {
     this.componentLayerRef.open({
