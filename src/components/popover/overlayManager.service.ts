@@ -14,6 +14,8 @@ export class OverlayManagerService {
   register(component: OverlayManagedComponent) {
 
     let zIndex = 100;
+
+    // this.components.filter(component => component.zIndex >= zIndex).forEach(component => zIndex=component.zIndex);
     for (let i = 0; i < this.components.length; i++) {
       if (this.components[i].zIndex >= zIndex) {
         zIndex = this.components[i].zIndex;
