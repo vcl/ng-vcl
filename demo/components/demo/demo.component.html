@@ -10,6 +10,9 @@
         <div *ngIf="tab.type==='component'" [connectWormhole]="tab.content"></div>
         <markdown *ngIf="tab.type==='markdown'" [markdown]="tab.content"></markdown>
         <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
+        <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div>
+        <div class="markdown-body" *ngIf="tab.type==='md'" [innerHtml]="tab.content"></div>
+        <pre *ngIf="tab.type==='pre'" [innerHtml]="tab.content"></pre>
       </template>
     </vcl-tab>
   </vcl-tab-nav>

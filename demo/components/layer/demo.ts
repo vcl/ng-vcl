@@ -25,12 +25,30 @@ const LABEL = 'Layer';
         label: LABEL,
         tabs: {
           Demo: LayerDemoComponent,
-          'README.md': require("!raw-loader!../../../src/components/layer/README.md"),
-          'demo.component.html': require("!raw-loader!./demo.component.html"),
-          'demo.component.ts': require("!raw-loader!./demo.component.ts"),
-          'demo.guard': require("!raw-loader!./demo.guard"),
-          'some.component.html': require("!raw-loader!./some.component.html"),
-          'some.component.ts': require("!raw-loader!./some.component.ts")
+          'README.md': {
+            type: 'md',
+            content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/components/layer/README.md")
+          },
+          'demo.component.html': {
+            type: 'pre',
+            content: require("!highlight-loader?raw=true&lang=html!./demo.component.html")
+          },
+          'demo.component.ts': {
+            type: 'pre',
+            content: require("!highlight-loader?raw=true&lang=ts!./demo.component.ts")
+          },
+          'demo.guard.ts': {
+            type: 'pre',
+            content: require("!highlight-loader?raw=true&lang=ts!./demo.guard.ts")
+          },
+          'some.component.html': {
+            type: 'pre',
+            content: require("!highlight-loader?raw=true&lang=html!./some.component.html")
+          },
+          'some.component.ts': {
+            type: 'pre',
+            content: require("!highlight-loader?raw=true&lang=ts!./some.component.ts")
+          },
         },
       },
       canDeactivate: [LayerDemoCanDeactivateGuard],

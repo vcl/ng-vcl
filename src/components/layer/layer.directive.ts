@@ -28,7 +28,6 @@ export class DirectiveLayerRef extends LayerRef {
 
   @Input()
   stickToBottom: boolean = false;
-  // tslint:disable-next-line:no-trailing-whitespace
   
   @Input()
   gutterPadding: boolean = false;
