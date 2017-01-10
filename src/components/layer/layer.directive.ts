@@ -28,7 +28,7 @@ export class DirectiveLayerRef extends LayerRef {
 
   @Input()
   stickToBottom: boolean = false;
-  
+
   @Input()
   gutterPadding: boolean = false;
 
