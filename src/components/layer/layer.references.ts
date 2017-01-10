@@ -7,7 +7,6 @@ export interface LayerData {
   [key: string]: any;
 }
 
-@Injectable()
 export abstract class LayerRef {
 
   private results: Subject<any>;
@@ -23,6 +22,11 @@ export abstract class LayerRef {
   base: string = 'default';
   modal: boolean = false;
   offClickClose: boolean = true;
+
+  transparent: boolean = false;
+  fill: boolean = false;
+  stickToBottom: boolean = false;
+  gutterPadding: boolean = false;
 
   wormhole: Wormhole;
 

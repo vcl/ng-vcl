@@ -12,13 +12,26 @@ export interface LayerData { [key: string]: any; }
 export class DirectiveLayerRef extends LayerRef {
 
   @Input()
-  public modal: boolean = true;
+  public modal: boolean = false;
 
   @Input()
   public offClickClose: boolean = true;
 
   @Input()
   public base: string = 'default';
+
+  @Input()
+  transparent: boolean = false;
+
+  @Input()
+  fill: boolean = false;
+
+  @Input()
+  stickToBottom: boolean = false;
+  // tslint:disable-next-line:no-trailing-whitespace
+  
+  @Input()
+  gutterPadding: boolean = false;
 
   constructor(public templateRef: TemplateRef<any>, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
     super();

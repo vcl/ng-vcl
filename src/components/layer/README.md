@@ -115,16 +115,23 @@ this.myComponentLayerRef.open({
   console.log('layer closed');
 });
 ```
+
 ### API
 
 ```js
 class LayerRef {
-  open(data: LayerData): Observable<any>;
-  close(data?: any);
-  send(data: any);
+  open(data: LayerData): Observable<any>; // Opens the layer
+  close(data?: any); // Closes the layer
+  send(data: any); // Send data to the subscriber
+  readonly visible: boolean; // true when the layer is visible
+
+  // See vcl-layer properties for description
   modal: boolean;
   offClickClose: boolean;
-  readonly visible: boolean;
+  transparent: boolean;
+  fill: boolean;
+  stickToBottom: boolean;
+  gutterPadding: boolean;
 }
 
 interface LayerData {
@@ -132,13 +139,12 @@ interface LayerData {
 }
 
 class LayerService {
-  getLayers(): LayerRef[];
-  getVisibleLayers(): LayerRef[];
-  hasVisibleLayers(): boolean;
-  closeAll();
-  closeTop();
+  getLayers(): LayerRef[]; // Get all of layers
+  getVisibleLayers(): LayerRef[]; // Get the visible layers
+  hasVisibleLayers(): boolean; // True when at least one layer is visible
+  closeAll(); // Close all layers
+  closeTop(); // Close the top layer
 }
-
 ```
 
 #### vcl-layer Properties:
@@ -147,4 +153,7 @@ class LayerService {
 | ------------        | ----------- | -------- |--------------
 | `modal`             | boolean     | false    | Disables user interaction outside of the layer
 | `offClickClose`     | boolean     | true     | Wether a non-modal layer should close when clicked outside
-
+| `transparent  `     | boolean     | false    | Makes the layer's background transparent
+| `fill`              | boolean     | false    | Makes the layer cover the whole viewport
+| `stickToBottom`     | boolean     | false    | Makes the layer stick to the bottom
+| `gutterPadding`     | boolean     | false    | Add a padding of half the gutter width
