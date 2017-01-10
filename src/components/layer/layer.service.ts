@@ -1,13 +1,8 @@
-import { Injectable, EmbeddedViewRef, Output, EventEmitter, ComponentFactoryResolver, ApplicationRef, Injector, ComponentRef, ReflectiveInjector } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Injectable, Injector } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { ComponentType } from './../../core/index';
-import { ComponentWormhole } from './../../directives/wormhole/wormhole';
 import { LayerBaseComponent } from './layer-base.component';
-import { LayerDirective } from './layer.directive';
-import { LayerRef, LayerComponentRef, LayerOptions } from './layer.references';
+import { LayerRef } from './layer.references';
 
 @Injectable()
 export class LayerService {
@@ -15,8 +10,6 @@ export class LayerService {
   private visibleLayers = new Map<string, LayerRef[]>();
   private layers = new Map<LayerRef, Subscription>();
   private baseLayersChange = new Subject<string>();
-
-  constructor(private defaultInjector: Injector) { }
 
   visibleLayers$(base = 'default') {
     return this.baseLayersChange.filter(updatedBase => updatedBase === base)
@@ -43,16 +36,6 @@ export class LayerService {
   closeTop(base = 'default') {
     const layer = this.getVisibleLayers(base).slice(-1)[0];
     if (layer) layer.close();
-  }
-
-  create<T>(compClass: ComponentType<T>, opts: LayerOptions = {}): LayerRef {
-    if (typeof compClass === 'function') {
-      const layerRef = new LayerComponentRef<T>(compClass, opts, this.defaultInjector);
-      this.register(layerRef);
-      return layerRef;
-    } else {
-      throw 'Invalid component class';
-    }
   }
 
   register(layerRef: LayerRef) {

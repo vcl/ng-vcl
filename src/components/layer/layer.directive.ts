@@ -1,7 +1,4 @@
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger, ChangeDetectorRef } from '@angular/core';
+import { Input, Directive, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { TemplateWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerData } from './layer.references';
@@ -12,10 +9,10 @@ export interface LayerData { [key: string]: any; }
   selector: '[vcl-layer]',
   exportAs: 'layer',
 })
-export class LayerDirective extends LayerRef {
+export class DirectiveLayerRef extends LayerRef {
 
   @Input()
-  public modal: boolean = true;
+  public modal: boolean = false;
 
   @Input()
   public offClickClose: boolean = true;
@@ -23,8 +20,20 @@ export class LayerDirective extends LayerRef {
   @Input()
   public base: string = 'default';
 
+  @Input()
+  transparent: boolean = false;
+
+  @Input()
+  fill: boolean = false;
+
+  @Input()
+  stickToBottom: boolean = false;
+
+  @Input()
+  gutterPadding: boolean = false;
+
   constructor(public templateRef: TemplateRef<any>, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
-    super(templateRef);
+    super();
   }
 
   ngOnInit() {

@@ -1,8 +1,18 @@
 <div *ngFor="let layerRef of layerRefs; let i = index;">
-  <div class="vclLayer" role="dialog" [@boxState]="layerRef.visible" [style.pointer-events]="'none'" [style.z-index]="zIndex + (i*10+1)">
-    <div class="vclLayerBox vclLayerGutterPadding" [style.pointer-events]="'all'" (off-click)="offClick(layerRef)">
+  <div 
+    class="vclLayer" 
+    [class.vclTransparent]="layerRef.transparent"
+    [class.vclLayerFill]="layerRef.fill"
+    [class.vclLayerStickToBottom]="layerRef.stickToBottom"
+    [style.pointer-events]="'none'" 
+    [style.z-index]="zIndex + (i*10+1)"
+    role="dialog" 
+    [@boxState]="layerRef.visible" 
+    >
+    <div class="vclLayerBox" [class.vclLayerGutterPadding]="layerRef.gutterPadding" [style.pointer-events]="'all'" (off-click)="offClick(layerRef)">
       <div [connectWormhole]="layerRef.wormhole" [wormholeIndisposable]="true"></div>
     </div>
   </div>
   <div *ngIf="layerRef.modal" class="vclLayerCover" [@layerState]="layerRef.visible" [style.z-index]="zIndex + (i*10+0)"></div>
 </div>
+

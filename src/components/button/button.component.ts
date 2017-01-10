@@ -7,7 +7,7 @@ import { ObservableComponent } from '../../core/index';
 enum InteractionType { Click, Tap }
 
 @Directive({
-  selector: '[vcl-button-content]' 
+  selector: '[vcl-button-content]'
 })
 export class ButtonContentDirective {
   constructor(private viewContainerRef: ViewContainerRef, private tempRef: TemplateRef<any>) { }
