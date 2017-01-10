@@ -11,6 +11,7 @@ import {
   Optional,
   forwardRef,
   ElementRef,
+  HostListener,
   OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -75,14 +76,16 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  //  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  host: {
+    'off-click': 'alert(1)'
+  }
 })
 export class SelectComponent implements ControlValueAccessor {
 
-  popoverTarget: string = 'popoverTarget' + Math.random().toString().slice(2); // TODO cant this be solved via view/content-childs?
-
   @ViewChild('dropdown') dropdown;
+  @ViewChild('select') select;
 
   @Input('value') value: string | string[];
   @Input('expanded') expanded: boolean = false;
@@ -102,10 +105,20 @@ export class SelectComponent implements ControlValueAccessor {
 
   @Output('change') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
 
-  constructor() { }
+
+  me: ElementRef;
+  constructor(me: ElementRef) {
+    this.me = me;
+  }
 
   expand = () => this.expanded = !this.expanded;
-  onOutsideClick = () => this.expanded = false;
+
+  @HostListener('window:click', ['$event'])
+  onOffClick(event) {
+    if (!this.expanded) return;
+    if (!this.me.nativeElement.contains(event.target))
+      this.expanded = false;
+  }
 
   ngOnInit() { }
 
@@ -155,6 +168,9 @@ export class SelectComponent implements ControlValueAccessor {
 
   onSelect(newValue: any[]) {
     this.value = newValue;
+
+    if (this.maxSelectableItems == 1) this.expanded = false;
+
     this.changeEE.emit(this.value);
   }
 

@@ -1,8 +1,10 @@
 <div
-  [attr.id]="popoverTarget"
+  #select
   (tap)="expand()"
   [attr.aria-autocomplete]="list"
-  class="vclLayoutHorizontal vclSelect vclInputGroupEmb">
+  class="vclLayoutHorizontal vclSelect vclInputGroupEmb"
+  [style.marginBottom]="0"
+  >
 
   <div class="vclInput" readonly>
     {{displayValue}}
@@ -15,17 +17,15 @@
   </button>
 </div>
 
-<vcl-popover
-  [target]="'#' + popoverTarget"
-  targetAttachment='bottom left'
-  attachment='top left'
-  [(open)]="expanded">
-  <vcl-dropdown #dropdown
+<vcl-dropdown #dropdown
     [(expanded)]="expanded"
     [items]="items"
     (change)="onSelect($event)"
     [minSelectableItems]="minSelectableItems"
     [maxSelectableItems]="maxSelectableItems"
-    [tabindex]="0">
-  </vcl-dropdown>
-</vcl-popover>
+    [tabindex]="0"
+
+    [style.top]="'-1px'"
+    [style.position]="'relative'"
+    >
+</vcl-dropdown>
