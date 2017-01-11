@@ -7,7 +7,7 @@ import {
 @Component({
   selector: 'vcl-metalist',
   templateUrl: 'metalist.component.html',
-  //changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetalistComponent implements OnInit {
 
