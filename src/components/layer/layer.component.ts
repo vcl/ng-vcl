@@ -30,6 +30,6 @@ export abstract class ComponentLayerRef<T> extends LayerRef {
   }
 
   createWormhole() {
-    return new ComponentWormhole(this.component, { injector: this.injector });
+    return new LayerComponentWormhole(this, this.component);
   }
 }

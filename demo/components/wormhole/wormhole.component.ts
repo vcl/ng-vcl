@@ -19,8 +19,6 @@ export class WormholeComponent {
 
   // Create a component wormhole
   myFirstComponentWormhole: ComponentWormhole<MyComponent> = new ComponentWormhole(MyComponent, {
-    data: {
-      value: 'foo'
-    }
+    value: 'foo'
   });
 }

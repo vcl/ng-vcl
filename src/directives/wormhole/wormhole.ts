@@ -1,4 +1,4 @@
-import { ComponentRef, EmbeddedViewRef, Directive, TemplateRef, ViewContainerRef, ComponentFactoryResolver, Input, Injector } from '@angular/core';
+import { ComponentRef, ComponentFactory, EmbeddedViewRef, Directive, TemplateRef, ViewContainerRef, ComponentFactoryResolver, Input, Injector, ChangeDetectorRef } from '@angular/core';
 import { ComponentType } from './../../core/index';
 
 export abstract class Wormhole {
@@ -55,42 +55,59 @@ export class TemplateWormhole extends Wormhole {
 
 export class ComponentWormhole<T> extends Wormhole {
 
+  compFactory: ComponentFactory<T>;
   compRef: ComponentRef<T>;
-
   injector: Injector;
+
   data: any;
 
-  constructor(private componentClass: ComponentType<T>, opts: { injector?: Injector, data?: any } = {}) {
+  constructor(private componentClass: ComponentType<T>, initialData: any = {}) {
     super();
-    this.injector = opts.injector;
-    this.data = opts.data;
+    this.data = initialData;
+  }
+
+  get viewContainerRef() {
+    return this.bridge && this.bridge.viewContainerRef;
   }
 
   attach() {
-    const viewContainerRef = this.bridge.viewContainerRef;
-    let componentFactory = this.bridge.componentFactoryResolver.resolveComponentFactory<T>(this.componentClass);
-    this.compRef = viewContainerRef.createComponent( componentFactory, viewContainerRef.length, this.injector || viewContainerRef.parentInjector);
-    this.compRef.onDestroy(() => {
-     this.compRef = null;
-    });
-    this.setData(this.data);
+    this.compFactory = this.bridge.componentFactoryResolver.resolveComponentFactory<T>(this.componentClass);
+    this.injector = this.createInjector();
+
+    this.initializeComponent();
   }
   detach() {
+    this.destroyComponent();
+  }
+
+  initializeComponent() {
+    if (this.compFactory && this.injector) {
+      this.destroyComponent();
+
+      this.compRef = this.viewContainerRef.createComponent( this.compFactory, this.viewContainerRef.length, this.injector);
+      this.compRef.onDestroy(() => {
+        this.compRef = null;
+      });
+      if (this.data && typeof this.data === 'object') {
+        Object.assign(this.compRef.instance, this.data);
+      }
+    }
+  }
+
+  destroyComponent() {
     if (this.compRef) {
       const i = this.bridge.viewContainerRef.indexOf(this.compRef.hostView);
       if (i >= 0) this.bridge.viewContainerRef.remove(i);
     }
   }
 
+  protected createInjector(): Injector {
+    return this.bridge.viewContainerRef.parentInjector;
+  }
+
   setData(data?: any) {
-    if (data && typeof data === 'object') {
-      if (this.compRef && !this.compRef.hostView.destroyed) {
-        Object.assign(this.compRef.instance, data);
-        this.compRef.changeDetectorRef.detectChanges();
-      } else {
-        this.data = data;
-      }
-    }
+    this.data = data;
+    this.initializeComponent();
   }
 }
 
