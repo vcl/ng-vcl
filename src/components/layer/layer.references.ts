@@ -58,20 +58,20 @@ export abstract class LayerRef {
   }
 
   close(data?: any) {
+    this.setVisibility(false);
     if (this.results) {
       if (data !== undefined) {
         this.results.next(data);
       }
       this.results.complete();
     }
-    this.setVisibility(false);
   }
 
   closeWithError(data?: any) {
+    this.setVisibility(false);
     if (this.results) {
       this.results.error(data);
     }
-    this.setVisibility(false);
   }
 
   send(data: any) {
