@@ -81,7 +81,7 @@ export class ComponentWormhole<T> extends Wormhole {
   }
 
   initializeComponent() {
-    if (this.compFactory && this.injector) {
+    if (this.compFactory && this.injector && this.viewContainerRef) {
       this.destroyComponent();
 
       this.compRef = this.viewContainerRef.createComponent( this.compFactory, this.viewContainerRef.length, this.injector);
@@ -91,6 +91,7 @@ export class ComponentWormhole<T> extends Wormhole {
       if (this.data && typeof this.data === 'object') {
         Object.assign(this.compRef.instance, this.data);
       }
+      this.compRef.changeDetectorRef.detectChanges();
     }
   }
 
