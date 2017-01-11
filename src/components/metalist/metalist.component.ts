@@ -7,7 +7,7 @@ import {
 @Component({
   selector: 'vcl-metalist',
   templateUrl: 'metalist.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetalistComponent implements OnInit {
 
@@ -23,7 +23,7 @@ export class MetalistComponent implements OnInit {
   }
 
   next() {
-    console.log('next');
+    // console.log('next');
     let oldIndex = this.getMarkedItemIndex();
     if (oldIndex !== -1) {
       let newIndex = oldIndex + 1;
@@ -36,7 +36,7 @@ export class MetalistComponent implements OnInit {
   }
 
   prev() {
-    console.log('prev');
+    // console.log('prev');
     let oldIndex = this.getMarkedItemIndex();
     if (oldIndex !== -1) {
       let newIndex = oldIndex - 1;
@@ -61,7 +61,7 @@ export class MetalistComponent implements OnInit {
 
 
   selectItem(item: any) {
-    console.log('selectItem');
+    // console.log('selectItem');
     if (!this.items.includes(item)) return false;
 
     let itemIndex = this.items.indexOf(item);
@@ -90,7 +90,7 @@ export class MetalistComponent implements OnInit {
   }
 
   deSelectItem(item: any) {
-    console.log('deSelectItem');
+    // console.log('deSelectItem');
     let itemIndex = this.items.indexOf(item);
     if (itemIndex === -1) {
       return;
@@ -102,7 +102,7 @@ export class MetalistComponent implements OnInit {
   }
 
   getSelectedItems() {
-    console.log('getSelectedItems');
+    // console.log('getSelectedItems');
     const result = this.meta
       .filter(obj => obj.selected)
       .map(metaItem => this.items[this.meta.indexOf(metaItem)]);
@@ -116,7 +116,7 @@ export class MetalistComponent implements OnInit {
   ngAfterContentInit() { }
 
   getMarkedItemIndex(): number {
-    console.log('getMarkedItemIndex');
+    // console.log('getMarkedItemIndex');
     let meta = this.getMarkedItemMeta();
     if (meta) {
       return this.meta.indexOf(meta);
@@ -125,13 +125,12 @@ export class MetalistComponent implements OnInit {
   }
 
   getMarkedItemMeta(): any {
-
-    console.log('getMarkedItemMeta');
+    // console.log('getMarkedItemMeta');
     return this.meta.filter(obj => obj.marked)[0];
   }
 
   setMarkedIndex(index: number) {
-    console.log('setMarkedIndex');
+    // console.log('setMarkedIndex');
     // unset old item
     let oldItem = this.getMarkedItemMeta();
     if (oldItem) {
@@ -144,7 +143,7 @@ export class MetalistComponent implements OnInit {
   }
 
   setMarkedItem(item: any) {
-    console.log('setMarkedItem');
+    // console.log('setMarkedItem');
     let markedIndex = this.items.indexOf(item);
     if (markedIndex !== -1) {
       this.setMarkedIndex(markedIndex);
@@ -155,13 +154,13 @@ export class MetalistComponent implements OnInit {
   @ContentChild(TemplateRef) template1: any;
 
   getMeta(item) {
-    console.log('getMeta');
-    console.dir(this.items);
+    // console.log('getMeta');
+    // console.dir(this.items);
     let key = this.items.indexOf(item);
     if (!this.meta[key]) {
       this.meta[key] = {};
     }
-    console.dir(JSON.stringify(this.meta[key]));
+    // console.dir(JSON.stringify(this.meta[key]));
     return this.meta[key];
   }
 }
