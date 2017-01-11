@@ -67,6 +67,12 @@ export abstract class LayerRef {
     }
   }
 
+  offClick() {
+    if (!this.modal && this.offClickClose) {
+      this.close();
+    }
+  }
+
   protected abstract setData(data: LayerData);
   protected abstract createWormhole(): Wormhole;
 }

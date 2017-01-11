@@ -43,8 +43,8 @@ export class LayerBaseComponent {
   }
 
   offClick(layerRef: LayerRef) {
-    if (!layerRef.modal && layerRef.offClickClose) {
-      layerRef.close();
+    if (this.layerRefs.length > 0) {
+      this.layerRefs[this.layerRefs.length - 1].offClick();
     }
   }
 }
