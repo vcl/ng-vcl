@@ -1,4 +1,5 @@
-import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, forwardRef, OnInit } from '@angular/core';
+import { Component, Input, Output, ChangeDetectionStrategy,
+  EventEmitter, forwardRef, OnInit, ElementRef } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -42,6 +43,11 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     if (this.maxSelectableItems == 1) ret = ret[0];
     return ret;
   };
+
+  me: ElementRef;
+  constructor(me: ElementRef) {
+    this.me = me;
+  }
 
   ngOnInit() {
     // ensure items have a value

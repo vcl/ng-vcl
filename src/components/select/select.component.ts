@@ -12,7 +12,8 @@ import {
   forwardRef,
   ElementRef,
   HostListener,
-  OnInit
+  OnInit,
+  NgZone
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -76,11 +77,12 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  host: {
-    'off-click': 'alert(1)'
-  }
+  /**
+   * OnPush cannot be used because then the this.dropdownTop - style will not
+   * be applied. Maybe this is a bug of ng2?
+   */
+  // changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class SelectComponent implements ControlValueAccessor {
 
@@ -107,11 +109,15 @@ export class SelectComponent implements ControlValueAccessor {
 
 
   me: ElementRef;
-  constructor(me: ElementRef) {
+  constructor(me: ElementRef, private zone: NgZone) {
+    this.zone = zone;
     this.me = me;
   }
 
-  expand = () => this.expanded = !this.expanded;
+  expand = () => {
+    this.expanded = !this.expanded;
+    this.calculateDropDirection();
+  }
 
   @HostListener('window:click', ['$event'])
   onOffClick(event) {
@@ -144,6 +150,47 @@ export class SelectComponent implements ControlValueAccessor {
       !!this.onChangeCallback && this.onChangeCallback(newValue);
     });
   }
+
+
+  dropdownTop: number = -1;
+  dropDirection: 'top' | 'bottom' = 'bottom';
+  /**
+   * calculate if the dropdown should be displayed above or under the select-input
+   */
+  calculateDropDirection(): void {
+    const position = this.me.nativeElement.getBoundingClientRect();
+    const screenHeight = window.innerHeight
+      || document.documentElement.clientHeight
+      || document.body.clientHeight;
+
+    const spaceBottom = screenHeight - position.bottom;
+    const spaceTop = position.top;
+
+    if (spaceBottom < spaceTop) this.dropDirection = 'top';
+    else this.dropDirection = 'bottom';
+
+    /**
+     * next tick needed here of offsetHeight is zero
+     */
+    setTimeout(() => {
+      switch (this.dropDirection) {
+        case 'top':
+          this.dropdownTop = -1 *
+            (
+              this.dropdown.me.nativeElement.children[0].offsetHeight
+              + this.select.nativeElement.offsetHeight
+              - 1
+              + 0.3 // fix chrome ugly 1-pixel-render
+            );
+          break;
+        case 'bottom':
+          this.dropdownTop = -1.1;
+          break;
+      }
+    }, 1);
+  }
+
+
 
   reDisplayValue(newValue) {
     if (!newValue) return;
