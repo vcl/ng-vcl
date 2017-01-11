@@ -53,7 +53,7 @@ export class VCLLayerModule {
           deps: [LayerService, Injector, ...layers ],
           useFactory: (layerService, injector, ...layers: ComponentLayerRef<any>[]) => {
             return () => {
-              layers.forEach(layer => layer.initialize(layerService, injector));
+              layers.forEach(layer => layer.initialize(layerService));
             };
           }
         }

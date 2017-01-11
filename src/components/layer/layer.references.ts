@@ -30,35 +30,48 @@ export abstract class LayerRef {
 
   wormhole: Wormhole;
 
+  private setVisibility(value: boolean) {
+    if (this.visible !== value) {
+      this._visible = value;
+      this.visibilityChange.next(value);
+    }
+  }
+
   open(data?: LayerData): Observable<any> {
     if (!this.wormhole) {
       this.wormhole = this.createWormhole();
     }
+
+    this.setData(data);
 
     if (!this.visible) {
       this._visible = true;
       this.visibilityChange.next(true);
     }
 
-    this.setData(data);
-
-    if (!this.results) {
-      this.results = new Subject<any>();
+    if (this.results) {
+      this.results.complete();
     }
+    this.results = new Subject<any>();
 
     return this.results.asObservable();
   }
 
   close(data?: any) {
-    if (this.visible) {
-      this._visible = false;
-      this.visibilityChange.next(false);
-    }
-    if (data !== undefined && this.results) {
-      this.results.next(data);
+    if (this.results) {
+      if (data !== undefined) {
+        this.results.next(data);
+      }
       this.results.complete();
-      this.results = null;
     }
+    this.setVisibility(false);
+  }
+
+  closeWithError(data?: any) {
+    if (this.results) {
+      this.results.error(data);
+    }
+    this.setVisibility(false);
   }
 
   send(data: any) {

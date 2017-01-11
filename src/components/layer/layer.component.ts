@@ -4,20 +4,29 @@ import { ComponentType } from './../../core/index';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerData } from './layer.references';
 
-export abstract class ComponentLayerRef<T> extends LayerRef {
+class LayerComponentWormhole<T> extends ComponentWormhole<T> {
 
-  private injector: ReflectiveInjector;
+  constructor(private layerRef: LayerRef, componentClass: ComponentType<T>) {
+    super(componentClass);
+  }
+
+  createInjector() {
+    const injector = super.createInjector();
+    // The created injector injects this instance as LayerRef
+    // It is used in the component instance created within the wormhole
+    return ReflectiveInjector.resolveAndCreate([{
+      provide: LayerRef,
+      useValue: this.layerRef
+    }], injector);
+  }
+
+}
+
+export abstract class ComponentLayerRef<T> extends LayerRef {
 
   protected abstract component: ComponentType<T>;
 
-  initialize(layerService: LayerService, injector: Injector)  {
-    // The created injector injects this instance as LayerRef
-    // It is used in the component instance created within the wormhole
-    this.injector = ReflectiveInjector.resolveAndCreate([{
-      provide: LayerRef,
-      useValue: this
-    }], injector);
-
+  initialize(layerService: LayerService)  {
     layerService.register(this);
   }
 
