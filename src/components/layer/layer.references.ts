@@ -49,9 +49,6 @@ export abstract class LayerRef {
       this.visibilityChange.next(true);
     }
 
-    if (this.results) {
-      this.results.complete();
-    }
     this.results = new Subject<any>();
 
     return this.results.asObservable();

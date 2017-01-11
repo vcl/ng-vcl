@@ -22,7 +22,7 @@ export class LayerService {
   }
 
   getVisibleLayers(base = 'default') {
-    return this.visibleLayers.get(base) || [];
+    return [...(this.visibleLayers.get(base) || [])];
   }
 
   hasVisibleLayers(base = 'default') {
