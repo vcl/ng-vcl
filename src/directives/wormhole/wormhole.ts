@@ -2,27 +2,9 @@ import { ComponentRef, ComponentFactory, EmbeddedViewRef, Directive, TemplateRef
 import { ComponentType } from './../../core/index';
 
 export abstract class Wormhole {
-  protected bridge: ConnectWormholeDirective;
-
-  get isConnected(): boolean {
-    return !!this.bridge;
-  }
-
-  disconnect() {
-    this.detach();
-    this.bridge = null;
-  }
-  connect(bridge: ConnectWormholeDirective) {
-    if (this.bridge) {
-      this.disconnect();
-    }
-    this.bridge = bridge;
-    this.attach();
-  }
-
-  abstract attach();
-  abstract detach();
-
+  abstract get isConnected(): boolean;
+  abstract connect(viewContainerRef: ViewContainerRef);
+  abstract disconnect();
 }
 
 @Directive({
@@ -31,6 +13,7 @@ export abstract class Wormhole {
 })
 export class TemplateWormhole extends Wormhole {
 
+  viewContainerRef: ViewContainerRef;
   viewRef: EmbeddedViewRef<any>;
 
   // The wormhole directive needs a reference to the template
@@ -38,27 +21,33 @@ export class TemplateWormhole extends Wormhole {
     super();
   }
 
-  attach() {
-    this.viewRef = this.bridge.viewContainerRef.createEmbeddedView(this.templateRef);
+  get isConnected() {
+    return !!(this.viewRef && this.viewContainerRef);
+  }
+
+  connect(viewContainerRef: ViewContainerRef) {
+    this.disconnect();
+    this.viewContainerRef = viewContainerRef;
+    this.viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
     this.viewRef.onDestroy(() => {
       this.viewRef = null;
     });
   }
 
-  detach() {
-    if (this.viewRef) {
-      const i = this.bridge.viewContainerRef.indexOf(this.viewRef);
-      if (i >= 0) this.bridge.viewContainerRef.remove(i);
+  disconnect() {
+    if (this.isConnected) {
+      const i = this.viewContainerRef.indexOf(this.viewRef);
+      if (i >= 0) this.viewContainerRef.remove(i);
     }
   }
 }
 
 export class ComponentWormhole<T> extends Wormhole {
 
+  viewContainerRef: ViewContainerRef;
   compFactory: ComponentFactory<T>;
   compRef: ComponentRef<T>;
   injector: Injector;
-
   data: any;
 
   constructor(private componentClass: ComponentType<T>, initialData: any = {}) {
@@ -66,44 +55,50 @@ export class ComponentWormhole<T> extends Wormhole {
     this.data = initialData;
   }
 
-  get viewContainerRef() {
-    return this.bridge && this.bridge.viewContainerRef;
+  get isConnected() {
+    return !!(this.compRef && this.viewContainerRef);
   }
 
-  attach() {
-    this.compFactory = this.bridge.componentFactoryResolver.resolveComponentFactory<T>(this.componentClass);
-    this.injector = this.createInjector();
-
+  connect(viewContainerRef: ViewContainerRef) {
+    this.destroyComponent();
+    this.viewContainerRef = viewContainerRef;
     this.initializeComponent();
   }
-  detach() {
+  disconnect() {
     this.destroyComponent();
   }
 
-  initializeComponent() {
-    if (this.compFactory && this.injector && this.viewContainerRef) {
-      this.destroyComponent();
-
-      this.compRef = this.viewContainerRef.createComponent( this.compFactory, this.viewContainerRef.length, this.injector);
-      this.compRef.onDestroy(() => {
-        this.compRef = null;
-      });
-      if (this.data && typeof this.data === 'object') {
-        Object.assign(this.compRef.instance, this.data);
-      }
-      this.compRef.changeDetectorRef.detectChanges();
+  private initializeComponent() {
+    if (!this.injector) {
+      this.injector = this.createInjector();
     }
+
+    if (!this.compFactory) {
+      const componentFactoryResolver = this.injector.get(ComponentFactoryResolver) as ComponentFactoryResolver;
+      this.compFactory = componentFactoryResolver.resolveComponentFactory<T>(this.componentClass);
+    }
+
+    this.destroyComponent();
+
+    this.compRef = this.viewContainerRef.createComponent( this.compFactory, this.viewContainerRef.length, this.injector);
+    this.compRef.onDestroy(() => {
+      this.compRef = null;
+    });
+    if (this.data && typeof this.data === 'object') {
+      Object.assign(this.compRef.instance, this.data);
+    }
+    this.compRef.changeDetectorRef.detectChanges();
   }
 
-  destroyComponent() {
-    if (this.compRef) {
-      const i = this.bridge.viewContainerRef.indexOf(this.compRef.hostView);
-      if (i >= 0) this.bridge.viewContainerRef.remove(i);
+  private destroyComponent() {
+    if (this.isConnected) {
+      const i = this.viewContainerRef.indexOf(this.compRef.hostView);
+      if (i >= 0) this.viewContainerRef.remove(i);
     }
   }
 
   protected createInjector(): Injector {
-    return this.bridge.viewContainerRef.parentInjector;
+    return this.viewContainerRef.parentInjector;
   }
 
   setData(data?: any) {
@@ -117,12 +112,11 @@ export class ComponentWormhole<T> extends Wormhole {
 })
 export class ConnectWormholeDirective {
   private wormhole: Wormhole;
-  private connectedWormhole: Wormhole;
 
-  constructor(public viewContainerRef: ViewContainerRef, public componentFactoryResolver: ComponentFactoryResolver ) {}
+  constructor(public viewContainerRef: ViewContainerRef) {}
 
-  get isConnected() {
-    return !!this.connectedWormhole;
+  get isAttached() {
+    return !!this.wormhole;
   }
 
   // TODO: workaround. Does not disconnect the view when destroying the element when true
@@ -133,30 +127,26 @@ export class ConnectWormholeDirective {
 
   @Input('connectWormhole')
   set connectWormhole(wormhole: Wormhole) {
-    if (this.isConnected) {
-      this.disconnect();
+    if (this.isAttached) {
+      this.detach();
     }
-
-    if (wormhole) {
-      this.connect(wormhole);
-      this.wormhole = wormhole;
-    }
+    this.attach(wormhole);
   }
 
-  connect(wormhole: Wormhole) {
-    this.connectedWormhole = wormhole;
-    wormhole.connect(this);
+  attach(wormhole: Wormhole) {
+    this.wormhole = wormhole;
+    wormhole.connect(this.viewContainerRef);
   }
 
-  disconnect() {
-    if (this.connectedWormhole) {
-      this.connectedWormhole.disconnect();
+  detach() {
+    if (this.isAttached) {
+      this.wormhole.disconnect();
     }
   }
 
   ngOnDestroy() {
-    if (this.isConnected && !this.indisposable) {
-      this.disconnect();
+    if (this.isAttached && !this.indisposable) {
+      this.detach();
     }
   }
 }
