@@ -49,9 +49,6 @@ export class DirectiveLayerRef extends LayerRef {
   }
 
   setData(data?: LayerData) {
-    if (data && typeof data === 'object') {
-      Object.assign(this, data);
-      this.cdRef.detectChanges();
-    }
+
   }
 }

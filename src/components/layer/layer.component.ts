@@ -6,8 +6,8 @@ import { LayerRef, LayerData } from './layer.references';
 
 class LayerComponentWormhole<T> extends ComponentWormhole<T> {
 
-  constructor(private layerRef: LayerRef, componentClass: ComponentType<T>) {
-    super(componentClass);
+  constructor(private layerRef: LayerRef, componentClass: ComponentType<T>, data: any) {
+    super(componentClass, data);
   }
 
   createInjector() {
@@ -38,7 +38,7 @@ export abstract class ComponentLayerRef<T> extends LayerRef {
     }
   }
 
-  createWormhole() {
-    return new LayerComponentWormhole(this, this.component);
+  createWormhole(data?: any) {
+    return new LayerComponentWormhole(this, this.component, data);
   }
 }

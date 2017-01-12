@@ -6,6 +6,8 @@ import { TemplateWormhole } from './../../directives/wormhole/wormhole';
 import { LayerService } from './layer.service';
 import { LayerRef } from './layer.references';
 
+// TODO: Remove wormholeIndisposable
+
 @Component({
   selector: 'vcl-layer-base',
   templateUrl: 'layer-base.component.html',
