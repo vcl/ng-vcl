@@ -39,10 +39,10 @@ export abstract class LayerRef {
 
   open(data?: LayerData): Observable<any> {
     if (!this.wormhole) {
-      this.wormhole = this.createWormhole();
+      this.wormhole = this.createWormhole(data);
+    } else {
+      this.setData(data);
     }
-
-    this.setData(data);
 
     if (!this.visible) {
       this._visible = true;
@@ -84,5 +84,5 @@ export abstract class LayerRef {
   }
 
   protected abstract setData(data: LayerData);
-  protected abstract createWormhole(): Wormhole;
+  protected abstract createWormhole(data?: any): Wormhole;
 }
