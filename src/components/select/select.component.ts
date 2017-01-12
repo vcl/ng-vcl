@@ -81,7 +81,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
    * OnPush cannot be used because then the this.dropdownTop - style will not
    * be applied. Maybe this is a bug of ng2?
    */
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class SelectComponent implements ControlValueAccessor {
@@ -168,6 +168,9 @@ export class SelectComponent implements ControlValueAccessor {
     if (spaceBottom < spaceTop) this.dropDirection = 'top';
     else this.dropDirection = 'bottom';
 
+
+    console.log('direction: ' + this.dropDirection);
+
     /**
      * next tick needed here of offsetHeight is zero
      */
@@ -210,8 +213,8 @@ export class SelectComponent implements ControlValueAccessor {
   unselectItem(item) {
     item.selected = false;
     this.dropdown.value = this.dropdown.items
-    .filter(i => i.selected)
-    .map(i => i.value);
+      .filter(i => i.selected)
+      .map(i => i.value);
   }
 
   displayValueTokens() {
