@@ -81,7 +81,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
    * OnPush cannot be used because then the this.dropdownTop - style will not
    * be applied. Maybe this is a bug of ng2?
    */
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class SelectComponent implements ControlValueAccessor {
@@ -89,7 +89,7 @@ export class SelectComponent implements ControlValueAccessor {
   @ViewChild('dropdown') dropdown;
   @ViewChild('select') select;
 
-  @Input('value') value: string | string[];
+  @Input('value') value: any;
   @Input('expanded') expanded: boolean = false;
 
   // options
@@ -103,10 +103,9 @@ export class SelectComponent implements ControlValueAccessor {
   // styling
   @Input() expandedIcon: string = 'fa:chevron-up';
   @Input() collapsedIcon: string = 'fa:chevron-down';
-  @Input('displayValue') displayValue: string = 'Select value';
+  @Input('displayValue') displayValue: string | string[] = 'Select value';
 
   @Output('change') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
-
 
   me: ElementRef;
   constructor(me: ElementRef, private zone: NgZone) {
@@ -179,7 +178,7 @@ export class SelectComponent implements ControlValueAccessor {
             (
               this.dropdown.me.nativeElement.children[0].offsetHeight
               + this.select.nativeElement.offsetHeight
-              - 1
+              - 1 // border
               + 0.3 // fix chrome ugly 1-pixel-render
             );
           break;
@@ -204,9 +203,19 @@ export class SelectComponent implements ControlValueAccessor {
     if (newValue.length) {
       this.displayValue = this.items
         .filter(i => this.value.includes(i.value))
-        .map(i => i.label)
-        .join(', ');
+        .map(i => i.label);
     }
+  }
+
+  unselectItem(item) {
+    item.selected = false;
+    this.dropdown.value = this.dropdown.items
+    .filter(i => i.selected)
+    .map(i => i.value);
+  }
+
+  displayValueTokens() {
+    return Array.isArray(this.displayValue);
   }
 
   public selectItem(item: any) {

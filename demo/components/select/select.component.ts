@@ -4,7 +4,36 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'select.component.html'
 })
 export class SelectComponent implements OnInit {
-  items: any[] = [
+
+
+  items1 = [
+    {
+      label: 'item 1',
+      value: 1
+    },
+    {
+      label: 'item 2',
+      value: 2
+    },
+    {
+      label: 'item 3',
+      value: 3
+    },
+    {
+      label: 'item 4',
+      value: 4
+    },
+    {
+      label: 'item 5',
+      value: 5
+    },
+    {
+      label: 'item 6', sublabel: 'sublabel of item 6',
+      value: 6
+    }
+  ];
+
+  items2 = [
     {
       label: 'item 1',
       value: 1
@@ -41,6 +70,7 @@ export class SelectComponent implements OnInit {
   selectSingleValueHtml = 5;
 
   constructor() {
+
   }
 
   ngOnInit() { }
