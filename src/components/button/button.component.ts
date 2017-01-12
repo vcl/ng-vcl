@@ -95,7 +95,7 @@ export class ButtonComponent extends ObservableComponent {
 
   @HostBinding('attr.disabled')
   get isDisabled(): boolean | null {
-    return this.disabled ? true : null;
+    return this.disabled || this.busy ? true : null;
   }
 
   @Input()
@@ -138,7 +138,7 @@ export class ButtonComponent extends ObservableComponent {
   }
 
   get state(): string {
-    return this.disabled ? 'disabled' : (this.busy ? 'busy' : 'enabled' );
+    return this.busy ? 'busy' : (this.disabled ? 'disabled' : 'enabled' );
   }
 
   state$ = this.observeChange('disabled', 'busy', 'label', 'busyLabel', 'appIcon', 'appIconBusy').publishBehavior(this.state).refCount().map(() => this.state);
