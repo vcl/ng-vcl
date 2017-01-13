@@ -25,3 +25,78 @@ Selected Item: <span *ngIf="selectedItem">{{selectedItem.label}}</span>
  <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2"
   [items]="items2" [maxSelectableItems]="3" [tabindex]="77"
   ></vcl-dropdown>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+  marked items:
+
+  <button vcl-button (tap)="expand2()">Show/hide</button>
+
+  <vcl-dropdown (change)="onSelect($event)" [expanded]="true"
+   [items]="itemsMarked" [maxSelectableItems]="3" [tabindex]="77"
+   ></vcl-dropdown>
+
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>   <br>
+      <br>
+      <br>
+      <br>   <br>
+         <br>
+         <br>
+         <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+keyboard events:
+
+  <button vcl-button (tap)="expand3()">Show/hide</button>
+
+  <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded3"
+   [items]="items3" [tabindex]="77" [listenKeys]="true"
+   ></vcl-dropdown>
+
+
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
