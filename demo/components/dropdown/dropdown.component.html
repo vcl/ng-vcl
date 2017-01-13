@@ -5,98 +5,121 @@ Selected Item: <span *ngIf="selectedItem">{{selectedItem.label}}</span>
 <br>
 <button vcl-button (tap)="expand()">Show/hide</button>
 
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded"
- [items]="items" [maxSelectableItems]="1" [tabindex]="77"
-></vcl-dropdown>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded" [items]="items" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
 
- <br>
- <br>
- <br>
- <br>
- <br>
+<br>
+<br>
+<br>
+<br>
+<br> multi-select:
 
+<button vcl-button (tap)="expand2()">Show/hide</button>
 
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2" [items]="items2" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
 
+<br>
+<br>
+<br>
+<br> marked items:
 
- multi-select:
+<button vcl-button (tap)="expand2()">Show/hide</button>
 
- <button vcl-button (tap)="expand2()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [expanded]="true" [items]="itemsMarked" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
 
- <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2"
-  [items]="items2" [maxSelectableItems]="3" [tabindex]="77"
-  ></vcl-dropdown>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> <br>
+<br>
+<br>
+<br> <br>
+<br>
+<br>
+<br>
 
-  <br>
-  <br>
-  <br>
-  <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> keyboard events:
 
-  marked items:
+<button vcl-button (tap)="expand3()">Show/hide</button>
 
-  <button vcl-button (tap)="expand2()">Show/hide</button>
-
-  <vcl-dropdown (change)="onSelect($event)" [expanded]="true"
-   [items]="itemsMarked" [maxSelectableItems]="3" [tabindex]="77"
-   ></vcl-dropdown>
-
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>   <br>
-      <br>
-      <br>
-      <br>   <br>
-         <br>
-         <br>
-         <br>
-
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
-keyboard events:
-
-  <button vcl-button (tap)="expand3()">Show/hide</button>
-
-  <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded3"
-   [items]="items3" [tabindex]="77" [listenKeys]="true"
-   ></vcl-dropdown>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded3" [items]="items3" [tabindex]="77" [listenKeys]="true"></vcl-dropdown>
 
 
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<br> keyboard events (multiple):
+
+<button vcl-button (tap)="expand4()">Show/hide</button>
+
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items4" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

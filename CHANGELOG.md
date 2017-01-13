@@ -6,7 +6,7 @@
 - vcl-input:
   - change from directive to component
   - rename input/outputs to equal html5-input
-- dropdown: see [readme](https://github.com/ng-vcl/ng-vcl/blob/master/src/components/dropdown/README.md)
+- vcl-dropdown: see [readme](https://github.com/ng-vcl/ng-vcl/blob/master/src/components/dropdown/README.md)
   - "select"-event is now "change"
   - the select-event returns now an value-array instead of the items
   - items behave like [html5-options](http://www.w3schools.com/tags/tag_select.asp)
@@ -16,6 +16,7 @@
 
 ### Changes:
   - added vcl-file-input
+  - select no longer uses tether
 ### Bugfixes
 
 ## 15979eb (2016-12-14)

@@ -113,11 +113,14 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     }
   }
 
+  selectMarked() {
+    const firstMarked = this.items.filter(i => i.marked == true)[0];
+    this.selectItem(firstMarked);
+  }
+
   keyboardInput(ev) {
     if (!this.listenKeys) return;
-    console.log('keyboardInput');
-    console.dir(ev.code);
-
+    let prevent = true;
     switch (ev.code) {
       case 'ArrowDown':
         this.markNext();
@@ -125,7 +128,13 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       case 'ArrowUp':
         this.markPrev();
         break;
+      case 'Enter':
+        this.selectMarked();
+        break;
+      default:
+        let prevent = false;
     }
+    prevent && ev.preventDefault();
 
   }
 
