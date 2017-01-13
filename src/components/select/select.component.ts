@@ -168,9 +168,6 @@ export class SelectComponent implements ControlValueAccessor {
     if (spaceBottom < spaceTop) this.dropDirection = 'top';
     else this.dropDirection = 'bottom';
 
-
-    console.log('direction: ' + this.dropDirection);
-
     /**
      * next tick needed here of offsetHeight is zero
      */
@@ -191,7 +188,6 @@ export class SelectComponent implements ControlValueAccessor {
       }
     }, 1);
   }
-
 
 
   reDisplayValue(newValue) {
@@ -218,7 +214,9 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   displayValueTokens() {
-    return Array.isArray(this.displayValue);
+    if (this.maxSelectableItems <= 1 || typeof this.displayValue === 'string')
+      return false;
+    else return true;
   }
 
   public selectItem(item: any) {
