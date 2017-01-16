@@ -3,7 +3,7 @@ import { OnInit, OnDestroy, Directive, Input,
   ElementRef, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 // Invalid input type. Using one of these will throw an error
 const INPUT_INVALID_TYPES = [
@@ -31,8 +31,9 @@ export class InputComponent implements OnInit, OnDestroy {
   @Input('type') type: string = 'text';
   @Input() selectOnFocus: boolean = false;
 
-  _valueSubject = new Subject<any>();
-  @Output('change') change = this._valueSubject.asObservable();
+  @Input('value') value;
+  _valueSubject = new BehaviorSubject<any>(this.value);
+  @Output('typedValueChange') typedValueChange = this._valueSubject.asObservable();
 
   subs = [];
 
@@ -53,9 +54,7 @@ export class InputComponent implements OnInit, OnDestroy {
 
   @HostListener('input', ['$event.target.value'])
   onChange(value) {
-    console.log('onChange');
-    console.dir(value);
-    //  this._valueSubject.next(this.toType(value));
+    this._valueSubject.next(this.toType(value));
   }
 
   @HostListener('focus', ['$event.target.value'])

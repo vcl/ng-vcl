@@ -3,9 +3,6 @@
 ## master
 
 ### Breaking Changes
-- vcl-input:
-  - change from directive to component
-  - rename input/outputs to equal html5-input
 - vcl-dropdown: see [readme](https://github.com/ng-vcl/ng-vcl/blob/master/src/components/dropdown/README.md)
   - "select"-event is now "change"
   - the select-event returns now an value-array instead of the items
