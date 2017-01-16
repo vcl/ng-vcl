@@ -7,7 +7,7 @@ export class InputComponent implements OnInit {
 
   data1 = 'foobar';
   data2 = 'foobar';
-  data3 = 'foobar';
+  data3 = 42;
 
   constructor() { }
 
