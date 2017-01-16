@@ -1,5 +1,5 @@
 import { Component, Input, Output, ChangeDetectionStrategy,
-  EventEmitter, forwardRef, OnInit, ElementRef } from '@angular/core';
+  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -17,6 +17,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class DropdownComponent implements ControlValueAccessor, OnInit {
   private static readonly TAG: string = 'DropdownComponent';
+
+  @ViewChild('listbox') listbox;
 
   @Output('change') change$ = new EventEmitter<any[]>();
 
@@ -118,18 +120,34 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     this.selectItem(firstMarked);
   }
 
+  scrollToMarked() {
+    const itemEl = this.listbox.nativeElement.querySelectorAll('.vclHighlighted')[0];
+    if (!itemEl) return;
+    const boxHeight = this.listbox.nativeElement.offsetHeight;
+    const ownHeight = itemEl.offsetHeight;
+    const isTop = this.listbox.nativeElement.scrollTop;
+    this.listbox.nativeElement.scrollTop = itemEl.offsetTop - (boxHeight / 2);
+  }
+
   keyboardInput(ev) {
     if (!this.listenKeys) return;
+
     let prevent = true;
     switch (ev.code) {
       case 'ArrowDown':
         this.markNext();
+        this.scrollToMarked();
         break;
       case 'ArrowUp':
         this.markPrev();
+        this.scrollToMarked();
         break;
       case 'Enter':
         this.selectMarked();
+        this.scrollToMarked();
+        break;
+      case 'Space':
+        this.listbox.nativeElement.scrollTop += 10;
         break;
       default:
         let prevent = false;

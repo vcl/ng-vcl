@@ -18,7 +18,7 @@ Name               | Type       | Default | Description
 ------------------ | ---------- | ------- | ------------------------------------------------
 `value` _(1)_      | any        |         | current value of the input
 `selectOnFocus`    | boolean    | false   | Selects the content on focus
-`typedValueChange` | Observable |         | Outputs the observable which emits value-changes
+`typedValueChange` | Observable |         | Outputs an observable which emits value-changes
 `state`            | string     |         | defines how the input is layouted. ENUM('error'  | 'warning' | 'success')
 
 _(1) Supports Two-way binding_
