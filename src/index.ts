@@ -36,6 +36,7 @@ import { VCLTokenModule } from './components/token/token.module';
 import { VCLSliderModule } from './components/slider/slider.module';
 import { VCLJssFormModule } from './components/jss-form/jss-form.module';
 import { VCLInputControlGroupModule } from './components/input-control-group/input-control-group.module';
+import { VCLAlertModule } from './components/alert/alert.module';
 
 export * from './core/index';
 
@@ -66,6 +67,7 @@ export * from './components/token/token.module';
 export * from './components/slider/slider.module';
 export * from './components/jss-form/jss-form.module';
 export * from './components/input-control-group/input-control-group.module';
+export * from './components/alert/alert.module';
 
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
@@ -145,8 +147,8 @@ export * from './store/index';
     VCLTokenModule,
     VCLSliderModule,
     VCLJssFormModule,
-    VCLInputControlGroupModule
-  ],
-  providers: [],
+    VCLInputControlGroupModule,
+    VCLAlertModule
+  ]
 })
 export class VCLModule { }
