@@ -15,6 +15,7 @@
   - introduce component layers and LayerRefs
 
 ### Changes:
+  - added alert
   - added vcl-file-input
   - select no longer uses tether
 ### Bugfixes
