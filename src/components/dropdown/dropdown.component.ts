@@ -98,21 +98,15 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       ix < 0 ||
       !this.items[ix + 1]
     ) this.items[0].marked = true;
-    else {
-      this.items[ix + 1].marked = true;
-    }
+    else this.items[ix + 1].marked = true;
   }
   markPrev() {
     if (this.items.length == 0) return;
     const ix = this.items.findIndex(i => i.marked == true);
     if (this.items[ix]) this.items[ix].marked = false;
 
-    if (
-      ix <= 0
-    ) this.items[this.items.length - 1].marked = true;
-    else {
-      this.items[ix - 1].marked = true;
-    }
+    if (ix <= 0) this.items[this.items.length - 1].marked = true;
+    else this.items[ix - 1].marked = true;
   }
 
   selectMarked() {
@@ -120,13 +114,23 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     this.selectItem(firstMarked);
   }
 
-  scrollToMarked() {
+  async scrollToMarked() {
+    await new Promise(res => setTimeout(res, 0));
+
     const itemEl = this.listbox.nativeElement.querySelectorAll('.vclHighlighted')[0];
     if (!itemEl) return;
     const boxHeight = this.listbox.nativeElement.offsetHeight;
-    const ownHeight = itemEl.offsetHeight;
     const isTop = this.listbox.nativeElement.scrollTop;
-    this.listbox.nativeElement.scrollTop = itemEl.offsetTop - (boxHeight / 2);
+    const itemHeight = itemEl.offsetHeight;
+    const itemTop = itemEl.offsetTop;
+
+    // to low
+    if ((itemTop + itemHeight) > (isTop + boxHeight))
+      this.listbox.nativeElement.scrollTop = itemTop;
+
+    // to height
+    if (itemTop < isTop)
+      this.listbox.nativeElement.scrollTop = itemTop;
   }
 
   keyboardInput(ev) {
@@ -153,7 +157,6 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
         let prevent = false;
     }
     prevent && ev.preventDefault();
-
   }
 
   /**
