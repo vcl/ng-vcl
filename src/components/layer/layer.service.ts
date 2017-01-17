@@ -1,6 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
+import 'rxjs/operator/filter';
+import 'rxjs/operator/map';
+import 'rxjs/operator/distinctUntilChanged';
+import 'rxjs/operator/filter';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { async } from 'rxjs/scheduler/async';
 import { LayerBaseComponent } from './layer-base.component';
 import { LayerRef } from './layer.references';
 
@@ -14,7 +19,8 @@ export class LayerService {
   visibleLayers$(base = 'default') {
     return this.baseLayersChange.filter(updatedBase => updatedBase === base)
                                 .map(() => this.getVisibleLayers(base))
-                                .distinctUntilChanged();
+                                .distinctUntilChanged()
+                                .observeOn(async);
   }
 
   getLayers(base = 'default') {
