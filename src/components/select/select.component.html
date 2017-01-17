@@ -1,6 +1,5 @@
 <div
   #select
-  (tap)="expand()"
   [attr.aria-autocomplete]="list"
   class="vclLayoutHorizontal vclSelect vclInputGroupEmb"
   [style.marginBottom]="0"
@@ -39,8 +38,7 @@
     (change)="onSelect($event)"
     [minSelectableItems]="minSelectableItems"
     [maxSelectableItems]="maxSelectableItems"
-    [tabindex]="0"
-
+    tabindex="-1"
     [style.position]="'relative'"
     [style.top.px]="dropdownTop"
     >

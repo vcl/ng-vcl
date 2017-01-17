@@ -13,7 +13,8 @@ import {
   ElementRef,
   HostListener,
   OnInit,
-  NgZone
+  NgZone,
+  HostBinding
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -35,7 +36,6 @@ export class SelectOptionComponent implements OnInit {
 
   @Input('disabled') disabled: boolean = false;
   @Input('selected') selected: boolean = false;
-
 
   constructor(
     private elementRef: ElementRef
@@ -86,6 +86,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class SelectComponent implements ControlValueAccessor {
 
+  @HostBinding() tabindex = 0;
+
   @ViewChild('dropdown') dropdown;
   @ViewChild('select') select;
 
@@ -113,17 +115,56 @@ export class SelectComponent implements ControlValueAccessor {
     this.me = me;
   }
 
-  expand = () => {
+  expand() {
     this.expanded = !this.expanded;
     this.calculateDropDirection();
   }
 
-  @HostListener('window:click', ['$event'])
-  onOffClick(event) {
-    if (!this.expanded) return;
-    if (!this.me.nativeElement.contains(event.target))
-      this.expanded = false;
+
+  @HostListener('keydown', ['$event'])
+  keydown(ev) {
+    switch (ev.code) {
+      case 'ArrowDown':
+      case 'ArrowUp':
+        this.expanded = true;
+        break;
+      case 'Tab':
+      case 'Escape':
+        this.expanded = false;
+        break;
+    }
   }
+
+  @HostListener('tap', ['$event'])
+  doTap(ev) {
+    console.log('onTap');
+    this.expanded = !this.expanded;
+  }
+
+
+  @HostListener('focus', ['$event'])
+  async onFocus(event?) {
+    console.log('onFocus');
+    await new Promise(res => setTimeout(res, 100));
+    this.expanded = true;
+    this.dropdown.listenKeys = true;
+  }
+
+
+  @HostListener('blur', ['$event'])
+  onBlur(event?) {
+    console.log('onBlur:');
+    this.expanded = false;
+    this.dropdown.listenKeys = false;
+  }
+
+  /*
+    @HostListener('window:click', ['$event'])
+    onOffClick(event) {
+      if (!this.expanded) return;
+      if (!this.me.nativeElement.contains(event.target))
+        this.onBlur();
+    }*/
 
   ngOnInit() { }
 
@@ -156,7 +197,7 @@ export class SelectComponent implements ControlValueAccessor {
   /**
    * calculate if the dropdown should be displayed above or under the select-input
    */
-  calculateDropDirection(): void {
+  async calculateDropDirection() {
     const position = this.me.nativeElement.getBoundingClientRect();
     const screenHeight = window.innerHeight
       || document.documentElement.clientHeight
@@ -168,25 +209,22 @@ export class SelectComponent implements ControlValueAccessor {
     if (spaceBottom < spaceTop) this.dropDirection = 'top';
     else this.dropDirection = 'bottom';
 
-    /**
-     * next tick needed here of offsetHeight is zero
-     */
-    setTimeout(() => {
-      switch (this.dropDirection) {
-        case 'top':
-          this.dropdownTop = -1 *
-            (
-              this.dropdown.me.nativeElement.children[0].offsetHeight
-              + this.select.nativeElement.offsetHeight
-              - 1 // border
-              + 0.3 // fix chrome ugly 1-pixel-render
-            );
-          break;
-        case 'bottom':
-          this.dropdownTop = -1.1;
-          break;
-      }
-    }, 1);
+    await new Promise(res => setTimeout(res, 0));
+
+    switch (this.dropDirection) {
+      case 'top':
+        this.dropdownTop = -1 *
+          (
+            this.dropdown.me.nativeElement.children[0].offsetHeight
+            + this.select.nativeElement.offsetHeight
+            - 1 // border
+            + 0.3 // fix chrome ugly 1-pixel-render
+          );
+        break;
+      case 'bottom':
+        this.dropdownTop = -1.1;
+        break;
+    }
   }
 
 
@@ -225,9 +263,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   onSelect(newValue: any[]) {
     this.value = newValue;
-
     if (this.maxSelectableItems == 1) this.expanded = false;
-
     this.changeEE.emit(this.value);
   }
 

@@ -13,7 +13,7 @@
     [attr.aria-selected]="item.selected"
     [class.vclDisabled]="item.disabled"
     role="menuitem"
-    tabindex="0"
+    tabindex="-1"
     (tap)="selectItem(item)"
     [ngClass]="item.class">
     <div class="vclDropdownItemLabel">
