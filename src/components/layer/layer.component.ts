@@ -23,19 +23,21 @@ class LayerComponentWormhole<T> extends ComponentWormhole<T> {
 }
 
 export abstract class ComponentLayerRef<T> extends LayerRef {
-
   protected abstract component: ComponentType<T>;
+  wormhole: ComponentWormhole<T>;
 
   initialize(layerService: LayerService)  {
     layerService.register(this);
   }
 
   setData(data?: LayerData) {
-    if (this.wormhole instanceof ComponentWormhole) {
-      // Update wormhole data
-      // Change detection is triggered within setData()
-      this.wormhole.setData(data);
-    }
+    // Update wormhole data
+    // Change detection is triggered within setData()
+    this.wormhole.setData(data);
+  }
+
+  get instance(): T {
+    return this.visible ? this.wormhole.compRef.instance : null;
   }
 
   createWormhole(data?: any) {

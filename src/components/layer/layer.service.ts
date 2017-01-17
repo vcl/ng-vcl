@@ -2,16 +2,14 @@ import { Injectable, Injector } from '@angular/core';
 import 'rxjs/operator/filter';
 import 'rxjs/operator/map';
 import 'rxjs/operator/distinctUntilChanged';
-import 'rxjs/operator/filter';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { async } from 'rxjs/scheduler/async';
 import { LayerBaseComponent } from './layer-base.component';
 import { LayerRef } from './layer.references';
 
 @Injectable()
 export class LayerService {
-  private baseNameMap = new Map<string, LayerBaseComponent>();
+  private bases: string[] = [];
   private visibleLayers = new Map<string, LayerRef[]>();
   private layers = new Map<LayerRef, Subscription>();
   private baseLayersChange = new Subject<string>();
@@ -19,8 +17,7 @@ export class LayerService {
   visibleLayers$(base = 'default') {
     return this.baseLayersChange.filter(updatedBase => updatedBase === base)
                                 .map(() => this.getVisibleLayers(base))
-                                .distinctUntilChanged()
-                                .observeOn(async);
+                                .distinctUntilChanged();
   }
 
   getLayers(base = 'default') {
@@ -31,16 +28,16 @@ export class LayerService {
     return [...(this.visibleLayers.get(base) || [])];
   }
 
-  hasVisibleLayers(base = 'default') {
+  hasVisibleLayers(base?: string) {
     return this.getVisibleLayers(base).length > 0;
   }
 
-  closeAll(base = 'default') {
+  closeAll(base?: string) {
     this.getVisibleLayers(base).forEach(layer => layer.close());
   }
 
-  closeTop(base = 'default') {
-    const layer = this.getVisibleLayers(base).slice(-1)[0];
+  closeTop(base?: string) {
+    const layer = this.getVisibleLayers(base).pop();
     if (layer) layer.close();
   }
 
@@ -65,14 +62,14 @@ export class LayerService {
   }
 
   registerBase(layerBase: LayerBaseComponent) {
-    if (layerBase.name && this.baseNameMap.has(layerBase.name)) {
+    if (layerBase.name && this.bases.indexOf(layerBase.name) >= 0) {
       throw 'Duplicate vcl-layer-base: ' + layerBase.name;
     }
-    this.baseNameMap.set(layerBase.name , layerBase);
+    this.bases.push(layerBase.name);
   }
 
   unregisterBase(layerBase: LayerBaseComponent) {
-    this.baseNameMap.delete(layerBase.name);
+    this.bases = this.bases.filter(base => base !== layerBase.name);
   }
 
   ngOnDestroy() {
