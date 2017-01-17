@@ -1,0 +1,9 @@
+<div class="vclContainer vclLayoutHorizontal" style="height:15em">
+  <div style="margin:0.5em" class="vclLayoutFlex" [vcl-busy]="true">
+    Busy container
+  </div>
+  <div style="margin:0.5em" class="vclLayoutFlex" [vcl-busy]="isBusy" busyLabel="Loading...">
+    Busy-on-demand container<br>
+    <button vcl-button (tap)="makeBusy()" label="Make me busy"></button>
+  </div>
+</div>

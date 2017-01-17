@@ -41,6 +41,7 @@ import SLIDER_DEMO from './components/slider/slider.demo';
 import JSS_FORM_DEMO from './components/jss-form/jss-form.demo';
 import INPUT_CONTROL_GROUP from './components/input-control-group/input-control-group.demo';
 import ALERT_DEMO from './components/alert/demo';
+import BUSY_DEMO from './components/busy/demo';
 
 import L10N_DEMO from './components/l10n/l10n.demo';
 import STORE_DEMO from './components/store/store.demo';
@@ -83,7 +84,8 @@ export const DEMO_MODULES: any[] = [
   INPUT_CONTROL_GROUP,
   L10N_DEMO,
   STORE_DEMO,
-  ALERT_DEMO
+  ALERT_DEMO,
+  BUSY_DEMO
 ].map(module => typeof module === 'function' ? module : createDemoModule(module));
 
 
