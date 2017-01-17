@@ -103,7 +103,9 @@ export class ComponentWormhole<T> extends Wormhole {
 
   setData(data?: any) {
     this.data = data;
-    this.initializeComponent();
+    if (this.isConnected) {
+      this.initializeComponent();
+    }
   }
 }
 
