@@ -1,7 +1,5 @@
 <h3>Books</h3>
-<div *ngIf="loading$ | async">Loading...</div>
-<div *ngIf="!(loading$ | async)">
-
+<div [vcl-busy]='loading$ | async' style="min-height: 8em" >
   <div class="vclInputGroup">
     <input vcl-input [(ngModel)]="query">
     <span class="vclInputGroupButton">
@@ -14,3 +12,4 @@
     <li *ngFor="let book of books$ | async ">{{book}}</li>
   </ul>
 </div>
+

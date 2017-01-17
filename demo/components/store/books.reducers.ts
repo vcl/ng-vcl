@@ -26,7 +26,7 @@ function reducer(state = initialState, action: SearchBooksAction | SearchBooksCo
   if (action instanceof SearchBooksAction) {
     return {
       loading: true,
-      books: [],
+      books: [...state.books],
       error: null
     };
   } else if (action instanceof SearchBooksCompleteAction) {
