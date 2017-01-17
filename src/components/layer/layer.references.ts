@@ -44,10 +44,7 @@ export abstract class LayerRef {
       this.setData(data);
     }
 
-    if (!this.visible) {
-      this._visible = true;
-      this.visibilityChange.next(true);
-    }
+    this.setVisibility(true);
 
     this.results = new Subject<any>();
 
