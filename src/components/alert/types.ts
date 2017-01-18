@@ -20,8 +20,8 @@ export enum AlertInput {
 
 export interface AlertOptions {
   text?: string;
-  html?: string;
   title?: string;
+  html?: boolean;
   type?: AlertType;
   showConfirmButton?: boolean;
   showCancelButton?: boolean;
@@ -53,6 +53,7 @@ export interface AlertOptions {
 
 export const ALERT_DEFAULTS: AlertOptions = {
   type: AlertType.None,
+  html: false,
   showConfirmButton: true,
   showCancelButton: false,
   showCloseButton: false,

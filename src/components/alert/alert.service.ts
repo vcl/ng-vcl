@@ -13,38 +13,32 @@ export class AlertService {
     private alertLayerRef: AlertLayer,
   ) { }
 
-  info(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.open(text, title, { type: AlertType.Info }, opts);
+  alert(text: string, opts?: AlertOptions): Observable<AlertResult> {
+    return this.open({ text }, opts);
   }
 
-  success(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.open(text, title, { type: AlertType.Success }, opts);
+  info(text: string, opts?: AlertOptions): Observable<AlertResult> {
+    return this.open({ text, type: AlertType.Info }, opts);
   }
 
-  warning(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.open(text, title, { type: AlertType.Warning }, opts);
+  success(text: string, opts?: AlertOptions): Observable<AlertResult> {
+    return this.open({ text, type: AlertType.Success }, opts);
   }
 
-  error(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.open(text, title, { type: AlertType.Error }, opts);
+  warning(text: string, opts?: AlertOptions): Observable<AlertResult> {
+    return this.open({ text, type: AlertType.Warning }, opts);
   }
 
-  question(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.open(text, title, { type: AlertType.Question, showCancelButton: true }, opts);
+  error(text: string, opts?: AlertOptions): Observable<AlertResult> {
+    return this.open({ text, type: AlertType.Error }, opts);
   }
 
-  open(opts: AlertOptions): Observable<AlertResult>;
-  open(text: string, title?: string, ...opts: AlertOptions[]): Observable<AlertResult>;
-  open(text: string | AlertOptions, title?: string, ...opts: AlertOptions[]): Observable<AlertResult> {
-    let alertOpts: AlertOptions = {};
-    if (typeof text === 'string') {
-      Object.assign(alertOpts, { text, title }, ...opts);
-    } else if (typeof text === 'object' && text) {
-      Object.assign(alertOpts, text, ...opts);
-    } else {
-      throw 'Invalid parameters';
-    }
+  question(text: string, opts?: AlertOptions): Observable<AlertResult> {
+    return this.open({ text, type: AlertType.Question, showCancelButton: true }, opts);
+  }
 
+  open(...opts: AlertOptions[]): Observable<AlertResult> {
+    const alertOpts: AlertOptions = Object.assign({}, ...opts);
     return this.alertLayerRef.open({alertOpts});
   }
 

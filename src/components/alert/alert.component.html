@@ -11,8 +11,8 @@
       <span class="vclIcon vclNotificationIcon" [ngClass]="iconClass"></span>
     </div>
 
-    <div style="padding-bottom: 1em" [ngClass]="contentAlignmentClass" *ngIf="alert.text">{{alert.text}}</div>
-    <div style="padding-bottom: 1em" [ngClass]="contentAlignmentClass" [innerHtml]="!alert.text && alert.html" *ngIf="alert.html"></div>
+    <div style="padding-bottom: 1em" [ngClass]="contentAlignmentClass" *ngIf="alert.text && !alert.html">{{alert.text}}</div>
+    <div style="padding-bottom: 1em" [ngClass]="contentAlignmentClass" [innerHtml]="alert.text" *ngIf="alert.text && alert.html"></div>
 
     <div style="padding-bottom: 0.5em" *ngIf="alert.input"><alert-input [alert]="alert" (valueChange)="valueChange($event)"></alert-input></div>
 
