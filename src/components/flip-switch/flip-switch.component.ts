@@ -49,6 +49,7 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   keydown(ev) {
     switch (ev.code) {
       case 'Space':
+        ev.preventDefault();
         this.onClick();
         break;
     }

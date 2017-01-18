@@ -37,16 +37,12 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
   @Input()
   uncheckedIcon = 'fa:circle-o';
 
-  @Input()
-  disabled = false;
+  @Input() disabled = false;
 
   @Input('labelPosition')
   labelPosition: 'left' | 'right' = 'right';
 
-  @HostBinding('attr.tabindex')
-  @Input()
-  tabindex = 0;
-
+  @HostBinding() tabindex = 0;
   @Input('checked') checked: boolean = false;
   @Output('change') _checkedChange = new EventEmitter<boolean>();
 
@@ -85,12 +81,16 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
     return !!this.checked;
   }
 
-  @HostListener('keyup', ['$event'])
-  onKeyup(e) {
-    if (e.keyCode === 32) { // space
-      return this.triggerChangeAction(e);
+  @HostListener('keydown', ['$event'])
+  keydown(ev) {
+    switch (ev.code) {
+      case 'Space':
+        this.triggerChangeAction(ev);
+        break;
     }
   }
+
+
 
   @HostListener('click', ['$event'])
   onClick(e) {
