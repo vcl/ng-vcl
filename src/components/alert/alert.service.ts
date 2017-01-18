@@ -14,28 +14,28 @@ export class AlertService {
   ) { }
 
   info(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.show(text, title, { type: AlertType.Info }, opts);
+    return this.open(text, title, { type: AlertType.Info }, opts);
   }
 
   success(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.show(text, title, { type: AlertType.Success }, opts);
+    return this.open(text, title, { type: AlertType.Success }, opts);
   }
 
   warning(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.show(text, title, { type: AlertType.Warning }, opts);
+    return this.open(text, title, { type: AlertType.Warning }, opts);
   }
 
   error(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.show(text, title, { type: AlertType.Error }, opts);
+    return this.open(text, title, { type: AlertType.Error }, opts);
   }
 
   question(text: string, title?: string, opts?: AlertOptions): Observable<AlertResult> {
-    return this.show(text, title, { type: AlertType.Question, showCancelButton: true }, opts);
+    return this.open(text, title, { type: AlertType.Question, showCancelButton: true }, opts);
   }
 
-  show(opts: AlertOptions): Observable<AlertResult>;
-  show(text: string, title?: string, ...opts: AlertOptions[]): Observable<AlertResult>;
-  show(text: string | AlertOptions, title?: string, ...opts: AlertOptions[]): Observable<AlertResult> {
+  open(opts: AlertOptions): Observable<AlertResult>;
+  open(text: string, title?: string, ...opts: AlertOptions[]): Observable<AlertResult>;
+  open(text: string | AlertOptions, title?: string, ...opts: AlertOptions[]): Observable<AlertResult> {
     let alertOpts: AlertOptions = {};
     if (typeof text === 'string') {
       Object.assign(alertOpts, { text, title }, ...opts);

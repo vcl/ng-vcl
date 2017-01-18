@@ -11,11 +11,11 @@ export class MyComponent {
   constructor(private alert: AlertService) {}
 
   message() {
-    this.alert.show('A message');
+    this.alert.open('A message');
   }
 
   deleteFile() {
-    this.alert.show({
+    this.alert.open({
       title: 'Delete file',
       text: 'Do you really want to delete the file?',
       type: AlertType.Question,
@@ -38,10 +38,10 @@ export class MyComponent {
 
 ```ts
 // Simple message
-this.alert.show('A message');
+this.alert.open('A message');
 
 // Message with a title
-this.alert.show('A message', 'A title');
+this.alert.open('A message', 'A title');
 
 // Success message
 this.alert.success('You are successful', 'Success');
@@ -50,12 +50,12 @@ this.alert.success('You are successful', 'Success');
 this.alert.warning('This is a warning', 'Warning');
 
 // HTML Message
-this.alert.show({
+this.alert.open({
   html: `Use <i>as much<i> <a href="//www.w3schools.com/html/">HTML</a> as you <b>like</b>`
 });
 
 // Customized info message
-this.alert.show({
+this.alert.open({
   title: 'Information',
   text: 'This is a bit customized...',
   type: AlertType.Info,
@@ -71,7 +71,7 @@ this.alert.show({
 });
 
 // Confirmation 
-this.alert.show({
+this.alert.open({
   title: 'Delete file',
   text: 'Do you really want to delete the file?',
   type: AlertType.Question,
@@ -86,7 +86,7 @@ this.alert.show({
 });
 
 // Loader without buttons
-this.alert.show({
+this.alert.open({
   title: 'Loading',
   text: 'Hit esc to close loader',
   loader: true,
@@ -95,7 +95,7 @@ this.alert.show({
 
 // Handling async data
 this.alert
-    .show({
+    .open({
       text: 'Determine your user agent?',
       loaderOnConfirm: true,
       showCancelButton: true
@@ -109,7 +109,7 @@ this.alert
     });
 
 // With an input element
-this.alert.show({
+this.alert.open({
   text: 'What is your name?',
   input: AlertInput.Text,
   confirmButtonLabel: 'Next',
@@ -125,7 +125,7 @@ this.alert.show({
 
 // Retry 
 this.alert
-    .show({
+    .open({
       text: 'Fetch data?',
       loaderOnConfirm: true,
       showCancelButton: true
@@ -133,7 +133,7 @@ this.alert
     .switchMap(result => {
       return http.get('http://some.api/').retryWhen(errors => {
         return errors.switchMap(err => {
-          return this.alert.show({
+          return this.alert.open({
             text: 'Retry?',
             type: AlertType.Warning,
             showCancelButton: true,
