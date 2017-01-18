@@ -6,7 +6,6 @@ import { Component, Input, Output, EventEmitter, Directive, TemplateRef, Element
 import { TemplateWormhole } from './../../directives/wormhole/wormhole';
 import { LayerService } from './layer.service';
 import { LayerRef } from './layer.references';
-// TODO: Remove wormholeIndisposable
 
 @Component({
   selector: 'vcl-layer-base',

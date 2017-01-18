@@ -28,35 +28,53 @@ function async(data: any, error: boolean | Function): Observable<any> {
 })
 export class AlertDemoComponent {
 
-  constructor(private alert: AlertService, private http: Http) {}
+  constructor(private as: AlertService, private http: Http) {}
 
 
   message() {
-    this.alert.show('A message');
+    this.as.alert('A message');
   }
 
   messageWithTitle() {
-    this.alert.show('A message', 'A title');
-  }
-
-  success() {
-    this.alert.success('You are successful', 'Success');
-  }
-
-  warning() {
-    this.alert.warning('This is a warning', 'Warning');
-  }
-
-  htmlMessage() {
-    this.alert.show({
-      html: `Use <i>as much<i> <a href="//www.w3schools.com/html/">HTML</a> as you <b>like</b>`
+    this.as.alert('A message', {
+      title: 'A title'
     });
   }
 
   info() {
-    this.alert.show({
-      title: 'Information',
+    this.as.info('This is an information', {
+      title: 'An information'
+    });
+  }
+
+  success() {
+    this.as.success('You are successful', {
+      title: 'A success'
+    });
+  }
+
+  warning() {
+    this.as.warning('This is a warning', {
+      title: 'A warning'
+    });
+  }
+
+  error() {
+    this.as.error('This is an error', {
+      title: 'An error'
+    });
+  }
+
+  htmlMessage() {
+    this.as.alert(`Use <i>as much<i> <a href="//www.w3schools.com/html/">HTML</a> as you <b>like</b>`, {
+      html: true
+    });
+  }
+
+  custom() {
+    this.as.open({
       text: 'This is a bit customized...',
+      title: 'Information',
       type: AlertType.Info,
       showCloseButton: true,
       showCancelButton: true,
@@ -71,23 +89,23 @@ export class AlertDemoComponent {
   }
 
   question() {
-    this.alert.show({
-      title: 'Delete file',
+    this.as.open({
       text: 'Do you really want to delete the file?',
+      title: 'Delete file?',
       type: AlertType.Question,
       showCloseButton: true,
       showCancelButton: true,
       cancelButtonLabel: 'No',
       confirmButtonLabel: 'Yes'
     }).subscribe((result) => {
-      this.alert.success('File deleted');
+      this.as.success('File deleted');
     }, err => {
-      this.alert.error('Reason: ' + err.reason , 'File not deleted');
+      this.as.error('Reason: ' + err.reason , 'File not deleted');
     });
   }
 
   loader() {
-    this.alert.show({
+    this.as.open({
       title: 'Loading',
       text: 'Hit esc to close loader',
       loader: true,
@@ -96,8 +114,8 @@ export class AlertDemoComponent {
   }
 
   async() {
-    this.alert
-        .show({
+    this.as
+        .open({
           text: 'Determine your user agent?',
           loaderOnConfirm: true,
           showCancelButton: true
@@ -105,14 +123,14 @@ export class AlertDemoComponent {
         .switchMap(result => {
           return async(window.navigator.userAgent, false);
         }).subscribe(ip => {
-          this.alert.info(ip, 'Your user agent');
+          this.as.info(ip, 'Your user agent');
         }, err => {
-          this.alert.error('Could not determine user agent');
+          this.as.error('Could not determine user agent');
         });
   }
 
   inputText() {
-    this.alert.show({
+    this.as.open({
       text: 'What is your name?',
       input: AlertInput.Text,
       confirmButtonLabel: 'Next',
@@ -123,8 +141,8 @@ export class AlertDemoComponent {
         return true;
       }
     }).subscribe(result => {
-      this.alert.info('Hello ' + result.value);
-    }, this.alert.noop);
+      this.as.info('Hello ' + result.value);
+    }, this.as.noop);
   }
 
   retry() {
@@ -135,8 +153,8 @@ export class AlertDemoComponent {
       return fails <= 2;
     });
 
-    this.alert
-        .show({
+    this.as
+        .open({
           text: 'Show current time? (Fails twice)',
           loaderOnConfirm: true,
           showCancelButton: true
@@ -144,7 +162,7 @@ export class AlertDemoComponent {
         .switchMap(result => {
           return fakeAsync.retryWhen(errors => {
             return errors.switchMap(err => {
-              return this.alert.show({
+              return this.as.open({
                 text: 'Retry?',
                 type: AlertType.Warning,
                 showCancelButton: true,
@@ -154,9 +172,9 @@ export class AlertDemoComponent {
           });
         })
         .subscribe(time => {
-          this.alert.info(time, 'Time');
+          this.as.info(time, 'Time');
         }, err => {
-          this.alert.error(String(err ? err.reason : err), 'Error');
+          this.as.error(String(err ? err.reason : err), 'Error');
         });
   }
 

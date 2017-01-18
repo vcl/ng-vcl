@@ -32,6 +32,9 @@ export class DirectiveLayerRef extends LayerRef {
   @Input()
   gutterPadding: boolean = false;
 
+  @Input()
+  customClass: string = null;
+
   constructor(public templateRef: TemplateRef<any>, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
     super();
   }

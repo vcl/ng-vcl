@@ -9,9 +9,9 @@ import { BooksService } from './books.service';
 export class StoreComponent  {
   constructor(private books: BooksService, private store: Store) { }
 
-  loading$ = this.books.search$.select<boolean>(search => search.loading);
-  books$ = this.books.search$.select<any[]>(search => search.books).map(books => books.map(book => book.volumeInfo.title));
-  error$ = this.books.search$.select<any>(search => search.error);
+  loading$ = this.books.search$.select(search => search.loading);
+  books$ = this.books.search$.select(search => search.books).map(books => books.map(book => book.volumeInfo.title));
+  error$ = this.books.search$.select(search => search.error);
 
   query: string;
 

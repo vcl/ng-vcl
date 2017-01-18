@@ -1,6 +1,7 @@
 <div *ngFor="let layerRef of layerRefs; let i = index;">
   <div 
-    class="vclLayer" 
+    class="vclLayer"
+    [ngClass]="layerRef.customClass"
     [class.vclTransparent]="layerRef.transparent"
     [class.vclLayerFill]="layerRef.fill"
     [class.vclLayerStickToBottom]="layerRef.stickToBottom"

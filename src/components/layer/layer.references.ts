@@ -22,11 +22,11 @@ export abstract class LayerRef {
   base: string = 'default';
   modal: boolean = false;
   offClickClose: boolean = true;
-
   transparent: boolean = false;
   fill: boolean = false;
   stickToBottom: boolean = false;
   gutterPadding: boolean = false;
+  customClass: string = null;
 
   wormhole: Wormhole;
 

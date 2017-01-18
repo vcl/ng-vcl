@@ -11,13 +11,13 @@ export class MyComponent {
   constructor(private alert: AlertService) {}
 
   message() {
-    this.alert.show('A message');
+    this.alert.success('Done!');
   }
 
   deleteFile() {
-    this.alert.show({
-      title: 'Delete file',
+    this.alert.open({
       text: 'Do you really want to delete the file?',
+      title: 'Delete file',
       type: AlertType.Question,
       showCloseButton: true,
       showCancelButton: true,
@@ -33,29 +33,29 @@ export class MyComponent {
 }
 ```
 
-
 ### Examples:
 
 ```ts
 // Simple message
-this.alert.show('A message');
+this.alert.open({
+  text: 'A message',
+  title: 'A title'
+});
 
 // Message with a title
-this.alert.show('A message', 'A title');
-
-// Success message
-this.alert.success('You are successful', 'Success');
-
-// a Warning
-this.alert.warning('This is a warning', 'Warning');
+this.alert.open({
+  text: 'A message',
+  title: 'A title'
+});
 
 // HTML Message
-this.alert.show({
-  html: `Use <i>as much<i> <a href="//www.w3schools.com/html/">HTML</a> as you <b>like</b>`
+this.alert.open({
+  text: `Use <i>as much<i> <a href="//www.w3schools.com/html/">HTML</a> as you <b>like</b>`.
+  html: true
 });
 
 // Customized info message
-this.alert.show({
+this.alert.open({
   title: 'Information',
   text: 'This is a bit customized...',
   type: AlertType.Info,
@@ -71,7 +71,7 @@ this.alert.show({
 });
 
 // Confirmation 
-this.alert.show({
+this.alert.open({
   title: 'Delete file',
   text: 'Do you really want to delete the file?',
   type: AlertType.Question,
@@ -86,7 +86,7 @@ this.alert.show({
 });
 
 // Loader without buttons
-this.alert.show({
+this.alert.open({
   title: 'Loading',
   text: 'Hit esc to close loader',
   loader: true,
@@ -95,7 +95,7 @@ this.alert.show({
 
 // Handling async data
 this.alert
-    .show({
+    .open({
       text: 'Determine your user agent?',
       loaderOnConfirm: true,
       showCancelButton: true
@@ -109,7 +109,7 @@ this.alert
     });
 
 // With an input element
-this.alert.show({
+this.alert.open({
   text: 'What is your name?',
   input: AlertInput.Text,
   confirmButtonLabel: 'Next',
@@ -125,7 +125,7 @@ this.alert.show({
 
 // Retry 
 this.alert
-    .show({
+    .open({
       text: 'Fetch data?',
       loaderOnConfirm: true,
       showCancelButton: true
@@ -133,7 +133,7 @@ this.alert
     .switchMap(result => {
       return http.get('http://some.api/').retryWhen(errors => {
         return errors.switchMap(err => {
-          return this.alert.show({
+          return this.alert.open({
             text: 'Retry?',
             type: AlertType.Warning,
             showCancelButton: true,
@@ -149,6 +149,17 @@ this.alert
     });
 ```
 
+### Some helper methods
+
+```ts
+alert(text: string, opts?: AlertOptions); // Just the message
+info(text: string, opts?: AlertOptions); // Message with { type: AlertType.Info }
+success(text: string, opts?: AlertOptions); // Message with { type: AlertType.Success }
+warning(text: string, opts?: AlertOptions); // Message with { type: AlertType.Warning }
+error(text: string, opts?: AlertOptions); // Message with { type: AlertType.Error }
+question(text: string, opts?: AlertOptions); // Message with { type: AlertType.Question, showCancelButton: true }
+```
+
 ### API
 
 #### AlertOptions:
@@ -158,8 +169,8 @@ All properties are optional
 | Name                    | Type           | Default         | Description
 | ----------------------- | -------------- | --------------- | --------------
 | `text`                  | string         |                 | The main message
-| `html`                  | string         |                 | The main message as html
 | `title`                 | string         |                 | A title
+| `html`                  | boolean        | false           | Treats the main message as html when `true`
 | `type`                  | AlertType      | None            | The type. Defines color and icon.
 | `showConfirmButton`     | boolean        | true            | Show the confirmation button
 | `showCancelButton`      | boolean        | false           | Show the cancel button
