@@ -128,7 +128,12 @@ export class SelectComponent implements ControlValueAccessor {
       case 'ArrowUp':
         this.expanded = true;
         break;
+      case 'Space':
+        this.expanded = !this.expanded;
+        break;
       case 'Tab':
+        if (!this.expanded)
+          this.me.nativeElement.blur();
       case 'Escape':
         this.expanded = false;
         break;
@@ -137,14 +142,12 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener('tap', ['$event'])
   doTap(ev) {
-    console.log('onTap');
     this.expanded = !this.expanded;
   }
 
 
   @HostListener('focus', ['$event'])
   async onFocus(event?) {
-    console.log('onFocus');
     await new Promise(res => setTimeout(res, 100));
     this.expanded = true;
     this.dropdown.listenKeys = true;
@@ -153,18 +156,9 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener('blur', ['$event'])
   onBlur(event?) {
-    console.log('onBlur:');
     this.expanded = false;
     this.dropdown.listenKeys = false;
   }
-
-  /*
-    @HostListener('window:click', ['$event'])
-    onOffClick(event) {
-      if (!this.expanded) return;
-      if (!this.me.nativeElement.contains(event.target))
-        this.onBlur();
-    }*/
 
   ngOnInit() { }
 
