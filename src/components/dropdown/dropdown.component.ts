@@ -166,6 +166,10 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   private onChangeCallback: (_: any) => void;
 
   writeValue(v: any): void {
+    if (!v) {
+      this.value = '';
+      return;
+    }
     if (v.toString() != this.value.toString())
       this.value = v;
   }
