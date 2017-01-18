@@ -28,11 +28,12 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccessor {
 
+  @HostBinding() tabindex = 0;
+
   @Input() checkedIcon: string = 'fa:check-square-o';
   @Input() uncheckedIcon: string = 'fa:square-o';
   @Input() disabled: boolean = false;
   @Input() labelPosition: 'left' | 'right' = 'right';
-  @Input() tabindex: number = 0;
 
   /**
   Reflects the checked state, `true` is checked and `false` is unchecked
