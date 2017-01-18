@@ -5,7 +5,9 @@ import {
   ChangeDetectionStrategy,
   EventEmitter,
   ViewChild,
-  forwardRef
+  forwardRef,
+  HostBinding,
+  HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -23,6 +25,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class FlipSwitchComponent implements ControlValueAccessor {
 
+  @HostBinding() tabindex = 0;
+
   @Input('onLabel') onLabel: string = 'On';
   @Input('offLabel') offLabel: string = 'Off';
   @Input('value') value: boolean = false;
@@ -39,6 +43,15 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   onClick() {
     this.value = !this.value;
     this.change$.emit(this.value);
+  }
+
+  @HostListener('keydown', ['$event'])
+  keydown(ev) {
+    switch (ev.code) {
+      case 'Space':
+        this.onClick();
+        break;
+    }
   }
 
   /**
