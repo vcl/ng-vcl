@@ -4,7 +4,8 @@ import {
   ViewChild,
   forwardRef,
   HostListener,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  HostBinding
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -25,7 +26,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SliderComponent implements ControlValueAccessor {
-
+  @HostBinding() tabindex = 0;
 
   @Input('value') value: number = 0;
   @Input('min') min: number;
@@ -62,6 +63,7 @@ export class SliderComponent implements ControlValueAccessor {
     const valueLeft = this.value - this.min;
     const delta = rangeLength / valueLeft;
     this.percentLeftKnob = 100 / delta;
+    return this.percentLeftKnob;
   }
   percentToValue(per: number): number {
     const rangeLength = this.max - this.min;
@@ -130,10 +132,66 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
 
+
+  moveToPoint(direction: 'left' | 'right' = 'right') {
+    const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob());
+    const currentPoint = this.scalePoints
+      .find(p => p.percent == currentPointValue);
+    const i = this.scalePoints.indexOf(currentPoint);
+    let nextPoint;
+    if (direction == 'right') {
+      let nextI = i + 1;
+      if (!this.scalePoints[nextI]) nextI = this.scalePoints.length - 1;
+      nextPoint = this.scalePoints[nextI];
+    } else {
+      let nextI = i - 1;
+      if (nextI < 0) nextI = 0;
+      nextPoint = this.scalePoints[nextI];
+    }
+    this.value = this.percentToValue(nextPoint.percent);
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  }
+
+
+  moveValue(direction: 'left' | 'right' = 'right') {
+    let newValue;
+    if (direction == 'right')
+      newValue = this.value + 1;
+    else newValue = this.value - 1;
+
+    if (newValue < this.min) newValue = this.min;
+    if (newValue > this.max) newValue = this.max;
+
+    this.value = newValue;
+    this.calculatePercentLeftKnob();
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  }
+
+
+  @HostListener('keydown', ['$event'])
+  keydown(ev) {
+    switch (ev.code) {
+      case 'ArrowLeft':
+        if (this.stepsOnly) this.moveToPoint('left');
+        else this.moveValue('left');
+        ev.preventDefault();
+        break;
+      case 'ArrowRight':
+        if (this.stepsOnly) this.moveToPoint('right');
+        else this.moveValue('right');
+        ev.preventDefault();
+        break;
+      case 'Space':
+        this.moveToPoint('right');
+        ev.preventDefault();
+        break;
+    }
+  }
+
+
   lastPercentLeftKnob: number;
   firstPan: boolean = true;
   onPan(ev) {
-
     if (this.firstPan) {
       this.firstPan = false;
       this.lastPercentLeftKnob = this.percentLeftKnob;
