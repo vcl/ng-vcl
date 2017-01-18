@@ -1,6 +1,6 @@
 import { Component, HostListener, ViewChild, Inject } from '@angular/core';
 import { LayerService, LayerRef } from './../../../src/index';
-import { SomeLayer } from './some.component';
+import { FooLayer } from './foo.layer';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -9,7 +9,7 @@ export class LayerDemoComponent {
 
   constructor(
     private layer: LayerService,
-    private componentLayerRef: SomeLayer,
+    private fooLayerRef: FooLayer
   ) {}
 
   // Close the top layer when escape is pressed
@@ -27,8 +27,8 @@ export class LayerDemoComponent {
     this.layerModal.open();
   }
 
-  openComponentLayer() {
-    this.componentLayerRef.open({
+  openFooLayer() {
+    this.fooLayerRef.open({
       title: 'Component Layer'
     }).subscribe(data => {
       // Layer sends data

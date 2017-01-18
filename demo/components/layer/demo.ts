@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { VCLLayerModule, VCLButtonModule, VCLWormholeModule } from './../../../src/index';
 import { DemoComponent } from './../demo/demo.component';
 import { LayerDemoComponent } from './demo.component';
-import { SomeLayer, SomeComponent } from './some.component';
+import { FooLayer, FooComponent } from './foo.layer';
 import { LayerDemoCanDeactivateGuard } from './demo.guard';
 
 const PATH = 'layer';
@@ -14,7 +14,7 @@ const LABEL = 'Layer';
   imports: [
     BrowserModule,
     VCLLayerModule.withConfig({
-      layers: [SomeLayer]
+      layers: [ FooLayer ]
     }),
     VCLWormholeModule,
     VCLButtonModule,
@@ -41,14 +41,14 @@ const LABEL = 'Layer';
             type: 'pre',
             content: require("!highlight-loader?raw=true&lang=ts!./demo.guard.ts")
           },
-          'some.component.html': {
+          'foo.layer.html': {
             type: 'pre',
-            content: require("!highlight-loader?raw=true&lang=html!./some.component.html")
+            content: require("!highlight-loader?raw=true&lang=html!./foo.layer.html")
           },
-          'some.component.ts': {
+          'foo.layer.ts': {
             type: 'pre',
-            content: require("!highlight-loader?raw=true&lang=ts!./some.component.ts")
-          },
+            content: require("!highlight-loader?raw=true&lang=ts!./foo.layer.ts")
+          }
         },
       },
       canDeactivate: [LayerDemoCanDeactivateGuard],
@@ -58,11 +58,11 @@ const LABEL = 'Layer';
     LayerDemoCanDeactivateGuard,
   ],
   entryComponents: [
-    SomeComponent
+    FooComponent
   ],
   declarations: [
     LayerDemoComponent,
-    SomeComponent
+    FooComponent
   ]
 })
 export default class LayerDemoModule {
