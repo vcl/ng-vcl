@@ -1,9 +1,7 @@
-<div class="vclFlipSwitch" [class.vclFlipSwitchPressed]="value" touch-action="pan-y" role="button" aria-pressed="true" aria-labelledby="fs-label-0" (tap)="onClick()">
-  <label class="vclFlipSwitchLabel" id="fs-label-0">
-    <div class="vclFlipSwitchTrack">
-      <div class="vclFlipSwitchActive" aria-hidden="false">{{onLabel}}</div>
-      <div class="vclFlipSwitchInactive" aria-hidden="true">{{offLabel}}</div>
-    </div>
-    <div class="vclFlipSwitchKnob"></div>
-  </label>
-</div>
+<label class="vclFlipSwitchLabel">
+  <div class="vclFlipSwitchTrack">
+    <div class="vclFlipSwitchActive" [attr.aria-hidden]="!value">{{onLabel}}</div>
+    <div class="vclFlipSwitchInactive" [attr.aria-hidden]="value">{{offLabel}}</div>
+  </div>
+  <div class="vclFlipSwitchKnob"></div>
+</label>

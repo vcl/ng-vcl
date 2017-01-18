@@ -21,7 +21,14 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'vcl-flip-switch',
   templateUrl: 'flip-switch.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  host: {
+    '[class.vclFlipSwitch]': 'true',
+    '[class.vclFlipSwitchPressed]': 'value',
+    '[attr.role]': '"button"',
+    '[attr.aria-pressed]': 'value',
+    '[attr.touch-action]': '"pan-y"'
+  }
 })
 export class FlipSwitchComponent implements ControlValueAccessor {
 
@@ -40,6 +47,7 @@ export class FlipSwitchComponent implements ControlValueAccessor {
     });
   }
 
+  @HostListener('tap', ['$event'])
   onClick() {
     this.value = !this.value;
     this.change$.emit(this.value);
