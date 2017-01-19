@@ -103,8 +103,19 @@ export class ComponentWormhole<T> extends Wormhole {
 
   setData(data?: any) {
     this.data = data;
-    if (this.isConnected) {
-      this.initializeComponent();
+    if (this.isConnected && this.data && typeof this.data === 'object') {
+      // TODO: Change detection is not triggering
+      // this.compRef.changeDetectorRef.markForCheck();
+      // this.compRef.changeDetectorRef.detectChanges();
+
+      // Workaround
+      // if call markForCheck on component instance or reinitialize component
+      if ((this.compRef.instance as any).markForCheck ) {
+        Object.assign(this.compRef.instance, this.data);
+        (this.compRef.instance as any).markForCheck();
+      } else {
+        this.initializeComponent();
+      }
     }
   }
 }
