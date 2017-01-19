@@ -132,12 +132,6 @@ export class ConnectWormholeDirective {
     return !!this.wormhole;
   }
 
-  // TODO: workaround. Does not disconnect the view when destroying the element when true
-  // ngOnDestroy is called before the animations are fully traversed. This would remove the wormhole's ContentChild
-  // before its host is removed from the DOM
-  @Input('wormholeIndisposable')
-  indisposable: boolean = false;
-
   @Input('connectWormhole')
   set connectWormhole(wormhole: Wormhole) {
     if (this.isAttached) {
@@ -158,7 +152,7 @@ export class ConnectWormholeDirective {
   }
 
   ngOnDestroy() {
-    if (this.isAttached && !this.indisposable) {
+    if (this.isAttached) {
       this.detach();
     }
   }

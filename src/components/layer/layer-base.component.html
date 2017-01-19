@@ -11,7 +11,7 @@
     [@boxState]="layerRef.visible" 
     >
     <div class="vclLayerBox" [class.vclLayerGutterPadding]="layerRef.gutterPadding" [style.pointer-events]="'all'" (off-click)="offClick(layerRef)">
-      <div [connectWormhole]="layerRef.wormhole" [wormholeIndisposable]="true"></div>
+      <div [connectWormhole]="layerRef.wormhole"></div>
     </div>
   </div>
   <div *ngIf="layerRef.modal" class="vclLayerCover" [@layerState]="layerRef.visible" [style.z-index]="zIndex + (i*10+0)"></div>

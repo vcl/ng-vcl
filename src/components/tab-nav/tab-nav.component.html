@@ -13,11 +13,11 @@
   </div>
   <div *ngIf="tabsHaveContent" class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
     <div role="tabpanel" class="vclTabPanel" *ngFor="let tab of tabs; let i = index">
-      <div *ngIf="selectedTabIndex===i && tab.content" [connectWormhole]="tab.content" [wormholeIndisposable]="true"></div>
+      <div *ngIf="selectedTabIndex===i && tab.content" [connectWormhole]="tab.content"></div>
     </div>
   </div>
   <div *ngIf="!tabsHaveContent && content" role="tabpanel" class="vclTabPanel">
-    <div [connectWormhole]="content" [wormholeIndisposable]="true"></div>
+    <div [connectWormhole]="content"></div>
   </div>
 </div>
 
