@@ -1,4 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/operator/filter';
 import 'rxjs/operator/map';
 import 'rxjs/operator/distinctUntilChanged';
@@ -14,7 +15,7 @@ export class LayerService {
   private layers = new Map<LayerRef, Subscription>();
   private baseLayersChange = new Subject<string>();
 
-  visibleLayers$(base = 'default') {
+  visibleLayers$(base = 'default'): Observable<LayerRef[]> {
     return this.baseLayersChange.filter(updatedBase => updatedBase === base)
                                 .map(() => this.getVisibleLayers(base))
                                 .distinctUntilChanged();

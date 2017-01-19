@@ -1,4 +1,4 @@
-import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector } from '@angular/core';
+import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentType } from './../../core/interfaces';
 import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
@@ -41,7 +41,7 @@ const LAYER_BOOTSTRAP: any[] = [{
   ]
 })
 export class VCLLayerModule {
-  static withConfig(config: VCLLayerConfig) {
+  static withConfig(config: VCLLayerConfig): ModuleWithProviders {
     const layers = config.layers || [];
     return {
       ngModule: VCLLayerModule,
