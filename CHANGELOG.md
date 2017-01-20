@@ -3,6 +3,12 @@
 ## master
 
 ### Breaking Changes
+
+### Changes
+
+##  e3c8f1f (2017-01-17)
+
+### Breaking Changes
 - vcl-dropdown: see [readme](https://github.com/ng-vcl/ng-vcl/blob/master/src/components/dropdown/README.md)
   - "select"-event is now "change"
   - the select-event returns now an value-array instead of the items
