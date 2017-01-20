@@ -1,5 +1,7 @@
 <vcl-month-picker
   id="myStyledMonthPicker"
+  [locales]="locales"
+  [dateOptions]="dateOptions"
   [prevYearAvailable]="true"
   [nextYearAvailable]="true"
   [colors]="['#50E3C2', '#FF3CE6']">
@@ -22,7 +24,6 @@
     [expandable]="true"
     [(expanded)]="expanded"
     [(currentYear)]="currentYear"
-    [useShortNames]="true"
     [monthsPerRow]="4"
     (select)="onSelect($event)"
     (prevYearBtnTap)="onPreviousYearTap()"

@@ -7,10 +7,11 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
 })
 export class MonthPickerComponent {
   private static readonly TAG: string = 'MonthPickerComponent';
+  private static readonly MonthCount: number = 12;
 
   private now: Date = new Date();
 
-  private months: any[];
+  private months: string[];
 
   private yearMeta: any = {};
 
@@ -31,30 +32,35 @@ export class MonthPickerComponent {
   @Output() deselect = new EventEmitter<string>();
 
   // Customization
-  @Input() colors: string[];
   @Input() tabindex: number = 0;
   @Input() monthsPerRow: number = 3;
-  @Input() useShortNames: boolean = false;
-  @Input() useAvailableMonths: boolean = false;
+
+  @Input() colors: string[];
+  @Input() locales: string | string[] = 'en-US';
+  @Input() dateOptions: any = { month: 'short' };
 
   @Input() expandable: boolean = false;
   @Input() prevYearAvailable: boolean = false;
   @Input() nextYearAvailable: boolean = false;
-  @Input() minYear: number = Number.MIN_SAFE_INTEGER;
-  @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
+  @Input() useAvailableMonths: boolean = false;
 
-  @Input() closeBtnIcon: string = "fa:times";
-  @Input() prevYearBtnIcon: string = "fa:chevron-left";
-  @Input() nextYearBtnIcon: string = "fa:chevron-right";
+  @Input() closeBtnIcon: string = 'fa:times';
+  @Input() prevYearBtnIcon: string = 'fa:chevron-left';
+  @Input() nextYearBtnIcon: string = 'fa:chevron-right';
 
   @Input() maxSelectableItems: number;
   @Input() minSelectableItems: number = 1;
+  @Input() minYear: number = Number.MIN_SAFE_INTEGER;
+  @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
   //
 
   ngOnInit(): void {
-    // TODO: Localize here instead of in the template so outside components
-    // when calling month-picker.getMonth(month) get calendar's localized and used label.
-    this.months = this.useShortNames ? MonthPickerComponent.monthNamesShort : MonthPickerComponent.monthNames;
+    const d: Date = new Date(this.now.getFullYear(), 0);
+    this.months = Array(MonthPickerComponent.MonthCount).fill(0).map(x => {
+      const month: string = d.toLocaleString(this.locales, this.dateOptions);
+      d.setMonth(d.getMonth() + 1);
+      return month;
+    });
 
     if (!this.maxSelectableItems) {
       this.maxSelectableItems = this.colors && this.colors.length || 1;
@@ -73,7 +79,7 @@ export class MonthPickerComponent {
   }
 
   private createYearMeta(year: number): any[] {
-    return this.months.map(monthMeta => ({}));
+    return this.months.map(x => ({}));
   }
 
   public selectMonth(year: number, month: number): void {
@@ -114,7 +120,7 @@ export class MonthPickerComponent {
   }
 
   public isMonthInBounds(month: number): boolean {
-    return month > -1 && month < this.months.length;
+    return month > -1 && month < MonthPickerComponent.MonthCount;
   }
 
   public isYearInBounds(year: number): boolean {
@@ -260,22 +266,4 @@ export class MonthPickerComponent {
       }, this.getYearMeta(year)[month]);
     }
   }
-
-  public static readonly monthNames: string[] = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-
-  public static readonly monthNamesShort: string[] = MonthPickerComponent.monthNames.
-    map(name => name.substr(0, 3));
 }

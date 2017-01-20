@@ -16,6 +16,12 @@ export class MonthPickerComponent {
 
   nextYearAvailable: boolean = false;
 
+  locales: string = 'lv-LV';
+
+  dateOptions: any = {
+    month: 'long'
+  };
+
   constructor() { }
 
   ngOnInit() { }
