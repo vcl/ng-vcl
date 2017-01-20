@@ -2,12 +2,17 @@
 
 ## master
 
+## 2017-01-20 - [71a9050](https://github.com/ng-vcl/ng-vcl/commit/71a90504c2d422599bf7bf289c54ea795641459c)
+
 ### Breaking Changes
-
+- vcl-month-picker:
+  - removed `@Input() useShortNames: boolean`, month names now default to short names, to use long month names, see `dateOptions` changes (have to pass in `{ month: 'long' }`)
+  
 ### Changes
-
-##  e3c8f1f (2017-01-17)
-
+- vcl-month-picker:
+  - introduced `@Input() locales: input: string | string[]`, see [Date.toLocaleDateString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString) first parameter
+  - introduced `@Input() dateOptions: any`, see [Date.toLocaleDateString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString) second parameter
+  
 ### Breaking Changes
 - vcl-dropdown: see [readme](https://github.com/ng-vcl/ng-vcl/blob/master/src/components/dropdown/README.md)
   - "select"-event is now "change"
@@ -26,7 +31,7 @@
 
 ### Bugfixes
 
-## 15979eb (2016-12-14)
+## 2016-12-14 - 15979eb
 
 ### Breaking Changes
 - angular >= 2.3.0 required   
