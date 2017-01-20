@@ -39,7 +39,7 @@ export class GrowlDemoComponent {
       html: true,
       backgroundColor: 'black',
       textColor: 'white',
-      position: GrowlPosition.Top,
+      position: this.position,
       showCloseButton: false,
       timeout: 10000
     });
