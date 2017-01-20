@@ -32,7 +32,7 @@ export class LayerBaseComponent {
   ngOnInit() {
     this.layerService.registerBase(this);
     this.sub = this.layerService
-                   .visibleLayers$(this.name)
+                   .visibleLayersChange$(this.name)
                    .debounceTime(1) // Minor debounce to avoid flashing when the layerRefs change shortly after each other
                    .subscribe(layerRefs => {
       this.layerRefs = layerRefs;

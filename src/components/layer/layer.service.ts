@@ -13,12 +13,16 @@ export class LayerService {
   private bases: string[] = [];
   private visibleLayers = new Map<string, LayerRef[]>();
   private layers = new Map<LayerRef, Subscription>();
-  private baseLayersChange = new Subject<string>();
+  private layerChange = new Subject<LayerRef>();
 
-  visibleLayers$(base = 'default'): Observable<LayerRef[]> {
-    return this.baseLayersChange.filter(updatedBase => updatedBase === base)
-                                .map(() => this.getVisibleLayers(base))
-                                .distinctUntilChanged();
+  layerChange$(base = 'default'): Observable<LayerRef> {
+    return this.layerChange.filter(layer => layer.base === base);
+  }
+
+  visibleLayersChange$(base = 'default'): Observable<LayerRef[]> {
+    return this.layerChange.filter(layer => layer.base === base)
+                           .map(() => this.getVisibleLayers(base))
+                           .distinctUntilChanged();
   }
 
   getLayers(base = 'default') {
@@ -49,7 +53,7 @@ export class LayerService {
     this.layers.set(layerRef, layerRef.visible$.subscribe(visible => {
       const layerRefs = this.visibleLayers.get(layerRef.base) || [];
       this.visibleLayers.set(layerRef.base, visible ? [...layerRefs, layerRef] : layerRefs.filter(lr => lr !== layerRef));
-      this.baseLayersChange.next(layerRef.base);
+      this.layerChange.next(layerRef);
     }));
   }
 
