@@ -14,6 +14,7 @@
 ### Changes:
   - added vcl-alert
   - added vcl-busy
+  - added vcl-growl
   - added vcl-file-input
   - select no longer uses tether
 

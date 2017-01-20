@@ -1,0 +1,16 @@
+<vcl-button-group [(selectedIndex)]="position" mode="single">
+  <button vcl-button label="Top Right"></button>
+  <button vcl-button label="Top"></button>
+  <button vcl-button label="Top Left"></button>
+  <button vcl-button label="Bottom Right"></button>
+  <button vcl-button label="Bottom"></button>
+  <button vcl-button label="Bottom Left"></button>
+</vcl-button-group>
+
+<br><br>
+
+<button vcl-button (tap)="info()" label="An info message"></button><br><br>
+<button vcl-button (tap)="success()" label="A success message"></button><br><br>
+<button vcl-button (tap)="warning()" label="A warning"></button><br><br>
+<button vcl-button (tap)="error()" label="An error message"></button><br><br>
+<button vcl-button (tap)="custom()" label="A custom message"></button><br><br>

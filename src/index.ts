@@ -38,6 +38,7 @@ import { VCLJssFormModule } from './components/jss-form/jss-form.module';
 import { VCLInputControlGroupModule } from './components/input-control-group/input-control-group.module';
 import { VCLAlertModule } from './components/alert/alert.module';
 import { VCLBusyModule } from './components/busy/busy.module';
+import { VCLGrowlModule } from './components/growl/growl.module';
 
 export * from './core/index';
 
@@ -70,6 +71,7 @@ export * from './components/jss-form/jss-form.module';
 export * from './components/input-control-group/input-control-group.module';
 export * from './components/alert/alert.module';
 export * from './components/busy/busy.module';
+export * from './components/growl/growl.module';
 
 export * from './directives/off-click/off-click.module';
 export * from './directives/wormhole/wormhole.module';
@@ -116,7 +118,10 @@ export * from './store/index';
     VCLJssFormModule,
     VCLInputControlGroupModule,
     VCLAlertModule,
-    VCLBusyModule
+    VCLBusyModule,
+    VCLGrowlModule
   ]
 })
 export class VCLModule { }
+
+
