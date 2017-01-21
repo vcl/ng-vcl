@@ -205,12 +205,12 @@ export class ButtonComponent extends ObservableComponent {
 
   @HostListener('tap', ['$event'])
   onTap(e) {
-    this.handleGhostClick(InteractionType.Tap, event);
+    this.handleGhostClick(InteractionType.Tap, e);
   }
 
   @HostListener('click', ['$event'])
   onClick(e) {
-    this.handleGhostClick(InteractionType.Click, event);
+    this.handleGhostClick(InteractionType.Click, e);
   }
 
   private handleGhostClick(type: InteractionType, e) {
