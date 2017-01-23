@@ -96,6 +96,8 @@ export class SelectComponent implements ControlValueAccessor {
 
   // options
   @Input('items') items: any[] = [];
+
+
   @ContentChildren(SelectOptionComponent) templateItems: QueryList<SelectOptionComponent>;
 
   // multi-select
@@ -109,6 +111,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   @Output('change') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
 
+  focused: boolean = false;
   me: ElementRef;
   constructor(me: ElementRef, private zone: NgZone) {
     this.zone = zone;
@@ -148,14 +151,15 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener('focus', ['$event'])
   async onFocus(event?) {
+    this.focused = true;
     await new Promise(res => setTimeout(res, 100));
-    this.expanded = true;
     this.dropdown.listenKeys = true;
   }
 
 
   @HostListener('blur', ['$event'])
   onBlur(event?) {
+    this.focused = false;
     this.expanded = false;
     this.dropdown.listenKeys = false;
   }
