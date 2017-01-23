@@ -4,6 +4,7 @@ import { OnInit, OnDestroy, Directive, Input,
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { includes } from '../../utils';
 
 // Invalid input type. Using one of these will throw an error
 const INPUT_INVALID_TYPES = [
@@ -38,7 +39,7 @@ export class InputComponent implements OnInit, OnDestroy {
   subs = [];
 
   constructor(private elRef: ElementRef) {
-    if (INPUT_INVALID_TYPES.includes(this.type))
+    if (includes(INPUT_INVALID_TYPES, this.type))
       throw new Error('type not allowed for vcl-input: ' + this.type);
   }
 

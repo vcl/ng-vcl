@@ -3,6 +3,7 @@ import {
   EventEmitter, ContentChild, TemplateRef, OnInit,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { includes } from '../../utils';
 
 @Component({
   selector: 'vcl-metalist',
@@ -62,7 +63,7 @@ export class MetalistComponent implements OnInit {
 
   selectItem(item: any) {
     // console.log('selectItem');
-    if (!this.items.includes(item)) return false;
+    if (!includes(this.items, item)) return false;
 
     let itemIndex = this.items.indexOf(item);
 
