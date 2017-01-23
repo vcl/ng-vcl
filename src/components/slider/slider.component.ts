@@ -5,7 +5,8 @@ import {
   forwardRef,
   HostListener,
   ChangeDetectionStrategy,
-  HostBinding
+  HostBinding,
+  NgZone
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -38,7 +39,7 @@ export class SliderComponent implements ControlValueAccessor {
 
   @ViewChild('scale') scale;
 
-  constructor() {
+  constructor(private zone: NgZone) {
   }
 
   ngAfterContentInit() {
@@ -139,16 +140,16 @@ export class SliderComponent implements ControlValueAccessor {
       .find(p => p.percent == currentPointValue);
     const i = this.scalePoints.indexOf(currentPoint);
     let nextPoint;
+    let nextI = direction == 'right' ? i + 1 : i - 1;
     if (direction == 'right') {
-      let nextI = i + 1;
       if (!this.scalePoints[nextI]) nextI = this.scalePoints.length - 1;
       nextPoint = this.scalePoints[nextI];
     } else {
-      let nextI = i - 1;
       if (nextI < 0) nextI = 0;
       nextPoint = this.scalePoints[nextI];
     }
     this.value = this.percentToValue(nextPoint.percent);
+    this.calculatePercentLeftKnob();
     !!this.onChangeCallback && this.onChangeCallback(this.value);
   }
 
