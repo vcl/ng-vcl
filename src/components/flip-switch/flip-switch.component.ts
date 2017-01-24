@@ -61,6 +61,18 @@ export class FlipSwitchComponent implements ControlValueAccessor {
         ev.preventDefault();
         this.onClick();
         break;
+      case 'ArrowLeft':
+        if (!this.value) {
+          ev.preventDefault();
+          this.onClick();
+        }
+        break;
+      case 'ArrowRight':
+        if (this.value) {
+          ev.preventDefault();
+          this.onClick();
+        }
+        break;
     }
   }
 
