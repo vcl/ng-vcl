@@ -1,20 +1,24 @@
 <ul class="vclDropdown"
   #listbox
   [class.vclOpen]="expanded"
-  [attr.role]="ariaRole"
+  [attr.role]="'listbox'"
   [attr.tabindex]="tabindex"
   [attr.aria-multiselectable]="maxSelectableItems > 1"
-  [attr.aria-expanded]="expanded">
+  [attr.aria-expanded]="expanded"
+  [style.position]="'static'"
+  >
+  <!--  (mousedown) is used because
+        can't use tap because it will break scrolling on mobiles
+  -->
   <li
+    (mousedown)="selectItem(item)"
     *ngFor="let item of items"
     class="vclDropdownItem"
     [class.vclHighlighted]="item.marked"
     [class.vclSelected]="item.selected"
     [attr.aria-selected]="item.selected"
     [class.vclDisabled]="item.disabled"
-    role="menuitem"
-    tabindex="-1"
-    (tap)="selectItem(item)"
+    role="option"
     [ngClass]="item.class">
     <div class="vclDropdownItemLabel">
       {{item.label}}
