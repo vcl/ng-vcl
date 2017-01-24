@@ -17,8 +17,7 @@ import {
   HostBinding
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-
+import { includes } from '../../utils';
 
 /**
  * see
@@ -237,7 +236,7 @@ export class SelectComponent implements ControlValueAccessor {
     // displayValue for multiselect
     if (newValue.length) {
       this.displayValue = this.items
-        .filter(i => this.value.includes(i.value))
+        .filter(i => includes(this.value, i.value))
         .map(i => i.label);
     }
   }

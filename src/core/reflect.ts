@@ -1,6 +1,14 @@
 import { Type, AnimationEntryMetadata, Component } from '@angular/core';
 declare var Reflect: any;
 
+export function defineMetadata(key: string, value, target) {
+  Reflect.defineMetadata(key, value, target);
+}
+
+export function getMetadata(key: string, target) {
+  return Reflect.getMetadata(key, target);
+}
+
 export function setAnnotation(cls: Type<{}>, key: string, value: any) {
   const annotation = getAnnotation(cls);
   // Change metadata
@@ -9,8 +17,7 @@ export function setAnnotation(cls: Type<{}>, key: string, value: any) {
   Reflect.defineMetadata('annotations', [ new Component(annotation) ], cls);
 }
 
-
-function getAnnotation(cls: Type<{}>): Component {
+export function getAnnotation(cls: Type<{}>): Component {
   // Annotation is an array with 1 entry
   // TODO: Check if always one entry
   const clsAnnotations = Reflect.getMetadata('annotations', cls);
