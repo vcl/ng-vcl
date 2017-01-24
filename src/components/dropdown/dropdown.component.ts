@@ -171,8 +171,10 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       this.value = '';
       return;
     }
-    if (v.toString() != this.value.toString())
-      this.value = v;
+    if (
+      typeof this.value === 'undefined' ||
+      v.toString() != this.value.toString()
+    ) this.value = v;
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
