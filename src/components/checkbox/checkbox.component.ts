@@ -81,10 +81,12 @@ export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccesso
     return !!this.checked;
   }
 
-  @HostListener('keyup', ['$event'])
-  onKeyup(e) {
-    if (e.keyCode === 32) { // space
-      return this.triggerChangeAction(e);
+  @HostListener('keydown', ['$event'])
+  onKeyup(ev) {
+    switch (ev.code) {
+      case 'Space':
+        this.triggerChangeAction(ev);
+        break;
     }
   }
 
