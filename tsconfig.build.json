@@ -9,8 +9,14 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "dist",
     "types": [
-      "core-js",
       "requirejs"
+    ],
+    "lib": [
+      "dom",
+      "es6",
+      "dom.iterable",
+      "scripthost",
+      "es2016.array.include"
     ]
   },
   "include": [

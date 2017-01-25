@@ -1,7 +1,6 @@
 import { Component, Input, Output, ChangeDetectionStrategy,
   EventEmitter, forwardRef, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { includes } from '../../utils';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -36,7 +35,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     if (!Array.isArray(v)) v = [v];
     this.items
       .forEach(i => {
-        if (includes(v, i.value)) i.selected = true;
+        if (v.includes(i.value)) i.selected = true;
         else i.selected = false;
       });
     this.onChange();
