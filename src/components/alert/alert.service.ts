@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable, Inject, ComponentRef } from '@angular/core';
-import { LayerService, LayerRef } from './../layer/layer.module';
+import { LayerService } from './../layer/layer.module';
 
 import { AlertOptions, AlertType, AlertResult } from './types';
 import { AlertLayer } from './alert.component';

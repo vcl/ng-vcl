@@ -8,7 +8,6 @@ import { ComponentWormhole } from './../../directives/wormhole/wormhole';
 import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, ViewEncapsulation, trigger, state, transition, animate, style } from '@angular/core';
 import { GrowlOptions, GROWL_DEFAULTS, GrowlType, TYPE_CLASS_MAP } from './types';
 import { Growl } from './growl';
-import { LayerRef, LayerService } from './../layer/layer.module';
 
 @Component({
   templateUrl: 'growl.component.html',
@@ -33,28 +32,30 @@ import { LayerRef, LayerService } from './../layer/layer.module';
       // TODO: leave animation not working
       // layer needs some changes so it destroys the wormhole comp instead of removing it
 
-      // transition('void => *', [
-      //   animate('200ms ease-in')
-      // ]),
-      // transition('* => void', [
-      //   animate('200ms ease-out', style({ opacity: 0 }))
-      // ]),
+      transition('void => *', [
+        animate('200ms ease-in')
+      ]),
+      transition('* => void', [
+        animate('200ms ease-out', style({ opacity: 0 }))
+      ]),
       transition('visible <=> hovered', animate('300ms'))
-    ])
-    // trigger('enter', [
+    ]),
+    trigger('enter', [
       // state('*', style({opacity: 1})),
       // transition(':enter', [
       //   style({opacity: 0}),
       //   animate('0.2s 0.5s ease-out')
       // ]),
-      // transition(':leave', [
-      //   animate(5000, style({opacity: 0}))
-      // ])
-  // ])
-  ]
-  // host: {
-  //   '[@enter]': 'true'
-  // },
+      transition(':leave', [
+        animate(5000, style({opacity: 0}))
+      ])
+    ])
+  ],
+  host: {
+        '[class.testxx]': 'true',
+
+    '[@enter]': 'true'
+  },
 })
 export class GrowlComponent  {
   @Input()
