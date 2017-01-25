@@ -8,7 +8,6 @@ export class WormholeService {
   bootstrapReadyResolve;
 
   constructor(private appRef: ApplicationRef, private componentFactoryResolver: ComponentFactoryResolver, private defaultInjector: Injector) {
-
     this.bootstrapReady = new Promise((resolve) => {
       this.bootstrapReadyResolve = resolve;
     });
@@ -63,5 +62,4 @@ export class WormholeService {
   getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
     return (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
   }
-
 }

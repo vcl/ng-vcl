@@ -1,9 +1,11 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, ModuleWithProviders } from '@angular/core';
-import { TemplateWormhole, ComponentWormhole, ConnectWormholeDirective, Wormhole } from './wormhole';
+import { TemplateWormhole, ComponentWormhole, Wormhole } from './wormhole';
+import { TemplateWormholeRef,  ComponentWormholeRef, WormholeRef } from './wormhole.ref';
+import { ConnectWormholeDirective } from './connect-wormhole.directive';
 import { WormholeService } from './wormhole.service';
 import { ComponentType } from './../../core/index';
 
-export { Wormhole, ConnectWormholeDirective, WormholeService, TemplateWormhole, ComponentWormhole };
+export { TemplateWormhole, ComponentWormhole, Wormhole, TemplateWormholeRef, ComponentWormholeRef, WormholeRef, ConnectWormholeDirective, WormholeService };
 
 @NgModule({
   exports: [ConnectWormholeDirective, TemplateWormhole],

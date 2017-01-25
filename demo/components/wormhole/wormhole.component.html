@@ -6,8 +6,8 @@ The template wormhole is defined above the hr
 <div [connectWormhole]="myFirstTemplateWormhole">
 </div>
 <hr>
-And this is a component rendered as a component wormhole 
-<div [connectWormhole]="myFirstComponentWormhole">
-</div>
+<div [connectWormhole]="componentWormhole" [wormholeData]="componentWormholeData"></div>
+<div #target></div>
+
 
 
