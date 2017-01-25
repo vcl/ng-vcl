@@ -28,7 +28,7 @@ It can be created as a template using the `vcl-layer directive or from a compone
 
 #### Component layer
 ```js
-import { ComponentLayerRef } from 'ng-vcl';
+import { Layer, LayerRef, ComponentLayerRef } from 'ng-vcl';
 
 // This is just a common component
 @Component({ ... })
@@ -50,11 +50,13 @@ export class MyComponent {
 }
 
 // This is the reference class of the layer
-// ComponentLayerRef is a subclass of LayerRef
-@Injectable()
-export class MyLayer extends ComponentLayerRef<MyComponent> { 
+@Layer({
   component = MyComponent; // The component for the layer
+  // See vcl-layer Properties for more options
   modal = true;
+})
+export class MyLayer extends ComponentLayerRef<MyComponent> { 
+  ...
 }
 ```
 
@@ -63,7 +65,7 @@ To make a component layer injectable, it must be registered.
 ```js
 @NgModule({
   imports: [ 
-    MyLayer.withConfig({ layers: [ MyLayer ] }), 
+    VCLLayer.withConfig({ layers: [ MyLayer ] }), 
     ... 
   ],
   entryComponents: [ MyComponent, ... ],
@@ -124,14 +126,6 @@ class LayerRef {
   close(data?: any); // Closes the layer
   send(data: any); // Send data to the subscriber
   readonly visible: boolean; // true when the layer is visible
-
-  // See vcl-layer properties for description
-  modal: boolean;
-  offClickClose: boolean;
-  transparent: boolean;
-  fill: boolean;
-  stickToBottom: boolean;
-  gutterPadding: boolean;
 }
 
 interface LayerData {
@@ -139,7 +133,6 @@ interface LayerData {
 }
 
 class LayerService {
-  getLayers(): LayerRef[]; // Get all of layers
   getVisibleLayers(): LayerRef[]; // Get the visible layers
   hasVisibleLayers(): boolean; // True when at least one layer is visible
   closeAll(); // Close all layers

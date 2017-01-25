@@ -1,36 +1,33 @@
 import { Injectable, Injector } from '@angular/core';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/operator/filter';
 import 'rxjs/operator/map';
 import 'rxjs/operator/distinctUntilChanged';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { LayerBaseComponent } from './layer-base.component';
-import { LayerRef } from './layer.references';
+import { LayerRef } from './layer-ref';
 
 @Injectable()
 export class LayerService {
-  private bases: string[] = [];
-  private visibleLayers = new Map<string, LayerRef[]>();
-  private layers = new Map<LayerRef, Subscription>();
-  private layerChange = new Subject<LayerRef>();
 
-  layerChange$(base = 'default'): Observable<LayerRef> {
-    return this.layerChange.filter(layer => layer.base === base);
-  }
+  private bases = new Map<string, LayerBaseComponent>();
 
-  visibleLayersChange$(base = 'default'): Observable<LayerRef[]> {
-    return this.layerChange.filter(layer => layer.base === base)
-                           .map(() => this.getVisibleLayers(base))
-                           .distinctUntilChanged();
-  }
+  private layerRegister = new ReplaySubject<{
+    register: boolean;
+    ref: LayerRef;
+  }>();
 
-  getLayers(base = 'default') {
-    return Array.from(this.layers.keys()).filter(li => li.base === base);
+  getLayers$(base = 'default') {
+    return this.layerRegister.asObservable().filter(l => l.ref.opts.base === base);
   }
 
   getVisibleLayers(base = 'default') {
-    return [...(this.visibleLayers.get(base) || [])];
+    if (!this.bases.has(base)) {
+      throw 'Invalid base';
+    }
+    return [...this.bases.get(base).visibleLayers];
   }
 
   hasVisibleLayers(base?: string) {
@@ -46,38 +43,31 @@ export class LayerService {
     if (layer) layer.close();
   }
 
-  register(layerRef: LayerRef) {
-    if (!(layerRef instanceof LayerRef)) {
-      throw 'Invalid layerRef';
+  register(layer: LayerRef) {
+    if (!(layer instanceof LayerRef)) {
+      throw 'Invalid layer';
     }
-    this.layers.set(layerRef, layerRef.visible$.subscribe(visible => {
-      const layerRefs = this.visibleLayers.get(layerRef.base) || [];
-      this.visibleLayers.set(layerRef.base, visible ? [...layerRefs, layerRef] : layerRefs.filter(lr => lr !== layerRef));
-      this.layerChange.next(layerRef);
-    }));
+    this.layerRegister.next({
+      ref: layer,
+      register: true
+    });
   }
 
-  unregister(layerRef: LayerRef) {
-    layerRef.close();
-    const sub = this.layers.get(layerRef);
-    if (sub && !sub.closed) {
-      sub.unsubscribe();
-    }
-    this.layers.delete(layerRef);
+  unregister(layer: LayerRef) {
+    this.layerRegister.next({
+      ref: layer,
+      register: false
+    });
   }
 
   registerBase(layerBase: LayerBaseComponent) {
-    if (layerBase.name && this.bases.indexOf(layerBase.name) >= 0) {
+    if (Array.from(this.bases.keys()).includes(layerBase.name)) {
       throw 'Duplicate vcl-layer-base: ' + layerBase.name;
     }
-    this.bases.push(layerBase.name);
+    this.bases.set(layerBase.name, layerBase);
   }
 
   unregisterBase(layerBase: LayerBaseComponent) {
-    this.bases = this.bases.filter(base => base !== layerBase.name);
-  }
-
-  ngOnDestroy() {
-    this.layers.forEach((sub, layerRef) => this.unregister(layerRef));
+    this.bases.delete(layerBase.name);
   }
 }

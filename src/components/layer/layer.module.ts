@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ComponentType } from './../../core/interfaces';
 import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
 import { VCLWormholeModule, WormholeService } from '../../directives/wormhole/wormhole.module';
-import { DirectiveLayerRef } from './layer.directive';
-import { ComponentLayerRef } from './layer.component';
 import { LayerBaseComponent } from './layer-base.component';
 import { LayerService } from './layer.service';
-import { LayerRef, LayerData } from './layer.references';
+import { LayerRef, LayerData, LayerOptions } from './layer-ref';
+import { LayerWrapperComponent } from './layer-wrapper.component';
+import { ComponentLayerRef, Layer, getComponentLayerOpts } from './layer-ref.component';
+import { LayerRefDirective } from './layer-ref.directive';
 
-export {LayerBaseComponent, DirectiveLayerRef, ComponentLayerRef, LayerRef, LayerData, LayerService}
+export {LayerBaseComponent, LayerRefDirective, ComponentLayerRef, LayerRef, LayerData, LayerService, Layer, LayerOptions }
 
 export interface VCLLayerConfig {
   layers?: Type<ComponentLayerRef<any>>[];
@@ -28,9 +29,9 @@ const LAYER_BOOTSTRAP: any[] = [{
 
 @NgModule({
   imports: [CommonModule, VCLWormholeModule, VCLOffClickModule],
-  exports: [LayerBaseComponent, DirectiveLayerRef],
-  declarations: [LayerBaseComponent, DirectiveLayerRef],
-  entryComponents: [LayerBaseComponent],
+  exports: [LayerBaseComponent, LayerRefDirective],
+  declarations: [LayerBaseComponent, LayerRefDirective, LayerWrapperComponent],
+  entryComponents: [LayerBaseComponent, LayerWrapperComponent],
   providers: [
     LayerService,
     ...LAYER_BOOTSTRAP,
@@ -42,18 +43,25 @@ const LAYER_BOOTSTRAP: any[] = [{
 })
 export class VCLLayerModule {
   static withConfig(config: VCLLayerConfig): ModuleWithProviders {
-    const layers = config.layers || [];
+    const layerClasses = config.layers || [];
     return {
       ngModule: VCLLayerModule,
       providers: [
-        ...layers,
+        ...layerClasses,
         {
           provide: APP_BOOTSTRAP_LISTENER,
           multi: true,
-          deps: [LayerService, Injector, ...layers ],
-          useFactory: (layerService, injector, ...layers: ComponentLayerRef<any>[]) => {
+          deps: [LayerService, ...layerClasses ],
+          useFactory: (layerService: LayerService, ...layers: ComponentLayerRef<any>[]) => {
             return () => {
-              layers.forEach(layer => layer.initialize(layerService));
+              layers.forEach(layer => {
+                const opts = getComponentLayerOpts(layer);
+                if (!opts) {
+                  throw 'Invalid layer class in VCLLayerConfig.layers';
+                }
+                layer._setOptions(opts);
+                layerService.register(layer);
+              });
             };
           }
         }

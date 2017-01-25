@@ -1,25 +1,27 @@
+import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/operator/debounceTime';
-import { Component, Input, Output, EventEmitter, Directive, TemplateRef, ElementRef, trigger, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { TemplateWormhole } from './../../directives/wormhole/wormhole';
+import { WormholeRef, ComponentWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
-import { LayerRef } from './layer.references';
+import { LayerRef } from './layer-ref';
+import { LayerWrapperComponent } from './layer-wrapper.component';
+
+const WrapperWormhole = new ComponentWormhole(LayerWrapperComponent);
 
 @Component({
   selector: 'vcl-layer-base',
-  templateUrl: 'layer-base.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('boxState', []),
-    trigger('layerState', [])
-  ],
+  template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayerBaseComponent {
 
-  layerRefs: LayerRef[] = [];
+  layerMap = new Map<LayerRef, WormholeRef>();
+  layerSubscriptions = new Map<LayerRef, Subscription>();
   sub: Subscription;
+
+  visibleLayers: LayerRef[] = [];
 
   @Input()
   public name: string = 'default';
@@ -27,31 +29,60 @@ export class LayerBaseComponent {
   @Input()
   public zIndex: number = 1000;
 
-  constructor(private layerService: LayerService, private cdRef: ChangeDetectorRef) { }
+  constructor(private layerService: LayerService, private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     this.layerService.registerBase(this);
+
     this.sub = this.layerService
-                   .visibleLayersChange$(this.name)
-                   .debounceTime(1) // Minor debounce to avoid flashing when the layerRefs change shortly after each other
-                   .subscribe(layerRefs => {
-      this.layerRefs = layerRefs;
-      this.cdRef.markForCheck();
+                   .getLayers$(this.name)
+                   .subscribe(l => {
+                     if (l.register) {
+                       this.registerLayer(l.ref);
+                     } else {
+                       this.unregisterLayer(l.ref);
+                     }
+                   });
+  }
+
+  getLayers() {
+    return Array.from(this.layerMap.keys());
+  }
+
+  registerLayer(layer: LayerRef) {
+    const wrapperWormholeRef = WrapperWormhole.create(this.viewContainerRef);
+    this.layerMap.set(layer, wrapperWormholeRef);
+
+    const sub = layer.state$.subscribe(data => {
+      if (layer.visible && !wrapperWormholeRef.isConnected) {
+        this.visibleLayers = [...this.visibleLayers, layer ];
+        wrapperWormholeRef.connect(null, {
+          layer,
+          zIndex: this.zIndex + this.viewContainerRef.length,
+          data
+        });
+      } else if (layer.visible && wrapperWormholeRef.isConnected) {
+        wrapperWormholeRef.setData({data});
+      } else if (!layer.visible && wrapperWormholeRef.isConnected) {
+        this.visibleLayers = this.visibleLayers.filter(l => l !== layer);
+        wrapperWormholeRef.disconnect();
+      }
     });
+
+    this.layerSubscriptions.set(layer, sub);
+  }
+
+  unregisterLayer(layer: LayerRef) {
+    layer.close();
+    const sub = this.layerSubscriptions.get(layer);
+    if (sub && !sub.closed) sub.unsubscribe();
+    this.layerMap.delete(layer);
   }
 
   ngOnDestroy() {
+    debugger;
     this.layerService.unregisterBase(this);
-    this.layerRefs.forEach(layer => layer.close());
-    if (this.sub && !this.sub.closed) {
-      this.sub.unsubscribe();
-    }
-  }
-
-  offClick(layerRef: LayerRef) {
-    // Only the top layer may trigger an offClick
-    if (this.layerRefs.length > 0 && this.layerRefs[this.layerRefs.length - 1] === layerRef) {
-      layerRef.offClick();
-    }
+    this.layerMap.forEach(layer => layer.disconnect());
+    if (this.sub && !this.sub.closed) this.sub.unsubscribe();
   }
 }

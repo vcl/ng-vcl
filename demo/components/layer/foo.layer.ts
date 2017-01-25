@@ -1,4 +1,4 @@
-import { ComponentLayerRef, LayerRef } from './../../../src/index';
+import { Layer, LayerRef, ComponentLayerRef } from './../../../src/index';
 import { Component, Input, Injectable } from '@angular/core';
 
 @Component({
@@ -20,8 +20,8 @@ export class FooComponent {
   }
 }
 
-@Injectable()
-export class FooLayer extends ComponentLayerRef<FooComponent> {
-  component = FooComponent;
-  modal = true;
-}
+@Layer({
+  component: FooComponent,
+  modal: true
+})
+export class FooLayer extends ComponentLayerRef<FooComponent> { }

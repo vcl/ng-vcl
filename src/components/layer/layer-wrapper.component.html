@@ -1,0 +1,16 @@
+<div 
+  class="vclLayer"
+  [ngClass]="opts.customClass"
+  [class.vclTransparent]="opts.transparent"
+  [class.vclLayerFill]="opts.fill"
+  [class.vclLayerStickToBottom]="opts.stickToBottom"
+  [style.pointer-events]="'none'" 
+  [style.z-index]="zIndex + 1"
+  role="dialog" 
+  [@boxState]="visible" 
+  >
+  <div class="vclLayerBox" [class.vclLayerGutterPadding]="opts.gutterPadding" [style.pointer-events]="'all'" (off-click)="offClick()">
+    <div #layerContent></div>
+  </div>
+</div>
+<div *ngIf="opts.modal" class="vclLayerCover" [@layerState]="visible" [style.z-index]="zIndex"></div>
