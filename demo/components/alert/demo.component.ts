@@ -123,7 +123,9 @@ export class AlertDemoComponent {
         .switchMap(result => {
           return async(window.navigator.userAgent, false);
         }).subscribe(ip => {
-          this.as.info(ip, 'Your user agent');
+          this.as.info(ip, {
+            title: 'Your user agent'
+          });
         }, err => {
           this.as.error('Could not determine user agent');
         });
