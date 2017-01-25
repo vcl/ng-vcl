@@ -2,6 +2,13 @@
 
 ## master
 
+### Breaking Changes
+- wormhole:
+  - Changed ComponentWormhole mechanics
+- vcl-layer:
+  - Added @Layer directives
+  - Removed ComponentLayer subclass props
+
 ## 2017-01-20 - [71a9050](https://github.com/ng-vcl/ng-vcl/commit/71a90504c2d422599bf7bf289c54ea795641459c)
 
 ### Breaking Changes
