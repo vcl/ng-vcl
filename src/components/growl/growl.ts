@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/observable/merge';
-import 'rxjs/observable/timer';
-import 'rxjs/operator/first';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/skipWhile';
 import { Subject } from 'rxjs/Subject';
 import { GrowlOptions, GROWL_DEFAULTS, GrowlType, TYPE_CLASS_MAP } from './types';
 

@@ -28,7 +28,7 @@ function webpackConfig(options) {
 
   return {
     cache: true,
-    devtool:  isProd ? false : 'source-map',
+    devtool: 'source-map',
     entry: {
       main:      './demo/main',
       lib:    './demo/vendor',
@@ -97,6 +97,7 @@ function webpackConfig(options) {
           screw_ie8: true,
           warnings: false
         },
+        sourceMap: true,
         comments: false //prod
       }) : null
     ].filter(plugin=>plugin!==null),

@@ -46,7 +46,7 @@ function webpackConfig(options) {
         '@angular/plattform-browser': ngExternal('plattform-browser'),
         'hammerjs': {root: 'Hammer', commonjs: 'hammerjs', commonjs2: 'hammerjs', amd: 'hammerjs'},
         'tether': {root: 'Tether', commonjs: 'tether', commonjs2: 'tether', amd: 'tether'},
-        'jsoneditor': {root: 'JSONEditor', commonjs: 'jsoneditor', commonjs2: 'jsoneditor', amd: 'jsoneditor'},
+        'jsoneditor/dist/jsoneditor.js': {root: 'JSONEditor', commonjs: 'jsoneditor', commonjs2: 'jsoneditor', amd: 'jsoneditor'},
         'jsonschema': { commonjs: 'jsonschema', commonjs2: 'jsonschema', amd: 'jsonschema'},
       },
       rxjsExternal

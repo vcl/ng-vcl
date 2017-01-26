@@ -6,7 +6,8 @@ import {
   OnInit, OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
 
 const Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema'; when typings available
 let VALIDATOR;
