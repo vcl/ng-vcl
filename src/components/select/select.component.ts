@@ -89,6 +89,7 @@ export class SelectComponent implements ControlValueAccessor {
   @ViewChild('dropdown') dropdown;
   @ViewChild('select') select;
 
+
   @Input('value') value: any;
   @Input('expanded') expanded: boolean = false;
 
@@ -116,12 +117,6 @@ export class SelectComponent implements ControlValueAccessor {
     this.me = me;
   }
 
-  expand() {
-    this.expanded = !this.expanded;
-    this.calculateDropDirection();
-  }
-
-
   @HostListener('keydown', ['$event'])
   keydown(ev) {
     switch (ev.code) {
@@ -141,22 +136,43 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  @HostListener('tap', ['$event'])
-  doTap(ev) {
+
+
+  toggle() {
+    console.log('.toggle()');
     this.expanded = !this.expanded;
+  }
+  open() {
+    console.log('.open()');
+    this.expanded = true;
+  }
+  close() {
+    console.log('.close()');
+    this.expanded = false;
+  }
+  reFocus() {
+    console.log('.refocus()');
+    this.me.nativeElement.focus();
   }
 
 
   @HostListener('focus', ['$event'])
   async onFocus(event?) {
-    this.focused = true;
-    await new Promise(res => setTimeout(res, 100));
+    console.log('focus');
+    if (!this.focused) this.focused = true;
+    await new Promise(res => setTimeout(res, 0));
     this.dropdown.listenKeys = true;
+    console.log(this.expanded);
   }
 
 
+  /**
+   * when the element losses focus, the dropdown should close
+   * and should not listen to the key-downs anymore
+   */
   @HostListener('blur', ['$event'])
   onBlur(event?) {
+    console.log('blur');
     this.focused = false;
     this.expanded = false;
     this.dropdown.listenKeys = false;
@@ -181,9 +197,14 @@ export class SelectComponent implements ControlValueAccessor {
     this.reDisplayValue(this.value);
 
     this.changeEE.subscribe(newValue => {
+      console.log('changeEE');
       this.reDisplayValue(newValue);
       // propagate form-change
       !!this.onChangeCallback && this.onChangeCallback(newValue);
+
+      // refocus
+      setTimeout(() => this.reFocus(), 0);
+
     });
   }
 
@@ -194,6 +215,7 @@ export class SelectComponent implements ControlValueAccessor {
    * calculate if the dropdown should be displayed above or under the select-input
    */
   async calculateDropDirection() {
+    console.log('.calculateDropDirection()');
     const position = this.me.nativeElement.getBoundingClientRect();
     const screenHeight = window.innerHeight
       || document.documentElement.clientHeight
@@ -254,12 +276,13 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   public selectItem(item: any) {
+    console.log('.selectItem()');
     this.dropdown.selectItem(item);
   }
 
   onSelect(newValue: any[]) {
     this.value = newValue;
-    if (this.maxSelectableItems == 1) this.expanded = false;
+    if (this.maxSelectableItems <= 1) this.expanded = false;
     this.changeEE.emit(this.value);
   }
 

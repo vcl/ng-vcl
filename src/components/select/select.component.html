@@ -5,11 +5,11 @@
   [style.marginBottom]="0"
   >
 
-  <div class="vclInput" readonly *ngIf="!displayValueTokens()" [class.vclSelected]="focused">
+  <div class="vclInput" readonly *ngIf="!displayValueTokens()" [class.vclSelected]="focused" (tap)="toggle($event)">
     {{displayValue}}
   </div>
 
-  <div class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly *ngIf="displayValueTokens()" [class.vclSelected]="focused">
+  <div class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly *ngIf="displayValueTokens()" [class.vclSelected]="focused" (tap)="toggle($event)">
     <div class="vclTokenContainer">
       <ng-container *ngFor="let item of dropdown.items">
         <div *ngIf="item.selected" class="vclToken">
