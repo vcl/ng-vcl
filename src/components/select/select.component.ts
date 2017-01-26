@@ -122,16 +122,16 @@ export class SelectComponent implements ControlValueAccessor {
     switch (ev.code) {
       case 'ArrowDown':
       case 'ArrowUp':
-        this.expanded = true;
+        this.open();
         break;
       case 'Space':
-        this.expanded = !this.expanded;
+        this.toggle();
         break;
       case 'Tab':
         if (!this.expanded)
           this.me.nativeElement.blur();
       case 'Escape':
-        this.expanded = false;
+        this.close();
         break;
     }
   }
@@ -139,30 +139,33 @@ export class SelectComponent implements ControlValueAccessor {
 
 
   toggle() {
-    console.log('.toggle()');
+    // console.log('.toggle()');
     this.expanded = !this.expanded;
+    if (this.expanded)
+      this.calculateDropDirection();
   }
   open() {
-    console.log('.open()');
+    // console.log('.open()');
     this.expanded = true;
+    this.calculateDropDirection();
   }
   close() {
-    console.log('.close()');
+    // console.log('.close()');
     this.expanded = false;
   }
   reFocus() {
-    console.log('.refocus()');
+    // console.log('.refocus()');
     this.me.nativeElement.focus();
   }
 
 
   @HostListener('focus', ['$event'])
   async onFocus(event?) {
-    console.log('focus');
-    if (!this.focused) this.focused = true;
+    // console.log('focus');
+    this.focused = true;
     await new Promise(res => setTimeout(res, 0));
     this.dropdown.listenKeys = true;
-    console.log(this.expanded);
+    // console.log(this.expanded);
   }
 
 
@@ -172,9 +175,9 @@ export class SelectComponent implements ControlValueAccessor {
    */
   @HostListener('blur', ['$event'])
   onBlur(event?) {
-    console.log('blur');
+    // console.log('blur');
+    this.close();
     this.focused = false;
-    this.expanded = false;
     this.dropdown.listenKeys = false;
   }
 
@@ -197,7 +200,7 @@ export class SelectComponent implements ControlValueAccessor {
     this.reDisplayValue(this.value);
 
     this.changeEE.subscribe(newValue => {
-      console.log('changeEE');
+      // console.log('changeEE');
       this.reDisplayValue(newValue);
       // propagate form-change
       !!this.onChangeCallback && this.onChangeCallback(newValue);
@@ -215,7 +218,7 @@ export class SelectComponent implements ControlValueAccessor {
    * calculate if the dropdown should be displayed above or under the select-input
    */
   async calculateDropDirection() {
-    console.log('.calculateDropDirection()');
+    // console.log('.calculateDropDirection()');
     const position = this.me.nativeElement.getBoundingClientRect();
     const screenHeight = window.innerHeight
       || document.documentElement.clientHeight
@@ -228,6 +231,8 @@ export class SelectComponent implements ControlValueAccessor {
     else this.dropDirection = 'bottom';
 
     await new Promise(res => setTimeout(res, 0));
+
+    // console.log(this.dropDirection);
 
     switch (this.dropDirection) {
       case 'top':
@@ -276,7 +281,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   public selectItem(item: any) {
-    console.log('.selectItem()');
+    // console.log('.selectItem()');
     this.dropdown.selectItem(item);
   }
 
