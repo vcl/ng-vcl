@@ -25,6 +25,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[attr.role]': '"radio"',
     '[class.vclCheckbox]': 'true',
     '[class.vclScale130p]': 'true',
+    '[style.userSelect]': '"none"'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
