@@ -80,7 +80,11 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
    * be applied. Maybe this is a bug of ng2?
    */
   // changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  host: {
+    '[style.position]': '"relative"',
+    '[style.display]': '"block"'
+  }
 })
 export class SelectComponent implements ControlValueAccessor {
 
@@ -239,13 +243,14 @@ export class SelectComponent implements ControlValueAccessor {
         this.dropdownTop = -1 *
           (
             this.dropdown.me.nativeElement.children[0].offsetHeight
-            + this.select.nativeElement.offsetHeight
             - 1 // border
             + 0.3 // fix chrome ugly 1-pixel-render
           );
         break;
       case 'bottom':
-        this.dropdownTop = -1.1;
+        this.dropdownTop = -1.1
+          + this.select.nativeElement.offsetHeight;
+
         break;
     }
   }
