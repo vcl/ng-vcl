@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { InputComponent }   from './input.component';
+import { InputDirective }   from './input.directive';
 
 @NgModule({
   imports: [],
-  exports: [InputComponent],
-  declarations: [InputComponent],
+  exports: [InputDirective],
+  declarations: [InputDirective],
   providers: [],
 })
 export class VCLInputModule { }

@@ -1,7 +1,6 @@
 import { OnInit, OnDestroy, Directive, Input,
   EventEmitter, Output, HostListener,
   ElementRef, ViewChild, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -25,7 +24,7 @@ const INPUT_INVALID_TYPES = [
     '[class.vclInput]': 'true',
   }
 })
-export class InputComponent implements OnInit, OnDestroy {
+export class InputDirective implements OnInit, OnDestroy {
 
   @Input('state') state: 'error' | 'warning' | 'success';
   @Input('type') type: string = 'text';
