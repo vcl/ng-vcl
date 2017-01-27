@@ -8,12 +8,10 @@ import { LayerService } from './layer.service';
 import { LayerRef } from './layer-ref';
 import { LayerWrapperComponent } from './layer-wrapper.component';
 
-const WrapperWormhole = new ComponentWormhole(LayerWrapperComponent);
+const LayerWrapperWormhole = new ComponentWormhole(LayerWrapperComponent);
 
-@Component({
+@Directive({
   selector: 'vcl-layer-base',
-  template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayerBaseComponent {
 
@@ -50,7 +48,7 @@ export class LayerBaseComponent {
   }
 
   registerLayer(layer: LayerRef) {
-    const wrapperWormholeRef = WrapperWormhole.create(this.viewContainerRef);
+    const wrapperWormholeRef = LayerWrapperWormhole.create(this.viewContainerRef);
     this.layerMap.set(layer, wrapperWormholeRef);
 
     const sub = layer.state$.subscribe(data => {
@@ -61,6 +59,7 @@ export class LayerBaseComponent {
           zIndex: this.zIndex + this.viewContainerRef.length,
           data
         });
+
       } else if (layer.visible && wrapperWormholeRef.isConnected) {
         wrapperWormholeRef.setData({data});
       } else if (!layer.visible && wrapperWormholeRef.isConnected) {
@@ -86,3 +85,10 @@ export class LayerBaseComponent {
     if (this.sub && !this.sub.closed) this.sub.unsubscribe();
   }
 }
+
+@Component({
+  selector: 'vcl-layer-base-root',
+  template: '<vcl-layer-base></vcl-layer-base>',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class LayerBaseRootComponent { }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentType } from './../../core/interfaces';
 import { VCLOffClickModule } from '../../directives/off-click/off-click.module';
 import { VCLWormholeModule, WormholeService } from '../../directives/wormhole/wormhole.module';
-import { LayerBaseComponent } from './layer-base.component';
+import { LayerBaseComponent, LayerBaseRootComponent } from './layer-base.component';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerData, LayerOptions } from './layer-ref';
 import { LayerWrapperComponent } from './layer-wrapper.component';
@@ -22,7 +22,7 @@ const LAYER_BOOTSTRAP: any[] = [{
   deps: [ WormholeService, LayerService ],
   useFactory: (wormholeService: WormholeService) => {
     return () => {
-      wormholeService.attachComponent(LayerBaseComponent);
+      wormholeService.attachComponent(LayerBaseRootComponent);
     };
   }
 }];
@@ -30,8 +30,8 @@ const LAYER_BOOTSTRAP: any[] = [{
 @NgModule({
   imports: [CommonModule, VCLWormholeModule, VCLOffClickModule],
   exports: [LayerBaseComponent, LayerRefDirective],
-  declarations: [LayerBaseComponent, LayerRefDirective, LayerWrapperComponent],
-  entryComponents: [LayerBaseComponent, LayerWrapperComponent],
+  declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerWrapperComponent],
+  entryComponents: [ LayerBaseRootComponent,  LayerWrapperComponent],
   providers: [
     LayerService,
     ...LAYER_BOOTSTRAP,
