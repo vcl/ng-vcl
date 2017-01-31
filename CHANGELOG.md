@@ -3,8 +3,10 @@
 ## master
 
 ### Breaking Changes
+- offClick
+  - Renamed [off-click] to [offClick]
 - wormhole:
-  - Changed ComponentWormhole mechanics
+  - Refactoring: see [readme](https://github.com/ng-vcl/ng-vcl/commit/3b16c58421d2300c8f79aec674ced4ca31802ef0)
 - vcl-layer:
   - Added @Layer directives
   - Removed ComponentLayer subclass props
