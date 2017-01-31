@@ -1,12 +1,11 @@
 The template wormhole is defined above the hr
-<template wormhole #myFirstTemplateWormhole="wormhole">
+<template #someTemplate>
   But is rendered below
 </template>
 <hr>
-<div [connectWormhole]="myFirstTemplateWormhole">
+<div [wormhole]="someTemplate">
 </div>
 <hr>
-<div [connectWormhole]="componentWormhole" [wormholeData]="componentWormholeData"></div>
 <div #target></div>
 
 

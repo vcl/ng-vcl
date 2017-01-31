@@ -1,8 +1,8 @@
 import { Component, ViewChild, Input, ViewContainerRef } from '@angular/core';
-import { TemplateWormhole, ComponentWormhole, WormholeRef } from './../../../src/directives/wormhole/wormhole.module';
+import { Wormhole, createWormhole } from './../../../src/directives/wormhole/wormhole.module';
 
 @Component({
-  template: '<p>I am a component rendered {{value}}</p>'
+  template: '<p>I am a component. And this is my <b>{{value}}</b></p>'
 })
 export class MyComponent {
   @Input()
@@ -17,34 +17,31 @@ export class WormholeComponent {
 
   // Template wormhole
   @ViewChild('myFirstWormhole')
-  myFirstTemplateWormhole: TemplateWormhole;
+  myFirstTemplateWormhole: any;
 
 
-  // Component wormhole 1
-  componentWormhole = new ComponentWormhole(MyComponent);                 // Create a component wormhole
-  componentWormholeData = { value: 'via the connectWormhole directive' }; // and the initial data
-
-
-  // Component wormhole 2
+  // Component wormhole
 
   // The reference to when connection to a ViewContainerRef
-  compWormholeRef: WormholeRef;
+  componentWormhole: Wormhole;
 
   // This is the target where the component will be rendered
   @ViewChild('target', {read: ViewContainerRef}) target;
 
   ngAfterViewInit() {
     // Create a wormhole 
-    const componentWormhole = new ComponentWormhole(MyComponent);
+    this.componentWormhole = createWormhole(this.target, MyComponent);
     // and connect it
-    this.compWormholeRef = componentWormhole.connect(this.target, {
-      value: 'by connecting to a ViewContainerRef'
+    this.componentWormhole.connect({
+      attrs: {
+        value: 'value'
+      }
     });
   }
 
   ngOnDestroy() {
-    if (this.compWormholeRef) {
-      this.compWormholeRef.disconnect();
+    if (this.componentWormhole) {
+      this.componentWormhole.disconnect();
     }
   }
 }

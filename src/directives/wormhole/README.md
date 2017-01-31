@@ -14,18 +14,18 @@ import { VCLWormholeModule } from 'ng-vcl';
 export class AppComponent {}
 ```
 
-Use the the wormhole directive to create a wormhole template...
+Use the the `wormhole` directive to create a wormhole template...
 ```html
 
-<template wormhole #myFirstWormhole="wormhole">
-  I am a wormhole
+<template #myFirstWormhole>
+  I will be rendered through a wormhole
 </template>
 ```
 
-...and connect it via the connectWormhole directive.
+...and connect it via the wormholeTarget directive.
 The wormhole template is rendered within the element.
 ```html
-<div [connectWormhole]="myFirstWormhole">
+<div [wormhole]="myFirstWormhole">
   <!-- The myFirstWormhole template is rendered here -->
 </div>
 

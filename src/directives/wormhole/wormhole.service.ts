@@ -1,20 +1,17 @@
-import { ApplicationRef, Injectable, ComponentFactoryResolver, Injector, ComponentRef, EmbeddedViewRef } from '@angular/core';
+import { ApplicationRef, Injectable, ComponentFactoryResolver, Injector, ComponentRef, EmbeddedViewRef, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ComponentType } from './../../core/index';
+import { Wormhole, ComponentWormhole, TemplateWormhole } from './wormhole';
 
 @Injectable()
 export class WormholeService {
 
-  bootstrapReady: Promise<any>;
-  bootstrapReadyResolve;
+  private bootstrapReady: Promise<any>;
+  private bootstrapReadyResolve;
 
   constructor(private appRef: ApplicationRef, private componentFactoryResolver: ComponentFactoryResolver, private defaultInjector: Injector) {
     this.bootstrapReady = new Promise((resolve) => {
       this.bootstrapReadyResolve = resolve;
     });
-  }
-
-  ready() {
-    this.bootstrapReadyResolve();
   }
 
   attachComponent<T>(componentClass: ComponentType<T>, node?: HTMLElement) {
@@ -43,7 +40,11 @@ export class WormholeService {
     };
   }
 
-  getNode(node?: HTMLElement) {
+  ready() {
+    this.bootstrapReadyResolve();
+  }
+
+  private getNode(node?: HTMLElement) {
     if (node) {
       return Promise.resolve(node);
     } else {
@@ -59,7 +60,7 @@ export class WormholeService {
     }
   }
 
-  getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
+  private getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
     return (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
   }
 }
