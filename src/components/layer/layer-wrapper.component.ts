@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
-import { Wormhole, WormholeRef } from './../../directives/wormhole/wormhole.module';
+import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Wormhole, ComponentWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerRef, LayerOptions } from './layer-ref';
 
 @Component({
@@ -17,13 +17,13 @@ export class LayerWrapperComponent {
 
   // workaround
   @Input()
-  set data(data) {
-    this._data = data;
-    if (this.wormholeRef) {
-      this.wormholeRef.setData(data);
+  set attrs(attrs) {
+    this._attrs = attrs;
+    if (this.wormhole && this.wormhole instanceof ComponentWormhole) {
+      this.wormhole.setAttributes(attrs);
     }
   }
-  _data: any;
+  _attrs: any;
 
   @Input()
   baseZIndex: number;
@@ -31,7 +31,10 @@ export class LayerWrapperComponent {
   @Input()
   Zindex = 1000;
 
-  wormholeRef: WormholeRef;
+  @Output()
+  offClick = new EventEmitter();
+
+  wormhole: Wormhole;
 
   @ViewChild('layerContent', {read: ViewContainerRef})
   layerContent: ViewContainerRef;
@@ -46,37 +49,36 @@ export class LayerWrapperComponent {
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  markForCheck() {
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
-  }
-
   // TODO: does not trigger
-  // workaround in data setter
+  // workaround in attrs setter
   // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['data']) {
+  //   if (changes['attrs']) {
   //     if (this.wormholeRef) {
-  //       this.wormholeRef.setData(changes['data'].currentValue);
+  //       this.wormholeRef.setAttributes(changes['attrs'].currentValue);
   //     }
   //   }
   // }
 
   ngAfterViewInit() {
-    if (!this.wormholeRef && this.layer) {
-      this.wormholeRef = this.layer.connect(this.layerContent, this._data);
-      this.markForCheck();
+    if (!this.wormhole && this.layer) {
+      this.wormhole = this.layer._createWormhole(this.layerContent);
+      if (this.wormhole && this.wormhole instanceof ComponentWormhole) {
+        this.wormhole.connect({
+          attrs: this._attrs
+        });
+      } else {
+        this.wormhole.connect();
+      }
     }
   }
 
   ngOnDestroy() {
-    if (this.wormholeRef) {
-      this.wormholeRef.disconnect();
+    if (this.wormhole) {
+      this.wormhole.disconnect();
     }
   }
 
-  offClick() {
-    if (this.layer) {
-      this.layer.offClick();
-    }
+  triggerOffClick() {
+    this.offClick.emit();
   }
 }

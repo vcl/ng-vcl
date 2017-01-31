@@ -1,6 +1,6 @@
 import { ViewContainerRef, ReflectiveInjector, Injectable } from '@angular/core';
 import { ComponentType, defineMetadata, getMetadata } from './../../core/index';
-import { ComponentWormholeRef, WormholeRef, ComponentWormhole } from './../../directives/wormhole/wormhole.module';
+import { ComponentWormhole, Wormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerRef, LayerOptions } from './layer-ref';
 import { LayerService } from './layer.service';
 
@@ -17,7 +17,7 @@ export function Layer<T>(opts: ComponentLayerOptions<T>) {
   };
 }
 
-class LayerWormholeRef<T> extends ComponentWormholeRef<T> {
+class LayerWormhole<T> extends ComponentWormhole<T> {
 
   constructor(private layer: ComponentLayerRef<T>, viewContainerRef: ViewContainerRef, component: ComponentType<T>) {
     super(viewContainerRef, component);
@@ -40,8 +40,8 @@ export function getComponentLayerOpts<T>(layerRef: ComponentLayerRef<T>) {
 }
 
 export class ComponentLayerRef<T> extends LayerRef {
-  create(viewContainerRef: ViewContainerRef, initialData?: any) {
+  _createWormhole(viewContainerRef: ViewContainerRef) {
     const opts = getComponentLayerOpts(this);
-    return opts ? new LayerWormholeRef<T>(this, viewContainerRef, opts.component) : null;
+    return opts ? new LayerWormhole<T>(this, viewContainerRef, opts.component) : null;
   }
 }

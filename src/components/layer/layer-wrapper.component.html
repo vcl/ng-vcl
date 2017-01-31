@@ -9,7 +9,7 @@
   role="dialog" 
   [@boxState]="visible" 
   >
-  <div class="vclLayerBox" [class.vclLayerGutterPadding]="opts.gutterPadding" [style.pointer-events]="'all'" (off-click)="offClick()">
+  <div class="vclLayerBox" [class.vclLayerGutterPadding]="opts.gutterPadding" [style.pointer-events]="'all'" (off-click)="triggerOffClick()">
     <div #layerContent></div>
   </div>
 </div>

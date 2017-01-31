@@ -1,7 +1,7 @@
 import { Injectable, ReflectiveInjector, Injector, ViewContainerRef, Directive, Input, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { Wormhole, ComponentWormholeRef, ComponentWormhole, WormholeRef } from './../../directives/wormhole/wormhole.module';
+import { Wormhole, ComponentWormhole } from './../../directives/wormhole/wormhole.module';
 import { ComponentType } from './../../core/index';
 import { LayerService } from './layer.service';
 
@@ -29,7 +29,7 @@ const LAYER_OPTIONS_DEFAULTS: LayerOptions = {
   gutterPadding: false,
 };
 
-export abstract class LayerRef extends Wormhole {
+export abstract class LayerRef {
 
   private results: Subject<any>;
   private stateChange = new Subject<LayerData>();
@@ -84,11 +84,5 @@ export abstract class LayerRef extends Wormhole {
     }
   }
 
-  offClick() {
-    const opts = this.opts;
-    let offClickClose = typeof opts.offClickClose === 'boolean' ? opts.offClickClose : !opts.modal;
-    if (offClickClose) {
-      this.close();
-    }
-  }
+  abstract _createWormhole(viewContainerRef: ViewContainerRef): Wormhole;
 }

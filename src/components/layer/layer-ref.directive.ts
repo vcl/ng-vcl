@@ -1,6 +1,5 @@
-import { TemplateWormholeRef } from './../../directives/wormhole/wormhole.ref';
 import { Input, TemplateRef, ChangeDetectorRef, Directive, ViewContainerRef } from '@angular/core';
-import { WormholeRef } from './../../directives/wormhole/wormhole.module';
+import { Wormhole, TemplateWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerOptions } from './layer-ref';
 
@@ -34,7 +33,7 @@ export class LayerRefDirective extends LayerRef {
   @Input()
   customClass: string;
 
-  constructor(public templateRef: TemplateRef<any>, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
+  constructor(private templateRef: TemplateRef<any>, private layerService: LayerService) {
     super();
   }
 
@@ -57,10 +56,10 @@ export class LayerRefDirective extends LayerRef {
   }
 
   // Wormhole stuff
-  create(viewContainerRef: ViewContainerRef) {
+  _createWormhole(viewContainerRef: ViewContainerRef) {
     if (!viewContainerRef) {
       throw 'viewContainerRef required';
     }
-    return new TemplateWormholeRef(viewContainerRef, this.templateRef);
+    return new TemplateWormhole(viewContainerRef, this.templateRef);
   }
 }
