@@ -5,7 +5,6 @@ import { VCLIcogramModule } from './../icogram/icogram.module';
 import { VCLButtonModule } from './../button/button.module';
 import { VCLLayerModule } from './../layer/layer.module';
 import { VCLInputModule } from './../input/input.module';
-import { WormholeService } from './../../directives/wormhole/wormhole.service';
 import { GrowlComponent } from './growl.component';
 import { GrowlLayerTopRight, GrowlLayerBottomRight, GrowlLayerBottom, GrowlLayerBottomLeft, GrowlLayerTopLeft, GrowlLayerTop } from './growl.layer';
 import { GrowlService } from './growl.service';

@@ -4,7 +4,6 @@ import { Observer } from 'rxjs/Observer';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { ComponentWormhole } from './../../directives/wormhole/wormhole';
 import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, ViewEncapsulation, trigger, state, transition, animate, style } from '@angular/core';
 import { GrowlOptions, GROWL_DEFAULTS, GrowlType, TYPE_CLASS_MAP } from './types';
 import { Growl } from './growl';
@@ -60,11 +59,4 @@ import { Growl } from './growl';
 export class GrowlComponent  {
   @Input()
   growls = [];
-
-  constructor(private cdRef: ChangeDetectorRef) { }
-
-  markForCheck() {
-    this.cdRef.markForCheck();
-  }
-
 }

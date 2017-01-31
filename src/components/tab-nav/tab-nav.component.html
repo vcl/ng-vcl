@@ -8,16 +8,16 @@
          [class.vclSelected]="selectedTabIndex===i"
          [class.aria-selected]="selectedTabIndex===i"
          (tap)="selectTab(tab)">
-      <div [connectWormhole]="tab.label"></div>
+      <div [wormhole]="tab.label"></div>
     </div>
   </div>
   <div *ngIf="tabsHaveContent" class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
     <div role="tabpanel" class="vclTabPanel" *ngFor="let tab of tabs; let i = index">
-      <div *ngIf="selectedTabIndex===i && tab.content" [connectWormhole]="tab.content"></div>
+      <div *ngIf="selectedTabIndex===i && tab.content" [wormhole]="tab.content"></div>
     </div>
   </div>
   <div *ngIf="!tabsHaveContent && content" role="tabpanel" class="vclTabPanel">
-    <div [connectWormhole]="content"></div>
+    <div [wormhole]="content"></div>
   </div>
 </div>
 

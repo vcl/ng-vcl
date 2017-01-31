@@ -1,34 +1,21 @@
 import { Observable } from 'rxjs/Observable';
-import { TemplateWormhole } from './../../directives/wormhole/wormhole.module';
 import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter } from '@angular/core';
 
-@Directive({
-  selector: '[vcl-tab-label]'
-})
-export class TabLabelDirective extends TemplateWormhole  {
-  constructor(public templateRef: TemplateRef<any>) {
-    super(templateRef);
-  }
-}
+@Directive({ selector: '[vcl-tab-label]' })
+export class TabLabelDirective  { }
 
-@Directive({
-  selector: '[vcl-tab-content]'
-})
-export class TabContentDirective extends TemplateWormhole {
-  constructor(public templateRef: TemplateRef<any>) {
-    super(templateRef);
-  }
-}
+@Directive({ selector: '[vcl-tab-content]' })
+export class TabContentDirective { }
 
 @Directive({
   selector: 'vcl-tab'
 })
 export class TabComponent   {
 
-  @ContentChild(TabLabelDirective)
+  @ContentChild(TabLabelDirective, {read: TemplateRef})
   label: TabLabelDirective;
 
-  @ContentChild(TabContentDirective)
+  @ContentChild(TabContentDirective, {read: TemplateRef})
   content: TabContentDirective;
 
   @Input()

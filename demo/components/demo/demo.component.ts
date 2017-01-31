@@ -42,7 +42,7 @@ export class DemoComponent {
               content = data.tabs[key];
             } else if (typeof data.tabs[key] === 'function') {
               type = 'component';
-              content = new ComponentWormhole(data.tabs[key]);
+              content = data.tabs[key];
             }
 
             return {
