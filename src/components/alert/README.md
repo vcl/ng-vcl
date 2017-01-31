@@ -175,7 +175,7 @@ All properties are optional
 | `showConfirmButton`     | boolean        | true            | Show the confirmation button
 | `showCancelButton`      | boolean        | false           | Show the cancel button
 | `showCloseButton`       | boolean        | false           | Show the close button
-| `offClickClose`         | boolean        | true            | When false, close alert on off-click
+| `offClickClose`         | boolean        | true            | When false, close alert on offClick
 | `escClose`              | boolean        | true            | When false, close alert by pressing `esc`
 | `customClass`           | string         |                 | A custom css class for the alert modal
 | `confirmButtonLabel`    | string         | 'OK'            | Changes the confirm button label

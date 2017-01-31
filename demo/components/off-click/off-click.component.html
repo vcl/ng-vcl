@@ -1,7 +1,7 @@
-<div (off-click)="offClick()" style="border: 2px solid;background-color:red;width:300px;height:300px">
+<div (offClick)="offClick()" style="border: 2px solid;background-color:red;width:300px;height:300px">
   DIV 1
   <br>
-  Click somewhere outside to trigger off-click
+  Click somewhere outside to trigger an offClick
   <div style="border: 1px solid;background-color:green;width:50%;margin:auto; height:100px">
     DIV 2 
     <br>
@@ -9,6 +9,6 @@
   </div>
 </div>
 <br>
-<div *ngIf="clicks>0">off-click triggered: {{clicks}}</div>
-<div *ngIf="clicks===0">Click anywhere to trigger the off-click</div>
+<div *ngIf="clicks>0">offClicks triggered: {{clicks}}</div>
+<div *ngIf="clicks===0">Click anywhere to trigger an offClick</div>
   

@@ -6,10 +6,10 @@ import 'rxjs/add/observable/fromEventPattern';
 import * as Hammer from 'hammerjs';
 
 @Directive({
-  selector: '[off-click]',
+  selector: '[offClick]',
 })
 export class OffClickDirective {
-  @Output('off-click')
+  @Output('offClick')
   offClick = new EventEmitter();
 
   private sub: Subscription;

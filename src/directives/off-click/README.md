@@ -1,6 +1,6 @@
-# off-click directive
+# offClick directive
 
-The off-click action fires when a click event is handled and its source is not(!) the element or any of its subelements.  
+The offClick event fires when a click event is handled and its source is not(!) the element or any of its subelements.  
 
 ## Usage:
 
@@ -17,7 +17,7 @@ export class AppComponent {}
 offClick() is called when the click`s source is not DIV1 or DIV2  
 
 ```html
-<div (off-click)="offClick()">
+<div (offClick)="offClick()">
   DIV1
   <div>
     DIV2
