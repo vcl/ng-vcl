@@ -10,18 +10,13 @@
 <br><br>
 <button vcl-button (tap)="someAction($event)" flexLabel=true label="Flexed Label"></button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" label="Busy button" busy=true busyLabel='Busy label...'></button>
-<br><br>
-<button vcl-button (tap)="someAction($event)" label="Busy button with appended busy icon" appIcon="fa:bolt" busy=true appIconBusy="fa:spinner fa-pulse"></button>
-<br><br>
-<button vcl-button (tap)="someAction($event)" label="Busy button with prepended busy icon" prepIcon="fa:bolt" busy=true prepIconBusy="fa:refresh fa-spin"></button>
-<br><br>
 <button vcl-button (tap)="someAction($event)" disabled=true label="Disabled button" prepIcon="fa:bolt"></button>
 <br><br>
-<button vcl-button (tap)="changeButtonState()" prepIcon="fa:bolt" prepIconBusy="fa:refresh fa-spin" [busy]="busy" [disabled]="disabled">
-  Content for
-  <template vcl-button-content state="enabled">enabled state</template>
-  <template vcl-button-content state="disabled">disabled state</template>
-  <template vcl-button-content state="busy">busy state</template>
+<button vcl-button (tap)="someAction($event)" busy=true label="Busy button" prepIcon="fa:refresh fa-spin"></button>
+<br><br>
+<button vcl-button (tap)="changeButtonState()" [busy]="busy" [disabled]="disabled">
+  <vcl-icogram *vclButtonStateContent="'enabled'" prepIcon="fa:bolt" label="enabled state"></vcl-icogram>
+  <vcl-icogram *vclButtonStateContent="'disabled'" prepIcon="fa:bolt" label="disabled state"></vcl-icogram>
+  <vcl-icogram *vclButtonStateContent="'busy'" prepIcon="fa:refresh fa-spin" label="busy state"></vcl-icogram>
 </button> <- Press to change state
 

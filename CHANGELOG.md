@@ -3,6 +3,10 @@
 ## master
 
 ### Breaking Changes
+- vcl-button:
+  - rename vcl-button-content to vclButtonStateContent
+  - merge vclButtonStateContent attribute with state attribute
+  - remove busyLabel, prepIconBusy and appIconBusy (use vclButtonStateContent instead)
 - vclBusy:
   - Renamed [vcl-busy] to [vclBusy]
 - offClick
