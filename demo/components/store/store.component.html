@@ -1,5 +1,5 @@
 <h3>Books</h3>
-<div [vcl-busy]='loading$ | async' style="min-height: 8em" >
+<div [vclBusy]='loading$ | async' style="min-height: 8em" >
   <div class="vclInputGroup">
     <input vcl-input [(ngModel)]="query">
     <span class="vclInputGroupButton">

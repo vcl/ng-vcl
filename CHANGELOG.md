@@ -3,6 +3,8 @@
 ## master
 
 ### Breaking Changes
+- vclBusy:
+  - Renamed [vcl-busy] to [vclBusy]
 - offClick
   - Renamed [off-click] to [offClick]
 - wormhole:

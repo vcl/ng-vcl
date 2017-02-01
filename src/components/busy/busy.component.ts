@@ -1,12 +1,12 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: '[vcl-busy]',
+  selector: '[vclBusy]',
   templateUrl: 'busy.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusyComponent {
-  @Input('vcl-busy')
+  @Input('vclBusy')
   @HostBinding('class.vclLoadingLayerContainer')
   busy = false;
 
