@@ -31,7 +31,7 @@
         "check-type",
         "check-typecast"
     ],
-    "typedef-whitespace": 
+    "typedef-whitespace":
     [
       true,
       {
@@ -51,6 +51,6 @@
     ],
     "no-internal-module": true,
     "no-trailing-whitespace": true,
-    "no-inferrable-types": true
+    "no-inferrable-types": false
   }
 }
