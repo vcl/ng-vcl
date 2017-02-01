@@ -93,11 +93,7 @@ export class LayerBaseComponent {
   offClick(layer: LayerRef) {
     // Trigger offClick only on the top layer
     if ([...this.visibleLayers].pop() === layer) {
-      const opts = layer.opts;
-      let offClickClose = typeof opts.offClickClose === 'boolean' ? opts.offClickClose : !opts.modal;
-      if (offClickClose) {
-        layer.close();
-      }
+      layer.onOffClick();
     }
   }
 }

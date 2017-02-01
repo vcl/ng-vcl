@@ -166,7 +166,7 @@ export class AlertComponent {
   }
 
   ngOnInit() {
-    this.offClickSub = this.layerRef.offClick$.subscribe(() => this.offClick() );
+    this.offClickSub = this.layerRef.onOffClick$.subscribe(() => this.offClick() );
   }
 
   ngOnDestroy() {
@@ -181,9 +181,9 @@ export class AlertComponent {
 })
 @Injectable()
 export class AlertLayer extends ComponentLayerRef<AlertComponent> {
-  offClick$ = new Subject();
-  offClick() {
-    this.offClick$.next();
+  onOffClick$ = new Subject();
+  onOffClick() {
+    this.onOffClick$.next();
   }
 };
 
