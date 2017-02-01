@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter } from '@angular/core';
 
 @Directive({ selector: '[vcl-tab-label]' })
-export class TabLabelDirective  { }
+export class TabLabelDirective { }
 
 @Directive({ selector: '[vcl-tab-content]' })
 export class TabContentDirective { }
@@ -10,12 +10,12 @@ export class TabContentDirective { }
 @Directive({
   selector: 'vcl-tab'
 })
-export class TabComponent   {
+export class TabComponent {
 
-  @ContentChild(TabLabelDirective, {read: TemplateRef})
+  @ContentChild(TabLabelDirective, { read: TemplateRef })
   label: TabLabelDirective;
 
-  @ContentChild(TabContentDirective, {read: TemplateRef})
+  @ContentChild(TabContentDirective, { read: TemplateRef })
   content: TabContentDirective;
 
   @Input()
@@ -65,7 +65,7 @@ export class TabNavComponent {
   }
 
   // If any of the tabs has we do not render the shared content template
-  // as it might be one the tabs content templates 
+  // as it might be one the tabs content templates
   get tabsHaveContent() {
     return this.tabs.some(tab => !!tab.content);
   }

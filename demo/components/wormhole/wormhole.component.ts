@@ -26,10 +26,10 @@ export class WormholeComponent {
   componentWormhole: Wormhole;
 
   // This is the target where the component will be rendered
-  @ViewChild('target', {read: ViewContainerRef}) target;
+  @ViewChild('target', { read: ViewContainerRef }) target;
 
   ngAfterViewInit() {
-    // Create a wormhole 
+    // Create a wormhole
     this.componentWormhole = createWormhole(this.target, MyComponent);
     // and connect it
     this.componentWormhole.connect({

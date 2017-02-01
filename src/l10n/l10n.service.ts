@@ -76,7 +76,7 @@ export class L10nService {
       return fbLocale ? this.getTranslationPackage(fbLocale) : Observable.of({});
     });
 
-    // The real fallback stream is a combination of the latest package and fallback package 
+    // The real fallback stream is a combination of the latest package and fallback package
     this.fbPackage$ = Observable.combineLatest(this.package$, fbPackageTemp$, (pkg, fbPkg) => {
       return fbPkg ? Object.assign({}, fbPkg, pkg) : pkg;
     });
@@ -89,9 +89,9 @@ export class L10nService {
     // Cache package streams and share
     if (!this.packages[locale]) {
       this.packages[locale] = this.loader
-                                  .getTranslationPackage(locale)
-                                  .publishReplay(1)
-                                  .refCount();
+        .getTranslationPackage(locale)
+        .publishReplay(1)
+        .refCount();
     }
     return this.packages[locale];
   }
@@ -103,10 +103,10 @@ export class L10nService {
     // Cache supportedLocales and share
     if (!this.supportedLocales$) {
       this.supportedLocales$ = this.loader
-                                   .getSupportedLocales()
-                                   .map(sl => sl.map(locale => locale.toLowerCase()))
-                                   .publishReplay(1)
-                                   .refCount();
+        .getSupportedLocales()
+        .map(sl => sl.map(locale => locale.toLowerCase()))
+        .publishReplay(1)
+        .refCount();
     }
     return this.supportedLocales$;
   }
@@ -142,7 +142,7 @@ export class L10nService {
   }
 
   getNavigatorLang(): string {
-    if (typeof window !== 'undefined' &&  typeof window.navigator !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
       const nav = window.navigator;
       if (nav['languages'] && nav['languages'].length > 0) {
         return nav['languages'][0];
@@ -152,5 +152,3 @@ export class L10nService {
     }
   }
 }
-
-

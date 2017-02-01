@@ -56,7 +56,7 @@ export class PopoverComponent implements OverlayManagedComponent {
     protected overlayManger: OverlayManagerService,
     protected myElement: ElementRef,
     private zone: NgZone
-  ) {}
+  ) { }
 
   close() {
     this.state = 'void';
@@ -77,9 +77,9 @@ export class PopoverComponent implements OverlayManagedComponent {
           this.zIndex = this.overlayManger.register(this);
           this.coverZIndex = this.zIndex - 1;
           this.state = 'open';
-          // TODO: Workaround for css "position relative" 
+          // TODO: Workaround for css "position relative"
           // Tether copies the dom element to the body. The component is removed before the copy is moved back
-          // so it is not destroyed 
+          // so it is not destroyed
           setTimeout(() => this.zone.run(() => this.visible = true), this.timeout);
         } else if (changes.open.currentValue === false) {
           this.state = 'void';
@@ -88,7 +88,6 @@ export class PopoverComponent implements OverlayManagedComponent {
           setTimeout(() => this.zone.run(() => this.visible = false), this.timeout);
         }
       }
-    } catch (ex) {}
+    } catch (ex) { }
   }
 }
-

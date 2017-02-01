@@ -19,14 +19,14 @@ export class OffClickDirective {
   ngAfterViewInit() {
     if (typeof document !== 'undefined') {
       let mc = new Hammer.Manager(document);
-      mc.add( new Hammer.Tap({ event: 'singletap' }) );
+      mc.add(new Hammer.Tap({ event: 'singletap' }));
 
       this.sub = Observable.fromEventPattern<any>(
         handler => mc.on('singletap', handler),
         handler => mc.off('singletap', handler)
       ).subscribe(ev => {
         const me = this.elem.nativeElement;
-        // Check if the target is the off-clicks element or an sub element 
+        // Check if the target is the off-clicks element or an sub element
         if (ev.target && me !== ev.target && !me.contains(ev.target)) {
           this.offClick.emit();
         }
@@ -38,4 +38,3 @@ export class OffClickDirective {
     this.sub && this.sub.unsubscribe();
   }
 }
-
