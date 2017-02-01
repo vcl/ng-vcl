@@ -1,10 +1,10 @@
-import { SimpleChange } from '@angular/core';
+import { SimpleChange, OnDestroy, OnChanges } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 
-export abstract class ObservableComponent {
+export abstract class ObservableComponent implements OnDestroy, OnChanges  {
     private changesSubject = new Subject<{ [key: string]: SimpleChange }>();
     protected changes$: Observable<{ [key: string]: SimpleChange }> = this.changesSubject.asObservable();
 
@@ -12,7 +12,11 @@ export abstract class ObservableComponent {
       this.changesSubject.next(changes);
     }
 
-    public observeChange<T>(...props: string[]): Observable<T> {
+    ngOnDestroy() {
+      this.changesSubject.complete();
+    }
+
+    protected observeChange<T>(...props: string[]): Observable<T> {
       return this.changes$
                   .filter(changes => props.some(p => changes.hasOwnProperty(p)))
                   .map(changes => props.length === 1
