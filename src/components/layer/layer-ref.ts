@@ -84,5 +84,12 @@ export abstract class LayerRef {
     }
   }
 
+  onOffClick() {
+    const offClickClose = typeof this.opts.offClickClose === 'boolean' ? this.opts.offClickClose : !this.opts.modal;
+    if (offClickClose) {
+      this.close();
+    }
+  }
+
   abstract _createWormhole(viewContainerRef: ViewContainerRef): Wormhole;
 }

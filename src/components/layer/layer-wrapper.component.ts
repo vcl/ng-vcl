@@ -15,7 +15,6 @@ export class LayerWrapperComponent {
   @Input()
   layer: LayerRef;
 
-  // workaround
   @Input()
   set attrs(attrs) {
     this._attrs = attrs;
@@ -48,16 +47,6 @@ export class LayerWrapperComponent {
   }
 
   constructor(private cdRef: ChangeDetectorRef) { }
-
-  // TODO: does not trigger
-  // workaround in attrs setter
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['attrs']) {
-  //     if (this.wormholeRef) {
-  //       this.wormholeRef.setAttributes(changes['attrs'].currentValue);
-  //     }
-  //   }
-  // }
 
   ngAfterViewInit() {
     if (!this.wormhole && this.layer) {
