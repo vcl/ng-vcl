@@ -40,7 +40,7 @@
 <h2>Pre-defined value</h2>
 <br>
 <b>single</b><br>
-<vcl-select [items]="items1" (change)="onChange($event)" [(ngModel)]="selectSingleValue"></vcl-select>
+<vcl-select [items]="itemsStringValue" (change)="onChange($event)" [(ngModel)]="selectSingleValue"></vcl-select>
 <div *ngIf="selectSingleValue">
   Value: {{selectSingleValue}}
 </div>

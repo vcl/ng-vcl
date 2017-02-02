@@ -204,7 +204,7 @@ export class SelectComponent implements ControlValueAccessor {
     this.reDisplayValue(this.value);
 
     this.changeEE.subscribe(newValue => {
-      // console.log('changeEE');
+
       this.reDisplayValue(newValue);
       // propagate form-change
       !!this.onChangeCallback && this.onChangeCallback(newValue);
@@ -265,7 +265,7 @@ export class SelectComponent implements ControlValueAccessor {
       .map(i => this.displayValue = i.label);
 
     // displayValue for multiselect
-    if (newValue.length) {
+    if (Array.isArray(newValue)) {
       this.displayValue = this.items
         .filter(i => this.value.includes(i.value))
         .map(i => i.label);
