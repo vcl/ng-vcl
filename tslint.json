@@ -50,7 +50,6 @@
       }
     ],
     "no-internal-module": true,
-    "no-trailing-whitespace": true,
-    "no-inferrable-types": false
+    "no-trailing-whitespace": true
   }
 }
