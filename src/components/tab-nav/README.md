@@ -28,7 +28,8 @@ export class AppComponent {}
       Content2
     </template>
   </vcl-tab>
-  <vcl-tab [disabled]="true"><template vcl-tab-label>Tab3 (disabled)</template>
+  <vcl-tab [disabled]="true">
+    <template vcl-tab-label>Tab3 (disabled)</template>
     <template vcl-tab-content>
       Content3
     </template>
