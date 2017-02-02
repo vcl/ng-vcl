@@ -1,6 +1,7 @@
+import { ButtonStateContentDirective } from './button-state-content.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent, ButtonStateContentDirective } from './button.component';
+import { ButtonComponent } from './button.component';
 import { VCLIcogramModule } from '../icogram/icogram.module';
 import { L10nModule } from '../../l10n/l10n.module';
 

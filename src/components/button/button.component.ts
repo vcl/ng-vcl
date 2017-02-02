@@ -1,71 +1,12 @@
+import { Component, Directive, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef, ContentChild, ContentChildren, TemplateRef, ViewContainerRef, QueryList, EmbeddedViewRef, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/publishBehavior';
-import { Component, Directive, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef, ContentChild, ContentChildren, TemplateRef, ViewContainerRef, QueryList, EmbeddedViewRef, ChangeDetectorRef } from '@angular/core';
 import { ObservableComponent } from '../../core/index';
+import { ButtonStateContentDirective } from './button-state-content.directive';
+import { dispatchTap } from './dispatch-tap';
 
 enum InteractionType { Click, Tap }
-
-@Directive({
-  selector: '[vclButtonStateContent]'
-})
-export class ButtonStateContentDirective {
-  constructor(private viewContainerRef: ViewContainerRef, private tempRef: TemplateRef<any>) { }
-
-  @Input('vclButtonStateContent')
-  set state(value: string) {
-    this.states = (typeof value === 'string') ? value.split(',') : [];
-  }
-  states: string[] = ['enabled'];
-
-  viewRef: EmbeddedViewRef<any> | null;
-
-  updateState(state: string) {
-    if (this.states.includes(state)) {
-      if (!this.viewRef) {
-        this.viewContainerRef.clear();
-        this.viewRef = this.viewContainerRef.createEmbeddedView(this.tempRef);
-        this.viewRef.detectChanges();
-      }
-    } else {
-      this.viewContainerRef.clear();
-      this.viewRef = null;
-    }
-  }
-}
-
-function dispatch(el, eventType) {
-  const x = 10, y = 10;
-
-  const msEventType = (window as any).MSPointerEvent &&
-                      eventType.replace(/pointer([a-z])/, (_, a) => 'MSPointer' + a.toUpperCase());
-
-  const event = document.createEvent('Event') as any;
-  event.initEvent(msEventType || eventType, true, true);
-
-  event.getCurrentPoint = () => ({x, y});
-  event.setPointerCapture = event.releasePointerCapture = () => { };
-
-  event.pointerId = 0;
-  event.buttons = 1;
-  event.pageX = x;
-  event.pageY = y;
-  event.clientX = x;
-  event.clientY = y;
-  event.screenX = x;
-  event.screenY = y;
-  event.pointerType = 'touch';
-  event.identifier = 0;
-
-  el.dispatchEvent(event);
-}
-
-function dispatchTap(el) {
-  dispatch(el, 'pointerdown');
-  setTimeout(function() {
-    dispatch(el, 'pointerup');
-  }, 100);
-}
 
 @Component({
   selector: 'button[vcl-button]',
