@@ -7,8 +7,8 @@ export class ButtonStateContentDirective {
   constructor(private viewContainerRef: ViewContainerRef, private tempRef: TemplateRef<any>) { }
 
   @Input('vclButtonStateContent')
-  set state(value: string) {
-    this.states = (typeof value === 'string') ? value.split(',') : [];
+  set state(value: string | string[]) {
+    this.states = (typeof value === 'string' ? [value] : value) || [];
   }
   states: string[] = ['enabled'];
 

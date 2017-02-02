@@ -30,7 +30,7 @@
         [ngClass]="alert.confirmButtonClass"
         [busy]="alert.loader">
           <vcl-icogram 
-            *vclButtonStateContent="'enabled,disabled'" 
+            *vclButtonStateContent="['enabled','disabled']" 
             [appIcon]="alert.confirmButtonAppIcon" 
             [prepIcon]="alert.confirmButtonPrepIcon"
             [label]="alert.confirmButtonLabel">
@@ -49,7 +49,7 @@
         [busy]="!alert.showConfirmButton && alert.loader"
         [disabled]="alert.showConfirmButton && alert.loader">
           <vcl-icogram 
-            *vclButtonStateContent="'enabled,disabled'" 
+            *vclButtonStateContent="['enabled','disabled']" 
             [appIcon]="alert.cancelButtonAppIcon" 
             [prepIcon]="alert.cancelButtonPrepIcon" 
             [label]="alert.cancelButtonLabel">

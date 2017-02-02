@@ -25,6 +25,7 @@ A button can have content that is only visible in a specified state
   <span *vclButtonStateContent="'enabled'">Only visible in enabled state</span>
   <span *vclButtonStateContent="'disabled'">Only visible in disabled state</span>
   <span *vclButtonStateContent="'busy'">Only visible in busy state</span>
+  <span *vclButtonStateContent="['busy','disabled']'">visible in busy and disabled state</span>
 </button>
  ```
 
