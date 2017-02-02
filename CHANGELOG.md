@@ -3,6 +3,8 @@
 ## master
 
 ### Breaking Changes
+- vcl-flip-switch:
+  - switched to 2-way-binding
 - vcl-button:
   - rename vcl-button-content to vclButtonStateContent
   - merge vclButtonStateContent attribute with state attribute
