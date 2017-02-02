@@ -3,11 +3,7 @@
 ## Usage:
 
 ```html
-<vcl-flip-switch
-  [value]="true"
-  (change)="onChange($event)"
-  onLabel="On" offLabel="Off"
-></vcl-flip-switch>
+<vcl-flip-switch [(value)]="value" onLabel="On" offLabel="Off"></vcl-flip-switch>
 ```
 
 ### API

@@ -7,7 +7,8 @@ In indeterminate mode, an animation is shown to indicate an ongoing process whos
 ## Usage:
 
  ```html
-<vcl-progress-bar [value]="0"></vcl-progress-bar>```
+<vcl-progress-bar [value]="0"></vcl-progress-bar>
+```
 
 ### API 
 
