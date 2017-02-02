@@ -35,14 +35,14 @@ export class FlipSwitchComponent implements ControlValueAccessor {
 
   @HostBinding() tabindex = 0;
 
-  @Input('onLabel') onLabel: string = 'On';
-  @Input('offLabel') offLabel: string = 'Off';
-  @Input('value') value: boolean = false;
+  @Input() onLabel: string = 'On';
+  @Input() offLabel: string = 'Off';
+  @Input() value: boolean = false;
 
-  @Output('change') change$ = new EventEmitter<boolean>();
+  @Output() valueChange = new EventEmitter<boolean>();
 
   constructor() {
-    this.change$.subscribe(newVal => {
+    this.valueChange.subscribe(newVal => {
       this.value = newVal;
       !!this.onChangeCallback && this.onChangeCallback(newVal);
     });
@@ -51,7 +51,7 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   @HostListener('tap', ['$event'])
   onClick() {
     this.value = !this.value;
-    this.change$.emit(this.value);
+    this.valueChange.emit(this.value);
   }
 
   @HostListener('keydown', ['$event'])

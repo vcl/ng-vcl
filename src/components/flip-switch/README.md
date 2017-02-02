@@ -14,9 +14,10 @@
 
 #### Properties:
 
-Name       | Type    | Default | Description
----------- | ------- | ------- | -------------------------------
-`value`    | boolean | false   | set the value
-`change`   | event   |         | emits when the value is changed
-`onLabel`  | string  | 'On'    | The label for "on"
-`offLabel` | string  | 'Off'   | The label for "off"
+Name          | Type    | Default | Description
+------------- | ------- | ------- | -------------------------------
+`value` _(1)_ | boolean | false   | set the value
+`onLabel`     | string  | 'On'    | The label for "on"
+`offLabel`    | string  | 'Off'   | The label for "off"
+
+_(1) Supports Two-way binding_
