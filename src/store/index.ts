@@ -103,7 +103,6 @@ export class StoreModule {
           multi: true,
           useValue: initialReducer
         },
-        ,
         ...(config.enableRouter ? [
           StoreRouter,
           {

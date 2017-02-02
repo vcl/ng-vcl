@@ -24,10 +24,12 @@ export class LayerService {
   }
 
   getVisibleLayers(base = 'default') {
-    if (!this.bases.has(base)) {
-      throw 'Invalid base';
+    const layerBase = this.bases.get(base);
+    if (layerBase) {
+      return [...layerBase.visibleLayers];
+    } else {
+      throw 'Invalid base: ' + base;
     }
-    return [...this.bases.get(base).visibleLayers];
   }
 
   hasVisibleLayers(base?: string) {

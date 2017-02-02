@@ -33,7 +33,7 @@ export abstract class LayerRef {
 
   private results: Subject<any>;
   private stateChange = new Subject<LayerData>();
-  private data: LayerData;
+  private data: LayerData | undefined;
   _offClick = new Subject<any>();
 
   visible: boolean;

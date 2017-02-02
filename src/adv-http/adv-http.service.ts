@@ -18,7 +18,7 @@ import { Injectable, OpaqueToken, Inject } from '@angular/core';
  *  Data caching
  */
 export class SyncableObservable<T> extends Observable<T> {
-  protected _dataSubject: Subject<T>;
+  protected _dataSubject: ReplaySubject<T>;
   protected sub: Subscription;
 
   constructor(protected source: Observable<T>) {

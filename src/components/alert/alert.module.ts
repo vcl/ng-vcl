@@ -5,7 +5,8 @@ import { VCLIcogramModule } from './../icogram/icogram.module';
 import { VCLButtonModule } from './../button/button.module';
 import { VCLLayerModule } from './../layer/layer.module';
 import { VCLInputModule } from './../input/input.module';
-import { AlertComponent, AlertLayer, AlertInputComponent } from './alert.component';
+import { AlertComponent, AlertLayer } from './alert.component';
+import { AlertInputComponent } from './alert-input.component';
 import { AlertService } from './alert.service';
 import { AlertType, AlertError, AlertInput, AlertAlignment } from './types';
 

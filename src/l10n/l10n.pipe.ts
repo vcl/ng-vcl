@@ -32,7 +32,7 @@ export class L10nPipe implements PipeTransform, OnDestroy {
   transform(key: string, ...args: string[]): any {
     // Dispose subscription if key or params are different
     if (!this.compare(key, ...args) && this.subscription) {
-      this._dispose();
+      this.dispose();
     }
 
     // store key and args for comparison
@@ -48,15 +48,13 @@ export class L10nPipe implements PipeTransform, OnDestroy {
     return this.value;
   }
 
-  _dispose(): void {
-    this.subscription.unsubscribe();
-    this.value = null;
-    this.subscription = null;
+  private dispose(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this._dispose();
-    }
+    this.dispose();
   }
 }

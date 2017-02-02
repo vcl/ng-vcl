@@ -20,10 +20,10 @@ export class TextareaDirective {
   autogrow = true;
 
   @Input()
-  maxRows: number = null;
+  maxRows: number;
 
   @Input()
-  minRows: number = null;
+  minRows: number;
 
   @HostListener('ngModelChange', ['$event'])
   onModelChange(value) {
@@ -40,7 +40,7 @@ export class TextareaDirective {
   }
 
   @HostBinding('attr.rows')
-  rows: number = null;
+  rows: number ;
 
   ngOnInit() {
     this.setRowsByValue(this.ngModel.model);
@@ -56,7 +56,6 @@ export class TextareaDirective {
       } else {
         this.rows = rows;
       }
-
     }
   }
 }

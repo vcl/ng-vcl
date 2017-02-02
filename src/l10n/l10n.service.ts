@@ -59,7 +59,7 @@ export class L10nService {
     });
 
     // Set up stream of valid fallback locale
-    let fbLocale$ = Observable.combineLatest<string[], string, string>(supportedLocales$, locale$, (supportedLocales, locale) => {
+    let fbLocale$ = Observable.combineLatest(supportedLocales$, locale$, (supportedLocales, locale) => {
       if (supportedLocales.length > 0 && supportedLocales[0] !== locale) {
         return supportedLocales[0];
       } else if (supportedLocales.length > 1 && supportedLocales[0] === locale) {
@@ -142,13 +142,15 @@ export class L10nService {
   }
 
   getNavigatorLang(): string {
+    let lang = '';
     if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
       const nav = window.navigator;
       if (nav['languages'] && nav['languages'].length > 0) {
-        return nav['languages'][0];
+        lang = nav['languages'][0];
       } else {
-        return nav['language'] || nav['browserLanguage'];
+        lang = nav['language'] || nav['browserLanguage'];
       }
     }
+    return lang || 'en-US';
   }
 }

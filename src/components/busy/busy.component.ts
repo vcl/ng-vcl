@@ -11,5 +11,5 @@ export class BusyComponent {
   busy = false;
 
   @Input()
-  busyLabel: string = null;
+  busyLabel: string | null = null;
 }

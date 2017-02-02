@@ -11,10 +11,10 @@ import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular
 export class ProgressBarComponent {
 
   @Input()
-  value: number = null;
+  value: number;
 
   @Input()
-  secondaryValue: number = null;
+  secondaryValue: number;
 
   @Input()
   minValue: number = 0;
@@ -26,7 +26,7 @@ export class ProgressBarComponent {
   indeterminate: boolean = false;
 
   @Input()
-  label: string = null;
+  label: string;
 
   get showIndeterminate() {
     return this.indeterminate && !this.validateValue(this.value);

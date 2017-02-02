@@ -13,27 +13,27 @@ export class AlertService {
     private alertLayerRef: AlertLayer,
   ) { }
 
-  alert(text: string, opts?: AlertOptions): Observable<AlertResult> {
+  alert(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text }, opts);
   }
 
-  info(text: string, opts?: AlertOptions): Observable<AlertResult> {
+  info(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text, type: AlertType.Info }, opts);
   }
 
-  success(text: string, opts?: AlertOptions): Observable<AlertResult> {
+  success(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text, type: AlertType.Success }, opts);
   }
 
-  warning(text: string, opts?: AlertOptions): Observable<AlertResult> {
+  warning(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text, type: AlertType.Warning }, opts);
   }
 
-  error(text: string, opts?: AlertOptions): Observable<AlertResult> {
+  error(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text, type: AlertType.Error }, opts);
   }
 
-  question(text: string, opts?: AlertOptions): Observable<AlertResult> {
+  question(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text, type: AlertType.Question, showCancelButton: true }, opts);
   }
 

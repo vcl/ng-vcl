@@ -17,23 +17,23 @@ export class GrowlService {
     private growlLayerTopRef: GrowlLayerTop,
   ) { }
 
-  growl(text: string, opts?: GrowlOptions) {
+  growl(text: string, opts: GrowlOptions = {}) {
     return this.queue({ text }, opts);
   }
 
-  info(text: string, opts?: GrowlOptions) {
+  info(text: string, opts: GrowlOptions = {}) {
     return this.queue({ text, type: GrowlType.Info }, opts);
   }
 
-  success(text: string, opts?: GrowlOptions) {
+  success(text: string, opts: GrowlOptions = {}) {
     return this.queue({ text, type: GrowlType.Success }, opts);
   }
 
-  warning(text: string, opts?: GrowlOptions) {
+  warning(text: string, opts: GrowlOptions = {}) {
     return this.queue({ text, type: GrowlType.Warning }, opts);
   }
 
-  error(text: string, opts?: GrowlOptions) {
+  error(text: string, opts: GrowlOptions = {}) {
     return this.queue({ text, type: GrowlType.Error }, opts);
   }
 

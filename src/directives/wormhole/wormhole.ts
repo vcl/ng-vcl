@@ -33,7 +33,7 @@ export abstract class Wormhole {
 
 export class TemplateWormhole extends Wormhole {
   private cachedAttrs: any = null;
-  viewRef: EmbeddedViewRef<any>;
+  viewRef: EmbeddedViewRef<any> | null;
 
   // The wormhole directive needs a reference to the template
   constructor(private viewContainerRef: ViewContainerRef, private templateRef: TemplateRef<any>) {
@@ -77,14 +77,14 @@ export class TemplateWormhole extends Wormhole {
 
   setAttributes(attrs: WormholeAttributes) {
     this.cachedAttrs = attrs;
-    if (this.isConnected && attrs && typeof attrs === 'object') {
+    if (this.viewRef && attrs && typeof attrs === 'object') {
       Object.assign(this.viewRef.context, attrs);
       this.viewRef.markForCheck();
     }
   }
 
   get currentIndex() {
-    return this.isConnected ? this.viewContainerRef.indexOf(this.viewRef) : -1;
+    return this.viewRef ? this.viewContainerRef.indexOf(this.viewRef) : -1;
   }
 }
 
@@ -93,7 +93,7 @@ export class ComponentWormhole<T> extends Wormhole {
   private compFactory: ComponentFactory<T>;
   private injector: Injector;
   private cachedAttrs: any = null;
-  compRef: ComponentRef<T>;
+  compRef: ComponentRef<T> | null;
 
   constructor(private viewContainerRef: ViewContainerRef, private componentClass: ComponentType<T>) {
     super();
@@ -155,7 +155,7 @@ export class ComponentWormhole<T> extends Wormhole {
   }
 
   disconnect() {
-    if (this.isConnected) {
+    if (this.compRef) {
       this.compRef.destroy();
       // const i = this.viewContainerRef.indexOf(this.compRef.hostView);
       // // if (i >= 0) this.viewContainerRef.remove(i);
@@ -164,7 +164,7 @@ export class ComponentWormhole<T> extends Wormhole {
 
   setAttributes(attrs: WormholeAttributes) {
     this.cachedAttrs = attrs;
-    if (this.isConnected && attrs && typeof attrs === 'object') {
+    if (this.compRef && attrs && typeof attrs === 'object') {
       Object.assign(this.compRef.instance, attrs);
       this.compRef.changeDetectorRef.markForCheck();
       // TODO: Change detection is not triggering when changedetection is set to onPush
@@ -177,17 +177,19 @@ export class ComponentWormhole<T> extends Wormhole {
   }
 
   get currentIndex() {
-    return this.isConnected ? this.viewContainerRef.indexOf(this.compRef.hostView) : -1;
+    return this.compRef ? this.viewContainerRef.indexOf(this.compRef.hostView) : -1;
   }
 }
 
 
-  export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, component: ComponentType<T>): Wormhole;
-  export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, templateRef: TemplateRef<T>): Wormhole;
-  export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, arg2: ComponentType<T> | TemplateRef<T>): Wormhole {
-    if (typeof arg2 === 'function') {
-      return new ComponentWormhole(targetViewContainerRef, arg2);
-    } else if (arg2 instanceof TemplateRef) {
-      return new TemplateWormhole(targetViewContainerRef, arg2);
-    }
+export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, component: ComponentType<T>): Wormhole;
+export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, templateRef: TemplateRef<T>): Wormhole;
+export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, arg2: ComponentType<T> | TemplateRef<T>): Wormhole {
+  if (typeof arg2 === 'function') {
+    return new ComponentWormhole(targetViewContainerRef, arg2);
+  } else if (arg2 instanceof TemplateRef) {
+    return new TemplateWormhole(targetViewContainerRef, arg2);
+  } else {
+    throw 'Parameter must be component class or templateRef';
   }
+}

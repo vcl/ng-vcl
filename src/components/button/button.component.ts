@@ -18,7 +18,7 @@ export class ButtonStateContentDirective {
   }
   states: string[] = ['enabled'];
 
-  viewRef: EmbeddedViewRef<any>;
+  viewRef: EmbeddedViewRef<any> | null;
 
   updateState(state: string) {
     if (this.states.includes(state)) {
@@ -141,7 +141,7 @@ export class ButtonComponent extends ObservableComponent {
   }
 
   @ContentChildren(ButtonStateContentDirective)
-  buttonContent: QueryList<ButtonStateContentDirective> = null;
+  buttonContent: QueryList<ButtonStateContentDirective>;
 
   pressSub: Subscription = this.press.subscribe(() => {
     if (this.autoBlur) {

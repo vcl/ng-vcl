@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/never';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/skipWhile';
 import { Subject } from 'rxjs/Subject';
@@ -15,12 +16,11 @@ export class Growl extends Observable<any> {
     super();
 
     const timeout = this.calculatedTimeout;
-    this.source = Observable.merge(
-      this.closeSubject,
-      (typeof timeout === 'number' ? Observable.interval(timeout).skipWhile(() => {
-      return this.state === 'hovered';
-    }) : null)
-    ).first();
+    const timeout$ = typeof timeout === 'number' ?
+                       Observable.interval(timeout).skipWhile(() => this.state === 'hovered') :
+                       Observable.never();
+
+    this.source = Observable.merge(this.closeSubject, timeout$).first();
   }
 
   state = 'visible';
