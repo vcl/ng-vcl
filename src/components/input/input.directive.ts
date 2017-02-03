@@ -24,28 +24,11 @@ const INPUT_INVALID_TYPES = [
 })
 export class InputDirective {
 
-  @Input('state')
-  state: 'error' | 'warning' | 'success';
-
   @Input('type')
   type: string = 'text';
 
   @Input()
   selectOnFocus: boolean = false;
-
-  @Input()
-  set value(value: any) {
-    this.typedValue = this.toType(value);
-  }
-  get value() {
-    return this.typedValue;
-  }
-
-  private typedValue: any;
-
-  private valueChangeEvent = new EventEmitter<any>();
-  @Output()
-  valueChange: Observable<any> = this.valueChangeEvent.asObservable();
 
   constructor(private elRef: ElementRef) { }
 
@@ -54,24 +37,13 @@ export class InputDirective {
       throw new Error('type not allowed for vcl-input: ' + this.type);
   }
 
-  toType(value) {
-    if (this.type === 'number') {
-      let tValue = Number(value);
-      return isNaN(tValue) ? 0 : tValue;
-    } else {
-      return value;
-    }
-  }
-
-  @HostListener('input', ['$event.target.value'])
-  onChange(value) {
-    this.valueChangeEvent.next(this.toType(value));
-  }
-
+  // autoselect
   @HostListener('focus', ['$event.target.value'])
   onFocus(value) {
-    if (this.selectOnFocus && this.elRef && this.elRef.nativeElement) {
-      this.elRef.nativeElement.select();
-    }
+    if (
+      this.selectOnFocus &&
+      this.elRef &&
+      this.elRef.nativeElement
+    ) this.elRef.nativeElement.select();
   }
 }
