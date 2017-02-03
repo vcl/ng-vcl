@@ -3,6 +3,9 @@
 ## master
 
 ### Breaking Changes
+- vcl-popover:
+  - input for target and attachment-positions changed into seperate variable for X and Y
+  - no more teher is used. Please check if the new version positions everything as you want it
 - vcl-input:
   - Input 'value' is removed, use ngModel like you would with a regular input
   - removed event-emitters since they are not needed

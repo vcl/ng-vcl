@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter, ElementRef, trigger, NgZone } from '@angular/core';
-import { OverlayManagerService, OverlayManagedComponent } from './overlayManager.service';
+import {
+  Component, Input, Output,
+  EventEmitter, ElementRef, trigger, NgZone
+} from '@angular/core';
 
 @Component({
   selector: 'vcl-popover',
@@ -8,31 +10,32 @@ import { OverlayManagerService, OverlayManagedComponent } from './overlayManager
     trigger('popOverState', [])
   ]
 })
-export class PopoverComponent implements OverlayManagedComponent {
+export class PopoverComponent {
 
   @Input()
   target: string;
-
   @Input()
+  targetX: 'left' | 'right' = 'left';
+  @Input()
+  targetY: 'top' | 'bottom' = 'bottom';
+  @Input()
+  attachmentX: 'left' | 'right' = 'left';
+  @Input()
+  attachmentY: 'top' | 'bottom' = 'top';
+
+  @Input() // TODO is this needed here?
   style: string;
 
-  @Input()
+  @Input() // TODO write class to host-el?
   class: string = 'vclPopOver';
 
   @Input()
   zIndex: number = 10;
-
   protected coverZIndex: number = -1;
 
-  @Input()
-  targetAttachment: string = 'bottom left';
-
-  @Input()
-  attachment: string = 'top left';
 
   @Input()
   open: boolean = false;
-
   visible: boolean = false;
 
   @Input()
@@ -53,8 +56,7 @@ export class PopoverComponent implements OverlayManagedComponent {
   state: string = 'open';
 
   constructor(
-    protected overlayManger: OverlayManagerService,
-    protected myElement: ElementRef,
+    protected me: ElementRef,
     private zone: NgZone
   ) { }
 
@@ -70,8 +72,8 @@ export class PopoverComponent implements OverlayManagedComponent {
     }
   }
 
-  ngOnChanges(changes) {
-    try {
+  async ngOnChanges(changes) {
+/*    try {
       if (this.zIndexManaged) {
         if (changes.open.currentValue === true) {
           this.zIndex = this.overlayManger.register(this);
@@ -80,14 +82,16 @@ export class PopoverComponent implements OverlayManagedComponent {
           // TODO: Workaround for css "position relative"
           // Tether copies the dom element to the body. The component is removed before the copy is moved back
           // so it is not destroyed
-          setTimeout(() => this.zone.run(() => this.visible = true), this.timeout);
+          await new Promise(res => setTimeout(res, this.timeout));
+          this.zone.run(() => this.visible = true);
         } else if (changes.open.currentValue === false) {
           this.state = 'void';
           this.zIndex = this.overlayManger.unregister(this);
           this.coverZIndex = -1;
-          setTimeout(() => this.zone.run(() => this.visible = false), this.timeout);
+          await new Promise(res => setTimeout(res, this.timeout));
+          this.zone.run(() => this.visible = false);
         }
       }
-    } catch (ex) { }
+    } catch (ex) { }*/
   }
 }
