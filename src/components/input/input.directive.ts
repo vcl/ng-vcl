@@ -1,5 +1,6 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Directive, Input, Output, ElementRef, HostListener, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 // Invalid input type. Using one of these will throw an error
 const INPUT_INVALID_TYPES = [
@@ -44,7 +45,7 @@ export class InputDirective {
 
   private valueChangeEvent = new EventEmitter<any>();
   @Output()
-  valueChange = this.valueChangeEvent.asObservable();
+  valueChange: Observable<any> = this.valueChangeEvent.asObservable();
 
   constructor(private elRef: ElementRef) { }
 
