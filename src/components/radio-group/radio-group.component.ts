@@ -33,8 +33,6 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
   constructor() { }
 
   ngOnInit() {
-
-    console.log('oI');
   }
 
   ngOnChanges() { }
@@ -43,8 +41,6 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
 
 
   isChecked(option) {
-    console.log('dd :: ' + this.value);
-    console.dir(option);
     return option.value == this.value;
   }
 
@@ -61,7 +57,6 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
   private onChangeCallback: (_: any) => void;
 
   writeValue(value: string): void {
-    console.log('Wv: ' + this.value);
     this.value = value;
   }
   registerOnChange(fn: any) {
