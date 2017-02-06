@@ -3,10 +3,11 @@
 ## master
 
 ### Breaking Changes
+- vcl-tab-nav:
+  - removed vcl-tab-content directive
 - vcl-token:
   - renamed events from 'onChange' to 'change'
   - renamed events from 'onRemove' to 'remove'
-
 - vcl-popover:
   - input for target and attachment-positions changed into seperate variable for X and Y
   - no more teher is used. Please check if the new version positions everything as you want it
