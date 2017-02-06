@@ -1,6 +1,7 @@
 import { Store } from './../../../src/store/store';
 import { DemoComponent } from './../demo/demo.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreComponent } from './store.component';
@@ -15,6 +16,7 @@ const LABEL = 'Store';
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
     VCLModule,
     StoreModule.forChild({
       reducers: [ BOOKS_REDUCERS ],
