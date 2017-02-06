@@ -27,7 +27,7 @@ export class TokenComponent {
   @Input('selected') selected: boolean = false;
   @Input('removeable') removeable: boolean = false;
 
-  @Output('onRemove') onRemove = new EventEmitter();
+  @Output('remove') onRemove = new EventEmitter();
 
   constructor() {
 

@@ -4,7 +4,7 @@ single tokens:
 
 <vcl-token label="mytoken2" [selected]="toggleSelect" (tap)="doToggleSelect()" class="myclass2"></vcl-token>
 
-<vcl-token label="mytoken3" [selected]="false" [removeable]="true" (onRemove)="removeAlert()"></vcl-token>
+<vcl-token label="mytoken3" [selected]="false" [removeable]="true" (remove)="removeAlert()"></vcl-token>
 
 <br/><br/><br/>
 
@@ -12,7 +12,7 @@ single tokens:
 
 tokenlist:<br/>
 
-<vcl-token-list [tokens]="tokenList" (onChange)="changed($event);"></vcl-token-list>
+<vcl-token-list [tokens]="tokenList" (change)="changed($event);"></vcl-token-list>
 
 
 <br/><br/><br/>
@@ -29,4 +29,15 @@ tokenlist (tokens via html):<br/>
 <br/><br/><br/>
 
 tokeninput: <br/>
-<vcl-token-input [tokens]="tokenList2" (onChange)="changed($event);"></vcl-token-input>
+<vcl-token-input [tokens]="tokenList2" (change)="changed($event);"></vcl-token-input>
+
+
+<br/><br/><br/>
+
+
+tokeninput (tokens via html):<br/>
+<vcl-token-input (change)="changed($event);">
+  <vcl-token label="foo"></vcl-token>
+  <vcl-token label="bar"></vcl-token>
+  <vcl-token label="barr" [removeable]="'true'"></vcl-token>
+</vcl-token-input>

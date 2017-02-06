@@ -2,7 +2,7 @@
   <vcl-token *ngFor="let token of tokens"
   [(selected)]="token.selected"
   [removeable]="true"
-  (onRemove)="remove(token)"
+  (remove)="remove(token)"
   [label]="token.label"></vcl-token>
 </div>
 

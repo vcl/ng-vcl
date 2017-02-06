@@ -32,7 +32,7 @@ export class TokenListComponent implements ControlValueAccessor {
   @Input('tokens') tokens: any[];
   value: any[] = [];
 
-  @Output('onChange') onChange = new EventEmitter();
+  @Output('change') onChange = new EventEmitter();
 
   @ContentChildren(TokenComponent)
   templateItems: QueryList<TokenComponent>;
