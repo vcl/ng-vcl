@@ -22,7 +22,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'vcl-radio-group',
   templateUrl: 'radio-group.component.html',
   host: {},
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //  changeDetection: ChangeDetectionStrategy.OnPush, // do NOT activate this or default values will not work anymore
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAccessor {
@@ -32,13 +32,19 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    console.log('oI');
+  }
 
   ngOnChanges() { }
 
+  ngAfterViewChecked() { }
 
 
   isChecked(option) {
+    console.log('dd :: ' + this.value);
+    console.dir(option);
     return option.value == this.value;
   }
 
@@ -55,6 +61,7 @@ export class RadioGroupComponent implements OnInit, OnChanges, ControlValueAcces
   private onChangeCallback: (_: any) => void;
 
   writeValue(value: string): void {
+    console.log('Wv: ' + this.value);
     this.value = value;
   }
   registerOnChange(fn: any) {

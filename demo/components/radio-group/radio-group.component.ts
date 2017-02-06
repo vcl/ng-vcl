@@ -5,7 +5,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RadioGroupComponent implements OnInit {
 
-  value = '2';
+  value;
+  value2 = '4';
 
 
   options = [
@@ -31,6 +32,28 @@ export class RadioGroupComponent implements OnInit {
     }
   ];
 
+  options2 = [
+    {
+      label: 'item1',
+      value: '1'
+    },
+    {
+      label: 'item2',
+      value: '2'
+    },
+    {
+      label: 'item3',
+      value: '3'
+    },
+    {
+      label: 'item4',
+      value: '4'
+    },
+    {
+      label: 'item5',
+      value: '5'
+    }
+  ];
 
   constructor() { }
 
