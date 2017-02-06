@@ -36,4 +36,18 @@ export class TokenComponent {
   remove() {
     this.onRemove.emit();
   }
+
+  /**
+   * transforms this NavigationItemComponent into an object,
+   * so it can be handled the same way as an inputList
+   * @return {Object}
+   */
+  toObject(): Object {
+    const ret = {
+      label: this.label,
+      removeable: this.removeable,
+      selected: this.selected
+    };
+    return ret;
+  }
 }

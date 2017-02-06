@@ -21,7 +21,8 @@ export class TokenComponent {
     },
     {
       label: 'bob',
-      selected: false
+      selected: false,
+      removeable: true
     },
     {
       label: 'carol',

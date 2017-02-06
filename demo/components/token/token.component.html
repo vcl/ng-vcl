@@ -14,7 +14,19 @@ tokenlist:<br/>
 
 <vcl-token-list [tokens]="tokenList" (onChange)="changed($event);"></vcl-token-list>
 
-<br/><br/>
+
+<br/><br/><br/>
+
+tokenlist (tokens via html):<br/>
+
+<vcl-token-list (onChange)="changed($event);">
+  <vcl-token label="foo"></vcl-token>
+  <vcl-token label="bar"></vcl-token>
+  <vcl-token label="barr" [removeable]="'true'"></vcl-token>
+</vcl-token-list>
+
+
+<br/><br/><br/>
 
 tokeninput: <br/>
 <vcl-token-input [tokens]="tokenList2" (onChange)="changed($event);"></vcl-token-input>

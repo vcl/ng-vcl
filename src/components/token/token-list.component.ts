@@ -17,7 +17,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   useExisting: forwardRef(() => TokenListComponent),
   multi: true
 };
-
 @Component({
   selector: 'vcl-token-list',
   templateUrl: 'tokenlist.component.html',
@@ -35,13 +34,18 @@ export class TokenListComponent implements ControlValueAccessor {
 
   @Output('onChange') onChange = new EventEmitter();
 
-
   @ContentChildren(TokenComponent)
   templateItems: QueryList<TokenComponent>;
 
   constructor() { }
 
-  ngAfterContentInit() { }
+  ngAfterContentInit() {
+    // transform template-items if available
+    let templateItemsAr = this.templateItems.toArray();
+    if (templateItemsAr.length > 0) {
+      this.tokens = templateItemsAr.map(i => i.toObject());
+    }
+  }
 
   ngOnInit() { }
 
