@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { VCLModule } from './../src/index';
 import { BrowserModule } from '@angular/platform-browser';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export interface Demo {
   name: string;
@@ -17,6 +18,8 @@ export interface Demo {
 export function createDemoModule(demo: Demo) {
   @NgModule({
     imports: [
+      FormsModule,
+      ReactiveFormsModule,
       BrowserModule,
       VCLModule,
       RouterModule.forChild([{

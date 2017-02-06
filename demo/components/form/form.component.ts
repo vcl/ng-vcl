@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 
 
-
 function equalInputMatcher(c: AbstractControl) {
   return c.get('myname').value === c.get('myname2').value
     ? null : { notequal: true };
