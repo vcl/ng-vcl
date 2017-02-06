@@ -1,30 +1,25 @@
 import { Observable } from 'rxjs/Observable';
-import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter } from '@angular/core';
+import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Directive({ selector: '[vcl-tab-label]' })
 export class TabLabelDirective { }
 
-@Directive({ selector: '[vcl-tab-content]' })
-export class TabContentDirective { }
-
-@Directive({
-  selector: 'vcl-tab'
+@Component({
+  selector: 'vcl-tab',
+  template: '<template><ng-content></ng-content></template>'
 })
 export class TabComponent {
-
   @ContentChild(TabLabelDirective, { read: TemplateRef })
   label: TabLabelDirective;
 
-  @ContentChild(TabContentDirective, { read: TemplateRef })
-  content: TabContentDirective;
+  @ViewChild(TemplateRef)
+  content: TemplateRef<any>;
 
   @Input()
   disabled = false;
 
   @Input()
   tabClass: string = '';
-
-  constructor() { }
 }
 
 @Component({
@@ -35,9 +30,6 @@ export class TabNavComponent {
 
   @ContentChildren(TabComponent)
   tabs: QueryList<TabComponent>;
-
-  @ContentChild(TabContentDirective)
-  content: TabContentDirective;
 
   @Input()
   layout: string = '';
@@ -62,12 +54,6 @@ export class TabNavComponent {
   @Output()
   get selectedTabIndexChange(): Observable<number> {
     return this.selectedTabIndexChange$.asObservable();
-  }
-
-  // If any of the tabs has we do not render the shared content template
-  // as it might be one the tabs content templates
-  get tabsHaveContent() {
-    return this.tabs.some(tab => !!tab.content);
   }
 
   // Sets a valid selectedTabIndex

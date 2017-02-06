@@ -11,13 +11,15 @@
       <div [wormhole]="tab.label"></div>
     </div>
   </div>
-  <div *ngIf="tabsHaveContent" class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
-    <div role="tabpanel" class="vclTabPanel" *ngFor="let tab of tabs; let i = index">
-      <div *ngIf="selectedTabIndex===i && tab.content" [wormhole]="tab.content"></div>
+  <div class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
+    <template ngFor let-tab [ngForOf]="tabs" let-i="index">
+      <div role="tabpanel" class="vclTabPanel" *ngIf="selectedTabIndex===i">
+        <div [wormhole]="tab.content"></div>
+      </div>
+    </template>
+    <div role="tabpanel" class="vclTabPanel">
+      <ng-content></ng-content>
     </div>
-  </div>
-  <div *ngIf="!tabsHaveContent && content" role="tabpanel" class="vclTabPanel">
-    <div [wormhole]="content"></div>
   </div>
 </div>
 

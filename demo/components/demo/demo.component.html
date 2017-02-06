@@ -2,18 +2,13 @@
 <div *ngIf="tabs.length>0">
   <vcl-tab-nav borders=true>
     <vcl-tab *ngFor="let tab of tabs">
-      <template vcl-tab-label>
-        {{tab.name}}
-      </template>
-      <template vcl-tab-content>
-        <!--<demo-content *ngIf="tab.type==='component'" [component]="tab.content"></demo-content>-->
-        <div *ngIf="tab.type==='component'" [wormhole]="tab.content"></div>
-        <markdown *ngIf="tab.type==='markdown'" [markdown]="tab.content"></markdown>
-        <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
-        <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div>
-        <div class="markdown-body" *ngIf="tab.type==='md'" [innerHtml]="tab.content"></div>
-        <pre *ngIf="tab.type==='pre'" [innerHtml]="tab.content"></pre>
-      </template>
+      <template vcl-tab-label>{{tab.name}}</template>
+      <div *ngIf="tab.type==='component'" [wormhole]="tab.content"></div>
+      <markdown *ngIf="tab.type==='markdown'" [markdown]="tab.content"></markdown>
+      <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
+      <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div>
+      <div class="markdown-body" *ngIf="tab.type==='md'" [innerHtml]="tab.content"></div>
+      <pre *ngIf="tab.type==='pre'" [innerHtml]="tab.content"></pre>
     </vcl-tab>
   </vcl-tab-nav>
 </div>
