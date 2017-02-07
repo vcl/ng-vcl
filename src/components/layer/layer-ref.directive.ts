@@ -56,7 +56,7 @@ export class LayerRefDirective extends LayerRef {
   }
 
   // Wormhole stuff
-  createWormhole(viewContainerRef: ViewContainerRef) {
+  createWormhole(viewContainerRef: ViewContainerRef): Wormhole {
     if (!viewContainerRef) {
       throw 'viewContainerRef required';
     }

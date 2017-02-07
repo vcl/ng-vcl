@@ -34,12 +34,10 @@ export abstract class LayerRef {
   private results: Subject<any>;
   private stateChange = new Subject<LayerData>();
   private data: LayerData | undefined;
-  _offClick = new Subject<any>();
 
   visible: boolean;
 
-  state$ = this.stateChange.asObservable();
-  offClick$ = this._offClick.asObservable();
+  state$: Observable<LayerData> = this.stateChange.asObservable();
 
   opts: LayerOptions = {};
 

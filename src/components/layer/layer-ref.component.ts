@@ -39,7 +39,7 @@ export function getComponentLayerOpts<T>(layerRef: LayerRef) {
   return opts || false;
 }
 
-export function createComponentWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRef) {
+export function createComponentWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRef): Wormhole {
   const opts = getComponentLayerOpts<T>(layerRef);
   return opts ? new LayerWormhole<T>(layerRef, viewContainerRef, opts.component) : null;
 }
