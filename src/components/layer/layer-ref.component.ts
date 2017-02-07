@@ -19,7 +19,7 @@ export function Layer<T>(opts: ComponentLayerOptions<T>) {
 
 class LayerWormhole<T> extends ComponentWormhole<T> {
 
-  constructor(private layer: ComponentLayerRef<T>, viewContainerRef: ViewContainerRef, component: ComponentType<T>) {
+  constructor(private layer: LayerRef, viewContainerRef: ViewContainerRef, component: ComponentType<T>) {
     super(viewContainerRef, component);
   }
 
@@ -34,14 +34,12 @@ class LayerWormhole<T> extends ComponentWormhole<T> {
   }
 }
 
-export function getComponentLayerOpts<T>(layerRef: ComponentLayerRef<T>) {
+export function getComponentLayerOpts<T>(layerRef: LayerRef) {
   const opts = getMetadata(COMPONENT_LAYER_ANNOTATION_ID, (layerRef as any).constructor ) as ComponentLayerOptions<T>;
   return opts || false;
 }
 
-export class ComponentLayerRef<T> extends LayerRef {
-  _createWormhole(viewContainerRef: ViewContainerRef) {
-    const opts = getComponentLayerOpts(this);
-    return opts ? new LayerWormhole<T>(this, viewContainerRef, opts.component) : null;
-  }
+export function createComponentWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRef) {
+  const opts = getComponentLayerOpts<T>(layerRef);
+  return opts ? new LayerWormhole<T>(layerRef, viewContainerRef, opts.component) : null;
 }

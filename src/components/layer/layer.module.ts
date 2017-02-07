@@ -7,13 +7,13 @@ import { LayerBaseComponent, LayerBaseRootComponent } from './layer-base.compone
 import { LayerService } from './layer.service';
 import { LayerRef, LayerData, LayerOptions } from './layer-ref';
 import { LayerWrapperComponent } from './layer-wrapper.component';
-import { ComponentLayerRef, Layer, getComponentLayerOpts } from './layer-ref.component';
+import { Layer, getComponentLayerOpts } from './layer-ref.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export {LayerBaseComponent, LayerRefDirective, ComponentLayerRef, LayerRef, LayerData, LayerService, Layer, LayerOptions }
+export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerOptions }
 
 export interface VCLLayerConfig {
-  layers?: Type<ComponentLayerRef<any>>[];
+  layers?: Type<LayerRef>[];
 }
 
 const LAYER_BOOTSTRAP: any[] = [{
@@ -52,7 +52,7 @@ export class VCLLayerModule {
           provide: APP_BOOTSTRAP_LISTENER,
           multi: true,
           deps: [LayerService, ...layerClasses ],
-          useFactory: (layerService: LayerService, ...layers: ComponentLayerRef<any>[]) => {
+          useFactory: (layerService: LayerService, ...layers: LayerRef[]) => {
             return () => {
               layers.forEach(layer => {
                 const opts = getComponentLayerOpts(layer);

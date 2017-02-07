@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
-import { LayerService, Layer, ComponentLayerRef } from './../layer/layer.module';
+import { LayerService, Layer, LayerRef } from './../layer/layer.module';
 import { GrowlComponent } from './growl.component';
 import { GrowlOptions, GrowlPosition } from './types';
 import { Growl } from './growl';
 
-export abstract class GrowlLayer<T> extends ComponentLayerRef<T> {
+export abstract class GrowlLayer<T> extends LayerRef {
 
   abstract reverse: boolean;
 

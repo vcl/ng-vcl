@@ -1,7 +1,7 @@
+import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter } from '@angular/core';
-import { ComponentLayerRef, LayerRef, LayerService, Layer } from './../layer/layer.module';
+import { LayerRef, LayerService, Layer } from './../layer/layer.module';
 import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
 
 @Component({
@@ -10,11 +10,11 @@ import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlig
 })
 export class AlertComponent {
 
-  constructor(layerRef: LayerRef, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
-    this.layerRef = layerRef as AlertLayer;
+  constructor(@Inject(forwardRef(() => AlertLayer)) alertLayer: AlertLayer, private layerService: LayerService) {
+    this.alertLayer = alertLayer;
    }
 
-  layerRef: AlertLayer;
+  alertLayer: AlertLayer;
 
   offClickSub: Subscription;
 
@@ -35,7 +35,7 @@ export class AlertComponent {
   // Close the top layer when escape is pressed
   @HostListener('document:keyup', ['$event'])
   onKeyUp(ev: KeyboardEvent) {
-    if (this.layerService.getVisibleLayers().pop() === this.layerRef) {
+    if (this.layerService.getVisibleLayers().pop() === this.alertLayer) {
       if (ev.key === 'Escape' && this.alert.escClose ) {
         this.dismiss('esc');
       } else if (ev.key === 'Enter') {
@@ -92,14 +92,14 @@ export class AlertComponent {
 
     if (this.alert.loaderOnConfirm) {
       this.updateAlertOpts({ loader: true });
-      this.layerRef.send(result);
+      this.alertLayer.send(result);
     } else  {
-      this.layerRef.close(result);
+      this.alertLayer.close(result);
     }
   }
 
   dismiss(reason: string) {
-    this.layerRef.closeWithError(new AlertError(reason));
+    this.alertLayer.closeWithError(new AlertError(reason));
   }
 
   cancel(reason: string ) {
@@ -119,7 +119,7 @@ export class AlertComponent {
   }
 
   ngOnInit() {
-    this.offClickSub = this.layerRef.onOffClick$.subscribe(() => this.offClick() );
+    this.offClickSub = this.alertLayer.onOffClick$.subscribe(() => this.offClick() );
   }
 
   ngOnDestroy() {
@@ -133,7 +133,7 @@ export class AlertComponent {
   transparent: true,
 })
 @Injectable()
-export class AlertLayer extends ComponentLayerRef<AlertComponent> {
+export class AlertLayer extends LayerRef {
   onOffClick$ = new Subject();
   onOffClick() {
     this.onOffClick$.next();

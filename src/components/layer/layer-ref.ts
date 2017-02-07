@@ -90,6 +90,4 @@ export abstract class LayerRef {
       this.close();
     }
   }
-
-  abstract _createWormhole(viewContainerRef: ViewContainerRef): Wormhole;
 }

@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Wormhole, ComponentWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerRef, LayerOptions } from './layer-ref';
+import { LayerRefDirective } from './layer-ref.directive';
+import { createComponentWormhole } from './layer-ref.component';
 
 @Component({
   templateUrl: 'layer-wrapper.component.html',
@@ -36,7 +38,7 @@ export class LayerWrapperComponent {
   wormhole: Wormhole;
 
   @ViewChild('layerContent', {read: ViewContainerRef})
-  layerContent: ViewContainerRef;
+  layerContentContainer: ViewContainerRef;
 
   get opts(): LayerOptions {
     return (this.layer && this.layer.opts) || { };
@@ -50,14 +52,20 @@ export class LayerWrapperComponent {
 
   ngAfterViewInit() {
     if (!this.wormhole && this.layer) {
-      this.wormhole = this.layer._createWormhole(this.layerContent);
-      if (this.wormhole && this.wormhole instanceof ComponentWormhole) {
-        this.wormhole.connect({
-          attrs: this._attrs
-        });
+
+      if (this.layer instanceof LayerRefDirective) {
+        this.wormhole = this.layer.createWormhole(this.layerContentContainer);
       } else {
-        this.wormhole.connect();
+        this.wormhole = createComponentWormhole(this.layerContentContainer, this.layer);
       }
+
+      if (!this.wormhole) {
+        throw 'invalid layer';
+      }
+
+      this.wormhole.connect({
+        attrs: this._attrs
+      });
     }
   }
 
