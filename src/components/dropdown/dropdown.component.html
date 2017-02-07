@@ -11,8 +11,8 @@
         can't use tap because it will break scrolling on mobiles
   -->
   <li
-    (mousedown)="selectItem(item)"
     *ngFor="let item of items"
+    (mousedown)="selectItem(item)"
     class="vclDropdownItem"
     [class.vclHighlighted]="item.marked"
     [class.vclSelected]="item.selected"

@@ -9,8 +9,9 @@ export class DropdownComponent implements OnInit {
 
   expanded: boolean = false;
   expanded2: boolean = false;
-  expanded3: boolean = true;
-  expanded4: boolean = true;
+  expanded3: boolean = false;
+  expanded4: boolean = false;
+  expanded5: boolean = false;
 
   constructor() { }
 
@@ -97,5 +98,8 @@ export class DropdownComponent implements OnInit {
   }
   expand4() {
     this.expanded4 = !this.expanded4;
+  }
+  expand5() {
+    this.expanded5 = !this.expanded5;
   }
 }

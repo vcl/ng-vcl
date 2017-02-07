@@ -12,6 +12,17 @@
 ></vcl-dropdown>
 ```
 
+```html
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
+  <vcl-dropdown-option value="1">Item 1</vcl-dropdown-option>
+  <vcl-dropdown-option value="2" [selected]="true">Item 2 (preselect)</vcl-dropdown-option>
+  <vcl-dropdown-option value="3">Item 3</vcl-dropdown-option>
+  <vcl-dropdown-option value="4" [disabled]="true">Item 4</vcl-dropdown-option>
+  <vcl-dropdown-option value="5">Item 5</vcl-dropdown-option>
+</vcl-dropdown>
+```
+
+
 ### API
 
 #### Properties:

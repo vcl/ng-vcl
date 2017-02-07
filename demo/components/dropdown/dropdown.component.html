@@ -1,125 +1,39 @@
-Selected Item: <span *ngIf="selectedItem">{{selectedItem.label}}</span>
-
-<br>
-<br>
+single-select: 
 <br>
 <button vcl-button (tap)="expand()">Show/hide</button>
-
 <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded" [items]="items" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
 
 <br>
-<br>
-<br>
-<br>
 <br> multi-select:
-
+<br>
 <button vcl-button (tap)="expand2()">Show/hide</button>
-
 <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2" [items]="items2" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
 
 <br>
-<br>
-<br>
 <br> marked items:
+<br>
+<button vcl-button (tap)="expand3()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [expanded]="expanded3" [items]="itemsMarked" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
 
-<button vcl-button (tap)="expand2()">Show/hide</button>
-
-<vcl-dropdown (change)="onSelect($event)" [expanded]="true" [items]="itemsMarked" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br> <br>
-<br>
-<br>
-<br> <br>
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-<br>
 <br>
 <br> keyboard events:
-
-<button vcl-button (tap)="expand3()">Show/hide</button>
-
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded3" [items]="items3" [tabindex]="77" [listenKeys]="true"></vcl-dropdown>
-
-
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
-<br> keyboard events (multiple):
-
 <button vcl-button (tap)="expand4()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items3" [tabindex]="77" [listenKeys]="true"></vcl-dropdown>
 
+<br>
+<br> keyboard events (multiple):
+<br>
+<button vcl-button (tap)="expand4()">Show/hide</button>
 <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items4" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
-
-
 <br>
+<br> options via html:
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<button vcl-button (tap)="expand5()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
+  <vcl-dropdown-option value="1">Item 1</vcl-dropdown-option>
+  <vcl-dropdown-option value="2" [selected]="true">Item 2 (preselect)</vcl-dropdown-option>
+  <vcl-dropdown-option value="3">Item 3</vcl-dropdown-option>
+  <vcl-dropdown-option value="4" [disabled]="true">Item 4</vcl-dropdown-option>
+  <vcl-dropdown-option value="5">Item 5</vcl-dropdown-option>
+</vcl-dropdown>

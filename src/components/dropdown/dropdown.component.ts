@@ -1,5 +1,5 @@
-import { Component, Input, Output, ChangeDetectionStrategy,
-  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Directive, Component, Input, Output, ChangeDetectionStrategy,
+  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -7,6 +7,45 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   useExisting: forwardRef(() => DropdownComponent),
   multi: true
 };
+
+@Directive({
+  selector: 'vcl-dropdown-option'
+})
+export class DropdownOptionComponent implements OnInit {
+
+  @Input('value') value: string;
+  @Input('sublabel') sublabel: string;
+  @Input('label') label: string;
+  @Input('class') class: string = '';
+
+  @Input('disabled') disabled: boolean = false;
+  @Input('selected') selected: boolean = false;
+
+  constructor(
+    private elementRef: ElementRef
+  ) { }
+
+  ngOnInit() {
+    if (!this.label || this.label == '') {
+      this.label = this.elementRef.nativeElement.innerText;
+      if (!this.label || this.label == '') {
+        this.label = this.value;
+      }
+    }
+  }
+
+  toObject(): Object {
+    const ret = {
+      value: this.value,
+      label: this.label,
+      sublabel: this.sublabel,
+      class: this.class,
+      disabled: this.disabled,
+      selected: this.selected
+    };
+    return ret;
+  }
+}
 
 @Component({
   selector: 'vcl-dropdown',
@@ -19,6 +58,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   private static readonly TAG: string = 'DropdownComponent';
 
   @ViewChild('listbox') listbox;
+  @ContentChildren(DropdownOptionComponent) templateItems: QueryList<DropdownOptionComponent>;
 
   @Output('change') change$ = new EventEmitter<any[]>();
 
@@ -55,11 +95,20 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit() {
-    // ensure items have a value
-    this.items = this.items.map(i => {
+
+  }
+
+  ngAfterContentInit() {
+    // transform template-items if available
+    let templateItemsAr = this.templateItems.toArray();
+    if (templateItemsAr.length > 0) {
+      this.items = templateItemsAr.map(i => i.toObject());
+    }
+
+    // make sure value and label exists on every option
+    this.items.forEach(i => {
       if (!i.value) i.value = i.label;
       if (!i.label) i.label = i.value;
-      return i;
     });
   }
 
