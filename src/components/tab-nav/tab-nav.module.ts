@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabComponent, TabLabelDirective, TabNavComponent } from './tab-nav.component';
+import { TabNavComponent } from './tab-nav.component';
+import { TabComponent, TabLabelDirective } from './tab.component';
 import { L10nModule } from '../../l10n/l10n.module';
 import { VCLWormholeModule } from '../../directives/wormhole/wormhole.module';
 

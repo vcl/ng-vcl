@@ -1,26 +1,6 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter, ViewChild } from '@angular/core';
-
-@Directive({ selector: '[vcl-tab-label]' })
-export class TabLabelDirective { }
-
-@Component({
-  selector: 'vcl-tab',
-  template: '<template><ng-content></ng-content></template>'
-})
-export class TabComponent {
-  @ContentChild(TabLabelDirective, { read: TemplateRef })
-  label: TabLabelDirective;
-
-  @ViewChild(TemplateRef)
-  content: TemplateRef<any>;
-
-  @Input()
-  disabled = false;
-
-  @Input()
-  tabClass: string = '';
-}
+import { Observable } from 'rxjs/Observable';
+import { TabComponent } from './tab.component';
 
 @Component({
   selector: 'vcl-tab-nav',
