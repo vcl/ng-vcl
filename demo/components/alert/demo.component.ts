@@ -1,6 +1,6 @@
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { AlertService, AlertType, AlertError, AlertAlignment, AlertInput } from './../../../src/components/alert/alert.module';
+import { AlertService, AlertType, AlertError, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
 
 function async(data: any, error: boolean | Function): Observable<any> {

@@ -1,6 +1,6 @@
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { GrowlService, GrowlType, GrowlPosition } from './../../../src/components/growl/growl.module';
+import { GrowlService, GrowlType, GrowlPosition } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
 
 let cnt = 1;

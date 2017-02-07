@@ -1,7 +1,7 @@
 import { CanDeactivate } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { LayerDemoComponent } from './demo.component';
-import { LayerService } from './../../../src/index';
+import { LayerService } from '@ng-vcl/ng-vcl';
 
 @Injectable()
 export class LayerDemoCanDeactivateGuard implements CanDeactivate<LayerDemoComponent> {

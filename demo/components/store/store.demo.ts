@@ -1,4 +1,4 @@
-import { Store } from './../../../src/store/store';
+import { StoreModule, VCLModule, Store } from '@ng-vcl/ng-vcl';
 import { DemoComponent } from './../demo/demo.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,6 @@ import { StoreComponent } from './store.component';
 import { BooksEffects, BooksService } from './books.service';
 import { BOOKS_REDUCERS } from './books.reducers';
 
-import { StoreModule, VCLModule } from './../../../src/index';
 
 const PATH = 'store';
 const LABEL = 'Store';

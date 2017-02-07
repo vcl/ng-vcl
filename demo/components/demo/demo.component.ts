@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, Directive, Input, ComponentFactoryResolver, ViewContainerRef, Type, ComponentRef } from '@angular/core';
-import { ComponentWormhole } from './../../../src/index';
+import { ComponentWormhole } from '@ng-vcl/ng-vcl';
 const style = require("!raw-loader!../markdown/markdown.component.css");
 
 @Component({

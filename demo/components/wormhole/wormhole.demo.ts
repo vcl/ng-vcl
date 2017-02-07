@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DemoComponent } from './../demo/demo.component';
 import { NgModule } from '@angular/core';
 import { WormholeComponent, MyComponent } from './wormhole.component';
-import { VCLWormholeModule } from './../../../src/index';
+import { VCLWormholeModule } from '@ng-vcl/ng-vcl';
 
 
 const PATH = 'wormhole';

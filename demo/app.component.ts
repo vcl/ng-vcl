@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store, StoreErrorAction } from '../src/index';
+import { Store, StoreErrorAction } from '@ng-vcl/ng-vcl';
 import { GROUPED_DEMOS } from "./demos";
 
 // TODO: temp fix for fuse.js import until fix is integrated

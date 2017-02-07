@@ -16,7 +16,11 @@
       "dom.iterable",
       "scripthost",
       "es2016.array.include"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@ng-vcl/ng-vcl": ["src"]
+    }
   },
   "include": [
     "./demo/**/*.ts",

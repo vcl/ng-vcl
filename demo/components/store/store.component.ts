@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Store } from './../../../src/index';
+import { Store } from '@ng-vcl/ng-vcl';
 
 import { BooksService } from './books.service';
 

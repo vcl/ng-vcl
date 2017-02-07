@@ -1,6 +1,6 @@
 import { DemoComponent } from './components/demo/demo.component';
 import { RouterModule } from '@angular/router';
-import { VCLModule } from './../src/index';
+import { VCLModule } from '@ng-vcl/ng-vcl';
 import { BrowserModule } from '@angular/platform-browser';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

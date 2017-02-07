@@ -8,10 +8,12 @@ const {
     UglifyJsPlugin
   }
 } = require('webpack');
-const {ForkCheckerPlugin} = require('awesome-typescript-loader');
+
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 
 const path = require('path');
 
@@ -103,6 +105,7 @@ function webpackConfig(options) {
     ].filter(plugin=>plugin!==null),
     resolve: {
       extensions: ['.ts', '.js', '.json'],
+      plugins: [ new TsConfigPathsPlugin() ]
     },
     devServer: {
       contentBase: './app/public',

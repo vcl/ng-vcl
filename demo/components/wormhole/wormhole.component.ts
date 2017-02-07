@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input, ViewContainerRef } from '@angular/core';
-import { Wormhole, createWormhole } from './../../../src/directives/wormhole/wormhole.module';
+import { Wormhole, createWormhole } from '@ng-vcl/ng-vcl';
 
 @Component({
   template: '<p>I am a component. And this is my <b>{{value}}</b></p>'

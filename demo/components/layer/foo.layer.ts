@@ -1,4 +1,4 @@
-import { Layer, LayerRef } from './../../../src/index';
+import { Layer, LayerRef } from '@ng-vcl/ng-vcl';
 import { Component, Input, Injectable } from '@angular/core';
 
 @Component({

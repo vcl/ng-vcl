@@ -1,5 +1,5 @@
 import { Component, HostListener, ViewChild, Inject } from '@angular/core';
-import { LayerService, LayerRef } from './../../../src/index';
+import { LayerService, LayerRef } from '@ng-vcl/ng-vcl';
 import { FooLayer } from './foo.layer';
 
 @Component({
