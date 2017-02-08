@@ -3,9 +3,11 @@
   [(selected)]="token.selected"
   [removeable]="true"
   (remove)="remove(token)"
+  [attr.tabindex]="-1"
   [label]="token.label"></vcl-token>
 </div>
 
 <input placeholder="Type to add tokens" autocomplete="off" type="text"
   class="vclInput" (keydown)="keydown($event)"
+  #input
   [(ngModel)]="addtext" flex />

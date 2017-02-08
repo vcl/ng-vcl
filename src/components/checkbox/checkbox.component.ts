@@ -21,7 +21,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   host: {
     '[attr.role]': '"checkbox"',
     '[class.vclCheckbox]': 'true',
-    '[class.vclScale130p]': 'true',
     '[style.userSelect]': '"none"'
   },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],

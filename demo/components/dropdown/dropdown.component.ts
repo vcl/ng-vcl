@@ -11,6 +11,7 @@ export class DropdownComponent implements OnInit {
   expanded2: boolean = false;
   expanded3: boolean = false;
   expanded4: boolean = false;
+  expanded6: boolean = false;
   expanded5: boolean = false;
 
   constructor() { }
@@ -67,6 +68,19 @@ export class DropdownComponent implements OnInit {
     { label: 'item 9' },
     { label: 'item 10' }
   ];
+
+    items5: any[] = [
+      { label: 'item 1' },
+      { label: 'item 2' },
+      { label: 'item 3', class: 'myclass myclass2' },
+      { label: 'item 4 (preselect)', selected: true },
+      { label: 'item 5' },
+      { label: 'item 6', sublabel: 'sublabel of item 6' },
+      { label: 'item 7', sublabel: 'sublabel of item 7' },
+      { label: 'item 8', sublabel: 'sublabel of item 8' },
+      { label: 'item 9' },
+      { label: 'item 10' }
+    ];
 
   itemsMarked: any[] = [
     { label: 'item 1' },

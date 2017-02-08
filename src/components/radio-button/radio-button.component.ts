@@ -24,7 +24,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   host: {
     '[attr.role]': '"radio"',
     '[class.vclCheckbox]': 'true',
-    '[class.vclScale130p]': 'true',
     '[style.userSelect]': '"none"'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -3,7 +3,9 @@ import {
   Input, Output,
   forwardRef,
   EventEmitter,
+  HostListener,
   ContentChildren,
+  ViewChild,
   QueryList
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -21,7 +23,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2: any = {
   templateUrl: 'tokeninput.component.html',
   host: {
     '[class.vclInput]': 'true',
-    '[class.vclTokenInput]': 'true'
+    '[class.vclTokenInput]': 'true',
+    '[attr.tabindex]': '0'
   },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2]
 })
@@ -30,6 +33,9 @@ export class TokenInputComponent implements ControlValueAccessor {
   @Input('tokens') tokens: any[] = [];
   @Output('change') onChange = new EventEmitter();
   value: any[];
+
+  @ViewChild('input') input: any;
+
 
   @ContentChildren(TokenComponent)
   templateItems: QueryList<TokenComponent>;
@@ -44,6 +50,34 @@ export class TokenInputComponent implements ControlValueAccessor {
       this.tokens = templateItemsAr.map(i => i.toObject());
     }
   }
+
+
+  @HostListener('focus', ['$event'])
+  async onFocus(ev?) {
+    await new Promise(res => setTimeout(res, 0));
+    this.input.nativeElement.focus();
+  }
+
+
+  /**
+   * remove last token on double-backspace
+   */
+  lastKey: string = null;
+  @HostListener('keydown', ['$event'])
+  async onKeydown(ev?) {
+    if (
+      ev.code == 'Backspace' &&
+      this.lastKey == 'Backspace' &&
+      this.input.nativeElement.value == ''
+    ) {
+      // remove last token
+      this.tokens.pop();
+      this.tokens = this.tokens.splice(0);
+    }
+    else this.lastKey = ev.code;
+  }
+
+
 
   keydown(ev) {
     if (ev.key != 'Enter') return;

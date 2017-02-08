@@ -1,4 +1,4 @@
-single-select: 
+single-select:
 <br>
 <button vcl-button (tap)="expand()">Show/hide</button>
 <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded" [items]="items" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
@@ -25,12 +25,12 @@ single-select:
 <br> keyboard events (multiple):
 <br>
 <button vcl-button (tap)="expand4()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items4" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [items]="items5" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
 <br>
-<br> options via html:
+<br> options via content-child:
 <br>
 <button vcl-button (tap)="expand5()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded6" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
   <vcl-dropdown-option value="1">Item 1</vcl-dropdown-option>
   <vcl-dropdown-option value="2" [selected]="true">Item 2 (preselect)</vcl-dropdown-option>
   <vcl-dropdown-option value="3">Item 3</vcl-dropdown-option>

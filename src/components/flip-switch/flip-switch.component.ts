@@ -27,8 +27,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclFlipSwitchPressed]': 'value',
     '[attr.role]': '"button"',
     '[attr.aria-pressed]': 'value',
-    '[attr.touch-action]': '"pan-y"',
-    '[style.display]': '"block"' // TODO this should be done by vcl itself
+    '[attr.touch-action]': '"pan-y"'
   }
 })
 export class FlipSwitchComponent implements ControlValueAccessor {
