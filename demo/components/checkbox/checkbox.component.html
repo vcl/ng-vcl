@@ -1,25 +1,18 @@
-Checkbox:
+<h3>Checkbox:</h3>
 <vcl-checkbox [(checked)]="isChecked"></vcl-checkbox>
+<br>
+<b>State:</b> {{isChecked}}
 
-<br><br>
-<b>Checked:</b> {{isChecked}}
-
-<br><br>
-<button vcl-button (tap)="isChecked=false">Uncheck checkbox</button>
-
-<br><br>
-Disabled:
+<h3>Disabled:</h3>
 <vcl-checkbox [disabled]="true"></vcl-checkbox>
-<br>
-<br>
-<br>
-Checkbox with label:
-<br>
+
+<h3>Checkbox with label:</h3>
+<h4>right</h4>
 <vcl-checkbox [(checked)]="isChecked2" labelPosition="right">
   <label vcl-form-control-label label="rightLabel" subLabel="SubRightLabel"></label>
 </vcl-checkbox>
-<br>
-<br>
+
+<h4>left</h4>
 <vcl-checkbox [(checked)]="isChecked3" labelPosition="left">
   <label vcl-form-control-label label="rightLabel" subLabel="SubRightLabel"></label>
 </vcl-checkbox>

@@ -1,13 +1,12 @@
-<b>Single select</b><br>
-<vcl-select [items]="items1" (change)="onChange($event)" [(ngModel)]="selectedItemSingle"></vcl-select>
+<h3>Simple select:</h3>
+<vcl-select label="Single select" [items]="items1" (change)="onChange($event)" [(ngModel)]="selectedItemSingle"></vcl-select>
+
 <div *ngIf="selectedItemSingle">
   value: {{selectedItemSingle}}
 </div>
 
 <br>
-<br>
-<b>Multiselect, 3 Items selectable</b><br>
-
+<h3>Multiselect, 3 Items selectable:</h3>
 <vcl-select [items]="items2" (change)="onChange($event)" [maxSelectableItems]="3"
   [(ngModel)]="selectedItemsMulti"
 ></vcl-select>
@@ -20,9 +19,7 @@
 
 
 
-<br>
-<br>
-<b>Options via html</b><br>
+<h3>Options via html:</h3>
 <vcl-select (change)="onChange($event)" [(ngModel)]="selectedItemSingleHtml">
   <vcl-select-option value="1">Item 1</vcl-select-option>
   <vcl-select-option value="2" [selected]="true">Item 2 (preselect)</vcl-select-option>
@@ -34,20 +31,15 @@
   Value: {{selectedItemSingleHtml}}
 </div>
 
-<br/>
-<br/>
-<hr/>
-<h2>Pre-defined value</h2>
-<br>
-<b>single</b><br>
+
+<h3>Pre-defined value</h3>
+<h4>single</h4>
 <vcl-select [items]="itemsStringValue" (change)="onChange($event)" [(ngModel)]="selectSingleValue"></vcl-select>
 <div *ngIf="selectSingleValue">
   Value: {{selectSingleValue}}
 </div>
 
-<br>
-<br>
-<b>multi</b><br>
+<h4>multi-select</h4>
 <vcl-select [items]="items2" (change)="onChange($event)" [maxSelectableItems]="3"
  [(ngModel)]="selectMultiValue"></vcl-select>
 <div *ngIf="selectMultiValue && selectMultiValue.length>0">
@@ -59,9 +51,7 @@
 
 
 
-<br>
-<br>
-<b>Options via html</b><br>
+<h3>Options via content-children</h3>
 <vcl-select (change)="onChange($event)" [(ngModel)]="selectSingleValueHtml">
   <vcl-select-option value="1">Item 1</vcl-select-option>
   <vcl-select-option value="2">Item 2</vcl-select-option>
