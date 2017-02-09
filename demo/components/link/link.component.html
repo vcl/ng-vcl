@@ -1,51 +1,36 @@
-Link with action:
-<br>
+<h3>Link with action:</h3>
 <a vcl-link
   (tap)="someAction($event)"
   [label]="'Trigger test action'"></a>
 <br><br>
 
-href attribute only (label is automatically created):
-<br>
+<h3>href attribute only (label is automatically created):</h3>
 <a vcl-link
   [href]="'http://www.example.com'"></a>
 <br><br>
 
-Label and prepended icon:
-<br>
+<h3>Label and prepended icon:</h3>
 <a vcl-link
   [href]="'#'"
   [label]="'Example Link'"
   [prepIcon]="'fa:chevron-right'"></a>
 <br><br>
 
-<!--
-Block usage:
-<br>
-<a vcl-link [href]="'#'">
-  Label from block
-</a>
-<br><br>
--->
-
-Disabled link:
-<br>
+<h3>Disabled link:</h3>
 <a vcl-link
   [disabled]="true"
   [href]="'this is not considered as the link is disabled'"
   [label]="'Disabled link'"></a>
 <br><br>
 
-Link with target _blank:
-<br>
+<h3>Link with target _blank:</h3>
 <a vcl-link
   [href]="'https://github.com/ember-vcl'"
   [target]="'_blank'"
   [label]="'Target _blank link'"></a>
 <br><br>
 
-Link with title and scheme:
-<br>
+<h3>Link with title and scheme:</h3>
 <a vcl-link
   [title]="'link title'"
   [scheme]="'tel'"
