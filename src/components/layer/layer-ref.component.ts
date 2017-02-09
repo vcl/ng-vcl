@@ -1,8 +1,8 @@
 import { ViewContainerRef, ReflectiveInjector, Injectable } from '@angular/core';
 import { ComponentType, defineMetadata, getMetadata } from './../../core/index';
 import { ComponentWormhole, Wormhole } from './../../directives/wormhole/wormhole.module';
-import { LayerRef, LayerOptions } from './layer-ref';
-import { LayerService } from './layer.service';
+import { LayerRef } from './layer-ref';
+import { LayerService, LayerOptions } from './layer.service';
 
 const COMPONENT_LAYER_ANNOTATION_ID = 'ng-vcl_component_layer';
 

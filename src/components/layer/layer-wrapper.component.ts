@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Wormhole, ComponentWormhole } from './../../directives/wormhole/wormhole.module';
-import { LayerRef, LayerOptions } from './layer-ref';
+import { LayerOptions } from './layer.service';
+import { LayerRef } from './layer-ref';
 import { LayerRefDirective } from './layer-ref.directive';
 import { createComponentWormhole } from './layer-ref.component';
 
@@ -32,6 +33,9 @@ export class LayerWrapperComponent {
   @Input()
   Zindex = 1000;
 
+  @Input()
+  opts: LayerOptions;
+
   @Output()
   offClick = new EventEmitter();
 
@@ -39,10 +43,6 @@ export class LayerWrapperComponent {
 
   @ViewChild('layerContent', {read: ViewContainerRef})
   layerContentContainer: ViewContainerRef;
-
-  get opts(): LayerOptions {
-    return (this.layer && this.layer.opts) || { };
-  }
 
   get visible() {
     return (this.layer && this.layer.visible) || false;

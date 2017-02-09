@@ -9,26 +9,6 @@ export interface LayerData {
   [key: string]: any;
 }
 
-export interface LayerOptions {
-  base?: string;
-  modal?: boolean;
-  offClickClose?: boolean;
-  transparent?: boolean;
-  fill?: boolean;
-  stickToBottom?: boolean;
-  gutterPadding?: boolean;
-  customClass?: string;
-}
-
-const LAYER_OPTIONS_DEFAULTS: LayerOptions = {
-  base: 'default',
-  modal: false,
-  transparent: false,
-  fill: false,
-  stickToBottom: false,
-  gutterPadding: false,
-};
-
 export abstract class LayerRef {
 
   private results: Subject<any>;
@@ -38,12 +18,6 @@ export abstract class LayerRef {
   visible: boolean;
 
   state$: Observable<LayerData> = this.stateChange.asObservable();
-
-  opts: LayerOptions = {};
-
-  _setOptions(opts: LayerOptions) {
-    this.opts = Object.assign({}, LAYER_OPTIONS_DEFAULTS, opts);
-  }
 
   private update(value: boolean, data?: LayerData) {
     if (this.visible !== value || this.data !== data) {
@@ -79,13 +53,6 @@ export abstract class LayerRef {
   send(data: any) {
     if (data !== undefined && this.results) {
       this.results.next(data);
-    }
-  }
-
-  onOffClick() {
-    const offClickClose = typeof this.opts.offClickClose === 'boolean' ? this.opts.offClickClose : !this.opts.modal;
-    if (offClickClose) {
-      this.close();
     }
   }
 }

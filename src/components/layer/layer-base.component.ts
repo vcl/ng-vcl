@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/operator/debounceTime';
 import { Wormhole, createWormhole } from './../../directives/wormhole/wormhole.module';
-import { LayerService } from './layer.service';
+import { LayerService, LayerOptions } from './layer.service';
 import { LayerRef } from './layer-ref';
 import { LayerWrapperComponent } from './layer-wrapper.component';
 
@@ -34,7 +34,7 @@ export class LayerBaseComponent {
                    .getLayers$(this.name)
                    .subscribe(l => {
                      if (l.register) {
-                       this.registerLayer(l.ref);
+                       this.registerLayer(l.ref, l.opts);
                      } else {
                        this.unregisterLayer(l.ref);
                      }
@@ -45,7 +45,7 @@ export class LayerBaseComponent {
     return Array.from(this.layerMap.keys());
   }
 
-  registerLayer(layer: LayerRef) {
+  registerLayer(layer: LayerRef, opts: LayerOptions) {
     const wrapperWormholeRef = createWormhole(this.viewContainerRef, LayerWrapperComponent);
     this.layerMap.set(layer, wrapperWormholeRef);
 
@@ -57,15 +57,15 @@ export class LayerBaseComponent {
           attrs: {
             layer,
             zIndex: this.zIndex + this.viewContainerRef.length,
-            attrs
+            attrs,
+            opts
           },
           events: ['offClick']
         }).subscribe(e => {
           if (e.event === 'offClick') {
-            this.offClick(layer);
+            this.offClick(layer, opts);
           }
         });
-
       } else if (layer.visible && wrapperWormholeRef.isConnected) {
         wrapperWormholeRef.setAttributes({attrs});
       } else if (!layer.visible && wrapperWormholeRef.isConnected) {
@@ -82,6 +82,7 @@ export class LayerBaseComponent {
     const sub = this.layerSubscriptions.get(layer);
     if (sub) sub.unsubscribe();
     this.layerMap.delete(layer);
+    this.layerSubscriptions.delete(layer);
   }
 
   ngOnDestroy() {
@@ -90,10 +91,17 @@ export class LayerBaseComponent {
     if (this.sub && !this.sub.closed) this.sub.unsubscribe();
   }
 
-  offClick(layer: LayerRef) {
+  offClick(layer: LayerRef, opts: LayerOptions) {
     // Trigger offClick only on the top layer
     if ([...this.visibleLayers].pop() === layer) {
-      layer.onOffClick();
+      if ((layer as any).onOffClick) {
+        (layer as any).onOffClick(opts);
+      } else {
+        const offClickClose = typeof opts.offClickClose === 'boolean' ? opts.offClickClose : !opts.modal;
+        if (offClickClose) {
+          layer.close();
+        }
+      }
     }
   }
 }

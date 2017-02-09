@@ -56,6 +56,10 @@ function createReducer(reducers: any): Reducer<StoreState> {
   return reducer;
 }
 
+export function initialReducer(appState) {
+  return appState;
+}
+
 @NgModule({
   providers: [
     StoreActions,
@@ -67,7 +71,7 @@ function createReducer(reducers: any): Reducer<StoreState> {
     },
     {
       provide: STORE_INITIAL_REDUCERS,
-      useValue: appState => appState,
+      useValue: initialReducer,
       multi: true
     }
   ]

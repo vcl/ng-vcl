@@ -8,7 +8,9 @@
          [class.vclSelected]="selectedTabIndex===i"
          [class.aria-selected]="selectedTabIndex===i"
          (tap)="selectTab(tab)">
-      <div [wormhole]="tab.label"></div>
+        <span class="vclTabLabel"> 
+          <div [wormhole]="tab.label"></div>
+        </span>
     </div>
   </div>
   <div class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">

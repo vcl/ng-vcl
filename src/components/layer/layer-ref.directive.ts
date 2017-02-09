@@ -1,7 +1,7 @@
 import { Input, TemplateRef, ChangeDetectorRef, Directive, ViewContainerRef } from '@angular/core';
 import { Wormhole, TemplateWormhole } from './../../directives/wormhole/wormhole.module';
-import { LayerService } from './layer.service';
-import { LayerRef, LayerOptions } from './layer-ref';
+import { LayerService, LayerOptions } from './layer.service';
+import { LayerRef } from './layer-ref';
 
 @Directive({
   selector: '[vcl-layer]',
@@ -47,8 +47,7 @@ export class LayerRefDirective extends LayerRef {
     if (this.stickToBottom !== undefined) opts.stickToBottom = this.stickToBottom;
     if (this.gutterPadding !== undefined) opts.gutterPadding = this.gutterPadding;
     if (this.customClass !== undefined) opts.customClass = this.customClass;
-    this._setOptions(opts);
-    this.layerService.register(this);
+    this.layerService.register(this, opts);
   }
 
   ngOnDestroy() {

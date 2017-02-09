@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from './../icogram/icogram.module';
 import { VCLButtonModule } from './../button/button.module';
-import { VCLLayerModule } from './../layer/layer.module';
+import { VCLLayerModule, provideLayer } from './../layer/layer.module';
 import { VCLInputModule } from './../input/input.module';
 import { GrowlComponent } from './growl.component';
 import { GrowlLayerTopRight, GrowlLayerBottomRight, GrowlLayerBottom, GrowlLayerBottomLeft, GrowlLayerTopLeft, GrowlLayerTop } from './growl.layer';
@@ -18,13 +18,19 @@ export { Growl, GrowlService, GrowlOptions, GrowlType, GrowlPosition };
     FormsModule,
     CommonModule,
     VCLButtonModule,
-    VCLLayerModule.withConfig({
-      layers: [ GrowlLayerTopRight, GrowlLayerBottomRight, GrowlLayerBottom, GrowlLayerBottomLeft, GrowlLayerTopLeft, GrowlLayerTop ]
-    })
+    VCLLayerModule
   ],
   exports: [],
   declarations: [ GrowlComponent ],
   entryComponents: [ GrowlComponent ],
-  providers: [ GrowlService ],
+  providers: [
+    GrowlService,
+    provideLayer(GrowlLayerTopRight),
+    provideLayer(GrowlLayerBottomRight),
+    provideLayer(GrowlLayerBottom),
+    provideLayer(GrowlLayerBottomLeft),
+    provideLayer(GrowlLayerTopLeft),
+    provideLayer(GrowlLayerTop)
+  ],
 })
 export class VCLGrowlModule { }

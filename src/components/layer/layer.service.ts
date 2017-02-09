@@ -9,6 +9,26 @@ import 'rxjs/operator/distinctUntilChanged';
 import { LayerBaseComponent } from './layer-base.component';
 import { LayerRef } from './layer-ref';
 
+export interface LayerOptions {
+  base?: string;
+  modal?: boolean;
+  offClickClose?: boolean;
+  transparent?: boolean;
+  fill?: boolean;
+  stickToBottom?: boolean;
+  gutterPadding?: boolean;
+  customClass?: string;
+}
+
+const LAYER_OPTIONS_DEFAULTS: LayerOptions = {
+  base: 'default',
+  modal: false,
+  transparent: false,
+  fill: false,
+  stickToBottom: false,
+  gutterPadding: false,
+};
+
 @Injectable()
 export class LayerService {
 
@@ -17,10 +37,11 @@ export class LayerService {
   private layerRegister = new ReplaySubject<{
     register: boolean;
     ref: LayerRef;
+    opts?: LayerOptions;
   }>();
 
   getLayers$(base = 'default') {
-    return this.layerRegister.asObservable().filter(l => l.ref.opts.base === base);
+    return this.layerRegister.asObservable().filter(lr => lr.opts.base === base);
   }
 
   getVisibleLayers(base = 'default') {
@@ -45,13 +66,18 @@ export class LayerService {
     if (layer) layer.close();
   }
 
-  register(layer: LayerRef) {
+  register(layer: LayerRef, opts: LayerOptions) {
     if (!(layer instanceof LayerRef)) {
       throw 'Invalid layer';
     }
+
+    // Merge defaults
+    opts = Object.assign({}, LAYER_OPTIONS_DEFAULTS, opts);
+
     this.layerRegister.next({
       ref: layer,
-      register: true
+      register: true,
+      opts
     });
   }
 

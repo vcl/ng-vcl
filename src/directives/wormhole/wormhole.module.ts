@@ -6,6 +6,12 @@ import { ComponentType } from './../../core/index';
 
 export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, WormholeDirective, WormholeService, createWormhole };
 
+export function bootstrapWormhole(wormholeService: WormholeService) {
+  return () => {
+    wormholeService.ready();
+  };
+}
+
 @NgModule({
   exports: [WormholeDirective],
   declarations: [WormholeDirective],
@@ -15,11 +21,7 @@ export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, Worm
       provide: APP_BOOTSTRAP_LISTENER,
       multi: true,
       deps: [ WormholeService ],
-      useFactory: (wormholeService: WormholeService) => {
-        return () => {
-          wormholeService.ready();
-        };
-      }
+      useFactory: bootstrapWormhole
     }
   ]
 })

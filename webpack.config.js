@@ -9,11 +9,10 @@ const {
   }
 } = require('webpack');
 
-const {ForkCheckerPlugin} = require('awesome-typescript-loader');
 const path = require('path');
 
-function root(__path = '.') {
-  return path.join(__dirname, __path);
+function root(__path = '.', ...args) {
+  return path.join(__dirname, __path, ...args);
 }
 
 function ngExternal(ns) {
@@ -35,7 +34,7 @@ function rxjsExternal(context, request, cb) {
 function webpackConfig(options) {
   return {
     devtool: 'source-map',
-    entry: "./src/index.ts",
+    entry:  root('src', 'index.ts'),
     externals: [
       {
         '@angular/core': ngExternal('core'),

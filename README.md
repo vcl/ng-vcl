@@ -50,7 +50,7 @@ OR
 git clone https://github.com/ng-vcl/ng-vcl.git
 cd ng-vcl
 npm install
-npm run demo
+npm run dev
 ```
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 
