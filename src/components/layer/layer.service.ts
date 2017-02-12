@@ -3,9 +3,9 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/operator/filter';
-import 'rxjs/operator/map';
-import 'rxjs/operator/distinctUntilChanged';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/distinctUntilChanged';
 import { LayerBaseComponent } from './layer-base.component';
 import { LayerRef } from './layer-ref';
 

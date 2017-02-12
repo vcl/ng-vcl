@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { merge } from 'rxjs/observable/merge';
+import 'rxjs/add/observable/merge';
 import { OnDestroy, Injectable, Optional, OpaqueToken, Inject } from '@angular/core';
 import { Store, StoreErrorAction } from './store';
 
@@ -47,7 +47,7 @@ export class Effects implements OnDestroy {
     eiArr.forEach(instance => {
       if (instance) {
         const properties = getEffectsMetadata(instance);
-        const effects$ = merge(...(properties.map(property => instance[property])));
+        const effects$ = Observable.merge(...(properties.map(property => instance[property])));
         const sub = effects$.catch(err => {
           // Catch effect error and dispatch StoreErrorAction
           return Observable.of(new StoreErrorAction(err));

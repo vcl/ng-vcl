@@ -19,7 +19,7 @@ const JSONEditor = require('jsoneditor/dist/jsoneditor.js');
  */
 
 const JSONEditorSVG: string = require('!raw-loader!jsoneditor/dist/img/jsoneditor-icons.svg');
-const JSONEditorCSS: string = require('!raw-loader!jsoneditor/dist/jsoneditor.css')
+export const JSONEditorCSS: string = require('!raw-loader!jsoneditor/dist/jsoneditor.css')
                               .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {

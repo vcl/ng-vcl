@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, Directive, TemplateRef, Element
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/operator/debounceTime';
+import 'rxjs/add/operator/debounceTime';
 import { Wormhole, createWormhole } from './../../directives/wormhole/wormhole.module';
 import { LayerService, LayerOptions } from './layer.service';
 import { LayerRef } from './layer-ref';

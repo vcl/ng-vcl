@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 
-import * as accept from 'attr-accept';
+import attrAccept from 'attr-accept';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -90,7 +90,7 @@ export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccess
 
           // check file-type
           let typeOK = true;
-          const wrongFiles = Array.prototype.filter.call(event['target'].files, file => !accept(file, this.accept));
+          const wrongFiles = Array.prototype.filter.call(event['target'].files, file => !attrAccept(file, this.accept));
           if (wrongFiles.length > 0 && this.accept != '*') this.state = 'error'; // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
           else this.state = 'busy';
         })

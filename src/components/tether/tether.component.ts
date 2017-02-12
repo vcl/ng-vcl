@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, Input, Output, ElementRef, EventEmitter } from '@angular/core';
-import * as Tether from 'tether';
+import Tether from 'tether';
 
 let tetherID = 10000;
 

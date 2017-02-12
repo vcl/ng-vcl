@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/fromEventPattern';
-import * as Hammer from 'hammerjs';
+import Hammer from 'hammerjs';
 
 @Directive({
   selector: '[offClick]',
