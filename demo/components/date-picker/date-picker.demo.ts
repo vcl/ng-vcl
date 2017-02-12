@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: DatePickerComponent,
-    'README.md': require("!raw-loader!../../../src/components/date-picker/README.md"),
+    'README.md': require("!raw-loader!../../../src/ng-vcl/date-picker/README.md"),
     'demo.component.html': require("!raw-loader!./date-picker.component.html"),
     'demo.component.ts': require("!raw-loader!./date-picker.component.ts")
   }

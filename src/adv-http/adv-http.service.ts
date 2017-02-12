@@ -1,3 +1,5 @@
+import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
+import { Injectable, OpaqueToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 import { Subscription } from 'rxjs/Subscription';
@@ -11,8 +13,6 @@ import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/observable/throw';
 
-import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
-import { Injectable, OpaqueToken, Inject } from '@angular/core';
 
 /**
  *  Data caching

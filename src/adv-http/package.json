@@ -1,0 +1,20 @@
+{
+  "name": "@ng-vcl/adv-http",
+  "version": "PLACEHOLDER",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ng-vcl/ng-vcl.git"
+  },
+  "author": "The ng-vcl authors",
+  "license": "MIT",
+  "module": "index.js",
+  "main": "index.umd.js",
+  "typings": "index.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^2.3.0",
+    "@angular/http": "^2.3.0",
+    "rxjs": "^5.0.3"
+  },
+  "dependencies": { }
+}

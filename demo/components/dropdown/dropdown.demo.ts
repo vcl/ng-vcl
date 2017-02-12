@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: DropdownComponent,
-    'README.md': require("!raw-loader!../../../src/components/dropdown/README.md"),
+    'README.md': require("!raw-loader!../../../src/ng-vcl/dropdown/README.md"),
     'demo.component.html': require("!raw-loader!./dropdown.component.html"),
     'demo.component.ts': require("!raw-loader!./dropdown.component.ts")
   }

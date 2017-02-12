@@ -20,7 +20,7 @@ const LABEL = 'Wormhole';
         label: LABEL,
         tabs: {
           Demo: WormholeComponent,
-          'README.md': require("!raw-loader!../../../src/directives/wormhole/README.md"),
+          'README.md': require("!raw-loader!../../../src/ng-vcl/wormhole/README.md"),
           'demo.component.html': require("!raw-loader!./wormhole.component.html"),
           'demo.component.ts': require("!raw-loader!./wormhole.component.ts")
         },

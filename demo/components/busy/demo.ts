@@ -8,7 +8,7 @@ export default {
     Demo: BusyDemoComponent,
     'README.md': {
       type: 'md',
-      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/components/busy/README.md")
+      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/ng-vcl/busy/README.md")
     },
     'demo.component.html': {
       type: 'pre',

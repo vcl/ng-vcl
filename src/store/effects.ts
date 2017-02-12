@@ -1,7 +1,7 @@
+import { OnDestroy, Injectable, Optional, OpaqueToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/merge';
-import { OnDestroy, Injectable, Optional, OpaqueToken, Inject } from '@angular/core';
 import { Store, StoreErrorAction } from './store';
 
 declare var Reflect: any;

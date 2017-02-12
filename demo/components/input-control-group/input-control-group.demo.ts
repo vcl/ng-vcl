@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: InputControlGroupComponent,
-    'README.md': require("!raw-loader!../../../src/components/input-control-group/README.md"),
+    'README.md': require("!raw-loader!../../../src/ng-vcl/input-control-group/README.md"),
     'demo.component.html': require("!raw-loader!./input-control-group.component.html"),
     'demo.component.ts': require("!raw-loader!./input-control-group.component.ts")
   }

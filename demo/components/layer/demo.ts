@@ -25,7 +25,7 @@ const LABEL = 'Layer';
           Demo: LayerDemoComponent,
           'README.md': {
             type: 'md',
-            content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/components/layer/README.md")
+            content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/ng-vcl/layer/README.md")
           },
           'demo.component.html': {
             type: 'pre',

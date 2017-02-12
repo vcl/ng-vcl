@@ -3,6 +3,6 @@ export default {
   route: 'l10n',
   category: 'Other',
   tabs: {
-    'README.md': require("!raw-loader!../../../src/l10n/README.md"),
+    'README.md': require("!raw-loader!../../../src/ng-vcl/l10n/README.md"),
   }
 };

@@ -1,0 +1,81 @@
+import * as gulpRollup from 'gulp-better-rollup';
+
+const globals: {[name: string]: string} = {
+  // Angular dependencies
+  '@angular/core': 'ng.core',
+  '@angular/common': 'ng.common',
+  '@angular/forms': 'ng.forms',
+  '@angular/http': 'ng.http',
+  '@angular/router': 'ng.router',
+  '@angular/platform-browser': 'ng.platformBrowser',
+  '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
+
+  // Rxjs dependencies
+  'rxjs/Observable': 'Rx',
+  'rxjs/Subject': 'Rx',
+  'rxjs/BehaviorSubject': 'Rx',
+  'rxjs/ReplaySubject': 'Rx',
+  'rxjs/add/observable/merge': 'Rx.Observable',
+  'rxjs/add/observable/fromEventPattern': 'Rx.Observable',
+  'rxjs/add/observable/fromEvent': 'Rx.Observable',
+  'rxjs/add/observable/forkJoin': 'Rx.Observable',
+  'rxjs/add/observable/of': 'Rx.Observable',
+  'rxjs/add/observable/timer': 'Rx.Observable',
+  'rxjs/add/observable/throw': 'Rx.Observable',
+  'rxjs/add/observable/from': 'Rx.Observable',
+  'rxjs/add/observable/interval': 'Rx.Observable',
+  'rxjs/add/observable/combineLatest': 'Rx.Observable',
+  'rxjs/add/observable/never': 'Rx.Observable',
+  'rxjs/add/operator/combineLatest': 'Rx.Observable.prototype',
+  'rxjs/add/operator/publishReplay': 'Rx.Observable.prototype',
+  'rxjs/add/operator/publishBehavior': 'Rx.Observable.prototype',
+  'rxjs/add/operator/timer': 'Rx.Observable.prototype',
+  'rxjs/add/operator/debounceTime': 'Rx.Observable.prototype',
+  'rxjs/add/operator/distinctUntilChanged': 'Rx.Observable.prototype',
+  'rxjs/add/operator/map': 'Rx.Observable.prototype',
+  'rxjs/add/operator/filter': 'Rx.Observable.prototype',
+  'rxjs/add/operator/do': 'Rx.Observable.prototype',
+  'rxjs/add/operator/share': 'Rx.Observable.prototype',
+  'rxjs/add/operator/finally': 'Rx.Observable.prototype',
+  'rxjs/add/operator/catch': 'Rx.Observable.prototype',
+  'rxjs/add/operator/first': 'Rx.Observable.prototype',
+  'rxjs/add/operator/startWith': 'Rx.Observable.prototype',
+  'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
+  'rxjs/add/operator/skipWhile': 'Rx.Observable.prototype',
+  'rxjs/add/operator/publish': 'Rx.Observable.prototype',
+  'rxjs/add/operator/retryWhen': 'Rx.Observable.prototype',
+  'rxjs/add/operator/let': 'Rx.Observable.prototype',
+  'rxjs/add/operator/scan': 'Rx.Observable.prototype',
+  'rxjs/add/operator/withLatestFrom': 'Rx.Observable.prototype',
+  'rxjs/add/operator/pluck': 'Rx.Observable.prototype',
+
+  // ng-vcl dependencies
+  '@ng-vcl/ng-vcl': 'ngVCL',
+  '@ng-vcl/utils': 'ngVCLUtils',
+
+
+  // Additional dependencies
+  'hammerjs': 'Hammer',
+  'tether': 'Tether',
+  'jsoneditor': 'JSONEditor',
+  'jsonschema': 'jsonschema',
+  'attr-accept': 'attr-accept',
+};
+
+export function rollup(module) {
+
+  const rollupOptions = {
+    context: 'this',
+    external: Object.keys(globals)
+  };
+
+  const rollupGenerateOptions = {
+    // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
+    moduleId: '',
+    moduleName: module,
+    format: 'umd',
+    globals,
+    dest: 'index.umd.js'
+  };
+  return gulpRollup(rollupOptions, rollupGenerateOptions);
+}

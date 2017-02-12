@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Store, StoreActions, Effect } from '@ng-vcl/ng-vcl';
+import { Store, StoreActions, Effect } from '@ng-vcl/store';
 
 import { BooksState, SearchBooksAction, SearchBooksCompleteAction, SearchBooksErrorAction } from './books.reducers';
 

@@ -1,6 +1,6 @@
-import { reduceReducers, combineReducers } from './utils';
 import { NgModule, ModuleWithProviders, Type, Optional, Inject, OpaqueToken, SkipSelf } from '@angular/core';
 import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCERS, Reducer, Reducers, StoreState } from './store';
+import { reduceReducers, combineReducers } from './utils';
 import { StoreActions } from './actions';
 import { Effects, STORE_EFFECTS } from './effects';
 import { routerReducer, StoreRouter, StoreRouterEffects } from './router';
