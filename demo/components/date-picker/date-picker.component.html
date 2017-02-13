@@ -6,15 +6,120 @@
 
 <h3>Ranged Datepicker</h3>
 <div style="width: 250px;border-style: solid; margin: 20px;">
-  <vcl-date-picker [selectedDate]="selectedDate" [selectedRangeEnd]="selectedRangeEnd"
-[selectRange]="selectRange" [maxRangeLength]="7" [minDate]="minDate"
-  ></vcl-date-picker>
+  <vcl-date-picker [selectedDate]="selectedDate" [selectedRangeEnd]="selectedRangeEnd" [selectRange]="selectRange" [maxRangeLength]="7" [minDate]="minDate"></vcl-date-picker>
 </div>
 
 
 <h3>Minimal Datepicker</h3>
 <div style="width: 250px;border-style: solid; margin: 20px;">
-  <vcl-date-picker [displayJumpToday]="false" [displayJumpSelected]="false"
-  [displayWeekNumbers]="false" [displayWeekdays]="false"
-  ></vcl-date-picker>
+  <vcl-date-picker [style.width]="'18em'" [displayJumpToday]="false" [displayJumpSelected]="false" [displayWeekNumbers]="false" [displayWeekdays]="false"></vcl-date-picker>
+</div>
+
+
+<h1>TEST:</h1><br/><br/>
+
+
+
+<div style="width: 250px;border-style: solid; margin: 20px;">
+  <div class="vclDatePicker" role="listbox" aria-multiselectable="false" style="width: 18em;height: 250px;">
+    <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput">
+      <div class="vclDGRow">
+        <div class="vclDGCell">
+          <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
+            <button type="button" class="vclButton vclTransparent vclSquare">
+            <div class="vclIcogram">
+              <div class="vclIcon fa fa-angle-left" aria-hidden="false" aria-label="previous" role="img"></div>
+            </div>
+          </button>
+            <span class="vclCalHeaderLabel">December 2016</span>
+            <button type="button" class="vclButton vclTransparent vclSquare">
+            <div class="vclIcogram">
+              <div class="vclIcon fa fa-angle-right" aria-hidden="false" aria-label="next" role="img"></div>
+            </div>
+          </button>
+          </div>
+        </div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclWeekdayLabel">Sun</div>
+        <div class="vclDGCell vclWeekdayLabel">Mon</div>
+        <div class="vclDGCell vclWeekdayLabel">Tue</div>
+        <div class="vclDGCell vclWeekdayLabel">Wed</div>
+        <div class="vclDGCell vclWeekdayLabel">Thu</div>
+        <div class="vclDGCell vclWeekdayLabel">Fri</div>
+        <div class="vclDGCell vclWeekdayLabel">Sat</div>
+      </div>
+
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem vclOtherMonth">10</div>
+        <div class="vclDGCell vclCalItem vclOtherMonth">11</div>
+        <div class="vclDGCell vclCalItem vclOtherMonth">11</div>
+        <div class="vclDGCell vclCalItem vclOtherMonth">12</div>
+        <div class="vclDGCell vclCalItem vclOtherMonth">13</div>
+      </div>
+
+
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem vclD0 vclOtherMonth" role="option">30</div>
+        <div class="vclDGCell vclCalItem vclD1" role="option">1</div>
+        <div class="vclDGCell vclCalItem vclD2" role="option">2</div>
+        <div class="vclDGCell vclCalItem vclD3" role="option">3</div>
+        <div class="vclDGCell vclCalItem vclD4 vclToday" role="option">4</div>
+        <div class="vclDGCell vclCalItem vclD5" role="option">5</div>
+        <div class="vclDGCell vclCalItem vclD6" role="option">6</div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem vclD0" role="option">7</div>
+        <div class="vclDGCell vclCalItem vclD1" role="option">8</div>
+        <div class="vclDGCell vclCalItem vclD2" role="option">9</div>
+        <div class="vclDGCell vclCalItem vclD3" role="option">10</div>
+        <div class="vclDGCell vclCalItem vclD4" role="option">11</div>
+        <div class="vclDGCell vclCalItem vclD5" role="option">12</div>
+        <div class="vclDGCell vclCalItem vclD6" role="option">13</div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem vclD0" role="option">14</div>
+        <div class="vclDGCell vclCalItem vclD1" role="option">15</div>
+        <div class="vclDGCell vclCalItem vclD2" role="option">16</div>
+        <div class="vclDGCell vclCalItem vclD3" role="option">17</div>
+        <div class="vclDGCell vclCalItem vclD4" role="option">18</div>
+        <div class="vclDGCell vclCalItem vclD5" role="option">19</div>
+        <div class="vclDGCell vclCalItem vclD6 vclSelected" aria-selected="true" role="option">20</div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem vclD0" role="option">21</div>
+        <div class="vclDGCell vclCalItem vclD1" role="option">22</div>
+        <div class="vclDGCell vclCalItem vclD2" role="option">23</div>
+        <div class="vclDGCell vclCalItem vclD3" role="option">24</div>
+        <div class="vclDGCell vclCalItem vclD4" role="option">25</div>
+        <div class="vclDGCell vclCalItem vclD5" role="option">26</div>
+        <div class="vclDGCell vclCalItem vclD6" role="option">27</div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem vclD0" role="option">28</div>
+        <div class="vclDGCell vclCalItem vclD1" role="option">29</div>
+        <div class="vclDGCell vclCalItem vclD2" role="option">30</div>
+        <div class="vclDGCell vclCalItem vclD3" role="option">31</div>
+        <div class="vclDGCell vclCalItem vclD4 vclOtherMonth">1</div>
+        <div class="vclDGCell vclCalItem vclD5 vclOtherMonth">2</div>
+        <div class="vclDGCell vclCalItem vclD6 vclOtherMonth">3</div>
+      </div>
+      <div class="vclDGRow">
+        <div class="vclDGCell">
+          <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified" role="menubar" aria-level="2">
+            <button type="button" class="vclButton vclTransparent vclLayoutFlex">
+            <div class="vclIcogram">
+              <span class="vclText">Today</span>
+            </div>
+          </button>
+            <button type="button" class="vclButton vclTransparent vclLayoutFlex">
+            <div class="vclIcogram">
+              <span class="vclText">Go to selected</span>
+            </div>
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

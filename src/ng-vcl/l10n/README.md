@@ -1,6 +1,4 @@
-# L10n
-
-## Usage
+### Usage
 
 ```js
 
@@ -33,9 +31,9 @@ Use the `loc` pipe in a template to localize a text
 
 ```
 
-## Loader services
+### Loader services
 
-### Static resource loader
+#### Static resource loader
 ```
 L10nModule.forRoot({
   loader: L10nStaticLoaderService,
@@ -50,7 +48,7 @@ L10nModule.forRoot({
 
 ```
 
-### HTTP service TODO
+#### HTTP service TODO
 ```js
 L10nModule.forRoot({
   loader: L10nHTTPLoaderService,
@@ -72,16 +70,16 @@ class AnyInjectableClass {
 }
 ```
 
-## Custom loaders
+### Custom loaders
 
 ```js
 @Injectable()
 export class L10nFancyLoaderService extends L10nLoaderService {
   constructor(
-    @Inject(L10N_CONFIG) 
+    @Inject(L10N_CONFIG)
     private config: L10nConfig,
     // other injections
-  ) { 
+  ) {
     super();
     this.config; // loader config
   }
@@ -98,7 +96,7 @@ export class L10nFancyLoaderService extends L10nLoaderService {
 }
 ```
 
-## Template parameters
+### Template parameters
 
 ```json
 {
