@@ -41,7 +41,7 @@ export class LayerService {
   }>();
 
   getLayers$(base = 'default') {
-    return this.layerRegister.asObservable().filter(lr => lr.opts.base === base);
+    return this.layerRegister.asObservable().filter(lr => !!lr.opts && lr.opts.base === base);
   }
 
   getVisibleLayers(base = 'default') {
