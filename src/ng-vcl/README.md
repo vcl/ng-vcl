@@ -15,7 +15,7 @@ npm install @ng-vcl/ng-vcl --save
 // Import the complete ng-vcl
 import { VCLModule } from '@ng-vcl/ng-vcl';
 // or specific components
-import { VCLIconModule, VCLLayerModule } from '@ng-vcl/ng-vcl'';
+import { VCLIconModule, VCLLayerModule } from '@ng-vcl/ng-vcl';
 
 @NgModule({
   imports: [
