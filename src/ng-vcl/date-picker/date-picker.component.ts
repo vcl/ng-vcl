@@ -32,7 +32,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclDatePicker]': 'true',
     '[attr.role]': '"listbox"',
     '[attr.aria-multiselectable]': 'false',
-    '[style.display]': '"block"', // TODO this is for IE only
     '[style.height]': '"250px"' // TODO this fixes for IE11
   }
 })
