@@ -2558,7 +2558,6 @@ figure figcaption {
 }
 
 .vclFlipSwitch {
-  display: block;
   outline: none;
   background-color: transparent;
   position: relative;

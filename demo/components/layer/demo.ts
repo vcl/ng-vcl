@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { VCLLayerModule, VCLButtonModule, VCLWormholeModule } from '@ng-vcl/ng-vcl';
+import { VCLLayerModule, VCLButtonModule, VCLWormholeModule, provideLayer } from '@ng-vcl/ng-vcl';
 import { DemoComponent } from './../demo/demo.component';
 import { LayerDemoComponent } from './demo.component';
 import { FooLayer, FooComponent } from './foo.layer';
@@ -13,9 +13,7 @@ const LABEL = 'Layer';
 @NgModule({
   imports: [
     BrowserModule,
-    VCLLayerModule.withConfig({
-      layers: [ FooLayer ]
-    }),
+    VCLLayerModule,
     VCLWormholeModule,
     VCLButtonModule,
     RouterModule.forChild([{
@@ -27,7 +25,7 @@ const LABEL = 'Layer';
           Demo: LayerDemoComponent,
           'README.md': {
             type: 'md',
-            content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/components/layer/README.md")
+            content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/ng-vcl/layer/README.md")
           },
           'demo.component.html': {
             type: 'pre',
@@ -56,6 +54,7 @@ const LABEL = 'Layer';
   ],
   providers: [
     LayerDemoCanDeactivateGuard,
+    provideLayer(FooLayer)
   ],
   entryComponents: [
     FooComponent

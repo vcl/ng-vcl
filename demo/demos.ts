@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { VCLModule } from './../src/index';
 import { RouterModule } from '@angular/router';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DemoComponent } from "./components/demo/demo.component";
@@ -89,7 +88,6 @@ export const DEMO_MODULES: any[] = [
   BUSY_DEMO,
   GROWL_DEMO
 ].map(module => typeof module === 'function' ? module : createDemoModule(module));
-
 
 export const GROUPED_DEMOS = function() {
   const itemsMap = {};

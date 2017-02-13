@@ -3,7 +3,10 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { VCLModule, L10nModule, L10nStaticLoaderService, StoreModule } from '@ng-vcl/ng-vcl';
+
+import { VCLModule } from '@ng-vcl/ng-vcl';
+import { L10nModule, L10nStaticLoaderService } from '@ng-vcl/ng-vcl';
+import { StoreModule } from '@ng-vcl/store';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from "./components/home/home.component";

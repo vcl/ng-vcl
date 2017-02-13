@@ -8,7 +8,7 @@ export default {
     Demo: GrowlDemoComponent,
     'README.md': {
       type: 'md',
-      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/components/growl/README.md")
+      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/ng-vcl/growl/README.md")
     },
     'demo.component.html': {
       type: 'pre',

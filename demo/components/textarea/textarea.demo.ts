@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: TextareaComponent,
-    'README.md': require("!raw-loader!../../../src/components/textarea/README.md"),
+    'README.md': require("!raw-loader!../../../src/ng-vcl/textarea/README.md"),
     'demo.component.html': require("!raw-loader!./textarea.component.html"),
     'demo.component.ts': require("!raw-loader!./textarea.component.ts")
   }

@@ -6,7 +6,7 @@ export default {
   category: 'Form Controls',
   tabs: {
     Demo: FileInputComponent,
-    'README.md': require("!raw-loader!../../../src/components/file-input/README.md"),
+    'README.md': require("!raw-loader!../../../src/ng-vcl/file-input/README.md"),
     'demo.component.html': require("!raw-loader!./file-input.component.html"),
     'demo.component.ts': require("!raw-loader!./file-input.component.ts")
   }

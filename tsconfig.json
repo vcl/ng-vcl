@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "outDir": "dist",
     "types": [
-      "requirejs"
+      "gulp"
     ],
     "lib": [
       "dom",
@@ -19,7 +18,10 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@ng-vcl/ng-vcl": ["src"]
+      "@ng-vcl/ng-vcl": ["src/ng-vcl"],
+      "@ng-vcl/store": ["src/store"],
+      "@ng-vcl/json-editor": ["src/json-editor"],
+      "@ng-vcl/jss-form": ["src/jss-form"]
     }
   },
   "include": [

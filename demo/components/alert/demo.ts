@@ -8,7 +8,7 @@ export default {
     Demo: AlertDemoComponent,
     'README.md': {
       type: 'md',
-      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/components/alert/README.md")
+      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/ng-vcl/alert/README.md")
     },
     'demo.component.html': {
       type: 'pre',

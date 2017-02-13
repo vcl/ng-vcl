@@ -1,6 +1,6 @@
-import { reduceReducers, combineReducers } from './utils';
 import { NgModule, ModuleWithProviders, Type, Optional, Inject, OpaqueToken, SkipSelf } from '@angular/core';
 import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCERS, Reducer, Reducers, StoreState } from './store';
+import { reduceReducers, combineReducers } from './utils';
 import { StoreActions } from './actions';
 import { Effects, STORE_EFFECTS } from './effects';
 import { routerReducer, StoreRouter, StoreRouterEffects } from './router';
@@ -56,6 +56,10 @@ function createReducer(reducers: any): Reducer<StoreState> {
   return reducer;
 }
 
+export function initialReducer(appState) {
+  return appState;
+}
+
 @NgModule({
   providers: [
     StoreActions,
@@ -67,7 +71,7 @@ function createReducer(reducers: any): Reducer<StoreState> {
     },
     {
       provide: STORE_INITIAL_REDUCERS,
-      useValue: appState => appState,
+      useValue: initialReducer,
       multi: true
     }
   ]

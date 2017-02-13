@@ -1,4 +1,5 @@
-import { StoreModule, VCLModule, Store } from '@ng-vcl/ng-vcl';
+import { VCLModule } from '@ng-vcl/ng-vcl';
+import { StoreModule, Store } from '@ng-vcl/store';
 import { DemoComponent } from './../demo/demo.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';

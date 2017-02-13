@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "rootDir": ".",
+    "noEmitOnError": true,
+    "outDir": "../dist/@ng-vcl",
+    "sourceMap": true,
+    "inlineSources": true,
+    "stripInternal": false,
+    "baseUrl": ".",
+    "paths": {
+    },
+    "types": [
+      "requirejs"
+    ],
+    "lib": [
+      "dom",
+      "es6",
+      "dom.iterable",
+      "scripthost",
+      "es2016.array.include"
+    ],
+    "paths": {
+      "@ng-vcl/ng-vcl": ["ng-vcl"]
+    }
+  },
+  "angularCompilerOptions": {
+    "genDir": "../dist/",
+    "skipTemplateCodegen": true,
+    "debug": true
+  }
+}
