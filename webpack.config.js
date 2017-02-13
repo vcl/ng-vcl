@@ -9,13 +9,11 @@ const {
   }
 } = require('webpack');
 
+const path = require('path');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-
-const path = require('path');
 
 function root(__path = '.') {
   return path.join(__dirname, __path);
@@ -44,28 +42,51 @@ function webpackConfig(options) {
       chunkFilename: '[id].chunk.js'
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.ts?$/,
-          loaders: ['awesome-typescript-loader?tsconfig=tsconfig.json&useWebpackText=true', 'angular2-template-loader'],
-        },
-        {
-          test: /\.(html)?$/,
-          loaders: ['raw-loader'],
+          use: [
+            {
+              loader: 'awesome-typescript-loader',
+              options: {
+                  module: 'es2015' 
+              }
+            },
+            'angular2-template-loader'
+          ],
         },
         {
           test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-          loader: 'file?name=assets/[name].[hash].[ext]'
+          use: 'file?name=assets/[name].[hash].[ext]'
         },
+        // *.component.css files should not be run by the css-loader...
         isProd ? {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
+          test: {
+            test: /\.css$/,
+            not: [/\.component\.css$/]
+          },
+          use: ExtractTextPlugin.extract({
             fallbackLoader: "style-loader",
-            loader: "css-loader?-url"
+            use: "css-loader?-url"
           })
         } : {
-          test: /\.css$/,
-          loader: "style-loader!css-loader?-url"
+          test: {
+            test: /\.css$/,
+            not: [/\.component\.css$/]
+          },
+          use: [
+            "style-loader",
+            "css-loader?-url"
+          ]         
+        },
+        // ...instead raw-load them to work with the angular2-template-loader
+        {
+          test: /\.component\.css$/,
+          use: ['raw-loader']
+        },
+        {
+          test: /\.(html)$/, 
+          use: ['raw-loader'],
         }
       ]
     },

@@ -14,31 +14,11 @@ A comprehensive library of components for Angular 2 with [VCL](http://vcl.github
 
 ## Status
 
-ng-vcl is in alpha and under heavy development.
-Breaking API changes might occur during alpha.
+ng-vcl is in beta. Breaking API changes might occur.
 
-## Installation
+## Packages
 
-```sh
-npm install ng-vcl/ng-vcl#dist --save
-```
-
-## Usage
-
-```js
-// Import the complete ng-vcl
-import { VCLModule } from 'ng-vcl';
-// or specific components
-import { VCLIconModule, VCLLayerModule } from 'ng-vcl';
-
-@NgModule({
-  imports: [
-    VCLIconModule,
-    ...
-  ]
-})
-export class AppModule { }
-```
+[@ng-vcl/ng-vcl](https://ng-vcl.github.io/ng-vcl/)
 
 ## Demo / Docs
 
@@ -53,4 +33,3 @@ npm install
 npm run dev
 ```
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
-

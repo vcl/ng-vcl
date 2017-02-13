@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-const JSONEditor = require('jsoneditor/dist/jsoneditor.js');
+import JSONEditor from 'jsoneditor/dist/jsoneditor.js';
 
 /**
  * The JSON editor needs styling and some graphics
@@ -18,10 +18,6 @@ const JSONEditor = require('jsoneditor/dist/jsoneditor.js');
  * The css must be added as a style with  ViewEncapsulation set to None
  */
 
-const JSONEditorSVG: string = require('!raw-loader!jsoneditor/dist/img/jsoneditor-icons.svg');
-export const JSONEditorCSS: string = require('!raw-loader!jsoneditor/dist/jsoneditor.css')
-                              .replace(/img\/jsoneditor-icons\.svg/g, 'data:image/svg+xml;base64,' + btoa(JSONEditorSVG));
-
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => JsonEditorComponent),
@@ -30,7 +26,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'vcl-json-editor',
-  styles: [JSONEditorCSS],
+  styleUrls: ['json-editor.component.css'],
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'json-editor.component.html',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],

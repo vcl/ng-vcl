@@ -51,31 +51,27 @@ const globals: {[name: string]: string} = {
 
   // ng-vcl dependencies
   '@ng-vcl/ng-vcl': 'ngVCL',
-  '@ng-vcl/utils': 'ngVCLUtils',
-
+  '@ng-vcl/json-editor': 'ngVCL.jsonEditor',
+  '@ng-vcl/adv-http': 'ngVCL.advHttp',
+  '@ng-vcl/jss-form': 'ngVCL.jssForm',
+  '@ng-vcl/store': 'ngVCL.store',
 
   // Additional dependencies
   'hammerjs': 'Hammer',
   'tether': 'Tether',
-  'jsoneditor': 'JSONEditor',
+  'jsoneditor/dist/jsoneditor.js': 'JSONEditor',
   'jsonschema': 'jsonschema',
   'attr-accept': 'attr-accept',
 };
 
 export function rollup(module) {
-
-  const rollupOptions = {
+  return gulpRollup({
     context: 'this',
     external: Object.keys(globals)
-  };
-
-  const rollupGenerateOptions = {
-    // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
-    moduleId: '',
-    moduleName: module,
+  }, {
+    moduleName: globals['@ng-vcl/' + module] || module,
     format: 'umd',
     globals,
     dest: 'index.umd.js'
-  };
-  return gulpRollup(rollupOptions, rollupGenerateOptions);
+  });
 }

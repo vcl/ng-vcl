@@ -8,8 +8,9 @@ import {
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+import JsonSchema from 'jsonschema';
 
-const Validator = require('jsonschema').Validator; // TODO use import { Validator } from 'jsonschema'; when typings available
+const Validator = JsonSchema.Validator; // TODO use import { Validator } from 'jsonschema'; when typings available
 let VALIDATOR;
 
 
