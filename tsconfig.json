@@ -7,6 +7,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "types": [
+      "requirejs",
       "gulp"
     ],
     "lib": [
