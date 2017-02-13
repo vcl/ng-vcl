@@ -32,8 +32,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclDatePicker]': 'true',
     '[attr.role]': '"listbox"',
     '[attr.aria-multiselectable]': 'false',
-    '[style.minHeight]': '"200px"', // TODO just this fixes IE, should be done by vcl
-    '[style.display]': '"block"' // TODO this is for IE only
+    '[style.display]': '"block"', // TODO this is for IE only
+    '[style.height]': '"250px"' // TODO this fixes for IE11
   }
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
