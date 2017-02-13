@@ -18,7 +18,7 @@ ng-vcl is in beta. Breaking API changes might occur.
 
 ## Packages
 
-[@ng-vcl/ng-vcl](https://ng-vcl.github.io/ng-vcl/)
+[@ng-vcl/ng-vcl](https://github.com/ng-vcl/ng-vcl/blob/master/src/ng-vcl/README.md/)
 
 ## Demo / Docs
 
