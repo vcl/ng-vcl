@@ -1,8 +1,8 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentType } from './../core/interfaces';
-import { VCLOffClickModule } from '../off-click/off-click.module';
-import { VCLWormholeModule, WormholeService } from '../wormhole/wormhole.module';
+import { VCLOffClickModule } from '../off-click/index';
+import { VCLWormholeModule, WormholeService } from '../wormhole/index';
 import { LayerBaseComponent, LayerBaseRootComponent } from './layer-base.component';
 import { LayerService, LayerOptions } from './layer.service';
 import { LayerRef, LayerData } from './layer-ref';

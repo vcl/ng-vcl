@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLMetalistModule } from '../metalist/metalist.module';
-import { L10nModule } from '../l10n/l10n.module';
+import { VCLMetalistModule } from '../metalist/index';
+import { L10nModule } from '../l10n/index';
 import { FormsModule }   from '@angular/forms';
 
 import { TokenComponent } from './token.component';

@@ -2,6 +2,12 @@
 
 Creates a html-form from a [jsonschema](http://jsonschema.net/).
 
+## Installation
+
+```sh
+npm install @ng-vcl/jss-form --save
+```
+
 ## Usage:
 
 ```javascript

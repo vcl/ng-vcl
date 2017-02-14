@@ -12,7 +12,6 @@ import ICOGRAM_DEMO from "./components/icogram/icogram.demo";
 import BUTTON_DEMO from './components/button/button.demo';
 import BUTTON_GROUP_DEMO from './components/button-group/button-group.demo';
 import LAYER_DEMO from './components/layer/demo';
-import TETHER_DEMO from './components/tether/tether.demo';
 import LINK_DEMO from './components/link/link.demo';
 import RADIO_BUTTON_DEMO from './components/radio-button/radio-button.demo';
 import RADIO_GROUP_DEMO from './components/radio-group/radio-group.demo';
@@ -55,7 +54,6 @@ export const DEMO_MODULES: any[] = [
   BUTTON_DEMO,
   BUTTON_GROUP_DEMO,
   LAYER_DEMO,
-  TETHER_DEMO,
   LINK_DEMO,
   RADIO_BUTTON_DEMO,
   RADIO_GROUP_DEMO,

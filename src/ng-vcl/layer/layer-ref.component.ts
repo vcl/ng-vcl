@@ -1,6 +1,6 @@
 import { ViewContainerRef, ReflectiveInjector, Injectable } from '@angular/core';
 import { ComponentType, defineMetadata, getMetadata } from './../core/index';
-import { ComponentWormhole, Wormhole } from './../wormhole/wormhole.module';
+import { ComponentWormhole, Wormhole } from '../wormhole/index';
 import { LayerRef } from './layer-ref';
 import { LayerService, LayerOptions } from './layer.service';
 

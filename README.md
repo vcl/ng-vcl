@@ -19,6 +19,9 @@ ng-vcl is in beta. Breaking API changes might occur.
 ## Packages
 
 [@ng-vcl/ng-vcl](https://github.com/ng-vcl/ng-vcl/blob/master/src/ng-vcl/README.md/)
+[@ng-vcl/jss-form](https://github.com/ng-vcl/ng-vcl/blob/master/src/jss-form/README.md/)
+[@ng-vcl/json-editor](https://github.com/ng-vcl/ng-vcl/blob/master/src/json-editor/README.md/)
+[@ng-vcl/store](https://github.com/ng-vcl/ng-vcl/blob/master/src/store/README.md/)
 
 ## Demo / Docs
 

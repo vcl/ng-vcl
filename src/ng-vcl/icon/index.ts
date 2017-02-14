@@ -1,8 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { L10nModule } from '../l10n/index';
 import { IconComponent } from './icon.component';
 import { IconService } from './icon.service';
-import { L10nModule } from '../l10n/l10n.module';
 
 export { IconComponent, IconService };
 

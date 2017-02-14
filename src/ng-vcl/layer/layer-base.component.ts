@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
-import { Wormhole, createWormhole } from './../wormhole/wormhole.module';
+import { Wormhole, createWormhole } from '../wormhole/index';
 import { LayerService, LayerOptions } from './layer.service';
 import { LayerRef } from './layer-ref';
 import { LayerWrapperComponent } from './layer-wrapper.component';

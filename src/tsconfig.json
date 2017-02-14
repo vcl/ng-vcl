@@ -10,8 +10,6 @@
     "rootDir": ".",
     "noEmitOnError": true,
     "outDir": "../dist/@ng-vcl",
-    "sourceMap": true,
-    "inlineSources": true,
     "stripInternal": false,
     "baseUrl": ".",
     "paths": {

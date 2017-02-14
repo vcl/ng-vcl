@@ -2,6 +2,12 @@
 
 A json-editor based on [jsoneditor](https://github.com/josdejong/jsoneditor).
 
+## Installation
+
+```sh
+npm install @ng-vcl/json-editor --save
+```
+
 ## Usage:
 
 ```javascript

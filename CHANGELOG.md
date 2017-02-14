@@ -3,6 +3,7 @@
 ## master
 
 ### Breaking Changes
+- packages are now published via npm
 - vcl-popover
   - `state` is now `open` and accepts boolean
   - tether is removed, do not use custom parameters of tether.js

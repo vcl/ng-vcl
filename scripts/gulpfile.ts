@@ -9,7 +9,6 @@ import { rollup } from './rollup';
 
 const VERSION = require('../package.json').version;
 const SOURCE_FOLDER = root('src');
-const README = root('README.md');
 const DIST_FOLDER = root(`dist/@ng-vcl/`);
 const PACKAGES = fs.readdirSync(SOURCE_FOLDER)
                    .filter(file => fs.statSync(path.join(SOURCE_FOLDER, file)).isDirectory())

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import {PickDate, PickDateCreate} from './PickDate';
+import {PickDate, PickDateCreate} from './pick-date';
 
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {

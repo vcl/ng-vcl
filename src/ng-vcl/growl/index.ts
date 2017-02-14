@@ -1,10 +1,10 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLIcogramModule } from './../icogram/icogram.module';
-import { VCLButtonModule } from './../button/button.module';
-import { VCLLayerModule, provideLayer } from './../layer/layer.module';
-import { VCLInputModule } from './../input/input.module';
+import { VCLIcogramModule } from './../icogram/index';
+import { VCLButtonModule } from './../button/index';
+import { VCLLayerModule, provideLayer } from './../layer/index';
+import { VCLInputModule } from './../input/index';
 import { GrowlComponent } from './growl.component';
 import { GrowlLayerTopRight, GrowlLayerBottomRight, GrowlLayerBottom, GrowlLayerBottomLeft, GrowlLayerTopLeft, GrowlLayerTop } from './growl.layer';
 import { GrowlService } from './growl.service';

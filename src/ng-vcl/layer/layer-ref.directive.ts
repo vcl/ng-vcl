@@ -1,5 +1,5 @@
 import { Input, TemplateRef, ChangeDetectorRef, Directive, ViewContainerRef } from '@angular/core';
-import { Wormhole, TemplateWormhole } from './../wormhole/wormhole.module';
+import { Wormhole, TemplateWormhole } from '../wormhole/index';
 import { LayerService, LayerOptions } from './layer.service';
 import { LayerRef } from './layer-ref';
 

@@ -1,5 +1,11 @@
 # Store
 
+## Installation
+
+```sh
+npm install @ng-vcl/store --save
+```
+
 ## Usage
 
 ```js

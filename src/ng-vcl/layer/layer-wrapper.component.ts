@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { Wormhole, ComponentWormhole } from './../wormhole/wormhole.module';
+import { Wormhole, ComponentWormhole } from '../wormhole/index';
 import { LayerOptions } from './layer.service';
 import { LayerRef } from './layer-ref';
 import { LayerRefDirective } from './layer-ref.directive';

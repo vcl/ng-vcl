@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PopoverComponent } from './popover.component';
-import { VCLOffClickModule } from '../off-click/off-click.module';
+import { VCLOffClickModule } from '../off-click/index';
 
 @NgModule({
   imports: [
@@ -15,3 +15,5 @@ import { VCLOffClickModule } from '../off-click/off-click.module';
 
 export class VCLPopoverModule { }
 export { PopoverComponent }
+
+
