@@ -7,8 +7,9 @@ import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/for
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
-
-import attrAccept from 'attr-accept';
+import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/publishReplay';
+import { accept } from './accept';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -33,7 +34,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class FileInputComponent implements ControlValueAccessor {
 
   @Input('state') state: 'busy' | 'error' | 'warning' | 'success';
   @Input('layout') layout: 'horizontal' | 'vertical' = 'horizontal';
@@ -42,93 +43,84 @@ export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccess
   @Input('name') name: string;
   @Input('disabled') disabled: boolean = false;
   @Input('multiple') multiple: boolean = false;
-  @Input('value') value: string;
 
-  @Output('files') files$: BehaviorSubject<FileList[]> = new BehaviorSubject([]);
-  value$ = this.files$
-    .filter(fs => fs.length > 0)
-    .map(fs => {
-      let name = fs[0]['name'];
-      if (this.multiple)
-        name += ' (' + fs.length + ')';
-      return name;
-    });
+  @Output('files') filesEE = new EventEmitter<FileList>();
+  value$ = this.filesEE
+               .map(fl => {
+                 let name = fl[0].name;
+                 if (this.multiple)
+                   name += ' (' + fl.length + ')';
+                 return name;
+               })
+               .publishReplay(1)
+               .refCount();
 
-  @ViewChild('input') input: any;
+  @ViewChild('input') inputElement: ElementRef;
 
-  subs = [];
+  get fileInput(): HTMLInputElement {
+    return this.inputElement && this.inputElement.nativeElement;
+  }
+
   isDragging: boolean = false;
   isFocused: boolean = false;
 
-  constructor(private elRef: ElementRef) {
-    const hostEl = elRef.nativeElement;
-    // file drop
-    hostEl.addEventListener("dragover", e => {
-      if (!this.disabled) {
-        e.stopPropagation();
-        e.preventDefault();
-        this.isDragging = true;
-      }
-    }, false);
-    hostEl.addEventListener("dragleave", e => {
-      e.stopPropagation();
-      e.preventDefault();
-      this.isDragging = false;
-    }, false);
-    hostEl.addEventListener("drop", e => {
-      this.onDrop(e);
-    }, false);
+  onFocus() {
+    this.isFocused = true;
+  }
+  onBlur() {
+    this.isFocused = false;
   }
 
-  ngOnInit() {
-    this.subs.push(
-      Observable.fromEvent(this.input.nativeElement, 'change')
-        .subscribe(event => {
-          this.value = event['target'].value;
-          this.files$.next(event['target'].files);
-          !!this.onChangeCallback && this.onChangeCallback(event['target'].files);
+  onChange() {
+    if (this.fileInput) {
+      const files = this.fileInput.files;
 
-          // check file-type
-          let typeOK = true;
-          const wrongFiles = Array.prototype.filter.call(event['target'].files, file => !attrAccept(file, this.accept));
-          if (wrongFiles.length > 0 && this.accept != '*') this.state = 'error'; // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
-          else this.state = 'busy';
-        })
-    );
-    this.subs.push(
-      Observable.fromEvent(this.input.nativeElement, 'focus')
-        .subscribe(event => this.isFocused = true)
-    );
-    this.subs.push(
-      Observable.fromEvent(this.input.nativeElement, 'focus')
-        .subscribe(event => this.isFocused = false)
-    );
+      this.filesEE.next(files);
+      !!this.onChangeCallback && this.onChangeCallback(files);
+
+      this.checkFiles(files);
+    }
+  }
+
+  checkFiles(files: FileList) {
+    const hasWrongFiles: boolean =  Array.from(files).some((file: File) => !accept(file, this.accept));
+    // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
+    this.state = hasWrongFiles && this.accept !== '*' ? 'error' : 'busy';
   }
 
   @HostListener('click', ['$event.target.value'])
   onClick(value) {
     if (this.disabled) return;
     // opens file-choser
-    this.input.nativeElement.click();
+    this.fileInput && this.fileInput.click();
   }
 
+  @HostListener('dragover', ['$event'])
+  onDragOver(e) {
+    this.isDragging = true;
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  @HostListener('dragleave', ['$event'])
+  onDragLeave(e) {
+    this.isDragging = false;
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  @HostListener('drop', ['$event'])
   onDrop(e) {
+    // cancel event and hover styling
+    e.preventDefault();
+    e.stopPropagation();
     if (this.disabled) return;
     this.isDragging = false;
 
-    // cancel event and hover styling
-    e.stopPropagation();
-    e.preventDefault();
-
     // fetch FileList object
     const files = e.target.files || e.dataTransfer.files;
-
-    this.input.nativeElement.files = files;
-  }
-
-
-  ngOnDestroy() {
-    this.subs.map(sub => sub.unsubscribe());
+    this.filesEE.emit(files);
+    this.checkFiles(files);
   }
 
   /**
@@ -138,7 +130,8 @@ export class FileInputComponent implements OnInit, OnDestroy, ControlValueAccess
   private onChangeCallback: (_: any) => void;
 
   writeValue(files: FileList): void {
-    this.input.nativeElement.files = files;
+    // TODO: should not write files on file input
+    (this.fileInput as any).files = files;
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
