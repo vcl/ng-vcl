@@ -3,6 +3,9 @@
 ## master
 
 ### Breaking Changes
+- vcl-popover
+  - `state` is now `open` and accepts boolean
+  - tether is removed, do not use custom parameters of tether.js
 - vcl-tab-nav:
   - removed vcl-tab-content directive
 - vcl-token:

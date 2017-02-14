@@ -15,8 +15,8 @@ export class PopoverComponent {
     overflow: 'hidden'
   };
 
-  public showPopover() {
-    this.open = true;
+  public togglePopover() {
+    this.open = !this.open;
   }
 
   public closePopover() {

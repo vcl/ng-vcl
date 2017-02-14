@@ -1,6 +1,7 @@
 import {
   Component, Input, Output,
-  EventEmitter, ElementRef, trigger, NgZone
+  EventEmitter, ElementRef, trigger, NgZone,
+  HostListener, OnInit, OnChanges
 } from '@angular/core';
 
 @Component({
@@ -8,9 +9,15 @@ import {
   templateUrl: 'popover.component.html',
   animations: [
     trigger('popOverState', [])
-  ]
+  ],
+  host: {
+    '[class.vclPopOver]': 'true',
+    '[hidden]': "!open",
+    '[style.position]': '"absolute"',
+    '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"'
+  }
 })
-export class PopoverComponent {
+export class PopoverComponent implements OnInit, OnChanges {
 
   @Input()
   target: string;
@@ -23,11 +30,8 @@ export class PopoverComponent {
   @Input()
   attachmentY: 'top' | 'bottom' = 'top';
 
-  @Input() // TODO is this needed here?
-  style: string;
-
-  @Input() // TODO write class to host-el?
-  class: string = 'vclPopOver';
+  translateX: number = 1;
+  translateY: number = 0;
 
   @Input()
   zIndex: number = 10;
@@ -53,15 +57,23 @@ export class PopoverComponent {
   @Input()
   timeout: number = 0;
 
-  state: string = 'open';
-
   constructor(
     protected me: ElementRef,
     private zone: NgZone
   ) { }
 
+  ngOnInit() {
+  }
+  ngAfterViewInit() {
+    // next-tick needed
+    setTimeout(this.reposition.bind(this), 0);
+  }
+  ngOnChanges() {
+    // next-tick needed because attachement-position is not known
+    setTimeout(this.reposition.bind(this), 0);
+  }
+
   close() {
-    this.state = 'void';
     this.open = false;
     this.openChange.emit(this.open);
   }
@@ -72,26 +84,49 @@ export class PopoverComponent {
     }
   }
 
-  async ngOnChanges(changes) {
-/*    try {
-      if (this.zIndexManaged) {
-        if (changes.open.currentValue === true) {
-          this.zIndex = this.overlayManger.register(this);
-          this.coverZIndex = this.zIndex - 1;
-          this.state = 'open';
-          // TODO: Workaround for css "position relative"
-          // Tether copies the dom element to the body. The component is removed before the copy is moved back
-          // so it is not destroyed
-          await new Promise(res => setTimeout(res, this.timeout));
-          this.zone.run(() => this.visible = true);
-        } else if (changes.open.currentValue === false) {
-          this.state = 'void';
-          this.zIndex = this.overlayManger.unregister(this);
-          this.coverZIndex = -1;
-          await new Promise(res => setTimeout(res, this.timeout));
-          this.zone.run(() => this.visible = false);
-        }
-      }
-    } catch (ex) { }*/
+  display() {
+    if (open) return 'block';
+    else return 'none';
   }
+
+  getTargetPosition() {
+    const targetEl = document.querySelector(this.target);
+    if (!targetEl) return null;
+    return targetEl.getBoundingClientRect();
+  }
+
+  getAttachementPosition() {
+    return this.me.nativeElement.getBoundingClientRect();
+  }
+
+  reposition() {
+    // console.log('reposition()');
+    const targetPos = this.getTargetPosition();
+    if (!targetPos) return;
+    const ownPos = this.getAttachementPosition();
+    // console.dir(targetPos);
+    // console.dir(ownPos);
+
+    // X
+    const mustX = targetPos[this.targetX];
+    const isX = ownPos[this.attachmentX];
+    const diffX = mustX - isX;
+    //    console.log('X: must: ' + mustX + ' | is: ' + isX);
+    //    console.log(diffX);
+    this.translateX = this.translateX + diffX;
+
+    // Y
+    const mustY = targetPos[this.targetY];
+    const isY = ownPos[this.attachmentY];
+    const diffY = mustY - isY;
+    //    console.log('Y: must: ' + mustY + ' | is: ' + isY);
+    //    console.log(diffY);
+    this.translateY = this.translateY + diffY;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(ev) {
+    this.reposition();
+  }
+
 }
