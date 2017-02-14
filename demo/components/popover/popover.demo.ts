@@ -6,6 +6,7 @@ export default {
   category: 'Layer',
   tabs: {
     Demo: PopoverComponent,
+    'README.md': require("!raw-loader!../../../src/ng-vcl/popover/README.md"),
     'demo.component.html': require("!raw-loader!./popover.component.html"),
     'demo.component.ts': require("!raw-loader!./popover.component.ts")
   }
