@@ -1,3 +1,6 @@
+// Workaround - see @ng-vcl/plotly readme
+import 'plotly.js';
+
 import 'core-js/shim';
 import 'core-js/es7/array';
 import 'core-js/es7/reflect';

@@ -125,6 +125,7 @@ function webpackConfig(options) {
       }) : null
     ].filter(plugin=>plugin!==null),
     resolve: {
+      mainFields: ["webpack", "module", "browser", "main"],
       extensions: ['.ts', '.js', '.json'],
       plugins: [ new TsConfigPathsPlugin() ]
     },

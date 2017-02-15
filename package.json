@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/ng-vcl",
-  "version": "0.0.5",
+  "version": "0.0.10",
   "description": "A comprehensive library of components for Angular 2 with VCL based styling",
   "scripts": {
     "lint": "npm-run-all lint:src lint:demo",
@@ -83,9 +83,12 @@
     "html-webpack-plugin": "~2.28.0",
     "ignore-loader": "~0.1.2",
     "json-loader": "~0.5.4",
+    "jsoneditor": "^5.5.11",
+    "jsonschema": "^1.1.1",
     "markdown-loader": "~0.1.7",
     "marked": "~0.3.6",
     "npm-run-all": "~4.0.1",
+    "plotly.js": "^1.23.1",
     "postcss-cli": "~2.6.0",
     "pre-commit": "~1.2.2",
     "raw-loader": "~0.5.1",
@@ -104,9 +107,7 @@
     "vcl-preprocessor": "~0.1.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "~2.2.0",
-    "zone.js": "^0.7.6",
-    "jsoneditor": "^5.5.11",
-    "jsonschema": "^1.1.1"
+    "zone.js": "^0.7.6"
   },
   "pre-commit": [
     "lint"
