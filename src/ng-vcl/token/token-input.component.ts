@@ -39,9 +39,7 @@ export class TokenInputComponent implements ControlValueAccessor {
 
   @ContentChildren(TokenComponent)
   templateItems: QueryList<TokenComponent>;
-
   addtext: string = '';
-
 
   ngAfterContentInit() {
     // transform template-items if available
@@ -65,8 +63,9 @@ export class TokenInputComponent implements ControlValueAccessor {
   lastKey: string = null;
   @HostListener('keydown', ['$event'])
   async onKeydown(ev?) {
+    const code = ev.code ? ev.code : ev.key; // fallback for ie11
     if (
-      ev.code == 'Backspace' &&
+      code == 'Backspace' &&
       this.lastKey == 'Backspace' &&
       this.input.nativeElement.value == ''
     ) {
@@ -74,7 +73,7 @@ export class TokenInputComponent implements ControlValueAccessor {
       this.tokens.pop();
       this.tokens = this.tokens.splice(0);
     }
-    else this.lastKey = ev.code;
+    else this.lastKey = code;
   }
 
 
@@ -92,6 +91,10 @@ export class TokenInputComponent implements ControlValueAccessor {
   }
 
   remove(token) {
+
+    console.log('remove');
+    console.dir(token);
+
     this.tokens = this.tokens.filter(t => t.label != token.label);
     this.onChange.emit(this.tokens);
     !!this.onChangeCallback && this.onChangeCallback(this.tokens);
