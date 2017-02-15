@@ -105,10 +105,8 @@
     "webpack": "^2.2.1",
     "webpack-dev-server": "~2.2.0",
     "zone.js": "^0.7.6",
-    "attr-accept": "^1.1.0",
     "jsoneditor": "^5.5.11",
-    "jsonschema": "^1.1.1",
-    "tether": "^1.4.0"
+    "jsonschema": "^1.1.1"
   },
   "pre-commit": [
     "lint"
