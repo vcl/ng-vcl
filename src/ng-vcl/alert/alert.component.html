@@ -2,11 +2,11 @@
 
   <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" [ngClass]="titleAlignmentClass" *ngIf="alert.title">
     <div class="vclLayoutFlex">{{alert.title}}</div>
-    <button *ngIf="alert.showCloseButton" class="vclButton vclTransparent vclSquare" (tap)="close()"><i class="fa fa-times"></i></button>
+    <button *ngIf="alert.showCloseButton" type="button" class="vclButton vclTransparent vclSquare" (tap)="close()"><i class="fa fa-times"></i></button>
   </div>
 
   <div class="vclNotificationContent vclLayoutVertical vclLayoutCenterJustified ">
-    
+
     <div style="padding-bottom: 1em" *ngIf="iconClass" [ngClass]="iconAlignmentClass">
       <span class="vclIcon vclNotificationIcon" [ngClass]="iconClass"></span>
     </div>
@@ -23,40 +23,44 @@
     </div>
 
     <div class="vclLayoutHorizontal vclLooseButtonGroup" [ngClass]="buttonAlignmentClass">
-      <button vcl-button 
+      <button vcl-button
         *ngIf="alert.showConfirmButton"
         (tap)="confirm()"
         [style.background-color]="alert.confirmButtonColor"
         [ngClass]="alert.confirmButtonClass"
-        [busy]="alert.loader">
-          <vcl-icogram 
-            *vclButtonStateContent="['enabled','disabled']" 
-            [appIcon]="alert.confirmButtonAppIcon" 
+        [busy]="alert.loader"
+        type="button"
+        >
+          <vcl-icogram
+            *vclButtonStateContent="['enabled','disabled']"
+            [appIcon]="alert.confirmButtonAppIcon"
             [prepIcon]="alert.confirmButtonPrepIcon"
             [label]="alert.confirmButtonLabel">
           </vcl-icogram>
-          <vcl-icogram 
-            *vclButtonStateContent="'busy'" 
-            prepIcon="fa:refresh fa-spin" 
+          <vcl-icogram
+            *vclButtonStateContent="'busy'"
+            prepIcon="fa:refresh fa-spin"
             [label]="alert.confirmButtonLabel">
-          </vcl-icogram>  
+          </vcl-icogram>
       </button>
-      <button vcl-button 
-        *ngIf="alert.showCancelButton" 
-        (tap)="cancel()" 
-        [style.background-color]="alert.cancelButtonColor" 
+      <button vcl-button
+        *ngIf="alert.showCancelButton"
+        (tap)="cancel()"
+        [style.background-color]="alert.cancelButtonColor"
         [ngClass]="alert.cancelButtonClass"
         [busy]="!alert.showConfirmButton && alert.loader"
-        [disabled]="alert.showConfirmButton && alert.loader">
-          <vcl-icogram 
-            *vclButtonStateContent="['enabled','disabled']" 
-            [appIcon]="alert.cancelButtonAppIcon" 
-            [prepIcon]="alert.cancelButtonPrepIcon" 
+        [disabled]="alert.showConfirmButton && alert.loader"
+        type="button"
+        >
+          <vcl-icogram
+            *vclButtonStateContent="['enabled','disabled']"
+            [appIcon]="alert.cancelButtonAppIcon"
+            [prepIcon]="alert.cancelButtonPrepIcon"
             [label]="alert.cancelButtonLabel">
           </vcl-icogram>
-          <vcl-icogram 
-            *vclButtonStateContent="'busy'" 
-            prepIcon="fa:refresh fa-spin" 
+          <vcl-icogram
+            *vclButtonStateContent="'busy'"
+            prepIcon="fa:refresh fa-spin"
             [label]="alert.cancelButtonLabel">
           </vcl-icogram>
       </button>

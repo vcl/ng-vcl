@@ -9,6 +9,7 @@
     <div class="vclLayoutFlex vclDGRow vclLayoutAuto">
       <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
         <button vcl-button class="vclButton vclTransparent vclSquare"
+          type="button"
           [class.vclDisabled]="!prevYearAvailable"
           [appIcon]="prevYearBtnIcon"
           (tap)="onPrevYearTap()">
@@ -17,6 +18,7 @@
         <span class="vclCalHeaderLabel">{{ currentYear }}</span>
 
         <button vcl-button
+          type="button"
           class="vclButton vclTransparent vclSquare"
           [class.vclDisabled]="!nextYearAvailable"
           [appIcon]="nextYearBtnIcon"
@@ -24,6 +26,7 @@
         </button>
 
         <button vcl-button *ngIf="expandable"
+          type="button"
           class="vclButton vclTransparent vclSquare"
           [appIcon]="closeBtnIcon"
           (tap)="onCloseBtnTap()">

@@ -11,6 +11,7 @@ import {
   template: `
       <span class="vclTokenLabel">{{ label }}</span>
       <button *ngIf="removeable" type="button" title="Remove"
+      type="button"
       class="vclTransparent vclButton">
         <div class="vclIcogram" (tap)="remove()">
           <span class="vclIcon fa fa-remove"></span>
