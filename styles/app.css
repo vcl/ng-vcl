@@ -2558,6 +2558,7 @@ figure figcaption {
 }
 
 .vclFlipSwitch {
+  display: block;
   outline: none;
   background-color: transparent;
   position: relative;
@@ -4940,8 +4941,10 @@ ol ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-flow: row;
-      flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -9340,3 +9343,4 @@ code.hljs {
 .jsoneditor-frame input {
   min-height: 0.5em !important;
 }
+/*# sourceMappingURL=../lib.map*/
