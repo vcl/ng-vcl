@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/ng-vcl",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "A comprehensive library of components for Angular 2 with VCL based styling",
   "scripts": {
     "lint": "npm-run-all lint:src lint:demo",
@@ -17,6 +17,7 @@
     "build:clean": "rimraf dist",
     "build:gulp": "gulp build",
     "build": "npm-run-all lint:src build:clean build:gulp",
+    "publish": "gulp publish",
     "clean": "npm-run-all build:clean docs:clean",
     "docker": "docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash",
     "postinstall": "ts-node scripts/postinstall.ts",
