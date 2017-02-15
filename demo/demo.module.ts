@@ -11,6 +11,7 @@ export interface Demo {
   name: string;
   route: string;
   category: string;
+  imports?: any[];
   module?: ModuleWithProviders;
   tabs?: {
     [key: string]: any
@@ -24,8 +25,7 @@ export function createDemoModule(demo: Demo) {
       ReactiveFormsModule,
       BrowserModule,
       VCLModule,
-      VCLJsonEditorModule,
-      VCLJssFormModule,
+      ...(demo.imports || []),
       RouterModule.forChild([{
         path: demo.route,
         component: DemoComponent,
