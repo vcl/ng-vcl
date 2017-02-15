@@ -55,6 +55,7 @@ const globals: {[name: string]: string} = {
   '@ng-vcl/adv-http': 'ngVCL.advHttp',
   '@ng-vcl/jss-form': 'ngVCL.jssForm',
   '@ng-vcl/store': 'ngVCL.store',
+  '@ng-vcl/plotly': 'ngVCL.plotly',
 
   // Additional dependencies
   'hammerjs': 'Hammer',
@@ -62,6 +63,7 @@ const globals: {[name: string]: string} = {
   'jsoneditor/dist/jsoneditor.js': 'JSONEditor',
   'jsonschema': 'jsonschema',
   'attr-accept': 'attr-accept',
+  'plotly.js': 'Plotly',
 };
 
 export function rollup(module) {

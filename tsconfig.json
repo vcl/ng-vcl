@@ -22,7 +22,8 @@
       "@ng-vcl/ng-vcl": ["src/ng-vcl"],
       "@ng-vcl/store": ["src/store"],
       "@ng-vcl/json-editor": ["src/json-editor"],
-      "@ng-vcl/jss-form": ["src/jss-form"]
+      "@ng-vcl/jss-form": ["src/jss-form"],
+      "@ng-vcl/plotly": ["src/plotly"]
     }
   },
   "include": [

@@ -41,6 +41,7 @@ import INPUT_CONTROL_GROUP from './components/input-control-group/input-control-
 import ALERT_DEMO from './components/alert/demo';
 import BUSY_DEMO from './components/busy/demo';
 import GROWL_DEMO from './components/growl/demo';
+import PLOTLY_DEMO from './components/plotly/demo';
 
 import L10N_DEMO from './components/l10n/l10n.demo';
 import STORE_DEMO from './components/store/store.demo';
@@ -84,7 +85,8 @@ export const DEMO_MODULES: any[] = [
   STORE_DEMO,
   ALERT_DEMO,
   BUSY_DEMO,
-  GROWL_DEMO
+  GROWL_DEMO,
+  PLOTLY_DEMO
 ].map(module => typeof module === 'function' ? module : createDemoModule(module));
 
 export const GROUPED_DEMOS = function() {

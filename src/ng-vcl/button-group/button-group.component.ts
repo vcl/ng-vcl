@@ -43,17 +43,13 @@ export class ButtonGroupComponent implements OnDestroy {
   }
 
   @Input() selectedIndex: number | number[];
-  _selectedIndexChange = new EventEmitter<number | number[]>();
-  @Output() get selectedIndexChange() {
-    return this._selectedIndexChange.asObservable();
-  };
+
+  @Output('selectedIndexChange')
+  selectedIndexChangeEE = new EventEmitter<number | number[]>();
 
   /* Event emitted when the group's value changes. */
-  private _change = new EventEmitter<ButtonGroupChange>();
-  @Output()
-  get change(): Observable<ButtonGroupChange> {
-    return this._change.asObservable();
-  }
+  @Output('change')
+  private changeEE = new EventEmitter<ButtonGroupChange>();
 
   @ContentChildren(ButtonComponent)
   buttons: QueryList<ButtonComponent>;
@@ -109,13 +105,13 @@ export class ButtonGroupComponent implements OnDestroy {
       if (this.selectionMode === SelectionMode.Single) {
         this.unselectAll();
         btn.selected = true;
-        this._change.emit({ source: btn, index: idx });
-        this._selectedIndexChange.emit(idx);
+        this.changeEE.emit({ source: btn, index: idx });
+        this.selectedIndexChangeEE.emit(idx);
       } else {
         btn.selected = !btn.selected;
         const indexes = this.buttons.map((btn, idx) => ({s: btn.selected, idx})).filter(o => o.s).map(o => o.idx);
-        this._change.emit({ source: btn, index: indexes });
-        this._selectedIndexChange.emit(indexes);
+        this.changeEE.emit({ source: btn, index: indexes });
+        this.selectedIndexChangeEE.emit(indexes);
       }
     }));
   }
