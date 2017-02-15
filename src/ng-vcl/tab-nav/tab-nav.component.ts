@@ -1,4 +1,5 @@
-import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter, ViewChild } from '@angular/core';
+import { WormholeManager, WormholeRef } from './../wormhole/index';
+import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { TabComponent } from './tab.component';
 
@@ -7,6 +8,12 @@ import { TabComponent } from './tab.component';
   templateUrl: 'tab-nav.component.html'
 })
 export class TabNavComponent {
+
+  @ViewChild('tabContent', {read: ViewContainerRef})
+  tabContent: ViewContainerRef ;
+
+  wormholeManager: WormholeManager;
+  wormhole: WormholeRef;
 
   @ContentChildren(TabComponent)
   tabs: QueryList<TabComponent>;
@@ -53,9 +60,27 @@ export class TabNavComponent {
       tabComp = null;
     }
 
-    if (tabIdx >= 0 && tab instanceof TabComponent && !tab.disabled) {
+    this.dispose();
+
+    if (tabIdx >= 0 && tabComp instanceof TabComponent && !tabComp.disabled) {
       this.selectedTabIndex = tabIdx;
       this.selectedTabIndexChange$.emit(tabIdx);
+      this.wormhole = this.wormholeManager.connect(tabComp.content);
     }
+  }
+
+  dispose() {
+    if (this.wormhole) {
+      this.wormhole.disconnect();
+    }
+  }
+
+  ngAfterContentInit() {
+    this.wormholeManager = new WormholeManager(this.tabContent);
+    this.selectTab(this.selectedTabIndex);
+  }
+
+  ngOnDestroy() {
+    this.dispose();
   }
 }
