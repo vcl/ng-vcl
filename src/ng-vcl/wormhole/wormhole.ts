@@ -4,7 +4,7 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { WormholeAttributes } from './wormhole';
-import { ComponentType } from './../core/interfaces';
+import { ComponentType } from './../core/index';
 
 export interface WormholeAttributes {
   [key: string]: any;
