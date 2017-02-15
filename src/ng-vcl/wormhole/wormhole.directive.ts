@@ -1,13 +1,14 @@
 import { ViewContainerRef, Directive, Input, SimpleChanges, TemplateRef } from '@angular/core';
-import { Wormhole, createWormhole } from './wormhole';
+import { Wormhole, WormholeManager, WormholeRef } from './wormhole';
 
 @Directive({
   selector: '[wormhole]'
 })
-export class WormholeDirective {
-  private wormhole: Wormhole;
+export class WormholeDirective extends WormholeManager {
 
-  constructor(private viewContainerRef: ViewContainerRef) { }
+  constructor(viewContainerRef: ViewContainerRef) {
+    super(viewContainerRef);
+   }
 
   get isConnected() {
     return !!this.wormhole && this.wormhole.isConnected;
@@ -18,6 +19,8 @@ export class WormholeDirective {
 
   @Input('wormholeAttrs')
   attrs: any;
+
+  wormhole: WormholeRef;
 
   ngOnChanges(changes: SimpleChanges) {
     const attrs = changes['attrs'] && changes['attrs'].currentValue;
@@ -30,8 +33,7 @@ export class WormholeDirective {
       const target = changes['target'].currentValue;
 
       if (target) {
-        this.wormhole = createWormhole(this.viewContainerRef, target);
-        this.wormhole.connect({
+        this.wormhole = this.connect(target, {
           attrs
         });
       }

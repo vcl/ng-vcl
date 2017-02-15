@@ -21,7 +21,13 @@ export interface WormholeOptions {
   events?: string[];
 }
 
-export abstract class Wormhole {
+export abstract class WormholeRef {
+  abstract get isConnected(): boolean;
+  abstract disconnect();
+  abstract setAttributes(attrs: WormholeAttributes);
+}
+
+export abstract class Wormhole extends WormholeRef {
   abstract get isConnected(): boolean;
 
   abstract connect(opts?: WormholeOptions): Observable<WormholeEvent>;
@@ -191,5 +197,17 @@ export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, arg2
     return new TemplateWormhole(targetViewContainerRef, arg2);
   } else {
     throw 'Parameter must be component class or templateRef';
+  }
+}
+
+export class WormholeManager {
+  constructor(protected viewContainerRef: ViewContainerRef) { }
+
+  connect<T>(component: ComponentType<T>, opts?: WormholeOptions): WormholeRef;
+  connect<T>(templateRef: TemplateRef<T>, opts?: WormholeOptions): WormholeRef;
+  connect(target, opts?: WormholeOptions): WormholeRef {
+    const wormhole = createWormhole(this.viewContainerRef, target);
+    wormhole.connect(opts);
+    return wormhole;
   }
 }
