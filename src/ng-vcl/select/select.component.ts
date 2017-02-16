@@ -304,7 +304,7 @@ export class SelectComponent implements ControlValueAccessor {
   writeValue(value: any): void {
     if (this.value == value) return;
     this.value = value;
-    this.changeEE.emit(this.value);
+    // this.changeEE.emit(this.value);
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
