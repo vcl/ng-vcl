@@ -14,13 +14,17 @@ TODO
 
 ## Building and deploying
 
-Build the ng-vcl in the `dist` folder
+Tag and update package.json version
+```sh
+npm version patch/minor/major
+```
+Build the @ng-vcl in the `dist` folder
 ```
 npm run build
 ```
-Deploy `dist` folder to dist branch
+Publish all @ng-vcl packages to npm
 ```
-npm run deploy:dist
+npm run publish
 ```
 
 ## Building and deploy the docs
