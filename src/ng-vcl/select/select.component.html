@@ -29,7 +29,8 @@
     type="button"
     tabindex="-1"
     class="vclTransparent vclSquare vclAppended"
-    [appIcon]="expanded ? expandedIcon : collapsedIcon">
+    [appIcon]="expanded ? expandedIcon : collapsedIcon"
+    (tap)="toggle($event)">
   </button>
 </div>
 
