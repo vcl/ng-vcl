@@ -1,4 +1,3 @@
-
 /**
  * this is a helper-class so that the Date-logic
  * is not mashed with the components logic
@@ -250,13 +249,11 @@ export class PickDate {
    * returns true if this is between the given dates
    */
   inRange(from: PickDate, to: PickDate): boolean {
-    try {
-      if (this.isSameDay(from) || this.isSameDay(to)) return true;
-    } catch (e) { }
+    if (!(from instanceof PickDate) || !(to instanceof PickDate))
+      return false;
 
-    if (!from || !to) return false;
-
-    return this.date >= from.date && this.date <= to.date;
+    return (this.date >= from.date && this.date <= to.date)
+           || this.isSameDay(from) || this.isSameDay(to);
   }
 
   daysInRange(to: PickDate): number {
