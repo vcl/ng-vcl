@@ -5,7 +5,7 @@
 <br/>
 <h3>multi-select:</h3>
 <button vcl-button (tap)="expand2()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2" [items]="items2" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2" [items]="items" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
 
 <br/>
 <h3>marked items:</h3>
@@ -15,20 +15,26 @@
 <br/>
 <h3>keyboard events:</h3>
 <button vcl-button (tap)="expand4()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items3" [tabindex]="77" [listenKeys]="true"></vcl-dropdown>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items" [tabindex]="77" [listenKeys]="true"></vcl-dropdown>
 
 <br/>
 <h3>keyboard events (multiple):</h3>
-<button vcl-button (tap)="expand4()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [items]="items5" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
+<button vcl-button (tap)="expand5()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [items]="items" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
 
 <br/>
 <h3>options via content-child:</h3>
-<button vcl-button (tap)="expand5()">Show/hide</button>
+<button vcl-button (tap)="expand6()">Show/hide</button>
 <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded6" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
   <vcl-dropdown-option value="1">Item 1</vcl-dropdown-option>
-  <vcl-dropdown-option value="2" [selected]="true">Item 2 (preselect)</vcl-dropdown-option>
+  <vcl-dropdown-option value="2" [selected]="true">Item 2 (preselected)</vcl-dropdown-option>
   <vcl-dropdown-option value="3">Item 3</vcl-dropdown-option>
   <vcl-dropdown-option value="4" [disabled]="true">Item 4</vcl-dropdown-option>
   <vcl-dropdown-option value="5">Item 5</vcl-dropdown-option>
 </vcl-dropdown>
+
+<h3>single-select with ngModel:</h3>
+<button vcl-button (tap)="expand7()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(ngModel)]="item" [(expanded)]="expanded7" [items]="itemsNgModel" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
+<br/>
+Current value: {{item}}

@@ -1,0 +1,60 @@
+<h3>Simple select:</h3>
+<vcl-select label="Single select" [items]="items" (change)="onChange($event)" [(ngModel)]="selectedItemSingle"></vcl-select>
+
+<div *ngIf="selectedItemSingle">
+  value: {{selectedItemSingle}}
+</div>
+
+<br>
+<h3>Multiselect, 3 Items selectable:</h3>
+<vcl-select [items]="items" (change)="onChange($event)" [maxSelectableItems]="3"
+  [(ngModel)]="selectedItemsMulti"
+></vcl-select>
+<div *ngIf="selectedItemsMulti && selectedItemsMulti.length > 0">
+  value:
+  <ul>
+    <li *ngFor="let val of selectedItemsMulti">{{val}}</li>
+  </ul>
+</div>
+
+
+
+<h3>Options via content-children:</h3>
+<vcl-select (change)="onChange($event)" [(ngModel)]="selectedItemSingleHtml">
+  <vcl-select-option [value]="1">Item 1</vcl-select-option>
+  <vcl-select-option [value]="2">Item 2</vcl-select-option>
+  <vcl-select-option [value]="3">Item 3</vcl-select-option>
+  <vcl-select-option [value]="4" [disabled]="true">Item 4</vcl-select-option>
+  <vcl-select-option [value]="5">Item 5</vcl-select-option>
+</vcl-select>
+<div *ngIf="selectedItemSingleHtml">
+  Value: {{selectedItemSingleHtml}}
+</div>
+
+
+<h3>Pre-defined value</h3>
+<h4>single</h4>
+<vcl-select [items]="items" (change)="onChange($event)" [(ngModel)]="selectSingleValue"></vcl-select>
+<div *ngIf="selectSingleValue">
+  Value: {{selectSingleValue}}
+</div>
+
+<h4>multi-select</h4>
+<vcl-select [items]="items" (change)="onChange($event)" [maxSelectableItems]="3"
+ [(ngModel)]="selectMultiValue"></vcl-select>
+<div *ngIf="selectMultiValue && selectMultiValue.length>0">
+  value:
+  <ul>
+    <li *ngFor="let val of selectMultiValue">{{val}}</li>
+  </ul>
+</div>
+
+<br/>
+
+<h3>Select inside of label</h3>
+<vcl-label>  Label Text<br>
+  <vcl-select>
+    <vcl-select-option value="1">Item 1</vcl-select-option>
+    <vcl-select-option value="2">Item 2</vcl-select-option>
+  </vcl-select>
+</vcl-label>

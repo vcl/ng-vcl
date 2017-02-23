@@ -5,8 +5,8 @@ import { DemoComponent } from "./components/demo/demo.component";
 import { createDemoModule, Demo } from "./demo.module";
 
 import METALIST_DEMO from "./components/metalist/metalist.demo";
-import DROPDOWN_DEMO from "./components/dropdown/dropdown.demo";
-import SELECT_DEMO from "./components/select/select.demo";
+import DROPDOWN_DEMO from "./components/dropdown/demo";
+import SELECT_DEMO from "./components/select/demo";
 import ICON_DEMO from './components/icon/icon.demo';
 import ICOGRAM_DEMO from "./components/icogram/icogram.demo";
 import BUTTON_DEMO from './components/button/button.demo';
