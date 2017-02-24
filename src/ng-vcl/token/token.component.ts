@@ -3,6 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  trigger
 } from '@angular/core';
 
 
@@ -17,9 +18,11 @@ import {
           <span class="vclIcon fa fa-remove"></span>
         </div>
       </button>`,
+  animations: [trigger('checkState', [])],
   host: {
     '[class.vclToken]': 'true',
-    '[class.vclSelected]': 'selected'
+    '[class.vclSelected]': 'selected',
+    '[@checkState]': 'selected'
   }
 })
 export class TokenComponent {
