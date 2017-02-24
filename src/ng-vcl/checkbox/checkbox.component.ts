@@ -2,7 +2,7 @@ import { Component,
   Input, Output, OnInit,
   HostBinding, HostListener,
   OnChanges, SimpleChanges, EventEmitter,
-  ElementRef, forwardRef,
+  ElementRef, forwardRef, trigger, state, style, transition, animate, keyframes,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -15,9 +15,11 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+
 @Component({
   selector: 'vcl-checkbox',
   templateUrl: 'checkbox.component.html',
+  animations: [trigger('checkState', [])],
   host: {
     '[attr.role]': '"checkbox"',
     '[class.vclCheckbox]': 'true',
