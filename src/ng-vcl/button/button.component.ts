@@ -2,10 +2,9 @@ import { Component, Directive, OnInit, Input, ChangeDetectionStrategy, Output, E
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/publishBehavior';
-import 'hammerjs';
 import { ObservableComponent } from '../core/index';
 import { ButtonStateContentDirective } from './button-state-content.directive';
-import { dispatchTap } from './dispatch-tap';
+// import { dispatchTap } from './dispatch-tap';
 
 enum InteractionType { Click, Tap }
 
@@ -115,7 +114,7 @@ export class ButtonComponent extends ObservableComponent {
         )) {
       ev.preventDefault();
       this.elementRef.nativeElement.click();
-      dispatchTap(this.elementRef.nativeElement);
+      // dispatchTap(this.elementRef.nativeElement);
     }
   }
 
@@ -137,31 +136,32 @@ export class ButtonComponent extends ObservableComponent {
   @HostListener('onblur', ['$event'])
   onBlur(e) { this.focused = false; }
 
-  @HostListener('tap', ['$event'])
-  onTap(e) {
-    this.handleGhostClick(InteractionType.Tap, e);
-  }
-
+  // TODO: temporarily removed taps/hammerjs
   @HostListener('click', ['$event'])
   onClick(e) {
-    this.handleGhostClick(InteractionType.Click, e);
+    this.pressEvent.emit(e);
+    // this.handleGhostClick(InteractionType.Click, e);
   }
+  // @HostListener('tap', ['$event'])
+  // onTap(e) {
+  //   this.handleGhostClick(InteractionType.Tap, e);
+  // }
 
-  private handleGhostClick(type: InteractionType, e) {
-    const ANTI_GHOST_DELAY = 2000;
-    const now = Date.now();
+  // private handleGhostClick(type: InteractionType, e) {
+  //   const ANTI_GHOST_DELAY = 2000;
+  //   const now = Date.now();
 
-    if (type !== this.latestInteractionType ) {
-      if ((now - this.latestInteractionTime) > ANTI_GHOST_DELAY) {
-        this.latestInteractionType = type;
-        this.pressEvent.emit(e);
-      }
-    } else {
-      this.latestInteractionType = type;
-      this.pressEvent.emit(e);
-    }
-    this.latestInteractionTime = now;
-  }
+  //   if (type !== this.latestInteractionType ) {
+  //     if ((now - this.latestInteractionTime) > ANTI_GHOST_DELAY) {
+  //       this.latestInteractionType = type;
+  //       this.pressEvent.emit(e);
+  //     }
+  //   } else {
+  //     this.latestInteractionType = type;
+  //     this.pressEvent.emit(e);
+  //   }
+  //   this.latestInteractionTime = now;
+  // }
 
   ngAfterViewInit() {
     this.buttonContent.forEach(bc => bc.updateState(this.state));

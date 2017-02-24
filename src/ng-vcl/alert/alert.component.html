@@ -2,7 +2,7 @@
 
   <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" [ngClass]="titleAlignmentClass" *ngIf="alert.title">
     <div class="vclLayoutFlex">{{alert.title}}</div>
-    <button *ngIf="alert.showCloseButton" type="button" class="vclButton vclTransparent vclSquare" (tap)="close()"><i class="fa fa-times"></i></button>
+    <button *ngIf="alert.showCloseButton" type="button" class="vclButton vclTransparent vclSquare" (click)="close()"><i class="fa fa-times"></i></button>
   </div>
 
   <div class="vclNotificationContent vclLayoutVertical vclLayoutCenterJustified ">
@@ -25,7 +25,7 @@
     <div class="vclLayoutHorizontal vclLooseButtonGroup" [ngClass]="buttonAlignmentClass">
       <button vcl-button
         *ngIf="alert.showConfirmButton"
-        (tap)="confirm()"
+        (click)="confirm()"
         [style.background-color]="alert.confirmButtonColor"
         [ngClass]="alert.confirmButtonClass"
         [busy]="alert.loader"
@@ -45,7 +45,7 @@
       </button>
       <button vcl-button
         *ngIf="alert.showCancelButton"
-        (tap)="cancel()"
+        (click)="cancel()"
         [style.background-color]="alert.cancelButtonColor"
         [ngClass]="alert.cancelButtonClass"
         [busy]="!alert.showConfirmButton && alert.loader"

@@ -15,5 +15,5 @@
     <div *ngIf="growl.text && !growl.html">{{growl.text}}</div>
     <div *ngIf="growl.text && growl.html" [innerHtml]="growl.text"></div>
   </div>
-   <button vcl-button *ngIf="growl.showCloseButton" (tap)="growl.close()" class="vclSquare vclTransparent vclLayoutSelfStart" prepIcon="fa:times" title="Close"></button>
+   <button vcl-button *ngIf="growl.showCloseButton" (click)="growl.close()" class="vclSquare vclTransparent vclLayoutSelfStart" prepIcon="fa:times" title="Close"></button>
 </div>

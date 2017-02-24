@@ -2,15 +2,15 @@
   <div class="vclDGRow">
     <div class="vclDGCell">
       <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
-        <button type="button" class="vclButton vclTransparent vclSquare" (tap)="prevMonth()">
+        <button type="button" class="vclButton vclTransparent vclSquare" (click)="prevMonth()">
               <div class="vclIcogram">
                 <div class="vclIcon fa fa-angle-left" aria-hidden="false" aria-label="previous" role="img"></div>
               </div>
             </button>
-        <span class="vclCalHeaderLabel" (tap)="showYearPick=true" [class.date-picker-pointer]="!showYearPick">
+        <span class="vclCalHeaderLabel" (click)="showYearPick=true" [class.date-picker-pointer]="!showYearPick">
               {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}
             </span>
-        <button type="button" class="vclButton vclTransparent vclSquare" (tap)="nextMonth()">
+        <button type="button" class="vclButton vclTransparent vclSquare" (click)="nextMonth()">
           <div class="vclIcogram">
             <div class="vclIcon fa fa-angle-right" aria-hidden="false" aria-label="next" role="img"></div>
           </div>
@@ -33,7 +33,7 @@
       <div *ngIf="displayWeekNumbers && week.length==7" class="vclDGCell">
         {{week[5].getWeekNumber()}}
       </div>
-      <div *ngFor="let day of week" class="vclDGCell vclCalItem" [class.vclDisabled]="isDisabled(day)" [class.vclSelected]="isMarked(day)" (tap)="!isDisabled(day) && select(day)" [class.vclToday]="highlightSelected && day.isToday()" [class.vclOtherMonth]="!day.isSameMonthAndYear()">
+      <div *ngFor="let day of week" class="vclDGCell vclCalItem" [class.vclDisabled]="isDisabled(day)" [class.vclSelected]="isMarked(day)" (click)="!isDisabled(day) && select(day)" [class.vclToday]="highlightSelected && day.isToday()" [class.vclOtherMonth]="!day.isSameMonthAndYear()">
         {{day.date.getDate()}}
       </div>
     </div>
@@ -41,12 +41,12 @@
     <div class="vclDGRow">
       <div class="vclDGCell">
         <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified" role="menubar" aria-level="2">
-          <button type="button" title="go to today" class="vclButton vclTransparent vclLayoutFlex" *ngIf="displayJumpToday" (tap)="gotoToday()">
+          <button type="button" title="go to today" class="vclButton vclTransparent vclLayoutFlex" *ngIf="displayJumpToday" (click)="gotoToday()">
                <div class=" vclIcogram">
                  <span class="vclText ">go to today</span>
                </div>
              </button>
-          <button type="button" title="go to selected" class="vclButton vclTransparent vclLayoutFlex" *ngIf="displayJumpSelected" (tap)="gotoSelected()">
+          <button type="button" title="go to selected" class="vclButton vclTransparent vclLayoutFlex" *ngIf="displayJumpSelected" (click)="gotoSelected()">
                 <div class=" vclIcogram">
                   <span class="vclText ">go to selected</span>
                 </div>
@@ -60,7 +60,7 @@
 
   <ng-container *ngIf="showYearPick">
     <div class="vclDGRow" role="row" *ngFor="let row of viewDate.getYearsBlock()">
-      <div *ngFor="let year of row" class="vclDGCell vclCalItem" role="gridcell" [class.vclSelected]="viewDate.date.getFullYear()==year" (tap)="yearPickSelect(year)" [class.vclToday]="highlightSelected && today.isInYear(year)">
+      <div *ngFor="let year of row" class="vclDGCell vclCalItem" role="gridcell" [class.vclSelected]="viewDate.date.getFullYear()==year" (click)="yearPickSelect(year)" [class.vclToday]="highlightSelected && today.isInYear(year)">
         {{year}}
       </div>
     </div>

@@ -14,7 +14,7 @@ import {
       <button *ngIf="removeable" type="button" title="Remove"
       type="button"
       class="vclTransparent vclButton">
-        <div class="vclIcogram" (tap)="remove()">
+        <div class="vclIcogram" (click)="remove()">
           <span class="vclIcon fa fa-remove"></span>
         </div>
       </button>`,
