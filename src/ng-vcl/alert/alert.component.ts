@@ -10,7 +10,7 @@ import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlig
 })
 export class AlertComponent {
 
-  constructor(@Inject(forwardRef(() => AlertLayer)) alertLayer: AlertLayer, private layerService: LayerService) {
+  constructor(@Inject(forwardRef(() => AlertLayer)) alertLayer: AlertLayer, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
     this.alertLayer = alertLayer;
    }
 
@@ -91,8 +91,13 @@ export class AlertComponent {
     }
 
     if (this.alert.loaderOnConfirm) {
-      this.updateAlertOpts({ loader: true });
-      this.alertLayer.send(result);
+      // Minor timeout to give the offClick handler to make the check before
+      // switching the buttons dom element
+      setTimeout(() => {
+        this.updateAlertOpts({ loader: true });
+        this.cdRef.markForCheck();
+        this.alertLayer.send(result);
+      }, 1);
     } else  {
       this.alertLayer.close(result);
     }
