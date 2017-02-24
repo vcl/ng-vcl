@@ -8,6 +8,7 @@ import "@angular/platform-browser-dynamic";
 import "@angular/platform-browser";
 
 import "rxjs";
+import "hammerjs";
 
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
