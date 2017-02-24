@@ -1,23 +1,25 @@
 import {
   Component, Input, Output,
   EventEmitter, ElementRef, trigger, NgZone,
-  HostListener, OnInit, OnChanges
+  HostListener, OnInit, OnChanges, state, style, transition, animate,
+  HostBinding
 } from '@angular/core';
 
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
-  animations: [
-    trigger('popOverState', [])
-  ],
+  animations: [trigger('popOverState', [])],
   host: {
     '[class.vclPopOver]': 'true',
-    '[hidden]': "!open",
     '[style.position]': '"absolute"',
-    '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"'
+    '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
+    '[style.opacity]': "opacity",
+    '[@popOverState]': 'visible'
   }
 })
 export class PopoverComponent implements OnInit, OnChanges {
+
+
 
   @Input()
   target: string;
@@ -40,7 +42,8 @@ export class PopoverComponent implements OnInit, OnChanges {
 
   @Input()
   open: boolean = false;
-  visible: boolean = false;
+  visible: string = this.open ? 'open' : 'void';
+  opacity = this.open ? 1 : 0;
 
   @Input()
   public layer: boolean = false;
@@ -71,6 +74,8 @@ export class PopoverComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // next-tick needed because attachement-position is not known
     setTimeout(this.reposition.bind(this), 0);
+    this.visible = this.open ? 'open' : 'void';
+    this.opacity = this.open ? 1 : 0;
   }
 
   close() {
