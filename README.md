@@ -10,11 +10,13 @@ A comprehensive library of components for Angular 2 with [VCL](http://vcl.github
 - Highly accessible HTML honoring [WAI-ARIA](https://www.w3.org/WAI/intro/aria) recommendations
 - Feature complete, we want you to be able to build standard apps using 80% ng-vcl components
 - Extensibility, it is possible to extend components to accomodate custom features
+- Uses high-level input events from [hammer.js](https://github.com/hammerjs/hammer.js)
 - Straightforward APIs
+- Mix, match, extend, mash-up components
 
 ## Status
 
-ng-vcl is in beta. Breaking API changes might occur.
+ng-vcl is in beta but we adhere to semver.
 
 ## Packages
 
