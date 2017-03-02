@@ -9,15 +9,7 @@ import {
 
 @Component({
   selector: 'vcl-token',
-  template: `
-      <span class="vclTokenLabel">{{ label }}</span>
-      <button *ngIf="removeable" type="button" title="Remove"
-      type="button"
-      class="vclTransparent vclButton">
-        <div class="vclIcogram" (click)="remove()">
-          <span class="vclIcon fa fa-remove"></span>
-        </div>
-      </button>`,
+  templateUrl: 'token.component.html',
   animations: [trigger('checkState', [])],
   host: {
     '[class.vclToken]': 'true',
