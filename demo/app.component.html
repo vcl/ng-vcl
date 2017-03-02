@@ -26,7 +26,7 @@
           autofocus />
 
         <button vcl-button *ngIf="searchInput.value"
-          (click)="searchInput.value = ''; search('')" 
+          (tap)="searchInput.value = ''; search('')" 
           class="vclButton vclTransparent vclSquare vclAppended"
           appIcon="fa:times-circle"></button>
       </div>

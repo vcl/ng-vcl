@@ -37,8 +37,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
-
-
   // behaviour
   @Input('closeOnSelect') closeOnSelect: boolean = false;
 

@@ -9,6 +9,7 @@ import {
   NgZone
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import 'hammerjs';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -116,8 +117,8 @@ export class SliderComponent implements ControlValueAccessor {
   /**
    * clicking the rail should also reposition the bar
    */
-  @HostListener('click', ['$event'])
-  onClick(event) {
+  @HostListener('tap', ['$event'])
+  onTap(event) {
     if (event.target.className == 'vclSliderKnob') return;
 
     const railX = event.changedPointers[0].offsetX;

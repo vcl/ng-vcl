@@ -12,7 +12,7 @@
           type="button"
           [class.vclDisabled]="!prevYearAvailable"
           [appIcon]="prevYearBtnIcon"
-          (click)="onPrevYearTap()">
+          (tap)="onPrevYearTap()">
         </button>
 
         <span class="vclCalHeaderLabel">{{ currentYear }}</span>
@@ -22,14 +22,14 @@
           class="vclButton vclTransparent vclSquare"
           [class.vclDisabled]="!nextYearAvailable"
           [appIcon]="nextYearBtnIcon"
-          (click)="onNextYearTap()">
+          (tap)="onNextYearTap()">
         </button>
 
         <button vcl-button *ngIf="expandable"
           type="button"
           class="vclButton vclTransparent vclSquare"
           [appIcon]="closeBtnIcon"
-          (click)="onCloseBtnTap()">
+          (tap)="onCloseBtnTap()">
         </button>
       </div>
     </div>
@@ -39,7 +39,7 @@
     <template ngFor let-iM [ngForOf]="months" let-i="index">
       <div *ngIf="i % monthsPerRow === 0" class="vclLayoutFlex vclDGRow vclLayoutAuto" role="row">
         <div *ngFor="let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;"
-          (click)="selectMonth(currentYear, i+j)"
+          (tap)="selectMonth(currentYear, i+j)"
           class="vclDGCell vclCalItem"
           [class.vclAvailable]="!useAvailableMonths || currentMeta[i+j].available"
           [class.vclUnavailable]="useAvailableMonths && !currentMeta[i+j].available"

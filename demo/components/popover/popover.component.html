@@ -1,5 +1,5 @@
 <div style="min-height:500px; width: 100%;">
-  <button vcl-button (click)="togglePopover()" label="toggle popover"></button>
+  <button vcl-button (tap)="togglePopover()" label="toggle popover"></button>
 
   <vcl-popover
     [debug]="debug"
@@ -7,8 +7,8 @@
     [(open)]="open"
     [style]="style">
     popover text goes here <br>
-    <button vcl-button (click)="showPopover2()" label="show popover2" id="button1"></button>
-    <button vcl-button (click)="closePopover()" label="close popover" id="buttonClose"></button>
+    <button vcl-button (tap)="showPopover2()" label="show popover2" id="button1"></button>
+    <button vcl-button (tap)="closePopover()" label="close popover" id="buttonClose"></button>
   </vcl-popover>
 
 

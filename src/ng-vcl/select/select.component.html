@@ -6,7 +6,7 @@
     [style.marginBottom]="0"
     >
 
-    <div class="vclInput" readonly *ngIf="!multiSelect" [class.vclSelected]="focused" (click)="toggle($event)">
+    <div class="vclInput" readonly *ngIf="!multiSelect" [class.vclSelected]="focused" (tap)="toggle($event)">
       {{displayValue}}
     </div>
 
@@ -31,7 +31,7 @@
       tabindex="-1"
       class="vclTransparent vclSquare vclAppended"
       [appIcon]="expanded ? expandedIcon : collapsedIcon"
-      (click)="toggle($event)">
+      (tap)="toggle($event)">
     </button>
   </div>
 

@@ -1,20 +1,20 @@
-<button vcl-button (click)="someAction($event)" label="Button"></button>
+<button vcl-button (tap)="someAction($event)" label="Button"></button>
 <br><br>
-<button vcl-button (click)="someAction($event)" label="Button with appended icon" appIcon="fa:bolt"></button>
+<button vcl-button (tap)="someAction($event)" label="Button with appended icon" appIcon="fa:bolt"></button>
 <br><br>
-<button vcl-button (click)="someAction($event)" label="Button with prepended icon" prepIcon="fa:bolt"></button>
+<button vcl-button (tap)="someAction($event)" label="Button with prepended icon" prepIcon="fa:bolt"></button>
 <br><br>
-<button vcl-button (click)="someAction($event)" class="vclSquare" appIcon="fa:bolt"></button>
+<button vcl-button (tap)="someAction($event)" class="vclSquare" appIcon="fa:bolt"></button>
 <br><br>
-<button vcl-button (click)="someAction($event)" class="vclEmphasized" label="Emphasized button"></button>
+<button vcl-button (tap)="someAction($event)" class="vclEmphasized" label="Emphasized button"></button>
 <br><br>
-<button vcl-button (click)="someAction($event)" flexLabel=true label="Flexed Label"></button>
+<button vcl-button (tap)="someAction($event)" flexLabel=true label="Flexed Label"></button>
 <br><br>
-<button vcl-button (click)="someAction($event)" disabled=true label="Disabled button" prepIcon="fa:bolt"></button>
+<button vcl-button (tap)="someAction($event)" disabled=true label="Disabled button" prepIcon="fa:bolt"></button>
 <br><br>
-<button vcl-button (click)="someAction($event)" busy=true label="Busy button" prepIcon="fa:refresh fa-spin"></button>
+<button vcl-button (tap)="someAction($event)" busy=true label="Busy button" prepIcon="fa:refresh fa-spin"></button>
 <br><br>
-<button vcl-button (click)="changeButtonState()" [busy]="busy" [disabled]="disabled">
+<button vcl-button (tap)="changeButtonState()" [busy]="busy" [disabled]="disabled">
   <vcl-icogram *vclButtonStateContent="'enabled'" prepIcon="fa:bolt" label="enabled state"></vcl-icogram>
   <vcl-icogram *vclButtonStateContent="'disabled'" prepIcon="fa:bolt" label="disabled state"></vcl-icogram>
   <vcl-icogram *vclButtonStateContent="'busy'" prepIcon="fa:refresh fa-spin" label="busy state"></vcl-icogram>

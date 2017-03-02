@@ -47,7 +47,7 @@ export class FlipSwitchComponent implements ControlValueAccessor {
     });
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener('tap', ['$event'])
   onClick() {
     this.value = !this.value;
     this.valueChange.emit(this.value);

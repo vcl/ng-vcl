@@ -7,7 +7,7 @@
                 <div class="vclIcon fa fa-angle-left" aria-hidden="false" aria-label="previous" role="img"></div>
               </div>
             </button>
-        <span class="vclCalHeaderLabel" (click)="showYearPick=true" [class.date-picker-pointer]="!showYearPick">
+        <span class="vclCalHeaderLabel" (tap)="showYearPick=true" [class.date-picker-pointer]="!showYearPick">
               {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}
             </span>
         <button type="button" class="vclButton vclTransparent vclSquare" (click)="nextMonth()">
@@ -35,7 +35,7 @@
       <div *ngIf="displayWeekNumbers && week.length==7" class="vclDGCell">
         {{week[5].getWeekNumber()}}
       </div>
-      <div *ngFor="let day of week" class="vclDGCell vclCalItem" [class.vclDisabled]="isDisabled(day)" [class.vclSelected]="isMarked(day)" (click)="!isDisabled(day) && select(day)" [class.vclToday]="highlightSelected && day.isToday()" [class.vclOtherMonth]="!day.isSameMonthAndYear()">
+      <div *ngFor="let day of week" class="vclDGCell vclCalItem" [class.vclDisabled]="isDisabled(day)" [class.vclSelected]="isMarked(day)" (tap)="!isDisabled(day) && select(day)" [class.vclToday]="highlightSelected && day.isToday()" [class.vclOtherMonth]="!day.isSameMonthAndYear()">
         {{day.date.getDate()}}
       </div>
     </div>
@@ -43,12 +43,12 @@
     <div *ngIf="displayJumpSelected || displayJumpToday" class="vclDGRow">
       <div class="vclDGCell">
         <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified" role="menubar" aria-level="2">
-          <button *ngIf="displayJumpToday" type="button" title="go to today" class="vclButton vclTransparent vclLayoutFlex" (click)="gotoToday()">
+          <button *ngIf="displayJumpToday" type="button" title="go to today" class="vclButton vclTransparent vclLayoutFlex" (tap)="gotoToday()">
             <div class=" vclIcogram">
               <span class="vclText ">go to today</span>
             </div>
           </button>
-          <button *ngIf="displayJumpSelected" type="button" title="go to selected" class="vclButton vclTransparent vclLayoutFlex" (click)="gotoSelected()">
+          <button *ngIf="displayJumpSelected" type="button" title="go to selected" class="vclButton vclTransparent vclLayoutFlex" (tap)="gotoSelected()">
             <div class=" vclIcogram">
               <span class="vclText ">go to selected</span>
             </div>

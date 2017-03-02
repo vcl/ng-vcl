@@ -1,9 +1,9 @@
 Press escape to close the top layer<br><br>
 
-<button vcl-button (click)="layerNonModal.open()" label="open non-modal layer per reference"></button>
-<button vcl-button (click)="layerModal.open()" label="open modal layer per reference"></button>
-<button vcl-button (click)="openLayer()" label="open layer programmatically"></button>
-<button vcl-button (click)="openFooLayer()" label="open component layer"></button>
+<button vcl-button (tap)="layerNonModal.open()" label="open non-modal layer per reference"></button>
+<button vcl-button (tap)="layerModal.open()" label="open modal layer per reference"></button>
+<button vcl-button (tap)="openLayer()" label="open layer programmatically"></button>
+<button vcl-button (tap)="openFooLayer()" label="open component layer"></button>
 
 <template vcl-layer #layerNonModal="layer" [modal]="false">
   <div class="vclPanel vclNoMargin">
@@ -13,7 +13,7 @@ Press escape to close the top layer<br><br>
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         Non-modal layer text goes here<br><br>
-        <button vcl-button (click)="layerNonModal.close()" label="close Layer"></button>
+        <button vcl-button (tap)="layerNonModal.close()" label="close Layer"></button>
       </p>
     </div>
   </div>
@@ -27,8 +27,8 @@ Press escape to close the top layer<br><br>
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         Modal layer text goes here<br><br>
-        <button vcl-button (click)="layerNonModal.open()" label="open non-modal layer"></button>
-        <button vcl-button (click)="layerModal.close()" label="close Layer"></button>
+        <button vcl-button (tap)="layerNonModal.open()" label="open non-modal layer"></button>
+        <button vcl-button (tap)="layerModal.close()" label="close Layer"></button>
       </p>
     </div>
   </div>
