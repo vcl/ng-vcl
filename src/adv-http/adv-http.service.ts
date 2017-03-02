@@ -9,6 +9,7 @@ import { Subscriber } from 'rxjs/Subscriber';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publish';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/observable/throw';
