@@ -203,11 +203,11 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   get selectedItems(): DropdownItem[] {
-    return this.dropdown.items.filter(item => item.selected);
+    return (this.dropdown.items || []).filter(item => item.selected);
   }
 
-  get multiSelect() {
-    return !(this.maxSelectableItems <= 1);
+  get showDisplayValue() {
+    return this.maxSelectableItems <= 1 || this.selectedItems.length === 0;
   }
 
   unselectItem(event: Event, item: DropdownItem) {

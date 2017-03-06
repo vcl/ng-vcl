@@ -6,11 +6,11 @@
     [style.marginBottom]="0"
     >
 
-    <div class="vclInput" readonly *ngIf="!multiSelect" [class.vclSelected]="focused" (tap)="toggle($event)">
+    <div class="vclInput" readonly *ngIf="showDisplayValue" [class.vclSelected]="focused" (tap)="toggle($event)">
       {{displayValue}}
     </div>
 
-    <div class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly *ngIf="multiSelect" [class.vclSelected]="focused" (click)="toggle($event)">
+    <div class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly *ngIf="!showDisplayValue" [class.vclSelected]="focused" (click)="toggle($event)">
       <div class="vclTokenContainer">
         <ng-container *ngFor="let item of selectedItems">
           <div class="vclToken">
