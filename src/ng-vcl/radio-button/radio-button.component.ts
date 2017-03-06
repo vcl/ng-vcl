@@ -1,16 +1,13 @@
 import { Observable } from 'rxjs/Observable';
-// TODO: This class is just a copy of the checkbox with slight modifications
-// Use inheritance once supported
-// https://github.com/angular/angular/issues/11606
 
 import {
   ChangeDetectionStrategy,
   Component,
   Input, Output,
   OnInit, HostBinding, HostListener, OnChanges,
-  SimpleChanges, EventEmitter, ElementRef, forwardRef } from '@angular/core';
+  SimpleChanges, EventEmitter, ElementRef, forwardRef, ChangeDetectorRef
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,13 +20,13 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: 'radio-button.component.html',
   host: {
     '[attr.role]': '"radio"',
-    '[class.vclCheckbox]': 'true',
+    '[class.vclRadioButton]': 'true',
     '[style.userSelect]': '"none"'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
 
   @Input()
   checkedIcon = 'fa:dot-circle-o';
@@ -37,27 +34,31 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
   @Input()
   uncheckedIcon = 'fa:circle-o';
 
-  @Input() disabled = false;
+  @HostBinding('attr.aria-disabled')
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled = false;
 
-  @Input('labelPosition')
+  @Input()
+  value: any;
+
+  @Input()
   labelPosition: 'left' | 'right' = 'right';
 
-  @HostBinding() tabindex = 0;
-  @Input('checked') checked: boolean = false;
-  @Output('change') _checkedChange = new EventEmitter<boolean>();
+  @Input()
+  label: string;
+
+  @HostBinding()
+  tabindex = 0;
+
+  @HostBinding('attr.checked')
+  @Input()
+  checked: boolean = false;
 
   @Output()
-  get checkedChange(): Observable<boolean> {
-    return this._checkedChange.asObservable();
-  };
+  checkedChange = new EventEmitter<boolean>();
 
-  constructor(private elementRef: ElementRef) {
-    this._checkedChange.subscribe(newVal => {
-      !!this.onChangeCallback && this.onChangeCallback(newVal);
-    });
-  }
-
-  ngOnInit() { }
+  constructor(private elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['checked']) {
@@ -66,43 +67,28 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
     }
   }
 
-  @HostBinding('class.vclDisabled')
-  get clsVclDisabled() {
-    return !!this.disabled;
-  }
-
-  @HostBinding('attr.aria-disabled')
-  get attrAriaDisabled() {
-    return !!this.disabled;
-  }
-
-  @HostBinding('attr.checked')
-  get attrChecked() {
-    return !!this.checked;
-  }
-
   @HostListener('keydown', ['$event'])
-  keydown(ev) {
-    switch (ev.code) {
+  onKeydown(e: KeyboardEvent) {
+    switch (e.code) {
       case 'Space':
-        this.triggerChangeAction(ev);
+        this.triggerChangeAction(e);
         break;
     }
   }
 
-
-
-  @HostListener('click', ['$event'])
-  onClick(e) {
+  @HostListener('tap', ['$event'])
+  onTap(e: Event) {
     return this.triggerChangeAction(e);
   }
 
-  triggerChangeAction(e) {
+  triggerChangeAction(e: Event) {
     e.preventDefault();
     if (this.disabled) return;
     if (this.checked == true) return; // radio-buttons cannot be 'unchecked' by definition
-    this.checked = !this.checked;
-    this._checkedChange.emit(this.checked);
+
+    this.checked = true;
+    this.checkedChange.emit(this.checked);
+    this.onChangeCallback && this.onChangeCallback(this.checked);
   }
 
   focusMaintenance(checked: boolean) {
@@ -111,10 +97,10 @@ export class RadioButtonComponent implements OnInit, OnChanges, ControlValueAcce
     }
   }
 
-  get icon() {
-    return this.checked ? this.checkedIcon : this.uncheckedIcon;
+  setChecked(value: boolean) {
+    this.checked = value;
+    this.cdRef.markForCheck();
   }
-
 
   /**
    * things needed for ControlValueAccessor-Interface
