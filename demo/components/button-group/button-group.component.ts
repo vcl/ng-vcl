@@ -3,15 +3,11 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   templateUrl: 'button-group.component.html'
 })
-export class ButtonGroupComponent implements OnInit {
+export class ButtonGroupComponent {
 
   idx1 = 1;
   idx2 = [0, 2];
   idx3;
-
-  constructor() { }
-
-  ngOnInit() { }
 
   buttonClick(param) {
     console.log('buttonClick, param:', param);

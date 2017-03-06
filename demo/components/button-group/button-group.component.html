@@ -1,13 +1,13 @@
 <h3>SelectionMode: Single</h3>
-<vcl-button-group [(selectedIndex)]="idx1">
+<vcl-button-group [(ngModel)]="idx1">
   <button vcl-button (tap)="buttonClick($event)" label="Action 1"></button>
   <button vcl-button (tap)="buttonClick($event)" label="Action 2"></button>
   <button vcl-button (tap)="buttonClick($event)" label="Action 3"></button>
 </vcl-button-group>
 <p>Selected index: {{idx1}}</p>
 
-<h3>SelectionMode: Multiple, preselected via selectedIndex</h3>
-<vcl-button-group [(selectedIndex)]="idx2" mode="multiple">
+<h3>SelectionMode: Multiple, preselected via ngModel</h3>
+<vcl-button-group [(ngModel)]="idx2" mode="multiple">
   <button vcl-button (tap)="buttonClick($event)" label="Action 1"></button>
   <button vcl-button (tap)="buttonClick($event)" label="Action 2"></button>
   <button vcl-button (tap)="buttonClick($event)" label="Action 3"></button>
@@ -15,7 +15,7 @@
 <p>Selected index: {{idx2}}</p>
 
 
-<h3>SelectionMode: Multiple, preselected via attribute</h3>
+<h3>SelectionMode: Multiple, preselected via attribute (does not support ngModel directive)</h3>
 <vcl-button-group [(selectedIndex)]="idx3" mode="multiple">
   <button vcl-button (tap)="buttonClick($event)" label="Action 1" [selected]="true"></button>
   <button vcl-button (tap)="buttonClick($event)" label="Action 2" [selected]="true"></button>

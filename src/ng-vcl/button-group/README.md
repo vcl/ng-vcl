@@ -24,12 +24,20 @@ export class AppComponent {}
 
 ### API
 
-#### Properties:
+#### Attributes:
 
 | Name                  | Type                   | Default  | Description
 | --------------------- | ---------------------- | -------- |--------------
 | `mode`                | string                 | `single` | `single` or `multiple`
-| `selectedIndex` *(1)* | number, number[]       |          | 2-Way-Binding. The selected buttons.  
+| `selectedIndex` *(1)* | number, number[]       |          | The selected buttons.
+
+#### Events:
+
+| Name                | Description
+| ------------        | --------------
+| `change`            | ButtonGroupChange         |          | Selected buttons change
+
+*(1) Supports Two-way binding*
 
 #### Interfaces:
 
@@ -39,4 +47,3 @@ interface ButtonGroupChange {
   index: number | number[];
 }
 ```
-*(1) Supports Two-way binding*

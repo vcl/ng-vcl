@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { ButtonComponent } from '../button/index';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from "@angular/forms";
 
 export enum SelectionMode {
   Single,
@@ -14,6 +15,11 @@ export interface ButtonGroupChange {
   index: number | number[];
 }
 
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => ButtonGroupComponent),
+  multi: true
+};
 
 @Component({
   selector: 'vcl-button-group',
@@ -21,12 +27,12 @@ export interface ButtonGroupChange {
     '[class.vclButtonGroup]': 'true',
   },
   template: `<ng-content></ng-content>`,
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnDestroy {
+export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
 
-  btnSub: Subscription;
-  pressSubs: Subscription[] = [];
+  btnSubs: Subscription[] = [];
 
   // If `Single`, a single button from the group can be selected
   // If `Multiple` multipe buttons can be selected
@@ -43,36 +49,64 @@ export class ButtonGroupComponent implements OnDestroy {
     }
   }
 
-  @Input()
-  selectedIndex: number | number[];
+  private _selectedIndex: number | number[];
 
-  @Output('selectedIndexChange')
-  selectedIndexChangeEE = new EventEmitter<number | number[]>();
+  @Input()
+  set selectedIndex(value: number | number[]) {
+    if (this.selectionMode === SelectionMode.Single && Array.isArray(value) && typeof value[0] === 'number') {
+      this._selectedIndex = value[0];
+    } else if (this.selectionMode === SelectionMode.Single && typeof value === 'number') {
+      this._selectedIndex = value;
+    } else if (this.selectionMode === SelectionMode.Multiple && Array.isArray(value)) {
+      this._selectedIndex = value;
+    }
+    this.updateButtons();
+  }
+
+  get selectedIndex() {
+    return this._selectedIndex;
+  }
+
+  @Output()
+  selectedIndexChange = new EventEmitter<number | number[]>();
+
+  updateSelectedIndex(index: number[], source: ButtonComponent) {
+    this.selectedIndex = index;
+    this.selectedIndexChange.emit(this.selectedIndex);
+    this.change.emit({
+      index: this.selectedIndex,
+      source
+    });
+    if (this.onChangeCallback) {
+      this.onChangeCallback(this.selectedIndex);
+    }
+  }
+
+  @Output()
+  change = new EventEmitter<ButtonGroupChange>();
 
   @ContentChildren(ButtonComponent)
   buttons: QueryList<ButtonComponent>;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedIndex']) {
-      this.selectButtons(changes['selectedIndex'].currentValue);
-    }
-  }
 
   ngAfterContentInit() {
-    if (this.selectedIndex !== undefined) {
-      // Prioritize selectedIndex over button.selected attribute
-      this.selectButtons(this.selectedIndex);
-    } else {
-      // Determine selectedIndex if not initially provided
-      const newIndex = this.buttons.map((btn, i) => ({ i, btn }) ).filter(v => v.btn.selected).map(v => v.i);
-      this.setSelectedIndex(newIndex);
-      this.selectedIndexChangeEE.emit(this.selectedIndex);
+    // When not using ngModel
+    if (!this.onChangeCallback) {
+      // and selectedIndex is provided
+      if (this.selectedIndex !== undefined && this.selectedIndex !== null) {
+        // update buttons so they match the provided selectedIndex
+        this.updateButtons();
+      } else {
+        // else update selectedIndex so it matches the selected buttons
+        const newIndex = this.buttons.map((btn, i) => ({ i, btn }) ).filter(v => v.btn.selected).map(v => v.i);
+        this.updateSelectedIndex(newIndex, null);
+      }
     }
 
     // Subscribes to buttons press event
     const listenButtonPress = () => {
-      this.disposePressSubs();
-      this.pressSubs = this.buttons.map((btn, idx) => btn.press.subscribe(() => {
+      this.dispose();
+      this.btnSubs = this.buttons.map((btn, idx) => btn.press.subscribe(() => {
         this.buttons.forEach((cbtn, idx) => {
           if (this.selectionMode === SelectionMode.Single) {
             // Mark one button on single mode
@@ -84,8 +118,7 @@ export class ButtonGroupComponent implements OnDestroy {
         });
 
         const newIndex = this.buttons.map((btn, i) => ({ i, btn }) ).filter(v => v.btn.selected).map(v => v.i);
-        this.setSelectedIndex(newIndex);
-        this.selectedIndexChangeEE.emit(this.selectedIndex);
+        this.updateSelectedIndex(newIndex, btn);
       }));
     };
 
@@ -96,25 +129,17 @@ export class ButtonGroupComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.disposePressSubs();
-    this.btnSub && this.btnSub.unsubscribe();
+    this.dispose();
   }
 
-  disposePressSubs() {
-    this.pressSubs.forEach(s => s.unsubscribe());
-    this.pressSubs = [];
-  }
-  setSelectedIndex(index: number[]) {
-    if (this.selectionMode === SelectionMode.Single) {
-      this.selectedIndex = typeof index[0] === 'number' ? index[0] : null;
-    } else {
-      this.selectedIndex = index;
-    }
-
+  dispose() {
+    this.btnSubs.forEach(s => s.unsubscribe());
+    this.btnSubs = [];
   }
 
-  selectButtons(index: number | number[]) {
+  updateButtons() {
     if (this.buttons) {
+      const index = this.selectedIndex;
       let indexArr: number[];
       if (typeof index === 'number') {
         indexArr = [index];
@@ -128,5 +153,21 @@ export class ButtonGroupComponent implements OnDestroy {
         btn.selected = true;
       });
     }
+  }
+    /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: any) => void;
+  writeValue(value: any): void {
+    if (value !== this.selectedIndex) {
+      this.selectedIndex = value;
+    }
+  }
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
   }
 }
