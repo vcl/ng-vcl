@@ -15,7 +15,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
-
 @Component({
   selector: 'vcl-checkbox',
   templateUrl: 'checkbox.component.html',
@@ -28,59 +27,46 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class CheckboxComponent implements OnChanges, ControlValueAccessor {
 
-  @HostBinding() tabindex = 0;
+  @HostBinding()
+  tabindex = 0;
 
-  @Input() checkedIcon: string = 'fa:check-square-o';
-  @Input() uncheckedIcon: string = 'fa:square-o';
-  @Input() disabled: boolean = false;
-  @Input() labelPosition: 'left' | 'right' = 'right';
+  @Input()
+  checkedIcon: string = 'fa:check-square-o';
+
+  @Input()
+  uncheckedIcon: string = 'fa:square-o';
+
+  @HostBinding('attr.aria-disabled')
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled: boolean = false;
+
+  @Input()
+  labelPosition: 'left' | 'right' = 'right';
 
   /**
   Reflects the checked state, `true` is checked and `false` is unchecked
   @public
   */
-  @Input() checked: boolean = false;
+  @HostBinding('attr.checked')
+  @Input()
+  checked: boolean = false;
 
   /**
   Action fired when the `checked` state changes due to user interaction.
   */
-  _checkedChange = new EventEmitter<boolean>();
   @Output()
-  get checkedChange(): Observable<boolean> {
-    return this._checkedChange.asObservable();
-  };
+  checkedChange = new EventEmitter<boolean>();
 
-  constructor(private elementRef: ElementRef) {
-    this._checkedChange.subscribe(newVal => {
-      !!this.onChangeCallback && this.onChangeCallback(newVal);
-    });
-  }
-
-  ngOnInit() { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['checked']) {
       let checked = changes['checked'].currentValue;
-      // this._checkedChange.emit(checked);
       this.focusMaintenance(checked);
     }
-  }
-
-  @HostBinding('class.vclDisabled')
-  get clsVclDisabled() {
-    return !!this.disabled;
-  }
-
-  @HostBinding('attr.aria-disabled')
-  get attrAriaDisabled() {
-    return !!this.disabled;
-  }
-
-  @HostBinding('attr.checked')
-  get attrChecked() {
-    return !!this.checked;
   }
 
   @HostListener('keydown', ['$event'])
@@ -92,8 +78,8 @@ export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccesso
     }
   }
 
-  @HostListener('click', ['$event'])
-  onClick(e) {
+  @HostListener('tap', ['$event'])
+  onTap(e) {
     return this.triggerChangeAction(e);
   }
 
@@ -101,7 +87,8 @@ export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccesso
     e.preventDefault();
     if (this.disabled) return;
     this.checked = !this.checked;
-    this._checkedChange.emit(this.checked);
+    this.checkedChange.emit(this.checked);
+    this.onChangeCallback && this.onChangeCallback(this.checked);
   }
 
   focusMaintenance(checked: boolean) {
@@ -113,7 +100,6 @@ export class CheckboxComponent implements OnInit, OnChanges, ControlValueAccesso
   get icon() {
     return this.checked ? this.checkedIcon : this.uncheckedIcon;
   }
-
 
   /**
    * things needed for ControlValueAccessor-Interface
