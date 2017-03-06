@@ -60,9 +60,9 @@ export class TabNavComponent {
       tabComp = null;
     }
 
-    this.dispose();
-
     if (tabIdx >= 0 && tabComp instanceof TabComponent && !tabComp.disabled) {
+      this.dispose();
+
       this.selectedTabIndex = tabIdx;
       this.selectedTabIndexChange$.emit(tabIdx);
       this.wormhole = this.wormholeManager.connect(tabComp.content);
