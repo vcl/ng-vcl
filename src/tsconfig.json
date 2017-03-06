@@ -12,9 +12,6 @@
     "outDir": "../dist/@ng-vcl",
     "stripInternal": false,
     "baseUrl": ".",
-    "paths": {
-    },
-    "types": [ ],
     "lib": [
       "dom",
       "es6",
@@ -27,8 +24,6 @@
     }
   },
   "angularCompilerOptions": {
-    "genDir": "../dist/",
-    "skipTemplateCodegen": true,
-    "debug": true
+    "skipTemplateCodegen": true
   }
 }

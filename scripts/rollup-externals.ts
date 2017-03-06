@@ -1,6 +1,4 @@
-import * as gulpRollup from 'gulp-better-rollup';
-
-const globals: {[name: string]: string} = {
+export default {
   // Angular dependencies
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
@@ -67,14 +65,3 @@ const globals: {[name: string]: string} = {
   'plotly.js': 'Plotly',
 };
 
-export function rollup(module) {
-  return gulpRollup({
-    context: 'this',
-    external: Object.keys(globals)
-  }, {
-    moduleName: globals['@ng-vcl/' + module] || module,
-    format: 'umd',
-    globals,
-    dest: 'index.umd.js'
-  });
-}

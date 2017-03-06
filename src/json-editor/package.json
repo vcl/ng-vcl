@@ -8,8 +8,8 @@
   },
   "author": "The ng-vcl authors",
   "license": "MIT",
-  "module": "index.js",
-  "main": "index.umd.js",
+  "main": "json-editor.umd.js",
+  "module": "json-editor.js",
   "typings": "index.d.ts",
   "peerDependencies": {
     "@angular/common": "^2.3.0",

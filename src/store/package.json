@@ -8,8 +8,8 @@
   },
   "author": "The ng-vcl authors",
   "license": "MIT",
-  "module": "index.js",
-  "main": "index.umd.js",
+  "main": "store.umd.js",
+  "module": "store.js",
   "typings": "index.d.ts",
   "peerDependencies": {
     "@angular/core": "^2.3.0",
