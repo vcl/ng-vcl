@@ -14,7 +14,6 @@ import BUTTON_GROUP_DEMO from './components/button-group/button-group.demo';
 import LAYER_DEMO from './components/layer/demo';
 import LINK_DEMO from './components/link/link.demo';
 import RADIO_BUTTON_DEMO from './components/radio-button/radio-button.demo';
-import RADIO_GROUP_DEMO from './components/radio-group/radio-group.demo';
 import CHECKBOX_DEMO from './components/checkbox/checkbox.demo';
 import FORM_CONTROL_LABEL_DEMO from './components/form-control-label/form-control-label.demo';
 import FORM_DEMO from './components/form/form.demo';
@@ -57,7 +56,6 @@ export const DEMO_MODULES: any[] = [
   LAYER_DEMO,
   LINK_DEMO,
   RADIO_BUTTON_DEMO,
-  RADIO_GROUP_DEMO,
   CHECKBOX_DEMO,
   FORM_CONTROL_LABEL_DEMO,
   FORM_DEMO,

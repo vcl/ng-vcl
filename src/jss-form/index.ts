@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JssFormComponent, JssFormObjectComponent } from './jss-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { VCLDropdownModule, VCLFlipSwitchModule, VCLSliderModule, VCLCheckboxModule, VCLSelectModule, VCLRadioGroupModule, VCLInputControlGroupModule, L10nModule } from '@ng-vcl/ng-vcl';
+import { VCLDropdownModule, VCLFlipSwitchModule, VCLSliderModule, VCLCheckboxModule, VCLSelectModule, VCLRadioButtonModule, VCLInputControlGroupModule, L10nModule } from '@ng-vcl/ng-vcl';
 
 @NgModule({
   imports: [
@@ -12,7 +12,7 @@ import { VCLDropdownModule, VCLFlipSwitchModule, VCLSliderModule, VCLCheckboxMod
     VCLSliderModule,
     VCLCheckboxModule,
     VCLSelectModule,
-    VCLRadioGroupModule,
+    VCLRadioButtonModule,
     VCLInputControlGroupModule
   ],
   exports: [JssFormComponent, JssFormObjectComponent],

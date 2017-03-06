@@ -1,7 +1,0 @@
-<vcl-radio-button *ngFor="let option of options"
- [checked]="option.value == this.value"
- (change)="buttonChanged(option.value, $event)"
->
-  {{ option.label }}
-</vcl-radio-button>
-<br/>

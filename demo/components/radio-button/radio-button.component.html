@@ -1,5 +1,5 @@
 <h3>Checkable:</h3>
-<vcl-radio-button [(checked)]="isChecked" (change)="onChange($event)"></vcl-radio-button>
+<vcl-radio-button [(checked)]="isChecked" (checkedChange)="onChange($event)"></vcl-radio-button>
 <br/>
 <b>State:</b> {{isChecked}}
 <br>
@@ -13,11 +13,25 @@
 <h3>With label:</h3>
 
 <h4>right:</h4>
-<vcl-radio-button [(checked)]="isChecked2" labelPosition="right">
-  <label vcl-form-control-label label="rightLabel" subLabel="SubRightLabel"></label>
-</vcl-radio-button>
+<vcl-radio-button [(checked)]="isChecked2" label="rightLabel" labelPosition="right"></vcl-radio-button>
 
 <h4>left:</h4>
-<vcl-radio-button [(checked)]="isChecked3" labelPosition="left">
-  <label vcl-form-control-label label="rightLabel" subLabel="SubRightLabel"></label>
+<vcl-radio-button [(checked)]="isChecked3" label="leftLabel" labelPosition="left"></vcl-radio-button>
+
+<br>
+<h3>With custom content:</h3>
+
+<h4>left:</h4>
+<vcl-radio-button [(checked)]="isChecked4">
+  <label vcl-form-control-label label="Label" subLabel="SubLabel"></label>
 </vcl-radio-button>
+
+
+<h3>Radio Group:</h3>
+
+<vcl-radio-group [(ngModel)]="value">
+  <vcl-radio-button label="Value 1" [value]="1"></vcl-radio-button>
+  <vcl-radio-button label="Value 2" [value]="2"></vcl-radio-button>
+</vcl-radio-group>
+<br>
+State: {{value}}

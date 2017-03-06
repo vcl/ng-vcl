@@ -58,8 +58,9 @@ style="border-style:solid;margin:5px;padding: 5px;">
       </div>
       <div *ngSwitchCase="'radio'">
       <vcl-input-control-group [type]="'error'" [label]="fieldErrors[key]">
-        <vcl-radio-group [formControlName]="key"
-         [options]="radioOptions(schema.properties[key])"></vcl-radio-group>
+        <vcl-radio-group [formControlName]="key">
+          <vcl-radio-button *ngFor="let option of radioOptions(schema.properties[key])" [label]="option.label" [value]="option.value"></vcl-radio-button>
+        </vcl-radio-group>
        </vcl-input-control-group>
      </div>
     </div>

@@ -59,9 +59,6 @@ export * from './progress-bar/index';
 import { VCLRadioButtonModule } from './radio-button/index';
 export * from './radio-button/index';
 
-import { VCLRadioGroupModule } from './radio-group/index';
-export * from './radio-group/index';
-
 import { VCLCheckboxModule } from './checkbox/index';
 export * from './checkbox/index';
 
@@ -124,7 +121,6 @@ export * from './l10n/index';
     VCLPopoverModule,
     VCLProgressBarModule,
     VCLRadioButtonModule,
-    VCLRadioGroupModule,
     VCLCheckboxModule,
     VCLFormControlLabelModule,
     VCLMetalistModule,

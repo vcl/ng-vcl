@@ -3,7 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
-  OnInit, OnDestroy
+  OnInit, OnDestroy, ChangeDetectionStrategy
 } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
@@ -16,7 +16,7 @@ let VALIDATOR;
 
 @Component({
   selector: 'vcl-jss-form-object',
-  templateUrl: 'jss-form-object.component.html',
+  templateUrl: 'jss-form-object.component.html'
 })
 export class JssFormObjectComponent implements OnInit, OnDestroy {
 
@@ -105,13 +105,12 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
   }
 
   radioOptions(schemaObj: any) {
-    const opts = schemaObj.enum.map(str => {
+    return schemaObj.enum.map(str => {
       return {
         label: str,
         value: str
       };
     });
-    return opts;
   }
 
   selectItems(schemaObj) {
@@ -194,25 +193,18 @@ export class JssFormComponent implements OnInit {
    * @return {?any[]} error-array or null if no errors
    */
   jsonSchemaValidate(obj: Object, schema = this.schema): Object[] | null {
-  if (!VALIDATOR) VALIDATOR = new Validator();
-  const valid = VALIDATOR.validate(obj, schema);
+    if (!VALIDATOR) VALIDATOR = new Validator();
+    const valid = VALIDATOR.validate(obj, schema);
 
-  //  console.log('errrrrrors:');
-  //  console.dir(valid.errors);
+    //  console.log('errrrrrors:');
+    //  console.dir(valid.errors);
 
-  if (valid.errors.length == 0) {
-    this.error.emit(null);
-    return null;
+    if (valid.errors.length == 0) {
+      this.error.emit(null);
+      return null;
+    }
+
+    this.error.emit(valid.errors);
+    return valid.errors;
   }
-
-  this.error.emit(valid.errors);
-  return valid.errors;
-}
-
-
-ngAfterViewInit() {
-
-}
-
-
 }
