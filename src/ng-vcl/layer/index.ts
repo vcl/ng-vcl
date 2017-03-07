@@ -10,7 +10,7 @@ import { LayerWrapperComponent } from './layer-wrapper.component';
 import { Layer, getComponentLayerOpts } from './layer-ref.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerOptions }
+export { LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerOptions, LayerWrapperComponent }
 
 export interface VCLLayerConfig {
   layers?: Type<LayerRef>[];
@@ -22,21 +22,19 @@ export function bootstrap(wormholeService: WormholeService) {
   };
 }
 
-export function bootstrapLayers(layerService: LayerService, ...layers: LayerRef[]) {
+export function bootstrapLayers(layerService: LayerService, layer: LayerRef) {
   return () => {
-    layers.forEach(layer => {
-      const opts = getComponentLayerOpts(layer);
-      if (!opts) {
-        throw 'Invalid layer class in VCLLayerConfig.layers';
-      }
-      layerService.register(layer, opts);
-    });
+    const opts = getComponentLayerOpts(layer);
+    if (!opts) {
+      throw 'Invalid layer class in provideLayer()';
+    }
+    layerService.register(layer, opts);
   };
 }
 
 @NgModule({
   imports: [CommonModule, VCLWormholeModule, VCLOffClickModule],
-  exports: [LayerBaseComponent, LayerRefDirective],
+  exports: [LayerBaseComponent, LayerRefDirective, LayerWrapperComponent],
   declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerWrapperComponent],
   entryComponents: [ LayerBaseRootComponent,  LayerWrapperComponent],
   providers: [
@@ -44,7 +42,7 @@ export function bootstrapLayers(layerService: LayerService, ...layers: LayerRef[
     {
       provide: APP_BOOTSTRAP_LISTENER,
       multi: true,
-      deps: [ WormholeService, LayerService ],
+      deps: [ WormholeService ],
       useFactory: bootstrap
     },
     {
@@ -54,7 +52,6 @@ export function bootstrapLayers(layerService: LayerService, ...layers: LayerRef[
   ]
 })
 export class VCLLayerModule { }
-
 
 export function provideLayer(layerCls: Type<LayerRef>): any[] {
   return [

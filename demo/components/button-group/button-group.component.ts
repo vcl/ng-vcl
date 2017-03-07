@@ -7,6 +7,7 @@ export class ButtonGroupComponent implements OnInit {
 
   idx1 = 1;
   idx2 = [0, 2];
+  idx3;
 
   constructor() { }
 
@@ -22,5 +23,9 @@ export class ButtonGroupComponent implements OnInit {
 
   selectionChange2(param) {
     console.log('selectionChange2, param:', param);
+  }
+
+  selectionChange3(param) {
+    console.log('selectionChange3, param:', param);
   }
 }

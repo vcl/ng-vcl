@@ -1,0 +1,40 @@
+<h3>single-select:</h3>
+<button vcl-button (click)="expand()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded" [items]="items" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
+
+<br/>
+<h3>multi-select:</h3>
+<button vcl-button (click)="expand2()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2" [items]="items" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
+
+<br/>
+<h3>marked items:</h3>
+<button vcl-button (click)="expand3()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [expanded]="expanded3" [items]="itemsMarked" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
+
+<br/>
+<h3>keyboard events:</h3>
+<button vcl-button (click)="expand4()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items" [tabindex]="77" [listenKeys]="true"></vcl-dropdown>
+
+<br/>
+<h3>keyboard events (multiple):</h3>
+<button vcl-button (click)="expand5()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [items]="items" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
+
+<br/>
+<h3>options via content-child:</h3>
+<button vcl-button (click)="expand6()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded6" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
+  <vcl-dropdown-option value="1">Item 1</vcl-dropdown-option>
+  <vcl-dropdown-option value="2" [selected]="true">Item 2 (preselected)</vcl-dropdown-option>
+  <vcl-dropdown-option value="3">Item 3</vcl-dropdown-option>
+  <vcl-dropdown-option value="4" [disabled]="true">Item 4</vcl-dropdown-option>
+  <vcl-dropdown-option value="5">Item 5</vcl-dropdown-option>
+</vcl-dropdown>
+
+<h3>single-select with ngModel:</h3>
+<button vcl-button (click)="expand7()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(ngModel)]="item" [(expanded)]="expanded7" [items]="itemsNgModel" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
+<br/>
+Current value: {{item}}

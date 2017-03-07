@@ -30,20 +30,22 @@ export class L10nPipe implements PipeTransform, OnDestroy {
   }
 
   transform(key: string, ...args: string[]): any {
-    // Dispose subscription if key or params are different
-    if (!this.compare(key, ...args) && this.subscription) {
-      this.dispose();
+    if (this.subscription) {
+      // Dispose subscription if key or params are different
+      if (!this.compare(key, ...args)) {
+        this.dispose();
+      } else {
+        return this.value;
+      }
     }
 
     // store key and args for comparison
     this.key = key;
     this.args = args;
 
-    if (!this.subscription) {
-      this.subscription = this.l10n.localize(key, ...args).subscribe(value => {
-        this.value = value;
-      });
-    }
+    this.subscription = this.l10n.localize(key, ...args).subscribe(value => {
+      this.value = value;
+    });
 
     return this.value;
   }
@@ -51,6 +53,7 @@ export class L10nPipe implements PipeTransform, OnDestroy {
   private dispose(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
+      this.subscription = null;
     }
   }
 

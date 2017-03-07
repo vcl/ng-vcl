@@ -3,6 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  trigger
 } from '@angular/core';
 
 
@@ -13,13 +14,15 @@ import {
       <button *ngIf="removeable" type="button" title="Remove"
       type="button"
       class="vclTransparent vclButton">
-        <div class="vclIcogram" (tap)="remove()">
+        <div class="vclIcogram" (click)="remove()">
           <span class="vclIcon fa fa-remove"></span>
         </div>
       </button>`,
+  animations: [trigger('checkState', [])],
   host: {
     '[class.vclToken]': 'true',
-    '[class.vclSelected]': 'selected'
+    '[class.vclSelected]': 'selected',
+    '[@checkState]': 'selected'
   }
 })
 export class TokenComponent {

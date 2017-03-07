@@ -32,7 +32,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclDatePicker]': 'true',
     '[attr.role]': '"listbox"',
     '[attr.aria-multiselectable]': 'false',
-    '[style.height]': '"250px"' // TODO this fixes for IE11
+    '[style.height]': '"284px"' // TODO this fixes for IE11
   }
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
@@ -66,13 +66,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   viewDate: PickDate;
   today: PickDate = PickDateCreate();
 
-
   showYearPick: boolean = false;
-
-
-  constructor() {
-  }
-
 
   ngOnInit() {
     if (this.selectedRangeEnd) this.selectRange = true;
@@ -88,8 +82,6 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     if (!this.minDate) this.minDate = new Date(0, 0, 1);
     if (!this.maxDate) this.maxDate = new Date(10000, 0, 1);
   }
-
-
 
   /**
    * activate the given date

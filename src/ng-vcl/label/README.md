@@ -41,7 +41,8 @@ export class AppComponent {}
 #### vcl-navigation Properties:
 
 Name       | Type   | Default | Description
----------- | ------ | ------- | ----------------------------------------------------------
+---------- | ------ | ------- | ------------------------------------------------------------
 `label`    | string |         | the main-text
 `subLabel` | string |         | the sub-test
 `type`     | string |         | colored types; ENUM(primary, sucess, info, warning, error)
+`for`      | string |         | assigns the label to an element (equal to html5-label's for)

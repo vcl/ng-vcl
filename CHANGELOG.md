@@ -1,20 +1,71 @@
 # Changelog
 
-## master
+## 0.2.1 (2017-03-01)
+
+Bugfix release
+
+## 0.2.0 (2017-02-24)
+
+### Changes
+- Replaced tap with click events
+- Removed hammerjs from peer dependencies
 
 ### Breaking Changes
-- packages are now published via npm
-- vcl-popover
-  - `state` is now `open` and accepts boolean
-  - tether is removed, do not use custom parameters of tether.js
+- dropdown/select: removed value attribute. Use (ngModel) instead
+- slider: requires hammerjs to work
+
+## 0.1.2 (2017-02-17)
+
+### Changes
+
+- button-group: 
+  - Performance optimizations
+  - Remove redundant (change) event => use (selectedIndexChange) instead
+
+### Bug Fixes
+
+- select: toggle dropdown on button tap
+
+## 0.1.1 (2017-02-17)
+
+### Changes
+- label: support for-attribute
+
+### Bug Fixes
+- select:  do not focus on ngModel.writeValue
+- date-picker: fix height for ie11
+- token-input: backspace did not work on ie11
+
+## 0.1.0 (2017-02-15)
+
+### Notes
+
+- Packages are now published via npm and are semver compliant!
+- The npm scope for all packages is @ng-vcl
+- The core package is @ng-vcl/ng-vcl
+- Some components were outsourced in own packages
+- @ng-vcl packages are now aot ready and provide sources in the esm format
+
+### Links
+- [@ng-vcl/ng-vcl README](https://www.npmjs.com/package/@ng-vcl/ng-vcl)
+- [Complete list of packages](https://www.npmjs.com/~ng-vcl)
+
+### Breaking Changes
+- components moved to packages:
+  - json-editor moved to @ng-vcl/json-editor package
+  - store store moved to @ng-vcl/store package
+  - jss-form moved to @ng-vcl/jss-form package
+  - adv-http moved to @ng-vcl/adv-http package
+  - plotly moved to @ng-vcl/plotly package
 - vcl-tab-nav:
   - removed vcl-tab-content directive
 - vcl-token:
   - renamed events from 'onChange' to 'change'
   - renamed events from 'onRemove' to 'remove'
-- vcl-popover:
+- vcl-popover
+  - `state` is now `open` and accepts boolean
+  - tether is removed, do not use custom parameters of tether.js
   - input for target and attachment-positions changed into seperate variable for X and Y
-  - no more teher is used. Please check if the new version positions everything as you want it
 - vcl-input:
   - Input 'value' is removed, use ngModel like you would with a regular input
   - removed event-emitters since they are not needed

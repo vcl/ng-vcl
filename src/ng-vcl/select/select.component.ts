@@ -14,9 +14,14 @@ import {
   HostListener,
   OnInit,
   NgZone,
-  HostBinding
+  HostBinding,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { DropdownItem, DropdownComponent, DropdownOptionBase } from '../dropdown/index';
+
+enum DropDirection { Top, Bottom };
 
 /**
  * see
@@ -25,47 +30,23 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Directive({
   selector: 'vcl-select-option'
 })
-export class SelectOptionComponent implements OnInit {
+export class SelectOptionComponent extends DropdownOptionBase implements OnInit {
 
-  @Input('value') value: string;
+  @Input('value') value: any;
   @Input('sublabel') sublabel: string;
   @Input('label') label: string;
   @Input('class') class: string = '';
-
   @Input('disabled') disabled: boolean = false;
+  @Input('marked') marked: boolean = false;
   @Input('selected') selected: boolean = false;
 
-  constructor(
-    private elementRef: ElementRef
-  ) { }
+  constructor(private elementRef: ElementRef) { super(); }
 
   ngOnInit() {
-    if (!this.label || this.label == '') {
+    if (!this.label || this.label == '')
       this.label = this.elementRef.nativeElement.innerText;
-      if (!this.label || this.label == '') {
-        this.label = this.value;
-      }
-    }
-  }
-
-  /**
-   * transforms this NavigationItemComponent into an object,
-   * so it can be handled the same way as an inputList
-   * @return {Object}
-   */
-  toObject(): Object {
-    const ret = {
-      value: this.value,
-      label: this.label,
-      sublabel: this.sublabel,
-      class: this.class,
-      disabled: this.disabled,
-      selected: this.selected
-    };
-    return ret;
   }
 }
-
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -79,7 +60,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
    * OnPush cannot be used because then the this.dropdownTop - style will not
    * be applied. Maybe this is a bug of ng2?
    */
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   host: {
     '[style.position]': '"relative"',
@@ -90,16 +71,12 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostBinding() tabindex = 0;
 
-  @ViewChild('dropdown') dropdown;
+  @ViewChild('dropdown') dropdown: DropdownComponent;
   @ViewChild('select') select;
 
-
-  @Input('value') value: any;
   @Input('expanded') expanded: boolean = false;
 
-  // options
-  @Input('items') items: any[] = [];
-
+  @Input('items') items: DropdownItem[];
 
   @ContentChildren(SelectOptionComponent) templateItems: QueryList<SelectOptionComponent>;
 
@@ -110,16 +87,16 @@ export class SelectComponent implements ControlValueAccessor {
   // styling
   @Input() expandedIcon: string = 'fa:chevron-up';
   @Input() collapsedIcon: string = 'fa:chevron-down';
-  @Input('displayValue') displayValue: string | string[] = 'Select value';
 
-  @Output('change') changeEE = new EventEmitter<string | string[]>(); // string[] if multi-select
+  @Output('change') changeEE = new EventEmitter<any | any[]>(); // any[] if multi-select
 
   focused: boolean = false;
-  me: ElementRef;
-  constructor(me: ElementRef, private zone: NgZone) {
-    this.zone = zone;
-    this.me = me;
-  }
+
+  constructor(
+    private elementRef: ElementRef,
+    private zone: NgZone,
+    private cdref: ChangeDetectorRef
+  ) { }
 
   @HostListener('keydown', ['$event'])
   keydown(ev) {
@@ -133,45 +110,23 @@ export class SelectComponent implements ControlValueAccessor {
         break;
       case 'Tab':
         if (!this.expanded)
-          this.me.nativeElement.blur();
+          this.elementRef.nativeElement.blur();
       case 'Escape':
         this.close();
         break;
     }
   }
 
-
-
-  toggle() {
-    // console.log('.toggle()');
-    this.expanded = !this.expanded;
-    if (this.expanded)
-      this.calculateDropDirection();
-  }
-  open() {
-    // console.log('.open()');
-    this.expanded = true;
-    this.calculateDropDirection();
-  }
-  close() {
-    // console.log('.close()');
-    this.expanded = false;
-  }
   reFocus() {
-    // console.log('.refocus()');
-    this.me.nativeElement.focus();
+    this.elementRef.nativeElement.focus();
   }
-
 
   @HostListener('focus', ['$event'])
   async onFocus(event?) {
-    // console.log('focus');
     this.focused = true;
     await new Promise(res => setTimeout(res, 0));
     this.dropdown.listenKeys = true;
-    // console.log(this.expanded);
   }
-
 
   /**
    * when the element losses focus, the dropdown should close
@@ -179,51 +134,40 @@ export class SelectComponent implements ControlValueAccessor {
    */
   @HostListener('blur', ['$event'])
   onBlur(event?) {
-    // console.log('blur');
-    this.close();
+    // this.close();
     this.focused = false;
     this.dropdown.listenKeys = false;
   }
-
-  ngOnInit() { }
 
   ngAfterContentInit() {
     // transform template-items if available
     let templateItemsAr = this.templateItems.toArray();
     if (templateItemsAr.length > 0) {
-      this.items = templateItemsAr.map(i => i.toObject());
+      this.items = templateItemsAr.map(i => i.createItem());
     }
-
-    // make sure value and label exists on every option
-    this.items.map(item => {
-      if (!item.value) item.value = item.label;
-      if (!item.label) item.label = item.value;
-      return item;
-    });
-
-    this.reDisplayValue(this.value);
-
-    this.changeEE.subscribe(newValue => {
-
-      this.reDisplayValue(newValue);
-      // propagate form-change
-      !!this.onChangeCallback && this.onChangeCallback(newValue);
-
-      // refocus
-      setTimeout(() => this.reFocus(), 0);
-
-    });
   }
 
+  toggle() {
+    if (!this.expanded) {
+      this.open();
+    } else {
+      this.close();
+    }
+  }
+
+  close() {
+    this.expanded = false;
+  }
 
   dropdownTop: number = -1;
-  dropDirection: 'top' | 'bottom' = 'bottom';
-  /**
-   * calculate if the dropdown should be displayed above or under the select-input
-   */
-  async calculateDropDirection() {
-    // console.log('.calculateDropDirection()');
-    const position = this.me.nativeElement.getBoundingClientRect();
+
+  async open() {
+    this.expanded = true;
+
+    /**
+    * calculate if the dropdown should be displayed above or under the select-input
+    */
+    const position = this.elementRef.nativeElement.getBoundingClientRect();
     const screenHeight = window.innerHeight
       || document.documentElement.clientHeight
       || document.body.clientHeight;
@@ -231,69 +175,62 @@ export class SelectComponent implements ControlValueAccessor {
     const spaceBottom = screenHeight - position.bottom;
     const spaceTop = position.top;
 
-    if (spaceBottom < spaceTop) this.dropDirection = 'top';
-    else this.dropDirection = 'bottom';
+    const dropDirection = (spaceBottom < spaceTop) ? DropDirection.Top : DropDirection.Bottom;
 
+    // Wait for the dropdown to be rendered, so the offsetHeight can be determined
     await new Promise(res => setTimeout(res, 0));
 
-    // console.log(this.dropDirection);
-
-    switch (this.dropDirection) {
-      case 'top':
+    switch (dropDirection) {
+      case DropDirection.Top:
         this.dropdownTop = -1 *
           (
-            this.dropdown.me.nativeElement.children[0].offsetHeight
+            this.dropdown.elementRef.nativeElement.children[0].offsetHeight
             - 1 // border
             + 0.3 // fix chrome ugly 1-pixel-render
           );
         break;
-      case 'bottom':
+      case DropDirection.Bottom:
         this.dropdownTop = -1.1
           + this.select.nativeElement.offsetHeight;
-
         break;
     }
+    this.cdref.markForCheck();
   }
 
-
-  reDisplayValue(newValue) {
-    if (!newValue) return;
-
-    // displayValue
-    this.items
-      .filter(i => i.value == newValue)
-      .map(i => this.displayValue = i.label);
-
-    // displayValue for multiselect
-    if (Array.isArray(newValue)) {
-      this.displayValue = this.items
-        .filter(i => this.value.includes(i.value))
-        .map(i => i.label);
-    }
+  get displayValue() {
+    const item = this.selectedItems.shift();
+    return item && item.label || 'Select Value';
   }
 
-  unselectItem(item) {
-    item.selected = false;
-    this.dropdown.value = this.dropdown.items
-      .filter(i => i.selected)
-      .map(i => i.value);
+  get selectedItems(): DropdownItem[] {
+    return this.dropdown.items.filter(item => item.selected);
   }
 
-  displayValueTokens() {
-    if (this.maxSelectableItems <= 1 || typeof this.displayValue === 'string')
-      return false;
-    else return true;
+  get multiSelect() {
+    return !(this.maxSelectableItems <= 1);
+  }
+
+  unselectItem(event: Event, item: DropdownItem) {
+    event.stopPropagation();
+    this.dropdown.unselectItem(item);
   }
 
   public selectItem(item: any) {
-    // console.log('.selectItem()');
     this.dropdown.selectItem(item);
   }
 
-  onSelect(newValue: any[]) {
-    this.value = newValue;
-    if (this.maxSelectableItems <= 1) this.expanded = false;
-    this.changeEE.emit(this.value);
+  onDropdownChange(newValue: any[]) {
+    if (this.maxSelectableItems <= 1)
+      this.close();
+
+    // propagate form-change
+    !!this.onChangeCallback && this.onChangeCallback(newValue);
+
+    // propagate value change
+    this.changeEE.emit(newValue);
+
+    // refocus
+    setTimeout(() => this.reFocus(), 0);
   }
 
   /**
@@ -302,9 +239,8 @@ export class SelectComponent implements ControlValueAccessor {
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
   writeValue(value: any): void {
-    if (this.value == value) return;
-    this.value = value;
-    this.changeEE.emit(this.value);
+    this.dropdown.value = value;
+    this.cdref.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;

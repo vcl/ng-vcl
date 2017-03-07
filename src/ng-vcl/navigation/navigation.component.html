@@ -22,8 +22,8 @@
         [href]="item.href"
         [prepIcon]="getPrepIcon(item)"
         [appIcon]="getAppIcon(item)"
-        (tap)="item.items && toggleMenu(item)"
-        (tap)="selectItem(item)">
+        (click)="item.items && toggleMenu(item)"
+        (click)="selectItem(item)">
       </a>
 
       <vcl-navigation *ngIf="item.items"

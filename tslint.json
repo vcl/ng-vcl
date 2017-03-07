@@ -1,6 +1,5 @@
 {
   "rules": {
-    "adjacent-overload-signatures": true,
     "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-shorthand": true,
     "only-arrow-functions": [false],

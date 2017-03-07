@@ -1,15 +1,24 @@
 <h3>SelectionMode: Single</h3>
-<vcl-button-group [(selectedIndex)]="idx1" (change)="selectionChange1($event)">
-  <button vcl-button (tap)="buttonClick($event)" label="Action 1"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 2"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 3"></button>
+<vcl-button-group [(selectedIndex)]="idx1">
+  <button vcl-button (click)="buttonClick($event)" label="Action 1"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 2"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 3"></button>
 </vcl-button-group>
 <p>Selected index: {{idx1}}</p>
 
-<h3>SelectionMode: Multiple</h3>
-<vcl-button-group [(selectedIndex)]="idx2" (change)="selectionChange2($event)" mode="multiple">
-  <button vcl-button (tap)="buttonClick($event)" label="Action 1"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 2"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 3"></button>
+<h3>SelectionMode: Multiple, preselected via selectedIndex</h3>
+<vcl-button-group [(selectedIndex)]="idx2" mode="multiple">
+  <button vcl-button (click)="buttonClick($event)" label="Action 1"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 2"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 3"></button>
 </vcl-button-group>
 <p>Selected index: {{idx2}}</p>
+
+
+<h3>SelectionMode: Multiple, preselected via attribute</h3>
+<vcl-button-group [(selectedIndex)]="idx3" mode="multiple">
+  <button vcl-button (click)="buttonClick($event)" label="Action 1" [selected]="true"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 2" [selected]="true"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 3"></button>
+</vcl-button-group>
+<p>Selected index: {{idx3}}</p>

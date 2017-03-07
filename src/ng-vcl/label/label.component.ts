@@ -25,7 +25,7 @@ export class LabelComponent {
 
   labelClass: string = '';
 
-  @Input('for') for: string;
+  @Input('for') for: string = '';
 
   constructor() { }
 

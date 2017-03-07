@@ -48,6 +48,7 @@ const globals: {[name: string]: string} = {
   'rxjs/add/operator/scan': 'Rx.Observable.prototype',
   'rxjs/add/operator/withLatestFrom': 'Rx.Observable.prototype',
   'rxjs/add/operator/pluck': 'Rx.Observable.prototype',
+  'rxjs/add/operator/skipUntil': 'Rx.Observable.prototype',
 
   // ng-vcl dependencies
   '@ng-vcl/ng-vcl': 'ngVCL',

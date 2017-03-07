@@ -15,10 +15,10 @@ export class AppComponent {}
 ```
 
  ```html
-<vcl-button-group (change)="selectionChanged($event)" mode="single">
-  <button vcl-button (tap)="buttonClick($event)" label="Action 1"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 2"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 3"></button>
+<vcl-button-group mode="single">
+  <button vcl-button (click)="buttonClick($event)" label="Action 1"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 2"></button>
+  <button vcl-button (click)="buttonClick($event)" label="Action 3"></button>
 </vcl-button-group>
  ```
 
@@ -30,12 +30,6 @@ export class AppComponent {}
 | --------------------- | ---------------------- | -------- |--------------
 | `mode`                | string                 | `single` | `single` or `multiple`
 | `selectedIndex` *(1)* | number, number[]       |          | 2-Way-Binding. The selected buttons.  
-
-#### Actions:
-
-| Name                | Parameters           | Description
-| ------------        | -------------------- | --------------
-| `change`            | ButtonGroupChange    | Triggered when the button is pressed
 
 #### Interfaces:
 
