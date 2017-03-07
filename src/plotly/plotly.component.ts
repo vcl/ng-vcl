@@ -29,11 +29,13 @@ export class PlotlyComponent {
   private ngAfterViewInit(): void {
     const tag = `${this.tag}.ngAfterViewInit()`;
     if (this.debug) console.log(tag, `initializting`);
-    Plotly.newPlot(this.elementId, this.data, this.layout, this.configuration);
-    this.plot = document.getElementById(this.elementId);
-    this.attachEventListeners(this.events);
-    this.initialized = true;
-    if (this.debug) console.log(tag, `initialized, this:`, this);
+    setTimeout(() => {
+      Plotly.newPlot(this.elementId, this.data, this.layout, this.configuration);
+      this.plot = document.getElementById(this.elementId);
+      this.attachEventListeners(this.events);
+      this.initialized = true;
+      if (this.debug) console.log(tag, `initialized, this:`, this);
+    }, 0);
   }
 
   private attachEventListeners(events: any): void {

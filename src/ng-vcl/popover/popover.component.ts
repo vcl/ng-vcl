@@ -17,121 +17,112 @@ import {
     '[@popOverState]': 'visible'
   }
 })
-export class PopoverComponent implements OnInit, OnChanges {
+export class PopoverComponent {
+  private static readonly Tag: string = 'PopoverComponent';
 
+  private tag: string;
 
+  @Input() private debug: false;
 
-  @Input()
-  target: string;
-  @Input()
-  targetX: 'left' | 'right' = 'left';
-  @Input()
-  targetY: 'top' | 'bottom' = 'bottom';
-  @Input()
-  attachmentX: 'left' | 'right' = 'left';
-  @Input()
-  attachmentY: 'top' | 'bottom' = 'top';
+  @Input() private target: string;
+  @Input() private targetX: 'left' | 'right' = 'left';
+  @Input() private targetY: 'top' | 'bottom' = 'bottom';
+  @Input() private attachmentX: 'left' | 'right' = 'left';
+  @Input() private attachmentY: 'top' | 'bottom' = 'top';
 
-  translateX: number = 1;
-  translateY: number = 0;
+  private translateX: number = 1;
+  private translateY: number = 0;
 
-  @Input()
-  zIndex: number = 10;
+  @Input() private zIndex: number = 10;
   protected coverZIndex: number = -1;
 
+  @Input() private open: boolean = true;
+  private visible: string = this.open ? 'open' : 'void';
+  private opacity: number = this.open ? 1 : 0;
 
-  @Input()
-  open: boolean = false;
-  visible: string = this.open ? 'open' : 'void';
-  opacity = this.open ? 1 : 0;
+  @Input() public layer: boolean = false;
 
-  @Input()
-  public layer: boolean = false;
+  @Output() private openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Output()
-  openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() private zIndexManaged: boolean = true;
 
-  @Input()
-  zIndexManaged: boolean = true;
+  @Input() private expandManaged: boolean = true;
 
-  @Input()
-  expandManaged: boolean = true;
-
-  @Input()
-  timeout: number = 0;
+  @Input() private timeout: number = 0;
 
   constructor(
     protected me: ElementRef,
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  private ngOnInit(): void {
+    this.tag = `${PopoverComponent.Tag}`;
   }
-  ngAfterViewInit() {
-    // next-tick needed
+
+  private ngAfterViewInit(): void {
     setTimeout(this.reposition.bind(this), 0);
   }
-  ngOnChanges() {
-    // next-tick needed because attachement-position is not known
+
+  private ngOnChanges(): void {
     setTimeout(this.reposition.bind(this), 0);
     this.visible = this.open ? 'open' : 'void';
     this.opacity = this.open ? 1 : 0;
   }
 
-  close() {
+  public close(): void {
     this.open = false;
     this.openChange.emit(this.open);
   }
 
-  offClick() {
-    if (this.expandManaged && !this.layer) {
-      this.close();
-    }
-  }
+  // private offClick(): void {
+  //   if (this.expandManaged && !this.layer) {
+  //     this.close();
+  //   }
+  // }
 
-  display() {
-    if (open) return 'block';
-    else return 'none';
-  }
+  // private display(): string {
+  //   if (open) return 'block';
+  //   else return 'none';
+  // }
 
-  getTargetPosition() {
+  private getTargetPosition(): any {
     const targetEl = document.querySelector(this.target);
     if (!targetEl) return null;
     return targetEl.getBoundingClientRect();
   }
 
-  getAttachementPosition() {
+  private getAttachementPosition(): any {
     return this.me.nativeElement.getBoundingClientRect();
   }
 
-  reposition() {
-    // console.log('reposition()');
+  public reposition(): void {
+    const tag = `${this.tag}.reposition()`;
+    if (this.debug) console.log(tag);
     const targetPos = this.getTargetPosition();
     if (!targetPos) return;
     const ownPos = this.getAttachementPosition();
-    // console.dir(targetPos);
-    // console.dir(ownPos);
+    if (this.debug) console.dir(tag, 'targetPos:', targetPos);
+    if (this.debug) console.dir(tag, 'ownPos:', ownPos);
 
     // X
     const mustX = targetPos[this.targetX];
     const isX = ownPos[this.attachmentX];
     const diffX = mustX - isX;
-    //    console.log('X: must: ' + mustX + ' | is: ' + isX);
-    //    console.log(diffX);
+    if (this.debug) console.log(tag, 'X: must: ' + mustX + ' | is: ' + isX);
+    if (this.debug) console.log(tag, 'diffX:', diffX);
     this.translateX = this.translateX + diffX;
 
     // Y
     const mustY = targetPos[this.targetY];
     const isY = ownPos[this.attachmentY];
     const diffY = mustY - isY;
-    //    console.log('Y: must: ' + mustY + ' | is: ' + isY);
-    //    console.log(diffY);
+    if (this.debug) console.log(tag, 'Y: must: ' + mustY + ' | is: ' + isY);
+    if (this.debug) console.log(tag, 'diffY:', diffY);
     this.translateY = this.translateY + diffY;
   }
 
   @HostListener('window:resize', ['$event'])
-  onWindowResize(ev) {
+  private onWindowResize(ev): void {
     this.reposition();
   }
-
 }

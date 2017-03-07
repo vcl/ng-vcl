@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class PlotlyDemoComponent implements OnInit {
+export class PlotlyDemoComponent {
+
+  elementId = 'myDiv1';
+  plotClass = 'customClass';
 
   data: any = [{
     x: ['giraffes', 'example', 'orangutans', 'monkeys', 'example2'],
@@ -21,12 +24,7 @@ export class PlotlyDemoComponent implements OnInit {
     }
   }];
 
-  layout : any = {
+  layout: any = {
     barmode: 'group'
-  }
-
-  constructor() { }
-
-  ngOnInit() { }
-
+  };
 }
