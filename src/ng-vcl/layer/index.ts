@@ -10,7 +10,7 @@ import { LayerWrapperComponent } from './layer-wrapper.component';
 import { Layer, getComponentLayerOpts } from './layer-ref.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerOptions }
+export { LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerOptions, LayerWrapperComponent }
 
 export interface VCLLayerConfig {
   layers?: Type<LayerRef>[];
@@ -34,7 +34,7 @@ export function bootstrapLayers(layerService: LayerService, layer: LayerRef) {
 
 @NgModule({
   imports: [CommonModule, VCLWormholeModule, VCLOffClickModule],
-  exports: [LayerBaseComponent, LayerRefDirective],
+  exports: [LayerBaseComponent, LayerRefDirective, LayerWrapperComponent],
   declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerWrapperComponent],
   entryComponents: [ LayerBaseRootComponent,  LayerWrapperComponent],
   providers: [
