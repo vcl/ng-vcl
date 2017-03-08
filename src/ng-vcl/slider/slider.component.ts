@@ -1,14 +1,26 @@
 import {
   Component,
   Input,
-  ViewChild,
-  forwardRef,
   HostListener,
   ChangeDetectionStrategy,
   HostBinding,
-  NgZone
+  SimpleChanges,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+export enum MoveDirection {
+  Left, Right
+}
+
+interface ScalePoint {
+  label: string;
+  percent: number;
+}
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -26,67 +38,107 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SliderComponent implements ControlValueAccessor {
-  @HostBinding() tabindex = 0;
 
-  @Input('value') value: number = 0;
-  @Input('min') min: number;
-  @Input('max') max: number;
-  @Input('step') step: number;
-  @Input('stepsOnly') stepsOnly: boolean = false;
-  @Input('round') round: number = 0;
-  @Input('scaleNames') scaleNames: string[];
+  @HostBinding()
+  tabindex = 0;
 
-  @ViewChild('scale') scale;
+  @Input()
+  value: number = 0;
 
-  constructor(private zone: NgZone) {
-  }
+  @Output()
+  valueChange = new EventEmitter<number>();
 
-  ngAfterContentInit() {
-    /**
-     * handle defaults
-     * info: this is done here so @Input-values of undefined|null will be handled
-     */
-    this.value = this.value || 0;
-    this.min = this.min || 0;
-    this.max = this.max || 100;
-    this.step = this.step || 10;
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled: boolean = false;
 
-    this.calculatePercentLeftKnob();
-    this.getScalePoints();
-  }
+  @Input()
+  min: number = 0;
+
+  @Input('mousewheel')
+  wheel: boolean = false;
+
+  @Input()
+  max: number = 100;
+
+  @Input()
+  step: number = 10;
+
+  @Input()
+  stepsOnly: boolean = false;
+
+  @Input()
+  scale: string[];
+
+  @HostBinding('class.vclFocused')
+  focused: boolean = false;
+
+  @ViewChild('scale')
+  scaleElement: ElementRef;
 
   percentLeftKnob: number = 0;
-  scalePoints: any[];
+
+  scalePoints: ScalePoint[] = [];
+
+  ngAfterContentInit() {
+    this.percentLeftKnob = this.calculatePercentLeftKnob();
+  }
+
+  get valueValid() {
+    return typeof this.value === 'number' && this.value >= this.min && this.value <= this.max;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ('min' in  changes || 'max' in  changes || 'step' in  changes || 'scale' in  changes) {
+      this.updateScalePoints();
+    }
+  }
+
+  setValue(value: number, updateKnob: boolean) {
+    this.value = value;
+    if (updateKnob) {
+      this.percentLeftKnob = this.calculatePercentLeftKnob();
+    }
+    this.valueChange.emit(this.value);
+    this.onChangeCallback && this.onChangeCallback(this.value);
+  }
 
   calculatePercentLeftKnob() {
+    if (!this.valueValid) {
+      return 0;
+    }
     const rangeLength = this.max - this.min;
     const valueLeft = this.value - this.min;
     const delta = rangeLength / valueLeft;
-    this.percentLeftKnob = 100 / delta;
-    return this.percentLeftKnob;
+    return 100 / delta;
   }
+
   percentToValue(per: number): number {
     const rangeLength = this.max - this.min;
-    let newVal = (rangeLength / 100) * per;
-    newVal = Math.round(newVal);
-    return newVal;
+    const newVal = (rangeLength / 100) * per;
+    return Math.round(newVal);
   }
 
-  getScalePoints() {
-    const rangeLength = this.max - this.min;
-    const amount = Math.ceil(rangeLength / this.step) + 1;
-    const scalePoints = [];
-    while (scalePoints.length < amount) {
-      scalePoints.push({
-        label: this.scalePointLabel(scalePoints.length),
-        percent: (100 / (amount - 1)) * scalePoints.length
-      });
-    }
-    this.scalePoints = scalePoints;
+  updateScalePoints() {
+    const amount = Math.ceil((this.max - this.min) / this.step) + 1;
+
+    this.scalePoints = Array.from(Array(amount).keys()).map((i) => {
+      let label: string;
+      if (!this.scale) {
+        label = (i * this.step + this.min).toString();
+      } else if (this.scale[i]) {
+        label = this.scale[i];
+      } else {
+        label = '';
+      }
+      return {
+        label,
+        percent: (100 / (amount - 1)) * i
+      };
+    });
   }
 
-
-  closestScalePoint(percentValue): number {
+  closestScalePoint(percentValue: number): number {
     let closest = this.scalePoints[0];
     let dist = 100;
     this.scalePoints.forEach(sP => {
@@ -99,90 +151,125 @@ export class SliderComponent implements ControlValueAccessor {
     return closest.percent;
   }
 
-  scalePointLabel(i: number): string {
-    if (!this.scaleNames) return (i * this.step + this.min).toString();
-    if (this.scaleNames[i]) return this.scaleNames[i];
-    return '';
-  }
-
   deltaPxToPercent(deltaPx: number) {
-    const fullPx = this.scale.nativeElement.offsetWidth;
-    let deltaPer = 100 / (fullPx / deltaPx);
-    deltaPer = Math.round(deltaPer * 100) / 100; // round 2 decs
-    return deltaPer;
+    const fullPx = this.scaleElement.nativeElement.offsetWidth;
+    const deltaPer = 100 / (fullPx / deltaPx);
+    return Math.round(deltaPer * 100) / 100; // round 2 decs
   }
 
+  @HostListener('focus')
+  onFocus() {
+    this.focused = true;
+  }
+
+  @HostListener('blur')
+  onBlur() {
+    this.focused = false;
+  }
 
   /**
    * clicking the rail should also reposition the bar
    */
   @HostListener('tap', ['$event'])
   onTap(event) {
-    if (event.target.className == 'vclSliderKnob') return;
+    if (this.disabled || event.target.className == 'vclSliderKnob') {
+      return;
+    }
 
     const railX = event.changedPointers[0].offsetX;
-    if (railX <= 0) return;
-
-    this.percentLeftKnob = this.deltaPxToPercent(railX);
-    if (this.stepsOnly)
-      this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
-
-    this.value = this.percentToValue(this.percentLeftKnob);
-    !!this.onChangeCallback && this.onChangeCallback(this.value);
-  }
-
-
-
-  moveToPoint(direction: 'left' | 'right' = 'right') {
-    const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob());
-    const currentPoint = this.scalePoints
-      .find(p => p.percent == currentPointValue);
-    const i = this.scalePoints.indexOf(currentPoint);
-    let nextPoint;
-    let nextI = direction == 'right' ? i + 1 : i - 1;
-    if (direction == 'right') {
-      if (!this.scalePoints[nextI]) nextI = this.scalePoints.length - 1;
-      nextPoint = this.scalePoints[nextI];
-    } else {
-      if (nextI < 0) nextI = 0;
-      nextPoint = this.scalePoints[nextI];
+    if (railX <= 0) {
+      return;
     }
-    this.value = this.percentToValue(nextPoint.percent);
-    this.calculatePercentLeftKnob();
-    !!this.onChangeCallback && this.onChangeCallback(this.value);
+
+    const percentLeftKnob = this.deltaPxToPercent(railX);
+    this.percentLeftKnob = this.stepsOnly ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
+    const value = this.percentToValue(this.percentLeftKnob);
+    this.setValue(value, false);
   }
 
-
-  moveValue(direction: 'left' | 'right' = 'right') {
-    let newValue;
-    if (direction == 'right')
-      newValue = this.value + 1;
-    else newValue = this.value - 1;
-
-    if (newValue < this.min) newValue = this.min;
-    if (newValue > this.max) newValue = this.max;
-
-    this.value = newValue;
-    this.calculatePercentLeftKnob();
-    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  selectPoint(p: ScalePoint) {
+    const value = this.percentToValue(p.percent);
+    this.setValue(value, true);
   }
 
+  move(direction: MoveDirection) {
+    if (this.stepsOnly) {
+      this.moveToPoint(direction);
+    } else {
+      this.moveValue(direction);
+    }
+  }
+
+  moveToPoint(direction: MoveDirection) {
+    const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob());
+    const currentPoint = this.scalePoints.find(p => p.percent == currentPointValue);
+    let i = this.scalePoints.indexOf(currentPoint);
+    let nextPoint;
+    if (direction == MoveDirection.Right) {
+      i++;
+      if (i >= this.scalePoints.length) {
+        i = this.scalePoints.length - 1;
+      }
+      nextPoint = this.scalePoints[i];
+    } else {
+      i--;
+      if (i < 0) {
+        i = 0;
+      }
+      nextPoint = this.scalePoints[i];
+    }
+
+    const value = this.percentToValue(nextPoint.percent);
+    this.setValue(value, true);
+  }
+
+  moveValue(direction: MoveDirection) {
+    const value = this.valueValid ? this.value : this.min;
+
+    let newValue: number;
+    if (direction === MoveDirection.Right) {
+      newValue = value + this.step;
+      if (newValue > this.max)
+        newValue = this.max;
+    } else {
+      newValue = value - this.step;
+      if (newValue < this.min)
+        newValue = this.min;
+    }
+
+    this.setValue(newValue, true);
+  }
+
+  @HostListener('wheel', ['$event'])
+  onWheel(ev) {
+    if (this.disabled || !this.wheel) {
+      return;
+    }
+    if (ev.deltaY < 0) {
+      this.move(MoveDirection.Right);
+      ev.preventDefault();
+    } else if (ev.deltaY > 0) {
+      this.move(MoveDirection.Left);
+      ev.preventDefault();
+    }
+  }
 
   @HostListener('keydown', ['$event'])
   keydown(ev) {
+    if (this.disabled) {
+      return;
+    }
     switch (ev.code) {
       case 'ArrowLeft':
-        if (this.stepsOnly) this.moveToPoint('left');
-        else this.moveValue('left');
+        this.move(MoveDirection.Left);
         ev.preventDefault();
         break;
       case 'ArrowRight':
-        if (this.stepsOnly) this.moveToPoint('right');
-        else this.moveValue('right');
+        this.move(MoveDirection.Right);
         ev.preventDefault();
         break;
       case 'Space':
-        this.moveToPoint('right');
+        this.moveToPoint(MoveDirection.Right);
         ev.preventDefault();
         break;
     }
@@ -192,6 +279,9 @@ export class SliderComponent implements ControlValueAccessor {
   lastPercentLeftKnob: number;
   firstPan: boolean = true;
   onPan(ev) {
+    if (this.disabled) {
+      return;
+    }
     if (this.firstPan) {
       this.firstPan = false;
       this.lastPercentLeftKnob = this.percentLeftKnob;
@@ -199,18 +289,19 @@ export class SliderComponent implements ControlValueAccessor {
 
     const deltaPx = ev.deltaX;
 
-    this.percentLeftKnob = this.lastPercentLeftKnob + this.deltaPxToPercent(deltaPx);
-    if (this.percentLeftKnob < 0) this.percentLeftKnob = 0;
-    if (this.percentLeftKnob > 100) this.percentLeftKnob = 100;
+    let percentLeftKnob = this.lastPercentLeftKnob + this.deltaPxToPercent(deltaPx);
+    if (percentLeftKnob < 0) {
+      percentLeftKnob = 0;
+    } else if (percentLeftKnob > 100) {
+      percentLeftKnob = 100;
+    }
 
-    if (this.stepsOnly)
-      this.percentLeftKnob = this.closestScalePoint(this.percentLeftKnob);
+    this.percentLeftKnob = this.stepsOnly ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
 
     if (ev.isFinal) {
       this.firstPan = true;
-
-      this.value = this.percentToValue(this.percentLeftKnob);
-      !!this.onChangeCallback && this.onChangeCallback(this.value);
+      const value = this.percentToValue(this.percentLeftKnob);
+      this.setValue(value, false);
     }
   }
 

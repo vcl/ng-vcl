@@ -34,7 +34,7 @@ import DATE_PICKER_DEMO from './components/date-picker/date-picker.demo';
 import JSON_EDITOR_DEMO from './components/json-editor/json-editor.demo';
 import LABEL_DEMO from './components/label/label.demo';
 import TOKEN_DEMO from './components/token/token.demo';
-import SLIDER_DEMO from './components/slider/slider.demo';
+import SLIDER_DEMO from './components/slider/demo';
 import JSS_FORM_DEMO from './components/jss-form/jss-form.demo';
 import INPUT_CONTROL_GROUP from './components/input-control-group/input-control-group.demo';
 import ALERT_DEMO from './components/alert/demo';

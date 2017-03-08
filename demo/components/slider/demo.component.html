@@ -1,0 +1,37 @@
+<h3>basic:</h3>
+<vcl-slider 
+  [(value)]="value1" 
+  [min]="0" 
+  [max]="100" 
+  [step]="20" 
+  [scale]="['Zero','One','Two','Three','Four','Five']">
+</vcl-slider>
+Value: {{value1}}
+
+<h3>steps only:</h3>
+<vcl-slider 
+  [(value)]="value2" 
+  [min]="0" 
+  [max]="5" 
+  [mousewheel]="true" 
+  [step]="1" 
+  [scale]="['☀','☁','☂','☃','☄','1']" 
+  [stepsOnly]="true">
+</vcl-slider>
+Value: {{value2}}
+
+
+<h3>default values:</h3>
+<vcl-slider [(value)]="value3"></vcl-slider>
+Value: {{value3}}
+
+<h3>disabled:</h3>
+
+<vcl-slider 
+  [(value)]="value2" 
+  [min]="0" 
+  [max]="7" 
+  [step]="1" 
+  [disabled]="true" 
+  [scale]="['d','i','s','a','b','l', 'e', 'd']">
+</vcl-slider>
