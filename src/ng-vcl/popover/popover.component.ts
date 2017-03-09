@@ -5,16 +5,45 @@ import {
   HostBinding
 } from '@angular/core';
 
+type AttachmentX = 'left' | 'center' | 'right';
+const AttachmentX = {
+  Left: 'left' as AttachmentX,
+  Center: 'center' as AttachmentX,
+  Right: 'right' as AttachmentX,
+};
+
+type AttachmentY = 'top' | 'center' | 'bottom';
+const AttachmentY = {
+  Top: 'top' as AttachmentY,
+  Center: 'center' as AttachmentY,
+  Bottom: 'Bottom' as AttachmentY,
+};
+
+const Visibility = {
+  Visible: 'visible',
+  Hidden: 'hidden',
+};
+
+const Dimension = {
+  Width: 'width',
+  Height: 'height',
+};
+
+const PopOverState = {
+  Visible: 'open',
+  Void: 'void',
+};
+
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
-  animations: [trigger('popOverState', [])],
+  // animations: [trigger('popOverState', [])],
   host: {
     '[class.vclPopOver]': 'true',
     '[style.position]': '"absolute"',
     '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
-    '[style.opacity]': "opacity",
-    '[@popOverState]': 'visible'
+    '[style.visibility]': 'visibility',
+    // '[@popOverState]': 'visible'
   }
 })
 export class PopoverComponent {
@@ -25,48 +54,54 @@ export class PopoverComponent {
   @Input() private debug: false;
 
   @Input() private target: string;
-  @Input() private targetX: 'left' | 'right' = 'left';
-  @Input() private targetY: 'top' | 'bottom' = 'bottom';
-  @Input() private attachmentX: 'left' | 'right' = 'left';
-  @Input() private attachmentY: 'top' | 'bottom' = 'top';
+  @Input() private targetX: AttachmentX = AttachmentX.Left;
+  @Input() private targetY: AttachmentY = AttachmentY.Bottom;
+  @Input() private attachmentX: AttachmentX = AttachmentX.Left;
+  @Input() private attachmentY: AttachmentY = AttachmentY.Top;
 
   private translateX: number = 1;
   private translateY: number = 0;
 
   @Input() private zIndex: number = 10;
-  protected coverZIndex: number = -1;
+  // protected coverZIndex: number = -1;
 
-  @Input() private open: boolean = true;
-  private visible: string = this.open ? 'open' : 'void';
-  private opacity: number = this.open ? 1 : 0;
+  @Input() private open: boolean = false;
+  // private visible: string; // = this.open ? 'open' : 'void';
+  private visibility: string;
 
-  @Input() public layer: boolean = false;
+  // @Input() public layer: boolean = false;
 
   @Output() private openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Input() private zIndexManaged: boolean = true;
+  // @Input() private zIndexManaged: boolean = true;
 
-  @Input() private expandManaged: boolean = true;
+  // @Input() private expandManaged: boolean = true;
 
-  @Input() private timeout: number = 0;
+  // @Input() private timeout: number = 0;
 
   constructor(
-    protected me: ElementRef,
-    private zone: NgZone
+    protected readonly me: ElementRef,
+    private readonly zone: NgZone
   ) { }
 
   private ngOnInit(): void {
-    this.tag = `${PopoverComponent.Tag}`;
+    this.tag = `${PopoverComponent.Tag}.${this.target}`;
+    const tag: string = `${this.tag}.ngOnInit()`;
+    if (this.debug) console.log(tag, 'this:', this);
   }
 
   private ngAfterViewInit(): void {
-    setTimeout(this.reposition.bind(this), 0);
+    setTimeout(() => this.reposition(), 0);
   }
 
-  private ngOnChanges(): void {
-    setTimeout(this.reposition.bind(this), 0);
-    this.visible = this.open ? 'open' : 'void';
-    this.opacity = this.open ? 1 : 0;
+  private ngOnChanges(changes: any): void {
+    if (changes.target) this.tag = `${PopoverComponent.Tag}.${changes.target.currentValue}`;
+    setTimeout(() => this.reposition(), 0);
+  }
+
+  private setVisibility(): void {
+    // this.visible = this.open ? PopOverState.Visible : PopOverState.Void;
+    this.visibility = this.open ? Visibility.Visible : Visibility.Hidden;
   }
 
   public close(): void {
@@ -85,40 +120,56 @@ export class PopoverComponent {
   //   else return 'none';
   // }
 
-  private getTargetPosition(): any {
-    const targetEl = document.querySelector(this.target);
+  private getTargetPosition(): ClientRect {
+    const targetEl: Element = document.querySelector(this.target);
     if (!targetEl) return null;
     return targetEl.getBoundingClientRect();
   }
 
-  private getAttachementPosition(): any {
+  private getAttachementPosition(): ClientRect {
     return this.me.nativeElement.getBoundingClientRect();
   }
 
   public reposition(): void {
     const tag = `${this.tag}.reposition()`;
-    if (this.debug) console.log(tag);
-    const targetPos = this.getTargetPosition();
-    if (!targetPos) return;
-    const ownPos = this.getAttachementPosition();
-    if (this.debug) console.dir(tag, 'targetPos:', targetPos);
-    if (this.debug) console.dir(tag, 'ownPos:', ownPos);
 
-    // X
-    const mustX = targetPos[this.targetX];
-    const isX = ownPos[this.attachmentX];
-    const diffX = mustX - isX;
-    if (this.debug) console.log(tag, 'X: must: ' + mustX + ' | is: ' + isX);
+    const targetPos: ClientRect = this.getTargetPosition();
+    if (this.debug) console.log(tag, 'targetPos:', targetPos);
+    if (!targetPos) return;
+    const ownPos: ClientRect = this.getAttachementPosition();
+    if (this.debug) console.log(tag, 'ownPos:', ownPos);
+
+    const mustX: number = this.targetX === AttachmentX.Center ?
+      targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :
+      targetPos[this.targetX];
+    if (this.debug) console.log(tag, 'mustX:', mustX);
+
+    const isX: number = this.attachmentX === AttachmentX.Center ?
+      ownPos[AttachmentX.Left] + ownPos[Dimension.Width] / 2 :
+      ownPos[this.attachmentX];
+    if (this.debug) console.log(tag, 'isX:', isX);
+
+    const diffX: number = mustX - isX;
     if (this.debug) console.log(tag, 'diffX:', diffX);
+
     this.translateX = this.translateX + diffX;
 
-    // Y
-    const mustY = targetPos[this.targetY];
-    const isY = ownPos[this.attachmentY];
-    const diffY = mustY - isY;
-    if (this.debug) console.log(tag, 'Y: must: ' + mustY + ' | is: ' + isY);
+    const mustY: number = this.targetY === AttachmentY.Center ?
+      targetPos[AttachmentY.Top] - targetPos[Dimension.Height] / 2 :
+      targetPos[this.targetY];
+    if (this.debug) console.log(tag, 'mustY:', mustY);
+
+    const isY: number = this.attachmentY === AttachmentY.Center ?
+      ownPos[AttachmentY.Top] - ownPos[Dimension.Height] / 2 :
+      ownPos[this.attachmentY];
+    if (this.debug) console.log(tag, 'isY:', isY);
+
+    const diffY: number = mustY - isY;
     if (this.debug) console.log(tag, 'diffY:', diffY);
+
     this.translateY = this.translateY + diffY;
+
+    this.setVisibility();
   }
 
   @HostListener('window:resize', ['$event'])
