@@ -7,7 +7,6 @@ import * as runSequence from 'run-sequence';
 import * as replace from 'gulp-replace';
 import * as rename from 'gulp-rename';
 import * as merge from 'merge-stream';
-import * as jscc from 'rollup-plugin-jscc';
 
 const VERSION = require('../package.json').version;
 
