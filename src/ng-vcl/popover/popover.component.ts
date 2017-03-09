@@ -19,17 +19,12 @@ const AttachmentY = {
   Bottom: 'Bottom' as AttachmentY,
 };
 
-const Visibility = {
-  Visible: 'visible',
-  Hidden: 'hidden',
-};
-
 const Dimension = {
   Width: 'width',
   Height: 'height',
 };
 
-const PopOverState = {
+const popoverState = {
   Visible: 'open',
   Void: 'void',
 };
@@ -37,18 +32,21 @@ const PopOverState = {
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
-  // animations: [trigger('popOverState', [])],
+  // The hide/open animation is set in the application itself through:
+  // setAnimations(PopoverComponent, [
+  //   trigger('popoverState', [
+  //     [..]
+  //   ]);
+  animations: [trigger('popoverState', [])],
   host: {
+    '[@popoverState]': 'visible',
     '[class.vclPopOver]': 'true',
     '[style.position]': '"absolute"',
     '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
-    '[style.visibility]': 'visibility',
-    // '[@popOverState]': 'visible'
   }
 })
 export class PopoverComponent {
   private static readonly Tag: string = 'PopoverComponent';
-
   private tag: string;
 
   @Input() private debug: false;
@@ -66,8 +64,7 @@ export class PopoverComponent {
   // protected coverZIndex: number = -1;
 
   @Input() private open: boolean = false;
-  // private visible: string; // = this.open ? 'open' : 'void';
-  private visibility: string;
+  private popoverState: string;
 
   // @Input() public layer: boolean = false;
 
@@ -100,8 +97,7 @@ export class PopoverComponent {
   }
 
   private setVisibility(): void {
-    // this.visible = this.open ? PopOverState.Visible : PopOverState.Void;
-    this.visibility = this.open ? Visibility.Visible : Visibility.Hidden;
+    this.popoverState = this.open ? popoverState.Visible : popoverState.Void;
   }
 
   public close(): void {
