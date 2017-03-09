@@ -3,7 +3,7 @@ import { MetalistComponent } from './metalist.component';
 export default {
   name: 'Metalist',
   route: 'metalist',
-  category: 'Component',
+  category: 'Other',
   tabs: {
     Demo: MetalistComponent,
     'demo.component.html': require("!raw-loader!./metalist.component.html"),
