@@ -2,7 +2,7 @@ import { Layer, LayerRef } from '@ng-vcl/ng-vcl';
 import { Component, Input, Injectable } from '@angular/core';
 
 @Component({
-  templateUrl: 'foo.layer.html',
+  templateUrl: 'foo.layer.html'
 })
 export class FooComponent {
 
@@ -21,6 +21,6 @@ export class FooComponent {
 }
 
 @Layer(FooComponent)
-export class FooLayer extends LayerRef { 
+export class FooLayer extends LayerRef {
   modal = true;
 }
