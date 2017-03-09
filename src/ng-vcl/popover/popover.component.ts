@@ -37,6 +37,11 @@ const PopoverState = {
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
+  // The hide/open animation is set in the application itself through:
+  // setAnimations(PopoverComponent, [
+  //   trigger('popoverState', [
+  //     [..]
+  //   ]);
   animations: [trigger('popoverState', [])],
   host: {
     '[@popoverState]': 'popoverState',
