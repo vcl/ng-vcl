@@ -1,49 +1,47 @@
-import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders } from '@angular/core';
+import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentType } from './../core/interfaces';
-import { VCLOffClickModule } from '../off-click/index';
 import { VCLWormholeModule, WormholeService } from '../wormhole/index';
-import { LayerBaseComponent, LayerBaseRootComponent } from './layer-base.component';
-import { LayerService, LayerOptions } from './layer.service';
+import { LayerBaseComponent } from './layer-base.directive';
+import { LayerService } from './layer.service';
 import { LayerRef, LayerData } from './layer-ref';
-import { LayerWrapperComponent } from './layer-wrapper.component';
-import { Layer, getComponentLayerOpts } from './layer-ref.component';
+import { LayerContainerComponent } from './layer-container.component';
+import { Layer } from './layer-ref.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export { LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerOptions, LayerWrapperComponent }
+export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerContainerComponent }
 
-export interface VCLLayerConfig {
-  layers?: Type<LayerRef>[];
-}
+@Component({
+  selector: 'vcl-layer-base-root',
+  template: '<vcl-layer-base></vcl-layer-base>',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class LayerBaseRootComponent { }
 
-export function bootstrap(wormholeService: WormholeService) {
+export function bootstrapBase(wormholeService: WormholeService) {
   return () => {
     wormholeService.attachComponent(LayerBaseRootComponent);
   };
 }
 
-export function bootstrapLayers(layerService: LayerService, layer: LayerRef) {
+export function bootstrapLayer(layerService: LayerService, layer: LayerRef) {
   return () => {
-    const opts = getComponentLayerOpts(layer);
-    if (!opts) {
-      throw 'Invalid layer class in provideLayer()';
-    }
-    layerService.register(layer, opts);
+    layerService.register(layer);
   };
 }
 
 @NgModule({
-  imports: [CommonModule, VCLWormholeModule, VCLOffClickModule],
-  exports: [LayerBaseComponent, LayerRefDirective, LayerWrapperComponent],
-  declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerWrapperComponent],
-  entryComponents: [ LayerBaseRootComponent,  LayerWrapperComponent],
+  imports: [CommonModule, VCLWormholeModule],
+  exports: [LayerBaseComponent, LayerRefDirective, LayerContainerComponent],
+  declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerContainerComponent],
+  entryComponents: [ LayerBaseRootComponent,  LayerContainerComponent],
   providers: [
     LayerService,
     {
       provide: APP_BOOTSTRAP_LISTENER,
       multi: true,
       deps: [ WormholeService ],
-      useFactory: bootstrap
+      useFactory: bootstrapBase
     },
     {
       provide: LayerRef,
@@ -53,14 +51,14 @@ export function bootstrapLayers(layerService: LayerService, layer: LayerRef) {
 })
 export class VCLLayerModule { }
 
-export function provideLayer(layerCls: Type<LayerRef>): any[] {
+export function provideLayer(layerClass: Type<LayerRef>): Provider[] {
   return [
-    layerCls,
+    layerClass,
     {
       provide: APP_BOOTSTRAP_LISTENER,
       multi: true,
-      deps: [LayerService, layerCls ],
-      useFactory: bootstrapLayers
+      deps: [LayerService, layerClass ],
+      useFactory: bootstrapLayer
     }
   ];
 }

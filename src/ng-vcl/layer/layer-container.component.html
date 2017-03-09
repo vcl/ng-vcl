@@ -1,0 +1,19 @@
+<div 
+  #container
+  *ngIf="layer"
+  class="vclLayer"
+  [ngClass]="layer.customClass"
+  [class.vclTransparent]="layer.transparent"
+  [class.vclLayerFill]="layer.fill"
+  [class.vclLayerStickToBottom]="layer.stickToBottom"
+  [style.pointer-events]="'all'" 
+  [style.z-index]="zIndex + 1"
+  role="dialog" 
+  [@boxState]="visible"
+  (tap)='triggerOffClick($event)'
+  >
+  <div class="vclLayerBox" [class.vclLayerGutterPadding]="layer.gutterPadding" [style.pointer-events]="'all'" [style.z-index]="zIndex + 2">
+    <div #layerContent></div>
+  </div>
+</div>
+<div *ngIf="layer.modal" class="vclLayerCover" [@layerState]="visible" [style.z-index]="zIndex"></div>

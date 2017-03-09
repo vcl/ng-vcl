@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import { Wormhole, createWormhole } from '../wormhole/index';
-import { LayerService, LayerOptions } from './layer.service';
+import { LayerService } from './layer.service';
 import { LayerRef } from './layer-ref';
-import { LayerWrapperComponent } from './layer-wrapper.component';
+import { LayerContainerComponent } from './layer-container.component';
 
 @Directive({
   selector: 'vcl-layer-base',
@@ -34,7 +34,7 @@ export class LayerBaseComponent {
                    .getLayers$(this.name)
                    .subscribe(l => {
                      if (l.register) {
-                       this.registerLayer(l.ref, l.opts);
+                       this.registerLayer(l.ref);
                      } else {
                        this.unregisterLayer(l.ref);
                      }
@@ -45,32 +45,26 @@ export class LayerBaseComponent {
     return Array.from(this.layerMap.keys());
   }
 
-  registerLayer(layer: LayerRef, opts: LayerOptions) {
-    const wrapperWormholeRef = createWormhole(this.viewContainerRef, LayerWrapperComponent);
-    this.layerMap.set(layer, wrapperWormholeRef);
+  registerLayer(layer: LayerRef) {
+    const containerWormholeRef = createWormhole(this.viewContainerRef, LayerContainerComponent);
+    this.layerMap.set(layer, containerWormholeRef);
 
-    const layerSub = layer.state$.subscribe(attrs => {
-      if (layer.visible && !wrapperWormholeRef.isConnected) {
-        this.visibleLayers = [...this.visibleLayers, layer ];
+    const layerSub = layer.state$.subscribe((layerData) => {
+      if (layer.visible && !containerWormholeRef.isConnected) {
+        this.visibleLayers = [...this.visibleLayers, layer];
 
-        wrapperWormholeRef.connect({
+        containerWormholeRef.connect({
           attrs: {
             layer,
             zIndex: this.zIndex + this.viewContainerRef.length,
-            attrs,
-            opts
-          },
-          events: ['offClick']
-        }).subscribe(e => {
-          if (e.event === 'offClick') {
-            this.offClick(layer, opts);
+            attrs: layerData
           }
         });
-      } else if (layer.visible && wrapperWormholeRef.isConnected) {
-        wrapperWormholeRef.setAttributes({attrs});
-      } else if (!layer.visible && wrapperWormholeRef.isConnected) {
+      } else if (layer.visible && containerWormholeRef.isConnected) {
+        containerWormholeRef.setAttributes({attrs: layerData});
+      } else if (!layer.visible && containerWormholeRef.isConnected) {
         this.visibleLayers = this.visibleLayers.filter(l => l !== layer);
-        wrapperWormholeRef.disconnect();
+        containerWormholeRef.disconnect();
       }
     });
 
@@ -88,27 +82,6 @@ export class LayerBaseComponent {
   ngOnDestroy() {
     this.layerService.unregisterBase(this);
     this.layerMap.forEach(layer => layer.disconnect());
-    if (this.sub && !this.sub.closed) this.sub.unsubscribe();
-  }
-
-  offClick(layer: LayerRef, opts: LayerOptions) {
-    // Trigger offClick only on the top layer
-    if ([...this.visibleLayers].pop() === layer) {
-      if ((layer as any).onOffClick) {
-        (layer as any).onOffClick(opts);
-      } else {
-        const offClickClose = typeof opts.offClickClose === 'boolean' ? opts.offClickClose : !opts.modal;
-        if (offClickClose) {
-          layer.close();
-        }
-      }
-    }
+    if (this.sub) this.sub.unsubscribe();
   }
 }
-
-@Component({
-  selector: 'vcl-layer-base-root',
-  template: '<vcl-layer-base></vcl-layer-base>',
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class LayerBaseRootComponent { }

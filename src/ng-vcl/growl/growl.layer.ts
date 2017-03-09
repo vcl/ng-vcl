@@ -8,7 +8,7 @@ import { GrowlOptions, GrowlPosition } from './types';
 import { Growl } from './growl';
 
 export abstract class GrowlLayer<T> extends LayerRef {
-
+  transparent = true;
   abstract reverse: boolean;
 
   growls: Growl[] = [];
@@ -33,65 +33,39 @@ export abstract class GrowlLayer<T> extends LayerRef {
       this.open({ growls: this.growls });
     }
   }
+
+  offClick() {
+
+  }
 }
 
-@Injectable()
-@Layer({
-  component: GrowlComponent,
-  transparent: true,
-  offClickClose: false,
-  customClass: 'vclLayerGrowlTopRight'
-})
+@Layer(GrowlComponent)
 export class GrowlLayerTopRight extends GrowlLayer<GrowlComponent> {
+  customClass = 'vclLayerGrowlTopRight';
   reverse = true;
 };
-@Injectable()
-@Layer({
-  component: GrowlComponent,
-  transparent: true,
-  offClickClose: false,
-  customClass: 'vclLayerGrowlTop'
-})
+@Layer(GrowlComponent)
 export class GrowlLayerTop extends GrowlLayer<GrowlComponent> {
+  customClass: 'vclLayerGrowlTop';
   reverse = true;
 };
-@Injectable()
-@Layer({
-  component: GrowlComponent,
-  transparent: true,
-  offClickClose: false,
-  customClass: 'vclLayerGrowlTopLeft'
-})
+@Layer(GrowlComponent)
 export class GrowlLayerTopLeft extends GrowlLayer<GrowlComponent> {
+  customClass = 'vclLayerGrowlTopLeft';
   reverse = true;
 };
-@Injectable()
-@Layer({
-  component: GrowlComponent,
-  transparent: true,
-  offClickClose: false,
-  customClass: 'vclLayerGrowlBottomRight'
-})
+@Layer(GrowlComponent)
 export class GrowlLayerBottomRight extends GrowlLayer<GrowlComponent> {
+  customClass = 'vclLayerGrowlBottomRight';
   reverse = false;
 };
-@Injectable()
-@Layer({
-  component: GrowlComponent,
-  transparent: true,
-  offClickClose: false,
-  customClass: 'vclLayerGrowlBottom'
-})
+@Layer(GrowlComponent)
 export class GrowlLayerBottom extends GrowlLayer<GrowlComponent> {
+  customClass = 'vclLayerGrowlBottom';
   reverse = false;
 };
-@Injectable()
-@Layer({
-  component: GrowlComponent,
-  transparent: true,
-  offClickClose: false,
-  customClass: 'vclLayerGrowlBottomLeft'
-})
+@Layer(GrowlComponent)
 export class GrowlLayerBottomLeft extends GrowlLayer<GrowlComponent> {
+  customClass = 'vclLayerGrowlBottomLeft';
   reverse = false;
 };

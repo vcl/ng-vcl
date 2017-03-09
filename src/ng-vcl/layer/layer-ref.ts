@@ -9,32 +9,50 @@ export interface LayerData {
   [key: string]: any;
 }
 
-export abstract class LayerRef {
+export interface LayerOptions {
+  base?: string;
+  modal?: boolean;
+  transparent?: boolean;
+  fill?: boolean;
+  stickToBottom?: boolean;
+  gutterPadding?: boolean;
+  customClass?: string;
+}
+
+export abstract class LayerRef implements LayerOptions {
+
+  base?: string = 'default';
+  modal?: boolean;
+  transparent?: boolean;
+  fill?: boolean;
+  stickToBottom?: boolean;
+  gutterPadding?: boolean;
+  customClass?: string;
+
+  visible: boolean;
+  data: LayerData = {};
 
   private results: Subject<any>;
   private stateChange = new Subject<LayerData>();
-  private data: LayerData | undefined;
-
-  visible: boolean;
 
   state$: Observable<LayerData> = this.stateChange.asObservable();
 
-  private update(value: boolean, data?: LayerData) {
+  private updateLayer(value: boolean, data?: LayerData) {
     if (this.visible !== value || this.data !== data) {
-      this.data = data;
+      this.data = data || {};
       this.visible = value;
       this.stateChange.next(data);
     }
   }
 
   open(data?: LayerData): Observable<any> {
-    this.update(true, data);
+    this.updateLayer(true, data);
     this.results = new Subject<any>();
     return this.results.asObservable();
   }
 
   close(data?: any) {
-    this.update(false);
+    this.updateLayer(false);
     if (this.results) {
       if (data !== undefined) {
         this.results.next(data);
@@ -44,7 +62,7 @@ export abstract class LayerRef {
   }
 
   closeWithError(data?: any) {
-    this.update(false);
+    this.updateLayer(false);
     if (this.results) {
       this.results.error(data);
     }
@@ -53,6 +71,12 @@ export abstract class LayerRef {
   send(data: any) {
     if (data !== undefined && this.results) {
       this.results.next(data);
+    }
+  }
+
+  offClick() {
+    if (!this.modal) {
+      this.close();
     }
   }
 }

@@ -16,28 +16,18 @@ export class AlertComponent {
 
   alertLayer: AlertLayer;
 
-  offClickSub: Subscription;
-
+  @Input()
   alert: AlertOptions = {};
 
   value: any;
   validationError: string;
 
-  @Input()
-  set alertOpts(opts: AlertOptions) {
-    this.updateAlertOpts(ALERT_DEFAULTS, opts);
-  };
-
-  updateAlertOpts(...opts: AlertOptions[]) {
-    this.alert = Object.assign({}, this.alert, ...opts);
-  }
-
-  // Close the top layer when escape is pressed
   @HostListener('document:keyup', ['$event'])
   onKeyUp(ev: KeyboardEvent) {
+    // Check if the top layer is the alert layer
     if (this.layerService.getVisibleLayers().pop() === this.alertLayer) {
-      if (ev.key === 'Escape' && this.alert.escClose ) {
-        this.dismiss('esc');
+      if (ev.key === 'Escape' && this.alert.escClose) {
+        this.alertLayer.dismiss('esc');
       } else if (ev.key === 'Enter') {
         this.confirm();
       }
@@ -91,58 +81,46 @@ export class AlertComponent {
     }
 
     if (this.alert.loaderOnConfirm) {
-      // Minor timeout to give the offClick handler to make the check before
-      // switching the buttons dom element
-      setTimeout(() => {
-        this.updateAlertOpts({ loader: true });
-        this.cdRef.markForCheck();
-        this.alertLayer.send(result);
-      }, 1);
+      this.alert.loader = true;
+      this.cdRef.markForCheck();
+      this.alertLayer.send(result);
     } else  {
       this.alertLayer.close(result);
     }
   }
 
-  dismiss(reason: string) {
-    this.alertLayer.closeWithError(new AlertError(reason));
-  }
-
   cancel(reason: string ) {
-    this.dismiss('cancel');
+    this.alertLayer.dismiss('cancel');
   }
 
   offClick() {
-    this.dismiss('offClick');
   }
 
   close(reason: string ) {
-    this.dismiss('close');
+    this.alertLayer.dismiss('close');
   }
 
   valueChange(value: any) {
     this.value = value;
   }
-
-  ngOnInit() {
-    this.offClickSub = this.alertLayer.onOffClick$.subscribe(() => this.offClick() );
-  }
-
-  ngOnDestroy() {
-    if (this.offClickSub && !this.offClickSub.closed) this.offClickSub.unsubscribe();
-  }
 }
 
-@Layer({
-  component: AlertComponent,
-  modal: true,
-  transparent: true,
-})
-@Injectable()
+@Layer(AlertComponent)
 export class AlertLayer extends LayerRef {
-  onOffClick$ = new Subject();
-  onOffClick() {
-    this.onOffClick$.next();
+  modal = true;
+  transparent = true;
+
+  dismiss(reason: string) {
+    this.closeWithError(new AlertError(reason));
+  }
+
+  get alert(): AlertOptions {
+    return (this.data && this.data.alert) || {};
+  }
+
+  offClick() {
+    if (this.alert.offClickClose) {
+      this.dismiss('offClick');
+    }
   }
 };
-
-

@@ -19,7 +19,7 @@ It can be created as a template using the `vcl-layer directive or from a compone
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         Content
-        <button vcl-button (tap)="myLayer.close()" label="Close Layer"></button>
+        <button vcl-button (tap)="myTemplateLayer.close()" label="Close Layer"></button>
       </p>
     </div>
   </div>
@@ -28,7 +28,7 @@ It can be created as a template using the `vcl-layer directive or from a compone
 
 #### Component layer
 ```js
-import { Layer, LayerRef, ComponentLayerRef } from 'ng-vcl';
+import { Layer, LayerRef, ComponentLayerRef, provideLayer } from '@ng-vcl/ng-vcl';
 
 // This is just a common component
 @Component({ ... })
@@ -50,24 +50,20 @@ export class MyComponent {
 }
 
 // This is the reference class of the layer
-@Layer({
-  component = MyComponent; // The component for the layer
-  // See vcl-layer Properties for more options
-  modal = true;
-})
-export class MyLayer extends ComponentLayerRef<MyComponent> { 
+@Layer(MyComponent) // The component for the layer
+export class MyLayer extends LayerRef { 
+  modal = true; // modal options
+  // See vcl-layer attributes below for more options
   ...
 }
 ```
 
-To make a component layer injectable, it must be registered.
+A component layer must be registered.
 
 ```js
 @NgModule({
-  imports: [ 
-    VCLLayer.withConfig({ layers: [ MyLayer ] }), 
-    ... 
-  ],
+  imports: [ VCLLayerModule, ...],
+  providers: [ provideLayer(MyLayer), ...]
   entryComponents: [ MyComponent, ... ],
   declarations: [ MyComponent, ... ],
   ...
@@ -140,12 +136,11 @@ class LayerService {
 }
 ```
 
-#### vcl-layer Properties:
+#### vcl-layer attributes:
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
-| `modal`             | boolean     | false    | Disables user interaction outside of the layer
-| `offClickClose`     | boolean     | true     | Wether a non-modal layer should close when clicked outside
+| `modal`             | boolean     | false    | Wether a non-modal layer should close when clicked outside
 | `transparent  `     | boolean     | false    | Makes the layer's background transparent
 | `fill`              | boolean     | false    | Makes the layer cover the whole viewport
 | `stickToBottom`     | boolean     | false    | Makes the layer stick to the bottom
