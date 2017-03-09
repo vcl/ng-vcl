@@ -17,7 +17,7 @@ export enum MoveDirection {
   Left, Right
 }
 
-interface ScalePoint {
+export interface ScalePoint {
   label: string;
   percent: number;
 }
