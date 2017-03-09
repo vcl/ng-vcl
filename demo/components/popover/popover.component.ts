@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   templateUrl: 'popover.component.html',
 })
 export class PopoverComponent {
+  private debug: boolean = false;
 
   open: boolean = false;
   open2: boolean = false;

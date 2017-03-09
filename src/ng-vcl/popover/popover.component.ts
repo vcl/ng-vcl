@@ -16,7 +16,7 @@ type AttachmentY = 'top' | 'center' | 'bottom';
 const AttachmentY = {
   Top: 'top' as AttachmentY,
   Center: 'center' as AttachmentY,
-  Bottom: 'Bottom' as AttachmentY,
+  Bottom: 'bottom' as AttachmentY,
 };
 
 const Visibility = {
@@ -29,21 +29,21 @@ const Dimension = {
   Height: 'height',
 };
 
-const PopOverState = {
-  Visible: 'open',
+const PopoverState = {
+  Open: 'open',
   Void: 'void',
 };
 
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
-  // animations: [trigger('popOverState', [])],
+  animations: [trigger('popoverState', [])],
   host: {
+    '[@popoverState]': 'popoverState',
     '[class.vclPopOver]': 'true',
     '[style.position]': '"absolute"',
-    '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
     '[style.visibility]': 'visibility',
-    // '[@popOverState]': 'visible'
+    '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
   }
 })
 export class PopoverComponent {
@@ -66,7 +66,7 @@ export class PopoverComponent {
   // protected coverZIndex: number = -1;
 
   @Input() private open: boolean = false;
-  // private visible: string; // = this.open ? 'open' : 'void';
+  private popoverState: string;
   private visibility: string;
 
   // @Input() public layer: boolean = false;
@@ -82,7 +82,9 @@ export class PopoverComponent {
   constructor(
     protected readonly me: ElementRef,
     private readonly zone: NgZone
-  ) { }
+  ) {
+    this.setVisibility();
+  }
 
   private ngOnInit(): void {
     this.tag = `${PopoverComponent.Tag}.${this.target}`;
@@ -100,7 +102,7 @@ export class PopoverComponent {
   }
 
   private setVisibility(): void {
-    // this.visible = this.open ? PopOverState.Visible : PopOverState.Void;
+    this.popoverState = this.open ? PopoverState.Open : PopoverState.Void;
     this.visibility = this.open ? Visibility.Visible : Visibility.Hidden;
   }
 

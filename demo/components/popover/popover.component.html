@@ -1,7 +1,11 @@
 <div style="min-height:500px; width: 100%;">
   <button vcl-button (click)="togglePopover()" label="toggle popover"></button>
 
-  <vcl-popover target='#target' [(open)]="open" [style]="style">
+  <vcl-popover
+    [debug]="debug"
+    target='#target'
+    [(open)]="open"
+    [style]="style">
     popover text goes here <br>
     <button vcl-button (click)="showPopover2()" label="show popover2" id="button1"></button>
     <button vcl-button (click)="closePopover()" label="close popover" id="buttonClose"></button>
@@ -12,7 +16,14 @@
 <br>
 <br>
 
-  <vcl-popover target='#buttonClose' [(open)]="open2" targetX="right" attachmentX="left" targetY="top" attachmentY="top">
+  <vcl-popover
+    [debug]="debug"
+    target='#buttonClose'
+    [(open)]="open2"
+    targetX="right"
+    attachmentX="left"
+    targetY="top"
+    attachmentY="top">
     popover 2 text goes here <br>
   </vcl-popover>
 
