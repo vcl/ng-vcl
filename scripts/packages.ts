@@ -1,12 +1,11 @@
-import { copyResources, prepareDist, ngVCLcompatibility } from './gulp-build-tasks';
+import { copyResources, prepareDist, ngVCLCompatibility, prepareDistCompatibility } from './gulp-build-tasks';
 
 const PACKAGES: {[key: string]: {(pkg: string): string}[]} = {
-  'ng-vcl': [copyResources, ngVCLcompatibility, prepareDist],
+  'ng-vcl': [copyResources, ngVCLCompatibility, prepareDist, prepareDistCompatibility],
   'adv-http': [copyResources, prepareDist],
   'json-editor': [copyResources, prepareDist],
   'plotly': [copyResources, prepareDist],
-  'store': [copyResources, prepareDist],
-  'ng-vcl-compatibility': [prepareDist]
+  'store': [copyResources, prepareDist]
 };
 
 export default PACKAGES;

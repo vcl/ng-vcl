@@ -77,17 +77,24 @@ export function prepareDist(pkg: string) {
   return `build:${pkg}:dist`;
 }
 
-// Create ng-vcl-compatibility dist out of ng-vcl
-export function ngVCLcompatibility(pkg: string) {
+// Create ng-vcl-compatibility out of ng-vcl
+export function ngVCLCompatibility(pkg: string) {
 
-  const folderNgVCLD = pkgFolder('ng-vcl-compatibility');
+  const folderNgVCLD = pkgFolder('ng-vcl/compatibility');
   const folder = pkgFolder(pkg);
   const tmp = root('temp-build');
+
+  const compatibility: string[] = [];
 
   // Rename ng-vcl-compatibility specific files
   const renameFiles = function (path) {
     if (path.basename.includes('.compatibility')) {
       path.basename = path.basename.replace('.compatibility', '');
+      compatibility.push(path.dirname + path.basename + path.extname);
+    } else {
+      if (compatibility.indexOf(path.dirname + path.basename + path.extname) >= 0) {
+        path.basename = 'replaced-' + path.basename;
+      }
     }
   };
 
@@ -100,23 +107,19 @@ export function ngVCLcompatibility(pkg: string) {
         .pipe(dest(`${folderNgVCLD.dist}`)),
       // Copies/renames scripts and replaces any "@HostListener('tap" with "@HostListener('click" in html files
       src(`${folder.dist}/**/*.js`)
-        .pipe(replace('@HostListener(\'tap\'', '@HostListener(\'click\''))
+        .pipe(replace('HostListener(\'tap\'', 'HostListener(\'click\''))
         .pipe(rename(renameFiles))
         .pipe(dest(`${folderNgVCLD.dist}`)),
       // Copies/renames remmaining files
       src(`${folder.dist}/**/!(*.html|*.js)`)
         .pipe(rename(renameFiles))
-        .pipe(dest(folderNgVCLD.dist)),
-      // Copies, renames and modifies the ng-vcl-compatibility package.json so it matches the repositories version
-      src(`${folder.src}/package.compatibility.json`)
-        .pipe(jsonModify({
-          key: 'version',
-          value: VERSION + '-compatibility'
-        }))
-        .pipe(rename('package.json'))
-        .pipe(dest(folder.dist))
+        .pipe(dest(folderNgVCLD.dist))
     );
   });
 
   return `build:${pkg}:prepare:ng-vcl-compatibility`;
+}
+
+export function prepareDistCompatibility(pkg: string) {
+  return prepareDist('ng-vcl/compatibility');
 }
