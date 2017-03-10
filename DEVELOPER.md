@@ -19,12 +19,17 @@ Tag and update package.json version
 npm version patch/minor/major
 ```
 Build the @ng-vcl in the `dist` folder
-```
+```sh
 npm run build
 ```
 Publish all @ng-vcl packages to npm
-```
+```sh
 npm run publish
+```
+
+Push the release commit and tag afterwards
+```sh
+git push && git push --tags 
 ```
 
 ## Building and deploy the docs
