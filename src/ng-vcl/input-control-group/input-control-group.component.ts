@@ -17,8 +17,11 @@ import { Observable } from 'rxjs/Observable';
 export class InputControlGroup implements OnInit {
 
 
-  @Input('type') type: 'error' | 'warning' | 'success' = null;
-  @Input('label') label: string;
+  @Input('type')
+  type: 'error' | 'warning' | 'success' | null = null;
+
+  @Input('label')
+  label: string;
 
   constructor(private elRef: ElementRef) {
     this.elRef = elRef;

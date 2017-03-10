@@ -60,7 +60,7 @@ export class TokenInputComponent implements ControlValueAccessor {
   /**
    * remove last token on double-backspace
    */
-  lastKey: string = null;
+  lastKey: string | null = null;
   @HostListener('keydown', ['$event'])
   async onKeydown(ev?) {
     const code = ev.code ? ev.code : ev.key; // fallback for ie11

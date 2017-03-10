@@ -6,7 +6,8 @@ import {
   OnInit, OnDestroy, ChangeDetectionStrategy
 } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/observable/from';
 import JsonSchema from 'jsonschema';
 
@@ -27,7 +28,7 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
 
 
   fieldErrors = {};
-  subs = [];
+  subs: Subscription[] = [];
 
   constructor() { }
 
@@ -54,7 +55,7 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
   /**
    * if no formType is given, this will guess the right one
    */
-  formType(schemaObj: any): string {
+  formType(schemaObj: any): string | null {
     if (schemaObj.formType) return schemaObj.formType;
 
     if (schemaObj.type == 'string') {
@@ -67,6 +68,8 @@ export class JssFormObjectComponent implements OnInit, OnDestroy {
 
     if (schemaObj.type == 'boolean')
       return 'switch';
+
+    return null;
   }
 
   keys(obj) {
@@ -200,7 +203,7 @@ export class JssFormComponent implements OnInit {
     //  console.dir(valid.errors);
 
     if (valid.errors.length == 0) {
-      this.error.emit(null);
+      this.error.emit([]);
       return null;
     }
 

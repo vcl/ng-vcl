@@ -203,7 +203,7 @@ export class SliderComponent implements ControlValueAccessor {
   moveToPoint(direction: MoveDirection) {
     const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob());
     const currentPoint = this.scalePoints.find(p => p.percent == currentPointValue);
-    let i = this.scalePoints.indexOf(currentPoint);
+    let i = currentPoint ? this.scalePoints.indexOf(currentPoint) : 0;
     let nextPoint;
     if (direction == MoveDirection.Right) {
       i++;

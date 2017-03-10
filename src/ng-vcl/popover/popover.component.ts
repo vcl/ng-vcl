@@ -120,8 +120,8 @@ export class PopoverComponent {
   //   else return 'none';
   // }
 
-  private getTargetPosition(): ClientRect {
-    const targetEl: Element = document.querySelector(this.target);
+  private getTargetPosition(): ClientRect | null {
+    const targetEl = document.querySelector(this.target);
     if (!targetEl) return null;
     return targetEl.getBoundingClientRect();
   }
@@ -134,7 +134,7 @@ export class PopoverComponent {
     const tag = `${this.tag}.reposition()`;
     if (!this.open) return;
 
-    const targetPos: ClientRect = this.getTargetPosition();
+    const targetPos = this.getTargetPosition();
     if (this.debug) console.log(tag, 'targetPos:', targetPos);
     if (!targetPos) return;
     const ownPos: ClientRect = this.getAttachementPosition();

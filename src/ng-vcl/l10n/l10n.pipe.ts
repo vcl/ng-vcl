@@ -13,7 +13,7 @@ export class L10nPipe implements PipeTransform, OnDestroy {
   args: string[];
   value: string;
 
-  subscription: Subscription;
+  subscription: Subscription | null;
 
   constructor(
     @Optional()

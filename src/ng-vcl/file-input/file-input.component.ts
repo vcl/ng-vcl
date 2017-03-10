@@ -74,11 +74,12 @@ export class FileInputComponent implements ControlValueAccessor {
   onChange() {
     if (this.fileInput) {
       const files = this.fileInput.files;
+      if (files) {
+        this.filesEE.next(files);
+        !!this.onChangeCallback && this.onChangeCallback(files);
 
-      this.filesEE.next(files);
-      !!this.onChangeCallback && this.onChangeCallback(files);
-
-      this.checkFiles(files);
+        this.checkFiles(files);
+      }
     }
   }
 

@@ -55,7 +55,7 @@ export class DemoComponent {
           this.tabs = [];
         }
       } else {
-        this.title = null;
+        this.title = 'ng-vcl';
         this.tabs = [];
       }
     });

@@ -6,7 +6,7 @@ import { LayerRefDirective } from './layer-ref.directive';
 import { LayerComponentWormhole, COMPONENT_LAYER_ANNOTATION_ID } from './layer-ref.component';
 
 // Creates a wormhole out of the LayerRef
-function createWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRef): Wormhole {
+function createWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRef): Wormhole | null {
   if (!viewContainerRef) {
     throw 'viewContainerRef required';
   }
@@ -46,7 +46,7 @@ export class LayerContainerComponent {
   @Input()
   Zindex = 1000;
 
-  wormhole: Wormhole;
+  wormhole: Wormhole | null;
 
   @ViewChild('layerContent', { read: ViewContainerRef })
   layerContentContainer: ViewContainerRef;

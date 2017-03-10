@@ -10,6 +10,8 @@
     "rootDir": ".",
     "noEmitOnError": true,
     "outDir": "../dist/@ng-vcl",
+    "strictNullChecks": true,
+    "skipLibCheck": true,
     "stripInternal": false,
     "baseUrl": ".",
     "lib": [

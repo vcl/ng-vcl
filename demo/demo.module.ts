@@ -19,6 +19,8 @@ export interface Demo {
 }
 
 export function createDemoModule(demo: Demo) {
+  const tabs = demo.tabs || {};
+
   @NgModule({
     imports: [
       FormsModule,
@@ -36,7 +38,7 @@ export function createDemoModule(demo: Demo) {
       }]),
     ],
     declarations: [
-      Object.keys(demo.tabs || {}).map(key => demo.tabs[key]).filter(o => typeof o === 'function'),
+      Object.keys(tabs || {}).map(key => tabs[key]).filter(o => typeof o === 'function'),
     ]
   })
   class GeneratedDemoModule {

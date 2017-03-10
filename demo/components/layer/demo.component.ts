@@ -33,7 +33,7 @@ export class LayerDemoComponent {
     }).subscribe(data => {
       // Layer sends data
       console.log(data);
-    }, null, () => {
+    }, undefined, () => {
       // Layer is closed
       console.log('layer closed');
     });

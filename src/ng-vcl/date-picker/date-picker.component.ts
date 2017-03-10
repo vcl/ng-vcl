@@ -59,8 +59,8 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   @Input('minDate') minDate: Date;
   @Input('maxDate') maxDate: Date;
 
-  pickedDate: PickDate;
-  pickedRangeEnd: PickDate;
+  pickedDate: PickDate | null;
+  pickedRangeEnd: PickDate | null;
   viewDate: PickDate;
   today: PickDate = PickDateCreate();
 
@@ -116,13 +116,17 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     if (
       this.selectRange &&
       this.pickedRangeEnd &&
+      this.pickedDate &&
       this.pickedDate.daysInRange(this.pickedRangeEnd) > this.maxRangeLength
     ) {
       const diffDays = this.pickedDate.daysInRange(this.pickedRangeEnd) - this.maxRangeLength;
       this.pickedRangeEnd.moveDays(diffDays * (-1));
     }
 
-    !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
+    if (this.pickedDate) {
+      !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
+    }
+
   }
 
 
@@ -131,9 +135,9 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
    * ui-markers
    */
   isMarked(date: PickDate): boolean {
-    if (!this.selectRange && this.pickedDate.isSameDay(date)) return true;
+    if (!this.selectRange && this.pickedDate && this.pickedDate.isSameDay(date)) return true;
 
-    return date.inRange(this.pickedDate, this.pickedRangeEnd);
+    return !!this.pickedDate && !!this.pickedRangeEnd && date.inRange(this.pickedDate, this.pickedRangeEnd);
   }
   isDisabled(day: PickDate): boolean {
     if (
@@ -163,7 +167,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     this.viewDate = PickDateCreate();
   }
   gotoSelected() {
-    this.viewDate = this.pickedDate;
+    this.viewDate = this.pickedDate || PickDateCreate();
   }
   yearPickSelect(year: number) {
     this.viewDate = this.viewDate.moveToYear(year);

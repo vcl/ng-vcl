@@ -7,7 +7,7 @@ import { Subject, Observable } from 'rxjs';
 export class InputControlGroupComponent implements OnInit {
 
 
-  type: string;
+  type: string | undefined;
   label: string;
 
 
@@ -24,7 +24,7 @@ export class InputControlGroupComponent implements OnInit {
       if (s == 0) return 'error';
       if (s == 1) return 'warning';
       if (s == 2) return 'success';
-      if (s == 3) return null;
+      if (s == 3) return undefined;
     })
     .map(type => {
 

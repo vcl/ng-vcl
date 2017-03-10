@@ -11,7 +11,7 @@ export enum SelectionMode {
 
 /* change event paremter. Emitted when selected buttons have changed */
 export interface ButtonGroupChange {
-  source: ButtonComponent;
+  source: ButtonComponent | null;
   index: number | number[];
 }
 
@@ -70,12 +70,12 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
   @Output()
   selectedIndexChange = new EventEmitter<number | number[]>();
 
-  updateSelectedIndex(index: number[], source: ButtonComponent) {
+  updateSelectedIndex(index: number[], source?: ButtonComponent) {
     this.selectedIndex = index;
     this.selectedIndexChange.emit(this.selectedIndex);
     this.change.emit({
       index: this.selectedIndex,
-      source
+      source: source || null
     });
     if (this.onChangeCallback) {
       this.onChangeCallback(this.selectedIndex);
@@ -99,7 +99,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
       } else {
         // else update selectedIndex so it matches the selected buttons
         const newIndex = this.buttons.map((btn, i) => ({ i, btn }) ).filter(v => v.btn.selected).map(v => v.i);
-        this.updateSelectedIndex(newIndex, null);
+        this.updateSelectedIndex(newIndex);
       }
     }
 

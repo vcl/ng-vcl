@@ -45,7 +45,7 @@ export class L10nStaticLoaderService extends L10nLoaderService {
   }
 
   getSupportedLocales(): Observable<string[]> {
-    let supportedLocales = [];
+    let supportedLocales: string[] = [];
     Object.keys(this.config).forEach(key => {
       if (this.config[key]) {
         Object.keys(this.config[key]).forEach(locale => {

@@ -153,19 +153,20 @@ export class MonthPickerComponent {
   }
 
   private setMonthBackgroundColor(year: number, month: number): void {
-    const color: string = this.getMonthBackgroundColor();
+    const color = this.getMonthBackgroundColor();
     if (color) {
       const monthMeta: any = this.getYearMeta(year)[month];
       monthMeta.color = color;
     }
   }
 
-  private getMonthBackgroundColor(): string {
+  private getMonthBackgroundColor(): string | null {
     const index: number = this.availableColors.findIndex(available => available);
     if (index !== -1) {
       this.availableColors[index] = false;
       return this.colors[index];
     }
+    return null;
   }
 
   public deselectMonth(year: number, month: number): void {

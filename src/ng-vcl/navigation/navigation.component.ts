@@ -1,7 +1,17 @@
 import { Router } from '@angular/router';
 import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 
-
+export interface NavigationItem {
+  label?: string;
+  active?: boolean;
+  selected?: boolean;
+  opened?: boolean;
+  heading?: boolean;
+  href?: string;
+  prepIcon?: string;
+  appIcon?: string;
+  class?: string;
+}
 
 @Directive({
   selector: 'vcl-navitem'
@@ -30,7 +40,7 @@ export class NavigationItemComponent {
    * transforms this NavigationItemComponent insto an object,
    * so it can be handled the same way as an inputList
    */
-  toObject(): any {
+  toObject(): NavigationItem {
     const ret = {
       label: this.label,
       active: this.active,
@@ -49,10 +59,9 @@ export class NavigationItemComponent {
     }
 
     // add nested items
-    const items = [];
     const ar = this.items.toArray();
     ar.shift(); // remove first because 'this' is contained
-    ar.map(navItemCom => items.push(navItemCom.toObject()));
+    const items = ar.map(navItemCom => navItemCom.toObject());
     if (items.length > 0) ret['items'] = items; // only add if length>0 to not show nested-icons
     return ret;
   }
@@ -107,13 +116,10 @@ export class NavigationComponent {
   @Output()
   select = new EventEmitter();
 
-
-
   ngAfterContentInit() {
     let templateItemsAr = this.templateItems.toArray();
     if (templateItemsAr.length > 0) {
-      const items = [];
-      templateItemsAr.map(i => items.push(i.toObject()));
+      const items = templateItemsAr.map(i => i.toObject());
       this.navigationItems = items;
     }
 

@@ -36,7 +36,7 @@ export class LinkComponent extends ObservableComponent {
   disabled: boolean;
 
   @HostBinding('attr.href')
-  get attrHref(): string {
+  get attrHref(): string | null {
     if (this.disabled) return null;
 
     return this.scheme

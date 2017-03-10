@@ -145,22 +145,25 @@ export class DropdownComponent implements ControlValueAccessor {
     });
   }
 
-  selectedItems() {
+  get selectedItems() {
     return this.items.filter(i => i.selected);
   }
 
   selectItem(item: any) {
     if (item.disabled) return;
+
+    const selectedItems = this.selectedItems;
     if (!item.selected) {
       // prevent overflow maxSelectableItems
-      if (this.selectedItems().length >= this.maxSelectableItems)
-        this.items.find(i => i.selected).selected = false;
-
-      if (this.maxSelectableItems == 1)
+      if (selectedItems.length >= this.maxSelectableItems) {
+        selectedItems[0].selected = false;
+      }
+      if (this.maxSelectableItems === 1) {
         this.items.forEach(i => i.selected = false);
+      }
     } else {
       // prevent underflow minSelectableItems
-      if (this.selectedItems().length <= this.minSelectableItems) return;
+      if (selectedItems.length <= this.minSelectableItems) return;
     }
     item.selected = !item.selected;
     this.onChange();

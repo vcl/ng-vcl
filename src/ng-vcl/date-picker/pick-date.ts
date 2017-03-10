@@ -163,7 +163,7 @@ export class PickDate {
    */
   getMonthBlock(): PickDate[][] {
 
-    let ret = [];
+    let dates: Date[] = [];
 
     const firstDayOfMonth = this.getFirstDateOfMonth(this.date);
     const lastDayOfMonth = this.getLastDateOfMonth(this.date);
@@ -171,7 +171,7 @@ export class PickDate {
 
     // all days of this month
     for (let i = 0; i < daysOfMonth; i++) {
-      ret.push(this.addDays(firstDayOfMonth, i));
+      dates.push(this.addDays(firstDayOfMonth, i));
     }
 
     // days of prev month but in same week
@@ -179,7 +179,7 @@ export class PickDate {
     let minus = 0;
     while (weekDay > 1) {
       minus--;
-      ret.unshift(this.addDays(firstDayOfMonth, minus));
+      dates.unshift(this.addDays(firstDayOfMonth, minus));
       weekDay--;
     }
 
@@ -188,17 +188,17 @@ export class PickDate {
     let plus = 0;
     while (addDays > 0 && lastDayOfMonth.getDay() !== 0) {
       plus++;
-      ret.push(this.addDays(lastDayOfMonth, plus));
+      dates.push(this.addDays(lastDayOfMonth, plus));
       addDays--;
     }
 
-    ret = ret.map(date => new PickDate(date));
-    const blocks = [];
+    const ret = dates.map(date => new PickDate(date));
+    const blocks: PickDate[][] = [];
 
     // split in weeks
-    let temparray, chunk = 7;
+    let chunk = 7;
     for (let i = 0, j = ret.length; i < j; i += chunk) {
-      temparray = ret.slice(i, i + chunk);
+      const temparray = ret.slice(i, i + chunk);
       if (temparray.length == 7) blocks.push(temparray);
     }
     return blocks;
@@ -206,7 +206,7 @@ export class PickDate {
 
 
   getYearsBlock() {
-    const years = [];
+    const years: number[] = [];
     let currentYear = this.date.getFullYear() - 12;
     while (years.length < 25) {
       years.push(currentYear);
@@ -214,10 +214,10 @@ export class PickDate {
     }
 
     // split rows
-    const ret = [];
-    let temparray, chunk = 5;
+    const ret: number[][] = [];
+    let chunk = 5;
     for (let i = 0, j = years.length; i < j; i += chunk) {
-      temparray = years.slice(i, i + chunk);
+      const temparray = years.slice(i, i + chunk);
       if (temparray.length == 5) ret.push(temparray);
     }
 
