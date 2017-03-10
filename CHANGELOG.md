@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.3.0 (?)
+
+### Notes
+
+This release brings back hammerjs into the main package.
+A `compatibility` release without hammerjs is found within the package in the `compatibility` folder.
+Use an alias in your bundler to target this folder.
+e.g. in your webpack config
+
+```js
+resolve: {
+  ...
+  alias: { "@ng-vcl/ng-vcl": "@ng-vcl/ng-vcl/compatibility" }
+}
+```
+
+### Changes
+
+- Replaced all internal click events with tap events
+- button-group:
+  - selectedIndex attribute switched to 2-way-binding
+  - Added support for ngModel
+- slider:
+  - value attribute switched to 2-way-binding
+  - Added support for mousewheel 
+### Breaking Changes
+- Added hammerjs to peer dependencies
+- jss-form:
+  - temporarily removed
+- layer:
+  - Removed offClickClose option
+  - Non-modal layers block background interaction
+  - Renamed LayerWrapperComponent to LayerContainerComponent
+  - Moved LayerOptions from @Layer annotation to LayerRef class. Check docs for further information.
+- radio-button:
+  - Removed VCLRadioGroupModule
+  - Reimplemented radio-group in VCLRadioButtonModule
+  - radio-group options will be declared via radio-buttons instead of using the options attribute. Check docs for further information.
+- slider:
+  - scaleNames attribute renamed to scale
+  
 
 ## 0.2.9 (2017-03-21)
 
@@ -20,11 +61,9 @@ Bugfix release
 
 ## 0.2.0 (2017-02-24)
 
-### Changes
+### Breaking Changes
 - Replaced tap with click events
 - Removed hammerjs from peer dependencies
-
-### Breaking Changes
 - dropdown/select: removed value attribute. Use (ngModel) instead
 - slider: requires hammerjs to work
 
@@ -32,7 +71,7 @@ Bugfix release
 
 ### Changes
 
-- button-group:
+- button-group: 
   - Performance optimizations
   - Remove redundant (change) event => use (selectedIndexChange) instead
 
@@ -133,6 +172,6 @@ Bugfix release
 ## 2016-12-14 - 15979eb
 
 ### Breaking Changes
-- angular >= 2.3.0 required
-- vcl-layer: The `<vcl-layer-base>` it added automatically to the app root
+- angular >= 2.3.0 required   
+- vcl-layer: The `<vcl-layer-base>` it added automatically to the app root   
 - wormhole: Renamed directives to `wormhole`/`connectWormhole`
