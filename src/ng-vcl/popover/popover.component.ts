@@ -19,11 +19,6 @@ const AttachmentY = {
   Bottom: 'bottom' as AttachmentY,
 };
 
-const Visibility = {
-  Visible: 'visible',
-  Hidden: 'hidden',
-};
-
 const Dimension = {
   Width: 'width',
   Height: 'height',
@@ -46,8 +41,8 @@ const PopoverState = {
   host: {
     '[@popoverState]': 'popoverState',
     '[class.vclPopOver]': 'true',
+    '[class.vclLayoutHidden]': 'open',
     '[style.position]': '"absolute"',
-    '[style.visibility]': 'visibility',
     '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
   }
 })
@@ -72,7 +67,6 @@ export class PopoverComponent {
 
   @Input() private open: boolean = false;
   private popoverState: string;
-  private visibility: string;
 
   // @Input() public layer: boolean = false;
 
@@ -108,7 +102,6 @@ export class PopoverComponent {
 
   private setVisibility(): void {
     this.popoverState = this.open ? PopoverState.Open : PopoverState.Void;
-    this.visibility = this.open ? Visibility.Visible : Visibility.Hidden;
   }
 
   public close(): void {
@@ -139,6 +132,7 @@ export class PopoverComponent {
 
   public reposition(): void {
     const tag = `${this.tag}.reposition()`;
+    if (!this.open) return;
 
     const targetPos: ClientRect = this.getTargetPosition();
     if (this.debug) console.log(tag, 'targetPos:', targetPos);
