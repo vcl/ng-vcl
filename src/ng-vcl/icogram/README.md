@@ -13,6 +13,7 @@ provided.
 
 ```html
 <vcl-icogram label="some label" prepIcon="fa:chevron-right" flexLabel=true></vcl-icogram>
+
 <vcl-icogram>
   <vcl-icon icon="fa:close"></vcl-icon>
 </vcl-icogram>

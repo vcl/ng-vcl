@@ -1,6 +1,6 @@
+<div vcl-icon *ngIf="prepIcon" [icon]="prepIcon" [src]="prepIconSrc"></div>
 <ng-content></ng-content>
-<div vcl-icon *ngIf="prepIcon" [icon]="prepIcon"></div>
 <span *ngIf="!!label" [class.vclLayoutFlex]="!!flexLabel" class="vclText">
   {{label | loc}}
 </span>
-<div vcl-icon *ngIf="appIcon" [icon]="appIcon"></div>
+<div vcl-icon *ngIf="appIcon" [icon]="appIcon" [src]="appIconSrc"></div>

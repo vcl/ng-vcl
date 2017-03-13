@@ -11,11 +11,11 @@ See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
 
 ## Usage:
 
-As component
+As a component
 ```html
-<vcl-icon icon="icon-class" label="chevron right" hidden="false"></vcl-icon>
+<vcl-icon icon="..." label="chevron right" hidden="false"></vcl-icon>
 ```
-or as directive
+or via an attribute
 ```html
 <span vcl-icon icon="..."></span>
 With image resource
