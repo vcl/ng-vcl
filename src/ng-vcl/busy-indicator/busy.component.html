@@ -1,0 +1,8 @@
+<ng-content></ng-content>
+<div *ngIf="busy" tabindex="-1" class="vclLoadingLayer">
+  <div class="vclLoadingLayerContent">
+    <vcl-busy-indicator [type]="busyIndicatorType">
+      <span *ngIf="busyLabel">{{busyLabel}}</span>
+    </vcl-busy-indicator>
+  </div>
+</div>

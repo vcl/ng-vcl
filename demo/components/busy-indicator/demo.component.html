@@ -1,0 +1,19 @@
+
+
+<h3>Simple busy indicator:</h3>
+<vcl-busy-indicator></vcl-busy-indicator>
+<br><br>
+
+<h3>Busy indicator with label and alternative icon:</h3>
+<vcl-busy-indicator type="straight">
+  Loading...
+</vcl-busy-indicator>
+<br><br>
+
+<h3>Busy container:</h3>
+<div class="vclContainer vclLayoutHorizontal" style="height:15em">
+  <div style="margin:0.5em" class="vclLayoutFlex" [vclBusy]="isBusy" busyLabel="Loading..." busyIndicatorType="straight">
+    Busy container<br>
+    <button vcl-button (tap)="makeBusy()" label="Make container busy for 3 secs"></button>
+  </div>
+</div>
