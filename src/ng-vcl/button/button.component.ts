@@ -72,13 +72,13 @@ export class ButtonComponent extends ObservableComponent {
   }
 
   @Output()
-  stateChange = this.observeChange('disabled', 'busy')
-                    .map(() => this.state)
-                    .distinctUntilChanged()
-                    .publishBehavior(this.state)
-                    .refCount();
+  stateChange = Observable.merge(this.observeChange('disabled'), this.observeChange('busy'))
+                          .map(() => this.state)
+                          .distinctUntilChanged()
+                          .publishBehavior(this.state)
+                          .refCount();
 
-  get state(): string {
+  get state(): 'busy' | 'disabled' | 'enabled' {
     return this.busy ? 'busy' : (this.disabled ? 'disabled' : 'enabled' );
   }
 

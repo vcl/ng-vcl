@@ -3,9 +3,11 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/publishReplay';
 
 export abstract class ObservableComponent implements OnDestroy, OnChanges  {
     private changesSubject = new Subject<{ [key: string]: SimpleChange }>();
+    private observedProps: {[key: string]: Observable<any>} = {};
     protected changes$: Observable<{ [key: string]: SimpleChange }> = this.changesSubject.asObservable();
 
     ngOnChanges(changes: { [key: string]: SimpleChange }) {
@@ -16,11 +18,15 @@ export abstract class ObservableComponent implements OnDestroy, OnChanges  {
       this.changesSubject.complete();
     }
 
-    protected observeChange<T>(...props: string[]): Observable<T> {
-      return this.changes$
-                  .filter(changes => props.some(p => changes.hasOwnProperty(p)))
-                  .map(changes => props.length === 1
-                    ? changes[props[0]].currentValue
-                    : props.map(p => changes.hasOwnProperty(p) ? changes[p].currentValue : null));
+    protected observeChange<T>(prop: string): Observable<T> {
+      if (!this.observedProps[prop]) {
+        let c$ = this.changes$
+                     .filter(changes => changes.hasOwnProperty(prop))
+                     .map(changes => changes[prop].currentValue)
+                     .publishReplay(1);
+        c$.connect();
+        this.observedProps[prop] = c$;
+      }
+      return this.observedProps[prop];
     }
 }
