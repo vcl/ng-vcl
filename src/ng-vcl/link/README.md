@@ -1,6 +1,7 @@
 # vcl-link
 
 The anchor tag with VCL and Angular awareness.
+Uses vcl-icogram to display a combination of text and icons if `appIcon` or `appIcon` is provided.
 
 ## Usage
 
@@ -17,7 +18,7 @@ The anchor tag with VCL and Angular awareness.
 | `href`              | string      |          | `href` attribute 
 | `scheme`            | string      |          | URL scheme to be used, e. g. `tel`, `mailto` etc. 
 | `label` *(1)*       | string      |          | textual label with automatic l10n lookup 
-| `title` *(1)*       | string      |          | textual title with automatic Ember-i18n lookup 
+| `title` *(1)*       | string      |          | textual title with automatic l10n lookup 
 | `prepIcon`          | string      |          | icon to be prepended to the label 
 | `appIcon`           | string      |          | icon to be appended to the label 
 | `disabled`          | boolean     | false    | disabled if `true` 

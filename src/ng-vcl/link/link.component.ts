@@ -1,65 +1,64 @@
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, ViewChild, ElementRef } from '@angular/core';
 import { L10nService } from '../l10n/index';
 import { ObservableComponent } from '../core/index';
 
 @Component({
   selector: '[vcl-link]',
-  templateUrl: 'link.component.html',
-  host: {
-    '[attr.touch-action]': 'touchAction' // TODO - no function?
-  },
+  templateUrl: 'link.component.html'
 })
 export class LinkComponent extends ObservableComponent {
 
   @Input()
-  href: string;
+  href: string | undefined;
 
   @Input()
-  label: string;
+  label: string | undefined;
 
   @Input()
-  title: string;
+  title: string | undefined;
 
   @Input()
-  scheme: string;
+  prepIcon: string | undefined;
 
   @Input()
-  prepIcon: string;
+  appIcon: string | undefined;
 
   @Input()
-  appIcon: string;
+  scheme: string | undefined;
 
   @HostBinding('class.vclDisabled')
   @Input()
-  disabled: boolean;
+  disabled: boolean | undefined;
 
-  @HostBinding('attr.href')
-  get attrHref(): string | null {
-    if (this.disabled) return null;
-
-    return this.scheme
-      ? `${this.scheme}:${this.href}`
-      : this.href;
-  }
-
-  locTitle$: Observable<string> = this.observeChange<string>('title').switchMap( title => this.l10n.localize(title));
-  locTitleSub: Subscription;
+  locLabel$ = this.observeChange<string>('label').switchMap( label => this.l10n.localize(label));
+  locTitle$ = this.observeChange<string>('title').switchMap( title => this.l10n.localize(title));
 
   @HostBinding('attr.title')
   @HostBinding('attr.aria-label')
   locTitle: string;
 
+  locLabel: string;
+
+  @HostBinding('style.cursor')
+  get styleCursor() {
+    return this.disabled ? 'not-allowed' : 'pointer';
+  }
+
+  @HostBinding('attr.href')
+  get attrHref(): string | null {
+    const href = this.scheme && this.href ? `${this.scheme}:${this.href}` : this.href;
+    return this.disabled ? null : href || null;
+  }
+
+  @HostBinding('class.vclContentLink')
+  get useIcogram() {
+    return (this.appIcon || this.prepIcon);
+  }
+
   constructor(private l10n: L10nService) {
     super();
-  }
-
-  ngOnInit() {
-    this.locTitleSub = this.locTitle$.subscribe(title => this.locTitle = title);
-  }
-
-  ngOnDestroy() {
-    this.locTitleSub.unsubscribe();
+    this.locTitle$.subscribe(title => this.locTitle = title);
   }
 }
