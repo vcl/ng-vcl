@@ -60,8 +60,6 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
     });
   }
 
-
-
   @ContentChildren(RadioButtonComponent)
   radioButtons: QueryList<RadioButtonComponent>;
 
@@ -73,11 +71,15 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
         // update radio buttons so they match the provided value
         this.updateRadioButtons();
       } else {
-        // else update value to match the selected raduo button
-        const rbtn = this.radioButtons.find(((btn) => btn.checked));
-        if (rbtn) {
-          this.updateValue(rbtn && rbtn.value, rbtn);
-        }
+        // else update value to match the selected radio button
+        this.radioButtons.toArray().every(function(rbtn, idx) {
+            if (rbtn.checked) {
+              const newValue = rbtn.value === undefined ? idx : rbtn.value;
+              this.updateValue(newValue, rbtn);
+              return false;
+            }
+            return true;
+        });
       }
     }
 
@@ -85,21 +87,17 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
     const listenChange = () => {
       this.dispose();
       this.rbSubs = this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.subscribe(() => {
-        this.radioButtons.forEach((crbtn, idx) => {
+        this.radioButtons.forEach((crbtn) => {
           crbtn.setChecked(crbtn === rbtn);
         });
-
-        this.updateValue(rbtn.value, rbtn);
+        const newValue = rbtn.value === undefined ? idx : rbtn.value;
+        this.updateValue(newValue, rbtn);
       }));
     };
 
     listenChange();
     this.radioButtons.changes.subscribe((x) => {
       listenChange();
-      // TODO: enable
-      // Changes was triggered when updating radio buttons
-      // inf runloop
-      // setTimeout(_ => this.updateRadioButtons());
     });
   }
 
@@ -116,8 +114,9 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
   updateRadioButtons() {
     if (this.radioButtons) {
-      this.radioButtons.forEach(rbtn => {
-        rbtn.setChecked(this.value === rbtn.value);
+      this.radioButtons.forEach((rbtn, idx) => {
+        const value = rbtn.value === undefined ? idx : rbtn.value;
+        rbtn.setChecked(this.value === value);
       });
     }
   }
@@ -128,7 +127,6 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
   writeValue(value: any): void {
-    console.log(value);
     if (value !== this.value) {
       this.value = value;
     }

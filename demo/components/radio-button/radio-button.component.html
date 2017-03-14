@@ -27,11 +27,20 @@
 </vcl-radio-button>
 
 
-<h3>Radio Group:</h3>
+<h3>Radio Group using index as value:</h3>
 
-<vcl-radio-group [(ngModel)]="value">
-  <vcl-radio-button label="Value 1" [value]="1"></vcl-radio-button>
-  <vcl-radio-button label="Value 2" [value]="2"></vcl-radio-button>
+<vcl-radio-group [(ngModel)]="rgValue1">
+  <vcl-radio-button label="Value 1"></vcl-radio-button>
+  <vcl-radio-button label="Value 2"></vcl-radio-button>
 </vcl-radio-group>
 <br>
-State: {{value}}
+State: {{rgValue1}}
+
+<h3>Radio Group using custom values:</h3>
+
+<vcl-radio-group [(ngModel)]="rgValue2">
+  <vcl-radio-button label="Value 1" [value]="'r1'"></vcl-radio-button>
+  <vcl-radio-button label="Value 2" [value]="'r2'"></vcl-radio-button>
+</vcl-radio-group>
+<br>
+State: {{rgValue2}}

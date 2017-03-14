@@ -10,7 +10,8 @@ export class RadioButtonComponent {
   isChecked3 = false;
   isChecked4 = false;
 
-  value = 2;
+  rgValue1 = 1;
+  rgValue2 = 'r2';
 
   onChange(value) {
     console.log('radio-button onChange fired');

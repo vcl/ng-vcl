@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs/Observable';
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,6 +6,7 @@ import {
   SimpleChanges, EventEmitter, ElementRef, forwardRef, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -39,7 +38,7 @@ export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
   @Input()
   disabled = false;
 
-  @Input()
+  @Input('value')
   value: any;
 
   @Input()
@@ -61,7 +60,7 @@ export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
   constructor(private elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['checked']) {
+    if ('checked' in changes) {
       let checked = changes['checked'].currentValue;
       this.focusMaintenance(checked);
     }
