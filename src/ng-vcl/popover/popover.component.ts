@@ -41,7 +41,7 @@ const PopoverState = {
   host: {
     '[@popoverState]': 'popoverState',
     '[class.vclPopOver]': 'true',
-    '[class.vclLayoutHidden]': 'open',
+    '[class.vclLayoutHidden]': '!open',
     '[style.position]': '"absolute"',
     '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
   }
