@@ -1,16 +1,19 @@
 <h3>Default Datepicker</h3>
-<div style="width: 250px;border-style: solid; margin: 20px; border-width: 1px;">
-  <vcl-date-picker></vcl-date-picker>
-</div>
-
+<vcl-date-picker style="width: 18em; border: 1px solid; margin: 20px;"></vcl-date-picker>
 
 <h3>Ranged Datepicker</h3>
-<div style="width: 250px;border-style: solid; margin: 20px; border-width: 1px;">
-  <vcl-date-picker [selectedDate]="selectedDate" [selectedRangeEnd]="selectedRangeEnd" [selectRange]="selectRange" [maxRangeLength]="7" [minDate]="minDate"></vcl-date-picker>
-</div>
-
+<vcl-date-picker style="width: 18em; border: 1px solid; margin: 20px;" 
+                 [selectedDate]="selectedDate" 
+                 [selectedRangeEnd]="selectedRangeEnd" 
+                 [selectRange]="selectRange" 
+                 [maxRangeLength]="7" 
+                 [minDate]="minDate">
+</vcl-date-picker>
 
 <h3>Minimal Datepicker</h3>
-<div style="width: 250px;border-style: solid; margin: 20px; border-width: 1px;">
-  <vcl-date-picker [style.width]="'18em'" [displayJumpToday]="false" [displayJumpSelected]="false" [displayWeekNumbers]="false" [displayWeekdays]="false"></vcl-date-picker>
-</div>
+<vcl-date-picker style="width: 25em; border: 1px solid; margin: 20px;" 
+                [displayJumpToday]="false" 
+                [displayJumpSelected]="false" 
+                [displayWeekNumbers]="false" 
+                [displayWeekdays]="false">
+</vcl-date-picker>
