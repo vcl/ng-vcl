@@ -5,14 +5,14 @@ import 'rxjs/add/observable/never';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/skipWhile';
 import { Subject } from 'rxjs/Subject';
-import { GrowlOptions, GROWL_DEFAULTS, GrowlType, TYPE_CLASS_MAP } from './types';
+import { NotificationOptions, NOTIFICATION_DEFAULTS, NotificationType, TYPE_CLASS_MAP } from './types';
 
 
-export class Growl extends Observable<any> {
+export class Notification extends Observable<any> {
 
   closeSubject = new Subject();
 
-  constructor(private opts: GrowlOptions) {
+  constructor(private opts: NotificationOptions) {
     super();
 
     const timeout = this.calculatedTimeout;
@@ -58,11 +58,11 @@ export class Growl extends Observable<any> {
   }
 
   get layerClass() {
-    return TYPE_CLASS_MAP[this.opts.type || GrowlType.None].growlClass;
+    return TYPE_CLASS_MAP[this.opts.type || NotificationType.None].notificationClass;
   }
 
   get iconClass() {
-    return TYPE_CLASS_MAP[this.opts.type || GrowlType.None].iconClass;
+    return TYPE_CLASS_MAP[this.opts.type || NotificationType.None].iconClass;
   }
 
   get calculatedTimeout(){

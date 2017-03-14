@@ -5,25 +5,25 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, ViewEncapsulation, trigger, state, transition, animate, style } from '@angular/core';
-import { GrowlOptions, GROWL_DEFAULTS, GrowlType, TYPE_CLASS_MAP } from './types';
-import { Growl } from './growl';
+import { NotificationOptions, NotificationType, TYPE_CLASS_MAP } from './types';
+import { Notification } from './notification';
 
 @Component({
-  templateUrl: 'growl.component.html',
+  templateUrl: 'notification.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   styles: [
     `
-     .vclLayerGrowlTopRight { left: auto; bottom: auto; top: 1em; right: 1em; }
-     .vclLayerGrowlTop { left: 0; bottom: auto; top: 1em; right: 0; }
-     .vclLayerGrowlTopLeft { left: 1em; bottom: auto; top: 1em; right: auto; }
-     .vclLayerGrowlBottomRight { left: auto; bottom: 1em; top: auto; right: 1em; }
-     .vclLayerGrowlBottom { left: 0; bottom: 1em; top: auto; right: 0; }
-     .vclLayerGrowlBottomLeft { left: 1em; bottom: 1em; top: auto; right: auto; }
+     .vclLayerNotificationTopRight { left: auto; bottom: auto; top: 1em; right: 1em; }
+     .vclLayerNotificationTop { left: 0; bottom: auto; top: 1em; right: 0; }
+     .vclLayerNotificationTopLeft { left: 1em; bottom: auto; top: 1em; right: auto; }
+     .vclLayerNotificationBottomRight { left: auto; bottom: 1em; top: auto; right: 1em; }
+     .vclLayerNotificationBottom { left: 0; bottom: 1em; top: auto; right: 0; }
+     .vclLayerNotificationBottomLeft { left: 1em; bottom: 1em; top: auto; right: auto; }
     `
   ],
   animations: [
-    trigger('growlState', [
+    trigger('notificationState', [
       state('visible' , style({ opacity: 0.91 })),
       state('hovered' , style({ opacity: 1.0 })),
       state('void' , style({ opacity: 0 })),
@@ -56,7 +56,7 @@ import { Growl } from './growl';
     '[@enter]': 'true'
   },
 })
-export class GrowlComponent  {
+export class NotificationComponent  {
   @Input()
-  growls = [];
+  notifications = [];
 }

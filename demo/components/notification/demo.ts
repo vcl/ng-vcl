@@ -1,14 +1,14 @@
-import { GrowlDemoComponent } from './demo.component';
+import { NotificationDemoComponent } from './demo.component';
 
 export default {
-  name: 'Growl',
-  route: 'growl',
+  name: 'Notifications',
+  route: 'notifications',
   category: 'Layer',
   tabs: {
-    Demo: GrowlDemoComponent,
+    Demo: NotificationDemoComponent,
     'README.md': {
       type: 'md',
-      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/ng-vcl/growl/README.md")
+      content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../src/ng-vcl/notification/README.md")
     },
     'demo.component.html': {
       type: 'pre',

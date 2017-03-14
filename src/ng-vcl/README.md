@@ -35,7 +35,7 @@ export class AppModule { }
 - [checkbox](./checkbox)
 - [icon](./icon)
 - [layer](./layer)
-- [growl](./growl)
+- [notification](./notification)
 - [token](./token)
 - [file-input](./file-input)
 - [radio-group](./radio-group)

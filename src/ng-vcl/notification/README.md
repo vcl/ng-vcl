@@ -1,6 +1,6 @@
-# vcl-growl
+# vcl-notification
 
-Growl notifications
+Notification-style notifications
 
 ## Usage:
 
@@ -8,14 +8,14 @@ Growl notifications
 @Component({ ... })
 export class MyComponent {
 
-  constructor(private gs: GrowlService) {}
+  constructor(private gs: NotificationService) {}
 
   info() {
     this.gs.info('An info message');
   }
   success() {
     this.gs.success('A success message', {
-      position: GrowlPosition.BottomRight
+      position: NotificationPosition.BottomRight
     });
   }
   warning() {
@@ -30,11 +30,11 @@ export class MyComponent {
     });
   }
   custom() {
-    this.gs.growl('<b>A <i>custom</i> message</b>', {
+    this.gs.notification('<b>A <i>custom</i> message</b>', {
       html: true,
       backgroundColor: 'black',
       textColor: 'white',
-      position: GrowlPosition.TopLeft,
+      position: NotificationPosition.TopLeft,
       showCloseButton: false,
       timeout: 10000
     });
@@ -47,7 +47,7 @@ export class MyComponent {
 #### AlertOptions:
 
 ```ts
-export enum GrowlType {
+export enum NotificationType {
   None,
   Info,
   Success,
@@ -55,7 +55,7 @@ export enum GrowlType {
   Error
 }
 
-export enum GrowlPosition {
+export enum NotificationPosition {
   TopRight,
   Top,
   TopLeft,
@@ -64,12 +64,12 @@ export enum GrowlPosition {
   BottomLeft,
 }
 
-export interface GrowlOptions {
+export interface NotificationOptions {
   text?: string; 
   html?: boolean;
-  type?: GrowlType;
+  type?: NotificationType;
   showCloseButton?: boolean;
-  position?: GrowlPosition;
+  position?: NotificationPosition;
   timeout?: number | boolean;
   backgroundColor?: string;
   textColor?: string;

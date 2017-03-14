@@ -95,8 +95,8 @@ export * from './alert/index';
 import { VCLBusyIndicatorModule } from './busy-indicator/index';
 export * from './busy-indicator/index';
 
-import { VCLGrowlModule } from './growl/index';
-export * from './growl/index';
+import { VCLNotificationModule } from './notification/index';
+export * from './notification/index';
 
 import { L10nModule } from './l10n/index';
 export * from './l10n/index';
@@ -135,7 +135,7 @@ export * from './l10n/index';
     VCLInputControlGroupModule,
     VCLAlertModule,
     VCLBusyIndicatorModule,
-    VCLGrowlModule
+    VCLNotificationModule
   ]
 })
 export class VCLModule { }

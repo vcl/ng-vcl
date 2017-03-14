@@ -1,6 +1,6 @@
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { GrowlService, GrowlType, GrowlPosition } from '@ng-vcl/ng-vcl';
+import { NotificationService, NotificationType, NotificationPosition } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
 
 let cnt = 1;
@@ -8,34 +8,34 @@ let cnt = 1;
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class GrowlDemoComponent {
+export class NotificationDemoComponent {
 
-  constructor(private gs: GrowlService) {}
+  constructor(private notification: NotificationService) {}
 
-  position: GrowlPosition = GrowlPosition.TopRight;
+  position: NotificationPosition = NotificationPosition.TopRight;
 
   info() {
-    this.gs.info('An info message ' + cnt++, {
+    this.notification.info('An info message ' + cnt++, {
       position: this.position
     });
   }
   success() {
-    this.gs.success('A success message ' + cnt++, {
+    this.notification.success('A success message ' + cnt++, {
       position: this.position
     });
   }
   warning() {
-    this.gs.warning('A warning ' + cnt++, {
+    this.notification.warning('A warning ' + cnt++, {
       position: this.position
     });
   }
   error() {
-    this.gs.error('An error message ' + cnt++, {
+    this.notification.error('An error message ' + cnt++, {
       position: this.position
     });
   }
   custom() {
-    this.gs.growl('<b>A <i>custom</i> message</b>', {
+    this.notification.show('<b>A <i>custom</i> message</b>', {
       html: true,
       backgroundColor: 'black',
       textColor: 'white',
