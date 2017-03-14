@@ -1,10 +1,13 @@
 <h3>Template-based</h3>
-<form #f="ngForm" class="vclForm" [class.vclFormHorizontal]="true" novalidate>
+<form #f="ngForm" class="vclForm" novalidate>
 
   <vcl-select ngModel name="itemselect" [items]="items"></vcl-select>
 
   <br/><br/> Radio: <br/>
-  <vcl-radio-button ngModel name="myradio">Radio me</vcl-radio-button>
+  <vcl-radio-group ngModel name="myradio">
+    <vcl-radio-button ngModel name="myradiob1">Radio me 1</vcl-radio-button>
+    <vcl-radio-button ngModel name="myradiob2">Radio me 2</vcl-radio-button>
+  </vcl-radio-group>
 
   <br/><br/> Dropdown: <br/>
   <vcl-dropdown [items]="items" [maxSelectableItems]="1" [expanded]="true" ngModel name="mydropdown"></vcl-dropdown>

@@ -2,7 +2,7 @@ import {
   Component, Input, Output,
   EventEmitter, ElementRef, trigger, NgZone,
   HostListener, OnInit, OnChanges, state, style, transition, animate,
-  HostBinding
+  HostBinding, SimpleChanges
 } from '@angular/core';
 
 type AttachmentX = 'left' | 'center' | 'right';
@@ -95,8 +95,10 @@ export class PopoverComponent {
     setTimeout(() => this.reposition(), 0);
   }
 
-  private ngOnChanges(changes: any): void {
-    if (changes.target) this.tag = `${PopoverComponent.Tag}.${changes.target.currentValue}`;
+  private ngOnChanges(changes: SimpleChanges): void {
+    if ('target' in changes) {
+      this.tag = `${PopoverComponent.Tag}.${changes.target.currentValue}`;
+    }
     setTimeout(() => this.reposition(), 0);
   }
 

@@ -1,4 +1,4 @@
-import { SimpleChange, OnDestroy, OnChanges } from '@angular/core';
+import { SimpleChanges, OnDestroy, OnChanges } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
@@ -6,11 +6,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 
 export abstract class ObservableComponent implements OnDestroy, OnChanges  {
-    private changesSubject = new Subject<{ [key: string]: SimpleChange }>();
+    private changesSubject = new Subject<SimpleChanges>();
     private observedProps: {[key: string]: Observable<any>} = {};
-    protected changes$: Observable<{ [key: string]: SimpleChange }> = this.changesSubject.asObservable();
+    protected changes$: Observable<SimpleChanges> = this.changesSubject.asObservable();
 
-    ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    ngOnChanges(changes: SimpleChanges) {
       this.changesSubject.next(changes);
     }
 
