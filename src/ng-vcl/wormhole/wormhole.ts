@@ -1,10 +1,9 @@
-import { EmbeddedViewRef, ViewContainerRef, TemplateRef, ComponentFactory, ComponentRef, Injector, ComponentFactoryResolver } from '@angular/core';
+import { EmbeddedViewRef, ViewContainerRef, TemplateRef, ComponentFactory, ComponentRef, Injector, ComponentFactoryResolver, Type } from '@angular/core';
 import 'rxjs/add/observable/never';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { WormholeAttributes } from './wormhole';
-import { ComponentType } from './../core/index';
 
 export interface WormholeAttributes {
   [key: string]: any;
@@ -101,7 +100,7 @@ export class ComponentWormhole<T> extends Wormhole {
   private cachedAttrs: any = null;
   compRef: ComponentRef<T> | null;
 
-  constructor(private viewContainerRef: ViewContainerRef, private componentClass: ComponentType<T>) {
+  constructor(private viewContainerRef: ViewContainerRef, private componentClass: Type<T>) {
     super();
     if (!viewContainerRef) {
       throw 'missing ViewContainerRef';
@@ -188,9 +187,9 @@ export class ComponentWormhole<T> extends Wormhole {
 }
 
 
-export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, component: ComponentType<T>): Wormhole;
+export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, component: Type<T>): Wormhole;
 export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, templateRef: TemplateRef<T>): Wormhole;
-export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, arg2: ComponentType<T> | TemplateRef<T>): Wormhole {
+export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, arg2: Type<T> | TemplateRef<T>): Wormhole {
   if (typeof arg2 === 'function') {
     return new ComponentWormhole(targetViewContainerRef, arg2);
   } else if (arg2 instanceof TemplateRef) {
@@ -203,7 +202,7 @@ export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, arg2
 export class WormholeManager {
   constructor(protected viewContainerRef: ViewContainerRef) { }
 
-  connect<T>(component: ComponentType<T>, opts?: WormholeOptions): WormholeRef;
+  connect<T>(component: Type<T>, opts?: WormholeOptions): WormholeRef;
   connect<T>(templateRef: TemplateRef<T>, opts?: WormholeOptions): WormholeRef;
   connect(target, opts?: WormholeOptions): WormholeRef {
     const wormhole = createWormhole(this.viewContainerRef, target);

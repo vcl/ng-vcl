@@ -1,5 +1,4 @@
-import { ApplicationRef, Injectable, ComponentFactoryResolver, Injector, ComponentRef, EmbeddedViewRef, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ComponentType } from './../core/index';
+import { ApplicationRef, Injectable, ComponentFactoryResolver, Injector, ComponentRef, EmbeddedViewRef, TemplateRef, ViewContainerRef, Type } from '@angular/core';
 import { Wormhole, ComponentWormhole, TemplateWormhole } from './wormhole';
 
 @Injectable()
@@ -14,7 +13,7 @@ export class WormholeService {
     });
   }
 
-  attachComponent<T>(componentClass: ComponentType<T>, node?: HTMLElement) {
+  attachComponent<T>(componentClass: Type<T>, node?: HTMLElement) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
     const componentRef = componentFactory.create(this.defaultInjector);
     const componentRefRootNode = this.getComponentRootNode(componentRef);

@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter, ElementRef, Type } from '@angular/core';
 import { Wormhole, ComponentWormhole, TemplateWormhole } from '../wormhole/index';
-import { ComponentType, getMetadata } from './../core/index';
+import { getMetadata } from './../core/index';
 import { LayerRef } from './layer-ref';
 import { LayerRefDirective } from './layer-ref.directive';
 import { LayerComponentWormhole, COMPONENT_LAYER_ANNOTATION_ID } from './layer-ref.component';
@@ -13,7 +13,7 @@ function createWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRe
   if (layerRef instanceof LayerRefDirective) {
     return new TemplateWormhole(viewContainerRef, layerRef.templateRef);
   } else {
-    const component =  getMetadata(COMPONENT_LAYER_ANNOTATION_ID, (layerRef as any).constructor ) as ComponentType<T>;
+    const component =  getMetadata(COMPONENT_LAYER_ANNOTATION_ID, (layerRef as any).constructor ) as Type<T>;
     return component ? new LayerComponentWormhole<T>(layerRef, viewContainerRef, component) : null;
   }
 }

@@ -2,7 +2,6 @@ import { Injectable, ReflectiveInjector, Injector, ViewContainerRef, Directive, 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Wormhole, ComponentWormhole } from '../wormhole/index';
-import { ComponentType } from './../core/index';
 import { LayerService } from './layer.service';
 
 export interface LayerData {

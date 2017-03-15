@@ -1,5 +1,5 @@
-import { ViewContainerRef, ReflectiveInjector, Injectable } from '@angular/core';
-import { ComponentType, defineMetadata } from './../core/index';
+import { ViewContainerRef, ReflectiveInjector, Injectable, Type } from '@angular/core';
+import { defineMetadata } from './../core/index';
 import { ComponentWormhole, Wormhole } from '../wormhole/index';
 import { LayerRef } from './layer-ref';
 import { LayerService } from './layer.service';
@@ -7,7 +7,7 @@ import { LayerService } from './layer.service';
 export const COMPONENT_LAYER_ANNOTATION_ID = 'ng-vcl_component_layer';
 
 // The @Layer annotation
-export function Layer<T>(component: ComponentType<T>) {
+export function Layer<T>(component: Type<T>) {
   return function (target) {
     Injectable()(target);
     defineMetadata(COMPONENT_LAYER_ANNOTATION_ID, component, target);
@@ -16,7 +16,7 @@ export function Layer<T>(component: ComponentType<T>) {
 
 // A component wormhole that injects the LayerRef
 export class LayerComponentWormhole<T> extends ComponentWormhole<T> {
-  constructor(private layer: LayerRef, viewContainerRef: ViewContainerRef, component: ComponentType<T>) {
+  constructor(private layer: LayerRef, viewContainerRef: ViewContainerRef, component: Type<T>) {
     super(viewContainerRef, component);
   }
 

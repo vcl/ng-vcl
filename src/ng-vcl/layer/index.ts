@@ -1,6 +1,5 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentType } from './../core/interfaces';
 import { VCLWormholeModule, WormholeService } from '../wormhole/index';
 import { LayerBaseComponent } from './layer-base.directive';
 import { LayerService } from './layer.service';

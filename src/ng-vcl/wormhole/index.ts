@@ -1,5 +1,4 @@
-import { NgModule, APP_BOOTSTRAP_LISTENER, ModuleWithProviders, Injector, ViewContainerRef } from '@angular/core';
-import { ComponentType } from './../core/index';
+import { NgModule, APP_BOOTSTRAP_LISTENER, ModuleWithProviders, Injector, ViewContainerRef, Type } from '@angular/core';
 import { TemplateWormhole,  ComponentWormhole, Wormhole, WormholeAttributes, createWormhole, WormholeManager, WormholeRef } from './wormhole';
 import { WormholeDirective } from './wormhole.directive';
 import { WormholeService } from './wormhole.service';
@@ -26,7 +25,7 @@ export function bootstrapWormhole(wormholeService: WormholeService) {
   ]
 })
 export class VCLWormholeModule {
-  static withRootComponents(...components: ComponentType<any>[]): ModuleWithProviders {
+  static withRootComponents(...components: Type<any>[]): ModuleWithProviders {
     return {
       ngModule: VCLWormholeModule,
       providers: [
