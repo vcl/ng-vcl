@@ -5,10 +5,8 @@ import { WormholeService } from './wormhole.service';
 
 export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, WormholeDirective, WormholeService, createWormhole, WormholeManager, WormholeRef };
 
-export function bootstrapWormhole(wormholeService: WormholeService) {
-  return () => {
-    wormholeService.ready();
-  };
+export function bootstrapWormhole(ws: WormholeService) {
+  return () => ws.resolve();
 }
 
 @NgModule({
@@ -35,7 +33,7 @@ export class VCLWormholeModule {
           deps: [ WormholeService ],
           useFactory: (wormholeService: WormholeService) => {
             return () => {
-              components.forEach(lc => wormholeService.attachComponent(lc));
+              components.forEach(componentClass => wormholeService.attachComponentToRoot(componentClass));
             };
           }
         }

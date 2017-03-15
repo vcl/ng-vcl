@@ -19,7 +19,7 @@ export class LayerBaseRootComponent { }
 
 export function bootstrapBase(wormholeService: WormholeService) {
   return () => {
-    wormholeService.attachComponent(LayerBaseRootComponent);
+    wormholeService.attachComponentToRoot(LayerBaseRootComponent);
   };
 }
 
