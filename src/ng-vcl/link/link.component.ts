@@ -32,8 +32,8 @@ export class LinkComponent extends ObservableComponent {
   @Input()
   disabled: boolean | undefined;
 
-  locLabel$ = this.observeChange<string>('label').switchMap( label => this.l10n.localize(label));
-  locTitle$ = this.observeChange<string>('title').switchMap( title => this.l10n.localize(title));
+  locLabel$ = this.observeChangeValue<string>('label').switchMap( label => this.l10n.localize(label));
+  locTitle$ = this.observeChangeValue<string>('title').switchMap( title => this.l10n.localize(title));
 
   @HostBinding('attr.title')
   @HostBinding('attr.aria-label')
