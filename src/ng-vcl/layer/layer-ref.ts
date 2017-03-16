@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Wormhole, ComponentWormhole } from '../wormhole/index';
 import { LayerService } from './layer.service';
 
-export interface LayerData {
+export interface LayerAttributes {
   [key: string]: any;
 }
 
@@ -20,38 +20,33 @@ export interface LayerOptions {
 
 export abstract class LayerRef implements LayerOptions {
 
-  base?: string = 'default';
-  modal?: boolean;
-  transparent?: boolean;
-  fill?: boolean;
-  stickToBottom?: boolean;
-  gutterPadding?: boolean;
+  base: string = 'default';
+  modal: boolean = false;
+  transparent: boolean = false;
+  fill: boolean = false;
+  stickToBottom: boolean = false;
+  gutterPadding: boolean = false;
   customClass?: string;
 
   visible: boolean;
-  data: LayerData = {};
+  attrs: LayerAttributes | undefined;
 
   private results: Subject<any>;
-  private stateChange = new Subject<LayerData>();
+  private stateChange = new Subject<{attrs?: LayerAttributes, visible: boolean}>();
 
-  state$: Observable<LayerData> = this.stateChange.asObservable();
+  state$ = this.stateChange.asObservable();
 
-  private updateLayer(value: boolean, data?: LayerData) {
-    if (this.visible !== value || this.data !== data) {
-      this.data = data || {};
-      this.visible = value;
-      this.stateChange.next(data);
-    }
-  }
-
-  open(data?: LayerData): Observable<any> {
-    this.updateLayer(true, data);
+  open(attrs?: LayerAttributes): Observable<any> {
+    this.visible = true;
+    this.attrs = attrs;
+    this.stateChange.next({attrs, visible: true});
     this.results = new Subject<any>();
     return this.results.asObservable();
   }
 
   close(data?: any) {
-    this.updateLayer(false);
+    this.visible = false;
+    this.stateChange.next({visible: false});
     if (this.results) {
       if (data !== undefined) {
         this.results.next(data);
@@ -61,7 +56,8 @@ export abstract class LayerRef implements LayerOptions {
   }
 
   closeWithError(data?: any) {
-    this.updateLayer(false);
+    this.visible = false;
+    this.stateChange.next({visible: false});
     if (this.results) {
       this.results.error(data);
     }

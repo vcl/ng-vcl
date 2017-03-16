@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import { Wormhole, createWormhole } from '../wormhole/index';
 import { LayerService } from './layer.service';
-import { LayerRef } from './layer-ref';
+import { LayerRef, LayerOptions, LayerAttributes } from './layer-ref';
 import { LayerContainerComponent } from './layer-container.component';
 
 @Directive({
@@ -49,21 +49,25 @@ export class LayerBaseComponent {
     const containerWormholeRef = createWormhole(this.viewContainerRef, LayerContainerComponent);
     this.layerMap.set(layer, containerWormholeRef);
 
-    const layerSub = layer.state$.subscribe((layerData) => {
-      if (layer.visible && !containerWormholeRef.isConnected) {
-        this.visibleLayers = [...this.visibleLayers, layer];
+    const layerSub = layer.state$.subscribe((state) => {
+      const attrs = {
+        layer,
+        visible: state.visible,
+        layerAttrs: state.attrs
+      };
 
-        containerWormholeRef.connect({
-          attrs: {
-            layer,
-            zIndex: this.zIndex + this.viewContainerRef.length,
-            attrs: layerData
-          }
-        });
-      } else if (layer.visible && containerWormholeRef.isConnected) {
-        containerWormholeRef.setAttributes({attrs: layerData});
-      } else if (!layer.visible && containerWormholeRef.isConnected) {
+      if (state.visible) {
+        this.visibleLayers = [...this.visibleLayers, layer];
+        attrs['zIndex'] + this.zIndex + this.visibleLayers.length;
+      } else {
         this.visibleLayers = this.visibleLayers.filter(l => l !== layer);
+      }
+
+      if (state.visible && !containerWormholeRef.isConnected) {
+        containerWormholeRef.connect({attrs});
+      } else if (state.visible) {
+        containerWormholeRef.setAttributes(attrs);
+      } else {
         containerWormholeRef.disconnect();
       }
     });

@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter, ElementRef, Type } from '@angular/core';
+import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter, ElementRef, Type, ViewChildren, QueryList } from '@angular/core';
 import { Wormhole, ComponentWormhole, TemplateWormhole } from '../wormhole/index';
 import { getMetadata } from './../core/index';
-import { LayerRef } from './layer-ref';
+import { LayerRef, LayerOptions, LayerAttributes } from './layer-ref';
 import { LayerRefDirective } from './layer-ref.directive';
 import { LayerComponentWormhole, COMPONENT_LAYER_ANNOTATION_ID } from './layer-ref.component';
 
@@ -25,6 +25,10 @@ function createWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRe
     trigger('boxState', []),
     trigger('layerState', [])
   ],
+  host: {
+    '[@boxState]': 'true',
+    '[@layerState]': 'true'
+  }
 })
 export class LayerContainerComponent {
 
@@ -35,31 +39,49 @@ export class LayerContainerComponent {
   layer: LayerRef;
 
   @Input()
-  set attrs(attrs) {
-    this._attrs = attrs;
+  set layerAttrs(layerAttrs: LayerAttributes) {
+    this._layerAttrs = layerAttrs;
     if (this.wormhole && this.wormhole instanceof ComponentWormhole) {
-      this.wormhole.setAttributes(attrs);
+      this.wormhole.setAttributes(layerAttrs);
     }
   }
-  _attrs: any;
+  get layerAttrs() {
+    return this._layerAttrs;
+  }
+  _layerAttrs: LayerAttributes;
 
   @Input()
   Zindex = 1000;
+
+  @Input()
+  visible: boolean = false;
+
+  get state() {
+    return this.visible ? 'visible' : 'hidden';
+  }
 
   wormhole: Wormhole | null;
 
   @ViewChild('layerContent', { read: ViewContainerRef })
   layerContentContainer: ViewContainerRef;
 
-  get visible() {
-    return (this.layer && this.layer.visible) || false;
+  constructor(private cdRef: ChangeDetectorRef) { }
+
+  disconnect() {
+    if (this.wormhole) {
+      this.wormhole.disconnect();
+    }
   }
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  connect() {
+    if (this.wormhole) {
+      this.wormhole.connect();
+    }
+  }
 
   ngAfterViewInit() {
     const layer = this.layer;
-    if (!this.wormhole && layer) {
+    if (layer) {
       this.wormhole = createWormhole(this.layerContentContainer, layer);
 
       if (!this.wormhole) {
@@ -67,7 +89,7 @@ export class LayerContainerComponent {
       }
 
       this.wormhole.connect({
-        attrs: this._attrs
+        attrs: this._layerAttrs
       });
     }
   }
@@ -80,7 +102,7 @@ export class LayerContainerComponent {
 
   triggerOffClick(event) {
     if (event.target === this.container.nativeElement) {
-     this.layer.offClick();
+      this.layer.offClick();
     }
   }
 }

@@ -115,7 +115,7 @@ export class AlertLayer extends LayerRef {
   }
 
   get alert(): AlertOptions {
-    return (this.data && this.data.alert) || {};
+    return (this.attrs && this.attrs.alert) || {};
   }
 
   offClick() {

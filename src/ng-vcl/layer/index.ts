@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { VCLWormholeModule, WormholeService } from '../wormhole/index';
 import { LayerBaseComponent } from './layer-base.directive';
 import { LayerService } from './layer.service';
-import { LayerRef, LayerData } from './layer-ref';
+import { LayerRef, LayerAttributes } from './layer-ref';
 import { LayerContainerComponent } from './layer-container.component';
 import { Layer } from './layer-ref.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerData, LayerService, Layer, LayerContainerComponent }
+export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerAttributes, LayerService, Layer, LayerContainerComponent }
 
 @Component({
   selector: 'vcl-layer-base-root',
