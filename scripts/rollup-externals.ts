@@ -55,6 +55,7 @@ export default {
   '@ng-vcl/jss-form': 'ngVCL.jssForm',
   '@ng-vcl/store': 'ngVCL.store',
   '@ng-vcl/plotly': 'ngVCL.plotly',
+  '@ng-vcl/animations': 'ngVCL.animations',
 
   // Additional dependencies
   'hammerjs': 'Hammer',

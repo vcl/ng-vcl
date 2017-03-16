@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { VCLModule } from '@ng-vcl/ng-vcl';
 import { L10nModule, L10nStaticLoaderService } from '@ng-vcl/ng-vcl';
 import { StoreModule } from '@ng-vcl/store';
+import { vclCheckboxAnimations, vclLayerAnimations, vclPopoverAnimations, vclTokenAnimations } from '@ng-vcl/animations';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from "./components/home/home.component";
@@ -15,6 +16,11 @@ import { DemoComponent } from "./components/demo/demo.component";
 import { DEMO_MODULES } from "./demos";
 
 import { routing, appRoutingProviders } from './app.routes';
+
+vclCheckboxAnimations();
+vclLayerAnimations();
+vclPopoverAnimations() ;
+vclTokenAnimations();
 
 @NgModule({
   providers: [

@@ -5,7 +5,8 @@ const PACKAGES: {[key: string]: {(pkg: string): string}[]} = {
   'adv-http': [copyResources, prepareDist],
   'json-editor': [copyResources, prepareDist],
   'plotly': [copyResources, prepareDist],
-  'store': [copyResources, prepareDist]
+  'store': [copyResources, prepareDist],
+  'animations': [copyResources, prepareDist]
 };
 
 export default PACKAGES;
