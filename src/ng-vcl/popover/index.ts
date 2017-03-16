@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PopoverComponent } from './popover.component';
 import { VCLOffClickModule } from '../off-click/index';
+import { PopoverComponent, AttachmentX, AttachmentY } from './popover.component';
 
-export { PopoverComponent }
+export { PopoverComponent, AttachmentX, AttachmentY }
 
 @NgModule({
   imports: [

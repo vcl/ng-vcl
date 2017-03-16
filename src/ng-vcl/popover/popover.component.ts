@@ -7,15 +7,15 @@ import {
 import { ObservableComponent } from "../core/index";
 import { Observable } from "rxjs/Observable";
 
-type AttachmentX = 'left' | 'center' | 'right';
-const AttachmentX = {
+export type AttachmentX = 'left' | 'center' | 'right';
+export const AttachmentX = {
   Left: 'left' as AttachmentX,
   Center: 'center' as AttachmentX,
   Right: 'right' as AttachmentX,
 };
 
-type AttachmentY = 'top' | 'center' | 'bottom';
-const AttachmentY = {
+export type AttachmentY = 'top' | 'center' | 'bottom';
+export const AttachmentY = {
   Top: 'top' as AttachmentY,
   Center: 'center' as AttachmentY,
   Bottom: 'bottom' as AttachmentY,
