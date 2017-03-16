@@ -20,7 +20,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR2: any = {
 
 @Component({
   selector: 'vcl-token-input',
-  templateUrl: 'tokeninput.component.html',
+  templateUrl: 'token-input.component.html',
   host: {
     '[class.vclInput]': 'true',
     '[class.vclTokenInput]': 'true',

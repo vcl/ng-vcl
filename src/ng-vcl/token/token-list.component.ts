@@ -19,7 +19,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 @Component({
   selector: 'vcl-token-list',
-  templateUrl: 'tokenlist.component.html',
+  templateUrl: 'token-list.component.html',
   host: {
     '[class.vclTokenList]': 'true',
     '[class.vclTokenContainer]': 'true'
@@ -76,3 +76,6 @@ export class TokenListComponent implements ControlValueAccessor {
   }
 
 }
+
+
+

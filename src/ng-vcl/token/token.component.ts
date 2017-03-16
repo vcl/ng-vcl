@@ -19,19 +19,18 @@ import {
 })
 export class TokenComponent {
 
-  @Input('label') label: string;
-  @Input('selected') selected: boolean = false;
-  @Input('removeable') removeable: boolean = false;
+  @Input()
+  label: string;
 
-  @Output('remove') onRemove = new EventEmitter();
+  @Input()
+  selected: boolean = false;
 
-  constructor() {
+  @Input()
+  removeable: boolean = false;
 
-  }
+  @Output()
+  remove = new EventEmitter();
 
-  remove() {
-    this.onRemove.emit();
-  }
 
   /**
    * transforms this NavigationItemComponent into an object,

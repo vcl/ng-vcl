@@ -8,6 +8,7 @@ import { TokenComponent } from './token.component';
 import { TokenListComponent } from './token-list.component';
 import { TokenInputComponent } from './token-input.component';
 
+export { TokenComponent, TokenInputComponent, TokenListComponent };
 
 @NgModule({
   imports: [CommonModule, L10nModule, VCLMetalistModule, FormsModule],
