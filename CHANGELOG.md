@@ -19,6 +19,9 @@ resolve: {
 ### Changes
 
 - Replaced all internal click events with tap events
+- popover
+ - support template reference variable as target
+ - provide open(), close() and toggle() methods on component
 - button-group:
   - selectedIndex attribute switched to 2-way-binding
   - Added support for ngModel
@@ -27,6 +30,8 @@ resolve: {
   - Added support for mousewheel 
 ### Breaking Changes
 - Added hammerjs to peer dependencies
+- popover
+  - rename open to visible
 - jss-form:
   - temporarily removed
 - layer:

@@ -2,8 +2,10 @@ import {
   Component, Input, Output,
   EventEmitter, ElementRef, trigger, NgZone,
   HostListener, OnInit, OnChanges, state, style, transition, animate,
-  HostBinding, SimpleChanges
+  HostBinding, SimpleChanges, ChangeDetectionStrategy
 } from '@angular/core';
+import { ObservableComponent } from "../core/index";
+import { Observable } from "rxjs/Observable";
 
 type AttachmentX = 'left' | 'center' | 'right';
 const AttachmentX = {
@@ -25,14 +27,15 @@ const Dimension = {
 };
 
 const PopoverState = {
-  Open: 'open',
+  Visible: 'visible',
   Void: 'void',
 };
 
 @Component({
   selector: 'vcl-popover',
-  templateUrl: 'popover.component.html',
-  // The hide/open animation is set in the application itself through:
+  template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  // The close/open animation is set in the application itself through:
   // setAnimations(PopoverComponent, [
   //   trigger('popoverState', [
   //     [..]
@@ -41,142 +44,180 @@ const PopoverState = {
   host: {
     '[@popoverState]': 'popoverState',
     '[class.vclPopOver]': 'true',
-    '[class.vclLayoutHidden]': '!open',
-    '[style.position]': '"absolute"',
-    '[style.transform]': '"translate("+translateX+"px, "+translateY+"px)"',
+    '[style.position]': '"absolute"'
   }
 })
-export class PopoverComponent {
+export class PopoverComponent extends ObservableComponent {
   private static readonly Tag: string = 'PopoverComponent';
 
   private tag: string;
 
-  @Input() private debug: false;
+  @Input()
+  debug: false;
 
-  @Input() private target: string;
-  @Input() private targetX: AttachmentX = AttachmentX.Left;
-  @Input() private targetY: AttachmentY = AttachmentY.Bottom;
-  @Input() private attachmentX: AttachmentX = AttachmentX.Left;
-  @Input() private attachmentY: AttachmentY = AttachmentY.Top;
+  @Input()
+  target: string | any;
+
+  @Input()
+  targetX: AttachmentX = AttachmentX.Left;
+
+  @Input()
+  targetY: AttachmentY = AttachmentY.Bottom;
+
+  @Input()
+  attachmentX: AttachmentX = AttachmentX.Left;
+
+  @Input()
+  attachmentY: AttachmentY = AttachmentY.Top;
+
+  _visible: boolean = false;
+  @Input()
+  set visible(value: boolean) {
+    // We have to wait one runloop before calling reposition(), so the element is rendered and the right bounds can be determined.
+    // Also hide the popover via the visibility-style. This avoids flashing up on the wrong position.
+    if (!this._visible && value) {
+      this.visibility = 'hidden';
+      setTimeout(() => {
+        this.reposition();
+        this.visibility = 'visible';
+      }, 0);
+    } else {
+      this.visibility = 'visible';
+    }
+    this._visible = value;
+  }
+
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  @Output()
+  visibleChange = new EventEmitter<boolean>();
 
   private translateX: number = 1;
   private translateY: number = 0;
 
-  @Input() private zIndex: number = 10;
-  // protected coverZIndex: number = -1;
-
-  @Input() private open: boolean = false;
-  private popoverState: string;
-
-  // @Input() public layer: boolean = false;
-
-  @Output() private openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  // @Input() private zIndexManaged: boolean = true;
-
-  // @Input() private expandManaged: boolean = true;
-
-  // @Input() private timeout: number = 0;
-
-  constructor(
-    protected readonly me: ElementRef,
-    private readonly zone: NgZone
-  ) {
-    this.setVisibility();
+  @HostBinding('class.vclLayoutHidden')
+  get hidden() {
+    return !this.visible;
   }
 
-  private ngOnInit(): void {
-    this.tag = `${PopoverComponent.Tag}.${this.target}`;
+  @HostBinding('style.visibility')
+  visibility: string = 'visible';
+
+  @HostBinding('style.transform')
+  get transform() {
+    return `translate(${String(this.translateX)}px, ${String(this.translateY)}px)`;
+  }
+
+  get popoverState() {
+    return this.visible ? PopoverState.Visible : PopoverState.Void;
+  }
+
+  constructor(protected readonly me: ElementRef) {
+    super();
+    this.observeChangeValue('target')
+        .subscribe(target => this.tag = `${PopoverComponent.Tag}.${target}`);
+
+    this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY')
+        .subscribe(() => this.reposition());
+  }
+
+
+  ngOnInit(): void {
+    this.tag = `${PopoverComponent.Tag}.${String(this.target)}`;
     const tag: string = `${this.tag}.ngOnInit()`;
     if (this.debug) console.log(tag, 'this:', this);
   }
 
-  private ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     setTimeout(() => this.reposition(), 0);
   }
 
-  private ngOnChanges(changes: SimpleChanges): void {
-    if ('target' in changes) {
-      this.tag = `${PopoverComponent.Tag}.${changes.target.currentValue}`;
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private onWindowResize(ev): void {
+    this.reposition();
+  }
+
+  private getTargetPosition(): ClientRect | undefined {
+    let targetEl: HTMLElement | undefined;
+    if (typeof this.target === 'string') {
+      targetEl = document.querySelector(this.target) as HTMLElement || undefined;
+    } else if (this.target instanceof HTMLElement) {
+      targetEl = this.target;
+    } else if (this.target instanceof ElementRef && this.target.nativeElement) {
+      targetEl = this.target.nativeElement;
     }
-    setTimeout(() => this.reposition(), 0);
-  }
 
-  private setVisibility(): void {
-    this.popoverState = this.open ? PopoverState.Open : PopoverState.Void;
-  }
-
-  public close(): void {
-    this.open = false;
-    this.openChange.emit(this.open);
-  }
-
-  // private offClick(): void {
-  //   if (this.expandManaged && !this.layer) {
-  //     this.close();
-  //   }
-  // }
-
-  // private display(): string {
-  //   if (open) return 'block';
-  //   else return 'none';
-  // }
-
-  private getTargetPosition(): ClientRect | null {
-    const targetEl = document.querySelector(this.target);
-    if (!targetEl) return null;
-    return targetEl.getBoundingClientRect();
+    return targetEl instanceof HTMLElement ? targetEl.getBoundingClientRect() : undefined;
   }
 
   private getAttachementPosition(): ClientRect {
     return this.me.nativeElement.getBoundingClientRect();
   }
 
+  public open(): void {
+    if (this.visible) return;
+    this.visible = true;
+    this.visibleChange.emit(this.visible);
+  }
+
+  public close(): void {
+    if (!this.visible) return;
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
+  }
+
+  public toggle() {
+    this.visible ? this.close() : this.open();
+  }
+
   public reposition(): void {
-    const tag = `${this.tag}.reposition()`;
-    if (!this.open) return;
 
     const targetPos = this.getTargetPosition();
-    if (this.debug) console.log(tag, 'targetPos:', targetPos);
     if (!targetPos) return;
+
     const ownPos: ClientRect = this.getAttachementPosition();
-    if (this.debug) console.log(tag, 'ownPos:', ownPos);
 
     const mustX: number = this.targetX === AttachmentX.Center ?
       targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :
       targetPos[this.targetX];
-    if (this.debug) console.log(tag, 'mustX:', mustX);
 
     const isX: number = this.attachmentX === AttachmentX.Center ?
       ownPos[AttachmentX.Left] + ownPos[Dimension.Width] / 2 :
       ownPos[this.attachmentX];
-    if (this.debug) console.log(tag, 'isX:', isX);
 
     const diffX: number = mustX - isX;
-    if (this.debug) console.log(tag, 'diffX:', diffX);
 
     this.translateX = this.translateX + diffX;
 
     const mustY: number = this.targetY === AttachmentY.Center ?
       targetPos[AttachmentY.Top] - targetPos[Dimension.Height] / 2 :
       targetPos[this.targetY];
-    if (this.debug) console.log(tag, 'mustY:', mustY);
 
     const isY: number = this.attachmentY === AttachmentY.Center ?
       ownPos[AttachmentY.Top] - ownPos[Dimension.Height] / 2 :
       ownPos[this.attachmentY];
-    if (this.debug) console.log(tag, 'isY:', isY);
 
     const diffY: number = mustY - isY;
-    if (this.debug) console.log(tag, 'diffY:', diffY);
+
+    if (this.debug) {
+      console.log(`${this.tag}.reposition()`, {
+        targetPos,
+        ownPos,
+        mustX,
+        isX,
+        diffX,
+        mustY,
+        isY,
+        diffY
+      });
+    }
 
     this.translateY = this.translateY + diffY;
-
-    this.setVisibility();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  private onWindowResize(ev): void {
-    this.reposition();
   }
 }

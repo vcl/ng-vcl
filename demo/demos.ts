@@ -22,7 +22,7 @@ import INPUT_DEMO from './components/input/input.demo';
 import FILE_INPUT_DEMO from './components/file-input/file-input.demo';
 import TEXTAREA_DEMO from './components/textarea/textarea.demo';
 import FLIP_SWITCH_DEMO from './components/flip-switch/flip-switch.demo';
-import POPOVER_DEMO from './components/popover/popover.demo';
+import POPOVER_DEMO from './components/popover/demo';
 import PROGRESS_BAR_DEMO from './components/progress-bar/progress-bar.demo';
 import TAB_NAV_DEMO from './components/tab-nav/tab-nav.demo';
 import NAVIGATION_DEMO from './components/navigation/navigation.demo';

@@ -21,11 +21,11 @@
 
 <h3>Options via content-children:</h3>
 <vcl-select (change)="onChange($event)" [(ngModel)]="selectedItemSingleHtml">
-  <vcl-select-option [value]="1">Item 1</vcl-select-option>
-  <vcl-select-option [value]="2">Item 2</vcl-select-option>
-  <vcl-select-option [value]="3">Item 3</vcl-select-option>
-  <vcl-select-option [value]="4" [disabled]="true">Item 4</vcl-select-option>
-  <vcl-select-option [value]="5">Item 5</vcl-select-option>
+  <vcl-select-option [value]="1" label="Item 1"></vcl-select-option>
+  <vcl-select-option [value]="2" label="Item 2"></vcl-select-option>
+  <vcl-select-option [value]="3" label="Item 3"></vcl-select-option>
+  <vcl-select-option [value]="4" [disabled]="true" label="Item 4"></vcl-select-option>
+  <vcl-select-option [value]="5" label="Item 5"></vcl-select-option>
 </vcl-select>
 <div *ngIf="selectedItemSingleHtml">
   Value: {{selectedItemSingleHtml}}
@@ -52,9 +52,9 @@
 <br/>
 
 <h3>Select inside of label</h3>
-<vcl-label>  Label Text<br>
+<vcl-label>Label Text<br>
   <vcl-select>
-    <vcl-select-option value="1">Item 1</vcl-select-option>
-    <vcl-select-option value="2">Item 2</vcl-select-option>
+  <vcl-select-option [value]="1" label="Item 1"></vcl-select-option>
+  <vcl-select-option [value]="2" label="Item 2"></vcl-select-option>
   </vcl-select>
 </vcl-label>
