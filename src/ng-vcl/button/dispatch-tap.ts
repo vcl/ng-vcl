@@ -1,7 +1,7 @@
 function dispatch(el: HTMLButtonElement, eventType) {
   const x = 10, y = 10;
 
-  const msEventType = (window as any).MSPointerEvent &&
+  const msEventType = (<any> window).MSPointerEvent &&
                       eventType.replace(/pointer([a-z])/, (_, a) => 'MSPointer' + a.toUpperCase());
 
   const event = document.createEvent('Event') as any;

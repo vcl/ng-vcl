@@ -137,16 +137,16 @@ export class ButtonComponent extends ObservableComponent {
   onBlur(e) { this.focused = false; }
 
   @HostListener('tap', ['$event'])
-  onTap(e) {
+  onTap(e: Event) {
     this.handleGhostClick(InteractionType.Tap, e);
   }
 
   @HostListener('click', ['$event'])
-  onClick(e) {
+  onClick(e: Event) {
     this.handleGhostClick(InteractionType.Click, e);
   }
 
-  private handleGhostClick(type: InteractionType, e) {
+  private handleGhostClick(type: InteractionType, e: Event) {
     const ANTI_GHOST_DELAY = 2000;
     const now = Date.now();
 
