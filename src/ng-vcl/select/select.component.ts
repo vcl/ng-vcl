@@ -1,52 +1,9 @@
-import {
-  Component,
-  Directive,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
-  ViewChild,
-  ContentChildren,
-  QueryList,
-  Optional,
-  forwardRef,
-  ElementRef,
-  HostListener,
-  OnInit,
-  NgZone,
-  HostBinding,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, forwardRef, ChangeDetectionStrategy, HostBinding, ViewChild, ContentChildren, ElementRef, Input, QueryList, EventEmitter, Output, HostListener, ChangeDetectorRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import { DropdownItem, DropdownComponent, DropdownOptionBase } from '../dropdown/index';
+import { DropdownItem, DropdownComponent, DropdownOptionComponent } from '../dropdown/index';
+import { SelectOptionComponent } from './select-option.component';
 
 enum DropDirection { Top, Bottom };
-
-/**
- * see
- * @link http://www.w3schools.com/tags/tag_option.asp
- */
-@Directive({
-  selector: 'vcl-select-option'
-})
-export class SelectOptionComponent extends DropdownOptionBase implements OnInit {
-
-  @Input('value') value: any;
-  @Input('sublabel') sublabel: string;
-  @Input('label') label: string;
-  @Input('class') class: string = '';
-  @Input('disabled') disabled: boolean = false;
-  @Input('marked') marked: boolean = false;
-  @Input('selected') selected: boolean = false;
-
-  constructor(private elementRef: ElementRef) { super(); }
-
-  ngOnInit() {
-    if (!this.label || this.label == '')
-      this.label = this.elementRef.nativeElement.innerText;
-  }
-}
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -69,33 +26,45 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class SelectComponent implements ControlValueAccessor {
 
-  @HostBinding() tabindex = 0;
+  @HostBinding('attr.tabindex')
+  tabindex = 0;
 
-  @ViewChild('dropdown') dropdown: DropdownComponent;
-  @ViewChild('select') select;
+  @ViewChild('dropdown')
+  dropdown: DropdownComponent;
 
-  @Input('expanded') expanded: boolean = false;
+  @ViewChild('select')
+  select: ElementRef;
 
-  @Input('items') items: DropdownItem[];
+  @Input('expanded')
+  expanded: boolean = false;
 
-  @ContentChildren(SelectOptionComponent) templateItems: QueryList<SelectOptionComponent>;
+  @Input('items')
+  items: DropdownItem[];
+
+  @ContentChildren(SelectOptionComponent)
+  templateItems: QueryList<SelectOptionComponent>;
 
   // multi-select
-  @Input() minSelectableItems: number = 1;
-  @Input() maxSelectableItems: number = 1;
+  @Input()
+  minSelectableItems: number = 0;
+  @Input()
+  maxSelectableItems: number = 1;
 
   // styling
-  @Input() expandedIcon: string = 'fa:chevron-up';
-  @Input() collapsedIcon: string = 'fa:chevron-down';
+  @Input()
+  expandedIcon: string = 'fa:chevron-up';
 
-  @Output('change') changeEE = new EventEmitter<any | any[]>(); // any[] if multi-select
+  @Input()
+  collapsedIcon: string = 'fa:chevron-down';
+
+  @Output('change')
+  change = new EventEmitter<any | any[]>(); // any[] if multi-select
 
   focused: boolean = false;
 
   constructor(
     private elementRef: ElementRef,
-    private zone: NgZone,
-    private cdref: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef
   ) { }
 
   @HostListener('keydown', ['$event'])
@@ -143,7 +112,7 @@ export class SelectComponent implements ControlValueAccessor {
     // transform template-items if available
     let templateItemsAr = this.templateItems.toArray();
     if (templateItemsAr.length > 0) {
-      this.items = templateItemsAr.map(i => i.createItem());
+      this.items = templateItemsAr.map((tItem, idx) => tItem.create(idx));
     }
   }
 
@@ -194,12 +163,16 @@ export class SelectComponent implements ControlValueAccessor {
           + this.select.nativeElement.offsetHeight;
         break;
     }
-    this.cdref.markForCheck();
+    this.cdRef.markForCheck();
   }
 
   get displayValue() {
     const item = this.selectedItems.shift();
-    return item && item.label || 'Select Value';
+    if (item) {
+      return item.label || String(item.value);
+    } else {
+      return 'Select Value';
+    }
   }
 
   get selectedItems(): DropdownItem[] {
@@ -215,10 +188,6 @@ export class SelectComponent implements ControlValueAccessor {
     this.dropdown.unselectItem(item);
   }
 
-  public selectItem(item: any) {
-    this.dropdown.selectItem(item);
-  }
-
   onDropdownChange(newValue: any[]) {
     if (this.maxSelectableItems <= 1)
       this.close();
@@ -227,7 +196,7 @@ export class SelectComponent implements ControlValueAccessor {
     !!this.onChangeCallback && this.onChangeCallback(newValue);
 
     // propagate value change
-    this.changeEE.emit(newValue);
+    this.change.emit(newValue);
 
     // refocus
     setTimeout(() => this.reFocus(), 0);
@@ -239,8 +208,8 @@ export class SelectComponent implements ControlValueAccessor {
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
   writeValue(value: any): void {
-    this.dropdown.value = value;
-    this.cdref.markForCheck();
+    this.dropdown.setValue(value);
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;

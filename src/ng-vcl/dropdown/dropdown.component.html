@@ -12,20 +12,21 @@
   -->
   <li
     *ngFor="let item of items"
-    (mousedown)="selectItem(item)"
     class="vclDropdownItem"
+    role="option"
+    [ngClass]="item.class"
     [class.vclHighlighted]="item.marked"
     [class.vclSelected]="item.selected"
-    [attr.aria-selected]="item.selected"
     [class.vclDisabled]="item.disabled"
-    role="option"
-    [ngClass]="item.class">
-    <div class="vclDropdownItemLabel">
+    [attr.aria-selected]="item.selected"
+    (mousedown)="selectItem(item)">
+    <div *ngIf="item.label" class="vclDropdownItemLabel">
       {{item.label}}
     </div>
-    <div class="vclDropdownItemSubLabel">
+    <div *ngIf="item.sublabel" class="vclDropdownItemSubLabel">
       {{item.sublabel}}
     </div>
+    <div *ngIf="item.content" [wormhole]="item.content"></div>
   </li>
 </ul>
 

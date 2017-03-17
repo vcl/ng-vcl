@@ -23,18 +23,40 @@
 <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [items]="items" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
 
 <br/>
-<h3>options via content-child:</h3>
+<h3>options via vcl-dropdown-option with content via label/sublabel:</h3>
 <button vcl-button (tap)="expand6()">Show/hide</button>
 <vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded6" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
-  <vcl-dropdown-option value="1">Item 1</vcl-dropdown-option>
-  <vcl-dropdown-option value="2" [selected]="true">Item 2 (preselected)</vcl-dropdown-option>
-  <vcl-dropdown-option value="3">Item 3</vcl-dropdown-option>
-  <vcl-dropdown-option value="4" [disabled]="true">Item 4</vcl-dropdown-option>
-  <vcl-dropdown-option value="5">Item 5</vcl-dropdown-option>
+  <vcl-dropdown-option value="1" label="Item 1"></vcl-dropdown-option>
+  <vcl-dropdown-option value="2" [selected]="true" label="Item 2" subLabel="(preselected)"></vcl-dropdown-option>
+  <vcl-dropdown-option value="3" label="Item 3"></vcl-dropdown-option>
+  <vcl-dropdown-option value="4" [disabled]="true" label="Item 4"></vcl-dropdown-option>
+  <vcl-dropdown-option value="5" label="Item 5"></vcl-dropdown-option>
+</vcl-dropdown>
+
+<br/>
+<h3>options via vcl-dropdown-option with custom content:</h3>
+<button vcl-button (tap)="expand7()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded7" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
+  <vcl-dropdown-option value="1">
+    <div class="vclDropdownItemLabel">Item 1</div>
+  </vcl-dropdown-option>
+  <vcl-dropdown-option value="2" [selected]="true">
+    <div class="vclDropdownItemLabel">Item 2</div>
+    <div class="vclDropdownItemSubLabel">(preselected)</div>
+  </vcl-dropdown-option>
+  <vcl-dropdown-option value="3">
+    <div class="vclDropdownItemLabel">Item 3</div>
+  </vcl-dropdown-option>
+  <vcl-dropdown-option value="4" [disabled]="true">
+    <div class="vclDropdownItemLabel">Item 4</div>
+  </vcl-dropdown-option>
+  <vcl-dropdown-option value="5">
+    <div class="vclDropdownItemLabel">Item 5</div>
+  </vcl-dropdown-option>
 </vcl-dropdown>
 
 <h3>single-select with ngModel:</h3>
-<button vcl-button (tap)="expand7()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(ngModel)]="item" [(expanded)]="expanded7" [items]="itemsNgModel" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
+<button vcl-button (tap)="expand8()">Show/hide</button>
+<vcl-dropdown (change)="onSelect($event)" [(ngModel)]="item" [(expanded)]="expanded8" [items]="itemsNgModel" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
 <br/>
 Current value: {{item}}
