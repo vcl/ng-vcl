@@ -34,6 +34,18 @@ export abstract class Wormhole extends WormholeRef {
   abstract setAttributes(attrs: WormholeAttributes);
 
   abstract get currentIndex(): number;
+
+  static create<T>(targetViewContainerRef: ViewContainerRef, component: Type<T>): Wormhole;
+  static create<T>(targetViewContainerRef: ViewContainerRef, templateRef: TemplateRef<T>): Wormhole;
+  static create<T>(targetViewContainerRef: ViewContainerRef, arg2: Type<T> | TemplateRef<T>): Wormhole {
+    if (typeof arg2 === 'function') {
+      return new ComponentWormhole(targetViewContainerRef, arg2);
+    } else if (arg2 instanceof TemplateRef) {
+      return new TemplateWormhole(targetViewContainerRef, arg2);
+    } else {
+      throw 'Parameter must be component class or templateRef';
+    }
+  }
 }
 
 export class TemplateWormhole extends Wormhole {
@@ -186,26 +198,13 @@ export class ComponentWormhole<T> extends Wormhole {
   }
 }
 
-
-export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, component: Type<T>): Wormhole;
-export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, templateRef: TemplateRef<T>): Wormhole;
-export function createWormhole<T>(targetViewContainerRef: ViewContainerRef, arg2: Type<T> | TemplateRef<T>): Wormhole {
-  if (typeof arg2 === 'function') {
-    return new ComponentWormhole(targetViewContainerRef, arg2);
-  } else if (arg2 instanceof TemplateRef) {
-    return new TemplateWormhole(targetViewContainerRef, arg2);
-  } else {
-    throw 'Parameter must be component class or templateRef';
-  }
-}
-
 export class WormholeManager {
   constructor(protected viewContainerRef: ViewContainerRef) { }
 
   connect<T>(component: Type<T>, opts?: WormholeOptions): WormholeRef;
   connect<T>(templateRef: TemplateRef<T>, opts?: WormholeOptions): WormholeRef;
   connect(target, opts?: WormholeOptions): WormholeRef {
-    const wormhole = createWormhole(this.viewContainerRef, target);
+    const wormhole = Wormhole.create(this.viewContainerRef, target);
     wormhole.connect(opts);
     return wormhole;
   }

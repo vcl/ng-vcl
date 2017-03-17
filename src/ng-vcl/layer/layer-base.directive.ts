@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
-import { Wormhole, createWormhole } from '../wormhole/index';
+import { Wormhole } from '../wormhole/index';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerOptions, LayerAttributes } from './layer-ref';
 import { LayerContainerComponent } from './layer-container.component';
@@ -46,7 +46,7 @@ export class LayerBaseComponent {
   }
 
   registerLayer(layer: LayerRef) {
-    const containerWormholeRef = createWormhole(this.viewContainerRef, LayerContainerComponent);
+    const containerWormholeRef = Wormhole.create(this.viewContainerRef, LayerContainerComponent);
     this.layerMap.set(layer, containerWormholeRef);
 
     const layerSub = layer.state$.subscribe((state) => {

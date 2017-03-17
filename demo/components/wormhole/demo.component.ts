@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input, ViewContainerRef } from '@angular/core';
-import { Wormhole, createWormhole } from '@ng-vcl/ng-vcl';
+import { Wormhole } from '@ng-vcl/ng-vcl';
 
 @Component({
   template: '<p>I am a component. And this is my <b>{{value}}</b></p>'
@@ -10,10 +10,9 @@ export class MyComponent {
 }
 
 @Component({
-  templateUrl: 'wormhole.component.html'
+  templateUrl: 'demo.component.html'
 })
-export class WormholeComponent {
-
+export class WormholeDemoComponent {
 
   // Template wormhole
   @ViewChild('myFirstWormhole')
@@ -26,11 +25,12 @@ export class WormholeComponent {
   componentWormhole: Wormhole;
 
   // This is the target where the component will be rendered
-  @ViewChild('target', { read: ViewContainerRef }) target;
+  @ViewChild('target', { read: ViewContainerRef })
+  target: ViewContainerRef;
 
   ngAfterViewInit() {
     // Create a wormhole
-    this.componentWormhole = createWormhole(this.target, MyComponent);
+    this.componentWormhole = Wormhole.create(this.target, MyComponent);
     // and connect it
     this.componentWormhole.connect({
       attrs: {

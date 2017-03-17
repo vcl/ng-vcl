@@ -1,9 +1,9 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, ModuleWithProviders, Injector, ViewContainerRef, Type } from '@angular/core';
-import { TemplateWormhole,  ComponentWormhole, Wormhole, WormholeAttributes, createWormhole, WormholeManager, WormholeRef } from './wormhole';
+import { TemplateWormhole,  ComponentWormhole, Wormhole, WormholeAttributes, WormholeManager, WormholeRef } from './wormhole';
 import { WormholeDirective } from './wormhole.directive';
 import { WormholeService } from './wormhole.service';
 
-export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, WormholeDirective, WormholeService, createWormhole, WormholeManager, WormholeRef };
+export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, WormholeDirective, WormholeService, WormholeManager, WormholeRef };
 
 export function bootstrapWormhole(ws: WormholeService) {
   return () => ws.resolve();

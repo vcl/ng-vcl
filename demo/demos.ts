@@ -27,7 +27,7 @@ import PROGRESS_BAR_DEMO from './components/progress-bar/progress-bar.demo';
 import TAB_NAV_DEMO from './components/tab-nav/tab-nav.demo';
 import NAVIGATION_DEMO from './components/navigation/navigation.demo';
 import TOOLBAR_DEMO from './components/toolbar/toolbar.demo';
-import WORMHOLE_DEMO from './components/wormhole/wormhole.demo';
+import WORMHOLE_DEMO from './components/wormhole/demo';
 import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 import MONTH_PICKER_DEMO from './components/month-picker/month-picker.demo';
 import DATE_PICKER_DEMO from './components/date-picker/date-picker.demo';
