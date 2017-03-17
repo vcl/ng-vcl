@@ -3,42 +3,69 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild
+  ViewChild,
+  HostBinding
 } from '@angular/core';
 
 @Component({
   selector: 'vcl-label',
   templateUrl: 'label.component.html',
   host: {
-    '[class.vclFormControlLabel]': 'true',
-    '[class]': 'labelClass',
+    '[class.vclFormControlLabel]': 'true'
   }
 })
 export class LabelComponent {
 
-  @Input('label') label: string;
-  @Input('subLabel') subLabel: string;
-  @Input('type') type: '' | 'primary' | 'sucess' | 'info' | 'warning' | 'error' = '';
+  @Input('label')
+  label: string | undefined;
 
-  @Input('requiredIndicatorCharacter') requiredIndicatorCharacter: string = '•';
-  @Input('required') required: boolean = false;
+  @Input('subLabel')
+  subLabel: string | undefined;
 
-  labelClass: string = '';
+  @Input('type')
+  type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
 
-  @Input('for') for: string = '';
+  @Input('requiredIndicatorCharacter')
+  requiredIndicatorCharacter: string = '•';
 
-  constructor() { }
+  @Input('required')
+  required: boolean = false;
 
-  ngOnInit() {
-    /**
-     * TODO(issue) this overwrites the users classes
-     * @link https://github.com/angular/angular/issues/7289
-     */
-    if (this.type != '') this.labelClass = 'vclLabel vcl' + this.ucfirst(this.type);
+  @Input('for')
+  for: string | undefined;
+
+  @HostBinding('class.vclLabel')
+  get vclLabel() {
+    return this.type;
   }
 
-  ucfirst(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+  /**
+   * TODO(issue) this overwrites the users classes
+   * @link https://github.com/angular/angular/issues/7289
+   */
+  // @HostBinding('class')
+  // get labelClass() {
+  //   return this.type ? 'vcl' + this.type.charAt(0).toUpperCase() + this.type.slice(1) : undefined;
+  // }
 
+  @HostBinding('class.vclPrimary')
+  get vclPrimary() {
+    return this.type === 'primary';
+  }
+  @HostBinding('class.vclSuccess')
+  get vclSuccess() {
+    return this.type === 'success';
+  }
+  @HostBinding('class.vclInfo')
+  get vclInfo() {
+    return this.type === 'info';
+  }
+  @HostBinding('class.vclWarning')
+  get vclWarning() {
+    return this.type === 'warning';
+  }
+  @HostBinding('class.vclError')
+  get vclError() {
+    return this.type === 'error';
+  }
 }

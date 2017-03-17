@@ -32,7 +32,7 @@ import OFF_CLICK_DEMO from './components/off-click/off-click.demo';
 import MONTH_PICKER_DEMO from './components/month-picker/month-picker.demo';
 import DATE_PICKER_DEMO from './components/date-picker/date-picker.demo';
 import JSON_EDITOR_DEMO from './components/json-editor/json-editor.demo';
-import LABEL_DEMO from './components/label/label.demo';
+import LABEL_DEMO from './components/label/demo';
 import TOKEN_DEMO from './components/token/token.demo';
 import SLIDER_DEMO from './components/slider/demo';
 // import JSS_FORM_DEMO from './components/jss-form/jss-form.demo';
