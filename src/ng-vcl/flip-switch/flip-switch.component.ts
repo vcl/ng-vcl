@@ -48,9 +48,8 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   }
 
   @HostListener('tap', ['$event'])
-  onClick() {
-    this.value = !this.value;
-    this.valueChange.emit(this.value);
+  onTap() {
+    this.toggle();
   }
 
   @HostListener('keydown', ['$event'])
@@ -58,21 +57,26 @@ export class FlipSwitchComponent implements ControlValueAccessor {
     switch (ev.code) {
       case 'Space':
         ev.preventDefault();
-        this.onClick();
+        this.toggle();
         break;
       case 'ArrowLeft':
+        ev.preventDefault();
         if (!this.value) {
-          ev.preventDefault();
-          this.onClick();
+          this.toggle();
         }
         break;
       case 'ArrowRight':
+        ev.preventDefault();
         if (this.value) {
-          ev.preventDefault();
-          this.onClick();
+          this.toggle();
         }
         break;
     }
+  }
+
+  toggle() {
+    this.value = !this.value;
+    this.valueChange.emit(this.value);
   }
 
   /**

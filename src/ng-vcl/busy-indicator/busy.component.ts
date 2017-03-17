@@ -14,5 +14,5 @@ export class BusyComponent {
   busyIndicatorType: string;
 
   @Input()
-  busyLabel: string | null = null;
+  busyLabel: string | undefined;
 }

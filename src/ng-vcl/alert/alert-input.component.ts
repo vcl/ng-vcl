@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewChild, Output, Input, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, Output, Input, EventEmitter, ElementRef } from '@angular/core';
 
 import { AlertOptions, AlertInput } from './types';
 
@@ -10,7 +10,8 @@ import { AlertOptions, AlertInput } from './types';
 })
 export class AlertInputComponent {
 
-  @ViewChild('input') input;
+  @ViewChild('input')
+  input: ElementRef;
 
   @Input()
   alert: AlertOptions = {};

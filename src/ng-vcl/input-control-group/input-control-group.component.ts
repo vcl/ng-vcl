@@ -14,11 +14,10 @@ import { Observable } from 'rxjs/Observable';
   },
   templateUrl: 'input-control-group.component.html'
 })
-export class InputControlGroup implements OnInit {
-
+export class InputControlGroup {
 
   @Input('type')
-  type: 'error' | 'warning' | 'success' | null = null;
+  type: 'error' | 'warning' | 'success' | undefined;
 
   @Input('label')
   label: string;
@@ -26,11 +25,6 @@ export class InputControlGroup implements OnInit {
   constructor(private elRef: ElementRef) {
     this.elRef = elRef;
   }
-
-  ngOnInit() { }
-  ngOnChanges(changes: any) { }
-
-  ngOnDestroy() { }
 
   ucfirst(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
