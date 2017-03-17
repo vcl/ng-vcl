@@ -29,8 +29,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
-  rbtnSub: Subscription;
-  rbSubs: Subscription[] = [];
+  checkedSubscription: Subscription | undefined;
 
   private _value: any;
 
@@ -86,13 +85,15 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
     // Subscribes to radio button change event
     const listenChange = () => {
       this.dispose();
-      this.rbSubs = this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.subscribe(() => {
+      const checked$ = Observable.merge(...(this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.map(() => ({rbtn, idx})))));
+
+      this.checkedSubscription = checked$.subscribe((source) => {
         this.radioButtons.forEach((crbtn) => {
-          crbtn.setChecked(crbtn === rbtn);
+          crbtn.setChecked(crbtn === source.rbtn);
         });
-        const newValue = rbtn.value === undefined ? idx : rbtn.value;
-        this.updateValue(newValue, rbtn);
-      }));
+        const newValue = source.rbtn.value === undefined ? source.idx : source.rbtn.value;
+        this.updateValue(newValue, source.rbtn);
+      });
     };
 
     listenChange();
@@ -103,14 +104,11 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
   ngOnDestroy() {
     this.dispose();
-    this.rbtnSub && this.rbtnSub.unsubscribe();
   }
 
   dispose() {
-    this.rbSubs.forEach(s => s.unsubscribe());
-    this.rbSubs = [];
+    this.checkedSubscription && this.checkedSubscription.unsubscribe();
   }
-
 
   updateRadioButtons() {
     if (this.radioButtons) {

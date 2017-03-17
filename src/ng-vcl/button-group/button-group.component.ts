@@ -32,7 +32,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
 
-  btnSubs: Subscription[] = [];
+  private pressSubscription: Subscription | undefined;
 
   // If `Single`, a single button from the group can be selected
   // If `Multiple` multipe buttons can be selected
@@ -88,7 +88,6 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
   @ContentChildren(ButtonComponent)
   buttons: QueryList<ButtonComponent>;
 
-
   ngAfterContentInit() {
     // When not using ngModel
     if (!this.onChangeCallback) {
@@ -106,7 +105,10 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
     // Subscribes to buttons press event
     const listenButtonPress = () => {
       this.dispose();
-      this.btnSubs = this.buttons.map((btn, idx) => btn.press.subscribe(() => {
+
+      const press$ = Observable.merge(...(this.buttons.map(btn => btn.press.map(() => btn))));
+
+      this.pressSubscription =  press$.subscribe(btn => {
         this.buttons.forEach((cbtn, idx) => {
           if (this.selectionMode === SelectionMode.Single) {
             // Mark one button on single mode
@@ -119,7 +121,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
 
         const newIndex = this.buttons.map((btn, i) => ({ i, btn }) ).filter(v => v.btn.selected).map(v => v.i);
         this.updateSelectedIndex(newIndex, btn);
-      }));
+      });
     };
 
     listenButtonPress();
@@ -133,8 +135,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
   }
 
   dispose() {
-    this.btnSubs.forEach(s => s.unsubscribe());
-    this.btnSubs = [];
+    this.pressSubscription && this.pressSubscription.unsubscribe();
   }
 
   updateButtons() {
