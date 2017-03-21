@@ -1,5 +1,19 @@
 # Changelog
 
+
+## 0.2.9 (2017-03-21)
+
+### Breaking Changes
+- vcl-plotly:
+  - renamed `@Input() elementId: string` to `@Input() plotId: string`
+
+### Changes
+- vcl-plotly:
+  - plot will only be displayed once it's rendered to the DOM
+  - added `restyle`, `relayout`, `update`, `redraw`, `recreate` wrapper functions
+  - updated README.md
+
+
 ## 0.2.1 (2017-03-01)
 
 Bugfix release
@@ -18,7 +32,7 @@ Bugfix release
 
 ### Changes
 
-- button-group: 
+- button-group:
   - Performance optimizations
   - Remove redundant (change) event => use (selectedIndexChange) instead
 
@@ -119,6 +133,6 @@ Bugfix release
 ## 2016-12-14 - 15979eb
 
 ### Breaking Changes
-- angular >= 2.3.0 required   
-- vcl-layer: The `<vcl-layer-base>` it added automatically to the app root   
+- angular >= 2.3.0 required
+- vcl-layer: The `<vcl-layer-base>` it added automatically to the app root
 - wormhole: Renamed directives to `wormhole`/`connectWormhole`
