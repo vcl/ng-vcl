@@ -1,3 +1,7 @@
+### 21.03.2017.
+
+Be aware of this [Plotly bug](https://github.com/plotly/plotly.js/issues/1492).
+
 # API
 
 ## Properties:
