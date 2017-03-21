@@ -26,34 +26,18 @@ import { Notification } from './notification';
     trigger('notificationState', [
       state('visible' , style({ opacity: 0.91 })),
       state('hovered' , style({ opacity: 1.0 })),
-      state('void' , style({ opacity: 0 })),
-
-      // TODO: leave animation not working
-      // layer needs some changes so it destroys the wormhole comp instead of removing it
-
-      transition('void => *', [
+      transition(':enter', [
+        style({opacity: 0}),
         animate('200ms ease-in')
       ]),
-      transition('* => void', [
+      transition(':leave', [
         animate('200ms ease-out', style({ opacity: 0 }))
       ]),
       transition('visible <=> hovered', animate('300ms'))
     ]),
-    trigger('enter', [
-      // state('*', style({opacity: 1})),
-      // transition(':enter', [
-      //   style({opacity: 0}),
-      //   animate('0.2s 0.5s ease-out')
-      // ]),
-      transition(':leave', [
-        animate(5000, style({opacity: 0}))
-      ])
-    ])
   ],
   host: {
-        '[class.testxx]': 'true',
-
-    '[@enter]': 'true'
+    '[@notificationState]': 'true'
   },
 })
 export class NotificationComponent  {
