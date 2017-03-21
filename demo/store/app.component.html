@@ -1,0 +1,22 @@
+<div class="vclLayoutVertical docMain">
+  <div class="vclContentArea vclLayoutFlex vclLayoutHorizontal">
+    <div class="vclScrollable vclLayoutFlex docContent">
+
+      <h3>Books</h3>
+      <div [vclBusy]='loading$ | async' style="min-height: 8em" >
+        <div class="vclInputGroup">
+          <input vcl-input [(ngModel)]="query">
+          <span class="vclInputGroupButton">
+            <button vcl-button (tap)="search()" class="vclSquare" appIcon="fa:search"></button>
+          </span>
+        </div>
+
+        <div *ngIf="error$ | async">{{error$ | async}}</div>
+        <ul *ngIf="books$ | async">
+          <li *ngFor="let book of books$ | async ">{{book}}</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

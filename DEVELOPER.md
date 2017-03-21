@@ -3,8 +3,10 @@
 ## Developing
 
 ```
-npm run dev
+npm run dev {arg}
 ```
+{arg} can be `ng-vcl`, `store` or `plotly`
+
 
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 

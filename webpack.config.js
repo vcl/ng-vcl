@@ -21,6 +21,7 @@ function root(__path = '.') {
 
 function webpackConfig(options) {
 
+  const demo = options.DEMO || 'ng-vcl';
   const ENV = options.ENV || 'development';
   const HMR = options.HMR === 'true' || options.HMR === true;
   const PORT = options.PORT || 3000;
@@ -30,7 +31,7 @@ function webpackConfig(options) {
     cache: true,
     devtool: 'source-map',
     entry: {
-      main:      './demo/main',
+      main:      './demo/' + demo,
       lib:    './demo/vendor',
       polyfills:    './demo/polyfills'
     },

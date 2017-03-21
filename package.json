@@ -6,7 +6,7 @@
     "lint": "npm-run-all lint:src lint:demo",
     "lint:src": "tslint './src/**/*.ts'",
     "lint:demo": "tslint './demo/**/*.ts'",
-    "dev": "npm-run-all dev:vcl --parallel dev:serve dev:styles",
+    "dev": "npm-run-all dev:vcl --parallel \"dev:serve -- --env.DEMO={*}\" dev:styles --",
     "dev:serve": "webpack-dev-server --config webpack.config.js --env.ENV development --env.HMR true",
     "dev:vcl": "vcl-preprocessor demo/styles/index.styl | postcss --use autoprefixer -o demo/app.css",
     "dev:styles": "fsmonitor -d 'demo/styles' npm run dev:vcl",
