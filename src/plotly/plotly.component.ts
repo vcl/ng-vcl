@@ -1,21 +1,46 @@
-import { Component, Input, SimpleChange } from '@angular/core';
+import { Component, Input, SimpleChange, } from '@angular/core';
 import * as Plotly from 'plotly.js';
+
+const PlotlyParameters = {
+  Data: 'data',
+  Layout: 'layout',
+  Configuration: 'configuration',
+  Events: 'events',
+};
+
+const PlotlyEvents = {
+  AfterPlot: 'plotly_afterplot',
+};
+
+enum ChangeAction {
+  Restyle,
+  Relayout,
+  Update,
+  Redraw,
+  Recreate,
+}
 
 @Component({
   selector: 'vcl-plotly',
-  templateUrl: './plotly.component.html'
+  templateUrl: './plotly.component.html',
 })
 export class PlotlyComponent {
-  private static readonly Tag = 'PlotlyComponent';
-  private static readonly PlotlyFields: string[] = ['data', 'layout', 'configuration', 'events'];
-  private static readonly RecreateFields: string[] = ['elementId', 'plotClass', 'configuration', 'events'];
+  private static readonly Tag: string = 'PlotlyComponent';
+  private static readonly RecreateFields: string[] = [
+    'plotId',
+    'plotClass',
+    PlotlyParameters.Configuration,
+    PlotlyParameters.Events
+  ];
 
   private tag: string;
-  private initialized = false;
+  private changeAction: ChangeAction;
 
-  private plot: any;
+  public plot/*: HTMLElement */;
+  public afterPlot: boolean = false;
+
   @Input() private debug = false;
-  @Input() private elementId: string;
+  @Input() private plotId: string;
   @Input() private plotClass: string;
   @Input() private data: any[];
   @Input() private layout: any;
@@ -23,90 +48,137 @@ export class PlotlyComponent {
   @Input() private events: any;
 
   private ngOnInit(): void {
-    this.tag = `${PlotlyComponent.Tag}.${this.elementId}`;
+    this.tag = `${PlotlyComponent.Tag}.${this.plotId}`;
   }
 
   private ngAfterViewInit(): void {
-    const tag = `${this.tag}.ngAfterViewInit()`;
-    if (this.debug) console.log(tag, `initializting`);
+    const tag: string = `${this.tag}.ngAfterViewInit()`;
+    if (this.debug) console.log(tag);
     setTimeout(() => {
-      Plotly.newPlot(this.elementId, this.data, this.layout, this.configuration);
-      this.plot = document.getElementById(this.elementId);
+      Plotly.newPlot(this.plotId, this.data, this.layout, this.configuration);
+      this.plot = document.getElementById(this.plotId);
+
+      this.plot.on(PlotlyEvents.AfterPlot, () => {
+        if (this.debug) console.log(`${this.tag}.${PlotlyEvents.AfterPlot}()`);
+        this.afterPlot = true;
+      });
+
       this.attachEventListeners(this.events);
-      this.initialized = true;
-      if (this.debug) console.log(tag, `initialized, this:`, this);
-    }, 0);
+    });
   }
 
   private attachEventListeners(events: any): void {
-    const tag = `${this.tag}.attachEventListeners()`;
-    if (this.debug) console.log(tag, `events:`, events);
+    const tag: string = `${this.tag}.attachEventListeners()`;
+    if (this.debug) console.log(tag, 'events:', events);
     Object.keys(events || {}).forEach(k => {
+      const tag: string = `${this.tag}.${k}()`;
       this.plot.on(k, (data, event) => {
-        if (this.debug) console.log(tag, `called event '${k}'`);
-        events[k](data, event, this.elementId, this.plot, Plotly);
+        if (this.debug) console.log(tag);
+        events[k](data, event, this.plotId, this.plot, Plotly);
       });
     });
-    if (this.debug) console.log(tag, `this:`, this);
   }
 
-  public addTraces(traces: any | any[], index: number = this.data.length): void {
-    const tag = `${this.tag}.addTraces()`;
-    if (this.debug) console.log(tag, `traces (`, traces, `) index (${index})`);
+  private ngOnChanges(changes): void {
+    const tag: string = `${this.tag}.ngOnChanges()`;
+    if (!this.plot) {
+      if (this.debug) console.log(tag, 'ignoring changes, plot not yet once initialized');
+      return;
+    }
+    if (this.debug) console.log(tag, 'changes:', changes);
+    const changedKeys: string[] = Object.keys(changes);
+
+    if (includes(changedKeys, PlotlyParameters.Layout)) {
+      this.changeAction = ChangeAction.Relayout;
+    }
+
+    if (includes(changedKeys, PlotlyParameters.Data)) {
+      this.changeAction = ChangeAction.Redraw;
+    }
+
+    if (includesArr(changedKeys, PlotlyComponent.RecreateFields)) {
+      this.changeAction = ChangeAction.Recreate;
+    }
+
+    setTimeout(() => this.applyChanges());
+  }
+
+  private applyChanges(): void {
+    const tag: string = `${this.tag}.applyChanges()`;
+    if (this.debug) console.log(tag, 'this:', this);
+    switch (this.changeAction) {
+      case ChangeAction.Relayout:
+        this.relayout();
+        return;
+      case ChangeAction.Redraw:
+        this.redraw();
+        return;
+      case ChangeAction.Recreate:
+        this.recreate();
+        return;
+    }
+    this.changeAction = undefined;
+  }
+
+  public restyle(update, traces?: number[]): void {
+    const tag: string = `${this.tag}.restyle()`;
+    if (this.debug) console.log(tag, 'update:', update);
+    if (this.debug) console.log(tag, 'traces:', traces === undefined ? 'all' : traces);
+    Plotly.restyle(this.plot, update, traces);
+  }
+
+  public relayout(layout: any = this.layout): void {
+    const tag: string = `${this.tag}.relayout()`;
+    if (this.debug) console.log(tag, 'layout:', layout);
+    Plotly.relayout(this.plot, layout);
+  }
+
+  public update(dataUpdate, layoutUpdate): void {
+    const tag: string = `${this.tag}.update()`;
+    if (this.debug) console.log(tag, 'dataUpdate:', dataUpdate);
+    if (this.debug) console.log(tag, 'layoutUpdate:', layoutUpdate);
+    Plotly.update(this.plot, dataUpdate, layoutUpdate);
+  }
+
+  public redraw(): void {
+    const tag: string = `${this.tag}.redraw()`;
+    if (this.debug) console.log(tag);
+    this.plot.data = this.data;
+    this.plot.layout = this.layout;
+    Plotly.redraw(this.plot);
+  }
+
+  public recreate(): void {
+    const tag: string = `${this.tag}.recreate()`;
+    if (this.debug) console.log(tag);
+    this.ngAfterViewInit();
+  }
+
+  public addTraces(traces: any | any[], index?: number): void {
+    const tag: string = `${this.tag}.addTraces()`;
+    if (this.debug) console.log(tag, 'traces:', traces);
+    if (this.debug) console.log(tag, 'index:', index);
     Plotly.addTraces(this.plot, traces, index);
+    // Issue: https://github.com/plotly/plotly.js/issues/1492
+    // this.data = [
+    //   ...this.data.slice(0, index),
+    //   ...(Array.isArray(traces) ? traces : [traces]),
+    //   ...this.data.slice(index),
+    // ];
+    // this.dataChange.emit(this.data);
   }
 
   public deleteTraces(traces: number | number[]): void {
-    const tag = `${this.tag}.deleteTraces()`;
-    if (this.debug) console.log(tag, `traces:`, traces);
+    const tag: string = `${this.tag}.deleteTraces()`;
+    if (this.debug) console.log(tag, 'traces:', traces);
     Plotly.deleteTraces(this.plot, traces);
-  }
-
-  private ngOnChanges(changes: any): void {
-    const tag = `${this.tag}.ngOnChanges()`;
-    if (this.debug) console.log(tag, `changes:`, changes);
-    if (!this.initialized || !this.plot) {
-      if (this.debug) console.log(tag, `ignored changes (initialized - ${this.initialized}, plot - ${this.plot})`);
-      return;
-    }
-
-    // Apply changes.
-    const changedKeys: string[] = Object.keys(changes);
-    changedKeys.forEach(k => {
-      const change: SimpleChange = changes[k];
-      if (change.previousValue !== change.currentValue) {
-        if (this.debug) console.log(tag, `${k} changed from`, change.previousValue, 'to', change.currentValue);
-        this[k] = change.currentValue;
-
-        const plotlyField: boolean = includes(PlotlyComponent.PlotlyFields, k);
-        if (plotlyField) {
-          this.plot[k] = this[k];
-        }
-
-        // It looks like either on purpose or due to a bug, the shapes in layout get
-        // ignored (and removed) from the layout object on 'relayout' call.
-        // This forces a redraw.
-        if (k === 'layout' && change.currentValue.shapes) {
-          changedKeys.push('shapes');
-        }
-      }
-    });
-
-    if (includesArr(changedKeys, PlotlyComponent.RecreateFields)) {
-      // Recreate the plot on RecreateFields.
-      if (this.debug) console.log(tag, `re-creating, this:`, this);
-      this.ngAfterViewInit();
-    } else if (changedKeys.length === 1 && includes(changedKeys, 'layout')) {
-      // If only the layout was changed, relayout.
-      if (this.debug) console.log(tag, `re-layouting, this:`, this);
-      Plotly.relayout(this.plot, this.layout);
-    } else {
-      // Redraw the plot (data or shapes changed).
-      if (this.debug) console.log(tag, `re-drawing, this:`, this);
-      Plotly.redraw(this.plot);
-    }
+    // Issue: https://github.com/plotly/plotly.js/issues/1492
+    // const traceArr: number[] = Array.isArray(traces) ? traces : [traces];
+    // this.data = this.data.filter((v, i) => !traceArr.find(index => index === i));
+    // this.dataChange.emit(this.data);
   }
 }
+
 
 function includes(arr: any[], val: any): boolean {
   return arr.indexOf(val) !== -1;

@@ -1,1 +1,6 @@
-<div id="{{ elementId }}" class="{{ plotClass }}"></div>
+<div [class.vclLayoutHidden]="!afterPlot">
+  <div
+    id="{{ plotId }}"
+    class="{{ plotClass }}">
+  </div>
+</div>
