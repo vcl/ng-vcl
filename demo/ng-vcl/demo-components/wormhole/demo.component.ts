@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input, ViewContainerRef } from '@angular/core';
-import { Wormhole } from '@ng-vcl/ng-vcl';
+import { Wormhole, WormholeHost } from '@ng-vcl/ng-vcl';
 
 @Component({
   template: '<p>I am a component. And this is my <b>{{value}}</b></p>'
@@ -21,18 +21,17 @@ export class WormholeDemoComponent {
 
   // Component wormhole
 
-  // The reference to when connection to a ViewContainerRef
-  componentWormhole: Wormhole;
-
   // This is the target where the component will be rendered
   @ViewChild('target', { read: ViewContainerRef })
-  target: ViewContainerRef;
+  set target(vcRef: ViewContainerRef) {
+    this.host =  new WormholeHost(vcRef);
+  }
+
+  host: WormholeHost;
 
   ngAfterViewInit() {
-    // Create a wormhole
-    this.componentWormhole = Wormhole.create(this.target, MyComponent);
-    // and connect it
-    this.componentWormhole.connect({
+    // Create and connect wormhole
+    this.host.connectWormhole(MyComponent, {
       attrs: {
         value: 'value'
       }
@@ -40,8 +39,8 @@ export class WormholeDemoComponent {
   }
 
   ngOnDestroy() {
-    if (this.componentWormhole) {
-      this.componentWormhole.disconnect();
+    if (this.host) {
+      this.host.clearWormholes();
     }
   }
 }

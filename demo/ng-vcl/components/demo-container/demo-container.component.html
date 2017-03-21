@@ -3,7 +3,7 @@
   <vcl-tab-nav borders=true>
     <vcl-tab *ngFor="let tab of tabs">
       <template vcl-tab-label>{{tab.name}}</template>
-      <div *ngIf="tab.type==='component'" [wormhole]="tab.content"></div>
+      <wormhole *ngIf="tab.type==='component'" [connect]="tab.content"></wormhole>
       <markdown *ngIf="tab.type==='markdown'" [markdown]="tab.content"></markdown>
       <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
       <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div>

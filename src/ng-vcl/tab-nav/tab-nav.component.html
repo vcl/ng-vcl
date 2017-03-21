@@ -9,7 +9,7 @@
          [class.aria-selected]="selectedTabIndex===i"
          (tap)="selectTab(tab)">
         <span class="vclTabLabel"> 
-          <div [wormhole]="tab.label"></div>
+          <wormhole [connect]="tab.label"></wormhole>
         </span>
     </div>
   </div>

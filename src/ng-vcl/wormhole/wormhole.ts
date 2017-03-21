@@ -20,13 +20,14 @@ export interface WormholeOptions {
   events?: string[];
 }
 
-export abstract class WormholeRef {
-  abstract get isConnected(): boolean;
-  abstract disconnect();
-  abstract setAttributes(attrs: WormholeAttributes);
-}
+export abstract class Wormhole {
+  // The wormhole directive needs a reference to the template
+  constructor(protected viewContainerRef: ViewContainerRef) {
+    if (!viewContainerRef) {
+      throw 'missing ViewContainerRef';
+    }
+  }
 
-export abstract class Wormhole extends WormholeRef {
   abstract get isConnected(): boolean;
 
   abstract connect(opts?: WormholeOptions): Observable<WormholeEvent>;
@@ -34,18 +35,6 @@ export abstract class Wormhole extends WormholeRef {
   abstract setAttributes(attrs: WormholeAttributes);
 
   abstract get currentIndex(): number;
-
-  static create<T>(targetViewContainerRef: ViewContainerRef, component: Type<T>): Wormhole;
-  static create<T>(targetViewContainerRef: ViewContainerRef, templateRef: TemplateRef<T>): Wormhole;
-  static create<T>(targetViewContainerRef: ViewContainerRef, arg2: Type<T> | TemplateRef<T>): Wormhole {
-    if (typeof arg2 === 'function') {
-      return new ComponentWormhole(targetViewContainerRef, arg2);
-    } else if (arg2 instanceof TemplateRef) {
-      return new TemplateWormhole(targetViewContainerRef, arg2);
-    } else {
-      throw 'Parameter must be component class or templateRef';
-    }
-  }
 }
 
 export class TemplateWormhole extends Wormhole {
@@ -53,11 +42,9 @@ export class TemplateWormhole extends Wormhole {
   viewRef: EmbeddedViewRef<any> | null;
 
   // The wormhole directive needs a reference to the template
-  constructor(private viewContainerRef: ViewContainerRef, private templateRef: TemplateRef<any>) {
-    super();
-    if (!viewContainerRef) {
-      throw 'missing ViewContainerRef';
-    } else if (!(templateRef instanceof TemplateRef)) {
+  constructor(viewContainerRef: ViewContainerRef, private templateRef: TemplateRef<any>) {
+    super(viewContainerRef);
+    if (!(templateRef instanceof TemplateRef)) {
       throw 'invalid TemplateRef';
     }
   }
@@ -112,11 +99,9 @@ export class ComponentWormhole<T> extends Wormhole {
   private cachedAttrs: any = null;
   compRef: ComponentRef<T> | null;
 
-  constructor(private viewContainerRef: ViewContainerRef, private componentClass: Type<T>) {
-    super();
-    if (!viewContainerRef) {
-      throw 'missing ViewContainerRef';
-    } else if (!(typeof componentClass === 'function' )) {
+  constructor(viewContainerRef: ViewContainerRef, private componentClass: Type<T>) {
+    super(viewContainerRef);
+    if (!(typeof componentClass === 'function' )) {
       throw 'invalid component class';
     }
   }
@@ -198,14 +183,3 @@ export class ComponentWormhole<T> extends Wormhole {
   }
 }
 
-export class WormholeManager {
-  constructor(protected viewContainerRef: ViewContainerRef) { }
-
-  connect<T>(component: Type<T>, opts?: WormholeOptions): WormholeRef;
-  connect<T>(templateRef: TemplateRef<T>, opts?: WormholeOptions): WormholeRef;
-  connect(target, opts?: WormholeOptions): WormholeRef {
-    const wormhole = Wormhole.create(this.viewContainerRef, target);
-    wormhole.connect(opts);
-    return wormhole;
-  }
-}

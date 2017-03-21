@@ -1,6 +1,6 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLWormholeModule, WormholeService } from '../wormhole/index';
+import { VCLWormholeModule, DomWormholeHost } from '../wormhole/index';
 import { LayerBaseComponent } from './layer-base.directive';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerAttributes } from './layer-ref';
@@ -17,12 +17,6 @@ export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerAttributes, LayerS
 })
 export class LayerBaseRootComponent { }
 
-export function bootstrapBase(wormholeService: WormholeService) {
-  return () => {
-    wormholeService.attachComponentToRoot(LayerBaseRootComponent);
-  };
-}
-
 export function bootstrapLayer(layerService: LayerService, layer: LayerRef) {
   return () => {
     layerService.register(layer);
@@ -30,18 +24,15 @@ export function bootstrapLayer(layerService: LayerService, layer: LayerRef) {
 }
 
 @NgModule({
-  imports: [CommonModule, VCLWormholeModule],
+  imports: [
+    CommonModule,
+    VCLWormholeModule.withRootComponents(LayerBaseRootComponent)
+  ],
   exports: [LayerBaseComponent, LayerRefDirective, LayerContainerComponent],
   declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerContainerComponent],
   entryComponents: [ LayerBaseRootComponent,  LayerContainerComponent],
   providers: [
     LayerService,
-    {
-      provide: APP_BOOTSTRAP_LISTENER,
-      multi: true,
-      deps: [ WormholeService ],
-      useFactory: bootstrapBase
-    },
     {
       provide: LayerRef,
       useValue: null

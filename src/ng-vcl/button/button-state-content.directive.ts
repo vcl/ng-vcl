@@ -1,13 +1,14 @@
 import { ViewContainerRef, Directive, TemplateRef, Input, EmbeddedViewRef } from '@angular/core';
-import { Wormhole } from "../wormhole/index";
+import { Wormhole, WormholeHost } from "../wormhole/index";
 
 @Directive({
   selector: '[vclButtonStateContent]'
 })
-export class ButtonStateContentDirective {
+export class ButtonStateContentDirective extends WormholeHost {
   private wormhole: Wormhole;
-  constructor(viewContainerRef: ViewContainerRef, tempRef: TemplateRef<any>) {
-     this.wormhole = Wormhole.create(viewContainerRef, tempRef);
+  constructor(viewContainerRef: ViewContainerRef, private tempRef: TemplateRef<any>) {
+    super(viewContainerRef);
+    this.wormhole = this.createWormhole(this.tempRef);
   }
 
   @Input('vclButtonStateContent')

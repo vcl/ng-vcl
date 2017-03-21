@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
-import { Wormhole } from '../wormhole/index';
+import { Wormhole, WormholeHost } from '../wormhole/index';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerOptions, LayerAttributes } from './layer-ref';
 import { LayerContainerComponent } from './layer-container.component';
@@ -11,7 +11,7 @@ import { LayerContainerComponent } from './layer-container.component';
 @Directive({
   selector: 'vcl-layer-base',
 })
-export class LayerBaseComponent {
+export class LayerBaseComponent extends WormholeHost {
 
   layerMap = new Map<LayerRef, Wormhole>();
   layerSubscriptions = new Map<LayerRef, Subscription>();
@@ -25,7 +25,7 @@ export class LayerBaseComponent {
   @Input()
   public zIndex: number = 1000;
 
-  constructor(private layerService: LayerService, private viewContainerRef: ViewContainerRef) { }
+  constructor(private layerService: LayerService, viewContainerRef: ViewContainerRef) { super(viewContainerRef); }
 
   ngOnInit() {
     this.layerService.registerBase(this);
@@ -46,7 +46,7 @@ export class LayerBaseComponent {
   }
 
   registerLayer(layer: LayerRef) {
-    const containerWormholeRef = Wormhole.create(this.viewContainerRef, LayerContainerComponent);
+    const containerWormholeRef = this.createWormhole(LayerContainerComponent);
     this.layerMap.set(layer, containerWormholeRef);
 
     const layerSub = layer.state$.subscribe((state) => {
@@ -84,6 +84,7 @@ export class LayerBaseComponent {
   }
 
   ngOnDestroy() {
+    this.clearWormholes();
     this.layerService.unregisterBase(this);
     this.layerMap.forEach(layer => layer.disconnect());
     if (this.sub) this.sub.unsubscribe();

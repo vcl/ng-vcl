@@ -1,25 +1,16 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, ModuleWithProviders, Injector, ViewContainerRef, Type } from '@angular/core';
-import { TemplateWormhole,  ComponentWormhole, Wormhole, WormholeAttributes, WormholeManager, WormholeRef } from './wormhole';
+import { TemplateWormhole,  ComponentWormhole, Wormhole, WormholeAttributes } from './wormhole';
 import { WormholeDirective } from './wormhole.directive';
-import { WormholeService } from './wormhole.service';
+import { WormholeHost } from "./wormhole-host";
+import { DomWormholeHost } from "./dom-wormhole-host";
 
-export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, WormholeDirective, WormholeService, WormholeManager, WormholeRef };
-
-export function bootstrapWormhole(ws: WormholeService) {
-  return () => ws.resolve();
-}
+export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, WormholeDirective, DomWormholeHost, WormholeHost };
 
 @NgModule({
   exports: [WormholeDirective],
   declarations: [WormholeDirective],
   providers: [
-    WormholeService,
-    {
-      provide: APP_BOOTSTRAP_LISTENER,
-      multi: true,
-      deps: [ WormholeService ],
-      useFactory: bootstrapWormhole
-    }
+    DomWormholeHost
   ]
 })
 export class VCLWormholeModule {
@@ -30,10 +21,10 @@ export class VCLWormholeModule {
         {
           provide: APP_BOOTSTRAP_LISTENER,
           multi: true,
-          deps: [ WormholeService ],
-          useFactory: (wormholeService: WormholeService) => {
+          deps: [ DomWormholeHost ],
+          useFactory: (host: DomWormholeHost) => {
             return () => {
-              components.forEach(componentClass => wormholeService.attachComponentToRoot(componentClass));
+              components.forEach(componentClass => host.attachComponentToRoot(componentClass));
             };
           }
         }

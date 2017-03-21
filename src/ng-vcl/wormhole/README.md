@@ -1,6 +1,6 @@
-# wormhole directive
+# wormhole
 
-The wormhole directive allows to render a template somewhere else in the DOM.
+The wormhole directive allows to render templates and components in the DOM.
 
 ## Usage:
 
@@ -23,22 +23,8 @@ Use the the `wormhole` directive to create a wormhole template...
 ```
 
 ...and connect it via the wormholeTarget directive.
-The wormhole template is rendered within the element.
+The template is rendered below the wormhole directive.
 ```html
-<div [wormhole]="myFirstWormhole">
-  <!-- The myFirstWormhole template is rendered here -->
-</div>
-
-```
-
-Get a reference to the generated wormhole by using the @ViewChild(ren)/@ContentChild(ren) decorators
-```js
-
-@Component(...)
-class MyComp {
-  ...
-  @ViewChild('myFirstWormhole')
-  myFirstWormhole;
-  ...
-}
+<wormhole [connect]="myFirstWormhole"></wormhole>
+<!-- The myFirstWormhole template is rendered here -->
 ```

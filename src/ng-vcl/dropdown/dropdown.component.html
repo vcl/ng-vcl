@@ -26,7 +26,7 @@
     <div *ngIf="item.sublabel" class="vclDropdownItemSubLabel">
       {{item.sublabel}}
     </div>
-    <div *ngIf="item.content" [wormhole]="item.content"></div>
+    <wormhole *ngIf="item.content" [connect]="item.content"></wormhole>
   </li>
 </ul>
 
