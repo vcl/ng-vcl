@@ -34,7 +34,7 @@ export class PlotlyComponent {
   ];
 
   private tag: string;
-  private changeAction: ChangeAction;
+  private changeAction: ChangeAction | undefined;
 
   public plot/*: HTMLElement */;
   public afterPlot: boolean = false;
