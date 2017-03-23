@@ -15,7 +15,7 @@
 <p>Selected index: {{idx2}}</p>
 
 
-<h3>SelectionMode: Multiple, preselected via attribute (does not support ngModel directive)</h3>
+<h3>SelectionMode: Multiple, preselected via attribute (not supported when using ngModel directive)</h3>
 <vcl-button-group [(selectedIndex)]="idx3" mode="multiple">
   <button vcl-button (tap)="buttonClick($event)" label="Action 1" [selected]="true"></button>
   <button vcl-button (tap)="buttonClick($event)" label="Action 2" [selected]="true"></button>
