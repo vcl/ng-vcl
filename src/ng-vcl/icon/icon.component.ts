@@ -12,7 +12,7 @@ import { IconService } from './icon.service';
 export class IconComponent {
 
   @Input() src: string | undefined;
-  @Input() svguse: string | undefined;
+  // @Input() svguse: string | undefined;
   @Input() iconClass: string | undefined;
   @Input() icon: string | undefined;
 
