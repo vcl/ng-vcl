@@ -14,7 +14,7 @@ export interface DropdownItem {
 
 @Component({
   selector: 'vcl-dropdown-option',
-  template: '<template><ng-content></ng-content></template>'
+  template: '<ng-template><ng-content></ng-content></ng-template>'
 })
 export class DropdownOptionComponent implements DropdownItem {
 

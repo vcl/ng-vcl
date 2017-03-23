@@ -14,10 +14,10 @@
   "peerDependencies": {
     "@angular/common": "^2.3.0",
     "@angular/core": "^2.3.0",
-    "@ng-vcl/ng-vcl": "^0.2.0",
+    "@ng-vcl/ng-vcl": "^0.3.0",
     "rxjs": "^5.0.3"
   },
   "dependencies": {
-    "plotly.js": "^1.22.0"
+    "plotly.js": "^1.25.0"
   }
 }

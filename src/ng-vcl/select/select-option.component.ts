@@ -8,7 +8,7 @@ import { DropdownItem, DropdownComponent, DropdownOptionComponent } from '../dro
  */
 @Component({
   selector: 'vcl-select-option',
-  template: '<template><ng-content></ng-content></template>'
+  template: '<ng-template><ng-content></ng-content></ng-template>'
 })
 export class SelectOptionComponent extends DropdownOptionComponent {
 

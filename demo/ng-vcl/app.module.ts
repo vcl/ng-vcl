@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { VCLModule, L10nModule, L10nStaticLoaderService } from '@ng-vcl/ng-vcl';
 import { vclCheckboxAnimations, vclLayerAnimations, vclPopoverAnimations, vclTokenAnimations, vclNotificationAnimations } from '@ng-vcl/animations';
@@ -27,6 +28,7 @@ vclNotificationAnimations();
   imports: [
     FormsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     routing,
     VCLModule,

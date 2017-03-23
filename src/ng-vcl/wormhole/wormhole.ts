@@ -168,13 +168,15 @@ export class ComponentWormhole<T> extends Wormhole {
     this.cachedAttrs = attrs;
     if (this.compRef && attrs && typeof attrs === 'object') {
       Object.assign(this.compRef.instance, attrs);
-      this.compRef.changeDetectorRef.markForCheck();
       // TODO: Change detection is not triggering when changedetection is set to onPush
-      // Workaround
+      // Workaround for ng 4
       // https://github.com/angular/angular/issues/12313
-      if (this.compRef.changeDetectorRef['internalView'] && this.compRef.changeDetectorRef['internalView']['compView_0']) {
-        this.compRef.changeDetectorRef['internalView']['compView_0'].markAsCheckOnce();
+      const cdRef = this.compRef.changeDetectorRef;
+      if (cdRef && cdRef['_view'] && cdRef['_view'].nodes[0] && cdRef['_view'].nodes[0].componentView) {
+        this.compRef.changeDetectorRef['_view'].nodes[0].componentView.state |= (1 << 1);
       }
+
+      this.compRef.changeDetectorRef.markForCheck();
     }
   }
 

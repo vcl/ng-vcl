@@ -2,12 +2,11 @@ import { Component,
   Input, Output, OnInit,
   HostBinding, HostListener,
   OnChanges, SimpleChanges, EventEmitter,
-  ElementRef, forwardRef, trigger, state, style, transition, animate, keyframes,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy, forwardRef, ElementRef
 } from '@angular/core';
+import { trigger } from '@angular/animations';
 import { Observable } from 'rxjs/Observable';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

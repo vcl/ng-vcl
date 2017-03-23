@@ -1,11 +1,11 @@
 <vcl-metalist [items]="items" [meta]="metaInformation" #metalist>
-  <template let-item="item" let-meta="meta">
+  <ng-template let-item="item" let-meta="meta">
     <div (tap)="select(meta)">
       Some HTML // {{item.name}}
       <span *ngIf="meta && meta.selected"> // selected</span>
       <span *ngIf="meta && meta.marked"> // marked</span>
     </div>
-  </template>
+  </ng-template>
 </vcl-metalist>
 
 <button vcl-button (tap)="metalist.prev()">prev</button>

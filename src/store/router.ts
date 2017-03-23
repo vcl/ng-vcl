@@ -35,9 +35,8 @@ export class StoreRouterEffects {
   private routerSub = this.router
                   .events
                   .filter((event) => event instanceof NavigationEnd)
-                  .map(event => event.url)
-                  .subscribe(url => {
-                    this.store.dispatch(new RouterUrlUpdateAction(url));
+                  .subscribe((event: NavigationEnd) => {
+                    this.store.dispatch(new RouterUrlUpdateAction(event.url));
                   });
 
   @Effect()

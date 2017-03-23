@@ -36,7 +36,7 @@
 
     <div class="vclSeparator"></div>
 
-    <template ngFor let-iM [ngForOf]="months" let-i="index">
+    <ng-template ngFor let-iM [ngForOf]="months" let-i="index">
       <div *ngIf="i % monthsPerRow === 0" class="vclLayoutFlex vclDGRow vclLayoutAuto" role="row">
         <div *ngFor="let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;"
           (tap)="selectMonth(currentYear, i+j)"
@@ -57,6 +57,6 @@
             </div>
         </div>
       </div>
-    </template>
+    </ng-template>
   </div>
 </div>

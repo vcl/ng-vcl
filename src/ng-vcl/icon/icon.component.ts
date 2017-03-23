@@ -11,18 +11,18 @@ import { IconService } from './icon.service';
 })
 export class IconComponent {
 
-  @Input() src: string;
-  @Input() svguse: string;
-  @Input() iconClass: string;
-  @Input() icon: string;
+  @Input() src: string | undefined;
+  @Input() svguse: string | undefined;
+  @Input() iconClass: string | undefined;
+  @Input() icon: string | undefined;
 
   @HostBinding('attr.aria-label')
   @Input()
-  label: string;
+  label: string | undefined;
 
   @HostBinding('attr.role')
   @Input()
-  ariaRole: string;
+  ariaRole: string | undefined;
 
   constructor(private _iconService: IconService) { }
 

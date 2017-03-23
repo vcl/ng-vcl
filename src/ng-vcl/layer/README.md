@@ -11,7 +11,7 @@ It can be created as a template using the `vcl-layer directive or from a compone
 
 #### Template layer
 ```html
-<template vcl-layer #myTemplateLayer="layer" [modal]="true">
+<ng-template vcl-layer #myTemplateLayer="layer" [modal]="true">
   <div class="vclPanel vclNoMargin">
     <div class="vclPanelHeader">
       <h3 class="vclPanelTitle">Title</h3>
@@ -23,7 +23,7 @@ It can be created as a template using the `vcl-layer directive or from a compone
       </p>
     </div>
   </div>
-</template>
+</ng-template>
 ```
 
 #### Component layer

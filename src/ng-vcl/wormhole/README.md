@@ -17,9 +17,9 @@ export class AppComponent {}
 Use the the `wormhole` directive to create a wormhole template...
 ```html
 
-<template #myFirstWormhole>
+<ng-template #myFirstWormhole>
   I will be rendered through a wormhole
-</template>
+</ng-template>
 ```
 
 ...and connect it via the wormholeTarget directive.

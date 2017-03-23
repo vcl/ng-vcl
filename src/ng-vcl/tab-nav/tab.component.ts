@@ -5,7 +5,7 @@ export class TabLabelDirective { }
 
 @Component({
   selector: 'vcl-tab',
-  template: '<template><ng-content></ng-content></template>'
+  template: '<ng-template><ng-content></ng-content></ng-template>'
 })
 export class TabComponent {
   @ContentChild(TabLabelDirective, { read: TemplateRef })

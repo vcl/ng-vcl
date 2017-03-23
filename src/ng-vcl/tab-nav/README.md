@@ -17,15 +17,15 @@ export class AppComponent {}
 ```html
 <vcl-tab-nav>
   <vcl-tab>
-    <template vcl-tab-label>Tab1</template>
+    <ng-template vcl-tab-label>Tab1</ng-template>
     Content1
   </vcl-tab>
   <vcl-tab>
-    <template vcl-tab-label>Tab2</template>
+    <ng-template vcl-tab-label>Tab2</ng-template>
     Content2
   </vcl-tab>
   <vcl-tab [disabled]="true">
-    <template vcl-tab-label>Tab3 (disabled)</template>
+    <ng-template vcl-tab-label>Tab3 (disabled)</ng-template>
     Content3
   </vcl-tab>
 </vcl-tab-nav>

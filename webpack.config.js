@@ -102,8 +102,8 @@ function webpackConfig(options) {
       }),
       new ProgressPlugin({}),
       new ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        __dirname
+        /angular(\\|\/)core(\\|\/)@angular/,
+        root()
       ),
       new HtmlWebpackPlugin({
         template: 'demo/index.html',
