@@ -22,12 +22,12 @@ export class WormholeDirective extends WormholeHost {
   wormhole: Wormhole;
 
   ngOnChanges(changes: SimpleChanges) {
-    const attrs = ('attrs' in changes && changes.attrs.currentValue as WormholeAttributes) || undefined;
+    const attrs = ('attrs' in changes && changes['attrs'].currentValue as WormholeAttributes) || undefined;
 
     if ('target' in changes) {
       this.clearWormholes();
 
-      const target = changes.target.currentValue;
+      const target = changes['target'].currentValue;
 
       if (target) {
         this.wormhole = this.connectWormhole(target, {

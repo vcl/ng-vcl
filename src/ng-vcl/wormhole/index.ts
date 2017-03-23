@@ -14,7 +14,7 @@ export { TemplateWormhole, ComponentWormhole, Wormhole, WormholeAttributes, Worm
   ]
 })
 export class VCLWormholeModule {
-  static withRootComponents(...components: Type<any>[]): ModuleWithProviders {
+  static withRootComponents(components: Type<any>[]): ModuleWithProviders {
     return {
       ngModule: VCLWormholeModule,
       providers: [

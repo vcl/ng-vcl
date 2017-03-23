@@ -7,6 +7,7 @@ export default {
   '@angular/router': 'ng.router',
   '@angular/platform-browser': 'ng.platformBrowser',
   '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
+  '@angular/animations': 'ng.animations',
 
   // Rxjs dependencies
   'rxjs/Observable': 'Rx',

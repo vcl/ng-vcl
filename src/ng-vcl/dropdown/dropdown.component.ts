@@ -63,7 +63,7 @@ export class DropdownComponent implements ControlValueAccessor {
 
   ngOnChanges(changes: SimpleChanges) {
     if ('_items' in changes) {
-      const items = changes._items.currentValue;
+      const items = changes['_items'].currentValue;
       if (Array.isArray(items)) {
         this.items = items.map((item, idx) => createItem(item, idx));
       } else {

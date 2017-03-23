@@ -26,6 +26,8 @@
     }
   },
   "angularCompilerOptions": {
-    "skipTemplateCodegen": true
+    "genDir": "../dist/@ng-vcl",
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit" : true
   }
 }

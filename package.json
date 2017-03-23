@@ -91,7 +91,7 @@
     "style-loader": "^0.15.0",
     "ts-node": "^3.0.2",
     "tslint": "^4.5.1",
-    "typescript": "^2.2.1",
+    "typescript": "~2.1.6",
     "vcl-core-modules": "~0.1.3",
     "vcl-default-theme": "~0.1.3",
     "vcl-default-theme-terms": "~0.1.0",

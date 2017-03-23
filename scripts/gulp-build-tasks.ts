@@ -84,17 +84,15 @@ export function ngVCLCompatibility(pkg: string) {
   const folder = pkgFolder(pkg);
   const tmp = root('temp-build');
 
-  const compatibility: string[] = [];
+  const replacedFiles: string[] = [];
 
   // Rename ng-vcl-compatibility specific files
   const renameFiles = function (path) {
-    if (path.basename.includes('.compatibility')) {
-      path.basename = path.basename.replace('.compatibility', '');
-      compatibility.push(path.dirname + path.basename + path.extname);
-    } else {
-      if (compatibility.indexOf(path.dirname + path.basename + path.extname) >= 0) {
-        path.basename = 'replaced-' + path.basename;
-      }
+    if (path.dirname.indexOf('.compatibility') >= 0) {
+      path.dirname = path.dirname.replace('.compatibility', '');
+      replacedFiles.push(path.dirname + path.basename + path.extname);
+    } else if (replacedFiles.indexOf(path.dirname + path.basename + path.extname) >= 0) {
+      path.basename = path.basename + '-replaced';
     }
   };
 

@@ -26,7 +26,7 @@ export function bootstrapLayer(layerService: LayerService, layer: LayerRef) {
 @NgModule({
   imports: [
     CommonModule,
-    VCLWormholeModule.withRootComponents(LayerBaseRootComponent)
+    VCLWormholeModule.withRootComponents([LayerBaseRootComponent])
   ],
   exports: [LayerBaseComponent, LayerRefDirective, LayerContainerComponent],
   declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerContainerComponent],
