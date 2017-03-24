@@ -17,7 +17,7 @@ export class TextareaDirective {
   selectAllOnFocus = false;
 
   @Input()
-  autogrow = true;
+  autogrow = false;
 
   @Input()
   maxRows: number;
@@ -40,7 +40,8 @@ export class TextareaDirective {
   }
 
   @HostBinding('attr.rows')
-  rows: number ;
+  @Input()
+  rows: number;
 
   ngOnInit() {
     this.setRowsByValue(this.ngModel.model);
