@@ -7,14 +7,13 @@ import PACKAGES from './packages';
 const SOURCE_FOLDER = root('src');
 const pkgNames = Object.keys(PACKAGES);
 
+// Compile typescript files
 task(`build:tsc`, () => {
-  pkgNames.forEach(pkg => mkdirp.sync(root('dist/@ng-vcl', pkg)));
   return execNode('typescript', 'tsc', ['-p', `${SOURCE_FOLDER}/tsconfig.json`]);
 });
 
-// Runs angular compiler-cli to compile the typescripts and generate metadata
+// Generate ng metadata files
 task(`build:ngc`, () => {
-  pkgNames.forEach(pkg => mkdirp.sync(root('dist/@ng-vcl', pkg)));
   return execNode('@angular/compiler-cli', 'ngc', ['-p', `${SOURCE_FOLDER}/tsconfig.json`]);
 });
 
