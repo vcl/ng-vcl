@@ -7,8 +7,14 @@ import PACKAGES from './packages';
 const SOURCE_FOLDER = root('src');
 const pkgNames = Object.keys(PACKAGES);
 
+task(`build:tsc`, () => {
+  pkgNames.forEach(pkg => mkdirp.sync(root('dist/@ng-vcl', pkg)));
+  return execNode('typescript', 'tsc', ['-p', `${SOURCE_FOLDER}/tsconfig.json`]);
+});
+
 // Runs angular compiler-cli to compile the typescripts and generate metadata
 task(`build:ngc`, () => {
+  pkgNames.forEach(pkg => mkdirp.sync(root('dist/@ng-vcl', pkg)));
   return execNode('@angular/compiler-cli', 'ngc', ['-p', `${SOURCE_FOLDER}/tsconfig.json`]);
 });
 
@@ -32,7 +38,7 @@ pkgNames.forEach(pkg => {
 
 // Builds all packages
 task(`build`, (cb) => {
-  runSequence(`build:ngc`, ...pkgNames.map(pkg => `build:${pkg}`), cb);
+  runSequence(`build:tsc`, `build:ngc`, ...pkgNames.map(pkg => `build:${pkg}`), cb);
 });
 
 // Publishes all packages
