@@ -151,17 +151,14 @@ export class DropdownComponent implements ControlValueAccessor {
 
   selectItem(item: any) {
     if (item.disabled) return;
-    if (!item.selected) {
-      // prevent overflow maxSelectableItems
-      if (this.selectedItems().length >= this.maxSelectableItems)
-        this.items.find(i => i.selected).selected = false;
 
-      if (this.maxSelectableItems == 1)
-        this.items.forEach(i => i.selected = false);
-    } else {
-      // prevent underflow minSelectableItems
-      if (this.selectedItems().length <= this.minSelectableItems) return;
+
+    const selectedItems = this.selectedItems;
+
+    if (selectedItems.length === this.maxSelectableItems) {
+      selectedItems[0].selected = false;
     }
+
     item.selected = !item.selected;
     this.onChange();
   }
