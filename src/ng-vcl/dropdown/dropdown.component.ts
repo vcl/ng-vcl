@@ -145,7 +145,7 @@ export class DropdownComponent implements ControlValueAccessor {
     });
   }
 
-  selectedItems() {
+  get selectedItems() {
     return this.items.filter(i => i.selected);
   }
 

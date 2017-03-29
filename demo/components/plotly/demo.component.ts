@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 })
 export class PlotlyDemoComponent {
 
-  elementId = 'myDiv1';
+  plotId = 'myDiv1';
   plotClass = 'customClass';
 
   data: any = [{
