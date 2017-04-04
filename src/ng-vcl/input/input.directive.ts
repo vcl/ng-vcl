@@ -37,6 +37,12 @@ export class InputDirective {
       throw new Error('type not allowed for vcl-input: ' + this.type);
   }
 
+  focus() {
+    if (this.elRef.nativeElement) {
+      this.elRef.nativeElement.focus();
+    }
+  }
+
   // autoselect
   @HostListener('focus', ['$event.target.value'])
   onFocus(value) {
