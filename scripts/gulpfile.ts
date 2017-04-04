@@ -35,7 +35,7 @@ pkgNames.forEach(pkg => {
   });
 
   task(`publish:next:${pkg}`, () => {
-    return exec('npm', ['publish', '--access=public --tag=next'], {
+    return exec('npm', ['publish', '--access=public', '--tag=next'], {
       cwd: dist
     });
   });
