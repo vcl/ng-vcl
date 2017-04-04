@@ -33,6 +33,12 @@ pkgNames.forEach(pkg => {
       cwd: dist
     });
   });
+
+  task(`publish:next:${pkg}`, () => {
+    return exec('npm', ['publish', '--access=public --tag=next'], {
+      cwd: dist
+    });
+  });
 });
 
 // Builds all packages
@@ -43,4 +49,9 @@ task(`build`, (cb) => {
 // Publishes all packages
 task(`publish`, (cb) => {
   runSequence(...pkgNames.map(pkg => `publish:${pkg}`), cb);
+});
+
+// Publishes all packages
+task(`publish:next`, (cb) => {
+  runSequence(...pkgNames.map(pkg => `publish:next:${pkg}`), cb);
 });
