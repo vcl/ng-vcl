@@ -1,5 +1,1 @@
-<ng-template
-  *ngFor="let item of items"
-  [ngTemplateOutlet]="template1"
-  [ngOutletContext]="{item: item, meta: getMeta(item) }">
-</ng-template>
+<wormhole *ngFor="let item of items" [connect]="item._content"></wormhole>

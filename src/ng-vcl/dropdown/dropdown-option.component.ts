@@ -1,15 +1,12 @@
 
 import { Component, TemplateRef, ViewChild, Input } from "@angular/core";
+import { MetalistItem } from "../metalist/index";
 
-export interface DropdownItem {
+export interface DropdownItem extends MetalistItem {
   content?: TemplateRef<any>;
   label?: string;
   sublabel?: string;
-  value?: any;
-  class?: string;
   disabled?: boolean;
-  marked?: boolean;
-  selected?: boolean;
 }
 
 @Component({
@@ -21,28 +18,22 @@ export class DropdownOptionComponent implements DropdownItem {
   @ViewChild(TemplateRef)
   content: TemplateRef<any>;
 
-  @Input('value') value: any;
-  @Input('sublabel') sublabel: string;
-  @Input('label') label: string;
-  @Input('class') class: string;
-  @Input('disabled') disabled: boolean = false;
-  @Input('marked') marked: boolean = false;
-  @Input('selected') selected: boolean = false;
+  @Input()
+  value: any;
 
-  create(idx: number) {
-    return createItem(this, idx);
-  }
+  @Input()
+  metadata: any;
+
+  @Input()
+  label: string;
+
+  @Input()
+  sublabel: string;
+
+  @Input()
+  disabled: boolean = false;
+
+  @Input()
+  selected: boolean = false;
 }
 
-export function createItem(item: DropdownItem, idx: number) {
-  return {
-    content: item.content,
-    label: item.label,
-    sublabel: item.sublabel,
-    value: item.value !== undefined ? item.value : (item.label || idx),
-    class: item.class,
-    disabled: item.disabled,
-    marked: item.marked,
-    selected: item.selected
-  };
-}

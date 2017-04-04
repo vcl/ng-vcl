@@ -1,62 +1,39 @@
 <h3>single-select:</h3>
-<button vcl-button (tap)="expand()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded" [items]="items" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
+<vcl-dropdown (change)="onSelect($event)" [tabindex]="1">
+  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
+</vcl-dropdown>
 
 <br/>
 <h3>multi-select:</h3>
-<button vcl-button (tap)="expand2()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded2" [items]="items" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
-
-<br/>
-<h3>marked items:</h3>
-<button vcl-button (tap)="expand3()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [expanded]="expanded3" [items]="itemsMarked" [maxSelectableItems]="3" [tabindex]="77"></vcl-dropdown>
+<vcl-dropdown (change)="onSelect($event)" [tabindex]="2" [maxSelectableItems]="3">
+  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
+</vcl-dropdown>
 
 <br/>
 <h3>keyboard events:</h3>
-<button vcl-button (tap)="expand4()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded4" [items]="items" [tabindex]="77" [listenKeys]="true"></vcl-dropdown>
-
-<br/>
-<h3>keyboard events (multiple):</h3>
-<button vcl-button (tap)="expand5()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded5" [items]="items" [tabindex]="77" [maxSelectableItems]="3" [listenKeys]="true"></vcl-dropdown>
-
-<br/>
-<h3>options via vcl-dropdown-option with content via label/sublabel:</h3>
-<button vcl-button (tap)="expand6()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded6" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
-  <vcl-dropdown-option value="1" label="Item 1"></vcl-dropdown-option>
-  <vcl-dropdown-option value="2" [selected]="true" label="Item 2" subLabel="(preselected)"></vcl-dropdown-option>
-  <vcl-dropdown-option value="3" label="Item 3"></vcl-dropdown-option>
-  <vcl-dropdown-option value="4" [disabled]="true" label="Item 4"></vcl-dropdown-option>
-  <vcl-dropdown-option value="5" label="Item 5"></vcl-dropdown-option>
+<vcl-dropdown (change)="onSelect($event)" [tabindex]="3" [listenKeys]="true">
+  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
 </vcl-dropdown>
 
 <br/>
-<h3>options via vcl-dropdown-option with custom content:</h3>
-<button vcl-button (tap)="expand7()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(expanded)]="expanded7" [tabindex]="77" [maxSelectableItems]="1" [listenKeys]="true">
-  <vcl-dropdown-option value="1">
-    <div class="vclDropdownItemLabel">Item 1</div>
+<h3>vcl-dropdown-option with content:</h3>
+<vcl-dropdown (change)="onSelect($event)" [tabindex]="5" [listenKeys]="true">
+  <vcl-dropdown-option [value]="1" [selected]="false">
+    <div class="vclDropdownItemLabel">
+      <b>item 1</b>
+    </div>  
   </vcl-dropdown-option>
-  <vcl-dropdown-option value="2" [selected]="true">
-    <div class="vclDropdownItemLabel">Item 2</div>
-    <div class="vclDropdownItemSubLabel">(preselected)</div>
-  </vcl-dropdown-option>
-  <vcl-dropdown-option value="3">
-    <div class="vclDropdownItemLabel">Item 3</div>
-  </vcl-dropdown-option>
-  <vcl-dropdown-option value="4" [disabled]="true">
-    <div class="vclDropdownItemLabel">Item 4</div>
-  </vcl-dropdown-option>
-  <vcl-dropdown-option value="5">
-    <div class="vclDropdownItemLabel">Item 5</div>
+  <vcl-dropdown-option [value]="2" [selected]="true">
+    <div class="vclDropdownItemLabel">
+      <b>item 2 (preselected)</b>
+    </div>  
   </vcl-dropdown-option>
 </vcl-dropdown>
+<br/>
 
 <h3>single-select with ngModel:</h3>
-<button vcl-button (tap)="expand8()">Show/hide</button>
-<vcl-dropdown (change)="onSelect($event)" [(ngModel)]="item" [(expanded)]="expanded8" [items]="itemsNgModel" [maxSelectableItems]="1" [tabindex]="77"></vcl-dropdown>
+<vcl-dropdown [(ngModel)]="selectedItem"  [tabindex]="6">
+  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
+</vcl-dropdown>
 <br/>
-Current value: {{item}}
+Selected item: {{selectedItem}}

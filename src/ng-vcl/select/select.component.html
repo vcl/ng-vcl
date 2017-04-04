@@ -1,8 +1,8 @@
 <div (offClick)="close()">
   <div
     #select
-    [attr.aria-autocomplete]="list"
     class="vclLayoutHorizontal vclSelect vclInputGroupEmb"
+    [attr.aria-autocomplete]="list"
     [style.marginBottom]="0"
     >
 
@@ -36,10 +36,8 @@
   </div>
 
   <vcl-dropdown #dropdown
-      [(expanded)]="expanded"
-      [items]="items"
+      [style.display]="expanded ? null : 'none'"
       (change)="onDropdownChange($event)"
-      [minSelectableItems]="minSelectableItems"
       [maxSelectableItems]="maxSelectableItems"
       tabindex="-1"
       [style.position]="'relative'"
@@ -48,5 +46,13 @@
       [style.position]="'absolute'"
       [style.zIndex]="999999"
       >
+    <vcl-dropdown-option *ngFor="let item of items" 
+      [metadata]="item" 
+      [value]="item.value" 
+      [selected]="item.selected" 
+      [disabled]="item.disabled" 
+      [label]="item.label" 
+      [sublabel]="item.sublabel"
+    ></vcl-dropdown-option>
   </vcl-dropdown>
 </div>

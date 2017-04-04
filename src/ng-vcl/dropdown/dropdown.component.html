@@ -1,33 +1,39 @@
-<ul class="vclDropdown"
-  #listbox
-  [class.vclOpen]="expanded"
-  [attr.role]="'listbox'"
+<ul vcl-metalist
+  [maxSelectableItems]="maxSelectableItems"
+  #metalist
+  class="vclDropdown vclOpen"
+  role="listbox"
   [attr.tabindex]="tabindex"
   [attr.aria-multiselectable]="maxSelectableItems > 1"
   [attr.aria-expanded]="expanded"
   [style.position]="'static'"
+  (change)="onChange($event)"
+  (keydown)="onKeydown($event)"
   >
-  <!--  (mousedown) is used because
-        can't use tap because it will break scrolling on mobiles
+  <!--  (mousedown) is used because tap will break scrolling on mobiles
   -->
-  <li
-    *ngFor="let item of items"
-    class="vclDropdownItem"
-    role="option"
-    [ngClass]="item.class"
-    [class.vclHighlighted]="item.marked"
-    [class.vclSelected]="item.selected"
-    [class.vclDisabled]="item.disabled"
-    [attr.aria-selected]="item.selected"
-    (mousedown)="selectItem(item)">
-    <div *ngIf="item.label" class="vclDropdownItemLabel">
-      {{item.label}}
-    </div>
-    <div *ngIf="item.sublabel" class="vclDropdownItemSubLabel">
-      {{item.sublabel}}
-    </div>
-    <wormhole *ngIf="item.content" [connect]="item.content"></wormhole>
-  </li>
+  <vcl-metalist-item #metaItem
+                    *ngFor="let item of items" 
+                    [metadata]="item"
+                    [selected]="item.selected"
+                    [disabled]="item.disabled"
+                    [marked]="item.marked"
+                    [value]="item.value">
+    <li
+      role="option"
+      class="vclDropdownItem"
+      [class.vclSelected]="metaItem.selected"
+      [class.vclDisabled]="metaItem.disabled"
+      [class.vclHighlighted]="metaItem.marked"
+      [attr.aria-selected]="metaItem.selected"
+      (tap)="metalist.select(metaItem)">
+      <div *ngIf="item.label" class="vclDropdownItemLabel">
+        {{item.label}}
+      </div>
+      <div *ngIf="item.sublabel" class="vclDropdownItemSubLabel">
+        {{item.sublabel}}
+      </div>
+      <wormhole *ngIf="item.content" [connect]="item.content"></wormhole>
+    </li>
+  </vcl-metalist-item>
 </ul>
-
-

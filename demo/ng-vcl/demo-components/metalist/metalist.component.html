@@ -1,12 +1,51 @@
-<vcl-metalist [items]="items" [meta]="metaInformation" #metalist>
-  <ng-template let-item="item" let-meta="meta">
-    <div (tap)="select(meta)">
+<h3>single-select:</h3>
+<vcl-metalist #metalist (change)="onChange($event)">
+  <vcl-metalist-item #meta *ngFor="let item of items" [value]="item.value" [selected]="item.selected">
+    <div>
+      <button vcl-button (tap)="metalist.select(meta)">Select</button>
       Some HTML // {{item.name}}
-      <span *ngIf="meta && meta.selected"> // selected</span>
-      <span *ngIf="meta && meta.marked"> // marked</span>
+      <span *ngIf="meta.selected"> // selected</span>
+      <span *ngIf="meta.marked"> // marked</span>
     </div>
-  </ng-template>
+  </vcl-metalist-item>
 </vcl-metalist>
 
-<button vcl-button (tap)="metalist.prev()">prev</button>
-<button vcl-button (tap)="metalist.next()">next</button>
+<br/>
+<h3>multi-select:</h3>
+<vcl-metalist #metalist2 (change)="onChange($event)" [maxSelectableItems]="3">
+  <vcl-metalist-item #meta *ngFor="let item of items" [value]="item.value" [selected]="item.selected">
+    <div>
+      <button vcl-button (tap)="metalist2.select(meta)">Select</button>
+      Some HTML // {{item.name}}
+      <span *ngIf="meta.selected"> // selected</span>
+      <span *ngIf="meta.marked"> // marked</span>
+    </div>
+  </vcl-metalist-item>
+</vcl-metalist>
+
+<h3>single-select with ngModel:</h3>
+<vcl-metalist #metalist3 [(ngModel)]="value1">
+  <vcl-metalist-item #meta *ngFor="let item of items" [value]="item.value" [selected]="item.selected">
+    <div>
+      <button vcl-button (tap)="metalist3.select(meta)">Select</button>
+      Some HTML // {{item.name}}
+      <span *ngIf="meta.selected"> // selected</span>
+      <span *ngIf="meta.marked"> // marked</span>
+    </div>
+  </vcl-metalist-item>
+</vcl-metalist>
+<br>Current value: {{value1}}
+
+<br/>
+<h3>multi-select with ngModel:</h3>
+<vcl-metalist #metalist4 [(ngModel)]="value2" [maxSelectableItems]="3">
+  <vcl-metalist-item #meta *ngFor="let item of items" [value]="item.value" [selected]="item.selected">
+    <div>
+      <button vcl-button (tap)="metalist4.select(meta)">Select</button>
+      Some HTML // {{item.name}}
+      <span *ngIf="meta.selected"> // selected</span>
+      <span *ngIf="meta.marked"> // marked</span>
+    </div>
+  </vcl-metalist-item>
+</vcl-metalist>
+<br>Current value: {{value2}}

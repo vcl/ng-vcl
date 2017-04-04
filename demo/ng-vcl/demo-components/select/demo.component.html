@@ -1,60 +1,18 @@
-<h3>Simple select:</h3>
-<vcl-select label="Single select" [items]="items" (change)="onChange($event)" [(ngModel)]="selectedItemSingle"></vcl-select>
-
-<div *ngIf="selectedItemSingle">
-  value: {{selectedItemSingle}}
-</div>
+<h3>single-select:</h3>
+<vcl-select label="Single select" (change)="onChange($event)" [tabindex]="1">
+  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel" [selected]="item.selected"></vcl-select-option>
+</vcl-select>
 
 <br>
-<h3>Multiselect, 3 Items selectable:</h3>
-<vcl-select [items]="items" (change)="onChange($event)" [maxSelectableItems]="3"
-  [(ngModel)]="selectedItemsMulti"
-></vcl-select>
-<div *ngIf="selectedItemsMulti && selectedItemsMulti.length > 0">
-  value:
-  <ul>
-    <li *ngFor="let val of selectedItemsMulti">{{val}}</li>
-  </ul>
-</div>
-
-
-
-<h3>Options via content-children:</h3>
-<vcl-select (change)="onChange($event)" [(ngModel)]="selectedItemSingleHtml">
-  <vcl-select-option [value]="1" label="Item 1"></vcl-select-option>
-  <vcl-select-option [value]="2" label="Item 2"></vcl-select-option>
-  <vcl-select-option [value]="3" label="Item 3"></vcl-select-option>
-  <vcl-select-option [value]="4" [disabled]="true" label="Item 4"></vcl-select-option>
-  <vcl-select-option [value]="5" label="Item 5"></vcl-select-option>
+<h3>multi-select, 3 items selectable:</h3>
+<vcl-select (change)="onChange($event)" [maxSelectableItems]="3" [tabindex]="2">
+  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel" [selected]="item.selected"></vcl-select-option>
 </vcl-select>
-<div *ngIf="selectedItemSingleHtml">
-  Value: {{selectedItemSingleHtml}}
-</div>
 
 
-<h3>Pre-defined value</h3>
-<h4>single</h4>
-<vcl-select [items]="items" (change)="onChange($event)" [(ngModel)]="selectSingleValue"></vcl-select>
-<div *ngIf="selectSingleValue">
-  Value: {{selectSingleValue}}
-</div>
+<h3>Single select with ngModel:</h3>
+<vcl-select label="Single select" [(ngModel)]="value" [tabindex]="3">
+  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel" [selected]="item.selected"></vcl-select-option>
+</vcl-select>
+<br>Current value: {{value}}
 
-<h4>multi-select</h4>
-<vcl-select [items]="items" (change)="onChange($event)" [maxSelectableItems]="3"
- [(ngModel)]="selectMultiValue"></vcl-select>
-<div *ngIf="selectMultiValue && selectMultiValue.length>0">
-  value:
-  <ul>
-    <li *ngFor="let val of selectMultiValue">{{val}}</li>
-  </ul>
-</div>
-
-<br/>
-
-<h3>Select inside of label</h3>
-<vcl-label>Label Text<br>
-  <vcl-select>
-  <vcl-select-option [value]="1" label="Item 1"></vcl-select-option>
-  <vcl-select-option [value]="2" label="Item 2"></vcl-select-option>
-  </vcl-select>
-</vcl-label>

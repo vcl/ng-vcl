@@ -18,8 +18,6 @@ export class SelectOptionComponent extends DropdownOptionComponent {
   @Input('value') value: any;
   @Input('sublabel') sublabel: string;
   @Input('label') label: string;
-  @Input('class') class: string;
   @Input('disabled') disabled: boolean = false;
-  @Input('marked') marked: boolean = false;
   @Input('selected') selected: boolean = false;
 }

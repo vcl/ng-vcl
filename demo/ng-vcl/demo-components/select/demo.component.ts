@@ -32,16 +32,9 @@ export class SelectDemoComponent {
     }
   ];
 
-  selectedItemSingle: any = 1;
-  selectedItemsMulti: any[];
-  selectedItemSingleHtml: any;
+  value: any = 5;
 
-  selectSingleValue = 5;
-  selectMultiValue = [2, 4];
-  selectSingleValueHtml = 5;
-
-  onChange(newValue) {
-    console.log('vcl-select: onChange()');
-    console.dir(newValue);
+  onChange(change) {
+    console.log('vcl-select: onChange()', change);
   }
 }

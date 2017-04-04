@@ -1,7 +1,9 @@
 <h3>Template-based</h3>
 <form #f="ngForm" class="vclForm" novalidate>
 
-  <vcl-select ngModel name="itemselect" [items]="items"></vcl-select>
+  <vcl-select ngModel name="itemselect">
+    <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-select-option>
+  </vcl-select>
 
   <br/><br/> Radio: <br/>
   <vcl-radio-group ngModel name="myradio">
@@ -10,7 +12,9 @@
   </vcl-radio-group>
 
   <br/><br/> Dropdown: <br/>
-  <vcl-dropdown [items]="items" [maxSelectableItems]="1" [expanded]="true" ngModel name="mydropdown"></vcl-dropdown>
+  <vcl-dropdown [maxSelectableItems]="1" ngModel name="mydropdown">
+    <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-dropdown-option>
+  </vcl-dropdown>
 
 
   <br/><br/> Checkbox: <br/>
@@ -54,15 +58,17 @@
 <h3>Module-based</h3>
 <form class="vclForm" novalidate [formGroup]="form">
 
-
-  <vcl-select formControlName="itemselect" [items]="items"></vcl-select>
+  <vcl-select formControlName="itemselect">
+    <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-select-option>
+  </vcl-select>
 
   <br/><br/> Radio: <br/>
   <vcl-radio-button formControlName="myradio">Radio me</vcl-radio-button>
 
   <br/><br/> Dropdown: <br/>
-  <vcl-dropdown [items]="items" [maxSelectableItems]="1" [expanded]="true" formControlName="mydropdown"></vcl-dropdown>
-
+  <vcl-dropdown [maxSelectableItems]="1" ngModel formControlName="mydropdown">
+    <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-dropdown-option>
+  </vcl-dropdown>
 
   <br/><br/> Checkbox: <br/>
   <vcl-checkbox [checked]="false" formControlName="mycheckbox">Check me</vcl-checkbox>

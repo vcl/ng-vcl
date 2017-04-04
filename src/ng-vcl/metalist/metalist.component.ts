@@ -1,166 +1,169 @@
-import {
-  Component, Input, Output,
-  EventEmitter, ContentChild, TemplateRef, OnInit,
-  ChangeDetectionStrategy
+import { Directive, Component, Input, Output, ChangeDetectionStrategy,
+  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MetalistItemComponent, MetalistItem } from "./metalist-item.component";
+
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => MetalistComponent),
+  multi: true
+};
 
 @Component({
-  selector: 'vcl-metalist',
+  selector: 'vcl-metalist, [vcl-metalist]',
   templateUrl: 'metalist.component.html',
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MetalistComponent implements OnInit {
+export class MetalistComponent implements ControlValueAccessor {
 
-  @Input() items: any[];
-  @Input() meta: any;
-  @Input() minSelectableItems: number = 1;
-  @Input() maxSelectableItems: number = 1;
-  @Output('select') select = new EventEmitter<any[]>(); // returns all items
+  @Input()
+  maxSelectableItems: number = 1;
 
+  @Output()
+  change = new EventEmitter<any>();
 
-  constructor() {
+  @ContentChildren(MetalistItemComponent)
+  items: QueryList<MetalistItemComponent>;
 
+  value: any | any[];
+
+  get multiSelect() {
+    return this.maxSelectableItems > 1;
   }
 
-  next() {
-    // console.log('next');
-    let oldIndex = this.getMarkedItemIndex();
-    if (oldIndex !== -1) {
-      let newIndex = oldIndex + 1;
-      if (this.items.length > newIndex) {
-        this.setMarkedIndex(newIndex);
-      }
-    } else {
-      this.setMarkedIndex(0);
-    }
+  get selectedItems() {
+    return (this.items || []).filter(i => i.selected);
   }
 
-  prev() {
-    // console.log('prev');
-    let oldIndex = this.getMarkedItemIndex();
-    if (oldIndex !== -1) {
-      let newIndex = oldIndex - 1;
-      if (newIndex >= 0) {
-        this.setMarkedIndex(newIndex);
-      }
-    }
+  private determineMarkedIndex() {
+    let idx = this.items.toArray().findIndex(item => item.marked);
+    return idx >= 0 ? idx : this.items.toArray().findIndex(metaItem => metaItem.selected);
   }
 
-  ngOnInit() {
-    if (!this.meta) {
-      // create meta if not present
-      this.meta = [];
-    }
-  }
-
-
-  metaFromItem(item: any) {
-    const i = this.items.indexOf(item);
-    return this.meta[i];
-  }
-
-
-  selectItem(item: any) {
-    // console.log('selectItem');
-    if (!this.items.includes(item)) return false;
-
-    let itemIndex = this.items.indexOf(item);
-
-
-    // maxSelectableItems === 1 -> deselect old item
-    if (this.maxSelectableItems === 1) {
-      // TODO is metaItems even used?
-      let metaItems = this.meta.filter(function(obj) {
-        return obj && obj.selected === true;
+  private updateItems() {
+    const value = this.value;
+    if (this.multiSelect && Array.isArray(value)) {
+      (this.items || []).forEach(item => {
+        item.selected = value.includes(item.value);
       });
-      for (let i = 0; i < metaItems.length; i++) {
-        metaItems[i].selected = false;
+    } else if (!this.multiSelect) {
+      (this.items || []).forEach(item => {
+        item.selected = item.value === value;
+      });
+    }
+  }
+
+  private updateValue() {
+    const items = this.items || [];
+    const values = items.filter(i => i.selected).map(i => i.value);
+    this.value = this.multiSelect ? values : values[0];
+  }
+
+
+  setValue(value: any) {
+    this.value = value;
+    this.updateItems();
+  }
+
+  select(item: MetalistItemComponent | number) {
+    if (typeof item === 'number') {
+      item = this.items.toArray()[item];
+    }
+    if (item instanceof MetalistItemComponent) {
+      if (item.disabled) {
+        return;
       }
+      if (this.multiSelect) {
+        const selectedItems = (this.items || []).filter(i => i.selected);
 
-    }
-
-    const metaItem = this.metaFromItem(item);
-    if (
-      this.getSelectedItems().length < this.maxSelectableItems &&
-      metaItem
-    ) metaItem.selected = true;
-
-    this.select.emit(this.getSelectedItems());
-    return true;
-  }
-
-  deSelectItem(item: any) {
-    // console.log('deSelectItem');
-    let itemIndex = this.items.indexOf(item);
-    if (itemIndex === -1) {
-      return;
-    }
-    if (this.meta[itemIndex]) {
-      this.meta[itemIndex].selected = false;
-    }
-    this.select.emit(this.getSelectedItems());
-  }
-
-  getSelectedItems() {
-    // console.log('getSelectedItems');
-    const result = this.meta
-      .filter(obj => obj.selected)
-      .map(metaItem => this.items[this.meta.indexOf(metaItem)]);
-    return result;
-  }
-
-  setSelectedItems() {
-
-  }
-
-  ngAfterContentInit() { }
-
-  getMarkedItemIndex(): number {
-    // console.log('getMarkedItemIndex');
-    let meta = this.getMarkedItemMeta();
-    if (meta) {
-      return this.meta.indexOf(meta);
-    }
-    return -1;
-  }
-
-  getMarkedItemMeta(): any {
-    // console.log('getMarkedItemMeta');
-    return this.meta.filter(obj => obj.marked)[0];
-  }
-
-  setMarkedIndex(index: number) {
-    // console.log('setMarkedIndex');
-    // unset old item
-    let oldItem = this.getMarkedItemMeta();
-    if (oldItem) {
-      oldItem.marked = false;
-    }
-    let meta = this.meta[index];
-    if (meta) {
-      meta.marked = true;
+        // prevent overflow
+        if (item.selected || selectedItems.length < this.maxSelectableItems) {
+          item.selected = !item.selected;
+        }
+      } else {
+        this.items.forEach(citem => citem.selected = citem === item);
+      }
+      this.onChange(item);
     }
   }
 
-  setMarkedItem(item: any) {
-    // console.log('setMarkedItem');
-    let markedIndex = this.items.indexOf(item);
-    if (markedIndex !== -1) {
-      this.setMarkedIndex(markedIndex);
+  deselect(item: MetalistItemComponent | number) {
+    if (typeof item === 'number') {
+      item = this.items.toArray()[item];
+    }
+
+    if (item instanceof MetalistItemComponent) {
+      item.selected = false;
+      this.onChange(item);
     }
   }
 
-
-  @ContentChild(TemplateRef) template1: any;
-
-  getMeta(item) {
-    // console.log('getMeta');
-    // console.dir(this.items);
-    let key = this.items.indexOf(item);
-    if (!this.meta[key]) {
-      this.meta[key] = {};
+  markNext() {
+    const items = this.items.toArray();
+    let newIdx = this.determineMarkedIndex() + 1;
+    if (newIdx >= (items.length)) {
+      newIdx = items.length - 1;
     }
-    // console.dir(JSON.stringify(this.meta[key]));
-    return this.meta[key];
+    items.every((item, cidx) => {
+      const mark = cidx >= newIdx;
+      item.marked = !item.disabled && mark;
+      return !item.marked;
+    });
+  }
+
+  markPrev() {
+    const items = this.items.toArray().reverse();
+    let newIdx = this.determineMarkedIndex() - 1;
+    if (newIdx <= 0 && items.length > 0) {
+      newIdx = 0;
+    }
+    newIdx = (items.length - 1) - newIdx;
+
+    items.every((item, cidx) => {
+      const mark = cidx >= newIdx;
+      item.marked = !item.disabled && mark;
+      return !item.marked;
+    });
+  }
+
+  selectMarked() {
+    const item = this.items.toArray().find(i => i.marked === true && !i.disabled);
+    if (item) {
+      this.select(item);
+    }
+  }
+
+  onChange(source: MetalistItemComponent) {
+    this.updateValue();
+    this.change.emit(this.value);
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  }
+
+  ngAfterViewInit() {
+    // Update the value to match the selected metalist-items when not using ngModel
+    if (!this.onChangeCallback) {
+      this.updateValue();
+    }
+
+    // Late changes of metalist-items take the selected state of the current value;
+    this.items.changes.subscribe(() => setTimeout(() => this.updateItems()));
+  }
+
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: any) => void;
+
+  writeValue(value: any): void {
+    this.setValue(value);
+  }
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
   }
 }

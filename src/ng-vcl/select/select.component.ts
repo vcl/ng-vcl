@@ -13,11 +13,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  /**
-   * OnPush cannot be used because then the this.dropdownTop - style will not
-   * be applied. Maybe this is a bug of ng2?
-   */
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   host: {
     '[style.position]': '"relative"',
@@ -26,27 +22,26 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class SelectComponent implements ControlValueAccessor {
 
-  @HostBinding('attr.tabindex')
-  tabindex = 0;
-
   @ViewChild('dropdown')
   dropdown: DropdownComponent;
+
+  @ContentChildren(SelectOptionComponent)
+  items: QueryList<SelectOptionComponent>;
 
   @ViewChild('select')
   select: ElementRef;
 
-  @Input('expanded')
+  @HostBinding('attr.tabindex')
+  @Input()
+  tabindex = 0;
+
+  @Input()
   expanded: boolean = false;
 
-  @Input('items')
-  items: DropdownItem[];
-
-  @ContentChildren(SelectOptionComponent)
-  templateItems: QueryList<SelectOptionComponent>;
+  @Input()
+  listenKeys: boolean = true;
 
   // multi-select
-  @Input()
-  minSelectableItems: number = 0;
   @Input()
   maxSelectableItems: number = 1;
 
@@ -58,7 +53,7 @@ export class SelectComponent implements ControlValueAccessor {
   collapsedIcon: string = 'fa:chevron-down';
 
   @Output('change')
-  change = new EventEmitter<any | any[]>(); // any[] if multi-select
+  change = new EventEmitter<any>();
 
   focused: boolean = false;
 
@@ -69,20 +64,41 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener('keydown', ['$event'])
   keydown(ev) {
-    switch (ev.code) {
-      case 'ArrowDown':
-      case 'ArrowUp':
-        this.open();
-        break;
-      case 'Space':
-        this.toggle();
-        break;
-      case 'Tab':
-        if (!this.expanded)
-          this.elementRef.nativeElement.blur();
-      case 'Escape':
-        this.close();
-        break;
+    if (this.listenKeys) {
+      let prevent = true;
+      switch (ev.code) {
+        case 'ArrowDown':
+          if (this.expanded) {
+            this.dropdown.metalist.markNext();
+          } else {
+            this.open();
+          }
+          break;
+        case 'ArrowUp':
+          if (this.expanded) {
+            this.dropdown.metalist.markPrev();
+          } else {
+            this.open();
+          }
+          break;
+        case 'Enter':
+          if (this.expanded) {
+            this.dropdown.metalist.selectMarked();
+          } else {
+            this.open();
+          }
+          break;
+        case 'Space':
+          this.toggle();
+          break;
+        case 'Tab':
+          this.close();
+        case 'Escape':
+          this.close();
+        default:
+         prevent = false;
+      }
+      prevent && ev.preventDefault();
     }
   }
 
@@ -93,8 +109,6 @@ export class SelectComponent implements ControlValueAccessor {
   @HostListener('focus', ['$event'])
   async onFocus(event?) {
     this.focused = true;
-    await new Promise(res => setTimeout(res, 0));
-    this.dropdown.listenKeys = true;
   }
 
   /**
@@ -105,15 +119,6 @@ export class SelectComponent implements ControlValueAccessor {
   onBlur(event?) {
     // this.close();
     this.focused = false;
-    this.dropdown.listenKeys = false;
-  }
-
-  ngAfterContentInit() {
-    // transform template-items if available
-    let templateItemsAr = this.templateItems.toArray();
-    if (templateItemsAr.length > 0) {
-      this.items = templateItemsAr.map((tItem, idx) => tItem.create(idx));
-    }
   }
 
   toggle() {
@@ -167,7 +172,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   get displayValue() {
-    const item = this.selectedItems.shift();
+    const item = this.selectedMetaItems.shift();
     if (item) {
       return item.label || String(item.value);
     } else {
@@ -175,28 +180,32 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  get selectedItems(): DropdownItem[] {
-    return (this.dropdown.items || []).filter(item => item.selected);
+  get selectedMetaItems(): DropdownItem[] {
+    const metaItems = (this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || [];
+    return metaItems.map(metaItem => metaItem.metadata);
   }
 
   get showDisplayValue() {
-    return this.maxSelectableItems <= 1 || this.selectedItems.length === 0;
+    return this.maxSelectableItems <= 1 || this.selectedMetaItems.length === 0;
   }
 
-  unselectItem(event: Event, item: DropdownItem) {
-    event.stopPropagation();
-    this.dropdown.unselectItem(item);
+  deselectItem(event: Event, item: DropdownItem) {
+    let idx = this.items.toArray().findIndex(citem => item === citem);
+    if (idx >= 0) {
+      this.dropdown.metalist.deselect(idx);
+    }
   }
 
-  onDropdownChange(newValue: any[]) {
-    if (this.maxSelectableItems <= 1)
+  onDropdownChange(value: any) {
+    if (this.maxSelectableItems <= 1) {
       this.close();
-
-    // propagate form-change
-    !!this.onChangeCallback && this.onChangeCallback(newValue);
+    }
 
     // propagate value change
-    this.change.emit(newValue);
+    this.change.emit(value);
+
+    // propagate form-change
+    !!this.onChangeCallback && this.onChangeCallback(value);
 
     // refocus
     setTimeout(() => this.reFocus(), 0);
@@ -208,8 +217,7 @@ export class SelectComponent implements ControlValueAccessor {
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
   writeValue(value: any): void {
-    this.dropdown.setValue(value);
-    this.cdRef.markForCheck();
+    this.dropdown.metalist.setValue(value);
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
