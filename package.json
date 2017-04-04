@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/ng-vcl",
-  "version": "0.3.0",
+  "version": "0.3.1-0",
   "description": "A comprehensive library of components for Angular 2 with VCL based styling",
   "scripts": {
     "lint": "npm-run-all lint:src lint:demo",
