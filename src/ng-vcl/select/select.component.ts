@@ -1,7 +1,8 @@
 import { Component, forwardRef, ChangeDetectionStrategy, HostBinding, ViewChild, ContentChildren, ElementRef, Input, QueryList, EventEmitter, Output, HostListener, ChangeDetectorRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownItem, DropdownComponent, DropdownOptionComponent } from '../dropdown/index';
-import { SelectOptionComponent } from './select-option.component';
+import { MetalistItem } from '../metalist/index';
+import { DropdownComponent, DropdownOption } from '../dropdown/index';
+import { SelectOption } from './select-option.component';
 
 enum DropDirection { Top, Bottom };
 
@@ -25,8 +26,8 @@ export class SelectComponent implements ControlValueAccessor {
   @ViewChild('dropdown')
   dropdown: DropdownComponent;
 
-  @ContentChildren(SelectOptionComponent)
-  items: QueryList<SelectOptionComponent>;
+  @ContentChildren(SelectOption)
+  items: QueryList<SelectOption>;
 
   @ViewChild('select')
   select: ElementRef;
@@ -172,7 +173,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   get displayValue() {
-    const item = this.selectedMetaItems.shift();
+    const item = this.selectedItems.shift();
     if (item) {
       return item.label || String(item.value);
     } else {
@@ -180,19 +181,24 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  get selectedMetaItems(): DropdownItem[] {
-    const metaItems = (this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || [];
-    return metaItems.map(metaItem => metaItem.metadata);
+  get selectedMetaItems(): MetalistItem[] {
+    return (this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || [];
+  }
+
+  get selectedItems(): SelectOption[] {
+    const items = (this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || [];
+    return items.map(metaItem => metaItem.metadata.metadata);
   }
 
   get showDisplayValue() {
     return this.maxSelectableItems <= 1 || this.selectedMetaItems.length === 0;
   }
 
-  deselectItem(event: Event, item: DropdownItem) {
-    let idx = this.items.toArray().findIndex(citem => item === citem);
-    if (idx >= 0) {
-      this.dropdown.metalist.deselect(idx);
+  deselectItem(item: SelectOption, event?: Event) {
+    const idx = this.items.toArray().findIndex(citem => item === citem);
+    this.dropdown.metalist.deselect(idx);
+    if (event) {
+      event.stopPropagation();
     }
   }
 

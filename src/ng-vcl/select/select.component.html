@@ -15,9 +15,8 @@
         <ng-container *ngFor="let item of selectedItems">
           <div class="vclToken">
             <span class="vclTokenLabel">{{item.label}}</span>
-            <button type="button" tabindex="-1" touch-action="none" aria-label="Remove" title="Remove"
-            class="vclTransparent vclButton">
-              <div class="vclIcogram" (click)="unselectItem($event, item)">
+            <button type="button" tabindex="-1" touch-action="none" aria-label="Remove" title="Remove" class="vclTransparent vclButton" (click)="deselectItem(item, event)">
+              <div class="vclIcogram">
                 <span role="img" class="vclIcon fa fa-remove"></span>
               </div>
             </button>

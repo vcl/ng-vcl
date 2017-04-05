@@ -1,23 +1,26 @@
 
-import { Component, ViewChild, Input, TemplateRef } from "@angular/core";
-import { DropdownItem, DropdownComponent, DropdownOptionComponent } from '../dropdown/index';
+import { Directive, ViewChild, Input, TemplateRef } from "@angular/core";
 
-/**
- * see
- * @link http://www.w3schools.com/tags/tag_option.asp
- */
-@Component({
-  selector: 'vcl-select-option',
-  template: '<ng-template><ng-content></ng-content></ng-template>'
+@Directive({
+  selector: 'vcl-select-option'
 })
-export class SelectOptionComponent extends DropdownOptionComponent {
+export class SelectOption {
 
   @ViewChild(TemplateRef)
   content: TemplateRef<any>;
 
-  @Input('value') value: any;
-  @Input('sublabel') sublabel: string;
-  @Input('label') label: string;
-  @Input('disabled') disabled: boolean = false;
-  @Input('selected') selected: boolean = false;
+  @Input()
+  value: any;
+
+  @Input()
+  sublabel: string;
+
+  @Input()
+  label: string;
+
+  @Input()
+  disabled: boolean = false;
+
+  @Input()
+  selected: boolean = false;
 }

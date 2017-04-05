@@ -1,9 +1,9 @@
-import { Directive, Component, Input, Output, ChangeDetectionStrategy,
-  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query, Renderer2
+import { Component, Input, Output, ChangeDetectionStrategy,
+  EventEmitter, forwardRef, ElementRef, ViewChild, ContentChildren, QueryList
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownItem, DropdownOptionComponent } from "./dropdown-option.component";
-import { MetalistComponent, MetalistItemComponent } from "../metalist/index";
+import { DropdownOption } from "./dropdown-option.component";
+import { MetalistComponent, MetalistItem } from "../metalist/index";
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -25,8 +25,8 @@ export class DropdownComponent implements ControlValueAccessor {
   @ViewChild('metalist', { read: ElementRef })
   listbox: ElementRef;
 
-  @ContentChildren(DropdownOptionComponent)
-  items: QueryList<DropdownOptionComponent>;
+  @ContentChildren(DropdownOption)
+  items: QueryList<DropdownOption>;
 
   @Input()
   tabindex: number = 0;

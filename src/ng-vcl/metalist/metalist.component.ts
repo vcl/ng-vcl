@@ -2,7 +2,7 @@ import { Directive, Component, Input, Output, ChangeDetectionStrategy,
   EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MetalistItemComponent, MetalistItem } from "./metalist-item.component";
+import { MetalistItem } from "./metalist-item.component";
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -24,8 +24,8 @@ export class MetalistComponent implements ControlValueAccessor {
   @Output()
   change = new EventEmitter<any>();
 
-  @ContentChildren(MetalistItemComponent)
-  items: QueryList<MetalistItemComponent>;
+  @ContentChildren(MetalistItem)
+  items: QueryList<MetalistItem>;
 
   value: any | any[];
 
@@ -67,11 +67,11 @@ export class MetalistComponent implements ControlValueAccessor {
     this.updateItems();
   }
 
-  select(item: MetalistItemComponent | number) {
+  select(item: MetalistItem | number) {
     if (typeof item === 'number') {
       item = this.items.toArray()[item];
     }
-    if (item instanceof MetalistItemComponent) {
+    if (item instanceof MetalistItem) {
       if (item.disabled) {
         return;
       }
@@ -89,12 +89,12 @@ export class MetalistComponent implements ControlValueAccessor {
     }
   }
 
-  deselect(item: MetalistItemComponent | number) {
+  deselect(item: MetalistItem | number) {
     if (typeof item === 'number') {
       item = this.items.toArray()[item];
     }
 
-    if (item instanceof MetalistItemComponent) {
+    if (item instanceof MetalistItem) {
       item.selected = false;
       this.onChange(item);
     }
@@ -135,7 +135,7 @@ export class MetalistComponent implements ControlValueAccessor {
     }
   }
 
-  onChange(source: MetalistItemComponent) {
+  onChange(source: MetalistItem) {
     this.updateValue();
     this.change.emit(this.value);
     !!this.onChangeCallback && this.onChangeCallback(this.value);

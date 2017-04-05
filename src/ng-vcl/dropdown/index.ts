@@ -4,14 +4,14 @@ import { L10nModule } from '../l10n/index';
 import { VCLWormholeModule } from '../wormhole/index';
 import { VCLMetalistModule } from "../metalist/index";
 import { DropdownComponent } from './dropdown.component';
-import { DropdownOptionComponent, DropdownItem } from './dropdown-option.component';
+import { DropdownOption } from './dropdown-option.component';
 
-export { DropdownItem, DropdownComponent, DropdownOptionComponent };
+export { DropdownOption, DropdownComponent };
 
 @NgModule({
   imports: [CommonModule, L10nModule, VCLMetalistModule, VCLWormholeModule],
-  exports: [DropdownComponent, DropdownOptionComponent],
-  declarations: [DropdownComponent, DropdownOptionComponent],
+  exports: [DropdownComponent, DropdownOption],
+  declarations: [DropdownComponent, DropdownOption],
   providers: [],
 })
 export class VCLDropdownModule { }

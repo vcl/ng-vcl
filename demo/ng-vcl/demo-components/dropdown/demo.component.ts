@@ -20,7 +20,7 @@ export class DropdownDemoComponent {
     { label: 'item 10', value: 10 }
   ];
 
-  onSelect(change: any) {
-    console.dir(change.value);
+  onSelect(value: any) {
+    console.log('onSelect', value);
   }
 }
