@@ -156,7 +156,7 @@ export class PopoverComponent extends ObservableComponent {
     return targetEl instanceof HTMLElement ? targetEl.getBoundingClientRect() : undefined;
   }
 
-  private getAttachementPosition(): ClientRect {
+  private getAttachmentPosition(): ClientRect {
     return this.me.nativeElement.getBoundingClientRect();
   }
 
@@ -181,7 +181,7 @@ export class PopoverComponent extends ObservableComponent {
     const targetPos = this.getTargetPosition();
     if (!targetPos) return;
 
-    const ownPos: ClientRect = this.getAttachementPosition();
+    const ownPos: ClientRect = this.getAttachmentPosition();
 
     const mustX: number = this.targetX === AttachmentX.Center ?
       targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :

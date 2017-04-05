@@ -33,8 +33,9 @@ export class InputDirective {
   constructor(private elRef: ElementRef) { }
 
   ngOnInit() {
-    if (INPUT_INVALID_TYPES.includes(this.type))
+    if (INPUT_INVALID_TYPES.includes(this.type)) {
       throw new Error('type not allowed for vcl-input: ' + this.type);
+    }
   }
 
   focus() {
@@ -44,8 +45,8 @@ export class InputDirective {
   }
 
   // autoselect
-  @HostListener('focus', ['$event.target.value'])
-  onFocus(value) {
+  @HostListener('focus')
+  onFocus() {
     if (
       this.selectOnFocus &&
       this.elRef &&
