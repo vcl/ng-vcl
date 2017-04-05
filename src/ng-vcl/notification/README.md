@@ -1,6 +1,6 @@
 # vcl-notification
 
-Notification-style notifications
+Growl-style notifications
 
 ## Usage:
 
@@ -8,29 +8,29 @@ Notification-style notifications
 @Component({ ... })
 export class MyComponent {
 
-  constructor(private gs: NotificationService) {}
+  constructor(private notification: NotificationService) {}
 
   info() {
-    this.gs.info('An info message');
+    this.notification.info('An info message');
   }
   success() {
-    this.gs.success('A success message', {
+    this.notification.success('A success message', {
       position: NotificationPosition.BottomRight
     });
   }
   warning() {
-    this.gs.warning('A warning', {
+    this.notification.warning('A warning', {
       showCloseButton: false,
       timeout: 10000
     });
   }
   error() {
-    this.gs.error('An error message', {
+    this.notification.error('An error message', {
       timeout: false
     });
   }
   custom() {
-    this.gs.notification('<b>A <i>custom</i> message</b>', {
+    this.notification.show('<b>A <i>custom</i> message</b>', {
       html: true,
       backgroundColor: 'black',
       textColor: 'white',
@@ -43,8 +43,6 @@ export class MyComponent {
 ```
 
 ### API
-
-#### AlertOptions:
 
 ```ts
 export enum NotificationType {
