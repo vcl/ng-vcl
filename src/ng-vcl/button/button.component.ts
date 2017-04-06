@@ -56,13 +56,19 @@ export class ButtonComponent extends ObservableComponent {
   label: string;
 
   @Input()
-  prepIcon: string;
-
-  @Input()
   autoBlur: boolean = true;
 
   @Input()
   appIcon: string;
+
+  @Input()
+  prepIcon: string;
+
+  @Input()
+  appIconSrc: string;
+
+  @Input()
+  prepIconSrc: string;
 
   private pressEvent = new EventEmitter<any>();
   @Output()
