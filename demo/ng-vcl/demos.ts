@@ -31,7 +31,7 @@ import OFF_CLICK_DEMO from './demo-components/off-click/off-click.demo';
 import MONTH_PICKER_DEMO from './demo-components/month-picker/month-picker.demo';
 import DATE_PICKER_DEMO from './demo-components/date-picker/date-picker.demo';
 import LABEL_DEMO from './demo-components/label/demo';
-import TOKEN_DEMO from './demo-components/token/token.demo';
+import TOKEN_DEMO from './demo-components/token/demo';
 import SLIDER_DEMO from './demo-components/slider/demo';
 import INPUT_CONTROL_GROUP from './demo-components/input-control-group/input-control-group.demo';
 import ALERT_DEMO from './demo-components/alert/demo';

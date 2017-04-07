@@ -7,9 +7,11 @@ import {
   QueryList,
   forwardRef,
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { TokenComponent } from './token.component';
+import { Token, TokenComponent } from './token.component';
 
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -19,7 +21,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 @Component({
   selector: 'vcl-token-list',
-  templateUrl: 'token-list.component.html',
+  template: '<ng-content></ng-content>',
   host: {
     '[class.vclTokenList]': 'true',
     '[class.vclTokenContainer]': 'true'
@@ -28,46 +30,84 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class TokenListComponent implements ControlValueAccessor {
 
-
-  @Input('tokens') tokens: any[];
-  value: any[] = [];
-
-  @Output('change') onChange = new EventEmitter();
+  tokenSubscription: Subscription | undefined;
 
   @ContentChildren(TokenComponent)
-  templateItems: QueryList<TokenComponent>;
+  tokens: QueryList<TokenComponent>;
 
-  constructor() { }
+  @Input()
+  selectable: boolean = true;
 
-  ngAfterContentInit() {
-    // transform template-items if available
-    let templateItemsAr = this.templateItems.toArray();
-    if (templateItemsAr.length > 0) {
-      this.tokens = templateItemsAr.map(i => i.toObject());
+  @Output()
+  change = new EventEmitter();
+
+  labels: any[];
+
+  private syncTokens() {
+    const labels = this.labels;
+    if (Array.isArray(labels)) {
+      (this.tokens || []).forEach((token) => {
+        token.selected = labels.includes(token.label);
+      });
     }
   }
 
-  ngOnInit() { }
-
-
-  change() {
-    this.value = this.tokens
-      .filter(t => t.selected);
-    this.onChange.emit(this.value);
-    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  private syncSelectedValues() {
+    this.labels = (this.tokens || []).filter(t => t.selected).map(t => t.label);
   }
 
 
-  /**
+  private triggerChange() {
+    this.change.emit(this.labels);
+    !!this.onChangeCallback && this.onChangeCallback(this.labels);
+  }
+
+  ngAfterContentInit() {
+    // Update the selectedIndex to match the selected buttons when not using ngModel
+    if (!this.onChangeCallback) {
+      this.syncSelectedValues();
+      this.triggerChange();
+    }
+
+    // Subscribes to buttons press event
+    const listenButtonPress = () => {
+      this.dispose();
+
+      const select$ = Observable.merge(...(this.tokens.map(token => token.select.map(() => token))));
+
+      this.tokenSubscription =  select$.subscribe(token => {
+        if (this.selectable) {
+          token.selected = !token.selected;
+        }
+        this.syncSelectedValues();
+        this.triggerChange();
+      });
+    };
+
+    listenButtonPress();
+    this.tokens.changes.subscribe(() => {
+      listenButtonPress();
+      setTimeout(() => this.syncSelectedValues());
+    });
+  }
+
+  ngOnDestroy() {
+    this.dispose();
+  }
+
+  dispose() {
+    this.tokenSubscription && this.tokenSubscription.unsubscribe();
+  }
+
+    /**
    * things needed for ControlValueAccessor-Interface
    */
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
-
   writeValue(value: any): void {
-    this.value = value;
+    this.labels = value;
+    this.syncTokens();
   }
-
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
   }

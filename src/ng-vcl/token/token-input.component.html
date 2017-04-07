@@ -1,13 +1,19 @@
 <div class="vclTokenContainer">
   <vcl-token *ngFor="let token of tokens"
-  [(selected)]="token.selected"
-  [removeable]="true"
-  (remove)="remove(token)"
-  [attr.tabindex]="-1"
-  [label]="token.label"></vcl-token>
+             (remove)="remove(token)"
+             (tap)="select(token)"
+             [selected]="token.selected"
+             [removable]="true"
+             [attr.tabindex]="-1"
+             [label]="token.label">
+  </vcl-token>
 </div>
 
-<input placeholder="Type to add tokens" autocomplete="off" type="text"
-  class="vclInput" (keydown)="keydown($event)"
+<input 
+  vcl-input
   #input
-  [(ngModel)]="addtext" flex />
+  (change)="onChange($event)"
+  placeholder="Type to add tokens" 
+  autocomplete="off" 
+  (keyup.enter)="add(input.value)"
+  flex />

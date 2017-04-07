@@ -3,9 +3,15 @@ import {
   Input,
   Output,
   EventEmitter,
-  trigger
+  trigger,
+  HostListener
 } from '@angular/core';
 
+export interface Token {
+  label: string;
+  selected?: boolean;
+  removable?: boolean;
+}
 
 @Component({
   selector: 'vcl-token',
@@ -17,32 +23,31 @@ import {
     '[@checkState]': 'selected'
   }
 })
-export class TokenComponent {
+export class TokenComponent implements Token {
 
   @Input()
   label: string;
+
+  onRemoveTap() {
+    if (this.removable) {
+      this.remove.emit(this);
+    }
+  }
+
+  @HostListener('tap', ['$event'])
+  onTap(e: Event) {
+    this.select.emit(this);
+  }
 
   @Input()
   selected: boolean = false;
 
   @Input()
-  removeable: boolean = false;
+  removable: boolean = false;
 
   @Output()
   remove = new EventEmitter();
 
-
-  /**
-   * transforms this NavigationItemComponent into an object,
-   * so it can be handled the same way as an inputList
-   * @return {Object}
-   */
-  toObject(): Object {
-    const ret = {
-      label: this.label,
-      removeable: this.removeable,
-      selected: this.selected
-    };
-    return ret;
-  }
+  @Output()
+  select = new EventEmitter();
 }
