@@ -1,0 +1,24 @@
+<h3>SelectionMode: Single</h3>
+<vcl-button-group [(ngModel)]="idx1">
+  <button vcl-button label="Action 1"></button>
+  <button vcl-button label="Action 2"></button>
+  <button vcl-button label="Action 3"></button>
+</vcl-button-group>
+<p>Selected index: {{idx1}}</p>
+
+<h3>SelectionMode: Multiple</h3>
+<vcl-button-group mode="multiple" [(ngModel)]="idx2">
+  <button vcl-button label="Action 1"></button>
+  <button vcl-button label="Action 2"></button>
+  <button vcl-button label="Action 3"></button>
+</vcl-button-group>
+<p>Selected index: {{idx2}}</p>
+
+
+<h3>SelectionMode: Multiple, preselected via attribute (not supported when using ngModel directive)</h3>
+<vcl-button-group mode="multiple" (change)="idx3 = $event">
+  <button vcl-button label="Action 1" [selected]="true"></button>
+  <button vcl-button label="Action 2" [selected]="true"></button>
+  <button vcl-button label="Action 3"></button>
+</vcl-button-group>
+<p>Selected index: {{idx3}}</p>

@@ -16,34 +16,22 @@ export class AppComponent {}
 
  ```html
 <vcl-button-group mode="single">
-  <button vcl-button (tap)="buttonClick($event)" label="Action 1"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 2"></button>
-  <button vcl-button (tap)="buttonClick($event)" label="Action 3"></button>
+  <button vcl-button label="Action 1"></button>
+  <button vcl-button label="Action 2"></button>
+  <button vcl-button label="Action 3"></button>
 </vcl-button-group>
  ```
 
 ### API
 
-#### Attributes:
+#### Attributes
 
-| Name                  | Type                   | Default  | Description
-| --------------------- | ---------------------- | -------- |--------------
-| `mode`                | string                 | `single` | `single` or `multiple`
-| `selectedIndex` *(1)* | number, number[]       |          | The selected buttons.
+| Name                  | Type                           | Default  | Description
+| --------------------- | ----------------------         | -------- |--------------
+| `ngModel`             | number &#124; number[]         |          | Index of the selected button(s)
+| `mode`                | string                         | `single` | `single` or `multiple`
 
 #### Events:
-
-| Name                | Description
-| ------------        | --------------
-| `change`            | ButtonGroupChange         |          | Selected buttons change
-
-*(1) Supports Two-way binding*
-
-#### Interfaces:
-
-```ts
-interface ButtonGroupChange {
-  source: ButtonComponent;
-  index: number | number[];
-}
-```
+| Name                  | Type                           | Description
+| -                     | -                              | -
+| `change`              | event (number &#124; number[]) | Triggers when selected buttons change

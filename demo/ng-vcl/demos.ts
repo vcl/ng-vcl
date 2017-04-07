@@ -9,7 +9,7 @@ import SELECT_DEMO from "./demo-components/select/demo";
 import ICON_DEMO from './demo-components/icon/icon.demo';
 import ICOGRAM_DEMO from "./demo-components/icogram/icogram.demo";
 import BUTTON_DEMO from './demo-components/button/button.demo';
-import BUTTON_GROUP_DEMO from './demo-components/button-group/button-group.demo';
+import BUTTON_GROUP_DEMO from './demo-components/button-group/demo';
 import LAYER_DEMO from './demo-components/layer/demo';
 import LINK_DEMO from './demo-components/link/link.demo';
 import RADIO_BUTTON_DEMO from './demo-components/radio-button/radio-button.demo';
