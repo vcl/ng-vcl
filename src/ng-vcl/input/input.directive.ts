@@ -38,6 +38,20 @@ export class InputDirective {
     }
   }
 
+  get value() {
+    if (this.elRef.nativeElement) {
+      return this.elRef.nativeElement.value;
+    } else {
+      return '';
+    }
+  }
+
+  clear() {
+    if (this.elRef.nativeElement) {
+      this.elRef.nativeElement.value = '';
+    }
+  }
+
   focus() {
     if (this.elRef.nativeElement) {
       this.elRef.nativeElement.focus();

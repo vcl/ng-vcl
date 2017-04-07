@@ -31,7 +31,7 @@ A button can have content that is only visible in a specified state
 
 ### API
 
-#### Properties:
+#### Attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------

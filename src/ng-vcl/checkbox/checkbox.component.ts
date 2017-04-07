@@ -106,9 +106,7 @@ export class CheckboxComponent implements OnChanges, ControlValueAccessor {
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
   writeValue(value: any): void {
-    if (value !== this.checked) {
-      this.checked = value;
-    }
+    this.checked = !!value;
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
