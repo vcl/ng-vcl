@@ -9,12 +9,6 @@ export enum SelectionMode {
   Multiple
 }
 
-/* change event paremter. Emitted when selected buttons have changed */
-export interface RadioGroupChange {
-  source: RadioButtonComponent;
-  value: any;
-}
-
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => RadioGroupComponent),
@@ -31,55 +25,51 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
   checkedSubscription: Subscription | undefined;
 
-  private _value: any;
+  value: any;
 
-  @Input()
-  set value(value: any) {
-    this._value = value;
-    this.updateRadioButtons();
-  }
+  @Output()
+  change = new EventEmitter<any>();
 
-  get value() {
-    return this._value;
-  }
-
-  @Output('change')
-  valueChange = new EventEmitter<any>();
-
-  @Output('change')
-  change = new EventEmitter<RadioGroupChange>();
-
-  updateValue(value: any, source: RadioButtonComponent) {
+  updateValue(value: any) {
     this.value = value;
     this.onChangeCallback && this.onChangeCallback(this.value);
-    this.valueChange.emit(this.value);
-    this.change.emit({
-      value: this.value,
-      source
-    });
+    this.change.emit(this.value);
   }
 
   @ContentChildren(RadioButtonComponent)
   radioButtons: QueryList<RadioButtonComponent>;
 
+  private syncValue() {
+    let value = undefined;
+    this.radioButtons.toArray().every((rbtn, idx) => {
+        if (rbtn.checked) {
+          value = rbtn.value === undefined ? idx : rbtn.value;
+          return false;
+        }
+        return !rbtn.checked;
+    });
+    this.value = value;
+  }
+
+  private syncRadioButtons() {
+    if (this.radioButtons) {
+      this.radioButtons.forEach((rbtn, idx) => {
+        const value = rbtn.value === undefined ? idx : rbtn.value;
+        rbtn.setChecked(this.value === value);
+      });
+    }
+  }
+
+  private triggerChange() {
+    this.change.emit(this.value);
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  }
+
   ngAfterContentInit() {
-    // When not using ngModel
+    // Update the value to match the selected radio buttons when not using ngModel
     if (!this.onChangeCallback) {
-      // and value is provided
-      if (this.value !== undefined && this.value !== null) {
-        // update radio buttons so they match the provided value
-        this.updateRadioButtons();
-      } else {
-        // else update value to match the selected radio button
-        this.radioButtons.toArray().every(function(rbtn, idx) {
-            if (rbtn.checked) {
-              const newValue = rbtn.value === undefined ? idx : rbtn.value;
-              this.updateValue(newValue, rbtn);
-              return false;
-            }
-            return true;
-        });
-      }
+      this.triggerChange();
+      this.syncValue();
     }
 
     // Subscribes to radio button change event
@@ -91,8 +81,8 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
         this.radioButtons.forEach((crbtn) => {
           crbtn.setChecked(crbtn === source.rbtn);
         });
-        const newValue = source.rbtn.value === undefined ? source.idx : source.rbtn.value;
-        this.updateValue(newValue, source.rbtn);
+        this.syncValue();
+        this.triggerChange();
       });
     };
 
@@ -110,24 +100,14 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
     this.checkedSubscription && this.checkedSubscription.unsubscribe();
   }
 
-  updateRadioButtons() {
-    if (this.radioButtons) {
-      this.radioButtons.forEach((rbtn, idx) => {
-        const value = rbtn.value === undefined ? idx : rbtn.value;
-        rbtn.setChecked(this.value === value);
-      });
-    }
-  }
-
-    /**
+   /**
    * things needed for ControlValueAccessor-Interface
    */
   private onTouchedCallback: (_: any) => void;
   private onChangeCallback: (_: any) => void;
   writeValue(value: any): void {
-    if (value !== this.value) {
-      this.value = value;
-    }
+    this.value = value;
+    this.syncRadioButtons();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
