@@ -47,7 +47,7 @@ resolve: {
 - textarea:
   - autogrow defaults to false now
 - button-group:
-  - selectedIndex attribute switched to 2-way-binding
+  - (BREAKING) removed selectedIndex attribute
   - Added support for ngModel
 - popover
   - (BREAKING) renamed `open` to `visible`
