@@ -21,14 +21,20 @@
 
 ### API
 
-#### vcl-metalist Attributes:
+#### vcl-metalist attributes:
 
-Name                  | Type            | Default | Description
---------------------- | --------------- | ------- | --------------------------------------------------------------------------------
-`change`              | event           |         | emits the new value when the selected items change
-`maxSelectableItems`  | number          | 1       | number of items that can be selected at the same time
+Name                  | Type               | Default | Description
+--------------------- | ---------------    | -       | -
+`ngModel`             | any  &#124;  any[] |         | value(s) of the selected items
+`maxSelectableItems`  | number             | 1       | number of items that can be selected at the same time
 
-#### vcl-metalist-item Attributes:
+#### vcl-metalist events:
+
+Name                  | Type             | Description
+--------------------- | ---------------  | -
+`change`              | any &#124; any[] | emits the new value when the selected items change
+
+#### vcl-metalist-item attributes:
 
 Name       | Type    | Default | Description
 ---------- | ------- | ------- | --------------------------------------
@@ -36,3 +42,9 @@ Name       | Type    | Default | Description
 `selected` | boolean | false   | preselects the item. Ignored when using ngModel
 `disabled` | boolean | false   | if true, the item cannot be selected
 `marked`   | boolean | false   | marks the item
+
+#### vcl-metalist-item methods:
+
+Name                  | Type                   | Description
+--------------------- | ---------------        | -
+`select`              | (MetalistItem) => void | Selects the passed item

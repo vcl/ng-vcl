@@ -37,12 +37,7 @@ export class MetalistComponent implements ControlValueAccessor {
     return (this.items || []).filter(i => i.selected);
   }
 
-  private determineMarkedIndex() {
-    let idx = this.items.toArray().findIndex(item => item.marked);
-    return idx >= 0 ? idx : this.items.toArray().findIndex(metaItem => metaItem.selected);
-  }
-
-  private updateItems() {
+  private syncItems() {
     const value = this.value;
     if (this.multiSelect && Array.isArray(value)) {
       (this.items || []).forEach(item => {
@@ -55,16 +50,26 @@ export class MetalistComponent implements ControlValueAccessor {
     }
   }
 
-  private updateValue() {
+  private syncValue() {
     const items = this.items || [];
     const values = items.filter(i => i.selected).map(i => i.value);
     this.value = this.multiSelect ? values : values[0];
   }
 
+  private triggerChange() {
+    this.change.emit(this.value);
+    !!this.onChangeCallback && this.onChangeCallback(this.value);
+  }
 
-  setValue(value: any) {
-    this.value = value;
-    this.updateItems();
+  ngAfterViewInit() {
+    // Update the value to match the selected metalist-items when not using ngModel
+    if (!this.onChangeCallback) {
+      this.syncValue();
+      this.triggerChange();
+    }
+
+    // Late changes of metalist-items take the selected state of the current value;
+    this.items.changes.subscribe(() => setTimeout(() => this.syncItems()));
   }
 
   select(item: MetalistItem | number) {
@@ -85,7 +90,8 @@ export class MetalistComponent implements ControlValueAccessor {
       } else {
         this.items.forEach(citem => citem.selected = citem === item);
       }
-      this.onChange(item);
+      this.syncValue();
+      this.triggerChange();
     }
   }
 
@@ -96,8 +102,14 @@ export class MetalistComponent implements ControlValueAccessor {
 
     if (item instanceof MetalistItem) {
       item.selected = false;
-      this.onChange(item);
+      this.syncValue();
+      this.triggerChange();
     }
+  }
+
+  private determineMarkedIndex() {
+    let idx = this.items.toArray().findIndex(item => item.marked);
+    return idx >= 0 ? idx : this.items.toArray().findIndex(metaItem => metaItem.selected);
   }
 
   markNext() {
@@ -135,20 +147,9 @@ export class MetalistComponent implements ControlValueAccessor {
     }
   }
 
-  onChange(source: MetalistItem) {
-    this.updateValue();
-    this.change.emit(this.value);
-    !!this.onChangeCallback && this.onChangeCallback(this.value);
-  }
-
-  ngAfterViewInit() {
-    // Update the value to match the selected metalist-items when not using ngModel
-    if (!this.onChangeCallback) {
-      this.updateValue();
-    }
-
-    // Late changes of metalist-items take the selected state of the current value;
-    this.items.changes.subscribe(() => setTimeout(() => this.updateItems()));
+  setValue(value: any) {
+    this.value = value;
+    this.syncItems();
   }
 
   /**
@@ -158,7 +159,8 @@ export class MetalistComponent implements ControlValueAccessor {
   private onChangeCallback: (_: any) => void;
 
   writeValue(value: any): void {
-    this.setValue(value);
+    this.value = value;
+    this.syncItems();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
