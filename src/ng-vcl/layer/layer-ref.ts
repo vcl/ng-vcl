@@ -30,7 +30,7 @@ export abstract class LayerRef implements LayerOptions {
   visible: boolean;
   attrs: LayerAttributes | undefined;
 
-  private results: Subject<any>;
+  private results: Subject<any> | undefined;
   private stateChange = new Subject<{attrs?: LayerAttributes, visible: boolean}>();
 
   state$ = this.stateChange.asObservable();
@@ -39,7 +39,9 @@ export abstract class LayerRef implements LayerOptions {
     this.visible = true;
     this.attrs = attrs;
     this.stateChange.next({attrs, visible: true});
-    this.results = new Subject<any>();
+    if (!this.results) {
+      this.results = new Subject<any>();
+    }
     return this.results.asObservable();
   }
 
@@ -51,6 +53,7 @@ export abstract class LayerRef implements LayerOptions {
         this.results.next(data);
       }
       this.results.complete();
+      this.results = undefined;
     }
   }
 
@@ -59,6 +62,7 @@ export abstract class LayerRef implements LayerOptions {
     this.stateChange.next({visible: false});
     if (this.results) {
       this.results.error(data);
+      this.results = undefined;
     }
   }
 

@@ -50,25 +50,22 @@ export class LayerBaseComponent extends WormholeHost {
     this.layerMap.set(layer, containerWormholeRef);
 
     const layerSub = layer.state$.subscribe((state) => {
-      const attrs = {
-        layer,
-        visible: state.visible,
-        layerAttrs: state.attrs
-      };
-
-      if (state.visible) {
-        this.visibleLayers = [...this.visibleLayers, layer];
-        attrs['zIndex'] + this.zIndex + this.visibleLayers.length;
-      } else {
-        this.visibleLayers = this.visibleLayers.filter(l => l !== layer);
-      }
-
       if (state.visible && !containerWormholeRef.isConnected) {
-        containerWormholeRef.connect({attrs});
+        containerWormholeRef.connect({
+          attrs: {
+            layer,
+            zIndex: this.zIndex + (this.visibleLayers.length * 10),
+            layerAttrs: state.attrs
+          }
+        });
+        this.visibleLayers = [...this.visibleLayers, layer];
       } else if (state.visible) {
-        containerWormholeRef.setAttributes(attrs);
+        containerWormholeRef.setAttributes({
+          layerAttrs: state.attrs
+        });
       } else {
         containerWormholeRef.disconnect();
+        this.visibleLayers = this.visibleLayers.filter(l => l !== layer);
       }
     });
 
