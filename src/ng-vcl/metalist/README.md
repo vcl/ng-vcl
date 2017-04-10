@@ -23,10 +23,11 @@
 
 #### vcl-metalist attributes:
 
-Name                  | Type               | Default | Description
---------------------- | ---------------    | -       | -
-`ngModel`             | any  &#124;  any[] |         | value(s) of the selected items
-`maxSelectableItems`  | number             | 1       | number of items that can be selected at the same time
+Name                  | Type                        | Default  | Description
+--------------------- | ---------------             | -        | -
+`ngModel`             | any &#124; any[]            |          | value(s) of the selected items
+`mode`                | "single" &#124; "multiple"  | "single" | 1 item can be selected in "single" mode. 0 to `maxSelectableItems` in ""multiple"
+`maxSelectableItems`  | number &#124; undefined     |          | maximum number of options that can be selected at the same time. Unlimited if undefined.
 
 #### vcl-metalist events:
 

@@ -5,7 +5,7 @@
 
 <br>
 <h3>multi-select, 3 items selectable:</h3>
-<vcl-select (change)="onChange($event)" [maxSelectableItems]="3" [tabindex]="2">
+<vcl-select (change)="onChange($event)" mode="multiple" [maxSelectableItems]="3" [tabindex]="2">
   <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel" [selected]="item.selected"></vcl-select-option>
 </vcl-select>
 

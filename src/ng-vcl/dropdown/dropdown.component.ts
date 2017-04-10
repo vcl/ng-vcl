@@ -3,7 +3,7 @@ import { Component, Input, Output, ChangeDetectionStrategy,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from "./dropdown-option.component";
-import { MetalistComponent, MetalistItem } from "../metalist/index";
+import { MetalistComponent, MetalistItem, SelectionMode } from "../metalist/index";
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -31,8 +31,22 @@ export class DropdownComponent implements ControlValueAccessor {
   @Input()
   tabindex: number = 0;
 
+  // If `Single`, a single item can be selected
+  // If `Multiple` multiple items can be selected
   @Input()
-  maxSelectableItems: number = 1;
+  selectionMode: SelectionMode = SelectionMode.Single;
+
+  // String alias for selectionMode
+  @Input()
+  set mode(value: 'multiple' | 'single') {
+    this.selectionMode = value === 'multiple' ? SelectionMode.Multiple : SelectionMode.Single;
+  }
+  get mode(): 'multiple' | 'single' {
+    return this.selectionMode === SelectionMode.Multiple ? 'multiple' : 'single';
+  }
+
+  @Input()
+  maxSelectableItems: number | undefined;
 
   @Input()
   listenKeys: boolean = true;

@@ -1,6 +1,6 @@
 import { Component, forwardRef, ChangeDetectionStrategy, HostBinding, ViewChild, ContentChildren, ElementRef, Input, QueryList, EventEmitter, Output, HostListener, ChangeDetectorRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MetalistItem } from '../metalist/index';
+import { MetalistItem, SelectionMode } from '../metalist/index';
 import { DropdownComponent, DropdownOption } from '../dropdown/index';
 import { SelectOption } from './select-option.component';
 
@@ -31,6 +31,20 @@ export class SelectComponent implements ControlValueAccessor {
 
   @ViewChild('select')
   select: ElementRef;
+
+  // If `Single`, a single item can be selected
+  // If `Multiple` multiple items can be selected
+  @Input()
+  selectionMode: SelectionMode = SelectionMode.Single;
+
+  // String alias for selectionMode
+  @Input()
+  set mode(value: 'multiple' | 'single') {
+    this.selectionMode = value === 'multiple' ? SelectionMode.Multiple : SelectionMode.Single;
+  }
+  get mode(): 'multiple' | 'single' {
+    return this.selectionMode === SelectionMode.Multiple ? 'multiple' : 'single';
+  }
 
   @HostBinding('attr.tabindex')
   @Input()
@@ -187,19 +201,16 @@ export class SelectComponent implements ControlValueAccessor {
 
   get selectedItems(): SelectOption[] {
     const items = (this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || [];
-    return items.map(metaItem => metaItem.metadata.metadata);
+    return items.map(metaItem => <SelectOption> metaItem.metadata.metadata);
   }
 
   get showDisplayValue() {
-    return this.maxSelectableItems <= 1 || this.selectedMetaItems.length === 0;
+    return this.selectionMode === SelectionMode.Single || this.selectedMetaItems.length === 0;
   }
 
-  deselectItem(item: SelectOption, event?: Event) {
+  deselectItem(item: SelectOption, event?: any) {
     const idx = this.items.toArray().findIndex(citem => item === citem);
     this.dropdown.metalist.deselect(idx);
-    if (event) {
-      event.stopPropagation();
-    }
   }
 
   onDropdownChange(value: any) {

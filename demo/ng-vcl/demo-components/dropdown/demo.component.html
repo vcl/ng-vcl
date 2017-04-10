@@ -5,19 +5,13 @@
 
 <br/>
 <h3>multi-select:</h3>
-<vcl-dropdown (change)="onSelect($event)" [tabindex]="2" [maxSelectableItems]="3">
-  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
-</vcl-dropdown>
-
-<br/>
-<h3>keyboard events:</h3>
-<vcl-dropdown (change)="onSelect($event)" [tabindex]="3" [listenKeys]="true">
+<vcl-dropdown (change)="onSelect($event)" [tabindex]="2" mode="multiple" [maxSelectableItems]="3">
   <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
 </vcl-dropdown>
 
 <br/>
 <h3>vcl-dropdown-option with content:</h3>
-<vcl-dropdown (change)="onSelect($event)" [tabindex]="5" [listenKeys]="true">
+<vcl-dropdown (change)="onSelect($event)" [tabindex]="5">
   <vcl-dropdown-option [value]="1" [selected]="false">
     <div class="vclDropdownItemLabel">
       <b>item 1</b>
@@ -32,7 +26,7 @@
 <br/>
 
 <h3>single-select with ngModel:</h3>
-<vcl-dropdown [(ngModel)]="selectedItem"  [tabindex]="6">
+<vcl-dropdown [(ngModel)]="selectedItem" [tabindex]="6">
   <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
 </vcl-dropdown>
 <br/>

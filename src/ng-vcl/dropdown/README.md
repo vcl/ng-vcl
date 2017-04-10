@@ -3,7 +3,7 @@
 ## Usage:
 
 ```html
-<vcl-dropdown (change)="onSelect($event)" [maxSelectableItems]="1" [listenKeys]="true">
+<vcl-dropdown (change)="onSelect($event)" mode="multi" [maxSelectableItems]="5">
   <vcl-dropdown-option value="1" label="Item 1"></vcl-dropdown-option>
   <vcl-dropdown-option value="2" label="Item 2" [selected]="true"></vcl-dropdown-option>
   <vcl-dropdown-option value="3" label="Item 3"></vcl-dropdown-option>
@@ -17,15 +17,20 @@
 
 #### vcl-dropdown attributes:
 
-Name                  | Type            | Default | Description
---------------------- | --------------- | ------- | --------------------------------------------------------------------------------
-`change`              | event           |         | emits the new value when the selected items change
-`maxSelectableItems`  | number          | 1       | number of items that can be selected at the same time
-`listenKeys`          | boolean         | true    | if true, the dropdown will listen and interact to keypress-events 
+Name                  | Type                        | Default  | Description
+--------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
+`ngModel`             | any &#124; any[]            |          | value(s) of the selected items
+`mode`                | "single" &#124; "multiple"  | "single" | 1 option can be selected in "single" mode. 0 to `maxSelectableItems` in "multiple"
+`maxSelectableItems`  | number &#124; undefined     |          | maximum number of options that can be selected at the same time. Unlimited if undefined.
+`listenKeys`          | boolean                     | true     | if true, the dropdown will listen and interact to keypress-events 
+
+#### vcl-dropdown events:
+
+Name                  | Type             | Description
+--------------------- | ---------------  | -
+`change`              | any &#124; any[] | emits the new value when the selected options change
 
 #### vcl-dropdown-option attributes:
-
-Items are javascript-objects with the following attributes
 
 Name       | Type    | Default | Description
 ---------- | ------- | ------- | --------------------------------------

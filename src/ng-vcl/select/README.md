@@ -17,11 +17,18 @@
 
 #### vcl-select attributes:
 
-Name                  | Type            | Default | Description
---------------------- | --------------- | ------- | --------------------------------------------------------------------------------
-`change`              | event           |         | emits the new value when the selected items change
-`maxSelectableItems`  | number          | 1       | number of items that can be selected at the same time
-`listenKeys`          | boolean         | true    | if true, the select will listen and interact to keypress-events 
+Name                  | Type                        | Default  | Description
+--------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
+`ngModel`             | any &#124; any[]            |          | value of the selected option(s)
+`mode`                | "single" &#124; "multiple"  | "single" | 
+`maxSelectableItems`  | number &#124; undefined     |          | maximum number of options that can be selected at the same time. Unlimited if undefined.
+`listenKeys`          | boolean                     | true     | if true, the select will listen and interact to keypress-events 
+
+#### vcl-select events:
+
+Name                  | Type             | Description
+--------------------- | ---------------  | -
+`change`              | any &#124; any[] | emits the new value when the selected options change
 
 #### vcl-select-option attributes:
 
