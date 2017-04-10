@@ -26,11 +26,9 @@ Wrapping label
 | ---------------------------- | ----------- | -------- |--------------
 | `label` *(1)*                | string      |          | The label 
 | `subLabel` *(1)*             | string      |          | The sublabel 
-| `prepend`                    | boolean     | false    | Whether the label prepends the child content
 | `disabled`                   | boolean     | false    | Whether the label is disabled or not
 | `required`                   | boolean     | false    | Shows the required indicator when true
 | `requiredIndicatorCharacter` | string      | •        | The required indicator character
 | `requiredIndLabel` *(1)*     | string      |          | Accessible label for the required indicator
-| `wrapping`                   | boolean     | false    | Whether the label wraps the labelled control
 
 *(1) Supports l10n*

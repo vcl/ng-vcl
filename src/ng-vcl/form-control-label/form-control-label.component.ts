@@ -1,10 +1,7 @@
-import {
-  Component, Input, OnInit, HostBinding,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Input, OnInit, HostBinding, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 
 @Component({
-  selector: '[vcl-form-control-label]',
+  selector: 'label[vcl-form-control-label]',
   templateUrl: 'form-control-label.component.html',
   host: {
     '[class.vclFormControlLabel]': 'true',
@@ -13,25 +10,33 @@ import {
 })
 export class FormControlLabelComponent {
 
+  @ViewChild('content')
+  content: ElementRef;
+
   @Input()
   @HostBinding('class.vclDisabled')
-  disabled: boolean = false;
+  disabled = false;
 
-  @Input() requiredIndicatorCharacter: string = '•';
-  @Input() label: string;
-  @Input() subLabel: string;
-
-  // Whether the label prepends the child content
-  @Input() prepend: boolean = false;
-
-  // Whether the label wraps the labelled control
   @Input()
+  requiredIndicatorCharacter: string = '•';
+
+  @Input()
+  label: string | undefined;
+
+  @Input()
+  subLabel: string | undefined;
+
+  // Whether the label wraps the control
   @HostBinding('class.vclFormControlLabelWrapping')
-  wrapping: boolean = false;
+  get hasContent() {
+    return this.content.nativeElement.childNodes.length > 0;
+  }
 
   // Whether an indicator that an input in to the labelled control is required
-  @Input() required: boolean = false;
+  @Input()
+  required: boolean = false;
 
   // Accessible label for the required indicator
-  @Input() requiredIndLabel: string;
+  @Input()
+  requiredIndLabel: string;
 }

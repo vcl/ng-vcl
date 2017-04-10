@@ -1,9 +1,6 @@
-<ng-content *ngIf="prepend"></ng-content>
 {{label | loc}}
 <em *ngIf="required" class="vclRequiredIndicator" aria-hidden="true" [attr.aria-label]="requiredIndLabel | loc">
   {{requiredIndicatorCharacter}}
 </em>
-<label *ngIf="subLabel" class="vclFormControlSubLabel">
-  {{subLabel | loc}}
-</label>
-<ng-content *ngIf="!prepend"></ng-content>
+<span *ngIf="subLabel" class="vclFormControlSubLabel">{{subLabel | loc}}</span>
+<span #content><ng-content></ng-content></span> 

@@ -1,24 +1,15 @@
 <h3>Non-wrapping label:</h3>
-<label vcl-form-control-label label="Label text" subLabel="Sub label text" for="form-control-label-demo-checkbox-1"></label>
-<vcl-checkbox [(checked)]="checkBox1Checked" id="form-control-label-demo-checkbox-1"></vcl-checkbox>
-
-<br>
+<label vcl-form-control-label label="Label 1" subLabel="Sub label 1" for="form-control-label-demo-checkbox-1"></label>
+<button vcl-button id="form-control-label-demo-checkbox-1" label="ClickMe!" (click)="onButtonClick()"></button>
 
 <h3>Wrapping label:</h3>
-<label vcl-form-control-label label="Label 2 text" subLabel="Sub label 2 text">
-  <vcl-checkbox [(checked)]="checkBox2Checked" id="form-control-label-demo-checkbox-2"></vcl-checkbox>
+
+<label vcl-form-control-label label="Label 2" subLabel="Sub label 2">
+  <button vcl-button id="form-control-label-demo-checkbox-1" label="ClickMe!" (click)="onButtonClick()"></button>
 </label>
 
 <h3>Disabled label:</h3>
-
-<label vcl-form-control-label label="Label 3 disabled" disabled=true></label>
+<label vcl-form-control-label label="Label 3 (disabled)" disabled=true></label>
 
 <h3>Required label:</h3>
-
-<label vcl-form-control-label label="Label 3 required" required=true requiredIndLabel="reqLabel"></label>
-
-<h3>Wrapped label:</h3>
-
-<label vcl-form-control-label label="Label 3 disabled" wrapping=true>
-  <vcl-checkbox [(checked)]="checkBox2Checked" id="form-control-label-demo-checkbox-2"></vcl-checkbox>
-</label>
+<label vcl-form-control-label label="Label 4 (required)" required=true requiredIndLabel="reqLabel"></label>
