@@ -1,5 +1,7 @@
 # vcl-label
 
+A visually highlighted tag to attribute items.
+
 ## Usage:
 
 ```javascript
@@ -12,28 +14,14 @@ import { VCLLabelModule } from '@ng-vcl/ng-vcl';
 export class AppComponent {}
 ```
 
-## Normal:
-
 ```html
-<vcl-label label="mylabel" subLabel="with sub"></vcl-label>
-```
+<vcl-label label="mylabel"></vcl-label>
 
-## Wrapping:
+<vcl-label label="mylabel" type="success"></vcl-label>
 
-```html
-<vcl-label label="Watch my button" subLabel="my button is amazing">
-  <button>button</button>
-</vcl-label>
-```
+<vcl-label label="mylabel" type="info"></vcl-label>
 
-## typed
-
-```html
-<vcl-label label="mylabel" subLabel="with sub" type="primary"></vcl-label>
-
-<vcl-label label="mylabel" subLabel="with sub" type="success"></vcl-label>
-
-<vcl-label label="mylabel" subLabel="with sub" type="info"></vcl-label>
+<span vcl-label label="mylabel" type="warning"></span>
 ```
 
 ### API
@@ -42,7 +30,5 @@ export class AppComponent {}
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------
-`label`    | string |         | the main-text
-`subLabel` | string |         | the sub-test
+`label`    | string |         | the label's text
 `type`     | string |         | colored types; ENUM(primary, success, info, warning, error)
-`for`      | string |         | assigns the label to an element (equal to html5-label's for)

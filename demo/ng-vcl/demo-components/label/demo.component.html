@@ -1,38 +1,17 @@
-<h3>Label:</h3>
-<vcl-label label="mylabel" subLabel="with sub" class="myclass1 myclass2"></vcl-label>
+<h3>Default label:</h3>
+<vcl-label label="default"></vcl-label>
 
-<br/>
-<br/>
+<h3>Primary label:</h3>
+<vcl-label label="primary" type="primary"></vcl-label>
 
-<h3>Wrapping Labels:</h3>
-<vcl-label label="Watch my button" subLabel="my button is amazing" class="myclass1 myclass2">
-  <button vcl-button>button</button>
-</vcl-label>
+<h3>Success label:</h3>
+<vcl-label label="success" type="success"></vcl-label>
 
-<br/>
-<vcl-label label="I'm required" subLabel="" class="myclass1 myclass2" [required]="true" for="myInput">
-  <input id="myInput" value="foobar" />
-</vcl-label>
+<h3>Info label:</h3>
+<vcl-label label="info" type="info"></vcl-label>
 
-<br/>
-<br/>
-<h3>Typed labels:</h3>
+<h3>Warning label:</h3>
+<vcl-label label="warning" type="warning"></vcl-label>
 
-Primary:
-<vcl-label label="mylabel" subLabel="with sub" type="primary"></vcl-label>
-
-<br/>
-<br/> success:
-<vcl-label label="mylabel" subLabel="with sub" type="success"></vcl-label>
-
-<br/>
-<br/> Info:
-<vcl-label label="mylabel" subLabel="with sub" type="info"></vcl-label>
-
-<br/>
-<br/> warning:
-<vcl-label label="mylabel" subLabel="with sub" type="warning"></vcl-label>
-
-<br/>
-<br/> error:
-<vcl-label label="mylabel" subLabel="with sub" type="error"></vcl-label>
+<h3>Error label:</h3>
+<vcl-label label="error" type="error"></vcl-label>

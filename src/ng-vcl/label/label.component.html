@@ -1,10 +1,2 @@
-<label [attr.for]="for">
-  {{ label | loc }}
-</label>
-
-<span *ngIf="required">{{requiredIndicatorCharacter}}</span>
+{{ label | loc }}
 <ng-content></ng-content>
-
-<label class="vclFormControlSubLabel" [attr.for]="for">
-    {{ subLabel | loc }}
-</label>

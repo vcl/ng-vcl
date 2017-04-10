@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'vcl-label',
+  selector: '[vcl-label], vcl-label',
   templateUrl: 'label.component.html',
   host: {
-    '[class.vclFormControlLabel]': 'true'
+    '[class.vclLabel]': 'true'
   }
 })
 export class LabelComponent {
@@ -19,25 +19,8 @@ export class LabelComponent {
   @Input('label')
   label: string | undefined;
 
-  @Input('subLabel')
-  subLabel: string | undefined;
-
   @Input('type')
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
-
-  @Input('requiredIndicatorCharacter')
-  requiredIndicatorCharacter: string = '•';
-
-  @Input('required')
-  required: boolean = false;
-
-  @Input('for')
-  for: string | undefined;
-
-  @HostBinding('class.vclLabel')
-  get vclLabel() {
-    return this.type;
-  }
 
   /**
    * TODO(issue) this overwrites the users classes
