@@ -28,15 +28,14 @@ export class TokenComponent implements Token {
   @Input()
   label: string;
 
-  onRemoveTap() {
-    if (this.removable) {
-      this.remove.emit(this);
-    }
-  }
-
   @HostListener('tap', ['$event'])
   onTap(e: Event) {
-    this.select.emit(this);
+    this.select.emit(e);
+  }
+
+  onRemoveClick(event) {
+    event.stopPropagation();
+    this.remove.emit(event);
   }
 
   @Input()

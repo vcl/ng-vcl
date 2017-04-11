@@ -49,11 +49,11 @@ export class AppComponent {}
 
 #### vcl-token attributes:
 
-Name         | Type    | Default | Description
------------- | ------- | ------- | ---------------------------------------
-`label`      | string  |         | label-text inside of the token
-`selected`   | boolean | false   | if true, the token is highlighted
-`removable`  | boolean | false   | if true, the remove-cross is shown
+Name          | Type    | Default | Description
+------------  | ------- | ------- | ---------------------------------------
+`label`       | string  |         | label-text inside of the token
+`selected`    | boolean | false   | if true, the token is highlighted
+`removable`   | boolean | false   | if true, the remove-cross is shown
 
 #### vcl-token events:
 Name                  | Type    | Description

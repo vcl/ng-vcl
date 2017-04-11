@@ -8,7 +8,9 @@ import {
   ElementRef,
   ViewChild,
   QueryList,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  HostBinding
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputDirective } from '../input/index';
@@ -26,7 +28,9 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   host: {
     '[class.vclInput]': 'true',
     '[class.vclTokenInput]': 'true',
-    '[attr.tabindex]': '0'
+    '[class.vclLayoutHorizontal]': 'true',
+    '[class.vclLayoutWrap]': 'true',
+    '[attr.tabindex]': '-1',
   },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -35,19 +39,25 @@ export class TokenInputComponent implements ControlValueAccessor {
 
   tokens: Token[] = [];
 
-  @Output()
-  change = new EventEmitter();
-
   @ViewChild('input')
   input: ElementRef;
 
   @Input()
   selectable: boolean = true;
 
+  @Input()
+  tabindex: number = 0;
+
   @HostListener('focus', ['$event'])
   async onFocus(ev?) {
-    await new Promise(res => setTimeout(res, 0));
+    await new Promise(res => setTimeout(res, 1000));
     this.input.nativeElement.focus();
+  }
+
+
+  @HostBinding('class.vclFocused')
+  get vclFocused() {
+    return this.input && typeof document !== 'undefined' && document.activeElement === this.input.nativeElement;
   }
 
   /**
@@ -55,7 +65,7 @@ export class TokenInputComponent implements ControlValueAccessor {
    */
   lastKey: string | null = null;
   @HostListener('keydown', ['$event'])
-  async onKeydown(ev?: KeyboardEvent) {
+  onKeydown(ev?: KeyboardEvent) {
     const code = ev && (ev.code || ev.key); // fallback for ie11
     if (code == 'Backspace' && this.lastKey == 'Backspace' && this.input.nativeElement.value === '') {
       // remove last token
@@ -67,6 +77,9 @@ export class TokenInputComponent implements ControlValueAccessor {
     }
   }
 
+  @Output()
+  change = new EventEmitter();
+
   add(label: string) {
     if (label) {
       this.tokens.push({
@@ -76,12 +89,6 @@ export class TokenInputComponent implements ControlValueAccessor {
       this.input.nativeElement.value = '';
       this.triggerChange();
     }
-  }
-
-  onChange(event: Event) {
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    event.preventDefault();
   }
 
   select(token: Token) {

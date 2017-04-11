@@ -12,8 +12,9 @@
 <input 
   vcl-input
   #input
-  (change)="onChange($event)"
   placeholder="Type to add tokens" 
   autocomplete="off" 
+  [tabindex]="tabindex"
   (keyup.enter)="add(input.value)"
-  flex />
+  flex
+  />
