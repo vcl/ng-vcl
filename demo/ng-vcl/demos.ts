@@ -16,7 +16,6 @@ import RADIO_BUTTON_DEMO from './demo-components/radio-button/radio-button.demo'
 import CHECKBOX_DEMO from './demo-components/checkbox/checkbox.demo';
 import FORM_CONTROL_LABEL_DEMO from './demo-components/form-control-label/form-control-label.demo';
 import FORM_DEMO from './demo-components/form/form.demo';
-import FORM_ERROR_DEMO from './demo-components/form-error/form-error.demo';
 import INPUT_DEMO from './demo-components/input/input.demo';
 import FILE_INPUT_DEMO from './demo-components/file-input/file-input.demo';
 import TEXTAREA_DEMO from './demo-components/textarea/textarea.demo';
@@ -52,7 +51,6 @@ export const DEMO_MODULES: any[] = [
   CHECKBOX_DEMO,
   FORM_CONTROL_LABEL_DEMO,
   FORM_DEMO,
-  FORM_ERROR_DEMO,
   INPUT_DEMO,
   FILE_INPUT_DEMO,
   TEXTAREA_DEMO,
