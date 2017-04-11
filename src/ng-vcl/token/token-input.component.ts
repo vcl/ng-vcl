@@ -54,8 +54,18 @@ export class TokenInputComponent implements ControlValueAccessor {
     this.input.nativeElement.focus();
   }
 
-
   @HostBinding('class.vclFocused')
+  focused = false;
+
+  onInputFocus() {
+    this.focused = true;
+  }
+
+  onInputBlur() {
+    this.focused = false;
+    this.onTouched();
+  }
+
   get vclFocused() {
     return this.input && typeof document !== 'undefined' && document.activeElement === this.input.nativeElement;
   }
@@ -105,14 +115,14 @@ export class TokenInputComponent implements ControlValueAccessor {
 
   triggerChange() {
     this.change.emit(this.tokens);
-    this.onChangeCallback && this.onChangeCallback(this.tokens);
+    this.onChange(this.tokens);
   }
 
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
 
   writeValue(tokens: any): void {
     if (Array.isArray(tokens)) {
@@ -122,9 +132,9 @@ export class TokenInputComponent implements ControlValueAccessor {
   }
 
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }

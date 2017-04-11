@@ -16,5 +16,7 @@
   autocomplete="off" 
   [tabindex]="tabindex"
   (keyup.enter)="add(input.value)"
+  (focus)="onInputFocus()"
+  (blur)="onInputBlur()"
   flex
   />
