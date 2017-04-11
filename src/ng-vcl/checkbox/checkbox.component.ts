@@ -87,7 +87,7 @@ export class CheckboxComponent implements OnChanges, ControlValueAccessor {
     if (this.disabled) return;
     this.checked = !this.checked;
     this.checkedChange.emit(this.checked);
-    this.onChangeCallback && this.onChangeCallback(this.checked);
+    this.onChange(this.checked);
   }
 
   focusMaintenance(checked: boolean) {
@@ -100,18 +100,24 @@ export class CheckboxComponent implements OnChanges, ControlValueAccessor {
     return this.checked ? this.checkedIcon : this.uncheckedIcon;
   }
 
+  @HostListener('blur')
+  onBlur(e) {
+    this.onTouched();
+  }
+
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
+
   writeValue(value: any): void {
     this.checked = !!value;
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
