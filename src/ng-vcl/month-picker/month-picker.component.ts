@@ -54,8 +54,8 @@ export class MonthPickerComponent {
   @Input() private prevYearBtnIcon: string = 'fa:chevron-left';
   @Input() private nextYearBtnIcon: string = 'fa:chevron-right';
 
-  @Input() private maxSelectableItems: number;
-  @Input() private minSelectableItems: number = 1;
+  @Input() private maxSelectableMonths: number;
+  @Input() private minSelectableMonths: number = 1;
   @Input() private minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() private maxYear: number = Number.MAX_SAFE_INTEGER;
   //
@@ -73,8 +73,8 @@ export class MonthPickerComponent {
       return month;
     });
 
-    if (!this.maxSelectableItems) {
-      this.maxSelectableItems = this.colors && this.colors.length || 1;
+    if (!this.maxSelectableMonths) {
+      this.maxSelectableMonths = this.colors && this.colors.length || 1;
     }
 
     this.availableColors = this.colors ? this.colors.map(color => true) : [];
@@ -99,22 +99,29 @@ export class MonthPickerComponent {
     }
 
     const monthMeta: any = this.getYearMeta(year)[month];
+
     if (monthMeta.selected) {
+      if (this.getSelectedDates().length <= this.minSelectableMonths) {
+        return;
+      }
       return this.deselectMonth(year, month);
     }
 
-    if (this.maxSelectableItems === 1) {
+    if (this.maxSelectableMonths === 1) {
       this.iterateMonthMetas((year, month, mMeta) => {
         mMeta.selected = mMeta === monthMeta;
       });
-    } else if (this.getSelectedDates().length < this.maxSelectableItems) {
+    }
+
+    if (this.getSelectedDates().length < this.maxSelectableMonths) {
       monthMeta.selected = true;
     }
+
     if (monthMeta.selected) {
       this.setMonthBackgroundColor(year, month);
       this.notifySelect(`${year}.${month}`);
 
-      if (this.maxSelectableItems === 1 && this.expandable) {
+      if (this.maxSelectableMonths === 1 && this.expandable) {
         this.expanded = false;
         this.expandedChange.emit(this.expanded);
       }

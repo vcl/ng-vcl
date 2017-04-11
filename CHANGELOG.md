@@ -3,6 +3,11 @@
 
 ## 0.2.14 (2017-04-11)
 
+### Breaking Changes
+- vcl-month-picker:
+  - renamed `@Input() minSelectableItems: number` to `@Input() minSelectableMonths: number`
+  - renamed `@Input() maxSelectableItems: number` to `@Input() maxSelectableMonths: number`
+
 ### Changes
 - vcl-month-picker:
   - introduce preselectMonth and dePreselectMonth to add and remove preselected months
