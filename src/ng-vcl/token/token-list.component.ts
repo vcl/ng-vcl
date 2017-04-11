@@ -36,7 +36,7 @@ export class TokenListComponent implements ControlValueAccessor {
   tokens: QueryList<TokenComponent>;
 
   @Input()
-  selectable: boolean = true;
+  selectable: boolean = false;
 
   @Output()
   change = new EventEmitter();
