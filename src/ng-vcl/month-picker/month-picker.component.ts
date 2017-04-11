@@ -23,6 +23,8 @@ export class MonthPickerComponent {
 
   private availableColors: boolean[];
 
+  @Input() private debug: boolean = false;
+
   @Input() private expanded: boolean = true;
   @Output() private expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -121,23 +123,27 @@ export class MonthPickerComponent {
 
   public preselectMonth(year: number, month: number, color: string): void {
     const tag: string = `${this.tag}.preselectMonth()`;
+    if (this.debug) console.log(tag, `${year}.${month}`);
     const monthMeta: any = this.getYearMeta(year)[month];
     if (monthMeta.selected) {
       this.deselectMonth(year, month);
     }
     monthMeta.preselected = true;
     monthMeta.color = color;
+    if (this.debug) console.log(tag, 'monthMeta:', monthMeta);
     this.ref.markForCheck();
   }
 
   public dePreselectMonth(year: number, month: number): void {
     const tag: string = `${this.tag}.dePreselectMonth()`;
-    if (this.isMonthPreselected(year, month)) {
-      const monthMeta: any = this.getYearMeta(year)[month];
-      monthMeta.preselected = false;
-      delete monthMeta.color;
-      this.ref.markForCheck();
-    }
+    if (this.debug) console.log(tag, `${year}.${month}`);
+    if (!this.isMonthPreselected(year, month)) return;
+
+    const monthMeta: any = this.getYearMeta(year)[month];
+    monthMeta.preselected = false;
+    delete monthMeta.color;
+    if (this.debug) console.log(tag, 'monthMeta:', monthMeta);
+    this.ref.markForCheck();
   }
 
   public isMonthAvailable(year: number, month: number): boolean {
@@ -158,8 +164,12 @@ export class MonthPickerComponent {
   }
 
   public isMonthPreselected(year: number, month: number): boolean {
-    return this.isDateInBounds(year, month) &&
-      (this.yearMeta[year] && this.yearMeta[year][month].preselected);
+    const tag: string = `${this.tag}.isMonthPreselected()`;
+    if (this.debug) console.log(tag, `${year}.${month}`);
+    const isMonthPreselected: boolean = !!(this.isDateInBounds(year, month) &&
+      this.yearMeta[year] && this.yearMeta[year][month].preselected);
+    if (this.debug) console.log(tag, 'isMonthPreselected:', isMonthPreselected);
+    return isMonthPreselected;
   }
 
   private getYearMeta(year: number): any[] {
