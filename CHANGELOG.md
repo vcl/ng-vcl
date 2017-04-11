@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.2.14 (2017-04-11)
+
+### Changes
+- vcl-month-picker:
+  - introduce preselectMonth and dePreselectMonth to add and remove preselected months
+which are not part of the selected months and cannot be interacted with by the user
+
 ## 0.2.9 (2017-03-21)
 
 ### Breaking Changes
