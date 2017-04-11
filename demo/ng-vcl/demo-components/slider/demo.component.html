@@ -1,37 +1,51 @@
 <h3>basic:</h3>
-<vcl-slider 
-  [(value)]="value1" 
-  [min]="0" 
-  [max]="100" 
-  [step]="20" 
-  [scale]="['Zero','One','Two','Three','Four','Five']">
+<vcl-slider [(value)]="value1">
+>
 </vcl-slider>
 Value: {{value1}}
 
-<h3>steps only:</h3>
+<h3>With a generated scale:</h3>
 <vcl-slider 
   [(value)]="value2" 
   [min]="0" 
-  [max]="5" 
-  [mousewheel]="true" 
-  [step]="1" 
-  [scale]="['☀','☁','☂','☃','☄','1']" 
-  [stepsOnly]="true">
+  [max]="100"
+  [scale]="true" 
+  [step]="10">
 </vcl-slider>
 Value: {{value2}}
 
+<h3>With value locked to steps:</h3>
+<vcl-slider 
+  [(value)]="value3" 
+  [min]="0" 
+  [max]="100"
+  [lock]="true" 
+  [step]="10">
+</vcl-slider>
+Value: {{value3}}
+
+
+<h3>labeled steps:</h3>
+<vcl-slider 
+  [(value)]="value4" 
+  [min]="0" 
+  [max]="5" 
+  [mousewheel]="true" 
+  [scale]="['☀','☁','☂','☃','☄','1']">
+</vcl-slider>
+Value: {{value4}}
+
 
 <h3>default values:</h3>
-<vcl-slider [(value)]="value3"></vcl-slider>
-Value: {{value3}}
+<vcl-slider [(value)]="value5"></vcl-slider>
+Value: {{value5}}
 
 <h3>disabled:</h3>
 
 <vcl-slider 
-  [(value)]="value2" 
+  [(value)]="value6" 
   [min]="0" 
   [max]="7" 
-  [step]="1" 
   [disabled]="true" 
   [scale]="['d','i','s','a','b','l', 'e', 'd']">
 </vcl-slider>

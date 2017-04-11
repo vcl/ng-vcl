@@ -6,6 +6,6 @@
     <div  class="vclSliderKnob"></div>
   </div>
 </div>
-<div class="vclSliderScale" horizontal="" justified="" layout="">
+<div *ngIf="showScale" class="vclSliderScale" horizontal="" justified="" layout="">
   <div *ngFor="let point of scalePoints" class="vclSliderScalePointLabel" (tap)="selectPoint(point)">{{point.label}}</div>
 </div>

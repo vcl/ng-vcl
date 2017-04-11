@@ -59,16 +59,16 @@ export class SliderComponent implements ControlValueAccessor {
   wheel: boolean = false;
 
   @Input()
-  max: number = 100;
+  max: number = 10;
 
   @Input()
-  step: number = 10;
+  lock: boolean = false;
 
   @Input()
-  stepsOnly: boolean = false;
+  step: number = 1;
 
   @Input()
-  scale: string[];
+  scale: string[] | boolean = false;
 
   @HostBinding('class.vclFocused')
   focused: boolean = false;
@@ -86,6 +86,10 @@ export class SliderComponent implements ControlValueAccessor {
 
   get valueValid() {
     return typeof this.value === 'number' && this.value >= this.min && this.value <= this.max;
+  }
+
+  get showScale() {
+    return Array.isArray(this.scale) || (typeof this.scale === 'boolean' && this.scale);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -120,22 +124,23 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   updateScalePoints() {
-    const amount = Math.ceil((this.max - this.min) / this.step) + 1;
-
-    this.scalePoints = Array.from(Array(amount).keys()).map((i) => {
-      let label: string;
-      if (!this.scale) {
-        label = (i * this.step + this.min).toString();
-      } else if (this.scale[i]) {
-        label = this.scale[i];
-      } else {
-        label = '';
-      }
-      return {
-        label,
-        percent: (100 / (amount - 1)) * i
-      };
-    });
+    if (Array.isArray(this.scale)) {
+      const steps = this.scale.length;
+      this.scalePoints = this.scale.map((label, idx) => {
+        return {
+          label,
+          percent: (100 / (steps - 1)) * idx
+        };
+      });
+    } else {
+      const amount = Math.ceil((this.max - this.min) / this.step) + 1;
+      this.scalePoints = Array.from(Array(amount).keys()).map((idx) => {
+        return {
+          label: (idx * this.step + this.min).toString(),
+          percent: (100 / (amount - 1)) * idx
+        };
+      });
+    }
   }
 
   closestScalePoint(percentValue: number): number {
@@ -183,7 +188,7 @@ export class SliderComponent implements ControlValueAccessor {
     }
 
     const percentLeftKnob = this.deltaPxToPercent(railX);
-    this.percentLeftKnob = this.stepsOnly ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
+    this.percentLeftKnob = this.lock ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
     const value = this.percentToValue(this.percentLeftKnob);
     this.setValue(value, false);
   }
@@ -194,7 +199,7 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   move(direction: MoveDirection) {
-    if (this.stepsOnly) {
+    if (this.lock) {
       this.moveToPoint(direction);
     } else {
       this.moveValue(direction);
@@ -297,7 +302,7 @@ export class SliderComponent implements ControlValueAccessor {
       percentLeftKnob = 100;
     }
 
-    this.percentLeftKnob = this.stepsOnly ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
+    this.percentLeftKnob = this.lock ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
 
     if (ev.isFinal) {
       this.firstPan = true;
