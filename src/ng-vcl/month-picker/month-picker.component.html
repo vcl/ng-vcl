@@ -46,10 +46,10 @@
           [class.vclToday]="isCurrentMonth(i+j)"
           [class.vclOtherMonth]="!isCurrentMonth(i+j)"
           [class.vclDisabled]="useAvailableMonths && !currentMeta[i+j].available"
-          [class.vclSelected]="currentMeta[i+j].selected"
+          [class.vclSelected]="currentMeta[i+j].selected || currentMeta[i+j].preselected"
           [style.background-color]="currentMeta[i+j].color"
           [style.order]="i+j"
-          [attr.aria-selected]="currentMeta[i+j].selected"
+          [attr.aria-selected]="currentMeta[i+j].selected || currentMeta[i+j].preselected"
           role="gridcell"
           tabindex="0">
             <div class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel">

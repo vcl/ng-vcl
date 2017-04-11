@@ -55,7 +55,7 @@ export class MonthPickerComponent {
   @Input() private nextYearBtnIcon: string = 'fa:chevron-right';
 
   @Input() private maxSelectableMonths: number;
-  @Input() private minSelectableMonths: number = 1;
+  @Input() private minSelectableMonths: number = 0;
   @Input() private minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() private maxYear: number = Number.MAX_SAFE_INTEGER;
   //
