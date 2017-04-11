@@ -100,7 +100,7 @@ export class SliderComponent implements ControlValueAccessor {
       this.percentLeftKnob = this.calculatePercentLeftKnob();
     }
     this.valueChange.emit(this.value);
-    this.onChangeCallback && this.onChangeCallback(this.value);
+    this.onChange(this.value);
   }
 
   calculatePercentLeftKnob() {
@@ -165,6 +165,7 @@ export class SliderComponent implements ControlValueAccessor {
   @HostListener('blur')
   onBlur() {
     this.focused = false;
+    this.onTouched();
   }
 
   /**
@@ -309,17 +310,18 @@ export class SliderComponent implements ControlValueAccessor {
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
+
   writeValue(value: any): void {
     if (value !== this.value) {
       this.value = value;
     }
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
