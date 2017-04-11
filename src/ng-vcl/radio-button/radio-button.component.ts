@@ -25,7 +25,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
+export class RadioButtonComponent implements ControlValueAccessor {
 
   @Input()
   checkedIcon = 'fa:dot-circle-o';
@@ -59,13 +59,6 @@ export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
 
   constructor(private elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if ('checked' in changes) {
-      let checked = changes['checked'].currentValue;
-      this.focusMaintenance(checked);
-    }
-  }
-
   @HostListener('keydown', ['$event'])
   onKeydown(e: KeyboardEvent) {
     switch (e.code) {
@@ -87,13 +80,7 @@ export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
 
     this.checked = true;
     this.checkedChange.emit(this.checked);
-    this.onChangeCallback && this.onChangeCallback(this.checked);
-  }
-
-  focusMaintenance(checked: boolean) {
-    if (this.checked === true && this.elementRef.nativeElement) {
-      this.elementRef.nativeElement.focus();
-    }
+    this.onChange(this.checked);
   }
 
   setChecked(value: boolean) {
@@ -104,8 +91,8 @@ export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
 
   writeValue(value: boolean): void {
     if (value !== this.checked) {
@@ -113,9 +100,9 @@ export class RadioButtonComponent implements OnChanges, ControlValueAccessor {
     }
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
