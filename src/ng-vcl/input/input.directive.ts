@@ -39,21 +39,17 @@ export class InputDirective {
   }
 
   get value() {
-    if (this.elRef.nativeElement) {
-      return this.elRef.nativeElement.value;
-    } else {
-      return '';
-    }
+    return this.elRef ? this.elRef.nativeElement.value : '';
   }
 
   clear() {
-    if (this.elRef.nativeElement) {
+    if (this.elRef) {
       this.elRef.nativeElement.value = '';
     }
   }
 
   focus() {
-    if (this.elRef.nativeElement) {
+    if (this.elRef) {
       this.elRef.nativeElement.focus();
     }
   }
@@ -61,10 +57,8 @@ export class InputDirective {
   // autoselect
   @HostListener('focus')
   onFocus() {
-    if (
-      this.selectOnFocus &&
-      this.elRef &&
-      this.elRef.nativeElement
-    ) this.elRef.nativeElement.select();
+    if (this.selectOnFocus && this.elRef) {
+      this.elRef.nativeElement.select();
+    }
   }
 }
