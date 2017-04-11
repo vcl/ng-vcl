@@ -69,15 +69,15 @@ export class FileInputComponent implements ControlValueAccessor {
   }
   onBlur() {
     this.isFocused = false;
+    this.onTouched();
   }
 
-  onChange() {
+  onInputChange() {
     if (this.fileInput) {
       const files = this.fileInput.files;
       if (files) {
         this.filesEE.next(files);
-        !!this.onChangeCallback && this.onChangeCallback(files);
-
+        this.onChange(files);
         this.checkFiles(files);
       }
     }
@@ -127,17 +127,17 @@ export class FileInputComponent implements ControlValueAccessor {
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
 
   writeValue(files: FileList): void {
     // TODO: should not write files on file input
     (this.fileInput as any).files = files;
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
