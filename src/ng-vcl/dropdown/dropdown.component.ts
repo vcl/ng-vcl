@@ -15,7 +15,10 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'vcl-dropdown',
   templateUrl: 'dropdown.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  host: {
+    '[attr.tabindex]': '-1',
+  }
 })
 export class DropdownComponent implements ControlValueAccessor {
 
@@ -83,7 +86,7 @@ export class DropdownComponent implements ControlValueAccessor {
     }
   }
 
-  onKeydown(ev) {
+  onMetalistKeydown(ev) {
     if (this.listenKeys) {
       let prevent = true;
       switch (ev.code) {
@@ -105,24 +108,28 @@ export class DropdownComponent implements ControlValueAccessor {
     }
   }
 
-  onChange(value: any) {
+  onMetalistBlur() {
+    this.onTouched();
+  }
+
+  onMetalistChange(value: any) {
     this.change.emit(value);
-    this.onChangeCallback && this.onChangeCallback(value);
+    this.onChange(value);
   }
 
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
 
   writeValue(value: any): void {
     this.metalist.setValue(value);
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }

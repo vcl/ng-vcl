@@ -8,8 +8,9 @@
   [attr.aria-multiselectable]="maxSelectableItems > 1"
   [attr.aria-expanded]="expanded"
   [style.position]="'static'"
-  (change)="onChange($event)"
-  (keydown)="onKeydown($event)"
+  (change)="onMetalistChange($event)"
+  (blur)="onMetalistBlur()"
+  (keydown)="onMetalistKeydown($event)"
   >
   <!--  (mousedown) is used because tap will break scrolling on mobiles
   -->
