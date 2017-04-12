@@ -128,12 +128,12 @@ export class SelectComponent implements ControlValueAccessor {
 
   /**
    * when the element losses focus, the dropdown should close
-   * and should not listen to the key-downs anymore
    */
   @HostListener('blur', ['$event'])
   onBlur(event?) {
-    // this.close();
+    this.close();
     this.focused = false;
+    this.onTouched();
   }
 
   toggle() {
@@ -222,7 +222,7 @@ export class SelectComponent implements ControlValueAccessor {
     this.change.emit(value);
 
     // propagate form-change
-    !!this.onChangeCallback && this.onChangeCallback(value);
+    this.onChange(value);
 
     // refocus
     setTimeout(() => this.reFocus(), 0);
@@ -231,15 +231,15 @@ export class SelectComponent implements ControlValueAccessor {
   /**
    * Things needed for ControlValueAccessor-Interface.
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
   writeValue(value: any): void {
     this.dropdown.metalist.setValue(value);
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
