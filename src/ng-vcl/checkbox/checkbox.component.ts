@@ -26,7 +26,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent implements OnChanges, ControlValueAccessor {
+export class CheckboxComponent implements ControlValueAccessor {
 
   @HostBinding()
   tabindex = 0;
@@ -61,13 +61,6 @@ export class CheckboxComponent implements OnChanges, ControlValueAccessor {
 
   constructor(private elementRef: ElementRef) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['checked']) {
-      let checked = changes['checked'].currentValue;
-      this.focusMaintenance(checked);
-    }
-  }
-
   @HostListener('keydown', ['$event'])
   onKeyup(ev) {
     switch (ev.code) {
@@ -88,12 +81,6 @@ export class CheckboxComponent implements OnChanges, ControlValueAccessor {
     this.checked = !this.checked;
     this.checkedChange.emit(this.checked);
     this.onChange(this.checked);
-  }
-
-  focusMaintenance(checked: boolean) {
-    if (this.checked === true && this.elementRef.nativeElement) {
-      this.elementRef.nativeElement.focus();
-    }
   }
 
   get icon() {
