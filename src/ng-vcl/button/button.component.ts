@@ -59,9 +59,6 @@ export class ButtonComponent extends ObservableComponent {
   prepIcon: string;
 
   @Input()
-  autoBlur: boolean = true;
-
-  @Input()
   appIcon: string;
 
   private pressEvent = new EventEmitter<any>();
@@ -83,14 +80,6 @@ export class ButtonComponent extends ObservableComponent {
 
   @ContentChildren(ButtonStateContentDirective)
   buttonContent: QueryList<ButtonStateContentDirective>;
-
-  pressSub: Subscription = this.press.subscribe(() => {
-    if (this.autoBlur) {
-      if (this.elementRef.nativeElement && this.elementRef.nativeElement.blur) {
-        this.elementRef.nativeElement.blur();
-      }
-    }
-  });
 
   stateSub: Subscription = this.stateChange.subscribe(state => {
     if (this.buttonContent) {
@@ -168,6 +157,5 @@ export class ButtonComponent extends ObservableComponent {
   ngOnDestroy() {
     super.ngOnDestroy();
     if (this.stateSub) this.stateSub.unsubscribe();
-    if (this.pressSub) this.pressSub.unsubscribe();
   }
 }
