@@ -89,10 +89,21 @@ export class FileInputComponent implements ControlValueAccessor {
     this.state = hasWrongFiles && this.accept !== '*' ? 'error' : 'busy';
   }
 
+  @HostListener('keydown', ['$event'])
+  keydown(ev) {
+    switch (ev.code) {
+      case 'Enter':
+      case 'Space':
+        ev.preventDefault();
+        if (this.disabled) return;
+        this.fileInput && this.fileInput.click();
+        break;
+    }
+  }
+
   @HostListener('click', ['$event.target.value'])
   onClick(value) {
     if (this.disabled) return;
-    // opens file-choser
     this.fileInput && this.fileInput.click();
   }
 
