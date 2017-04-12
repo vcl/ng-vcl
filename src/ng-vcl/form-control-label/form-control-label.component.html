@@ -3,4 +3,5 @@
   {{requiredIndicatorCharacter}}
 </em>
 <span *ngIf="subLabel" class="vclFormControlSubLabel">{{subLabel | loc}}</span>
-<span #content><ng-content></ng-content></span> 
+<!--<span #content><ng-content></ng-content></span> -->
+<ng-content></ng-content>

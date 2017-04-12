@@ -28,9 +28,13 @@ export class FormControlLabelComponent {
 
   // Whether the label wraps the control
   @HostBinding('class.vclFormControlLabelWrapping')
-  get hasContent() {
-    return this.content.nativeElement.childNodes.length > 0;
-  }
+  @Input()
+  wrapping = false;
+  // TODO enable when it is possible to determine if there is ng-content
+  // without having to wrap ng-content in another span element
+  // get hasContent() {
+  //   return this.content.nativeElement.childNodes.length > 0;
+  // }
 
   // Whether an indicator that an input in to the labelled control is required
   @Input()
