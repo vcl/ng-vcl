@@ -75,16 +75,10 @@ export class MetalistComponent implements ControlValueAccessor {
 
   private triggerChange() {
     this.change.emit(this.value);
-    !!this.onChangeCallback && this.onChangeCallback(this.value);
+    this.onChange(this.value);
   }
 
   ngAfterViewInit() {
-    // Update the value to match the selected metalist-items when not using ngModel
-    if (!this.onChangeCallback) {
-      this.syncValue();
-      this.triggerChange();
-    }
-
     // Late changes of metalist-items take the selected state of the current value;
     this.items.changes.subscribe(() => setTimeout(() => this.syncItems()));
   }
@@ -101,7 +95,8 @@ export class MetalistComponent implements ControlValueAccessor {
         const selectedItems = (this.items || []).filter(i => i.selected);
 
         // prevent overflow
-        if (typeof this.maxSelectableItems === 'number' && (item.selected || selectedItems.length < this.maxSelectableItems)) {
+        const overflow = typeof this.maxSelectableItems === 'number' && (item.selected || selectedItems.length >= this.maxSelectableItems);
+        if (!overflow) {
           item.selected = !item.selected;
         }
       } else {
@@ -172,16 +167,16 @@ export class MetalistComponent implements ControlValueAccessor {
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
 
   writeValue(value: any): void {
     this.setValue(value);
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
