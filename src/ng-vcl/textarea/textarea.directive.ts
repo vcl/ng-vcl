@@ -1,5 +1,4 @@
 import { OnInit, Directive, Input, EventEmitter, Output, HostListener, ElementRef, HostBinding } from '@angular/core';
-import { NgModel } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -11,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class TextareaDirective {
 
-  constructor(private elRef: ElementRef, private ngModel: NgModel) { }
+  constructor(private elRef: ElementRef) { }
 
   @Input()
   selectAllOnFocus = false;
@@ -25,6 +24,10 @@ export class TextareaDirective {
   @Input()
   minRows: number;
 
+  @HostBinding('attr.rows')
+  @Input()
+  rows: number;
+
   @HostListener('ngModelChange', ['$event'])
   onModelChange(value) {
     this.setRowsByValue(value);
@@ -32,19 +35,9 @@ export class TextareaDirective {
 
   @HostListener('focus', ['$event.target.value'])
   onFocus(value) {
-    if (this.selectAllOnFocus) {
-      if (this.elRef && this.elRef.nativeElement) {
-        this.elRef.nativeElement.select();
-      }
+    if (this.selectAllOnFocus && this.elRef) {
+      this.elRef.nativeElement.select();
     }
-  }
-
-  @HostBinding('attr.rows')
-  @Input()
-  rows: number;
-
-  ngOnInit() {
-    this.setRowsByValue(this.ngModel.model);
   }
 
   setRowsByValue(value: string) {
