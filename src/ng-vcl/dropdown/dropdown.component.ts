@@ -86,6 +86,11 @@ export class DropdownComponent implements ControlValueAccessor {
     }
   }
 
+  onMetalistItemTap(metaItem: MetalistItem) {
+    this.metalist.select(metaItem);
+    this.onTouched();
+  }
+
   onMetalistKeydown(ev) {
     if (this.listenKeys) {
       let prevent = true;
@@ -104,6 +109,7 @@ export class DropdownComponent implements ControlValueAccessor {
         default:
           prevent = false;
       }
+      this.onTouched();
       prevent && ev.preventDefault();
     }
   }
