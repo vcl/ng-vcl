@@ -62,24 +62,28 @@ export class CheckboxComponent implements ControlValueAccessor {
   constructor(private elementRef: ElementRef) { }
 
   @HostListener('keydown', ['$event'])
-  onKeyup(ev) {
-    switch (ev.code) {
+  onKeyup(e) {
+    switch (e.code) {
       case 'Space':
-        this.triggerChangeAction(ev);
+        e.preventDefault();
+        this.updateValue();
         break;
     }
   }
 
   @HostListener('tap', ['$event'])
   onTap(e) {
-    return this.triggerChangeAction(e);
+    e.preventDefault();
+    return this.updateValue();
   }
 
-  triggerChangeAction(e) {
-    e.preventDefault();
-    if (this.disabled) return;
+  updateValue() {
+    if (this.disabled) {
+      return;
+    }
     this.checked = !this.checked;
     this.checkedChange.emit(this.checked);
+    this.onTouched();
     this.onChange(this.checked);
   }
 
