@@ -1,8 +1,8 @@
-<input #input type="file" style="display: none;" (change)="onInputChange()" (focus)="onFocus()" (blur)="onBlur()" [accept]="accept" [multiple]="multiple" [placeholder]="placeholder" [disabled]="disabled" />
+<input #input type="file" style="display: none;" (change)="onInputChange()" [accept]="accept" [multiple]="multiple" [disabled]="disabled" />
 <div class="vclFileInputIcon vclIcon fa fa-upload" aria-hidden="true" aria-label="account" role="img"></div>
 <div class="vclFileInputPlaceholder">
-  <div *ngIf="value$ | async">{{ value$ | async }}</div>
-  <div *ngIf="!(value$ | async)">
+  <ng-container *ngIf="filename">{{filename}}</ng-container>
+  <div *ngIf="!filename">
     <ng-content></ng-content>
   </div>
 </div>

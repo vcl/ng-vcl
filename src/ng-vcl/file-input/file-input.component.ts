@@ -1,7 +1,5 @@
 import {
-  OnInit, Component, Input,
-  EventEmitter, Output, HostListener, ElementRef,
-  ViewChild, OnDestroy, forwardRef, ChangeDetectionStrategy
+  Component, forwardRef, ChangeDetectionStrategy, Input, Output, ViewChild, HostBinding, ElementRef, EventEmitter, HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -22,71 +20,70 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: 'file-input.component.html',
   host: {
     '[class.vclFileInput]': 'true',
-    '[class.vclDisabled]': 'disabled',
-    '[class.vclDragndrop]': 'isDragging',
-    '[class.vclFocused]': 'isFocused',
-    '[class.vclError]': '(state=="error")',
-    '[class.vclWarning]': '(state=="warning")',
-    '[class.vclSuccess]': '(state=="success")',
-    role: 'button',
-    tabindex: '0'
+    role: 'button'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class FileInputComponent implements ControlValueAccessor {
 
-  @Input('state') state: 'busy' | 'error' | 'warning' | 'success';
-  @Input('layout') layout: 'horizontal' | 'vertical' = 'horizontal';
-  @Input('placeholder') placeholder: string = 'Choose a file or drag it here';
-  @Input('accept') accept: string = '*';
-  @Input('name') name: string;
-  @Input('disabled') disabled: boolean = false;
-  @Input('multiple') multiple: boolean = false;
+  @Input()
+  accept: string = '*';
 
-  @Output('files') filesEE = new EventEmitter<FileList>();
-  value$ = this.filesEE
-               .map(fl => {
-                 let name = fl[0].name;
-                 if (this.multiple)
-                   name += ' (' + fl.length + ')';
-                 return name;
-               })
-               .publishReplay(1)
-               .refCount();
+  @Input()
+  multiple: boolean = false;
 
-  @ViewChild('input') inputElement: ElementRef;
+  @Output()
+  files = new EventEmitter<FileList>();
 
-  get fileInput(): HTMLInputElement {
-    return this.inputElement && this.inputElement.nativeElement;
-  }
+  @Input()
+  @HostBinding('attr.tabindex')
+  tabindex: number = 0;
 
+  @Input()
+  @HostBinding('class.vclDisabled')
+  disabled: boolean = false;
+
+  @HostBinding('class.vclError')
+  invalidFiles = false;
+
+  @HostBinding('class.vclDragndrop')
   isDragging: boolean = false;
+
+  @HostBinding('class.isFocused')
   isFocused: boolean = false;
 
+  @ViewChild('input')
+  input: ElementRef;
+
+  value: FileList | undefined;
+  filename: string | undefined;
+
+  get fileInput(): HTMLInputElement | undefined {
+    return this.input && this.input.nativeElement;
+  }
+
+  @HostListener('focus')
   onFocus() {
     this.isFocused = true;
   }
+
+  @HostListener('blur')
   onBlur() {
     this.isFocused = false;
     this.onTouched();
   }
 
   onInputChange() {
-    if (this.fileInput) {
-      const files = this.fileInput.files;
-      if (files) {
-        this.filesEE.next(files);
-        this.onChange(files);
-        this.checkFiles(files);
-      }
+    if (this.fileInput && this.fileInput.files) {
+      this.updateFiles(this.fileInput.files);
     }
   }
 
   checkFiles(files: FileList) {
     const hasWrongFiles: boolean =  Array.from(files).some((file: File) => !accept(file, this.accept));
     // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
-    this.state = hasWrongFiles && this.accept !== '*' ? 'error' : 'busy';
+    this.invalidFiles = hasWrongFiles && this.accept !== '*';
   }
 
   @HostListener('keydown', ['$event'])
@@ -95,16 +92,22 @@ export class FileInputComponent implements ControlValueAccessor {
       case 'Enter':
       case 'Space':
         ev.preventDefault();
-        if (this.disabled) return;
+        if (this.disabled) {
+          return;
+        }
         this.fileInput && this.fileInput.click();
+        this.onTouched();
         break;
     }
   }
 
   @HostListener('click', ['$event.target.value'])
   onClick(value) {
-    if (this.disabled) return;
+    if (this.disabled) {
+      return;
+    }
     this.fileInput && this.fileInput.click();
+    this.onTouched();
   }
 
   @HostListener('dragover', ['$event'])
@@ -131,8 +134,22 @@ export class FileInputComponent implements ControlValueAccessor {
 
     // fetch FileList object
     const files = e.target.files || e.dataTransfer.files;
-    this.filesEE.emit(files);
-    this.checkFiles(files);
+    this.updateFiles(files);
+    this.onTouched();
+  }
+
+  updateFiles(files: FileList) {
+    if (files instanceof FileList) {
+      let name = files[0].name;
+      if (this.multiple) {
+        name += ' (' + files.length + ')';
+      }
+      this.filename = name;
+      this.value = files;
+      this.checkFiles(files);
+      this.files.emit(files);
+      this.onChange(files);
+    }
   }
 
   /**
@@ -142,8 +159,7 @@ export class FileInputComponent implements ControlValueAccessor {
   private onTouched: () => any = () => {};
 
   writeValue(files: FileList): void {
-    // TODO: should not write files on file input
-    (this.fileInput as any).files = files;
+    this.value = files;
   }
   registerOnChange(fn: any) {
     this.onChange = fn;
