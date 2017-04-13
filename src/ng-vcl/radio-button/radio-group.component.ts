@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostListener, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { RadioButtonComponent } from './radio-button.component';
@@ -30,12 +30,6 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
   @Output()
   change = new EventEmitter<any>();
 
-  updateValue(value: any) {
-    this.value = value;
-    this.onChangeCallback && this.onChangeCallback(this.value);
-    this.change.emit(this.value);
-  }
-
   @ContentChildren(RadioButtonComponent)
   radioButtons: QueryList<RadioButtonComponent>;
 
@@ -62,16 +56,10 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
   private triggerChange() {
     this.change.emit(this.value);
-    !!this.onChangeCallback && this.onChangeCallback(this.value);
+    this.onChange(this.value);
   }
 
   ngAfterContentInit() {
-    // Update the value to match the selected radio buttons when not using ngModel
-    if (!this.onChangeCallback) {
-      this.triggerChange();
-      this.syncValue();
-    }
-
     // Subscribes to radio button change event
     const listenChange = () => {
       this.dispose();
@@ -103,16 +91,16 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
    /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
   writeValue(value: any): void {
     this.value = value;
     this.syncRadioButtons();
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
