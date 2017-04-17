@@ -17,13 +17,13 @@ export * from './flip-switch/index';
 import { VCLIconModule } from './icon/index';
 export * from './icon/index';
 
-import { VCLMetalistModule  } from './metalist/index';
+import { VCLMetalistModule } from './metalist/index';
 export * from './metalist/index';
 
-import { VCLDropdownModule  } from './dropdown/index';
+import { VCLDropdownModule } from './dropdown/index';
 export * from './dropdown/index';
 
-import { VCLSelectModule  } from './select/index';
+import { VCLSelectModule } from './select/index';
 export * from './select/index';
 
 import { VCLIcogramModule } from './icogram/index';
@@ -101,42 +101,46 @@ export * from './notification/index';
 import { L10nModule } from './l10n/index';
 export * from './l10n/index';
 
+import { VCLTooltipModule } from './tooltip/index';
+export * from './tooltip/index';
+
 @NgModule({
-  imports: [],
-  exports: [
-    VCLWormholeModule,
-    VCLIconModule,
-    VCLIcogramModule,
-    VCLButtonModule,
-    VCLButtonGroupModule,
-    VCLLayerModule,
-    VCLLinkModule,
-    VCLInputModule,
-    VCLFileInputModule,
-    VCLTextareaModule,
-    VCLFlipSwitchModule,
-    VCLTabNavModule,
-    VCLNavigationModule,
-    VCLToolbarModule,
-    VCLPopoverModule,
-    VCLProgressBarModule,
-    VCLRadioButtonModule,
-    VCLCheckboxModule,
-    VCLFormControlLabelModule,
-    VCLMetalistModule,
-    VCLDropdownModule,
-    VCLSelectModule,
-    VCLOffClickModule,
-    VCLMonthPickerModule,
-    VCLDatePickerModule,
-    VCLLabelModule,
-    VCLTokenModule,
-    VCLSliderModule,
-    VCLInputControlGroupModule,
-    VCLAlertModule,
-    VCLBusyIndicatorModule,
-    VCLNotificationModule
-  ]
+    imports: [],
+    exports: [
+        VCLWormholeModule,
+        VCLIconModule,
+        VCLIcogramModule,
+        VCLButtonModule,
+        VCLButtonGroupModule,
+        VCLLayerModule,
+        VCLLinkModule,
+        VCLInputModule,
+        VCLFileInputModule,
+        VCLTextareaModule,
+        VCLFlipSwitchModule,
+        VCLTabNavModule,
+        VCLNavigationModule,
+        VCLToolbarModule,
+        VCLPopoverModule,
+        VCLProgressBarModule,
+        VCLRadioButtonModule,
+        VCLCheckboxModule,
+        VCLFormControlLabelModule,
+        VCLMetalistModule,
+        VCLDropdownModule,
+        VCLSelectModule,
+        VCLOffClickModule,
+        VCLMonthPickerModule,
+        VCLDatePickerModule,
+        VCLLabelModule,
+        VCLTokenModule,
+        VCLSliderModule,
+        VCLInputControlGroupModule,
+        VCLAlertModule,
+        VCLBusyIndicatorModule,
+        VCLNotificationModule,
+        VCLTooltipModule
+    ]
 })
 export class VCLModule { }
 

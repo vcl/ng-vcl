@@ -37,59 +37,61 @@ import ALERT_DEMO from './demo-components/alert/demo';
 import BUSY_INDICATOR_DEMO from './demo-components/busy-indicator/demo';
 import NOTIFICATION_DEMO from './demo-components/notification/demo';
 import L10N_DEMO from './demo-components/l10n/l10n.demo';
+import TOOLTIP_DEMO from './demo-components/tooltip/tooltip.demo';
 
 export const DEMO_MODULES: any[] = [
-  DROPDOWN_DEMO,
-  SELECT_DEMO,
-  ICON_DEMO,
-  ICOGRAM_DEMO,
-  BUTTON_DEMO,
-  BUTTON_GROUP_DEMO,
-  LAYER_DEMO,
-  LINK_DEMO,
-  RADIO_BUTTON_DEMO,
-  CHECKBOX_DEMO,
-  FORM_CONTROL_LABEL_DEMO,
-  FORM_DEMO,
-  INPUT_DEMO,
-  FILE_INPUT_DEMO,
-  TEXTAREA_DEMO,
-  FLIP_SWITCH_DEMO,
-  POPOVER_DEMO,
-  PROGRESS_BAR_DEMO,
-  TAB_NAV_DEMO,
-  NAVIGATION_DEMO,
-  TOOLBAR_DEMO,
-  WORMHOLE_DEMO,
-  OFF_CLICK_DEMO,
-  MONTH_PICKER_DEMO,
-  DATE_PICKER_DEMO,
-  LABEL_DEMO,
-  TOKEN_DEMO,
-  SLIDER_DEMO,
-  INPUT_CONTROL_GROUP,
-  L10N_DEMO,
-  ALERT_DEMO,
-  BUSY_INDICATOR_DEMO,
-  NOTIFICATION_DEMO,
-  METALIST_DEMO
+    DROPDOWN_DEMO,
+    SELECT_DEMO,
+    ICON_DEMO,
+    ICOGRAM_DEMO,
+    BUTTON_DEMO,
+    BUTTON_GROUP_DEMO,
+    LAYER_DEMO,
+    LINK_DEMO,
+    RADIO_BUTTON_DEMO,
+    CHECKBOX_DEMO,
+    FORM_CONTROL_LABEL_DEMO,
+    FORM_DEMO,
+    INPUT_DEMO,
+    FILE_INPUT_DEMO,
+    TEXTAREA_DEMO,
+    FLIP_SWITCH_DEMO,
+    POPOVER_DEMO,
+    PROGRESS_BAR_DEMO,
+    TAB_NAV_DEMO,
+    NAVIGATION_DEMO,
+    TOOLBAR_DEMO,
+    WORMHOLE_DEMO,
+    OFF_CLICK_DEMO,
+    MONTH_PICKER_DEMO,
+    DATE_PICKER_DEMO,
+    LABEL_DEMO,
+    TOKEN_DEMO,
+    SLIDER_DEMO,
+    INPUT_CONTROL_GROUP,
+    L10N_DEMO,
+    ALERT_DEMO,
+    BUSY_INDICATOR_DEMO,
+    NOTIFICATION_DEMO,
+    METALIST_DEMO,
+    TOOLTIP_DEMO
 ].map(module => typeof module === 'function' ? module : createDemoModule(module));
 
-export const GROUPED_DEMOS = function() {
-  const itemsMap = {};
+export const GROUPED_DEMOS = function () {
+    const itemsMap = {};
 
-  DEMO_MODULES.forEach(c => {
-    if (!itemsMap[c.category]) itemsMap[c.category] = [];
-    itemsMap[c.category].push({
-      label: c.label,
-      route: ['/' + c.path],
-      active: true,
+    DEMO_MODULES.forEach(c => {
+        if (!itemsMap[c.category]) itemsMap[c.category] = [];
+        itemsMap[c.category].push({
+            label: c.label,
+            route: ['/' + c.path],
+            active: true,
+        });
     });
-  });
 
-  return Object.keys(itemsMap).map(category => ({
-    label: category,
-    items: itemsMap[category],
-    active: true,
-  }));
+    return Object.keys(itemsMap).map(category => ({
+        label: category,
+        items: itemsMap[category],
+        active: true,
+    }));
 } ();
