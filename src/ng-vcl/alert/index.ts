@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from './../icogram/index';
 import { VCLButtonModule } from './../button/index';
-import { VCLLayerModule, provideLayer } from './../layer/index';
+import { VCLLayerModule } from './../layer/index';
 import { VCLInputModule } from './../input/index';
 import { AlertComponent, AlertLayer } from './alert.component';
 import { AlertInputComponent } from './alert-input.component';
@@ -19,11 +19,11 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
     VCLButtonModule,
     VCLInputModule,
     VCLIcogramModule,
-    VCLLayerModule
+    VCLLayerModule.withLayers([AlertLayer])
   ],
   exports: [],
   declarations: [ AlertComponent, AlertInputComponent ],
   entryComponents: [ AlertComponent ],
-  providers: [ AlertService, provideLayer(AlertLayer) ],
+  providers: [ AlertService ],
 })
 export class VCLAlertModule { }

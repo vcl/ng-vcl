@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { VCLLayerModule, VCLButtonModule, VCLWormholeModule, provideLayer } from '@ng-vcl/ng-vcl';
+import { VCLLayerModule, VCLButtonModule, VCLWormholeModule } from '@ng-vcl/ng-vcl';
 import { DemoContainerComponent } from './../../components/demo-container/demo-container.component';
 import { LayerDemoComponent } from './demo.component';
 import { FooLayer, FooComponent } from './foo.layer';
@@ -13,7 +13,7 @@ const LABEL = 'Layer';
 @NgModule({
   imports: [
     BrowserModule,
-    VCLLayerModule,
+    VCLLayerModule.withLayers([FooLayer]),
     VCLWormholeModule,
     VCLButtonModule,
     RouterModule.forChild([{
@@ -53,8 +53,7 @@ const LABEL = 'Layer';
     }]),
   ],
   providers: [
-    LayerDemoCanDeactivateGuard,
-    provideLayer(FooLayer)
+    LayerDemoCanDeactivateGuard
   ],
   entryComponents: [
     FooComponent

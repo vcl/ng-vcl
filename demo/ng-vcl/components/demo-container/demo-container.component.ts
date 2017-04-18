@@ -6,7 +6,7 @@ const style = require("!raw-loader!../markdown/markdown.component.css");
 
 @Component({
   templateUrl: 'demo-container.component.html',
-  styles: [style]
+  styleUrls: ['../markdown/markdown.component.css'],
 })
 export class DemoContainerComponent {
 

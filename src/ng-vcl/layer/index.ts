@@ -1,4 +1,4 @@
-import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider } from '@angular/core';
+import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider, OpaqueToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLWormholeModule, DomWormholeHost } from '../wormhole/index';
 import { LayerBaseComponent } from './layer-base.directive';
@@ -10,6 +10,8 @@ import { LayerRefDirective } from './layer-ref.directive';
 
 export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerAttributes, LayerService, Layer, LayerContainerComponent }
 
+export const LAYERS = new OpaqueToken('@ng-vcl/ng-vcl#layers');
+
 @Component({
   selector: 'vcl-layer-base-root',
   template: '<vcl-layer-base></vcl-layer-base>',
@@ -17,11 +19,11 @@ export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerAttributes, LayerS
 })
 export class LayerBaseRootComponent { }
 
-export function bootstrapLayer(layerService: LayerService, layer: LayerRef) {
+export function bootstrapLayers(layerService: LayerService, ...layers: LayerRef[]) {
   return () => {
-    layerService.register(layer);
+    (layers || []).forEach(l => layerService.register(l));
   };
-}
+};
 
 @NgModule({
   imports: [
@@ -36,19 +38,22 @@ export function bootstrapLayer(layerService: LayerService, layer: LayerRef) {
     {
       provide: LayerRef,
       useValue: null
-    }
+    },
   ]
 })
-export class VCLLayerModule { }
-
-export function provideLayer(layerClass: Type<LayerRef>): Provider[] {
-  return [
-    layerClass,
-    {
-      provide: APP_BOOTSTRAP_LISTENER,
-      multi: true,
-      deps: [LayerService, layerClass ],
-      useFactory: bootstrapLayer
-    }
-  ];
+export class VCLLayerModule {
+  static withLayers(layers: Type<LayerRef>[]): ModuleWithProviders {
+    return {
+      ngModule: VCLLayerModule,
+      providers: [
+        layers,
+        {
+          provide: APP_BOOTSTRAP_LISTENER,
+          multi: true,
+          deps: [ LayerService, layers],
+          useFactory: bootstrapLayers
+        }
+      ]
+    };
+  }
 }
