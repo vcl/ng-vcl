@@ -55,20 +55,17 @@ export class SliderComponent implements ControlValueAccessor {
   @Input()
   min: number = 0;
 
-  @Input('mousewheel')
-  wheel: boolean = false;
-
   @Input()
   max: number = 10;
+
+  @Input('mousewheel')
+  wheel: boolean = false;
 
   @Input()
   lock: boolean = false;
 
   @Input()
-  step: number = 1;
-
-  @Input()
-  scale: string[] | boolean = false;
+  scale: string[] | number | undefined;
 
   @HostBinding('class.vclFocused')
   focused: boolean = false;
@@ -81,10 +78,14 @@ export class SliderComponent implements ControlValueAccessor {
   scalePoints: ScalePoint[] = [];
 
   ngAfterContentInit() {
-    this.percentLeftKnob = this.calculatePercentLeftKnob();
+    this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
   }
 
   get valueValid() {
+    return this.validateValue(this.value);
+  }
+
+  validateValue(value: number) {
     return typeof this.value === 'number' && this.value >= this.min && this.value <= this.max;
   }
 
@@ -93,7 +94,7 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ('min' in  changes || 'max' in  changes || 'step' in  changes || 'scale' in  changes) {
+    if ('min' in  changes || 'max' in  changes || 'scale' in  changes) {
       this.updateScalePoints();
     }
   }
@@ -101,18 +102,18 @@ export class SliderComponent implements ControlValueAccessor {
   setValue(value: number, updateKnob: boolean) {
     this.value = value;
     if (updateKnob) {
-      this.percentLeftKnob = this.calculatePercentLeftKnob();
+      this.percentLeftKnob = this.calculatePercentLeftKnob(value);
     }
     this.valueChange.emit(this.value);
     this.onChange(this.value);
   }
 
-  calculatePercentLeftKnob() {
-    if (!this.valueValid) {
+  calculatePercentLeftKnob(value: number) {
+    if (!this.validateValue(value)) {
       return 0;
     }
     const rangeLength = this.max - this.min;
-    const valueLeft = this.value - this.min;
+    const valueLeft = value - this.min;
     const delta = rangeLength / valueLeft;
     return 100 / delta;
   }
@@ -133,11 +134,12 @@ export class SliderComponent implements ControlValueAccessor {
         };
       });
     } else {
-      const amount = Math.ceil((this.max - this.min) / this.step) + 1;
-      this.scalePoints = Array.from(Array(amount).keys()).map((idx) => {
+      const steps = (typeof this.scale === 'number' ? this.scale : this.max - this.min) + 1;
+      this.scalePoints = Array.from(Array(steps).keys()).map((i) => {
+        const percent = (100 / (steps - 1)) * i;
         return {
-          label: (idx * this.step + this.min).toString(),
-          percent: (100 / (amount - 1)) * idx
+          label: this.percentToValue(percent).toString(),
+          percent
         };
       });
     }
@@ -207,7 +209,7 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   moveToPoint(direction: MoveDirection) {
-    const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob());
+    const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob(this.value));
     const currentPoint = this.scalePoints.find(p => p.percent == currentPointValue);
     let i = currentPoint ? this.scalePoints.indexOf(currentPoint) : 0;
     let nextPoint;
@@ -230,20 +232,19 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   moveValue(direction: MoveDirection) {
-    const value = this.valueValid ? this.value : this.min;
+    let value = this.valueValid ? this.value : this.min;
 
-    let newValue: number;
     if (direction === MoveDirection.Right) {
-      newValue = value + this.step;
-      if (newValue > this.max)
-        newValue = this.max;
+      value++;
+      if (value > this.max)
+        value = this.max;
     } else {
-      newValue = value - this.step;
-      if (newValue < this.min)
-        newValue = this.min;
+      value--;
+      if (value < this.min)
+        value = this.min;
     }
 
-    this.setValue(newValue, true);
+    this.setValue(value, true);
   }
 
   @HostListener('wheel', ['$event'])
@@ -302,7 +303,12 @@ export class SliderComponent implements ControlValueAccessor {
       percentLeftKnob = 100;
     }
 
-    this.percentLeftKnob = this.lock ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
+    if (this.lock) {
+      this.percentLeftKnob = this.closestScalePoint(percentLeftKnob);
+    } else {
+      const newValue = this.percentToValue(percentLeftKnob);
+      this.percentLeftKnob = this.calculatePercentLeftKnob(newValue);
+    }
 
     if (ev.isFinal) {
       this.firstPan = true;
@@ -319,9 +325,7 @@ export class SliderComponent implements ControlValueAccessor {
   private onTouched: () => any = () => {};
 
   writeValue(value: any): void {
-    if (value !== this.value) {
-      this.value = value;
-    }
+    this.setValue(value, true);
   }
   registerOnChange(fn: any) {
     this.onChange = fn;
