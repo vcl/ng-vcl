@@ -73,16 +73,10 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
 
   private triggerChange() {
     this.change.emit(this.selectedIndex);
-    !!this.onChangeCallback && this.onChangeCallback(this.selectedIndex);
+    this.onChange(this.selectedIndex);
   }
 
   ngAfterContentInit() {
-    // Update the selectedIndex to match the selected buttons when not using ngModel
-    if (!this.onChangeCallback) {
-      this.syncSelectedIndex();
-      this.triggerChange();
-    }
-
     // Subscribes to buttons press event
     const listenButtonPress = () => {
       this.dispose();
@@ -102,6 +96,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
 
         this.syncSelectedIndex();
         this.triggerChange();
+        this.onTouched();
       });
     };
 
@@ -123,16 +118,16 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
     /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
   writeValue(value: any): void {
     this.selectedIndex = value;
     this.syncButtons();
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
 }
