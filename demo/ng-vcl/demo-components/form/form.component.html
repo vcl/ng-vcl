@@ -1,103 +1,111 @@
-<h3>Template-based</h3>
-<form #f="ngForm" class="vclForm" novalidate>
-
-  <vcl-select ngModel name="itemselect">
-    <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-select-option>
-  </vcl-select>
-
-  <br/><br/> Radio: <br/>
-  <vcl-radio-group ngModel name="myradio">
-    <vcl-radio-button ngModel name="myradiob1">Radio me 1</vcl-radio-button>
-    <vcl-radio-button ngModel name="myradiob2">Radio me 2</vcl-radio-button>
-  </vcl-radio-group>
-
-  <br/><br/> Dropdown: <br/>
-  <vcl-dropdown [maxSelectableItems]="1" ngModel name="mydropdown">
-    <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-dropdown-option>
-  </vcl-dropdown>
-
-
-  <br/><br/> Checkbox: <br/>
-  <vcl-checkbox [checked]="false" ngModel name="mycheckbox">Check me</vcl-checkbox>
-
-
-  <br/>
-  <br/> Input me:
-  <input vcl-input ngModel name="myname" required pattern=".{5,10}">
-
-
-  <br/><br/> FlipSwitch: <br/>
-  <vcl-flip-switch onLabel="An" offLabel="Aus" ngModel name="flip"></vcl-flip-switch>
-
-  <br/><br/> DatePicker: <br/>
-  <div style="width: 251px;border-style: solid;">
-    <vcl-date-picker ngModel name="datepick"></vcl-date-picker>
-  </div>
-
-
-  <br/><br/> Slider: <br/>
-  <vcl-slider [min]="0" [max]="100" [step]="20" [value]="30" [scale]="customScaleNames2" ngModel name="slider" [stepsOnly]="false">
-  </vcl-slider>
-
-
-
-
-</form>
-
-
-<div class="value">
-  <h4>Value: {{ f.value | json }}</h4>
-</div>
-
-<div class="error">
-  <h4>Status: {{ f.control.status }}</h4>
-</div>
-
-<br/><br/><br/><br/><br/><br/>
-
-<h3>Module-based</h3>
 <form class="vclForm" novalidate [formGroup]="form">
 
-  <vcl-select formControlName="itemselect">
-    <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-select-option>
-  </vcl-select>
-
-  <br/><br/> Radio: <br/>
-  <vcl-radio-button formControlName="myradio">Radio me</vcl-radio-button>
-
-  <br/><br/> Dropdown: <br/>
-  <vcl-dropdown [maxSelectableItems]="1" ngModel formControlName="mydropdown">
-    <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [label]="item.label"></vcl-dropdown-option>
-  </vcl-dropdown>
-
-  <br/><br/> Checkbox: <br/>
-  <vcl-checkbox [checked]="false" formControlName="mycheckbox">Check me</vcl-checkbox>
-
-
-  <br/>
-  <br/> Input me:
-  <input type="text" formControlName="myname">
-
-  <br/>
-  <br/> Input me (must be equal):
-  <input type="text" formControlName="myname2">
-
-
-  <br/><br/> FlipSwitch: <br/>
-  <vcl-flip-switch onLabel="An" offLabel="Aus" formControlName="flip"></vcl-flip-switch>
-
-  <br/><br/> DatePicker: <br/>
-  <div style="width: 251px;border-style: solid;">
-    <vcl-date-picker formControlName="datepick"></vcl-date-picker>
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-input"></label>
+    <input vcl-input [class.vclError]="input1.touched && input1.invalid" formControlName="input1">
+    <div *ngIf="input1.touched && input1.invalid" class="vclFormControlHint vclError">
+      <ng-container *ngIf="input1.touched && input1.hasError('required')">input1 is required</ng-container>
+      <ng-container *ngIf="input1.touched && input1.hasError('minlength')">input1 must have a minimum of 4 characters</ng-container>
+    </div>
   </div>
 
-  <br/><br/> Slider: <br/>
-  <vcl-slider [min]="0" [max]="100" [step]="20" [value]="30" [scale]="customScaleNames2" formControlName="slider" [stepsOnly]="false">
-  </vcl-slider>
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-input (repeat)"></label>
+    <input vcl-input [class.vclError]="input2.touched && form.hasError('inputsNotEqual')" formControlName="input2">
+    <div *ngIf="input2.touched && form.hasError('inputsNotEqual')" class="vclFormControlHint vclError">
+      Inputs must be equal
+    </div>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <vcl-checkbox formControlName="checkbox">
+      <label vcl-form-control-label label="vcl-checkbox"></label>
+    </vcl-checkbox>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label label="vcl-button-group"></label>
+    <vcl-button-group [class.vclError]="buttonGroup.touched && buttonGroup.invalid" mode="multiple" formControlName="buttonGroup">
+      <button vcl-button label="Action 1"></button>
+      <button vcl-button label="Action 2"></button>
+      <button vcl-button label="Action 3"></button>
+      <button vcl-button label="Action 4"></button>
+    </vcl-button-group>
+    <div *ngIf="buttonGroup.touched && buttonGroup.hasError('noSelection')" class="vclFormControlHint vclError">
+      Select at least one button
+    </div>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-dropdown"></label>
+    <vcl-dropdown [class.vclError]="dropdown.touched && dropdown.invalid" mode="multiple" formControlName="dropdown">
+      <vcl-dropdown-option [value]="1" label="Item 1"></vcl-dropdown-option>
+      <vcl-dropdown-option [value]="2" label="Item 2"></vcl-dropdown-option>
+      <vcl-dropdown-option [value]="3" label="Item 3"></vcl-dropdown-option>
+    </vcl-dropdown>
+    <div *ngIf="dropdown.touched && dropdown.hasError('noSelection')" class="vclFormControlHint vclError">
+      Select at least one item
+    </div>
+  </div>
 
 
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label label="vcl-file-input"></label>
+    <vcl-file-input [multiple]="true" formControlName="fileinput">Files</vcl-file-input>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label label="vcl-flip-switch"></label>
+    <vcl-flip-switch formControlName="flipswitch"></vcl-flip-switch>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-radio-group"></label>
+    <vcl-radio-group [class.vclError]="radiogroup.touched && radiogroup.invalid" formControlName="radiogroup">
+      <vcl-radio-button label="Value 1" [value]="'r1'"></vcl-radio-button>
+      <vcl-radio-button label="Value 2" [value]="'r2'"></vcl-radio-button>
+    </vcl-radio-group>
+    <div *ngIf="radiogroup.touched && radiogroup.invalid" class="vclFormControlHint vclError">
+      <ng-container *ngIf="radiogroup.hasError('required')">Select a button</ng-container>
+    </div>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-select"></label>
+    <vcl-select [class.vclError]="select.touched && select.invalid" formControlName="select">
+      <vcl-select-option [value]="1" label="Item 1"></vcl-select-option>
+      <vcl-select-option [value]="2" label="Item 2"></vcl-select-option>
+      <vcl-select-option [value]="3" label="Item 3"></vcl-select-option>
+    </vcl-select>
+    <div *ngIf="select.touched && select.invalid" class="vclFormControlHint vclError">
+      <ng-container *ngIf="select.hasError('required')">Select an item</ng-container>
+    </div>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-slider"></label>
+    <vcl-slider [class.vclError]="slider.touched && slider.invalid" [min]="0" [max]="5" [scale]="true" formControlName="slider"></vcl-slider>
+    <div *ngIf="slider.touched && slider.hasError('lowValue')" class="vclFormControlHint vclError">
+      Value must be greater than 1
+    </div>    
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-textarea"></label>
+    <textarea vcl-textarea [class.vclError]="textarea.touched && textarea.invalid" [autogrow]="true" formControlName="textarea"></textarea>
+    <div *ngIf="textarea.touched && textarea.invalid" class="vclFormControlHint vclError">
+      <ng-container *ngIf="textarea.touched && textarea.hasError('required')">textarea is required</ng-container>
+    </div>
+  </div>
+
+  <div class="vclInputControlGroup">
+    <label vcl-form-control-label [required]="true" label="vcl-token-input"></label>
+    <vcl-token-input [class.vclError]="tokeninput.touched && tokeninput.invalid" formControlName="tokeninput"></vcl-token-input>
+    <div *ngIf="tokeninput.touched && tokeninput.hasError('noSelection')" class="vclFormControlHint vclError">
+      Add at least one token
+    </div>    
+  </div>
 </form>
-
 
 <div class="value">
   <h4>Value: {{ form.value | json }}</h4>
