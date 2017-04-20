@@ -11,11 +11,11 @@ export class MonthPickerComponent {
 
   private now: Date = new Date();
 
-  private months: string[];
+  months: string[];
 
   private yearMeta: any = {};
 
-  private currentMeta: any[];
+  currentMeta: any[];
 
   private availableColors: boolean[];
 
@@ -220,7 +220,7 @@ export class MonthPickerComponent {
     });
   }
 
-  private onPrevYearTap(): void {
+  onPrevYearTap(): void {
     if (this.prevYearAvailable) {
       this.currentYear--;
       this.setYearMeta(this.currentYear);
@@ -229,7 +229,7 @@ export class MonthPickerComponent {
     }
   }
 
-  private onNextYearTap(): void {
+  onNextYearTap(): void {
     if (this.nextYearAvailable) {
       this.currentYear++;
       this.setYearMeta(this.currentYear);

@@ -2,7 +2,6 @@
   <div
     #select
     class="vclLayoutHorizontal vclSelect vclInputGroupEmb"
-    [attr.aria-autocomplete]="list"
     [style.marginBottom]="0"
     >
     <div *ngIf="showDisplayValue" class="vclInput" readonly [class.vclSelected]="focused" (tap)="toggle($event)">
@@ -19,7 +18,7 @@
       tabindex="-1"
       class="vclTransparent vclSquare vclAppended"
       [appIcon]="expanded ? expandedIcon : collapsedIcon"
-      (tap)="toggle($event)">
+      (tap)="toggle()">
     </button>
   </div>
 
