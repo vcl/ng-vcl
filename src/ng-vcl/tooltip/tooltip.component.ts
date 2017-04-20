@@ -13,11 +13,11 @@ export class TooltipComponent {
     @Input() position: string;
     @Input() ref: any;
 
-    //TODO: calculate proper tooltip position
-    //TODO: calculate proper tooltip position
+    // TODO: calculate proper tooltip position
+    // TODO: calculate proper tooltip position
     // @Input() offsetTop: number = 30;
 
-    //widthCorrection: number = 50;
+    // widthCorrection: number = 50;
 
     constructor(private element: ElementRef) {
 
@@ -36,15 +36,15 @@ export class TooltipComponent {
     }
 
 
-    //get OffsetTop(): string {
+    // get OffsetTop(): string {
     //    return (+this.element.nativeElement.offsetTop
     //        - this.offsetTop) + 'px';
-    //}
+    // }
 
-    //get OffsetLeft(): string {
+    // get OffsetLeft(): string {
     //    return (+this.element.nativeElement.offsetLeft
     //        - this.widthCorrection) + 'px';
 
-    //}
+    // }
 
 }
