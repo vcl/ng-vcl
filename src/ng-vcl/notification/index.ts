@@ -18,14 +18,14 @@ export { Notification, NotificationService, NotificationOptions, NotificationTyp
     FormsModule,
     CommonModule,
     VCLButtonModule,
-    VCLLayerModule.withLayers([
+    VCLLayerModule.forChild({layers: [
       NotificationLayerTopRight,
       NotificationLayerBottomRight,
       NotificationLayerBottom,
       NotificationLayerBottomLeft,
       NotificationLayerTopLeft,
       NotificationLayerTop
-    ])
+    ]})
   ],
   exports: [],
   declarations: [ NotificationComponent ],
