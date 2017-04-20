@@ -25,7 +25,7 @@ export class AlertComponent {
   @HostListener('document:keyup', ['$event'])
   onKeyUp(ev: KeyboardEvent) {
     // Check if the top layer is the alert layer
-    if (this.layerService.getVisibleLayers().pop() === this.alertLayer) {
+    if (this.layerService.getTopLayer() === this.alertLayer) {
       if (ev.key === 'Escape' && this.alert.escClose) {
         this.alertLayer.dismiss('esc');
       } else if (ev.key === 'Enter') {

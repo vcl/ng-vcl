@@ -19,7 +19,7 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
     VCLButtonModule,
     VCLInputModule,
     VCLIcogramModule,
-    VCLLayerModule.withLayers([AlertLayer])
+    VCLLayerModule.forChild({layers: [AlertLayer]})
   ],
   exports: [],
   declarations: [ AlertComponent, AlertInputComponent ],
