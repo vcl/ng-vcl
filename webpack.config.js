@@ -14,6 +14,7 @@ const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPl
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { AotPlugin } = require('@ngtools/webpack');
 
 function root(__path = '.') {
   return path.join(__dirname, __path);
@@ -21,19 +22,18 @@ function root(__path = '.') {
 
 function webpackConfig(options) {
 
-  const demo = options.DEMO || 'ng-vcl';
   const ENV = options.ENV || 'development';
   const HMR = options.HMR === 'true' || options.HMR === true;
   const PORT = options.PORT || 3000;
   const isProd = options.ENV === 'production';
+  const aot = !!options.AOT || isProd;
 
   return {
     cache: true,
     devtool: 'source-map',
     entry: {
-      main:      './demo/' + demo,
-      lib:    './demo/vendor',
-      polyfills:    './demo/polyfills'
+      main: root('demo/main.ts'),
+      polyfills: root('/demo/polyfills.ts')
     },
     output: {
       path: root('docs'),
@@ -44,18 +44,6 @@ function webpackConfig(options) {
     },
     module: {
       rules: [
-        {
-          test: /\.ts?$/,
-          use: [
-            {
-              loader: 'awesome-typescript-loader',
-              options: {
-                  module: 'es2015' 
-              }
-            },
-            'angular2-template-loader'
-          ],
-        },
         {
           test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
           use: 'file?name=assets/[name].[hash].[ext]'
@@ -88,15 +76,46 @@ function webpackConfig(options) {
         {
           test: /\.(html)$/, 
           use: ['raw-loader'],
-        }
+        },
+        {
+          test: /\.ts?$/,
+          use: aot ? [
+            {
+              loader: '@ngtools/webpack',
+            }
+          ] : [
+            {
+              loader: 'awesome-typescript-loader',
+              options: {
+                  module: 'es2015' 
+              }
+            },
+            'angular-router-loader',
+            'angular2-template-loader'
+          ]
+        },        
       ]
     },
     plugins: [
+      aot ? new AotPlugin({
+          tsConfigPath: root('tsconfig.json'),
+          entryModule: root('demo/app.module#AppModule')
+        }): null,
       new ExtractTextPlugin('styles/app.css'),
       (HMR && !isProd) ? new HotModuleReplacementPlugin() : null,
       new CommonsChunkPlugin({
-        name: ['app', 'lib', 'polyfills']
+          name: 'polyfills',
+          chunks: ['polyfills']
       }),
+      new CommonsChunkPlugin({
+          name: 'vendor',
+          chunks: ['main'],
+          minChunks: module => /node_modules/.test(module.resource)
+      }),
+      new CommonsChunkPlugin({
+          name: ['polyfills', 'vendor'].reverse()
+      }),
+
       new DefinePlugin({
         'ENV': JSON.stringify(ENV)
       }),
@@ -116,13 +135,13 @@ function webpackConfig(options) {
       isProd ? new UglifyJsPlugin({
         mangle: {
           screw_ie8 : true,
-        }, //prod
-        compress: {  //prod
+        },
+        compress: {
           screw_ie8: true,
           warnings: false
         },
         sourceMap: true,
-        comments: false //prod
+        comments: false
       }) : null
     ].filter(plugin=>plugin!==null),
     resolve: {

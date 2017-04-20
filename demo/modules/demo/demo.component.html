@@ -1,0 +1,13 @@
+<h2 class="vclArticleHeader"> {{title}}</h2>
+<div *ngIf="tabs.length>0">
+  <vcl-tab-nav borders=true>
+    <vcl-tab *ngFor="let tab of tabs">
+      <ng-template vcl-tab-label>{{tab.name}}</ng-template>
+      <wormhole *ngIf="tab.type==='component'" [connect]="tab.content"></wormhole>
+      <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
+      <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div>
+      <div *ngIf="tab.type==='md'"   class="markdown-body"  [innerHtml]="tab.content"></div>
+      <pre *ngIf="tab.type==='pre'"  [innerHtml]="tab.content"></pre>
+    </vcl-tab>
+  </vcl-tab-nav>
+</div>
