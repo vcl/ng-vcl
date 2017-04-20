@@ -40,8 +40,8 @@ export class PlotlyComponent {
   public afterPlot: boolean = false;
 
   @Input() private debug = false;
-  @Input() private plotId: string;
-  @Input() private plotClass: string;
+  @Input() plotId: string;
+  @Input() plotClass: string;
   @Input() private data: any[];
   @Input() private layout: any;
   @Input() private configuration: any;
