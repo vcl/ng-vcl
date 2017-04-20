@@ -1,59 +1,84 @@
-import { NgModule, APP_BOOTSTRAP_LISTENER, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider, OpaqueToken } from '@angular/core';
+import { NgModule, APP_BOOTSTRAP_LISTENER, OnDestroy, Inject, Injectable, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider, OpaqueToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLWormholeModule, DomWormholeHost } from '../wormhole/index';
-import { LayerBaseComponent } from './layer-base.directive';
+import { VCLWormholeModule } from '../wormhole/index';
+import { defineMetadata } from './../core/index';
+import { LayerManagerService } from './layer-manager.service';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerAttributes } from './layer-ref';
-import { LayerContainerComponent } from './layer-container.component';
-import { Layer } from './layer-ref.component';
+import { LayerContainerComponent, COMPONENT_LAYER_ANNOTATION_ID } from './layer-container.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export {LayerBaseComponent, LayerRefDirective, LayerRef, LayerAttributes, LayerService, Layer, LayerContainerComponent }
+export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerManagerService, LayerContainerComponent }
 
-export const LAYERS = new OpaqueToken('@ng-vcl/ng-vcl#layers');
+export const CHILD_LAYER_CONFIG = new OpaqueToken('@ng-vcl/ng-vcl#child_layer_config');
 
-@Component({
-  selector: 'vcl-layer-base-root',
-  template: '<vcl-layer-base></vcl-layer-base>',
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class LayerBaseRootComponent { }
+export interface LayerConfig {
+  layers?: Type<LayerRef>[];
+}
 
-export function bootstrapLayers(layerService: LayerService, ...layers: LayerRef[]) {
-  return () => {
-    (layers || []).forEach(l => layerService.register(l));
+// The @Layer annotation
+export function Layer<T>(component: Type<T>) {
+  return function (target) {
+    Injectable()(target);
+    defineMetadata(COMPONENT_LAYER_ANNOTATION_ID, component, target);
   };
-};
+}
 
 @NgModule({
   imports: [
     CommonModule,
-    VCLWormholeModule.withRootComponents([LayerBaseRootComponent])
+    VCLWormholeModule
   ],
-  exports: [LayerBaseComponent, LayerRefDirective, LayerContainerComponent],
-  declarations: [LayerBaseComponent,  LayerBaseRootComponent, LayerRefDirective, LayerContainerComponent],
-  entryComponents: [ LayerBaseRootComponent,  LayerContainerComponent],
-  providers: [
-    LayerService,
-    {
-      provide: LayerRef,
-      useValue: null
-    },
-  ]
+  exports: [LayerRefDirective, LayerContainerComponent],
+  declarations: [LayerRefDirective, LayerContainerComponent],
+  entryComponents: [LayerContainerComponent],
+  providers: []
 })
 export class VCLLayerModule {
-  static withLayers(layers: Type<LayerRef>[]): ModuleWithProviders {
+  static forRoot(config: LayerConfig = {}): ModuleWithProviders {
+    return {ngModule: VCLLayerModule, providers: [
+      LayerService,
+      LayerManagerService,
+      ...(config.layers || []),
+      {
+        provide: LayerRef,
+        useValue: null
+      },
+      {
+        provide: CHILD_LAYER_CONFIG,
+        multi: true,
+        useValue: config
+      }
+    ]};
+  }
+  static forChild(config: LayerConfig = {}): ModuleWithProviders {
     return {
       ngModule: VCLLayerModule,
       providers: [
-        layers,
+        ...(config.layers || []),
         {
-          provide: APP_BOOTSTRAP_LISTENER,
+          provide: CHILD_LAYER_CONFIG,
           multi: true,
-          deps: [ LayerService, layers],
-          useFactory: bootstrapLayers
+          useValue: config
         }
       ]
     };
   }
+
+  constructor(
+    @Inject(CHILD_LAYER_CONFIG) private configs: LayerConfig[],
+    private layerService: LayerService,
+    private layerManagerService: LayerManagerService,
+    private injector: Injector,
+  ) {
+    if (configs) {
+      configs.forEach(config => {
+        (config.layers || []).forEach(layerCls => {
+          const layerRef = this.injector.get(layerCls);
+          this.layerService.register(layerRef, injector);
+        });
+      });
+    }
+  }
 }
+

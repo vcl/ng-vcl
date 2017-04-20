@@ -1,22 +1,11 @@
-import { Component, ChangeDetectionStrategy, trigger, Input, SimpleChanges, ViewChild, ViewContainerRef, ChangeDetectorRef, Output, EventEmitter, ElementRef, Type, ViewChildren, QueryList } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, Input, Injector, ViewContainerRef, ChangeDetectorRef, ReflectiveInjector, Type, ElementRef } from '@angular/core';
+import { trigger } from '@angular/animations';
 import { Wormhole, ComponentWormhole, TemplateWormhole } from '../wormhole/index';
 import { getMetadata } from './../core/index';
 import { LayerRef, LayerOptions, LayerAttributes } from './layer-ref';
 import { LayerRefDirective } from './layer-ref.directive';
-import { LayerComponentWormhole, COMPONENT_LAYER_ANNOTATION_ID } from './layer-ref.component';
 
-// Creates a wormhole out of the LayerRef
-function createWormhole<T>(viewContainerRef: ViewContainerRef, layerRef: LayerRef): Wormhole | null {
-  if (!viewContainerRef) {
-    throw 'viewContainerRef required';
-  }
-  if (layerRef instanceof LayerRefDirective) {
-    return new TemplateWormhole(viewContainerRef, layerRef.templateRef);
-  } else {
-    const component =  getMetadata(COMPONENT_LAYER_ANNOTATION_ID, (layerRef as any).constructor ) as Type<T>;
-    return component ? new LayerComponentWormhole<T>(layerRef, viewContainerRef, component) : null;
-  }
-}
+export const COMPONENT_LAYER_ANNOTATION_ID = 'ng-vcl_component_layer';
 
 @Component({
   templateUrl: 'layer-container.component.html',
@@ -51,7 +40,10 @@ export class LayerContainerComponent {
   _layerAttrs: LayerAttributes;
 
   @Input()
-  Zindex = 1000;
+  zIndex = 1000;
+
+  @Input()
+  injector: any;
 
   @Input()
   visible: boolean = false;
@@ -60,7 +52,7 @@ export class LayerContainerComponent {
     return this.visible ? 'visible' : 'hidden';
   }
 
-  wormhole: Wormhole | null;
+  wormhole: Wormhole | undefined;
 
   @ViewChild('layerContent', { read: ViewContainerRef })
   layerContentContainer: ViewContainerRef;
@@ -81,8 +73,23 @@ export class LayerContainerComponent {
 
   ngAfterViewInit() {
     const layer = this.layer;
-    if (layer) {
-      this.wormhole = createWormhole(this.layerContentContainer, layer);
+    if (layer && this.layerContentContainer) {
+
+      // Creates a wormhole out of the LayerRef
+      if (this.layer instanceof LayerRefDirective) {
+        this.wormhole = new TemplateWormhole(this.layer.templateRef, this.layerContentContainer);
+      } else {
+        const component =  getMetadata(COMPONENT_LAYER_ANNOTATION_ID, (this.layer as any).constructor ) as Type<any>;
+
+        // The created injector injects this instance as LayerRef
+        // It is used in the component instance created within the wormhole
+        const layerInjector = ReflectiveInjector.resolveAndCreate([{
+          provide: LayerRef,
+          useValue: this.layer
+        }], this.injector);
+
+        this.wormhole = component ? new ComponentWormhole(component, this.layerContentContainer, layerInjector) : undefined;
+      }
 
       if (!this.wormhole) {
         throw 'invalid layer';

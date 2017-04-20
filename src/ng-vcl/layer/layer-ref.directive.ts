@@ -1,4 +1,4 @@
-import { Input, TemplateRef, ChangeDetectorRef, Directive, ViewContainerRef } from '@angular/core';
+import { Input, TemplateRef, ChangeDetectorRef, Directive, ViewContainerRef, Injector } from '@angular/core';
 import { LayerService } from './layer.service';
 import { LayerRef } from './layer-ref';
 
@@ -29,12 +29,12 @@ export class LayerRefDirective extends LayerRef {
   @Input()
   customClass: string;
 
-  constructor(public templateRef: TemplateRef<any>, private layerService: LayerService) {
+  constructor(public templateRef: TemplateRef<any>, private layerService: LayerService, private injector: Injector) {
     super();
   }
 
   ngOnInit() {
-    this.layerService.register(this);
+    this.layerService.register(this, this.injector);
   }
 
   ngOnDestroy() {

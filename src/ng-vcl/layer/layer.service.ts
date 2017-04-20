@@ -6,52 +6,64 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { LayerBaseComponent } from './layer-base.directive';
 import { LayerRef } from './layer-ref';
 
 @Injectable()
 export class LayerService {
 
-  private bases = new Map<string, LayerBaseComponent>();
+  baseZIndex: number = 1000;
+
+  visibleLayers: LayerRef[] = [];
 
   private layerRegister = new ReplaySubject<{
     register: boolean;
     ref: LayerRef;
+    injector?: Injector;
   }>();
+
+  get currentZIndex() {
+    return this.baseZIndex + (this.visibleLayers.length * 10);
+  }
 
   getLayers$(base = 'default') {
     return this.layerRegister.asObservable().filter(lr => !!lr.ref && lr.ref.base === base);
   }
 
-  getVisibleLayers(base = 'default') {
-    const layerBase = this.bases.get(base);
-    if (layerBase) {
-      return [...layerBase.visibleLayers];
-    } else {
-      throw 'Invalid base: ' + base;
-    }
+  hasVisibleLayers() {
+    return this.visibleLayers.length > 0;
   }
 
-  hasVisibleLayers(base?: string) {
-    return this.getVisibleLayers(base).length > 0;
+  getTopLayer() {
+    return [...this.visibleLayers].pop();
   }
 
   closeAll(base?: string) {
-    this.getVisibleLayers(base).forEach(layer => layer.close());
+    this.visibleLayers.forEach(layer => layer.close());
   }
 
   closeTop(base?: string) {
-    const layer = this.getVisibleLayers(base).pop();
-    if (layer) layer.close();
+    const layer = this.getTopLayer();
+    if (layer) {
+      layer.close();
+    };
   }
 
-  register(layer: LayerRef) {
+  addVisibleLayer(layer: LayerRef) {
+    this.visibleLayers = [...this.visibleLayers, layer];
+  }
+
+  removeVisibleLayer(layer: LayerRef) {
+    this.visibleLayers = this.visibleLayers.filter(l => l !== layer);
+  }
+
+  register(layer: LayerRef, injector: Injector) {
     if (!(layer instanceof LayerRef)) {
       throw 'Invalid layer';
     }
 
     this.layerRegister.next({
       ref: layer,
+      injector,
       register: true
     });
   }
@@ -61,16 +73,5 @@ export class LayerService {
       ref: layer,
       register: false
     });
-  }
-
-  registerBase(layerBase: LayerBaseComponent) {
-    if (Array.from(this.bases.keys()).includes(layerBase.name)) {
-      throw 'Duplicate vcl-layer-base: ' + layerBase.name;
-    }
-    this.bases.set(layerBase.name, layerBase);
-  }
-
-  unregisterBase(layerBase: LayerBaseComponent) {
-    this.bases.delete(layerBase.name);
   }
 }
