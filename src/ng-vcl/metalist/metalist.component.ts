@@ -1,4 +1,4 @@
-import { Directive, Component, Input, Output, ChangeDetectionStrategy,
+import { Directive, Component, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef,
   EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -17,8 +17,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-metalist, [vcl-metalist]',
   templateUrl: 'metalist.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetalistComponent implements ControlValueAccessor {
 
@@ -55,6 +55,8 @@ export class MetalistComponent implements ControlValueAccessor {
     return (this.items || []).filter(i => i.selected);
   }
 
+  constructor(private cdRef: ChangeDetectorRef) { }
+
   private syncItems() {
     const value = this.value;
     if (this.selectionMode === SelectionMode.Multiple  && Array.isArray(value)) {
@@ -66,6 +68,7 @@ export class MetalistComponent implements ControlValueAccessor {
         item.selected = item.value === value;
       });
     }
+    this.cdRef.markForCheck();
   }
 
   private syncValue() {
@@ -78,9 +81,13 @@ export class MetalistComponent implements ControlValueAccessor {
     this.onChange(this.value);
   }
 
-  ngAfterViewInit() {
-    // Late changes of metalist-items take the selected state of the current value;
-    this.items.changes.subscribe(() => setTimeout(() => this.syncItems()));
+  ngAfterContentInit() {
+    // Changes of metalist-items take the selected state of the current value;
+    this.items.changes.subscribe(() => {
+      Promise.resolve(null).then(() => {
+        this.syncItems();
+      });
+    });
   }
 
   select(item: MetalistItem | number) {
@@ -104,6 +111,7 @@ export class MetalistComponent implements ControlValueAccessor {
       }
       this.syncValue();
       this.triggerChange();
+      this.cdRef.markForCheck();
     }
   }
 
@@ -116,6 +124,7 @@ export class MetalistComponent implements ControlValueAccessor {
       item.selected = false;
       this.syncValue();
       this.triggerChange();
+      this.cdRef.markForCheck();
     }
   }
 
@@ -135,6 +144,7 @@ export class MetalistComponent implements ControlValueAccessor {
       item.marked = !item.disabled && mark;
       return !item.marked;
     });
+    this.cdRef.markForCheck();
   }
 
   markPrev() {
@@ -150,12 +160,14 @@ export class MetalistComponent implements ControlValueAccessor {
       item.marked = !item.disabled && mark;
       return !item.marked;
     });
+    this.cdRef.markForCheck();
   }
 
   selectMarked() {
     const item = this.items.toArray().find(i => i.marked === true && !i.disabled);
     if (item) {
       this.select(item);
+      this.cdRef.markForCheck();
     }
   }
 

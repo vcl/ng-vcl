@@ -14,7 +14,7 @@ export class MetalistDemoComponent {
   ];
 
   value1 = 2;
-  value2 = 4;
+  value2 = [4, 5];
 
   onChange(value: number) {
     console.log('metalist change', value);

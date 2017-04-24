@@ -1,5 +1,5 @@
 import { Component, Input, Output, ChangeDetectionStrategy,
-  EventEmitter, forwardRef, ElementRef, ViewChild, ContentChildren, QueryList
+  EventEmitter, forwardRef, ElementRef, ViewChild, ContentChildren, QueryList, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from "./dropdown-option.component";
@@ -14,7 +14,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-dropdown',
   templateUrl: 'dropdown.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   host: {
     '[attr.tabindex]': '-1',
@@ -57,7 +57,7 @@ export class DropdownComponent implements ControlValueAccessor {
   @Output('change')
   change = new EventEmitter<any>();
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   async scrollToMarked() {
     await new Promise(res => setTimeout(res, 0));
@@ -113,7 +113,11 @@ export class DropdownComponent implements ControlValueAccessor {
       prevent && ev.preventDefault();
     }
   }
-
+  ngAfterViewInit() {
+    this.items.changes.subscribe(() => {
+      this.cdRef.markForCheck();
+    });
+  }
   onMetalistBlur() {
     this.onTouched();
   }

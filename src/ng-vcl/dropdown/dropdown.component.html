@@ -27,7 +27,7 @@
       [class.vclDisabled]="metaItem.disabled"
       [class.vclHighlighted]="metaItem.marked"
       [attr.aria-selected]="metaItem.selected"
-      (tap)="onMetalistItemTap(item)">
+      (tap)="onMetalistItemTap(metaItem)">
       <div *ngIf="item.label" class="vclDropdownItemLabel">
         {{item.label}}
       </div>

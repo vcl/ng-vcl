@@ -14,7 +14,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   host: {
     '[style.position]': '"relative"',
@@ -213,8 +213,14 @@ export class SelectComponent implements ControlValueAccessor {
     this.dropdown.metalist.deselect(idx);
   }
 
+  ngAfterViewInit() {
+    this.items.changes.subscribe(() => {
+      this.cdRef.markForCheck();
+    });
+  }
+
   onDropdownChange(value: any) {
-    if (this.maxSelectableItems <= 1) {
+    if (this.selectionMode === SelectionMode.Single) {
       this.close();
     }
 
