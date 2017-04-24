@@ -95,7 +95,7 @@ export class MetalistComponent implements ControlValueAccessor {
         const selectedItems = (this.items || []).filter(i => i.selected);
 
         // prevent overflow
-        const overflow = typeof this.maxSelectableItems === 'number' && (item.selected || selectedItems.length >= this.maxSelectableItems);
+        const overflow = this.selectionMode === SelectionMode.Multiple && !item.selected && selectedItems.length >= this.maxSelectableItems;
         if (!overflow) {
           item.selected = !item.selected;
         }
