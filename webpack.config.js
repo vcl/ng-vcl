@@ -104,18 +104,10 @@ function webpackConfig(options) {
       new ExtractTextPlugin('styles/app.css'),
       (HMR && !isProd) ? new HotModuleReplacementPlugin() : null,
       new CommonsChunkPlugin({
-          name: 'polyfills',
-          chunks: ['polyfills']
+        name: 'vendor',
+        chunks: ['main'],
+        minChunks: (module) => module.resource && module.resource.startsWith(root('node_modules') )
       }),
-      new CommonsChunkPlugin({
-          name: 'vendor',
-          chunks: ['main'],
-          minChunks: module => /node_modules/.test(module.resource)
-      }),
-      new CommonsChunkPlugin({
-          name: ['polyfills', 'vendor'].reverse()
-      }),
-
       new DefinePlugin({
         'ENV': JSON.stringify(ENV)
       }),
