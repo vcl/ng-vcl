@@ -37,7 +37,7 @@ export class MetalistComponent implements ControlValueAccessor {
   }
 
   @Input()
-  maxSelectableItems: number | undefined;
+  maxSelectableItems: number = Infinity;
 
   @Output()
   change = new EventEmitter<any>();
