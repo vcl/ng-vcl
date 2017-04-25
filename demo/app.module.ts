@@ -24,12 +24,7 @@ import { routing, appRoutingProviders } from './app.routes';
     VCLButtonModule,
     VCLIconModule,
     VCLNavigationModule,
-    VCLLayerModule.forRoot(),
-    L10nModule.forRoot({
-      config: { },
-      loader: L10nStaticLoaderService,
-      loaderConfig: { }
-    }),
+    VCLLayerModule.forRoot()
   ],
   declarations: [
     AppComponent,
