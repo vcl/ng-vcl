@@ -1,4 +1,4 @@
-import { Optional, Pipe, PipeTransform, OnDestroy } from '@angular/core';
+import { Optional, Inject, Pipe, PipeTransform, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { L10nService } from './l10n.service';
@@ -16,8 +16,9 @@ export class L10nPipe implements PipeTransform, OnDestroy {
   subscription: Subscription | null;
 
   constructor(
+    @Inject(L10nService)
     @Optional()
-    private l10n: L10nService,
+    private l10n: L10nService | undefined,
   ) {
     this.args = [];
   }
@@ -30,6 +31,10 @@ export class L10nPipe implements PipeTransform, OnDestroy {
   }
 
   transform(key: string, ...args: string[]): any {
+    if (!this.l10n) {
+      return key;
+    }
+
     if (this.subscription) {
       // Dispose subscription if key or params are different
       if (!this.compare(key, ...args)) {

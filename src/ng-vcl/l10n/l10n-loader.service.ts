@@ -1,73 +1,105 @@
 import { Inject, Injectable, OpaqueToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/of';
 
 export interface TranslationPackage {
   [key: string]: string;
-};
+}
+
+export interface TranslationPackageGroup {
+  [key: string]: {
+    [locale: string]: string;
+  };
+}
 
 export let L10N_LOADER_CONFIG = new OpaqueToken('l10n.loader.config');
-
-export interface L10nLoaderConfig {
-  [key: string]: any;
-}
 
 export abstract class L10nLoaderService {
 
   /**
-   * Return a TranslationPackage as an Observable.
+   * Return a TranslationPackage as a stream.
    * May emit new values over time
    */
-  abstract getTranslationPackage(locale: string): Observable<TranslationPackage>
-
-  getSupportedLocales(): Observable<string[]> {
-    return Observable.of([]);
-  }
+  abstract getTranslationPackage(locale: string): Observable<TranslationPackage>;
+  abstract getSupportedLocales(): Observable<string[]>;
 }
 
+function extractLocales(group: TranslationPackageGroup) {
+  let supportedLocales: string[] = [];
+  Object.keys(group).forEach(key => {
+    if (group[key]) {
+      Object.keys(group[key]).forEach(locale => {
+        supportedLocales.push(locale);
+      });
+    }
+  });
+  // unique
+  return Array.from(new Set(supportedLocales));
+}
+
+function flatten(locale: string, group: TranslationPackageGroup): TranslationPackage {
+  const pkg = {};
+  Object.keys(group).forEach(key => {
+    if (group[key] && group[key][locale]) {
+      pkg[key] = group[key][locale];
+    }
+  });
+  return pkg;
+}
 
 @Injectable()
 export class L10nStaticLoaderService extends L10nLoaderService {
-    constructor(
-      @Inject(L10N_LOADER_CONFIG)
-      protected config: any // TODO: L10nLoaderConfig - problem with ngc
-    ) {
-      super();
-    }
-  flatten(locale: string, data): TranslationPackage {
-    let pkg = {};
-    Object.keys(data).forEach(key => {
-      if (data[key] && data[key][locale]) {
-        pkg[key] = data[key][locale];
-      }
-    });
-    return pkg;
+  constructor(
+    @Inject(L10N_LOADER_CONFIG)
+    private config: TranslationPackageGroup
+  ) {
+    super();
+  }
+
+  getTranslationPackage(locale: string): Observable<TranslationPackage> {
+    return Observable.of(flatten(locale, this.config));
   }
 
   getSupportedLocales(): Observable<string[]> {
-    let supportedLocales: string[] = [];
-    Object.keys(this.config).forEach(key => {
-      if (this.config[key]) {
-        Object.keys(this.config[key]).forEach(locale => {
-          supportedLocales.push(locale);
-        });
-      }
-    });
-    // unique
-    supportedLocales = Array.from(new Set(supportedLocales));
-    return Observable.of(supportedLocales);
-  }
-
-  getTranslationPackage(locale: string) {
-    let pkg = this.flatten(locale, this.config);
-    return Observable.of(pkg);
+    return Observable.of(extractLocales(this.config));
   }
 }
 
+@Injectable()
+export class L10nAsyncLoaderService extends L10nLoaderService {
+  private data$: Observable<TranslationPackageGroup>;
+  constructor(
+    @Inject(L10N_LOADER_CONFIG)
+    private config: any
+  ) {
+    super();
+    let streamlike: Observable<TranslationPackageGroup>;
+    if (typeof config === 'function') {
+      streamlike = config();
+    } else {
+      streamlike = Observable.from(config);
+    }
+    // Enable caching
+    this.data$ = streamlike.publishReplay(1).refCount();
+  }
+
+  getTranslationPackage(locale: string): Observable<TranslationPackage> {
+    return this.data$.map(data => flatten(locale, data));
+  }
+
+  getSupportedLocales(): Observable<string[]> {
+    return this.data$.map(data => extractLocales(data));
+  }
+}
 
 @Injectable()
 export class L10nNoopLoaderService extends L10nLoaderService {
-  getTranslationPackage(locale: string) {
+  getTranslationPackage(locale: string): Observable<TranslationPackage> {
     return Observable.of({});
+  }
+
+  getSupportedLocales(): Observable<string[]> {
+    return Observable.of([]);
   }
 }
