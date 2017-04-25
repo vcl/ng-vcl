@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Component, Input, HostBinding, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, HostBinding, ViewChild, ElementRef, Optional } from '@angular/core';
 import { L10nService } from '../l10n/index';
 import { ObservableComponent } from '../core/index';
 
@@ -32,14 +32,16 @@ export class LinkComponent extends ObservableComponent {
   @Input()
   disabled: boolean | undefined;
 
-  locLabel$ = this.observeChangeValue<string>('label').switchMap( label => this.l10n.localize(label));
-  locTitle$ = this.observeChangeValue<string>('title').switchMap( title => this.l10n.localize(title));
+  locLabel$ = this.observeChangeValue<string>('label').switchMap( label => this.l10n ? this.l10n.localize(label) : Observable.of(label));
+  locTitle$ = this.observeChangeValue<string>('title').switchMap( title => this.l10n ? this.l10n.localize(title) : Observable.of(title));
 
   @HostBinding('attr.title')
   @HostBinding('attr.aria-label')
   locTitle: string;
 
   locLabel: string;
+
+  locTitleSub: Subscription | undefined;
 
   @HostBinding('style.cursor')
   get styleCursor() {
@@ -57,8 +59,13 @@ export class LinkComponent extends ObservableComponent {
     return (this.appIcon || this.prepIcon);
   }
 
-  constructor(private l10n: L10nService) {
+  constructor(@Optional() private l10n: L10nService) {
     super();
-    this.locTitle$.subscribe(title => this.locTitle = title);
+    this.locTitleSub = this.locTitle$.subscribe(title => this.locTitle = title);
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.locTitleSub && this.locTitleSub.unsubscribe();
   }
 }
