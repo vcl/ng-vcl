@@ -43,4 +43,4 @@ export function demo() {
   entryComponents: [ FormControlLabelDemoComponent ],
   declarations: [ FormControlLabelDemoComponent ]
 })
-export class FormControlLabelDemoModule { };
+export class FormControlLabelDemoModule { }

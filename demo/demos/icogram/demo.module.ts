@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ IcogramDemoComponent ],
   declarations: [ IcogramDemoComponent ]
 })
-export class IcogramDemoModule { };
+export class IcogramDemoModule { }

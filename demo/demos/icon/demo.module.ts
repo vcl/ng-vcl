@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ IconDemoComponent ],
   declarations: [ IconDemoComponent ]
 })
-export class IconDemoModule { };
+export class IconDemoModule { }

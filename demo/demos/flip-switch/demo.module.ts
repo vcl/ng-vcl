@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ FlipSwitchDemoComponent ],
   declarations: [ FlipSwitchDemoComponent ]
 })
-export class FlipSwitchDemoModule { };
+export class FlipSwitchDemoModule { }

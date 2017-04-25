@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ SelectDemoComponent ],
   declarations: [ SelectDemoComponent ]
 })
-export class SelectDemoModule { };
+export class SelectDemoModule { }

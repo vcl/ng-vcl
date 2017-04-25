@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ LabelDemoComponent ],
   declarations: [ LabelDemoComponent ]
 })
-export class LabelDemoModule { };
+export class LabelDemoModule { }

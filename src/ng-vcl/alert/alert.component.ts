@@ -123,4 +123,4 @@ export class AlertLayer extends LayerRef {
       this.dismiss('offClick');
     }
   }
-};
+}

@@ -43,4 +43,4 @@ export function demo() {
   entryComponents: [ ButtonGroupDemoComponent ],
   declarations: [ ButtonGroupDemoComponent ]
 })
-export class ButtonGroupDemoModule { };
+export class ButtonGroupDemoModule { }

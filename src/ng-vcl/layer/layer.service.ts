@@ -45,7 +45,7 @@ export class LayerService {
     const layer = this.getTopLayer();
     if (layer) {
       layer.close();
-    };
+    }
   }
 
   addVisibleLayer(layer: LayerRef) {

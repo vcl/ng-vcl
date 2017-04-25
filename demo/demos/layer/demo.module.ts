@@ -65,5 +65,5 @@ export function demo() {
     FooComponent
   ]
 })
-export class LayerDemoModule { };
+export class LayerDemoModule { }
 

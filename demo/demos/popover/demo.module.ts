@@ -41,4 +41,4 @@ export function demo() {
   entryComponents: [ PopoverDemoComponent ],
   declarations: [ PopoverDemoComponent ]
 })
-export class PopoverDemoModule { };
+export class PopoverDemoModule { }

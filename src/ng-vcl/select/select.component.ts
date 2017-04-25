@@ -4,7 +4,7 @@ import { MetalistItem, SelectionMode } from '../metalist/index';
 import { DropdownComponent, DropdownOption } from '../dropdown/index';
 import { SelectOption } from './select-option.component';
 
-enum DropDirection { Top, Bottom };
+enum DropDirection { Top, Bottom }
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ LinkDemoComponent ],
   declarations: [ LinkDemoComponent ]
 })
-export class LinkDemoModule { };
+export class LinkDemoModule { }

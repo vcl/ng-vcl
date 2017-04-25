@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ InputControlGroupDemoComponent ],
   declarations: [ InputControlGroupDemoComponent ]
 })
-export class InputControlGroupDemoModule { };
+export class InputControlGroupDemoModule { }

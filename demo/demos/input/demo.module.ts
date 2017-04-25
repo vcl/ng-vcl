@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ InputDemoComponent ],
   declarations: [ InputDemoComponent ]
 })
-export class InputDemoModule { };
+export class InputDemoModule { }

@@ -53,4 +53,4 @@ export function demo() {
   entryComponents: [ FormDemoComponent ],
   declarations: [ FormDemoComponent ]
 })
-export class FormDemoModule { };
+export class FormDemoModule { }

@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ OffClickDemoComponent ],
   declarations: [ OffClickDemoComponent ]
 })
-export class OffClickDemoModule { };
+export class OffClickDemoModule { }

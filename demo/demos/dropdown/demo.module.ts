@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ DropdownDemoComponent ],
   declarations: [ DropdownDemoComponent ]
 })
-export class DropdownDemoModule { };
+export class DropdownDemoModule { }

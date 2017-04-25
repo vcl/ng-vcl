@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SliderComponent, ScalePoint } from './slider.component';
 import { L10nModule } from '../l10n/index';
 
-export { SliderComponent, ScalePoint }
+export { SliderComponent, ScalePoint };
 
 @NgModule({
   imports: [CommonModule, L10nModule ],

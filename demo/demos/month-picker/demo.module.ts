@@ -36,4 +36,4 @@ export function demo() {
   entryComponents: [ MonthPickerDemoComponent ],
   declarations: [ MonthPickerDemoComponent ]
 })
-export class MonthPickerDemoModule { };
+export class MonthPickerDemoModule { }

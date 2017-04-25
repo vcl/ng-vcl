@@ -37,4 +37,4 @@ export function demo() {
   entryComponents: [ ToolbarDemoComponent ],
   declarations: [ ToolbarDemoComponent ]
 })
-export class ToolbarDemoModule { };
+export class ToolbarDemoModule { }

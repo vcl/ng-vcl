@@ -43,4 +43,4 @@ export function demo() {
   entryComponents: [ RadioButtonDemoComponent ],
   declarations: [ RadioButtonDemoComponent ]
 })
-export class RadioButtonDemoModule { };
+export class RadioButtonDemoModule { }

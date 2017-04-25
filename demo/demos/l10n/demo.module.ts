@@ -28,4 +28,4 @@ export function demo() {
   entryComponents: [],
   declarations: []
 })
-export class L10nDemoModule { };
+export class L10nDemoModule { }

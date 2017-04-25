@@ -28,7 +28,7 @@ export class AlertInputComponent {
   ngAfterViewInit() {
     if (this.input && this.input.nativeElement && this.input.nativeElement.focus) {
       setTimeout(() => this.input.nativeElement.focus(), 1);
-    };
+    }
   }
 
   get control(): string | null {

@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ CheckboxDemoComponent ],
   declarations: [ CheckboxDemoComponent ]
 })
-export class CheckboxDemoModule { };
+export class CheckboxDemoModule { }

@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ NavigationDemoComponent ],
   declarations: [ NavigationDemoComponent ]
 })
-export class NavigationDemoModule { };
+export class NavigationDemoModule { }

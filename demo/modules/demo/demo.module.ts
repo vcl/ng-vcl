@@ -14,4 +14,4 @@ export { DemoComponent };
   ],
   declarations: [ DemoComponent, ]
 })
-export class DemoModule { };
+export class DemoModule { }

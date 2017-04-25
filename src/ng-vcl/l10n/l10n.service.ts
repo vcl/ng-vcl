@@ -14,7 +14,7 @@ export const L10N_CONFIG = new OpaqueToken('l10n.config');
 
 export interface L10nConfig {
   locale?: string;
-};
+}
 
 @Injectable()
 export class L10nService {

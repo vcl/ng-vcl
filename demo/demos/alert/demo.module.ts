@@ -41,4 +41,4 @@ export function demo() {
   entryComponents: [ AlertDemoComponent ],
   declarations: [ AlertDemoComponent ]
 })
-export class AlertDemoModule { };
+export class AlertDemoModule { }

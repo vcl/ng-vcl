@@ -46,4 +46,4 @@ export function demo() {
     MyComponent
   ]
 })
-export class WormholeDemoModule { };
+export class WormholeDemoModule { }

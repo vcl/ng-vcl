@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ SliderDemoComponent ],
   declarations: [ SliderDemoComponent ]
 })
-export class SliderDemoModule { };
+export class SliderDemoModule { }

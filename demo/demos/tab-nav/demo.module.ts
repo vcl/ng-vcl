@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ TabNavDemoComponent ],
   declarations: [ TabNavDemoComponent ]
 })
-export class TabNavDemoModule { };
+export class TabNavDemoModule { }

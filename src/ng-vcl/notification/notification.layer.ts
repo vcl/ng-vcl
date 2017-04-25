@@ -43,29 +43,29 @@ export abstract class NotificationLayer<T> extends LayerRef {
 export class NotificationLayerTopRight extends NotificationLayer<NotificationComponent> {
   customClass = 'vclLayerNotificationTopRight';
   reverse = true;
-};
+}
 @Layer(NotificationComponent)
 export class NotificationLayerTop extends NotificationLayer<NotificationComponent> {
   customClass: 'vclLayerNotificationTop';
   reverse = true;
-};
+}
 @Layer(NotificationComponent)
 export class NotificationLayerTopLeft extends NotificationLayer<NotificationComponent> {
   customClass = 'vclLayerNotificationTopLeft';
   reverse = true;
-};
+}
 @Layer(NotificationComponent)
 export class NotificationLayerBottomRight extends NotificationLayer<NotificationComponent> {
   customClass = 'vclLayerNotificationBottomRight';
   reverse = false;
-};
+}
 @Layer(NotificationComponent)
 export class NotificationLayerBottom extends NotificationLayer<NotificationComponent> {
   customClass = 'vclLayerNotificationBottom';
   reverse = false;
-};
+}
 @Layer(NotificationComponent)
 export class NotificationLayerBottomLeft extends NotificationLayer<NotificationComponent> {
   customClass = 'vclLayerNotificationBottomLeft';
   reverse = false;
-};
+}

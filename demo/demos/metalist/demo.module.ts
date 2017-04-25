@@ -43,4 +43,4 @@ export function demo() {
   entryComponents: [ MetalistDemoComponent ],
   declarations: [ MetalistDemoComponent ]
 })
-export class MetalistDemoModule { };
+export class MetalistDemoModule { }

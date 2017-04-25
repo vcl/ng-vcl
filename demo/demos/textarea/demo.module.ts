@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ TextareaDemoComponent ],
   declarations: [ TextareaDemoComponent ]
 })
-export class TextareaDemoModule { };
+export class TextareaDemoModule { }

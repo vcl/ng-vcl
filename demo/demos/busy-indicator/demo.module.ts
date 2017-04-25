@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ BusyDemoComponent ],
   declarations: [ BusyDemoComponent ]
 })
-export class BusyDemoModule { };
+export class BusyDemoModule { }

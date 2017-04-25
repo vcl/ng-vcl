@@ -8,7 +8,7 @@ import { LayerRef, LayerAttributes } from './layer-ref';
 import { LayerContainerComponent, COMPONENT_LAYER_ANNOTATION_ID } from './layer-container.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerManagerService, LayerContainerComponent }
+export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerManagerService, LayerContainerComponent };
 
 export const CHILD_LAYER_CONFIG = new OpaqueToken('@ng-vcl/ng-vcl#child_layer_config');
 

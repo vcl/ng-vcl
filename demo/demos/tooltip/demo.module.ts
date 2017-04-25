@@ -40,4 +40,4 @@ export function demo() {
     ToolTipDemoComponent,
   ]
 })
-export class ToolTipDemoModule { };
+export class ToolTipDemoModule { }

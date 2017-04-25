@@ -40,4 +40,4 @@ export function demo() {
   entryComponents: [ ProgressBarDemoComponent ],
   declarations: [ ProgressBarDemoComponent ]
 })
-export class ProgressBarDemoModule { };
+export class ProgressBarDemoModule { }

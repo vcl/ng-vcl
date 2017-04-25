@@ -35,4 +35,4 @@ export class StoreObservable<T> extends Observable<T> {
     observable.operator = operator;
     return observable;
   }
-};
+}

@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ DatePickerDemoComponent ],
   declarations: [ DatePickerDemoComponent ]
 })
-export class DatePickerDemoModule { };
+export class DatePickerDemoModule { }

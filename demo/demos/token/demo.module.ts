@@ -42,4 +42,4 @@ export function demo() {
   entryComponents: [ TokenDemoComponent ],
   declarations: [ TokenDemoComponent ]
 })
-export class TokenDemoModule { };
+export class TokenDemoModule { }
