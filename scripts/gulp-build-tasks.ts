@@ -104,12 +104,16 @@ export function ngVCLCompatibility(pkg: string) {
         .pipe(rename(renameFiles))
         .pipe(dest(`${folderNgVCLD.dist}`)),
       // Copies/renames scripts and replaces any "@HostListener('tap" with "@HostListener('click" in html files
+      src(`${folder.dist}/**/*.json`)
+        .pipe(replace('"name":"HostListener"},"arguments":["tap"', '"name":"HostListener"},"arguments":["click"'))
+        .pipe(rename(renameFiles))
+        .pipe(dest(`${folderNgVCLD.dist}`)),
       src(`${folder.dist}/**/*.js`)
         .pipe(replace('HostListener(\'tap\'', 'HostListener(\'click\''))
         .pipe(rename(renameFiles))
         .pipe(dest(`${folderNgVCLD.dist}`)),
-      // Copies/renames remmaining files
-      src(`${folder.dist}/**/!(*.html|*.js)`)
+      // Copies/renames remaining files
+      src(`${folder.dist}/**/!(*.html|*.js|*.json)`)
         .pipe(rename(renameFiles))
         .pipe(dest(folderNgVCLD.dist))
     );
