@@ -28,6 +28,13 @@ function webpackConfig(options) {
   const isProd = options.ENV === 'production';
   const aot = !!options.AOT || isProd;
 
+
+function test(x, y) {
+  console.log(x, y);
+
+}
+
+
   return {
     cache: true,
     devtool: 'source-map',
@@ -44,6 +51,10 @@ function webpackConfig(options) {
     },
     module: {
       rules: [
+        {
+          test: /\.component\.css$/,
+          use: ['raw-loader']
+        },        
         {
           test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
           use: 'file?name=assets/[name].[hash].[ext]'
