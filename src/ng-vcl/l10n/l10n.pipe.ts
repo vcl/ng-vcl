@@ -18,7 +18,7 @@ export class L10nPipe implements PipeTransform, OnDestroy {
   constructor(
     @Inject(L10nService)
     @Optional()
-    private l10n: L10nService | undefined,
+    private l10n: any,
   ) {
     this.args = [];
   }
