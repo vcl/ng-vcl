@@ -26,7 +26,7 @@ function webpackConfig(options) {
   const HMR = options.HMR === 'true' || options.HMR === true;
   const PORT = options.PORT || 3000;
   const isProd = options.ENV === 'production';
-  const aot = !!options.AOT || isProd;
+  const AOT = !!options.AOT || isProd;
 
   return {
     cache: true,
@@ -34,7 +34,7 @@ function webpackConfig(options) {
     entry: {
       main: root('demo/main.ts'),
       polyfills: root('demo/polyfills.ts'),
-      styles: root('demo/app.css')
+      styles: root('demo/styles/index.styl')
     },
     output: {
       path: root('docs'),
@@ -50,12 +50,27 @@ function webpackConfig(options) {
           use: 'file?name=assets/[name].[hash].[ext]'
         },
         {
-          test: /\.css$/,
-          // Only run the main css file by the css-loader
-          include: [root('demo/app.css')],
-          use: ExtractTextPlugin.extract({
-            use: "css-loader?-url"
-          })
+          test: /\.styl$/,
+          use: ExtractTextPlugin.extract([
+            {
+              loader: 'css-loader',
+              options: {
+                url: false,
+                minimize: !!isProd
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => [
+                  require('autoprefixer')
+                ]
+              }
+            },
+            {
+              loader: 'vcl-loader'
+            }
+          ])
         },
         {
           test: /\.css$/,
@@ -69,7 +84,7 @@ function webpackConfig(options) {
         },
         {
           test: /\.ts?$/,
-          use: aot ? [
+          use: AOT ? [
             {
               loader: '@ngtools/webpack',
             }
@@ -87,10 +102,10 @@ function webpackConfig(options) {
       ]
     },
     plugins: [
-      aot ? new AotPlugin({
-          tsConfigPath: root('tsconfig.json'),
-          entryModule: root('demo/app.module#AppModule')
-        }): null,
+      AOT ? new AotPlugin({
+        tsConfigPath: root('tsconfig.json'),
+        entryModule: root('demo/app/app.module#AppModule')
+      }): null,
       new ExtractTextPlugin('app.css'),
       (HMR && !isProd) ? new HotModuleReplacementPlugin() : null,
       new CommonsChunkPlugin({
