@@ -28,19 +28,13 @@ function webpackConfig(options) {
   const isProd = options.ENV === 'production';
   const aot = !!options.AOT || isProd;
 
-
-function test(x, y) {
-  console.log(x, y);
-
-}
-
-
   return {
     cache: true,
     devtool: 'source-map',
     entry: {
       main: root('demo/main.ts'),
-      polyfills: root('/demo/polyfills.ts')
+      polyfills: root('demo/polyfills.ts'),
+      styles: root('demo/app.css')
     },
     output: {
       path: root('docs'),
@@ -52,38 +46,23 @@ function test(x, y) {
     module: {
       rules: [
         {
-          test: /\.component\.css$/,
-          use: ['raw-loader']
-        },        
-        {
           test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
           use: 'file?name=assets/[name].[hash].[ext]'
         },
-        // *.component.css files should not be run by the css-loader...
-        isProd ? {
-          test: {
-            test: /\.css$/,
-            not: [/\.component\.css$/]
-          },
+        {
+          test: /\.css$/,
+          // Only run the main css file by the css-loader
+          include: [root('demo/app.css')],
           use: ExtractTextPlugin.extract({
-            fallbackLoader: "style-loader",
             use: "css-loader?-url"
           })
-        } : {
-          test: {
-            test: /\.css$/,
-            not: [/\.component\.css$/]
-          },
-          use: [
-            "style-loader",
-            "css-loader?-url"
-          ]         
         },
-        // ...instead raw-load them to work with the angular2-template-loader
         {
-          test: /\.component\.css$/,
+          test: /\.css$/,
+          // The component css files are raw-loaded to work with the angular2-template-loader
+          include: [root('demo/app/'), root('src/')],
           use: ['raw-loader']
-        },
+        },        
         {
           test: /\.(html)$/, 
           use: ['raw-loader'],
@@ -112,13 +91,16 @@ function test(x, y) {
           tsConfigPath: root('tsconfig.json'),
           entryModule: root('demo/app.module#AppModule')
         }): null,
-      new ExtractTextPlugin('styles/app.css'),
+      new ExtractTextPlugin('app.css'),
       (HMR && !isProd) ? new HotModuleReplacementPlugin() : null,
       new CommonsChunkPlugin({
         name: 'vendor',
         chunks: ['main'],
         minChunks: (module) => module.resource && module.resource.startsWith(root('node_modules') )
       }),
+      new CommonsChunkPlugin({ 
+        name: 'manifest'
+      }),      
       new DefinePlugin({
         'ENV': JSON.stringify(ENV)
       }),
