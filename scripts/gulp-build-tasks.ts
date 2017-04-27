@@ -80,7 +80,7 @@ export function prepareDist(pkg: string) {
 // Create ng-vcl-compatibility out of ng-vcl
 export function ngVCLCompatibility(pkg: string) {
 
-  const folderNgVCLD = pkgFolder('ng-vcl/compatibility');
+  const folderNgVCLD = pkgFolder('ng-vcl-compatibility');
   const folder = pkgFolder(pkg);
   const tmp = root('temp-build');
 
@@ -123,5 +123,5 @@ export function ngVCLCompatibility(pkg: string) {
 }
 
 export function prepareDistCompatibility(pkg: string) {
-  return prepareDist('ng-vcl/compatibility');
+  return prepareDist('ng-vcl-compatibility');
 }

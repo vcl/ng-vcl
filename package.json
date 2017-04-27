@@ -16,6 +16,8 @@
     "build": "npm-run-all lint:src build:clean build:gulp",
     "publish": "gulp publish",
     "publish:next": "gulp publish:next",
+    "publish:git:ng-vcl": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl --branch dist_v0.3",
+    "publish:git:ng-vcl-c": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl-compatibility --branch dist_v0.3-compatibility",
     "clean": "npm-run-all build:clean docs:clean",
     "docker": "docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash",
     "postinstall": "ts-node scripts/postinstall.ts",
