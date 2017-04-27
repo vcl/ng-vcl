@@ -126,8 +126,11 @@ function webpackConfig(options) {
       ),
       new HtmlWebpackPlugin({
         template: 'demo/index.html',
-        chunksSortMode: 'dependency'
-      }),
+        chunksSortMode: (c1, c2) => {
+          const orders = ['manifest', 'styles', 'polyfills', 'vendor', 'main'];
+          return orders.indexOf(c1.names[0]) - orders.indexOf(c2.names[0]);
+        },       
+      }),    
       new CopyWebpackPlugin([{
         from: 'demo/public',
         to: ''
@@ -150,7 +153,7 @@ function webpackConfig(options) {
       plugins: [ new TsConfigPathsPlugin() ]
     },
     devServer: {
-      contentBase: './app/public',
+      contentBase: './demo/public',
       host: '0.0.0.0',
       port: PORT,
       hot: HMR,
