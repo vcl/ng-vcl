@@ -18,7 +18,7 @@
       "check-open-brace",
       "check-whitespace"
     ],
-    "no-use-before-declare": true,
+    "no-use-before-declare": false,
     "no-var-keyword": true,
     "semicolon": [true, "always"],
     "whitespace": [

@@ -3,9 +3,8 @@
   "version": "0.3.1-1",
   "description": "A comprehensive library of components for Angular 4 with VCL based styling",
   "scripts": {
-    "lint": "npm-run-all lint:src lint:demo",
-    "lint:src": "tslint './src/**/*.ts'",
-    "lint:demo": "tslint './demo/**/*.ts'",
+    "lint": "tslint --type-check -p ./tsconfig.json",
+    "lint:src": "tslint --type-check -p ./src/tsconfig.json",
     "dev": "webpack-dev-server --config webpack.config.js --env.ENV=development --env.HMR=true",
     "dev:aot": "webpack-dev-server --config webpack.config.js --env.ENV=development --env.HMR=true --env.AOT=true",
     "docs:clean": "rimraf docs",
