@@ -1,19 +1,13 @@
 # Changelog
 
-## 0.3.0 (?)
+## 0.3.x (?)
 
 ### Notes
 
 This release brings back hammerjs into the main package.
-A `compatibility` release without hammerjs is found within the package in the `compatibility` folder.
-Use an alias in your bundler to target this folder.
-e.g. in your webpack config
-
-```js
-resolve: {
-  ...
-  alias: { "@ng-vcl/ng-vcl": "@ng-vcl/ng-vcl/compatibility" }
-}
+A `compatibility` release without hammerjs is found on github.
+```
+npm install ng-vcl/ng-vcl#dist_v0.3-comp
 ```
 
 ### Changes
@@ -23,15 +17,18 @@ resolve: {
 - Added hammerjs to peer dependencies
 - metalist:
   - (BREAKING) metalist items will be declared via `<vcl-metalist-item>` elements instead of using the item attribute. 
+  - (BREAKING) Use `selectionMode`/`mode` to enable multi selection
 - dropdown:
-  - activated keyboard interaction on by default
   - (BREAKING) dropdown items will be declared via `<vcl-dropdown-option>` elements instead of using the item attribute. 
+  - (BREAKING) Use `selectionMode`/`mode` to enable multi selection
   - (BREAKING) removed support for `minSelectableItems`
-- select:
-  - better keyboard interaction
   - activated keyboard interaction on by default
+- select:
   - (BREAKING) select items will be declared via `<vcl-select-option>` elements instead of using the item attribute. 
   - (BREAKING) removed support for `minSelectableItems`
+  - (BREAKING) Use `selectionMode`/`mode` to enable multi selection
+  - better keyboard interaction
+  - activated keyboard interaction on by default
 - growl/notification:
   - (BREAKING) renamed the `growl` module to `notification`. This affects the following classes
     - `VCLGrowlModule` to `VCLNotificationModule`
@@ -55,14 +52,17 @@ resolve: {
   - provide open(), close() and toggle() methods on component
 - jss-form:
   - (BREAKING) temporarily removed
+- l10n:
+  - Added `L10nAsyncLoader`
 - layer:
   - (BREAKING) Removed offClickClose option
-  - (BREAKING) Renamed LayerWrapperComponent to LayerContainerComponent
+  - (BREAKING) Use `VCLLayerModule.forRoot()` and `VCLLayerModule.forChild()` for imports
   - (BREAKING) Moved LayerOptions from @Layer annotation to LayerRef class. Check docs for further information.
+  - (BREAKING) Renamed `LayerWrapperComponent` to `LayerContainerComponent`
   - Non-modal layers block background interaction and are closed on a background click
 - radio-button:
   - (BREAKING) Removed VCLRadioGroupModule and reimplemented radio-group in VCLRadioButtonModule
-    - radio-group options will be declared via radio-buttons instead of using the options attribute. 
+  - (BREAKING) radio-group options must be declared via radio-buttons instead of using the options attribute. 
 - slider:
   - (BREAKING) scaleNames attribute renamed to scale
   - value attribute switched to 2-way-binding
@@ -71,8 +71,11 @@ resolve: {
   - (BREAKING) renamed wormhole directive selector and attributes
   - (BREAKING) removed `WormholeRef` class. Use `Wormhole` instead
   - (BREAKING) replaced `WormholeManager` with `WormholeHost` class
-  - (BREAKING) renamed `WormholeService` to `DomWormholeHost`
-  
+  - (BREAKING) removed `VCLWormholeModule.withRootComponents`
+  - (BREAKING) reimplement `WormholeService` as `DomWormholeHost`
+  - add `DomComponentWormhole`
+
+
 ## 0.2.9 (2017-03-21)
 
 ### Breaking Changes
