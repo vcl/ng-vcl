@@ -104,6 +104,9 @@ export * from './l10n/index';
 import { VCLTooltipModule } from './tooltip/index';
 export * from './tooltip/index';
 
+import { VCLTableModule } from './table/index';
+export * from './table/index';
+
 @NgModule({
     imports: [],
     exports: [
@@ -139,7 +142,8 @@ export * from './tooltip/index';
         VCLAlertModule,
         VCLBusyIndicatorModule,
         VCLNotificationModule,
-        VCLTooltipModule
+        VCLTooltipModule,
+        VCLTableModule
     ]
 })
 export class VCLModule { }
