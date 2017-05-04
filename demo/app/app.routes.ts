@@ -56,6 +56,16 @@ export const routes: Routes = [
       }
     }
   },
+    {
+    loadChildren: './demos/table/demo.module#TableDemoModule',
+    path: 'table',
+    data: {
+      demo: {
+        label: 'Table',
+        category: 'Tabular Data',
+      }
+    }
+  },
   {
     loadChildren: './demos/button-group/demo.module#ButtonGroupDemoModule',
     path: 'button-group',
