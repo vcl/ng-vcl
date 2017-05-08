@@ -20,6 +20,7 @@ export class TooltipDirective implements OnDestroy {
         this.tooltip = this.viewContainerRef.createComponent(factory);
         this.tooltip.instance.content = this.content;
         this.tooltip.instance.position = this.position;
+        this.tooltip.instance.targetElement = this.element.nativeElement;
 
     }
 
