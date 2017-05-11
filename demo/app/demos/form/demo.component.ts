@@ -44,7 +44,10 @@ export class FormDemoComponent {
   }
 
   validateButtonInputs(c: AbstractControl) {
-    return c.get('input1').value === c.get('input2').value ? null : { inputsNotEqual: true };
+    const input1 = c.get('input1');
+    const input2 = c.get('input2');
+
+    return input1 && input2 && input1.value === input2.value ? null : { inputsNotEqual: true };
   }
 
   validateSlider(c: AbstractControl) {
