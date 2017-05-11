@@ -26,7 +26,7 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    VCLButtonModule, 
+    VCLButtonModule,
     VCLPopoverModule,
     VCLMonthPickerModule,
     RouterModule.forChild([{
