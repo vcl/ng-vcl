@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLMonthPickerModule} from '@ng-vcl/ng-vcl';
+import { VCLMonthPickerModule, VCLButtonModule, VCLPopoverModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { MonthPickerDemoComponent } from './demo.component';
 
@@ -26,6 +26,8 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
+    VCLButtonModule, 
+    VCLPopoverModule,
     VCLMonthPickerModule,
     RouterModule.forChild([{
       path: '',

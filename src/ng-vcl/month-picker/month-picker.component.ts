@@ -1,4 +1,7 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component, ChangeDetectionStrategy, Input, Output, EventEmitter,
+  ChangeDetectorRef
+} from '@angular/core';
 
 @Component({
   selector: 'vcl-month-picker',
@@ -6,64 +9,72 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MonthPickerComponent {
-  private static readonly TAG: string = 'MonthPickerComponent';
+  private static readonly Tag: string = 'MonthPickerComponent';
+  private readonly tag: string = MonthPickerComponent.Tag;
   private static readonly MonthCount: number = 12;
 
-  private now: Date = new Date();
+  private readonly now: Date = new Date();
 
-  months: string[];
+  private months: string[];
 
   private yearMeta: any = {};
 
-  currentMeta: any[];
+  private currentMeta: any[];
 
   private availableColors: boolean[];
 
-  @Input() expanded: boolean = true;
-  @Output() expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() private debug: boolean = false;
 
-  @Input() currentYear: number = this.now.getFullYear();
-  @Output() currentYearChange: EventEmitter<number> = new EventEmitter<number>();
+  @Input() private expanded: boolean = true;
+  @Output() private expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Output() prevYearBtnTap = new EventEmitter();
-  @Output() nextYearBtnTap = new EventEmitter();
+  @Input() private currentYear: number = this.now.getFullYear();
+  @Output() private currentYearChange: EventEmitter<number> = new EventEmitter<number>();
 
-  @Output() select = new EventEmitter<string>();
-  @Output() deselect = new EventEmitter<string>();
+  @Output() private prevYearBtnTap = new EventEmitter();
+  @Output() private nextYearBtnTap = new EventEmitter();
+
+  @Output() private select = new EventEmitter<string>();
+  @Output() private deselect = new EventEmitter<string>();
 
   // Customization
-  @Input() tabindex: number = 0;
-  @Input() monthsPerRow: number = 3;
+  @Input() private tabindex: number = 0;
+  @Input() private monthsPerRow: number = 3;
 
-  @Input() colors: string[];
-  @Input() locales: string | string[] = 'en-US';
-  @Input() dateOptions: any = { month: 'short' };
+  @Input() private colors: string[];
+  @Input() private locales: string | string[] = 'en-US';
+  @Input() private dateOptions: any = { month: 'short' };
 
-  @Input() expandable: boolean = false;
-  @Input() prevYearAvailable: boolean = false;
-  @Input() nextYearAvailable: boolean = false;
-  @Input() useAvailableMonths: boolean = false;
+  @Input() private expandable: boolean = false;
+  @Input() private prevYearAvailable: boolean = false;
+  @Input() private nextYearAvailable: boolean = false;
+  @Input() private useAvailableMonths: boolean = false;
 
-  @Input() closeBtnIcon: string = 'fa:times';
-  @Input() prevYearBtnIcon: string = 'fa:chevron-left';
-  @Input() nextYearBtnIcon: string = 'fa:chevron-right';
+  @Input() private closeBtnIcon: string = 'fa:times';
+  @Input() private prevYearBtnIcon: string = 'fa:chevron-left';
+  @Input() private nextYearBtnIcon: string = 'fa:chevron-right';
 
-  @Input() maxSelectableItems: number;
-  @Input() minSelectableItems: number = 1;
-  @Input() minYear: number = Number.MIN_SAFE_INTEGER;
-  @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
+  @Input() private maxSelectableMonths: number;
+  @Input() private minSelectableMonths: number = 0;
+  @Input() private minYear: number = Number.MIN_SAFE_INTEGER;
+  @Input() private maxYear: number = Number.MAX_SAFE_INTEGER;
   //
 
-  ngOnInit(): void {
-    const d: Date = new Date(this.now.getFullYear(), 0);
-    this.months = Array(MonthPickerComponent.MonthCount).fill(0).map(x => {
-      const month: string = d.toLocaleString(this.locales, this.dateOptions);
-      d.setMonth(d.getMonth() + 1);
+  constructor(
+    private readonly ref: ChangeDetectorRef,
+  ) { }
+
+  private ngOnInit(): void {
+    // Create month labels.
+    const date: Date = new Date(this.now.getFullYear(), 0);
+    this.months = Array(MonthPickerComponent.MonthCount).fill(0).map(_ => {
+      const month: string = date.toLocaleString(this.locales, this.dateOptions);
+      date.setMonth(date.getMonth() + 1);
       return month;
     });
 
-    if (!this.maxSelectableItems) {
-      this.maxSelectableItems = this.colors && this.colors.length || 1;
+    if (!this.maxSelectableMonths) {
+      this.maxSelectableMonths = this.colors && this.colors.length || 1;
     }
 
     this.availableColors = this.colors ? this.colors.map(color => true) : [];
@@ -79,35 +90,67 @@ export class MonthPickerComponent {
   }
 
   private createYearMeta(year: number): any[] {
-    return this.months.map(x => ({}));
+    return this.months.map(_ => ({}));
   }
 
   public selectMonth(year: number, month: number): void {
-    if (!this.isMonthAvailable(year, month)) {
+    if (!this.isMonthAvailable(year, month) || this.isMonthPreselected(year, month)) {
       return;
     }
 
     const monthMeta: any = this.getYearMeta(year)[month];
+
     if (monthMeta.selected) {
+      if (this.getSelectedDates().length <= this.minSelectableMonths) {
+        return;
+      }
       return this.deselectMonth(year, month);
     }
 
-    if (this.maxSelectableItems === 1) {
+    if (this.maxSelectableMonths === 1) {
       this.iterateMonthMetas((year, month, mMeta) => {
         mMeta.selected = mMeta === monthMeta;
       });
-    } else if (this.getSelectedDates().length < this.maxSelectableItems) {
+    }
+
+    if (this.getSelectedDates().length < this.maxSelectableMonths) {
       monthMeta.selected = true;
     }
+
     if (monthMeta.selected) {
       this.setMonthBackgroundColor(year, month);
       this.notifySelect(`${year}.${month}`);
 
-      if (this.maxSelectableItems === 1 && this.expandable) {
+      if (this.maxSelectableMonths === 1 && this.expandable) {
         this.expanded = false;
         this.expandedChange.emit(this.expanded);
       }
     }
+  }
+
+  public preselectMonth(year: number, month: number, color: string): void {
+    const tag: string = `${this.tag}.preselectMonth()`;
+    if (this.debug) console.log(tag, `${year}.${month}`);
+    const monthMeta: any = this.getYearMeta(year)[month];
+    if (monthMeta.selected) {
+      this.deselectMonth(year, month);
+    }
+    monthMeta.preselected = true;
+    monthMeta.color = color;
+    if (this.debug) console.log(tag, 'monthMeta:', monthMeta);
+    this.ref.markForCheck();
+  }
+
+  public dePreselectMonth(year: number, month: number): void {
+    const tag: string = `${this.tag}.dePreselectMonth()`;
+    if (this.debug) console.log(tag, `${year}.${month}`);
+    if (!this.isMonthPreselected(year, month)) return;
+
+    const monthMeta: any = this.getYearMeta(year)[month];
+    monthMeta.preselected = false;
+    delete monthMeta.color;
+    if (this.debug) console.log(tag, 'monthMeta:', monthMeta);
+    this.ref.markForCheck();
   }
 
   public isMonthAvailable(year: number, month: number): boolean {
@@ -125,6 +168,15 @@ export class MonthPickerComponent {
 
   public isYearInBounds(year: number): boolean {
     return year > this.minYear && year < this.maxYear;
+  }
+
+  public isMonthPreselected(year: number, month: number): boolean {
+    const tag: string = `${this.tag}.isMonthPreselected()`;
+    if (this.debug) console.log(tag, `${year}.${month}`);
+    const isMonthPreselected: boolean = !!(this.isDateInBounds(year, month) &&
+      this.yearMeta[year] && this.yearMeta[year][month].preselected);
+    if (this.debug) console.log(tag, 'isMonthPreselected:', isMonthPreselected);
+    return isMonthPreselected;
   }
 
   private getYearMeta(year: number): any[] {
@@ -160,13 +212,12 @@ export class MonthPickerComponent {
     }
   }
 
-  private getMonthBackgroundColor(): string | null {
+  private getMonthBackgroundColor(): string | undefined {
     const index: number = this.availableColors.findIndex(available => available);
     if (index !== -1) {
       this.availableColors[index] = false;
       return this.colors[index];
     }
-    return null;
   }
 
   public deselectMonth(year: number, month: number): void {
@@ -220,7 +271,7 @@ export class MonthPickerComponent {
     });
   }
 
-  onPrevYearTap(): void {
+  private onPrevYearTap(): void {
     if (this.prevYearAvailable) {
       this.currentYear--;
       this.setYearMeta(this.currentYear);
@@ -229,7 +280,7 @@ export class MonthPickerComponent {
     }
   }
 
-  onNextYearTap(): void {
+  private onNextYearTap(): void {
     if (this.nextYearAvailable) {
       this.currentYear++;
       this.setYearMeta(this.currentYear);

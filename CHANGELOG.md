@@ -74,6 +74,9 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
   - (BREAKING) removed `VCLWormholeModule.withRootComponents`
   - (BREAKING) reimplement `WormholeService` as `DomWormholeHost`
   - add `DomComponentWormhole`
+- vcl-month-picker:
+  - renamed `@Input() minSelectableItems: number` to `@Input() minSelectableMonths: number`
+  - renamed `@Input() maxSelectableItems: number` to `@Input() maxSelectableMonths: number`
 
 
 ## 0.2.9 (2017-03-21)
