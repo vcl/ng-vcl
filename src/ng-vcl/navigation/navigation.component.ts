@@ -1,74 +1,7 @@
-import { Router } from '@angular/router';
 import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-
-export interface NavigationItem {
-  label?: string;
-  active?: boolean;
-  selected?: boolean;
-  opened?: boolean;
-  heading?: boolean;
-  href?: string;
-  prepIcon?: string;
-  appIcon?: string;
-  class?: string;
-}
-
-@Directive({
-  selector: 'vcl-navitem'
-})
-export class NavigationItemComponent {
-
-  @Input('label') label: string;
-  @Input('route') route: any;
-
-  @ContentChildren(NavigationItemComponent)
-  items: QueryList<NavigationItemComponent>;
-
-  @Input() active: boolean = true;
-  @Input() selected: boolean = false;
-  @Input() opened: boolean = false;
-  @Input() heading = false;
-
-  @Input('href') href: string;
-  @Input('prepIcon') prepIcon: string;
-  @Input('appIcon') appIcon: string;
-  @Input('class') class: string = '';
-
-  constructor() { }
-
-  /**
-   * transforms this NavigationItemComponent insto an object,
-   * so it can be handled the same way as an inputList
-   */
-  toObject(): NavigationItem {
-    const ret = {
-      label: this.label,
-      active: this.active,
-      selected: this.selected,
-      opened: this.opened,
-      heading: this.heading,
-      href: this.href,
-      prepIcon: this.prepIcon,
-      appIcon: this.appIcon,
-      class: this.class
-    };
-
-    if (this.route) {
-      ret['route'] = this.route;
-      if (!Array.isArray(ret['route'])) ret['route'] = [ret['route']]; // force array
-    }
-
-    // add nested items
-    const ar = this.items.toArray();
-    ar.shift(); // remove first because 'this' is contained
-    const items = ar.map(navItemCom => navItemCom.toObject());
-    if (items.length > 0) ret['items'] = items; // only add if length>0 to not show nested-icons
-    return ret;
-  }
-
-
-
-}
+import { NavigationItem, NavigationItemDirective } from './navigation-item.directive';
+import { Router, UrlTree, NavigationEnd } from "@angular/router";
+// import { containsTree } from "@angular/router/url_tree";
 
 @Component({
   selector: 'vcl-navigation',
@@ -79,16 +12,8 @@ export class NavigationItemComponent {
 })
 export class NavigationComponent {
 
-  //  isVert: boolean = true;
-
-  constructor(private router: Router) {
-  }
-
-
-  @Input('ident') ident: string;
-
   @Input()
-  selectedItem;
+  ident: string;
 
   @Input()
   ariaRole: string = 'presentation';
@@ -100,38 +25,33 @@ export class NavigationComponent {
   type: string = 'horizontal';
 
   @Input()
+  useRouter = false;
+
+  @Input()
   subLevelHintIconClosed: string = 'fa:chevron-right';
 
   @Input()
   subLevelHintIconOpened: string = 'fa:chevron-down';
 
-  @Input('subLevelHintIconSide') subLevelHintIconSide: 'left' | 'right' = 'right';
-
-  @ContentChildren(NavigationItemComponent)
-  templateItems: QueryList<NavigationItemComponent>;
+  @Input()
+  subLevelHintIconSide: 'left' | 'right' = 'right';
 
   @Input()
-  navigationItems: any[] = [];
+  inputItems: QueryList<NavigationItem> | undefined;
 
   @Output()
-  select = new EventEmitter();
+  select = new EventEmitter<NavigationItem>();
 
-  ngAfterContentInit() {
-    let templateItemsAr = this.templateItems.toArray();
-    if (templateItemsAr.length > 0) {
-      const items = templateItemsAr.map(i => i.toObject());
-      this.navigationItems = items;
-    }
+  @Output()
+  navigate = new EventEmitter();
 
-    const selectedItem = this._navigationItems.filter(item => item.selected)[0];
-    if (selectedItem) {
-      this.selectItem(selectedItem);
-    }
-  }
+  @ContentChildren(NavigationItemDirective)
+  contentItems: QueryList<NavigationItem>;
 
+  constructor(private router: Router) { }
 
-  get _navigationItems(): any[] {
-    return this.navigationItems.filter(item => item.active);
+  get navigationItems() {
+    return this.inputItems || this.contentItems || [];
   }
 
   @HostBinding('class.vclVertical')
@@ -139,24 +59,40 @@ export class NavigationComponent {
     return this.type === 'vertical';
   }
 
-  getPrepIcon(item): string {
-    return item.items && this.subLevelHintIconSide === 'left'
-      ? item.opened
-        ? this.subLevelHintIconOpened
-        : this.subLevelHintIconClosed
-      : item.prepIcon;
+  private runItems(cb: {(item: NavigationItemDirective): void}) {
+    const runItems = (items) => {
+      items.forEach(item => {
+        cb(item);
+        if (item.items) {
+          runItems(item.items);
+        }
+      });
+    };
+    runItems(this.navigationItems);
   }
 
-  getAppIcon(item): string {
-    return item.items && this.subLevelHintIconSide === 'right'
-      ? item.opened
-        ? this.subLevelHintIconOpened
-        : this.subLevelHintIconClosed
-      : item.appIcon;
+  selectRoute(route: any[], openParents = true) {
+    this.runItems((item) => {
+      if (item.route) {
+
+        // TODO should use containsTree from @angular/router for comparison
+        // currently not exposed as public api
+        item.selected = item.route.length === route.length && item.route.every((v, i) => v === route[i]);
+        if (item.selected) {
+          this.selectedItem = item;
+          if (openParents) {
+            item.openParents();
+          }
+        }
+      }
+    });
   }
 
-  selectItem(item) {
-    if (item == this.selectedItem || item.items) {
+  private selectedItem: NavigationItem | undefined;
+
+  selectItem(item: NavigationItemDirective) {
+    if (item.items && item.items.length > 0) {
+      item.opened = !item.opened;
       return;
     }
 
@@ -170,21 +106,16 @@ export class NavigationComponent {
     if (item.href) {
       window.location.href = item.href;
     } else if (item.route) {
-      this.router.navigate(item.route);
+      if (this.useRouter) {
+        this.router.navigate(item.route);
+      } else {
+        this.navigate.emit(item.route);
+      }
     }
-
     this.select.emit(item);
   }
 
-  onSelect(item) {
-    if (this.selectedItem) {
-      this.selectedItem.selected = false;
-    }
-    this.selectedItem = item;
-    this.select.emit(item);
-  }
-
-  toggleMenu(item) {
-    item.opened = !item.opened;
+  onSubItemSelect(item) {
+    this.selectItem(item);
   }
 }

@@ -32,11 +32,17 @@
       </div>
 
       <vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex"
-        [navigationItems]="groupedDemos"
         [type]="'vertical'"
+        [useRouter]="true"
         [subLevelHintIconSide]="'left'"
         [subLevelHintIconOpened]="'fa:angle-down'"
-        [subLevelHintIconClosed]="'fa:angle-right'"></vcl-navigation>
+        [subLevelHintIconClosed]="'fa:angle-right'">
+        <vcl-navitem *ngFor="let item of groupedDemos" [label]="item.label">
+          <ng-container *ngIf="item.items">
+            <vcl-navitem *ngFor="let subitem of item.items" [label]="subitem.label" [route]="subitem.route"></vcl-navitem>
+          </ng-container>
+        </vcl-navitem>
+      </vcl-navigation>
     </div>
     <div class="vclScrollable vclLayoutFlex docContent">
       <router-outlet></router-outlet>

@@ -10,17 +10,15 @@ const GROUPED_DEMOS = function () {
         if (!itemsMap[demo.category]) itemsMap[demo.category] = [];
 
         itemsMap[demo.category].push({
-            label: demo.label,
-            route: ['/' + r.path],
-            active: true,
+          label: demo.label,
+          route: ['/' + r.path]
         });
       }
     });
 
     return Object.keys(itemsMap).map(category => ({
-        label: category,
-        items: itemsMap[category],
-        active: true,
+      label: category,
+      items: itemsMap[category]
     }));
 } ();
 
