@@ -63,6 +63,14 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
 - radio-button:
   - (BREAKING) Removed VCLRadioGroupModule and reimplemented radio-group in VCLRadioButtonModule
   - (BREAKING) radio-group options must be declared via radio-buttons instead of using the options attribute. 
+- navigation: 
+  - (BREAKING) removed `selectedItem` attribute from nav
+  - (BREAKING) removed `touchAction` attribute from nav
+  - (BREAKING) removed `navigationItems` attribute from nav
+  - (BREAKING) removed `selected` attribute from item
+  - (BREAKING) removed `active` attribute from item
+  - (BREAKING) ng router navigation is not used by default. To enable set `useRouter` to `true`
+  - Added `useRouter` attribute
 - slider:
   - (BREAKING) scaleNames attribute renamed to scale
   - value attribute switched to 2-way-binding
