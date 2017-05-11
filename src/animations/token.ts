@@ -1,5 +1,5 @@
-import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
-import { setAnimations, TokenComponent } from '@ng-vcl/ng-vcl';
+// import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
+// import { TokenComponent } from '@ng-vcl/ng-vcl';
 
 export function vclTokenAnimations() {
   // setAnimations(TokenComponent, [

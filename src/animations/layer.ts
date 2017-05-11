@@ -1,5 +1,6 @@
 import { trigger, state, transition, style, animate } from '@angular/animations';
-import { setAnimations, LayerContainerComponent } from '@ng-vcl/ng-vcl';
+import { LayerContainerComponent } from '@ng-vcl/ng-vcl';
+import { setAnimations } from "./utils";
 
 export function vclLayerAnimations() {
   setAnimations(LayerContainerComponent, [

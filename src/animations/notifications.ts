@@ -1,5 +1,6 @@
 import { trigger, state, transition, style, animate } from '@angular/animations';
-import { setAnimations, NotificationComponent } from '@ng-vcl/ng-vcl';
+import { NotificationComponent } from '@ng-vcl/ng-vcl';
+import { setAnimations } from "./utils";
 
 export function vclNotificationAnimations() {
   setAnimations(NotificationComponent, [

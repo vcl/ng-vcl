@@ -1,5 +1,6 @@
 import { trigger, state, transition, style, animate } from '@angular/animations';
-import { setAnimations, PopoverComponent } from '@ng-vcl/ng-vcl';
+import { PopoverComponent } from '@ng-vcl/ng-vcl';
+import { setAnimations } from "./utils";
 
 export function vclPopoverAnimations() {
   setAnimations(PopoverComponent, [
