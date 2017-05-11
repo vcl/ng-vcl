@@ -89,7 +89,6 @@ export class AlertDemoComponent {
   }
 
   question() {
-    debugger;
     this.alert.open({
       text: 'Do you really want to delete the file?',
       title: 'Delete file?',
