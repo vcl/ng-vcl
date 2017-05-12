@@ -164,6 +164,7 @@ export class AlertDemoComponent {
         .switchMap(result => {
           return fakeAsync.retryWhen(errors => {
             return errors.switchMap(err => {
+              this.alert.close();
               return this.alert.open({
                 text: 'Retry?',
                 type: AlertType.Warning,
