@@ -216,16 +216,16 @@ export const routes: Routes = [
       }
     }
   },
-  {
-    loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
-    path: 'tooltip',
-    data: {
-      demo: {
-        label: 'Tooltip',
-        category: 'Overlays',
-      }
-    }
-  },
+  // {
+  //   loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
+  //   path: 'tooltip',
+  //   data: {
+  //     demo: {
+  //       label: 'Tooltip',
+  //       category: 'Overlays',
+  //     }
+  //   }
+  // },
   {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
     path: 'busy',
@@ -236,16 +236,16 @@ export const routes: Routes = [
       }
     }
   },
-  {
-    loadChildren: './demos/table/demo.module#TableDemoModule',
-    path: 'table',
-    data: {
-      demo: {
-        label: 'Table',
-        category: 'Tabular Data',
-      }
-    }
-  },
+  // {
+  //   loadChildren: './demos/table/demo.module#TableDemoModule',
+  //   path: 'table',
+  //   data: {
+  //     demo: {
+  //       label: 'Table',
+  //       category: 'Tabular Data',
+  //     }
+  //   }
+  // },
   {
     loadChildren: './demos/form/demo.module#FormDemoModule',
     path: 'form',
