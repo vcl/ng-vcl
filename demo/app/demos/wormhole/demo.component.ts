@@ -32,9 +32,7 @@ export class WormholeDemoComponent {
   ngAfterViewInit() {
     // Create and connect wormhole
     this.host.connectWormhole(MyComponent, {
-      attrs: {
-        value: 'value'
-      }
+      value: 'value'
     });
   }
 

@@ -1,5 +1,7 @@
 import { ViewContainerRef, Type, TemplateRef, ApplicationRef, Injector } from "@angular/core";
-import { DomComponentWormhole, ComponentWormhole, TemplateWormhole, Wormhole, WormholeOptions } from "./wormhole";
+import { Wormhole, WormholeAttributes } from "./wormhole-base";
+import { ComponentWormhole, TemplateWormhole } from "./wormhole";
+import { DomComponentWormhole, DomTemplateWormhole } from "./wormhole-dom";
 
 export abstract class WormholeHostBase {
 
@@ -21,11 +23,11 @@ export abstract class WormholeHostBase {
   abstract createWormhole<T>(templateRef: TemplateRef<T>): Wormhole;
   abstract createWormhole<T>(arg2: Type<T> | TemplateRef<T>): Wormhole;
 
-  connectWormhole<T>(component: Type<T>, opts?: WormholeOptions): Wormhole;
-  connectWormhole<T>(templateRef: TemplateRef<T>, opts?: WormholeOptions): Wormhole;
-  connectWormhole(target, opts?: WormholeOptions): Wormhole {
+  connectWormhole<T>(component: Type<T>, attrs?: WormholeAttributes, events?: string[]): Wormhole;
+  connectWormhole<T>(templateRef: TemplateRef<T>, attrs?: WormholeAttributes, events?: string[]): Wormhole;
+  connectWormhole(target, attrs?: WormholeAttributes, events?: string[]): Wormhole {
     const wormhole = this.createWormhole(target);
-    wormhole.connect(opts);
+    wormhole.connect(attrs, events);
     return wormhole;
   }
 
@@ -96,7 +98,7 @@ export class DomWormholeHost extends WormholeHostBase {
     if (typeof arg2 === 'function' && this._host instanceof ApplicationRef) {
       wormhole = new DomComponentWormhole(arg2, this._host, this._node, this._injector);
     } else if (arg2 instanceof TemplateRef && this._host) {
-      throw 'templateRef not supported in DomWormholeHost';
+      wormhole = new DomTemplateWormhole(arg2, this._host, this._node, this._injector);
     } else {
       throw 'Parameter must be component class or templateRef';
     }
