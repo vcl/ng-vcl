@@ -12,9 +12,10 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
 
 ### Changes
 
-- requires Angular ^4.0.0
+- (BREAKING) Added hammerjs to peer dependencies
+- (BREAKING) requires Angular ^4.0.0
+- (BREAKING) Removed kitchen sink module: `VCLModule`
 - Replaced all internal click events with tap events
-- Added hammerjs to peer dependencies
 - metalist:
   - (BREAKING) metalist items will be declared via `<vcl-metalist-item>` elements instead of using the item attribute. 
   - (BREAKING) Use `selectionMode`/`mode` to enable multi selection
