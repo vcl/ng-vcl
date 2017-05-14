@@ -12,9 +12,10 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
 
 ### Changes
 
-- requires Angular ^4.0.0
+- (BREAKING) Added hammerjs to peer dependencies
+- (BREAKING) requires Angular ^4.0.0
+- (BREAKING) Removed kitchen sink module: `VCLModule`
 - Replaced all internal click events with tap events
-- Added hammerjs to peer dependencies
 - metalist:
   - (BREAKING) metalist items will be declared via `<vcl-metalist-item>` elements instead of using the item attribute. 
   - (BREAKING) Use `selectionMode`/`mode` to enable multi selection
@@ -63,6 +64,14 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
 - radio-button:
   - (BREAKING) Removed VCLRadioGroupModule and reimplemented radio-group in VCLRadioButtonModule
   - (BREAKING) radio-group options must be declared via radio-buttons instead of using the options attribute. 
+- navigation: 
+  - (BREAKING) removed `selectedItem` attribute from nav
+  - (BREAKING) removed `touchAction` attribute from nav
+  - (BREAKING) removed `navigationItems` attribute from nav
+  - (BREAKING) removed `selected` attribute from item
+  - (BREAKING) removed `active` attribute from item
+  - (BREAKING) ng router navigation is not used by default. To enable set `useRouter` to `true`
+  - Added `useRouter` attribute
 - slider:
   - (BREAKING) scaleNames attribute renamed to scale
   - value attribute switched to 2-way-binding
@@ -74,6 +83,9 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
   - (BREAKING) removed `VCLWormholeModule.withRootComponents`
   - (BREAKING) reimplement `WormholeService` as `DomWormholeHost`
   - add `DomComponentWormhole`
+- vcl-month-picker:
+  - renamed `@Input() minSelectableItems: number` to `@Input() minSelectableMonths: number`
+  - renamed `@Input() maxSelectableItems: number` to `@Input() maxSelectableMonths: number`
 
 
 ## 0.2.9 (2017-03-21)

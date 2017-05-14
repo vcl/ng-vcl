@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MonthPickerComponent } from '@ng-vcl/ng-vcl';
 
 @Component({
   selector: 'month-picker',
   templateUrl: 'demo.component.html',
 })
 export class MonthPickerDemoComponent {
+
+  @ViewChild('myStyledMonthPicker') styledMonthPicker: MonthPickerComponent;
 
   expanded: boolean = false;
 
@@ -16,9 +19,24 @@ export class MonthPickerDemoComponent {
 
   nextYearAvailable: boolean = false;
 
+  locales: string = 'lv-LV';
+
   dateOptions: any = {
     month: 'long'
   };
+
+  constructor() { }
+
+  ngOnInit() { }
+
+  ngAfterViewInit() {
+    const now: Date = new Date();
+    this.styledMonthPicker.preselectMonth(now.getFullYear(), now.getMonth(), 'pink');
+
+    now.setMonth(now.getMonth() - 1);
+    this.styledMonthPicker.preselectMonth(now.getFullYear(), now.getMonth(), 'black');
+    this.styledMonthPicker.dePreselectMonth(now.getFullYear(), now.getMonth());
+  }
 
   expandMonthPicker() {
     this.expanded = !this.expanded;

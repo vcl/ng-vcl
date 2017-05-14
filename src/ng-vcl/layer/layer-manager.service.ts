@@ -38,12 +38,10 @@ export class LayerManagerService extends DomWormholeHost {
     const layerSub = layer.state$.subscribe((state) => {
       if (state.visible && !containerWormholeRef.isConnected) {
         containerWormholeRef.connect({
-          attrs: {
-            layer,
-            zIndex: this.layerService.currentZIndex,
-            layerAttrs: state.attrs,
-            injector:  injector || this.injector
-          }
+          layer,
+          zIndex: this.layerService.currentZIndex,
+          layerAttrs: state.attrs,
+          injector:  injector || this.injector
         });
         this.layerService.addVisibleLayer(layer);
       } else if (state.visible) {

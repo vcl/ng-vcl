@@ -4,6 +4,8 @@ import { L10nModule } from '../l10n/index';
 import { VCLButtonModule } from '../button/index';
 import { MonthPickerComponent } from './month-picker.component';
 
+export { MonthPickerComponent };
+
 @NgModule({
   imports: [CommonModule, VCLButtonModule, L10nModule],
   exports: [MonthPickerComponent],

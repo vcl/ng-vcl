@@ -3,7 +3,7 @@
   <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput"
     [attr.role]="'grid'"
     [attr.tabindex]="tabindex"
-    [attr.aria-multiselectable]="maxSelectableItems > 1"
+    [attr.aria-multiselectable]="maxSelectableMonths > 1"
     [attr.aria-expanded]="expanded">
 
     <div class="vclLayoutFlex vclDGRow vclLayoutAuto">
@@ -12,7 +12,7 @@
           type="button"
           [class.vclDisabled]="!prevYearAvailable"
           [appIcon]="prevYearBtnIcon"
-          (tap)="onPrevYearTap()">
+          (click)="onPrevYearTap()">
         </button>
 
         <span class="vclCalHeaderLabel">{{ currentYear }}</span>
@@ -22,14 +22,14 @@
           class="vclButton vclTransparent vclSquare"
           [class.vclDisabled]="!nextYearAvailable"
           [appIcon]="nextYearBtnIcon"
-          (tap)="onNextYearTap()">
+          (click)="onNextYearTap()">
         </button>
 
         <button vcl-button *ngIf="expandable"
           type="button"
           class="vclButton vclTransparent vclSquare"
           [appIcon]="closeBtnIcon"
-          (tap)="onCloseBtnTap()">
+          (click)="onCloseBtnTap()">
         </button>
       </div>
     </div>
@@ -39,17 +39,17 @@
     <ng-template ngFor let-iM [ngForOf]="months" let-i="index">
       <div *ngIf="i % monthsPerRow === 0" class="vclLayoutFlex vclDGRow vclLayoutAuto" role="row">
         <div *ngFor="let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;"
-          (tap)="selectMonth(currentYear, i+j)"
+          (click)="selectMonth(currentYear, i+j)"
           class="vclDGCell vclCalItem"
           [class.vclAvailable]="!useAvailableMonths || currentMeta[i+j].available"
           [class.vclUnavailable]="useAvailableMonths && !currentMeta[i+j].available"
           [class.vclToday]="isCurrentMonth(i+j)"
           [class.vclOtherMonth]="!isCurrentMonth(i+j)"
           [class.vclDisabled]="useAvailableMonths && !currentMeta[i+j].available"
-          [class.vclSelected]="currentMeta[i+j].selected"
+          [class.vclSelected]="currentMeta[i+j].selected || currentMeta[i+j].preselected"
           [style.background-color]="currentMeta[i+j].color"
           [style.order]="i+j"
-          [attr.aria-selected]="currentMeta[i+j].selected"
+          [attr.aria-selected]="currentMeta[i+j].selected || currentMeta[i+j].preselected"
           role="gridcell"
           tabindex="0">
             <div class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel">

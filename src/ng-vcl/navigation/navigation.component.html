@@ -1,11 +1,10 @@
   <ul>
     <li *ngFor="let item of navigationItems"
-        [class.vclSelected]="item.selected && !item.items"
+        [class.vclSelected]="item.selected"
         [class.vclOpen]="item.opened"
         [class.vclClose]="!item.opened"
         [class.vclNavigationHeading]="item.heading"
         [class.vclNavigationItem]="!item.heading"
-        [attr.touch-action]="touchAction"
         [attr.aria-selected]="item.selected"
         [attr.role]="item.heading && 'sectionhead' || ariaRole"
         [attr.tabindex]="tabindex"
@@ -19,21 +18,20 @@
       <a vcl-link class="vclNavigationItemLabel"
         *ngIf="!item.heading"
         [label]="item.label | loc"
-        [href]="item.href"
-        [prepIcon]="getPrepIcon(item)"
-        [appIcon]="getAppIcon(item)"
-        (tap)="item.items && toggleMenu(item)"
+        [prepIcon]="item.calcPrepIcon"
+        [appIcon]="item.calcAppIcon"
         (tap)="selectItem(item)">
       </a>
 
-      <vcl-navigation *ngIf="item.items"
-          [navigationItems]="item.items"
+      <vcl-navigation *ngIf="item.items && item.items.length > 0"
+          [inputItems]="item.items"
           [type]="type"
+          [useRouter]="useRouter"
           [subLevelHintIconOpened]="subLevelHintIconOpened"
           [subLevelHintIconClosed]="subLevelHintIconClosed"
           [subLevelHintIconSide]="subLevelHintIconSide"
-          [selectedItem]="selectedItem"
-          (select)="onSelect($event)">
+          (select)="onSubItemSelect($event)">
       </vcl-navigation>
     </li>
   </ul>
+  

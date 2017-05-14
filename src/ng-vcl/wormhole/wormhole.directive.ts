@@ -1,5 +1,5 @@
 import { ViewContainerRef, Directive, Input, SimpleChanges, TemplateRef } from '@angular/core';
-import { Wormhole, WormholeAttributes } from './wormhole';
+import { Wormhole, WormholeAttributes } from './wormhole-base';
 import { WormholeHost } from "./wormhole-host";
 
 @Directive({
@@ -30,9 +30,7 @@ export class WormholeDirective extends WormholeHost {
       const target = changes['target'].currentValue;
 
       if (target) {
-        this.wormhole = this.connectWormhole(target, {
-          attrs
-        });
+        this.wormhole = this.connectWormhole(target, attrs);
       }
     } else if (attrs && this.wormhole) {
       this.wormhole.setAttributes(attrs);

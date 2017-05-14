@@ -45,17 +45,23 @@ function webpackConfig(options) {
     },
     module: {
       rules: [
-        {
-          test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-          use: 'file?name=assets/[name].[hash].[ext]'
-        },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000
+        }
+      },
         {
           test: /\.styl$/,
           use: ExtractTextPlugin.extract([
             {
               loader: 'css-loader',
               options: {
-                url: false,
+                alias: {
+                  "../fonts": '../public/fonts',
+                  "../imgs": '../public/imgs'
+                }                ,
                 minimize: !!isProd
               }
             },

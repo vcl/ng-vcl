@@ -39,9 +39,11 @@ export abstract class LayerRef implements LayerOptions {
     this.visible = true;
     this.attrs = attrs;
     this.stateChange.next({attrs, visible: true});
-    if (!this.results) {
-      this.results = new Subject<any>();
+
+    if (this.results) {
+      this.results.complete();
     }
+    this.results = new Subject<any>();
     return this.results.asObservable();
   }
 
@@ -78,5 +80,3 @@ export abstract class LayerRef implements LayerOptions {
     }
   }
 }
-
-

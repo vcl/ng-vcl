@@ -9,7 +9,6 @@ export const COMPONENT_LAYER_ANNOTATION_ID = 'ng-vcl_component_layer';
 
 @Component({
   templateUrl: 'layer-container.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('boxState', []),
     trigger('layerState', [])
@@ -95,9 +94,7 @@ export class LayerContainerComponent {
         throw 'invalid layer';
       }
 
-      this.wormhole.connect({
-        attrs: this._layerAttrs
-      });
+      this.wormhole.connect(this._layerAttrs);
     }
   }
 

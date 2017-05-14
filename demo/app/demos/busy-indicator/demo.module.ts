@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLBusyIndicatorModule } from '@ng-vcl/ng-vcl';
+import { VCLBusyIndicatorModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { BusyDemoComponent } from './demo.component';
 
@@ -30,6 +30,7 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
+    VCLButtonModule,
     VCLBusyIndicatorModule,
     RouterModule.forChild([{
       path: '',

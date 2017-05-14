@@ -1,7 +1,30 @@
-<vcl-month-picker
-  id="myStyledMonthPicker"
+<vcl-month-picker id="myStyledMonthPicker" #myStyledMonthPicker
+  [locales]="locales"
   [dateOptions]="dateOptions"
   [prevYearAvailable]="true"
-  [nextYearAvailable]="true">
+  [nextYearAvailable]="true"
+  [colors]="['#50E3C2', '#FF3CE6']">
 </vcl-month-picker>
 
+<br><br>
+
+<button vcl-button
+  #target
+  label="Expand"
+  class="vclSquare"
+  (click)="expandMonthPicker()">
+</button>
+
+<vcl-popover #mp [target]="target" targetAttachment='bottom right' attachment='top right' [visible]="expanded">
+  <vcl-month-picker
+    [expandable]="true"
+    [(expanded)]="expanded"
+    [(currentYear)]="currentYear"
+    [monthsPerRow]="4"
+    (select)="onSelect($event)"
+    (prevYearBtnTap)="onPreviousYearTap()"
+    [prevYearAvailable]="prevYearAvailable"
+    (nextYearBtnTap)="onNextYearTap()"
+    [nextYearAvailable]="nextYearAvailable">
+  </vcl-month-picker>
+</vcl-popover>

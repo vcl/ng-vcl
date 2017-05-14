@@ -1,31 +1,22 @@
-Horizontal navigation
-<vcl-navigation class="mycustomclass1">
-  <vcl-navitem [active]=true prepIcon="fa:home" label="Home1"></vcl-navitem>
-  <vcl-navitem [active]=true label="Products" prepIcon="fa:bicycle" class="underline mycustomclass2"></vcl-navitem>
-  <vcl-navitem [active]=true [selected]="true" label="Pre-selected Item"></vcl-navitem>
-  <vcl-navitem [active]=true href="https://example.com/" label="External link"></vcl-navitem>
+<h3>Horizontal navigation</h3>
+
+<vcl-navigation #nav1 (navigate)="onNavigate($event)">
+  <vcl-navitem  label="Home1" prepIcon="fa:home" [route]="['/']"></vcl-navitem>
+  <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']"></vcl-navitem>  
+  <vcl-navitem label="Contact" prepIcon="fa:contact" [route]="['/contact']"></vcl-navitem>
 </vcl-navigation>
 
-Vertical navigation
+<button vcl-button (click)="nav1.selectRoute(['/products'], true)" label="Select Products"></button>
 
-<vcl-navigation type="vertical">
-  <vcl-navitem [active]=true [heading]=true label="Heading" route="navigation"></vcl-navitem>
-  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
-  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
-  <vcl-navitem [active]=true [heading]=true label="Another heading" route="navigation"></vcl-navitem>
-  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
-  <vcl-navitem [active]=true label="Item" route="navigation"></vcl-navitem>
-  <vcl-navitem [active]=true label="Nested navigation" route="navigation">
-    <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
-    <vcl-navitem [active]=true label="Level 2 Item" route="navigation"></vcl-navitem>
-    <vcl-navitem [active]=true label="Level 2 navigation" route="navigation">
-      <vcl-navitem [active]=true label="Level 3 Item last" [route]="['plots-streaming-demo', {outlets: {sidebar: 'sidebar', list: 'list', detail: 'none'}}]"></vcl-navitem>
-    </vcl-navitem>
-  </vcl-navitem>
+<h3>Vertical navigation</h3>
+
+<vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
+  <vcl-navitem  label="Home1" [route]="['/']"></vcl-navitem>
+  <vcl-navitem label="Products" appIcon="fa:bicycle">
+    <vcl-navitem label="Product 1" [route]="['/product', 1]"></vcl-navitem>  
+    <vcl-navitem label="Product 2" [route]="['/product', 2]"></vcl-navitem>  
+  </vcl-navitem>  
+  <vcl-navitem label="Contact" [route]="['/contact']"></vcl-navitem>
 </vcl-navigation>
 
-Horizontal navigation (listInput)
-<vcl-navigation [navigationItems]="items"></vcl-navigation>
-
-Vertical navigation (listInput)
-<vcl-navigation [navigationItems]="items2" type="vertical"></vcl-navigation>
+<button vcl-button (click)="nav2.selectRoute(['/product', 2], true)" label="Select Product 2"></button>

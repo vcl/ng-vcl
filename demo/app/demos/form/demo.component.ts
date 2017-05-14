@@ -26,50 +26,31 @@ export class FormDemoComponent {
     tokeninput: new FormControl([], [ this.validateSelection.bind(this) ]),
   }, this.validateButtonInputs.bind(this) );
 
-  get input1() { return this.form.get('input1'); }
-  get input2() { return this.form.get('input2'); }
-  get checkbox() { return this.form.get('checkbox'); }
-  get fileinput() { return this.form.get('fileinput'); }
-  get flipswitch() { return this.form.get('flipswitch'); }
-  get buttonGroup() { return this.form.get('buttonGroup'); }
-  get dropdown() { return this.form.get('dropdown'); }
-  get radiogroup() { return this.form.get('radiogroup'); }
-  get select() { return this.form.get('select'); }
-  get slider() { return this.form.get('slider'); }
-  get textarea() { return this.form.get('textarea'); }
-  get tokeninput() { return this.form.get('tokeninput'); }
+  get input1(): FormControl { return <FormControl> this.form.get('input1'); }
+  get input2(): FormControl { return <FormControl> this.form.get('input2'); }
+  get checkbox(): FormControl { return <FormControl> this.form.get('checkbox'); }
+  get fileinput(): FormControl { return <FormControl> this.form.get('fileinput'); }
+  get flipswitch(): FormControl { return <FormControl> this.form.get('flipswitch'); }
+  get buttonGroup(): FormControl { return <FormControl> this.form.get('buttonGroup'); }
+  get dropdown(): FormControl { return <FormControl> this.form.get('dropdown'); }
+  get radiogroup(): FormControl { return <FormControl> this.form.get('radiogroup'); }
+  get select(): FormControl { return <FormControl> this.form.get('select'); }
+  get slider(): FormControl { return <FormControl> this.form.get('slider'); }
+  get textarea(): FormControl { return <FormControl> this.form.get('textarea'); }
+  get tokeninput(): FormControl { return <FormControl> this.form.get('tokeninput'); }
 
   validateSelection(c: AbstractControl) {
     return (Array.isArray(c.value) && c.value.length >= 1) ? null : { noSelection: true };
   }
 
   validateButtonInputs(c: AbstractControl) {
-    return c.get('input1').value === c.get('input2').value ? null : { inputsNotEqual: true };
+    const input1 = c.get('input1');
+    const input2 = c.get('input2');
+
+    return input1 && input2 && input1.value === input2.value ? null : { inputsNotEqual: true };
   }
 
   validateSlider(c: AbstractControl) {
     return (typeof c.value === 'number' && c.value > 1) ? null : { lowValue: true };
   }
-
-    // // the module-based forms logic is made with the FormBuilder
-    // this.form = this.fb.group({
-    //   myname: ['', Validators.required],
-    //   myname2: ['', Validators.required],
-    //   itemselect: [''],
-    //   myradio: [''],
-    //   mydropdown: [''],
-    //   mycheckbox: ['', Validators.required],
-    //   flip: [''],
-    //   tokenlist: [''],
-    //   tokeninput: [this.tokenList2],
-    //   datepick: [''],
-    //   slider: [80]
-    // }, {
-    //     validator: equalInputMatcher
-    //   });
-    // this.form.patchValue({
-    //   myname: 'Steven'
-    // });
-
-
 }

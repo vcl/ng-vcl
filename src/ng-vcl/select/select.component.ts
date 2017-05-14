@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MetalistItem, SelectionMode } from '../metalist/index';
 import { DropdownComponent, DropdownOption } from '../dropdown/index';
 import { SelectOption } from './select-option.component';
+import 'rxjs/add/operator/startWith';
 
 enum DropDirection { Top, Bottom }
 
@@ -131,6 +132,7 @@ export class SelectComponent implements ControlValueAccessor {
    */
   @HostListener('blur', ['$event'])
   onBlur(event?) {
+    debugger;
     this.close();
     this.focused = false;
     this.onTouched();
@@ -214,7 +216,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   ngAfterViewInit() {
-    this.items.changes.subscribe(() => {
+    this.items.changes.startWith(null).subscribe(() => {
       this.cdRef.markForCheck();
     });
   }

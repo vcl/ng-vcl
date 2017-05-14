@@ -1,5 +1,5 @@
-import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
-import { setAnimations, CheckboxComponent } from '@ng-vcl/ng-vcl';
+// import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
+// import { CheckboxComponent } from '@ng-vcl/ng-vcl';
 
 export function vclCheckboxAnimations() {
   // setAnimations(CheckboxComponent, [
