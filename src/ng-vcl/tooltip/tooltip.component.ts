@@ -1,4 +1,9 @@
-import { Component, Input, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component, Input, ElementRef, ChangeDetectionStrategy,
+  trigger, state, transition, animate, style, AfterViewInit
+} from '@angular/core';
+import { ICoordinate } from "./ICoordinate";
+import { tooltipService } from './tooltip.service';
 
 @Component({
   selector: 'vcl-tooltip-container',
@@ -6,27 +11,39 @@ import { Component, Input, ElementRef, ChangeDetectionStrategy } from '@angular/
   host: {
     '[class.vclTooltip]': 'true',
   },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({ opacity: 0 }),
+          animate('500ms', style({ opacity: 1 }))
+        ]),
+        transition(':leave', [
+          style({ opacity: 1 }),
+          animate('500ms', style({ opacity: 0 }))
+        ])
+      ]
+    )
+  ]
 })
-export class TooltipComponent {
-
-  paddingOffset: number = 20;
+export class TooltipComponent implements AfterViewInit {
+  show: boolean;
   content: string;
-  position: string;
-  targetElement: HTMLElement;
+  placement: "top" | "bottom" | "left" | "right" = "top";
   tooltip: HTMLElement;
-
-
+  public hostElement: HTMLElement;
 
   constructor(private element: ElementRef) {
     this.tooltip = element.nativeElement;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
+    this.show = true;
   }
 
-  get tooltipPosiiton(): string {
-    switch (this.position) {
+  get tooltipPosition(): string {
+    switch (this.placement) {
       case 'right':
         {
           return 'vclTooltip vclArrowPointerRight';
@@ -46,51 +63,21 @@ export class TooltipComponent {
     }
   }
 
-  get tooltipOffsetHorizontal(): string {
+  get tooltipPlacement(): ICoordinate {
 
-    switch (this.position) {
-      case 'right':
-        {
-          return 0 + 'px';
-        }
-      case 'left':
-        {
-          return 0 + 'px';
-        }
-      case 'bottom':
-        {
-          return 0 + 'px';
-        }
-      default:
-        {
-          let targetElementCenter = this.targetElement.offsetWidth / 2;
-          let tooltipCetner = this.tooltip.offsetWidth / 2;
-          return -(targetElementCenter + tooltipCetner + this.paddingOffset) + 'px';
-        }
+    if (!this.hostElement) {
+      return { Top: 0, Left: 0 }; // ???
+    }
+    else {
+      const tooltipPosition = tooltipService.positionElements(this.hostElement, this.element.nativeElement.children[0].children[0], this.placement);
+      return {
+        Top: tooltipPosition.Top,
+        Left: tooltipPosition.Left
+      };
     }
 
   }
 
-  get tooltipOffsetVertical(): string {
-    switch (this.position) {
-      case 'right':
-        {
-          return 0 + 'px';
-        }
-      case 'left':
-        {
-          return 0 + 'px';
-        }
-      case 'bottom':
-        {
-          return 0 + 'px';
-        }
-      default:
-        {
-          return '-40px';
-        }
-
-    }
-
-  }
 }
+
+

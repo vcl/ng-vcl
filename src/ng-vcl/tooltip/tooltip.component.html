@@ -1,4 +1,7 @@
-﻿<div [style.margin-left]="tooltipOffsetHorizontal" [style.margin-top]="tooltipOffsetVertical" role="tooltip" [class]="tooltipPosiiton">
-    <div class="vclTooltipContent">{{content}}</div>
-    <div class="vclArrowPointer"></div>
+﻿<div [@enterAnimation]="show" [style.left]="tooltipPlacement.Left + 'px'" [style.top]="tooltipPlacement.Top + 'px'" role="tooltip"
+  [class]="tooltipPosition">
+  <div class="vclTooltipContent">
+    {{content}}
+  </div>
+  <div class="vclArrowPointer"></div>
 </div>
