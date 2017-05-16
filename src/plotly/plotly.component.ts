@@ -129,7 +129,7 @@ export class PlotlyComponent {
 
   public relayout(layout: any = this.layout): void {
     const tag: string = `${this.tag}.relayout()`;
-    if (this.debug) console.log(tag, 'this.plot.layout before:', clone(layout));
+    if (this.debug) console.log(tag, 'this.plot.layout before:', clone(this.plot.layout));
     Plotly.relayout(this.plot, layout).then(() => {
       if (this.debug) console.log(tag, 'this.plot.layout after:', this.plot.layout);
     });
