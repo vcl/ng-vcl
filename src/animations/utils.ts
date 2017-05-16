@@ -5,7 +5,7 @@ export function getAnnotation(cls: Type<{}>): Component | undefined {
   // Annotation is an array with 1 entry
   // TODO: Check if always one entry
   const clsAnnotations = Reflect.getMetadata('annotations', cls);
-  return clsAnnotations && clsAnnotations.length > 1 ? clsAnnotations[0] : undefined;
+  return clsAnnotations && clsAnnotations.length >= 1 ? clsAnnotations[0] : undefined;
 }
 
 export function setAnimations(cls: Type<{}>, animations: AnimationEntryMetadata[]) {
