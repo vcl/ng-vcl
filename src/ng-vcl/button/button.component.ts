@@ -62,6 +62,12 @@ export class ButtonComponent extends ObservableComponent {
   @Input()
   appIcon: string;
 
+  @Input()
+  appIconSrc: string;
+
+  @Input()
+  prepIconSrc: string;
+
   private pressEvent = new EventEmitter<any>();
   @Output()
   get press(): Observable<any> {
@@ -70,13 +76,13 @@ export class ButtonComponent extends ObservableComponent {
 
   @Output()
   stateChange = Observable.merge(this.observeChange('disabled'), this.observeChange('busy'))
-                          .map(() => this.state)
-                          .distinctUntilChanged()
-                          .publishBehavior(this.state)
-                          .refCount();
+    .map(() => this.state)
+    .distinctUntilChanged()
+    .publishBehavior(this.state)
+    .refCount();
 
   get state(): 'busy' | 'disabled' | 'enabled' {
-    return this.busy ? 'busy' : (this.disabled ? 'disabled' : 'enabled' );
+    return this.busy ? 'busy' : (this.disabled ? 'disabled' : 'enabled');
   }
 
   @ContentChildren(ButtonStateContentDirective)
@@ -96,12 +102,12 @@ export class ButtonComponent extends ObservableComponent {
   onKeypress(ev: KeyboardEvent) {
     // Trigger a11yClick
     if (!this.disableA11yClick &&
-        this.elementRef.nativeElement &&
-        (
-          ev.code === 'Space' ||
-          ev.code === 'NumpadEnter' ||
-          ev.code === 'Enter'
-        )) {
+      this.elementRef.nativeElement &&
+      (
+        ev.code === 'Space' ||
+        ev.code === 'NumpadEnter' ||
+        ev.code === 'Enter'
+      )) {
       ev.preventDefault();
       dispatchTap(this.elementRef.nativeElement);
     }
@@ -139,7 +145,7 @@ export class ButtonComponent extends ObservableComponent {
     const ANTI_GHOST_DELAY = 2000;
     const now = Date.now();
 
-    if (type !== this.latestInteractionType ) {
+    if (type !== this.latestInteractionType) {
       if ((now - this.latestInteractionTime) > ANTI_GHOST_DELAY) {
         this.latestInteractionType = type;
         this.pressEvent.emit(e);
