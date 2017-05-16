@@ -15,7 +15,7 @@ export class MonthPickerComponent {
 
   private readonly now: Date = new Date();
 
-  private months: string[];
+  months: string[];
 
   private yearMeta: any = {};
 
@@ -25,10 +25,10 @@ export class MonthPickerComponent {
 
   @Input() private debug: boolean = false;
 
-  @Input() private expanded: boolean = true;
+  @Input() expanded: boolean = true;
   @Output() private expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Input() private currentYear: number = this.now.getFullYear();
+  @Input() currentYear: number = this.now.getFullYear();
   @Output() private currentYearChange: EventEmitter<number> = new EventEmitter<number>();
 
   @Output() private prevYearBtnTap = new EventEmitter();
@@ -38,23 +38,23 @@ export class MonthPickerComponent {
   @Output() private deselect = new EventEmitter<string>();
 
   // Customization
-  @Input() private tabindex: number = 0;
+  @Input() tabindex: number = 0;
   @Input() private monthsPerRow: number = 3;
 
   @Input() private colors: string[];
   @Input() private locales: string | string[] = 'en-US';
   @Input() private dateOptions: any = { month: 'short' };
 
-  @Input() private expandable: boolean = false;
-  @Input() private prevYearAvailable: boolean = false;
-  @Input() private nextYearAvailable: boolean = false;
+  @Input() expandable: boolean = false;
+  @Input() prevYearAvailable: boolean = false;
+  @Input() nextYearAvailable: boolean = false;
   @Input() private useAvailableMonths: boolean = false;
 
   @Input() private closeBtnIcon: string = 'fa:times';
-  @Input() private prevYearBtnIcon: string = 'fa:chevron-left';
-  @Input() private nextYearBtnIcon: string = 'fa:chevron-right';
+  @Input() prevYearBtnIcon: string = 'fa:chevron-left';
+  @Input() nextYearBtnIcon: string = 'fa:chevron-right';
 
-  @Input() private maxSelectableMonths: number;
+  @Input() maxSelectableMonths: number;
   @Input() private minSelectableMonths: number = 0;
   @Input() private minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() private maxYear: number = Number.MAX_SAFE_INTEGER;
@@ -275,7 +275,7 @@ export class MonthPickerComponent {
     });
   }
 
-  private onPrevYearTap(): void {
+  onPrevYearTap(): void {
     if (this.prevYearAvailable) {
       this.currentYear--;
       this.setYearMeta(this.currentYear);
@@ -284,7 +284,7 @@ export class MonthPickerComponent {
     }
   }
 
-  private onNextYearTap(): void {
+  onNextYearTap(): void {
     if (this.nextYearAvailable) {
       this.currentYear++;
       this.setYearMeta(this.currentYear);
