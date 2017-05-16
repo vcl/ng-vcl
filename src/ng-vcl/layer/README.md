@@ -62,8 +62,12 @@ A component layer must be registered.
 
 ```js
 @NgModule({
-  imports: [ VCLLayerModule, ...],
-  providers: [ provideLayer(MyLayer), ...]
+  imports: [ 
+    VCLLayerModule.forRoot({ // use forChild() in (lazy loaded) modules
+      layers: [MyLayer]
+    }), 
+    ...
+  ],
   entryComponents: [ MyComponent, ... ],
   declarations: [ MyComponent, ... ],
   ...
