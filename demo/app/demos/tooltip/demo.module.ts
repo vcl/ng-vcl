@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { NgModule } from '@angular/core';
 import { ToolTipDemoComponent } from './demo.component';
-import { VCLTooltipModule } from '@ng-vcl/ng-vcl';
+// import { VCLTooltipModule } from '@ng-vcl/ng-vcl';
 
 export function demo() {
   return {
@@ -26,7 +26,7 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    VCLTooltipModule,
+    // VCLTooltipModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
