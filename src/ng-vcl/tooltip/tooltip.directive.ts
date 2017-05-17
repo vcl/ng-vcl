@@ -1,6 +1,7 @@
-import { Directive, OnDestroy, HostListener, Input, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
+import { Directive, OnDestroy, HostListener, Input, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, Inject } from '@angular/core';
 import { TooltipComponent } from './tooltip.component';
 import { tooltipService } from './tooltip.service';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Directive({ selector: '[vcl-tooltip]' })
 export class TooltipDirective implements OnDestroy {
@@ -12,7 +13,8 @@ export class TooltipDirective implements OnDestroy {
 
   constructor(private element: ElementRef,
     private resolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef) {
+    private viewContainerRef: ViewContainerRef,
+    @Inject(DOCUMENT) private document: any) {
 
   }
 
@@ -21,15 +23,17 @@ export class TooltipDirective implements OnDestroy {
   onMouseEnter(): void {
     const factory = this.resolver.resolveComponentFactory(TooltipComponent);
     this.tooltip = this.viewContainerRef.createComponent(factory);
+
     this.tooltip.instance.content = this.content;
     this.tooltip.instance.placement = this.position;
     this.tooltip.instance.hostElement = this.element.nativeElement;
+
+    this.document.querySelector('body').appendChild(this.viewContainerRef.element.nativeElement.nextSibling);
   }
 
   @HostListener('focusout')
   @HostListener('mouseleave')
   ngOnDestroy(): void {
-
     // TODO: fade out animation instead of dispose
     if (this.tooltip) {
       this.tooltip.destroy();

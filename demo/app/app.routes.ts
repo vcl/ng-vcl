@@ -216,16 +216,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
-  //   path: 'tooltip',
-  //   data: {
-  //     demo: {
-  //       label: 'Tooltip',
-  //       category: 'Overlays',
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
+    path: 'tooltip',
+    data: {
+      demo: {
+        label: 'Tooltip',
+        category: 'Overlays',
+      }
+    }
+  },
   {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
     path: 'busy',
