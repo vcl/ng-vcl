@@ -4,6 +4,9 @@ import { ICoordinate } from "./ICoordinate";
 @Injectable()
 export class TooltipService {
 
+  // distance between tooltip and target obj.
+  offsetCorrection: number = 10;
+
   public positionElements(hostEl: HTMLElement, targetEl: HTMLElement, positionStr: string, appendToBody: boolean = false): ICoordinate {
     let positionStrParts = positionStr.split("-");
     let pos0 = positionStrParts[0];
@@ -40,32 +43,31 @@ export class TooltipService {
       case "right":
         targetElPos = {
           Top: shiftHeight[pos1](),
-          Left: shiftWidth[pos0]()
+          Left: shiftWidth[pos0]() + this.offsetCorrection
         };
         break;
 
       case "left":
         targetElPos = {
           Top: shiftHeight[pos1](),
-          Left: hostElPos.left - targetElWidth
+          Left: hostElPos.left - targetElWidth - this.offsetCorrection
         };
         break;
 
       case "bottom":
         targetElPos = {
-          Top: shiftHeight[pos0](),
+          Top: shiftHeight[pos0]() + this.offsetCorrection,
           Left: shiftWidth[pos1]()
         };
         break;
 
       default:
         targetElPos = {
-          Top: hostElPos.top - targetElHeight,
+          Top: hostElPos.top - targetElHeight - this.offsetCorrection,
           Left: shiftWidth[pos1]()
         };
         break;
     }
-
     return targetElPos;
   }
 
@@ -105,7 +107,6 @@ export class TooltipService {
     if (window.getComputedStyle)
       return (window.getComputedStyle(nativeEl) as any)[cssProp];
 
-    // finally try and get inline style
     return (nativeEl.style as any)[cssProp];
   }
 
@@ -120,7 +121,6 @@ export class TooltipService {
     }
     return offsetParent || window.document;
   }
-
 }
 
 export const tooltipService = new TooltipService();

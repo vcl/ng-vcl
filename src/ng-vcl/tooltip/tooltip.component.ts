@@ -1,5 +1,5 @@
 import {
-  Component, Input, ElementRef, ChangeDetectionStrategy,
+  Component, Input, ElementRef,
   trigger, state, transition, animate, style, AfterViewInit
 } from '@angular/core';
 import { ICoordinate } from "./ICoordinate";
@@ -11,50 +11,55 @@ import { tooltipService } from './tooltip.service';
   host: {
     '[class.vclTooltip]': 'true',
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [`:host{ top: 0; left: 0}`],
   animations: [
-    trigger(
-      'enterAnimation', [
-        transition(':enter', [
-          style({ opacity: 0 }),
-          animate('500ms', style({ opacity: 1 }))
-        ]),
-        transition(':leave', [
-          style({ opacity: 1 }),
-          animate('500ms', style({ opacity: 0 }))
-        ])
-      ]
-    )
+    trigger('enterAnimation', [
+      state('shown', style({ opacity: 1 })),
+      state('hidden', style({ opacity: 0 })),
+      transition('* => *', animate('.2s'))
+    ])
   ]
 })
 export class TooltipComponent implements AfterViewInit {
-  show: boolean;
+  animationState: 'shown' | 'hidden' = 'hidden';
   content: string;
   placement: "top" | "bottom" | "left" | "right" = "top";
-  tooltip: HTMLElement;
   public hostElement: HTMLElement;
+  // Initial position should out of screen
+  tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
 
-  constructor(private element: ElementRef) {
-    this.tooltip = element.nativeElement;
-  }
+  constructor(private element: ElementRef) { }
 
   ngAfterViewInit(): void {
-    this.show = true;
+    if (this.hostElement) {
+      const tooltipOffset = tooltipService.positionElements(this.hostElement, this.element.nativeElement.children[0].children[0], this.placement);
+      const context = this;
+      // to avoid from ExpressionChangedAfterItHasBeenCheckedError
+      setTimeout(() => {
+        context.tooltipPlacement = {
+          Top: tooltipOffset.Top,
+          Left: tooltipOffset.Left
+        };
+        context.animationState = 'shown';
+      });
+    } else {
+      console.error('Host element not specified');
+    }
   }
 
   get tooltipPosition(): string {
     switch (this.placement) {
       case 'right':
         {
-          return 'vclTooltip vclArrowPointerRight';
+          return 'vclTooltip vclArrowPointerLeft';
         }
       case 'left':
         {
-          return 'vclTooltip vclArrowPointerLeft';
+          return 'vclTooltip vclArrowPointerRight';
         }
       case 'bottom':
         {
-          return 'vclTooltip vclArrowPointerTop ';
+          return 'vclTooltip vclArrowPointerTop';
         }
       default:
         {
@@ -62,22 +67,6 @@ export class TooltipComponent implements AfterViewInit {
         }
     }
   }
-
-  get tooltipPlacement(): ICoordinate {
-
-    if (!this.hostElement) {
-      return { Top: 0, Left: 0 }; // ???
-    }
-    else {
-      const tooltipPosition = tooltipService.positionElements(this.hostElement, this.element.nativeElement.children[0].children[0], this.placement);
-      return {
-        Top: tooltipPosition.Top,
-        Left: tooltipPosition.Left
-      };
-    }
-
-  }
-
 }
 
 

@@ -1,5 +1,5 @@
-﻿<div [@enterAnimation]="show" [style.left]="tooltipPlacement.Left + 'px'" [style.top]="tooltipPlacement.Top + 'px'" role="tooltip"
-  [class]="tooltipPosition">
+﻿<div [@enterAnimation]="animationState" [style.left]="tooltipPlacement.Left + 'px'" [style.top]="tooltipPlacement.Top + 'px'"
+  style="opacity:0" role="tooltip" [class]="tooltipPosition">
   <div class="vclTooltipContent">
     {{content}}
   </div>
