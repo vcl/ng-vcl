@@ -241,13 +241,17 @@ export class SelectComponent implements ControlValueAccessor {
     setTimeout(() => this.reFocus(), 0);
   }
 
+  setValue(value: any) {
+    this.dropdown.setValue(value);
+  }
+
   /**
    * Things needed for ControlValueAccessor-Interface.
    */
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
   writeValue(value: any): void {
-    this.dropdown.metalist.setValue(value);
+    this.setValue(value);
   }
   registerOnChange(fn: any) {
     this.onChange = fn;
