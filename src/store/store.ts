@@ -6,11 +6,13 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/publish';
 import { Injectable, OpaqueToken, Inject } from '@angular/core';
 
 import { StoreActions, Action } from './actions';
 import { StoreObservable, select } from './observable';
-import { combineReducers, reduceReducers } from './utils';
+import { combineReducers, reduceReducers, createReducer } from './utils';
+import { Subject } from "rxjs/Subject";
 
 export const STORE_INITIAL_REDUCERS = new OpaqueToken('store.initial.reducers');
 export const STORE_INITIAL_STATE = new OpaqueToken('store.initial.state');
@@ -31,52 +33,51 @@ export class StoreInitAction { }
 export class StoreErrorAction {
   constructor(public err: any) { }
 }
+export class ReducerInitAction { }
 
 @Injectable()
 export class Store extends Observable<any> implements Observer<StoreState> {
 
+  // The reducer stream
+  private _reducer: Subject<Reducer<any>> = new Subject();
+  private state$: ConnectableObservable<StoreState>;
+  private stateSub: Subscription;
+
   constructor(
     public actions$: StoreActions,
     @Inject(STORE_INITIAL_STATE)
-    private initialState: any,
-    @Inject(STORE_INITIAL_REDUCERS)
-    private initialReducers: Reducer<StoreState>[],
+    initialState: any
   ) {
     super();
+
+    const reducer$ = this._reducer.asObservable().scan((accReducer, reducer) => {
+      return reduceReducers(accReducer, reducer);
+    }, appState => appState);
+
+    // The state changes when an action is dispatched by running reducers
+    // The new state is then cached for further subscribers
+    this.state$ = this.actions$.withLatestFrom(reducer$).scan<any, StoreState>((currentState, [action, reducer]) => {
+      return reducer(currentState, action);
+    }, initialState).distinctUntilChanged().publishReplay(1);
+
     // Listen to actions by connecting the state observable
     this.stateSub = this.state$.connect();
+
     // Init action
     this.dispatch(new StoreInitAction());
   }
 
-  // The reducer stream
-  private _reducer = new BehaviorSubject<Reducer<StoreState>>(reduceReducers(...this.initialReducers));
-  private get reducer$(): Observable<Reducer<StoreState>>  {
-    return this._reducer.asObservable();
-  }
-
-  // The state changes when an action is dispatched by running reducers
-  // The new state is then cached for further subscribers
-  state$ = this.actions$.withLatestFrom(this.reducer$).scan<any, StoreState>((currentState, [action, reducer]) => {
-    return reducer(currentState, action);
-  }, this.initialState).distinctUntilChanged().publishReplay(1);
-
-  stateSub: Subscription;
-
   // The source of the store observable is also the state stream
-  source: ConnectableObservable<StoreState> = this.state$;
+  get source(): ConnectableObservable<StoreState> { return this.state$; }
 
-  replaceReducer(reducer: Reducer<StoreState> | Reducers) {
-    if (typeof reducer === 'object') {
-      this._reducer.next(combineReducers(reducer));
-    } else {
-      this._reducer.next(reducer);
-    }
+  addReducer(reducer: Reducer<StoreState> | Reducers) {
+    const r = typeof reducer === 'object' ? combineReducers(reducer) : reducer;
+    this._reducer.next(r);
   }
 
-  dispatch(action: any) {
+  dispatch(action: any, immediate = false) {
     if (action) {
-      this.actions$.dispatch(action);
+      this.actions$.dispatch(action, immediate);
     }
   }
 
@@ -100,7 +101,7 @@ export class Store extends Observable<any> implements Observer<StoreState> {
   complete() { /* store never completes */ }
 
   ngOnDestroy() {
-    if (this.stateSub && !this.stateSub.closed) this.stateSub.unsubscribe();
+    this.stateSub && this.stateSub.unsubscribe();
   }
 }
 

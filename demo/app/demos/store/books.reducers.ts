@@ -22,7 +22,7 @@ export class SearchBooksErrorAction {
   constructor(public error: any) {}
 }
 
-function reducer(state = initialState, action: SearchBooksAction | SearchBooksCompleteAction | SearchBooksErrorAction) {
+export function reducer(state = initialState, action: SearchBooksAction | SearchBooksCompleteAction | SearchBooksErrorAction) {
   if (action instanceof SearchBooksAction) {
     return {
       loading: true,

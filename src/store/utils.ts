@@ -1,4 +1,5 @@
-import { Reducers, Reducer } from './store';
+import { Reducers, Reducer, StoreState } from './store';
+
 export interface ComposeSignature {
   <A>(): (i: A) => A;
   <A, B>(b: (i: A) => B): (i: A) => B;
@@ -28,6 +29,18 @@ export function reduceReducers(...reducers) {
     );
 }
 
+export function createReducer(reducers: any): Reducer<StoreState> {
+  const reducerArr = Array.isArray(reducers) ? reducers : [ reducers ];
+  return reduceReducers(...reducerArr.map( reducer => {
+    if (typeof reducer === 'object' && reducer) {
+      return combineReducers(reducer);
+    } else if (typeof reducer === 'function') {
+      return reducer;
+    } else {
+      return undefined;
+    }
+  }).filter(reducer => reducer !== undefined));
+}
 
 export function combineReducers(reducers: Reducers): Reducer<any> {
   const reducerKeys = Object.keys(reducers);
