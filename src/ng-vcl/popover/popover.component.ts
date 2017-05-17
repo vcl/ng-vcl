@@ -117,17 +117,19 @@ export class PopoverComponent extends ObservableComponent {
   constructor(protected readonly me: ElementRef) {
     super();
     this.observeChangeValue('target')
-        .subscribe(target => this.tag = `${PopoverComponent.Tag}.${target}`);
+      .subscribe(() => this.setTag());
 
     this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY')
-        .subscribe(() => this.reposition());
+      .subscribe(() => this.reposition());
   }
 
+  setTag(): void {
+    this.tag = `${PopoverComponent.Tag}.${this.target}`;
+  }
 
   ngOnInit(): void {
-    this.tag = `${PopoverComponent.Tag}.${String(this.target)}`;
     const tag: string = `${this.tag}.ngOnInit()`;
-    if (this.debug) console.log(tag, 'this:', this);
+    this.setTag();
   }
 
   ngAfterViewInit(): void {
@@ -179,7 +181,7 @@ export class PopoverComponent extends ObservableComponent {
   public reposition(): void {
 
     const targetPos = this.getTargetPosition();
-    if (!targetPos) return;
+    if (!this.visible || !targetPos) return;
 
     const ownPos: ClientRect = this.getAttachmentPosition();
 
