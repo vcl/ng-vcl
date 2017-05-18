@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, HostListener, Input, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, Inject} from '@angular/core';
+import { Directive, OnDestroy, HostListener, Input, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, Inject } from '@angular/core';
 import { TooltipComponent } from './tooltip.component';
 import { tooltipService } from './tooltip.service';
 import { DOCUMENT } from '@angular/platform-browser';
