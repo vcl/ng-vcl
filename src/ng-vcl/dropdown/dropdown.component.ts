@@ -127,6 +127,10 @@ export class DropdownComponent implements ControlValueAccessor {
     this.onChange(value);
   }
 
+  setValue(value: any) {
+    this.metalist.setValue(value);
+  }
+
   /**
    * things needed for ControlValueAccessor-Interface
    */
@@ -134,7 +138,7 @@ export class DropdownComponent implements ControlValueAccessor {
   private onTouched: () => any = () => {};
 
   writeValue(value: any): void {
-    this.metalist.setValue(value);
+    this.setValue(value);
   }
   registerOnChange(fn: any) {
     this.onChange = fn;

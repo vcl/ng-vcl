@@ -129,8 +129,10 @@ export class PlotlyComponent {
 
   public relayout(layout: any = this.layout): void {
     const tag: string = `${this.tag}.relayout()`;
-    if (this.debug) console.log(tag, 'layout:', layout);
-    Plotly.relayout(this.plot, layout);
+    if (this.debug) console.log(tag, 'this.plot.layout before:', clone(this.plot.layout));
+    Plotly.relayout(this.plot, layout).then(() => {
+      if (this.debug) console.log(tag, 'this.plot.layout after:', this.plot.layout);
+    });
   }
 
   public update(dataUpdate, layoutUpdate): void {
@@ -186,4 +188,8 @@ function includes(arr: any[], val: any): boolean {
 
 function includesArr(arr: any[], vals: any[]): boolean {
   return vals.some(val => includes(arr, val));
+}
+
+function clone(v: any): any {
+  return !v ? v : JSON.parse(JSON.stringify((v)));
 }

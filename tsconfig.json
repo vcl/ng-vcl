@@ -24,9 +24,11 @@
       "@ng-vcl/ng-vcl": ["src/ng-vcl"],
       "@ng-vcl/ng-vcl/*": ["src/ng-vcl/*"],
       "@ng-vcl/store": ["src/store"],
+      "@ng-vcl/store/*": ["src/store/*"],
       "@ng-vcl/json-editor": ["src/json-editor"],
-      "@ng-vcl/jss-form": ["src/jss-form"],
+      "@ng-vcl/json-editor/*": ["src/json-editor/*"],
       "@ng-vcl/plotly": ["src/plotly"],
+      "@ng-vcl/plotly/*": ["src/plotly/*"],
       "@ng-vcl/animations": ["src/animations"]
     }
   },

@@ -355,6 +355,36 @@ export const routes: Routes = [
         category: 'Other',
       }
     }
+  },
+  {
+    loadChildren: './demos/json-editor/demo.module#JsonEditorDemoModule',
+    path: 'json-editor',
+    data: {
+      demo: {
+        label: 'JSON Editor',
+        category: 'Other',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/plotly/demo.module#PlotlyDemoModule',
+    path: 'plotly',
+    data: {
+      demo: {
+        label: 'Plotly',
+        category: 'Other',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/store/demo.module#StoreDemoModule',
+    path: 'store',
+    data: {
+      demo: {
+        label: 'Store',
+        category: 'Other',
+      }
+    }
   }
 ];
 
