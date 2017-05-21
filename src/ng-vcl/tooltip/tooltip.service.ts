@@ -4,17 +4,18 @@ import { ICoordinate } from "./ICoordinate";
 @Injectable()
 export class TooltipService {
 
-  // distance between tooltip and target obj.
+  // padding between tooltip and target obj.
   offsetCorrection: number = 10;
 
   public positionElements(hostEl: HTMLElement, targetEl: HTMLElement, positionStr: string, appendToBody: boolean = false): ICoordinate {
-    let positionStrParts = positionStr.split("-");
-    let pos0 = positionStrParts[0];
-    let pos1 = positionStrParts[1] || "center";
+    const tooltipAlignment = positionStr;
+    // set tooltip at middle of host element for now
+    const alignmentCorrection = 'center';
     let hostElPos = appendToBody ? this.offset(hostEl) : this.position(hostEl);
     let targetElWidth = targetEl.offsetWidth;
     let targetElHeight = targetEl.offsetHeight;
-    let shiftWidth: any = {
+
+    const shiftWidth: any = {
       center: (): number => {
         return hostElPos.left + hostElPos.width / 2 - targetElWidth / 2;
       },
@@ -26,7 +27,7 @@ export class TooltipService {
       }
     };
 
-    let shiftHeight: any = {
+    const shiftHeight: any = {
       center: (): number => {
         return hostElPos.top + hostElPos.height / 2 - targetElHeight / 2;
       },
@@ -39,32 +40,32 @@ export class TooltipService {
     };
 
     let targetElPos: ICoordinate;
-    switch (pos0) {
+    switch (tooltipAlignment) {
       case "right":
         targetElPos = {
-          Top: shiftHeight[pos1](),
-          Left: shiftWidth[pos0]() + this.offsetCorrection
+          Top: shiftHeight[alignmentCorrection](),
+          Left: shiftWidth[tooltipAlignment]() + this.offsetCorrection
         };
         break;
 
       case "left":
         targetElPos = {
-          Top: shiftHeight[pos1](),
+          Top: shiftHeight[alignmentCorrection](),
           Left: hostElPos.left - targetElWidth - this.offsetCorrection
         };
         break;
 
       case "bottom":
         targetElPos = {
-          Top: shiftHeight[pos0]() + this.offsetCorrection,
-          Left: shiftWidth[pos1]()
+          Top: shiftHeight[tooltipAlignment]() + this.offsetCorrection,
+          Left: shiftWidth[alignmentCorrection]()
         };
         break;
 
       default:
         targetElPos = {
           Top: hostElPos.top - targetElHeight - this.offsetCorrection,
-          Left: shiftWidth[pos1]()
+          Left: shiftWidth[alignmentCorrection]()
         };
         break;
     }
