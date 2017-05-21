@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders, Type, Optional, Inject, OpaqueToken, SkipSelf } from '@angular/core';
-import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCERS, Reducer, Reducers, StoreState } from './store';
-import { reduceReducers, combineReducers } from './utils';
+import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCERS, Reducer, Reducers, StoreState, ReducerInitAction } from './store';
+import { reduceReducers, combineReducers, createReducer } from './utils';
 import { StoreActions } from './actions';
 import { Effects, STORE_EFFECTS } from './effects';
 import { routerReducer, StoreRouter, StoreRouterEffects } from './router';
@@ -16,15 +16,14 @@ export const STORE_FORROOT_GUARD = new OpaqueToken('STORE_FORROOT_GUARD');
 
 export function provideForRootGuard(store: Store): any {
   if (store) {
-    throw new Error(
-        `StoreModule.forRoot() called twice. Lazy loaded modules should use StoreModule.forChild() instead.`);
+    throw new Error(`StoreModule.forRoot() called twice. Lazy loaded modules should use StoreModule.forChild() instead.`);
   }
   return 'guarded';
 }
 
 export declare interface StoreConfig {
   reducers?: Reducer<any>[] | Reducers[] | Reducer<StoreState> | Reducers;
-  effects?: Type<any>[];
+  effects?: any[];
   state?: any;
   enableRouter?: boolean;
 }
@@ -33,59 +32,10 @@ export declare interface StoreChildConfig {
   effects?: Type<any>[];
 }
 
-function createReducer(reducers: any): Reducer<StoreState> {
-  let reducer: Reducer<StoreState>;
-
-  if (Array.isArray(reducers)) {
-    reducer = reduceReducers(...reducers.map( reducer => {
-      if (typeof reducer === 'object' && reducer) {
-        return combineReducers(reducer);
-      } else if (typeof reducer === 'function') {
-        return reducer;
-      } else {
-        throw 'Invalid reducer in config';
-      }
-    }));
-  } else if (typeof reducers === 'function') {
-    reducer = reduceReducers(reducers);
-  } else if (typeof reducers === 'object' && reducers) {
-    reducer = combineReducers(reducers);
-  } else {
-    reducer = appState => appState;
-  }
-  return reducer;
-}
-
-export function initialReducer(appState) {
-  return appState;
-}
-
-@NgModule({
-  providers: [
-    StoreActions,
-    Store,
-    Effects,
-    {
-      provide: STORE_INITIAL_STATE,
-      useValue: {}
-    },
-    {
-      provide: STORE_INITIAL_REDUCERS,
-      useValue: initialReducer,
-      multi: true
-    }
-  ]
-})
+@NgModule()
 export class StoreModule {
-  constructor(@Optional() @Inject(STORE_FORROOT_GUARD) guard: any) {}
 
-  static forRoot(config: StoreConfig): ModuleWithProviders {
-    let initialReducer = createReducer(config.reducers);
-
-    // Merge router reducer
-    if (config.enableRouter) {
-      initialReducer = reduceReducers(initialReducer, routerReducer);
-    }
+  static forRoot(config: StoreConfig = {}): ModuleWithProviders {
     return {
       ngModule: StoreModule,
       providers: [
@@ -105,7 +55,7 @@ export class StoreModule {
         {
           provide: STORE_INITIAL_REDUCERS,
           multi: true,
-          useValue: initialReducer
+          useValue: config.reducers
         },
         ...(config.enableRouter ? [
           StoreRouter,
@@ -113,37 +63,52 @@ export class StoreModule {
             provide: STORE_EFFECTS,
             useClass: StoreRouterEffects,
             multi: true
+          },
+          {
+            provide: STORE_INITIAL_REDUCERS,
+            multi: true,
+            useValue: routerReducer
           }
         ] : []),
-        ...(config.effects || []).map(type => {
-          return {
-            provide: STORE_EFFECTS,
-            useClass: type,
-            multi: true
-          };
-        })
+        ...(config.effects || []),
+        {
+          provide: STORE_EFFECTS,
+          useValue: config.effects,
+          multi: true
+        }
       ]
     };
   }
-  static forChild(config: StoreChildConfig) {
-    let initialReducer = createReducer(config.reducers);
+  static forChild(config: StoreChildConfig = {}) {
     return {
       ngModule: StoreModule,
       providers: [
+        Effects,
         {
           provide: STORE_INITIAL_REDUCERS,
           multi: true,
-          useValue: initialReducer
+          useValue: config.reducers
         },
-        ...(config.effects || []).map(type => {
-          return {
-            provide: STORE_EFFECTS,
-            useClass: type,
-            multi: true
-          };
-        })
+        ...(config.effects || []),
+        {
+          provide: STORE_EFFECTS,
+          useValue: config.effects,
+          multi: true
+        }
       ]
     };
   }
 
+  constructor(
+    @Optional() @Inject(STORE_FORROOT_GUARD) guard: any,
+    store: Store,
+    @Inject(STORE_INITIAL_REDUCERS) initialReducers: Reducer<StoreState>[],
+    effects: Effects) {
+    const reducers = initialReducers.map(reducer => createReducer(reducer));
+    const reducer = reduceReducers(...reducers);
+    store.addReducer(reducer);
+
+    // The init action should run immediate so combined reducers can prepare the state
+    store.dispatch(new ReducerInitAction(), true);
+  }
 }

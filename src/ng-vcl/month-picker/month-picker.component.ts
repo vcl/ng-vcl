@@ -1,6 +1,6 @@
 import {
-  Component, ChangeDetectionStrategy, Input, Output, EventEmitter,
-  ChangeDetectorRef
+  Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ChangeDetectorRef,
+  SimpleChanges,
 } from '@angular/core';
 
 @Component({
@@ -80,6 +80,12 @@ export class MonthPickerComponent {
     this.availableColors = this.colors ? this.colors.map(color => true) : [];
 
     this.setYearMeta(this.currentYear);
+  }
+
+  private ngOnChanges(changes: SimpleChanges): void {
+    const tag: string = `${this.tag}.ngOnChanges()`;
+    if (this.debug) console.log(tag, 'changes:', changes);
+    if (changes.currentYear && !changes.currentYear.isFirstChange()) this.setYearMeta(changes.currentYear.currentValue);
   }
 
   private setYearMeta(year: number): void {
@@ -205,7 +211,7 @@ export class MonthPickerComponent {
   }
 
   private setMonthBackgroundColor(year: number, month: number): void {
-    const color = this.getMonthBackgroundColor();
+    const color: string | undefined = this.getMonthBackgroundColor();
     if (color) {
       const monthMeta: any = this.getYearMeta(year)[month];
       monthMeta.color = color;
@@ -246,11 +252,7 @@ export class MonthPickerComponent {
   }
 
   public deselectAllMonths(): void {
-    this.iterateMonthMetas((year, month, monthMeta) => {
-      monthMeta.selected = false;
-      this.clearMonthBackgroundColor(year, month);
-      this.notifyDeselect(`${year}.${month}`);
-    });
+    this.iterateMonthMetas(this.deselectMonth);
   }
 
   public addAvailableMonth(year: number, month: number): void {
@@ -266,8 +268,10 @@ export class MonthPickerComponent {
   }
 
   public removeAllAvailableMonths(): void {
-    this.iterateMonthMetas((year, month, monthMeta) => {
-      monthMeta.available = false;
+    this.iterateMonthMetas((year, month) => {
+      this.dePreselectMonth(year, month);
+      this.deselectMonth(year, month);
+      this.removeAvailableMonth(year, month);
     });
   }
 

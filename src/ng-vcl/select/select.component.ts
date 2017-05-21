@@ -127,13 +127,18 @@ export class SelectComponent implements ControlValueAccessor {
     this.focused = true;
   }
 
-  /**
-   * when the element losses focus, the dropdown should close
-   */
   @HostListener('blur', ['$event'])
   onBlur(event?) {
-    debugger;
-    this.close();
+    // When the element loses focus, the dropdown should close
+    // Only close when the active element is not a child element of the select component
+    setTimeout(() => { // Wait for document.activeElement update
+      const target = typeof document !== undefined && document.activeElement;
+      const nativeElement = this.elementRef && this.elementRef.nativeElement;
+      if (target && nativeElement && !this.elementRef.nativeElement.contains(target)) {
+        this.close();
+        this.cdRef.markForCheck();
+      }
+    }, 1);
     this.focused = false;
     this.onTouched();
   }
@@ -236,13 +241,17 @@ export class SelectComponent implements ControlValueAccessor {
     setTimeout(() => this.reFocus(), 0);
   }
 
+  setValue(value: any) {
+    this.dropdown.setValue(value);
+  }
+
   /**
    * Things needed for ControlValueAccessor-Interface.
    */
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
   writeValue(value: any): void {
-    this.dropdown.metalist.setValue(value);
+    this.setValue(value);
   }
   registerOnChange(fn: any) {
     this.onChange = fn;

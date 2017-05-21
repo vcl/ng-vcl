@@ -1,4 +1,4 @@
-import { OnDestroy, Injectable, Optional, OpaqueToken, Inject } from '@angular/core';
+import { OnDestroy, Injectable, Optional, OpaqueToken, Inject, Injector } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/merge';
@@ -38,24 +38,32 @@ export class Effects implements OnDestroy {
     private store: Store,
     @Optional()
     @Inject(STORE_EFFECTS)
-    effects: any[]
+    effects: any[],
+    injector: Injector
   ) {
-    this.addEffects(effects);
-  }
+    (effects || []).forEach(effectClasses => {
+      if (Array.isArray(effectClasses)) {
+        effectClasses.forEach(effectClass => {
+          const effect = injector.get(effectClass);
+          if (effect) {
+            this.addEffect(effect);
+          }
+        });
 
-  addEffects(effectInstances: any | any[]) {
-    const eiArr: any[] = Array.isArray(effectInstances) ? effectInstances : [effectInstances];
-    eiArr.forEach(instance => {
-      if (instance) {
-        const properties = getEffectsMetadata(instance);
-        const effects$ = Observable.merge(...(properties.map(property => instance[property])));
-        const sub = effects$.catch(err => {
-          // Catch effect error and dispatch StoreErrorAction
-          return Observable.of(new StoreErrorAction(err));
-        }).subscribe(this.store);
-        this.effectSubs.push(sub);
       }
     });
+  }
+
+  addEffect(effect: any) {
+    if (effect) {
+      const properties = getEffectsMetadata(effect);
+      const effects$ = Observable.merge(...(properties.map(property => effect[property])));
+      const sub = effects$.catch(err => {
+        // Catch effect error and dispatch StoreErrorAction
+        return Observable.of(new StoreErrorAction(err));
+      }).subscribe(this.store);
+      this.effectSubs.push(sub);
+    }
   }
 
   ngOnDestroy() {

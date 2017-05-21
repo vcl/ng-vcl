@@ -25,8 +25,12 @@ export class StoreActions extends Observable<any> implements Observer<any> {
     return this.actions$.filter((action) => actionClasses.some(cls => action instanceof cls));
   }
 
-  dispatch(action: any) {
-    setTimeout(() => this._dispatcher.next(action), 0);
+  dispatch(action: any, immediate = false) {
+    if (immediate) {
+      this._dispatcher.next(action);
+    } else {
+      setTimeout(() => this._dispatcher.next(action), 0);
+    }
   }
 
   next(action: any) {
