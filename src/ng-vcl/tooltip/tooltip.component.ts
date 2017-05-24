@@ -28,6 +28,8 @@ export class TooltipComponent implements AfterViewInit {
   // Initial position should out of screen
   tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
 
+  tooltipPosition: string = '';
+
   constructor(private element: ElementRef) { }
 
   ngAfterViewInit(): void {
@@ -41,13 +43,14 @@ export class TooltipComponent implements AfterViewInit {
           Left: tooltipOffset.Left
         };
         context.animationState = 'shown';
+        context.tooltipPosition = context.GetTooltipPosition();
       });
     } else {
       console.error('Host element not specified');
     }
   }
 
-  get tooltipPosition(): string {
+  GetTooltipPosition(): string {
     switch (this.placement) {
       case 'right':
         {
