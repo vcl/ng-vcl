@@ -1,12 +1,14 @@
 import {
   Component, Input, ElementRef,
-  trigger, state, transition, animate, style, AfterViewInit
+  trigger, state, transition, animate,
+  style, AfterViewInit, Inject
 } from '@angular/core';
 import { ICoordinate } from "./ICoordinate";
 import { tooltipService } from './tooltip.service';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
-  selector: 'vcl-tooltip-container',
+  selector: 'vcl-tooltip',
   templateUrl: './tooltip.component.html',
   host: {
     '[class.vclTooltip]': 'true',
@@ -16,21 +18,21 @@ import { tooltipService } from './tooltip.service';
     trigger('enterAnimation', [
       state('shown', style({ opacity: 1 })),
       state('hidden', style({ opacity: 0 })),
-      transition('* => *', animate('.2s'))
+      transition('shown <=> hidden', animate('.2s'))
     ])
   ]
 })
 export class TooltipComponent implements AfterViewInit {
+  @Input() content: string;
+  @Input() placement: "top" | "bottom" | "left" | "right" = "top";
+  @Input() hostElement: HTMLElement;
   animationState: 'shown' | 'hidden' = 'hidden';
-  content: string;
-  placement: "top" | "bottom" | "left" | "right" = "top";
-  public hostElement: HTMLElement;
   // Initial position should out of screen
   tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
-
   tooltipPosition: string = '';
 
-  constructor(private element: ElementRef) { }
+  constructor(private element: ElementRef,
+    @Inject(DOCUMENT) private document: any) { }
 
   ngAfterViewInit(): void {
     if (this.hostElement) {
@@ -44,6 +46,8 @@ export class TooltipComponent implements AfterViewInit {
         };
         context.animationState = 'shown';
         context.tooltipPosition = context.GetTooltipPosition();
+        //context.document.querySelector('body').appendChild(context.element.nativeElement);
+        context.document.querySelector('body').appendChild(context.hostElement);
       });
     } else {
       console.error('Host element not specified');

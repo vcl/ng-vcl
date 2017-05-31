@@ -1,5 +1,5 @@
 <div style="display: flex;height:100px">
-  <div  vcl-tooltip content="Tooltip on the top" style="background-color:#E6E6E6;flex:1">
+  <div vcl-tooltip content="Tooltip on the top" style="background-color:#E6E6E6;flex:1">
     <p>Tooltip on the top</p>
   </div>
   <div vcl-tooltip position="right" content="Tooltip on the right" style="background-color:#D8D8D8;flex:1">
@@ -10,5 +10,11 @@
   </div>
   <div vcl-tooltip position="bottom" content="Tooltip on the bottom" style="background-color:#A4A4A4;flex:1">
     <p>Tooltip on the bottom</p>
+  </div>
+</div>
+<div style="display: flex;height:100px">
+  <div #hostContainer style="background-color:#A4A4A4;flex:0.25">
+    <p>Custom tooltip</p>
+    <vcl-tooltip [hostElement]="hostContainer" content="Custom tooltip"></vcl-tooltip>
   </div>
 </div>
