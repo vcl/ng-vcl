@@ -25,6 +25,7 @@ export class TooltipDirective implements OnDestroy {
     this.tooltip.instance.content = this.content;
     this.tooltip.instance.placement = this.position;
     this.tooltip.instance.hostElement = this.element.nativeElement;
+    this.tooltip.instance.showOnInit = true;
   }
 
   @HostListener('focusout')

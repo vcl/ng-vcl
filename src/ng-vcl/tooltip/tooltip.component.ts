@@ -1,7 +1,7 @@
 import {
   Component, Input, ElementRef,
   trigger, state, transition, animate,
-  style, AfterViewInit, Inject
+  style, AfterViewInit, Inject, Renderer
 } from '@angular/core';
 import { ICoordinate } from "./ICoordinate";
 import { tooltipService } from './tooltip.service';
@@ -26,35 +26,57 @@ export class TooltipComponent implements AfterViewInit {
   @Input() content: string;
   @Input() placement: "top" | "bottom" | "left" | "right" = "top";
   @Input() hostElement: HTMLElement;
+
   animationState: 'shown' | 'hidden' = 'hidden';
   // Initial position should out of screen
   tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
-  tooltipPosition: string = '';
+  tooltipPosition: string = 'vclTooltip vclArrowPointerTop';
+  // true if initialized by directive
+  showOnInit: boolean = false;
 
   constructor(private element: ElementRef,
-    @Inject(DOCUMENT) private document: any) { }
+    @Inject(DOCUMENT) private document: any,
+    private renderer: Renderer) { }
 
   ngAfterViewInit(): void {
-    if (this.hostElement) {
-      const tooltipOffset = tooltipService.positionElements(this.hostElement, this.element.nativeElement.children[0].children[0], this.placement);
-      const context = this;
-      // to avoid from ExpressionChangedAfterItHasBeenCheckedError
+    const context = this;
+
+    // behavior being handled by directive
+    if (context.showOnInit) {
       setTimeout(() => {
+        context.ShowTooltip()();
+      });
+    } else {
+      context.renderer.listen(context.hostElement, 'mouseenter', context.ShowTooltip(context));
+      context.renderer.listen(context.hostElement, 'focusin', context.ShowTooltip(context));
+      context.renderer.listen(context.hostElement, 'focusout', () => { context.animationState = 'hidden'; });
+      context.renderer.listen(context.hostElement, 'mouseleave', () => { context.animationState = 'hidden'; });
+    }
+
+
+  }
+
+  ShowTooltip(context: this = this): Function {
+    return () => {
+      if (context.hostElement) {
+        const tooltipOffset = tooltipService.positionElements(context.hostElement,
+          context.element.nativeElement.children[0].children[0], context.placement);
         context.tooltipPlacement = {
           Top: tooltipOffset.Top,
           Left: tooltipOffset.Left
         };
         context.animationState = 'shown';
-        context.tooltipPosition = context.GetTooltipPosition();
-        //context.document.querySelector('body').appendChild(context.element.nativeElement);
-        context.document.querySelector('body').appendChild(context.hostElement);
-      });
-    } else {
-      console.error('Host element not specified');
-    }
+        context.tooltipPosition = context.TooltipPosition();
+        context.document.querySelector('body').appendChild(context.element.nativeElement);
+        return true;
+      } else {
+        console.error('Host element not specified');
+        return false;
+      }
+    };
   }
 
-  GetTooltipPosition(): string {
+  TooltipPosition(): string {
     switch (this.placement) {
       case 'right':
         {
