@@ -78,7 +78,7 @@ export class DomTemplateWormhole extends TemplateWormholeBase {
     return rootComponent;
   }
 
-  attach(templateRef: TemplateRef<any>, index?: number): EmbeddedViewRef<any> {
+  protected attach(templateRef: TemplateRef<any>, index?: number): EmbeddedViewRef<any> {
     const injector = this.injector || this.rootComponentRef.injector;
 
     const embeddedView = templateRef.createEmbeddedView(undefined);
@@ -99,7 +99,7 @@ export class DomTemplateWormhole extends TemplateWormholeBase {
   }
 
 
-  detach() {
+  protected detach() {
     if (this.viewRef && this.currentIndex >= 0) {
       this.viewRef.destroy();
     }

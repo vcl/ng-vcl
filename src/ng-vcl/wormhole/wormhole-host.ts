@@ -66,8 +66,8 @@ export class WormholeHost extends WormholeHostBase {
     }
   }
 
-  createWormhole<T>(component: Type<T>): Wormhole;
-  createWormhole<T>(templateRef: TemplateRef<T>): Wormhole;
+  createWormhole<T>(component: Type<T>): TemplateWormhole;
+  createWormhole<T>(templateRef: TemplateRef<T>): ComponentWormhole<T>;
   createWormhole<T>(arg2: Type<T> | TemplateRef<T>): Wormhole {
     let wormhole: Wormhole;
     if (typeof arg2 === 'function' && this._host) {
@@ -91,8 +91,8 @@ export class DomWormholeHost extends WormholeHostBase {
     }
   }
 
-  createWormhole<T>(component: Type<T>): Wormhole;
-  createWormhole<T>(templateRef: TemplateRef<T>): Wormhole;
+  createWormhole<T>(component: Type<T>): DomComponentWormhole<T>;
+  createWormhole<T>(templateRef: TemplateRef<T>): DomTemplateWormhole;
   createWormhole<T>(arg2: Type<T> | TemplateRef<T>): Wormhole {
     let wormhole: Wormhole;
     if (typeof arg2 === 'function' && this._host instanceof ApplicationRef) {

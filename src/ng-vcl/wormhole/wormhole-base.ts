@@ -71,8 +71,8 @@ export abstract class TemplateWormholeBase extends Wormhole {
     }
   }
 
-  abstract attach(templateRef: TemplateRef<any>, index?: number): EmbeddedViewRef<any>;
-  abstract detach();
+  protected abstract attach(templateRef: TemplateRef<any>, index?: number): EmbeddedViewRef<any>;
+  protected abstract detach();
 }
 
 export abstract class ComponentWormholeBase<T> extends Wormhole {
@@ -141,6 +141,6 @@ export abstract class ComponentWormholeBase<T> extends Wormhole {
     }
   }
 
-  abstract attach(factory: Type<T>, index?: number): ComponentRef<T>;
-  abstract detach();
+  protected abstract attach(factory: Type<T>, index?: number): ComponentRef<T>;
+  protected abstract detach();
 }
