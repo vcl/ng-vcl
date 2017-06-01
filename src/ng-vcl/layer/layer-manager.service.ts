@@ -49,8 +49,12 @@ export class LayerManagerService extends DomWormholeHost {
           layerAttrs: state.attrs
         });
       } else {
-        containerWormholeRef.disconnect();
-        this.layerService.removeVisibleLayer(layer);
+        if (containerWormholeRef.compRef && containerWormholeRef.compRef.instance) {
+          containerWormholeRef.compRef.instance.animateLeave().then(() => {
+            containerWormholeRef.disconnect();
+            this.layerService.removeVisibleLayer(layer);
+          });
+        }
       }
     });
 

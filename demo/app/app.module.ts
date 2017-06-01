@@ -6,18 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { VCLIconModule, VCLNavigationModule, VCLButtonModule, VCLLayerModule, L10nModule, L10nStaticLoaderService } from '@ng-vcl/ng-vcl';
 import { StoreModule } from '@ng-vcl/store';
-import { vclCheckboxAnimations, vclLayerAnimations, vclNotificationAnimations, vclPopoverAnimations, vclTokenAnimations } from '@ng-vcl/animations';
+import { LayerAnimationsModule, PopoverAnimationsModule } from '@ng-vcl/animations';
 
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from "./components/home/home.component";
 
 import { routing, appRoutingProviders } from './app.routes';
-
-vclCheckboxAnimations();
-vclLayerAnimations();
-vclNotificationAnimations();
-vclPopoverAnimations();
-vclTokenAnimations();
+import { style, animate } from "@angular/animations";
 
 @NgModule({
   providers: [
@@ -33,7 +28,9 @@ vclTokenAnimations();
     VCLIconModule,
     VCLNavigationModule,
     VCLLayerModule.forRoot(),
-    StoreModule.forRoot()
+    StoreModule.forRoot(),
+    LayerAnimationsModule,
+    PopoverAnimationsModule
   ],
   declarations: [
     AppComponent,
@@ -45,6 +42,3 @@ vclTokenAnimations();
   ]
 })
 export class AppModule { }
-
-
-

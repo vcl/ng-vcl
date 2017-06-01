@@ -2,10 +2,11 @@ import {
   Component, Input, Output,
   EventEmitter, ElementRef, trigger, NgZone,
   HostListener, OnInit, OnChanges, state, style, transition, animate,
-  HostBinding, SimpleChanges, ChangeDetectionStrategy
+  HostBinding, SimpleChanges, ChangeDetectionStrategy, OpaqueToken, Inject, Optional
 } from '@angular/core';
 import { ObservableComponent } from "../core/index";
 import { Observable } from "rxjs/Observable";
+import { AnimationMetadata, AnimationFactory, AnimationBuilder, AnimationPlayer } from "@angular/animations";
 
 export type AttachmentX = 'left' | 'center' | 'right';
 export const AttachmentX = {
@@ -26,23 +27,26 @@ const Dimension = {
   Height: 'height',
 };
 
-const PopoverState = {
-  Visible: 'visible',
-  Void: 'void',
-};
+export enum PopoverState {
+  visible,
+  hidden,
+  opening,
+  closing
+}
+
+export const POPOVER_ANIMATIONS = new OpaqueToken('@ng-vcl/ng-vcl#popover_animations');
+
+export interface PopoverAnimationConfig {
+  enter?: AnimationMetadata | AnimationMetadata[];
+  leave?: AnimationMetadata | AnimationMetadata[];
+}
 
 @Component({
   selector: 'vcl-popover',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // The close/open animation is set in the application itself through:
-  // setAnimations(PopoverComponent, [
-  //   trigger('popoverState', [
-  //     [..]
-  //   ]);
   animations: [trigger('popoverState', [])],
   host: {
-    '[@popoverState]': 'popoverState',
     '[class.vclPopOver]': 'true',
     '[style.position]': '"absolute"'
   }
@@ -70,51 +74,43 @@ export class PopoverComponent extends ObservableComponent {
   @Input()
   attachmentY: AttachmentY = AttachmentY.Top;
 
-  _visible: boolean = false;
   @Input()
-  set visible(value: boolean) {
-    // We have to wait one runloop before calling reposition(), so the element is rendered and the right bounds can be determined.
-    // Also hide the popover via the visibility-style. This avoids flashing up on the wrong position.
-    if (!this._visible && value) {
-      this.visibility = 'hidden';
-      setTimeout(() => {
-        this.reposition();
-        this.visibility = 'visible';
-      }, 0);
+  set visible(value) {
+    if (value) {
+      this.open();
     } else {
-      this.visibility = 'visible';
+      this.close();
     }
-    this._visible = value;
   }
 
-  get visible(): boolean {
-    return this._visible;
+  get visible() {
+    return (this.state === PopoverState.opening || this.state === PopoverState.visible);
   }
 
-  @Output()
-  visibleChange = new EventEmitter<boolean>();
-
-  private translateX: number = 1;
-  private translateY: number = 0;
+  state: PopoverState = PopoverState.hidden;
 
   @HostBinding('class.vclLayoutHidden')
-  get hidden() {
-    return !this.visible;
+  get classHidden() {
+    return this.state === PopoverState.hidden;
   }
 
   @HostBinding('style.visibility')
-  visibility: string = 'visible';
+  get styleVisibility() {
+    return this.state === PopoverState.opening ? 'hidden' : 'visible';
+  }
+
+  private translateX: number = 1;
+  private translateY: number = 0;
 
   @HostBinding('style.transform')
   get transform() {
     return `translate(${String(this.translateX)}px, ${String(this.translateY)}px)`;
   }
 
-  get popoverState() {
-    return this.visible ? PopoverState.Visible : PopoverState.Void;
-  }
+  enterAnimationFactory: AnimationFactory | undefined;
+  leaveAnimationFactory: AnimationFactory | undefined;
 
-  constructor(protected readonly me: ElementRef) {
+  constructor(protected readonly me: ElementRef, private builder: AnimationBuilder,  @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig) {
     super();
 
     this.observeChanges('target').subscribe(() => {
@@ -132,10 +128,6 @@ export class PopoverComponent extends ObservableComponent {
     });
   }
 
-  setTag(): void {
-    this.tag = `${PopoverComponent.Tag}.${this.target}`;
-  }
-
   ngOnInit(): void {
     const tag: string = `${this.tag}.ngOnInit()`;
     if (this.debug) console.log(tag, 'this:', this);
@@ -144,6 +136,62 @@ export class PopoverComponent extends ObservableComponent {
 
   ngAfterViewInit(): void {
     setTimeout(() => this.reposition());
+
+    if (this.animations) {
+      if (this.animations.enter) {
+        this.enterAnimationFactory = this.builder.build(this.animations.enter);
+      }
+      if (this.animations.leave) {
+        this.leaveAnimationFactory = this.builder.build(this.animations.leave);
+      }
+    }
+
+  }
+
+  public open(): void {
+    if (this.state === PopoverState.visible || this.state === PopoverState.opening) {
+      return;
+    }
+
+    this.state = PopoverState.opening;
+    // We have to wait one runloop before calling reposition(), so the element is rendered and the right bounds can be determined.
+    // Also when opening the popover is hidden via the visibility-style. This avoids flashing up on the wrong position.
+    setTimeout(() => {
+      this.reposition();
+      if (this.enterAnimationFactory && this.me) {
+        const player = this.enterAnimationFactory.create(this.me.nativeElement);
+        player.onDone(() => {
+          player.destroy();
+        });
+        player.play();
+      }
+      this.state = PopoverState.visible;
+    }, 0);
+  }
+
+  public close(): void {
+    if (this.state === PopoverState.hidden || this.state === PopoverState.closing) {
+      return;
+    }
+    this.state = PopoverState.closing;
+    if (this.leaveAnimationFactory && this.me) {
+      const player = this.leaveAnimationFactory.create(this.me.nativeElement);
+      player.onDone(() => {
+        player.destroy();
+        this.state = PopoverState.hidden;
+      });
+      player.play();
+    } else {
+      this.state = PopoverState.hidden;
+    }
+  }
+
+  public toggle() {
+    if (this.visible) { this.close(); } else { this.open(); }
+  }
+
+  setTag(): void {
+    this.tag = `${PopoverComponent.Tag}.${this.target}`;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -174,22 +222,6 @@ export class PopoverComponent extends ObservableComponent {
 
   private getAttachmentPosition(): ClientRect {
     return this.me.nativeElement.getBoundingClientRect();
-  }
-
-  public open(): void {
-    if (this.visible) return;
-    this.visible = true;
-    this.visibleChange.emit(this.visible);
-  }
-
-  public close(): void {
-    if (!this.visible) return;
-    this.visible = false;
-    this.visibleChange.emit(this.visible);
-  }
-
-  public toggle() {
-    this.visible ? this.close() : this.open();
   }
 
   public reposition(): void {

@@ -29,7 +29,8 @@
       "@ng-vcl/json-editor/*": ["src/json-editor/*"],
       "@ng-vcl/plotly": ["src/plotly"],
       "@ng-vcl/plotly/*": ["src/plotly/*"],
-      "@ng-vcl/animations": ["src/animations"]
+      "@ng-vcl/animations": ["src/animations"],
+      "@ng-vcl/animations/*": ["src/animations/*"]
     }
   },
   "include": [

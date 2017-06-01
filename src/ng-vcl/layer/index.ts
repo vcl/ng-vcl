@@ -5,14 +5,18 @@ import { defineMetadata } from './../core/index';
 import { LayerManagerService } from './layer-manager.service';
 import { LayerService } from './layer.service';
 import { LayerRef, LayerAttributes } from './layer-ref';
-import { LayerContainerComponent, COMPONENT_LAYER_ANNOTATION_ID } from './layer-container.component';
+import { LayerContainerComponent, COMPONENT_LAYER_ANNOTATION_ID, LAYER_ANIMATIONS, LayerAnimationConfig } from './layer-container.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerManagerService, LayerContainerComponent };
+export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerManagerService, LayerContainerComponent, LayerAnimationConfig, LAYER_ANIMATIONS };
 
-export const CHILD_LAYER_CONFIG = new OpaqueToken('@ng-vcl/ng-vcl#child_layer_config');
+export const LAYERS = new OpaqueToken('@ng-vcl/ng-vcl#layers');
 
-export interface LayerConfig {
+export interface RootLayerConfig {
+  layers?: Type<LayerRef>[];
+}
+
+export interface ChildLayerConfig {
   layers?: Type<LayerRef>[];
 }
 
@@ -35,7 +39,7 @@ export function Layer<T>(component: Type<T>) {
   providers: []
 })
 export class VCLLayerModule {
-  static forRoot(config: LayerConfig = {}): ModuleWithProviders {
+  static forRoot(config: RootLayerConfig = {}): ModuleWithProviders {
     return {ngModule: VCLLayerModule, providers: [
       LayerService,
       LayerManagerService,
@@ -45,38 +49,34 @@ export class VCLLayerModule {
         useValue: null
       },
       {
-        provide: CHILD_LAYER_CONFIG,
-        multi: true,
-        useValue: config
+        provide: LAYERS,
+        useValue: config.layers
       }
     ]};
   }
-  static forChild(config: LayerConfig = {}): ModuleWithProviders {
+  static forChild(config: ChildLayerConfig = {}): ModuleWithProviders {
     return {
       ngModule: VCLLayerModule,
       providers: [
         ...(config.layers || []),
         {
-          provide: CHILD_LAYER_CONFIG,
-          multi: true,
-          useValue: config
+          provide: LAYERS,
+          useValue: config.layers
         }
       ]
     };
   }
 
   constructor(
-    @Inject(CHILD_LAYER_CONFIG) private configs: LayerConfig[],
+    @Inject(LAYERS) private layers: Type<LayerRef>[],
     private layerService: LayerService,
     private layerManagerService: LayerManagerService,
     private injector: Injector,
   ) {
-    if (configs) {
-      configs.forEach(config => {
-        (config.layers || []).forEach(layerCls => {
-          const layerRef = this.injector.get(layerCls);
-          this.layerService.register(layerRef, injector);
-        });
+    if (layers) {
+      (layers || []).forEach(layerCls => {
+        const layerRef = this.injector.get(layerCls);
+        this.layerService.register(layerRef, injector);
       });
     }
   }
