@@ -25,14 +25,12 @@ export class TooltipDirective implements OnDestroy {
     this.tooltip.instance.content = this.content;
     this.tooltip.instance.placement = this.position;
     this.tooltip.instance.hostElement = this.element.nativeElement;
-
-    this.document.querySelector('body').appendChild(this.viewContainerRef.element.nativeElement.nextSibling);
+    this.tooltip.instance.showOnInit = true;
   }
 
   @HostListener('focusout')
   @HostListener('mouseleave')
   ngOnDestroy(): void {
-    // TODO: fade out animation instead of dispose
     if (this.tooltip) {
       this.tooltip.destroy();
     }

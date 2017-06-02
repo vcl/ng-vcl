@@ -1,12 +1,14 @@
 import {
   Component, Input, ElementRef,
-  trigger, state, transition, animate, style, AfterViewInit
+  trigger, state, transition, animate,
+  style, AfterViewInit, Inject, Renderer, OnDestroy
 } from '@angular/core';
 import { ICoordinate } from "./ICoordinate";
 import { tooltipService } from './tooltip.service';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
-  selector: 'vcl-tooltip-container',
+  selector: 'vcl-tooltip',
   templateUrl: './tooltip.component.html',
   host: {
     '[class.vclTooltip]': 'true',
@@ -14,40 +16,67 @@ import { tooltipService } from './tooltip.service';
   styles: [`:host{ top: 0; left: 0}`],
   animations: [
     trigger('enterAnimation', [
-      state('shown', style({ opacity: 1 })),
-      state('hidden', style({ opacity: 0 })),
-      transition('* => *', animate('.2s'))
+      state('shown', style({ opacity: 1, 'z-index': 'initial' })),
+      state('hidden', style({ opacity: 0, 'z-index': '-1' })),
+      transition('shown <=> hidden', animate('.2s'))
     ])
   ]
 })
-export class TooltipComponent implements AfterViewInit {
+export class TooltipComponent implements AfterViewInit, OnDestroy {
+  @Input() content: string;
+  @Input() placement: "top" | "bottom" | "left" | "right" = "top";
+  @Input() hostElement: HTMLElement;
+
   animationState: 'shown' | 'hidden' = 'hidden';
-  content: string;
-  placement: "top" | "bottom" | "left" | "right" = "top";
-  public hostElement: HTMLElement;
   // Initial position should out of screen
   tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
+  tooltipPosition: string = 'vclTooltip vclArrowPointerTop';
+  // true if initialized by directive
+  showOnInit: boolean = false;
 
-  constructor(private element: ElementRef) { }
+  constructor(private element: ElementRef,
+    @Inject(DOCUMENT) private document: any,
+    private renderer: Renderer) { }
 
   ngAfterViewInit(): void {
-    if (this.hostElement) {
-      const tooltipOffset = tooltipService.positionElements(this.hostElement, this.element.nativeElement.children[0].children[0], this.placement);
-      const context = this;
-      // to avoid from ExpressionChangedAfterItHasBeenCheckedError
+    const context = this;
+
+    // behavior being handled by directive
+    if (context.showOnInit) {
       setTimeout(() => {
+        context.ShowTooltip()();
+      });
+    } else {
+      context.renderer.listen(context.hostElement, 'mouseenter', context.ShowTooltip(context));
+      context.renderer.listen(context.hostElement, 'focusin', context.ShowTooltip(context));
+      context.renderer.listen(context.hostElement, 'focusout', () => { context.animationState = 'hidden'; });
+      context.renderer.listen(context.hostElement, 'mouseleave', () => { context.animationState = 'hidden'; });
+    }
+
+
+  }
+
+  ShowTooltip(context: this = this): Function {
+    return () => {
+      if (context.hostElement) {
+        const tooltipOffset = tooltipService.positionElements(context.hostElement,
+          context.element.nativeElement.children[0].children[0], context.placement);
         context.tooltipPlacement = {
           Top: tooltipOffset.Top,
           Left: tooltipOffset.Left
         };
         context.animationState = 'shown';
-      });
-    } else {
-      console.error('Host element not specified');
-    }
+        context.tooltipPosition = context.TooltipPosition();
+        context.document.querySelector('body').appendChild(context.element.nativeElement);
+        return true;
+      } else {
+        console.error('Host element not specified');
+        return false;
+      }
+    };
   }
 
-  get tooltipPosition(): string {
+  TooltipPosition(): string {
     switch (this.placement) {
       case 'right':
         {
@@ -65,6 +94,12 @@ export class TooltipComponent implements AfterViewInit {
         {
           return 'vclTooltip vclArrowPointerBottom';
         }
+    }
+  }
+
+  ngOnDestroy() {
+    if (!this.showOnInit) {
+      this.element.nativeElement.parentNode.removeChild(this.element.nativeElement);
     }
   }
 }
