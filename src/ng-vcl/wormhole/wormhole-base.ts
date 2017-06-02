@@ -78,6 +78,9 @@ export abstract class TemplateWormholeBase extends Wormhole {
 export abstract class ComponentWormholeBase<T> extends Wormhole {
 
   public compRef: ComponentRef<T> | undefined;
+  public get compInstance(): T | undefined {
+    return this.compRef && this.compRef.instance;
+  }
   private cachedAttrs: any;
 
   constructor(private componentClass: Type<T>) {
