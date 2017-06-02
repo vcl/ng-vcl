@@ -1,7 +1,7 @@
 import {
   Component, Input, ElementRef,
   trigger, state, transition, animate,
-  style, AfterViewInit, Inject, Renderer
+  style, AfterViewInit, Inject, Renderer, OnDestroy
 } from '@angular/core';
 import { ICoordinate } from "./ICoordinate";
 import { tooltipService } from './tooltip.service';
@@ -16,13 +16,13 @@ import { DOCUMENT } from '@angular/platform-browser';
   styles: [`:host{ top: 0; left: 0}`],
   animations: [
     trigger('enterAnimation', [
-      state('shown', style({ opacity: 1 })),
-      state('hidden', style({ opacity: 0 })),
+      state('shown', style({ opacity: 1, 'z-index': 'initial' })),
+      state('hidden', style({ opacity: 0, 'z-index': '-1' })),
       transition('shown <=> hidden', animate('.2s'))
     ])
   ]
 })
-export class TooltipComponent implements AfterViewInit {
+export class TooltipComponent implements AfterViewInit, OnDestroy {
   @Input() content: string;
   @Input() placement: "top" | "bottom" | "left" | "right" = "top";
   @Input() hostElement: HTMLElement;
@@ -94,6 +94,12 @@ export class TooltipComponent implements AfterViewInit {
         {
           return 'vclTooltip vclArrowPointerBottom';
         }
+    }
+  }
+
+  ngOnDestroy() {
+    if (!this.showOnInit) {
+      this.element.nativeElement.parentNode.removeChild(this.element.nativeElement);
     }
   }
 }

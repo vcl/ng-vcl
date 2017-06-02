@@ -13,10 +13,16 @@
   </div>
 </div>
 <div style="display: flex;height:100px">
-  <div #hostContainer style="background-color:#A4A4A4;flex:0.25">
+  <div #hostContainer1 style="background-color:#A4A4A4;flex:0.25">
     <p>Custom tooltip</p>
-    <vcl-tooltip [hostElement]="hostContainer">
+    <vcl-tooltip [hostElement]="hostContainer1" class="vclLayoutHorizontal vclLayoutCenter">
       Custom tooltip
+    </vcl-tooltip>
+  </div>
+  <div #hostContainer2 style="background-color:#BDBDBD;flex:0.25">
+    <p>Custom tooltip</p>
+    <vcl-tooltip [hostElement]="hostContainer2" placement="right">
+      <my-tooltip-sample></my-tooltip-sample>
     </vcl-tooltip>
   </div>
 </div>
