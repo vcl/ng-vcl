@@ -1,10 +1,10 @@
 import {
   Component, Input, ElementRef,
   trigger, state, transition, animate,
-  style, AfterViewInit, Inject, Renderer, OnDestroy
+  style, AfterViewInit, Inject, Renderer, OnDestroy, OnChanges, SimpleChanges
 } from '@angular/core';
 import { ICoordinate } from "./ICoordinate";
-import { tooltipService } from './tooltip.service';
+import { TooltipService } from './tooltip.service';
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
@@ -13,21 +13,22 @@ import { DOCUMENT } from '@angular/platform-browser';
   host: {
     '[class.vclTooltip]': 'true',
   },
-  styles: [`:host{ top: 0; left: 0}`],
+  styles: [`:host{ top: 0; left: 0 }`],
   animations: [
     trigger('enterAnimation', [
       state('shown', style({ opacity: 1, 'z-index': 'initial' })),
       state('hidden', style({ opacity: 0, 'z-index': '-1' })),
-      transition('shown <=> hidden', animate('.2s'))
+      state('none', style({ opacity: 0 })),
+      transition('hidden => shown', animate('0.2s')),
     ])
   ]
 })
-export class TooltipComponent implements AfterViewInit, OnDestroy {
+export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   @Input() content: string;
   @Input() placement: "top" | "bottom" | "left" | "right" = "top";
   @Input() hostElement: HTMLElement;
 
-  animationState: 'shown' | 'hidden' = 'hidden';
+  animationState: 'shown' | 'hidden' | 'none' = 'none';
   // Initial position should out of screen
   tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
   tooltipPosition: string = 'vclTooltip vclArrowPointerTop';
@@ -36,30 +37,35 @@ export class TooltipComponent implements AfterViewInit, OnDestroy {
 
   constructor(private element: ElementRef,
     @Inject(DOCUMENT) private document: any,
-    private renderer: Renderer) { }
+    private renderer: Renderer,
+    private tooltipService: TooltipService) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.placement || changes.content) {
+      this.ShowTooltip()();
+    }
+  }
 
   ngAfterViewInit(): void {
     const context = this;
-
     // behavior being handled by directive
     if (context.showOnInit) {
       setTimeout(() => {
         context.ShowTooltip()();
       });
     } else {
+      context.animationState = 'none';
       context.renderer.listen(context.hostElement, 'mouseenter', context.ShowTooltip(context));
       context.renderer.listen(context.hostElement, 'focusin', context.ShowTooltip(context));
       context.renderer.listen(context.hostElement, 'focusout', () => { context.animationState = 'hidden'; });
       context.renderer.listen(context.hostElement, 'mouseleave', () => { context.animationState = 'hidden'; });
     }
-
-
   }
 
   ShowTooltip(context: this = this): Function {
     return () => {
       if (context.hostElement) {
-        const tooltipOffset = tooltipService.positionElements(context.hostElement,
+        const tooltipOffset = context.tooltipService.positionElements(context.hostElement,
           context.element.nativeElement.children[0].children[0], context.placement);
         context.tooltipPlacement = {
           Top: tooltipOffset.Top,

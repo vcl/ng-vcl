@@ -1,10 +1,13 @@
-import { Directive, OnDestroy, HostListener, Input, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, Inject } from '@angular/core';
+import {
+  Directive, OnDestroy, HostListener, Input, ElementRef,
+  ComponentFactoryResolver, ViewContainerRef,
+  ComponentRef, Inject, OnChanges, SimpleChanges
+} from '@angular/core';
 import { TooltipComponent } from './tooltip.component';
-import { tooltipService } from './tooltip.service';
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Directive({ selector: '[vcl-tooltip]' })
-export class TooltipDirective implements OnDestroy {
+export class TooltipDirective implements OnDestroy, OnChanges {
 
   @Input() content: string = '';
   @Input() position: "top" | "bottom" | "left" | "right" = "top";
@@ -15,6 +18,16 @@ export class TooltipDirective implements OnDestroy {
     private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef,
     @Inject(DOCUMENT) private document: any) {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.tooltip) {
+      if (changes.content) {
+        this.tooltip.instance.content = this.content;
+      } else if (changes.position) {
+        this.tooltip.instance.placement = this.position;
+      }
+    }
   }
 
   @HostListener('mouseenter')

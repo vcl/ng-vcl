@@ -124,4 +124,3 @@ export class TooltipService {
   }
 }
 
-export const tooltipService = new TooltipService();
