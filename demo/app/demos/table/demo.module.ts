@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { NgModule } from '@angular/core';
 import { TableDemoComponent } from './demo.component';
-// import { VCLTableModule } from '@ng-vcl/ng-vcl';
+import { VCLTableModule } from '@ng-vcl/ng-vcl';
 
 export function demo() {
   return {
@@ -26,7 +26,7 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    // VCLTableModule,
+    VCLTableModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
