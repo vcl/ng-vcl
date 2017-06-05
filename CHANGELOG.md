@@ -58,9 +58,9 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
 - layer:
   - (BREAKING) Removed offClickClose option
   - (BREAKING) Use `VCLLayerModule.forRoot()` and `VCLLayerModule.forChild()` for imports
-  - (BREAKING) Moved LayerOptions from @Layer annotation to LayerRef class. Check docs for further information.
   - (BREAKING) Renamed `LayerWrapperComponent` to `LayerContainerComponent`
-  - Non-modal layers block background interaction and are closed on a background click
+  - Non-modal layers block background interaction and are closed on a background click  
+  - Support dynamic creation of component layers
 - radio-button:
   - (BREAKING) Removed VCLRadioGroupModule and reimplemented radio-group in VCLRadioButtonModule
   - (BREAKING) radio-group options must be declared via radio-buttons instead of using the options attribute. 
@@ -86,7 +86,8 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
 - vcl-month-picker:
   - renamed `@Input() minSelectableItems: number` to `@Input() minSelectableMonths: number`
   - renamed `@Input() maxSelectableItems: number` to `@Input() maxSelectableMonths: number`
-
+- alert
+  - introduce confirmAction
 
 ## 0.2.9 (2017-03-21)
 
