@@ -33,17 +33,19 @@ export abstract class NotificationLayer<T> extends LayerRef {
   }
 }
 
-@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTopRight', offClick: () => undefined })
+export function noop() {}
+
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTopRight', offClick: noop })
 export class NotificationLayerTopRight extends NotificationLayer<NotificationComponent> { reverse: true; }
-@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTop', offClick: () => undefined })
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTop', offClick: noop })
 export class NotificationLayerTop extends NotificationLayer<NotificationComponent> { reverse: true; }
-@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTopLeft', offClick: () => undefined })
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTopLeft', offClick: noop })
 export class NotificationLayerTopLeft extends NotificationLayer<NotificationComponent> { reverse: true; }
-@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottomRight', offClick: () => undefined })
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottomRight', offClick: noop })
 export class NotificationLayerBottomRight extends NotificationLayer<NotificationComponent> { reverse: false; }
-@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottom', offClick: () => undefined })
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottom', offClick: noop })
 export class NotificationLayerBottom extends NotificationLayer<NotificationComponent> { reverse: false; }
-@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottomLeft', offClick: () => undefined })
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottomLeft', offClick: noop })
 export class NotificationLayerBottomLeft extends NotificationLayer<NotificationComponent> { reverse: false; }
 
 
