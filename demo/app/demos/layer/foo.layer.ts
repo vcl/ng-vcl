@@ -20,7 +20,7 @@ export class FooComponent {
   }
 }
 
-@Layer(FooComponent)
-export class FooLayer extends LayerRef {
-  modal = true;
-}
+@Layer(FooComponent, {
+  modal: true
+})
+export class FooLayer extends LayerRef { }

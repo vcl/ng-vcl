@@ -1,82 +1,75 @@
-import { Injectable,  ApplicationRef, Injector } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/debounceTime';
+import { Injectable, Injector, TemplateRef, Type, ApplicationRef } from '@angular/core';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Wormhole, DomWormholeHost } from '../wormhole/index';
-import { LayerService } from './layer.service';
-import { LayerRef, LayerOptions, LayerAttributes } from './layer-ref';
-import { LayerContainerComponent } from './layer-container.component';
+import { LayerRef, DynamicLayerRef, LayerAttributes } from './layer-ref';
+import { LayerContainerComponent, LayerOptions } from './layer-container.component';
 
 @Injectable()
-export class LayerManagerService extends DomWormholeHost {
+export class LayerManagerService {
 
-  layerMap = new Map<LayerRef, {
-    subscription: Subscription;
-    wormhole: Wormhole;
-  }>();
-  sub: Subscription;
+  private layerWormholeMap = new Map<LayerRef, Wormhole>();
 
-  name: string = 'default';
+  baseZIndex: number = 1000;
+  visibleLayers: LayerRef[] = [];
 
-  constructor(private layerService: LayerService, appRef: ApplicationRef, private injector: Injector) {
-    super(appRef, undefined, injector);
-    this.sub = this.layerService
-                   .getLayers$(this.name)
-                   .subscribe(l => {
-                     if (l.register) {
-                       this.registerLayer(l.ref, l.injector);
-                     } else {
-                       this.unregisterLayer(l.ref);
-                     }
-                   });
+  private host: DomWormholeHost;
+
+  constructor(appRef: ApplicationRef, private injector: Injector) {
+    this.host = new DomWormholeHost(appRef, undefined, injector);
   }
 
-  registerLayer(layer: LayerRef, injector: Injector | undefined) {
-    const containerWormholeRef = this.createWormhole(LayerContainerComponent);
+  get currentZIndex() {
+    return this.baseZIndex + (this.visibleLayers.length * 10);
+  }
 
-    const layerSub = layer.state$.subscribe((state) => {
+  private addVisibleLayer(layer: LayerRef) {
+    this.visibleLayers = [...this.visibleLayers, layer];
+  }
+
+  private removeVisibleLayer(layer: LayerRef) {
+    this.visibleLayers = this.visibleLayers.filter(l => l !== layer);
+  }
+
+  _register(layerRef: LayerRef, target: TemplateRef<any> | Type<any>, injector: Injector, opts?: LayerOptions) {
+    const containerWormholeRef = this.host.createWormhole(LayerContainerComponent);
+    const layerSub = layerRef.state$.subscribe((state) => {
       if (state.visible && !containerWormholeRef.isConnected) {
         containerWormholeRef.connect({
-          layer,
-          zIndex: this.layerService.currentZIndex,
+          layerRef,
           layerAttrs: state.attrs,
-          injector:  injector || this.injector
+          layerOpts: opts || {},
+          layerTarget: target,
+          layerInjector: injector,
+          zIndex: this.currentZIndex,
         });
-        this.layerService.addVisibleLayer(layer);
+        this.addVisibleLayer(layerRef);
       } else if (state.visible) {
         containerWormholeRef.setAttributes({
           layerAttrs: state.attrs
         });
       } else {
-        if (containerWormholeRef.compRef && containerWormholeRef.compRef.instance) {
-          containerWormholeRef.compRef.instance.animateLeave().then(() => {
+        if (containerWormholeRef.compInstance) {
+          containerWormholeRef.compInstance.animateLeave().then(() => {
             containerWormholeRef.disconnect();
-            this.layerService.removeVisibleLayer(layer);
+            this.removeVisibleLayer(layerRef);
           });
         }
       }
     });
 
-    this.layerMap.set(layer, {
-      subscription: layerSub,
-      wormhole: containerWormholeRef
-    });
+    this.layerWormholeMap.set(layerRef, containerWormholeRef);
   }
 
-  unregisterLayer(layer: LayerRef) {
-    layer.close();
-    const meta = this.layerMap.get(layer);
-    if (meta) {
-      meta.subscription.unsubscribe();
-      meta.wormhole.disconnect();
+  _unregister(layer: LayerRef) {
+    const wormhole = this.layerWormholeMap.get(layer);
+    if (wormhole) {
+      wormhole.disconnect();
     }
-    this.layerMap.delete(layer);
+    this.layerWormholeMap.delete(layer);
   }
 
   ngOnDestroy() {
-    this.clearWormholes();
-    this.layerMap.forEach((meta, layer) => this.unregisterLayer(layer));
-    this.sub && this.sub.unsubscribe();
+    this.layerWormholeMap.forEach((meta, layer) => this._unregister(layer));
+    this.host.clearWormholes();
   }
 }

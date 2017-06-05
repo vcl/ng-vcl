@@ -7,44 +7,41 @@ export interface LayerAttributes {
   [key: string]: any;
 }
 
-export interface LayerOptions {
-  base?: string;
-  modal?: boolean;
-  transparent?: boolean;
-  fill?: boolean;
-  stickToBottom?: boolean;
-  gutterPadding?: boolean;
-  customClass?: string;
+export class LayerResult<T> extends Observable<T> {
+  constructor(public source: Observable<any>, private layerRef: LayerRef) {
+    super();
+  }
+
+  close(data?: any) {
+    this.layerRef.close();
+  }
+
+  closeWithError(data?: any) {
+    this.layerRef.closeWithError();
+  }
 }
 
-export abstract class LayerRef implements LayerOptions {
-
-  base: string = 'default';
-  modal: boolean = false;
-  transparent: boolean = false;
-  fill: boolean = false;
-  stickToBottom: boolean = false;
-  gutterPadding: boolean = false;
-  customClass?: string;
+export abstract class LayerRef {
 
   visible: boolean;
   attrs: LayerAttributes | undefined;
 
-  private results: Subject<any> | undefined;
   private stateChange = new Subject<{attrs?: LayerAttributes, visible: boolean}>();
-
   state$ = this.stateChange.asObservable();
 
-  open(attrs?: LayerAttributes): Observable<any> {
+  protected results: Subject<any> | undefined;
+
+  open(attrs?: LayerAttributes): LayerResult<any> {
     this.visible = true;
     this.attrs = attrs;
+
     this.stateChange.next({attrs, visible: true});
 
     if (this.results) {
       this.results.complete();
     }
     this.results = new Subject<any>();
-    return this.results.asObservable();
+    return new LayerResult(this.results, this);
   }
 
   close(data?: any) {
@@ -73,10 +70,23 @@ export abstract class LayerRef implements LayerOptions {
       this.results.next(data);
     }
   }
+}
 
-  offClick() {
-    if (!this.modal) {
-      this.close();
-    }
+export class DynamicLayerRef extends LayerRef {
+  constructor(private register: {(): void}, private unregister: {(): void}) { super(); }
+
+  open(attrs?: LayerAttributes): LayerResult<any> {
+    this.register();
+    return super.open(attrs);
+  }
+
+  close(data?: any) {
+    super.close(data);
+    this.unregister();
+  }
+
+  closeWithError(data?: any) {
+    super.closeWithError(data);
+    this.unregister();
   }
 }

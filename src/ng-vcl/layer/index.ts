@@ -1,14 +1,14 @@
 import { NgModule, APP_BOOTSTRAP_LISTENER, OnDestroy, Inject, Injectable, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider, OpaqueToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLWormholeModule } from '../wormhole/index';
-import { defineMetadata } from './../core/index';
+import { defineMetadata, getMetadata } from './../core/index';
 import { LayerManagerService } from './layer-manager.service';
 import { LayerService } from './layer.service';
-import { LayerRef, LayerAttributes } from './layer-ref';
-import { LayerContainerComponent, COMPONENT_LAYER_ANNOTATION_ID, LAYER_ANIMATIONS, LayerAnimationConfig } from './layer-container.component';
+import { LayerRef, LayerAttributes, DynamicLayerRef, LayerResult } from './layer-ref';
+import { LayerContainerComponent, COMPONENT_LAYER_ANNOTATION_ID, LAYER_ANIMATIONS, LayerAnimationConfig, LayerOptions, LayerMeta } from './layer-container.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
-export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerManagerService, LayerContainerComponent, LayerAnimationConfig, LAYER_ANIMATIONS };
+export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerContainerComponent, DynamicLayerRef, LayerAnimationConfig, LAYER_ANIMATIONS, LayerResult };
 
 export const LAYERS = new OpaqueToken('@ng-vcl/ng-vcl#layers');
 
@@ -21,10 +21,10 @@ export interface ChildLayerConfig {
 }
 
 // The @Layer annotation
-export function Layer<T>(component: Type<T>) {
+export function Layer<T>(component: Type<T>, opts?: LayerOptions) {
   return function (target) {
     Injectable()(target);
-    defineMetadata(COMPONENT_LAYER_ANNOTATION_ID, component, target);
+    defineMetadata(COMPONENT_LAYER_ANNOTATION_ID, {component, opts}, target);
   };
 }
 
@@ -58,6 +58,7 @@ export class VCLLayerModule {
     return {
       ngModule: VCLLayerModule,
       providers: [
+        LayerService,
         ...(config.layers || []),
         {
           provide: LAYERS,
@@ -69,14 +70,14 @@ export class VCLLayerModule {
 
   constructor(
     @Inject(LAYERS) private layers: Type<LayerRef>[],
-    private layerService: LayerService,
-    private layerManagerService: LayerManagerService,
+    private layerManager: LayerManagerService,
     private injector: Injector,
   ) {
     if (layers) {
       (layers || []).forEach(layerCls => {
-        const layerRef = this.injector.get(layerCls);
-        this.layerService.register(layerRef, injector);
+          const layerMeta = <LayerMeta> getMetadata(COMPONENT_LAYER_ANNOTATION_ID, layerCls);
+          const layerRef = injector.get(layerCls);
+          layerManager._register(layerRef, layerMeta.component, injector, layerMeta.opts);
       });
     }
   }

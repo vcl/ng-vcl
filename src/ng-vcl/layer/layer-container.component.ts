@@ -1,9 +1,8 @@
-import { Component, ChangeDetectionStrategy, ViewChild, Input, Injector, ViewContainerRef, ChangeDetectorRef, ReflectiveInjector, Type, ElementRef, Optional, OpaqueToken, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, Input, Injector, ViewContainerRef, ChangeDetectorRef, ReflectiveInjector, Type, ElementRef, TemplateRef, OpaqueToken, Optional, Inject } from '@angular/core';
 import { trigger, AnimationFactory, AnimationBuilder, AnimationMetadata } from '@angular/animations';
-
 import { Wormhole, ComponentWormhole, TemplateWormhole } from '../wormhole/index';
 import { getMetadata } from './../core/index';
-import { LayerRef, LayerOptions, LayerAttributes } from './layer-ref';
+import { LayerRef, LayerAttributes } from './layer-ref';
 import { LayerRefDirective } from './layer-ref.directive';
 import { Observable } from "rxjs/Observable";
 
@@ -17,8 +16,24 @@ export interface LayerAnimationConfig {
   coverLeave?: AnimationMetadata | AnimationMetadata[];
 }
 
+export interface LayerMeta {
+  component: Type<any>;
+  opts: LayerOptions;
+}
+
+export interface LayerOptions {
+  modal?: boolean;
+  transparent?: boolean;
+  fill?: boolean;
+  stickToBottom?: boolean;
+  gutterPadding?: boolean;
+  customClass?: string;
+  offClick?: { (layerRef: LayerRef): void };
+  attrs?: LayerAttributes;
+}
+
 @Component({
-  templateUrl: 'layer-container.component.html'
+  templateUrl: 'layer-container.component.html',
 })
 export class LayerContainerComponent {
 
@@ -32,32 +47,32 @@ export class LayerContainerComponent {
   box: ElementRef;
 
   @Input()
-  layer: LayerRef;
+  layerRef: LayerRef;
+
+  @Input()
+  layerOpts: LayerOptions;
+
+  @Input()
+  layerTarget: TemplateRef<any> | Type<any>;
+
+  @Input()
+  layerInjector: any;
 
   @Input()
   set layerAttrs(layerAttrs: LayerAttributes) {
     this._layerAttrs = layerAttrs;
     if (this.wormhole && this.wormhole instanceof ComponentWormhole) {
-      this.wormhole.setAttributes(layerAttrs);
+      this.wormhole.setAttributes(this.mergedLayerAttrs);
     }
-  }
-  get layerAttrs() {
-    return this._layerAttrs;
   }
   _layerAttrs: LayerAttributes;
 
+  get mergedLayerAttrs() {
+    return this.layerOpts.attrs ? Object.assign({}, this.layerOpts.attrs, this._layerAttrs) : this._layerAttrs;
+  }
+
   @Input()
   zIndex = 1000;
-
-  @Input()
-  injector: any;
-
-  @Input()
-  visible: boolean = false;
-
-  get state() {
-    return this.visible ? 'visible' : 'hidden';
-  }
 
   wormhole: Wormhole | undefined;
 
@@ -90,30 +105,28 @@ export class LayerContainerComponent {
   }
 
   ngAfterViewInit() {
-    const layer = this.layer;
+    const layer = this.layerRef;
     if (layer && this.layerContentContainer) {
-
       // Creates a wormhole out of the LayerRef
-      if (this.layer instanceof LayerRefDirective) {
-        this.wormhole = new TemplateWormhole(this.layer.templateRef, this.layerContentContainer);
+      if (this.layerTarget instanceof TemplateRef) {
+        this.wormhole = new TemplateWormhole(this.layerTarget, this.layerContentContainer);
       } else {
-        const component =  getMetadata(COMPONENT_LAYER_ANNOTATION_ID, (this.layer as any).constructor ) as Type<any>;
 
         // The created injector injects this instance as LayerRef
         // It is used in the component instance created within the wormhole
         const layerInjector = ReflectiveInjector.resolveAndCreate([{
           provide: LayerRef,
-          useValue: this.layer
-        }], this.injector);
+          useValue: this.layerRef
+        }], this.layerInjector);
 
-        this.wormhole = component ? new ComponentWormhole(component, this.layerContentContainer, layerInjector) : undefined;
+        this.wormhole = new ComponentWormhole(this.layerTarget, this.layerContentContainer, layerInjector);
       }
 
       if (!this.wormhole) {
         throw 'invalid layer';
       }
 
-      this.wormhole.connect(this._layerAttrs);
+      this.wormhole.connect(this.mergedLayerAttrs);
       if (this.boxEnterAnimationFactory && this.box) {
         this.boxEnterAnimationFactory.create(this.box.nativeElement).play();
       }
@@ -159,7 +172,13 @@ export class LayerContainerComponent {
 
   triggerOffClick(event) {
     if (event.target === this.container.nativeElement) {
-      this.layer.offClick();
+      if (this.layerOpts.offClick) {
+        this.layerOpts.offClick(this.layerRef);
+      } else {
+        if (!this.layerOpts.modal) {
+          this.layerRef.close();
+        }
+      }
     }
   }
 }

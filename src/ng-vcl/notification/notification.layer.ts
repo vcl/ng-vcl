@@ -8,7 +8,6 @@ import { NotificationOptions, NotificationPosition } from './types';
 import { Notification } from './notification';
 
 export abstract class NotificationLayer<T> extends LayerRef {
-  transparent = true;
   abstract reverse: boolean;
 
   notifications: Notification[] = [];
@@ -28,44 +27,23 @@ export abstract class NotificationLayer<T> extends LayerRef {
     this.notifications = this.notifications.filter(g => g !== notification);
     if (this.notifications.length === 0) {
       this.close();
-      // this.open({ notifications: this.notifications });
     } else {
       this.open({ notifications: this.notifications });
     }
   }
-
-  offClick() {
-
-  }
 }
 
-@Layer(NotificationComponent)
-export class NotificationLayerTopRight extends NotificationLayer<NotificationComponent> {
-  customClass = 'vclLayerNotificationTopRight';
-  reverse = true;
-}
-@Layer(NotificationComponent)
-export class NotificationLayerTop extends NotificationLayer<NotificationComponent> {
-  customClass: 'vclLayerNotificationTop';
-  reverse = true;
-}
-@Layer(NotificationComponent)
-export class NotificationLayerTopLeft extends NotificationLayer<NotificationComponent> {
-  customClass = 'vclLayerNotificationTopLeft';
-  reverse = true;
-}
-@Layer(NotificationComponent)
-export class NotificationLayerBottomRight extends NotificationLayer<NotificationComponent> {
-  customClass = 'vclLayerNotificationBottomRight';
-  reverse = false;
-}
-@Layer(NotificationComponent)
-export class NotificationLayerBottom extends NotificationLayer<NotificationComponent> {
-  customClass = 'vclLayerNotificationBottom';
-  reverse = false;
-}
-@Layer(NotificationComponent)
-export class NotificationLayerBottomLeft extends NotificationLayer<NotificationComponent> {
-  customClass = 'vclLayerNotificationBottomLeft';
-  reverse = false;
-}
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTopRight', offClick: () => undefined })
+export class NotificationLayerTopRight extends NotificationLayer<NotificationComponent> { reverse: true; }
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTop', offClick: () => undefined })
+export class NotificationLayerTop extends NotificationLayer<NotificationComponent> { reverse: true; }
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationTopLeft', offClick: () => undefined })
+export class NotificationLayerTopLeft extends NotificationLayer<NotificationComponent> { reverse: true; }
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottomRight', offClick: () => undefined })
+export class NotificationLayerBottomRight extends NotificationLayer<NotificationComponent> { reverse: false; }
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottom', offClick: () => undefined })
+export class NotificationLayerBottom extends NotificationLayer<NotificationComponent> { reverse: false; }
+@Layer(NotificationComponent, { transparent: true, customClass: 'vclLayerNotificationBottomLeft', offClick: () => undefined })
+export class NotificationLayerBottomLeft extends NotificationLayer<NotificationComponent> { reverse: false; }
+
+

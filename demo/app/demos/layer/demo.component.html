@@ -3,7 +3,8 @@ Press escape to close the top layer<br><br>
 <button vcl-button (tap)="layerNonModal.open()" label="open non-modal layer per reference"></button>
 <button vcl-button (tap)="layerModal.open()" label="open modal layer per reference"></button>
 <button vcl-button (tap)="openLayer()" label="open layer programmatically"></button>
-<button vcl-button (tap)="openFooLayer()" label="open component layer"></button>
+<button vcl-button (tap)="openFooLayer()" label="open FooComponent layer"></button>
+<button vcl-button (tap)="openDynamicFooLayer()" label="open dynamic FooComponent layer"></button>
 
 <ng-template vcl-layer #layerNonModal="layer" [modal]="false">
   <div class="vclPanel vclNoMargin">

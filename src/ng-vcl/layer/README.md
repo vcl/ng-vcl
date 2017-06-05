@@ -50,12 +50,11 @@ export class MyComponent {
 }
 
 // This is the reference class of the layer
-@Layer(MyComponent) // The component for the layer
-export class MyLayer extends LayerRef { 
-  modal = true; // modal options
+@Layer(MyComponent, {
   // See vcl-layer attributes below for more options
-  ...
-}
+  modal: true; // modal options
+}) 
+export class MyLayer extends LayerRef { ... }
 ```
 
 A component layer must be registered.
