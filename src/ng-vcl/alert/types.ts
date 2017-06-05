@@ -1,3 +1,5 @@
+import { Observable } from "rxjs/Observable";
+
 export enum AlertType {
   None,
   Question,
@@ -49,6 +51,7 @@ export interface AlertOptions {
   titleAlignment?: AlertAlignment;
   iconAlignment?: AlertAlignment;
   buttonAlignment?: AlertAlignment;
+  confirmAction?: Function | Observable<any>;
 }
 
 export const ALERT_DEFAULTS: AlertOptions = {

@@ -2,12 +2,15 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable, Inject, ComponentRef } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
-import { AlertLayer } from './alert.component';
+import { AlertComponent } from './alert.component';
+import { LayerService, LayerRef, LayerResult } from "@ng-vcl/ng-vcl";
 
 @Injectable()
 export class AlertService {
 
-  constructor(private alertLayerRef: AlertLayer) { }
+  constructor(private ls: LayerService) { }
+
+  currentLayer: LayerRef | undefined;
 
   alert(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text }, opts);
@@ -33,13 +36,17 @@ export class AlertService {
     return this.open({ text, type: AlertType.Question, showCancelButton: true }, opts);
   }
 
-  open(...opts: AlertOptions[]): Observable<AlertResult> {
-    const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
-    return this.alertLayerRef.open({alert});
+  open(...opts: AlertOptions[]): LayerResult<AlertResult> {
+    return this.create(...opts).open();
   }
 
-  close() {
-    this.alertLayerRef.close();
+  create(...opts: AlertOptions[]) {
+    const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
+    return this.ls.create(AlertComponent, {
+      modal: true,
+      transparent: true,
+      attrs: {alert}
+    });
   }
 
   noop = () => {};

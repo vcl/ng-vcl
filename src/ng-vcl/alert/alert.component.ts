@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { LayerRef, LayerService, Layer } from './../layer/index';
 import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
+import { Observable } from "rxjs/Observable";
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -10,11 +11,9 @@ import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlig
 })
 export class AlertComponent {
 
-  constructor(@Inject(forwardRef(() => AlertLayer)) alertLayer: AlertLayer, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
+  constructor(private alertLayer: LayerRef, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
     this.alertLayer = alertLayer;
    }
-
-  alertLayer: AlertLayer;
 
   @Input()
   alert: AlertOptions = {};
@@ -27,7 +26,7 @@ export class AlertComponent {
     // Check if the top layer is the alert layer
     if (this.layerService.getTopLayer() === this.alertLayer) {
       if (ev.key === 'Escape' && this.alert.escClose) {
-        this.alertLayer.dismiss('esc');
+        this.dismiss('esc');
       } else if (ev.key === 'Enter') {
         this.confirm();
       }
@@ -58,6 +57,10 @@ export class AlertComponent {
     return BUTTON_ALIGNMENT_CLASS_MAP[this.alert.buttonAlignment || AlertAlignment.Right];
   }
 
+  dismiss(reason: string) {
+    this.alertLayer.closeWithError(new AlertError(reason));
+  }
+
   confirm() {
     if (this.alert.loader) return;
 
@@ -80,47 +83,37 @@ export class AlertComponent {
       }
     }
 
-    if (this.alert.loaderOnConfirm) {
+    if (this.alert.confirmAction) {
       this.alert.loader = true;
       this.cdRef.markForCheck();
-      this.alertLayer.send(result);
-    } else  {
-      this.alertLayer.close(result);
+      const $ = Observable.from(typeof this.alert.confirmAction === 'function' ? this.alert.confirmAction(result) : this.alert.confirmAction);
+      $.subscribe(value => {
+        let asyncResult: AlertResult = {};
+        asyncResult.value = value;
+        this.alertLayer.close(asyncResult);
+      }, err => {
+        this.dismiss(err);
+      });
+    } else {
+      if (this.alert.loaderOnConfirm) {
+        this.alert.loader = true;
+        this.cdRef.markForCheck();
+        this.alertLayer.send(result);
+      } else  {
+        this.alertLayer.close(result);
+      }
     }
   }
 
   cancel(reason: string ) {
-    this.alertLayer.dismiss('cancel');
-  }
-
-  offClick() {
+    this.dismiss('cancel');
   }
 
   close(reason: string ) {
-    this.alertLayer.dismiss('close');
+    this.dismiss('close');
   }
 
   valueChange(value: any) {
     this.value = value;
-  }
-}
-
-@Layer(AlertComponent)
-export class AlertLayer extends LayerRef {
-  modal = true;
-  transparent = true;
-
-  dismiss(reason: string) {
-    this.closeWithError(new AlertError(reason));
-  }
-
-  get alert(): AlertOptions {
-    return (this.attrs && this.attrs['alert']) || {};
-  }
-
-  offClick() {
-    if (this.alert.offClickClose) {
-      this.dismiss('offClick');
-    }
   }
 }

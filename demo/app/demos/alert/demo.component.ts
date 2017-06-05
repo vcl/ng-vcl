@@ -114,21 +114,17 @@ export class AlertDemoComponent {
   }
 
   async() {
-    this.alert
-        .open({
-          text: 'Determine your user agent?',
-          loaderOnConfirm: true,
-          showCancelButton: true
-        })
-        .switchMap(result => {
-          return async(window.navigator.userAgent, false);
-        }).subscribe(ip => {
-          this.alert.info(ip, {
-            title: 'Your user agent'
-          });
-        }, err => {
-          this.alert.error('Could not determine user agent');
-        });
+    this.alert.open({
+      text: 'Determine your user agent?',
+      confirmAction: async(window.navigator.userAgent, false),
+      showCancelButton: true
+    }).subscribe(result => {
+      this.alert.info(result.value, {
+        title: 'Your user agent'
+      });
+    }, err => {
+      this.alert.error('Could not determine user agent');
+    });
   }
 
   inputText() {
@@ -151,29 +147,28 @@ export class AlertDemoComponent {
     // Fail 2 times
     let fails = 0;
     const fakeAsync = async(new Date().toLocaleTimeString(), () => {
-      fails++;
-      return fails <= 2;
+      return ++fails <= 2;
     });
 
-    this.alert
-        .open({
-          text: 'Show current time? (Fails twice)',
-          loaderOnConfirm: true,
-          showCancelButton: true
-        })
-        .switchMap(result => {
+    const timeAlert = this.alert.open({
+      text: 'Show current time? (Fails twice)',
+      loaderOnConfirm: true,
+      showCancelButton: true
+    });
+
+    timeAlert.switchMap(result => {
           return fakeAsync.retryWhen(errors => {
             return errors.switchMap(err => {
               return this.alert.open({
                 text: 'Retry?',
                 type: AlertType.Warning,
                 showCancelButton: true,
-                loaderOnConfirm: true,
               });
             });
           });
         })
         .subscribe(time => {
+          timeAlert.close();
           this.alert.info(time, 'Time');
         }, err => {
           this.alert.error(String(err ? err.reason : err), 'Error');

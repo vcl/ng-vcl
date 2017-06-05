@@ -5,7 +5,7 @@ import { VCLIcogramModule } from './../icogram/index';
 import { VCLButtonModule } from './../button/index';
 import { VCLLayerModule } from './../layer/index';
 import { VCLInputModule } from './../input/index';
-import { AlertComponent, AlertLayer } from './alert.component';
+import { AlertComponent } from './alert.component';
 import { AlertInputComponent } from './alert-input.component';
 import { AlertService } from './alert.service';
 import { AlertType, AlertError, AlertInput, AlertAlignment } from './types';
@@ -19,7 +19,7 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
     VCLButtonModule,
     VCLInputModule,
     VCLIcogramModule,
-    VCLLayerModule.forChild({layers: [AlertLayer]})
+    VCLLayerModule.forChild({layers: []})
   ],
   exports: [],
   declarations: [ AlertComponent, AlertInputComponent ],
