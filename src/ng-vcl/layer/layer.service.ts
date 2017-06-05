@@ -31,7 +31,7 @@ export class LayerService {
     }
   }
 
-  create(component: Type<any>, opts?: LayerOptions) {
+  create(component: Type<any>, opts?: LayerOptions): LayerRef {
     const layerRef = new DynamicLayerRef(() => {
       this.layerManager._register(layerRef, component, this.injector, opts);
     }, () => {
