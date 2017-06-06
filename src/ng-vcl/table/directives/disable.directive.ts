@@ -1,7 +1,7 @@
 /*
-Row and cell selection
+Disabled rows
 
-Individual cells and thus rows can be visually selected using the vclSelected class.
+Rows can be visually disabled with the vclDisabled modifier.
 */
 
 import {
@@ -11,11 +11,10 @@ import {
 import { TableService } from '../services/table.service';
 
 @Directive({
-  selector: '[selected]'
+  selector: '[disabled]'
 })
-export class SelectDirective implements OnChanges {
-
-  @Input('selected') selected: boolean | '';
+export class DisableDirective implements OnChanges {
+  @Input('disabled') disabled: boolean | '';
   tableService: TableService;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {
@@ -23,9 +22,8 @@ export class SelectDirective implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.selected) {
-      this.selected = this.tableService.ClassToggle('vclSelected', this.selected, 'tr');
+    if (changes.disabled) {
+      this.disabled = this.tableService.ClassToggle('vclDisabled', this.disabled, 'tr');
     }
   }
 }
-

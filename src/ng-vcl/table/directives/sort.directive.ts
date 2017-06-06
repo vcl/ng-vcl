@@ -10,47 +10,60 @@ by a respective icon and the classes vclSortAsc or vclSortDesc on the th element
 */
 
 import {
-  Directive, ElementRef, Renderer2, AfterContentInit,
-  EventEmitter, Output, HostListener
+  Directive, ElementRef, Renderer2, AfterContentInit, OnInit,
+  EventEmitter, Output, HostListener,
+  ComponentFactoryResolver, ViewContainerRef, ComponentRef
 } from '@angular/core';
+import { SortIconComponent } from '../components/sorticon.component';
+import { TableService } from '../services/table.service';
 
 @Directive({
   selector: '[sort]',
 })
-export class SortDirective {
+export class SortDirective implements OnInit {
 
-  @Output() change: EventEmitter<'asc' | 'desc'> = new EventEmitter<'asc' | 'desc'>();
+  @Output() change: EventEmitter<-1 | 0 | 1> = new EventEmitter<-1 | 0 | 1>();
 
   isHeader: boolean = false;
-  order: 'asc' | 'desc';
+  order: -1 | 0 | 1;
+  sortIconComponent: SortIconComponent;
+  tableService: TableService;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {
-    if (this.isHeader = el.nativeElement.localName == "th") {
-      renderer.addClass(el.nativeElement, 'vclSortableCol');
-      renderer.addClass(el.nativeElement, 'vclClearFix');
-    } else {
-      console.error('Column sortability can be used only on table header!');
-    }
+  constructor(private renderer: Renderer2,
+    private el: ElementRef,
+    private resolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef) {
+    this.tableService = new TableService(renderer, el);
+    this.tableService.ClassToggle('vclSortableCol', true, 'th');
+    this.tableService.ClassToggle('vclClearFix', true, 'th');
+  }
+
+  ngOnInit() {
+   // const factory = this.resolver.resolveComponentFactory(SortIconComponent);
+   // this.sortIconComponent = this.viewContainerRef.createComponent(factory).instance;
   }
 
   @HostListener('click')
   OnChangeOrder(): void {
     if (this.isHeader) {
-      this.order = this.order == 'asc' ? 'desc' : 'asc';
+      this.order = this.order == 1 ? -1 : 1;
       this.change.emit(this.order);
       switch (this.order) {
-        case 'asc': {
+        case 1: {
           this.renderer.removeClass(this.el.nativeElement, 'vclClearFix');
           this.renderer.removeClass(this.el.nativeElement, 'vclSortDesc');
           this.renderer.addClass(this.el.nativeElement, 'vclSortAsc');
+          this.sortIconComponent.sort = 1;
           break;
         }
-        case 'desc': {
+        case -1: {
           this.renderer.removeClass(this.el.nativeElement, 'vclSortAsc');
           this.renderer.addClass(this.el.nativeElement, 'vclSortDesc');
+          this.sortIconComponent.sort = -1;
           break;
         }
       }
+
     }
   }
 

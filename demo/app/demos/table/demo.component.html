@@ -1,13 +1,11 @@
-<table class="vclTable vclFixed vclAltRowColor vclVAlignMiddle vclRowHoverHighlight" role="listbox">
+<table hover altrow vertical-border align-middle fixed role="listbox">
   <thead>
     <tr>
       <th [span]="50" sort tabindex="0" role="button">
-        <span class="vclFloatLeft">Default Column</span>
-        <div class="vclFloatRight vclIcon fa fa-sort"></div>
+        <span>Default Column</span>
       </th>
       <th [span]="20" sort tabindex="0" role="button">
-        <span class="vclFloatLeft">Right aligned Column</span>
-        <div class="vclFloatRight vclIcon fa fa-sort-up"></div>
+        <span>Right aligned Column</span>
       </th>
       <th [span]="20">
         <span>Centered Column</span>
@@ -19,39 +17,43 @@
   <tbody>
     <tr>
       <td>Lorem ipsum</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered">Sent</td>
-      <td class="vclAlignCentered"></td>
+      <td [align-right]="true">11.000</td>
+      <td align-center>Sent</td>
+      <td align-center></td>
     </tr>
     <tr>
-      <td><a href="#vclTable0">Lorem ipsum dolor sit amet</a>, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered">Sent</td>
-      <td class="vclAlignCentered"></td>
+      <td nowrap><a href="#vclTable0">Lorem ipsum dolor sit amet</a>, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+        ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+      <td [align-right]="true">11.000</td>
+      <td align-center>Sent</td>
+      <td align-center></td>
     </tr>
     <tr>
-      <td class="vclOverflowEllipsis">Truncated content. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td hightlight class="vclAlignCentered">N/A</td>
-      <td class="vclAlignCentered"></td>
+      <td overflow-ellipsis>Truncated content. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+        ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>N/A</td>
+      <td align-center></td>
     </tr>
-    <tr class="vclDisabled">
+    <tr disabled>
       <td>Disabled row.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td hightlight class="vclAlignCentered">On hold</td>
-      <td class="vclAlignCentered"></td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>On hold</td>
+      <td align-center></td>
     </tr>
-    <tr [selected]="true">
+    <tr selectable [selected]="true">
       <td>Selected row.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td hightlight class="vclAlignCentered">N/A</td>
-      <td class="vclAlignCentered"></td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>N/A</td>
+      <td align-center></td>
     </tr>
     <tr>
       <td>Normal row.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td hightlight class="vclAlignCentered">On hold</td>
-      <td class="vclAlignCentered"></td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>On hold</td>
+      <td align-center></td>
     </tr>
   </tbody>
 </table>
