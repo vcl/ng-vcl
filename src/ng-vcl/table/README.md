@@ -1,10 +1,25 @@
-# vcl-tab-nav
+# vcl-table
 Display tabular data.
 
-## Features
+## Usage
 
-The following basic aspects of table formatting are supported
-through directives:
+You can simply add directive to necessary element
+```html
+<table hover>
+...
+</table>
+```
+
+or pass parameter to toggle it behavior
+```html
+<table [hover]="true">
+...
+  <th [span]="10"></th>
+...
+</table>
+```
+
+## Features
 
 
 | Selector             | Type        | Default    | Description|
