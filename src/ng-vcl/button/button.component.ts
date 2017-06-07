@@ -22,9 +22,6 @@ export class ButtonComponent extends ObservableComponent {
   private latestInteractionTime: number = 0;
   private latestInteractionType: InteractionType;
 
-  pressed: boolean = false; // `true` if a pointer device is conducting a `down` gesture on the button
-  focused: boolean = false; // `true` if the element is focused  (CSS' :focus)
-
   @HostBinding('class.vclHovered')
   hovered: boolean = false; // `true` if a pointer device is hovering the button (CSS' :hover)
 
@@ -118,18 +115,6 @@ export class ButtonComponent extends ObservableComponent {
 
   @HostListener('mouseleave', ['$event'])
   onMouseLeave(e) { this.hovered = false; }
-
-  @HostListener('mouseup', ['$event'])
-  onMouseUp(e) { this.pressed = false; }
-
-  @HostListener('mousedown', ['$event'])
-  onMouseDown(e) { this.pressed = true; }
-
-  @HostListener('onfocus', ['$event'])
-  onFocus(e) { this.focused = true; }
-
-  @HostListener('onblur', ['$event'])
-  onBlur(e) { this.focused = false; }
 
   @HostListener('tap', ['$event'])
   onTap(e: Event) {
