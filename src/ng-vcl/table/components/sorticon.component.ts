@@ -13,7 +13,7 @@ export class SortIconComponent {
     private element: ElementRef) { }
   @Input() public sort: -1 | 0 | 1;
 
-  private faIcon: 'fa-sort' | 'fa-sort-up' | 'fa-sort-down' = 'fa-sort';
+  public faIcon: 'fa-sort' | 'fa-sort-up' | 'fa-sort-down' = 'fa-sort';
 
   public ChangeSortOrder(order: -1 | 0 | 1): void {
     switch (order) {
