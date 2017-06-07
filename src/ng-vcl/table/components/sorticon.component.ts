@@ -1,35 +1,34 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, Input, Inject, ChangeDetectionStrategy, SimpleChanges, ElementRef
+} from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'sort-icon',
-  template: `<div class="vclFloatRight vclIcon fa {{faIcon}}"></div>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: `<div class="vclFloatRight vclIcon fa {{faIcon}}"></div>`
 })
-export class SortIconComponent implements OnChanges {
+export class SortIconComponent {
 
+  constructor( @Inject(DOCUMENT) private document: any,
+    private element: ElementRef) { }
   @Input() public sort: -1 | 0 | 1;
+
   private faIcon: 'fa-sort' | 'fa-sort-up' | 'fa-sort-down' = 'fa-sort';
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.sort) {
-      switch (this.sort) {
-        case -1: {
-          this.faIcon = 'fa-sort-down';
-          break;
-        }
-        case 1: {
-          this.faIcon = 'fa-sort-up';
-          break;
-        }
-        case 0: {
-          this.faIcon = 'fa-sort';
-          break;
-        }
-        default: {
-          console.error('Invalid sort value!');
-        }
+  public ChangeSortOrder(order: -1 | 0 | 1): void {
+    switch (order) {
+      case 1: {
+        this.faIcon = 'fa-sort-up';
+        break;
       }
-
+      case -1: {
+        this.faIcon = 'fa-sort-down';
+        break;
+      }
+      default: {
+        this.faIcon = 'fa-sort';
+        break;
+      }
     }
   }
 

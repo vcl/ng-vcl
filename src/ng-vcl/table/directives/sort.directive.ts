@@ -11,36 +11,29 @@ by a respective icon and the classes vclSortAsc or vclSortDesc on the th element
 
 import {
   Directive, ElementRef, Renderer2, AfterContentInit, OnInit,
-  EventEmitter, Output, HostListener,
-  ComponentFactoryResolver, ViewContainerRef, ComponentRef
+  EventEmitter, Output, HostListener, ContentChild
 } from '@angular/core';
 import { SortIconComponent } from '../components/sorticon.component';
 import { TableService } from '../services/table.service';
 
 @Directive({
   selector: '[sort]',
+  exportAs: 'sort-directive'
 })
-export class SortDirective implements OnInit {
-
+export class SortDirective {
+  @ContentChild(SortIconComponent) sortIconComponent: SortIconComponent;
   @Output() change: EventEmitter<-1 | 0 | 1> = new EventEmitter<-1 | 0 | 1>();
 
   isHeader: boolean = false;
   order: -1 | 0 | 1;
-  sortIconComponent: SortIconComponent;
   tableService: TableService;
 
   constructor(private renderer: Renderer2,
-    private el: ElementRef,
-    private resolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef) {
+    private el: ElementRef) {
     this.tableService = new TableService(renderer, el);
-    this.tableService.ClassToggle('vclSortableCol', true, 'th');
-    this.tableService.ClassToggle('vclClearFix', true, 'th');
-  }
-
-  ngOnInit() {
-   // const factory = this.resolver.resolveComponentFactory(SortIconComponent);
-   // this.sortIconComponent = this.viewContainerRef.createComponent(factory).instance;
+    this.isHeader =
+      this.tableService.ClassToggle('vclSortableCol', true, 'th') &&
+      this.tableService.ClassToggle('vclClearFix', true, 'th');
   }
 
   @HostListener('click')
@@ -53,17 +46,20 @@ export class SortDirective implements OnInit {
           this.renderer.removeClass(this.el.nativeElement, 'vclClearFix');
           this.renderer.removeClass(this.el.nativeElement, 'vclSortDesc');
           this.renderer.addClass(this.el.nativeElement, 'vclSortAsc');
-          this.sortIconComponent.sort = 1;
+          if (this.sortIconComponent) {
+            this.sortIconComponent.ChangeSortOrder(1);
+          }
           break;
         }
         case -1: {
           this.renderer.removeClass(this.el.nativeElement, 'vclSortAsc');
           this.renderer.addClass(this.el.nativeElement, 'vclSortDesc');
-          this.sortIconComponent.sort = -1;
+          if (this.sortIconComponent) {
+            this.sortIconComponent.ChangeSortOrder(-1);
+          }
           break;
         }
       }
-
     }
   }
 
