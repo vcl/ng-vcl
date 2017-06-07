@@ -10,6 +10,10 @@ export function demo() {
     label: 'Tooltip',
     tabs: {
       Demo: ToolTipDemoComponent,
+      'README.md': {
+        type: 'md',
+        content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/ng-vcl/tooltip/README.md")
+      },
       'demo.component.html': {
         type: 'pre',
         content: require("!highlight-loader?raw=true&lang=html!./demo.component.html")
