@@ -1,57 +1,63 @@
-<table class="vclTable vclFixed vclAltRowColor vclVAlignMiddle vclRowHoverHighlight" role="listbox">
+<table vcl-table hover altrow vertical-border align-middle fixed>
   <thead>
     <tr>
-      <th class="vclSpan-50p vclSortableCol vclClearFix" tabindex="0" role="button">
-        <span class="vclFloatLeft">Default Column</span>
-        <div class="vclFloatRight vclIcon fa fa-sort"></div>
+      <th [span]="50" sort (change)="OnSortingDefaultColumn($event)">
+        <span>Default Column ({{defaultColumnSortName}})</span>
+        <sort-icon></sort-icon>
       </th>
-      <th class="vclSpan-20p vclSortableCol vclSortAsc" tabindex="0" role="button">
-        <span class="vclFloatLeft">Right aligned Column</span>
-        <div class="vclFloatRight vclIcon fa fa-sort-up"></div>
+      <th [span]="20" sort>
+        <span>Right aligned Column</span>
+        <sort-icon></sort-icon>
       </th>
-      <th class="vclSpan-20p">
+      <th [span]="20">
         <span>Centered Column</span>
       </th>
-      <th class="vclSpan-10p">
+      <th [span]="10">
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Lorem ipsum</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered vclCellHighlight">Sent</td>
-      <td class="vclAlignCentered"></td>
+      <td [align-right]="true">11.000</td>
+      <td align-center>Sent</td>
+      <td align-center></td>
     </tr>
     <tr>
-      <td><a href="#vclTable0">Lorem ipsum dolor sit amet</a>, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered vclCellHighlight">Sent</td>
-      <td class="vclAlignCentered"></td>
+      <td nowrap>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+        voluptua.</td>
+      <td [align-right]="true">11.000</td>
+      <td align-center>Sent</td>
+      <td align-center></td>
     </tr>
     <tr>
-      <td class="vclOverflowEllipsis">Truncated content. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered vclCellHighlight">N/A</td>
-      <td class="vclAlignCentered"></td>
+      <td [overflow-ellipsis]="readMore"><a *ngIf="readMore" (click)="readMore = false">Read more</a> Truncated content. Lorem ipsum dolor sit amet, consetetur
+        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+        At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+        ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+        ut labore et dolore magna aliquyam erat, sed diam voluptua.
+      </td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>N/A</td>
+      <td align-center></td>
     </tr>
-    <tr class="vclDisabled">
+    <tr disabled>
       <td>Disabled row.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered vclCellHighlight">On hold</td>
-      <td class="vclAlignCentered"></td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>On hold</td>
+      <td align-center></td>
     </tr>
-    <tr class="vclSelected">
-      <td>Selected row.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered vclCellHighlight">N/A</td>
-      <td class="vclAlignCentered"></td>
+    <tr selectable (click)="isSelected = !isSelected" [selected]="isSelected">
+      <td>Click to unselect</td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>N/A</td>
+      <td align-center></td>
     </tr>
     <tr>
       <td>Normal row.</td>
-      <td class="vclAlignRight">11.000</td>
-      <td class="vclAlignCentered vclCellHighlight">On hold</td>
-      <td class="vclAlignCentered"></td>
+      <td [align-right]="true">11.000</td>
+      <td hightlight align-center>On hold</td>
+      <td align-center></td>
     </tr>
   </tbody>
 </table>

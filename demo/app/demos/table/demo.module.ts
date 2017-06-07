@@ -3,13 +3,17 @@ import { CommonModule } from '@angular/common';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { NgModule } from '@angular/core';
 import { TableDemoComponent } from './demo.component';
-// import { VCLTableModule } from '@ng-vcl/ng-vcl';
+import { VCLTableModule } from '@ng-vcl/ng-vcl';
 
 export function demo() {
   return {
     label: 'Table',
     tabs: {
       Demo: TableDemoComponent,
+      'README.md': {
+        type: 'md',
+        content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/ng-vcl/table/README.md")
+      },
       'demo.component.html': {
         type: 'pre',
         content: require("!highlight-loader?raw=true&lang=html!./demo.component.html")
@@ -26,7 +30,7 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    // VCLTableModule,
+    VCLTableModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
