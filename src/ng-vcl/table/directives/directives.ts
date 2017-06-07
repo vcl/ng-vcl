@@ -1,3 +1,4 @@
+import { VclTableDirective } from './vcltable.directive';
 import { SpanDirective } from './span.directive';
 import { HighlightDirective } from './highlight.directive';
 import { SortDirective } from './sort.directive';
@@ -20,6 +21,7 @@ import { OverflowEllipsisDirective } from './overflowellipsis.directive';
 import { BreakingWordsDirective } from './breakingwords.directive';
 
 export let directives: any[] = [
+  VclTableDirective,
   SpanDirective,
   HighlightDirective,
   SortDirective,
