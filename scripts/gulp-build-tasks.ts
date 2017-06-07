@@ -88,8 +88,8 @@ export function ngVCLCompatibility(pkg: string) {
 
   // Rename ng-vcl-compatibility specific files
   const renameFiles = function (path) {
-    if (path.dirname.indexOf('.compatibility') >= 0) {
-      path.dirname = path.dirname.replace('.compatibility', '');
+    if (path.basename.indexOf('.compatibility') >= 0) {
+      path.basename = path.basename.replace('.compatibility', '');
       replacedFiles.push(path.dirname + path.basename + path.extname);
     } else if (replacedFiles.indexOf(path.dirname + path.basename + path.extname) >= 0) {
       path.basename = path.basename + '-replaced';

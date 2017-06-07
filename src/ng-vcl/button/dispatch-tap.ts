@@ -1,6 +1,5 @@
 function dispatch(el: HTMLButtonElement, eventType) {
   const x = 10, y = 10;
-
   const msEventType = (<any> window).MSPointerEvent &&
                       eventType.replace(/pointer([a-z])/, (_, a) => 'MSPointer' + a.toUpperCase());
 
@@ -24,7 +23,7 @@ function dispatch(el: HTMLButtonElement, eventType) {
   el.dispatchEvent(event);
 }
 
-export function dispatchTap(el) {
+export function dispatchTap(el: HTMLButtonElement) {
   dispatch(el, 'pointerdown');
   setTimeout(function() {
     dispatch(el, 'pointerup');

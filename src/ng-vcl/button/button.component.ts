@@ -163,6 +163,5 @@ export class ButtonComponent extends ObservableComponent {
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    if (this.stateSub) this.stateSub.unsubscribe();
   }
 }
