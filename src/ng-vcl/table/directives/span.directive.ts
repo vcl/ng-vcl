@@ -1,7 +1,7 @@
 /*
 Column width
 
-The column width can be defined in the table header using one of 
+The column width can be defined in the table header using one of
 the layout spans vclSpan-5p - vclSpan-100p from the corresponding module.
 */
 

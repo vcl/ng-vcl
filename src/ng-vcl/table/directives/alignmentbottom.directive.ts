@@ -1,7 +1,7 @@
 /*
 Vertical alignment
 
-Top alignment is default, for vertically centered content use class 
+Top alignment is default, for vertically centered content use class
 vclVAlignMiddle and for bottom aligned content vclVAlignBottom on a table or tds.
 */
 

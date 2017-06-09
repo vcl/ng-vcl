@@ -1,6 +1,6 @@
 import * as runSequence from 'run-sequence';
 
-import {task, src, dest} from 'gulp';
+import { task, src, dest} from 'gulp';
 import { exec, execNode, root } from './helpers';
 import PACKAGES from './packages';
 
@@ -22,7 +22,7 @@ pkgNames.forEach(pkg => {
   const pkgTasks = PACKAGES[pkg].map(createTask => createTask(pkg));
 
   // Build package tasks
-  task(`build:${pkg}`, [], (cb) => {
+  task(`build:${pkg}`, (cb) => {
     runSequence(...pkgTasks, cb);
   });
 
