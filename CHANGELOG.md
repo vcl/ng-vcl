@@ -13,7 +13,7 @@ npm install ng-vcl/ng-vcl#dist_v0.3-comp
 ### Changes
 
 - (BREAKING) Added hammerjs to peer dependencies
-- (BREAKING) requires Angular ^4.0.0
+- (BREAKING) requires Angular ^4.2.0
 - (BREAKING) Removed kitchen sink module: `VCLModule`
 - Replaced all internal click events with tap events
 - metalist:

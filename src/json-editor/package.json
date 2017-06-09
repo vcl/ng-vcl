@@ -12,9 +12,9 @@
   "module": "json-editor.js",
   "typings": "index.d.ts",
   "peerDependencies": {
-    "@angular/common": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/forms": "^4.0.0",
+    "@angular/common": "^4.2.0",
+    "@angular/core": "^4.2.0",
+    "@angular/forms": "^4.2.0",
     "rxjs": "^5.0.1"
   },
   "dependencies": {
