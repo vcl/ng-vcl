@@ -83,6 +83,12 @@ export class PopoverComponent extends ObservableComponent {
     }
   }
 
+  @Output()
+  willClose = new EventEmitter<any>();
+
+  @Output()
+  willOpen = new EventEmitter<any>();
+
   get visible() {
     return (this.state === PopoverState.opening || this.state === PopoverState.visible);
   }
@@ -154,6 +160,7 @@ export class PopoverComponent extends ObservableComponent {
     }
 
     this.state = PopoverState.opening;
+    this.willOpen.emit();
     // We have to wait one runloop before calling reposition(), so the element is rendered and the right bounds can be determined.
     // Also when opening the popover is hidden via the visibility-style. This avoids flashing up on the wrong position.
     setTimeout(() => {
@@ -174,6 +181,7 @@ export class PopoverComponent extends ObservableComponent {
       return;
     }
     this.state = PopoverState.closing;
+    this.willClose.emit();
     if (this.leaveAnimationFactory && this.me) {
       const player = this.leaveAnimationFactory.create(this.me.nativeElement);
       player.onDone(() => {

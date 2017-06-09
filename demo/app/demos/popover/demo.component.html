@@ -9,7 +9,7 @@
   #popover1
   [target]="target"
   [style]="style"
-  (visibleChange)="!$event ? popover2.close() : 0">
+  (willClose)="popover2.close()">
   <div #target2>
     popover text goes here <br>
     <button vcl-button (tap)="popover2.open()" label="show popover2"></button>
