@@ -11,8 +11,8 @@
 <br><br>
 
 <h3>Busy container:</h3>
-<div class="vclContainer vclLayoutHorizontal" style="height:15em">
-  <div style="margin:0.5em" class="vclLayoutFlex" [vclBusy]="isBusy" busyLabel="Loading..." busyIndicatorType="straight">
+<div class="vclContainer vclLayoutHorizontal" style="height:15em" [vclBusy]="isBusy" busyLabel="Loading..." busyIndicatorType="straight">
+  <div style="padding:0.5em" class="vclLayoutFlex">
     Busy container<br>
     <button vcl-button (tap)="makeBusy()" label="Make container busy for 3 secs"></button>
   </div>

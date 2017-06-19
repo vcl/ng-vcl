@@ -1,6 +1,6 @@
+import { NgModule } from "@angular/core";
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { PopoverAnimationConfig, POPOVER_ANIMATIONS } from '@ng-vcl/ng-vcl';
-import { NgModule } from "@angular/core";
 
 export const POPOVER_ANIMATIONS_PROVIDER: PopoverAnimationConfig = {
   enter: [
