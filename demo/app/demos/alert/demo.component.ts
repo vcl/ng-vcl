@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AlertService, AlertType, AlertError, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
 
-function async(data: any, error: boolean | Function): Observable<any> {
+function async(data: any, error?: boolean | Function): Observable<any> {
   return Observable.create(observer => {
     setTimeout(() => {
       let err;
@@ -116,7 +116,7 @@ export class AlertDemoComponent {
   async() {
     this.alert.open({
       text: 'Determine your user agent?',
-      confirmAction: async(window.navigator.userAgent, false),
+      confirmAction: async(window.navigator.userAgent),
       showCancelButton: true
     }).subscribe(result => {
       this.alert.info(result.value, {
@@ -144,35 +144,31 @@ export class AlertDemoComponent {
   }
 
   retry() {
-    // Fail 2 times
+    // This fake async request will fail the first time
     let fails = 0;
-    const fakeAsync = async(new Date().toLocaleTimeString(), () => {
-      return ++fails <= 2;
-    });
+    const fakeAsync = async(new Date().toLocaleTimeString(), () => ++fails <= 1);
 
-    const timeAlert = this.alert.open({
-      text: 'Show current time? (Fails twice)',
-      loaderOnConfirm: true,
-      showCancelButton: true
-    });
-
-    timeAlert.switchMap(result => {
-          return fakeAsync.retryWhen(errors => {
-            return errors.switchMap(err => {
-              return this.alert.open({
-                text: 'Retry?',
-                type: AlertType.Warning,
-                showCancelButton: true,
-              });
-            });
-          });
-        })
-        .subscribe(time => {
-          timeAlert.close();
-          this.alert.info(time, 'Time');
-        }, err => {
-          this.alert.error(String(err ? err.reason : err), 'Error');
+    // Add a retry routine using an alert
+    const fakeAsyncWithRetries = fakeAsync.retryWhen(errors => {
+      return errors.switchMap(err => {
+        return this.alert.open({
+          text: 'Retry?',
+          type: AlertType.Warning,
+          showCancelButton: true,
         });
+      });
+    });
+
+    this.alert.open({
+      text: 'Show current time? (will fail the first time)',
+      showCancelButton: true,
+      confirmAction: fakeAsyncWithRetries
+    }).subscribe(result => {
+      this.alert.info(result.value, 'Time');
+    }, err => {
+      console.log(err);
+      this.alert.error(String(err ? err.reason : err), 'Error');
+    });
   }
 
 }

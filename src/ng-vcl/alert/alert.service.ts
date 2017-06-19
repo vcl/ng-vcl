@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable, Inject, ComponentRef } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
-import { AlertComponent } from './alert.component';
+import { AlertComponent, dismiss } from './alert.component';
 import { LayerService, LayerRef, LayerResult } from "@ng-vcl/ng-vcl";
 
 @Injectable()
@@ -43,6 +43,9 @@ export class AlertService {
   create(...opts: AlertOptions[]) {
     const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
     return this.ls.create(AlertComponent, {
+      offClick: (layer) => {
+        dismiss(layer, 'offClick');
+      },
       modal: true,
       transparent: true,
       attrs: {alert}

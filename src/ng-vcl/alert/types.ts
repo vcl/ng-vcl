@@ -116,6 +116,7 @@ export const BUTTON_ALIGNMENT_CLASS_MAP = {
 
 export interface AlertResult {
   value?: any;
+  close?: {(): void };
 }
 
 export class AlertError extends Error {

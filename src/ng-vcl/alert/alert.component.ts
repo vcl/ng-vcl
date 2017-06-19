@@ -5,6 +5,14 @@ import { LayerRef, LayerService, Layer } from './../layer/index';
 import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
 import { Observable } from "rxjs/Observable";
 
+export function dismiss(layer: LayerRef, err: AlertError | any) {
+  if (err instanceof Error) {
+    layer.closeWithError(err);
+  } else {
+    layer.closeWithError(new AlertError(err));
+  }
+}
+
 @Component({
   templateUrl: 'alert.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -26,7 +34,7 @@ export class AlertComponent {
     // Check if the top layer is the alert layer
     if (this.layerService.getTopLayer() === this.alertLayer) {
       if (ev.key === 'Escape' && this.alert.escClose) {
-        this.dismiss('esc');
+        dismiss(this.alertLayer, 'esc');
       } else if (ev.key === 'Enter') {
         this.confirm();
       }
@@ -55,10 +63,6 @@ export class AlertComponent {
 
   get buttonAlignmentClass() {
     return BUTTON_ALIGNMENT_CLASS_MAP[this.alert.buttonAlignment || AlertAlignment.Right];
-  }
-
-  dismiss(reason: string) {
-    this.alertLayer.closeWithError(new AlertError(reason));
   }
 
   confirm() {
@@ -90,14 +94,17 @@ export class AlertComponent {
       $.subscribe(value => {
         let asyncResult: AlertResult = {};
         asyncResult.value = value;
-        this.alertLayer.close(asyncResult);
+        this.alertLayer.send(asyncResult);
       }, err => {
-        this.dismiss(err);
+        dismiss(this.alertLayer, err);
+      }, () => {
+        this.alertLayer.close();
       });
     } else {
       if (this.alert.loaderOnConfirm) {
         this.alert.loader = true;
         this.cdRef.markForCheck();
+        result.close = () => this.alertLayer.close();
         this.alertLayer.send(result);
       } else  {
         this.alertLayer.close(result);
@@ -106,11 +113,11 @@ export class AlertComponent {
   }
 
   cancel(reason: string ) {
-    this.dismiss('cancel');
+    dismiss(this.alertLayer, 'cancel');
   }
 
   close(reason: string ) {
-    this.dismiss('close');
+    dismiss(this.alertLayer, 'close');
   }
 
   valueChange(value: any) {

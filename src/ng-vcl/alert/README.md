@@ -37,14 +37,10 @@ export class MyComponent {
 
 ```ts
 // Simple message
-this.alert.open({
-  text: 'A message',
-  title: 'A title'
-});
+this.alert.success('A message');
 
 // Message with a title
-this.alert.open({
-  text: 'A message',
+this.alert.info('A message', {
   title: 'A title'
 });
 
@@ -94,19 +90,15 @@ this.alert.open({
 });
 
 // Handling async data
-this.alert
-    .open({
-      text: 'Determine your user agent?',
-      loaderOnConfirm: true,
-      showCancelButton: true
-    })
-    .switchMap(result => {
-      return async(window.navigator.userAgent, false);
-    }).subscribe(ip => {
-      this.alert.info(ip, 'Your user agent');
-    }, err => {
-      this.alert.error('Could not determine user agent');
-    });
+this.alert.open({
+  text: 'Fetch data?',
+  confirmAction: this.http.get('/foo/data'),
+  showCancelButton: true
+}).subscribe(result => {
+  this.alert.info(result.value, { title: 'Your foo data' });
+}, err => {
+  this.alert.error(err, { title: 'Could not fetch data' });
+});
 
 // With an input element
 this.alert.open({
@@ -122,42 +114,17 @@ this.alert.open({
 }).subscribe(result => {
   this.alert.info('Hello ' + result.value);
 }, this.alert.noop);
-
-// Retry 
-this.alert
-    .open({
-      text: 'Fetch data?',
-      loaderOnConfirm: true,
-      showCancelButton: true
-    })
-    .switchMap(result => {
-      return http.get('http://some.api/').retryWhen(errors => {
-        return errors.switchMap(err => {
-          return this.alert.open({
-            text: 'Retry?',
-            type: AlertType.Warning,
-            showCancelButton: true,
-            loaderOnConfirm: true,
-          });
-        });
-      });
-    })
-    .subscribe(time => {
-      this.alert.info(time, 'Time');
-    }, err => {
-      this.alert.error(String(err ? err.reason : err), 'Error');
-    });
 ```
 
 ### Some helper methods
 
 ```ts
 alert(text: string, opts?: AlertOptions); // Just the message
-info(text: string, opts?: AlertOptions); // Message with { type: AlertType.Info }
-success(text: string, opts?: AlertOptions); // Message with { type: AlertType.Success }
-warning(text: string, opts?: AlertOptions); // Message with { type: AlertType.Warning }
-error(text: string, opts?: AlertOptions); // Message with { type: AlertType.Error }
-question(text: string, opts?: AlertOptions); // Message with { type: AlertType.Question, showCancelButton: true }
+info(text: string, opts?: AlertOptions); // Message with AlertType.Info
+success(text: string, opts?: AlertOptions); // Message with AlertType.Success
+warning(text: string, opts?: AlertOptions); // Message with AlertType.Warning
+error(text: string, opts?: AlertOptions); // Message with AlertType.Error
+question(text: string, opts?: AlertOptions); // Message with AlertType.Question and showCancelButton=true
 ```
 
 ### API
@@ -188,6 +155,7 @@ All properties are optional
 | `cancelButtonAppIcon`   | string         |                 | same as `cancelButtonPrepIcon`, but appended
 | `loader`                | boolean        | false           | Enables loader mode
 | `loaderOnConfirm`       | boolean        | false           | Enables loader mode after clicking on the confirm button instead of closing the alert modal
+| `confirmAction`         | Observable     |                 | Enables loader and subscribes to observable. Closes alert when the observable completes or errors.
 | `input`                 | AlertInput     | None            | Input element
 | `inputValue`            | any            |                 | Default value for the input
 | `inputPlaceholder`      | string         |                 | A placeholder. Shown in the input element when using AlertInput.Text
