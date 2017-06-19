@@ -26,10 +26,9 @@ export abstract class LayerRef {
   visible: boolean;
   attrs: LayerAttributes | undefined;
 
+  protected results: Subject<any> | undefined;
   private stateChange = new Subject<{attrs?: LayerAttributes, visible: boolean}>();
   state$ = this.stateChange.asObservable();
-
-  protected results: Subject<any> | undefined;
 
   open(attrs?: LayerAttributes): LayerResult<any> {
     this.visible = true;
@@ -73,20 +72,20 @@ export abstract class LayerRef {
 }
 
 export class DynamicLayerRef extends LayerRef {
-  constructor(private register: {(): void}, private unregister: {(): void}) { super(); }
+  constructor(private _register: {(): void}, private _unregister: {(): void}) { super(); }
 
   open(attrs?: LayerAttributes): LayerResult<any> {
-    this.register();
+    this._register();
     return super.open(attrs);
   }
 
   close(data?: any) {
     super.close(data);
-    this.unregister();
+    this._unregister();
   }
 
   closeWithError(data?: any) {
     super.closeWithError(data);
-    this.unregister();
+    this._unregister();
   }
 }

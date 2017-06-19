@@ -1,5 +1,6 @@
 import { Injectable, Injector, TemplateRef, Type, ApplicationRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subscription } from 'rxjs/Subscription';
 import { Wormhole, DomWormholeHost } from '../wormhole/index';
 import { LayerRef, DynamicLayerRef, LayerAttributes } from './layer-ref';
 import { LayerContainerComponent, LayerOptions } from './layer-container.component';
@@ -7,7 +8,7 @@ import { LayerContainerComponent, LayerOptions } from './layer-container.compone
 @Injectable()
 export class LayerManagerService {
 
-  private layerWormholeMap = new Map<LayerRef, Wormhole>();
+  private layerMetaMap = new Map<LayerRef, { wormhole: Wormhole, subscription: Subscription }>();
 
   baseZIndex: number = 1000;
   visibleLayers: LayerRef[] = [];
@@ -57,19 +58,19 @@ export class LayerManagerService {
       }
     });
 
-    this.layerWormholeMap.set(layerRef, containerWormholeRef);
+    this.layerMetaMap.set(layerRef, {wormhole: containerWormholeRef, subscription: layerSub});
   }
 
   _unregister(layer: LayerRef) {
-    const wormhole = this.layerWormholeMap.get(layer);
-    if (wormhole) {
-      wormhole.disconnect();
+    const meta = this.layerMetaMap.get(layer);
+    if (meta) {
+      meta.wormhole.disconnect();
+      meta.subscription.unsubscribe();
     }
-    this.layerWormholeMap.delete(layer);
   }
 
   ngOnDestroy() {
-    this.layerWormholeMap.forEach((meta, layer) => this._unregister(layer));
+    this.layerMetaMap.forEach((meta, layer) => this._unregister(layer));
     this.host.clearWormholes();
   }
 }
