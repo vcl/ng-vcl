@@ -1,9 +1,7 @@
-import { OnInit, Directive, Input, EventEmitter, Output, HostListener, ElementRef, HostBinding } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
+import { Directive, ElementRef, Input, HostBinding, HostListener, AfterContentInit } from '@angular/core';
 
 @Directive({
-  selector: '[vcl-textarea]',
+  selector: 'textarea[vcl-textarea]',
   host: {
     '[class.vclInput]': 'true',
   }
@@ -19,10 +17,10 @@ export class TextareaDirective {
   autogrow = false;
 
   @Input()
-  maxRows: number;
+  maxRows: number | undefined;
 
   @Input()
-  minRows: number;
+  minRows: number | undefined;
 
   @HostBinding('attr.rows')
   @Input()
