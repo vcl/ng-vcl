@@ -5,7 +5,8 @@ const {
   ProgressPlugin,
   optimize: {
     CommonsChunkPlugin,
-    UglifyJsPlugin
+    UglifyJsPlugin,
+    ModuleConcatenationPlugin
   }
 } = require('webpack');
 
@@ -22,11 +23,11 @@ function root(__path = '.') {
 
 function webpackConfig(options) {
 
+  const PORT = options.PORT || 3000;
   const ENV = options.ENV || 'development';
   const HMR = options.HMR === 'true' || options.HMR === true;
-  const PORT = options.PORT || 3000;
-  const isProd = options.ENV === 'production';
-  const AOT = !!options.AOT || isProd;
+  const AOT = options.AOT === 'true' || options.AOT === true;
+  const UGLIFY = options.ENV === 'production';
 
   return {
     cache: true,
@@ -62,7 +63,7 @@ function webpackConfig(options) {
                   "../fonts": '../public/fonts',
                   "../imgs": '../public/imgs'
                 }                ,
-                minimize: !!isProd
+                minimize: UGLIFY
               }
             },
             {
@@ -113,7 +114,7 @@ function webpackConfig(options) {
         entryModule: root('demo/app/app.module#AppModule')
       }): null,
       new ExtractTextPlugin('app.css'),
-      (HMR && !isProd) ? new HotModuleReplacementPlugin() : null,
+      HMR ? new HotModuleReplacementPlugin() : null,
       new CommonsChunkPlugin({
         name: 'vendor',
         chunks: ['main'],
@@ -137,11 +138,12 @@ function webpackConfig(options) {
           return orders.indexOf(c1.names[0]) - orders.indexOf(c2.names[0]);
         },       
       }),    
+      new ModuleConcatenationPlugin(),
       new CopyWebpackPlugin([{
         from: 'demo/public',
         to: ''
       }]),
-      isProd ? new UglifyJsPlugin({
+      UGLIFY ? new UglifyJsPlugin({
         mangle: {
           screw_ie8 : true,
         },
@@ -154,7 +156,7 @@ function webpackConfig(options) {
       }) : null
     ].filter(plugin=>plugin!==null),
     resolve: {
-      mainFields: ["webpack", "module", "browser", "main"],
+      mainFields: ["webpack",  "module", "browser", "main"],
       extensions: ['.ts', '.js', '.json'],
       plugins: [ new TsConfigPathsPlugin() ]
     },
