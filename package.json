@@ -5,8 +5,8 @@
   "scripts": {
     "lint": "tslint --type-check -p ./tsconfig.json",
     "lint:src": "tslint --type-check -p ./src/tsconfig.json",
-    "dev": "webpack-dev-server --config webpack.config.js --env.ENV=development --env.HMR=true",
-    "dev:aot": "webpack-dev-server --config webpack.config.js --env.ENV=development --env.HMR=true --env.AOT=true",
+    "dev": "webpack-dev-server --config webpack.config.js --env.ENV=development",
+    "dev:aot": "webpack-dev-server --config webpack.config.js --env.ENV=development --env.AOT=true",
     "docs:clean": "rimraf docs",
     "docs:build": "webpack --config webpack.config.js --env.ENV=production --env.AOT=true",
     "docs:deploy": "git-directory-deploy --directory docs --branch gh-pages",
@@ -81,7 +81,7 @@
     "marked": "~0.3.6",
     "merge-stream": "^1.0.1",
     "npm-run-all": "^4.0.2",
-    "plotly.js": "^1.28.0",
+    "plotly.js": "^1.28.1",
     "postcss-loader": "^2.0.6",
     "pre-commit": "~1.2.2",
     "raw-loader": "~0.5.1",
@@ -102,7 +102,7 @@
     "vcl-loader": "github:vcl/loader",
     "vcl-preprocessor": "~0.1.1",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.4.5",
+    "webpack-dev-server": "^2.5.0",
     "zone.js": "^0.8.5"
   },
   "pre-commit": [

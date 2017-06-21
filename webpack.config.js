@@ -25,13 +25,13 @@ function webpackConfig(options) {
 
   const PORT = options.PORT || 3000;
   const ENV = options.ENV || 'development';
-  const HMR = options.HMR === 'true' || options.HMR === true;
   const AOT = options.AOT === 'true' || options.AOT === true;
-  const UGLIFY = options.ENV === 'production';
+  const HMR = ENV === 'development';
+  const PROD = ENV === 'production';
 
   return {
     cache: true,
-    devtool: 'source-map',
+    devtool: PROD ? false : 'source-map',
     entry: {
       main: root('demo/main.ts'),
       polyfills: root('demo/polyfills.ts'),
@@ -63,7 +63,7 @@ function webpackConfig(options) {
                   "../fonts": '../public/fonts',
                   "../imgs": '../public/imgs'
                 }                ,
-                minimize: UGLIFY
+                minimize: PROD
               }
             },
             {
@@ -138,12 +138,12 @@ function webpackConfig(options) {
           return orders.indexOf(c1.names[0]) - orders.indexOf(c2.names[0]);
         },       
       }),    
-      new ModuleConcatenationPlugin(),
+      PROD ? new ModuleConcatenationPlugin() : null,
       new CopyWebpackPlugin([{
         from: 'demo/public',
         to: ''
       }]),
-      UGLIFY ? new UglifyJsPlugin({
+      PROD ? new UglifyJsPlugin({
         mangle: {
           screw_ie8 : true,
         },
