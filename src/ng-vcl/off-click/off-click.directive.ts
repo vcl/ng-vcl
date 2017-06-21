@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/skipUntil';
+import 'rxjs/add/operator/first';
 
 @Directive({
   selector: '[offClick]',
