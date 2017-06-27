@@ -45,7 +45,7 @@ export class SyncableObservable<T> extends Observable<T> {
       this.sub.unsubscribe();
     }
 
-    const sync$ = new Observable(observer => {
+    const sync$ = new Observable<T>(observer => {
       const httpSub = this.source.subscribe(data => {
         dataSubject.next(data);
         observer.next(data);
