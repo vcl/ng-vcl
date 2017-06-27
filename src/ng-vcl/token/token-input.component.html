@@ -1,21 +1,26 @@
 <div class="vclTokenContainer">
+  <wormhole *ngIf="labelPre" [connect]="labelPre"></wormhole>
   <vcl-token *ngFor="let token of tokens"
-             (remove)="remove(token)"
+             (remove)="removeToken(token)"
              (tap)="select(token)"
+             [ngClass]="tokenClass"
              [selected]="token.selected"
              [removable]="true"
+             [icon]="icon"
              [attr.tabindex]="-1"
              [label]="token.label">
   </vcl-token>
+  <wormhole *ngIf="labelPost" [connect]="labelPost"></wormhole>
 </div>
-
+<ng-content></ng-content>
 <input 
   vcl-input
   #input
-  placeholder="Type to add tokens" 
+  [placeholder]="placeholder" 
+  [ngClass]="inputClass"
   autocomplete="off" 
   [tabindex]="tabindex"
-  (keyup.enter)="add(input.value)"
+  (keyup.enter)="addToken(input.value)"
   (focus)="onInputFocus()"
   (blur)="onInputBlur()"
   flex

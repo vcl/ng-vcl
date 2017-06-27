@@ -4,7 +4,8 @@ import {
   Output,
   EventEmitter,
   trigger,
-  HostListener
+  HostListener,
+  HostBinding
 } from '@angular/core';
 
 export interface Token {
@@ -19,7 +20,6 @@ export interface Token {
   animations: [trigger('checkState', [])],
   host: {
     '[class.vclToken]': 'true',
-    '[class.vclSelected]': 'selected',
     '[@checkState]': 'selected'
   }
 })
@@ -38,11 +38,15 @@ export class TokenComponent implements Token {
     this.remove.emit(event);
   }
 
+  @HostBinding('class.vclSelected')
   @Input()
   selected: boolean = false;
 
   @Input()
   removable: boolean = false;
+
+  @Input()
+  icon: string = 'fa:remove';
 
   @Output()
   remove = new EventEmitter();

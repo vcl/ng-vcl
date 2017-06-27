@@ -49,11 +49,12 @@ export class AppComponent {}
 
 #### vcl-token attributes:
 
-Name          | Type    | Default | Description
-------------  | ------- | ------- | ---------------------------------------
-`label`       | string  |         | label-text inside of the token
-`selected`    | boolean | false   | if true, the token is highlighted
-`removable`   | boolean | false   | if true, the remove-cross is shown
+Name          | Type    | Default   | Description
+------------  | ------- | -------   | ---------------------------------------
+`label`       | string  |           | label-text inside of the token
+`selected`    | boolean | false     | if true, the token is highlighted
+`removable`   | boolean | false     | if true, the remove-cross is shown
+`icon`        | string  | fa:remove | remove icon
 
 #### vcl-token events:
 Name                  | Type    | Description
@@ -62,10 +63,10 @@ Name                  | Type    | Description
 
 #### token-list attributes:
 
-Name         | Type     | Default | Description
------------- | -------- | ------- | ------------------------------------------------------------
-`ngModel`    | string[] | []      | The labels of the selected tokens
-`selectable` | boolean  | false   | tokens are selectable if true
+Name         | Type     | Default  | Description
+------------ | -------- | -------- | ------------------------------------------------------------
+`ngModel`    | string[] | string[] | The labels of the selected tokens
+`selectable` | boolean  | false    | tokens are selectable if true
 
 #### token-list events:
 
@@ -74,16 +75,25 @@ Name                  | Type     | Description
 `change`              | string[] | called when the selection of token changes
 
 
-#### token-inpur attributes:
+#### token-input attributes:
 
-Name         | Type     | Default | Description
------------- | -------- | ------- | ------------------------------------------------------------
-`ngModel`    | Token[]  | []      | List of tokens
-`selectable` | boolean  | false   | tokens are selectable if true
+Name                 | Type     | Default              | Description
+------------         | -------- | -------              | ------------------------------------------------------------
+`ngModel`            | Token[]  | []                   | List of tokens
+`selectable`         | boolean  | false                | tokens are selectable if true
+`selectedAfterAdd`   | boolean  | false                | tokens are selected after being added if true
+`tokenClass`         | string   |                      | additional css class for tokens
+`placeholder`        | string   | 'Type to add tokens' | placeholder for the input element
+`inputClass`         | string   |                      | additional css class for the input element
+`icon`               | string   | fa:remove            | remove icon
+`tabindex`           | number   | 0                    | The tabindex of the token-input
 
 Name                    | Type    | Description
 -                       | -       | -
-`change`                | Token[] | called when tokens are added/removed or the selection of token changes
+`change`                | Token[] | called after tokens are added/removed or the selection of token changes
+`add`                   | Token   | called after a token is added
+`remove`                | Token   | called after a token is removed
+`confirm`               | Token[] | called after `enter` is pressed when input element is empty
 
 #### interfaces
 
