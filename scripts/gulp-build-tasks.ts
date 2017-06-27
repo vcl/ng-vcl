@@ -82,7 +82,6 @@ export function ngVCLCompatibility(pkg: string) {
 
   const folderNgVCLD = pkgFolder('ng-vcl-compatibility');
   const folder = pkgFolder(pkg);
-  const tmp = root('temp-build');
 
   const replacedFiles: string[] = [];
 
@@ -104,7 +103,7 @@ export function ngVCLCompatibility(pkg: string) {
         .pipe(rename(renameFiles))
         .pipe(dest(`${folderNgVCLD.dist}`)),
       // Copies/renames scripts and replaces any "@HostListener('tap" with "@HostListener('click" in html files
-      src(`${folder.dist}/**/*.json`)
+      src([`${folder.dist}/**/*.json`, `!${folder.dist}/package.json`])
         .pipe(replace('"name":"HostListener"},"arguments":["tap"', '"name":"HostListener"},"arguments":["click"'))
         .pipe(rename(renameFiles))
         .pipe(dest(`${folderNgVCLD.dist}`)),
@@ -115,6 +114,13 @@ export function ngVCLCompatibility(pkg: string) {
       // Copies/renames remaining files
       src(`${folder.dist}/**/!(*.html|*.js|*.json)`)
         .pipe(rename(renameFiles))
+        .pipe(dest(folderNgVCLD.dist)),
+      src(`${folder.src}/package.compatibility.json`)
+        .pipe(jsonModify({
+            key: 'version',
+            value: VERSION
+          }))
+        .pipe(rename("package.json"))
         .pipe(dest(folderNgVCLD.dist))
     );
   });
