@@ -7,7 +7,8 @@ import {
   ViewChild,
   forwardRef,
   HostBinding,
-  HostListener
+  HostListener,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -46,6 +47,8 @@ export class FlipSwitchComponent implements ControlValueAccessor {
 
   @Output()
   valueChange = new EventEmitter<boolean>();
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   @HostListener('tap', ['$event'])
   onTap() {
@@ -88,6 +91,7 @@ export class FlipSwitchComponent implements ControlValueAccessor {
 
   writeValue(value: boolean): void {
     this.value = value;
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;

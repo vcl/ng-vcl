@@ -90,6 +90,8 @@ export class TokenInputComponent implements ControlValueAccessor {
   @ContentChild(TokenInputLabelPost, { read: TemplateRef })
   labelPost: TokenInputLabelPost;
 
+  constructor(private cdRef: ChangeDetectorRef) { }
+
   @HostListener('focus', ['$event'])
   async onFocus(ev?) {
     await new Promise(res => setTimeout(res, 1000));
@@ -174,7 +176,10 @@ export class TokenInputComponent implements ControlValueAccessor {
     if (Array.isArray(tokens)) {
       this.tokens = tokens.map(t => typeof t === 'string' ? {label: t, selected: this.selectedAfterAdd} : t)
                           .filter(t => typeof t === 'object' && t);
+    } else {
+      this.tokens = [];
     }
+    this.cdRef.markForCheck();
   }
 
   registerOnChange(fn: any) {

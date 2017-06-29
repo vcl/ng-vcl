@@ -33,6 +33,8 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
   @ContentChildren(RadioButtonComponent)
   radioButtons: QueryList<RadioButtonComponent>;
 
+  constructor(private cdRef: ChangeDetectorRef) { }
+
   private syncValue() {
     let value = undefined;
     this.radioButtons.toArray().every((rbtn, idx) => {
@@ -51,6 +53,7 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
         const value = rbtn.value === undefined ? idx : rbtn.value;
         rbtn.setChecked(this.value === value);
       });
+      this.cdRef.markForCheck();
     }
   }
 

@@ -2,7 +2,7 @@ import { Component,
   Input, Output, OnInit,
   HostBinding, HostListener,
   OnChanges, SimpleChanges, EventEmitter,
-  ChangeDetectionStrategy, forwardRef, ElementRef
+  ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, ElementRef
 } from '@angular/core';
 import { trigger } from '@angular/animations';
 import { Observable } from 'rxjs/Observable';
@@ -59,7 +59,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   @Output()
   checkedChange = new EventEmitter<boolean>();
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   @HostListener('keydown', ['$event'])
   onKeyup(e) {
@@ -104,6 +104,7 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.checked = !!value;
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChange = fn;

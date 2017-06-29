@@ -1,5 +1,5 @@
 import {
-  Component, forwardRef, ChangeDetectionStrategy, Input, Output, ViewChild, HostBinding, ElementRef, EventEmitter, HostListener
+  Component, forwardRef, ChangeDetectionStrategy, Input, Output, ViewChild, HostBinding, ElementRef, EventEmitter, HostListener, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -58,6 +58,8 @@ export class FileInputComponent implements ControlValueAccessor {
 
   value: FileList | undefined;
   filename: string | undefined;
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   get fileInput(): HTMLInputElement | undefined {
     return this.input && this.input.nativeElement;
@@ -160,6 +162,7 @@ export class FileInputComponent implements ControlValueAccessor {
 
   writeValue(files: FileList): void {
     this.value = files;
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChange = fn;

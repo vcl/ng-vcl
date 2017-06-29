@@ -6,6 +6,7 @@ import {
   ContentChildren,
   QueryList,
   forwardRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -42,6 +43,8 @@ export class TokenListComponent implements ControlValueAccessor {
   change = new EventEmitter();
 
   labels: any[];
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   private syncTokens() {
     const labels = this.labels;
@@ -107,6 +110,7 @@ export class TokenListComponent implements ControlValueAccessor {
   writeValue(value: any): void {
     this.labels = value;
     this.syncTokens();
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;

@@ -9,7 +9,8 @@ import {
   EventEmitter,
   ViewChild,
   ElementRef,
-  forwardRef
+  forwardRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -76,6 +77,8 @@ export class SliderComponent implements ControlValueAccessor {
   percentLeftKnob: number = 0;
 
   scalePoints: ScalePoint[] = [];
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   ngAfterContentInit() {
     this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
@@ -326,6 +329,7 @@ export class SliderComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.setValue(value, true);
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChange = fn;

@@ -5,7 +5,8 @@ import {
   Output,
   EventEmitter,
   forwardRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -65,6 +66,8 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   today: PickDate = PickDateCreate();
 
   showYearPick: boolean = false;
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     if (this.selectedRangeEnd) this.selectRange = true;
@@ -185,6 +188,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   writeValue(value: Date): void {
     this.pickedDate = PickDateCreate(value);
     if (!value) this.pickedDate = PickDateCreate();
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
