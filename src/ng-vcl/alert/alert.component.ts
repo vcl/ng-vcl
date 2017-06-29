@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, AfterViewInit, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { LayerRef, LayerService, Layer } from './../layer/index';
@@ -15,11 +15,15 @@ export function dismiss(layer: LayerRef, err: AlertError | any) {
 
 @Component({
   templateUrl: 'alert.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[tabindex]': '0',
+    '[style.outline]': '"none"'
+  }
 })
-export class AlertComponent {
+export class AlertComponent implements AfterViewInit {
 
-  constructor(private alertLayer: LayerRef, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
+  constructor(private elementRef: ElementRef,  private alertLayer: LayerRef, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
     this.alertLayer = alertLayer;
    }
 
@@ -29,7 +33,7 @@ export class AlertComponent {
   value: any;
   validationError: string;
 
-  @HostListener('document:keyup', ['$event'])
+  @HostListener('keyup', ['$event'])
   onKeyUp(ev: KeyboardEvent) {
     // Check if the top layer is the alert layer
     if (this.layerService.getTopLayer() === this.alertLayer) {
@@ -42,7 +46,7 @@ export class AlertComponent {
   }
 
   get alertClass() {
-    return TYPE_CLASS_MAP[this.alert.type || AlertType.None].alertClass + ' ' + this.alert.customClass || '';
+    return TYPE_CLASS_MAP[this.alert.type || AlertType.None].alertClass + ' ' + (this.alert.customClass || '');
   }
 
   get iconClass() {
@@ -63,6 +67,10 @@ export class AlertComponent {
 
   get buttonAlignmentClass() {
     return BUTTON_ALIGNMENT_CLASS_MAP[this.alert.buttonAlignment || AlertAlignment.Right];
+  }
+
+  ngAfterViewInit(): void {
+    this.elementRef.nativeElement.focus();
   }
 
   confirm() {
