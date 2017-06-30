@@ -33,6 +33,16 @@ Name           | Arguments                                    | Description
 
 # Usage
 
+## Using with webpack
+
+The plotly package provides a special entry point for webpack.
+Add "webpack" to resolve.mainFields in your webpack config file.
+
+resolve: {
+  mainFields: ["webpack", "module", "browser", "main"],
+  ...
+}
+
 ## Importing plotly (polyfills.ts or some other file)
 
 if you want to use plotly in combination with zone.js,
