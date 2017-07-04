@@ -3,7 +3,7 @@ import { Injectable, Inject, ComponentRef } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
 import { AlertComponent, dismiss } from './alert.component';
-import { LayerService, LayerRef, LayerResult } from "@ng-vcl/ng-vcl";
+import { LayerService, LayerRef, LayerResult } from './../layer/index';
 
 @Injectable()
 export class AlertService {
