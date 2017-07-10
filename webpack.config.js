@@ -26,12 +26,12 @@ function webpackConfig(options) {
   const PORT = options.PORT || 3000;
   const ENV = options.ENV || 'development';
   const AOT = options.AOT === 'true' || options.AOT === true;
-  const HMR = ENV === 'development';
+  const DEV = ENV === 'development';
   const PROD = ENV === 'production';
 
   return {
     cache: true,
-    devtool: PROD ? false : 'source-map',
+    devtool: DEV ? 'source-map' : false,
     entry: {
       main: root('demo/main.ts'),
       polyfills: root('demo/polyfills.ts'),
@@ -55,28 +55,33 @@ function webpackConfig(options) {
       },
         {
           test: /\.styl$/,
-          use: ExtractTextPlugin.extract([
+          use: DEV ? [
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
+                importLoaders: 1,
                 alias: {
                   "../fonts": '../public/fonts',
-                  "../imgs": '../public/imgs'
-                }                ,
-                minimize: PROD
+                  // "../imgs": '../public/imgs'
+                },
+                minimize: false
               }
             },
+            'postcss-loader'
+          ] : ExtractTextPlugin.extract([
             {
-              loader: 'postcss-loader',
+              loader: 'css-loader',
               options: {
-                plugins: () => [
-                  require('autoprefixer')
-                ]
+                importLoaders: 1,
+                alias: {
+                  "../fonts": '../public/fonts',
+                  // "../imgs": '../public/imgs'
+                },
+                minimize: true
               }
             },
-            {
-              loader: 'vcl-loader'
-            }
+            'postcss-loader'
           ])
         },
         {
@@ -99,7 +104,7 @@ function webpackConfig(options) {
             {
               loader: 'awesome-typescript-loader',
               options: {
-                  module: 'es2015' 
+                module: 'es2015' 
               }
             },
             'angular-router-loader',
@@ -114,7 +119,7 @@ function webpackConfig(options) {
         entryModule: root('demo/app/app.module#AppModule')
       }): null,
       new ExtractTextPlugin('app.css'),
-      HMR ? new HotModuleReplacementPlugin() : null,
+      DEV ? new HotModuleReplacementPlugin() : null,
       new CommonsChunkPlugin({
         name: 'vendor',
         chunks: ['main'],
@@ -164,8 +169,8 @@ function webpackConfig(options) {
       contentBase: './demo/public',
       host: '0.0.0.0',
       port: PORT,
-      hot: HMR,
-      inline: HMR,
+      hot: DEV,
+      inline: DEV,
       historyApiFallback: true
     },
     node: {
