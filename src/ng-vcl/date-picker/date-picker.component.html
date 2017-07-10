@@ -35,7 +35,7 @@
       <div *ngIf="displayWeekNumbers && week.length==7" class="vclDGCell">
         {{week[5].getWeekNumber()}}
       </div>
-      <div *ngFor="let day of week" class="vclDGCell vclCalItem" [class.vclDisabled]="isDisabled(day)" [class.vclSelected]="isMarked(day)" (tap)="!isDisabled(day) && select(day)" [class.vclToday]="highlightSelected && day.isToday()" [class.vclOtherMonth]="!day.isSameMonthAndYear()">
+      <div *ngFor="let day of week" class="vclDGCell vclCalItem" [class.vclDisabled]="isDisabled(day)" [class.vclOtherMonth]="!day.isSameMonthAndYear(viewDate)" [class.vclSelected]="isMarked(day)" (tap)="select(day)" [class.vclToday]="highlightSelected && day.isToday()">
         {{day.date.getDate()}}
       </div>
     </div>

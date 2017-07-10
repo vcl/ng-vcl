@@ -2,51 +2,54 @@
  * this is a helper-class so that the Date-logic
  * is not mashed with the components logic
  */
-export class PickDate {
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 
+const WEEK_DAYS = [
+  'Mo',
+  'Tu',
+  'We',
+  'Th',
+  'Fr',
+  'Sa',
+  'Su'
+];
 
-  static monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-  static weekDays = [
-    'Mo',
-    'Tu',
-    'We',
-    'Th',
-    'Fr',
-    'Sa',
-    'Su'
-  ];
-
-
+export class CalendarDate {
 
   date: Date;
 
-  constructor(date: Date = new Date()) {
+  constructor(date?: Date) {
+    if (!(date instanceof Date)) {
+      date = new Date;
+    }
     this.date = date;
   }
 
+  getWeekDays(): string[] {
+    return WEEK_DAYS;
+  }
 
   getMonthString(): string {
     const monthNr = this.date.getMonth();
-    return PickDate.monthNames[monthNr];
+    return MONTH_NAMES[monthNr];
   }
 
   getYearString(): string {
     return this.date.getFullYear().toString();
   }
-
 
   /**
    * gets the first day of the month for the given date's month.
@@ -58,25 +61,21 @@ export class PickDate {
     );
   }
 
-
-
-  moveToYear(year: number): PickDate {
+  moveToYear(year: number): CalendarDate {
     const newDate = new Date(
       year, this.date.getMonth(), 1,
       this.date.getHours(), this.date.getMinutes(), this.date.getSeconds()
     );
-    return new PickDate(newDate);
+    return new CalendarDate(newDate);
   }
 
-  addYears(amount = 1): PickDate {
+  addYears(amount = 1): CalendarDate {
     const newDate = new Date(
       this.date.getFullYear() + amount, this.date.getMonth(), 1,
       this.date.getHours(), this.date.getMinutes(), this.date.getSeconds()
     );
-    return new PickDate(newDate);
+    return new CalendarDate(newDate);
   }
-
-
 
   addDays(date: Date, amount = 1): Date {
     return new Date(date.getTime() + 24 * 60 * 60 * 1000 * amount);
@@ -106,7 +105,7 @@ export class PickDate {
    * If the date of the given month does not match the target month, the date will be set to the
    * last day of the month.
    */
-  incrementMonths(numberOfMonths: number): PickDate {
+  incrementMonths(numberOfMonths: number): CalendarDate {
     const dateInTargetMonth = new Date(this.date.getFullYear(), this.date.getMonth() + numberOfMonths, 1);
     const numberOfDaysInMonth = this.getNumberOfDaysInMonth(dateInTargetMonth);
     if (numberOfDaysInMonth < this.date.getDate()) {
@@ -115,7 +114,7 @@ export class PickDate {
       dateInTargetMonth.setDate(this.date.getDate());
     }
 
-    return new PickDate(dateInTargetMonth);
+    return new CalendarDate(dateInTargetMonth);
   }
 
   /**
@@ -137,19 +136,19 @@ export class PickDate {
   /**
     * Gets whether two dates have the same month and year
     */
-  isSameMonthAndYear(date: PickDate = new PickDate()): boolean {
+  isSameMonthAndYear(date: CalendarDate = new CalendarDate()): boolean {
     return this.date.getFullYear() === date.date.getFullYear() && this.date.getMonth() === date.date.getMonth();
   }
 
   /**
    * Gets whether two dates are the same day (not not necesarily the same time)
    */
-  isSameDay(date: PickDate): boolean {
+  isSameDay(date: CalendarDate): boolean {
     return this.date.getDate() == date.date.getDate() && this.isSameMonthAndYear(date);
   }
 
   isToday(): boolean {
-    return this.isSameDay(new PickDate());
+    return this.isSameDay(new CalendarDate());
   }
 
   isInYear(year: number) {
@@ -161,7 +160,7 @@ export class PickDate {
    * returns a set of days which are in the given month or
    * are in the same weekNumber as a day in the given month
    */
-  getMonthBlock(): PickDate[][] {
+  getMonthBlock(): CalendarDate[][] {
 
     let dates: Date[] = [];
 
@@ -192,8 +191,8 @@ export class PickDate {
       addDays--;
     }
 
-    const ret = dates.map(date => new PickDate(date));
-    const blocks: PickDate[][] = [];
+    const ret = dates.map(date => new CalendarDate(date));
+    const blocks: CalendarDate[][] = [];
 
     // split in weeks
     let chunk = 7;
@@ -203,7 +202,6 @@ export class PickDate {
     }
     return blocks;
   }
-
 
   getYearsBlock() {
     const years: number[] = [];
@@ -224,11 +222,6 @@ export class PickDate {
     return ret;
   }
 
-
-  getWeekDays(): string[] {
-    return PickDate.weekDays;
-  }
-
   getWeekNumber(): number {
     // Copy date so don't modify original
     let d = new Date(+this.date);
@@ -244,30 +237,20 @@ export class PickDate {
     return weekNo;
   }
 
-
   /**
    * returns true if this is between the given dates
    */
-  inRange(from: PickDate, to: PickDate): boolean {
-    if (!(from instanceof PickDate) || !(to instanceof PickDate))
+  inRange(from: CalendarDate, to: CalendarDate): boolean {
+    if (!(from instanceof CalendarDate) || !(to instanceof CalendarDate)) {
       return false;
+    }
 
     return (this.date >= from.date && this.date <= to.date)
            || this.isSameDay(from) || this.isSameDay(to);
   }
 
-  daysInRange(to: PickDate): number {
+  daysInRange(to: CalendarDate): number {
     const oneDay = 24 * 60 * 60 * 1000;
     return Math.round(Math.abs((this.date.getTime() - to.date.getTime()) / (oneDay))) + 1;
   }
-
-  dir() {
-    console.dir(this.date); return '';
-  }
-}
-
-
-
-export function PickDateCreate(date: Date = new Date()) {
-  return new PickDate(date);
 }

@@ -9,8 +9,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import {PickDate, PickDateCreate} from './pick-date';
+import { CalendarDate } from './calendar-date';
 
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -38,146 +37,176 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
-  // behaviour
-  @Input('closeOnSelect') closeOnSelect: boolean = false;
+  // behavior
+  @Input()
+  closeOnSelect: boolean = false;
 
   // styling
-  @Input('highlightToday') highlightToday: boolean = true;
-  @Input('highlightSelected') highlightSelected: boolean = true;
-  @Input('displayWeekNumbers') displayWeekNumbers: boolean = true;
-  @Input('displayWeekdays') displayWeekdays: boolean = true;
-  @Input('prevYearBtnIcon') prevYearBtnIcon: string = "fa:chevron-left";
-  @Input('nextYearBtnIcon') nextYearBtnIcon: string = "fa:chevron-right";
-  @Input('displayJumpToday') displayJumpToday: boolean = true;
-  @Input('displayJumpSelected') displayJumpSelected: boolean = true;
+  @Input()
+  highlightToday: boolean = true;
 
+  @Input()
+  highlightSelected: boolean = true;
+
+  @Input()
+  displayWeekNumbers: boolean = true;
+
+  @Input()
+  displayWeekdays: boolean = true;
+
+  @Input()
+  prevYearBtnIcon: string = "fa:chevron-left";
+
+  @Input()
+  nextYearBtnIcon: string = "fa:chevron-right";
+
+  @Input()
+  displayJumpToday: boolean = true;
+
+  @Input()
+  displayJumpSelected: boolean = true;
 
   // values
-  @Input('selectedDate') selectedDate: Date = new Date();
-  @Input('selectRange') selectRange: boolean = false;
-  @Input('selectedRangeEnd') selectedRangeEnd: Date;
-  @Input('maxRangeLength') maxRangeLength: number;
-  @Input('minDate') minDate: Date;
-  @Input('maxDate') maxDate: Date;
+  @Input()
+  selectedDate: Date = new Date();
 
-  pickedDate: PickDate | null;
-  pickedRangeEnd: PickDate | null;
-  viewDate: PickDate;
-  today: PickDate = PickDateCreate();
+  @Input()
+  selectRange: boolean = false;
+
+  @Input()
+  selectedRangeEnd: Date | undefined;
+
+  @Input()
+  maxRangeLength: number = Infinity;
+
+  @Input()
+  minDate: Date | undefined;
+
+  @Input()
+  maxDate: Date | undefined;
+
+  currentDate: CalendarDate | null;
+  currentRangeEnd: CalendarDate | null;
+  viewDate: CalendarDate;
+  today: CalendarDate = new CalendarDate();
 
   showYearPick: boolean = false;
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    if (this.selectedRangeEnd) this.selectRange = true;
-    this.pickedDate = PickDateCreate(this.selectedDate);
-    this.viewDate = PickDateCreate();
-
+    this.currentDate = new CalendarDate(this.selectedDate);
+    this.viewDate = new CalendarDate();
 
     if (this.selectedRangeEnd) {
       this.selectRange = true;
-      this.select(PickDateCreate(this.selectedRangeEnd));
+      this.select(new CalendarDate(this.selectedRangeEnd));
     }
-
-    if (!this.minDate) this.minDate = new Date(0, 0, 1);
-    if (!this.maxDate) this.maxDate = new Date(10000, 0, 1);
   }
 
   /**
    * activate the given date
    */
-  select(date: PickDate) {
-    if (!this.selectRange) {
-      this.pickedDate = date;
-      !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
+  select(date: CalendarDate) {
+
+    if (this.isDisabled(date)) {
       return;
     }
 
-    if (this.pickedDate && this.pickedRangeEnd) {
+    if (!this.selectRange) {
+      this.currentDate = date;
+      if (!date.isSameMonthAndYear(this.viewDate)) {
+        this.gotoSelected();
+      }
+
+      !!this.onChangeCallback && this.onChangeCallback(this.currentDate.date);
+      return;
+    }
+
+    if (this.currentDate && this.currentRangeEnd) {
       // reset all
-      this.pickedDate = null;
-      this.pickedRangeEnd = null;
-    } else if (this.pickedDate && !this.pickedRangeEnd) {
-      this.pickedRangeEnd = date;
-    } else if (!this.pickedDate) {
-      this.pickedDate = date;
+      this.currentDate = null;
+      this.currentRangeEnd = null;
+    } else if (this.currentDate && !this.currentRangeEnd) {
+      this.currentRangeEnd = date;
+    } else if (!this.currentDate) {
+      this.currentDate = date;
     }
 
 
 
-    // swap values if pickedDate > pickedRangeEnd
+    // swap values if currentDate > currentRangeEnd
     if (
-      this.pickedRangeEnd &&
-      this.pickedDate &&
-      this.pickedRangeEnd.date < this.pickedDate.date
+      this.currentRangeEnd &&
+      this.currentDate &&
+      this.currentRangeEnd.date < this.currentDate.date
     ) {
-      this.pickedRangeEnd.date = [this.pickedDate.date, this.pickedDate.date = this.pickedRangeEnd.date][0]; // swap values
+      this.currentRangeEnd.date = [this.currentDate.date, this.currentDate.date = this.currentRangeEnd.date][0]; // swap values
     }
 
     // if more days selected than maxRangeLength, strip days
     if (
       this.selectRange &&
-      this.pickedRangeEnd &&
-      this.pickedDate &&
-      this.pickedDate.daysInRange(this.pickedRangeEnd) > this.maxRangeLength
+      this.currentRangeEnd &&
+      this.currentDate &&
+      this.currentDate.daysInRange(this.currentRangeEnd) > this.maxRangeLength
     ) {
-      const diffDays = this.pickedDate.daysInRange(this.pickedRangeEnd) - this.maxRangeLength;
-      this.pickedRangeEnd.moveDays(diffDays * (-1));
+      const diffDays = this.currentDate.daysInRange(this.currentRangeEnd) - this.maxRangeLength;
+      this.currentRangeEnd.moveDays(diffDays * (-1));
     }
 
-    if (this.pickedDate) {
-      !!this.onChangeCallback && this.onChangeCallback(this.pickedDate.date);
+    if (this.currentDate) {
+      !!this.onChangeCallback && this.onChangeCallback(this.currentDate.date);
     }
 
   }
-
-
 
   /**
    * ui-markers
    */
-  isMarked(date: PickDate): boolean {
-    if (!this.selectRange && this.pickedDate && this.pickedDate.isSameDay(date)) return true;
+  isMarked(date: CalendarDate): boolean {
+    if (!this.selectRange && this.currentDate && this.currentDate.isSameDay(date)) return true;
 
-    return !!this.pickedDate && !!this.pickedRangeEnd && date.inRange(this.pickedDate, this.pickedRangeEnd);
-  }
-  isDisabled(day: PickDate): boolean {
-    if (
-      !this.viewDate.isSameMonthAndYear(day) ||
-      day.gt(this.maxDate) ||
-      day.lt(this.minDate)
-    ) {
-      return true;
-    }
-    return false;
+    return !!this.currentDate && !!this.currentRangeEnd && date.inRange(this.currentDate, this.currentRangeEnd);
   }
 
-
+  isDisabled(day: CalendarDate): boolean {
+    const minDate = this.minDate || new Date(0, 0, 1);
+    const maxDate = this.maxDate || new Date(10000, 0, 1);
+    return day.gt(maxDate) || day.lt(minDate);
+  }
 
   /**
    * functions to move viewDate
    */
   nextMonth() {
-    if (this.showYearPick) this.viewDate = this.viewDate.addYears(1);
-    else this.viewDate = this.viewDate.incrementMonths(1);
+    if (this.showYearPick) {
+      this.viewDate = this.viewDate.addYears(1);
+    } else {
+      this.viewDate = this.viewDate.incrementMonths(1);
+    }
   }
+
   prevMonth() {
-    if (this.showYearPick) this.viewDate = this.viewDate.addYears(-1);
-    else this.viewDate = this.viewDate.incrementMonths(-1);
+    if (this.showYearPick) {
+      this.viewDate = this.viewDate.addYears(-1);
+    } else {
+      this.viewDate = this.viewDate.incrementMonths(-1);
+    }
   }
+
   gotoToday() {
-    this.viewDate = PickDateCreate();
+    this.viewDate = new CalendarDate();
   }
+
   gotoSelected() {
-    this.viewDate = this.pickedDate || PickDateCreate();
+    this.viewDate = this.currentDate || new CalendarDate();
   }
+
   yearPickSelect(year: number) {
     this.viewDate = this.viewDate.moveToYear(year);
     this.showYearPick = false;
   }
-
-
 
   /**
    * things needed for ControlValueAccessor-Interface
@@ -186,8 +215,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   private onChangeCallback: (_: Date) => void;
 
   writeValue(value: Date): void {
-    this.pickedDate = PickDateCreate(value);
-    if (!value) this.pickedDate = PickDateCreate();
+    this.currentDate = new CalendarDate(value);
     this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
