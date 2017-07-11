@@ -100,7 +100,7 @@ export class AlertDemoComponent {
     }).subscribe((result) => {
       this.alert.success('File deleted');
     }, err => {
-      this.alert.error('Reason: ' + err.reason , 'File not deleted');
+      this.alert.error('Reason: ' + err.reason , { title: 'File not deleted' });
     });
   }
 
@@ -164,10 +164,10 @@ export class AlertDemoComponent {
       showCancelButton: true,
       confirmAction: fakeAsyncWithRetries
     }).subscribe(result => {
-      this.alert.info(result.value, 'Time');
+      this.alert.info(result.value, { title: 'Time' });
     }, err => {
       console.log(err);
-      this.alert.error(String(err ? err.reason : err), 'Error');
+      this.alert.error(String(err ? err.reason : err), { title: 'Error' });
     });
   }
 

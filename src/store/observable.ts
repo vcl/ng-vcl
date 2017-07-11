@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { Operator } from 'rxjs/Operator';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/map';
@@ -30,8 +31,8 @@ export class StoreObservable<T> extends Observable<T> {
     return select.call(this, path, ...paths);
   }
 
-  lift(operator) {
-    const observable = new StoreObservable<T>(this);
+  lift<R>(operator: Operator<T, R>): StoreObservable<R> {
+    const observable = new StoreObservable<R>(this);
     observable.operator = operator;
     return observable;
   }
