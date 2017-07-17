@@ -7,7 +7,7 @@
 
   <div class="vclNotificationContent vclLayoutVertical vclLayoutCenterJustified ">
 
-    <div style="padding-bottom: 1em" *ngIf="iconClass" [ngClass]="iconAlignmentClass">
+    <div *ngIf="iconClass" class="vclNotificationIconContainer" [ngClass]="iconAlignmentClass">
       <span class="vclIcon vclNotificationIcon" [ngClass]="iconClass"></span>
     </div>
 
