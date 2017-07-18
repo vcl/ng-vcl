@@ -1,16 +1,17 @@
 import {
   Component,
   OnInit,
+  OnChanges,
   Input,
   Output,
   EventEmitter,
   forwardRef,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarDate } from './calendar-date';
-
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -35,7 +36,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[style.height]': '"284px"' // TODO this fixes for IE11
   }
 })
-export class DatePickerComponent implements OnInit, ControlValueAccessor {
+export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   // behavior
   @Input()
@@ -68,7 +69,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
   // values
   @Input()
-  selectedDate: Date = new Date();
+  selectedDate: Date | undefined;
 
   @Input()
   selectRange: boolean = false;
@@ -85,9 +86,12 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   @Input()
   maxDate: Date | undefined;
 
-  currentDate: CalendarDate | null;
-  currentRangeEnd: CalendarDate | null;
-  viewDate: CalendarDate;
+  @Output()
+  change = new EventEmitter<Date | Array<Date | undefined>>();
+
+  currentDate: CalendarDate | undefined;
+  currentRangeEnd: CalendarDate | undefined;
+  viewDate: CalendarDate | undefined;
   today: CalendarDate = new CalendarDate();
 
   showYearPick: boolean = false;
@@ -95,8 +99,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   constructor(private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.currentDate = new CalendarDate(this.selectedDate);
-    this.viewDate = new CalendarDate();
+    this.setDate(this.selectedDate);
 
     if (this.selectedRangeEnd) {
       this.selectRange = true;
@@ -104,61 +107,83 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  /**
-   * activate the given date
-   */
-  select(date: CalendarDate) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectedDate) {
+      this.setDate(changes.selectedDate.currentValue);
+    }
+  }
+
+  setDate(date?: Date) {
+    this.currentDate = new CalendarDate(date);
+    this.viewDate = this.currentDate.clone();
+  }
+
+  onDateTap(date: CalendarDate) {
 
     if (this.isDisabled(date)) {
       return;
     }
 
+    this.select(date);
+
     if (!this.selectRange) {
-      this.currentDate = date;
-      if (!date.isSameMonthAndYear(this.viewDate)) {
+
+      if (this.currentDate && !this.currentDate.isSameMonthAndYear(this.viewDate)) {
         this.gotoSelected();
       }
 
-      !!this.onChangeCallback && this.onChangeCallback(this.currentDate.date);
-      return;
+      const currentDate = this.currentDate ? this.currentDate.date : undefined;
+      this.onChangeCallback && this.onChangeCallback(currentDate);
+      this.change.emit(currentDate);
+    } else {
+      const currentDate = this.currentDate ? this.currentDate.date : undefined;
+      if (currentDate) {
+        this.onChangeCallback && this.onChangeCallback(currentDate);
+      }
+      this.change.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined ]);
     }
 
-    if (this.currentDate && this.currentRangeEnd) {
-      // reset all
-      this.currentDate = null;
-      this.currentRangeEnd = null;
-    } else if (this.currentDate && !this.currentRangeEnd) {
-      this.currentRangeEnd = date;
-    } else if (!this.currentDate) {
+  }
+
+  /**
+   * activate the given date
+   */
+  select(date: CalendarDate) {
+
+    if (!this.selectRange) {
       this.currentDate = date;
+    } else {
+
+      if (this.currentDate && this.currentRangeEnd) {
+        // reset all
+        this.currentDate = undefined;
+        this.currentRangeEnd = undefined;
+      } else if (this.currentDate && !this.currentRangeEnd) {
+        this.currentRangeEnd = date;
+      } else if (!this.currentDate) {
+        this.currentDate = date;
+      }
+
+      // swap values if currentDate > currentRangeEnd
+      if (
+        this.currentRangeEnd &&
+        this.currentDate &&
+        this.currentRangeEnd.date < this.currentDate.date
+      ) {
+        this.currentRangeEnd.date = [this.currentDate.date, this.currentDate.date = this.currentRangeEnd.date][0]; // swap values
+      }
+
+      // if more days selected than maxRangeLength, strip days
+      if (
+        this.selectRange &&
+        this.currentRangeEnd &&
+        this.currentDate &&
+        this.currentDate.daysInRange(this.currentRangeEnd) > this.maxRangeLength
+      ) {
+        const diffDays = this.currentDate.daysInRange(this.currentRangeEnd) - this.maxRangeLength;
+        this.currentRangeEnd.moveDays(diffDays * (-1));
+      }
     }
-
-
-
-    // swap values if currentDate > currentRangeEnd
-    if (
-      this.currentRangeEnd &&
-      this.currentDate &&
-      this.currentRangeEnd.date < this.currentDate.date
-    ) {
-      this.currentRangeEnd.date = [this.currentDate.date, this.currentDate.date = this.currentRangeEnd.date][0]; // swap values
-    }
-
-    // if more days selected than maxRangeLength, strip days
-    if (
-      this.selectRange &&
-      this.currentRangeEnd &&
-      this.currentDate &&
-      this.currentDate.daysInRange(this.currentRangeEnd) > this.maxRangeLength
-    ) {
-      const diffDays = this.currentDate.daysInRange(this.currentRangeEnd) - this.maxRangeLength;
-      this.currentRangeEnd.moveDays(diffDays * (-1));
-    }
-
-    if (this.currentDate) {
-      !!this.onChangeCallback && this.onChangeCallback(this.currentDate.date);
-    }
-
   }
 
   /**
@@ -180,18 +205,20 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
    * functions to move viewDate
    */
   nextMonth() {
+    const viewDate =  this.viewDate || new CalendarDate();
     if (this.showYearPick) {
-      this.viewDate = this.viewDate.addYears(1);
+      this.viewDate = viewDate.addYears(1);
     } else {
-      this.viewDate = this.viewDate.incrementMonths(1);
+      this.viewDate = viewDate.incrementMonths(1);
     }
   }
 
   prevMonth() {
+    const viewDate =  this.viewDate || new CalendarDate();
     if (this.showYearPick) {
-      this.viewDate = this.viewDate.addYears(-1);
+      this.viewDate = viewDate.addYears(-1);
     } else {
-      this.viewDate = this.viewDate.incrementMonths(-1);
+      this.viewDate = viewDate.incrementMonths(-1);
     }
   }
 
@@ -204,7 +231,8 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   yearPickSelect(year: number) {
-    this.viewDate = this.viewDate.moveToYear(year);
+    const viewDate =  this.viewDate || new CalendarDate();
+    this.viewDate = viewDate.moveToYear(year);
     this.showYearPick = false;
   }
 
@@ -212,10 +240,11 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
    * things needed for ControlValueAccessor-Interface
    */
   private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: Date) => void;
+  private onChangeCallback: (_: Date | undefined) => void;
 
   writeValue(value: Date): void {
     this.currentDate = new CalendarDate(value);
+    this.viewDate = this.currentDate;
     this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {

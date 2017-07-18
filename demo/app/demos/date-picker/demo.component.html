@@ -1,13 +1,14 @@
 <h3>Default Datepicker</h3>
-<vcl-date-picker style="width: 18em;"></vcl-date-picker>
+<vcl-date-picker [(ngModel)]="selectedDate" style="width: 18em;"></vcl-date-picker>
 
 <h3>Ranged Datepicker</h3>
 <vcl-date-picker style="width: 18em;" 
-                 [selectedDate]="selectedDate" 
+                 [selectedDate]="selectedDate2" 
                  [selectedRangeEnd]="selectedRangeEnd" 
-                 [selectRange]="selectRange" 
+                 [selectRange]="true" 
                  [maxRangeLength]="7" 
-                 [minDate]="minDate">
+                 [minDate]="minDate"
+                 (change)="onChange($event)">
 </vcl-date-picker>
 
 <h3>Minimal Datepicker</h3>

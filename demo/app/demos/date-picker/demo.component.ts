@@ -11,30 +11,12 @@ import { Component } from '@angular/core';
 })
 export class DatePickerDemoComponent {
 
-  expanded: boolean = false;
-
-  thisYear: number = new Date().getUTCFullYear();
-  currentYear: number = this.thisYear;
-
-  prevYearAvailable: boolean = true;
-  nextYearAvailable: boolean = false;
-
-
   selectedDate = new Date();
-  selectRange = true;
-  selectedRangeEnd = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 3);
-
+  selectedDate2 = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 31);
+  selectedRangeEnd = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 34);
   minDate = new Date();
 
-  constructor() { }
-
-  ngOnInit() { }
-
-  expandDatePicker() {
-    this.expanded = !this.expanded;
-  }
-
-  onSelect(date: string) {
-    console.log('onSelect():', date);
+  onChange(date) {
+    console.log('onChange', date);
   }
 }

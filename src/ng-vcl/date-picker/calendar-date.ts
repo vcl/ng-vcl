@@ -38,6 +38,10 @@ export class CalendarDate {
     this.date = date;
   }
 
+  clone() {
+    return new CalendarDate(new Date(this.date.getTime()));
+  }
+
   getWeekDays(): string[] {
     return WEEK_DAYS;
   }
