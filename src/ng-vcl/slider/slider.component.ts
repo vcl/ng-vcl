@@ -74,6 +74,16 @@ export class SliderComponent implements ControlValueAccessor {
   @ViewChild('scale')
   scaleElement: ElementRef;
 
+  get pmin(): number {
+    const min = Number(this.min);
+    return !isNaN(min) ? min : 0;
+  }
+
+  get pmax(): number {
+    const max = Number(this.max);
+    return !isNaN(max) ? max : 0;
+  }
+
   percentLeftKnob: number = 0;
 
   scalePoints: ScalePoint[] = [];
@@ -115,14 +125,14 @@ export class SliderComponent implements ControlValueAccessor {
     if (!this.validateValue(value)) {
       return 0;
     }
-    const rangeLength = this.max - this.min;
-    const valueLeft = value - this.min;
+    const rangeLength = this.pmax - this.pmin;
+    const valueLeft = value - this.pmin;
     const delta = rangeLength / valueLeft;
     return 100 / delta;
   }
 
   percentToValue(per: number): number {
-    const rangeLength = this.max - this.min;
+    const rangeLength = this.pmax - this.pmin;
     const newVal = (rangeLength / 100) * per;
     return Math.round(newVal);
   }
@@ -137,7 +147,15 @@ export class SliderComponent implements ControlValueAccessor {
         };
       });
     } else {
-      const steps = (typeof this.scale === 'number' ? this.scale : this.max - this.min) + 1;
+      let steps: number;
+      if (typeof this.scale === 'number') {
+        steps = this.scale;
+      } else {
+        steps = this.pmax - this.pmin + 1;
+        while (steps > 50) {
+          steps = Math.floor(steps / 2);
+        }
+      }
       this.scalePoints = Array.from(Array(steps).keys()).map((i) => {
         const percent = (100 / (steps - 1)) * i;
         return {
@@ -235,16 +253,16 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   moveValue(direction: MoveDirection) {
-    let value = this.valueValid ? this.value : this.min;
+    let value = this.valueValid ? this.value : this.pmin;
 
     if (direction === MoveDirection.Right) {
       value++;
-      if (value > this.max)
-        value = this.max;
+      if (value > this.pmax)
+        value = this.pmax;
     } else {
       value--;
-      if (value < this.min)
-        value = this.min;
+      if (value < this.pmin)
+        value = this.pmin;
     }
 
     this.setValue(value, true);
