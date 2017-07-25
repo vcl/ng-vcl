@@ -99,7 +99,7 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   validateValue(value: number) {
-    return typeof this.value === 'number' && this.value >= this.min && this.value <= this.max;
+    return typeof this.value === 'number' && this.value >= this.pmin && this.value <= this.pmax;
   }
 
   get showScale() {
@@ -113,7 +113,7 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   setValue(value: number, updateKnob: boolean) {
-    this.value = value;
+    this.value = Number(value);
     if (updateKnob) {
       this.percentLeftKnob = this.calculatePercentLeftKnob(value);
     }
@@ -152,9 +152,6 @@ export class SliderComponent implements ControlValueAccessor {
         steps = this.scale;
       } else {
         steps = this.pmax - this.pmin + 1;
-        while (steps > 50) {
-          steps = Math.floor(steps / 2);
-        }
       }
       this.scalePoints = Array.from(Array(steps).keys()).map((i) => {
         const percent = (100 / (steps - 1)) * i;
