@@ -8,7 +8,7 @@
               </div>
             </button>
         <span class="vclCalHeaderLabel" (tap)="showYearPick=true" [class.date-picker-pointer]="!showYearPick">
-              {{viewDate.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate.getYearString()}}
+              {{viewDate?.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate?.getYearString()}}
             </span>
         <button type="button" class="vclButton vclTransparent vclSquare" (click)="nextMonth()">
           <div class="vclIcogram">
