@@ -385,6 +385,16 @@ export const routes: Routes = [
         category: 'Other',
       }
     }
+  },
+  {
+    loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
+    path: 'jss-form',
+    data: {
+      demo: {
+        label: 'JSS-Form',
+        category: 'Other',
+      }
+    }
   }
 ];
 
