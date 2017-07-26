@@ -57,6 +57,8 @@ export class DropdownComponent implements ControlValueAccessor {
   @Output('change')
   change = new EventEmitter<any>();
 
+  focused = false;
+
   constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   async scrollToMarked() {
@@ -118,7 +120,11 @@ export class DropdownComponent implements ControlValueAccessor {
       this.cdRef.markForCheck();
     });
   }
+  onMetalistFocus() {
+    this.focused = true;
+  }
   onMetalistBlur() {
+    this.focused = false;
     this.onTouched();
   }
 

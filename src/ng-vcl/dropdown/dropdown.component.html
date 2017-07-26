@@ -8,6 +8,7 @@
   [attr.aria-multiselectable]="mode === 'multiple'"
   [style.position]="'static'"
   (change)="onMetalistChange($event)"
+  (focus)="onMetalistFocus()"
   (blur)="onMetalistBlur()"
   (keydown)="onMetalistKeydown($event)"
   >
@@ -25,7 +26,7 @@
       class="vclDropdownItem"
       [class.vclSelected]="metaItem.selected"
       [class.vclDisabled]="metaItem.disabled"
-      [class.vclHighlighted]="metaItem.marked"
+      [class.vclHighlighted]="focused && metaItem.marked"
       [attr.aria-selected]="metaItem.selected"
       (tap)="onMetalistItemTap(metaItem)">
       <div *ngIf="item.label" class="vclDropdownItemLabel">
