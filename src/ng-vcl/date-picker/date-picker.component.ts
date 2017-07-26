@@ -8,7 +8,8 @@ import {
   forwardRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  SimpleChanges
+  SimpleChanges,
+  HostBinding
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarDate } from './calendar-date';
@@ -41,6 +42,10 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   // behavior
   @Input()
   closeOnSelect: boolean = false;
+
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled: boolean = false;
 
   // styling
   @Input()
@@ -118,9 +123,17 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     this.viewDate = this.currentDate.clone();
   }
 
+  showYear() {
+    if (this.disabled) {
+      return;
+    }
+
+    this.showYearPick = true;
+  }
+
   onDateTap(date: CalendarDate) {
 
-    if (this.isDisabled(date)) {
+    if (this.disabled || this.isDayDisabled(date)) {
       return;
     }
 
@@ -195,7 +208,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     return !!this.currentDate && !!this.currentRangeEnd && date.inRange(this.currentDate, this.currentRangeEnd);
   }
 
-  isDisabled(day: CalendarDate): boolean {
+  isDayDisabled(day: CalendarDate): boolean {
     const minDate = this.minDate || new Date(0, 0, 1);
     const maxDate = this.maxDate || new Date(10000, 0, 1);
     return day.gt(maxDate) || day.lt(minDate);
@@ -231,6 +244,9 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   yearPickSelect(year: number) {
+    if (this.disabled) {
+      return;
+    }
     const viewDate =  this.viewDate || new CalendarDate();
     this.viewDate = viewDate.moveToYear(year);
     this.showYearPick = false;
@@ -253,5 +269,8 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   registerOnTouched(fn: any) {
     this.onTouchedCallback = fn;
   }
-
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+    this.cdRef.markForCheck();
+  }
 }
