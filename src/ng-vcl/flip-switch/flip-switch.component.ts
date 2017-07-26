@@ -45,6 +45,10 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   @Input()
   value: boolean = false;
 
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled: boolean = false;
+
   @Output()
   valueChange = new EventEmitter<boolean>();
 
@@ -78,6 +82,10 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   }
 
   toggle() {
+    if (this.disabled) {
+      return;
+    }
+
     this.value = !this.value;
     this.valueChange.emit(this.value);
     this.onChangeCallback && this.onChangeCallback(this.value);
@@ -98,5 +106,9 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   }
   registerOnTouched(fn: any) {
     this.onTouchedCallback = fn;
+  }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+    this.cdRef.markForCheck();
   }
 }
