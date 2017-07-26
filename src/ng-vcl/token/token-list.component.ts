@@ -7,9 +7,14 @@ import {
   QueryList,
   forwardRef,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  AfterContentInit,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/startWith';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { Token, TokenComponent } from './token.component';
@@ -27,9 +32,11 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclTokenList]': 'true',
     '[class.vclTokenContainer]': 'true'
   },
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  // Used by select
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenListComponent implements ControlValueAccessor {
+export class TokenListComponent implements AfterContentInit, OnChanges, ControlValueAccessor {
 
   tokenSubscription: Subscription | undefined;
 
@@ -38,6 +45,12 @@ export class TokenListComponent implements ControlValueAccessor {
 
   @Input()
   selectable: boolean = false;
+
+  @Input()
+  dispatchEvent: boolean = false;
+
+  @Input()
+  disabled: boolean = false;
 
   @Output()
   change = new EventEmitter();
@@ -65,6 +78,12 @@ export class TokenListComponent implements ControlValueAccessor {
     !!this.onChangeCallback && this.onChangeCallback(this.labels);
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.disabled) {
+      this.setDisabledState(changes.disabled.currentValue);
+    }
+  }
+
   ngAfterContentInit() {
     // Update the selectedIndex to match the selected buttons when not using ngModel
     if (!this.onChangeCallback) {
@@ -75,6 +94,8 @@ export class TokenListComponent implements ControlValueAccessor {
     // Subscribes to buttons press event
     const listenButtonPress = () => {
       this.dispose();
+
+      this.cdRef.markForCheck();
 
       const select$ = Observable.merge(...(this.tokens.map(token => token.select.map(() => token))));
 
@@ -87,10 +108,12 @@ export class TokenListComponent implements ControlValueAccessor {
       });
     };
 
-    listenButtonPress();
-    this.tokens.changes.subscribe(() => {
+    this.tokens.changes.startWith(null).subscribe(() => {
       listenButtonPress();
-      setTimeout(() => this.syncSelectedValues());
+      setTimeout(() => {
+        this.syncSelectedValues();
+        this.setDisabledState(this.disabled);
+      });
     });
   }
 
@@ -118,7 +141,9 @@ export class TokenListComponent implements ControlValueAccessor {
   registerOnTouched(fn: any) {
     this.onTouchedCallback = fn;
   }
-
+  setDisabledState(isDisabled: boolean) {
+    this.tokens && this.tokens.forEach(t => t.setDisabledState(isDisabled));
+  }
 }
 
 

@@ -5,7 +5,9 @@ import {
   EventEmitter,
   trigger,
   HostListener,
-  HostBinding
+  HostBinding,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 
 export interface Token {
@@ -21,21 +23,24 @@ export interface Token {
   host: {
     '[class.vclToken]': 'true',
     '[@checkState]': 'selected'
-  }
+  },
+  // Used by select
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TokenComponent implements Token {
 
   @Input()
   label: string;
 
+  @Input()
+  disabled: boolean = false;
+
   @HostListener('tap', ['$event'])
   onTap(e: Event) {
+    if (this.isDisabled) {
+      return;
+    }
     this.select.emit(e);
-  }
-
-  onRemoveClick(event) {
-    event.stopPropagation();
-    this.remove.emit(event);
   }
 
   @HostBinding('class.vclSelected')
@@ -53,4 +58,23 @@ export class TokenComponent implements Token {
 
   @Output()
   select = new EventEmitter();
+
+  constructor(private cdRef: ChangeDetectorRef) { }
+
+  onRemoveClick(event) {
+    event.stopPropagation();
+    this.remove.emit(event);
+  }
+
+  // Store cva disabled state in an extra property to remember the old state after the token-list has been disabled
+  private cvaDisabled = false;
+  setDisabledState(isDisabled: boolean) {
+    this.cvaDisabled = isDisabled;
+    this.cdRef.markForCheck();
+  }
+
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    return this.cvaDisabled || this.disabled;
+  }
 }

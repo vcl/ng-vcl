@@ -3,6 +3,7 @@
   <vcl-token *ngFor="let token of tokens"
              (remove)="removeToken(token)"
              (tap)="select(token)"
+             [disabled]="disabled"
              [ngClass]="tokenClass"
              [selected]="token.selected"
              [removable]="true"
@@ -16,6 +17,7 @@
 <input 
   vcl-input
   #input
+  [disabled]="disabled"
   [placeholder]="placeholder" 
   [ngClass]="inputClass"
   autocomplete="off" 

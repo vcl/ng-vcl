@@ -72,6 +72,10 @@ export class TokenInputComponent implements ControlValueAccessor {
   @Input()
   tokenClass: string | undefined;
 
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled = false;
+
   @Output()
   change = new EventEmitter<Token[]>();
 
@@ -187,5 +191,8 @@ export class TokenInputComponent implements ControlValueAccessor {
   }
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
   }
 }

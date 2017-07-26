@@ -1,5 +1,6 @@
 <span class="vclTokenLabel">{{label}}</span>
 <button vcl-button
+        [disabled]="isDisabled"
         *ngIf="removable" 
         class="vclTransparent"
         type="button" 
