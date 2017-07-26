@@ -1,32 +1,25 @@
-import {
-  OnInit, Component, Input,
-  ViewChildren,
-  EventEmitter, Output, HostListener, ElementRef,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { OnInit, Component, Input, ViewChildren, EventEmitter, Output, HostListener, ElementRef, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'vcl-input-control-group',
+  selector: 'vcl-input-control-group, [vcl-input-control-group]',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[class.vclInputControlGroup]': 'true',
-  },
   templateUrl: 'input-control-group.component.html'
 })
 export class InputControlGroup {
 
-  @Input('type')
+  @Input()
   type: 'error' | 'warning' | 'success' | undefined;
 
-  @Input('label')
+  @Input()
   label: string;
 
-  constructor(private elRef: ElementRef) {
-    this.elRef = elRef;
-  }
+  @HostBinding('class.vclInputInlineControlGroup')
+  @Input()
+  inline = false;
 
-  ucfirst(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  @HostBinding('class.vclInputControlGroup')
+  get notInline() {
+    return !this.inline;
   }
 }
