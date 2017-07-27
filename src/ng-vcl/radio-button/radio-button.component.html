@@ -1,4 +1,11 @@
-<vcl-icon [icon]="checked ? checkedIcon : uncheckedIcon" *ngIf="labelPosition=='right'"></vcl-icon>
-<label vcl-form-control-label *ngIf="label" [label]="label"></label>
-<ng-content></ng-content>
-<vcl-icon [icon]="checked ? checkedIcon : uncheckedIcon" *ngIf="labelPosition=='left'"></vcl-icon>
+<ng-container *ngIf="labelPosition==='left'">
+  <label vcl-form-control-label [label]="label" [attr.for]="radioID" (tap)="onTap($event)">
+    <ng-content></ng-content>
+  </label>
+</ng-container>
+<vcl-icon [icon]="checked ? checkedIcon : uncheckedIcon"></vcl-icon>
+<ng-container *ngIf="labelPosition==='right'">
+  <label vcl-form-control-label [label]="label" [attr.for]="radioID" (tap)="onTap($event)">
+    <ng-content></ng-content>
+  </label>
+</ng-container>

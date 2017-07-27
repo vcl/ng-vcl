@@ -21,9 +21,8 @@
 <br>
 <h3>With custom content:</h3>
 
-<h4>left:</h4>
 <vcl-radio-button [(checked)]="isChecked4">
-  <label vcl-form-control-label label="Label" subLabel="SubLabel"></label>
+  <vcl-icogram label="Yes" appIcon="fa:check"></vcl-icogram>
 </vcl-radio-button>
 
 
@@ -39,8 +38,12 @@ State: {{rgValue1}}
 <h3>Radio Group using custom values:</h3>
 
 <vcl-radio-group [(ngModel)]="rgValue2">
-  <vcl-radio-button label="Value 1" [value]="'r1'"></vcl-radio-button>
-  <vcl-radio-button label="Value 2" [value]="'r2'"></vcl-radio-button>
+  <vcl-radio-button [value]="'f'">
+    <vcl-icogram label="Female" appIcon="fa:venus"></vcl-icogram>
+  </vcl-radio-button>
+  <vcl-radio-button [value]="'m'">
+    <vcl-icogram label="Male" appIcon="fa:mars"></vcl-icogram>
+  </vcl-radio-button>
 </vcl-radio-group>
 <br>
 State: {{rgValue2}}
