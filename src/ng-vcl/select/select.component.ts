@@ -55,6 +55,9 @@ export class SelectComponent implements ControlValueAccessor {
   expanded: boolean = false;
 
   @Input()
+  disabled: boolean = false;
+
+  @Input()
   listenKeys: boolean = true;
 
   // multi-select
@@ -144,6 +147,9 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   toggle() {
+    if (this.disabled) {
+      return;
+    }
     if (!this.expanded) {
       this.open();
     } else {
@@ -258,5 +264,9 @@ export class SelectComponent implements ControlValueAccessor {
   }
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+    this.cdRef.markForCheck();
   }
 }

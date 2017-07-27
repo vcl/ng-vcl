@@ -52,6 +52,9 @@ export class DropdownComponent implements ControlValueAccessor {
   maxSelectableItems: number | undefined;
 
   @Input()
+  disabled = false;
+
+  @Input()
   listenKeys: boolean = true;
 
   @Output('change')
@@ -151,5 +154,9 @@ export class DropdownComponent implements ControlValueAccessor {
   }
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+    this.cdRef.markForCheck();
   }
 }

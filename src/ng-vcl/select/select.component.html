@@ -8,12 +8,13 @@
       {{displayValue}}
     </div>
     <div *ngIf="!showDisplayValue" class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle($event)">
-      <vcl-token-list>
+      <vcl-token-list [disabled]="disabled">
         <vcl-token *ngFor="let item of selectedItems" [label]="item.label" [removable]="true" (remove)="deselectItem(item, $event)"></vcl-token>
       </vcl-token-list>
     </div>
 
     <button vcl-button
+      [disabled]="disabled"
       type="button"
       tabindex="-1"
       class="vclTransparent vclSquare vclAppended"
@@ -24,22 +25,23 @@
 
   <vcl-dropdown 
       #dropdown
-      [style.display]="expanded ? null : 'none'"
-      (change)="onDropdownChange($event)"
+      tabindex="-1"
+      [disabled]="disabled"
       [selectionMode]="selectionMode"
       [maxSelectableItems]="maxSelectableItems"
-      tabindex="-1"
+      [style.display]="expanded ? null : 'none'"
       [style.position]="'relative'"
       [style.top.px]="dropdownTop"
       [style.width]="'100%'"
       [style.position]="'absolute'"
-      [style.zIndex]="999999">
+      [style.zIndex]="999999"
+      (change)="onDropdownChange($event)">
     <vcl-dropdown-option 
       *ngFor="let item of items" 
       [metadata]="item" 
       [value]="item.value" 
       [selected]="item.selected" 
-      [disabled]="item.disabled" 
+      [disabled]="disabled || item.disabled" 
       [label]="item.label" 
       [sublabel]="item.sublabel">
     </vcl-dropdown-option>
