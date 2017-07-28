@@ -67,6 +67,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/password-input/demo.module#PasswordInputDemoModule',
+    path: 'password-input',
+    data: {
+      demo: {
+        label: 'Password Input',
+        category: 'Form Controls',
+      }
+    }
+  },
+  {
     loadChildren: './demos/input-control-group/demo.module#InputControlGroupDemoModule',
     path: 'input-control-group',
     data: {
