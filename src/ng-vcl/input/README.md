@@ -16,8 +16,7 @@ Enhanced text input
 
 Name            | Type    | Default | Description
 --------------- | ------- | ------- | -----------------------------------------------
-`ngModel` _(1)_ | any     |         | native angular-2 ngModel to bind value to variable
+`ngModel`       | string  |         | Input value
 `selectOnFocus` | boolean | false   | Selects the content on focus
-`state`         | string  |         | defines how the input is layouted. ENUM('error' | 'warning' | 'success')
+`disabled`      | boolean | false   | Disables the input when true
 
-_(1) Supports Two-way binding_

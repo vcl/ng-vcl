@@ -1,4 +1,4 @@
-import { Directive, Input, Output, ElementRef, HostListener, EventEmitter } from '@angular/core';
+import { Directive, Input, Output, ElementRef, HostListener, EventEmitter, HostBinding } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -24,11 +24,15 @@ const INPUT_INVALID_TYPES = [
 })
 export class InputDirective {
 
-  @Input('type')
+  @Input()
   type: string = 'text';
 
   @Input()
   selectOnFocus: boolean = false;
+
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled: boolean = false;
 
   constructor(private elRef: ElementRef) { }
 
@@ -40,6 +44,11 @@ export class InputDirective {
 
   get value() {
     return this.elRef ? this.elRef.nativeElement.value : '';
+  }
+
+  @HostBinding('attr.disabled')
+  get attrDisabled() {
+    return this.disabled ? true : null;
   }
 
   clear() {
