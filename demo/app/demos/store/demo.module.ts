@@ -13,7 +13,7 @@ import { BOOKS_REDUCERS } from './books.reducers';
 
 export function demo() {
   return {
-    label: 'Select',
+    label: 'Store',
     tabs: {
       Demo: StoreDemoComponent,
       'README.md': {

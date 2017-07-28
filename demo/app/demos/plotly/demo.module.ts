@@ -8,7 +8,7 @@ import { PlotlyDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Select',
+    label: 'Plotly',
     tabs: {
       Demo: PlotlyDemoComponent,
       'README.md': {

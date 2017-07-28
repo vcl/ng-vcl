@@ -8,7 +8,7 @@ import { JsonEditorDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Select',
+    label: 'JSON Editor',
     tabs: {
       Demo: JsonEditorDemoComponent,
       'README.md': {
