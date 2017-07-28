@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JssFormComponent } from './jss-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { VCLButtonModule, VCLDropdownModule, VCLFlipSwitchModule, VCLSliderModule, VCLCheckboxModule, VCLSelectModule, VCLRadioButtonModule, VCLInputControlGroupModule, VCLFormControlLabelModule, L10nModule } from '@ng-vcl/ng-vcl';
-import { JssFormObjectComponent, JssFormSchema, JssFormSchemaOptions } from './jss-form-object.component';
+import { JssFormObjectComponent } from './jss-form-object.component';
+import { JssFormSchemaOptions, JssFormSchema } from "./types";
 
 export { JssFormComponent, JssFormObjectComponent, JssFormSchema, JssFormSchemaOptions };
+export { markAsDeeplyTouched } from './utils';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
     L10nModule,
     VCLButtonModule,
     VCLDropdownModule,
@@ -28,3 +29,4 @@ export { JssFormComponent, JssFormObjectComponent, JssFormSchema, JssFormSchemaO
   providers: [],
 })
 export class VCLJssFormModule { }
+

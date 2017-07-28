@@ -4,7 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/observable/from';
 import { Schema, Validator } from 'jsonschema';
-import { FormObject, createFormObjects, JssFormSchema } from "./jss-form-object.component";
+import { FormObject, createFormObjects } from "./jss-form-object.component";
+import { JssFormSchema } from "./types";
+import { determineType } from "./utils";
 
 let VALIDATOR: Validator;
 
@@ -31,9 +33,9 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   action = new EventEmitter<any>();
 
   form: FormGroup | undefined;
+  formObjects: FormObject[] | undefined;
 
   private formValueChangeSub: Subscription;
-  private formObjects: FormObject[] | undefined;
 
   constructor(private fb: FormBuilder) { }
 
@@ -65,9 +67,9 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
       const group = {};
       const props = schema.properties || {};
       Object.keys(props).map(key => {
-        // objects
         const p = props[key];
         if (p) {
+          // objects
           if (p.type === 'object') {
             group[key] = createGroup(p);
           // non-objects

@@ -1,49 +1,14 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Schema } from "jsonschema";
+import { JssFormSchemaOptions, JssFormSchema } from "./types";
+import { determineType } from "./utils";
 
-export interface JssFormSchemaOptions {
-  label?: string;
-  value: any;
-}
-
-export interface JssFormSchema extends Schema {
-  label?: string;
-  formType?: string;
-  placeholder?: string;
-  options?: JssFormSchemaOptions[];
-  scale?: string[] | number;
-  buttons?: JssFormSchema[];
-  action?: any;
-  autoDisable?: boolean;
-  prepIcon?: string;
-  appIcon?: string;
-  class?: string;
-}
-
-/**
- * if no formType is given, this will guess the right one
- */
-function determineType(schema: JssFormSchema): string | undefined {
-    if (schema.formType) {
-      return schema.formType;
-    } else if (schema.type == 'string') {
-      return (schema.enum) ? 'select' : 'text';
-    } else if (schema.type == 'number' || schema.type === 'integer') {
-      return 'number';
-    } else if (schema.type == 'boolean') {
-      return 'switch';
-    } else if (schema.type == 'submit') {
-      return 'submit';
-    } else if (schema.type == 'button') {
-      return 'button';
-    } else if (schema.type == 'buttons') {
-      return 'buttons';
-    }
-    return undefined;
-}
+let uniqueID = 0;
 
 export class FormObject {
+
+  id: string;
 
   formType: string | undefined;
   formObjects: FormObject[] | undefined;
@@ -72,6 +37,8 @@ export class FormObject {
     } else if (this.formType === 'buttons') {
       this.buttons = (schema.buttons || []).map(btnSchema => new FormObject(btnSchema, key));
     }
+
+    this.id = `vcl-jss-form-${key}-${++uniqueID}`;
   }
 
   get name() {
@@ -126,7 +93,7 @@ export class JssFormObjectComponent {
 
   get hasError() {
     const ctrl = this.form.get(this.fo.key);
-    return (ctrl && ctrl.invalid && ctrl.touched && ctrl.errors);
+    return (ctrl && ctrl.invalid && ctrl.errors && (ctrl.touched || ctrl.dirty));
   }
 
   get errorLabel() {

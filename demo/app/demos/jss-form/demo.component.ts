@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { JssFormComponent } from "@ng-vcl/jss-form";
+import { JssFormComponent, markAsDeeplyTouched } from "@ng-vcl/jss-form";
 import { NotificationService } from "@ng-vcl/ng-vcl";
 import { HERO_SCHEMA, HERO_DEFAULTS } from "./hero";
 
@@ -22,6 +22,9 @@ export class JssFormDemoComponent {
     if (valid) {
       this.ns.success(`${value.name} is a valid hero`);
     } else {
+      if (this.heroForm.form) {
+        markAsDeeplyTouched(this.heroForm.form);
+      }
       this.ns.error(`Your hero is not valid`);
     }
   }

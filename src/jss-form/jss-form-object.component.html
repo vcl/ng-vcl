@@ -2,33 +2,37 @@
   <ng-container *ngIf="!fo.formObjects;else nested">
     <ng-container [ngSwitch]="fo.formType">
       <ng-container  *ngSwitchCase="'text'">
-        <label vcl-form-control-label [label]="fo.label" [required]="fo.required"></label>
+        <label vcl-form-control-label [label]="fo.label" [required]="fo.required" [for]="fo.id"></label>
         <vcl-input-control-group [type]="'error'" [label]="errorLabel">
           <input vcl-input 
-                type="text" 
-                [class.vclError]="hasError"
-                [placeholder]="fo.placeholder" 
-                [formControlName]="fo.key" />
+                 [id]="fo.id"
+                 type="text" 
+                 [class.vclError]="hasError"
+                 [placeholder]="fo.placeholder" 
+                 [formControlName]="fo.key" />
         </vcl-input-control-group>
       </ng-container>
 
       <ng-container  *ngSwitchCase="'number'">
-        <label vcl-form-control-label [label]="fo.label"></label>
+        <label vcl-form-control-label [label]="fo.label" [for]="fo.id"></label>
         <vcl-input-control-group [type]="'error'" [label]="errorLabel">
           <input vcl-input 
-                type="number" 
-                valueType="number" 
-                placeholder="number" 
-                [class.vclError]="hasError"
-                [name]="fo.key" 
-                [formControlName]="fo.key" />
+                  [id]="fo.id"
+                  type="number" 
+                  valueType="number" 
+                  placeholder="number" 
+                  [class.vclError]="hasError"
+                  [name]="fo.key" 
+                  [formControlName]="fo.key" />
         </vcl-input-control-group>   
+        
       </ng-container>
 
       <ng-container *ngSwitchCase="'select'">
-        <label vcl-form-control-label [label]="fo.label"></label>
+        <label vcl-form-control-label [label]="fo.label" [for]="fo.id"></label>
         <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-          <vcl-select [formControlName]="fo.key"
+          <vcl-select [id]="fo.id"
+                      [formControlName]="fo.key"
                       [class.vclError]="hasError"
                       [mode]="fo.schema.type==='array' ? 'multiple' : 'single'">
             <vcl-select-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label"></vcl-select-option>  
@@ -37,9 +41,11 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="'dropdown'">
-        <label vcl-form-control-label [label]="fo.label"></label>
+        <label vcl-form-control-label [label]="fo.label" [for]="fo.id"></label>
         <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-          <vcl-dropdown [formControlName]="fo.key"
+          <vcl-dropdown 
+                        [id]="fo.id"
+                        [formControlName]="fo.key"
                         [class.vclError]="hasError"
                         [mode]="fo.schema.type==='array' ? 'multiple' : 'single'">
             <vcl-dropdown-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label"></vcl-dropdown-option>
@@ -48,16 +54,19 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="'switch'">
-        <label vcl-form-control-label [label]="fo.label"></label>
-        <vcl-flip-switch onLabel="{{'Yes' | loc }}" 
+        <label vcl-form-control-label [label]="fo.label" [for]="fo.id"></label>
+        <vcl-flip-switch 
+                         [id]="fo.id"
+                         onLabel="{{'Yes' | loc }}" 
                          offLabel="{{'No' | loc}}" 
                          [formControlName]="fo.key">
         </vcl-flip-switch>
       </ng-container>
         
       <ng-container *ngSwitchCase="'slider'">
-        <label vcl-form-control-label [label]="fo.label"></label>
-        <vcl-slider [class.vclError]="hasError"
+        <label vcl-form-control-label [label]="fo.label" [for]="fo.id"></label>
+        <vcl-slider [id]="fo.id"
+                    [class.vclError]="hasError"
                     [min]="fo.schema.mininum" 
                     [max]="fo.schema.maximum"
                     [scale]="fo.schema.scale"
@@ -66,17 +75,18 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="'checkbox'">
-        <label vcl-form-control-label wrapping=true>
-          <vcl-checkbox [formControlName]="fo.key"></vcl-checkbox> 
-          {{fo.label}}
+        <label vcl-form-control-label wrapping=true [for]="fo.id">
+          <vcl-checkbox [id]="fo.id" [formControlName]="fo.key">
+            <label vcl-form-control-label [label]="fo.label"></label>
+          </vcl-checkbox> 
         </label>
       </ng-container>
 
       <ng-container *ngSwitchCase="'radio'">
-        <label vcl-form-control-label [label]="fo.label"></label>
-        <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-          <vcl-radio-group [formControlName]="fo.key"
-                          [class.vclError]="hasError">
+        <label vcl-form-control-label [label]="fo.label" [for]="fo.id"></label>
+        <vcl-input-control-group [type]="'error'" [label]="errorLabel" inline=true>
+          <vcl-radio-group [id]="fo.id" [formControlName]="fo.key"
+                            [class.vclError]="hasError">
             <vcl-radio-button *ngFor="let option of fo.options" [label]="option.label" [value]="option.value"></vcl-radio-button>
           </vcl-radio-group>
         </vcl-input-control-group>
