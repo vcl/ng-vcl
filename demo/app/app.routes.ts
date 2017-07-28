@@ -362,7 +362,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'JSON Editor',
-        category: 'Other',
+        category: 'External',
       }
     }
   },
@@ -372,7 +372,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Plotly',
-        category: 'Other',
+        category: 'External',
       }
     }
   },
@@ -382,7 +382,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Store',
-        category: 'Other',
+        category: 'External',
       }
     }
   },
@@ -392,7 +392,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'JSS-Form',
-        category: 'Other',
+        category: 'External',
       }
     }
   }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLCheckboxModule } from '@ng-vcl/ng-vcl';
+import { VCLCheckboxModule, VCLFormControlLabelModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { CheckboxDemoComponent } from './demo.component';
 
@@ -33,6 +33,7 @@ export function demo() {
     FormsModule,
     DemoModule,
     VCLCheckboxModule,
+    VCLFormControlLabelModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
