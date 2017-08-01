@@ -46,11 +46,12 @@ export class VCLLayerModule {
       ...(config.layers || []),
       {
         provide: LayerRef,
-        useValue: null
+        useValue: undefined
       },
       {
         provide: LAYERS,
-        useValue: config.layers
+        useValue: config.layers,
+        multi: true
       }
     ]};
   }
@@ -62,24 +63,28 @@ export class VCLLayerModule {
         ...(config.layers || []),
         {
           provide: LAYERS,
-          useValue: config.layers
+          useValue: config.layers,
+          multi: true
         }
       ]
     };
   }
 
   constructor(
-    @Inject(LAYERS) private layers: Type<LayerRef>[],
-    private layerManager: LayerManagerService,
-    private injector: Injector,
+    @Inject(LAYERS) layers: Type<LayerRef>[],
+    layerManager: LayerManagerService,
+    injector: Injector,
   ) {
     if (layers) {
-      (layers || []).forEach(layerCls => {
+      // Flatten and filter layer classes
+      layers = [].concat.apply([], layers).filter(layerCls => layerCls !== undefined);
+      layers.forEach(layerCls => {
           const layerMeta = <LayerMeta> getMetadata(COMPONENT_LAYER_ANNOTATION_ID, layerCls);
           const layerRef = injector.get(layerCls);
-          layerManager._register(layerRef, layerMeta.component, injector, layerMeta.opts);
+          if (layerMeta && layerRef) {
+            layerManager._register(layerRef, layerMeta.component, injector, layerMeta.opts);
+          }
       });
     }
   }
 }
-
