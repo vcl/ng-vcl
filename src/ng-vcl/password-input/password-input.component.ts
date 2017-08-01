@@ -20,6 +20,9 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class PasswordInputComponent implements ControlValueAccessor {
 
   @Input()
+  inputId: string | undefined;
+
+  @Input()
   visibleIcon = 'fa:eye-slash';
 
   @Input()
@@ -50,6 +53,7 @@ export class PasswordInputComponent implements ControlValueAccessor {
 
   toggle() {
     this.visible = !this.visible;
+    this.cdRef.markForCheck();
   }
 
   onBlur() {
@@ -57,7 +61,7 @@ export class PasswordInputComponent implements ControlValueAccessor {
   }
 
   onModelChange(value: any) {
-    this.value = value;
+    this.value = String(value);
     this.onChange(this.value);
   }
 
