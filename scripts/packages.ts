@@ -1,12 +1,42 @@
+// tslint:disable:object-literal-key-quotes
 import { copyResources, prepareDist, ngVCLCompatibility, prepareDistCompatibility } from './gulp-build-tasks';
 
-const PACKAGES: {[key: string]: {(pkg: string): string}[]} = {
-  'ng-vcl': [copyResources, ngVCLCompatibility, prepareDist, prepareDistCompatibility],
-  'adv-http': [copyResources, prepareDist],
-  'json-editor': [copyResources, prepareDist],
-  'plotly': [copyResources, prepareDist],
-  'store': [copyResources, prepareDist],
-  'animations': [copyResources, prepareDist]
+interface Packages {
+  [key: string]: {
+    next: boolean;
+    tasks: {(pkg: string): string}[];
+  };
+}
+
+const PACKAGES: Packages = {
+  'ng-vcl': {
+    next: false,
+    tasks: [copyResources, ngVCLCompatibility, prepareDist, prepareDistCompatibility]
+  },
+  'adv-http': {
+    next: false,
+    tasks: [copyResources, prepareDist],
+  },
+  'json-editor': {
+    next: false,
+    tasks: [copyResources, prepareDist],
+  },
+  'plotly': {
+    next: false,
+    tasks: [copyResources, prepareDist],
+  },
+  'store': {
+    next: false,
+    tasks: [copyResources, prepareDist],
+  },
+  'animations': {
+    next: false,
+    tasks: [copyResources, prepareDist]
+  },
+  'jss-form': {
+    next: true,
+    tasks: [copyResources, prepareDist]
+  },
 };
 
 export default PACKAGES;
