@@ -60,7 +60,9 @@ export class PopoverComponent extends ObservableComponent {
   debug: false;
 
   @Input()
-  target: string | any;
+  target?: string | ElementRef | Element;
+
+  private targetElement?: Element;
 
   @Input()
   targetX: AttachmentX = AttachmentX.Left;
@@ -118,26 +120,21 @@ export class PopoverComponent extends ObservableComponent {
 
   constructor(protected readonly me: ElementRef, private builder: AnimationBuilder,  @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig) {
     super();
-
-    this.observeChanges('target').subscribe(() => {
-      const tag: string = `${this.tag}.[target]$`;
-      this.setTag();
-      // if (this.debug) console.log(tag, 'this.target:', this.target);
-      // if (this.debug) console.log(tag, 'this.tag:', this.tag);
-    });
-
-    const observe: string[] = ['target', 'targetX', 'targetY', 'attachmentX', 'attachmentY'];
-    this.observeChanges(...observe).subscribe(() => {
-      const tag: string = `${this.tag}.[${observe.join(', ')}]$`;
-      // if (this.debug) console.log(tag, 'this.target:', this.target);
+    this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY').subscribe((changes) => {
+      if (changes.target) {
+        this.setTarget(changes.target.currentValue);
+        this.setTag();
+      }
       this.reposition();
     });
   }
 
   ngOnInit(): void {
-    const tag: string = `${this.tag}.ngOnInit()`;
-    if (this.debug) console.log(tag, 'this:', this);
-    this.setTag();
+    if (this.debug) {
+      const tag: string = `${this.tag}.ngOnInit()`;
+      console.log(tag, 'this:', this);
+      this.setTag();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -152,6 +149,18 @@ export class PopoverComponent extends ObservableComponent {
       }
     }
 
+  }
+
+  setTarget(value: Element | ElementRef | string) {
+    if (typeof value === 'string') {
+      this.targetElement = document.querySelector(value) || undefined;
+    } else if (value instanceof Element) {
+      this.targetElement = value;
+    } else if (value instanceof ElementRef) {
+      this.targetElement = value.nativeElement || undefined;
+    } else {
+      this.targetElement = undefined;
+    }
   }
 
   public open(): void {
@@ -195,7 +204,11 @@ export class PopoverComponent extends ObservableComponent {
   }
 
   public toggle() {
-    if (this.visible) { this.close(); } else { this.open(); }
+    if (this.visible) {
+      this.close();
+    } else {
+      this.open();
+    }
   }
 
   setTag(): void {
@@ -203,8 +216,10 @@ export class PopoverComponent extends ObservableComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const tag: string = `${this.tag}.ngOnChanges()`;
-    if (this.debug) console.log(tag, 'changes:', changes);
+    if (this.debug) {
+      const tag: string = `${this.tag}.ngOnChanges()`;
+      console.log(tag, 'changes:', changes);
+    }
     super.ngOnChanges(changes);
   }
 
@@ -213,30 +228,15 @@ export class PopoverComponent extends ObservableComponent {
     this.reposition();
   }
 
-  private getTargetPosition(): ClientRect | undefined {
-    const tag: string = `${this.tag}.getTargetPosition()`;
-    let targetEl: Element | undefined;
-    if (typeof this.target === 'string') {
-      targetEl = document.querySelector(this.target) as Element;
-    } else if (this.target instanceof Element) {
-      targetEl = this.target;
-    } else if (this.target instanceof ElementRef && this.target.nativeElement) {
-      targetEl = this.target.nativeElement;
-    }
-
-    if (this.debug) console.log(tag, 'targetEl:', targetEl);
-    return targetEl instanceof Element ? targetEl.getBoundingClientRect() : undefined;
-  }
-
   private getAttachmentPosition(): ClientRect {
     return this.me.nativeElement.getBoundingClientRect();
   }
 
   public reposition(): void {
     const tag: string = `${this.tag}.reposition()`;
-    // if (this.debug) console.log(tag, 'this:', this);
 
-    const targetPos = this.getTargetPosition();
+    const targetPos =  this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
+
     if (this.debug) console.log(tag, 'targetPos:', targetPos);
     if (!this.visible || !targetPos) return;
 
@@ -265,16 +265,18 @@ export class PopoverComponent extends ObservableComponent {
 
     const diffY: number = mustY - isY;
 
-    if (this.debug) console.log(tag, {
-      targetPos,
-      ownPos,
-      mustX,
-      isX,
-      diffX,
-      mustY,
-      isY,
-      diffY
-    });
+    if (this.debug) {
+      console.log(tag, {
+        targetPos,
+        ownPos,
+        mustX,
+        isX,
+        diffX,
+        mustY,
+        isY,
+        diffY
+      });
+    }
 
     this.translateY = this.translateY + diffY;
   }
