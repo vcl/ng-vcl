@@ -9,6 +9,7 @@ declare var Reflect: any;
 const EFFECTS_METADATA_KEY = 'ng-vcl/effects';
 
 export const STORE_EFFECTS = new OpaqueToken('store.effects');
+export const STORE_CHILD_EFFECTS = new OpaqueToken('store.child.effects');
 
 export function Effect(): PropertyDecorator {
   return function(target: any, propertyName: string) {
@@ -29,27 +30,27 @@ export function getEffectsMetadata(instance: any): string[] {
 }
 
 
-@Injectable()
 export class Effects implements OnDestroy {
 
   private effectSubs: Subscription[] = [];
 
   constructor(
-    private store: Store,
-    @Optional()
-    @Inject(STORE_EFFECTS)
-    effects: any[],
-    injector: Injector
+    protected store: Store,
+    protected effects: any[],
+    protected injector: Injector
   ) {
-    (effects || []).forEach(effectClasses => {
+
+  }
+
+  init() {
+    (this.effects || []).forEach(effectClasses => {
       if (Array.isArray(effectClasses)) {
         effectClasses.forEach(effectClass => {
-          const effect = injector.get(effectClass);
+          const effect = this.injector.get(effectClass);
           if (effect) {
             this.addEffect(effect);
           }
         });
-
       }
     });
   }
@@ -68,5 +69,31 @@ export class Effects implements OnDestroy {
 
   ngOnDestroy() {
     [...this.effectSubs].filter(sub => sub && !sub.closed).forEach(sub => sub.unsubscribe());
+  }
+}
+
+@Injectable()
+export class RootEffects extends Effects {
+  constructor(
+    protected store: Store,
+    @Optional()
+    @Inject(STORE_EFFECTS)
+    effects: any[],
+    injector: Injector
+  ) {
+    super(store, effects, injector);
+  }
+}
+
+@Injectable()
+export class ChildEffects extends Effects {
+  constructor(
+    protected store: Store,
+    @Optional()
+    @Inject(STORE_CHILD_EFFECTS)
+    effects: any[],
+    injector: Injector
+  ) {
+    super(store, effects, injector);
   }
 }

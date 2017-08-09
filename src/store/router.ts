@@ -1,7 +1,8 @@
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Router, NavigationExtras, NavigationEnd, UrlTree } from '@angular/router';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import { Subscription } from "rxjs/Subscription";
 import { Store, Reducer } from './store';
 import { StoreActions } from './actions';
 import { combineReducers } from './utils';
@@ -30,19 +31,26 @@ export class RouterUrlUpdateAction {
 @Injectable()
 export class StoreRouterEffects {
 
-  constructor(private router: Router, private store: Store, private actions$: StoreActions) {}
+  private routerSub: Subscription;
 
-  private routerSub = this.router
-                  .events
-                  .filter((event) => event instanceof NavigationEnd)
-                  .subscribe((event: NavigationEnd) => {
-                    this.store.dispatch(new RouterUrlUpdateAction(event.url));
-                  });
+  constructor(private router: Router, private store: Store, private actions$: StoreActions) {
+
+
+    if (this.router) {
+      this.routerSub = this.router
+                      .events
+                      .filter((event) => event instanceof NavigationEnd)
+                      .subscribe((event: NavigationEnd) => {
+                        this.store.dispatch(new RouterUrlUpdateAction(event.url));
+                      });
+    }
+  }
 
   @Effect()
   private navigateEffect = this.actions$
                                .ofType(RouterNavigateAction)
                                .map((action: RouterNavigateAction) => {
+
     this.router.navigate(action.commands, action.extras);
   });
 
@@ -54,7 +62,7 @@ export class StoreRouterEffects {
   });
 
   ngOnDestroy() {
-    if (this.routerSub && !this.routerSub.closed) this.routerSub.unsubscribe();
+    this.routerSub && this.routerSub.unsubscribe();
   }
 }
 

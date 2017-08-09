@@ -1,8 +1,8 @@
-import { NgModule, ModuleWithProviders, Type, Optional, Inject, OpaqueToken, SkipSelf } from '@angular/core';
+import { NgModule, ModuleWithProviders, Type, Optional, Inject, OpaqueToken, SkipSelf, Injector } from '@angular/core';
 import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCERS, Reducer, Reducers, StoreState, ReducerInitAction } from './store';
 import { reduceReducers, combineReducers, createReducer } from './utils';
 import { StoreActions } from './actions';
-import { Effects, STORE_EFFECTS } from './effects';
+import { Effects, RootEffects, ChildEffects, STORE_EFFECTS, STORE_CHILD_EFFECTS } from './effects';
 import { routerReducer, StoreRouter, StoreRouterEffects } from './router';
 
 export * from './actions';
@@ -47,10 +47,13 @@ export class StoreModule {
         StoreActions,
         Store,
         StoreRouter,
-        Effects,
+        {
+          provide: Effects,
+          useClass: RootEffects
+        },
         {
           provide: STORE_INITIAL_STATE,
-          useValue: config.state || {}
+          useValue: config.state
         },
         {
           provide: STORE_INITIAL_REDUCERS,
@@ -59,10 +62,11 @@ export class StoreModule {
         },
         ...(config.enableRouter ? [
           StoreRouter,
+          StoreRouterEffects,
           {
             provide: STORE_EFFECTS,
-            useClass: StoreRouterEffects,
-            multi: true
+            multi: true,
+            useValue: [StoreRouterEffects]
           },
           {
             provide: STORE_INITIAL_REDUCERS,
@@ -73,8 +77,8 @@ export class StoreModule {
         ...(config.effects || []),
         {
           provide: STORE_EFFECTS,
-          useValue: config.effects,
-          multi: true
+          multi: true,
+          useValue: config.effects
         }
       ]
     };
@@ -83,7 +87,10 @@ export class StoreModule {
     return {
       ngModule: StoreModule,
       providers: [
-        Effects,
+        {
+          provide: Effects,
+          useClass: ChildEffects
+        },
         {
           provide: STORE_INITIAL_REDUCERS,
           multi: true,
@@ -91,19 +98,26 @@ export class StoreModule {
         },
         ...(config.effects || []),
         {
-          provide: STORE_EFFECTS,
-          useValue: config.effects,
-          multi: true
+          provide: STORE_CHILD_EFFECTS,
+          multi: true,
+          useValue: config.effects
         }
       ]
     };
   }
 
   constructor(
-    @Optional() @Inject(STORE_FORROOT_GUARD) guard: any,
+    @Optional() @Inject(STORE_FORROOT_GUARD)
+    guard: any,
     store: Store,
-    @Inject(STORE_INITIAL_REDUCERS) initialReducers: Reducer<StoreState>[],
-    effects: Effects) {
+    @Inject(STORE_INITIAL_REDUCERS)
+    initialReducers: Reducer<StoreState>[],
+    @Optional()
+    effects: Effects
+  ) {
+    if (effects) {
+      effects.init();
+    }
     const reducers = initialReducers.map(reducer => createReducer(reducer));
     const reducer = reduceReducers(...reducers);
     store.addReducer(reducer);
