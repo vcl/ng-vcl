@@ -54,6 +54,9 @@ export class NavigationItemDirective implements NavigationItem {
   href: string | undefined;
 
   @Input()
+  exactRoute: boolean = true;
+
+  @Input()
   set route(route: any[] | undefined) {
     this._route = Array.isArray(route) ? route : [route];
     this._urlTree = this.router.createUrlTree(this._route);
@@ -68,19 +71,13 @@ export class NavigationItemDirective implements NavigationItem {
 
   constructor(
     private router: Router,
-    @Inject(forwardRef(() => NavigationComponent)) private nav: NavigationComponent,
-    @Optional() @SkipSelf() @Inject(NavigationItemDirective) public parent: NavigationItemDirective) {
-    if (nav.useRouter) {
-      this._subscription = router.events.subscribe(s => {
-        if (s instanceof NavigationEnd) {
-          this.updateSelectedState();
-        }
-      });
-    }
-  }
+    @Inject(forwardRef(() => NavigationComponent))
+    private nav: NavigationComponent,
+    @Optional() @SkipSelf() @Inject(NavigationItemDirective)
+    public parent: NavigationItemDirective) { }
 
   private updateSelectedState(): void {
-    this.selected = !!this._urlTree && this.router.isActive(this._urlTree, true);
+    this.selected = !!this._urlTree && this.router.isActive(this._urlTree, this.exactRoute);
     if (this.selected) {
       this.openParents();
     }
@@ -94,6 +91,16 @@ export class NavigationItemDirective implements NavigationItem {
       }
     };
     openParents(this);
+  }
+
+  ngAfterContentInit() {
+    if (this.nav.useRouter) {
+      this._subscription = this.router.events.subscribe(s => {
+        if (s instanceof NavigationEnd) {
+          this.updateSelectedState();
+        }
+      });
+    }
   }
 
   ngOnDestroy() {
