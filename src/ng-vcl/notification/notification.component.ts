@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, ViewEncapsulation, trigger, state, transition, animate, style } from '@angular/core';
-import { NotificationOptions, NotificationType, TYPE_CLASS_MAP } from './types';
+import { NotificationOptions, NotificationType } from './types';
 import { Notification } from './notification';
 
 @Component({
@@ -42,5 +42,5 @@ import { Notification } from './notification';
 })
 export class NotificationComponent  {
   @Input()
-  notifications = [];
+  notifications: Notification[] = [];
 }

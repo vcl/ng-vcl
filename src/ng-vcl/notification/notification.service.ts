@@ -1,21 +1,21 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable, Inject, ComponentRef } from '@angular/core';
 
-import { NotificationOptions, NotificationType, NotificationPosition, NOTIFICATION_DEFAULTS } from './types';
+import { NotificationOptions, NotificationType, NotificationPosition, NOTIFICATION_DEFAULTS, POSITION_MAP } from './types';
 import { Notification } from './notification';
-import { NotificationLayerTopRight, NotificationLayerBottomRight, NotificationLayerBottom, NotificationLayerBottomLeft, NotificationLayerTopLeft, NotificationLayerTop } from './notification.layer';
+import { LayerService, LayerRef } from "../layer/index";
+import { NotificationComponent } from "./notification.component";
+
+export class NotificationLayerRef extends LayerRef {
+  notifications: Notification[];
+}
 
 @Injectable()
 export class NotificationService {
 
-  constructor(
-    private notificationLayerTopRightRef: NotificationLayerTopRight,
-    private notificationLayerBottomRightRef: NotificationLayerBottomRight,
-    private notificationLayerBottomRef: NotificationLayerBottom,
-    private notificationLayerBottomLeftRef: NotificationLayerBottomLeft,
-    private notificationLayerTopLeftRef: NotificationLayerTopLeft,
-    private notificationLayerTopRef: NotificationLayerTop,
-  ) { }
+  constructor(private ls: LayerService) { }
+
+  layers = new Map<NotificationPosition, NotificationLayerRef>();
 
   show(text: string, opts: NotificationOptions = {}) {
     return this.queue({ text }, opts);
@@ -41,21 +41,31 @@ export class NotificationService {
     const notificationOpts: NotificationOptions = Object.assign({}, NOTIFICATION_DEFAULTS, ...opts);
     const notification = new Notification(notificationOpts);
 
-    if (notificationOpts.position === NotificationPosition.TopRight) {
-      this.notificationLayerTopRightRef.add(notification);
-    } else if (notificationOpts.position === NotificationPosition.BottomRight) {
-      this.notificationLayerBottomRightRef.add(notification);
-    } else if (notificationOpts.position === NotificationPosition.Bottom) {
-      this.notificationLayerBottomRef.add(notification);
-    } else if (notificationOpts.position === NotificationPosition.BottomLeft) {
-      this.notificationLayerBottomLeftRef.add(notification);
-    } else if (notificationOpts.position === NotificationPosition.TopLeft) {
-      this.notificationLayerTopLeftRef.add(notification);
-    } else if (notificationOpts.position === NotificationPosition.Top) {
-      this.notificationLayerTopRef.add(notification);
-    } else {
-      this.notificationLayerTopRightRef.add(notification);
+    const pos = notificationOpts.position || NotificationPosition.TopRight;
+    const reverse = POSITION_MAP[pos].reverse;
+
+    if (!this.layers.has(pos)) {
+      const layerRef = this.ls.create(NotificationComponent, {
+        transparent: true,
+        customClass: POSITION_MAP[pos].class
+      }) as NotificationLayerRef;
+      layerRef.notifications = [];
+      this.layers.set(pos, layerRef);
     }
-    return notification;
+
+    const layer = this.layers.get(pos);
+
+    if (layer) {
+      notification.subscribe(() => {
+        layer.notifications = layer.notifications.filter(g => g !== notification);
+        if (layer.notifications.length === 0) {
+          layer.close();
+        } else {
+          layer.open({ notifications: layer.notifications });
+        }
+      });
+      layer.notifications = reverse ?  [notification, ...layer.notifications] : [...layer.notifications, notification];
+      layer.open({ notifications: layer.notifications });
+    }
   }
 }

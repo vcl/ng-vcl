@@ -33,15 +33,6 @@ export const NOTIFICATION_DEFAULTS: NotificationOptions = {
   showCloseButton: true
 };
 
-export const POSITION_CLASS_MAP = {
-  [NotificationPosition.TopRight]: 'vclLayerNotificationTopRight',
-  [NotificationPosition.Top]: 'vclLayerNotificationTop',
-  [NotificationPosition.TopLeft]: 'vclLayerNotificationTopLeft',
-  [NotificationPosition.BottomRight]: 'vclLayerNotificationBottomRight',
-  [NotificationPosition.Bottom]: 'vclLayerNotificationBottom',
-  [NotificationPosition.BottomLeft]: 'vclLayerNotificationBottomLeft',
-};
-
 export const TYPE_CLASS_MAP = {
   [NotificationType.None]: {
     notificationClass: '',
@@ -63,4 +54,32 @@ export const TYPE_CLASS_MAP = {
     notificationClass: 'vclError',
     iconClass: 'fa fa-exclamation-circle'
   }
+};
+
+
+export const POSITION_MAP = {
+  [NotificationPosition.TopRight]: {
+    class: 'vclLayerNotificationTopRight',
+    reverse: true
+  },
+  [NotificationPosition.Top]: {
+    class: 'vclLayerNotificationTop',
+    reverse: true,
+  },
+  [NotificationPosition.TopLeft]: {
+    class: 'vclLayerNotificationTopLeft',
+    reverse: true
+  },
+  [NotificationPosition.BottomRight]: {
+    class: 'vclLayerNotificationBottomRight',
+    reverse: false
+  },
+  [NotificationPosition.Bottom]: {
+    class: 'vclLayerNotificationBottom',
+    reverse: false
+  },
+  [NotificationPosition.BottomLeft]: {
+    class: 'vclLayerNotificationBottomLeft',
+    reverse: false
+  },
 };
