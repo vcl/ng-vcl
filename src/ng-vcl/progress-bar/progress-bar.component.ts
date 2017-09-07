@@ -28,40 +28,51 @@ export class ProgressBarComponent {
   @Input()
   label: string;
 
-  get showIndeterminate() {
+  @Input()
+  speed: number = 1;
+
+  get showIndeterminate(): boolean {
     return this.indeterminate && !this.validateValue(this.value);
   }
 
-  get showValue() {
+  get showValue(): boolean {
     return !this.indeterminate || this.validateValue(this.value);
   }
 
-  get showSecondaryValue() {
+  get showSecondaryValue(): boolean {
     return this.validateValue(this.secondaryValue);
   }
 
-  get transformValue() {
+  get transformValue(): string {
     const value = this.validateValue(this.value) ? this.scaleValue(this.value) : 0;
     return `scaleX(${value})`;
   }
 
-  get transformSecondaryValue() {
+  get transformSecondaryValue(): string {
     const value = this.validateValue(this.secondaryValue) ? this.scaleValue(this.secondaryValue) : 0;
     return `scaleX(${value})`;
   }
 
-  get range() {
+  get animationDurationValue(): string {
+    const value = this.isNumber(this.speed) ? this.speed : 1;
+    return `${value}s`;
+  }
+
+  get range(): number {
     return this.maxValue - this.minValue;
   }
 
-  scaleValue(value: number) {
+  scaleValue(value: number): number {
     return (value - this.minValue) / this.range;
   }
 
-  validateValue(value: number) {
-    return typeof value === 'number' &&
-           value !== NaN &&
+  validateValue(value: number): boolean {
+    return this.isNumber(value) &&
            value >= this.minValue &&
            value <= this.maxValue;
+  }
+
+  isNumber(value: number): boolean {
+    return typeof value === 'number' && value !== NaN;
   }
 }
