@@ -42,5 +42,5 @@ npm run docs
 ```
 Deploy `docs` folder to gh-pages branch
 ```
-npm run deploy:docs
+npm run docs:deploy
 ```
