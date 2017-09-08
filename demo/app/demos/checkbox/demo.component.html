@@ -14,10 +14,15 @@
 
 <h4>left</h4>
 <vcl-checkbox [(checked)]="isChecked3" labelPosition="left">
-  <label vcl-form-control-label label="LleftLabel" subLabel="LeftSubLabel"></label>
+  <label vcl-form-control-label label="LeftLabel" subLabel="LeftSubLabel"></label>
+</vcl-checkbox>
+
+<h4>top</h4>
+<vcl-checkbox [(checked)]="isChecked4" labelPosition="top">
+  <label vcl-form-control-label label="TopLabel" subLabel="TopSubLabel"></label>
 </vcl-checkbox>
 
 <h3>Checkbox (ngModel):</h3>
-<vcl-checkbox [(ngModel)]="isChecked4"></vcl-checkbox>
+<vcl-checkbox [(ngModel)]="isChecked5"></vcl-checkbox>
 <br>
 <b>State:</b> {{isChecked4}}

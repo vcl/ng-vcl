@@ -43,7 +43,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   disabled: boolean = false;
 
   @Input()
-  labelPosition: 'left' | 'right' = 'right';
+  labelPosition: 'left' | 'top' | 'right' = 'right';
 
   /**
   Reflects the checked state, `true` is checked and `false` is unchecked

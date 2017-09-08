@@ -28,5 +28,7 @@ export class AppComponent {}
 | `checkedIcon`       | string      | fa:check-square-o  | Icon to be displayed when checked 
 | `uncheckedIcon`     | string      | fa:square-o        | Icon to be displayed when unchecked
 | `tabindex`          | number      | 0                  | The tabindex of the checkbox
+| `disabled`          | boolean     | false              | Disables checkbox if true
+| `labelPosition`     | string      | right              | Label positioning relative to icon accepted values(right, left, top)
 
 *(1) Supports Two-way binding*

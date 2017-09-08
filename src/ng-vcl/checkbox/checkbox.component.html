@@ -1,3 +1,4 @@
-  <vcl-icon [icon]="icon" *ngIf="labelPosition=='right'" [@checkState]="checked"></vcl-icon>
-  <ng-content></ng-content>
-  <vcl-icon [icon]="icon" *ngIf="labelPosition=='left'"></vcl-icon>
+  <vcl-icon [icon]="icon" *ngIf="labelPosition == 'right'" [@checkState]="checked"></vcl-icon>
+  <ng-content></ng-content><br *ngIf="labelPosition=='top'"/>
+  <vcl-icon [icon]="icon" *ngIf="labelPosition != 'right'"></vcl-icon>
+
