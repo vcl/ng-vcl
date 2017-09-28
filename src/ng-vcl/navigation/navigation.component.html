@@ -1,11 +1,11 @@
   <ul>
     <li *ngFor="let item of navigationItems"
-        [class.vclSelected]="item.selected"
+        [class.vclSelected]="item.selectable && item.selected"
         [class.vclOpen]="item.opened"
         [class.vclClose]="!item.opened"
         [class.vclNavigationHeading]="item.heading"
         [class.vclNavigationItem]="!item.heading"
-        [attr.aria-selected]="item.selected"
+        [attr.aria-selected]="item.selectable && item.selected"
         [attr.role]="item.heading && 'sectionhead' || ariaRole"
         [attr.tabindex]="tabindex"
         [ngClass]="item.class"

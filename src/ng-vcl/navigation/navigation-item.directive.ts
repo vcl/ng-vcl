@@ -28,12 +28,17 @@ export class NavigationItemDirective implements NavigationItem {
   @Input()
   label: string;
 
+  @Input()
+  name: string;
+
   get items() {
     return <NavigationItem[]> (this.contentItems && this.contentItems.filter(item => item !== this)) || undefined;
   }
 
-  // @Input()
   selected: boolean = false;
+
+  @Input()
+  selectable: boolean = true;
 
   @Input()
   opened: boolean = false;
