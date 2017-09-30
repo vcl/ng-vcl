@@ -15,9 +15,12 @@ An indicator to show that a lasting operation is currently in progress.
 
 #### vclBusy Attributes:
 
-| Name                | Type        | Default    | Description
+| Name                | Type                     | Default    | Description
 | ------------------- | ------------------------ | ---------- |--------------
 | `type`              | "circular" \| "straight" | "circular" | The indicator type
+| `label`             | string                   | "Loading"  | icon aria label
+| `iconHeight`        | string                   | "3em"      | icon height
+| `iconWidth`         | string                   | "3em"      | icon width
 
 
 
@@ -43,4 +46,7 @@ Covers an element with a layer showing the vcl-busy-indicator to indicate a busy
 | `vclBusy`               | boolean                  | false      | Shows the layer when `true`
 | `busyIndicatorType`     | "circular" \| "straight" | "circular" | The indicator type
 | `busyLabel`             | string                   |            | Optional - The busy layers label
+| `busyIconHeight`        | string                   | "3em"      | icon height
+| `busyIconWidth`         | string                   | "3em"      | icon width
+
 
