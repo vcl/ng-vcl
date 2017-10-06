@@ -73,13 +73,14 @@ export class PlotlyComponent {
     Object.keys(events || {}).forEach(k => {
       const tag: string = `${this.tag}.${k}()`;
       this.plot.on(k, (data, event) => {
-        if (this.debug) console.log(tag);
+        if (this.debug) console.log(tag, 'data:', data);
+        if (this.debug) console.log(tag, 'event:', event);
         events[k](data, event, this.plotId, this.plot, Plotly);
       });
     });
   }
 
-  private ngOnChanges(changes): void {
+  private ngOnChanges(changes: any): void {
     const tag: string = `${this.tag}.ngOnChanges()`;
     if (!this.plot) {
       if (this.debug) console.log(tag, 'ignoring changes, plot not yet once initialized');
@@ -109,13 +110,13 @@ export class PlotlyComponent {
     switch (this.changeAction) {
       case ChangeAction.Relayout:
         this.relayout();
-        return;
+        break;
       case ChangeAction.Redraw:
         this.redraw();
-        return;
+        break;
       case ChangeAction.Recreate:
         this.recreate();
-        return;
+        break;
     }
     this.changeAction = undefined;
   }
@@ -135,7 +136,7 @@ export class PlotlyComponent {
     });
   }
 
-  public update(dataUpdate, layoutUpdate): void {
+  public update(dataUpdate: any, layoutUpdate: any): void {
     const tag: string = `${this.tag}.update()`;
     if (this.debug) console.log(tag, 'dataUpdate:', dataUpdate);
     if (this.debug) console.log(tag, 'layoutUpdate:', layoutUpdate);
@@ -178,6 +179,13 @@ export class PlotlyComponent {
     // const traceArr: number[] = Array.isArray(traces) ? traces : [traces];
     // this.data = this.data.filter((v, i) => !traceArr.find(index => index === i));
     // this.dataChange.emit(this.data);
+  }
+
+  public animate(update: any, animation: any): void {
+    const tag: string = `${this.tag}.animate()`;
+    if (this.debug) console.log(tag, 'update:', update);
+    if (this.debug) console.log(tag, 'animation:', animation);
+    Plotly.animate(this.plot, update, animation);
   }
 }
 

@@ -10,6 +10,6 @@ Promise.all([readFile(svgFile, 'utf8'), readFile(cssFile, 'utf8')]).then(([svg, 
   return writeFile(root('src/json-editor/json-editor.component.css'), css);
 }).then(() => {
   console.log('jsoneditor css created');
-}, err =>{
+}, err => {
   console.error('error creating jsoneditor css', err);
 });
