@@ -12,10 +12,10 @@ import { DropdownOption } from "./dropdown-option.component";
 import { MetalistComponent, MetalistItem, SelectionMode } from "../metalist/index";
 
 export enum DropdownState {
-  expanded,
-  closed,
-  expanding,
-  closing
+  Expanded,
+  Closed,
+  Expanding,
+  Closing
 }
 
 export const DROPDOWN_ANIMATIONS = new OpaqueToken('@ng-vcl/ng-vcl#dropdown_animations');
@@ -54,10 +54,10 @@ export class DropdownComponent implements ControlValueAccessor {
   @Input()
   tabindex: number = 0;
 
-  private state: DropdownState = DropdownState.closed;
+  private state: DropdownState = DropdownState.Expanded;
 
   get expanded() {
-    return (this.state === DropdownState.expanding || this.state === DropdownState.expanded);
+    return (this.state === DropdownState.Expanding || this.state === DropdownState.Expanded);
   }
 
   @Input()
@@ -112,44 +112,43 @@ export class DropdownComponent implements ControlValueAccessor {
     @Optional() @Inject(DROPDOWN_ANIMATIONS) private animations: DropdownAnimationConfig) { }
 
   public async expand(): Promise<void> {
-    if (this.state === DropdownState.expanded || this.state === DropdownState.expanding) {
+    if (this.state === DropdownState.Expanded || this.state === DropdownState.Expanding) {
       return;
     }
 
-    this.state = DropdownState.expanding;
+    this.state = DropdownState.Expanding;
     this.willExpand.emit();
 
     if (this.enterAnimationFactory && this.elementRef) {
       const player = this.enterAnimationFactory.create(this.elementRef.nativeElement);
       player.onDone(() => {
         player.destroy();
+        this.state = DropdownState.Expanded;
       });
       player.play();
+    } else {
+      this.state = DropdownState.Expanded;
     }
-    this.state = DropdownState.expanded;
   }
 
   public close(): void {
-    if (this.state === DropdownState.closed || this.state === DropdownState.closing) {
+    if (this.state === DropdownState.Closed || this.state === DropdownState.Closing) {
       return;
     }
 
-    this.state = DropdownState.closing;
+    this.state = DropdownState.Closing;
     this.willClose.emit();
 
     if (this.leaveAnimationFactory && this.elementRef) {
       const player = this.leaveAnimationFactory.create(this.elementRef.nativeElement);
       player.onDone(() => {
         player.destroy();
-        this.state = DropdownState.closed;
-        // TODO: How to make this not necessary?
+        this.state = DropdownState.Closed;
         this.cdRef.markForCheck();
       });
       player.play();
     } else {
-      this.state = DropdownState.closed;
-      // TODO: How to make this not necessary?
-      this.cdRef.markForCheck();
+      this.state = DropdownState.Closed;
     }
   }
 
@@ -257,4 +256,6 @@ export class DropdownComponent implements ControlValueAccessor {
     this.disabled = isDisabled;
     this.cdRef.markForCheck();
   }
+
+  private readonly DropdownState = DropdownState;
 }

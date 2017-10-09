@@ -1,8 +1,7 @@
-<ul vcl-metalist
-  [class.vclLayoutHidden]="!expanded" 
+<ul vcl-metalist #metalist
+  [class.vclLayoutHidden]="state === DropdownState.Closed" 
   [selectionMode]="selectionMode"
   [maxSelectableItems]="maxSelectableItems"
-  #metalist
   class="vclDropdown vclOpen"
   role="listbox"
   [class.vclDisabled]="disabled"
