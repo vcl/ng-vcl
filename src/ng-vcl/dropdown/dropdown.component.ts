@@ -1,9 +1,29 @@
-import { Component, Input, Output, ChangeDetectionStrategy,
-  EventEmitter, forwardRef, ElementRef, ViewChild, ContentChildren, QueryList, ChangeDetectorRef
+import {
+  Component, Input, Output, ChangeDetectionStrategy, EventEmitter,
+  forwardRef, ElementRef, ViewChild, ContentChildren, QueryList,
+  ChangeDetectorRef, OpaqueToken, Optional, Inject,
 } from '@angular/core';
+import {
+  AnimationMetadata, AnimationFactory,
+  AnimationBuilder, AnimationPlayer
+} from "@angular/animations";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from "./dropdown-option.component";
 import { MetalistComponent, MetalistItem, SelectionMode } from "../metalist/index";
+
+export enum DropdownState {
+  expanded,
+  closed,
+  expanding,
+  closing
+}
+
+export const DROPDOWN_ANIMATIONS = new OpaqueToken('@ng-vcl/ng-vcl#dropdown_animations');
+
+export interface DropdownAnimationConfig {
+  enter?: AnimationMetadata | AnimationMetadata[];
+  leave?: AnimationMetadata | AnimationMetadata[];
+}
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -34,6 +54,26 @@ export class DropdownComponent implements ControlValueAccessor {
   @Input()
   tabindex: number = 0;
 
+  private state: DropdownState = DropdownState.closed;
+
+  get expanded() {
+    return (this.state === DropdownState.expanding || this.state === DropdownState.expanded);
+  }
+
+  @Input()
+  set expanded(value) {
+    if (value) {
+      this.expand();
+    } else {
+      this.close();
+    }
+  }
+
+  @Output()
+  willClose = new EventEmitter<any>();
+
+  @Output()
+  willExpand = new EventEmitter<any>();
   // If `Single`, a single item can be selected
   // If `Multiple` multiple items can be selected
   @Input()
@@ -62,7 +102,56 @@ export class DropdownComponent implements ControlValueAccessor {
 
   focused = false;
 
-  constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
+  enterAnimationFactory: AnimationFactory | undefined;
+  leaveAnimationFactory: AnimationFactory | undefined;
+
+  constructor(
+    public readonly elementRef: ElementRef,
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly builder: AnimationBuilder,
+    @Optional() @Inject(DROPDOWN_ANIMATIONS) private animations: DropdownAnimationConfig) { }
+
+  public async expand(): Promise<void> {
+    if (this.state === DropdownState.expanded || this.state === DropdownState.expanding) {
+      return;
+    }
+
+    this.state = DropdownState.expanding;
+    this.willExpand.emit();
+
+    if (this.enterAnimationFactory && this.elementRef) {
+      const player = this.enterAnimationFactory.create(this.elementRef.nativeElement);
+      player.onDone(() => {
+        player.destroy();
+      });
+      player.play();
+    }
+    this.state = DropdownState.expanded;
+  }
+
+  public close(): void {
+    if (this.state === DropdownState.closed || this.state === DropdownState.closing) {
+      return;
+    }
+
+    this.state = DropdownState.closing;
+    this.willClose.emit();
+
+    if (this.leaveAnimationFactory && this.elementRef) {
+      const player = this.leaveAnimationFactory.create(this.elementRef.nativeElement);
+      player.onDone(() => {
+        player.destroy();
+        this.state = DropdownState.closed;
+        // TODO: How to make this not necessary?
+        this.cdRef.markForCheck();
+      });
+      player.play();
+    } else {
+      this.state = DropdownState.closed;
+      // TODO: How to make this not necessary?
+      this.cdRef.markForCheck();
+    }
+  }
 
   async scrollToMarked() {
     await new Promise(res => setTimeout(res, 0));
@@ -122,6 +211,15 @@ export class DropdownComponent implements ControlValueAccessor {
     this.items.changes.subscribe(() => {
       this.cdRef.markForCheck();
     });
+
+    if (this.animations) {
+      if (this.animations.enter) {
+        this.enterAnimationFactory = this.builder.build(this.animations.enter);
+      }
+      if (this.animations.leave) {
+        this.leaveAnimationFactory = this.builder.build(this.animations.leave);
+      }
+    }
   }
   onMetalistFocus() {
     this.focused = true;
@@ -143,8 +241,8 @@ export class DropdownComponent implements ControlValueAccessor {
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onChange: (_: any) => void = () => {};
-  private onTouched: () => any = () => {};
+  private onChange: (_: any) => void = () => { };
+  private onTouched: () => any = () => { };
 
   writeValue(value: any): void {
     this.setValue(value);

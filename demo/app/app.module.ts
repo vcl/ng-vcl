@@ -4,9 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { VCLIconModule, VCLNavigationModule, VCLButtonModule, VCLLayerModule, L10nModule, L10nStaticLoaderService } from '@ng-vcl/ng-vcl';
+import {
+  VCLIconModule, VCLNavigationModule, VCLButtonModule,
+  VCLLayerModule, L10nModule, L10nStaticLoaderService
+} from '@ng-vcl/ng-vcl';
 import { StoreModule } from '@ng-vcl/store';
-import { LayerAnimationsModule, PopoverAnimationsModule } from '@ng-vcl/animations';
+import {
+  LayerAnimationsModule, PopoverAnimationsModule,
+  DropdownAnimationsModule,
+} from '@ng-vcl/animations';
 
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from "./components/home/home.component";
@@ -30,7 +36,8 @@ import { style, animate } from "@angular/animations";
     VCLLayerModule.forRoot(),
     StoreModule.forRoot(),
     LayerAnimationsModule,
-    PopoverAnimationsModule
+    PopoverAnimationsModule,
+    DropdownAnimationsModule
   ],
   declarations: [
     AppComponent,

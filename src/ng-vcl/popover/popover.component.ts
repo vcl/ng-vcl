@@ -118,7 +118,10 @@ export class PopoverComponent extends ObservableComponent {
   enterAnimationFactory: AnimationFactory | undefined;
   leaveAnimationFactory: AnimationFactory | undefined;
 
-  constructor(protected readonly me: ElementRef, private builder: AnimationBuilder,  @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig) {
+  constructor(
+    protected readonly me: ElementRef,
+    private builder: AnimationBuilder,
+    @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig) {
     super();
     this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY').subscribe((changes) => {
       if (changes.target) {
@@ -235,7 +238,7 @@ export class PopoverComponent extends ObservableComponent {
   public reposition(): void {
     const tag: string = `${this.tag}.reposition()`;
 
-    const targetPos =  this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
+    const targetPos = this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
 
     if (this.debug) console.log(tag, 'targetPos:', targetPos);
     if (!this.visible || !targetPos) return;
