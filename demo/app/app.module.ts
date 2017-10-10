@@ -18,7 +18,6 @@ import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from "./components/home/home.component";
 
 import { routing, appRoutingProviders } from './app.routes';
-import { style, animate } from "@angular/animations";
 
 @NgModule({
   providers: [
