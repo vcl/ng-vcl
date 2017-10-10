@@ -54,7 +54,7 @@ export class DropdownComponent implements ControlValueAccessor {
   @Input()
   tabindex: number = 0;
 
-  private state: DropdownState = DropdownState.Expanded;
+  state: DropdownState = DropdownState.Expanded;
 
   get expanded() {
     return (this.state === DropdownState.Expanding || this.state === DropdownState.Expanded);
@@ -257,5 +257,5 @@ export class DropdownComponent implements ControlValueAccessor {
     this.cdRef.markForCheck();
   }
 
-  private readonly DropdownState = DropdownState;
+  readonly DropdownState = DropdownState;
 }
