@@ -62,7 +62,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   // multi-select
   @Input()
-  maxSelectableItems: number = 1;
+  maxSelectableItems?: number;
 
   // styling
   @Input()

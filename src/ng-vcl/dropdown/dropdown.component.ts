@@ -89,7 +89,7 @@ export class DropdownComponent implements ControlValueAccessor {
   }
 
   @Input()
-  maxSelectableItems: number | undefined;
+  maxSelectableItems?: number;
 
   @Input()
   disabled = false;

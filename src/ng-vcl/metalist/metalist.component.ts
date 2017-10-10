@@ -37,7 +37,7 @@ export class MetalistComponent implements ControlValueAccessor {
   }
 
   @Input()
-  maxSelectableItems: number = Infinity;
+  maxSelectableItems?: number;
 
   @Output()
   change = new EventEmitter<any>();
@@ -102,7 +102,8 @@ export class MetalistComponent implements ControlValueAccessor {
         const selectedItems = (this.items || []).filter(i => i.selected);
 
         // prevent overflow
-        const overflow = this.selectionMode === SelectionMode.Multiple && !item.selected && selectedItems.length >= this.maxSelectableItems;
+        const maxSelectableItems = typeof this.maxSelectableItems === 'number' ? this.maxSelectableItems : Infinity;
+        const overflow = this.selectionMode === SelectionMode.Multiple && !item.selected && selectedItems.length >= maxSelectableItems;
         if (!overflow) {
           item.selected = !item.selected;
         }
