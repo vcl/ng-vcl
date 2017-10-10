@@ -53,6 +53,7 @@ export interface PopoverAnimationConfig {
   }
 })
 export class PopoverComponent extends ObservableComponent {
+
   private static readonly Tag: string = 'PopoverComponent';
 
   private tag: string;
@@ -122,9 +123,13 @@ export class PopoverComponent extends ObservableComponent {
   constructor(
     protected readonly me: ElementRef,
     private builder: AnimationBuilder,
-    private cdRef: ChangeDetectorRef,
-    @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig
+<<<<<<< 72b1122e927cc2b29063b91b4e0328d382146d08
+    @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig) {
+=======
+    @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig,
+    private cdRef: ChangeDetectorRef
   ) {
+>>>>>>> wip
     super();
     this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY').subscribe((changes) => {
       if (changes.target) {
