@@ -55,6 +55,9 @@ export class SelectComponent implements ControlValueAccessor {
   expanded: boolean = false;
 
   @Input()
+  zIndex: number = 999999;
+
+  @Input()
   disabled: boolean = false;
 
   @Input()

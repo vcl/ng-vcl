@@ -23,6 +23,7 @@ Name                  | Type                        | Default  | Description
 `mode`                | "single" &#124; "multiple"  | "single" | 
 `maxSelectableItems`  | number &#124; undefined     |          | maximum number of options that can be selected at the same time. Unlimited if undefined.
 `listenKeys`          | boolean                     | true     | if true, the select will listen and interact to keypress-events 
+`zIndex`              | number                      | 999999   | z-index of the dropdown 
 
 #### vcl-select events:
 

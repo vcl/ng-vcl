@@ -34,7 +34,7 @@
       [style.top.px]="dropdownTop"
       [style.width]="'100%'"
       [style.position]="'absolute'"
-      [style.zIndex]="999999"
+      [style.zIndex]="zIndex"
       (change)="onDropdownChange($event)">
     <vcl-dropdown-option 
       *ngFor="let item of items" 
