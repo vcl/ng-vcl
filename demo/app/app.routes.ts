@@ -402,7 +402,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'JSS-Form',
-        category: 'External',
+        category: 'Forms',
       }
     }
   }
