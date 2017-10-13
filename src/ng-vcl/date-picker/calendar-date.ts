@@ -183,7 +183,6 @@ export class CalendarDate {
     if (weekDay === 0) {
       weekDay = 7;
     }
-    console.log(weekDay);
     let minus = 0;
     while (weekDay > 1) {
       minus--;
