@@ -162,7 +162,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Label',
-        category: 'Buttons',
+        category: 'Form Controls',
       }
     }
   },
