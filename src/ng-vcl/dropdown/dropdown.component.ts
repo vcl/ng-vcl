@@ -165,7 +165,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       }
 
       const allItems = this.listbox.nativeElement.querySelectorAll('.vclDropdownItem');
-      let scrollTop = 0;
+      let scrollTop = - this.listbox.nativeElement.clientHeight / 2 + (selectedItem.clientHeight / 2);
 
       const items = this.items.toArray();
 
