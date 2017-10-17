@@ -5,7 +5,7 @@ import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 })
 export class DropdownDemoComponent {
 
-  selectedItem = 2;
+  selectedItem = 10;
 
   items: any[] = [
     { label: 'item 1', value: 1 },
