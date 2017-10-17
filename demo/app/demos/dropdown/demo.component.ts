@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -17,14 +17,14 @@ export class DropdownDemoComponent {
     { label: 'item 7', sublabel: 'sublabel of item 7', value: 7 },
     { label: 'item 8 (disabled)', sublabel: 'sublabel of item 8', disabled: true, value: 8 },
     { label: 'item 9', value: 9},
-    { label: 'item 10', value: 10, selected: true },
+    { label: 'item 10 (preselected)', value: 10, selected: true },
     { label: 'item 11', value: 11 },
     { label: 'item 12', value: 12 },
     { label: 'item 13', value: 13 },
     { label: 'item 14', value: 14 },
     { label: 'item 15', value: 15 },
     { label: 'item 16', value: 16 },
-    { label: 'item 17 (preselected)', value: 17},
+    { label: 'item 17', value: 17},
     { label: 'item 19', value: 19 },
     { label: 'item 20', value: 20 },
     { label: 'item 21', value: 21 },
