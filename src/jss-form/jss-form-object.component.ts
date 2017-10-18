@@ -16,7 +16,11 @@ export class FormObject {
   options: JssFormSchemaOptions[] = [];
   buttons: FormObject[] = [];
 
-  constructor(public schema: JssFormSchema, public key: string, public parentKey?: string) {
+  constructor(
+    public schema: JssFormSchema,
+    public key: string,
+    public parentKey?: string
+    ) {
 
     this.formObjects = createFormObjects(schema, this);
     this.formType = determineType(schema);
@@ -24,7 +28,7 @@ export class FormObject {
     if (this.formType === 'select' || this.formType === 'dropdown' || this.formType === 'radio') {
       let options;
       if (!schema.options && schema.enum) {
-        options = schema.enum.map((s: string | null) => ({label: s === null ? '-' : s, value: s}));
+        options = schema.enum.map((s: string | null) => ({ label: s === null ? '-' : s, value: s }));
       } else if (schema.options) {
         options = schema.options.map((option) => ({
           value: option.value,
