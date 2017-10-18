@@ -19,6 +19,8 @@ export class JssFormDemoComponent {
   value = {...HERO_DEFAULTS};
 
   onSubmit(value, valid) {
+    console.log('value', value);
+
     if (valid) {
       this.ns.success(`${value.name} is a valid hero`);
     } else {

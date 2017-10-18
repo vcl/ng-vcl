@@ -10,6 +10,22 @@ export const HERO_SCHEMA = {
       minLength: 4,
       placeholder: 'The hero\'s name',
     },
+    description: {
+      formType: 'textarea',
+      label: 'Beschreibung',
+      type: 'string',
+      placeholder: 'Text',
+    },
+    password: {
+      formType: 'password',
+      label: 'Passwort',
+      type: 'string',
+      placeholder: 'Passwort',
+    },
+    mail_old: {
+      formType: 'hidden',
+      type: 'string',
+    },
     color: {
       formType: 'select',
       label: 'Team',
