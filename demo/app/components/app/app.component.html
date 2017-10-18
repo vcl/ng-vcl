@@ -37,11 +37,19 @@
         [subLevelHintIconSide]="'left'"
         [subLevelHintIconOpened]="'fa:angle-down'"
         [subLevelHintIconClosed]="'fa:angle-right'">
-        <vcl-navitem *ngFor="let item of groupedDemos" [label]="item.label">
-          <ng-container *ngIf="item.items">
-            <vcl-navitem *ngFor="let subitem of item.items" [label]="subitem.label" [route]="subitem.route"></vcl-navitem>
-          </ng-container>
-        </vcl-navitem>
+
+        <div *ngIf="searchResults.length; else noSearch">
+          <vcl-navitem *ngFor="let searchResult of searchResults" [label]="searchResult.label" [route]="searchResult.route"></vcl-navitem>
+        </div>
+
+        <ng-template #noSearch>
+          <vcl-navitem *ngFor="let item of GROUPED_DEMOS" [label]="item.label">
+            <ng-container *ngIf="item.items">
+              <vcl-navitem *ngFor="let subitem of item.items" [label]="subitem.label" [route]="subitem.route"></vcl-navitem>
+            </ng-container>
+          </vcl-navitem>
+        </ng-template>
+
       </vcl-navigation>
     </div>
     <div class="vclScrollable vclLayoutFlex docContent">
