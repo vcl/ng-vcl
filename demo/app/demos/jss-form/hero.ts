@@ -12,15 +12,15 @@ export const HERO_SCHEMA = {
     },
     description: {
       formType: 'textarea',
-      label: 'Beschreibung',
+      label: 'Description',
       type: 'string',
       placeholder: 'Text',
     },
     password: {
       formType: 'password',
-      label: 'Passwort',
+      label: 'Password',
       type: 'string',
-      placeholder: 'Passwort',
+      placeholder: 'Password',
     },
     mail_old: {
       formType: 'hidden',
