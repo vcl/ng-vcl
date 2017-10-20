@@ -7,6 +7,46 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
+    loadChildren: './demos/link/demo.module#LinkDemoModule',
+    path: 'link',
+    data: {
+      demo: {
+        label: 'Links',
+        category: 'Typographical',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/navigation/demo.module#NavigationDemoModule',
+    path: 'navigation',
+    data: {
+      demo: {
+        label: 'Navigation',
+        category: 'Navigation',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/button/demo.module#ButtonDemoModule',
+    path: 'button',
+    data: {
+      demo: {
+        label: 'Button',
+        category: 'Buttons',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/button-group/demo.module#ButtonGroupDemoModule',
+    path: 'button-group',
+    data: {
+      demo: {
+        label: 'Button Group',
+        category: 'Buttons',
+      }
+    }
+  },
+  {
     loadChildren: './demos/checkbox/demo.module#CheckboxDemoModule',
     path: 'checkbox',
     data: {
@@ -137,26 +177,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/button/demo.module#ButtonDemoModule',
-    path: 'button',
-    data: {
-      demo: {
-        label: 'Button',
-        category: 'Buttons',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/button-group/demo.module#ButtonGroupDemoModule',
-    path: 'button-group',
-    data: {
-      demo: {
-        label: 'Button Group',
-        category: 'Buttons',
-      }
-    }
-  },
-  {
     loadChildren: './demos/label/demo.module#LabelDemoModule',
     path: 'label',
     data: {
@@ -167,22 +187,32 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/icon/demo.module#IconDemoModule',
-    path: 'icon',
+    loadChildren: './demos/form/demo.module#FormDemoModule',
+    path: 'form',
     data: {
       demo: {
-        label: 'Icon',
-        category: 'Images',
+        label: 'Form',
+        category: 'Forms',
       }
     }
   },
   {
-    loadChildren: './demos/icogram/demo.module#IcogramDemoModule',
-    path: 'icogram',
+    loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
+    path: 'form-control-label',
     data: {
       demo: {
-        label: 'Icogram',
-        category: 'Images',
+        label: 'Form Control Label',
+        category: 'Forms',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
+    path: 'jss-form',
+    data: {
+      demo: {
+        label: 'JSS-Form',
+        category: 'Forms',
       }
     }
   },
@@ -237,11 +267,41 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/icon/demo.module#IconDemoModule',
+    path: 'icon',
+    data: {
+      demo: {
+        label: 'Icon',
+        category: 'Media',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/icogram/demo.module#IcogramDemoModule',
+    path: 'icogram',
+    data: {
+      demo: {
+        label: 'Icogram',
+        category: 'Media',
+      }
+    }
+  },
+  {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
     path: 'busy',
     data: {
       demo: {
         label: 'Busy',
+        category: 'Status Information',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/progress-bar/demo.module#ProgressBarDemoModule',
+    path: 'progress-bar',
+    data: {
+      demo: {
+        label: 'Progress-Bar',
         category: 'Status Information',
       }
     }
@@ -253,56 +313,6 @@ export const routes: Routes = [
       demo: {
         label: 'Table',
         category: 'Tabular Data',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/form/demo.module#FormDemoModule',
-    path: 'form',
-    data: {
-      demo: {
-        label: 'Form',
-        category: 'Forms',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
-    path: 'form-control-label',
-    data: {
-      demo: {
-        label: 'Form Control Label',
-        category: 'Forms',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/link/demo.module#LinkDemoModule',
-    path: 'link',
-    data: {
-      demo: {
-        label: 'Link',
-        category: 'Links',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/navigation/demo.module#NavigationDemoModule',
-    path: 'navigation',
-    data: {
-      demo: {
-        label: 'Navigation',
-        category: 'Navigation',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/progress-bar/demo.module#ProgressBarDemoModule',
-    path: 'progress-bar',
-    data: {
-      demo: {
-        label: 'Progress-Bar',
-        category: 'Status Information',
       }
     }
   },
@@ -332,7 +342,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Wormhole',
-        category: 'Other',
+        category: 'Misc',
       }
     }
   },
@@ -342,7 +352,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'L10n',
-        category: 'Other',
+        category: 'Misc',
       }
     }
   },
@@ -352,7 +362,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Metalist',
-        category: 'Other',
+        category: 'Misc',
       }
     }
   },
@@ -362,7 +372,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Off Click',
-        category: 'Other',
+        category: 'Misc',
       }
     }
   },
@@ -372,7 +382,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'JSON Editor',
-        category: 'External',
+        category: 'Dependency Based',
       }
     }
   },
@@ -382,7 +392,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Plotly',
-        category: 'External',
+        category: 'Dependency Based',
       }
     }
   },
@@ -392,17 +402,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Store',
-        category: 'External',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
-    path: 'jss-form',
-    data: {
-      demo: {
-        label: 'JSS-Form',
-        category: 'Forms',
+        category: 'Dependency Based',
       }
     }
   }
