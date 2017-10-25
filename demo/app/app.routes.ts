@@ -157,6 +157,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/slider/demo.module#SliderDemoModule',
+    path: 'slider',
+    data: {
+      demo: {
+        label: 'Slider',
+        category: 'Form Controls',
+      }
+    }
+  },
+  {
     loadChildren: './demos/textarea/demo.module#TextareaDemoModule',
     path: 'textarea',
     data: {
