@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { VCLNotificationModule, VCLButtonGroupModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
-import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { NotificationDemoComponent } from './demo.component';
+import { VCLButtonGroupModule, VCLButtonModule, VCLNotificationModule } from '@ng-vcl/ng-vcl';
+import { DemoComponent, DemoModule } from './../../modules/demo/demo.module';
+import { NotificationContentComponent, NotificationDemoComponent } from './demo.component';
 
 export function demo() {
   return {
@@ -41,7 +41,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ NotificationDemoComponent ],
-  declarations: [ NotificationDemoComponent ]
+  entryComponents: [ NotificationDemoComponent, NotificationContentComponent ],
+  declarations: [ NotificationDemoComponent, NotificationContentComponent ]
 })
 export class NotificationDemoModule { }
