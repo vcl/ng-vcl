@@ -1,13 +1,6 @@
-import {
-  Component, Input, Output,
-  EventEmitter, ElementRef, trigger, NgZone,
-  HostListener, OnInit, OnChanges, state, style, transition, animate,
-  HostBinding, SimpleChanges, ChangeDetectionStrategy, OpaqueToken, Inject, Optional,
-  ChangeDetectorRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Inject, InjectionToken, Input, Optional, Output, SimpleChanges, trigger } from '@angular/core';
 import { ObservableComponent } from "../core/index";
-import { Observable } from "rxjs/Observable";
-import { AnimationMetadata, AnimationFactory, AnimationBuilder, AnimationPlayer } from "@angular/animations";
+import { AnimationBuilder, AnimationFactory, AnimationMetadata } from "@angular/animations";
 
 export type AttachmentX = 'left' | 'center' | 'right';
 export const AttachmentX = {
@@ -35,7 +28,7 @@ export enum PopoverState {
   closing
 }
 
-export const POPOVER_ANIMATIONS = new OpaqueToken('@ng-vcl/ng-vcl#popover_animations');
+export const POPOVER_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#popover_animations');
 
 export interface PopoverAnimationConfig {
   enter?: AnimationMetadata | AnimationMetadata[];
