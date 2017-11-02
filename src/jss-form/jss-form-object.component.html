@@ -24,11 +24,14 @@
 
       <ng-container  *ngSwitchCase="'password'">
         <label vcl-form-control-label [label]="fo.label" [required]="fo.required" [for]="fo.id"></label>
+
         <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-          <vcl-password-input [id]="fo.id" [formControlName]="fo.key" [placeholder]="fo.placeholder"></vcl-password-input>
+          <vcl-password-input [id]="fo.id"
+          [visibleIcon]="fo.schema.visibleIcon || ' fa fa-eye '"
+          [invisibleIcon]="fo.schema.invisibleIcon || ' fa fa-eye-slash '"
+          [formControlName]="fo.key" [placeholder]="fo.placeholder"></vcl-password-input>
         </vcl-input-control-group>
       </ng-container>
-
 
       <ng-container  *ngSwitchCase="'hidden'">
           <input

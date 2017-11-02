@@ -21,6 +21,8 @@ export const HERO_SCHEMA = {
       label: 'Passwort',
       type: 'string',
       placeholder: 'Passwort',
+      visibleIcon: ' fa fa-unlock ',
+      invisibleIcon: ' fa fa-unlock-alt '
     },
     mail_old: {
       formType: 'hidden',
