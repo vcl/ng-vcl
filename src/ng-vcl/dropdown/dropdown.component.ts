@@ -1,12 +1,5 @@
-import {
-  Component, Input, Output, ChangeDetectionStrategy, EventEmitter,
-  forwardRef, ElementRef, ViewChild, ContentChildren, QueryList,
-  ChangeDetectorRef, OpaqueToken, Optional, Inject, OnInit,
-} from '@angular/core';
-import {
-  AnimationMetadata, AnimationFactory,
-  AnimationBuilder, AnimationPlayer
-} from "@angular/animations";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, OnInit, Optional, Output, QueryList, ViewChild, } from '@angular/core';
+import { AnimationBuilder, AnimationFactory, AnimationMetadata } from "@angular/animations";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from "./dropdown-option.component";
 import { MetalistComponent, MetalistItem, SelectionMode } from "../metalist/index";
@@ -18,7 +11,7 @@ export enum DropdownState {
   Closing
 }
 
-export const DROPDOWN_ANIMATIONS = new OpaqueToken('@ng-vcl/ng-vcl#dropdown_animations');
+export const DROPDOWN_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#dropdown_animations');
 
 export interface DropdownAnimationConfig {
   enter?: AnimationMetadata | AnimationMetadata[];

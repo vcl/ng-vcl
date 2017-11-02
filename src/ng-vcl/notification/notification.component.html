@@ -1,4 +1,4 @@
-<div *ngFor="let notification of notifications" 
+<div *ngFor="let notification of notifications"
   (mouseenter)="notification.mouseEnter()" 
   (mouseleave)="notification.mouseLeave()" 
   class="vclNotification vclLayoutHorizontal vclLayoutCenter" 
@@ -11,8 +11,9 @@
     <span *ngIf="notification.iconClass" class="vclIcon vclNotificationIcon" [ngClass]="notification.iconClass"></span>
   </div>
   <div class="vclNotificationContent vclLayoutFlex">
-    <div *ngIf="notification.text && !notification.html">{{notification.text}}</div>
-    <div *ngIf="notification.text && notification.html" [innerHtml]="notification.text"></div>
+    <div *ngIf="notification.text && !notification.html && !notification.opts.contentComponentDetails">{{notification.text}}</div>
+    <div *ngIf="notification.text && notification.html && !notification.opts.contentComponentDetails" [innerHtml]="notification.text"></div>
+    <vcl-notification-content-component *ngIf="notification.opts.contentComponentDetails" [wormholeComponentDetails]="notification.opts.contentComponentDetails"></vcl-notification-content-component>
   </div>
    <button vcl-button *ngIf="notification.showCloseButton" (tap)="notification.close()" class="vclSquare vclTransparent vclLayoutSelfStart" prepIcon="fa:times" title="Close"></button>
 </div>

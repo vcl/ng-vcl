@@ -1,4 +1,4 @@
-import { Inject, Injectable, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/of';
@@ -13,7 +13,7 @@ export interface TranslationPackageGroup {
   };
 }
 
-export let L10N_LOADER_CONFIG = new OpaqueToken('l10n.loader.config');
+export let L10N_LOADER_CONFIG = new InjectionToken('l10n.loader.config');
 
 export abstract class L10nLoaderService {
 

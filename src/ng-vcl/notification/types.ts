@@ -1,3 +1,5 @@
+import { WormholeAttributes } from '../wormhole/wormhole';
+
 export enum NotificationType {
   None,
   Info,
@@ -18,6 +20,7 @@ export enum NotificationPosition {
 export interface NotificationOptions {
   text?: string;
   html?: boolean;
+  contentComponentDetails?: { contentComponentClass: any, attributes?: WormholeAttributes};
   type?: NotificationType;
   showCloseButton?: boolean;
   position?: NotificationPosition;

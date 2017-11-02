@@ -1,13 +1,10 @@
-import { Component, ChangeDetectionStrategy, ViewChild, Input, Injector, ViewContainerRef, ChangeDetectorRef, ReflectiveInjector, Type, ElementRef, TemplateRef, OpaqueToken, Optional, Inject } from '@angular/core';
-import { trigger, AnimationFactory, AnimationBuilder, AnimationMetadata } from '@angular/animations';
-import { Wormhole, ComponentWormhole, TemplateWormhole } from '../wormhole/index';
-import { getMetadata } from './../core/index';
-import { LayerRef, LayerAttributes } from './layer-ref';
-import { LayerRefDirective } from './layer-ref.directive';
-import { Observable } from "rxjs/Observable";
+import { ChangeDetectorRef, Component, ElementRef, Inject, InjectionToken, Input, Optional, ReflectiveInjector, TemplateRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
+import { ComponentWormhole, TemplateWormhole, Wormhole } from '../wormhole/index';
+import { LayerAttributes, LayerRef } from './layer-ref';
 
 export const COMPONENT_LAYER_ANNOTATION_ID = 'ng-vcl_component_layer';
-export const LAYER_ANIMATIONS = new OpaqueToken('@ng-vcl/ng-vcl#layer_animations');
+export const LAYER_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#layer_animations');
 
 export interface LayerAnimationConfig {
   boxEnter?: AnimationMetadata | AnimationMetadata[];

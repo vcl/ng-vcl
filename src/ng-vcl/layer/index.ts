@@ -1,16 +1,16 @@
-import { NgModule, APP_BOOTSTRAP_LISTENER, OnDestroy, Inject, Injectable, Type, Injector, ModuleWithProviders, Component, ChangeDetectionStrategy, Provider, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLWormholeModule } from '../wormhole/index';
 import { defineMetadata, getMetadata } from './../core/index';
 import { LayerManagerService } from './layer-manager.service';
 import { LayerService } from './layer.service';
-import { LayerRef, LayerAttributes, DynamicLayerRef, LayerResult } from './layer-ref';
-import { LayerContainerComponent, COMPONENT_LAYER_ANNOTATION_ID, LAYER_ANIMATIONS, LayerAnimationConfig, LayerOptions, LayerMeta } from './layer-container.component';
+import { DynamicLayerRef, LayerAttributes, LayerRef, LayerResult } from './layer-ref';
+import { COMPONENT_LAYER_ANNOTATION_ID, LAYER_ANIMATIONS, LayerAnimationConfig, LayerContainerComponent, LayerMeta, LayerOptions } from './layer-container.component';
 import { LayerRefDirective } from './layer-ref.directive';
 
 export { LayerRefDirective, LayerRef, LayerAttributes, LayerService, LayerContainerComponent, DynamicLayerRef, LayerAnimationConfig, LAYER_ANIMATIONS, LayerResult };
 
-export const LAYERS = new OpaqueToken('@ng-vcl/ng-vcl#layers');
+export const LAYERS = new InjectionToken('@ng-vcl/ng-vcl#layers');
 
 export interface RootLayerConfig {
   layers?: Type<LayerRef>[];
