@@ -1,12 +1,5 @@
-import {
-  Component, Input, Output, ChangeDetectionStrategy, EventEmitter,
-  forwardRef, ElementRef, ViewChild, ContentChildren, QueryList,
-  ChangeDetectorRef, OpaqueToken, Optional, Inject,
-} from '@angular/core';
-import {
-  AnimationMetadata, AnimationFactory,
-  AnimationBuilder, AnimationPlayer
-} from "@angular/animations";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, OnInit, Optional, Output, QueryList, ViewChild, } from '@angular/core';
+import { AnimationBuilder, AnimationFactory, AnimationMetadata } from "@angular/animations";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from "./dropdown-option.component";
 import { MetalistComponent, MetalistItem, SelectionMode } from "../metalist/index";
@@ -18,7 +11,7 @@ export enum DropdownState {
   Closing
 }
 
-export const DROPDOWN_ANIMATIONS = new OpaqueToken('@ng-vcl/ng-vcl#dropdown_animations');
+export const DROPDOWN_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#dropdown_animations');
 
 export interface DropdownAnimationConfig {
   enter?: AnimationMetadata | AnimationMetadata[];
@@ -40,7 +33,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[attr.tabindex]': '-1',
   }
 })
-export class DropdownComponent implements ControlValueAccessor {
+export class DropdownComponent implements ControlValueAccessor, OnInit {
 
   @ViewChild('metalist')
   metalist: MetalistComponent;
@@ -111,6 +104,10 @@ export class DropdownComponent implements ControlValueAccessor {
     private readonly builder: AnimationBuilder,
     @Optional() @Inject(DROPDOWN_ANIMATIONS) private animations: DropdownAnimationConfig) { }
 
+  ngOnInit() {
+    this.scrollToSelected();
+  }
+
   public async expand(): Promise<void> {
     if (this.state === DropdownState.Expanded || this.state === DropdownState.Expanding) {
       return;
@@ -152,29 +149,25 @@ export class DropdownComponent implements ControlValueAccessor {
     }
   }
 
-  async scrollToMarked() {
+  async scrollToSelected() {
     await new Promise(res => setTimeout(res, 0));
     if (this.listbox.nativeElement) {
-      const itemEl = this.listbox.nativeElement.querySelectorAll('.vclHighlighted')[0];
-      if (!itemEl) {
+      const selectedItem = this.listbox.nativeElement.querySelectorAll('.vclSelected')[0];
+      if (!selectedItem) {
         return;
       }
 
-      const scrollPos = this.listbox.nativeElement.scrollTop;
-      const boxHeight = this.listbox.nativeElement.offsetHeight;
-      const itemHeight = itemEl.offsetHeight;
+      const allItems = this.listbox.nativeElement.querySelectorAll('.vclDropdownItem');
+      let scrollTop = - this.listbox.nativeElement.clientHeight / 2 + (selectedItem.clientHeight / 2);
 
-      // TODO
-      // itemOffset value is not relative to <ul> element
-      const itemOffset = itemEl.offsetTop;
+      const items = this.items.toArray();
 
-      const scrollToItem =
-        ((itemOffset + itemHeight) > (scrollPos + boxHeight)) // item below scroll bounds
-        || (itemOffset < scrollPos); // item above scroll bounds
-
-      if (scrollToItem) {
-        // TODO enable
-        // this.listbox.nativeElement.scrollTop = itemOffset;
+      for (let itemIndex = 0; itemIndex < items.length; ++itemIndex) {
+        if (items[itemIndex].selected) {
+          this.listbox.nativeElement.scrollTop = scrollTop;
+          break;
+        }
+        scrollTop += allItems[itemIndex].clientHeight;
       }
     }
   }
@@ -190,11 +183,11 @@ export class DropdownComponent implements ControlValueAccessor {
       switch (ev.code) {
         case 'ArrowDown':
           this.metalist.markNext();
-          this.scrollToMarked();
+          this.scrollToSelected();
           break;
         case 'ArrowUp':
           this.metalist.markPrev();
-          this.scrollToMarked();
+          this.scrollToSelected();
           break;
         case 'Enter':
           this.metalist.selectMarked();

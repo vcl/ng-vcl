@@ -1,4 +1,4 @@
-import { OnDestroy, Injectable, Optional, OpaqueToken, Inject, Injector } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Injector, OnDestroy, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/merge';
@@ -8,8 +8,8 @@ import { Store, StoreErrorAction } from './store';
 declare var Reflect: any;
 const EFFECTS_METADATA_KEY = 'ng-vcl/effects';
 
-export const STORE_EFFECTS = new OpaqueToken('store.effects');
-export const STORE_CHILD_EFFECTS = new OpaqueToken('store.child.effects');
+export const STORE_EFFECTS = new InjectionToken('store.effects');
+export const STORE_CHILD_EFFECTS = new InjectionToken('store.child.effects');
 
 export function Effect(): PropertyDecorator {
   return function(target: any, propertyName: string) {

@@ -193,6 +193,9 @@ Name                  | Type             | Description
 Name       | Type   | ValueType
 ---------- | ------ | --------------
 `text`     | string | string
+`textarea` | string | string
+`password` | string | string
+`hidden`   | string | string
 `select`   | string | string of enum
 `radio`    | string | string of enum
 `checkbox` | string | boolean

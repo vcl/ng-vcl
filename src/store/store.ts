@@ -1,21 +1,20 @@
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 import { Subscription } from 'rxjs/Subscription';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/publish';
-import { Injectable, OpaqueToken, Inject } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 
-import { StoreActions, Action } from './actions';
-import { StoreObservable, select } from './observable';
-import { combineReducers, reduceReducers, createReducer } from './utils';
+import { Action, StoreActions } from './actions';
+import { select, StoreObservable } from './observable';
+import { combineReducers, reduceReducers } from './utils';
 import { Subject } from "rxjs/Subject";
 
-export const STORE_INITIAL_REDUCERS = new OpaqueToken('store.initial.reducers');
-export const STORE_INITIAL_STATE = new OpaqueToken('store.initial.state');
+export const STORE_INITIAL_REDUCERS = new InjectionToken('store.initial.reducers');
+export const STORE_INITIAL_STATE = new InjectionToken('store.initial.state');
 
 export interface StoreState {
   [key: string]: any;

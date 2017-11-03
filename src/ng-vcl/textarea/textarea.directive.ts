@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, HostBinding, HostListener, AfterContentInit } from '@angular/core';
+import { Directive, ElementRef, Input, HostBinding, HostListener, AfterContentInit, OnInit, Optional } from '@angular/core';
+import { NgModel } from '@angular/forms';
 
 @Directive({
   selector: 'textarea[vcl-textarea]',
@@ -6,9 +7,9 @@ import { Directive, ElementRef, Input, HostBinding, HostListener, AfterContentIn
     '[class.vclInput]': 'true',
   }
 })
-export class TextareaDirective {
+export class TextareaDirective implements OnInit {
 
-  constructor(private elRef: ElementRef) { }
+  constructor(@Optional() private model: NgModel, private elRef: ElementRef) { }
 
   @Input()
   selectAllOnFocus = false;
@@ -25,6 +26,12 @@ export class TextareaDirective {
   @HostBinding('attr.rows')
   @Input()
   rows: number;
+
+  ngOnInit() {
+    if (this.autogrow && this.model && this.model.viewModel) {
+      this.setRowsByValue(this.model.viewModel);
+    }
+  }
 
   @HostListener('ngModelChange', ['$event'])
   onModelChange(value) {

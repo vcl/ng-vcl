@@ -125,10 +125,6 @@
 }
 
 .markdown-body strong {
-  font-weight: inherit;
-}
-
-.markdown-body strong {
   font-weight: bolder;
 }
 
@@ -161,9 +157,6 @@
 .markdown-body input {
   font: inherit;
   margin: 0;
-}
-
-.markdown-body input {
   overflow: visible;
 }
 

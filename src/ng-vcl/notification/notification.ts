@@ -65,7 +65,7 @@ export class Notification extends Observable<any> {
     return TYPE_CLASS_MAP[this.opts.type || NotificationType.None].iconClass;
   }
 
-  get calculatedTimeout(){
+  get calculatedTimeout() {
     if (typeof this.opts.timeout === 'number') {
       return this.opts.timeout;
     } else if (typeof this.opts.timeout === 'boolean' && !this.opts.timeout) {

@@ -1,9 +1,12 @@
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
-import { NotificationService, NotificationType, NotificationPosition } from '@ng-vcl/ng-vcl';
-import { Component } from '@angular/core';
+import { NotificationPosition, NotificationService } from '@ng-vcl/ng-vcl';
+import { Component, Input } from '@angular/core';
 
 let cnt = 1;
+
+@Component({selector: 'notification-content-component', template: '<button class="vclButton">{{text}}</button>'})
+export class NotificationContentComponent {
+  @Input()text;
+}
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -42,6 +45,12 @@ export class NotificationDemoComponent {
       position: this.position,
       showCloseButton: false,
       timeout: 10000
+    });
+  }
+  componentAsContent() {
+    this.notification.info('', {
+      position: this.position,
+      contentComponentDetails: {contentComponentClass: NotificationContentComponent, attributes: {text: `notification content custom component button ${cnt++}`}}
     });
   }
 

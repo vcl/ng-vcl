@@ -1,8 +1,8 @@
-import { NgModule, ModuleWithProviders, Type, Optional, Inject, OpaqueToken, SkipSelf, Injector } from '@angular/core';
-import { Store, STORE_INITIAL_STATE, STORE_INITIAL_REDUCERS, Reducer, Reducers, StoreState, ReducerInitAction } from './store';
-import { reduceReducers, combineReducers, createReducer } from './utils';
+import { Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf, Type } from '@angular/core';
+import { Reducer, ReducerInitAction, Reducers, Store, STORE_INITIAL_REDUCERS, STORE_INITIAL_STATE, StoreState } from './store';
+import { createReducer, reduceReducers } from './utils';
 import { StoreActions } from './actions';
-import { Effects, RootEffects, ChildEffects, STORE_EFFECTS, STORE_CHILD_EFFECTS } from './effects';
+import { ChildEffects, Effects, RootEffects, STORE_CHILD_EFFECTS, STORE_EFFECTS } from './effects';
 import { routerReducer, StoreRouter, StoreRouterEffects } from './router';
 
 export * from './actions';
@@ -12,7 +12,7 @@ export * from './observable';
 export * from './store';
 export * from './router';
 
-export const STORE_FORROOT_GUARD = new OpaqueToken('STORE_FORROOT_GUARD');
+export const STORE_FORROOT_GUARD = new InjectionToken('STORE_FORROOT_GUARD');
 
 export function provideForRootGuard(store: Store): any {
   if (store) {

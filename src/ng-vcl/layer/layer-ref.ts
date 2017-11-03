@@ -74,18 +74,25 @@ export abstract class LayerRef {
 export class DynamicLayerRef extends LayerRef {
   constructor(private _register: {(): void}, private _unregister: {(): void}) { super(); }
 
+  private _registered = false;
+
   open(attrs?: LayerAttributes): LayerResult<any> {
-    this._register();
+    if (!this._registered) {
+      this._register();
+      this._registered = true;
+    }
     return super.open(attrs);
   }
 
   close(data?: any) {
     super.close(data);
     this._unregister();
+    this._registered = false;
   }
 
   closeWithError(data?: any) {
     super.closeWithError(data);
     this._unregister();
+    this._registered = false;
   }
 }

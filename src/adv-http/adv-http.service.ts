@@ -1,5 +1,5 @@
-import { Response, Request, RequestOptions, ConnectionBackend, RequestOptionsArgs, Http } from '@angular/http';
-import { Injectable, OpaqueToken, Inject } from '@angular/core';
+import { ConnectionBackend, Http, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 import { Subscription } from 'rxjs/Subscription';
@@ -92,7 +92,7 @@ declare module 'rxjs/Observable' {
   }
 }
 
-export const ADV_HTTP_CONFIG = new OpaqueToken('adv.http.config');
+export const ADV_HTTP_CONFIG = new InjectionToken('adv.http.config');
 
 @Injectable()
 export class ErrorHandlerService {
