@@ -6,10 +6,7 @@ const PlotlyParameters = {
   Layout: 'layout',
   Configuration: 'configuration',
   Events: 'events',
-};
-
-const PlotlyEvents = {
-  AfterPlot: 'plotly_afterplot',
+  Frames: 'frames',
 };
 
 enum ChangeAction {
@@ -23,6 +20,12 @@ enum ChangeAction {
 @Component({
   selector: 'vcl-plotly',
   templateUrl: './plotly.component.html',
+  styles: [`
+    .hoverInfo {
+      position: absolute;
+      z-index: 1000;
+    }
+  `]
 })
 export class PlotlyComponent {
   private static readonly Tag: string = 'PlotlyComponent';
@@ -30,41 +33,61 @@ export class PlotlyComponent {
     'plotId',
     'plotClass',
     PlotlyParameters.Configuration,
-    PlotlyParameters.Events
+    PlotlyParameters.Events,
+    PlotlyParameters.Frames,
   ];
 
   private tag: string;
+
+  public afterPlot: boolean = false;
   private changeAction: ChangeAction | undefined;
 
   public plot/*: HTMLElement */;
-  public afterPlot: boolean = false;
+  public hoverInfo: HTMLElement;
 
   @Input() private debug = false;
+
   @Input() plotId: string;
+  @Input() plotHoverInfoId: string;
+
   @Input() plotClass: string;
+  @Input() plotHoverInfoClass: string;
+
   @Input() private data: any[];
   @Input() private layout: any;
   @Input() private configuration: any;
   @Input() private events: any;
+  @Input() private frames: any[];
 
   private ngOnInit(): void {
     this.tag = `${PlotlyComponent.Tag}.${this.plotId}`;
+    if (!this.plotHoverInfoId) this.plotHoverInfoId = `${this.plotId}HoverInfo`;
   }
 
-  private ngAfterViewInit(): void {
+  private async ngAfterViewInit(): Promise<any> {
     const tag: string = `${this.tag}.ngAfterViewInit()`;
     if (this.debug) console.log(tag);
+
+    let resolve;
+    const promise: Promise<{}> = new Promise(_resolve => resolve = _resolve);
     setTimeout(() => {
-      Plotly.newPlot(this.plotId, this.data, this.layout, this.configuration);
       this.plot = document.getElementById(this.plotId);
 
-      this.plot.on(PlotlyEvents.AfterPlot, () => {
-        if (this.debug) console.log(`${this.tag}.${PlotlyEvents.AfterPlot}()`);
+      Plotly.newPlot(this.plot, {
+        data: this.data,
+        layout: this.layout,
+        config: this.configuration,
+        frames: this.frames,
+      }).then(() => {
         this.afterPlot = true;
+        resolve();
       });
 
+      this.hoverInfo = document.getElementById(this.plotHoverInfoId) as HTMLElement;
       this.attachEventListeners(this.events);
     });
+
+    return promise;
   }
 
   private attachEventListeners(events: any): void {
@@ -75,7 +98,7 @@ export class PlotlyComponent {
       this.plot.on(k, (data, event) => {
         if (this.debug) console.log(tag, 'data:', data);
         if (this.debug) console.log(tag, 'event:', event);
-        events[k](data, event, this.plotId, this.plot, Plotly);
+        events[k](data, event, this, Plotly);
       });
     });
   }
@@ -121,47 +144,48 @@ export class PlotlyComponent {
     this.changeAction = undefined;
   }
 
-  public restyle(update, traces?: number[]): void {
+  public async restyle(update, traces?: number[]): Promise<any> {
     const tag: string = `${this.tag}.restyle()`;
     if (this.debug) console.log(tag, 'update:', update);
     if (this.debug) console.log(tag, 'traces:', traces === undefined ? 'all' : traces);
-    Plotly.restyle(this.plot, update, traces);
+    return Plotly.restyle(this.plot, update, traces);
   }
 
-  public relayout(layout: any = this.layout): void {
+  public async relayout(layout: any = this.layout): Promise<any> {
     const tag: string = `${this.tag}.relayout()`;
-    if (this.debug) console.log(tag, 'this.plot.layout before:', clone(this.plot.layout));
-    Plotly.relayout(this.plot, layout).then(() => {
+    if (this.debug) console.log(tag, 'layout:', layout);
+    return Plotly.relayout(this.plot, layout).then(result => {
       if (this.debug) console.log(tag, 'this.plot.layout after:', this.plot.layout);
+      return result;
     });
   }
 
-  public update(dataUpdate: any, layoutUpdate: any): void {
+  public async update(dataUpdate: any, layoutUpdate: any): Promise<any> {
     const tag: string = `${this.tag}.update()`;
     if (this.debug) console.log(tag, 'dataUpdate:', dataUpdate);
     if (this.debug) console.log(tag, 'layoutUpdate:', layoutUpdate);
-    Plotly.update(this.plot, dataUpdate, layoutUpdate);
+    return Plotly.update(this.plot, dataUpdate, layoutUpdate);
   }
 
-  public redraw(): void {
+  public async redraw(): Promise<any> {
     const tag: string = `${this.tag}.redraw()`;
     if (this.debug) console.log(tag);
     this.plot.data = this.data;
     this.plot.layout = this.layout;
-    Plotly.redraw(this.plot);
+    return Plotly.redraw(this.plot);
   }
 
-  public recreate(): void {
+  public async recreate(): Promise<any> {
     const tag: string = `${this.tag}.recreate()`;
     if (this.debug) console.log(tag);
-    this.ngAfterViewInit();
+    return this.ngAfterViewInit();
   }
 
-  public addTraces(traces: any | any[], index?: number): void {
+  public async addTraces(traces: any | any[], index?: number): Promise<any> {
     const tag: string = `${this.tag}.addTraces()`;
     if (this.debug) console.log(tag, 'traces:', traces);
     if (this.debug) console.log(tag, 'index:', index);
-    Plotly.addTraces(this.plot, traces, index);
+    return Plotly.addTraces(this.plot, traces, index);
     // Issue: https://github.com/plotly/plotly.js/issues/1492
     // this.data = [
     //   ...this.data.slice(0, index),
@@ -171,7 +195,7 @@ export class PlotlyComponent {
     // this.dataChange.emit(this.data);
   }
 
-  public deleteTraces(traces: number | number[]): void {
+  public async deleteTraces(traces: number | number[]): Promise<any> {
     const tag: string = `${this.tag}.deleteTraces()`;
     if (this.debug) console.log(tag, 'traces:', traces);
     Plotly.deleteTraces(this.plot, traces);
@@ -181,11 +205,24 @@ export class PlotlyComponent {
     // this.dataChange.emit(this.data);
   }
 
-  public animate(update: any, animation: any): void {
+  public async animate(update: any, animation: any): Promise<any> {
     const tag: string = `${this.tag}.animate()`;
     if (this.debug) console.log(tag, 'update:', update);
     if (this.debug) console.log(tag, 'animation:', animation);
-    Plotly.animate(this.plot, update, animation);
+    return Plotly.animate(this.plot, update, animation);
+  }
+
+  public async addFrames(frames: any[], indices?: number[]): Promise<any> {
+    const tag: string = `${this.tag}.addFrames()`;
+    if (this.debug) console.log(tag, 'frames:', frames);
+    if (this.debug) console.log(tag, 'indices:', indices);
+    return Plotly.addFrames(this.plot, frames, indices);
+  }
+
+  public async deleteFrames(indices: number[]): Promise<any> {
+    const tag: string = `${this.tag}.deleteFrames()`;
+    if (this.debug) console.log(tag, 'frames:', frames);
+    return Plotly.deleteFrames(this.plot, indices);
   }
 }
 
