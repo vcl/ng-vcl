@@ -10,6 +10,8 @@ export default {
   '@angular/animations': 'ng.animations',
 
   // Rxjs dependencies
+  'rxjs/Subscription': 'Rx',
+  'rxjs/Observer': 'Rx',
   'rxjs/Observable': 'Rx',
   'rxjs/Subject': 'Rx',
   'rxjs/BehaviorSubject': 'Rx',
@@ -60,10 +62,8 @@ export default {
 
   // Additional dependencies
   'hammerjs': 'Hammer',
-  'tether': 'Tether',
   'jsoneditor/dist/jsoneditor.js': 'JSONEditor',
   'jsonschema': 'jsonschema',
-  'attr-accept': 'attr-accept',
   'plotly.js': 'Plotly',
 };
 
