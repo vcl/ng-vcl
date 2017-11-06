@@ -57,14 +57,14 @@ export function prepareDist(pkg: string) {
             context: 'this',
             external: Object.keys(ROLLUP_EXTERNALS)
           }, [{
-            moduleName: ROLLUP_EXTERNALS['@ng-vcl/' + pkg] || pkg,
+            name: ROLLUP_EXTERNALS['@ng-vcl/' + pkg] || pkg,
             format: 'umd',
             globals: ROLLUP_EXTERNALS,
-            dest: pkgData.main
+            file: pkgData.main
           }, {
             format: 'es',
             globals: ROLLUP_EXTERNALS,
-            dest: pkgData.module
+            file: pkgData.module
           }]))
           .pipe(dest(folder.dist));
   });
