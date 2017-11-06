@@ -3,7 +3,6 @@ import 'rxjs/add/observable/never';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { WormholeAttributes } from './wormhole';
 import { Wormhole, ComponentWormholeBase, TemplateWormholeBase } from './wormhole-base';
 
 export interface WormholeAttributes {
