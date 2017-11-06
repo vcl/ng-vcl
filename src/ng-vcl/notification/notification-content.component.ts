@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
-import { WormholeHost } from '@ng-vcl/ng-vcl';
+import { WormholeHost } from '../wormhole/index';
 
 @Component({
   selector: 'vcl-notification-content-component',
