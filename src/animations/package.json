@@ -12,8 +12,8 @@
   "module": "animations.js",
   "typings": "index.d.ts",
   "peerDependencies": {
-    "@angular/core": "^4.2.0",
-    "@angular/animations": "^4.2.0",
+    "@angular/core": "^4.2.0 || ^5",
+    "@angular/animations": "^4.2.0 || ^5",
     "@ng-vcl/ng-vcl": "^0.3.0"
   }
 }

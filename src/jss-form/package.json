@@ -12,10 +12,10 @@
   "module": "jss-form.js",
   "typings": "index.d.ts",
   "peerDependencies": {
-    "@angular/common": "^4.2.0",
-    "@angular/core": "^4.2.0",
-    "@angular/forms": "^4.2.0",
-    "rxjs": "^5.0.1",
+    "@angular/common": "^4.2.0 || ^5",
+    "@angular/core": "^4.2.0 || ^5",
+    "@angular/forms": "^4.2.0 || ^5",
+    "rxjs": "^5",
     "@ng-vcl/ng-vcl": "^0.3.0"
   },
   "dependencies": {
