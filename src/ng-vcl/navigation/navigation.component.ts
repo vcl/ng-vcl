@@ -22,7 +22,7 @@ export class NavigationComponent {
   tabindex: number = 0;
 
   @Input()
-  type: string = 'horizontal';
+  type: string = 'vertical';
 
   @Input()
   useRouter = false;
@@ -52,11 +52,6 @@ export class NavigationComponent {
 
   get navigationItems() {
     return this.inputItems || this.contentItems || [];
-  }
-
-  @HostBinding('class.vclVertical')
-  get isVertical() {
-    return this.type === 'vertical';
   }
 
   private runItems(cb: {(item: NavigationItemDirective): void}) {

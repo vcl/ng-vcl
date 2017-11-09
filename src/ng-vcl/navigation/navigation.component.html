@@ -1,4 +1,4 @@
-  <ul>
+  <ul [class.vclLayoutHorizontal]="type === 'horizontal'">
     <li *ngFor="let item of navigationItems"
         [class.vclSelected]="item.selectable && item.selected"
         [class.vclOpen]="item.opened"
@@ -34,4 +34,3 @@
       </vcl-navigation>
     </li>
   </ul>
-  

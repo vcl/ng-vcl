@@ -49,7 +49,7 @@
     "@types/node": "^8.0.47",
     "@types/tether": "^1.4.3",
     "@vcl/breakpoints": "^0.2.0",
-    "@vcl/core-modules": "^0.2.2",
+    "@vcl/core-modules": "^0.2.4",
     "@vcl/default-theme": "^0.2.1",
     "@vcl/default-theme-terms": "^0.2.1",
     "@vcl/font-awesome": "^0.2.0",
