@@ -1,7 +1,7 @@
 import { Component, Input, SimpleChange, } from '@angular/core';
 import * as Plotly from 'plotly.js';
 
-const PlotlyParameters = {
+const PlotlyParameter = {
   Data: 'data',
   Layout: 'layout',
   Configuration: 'configuration',
@@ -16,6 +16,10 @@ enum ChangeAction {
   Redraw,
   Recreate,
 }
+
+const PlotlyEvent = {
+  AfterPlot: 'plotly_afterplot',
+};
 
 @Component({
   selector: 'vcl-plotly',
@@ -32,9 +36,9 @@ export class PlotlyComponent {
   private static readonly RecreateFields: string[] = [
     'plotId',
     'plotClass',
-    PlotlyParameters.Configuration,
-    PlotlyParameters.Events,
-    PlotlyParameters.Frames,
+    PlotlyParameter.Configuration,
+    PlotlyParameter.Events,
+    PlotlyParameter.Frames,
   ];
 
   private tag: string;
@@ -64,43 +68,51 @@ export class PlotlyComponent {
     if (!this.plotHoverInfoId) this.plotHoverInfoId = `${this.plotId}HoverInfo`;
   }
 
-  private async ngAfterViewInit(): Promise<any> {
+  private ngAfterViewInit(): void {
     const tag: string = `${this.tag}.ngAfterViewInit()`;
     if (this.debug) console.log(tag);
 
-    let resolve;
-    const promise: Promise<{}> = new Promise(_resolve => resolve = _resolve);
     setTimeout(() => {
-      this.plot = document.getElementById(this.plotId);
-
-      Plotly.newPlot(this.plot, {
+      Plotly.newPlot(this.plotId, {
         data: this.data,
         layout: this.layout,
         config: this.configuration,
         frames: this.frames,
-      }).then(() => {
-        this.afterPlot = true;
-        resolve();
       });
 
+      this.plot = document.getElementById(this.plotId);
       this.hoverInfo = document.getElementById(this.plotHoverInfoId) as HTMLElement;
       this.attachEventListeners(this.events);
     });
-
-    return promise;
   }
 
   private attachEventListeners(events: any): void {
     const tag: string = `${this.tag}.attachEventListeners()`;
     if (this.debug) console.log(tag, 'events:', events);
+
+    const afterPlot = (): void => { this.afterPlot = true; };
+    let afterPlotAdded: boolean = false;
     Object.keys(events || {}).forEach(k => {
       const tag: string = `${this.tag}.${k}()`;
       this.plot.on(k, (data, event) => {
+        if (k === PlotlyEvent.AfterPlot) afterPlot();
         if (this.debug) console.log(tag, 'data:', data);
         if (this.debug) console.log(tag, 'event:', event);
         events[k](data, event, this, Plotly);
       });
+      if (k === PlotlyEvent.AfterPlot) afterPlotAdded = true;
     });
+
+    if (this.debug) console.log(tag, 'afterPlotAdded:', afterPlotAdded);
+    if (!afterPlotAdded) {
+      const tag: string = `${this.tag}.${PlotlyEvent.AfterPlot}()`;
+      this.plot.on(PlotlyEvent.AfterPlot, (data, event) => {
+        if (this.debug) console.log(tag, 'data:', data);
+        if (this.debug) console.log(tag, 'event:', event);
+        afterPlot();
+      });
+    }
+    if (this.debug) console.log(tag, 'this.plot:', this.plot);
   }
 
   private ngOnChanges(changes: any): void {
@@ -112,11 +124,11 @@ export class PlotlyComponent {
     if (this.debug) console.log(tag, 'changes:', changes);
     const changedKeys: string[] = Object.keys(changes);
 
-    if (includes(changedKeys, PlotlyParameters.Layout)) {
+    if (includes(changedKeys, PlotlyParameter.Layout)) {
       this.changeAction = ChangeAction.Relayout;
     }
 
-    if (includes(changedKeys, PlotlyParameters.Data)) {
+    if (includes(changedKeys, PlotlyParameter.Data)) {
       this.changeAction = ChangeAction.Redraw;
     }
 
