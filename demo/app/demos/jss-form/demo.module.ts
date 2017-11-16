@@ -23,6 +23,10 @@ export function demo() {
       'demo.component.ts': {
         type: 'pre',
         content: require("!highlight-loader?raw=true&lang=ts!./demo.component.ts")
+      },
+      'hero.ts': {
+        type: 'pre',
+        content: require("!highlight-loader?raw=true&lang=ts!./hero.ts")
       }
     }
   };
