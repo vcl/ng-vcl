@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLLinkModule } from '../link/index';
 import { L10nModule } from '../l10n/index';
-import { NavigationComponent } from './navigation.component';
-import { NavigationItem, NavigationItemDirective } from './navigation-item.directive';
+import { NavigationComponent, NavigationItem, NavigationItemDirective } from './navigation.component';
 
 export { NavigationComponent, NavigationItem, NavigationItemDirective };
 

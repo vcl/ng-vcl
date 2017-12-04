@@ -36,7 +36,7 @@ export const NOTIFICATION_DEFAULTS: NotificationOptions = {
   showCloseButton: true
 };
 
-export const TYPE_CLASS_MAP = {
+export const TYPE_CLASS_MAP: any = {
   [NotificationType.None]: {
     notificationClass: '',
     iconClass: ''
@@ -86,3 +86,5 @@ export const POSITION_MAP = {
     reverse: false
   },
 };
+
+const x = NotificationType.Error;
