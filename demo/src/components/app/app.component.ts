@@ -16,6 +16,8 @@ const Fuse = require('fuse.js') as FuseStub;
 })
 export class AppComponent {
 
+  version =  require("./../../../../package.json").version;
+
   GROUPED_DEMOS = function () {
     const itemsMap = {};
     routes.forEach(r => {
