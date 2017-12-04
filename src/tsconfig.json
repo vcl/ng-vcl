@@ -28,6 +28,7 @@
   "angularCompilerOptions": {
     "genDir": "../dist/@ng-vcl",
     "skipTemplateCodegen": true,
-    "skipMetadataEmit" : false
+    "skipMetadataEmit" : false,
+    "annotationsAs": "decorators"
   }
 }

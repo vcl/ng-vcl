@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.x
+
+### Notes
+
+### Changes
+- (BREAKING) requires Angular ^5
+
 ## 0.3.x (?)
 
 ### Notes

@@ -12,10 +12,10 @@
   "module": "plotly.js",
   "typings": "index.d.ts",
   "peerDependencies": {
-    "@angular/core": "^4.2.0 || ^5",
-    "@angular/common": "^4.2.0 || ^5",
+    "@angular/core": "^5",
+    "@angular/common": "^5",
     "@ng-vcl/ng-vcl": "^0.3.0",
-    "rxjs": "^5"
+    "rxjs": "^5.5.0"
   },
   "dependencies": {
     "plotly.js": "^1.25.0"
