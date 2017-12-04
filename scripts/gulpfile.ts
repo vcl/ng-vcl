@@ -20,7 +20,6 @@ task(`build:ngc`, () => {
 pkgNames.forEach(pkg => {
   // Create  package tasks
   const pkgTasks = PACKAGES[pkg].tasks.map(createTask => createTask(pkg));
-  const next = PACKAGES[pkg].next;
 
   // Build package tasks
   task(`build:${pkg}`, (cb) => {
@@ -31,9 +30,14 @@ pkgNames.forEach(pkg => {
 
   task(`publish:${pkg}`, () => {
     const params = ['publish', '--access=public'];
-    if (next) {
-      params.push('--tag=next');
-    }
+
+    return exec('npm', params, {
+      cwd: dist
+    });
+  });
+
+  task(`publish:next:${pkg}`, () => {
+    const params = ['publish', '--access=public', '--tag=next'];
 
     return exec('npm', params, {
       cwd: dist
@@ -51,3 +55,7 @@ task(`publish`, (cb) => {
   runSequence(...pkgNames.map(pkg => `publish:${pkg}`), cb);
 });
 
+// Publishes all packages
+task(`publish:next`, (cb) => {
+  runSequence(...pkgNames.map(pkg => `publish:next:${pkg}`), cb);
+});

@@ -14,6 +14,7 @@
     "build:gulp": "gulp build",
     "build": "npm-run-all lint:src build:clean build:gulp",
     "publish": "gulp publish",
+    "publish:next": "gulp publish:next",
     "publish:git:ng-vcl": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl --branch dist_v0.3",
     "publish:git:ng-vcl-c": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl-compatibility --branch dist_v0.3-compatibility",
     "clean": "npm-run-all build:clean docs:clean",
