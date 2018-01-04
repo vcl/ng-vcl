@@ -66,8 +66,11 @@
       </button>
     </div>
     <div *ngIf="!alert.showCancelButton && !alert.showConfirmButton && !!alert.loader">
-      <div class="vclBusyIndicator" role="status">
-        <i class="vclBusy-busyIndCircular"></i>
+      <div class="vclLayoutHorizontal vclLayoutCenterJustified">
+        <div class="vclBusyIndicator vclIcogram vclLayoutVertical vclLayoutJustified" role="status">
+            <div class="vclIcon fa fa-circle-o-notch fa-spin fa-3x fa-fw" aria-hidden="true" aria-label="loading…" role="img"></div>
+          <div class="vclText">Loading…</div>
+        </div>
       </div>
     </div>
   </div>
