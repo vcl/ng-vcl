@@ -9,4 +9,9 @@ export class BusyDemoComponent {
     this.isBusy = true;
     setTimeout(() => this.isBusy = false, 3000);
   }
+  isVerticalBusy = false;
+  makeVerticalBusy() {
+    this.isVerticalBusy = true;
+    setTimeout(() => this.isVerticalBusy = false, 3000);
+  }
 }
