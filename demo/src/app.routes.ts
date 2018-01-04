@@ -297,6 +297,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/zoom-box/demo.module#ZoomBoxDemoModule',
+    path: 'zoom-box',
+    data: {
+      demo: {
+        label: 'Zoom-Box',
+        category: 'Media',
+      }
+    }
+  },
+  {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
     path: 'busy',
     data: {
