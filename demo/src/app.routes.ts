@@ -301,7 +301,7 @@ export const routes: Routes = [
     path: 'busy',
     data: {
       demo: {
-        label: 'Busy',
+        label: 'Busy-Indicator',
         category: 'Status Information',
       }
     }
