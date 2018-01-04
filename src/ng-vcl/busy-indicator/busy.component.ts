@@ -14,6 +14,9 @@ export class BusyComponent {
   busyIndicatorType: 'straight' | 'circular' = 'circular';
 
   @Input()
+  busyIndicatorDirection: 'vertical' | 'horizontal' = 'vertical';
+
+  @Input()
   busyLabel: string | undefined;
 
   @Input()

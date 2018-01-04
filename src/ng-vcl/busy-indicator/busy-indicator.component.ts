@@ -17,6 +17,9 @@ export class BusyIndicatorComponent {
   type: 'straight' | 'circular' = 'circular';
 
   @Input()
+  direction: 'vertical' | 'horizontal' = 'vertical';
+
+  @Input()
   label = 'Loading';
 
   @Input()

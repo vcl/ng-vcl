@@ -1,7 +1,7 @@
 <ng-content></ng-content>
 <div *ngIf="busy" tabindex="-1" class="vclLoadingLayer">
   <div class="vclLoadingLayerContent">
-    <vcl-busy-indicator [type]="busyIndicatorType" [label]="busyLabel" [iconHeight]="busyIconHeight" [iconWidth]="busyIconWidth">
+    <vcl-busy-indicator [type]="busyIndicatorType" [label]="busyLabel" [iconHeight]="busyIconHeight" [iconWidth]="busyIconWidth" [direction]="busyIndicatorDirection">
       <span *ngIf="busyLabel">{{busyLabel}}</span>
     </vcl-busy-indicator>
   </div>
