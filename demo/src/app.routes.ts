@@ -201,7 +201,7 @@ export const routes: Routes = [
     path: 'form',
     data: {
       demo: {
-        label: 'Form',
+        label: 'All Controls Example',
         category: 'Forms',
       }
     }
