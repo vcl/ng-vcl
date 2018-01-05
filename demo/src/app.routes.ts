@@ -277,7 +277,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/thumbnail/demo.module#IconDemoModule',
+    loadChildren: './demos/icon/demo.module#IconDemoModule',
     path: 'icon',
     data: {
       demo: {
