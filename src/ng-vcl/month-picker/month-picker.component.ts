@@ -3,6 +3,15 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
+export interface Month {
+  date: string;
+  label: string;
+  available?: boolean;
+  selected?: boolean;
+  preselected?: boolean;
+  color?: string;
+}
+
 @Component({
   selector: 'vcl-month-picker',
   templateUrl: 'month-picker.component.html',

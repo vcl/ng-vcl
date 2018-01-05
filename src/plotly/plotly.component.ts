@@ -1,4 +1,7 @@
-import { Component, Input, SimpleChange, } from '@angular/core';
+import {
+  Component, OnInit, AfterViewInit, ChangeDetectionStrategy,
+  ChangeDetectorRef, Input, SimpleChange,
+} from '@angular/core';
 import * as Plotly from 'plotly.js';
 
 const PlotlyParameter = {
@@ -24,6 +27,7 @@ const PlotlyEvent = {
 @Component({
   selector: 'vcl-plotly',
   templateUrl: './plotly.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .hoverInfo {
       position: absolute;
@@ -31,7 +35,7 @@ const PlotlyEvent = {
     }
   `]
 })
-export class PlotlyComponent {
+export class PlotlyComponent implements OnInit, AfterViewInit {
   private static readonly Tag: string = 'PlotlyComponent';
   private static readonly RecreateFields: string[] = [
     'plotId',
@@ -63,12 +67,16 @@ export class PlotlyComponent {
   @Input() private events: any;
   @Input() private frames: any[];
 
-  private ngOnInit(): void {
+  constructor(private readonly cd: ChangeDetectorRef) {
+    const tag: string = `${this.tag}.constructor()`;
+  }
+
+  public ngOnInit(): void {
     this.tag = `${PlotlyComponent.Tag}.${this.plotId}`;
     if (!this.plotHoverInfoId) this.plotHoverInfoId = `${this.plotId}HoverInfo`;
   }
 
-  private ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     const tag: string = `${this.tag}.ngAfterViewInit()`;
     if (this.debug) console.log(tag);
 
@@ -90,7 +98,7 @@ export class PlotlyComponent {
     const tag: string = `${this.tag}.attachEventListeners()`;
     if (this.debug) console.log(tag, 'events:', events);
 
-    const afterPlot = (): void => { this.afterPlot = true; };
+    const afterPlot = (): void => { this.afterPlot = true; this.cd.detectChanges(); };
     let afterPlotAdded: boolean = false;
     Object.keys(events || {}).forEach(k => {
       const tag: string = `${this.tag}.${k}()`;
@@ -107,8 +115,7 @@ export class PlotlyComponent {
     if (!afterPlotAdded) {
       const tag: string = `${this.tag}.${PlotlyEvent.AfterPlot}()`;
       this.plot.on(PlotlyEvent.AfterPlot, (data, event) => {
-        if (this.debug) console.log(tag, 'data:', data);
-        if (this.debug) console.log(tag, 'event:', event);
+        if (this.debug) console.log(tag);
         afterPlot();
       });
     }
