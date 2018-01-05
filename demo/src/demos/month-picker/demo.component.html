@@ -1,3 +1,4 @@
+<h3>Demo with 2 selectable months in different colors</h3>
 <vcl-month-picker id="myStyledMonthPicker" #myStyledMonthPicker
   [locales]="locales"
   [dateOptions]="dateOptions"
@@ -5,13 +6,12 @@
   [nextYearAvailable]="true"
   [colors]="['#50E3C2', '#FF3CE6']">
 </vcl-month-picker>
-
 <br><br>
 
+<h3>Demo with a button which creates a popover with a month picker</h3>
 <button vcl-button
   #target
   label="Expand"
-  class="vclSquare"
   (click)="expandMonthPicker()">
 </button>
 
