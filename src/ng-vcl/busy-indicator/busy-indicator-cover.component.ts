@@ -1,17 +1,20 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: '[vclBusy]',
-  templateUrl: 'busy.component.html',
+  selector: '[vclBusyIndicatorCover]',
+  templateUrl: 'busy-indicator-cover.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BusyComponent {
-  @Input('vclBusy')
+export class BusyIndicatorCoverComponent {
+  @Input('vclBusyIndicatorCover')
   @HostBinding('class.vclLoadingLayerContainer')
   busy = false;
 
   @Input()
   busyIndicatorType: 'straight' | 'circular' = 'circular';
+
+  @Input()
+  busyIndicatorDirection: 'vertical' | 'horizontal' = 'vertical';
 
   @Input()
   busyLabel: string | undefined;

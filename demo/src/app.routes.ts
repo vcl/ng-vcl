@@ -201,7 +201,7 @@ export const routes: Routes = [
     path: 'form',
     data: {
       demo: {
-        label: 'Form',
+        label: 'All Controls Example',
         category: 'Forms',
       }
     }
@@ -297,11 +297,21 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/zoom-box/demo.module#ZoomBoxDemoModule',
+    path: 'zoom-box',
+    data: {
+      demo: {
+        label: 'Zoom-Box',
+        category: 'Media',
+      }
+    }
+  },
+  {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
     path: 'busy',
     data: {
       demo: {
-        label: 'Busy',
+        label: 'Busy-Indicator',
         category: 'Status Information',
       }
     }
