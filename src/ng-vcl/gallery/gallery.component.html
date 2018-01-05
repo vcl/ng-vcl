@@ -1,0 +1,27 @@
+<div class="vclGallery" touch-action="pan-y">
+  <div class="vclGalleryHeader">
+    <h2>{{ galleryTitle }}</h2>
+  </div>
+
+  <div #galleryContent class="vclGalleryContent">
+    <button vcl-button class="vclButton vclGalleryPrevButton" (click)="selectPrevious()">
+      <div class="vclIcon fa fa-caret-left" aria-hidden="true" aria-label="Previous" role="img"></div>
+    </button>
+
+    <img class="vclGalleryImage" [src]="imageArray[selectedImage].image" [alt]="imageArray[selectedImage].alt" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+
+    <button vcl-button class="vclButton vclGalleryNextButton" (click)="selectNext()">
+      <div class="vclIcon fa fa-caret-right" aria-hidden="true" aria-label="Previous" role="img"></div>
+    </button>
+  </div>
+
+  <div class="vclGalleryFooter vclAlignCentered">
+    {{ selectedImage + 1 }}&nbsp;/&nbsp;{{ images.length }}
+  </div>
+
+  <div class="vclGalleryThumbs vclLayoutHorizontal vclLayoutCenterJustified" touch-action="pan-y">
+    <div *ngFor="let image of images; let i = index" class="vclGalleryThumbWrapper" [ngClass]="{'vclSelected': i == selectedImage}" (click)="selectImage(i)">
+      <img class="vclGalleryThumb" [src]="image.thumbnail || image.image" [alt]="image.alt">
+    </div>
+  </div>
+</div>

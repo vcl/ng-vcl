@@ -277,7 +277,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/icon/demo.module#IconDemoModule',
+    loadChildren: './demos/thumbnail/demo.module#IconDemoModule',
     path: 'icon',
     data: {
       demo: {
@@ -302,6 +302,16 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Zoom-Box',
+        category: 'Media',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/gallery/demo.module#GalleryDemoModule',
+    path: 'gallery',
+    data: {
+      demo: {
+        label: 'Gallery',
         category: 'Media',
       }
     }
