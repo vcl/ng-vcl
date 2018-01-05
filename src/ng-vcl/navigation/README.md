@@ -16,25 +16,24 @@ export class AppComponent {}
 
 ```html
 <vcl-navigation #nav1 (navigate)="onNavigate($event)">
-  <vcl-navitem  label="Home1" prepIcon="fa:home" [route]="['/']"></vcl-navitem>
-  <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']"></vcl-navitem>  
-  <vcl-navitem label="Contact" prepIcon="fa:contact" [route]="['/contact']"></vcl-navitem>
+  <vcl-navitem label="Home" prepIcon="fa:home" [route]="['/']"></vcl-navitem>
+  <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']"></vcl-navitem>
+  <vcl-navitem label="Contact" prepIcon="fa:envelope" [route]="['/contact']"></vcl-navitem>
 </vcl-navigation>
 ```
 
-##Nested:
+## Nested:
+
 ```html
 <vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
-  <vcl-navitem  label="Home1" [route]="['/']"></vcl-navitem>
+  <vcl-navitem  label="Home" [route]="['/']"></vcl-navitem>
   <vcl-navitem label="Products" appIcon="fa:bicycle">
-    <vcl-navitem label="Product 1" [route]="['/product', 1]"></vcl-navitem>  
-    <vcl-navitem label="Product 2" [route]="['/product', 2]"></vcl-navitem>  
-  </vcl-navitem>  
+    <vcl-navitem label="Product 1" [route]="['/product', 1]"></vcl-navitem>
+    <vcl-navitem label="Product 2" [route]="['/product', 2]"></vcl-navitem>
+  </vcl-navitem>
   <vcl-navitem label="Contact" [route]="['/contact']"></vcl-navitem>
 </vcl-navigation>
 ```
-
-
 
 ### API
 
