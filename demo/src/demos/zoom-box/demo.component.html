@@ -1,6 +1,8 @@
 <h3>Sample Zoom-Box</h3>
-<vcl-zoom-box image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box>
+<vcl-zoom-box-magnifier #first image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box-magnifier>
+<vcl-zoom-box [target]="first"></vcl-zoom-box>
 <br><br>
 
 <h3>Zoom-Box with a higher resolution image</h3>
-<vcl-zoom-box image="https://picsum.photos/320/320?image=434" imageHighRes="https://picsum.photos/640/640?image=434" [highResScale]="2" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box>
+<vcl-zoom-box-magnifier #second image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box-magnifier>
+<vcl-zoom-box [target]="second" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>

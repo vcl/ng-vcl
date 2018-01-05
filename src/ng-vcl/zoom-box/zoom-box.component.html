@@ -1,18 +1,8 @@
-<div style="position: relative;">
-  <img style="position: relative;" [src]="image">
-
-  <div class="vclZoomBoxMagnifier" [ngStyle]="{
-  'top': y + 'px',
-  'left': x + 'px',
-  'width': width + 'px',
-  'height': height + 'px'}"></div>
-
-  <div class="vclZoomBox" [ngStyle]="{
-  'position': 'static',
-  'background-image': 'url(' + zoomedSource + ')',
-  'width': zoomedWidth + 'px',
-  'height': zoomedHeight + 'px',
-  'background-position-x': '-' + zoomedX + 'px',
-  'background-position-y': '-' + zoomedY + 'px'}"></div>
-</div>
+<div class="vclZoomBox" [ngStyle]="{
+'position': 'static',
+'background-image': 'url(' + zoomedSource + ')',
+'width': zoomedWidth + 'px',
+'height': zoomedHeight + 'px',
+'background-position-x': '-' + zoomedX + 'px',
+'background-position-y': '-' + zoomedY + 'px'}"></div>
 

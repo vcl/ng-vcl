@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
+import { ZoomBoxMagnifierComponent } from "./zoom-box-magnifier.component";
 
 @Component({
   selector: 'vcl-zoom-box',
@@ -11,64 +12,52 @@ import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular
 export class ZoomBoxComponent {
 
   @Input()
-  image: string;
+  target: ZoomBoxMagnifierComponent;
 
   @Input()
-  imageHighRes: string | null;
+  image: string | null;
 
   @Input()
-  highResScale: number;
-
-  @Input()
-  x: number = 0;
-
-  @Input()
-  y: number = 0;
-
-  @Input()
-  width: number;
-
-  @Input()
-  height: number;
+  scale: number;
 
   get zoomedSource(): string {
-    if (this.imageHighRes) {
-      return this.imageHighRes;
+    if (this.image) {
+      return this.image;
     }
 
-    return this.image;
+    return this.target.image;
   }
 
   get zoomedX(): number {
-    if (this.imageHighRes) {
-      return this.x * this.highResScale;
+    if (this.image) {
+      return this.target.x * this.scale;
     }
 
-    return this.x;
+    return this.target.x;
   }
 
   get zoomedY(): number {
-    if (this.imageHighRes) {
-      return this.y * this.highResScale;
+    if (this.image) {
+      return this.target.y * this.scale;
     }
 
-    return this.y;
+    return this.target.y;
   }
 
   get zoomedWidth(): number {
-    if (this.imageHighRes) {
-      return this.width * this.highResScale;
+    if (this.image) {
+      return this.target.width * this.scale;
     }
 
-    return this.width;
+    return this.target.width;
   }
 
   get zoomedHeight(): number {
-    if (this.imageHighRes) {
-      return this.height * this.highResScale;
+    if (this.image) {
+      return this.target.height * this.scale;
     }
 
-    return this.height;
+    return this.target.height;
   }
 
 }
