@@ -15,7 +15,7 @@
   (click)="expandMonthPicker()">
 </button>
 
-<vcl-popover #mp [target]="target" targetAttachment='bottom right' attachment='top right' [visible]="expanded">
+<vcl-popover #mp [target]="target" targetAttachment='bottom right' attachment='top right' [visible]="expanded" class="vclNoPadding">
   <vcl-month-picker
     [expandable]="true"
     [(expanded)]="expanded"
