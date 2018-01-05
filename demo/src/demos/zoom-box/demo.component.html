@@ -1,8 +1,20 @@
 <h3>Sample Zoom-Box</h3>
-<vcl-zoom-box-magnifier #first image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box-magnifier>
-<vcl-zoom-box [target]="first"></vcl-zoom-box>
+<div class="vclGridRow">
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box-magnifier #first image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="120" [height]="190"></vcl-zoom-box-magnifier>
+  </div>
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box [target]="first"></vcl-zoom-box>
+  </div>
+</div>
 <br><br>
 
 <h3>Zoom-Box with a higher resolution image</h3>
-<vcl-zoom-box-magnifier #second image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box-magnifier>
-<vcl-zoom-box [target]="second" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>
+<div class="vclGridRow">
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box-magnifier #second image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box-magnifier>
+  </div>
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box [target]="second" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>
+  </div>
+</div>

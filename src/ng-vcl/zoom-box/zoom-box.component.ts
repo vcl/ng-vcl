@@ -7,7 +7,7 @@ import { ZoomBoxMagnifierComponent } from "./zoom-box-magnifier.component";
   host: {
     '[attr.role]': '"zoombox"',
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ZoomBoxComponent {
 
