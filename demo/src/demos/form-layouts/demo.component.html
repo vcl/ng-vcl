@@ -1,0 +1,76 @@
+<h2>Features</h2>
+The forms can be in one of these layouts:<br>
+<br>
+<ul>
+  <li>vertical (default): stacked both labels and controls</li>
+  <li>horizontal: two column layout, one for labels other for controls</li>
+  <li>inline: both labels and controls in a single line</li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Vertical input</h3>
+<form class="vclForm">
+  <label vcl-form-control-label [required]="true" label="Label" for="input"></label>
+  <input vcl-input placeholder="Placeholder" id="input">
+  <vcl-checkbox>
+    <label vcl-form-control-label label="Checkbox"></label>
+  </vcl-checkbox>
+  <br><br>
+  <button vcl-button label="Submit"></button>
+</form>
+<br><br>
+
+<h3>Horizontal input</h3>
+<form class="vclForm vclFormHorizontal">
+  <div class="vclInputControlGroup vclGridRow">
+    <label vcl-form-control-label [required]="true" label="Email" class="vclGridSpan-gcb" for="email"></label>
+    <div class="vclGridSpan-gca">
+      <input vcl-input placeholder="Email" type="email" class="vclGridSpan-gca" id="email">
+      <div class="vclFormControlHint">Helpful hint</div>
+    </div>
+  </div>
+
+  <div class="vclInputControlGroup vclGridRow">
+    <label vcl-form-control-label [required]="true" label="Password" class="vclGridSpan-gcb" for="password"></label>
+    <div class="vclGridSpan-gca">
+      <input vcl-input placeholder="Password" type="password" class="vclGridSpan-gca" id="password">
+    </div>
+  </div>
+
+
+  <div class="vclInputControlGroup vclGridRow">
+    <div class="vclGridSpan-gcb">&nbsp;</div>
+    <div class="vclGridSpan-gca">
+      <vcl-checkbox>
+        <label vcl-form-control-label label="Remember me"></label>
+      </vcl-checkbox>
+    </div>
+  </div>
+
+  <div class="vclInputControlGroup vclGridRow">
+    <div class="vclGridSpan-gcb">&nbsp;</div>
+    <div class="vclGridSpan-gca">
+      <div class="vclFormActionArea">
+        <div class="vclLooseButtonGroup">
+          <button vcl-button label="Sign in"></button>
+          <button vcl-button label="Cancel"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<br><br>
+
+<h3>Inline input</h3>
+<form class="vclForm vclFormInline">
+  <label vcl-form-control-label [required]="true" label="Label">
+    <input vcl-input placeholder="Placeholder">
+  </label>
+
+  <vcl-checkbox>
+    <label vcl-form-control-label label="Checkbox"></label>
+  </vcl-checkbox>
+
+  <button vcl-button label="Submit"></button>
+</form>
