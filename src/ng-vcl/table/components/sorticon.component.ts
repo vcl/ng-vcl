@@ -1,32 +1,40 @@
-import {
-  Component, Input, Inject, ChangeDetectionStrategy, SimpleChanges, ElementRef
-} from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import {Component, Input, ElementRef, Renderer2} from '@angular/core';
 
 @Component({
   selector: 'sort-icon',
-  template: `<div class="vclFloatRight vclIcon fa {{faIcon}}"></div>`
+  template: `<ng-content></ng-content>`
 })
 export class SortIconComponent {
 
-  constructor( @Inject(DOCUMENT) private document: any,
-    private element: ElementRef) { }
-  @Input() public sort: -1 | 0 | 1;
+  @Input()
+  public sort: -1 | 0 | 1 = 0;
 
-  public faIcon: 'fa-sort' | 'fa-sort-up' | 'fa-sort-down' = 'fa-sort';
+  private rootElement: ElementRef;
+
+  constructor(private e: ElementRef, private renderer: Renderer2) {
+    this.rootElement = e;
+    this.renderer.addClass(e.nativeElement, "vclFloatRight");
+    this.renderer.addClass(e.nativeElement, "vclIcon");
+    this.renderer.addClass(e.nativeElement, "fa");
+    this.ChangeSortOrder(this.sort);
+  }
 
   public ChangeSortOrder(order: -1 | 0 | 1): void {
+    this.renderer.removeClass(this.rootElement.nativeElement, "fa-sort");
+    this.renderer.removeClass(this.rootElement.nativeElement, "fa-sort-up");
+    this.renderer.removeClass(this.rootElement.nativeElement, "fa-sort-down");
+
     switch (order) {
       case 1: {
-        this.faIcon = 'fa-sort-up';
+        this.renderer.addClass(this.rootElement.nativeElement, "fa-sort-up");
         break;
       }
       case -1: {
-        this.faIcon = 'fa-sort-down';
+        this.renderer.addClass(this.rootElement.nativeElement, "fa-sort-down");
         break;
       }
       default: {
-        this.faIcon = 'fa-sort';
+        this.renderer.addClass(this.rootElement.nativeElement, "fa-sort");
         break;
       }
     }
