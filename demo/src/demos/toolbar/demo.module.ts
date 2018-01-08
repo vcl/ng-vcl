@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLToolbarModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { VCLToolbarModule, VCLButtonModule, VCLNavigationModule, VCLInputModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ToolbarDemoComponent } from './demo.component';
 
@@ -28,6 +28,8 @@ export function demo() {
     DemoModule,
     VCLToolbarModule,
     VCLButtonModule,
+    VCLNavigationModule,
+    VCLInputModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,

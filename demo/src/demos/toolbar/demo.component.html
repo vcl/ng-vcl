@@ -1,4 +1,51 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<h2>Features</h2>
+
+Multiple level toolbars can be provided using <code>ariaLevel</code> attribute. Defaults to 1.
+
+<h2>Examples</h2>
+
+<h3>Toolbar with logo, navigation and buttons</h3>
+<vcl-toolbar>
+  <a class="vclLayoutHorizontal vclLayoutCenter" href="#">
+    <img class="vclResponsiveImage vclLogo" role="presentation" src="https://cdn.rawgit.com/vcl/gfx/master/vcl_logo_square-bw.svg" style="max-width: 3em;">
+    <h1 class="vclToolbarTitle">App Name</h1>
+  </a>
+
+  <vcl-navigation #nav1 (navigate)="onNavigate($event)" type="horizontal">
+    <vcl-navitem label="Link 1" prepIcon="fa:home" [route]="['#']"></vcl-navitem>
+    <vcl-navitem label="Link 2" prepIcon="fa:envelope" [route]="['#']"></vcl-navitem>
+  </vcl-navigation>
+
+  <div class="vclLayoutHorizontal vclLayoutCenter">
+    <button vcl-button class="vclTransparent" appIcon="fa:envelope"></button>
+    <button vcl-button class="vclTransparent" appIcon="fa:user"></button>
+  </div>
+</vcl-toolbar>
+<br><br>
+
+<h3>Toolbar with embedded inline input</h3>
 <vcl-toolbar>
   <button vcl-button class="vclTransparent" appIcon="fa:navicon"></button>
+
+  <div class="vclInputGroupEmb">
+    <span class="vclPrepended">
+      <i class="vclIcon fa fa-search"></i>
+    </span>
+    <input vcl-input placeholder="Search" class="vclPrepItem"/>
+  </div>
+
+  <div class="vclLayoutHorizontal vclLayoutCenter">
+    <button vcl-button class="vclTransparent" appIcon="fa:refresh"></button>
+    <button vcl-button class="vclTransparent" appIcon="fa:plus"></button>
+  </div>
+</vcl-toolbar>
+<br><br>
+
+<h3>Second level toolbar with title in the middle</h3>
+<vcl-toolbar [ariaLevel]="2" class="vclLayoutCenter">
+  <button vcl-button class="vclTransparent" appIcon="fa:navicon"></button>
+  <div>Level 2 Toolbar Title</div>
   <button vcl-button class="vclTransparent" appIcon="fa:plus"></button>
 </vcl-toolbar>
