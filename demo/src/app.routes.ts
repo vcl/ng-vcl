@@ -227,6 +227,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/form-layouts/demo.module#FormLayoutsDemoModule',
+    path: 'form-layouts',
+    data: {
+      demo: {
+        label: 'Layouts',
+        category: 'Forms',
+      }
+    }
+  },
+  {
     loadChildren: './demos/alert/demo.module#AlertDemoModule',
     path: 'alert',
     data: {
