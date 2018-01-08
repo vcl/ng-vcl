@@ -337,6 +337,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/notification-new/demo.module#NotificationNewDemoModule',
+    path: 'notification-new',
+    data: {
+      demo: {
+        label: 'Notification',
+        category: 'Status Information',
+      }
+    }
+  },
+  {
     loadChildren: './demos/table/demo.module#TableDemoModule',
     path: 'table',
     data: {

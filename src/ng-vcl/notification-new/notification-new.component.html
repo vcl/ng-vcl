@@ -1,0 +1,18 @@
+<div class="vclNotification {{ styleClass }}" role="alert">
+
+  <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" *ngIf="header">
+    <div class="vclLayoutFlex">{{ header }}</div>
+    <button class="vclButton vclTransparent vclSquare" *ngIf="button"><i class="fa {{ button }}"></i></button>
+  </div>
+
+  <div class="vclNotificationContent vclLayoutHorizontal vclLayoutCenter">
+    <div class="vclNotificationIconContainer" *ngIf="!noIcon">
+      <span class="vclIcon vclNotificationIcon fa {{ eIcon }}"></span>
+    </div>
+    <div class="vclNotificationContent vclLayoutFlex">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <div class="vclNotificationFooter" *ngIf="footer">{{ footer }}</div>
+</div>

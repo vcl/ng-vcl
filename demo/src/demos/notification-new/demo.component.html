@@ -1,0 +1,38 @@
+<h3>Simple notification</h3>
+<vcl-notification-new nType="default">Hello world!</vcl-notification-new>
+<br><br>
+
+<h3>Info notification with header and footer</h3>
+<vcl-notification-new nType="info" header="Header goes here" footer="And footer goes here">
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+  magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+</vcl-notification-new>
+<br><br>
+
+<h3>Warning notification with header and button</h3>
+<vcl-notification-new nType="warning" header="Some header" button="fa-times">
+  <ul>
+    <li>The following users could not be found:
+      <ul>
+        <li>Andreas Mustermann</li>
+        <li>Ralf Maier</li>
+      </ul>
+    </li>
+  </ul>
+</vcl-notification-new>
+<br><br>
+
+<h3>Error notification without a header and with a button</h3>
+<vcl-notification-new nType="error" button="fa-times">
+  <ul>
+    <li>Please enter a valid <strong>E-Mail ID</strong>.</li>
+    <li>Please enter a valid <strong>Password</strong>.</li>
+  </ul>
+</vcl-notification-new>
+<br><br>
+
+<vcl-notification-new nType="success"></vcl-notification-new>
+<br><br>

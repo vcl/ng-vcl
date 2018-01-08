@@ -37,3 +37,4 @@ export * from './tooltip/index';
 export * from './table/index';
 export * from './password-input/index';
 export * from './zoom-box/index';
+export * from './notification-new/index';
