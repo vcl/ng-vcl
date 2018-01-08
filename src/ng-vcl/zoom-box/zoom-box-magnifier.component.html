@@ -1,5 +1,5 @@
 <div style="position: relative;">
-  <img #img style="position: relative;" [src]="image" (mousemove)="onMove($event)">
+  <img #img style="position: relative;" [src]="image" (mousemove)="onMove($event)" (mouseout)="onOut()">
 
   <div class="vclZoomBoxMagnifier" [ngStyle]="{
   'top': y + 'px',

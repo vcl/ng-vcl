@@ -11,15 +11,16 @@ Zoom into areas of images.
 
 ### API 
 
-#### Zoom-Box magnifier Properties:
+#### Zoom-Box Magnifier Properties:
 
 | Name                | Type        | Default            | Description
-| ------------        | ----------- | ------------------ |--------------
+| ------------------- | ----------- | ------------------ |--------------
 | `image`             | string      |                    | Source image
 | `x`                 | number      | 0                  | Left offset (optional)
 | `y`                 | number      | 0                  | Top offset (optional)
 | `width`             | number      |                    | Width of zoomed box
 | `height`            | number      |                    | Height of zoomed box
+| `resetOnOut`        | boolean     | false              | Reset position to initial on mouse out
 
 ### Zoom-Box Properties
 

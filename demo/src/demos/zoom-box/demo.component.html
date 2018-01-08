@@ -9,10 +9,10 @@
 </div>
 <br><br>
 
-<h3>Zoom-Box with a higher resolution image</h3>
+<h3>Zoom-Box with a higher resolution image and mouse reset</h3>
 <div class="vclGridRow">
   <div class="vclGridSpan-4">
-    <vcl-zoom-box-magnifier #second image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120"></vcl-zoom-box-magnifier>
+    <vcl-zoom-box-magnifier #second image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120" [resetOnOut]="true"></vcl-zoom-box-magnifier>
   </div>
   <div class="vclGridSpan-4">
     <vcl-zoom-box [target]="second" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>

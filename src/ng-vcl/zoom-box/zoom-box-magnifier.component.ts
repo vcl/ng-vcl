@@ -25,6 +25,9 @@ export class ZoomBoxMagnifierComponent {
   @Input()
   height: number;
 
+  @Input()
+  resetOnOut: boolean = false;
+
   private startX: number = -1;
   private startY: number = -1;
 
@@ -45,6 +48,13 @@ export class ZoomBoxMagnifierComponent {
 
     this.x = Math.max(minX, Math.min(maxX, event.layerX)) - (this.width / 2);
     this.y = Math.max(minY, Math.min(maxY, event.layerY)) - (this.height / 2);
+  }
+
+  onOut(): void {
+    if (this.resetOnOut) {
+      this.x = this.startX;
+      this.y = this.startY;
+    }
   }
 
 }
