@@ -1,0 +1,11 @@
+<div class="vclGalleryContent">
+  <button vcl-button class="vclButton vclGalleryPrevButton" (click)="target.selectPrevious()">
+    <div class="vclIcon fa fa-caret-left" aria-hidden="true" aria-label="Previous" role="img"></div>
+  </button>
+
+  <img class="vclGalleryImage" [src]="target.imageArray[target.selectedImage].image" [alt]="target.imageArray[target.selectedImage].alt" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+
+  <button vcl-button class="vclButton vclGalleryNextButton" (click)="target.selectNext()">
+    <div class="vclIcon fa fa-caret-right" aria-hidden="true" aria-label="Previous" role="img"></div>
+  </button>
+</div>

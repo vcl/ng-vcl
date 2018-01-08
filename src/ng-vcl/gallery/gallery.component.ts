@@ -1,6 +1,5 @@
-import {AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, QueryList, ViewChild} from '@angular/core';
-import {GalleryImageComponent} from "./gallery-image";
-import Hammer from 'hammerjs';
+import {AfterContentInit, Component, ContentChildren, Input, QueryList} from '@angular/core';
+import {GalleryImageComponent} from "./gallery-image.component";
 
 @Component({
   selector: 'vcl-gallery',
@@ -8,12 +7,8 @@ import Hammer from 'hammerjs';
   host: {
     '[attr.role]': '"gallery"',
   },
-  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class GalleryComponent implements AfterContentInit, AfterViewInit {
-
-  @Input()
-  galleryTitle: string;
+export class GalleryComponent implements AfterContentInit {
 
   @Input()
   selectedImage: number = 0;
@@ -24,25 +19,10 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
   @ContentChildren(GalleryImageComponent)
   images: QueryList<GalleryImageComponent>;
 
-  @ViewChild('galleryContent')
-  galleryContent: ElementRef;
-
-  private imageArray: GalleryImageComponent[];
+  imageArray: GalleryImageComponent[];
 
   ngAfterContentInit() {
     this.imageArray = this.images.toArray();
-  }
-
-  ngAfterViewInit() {
-    const hammer = new Hammer(this.galleryContent.nativeElement);
-    hammer.get('swipe').set({ enable: true, direction: Hammer.DIRECTION_HORIZONTAL });
-    hammer.on('swipe', (ev) => {
-      if (ev.direction == Hammer.DIRECTION_LEFT) {
-        this.selectNext();
-      } else if (ev.direction == Hammer.DIRECTION_RIGHT) {
-        this.selectPrevious();
-      }
-    });
   }
 
   selectImage(index: number): void {
