@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding, ViewChild, ElementRef } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, HostBinding, ViewChild, ElementRef} from '@angular/core';
 
 @Component({
   selector: 'vcl-zoom-box-magnifier',
@@ -28,6 +28,15 @@ export class ZoomBoxMagnifierComponent {
   @Input()
   resetOnOut: boolean = false;
 
+  @Input()
+  hidden: boolean = false;
+
+  @Input()
+  hiding: boolean = false;
+
+  @Input()
+  invisible: boolean = false;
+
   private startX: number = -1;
   private startY: number = -1;
 
@@ -50,10 +59,20 @@ export class ZoomBoxMagnifierComponent {
     this.y = Math.max(minY, Math.min(maxY, event.layerY)) - (this.height / 2);
   }
 
+  onOver(): void {
+    if (this.hidden || this.hiding) {
+      this.hiding = false;
+    }
+  }
+
   onOut(): void {
     if (this.resetOnOut) {
       this.x = this.startX;
       this.y = this.startY;
+    }
+
+    if (this.hidden) {
+      this.hiding = true;
     }
   }
 

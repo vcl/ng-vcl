@@ -18,3 +18,36 @@
     <vcl-zoom-box [target]="second" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>
   </div>
 </div>
+<br><br>
+
+<h3>Zoom-Box with an initially hidden magnifier</h3>
+<div class="vclGridRow">
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box-magnifier #third image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120" [hiding]="true"></vcl-zoom-box-magnifier>
+  </div>
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box [target]="third" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>
+  </div>
+</div>
+<br><br>
+
+<h3>Zoom-Box with appearing magnifier</h3>
+<div class="vclGridRow">
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box-magnifier #fourth image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120" [hidden]="true" [hiding]="true"></vcl-zoom-box-magnifier>
+  </div>
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box [target]="fourth" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>
+  </div>
+</div>
+<br><br>
+
+<h3>Zoom-Box with an constantly hidden magnifier</h3>
+<div class="vclGridRow">
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box-magnifier #fifth image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="190" [height]="120" [invisible]="true"></vcl-zoom-box-magnifier>
+  </div>
+  <div class="vclGridSpan-4">
+    <vcl-zoom-box [target]="fifth" image="https://picsum.photos/640/640?image=434" [scale]="2"></vcl-zoom-box>
+  </div>
+</div>
