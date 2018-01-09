@@ -72,6 +72,9 @@ export class TokenInputComponent implements ControlValueAccessor {
   @Input()
   tokenClass: string | undefined;
 
+  @Input()
+  tId: string | undefined;
+
   @HostBinding('class.vclDisabled')
   @Input()
   disabled = false;

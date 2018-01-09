@@ -1,8 +1,8 @@
 <form class="vclForm" novalidate [formGroup]="form">
 
   <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-input"></label>
-    <input vcl-input [class.vclError]="input1.touched && input1.invalid" formControlName="input1">
+    <label vcl-form-control-label [required]="true" label="vcl-input" for="vcl-input"></label>
+    <input vcl-input [class.vclError]="input1.touched && input1.invalid" formControlName="input1" id="vcl-input">
     <div *ngIf="input1.touched && input1.invalid" class="vclFormControlHint vclError">
       <ng-container *ngIf="input1.touched && input1.hasError('required')">input1 is required</ng-container>
       <ng-container *ngIf="input1.touched && input1.hasError('minlength')">input1 must have a minimum of 4 characters</ng-container>
@@ -10,8 +10,8 @@
   </div>
 
   <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-input (repeat)"></label>
-    <input vcl-input [class.vclError]="input2.touched && form.hasError('inputsNotEqual')" formControlName="input2">
+    <label vcl-form-control-label [required]="true" label="vcl-input (repeat)" for="vcl-input-repeat"></label>
+    <input vcl-input [class.vclError]="input2.touched && form.hasError('inputsNotEqual')" formControlName="input2" id="vcl-input-repeat">
     <div *ngIf="input2.touched && form.hasError('inputsNotEqual')" class="vclFormControlHint vclError">
       Inputs must be equal
     </div>
@@ -91,16 +91,16 @@
   </div>
 
   <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-textarea"></label>
-    <textarea vcl-textarea [class.vclError]="textarea.touched && textarea.invalid" [autogrow]="true" formControlName="textarea"></textarea>
+    <label vcl-form-control-label [required]="true" label="vcl-textarea" for="vcl-textarea"></label>
+    <textarea vcl-textarea [class.vclError]="textarea.touched && textarea.invalid" [autogrow]="true" formControlName="textarea" id="vcl-textarea"></textarea>
     <div *ngIf="textarea.touched && textarea.invalid" class="vclFormControlHint vclError">
       <ng-container *ngIf="textarea.touched && textarea.hasError('required')">textarea is required</ng-container>
     </div>
   </div>
 
   <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-token-input"></label>
-    <vcl-token-input [class.vclError]="tokeninput.touched && tokeninput.invalid" formControlName="tokeninput"></vcl-token-input>
+    <label vcl-form-control-label [required]="true" label="vcl-token-input" for="vcl-token"></label>
+    <vcl-token-input [class.vclError]="tokeninput.touched && tokeninput.invalid" formControlName="tokeninput" tId="vcl-token"></vcl-token-input>
     <div *ngIf="tokeninput.touched && tokeninput.hasError('noSelection')" class="vclFormControlHint vclError">
       Add at least one token
     </div>    
