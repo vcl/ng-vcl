@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLToolbarModule, VCLButtonModule, VCLNavigationModule, VCLInputModule } from '@ng-vcl/ng-vcl';
+import { VCLFormControlLabelModule, VCLInputControlGroupModule, VCLButtonModule, VCLInputModule, VCLCheckboxModule, VCLLabelModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { ToolbarDemoComponent } from './demo.component';
+import { FormLayoutsDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Toolbar',
+    name: 'Form',
     tabs: {
-      Demo: ToolbarDemoComponent,
+      Demo: FormLayoutsDemoComponent,
       'demo.component.html': {
         type: 'pre',
         content: require("!highlight-loader?raw=true&lang=html!./demo.component.html")
@@ -25,18 +26,22 @@ export function demo() {
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     DemoModule,
-    VCLToolbarModule,
     VCLButtonModule,
-    VCLNavigationModule,
+    VCLFormControlLabelModule,
+    VCLInputControlGroupModule,
     VCLInputModule,
+    VCLCheckboxModule,
+    VCLLabelModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
       data: {demo}
     }]),
   ],
-  entryComponents: [ ToolbarDemoComponent ],
-  declarations: [ ToolbarDemoComponent ]
+  entryComponents: [ FormLayoutsDemoComponent ],
+  declarations: [ FormLayoutsDemoComponent ]
 })
-export class ToolbarDemoModule { }
+export class FormLayoutsDemoModule { }
