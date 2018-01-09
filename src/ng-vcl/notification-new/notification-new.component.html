@@ -1,18 +1,29 @@
-<div class="vclNotification {{ styleClass }}" role="alert">
+<div class="vclNotification {{ styleClass }}">
 
-  <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" *ngIf="header">
-    <div class="vclLayoutFlex">{{ header }}</div>
-    <button class="vclButton vclTransparent vclSquare" *ngIf="button"><i class="fa {{ button }}"></i></button>
+  <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" *ngIf="header || (nested && headerComponent != null)" [ngStyle]="headerStyle">
+    <div class="vclLayoutFlex" *ngIf="!nested">{{ header }}</div>
+    <button vcl-button class="vclTransparent vclSquare" *ngIf="button && !nested" (tap)="onClick()" [appIcon]="button"></button>
+
+    <ng-content *ngIf="nested && headerComponent != null" select="vcl-notification-new-header"></ng-content>
   </div>
 
-  <div class="vclNotificationContent vclLayoutHorizontal vclLayoutCenter">
-    <div class="vclNotificationIconContainer" *ngIf="!noIcon">
+  <div [ngClass]="{'vclLayoutHorizontal': !verticalBody, 'vlcLayoutVertical': verticalBody}" [ngStyle]="bodyStyle">
+    <div class="vclNotificationIconContainer" *ngIf="drawIcon" [ngStyle]="bodyIconStyle">
       <span class="vclIcon vclNotificationIcon fa {{ eIcon }}"></span>
     </div>
+
     <div class="vclNotificationContent vclLayoutFlex">
-      <ng-content></ng-content>
+      <ng-content *ngIf="!nested"></ng-content>
+
+      <ng-content *ngIf="nested && bodyComponent != null" select="vcl-notification-new-body"></ng-content>
     </div>
+
+    <button vcl-button class="vclTransparent vclSquare vclLayoutSelfStart" *ngIf="button && !header" (tap)="onClick()" [appIcon]="button"></button>
   </div>
 
-  <div class="vclNotificationFooter" *ngIf="footer">{{ footer }}</div>
+  <div class="vclNotificationFooter vclLayoutHorizontal vclLayoutCenter" [ngStyle]="footerStyle" *ngIf="footer || (nested && footerComponent != null)">
+    <ng-container *ngIf="footer && !nested">{{ footer }}</ng-container>
+    <ng-content *ngIf="nested && footerComponent != null" select="vcl-notification-new-footer"></ng-content>
+  </div>
+
 </div>

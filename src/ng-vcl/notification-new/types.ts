@@ -29,6 +29,18 @@ const data = {
   },
 };
 
+const FlexAlign = {
+  left: "flex-start",
+  middle: "center",
+  right: "flex-end"
+};
+
+const TextAlign = {
+  left: "left",
+  middle: "center",
+  right: "right"
+};
+
 namespace NotificationNewType {
   export function fromString(type: string): NotificationNewType {
     switch (type.toLocaleLowerCase()) {
@@ -54,4 +66,4 @@ namespace NotificationNewType {
   }
 }
 
-export {NotificationNewType};
+export {NotificationNewType, FlexAlign, TextAlign};

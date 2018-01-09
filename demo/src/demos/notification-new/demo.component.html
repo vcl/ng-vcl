@@ -1,6 +1,6 @@
 <h3>Simple notification</h3>
-<vcl-notification-new nType="default">Hello world!</vcl-notification-new>
-<br><br>
+<vcl-notification-new>Hello world!</vcl-notification-new>
+<br>
 
 <h3>Info notification with header and footer</h3>
 <vcl-notification-new nType="info" header="Header goes here" footer="And footer goes here">
@@ -10,10 +10,10 @@
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
   magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
 </vcl-notification-new>
-<br><br>
+<br>
 
 <h3>Warning notification with header and button</h3>
-<vcl-notification-new nType="warning" header="Some header" button="fa-times">
+<vcl-notification-new nType="warning" header="Some header" button="fa:times" [buttonClick]="click">
   <ul>
     <li>The following users could not be found:
       <ul>
@@ -23,16 +23,78 @@
     </li>
   </ul>
 </vcl-notification-new>
-<br><br>
+<br>
 
 <h3>Error notification without a header and with a button</h3>
-<vcl-notification-new nType="error" button="fa-times">
+<vcl-notification-new nType="error" button="fa:times" [buttonClick]="click">
   <ul>
     <li>Please enter a valid <strong>E-Mail ID</strong>.</li>
     <li>Please enter a valid <strong>Password</strong>.</li>
   </ul>
 </vcl-notification-new>
-<br><br>
+<br>
 
-<vcl-notification-new nType="success"></vcl-notification-new>
-<br><br>
+<h3>Success notification with a custom icon</h3>
+<vcl-notification-new nType="success" icon="fa-group">You have successfully created the group!</vcl-notification-new>
+<br>
+
+<h3>Notification without an icon</h3>
+<vcl-notification-new nType="warning" [drawIcon]="false" button="fa:times" [buttonClick]="click">Oops! Something went wrong!</vcl-notification-new>
+<br>
+
+<h3>Notification with custom html in the header and footer</h3>
+<h4>notice that body is inside a tag as well</h4>
+<vcl-notification-new nType="info">
+  <vcl-notification-new-header>
+    <button vcl-button label="OK"></button>
+    <button vcl-button label="Cancel"></button>
+  </vcl-notification-new-header>
+
+  <vcl-notification-new-body>Left align</vcl-notification-new-body>
+
+  <vcl-notification-new-footer>
+    <button vcl-button label="Transfer"></button>
+    <button vcl-button label="Stop"></button>
+  </vcl-notification-new-footer>
+
+  Any other text is ignored
+</vcl-notification-new>
+
+<vcl-notification-new nType="info">
+  <vcl-notification-new-header align="middle">
+    <button vcl-button label="OK"></button>
+    <button vcl-button label="Cancel"></button>
+  </vcl-notification-new-header>
+
+  <vcl-notification-new-body>Middle align</vcl-notification-new-body>
+
+  <vcl-notification-new-footer align="middle">
+    <button vcl-button label="Transfer"></button>
+    <button vcl-button label="Stop"></button>
+  </vcl-notification-new-footer>
+
+  Any other text is ignored
+</vcl-notification-new>
+
+<vcl-notification-new nType="info">
+  <vcl-notification-new-header align="right">
+    <button vcl-button label="OK"></button>
+    <button vcl-button label="Cancel"></button>
+  </vcl-notification-new-header>
+
+  <vcl-notification-new-body>Right align</vcl-notification-new-body>
+
+  <vcl-notification-new-footer align="right">
+    <button vcl-button label="Transfer"></button>
+    <button vcl-button label="Stop"></button>
+  </vcl-notification-new-footer>
+
+  Any other text is ignored
+</vcl-notification-new>
+<br>
+
+<h3>Vertical layout and aligning</h3>
+<vcl-notification-new nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" bodyAlign="left">Left Align</vcl-notification-new>
+<vcl-notification-new nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" headerAlign="middle" bodyAlign="middle" footerAlign="middle">Middle Align</vcl-notification-new>
+<vcl-notification-new nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" headerAlign="right" bodyAlign="right" footerAlign="right">Right Align</vcl-notification-new>
+<br>

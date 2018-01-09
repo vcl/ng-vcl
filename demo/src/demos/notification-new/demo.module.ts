@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {VCLNotificationNewModule} from '@ng-vcl/ng-vcl';
+import {VCLNotificationNewModule, VCLButtonModule} from '@ng-vcl/ng-vcl';
 import {DemoModule, DemoComponent} from './../../modules/demo/demo.module';
 import {NotificationNewDemoComponent} from './demo.component';
 
@@ -12,7 +12,7 @@ export function demo() {
       Demo: NotificationNewDemoComponent,
       'README.md': {
         type: 'md',
-        content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/ng-vcl/zoom-box/README.md")
+        content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/ng-vcl/notification-new/README.md")
       },
       'demo.component.html': {
         type: 'pre',
@@ -31,6 +31,7 @@ export function demo() {
     CommonModule,
     DemoModule,
     VCLNotificationNewModule,
+    VCLButtonModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,

@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
 })
 export class NotificationNewDemoComponent {
 
+  click() {
+    alert("Click!");
+  }
+
 }
