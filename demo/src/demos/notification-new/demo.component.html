@@ -34,8 +34,8 @@
 </vcl-notification-new>
 <br>
 
-<h3>Success notification with a custom icon</h3>
-<vcl-notification-new nType="success" icon="fa-group">You have successfully created the group!</vcl-notification-new>
+<h3>Success notification with a custom icon on the other side</h3>
+<vcl-notification-new nType="success" icon="fa-group" iconSide="right">You have successfully created the group!</vcl-notification-new>
 <br>
 
 <h3>Notification without an icon</h3>
@@ -97,4 +97,14 @@
 <vcl-notification-new nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" bodyAlign="left">Left Align</vcl-notification-new>
 <vcl-notification-new nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" headerAlign="middle" bodyAlign="middle" footerAlign="middle">Middle Align</vcl-notification-new>
 <vcl-notification-new nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" headerAlign="right" bodyAlign="right" footerAlign="right">Right Align</vcl-notification-new>
+<br>
+
+<h3>Custom icon class</h3>
+<vcl-notification-new iconClass="fa fa-circle-o-notch fa-spin fa-3x fa-fw">Custom spinner icon</vcl-notification-new>
+<vcl-notification-new iconClass="fa fa-circle-o-notch fa-spin fa-3x fa-fw" iconSide="right">Custom spinner icon</vcl-notification-new>
+<br>
+
+<h3>Custom icon image</h3>
+<vcl-notification-new iconImage="https://picsum.photos/64/64?image=401">Custom image icon</vcl-notification-new>
+<vcl-notification-new iconImage="https://picsum.photos/64/64?image=401" iconSide="right">Custom image icon</vcl-notification-new>
 <br>

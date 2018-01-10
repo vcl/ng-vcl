@@ -1,5 +1,5 @@
 import {Component, ContentChild, Input} from '@angular/core';
-import {NotificationNewType, FlexAlign, TextAlign} from "./types";
+import {NotificationNewType, FlexAlign, TextAlign, IconType} from "./types";
 import {NotificationNewBodyComponent} from "./notification-new-body.component";
 import {NotificationNewFooterComponent} from "./notification-new-footer.component";
 import {NotificationNewHeaderComponent} from "./notification-new-header.component";
@@ -14,7 +14,16 @@ export class NotificationNewComponent {
   nType: "default" | "info" | "warning" | "error" | "success" = "default";
 
   @Input()
-  icon: any = null;
+  icon: string = "";
+
+  @Input()
+  iconClass: string = "";
+
+  @Input()
+  iconImage: string = "";
+
+  @Input()
+  iconSide: "left" | "right" = "left";
 
   @Input()
   drawIcon: boolean = true;
@@ -60,12 +69,24 @@ export class NotificationNewComponent {
     return NotificationNewType.styleClass(this.eType);
   }
 
-  get eIcon(): string {
-    if (this.icon !== null) {
-      return this.icon;
+  get eIconClass(): string {
+    if (this.icon) {
+      return "fa " + this.icon;
+    } else if (this.iconClass) {
+      return this.iconClass;
     }
 
-    return NotificationNewType.icon(this.eType);
+    return "fa " + NotificationNewType.icon(this.eType);
+  }
+
+  get iconType(): string {
+    if (this.iconImage) {
+      return IconType.Image;
+    } else if (this.iconClass) {
+      return IconType.Custom;
+    }
+
+    return IconType.FA;
   }
 
   get nested(): boolean {
@@ -121,7 +142,15 @@ export class NotificationNewComponent {
   get bodyIconStyle(): object {
     if (this.verticalBody) {
       return {
-        padding: '1em'
+        padding: '1em',
+      };
+    }
+
+    if (this.iconSide == "right") {
+      return {
+        order: 1,
+        'padding-right': '1em',
+        'padding-left': '0.3em'
       };
     }
 

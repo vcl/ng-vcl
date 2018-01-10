@@ -41,6 +41,12 @@ const TextAlign = {
   right: "right"
 };
 
+enum IconType {
+  FA = "fa",
+  Custom = "custom",
+  Image = "image"
+}
+
 namespace NotificationNewType {
   export function fromString(type: string): NotificationNewType {
     switch (type.toLocaleLowerCase()) {
@@ -66,4 +72,4 @@ namespace NotificationNewType {
   }
 }
 
-export {NotificationNewType, FlexAlign, TextAlign};
+export {NotificationNewType, FlexAlign, TextAlign, IconType};

@@ -9,7 +9,8 @@
 
   <div [ngClass]="{'vclLayoutHorizontal': !verticalBody, 'vlcLayoutVertical': verticalBody}" [ngStyle]="bodyStyle">
     <div class="vclNotificationIconContainer" *ngIf="drawIcon" [ngStyle]="bodyIconStyle">
-      <span class="vclIcon vclNotificationIcon fa {{ eIcon }}"></span>
+      <span class="vclIcon vclNotificationIcon {{ eIconClass }}" *ngIf="iconType == 'fa' || iconType == 'custom'"></span>
+      <img class="vclIcon vclNotificationIcon" [src]="iconImage" *ngIf="iconType == 'image'">
     </div>
 
     <div class="vclNotificationContent vclLayoutFlex">
