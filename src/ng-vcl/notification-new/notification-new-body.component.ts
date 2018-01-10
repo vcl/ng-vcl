@@ -8,7 +8,7 @@ import {FlexAlign} from "./types";
 export class NotificationNewBodyComponent {
 
   @Input()
-  align: "left" | "middle" | "right" = "middle";
+  align: "left" | "center" | "right" = "center";
 
   get alignItems(): string {
     return FlexAlign[this.align];

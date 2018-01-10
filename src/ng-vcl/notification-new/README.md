@@ -22,24 +22,24 @@ Make notifications
 | `header`            | string                                           | `""`               | Header text
 | `footer`            | string                                           | `""`               | Footer text
 | `verticalBody`      | boolean                                          | `false`            | Draw body vertically
-| `headerAlign`       | `left`, `middle`, `right`                        | `"left"`           | Header alignment
-| `bodyAlign`         | `left`, `middle`, `right`                        | `"middle"`         | Body alignment
-| `footerAlign`       | `left`, `middle`, `right`                        | `"left"`           | Footer alignment
+| `headerAlign`       | `left`, `center`, `right`                        | `"left"`           | Header alignment
+| `bodyAlign`         | `left`, `center`, `right`                        | `"center"`         | Body alignment
+| `footerAlign`       | `left`, `center`, `right`                        | `"left"`           | Footer alignment
 
 #### Header Properties
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
-| `align`             | `left`, `middle`, `right`                        | `"left"`           | Alignment
+| `align`             | `left`, `center`, `right`                        | `"left"`           | Alignment
 
 #### Body Properties
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
-| `align`             | `left`, `middle`, `right`                        | `"middle"`         | Alignment
+| `align`             | `left`, `center`, `right`                        | `"center"`         | Alignment
 
 #### Footer Properties
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
-| `align`             | `left`, `middle`, `right`                        | `"left"`           | Alignment
+| `align`             | `left`, `center`, `right`                        | `"left"`           | Alignment

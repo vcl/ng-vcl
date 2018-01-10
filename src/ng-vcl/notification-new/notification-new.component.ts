@@ -35,13 +35,13 @@ export class NotificationNewComponent {
   verticalBody: boolean = false;
 
   @Input()
-  headerAlign: "left" | "middle" | "right" = "left";
+  headerAlign: "left" | "center" | "right" = "left";
 
   @Input()
-  bodyAlign: "left" | "middle" | "right" = "middle";
+  bodyAlign: "left" | "center" | "right" = "center";
 
   @Input()
-  footerAlign: "left" | "middle" | "right" = "left";
+  footerAlign: "left" | "center" | "right" = "left";
 
   @ContentChild(NotificationNewHeaderComponent)
   headerComponent: NotificationNewHeaderComponent | null;

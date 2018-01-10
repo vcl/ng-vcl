@@ -31,13 +31,13 @@ const data = {
 
 const FlexAlign = {
   left: "flex-start",
-  middle: "center",
+  center: "center",
   right: "flex-end"
 };
 
 const TextAlign = {
   left: "left",
-  middle: "center",
+  center: "center",
   right: "right"
 };
 
