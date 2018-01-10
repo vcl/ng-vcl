@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLZoomBoxMagnifierModule, VCLZoomBoxModule } from '@ng-vcl/ng-vcl';
+import { VCLZoomBoxModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ZoomBoxDemoComponent } from './demo.component';
 
@@ -30,7 +30,6 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    VCLZoomBoxMagnifierModule,
     VCLZoomBoxModule,
     RouterModule.forChild([{
       path: '',

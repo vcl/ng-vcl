@@ -1,78 +1,30 @@
-import {ChangeDetectionStrategy, Component, Input, HostBinding, ViewChild, ElementRef} from '@angular/core';
+import {Component, ElementRef, Optional, Renderer2} from '@angular/core';
+import {ZoomBoxContainerComponent} from "./zoom-box-container.component";
 
 @Component({
   selector: 'vcl-zoom-box-magnifier',
-  templateUrl: 'zoom-box-magnifier.component.html',
-  host: {
-    '[attr.role]': '"zoomboxmagnifier"',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>'
 })
 export class ZoomBoxMagnifierComponent {
 
-  @Input()
-  image: string;
+  parent: ZoomBoxContainerComponent;
 
-  @Input()
-  x: number = 0;
-
-  @Input()
-  y: number = 0;
-
-  @Input()
-  width: number;
-
-  @Input()
-  height: number;
-
-  @Input()
-  resetOnOut: boolean = false;
-
-  @Input()
-  hidden: boolean = false;
-
-  @Input()
-  hiding: boolean = false;
-
-  @Input()
-  invisible: boolean = false;
-
-  private startX: number = -1;
-  private startY: number = -1;
-
-  @ViewChild('img')
-  private imgContent: ElementRef;
-
-  onMove(event: MouseEvent): void {
-    if (this.startX == -1) {
-      this.startX = this.x;
-      this.startY = this.y;
-    }
-
-    const minX = this.width / 2;
-    const maxX = this.imgContent.nativeElement.width - (this.width / 2);
-
-    const minY = this.height / 2;
-    const maxY = this.imgContent.nativeElement.height - (this.height / 2);
-
-    this.x = Math.max(minX, Math.min(maxX, event.layerX)) - (this.width / 2);
-    this.y = Math.max(minY, Math.min(maxY, event.layerY)) - (this.height / 2);
+  constructor(private element: ElementRef, private renderer: Renderer2) {
+    renderer.addClass(element.nativeElement, "vclZoomBoxMagnifier");
   }
 
-  onOver(): void {
-    if (this.hidden || this.hiding) {
-      this.hiding = false;
-    }
-  }
+  update(): void {
+    const styles = {
+      top: this.parent.y + 'px',
+      left: this.parent.x + 'px',
+      width: this.parent.width + 'px',
+      height: this.parent.height + 'px',
+      display: (!this.parent.hiding && !this.parent.invisible) ? "block" : "none",
+      'pointer-events': 'none'
+    };
 
-  onOut(): void {
-    if (this.resetOnOut) {
-      this.x = this.startX;
-      this.y = this.startY;
-    }
-
-    if (this.hidden) {
-      this.hiding = true;
+    for (let style in styles) {
+      this.renderer.setStyle(this.element.nativeElement, style, styles[style]);
     }
   }
 

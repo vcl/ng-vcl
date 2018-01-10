@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
-import { ZoomBoxMagnifierComponent } from "./zoom-box-magnifier.component";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {ZoomBoxContainerComponent} from "./zoom-box-container.component";
 
 @Component({
   selector: 'vcl-zoom-box',
@@ -12,7 +12,7 @@ import { ZoomBoxMagnifierComponent } from "./zoom-box-magnifier.component";
 export class ZoomBoxComponent {
 
   @Input()
-  target: ZoomBoxMagnifierComponent;
+  target: ZoomBoxContainerComponent;
 
   @Input()
   image: string | null;

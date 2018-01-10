@@ -5,17 +5,19 @@ Zoom into areas of images.
 ## Usage:
 
  ```html
-<vcl-zoom-box-magnifier #first image="https://picsum.photos/320/320?image=434" [x]="30" [y]="60" [width]="120" [height]="190"></vcl-zoom-box-magnifier>
+<vcl-zoom-box-container #first [x]="30" [y]="60" [width]="120" [height]="190">
+  <img src="https://picsum.photos/320/320?image=434">
+  <vcl-zoom-box-magnifier></vcl-zoom-box-magnifier>
+</vcl-zoom-box-container>
 <vcl-zoom-box [target]="first"></vcl-zoom-box>
 ```
 
 ### API 
 
-#### Zoom-Box Magnifier Properties:
+#### Zoom-Box Container Properties:
 
 | Name                | Type        | Default            | Description
 | ------------------- | ----------- | ------------------ |--------------
-| `image`             | string      |                    | Source image
 | `x`                 | number      | 0                  | Left offset (optional)
 | `y`                 | number      | 0                  | Top offset (optional)
 | `width`             | number      |                    | Width of zoomed box
