@@ -16,6 +16,9 @@ Make notifications
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
 | `ntType`            | `default`, `info`, `warning`, `error`, `success` | `"default"`        | Notification Type
 | `icon`              | string                                           | depends on `nType` | Notification Icon
+| `iconClass`         | string                                           | `""`               | Custom Icon Class
+| `iconImage`         | string                                           | `""`               | Custom Icon Image
+| `iconSide`          | `left`, `right`                                  | `"left"`           | Icon Position
 | `drawIcon`          | boolean                                          | `true`             | Whether to draw icon
 | `button`            | string                                           | `""`               | Button icon
 | `buttonClick`       | function                                         | `null`             | Function for button click
