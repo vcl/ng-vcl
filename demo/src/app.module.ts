@@ -12,6 +12,7 @@ import { StoreModule } from '@ng-vcl/store';
 import {
   LayerAnimationsModule, PopoverAnimationsModule,
   DropdownAnimationsModule,
+  GalleryAnimationsModule,
 } from '@ng-vcl/animations';
 
 import { AppComponent } from './components/app/app.component';
@@ -36,7 +37,8 @@ import { routing, appRoutingProviders } from './app.routes';
     StoreModule.forRoot(),
     LayerAnimationsModule,
     PopoverAnimationsModule,
-    DropdownAnimationsModule
+    DropdownAnimationsModule,
+    GalleryAnimationsModule
   ],
   declarations: [
     AppComponent,

@@ -1,5 +1,30 @@
-import {AfterContentInit, Component, ContentChildren, Input, QueryList} from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ContentChildren,
+  Inject,
+  InjectionToken,
+  Input,
+  Optional,
+  QueryList
+} from '@angular/core';
+
 import {GalleryImageComponent} from "./gallery-image.component";
+import {AnimationBuilder, AnimationFactory, AnimationMetadata} from "@angular/animations";
+
+export const GALLERY_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#gallery_animations');
+
+export interface GalleryAnimationConfig {
+  middleRefade?: AnimationMetadata | AnimationMetadata[];
+  nextToMiddle?: AnimationMetadata | AnimationMetadata[];
+  previousToMiddle?: AnimationMetadata | AnimationMetadata[];
+}
+
+export enum ImageChange {
+  PREVIOUS,
+  NEXT
+}
 
 @Component({
   selector: 'vcl-gallery',
@@ -8,7 +33,7 @@ import {GalleryImageComponent} from "./gallery-image.component";
     '[attr.role]': '"gallery"',
   },
 })
-export class GalleryComponent implements AfterContentInit {
+export class GalleryComponent implements AfterContentInit, AfterViewInit {
 
   @Input()
   selectedImage: number = 0;
@@ -21,6 +46,29 @@ export class GalleryComponent implements AfterContentInit {
 
   imageArray: GalleryImageComponent[];
 
+  middleRefadeAnimationFactory: AnimationFactory | undefined;
+  nextToMiddleAnimationFactory: AnimationFactory | undefined;
+  previousToMiddleAnimationFactory: AnimationFactory | undefined;
+
+  constructor(private builder: AnimationBuilder,
+              @Optional() @Inject(GALLERY_ANIMATIONS) private animations: GalleryAnimationConfig) {
+  }
+
+  ngAfterViewInit() {
+    if (this.animations) {
+      if (this.animations.middleRefade) {
+        this.middleRefadeAnimationFactory = this.builder.build(this.animations.middleRefade);
+      }
+      if (this.animations.nextToMiddle) {
+        this.nextToMiddleAnimationFactory = this.builder.build(this.animations.nextToMiddle);
+      }
+      if (this.animations.previousToMiddle) {
+        this.previousToMiddleAnimationFactory = this.builder.build(this.animations.previousToMiddle);
+      }
+    }
+  }
+
+
   ngAfterContentInit() {
     this.imageArray = this.images.toArray();
   }
@@ -29,32 +77,40 @@ export class GalleryComponent implements AfterContentInit {
     this.selectedImage = Math.max(0, Math.min(this.imageArray.length, index));
   }
 
-  selectNext(): void {
-    let selected = this.selectedImage + 1;
+  nextImage(): number {
+    let next = this.selectedImage + 1;
 
     if (!this.wrap) {
-      selected = Math.min(selected, this.imageArray.length - 1);
+      next = Math.min(next, this.imageArray.length - 1);
     }
 
-    if (selected >= this.imageArray.length) {
-      selected = 0;
+    if (next >= this.imageArray.length) {
+      next = 0;
     }
 
-    this.selectedImage = selected;
+    return next;
+  }
+
+  previousImage(): number {
+    let previous = this.selectedImage - 1;
+
+    if (!this.wrap) {
+      previous = Math.max(previous, 0);
+    }
+
+    if (previous < 0) {
+      previous = this.imageArray.length - 1;
+    }
+
+    return previous;
+  }
+
+  selectNext(): void {
+    this.selectedImage = this.nextImage();
   }
 
   selectPrevious(): void {
-    let selected = this.selectedImage - 1;
-
-    if (!this.wrap) {
-      selected = Math.max(selected, 0);
-    }
-
-    if (selected < 0) {
-      selected = this.imageArray.length - 1;
-    }
-
-    this.selectedImage = selected;
+    this.selectedImage = this.previousImage();
   }
 
 }
