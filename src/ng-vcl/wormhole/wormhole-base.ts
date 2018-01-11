@@ -1,4 +1,4 @@
-import { EmbeddedViewRef, TemplateRef, ComponentRef, Type } from "@angular/core";
+import { EmbeddedViewRef, TemplateRef, ComponentRef, Type } from '@angular/core';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';

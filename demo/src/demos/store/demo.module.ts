@@ -1,7 +1,7 @@
 
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { VCLBusyIndicatorModule, VCLButtonModule, VCLInputModule } from '@ng-vcl/ng-vcl';
@@ -18,23 +18,23 @@ export function demo() {
       Demo: StoreDemoComponent,
       'README.md': {
         type: 'md',
-        content: require("raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/store/README.md")
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/store/README.md')
       },
       'demo.component.html': {
         type: 'pre',
-        content: require("!highlight-loader?raw=true&lang=html!./demo.component.html")
+        content: require('!highlight-loader?raw=true&lang=html!./demo.component.html')
       },
       'demo.component.ts': {
         type: 'pre',
-        content: require("!highlight-loader?raw=true&lang=ts!./demo.component.ts")
+        content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
       'books.reducers.ts': {
         type: 'pre',
-        content: require("!highlight-loader?raw=true&lang=ts!./books.reducers.ts")
+        content: require('!highlight-loader?raw=true&lang=ts!./books.reducers.ts')
       },
       'books.service.ts': {
         type: 'pre',
-        content: require("!highlight-loader?raw=true&lang=ts!./books.service.ts")
+        content: require('!highlight-loader?raw=true&lang=ts!./books.service.ts')
       }
     }
   };

@@ -15,7 +15,7 @@ import {
 } from '@ng-vcl/animations';
 
 import { AppComponent } from './components/app/app.component';
-import { HomeComponent } from "./components/home/home.component";
+import { HomeComponent } from './components/home/home.component';
 
 import { routing, appRoutingProviders } from './app.routes';
 

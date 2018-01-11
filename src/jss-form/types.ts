@@ -1,4 +1,4 @@
-import { Schema } from "jsonschema";
+import { Schema } from 'jsonschema';
 
 export interface JssFormSchemaOptions {
   label?: string;

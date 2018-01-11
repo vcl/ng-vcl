@@ -13,7 +13,7 @@ import { Directive, ElementRef, Renderer2, AfterContentInit } from '@angular/cor
 })
 export class HoverDirective {
   constructor(private renderer: Renderer2, private el: ElementRef) {
-    if (this.el.nativeElement.localName == "table") {
+    if (this.el.nativeElement.localName == 'table') {
       renderer.addClass(el.nativeElement, 'vclRowHoverHighlight');
     } else {
       console.error('[hover] should be used for table tag only!');

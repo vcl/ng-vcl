@@ -2,7 +2,7 @@ import { Directive, Component, Input, Output, ChangeDetectionStrategy, ChangeDet
   EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MetalistItem } from "./metalist-item.component";
+import { MetalistItem } from './metalist-item.component';
 
 export enum SelectionMode {
   Multiple, Single

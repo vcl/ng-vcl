@@ -61,10 +61,10 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   displayWeekdays: boolean = true;
 
   @Input()
-  prevYearBtnIcon: string = "fa:chevron-left";
+  prevYearBtnIcon: string = 'fa:chevron-left';
 
   @Input()
-  nextYearBtnIcon: string = "fa:chevron-right";
+  nextYearBtnIcon: string = 'fa:chevron-right';
 
   @Input()
   displayJumpToday: boolean = true;

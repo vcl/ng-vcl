@@ -1,7 +1,7 @@
-import { ViewContainerRef, Type, TemplateRef, ApplicationRef, Injector } from "@angular/core";
-import { Wormhole, WormholeAttributes } from "./wormhole-base";
-import { ComponentWormhole, TemplateWormhole } from "./wormhole";
-import { DomComponentWormhole, DomTemplateWormhole } from "./wormhole-dom";
+import { ViewContainerRef, Type, TemplateRef, ApplicationRef, Injector } from '@angular/core';
+import { Wormhole, WormholeAttributes } from './wormhole-base';
+import { ComponentWormhole, TemplateWormhole } from './wormhole';
+import { DomComponentWormhole, DomTemplateWormhole } from './wormhole-dom';
 
 export abstract class WormholeHostBase {
 

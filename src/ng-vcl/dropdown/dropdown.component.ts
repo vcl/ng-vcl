@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, OnInit, Optional, Output, QueryList, ViewChild, } from '@angular/core';
-import { AnimationBuilder, AnimationFactory, AnimationMetadata } from "@angular/animations";
+import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownOption } from "./dropdown-option.component";
-import { MetalistComponent, MetalistItem, SelectionMode } from "../metalist/index";
+import { DropdownOption } from './dropdown-option.component';
+import { MetalistComponent, MetalistItem, SelectionMode } from '../metalist/index';
 
 export enum DropdownState {
   Expanded,

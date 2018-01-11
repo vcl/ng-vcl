@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { Schema } from "jsonschema";
-import { JssFormSchemaOptions, JssFormSchema } from "./types";
-import { determineType } from "./utils";
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Schema } from 'jsonschema';
+import { JssFormSchemaOptions, JssFormSchema } from './types';
+import { determineType } from './utils';
 
 let uniqueID = 0;
 
@@ -50,7 +50,7 @@ export class FormObject {
   }
 
   get placeholder() {
-    return typeof this.schema.placeholder !== "undefined" ? this.schema.placeholder : '';
+    return typeof this.schema.placeholder !== 'undefined' ? this.schema.placeholder : '';
   }
 
   get label() {

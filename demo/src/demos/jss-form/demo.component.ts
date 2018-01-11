@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { JssFormComponent, markAsDeeplyTouched } from "@ng-vcl/jss-form";
-import { NotificationService } from "@ng-vcl/ng-vcl";
-import { HERO_SCHEMA, HERO_DEFAULTS } from "./hero";
+import { JssFormComponent, markAsDeeplyTouched } from '@ng-vcl/jss-form';
+import { NotificationService } from '@ng-vcl/ng-vcl';
+import { HERO_SCHEMA, HERO_DEFAULTS } from './hero';
 
 
 @Component({

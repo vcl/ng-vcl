@@ -1,6 +1,6 @@
 
-import { Component, TemplateRef, ViewChild, Input } from "@angular/core";
-import { MetalistItem } from "../metalist/index";
+import { Component, TemplateRef, ViewChild, Input } from '@angular/core';
+import { MetalistItem } from '../metalist/index';
 
 @Component({
   selector: 'vcl-dropdown-option',

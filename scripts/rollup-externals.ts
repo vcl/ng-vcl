@@ -61,9 +61,9 @@ export default {
   '@ng-vcl/animations': 'ngVCL.animations',
 
   // Additional dependencies
-  'hammerjs': 'Hammer',
+  hammerjs: 'Hammer',
   'jsoneditor/dist/jsoneditor.js': 'JSONEditor',
-  'jsonschema': 'jsonschema',
+  jsonschema: 'jsonschema',
   'plotly.js': 'Plotly',
 };
 

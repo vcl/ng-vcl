@@ -1,5 +1,5 @@
 import {Component, ElementRef, Optional, Renderer2} from '@angular/core';
-import {ZoomBoxContainerComponent} from "./zoom-box-container.component";
+import {ZoomBoxContainerComponent} from './zoom-box-container.component';
 
 @Component({
   selector: 'vcl-zoom-box-magnifier',
@@ -10,7 +10,7 @@ export class ZoomBoxMagnifierComponent {
   parent: ZoomBoxContainerComponent;
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
-    renderer.addClass(element.nativeElement, "vclZoomBoxMagnifier");
+    renderer.addClass(element.nativeElement, 'vclZoomBoxMagnifier');
   }
 
   update(): void {
@@ -19,7 +19,7 @@ export class ZoomBoxMagnifierComponent {
       left: this.parent.x + 'px',
       width: this.parent.width + 'px',
       height: this.parent.height + 'px',
-      display: (!this.parent.hiding && !this.parent.invisible) ? "block" : "none",
+      display: (!this.parent.hiding && !this.parent.invisible) ? 'block' : 'none',
       'pointer-events': 'none'
     };
 

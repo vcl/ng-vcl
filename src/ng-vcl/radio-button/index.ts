@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { VCLIconModule } from './../icon/index';
 import { RadioButtonComponent } from './radio-button.component';
 import { RadioGroupComponent } from './radio-group.component';
-import { VCLFormControlLabelModule } from "../form-control-label/index";
+import { VCLFormControlLabelModule } from '../form-control-label/index';
 
 export { RadioButtonComponent, RadioGroupComponent };
 

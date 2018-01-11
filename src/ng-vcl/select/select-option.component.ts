@@ -1,5 +1,5 @@
 
-import { Directive, ViewChild, Input, TemplateRef } from "@angular/core";
+import { Directive, ViewChild, Input, TemplateRef } from '@angular/core';
 
 @Directive({
   selector: 'vcl-select-option'

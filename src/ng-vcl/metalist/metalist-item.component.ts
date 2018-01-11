@@ -1,5 +1,5 @@
 
-import { Component, TemplateRef, ViewChild, Input } from "@angular/core";
+import { Component, TemplateRef, ViewChild, Input } from '@angular/core';
 
 @Component({
   selector: 'vcl-metalist-item',

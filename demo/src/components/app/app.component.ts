@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { routes } from "./../../app.routes";
+import { routes } from './../../app.routes';
 
 // https://github.com/krisk/Fuse/pull/129
 interface FuseStub {
@@ -16,7 +16,7 @@ const Fuse = require('fuse.js') as FuseStub;
 })
 export class AppComponent {
 
-  version =  require("./../../../../package.json").version;
+  version =  require('./../../../../package.json').version;
 
   GROUPED_DEMOS = function () {
     const itemsMap = {};

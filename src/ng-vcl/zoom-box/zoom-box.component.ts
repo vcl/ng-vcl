@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import {ZoomBoxContainerComponent} from "./zoom-box-container.component";
+import {ZoomBoxContainerComponent} from './zoom-box-container.component';
 
 @Component({
   selector: 'vcl-zoom-box',

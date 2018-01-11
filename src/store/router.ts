@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationExtras, NavigationEnd, UrlTree } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 import { Store, Reducer } from './store';
 import { StoreActions } from './actions';
 import { combineReducers } from './utils';

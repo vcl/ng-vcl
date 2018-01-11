@@ -10,7 +10,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class TooltipDirective implements OnDestroy, OnChanges {
 
   @Input() content: string = '';
-  @Input() position: "top" | "bottom" | "left" | "right" = "top";
+  @Input() position: 'top' | 'bottom' | 'left' | 'right' = 'top';
 
   tooltip: ComponentRef<TooltipComponent>;
 

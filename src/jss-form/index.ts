@@ -10,7 +10,7 @@ import {
   VCLTextareaModule, VCLPasswordInputModule
 } from '@ng-vcl/ng-vcl';
 import { JssFormObjectComponent } from './jss-form-object.component';
-import { JssFormSchemaOptions, JssFormSchema } from "./types";
+import { JssFormSchemaOptions, JssFormSchema } from './types';
 
 export { JssFormComponent, JssFormObjectComponent, JssFormSchema, JssFormSchemaOptions };
 export { markAsDeeplyTouched } from './utils';

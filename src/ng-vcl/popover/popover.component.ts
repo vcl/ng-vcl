@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Inject, InjectionToken, Input, Optional, Output, SimpleChanges, trigger } from '@angular/core';
-import { ObservableComponent } from "../core/index";
-import { AnimationBuilder, AnimationFactory, AnimationMetadata } from "@angular/animations";
+import { ObservableComponent } from '../core/index';
+import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 
 export type AttachmentX = 'left' | 'center' | 'right';
 export const AttachmentX = {

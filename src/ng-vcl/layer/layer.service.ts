@@ -1,7 +1,7 @@
-import { Injectable, Injector, Type } from "@angular/core";
-import { LayerManagerService } from "./layer-manager.service";
-import { LayerRef, DynamicLayerRef, LayerAttributes } from "./layer-ref";
-import { LayerOptions } from "./layer-container.component";
+import { Injectable, Injector, Type } from '@angular/core';
+import { LayerManagerService } from './layer-manager.service';
+import { LayerRef, DynamicLayerRef, LayerAttributes } from './layer-ref';
+import { LayerOptions } from './layer-container.component';
 
 @Injectable()
 export class LayerService {

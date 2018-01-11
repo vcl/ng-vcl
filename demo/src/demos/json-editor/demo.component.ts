@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JsonEditorDemoComponent  {
   myObject: Object = {
-    foo: "bar",
+    foo: 'bar',
     names: [
       'alice',
       'bob',

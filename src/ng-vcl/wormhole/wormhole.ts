@@ -1,4 +1,4 @@
-import { TemplateRef, ViewContainerRef, EmbeddedViewRef, ComponentFactory, Type, ComponentRef, ComponentFactoryResolver, Injector } from "@angular/core";
+import { TemplateRef, ViewContainerRef, EmbeddedViewRef, ComponentFactory, Type, ComponentRef, ComponentFactoryResolver, Injector } from '@angular/core';
 import 'rxjs/add/observable/never';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';

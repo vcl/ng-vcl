@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICoordinate } from "./ICoordinate";
+import { ICoordinate } from './ICoordinate';
 
 @Injectable()
 export class TooltipService {
@@ -41,21 +41,21 @@ export class TooltipService {
 
     let targetElPos: ICoordinate;
     switch (tooltipAlignment) {
-      case "right":
+      case 'right':
         targetElPos = {
           Top: shiftHeight[alignmentCorrection](),
           Left: shiftWidth[tooltipAlignment]() + this.offsetCorrection
         };
         break;
 
-      case "left":
+      case 'left':
         targetElPos = {
           Top: shiftHeight[alignmentCorrection](),
           Left: hostElPos.left - targetElWidth - this.offsetCorrection
         };
         break;
 
-      case "bottom":
+      case 'bottom':
         targetElPos = {
           Top: shiftHeight[tooltipAlignment]() + this.offsetCorrection,
           Left: shiftWidth[alignmentCorrection]()
@@ -112,7 +112,7 @@ export class TooltipService {
   }
 
   private isStaticPositioned(nativeEl: HTMLElement): boolean {
-    return (this.getStyle(nativeEl, "position") || "static") === "static";
+    return (this.getStyle(nativeEl, 'position') || 'static') === 'static';
   }
 
   private parentOffsetEl(nativeEl: HTMLElement): any {

@@ -120,7 +120,7 @@ export function ngVCLCompatibility(pkg: string) {
             key: 'version',
             value: VERSION
           }))
-        .pipe(rename("package.json"))
+        .pipe(rename('package.json'))
         .pipe(dest(folderNgVCLD.dist))
     );
   });

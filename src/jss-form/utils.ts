@@ -1,5 +1,5 @@
-import { FormGroup, AbstractControl } from "@angular/forms";
-import { JssFormSchema } from "./types";
+import { FormGroup, AbstractControl } from '@angular/forms';
+import { JssFormSchema } from './types';
 
 /**
  * if no formType is given, this will guess the right one

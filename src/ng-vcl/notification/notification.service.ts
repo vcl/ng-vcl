@@ -3,8 +3,8 @@ import { Injectable, Inject, ComponentRef } from '@angular/core';
 
 import { NotificationOptions, NotificationType, NotificationPosition, NOTIFICATION_DEFAULTS, POSITION_MAP } from './types';
 import { Notification } from './notification';
-import { LayerService, LayerRef } from "../layer/index";
-import { NotificationComponent } from "./notification.component";
+import { LayerService, LayerRef } from '../layer/index';
+import { NotificationComponent } from './notification.component';
 
 export class NotificationLayerRef extends LayerRef {
   notifications: Notification[];

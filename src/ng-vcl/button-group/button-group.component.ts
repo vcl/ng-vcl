@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentCh
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { ButtonComponent } from '../button/index';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from "@angular/forms";
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from '@angular/forms';
 
 export enum SelectionMode {
   Single,

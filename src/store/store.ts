@@ -11,7 +11,7 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Action, StoreActions } from './actions';
 import { select, StoreObservable } from './observable';
 import { combineReducers, reduceReducers } from './utils';
-import { Subject } from "rxjs/Subject";
+import { Subject } from 'rxjs/Subject';
 
 export const STORE_INITIAL_REDUCERS = new InjectionToken('store.initial.reducers');
 export const STORE_INITIAL_STATE = new InjectionToken('store.initial.state');

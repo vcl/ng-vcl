@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { LayerRef, LayerService, Layer } from './../layer/index';
 import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
 export function dismiss(layer: LayerRef, err: AlertError | any) {
   if (err instanceof Error) {

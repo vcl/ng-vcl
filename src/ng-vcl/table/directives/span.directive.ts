@@ -24,7 +24,7 @@ export class SpanDirective implements AfterContentInit, OnChanges {
 
   ngAfterContentInit() {
     // Apply class only on header
-    if (this.el.nativeElement.localName == "th") {
+    if (this.el.nativeElement.localName == 'th') {
       const vclSpan = `vclSpan-${this.width}p`;
       this.renderer.addClass(this.el.nativeElement, vclSpan);
     } else {

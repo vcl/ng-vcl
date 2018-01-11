@@ -1,4 +1,4 @@
-import { ComponentFactory, EmbeddedViewRef, ComponentRef, ApplicationRef, Type, TemplateRef, ComponentFactoryResolver, Injector } from "@angular/core";
+import { ComponentFactory, EmbeddedViewRef, ComponentRef, ApplicationRef, Type, TemplateRef, ComponentFactoryResolver, Injector } from '@angular/core';
 import { ComponentWormholeBase, TemplateWormholeBase } from './wormhole-base';
 
 function getViewRootNode(embeddedViewRef: EmbeddedViewRef<any>) {

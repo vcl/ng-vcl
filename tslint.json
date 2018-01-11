@@ -49,6 +49,7 @@
       }
     ],
     "no-internal-module": true,
-    "no-trailing-whitespace": true
+    "no-trailing-whitespace": true,
+    "quotemark": [true, "single"]
   }
 }

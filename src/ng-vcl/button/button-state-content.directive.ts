@@ -1,5 +1,5 @@
 import { ViewContainerRef, Directive, TemplateRef, Input, EmbeddedViewRef } from '@angular/core';
-import { Wormhole, WormholeHost } from "../wormhole/index";
+import { Wormhole, WormholeHost } from '../wormhole/index';
 
 @Directive({
   selector: '[vclButtonStateContent]'

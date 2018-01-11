@@ -1,6 +1,6 @@
 import { ViewContainerRef, Directive, Input, SimpleChanges, TemplateRef } from '@angular/core';
 import { Wormhole, WormholeAttributes } from './wormhole-base';
-import { WormholeHost } from "./wormhole-host";
+import { WormholeHost } from './wormhole-host';
 
 @Directive({
   selector: 'wormhole'

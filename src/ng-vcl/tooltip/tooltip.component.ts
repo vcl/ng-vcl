@@ -3,7 +3,7 @@ import {
   trigger, state, transition, animate,
   style, AfterViewInit, Inject, Renderer, OnDestroy, OnChanges, SimpleChanges
 } from '@angular/core';
-import { ICoordinate } from "./ICoordinate";
+import { ICoordinate } from './ICoordinate';
 import { TooltipService } from './tooltip.service';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -25,7 +25,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 })
 export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   @Input() content: string;
-  @Input() placement: "top" | "bottom" | "left" | "right" = "top";
+  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'top';
   @Input() hostElement: HTMLElement;
 
   animationState: 'shown' | 'hidden' | 'none' = 'none';

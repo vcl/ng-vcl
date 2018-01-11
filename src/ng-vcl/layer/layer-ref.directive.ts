@@ -1,7 +1,7 @@
 import { Input, TemplateRef, ChangeDetectorRef, Directive, ViewContainerRef, Injector } from '@angular/core';
 import { LayerRef } from './layer-ref';
-import { LayerOptions } from "./layer-container.component";
-import { LayerManagerService } from "./layer-manager.service";
+import { LayerOptions } from './layer-container.component';
+import { LayerManagerService } from './layer-manager.service';
 
 @Directive({
   selector: '[vcl-layer]',
