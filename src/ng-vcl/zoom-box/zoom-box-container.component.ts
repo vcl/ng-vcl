@@ -1,11 +1,5 @@
-import {Component, Input, ElementRef, ContentChild, AfterContentInit, Directive, Renderer2} from '@angular/core';
+import {Component, Input, ElementRef, ContentChild, AfterContentInit, Renderer2} from '@angular/core';
 import {ZoomBoxMagnifierComponent} from "./zoom-box-magnifier.component";
-
-@Directive({
-  selector: 'img'
-})
-class ImageDirective {
-}
 
 @Component({
   selector: 'vcl-zoom-box-container',
