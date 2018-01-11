@@ -1,28 +1,31 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
+import {Component, ElementRef, Optional, Renderer2} from '@angular/core';
+import {ZoomBoxContainerComponent} from "./zoom-box-container.component";
 
 @Component({
   selector: 'vcl-zoom-box-magnifier',
-  templateUrl: 'zoom-box-magnifier.component.html',
-  host: {
-    '[attr.role]': '"zoomboxmagnifier"',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>'
 })
 export class ZoomBoxMagnifierComponent {
 
-  @Input()
-  image: string;
+  parent: ZoomBoxContainerComponent;
 
-  @Input()
-  x: number = 0;
+  constructor(private element: ElementRef, private renderer: Renderer2) {
+    renderer.addClass(element.nativeElement, "vclZoomBoxMagnifier");
+  }
 
-  @Input()
-  y: number = 0;
+  update(): void {
+    const styles = {
+      top: this.parent.y + 'px',
+      left: this.parent.x + 'px',
+      width: this.parent.width + 'px',
+      height: this.parent.height + 'px',
+      display: (!this.parent.hiding && !this.parent.invisible) ? "block" : "none",
+      'pointer-events': 'none'
+    };
 
-  @Input()
-  width: number;
-
-  @Input()
-  height: number;
+    for (let style in styles) {
+      this.renderer.setStyle(this.element.nativeElement, style, styles[style]);
+    }
+  }
 
 }
