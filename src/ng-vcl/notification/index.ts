@@ -1,32 +1,17 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { VCLButtonModule } from './../button/index';
-import { VCLLayerModule } from './../layer/index';
-import { VCLWormholeModule } from './../wormhole/index';
-import { NotificationComponent } from './notification.component';
-import { NotificationService } from './notification.service';
-import { Notification } from './notification';
-import { NotificationOptions, NotificationPosition, NotificationType } from './types';
-import { VCLNotificationContentComponent } from './notification-content.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {VCLButtonModule} from "../button";
+import {NotificationComponent} from './notification.component';
+import {NotificationHeaderComponent} from "./notification-header.component";
+import {NotificationBodyComponent} from "./notification-body.component";
+import {NotificationFooterComponent} from "./notification-footer.component";
 
-export { Notification, NotificationService, NotificationOptions, NotificationType, NotificationPosition, NotificationComponent };
+export * from './types';
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-    VCLButtonModule,
-    VCLLayerModule.forChild(),
-    VCLWormholeModule,
-  ],
-  exports: [],
-  declarations: [ NotificationComponent, VCLNotificationContentComponent ],
-  entryComponents: [ NotificationComponent ],
-  providers: [
-    NotificationService
-  ],
+  imports: [CommonModule, VCLButtonModule],
+  exports: [NotificationComponent, NotificationHeaderComponent, NotificationBodyComponent, NotificationFooterComponent],
+  declarations: [NotificationComponent, NotificationHeaderComponent, NotificationBodyComponent, NotificationFooterComponent]
 })
 export class VCLNotificationModule {
-
 }

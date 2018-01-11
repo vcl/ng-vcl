@@ -1,17 +1,110 @@
-<vcl-button-group [(ngModel)]="position" mode="single">
-  <button vcl-button label="Top Right"></button>
-  <button vcl-button label="Top"></button>
-  <button vcl-button label="Top Left"></button>
-  <button vcl-button label="Bottom Right"></button>
-  <button vcl-button label="Bottom"></button>
-  <button vcl-button label="Bottom Left"></button>
-</vcl-button-group>
+<h3>Simple notification</h3>
+<vcl-notification>Hello world!</vcl-notification>
+<br>
 
-<br><br>
+<h3>Info notification with header and footer</h3>
+<vcl-notification nType="info" header="Header goes here" footer="And footer goes here">
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+  magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+</vcl-notification>
+<br>
 
-<button vcl-button (tap)="info()" label="An info message"></button><br><br>
-<button vcl-button (tap)="success()" label="A success message"></button><br><br>
-<button vcl-button (tap)="warning()" label="A warning"></button><br><br>
-<button vcl-button (tap)="error()" label="An error message"></button><br><br>
-<button vcl-button (tap)="custom()" label="A custom message"></button><br><br>
-<button vcl-button (tap)="componentAsContent()" label="A custom component message"></button><br><br>
+<h3>Warning notification with header and button</h3>
+<vcl-notification nType="warning" header="Some header" button="fa:times" [buttonClick]="click">
+  <ul>
+    <li>The following users could not be found:
+      <ul>
+        <li>Andreas Mustermann</li>
+        <li>Ralf Maier</li>
+      </ul>
+    </li>
+  </ul>
+</vcl-notification>
+<br>
+
+<h3>Error notification without a header and with a button</h3>
+<vcl-notification nType="error" button="fa:times" [buttonClick]="click">
+  <ul>
+    <li>Please enter a valid <strong>E-Mail ID</strong>.</li>
+    <li>Please enter a valid <strong>Password</strong>.</li>
+  </ul>
+</vcl-notification>
+<br>
+
+<h3>Success notification with a custom icon on the other side</h3>
+<vcl-notification nType="success" icon="fa-group" iconSide="right">You have successfully created the group!</vcl-notification>
+<br>
+
+<h3>Notification without an icon</h3>
+<vcl-notification nType="warning" [drawIcon]="false" button="fa:times" [buttonClick]="click">Oops! Something went wrong!</vcl-notification>
+<br>
+
+<h3>Notification with custom html in the header and footer</h3>
+<h4>notice that body is inside a tag as well</h4>
+<vcl-notification nType="info">
+  <vcl-notification-header>
+    <button vcl-button label="OK"></button>
+    <button vcl-button label="Cancel"></button>
+  </vcl-notification-header>
+
+  <vcl-notification-body>Left align</vcl-notification-body>
+
+  <vcl-notification-footer>
+    <button vcl-button label="Transfer"></button>
+    <button vcl-button label="Stop"></button>
+  </vcl-notification-footer>
+
+  Any other text is ignored
+</vcl-notification>
+
+<vcl-notification nType="info">
+  <vcl-notification-header align="middle">
+    <button vcl-button label="OK"></button>
+    <button vcl-button label="Cancel"></button>
+  </vcl-notification-header>
+
+  <vcl-notification-body>Middle align</vcl-notification-body>
+
+  <vcl-notification-footer align="middle">
+    <button vcl-button label="Transfer"></button>
+    <button vcl-button label="Stop"></button>
+  </vcl-notification-footer>
+
+  Any other text is ignored
+</vcl-notification>
+
+<vcl-notification nType="info">
+  <vcl-notification-header align="right">
+    <button vcl-button label="OK"></button>
+    <button vcl-button label="Cancel"></button>
+  </vcl-notification-header>
+
+  <vcl-notification-body>Right align</vcl-notification-body>
+
+  <vcl-notification-footer align="right">
+    <button vcl-button label="Transfer"></button>
+    <button vcl-button label="Stop"></button>
+  </vcl-notification-footer>
+
+  Any other text is ignored
+</vcl-notification>
+<br>
+
+<h3>Vertical layout and aligning</h3>
+<vcl-notification nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" bodyAlign="left">Left Align</vcl-notification>
+<vcl-notification nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" headerAlign="middle" bodyAlign="middle" footerAlign="middle">Middle Align</vcl-notification>
+<vcl-notification nType="error" header="Some Header" footer="Some Footer" [verticalBody]="true" headerAlign="right" bodyAlign="right" footerAlign="right">Right Align</vcl-notification>
+<br>
+
+<h3>Custom icon class</h3>
+<vcl-notification iconClass="fa fa-circle-o-notch fa-spin fa-3x fa-fw">Custom spinner icon</vcl-notification>
+<vcl-notification iconClass="fa fa-circle-o-notch fa-spin fa-3x fa-fw" iconSide="right">Custom spinner icon</vcl-notification>
+<br>
+
+<h3>Custom icon image</h3>
+<vcl-notification iconImage="https://picsum.photos/64/64?image=401">Custom image icon</vcl-notification>
+<vcl-notification iconImage="https://picsum.photos/64/64?image=401" iconSide="right">Custom image icon</vcl-notification>
+<br>

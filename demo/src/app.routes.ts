@@ -257,11 +257,11 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/notification/demo.module#NotificationDemoModule',
-    path: 'notifications',
+    loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
+    path: 'notifiers',
     data: {
       demo: {
-        label: 'Notifications',
+        label: 'Notifiers',
         category: 'Overlays',
       }
     }
@@ -337,8 +337,8 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/notification-new/demo.module#NotificationNewDemoModule',
-    path: 'notification-new',
+    loadChildren: './demos/notification/demo.module#NotificationDemoModule',
+    path: 'notification',
     data: {
       demo: {
         label: 'Notification',

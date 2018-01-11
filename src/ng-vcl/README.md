@@ -32,7 +32,7 @@ export class AppModule { }
 - [icogram](./icogram)
 - [checkbox](./checkbox)
 - [layer](./layer)
-- [notification](./notification)
+- [notifier](./notifier)
 - [token](./token)
 - [file-input](./file-input)
 - [radio-group](./radio-group)

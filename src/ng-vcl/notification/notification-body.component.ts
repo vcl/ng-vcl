@@ -2,10 +2,10 @@ import {Component, Input} from '@angular/core';
 import {FlexAlign} from "./types";
 
 @Component({
-  selector: 'vcl-notification-new-body',
+  selector: 'vcl-notification-body',
   template: '<ng-content></ng-content>',
 })
-export class NotificationNewBodyComponent {
+export class NotificationBodyComponent {
 
   @Input()
   align: "left" | "center" | "right" = "center";

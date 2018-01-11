@@ -5,14 +5,14 @@ import 'rxjs/add/observable/never';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/skipWhile';
 import { Subject } from 'rxjs/Subject';
-import { NotificationOptions, NOTIFICATION_DEFAULTS, NotificationType, TYPE_CLASS_MAP } from './types';
+import { NotifierOptions, NOTIFIER_DEFAULTS, NotifierType, TYPE_CLASS_MAP } from './types';
 
 
-export class Notification extends Observable<any> {
+export class Notifier extends Observable<any> {
 
   closeSubject = new Subject();
 
-  constructor(private opts: NotificationOptions) {
+  constructor(private opts: NotifierOptions) {
     super();
 
     const timeout = this.calculatedTimeout;
@@ -58,11 +58,11 @@ export class Notification extends Observable<any> {
   }
 
   get layerClass() {
-    return TYPE_CLASS_MAP[this.opts.type || NotificationType.None].notificationClass;
+    return TYPE_CLASS_MAP[this.opts.type || NotifierType.None].notifierClass;
   }
 
   get iconClass() {
-    return TYPE_CLASS_MAP[this.opts.type || NotificationType.None].iconClass;
+    return TYPE_CLASS_MAP[this.opts.type || NotifierType.None].iconClass;
   }
 
   get calculatedTimeout() {

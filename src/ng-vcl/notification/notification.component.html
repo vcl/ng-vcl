@@ -1,19 +1,30 @@
-<div *ngFor="let notification of notifications"
-  (mouseenter)="notification.mouseEnter()" 
-  (mouseleave)="notification.mouseLeave()" 
-  class="vclNotification vclLayoutHorizontal vclLayoutCenter" 
-  [ngClass]="notification.layerClass" 
-  [style.color]="notification.textColor"
-  [style.background-color]="notification.backgroundColor"
-  [@notificationState]="notification.state" 
-  >
-  <div class="vclNotificationIconContainer">
-    <span *ngIf="notification.iconClass" class="vclIcon vclNotificationIcon" [ngClass]="notification.iconClass"></span>
+<div class="vclNotification {{ styleClass }}">
+
+  <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" *ngIf="header || (nested && headerComponent != null)" [ngStyle]="headerStyle">
+    <div class="vclLayoutFlex" *ngIf="!nested">{{ header }}</div>
+    <button vcl-button class="vclTransparent vclSquare" *ngIf="button && !nested" (tap)="onClick()" [appIcon]="button"></button>
+
+    <ng-content *ngIf="nested && headerComponent != null" select="vcl-notification-header"></ng-content>
   </div>
-  <div class="vclNotificationContent vclLayoutFlex">
-    <div *ngIf="notification.text && !notification.html && !notification.opts.contentComponentDetails">{{notification.text}}</div>
-    <div *ngIf="notification.text && notification.html && !notification.opts.contentComponentDetails" [innerHtml]="notification.text"></div>
-    <vcl-notification-content-component *ngIf="notification.opts.contentComponentDetails" [wormholeComponentDetails]="notification.opts.contentComponentDetails"></vcl-notification-content-component>
+
+  <div [ngClass]="{'vclLayoutHorizontal': !verticalBody, 'vlcLayoutVertical': verticalBody}" [ngStyle]="bodyStyle">
+    <div class="vclNotificationIconContainer" *ngIf="drawIcon" [ngStyle]="bodyIconStyle">
+      <span class="vclIcon vclNotificationIcon {{ eIconClass }}" *ngIf="iconType == 'fa' || iconType == 'custom'"></span>
+      <img class="vclIcon vclNotificationIcon" [src]="iconImage" *ngIf="iconType == 'image'">
+    </div>
+
+    <div class="vclNotificationContent vclLayoutFlex">
+      <ng-content *ngIf="!nested"></ng-content>
+
+      <ng-content *ngIf="nested && bodyComponent != null" select="vcl-notification-body"></ng-content>
+    </div>
+
+    <button vcl-button class="vclTransparent vclSquare vclLayoutSelfStart" *ngIf="button && !header" (tap)="onClick()" [appIcon]="button"></button>
   </div>
-   <button vcl-button *ngIf="notification.showCloseButton" (tap)="notification.close()" class="vclSquare vclTransparent vclLayoutSelfStart" prepIcon="fa:times" title="Close"></button>
+
+  <div class="vclNotificationFooter vclLayoutHorizontal vclLayoutCenter" [ngStyle]="footerStyle" *ngIf="footer || (nested && footerComponent != null)">
+    <ng-container *ngIf="footer && !nested">{{ footer }}</ng-container>
+    <ng-content *ngIf="nested && footerComponent != null" select="vcl-notification-footer"></ng-content>
+  </div>
+
 </div>
