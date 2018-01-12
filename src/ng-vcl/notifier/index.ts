@@ -9,6 +9,7 @@ import { NotifierService } from './notifier.service';
 import { Notifier } from './notifier';
 import { NotifierOptions, NotifierPosition, NotifierType } from './types';
 import { VCLNotifierContentComponent } from './notifier-content.component';
+import { VCLNotificationModule } from '../notification/index';
 
 export { Notifier, NotifierService, NotifierOptions, NotifierType, NotifierPosition, NotifierComponent };
 
@@ -19,6 +20,7 @@ export { Notifier, NotifierService, NotifierOptions, NotifierType, NotifierPosit
     VCLButtonModule,
     VCLLayerModule.forChild(),
     VCLWormholeModule,
+    VCLNotificationModule
   ],
   exports: [],
   declarations: [ NotifierComponent, VCLNotifierContentComponent ],

@@ -1,8 +1,8 @@
-<div class="vclNotification {{ styleClass }}">
+<div #notification class="vclNotification" [ngClass]="notificationStyleClass" [ngStyle]="notificationStyles">
 
   <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" *ngIf="header || (nested && headerComponent != null)" [ngStyle]="headerStyle">
     <div class="vclLayoutFlex" *ngIf="!nested">{{ header }}</div>
-    <button vcl-button class="vclTransparent vclSquare" *ngIf="button && !nested" (tap)="onClick()" [appIcon]="button"></button>
+    <button vcl-button class="vclTransparent vclSquare" *ngIf="(button && showButton) && !nested" (tap)="onClick()" [appIcon]="button"></button>
 
     <ng-content *ngIf="nested && headerComponent != null" select="vcl-notification-header"></ng-content>
   </div>
@@ -19,7 +19,7 @@
       <ng-content *ngIf="nested && bodyComponent != null" select="vcl-notification-body"></ng-content>
     </div>
 
-    <button vcl-button class="vclTransparent vclSquare vclLayoutSelfStart" *ngIf="button && !header" (tap)="onClick()" [appIcon]="button"></button>
+    <button vcl-button class="vclTransparent vclSquare vclLayoutSelfStart" *ngIf="(button && showButton) && !header" (tap)="onClick()" [appIcon]="button"></button>
   </div>
 
   <div class="vclNotificationFooter vclLayoutHorizontal vclLayoutCenter" [ngStyle]="footerStyle" *ngIf="footer || (nested && footerComponent != null)">

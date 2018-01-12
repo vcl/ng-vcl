@@ -1,8 +1,9 @@
-import {Component, ContentChild, Input} from '@angular/core';
-import {NotificationType, FlexAlign, TextAlign, IconType} from "./types";
-import {NotificationBodyComponent} from "./notification-body.component";
-import {NotificationFooterComponent} from "./notification-footer.component";
-import {NotificationHeaderComponent} from "./notification-header.component";
+import {Component, ContentChild, EventEmitter, Input, Output} from '@angular/core';
+import {NotificationType, FlexAlign, TextAlign, IconType} from './types';
+import {NotificationBodyComponent} from './notification-body.component';
+import {NotificationFooterComponent} from './notification-footer.component';
+import {NotificationHeaderComponent} from './notification-header.component';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'vcl-notification',
@@ -11,46 +12,55 @@ import {NotificationHeaderComponent} from "./notification-header.component";
 export class NotificationComponent {
 
   @Input()
-  nType: "default" | "info" | "warning" | "error" | "success" = "default";
+  nType: 'default' | 'info' | 'warning' | 'error' | 'success' = 'default';
 
   @Input()
-  icon: string = "";
+  icon: string = '';
 
   @Input()
-  iconClass: string = "";
+  iconClass: string = '';
 
   @Input()
-  iconImage: string = "";
+  iconImage: string = '';
 
   @Input()
-  iconSide: "left" | "right" = "left";
+  iconSide: 'left' | 'right' = 'left';
 
   @Input()
   drawIcon: boolean = true;
 
   @Input()
-  header: string = "";
+  header: string = '';
 
   @Input()
-  footer: string = "";
+  footer: string = '';
 
   @Input()
-  button: string = "";
+  button: string = '';
 
   @Input()
-  buttonClick: Function | null;
+  showButton: boolean = true;
 
   @Input()
   verticalBody: boolean = false;
 
   @Input()
-  headerAlign: "left" | "center" | "right" = "left";
+  styleClass: object | string | undefined = undefined;
 
   @Input()
-  bodyAlign: "left" | "center" | "right" = "center";
+  headerAlign: 'left' | 'center' | 'right' = 'left';
 
   @Input()
-  footerAlign: "left" | "center" | "right" = "left";
+  bodyAlign: 'left' | 'center' | 'right' = 'center';
+
+  @Input()
+  footerAlign: 'left' | 'center' | 'right' = 'left';
+
+  @Input()
+  textColor: string = '';
+
+  @Input()
+  backgroundColor: string = '';
 
   @ContentChild(NotificationHeaderComponent)
   headerComponent: NotificationHeaderComponent | null;
@@ -61,22 +71,40 @@ export class NotificationComponent {
   @ContentChild(NotificationFooterComponent)
   footerComponent: NotificationFooterComponent | null;
 
+  private buttonClickEvent = new EventEmitter<any>();
+
+  @Output()
+  get buttonClick(): Observable<any> {
+    return this.buttonClickEvent.asObservable();
+  }
+
   get eType(): NotificationType {
     return NotificationType.fromString(this.nType);
   }
 
-  get styleClass(): string {
+  get notificationStyleClass(): object | string {
+    if (this.styleClass) {
+      return this.styleClass;
+    }
+
     return NotificationType.styleClass(this.eType);
+  }
+
+  get notificationStyles(): object {
+    return {
+      color: this.textColor,
+      'background-color': this.backgroundColor
+    };
   }
 
   get eIconClass(): string {
     if (this.icon) {
-      return "fa " + this.icon;
+      return 'fa ' + this.icon;
     } else if (this.iconClass) {
       return this.iconClass;
     }
 
-    return "fa " + NotificationType.icon(this.eType);
+    return 'fa ' + NotificationType.icon(this.eType);
   }
 
   get iconType(): string {
@@ -97,13 +125,13 @@ export class NotificationComponent {
     if (this.nested) {
       return {
         padding: 0,
-        "flex-flow": "column",
-        "align-items": (this.headerComponent != null ? this.headerComponent.alignItems : "flex-start")
+        'flex-flow': 'column',
+        'align-items': (this.headerComponent != null ? this.headerComponent.alignItems : 'flex-start')
       };
     }
 
     return {
-      "text-align": TextAlign[this.headerAlign]
+      'text-align': TextAlign[this.headerAlign]
     };
   }
 
@@ -111,16 +139,16 @@ export class NotificationComponent {
     if (this.nested) {
       return {
         padding: 0,
-        "flex-flow": "column",
-        "flex-direction": "row",
-        "align-items": (this.bodyComponent != null ? this.bodyComponent.alignItems : "flex-start")
+        'flex-flow': 'column',
+        'flex-direction': 'row',
+        'align-items': (this.bodyComponent != null ? this.bodyComponent.alignItems : 'flex-start')
       };
     }
 
     return {
-      "flex-flow": this.verticalBody ? "column" : "",
-      "align-items": FlexAlign[this.bodyAlign],
-      "text-align": this.verticalBody ? TextAlign[this.bodyAlign] : ""
+      'flex-flow': this.verticalBody ? 'column' : '',
+      'align-items': FlexAlign[this.bodyAlign],
+      'text-align': this.verticalBody ? TextAlign[this.bodyAlign] : ''
     };
   }
 
@@ -128,14 +156,14 @@ export class NotificationComponent {
     if (this.nested) {
       return {
         padding: 0,
-        "flex-flow": "column",
-        "align-items": (this.footerComponent != null ? this.footerComponent.alignItems : "flex-start")
+        'flex-flow': 'column',
+        'align-items': (this.footerComponent != null ? this.footerComponent.alignItems : 'flex-start')
       };
     }
 
     return {
       display: 'block',
-      "text-align": TextAlign[this.footerAlign],
+      'text-align': TextAlign[this.footerAlign],
     };
   }
 
@@ -146,7 +174,7 @@ export class NotificationComponent {
       };
     }
 
-    if (this.iconSide == "right") {
+    if (this.iconSide == 'right') {
       return {
         order: 1,
         'padding-right': '1em',
@@ -158,9 +186,7 @@ export class NotificationComponent {
   }
 
   onClick(): void {
-    if (this.buttonClick != null) {
-      this.buttonClick();
-    }
+    this.buttonClickEvent.emit(null);
   }
 
 }
