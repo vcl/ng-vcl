@@ -1,29 +1,23 @@
-import {AfterViewInit, Component, ElementRef, Input, Optional, ViewChild} from '@angular/core';
-import {GalleryComponent} from "./gallery.component";
+import {AfterContentChecked, AfterViewInit, Component, ElementRef, Input, Optional, ViewChild} from '@angular/core';
+import {GalleryComponent} from './gallery.component';
 import Hammer from 'hammerjs';
-import {AnimationPlayer} from "@angular/animations";
 
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
 })
-export class GalleryBodyComponent implements AfterViewInit {
+export class GalleryBodyComponent implements AfterViewInit, AfterContentChecked {
 
   @Input()
   target: GalleryComponent;
 
-  @ViewChild("previousImage")
-  previousImage: ElementRef;
+  @ViewChild('imageContainer')
+  imageContainer: ElementRef;
 
-  @ViewChild("nextImage")
-  nextImage: ElementRef;
-
-  @ViewChild("middleImage")
-  middleImage: ElementRef;
-
-  nextAnimation: AnimationPlayer | undefined;
-  previousAnimation: AnimationPlayer | undefined;
-  middleAnimation: AnimationPlayer | undefined;
+  private initialized: boolean = false;
+  private imgS: Element[];
+  private containerHeight = 0;
+  private loadedCount = 0;
 
   constructor(@Optional() parent: GalleryComponent, private elementRef: ElementRef) {
     if (this.target == null) {
@@ -43,58 +37,69 @@ export class GalleryBodyComponent implements AfterViewInit {
     });
   }
 
-  selectNext(): void {
-    if (this.target.nextToMiddleAnimationFactory) {
-      if (this.nextAnimation) {
-        this.nextAnimation.finish();
+  ngAfterContentChecked() {
+    if (!this.initialized) {
+      const images = this.imageContainer.nativeElement.querySelectorAll('img');
+
+      if (images.length == 0) {
+        return;
       }
 
-      if (this.middleAnimation) {
-        this.middleAnimation.finish();
-      }
-
-      this.nextAnimation = this.target.nextToMiddleAnimationFactory.create(this.nextImage.nativeElement);
-      this.nextAnimation.onDone(() => {
-        this.target.selectNext();
-        this.nextAnimation = undefined;
-      });
-
-      this.nextAnimation.play();
-
-      if (this.target.middleRefadeAnimationFactory) {
-        this.middleAnimation = this.target.middleRefadeAnimationFactory.create(this.middleImage.nativeElement);
-        this.middleAnimation.play();
-      }
-    } else {
-      this.target.selectNext();
+      this.initialized = true;
+      this.imgS = Array.from(images);
     }
   }
 
-  selectPrevious(): void {
-    if (this.target.previousToMiddleAnimationFactory) {
-      if (this.previousAnimation) {
-        this.previousAnimation.finish();
+  imageLoaded(): void {
+    this.loadedCount++;
+    this.reload();
+  }
+
+  private reload(): void {
+    let maxHeight = 0;
+    let leftPos = 0;
+    for (let i in this.imgS) {
+      const image = this.imgS[i];
+      if (image.clientHeight > maxHeight) {
+        maxHeight = image.clientHeight;
       }
 
-      if (this.middleAnimation) {
-        this.middleAnimation.finish();
-      }
-
-      this.previousAnimation = this.target.previousToMiddleAnimationFactory.create(this.previousImage.nativeElement);
-      this.previousAnimation.onDone(() => {
-        this.target.selectPrevious();
-        this.previousAnimation = undefined;
-      });
-
-      this.previousAnimation.play();
-
-      if (this.target.middleRefadeAnimationFactory) {
-        this.middleAnimation = this.target.middleRefadeAnimationFactory.create(this.middleImage.nativeElement);
-        this.middleAnimation.play();
-      }
-    } else {
-      this.target.selectPrevious();
+      image['style'].left = Math.round(leftPos) + 'px';
+      leftPos += image.clientWidth;
     }
+
+    this.containerHeight = maxHeight;
+  }
+
+  get translatePosition(): number {
+    if (!this.imgS) {
+      return 0;
+    }
+
+    let result = this.imageContainer.nativeElement.clientWidth / 2;
+    for (let i = 0; i < this.target.selectedImage; i++) {
+      result -= this.imgS['' + i].clientWidth;
+    }
+
+    result -= this.imgS['' + this.target.selectedImage].clientWidth / 2;
+
+    return result;
+  }
+
+  get imageContainerStyle(): object {
+    return {
+      height: this.containerHeight + 'px',
+      transform: 'translateX(' + this.translatePosition + 'px)',
+      transition: this.loadedCount == this.target.images.length ? 'transform 0.5s' : ''
+    };
+  }
+
+  selectNext(): void {
+    this.target.selectNext();
+  }
+
+  selectPrevious(): void {
+    this.target.selectPrevious();
   }
 
 }

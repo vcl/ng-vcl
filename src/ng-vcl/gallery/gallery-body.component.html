@@ -1,12 +1,11 @@
-<div class="vclGalleryContent">
+<div class="vclGalleryContent" style="overflow: hidden;">
   <button *ngIf="target.selectedImage > 0 || target.wrap" vcl-button class="vclButton vclGalleryPrevButton" (click)="selectPrevious()">
     <div class="vclIcon fa fa-caret-left" aria-hidden="true" aria-label="Previous" role="img"></div>
   </button>
 
-  <img #middleImage class="vclGalleryImage" [src]="target.imageArray[target.selectedImage].image" [alt]="target.imageArray[target.selectedImage].alt" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-
-  <img #previousImage *ngIf="target.selectedImage > 0 || target.wrap" class="vclGalleryImage" [src]="target.imageArray[target.previousImage()].image" style="opacity: 0; position: absolute; top: 0; left: -40%; right: 0; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-  <img #nextImage *ngIf="target.selectedImage < target.images.length - 1 || target.wrap" class="vclGalleryImage" [src]="target.imageArray[target.nextImage()].image" style="opacity: 0; position:absolute; top: 0; left: 0; right: -40%; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+  <div #imageContainer style="position: relative; width: 100%; height: 100%; transition: transform 0.5s" [ngStyle]="imageContainerStyle">
+    <img *ngFor="let img of target.imageArray; let i = index" [attr.data-index]="i" (click)="target.selectImage(i)" (load)="imageLoaded()" [src]="img.image" [alt]="img.alt" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: absolute; left: 0; top: 0">
+  </div>
 
   <button *ngIf="target.selectedImage < target.images.length - 1 || target.wrap" vcl-button class="vclButton vclGalleryNextButton" (click)="selectNext()">
     <div class="vclIcon fa fa-caret-right" aria-hidden="true" aria-label="Previous" role="img"></div>

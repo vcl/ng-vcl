@@ -74,7 +74,9 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
   }
 
   selectImage(index: number): void {
-    this.selectedImage = Math.max(0, Math.min(this.imageArray.length, index));
+    if (index !== undefined) {
+      this.selectedImage = Math.max(0, Math.min(this.imageArray.length, index));
+    }
   }
 
   nextImage(): number {
