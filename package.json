@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "tslint --type-check -p ./tsconfig.json",
     "lint:src": "tslint --type-check -p ./src/tsconfig.json",
-    "dev": "webpack-dev-server --env.target=development --port 4000",
+    "dev": "webpack-dev-server --env.target=development",
     "docs:clean": "rimraf docs",
     "docs:build": "webpack --env.target=production",
     "docs:deploy": "git-directory-deploy --directory docs --branch gh-pages",
