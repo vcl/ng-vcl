@@ -14,35 +14,39 @@ Make notifications
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
-| `ntType`            | `default`, `info`, `warning`, `error`, `success` | `"default"`        | Notification Type
+| `ntType`            | `default`, `info`, `warning`, `error`, `success` | `'default'`        | Notification Type
+| `styleClass`        | string, or object                                | `undefined`        | Notification style classes
+| `textColor`         | string                                           | `''`               | Text color
+| `backgroundColor`   | string                                           | `''`               | Background color
 | `icon`              | string                                           | depends on `nType` | Notification Icon
-| `iconClass`         | string                                           | `""`               | Custom Icon Class
-| `iconImage`         | string                                           | `""`               | Custom Icon Image
-| `iconSide`          | `left`, `right`                                  | `"left"`           | Icon Position
+| `iconClass`         | string                                           | `''`               | Custom Icon Class
+| `iconImage`         | string                                           | `''`               | Custom Icon Image
+| `iconSide`          | `left`, `right`                                  | `'left'`           | Icon Position
 | `drawIcon`          | boolean                                          | `true`             | Whether to draw icon
-| `button`            | string                                           | `""`               | Button icon
-| `buttonClick`       | function                                         | `null`             | Function for button click
-| `header`            | string                                           | `""`               | Header text
-| `footer`            | string                                           | `""`               | Footer text
+| `button`            | string                                           | `''`               | Button icon
+| `buttonClick`       | event                                            | `null`             | Event for button click
+| `showButton`        | boolean                                          | `true`             | Show button
+| `header`            | string                                           | `''`               | Header text
+| `footer`            | string                                           | `''`               | Footer text
 | `verticalBody`      | boolean                                          | `false`            | Draw body vertically
-| `headerAlign`       | `left`, `center`, `right`                        | `"left"`           | Header alignment
-| `bodyAlign`         | `left`, `center`, `right`                        | `"center"`         | Body alignment
-| `footerAlign`       | `left`, `center`, `right`                        | `"left"`           | Footer alignment
+| `headerAlign`       | `left`, `center`, `right`                        | `'left'`           | Header alignment
+| `bodyAlign`         | `left`, `center`, `right`                        | `'center'`         | Body alignment
+| `footerAlign`       | `left`, `center`, `right`                        | `'left'`           | Footer alignment
 
 #### Header Properties
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
-| `align`             | `left`, `center`, `right`                        | `"left"`           | Alignment
+| `align`             | `left`, `center`, `right`                        | `'left'`           | Alignment
 
 #### Body Properties
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
-| `align`             | `left`, `center`, `right`                        | `"center"`         | Alignment
+| `align`             | `left`, `center`, `right`                        | `'center'`         | Alignment
 
 #### Footer Properties
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
-| `align`             | `left`, `center`, `right`                        | `"left"`           | Alignment
+| `align`             | `left`, `center`, `right`                        | `'left'`           | Alignment
