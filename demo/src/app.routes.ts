@@ -327,6 +327,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/gallery/demo.module#GalleryDemoModule',
+    path: 'gallery',
+    data: {
+      demo: {
+        label: 'Gallery',
+        category: 'Media',
+      }
+    }
+  },
+  {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
     path: 'busy',
     data: {

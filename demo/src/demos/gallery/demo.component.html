@@ -1,0 +1,51 @@
+<vcl-gallery [selectedImage]="1">
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=450" thumbnail="https://picsum.photos/200/200?image=450" alt="Image 1"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=451" thumbnail="https://picsum.photos/200/200?image=451" alt="Image 2"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=452" thumbnail="https://picsum.photos/200/200?image=452" alt="Image 3"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=453" thumbnail="https://picsum.photos/200/200?image=453" alt="Image 4"></vcl-gallery-image>
+
+  <div class="vclGalleryHeader">
+    <h2>Simple gallery</h2>
+  </div>
+
+  <vcl-gallery-body></vcl-gallery-body>
+  <vcl-gallery-footer></vcl-gallery-footer>
+  <vcl-gallery-thumbnails></vcl-gallery-thumbnails>
+</vcl-gallery>
+<br><br>
+
+<vcl-gallery [selectedImage]="1" [wrap]="true">
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=440" thumbnail="https://picsum.photos/200/200?image=440" alt="Image 1"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=441" thumbnail="https://picsum.photos/200/200?image=441" alt="Image 2"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=442" thumbnail="https://picsum.photos/200/200?image=442" alt="Image 3"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=443" thumbnail="https://picsum.photos/200/200?image=443" alt="Image 4"></vcl-gallery-image>
+
+  <div class="vclGalleryHeader">
+    <h2>Gallery with wrapping</h2>
+  </div>
+
+  <vcl-gallery-body></vcl-gallery-body>
+  <vcl-gallery-footer></vcl-gallery-footer>
+  <vcl-gallery-thumbnails></vcl-gallery-thumbnails>
+</vcl-gallery>
+<br><br>
+
+<h2>Gallery by components</h2>
+
+<vcl-gallery #external [selectedImage]="1">
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=430" thumbnail="https://picsum.photos/200/200?image=430" alt="Image 1"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=431" thumbnail="https://picsum.photos/200/200?image=431" alt="Image 2"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=432" thumbnail="https://picsum.photos/200/200?image=432" alt="Image 3"></vcl-gallery-image>
+  <vcl-gallery-image image="https://picsum.photos/600/500?image=433" thumbnail="https://picsum.photos/200/200?image=433" alt="Image 4"></vcl-gallery-image>
+</vcl-gallery>
+
+<h3>Body:</h3>
+<vcl-gallery-body [target]="external"></vcl-gallery-body>
+<br><br>
+
+<h3>Footer:</h3>
+<vcl-gallery-footer [target]="external"></vcl-gallery-footer>
+<br><br>
+
+<h3>Thumbnails:</h3>
+<vcl-gallery-thumbnails [target]="external"></vcl-gallery-thumbnails>
