@@ -1,7 +1,12 @@
-<h3>Button Dropdown</h3>
+<p>This section shows several ubiquitus form components which
+   are not available as a single component but can be built as mashups
+   of form controls available in the ng-vcl.</p>
+
+<br>
+<h3>Split Button with Dropdown</h3>
 
 <div class="vclButtonGroup" #target>
-  <button vcl-button label="Some action"></button>
+  <button vcl-button label="Primary Action"></button>
   <button vcl-button prepIcon="fa:chevron-down" (tap)="dropOver.toggle()"></button>
 </div>
 
@@ -10,5 +15,5 @@
     <vcl-dropdown-option *ngFor="let i of [0, 1, 2, 3, 4]" [value]="i" [selected]="i == 1" label="Item {{ i }}"></vcl-dropdown-option>
   </vcl-dropdown>
 </vcl-popover>
-
+<br>
 <p>Selected index: {{ value }}</p>
