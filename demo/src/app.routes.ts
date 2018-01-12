@@ -258,10 +258,10 @@ export const routes: Routes = [
   },
   {
     loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
-    path: 'notifiers',
+    path: 'notifier',
     data: {
       demo: {
-        label: 'Notifiers',
+        label: 'Notifier',
         category: 'Overlays',
       }
     }
