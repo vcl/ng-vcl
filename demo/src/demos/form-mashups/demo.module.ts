@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {VCLButtonModule, VCLDropdownModule, VCLPopoverModule} from '@ng-vcl/ng-vcl';
+import {VCLButtonModule, VCLDropdownModule, VCLPopoverModule, VCLOffClickModule} from '@ng-vcl/ng-vcl';
 import {DemoModule, DemoComponent} from './../../modules/demo/demo.module';
 import {FormMashupsDemoComponent} from './demo.component';
 
@@ -32,6 +32,7 @@ export function demo() {
     VCLButtonModule,
     VCLPopoverModule,
     VCLDropdownModule,
+    VCLOffClickModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,

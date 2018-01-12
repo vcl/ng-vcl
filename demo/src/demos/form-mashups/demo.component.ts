@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {PopoverComponent} from '@ng-vcl/ng-vcl';
+import {PopoverState} from '@ng-vcl/ng-vcl/popover/popover.component';
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -14,5 +15,11 @@ export class FormMashupsDemoComponent {
   onSelect(value: any) {
     this.value = value;
     this.dropOver.close();
+  }
+
+  offClick() {
+    if (this.dropOver.state == PopoverState.visible) {
+      this.dropOver.close();
+    }
   }
 }
