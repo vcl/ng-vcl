@@ -237,6 +237,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/form-mashups/demo.module#FormMashupsDemoModule',
+    path: 'form-mashups',
+    data: {
+      demo: {
+        label: 'Mashups',
+        category: 'Forms',
+      }
+    }
+  },
+  {
     loadChildren: './demos/alert/demo.module#AlertDemoModule',
     path: 'alert',
     data: {
