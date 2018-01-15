@@ -8,43 +8,43 @@ enum NotificationType {
 
 const data = {
   [NotificationType.Default]: {
-    icon: "fa-bell-o",
-    class: ""
+    icon: 'fa-bell-o',
+    class: ''
   },
   [NotificationType.Info]: {
-    icon: "fa-info-circle",
-    class: "vclInfo"
+    icon: 'fa-info-circle',
+    class: 'vclInfo'
   },
   [NotificationType.Warning]: {
-    icon: "fa-warning",
-    class: "vclWarning"
+    icon: 'fa-warning',
+    class: 'vclWarning'
   },
   [NotificationType.Error]: {
-    icon: "fa-exclamation-circle",
-    class: "vclError"
+    icon: 'fa-exclamation-circle',
+    class: 'vclError'
   },
   [NotificationType.Success]: {
-    icon: "fa-check-circle",
-    class: "vclSuccess"
+    icon: 'fa-check-circle',
+    class: 'vclSuccess'
   },
 };
 
 const FlexAlign = {
-  left: "flex-start",
-  center: "center",
-  right: "flex-end"
+  left: 'flex-start',
+  center: 'center',
+  right: 'flex-end'
 };
 
 const TextAlign = {
-  left: "left",
-  center: "center",
-  right: "right"
+  left: 'left',
+  center: 'center',
+  right: 'right'
 };
 
 enum IconType {
-  FA = "fa",
-  Custom = "custom",
-  Image = "image"
+  FA = 'fa',
+  Custom = 'custom',
+  Image = 'image'
 }
 
 namespace NotificationType {
@@ -52,13 +52,13 @@ namespace NotificationType {
     switch (type.toLocaleLowerCase()) {
       default:
         return NotificationType.Default;
-      case "info":
+      case 'info':
         return NotificationType.Info;
-      case "warning":
+      case 'warning':
         return NotificationType.Warning;
-      case "error":
+      case 'error':
         return NotificationType.Error;
-      case "success":
+      case 'success':
         return NotificationType.Success;
     }
   }

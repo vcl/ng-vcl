@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FlexAlign} from "./types";
+import {FlexAlign} from './types';
 
 @Component({
   selector: 'vcl-notification-footer',
@@ -8,7 +8,7 @@ import {FlexAlign} from "./types";
 export class NotificationFooterComponent {
 
   @Input()
-  align: "left" | "center" | "right" = "left";
+  align: 'left' | 'center' | 'right' = 'left';
 
   get alignItems(): string {
     return FlexAlign[this.align];

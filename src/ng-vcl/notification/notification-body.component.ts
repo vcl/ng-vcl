@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FlexAlign} from "./types";
+import {FlexAlign} from './types';
 
 @Component({
   selector: 'vcl-notification-body',
@@ -8,7 +8,7 @@ import {FlexAlign} from "./types";
 export class NotificationBodyComponent {
 
   @Input()
-  align: "left" | "center" | "right" = "center";
+  align: 'left' | 'center' | 'right' = 'center';
 
   get alignItems(): string {
     return FlexAlign[this.align];
