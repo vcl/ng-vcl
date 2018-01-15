@@ -1,0 +1,17 @@
+<ng-container *ngFor="let notifier of notifiers">
+  <vcl-notification (mouseenter)="notifier.mouseEnter()"
+                    (mouseleave)="notifier.mouseLeave()"
+                    button="fa:times"
+                    (buttonClick)="notifier.close()"
+                    [showButton]="notifier.showCloseButton"
+                    [iconClass]="notifier.iconClass"
+                    [styleClass]="notifier.layerClass"
+                    [textColor]="notifier.textColor"
+                    [backgroundColor]="notifier.backgroundColor">
+  <vcl-notification-body>
+      <div *ngIf="notifier.text && !notifier.html && !notifier.opts.contentComponentDetails">{{notifier.text}}</div>
+      <div *ngIf="notifier.text && notifier.html && !notifier.opts.contentComponentDetails" [innerHtml]="notifier.text"></div>
+      <vcl-notifier-content-component *ngIf="notifier.opts.contentComponentDetails" [wormholeComponentDetails]="notifier.opts.contentComponentDetails"></vcl-notifier-content-component>
+    </vcl-notification-body>
+  </vcl-notification>
+</ng-container>

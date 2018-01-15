@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLNotificationModule } from '@ng-vcl/ng-vcl';
+import { VCLNotifierModule } from '@ng-vcl/ng-vcl';
 import { VCLJssFormModule } from '@ng-vcl/jss-form';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
@@ -37,7 +37,7 @@ export function demo() {
     CommonModule,
     FormsModule,
     DemoModule,
-    VCLNotificationModule,
+    VCLNotifierModule,
     VCLJssFormModule,
     RouterModule.forChild([{
       path: '',

@@ -1,75 +1,52 @@
 # vcl-notification
 
-Growl-style notifications
+Make notifications
 
 ## Usage:
 
-```ts
-@Component({ ... })
-export class MyComponent {
-
-  constructor(private notification: NotificationService) {}
-
-  info() {
-    this.notification.info('An info message');
-  }
-  success() {
-    this.notification.success('A success message', {
-      position: NotificationPosition.BottomRight
-    });
-  }
-  warning() {
-    this.notification.warning('A warning', {
-      showCloseButton: false,
-      timeout: 10000
-    });
-  }
-  error() {
-    this.notification.error('An error message', {
-      timeout: false
-    });
-  }
-  custom() {
-    this.notification.show('<b>A <i>custom</i> message</b>', {
-      html: true,
-      backgroundColor: 'black',
-      textColor: 'white',
-      position: NotificationPosition.TopLeft,
-      showCloseButton: false,
-      timeout: 10000
-    });
-  }
-}
+ ```html
+<vcl-notification>Hello world!</vcl-notification>
 ```
 
-### API
+### API 
 
-```ts
-export enum NotificationType {
-  None,
-  Info,
-  Success,
-  Warning,
-  Error
-}
+#### Notification Properties:
 
-export enum NotificationPosition {
-  TopRight,
-  Top,
-  TopLeft,
-  BottomRight,
-  Bottom,
-  BottomLeft,
-}
+| Name                | Type                                             | Default            | Description
+| ------------------- | ------------------------------------------------ | ------------------ |--------------
+| `ntType`            | `default`, `info`, `warning`, `error`, `success` | `'default'`        | Notification Type
+| `styleClass`        | string, or object                                | `undefined`        | Notification style classes
+| `textColor`         | string                                           | `''`               | Text color
+| `backgroundColor`   | string                                           | `''`               | Background color
+| `icon`              | string                                           | depends on `nType` | Notification Icon
+| `iconClass`         | string                                           | `''`               | Custom Icon Class
+| `iconImage`         | string                                           | `''`               | Custom Icon Image
+| `iconSide`          | `left`, `right`                                  | `'left'`           | Icon Position
+| `drawIcon`          | boolean                                          | `true`             | Whether to draw icon
+| `button`            | string                                           | `''`               | Button icon
+| `buttonClick`       | event                                            | `null`             | Event for button click
+| `showButton`        | boolean                                          | `true`             | Show button
+| `header`            | string                                           | `''`               | Header text
+| `footer`            | string                                           | `''`               | Footer text
+| `verticalBody`      | boolean                                          | `false`            | Draw body vertically
+| `headerAlign`       | `left`, `center`, `right`                        | `'left'`           | Header alignment
+| `bodyAlign`         | `left`, `center`, `right`                        | `'center'`         | Body alignment
+| `footerAlign`       | `left`, `center`, `right`                        | `'left'`           | Footer alignment
 
-export interface NotificationOptions {
-  text?: string; 
-  html?: boolean;
-  type?: NotificationType;
-  showCloseButton?: boolean;
-  position?: NotificationPosition;
-  timeout?: number | boolean;
-  backgroundColor?: string;
-  textColor?: string;
-}
-```
+#### Header Properties
+
+| Name                | Type                                             | Default            | Description
+| ------------------- | ------------------------------------------------ | ------------------ |--------------
+| `align`             | `left`, `center`, `right`                        | `'left'`           | Alignment
+
+#### Body Properties
+
+| Name                | Type                                             | Default            | Description
+| ------------------- | ------------------------------------------------ | ------------------ |--------------
+| `align`             | `left`, `center`, `right`                        | `'center'`         | Alignment
+
+#### Footer Properties
+
+| Name                | Type                                             | Default            | Description
+| ------------------- | ------------------------------------------------ | ------------------ |--------------
+| `align`             | `left`, `center`, `right`                        | `'left'`           | Alignment

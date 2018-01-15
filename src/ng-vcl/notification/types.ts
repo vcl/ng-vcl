@@ -1,90 +1,75 @@
-import { WormholeAttributes } from '../wormhole/wormhole';
-
-export enum NotificationType {
-  None,
+enum NotificationType {
+  Default,
   Info,
-  Success,
   Warning,
-  Error
+  Error,
+  Success
 }
 
-export enum NotificationPosition {
-  TopRight,
-  Top,
-  TopLeft,
-  BottomRight,
-  Bottom,
-  BottomLeft,
-}
-
-export interface NotificationOptions {
-  text?: string;
-  html?: boolean;
-  contentComponentDetails?: { contentComponentClass: any, attributes?: WormholeAttributes};
-  type?: NotificationType;
-  showCloseButton?: boolean;
-  position?: NotificationPosition;
-  timeout?: number | boolean;
-  backgroundColor?: string;
-  textColor?: string;
-}
-
-export const NOTIFICATION_DEFAULTS: NotificationOptions = {
-  html: false,
-  type: NotificationType.None,
-  position: NotificationPosition.TopRight,
-  showCloseButton: true
-};
-
-export const TYPE_CLASS_MAP: any = {
-  [NotificationType.None]: {
-    notificationClass: '',
-    iconClass: ''
+const data = {
+  [NotificationType.Default]: {
+    icon: "fa-bell-o",
+    class: ""
   },
   [NotificationType.Info]: {
-    notificationClass: 'vclInfo',
-    iconClass: 'fa fa-info-circle'
-  },
-  [NotificationType.Success]: {
-    notificationClass: 'vclSuccess',
-    iconClass: 'fa fa-check-circle'
+    icon: "fa-info-circle",
+    class: "vclInfo"
   },
   [NotificationType.Warning]: {
-    notificationClass: 'vclWarning',
-    iconClass: 'fa fa-warning'
+    icon: "fa-warning",
+    class: "vclWarning"
   },
   [NotificationType.Error]: {
-    notificationClass: 'vclError',
-    iconClass: 'fa fa-exclamation-circle'
+    icon: "fa-exclamation-circle",
+    class: "vclError"
+  },
+  [NotificationType.Success]: {
+    icon: "fa-check-circle",
+    class: "vclSuccess"
+  },
+};
+
+const FlexAlign = {
+  left: "flex-start",
+  center: "center",
+  right: "flex-end"
+};
+
+const TextAlign = {
+  left: "left",
+  center: "center",
+  right: "right"
+};
+
+enum IconType {
+  FA = "fa",
+  Custom = "custom",
+  Image = "image"
+}
+
+namespace NotificationType {
+  export function fromString(type: string): NotificationType {
+    switch (type.toLocaleLowerCase()) {
+      default:
+        return NotificationType.Default;
+      case "info":
+        return NotificationType.Info;
+      case "warning":
+        return NotificationType.Warning;
+      case "error":
+        return NotificationType.Error;
+      case "success":
+        return NotificationType.Success;
+    }
   }
-};
 
+  export function icon(type: NotificationType): string {
+    return data[type].icon;
+  }
 
-export const POSITION_MAP = {
-  [NotificationPosition.TopRight]: {
-    class: 'vclLayerNotificationTopRight',
-    reverse: true
-  },
-  [NotificationPosition.Top]: {
-    class: 'vclLayerNotificationTop',
-    reverse: true,
-  },
-  [NotificationPosition.TopLeft]: {
-    class: 'vclLayerNotificationTopLeft',
-    reverse: true
-  },
-  [NotificationPosition.BottomRight]: {
-    class: 'vclLayerNotificationBottomRight',
-    reverse: false
-  },
-  [NotificationPosition.Bottom]: {
-    class: 'vclLayerNotificationBottom',
-    reverse: false
-  },
-  [NotificationPosition.BottomLeft]: {
-    class: 'vclLayerNotificationBottomLeft',
-    reverse: false
-  },
-};
+  export function styleClass(type: NotificationType): string {
+    return data[type].class;
+  }
+}
 
-const x = NotificationType.Error;
+export {NotificationType, FlexAlign, TextAlign, IconType};

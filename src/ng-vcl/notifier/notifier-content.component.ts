@@ -2,10 +2,10 @@ import { Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { WormholeHost } from '../wormhole/index';
 
 @Component({
-  selector: 'vcl-notification-content-component',
-  templateUrl: 'notification-content.component.html'
+  selector: 'vcl-notifier-content-component',
+  templateUrl: 'notifier-content.component.html'
 })
-export class VCLNotificationContentComponent {
+export class VCLNotifierContentComponent {
 
   @Input() wormholeComponentDetails: any;
 

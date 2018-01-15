@@ -267,11 +267,11 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/notification/demo.module#NotificationDemoModule',
-    path: 'notifications',
+    loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
+    path: 'notifier',
     data: {
       demo: {
-        label: 'Notifications',
+        label: 'Notifier',
         category: 'Overlays',
       }
     }
@@ -352,6 +352,16 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Progress-Bar',
+        category: 'Status Information',
+      }
+    }
+  },
+  {
+    loadChildren: './demos/notification/demo.module#NotificationDemoModule',
+    path: 'notification',
+    data: {
+      demo: {
+        label: 'Notification',
         category: 'Status Information',
       }
     }
