@@ -39,3 +39,4 @@ export * from './password-input/index';
 export * from './zoom-box/index';
 export * from './notification/index';
 export * from './gallery/index';
+export * from './badge/index';

@@ -17,6 +17,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/badge/demo.module#BadgeDemoModule',
+    path: 'badge',
+    data: {
+      demo: {
+        label: 'Badge',
+        category: 'Typographical',
+      }
+    }
+  },
+  {
     loadChildren: './demos/navigation/demo.module#NavigationDemoModule',
     path: 'navigation',
     data: {
