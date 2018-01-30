@@ -5,6 +5,7 @@ import { VCLLayerModule, VCLButtonModule, VCLWormholeModule } from '@ng-vcl/ng-v
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
 import { FooLayer, FooComponent } from './foo.layer';
+import { BarComponent } from './bar.component';
 import { LayerDemoCanDeactivateGuard } from './demo.guard';
 
 export function demo() {
@@ -35,6 +36,14 @@ export function demo() {
       'foo.layer.ts': {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./foo.layer.ts')
+      },
+      'bar.component.html': {
+        type: 'pre',
+        content: require('!highlight-loader?raw=true&lang=html!./bar.component.html')
+      },
+      'bar.component.ts': {
+        type: 'pre',
+        content: require('!highlight-loader?raw=true&lang=ts!./bar.component.ts')
       }
     },
   };
@@ -58,11 +67,13 @@ export function demo() {
   ],
   entryComponents: [
     LayerDemoComponent,
-    FooComponent
+    FooComponent,
+    BarComponent
   ],
   declarations: [
     LayerDemoComponent,
-    FooComponent
+    FooComponent,
+    BarComponent
   ]
 })
 export class LayerDemoModule { }

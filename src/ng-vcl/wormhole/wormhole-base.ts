@@ -2,15 +2,10 @@ import { EmbeddedViewRef, TemplateRef, ComponentRef, Type } from '@angular/core'
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { WormholeAttributes } from './wormhole';
+import { WormholeAttributes, WormholeEvent } from './wormhole';
 
 export interface WormholeAttributes {
   [key: string]: any;
-}
-
-export interface WormholeEvent {
-  event: string;
-  value: any;
 }
 
 export abstract class Wormhole {
@@ -118,7 +113,7 @@ export abstract class ComponentWormholeBase<T> extends Wormhole {
       if (!instance[event])
         throw 'Event not found: ' + event;
 
-      return instance[event] && instance[event].map(value => ({event, value}));
+      return instance[event] && instance[event].map(value => ({type: event, value}));
     });
     return Observable.merge(...events$);
   }

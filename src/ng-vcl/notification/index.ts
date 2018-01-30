@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {VCLButtonModule} from '../button';
+import {VCLButtonModule} from '../button/index';
 import {NotificationComponent} from './notification.component';
 import {NotificationHeaderComponent} from './notification-header.component';
 import {NotificationBodyComponent} from './notification-body.component';

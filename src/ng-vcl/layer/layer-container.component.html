@@ -10,7 +10,8 @@
   role="dialog" 
   (tap)='triggerOffClick($event)'
   >
-  <div #box class="vclLayerBox" [class.vclLayerGutterPadding]="layerOpts.gutterPadding" [style.pointer-events]="'all'" [style.z-index]="zIndex + 2">
+  <div *ngIf="layerOpts.disableLayerBox" #layerContent></div>
+  <div *ngIf="!layerOpts.disableLayerBox" #box class="vclLayerBox" [class.vclLayerGutterPadding]="layerOpts.gutterPadding" [style.pointer-events]="'all'" [style.z-index]="zIndex + 2">
     <div #layerContent></div>
   </div>
 </div>

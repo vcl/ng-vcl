@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, InjectionToken, Input, Optional, ReflectiveInjector, TemplateRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
+import { Subscription } from 'rxjs/Subscription';
 import { ComponentWormhole, TemplateWormhole, Wormhole } from '../wormhole/index';
 import { LayerAttributes, LayerRef } from './layer-ref';
 
@@ -27,6 +28,8 @@ export interface LayerOptions {
   customClass?: string;
   offClick?: { (layerRef: LayerRef): void };
   attrs?: LayerAttributes;
+  noLayerBox?: boolean;
+  events?: string[];
 }
 
 @Component({
@@ -72,12 +75,13 @@ export class LayerContainerComponent {
   zIndex = 1000;
 
   wormhole: Wormhole | undefined;
+  eventSub?: Subscription;
 
   @ViewChild('layerContent', { read: ViewContainerRef })
   layerContentContainer: ViewContainerRef;
 
-  boxEnterAnimationFactory: AnimationFactory | undefined;
-  boxLeaveAnimationFactory: AnimationFactory | undefined;
+  boxEnterAnimationFactory?: AnimationFactory | undefined;
+  boxLeaveAnimationFactory?: AnimationFactory | undefined;
   coverEnterAnimationFactory: AnimationFactory | undefined;
   coverLeaveAnimationFactory: AnimationFactory | undefined;
 
@@ -123,7 +127,9 @@ export class LayerContainerComponent {
         throw 'invalid layer';
       }
 
-      this.wormhole.connect(this.mergedLayerAttrs);
+      this.eventSub = this.wormhole.connect(this.mergedLayerAttrs, this.layerOpts.events).subscribe(event => {
+        this.layerRef.event(event);
+      });
       if (this.boxEnterAnimationFactory && this.box) {
         this.boxEnterAnimationFactory.create(this.box.nativeElement).play();
       }
@@ -162,9 +168,8 @@ export class LayerContainerComponent {
   }
 
   ngOnDestroy() {
-    if (this.wormhole) {
-      this.wormhole.disconnect();
-    }
+    this.wormhole && this.wormhole.disconnect();
+    this.eventSub && this.eventSub.unsubscribe();
   }
 
   triggerOffClick(event) {

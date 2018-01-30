@@ -1,19 +1,20 @@
 import { Component, HostListener, ViewChild, Inject } from '@angular/core';
 import { LayerService, LayerRef } from '@ng-vcl/ng-vcl';
 import { FooLayer, FooComponent } from './foo.layer';
+import { BarComponent } from './bar.component';
 
 @Component({
   templateUrl: 'demo.component.html',
 })
 export class LayerDemoComponent {
 
-  private dynamicFooLayerRef: LayerRef;
+  private dynamicBarLayerRef: LayerRef;
 
   constructor(
     private layerService: LayerService,
     private fooLayerRef: FooLayer
   ) {
-    this.dynamicFooLayerRef = this.layerService.create(FooComponent, {
+    this.dynamicBarLayerRef = this.layerService.create(BarComponent, {
       modal: true
     });
   }
@@ -45,9 +46,9 @@ export class LayerDemoComponent {
     });
   }
 
-  openDynamicFooLayer() {
-    this.dynamicFooLayerRef.open({
-      title: 'FooComponent via layerService.create'
+  openBarLayer() {
+    this.dynamicBarLayerRef.open({
+      title: 'BarComponent via layerService.create'
     }).subscribe(data => {
       // Layer sends data
       console.log(data);

@@ -34,13 +34,21 @@ import { Layer, LayerRef, ComponentLayerRef, provideLayer } from '@ng-vcl/ng-vcl
 @Component({ ... })
 export class MyComponent { 
 
+  @Output()
+  greet = new EventEmitter();
+
   // layerRef is a reference to the current layer. 
   // Its value is null when the component is not used as a layer
-  constructor(private layerRef: LayerRef) { }
+  constructor(@Optional() private layerRef: LayerRef) { }
 
   closeMe() {
     // Close the layer
     this.layerRef.close();
+  }
+
+  onGreet() {
+    // Sends data to event() method in the layer class if event is defined in @Layer
+    this.greet.emit('Hello');
   }
 
   sendData() {
@@ -52,9 +60,17 @@ export class MyComponent {
 // This is the reference class of the layer
 @Layer(MyComponent, {
   // See vcl-layer attributes below for more options
-  modal: true; // modal options
+  modal: true,
+  events: ['greet']
 }) 
-export class MyLayer extends LayerRef { ... }
+export class MyLayer extends LayerRef { 
+  event(event) {
+    switch (event.type) {
+      case 'greet':
+        ...
+    }
+  }
+}
 ```
 
 A component layer must be registered.
@@ -71,30 +87,30 @@ A component layer must be registered.
   declarations: [ MyComponent, ... ],
   ...
 })
-export default class AppModule { };
+export default class AppModule {  };
 ```
 
 #### Using the layers
 ```js
-import { LayerService, LayerRef } from 'ng-vcl';
+import { LayerRef } from '@ng-vcl/ng-vcl';
+import { MyLayer } from './my-layer';
 
 @Component({ ... })
 export class LayerDemoComponent {
   constructor(
-    private layer: LayerService          // The layer service
-    private myComponentLayerRef: MyLayer // This is the reference to the component layer
+    private myComponentLayer: MyLayer // This is the reference to the component layer
   ) {}
 
   openComponentLayer() {
-    this.myComponentLayerRef.open();
+    this.myComponentLayer.open();
   }
 
   // This is the reference to the template layer
   @ViewChild('myTemplateLayer')
-  myTemplateLayerRef: LayerRef;
+  myTemplateLayer: LayerRef;
 
   openTemplateLayer() {
-    this.myTemplateLayerRef.open();
+    this.myTemplateLayer.open();
   }
 }
 ```
@@ -105,7 +121,7 @@ The open() method allows to pass data to the layer and returns an Observable whi
 allows you to receive data from the layer.
 
 ```js
-this.myComponentLayerRef.open({
+this.myComponentLayer.open({
   // Set attributes on the component
   title: 'Component Layer'
 }).subscribe(data => {
@@ -122,9 +138,10 @@ this.myComponentLayerRef.open({
 ```js
 class LayerRef {
   open(data: LayerData): Observable<any>; // Opens the layer
-  close(data?: any); // Closes the layer
-  send(data: any); // Send data to the subscriber
+  close(data?: any);         // Closes the layer
+  send(data: any);           // Send data to the subscriber
   readonly visible: boolean; // true when the layer is visible
+  event(event);              // Override to catch Component @Output events
 }
 
 interface LayerData {
@@ -148,3 +165,5 @@ class LayerService {
 | `fill`              | boolean     | false    | Makes the layer cover the whole viewport
 | `stickToBottom`     | boolean     | false    | Makes the layer stick to the bottom
 | `gutterPadding`     | boolean     | false    | Add a padding of half the gutter width
+| `noLayerBox`        | boolean     | false    | Does not wrap the component in vclLayerBox div
+| `events`            | string      | []       | Listens to defined @Output events.

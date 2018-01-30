@@ -1,5 +1,5 @@
-import { Layer, LayerRef } from '@ng-vcl/ng-vcl';
-import { Component, Input, Injectable } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Layer, LayerRef, WormholeEvent } from '@ng-vcl/ng-vcl';
 
 @Component({
   templateUrl: 'foo.layer.html'
@@ -9,18 +9,35 @@ export class FooComponent {
   @Input()
   title: string;
 
-  constructor(private layerRef: LayerRef) { }
+  @Output()
+  close = new EventEmitter();
 
-  close() {
-    this.layerRef.close('close');
+  @Output()
+  send = new EventEmitter<string>();
+
+  onClose() {
+    this.close.emit();
   }
 
-  send() {
-    this.layerRef.send('send');
+  onSend() {
+    this.send.emit('send');
   }
 }
 
 @Layer(FooComponent, {
-  modal: true
+  modal: true,
+  events: ['close', 'send']
 })
-export class FooLayer extends LayerRef { }
+export class FooLayer extends LayerRef {
+
+  event(event: WormholeEvent) {
+    switch (event.type) {
+      case 'close':
+        this.close();
+        break;
+      case 'send':
+        this.send('send');
+        break;
+    }
+  }
+}

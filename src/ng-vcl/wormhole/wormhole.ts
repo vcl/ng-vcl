@@ -10,7 +10,7 @@ export interface WormholeAttributes {
 }
 
 export interface WormholeEvent {
-  event: string;
+  type: string;
   value: any;
 }
 

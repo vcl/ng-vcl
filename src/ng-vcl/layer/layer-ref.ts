@@ -1,6 +1,7 @@
 import { Injectable, ReflectiveInjector, Injector, ViewContainerRef, Directive, Input, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { WormholeEvent } from './../wormhole/index';
 import { LayerService } from './layer.service';
 
 export interface LayerAttributes {
@@ -69,6 +70,8 @@ export abstract class LayerRef {
       this.results.next(data);
     }
   }
+
+  event(event: WormholeEvent) { }
 }
 
 export class DynamicLayerRef extends LayerRef {
@@ -94,5 +97,11 @@ export class DynamicLayerRef extends LayerRef {
     super.closeWithError(data);
     this._unregister();
     this._registered = false;
+  }
+
+  event(event: WormholeEvent) {
+    if (this.results) {
+      this.results.next(event);
+    }
   }
 }
