@@ -8,7 +8,6 @@ import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
   VCLLayerModule, L10nModule, L10nStaticLoaderService
 } from '@ng-vcl/ng-vcl';
-import { StoreModule } from '@ng-vcl/store';
 import {
   LayerAnimationsModule, PopoverAnimationsModule,
   DropdownAnimationsModule,
@@ -33,7 +32,6 @@ import { routing, appRoutingProviders } from './app.routes';
     VCLIconModule,
     VCLNavigationModule,
     VCLLayerModule.forRoot(),
-    StoreModule.forRoot(),
     LayerAnimationsModule,
     PopoverAnimationsModule,
     DropdownAnimationsModule

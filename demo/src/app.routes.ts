@@ -465,16 +465,6 @@ export const routes: Routes = [
         category: 'Dependency Based',
       }
     }
-  },
-  {
-    loadChildren: './demos/store/demo.module#StoreDemoModule',
-    path: 'store',
-    data: {
-      demo: {
-        label: 'Store',
-        category: 'Dependency Based',
-      }
-    }
   }
 ];
 
