@@ -6,6 +6,9 @@
 
 ### Changes
 - (BREAKING) requires Angular ^5
+- checkbox:
+  - (BREAKING) Changed html structure
+  - (BREAKING) Removed support for labelPosition="top"
 
 ## 0.3.x (?)
 

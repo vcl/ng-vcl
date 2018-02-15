@@ -15,20 +15,18 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'vcl-checkbox',
+  selector: 'vcl-checkbox, [vcl-checkbox]',
   templateUrl: 'checkbox.component.html',
   animations: [trigger('checkState', [])],
   host: {
-    '[attr.role]': '"checkbox"',
-    '[class.vclCheckbox]': 'true',
-    '[style.userSelect]': '"none"'
+    '[class.vclInputInlineControlGroup]': 'true',
   },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxComponent implements ControlValueAccessor {
 
-  @HostBinding()
+  @Input()
   tabindex = 0;
 
   @Input()
@@ -37,19 +35,12 @@ export class CheckboxComponent implements ControlValueAccessor {
   @Input()
   uncheckedIcon: string = 'fa:square-o';
 
-  @HostBinding('attr.aria-disabled')
-  @HostBinding('class.vclDisabled')
   @Input()
   disabled: boolean = false;
 
   @Input()
   labelPosition: 'left' | 'top' | 'right' = 'right';
 
-  /**
-  Reflects the checked state, `true` is checked and `false` is unchecked
-  @public
-  */
-  @HostBinding('attr.checked')
   @Input()
   checked: boolean = false;
 
@@ -61,7 +52,6 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   constructor(private elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
-  @HostListener('keydown', ['$event'])
   onKeyup(e) {
     switch (e.code) {
       case 'Space':
@@ -91,7 +81,6 @@ export class CheckboxComponent implements ControlValueAccessor {
     return this.checked ? this.checkedIcon : this.uncheckedIcon;
   }
 
-  @HostListener('blur')
   onBlur(e) {
     this.onTouched();
   }
