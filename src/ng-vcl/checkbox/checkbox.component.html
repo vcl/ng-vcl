@@ -1,10 +1,10 @@
 <ng-template #cb>
   <div class="vclCheckbox" 
-      [class.vclDisabled]="disabled" 
+      [class.vclDisabled]="isDisabled" 
       role="checkbox" 
       [attr.tabindex]="tabindex" 
       [attr.aria-checked]="checked"
-      [attr.aria-disabled]="disabled"
+      [attr.aria-disabled]="isDisabled"
       (keyup)="onKeyup($event)"
       (blur)="onBlur()"
       >
@@ -12,8 +12,9 @@
 </div>  
 </ng-template>
 
-<label vcl-form-control-label [wrapping]="true">
-  <ng-container *ngIf="labelPosition==='right'" [ngTemplateOutlet]="cb"></ng-container>
+<label vcl-form-control-label [wrapping]="true" [label]="label">
+  <ng-container *ngIf="iconPosition==='left'" [ngTemplateOutlet]="cb"></ng-container>
+  {{label | loc}}
   <ng-content></ng-content>
-  <ng-container *ngIf="labelPosition==='left'" [ngTemplateOutlet]="cb"></ng-container>
+  <ng-container *ngIf="iconPosition==='right'" [ngTemplateOutlet]="cb"></ng-container>
 </label>

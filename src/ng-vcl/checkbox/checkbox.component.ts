@@ -4,7 +4,6 @@ import { Component,
   OnChanges, SimpleChanges, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, ElementRef
 } from '@angular/core';
-import { trigger } from '@angular/animations';
 import { Observable } from 'rxjs/Observable';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -17,12 +16,12 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-checkbox, [vcl-checkbox]',
   templateUrl: 'checkbox.component.html',
-  animations: [trigger('checkState', [])],
-  host: {
-    '[class.vclInputInlineControlGroup]': 'true',
-  },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.vclInputInlineControlGroup]': 'inline === true',
+    '[class.vclInputControlGroup]': 'inline === false'
+  }
 })
 export class CheckboxComponent implements ControlValueAccessor {
 
@@ -36,10 +35,16 @@ export class CheckboxComponent implements ControlValueAccessor {
   uncheckedIcon: string = 'fa:square-o';
 
   @Input()
+  label?: string;
+
+  @Input()
   disabled: boolean = false;
 
   @Input()
-  labelPosition: 'left' | 'top' | 'right' = 'right';
+  inline: boolean = true;
+
+  @Input()
+  iconPosition: 'left' | 'right' = 'left';
 
   @Input()
   checked: boolean = false;
@@ -50,7 +55,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   @Output()
   checkedChange = new EventEmitter<boolean>();
 
-  constructor(private elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   onKeyup(e) {
     switch (e.code) {
@@ -68,7 +73,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   }
 
   updateValue() {
-    if (this.disabled) {
+    if (this.isDisabled) {
       return;
     }
     this.checked = !this.checked;
@@ -79,6 +84,10 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   get icon() {
     return this.checked ? this.checkedIcon : this.uncheckedIcon;
+  }
+
+  get isDisabled() {
+    return this.cvaDisabled || this.disabled;
   }
 
   onBlur(e) {
@@ -101,8 +110,10 @@ export class CheckboxComponent implements ControlValueAccessor {
   registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
+  // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
+  private cvaDisabled = false;
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this.cvaDisabled = isDisabled;
     this.cdRef.markForCheck();
   }
 }
