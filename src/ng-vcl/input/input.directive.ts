@@ -1,4 +1,6 @@
-import { Directive, Input, Output, ElementRef, HostListener, EventEmitter, HostBinding } from '@angular/core';
+import { Directive, Input, Output, ElementRef, HostListener,
+  EventEmitter, HostBinding, Renderer2, Renderer
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -19,7 +21,7 @@ const INPUT_INVALID_TYPES = [
 @Directive({
   selector: '[vcl-input]',
   host: {
-    '[class.vclInput]': 'true',
+    '[class.vclInput]': 'true'
   }
 })
 export class InputDirective {
@@ -34,7 +36,11 @@ export class InputDirective {
   @Input()
   disabled: boolean = false;
 
-  constructor(private elRef: ElementRef) { }
+  @HostBinding('class.vclPrepItem')
+  @Input()
+  vclPrepItem: boolean = false;
+
+  constructor(private renderer: Renderer, private elRef: ElementRef) {}
 
   ngOnInit() {
     if (INPUT_INVALID_TYPES.includes(this.type)) {
