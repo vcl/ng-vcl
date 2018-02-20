@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+
+@Component({
+  templateUrl: 'demo.component.html'
+})
+export class EmbeddedInputGroupDemoComponent {
+
+    someAction(event: any): void { console.log(event); }
+
+}
