@@ -137,6 +137,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
+    path: 'embedded-input-group',
+    data: {
+      demo: {
+        label: 'Embedded Input Group',
+        category: 'Form Controls',
+      }
+    }
+  },
+  {
     loadChildren: './demos/month-picker/demo.module#MonthPickerDemoModule',
     path: 'month-picker',
     data: {
