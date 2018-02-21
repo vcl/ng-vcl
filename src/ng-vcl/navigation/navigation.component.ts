@@ -126,7 +126,7 @@ export class NavigationItemDirective implements NavigationItem {
 }
 
 @Component({
-  selector: 'vcl-navigation',
+  selector: 'nav[vcl-navigation]',
   host: {
     '[class.vclNavigation]': 'true'
   },
