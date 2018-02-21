@@ -6,6 +6,13 @@
 
 ### Changes
 - (BREAKING) requires Angular ^5
+- link:
+  - (BREAKING) Must be with `a` tag: `<a vcl-link ...>`
+- nav:
+  - (BREAKING) Must be with `nav` tah: `<nav vcl-navigation ...>`
+- radio-button:
+  - (BREAKING) Changed html structure
+  - (BREAKING) Removed support for labelPosition and changed to iconPosition
 - checkbox:
   - (BREAKING) Changed html structure
   - (BREAKING) Removed support for labelPosition and changed to iconPosition
