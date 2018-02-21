@@ -1,16 +1,11 @@
 <vcl-icogram label="some label"></vcl-icogram>
 <br><br>
-<vcl-icogram label="icogram with accessible link" prepIcon="fa:chevron-right" href="http://example.org"></vcl-icogram>
+<vcl-icogram label="icogram with accessible link" prepIcon="fa:chevron-right"></vcl-icogram>
 <br><br>
 <vcl-icogram label="prep/app icons" prepIcon="fa:chevron-right" appIcon="fa:chevron-right"></vcl-icogram>
 <br><br>
-<vcl-icogram label="flexed label" appIcon="fa:chevron-right" flexLabel=true class="vclLayoutHorizontal"></vcl-icogram>
+<vcl-icogram label="flex label" appIcon="fa:chevron-right" flexLabel=true class="vclLayoutHorizontal"></vcl-icogram>
 <br><br>
-<vcl-icogram>
-  <vcl-icon icon="fa:cog" [label]="'settings'" hidden="false"></vcl-icon>
-</vcl-icogram>
+<vcl-icogram label="centered flex label" appIcon="fa:chevron-right" flexLabel=true flexLabelCentered=true class="vclLayoutHorizontal"></vcl-icogram>
 <br><br>
-<vcl-icogram>
-  <span class="vclText" flex>Prepended icon</span>
-  <div class="vclIcon fa fa-user" aria-hidden="true" aria-label="account" role="img"></div>
-</vcl-icogram>
+This is <span vcl-icogram label="an inline" prepIcon="fa:chevron-right" appIcon="fa:chevron-right"></span> icogram
