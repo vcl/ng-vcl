@@ -26,6 +26,10 @@ export class FormControlLabelComponent {
   @Input()
   subLabel: string | undefined;
 
+  @HostBinding('attr.for')
+  @Input()
+  for: string | undefined;
+
   // Whether the label wraps a control
   @Input()
   wrapping?: boolean;
@@ -34,15 +38,13 @@ export class FormControlLabelComponent {
   get vclFormControlLabelWrapping() {
     if (typeof this.wrapping === 'boolean') {
       return this.wrapping;
-    } else {
-      if (!this.label && !this.subLabel) {
-        // TODO reactivate when it is possible to determine ng-content with no sub-element
-        // If no label is provided wrap when content is defined
-        // This triggers only when content has at least one child element or is text
-        // return this.content && this.content.nativeElement && !isEmpty(this.content.nativeElement);
-        return true;
+    } else { // Auto-determine if wrapping label
+      // Not wrapping if "for" is defined
+      if (this.for || !this.content || !this.content.nativeElement) {
+        return false;
       }
-      return false;
+      // Wrapping if any ng-content is defined
+      return hasContent(this.content.nativeElement);
     }
   }
 
@@ -55,15 +57,17 @@ export class FormControlLabelComponent {
   requiredIndLabel: string;
 }
 
-function isEmpty(element: HTMLElement): boolean {
+function hasContent(element: HTMLElement): boolean {
   const nodes = Array.from(element.childNodes);
-  return nodes.every(node => {
+  return nodes.some(node => {
+    // Ignore empty text
     if (node.nodeType === 3 && node.textContent && node.textContent.trim().length === 0) {
-      return true;
+      return false;
     }
+    // Ignore comments
     if (node.nodeType === 8) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   });
 }

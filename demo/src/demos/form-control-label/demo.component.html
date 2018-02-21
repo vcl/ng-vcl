@@ -1,15 +1,18 @@
-<h3>Non-wrapping label:</h3>
-<label vcl-form-control-label label="Label 1" subLabel="Sub label 1" for="form-control-label-demo-checkbox-1"></label>
-<button vcl-button id="form-control-label-demo-checkbox-1" label="ClickMe!" (click)="onButtonClick()"></button>
+<h3>Stacked label:</h3>
+<label vcl-form-control-label label="Label 1" subLabel="Sub label 1" for="form-control-label-demo-1"></label>
+<input id="form-control-label-demo-1" class="vclInput" type="text">
 
 <h3>Wrapping label:</h3>
-
-<label vcl-form-control-label label="Label 2" subLabel="Sub label 2" [wrapping]="true">
-  <button vcl-button id="form-control-label-demo-checkbox-1" label="ClickMe!" (click)="onButtonClick()"></button>
+<label vcl-form-control-label label="Label 2" subLabel="Sub label 2">
+  <input class="vclInput" type="text">
 </label>
 
 <h3>Disabled label:</h3>
-<label vcl-form-control-label label="Label 3 (disabled)" disabled=true></label>
+<label vcl-form-control-label label="Label 3 (disabled)" disabled=true>
+  <input class="vclInput vclDisabled" disabled="disabled" type="text">
+</label>
 
 <h3>Required label:</h3>
-<label vcl-form-control-label label="Label 4 (required)" required=true requiredIndLabel="reqLabel"></label>
+<label vcl-form-control-label label="Label 4 (required)" required=true>
+  <input class="vclInput" type="text">
+</label>
