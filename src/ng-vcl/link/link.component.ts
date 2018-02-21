@@ -5,7 +5,7 @@ import { L10nService } from '../l10n/index';
 import { ObservableComponent } from '../core/index';
 
 @Component({
-  selector: '[vcl-link]',
+  selector: 'a[vcl-link]',
   templateUrl: 'link.component.html'
 })
 export class LinkComponent extends ObservableComponent {
