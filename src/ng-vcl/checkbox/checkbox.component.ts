@@ -14,13 +14,12 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'vcl-checkbox, [vcl-checkbox]',
+  selector: 'vcl-checkbox',
   templateUrl: 'checkbox.component.html',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[class.vclInputInlineControlGroup]': 'inline === true',
-    '[class.vclInputControlGroup]': 'inline === false'
+    '[class.vclInputControlGroup]': 'true',
   }
 })
 export class CheckboxComponent implements ControlValueAccessor {
@@ -39,9 +38,6 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   @Input()
   disabled: boolean = false;
-
-  @Input()
-  inline: boolean = true;
 
   @Input()
   iconPosition: 'left' | 'right' = 'left';
