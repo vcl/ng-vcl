@@ -1,9 +1,8 @@
 <h3>Checkable:</h3>
 <vcl-radio-button [(checked)]="isChecked" (checkedChange)="onChange($event)"></vcl-radio-button>
 <br/>
-<b>State:</b> {{isChecked}}
+<b>State:</b> {{isChecked}} - <a vcl-link (tap)="isChecked=false">Uncheck</a>
 <br>
-<button vcl-button (tap)="isChecked=false">Uncheck</button>
 
 <br>
 <h3>Disabled:</h3>
@@ -12,17 +11,17 @@
 <br>
 <h3>With label:</h3>
 
-<h4>right:</h4>
-<vcl-radio-button [(checked)]="isChecked2" label="rightLabel" labelPosition="right"></vcl-radio-button>
+<h4>icon left:</h4>
+<vcl-radio-button [(checked)]="isChecked2" label="label"></vcl-radio-button>
 
-<h4>left:</h4>
-<vcl-radio-button [(checked)]="isChecked3" label="leftLabel" labelPosition="left"></vcl-radio-button>
+<h4>icon right:</h4>
+<vcl-radio-button [(checked)]="isChecked3" label="label" iconPosition="right"></vcl-radio-button>
 
 <br>
 <h3>With custom content:</h3>
 
 <vcl-radio-button [(checked)]="isChecked4">
-  <vcl-icogram label="Yes" appIcon="fa:check"></vcl-icogram>
+  <span vcl-icogram label="Yes" appIcon="fa:check"></span>
 </vcl-radio-button>
 
 
@@ -39,11 +38,20 @@ State: {{rgValue1}}
 
 <vcl-radio-group [(ngModel)]="rgValue2">
   <vcl-radio-button [value]="'f'">
-    <vcl-icogram label="Female" appIcon="fa:venus"></vcl-icogram>
+    <span vcl-icogram label="Female" appIcon="fa:venus"></span>
   </vcl-radio-button>
   <vcl-radio-button [value]="'m'">
-    <vcl-icogram label="Male" appIcon="fa:mars"></vcl-icogram>
+    <span vcl-icogram label="Male" appIcon="fa:mars"></span>
   </vcl-radio-button>
 </vcl-radio-group>
 <br>
 State: {{rgValue2}}
+
+<h3>Vertical Radio Group:</h3>
+
+<vcl-radio-group [(ngModel)]="rgValue3" [layout]="'vertical'">
+  <vcl-radio-button label="Value 1"></vcl-radio-button>
+  <vcl-radio-button label="Value 2"></vcl-radio-button>
+</vcl-radio-group>
+<br>
+State: {{rgValue3}}

@@ -22,9 +22,9 @@ let uniqueID = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   host: {
-    '[attr.role]': '"radio"',
-    '[class.vclRadioButton]': 'true'
-  }
+    '[style.display]': 'inline === true ? "inline-block" : null',
+    '[class.vclInputControlGroup]': 'inline === false',
+  },
 })
 export class RadioButtonComponent implements ControlValueAccessor {
 
@@ -47,17 +47,17 @@ export class RadioButtonComponent implements ControlValueAccessor {
   value: any;
 
   @Input()
-  labelPosition: 'left' | 'right' = 'right';
+  inline: boolean = false;
+
+  @Input()
+  iconPosition: 'left' | 'right' = 'left';
 
   @Input()
   label: string;
 
-  @HostBinding()
   @Input()
   tabindex = 0;
 
-  @HostBinding('attr.aria-checked')
-  @HostBinding('attr.checked')
   @Input()
   checked: boolean = false;
 
@@ -72,14 +72,17 @@ export class RadioButtonComponent implements ControlValueAccessor {
 
   focused = true;
 
-  get radioID(): string {
-    return this.id || this.uniqueID;
+  get isDisabled() {
+    return this.cvaDisabled || this.disabled;
   }
 
-  constructor(private elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
+  get icon() {
+    return this.checked ? this.checkedIcon : this.uncheckedIcon;
+  }
 
-  @HostListener('keydown', ['$event'])
-  onKeydown(e: KeyboardEvent) {
+  constructor(private cdRef: ChangeDetectorRef) { }
+
+  onKeyup(e: KeyboardEvent) {
     switch (e.code) {
       case 'Space':
         this.triggerChangeAction(e);
@@ -99,7 +102,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
     }
 
     // radio-buttons cannot be 'unchecked' by definition
-    if (this.checked == true) {
+    if (this.checked === true) {
       return;
     }
 
@@ -111,6 +114,11 @@ export class RadioButtonComponent implements ControlValueAccessor {
 
   setChecked(value: boolean) {
     this.checked = value;
+    this.cdRef.markForCheck();
+  }
+
+  setInline(value: boolean) {
+    this.inline = value;
     this.cdRef.markForCheck();
   }
 
@@ -146,11 +154,5 @@ export class RadioButtonComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean) {
     this.cvaDisabled = isDisabled;
     this.cdRef.markForCheck();
-  }
-
-  @HostBinding('attr.aria-disabled')
-  @HostBinding('class.vclDisabled')
-  get isDisabled() {
-    return this.cvaDisabled || this.disabled;
   }
 }

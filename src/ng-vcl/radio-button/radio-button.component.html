@@ -1,11 +1,21 @@
-<ng-container *ngIf="labelPosition==='left'">
-  <label vcl-form-control-label [label]="label" [attr.for]="radioID" (tap)="onTap($event)">
-    <ng-content></ng-content>
-  </label>
-</ng-container>
-<vcl-icon [icon]="checked ? checkedIcon : uncheckedIcon"></vcl-icon>
-<ng-container *ngIf="labelPosition==='right'">
-  <label vcl-form-control-label [label]="label" [attr.for]="radioID" (tap)="onTap($event)">
-    <ng-content></ng-content>
-  </label>
-</ng-container>
+<ng-template #rb>
+  <div class="vclRadioButton" 
+      [class.vclDisabled]="isDisabled" 
+      role="radio" 
+      [attr.tabindex]="tabindex" 
+      [attr.aria-checked]="checked"
+      [attr.aria-disabled]="isDisabled"
+      (keyup)="onKeyup($event)"
+      (blur)="onBlur()"
+      >
+  <div vcl-icon [icon]="icon"></div>
+</div>  
+</ng-template>
+
+<label vcl-form-control-label [wrapping]="true">
+  <ng-container *ngIf="iconPosition==='left'" [ngTemplateOutlet]="rb"></ng-container>
+  {{label | loc}}  
+  <ng-content></ng-content>
+  <ng-container *ngIf="iconPosition==='right'" [ngTemplateOutlet]="rb"></ng-container>
+</label>
+  

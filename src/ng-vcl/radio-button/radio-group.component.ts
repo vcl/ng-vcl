@@ -21,19 +21,31 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   template: `<ng-content></ng-content>`,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    'attr.role': '"radiogroup"'
+  }
 })
 export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
+  changesSub: Subscription | undefined;
   checkedSub: Subscription | undefined;
   blurSub: Subscription | undefined;
 
   value: any;
+
+  @Input()
+  layout: 'horizontal' | 'vertical' = 'horizontal';
 
   @Output()
   change = new EventEmitter<any>();
 
   @ContentChildren(RadioButtonComponent)
   radioButtons: QueryList<RadioButtonComponent> | undefined;
+
+  @HostBinding('class.vclInputInlineControlGroup')
+  get vclInputInlineControlGroup() {
+    return this.layout === 'horizontal';
+  }
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
@@ -68,39 +80,42 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
   ngAfterContentInit() {
     // Subscribes to radio button change event
-    const listenChange = () => {
+    this.changesSub = this.radioButtons && this.radioButtons.changes.startWith(null).subscribe(() => {
       this.dispose();
       if (this.radioButtons) {
-        const checked$ = Observable.merge(...(this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.map(() => ({rbtn, idx})))));
+        // Sync inline property
+        this.radioButtons && this.radioButtons.forEach((crbtn) => {
+          crbtn.setInline(this.layout === 'horizontal');
+        });
 
+        // Subscribe last radio button to blur event
         this.blurSub = this.radioButtons.last.blur.subscribe(() => {
           this.onTouched();
         });
 
-        this.checkedSub = checked$.subscribe((source) => {
+        // Subscribe to checked change event
+        const checked$ = Observable.merge(...(this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.map(() => rbtn))));
+        this.checkedSub = checked$.subscribe((srcRBtn) => {
           if (this.radioButtons) {
-            this.radioButtons && this.radioButtons.forEach((crbtn) => {
-              crbtn.setChecked(crbtn === source.rbtn);
+            this.radioButtons && this.radioButtons.forEach((rBtn) => {
+              rBtn.setChecked(rBtn === srcRBtn);
             });
             this.syncValue();
             this.triggerChange();
           }
         });
       }
-    };
-
-    this.radioButtons && this.radioButtons.changes.startWith(null).subscribe(() => {
-      listenChange();
     });
   }
 
   ngOnDestroy() {
     this.dispose();
+    this.changesSub && this.changesSub.unsubscribe();
   }
 
   dispose() {
-    this.checkedSub && this.checkedSub.unsubscribe();
     this.blurSub && this.blurSub.unsubscribe();
+    this.checkedSub && this.checkedSub.unsubscribe();
   }
 
    /**

@@ -15,24 +15,24 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-navigation #nav1 (navigate)="onNavigate($event)">
+<nav vcl-navigation #nav1 (navigate)="onNavigate($event)">
   <vcl-navitem label="Home" prepIcon="fa:home" [route]="['/']"></vcl-navitem>
   <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']"></vcl-navitem>
   <vcl-navitem label="Contact" prepIcon="fa:envelope" [route]="['/contact']"></vcl-navitem>
-</vcl-navigation>
+</nav>
 ```
 
 ## Nested:
 
 ```html
-<vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
+<nav vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
   <vcl-navitem  label="Home" [route]="['/']"></vcl-navitem>
   <vcl-navitem label="Products" appIcon="fa:bicycle">
     <vcl-navitem label="Product 1" [route]="['/product', 1]"></vcl-navitem>
     <vcl-navitem label="Product 2" [route]="['/product', 2]"></vcl-navitem>
   </vcl-navitem>
   <vcl-navitem label="Contact" [route]="['/contact']"></vcl-navitem>
-</vcl-navigation>
+</nav>
 ```
 
 ### API

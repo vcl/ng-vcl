@@ -29,9 +29,10 @@ A radio button utilizing `vcl-icon`
 
 #### vcl-radio-group attributes:
 
-| Name                  | Type                   | Default  | Description
-| --------------------- | ---------------------- | -------- |--------------
-| `ngModel`             | any                    |          | Value of the checked radio button
+| Name                  | Type                          | Default      | Description
+| --------------------- | ----------------------        | --------     |--------------
+| `ngModel`             | any                           |              | Value of the checked radio button
+| `layout`              | 'horizontal &#124; 'vertical' | 'horizontal' | 
 
 #### vcl-radio-group events:
 | Name                  | Type    | Description
