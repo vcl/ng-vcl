@@ -14,8 +14,8 @@ export class EmbeddedInputDirective implements OnDestroy {
   // Listen to property changes in the input group
   changesSub = this.inputGroup && this.inputGroup.change$.subscribe(() => {
     if (this.inputGroup) {
-      this.vclPrepItem = !!this.inputGroup.prependButtonIcon || !!this.inputGroup.prependIcon;
-      this.vclAppItem = !!this.inputGroup.appendButtonIcon;
+      this.vclPrepItem = !!this.inputGroup.prepIcon || !!this.inputGroup.prepIcon;
+      this.vclAppItem = !!this.inputGroup.appButtonIcon;
     }
   });
 

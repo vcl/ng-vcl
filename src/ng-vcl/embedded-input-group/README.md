@@ -8,13 +8,13 @@ Adds the possibility to prepend and append icons or buttons inside of input fiel
 
 ```html
 Button on the right
-<vcl-embedded-input-group appendButtonIcon="fa:search" (appendButtonTap)="someAction($event)">
+<vcl-embedded-input-group appButtonIcon="fa:search" (appButtonTap)="someAction($event)">
   <input vcl-input vcl-embedded-input type="text" />
 </vcl-embedded-input-group>
 
 Left icon and button on the right
-<vcl-embedded-input-group prependIcon="fa:cog" appendButtonIcon="fa:times-circle"
-  (appendButtonTap)="someAction($event)">
+<vcl-embedded-input-group prepIcon="fa:cog" appButtonIcon="fa:times-circle"
+  (appButtonTap)="someAction($event)">
   <input vcl-input vcl-embedded-input type="text" />
 </vcl-embedded-input-group>
 
@@ -26,16 +26,16 @@ Left icon and button on the right
 
 | Name                                | Type        | Default            | Description
 | ----------------------------------  | ----------- | ------------------ |--------------
-| `prependIcon`                       | string      |                    | left icon
-| `prependButtonIcon`                 | string      |                    | left button icon
-| `appendButtonIcon`                  | string      |                    | right button icon
+| `prepIcon`                          | string      |                    | left icon
+| `prepButtonIcon`                    | string      |                    | left button icon
+| `appButtonIcon`                     | string      |                    | right button icon
 
 #### vcl-embedded-input-group events:
 
 Name                  | Type             | Description
 --------------------- | ---------------  | -
-`prependButtonTap`    | Event            | emits when the left button is clicked
-`appendButtonTap`     | Event            | emits when the right button is clicked
+`prepButtonTap`       | Event            | emits when the left button is clicked
+`appButtonTap`        | Event            | emits when the right button is clicked
 
 
 To use with vcl-input add the vcl-embedded-input directive 

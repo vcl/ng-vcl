@@ -14,23 +14,23 @@ import { ObservableComponent } from '../core/index';
 })
 export class EmbeddedInputGroupComponent extends ObservableComponent {
 
-  change$ = this.observeChanges('prependIcon', 'prependButtonIcon', 'appendIcon').map(() => undefined);
+  change$ = this.observeChanges('prepIcon', 'prepButtonIcon', 'appendIcon').map(() => undefined);
 
   @Input()
-  prependIcon?: string;
+  prepIcon?: string;
 
   @Input()
-  prependButtonIcon?: string;
+  prepButtonIcon?: string;
 
   @Input()
   appendIcon?: string;
 
   @Input()
-  appendButtonIcon?: string;
+  appButtonIcon?: string;
 
   @Output()
-  prependButtonTap: EventEmitter<Event> = new EventEmitter();
+  prepButtonTap: EventEmitter<Event> = new EventEmitter();
 
   @Output()
-  appendButtonTap: EventEmitter<Event> = new EventEmitter();
+  appButtonTap: EventEmitter<Event> = new EventEmitter();
 }
