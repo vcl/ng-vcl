@@ -103,11 +103,7 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="'checkbox'">
-        <label vcl-form-control-label wrapping=true [for]="fo.id">
-          <vcl-checkbox [id]="fo.id" [formControlName]="fo.key">
-            <label vcl-form-control-label [label]="fo.label"></label>
-          </vcl-checkbox>
-        </label>
+        <vcl-checkbox [id]="fo.id" [formControlName]="fo.key" [label]="fo.label"></vcl-checkbox>
       </ng-container>
 
       <ng-container *ngSwitchCase="'radio'">
