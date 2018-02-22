@@ -36,10 +36,6 @@ export class InputDirective {
   @Input()
   disabled: boolean = false;
 
-  @HostBinding('class.vclPrepItem')
-  @Input()
-  vclPrepItem: boolean = false;
-
   constructor(private renderer: Renderer, private elRef: ElementRef) {}
 
   ngOnInit() {

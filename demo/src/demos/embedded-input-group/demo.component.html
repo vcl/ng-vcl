@@ -1,33 +1,36 @@
 
 Icon left and placeholder text
-<vcl-embedded-input-group [prependIcon]='true' prependedIconClasses="fa:search">
-  <input vcl-input vclPrepItem='true' type="text" placeholder="placeholder text" />
+<vcl-embedded-input-group prependIcon="fa:search">
+  <input vcl-input vcl-embedded-input type="text" placeholder="placeholder text" />
 </vcl-embedded-input-group>
 
 Button left
-<vcl-embedded-input-group [prependButton]='true' prependedButtonIconClasses="fa:search" (prependedButtonEventListner)="someAction($event)">
-  <input vcl-input vclPrepItem='true' type="text" />
+<vcl-embedded-input-group prependButtonIcon="fa:search" (prependButtonTap)="someAction($event)">
+  <input vcl-input vcl-embedded-input vclPrepItem="true" type="text" />
 </vcl-embedded-input-group>
 
 Placeholder text and icon on the right 
-<vcl-embedded-input-group [appendIcon]='true' appendedIconClasses="fa:times-circle">
-  <input vcl-input type="text" placeholder='Postcode, City, Name of the Workshop' />
+<vcl-embedded-input-group appendIcon="fa:times-circle">
+  <input vcl-input vcl-embedded-input type="text" placeholder="Postcode, City, Name of the Workshop" />
 </vcl-embedded-input-group>
 
 Button on the right
-<vcl-embedded-input-group [appendButton]='true' appendedButtonIconClasses="fa:search" (appendedButtonEventListner)="someAction($event)">
-  <input vcl-input type="text" />
+<vcl-embedded-input-group appendButtonIcon="fa:search" (appendButtonTap)="someAction($event)">
+  <input vcl-input vcl-embedded-input type="text" />
 </vcl-embedded-input-group>
 
 Left icon and button on the right
-<vcl-embedded-input-group [prependIcon]='true' prependedIconClasses="fa fa-cog" [appendButton]='true' appendedButtonIconClasses="fa:times-circle"
-  (appendedButtonEventListner)="someAction($event)">
-  <input vcl-input vclPrepItem='true' type="text" />
+<vcl-embedded-input-group prependIcon="fa:cog" appendButtonIcon="fa:times-circle"
+  (appendButtonTap)="someAction($event)">
+  <input vcl-input vcl-embedded-input type="text" />
 </vcl-embedded-input-group>
 
-Iconon the left and buttons on the right
-<vcl-embedded-input-group [appendButton]='true' appendedButtonIconClasses="fa:search" (appendedButtonEventListner)="someAction($event)"
-  [outSideAppendButton]='true' (outSideAppendedButtonEventListner)="someAction($event)" outSideAppendedButtonLabel="GO"
-  [prependIcon]='true' prependedIconClasses="fa fa-cog">
-  <input vcl-input type="text" vclPrepItem='true' />
-</vcl-embedded-input-group>
+Combined with Input-group
+<div class="vclInputGroup">
+  <vcl-embedded-input-group appendButtonIcon="fa:search" (appendButtonTap)="someAction($event)" prependIcon="fa:cog">
+    <input vcl-input vcl-embedded-input type="text" />
+  </vcl-embedded-input-group>
+  <div class="vclInputGroupButton">
+    <button vcl-button class="vclButton" label="GO" (tap)="someAction($event)"></button>
+  </div>
+</div>

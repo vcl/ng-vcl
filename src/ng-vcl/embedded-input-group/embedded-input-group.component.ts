@@ -1,44 +1,36 @@
-import { Component, Output, EventEmitter, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterViewInit, ViewChild, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
+import { ObservableComponent } from '../core/index';
 
 @Component({
   selector: 'vcl-embedded-input-group, [vcl-embedded-input-group]',
-  templateUrl: 'embedded-input-group.component.html'
+  templateUrl: 'embedded-input-group.component.html',
+  host: {
+    '[class.vclInputGroupEmb]': 'true',
+    '[style.display]': '"block"'
+  }
 })
-export class EmbeddedInputGroup {
+export class EmbeddedInputGroupComponent extends ObservableComponent {
 
-  @Input() placeholder: string = '';
+  change$ = this.observeChanges('prependIcon', 'prependButtonIcon', 'appendIcon').map(() => undefined);
 
-  @Input() prependIcon: boolean = false;
-  @Input() prependedIconClasses: string;
+  @Input()
+  prependIcon?: string;
 
-  @Input() prependButton: boolean = false;
-  @Input() prependedButtonIconClasses: string;
-  @Output() prependedButtonEventListner: EventEmitter<any> = new EventEmitter();
+  @Input()
+  prependButtonIcon?: string;
 
-  @Input() appendIcon: boolean = false;
-  @Input() appendedIconClasses: string;
+  @Input()
+  appendIcon?: string;
 
-  @Input() appendButton: boolean = false;
-  @Input() appendedButtonIconClasses: string;
-  @Output() appendedButtonEventListner: EventEmitter<any> = new EventEmitter();
+  @Input()
+  appendButtonIcon?: string;
 
-  @Input() outSideAppendButton: boolean = false;
-  @Input() outSideAppendedButtonIconClasses: string;
-  @Input() outSideAppendedButtonLabel: string;
-  @Output() outSideAppendedButtonEventListner: EventEmitter<any> = new EventEmitter();
+  @Output()
+  prependButtonTap: EventEmitter<Event> = new EventEmitter();
 
-  appendedButtonEventTrigger(event: Event): void {
-    this.appendedButtonEventListner.emit(event);
-  }
-
-  prependedButtonEventTrigger(event: Event): void {
-    this.prependedButtonEventListner.emit(event);
-  }
-
-  outSideAppendedButtonEventTrigger(event: Event): void {
-    this.outSideAppendedButtonEventListner.emit(event);
-  }
-
+  @Output()
+  appendButtonTap: EventEmitter<Event> = new EventEmitter();
 }

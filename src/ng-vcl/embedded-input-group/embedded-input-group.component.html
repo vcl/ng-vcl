@@ -1,30 +1,17 @@
-<div [ngClass]="{'vclInputGroup': outSideAppendButton}">
-  <div class="vclInputGroupEmb">
-    <div *ngIf='prependIcon' class="vclPrepended">
-      <vcl-icon iconClass="vclIcon" [icon]='prependedIconClasses'></vcl-icon>
-    </div>
+<div *ngIf='prependIcon && !prependButtonIcon' class="vclPrepended">
+  <vcl-icon iconClass="vclIcon" [icon]='prependIcon'></vcl-icon>
+</div>
 
-    <div *ngIf='prependButton' class="vclPrepended">
-      <button vcl-button (tap)="prependedButtonEventTrigger($event)" [prepIcon]='prependedButtonIconClasses' class="vclTransparent vclSquare"></button>
-    </div>
+<div *ngIf='prependButtonIcon' class="vclPrepended">
+  <button vcl-button (tap)="prependButtonTap.emit($event)" [prepIcon]='prependButtonIcon' class="vclTransparent vclSquare"></button>
+</div>
 
+<ng-content></ng-content>
 
-    <ng-content></ng-content>
+<div *ngIf='appendIcon' class="vclAppended">
+  <vcl-icon iconClass="vclIcon" [icon]='appendIcon'></vcl-icon>
+</div>
 
-    <!--  <input vcl-input [vclPrepItem]='prependIcon || prependButton' type="text" [placeholder]="placeholder" [(ngModel)]="inputData"  /> -->
-
-    <div *ngIf='appendIcon' class="vclAppended">
-      <vcl-icon iconClass="vclIcon" [icon]='appendedIconClasses'></vcl-icon>
-    </div>
-
-    <div *ngIf='appendButton' class="vclAppended">
-      <button vcl-button (tap)="appendedButtonEventTrigger($event)" [prepIcon]="appendedButtonIconClasses" class="vclTransparent vclSquare vclAppended"></button>
-    </div>
-  </div>
-
-  <div *ngIf='outSideAppendButton' class="vclInputGroupButton">
-    <button vcl-button (tap)="outSideAppendedButtonEventTrigger($event)" [prepIcon]="outSideAppendedButtonIconClasses" [label]="outSideAppendedButtonLabel"
-      [title]="outSideAppendedButtonLabel">
-    </button>
-  </div>
+<div *ngIf='appendButtonIcon' class="vclAppended">
+  <button vcl-button (tap)="appendButtonTap.emit($event)" [prepIcon]="appendButtonIcon" class="vclTransparent vclSquare vclAppended"></button>
 </div>

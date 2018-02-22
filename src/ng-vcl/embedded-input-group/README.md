@@ -2,49 +2,44 @@
 
 Embedded-Input-Group
 
-Adds the possibility to prepend and append icons or buttons inside of input fields. It is also possible to append a button outside of the input field.
+Adds the possibility to prepend and append icons or buttons inside of input fields.
 
 ## Usage:
 
 ```html
-Left icon and button on the right
-<vcl-embedded-input-group [prependIcon]='true' prependedIconClasses="fa fa-cog" [appendButton]='true' appendedButtonIconClasses="fa:times-circle"
-  (appendedButtonEventListner)="someAction($event)">
-  <input vcl-input vclPrepItem='true' type="text" />
+Button on the right
+<vcl-embedded-input-group appendButtonIcon="fa:search" (appendButtonTap)="someAction($event)">
+  <input vcl-input vcl-embedded-input type="text" />
 </vcl-embedded-input-group>
 
-Iconon the left and buttons on the right
-<vcl-embedded-input-group [appendButton]='true' appendedButtonIconClasses="fa:search" (appendedButtonEventListner)="someAction($event)"
-  [outSideAppendButton]='true' (outSideAppendedButtonEventListner)="someAction($event)" outSideAppendedButtonLabel="GO"
-  [prependIcon]='true' prependedIconClasses="fa fa-cog">
-  <input vcl-input type="text" vclPrepItem='true' />
+Left icon and button on the right
+<vcl-embedded-input-group prependIcon="fa:cog" appendButtonIcon="fa:times-circle"
+  (appendButtonTap)="someAction($event)">
+  <input vcl-input vcl-embedded-input type="text" />
 </vcl-embedded-input-group>
+
 ```
 
 ### API
 
-#### Properties:
+#### vcl-embedded-input-group attributes:
 
 | Name                                | Type        | Default            | Description
 | ----------------------------------  | ----------- | ------------------ |--------------
-| `prependIcon`                       | boolean     | false              | enable
-| `prependedIconClasses`              | string      | undifind           | CSS classes  
-| `prependButton`                     | boolean     | false              | enable
-| `prependedButtonIconClasses`        | string      | undifind           | CSS classes  
-| `prependedButtonEventListner`       | Function    |                    | function 
-| `appendIcon`                        | boolean     | false              | enable 
-| `appendedIconClasses`               | string      | undifind           | CSS classes  
-| `appendButton`                      | boolean     | false              | enable 
-| `appendedButtonIconClasses`         | string      | undifind           | CSS classes  
-| `appendedButtonEventListner`        | Function    |                    | function 
-| `outSideAppendButton`               | boolean     | false              | enable 
-| `outSideAppendedButtonIconClasses`  | string      | undifind           | CSS classes   
-| `outSideAppendedButtonLabel`        | string      | undifind           | label 
-| `outSideAppendedButtonEventListner` | Function    |                    | function 
+| `prependIcon`                       | string      |                    | left icon
+| `prependButtonIcon`                 | string      |                    | left button icon
+| `appendButtonIcon`                  | string      |                    | right button icon
+
+#### vcl-embedded-input-group events:
+
+Name                  | Type             | Description
+--------------------- | ---------------  | -
+`prependButtonTap`    | Event            | emits when the left button is clicked
+`appendButtonTap`     | Event            | emits when the right button is clicked
 
 
-To use with vcl-input add vclPrepItem='true' to input. 
+To use with vcl-input add the vcl-embedded-input directive 
 
 ```html
-  <input vcl-input vclPrepItem='true' type="text" />
+  <input vcl-input vcl-embedded-input-group type="text" />
 ```
