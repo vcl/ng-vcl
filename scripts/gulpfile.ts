@@ -6,6 +6,7 @@ import PACKAGES from './packages';
 
 const SOURCE_FOLDER = root('src');
 const pkgNames = Object.keys(PACKAGES);
+const NPM_CMD = /^win/.test(process.platform) ? 'npm.cmd' : 'npm';
 
 // Compile typescript files
 task(`build:tsc`, () => {
@@ -27,19 +28,17 @@ pkgNames.forEach(pkg => {
   });
 
   const dist =  root(`dist/@ng-vcl/${pkg}/`);
-
   task(`publish:${pkg}`, () => {
     const params = ['publish', '--access=public'];
 
-    return exec('npm', params, {
+    return exec(NPM_CMD, params, {
       cwd: dist
     });
   });
 
   task(`publish:next:${pkg}`, () => {
     const params = ['publish', '--access=public', '--tag=next'];
-
-    return exec('npm', params, {
+    return exec(NPM_CMD, params, {
       cwd: dist
     });
   });
