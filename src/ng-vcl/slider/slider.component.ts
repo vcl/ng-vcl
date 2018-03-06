@@ -110,6 +110,9 @@ export class SliderComponent implements ControlValueAccessor {
     if ('min' in  changes || 'max' in  changes || 'scale' in  changes) {
       this.updateScalePoints();
     }
+    if ('value' in  changes) {
+      this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
+    }
   }
 
   setValue(value: number, updateKnob: boolean) {

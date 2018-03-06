@@ -40,3 +40,4 @@ export * from './zoom-box/index';
 export * from './notification/index';
 export * from './gallery/index';
 export * from './badge/index';
+export * from './embedded-input-group/index';

@@ -12,6 +12,7 @@ export class RadioButtonDemoComponent {
 
   rgValue1 = 1;
   rgValue2 = 'f';
+  rgValue3 = 0;
 
   onChange(value) {
     console.log('radio-button onChange fired');

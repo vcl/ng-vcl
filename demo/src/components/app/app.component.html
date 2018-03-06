@@ -31,7 +31,7 @@
           appIcon="fa:times-circle"></button>
       </div>
 
-      <vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex"
+      <nav vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex"
         [type]="'vertical'"
         [useRouter]="true"
         [subLevelHintIconSide]="'left'"
@@ -50,7 +50,7 @@
           </vcl-navitem>
         </ng-template>
 
-      </vcl-navigation>
+      </nav>
     </div>
     <div class="vclScrollable vclLayoutFlex docContent">
       <router-outlet></router-outlet>

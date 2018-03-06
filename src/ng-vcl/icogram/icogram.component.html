@@ -1,6 +1,16 @@
-<div vcl-icon *ngIf="prepIcon || prepIconSrc" [icon]="prepIcon" [src]="prepIconSrc"></div>
-<ng-content></ng-content>
-<span *ngIf="!!label" [class.vclLayoutFlex]="!!flexLabel" class="vclText">
-  {{label | loc}}
-</span>
-<div vcl-icon *ngIf="appIcon || appIconSrc" [icon]="appIcon" [src]="appIconSrc"></div>
+<ng-container *ngIf="!span; else spanTmp">
+  <div vcl-icon *ngIf="prepIcon || prepIconSrc" [icon]="prepIcon" [src]="prepIconSrc"></div>
+  <div *ngIf="!!label" [class.vclLayoutFlex]="!!flexLabel" [class.vclAlignCentered]="!!flexLabelCentered" class="vclText">
+    {{label | loc}}
+  </div>
+  <ng-content></ng-content>
+  <div vcl-icon *ngIf="appIcon || appIconSrc" [icon]="appIcon" [src]="appIconSrc"></div>
+</ng-container>
+<ng-template #spanTmp>
+  <span vcl-icon *ngIf="prepIcon || prepIconSrc" [icon]="prepIcon" [src]="prepIconSrc"></span>
+  <span *ngIf="!!label" class="vclText">
+    {{label | loc}}
+  </span>
+  <ng-content></ng-content>
+  <span vcl-icon *ngIf="appIcon || appIconSrc" [icon]="appIcon" [src]="appIconSrc"></span>
+</ng-template>

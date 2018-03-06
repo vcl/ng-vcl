@@ -23,7 +23,7 @@
         (tap)="selectItem(item)">
       </a>
 
-      <vcl-navigation *ngIf="item.items && item.items.length > 0"
+      <nav vcl-navigation *ngIf="item.items && item.items.length > 0"
           [inputItems]="item.items"
           [type]="type"
           [useRouter]="useRouter"
@@ -31,6 +31,6 @@
           [subLevelHintIconClosed]="subLevelHintIconClosed"
           [subLevelHintIconSide]="subLevelHintIconSide"
           (select)="onSubItemSelect($event)">
-      </vcl-navigation>
+      </nav>
     </li>
   </ul>

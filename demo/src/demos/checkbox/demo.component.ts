@@ -8,5 +8,4 @@ export class CheckboxDemoComponent {
   isChecked2 = false;
   isChecked3 = false;
   isChecked4 = false;
-  isChecked5 = false;
 }

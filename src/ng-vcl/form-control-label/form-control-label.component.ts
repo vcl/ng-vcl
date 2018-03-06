@@ -26,21 +26,48 @@ export class FormControlLabelComponent {
   @Input()
   subLabel: string | undefined;
 
-  // Whether the label wraps the control
-  @HostBinding('class.vclFormControlLabelWrapping')
+  @HostBinding('attr.for')
   @Input()
-  wrapping = false;
-  // TODO enable when it is possible to determine if there is ng-content
-  // without having to wrap ng-content in another span element
-  // get hasContent() {
-  //   return this.content.nativeElement.childNodes.length > 0;
-  // }
+  for: string | undefined;
 
-  // Whether an indicator that an input in to the labelled control is required
+  // Whether the label wraps a control
+  @Input()
+  wrapping?: boolean;
+
+  @HostBinding('class.vclFormControlLabelWrapping')
+  get vclFormControlLabelWrapping() {
+    if (typeof this.wrapping === 'boolean') {
+      return this.wrapping;
+    } else { // Auto-determine if wrapping label
+      // Not wrapping if "for" is defined
+      if (this.for || !this.content || !this.content.nativeElement) {
+        return false;
+      }
+      // Wrapping if any ng-content is defined
+      return hasContent(this.content.nativeElement);
+    }
+  }
+
+  // Whether an indicator that an input in to the labeled control is required
   @Input()
   required: boolean = false;
 
   // Accessible label for the required indicator
   @Input()
   requiredIndLabel: string;
+}
+
+function hasContent(element: HTMLElement): boolean {
+  const nodes = Array.from(element.childNodes);
+  return nodes.some(node => {
+    // Ignore empty text
+    if (node.nodeType === 3 && node.textContent && node.textContent.trim().length === 0) {
+      return false;
+    }
+    // Ignore comments
+    if (node.nodeType === 8) {
+      return false;
+    }
+    return true;
+  });
 }

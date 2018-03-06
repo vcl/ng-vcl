@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLRadioButtonModule, VCLButtonModule, VCLIcogramModule, VCLLinkModule } from '@ng-vcl/ng-vcl';
+import { VCLInputControlGroupModule, VCLButtonModule, VCLInputModule, VCLEmbeddedInputGroupModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { RadioButtonDemoComponent } from './demo.component';
+import { EmbeddedInputGroupDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Radio Button',
+    label: 'Embedded Input Group',
     tabs: {
-      Demo: RadioButtonDemoComponent,
+      Demo: EmbeddedInputGroupDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/ng-vcl/radio-button/README.md')
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/ng-vcl/embedded-input-group/README.md')
       },
       'demo.component.html': {
         type: 'pre',
@@ -22,26 +21,26 @@ export function demo() {
       'demo.component.ts': {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
-      }
-    }
+      },
+    },
   };
 }
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     DemoModule,
-    VCLRadioButtonModule,
-    VCLLinkModule,
-    VCLIcogramModule,
+    VCLInputControlGroupModule,
+    VCLInputModule,
+    VCLButtonModule,
+    VCLEmbeddedInputGroupModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
       data: {demo}
     }]),
   ],
-  entryComponents: [ RadioButtonDemoComponent ],
-  declarations: [ RadioButtonDemoComponent ]
+  entryComponents: [ EmbeddedInputGroupDemoComponent ],
+  declarations: [ EmbeddedInputGroupDemoComponent ]
 })
-export class RadioButtonDemoModule { }
+export class EmbeddedInputGroupDemoModule { }

@@ -19,4 +19,4 @@ Name            | Type    | Default | Description
 `ngModel`       | string  |         | Input value
 `selectOnFocus` | boolean | false   | Selects the content on focus
 `disabled`      | boolean | false   | Disables the input when true
-
+`vclPrepItem`   | boolean | false   | Adds embedded class
