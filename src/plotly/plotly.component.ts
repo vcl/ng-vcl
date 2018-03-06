@@ -1,8 +1,10 @@
 import {
   Component, OnInit, AfterViewInit, ChangeDetectionStrategy,
-  ChangeDetectorRef, Input, SimpleChange,
+  ChangeDetectorRef, Input, SimpleChange, ElementRef, HostBinding,
 } from '@angular/core';
 import * as Plotly from 'plotly.js';
+
+const d3 = Plotly.d3;
 
 const PlotlyParameter = {
   Data: 'data',
@@ -33,7 +35,10 @@ const PlotlyEvent = {
       position: absolute;
       z-index: 1000;
     }
-  `]
+  `],
+  host: {
+    '[style.width]': '"100%"',
+  }
 })
 export class PlotlyComponent implements OnInit, AfterViewInit {
   private static readonly Tag: string = 'PlotlyComponent';
@@ -55,11 +60,11 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
 
   @Input() private debug = false;
 
-  @Input() plotId: string;
-  @Input() plotHoverInfoId: string;
+  @Input() plotId: string = '';
+  @Input() plotHoverInfoId: string = '';
 
-  @Input() plotClass: string;
-  @Input() plotHoverInfoClass: string;
+  @Input() plotClass: string = '';
+  @Input() plotHoverInfoClass: string = '';
 
   @Input() private data: any[];
   @Input() private layout: any;
@@ -67,12 +72,25 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
   @Input() private events: any;
   @Input() private frames: any[];
 
-  constructor(private readonly cd: ChangeDetectorRef) {
+  @Input() private width: number;
+  @Input() private height: number;
+
+  @HostBinding('class.vclLayoutHidden')
+  get notAfterPlot(): boolean {
+    return !this.afterPlot;
+  }
+
+  constructor(
+    private readonly cd: ChangeDetectorRef,
+    private readonly ref: ElementRef
+  ) {
     const tag: string = `${this.tag}.constructor()`;
   }
 
   public ngOnInit(): void {
     this.tag = `${PlotlyComponent.Tag}.${this.plotId}`;
+    const tag: string = `${this.tag}.ngOnInit()`;
+    if (this.debug) console.log(tag);
     if (!this.plotHoverInfoId) this.plotHoverInfoId = `${this.plotId}HoverInfo`;
   }
 
@@ -81,16 +99,56 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
     if (this.debug) console.log(tag);
 
     setTimeout(() => {
-      Plotly.newPlot(this.plotId, {
+
+      const style = {};
+      if (this.width) Object.assign(style, {
+        width: this.width + '%',
+        'margin-left': (100 - this.width) / 2 + '%',
+      });
+
+      if (this.height) Object.assign(style, {
+        height: this.height + 'vh',
+        'margin-top': (100 - this.height) / 2 + 'vh'
+      });
+      if (this.debug) console.log(tag, 'style:', style);
+
+      const selector: HTMLElement | string = this.ref.nativeElement;
+      if (this.debug) console.log(tag, 'selector:', selector);
+
+      const element = d3.select(selector)
+        .append('div')
+        .style(style)
+        .attr('id', this.plotId)
+        .classed(this.plotClass, true);
+      if (this.debug) console.log(tag, 'element:', element);
+
+      this.plot = element.node();
+      if (this.debug) console.log(tag, 'this.plot:', this.plot);
+
+      if (this.debug) console.log(tag, 'this.data:', this.data);
+      if (this.debug) console.log(tag, 'this.layout:', this.layout);
+      if (this.debug) console.log(tag, 'this.configuration:', this.configuration);
+      if (this.debug) console.log(tag, 'this.frames:', this.frames);
+      Plotly.plot(this.plot, {
         data: this.data,
         layout: this.layout,
         config: this.configuration,
         frames: this.frames,
+      }).then(() => {
+        if (this.width || this.height) {
+          Plotly.Plots.resize(this.plot);
+        }
       });
 
-      this.plot = document.getElementById(this.plotId);
       this.hoverInfo = document.getElementById(this.plotHoverInfoId) as HTMLElement;
       this.attachEventListeners(this.events);
+
+      const onresize = window.onresize;
+      window.onresize = (...args) => {
+        if (this.debug) console.log(tag, 'window.onresize()');
+        if (onresize) onresize.apply(window, args);
+        Plotly.Plots.resize(this.plot);
+      };
     });
   }
 
@@ -115,11 +173,10 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
     if (!afterPlotAdded) {
       const tag: string = `${this.tag}.${PlotlyEvent.AfterPlot}()`;
       this.plot.on(PlotlyEvent.AfterPlot, (data, event) => {
-        if (this.debug) console.log(tag);
+        if (this.debug) console.log(tag, 'this.plot', this.plot);
         afterPlot();
       });
     }
-    if (this.debug) console.log(tag, 'this.plot:', this.plot);
   }
 
   private ngOnChanges(changes: any): void {
