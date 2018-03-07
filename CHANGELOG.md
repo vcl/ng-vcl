@@ -5,6 +5,7 @@
 ### Notes
 
 ### Changes
+## ng-vcl
 - (BREAKING) requires Angular ^5
 - link:
   - (BREAKING) Must be with `a` tag: `<a vcl-link ...>`
@@ -16,6 +17,10 @@
 - checkbox:
   - (BREAKING) Changed html structure
   - (BREAKING) Removed support for labelPosition and changed to iconPosition
+
+## vcl-plotly
+  - added `@Input() width: number` and `@Input() height: number` to provide plot dimensions
+  in percentages relative to the parent element which will be kept on window resize
 
 ## 0.3.x (?)
 
