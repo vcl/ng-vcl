@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnInit, Optional } from '@angular/core';
+import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnInit, Optional, OnChanges, SimpleChanges } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 @Directive({
@@ -8,7 +8,7 @@ import { NgModel } from '@angular/forms';
     '[class.vclInput]': 'true',
   }
 })
-export class TextareaDirective implements AfterViewInit {
+export class TextareaDirective implements AfterViewInit, OnChanges {
 
   constructor(private elRef: ElementRef) { }
 
@@ -31,11 +31,24 @@ export class TextareaDirective implements AfterViewInit {
   @HostListener('propertychange')
   @HostListener('input')
   onChange() {
-    this.setRows();
+    const value = this.elRef && this.elRef.nativeElement.value;
+    this.setRows(value);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('value' in changes) {
+      this.setRows(changes.value.currentValue);
+    }
+  }
+
+  ngDoCheck() {
+    const value = this.elRef && this.elRef.nativeElement.value;
+    this.setRows(value);
   }
 
   ngAfterViewInit() {
-    this.setRows();
+    const value = this.elRef && this.elRef.nativeElement.value;
+    this.setRows(value);
   }
 
   @HostListener('focus', ['$event.target.value'])
@@ -45,8 +58,7 @@ export class TextareaDirective implements AfterViewInit {
     }
   }
 
-  setRows() {
-    const value = this.elRef && this.elRef.nativeElement.value;
+  setRows(value) {
     if (this.autogrow && typeof value === 'string') {
       const rows = value.split('\n').length + 1;
       if (typeof this.minRows === 'number' && rows < this.minRows) {
