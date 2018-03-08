@@ -1,6 +1,7 @@
 import {
   Component, OnInit, AfterViewInit, ChangeDetectionStrategy,
   ChangeDetectorRef, Input, SimpleChange, ElementRef, HostBinding,
+  OnDestroy,
 } from '@angular/core';
 import * as Plotly from 'plotly.js';
 
@@ -40,7 +41,7 @@ const PlotlyEvent = {
     '[style.width]': '"100%"',
   }
 })
-export class PlotlyComponent implements OnInit, AfterViewInit {
+export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
   private static readonly Tag: string = 'PlotlyComponent';
   private static readonly RecreateFields: string[] = [
     'plotId',
@@ -55,6 +56,7 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
   public afterPlot: boolean = false;
   private changeAction: ChangeAction | undefined;
 
+  public element;
   public plot/*: HTMLElement */;
   public hoverInfo: HTMLElement;
 
@@ -74,6 +76,8 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
 
   @Input() private width: number;
   @Input() private height: number;
+
+  private boundOnResize = this.onResize.bind(this);
 
   @HostBinding('class.vclLayoutHidden')
   get notAfterPlot(): boolean {
@@ -97,59 +101,8 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit(): void {
     const tag: string = `${this.tag}.ngAfterViewInit()`;
     if (this.debug) console.log(tag);
-
-    setTimeout(() => {
-
-      const style = {};
-      if (this.width) Object.assign(style, {
-        width: this.width + '%',
-        'margin-left': (100 - this.width) / 2 + '%',
-      });
-
-      if (this.height) Object.assign(style, {
-        height: this.height + 'vh',
-        'margin-top': (100 - this.height) / 2 + 'vh'
-      });
-      if (this.debug) console.log(tag, 'style:', style);
-
-      const selector: HTMLElement | string = this.ref.nativeElement;
-      if (this.debug) console.log(tag, 'selector:', selector);
-
-      const element = d3.select(selector)
-        .append('div')
-        .style(style)
-        .attr('id', this.plotId)
-        .classed(this.plotClass, true);
-      if (this.debug) console.log(tag, 'element:', element);
-
-      this.plot = element.node();
-      if (this.debug) console.log(tag, 'this.plot:', this.plot);
-
-      if (this.debug) console.log(tag, 'this.data:', this.data);
-      if (this.debug) console.log(tag, 'this.layout:', this.layout);
-      if (this.debug) console.log(tag, 'this.configuration:', this.configuration);
-      if (this.debug) console.log(tag, 'this.frames:', this.frames);
-      Plotly.plot(this.plot, {
-        data: this.data,
-        layout: this.layout,
-        config: this.configuration,
-        frames: this.frames,
-      }).then(() => {
-        if (this.width || this.height) {
-          Plotly.Plots.resize(this.plot);
-        }
-      });
-
-      this.hoverInfo = document.getElementById(this.plotHoverInfoId) as HTMLElement;
-      this.attachEventListeners(this.events);
-
-      const onresize = window.onresize;
-      window.onresize = (...args) => {
-        if (this.debug) console.log(tag, 'window.onresize()');
-        if (onresize) onresize.apply(window, args);
-        Plotly.Plots.resize(this.plot);
-      };
-    });
+    this.hoverInfo = document.getElementById(this.plotHoverInfoId) as HTMLElement;
+    setTimeout(() => this.recreate());
   }
 
   private attachEventListeners(events: any): void {
@@ -177,6 +130,15 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
         afterPlot();
       });
     }
+
+    window.addEventListener('resize', this.boundOnResize);
+  }
+
+  private onResize(event?: Event): void {
+    const tag: string = `${this.tag}.onResize()`;
+    // if (this.debug) console.log(tag, 'event:', event);
+    if (this.debug) console.log(tag, 'this.plot:', this.plot);
+    Plotly.Plots.resize(this.plot);
   }
 
   private ngOnChanges(changes: any): void {
@@ -254,7 +216,51 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
   public async recreate(): Promise<any> {
     const tag: string = `${this.tag}.recreate()`;
     if (this.debug) console.log(tag);
-    return this.ngAfterViewInit();
+    window.removeEventListener('resize', this.boundOnResize);
+
+    const style = {};
+    if (this.width) Object.assign(style, {
+      width: this.width + '%',
+      'margin-left': (100 - this.width) / 2 + '%',
+    });
+
+    if (this.height) Object.assign(style, {
+      height: this.height + 'vh',
+      'margin-top': (100 - this.height) / 2 + 'vh'
+    });
+    if (this.debug) console.log(tag, 'style:', style);
+
+    const selector: HTMLElement | string = this.ref.nativeElement;
+    if (this.debug) console.log(tag, 'selector:', selector);
+
+    this.element = this.element || d3.select(selector)
+      .append('div')
+      .style(style)
+      .attr('id', this.plotId)
+      .classed(this.plotClass, true);
+    if (this.debug) console.log(tag, 'this.element:', this.element);
+
+    this.plot = this.element.node();
+    if (this.debug) console.log(tag, 'this.plot:', this.plot);
+
+    // if (this.debug) console.log(tag, 'this.data:', this.data);
+    // if (this.debug) console.log(tag, 'this.layout:', this.layout);
+    // if (this.debug) console.log(tag, 'this.configuration:', this.configuration);
+    // if (this.debug) console.log(tag, 'this.frames:', this.frames);
+    const afterPlot = Plotly.newPlot(this.plot, {
+      data: this.data,
+      layout: this.layout,
+      config: this.configuration,
+      frames: this.frames,
+    }).then(() => {
+      if (this.width || this.height) {
+        // if (this.debug) console.log(tag, 'this.plot:', this.plot);
+        this.onResize();
+        this.afterPlot = true;
+      }
+    });
+    this.attachEventListeners(this.events);
+    return afterPlot;
   }
 
   public async addTraces(traces: any | any[], index?: number): Promise<any> {
@@ -299,6 +305,12 @@ export class PlotlyComponent implements OnInit, AfterViewInit {
     const tag: string = `${this.tag}.deleteFrames()`;
     if (this.debug) console.log(tag, 'frames:', frames);
     return Plotly.deleteFrames(this.plot, indices);
+  }
+
+  public ngOnDestroy(): void {
+    const tag: string = `${this.tag}.ngOnDestroy()`;
+    if (this.debug) console.log(tag);
+    window.removeEventListener('resize', this.boundOnResize);
   }
 }
 
