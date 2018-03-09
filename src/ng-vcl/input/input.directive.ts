@@ -19,13 +19,14 @@ const INPUT_INVALID_TYPES = [
 ];
 
 @Directive({
-  selector: '[vcl-input]',
+  selector: 'input[vcl-input]',
   host: {
     '[class.vclInput]': 'true'
   }
 })
 export class InputDirective {
 
+  @HostBinding('attr.type')
   @Input()
   type: string = 'text';
 
@@ -51,6 +52,14 @@ export class InputDirective {
   @HostBinding('attr.disabled')
   get attrDisabled() {
     return this.disabled ? true : null;
+  }
+
+  setType(type: string) {
+    this.type = type;
+  }
+
+  setDisabled(disabled: boolean) {
+    this.disabled = disabled;
   }
 
   clear() {

@@ -7,6 +7,8 @@
 ### Changes
 ## ng-vcl
 - (BREAKING) requires Angular ^5
+- password-input:
+  - (BREAKING) Must be used as container with vcl-input
 - link:
   - (BREAKING) Must be with `a` tag: `<a vcl-link ...>`
 - nav:

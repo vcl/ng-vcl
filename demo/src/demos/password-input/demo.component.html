@@ -1,8 +1,11 @@
 <h3>Password input</h3>
-<vcl-password-input [(ngModel)]="password" placeholder="Enter password"></vcl-password-input>
+<vcl-password-input>
+  <input vcl-input [(ngModel)]="password" placeholder="Enter password">
+</vcl-password-input>
 <br>
 <b>Password input value:</b> {{password}}
 
-
 <h3>Password input (disabled)</h3>
-<vcl-password-input [disabled]="true"></vcl-password-input> 
+<vcl-password-input [disabled]="true">
+  <input vcl-input placeholder="Enter password">
+</vcl-password-input> 
