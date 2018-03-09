@@ -1,6 +1,6 @@
 import { Component, forwardRef, ChangeDetectionStrategy, HostBinding, ViewChild, ContentChildren, ElementRef, Input, QueryList, EventEmitter, Output, HostListener, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MetalistItem, SelectionMode } from '../metalist/index';
+import { MetalistItem } from '../metalist/index';
 import { DropdownComponent, DropdownOption } from '../dropdown/index';
 import { SelectOption } from './select-option.component';
 import 'rxjs/add/operator/startWith';
@@ -36,16 +36,7 @@ export class SelectComponent implements ControlValueAccessor {
   // If `Single`, a single item can be selected
   // If `Multiple` multiple items can be selected
   @Input()
-  selectionMode: SelectionMode = SelectionMode.Single;
-
-  // String alias for selectionMode
-  @Input()
-  set mode(value: 'multiple' | 'single') {
-    this.selectionMode = value === 'multiple' ? SelectionMode.Multiple : SelectionMode.Single;
-  }
-  get mode(): 'multiple' | 'single' {
-    return this.selectionMode === SelectionMode.Multiple ? 'multiple' : 'single';
-  }
+  mode: 'multiple' | 'single' = 'single';
 
   @HostBinding('attr.tabindex')
   @Input()
@@ -221,7 +212,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   get showDisplayValue() {
-    return this.selectionMode === SelectionMode.Single || this.selectedMetaItems.length === 0;
+    return this.mode === 'single' || this.selectedMetaItems.length === 0;
   }
 
   deselectItem(item: SelectOption, event?: any) {
@@ -236,7 +227,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   onDropdownChange(value: any) {
-    if (this.selectionMode === SelectionMode.Single) {
+    if (this.mode === 'single') {
       this.close();
     }
 

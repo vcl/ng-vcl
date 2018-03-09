@@ -1,12 +1,9 @@
 import { Directive, Component, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef,
-  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query
+  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query, AfterContentInit, OnDestroy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 import { MetalistItem } from './metalist-item.component';
-
-export enum SelectionMode {
-  Multiple, Single
-}
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,21 +17,12 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MetalistComponent implements ControlValueAccessor {
-
-  // If `Single`, a single item can be selected
-  // If `Multiple` multiple items can be selected
+export class MetalistComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
+  // If `single`, a single item can be selected
+  // If `multiple` multiple items can be selected
   @Input()
-  selectionMode: SelectionMode = SelectionMode.Single;
+  mode: 'multiple' | 'single' = 'single';
 
-  // String alias for selectionMode
-  @Input()
-  set mode(value: 'multiple' | 'single') {
-    this.selectionMode = value === 'multiple' ? SelectionMode.Multiple : SelectionMode.Single;
-  }
-  get mode(): 'multiple' | 'single' {
-    return this.selectionMode === SelectionMode.Multiple ? 'multiple' : 'single';
-  }
 
   @Input()
   maxSelectableItems?: number;
@@ -46,6 +34,8 @@ export class MetalistComponent implements ControlValueAccessor {
   items: QueryList<MetalistItem>;
 
   value: any | any[];
+
+  itemsSub?: Subscription;
 
   get selectedItem(): MetalistItem | undefined {
     return this.selectedItems[0] || undefined;
@@ -59,7 +49,7 @@ export class MetalistComponent implements ControlValueAccessor {
 
   private syncItems() {
     const value = this.value;
-    if (this.selectionMode === SelectionMode.Multiple  && Array.isArray(value)) {
+    if (this.mode === 'multiple'  && Array.isArray(value)) {
       (this.items || []).forEach(item => {
         item.selected = value.includes(item.value);
       });
@@ -73,7 +63,7 @@ export class MetalistComponent implements ControlValueAccessor {
 
   private syncValue() {
     const values = this.selectedItems.map(i => i.value);
-    this.value = this.selectionMode === SelectionMode.Single ? values[0] : values;
+    this.value = this.mode === 'single' ? values[0] : values;
   }
 
   private triggerChange() {
@@ -83,11 +73,15 @@ export class MetalistComponent implements ControlValueAccessor {
 
   ngAfterContentInit() {
     // Changes of metalist-items take the selected state of the current value;
-    this.items.changes.subscribe(() => {
+    this.itemsSub = this.items.changes.startWith(null).subscribe(() => {
       Promise.resolve(null).then(() => {
         this.syncItems();
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.itemsSub && this.itemsSub.unsubscribe();
   }
 
   select(item: MetalistItem | number) {
@@ -98,12 +92,12 @@ export class MetalistComponent implements ControlValueAccessor {
       if (item.disabled) {
         return;
       }
-      if (this.selectionMode === SelectionMode.Multiple) {
+      if (this.mode === 'multiple' ) {
         const selectedItems = (this.items || []).filter(i => i.selected);
 
         // prevent overflow
         const maxSelectableItems = typeof this.maxSelectableItems === 'number' ? this.maxSelectableItems : Infinity;
-        const overflow = this.selectionMode === SelectionMode.Multiple && !item.selected && selectedItems.length >= maxSelectableItems;
+        const overflow = !item.selected && selectedItems.length >= maxSelectableItems;
         if (!overflow) {
           item.selected = !item.selected;
         }

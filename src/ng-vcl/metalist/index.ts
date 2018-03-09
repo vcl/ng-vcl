@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { L10nModule } from '../l10n/index';
 import { VCLWormholeModule } from '../wormhole/index';
 import { MetalistItem } from './metalist-item.component';
-import { MetalistComponent, SelectionMode } from './metalist.component';
+import { MetalistComponent } from './metalist.component';
 
-export { MetalistItem, MetalistComponent, SelectionMode };
+export { MetalistItem, MetalistComponent };
 
 @NgModule({
   imports: [CommonModule, L10nModule, VCLWormholeModule],

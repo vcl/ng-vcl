@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren,
 import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from './dropdown-option.component';
-import { MetalistComponent, MetalistItem, SelectionMode } from '../metalist/index';
+import { MetalistComponent, MetalistItem } from '../metalist/index';
 
 export enum DropdownState {
   Expanded,
@@ -67,19 +67,11 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
 
   @Output()
   willExpand = new EventEmitter<any>();
-  // If `Single`, a single item can be selected
-  // If `Multiple` multiple items can be selected
-  @Input()
-  selectionMode: SelectionMode = SelectionMode.Single;
 
-  // String alias for selectionMode
+  // If `single`, a single item can be selected
+  // If `multiple` multiple items can be selected
   @Input()
-  set mode(value: 'multiple' | 'single') {
-    this.selectionMode = value === 'multiple' ? SelectionMode.Multiple : SelectionMode.Single;
-  }
-  get mode(): 'multiple' | 'single' {
-    return this.selectionMode === SelectionMode.Multiple ? 'multiple' : 'single';
-  }
+  mode: 'multiple' | 'single' = 'single';
 
   @Input()
   maxSelectableItems?: number;
