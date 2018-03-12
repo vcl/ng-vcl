@@ -1,23 +1,23 @@
 <h3>single-select:</h3>
-<vcl-dropdown (change)="onSelect($event)" [tabindex]="1">
-  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
+<vcl-dropdown [value]="10" (change)="onSelect($event)" [tabindex]="1">
+  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
 </vcl-dropdown>
 
 <br/>
 <h3>multi-select:</h3>
-<vcl-dropdown (change)="onSelect($event)" [tabindex]="2" mode="multiple" [maxSelectableItems]="3">
-  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
+<vcl-dropdown [value]="[10]" (change)="onSelect($event)" [tabindex]="2" mode="multiple" [maxSelectableItems]="3">
+  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
 </vcl-dropdown>
 
 <br/>
 <h3>vcl-dropdown-option with content:</h3>
-<vcl-dropdown (change)="onSelect($event)" [tabindex]="5">
-  <vcl-dropdown-option [value]="1" [selected]="false">
+<vcl-dropdown [value]="2" (change)="onSelect($event)" [tabindex]="5">
+  <vcl-dropdown-option [value]="1">
     <div class="vclDropdownItemLabel">
       <b>item 1</b>
     </div>  
   </vcl-dropdown-option>
-  <vcl-dropdown-option [value]="2" [selected]="true">
+  <vcl-dropdown-option [value]="2">
     <div class="vclDropdownItemLabel">
       <b>item 2 (preselected)</b>
     </div>  
@@ -27,7 +27,7 @@
 
 <h3>single-select with ngModel:</h3>
 <vcl-dropdown [(ngModel)]="selectedItem" [tabindex]="6">
-  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [selected]="item.selected" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
+  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
 </vcl-dropdown>
 <br/>
 Selected item: {{selectedItem}}

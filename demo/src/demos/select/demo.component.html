@@ -1,18 +1,17 @@
 <h3>single-select:</h3>
-<vcl-select label="Single select" (change)="onChange($event)" [tabindex]="1">
-  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel" [selected]="item.selected"></vcl-select-option>
+<vcl-select [value]="3" label="Single select" (change)="onChange($event)" [tabindex]="1">
+  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel"></vcl-select-option>
 </vcl-select>
 
 <br>
 <h3>multi-select, 3 items selectable:</h3>
-<vcl-select (change)="onChange($event)" mode="multiple" [maxSelectableItems]="3" [tabindex]="2">
-  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel" [selected]="item.selected"></vcl-select-option>
+<vcl-select [value]="[3]" (change)="onChange($event)" mode="multiple" [maxSelectableItems]="3" [tabindex]="2">
+  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel"></vcl-select-option>
 </vcl-select>
 
 
 <h3>Single select with ngModel:</h3>
 <vcl-select label="Single select" [(ngModel)]="value" [tabindex]="3">
-  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel" [selected]="item.selected"></vcl-select-option>
+  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel"></vcl-select-option>
 </vcl-select>
 <br>Current value: {{value}}
-

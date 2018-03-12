@@ -1,9 +1,10 @@
 <ul vcl-metalist #metalist
-  [class.vclLayoutHidden]="state === DropdownState.Closed" 
-  [mode]="mode"
-  [maxSelectableItems]="maxSelectableItems"
   class="vclDropdown vclOpen"
   role="listbox"
+  [class.vclLayoutHidden]="state === DropdownState.Closed" 
+  [value]="value"
+  [mode]="mode"
+  [maxSelectableItems]="maxSelectableItems"
   [class.vclDisabled]="disabled"
   [attr.tabindex]="tabindex"
   [attr.aria-multiselectable]="mode === 'multiple'"
@@ -12,29 +13,29 @@
   (focus)="onMetalistFocus()"
   (blur)="onMetalistBlur()"
   (keydown)="onMetalistKeydown($event)"
+  (itemsChange)="onItemsChange()"
   >
-  <vcl-metalist-item #metaItem
-                    *ngFor="let item of items" 
-                    [metadata]="item"
-                    [selected]="item.selected"
-                    [disabled]="disabled || item.disabled"
-                    [marked]="item.marked"
-                    [value]="item.value">
-    <li
+    <li 
+      *ngFor="let item of items" 
+      vcl-metalist-item
+      #meta=meta
+      [metadata]="item"
+      [disabled]="disabled || item.disabled"
+      [marked]="item.marked"
+      [value]="item.value"
       role="option"
       class="vclDropdownItem"
-      [class.vclSelected]="metaItem.selected"
-      [class.vclDisabled]="disabled || metaItem.disabled"
-      [class.vclHighlighted]="focused && metaItem.marked"
-      [attr.aria-selected]="metaItem.selected"
-      (tap)="onMetalistItemTap(metaItem)">
+      [class.vclSelected]="meta.selected"
+      [class.vclDisabled]="disabled || meta.disabled"
+      [class.vclHighlighted]="focused && meta.marked"
+      [attr.aria-selected]="meta.selected"
+      (tap)="onMetalistItemTap(meta)">
       <div *ngIf="item.label" class="vclDropdownItemLabel">
         {{item.label}}
       </div>
       <div *ngIf="item.sublabel" class="vclDropdownItemSubLabel">
         {{item.sublabel}}
       </div>
-      <wormhole *ngIf="item.content" [connect]="item.content"></wormhole>
+      <wormhole *ngIf="item._content" [connect]="item._content"></wormhole>
     </li>
-  </vcl-metalist-item>
 </ul>

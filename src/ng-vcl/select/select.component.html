@@ -28,6 +28,7 @@
       tabindex="-1"
       [disabled]="disabled"
       [expanded]="expanded"
+      [value]="value"
       [mode]="mode"
       [maxSelectableItems]="maxSelectableItems"
       [style.position]="'relative'"
@@ -35,12 +36,12 @@
       [style.width]="'100%'"
       [style.position]="'absolute'"
       [style.zIndex]="zIndex"
-      (change)="onDropdownChange($event)">
+      (change)="onDropdownChange($event)"
+      (itemsChange)="onItemsChange()">
     <vcl-dropdown-option 
       *ngFor="let item of items" 
       [metadata]="item" 
       [value]="item.value" 
-      [selected]="item.selected" 
       [disabled]="disabled || item.disabled" 
       [label]="item.label" 
       [sublabel]="item.sublabel">

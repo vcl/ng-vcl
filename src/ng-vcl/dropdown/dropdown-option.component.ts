@@ -9,7 +9,7 @@ import { MetalistItem } from '../metalist/index';
 export class DropdownOption {
 
   @ViewChild(TemplateRef)
-  content: TemplateRef<any>;
+  _content: TemplateRef<any>;
 
   @Input()
   value: any;
@@ -25,8 +25,5 @@ export class DropdownOption {
 
   @Input()
   disabled: boolean = false;
-
-  @Input()
-  selected: boolean = false;
 }
 

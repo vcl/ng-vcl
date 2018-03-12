@@ -1,5 +1,5 @@
 import { Directive, Component, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef,
-  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query, AfterContentInit, OnDestroy
+  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query, AfterContentInit, OnDestroy, OnChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
@@ -17,12 +17,12 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MetalistComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
+export class MetalistComponent implements ControlValueAccessor, AfterContentInit, OnDestroy, OnChanges {
+
   // If `single`, a single item can be selected
   // If `multiple` multiple items can be selected
   @Input()
   mode: 'multiple' | 'single' = 'single';
-
 
   @Input()
   maxSelectableItems?: number;
@@ -30,9 +30,13 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   @Output()
   change = new EventEmitter<any>();
 
+  @Output()
+  itemsChange = new EventEmitter<any>();
+
   @ContentChildren(MetalistItem)
   items: QueryList<MetalistItem>;
 
+  @Input()
   value: any | any[];
 
   itemsSub?: Subscription;
@@ -47,7 +51,14 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  private syncItems() {
+  syncValue() {
+    const prevValue = this.value;
+    const values = this.selectedItems.map(i => i.value);
+    this.value = this.mode === 'single' ? values[0] : values;
+    return this.value !== prevValue;
+  }
+
+  syncItems() {
     const value = this.value;
     if (this.mode === 'multiple'  && Array.isArray(value)) {
       (this.items || []).forEach(item => {
@@ -58,25 +69,19 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
         item.selected = item.value === value;
       });
     }
-    this.cdRef.markForCheck();
   }
 
-  private syncValue() {
-    const values = this.selectedItems.map(i => i.value);
-    this.value = this.mode === 'single' ? values[0] : values;
-  }
-
-  private triggerChange() {
-    this.change.emit(this.value);
-    this.onChange(this.value);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.value) {
+      this.syncItems();
+    }
   }
 
   ngAfterContentInit() {
-    // Changes of metalist-items take the selected state of the current value;
     this.itemsSub = this.items.changes.startWith(null).subscribe(() => {
-      Promise.resolve(null).then(() => {
-        this.syncItems();
-      });
+      // Changes of metalist-items will override the current value;
+      this.syncItems();
+      this.itemsChange.emit();
     });
   }
 
@@ -84,7 +89,16 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     this.itemsSub && this.itemsSub.unsubscribe();
   }
 
-  select(item: MetalistItem | number) {
+  private triggerChange() {
+    this.change.emit(this.value);
+    this.onChange(this.value);
+  }
+
+  select(item?: MetalistItem | number) {
+    if (item === undefined) {
+      return this.selectMarked();
+    }
+
     if (typeof item === 'number') {
       item = this.items.toArray()[item];
     }
@@ -104,8 +118,10 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
       } else {
         this.items.forEach(citem => citem.selected = citem === item);
       }
-      this.syncValue();
-      this.triggerChange();
+      const valueChanged = this.syncValue();
+      if (valueChanged) {
+        this.triggerChange();
+      }
       this.cdRef.markForCheck();
     }
   }
@@ -117,8 +133,10 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
 
     if (item instanceof MetalistItem) {
       item.selected = false;
-      this.syncValue();
-      this.triggerChange();
+      const valueChanged = this.syncValue();
+      if (valueChanged) {
+        this.triggerChange();
+      }
       this.cdRef.markForCheck();
     }
   }
@@ -126,6 +144,18 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   private determineMarkedIndex() {
     let idx = this.items.toArray().findIndex(item => item.marked);
     return idx >= 0 ? idx : this.items.toArray().findIndex(metaItem => metaItem.selected);
+  }
+
+  mark(item: MetalistItem | number) {
+    if (typeof item === 'number') {
+      item = this.items.toArray()[item];
+    }
+    if (item instanceof MetalistItem) {
+      item.marked = true;
+      this.itemsChange.emit();
+      this.cdRef.markForCheck();
+
+    }
   }
 
   markNext() {
@@ -139,6 +169,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
       item.marked = !item.disabled && mark;
       return !item.marked;
     });
+    this.itemsChange.emit();
     this.cdRef.markForCheck();
   }
 
@@ -155,6 +186,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
       item.marked = !item.disabled && mark;
       return !item.marked;
     });
+    this.itemsChange.emit();
     this.cdRef.markForCheck();
   }
 
@@ -169,6 +201,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   setValue(value: any) {
     this.value = value;
     this.syncItems();
+    this.cdRef.markForCheck();
   }
 
   /**

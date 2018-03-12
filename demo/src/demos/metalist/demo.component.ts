@@ -8,7 +8,7 @@ export class MetalistDemoComponent {
   items: any = [
     { name: 'name 1', value: 1 },
     { name: 'name 2', value: 2 },
-    { name: 'name 3', value: 3, selected: true },
+    { name: 'name 3', value: 3 },
     { name: 'name 4', value: 4 },
     { name: 'name 5', value: 5 },
   ];

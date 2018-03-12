@@ -20,7 +20,4 @@ export class SelectOption {
 
   @Input()
   disabled: boolean = false;
-
-  @Input()
-  selected: boolean = false;
 }

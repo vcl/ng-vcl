@@ -47,6 +47,9 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   @Input()
   tabindex: number = 0;
 
+  @Input()
+  value: any | any[];
+
   state: DropdownState = DropdownState.Expanded;
 
   get expanded() {
@@ -82,8 +85,11 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   @Input()
   listenKeys: boolean = true;
 
-  @Output('change')
+  @Output()
   change = new EventEmitter<any>();
+
+  @Output()
+  itemsChange = new EventEmitter<any>();
 
   focused = false;
 
@@ -97,7 +103,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     @Optional() @Inject(DROPDOWN_ANIMATIONS) private animations: DropdownAnimationConfig) { }
 
   ngOnInit() {
-    this.scrollToSelected();
+    this.scroll('selected');
   }
 
   public async expand(): Promise<void> {
@@ -113,10 +119,12 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       player.onDone(() => {
         player.destroy();
         this.state = DropdownState.Expanded;
+        this.cdRef.markForCheck();
       });
       player.play();
     } else {
       this.state = DropdownState.Expanded;
+      this.cdRef.markForCheck();
     }
   }
 
@@ -138,10 +146,11 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       player.play();
     } else {
       this.state = DropdownState.Closed;
+      this.cdRef.markForCheck();
     }
   }
 
-  async scrollToSelected() {
+  async scroll(target: 'selected' | 'marked') {
     await new Promise(res => setTimeout(res, 0));
     if (this.listbox.nativeElement) {
       const selectedItem = this.listbox.nativeElement.querySelectorAll('.vclSelected')[0];
@@ -152,15 +161,16 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       const allItems = this.listbox.nativeElement.querySelectorAll('.vclDropdownItem');
       let scrollTop = - this.listbox.nativeElement.clientHeight / 2 + (selectedItem.clientHeight / 2);
 
-      const items = this.items.toArray();
+      const metalistItems = this.metalist.items.toArray();
 
-      for (let itemIndex = 0; itemIndex < items.length; ++itemIndex) {
-        if (items[itemIndex].selected) {
+      metalistItems.some((item, idx) => {
+        if (item[target]) {
           this.listbox.nativeElement.scrollTop = scrollTop;
-          break;
+          return true;
         }
-        scrollTop += allItems[itemIndex].clientHeight;
-      }
+        scrollTop += allItems[idx].clientHeight;
+        return false;
+      });
     }
   }
 
@@ -175,11 +185,11 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       switch (ev.code) {
         case 'ArrowDown':
           this.metalist.markNext();
-          this.scrollToSelected();
+          this.scroll('marked');
           break;
         case 'ArrowUp':
           this.metalist.markPrev();
-          this.scrollToSelected();
+          this.scroll('marked');
           break;
         case 'Enter':
           this.metalist.selectMarked();
@@ -192,10 +202,6 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     }
   }
   ngAfterViewInit() {
-    this.items.changes.subscribe(() => {
-      this.cdRef.markForCheck();
-    });
-
     if (this.animations) {
       if (this.animations.enter) {
         this.enterAnimationFactory = this.builder.build(this.animations.enter);
@@ -216,6 +222,12 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   onMetalistChange(value: any) {
     this.change.emit(value);
     this.onChange(value);
+  }
+
+  onItemsChange() {
+    // Nested meta items have changed. So we need need to trigger change detection
+    this.cdRef.detectChanges();
+    this.itemsChange.emit();
   }
 
   setValue(value: any) {

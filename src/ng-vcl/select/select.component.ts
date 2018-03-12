@@ -15,7 +15,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   host: {
     '[style.position]': '"relative"',
@@ -41,6 +41,9 @@ export class SelectComponent implements ControlValueAccessor {
   @HostBinding('attr.tabindex')
   @Input()
   tabindex = 0;
+
+  @Input()
+  value: any | any[];
 
   @Input()
   expanded: boolean = false;
@@ -82,21 +85,25 @@ export class SelectComponent implements ControlValueAccessor {
       switch (ev.code) {
         case 'ArrowDown':
           if (this.expanded) {
-            this.dropdown.metalist.markNext();
+            this.dropdown.onMetalistKeydown(ev);
+            // this.dropdown.metalist.markNext();
           } else {
             this.open();
           }
           break;
-        case 'ArrowUp':
+          case 'ArrowUp':
           if (this.expanded) {
-            this.dropdown.metalist.markPrev();
+            this.dropdown.onMetalistKeydown(ev);
+            // this.dropdown.metalist.markPrev();
           } else {
             this.open();
           }
           break;
         case 'Enter':
           if (this.expanded) {
-            this.dropdown.metalist.selectMarked();
+            this.dropdown.onMetalistKeydown(ev);
+            // this.dropdown.metalist.selectMarked();
+            // this.cdRef.detectChanges();
           } else {
             this.open();
           }
@@ -157,6 +164,13 @@ export class SelectComponent implements ControlValueAccessor {
 
   dropdownTop: number = -1;
 
+  displayValue?: string;
+  selectedItems: SelectOption[] = [];
+
+  get showDisplayValue() {
+    return this.mode === 'single' || this.selectedItems.length === 0;
+  }
+
   async open() {
     this.expanded = true;
 
@@ -193,26 +207,15 @@ export class SelectComponent implements ControlValueAccessor {
     this.cdRef.markForCheck();
   }
 
-  get displayValue() {
-    const item = this.selectedItems.shift();
+  syncDisplayValue() {
+    const selectedItems = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []).map(item => <SelectOption> item.metadata);
+    this.selectedItems = [...selectedItems];
+    const item = selectedItems.shift();
     if (item) {
-      return item.label || String(item.value);
+      this.displayValue = item.label || String(item.value);
     } else {
-      return 'Select Value';
+      this.displayValue = 'Select Value';
     }
-  }
-
-  get selectedMetaItems(): MetalistItem[] {
-    return (this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || [];
-  }
-
-  get selectedItems(): SelectOption[] {
-    const items = (this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || [];
-    return items.map(metaItem => <SelectOption> metaItem.metadata.metadata);
-  }
-
-  get showDisplayValue() {
-    return this.mode === 'single' || this.selectedMetaItems.length === 0;
   }
 
   deselectItem(item: SelectOption, event?: any) {
@@ -220,16 +223,18 @@ export class SelectComponent implements ControlValueAccessor {
     this.dropdown.metalist.deselect(idx);
   }
 
-  ngAfterViewInit() {
-    this.items.changes.startWith(null).subscribe(() => {
-      this.cdRef.markForCheck();
-    });
+  onItemsChange() {
+    this.syncDisplayValue();
+    this.cdRef.detectChanges();
+    this.cdRef.markForCheck();
   }
 
   onDropdownChange(value: any) {
     if (this.mode === 'single') {
       this.close();
     }
+
+    this.syncDisplayValue();
 
     // propagate value change
     this.change.emit(value);
@@ -243,6 +248,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   setValue(value: any) {
     this.dropdown.setValue(value);
+    this.syncDisplayValue();
   }
 
   /**

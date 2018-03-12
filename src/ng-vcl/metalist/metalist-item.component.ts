@@ -2,14 +2,11 @@
 import { Component, TemplateRef, ViewChild, Input } from '@angular/core';
 
 @Component({
-  selector: 'vcl-metalist-item',
-  template: '<ng-template><ng-content></ng-content></ng-template>'
+  selector: '[vcl-metalist-item]',
+  template: '<ng-content></ng-content>',
+  exportAs: 'meta'
 })
 export class MetalistItem implements MetalistItem {
-
-  @ViewChild(TemplateRef)
-  _content: TemplateRef<any>;
-
   @Input()
   value: any;
 
@@ -22,6 +19,5 @@ export class MetalistItem implements MetalistItem {
   @Input()
   marked: boolean = false;
 
-  @Input()
   selected: boolean = false;
 }

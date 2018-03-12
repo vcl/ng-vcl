@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'demo.component.html'
 })
 export class SelectDemoComponent {
+
   items = [
     {
       label: 'item 1',

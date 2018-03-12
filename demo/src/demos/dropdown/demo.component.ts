@@ -17,7 +17,7 @@ export class DropdownDemoComponent {
     { label: 'item 7', sublabel: 'sublabel of item 7', value: 7 },
     { label: 'item 8 (disabled)', sublabel: 'sublabel of item 8', disabled: true, value: 8 },
     { label: 'item 9', value: 9},
-    { label: 'item 10 (preselected)', value: 10, selected: true },
+    { label: 'item 10 (preselected)', value: 10 },
     { label: 'item 11', value: 11 },
     { label: 'item 12', value: 12 },
     { label: 'item 13', value: 13 },
