@@ -79,7 +79,7 @@ export class NavigationItemDirective implements NavigationItem {
     @Inject(forwardRef(() => NavigationComponent))
     private nav: NavigationComponent,
     @Optional() @SkipSelf() @Inject(NavigationItemDirective)
-    public parent: NavigationItemDirective) { }
+    public parent: NavigationItemDirective | undefined) { }
 
   private updateSelectedState(): void {
     this.selected = !!this._urlTree && this.router.isActive(this._urlTree, this.exactRoute);
