@@ -1,11 +1,11 @@
-import { Component, forwardRef, ChangeDetectionStrategy, HostBinding, ViewChild, ContentChildren, ElementRef, Input, QueryList, EventEmitter, Output, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Component, forwardRef, ChangeDetectionStrategy, HostBinding, ViewChild, ContentChildren, ElementRef, Input, QueryList, EventEmitter, Output, HostListener, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MetalistItem } from '../metalist/index';
 import { DropdownComponent, DropdownOption } from '../dropdown/index';
 import { SelectOption } from './select-option.component';
 import 'rxjs/add/operator/startWith';
 
-enum DropDirection { Top, Bottom }
+export enum DropDirection { Top, Bottom }
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -22,7 +22,11 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[style.display]': '"block"'
   }
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, AfterViewInit {
+  private static readonly Tag: string = 'SelectComponent';
+
+  @Input()
+  debug: boolean = false;
 
   @ViewChild('dropdown')
   dropdown: DropdownComponent;
@@ -73,10 +77,20 @@ export class SelectComponent implements ControlValueAccessor {
 
   focused: boolean = false;
 
+  @Input()
+  dropDirection: DropDirection;
+
   constructor(
     private elementRef: ElementRef,
     private cdRef: ChangeDetectorRef
   ) { }
+
+  public ngAfterViewInit(): void {
+    const tag: string = `${SelectComponent.Tag}.ngAfterViewInit()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag);
+    this.onItemsChange();
+  }
 
   @HostListener('keydown', ['$event'])
   keydown(ev) {
@@ -91,7 +105,7 @@ export class SelectComponent implements ControlValueAccessor {
             this.open();
           }
           break;
-          case 'ArrowUp':
+        case 'ArrowUp':
           if (this.expanded) {
             this.dropdown.onMetalistKeydown(ev);
             // this.dropdown.metalist.markPrev();
@@ -116,7 +130,7 @@ export class SelectComponent implements ControlValueAccessor {
         case 'Escape':
           this.close();
         default:
-         prevent = false;
+          prevent = false;
       }
       prevent && ev.preventDefault();
     }
@@ -172,20 +186,31 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   async open() {
+    const tag: string = `${SelectComponent.Tag}.open()`;
+    const debug: boolean = this.debug || false;
+
     this.expanded = true;
 
     /**
     * calculate if the dropdown should be displayed above or under the select-input
     */
     const position = this.elementRef.nativeElement.getBoundingClientRect();
+    if (this.debug) console.log(tag, 'position:', position);
     const screenHeight = window.innerHeight
       || document.documentElement.clientHeight
       || document.body.clientHeight;
+    if (this.debug) console.log(tag, 'screenHeight:', screenHeight);
 
     const spaceBottom = screenHeight - position.bottom;
-    const spaceTop = position.top;
+    if (this.debug) console.log(tag, 'spaceBottom:', spaceBottom);
 
-    const dropDirection = (spaceBottom < spaceTop) ? DropDirection.Top : DropDirection.Bottom;
+    const spaceTop = position.top;
+    if (this.debug) console.log(tag, 'spaceTop:', spaceTop);
+
+    const dropDirection = (this.dropDirection === DropDirection.Top ||
+      this.dropDirection === DropDirection.Bottom) ? this.dropDirection :
+      (spaceBottom < spaceTop) ? DropDirection.Top : DropDirection.Bottom;
+    if (this.debug) console.log(tag, 'dropDirection:', DropDirection[dropDirection]);
 
     // Wait for the dropdown to be rendered, so the offsetHeight can be determined
     await new Promise(res => setTimeout(res, 0));
@@ -208,7 +233,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   syncDisplayValue() {
-    const selectedItems = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []).map(item => <SelectOption> item.metadata);
+    const selectedItems = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []).map(item => item.metadata as SelectOption);
     this.selectedItems = [...selectedItems];
     const item = selectedItems.shift();
     if (item) {
@@ -254,8 +279,8 @@ export class SelectComponent implements ControlValueAccessor {
   /**
    * Things needed for ControlValueAccessor-Interface.
    */
-  private onChange: (_: any) => void = () => {};
-  private onTouched: () => any = () => {};
+  private onChange: (_: any) => void = () => { };
+  private onTouched: () => any = () => { };
   writeValue(value: any): void {
     this.setValue(value);
   }

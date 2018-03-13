@@ -7,12 +7,12 @@ import { VCLOffClickModule } from '../off-click/index';
 import { VCLPopoverModule } from '../popover/index';
 import { VCLTokenModule } from '../token/index';
 import { SelectOption } from './select-option.component';
-import { SelectComponent } from './select.component';
+import { SelectComponent, DropDirection } from './select.component';
 
-export { SelectComponent, SelectOption };
+export { SelectComponent, SelectOption, DropDirection };
 
 @NgModule({
-  imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule, VCLPopoverModule, VCLTokenModule ],
+  imports: [CommonModule, L10nModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule, VCLPopoverModule, VCLTokenModule],
   exports: [SelectComponent, SelectOption],
   declarations: [SelectComponent, SelectOption],
   providers: []

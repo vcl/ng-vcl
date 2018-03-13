@@ -233,6 +233,7 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
     const selector: HTMLElement | string = this.ref.nativeElement;
     if (this.debug) console.log(tag, 'selector:', selector);
 
+    if (this.debug) console.log(tag, 'this.plotClass:', this.plotClass);
     this.element = this.element || d3.select(selector)
       .append('div')
       .style(style)
