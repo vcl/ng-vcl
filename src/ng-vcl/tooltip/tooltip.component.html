@@ -1,8 +1,8 @@
-﻿<div [@enterAnimation]="animationState" [style.left]="tooltipPlacement.Left + 'px'" [style.top]="tooltipPlacement.Top + 'px'"
+﻿<div [@enterAnimation]="animationState || _animationState" [style.left]="tooltipPlacement.Left + 'px'" [style.top]="tooltipPlacement.Top + 'px'"
   style="white-space:nowrap;" role="tooltip" [class]="tooltipPosition">
   <div class="vclTooltipContent">
-    {{content}}
+    {{ content }}
     <ng-content></ng-content>
   </div>
-  <div class="vclArrowPointer"></div>
+  <div [class.vclArrowPointer]="showArrowPointer"></div>
 </div>

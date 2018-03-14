@@ -5,28 +5,42 @@ Be aware of this [Plotly bug](https://github.com/plotly/plotly.js/issues/1492).
 # API
 
 ## Properties:
+### Input()
 
-Name            | Type    | Default   | Description
---------------- | ------- | --------- | --------------------------------------------------
-`plotId`        | string  | undefined | plot div id
-`plotClass`     | string  | undefined | plot div classes
-`data`          | any[]   | undefined | [plot data](https://plot.ly/javascript/reference)
-`layout`        | any     | undefined | [plot layout](https://plot.ly/javascript/reference/#layout)
-`configuration` | any     | undefined | [plot configuration](https://plot.ly/javascript/configuration-options/)
-`events`        | any     | undefined | [plot events](https://plot.ly/javascript/plotlyjs-events/), *see "Attaching events" below*
-`plot`          | any     | undefined | [plot div (HTMLElement)](https://plot.ly/javascript/plotlyjs-function-reference/#retrieving-data-layout)
-`debug` _(1)_   | boolean | false     | whether to output event information in the console
+Name                 | Type                      | Default | Description
+-------------------- | ------------------------- | ------- | --------------------------------------------------
+`debug` _(1)_        | boolean                   | false   | whether to output debug information in the console
+`plotId`             | string                    | ''      | plot div id
+`plotHoverInfoId`    | string                    | ''      | hoverinfo div id, defaults to `${this.plotId}HoverInfo`
+`plotClass`          | string                    | ''      | plot div classes
+`plotHoverInfoClass` | string                    | ''      | hoverinfo div classes
+
+`data`               | Plotly.Data[]             |         | [plot data](https://plot.ly/javascript/reference)
+`layout`             | Plotly.Layout             |         | [plot layout](https://plot.ly/javascript/reference/#layout)
+`configuration`      | Plotly.Configuration      |         | [plot configuration](https://plot.ly/javascript/configuration-options/)
+`events`             | [event: string]: Function |         | [plot events](https://plot.ly/javascript/plotlyjs-events/), *see "Attaching events" below*
+`frames`             | Plotly.Frame              |         | [plot frames](https://plot.ly/javascript/animations/)
+
+`width`              | number                    |         | the width of the plot in percentage relative to the parent element 
+`height`             | number                    |         | the height of the plot in percentage relative to the parent element 
+
+### Public
+`afterPlot`          | boolean                   |         | Whether the plot has been drawn for the first time
+`plot`               | HTMLElement               |         | The plot's HTML element
+`hoverInfo`          | HTMLElement               |         | An HTML element which can be used as a [custom hoverinfo](https://community.plot.ly/t/how-to-customize-plotly-tooltip/332/2)
 
 _(1) Suggested use is in conjunction with browsing the vcl-plotly code_
 
+  
 ## Methods:
 
 Name           | Arguments                                    | Description
 -------------- | -------------------------------------------- | -----------------------------------
 `restyle`      | update: any, traces?: number[]       | [Plotly.restyle](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-restyle) wrapper
+`resize`       |                                      | Plotly.resize wrapper - resize the plot
 `relayout`     | layout: any = this.layout            | [Plotly.relayout](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-relayout) wrapper
 `update`       |                                      | [Plotly.update](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-update) wrapper
-`redraw`       |                                      | Plotly.redraw wrapper (force a full recalculation and redraw of the plot)
+`redraw`       |                                      | Plotly.redraw wrapper - force a full recalculation and redraw of the plot
 `recreate`     |                                      | [Plotly.newPlot](https://plot.ly/javascript/plotlyjs-function-reference/plotly-newplot) wrapper
 `addTraces`    | traces: any OR any[], index?: number | [Plotly.addTraces](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-addtraces) wrapper
 `deleteTraces` | traces: number OR number[]           | [Plotly.deleteTraces](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-deletetraces) wrapper

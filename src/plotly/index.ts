@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlotlyComponent } from './plotly.component';
+import { PlotlyComponent, PlotlyEvent } from './plotly.component';
 
-export { PlotlyComponent };
+export { PlotlyComponent, PlotlyEvent };
 
 @NgModule({
   imports: [CommonModule],

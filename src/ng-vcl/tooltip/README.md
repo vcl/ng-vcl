@@ -22,3 +22,16 @@ The content can also be made up of other components.
   </vcl-tooltip>
 </div>
 ```
+
+### API
+
+#### Attributes
+
+| Name                | Type           | Default       | Description
+| ------------        | -------------- | ------------- |--------------
+| `debug`             | boolean        | false         | Whether to output debug information
+| `content`           | string         |               | Content displayed within the tooltip (for the directive)
+| `placement`         | Placement      | Placement.Top | Placement of the tooltip
+| `hostElement`       | HTMLElement    |               | The describyed element by the tooltip
+| `animationState`    | AnimationState |               | Override the tooltip
+| `showArrowPointer`  | boolean        | true          | Whether to show the tooltip's arrow pointer

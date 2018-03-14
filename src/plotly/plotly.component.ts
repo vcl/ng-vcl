@@ -8,22 +8,32 @@ import * as Plotly from 'plotly.js';
 const d3 = Plotly.d3;
 
 const PlotlyParameter = {
+  PlotId: 'plotId',
+  PlotHoverInfoId: 'plotHoverInfoId',
+
+  PlotClass: 'plotClass',
+  PlotHoverInfoClass: 'plotHoverInfoClass',
+
   Data: 'data',
   Layout: 'layout',
   Configuration: 'configuration',
   Events: 'events',
   Frames: 'frames',
+
+  Width: 'width',
+  Height: 'height',
 };
 
 enum ChangeAction {
   Restyle,
   Relayout,
+  Resize,
   Update,
   Redraw,
   Recreate,
 }
 
-const PlotlyEvent = {
+export const PlotlyEvent = {
   AfterPlot: 'plotly_afterplot',
 };
 
@@ -44,8 +54,6 @@ const PlotlyEvent = {
 export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
   private static readonly Tag: string = 'PlotlyComponent';
   private static readonly RecreateFields: string[] = [
-    'plotId',
-    'plotClass',
     PlotlyParameter.Configuration,
     PlotlyParameter.Events,
     PlotlyParameter.Frames,
@@ -56,17 +64,17 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
   public afterPlot: boolean = false;
   private changeAction: ChangeAction | undefined;
 
-  public element;
+  private element;
   public plot/*: HTMLElement */;
   public hoverInfo: HTMLElement;
 
   @Input() private debug = false;
 
-  @Input() plotId: string = '';
-  @Input() plotHoverInfoId: string = '';
+  @Input() private plotId: string = '';
+  @Input() public plotHoverInfoId: string = '';
 
-  @Input() plotClass: string = '';
-  @Input() plotHoverInfoClass: string = '';
+  @Input() private plotClass: string = '';
+  @Input() public plotHoverInfoClass: string = '';
 
   @Input() private data: any[];
   @Input() private layout: any;
@@ -77,7 +85,7 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() private width: number;
   @Input() private height: number;
 
-  private boundOnResize = this.onResize.bind(this);
+  private boundResize = this.resize.bind(this);
 
   @HostBinding('class.vclLayoutHidden')
   get notAfterPlot(): boolean {
@@ -131,14 +139,7 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
-    window.addEventListener('resize', this.boundOnResize);
-  }
-
-  private onResize(event?: Event): void {
-    const tag: string = `${this.tag}.onResize()`;
-    // if (this.debug) console.log(tag, 'event:', event);
-    if (this.debug) console.log(tag, 'this.plot:', this.plot);
-    Plotly.Plots.resize(this.plot);
+    window.addEventListener('resize', this.boundResize);
   }
 
   private ngOnChanges(changes: any): void {
@@ -150,7 +151,14 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.debug) console.log(tag, 'changes:', changes);
     const changedKeys: string[] = Object.keys(changes);
 
-    if (includes(changedKeys, PlotlyParameter.Layout)) {
+    if (includes(changedKeys, PlotlyParameter.Width) ||
+      includes(changedKeys, PlotlyParameter.Height)) {
+      this.changeAction = ChangeAction.Resize;
+    }
+
+    if (includes(changedKeys, PlotlyParameter.Layout) ||
+      includes(changedKeys, PlotlyParameter.PlotId) ||
+      includes(changedKeys, PlotlyParameter.PlotClass)) {
       this.changeAction = ChangeAction.Relayout;
     }
 
@@ -169,6 +177,9 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
     const tag: string = `${this.tag}.applyChanges()`;
     if (this.debug) console.log(tag, 'this:', this);
     switch (this.changeAction) {
+      case ChangeAction.Resize:
+        this.resize();
+        break;
       case ChangeAction.Relayout:
         this.relayout();
         break;
@@ -187,6 +198,13 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.debug) console.log(tag, 'update:', update);
     if (this.debug) console.log(tag, 'traces:', traces === undefined ? 'all' : traces);
     return Plotly.restyle(this.plot, update, traces);
+  }
+
+  public resize(event?: Event): void {
+    const tag: string = `${this.tag}.onResize()`;
+    if (this.debug) console.log(tag, 'event:', event);
+    if (this.debug) console.log(tag, 'this.plot:', this.plot);
+    Plotly.Plots.resize(this.plot);
   }
 
   public async relayout(layout: any = this.layout): Promise<any> {
@@ -216,7 +234,7 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
   public async recreate(): Promise<any> {
     const tag: string = `${this.tag}.recreate()`;
     if (this.debug) console.log(tag);
-    window.removeEventListener('resize', this.boundOnResize);
+    window.removeEventListener('resize', this.boundResize);
 
     const style = {};
     if (this.width) Object.assign(style, {
@@ -256,7 +274,7 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
     }).then(() => {
       if (this.width || this.height) {
         // if (this.debug) console.log(tag, 'this.plot:', this.plot);
-        this.onResize();
+        this.resize();
         this.afterPlot = true;
       }
     });
@@ -311,7 +329,7 @@ export class PlotlyComponent implements OnInit, AfterViewInit, OnDestroy {
   public ngOnDestroy(): void {
     const tag: string = `${this.tag}.ngOnDestroy()`;
     if (this.debug) console.log(tag);
-    window.removeEventListener('resize', this.boundOnResize);
+    window.removeEventListener('resize', this.boundResize);
   }
 }
 

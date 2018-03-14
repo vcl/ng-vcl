@@ -128,15 +128,79 @@ export class PopoverComponent extends ObservableComponent {
     });
   }
 
-  ngOnInit(): void {
-    if (this.debug) {
-      const tag: string = `${this.tag}.ngOnInit()`;
-      console.log(tag, 'this:', this);
-      this.setTag();
+  private setTarget(value: Element | ElementRef | string) {
+    if (typeof value === 'string') {
+      this.targetElement = document.querySelector(value) || undefined;
+    } else if (value instanceof Element) {
+      this.targetElement = value;
+    } else if (value instanceof ElementRef) {
+      this.targetElement = value.nativeElement || undefined;
+    } else {
+      this.targetElement = undefined;
     }
   }
 
-  ngAfterViewInit(): void {
+  private setTag(): void {
+    this.tag = `${PopoverComponent.Tag}.${this.target}`;
+  }
+
+
+  public reposition(): void {
+    const tag: string = `${this.tag}.reposition()`;
+
+    const targetPos = this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
+
+    if (this.debug) console.log(tag, 'targetPos:', targetPos);
+    if (!this.visible || !targetPos) return;
+
+    const ownPos: ClientRect = this.getAttachmentPosition();
+    if (this.debug) console.log(tag, 'ownPos:', ownPos);
+
+    const mustX: number = this.targetX === AttachmentX.Center ?
+      targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :
+      targetPos[this.targetX];
+
+    const isX: number = this.attachmentX === AttachmentX.Center ?
+      ownPos[AttachmentX.Left] + ownPos[Dimension.Width] / 2 :
+      ownPos[this.attachmentX];
+
+    const diffX: number = mustX - isX;
+
+    this.translateX = this.translateX + diffX;
+
+    const mustY: number = this.targetY === AttachmentY.Center ?
+      targetPos[AttachmentY.Top] - targetPos[Dimension.Height] / 2 :
+      targetPos[this.targetY];
+
+    const isY: number = this.attachmentY === AttachmentY.Center ?
+      ownPos[AttachmentY.Top] - ownPos[Dimension.Height] / 2 :
+      ownPos[this.attachmentY];
+
+    const diffY: number = mustY - isY;
+
+    if (this.debug) {
+      console.log(tag, {
+        targetPos,
+        ownPos,
+        mustX,
+        isX,
+        diffX,
+        mustY,
+        isY,
+        diffY
+      });
+    }
+
+    this.translateY = this.translateY + diffY;
+  }
+
+  private ngOnInit(): void {
+    this.setTag();
+    const tag: string = `${this.tag}.ngOnInit()`;
+    if (this.debug) console.log(tag, 'this:', this);
+  }
+
+  private ngAfterViewInit(): void {
     setTimeout(() => this.reposition());
 
     if (this.animations) {
@@ -150,16 +214,12 @@ export class PopoverComponent extends ObservableComponent {
 
   }
 
-  setTarget(value: Element | ElementRef | string) {
-    if (typeof value === 'string') {
-      this.targetElement = document.querySelector(value) || undefined;
-    } else if (value instanceof Element) {
-      this.targetElement = value;
-    } else if (value instanceof ElementRef) {
-      this.targetElement = value.nativeElement || undefined;
-    } else {
-      this.targetElement = undefined;
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (this.debug) {
+      const tag: string = `${this.tag}.ngOnChanges()`;
+      console.log(tag, 'changes:', changes);
     }
+    super.ngOnChanges(changes);
   }
 
   public open(): void {
@@ -213,18 +273,6 @@ export class PopoverComponent extends ObservableComponent {
     }
   }
 
-  setTag(): void {
-    this.tag = `${PopoverComponent.Tag}.${this.target}`;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.debug) {
-      const tag: string = `${this.tag}.ngOnChanges()`;
-      console.log(tag, 'changes:', changes);
-    }
-    super.ngOnChanges(changes);
-  }
-
   @HostListener('window:resize', ['$event'])
   private onWindowResize(ev): void {
     this.reposition();
@@ -232,54 +280,5 @@ export class PopoverComponent extends ObservableComponent {
 
   private getAttachmentPosition(): ClientRect {
     return this.me.nativeElement.getBoundingClientRect();
-  }
-
-  public reposition(): void {
-    const tag: string = `${this.tag}.reposition()`;
-
-    const targetPos = this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
-
-    if (this.debug) console.log(tag, 'targetPos:', targetPos);
-    if (!this.visible || !targetPos) return;
-
-    const ownPos: ClientRect = this.getAttachmentPosition();
-    if (this.debug) console.log(tag, 'ownPos:', ownPos);
-
-    const mustX: number = this.targetX === AttachmentX.Center ?
-      targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :
-      targetPos[this.targetX];
-
-    const isX: number = this.attachmentX === AttachmentX.Center ?
-      ownPos[AttachmentX.Left] + ownPos[Dimension.Width] / 2 :
-      ownPos[this.attachmentX];
-
-    const diffX: number = mustX - isX;
-
-    this.translateX = this.translateX + diffX;
-
-    const mustY: number = this.targetY === AttachmentY.Center ?
-      targetPos[AttachmentY.Top] - targetPos[Dimension.Height] / 2 :
-      targetPos[this.targetY];
-
-    const isY: number = this.attachmentY === AttachmentY.Center ?
-      ownPos[AttachmentY.Top] - ownPos[Dimension.Height] / 2 :
-      ownPos[this.attachmentY];
-
-    const diffY: number = mustY - isY;
-
-    if (this.debug) {
-      console.log(tag, {
-        targetPos,
-        ownPos,
-        mustX,
-        isX,
-        diffX,
-        mustY,
-        isY,
-        diffY
-      });
-    }
-
-    this.translateY = this.translateY + diffY;
   }
 }

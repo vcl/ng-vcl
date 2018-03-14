@@ -7,6 +7,19 @@ import { ICoordinate } from './ICoordinate';
 import { TooltipService } from './tooltip.service';
 import { DOCUMENT } from '@angular/platform-browser';
 
+export enum AnimationState {
+  Shown = 'shown',
+  Hidden = 'hidden',
+  None = 'none'
+}
+
+export enum Placement {
+  Top = 'top',
+  Bottom = 'bottom',
+  Left = 'left',
+  Right = 'right'
+}
+
 @Component({
   selector: 'vcl-tooltip',
   templateUrl: './tooltip.component.html',
@@ -24,14 +37,21 @@ import { DOCUMENT } from '@angular/platform-browser';
   ]
 })
 export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
+  private static readonly Tag: string = 'TooltipComponent';
+
+  @Input() debug: boolean = false;
+
   @Input() content: string;
-  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  @Input() placement: Placement = Placement.Top;
   @Input() hostElement: HTMLElement;
 
-  animationState: 'shown' | 'hidden' | 'none' = 'none';
+  @Input() animationState: AnimationState;
+  private _animationState: AnimationState = AnimationState.Hidden;
+
+  @Input() showArrowPointer: boolean = true;
+
   // Initial position should out of screen
   tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
-  tooltipPosition: string = 'vclTooltip vclArrowPointerTop';
   // true if initialized by directive
   showOnInit: boolean = false;
 
@@ -42,38 +62,40 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.placement || changes.content) {
-      this.ShowTooltip()();
+      this.showTooltip()();
     }
   }
 
   ngAfterViewInit(): void {
-    const context = this;
-    // behavior being handled by directive
-    if (context.showOnInit) {
-      setTimeout(() => {
-        context.ShowTooltip()();
-      });
-    } else {
-      context.animationState = 'none';
-      context.renderer.listen(context.hostElement, 'mouseenter', context.ShowTooltip(context));
-      context.renderer.listen(context.hostElement, 'focusin', context.ShowTooltip(context));
-      context.renderer.listen(context.hostElement, 'focusout', () => { context.animationState = 'hidden'; });
-      context.renderer.listen(context.hostElement, 'mouseleave', () => { context.animationState = 'hidden'; });
-    }
+    const tag: string = `${TooltipComponent.Tag}.ngAfterViewInit()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'this:', this);
+    if (debug) console.log(tag, 'this.animationState:', this.animationState);
+
+    setTimeout(() => {
+      if (this.showOnInit || this.animationState === AnimationState.Shown) {
+        setTimeout(() => this.showTooltip()());
+      } else {
+        this._animationState = AnimationState.None;
+        this.renderer.listen(this.hostElement, 'mouseenter', () => this.showTooltip());
+        this.renderer.listen(this.hostElement, 'focusin', () => this.showTooltip());
+        this.renderer.listen(this.hostElement, 'focusout', () => { this._animationState = AnimationState.Hidden; });
+        this.renderer.listen(this.hostElement, 'mouseleave', () => { this._animationState = AnimationState.Hidden; });
+      }
+    });
   }
 
-  ShowTooltip(context: this = this): Function {
+  showTooltip(): Function {
     return () => {
-      if (context.hostElement) {
-        const tooltipOffset = context.tooltipService.positionElements(context.hostElement,
-          context.element.nativeElement.children[0].children[0], context.placement);
-        context.tooltipPlacement = {
+      if (this.hostElement) {
+        const tooltipOffset = this.tooltipService.positionElements(this.hostElement,
+          this.element.nativeElement.children[0].children[0], this.placement);
+        this.tooltipPlacement = {
           Top: tooltipOffset.Top,
           Left: tooltipOffset.Left
         };
-        context.animationState = 'shown';
-        context.tooltipPosition = context.TooltipPosition();
-        context.document.querySelector('body').appendChild(context.element.nativeElement);
+        this._animationState = AnimationState.Shown;
+        this.document.querySelector('body').appendChild(this.element.nativeElement);
         return true;
       } else {
         console.error('Host element not specified');
@@ -82,28 +104,20 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
     };
   }
 
-  TooltipPosition(): string {
+  public get tooltipPosition(): string {
     switch (this.placement) {
-      case 'right':
-        {
-          return 'vclTooltip vclArrowPointerLeft';
-        }
-      case 'left':
-        {
-          return 'vclTooltip vclArrowPointerRight';
-        }
-      case 'bottom':
-        {
-          return 'vclTooltip vclArrowPointerTop';
-        }
+      case Placement.Right:
+        return 'vclTooltip vclArrowPointerLeft';
+      case Placement.Left:
+        return 'vclTooltip vclArrowPointerRight';
+      case Placement.Bottom:
+        return 'vclTooltip vclArrowPointerTop';
       default:
-        {
-          return 'vclTooltip vclArrowPointerBottom';
-        }
+        return 'vclTooltip vclArrowPointerBottom';
     }
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     if (!this.showOnInit) {
       this.element.nativeElement.parentNode.removeChild(this.element.nativeElement);
     }

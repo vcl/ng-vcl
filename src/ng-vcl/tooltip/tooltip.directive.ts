@@ -3,14 +3,14 @@ import {
   ComponentFactoryResolver, ViewContainerRef,
   ComponentRef, Inject, OnChanges, SimpleChanges
 } from '@angular/core';
-import { TooltipComponent } from './tooltip.component';
+import { TooltipComponent, Placement } from './tooltip.component';
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Directive({ selector: '[vcl-tooltip]' })
 export class TooltipDirective implements OnDestroy, OnChanges {
 
   @Input() content: string = '';
-  @Input() position: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  @Input() position: Placement;
 
   tooltip: ComponentRef<TooltipComponent>;
 
