@@ -3,7 +3,8 @@
      [class.vclTabsRight]="layout==='right'">
   <div class="vclTabs {{tabsClass}}" [class.vclTabStyleUni]="!!borders" role="tablist">
     <div *ngFor="let tab of tabs; let i = index"
-         class="vclTab {{tab.tabClass}}" role="tab"
+         class="vclTab {{tab.tabClass}}" 
+         role="tab"
          [class.vclDisabled]="tab.disabled"
          [class.vclSelected]="selectedTabIndex===i"
          [class.aria-selected]="selectedTabIndex===i"
@@ -13,12 +14,12 @@
         </span>
     </div>
   </div>
-  <div class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
-    <div role="tabpanel" class="vclTabPanel">
-      <div #tabContent></div>
+  <div [style.display]="hideContent === true ? 'none' : null" class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
+      <div role="tabpanel" class="vclTabPanel">
+          <div #tabContent></div>
     </div>
     <div role="tabpanel" class="vclTabPanel">
-      <ng-content></ng-content>
+        <ng-content></ng-content>
     </div>
   </div>
 </div>

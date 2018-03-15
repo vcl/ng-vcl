@@ -9,11 +9,13 @@ import { TabComponent } from './tab.component';
 })
 export class TabNavComponent {
 
-  wormholeHost: WormholeHost;
+  wormholeHost?: WormholeHost;
 
   @ViewChild('tabContent', {read: ViewContainerRef})
-  set tabContent(tabContent: ViewContainerRef) {
-    this.wormholeHost = new WormholeHost(tabContent);
+  set tabContent(tabContent: ViewContainerRef | undefined) {
+    if (tabContent) {
+      this.wormholeHost = new WormholeHost(tabContent);
+    }
   }
 
   @ContentChildren(TabComponent)
@@ -30,6 +32,9 @@ export class TabNavComponent {
 
   @Input()
   tabContentClass: string = '';
+
+  @Input()
+  hideContent = false;
 
   // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
   @Input()
@@ -62,11 +67,13 @@ export class TabNavComponent {
     }
 
     if (tabIdx >= 0 && tabComp instanceof TabComponent && !tabComp.disabled) {
-      this.wormholeHost.clearWormholes();
+      if (this.wormholeHost) {
+        this.wormholeHost.clearWormholes();
+        this.wormholeHost.connectWormhole(tabComp.content);
+      }
 
       this.selectedTabIndex = tabIdx;
       this.selectedTabIndexChange$.emit(tabIdx);
-      this.wormholeHost.connectWormhole(tabComp.content);
     }
   }
 
@@ -75,6 +82,8 @@ export class TabNavComponent {
   }
 
   ngOnDestroy() {
-    this.wormholeHost.clearWormholes();
+    if (this.wormholeHost) {
+      this.wormholeHost.clearWormholes();
+    }
   }
 }
