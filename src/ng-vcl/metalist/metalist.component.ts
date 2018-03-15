@@ -149,7 +149,6 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
       item = this.items.toArray()[item];
     }
 
-    debugger;
     if (item instanceof MetalistItem) {
       const value = item.value;
 
