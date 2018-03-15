@@ -100,7 +100,9 @@
 
   <div class="vclInputControlGroup">
     <label vcl-form-control-label [required]="true" label="vcl-token-input" for="vcl-token"></label>
-    <vcl-token-input [class.vclError]="tokeninput.touched && tokeninput.invalid" formControlName="tokeninput" tId="vcl-token"></vcl-token-input>
+    <vcl-token-input-container [class.vclError]="tokeninput.touched && tokeninput.invalid" formControlName="tokeninput">
+      <input vcl-token-input id="vcl-token" />
+    </vcl-token-input-container>
     <div *ngIf="tokeninput.touched && tokeninput.hasError('noSelection')" class="vclFormControlHint vclError">
       Add at least one token
     </div>    

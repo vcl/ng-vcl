@@ -1,22 +1,4 @@
-import { Directive, Input, Output, ElementRef, HostListener,
-  EventEmitter, HostBinding, Renderer2, Renderer
-} from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-// Invalid input type. Using one of these will throw an error
-const INPUT_INVALID_TYPES = [
-  'button',
-  'checkbox',
-  'color',
-  'file',
-  'hidden',
-  'image',
-  'radio',
-  'range',
-  'reset',
-  'submit'
-];
+import { Directive, ElementRef, HostBinding, Input, HostListener } from '@angular/core';
 
 @Directive({
   selector: 'input[vcl-input]',
@@ -26,59 +8,26 @@ const INPUT_INVALID_TYPES = [
 })
 export class InputDirective {
 
-  @HostBinding('attr.type')
-  @Input()
-  type: string = 'text';
-
-  @Input()
-  selectOnFocus: boolean = false;
-
   @HostBinding('class.vclDisabled')
   @Input()
   disabled: boolean = false;
-
-  constructor(private renderer: Renderer, private elRef: ElementRef) {}
-
-  ngOnInit() {
-    if (INPUT_INVALID_TYPES.includes(this.type)) {
-      throw new Error('type not allowed for vcl-input: ' + this.type);
-    }
-  }
-
-  get value() {
-    return this.elRef ? this.elRef.nativeElement.value : '';
-  }
 
   @HostBinding('attr.disabled')
   get attrDisabled() {
     return this.disabled ? true : null;
   }
+}
 
-  setType(type: string) {
-    this.type = type;
-  }
+@Directive({
+  selector: 'input[vcl-input-autoselect]',
+})
+export class InputAutoSelectDirective {
 
-  setDisabled(disabled: boolean) {
-    this.disabled = disabled;
-  }
+  constructor(private elRef: ElementRef) {}
 
-  clear() {
-    if (this.elRef) {
-      this.elRef.nativeElement.value = '';
-    }
-  }
-
-  focus() {
-    if (this.elRef) {
-      this.elRef.nativeElement.focus();
-    }
-  }
-
-  // autoselect
+  // Autoselect
   @HostListener('focus')
   onFocus() {
-    if (this.selectOnFocus && this.elRef) {
-      this.elRef.nativeElement.select();
-    }
+    this.elRef.nativeElement.select();
   }
 }

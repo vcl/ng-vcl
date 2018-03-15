@@ -5,6 +5,4 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputDemoComponent {
   data1 = 'foobar';
-  data2 = 'foobar';
-  data3 = 42;
 }

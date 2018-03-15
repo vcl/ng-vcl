@@ -5,29 +5,43 @@ import { NgModel } from '@angular/forms';
 
 @Directive({
   selector: 'input[vcl-embedded-input]',
+  host: {
+    '[class.vclInput]': 'true'
+  }
 })
-export class EmbeddedInputDirective implements OnDestroy {
+export class EmbeddedInputDirective {
   constructor(
-    @Optional() @SkipSelf() private inputGroup?: EmbeddedInputGroupComponent
-  ) { }
-
-  // Listen to property changes in the input group
-  changesSub = this.inputGroup && this.inputGroup.change$.subscribe(() => {
-    if (this.inputGroup) {
-      this.vclPrepItem = !!this.inputGroup.prepIcon || !!this.inputGroup.prepIcon;
-      this.vclAppItem = !!this.inputGroup.appButtonIcon;
+    @Optional() @SkipSelf() private inputGroup: EmbeddedInputGroupComponent
+  ) {
+    if (!inputGroup) {
+      throw 'vcl-embedded-input must be used within a vcl-embedded-input-group';
     }
-  });
-
-
-  @HostBinding('class.vclAppItem')
-  vclAppItem: boolean = false;
-
-  @HostBinding('class.vclPrepItem')
-  vclPrepItem: boolean = false;
-
-  ngOnDestroy(): void {
-    this.changesSub && this.changesSub.unsubscribe();
   }
 
+  @Input()
+  disabled: boolean = false;
+
+  get isDisabled() {
+    return this.disabled || this.inputGroup.disabled;
+  }
+
+  @HostBinding('class.vclDisabled')
+  get classDisabled() {
+    return this.isDisabled;
+  }
+
+  @HostBinding('attr.disabled')
+  get attrDisabled() {
+    return this.isDisabled ? true : null;
+  }
+
+  @HostBinding('class.vclPrepItem')
+  get prepItem() {
+    return !!this.inputGroup.prepIcon || !!this.inputGroup.prepButtonIcon;
+  }
+
+  @HostBinding('class.vclAppItem')
+  get appItem() {
+    return !!this.inputGroup.appButtonIcon;
+  }
 }

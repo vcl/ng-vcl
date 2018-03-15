@@ -13,7 +13,10 @@ import {
   HostBinding,
   Directive,
   ContentChild,
-  TemplateRef
+  TemplateRef,
+  OnDestroy,
+  Optional,
+  SkipSelf
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputDirective } from '../input/index';
@@ -21,7 +24,7 @@ import { TokenComponent, Token } from './token.component';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TokenInputComponent),
+  useExisting: forwardRef(() => TokenInputContainerComponent),
   multi: true
 };
 
@@ -32,7 +35,7 @@ export class TokenInputLabelPre { }
 export class TokenInputLabelPost { }
 
 @Component({
-  selector: 'vcl-token-input',
+  selector: 'vcl-token-input-container',
   templateUrl: 'token-input.component.html',
   host: {
     '[class.vclInput]': 'true',
@@ -44,36 +47,27 @@ export class TokenInputLabelPost { }
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenInputComponent implements ControlValueAccessor {
+export class TokenInputContainerComponent implements ControlValueAccessor {
 
   tokens: Token[] = [];
 
-  @ViewChild('input')
-  input: ElementRef;
+  @Input()
+  selectable: boolean = false;
 
   @Input()
-  selectable: boolean = true;
+  allowDuplicates: boolean = false;
 
   @Input()
-  selectedAfterAdd: boolean = false;
+  preselect: boolean = false;
 
   @Input()
-  placeholder: string | undefined = 'Type to add tokens';
-
-  @Input()
-  inputClass: string | undefined;
-
-  @Input()
-  icon: string = 'fa:remove';
+  removeIcon: string = 'fa:remove';
 
   @Input()
   tabindex: number = 0;
 
   @Input()
   tokenClass: string | undefined;
-
-  @Input()
-  tId: string | undefined;
 
   @HostBinding('class.vclDisabled')
   @Input()
@@ -82,12 +76,7 @@ export class TokenInputComponent implements ControlValueAccessor {
   @Output()
   change = new EventEmitter<Token[]>();
 
-  @Output()
-  add = new EventEmitter<Token>();
-
-  @Output()
-  remove = new EventEmitter<Token>();
-
+  // Emits on enter key with no input
   @Output()
   confirm = new EventEmitter<Token[]>();
 
@@ -97,61 +86,28 @@ export class TokenInputComponent implements ControlValueAccessor {
   @ContentChild(TokenInputLabelPost, { read: TemplateRef })
   labelPost: TokenInputLabelPost;
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
-  @HostListener('focus', ['$event'])
-  async onFocus(ev?) {
-    await new Promise(res => setTimeout(res, 1000));
-    this.input.nativeElement.focus();
+  removeLastToken() {
+    const token = this.tokens.pop();
+    this.triggerChange();
   }
 
-  @HostBinding('class.vclFocused')
-  focused = false;
+  addToken(label: string, value?: any, selected?: boolean) {
+    selected = selected === undefined ? this.preselect : selected;
+    const token = {
+      selected,
+      label,
+      value: value === undefined ? label : value
+    };
 
-  onInputFocus() {
-    this.focused = true;
-  }
-
-  onInputBlur() {
-    this.focused = false;
-    this.onTouched();
-  }
-
-  get vclFocused() {
-    return this.input && typeof document !== 'undefined' && document.activeElement === this.input.nativeElement;
-  }
-
-  /**
-   * remove last token on double-backspace
-   */
-  private lastKey: string | undefined;
-  @HostListener('keydown', ['$event'])
-  onKeydown(ev?: KeyboardEvent) {
-    const value = this.input && this.input.nativeElement.value;
-    const code = ev && (ev.code || ev.key); // fallback for ie11
-    if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '') {
-      // remove last token
-      const token = this.tokens.pop();
-      this.remove.emit(token);
-      this.triggerChange();
-    } else if (code) {
-      this.lastKey = code;
+    if (this.allowDuplicates === false && this.tokens.some(thisToken => thisToken.value === token.value)) {
+      return;
     }
-  }
 
-  addToken(label: string) {
-    if (label) {
-      const token = {
-        selected: this.selectedAfterAdd,
-        label
-      };
-      this.tokens.push(token);
-      this.input.nativeElement.value = '';
-      this.add.emit(token);
-      this.triggerChange();
-    } else if (label === '') {
-      this.confirm.emit(this.tokens);
-    }
+    this.tokens.push(token);
+    this.triggerChange();
+    this.cdRef.markForCheck();
   }
 
   select(token: Token) {
@@ -163,9 +119,7 @@ export class TokenInputComponent implements ControlValueAccessor {
 
   removeToken(token: Token) {
     this.tokens = this.tokens.filter(t => t !== token);
-    this.remove.emit(token);
     this.triggerChange();
-    this.input.nativeElement.focus();
   }
 
   triggerChange() {
@@ -181,7 +135,7 @@ export class TokenInputComponent implements ControlValueAccessor {
 
   writeValue(tokens: any): void {
     if (Array.isArray(tokens)) {
-      this.tokens = tokens.map(t => typeof t === 'string' ? {label: t, selected: this.selectedAfterAdd} : t)
+      this.tokens = tokens.map(t => typeof t === 'string' ? {label: t, selected: this.preselect} : t)
                           .filter(t => typeof t === 'object' && t);
     } else {
       this.tokens = [];
@@ -197,5 +151,65 @@ export class TokenInputComponent implements ControlValueAccessor {
   }
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
+  }
+}
+
+
+@Directive({
+  selector: 'input[vcl-token-input]',
+  host: {
+    '[class.vclInput]': 'true'
+  }
+})
+export class TokenInputDirective {
+  constructor(
+    private elementRef: ElementRef,
+    @SkipSelf() private tokenInputContainer: TokenInputContainerComponent
+  ) {
+    if (!tokenInputContainer) {
+      throw 'vcl-token-input ,must be used within a vcl-token-input-container';
+    }
+  }
+
+   @Input()
+   disabled: boolean = false;
+
+   get isDisabled() {
+     return this.disabled || this.tokenInputContainer.disabled;
+   }
+
+   @HostBinding('class.vclDisabled')
+   get classDisabled() {
+     return this.isDisabled;
+   }
+
+   @HostBinding('attr.disabled')
+   get attrDisabled() {
+     return this.isDisabled ? true : null;
+   }
+  /**
+   * remove last token on double-backspace
+   */
+  private lastKey: string | undefined;
+  @HostListener('keydown', ['$event'])
+  onKeydown(ev) {
+    const value = ev.target.value;
+    const code = ev && (ev.code || ev.key); // fallback for ie11
+    if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '') {
+      // remove last token
+      this.tokenInputContainer.removeLastToken();
+    } else if (code) {
+      this.lastKey = code;
+    }
+  }
+  @HostListener('keyup.enter', ['$event'])
+  onKeyPressEnter(ev) {
+    const value = ev.target.value;
+    if (value === '') {
+      this.tokenInputContainer.confirm.emit();
+    } else {
+      this.tokenInputContainer.addToken(value);
+      this.elementRef.nativeElement.value = '';
+    }
   }
 }

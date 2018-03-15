@@ -9,14 +9,14 @@ import { VCLWormholeModule } from '../wormhole/index';
 
 import { TokenComponent, Token } from './token.component';
 import { TokenListComponent } from './token-list.component';
-import { TokenInputComponent, TokenInputLabelPost, TokenInputLabelPre } from './token-input.component';
+import { TokenInputContainerComponent, TokenInputLabelPost, TokenInputLabelPre, TokenInputDirective } from './token-input.component';
 
-export { TokenComponent, TokenInputComponent, TokenListComponent, Token };
+export { TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, Token };
 
 @NgModule({
   imports: [CommonModule, L10nModule, VCLInputModule, VCLButtonModule, FormsModule, VCLIconModule, VCLWormholeModule],
-  exports: [TokenComponent, TokenListComponent, TokenInputComponent, TokenInputLabelPost, TokenInputLabelPre],
-  declarations: [TokenComponent, TokenListComponent, TokenInputComponent, TokenInputLabelPost, TokenInputLabelPre],
+  exports: [TokenComponent, TokenListComponent, TokenInputContainerComponent, TokenInputDirective, TokenInputLabelPost, TokenInputLabelPre],
+  declarations: [TokenComponent, TokenListComponent, TokenInputContainerComponent, TokenInputDirective, TokenInputLabelPost, TokenInputLabelPre],
   providers: [],
 })
 export class VCLTokenModule { }

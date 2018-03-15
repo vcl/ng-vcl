@@ -14,4 +14,11 @@
 <br/>
 
 <h3>tokeninput:</h3>
-<vcl-token-input (change)="onInputChange($event);"></vcl-token-input>
+<vcl-token-input-container (change)="onInputChange($event);">
+  <input vcl-token-input />
+</vcl-token-input-container>
+
+<h3>tokeninput (disabled):</h3>
+<vcl-token-input-container [disabled]="true">
+  <input vcl-token-input />
+</vcl-token-input-container>

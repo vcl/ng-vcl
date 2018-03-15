@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf='prepButtonIcon' class="vclPrepended">
-  <button vcl-button (tap)="prepButtonTap.emit($event)" [prepIcon]='prepButtonIcon' class="vclTransparent vclSquare"></button>
+  <button vcl-button (tap)="prepButtonTap.emit($event)" [disabled]="disabled" [prepIcon]='prepButtonIcon' class="vclTransparent vclSquare"></button>
 </div>
 
 <ng-content></ng-content>
@@ -13,5 +13,5 @@
 </div>
 
 <div *ngIf='appButtonIcon' class="vclAppended">
-  <button vcl-button (tap)="appButtonTap.emit($event)" [prepIcon]="appButtonIcon" class="vclTransparent vclSquare vclAppended"></button>
+  <button vcl-button (tap)="appButtonTap.emit($event)" [disabled]="disabled" [prepIcon]="appButtonIcon" class="vclTransparent vclSquare vclAppended"></button>
 </div>

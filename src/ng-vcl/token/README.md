@@ -42,7 +42,9 @@ export class AppComponent {}
 ## token-insert
 
 ```html
-<vcl-token-input (change)="changed($event);"></vcl-token-input>
+<vcl-token-input-container (change)="changed($event);">
+  <input vcl-token-input />
+</vcl-token-input-container>
 ```
 
 ### API
@@ -75,24 +77,23 @@ Name                  | Type     | Description
 `change`              | string[] | called when the selection of token changes
 
 
-#### token-input attributes:
+#### vcl-token-input-container attributes:
 
 Name                 | Type     | Default              | Description
 ------------         | -------- | -------              | ------------------------------------------------------------
 `ngModel`            | Token[]  | []                   | List of tokens
 `selectable`         | boolean  | false                | tokens are selectable if true
-`selectedAfterAdd`   | boolean  | false                | tokens are selected after being added if true
+`allowDuplicates`    | boolean  | false                | tokens with matching values are not added
+`preselect`          | boolean  | false                | tokens are preselected after being added if true
 `tokenClass`         | string   |                      | additional css class for tokens
-`placeholder`        | string   | 'Type to add tokens' | placeholder for the input element
-`inputClass`         | string   |                      | additional css class for the input element
-`icon`               | string   | fa:remove            | remove icon
+`removeIcon`         | string   | fa:remove            | remove icon
 `tabindex`           | number   | 0                    | The tabindex of the token-input
+
+#### vcl-token-input-container events:
 
 Name                    | Type    | Description
 -                       | -       | -
 `change`                | Token[] | called after tokens are added/removed or the selection of token changes
-`add`                   | Token   | called after a token is added
-`remove`                | Token   | called after a token is removed
 `confirm`               | Token[] | called after `enter` is pressed when input element is empty
 
 #### interfaces

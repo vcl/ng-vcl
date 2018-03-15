@@ -7,24 +7,10 @@
              [ngClass]="tokenClass"
              [selected]="token.selected"
              [removable]="true"
-             [icon]="icon"
+             [icon]="removeIcon"
              [attr.tabindex]="-1"
              [label]="token.label">
   </vcl-token>
   <wormhole *ngIf="labelPost" [connect]="labelPost"></wormhole>
 </div>
 <ng-content></ng-content>
-<input 
-  vcl-input
-  #input
-  [disabled]="disabled"
-  [placeholder]="placeholder" 
-  [ngClass]="inputClass"
-  autocomplete="off" 
-  [tabindex]="tabindex"
-  (keyup.enter)="addToken(input.value)"
-  (focus)="onInputFocus()"
-  (blur)="onInputBlur()"
-  [id]="tId"
-  flex
-  />

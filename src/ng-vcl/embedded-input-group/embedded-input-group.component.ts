@@ -14,7 +14,8 @@ import { ObservableComponent } from '../core/index';
 })
 export class EmbeddedInputGroupComponent extends ObservableComponent {
 
-  change$ = this.observeChanges('prepIcon', 'prepButtonIcon', 'appendIcon').map(() => undefined);
+  @Input()
+  disabled: boolean = false;
 
   @Input()
   prepIcon?: string;
