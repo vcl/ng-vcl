@@ -46,7 +46,7 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   @Input() hostElement: HTMLElement;
 
   @Input() animationState: AnimationState;
-  private _animationState: AnimationState = AnimationState.Hidden;
+  public _animationState: AnimationState = AnimationState.Hidden;
 
   @Input() showArrowPointer: boolean = true;
 
@@ -61,7 +61,7 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
     private tooltipService: TooltipService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.placement || changes.content) {
+    if (changes.placement || changes.content || changes.animationState) {
       this.showTooltip()();
     }
   }
@@ -75,7 +75,7 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
     setTimeout(() => {
       if (this.showOnInit || this.animationState === AnimationState.Shown) {
         setTimeout(() => this.showTooltip()());
-      } else {
+      } else if (!this.animationState) {
         this._animationState = AnimationState.None;
         this.renderer.listen(this.hostElement, 'mouseenter', () => this.showTooltip());
         this.renderer.listen(this.hostElement, 'focusin', () => this.showTooltip());
@@ -86,14 +86,19 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   showTooltip(): Function {
+    const tag: string = `${TooltipComponent.Tag}.showTooltip()`;
+    const debug: boolean = this.debug || false;
+
     return () => {
       if (this.hostElement) {
-        const tooltipOffset = this.tooltipService.positionElements(this.hostElement,
+        const tooltipOffset: ICoordinate = this.tooltipService.positionElements(this.hostElement,
           this.element.nativeElement.children[0].children[0], this.placement);
+        if (debug) console.log(tag, 'tooltipOffset:', tooltipOffset);
         this.tooltipPlacement = {
           Top: tooltipOffset.Top,
           Left: tooltipOffset.Left
         };
+        if (debug) console.log(tag, 'this.tooltipPlacement:', this.tooltipPlacement);
         this._animationState = AnimationState.Shown;
         this.document.querySelector('body').appendChild(this.element.nativeElement);
         return true;
@@ -112,6 +117,7 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
         return 'vclTooltip vclArrowPointerRight';
       case Placement.Bottom:
         return 'vclTooltip vclArrowPointerTop';
+      case Placement.Top:
       default:
         return 'vclTooltip vclArrowPointerBottom';
     }
