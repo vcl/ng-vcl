@@ -41,3 +41,4 @@ export * from './notification/index';
 export * from './gallery/index';
 export * from './badge/index';
 export * from './embedded-input-group/index';
+export * from './autocomplete/index';

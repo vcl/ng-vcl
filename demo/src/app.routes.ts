@@ -207,6 +207,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
+    path: 'autocomplete',
+    data: {
+      demo: {
+        label: 'Autocomplete',
+        category: 'Form Controls',
+      }
+    }
+  },
+  {
     loadChildren: './demos/label/demo.module#LabelDemoModule',
     path: 'label',
     data: {
