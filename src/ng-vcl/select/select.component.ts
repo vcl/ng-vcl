@@ -47,9 +47,6 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   tabindex = 0;
 
   @Input()
-  value: any | any[];
-
-  @Input()
   expanded: boolean = false;
 
   @Input()
@@ -79,6 +76,9 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   @Input()
   dropDirection: DropDirection;
+
+  @Input()
+  value: any | any[];
 
   constructor(
     private elementRef: ElementRef,
@@ -233,9 +233,8 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   syncDisplayValue() {
-    const selectedItems = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []).map(item => item.metadata as SelectOption);
-    this.selectedItems = [...selectedItems];
-    const item = selectedItems.shift();
+    this.selectedItems = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []).map(item => item.metadata as SelectOption);
+    const item = this.selectedItems[0];
     if (item) {
       this.displayValue = item.label || String(item.value);
     } else {
@@ -271,18 +270,16 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
     setTimeout(() => this.reFocus(), 0);
   }
 
-  setValue(value: any) {
-    this.dropdown.setValue(value);
-    this.syncDisplayValue();
-  }
-
   /**
    * Things needed for ControlValueAccessor-Interface.
    */
   private onChange: (_: any) => void = () => { };
   private onTouched: () => any = () => { };
   writeValue(value: any): void {
-    this.setValue(value);
+    this.value = value;
+    this.dropdown.writeValue(value);
+    this.syncDisplayValue();
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChange = fn;

@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { L10nModule } from '../l10n/index';
 import { VCLWormholeModule } from '../wormhole/index';
-import { MetalistItem } from './metalist-item.component';
-import { MetalistComponent } from './metalist.component';
+// import { MetalistItem } from './metalist-item.component';
+import { MetalistComponent, MetalistItem } from './metalist.component';
 
 export { MetalistItem, MetalistComponent };
 

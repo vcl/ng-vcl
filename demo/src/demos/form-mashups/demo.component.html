@@ -11,8 +11,8 @@
 </div>
 
 <vcl-popover #dropOver [target]="target" class="vclNoPadding" (offClick)="offClick()">
-  <vcl-dropdown (change)="onSelect($event)">
-    <vcl-dropdown-option *ngFor="let i of [0, 1, 2, 3, 4]" [value]="i" [selected]="i == 1" label="Item {{ i }}"></vcl-dropdown-option>
+  <vcl-dropdown [value]="1" (change)="onSelect($event)">
+    <vcl-dropdown-option *ngFor="let i of [0, 1, 2, 3, 4]" [value]="i" label="Item {{ i }}"></vcl-dropdown-option>
   </vcl-dropdown>
 </vcl-popover>
 <br>

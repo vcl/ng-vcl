@@ -100,6 +100,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     public readonly elementRef: ElementRef,
     private readonly cdRef: ChangeDetectorRef,
     private readonly builder: AnimationBuilder,
+    // @Optional() private ngModel: NgModel,
     @Optional() @Inject(DROPDOWN_ANIMATIONS) private animations: DropdownAnimationConfig) { }
 
   ngOnInit() {
@@ -230,10 +231,6 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     this.itemsChange.emit();
   }
 
-  setValue(value: any) {
-    this.metalist.setValue(value);
-  }
-
   /**
    * things needed for ControlValueAccessor-Interface
    */
@@ -241,7 +238,8 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   private onTouched: () => any = () => { };
 
   writeValue(value: any): void {
-    this.setValue(value);
+    this.value = value;
+    this.metalist.setValue(value);
   }
   registerOnChange(fn: any) {
     this.onChange = fn;
