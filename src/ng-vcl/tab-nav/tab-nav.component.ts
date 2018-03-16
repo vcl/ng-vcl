@@ -73,8 +73,12 @@ export class TabNavComponent {
       }
 
       this.selectedTabIndex = tabIdx;
-      this.selectedTabIndexChange$.emit(tabIdx);
     }
+  }
+
+  onTabClick(tab: number | TabComponent) {
+    this.selectTab(tab);
+    this.selectedTabIndexChange$.emit(this.selectedTabIndex);
   }
 
   ngAfterContentInit() {
