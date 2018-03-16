@@ -155,7 +155,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
       if (this.mode === 'single' && this.value === value) {
         this.value = undefined;
         this.triggerChange();
-      } else if (this.mode === 'single') {
+      } else if (this.mode === 'multiple') {
         if (!Array.isArray(this.value)) {
           this.value = [];
         }

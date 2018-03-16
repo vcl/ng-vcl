@@ -9,7 +9,7 @@
     </div>
     <div *ngIf="!showDisplayValue" class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle($event)">
       <vcl-token-list [disabled]="disabled">
-        <vcl-token *ngFor="let item of selectedItems" [label]="item.label" [removable]="true" (remove)="deselectItem(item, $event)"></vcl-token>
+        <vcl-token *ngFor="let item of selectedItems" [label]="item.label" [removable]="true" (remove)="deselectItem(item.metaItem, $event)"></vcl-token>
       </vcl-token-list>
     </div>
 

@@ -42,6 +42,9 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   @Input()
   mode: 'multiple' | 'single' = 'single';
 
+  @Input()
+  placeholder: string = 'Select value';
+
   @HostBinding('attr.tabindex')
   @Input()
   tabindex = 0;
@@ -179,7 +182,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   dropdownTop: number = -1;
 
   displayValue?: string;
-  selectedItems: SelectOption[] = [];
+  selectedItems: { metaItem: MetalistItem, label: string }[] = [];
 
   get showDisplayValue() {
     return this.mode === 'single' || this.selectedItems.length === 0;
@@ -233,18 +236,25 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   syncDisplayValue() {
-    this.selectedItems = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []).map(item => item.metadata as SelectOption);
+    const items = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []);
+    this.selectedItems = items.map(item => {
+      const label = (item.metadata && item.metadata.metadata && item.metadata.metadata.label) || String(item.value);
+      return {
+        label,
+        metaItem: item
+      };
+    });
+
     const item = this.selectedItems[0];
     if (item) {
-      this.displayValue = item.label || String(item.value);
+      this.displayValue = item.label;
     } else {
-      this.displayValue = 'Select Value';
+      this.displayValue = this.placeholder;
     }
   }
 
-  deselectItem(item: SelectOption, event?: any) {
-    const idx = this.items.toArray().findIndex(citem => item === citem);
-    this.dropdown.metalist.deselect(idx);
+  deselectItem(item: MetalistItem) {
+    this.dropdown.metalist.deselect(item);
   }
 
   onItemsChange() {
