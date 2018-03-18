@@ -6,7 +6,7 @@
 <br/>
 
 <h3>tokenlist:</h3>
-<vcl-token-list [selectable]="true" (change)="onListChange($event);">
+<vcl-token-list [selectable]="true" (tokensChange)="onListChange($event);">
   <vcl-token label="my token 1" value="1"></vcl-token>
   <vcl-token label="my token 2" [selected]="true" value="2"></vcl-token>
 </vcl-token-list>
@@ -14,7 +14,7 @@
 <br/>
 
 <h3>tokeninput:</h3>
-<vcl-token-input-container (change)="onInputChange($event);">
+<vcl-token-input-container (tokensChange)="onInputChange($event);">
   <input vcl-token-input />
 </vcl-token-input-container>
 

@@ -9,8 +9,9 @@
 - (BREAKING) requires Angular ^5
 - select/dropdown/metalist:
   - (BREAKING) Removed selected property from items/options. Use value property on vcl-metalist, vcl-dropdown or vcl-select instead.
-- token-input:
-  - (BREAKING) Must be used as container with vcl-input
+- token:
+  - (BREAKING) change event renamed to tokensChange
+  - (BREAKING) token-input must be used as container with vcl-input
 - password-input:
   - (BREAKING) Must be used as container with vcl-input
 - link:

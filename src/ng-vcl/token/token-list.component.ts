@@ -53,7 +53,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
   disabled: boolean = false;
 
   @Output()
-  change = new EventEmitter();
+  tokensChange = new EventEmitter();
 
   labels: any[];
 
@@ -74,7 +74,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
 
 
   private triggerChange() {
-    this.change.emit(this.labels);
+    this.tokensChange.emit(this.labels);
     !!this.onChangeCallback && this.onChangeCallback(this.labels);
   }
 

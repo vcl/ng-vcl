@@ -74,7 +74,7 @@ Name         | Type     | Default  | Description
 
 Name                  | Type     | Description
 -                     | -        | -
-`change`              | string[] | called when the selection of token changes
+`tokensChange`        | string[] | called when the selection of token changes
 
 
 #### vcl-token-input-container attributes:
@@ -93,7 +93,7 @@ Name                 | Type     | Default              | Description
 
 Name                    | Type    | Description
 -                       | -       | -
-`change`                | Token[] | called after tokens are added/removed or the selection of token changes
+`tokensChange`          | Token[] | called after tokens are added/removed or the selection of token changes
 `confirm`               | Token[] | called after `enter` is pressed when input element is empty
 
 #### interfaces

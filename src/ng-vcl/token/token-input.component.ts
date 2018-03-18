@@ -74,7 +74,7 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   disabled = false;
 
   @Output()
-  change = new EventEmitter<Token[]>();
+  tokensChange = new EventEmitter<Token[]>();
 
   // Emits on enter key with no input
   @Output()
@@ -123,7 +123,7 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   }
 
   triggerChange() {
-    this.change.emit(this.tokens);
+    this.tokensChange.emit(this.tokens);
     this.onChange(this.tokens);
   }
 
