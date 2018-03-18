@@ -17,7 +17,7 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
   autocompleteSelect = new EventEmitter<AutocompleteOption>();
 
   @Input()
-  autocompleteOnSelect?: 'label' | 'sublabel' | 'value' | {(option: AutocompleteOption): string} | 'clear' = 'value';
+  autocompleteOnSelect: 'label' | 'sublabel' | 'value' | {(option: AutocompleteOption): string} | 'clear' = 'value';
 
   @Input('vcl-input-autocomplete')
   _ac?: Autocomplete;
@@ -41,15 +41,23 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
 
   @HostListener('focus')
   @HostListener('input')
-  listenActivate() {
-    this.activate();
+  onFocusOrInput() {
+    this.renderAutocomplete();
   }
 
-  activate() {
+  @HostListener('blur')
+  onBlur() {
+    if (this.acSub) {
+      this.acSub.unsubscribe();
+      this.acSub = undefined;
+    }
+  }
+
+  renderAutocomplete() {
     if (this.acSub) {
       return;
     }
-    this.acSub = this.ac.open(this.elementRef).subscribe(selection => {
+    this.acSub = this.ac.render(this.elementRef).subscribe(selection => {
       if (this.autocompleteOnSelect === 'value') {
         this.elementRef.nativeElement.value = String(selection.value);
       } else if (this.autocompleteOnSelect === 'label') {
@@ -61,36 +69,32 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
       } else {
         this.elementRef.nativeElement.value = '';
       }
-      this.deactivate();
+      this.elementRef.nativeElement.focus();
+      this.destroyAutocomplete();
       this.autocompleteSelect.emit(selection);
-    }, undefined, () => this.deactivate());
+    });
   }
 
-  deactivate() {
+  destroyAutocomplete() {
     if (this.acSub) {
       this.acSub.unsubscribe();
       this.acSub = undefined;
     }
   }
 
-  @HostListener('keydown', ['$event'])
-  onKeyPress(event) {
-    const code = event.code || event.key;
-    if (code === 'Tab') {
-      this.deactivate();
-    }
-  }
 
   @HostListener('keyup', ['$event'])
   onKeyUp(event) {
     const code = event.code || event.key;
-    if (code === 'ArrowUp') {
+    if (code === 'Escape') {
+      this.destroyAutocomplete();
+    } else if (code === 'ArrowUp') {
       this.ac && this.ac.highlightPrev();
       event.preventDefault();
       return false;
     } else if (event.code === 'ArrowDown') {
       if (!this.acSub) {
-        this.activate();
+        this.renderAutocomplete();
       } else {
         this.ac && this.ac.highlightNext();
       }
@@ -101,14 +105,17 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
 
   @HostListener('keypress', ['$event'])
   async handleKeyPressEvent(event: KeyboardEvent) {
-    if (event.code === 'Enter') {
+    const code = event.code || event.key;
+    if (this.ac && code === 'Enter') {
       event.preventDefault();
-      this.ac && this.ac.selectHighlighted();
+      if (this.ac.isHighlighted) {
+        this.ac.selectHighlighted();
+      }
     }
   }
 
   ngOnDestroy() {
-    this.deactivate();
+    this.destroyAutocomplete();
     super.ngOnDestroy();
   }
 }

@@ -6,7 +6,7 @@
 
 <h3>vcl-token-input with fixed data</h3>
 
-<vcl-token-input-container (change)="onChange($event)">
+<vcl-token-input-container (tokensChange)="onChange($event)">
   <input placeholder="Search for country to add" [vcl-token-input-autocomplete]="acCountry" />
 </vcl-token-input-container>
 
@@ -24,17 +24,16 @@
 
 <h3>vcl-token-input with async data</h3>
 
-<vcl-token-input-container (change)="onChange($event)">
+<vcl-token-input-container (tokensChange)="onChange($event)">
   <input placeholder="Search for books to add"
          [vcl-token-input-autocomplete]="acBooks"
          (input)="booksSearch$.next($event.target.value)"
          (autocompleteSelect)="booksSearch$.next('')" />
 </vcl-token-input-container>
 
-<vcl-autocomplete [busy]="loading" #acBooks="vclAutocomplete">
+<vcl-autocomplete [busy]="loading" [showContent]="noResult" #acBooks="vclAutocomplete">
   <vcl-autocomplete-option *ngFor="let book of books$ | async" [label]="book.title" [value]="book.id"></vcl-autocomplete-option>
-  <vcl-busy-indicator style="padding: 1em" autocomplete-busy></vcl-busy-indicator>
-  <div  *ngIf="noResult" autocomplete-no-items style="padding: 1em">
+  <div autocomplete-content style="padding: 1em">
     No books found
   </div>
 </vcl-autocomplete>

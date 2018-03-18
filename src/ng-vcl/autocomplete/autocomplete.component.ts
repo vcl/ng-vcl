@@ -6,6 +6,7 @@ import { WormholeHost } from '../wormhole/index';
 import { PopoverComponent } from '../popover/index';
 import { Subscription } from 'rxjs/Subscription';
 import { ObservableComponent } from '../core/index';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'vcl-autocomplete',
@@ -18,11 +19,13 @@ import { ObservableComponent } from '../core/index';
     .vclPopOver {
       padding: 0;
     }
+    vcl-busy-indicator {
+      padding: 1em;
+    }
   `],
   templateUrl: 'autocomplete.component.html'
 })
 export class Autocomplete extends ObservableComponent implements AfterContentInit, OnDestroy {
-
 
   @ViewChild('popover')
   popover: PopoverComponent;
@@ -33,24 +36,28 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
   @Input()
   busy = false;
 
+  @Input()
+  showContent = false;
+
   @Output()
   select = new EventEmitter<any>();
 
   target$ = new BehaviorSubject<any>(undefined);
-  busy$ = this.observeChangeValue('busy').startWith(false);
+  busy$ = this.observeChangeValue<boolean>('busy').pipe(startWith(false));
+  showContent$ = this.observeChangeValue<boolean>('showContent').pipe(startWith(false));
 
   private items$ = new BehaviorSubject<AutocompleteOption[]>([]);
 
   itemsVisible$ = Observable.combineLatest(this.target$, this.items$, this.busy$, ((target, items, busy) => {
-    return target && !busy && items.length > 0;
-  }));
-  noItemsVisible$ = Observable.combineLatest(this.target$, this.items$, this.busy$, ((target, items, busy) => {
-    return target && !busy && items.length === 0;
+    return !!target && !busy && items.length > 0;
   }));
   busyVisible$ = Observable.combineLatest(this.target$, this.busy$, ((target, busy) => {
-    return target && busy;
+    return !!target && busy;
   }));
-  visible$ = Observable.combineLatest(this.itemsVisible$, this.noItemsVisible$, this.busyVisible$, ((v1, v2, v3) => {
+  contentVisible$ = Observable.combineLatest(this.target$, this.showContent$, ((target, showContent) => {
+    return !!target && showContent;
+  }));
+  visible$ = Observable.combineLatest(this.itemsVisible$, this.busyVisible$, this.contentVisible$, ((v1, v2, v3) => {
     return v1 || v2 || v3;
   }));
 
@@ -62,35 +69,25 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 
   highlightedItem: number = -1;
 
-
-  open(targetElement: ElementRef) {
+  render(targetElement: ElementRef): Observable<AutocompleteOption> {
     this.highlightedItem = -1;
     const select = new Subject<AutocompleteOption>();
-    const offClick = new Subject();
-    const value = new Subject<AutocompleteOption>();
 
-    const destroy = () => {
-      select.complete();
-      offClick.complete();
-      this.target$.next(undefined);
-    };
-
-    const offClickSub = offClick.subscribe(() => destroy());
-    this.target$.next({ element: targetElement, select, offClick });
+    this.target$.next({
+      element: targetElement,
+      select(ac: AutocompleteOption) {
+        select.next(ac);
+      }
+    });
 
     return new Observable<AutocompleteOption>(observer => {
       const sub = select.subscribe(observer);
       return () => {
-        destroy();
+        sub.unsubscribe();
+        select.complete();
+        this.target$.next(undefined);
       };
     });
-  }
-
-  selectHighlighted() {
-    if (this.highlightedItem >= 0 && this.target$.value && this.items && this.items.toArray()[this.highlightedItem]) {
-      const item = this.items.toArray()[this.highlightedItem];
-      this.target$.value.select.next(item);
-    }
   }
 
   highlightPrev() {
@@ -112,21 +109,37 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
     }
   }
 
+  get isHighlighted() {
+    return this.highlightedItem >= 0;
+  }
+
   highlightNext() {
     if (this.items) {
       let idx = this.items.toArray().findIndex((item, thisIdx) => item.type === 'item' && thisIdx > this.highlightedItem);
       if (idx > -1) {
         this.highlightedItem = idx;
-      } else {
-        // const reversedIdx = this.items.toArray().reverse().findIndex(item => item.type === 'item');
-        // idx = (this.items.length - 1) - reversedIdx;
       }
     }
   }
 
+  selectHighlighted(): boolean {
+    if (this.highlightedItem >= 0 && this.target$.value && this.items && this.items.toArray()[this.highlightedItem]) {
+      const item = this.items.toArray()[this.highlightedItem];
+      this.target$.value.select(item);
+      return true;
+    }
+    return false;
+  }
+
   ngAfterContentInit(): void {
     const items = this.items;
-    this.itemsSub = items && items.changes.startWith(items.toArray()).map(() => items.toArray()).subscribe(this.items$);
+    this.itemsSub = items && items.changes.pipe(
+      startWith(items.toArray()),
+      map(() => items.toArray()))
+    .subscribe(items => {
+      this.items$.next(items);
+      this.highlightedItem = -1;
+    });
   }
 
   ngOnDestroy(): void {

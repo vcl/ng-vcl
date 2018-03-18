@@ -56,39 +56,35 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
   acSub?: Subscription;
   focused = false;
 
+  @HostListener('input')
   @HostListener('focus')
   listenActivate() {
     this.focused = true;
-    this.activate();
+    this.renderAutocomplete();
   }
 
   @HostListener('blur')
   onBlur() {
     this.focused = false;
+    this.destroyAutocomplete();
   }
 
-  @HostListener('input')
-  onInput() {
-    this.activate();
-  }
-
-
-  activate() {
+  renderAutocomplete() {
     if (this.acSub) {
       return;
     }
 
-    this.acSub = this.ac.open(this.tokenInputContainer.elementRef).subscribe(selection => {
+    this.acSub = this.ac.render(this.tokenInputContainer.elementRef).subscribe(selection => {
       this.tokenInputContainer.addToken(selection.label || String(selection.value), selection.value);
       this.elementRef.nativeElement.value = '';
       if (!this.focused) {
-        this.deactivate();
+        this.destroyAutocomplete();
       }
       this.autocompleteSelect.emit(selection);
-    }, undefined, () => this.deactivate());
+    });
   }
 
-  deactivate() {
+  destroyAutocomplete() {
     if (this.acSub) {
       this.acSub.unsubscribe();
       this.acSub = undefined;
@@ -99,7 +95,7 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
   onKeyPress(event) {
     const code = event.code || event.key;
     if (code === 'Tab') {
-      this.deactivate();
+      this.destroyAutocomplete();
     }
   }
 
@@ -110,13 +106,15 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
     const code = event && (event.code || event.key); // fallback for ie11
     const value = event.target.value;
 
-    if (code === 'ArrowUp') {
+    if (code === 'Escape') {
+      this.destroyAutocomplete();
+    } else if (code === 'ArrowUp') {
       this.ac && this.ac.highlightPrev();
       event.preventDefault();
       return false;
     } else if (code === 'ArrowDown') {
       if (!this.acSub) {
-        this.activate();
+        this.renderAutocomplete();
       } else {
         this.ac && this.ac.highlightNext();
       }
@@ -127,15 +125,17 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
       this.tokenInputContainer.removeLastToken();
     } else if (code === 'Enter') {
       event.preventDefault();
-      this.ac && this.ac.selectHighlighted();
-      this.elementRef.nativeElement.value = '';
+      if (this.ac.isHighlighted) {
+        this.ac && this.ac.selectHighlighted();
+        this.elementRef.nativeElement.value = '';
+      }
     } else if (code) {
       this.lastKey = code;
     }
   }
 
   ngOnDestroy() {
-    this.deactivate();
+    this.destroyAutocomplete();
     super.ngOnDestroy();
   }
 }

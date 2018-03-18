@@ -1,11 +1,9 @@
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { VCLWormholeModule } from './../wormhole/index';
 import { VCLPopoverModule } from '../popover/index';
 import { VCLInputModule }   from '../input/index';
+import { VCLBusyIndicatorModule } from '../busy-indicator/index';
 import { VCLTokenModule }   from '../token/index';
 import { VCLOffClickModule }   from '../off-click/index';
 
@@ -16,7 +14,7 @@ import { TokenInputAutocompleteDirective } from './token-input.autocomplete.dire
 export { Autocomplete, AutocompleteOption, InputAutocompleteDirective, TokenInputAutocompleteDirective };
 
 @NgModule({
-  imports: [CommonModule, VCLInputModule, VCLWormholeModule, VCLPopoverModule, VCLTokenModule, VCLOffClickModule],
+  imports: [CommonModule, VCLInputModule, VCLWormholeModule, VCLPopoverModule, VCLTokenModule, VCLOffClickModule, VCLBusyIndicatorModule],
   exports: [InputAutocompleteDirective, Autocomplete, AutocompleteOption, TokenInputAutocompleteDirective],
   declarations: [InputAutocompleteDirective, Autocomplete, AutocompleteOption, TokenInputAutocompleteDirective],
   providers: [],
