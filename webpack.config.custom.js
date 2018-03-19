@@ -19,7 +19,9 @@ module.exports = {
         ]
       },
       resolve: {
-         mainFields: ["webpack"], // Fixes for packages that use a "webpack" entry point in package.json (e.g. plotly.js)
+         alias: {
+           'plotly.js': 'node_modules/plotly.js/dist/plotly-basic.js' // Plotly.js fix
+         },         
          plugins: [
            new TsConfigPathsPlugin()
          ]      

@@ -1,13 +1,13 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as glob from 'glob';
-import * as promisify from 'es6-promisify';
 import * as resolveBinNode from 'resolve-bin';
 import * as childProcess from 'child_process';
+import { promisify } from 'util';
 
 export const readFile = promisify(fs.readFile);
 export const writeFile = promisify(fs.writeFile);
-export const resolveBin = promisify(resolveBinNode);
+export const resolveBin = promisify<any, any, string>(resolveBinNode);
 
 export function root(__path = '.', ...args) {
   return path.resolve(__dirname, '..', __path, ...args);
