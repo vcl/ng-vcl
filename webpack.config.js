@@ -6,6 +6,7 @@ const {
   DefinePlugin,
   NoEmitOnErrorsPlugin, 
   ProgressPlugin,
+  NamedModulesPlugin,
   optimize: {
     CommonsChunkPlugin,
     UglifyJsPlugin,
@@ -14,6 +15,7 @@ const {
 } = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ReloadPlugin = require('reload-html-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin')
@@ -26,6 +28,8 @@ const postcssEasyImport = require('postcss-easy-import');
 const postcssCssVariables = require('postcss-css-variables');
 const postcssNesting = require('postcss-nesting');
 const postcssColorFunction = require('postcss-color-function');
+const postcssNext = require('postcss-cssnext');
+
 const rucksackCss = require('rucksack-css');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
@@ -36,11 +40,11 @@ const root = (__path = '.') => path.join(__dirname, __path);
 
 const POST_CSS_SHARED_PLUGINS = [
   postcssEasyImport(),
-  postcssCssVariables(),
   postcssNesting(),
+  postcssCssVariables(),
   postcssColorFunction(),
+  postcssNext(),
   rucksackCss(),
-  autoprefixer(),
 ];
 
 const POST_CSS_PROD_PLUGINS = [
@@ -60,54 +64,52 @@ const CSS_LOADER_ALIAS = {
   "../imgs": '../public/imgs'
 };
 
-const TARGET_CONFIG = {
+const TARGET_ENV_MAP = {
   'development': {
-    env: 'development',
-    devtool: 'source-map',
+    name: 'development',
+    sourceMaps: true,
     aot: false,
     extractCSS: false,
     noEmitError: false,
     commonChunks: false,
     minify: false,
     replaceEnvFile: false,
-    hmr: true,
     moduleConcatenation: false,
     postCSSplugins: POST_CSS_SHARED_PLUGINS,
   },
   'production': {
-    env: 'production',    
-    devtool: false,
+    name: 'production',    
+    sourceMaps: false,
     aot: true,
     extractCSS: true,
-    postCSSplugins: POST_CSS_PROD_PLUGINS,
     noEmitError: true,
     commonChunks: true,
     minify: true,
     replaceEnvFile: 'prod',
-    hmr: false,
     moduleConcatenation: true,
-    postCSSplugins: POST_CSS_SHARED_PLUGINS,
+    postCSSplugins: POST_CSS_PROD_PLUGINS,
   },
 };
 
-function webpackConfig(options) {
+function webpackConfig(env) {
 
   const APP_FOLDER = webpackCustomConfig.appFolder || 'app';
   const OUTPUT_FOLDER = webpackCustomConfig.outputFolder || 'dist';
   const ASSETS_FOLDER = webpackCustomConfig.resourcesFolder || APP_FOLDER + '/public';
-
-  const PORT = options.PORT || 3000;
-  const TARGET = options.target || 'development';
-
-  const CONFIG = TARGET_CONFIG[TARGET];
-
-  if (!CONFIG) {
+  
+  const PORT = env.port || 3000;
+  const TARGET = env.target || 'development';
+  const HMR = !!env.hmr;
+  
+  const ENV = TARGET_ENV_MAP[TARGET];
+  
+  if (!ENV) {
     throw 'Unknown target: ' + TARGET;
   }
 
   let wpc = {
     cache: true,
-    devtool: CONFIG.devtool,
+    devtool: ENV.sourceMaps ? 'source-map' : false,
     entry: {
       main: root(APP_FOLDER + '/main.ts'),
       polyfills: root(APP_FOLDER + '/polyfills.ts'),
@@ -122,7 +124,7 @@ function webpackConfig(options) {
     },
     module: {
       rules: [
-        CONFIG.aot ? {
+        ENV.aot ? {
           test: /\.js$/,
           use: [
             {
@@ -142,62 +144,80 @@ function webpackConfig(options) {
         },
         {
           test: /\.styl$/,
-          use: !CONFIG.extractCSS ? [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                alias: CSS_LOADER_ALIAS,
-                minimize: false
+          include: [root(APP_FOLDER + '/styles')],
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader', 
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1,
+                  alias: CSS_LOADER_ALIAS,
+                  minimize: ENV.minify
+                }
+              },
+              {
+                loader: "postcss-loader",
+                options: {
+                  ident: "postcss",
+                  parser: "sugarss",
+                  plugins: ENV.postCSSplugins,
+                  sourceMap: ENV.sourceMaps
+                }
               }
-            },
-            {
-              loader: "postcss-loader",
-              options: {
-                ident: "postcss",
-                parser: "sugarss",
-                plugins: CONFIG.postCSSplugins,
-                sourceMap: false
-              }
-            }
-          ] : ExtractTextPlugin.extract([
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                alias: CSS_LOADER_ALIAS,
-                minimize: true
-              }
-            },
-            {
-              loader: "postcss-loader",
-              options: {
-                ident: "postcss",
-                parser: "sugarss",
-                plugins: CONFIG.postCSSplugins,
-                sourceMap: false
-              }
-            }
-          ])
+            ]
+          })
         },
+        // The component css files are stringified to work with the ngc loader
         {
           test: /\.css$/,
-          // The component css files are raw-loaded to work with the angular2-template-loader
-          include: [root('demo/app/'), root('src/')],
-          use: ['raw-loader']
-        },         
+          exclude: [root(APP_FOLDER + '/styles')],
+          use: [
+            'to-string-loader',
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: false,
+                importLoaders: 1,
+              }
+            }
+          ]
+        },
+        // The component styl files are stringified to work with the ngc loader
+        {
+          test: /\.styl$/,
+          exclude: [root(APP_FOLDER + '/styles')],
+          use: [
+            'to-string-loader',
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: false,
+                importLoaders: 1,
+              }
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                ident: "postcss",
+                parser: "sugarss",
+                plugins: ENV.postCSSplugins,
+                sourceMap: false
+              }
+            }            
+          ]
+        },
         {
           test: /\.(html)$/, 
           use: ['raw-loader'],
         },
-        CONFIG.aot ? {
+        ENV.aot ? {
           test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
           use: [
             {
-              "loader": "@angular-devkit/build-optimizer/webpack-loader",
-              "options": {
-                "sourceMap": false
+              loader: "@angular-devkit/build-optimizer/webpack-loader",
+              options: {
+                sourceMap: false
               }
             },
             "@ngtools/webpack"
@@ -213,7 +233,7 @@ function webpackConfig(options) {
       ].filter( rule => rule !== null)
     },
     plugins: [
-      CONFIG.noEmitError ? new NoEmitOnErrorsPlugin() : null,
+      ENV.noEmitError ? new NoEmitOnErrorsPlugin() : null,
       new CopyWebpackPlugin([{
         from: ASSETS_FOLDER,
         to: ''
@@ -237,13 +257,13 @@ function webpackConfig(options) {
             return 0;
           }
         },
-        minify: CONFIG.minify ? {
+        minify: ENV.minify ? {
           "caseSensitive": true,
           "collapseWhitespace": true,
           "keepClosingSlash": true
         } : false
       }),      
-      ...(CONFIG.commonChunks ? [
+      ...(ENV.commonChunks ? [
         new CommonsChunkPlugin({
           "name": [
             "inline"
@@ -258,12 +278,16 @@ function webpackConfig(options) {
           "async": "common"
         }),
       ] : []),
-      CONFIG.extractCSS ? new ExtractTextPlugin('styles.css') : null,
-      new DefinePlugin({
-        'NODE_ENV': JSON.stringify(CONFIG.env),
-        'ENV': JSON.stringify(CONFIG.env)
+      new ExtractTextPlugin({
+        filename: 'styles.css',
+        allChunks: true,
+        disable: !ENV.extractCSS || HMR // ExtractTextPlugin does not work in HMR mode
       }),
-      CONFIG.minify ? new UglifyJsPlugin({
+      new DefinePlugin({
+        'NODE_ENV': JSON.stringify(ENV.name),
+        'process.env.NODE_ENV': JSON.stringify(ENV.name)
+      }),
+      ENV.minify ? new UglifyJsPlugin({
         "test": /\.js$/i,
         "extractComments": false,
         "sourceMap": false,
@@ -284,17 +308,22 @@ function webpackConfig(options) {
           }
         }
       }) : null,
-      CONFIG.moduleConcatenation ? new ModuleConcatenationPlugin(): null,
-      CONFIG.aot ? new PurifyPlugin() : null,
+      ENV.moduleConcatenation ? new ModuleConcatenationPlugin(): null,
+      ENV.aot ? new PurifyPlugin() : null,
       new AngularCompilerPlugin({
         tsConfigPath: root('tsconfig.json'),
         entryModule: root(APP_FOLDER + '/src/app.module#AppModule'),
-        skipCodeGeneration: !CONFIG.aot,
-        hostReplacementPaths: CONFIG.replaceEnvFile ? {
-          [APP_FOLDER + "/environment/environment.ts"]: `${APP_FOLDER}/environment/environment.${CONFIG.replaceEnvFile}.ts`
+        skipCodeGeneration: !ENV.aot,
+        hostReplacementPaths: ENV.replaceEnvFile ? {
+          [APP_FOLDER + "/environment/environment.ts"]: `${APP_FOLDER}/environment/environment.${ENV.replaceEnvFile}.ts`
         } : {},
       }),
-      CONFIG.hmr ? new HotModuleReplacementPlugin() : null,
+      // Some hmr specific plugins
+      ...(HMR ? [
+        new ReloadPlugin(),
+        new NamedModulesPlugin(),
+        new HotModuleReplacementPlugin()
+      ] : [])
     ].filter( rule => rule !== null),
     resolve: {
      extensions: [
@@ -316,7 +345,7 @@ function webpackConfig(options) {
       contentBase: ASSETS_FOLDER,
       host: '0.0.0.0',
       port: PORT,
-      hot: CONFIG.hmr,
+      hot: HMR,
       inline: true,
       historyApiFallback: true
     },
@@ -334,7 +363,7 @@ function webpackConfig(options) {
   };
 
   if (typeof webpackCustomConfig.merge === 'function') {
-    wpc = webpackCustomConfig.merge(wpc, CONFIG);
+    wpc = webpackCustomConfig.merge(wpc, ENV);
   } else if(typeof webpackCustomConfig.merge === 'object' && webpackCustomConfig.merge) {
     wpc = merge(wpc, webpackCustomConfig.merge);
   }
