@@ -1,7 +1,8 @@
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AlertService, AlertType, AlertError, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
+import { retryWhen, switchMap } from 'rxjs/operators';
 
 function async(data: any, error?: boolean | Function): Observable<any> {
   return Observable.create(observer => {
@@ -149,15 +150,15 @@ export class AlertDemoComponent {
     const fakeAsync = async(new Date().toLocaleTimeString(), () => ++fails <= 1);
 
     // Add a retry routine using an alert
-    const fakeAsyncWithRetries = fakeAsync.retryWhen(errors => {
-      return errors.switchMap(err => {
+    const fakeAsyncWithRetries = fakeAsync.pipe(retryWhen(errors => {
+      return errors.pipe(switchMap(err => {
         return this.alert.open({
           text: 'Retry?',
           type: AlertType.Warning,
           showCancelButton: true,
         });
-      });
-    });
+      }));
+    }));
 
     this.alert.open({
       text: 'Show current time? (will fail the first time)',

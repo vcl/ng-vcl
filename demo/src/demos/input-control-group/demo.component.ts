@@ -1,6 +1,8 @@
+import { interval } from 'rxjs/observable/interval';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { scan, map } from 'rxjs/operators';
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -12,29 +14,28 @@ export class InputControlGroupDemoComponent {
 
   message = new Subject();
   // emit messages over time
-  obs = Observable
-    .interval(2000)
-    .scan((s, x) => {
-      s++;
-      if (s > 3) s = 0;
-      return s;
-    })
-    .map(s => {
-      if (s == 0) return 'error';
-      if (s == 1) return 'warning';
-      if (s == 2) return 'success';
-      if (s == 3) return undefined;
-    })
-    .map(type => {
+  obs = interval(2000).pipe(
+          scan((s, x) => {
+            s++;
+            if (s > 3) s = 0;
+            return s;
+          }),
+          map(s => {
+            if (s == 0) return 'error';
+            if (s == 1) return 'warning';
+            if (s == 2) return 'success';
+            if (s == 3) return undefined;
+          }),
+          map(type => {
 
-      this.type = type;
-      this.label = 'my custom ' + type;
+            this.type = type;
+            this.label = 'my custom ' + type;
 
-      return {
-        type,
-        value: 'my custom ' + type
-      };
-    })
-    .subscribe(msg => this.message.next(msg));
+            return {
+              type,
+              value: 'my custom ' + type
+            };
+          })
+        ).subscribe(msg => this.message.next(msg));
 
 }
