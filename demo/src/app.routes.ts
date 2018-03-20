@@ -327,6 +327,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/tour/demo.module#TourDemoModule',
+    path: 'tour',
+    data: {
+      demo: {
+        label: 'Tour',
+        category: 'Overlays',
+      }
+    }
+  },
+  {
     loadChildren: './demos/icon/demo.module#IconDemoModule',
     path: 'icon',
     data: {

@@ -1,0 +1,25 @@
+<div class="vclTourHintWrapper {{transformClass}} step{{order}} {{position}}"
+  *ngIf="showMe" [ngStyle]="{'top': topPos+'px', 'left': leftPos+'px'}" >
+    <div class="header" *ngIf="title">{{title}}</div>
+    <div class="content"><ng-content></ng-content></div>
+    <div class="footer">
+      <button type="button" class="vclButton" *ngIf="hasPrevious" (click)="previous()">
+        <div class="vclIcogram">
+          <div class="vclIcon fa fa-chevron-left" aria-hidden="true" role="img"></div>
+          <span class="vclText">Previous</span>
+        </div>
+      </button>
+      <button type="button" class="vclButton" *ngIf="hasNext" (click)="next()">
+        <div class="vclIcogram">
+          <div class="vclIcon fa fa-chevron-right" aria-hidden="true" role="img"></div>
+          <span class="vclText">Next</span>
+        </div>
+      </button>
+      <button type="button" class="vclButton" (click)="exit()">
+        <div class="vclIcogram">
+          <div class="vclIcon fa fa-close" aria-hidden="true" role="img"></div>
+          <span class="vclText">Exit</span>
+        </div>
+      </button>
+    </div>
+  </div>

@@ -1,0 +1,46 @@
+<section class="vlcContentArea">
+    <vcl-tour-overlay></vcl-tour-overlay>
+    
+    <div class="vclLayoutVertical">
+        <div>
+            <button type="button" class="vclButton" (click)="startTour()">
+                <div class="vclIcogram">
+                    <span class="vclText">Start tour</span>
+                </div>
+            </button>
+        </div>   
+        <div>
+            <div class="vclGridSpan-25p">
+                <h1 class="vclContainer" id="heading1">Heading</h1>
+            </div>
+            <div class="vclGridSpan-25p">
+                <br>
+                <p class="vclContainer" id="heading2">Heading</p>
+            </div>
+            <div class="vclGridSpan-25p">
+                <br>
+                <p class="vclContainer" id="heading3">Heading</p>
+            </div>
+            <div class="vclGridSpan-25p">
+                <br>
+                <p class="vclContainer" id="heading4">Heading</p>
+            </div>
+        </div>
+    </div>
+
+    <vcl-tour-step selector="heading1" order="1" title="Step Title">
+        Demo tour first step with title
+    </vcl-tour-step>
+    <vcl-tour-step selector="heading2" order="2">
+        Demo tour second step no title
+    </vcl-tour-step>
+    <vcl-tour-step selector="heading3" order="3" position="top">
+        Demo tour third step top position
+    </vcl-tour-step>
+    <vcl-tour-step selector="heading4" order="4" position="left">
+        Demo tour fourth step left position
+    </vcl-tour-step>
+    <vcl-tour-step selector="heading2" order="5" position="right">
+        Demo tour fifth step right position
+    </vcl-tour-step>
+</section>

@@ -42,3 +42,4 @@ export * from './gallery/index';
 export * from './badge/index';
 export * from './embedded-input-group/index';
 export * from './autocomplete/index';
+export * from './tour/index';
