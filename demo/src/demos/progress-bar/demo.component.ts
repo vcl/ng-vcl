@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/range';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/zip';
+import { range } from 'rxjs/observable/range';
+import { interval } from 'rxjs/observable/interval';
+import { zip } from 'rxjs/operators';
 
 @Component({
   templateUrl: 'demo.component.html'
 })
 export class ProgressBarDemoComponent {
-  value$ = Observable.range(0, 1000).zip(Observable.interval(50), x => x);
+  value$ = range(0, 1000).pipe(zip(interval(50), x => x));
 }

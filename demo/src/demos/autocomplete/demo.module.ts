@@ -1,9 +1,3 @@
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

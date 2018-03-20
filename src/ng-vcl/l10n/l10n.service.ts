@@ -1,14 +1,12 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/publishReplay';
 
 import { L10nLoaderService, TranslationPackage } from './l10n-loader.service';
 import { L10nParserService } from './l10n-parser.service';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+import { switchMap, refCount, publishReplay, map } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 export const L10N_CONFIG = new InjectionToken('l10n.config');
 
@@ -48,7 +46,7 @@ export class L10nService {
     let supportedLocales$ = this.getSupportedLocales();
 
     // Set up stream of valid locale
-    let locale$ = Observable.combineLatest<string[], string, string>(supportedLocales$, this.locale$, (supportedLocales, locale) => {
+    let locale$ = combineLatest<string[], string, string>(supportedLocales$, this.locale$, (supportedLocales, locale) => {
       if (supportedLocales.length > 0) {
         // If not supported use first locale as fallback
         return (supportedLocales.indexOf(locale) >= 0) ? locale : supportedLocales[0];
@@ -59,7 +57,7 @@ export class L10nService {
     });
 
     // Set up stream of valid fallback locale
-    let fbLocale$ = Observable.combineLatest(supportedLocales$, locale$, (supportedLocales, locale) => {
+    let fbLocale$ = combineLatest(supportedLocales$, locale$, (supportedLocales, locale) => {
       if (supportedLocales.length > 0 && supportedLocales[0] !== locale) {
         return supportedLocales[0];
       } else if (supportedLocales.length > 1 && supportedLocales[0] === locale) {
@@ -69,15 +67,15 @@ export class L10nService {
       }
     });
 
-    this.package$ = locale$.switchMap(locale => this.getTranslationPackage(locale));
+    this.package$ = locale$.pipe(switchMap(locale => this.getTranslationPackage(locale)));
 
     // Setup the fallback package stream
-    let fbPackageTemp$ = fbLocale$.switchMap((fbLocale) => {
-      return fbLocale ? this.getTranslationPackage(fbLocale) : Observable.of({});
-    });
+    let fbPackageTemp$ = fbLocale$.pipe(switchMap((fbLocale) => {
+      return fbLocale ? this.getTranslationPackage(fbLocale) : of({});
+    }));
 
     // The real fallback stream is a combination of the latest package and fallback package
-    this.fbPackage$ = Observable.combineLatest(this.package$, fbPackageTemp$, (pkg, fbPkg) => {
+    this.fbPackage$ = combineLatest(this.package$, fbPackageTemp$, (pkg, fbPkg) => {
       return fbPkg ? Object.assign({}, fbPkg, pkg) : pkg;
     });
   }
@@ -89,9 +87,10 @@ export class L10nService {
     // Cache package streams and share
     if (!this.packages[locale]) {
       this.packages[locale] = this.loader
-        .getTranslationPackage(locale)
-        .publishReplay(1)
-        .refCount();
+        .getTranslationPackage(locale).pipe(
+          publishReplay(1),
+          refCount()
+        );
     }
     return this.packages[locale];
   }
@@ -103,10 +102,11 @@ export class L10nService {
     // Cache supportedLocales and share
     if (!this.supportedLocales$) {
       this.supportedLocales$ = this.loader
-        .getSupportedLocales()
-        .map(sl => sl.map(locale => locale.toLowerCase()))
-        .publishReplay(1)
-        .refCount();
+        .getSupportedLocales().pipe(
+          map(sl => sl.map(locale => locale.toLowerCase())),
+          publishReplay(1),
+          refCount()
+        );
     }
     return this.supportedLocales$;
   }
@@ -129,11 +129,10 @@ export class L10nService {
   * @returns {Observable<string>} The translated key
   */
   localize(key: string, ...args: string[]): Observable<string> {
-    return this.package$.switchMap(pkg => {
-      return pkg[key] ? Observable.of(pkg) : this.fbPackage$;
-    }).map(pkg => {
-      return pkg[key] ? this.parser.parse(pkg[key], ...args) : key;
-    });
+    return this.package$.pipe(
+      switchMap(pkg => pkg[key] ? of(pkg) : this.fbPackage$),
+      map(pkg => pkg[key] ? this.parser.parse(pkg[key], ...args) : key)
+    );
   }
 
   // alias for localize

@@ -1,6 +1,8 @@
 import { EmbeddedViewRef, TemplateRef, ComponentRef, Type } from '@angular/core';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
+import { never } from 'rxjs/observable/never';
+import { merge } from 'rxjs/observable/merge';
+import { map } from 'rxjs/operators';
+
 import { Observable } from 'rxjs/Observable';
 import { WormholeAttributes, WormholeEvent } from './wormhole';
 
@@ -50,7 +52,7 @@ export abstract class TemplateWormholeBase extends Wormhole {
       Object.assign(this.viewRef.context, this.cachedAttrs);
     }
     this.viewRef.detectChanges();
-    return Observable.never();
+    return never();
   }
 
   disconnect() {
@@ -115,7 +117,7 @@ export abstract class ComponentWormholeBase<T> extends Wormhole {
 
       return instance[event] && instance[event].map(value => ({type: event, value}));
     });
-    return Observable.merge(...events$);
+    return merge(...events$);
   }
 
   disconnect() {

@@ -1,9 +1,8 @@
 import { SimpleChanges, SimpleChange, OnDestroy, OnChanges } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishReplay';
+import { filter, map, publishReplay } from 'rxjs/operators';
+import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 
 export abstract class ObservableComponent implements OnDestroy, OnChanges  {
   private changesSubject = new Subject<SimpleChanges>();
@@ -19,15 +18,16 @@ export abstract class ObservableComponent implements OnDestroy, OnChanges  {
   }
 
   protected observeChanges(...props: string[]): Observable<SimpleChanges> {
-    return this.changes$.filter(changes => props.some(p => changes.hasOwnProperty(p)));
+    return this.changes$.pipe(filter(changes => props.some(p => changes.hasOwnProperty(p))));
   }
 
   protected observeChange(prop: string): Observable<SimpleChange> {
     if (!this.observedProps[prop]) {
-      let c$ = this.changes$
-                    .filter(changes => changes.hasOwnProperty(prop))
-                    .map(changes => changes[prop])
-                    .publishReplay(1);
+      let c$ = this.changes$.pipe(
+                    filter(changes => changes.hasOwnProperty(prop)),
+                    map(changes => changes[prop]),
+                    publishReplay(1)
+      ) as ConnectableObservable<SimpleChange>;
       c$.connect();
       this.observedProps[prop] = c$;
     }
@@ -35,7 +35,7 @@ export abstract class ObservableComponent implements OnDestroy, OnChanges  {
   }
 
   protected observeChangeValue<T>(prop: string): Observable<T> {
-    return this.observeChange(prop).map(change => <T> change.currentValue);
+    return this.observeChange(prop).pipe(map(change => <T> change.currentValue));
   }
 
 }

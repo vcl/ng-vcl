@@ -1,7 +1,8 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/of';
+import { of } from 'rxjs/observable/of';
+import { from } from 'rxjs/observable/from';
+import { publishReplay, refCount, map } from 'rxjs/operators';
 
 export interface TranslationPackage {
   [key: string]: string;
@@ -58,11 +59,11 @@ export class L10nStaticLoaderService extends L10nLoaderService {
   }
 
   getTranslationPackage(locale: string): Observable<TranslationPackage> {
-    return Observable.of(flatten(locale, this.config));
+    return of(flatten(locale, this.config));
   }
 
   getSupportedLocales(): Observable<string[]> {
-    return Observable.of(extractLocales(this.config));
+    return of(extractLocales(this.config));
   }
 }
 
@@ -78,28 +79,31 @@ export class L10nAsyncLoaderService extends L10nLoaderService {
     if (typeof config === 'function') {
       streamlike = config();
     } else {
-      streamlike = Observable.from(config);
+      streamlike = from(config);
     }
     // Enable caching
-    this.data$ = streamlike.publishReplay(1).refCount();
+    this.data$ = streamlike.pipe(
+      publishReplay(1),
+      refCount()
+    );
   }
 
   getTranslationPackage(locale: string): Observable<TranslationPackage> {
-    return this.data$.map(data => flatten(locale, data));
+    return this.data$.pipe(map(data => flatten(locale, data)));
   }
 
   getSupportedLocales(): Observable<string[]> {
-    return this.data$.map(data => extractLocales(data));
+    return this.data$.pipe(map(data => extractLocales(data)));
   }
 }
 
 @Injectable()
 export class L10nNoopLoaderService extends L10nLoaderService {
   getTranslationPackage(locale: string): Observable<TranslationPackage> {
-    return Observable.of({});
+    return of({});
   }
 
   getSupportedLocales(): Observable<string[]> {
-    return Observable.of([]);
+    return of([]);
   }
 }

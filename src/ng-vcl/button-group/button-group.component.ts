@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { ButtonComponent } from '../button/index';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from '@angular/forms';
+import { merge } from 'rxjs/observable/merge';
+import { map } from 'rxjs/operators';
 
 export enum SelectionMode {
   Single,
@@ -81,7 +83,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
     const listenButtonPress = () => {
       this.dispose();
 
-      const press$ = Observable.merge(...(this.buttons.map(btn => btn.press.map(() => btn))));
+      const press$ = merge(...(this.buttons.map(btn => btn.press.pipe(map(() => btn)))));
 
       this.pressSubscription =  press$.subscribe(btn => {
         this.buttons.forEach((cbtn, idx) => {

@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { Component, Input, HostBinding, ViewChild, ElementRef, Optional } from '@angular/core';
 import { L10nService } from '../l10n/index';
 import { ObservableComponent } from '../core/index';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'a[vcl-link]',
@@ -32,8 +34,12 @@ export class LinkComponent extends ObservableComponent {
   @Input()
   disabled: boolean | undefined;
 
-  locLabel$ = this.observeChangeValue<string>('label').switchMap( label => this.l10n ? this.l10n.localize(label) : Observable.of(label));
-  locTitle$ = this.observeChangeValue<string>('title').switchMap( title => this.l10n ? this.l10n.localize(title) : Observable.of(title));
+  locLabel$ = this.observeChangeValue<string>('label').pipe(
+    switchMap( label => this.l10n ? this.l10n.localize(label) : of(label))
+  );
+  locTitle$ = this.observeChangeValue<string>('title').pipe(
+    switchMap( title => this.l10n ? this.l10n.localize(title) : of(title))
+  );
 
   @HostBinding('attr.title')
   @HostBinding('attr.aria-label')

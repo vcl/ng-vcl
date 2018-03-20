@@ -3,7 +3,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MetalistItem } from '../metalist/index';
 import { DropdownComponent, DropdownOption } from '../dropdown/index';
 import { SelectOption } from './select-option.component';
-import 'rxjs/add/operator/startWith';
 
 export enum DropDirection { Top, Bottom }
 

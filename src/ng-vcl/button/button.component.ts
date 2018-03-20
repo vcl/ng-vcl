@@ -1,8 +1,8 @@
 import { Component, Directive, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, HostBinding, HostListener, ElementRef, ContentChild, ContentChildren, TemplateRef, ViewContainerRef, QueryList, EmbeddedViewRef, ChangeDetectorRef } from '@angular/core';
+import { map, distinctUntilChanged, publishBehavior, refCount } from 'rxjs/operators';
+import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/publishBehavior';
-import 'rxjs/add/operator/distinctUntilChanged';
 import { ObservableComponent } from '../core/index';
 import { ButtonStateContentDirective } from './button-state-content.directive';
 import { dispatchTap } from './dispatch-tap';
@@ -72,11 +72,12 @@ export class ButtonComponent extends ObservableComponent {
   }
 
   @Output()
-  stateChange = Observable.merge(this.observeChange('disabled'), this.observeChange('busy'))
-    .map(() => this.state)
-    .distinctUntilChanged()
-    .publishBehavior(this.state)
-    .refCount();
+  stateChange = merge(this.observeChange('disabled'), this.observeChange('busy')).pipe(
+    map(() => this.state),
+    distinctUntilChanged(),
+    publishBehavior(this.state),
+    refCount()
+  );
 
   get state(): 'busy' | 'disabled' | 'enabled' {
     return this.busy ? 'busy' : (this.disabled ? 'disabled' : 'enabled');

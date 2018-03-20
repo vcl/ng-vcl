@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostListener, HostBinding } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
+import { merge } from 'rxjs/observable/merge';
+import { map, startWith } from 'rxjs/operators';
 import { RadioButtonComponent } from './radio-button.component';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export enum SelectionMode {
   Single,
@@ -80,7 +81,7 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
   ngAfterContentInit() {
     // Subscribes to radio button change event
-    this.changesSub = this.radioButtons && this.radioButtons.changes.startWith(null).subscribe(() => {
+    this.changesSub = this.radioButtons && this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {
       this.dispose();
       if (this.radioButtons) {
         // Sync inline property
@@ -94,7 +95,7 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
         });
 
         // Subscribe to checked change event
-        const checked$ = Observable.merge(...(this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.map(() => rbtn))));
+        const checked$ = merge(...(this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.pipe(map(() => rbtn)))));
         this.checkedSub = checked$.subscribe((srcRBtn) => {
           if (this.radioButtons) {
             this.radioButtons && this.radioButtons.forEach((rBtn) => {

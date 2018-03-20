@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/scan';
-import 'rxjs/add/operator/map';
 import { Subject } from 'rxjs/Subject';
 
 @Component({

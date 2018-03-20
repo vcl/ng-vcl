@@ -7,6 +7,7 @@ import { PopoverComponent } from '../popover/index';
 import { Subscription } from 'rxjs/Subscription';
 import { ObservableComponent } from '../core/index';
 import { startWith, map } from 'rxjs/operators';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
   selector: 'vcl-autocomplete',
@@ -48,22 +49,22 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 
   private items$ = new BehaviorSubject<AutocompleteOption[]>([]);
 
-  itemsVisible$ = Observable.combineLatest(this.target$, this.items$, this.busy$, ((target, items, busy) => {
+  itemsVisible$ = combineLatest(this.target$, this.items$, this.busy$, ((target, items, busy) => {
     return !!target && !busy && items.length > 0;
   }));
-  busyVisible$ = Observable.combineLatest(this.target$, this.busy$, ((target, busy) => {
+  busyVisible$ = combineLatest(this.target$, this.busy$, ((target, busy) => {
     return !!target && busy;
   }));
-  contentVisible$ = Observable.combineLatest(this.target$, this.showContent$, ((target, showContent) => {
+  contentVisible$ = combineLatest(this.target$, this.showContent$, ((target, showContent) => {
     return !!target && showContent;
   }));
-  visible$ = Observable.combineLatest(this.itemsVisible$, this.busyVisible$, this.contentVisible$, ((v1, v2, v3) => {
+  visible$ = combineLatest(this.itemsVisible$, this.busyVisible$, this.contentVisible$, ((v1, v2, v3) => {
     return v1 || v2 || v3;
   }));
 
-  popoverWidth$ = this.target$.map(target => {
+  popoverWidth$ = this.target$.pipe(map(target => {
     return (target && target.element.nativeElement.offsetWidth) ? target && target.element.nativeElement.offsetWidth + 'px' : undefined;
-  });
+  }));
 
   itemsSub?: Subscription;
 

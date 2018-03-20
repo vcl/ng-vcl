@@ -1,9 +1,8 @@
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/observable/never';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/skipWhile';
+import { interval } from 'rxjs/observable/interval';
+import { merge } from 'rxjs/observable/merge';
+import { never } from 'rxjs/observable/never';
+import { first, skipWhile } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { NotifierOptions, NOTIFIER_DEFAULTS, NotifierType, TYPE_CLASS_MAP } from './types';
 
@@ -17,10 +16,10 @@ export class Notifier extends Observable<any> {
 
     const timeout = this.calculatedTimeout;
     const timeout$ = typeof timeout === 'number' ?
-                       Observable.interval(timeout).skipWhile(() => this.state === 'hovered') :
-                       Observable.never();
+                       interval(timeout).pipe(skipWhile(() => this.state === 'hovered')) :
+                       never();
 
-    this.source = Observable.merge(this.closeSubject, timeout$).first();
+    this.source = merge(this.closeSubject, timeout$).pipe(first());
   }
 
   state = 'visible';

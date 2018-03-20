@@ -13,11 +13,12 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/startWith';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { Token, TokenComponent } from './token.component';
+import { map, startWith } from 'rxjs/operators';
 
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -97,7 +98,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
 
       this.cdRef.markForCheck();
 
-      const select$ = Observable.merge(...(this.tokens.map(token => token.select.map(() => token))));
+      const select$ = merge(...(this.tokens.map(token => token.select.pipe(map(() => token)))));
 
       this.tokenSubscription =  select$.subscribe(token => {
         if (this.selectable) {
@@ -108,7 +109,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
       });
     };
 
-    this.tokens.changes.startWith(null).subscribe(() => {
+    this.tokens.changes.pipe(startWith(null)).subscribe(() => {
       listenButtonPress();
       setTimeout(() => {
         this.syncSelectedValues();
