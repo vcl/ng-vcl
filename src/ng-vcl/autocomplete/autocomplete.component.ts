@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Component, Directive, ViewChild, ViewContainerRef, Input, TemplateRef, HostBinding, HostListener, ElementRef, ContentChildren, QueryList, forwardRef, AfterContentInit, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, Directive, ViewChild, ViewContainerRef, Input, TemplateRef, HostBinding, HostListener, ElementRef, ContentChildren, QueryList, forwardRef, AfterContentInit, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, ContentChild } from '@angular/core';
 import { WormholeHost } from '../wormhole/index';
 import { PopoverComponent } from '../popover/index';
 import { Subscription } from 'rxjs/Subscription';
@@ -34,32 +34,24 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
   @ContentChildren(forwardRef(() => AutocompleteOption))
   items?: QueryList<AutocompleteOption>;
 
-  @Input()
-  busy = false;
+  @ContentChildren(forwardRef(() => AutocompleteContent))
+  content?: QueryList<AutocompleteContent>;
 
-  @Input()
-  showContent = false;
 
   @Output()
   select = new EventEmitter<any>();
 
   target$ = new BehaviorSubject<any>(undefined);
-  busy$ = this.observeChangeValue<boolean>('busy').pipe(startWith(false));
-  showContent$ = this.observeChangeValue<boolean>('showContent').pipe(startWith(false));
 
   private items$ = new BehaviorSubject<AutocompleteOption[]>([]);
+  private content$ = new BehaviorSubject<AutocompleteContent[]>([]);
 
-  itemsVisible$ = combineLatest(this.target$, this.items$, this.busy$, ((target, items, busy) => {
-    return !!target && !busy && items.length > 0;
+  itemsVisible$ = combineLatest(this.target$, this.items$, ((target, items) => {
+    return !!target && items.length > 0;
   }));
-  busyVisible$ = combineLatest(this.target$, this.busy$, ((target, busy) => {
-    return !!target && busy;
-  }));
-  contentVisible$ = combineLatest(this.target$, this.showContent$, ((target, showContent) => {
-    return !!target && showContent;
-  }));
-  visible$ = combineLatest(this.itemsVisible$, this.busyVisible$, this.contentVisible$, ((v1, v2, v3) => {
-    return v1 || v2 || v3;
+
+  visible$ = combineLatest(this.target$, this.items$, this.content$, ((target, items, content) => {
+    return !!target && (items.length > 0 || content.length > 0);
   }));
 
   popoverWidth$ = this.target$.pipe(map(target => {
@@ -67,6 +59,7 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
   }));
 
   itemsSub?: Subscription;
+  contentSub?: Subscription;
 
   highlightedItem: number = -1;
 
@@ -134,18 +127,24 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 
   ngAfterContentInit(): void {
     const items = this.items;
+    const content = this.content;
     this.itemsSub = items && items.changes.pipe(
       startWith(items.toArray()),
-      map(() => items.toArray()))
-    .subscribe(items => {
+      map(() => items.toArray())
+    ).subscribe(items => {
       this.items$.next(items);
       this.highlightedItem = -1;
     });
+    this.contentSub = content && content.changes.pipe(
+      startWith(content.toArray()),
+      map(() => content.toArray())
+    ).subscribe(this.content$);
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this.itemsSub && this.itemsSub.unsubscribe();
+    this.contentSub && this.contentSub.unsubscribe();
   }
 }
 
@@ -163,4 +162,13 @@ export class AutocompleteOption {
   sublabel?: string;
   @Input()
   disabled?: boolean = false;
+}
+
+@Component({
+  selector: 'vcl-autocomplete-content',
+  template: '<ng-template><ng-content></ng-content></ng-template>'
+})
+export class AutocompleteContent {
+  @ViewChild(TemplateRef)
+  templateRef: TemplateRef<any>;
 }

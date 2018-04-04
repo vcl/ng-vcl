@@ -27,13 +27,20 @@
 <vcl-token-input-container (tokensChange)="onChange($event)">
   <input placeholder="Search for books to add"
          [vcl-token-input-autocomplete]="acBooks"
-         (input)="booksSearch$.next($event.target.value)"
-         (autocompleteSelect)="booksSearch$.next('')" />
+         (input)="booksInput$.next($event.target.value)"
+         (autocompleteSelect)="booksInput$.next('')" />
 </vcl-token-input-container>
 
-<vcl-autocomplete [busy]="loading" [showContent]="noResult" #acBooks="vclAutocomplete">
-  <vcl-autocomplete-option *ngFor="let book of books$ | async" [label]="book.title" [value]="book.id"></vcl-autocomplete-option>
-  <div autocomplete-content style="padding: 1em">
-    No books found
-  </div>
+<vcl-autocomplete #acBooks="vclAutocomplete">
+  <ng-container *ngIf="ac$ | async as ac">
+    <vcl-autocomplete-content *ngIf="ac.state === 'loading'">
+      <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
+    </vcl-autocomplete-content>
+    <ng-container *ngIf="ac.state === 'success' && ac.books.length > 0">
+      <vcl-autocomplete-option *ngFor="let book of ac.books" [label]="book.title" [value]="book.id"></vcl-autocomplete-option>
+    </ng-container>
+    <vcl-autocomplete-content *ngIf="ac.state === 'success' && ac.books.length === 0">
+      <div style="padding: 1em">No books found</div>
+    </vcl-autocomplete-content>
+  </ng-container>
 </vcl-autocomplete>

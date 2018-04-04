@@ -1,22 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { VCLWormholeModule } from './../wormhole/index';
 import { VCLPopoverModule } from '../popover/index';
 import { VCLInputModule }   from '../input/index';
-import { VCLBusyIndicatorModule } from '../busy-indicator/index';
 import { VCLTokenModule }   from '../token/index';
-import { VCLOffClickModule }   from '../off-click/index';
 
-import { Autocomplete, AutocompleteOption }   from './autocomplete.component';
+import { Autocomplete, AutocompleteOption, AutocompleteContent }   from './autocomplete.component';
 import { InputAutocompleteDirective } from './input.autocomplete.directive';
 import { TokenInputAutocompleteDirective } from './token-input.autocomplete.directive';
 
-export { Autocomplete, AutocompleteOption, InputAutocompleteDirective, TokenInputAutocompleteDirective };
+export { Autocomplete, AutocompleteOption, AutocompleteContent, InputAutocompleteDirective, TokenInputAutocompleteDirective };
 
 @NgModule({
-  imports: [CommonModule, VCLInputModule, VCLWormholeModule, VCLPopoverModule, VCLTokenModule, VCLOffClickModule, VCLBusyIndicatorModule],
-  exports: [InputAutocompleteDirective, Autocomplete, AutocompleteOption, TokenInputAutocompleteDirective],
-  declarations: [InputAutocompleteDirective, Autocomplete, AutocompleteOption, TokenInputAutocompleteDirective],
+  imports: [CommonModule, VCLInputModule, VCLPopoverModule, VCLTokenModule],
+  exports: [InputAutocompleteDirective, Autocomplete, AutocompleteOption, AutocompleteContent, TokenInputAutocompleteDirective],
+  declarations: [InputAutocompleteDirective, Autocomplete, AutocompleteOption, AutocompleteContent, TokenInputAutocompleteDirective],
   providers: [],
 })
 export class VCLAutocompleteModule { }

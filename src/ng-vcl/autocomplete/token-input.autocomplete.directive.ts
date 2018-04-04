@@ -27,22 +27,22 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
   @Output()
   autocompleteSelect = new EventEmitter<AutocompleteOption>();
 
-   @Input()
-   disabled: boolean = false;
+  @Input()
+  disabled: boolean = false;
 
-   get isDisabled() {
-     return this.disabled || this.tokenInputContainer.disabled;
-   }
+  get isDisabled() {
+    return this.disabled || this.tokenInputContainer.disabled;
+  }
 
-   @HostBinding('class.vclDisabled')
-   get classDisabled() {
-     return this.isDisabled;
-   }
+  @HostBinding('class.vclDisabled')
+  get classDisabled() {
+    return this.isDisabled;
+  }
 
-   @HostBinding('attr.disabled')
-   get attrDisabled() {
-     return this.disabled ? true : null;
-   }
+  @HostBinding('attr.disabled')
+  get attrDisabled() {
+    return this.disabled ? true : null;
+  }
 
   @Input('vcl-token-input-autocomplete')
   _ac?: Autocomplete;

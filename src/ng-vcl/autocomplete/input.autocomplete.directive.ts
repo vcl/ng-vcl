@@ -17,7 +17,7 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
   autocompleteSelect = new EventEmitter<AutocompleteOption>();
 
   @Input()
-  autocompleteOnSelect: 'label' | 'sublabel' | 'value' | {(option: AutocompleteOption): string} | 'clear' = 'value';
+  autocompleteAfterSelectAction: 'label' | 'sublabel' | 'value' | {(option: AutocompleteOption): string} | 'clear' = 'value';
 
   @Input('vcl-input-autocomplete')
   _ac?: Autocomplete;
@@ -58,14 +58,14 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
       return;
     }
     this.acSub = this.ac.render(this.elementRef).subscribe(selection => {
-      if (this.autocompleteOnSelect === 'value') {
+      if (this.autocompleteAfterSelectAction === 'value') {
         this.elementRef.nativeElement.value = String(selection.value);
-      } else if (this.autocompleteOnSelect === 'label') {
+      } else if (this.autocompleteAfterSelectAction === 'label') {
         this.elementRef.nativeElement.value = selection.label;
-      } else if (this.autocompleteOnSelect === 'sublabel') {
+      } else if (this.autocompleteAfterSelectAction === 'sublabel') {
         this.elementRef.nativeElement.value = selection.sublabel;
-      } else if (typeof this.autocompleteOnSelect === 'function') {
-        this.elementRef.nativeElement.value = this.autocompleteOnSelect(selection);
+      } else if (typeof this.autocompleteAfterSelectAction === 'function') {
+        this.elementRef.nativeElement.value = this.autocompleteAfterSelectAction(selection);
       } else {
         this.elementRef.nativeElement.value = '';
       }
@@ -81,7 +81,6 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
       this.acSub = undefined;
     }
   }
-
 
   @HostListener('keyup', ['$event'])
   onKeyUp(event) {
