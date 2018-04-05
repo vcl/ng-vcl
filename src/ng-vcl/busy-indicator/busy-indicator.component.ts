@@ -1,13 +1,12 @@
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 const CIRCULAR = 'https://cdn.rawgit.com/vcl/busy-indicator/master/imgs/vclBusyIndicatorCircular.svg';
 const STRAIGHT = 'https://cdn.rawgit.com/vcl/busy-indicator/master/imgs/vclBusyIndicatorStraight.svg';
 
 @Component({
   selector: 'vcl-busy-indicator',
-  templateUrl: 'busy-indicator.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: 'busy-indicator.component.html'
 })
 export class BusyIndicatorComponent {
 
