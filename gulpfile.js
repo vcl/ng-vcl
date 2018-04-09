@@ -8,9 +8,7 @@ const path = require('path');
 
 // Register TS compilation.
 require('ts-node').register({
-  compilerOptions: {
-    "module": "commonjs",
-  }
+  project : 'scripts/tsconfig.scripts.json'
 });
 
 require('./scripts/gulpfile.ts');
