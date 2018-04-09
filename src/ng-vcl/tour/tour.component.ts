@@ -83,7 +83,6 @@ export class TourComponent implements OnInit {
     let highlightedElement = document.getElementById(this.selector);
 
     if (highlightedElement) {
-      highlightedElement.style.zIndex = '0';
       this.enableClick(highlightedElement);
       this.disableHighlight(highlightedElement);
     }

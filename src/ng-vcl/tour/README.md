@@ -26,7 +26,7 @@ class AppComponent {
 
 ```html
 <!-- Overlay element inserted on top of the page-->
-<vcl-tour-overlay></tour-overlay>
+<vcl-tour-overlay></vcl-tour-overlay>
 
 <!-- Start tour -->
 <button name="button" (click)="startTour()">Begin tour</button>
