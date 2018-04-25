@@ -153,7 +153,7 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 })
 export class AutocompleteOption {
   @Input()
-  type: 'item' | 'seperator' | 'header' = 'item';
+  type: 'item' | 'separator' | 'header' = 'item';
   @Input()
   value?: any;
   @Input()
