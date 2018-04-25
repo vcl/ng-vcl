@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostListener, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostListener, HostBinding, OnChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -26,12 +26,13 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     'attr.role': '"radiogroup"'
   }
 })
-export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
+export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAccessor {
 
   changesSub: Subscription | undefined;
   checkedSub: Subscription | undefined;
   blurSub: Subscription | undefined;
 
+  @Input()
   value: any;
 
   @Input()
@@ -50,20 +51,6 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  private syncValue() {
-    let value = undefined;
-    if (this.radioButtons) {
-      this.radioButtons.toArray().every((rbtn, idx) => {
-          if (rbtn.checked) {
-            value = rbtn.value === undefined ? idx : rbtn.value;
-            return false;
-          }
-          return !rbtn.checked;
-      });
-      this.value = value;
-    }
-  }
-
   private syncRadioButtons() {
     if (this.radioButtons) {
       this.radioButtons.forEach((rbtn, idx) => {
@@ -77,6 +64,12 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
   private triggerChange() {
     this.change.emit(this.value);
     this.onChange(this.value);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('value' in changes) {
+      this.syncRadioButtons();
+    }
   }
 
   ngAfterContentInit() {
@@ -95,16 +88,14 @@ export class RadioGroupComponent implements OnDestroy, ControlValueAccessor {
         });
 
         // Subscribe to checked change event
-        const checked$ = merge(...(this.radioButtons.map((rbtn, idx) => rbtn.checkedChange.pipe(map(() => rbtn)))));
-        this.checkedSub = checked$.subscribe((srcRBtn) => {
-          if (this.radioButtons) {
-            this.radioButtons && this.radioButtons.forEach((rBtn) => {
-              rBtn.setChecked(rBtn === srcRBtn);
-            });
-            this.syncValue();
-            this.triggerChange();
-          }
+        const checked$ = merge(...(this.radioButtons.map((source, idx) => source.checkedChange.pipe(map(() => ({ source, idx }))))));
+        this.checkedSub = checked$.subscribe((c) => {
+          // Use index as value if radio button value is undefined
+          this.value = c.source.value === undefined ? c.idx : c.source.value;
+          this.syncRadioButtons();
+          this.triggerChange();
         });
+        this.syncRadioButtons();
       }
     });
   }
