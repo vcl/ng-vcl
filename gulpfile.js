@@ -4,8 +4,6 @@
  * the tasks. The tasks are really inside tools/gulp/tasks.
  */
 
-const path = require('path');
-
 // Register TS compilation.
 require('ts-node').register({
   project : 'scripts/tsconfig.scripts.json'
