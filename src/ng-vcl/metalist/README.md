@@ -6,13 +6,13 @@
 <div vcl-metalist #metalist [value]="value" (change)="onChange($event)">
   <div vcl-metalist-item #meta=meta [value]="1">
     Item 1
-    <button vcl-button (tap)="metalist.select(meta)">Select</button>
+    <button vcl-button (click)="metalist.select(meta)">Select</button>
     <span *ngIf="meta.selected"> // selected</span>
     <span *ngIf="meta.marked"> // marked</span>
   </div>
   <div vcl-metalist-item #meta=meta [value]="2">
     Item 2
-    <button vcl-button (tap)="metalist.select(meta)">Select</button>
+    <button vcl-button (click)="metalist.select(meta)">Select</button>
     <span *ngIf="meta.selected"> // selected</span>
     <span *ngIf="meta.marked"> // marked</span>
   </div>

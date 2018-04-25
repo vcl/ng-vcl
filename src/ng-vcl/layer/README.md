@@ -19,7 +19,7 @@ It can be created as a template using the `vcl-layer directive or from a compone
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         Content
-        <button vcl-button (tap)="myTemplateLayer.close()" label="Close Layer"></button>
+        <button vcl-button (click)="myTemplateLayer.close()" label="Close Layer"></button>
       </p>
     </div>
   </div>

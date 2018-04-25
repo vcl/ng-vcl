@@ -100,7 +100,6 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     public readonly elementRef: ElementRef,
     private readonly cdRef: ChangeDetectorRef,
     private readonly builder: AnimationBuilder,
-    // @Optional() private ngModel: NgModel,
     @Optional() @Inject(DROPDOWN_ANIMATIONS) private animations: DropdownAnimationConfig) { }
 
   ngOnInit() {
