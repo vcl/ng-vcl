@@ -1,16 +1,17 @@
-import { ButtonStateContentDirective } from './button-state-content.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from '../icogram/index';
-import { L10nModule } from '../l10n/index';
-import { ButtonComponent } from './button.component';
+import { ButtonDirective } from './button.directive';
+import { ButtonLabelComponent } from './button.label.component';
+import { ButtonSelectDirective } from './button.select.directive';
+import { ButtonBusyComponent } from './button.busy.component';
 
-export { ButtonComponent, ButtonStateContentDirective };
+export { ButtonDirective, ButtonLabelComponent, ButtonBusyComponent, ButtonSelectDirective };
 
 @NgModule({
-  imports: [CommonModule, VCLIcogramModule, L10nModule],
-  exports: [ButtonComponent, ButtonStateContentDirective],
-  declarations: [ButtonComponent, ButtonStateContentDirective],
+  imports: [CommonModule, VCLIcogramModule],
+  exports: [ButtonDirective, ButtonLabelComponent, ButtonBusyComponent, ButtonSelectDirective],
+  declarations: [ButtonDirective, ButtonLabelComponent, ButtonBusyComponent, ButtonSelectDirective],
   providers: [],
 })
 export class VCLButtonModule { }

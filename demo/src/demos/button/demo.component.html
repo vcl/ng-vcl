@@ -1,22 +1,17 @@
-<button vcl-button (tap)="someAction($event)" label="Button"></button>
+<button vcl-button (click)="someAction($event)">Button</button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" label="Button with appended icon" appIcon="fa:bolt"></button>
+<button vcl-button (click)="someAction($event)" disabled=true>Disabled button</button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" label="Button with prepended icon" prepIcon="fa:bolt"></button>
+<button vcl-button (click)="someAction($event)" label="Label button with appended icon" appIcon="fa:bolt"></button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" class="vclSquare" appIcon="fa:bolt"></button>
+<button vcl-button (click)="someAction($event)" label="Label button with prepended icon" prepIcon="fa:bolt"></button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" class="vclEmphasized" label="Emphasized button"></button>
+<button vcl-button (click)="someAction($event)" label="Emphasized label button" class="vclEmphasized"></button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" flexLabel=true label="Flexed Label"></button>
+<button vcl-button (click)="someAction($event)" label="Flexed label button" flexLabel=true></button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" disabled=true label="Disabled button" prepIcon="fa:bolt"></button>
+<button vcl-button selectable (select)="someAction($event)">Selectable button</button>
 <br><br>
-<button vcl-button (tap)="someAction($event)" busy=true label="Busy button" prepIcon="fa:refresh fa-spin"></button>
+<button vcl-button [selectable]="true" (select)="someAction($event)">Selectable button (preselected)</button>
 <br><br>
-<button vcl-button (tap)="changeButtonState()" [busy]="busy" [disabled]="disabled">
-  <vcl-icogram *vclButtonStateContent="'enabled'" prepIcon="fa:bolt" label="enabled state"></vcl-icogram>
-  <vcl-icogram *vclButtonStateContent="'disabled'" prepIcon="fa:bolt" label="disabled state"></vcl-icogram>
-  <vcl-icogram *vclButtonStateContent="'busy'" prepIcon="fa:refresh fa-spin" label="busy state"></vcl-icogram>
-</button> <- Press to change state
-
+<button vcl-button (click)="changeButtonState()" [busy]="true" label="Busy button"></button>

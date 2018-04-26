@@ -6,49 +6,77 @@ It is the main control for triggering actions.
 ## Usage:
 
 ```js
-import { VCLButtonModule } from 'ng-vcl';
+import { VCLButtonModule } from '@ng-vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLButtonModule ],
   ...
 })
-export class AppComponent {}
+export class AppComponent { ... }
 ```
 
+
+
+### vcl-button:
+
  ```html
-<button vcl-button (tap)="someAction($event)" label="Action" appIcon="fa:bolt"></button>
+<button vcl-button (click)="someAction($event)">Action</button>
+ ```
+### vcl-button[label]:
+
+ ```html
+<button vcl-button label="Action" appIcon="fa:bolt"></button>
+ ```
+### vcl-button[selectable]:
+
+ ```html
+<button vcl-button selectable (select)="someAction($event)">Action</button>
  ```
 
-A button can have content that is only visible in a specified state
+### vcl-button[busy]:
+
  ```html
-<button vcl-button (tap)="someAction($event)">
-  <span *vclButtonStateContent="'enabled'">Only visible in enabled state</span>
-  <span *vclButtonStateContent="'disabled'">Only visible in disabled state</span>
-  <span *vclButtonStateContent="'busy'">Only visible in busy state</span>
-  <span *vclButtonStateContent="['busy','disabled']'">visible in busy and disabled state</span>
-</button>
+<button vcl-button [busy]="true" label="I am busy"></button>
  ```
 
 ### API
 
-#### Attributes
+#### vcl-button attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
-| `label` *(1)*       | string      |          | Sets aria-label
-| `busy`              | boolean     | false    | State to indicate that an operation is in progress
 | `disabled`          | boolean     | false    | State to indicate that the button is disabled
+
+#### vcl-button[label] attributes
+
+| Name                | Type        | Default  | Description
+| ------------        | ----------- | -------- |--------------
+| `label`             | string      |          | Sets button label
+| `title`             | string      |          | Sets button title
 | `flexLabel`         | boolean     | false    | The label gets a flex layout property if true
 | `prepIcon`          | string      |          | icon to be prepended to the label
 | `appIcon`           | string      |          | Same as prepIcon but appended
-| `title`             | string      |          | Sets aria-label
-| `disableA11yClick`  | boolean     | false    | Deactivate triggering `click` via spacebar or enter  
 
-#### Events:
+#### vcl-button[selectable] attributes
+
+| Name                | Type        | Default  | Description
+| ------------        | ----------- | -------- |--------------
+| `selectable`        | boolean     | false    | Preselect button if true
+
+#### vcl-button[selectable] events:
 
 | Name                | Description
 | ------------        | --------------
-| `press`             | Triggered when the button is pressed
-| `stateChange`       | Emits the current state of the button: `enabled`, `disabled` or `busy`
+| `select`            | Triggered when the button is selected
 
-*(1) Supports l10n*
+#### vcl-button[busy] attributes
+
+| Name                | Type        | Default    | Description
+| ------------        | ----------- | --------   |--------------
+| `busy`              | boolean     | false      | State to indicate that an operation is in progress
+| `label`             | string      |            | Sets button label
+| `title`             | string      |            | Sets button title
+| `flexLabel`         | boolean     | false      | The label gets a flex layout property if true
+| `busyIcon`          | string      | fa:refresh | icon shown when busy
+| `busyIconPosition`  | string      | "prep"     | "app" or "prep" to append or prepend busy icon
+
