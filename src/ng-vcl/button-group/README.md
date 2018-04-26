@@ -34,4 +34,4 @@ export class AppComponent {}
 #### Events:
 | Name                  | Type                           | Description
 | -                     | -                              | -
-| `change`              | event (number &#124; number[]) | Triggers when selected buttons change
+| `selectionChange`     | event (number &#124; number[]) | Triggers when selected buttons change

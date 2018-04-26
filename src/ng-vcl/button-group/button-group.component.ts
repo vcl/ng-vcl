@@ -1,14 +1,40 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, Optional, SkipSelf, Directive, HostBinding, ElementRef, HostListener, Inject } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { ButtonComponent } from '../button/index';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from '@angular/forms';
 import { merge } from 'rxjs/observable/merge';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
+import { ButtonDirective } from '../button/index';
 
-export enum SelectionMode {
-  Single,
-  Multiple
+
+@Directive({
+  selector: 'vcl-button-group > button[vcl-button]',
+})
+export class GroupButtonDirective  {
+
+  constructor(
+    @SkipSelf()
+    @Inject(forwardRef(() => ButtonGroupComponent))
+    private buttonGroupContainer: ButtonGroupComponent,
+    private host: ButtonDirective
+  ) { }
+
+  @HostBinding('class.vclDisabled')
+  @HostBinding('attr.disabled')
+  get isDisabled(): boolean | null {
+    return this.host.disabled || this.buttonGroupContainer.disabled ? true : null;
+  }
+
+  @HostBinding('class.vclSelected')
+  selected: boolean = false;
+
+  select = new EventEmitter<boolean>();
+
+  @HostListener('click')
+  onClick() {
+    this.selected = !this.selected;
+    this.select.emit(this.selected);
+  }
 }
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -30,82 +56,67 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
 
   private pressSubscription: Subscription | undefined;
 
-  @ContentChildren(ButtonComponent)
-  buttons: QueryList<ButtonComponent>;
+  @ContentChildren(GroupButtonDirective)
+  buttons: QueryList<GroupButtonDirective>;
 
-  // If `Single`, a single button from the group can be selected
-  // If `Multiple` multiple buttons can be selected
   @Input()
-  selectionMode: SelectionMode = SelectionMode.Single;
+  disabled = false;
 
-  // String alias for selectionMode
+  // If `single`, a single item can be selected
+  // If `multiple` multiple items can be selected
   @Input()
-  set mode(value: string) {
-    if (value === 'multiple') {
-      this.selectionMode = SelectionMode.Multiple;
-    } else {
-      this.selectionMode = SelectionMode.Single;
-    }
-  }
+  mode: 'multiple' | 'single' = 'single';
 
   @Output()
-  change = new EventEmitter<number | number[]>();
+  selectionChange = new EventEmitter<number | number[]>();
 
   selectedIndex: number | number[];
 
+  private select(idx: number) {
+    if (this.mode === 'multiple') {
+      if (!Array.isArray(this.selectedIndex)) {
+        this.selectedIndex = [];
+      }
+      if (this.selectedIndex.includes(idx)) {
+        this.selectedIndex = this.selectedIndex.filter(thisIdx => thisIdx !== idx);
+      } else {
+        this.selectedIndex = [...this.selectedIndex, idx];
+      }
+    } else {
+      this.selectedIndex = idx;
+    }
+  }
+
   private syncButtons() {
     const selectedIndex = this.selectedIndex;
-    if (this.selectionMode === SelectionMode.Multiple && Array.isArray(selectedIndex)) {
+    if (this.mode === 'multiple' && Array.isArray(selectedIndex)) {
       (this.buttons || []).forEach((btn, idx) => {
         btn.selected = selectedIndex.includes(idx);
       });
-    } else if (this.selectionMode === SelectionMode.Single && typeof selectedIndex === 'number') {
+    } else if (this.mode === 'single' && typeof selectedIndex === 'number') {
       (this.buttons || []).forEach((btn, idx) => {
         btn.selected = selectedIndex === idx;
       });
     }
   }
 
-  private syncSelectedIndex() {
-    const items = this.buttons || [];
-    const selectedIndex = items.map((btn, idx) => ({selected: btn.selected, idx })).filter(v => v.selected).map(v => v.idx);
-    this.selectedIndex = this.selectionMode === SelectionMode.Multiple ? selectedIndex : selectedIndex[0];
-  }
-
-
   private triggerChange() {
-    this.change.emit(this.selectedIndex);
+    this.selectionChange.emit(this.selectedIndex);
     this.onChange(this.selectedIndex);
   }
 
   ngAfterContentInit() {
-    // Subscribes to buttons press event
-    const listenButtonPress = () => {
+    this.buttons.changes.pipe(startWith(null)).subscribe(() => {
       this.dispose();
-
-      const press$ = merge(...(this.buttons.map(btn => btn.press.pipe(map(() => btn)))));
-
-      this.pressSubscription =  press$.subscribe(btn => {
-        this.buttons.forEach((cbtn, idx) => {
-          if (this.selectionMode === SelectionMode.Single) {
-            // Mark one button on single mode
-            cbtn.selected = cbtn === btn;
-          } else if (this.selectionMode === SelectionMode.Multiple && btn === cbtn) {
-            // Toggle pressed button on multiple mode
-            cbtn.selected = !cbtn.selected;
-          }
-        });
-
-        this.syncSelectedIndex();
+      // Subscribes to button click events
+      const click$ = merge(...(this.buttons.map((source, idx) => source.select.pipe(map(() => idx)))));
+      this.pressSubscription =  click$.subscribe(idx => {
+        this.select(idx);
+        this.syncButtons();
         this.triggerChange();
         this.onTouched();
       });
-    };
-
-    listenButtonPress();
-    this.buttons.changes.subscribe(() => {
-      listenButtonPress();
-      setTimeout(() => this.syncButtons());
+      this.syncButtons();
     });
   }
 
