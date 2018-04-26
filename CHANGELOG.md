@@ -1,31 +1,44 @@
 # Changelog
 
+
+## 0.5.x
+
+### Breaking changes
+
+#### ng-vcl
+- button:
+  - extracted features from vcl-button to directives
+- button-group:
+  - removed `selected` property from button
+  - renamed `change` event to `selectionChange`
+
 ## 0.4.x
 
 ### Notes
 
-### Changes
-## ng-vcl
-- (BREAKING) requires Angular ^5
-- select/dropdown/metalist:
-  - (BREAKING) Removed selected property from items/options. Use value property on vcl-metalist, vcl-dropdown or vcl-select instead.
-- token:
-  - (BREAKING) change event renamed to tokensChange
-  - (BREAKING) token-input must be used as container with vcl-input
-- password-input:
-  - (BREAKING) Must be used as container with vcl-input
-- link:
-  - (BREAKING) Must be with `a` tag: `<a vcl-link ...>`
-- nav:
-  - (BREAKING) Must be with `nav` tah: `<nav vcl-navigation ...>`
-- radio-button:
-  - (BREAKING) Changed html structure
-  - (BREAKING) Removed support for labelPosition and changed to iconPosition
-- checkbox:
-  - (BREAKING) Changed html structure
-  - (BREAKING) Removed support for labelPosition and changed to iconPosition
+### Breaking changes
 
-## vcl-plotly
+#### ng-vcl
+- requires Angular ^5
+- select/dropdown/metalist:
+  - Removed selected property from items/options. Use value property on vcl-metalist, vcl-dropdown or vcl-select instead.
+- token:
+  - change event renamed to tokensChange
+  - token-input must be used as container with vcl-input
+- password-input:
+  - Must be used as container with vcl-input
+- link:
+  - Must be with `a` tag: `<a vcl-link ...>`
+- nav:
+  - Must be with `nav` tah: `<nav vcl-navigation ...>`
+- radio-button:
+  - Changed html structure
+  - Removed support for labelPosition and changed to iconPosition
+- checkbox:
+  - Changed html structure
+  - Removed support for labelPosition and changed to iconPosition
+
+#### vcl-plotly
   - added `@Input() width: number` and `@Input() height: number` to provide plot dimensions
   in percentages relative to the parent element which will be kept on window resize
 
