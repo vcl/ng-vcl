@@ -26,16 +26,16 @@
         <label vcl-form-control-label [label]="fo.label" [required]="fo.required" [for]="fo.id"></label>
 
         <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-          <vcl-password-input-container
+          <vcl-password-input
             [visibleIcon]="fo.schema.visibleIcon || ' fa fa-eye '"
             [invisibleIcon]="fo.schema.invisibleIcon || ' fa fa-eye-slash '"
           >
-            <input vcl-password-input
+            <input vcl-input vcl-password-input
               [id]="fo.id"
               [class.vclError]="hasError"
               [placeholder]="fo.placeholder"
               [formControlName]="fo.key" />
-          </vcl-password-input-container>
+          </vcl-password-input>
         </vcl-input-control-group>
       </ng-container>
 

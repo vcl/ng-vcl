@@ -4,23 +4,23 @@ import { InputDirective } from './../input/index';
 
 
 @Component({
-  templateUrl: 'password-input-container.component.html',
-  selector: 'vcl-password-input-container',
+  templateUrl: 'password-input.component.html',
+  selector: 'vcl-password-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.vclInputGroup]': 'true',
     '[attr.tabindex]': '-1'
   }
 })
-export class PasswordInputContainerComponent {
+export class PasswordInputComponent {
   @ContentChild(InputDirective, { read: InputDirective })
   input?: InputDirective;
 
   @Input()
-  visibleIcon = 'fa:eye-slash';
+  visibleIcon = 'fa:eye';
 
   @Input()
-  invisibleIcon = 'fa:eye';
+  invisibleIcon = 'fa:eye-slash';
 
   @Input()
   visible = false;

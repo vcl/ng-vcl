@@ -5,9 +5,9 @@ A container for the vcl-input which offers a button to toggle visibility of the 
 ## Usage:
 
 ```html
-<vcl-password-input-container>
-  <input vcl-password-input [(ngModel)]="password" placeholder="Enter password">
-</vcl-password-input-container>
+<vcl-password-input>
+  <input vcl-input vcl-password-input [(ngModel)]="password" placeholder="Enter password">
+</vcl-password-input>
 ```
 
 ### API

@@ -1,23 +1,17 @@
 import { Directive, Input, Output, ElementRef, HostListener, EventEmitter, Component, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, ContentChild, OnChanges, SimpleChanges, OnInit, SkipSelf, HostBinding, Optional } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PasswordInputContainerComponent } from './password-input-container.component';
+import { PasswordInputComponent } from './password-input.component';
+import { InputDirective } from '../input/index';
 
 @Directive({
-  selector: 'input[vcl-password-input]',
-  host: {
-    '[class.vclInput]': 'true'
-  }
+  selector: 'input[vcl-password-input]'
 })
 export class PasswordInputDirective {
 
   constructor(
-    private elRef: ElementRef,
-    @Optional() @SkipSelf() private passwordInput: PasswordInputContainerComponent
-  ) {
-    if (!passwordInput) {
-      throw 'vcl-password-input ,must be used within a vcl-token-input-container';
-    }
-  }
+    private input: InputDirective,
+    @SkipSelf() private passwordInput: PasswordInputComponent
+  ) { }
 
   @Input()
   disabled: boolean = false;
