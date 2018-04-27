@@ -8,7 +8,7 @@ import { ButtonDirective } from '../button/index';
 
 
 @Directive({
-  selector: 'vcl-button-group > button[vcl-button]',
+  selector: 'button[vcl-button][vcl-button-group]',
 })
 export class GroupButtonDirective  {
 
