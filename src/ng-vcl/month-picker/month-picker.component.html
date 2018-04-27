@@ -8,10 +8,10 @@
     <div class="vclDGRow">
       <div class="vclToolbar vclLayoutHorizontal vclLayoutFlex vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
         <div class="vclLayoutHorizontal vclLayoutCenter">
-          <button vcl-button class="vclButton vclTransparent vclSquare vclLayoutHorizontal vclLayoutCenterCenter"
+          <button vcl-button class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
             type="button"
             [class.vclDisabled]="!prevYearAvailable"
-            [appIcon]="prevYearBtnIcon"
+            [icon]="prevYearBtnIcon"
             (click)="onPrevYearTap()">
           </button>
 
@@ -19,9 +19,9 @@
 
           <button vcl-button
             type="button"
-            class="vclButton vclTransparent vclSquare vclLayoutHorizontal vclLayoutCenterCenter"
+            class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
             [class.vclDisabled]="!nextYearAvailable"
-            [appIcon]="nextYearBtnIcon"
+            [icon]="nextYearBtnIcon"
             (click)="onNextYearTap()">
           </button>
         </div>
@@ -29,8 +29,8 @@
         <div class="vclLayoutHorizontal vclLayoutFlex vclLayoutEndJustified">
           <button vcl-button *ngIf="expandable"
             type="button"
-            class="vclButton vclTransparent vclSquare vclLayoutHorizontal vclLayoutCenterCenter"
-            [appIcon]="closeBtnIcon"
+            class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
+            [icon]="closeBtnIcon"
             (click)="onCloseBtnTap()">
           </button>
         </div>
