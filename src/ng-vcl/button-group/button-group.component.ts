@@ -15,7 +15,7 @@ export class GroupButtonDirective  {
   constructor(
     @SkipSelf()
     @Inject(forwardRef(() => ButtonGroupComponent))
-    private buttonGroupContainer: ButtonGroupComponent,
+    private buttonGroupContainer,
     private host: ButtonDirective
   ) { }
 

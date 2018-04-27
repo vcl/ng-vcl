@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
   exportAs: 'meta'
 })
 export class MetalistItem implements MetalistItem {
-  constructor(@Inject(forwardRef(() => MetalistComponent)) private metalist: MetalistComponent) { }
+  constructor(@Inject(forwardRef(() => MetalistComponent)) private metalist) { }
 
   @Input()
   value: any;

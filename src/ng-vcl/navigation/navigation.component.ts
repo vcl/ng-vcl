@@ -1,7 +1,6 @@
 import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter, HostBinding, Inject, forwardRef, Optional, SkipSelf } from '@angular/core';
 import { Router, UrlTree, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-// import { containsTree } from "@angular/router/url_tree";
 
 export interface NavigationItem {
   label: string;
@@ -77,7 +76,7 @@ export class NavigationItemDirective implements NavigationItem {
   constructor(
     private router: Router,
     @Inject(forwardRef(() => NavigationComponent))
-    private nav: NavigationComponent,
+    private nav,
     @Optional() @SkipSelf() @Inject(NavigationItemDirective)
     public parent: NavigationItemDirective | undefined) { }
 

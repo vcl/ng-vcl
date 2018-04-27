@@ -39,7 +39,6 @@ export interface PopoverAnimationConfig {
   selector: 'vcl-popover',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [trigger('popoverState', [])],
   host: {
     '[class.vclPopOver]': 'true',
     '[style.position]': '"absolute"'

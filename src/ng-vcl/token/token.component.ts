@@ -20,10 +20,8 @@ export interface Token {
 @Component({
   selector: 'vcl-token',
   templateUrl: 'token.component.html',
-  animations: [trigger('checkState', [])],
   host: {
     '[class.vclToken]': 'true',
-    '[@checkState]': 'selected'
   },
   // Used by select
   // changeDetection: ChangeDetectionStrategy.OnPush
