@@ -1,5 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostBinding, Self, SimpleChanges } from '@angular/core';
 import { IconService } from './icon.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'vcl-icon, [vcl-icon]',
@@ -8,8 +9,16 @@ import { IconService } from './icon.service';
   host: {
     '[class.vclIcon]': 'true',
   },
+  providers: [ NgClass ]
 })
 export class IconComponent {
+
+  constructor(
+    @Self() private ngClass: NgClass,
+    private _iconService: IconService
+  ) { }
+
+  private hostClasses: { [name: string]: boolean };
 
   @Input()
   src: string | undefined;
@@ -18,30 +27,40 @@ export class IconComponent {
   svguse: string | undefined;
 
   @Input()
-  iconClass: string | undefined;
-
-  @Input()
   icon: string | undefined;
 
   @HostBinding('attr.aria-label')
-  @Input()
+  @Input('aria-label')
   label: string | undefined;
 
-  @HostBinding('attr.role')
   @Input()
-  ariaRole: string | undefined;
+  alt: string | undefined;
 
-  constructor(private _iconService: IconService) { }
+  @Input()
+  role: string | undefined;
 
-  @HostBinding('class')
-  get mergedIconClass(): string {
-    const fontIconClass = this.icon ? this._iconService.lookup(this.icon) : '';
-    return `vclIcon ${fontIconClass} ${this.iconClass || ''}`;
+  @HostBinding('attr.role')
+  get attrRole() {
+    return this.role || 'img';
+  }
+
+  @HostBinding('attr.aria-label')
+  get attrAriaLabel() {
+    return this.label || this.alt;
   }
 
   // Do not hide from aria when a label is provided
   @HostBinding('attr.aria-hidden')
   get isAriaHidden() {
-    return !this.label;
+    return !this.attrAriaLabel;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.icon) {
+      const icon = changes.icon.currentValue;
+      const fontIconClass = icon ? this._iconService.lookup(icon) : '';
+      this.ngClass.ngClass = fontIconClass;
+      this.ngClass.ngDoCheck();
+    }
   }
 }
