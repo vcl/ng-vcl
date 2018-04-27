@@ -4,19 +4,15 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgModel } from '@angular/forms';
 
 @Directive({
-  selector: 'input[vcl-embedded-input]',
+  selector: 'input[vcl-embedded-input-group]',
   host: {
     '[class.vclInput]': 'true'
   }
 })
 export class EmbeddedInputDirective {
   constructor(
-    @Optional() @SkipSelf() private inputGroup: EmbeddedInputGroupComponent
-  ) {
-    if (!inputGroup) {
-      throw 'vcl-embedded-input must be used within a vcl-embedded-input-group';
-    }
-  }
+    @SkipSelf() private inputGroup: EmbeddedInputGroupComponent
+  ) { }
 
   @Input()
   disabled: boolean = false;

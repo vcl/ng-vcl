@@ -4,7 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: 'demo.component.html'
 })
 export class EmbeddedInputGroupDemoComponent {
-
-    someAction(event: any): void { console.log(event); }
-
+  someAction(event: any): void { console.log(event); }
 }

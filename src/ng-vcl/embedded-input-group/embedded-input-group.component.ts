@@ -5,7 +5,7 @@ import { NgModel } from '@angular/forms';
 import { ObservableComponent } from '../core/index';
 
 @Component({
-  selector: 'vcl-embedded-input-group, [vcl-embedded-input-group]',
+  selector: 'vcl-embedded-input-group',
   templateUrl: 'embedded-input-group.component.html',
   host: {
     '[class.vclInputGroupEmb]': 'true',
