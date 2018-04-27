@@ -6,7 +6,7 @@ Enhanced text input
 
 ```html
 <input vcl-input [(ngModel)]="data">
-<input vcl-input vcl-input-autoselect>
+<input vcl-input autoselect>
 ```
 
 ### API
@@ -19,4 +19,4 @@ Name            | Type    | Default | Description
 
 #### Directives:
 
-`vcl-input-autoselect`      | selects text on focus
+`input[vcl-input][autoselect]`      | selects text on focus

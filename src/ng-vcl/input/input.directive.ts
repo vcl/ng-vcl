@@ -8,9 +8,13 @@ import { Directive, ElementRef, HostBinding, Input, HostListener } from '@angula
 })
 export class InputDirective {
 
-  @HostBinding('class.vclDisabled')
   @Input()
   disabled: boolean = false;
+
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    return this.disabled;
+  }
 
   @HostBinding('attr.disabled')
   get attrDisabled() {
@@ -19,11 +23,11 @@ export class InputDirective {
 }
 
 @Directive({
-  selector: 'input[vcl-input-autoselect]',
+  selector: 'input[vcl-input][autoselect]',
 })
 export class InputAutoSelectDirective {
 
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef) { }
 
   // Autoselect
   @HostListener('focus')
