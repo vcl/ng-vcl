@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, ChangeDetectionStrategy, SimpleChanges, forwardRef } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription } from 'rxjs';
 import { Schema, Validator } from 'jsonschema';
 import { FormObject, createFormObjects } from './jss-form-object.component';
 import { JssFormSchema } from './types';

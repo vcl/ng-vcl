@@ -1,5 +1,5 @@
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AlertService, AlertType, AlertError, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
 import { retryWhen, switchMap } from 'rxjs/operators';

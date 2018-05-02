@@ -12,9 +12,7 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  merge ,  Subscription } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { Token, TokenComponent } from './token.component';

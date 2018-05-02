@@ -3,7 +3,6 @@ import {
   Input,
   Output,
   EventEmitter,
-  trigger,
   HostListener,
   HostBinding,
   ChangeDetectionStrategy,

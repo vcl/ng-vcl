@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostListener, HostBinding, OnChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
+import { Subscription ,  Observable ,  merge } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { RadioButtonComponent } from './radio-button.component';
 

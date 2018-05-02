@@ -1,6 +1,6 @@
 import { Wormhole, WormholeHost } from './../wormhole/index';
 import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { TabComponent } from './tab.component';
 
 @Component({

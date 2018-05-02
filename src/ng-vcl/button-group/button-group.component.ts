@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, Optional, SkipSelf, Directive, HostBinding, ElementRef, HostListener, Inject } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription, merge } from 'rxjs';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from '@angular/forms';
-import { merge } from 'rxjs/observable/merge';
 import { map, startWith } from 'rxjs/operators';
 import { ButtonDirective } from '../button/index';
 

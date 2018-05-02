@@ -1,7 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { from } from 'rxjs/observable/from';
+import { Observable ,  of ,  from } from 'rxjs';
 import { publishReplay, refCount, map } from 'rxjs/operators';
 
 export interface TranslationPackage {

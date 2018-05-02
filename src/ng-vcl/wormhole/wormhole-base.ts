@@ -1,9 +1,6 @@
 import { EmbeddedViewRef, TemplateRef, ComponentRef, Type } from '@angular/core';
-import { never } from 'rxjs/observable/never';
-import { merge } from 'rxjs/observable/merge';
+import { never, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { Observable } from 'rxjs/Observable';
 import { WormholeAttributes, WormholeEvent } from './wormhole';
 
 export interface WormholeAttributes {

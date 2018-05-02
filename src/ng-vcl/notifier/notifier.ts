@@ -1,9 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { interval } from 'rxjs/observable/interval';
-import { merge } from 'rxjs/observable/merge';
-import { never } from 'rxjs/observable/never';
+import { Observable, interval, merge, never, Subject } from 'rxjs';
 import { first, skipWhile } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 import { NotifierOptions, NOTIFIER_DEFAULTS, NotifierType, TYPE_CLASS_MAP } from './types';
 
 

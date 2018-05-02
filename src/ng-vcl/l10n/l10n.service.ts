@@ -1,12 +1,9 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable ,  BehaviorSubject ,  combineLatest ,  of } from 'rxjs';
 
 import { L10nLoaderService, TranslationPackage } from './l10n-loader.service';
 import { L10nParserService } from './l10n-parser.service';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import { switchMap, refCount, publishReplay, map } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
 export const L10N_CONFIG = new InjectionToken('l10n.config');
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Inject, InjectionToken, Input, Optional, Output, SimpleChanges, trigger } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Inject, InjectionToken, Input, Optional, Output, SimpleChanges } from '@angular/core';
 import { ObservableComponent } from '../core/index';
 import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 

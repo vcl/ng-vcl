@@ -1,10 +1,7 @@
 import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, AfterViewInit, ElementRef } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
+import { Subscription ,  Subject ,  Observable ,  from } from 'rxjs';
 import { LayerRef, LayerService, Layer } from './../layer/index';
 import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
 
 export function dismiss(layer: LayerRef, err: AlertError | any) {
   if (err instanceof Error) {

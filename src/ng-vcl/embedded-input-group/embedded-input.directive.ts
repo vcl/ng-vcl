@@ -1,6 +1,5 @@
 import { EmbeddedInputGroupComponent } from './embedded-input-group.component';
 import { Component, Output, EventEmitter, Input, AfterViewInit, ViewChild, HostBinding, Directive, ElementRef, SkipSelf, Optional, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { NgModel } from '@angular/forms';
 
 @Directive({

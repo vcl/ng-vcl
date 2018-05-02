@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { TourComponent } from './tour.component';
 import { IHintService, IHintOptions, HintOptions, HintConfig, Step } from './types';
 

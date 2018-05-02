@@ -1,7 +1,6 @@
 import { Http } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { of } from 'rxjs/observable/of';
+import { BehaviorSubject ,  of } from 'rxjs';
 import { debounceTime, switchMap, map, catchError, startWith } from 'rxjs/operators';
 
 const BOOK_API_URL = 'https://www.googleapis.com/books/v1/volumes';

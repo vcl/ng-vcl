@@ -31,7 +31,8 @@
         [busy]="!!alert.loader"
         type="button"
         >
-          <vcl-icogram
+        <!-- TODO FIX -->
+          <!-- <vcl-icogram
             *vclButtonStateContent="['enabled','disabled']"
             [appIcon]="alert.confirmButtonAppIcon"
             [prepIcon]="alert.confirmButtonPrepIcon"
@@ -41,7 +42,7 @@
             *vclButtonStateContent="'busy'"
             prepIcon="fa:refresh fa-spin"
             [label]="alert.confirmButtonLabel">
-          </vcl-icogram>
+          </vcl-icogram> -->
       </button>
       <button vcl-button
         *ngIf="!!alert.showCancelButton"
@@ -52,7 +53,7 @@
         type="button"
         (tap)="cancel()"
         >
-          <vcl-icogram
+          <!-- <vcl-icogram
             *vclButtonStateContent="['enabled','disabled']"
             [appIcon]="alert.cancelButtonAppIcon"
             [prepIcon]="alert.cancelButtonPrepIcon"
@@ -62,7 +63,7 @@
             *vclButtonStateContent="'busy'"
             prepIcon="fa:refresh fa-spin"
             [label]="alert.cancelButtonLabel">
-          </vcl-icogram>
+          </vcl-icogram> -->
       </button>
     </div>
     <div *ngIf="!alert.showCancelButton && !alert.showConfirmButton && !!alert.loader">

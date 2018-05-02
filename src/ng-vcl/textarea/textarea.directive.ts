@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnInit, Optional, OnChanges, SimpleChanges } from '@angular/core';
 import { NgModel } from '@angular/forms';
 

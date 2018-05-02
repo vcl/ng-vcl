@@ -1,8 +1,7 @@
-import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
 import { Directive, ElementRef, Input, HostListener, OnDestroy, SkipSelf, HostBinding, Optional, EventEmitter, Output } from '@angular/core';
 import { Autocomplete, AutocompleteOption } from './autocomplete.component';
 import { ObservableComponent } from '../core/index';
-import { Subscription } from 'rxjs/Subscription';
 import { TokenInputContainerComponent } from '../token/index';
 
 @Directive({

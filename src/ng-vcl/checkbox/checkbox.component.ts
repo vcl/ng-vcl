@@ -4,7 +4,6 @@ import { Component,
   OnChanges, SimpleChanges, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, ElementRef
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {

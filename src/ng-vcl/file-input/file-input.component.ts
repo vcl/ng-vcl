@@ -2,8 +2,6 @@ import {
   Component, forwardRef, ChangeDetectionStrategy, Input, Output, ViewChild, HostBinding, ElementRef, EventEmitter, HostListener, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import { accept } from './accept';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {

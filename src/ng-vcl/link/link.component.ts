@@ -1,10 +1,8 @@
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription ,  of } from 'rxjs';
 import { Component, Input, HostBinding, ViewChild, ElementRef, Optional } from '@angular/core';
 import { L10nService } from '../l10n/index';
 import { ObservableComponent } from '../core/index';
 import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'a[vcl-link]',

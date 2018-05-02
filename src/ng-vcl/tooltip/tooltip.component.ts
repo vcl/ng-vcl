@@ -1,11 +1,9 @@
 import {
-  Component, Input, ElementRef,
-  trigger, state, transition, animate,
-  style, AfterViewInit, Inject, Renderer, OnDestroy, OnChanges, SimpleChanges
-} from '@angular/core';
+  Component, Input, ElementRef, AfterViewInit, Inject, Renderer, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { ICoordinate } from './ICoordinate';
 import { TooltipService } from './tooltip.service';
 import { DOCUMENT } from '@angular/platform-browser';
+import { trigger, state, transition, animate, style } from '@angular/animations';
 
 export enum AnimationState {
   Shown = 'shown',

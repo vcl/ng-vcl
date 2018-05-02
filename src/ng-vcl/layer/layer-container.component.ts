@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, InjectionToken, Input, Optional, ReflectiveInjector, TemplateRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ComponentWormhole, TemplateWormhole, Wormhole } from '../wormhole/index';
 import { LayerAttributes, LayerRef } from './layer-ref';
 

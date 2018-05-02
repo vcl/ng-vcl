@@ -1,13 +1,9 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, combineLatest, Subject, Subscription, BehaviorSubject } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { Component, Directive, ViewChild, ViewContainerRef, Input, TemplateRef, HostBinding, HostListener, ElementRef, ContentChildren, QueryList, forwardRef, AfterContentInit, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, ContentChild } from '@angular/core';
 import { WormholeHost } from '../wormhole/index';
 import { PopoverComponent } from '../popover/index';
-import { Subscription } from 'rxjs/Subscription';
 import { ObservableComponent } from '../core/index';
-import { startWith, map } from 'rxjs/operators';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
   selector: 'vcl-autocomplete',
@@ -54,9 +50,15 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
     return !!target && (items.length > 0 || content.length > 0);
   }));
 
-  popoverWidth$ = this.target$.pipe(map(target => {
-    return (target && target.element.nativeElement.offsetWidth) ? target && target.element.nativeElement.offsetWidth + 'px' : undefined;
-  }));
+  popoverWidth$ = this.target$.pipe(
+    map(target => {
+      if (target && target.element.nativeElement.offsetWidth) {
+        return target.element.nativeElement.offsetWidth + 'px';
+      } else {
+        return undefined;
+      }
+    })
+  );
 
   itemsSub?: Subscription;
   contentSub?: Subscription;

@@ -1,6 +1,6 @@
 import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter, HostBinding, Inject, forwardRef, Optional, SkipSelf } from '@angular/core';
 import { Router, UrlTree, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 export interface NavigationItem {
   label: string;

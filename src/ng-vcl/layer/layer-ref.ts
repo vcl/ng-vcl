@@ -1,6 +1,5 @@
 import { Injectable, ReflectiveInjector, Injector, ViewContainerRef, Directive, Input, TemplateRef, ChangeDetectorRef } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject, Observable } from 'rxjs';
 import { WormholeEvent } from './../wormhole/index';
 import { LayerService } from './layer.service';
 

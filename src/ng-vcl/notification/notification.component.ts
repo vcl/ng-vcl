@@ -3,7 +3,7 @@ import {NotificationType, FlexAlign, TextAlign, IconType} from './types';
 import {NotificationBodyComponent} from './notification-body.component';
 import {NotificationFooterComponent} from './notification-footer.component';
 import {NotificationHeaderComponent} from './notification-header.component';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'vcl-notification',

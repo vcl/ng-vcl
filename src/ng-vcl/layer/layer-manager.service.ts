@@ -1,6 +1,5 @@
 import { Injectable, Injector, TemplateRef, Type, ApplicationRef } from '@angular/core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subscription } from 'rxjs/Subscription';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { Wormhole, DomWormholeHost } from '../wormhole/index';
 import { LayerRef, DynamicLayerRef, LayerAttributes } from './layer-ref';
 import { LayerContainerComponent, LayerOptions } from './layer-container.component';

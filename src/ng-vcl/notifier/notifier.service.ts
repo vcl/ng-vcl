@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Injectable, Inject, ComponentRef } from '@angular/core';
 
 import { NotifierOptions, NotifierType, NotifierPosition, NOTIFIER_DEFAULTS, POSITION_MAP } from './types';

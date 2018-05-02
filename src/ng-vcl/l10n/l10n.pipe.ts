@@ -1,5 +1,5 @@
 import { Optional, Inject, Pipe, PipeTransform, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { L10nService } from './l10n.service';
 

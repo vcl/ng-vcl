@@ -1,6 +1,4 @@
 import { Component, Output, EventEmitter, Input, AfterViewInit, ViewChild, HostBinding } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import { ObservableComponent } from '../core/index';
 

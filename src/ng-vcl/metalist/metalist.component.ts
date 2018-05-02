@@ -2,7 +2,7 @@ import { Directive, Component, Input, Output, ChangeDetectionStrategy, ChangeDet
   EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query, AfterContentInit, OnDestroy, OnChanges, Inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: '[vcl-metalist-item]',

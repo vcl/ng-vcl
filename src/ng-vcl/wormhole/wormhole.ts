@@ -1,5 +1,5 @@
 import { TemplateRef, ViewContainerRef, EmbeddedViewRef, ComponentFactory, Type, ComponentRef, ComponentFactoryResolver, Injector } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Wormhole, ComponentWormholeBase, TemplateWormholeBase } from './wormhole-base';
 
 export interface WormholeAttributes {

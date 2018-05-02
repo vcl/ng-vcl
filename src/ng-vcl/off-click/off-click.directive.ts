@@ -1,8 +1,5 @@
 import { NgModule, EventEmitter, Output, Input, Directive, ElementRef } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { timer } from 'rxjs/observable/timer';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Subscription ,  Observable ,  timer ,  fromEvent } from 'rxjs';
 import { first, skipUntil } from 'rxjs/operators';
 
 @Directive({
