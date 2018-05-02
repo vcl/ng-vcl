@@ -13,14 +13,6 @@ const PACKAGES: Packages = {
     next: false,
     tasks: [copyResources, ngVCLCompatibility, prepareDist, prepareDistCompatibility]
   },
-  'json-editor': {
-    next: false,
-    tasks: [copyResources, prepareDist],
-  },
-  'plotly': {
-    next: false,
-    tasks: [copyResources, prepareDist],
-  },
   'animations': {
     next: false,
     tasks: [copyResources, prepareDist]

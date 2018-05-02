@@ -22,10 +22,7 @@ module.exports = merge(config, {
   resolve: {
     plugins: [
       new TsConfigPathsPlugin()
-    ],
-    alias: {
-      'plotly.js': 'node_modules/plotly.js/dist/plotly.js' // Plotly.js fix
-    }
+    ]
   }
 });
 

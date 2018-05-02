@@ -475,26 +475,6 @@ export const routes: Routes = [
         category: 'Misc',
       }
     }
-  },
-  {
-    loadChildren: './demos/json-editor/demo.module#JsonEditorDemoModule',
-    path: 'json-editor',
-    data: {
-      demo: {
-        label: 'JSON Editor',
-        category: 'Dependency Based',
-      }
-    }
-  },
-  {
-    loadChildren: './demos/plotly/demo.module#PlotlyDemoModule',
-    path: 'plotly',
-    data: {
-      demo: {
-        label: 'Plotly',
-        category: 'Dependency Based',
-      }
-    }
   }
 ];
 
