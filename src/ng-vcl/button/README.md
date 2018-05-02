@@ -15,28 +15,20 @@ import { VCLButtonModule } from '@ng-vcl/ng-vcl';
 export class AppComponent { ... }
 ```
 
-
-
-### vcl-button:
+### button[vcl-button]:
 
  ```html
 <button vcl-button (click)="someAction($event)">Action</button>
  ```
-### vcl-button[label]:
+### button[vcl-button][label]:
 
  ```html
 <button vcl-button label="Action" appIcon="fa:bolt"></button>
  ```
-### vcl-button[selectable]:
+### button[vcl-button][selectable]:
 
  ```html
 <button vcl-button selectable (select)="someAction($event)">Action</button>
- ```
-
-### vcl-button[busy]:
-
- ```html
-<button vcl-button [busy]="true" label="I am busy"></button>
  ```
 
 ### API
@@ -68,15 +60,3 @@ export class AppComponent { ... }
 | Name                | Description
 | ------------        | --------------
 | `select`            | Triggered when the button is selected
-
-#### vcl-button[busy] attributes
-
-| Name                | Type        | Default    | Description
-| ------------        | ----------- | --------   |--------------
-| `busy`              | boolean     | false      | State to indicate that an operation is in progress
-| `label`             | string      |            | Sets button label
-| `title`             | string      |            | Sets button title
-| `flexLabel`         | boolean     | false      | The label gets a flex layout property if true
-| `busyIcon`          | string      | fa:refresh | icon shown when busy
-| `busyIconPosition`  | string      | "prep"     | "app" or "prep" to append or prepend busy icon
-

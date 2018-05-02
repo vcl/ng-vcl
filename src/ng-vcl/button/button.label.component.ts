@@ -1,29 +1,29 @@
 import { Component, ChangeDetectionStrategy, HostBinding, Input, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'button[vcl-button][label]:not(button[vcl-button][busy])',
+  selector: 'button[vcl-button][label], button[vcl-button][busy]',
   templateUrl: 'button.label.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonLabelComponent {
 
   @Input()
-  title: string;
+  title?: string;
 
   @Input()
-  label: string;
+  label?: string;
 
   @Input()
   prepIcon: string;
 
   @Input()
-  appIcon: string;
+  appIcon?: string;
 
   @Input()
-  appIconSrc: string;
+  appIconSrc?: string;
 
   @Input()
-  prepIconSrc: string;
+  prepIconSrc?: string;
 
   @HostBinding('attr.aria-label')
   get ariaLabel() {

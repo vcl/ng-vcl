@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, HostBinding, Input, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'button[vcl-button][icon]:not(button[vcl-button][busy]), button[vcl-button][iconSrc]:not(button[vcl-button][busy])',
+  selector: 'button[vcl-button][icon], button[vcl-button][iconSrc]',
   templateUrl: 'button.icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {

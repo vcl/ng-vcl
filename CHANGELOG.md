@@ -8,6 +8,7 @@
 #### ng-vcl
 - button:
   - extracted features from vcl-button to directives
+  - removed busy button
 - button-group:
   - removed `selected` property from button
   - renamed `change` event to `selectionChange`
