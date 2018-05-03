@@ -6,6 +6,7 @@
 ### Breaking changes
 
 #### ng-vcl
+- requires Angular ^6 / rxjs ^6
 - button:
   - extracted features from vcl-button to directives
   - removed busy button
