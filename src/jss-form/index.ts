@@ -7,7 +7,7 @@ import {
   VCLSliderModule, VCLCheckboxModule, VCLSelectModule,
   VCLRadioButtonModule, VCLInputControlGroupModule,
   VCLFormControlLabelModule, L10nModule,
-  VCLTextareaModule, VCLPasswordInputModule
+  VCLTextareaModule, VCLPasswordInputModule, VCLInputModule
 } from '@ng-vcl/ng-vcl';
 import { JssFormObjectComponent } from './jss-form-object.component';
 import { JssFormSchemaOptions, JssFormSchema } from './types';
@@ -29,6 +29,7 @@ export { markAsDeeplyTouched } from './utils';
     VCLRadioButtonModule,
     VCLFormControlLabelModule,
     VCLInputControlGroupModule,
+    VCLInputModule,
     VCLTextareaModule,
     VCLPasswordInputModule
   ],

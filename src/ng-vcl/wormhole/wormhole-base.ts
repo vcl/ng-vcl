@@ -112,7 +112,7 @@ export abstract class ComponentWormholeBase<T> extends Wormhole {
       if (!instance[event])
         throw 'Event not found: ' + event;
 
-      return instance[event] && instance[event].map(value => ({type: event, value}));
+      return instance[event] && instance[event].pipe( map(value => ({type: event, value})) );
     });
     return merge(...events$);
   }

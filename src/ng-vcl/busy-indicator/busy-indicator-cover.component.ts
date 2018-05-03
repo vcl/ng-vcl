@@ -1,8 +1,9 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: '[vclBusyIndicatorCover]',
-  templateUrl: 'busy-indicator-cover.component.html'
+  templateUrl: 'busy-indicator-cover.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusyIndicatorCoverComponent {
   @Input('vclBusyIndicatorCover')

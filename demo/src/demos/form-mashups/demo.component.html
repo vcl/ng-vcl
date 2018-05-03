@@ -7,7 +7,7 @@
 
 <div class="vclButtonGroup" #target>
   <button vcl-button label="Primary Action"></button>
-  <button vcl-button prepIcon="fa:chevron-down" (tap)="dropOver.toggle()"></button>
+  <button vcl-button icon="fa:chevron-down" (tap)="dropOver.toggle()"></button>
 </div>
 
 <vcl-popover #dropOver [target]="target" class="vclNoPadding" (offClick)="offClick()">
