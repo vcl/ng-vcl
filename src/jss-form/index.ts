@@ -6,7 +6,7 @@ import {
   VCLButtonModule, VCLDropdownModule, VCLFlipSwitchModule,
   VCLSliderModule, VCLCheckboxModule, VCLSelectModule,
   VCLRadioButtonModule, VCLInputControlGroupModule,
-  VCLFormControlLabelModule, L10nModule,
+  VCLFormControlLabelModule,
   VCLTextareaModule, VCLPasswordInputModule, VCLInputModule
 } from '@ng-vcl/ng-vcl';
 import { JssFormObjectComponent } from './jss-form-object.component';
@@ -19,7 +19,6 @@ export { markAsDeeplyTouched } from './utils';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    L10nModule,
     VCLButtonModule,
     VCLDropdownModule,
     VCLFlipSwitchModule,

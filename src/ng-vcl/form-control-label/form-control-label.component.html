@@ -1,6 +1,6 @@
-{{label | loc}}
-<em *ngIf="required" class="vclRequiredIndicator" aria-hidden="true" [attr.aria-label]="requiredIndLabel | loc">
+{{label}}
+<em *ngIf="required" class="vclRequiredIndicator" aria-hidden="true" [attr.aria-label]="requiredIndLabel">
   {{requiredIndicatorCharacter}}
 </em>
-<span *ngIf="subLabel" class="vclFormControlSubLabel">{{subLabel | loc}}</span>
+<span *ngIf="subLabel" class="vclFormControlSubLabel">{{subLabel}}</span>
 <div #content><ng-content></ng-content></div>

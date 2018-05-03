@@ -12,12 +12,12 @@
         >
 
       <span *ngIf="item.heading">
-        {{item.label | loc}}
+        {{item.label}}
       </span>
 
       <a vcl-link class="vclNavigationItemLabel"
         *ngIf="!item.heading"
-        [label]="item.label | loc"
+        [label]="item.label"
         [prepIcon]="item.calcPrepIcon"
         [appIcon]="item.calcAppIcon"
         (tap)="selectItem(item)">

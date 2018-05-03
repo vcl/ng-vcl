@@ -1,6 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { L10nModule } from '../l10n/index';
 import { IconComponent } from './icon.component';
 import { IconService } from './icon.service';
 
@@ -11,7 +10,7 @@ export declare interface IconConfig {
 }
 
 @NgModule({
-  imports: [CommonModule, L10nModule],
+  imports: [CommonModule],
   exports: [IconComponent],
   declarations: [IconComponent],
   providers: [IconService],

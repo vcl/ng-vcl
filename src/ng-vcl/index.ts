@@ -32,7 +32,6 @@ export * from './input-control-group/index';
 export * from './alert/index';
 export * from './busy-indicator/index';
 export * from './notifier/index';
-export * from './l10n/index';
 export * from './tooltip/index';
 export * from './table/index';
 export * from './password-input/index';

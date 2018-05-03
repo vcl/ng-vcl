@@ -8,7 +8,7 @@
               </div>
             </button>
         <span class="vclCalHeaderLabel" (tap)="showYear()" [class.date-picker-pointer]="!showYearPick">
-          {{viewDate?.getMonthString() | loc}}&nbsp;&nbsp;{{viewDate?.getYearString()}}
+          {{viewDate?.getMonthString()}}&nbsp;&nbsp;{{viewDate?.getYearString()}}
         </span>
         <button type="button" class="vclButton vclTransparent vclSquare" [disabled]="disabled" (click)="nextMonth()">
           <div class="vclIcogram">
@@ -22,11 +22,11 @@
   <ng-container *ngIf="!showYearPick">
     <div *ngIf="displayWeekNumbers || displayWeekdays" class="vclDGRow">
       <div *ngIf="displayWeekNumbers" class="vclDGCell vclCalItem vclOtherMonth">
-        {{'week' | loc}}
+        {{'week'}}
       </div>
         <div *ngFor="let day of viewDate.getWeekDays()" class="vclDGCell vclWeekdayLabel">
           <ng-container *ngIf="displayWeekdays">
-            {{day | loc}}
+            {{day}}
           </ng-container>
         </div>
     </div>

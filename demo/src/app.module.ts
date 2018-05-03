@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
-  VCLLayerModule, L10nModule, L10nStaticLoaderService
+  VCLLayerModule
 } from '@ng-vcl/ng-vcl';
 import {
   LayerAnimationsModule, PopoverAnimationsModule,

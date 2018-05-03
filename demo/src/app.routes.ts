@@ -447,16 +447,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/l10n/demo.module#L10nDemoModule',
-    path: 'l10n',
-    data: {
-      demo: {
-        label: 'L10n',
-        category: 'Misc',
-      }
-    }
-  },
-  {
     loadChildren: './demos/metalist/demo.module#MetalistDemoModule',
     path: 'metalist',
     data: {

@@ -46,7 +46,6 @@ export class AppModule { }
 - [busy-indicator](./busy-indicator)
 - [progress-bar](./progress-bar)
 - [flip-switch](./flip-switch)
-- [l10n](./l10n)
 - [wormhole](./wormhole)
 - [radio-button](./radio-button)
 - [button-group](./button-group)

@@ -14,7 +14,7 @@
 
 <label vcl-form-control-label [wrapping]="true" [label]="label">
   <ng-container *ngIf="iconPosition==='left'" [ngTemplateOutlet]="cb"></ng-container>
-  {{label | loc}}
+  {{label }}
   <ng-content></ng-content>
   <ng-container *ngIf="iconPosition==='right'" [ngTemplateOutlet]="cb"></ng-container>
 </label>

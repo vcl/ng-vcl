@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatePickerComponent } from './date-picker.component';
 import { VCLButtonModule } from '../button/index';
-import { L10nModule } from '../l10n/index';
 
 export { DatePickerComponent };
 
 @NgModule({
-  imports: [CommonModule, VCLButtonModule, L10nModule],
+  imports: [CommonModule, VCLButtonModule],
   exports: [DatePickerComponent],
   declarations: [DatePickerComponent],
   providers: [],

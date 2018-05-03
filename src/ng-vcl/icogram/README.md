@@ -25,11 +25,10 @@ provided.
 
 | Name                         | Type        | Default  | Description
 | ---------------------------- | ----------- | -------- |--------------
-| `label` *(1)*                | string      |          | The textual label 
+| `label`                      | string      |          | The textual label 
 | `flexLabel`                  | boolean     |          | the label gets a `vclLayoutFlex` class if true
 | `prepIcon`                   | string      |          | Icon as defined by the icon component
 | `appIcon`                    | string      |          | Same as `prepIcon` but appended
 | `prepIconSrc`                | string      |          | Image as defined by the icon component
 | `appIconSrc`                 | string      |          | Same as `prepIconSrc` but appended
 
-*(1) Supports l10n*

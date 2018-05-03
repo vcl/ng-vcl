@@ -37,4 +37,3 @@ With SVG
 | `src`               | string      |          | URL of a graphics resource
 | `svguse`            | string      |          | Generates an SVG `use` tag referencing the value
 
-*(1) Supports l10n*

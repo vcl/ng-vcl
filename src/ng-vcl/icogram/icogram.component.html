@@ -1,7 +1,7 @@
 <ng-container *ngIf="!span; else spanTmp">
   <div vcl-icon *ngIf="prepIcon || prepIconSrc" [icon]="prepIcon" [src]="prepIconSrc"></div>
   <div *ngIf="!!label" [class.vclLayoutFlex]="!!flexLabel" [class.vclAlignCentered]="!!flexLabelCentered" class="vclText">
-    {{label | loc}}
+    {{label}}
   </div>
   <ng-content></ng-content>
   <div vcl-icon *ngIf="appIcon || appIconSrc" [icon]="appIcon" [src]="appIconSrc"></div>
@@ -9,7 +9,7 @@
 <ng-template #spanTmp>
   <span vcl-icon *ngIf="prepIcon || prepIconSrc" [icon]="prepIcon" [src]="prepIconSrc"></span>
   <span *ngIf="!!label" class="vclText">
-    {{label | loc}}
+    {{label}}
   </span>
   <ng-content></ng-content>
   <span vcl-icon *ngIf="appIcon || appIconSrc" [icon]="appIcon" [src]="appIconSrc"></span>

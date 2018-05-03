@@ -17,10 +17,9 @@ Uses vcl-icogram to display a combination of text and icons if `appIcon` or `app
 | ------------        | ----------- | -------- |--------------
 | `href`              | string      |          | `href` attribute 
 | `scheme`            | string      |          | URL scheme to be used, e. g. `tel`, `mailto` etc. 
-| `label` *(1)*       | string      |          | textual label with automatic l10n lookup 
-| `title` *(1)*       | string      |          | textual title with automatic l10n lookup 
+| `label`             | string      |          | textual label 
+| `title`             | string      |          | textual title 
 | `prepIcon`          | string      |          | icon to be prepended to the label 
 | `appIcon`           | string      |          | icon to be appended to the label 
 | `disabled`          | boolean     | false    | disabled if `true` 
 
-*(1) Supports l10n*

@@ -27,10 +27,10 @@ export class BusyIndicatorComponent implements OnChanges {
   iconWidth = '3em';
 
   @Input()
-  classSrc: string | null = null;
+  classSrc?: string;
 
   @Input()
-  imageSrc: string | null = null;
+  imageSrc?: string;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.imageSrc || changes.type) {
@@ -42,5 +42,5 @@ export class BusyIndicatorComponent implements OnChanges {
     }
   }
 
-  indicatorSrc?: SafeResourceUrl;
+  indicatorSrc?: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(CIRCULAR);
 }

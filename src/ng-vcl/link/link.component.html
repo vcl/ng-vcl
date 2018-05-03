@@ -1,11 +1,11 @@
 <vcl-icogram
   *ngIf="useIcogram"
-  [label]="(locLabel$ | async) || href"
+  [label]="label || href"
   [prepIcon]="prepIcon"
   [appIcon]="appIcon">
   <ng-content></ng-content>
 </vcl-icogram>
 <ng-container *ngIf="!useIcogram">
-  {{(locLabel$ | async) || href}}
+  {{label || href}}
   <ng-content></ng-content>
 </ng-container>
