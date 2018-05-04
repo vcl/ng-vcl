@@ -12,11 +12,11 @@
   "module": "jss-form.js",
   "typings": "index.d.ts",
   "peerDependencies": {
-    "@angular/common": "^5",
-    "@angular/core": "^5",
-    "@angular/forms": "^5",
-    "rxjs": "^5.5.0",
-    "@ng-vcl/ng-vcl": "^0.4.0-0"
+    "@angular/common": "^6",
+    "@angular/core": "^6",
+    "@angular/forms": "^6",
+    "rxjs": "^6",
+    "@ng-vcl/ng-vcl": "^0.5.0-2"
   },
   "dependencies": {
     "jsonschema": "^1.1.1"
