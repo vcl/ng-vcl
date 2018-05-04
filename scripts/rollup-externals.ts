@@ -11,18 +11,14 @@ export default {
 
   // ng-vcl dependencies
   '@ng-vcl/ng-vcl': 'ngVCL',
-  '@ng-vcl/json-editor': 'ngVCL.jsonEditor',
   '@ng-vcl/jss-form': 'ngVCL.jssForm',
-  '@ng-vcl/plotly': 'ngVCL.plotly',
   '@ng-vcl/animations': 'ngVCL.animations',
 
   // rxjs dependencies
-  'rxjs': 'Rx',
+  rxjs: 'Rx',
   'rxjs/operators': 'Rx.operators',
 
   // Additional dependencies
   hammerjs: 'Hammer',
-  'jsoneditor/dist/jsoneditor.js': 'JSONEditor',
   jsonschema: 'jsonschema',
-  'plotly.js': 'Plotly',
 };

@@ -1,5 +1,5 @@
 // tslint:disable:object-literal-key-quotes
-import { copyResources, prepareDist, ngVCLCompatibility, prepareDistCompatibility } from './gulp-build-tasks';
+import { copyResources, prepareDist } from './gulp-build-tasks';
 
 interface Packages {
   [key: string]: {
@@ -11,7 +11,7 @@ interface Packages {
 const PACKAGES: Packages = {
   'ng-vcl': {
     next: false,
-    tasks: [copyResources, ngVCLCompatibility, prepareDist, prepareDistCompatibility]
+    tasks: [copyResources, prepareDist]
   },
   'animations': {
     next: false,
