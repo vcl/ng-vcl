@@ -5,10 +5,10 @@
   "scripts": {
     "lint": "tslint --type-check -p ./tsconfig.json",
     "lint:src": "tslint --type-check -p ./src/tsconfig.json",
-    "dev": "MODE=development webpack-serve --config webpack.config.js",
+    "dev": "TARGET=development webpack-serve --config webpack.config.js",
     "docs:clean": "rimraf docs",
     "docs:deploy": "git-directory-deploy --directory docs --branch gh-pages",
-    "docs:build": "MODE=production webpack",
+    "docs:build": "TARGET=production webpack",
     "docs": "npm-run-all lint docs:clean docs:build",
     "build:clean": "rimraf dist",
     "build:gulp": "gulp build",

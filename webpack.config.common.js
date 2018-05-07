@@ -44,10 +44,32 @@ const CSS_LOADER_ALIAS = {
   '../imgs': '../assets/imgs'
 };
 
-module.exports = function wcc(config) {
-  const tsLoader = config.tsLoader || 'ngtools';
+module.exports = function wcc(target, appFolder) {
 
-  const POSTCSS_PLUGINS = config.minify ? POST_CSS_PLUGINS_CSSNANO : POST_CSS_PLUGINS_COMMON;
+  let minify;
+  let tsLoader;
+  let replaceEnvFile;
+  let extractCSS;
+
+  if (target === 'development') {
+    minify = false;
+    tsLoader = 'ngtools';
+    replaceEnvFile = false;
+  } else if (target === 'production') {
+    minify = true;
+    tsLoader = 'ngtools';
+    replaceEnvFile = 'prod';
+    extractCSS = true;
+  } else if (target === 'testing') {
+    minify = false;
+    tsLoader = 'atl';
+    replaceEnvFile = false;
+    extractCSS = false;
+  } else {
+    throw 'INVALID_TARGET';
+  }
+
+  const POSTCSS_PLUGINS = minify ? POST_CSS_PLUGINS_CSSNANO : POST_CSS_PLUGINS_COMMON;
 
   const RULES = [];
   const PLUGINS = [];
@@ -71,10 +93,10 @@ module.exports = function wcc(config) {
     PLUGINS.push(
       new AngularCompilerPlugin({
         tsConfigPath: 'tsconfig.json',
-        entryModule: config.appFolder + '/src/app.module#AppModule',
+        entryModule: appFolder + '/src/app.module#AppModule',
         skipCodeGeneration: false,
-        hostReplacementPaths: config.replaceEnvFile ? {
-          [config.appFolder + '/environment/environment.ts']: `${config.appFolder}/environment/environment.${config.replaceEnvFile}.ts`
+        hostReplacementPaths: replaceEnvFile ? {
+          [appFolder + '/environment/environment.ts']: `${appFolder}/environment/environment.${replaceEnvFile}.ts`
         } : {},
       }),
       new PurifyPlugin()
@@ -91,25 +113,13 @@ module.exports = function wcc(config) {
     });
     PLUGINS.push(
       new CheckerPlugin(),
-      new ContextReplacementPlugin(/(.+)?angular(\\|\/)core(.+)?/, config.appFolder, {})
+      new ContextReplacementPlugin(/(.+)?angular(\\|\/)core(.+)?/, appFolder, {})
     );
   }
 
   return {
     resolve: {
-      extensions: ['.ts', '.js']
-    },
-    entry: {
-      main: config.appFolder + '/main.ts',
-      polyfills: config.appFolder + '/polyfills.ts',
-      styles: config.appFolder + '/styles/index.styl'
-    },
-    output: {
-      path: config.outputFolder,
-      publicPath: '/',
-      filename: '[name].js',
-      sourceMapFilename: '[name].map',
-      chunkFilename: '[id].chunk.js',
+      extensions: [".ts", ".js", ".json", ".css", ".styl", ".html"],
     },
     module: {
       rules: [
@@ -117,7 +127,7 @@ module.exports = function wcc(config) {
         // The component styl files are stringified to work with the ngc loader
         {
           test: /\.styl$/,
-          exclude: [config.appFolder + '/styles'],
+          exclude: [appFolder + '/styles'],
           use: [
             'to-string-loader',
             {
@@ -140,7 +150,7 @@ module.exports = function wcc(config) {
         },
         {
           test: /\.css$/,
-          exclude: [config.appFolder + '/styles'],
+          exclude: [appFolder + '/styles'],
           use: [
             'to-string-loader',
             {
@@ -153,7 +163,7 @@ module.exports = function wcc(config) {
           ]
         },
         {
-          exclude: [config.appFolder + '/index.html'],
+          exclude: [appFolder + '/index.html'],
           test: /\.(html)$/,
           use: ['raw-loader'],
         },
@@ -166,15 +176,15 @@ module.exports = function wcc(config) {
         },
         {
           test: /\.styl$/,
-          include: [config.appFolder + '/styles'],
+          include: [appFolder + '/styles'],
           use: [
-            config.extractCSS ? MiniCssExtractPlugin.loader : 'style-loader',
+            extractCSS ? MiniCssExtractPlugin.loader : 'style-loader',
               {
                 loader: 'css-loader',
                 options: {
                   importLoaders: 1,
                   alias: CSS_LOADER_ALIAS,
-                  minimize: config.minify
+                  minimize: minify
                 }
               },
               {
@@ -188,13 +198,15 @@ module.exports = function wcc(config) {
               }
             ]
         },
+        // TODO: Remove - Ignores System.import warning in angular module
+        { test: /[\/\\]@angular[\/\\].+\.js$/, parser: { system: true } },
       ]
     },
     plugins: [
       ...PLUGINS,
       new MiniCssExtractPlugin(),
       new CopyWebpackPlugin([{
-        from: config.appFolder + '/assets/public',
+        from: appFolder + '/assets/public',
         to: ''
       }]),
       new ProgressPlugin(),
@@ -203,8 +215,8 @@ module.exports = function wcc(config) {
         failOnError: false
       }),
       new HtmlWebpackPlugin({
-        template: config.appFolder + '/index.html',
-        minify: config.minify ? {
+        template: appFolder + '/index.html',
+        minify: minify ? {
           caseSensitive: true,
           collapseWhitespace: true,
           keepClosingSlash: true

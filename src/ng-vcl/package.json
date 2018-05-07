@@ -20,6 +20,5 @@
     "rxjs": "^6",
     "hammerjs": "^2"
   },
-  "dependencies": { },
   "sideEffects": false
 }
