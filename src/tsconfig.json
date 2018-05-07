@@ -27,6 +27,7 @@
   },
   "angularCompilerOptions": {
     "genDir": "../dist/@ng-vcl",
+    "enableResourceInlining": true,
     "skipTemplateCodegen": true,
     "skipMetadataEmit" : false,
     "annotationsAs": "decorators"

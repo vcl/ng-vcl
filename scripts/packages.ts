@@ -1,26 +1,14 @@
 // tslint:disable:object-literal-key-quotes
-import { copyResources, prepareDist } from './gulp-build-tasks';
+import { copyResources, rollup } from './gulp-build-tasks';
 
 interface Packages {
-  [key: string]: {
-    next: boolean;
-    tasks: {(pkg: string): string}[];
-  };
+  [key: string]: {(pkg: string): string}[];
 }
 
 const PACKAGES: Packages = {
-  'ng-vcl': {
-    next: false,
-    tasks: [copyResources, prepareDist]
-  },
-  'animations': {
-    next: false,
-    tasks: [copyResources, prepareDist]
-  },
-  'jss-form': {
-    next: true,
-    tasks: [copyResources, prepareDist]
-  },
+  'ng-vcl': [copyResources, rollup],
+  'animations': [copyResources, rollup],
+  'jss-form': [copyResources, rollup]
 };
 
 export default PACKAGES;

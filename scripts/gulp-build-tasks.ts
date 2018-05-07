@@ -1,5 +1,5 @@
 import {task, src, dest} from 'gulp';
-import { execNode, exec, inlineResources, root } from './helpers';
+import { execNode, exec, root } from './helpers';
 import ROLLUP_EXTERNALS from './rollup-externals';
 import * as gulpRollup from 'gulp-better-rollup';
 import * as jsonModify from 'gulp-json-modify';
@@ -24,8 +24,8 @@ export function copyResources(pkg: string) {
 
   task(`build:${pkg}:prepare`, () => {
     return (merge as any)(
-      // Copies html, css and md files from source to dist
-      src(`${folder.src}/**/*.{html,css,md}`,  {follow: true} as any)
+      // Copies md files from source to dist
+      src(`${folder.src}/**/*.{md}`,  {follow: true} as any)
            .pipe(dest(folder.dist)),
       // Copies and modifies the package.json so it matches the repositories version
       src(`${folder.src}/package.json`)
@@ -41,15 +41,12 @@ export function copyResources(pkg: string) {
 }
 
 // Some additional preparations within the dist folder
-export function prepareDist(pkg: string) {
+export function rollup(pkg: string) {
 
   const folder = pkgFolder(pkg);
 
-  // Reads component templates/styles and replaces the templateUrl/styleUrls with the file content
-  task(`build:${pkg}:dist:inline-resources`, () => inlineResources(folder.dist));
-
   // Generates an umd and es version for the package
-  task(`build:${pkg}:dist:rollup`, () => {
+  task(`build:${pkg}:rollup`, () => {
     const pkgData =  require(`${folder.dist}/package.json`);
 
     return src(`${folder.dist}/index.js`)
@@ -69,10 +66,5 @@ export function prepareDist(pkg: string) {
           .pipe(dest(folder.dist));
   });
 
-  // Combined build task
-  task(`build:${pkg}:dist`, (cb) => {
-    runSequence(`build:${pkg}:dist:inline-resources`, `build:${pkg}:dist:rollup`, cb);
-  });
-
-  return `build:${pkg}:dist`;
+  return `build:${pkg}:rollup`;
 }

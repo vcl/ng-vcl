@@ -8,19 +8,14 @@ const SOURCE_FOLDER = root('src');
 const pkgNames = Object.keys(PACKAGES);
 const NPM_CMD = /^win/.test(process.platform) ? 'npm.cmd' : 'npm';
 
-// Compile typescript files
-task(`build:tsc`, () => {
-  return execNode('typescript', 'tsc', ['-p', `${SOURCE_FOLDER}/tsconfig.json`]);
-});
-
-// Generate ng metadata files
+// Compile typescript files and generate ng metadata files
 task(`build:ngc`, () => {
   return execNode('@angular/compiler-cli', 'ngc', ['-p', `${SOURCE_FOLDER}/tsconfig.json`]);
 });
 
 pkgNames.forEach(pkg => {
   // Create  package tasks
-  const pkgTasks = PACKAGES[pkg].tasks.map(createTask => createTask(pkg));
+  const pkgTasks = PACKAGES[pkg].map(createTask => createTask(pkg));
 
   // Build package tasks
   task(`build:${pkg}`, (cb) => {
@@ -46,7 +41,7 @@ pkgNames.forEach(pkg => {
 
 // Builds all packages
 task(`build`, (cb) => {
-  runSequence(`build:tsc`, `build:ngc`, ...pkgNames.map(pkg => `build:${pkg}`), cb);
+  runSequence(`build:ngc`, ...pkgNames.map(pkg => `build:${pkg}`), cb);
 });
 
 // Publishes all packages
