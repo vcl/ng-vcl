@@ -15,6 +15,8 @@
 - button-group:
   - removed `selected` property from button
   - renamed `change` event to `selectionChange`
+- notifier:
+  - removed text parameter from notifier service
 
 ## 0.4.x
 

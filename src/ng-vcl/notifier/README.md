@@ -11,26 +11,32 @@ export class MyComponent {
   constructor(private notifier: NotifierService) {}
 
   info() {
-    this.notifier.info('An info message');
+    this.notifier.info({ 
+      text: 'An info message'
+    });
   }
   success() {
-    this.notifier.success('A success message', {
+    this.notifier.success({
+      text: 'A success message',
       position: NotifierPosition.BottomRight
     });
   }
   warning() {
-    this.notifier.warning('A warning', {
+    this.notifier.warning({
+      text: 'A warning',
       showCloseButton: false,
       timeout: 10000
     });
   }
   error() {
-    this.notifier.error('An error message', {
+    this.notifier.error({
+      text: 'An error message',
       timeout: false
     });
   }
   custom() {
-    this.notifier.show('<b>A <i>custom</i> message</b>', {
+    this.notifier.show({
+      text: '<b>A <i>custom</i> message</b>',
       html: true,
       backgroundColor: 'black',
       textColor: 'white',

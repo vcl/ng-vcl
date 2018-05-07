@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { Injectable, Inject, ComponentRef } from '@angular/core';
 
 import { NotifierOptions, NotifierType, NotifierPosition, NOTIFIER_DEFAULTS, POSITION_MAP } from './types';
@@ -11,33 +11,37 @@ export class NotifierLayerRef extends LayerRef {
 }
 
 @Injectable()
-export class NotifierService {
+export class NotifierService implements Observer<NotifierOptions> {
+
+  readonly closed = false;
 
   constructor(private ls: LayerService) { }
 
   layers = new Map<NotifierPosition, NotifierLayerRef>();
 
-  show(text: string, opts: NotifierOptions = {}) {
-    return this.queue({ text }, opts);
+  next(opts: NotifierOptions) {
+    this.queue(opts);
   }
 
-  info(text: string, opts: NotifierOptions = {}) {
-    return this.queue({ text, type: NotifierType.Info }, opts);
+  complete: () => void;
+
+  info(opts: NotifierOptions = {}) {
+    return this.queue({ type: NotifierType.Info }, opts);
   }
 
-  success(text: string, opts: NotifierOptions = {}) {
-    return this.queue({ text, type: NotifierType.Success }, opts);
+  success(opts: NotifierOptions = {}) {
+    return this.queue({ type: NotifierType.Success }, opts);
   }
 
-  warning(text: string, opts: NotifierOptions = {}) {
-    return this.queue({ text, type: NotifierType.Warning }, opts);
+  warning(opts: NotifierOptions = {}) {
+    return this.queue({ type: NotifierType.Warning }, opts);
   }
 
-  error(text: string, opts: NotifierOptions = {}) {
-    return this.queue({ text, type: NotifierType.Error }, opts);
+  error(opts: NotifierOptions = {}) {
+    return this.queue({ type: NotifierType.Error }, opts);
   }
 
-  private queue(...opts: NotifierOptions[]) {
+  queue(...opts: NotifierOptions[]) {
     const notifierOpts: NotifierOptions = Object.assign({}, NOTIFIER_DEFAULTS, ...opts);
     const notifier = new Notifier(notifierOpts);
 

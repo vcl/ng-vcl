@@ -22,18 +22,24 @@ export class JssFormDemoComponent {
     console.log('value', value);
 
     if (valid) {
-      this.ns.success(`${value.name} is a valid hero`);
+      this.ns.success({
+        text: `${value.name} is a valid hero`
+      });
     } else {
       if (this.heroForm.form) {
         markAsDeeplyTouched(this.heroForm.form);
       }
-      this.ns.error(`Your hero is not valid`);
+      this.ns.error({
+        text: `Your hero is not valid`
+      });
     }
   }
 
   onAction(action: string) {
     if (action === 'reset' && this.heroForm.form) {
-      this.ns.warning(`Hero rejected`);
+      this.ns.warning({
+        text: `Hero rejected`
+      });
       this.heroForm.form.reset({...HERO_DEFAULTS});
     }
   }

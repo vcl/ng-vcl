@@ -17,28 +17,39 @@ export class NotifierDemoComponent {
 
   position: NotifierPosition = NotifierPosition.TopRight;
 
+  default() {
+    this.notifier.queue({
+      text: 'An default message ' + cnt++,
+      position: this.position
+    });
+  }
   info() {
-    this.notifier.info('An info message ' + cnt++, {
+    this.notifier.info({
+      text: 'An info message ' + cnt++,
       position: this.position
     });
   }
   success() {
-    this.notifier.success('A success message ' + cnt++, {
+    this.notifier.success({
+      text: 'A success message ' + cnt++,
       position: this.position
     });
   }
   warning() {
-    this.notifier.warning('A warning ' + cnt++, {
+    this.notifier.warning({
+      text: 'A warning ' + cnt++,
       position: this.position
     });
   }
   error() {
-    this.notifier.error('An error message ' + cnt++, {
+    this.notifier.error({
+      text: 'An error message ' + cnt++,
       position: this.position
     });
   }
   custom() {
-    this.notifier.show('<b>A <i>custom</i> message</b>', {
+    this.notifier.queue({
+      text: '<b>A <i>custom</i> message</b>',
       html: true,
       backgroundColor: 'black',
       textColor: 'white',
@@ -48,7 +59,7 @@ export class NotifierDemoComponent {
     });
   }
   componentAsContent() {
-    this.notifier.info('', {
+    this.notifier.info({
       position: this.position,
       contentComponentDetails: {contentComponentClass: NotifierContentComponent, attributes: {text: `notifier content custom component button ${cnt++}`}}
     });
