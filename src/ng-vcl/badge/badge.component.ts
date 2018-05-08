@@ -1,21 +1,34 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  HostBinding
-} from '@angular/core';
+import { Directive, Input, HostBinding } from '@angular/core';
 
-import { LabelComponent } from '../label/label.component';
-
-@Component({
-  selector: '[vcl-badge], vcl-badge',
-  templateUrl: 'badge.component.html',
+@Directive({
+  selector: '[vcl-badge]',
   host: {
     '[class.vclBadge]': 'true'
   }
 })
-export class BadgeComponent extends LabelComponent {
+export class BadgeComponent {
 
+  @Input('vcl-badge')
+  type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
+
+  @HostBinding('class.vclPrimary')
+  get vclPrimary() {
+    return this.type === 'primary';
+  }
+  @HostBinding('class.vclSuccess')
+  get vclSuccess() {
+    return this.type === 'success';
+  }
+  @HostBinding('class.vclInfo')
+  get vclInfo() {
+    return this.type === 'info';
+  }
+  @HostBinding('class.vclWarning')
+  get vclWarning() {
+    return this.type === 'warning';
+  }
+  @HostBinding('class.vclError')
+  get vclError() {
+    return this.type === 'error';
+  }
 }

@@ -15,20 +15,24 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-label label="mylabel"></vcl-label>
+<span vcl-label>default</span>
 
-<vcl-label label="mylabel" type="success"></vcl-label>
+<span vcl-label="primary">primary</span>
 
-<vcl-label label="mylabel" type="info"></vcl-label>
+<span vcl-label="success">success</span>
 
-<span vcl-label label="mylabel" type="warning"></span>
+<span vcl-label="info">info</span>
+
+<span vcl-label="warning">warning</span>
+
+<span vcl-label="error">error</span>
+
 ```
 
 ### API
 
-#### vcl-navigation Properties:
+#### vcl-label Properties:
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------
-`label`    | string |         | the label's text
-`type`     | string |         | colored types; ENUM(primary, success, info, warning, error)
+`vcl-label`| string |         | the label's type

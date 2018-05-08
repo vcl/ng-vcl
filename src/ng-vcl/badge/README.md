@@ -15,19 +15,18 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-badge label="mylabel"></vcl-badge>
+<span vcl-badge>default</span>
 
-<vcl-badge label="mylabel" type="primary"></vcl-badge>
+<span vcl-badge="primary">primary</span>
 
-<vcl-badge label="mylabel" type="success"></vcl-badge>
+<span vcl-badge="success">success</span>
 
-<vcl-badge label="mylabel" type="info"></vcl-badge>
+<span vcl-badge="info">info</span>
 
-<vcl-badge label="mylabel" type="warning"></vcl-badge>
+<span vcl-badge="warning">warning</span>
 
-<vcl-badge label="mylabel" type="error"></vcl-badge>
+<span vcl-badge="error">error</span>
 
-<span vcl-badge label="mylabel" type="warning"></span>
 ```
 
 ### API
@@ -36,5 +35,4 @@ export class AppComponent {}
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------
-`label`    | string |         | the label's text
-`type`     | string |         | colored types; ENUM(primary, success, info, warning, error)
+`vcl-badge`| string |         | the badge's type
