@@ -16,9 +16,6 @@ import { ObservableComponent } from '../core/index';
     .vclPopOver {
       padding: 0;
     }
-    vcl-busy-indicator {
-      padding: 1em;
-    }
   `],
   templateUrl: 'autocomplete.component.html'
 })
