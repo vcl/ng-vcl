@@ -36,7 +36,6 @@ export class LinkComponent {
 
   @HostBinding('attr.href')
   get attrHref() {
-    console.log(this.disabled, this.href);
     return this.disabled ? undefined : this.href;
   }
 
