@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/ng-vcl",
-  "version": "0.5.0-2",
+  "version": "0.5.0-3",
   "description": "A comprehensive library of components for Angular 6+ with VCL based styling",
   "scripts": {
     "lint": "tslint --type-check -p ./tsconfig.json",
