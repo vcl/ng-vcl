@@ -11,6 +11,10 @@
 - removed plotly.js & json-editor packages
 - icon:
   - removed svguse/src properties
+- link:
+  - removed scheme property
+- icogram:
+  - replaced flexLabel property with vclLayout directive
 - badge/label:
   - refactored. Used as directive
 - button:

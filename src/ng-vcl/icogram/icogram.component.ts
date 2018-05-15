@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, HostBinding, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, HostBinding, ElementRef, Directive, Inject, forwardRef, Self, Optional, ViewChild, SkipSelf } from '@angular/core';
 
 @Component({
-  selector: 'vcl-icogram, div[vcl-icogram], span[vcl-icogram]',
+  selector: 'vcl-icogram, div[vcl-icogram]',
   host: {
     '[class.vclIcogram]': 'true',
     '[attr.role]': 'img',
@@ -10,30 +10,44 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, HostBinding, Element
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IcogramComponent {
-  @Input() label: string;
+  @Input()
+  label: string;
 
-  @HostBinding('class.vclHorizontal')
-  @Input() flexLabel: boolean;
+  @Input()
+  prepIcon: string;
 
-  @Input() flexLabelCentered: boolean;
+  @Input()
+  appIcon: string;
 
-  @Input() prepIcon: string;
+  @Input()
+  prepIconSrc: string;
 
-  @Input() appIcon: string;
+  @Input()
+  appIconSrc: string;
+}
 
-  @Input() prepIconSrc: string;
+@Component({
+  selector: 'span[vcl-icogram]',
+  host: {
+    '[class.vclIcogram]': 'true',
+    '[attr.role]': 'img',
+  },
+  templateUrl: 'icogram-span.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class IcogramSpanComponent {
+  @Input()
+  label: string;
 
-  @Input() appIconSrc: string;
+  @Input()
+  prepIcon: string;
 
-  constructor(private elRef: ElementRef) { }
+  @Input()
+  appIcon: string;
 
-  @HostBinding('style.display')
-  get block() {
-    return (!this.span && !this.flexLabel) ? 'block' : null;
-  }
+  @Input()
+  prepIconSrc: string;
 
-  get span() {
-    return this.elRef.nativeElement && this.elRef.nativeElement.tagName === 'SPAN';
-  }
-
+  @Input()
+  appIconSrc: string;
 }
