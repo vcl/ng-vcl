@@ -1,15 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  ChangeDetectionStrategy,
-  EventEmitter,
-  ViewChild,
-  forwardRef,
-  HostBinding,
-  HostListener,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewChild, forwardRef, HostBinding, HostListener, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -54,7 +43,7 @@ export class FlipSwitchComponent implements ControlValueAccessor {
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  @HostListener('tap', ['$event'])
+  @HostListener('tap')
   onTap() {
     this.toggle();
   }

@@ -273,7 +273,7 @@ export class PopoverComponent extends ObservableComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  private onWindowResize(ev): void {
+  onWindowResize(ev): void {
     this.reposition();
   }
 

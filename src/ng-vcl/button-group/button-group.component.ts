@@ -88,11 +88,11 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
   private syncButtons() {
     const selectedIndex = this.selectedIndex;
     if (this.mode === 'multiple' && Array.isArray(selectedIndex)) {
-      (this.buttons || []).forEach((btn, idx) => {
+      this.buttons.forEach((btn, idx) => {
         btn.selected = selectedIndex.includes(idx);
       });
     } else if (this.mode === 'single' && typeof selectedIndex === 'number') {
-      (this.buttons || []).forEach((btn, idx) => {
+      this.buttons.forEach((btn, idx) => {
         btn.selected = selectedIndex === idx;
       });
     }

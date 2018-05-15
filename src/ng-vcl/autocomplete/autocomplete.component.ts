@@ -30,14 +30,16 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
   @ContentChildren(forwardRef(() => AutocompleteContent))
   content?: QueryList<AutocompleteContent>;
 
+  @Input()
+  disabled: boolean = false;
 
   @Output()
   select = new EventEmitter<any>();
 
   target$ = new BehaviorSubject<any>(undefined);
 
-  private items$ = new BehaviorSubject<AutocompleteOption[]>([]);
-  private content$ = new BehaviorSubject<AutocompleteContent[]>([]);
+  items$ = new BehaviorSubject<AutocompleteOption[]>([]);
+  content$ = new BehaviorSubject<AutocompleteContent[]>([]);
 
   itemsVisible$ = combineLatest(this.target$, this.items$, ((target, items) => {
     return !!target && items.length > 0;

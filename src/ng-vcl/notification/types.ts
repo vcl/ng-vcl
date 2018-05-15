@@ -6,7 +6,7 @@ enum NotificationType {
   Success
 }
 
-const data = {
+const DATA = {
   [NotificationType.Default]: {
     icon: 'fa-bell-o',
     class: ''
@@ -47,8 +47,7 @@ enum IconType {
   Image = 'image'
 }
 
-namespace NotificationType {
-  export function fromString(type: string): NotificationType {
+  export function notificationTypeFromString(type: string): NotificationType {
     switch (type.toLocaleLowerCase()) {
       default:
         return NotificationType.Default;
@@ -63,13 +62,12 @@ namespace NotificationType {
     }
   }
 
-  export function icon(type: NotificationType): string {
-    return data[type].icon;
+  export function notificationIconFromType(type: NotificationType): string {
+    return DATA[type].icon;
   }
 
-  export function styleClass(type: NotificationType): string {
-    return data[type].class;
+  export function notificationStyleClassFromType(type: NotificationType): string {
+    return DATA[type].class;
   }
-}
 
-export {NotificationType, FlexAlign, TextAlign, IconType};
+export { NotificationType, FlexAlign, TextAlign, IconType };

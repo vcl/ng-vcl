@@ -118,11 +118,11 @@ export class AlertComponent implements AfterViewInit {
     }
   }
 
-  cancel(reason: string ) {
+  cancel() {
     dismiss(this.alertLayer, 'cancel');
   }
 
-  close(reason: string ) {
+  close() {
     dismiss(this.alertLayer, 'close');
   }
 

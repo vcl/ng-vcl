@@ -17,7 +17,7 @@ export class HintService implements IHintService {
   /**
    * Initialize hint service
    * @method initialize
-   * @param  {HintOptions} options init options
+   * @param  options init options
    * @return void
    */
   public initialize(options: IHintOptions = new HintOptions()): void {
@@ -30,7 +30,7 @@ export class HintService implements IHintService {
   /**
    * Show step
    * @method show
-   * @param  {Step} step [description]
+   * @param  step [description]
    */
   public show(step: Step): void {
     const anchor = this.anchors[`${step.selector}_${step.order}`];
@@ -78,8 +78,8 @@ export class HintService implements IHintService {
   /**
    * Register hint component
    * @method register
-   * @param  {string}            selector  bonded to
-   * @param  {TourComponent} component itself
+   * @param  selector  bonded to
+   * @param  component itself
    */
   public register(selector: string, component: TourComponent): void {
     if (this.anchors[selector]) {
@@ -91,7 +91,7 @@ export class HintService implements IHintService {
   /**
    * Is {Step} this.currentStep has next
    * @method hasNext
-   * @return {boolean}
+   * @return
    */
   public hasNext(): boolean {
     return this.currentStep != undefined ? this.steps.indexOf(this.currentStep) < this.steps.length - 1 : false;
@@ -100,7 +100,7 @@ export class HintService implements IHintService {
   /**
    * Is {Step} this.currentStep has previous
    * @method hasPrevious
-   * @return {boolean}
+   * @return
    */
   public hasPrevious(): boolean {
     return this.currentStep != undefined ? this.steps.indexOf(this.currentStep) > 0 : false;
@@ -122,7 +122,7 @@ export class HintService implements IHintService {
   /**
    * Start hint tour at some position
    * @method startAt
-   * @param  {number} stepId position in this.steps
+   * @param  stepId position in this.steps
    */
   public startAt(stepId: number): void {
     this.currentStep = this.steps[stepId];
@@ -131,8 +131,8 @@ export class HintService implements IHintService {
   /**
    * Convert Element[] to Step[]
    * @method initSteps
-   * @param  {NodeListOf<Element>} nodes
-   * @return {Step[]}
+   * @param   nodes
+   * @return
    */
   private initSteps(nodes: NodeListOf<Element>): Step[] {
     let steps: Array<Step> = [];

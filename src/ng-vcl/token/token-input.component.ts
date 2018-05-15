@@ -7,7 +7,6 @@ import {
   ContentChildren,
   ElementRef,
   ViewChild,
-  QueryList,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   HostBinding,

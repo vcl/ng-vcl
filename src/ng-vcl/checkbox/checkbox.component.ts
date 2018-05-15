@@ -85,7 +85,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     return this.cvaDisabled || this.disabled;
   }
 
-  onBlur(e) {
+  onBlur() {
     this.onTouched();
   }
 

@@ -61,14 +61,14 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
   private syncTokens() {
     const labels = this.labels;
     if (Array.isArray(labels)) {
-      (this.tokens || []).forEach((token) => {
+      this.tokens.forEach((token) => {
         token.selected = labels.includes(token.label);
       });
     }
   }
 
   private syncSelectedValues() {
-    this.labels = (this.tokens || []).filter(t => t.selected).map(t => t.label);
+    this.labels = this.tokens.filter(t => t.selected).map(t => t.label);
   }
 
 

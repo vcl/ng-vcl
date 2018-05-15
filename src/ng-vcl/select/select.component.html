@@ -4,12 +4,12 @@
     class="vclLayoutHorizontal vclSelect vclInputGroupEmb"
     [style.marginBottom]="0"
     >
-    <div *ngIf="showDisplayValue" class="vclInput" readonly [class.vclSelected]="focused" (tap)="toggle($event)">
+    <div *ngIf="showDisplayValue" class="vclInput" readonly [class.vclSelected]="focused" (tap)="toggle()">
       {{displayValue}}
     </div>
-    <div *ngIf="!showDisplayValue" class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle($event)">
+    <div *ngIf="!showDisplayValue" class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle()">
       <vcl-token-list [disabled]="disabled">
-        <vcl-token *ngFor="let item of selectedItems" [label]="item.label" [removable]="true" (remove)="deselectItem(item.metaItem, $event)"></vcl-token>
+        <vcl-token *ngFor="let item of selectedItems" [label]="item.label" [removable]="true" (remove)="deselectItem(item.metaItem)"></vcl-token>
       </vcl-token-list>
     </div>
 

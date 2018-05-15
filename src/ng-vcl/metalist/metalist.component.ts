@@ -86,7 +86,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   }
 
   get selectedItems(): MetalistItem[] {
-    return (this.items || []).filter(i => i.selected);
+    return this.items.toArray().filter(i => i.selected);
   }
 
 
@@ -119,7 +119,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
         return;
       }
       if (this.mode === 'multiple' ) {
-        const selectedItems = (this.items || []).filter(i => i.selected);
+        const selectedItems = this.items.toArray().filter(i => i.selected);
         if (item.selected) {
           const value = item.value;
           if (!Array.isArray(this.value)) {

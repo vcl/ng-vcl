@@ -1,5 +1,5 @@
 import {Component, ContentChild, EventEmitter, Input, Output} from '@angular/core';
-import {NotificationType, FlexAlign, TextAlign, IconType} from './types';
+import {NotificationType, FlexAlign, TextAlign, IconType, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType} from './types';
 import {NotificationBodyComponent} from './notification-body.component';
 import {NotificationFooterComponent} from './notification-footer.component';
 import {NotificationHeaderComponent} from './notification-header.component';
@@ -79,7 +79,7 @@ export class NotificationComponent {
   }
 
   get eType(): NotificationType {
-    return NotificationType.fromString(this.nType);
+    return notificationTypeFromString(this.nType);
   }
 
   get notificationStyleClass(): object | string {
@@ -87,7 +87,7 @@ export class NotificationComponent {
       return this.styleClass;
     }
 
-    return NotificationType.styleClass(this.eType);
+    return notificationStyleClassFromType(this.eType);
   }
 
   get notificationStyles(): object {
@@ -104,7 +104,7 @@ export class NotificationComponent {
       return this.iconClass;
     }
 
-    return 'fa ' + NotificationType.icon(this.eType);
+    return 'fa ' + notificationIconFromType(this.eType);
   }
 
   get iconType(): string {

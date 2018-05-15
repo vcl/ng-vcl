@@ -4,7 +4,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, HostBinding, Element
   selector: 'vcl-icogram, div[vcl-icogram]',
   host: {
     '[class.vclIcogram]': 'true',
-    '[attr.role]': 'img',
+    '[attr.role]': '"img"',
   },
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -30,7 +30,7 @@ export class IcogramComponent {
   selector: 'span[vcl-icogram]',
   host: {
     '[class.vclIcogram]': 'true',
-    '[attr.role]': 'img',
+    '[attr.role]': '"img"',
   },
   templateUrl: 'icogram-span.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
