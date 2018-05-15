@@ -9,6 +9,8 @@
 - requires Angular ^6 / rxjs ^6
 - removed integrated l10n support
 - removed plotly.js & json-editor packages
+- icon:
+  - removed svguse/src properties
 - badge/label:
   - refactored. Used as directive
 - button:
