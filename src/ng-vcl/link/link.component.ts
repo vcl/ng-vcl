@@ -1,6 +1,6 @@
 import { Observable ,  Subscription ,  of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Component, Input, HostBinding, ViewChild, ElementRef, Optional } from '@angular/core';
+import { Component, Input, HostBinding, ViewChild, ElementRef, Optional, Directive } from '@angular/core';
 
 @Component({
   selector: 'a[vcl-link]',
@@ -8,16 +8,25 @@ import { Component, Input, HostBinding, ViewChild, ElementRef, Optional } from '
 })
 export class LinkComponent {
 
+  @HostBinding('attr.title')
+  @HostBinding('attr.aria-label')
+  @Input()
+  title: string | undefined;
+
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled: boolean = false;
+
+  @HostBinding('style.cursor')
+  get styleCursor() {
+    return this.disabled ? 'not-allowed' : 'pointer';
+  }
+
   @Input()
   href: string | undefined;
 
   @Input()
   label: string | undefined;
-
-  @HostBinding('attr.title')
-  @HostBinding('attr.aria-label')
-  @Input()
-  title: string | undefined;
 
   @Input()
   prepIcon: string | undefined;
@@ -25,27 +34,14 @@ export class LinkComponent {
   @Input()
   appIcon: string | undefined;
 
-  @Input()
-  scheme: string | undefined;
-
-  @HostBinding('class.vclDisabled')
-  @Input()
-  disabled: boolean | undefined;
-
-  @HostBinding('style.cursor')
-  get styleCursor() {
-    return this.disabled ? 'not-allowed' : 'pointer';
-  }
-
   @HostBinding('attr.href')
-  get attrHref(): string | null {
-    const href = this.scheme && this.href ? `${this.scheme}:${this.href}` : this.href;
-    return this.disabled ? null : href || null;
+  get attrHref() {
+    console.log(this.disabled, this.href);
+    return this.disabled ? undefined : this.href;
   }
 
   @HostBinding('class.vclContentLink')
   get useIcogram() {
     return (this.appIcon || this.prepIcon);
   }
-
 }

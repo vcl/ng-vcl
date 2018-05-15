@@ -1,11 +1,6 @@
-<vcl-icogram
-  *ngIf="useIcogram"
+<span vcl-icogram
   [label]="label || href"
   [prepIcon]="prepIcon"
   [appIcon]="appIcon">
   <ng-content></ng-content>
-</vcl-icogram>
-<ng-container *ngIf="!useIcogram">
-  {{label || href}}
-  <ng-content></ng-content>
-</ng-container>
+</span>

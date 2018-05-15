@@ -1,30 +1,22 @@
-<h3>Link with action:</h3>
+<h3>Link with action</h3>
 <a vcl-link (tap)="someAction($event)" [label]="'Trigger test action'"></a>
 <br><br>
 
-<h3>href attribute only (label is automatically created):</h3>
-<a vcl-link [href]="'http://www.example.com'"></a>
+<h3>href attribute only (label is automatically created)</h3>
+<a vcl-link [href]="'http://www.example.com'" target="'_blank'"></a>
 <br><br>
 
-<h3>Label with an appended icon (uses vcl-icogram):</h3>
+<h3>Label with an appended icon</h3>
 <a vcl-link
+  href="'https://github.com/ng-vcl/ng-vcl'"
   [label]="'Example external Link'"
-  [href]="'https://github.com/ng-vcl/ng-vcl'"
   [appIcon]="'fa:external-link'"
-  [target]="'_blank'"></a>
+  target="'_blank'"></a>
 <br><br>
 
-<h3>Disabled link:</h3>
+<h3>Disabled link</h3>
 <a vcl-link
   [label]="'Disabled link'"
   [href]="'this is not considered when the link is disabled'"
   [disabled]="true"></a>
-<br><br>
-
-<h3>Link with title and scheme:</h3>
-<a vcl-link
-  [label]="'I\'m a telephone number schemed link'"
-  [title]="'tel link title'"
-  [scheme]="'tel'"
-  [href]="'004971122222222'"></a>
 <br><br>
