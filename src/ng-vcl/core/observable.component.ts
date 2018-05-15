@@ -32,7 +32,7 @@ export abstract class ObservableComponent implements OnDestroy, OnChanges  {
     return this.observedProps[prop];
   }
 
-  protected observeChangeValue<T>(prop: string): Observable<T> {
+  protected observeChangeValue<T = any>(prop: string): Observable<T> {
     return this.observeChange(prop).pipe(map(change => <T> change.currentValue));
   }
 }
