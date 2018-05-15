@@ -1,17 +1,11 @@
-<div *ngIf='prepIcon && !prepButtonIcon' class="vclPrepended">
+<div *ngIf='prepIcon' class="vclPrepended">
   <vcl-icon [icon]='prepIcon'></vcl-icon>
 </div>
 
-<div *ngIf='prepButtonIcon' class="vclPrepended">
-  <button vcl-button (tap)="prepButtonTap.emit($event)" [disabled]="disabled" [icon]='prepButtonIcon' class="vclTransparent vclSquare"></button>
+<ng-content select="input[vcl-input][vcl-embedded-input-group]"></ng-content>
+
+<div *ngIf='appIcon' class="vclAppended">
+  <vcl-icon [icon]='appIcon'></vcl-icon>
 </div>
 
-<ng-content></ng-content>
-
-<div *ngIf='appendIcon' class="vclAppended">
-  <vcl-icon [icon]='appendIcon'></vcl-icon>
-</div>
-
-<div *ngIf='appButtonIcon' class="vclAppended">
-  <button vcl-button (tap)="appButtonTap.emit($event)" [disabled]="disabled" [icon]="appButtonIcon" class="vclTransparent vclSquare vclAppended"></button>
-</div>
+<ng-content select="button[vcl-button][vcl-embedded-input-group]"></ng-content>

@@ -1,36 +1,34 @@
 
 Icon left and placeholder text
 <vcl-embedded-input-group prepIcon="fa:search">
-  <input vcl-input vcl-embedded-input-group placeholder="placeholder text" />
-</vcl-embedded-input-group>
-
-Button left
-<vcl-embedded-input-group prepButtonIcon="fa:search" (prepButtonTap)="someAction($event)">
-  <input vcl-input vcl-embedded-input-group />
+  <input vcl-input vcl-embedded-input-group placeholder="Postcode, City, Name of the Workshop" />
 </vcl-embedded-input-group>
 
 Placeholder text and icon on the right 
-<vcl-embedded-input-group appendIcon="fa:times-circle">
-  <input vcl-input placeholder="Postcode, City, Name of the Workshop" />
+<vcl-embedded-input-group appIcon="fa:search">
+  <input vcl-input vcl-embedded-input-group placeholder="Postcode, City, Name of the Workshop" />
 </vcl-embedded-input-group>
 
 Button on the right
-<vcl-embedded-input-group appButtonIcon="fa:search" (appButtonTap)="someAction($event)">
+<vcl-embedded-input-group>
   <input vcl-input vcl-embedded-input-group />
+  <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fa:times-circle'"></button>
 </vcl-embedded-input-group>
 
 Left icon and button on the right
-<vcl-embedded-input-group prepIcon="fa:cog" appButtonIcon="fa:times-circle"
-  (appButtonTap)="someAction($event)">
+<vcl-embedded-input-group prepIcon="fa:cog">
   <input vcl-input vcl-embedded-input-group />
+  <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fa:times-circle'"></button>
 </vcl-embedded-input-group>
 
 Combined with Input-group
 <div class="vclInputGroup">
-  <vcl-embedded-input-group appButtonIcon="fa:search" (appButtonTap)="someAction($event)" prepIcon="fa:cog">
+  <vcl-embedded-input-group prepIcon="fa:cog">
     <input vcl-input vcl-embedded-input-group />
+    <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fa:times-circle'"></button>
   </vcl-embedded-input-group>
   <div class="vclInputGroupButton">
     <button vcl-button class="vclButton" label="GO" (tap)="someAction($event)"></button>
   </div>
 </div>
+ 
