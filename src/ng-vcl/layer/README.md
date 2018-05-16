@@ -2,7 +2,7 @@
 
 A container which stacks up in the z-direction.
 
-## Usage:
+## Usage
 
 ### The layer reference
 
@@ -156,7 +156,7 @@ class LayerService {
 }
 ```
 
-#### vcl-layer attributes:
+#### vcl-layer attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------

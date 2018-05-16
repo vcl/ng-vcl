@@ -2,7 +2,7 @@
 
 Better javascript alert()
 
-## Usage:
+## Usage
 
 ```ts
 @Component({ ... })
@@ -33,7 +33,7 @@ export class MyComponent {
 }
 ```
 
-### Examples:
+### Examples
 
 ```ts
 // Simple message
@@ -129,7 +129,7 @@ question(text: string, opts?: AlertOptions); // Message with AlertType.Question 
 
 ### API
 
-#### AlertOptions:
+#### AlertOptions
 
 All properties are optional
 
@@ -166,7 +166,7 @@ All properties are optional
 | `buttonAlignment`       | AlertAlignment | Right           | Alignment of the buttons
 
 
-#### Enums:
+#### Enums
 ```ts
 export enum AlertType {
   None,

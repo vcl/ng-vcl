@@ -2,7 +2,7 @@
 
 Enhanced text input
 
-## Usage:
+## Usage
 
 ```html
 <input vcl-input [(ngModel)]="data">
@@ -11,12 +11,12 @@ Enhanced text input
 
 ### API
 
-#### vcl-input properties:
+#### vcl-input properties
 
 Name            | Type    | Default | Description
 --------------- | ------- | ------- | -----------------------------------------------
 `disabled`      | boolean | false   | Disables the input when true
 
-#### Directives:
+#### Directives
 
 `input[vcl-input][autoselect]`      | selects text on focus

@@ -2,7 +2,7 @@
 
 Enhanced textarea
 
-## Usage:
+## Usage
 
  ```html
 <textarea vcl-textarea [(ngModel)]="data1" [autogrow]="true" [minRows]="5" [maxRows]="10"></textarea>
@@ -10,7 +10,7 @@ Enhanced textarea
 
 ### API 
 
-#### Properties:
+#### Properties
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------

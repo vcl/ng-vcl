@@ -3,7 +3,7 @@
 `vcl-button` enhances the HTML `<button>` with styling and features.
 It is the main control for triggering actions.
 
-## Usage:
+## Usage
 
 ```js
 import { VCLButtonModule } from '@ng-vcl/ng-vcl';
@@ -15,17 +15,17 @@ import { VCLButtonModule } from '@ng-vcl/ng-vcl';
 export class AppComponent { ... }
 ```
 
-### button[vcl-button]:
+### button[vcl-button]
 
  ```html
 <button vcl-button (click)="someAction($event)">Action</button>
  ```
-### button[vcl-button][label]:
+### button[vcl-button][label]
 
  ```html
 <button vcl-button label="Action" appIcon="fa:bolt"></button>
  ```
-### button[vcl-button][selectable]:
+### button[vcl-button][selectable]
 
  ```html
 <button vcl-button selectable (select)="someAction($event)">Action</button>
@@ -55,7 +55,7 @@ export class AppComponent { ... }
 | ------------        | ----------- | -------- |--------------
 | `selectable`        | boolean     | false    | Preselect button if true
 
-#### vcl-button[selectable] events:
+#### vcl-button[selectable] events
 
 | Name                | Description
 | ------------        | --------------

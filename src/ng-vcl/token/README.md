@@ -1,6 +1,6 @@
 # vcl-token
 
-## Usage:
+## Usage
 
 ```javascript
 import { VCLTokenModule } from 'ng-vcl';
@@ -12,25 +12,25 @@ import { VCLTokenModule } from 'ng-vcl';
 export class AppComponent {}
 ```
 
-## single token:
+## single token
 
 ```html
 <vcl-token label="mytoken"></vcl-token>
 ```
 
-## single selected token:
+## single selected token
 
 ```html
 <vcl-token label="mytoken" [selected]="true"></vcl-token>
 ```
 
-## single removable token:
+## single removable token
 
 ```html
 <vcl-token label="mytoken" [removable]="true" (remove)="onRemove()"></vcl-token>
 ```
 
-## token-list:
+## token-list
 
 ```html
 <vcl-token-list [selectable]="true" (change)="changed($event);">
@@ -49,7 +49,7 @@ export class AppComponent {}
 
 ### API
 
-#### vcl-token attributes:
+#### vcl-token attributes
 
 Name          | Type    | Default   | Description
 ------------  | ------- | -------   | ---------------------------------------
@@ -58,26 +58,26 @@ Name          | Type    | Default   | Description
 `removable`   | boolean | false     | if true, the remove-cross is shown
 `icon`        | string  | fa:remove | remove icon
 
-#### vcl-token events:
+#### vcl-token events
 Name                  | Type    | Description
 -                     | -       | -
 `remove`              |         | called when the remove-button is pressed
 
-#### token-list attributes:
+#### token-list attributes
 
 Name         | Type     | Default  | Description
 ------------ | -------- | -------- | ------------------------------------------------------------
 `ngModel`    | string[] | string[] | The labels of the selected tokens
 `selectable` | boolean  | false    | tokens are selectable if true
 
-#### token-list events:
+#### token-list events
 
 Name                  | Type     | Description
 -                     | -        | -
 `tokensChange`        | string[] | called when the selection of token changes
 
 
-#### vcl-token-input-container attributes:
+#### vcl-token-input-container attributes
 
 Name                 | Type     | Default              | Description
 ------------         | -------- | -------              | ------------------------------------------------------------
@@ -89,7 +89,7 @@ Name                 | Type     | Default              | Description
 `removeIcon`         | string   | fa:remove            | remove icon
 `tabindex`           | number   | 0                    | The tabindex of the token-input
 
-#### vcl-token-input-container events:
+#### vcl-token-input-container events
 
 Name                    | Type    | Description
 -                       | -       | -

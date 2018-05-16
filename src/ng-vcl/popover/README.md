@@ -2,7 +2,7 @@
 
 A popover is a dom-element which 'floats' at the position of the target element.
 
-## Usage:
+## Usage
 
 ```html
 <div #myTarget>any dom-element which is the target</div>
@@ -14,7 +14,7 @@ A popover is a dom-element which 'floats' at the position of the target element.
 
 ### API
 
-#### Attributes:
+#### Attributes
 
 Name             | Type    | Default  | Description
 ---------------- | ------- | -------- | --------------------------------
@@ -25,7 +25,7 @@ Name             | Type    | Default  | Description
 `targetY`        | string  | 'bottom' | position of the target-vertical
 `attachmentY`    | string  | 'top'    | position of the popover-vertical
 
-#### Methods:
+#### Methods
 
 Name         | Attributes | Description
 ------------ | ---------- | --------------------------------------------------------------------------

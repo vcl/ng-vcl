@@ -9,7 +9,7 @@ allows to hide the icon to screen readers, if it is only of presentational chara
 See http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html for details.
 
 
-## Usage:
+## Usage
 
 As a component
 ```html
@@ -33,7 +33,7 @@ With SVG
 
 ### API 
 
-#### Properties:
+#### Properties
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------

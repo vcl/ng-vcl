@@ -2,7 +2,7 @@
 
 A visually highlighted tag to attribute items.
 
-## Usage:
+## Usage
 
 ```javascript
 import { VCLLabelModule } from '@ng-vcl/ng-vcl';
@@ -31,7 +31,7 @@ export class AppComponent {}
 
 ### API
 
-#### vcl-label Properties:
+#### vcl-label Properties
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------

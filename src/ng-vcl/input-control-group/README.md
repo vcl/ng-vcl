@@ -2,14 +2,14 @@
 
 Input-Control-Group to handle the error-state of any object.
 
-## Usage:
+## Usage
 
 ```html
 ```
 
 ### API
 
-#### Properties:
+#### Properties
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------

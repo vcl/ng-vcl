@@ -1,6 +1,6 @@
 # vcl-select
 
-## Usage:
+## Usage
 
 ```html
 <vcl-select [value]="2" (change)="onSelect($event)" [maxSelectableItems]="1" >
@@ -15,7 +15,7 @@
 
 ### API
 
-#### vcl-select attributes:
+#### vcl-select attributes
 
 Name                  | Type                        | Default  | Description
 --------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
@@ -26,13 +26,13 @@ Name                  | Type                        | Default  | Description
 `listenKeys`          | boolean                     | true     | if true, the select will listen and interact to keypress-events 
 `zIndex`              | number                      | 999999   | z-index of the dropdown 
 
-#### vcl-select events:
+#### vcl-select events
 
 Name                  | Type             | Description
 --------------------- | ---------------  | -
 `change`              | any &#124; any[] | emits the new value when the selected options change
 
-#### vcl-select-option attributes:
+#### vcl-select-option attributes
 
 Name       | Type    | Default | Description
 ---------- | ------- | ------- | --------------------------------------

@@ -2,7 +2,7 @@
 
 The offClick event fires when a click event is handled and its source is not(!) the element or any of its subelements.  
 
-## Usage:
+## Usage
 
 ```js
 import { VCLOffClickModule } from 'ng-vcl';

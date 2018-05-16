@@ -2,7 +2,7 @@
 
 Lets users pick dates and points in time comfortably.
 
-## Usage:
+## Usage
 
 ```js
 import { VCLDatePickerModule } from 'ng-vcl';
@@ -20,7 +20,7 @@ export class AppComponent {}
 
 ### API
 
-#### Properties:
+#### Properties
 
 | Name                             | Type        | Default   | Description
 | -------------------------        | ----------- | --------- |--------------

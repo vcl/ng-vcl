@@ -2,7 +2,7 @@
 
 A button group which distributes space for each button equally to occupy 100% horizontal space.
 
-## Usage:
+## Usage
 
 ```js
 import { VCLButtonGroupModule } from 'ng-vcl';
@@ -31,7 +31,7 @@ export class AppComponent {}
 | `ngModel`             | number &#124; number[]         |          | Index of the selected button(s)
 | `mode`                | string                         | `single` | `single` or `multiple`
 
-#### Events:
+#### Events
 | Name                  | Type                           | Description
 | -                     | -                              | -
 | `selectionChange`     | event (number &#124; number[]) | Triggers when selected buttons change

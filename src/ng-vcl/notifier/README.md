@@ -2,7 +2,7 @@
 
 Growl-style notifiers
 
-## Usage:
+## Usage
 
 ```ts
 @Component({ ... })

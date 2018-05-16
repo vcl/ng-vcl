@@ -2,7 +2,7 @@
 
 Label to describe form controls.
 
-## Usage:
+## Usage
 
 Non-wrapping label
 
@@ -20,7 +20,7 @@ Wrapping label
 
 ### API 
 
-#### Properties:
+#### Properties
 
 | Name                         | Type        | Default  | Description
 | ---------------------------- | ----------- | -------- |--------------

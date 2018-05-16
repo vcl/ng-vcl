@@ -1,6 +1,6 @@
 # vcl-autocomplete
 
-## Usage:
+## Usage
 
 ```html
 <vcl-embedded-input-group prepIcon="fa:search">
@@ -17,7 +17,7 @@
 
 ```
 
-#### vcl-autocomplete-option attributes:
+#### vcl-autocomplete-option attributes
 
 Name       | Type    | Default | Description
 ---------- | ------- | ------- | --------------------------------------

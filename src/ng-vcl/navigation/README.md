@@ -2,7 +2,7 @@
 The nav allows to organize navigation-items.
 
 
-## Usage:
+## Usage
 
 ```js
 import { VCLNavigationModule } from 'ng-vcl';
@@ -22,7 +22,7 @@ export class AppComponent {}
 </nav>
 ```
 
-## Nested:
+## Nested
 
 ```html
 <nav vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
@@ -37,7 +37,7 @@ export class AppComponent {}
 
 ### API
 
-#### vcl-navigation attributes:
+#### vcl-navigation attributes
 
 | Name                     | Type          | Default            | Description                                |
 | ------------             | ------------- | ------------------ |--------------------------------------------|
@@ -51,7 +51,7 @@ export class AppComponent {}
 
 
 
-#### vcl-navitem attributes:
+#### vcl-navitem attributes
 
 | Name                     | Type        | Default  | Description                                   |
 | ------------------------ | ----------- | -------- |-----------------------------------------------|

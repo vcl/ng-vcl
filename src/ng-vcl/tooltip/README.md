@@ -1,6 +1,6 @@
 # vcl-tooltip
 
-## Usage:
+## Usage
 `vcl-tooltip` directive with `content` input is the minimal settings required to set up tooltip.
 ```html
 <div vcl-tooltip content="Tooltip on the top">

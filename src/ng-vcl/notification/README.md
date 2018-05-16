@@ -2,7 +2,7 @@
 
 Make notifications
 
-## Usage:
+## Usage
 
  ```html
 <vcl-notification>Hello world!</vcl-notification>
@@ -10,7 +10,7 @@ Make notifications
 
 ### API 
 
-#### Notification Properties:
+#### Notification Properties
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------

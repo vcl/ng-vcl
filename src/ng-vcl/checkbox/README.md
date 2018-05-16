@@ -2,7 +2,7 @@
 
 A Checkbox utilizing `vcl-icon`
 
-## Usage:
+## Usage
 
 ```js
 import { VCLCheckboxModule } from '@ng-vcl/ng-vcl';
@@ -20,7 +20,7 @@ export class AppComponent {}
 
 ### API 
 
-#### Properties:
+#### Properties
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------

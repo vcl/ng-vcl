@@ -1,6 +1,6 @@
 # vcl-slider
 
-## Usage:
+## Usage
 
 _Note: the slider requires that HammerJS is loaded_
 
@@ -35,7 +35,7 @@ export class AppComponent {}
 
 ### API 
 
-#### Attributes:
+#### Attributes
 
 | Name                | Type                   | Default            | Description
 | ------------        | -----------            | ------------------ |--------------

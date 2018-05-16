@@ -2,7 +2,7 @@
 
 A container for the vcl-input which offers a button to toggle visibility of the input value.
 
-## Usage:
+## Usage
 
 ```html
 <vcl-password-input>
@@ -12,7 +12,7 @@ A container for the vcl-input which offers a button to toggle visibility of the 
 
 ### API
 
-#### Properties:
+#### Properties
 
 Name            | Type    | Default           | Description
 --------------- | ------- | -------           | -----------------------------------------------

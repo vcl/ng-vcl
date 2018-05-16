@@ -2,7 +2,7 @@
 
 Enhanced file input
 
-## Usage:
+## Usage
 
 ```html
 <vcl-file-input [multiple]="true" [accept]="accept" [disabled]="disabled">My biggest Files</vcl-file-input>
@@ -10,7 +10,7 @@ Enhanced file input
 
 ### API
 
-#### Properties:
+#### Properties
 
 Name          | Type    | Default      | Description
 ------------- | ------- | ------------ | ---------------------------------------------------

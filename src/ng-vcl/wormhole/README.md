@@ -2,7 +2,7 @@
 
 The wormhole directive allows to render templates and components in the DOM.
 
-## Usage:
+## Usage
 
 ```js
 import { VCLWormholeModule } from 'ng-vcl';

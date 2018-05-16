@@ -13,7 +13,7 @@ An indicator to show that a lasting operation is currently in progress.
 ```
 ### API
 
-#### vclBusy Attributes:
+#### vclBusy Attributes
 
 | Name                | Type                       | Default    | Description
 | ------------------- | -------------------------- | ---------- |--------------
@@ -40,7 +40,7 @@ Covers an element with a layer showing the vcl-busy-indicator to indicate a busy
 
 ### API
 
-#### vclBusy Attributes:
+#### vclBusy Attributes
 
 | Name                     | Type                       | Default    | Description
 | ------------------------ | -------------------------- | ---------- |--------------

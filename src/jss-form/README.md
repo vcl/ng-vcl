@@ -8,7 +8,7 @@ Creates a html-form from a [jsonschema](http://jsonschema.net/).
 npm install @ng-vcl/jss-form --save
 ```
 
-## Usage:
+## Usage
 
 ```javascript
 import { VCLJssFormModule } from 'ng-vcl';
@@ -158,7 +158,7 @@ example-schema:
 
 ### API
 
-#### vcl-jss-form properties:
+#### vcl-jss-form properties
 
 Name     | Type   | Default | Description
 -------- | ------ | ------- | -----------------------------------------------
@@ -181,14 +181,14 @@ Name          | Type                   | Default | Description
 `appIcon`     | string                 |         | button icon to be appended to the label
 `class`       | string                 |         | addtional button class
 
-#### vcl-dropdown events:
+#### vcl-dropdown events
 
 Name                  | Type             | Description
 --------------------- | ---------------  | -
 `ngSubmit`            | any              | triggered when the form is submitted
 `action`              | any              | triggered when a button is pressed
 
-#### formTypes:
+#### formTypes
 
 Name       | Type   | ValueType
 ---------- | ------ | --------------

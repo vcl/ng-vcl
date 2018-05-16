@@ -11,7 +11,7 @@ Uses vcl-icogram to display a combination of text and icons if `appIcon` or `app
 
 ### API 
 
-#### Properties:
+#### Properties
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------

@@ -2,7 +2,7 @@
 
 A radio button utilizing `vcl-icon`
 
-## Usage:
+## Usage
 
  ```html
 <vcl-radio-button [(checked)]="checked">Label</vcl-radio-button>```
@@ -16,7 +16,7 @@ A radio button utilizing `vcl-icon`
 
 ### API 
 
-#### vcl-radio-button attributes:
+#### vcl-radio-button attributes
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------
@@ -27,14 +27,14 @@ A radio button utilizing `vcl-icon`
 | `uncheckedIcon`     | string      | fa:square-o        | Icon to be displayed when unchecked
 | `tabindex`          | number      | 0                  | The tabindex of the radio button
 
-#### vcl-radio-group attributes:
+#### vcl-radio-group attributes
 
 | Name                  | Type                          | Default      | Description
 | --------------------- | ----------------------        | --------     |--------------
 | `ngModel`             | any                           |              | Value of the checked radio button
 | `layout`              | 'horizontal &#124; 'vertical' | 'horizontal' | 
 
-#### vcl-radio-group events:
+#### vcl-radio-group events
 | Name                  | Type    | Description
 | -                     | -       | -
 | `change`              | any     | Triggers when selected radio button changes

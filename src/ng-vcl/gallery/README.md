@@ -2,7 +2,7 @@
 
 A gallery containing multiple images with mobile swipe support.
 
-## Usage:
+## Usage
 
 ```html
 <vcl-gallery [selectedImage]="1" [wrap]="true">
@@ -20,14 +20,14 @@ A gallery containing multiple images with mobile swipe support.
 
 ### API
 
-#### Gallery Attributes:
+#### Gallery Attributes
 
 Name            | Type    | Default  | Description
 --------------- | ------- | -------- | ----------------------------------
 `selectedImage` | number  | 0        | the selected image (optional)
 `wrap`          | string  | false    | whether to wrap around (optional)
 
-#### Gallery Methods:
+#### Gallery Methods
 
 Name             | Arguments     | Description
 ---------------- | ------------- | -------------------------
@@ -35,7 +35,7 @@ Name             | Arguments     | Description
 `selectNext`     |               | select next image
 `selectPrevious` |               | select previous image
 
-#### Image Attributes:
+#### Image Attributes
 
 Name        | Type    | Default  | Description
 ----------- | ------- | -------- | ----------------------------
@@ -43,26 +43,26 @@ Name        | Type    | Default  | Description
 `thumbnail` | string  | `""`     | thumbnail source (optional)
 `alt`       | string  | `""`     | alt text (optional)
 
-### Gallery Header Attributes:
+### Gallery Header Attributes
 
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
 `galleryTitle`  | string            |          | title of the gallery
 `target `       | GalleryComponent  |          | gallery component (required if outside of it)
 
-### Gallery Body Attributes:
+### Gallery Body Attributes
 
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
 `target `       | GalleryComponent  |          | gallery component (required if outside of it)
 
-### Gallery Footer Attributes:
+### Gallery Footer Attributes
 
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
 `target `       | GalleryComponent  |          | gallery component (required if outside of it)
 
-### Gallery Thumbnails Attributes:
+### Gallery Thumbnails Attributes
 
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------

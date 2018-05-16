@@ -1,6 +1,6 @@
 # vcl-dropdown
 
-## Usage:
+## Usage
 
 ```html
 <vcl-dropdown [value]="2" (change)="onSelect($event)" mode="multi" [maxSelectableItems]="5">
@@ -15,7 +15,7 @@
 
 ### API
 
-#### vcl-dropdown attributes:
+#### vcl-dropdown attributes
 
 Name                  | Type                        | Default  | Description
 --------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
@@ -25,13 +25,13 @@ Name                  | Type                        | Default  | Description
 `maxSelectableItems`  | number &#124; undefined     |          | maximum number of options that can be selected at the same time. Unlimited if undefined.
 `listenKeys`          | boolean                     | true     | if true, the dropdown will listen and interact to keypress-events 
 
-#### vcl-dropdown events:
+#### vcl-dropdown events
 
 Name                  | Type             | Description
 --------------------- | ---------------  | -
 `change`              | any &#124; any[] | emits the new value when the selected options change
 
-#### vcl-dropdown-option attributes:
+#### vcl-dropdown-option attributes
 
 Name       | Type    | Default | Description
 ---------- | ------- | ------- | --------------------------------------

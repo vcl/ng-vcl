@@ -2,7 +2,7 @@
 
 Zoom into areas of images.
 
-## Usage:
+## Usage
 
  ```html
 <vcl-zoom-box-container #first [x]="30" [y]="60" [width]="120" [height]="190">
@@ -14,7 +14,7 @@ Zoom into areas of images.
 
 ### API 
 
-#### Zoom-Box Container Properties:
+#### Zoom-Box Container Properties
 
 | Name                | Type        | Default            | Description
 | ------------------- | ----------- | ------------------ |--------------

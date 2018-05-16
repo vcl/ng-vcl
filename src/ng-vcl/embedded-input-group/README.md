@@ -4,7 +4,7 @@ Embedded-Input-Group
 
 Adds the possibility to prepend and append icons or buttons inside of input fields.
 
-## Usage:
+## Usage
 
 ```html
 
@@ -33,7 +33,7 @@ Left icon and button on the right
 
 ### API
 
-#### vcl-embedded-input-group attributes:
+#### vcl-embedded-input-group attributes
 
 | Name                                | Type        | Default            | Description
 | ----------------------------------  | ----------- | ------------------ |--------------

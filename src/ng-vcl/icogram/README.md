@@ -7,7 +7,7 @@ The component takes care of accessibility aspects such rendering appropriate ari
 attributes.
 
 
-## Usage:
+## Usage
 
 ```html
 <vcl-icogram label="some label" prepIcon="fa:chevron-right"></vcl-icogram>
@@ -17,7 +17,7 @@ attributes.
 
 ### API 
 
-#### Properties:
+#### Properties
 
 | Name                         | Type        | Default  | Description
 | ---------------------------- | ----------- | -------- |--------------

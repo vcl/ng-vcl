@@ -2,7 +2,7 @@
 The tab nav allows to organize content in tabs.
 Only one tab is visible at a given time.
 
-## Usage:
+## Usage
 
 ```js
 import { VCLTabNavModule } from 'ng-vcl';
@@ -33,7 +33,7 @@ export class AppComponent {}
 
 ### API 
 
-#### vcl-tab-nav Properties:
+#### vcl-tab-nav Properties
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
@@ -44,7 +44,7 @@ export class AppComponent {}
 | `tabsClass`              | string      |          | Modifier classes for vclTabs
 | `tabContentClass`        | string      |          | Modifier classes for vclTabContent
 
-#### vcl-tab Properties:
+#### vcl-tab Properties
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
