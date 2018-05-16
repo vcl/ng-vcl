@@ -1,4 +1,4 @@
-<h3>single-select:</h3>
+<h3>single-select</h3>
 <div vcl-metalist #metalist [value]="2" (change)="onChange($event)">
   <div vcl-metalist-item #meta=meta *ngFor="let item of items" [value]="item.value">
     <div>
@@ -13,7 +13,7 @@
 </div>
 
 <br/>
-<h3>multi-select:</h3>
+<h3>multi-select</h3>
 <div vcl-metalist #metalist2 mode="multiple" [value]="[2, 3]"  (change)="onChange($event)" [maxSelectableItems]="3">
   <div vcl-metalist-item #meta=meta *ngFor="let item of items" [value]="item.value">
     <div>
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<h3>single-select with ngModel:</h3>
+<h3>single-select with ngModel</h3>
 <div vcl-metalist #metalist3 [(ngModel)]="value1">
   <div vcl-metalist-item #meta=meta *ngFor="let item of items" [value]="item.value">
     <div>
@@ -39,7 +39,7 @@
 <br>Current value: {{value1}}
 
 <br/>
-<h3>multi-select with ngModel:</h3>
+<h3>multi-select with ngModel</h3>
 <div vcl-metalist #metalist4 [(ngModel)]="value2" mode="multiple" [maxSelectableItems]="3">
   <div vcl-metalist-item #meta=meta *ngFor="let item of items" [value]="item.value">
     <div>
