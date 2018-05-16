@@ -44,30 +44,74 @@ const CSS_LOADER_ALIAS = {
   '../imgs': '../assets/imgs'
 };
 
-module.exports = function wcc(target, appFolder) {
+module.exports = function wcc({ target, appFolder, outputFolder, srcFolders, publicPath = '' }) {
 
+  let mode;
+  let devtool;
   let minify;
   let tsLoader;
   let replaceEnvFile;
   let extractCSS;
+  let htmlPlugin;
+  let copyAssetsPlugin;
+  let entry;
+  let output;
 
   if (target === 'development') {
+    mode = 'development';
+    devtool = undefined;
     minify = false;
     tsLoader = 'ngtools';
     replaceEnvFile = false;
+    htmlPlugin = true;
+    copyAssetsPlugin = true;
+    entry = {
+      main: appFolder + '/main.ts',
+      polyfills: appFolder + '/polyfills.ts',
+      styles: appFolder + '/styles/index.styl'
+    };
+    output = {
+      path: outputFolder,
+      publicPath,
+      filename: '[name].js',
+      chunkFilename: '[name].[hash].chunk.js',
+    };
   } else if (target === 'production') {
+    mode = 'production';
+    devtool = 'cheap-eval-source-map';    
     minify = true;
     tsLoader = 'ngtools';
     replaceEnvFile = 'prod';
     extractCSS = true;
+    htmlPlugin = true;
+    copyAssetsPlugin = true;
+    entry = {
+      main: appFolder + '/main.ts',
+      polyfills: appFolder + '/polyfills.ts',
+      styles: appFolder + '/styles/index.styl'
+    };
+    output = {
+      path: outputFolder,
+      publicPath,
+      filename: '[name].js',
+      chunkFilename: '[name].[hash].chunk.js',
+    };
   } else if (target === 'testing') {
+    mode = 'none';
+    devtool = 'cheap-eval-source-map';    
     minify = false;
     tsLoader = 'atl';
     replaceEnvFile = false;
     extractCSS = false;
+    htmlPlugin = false;
+    copyAssetsPlugin = false;
+    entry = undefined;
+    output = undefined;
   } else {
     throw 'INVALID_TARGET';
   }
+
+  srcFolders = srcFolders || [];
 
   const POSTCSS_PLUGINS = minify ? POST_CSS_PLUGINS_CSSNANO : POST_CSS_PLUGINS_COMMON;
 
@@ -118,6 +162,9 @@ module.exports = function wcc(target, appFolder) {
   }
 
   return {
+    mode,
+    entry,
+    output,
     resolve: {
       extensions: [".ts", ".js", ".json", ".css", ".styl", ".html"],
     },
@@ -127,7 +174,7 @@ module.exports = function wcc(target, appFolder) {
         // The component styl files are stringified to work with the ngc loader
         {
           test: /\.styl$/,
-          exclude: [appFolder + '/styles'],
+          include: [appFolder + '/src', ...srcFolders],
           use: [
             'to-string-loader',
             {
@@ -150,7 +197,7 @@ module.exports = function wcc(target, appFolder) {
         },
         {
           test: /\.css$/,
-          exclude: [appFolder + '/styles'],
+          include: [appFolder + '/src', ...srcFolders],
           use: [
             'to-string-loader',
             {
@@ -163,7 +210,7 @@ module.exports = function wcc(target, appFolder) {
           ]
         },
         {
-          exclude: [appFolder + '/index.html'],
+          include: [appFolder + '/src', ...srcFolders],
           test: /\.(html)$/,
           use: ['raw-loader'],
         },
@@ -205,16 +252,16 @@ module.exports = function wcc(target, appFolder) {
     plugins: [
       ...PLUGINS,
       new MiniCssExtractPlugin(),
-      new CopyWebpackPlugin([{
+      ...(copyAssetsPlugin ? [new CopyWebpackPlugin([{
         from: appFolder + '/assets/public',
         to: ''
-      }]),
+      }])] : []),
       new ProgressPlugin(),
       new CircularDependencyPlugin({
         exclude: /(\\|\/)node_modules(\\|\/)/,
         failOnError: false
       }),
-      new HtmlWebpackPlugin({
+      ...(htmlPlugin ? [new HtmlWebpackPlugin({
         template: appFolder + '/index.html',
         minify: minify ? {
           caseSensitive: true,
@@ -233,7 +280,7 @@ module.exports = function wcc(target, appFolder) {
             return 0;
           }
         },
-      }),
+      })] : []),
     ]
   };
 }
