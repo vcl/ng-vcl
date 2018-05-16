@@ -17,12 +17,16 @@ export class LayoutDirective extends ObservableComponent {
   layout$ = this.observeChangeValue<VCLLayout | undefined>('layout');
 }
 
+/**
+ * The vclLayoutTarget directive allows to set class injection points on elements in the component's template.
+ * Developer can inject style classes into these elements using the vclLayout directive on the component.
+ */
 @Directive({
   selector: '[vclLayoutTarget]',
 })
 export class LayoutTargetDirective extends ObservableComponent implements OnDestroy {
   @Input('vclLayoutTarget')
-  name?: string;
+  name?: string; // Reference name
   name$ = this.observeChangeValue<string | undefined>('name');
 
   sub?: Subscription;
@@ -36,13 +40,22 @@ export class LayoutTargetDirective extends ObservableComponent implements OnDest
   ) {
     super();
     if (layoutHost) {
+      // Whenever the name or the layout property on the vclLayout directive changes, update the classes
       this.sub = combineLatest(this.name$, layoutHost.layout$).subscribe(([name, layout]) => {
+        // Remove any of previously added classes
+        this.classes.forEach(name => this.renderer.removeClass(this.elRef.nativeElement, name));
+        this.classes = [];
+
         if (name && layout && typeof layout[name] === 'string') {
-          this.classes = layout[name].split(' ');
-          this.classes.forEach(name => this.renderer.addClass(this.elRef.nativeElement, name));
-        } else {
-          this.classes.forEach(name => this.renderer.removeClass(this.elRef.nativeElement, name));
-          this.classes = [];
+          layout[name].split(' ').forEach(name => {
+            // Only add classes that are not present on the element
+            if (!this.elRef.nativeElement.classList.contains(name)) {
+              // Add the class to the element
+              this.renderer.addClass(this.elRef.nativeElement, name);
+              // Remember them so they can be removed on a change
+              this.classes = [...this.classes, name];
+            }
+          });
         }
       });
     }
