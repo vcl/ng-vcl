@@ -90,7 +90,7 @@ export class GalleryBodyComponent implements AfterViewInit, AfterContentChecked 
     return {
       height: this.containerHeight + 'px',
       transform: 'translateX(' + this.translatePosition + 'px)',
-      transition: this.loadedCount == this.target.images.length ? 'transform 0.5s' : ''
+      transition: this.loadedCount == (this.target.images && this.target.images.length) ? 'transform 0.5s' : ''
     };
   }
 

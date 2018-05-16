@@ -40,7 +40,7 @@ export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAc
   change = new EventEmitter<any>();
 
   @ContentChildren(RadioButtonComponent)
-  radioButtons: QueryList<RadioButtonComponent> | undefined;
+  radioButtons?: QueryList<RadioButtonComponent> | undefined;
 
   @HostBinding('class.vclInputInlineControlGroup')
   get vclInputInlineControlGroup() {

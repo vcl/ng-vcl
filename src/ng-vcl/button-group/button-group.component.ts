@@ -55,7 +55,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
   private pressSubscription: Subscription | undefined;
 
   @ContentChildren(GroupButtonDirective)
-  buttons: QueryList<GroupButtonDirective>;
+  buttons?: QueryList<GroupButtonDirective>;
 
   @Input()
   disabled = false;
@@ -87,11 +87,11 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
 
   private syncButtons() {
     const selectedIndex = this.selectedIndex;
-    if (this.mode === 'multiple' && Array.isArray(selectedIndex)) {
+    if (this.buttons && this.mode === 'multiple' && Array.isArray(selectedIndex)) {
       this.buttons.forEach((btn, idx) => {
         btn.selected = selectedIndex.includes(idx);
       });
-    } else if (this.mode === 'single' && typeof selectedIndex === 'number') {
+    } else if (this.buttons && this.mode === 'single' && typeof selectedIndex === 'number') {
       this.buttons.forEach((btn, idx) => {
         btn.selected = selectedIndex === idx;
       });
@@ -104,7 +104,11 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
   }
 
   ngAfterContentInit() {
-    this.buttons.changes.pipe(startWith(null)).subscribe(() => {
+    this.buttons && this.buttons.changes.pipe(startWith(null)).subscribe(() => {
+      if (!this.buttons) {
+        return;
+      }
+
       this.dispose();
       // Subscribes to button click events
       const click$ = merge(...(this.buttons.map((source, idx) => source.select.pipe(map(() => idx)))));

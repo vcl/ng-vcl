@@ -42,7 +42,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   listbox: ElementRef;
 
   @ContentChildren(DropdownOption)
-  items: QueryList<DropdownOption>;
+  items?: QueryList<DropdownOption>;
 
   @Input()
   tabindex: number = 0;
@@ -161,7 +161,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
       const allItems = this.listbox.nativeElement.querySelectorAll('.vclDropdownItem');
       let scrollTop = - this.listbox.nativeElement.clientHeight / 2 + (selectedItem.clientHeight / 2);
 
-      const metalistItems = this.metalist.items.toArray();
+      const metalistItems = this.metalist.itemsArray;
 
       metalistItems.some((item, idx) => {
         if (item[target]) {

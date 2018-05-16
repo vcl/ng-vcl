@@ -19,7 +19,7 @@ export class TabNavComponent {
   }
 
   @ContentChildren(TabComponent)
-  tabs: QueryList<TabComponent>;
+  tabs?: QueryList<TabComponent>;
 
   @Input()
   layout: string = '';
@@ -51,6 +51,10 @@ export class TabNavComponent {
 
   // Sets a valid selectedTabIndex
   selectTab(tab: number | TabComponent) {
+    if (!this.tabs) {
+      return;
+    }
+
     const tabs = this.tabs.toArray();
     let tabIdx;
     let tabComp;

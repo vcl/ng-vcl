@@ -3,6 +3,7 @@ import { Directive, Component, Input, Output, ChangeDetectionStrategy, ChangeDet
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { REFUSED } from 'dns';
 
 @Component({
   selector: '[vcl-metalist-item]',
@@ -58,7 +59,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   itemsChange = new EventEmitter<any>();
 
   @ContentChildren(MetalistItem)
-  items: QueryList<MetalistItem>;
+  items?: QueryList<MetalistItem>;
 
   @Input()
   value: any | any[];
@@ -67,6 +68,10 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   itemsSub?: Subscription;
 
   constructor(private cdRef: ChangeDetectorRef) { }
+
+  get itemsArray() {
+    return this.items ? this.items.toArray() : [];
+  }
 
   isMarked(item: MetalistItem) {
     return this.markedItem === item;
@@ -86,12 +91,12 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   }
 
   get selectedItems(): MetalistItem[] {
-    return this.items.toArray().filter(i => i.selected);
+    return this.itemsArray.filter(i => i.selected);
   }
 
 
   ngAfterContentInit() {
-    this.itemsSub = this.items.changes.subscribe(() => {
+    this.itemsSub = this.items && this.items.changes.subscribe(() => {
       this.itemsChange.emit();
     });
   }
@@ -112,14 +117,14 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     }
 
     if (typeof item === 'number') {
-      item = this.items.toArray()[item];
+      item = this.itemsArray[item];
     }
     if (item instanceof MetalistItem) {
       if (item.disabled) {
         return;
       }
       if (this.mode === 'multiple' ) {
-        const selectedItems = this.items.toArray().filter(i => i.selected);
+        const selectedItems = this.itemsArray.filter(i => i.selected);
         if (item.selected) {
           const value = item.value;
           if (!Array.isArray(this.value)) {
@@ -146,7 +151,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
 
   deselect(item: MetalistItem | number) {
     if (typeof item === 'number') {
-      item = this.items.toArray()[item];
+      item = this.itemsArray[item];
     }
 
     if (item instanceof MetalistItem) {
@@ -168,13 +173,13 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   }
 
   private determineMarkedIndex() {
-    let idx = this.items.toArray().findIndex(item => item.marked);
-    return idx >= 0 ? idx : this.items.toArray().findIndex(metaItem => metaItem.selected);
+    let idx = this.itemsArray.findIndex(item => item.marked);
+    return idx >= 0 ? idx : this.itemsArray.findIndex(metaItem => metaItem.selected);
   }
 
   mark(item: MetalistItem | number) {
     if (typeof item === 'number') {
-      item = this.items.toArray()[item];
+      item = this.itemsArray[item];
     }
     if (item instanceof MetalistItem) {
       this.markedItem = item;
@@ -184,7 +189,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   }
 
   markNext() {
-    const items = this.items.toArray();
+    const items = this.itemsArray;
     let newIdx = this.determineMarkedIndex() + 1;
     if (newIdx >= (items.length)) {
       newIdx = items.length - 1;
@@ -202,7 +207,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   }
 
   markPrev() {
-    const items = this.items.toArray().reverse();
+    const items = this.itemsArray.reverse();
     let newIdx = this.determineMarkedIndex() - 1;
     if (newIdx <= 0 && items.length > 0) {
       newIdx = 0;

@@ -24,10 +24,10 @@ export class EmbeddedInputGroupComponent extends ObservableComponent {
   appIcon?: string;
 
   @ContentChildren(forwardRef(() => EmbeddedButtonDirective))
-  buttons: QueryList<EmbeddedButtonDirective>;
+  buttons?: QueryList<EmbeddedButtonDirective>;
 
   get hasAppendedItem() {
-    return !!this.appIcon || this.buttons.length > 0;
+    return !!this.appIcon || (this.buttons && this.buttons.length > 0);
   }
 }
 

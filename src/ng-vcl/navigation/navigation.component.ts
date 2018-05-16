@@ -158,7 +158,7 @@ export class NavigationComponent {
   subLevelHintIconSide: 'left' | 'right' = 'right';
 
   @Input()
-  inputItems: QueryList<NavigationItem> | undefined;
+  inputItems?: QueryList<NavigationItem> | undefined;
 
   @Output()
   select = new EventEmitter<NavigationItem>();
@@ -167,7 +167,7 @@ export class NavigationComponent {
   navigate = new EventEmitter();
 
   @ContentChildren(NavigationItemDirective)
-  contentItems: QueryList<NavigationItem>;
+  contentItems?: QueryList<NavigationItem>;
 
   constructor(private router: Router) { }
 

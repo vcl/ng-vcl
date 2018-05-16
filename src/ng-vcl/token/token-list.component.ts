@@ -40,7 +40,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
   tokenSubscription: Subscription | undefined;
 
   @ContentChildren(TokenComponent)
-  tokens: QueryList<TokenComponent>;
+  tokens?: QueryList<TokenComponent>;
 
   @Input()
   selectable: boolean = false;
@@ -61,14 +61,14 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
   private syncTokens() {
     const labels = this.labels;
     if (Array.isArray(labels)) {
-      this.tokens.forEach((token) => {
+      this.tokens && this.tokens.forEach((token) => {
         token.selected = labels.includes(token.label);
       });
     }
   }
 
   private syncSelectedValues() {
-    this.labels = this.tokens.filter(t => t.selected).map(t => t.label);
+    this.labels = this.tokens ? this.tokens.filter(t => t.selected).map(t => t.label) : [];
   }
 
 
@@ -92,6 +92,10 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
 
     // Subscribes to buttons press event
     const listenButtonPress = () => {
+      if (!this.tokens) {
+        return;
+      }
+
       this.dispose();
 
       this.cdRef.markForCheck();
@@ -107,7 +111,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
       });
     };
 
-    this.tokens.changes.pipe(startWith(null)).subscribe(() => {
+    this.tokens && this.tokens.changes.pipe(startWith(null)).subscribe(() => {
       listenButtonPress();
       setTimeout(() => {
         this.syncSelectedValues();

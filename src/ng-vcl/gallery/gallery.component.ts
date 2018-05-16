@@ -42,7 +42,7 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
   wrap: boolean = false;
 
   @ContentChildren(GalleryImageComponent)
-  images: QueryList<GalleryImageComponent>;
+  images?: QueryList<GalleryImageComponent>;
 
   imageArray: GalleryImageComponent[];
 
@@ -70,7 +70,7 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
 
 
   ngAfterContentInit() {
-    this.imageArray = this.images.toArray();
+    this.imageArray = this.images ? this.images.toArray() : [];
   }
 
   selectImage(index: number): void {
