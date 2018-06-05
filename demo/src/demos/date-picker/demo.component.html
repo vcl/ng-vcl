@@ -1,5 +1,6 @@
 <h3>Default Datepicker</h3>
 <vcl-date-picker [(ngModel)]="selectedDate" style="width: 18em;"></vcl-date-picker>
+<span>Date: {{ selectedDate.toLocaleString() }}</span>
 
 <h3>Ranged Datepicker</h3>
 <vcl-date-picker style="width: 18em;" 
@@ -12,9 +13,32 @@
 </vcl-date-picker>
 
 <h3>Minimal Datepicker</h3>
-<vcl-date-picker style="width: 25em;" 
-                [displayJumpToday]="false" 
-                [displayJumpSelected]="false" 
-                [displayWeekNumbers]="false" 
-                [displayWeekdays]="false">
+<vcl-date-picker [displayJumpToday]="false"
+                 [displayJumpSelected]="false"
+                 [displayWeekNumbers]="false"
+                 [displayWeekdays]="false">
 </vcl-date-picker>
+
+<h3>Default Timepicker</h3>
+<vcl-date-picker [(ngModel)]="selectedDate3"
+                 [displayDate]="false"
+                 [displayTime]="true">
+</vcl-date-picker>
+<span>Date: {{ selectedDate3.toLocaleString() }}</span>
+
+<h3>12h Timepicker with seconds</h3>
+<vcl-date-picker [(ngModel)]="selectedDate4"
+                 [displayDate]="false"
+                 [displayTime]="true"
+                 [displayMinutes]="false"
+                 [displaySeconds]="true"
+                 [displayHours24]="false">
+</vcl-date-picker>
+<span>Date: {{ selectedDate4.toLocaleString() }}</span>
+
+<h3>Full example</h3>
+<vcl-date-picker [(ngModel)]="selectedDate5"
+                 [displayTime]="true"
+                 [displaySeconds]="true">
+</vcl-date-picker>
+<span>Date: {{ selectedDate5.toLocaleString() }}</span>

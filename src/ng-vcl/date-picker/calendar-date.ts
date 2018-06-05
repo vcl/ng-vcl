@@ -61,7 +61,7 @@ export class CalendarDate {
   getFirstDateOfMonth(date: Date): Date {
     return new Date(
       date.getFullYear(), date.getMonth(), 1,
-      12, date.getMinutes(), date.getSeconds()
+      date.getHours(), date.getMinutes(), date.getSeconds()
     );
   }
 
