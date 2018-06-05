@@ -43,7 +43,7 @@ export class AppComponent {}
 
 ```html
 <vcl-token-input-container (change)="changed($event);">
-  <input vcl-token-input />
+  <input vcl-input vcl-token-input />
 </vcl-token-input-container>
 ```
 

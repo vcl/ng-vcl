@@ -15,7 +15,8 @@ import {
   TemplateRef,
   OnDestroy,
   Optional,
-  SkipSelf
+  SkipSelf,
+  Self
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputDirective } from '../input/index';
@@ -155,14 +156,12 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
 
 
 @Directive({
-  selector: 'input[vcl-token-input]',
-  host: {
-    '[class.vclInput]': 'true'
-  }
+  selector: 'input[vcl-token-input]'
 })
 export class TokenInputDirective {
   constructor(
     private elementRef: ElementRef,
+    @Self() private input: InputDirective,
     @SkipSelf() private tokenInputContainer: TokenInputContainerComponent
   ) {
     if (!tokenInputContainer) {
@@ -170,22 +169,22 @@ export class TokenInputDirective {
     }
   }
 
-   @Input()
-   disabled: boolean = false;
+  @Input()
+  addTokenOnEnter = true;
 
-   get isDisabled() {
-     return this.disabled || this.tokenInputContainer.disabled;
-   }
+  get isDisabled() {
+    return this.input.disabled || this.tokenInputContainer.disabled;
+  }
 
-   @HostBinding('class.vclDisabled')
-   get classDisabled() {
-     return this.isDisabled;
-   }
+  @HostBinding('class.vclDisabled')
+  get classDisabled() {
+    return this.isDisabled;
+  }
 
-   @HostBinding('attr.disabled')
-   get attrDisabled() {
-     return this.isDisabled ? true : null;
-   }
+  @HostBinding('attr.disabled')
+  get attrDisabled() {
+    return this.isDisabled ? true : null;
+  }
   /**
    * remove last token on double-backspace
    */
@@ -206,7 +205,7 @@ export class TokenInputDirective {
     const value = ev.target.value;
     if (value === '') {
       this.tokenInputContainer.confirm.emit();
-    } else {
+    } else if (this.addTokenOnEnter) {
       this.tokenInputContainer.addToken(value);
       this.elementRef.nativeElement.value = '';
     }
