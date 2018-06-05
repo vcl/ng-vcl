@@ -7,7 +7,7 @@
 <h3>vcl-token-input with fixed data</h3>
 
 <vcl-token-input-container (tokensChange)="onChange($event)">
-  <input placeholder="Search for country to add" [vcl-token-input-autocomplete]="acCountry" />
+  <input vcl-input placeholder="Search for country to add" [vcl-token-input-autocomplete]="acCountry" />
 </vcl-token-input-container>
 
 <vcl-autocomplete #acCountry="vclAutocomplete">
@@ -25,7 +25,8 @@
 <h3>vcl-token-input with async data</h3>
 
 <vcl-token-input-container (tokensChange)="onChange($event)">
-  <input placeholder="Search for books to add"
+  <input vcl-input
+         placeholder="Search for books to add"
          [vcl-token-input-autocomplete]="acBooks"
          (input)="booksInput$.next($event.target.value)"
          (autocompleteSelect)="booksInput$.next('')" />
