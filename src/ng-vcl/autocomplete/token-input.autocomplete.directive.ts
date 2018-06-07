@@ -99,6 +99,13 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
   }
 
   private lastKey: string | undefined;
+  private wasEmpty = true;
+
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event) {
+    const value = event.target.value;
+    this.wasEmpty = value === '';
+  }
 
   @HostListener('keyup', ['$event'])
   onKeyUp(event) {
@@ -119,7 +126,7 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
       }
       event.preventDefault();
       return false;
-    } else if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '') {
+    } else if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '' && this.wasEmpty) {
       // remove last token
       this.tokenInputContainer.removeLastToken();
     } else if (code === 'Enter') {
