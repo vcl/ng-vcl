@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, Optional, SkipSelf, Directive, HostBinding, ElementRef, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, Optional, SkipSelf, Directive, HostBinding, ElementRef, HostListener, Inject, ChangeDetectorRef } from '@angular/core';
 import { Subscription, merge } from 'rxjs';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
@@ -51,6 +51,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   private pressSubscription: Subscription | undefined;
 
@@ -138,6 +140,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
   writeValue(value: any): void {
     this.selectedIndex = value;
     this.syncButtons();
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChange = fn;
