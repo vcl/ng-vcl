@@ -68,7 +68,7 @@
                       [formControlName]="fo.key"
                       [class.vclError]="hasError"
                       [mode]="fo.schema.type==='array' ? 'multiple' : 'single'">
-            <vcl-select-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label"></vcl-select-option>
+            <vcl-select-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label" [sublabel]="option.sublabel"></vcl-select-option>
           </vcl-select>
         </vcl-input-control-group>
       </ng-container>
@@ -81,7 +81,7 @@
                         [formControlName]="fo.key"
                         [class.vclError]="hasError"
                         [mode]="fo.schema.type==='array' ? 'multiple' : 'single'">
-            <vcl-dropdown-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label"></vcl-dropdown-option>
+            <vcl-dropdown-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label" [sublabel]="option.sublabel"></vcl-dropdown-option>
           </vcl-dropdown>
         </vcl-input-control-group>
       </ng-container>

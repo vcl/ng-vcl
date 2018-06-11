@@ -32,7 +32,8 @@ export class FormObject {
       } else if (schema.options) {
         options = schema.options.map((option) => ({
           value: option.value,
-          label: option.label ? option.label : String(option.value)
+          label: option.label ? option.label : String(option.value),
+          sublabel: option.sublabel
         }));
       } else {
         options = [];

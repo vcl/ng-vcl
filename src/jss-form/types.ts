@@ -2,6 +2,7 @@ import { Schema } from 'jsonschema';
 
 export interface JssFormSchemaOptions {
   label?: string;
+  sublabel?: string;
   value: any;
 }
 

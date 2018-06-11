@@ -44,7 +44,8 @@ export const HERO_SCHEMA = {
         },
         {
           label: 'Blue',
-          value: '#0000FF'
+          value: '#0000FF',
+          sublabel: 'Sublabels!'
         },
         {
           label: 'Yellow',
@@ -69,7 +70,8 @@ export const HERO_SCHEMA = {
         },
         {
           label: 'Snakeater',
-          value: 'snakeater'
+          value: 'snakeater',
+          sublabel: 'Sublabels!'
         },
         {
           label: 'Karma Beacon',
