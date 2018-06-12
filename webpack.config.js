@@ -8,7 +8,7 @@ const wcc = require('./webpack.config.common');
 const root = (__path = '.') => path.join(__dirname, __path);
 
 let config = wcc({
-  target: process.env.TARGET,
+  mode: process.env.MODE,
   appFolder: root('demo'),
   srcFolders: [root('src')],
   outputFolder: root('docs')

@@ -16,7 +16,6 @@ const postcssNext = require('postcss-cssnext');
 const rucksackCss = require('rucksack-css');
 const cssnano = require('cssnano');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CheckerPlugin } = require('awesome-typescript-loader');
 
 const POST_CSS_PLUGINS_COMMON = [
   postcssImport(),
@@ -44,137 +43,87 @@ const CSS_LOADER_ALIAS = {
   '../imgs': '../assets/imgs'
 };
 
-module.exports = function wcc({ target, appFolder, outputFolder, srcFolders, publicPath = '' }) {
-
-  let mode;
-  let devtool;
-  let minify;
-  let tsLoader;
-  let replaceEnvFile;
-  let extractCSS;
-  let htmlPlugin;
-  let copyAssetsPlugin;
-  let entry;
-  let output;
-
-  if (target === 'development') {
-    mode = 'development';
-    devtool = undefined;
-    minify = false;
-    tsLoader = 'ngtools';
-    replaceEnvFile = false;
-    htmlPlugin = true;
-    copyAssetsPlugin = true;
-    entry = {
-      main: appFolder + '/main.ts',
-      polyfills: appFolder + '/polyfills.ts',
-      styles: appFolder + '/styles/index.styl'
-    };
-    output = {
-      path: outputFolder,
-      publicPath,
-      filename: '[name].js',
-      chunkFilename: '[name].[hash].chunk.js',
-    };
-  } else if (target === 'production') {
-    mode = 'production';
-    devtool = 'cheap-eval-source-map';    
-    minify = true;
-    tsLoader = 'ngtools';
-    replaceEnvFile = 'prod';
-    extractCSS = true;
-    htmlPlugin = true;
-    copyAssetsPlugin = true;
-    entry = {
-      main: appFolder + '/main.ts',
-      polyfills: appFolder + '/polyfills.ts',
-      styles: appFolder + '/styles/index.styl'
-    };
-    output = {
-      path: outputFolder,
-      publicPath,
-      filename: '[name].js',
-      chunkFilename: '[name].[hash].chunk.js',
-    };
-  } else if (target === 'testing') {
-    mode = 'none';
-    devtool = 'cheap-eval-source-map';    
-    minify = false;
-    tsLoader = 'atl';
-    replaceEnvFile = false;
-    extractCSS = false;
-    htmlPlugin = false;
-    copyAssetsPlugin = false;
-    entry = undefined;
-    output = undefined;
-  } else {
-    throw 'INVALID_TARGET';
+const DEFAULTS = {
+  development: {
+    mode: 'development',
+    devtool: 'cheap-eval-source-map',
+    minify: false,
+    replaceEnvFile: false,
+    extractCSS: false,
+    htmlPlugin: true,
+    copyAssetsPlugin: true,
+    aot: false
+  },
+  production: {
+    mode: 'production',
+    devtool: false,
+    minify: true,
+    replaceEnvFile: 'prod',
+    extractCSS: true,
+    htmlPlugin: true,
+    copyAssetsPlugin: true,
+    aot: true    
   }
+};
+
+module.exports = function wcc(config) {
+
+  let { mode, appFolder, outputFolder, srcFolders, publicPath = '', devtool, minify, replaceEnvFile, extractCSS, htmlPlugin, copyAssetsPlugin, aot } = config;
+
+  mode = mode || 'development';
+  devtool = devtool === undefined ? DEFAULTS[mode]['devtool'] : devtool;
+  minify = minify === undefined ? DEFAULTS[mode]['minify'] : minify;
+  replaceEnvFile = replaceEnvFile === undefined ? DEFAULTS[mode]['replaceEnvFile'] : replaceEnvFile;
+  extractCSS = extractCSS === undefined ? DEFAULTS[mode]['extractCSS'] : extractCSS;
+  htmlPlugin = htmlPlugin === undefined ? DEFAULTS[mode]['htmlPlugin'] : htmlPlugin;
+  copyAssetsPlugin = copyAssetsPlugin === undefined ? DEFAULTS[mode]['copyAssetsPlugin'] : copyAssetsPlugin;
+  aot = aot === undefined ? DEFAULTS[mode]['aot'] : aot;
 
   srcFolders = srcFolders || [];
 
   const POSTCSS_PLUGINS = minify ? POST_CSS_PLUGINS_CSSNANO : POST_CSS_PLUGINS_COMMON;
 
-  const RULES = [];
-  const PLUGINS = [];
-
-  if (tsLoader === 'ngtools') {
-    RULES.push({
-      test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-      use: [
-        {
-          loader: '@angular-devkit/build-optimizer/webpack-loader',
-          options: {
-            sourceMap: false
-          }
-        },
-        {
-          loader: '@ngtools/webpack'
-        }
-      ]
-    });
-
-    PLUGINS.push(
-      new AngularCompilerPlugin({
-        tsConfigPath: 'tsconfig.json',
-        entryModule: appFolder + '/src/app.module#AppModule',
-        skipCodeGeneration: false,
-        hostReplacementPaths: replaceEnvFile ? {
-          [appFolder + '/environment/environment.ts']: `${appFolder}/environment/environment.${replaceEnvFile}.ts`
-        } : {},
-      }),
-      new PurifyPlugin()
-    );
-  }
-
-  if (tsLoader === 'atl') {
-    RULES.push({
-      test: /\.ts?$/,
-      use: [
-        'awesome-typescript-loader',
-        'angular2-template-loader'
-      ]
-    });
-    PLUGINS.push(
-      new CheckerPlugin(),
-      new ContextReplacementPlugin(/(.+)?angular(\\|\/)core(.+)?/, appFolder, {})
-    );
-  }
-
   return {
     mode,
-    entry,
-    output,
+    devtool,
+    entry: {
+      main: path.join(appFolder, 'main.ts'),
+      polyfills: path.join(appFolder, 'polyfills.ts'),
+      styles: path.join(appFolder, 'styles/index.styl')
+    },
+    output: {
+      path: outputFolder,
+      publicPath,
+      filename: '[name].js',
+      chunkFilename: '[name].[hash].chunk.js',
+    },
     resolve: {
       extensions: [".ts", ".js", ".json", ".css", ".styl", ".html"],
     },
     module: {
       rules: [
-        ...RULES,
+        {
+          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          use: aot ? [
+            {
+              loader: '@angular-devkit/build-optimizer/webpack-loader',
+              options: {
+                sourceMap: false
+              }
+            },
+            {
+              loader: '@ngtools/webpack'
+            }
+          ] : [
+            {
+              loader: '@ngtools/webpack'
+            }
+          ]
+        },
         // The component styl files are stringified to work with the ngc loader
         {
           test: /\.styl$/,
-          include: [appFolder + '/src', ...srcFolders],
+          include: [path.join(appFolder, 'src'), ...srcFolders],
           use: [
             'to-string-loader',
             {
@@ -197,7 +146,7 @@ module.exports = function wcc({ target, appFolder, outputFolder, srcFolders, pub
         },
         {
           test: /\.css$/,
-          include: [appFolder + '/src', ...srcFolders],
+          include: [path.join(appFolder, 'src'), ...srcFolders],
           use: [
             'to-string-loader',
             {
@@ -210,7 +159,7 @@ module.exports = function wcc({ target, appFolder, outputFolder, srcFolders, pub
           ]
         },
         {
-          include: [appFolder + '/src', ...srcFolders],
+          include: [path.join(appFolder, 'src'), ...srcFolders],
           test: /\.(html)$/,
           use: ['raw-loader'],
         },
@@ -223,7 +172,7 @@ module.exports = function wcc({ target, appFolder, outputFolder, srcFolders, pub
         },
         {
           test: /\.styl$/,
-          include: [appFolder + '/styles'],
+          include: [path.join(appFolder, 'styles')],
           use: [
             extractCSS ? MiniCssExtractPlugin.loader : 'style-loader',
               {
@@ -250,10 +199,18 @@ module.exports = function wcc({ target, appFolder, outputFolder, srcFolders, pub
       ]
     },
     plugins: [
-      ...PLUGINS,
+      new AngularCompilerPlugin({
+        tsConfigPath: 'tsconfig.json',
+        entryModule: path.join(appFolder, '/src/app.module#AppModule'),
+        skipCodeGeneration: !aot,
+        hostReplacementPaths: replaceEnvFile ? {
+          [path.join(appFolder, '/environment/environment.ts')]: path.join(appFolder, `/environment/environment.${replaceEnvFile}.ts`)
+        } : {},
+      }),
+      new PurifyPlugin(),
       new MiniCssExtractPlugin(),
       ...(copyAssetsPlugin ? [new CopyWebpackPlugin([{
-        from: appFolder + '/assets/public',
+        from: path.join(appFolder, 'assets/public'),
         to: ''
       }])] : []),
       new ProgressPlugin(),
@@ -262,7 +219,7 @@ module.exports = function wcc({ target, appFolder, outputFolder, srcFolders, pub
         failOnError: false
       }),
       ...(htmlPlugin ? [new HtmlWebpackPlugin({
-        template: appFolder + '/index.html',
+        template: path.join(appFolder, 'index.html'),
         minify: minify ? {
           caseSensitive: true,
           collapseWhitespace: true,
