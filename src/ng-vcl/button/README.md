@@ -25,6 +25,11 @@ export class AppComponent { ... }
  ```html
 <button vcl-button label="Action" appIcon="fa:bolt"></button>
  ```
+### button[vcl-button][icon]
+
+```html
+<button vcl-button icon="fa:bolt"></button>
+```
 ### button[vcl-button][selectable]
 
  ```html
@@ -48,6 +53,13 @@ export class AppComponent { ... }
 | `flexLabel`         | boolean     | false    | The label gets a flex layout property if true
 | `prepIcon`          | string      |          | icon to be prepended to the label
 | `appIcon`           | string      |          | Same as prepIcon but appended
+
+#### vcl-button[icon] attributes
+
+| Name                | Type        | Default  | Description
+| ------------        | ----------- | -------- |--------------
+| `icon`              | string      |          | Sets the button icon
+
 
 #### vcl-button[selectable] attributes
 
