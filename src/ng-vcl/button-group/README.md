@@ -16,9 +16,9 @@ export class AppComponent {}
 
  ```html
 <vcl-button-group mode="single">
-  <button vcl-button label="Action 1"></button>
-  <button vcl-button label="Action 2"></button>
-  <button vcl-button label="Action 3"></button>
+  <button vcl-button vcl-button-group label="Action 1"></button>
+  <button vcl-button vcl-button-group label="Action 2"></button>
+  <button vcl-button vcl-button-group label="Action 3"></button>
 </vcl-button-group>
  ```
 
