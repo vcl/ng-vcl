@@ -1,7 +1,7 @@
-<input #input type="file" style="display: none;" (change)="onInputChange()" [accept]="accept" [multiple]="multiple" [disabled]="disabled" />
-<div class="vclFileInputIcon vclIcon fa fa-upload" aria-hidden="true" aria-label="account" role="img"></div>
+<input #input type="file" [style.display]="'none'" (change)="onInputChange()" [accept]="accept" [multiple]="multiple" [disabled]="disabled" />
+<div class="vclFileInputIcon vclIcon {{ icon }}" aria-hidden="true" aria-label="account" role="img"></div>
 <div class="vclFileInputPlaceholder">
-  <ng-container *ngIf="filename">{{filename}}</ng-container>
+  <ng-container *ngIf="filename">{{ filename }}</ng-container>
   <div *ngIf="!filename">
     <ng-content></ng-content>
   </div>

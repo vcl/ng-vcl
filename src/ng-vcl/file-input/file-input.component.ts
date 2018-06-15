@@ -1,7 +1,11 @@
 import {
-  Component, forwardRef, ChangeDetectionStrategy, Input, Output, ViewChild, HostBinding, ElementRef, EventEmitter, HostListener, ChangeDetectorRef
+  Component, forwardRef, ChangeDetectionStrategy, Input,
+  Output, ViewChild, HostBinding, ElementRef, EventEmitter,
+  HostListener, ChangeDetectorRef
 } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR
+} from '@angular/forms';
 import { accept } from './accept';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -13,14 +17,18 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-file-input',
   templateUrl: 'file-input.component.html',
-  host: {
-    '[class.vclFileInput]': 'true',
-    role: 'button'
-  },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  host: {
+    '[class.vclInput]': 'true',
+    '[class.vclFileInput]': 'true',
+    role: 'button',
+  }
 })
 export class FileInputComponent implements ControlValueAccessor {
+
+  @Input()
+  icon: string = 'fa fa-upload';
 
   @Input()
   accept: string = '*';
@@ -78,7 +86,7 @@ export class FileInputComponent implements ControlValueAccessor {
   }
 
   checkFiles(files: FileList) {
-    const hasWrongFiles: boolean =  Array.from(files).some((file: File) => !accept(file, this.accept));
+    const hasWrongFiles: boolean = Array.from(files).some((file: File) => !accept(file, this.accept));
     // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
     this.invalidFiles = hasWrongFiles && this.accept !== '*';
   }
@@ -152,8 +160,8 @@ export class FileInputComponent implements ControlValueAccessor {
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onChange: (_: any) => void = () => {};
-  private onTouched: () => any = () => {};
+  private onChange: (_: any) => void = () => { };
+  private onTouched: () => any = () => { };
 
   writeValue(files: FileList): void {
     this.value = files;

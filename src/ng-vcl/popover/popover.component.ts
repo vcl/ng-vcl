@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Inject, InjectionToken, Input, Optional, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  ElementRef, EventEmitter, HostBinding, HostListener, Inject,
+  InjectionToken, Input, Optional, Output, SimpleChanges
+} from '@angular/core';
+import {
+  AnimationBuilder, AnimationFactory, AnimationMetadata
+} from '@angular/animations';
 import { ObservableComponent } from '../core/index';
-import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 
 export type AttachmentX = 'left' | 'center' | 'right';
 export const AttachmentX = {
@@ -65,9 +71,13 @@ export class PopoverComponent extends ObservableComponent {
 
   @Input()
   attachmentX: AttachmentX = AttachmentX.Left;
+  @Input()
+  offsetAttachmentX: number = 0;
 
   @Input()
   attachmentY: AttachmentY = AttachmentY.Top;
+  @Input()
+  offsetAttachmentY: number = 0;
 
   @Input()
   set visible(value) {
@@ -165,7 +175,7 @@ export class PopoverComponent extends ObservableComponent {
 
     const diffX: number = mustX - isX;
 
-    this.translateX = this.translateX + diffX;
+    this.translateX = this.translateX + diffX + this.offsetAttachmentX;
 
     const mustY: number = this.targetY === AttachmentY.Center ?
       targetPos[AttachmentY.Top] - targetPos[Dimension.Height] / 2 :
@@ -175,7 +185,7 @@ export class PopoverComponent extends ObservableComponent {
       ownPos[AttachmentY.Top] - ownPos[Dimension.Height] / 2 :
       ownPos[this.attachmentY];
 
-    const diffY: number = mustY - isY;
+    const diffY: number = mustY - isY + + this.offsetAttachmentY;
 
     if (this.debug) {
       console.log(tag, {
