@@ -267,6 +267,7 @@ export class MonthPickerComponent {
   addAvailableMonth(year: number, month: number): void {
     if (this.isDateInBounds(year, month)) {
       this.getYearMeta(year)[month].available = true;
+      this.ref.markForCheck();
     }
   }
 
@@ -282,6 +283,7 @@ export class MonthPickerComponent {
       this.deselectMonth(year, month);
       this.removeAvailableMonth(year, month);
     });
+    this.ref.markForCheck();
   }
 
   onPrevYearTap(): void {
