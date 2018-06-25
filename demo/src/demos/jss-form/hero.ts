@@ -82,7 +82,8 @@ export const HERO_SCHEMA = {
     leader: {
       formType: 'checkbox',
       label: 'Leader',
-      type: 'boolean'
+      type: 'boolean',
+      hideLabel: true
     },
     hp: {
       formType: 'slider',

@@ -30,6 +30,22 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   @Output()
   action = new EventEmitter<any>();
 
+  private _disable: boolean = false;
+
+  get disable(): boolean {
+    return this._disable;
+  }
+
+  @Input()
+  set disable(value: boolean) {
+    this._disable = value;
+    if (this.formObjects) {
+      this.formObjects.forEach(fo => {
+        fo.disableOverride = value;
+      });
+    }
+  }
+
   form: FormGroup | undefined;
   formObjects: FormObject[] | undefined;
 

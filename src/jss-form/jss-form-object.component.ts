@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Schema } from 'jsonschema';
 import { JssFormSchemaOptions, JssFormSchema } from './types';
 import { determineType } from './utils';
 
@@ -9,6 +8,8 @@ let uniqueID = 0;
 export class FormObject {
 
   id: string;
+
+  disableOverride: boolean = false;
 
   formType: string | undefined;
   formObjects: FormObject[] | undefined;
@@ -64,6 +65,14 @@ export class FormObject {
     }
 
     return false;
+  }
+
+  get disabled(): boolean {
+    return !!this.schema.disabled || this.disableOverride;
+  }
+
+  get hideLabel(): boolean {
+    return !!this.schema.hideLabel;
   }
 
 }

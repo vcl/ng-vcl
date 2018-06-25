@@ -44,6 +44,9 @@ export class CheckboxComponent implements ControlValueAccessor {
   @Input()
   checked: boolean = false;
 
+  @Input()
+  hideLabel: boolean = false;
+
   /**
   Action fired when the `checked` state changes due to user interaction.
   */

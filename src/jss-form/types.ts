@@ -19,4 +19,6 @@ export interface JssFormSchema extends Schema {
   prepIcon?: string;
   appIcon?: string;
   class?: string;
+  disabled?: boolean;
+  hideLabel?: boolean;
 }
