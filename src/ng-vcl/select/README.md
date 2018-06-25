@@ -34,9 +34,13 @@ Name                  | Type             | Description
 
 #### vcl-select-option attributes
 
-Name       | Type    | Default | Description
----------- | ------- | ------- | --------------------------------------
-`value`    | any     |         | The items value
-`label`    | string  |         | The items label
-`sublabel` | string  |         | The items sublabel
-`disabled` | boolean | false   | if true, the item cannot be selected
+Name         | Type    | Default | Description
+------------ | ------- | ------- | --------------------------------------
+`value`      | any     |         | The items value
+`label`      | string  |         | The items label
+`sublabel`   | string  |         | The items sublabel
+`disabled`   | boolean | false   | if true, the item cannot be selected
+`prepIcon`   | string  |         | Icon as defined by the icon component
+`appIcon`    | string  |         | Same as `prepIcon` but appended
+`prepIconSrc`| string  |         | Image as defined by the icon component
+`appIconSrc` | string  |         | Same as `prepIconSrc` but appended

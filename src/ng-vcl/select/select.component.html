@@ -37,14 +37,20 @@
       [style.position]="'absolute'"
       [style.zIndex]="zIndex"
       (change)="onDropdownChange($event)"
-      (itemsChange)="onItemsChange()">
-    <vcl-dropdown-option 
+      (itemsChange)="onItemsChange()"
+  >
+    <vcl-dropdown-option
       *ngFor="let item of items" 
       [metadata]="item" 
       [value]="item.value" 
       [disabled]="disabled || item.disabled" 
       [label]="item.label" 
-      [sublabel]="item.sublabel">
+      [sublabel]="item.sublabel"
+      [prepIcon]="item.prepIcon"
+      [appIcon]="item.appIcon"
+      [appIconSrc]="item.appIconSrc"
+      [prepIconSrc]="item.prepIconSrc"
+      >
     </vcl-dropdown-option>
   </vcl-dropdown>
 </div>
