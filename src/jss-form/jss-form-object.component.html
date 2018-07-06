@@ -187,6 +187,12 @@
       </ng-container>
 
     </ng-container>
+
+    <ng-container *ngIf="fo.schema.hint">
+      <div class="vclFormControlHint">
+        {{ fo.schema.hint }}
+      </div>
+    </ng-container>
   </ng-container>
 
   <ng-template #nested>

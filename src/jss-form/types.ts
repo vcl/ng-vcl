@@ -21,4 +21,5 @@ export interface JssFormSchema extends Schema {
   class?: string;
   disabled?: boolean;
   hideLabel?: boolean;
+  hint?: string;
 }
