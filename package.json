@@ -119,7 +119,7 @@
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-merge": "^4.1.3",
-    "webpack-serve": "^1.0.4",
+    "webpack-serve": "^2.0.0",
     "zone.js": "^0.8.26"
   },
   "pre-commit": [
