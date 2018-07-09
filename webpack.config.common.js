@@ -38,11 +38,6 @@ const POST_CSS_PLUGINS_CSSNANO = [
   })
 ];
 
-const CSS_LOADER_ALIAS = {
-  '../fonts': '../assets/fonts',
-  '../imgs': '../assets/imgs'
-};
-
 const DEFAULTS = {
   development: {
     mode: 'development',
@@ -98,6 +93,11 @@ module.exports = function wcc(config) {
       chunkFilename: '[name].[hash].chunk.js',
     },
     resolve: {
+      alias: {
+        [path.join(appFolder, 'fonts')]: path.join(appFolder, 'assets', 'fonts'),
+        [path.join(appFolder, 'imgs')]: path.join(appFolder, 'assets', 'imgs')
+        // '../imgs': '../assets/imgs'
+      },
       extensions: [".ts", ".js", ".json", ".css", ".styl", ".html"],
     },
     module: {
@@ -179,7 +179,6 @@ module.exports = function wcc(config) {
                 loader: 'css-loader',
                 options: {
                   importLoaders: 1,
-                  alias: CSS_LOADER_ALIAS,
                   minimize: minify
                 }
               },
