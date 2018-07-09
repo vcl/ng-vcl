@@ -8,7 +8,7 @@
   [style.z-index]="zIndex + 1"
   [style.pointer-events]="'all'" 
   role="dialog" 
-  (tap)='triggerOffClick($event)'
+  (click)='triggerOffClick($event)'
   >
   <div *ngIf="layerOpts.noLayerBox" #layerContent></div>
   <div *ngIf="!layerOpts.noLayerBox" #box class="vclLayerBox" [class.vclLayerGutterPadding]="layerOpts.gutterPadding" [style.pointer-events]="'all'" [style.z-index]="zIndex + 2">

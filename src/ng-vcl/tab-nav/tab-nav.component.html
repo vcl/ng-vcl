@@ -8,7 +8,7 @@
          [class.vclDisabled]="tab.disabled"
          [class.vclSelected]="selectedTabIndex===i"
          [class.aria-selected]="selectedTabIndex===i"
-         (tap)="onTabClick(tab)">
+         (click)="onTabClick(tab)">
         <span class="vclTabLabel"> 
           <wormhole [connect]="tab.label"></wormhole>
         </span>

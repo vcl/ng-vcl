@@ -154,7 +154,7 @@
                 [appIcon]="fo.schema.appIcon"
                 [ngClass]="fo.schema.class"
                 [label]="fo.schema.label"
-                (tap)="onAction(fo.schema.action || fo.schema)"
+                (click)="onAction(fo.schema.action || fo.schema)"
                 [disabled]="fo.disabled"></button>
       </ng-container>
 
@@ -179,7 +179,7 @@
                       [appIcon]="btnFo.schema.appIcon"
                       [ngClass]="btnFo.schema.class"
                       [label]="btnFo.schema.label"
-                      (tap)="onAction(btnFo.schema.action || button)"
+                      (click)="onAction(btnFo.schema.action || button)"
                       [disabled]="fo.disabled"></button>
             </ng-container>
           </ng-container>

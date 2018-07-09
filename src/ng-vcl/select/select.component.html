@@ -4,7 +4,7 @@
     class="vclLayoutHorizontal vclSelect vclInputGroupEmb"
     [style.marginBottom]="0"
     >
-    <div *ngIf="showDisplayValue" class="vclInput" readonly [class.vclSelected]="focused" (tap)="toggle()">
+    <div *ngIf="showDisplayValue" class="vclInput" readonly [class.vclSelected]="focused" (click)="toggle()">
       {{displayValue}}
     </div>
     <div *ngIf="!showDisplayValue" class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle()">
@@ -19,7 +19,7 @@
       tabindex="-1"
       class="vclTransparent vclAppended"
       [icon]="expanded ? expandedIcon : collapsedIcon"
-      (tap)="toggle()">
+      (click)="toggle()">
     </button>
   </div>
 

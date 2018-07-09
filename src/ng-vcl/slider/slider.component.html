@@ -7,5 +7,5 @@
   </div>
 </div>
 <div *ngIf="showScale" class="vclSliderScale" horizontal="" justified="" layout="">
-  <div *ngFor="let point of scalePoints" class="vclSliderScalePointLabel" (tap)="selectPoint(point)">{{point.label}}</div>
+  <div *ngFor="let point of scalePoints" class="vclSliderScalePointLabel" (click)="selectPoint(point)">{{point.label}}</div>
 </div>
