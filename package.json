@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/ng-vcl",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "A comprehensive library of components for Angular 6+ with VCL based styling",
   "scripts": {
     "lint": "tslint --type-check -p ./tsconfig.json",
@@ -15,8 +15,7 @@
     "build": "npm-run-all lint:src build:clean build:gulp",
     "publish": "gulp publish",
     "publish:next": "gulp publish:next",
-    "publish:git:ng-vcl": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl --branch dist_v0.3",
-    "publish:git:ng-vcl-c": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl-compatibility --branch dist_v0.3-compatibility",
+    "publish:git:ng-vcl": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl --branch dist_v0.6",
     "clean": "npm-run-all build:clean docs:clean",
     "docker": "docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash",
     "test": "echo \"Error: no test specified\" && exit 1"
