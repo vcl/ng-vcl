@@ -56,7 +56,7 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
     if (this.acSub) {
       return;
     }
-    this.acSub = this.ac.render(this.elementRef).subscribe(selection => {
+    this.acSub = this.ac.open(this.elementRef).subscribe(selection => {
       if (this.autocompleteAfterSelectAction === 'value') {
         this.elementRef.nativeElement.value = String(selection.value);
       } else if (this.autocompleteAfterSelectAction === 'label') {

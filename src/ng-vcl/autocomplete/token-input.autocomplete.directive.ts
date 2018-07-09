@@ -73,7 +73,7 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
       return;
     }
 
-    this.acSub = this.ac.render(this.tokenInputContainer.elementRef).subscribe(selection => {
+    this.acSub = this.ac.open(this.tokenInputContainer.elementRef).subscribe(selection => {
       this.tokenInputContainer.addToken(selection.label || String(selection.value), selection.value);
       this.elementRef.nativeElement.value = '';
       if (!this.focused) {
