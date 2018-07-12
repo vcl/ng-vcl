@@ -2,7 +2,7 @@
   <wormhole *ngIf="labelPre" [connect]="labelPre"></wormhole>
   <vcl-token *ngFor="let token of tokens"
              (remove)="removeToken(token)"
-             (tap)="select(token)"
+             (click)="select(token)"
              [disabled]="disabled"
              [ngClass]="tokenClass"
              [selected]="token.selected"

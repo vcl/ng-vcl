@@ -2,6 +2,8 @@
 
 A gallery containing multiple images with mobile swipe support.
 
+_Note: HammerJS must be loaded for touch events_
+
 ## Usage
 
 ```html

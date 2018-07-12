@@ -2,7 +2,7 @@
 
 ## Usage
 
-_Note: the slider requires that HammerJS is loaded_
+_Note: HammerJS must be loaded for touch events_
 
 ```js
 import { VCLSliderModule } from 'ng-vcl';

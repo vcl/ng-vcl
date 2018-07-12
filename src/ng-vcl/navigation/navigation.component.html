@@ -20,7 +20,7 @@
         [label]="item.label"
         [prepIcon]="item.calcPrepIcon"
         [appIcon]="item.calcAppIcon"
-        (tap)="selectItem(item)">
+        (click)="selectItem(item)">
       </a>
 
       <nav vcl-navigation *ngIf="item.items && item.items.length > 0"

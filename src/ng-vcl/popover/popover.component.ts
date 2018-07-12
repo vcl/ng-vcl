@@ -46,7 +46,6 @@ export interface PopoverAnimationConfig {
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[class.vclPopOver]': 'true',
     '[style.position]': '"absolute"'
   }
 })
@@ -55,8 +54,12 @@ export class PopoverComponent extends ObservableComponent {
 
   private tag: string;
 
+  @HostBinding('class.vclPopOver')
   @Input()
-  debug: false;
+  enableStyling = true;
+
+  @Input()
+  debug = false;
 
   @Input()
   target?: string | ElementRef | Element;
@@ -178,11 +181,11 @@ export class PopoverComponent extends ObservableComponent {
     this.translateX = this.translateX + diffX + this.offsetAttachmentX;
 
     const mustY: number = this.targetY === AttachmentY.Center ?
-      targetPos[AttachmentY.Top] - targetPos[Dimension.Height] / 2 :
+      targetPos[AttachmentY.Top] + targetPos[Dimension.Height] / 2 :
       targetPos[this.targetY];
 
     const isY: number = this.attachmentY === AttachmentY.Center ?
-      ownPos[AttachmentY.Top] - ownPos[Dimension.Height] / 2 :
+      ownPos[AttachmentY.Top] + ownPos[Dimension.Height] / 2 :
       ownPos[this.attachmentY];
 
     const diffY: number = mustY - isY + + this.offsetAttachmentY;
