@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, ChangeDetectionStrategy, SimpleChanges, forwardRef } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {
+  FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR, ControlValueAccessor,
+  FormControl
+} from '@angular/forms';
 import { Observable ,  Subscription } from 'rxjs';
 import { Schema, Validator } from 'jsonschema';
 import { FormObject, createFormObjects } from './jss-form-object.component';
@@ -63,8 +66,8 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.schema) {
       const schema = changes.schema.currentValue;
-      this.formObjects = createFormObjects(schema);
-      this.form = this.createFormGroup(schema);
+      this.formObjects = (<FormObject[] | undefined> createFormObjects(schema));
+      this.form = (<FormGroup> this.createFormGroup(schema));
 
       this.formValueChangeSub && this.formValueChangeSub.unsubscribe();
       this.formValueChangeSub = this.form.valueChanges.subscribe(value => {
@@ -79,21 +82,35 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   private createFormGroup(schema: JssFormSchema) {
     const createGroup = (schema: JssFormSchema) => {
       const group = {};
-      const props = schema.properties || {};
+      const props = schema.properties || schema.items || {};
       Object.keys(props).map(key => {
         const p = props[key];
         if (p) {
           // objects
           if (p.type === 'object') {
             group[key] = createGroup(p);
+          // arrays
+          } else if (p.formType === 'array' && p.type === 'array') {
+            const amount = p.count || 1;
+            const result: any[] = [];
+            for (let i = 0; i < amount; i++) {
+              result.push(createGroup(p.items));
+            }
+            group[key] = this.fb.array(result);
           // non-objects
           } else {
-            group[key] = ['', this.createJsonSchemaValidator(p, false)];
+            group[key] = new FormControl('', this.createJsonSchemaValidator(p, false));
           }
 
         }
 
       });
+
+      if (schema.formType === 'array' && schema.type === 'array') {
+        return this.fb.array([
+          this.fb.group(group)
+        ]);
+      }
 
       return this.fb.group(group, {
         validator: this.createJsonSchemaValidator(schema, true)

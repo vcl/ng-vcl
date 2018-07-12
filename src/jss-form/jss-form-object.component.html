@@ -186,9 +186,15 @@
         </div>
       </ng-container>
 
+      <ng-container *ngSwitchCase="'token'">
+        <label vcl-form-control-label *ngIf="!fo.hideLabel" [label]="fo.label" [required]="fo.required" [for]="fo.id"></label>
+        <vcl-token-input-container [disabled]="fo.disabled" [controlAsString]="true" [formControlName]="fo.key">
+          <input vcl-input vcl-token-input />
+        </vcl-token-input-container>
+      </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="fo.schema.hint">
+    <ng-container *ngIf="fo.schema && fo.schema.hint">
       <div class="vclFormControlHint">
         {{ fo.schema.hint }}
       </div>
@@ -196,12 +202,39 @@
   </ng-container>
 
   <ng-template #nested>
-    <fieldset class="vclFieldset" style="margin-top: 20px;margin-bottom: 20px;">
-      <legend>{{fo.label}}</legend>
-      <ng-container *ngFor="let subFo of fo.formObjects">
-        <vcl-jss-form-object [fo]="subFo" [form]="form.get(fo.key)"></vcl-jss-form-object>
+    <ng-container [ngSwitch]="fo.formType">
+      <ng-container *ngSwitchDefault>
+        <fieldset class="vclFieldset" [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
+          <legend>{{fo.label}}</legend>
+          <ng-container *ngIf="fo.schema.hint">
+            <div class="vclFormControlHint">{{ fo.schema.hint }}</div>
+          </ng-container>
+          <ng-container *ngFor="let subFo of fo.formObjects">
+            <vcl-jss-form-object [fo]="subFo" [form]="form.get(fo.key)"></vcl-jss-form-object>
+          </ng-container>
+        </fieldset>
       </ng-container>
-    </fieldset>
+      <ng-container *ngSwitchCase="'array'">
+        <fieldset class="vclFieldset"
+                  [formArrayName]="fo.key"
+                  [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
+          <legend>{{fo.label}} <vcl-icon icon="fa fa-plus" (tap)="addItem()" style="color: green"></vcl-icon></legend>
+          <ng-container *ngIf="fo.schema.hint">
+            <div class="vclFormControlHint">{{ fo.schema.hint }}</div>
+          </ng-container>
+          <ng-container *ngFor="let subArray of fo.formObjects; let i = index" [attr.data-index]="i">
+            <ng-container [formGroupName]="i">
+              <fieldset>
+                <legend>{{fo.singularLabel}} <vcl-icon icon="fa fa-times" (tap)="removeItem(i)" style="color: red"></vcl-icon></legend>
+                <ng-container *ngFor="let subFo of subArray">
+                  <vcl-jss-form-object [fo]="subFo" [form]="form.get(fo.key).controls[i]" [formComponent]="formComponent"></vcl-jss-form-object>
+                </ng-container>
+              </fieldset>
+            </ng-container>
+          </ng-container>
+        </fieldset>
+      </ng-container>
+    </ng-container>
   </ng-template>
 
 </div>

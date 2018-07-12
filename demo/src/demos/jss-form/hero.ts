@@ -107,6 +107,7 @@ export const HERO_SCHEMA = {
     mainSkill: {
       label: 'Main skill',
       description: 'nested object',
+      hint: 'The hero\'s main skill',
       type: 'object',
       properties: {
         name: {
@@ -114,7 +115,7 @@ export const HERO_SCHEMA = {
           label: 'Skill name',
           type: 'string',
           minLength: 1,
-          hint: 'The hero\'s main skill',
+          hint: 'The skills name',
         },
         damage: {
           formType: 'number',
@@ -126,6 +127,38 @@ export const HERO_SCHEMA = {
         }
       },
       required: ['name', 'damage']
+    },
+    attributes: {
+      formType: 'token',
+      label: 'Attributes',
+      type: 'array'
+    },
+    items: {
+      label: 'Items',
+      singularLabel: 'Item',
+      formType: 'array',
+      type: 'array',
+      hint: 'The hero\'s items',
+      items: {
+        type: 'object',
+        properties: {
+          name: {
+            formType: 'text',
+            label: 'Item name',
+            type: 'string',
+            minLength: 1,
+            hint: 'The items name',
+          },
+          quantity: {
+            formType: 'number',
+            label: 'Quantity',
+            hint: 'The item quantity',
+            type: 'number',
+            min: 0,
+            max: 100
+          }
+        }
+      }
     },
     submit: {
       formType: 'buttons',

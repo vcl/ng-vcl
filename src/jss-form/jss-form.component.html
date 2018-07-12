@@ -1,8 +1,9 @@
 <form class="vclForm" novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
   <ng-container *ngFor="let fo of formObjects">
     <vcl-jss-form-object [form]="form" 
-                         [fo]="fo" 
+                         [fo]="fo"
                          (action)="onAction($event)"
+                         [formComponent]="this"
                          >
     </vcl-jss-form-object>
   </ng-container>

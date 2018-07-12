@@ -69,6 +69,9 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   @Input()
   tokenClass: string | undefined;
 
+  @Input()
+  controlAsString = false;
+
   @HostBinding('class.vclDisabled')
   @Input()
   disabled = false;
@@ -124,7 +127,11 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
 
   triggerChange() {
     this.tokensChange.emit(this.tokens);
-    this.onChange(this.tokens);
+    if (this.controlAsString) {
+      this.onChange(this.tokens.map(t => t.label));
+    } else {
+      this.onChange(this.tokens);
+    }
   }
 
   /**
@@ -196,6 +203,8 @@ export class TokenInputDirective {
     if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '') {
       // remove last token
       this.tokenInputContainer.removeLastToken();
+    } else if (code == 'Enter') {
+      ev.preventDefault();
     } else if (code) {
       this.lastKey = code;
     }
