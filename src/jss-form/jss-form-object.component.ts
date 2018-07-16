@@ -123,13 +123,13 @@ export class JssFormObjectComponent {
 
   addItem() {
     const newFormGroup = this.formComponent.createFormGroup(this.fo.schema.items);
-    let parentArray = <FormArray> this.form.get('items');
+    let parentArray = <FormArray> this.form.get(this.fo.key);
     parentArray.setControl(parentArray.controls.length, newFormGroup);
     (<FormObject[][]> this.fo.formObjects).push((<FormObject[][]> createFormObjects(this.fo.schema, this.fo))[0]);
   }
 
   removeItem(i: number) {
-    let parentArray = <FormArray> this.form.get('items');
+    let parentArray = <FormArray> this.form.get(this.fo.key);
     parentArray.removeAt(i);
     (<FormObject[][]> this.fo.formObjects).splice(i, 1);
   }
