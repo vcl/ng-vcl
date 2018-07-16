@@ -16,6 +16,7 @@
     "publish": "gulp publish",
     "publish:next": "gulp publish:next",
     "publish:git:ng-vcl": "git-directory-deploy --directory dist/@ng-vcl/ng-vcl --branch dist_v0.6",
+    "publish:git:ng-vcl:jss": "git-directory-deploy --directory dist/@ng-vcl/jss-form --branch dist_v0.6_jss",
     "clean": "npm-run-all build:clean docs:clean",
     "docker": "docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash",
     "test": "echo \"Error: no test specified\" && exit 1"
