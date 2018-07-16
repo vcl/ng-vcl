@@ -99,7 +99,22 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
             group[key] = this.fb.array(result);
           // non-objects
           } else {
-            group[key] = new FormControl('', this.createJsonSchemaValidator(p, false));
+            let state: any = '';
+            switch (p.type) {
+              case 'number':
+                state = 0;
+                break;
+              case 'array':
+                state = [];
+                break;
+              case 'boolean':
+                state = false;
+                break;
+              case undefined:
+                state = undefined;
+                break;
+            }
+            group[key] = new FormControl(state, this.createJsonSchemaValidator(p, false));
           }
 
         }
