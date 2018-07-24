@@ -4,23 +4,19 @@ import {
   forwardRef,
   EventEmitter,
   HostListener,
-  ContentChildren,
   ElementRef,
-  ViewChild,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   HostBinding,
   Directive,
   ContentChild,
   TemplateRef,
-  OnDestroy,
-  Optional,
   SkipSelf,
-  Self
+  Self,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputDirective } from '../input/index';
-import { TokenComponent, Token } from './token.component';
+import { Token } from './token.component';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -84,31 +80,34 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   confirm = new EventEmitter<Token[]>();
 
   @ContentChild(TokenInputLabelPre, { read: TemplateRef })
-  labelPre: TokenInputLabelPre;
+  labelPre?: TokenInputLabelPre;
 
   @ContentChild(TokenInputLabelPost, { read: TemplateRef })
-  labelPost: TokenInputLabelPost;
+  labelPost?: TokenInputLabelPost;
 
   constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   removeLastToken() {
-    const token = this.tokens.pop();
+    this.tokens = [...this.tokens];
+    this.tokens.pop();
     this.triggerChange();
+    this.cdRef.markForCheck();
   }
 
-  addToken(label: string, value?: any, selected?: boolean) {
-    selected = selected === undefined ? this.preselect : selected;
-    const token = {
-      selected,
-      label,
-      value: value === undefined ? label : value
+  addToken(token: Token | string) {
+    token = typeof token === 'string' ? { label: token } : token;
+
+    const newToken: Token = {
+      ...token,
+      selected: token.selected === undefined ? this.preselect : token.selected,
+      value: token.value === undefined ? token.label : token.value
     };
 
-    if (this.allowDuplicates === false && this.tokens.some(thisToken => thisToken.value === token.value)) {
+    if (this.allowDuplicates === false && this.tokens.some(thisToken => thisToken.value === newToken.value)) {
       return;
     }
 
-    this.tokens.push(token);
+    this.tokens = [...this.tokens, newToken];
     this.triggerChange();
     this.cdRef.markForCheck();
   }

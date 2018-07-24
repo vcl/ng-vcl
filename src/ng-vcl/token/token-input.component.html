@@ -3,6 +3,7 @@
   <vcl-token *ngFor="let token of tokens"
              (remove)="removeToken(token)"
              (click)="select(token)"
+             [tokenIcon]="token.tokenIcon"
              [disabled]="disabled"
              [ngClass]="tokenClass"
              [selected]="token.selected"
