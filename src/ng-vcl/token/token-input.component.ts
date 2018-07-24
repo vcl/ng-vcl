@@ -60,6 +60,9 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   removeIcon: string = 'fa:remove';
 
   @Input()
+  removeToken: boolean = true;
+
+  @Input()
   tabindex: number = 0;
 
   @Input()
@@ -74,6 +77,9 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
 
   @Output()
   tokensChange = new EventEmitter<Token[]>();
+
+  @Output()
+  remove = new EventEmitter<Token>();
 
   // Emits on enter key with no input
   @Output()
@@ -119,9 +125,12 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
     }
   }
 
-  removeToken(token: Token) {
-    this.tokens = this.tokens.filter(t => t !== token);
-    this.triggerChange();
+  onTokenRemove(token: Token) {
+    this.remove.emit(token);
+    if (this.removeToken) {
+      this.tokens = this.tokens.filter(t => t !== token);
+      this.triggerChange();
+    }
   }
 
   triggerChange() {
