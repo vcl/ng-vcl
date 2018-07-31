@@ -24,7 +24,8 @@ export class MonthPickerDemoComponent {
   dateOptions: any = {
     month: 'long'
   };
-
+  min = new Date();
+  max = new Date(2019, 1, 1);
   constructor() { }
 
   ngOnInit() { }
