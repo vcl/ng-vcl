@@ -76,7 +76,7 @@ export class MonthPickerComponent {
   @Input('min')
   set min(value: Date) {
     if (!value) {
-      return
+      return;
     }
 
     this.minValue = value;
@@ -84,7 +84,7 @@ export class MonthPickerComponent {
     this.minValue.setHours(0, 0, 0, 0);
 
     if (!this.maxValue || !this.months) {
-      return
+      return;
     }
 
     this.useAvailableMonths = true;
@@ -101,7 +101,7 @@ export class MonthPickerComponent {
   set max(value: Date) {
 
     if (!value) {
-      return
+      return;
     }
 
     this.maxValue = value;
@@ -109,7 +109,7 @@ export class MonthPickerComponent {
     this.maxValue.setHours(0, 0, 0, 0);
 
     if (!this.minValue || !this.months) {
-      return
+      return;
     }
     this.useAvailableMonths = true;
     this.removeAllAvailableMonths();
@@ -143,7 +143,7 @@ export class MonthPickerComponent {
     this.setYearMeta(this.currentYear);
 
     if (!this.maxValue || !this.minValue) {
-      return
+      return;
     }
 
     this.useAvailableMonths = true;
