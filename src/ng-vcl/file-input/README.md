@@ -10,7 +10,7 @@ Enhanced file input
 
 ### API
 
-#### Properties
+#### Attributes
 
 Name          | Type    | Default      | Description
 ------------- | ------- | ------------ | ---------------------------------------------------

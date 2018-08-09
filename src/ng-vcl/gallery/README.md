@@ -50,22 +50,22 @@ Name        | Type    | Default  | Description
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
 `galleryTitle`  | string            |          | title of the gallery
-`target `       | GalleryComponent  |          | gallery component (required if outside of it)
+`target`       | GalleryComponent  |          | gallery component (required if outside of it)
 
 ### Gallery Body Attributes
 
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
-`target `       | GalleryComponent  |          | gallery component (required if outside of it)
+`target`       | GalleryComponent  |          | gallery component (required if outside of it)
 
 ### Gallery Footer Attributes
 
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
-`target `       | GalleryComponent  |          | gallery component (required if outside of it)
+`target`       | GalleryComponent  |          | gallery component (required if outside of it)
 
 ### Gallery Thumbnails Attributes
 
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
-`target `       | GalleryComponent  |          | gallery component (required if outside of it)
+`target`       | GalleryComponent  |          | gallery component (required if outside of it)

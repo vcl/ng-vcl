@@ -1,6 +1,6 @@
 # vcl-navigation
-The nav allows to organize navigation-items.
 
+The nav allows to organize navigation-items.
 
 ## Usage
 
@@ -49,17 +49,14 @@ export class AppComponent {}
 | `subLevelHintIconOpened` | string        |  'fa:chevron-down' | Icon for nested opened                     |
 | `subLevelHintIconSide`   | string        |             'left' | The side the icon be displayed             |
 
-
-
 #### vcl-navitem attributes
 
 | Name                     | Type        | Default  | Description                                   |
 | ------------------------ | ----------- | -------- |-----------------------------------------------|
-
-| `label`                  | string      |         | Label of this item                             |
-| `route`                  | any[]       |         | Route which is used onSelect                   |
-| `opened`                 | boolean     | false   | if true and nested this opens the subitems     |
-| `heading`                | boolean     | false   | if true, this is used as hX                    |
-| `prepIcon`               | string      |         |                                                |
-| `appIcon`                | string      |         | icon which should be displayed                 |
-| `class`                  | string      |         | any css-classes which will be added            |
+| `label`                  | string      |          | Label of this item                             |
+| `route`                  | any[]       |          | Route which is used onSelect                   |
+| `opened`                 | boolean     | false    | if true and nested this opens the subitems     |
+| `heading`                | boolean     | false    | if true, this is used as hX                    |
+| `prepIcon`               | string      |          |                                                |
+| `appIcon`                | string      |          | icon which should be displayed                 |
+| `class`                  | string      |          | any css-classes which will be added            |

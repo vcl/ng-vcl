@@ -17,7 +17,7 @@
 
 ```
 
-#### vcl-autocomplete-option attributes
+### vcl-autocomplete-option attributes
 
 Name       | Type    | Default | Description
 ---------- | ------- | ------- | --------------------------------------

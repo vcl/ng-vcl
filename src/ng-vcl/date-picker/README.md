@@ -14,13 +14,13 @@ import { VCLDatePickerModule } from 'ng-vcl';
 export class AppComponent {}
 ```
 
- ```html
+```html
 <vcl-date-picker></vcl-date-picker>
- ```
+```
 
 ### API
 
-#### Properties
+#### Attributes
 
 | Name                             | Type        | Default   | Description
 | -------------------------        | ----------- | --------- |--------------

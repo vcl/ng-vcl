@@ -14,13 +14,13 @@ import { VCLButtonGroupModule } from 'ng-vcl';
 export class AppComponent {}
 ```
 
- ```html
+```html
 <vcl-button-group mode="single">
   <button vcl-button vcl-button-group label="Action 1"></button>
   <button vcl-button vcl-button-group label="Action 2"></button>
   <button vcl-button vcl-button-group label="Action 3"></button>
 </vcl-button-group>
- ```
+```
 
 ### API
 
@@ -32,6 +32,7 @@ export class AppComponent {}
 | `mode`                | string                         | `single` | `single` or `multiple`
 
 #### Events
+
 | Name                  | Type                           | Description
 | -                     | -                              | -
 | `selectionChange`     | event (number &#124; number[]) | Triggers when selected buttons change

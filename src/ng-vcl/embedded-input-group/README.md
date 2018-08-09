@@ -13,7 +13,7 @@ Icon left and placeholder text
   <input vcl-input vcl-embedded-input-group placeholder="placeholder text" />
 </vcl-embedded-input-group>
 
-Placeholder text and icon on the right 
+Placeholder text and icon on the right
 <vcl-embedded-input-group appIcon="fa:times-circle">
   <input vcl-input vcl-embedded-input-group placeholder="Postcode, City, Name of the Workshop" />
 </vcl-embedded-input-group>

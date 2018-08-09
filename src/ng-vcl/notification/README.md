@@ -4,13 +4,13 @@ Make notifications
 
 ## Usage
 
- ```html
+```html
 <vcl-notification>Hello world!</vcl-notification>
 ```
 
-### API 
+### API
 
-#### Notification Properties
+#### Notification Attributes
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
@@ -33,19 +33,19 @@ Make notifications
 | `bodyAlign`         | `left`, `center`, `right`                        | `'center'`         | Body alignment
 | `footerAlign`       | `left`, `center`, `right`                        | `'left'`           | Footer alignment
 
-#### Header Properties
+#### Header Attributes
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
 | `align`             | `left`, `center`, `right`                        | `'left'`           | Alignment
 
-#### Body Properties
+#### Body Attributes
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------
 | `align`             | `left`, `center`, `right`                        | `'center'`         | Alignment
 
-#### Footer Properties
+#### Footer Attributes
 
 | Name                | Type                                             | Default            | Description
 | ------------------- | ------------------------------------------------ | ------------------ |--------------

@@ -8,7 +8,7 @@
 
 ### API
 
-#### Properties
+#### Attributes
 
 Name          | Type    | Default | Description
 ------------- | ------- | ------- | -------------------------------

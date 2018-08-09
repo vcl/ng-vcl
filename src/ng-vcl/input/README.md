@@ -11,7 +11,7 @@ Enhanced text input
 
 ### API
 
-#### vcl-input properties
+#### vcl-input attributes
 
 Name            | Type    | Default | Description
 --------------- | ------- | ------- | -----------------------------------------------

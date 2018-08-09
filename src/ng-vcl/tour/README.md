@@ -21,7 +21,6 @@ class AppComponent {
     this.hintService.initialize();
   }
 }
-
 ```
 
 ```html
@@ -45,12 +44,12 @@ class AppComponent {
 
 ### API
 
-#### vcl-tour-step Properties
+#### vcl-tour-step attributes
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
 | `title`                  | string      |          | Tour step title
-| `selector`               | string      |          | Required property, elements id which to highlight and attach tour step
+| `selector`               | string      |          | Required attribute, elements id which to highlight and attach tour step
 | `order`                  | number      |        0 | The order number in which tour step should be shown, necessary if same element used multiple times
 | `position`               | string      |   bottom | Tour step window position relative to element
 

@@ -1,6 +1,6 @@
 # [ng-vcl](https://ng-vcl.github.io/ng-vcl/)
 
-A comprehensive library of components for Angular 6+ with [VCL](http://vcl.github.io/) based styling.<br>
+A comprehensive library of components for Angular 6+ with [VCL](http://vcl.github.io/) based styling.  
 **[Browse the Demo](https://ng-vcl.github.io/ng-vcl/)**
 
 ## Features
@@ -34,4 +34,5 @@ cd ng-vcl
 npm install
 npm run dev
 ```
+
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.

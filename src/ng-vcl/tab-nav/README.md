@@ -1,4 +1,5 @@
 # vcl-tab-nav
+
 The tab nav allows to organize content in tabs.
 Only one tab is visible at a given time.
 
@@ -31,9 +32,9 @@ export class AppComponent {}
 </vcl-tab-nav>
 ```
 
-### API 
+### API
 
-#### vcl-tab-nav Properties
+#### vcl-tab-nav attributes
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
@@ -44,11 +45,11 @@ export class AppComponent {}
 | `tabsClass`              | string      |          | Modifier classes for vclTabs
 | `tabContentClass`        | string      |          | Modifier classes for vclTabContent
 
-#### vcl-tab Properties
+#### vcl-tab attributes
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
-| `disabled`               | boolean     |   false  | Disables the tab when true   
-| `tabClass`               | string      |          | Modifier classes for vclTab   
+| `disabled`               | boolean     |   false  | Disables the tab when true
+| `tabClass`               | string      |          | Modifier classes for vclTab
 
 *(1) Supports Two-way binding*
