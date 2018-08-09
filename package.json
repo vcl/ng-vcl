@@ -19,7 +19,8 @@
     "publish:git:ng-vcl:jss": "git-directory-deploy --directory dist/@ng-vcl/jss-form --branch dist_v0.6_jss",
     "clean": "npm-run-all build:clean docs:clean",
     "docker": "docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "markdownlint": "markdownlint -c markdownlint.json src/"
   },
   "repository": {
     "type": "git",
@@ -92,6 +93,8 @@
     "karma-webpack": "^3.0.0",
     "koa-connect": "^2.0.1",
     "markdown-loader": "^2.0.2",
+    "markdownlint": "^0.11.0",
+    "markdownlint-cli": "^0.12.0",
     "marked": "^0.3.19",
     "merge-stream": "^1.0.1",
     "mini-css-extract-plugin": "^0.4.1",
