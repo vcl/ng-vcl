@@ -123,7 +123,8 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   public ngOnDestroy(): void {
     if (!this.showOnInit) {
-      this.element.nativeElement.parentNode.removeChild(this.element.nativeElement);
+      const parentNode = this.element.nativeElement.parentNode;
+      parentNode && parentNode.removeChild(this.element.nativeElement);
     }
   }
 }

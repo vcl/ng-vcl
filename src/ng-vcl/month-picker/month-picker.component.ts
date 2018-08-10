@@ -74,6 +74,7 @@ export class MonthPickerComponent {
   ) { }
 
   ngOnInit(): void {
+    const tag: string = `${this.tag}.ngOnInit()`;
     // Create month labels.
     const date: Date = new Date(this.now.getFullYear(), 0);
     this.months = Array(MonthPickerComponent.MonthCount).fill(0).map(_ => {
@@ -98,6 +99,9 @@ export class MonthPickerComponent {
   }
 
   setYearMeta(year: number): void {
+    const tag: string = `${this.tag}.setYearMeta()`;
+    if (this.debug) console.log(tag, 'year:', year);
+
     if (!this.yearMeta[year]) {
       this.yearMeta[year] = this.createYearMeta(year);
     }
