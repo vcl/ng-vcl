@@ -2,7 +2,7 @@
 
 ## Usage
 
-```javascript
+```js
 import { VCLTokenModule } from 'ng-vcl';
 
 @NgModule({
@@ -59,9 +59,10 @@ Name          | Type    | Default   | Description
 `icon`        | string  | fa:remove | remove icon
 
 #### vcl-token events
-Name                  | Type    | Description
--                     | -       | -
-`remove`              |         | called when the remove-button is pressed
+
+Name        | Type    | Description
+----------- | ------- | ----------------------
+`remove`    |         | called when the remove-button is pressed
 
 #### token-list attributes
 
@@ -73,9 +74,8 @@ Name         | Type     | Default  | Description
 #### token-list events
 
 Name                  | Type     | Description
--                     | -        | -
+--------------------- | -------- | -----------
 `tokensChange`        | string[] | called when the selection of token changes
-
 
 #### vcl-token-input-container attributes
 
@@ -91,10 +91,10 @@ Name                 | Type     | Default              | Description
 
 #### vcl-token-input-container events
 
-Name                    | Type    | Description
--                       | -       | -
-`tokensChange`          | Token[] | called after tokens are added/removed or the selection of token changes
-`confirm`               | Token[] | called after `enter` is pressed when input element is empty
+Name            | Type    | Description
+--------------- | ------- | ---------------
+`tokensChange`  | Token[] | called after tokens are added/removed or the selection of token changes
+`confirm`       | Token[] | called after `enter` is pressed when input element is empty
 
 #### interfaces
 

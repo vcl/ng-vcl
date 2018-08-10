@@ -11,7 +11,7 @@ export class MyComponent {
   constructor(private notifier: NotifierService) {}
 
   info() {
-    this.notifier.info({ 
+    this.notifier.info({
       text: 'An info message'
     });
   }
@@ -69,7 +69,7 @@ export enum NotifierPosition {
 }
 
 export interface NotifierOptions {
-  text?: string; 
+  text?: string;
   html?: boolean;
   type?: NotifierType;
   showCloseButton?: boolean;

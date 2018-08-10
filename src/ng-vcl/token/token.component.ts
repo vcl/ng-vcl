@@ -14,6 +14,7 @@ export interface Token {
   selected?: boolean;
   removable?: boolean;
   value?: any;
+  tokenIcon?: string;
 }
 
 @Component({
@@ -28,10 +29,10 @@ export interface Token {
 export class TokenComponent implements Token {
 
   @Input()
-  label: string;
+  label: string = '';
 
   @Input()
-  value: string;
+  value?: string;
 
   @Input()
   disabled: boolean = false;
@@ -53,6 +54,9 @@ export class TokenComponent implements Token {
 
   @Input()
   icon: string = 'fa:remove';
+
+  @Input()
+  tokenIcon?: string;
 
   @Output()
   remove = new EventEmitter();

@@ -25,6 +25,20 @@
     (prevYearBtnTap)="onPreviousYearTap()"
     [prevYearAvailable]="prevYearAvailable"
     (nextYearBtnTap)="onNextYearTap()"
-    [nextYearAvailable]="nextYearAvailable">
+    [nextYearAvailable]="nextYearAvailable"
+  >
   </vcl-month-picker>
 </vcl-popover>
+<br><br>
+<br><br>
+
+<h3>Demo with set range for selectable months</h3>
+<vcl-month-picker [locales]="locales"
+                  [dateOptions]="dateOptions"
+                  [prevYearAvailable]="true"
+                  [nextYearAvailable]="true"
+                  [min]="min"
+                  [max]="max"
+>
+</vcl-month-picker>
+<br><br>

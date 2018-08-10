@@ -4,7 +4,7 @@ Zoom into areas of images.
 
 ## Usage
 
- ```html
+```html
 <vcl-zoom-box-container #first [x]="30" [y]="60" [width]="120" [height]="190">
   <img src="https://picsum.photos/320/320?image=434">
   <vcl-zoom-box-magnifier></vcl-zoom-box-magnifier>
@@ -12,9 +12,9 @@ Zoom into areas of images.
 <vcl-zoom-box [target]="first"></vcl-zoom-box>
 ```
 
-### API 
+### API
 
-#### Zoom-Box Container Properties
+#### Zoom-Box Container Attributes
 
 | Name                | Type        | Default            | Description
 | ------------------- | ----------- | ------------------ |--------------
@@ -24,7 +24,7 @@ Zoom into areas of images.
 | `height`            | number      |                    | Height of zoomed box
 | `resetOnOut`        | boolean     | false              | Reset position to initial on mouse out
 
-### Zoom-Box Properties
+### Zoom-Box Attributes
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------

@@ -67,6 +67,58 @@ export class MonthPickerComponent {
   @Input() minSelectableMonths: number = 0;
   @Input() minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
+
+  @Output()
+  change = new EventEmitter<Date | Array<Date | undefined>>();
+
+  minValue: Date | null;
+
+  @Input('min')
+  set min(value: Date) {
+    if (!value) {
+      return;
+    }
+
+    this.minValue = value;
+    this.minValue.setDate(0);
+    this.minValue.setHours(0, 0, 0, 0);
+
+    if (!this.maxValue || !this.months) {
+      return;
+    }
+
+    this.useAvailableMonths = true;
+    this.removeAllAvailableMonths();
+    let i: Date;
+    for (i = new Date(this.minValue); i <= this.maxValue; i.setMonth(i.getMonth() + 1)) {
+      this.addAvailableMonth(i.getFullYear(), i.getMonth());
+    }
+  }
+
+  maxValue: Date | null;
+
+  @Input('max')
+  set max(value: Date) {
+
+    if (!value) {
+      return;
+    }
+
+    this.maxValue = value;
+    this.maxValue.setDate(0);
+    this.maxValue.setHours(0, 0, 0, 0);
+
+    if (!this.minValue || !this.months) {
+      return;
+    }
+    this.useAvailableMonths = true;
+    this.removeAllAvailableMonths();
+    let i: Date;
+    for (i = new Date(this.minValue); i <= this.maxValue; i.setMonth(i.getMonth() + 1)) {
+      this.addAvailableMonth(i.getFullYear(), i.getMonth());
+    }
+  }
+
   //
 
   constructor(
@@ -90,6 +142,19 @@ export class MonthPickerComponent {
     this.availableColors = this.colors ? this.colors.map(color => true) : [];
 
     this.setYearMeta(this.currentYear);
+
+    if (!this.maxValue || !this.minValue) {
+      return;
+    }
+
+    this.useAvailableMonths = true;
+    this.removeAllAvailableMonths();
+    let i: Date;
+    for (i = new Date(this.minValue); i <= this.maxValue; i.setMonth(i.getMonth() + 1)) {
+      console.log(' ' + i.getFullYear() + ' ' + i.getMonth());
+      this.addAvailableMonth(i.getFullYear(), i.getMonth());
+    }
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -271,6 +336,7 @@ export class MonthPickerComponent {
   addAvailableMonth(year: number, month: number): void {
     if (this.isDateInBounds(year, month)) {
       this.getYearMeta(year)[month].available = true;
+      this.ref.markForCheck();
     }
   }
 
@@ -286,6 +352,7 @@ export class MonthPickerComponent {
       this.deselectMonth(year, month);
       this.removeAvailableMonth(year, month);
     });
+    this.ref.markForCheck();
   }
 
   onPrevYearTap(): void {

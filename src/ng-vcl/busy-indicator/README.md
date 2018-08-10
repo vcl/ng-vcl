@@ -11,6 +11,7 @@ An indicator to show that a lasting operation is currently in progress.
   <span>Loading…</span>
 </vcl-busy-indicator>
 ```
+
 ### API
 
 #### vclBusy Attributes
@@ -23,8 +24,6 @@ An indicator to show that a lasting operation is currently in progress.
 | `iconWidth`         | string                     | "3em"      | icon width
 | `direction`         | "vertical" or "horizontal" | "vertical" | The indicator direction
 
-
-
 ## vclBusy
 
 Covers an element with a layer showing the vcl-busy-indicator to indicate a busy state and prevent user interaction.
@@ -32,9 +31,8 @@ Covers an element with a layer showing the vcl-busy-indicator to indicate a busy
 ### Usage
 
 ```html
-  <div [vclBusy]="true" [busyLabel]="'Loading…'" [busyIndicatorType]="">
+<div [vclBusy]="true" [busyLabel]="'Loading…'" [busyIndicatorType]="">
     This content will be covered by the layer
-  </div>
 </div>
 ```
 
@@ -50,5 +48,3 @@ Covers an element with a layer showing the vcl-busy-indicator to indicate a busy
 | `busyIconHeight`         | string                     | "3em"      | icon height
 | `busyIconWidth`          | string                     | "3em"      | icon width
 | `busyIndicatorDirection` | "vertical" or "horizontal" | "vertical" | The indicator direction
-
-

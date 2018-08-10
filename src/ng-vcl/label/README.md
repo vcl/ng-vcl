@@ -4,7 +4,7 @@ A visually highlighted tag to attribute items.
 
 ## Usage
 
-```javascript
+```js
 import { VCLLabelModule } from '@ng-vcl/ng-vcl';
 
 @NgModule({
@@ -26,12 +26,11 @@ export class AppComponent {}
 <span vcl-label="warning">warning</span>
 
 <span vcl-label="error">error</span>
-
 ```
 
 ### API
 
-#### vcl-label Properties
+#### vcl-label attributes
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------

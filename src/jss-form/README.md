@@ -10,7 +10,7 @@ npm install @ng-vcl/jss-form --save
 
 ## Usage
 
-```javascript
+```js
 import { VCLJssFormModule } from 'ng-vcl';
 
 @NgModule({
@@ -158,14 +158,14 @@ example-schema:
 
 ### API
 
-#### vcl-jss-form properties
+#### vcl-jss-form attributes
 
 Name     | Type   | Default | Description
 -------- | ------ | ------- | -----------------------------------------------
 `schema` | object |         | a jsonschema to build the form from
 `ngModel`| any              | Value of the form
 
-#### schema properties
+#### schema attributes
 
 In addition to the [generic keywords](https://spacetelescope.github.io/understanding-json-schema/reference/generic.html) of jsonschema, vcl-jss-form is using keywords to let you define the generated form.
 

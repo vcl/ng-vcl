@@ -5,6 +5,7 @@ import { VCLInputModule } from '../input/index';
 import { VCLIconModule } from '../icon/index';
 import { VCLButtonModule } from '../button/index';
 import { VCLWormholeModule } from '../wormhole/index';
+import { VCLIcogramModule } from '../icogram/index';
 
 import { TokenComponent, Token } from './token.component';
 import { TokenListComponent } from './token-list.component';
@@ -13,7 +14,7 @@ import { TokenInputContainerComponent, TokenInputLabelPost, TokenInputLabelPre, 
 export { TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, Token };
 
 @NgModule({
-  imports: [CommonModule, VCLInputModule, VCLButtonModule, FormsModule, VCLIconModule, VCLWormholeModule],
+  imports: [CommonModule, VCLInputModule, VCLButtonModule, FormsModule, VCLIconModule, VCLIcogramModule, VCLWormholeModule],
   exports: [TokenComponent, TokenListComponent, TokenInputContainerComponent, TokenInputDirective, TokenInputLabelPost, TokenInputLabelPre],
   declarations: [TokenComponent, TokenListComponent, TokenInputContainerComponent, TokenInputDirective, TokenInputLabelPost, TokenInputLabelPre],
   providers: [],

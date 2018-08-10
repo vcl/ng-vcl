@@ -28,8 +28,13 @@
       [class.vclDisabled]="disabled || meta.disabled"
       [class.vclHighlighted]="focused && meta.marked"
       [attr.aria-selected]="meta.selected"
-      (tap)="onMetalistItemTap(meta)">
-      <div *ngIf="item.label" class="vclDropdownItemLabel">
+      (click)="onMetalistItemTap(meta)">
+      <div vcl-icogram *ngIf="item.label" class="vclDropdownItemLabel"
+         [prepIcon]="item.prepIcon"
+         [appIcon]="item.appIcon"
+         [appIconSrc]="item.appIconSrc"
+         [prepIconSrc]="item.prepIconSrc"
+      >
         {{item.label}}
       </div>
       <div *ngIf="item.sublabel" class="vclDropdownItemSubLabel">

@@ -17,24 +17,27 @@ export class AppComponent { ... }
 
 ### button[vcl-button]
 
- ```html
+```html
 <button vcl-button (click)="someAction($event)">Action</button>
- ```
+```
+
 ### button[vcl-button][label]
 
- ```html
+```html
 <button vcl-button label="Action" appIcon="fa:bolt"></button>
- ```
+```
+
 ### button[vcl-button][icon]
 
 ```html
 <button vcl-button icon="fa:bolt"></button>
 ```
+
 ### button[vcl-button][selectable]
 
- ```html
+```html
 <button vcl-button selectable (select)="someAction($event)">Action</button>
- ```
+```
 
 ### API
 
@@ -59,7 +62,6 @@ export class AppComponent { ... }
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `icon`              | string      |          | Sets the button icon
-
 
 #### vcl-button[selectable] attributes
 

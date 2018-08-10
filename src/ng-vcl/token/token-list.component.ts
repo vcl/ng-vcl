@@ -54,7 +54,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
   @Output()
   tokensChange = new EventEmitter();
 
-  labels: any[];
+  labels: any[] = [];
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
@@ -131,8 +131,8 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
     /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onTouchedCallback?: (_: any) => void;
+  private onChangeCallback?: (_: any) => void;
   writeValue(value: any): void {
     this.labels = value;
     this.syncTokens();

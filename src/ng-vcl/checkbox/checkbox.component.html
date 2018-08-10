@@ -12,7 +12,7 @@
 </div>  
 </ng-template>
 
-<label vcl-form-control-label [wrapping]="true" [label]="label">
+<label vcl-form-control-label [wrapping]="true" [label]="hideLabel ? '' : label">
   <ng-container *ngIf="iconPosition==='left'" [ngTemplateOutlet]="cb"></ng-container>
   {{label }}
   <ng-content></ng-content>

@@ -19,5 +19,17 @@ export class SelectOption {
   label: string;
 
   @Input()
+  prepIcon?: string;
+
+  @Input()
+  appIcon?: string;
+
+  @Input()
+  appIconSrc?: string;
+
+  @Input()
+  prepIconSrc?: string;
+
+  @Input()
   disabled: boolean = false;
 }

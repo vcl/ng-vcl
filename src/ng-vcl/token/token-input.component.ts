@@ -4,23 +4,19 @@ import {
   forwardRef,
   EventEmitter,
   HostListener,
-  ContentChildren,
   ElementRef,
-  ViewChild,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   HostBinding,
   Directive,
   ContentChild,
   TemplateRef,
-  OnDestroy,
-  Optional,
   SkipSelf,
-  Self
+  Self,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputDirective } from '../input/index';
-import { TokenComponent, Token } from './token.component';
+import { Token } from './token.component';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -64,10 +60,16 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   removeIcon: string = 'fa:remove';
 
   @Input()
+  removeToken: boolean = true;
+
+  @Input()
   tabindex: number = 0;
 
   @Input()
   tokenClass: string | undefined;
+
+  @Input()
+  controlAsString = false;
 
   @HostBinding('class.vclDisabled')
   @Input()
@@ -76,36 +78,42 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   @Output()
   tokensChange = new EventEmitter<Token[]>();
 
+  @Output()
+  remove = new EventEmitter<Token>();
+
   // Emits on enter key with no input
   @Output()
   confirm = new EventEmitter<Token[]>();
 
   @ContentChild(TokenInputLabelPre, { read: TemplateRef })
-  labelPre: TokenInputLabelPre;
+  labelPre?: TokenInputLabelPre;
 
   @ContentChild(TokenInputLabelPost, { read: TemplateRef })
-  labelPost: TokenInputLabelPost;
+  labelPost?: TokenInputLabelPost;
 
   constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   removeLastToken() {
-    const token = this.tokens.pop();
+    this.tokens = [...this.tokens];
+    this.tokens.pop();
     this.triggerChange();
+    this.cdRef.markForCheck();
   }
 
-  addToken(label: string, value?: any, selected?: boolean) {
-    selected = selected === undefined ? this.preselect : selected;
-    const token = {
-      selected,
-      label,
-      value: value === undefined ? label : value
+  addToken(token: Token | string) {
+    token = typeof token === 'string' ? { label: token } : token;
+
+    const newToken: Token = {
+      ...token,
+      selected: token.selected === undefined ? this.preselect : token.selected,
+      value: token.value === undefined ? token.label : token.value
     };
 
-    if (this.allowDuplicates === false && this.tokens.some(thisToken => thisToken.value === token.value)) {
+    if (this.allowDuplicates === false && this.tokens.some(thisToken => thisToken.value === newToken.value)) {
       return;
     }
 
-    this.tokens.push(token);
+    this.tokens = [...this.tokens, newToken];
     this.triggerChange();
     this.cdRef.markForCheck();
   }
@@ -117,14 +125,21 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
     }
   }
 
-  removeToken(token: Token) {
-    this.tokens = this.tokens.filter(t => t !== token);
-    this.triggerChange();
+  onTokenRemove(token: Token) {
+    this.remove.emit(token);
+    if (this.removeToken) {
+      this.tokens = this.tokens.filter(t => t !== token);
+      this.triggerChange();
+    }
   }
 
   triggerChange() {
     this.tokensChange.emit(this.tokens);
-    this.onChange(this.tokens);
+    if (this.controlAsString) {
+      this.onChange(this.tokens.map(t => t.label));
+    } else {
+      this.onChange(this.tokens);
+    }
   }
 
   /**
@@ -196,6 +211,8 @@ export class TokenInputDirective {
     if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '') {
       // remove last token
       this.tokenInputContainer.removeLastToken();
+    } else if (code == 'Enter') {
+      ev.preventDefault();
     } else if (code) {
       this.lastKey = code;
     }

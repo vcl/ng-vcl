@@ -12,11 +12,11 @@ A container for the vcl-input which offers a button to toggle visibility of the 
 
 ### API
 
-#### Properties
+#### Attributes
 
 Name            | Type    | Default           | Description
 --------------- | ------- | -------           | -----------------------------------------------
-`visibleIcon`   | string  | `fa:eye-slash`    | The icon on the button in visible state 
-`invisibleIcon` | string  | `fa:eye`          | The icon on the button in invisible state 
+`visibleIcon`   | string  | `fa:eye-slash`    | The icon on the button in visible state
+`invisibleIcon` | string  | `fa:eye`          | The icon on the button in invisible state
 `visible`       | boolean | false             | Input is visible by default when true
 `disabled`      | boolean | false             | Disables the Password Input when true

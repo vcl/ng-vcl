@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Schema } from 'jsonschema';
+import {FormArray, FormGroup} from '@angular/forms';
 import { JssFormSchemaOptions, JssFormSchema } from './types';
 import { determineType } from './utils';
 
@@ -10,8 +9,10 @@ export class FormObject {
 
   id: string;
 
+  disableOverride: boolean = false;
+
   formType: string | undefined;
-  formObjects: FormObject[] | undefined;
+  formObjects: FormObject[] | FormObject[][] | undefined;
 
   options: JssFormSchemaOptions[] = [];
   buttons: FormObject[] = [];
@@ -58,6 +59,10 @@ export class FormObject {
     return this.schema.label || this.key;
   }
 
+  get singularLabel() {
+    return this.schema.singularLabel || this.key;
+  }
+
   get required(): boolean {
     if (this.formType === 'text') {
       return typeof this.schema.minLength === 'number' && this.schema.minLength > 0;
@@ -66,13 +71,30 @@ export class FormObject {
     return false;
   }
 
+  get disabled(): boolean {
+    return !!this.schema.disabled || this.disableOverride;
+  }
+
+  get hideLabel(): boolean {
+    return !!this.schema.hideLabel;
+  }
+
 }
 
-export function createFormObjects(schema: any, parent?: FormObject): FormObject[] | undefined {
+export function createFormObjects(schema: any, parent?: FormObject): FormObject[] | FormObject[][] | undefined {
   if (schema.properties) {
     return Object.keys(schema.properties).map(key => {
       return new FormObject(schema.properties[key], key, parent ? parent.key : undefined);
     });
+  } else if (schema.items) {
+    const amount = schema.count || 1;
+    const result: any[] = [];
+    for (let i = 0; i < amount; i++) {
+      result.push(Object.keys(schema.items.properties).map(key => {
+        return new FormObject(schema.items.properties[key], key, parent ? parent.key : undefined);
+      }));
+    }
+    return result;
   } else {
     return undefined;
   }
@@ -89,11 +111,27 @@ export class JssFormObjectComponent {
   @Input()
   fo: FormObject;
 
+  @Input()
+  formComponent?: any;
+
   @Output()
   action = new EventEmitter<any>();
 
   onAction(event) {
     this.action.emit(event);
+  }
+
+  addItem() {
+    const newFormGroup = this.formComponent.createFormGroup(this.fo.schema.items);
+    let parentArray = <FormArray> this.form.get(this.fo.key);
+    parentArray.setControl(parentArray.controls.length, newFormGroup);
+    (<FormObject[][]> this.fo.formObjects).push((<FormObject[][]> createFormObjects(this.fo.schema, this.fo))[0]);
+  }
+
+  removeItem(i: number) {
+    let parentArray = <FormArray> this.form.get(this.fo.key);
+    parentArray.removeAt(i);
+    (<FormObject[][]> this.fo.formObjects).splice(i, 1);
   }
 
   get hasError() {

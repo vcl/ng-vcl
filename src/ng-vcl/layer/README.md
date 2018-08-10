@@ -10,6 +10,7 @@ A layer reference is an object of the type `LayerRef` and allows to open, close,
 It can be created as a template using the `vcl-layer directive or from a component:
 
 #### Template layer
+
 ```html
 <ng-template vcl-layer #myTemplateLayer="layer" [modal]="true">
   <div class="vclPanel vclNoMargin">
@@ -27,17 +28,18 @@ It can be created as a template using the `vcl-layer directive or from a compone
 ```
 
 #### Component layer
+
 ```js
 import { Layer, LayerRef, ComponentLayerRef, provideLayer } from '@ng-vcl/ng-vcl';
 
 // This is just a common component
 @Component({ ... })
-export class MyComponent { 
+export class MyComponent {
 
   @Output()
   greet = new EventEmitter();
 
-  // layerRef is a reference to the current layer. 
+  // layerRef is a reference to the current layer.
   // Its value is null when the component is not used as a layer
   constructor(@Optional() private layerRef: LayerRef) { }
 
@@ -62,8 +64,8 @@ export class MyComponent {
   // See vcl-layer attributes below for more options
   modal: true,
   events: ['greet']
-}) 
-export class MyLayer extends LayerRef { 
+})
+export class MyLayer extends LayerRef {
   event(event) {
     switch (event.type) {
       case 'greet':
@@ -77,10 +79,10 @@ A component layer must be registered.
 
 ```js
 @NgModule({
-  imports: [ 
+  imports: [
     VCLLayerModule.forRoot({ // use forChild() in (lazy loaded) modules
       layers: [MyLayer]
-    }), 
+    }),
     ...
   ],
   entryComponents: [ MyComponent, ... ],
@@ -91,6 +93,7 @@ export default class AppModule {  };
 ```
 
 #### Using the layers
+
 ```js
 import { LayerRef } from '@ng-vcl/ng-vcl';
 import { MyLayer } from './my-layer';
@@ -117,7 +120,7 @@ export class LayerDemoComponent {
 
 #### Setting attributes and receiving data
 
-The open() method allows to pass data to the layer and returns an Observable which 
+The open() method allows to pass data to the layer and returns an Observable which
 allows you to receive data from the layer.
 
 ```js
@@ -161,7 +164,7 @@ class LayerService {
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `modal`             | boolean     | false    | Wether a non-modal layer should close when clicked outside
-| `transparent  `     | boolean     | false    | Makes the layer's background transparent
+| `transparent`       | boolean     | false    | Makes the layer's background transparent
 | `fill`              | boolean     | false    | Makes the layer cover the whole viewport
 | `stickToBottom`     | boolean     | false    | Makes the layer stick to the bottom
 | `gutterPadding`     | boolean     | false    | Add a padding of half the gutter width

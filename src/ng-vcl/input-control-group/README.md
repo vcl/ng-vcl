@@ -9,7 +9,7 @@ Input-Control-Group to handle the error-state of any object.
 
 ### API
 
-#### Properties
+#### Attributes
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------

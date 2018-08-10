@@ -18,16 +18,15 @@ Wrapping label
 </label>
 ```
 
-### API 
+### API
 
-#### Properties
+#### Attributes
 
 | Name                         | Type        | Default  | Description
 | ---------------------------- | ----------- | -------- |--------------
-| `label`                      | string      |          | The label 
-| `subLabel`                   | string      |          | The sublabel 
+| `label`                      | string      |          | The label
+| `subLabel`                   | string      |          | The sublabel
 | `disabled`                   | boolean     | false    | Whether the label is disabled or not
 | `required`                   | boolean     | false    | Shows the required indicator when true
 | `requiredIndicatorCharacter` | string      | •        | The required indicator character
 | `requiredIndLabel`           | string      |          | Accessible label for the required indicator
-

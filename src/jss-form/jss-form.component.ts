@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, ChangeDetectionStrategy, SimpleChanges, forwardRef } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {
+  FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR, ControlValueAccessor,
+  FormControl
+} from '@angular/forms';
 import { Observable ,  Subscription } from 'rxjs';
 import { Schema, Validator } from 'jsonschema';
 import { FormObject, createFormObjects } from './jss-form-object.component';
@@ -30,6 +33,22 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   @Output()
   action = new EventEmitter<any>();
 
+  private _disable: boolean = false;
+
+  get disable(): boolean {
+    return this._disable;
+  }
+
+  @Input()
+  set disable(value: boolean) {
+    this._disable = value;
+    if (this.formObjects) {
+      this.formObjects.forEach(fo => {
+        fo.disableOverride = value;
+      });
+    }
+  }
+
   form: FormGroup | undefined;
   formObjects: FormObject[] | undefined;
 
@@ -47,8 +66,8 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.schema) {
       const schema = changes.schema.currentValue;
-      this.formObjects = createFormObjects(schema);
-      this.form = this.createFormGroup(schema);
+      this.formObjects = (<FormObject[] | undefined> createFormObjects(schema));
+      this.form = (<FormGroup> this.createFormGroup(schema));
 
       this.formValueChangeSub && this.formValueChangeSub.unsubscribe();
       this.formValueChangeSub = this.form.valueChanges.subscribe(value => {
@@ -63,21 +82,50 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   private createFormGroup(schema: JssFormSchema) {
     const createGroup = (schema: JssFormSchema) => {
       const group = {};
-      const props = schema.properties || {};
+      const props = schema.properties || schema.items || {};
       Object.keys(props).map(key => {
         const p = props[key];
         if (p) {
           // objects
           if (p.type === 'object') {
             group[key] = createGroup(p);
+          // arrays
+          } else if (p.formType === 'array' && p.type === 'array') {
+            const amount = p.count || 1;
+            const result: any[] = [];
+            for (let i = 0; i < amount; i++) {
+              result.push(createGroup(p.items));
+            }
+            group[key] = this.fb.array(result);
           // non-objects
           } else {
-            group[key] = ['', this.createJsonSchemaValidator(p, false)];
+            let state: any = '';
+            switch (p.type) {
+              case 'number':
+                state = 0;
+                break;
+              case 'array':
+                state = [];
+                break;
+              case 'boolean':
+                state = false;
+                break;
+              case undefined:
+                state = undefined;
+                break;
+            }
+            group[key] = new FormControl(state, this.createJsonSchemaValidator(p, false));
           }
 
         }
 
       });
+
+      if (schema.formType === 'array' && schema.type === 'array') {
+        return this.fb.array([
+          this.fb.group(group)
+        ]);
+      }
 
       return this.fb.group(group, {
         validator: this.createJsonSchemaValidator(schema, true)

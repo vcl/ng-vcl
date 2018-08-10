@@ -4,7 +4,7 @@ A visually highlighted tag to attribute items.
 
 ## Usage
 
-```javascript
+```js
 import { VCLBadgeModule } from '@ng-vcl/ng-vcl';
 
 @NgModule({
@@ -26,12 +26,11 @@ export class AppComponent {}
 <span vcl-badge="warning">warning</span>
 
 <span vcl-badge="error">error</span>
-
 ```
 
 ### API
 
-#### vcl-badge Properties
+#### vcl-badge attributes
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------

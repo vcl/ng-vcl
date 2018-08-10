@@ -9,6 +9,7 @@ export interface JssFormSchemaOptions {
 export interface JssFormSchema extends Schema {
   properties?: { [name: string]: JssFormSchema };
   label?: string;
+  singularLabel?: string;
   formType?: string;
   placeholder?: string;
   options?: JssFormSchemaOptions[];
@@ -19,4 +20,8 @@ export interface JssFormSchema extends Schema {
   prepIcon?: string;
   appIcon?: string;
   class?: string;
+  disabled?: boolean;
+  hideLabel?: boolean;
+  hint?: string;
+  count?: number;
 }

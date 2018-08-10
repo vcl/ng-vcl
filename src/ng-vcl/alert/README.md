@@ -66,7 +66,7 @@ this.alert.open({
   buttonAlignment: AlertAlignment.Center,
 });
 
-// Confirmation 
+// Confirmation
 this.alert.open({
   title: 'Delete file',
   text: 'Do you really want to delete the file?',
@@ -129,9 +129,9 @@ question(text: string, opts?: AlertOptions); // Message with AlertType.Question 
 
 ### API
 
-#### AlertOptions
+#### Alert Attributes
 
-All properties are optional
+All attributes are optional
 
 | Name                    | Type           | Default         | Description
 | ----------------------- | -------------- | --------------- | --------------
@@ -165,8 +165,8 @@ All properties are optional
 | `iconAlignment`         | AlertAlignment | Center          | Alignment of the icon
 | `buttonAlignment`       | AlertAlignment | Right           | Alignment of the buttons
 
-
 #### Enums
+
 ```ts
 export enum AlertType {
   None,

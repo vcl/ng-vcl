@@ -1,6 +1,6 @@
 # [ng-vcl](https://ng-vcl.github.io/ng-vcl/)
 
-A comprehensive library of components for Angular 6+ with [VCL](http://vcl.github.io/) based styling.<br>
+A comprehensive library of components for Angular 6+ with [VCL](http://vcl.github.io/) based styling.  
 **[Browse the Demo](https://ng-vcl.github.io/ng-vcl/)**
 
 ## Installation
@@ -22,4 +22,3 @@ import { VCLIconModule, VCLLayerModule } from '@ng-vcl/ng-vcl';
 })
 export class AppModule { }
 ```
-

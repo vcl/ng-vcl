@@ -12,7 +12,6 @@
 </vcl-dropdown>
 ```
 
-
 ### API
 
 #### vcl-dropdown attributes
@@ -23,7 +22,7 @@ Name                  | Type                        | Default  | Description
 `value`               | any &#124; any[]            |          | value(s) of the selected option(s)
 `mode`                | "single" &#124; "multiple"  | "single" | 1 option can be selected in "single" mode. 0 to `maxSelectableItems` in "multiple"
 `maxSelectableItems`  | number &#124; undefined     |          | maximum number of options that can be selected at the same time. Unlimited if undefined.
-`listenKeys`          | boolean                     | true     | if true, the dropdown will listen and interact to keypress-events 
+`listenKeys`          | boolean                     | true     | if true, the dropdown will listen and interact to keypress-events
 
 #### vcl-dropdown events
 
@@ -33,9 +32,13 @@ Name                  | Type             | Description
 
 #### vcl-dropdown-option attributes
 
-Name       | Type    | Default | Description
----------- | ------- | ------- | --------------------------------------
-`value`    | any     |         | The items value
-`label`    | string  |         | The items label
-`sublabel` | string  |         | The items sub label
-`disabled` | boolean | false   | if true, the item cannot be selected
+Name         | Type    | Default | Description
+----------   | ------- | ------- | --------------------------------------
+`value`      | any     |         | The items value
+`label`      | string  |         | The items label
+`sublabel`   | string  |         | The items sub label
+`disabled`   | boolean | false   | if true, the item cannot be selected
+`prepIcon`   | string  |         | Icon as defined by the icon component
+`appIcon`    | string  |         | Same as `prepIcon` but appended
+`prepIconSrc`| string  |         | Image as defined by the icon component
+`appIconSrc` | string  |         | Same as `prepIconSrc` but appended

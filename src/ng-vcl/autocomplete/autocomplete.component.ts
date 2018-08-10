@@ -34,7 +34,7 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
   disabled: boolean = false;
 
   @Output()
-  select = new EventEmitter<any>();
+  select = new EventEmitter<AutocompleteOption>();
 
   target$ = new BehaviorSubject<any>(undefined);
 
@@ -64,25 +64,31 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 
   highlightedItem: number = -1;
 
-  render(targetElement: ElementRef): Observable<AutocompleteOption> {
+  open(targetElement: ElementRef): Observable<AutocompleteOption> {
     this.highlightedItem = -1;
-    const select = new Subject<AutocompleteOption>();
 
     this.target$.next({
       element: targetElement,
       select(ac: AutocompleteOption) {
-        select.next(ac);
+        this.select.emit(ac);
       }
     });
 
     return new Observable<AutocompleteOption>(observer => {
-      const sub = select.subscribe(observer);
+      const sub = this.select.subscribe(observer);
       return () => {
         sub.unsubscribe();
-        select.complete();
         this.target$.next(undefined);
       };
     });
+  }
+
+  get visible(): boolean {
+    return !!this.target$.value;
+  }
+
+  close() {
+    this.target$.next(undefined);
   }
 
   highlightPrev() {

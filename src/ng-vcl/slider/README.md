@@ -2,7 +2,7 @@
 
 ## Usage
 
-_Note: the slider requires that HammerJS is loaded_
+_Note: HammerJS must be loaded for touch events_
 
 ```js
 import { VCLSliderModule } from 'ng-vcl';
@@ -15,25 +15,25 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-slider 
-  [(ngModel)]="value1" 
-  [min]="0" 
-  [max]="100" 
+<vcl-slider
+  [(ngModel)]="value1"
+  [min]="0"
+  [max]="100"
   [scale]="10">
-</vcl-slider>```
+</vcl-slider>
 ```
 
 ```html
-<vcl-slider 
-  [(ngModel)]="value2" 
-  [min]="0" 
-  [max]="50" 
-  [lock]="5" 
+<vcl-slider
+  [(ngModel)]="value2"
+  [min]="0"
+  [max]="50"
+  [lock]="5"
   [scale]="['Zero','One','Two','Three','Four','Five']">
-</vcl-slider>```
+</vcl-slider>
 ```
 
-### API 
+### API
 
 #### Attributes
 

@@ -19,7 +19,7 @@ A popover is a dom-element which 'floats' at the position of the target element.
 Name             | Type    | Default  | Description
 ---------------- | ------- | -------- | --------------------------------
 `visible` _(1)_  | boolean | true     | the popover is hidden if false
-`target `        | any     |          | the target can be a selector, element or ElementRef instance
+`target`         | any     |          | the target can be a selector, element or ElementRef instance
 `targetX`        | string  | 'left'   | position of the target-side
 `attachmentX`    | string  | 'left'   | position of the popover-side
 `targetY`        | string  | 'bottom' | position of the target-vertical
