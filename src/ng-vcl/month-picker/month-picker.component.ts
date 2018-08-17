@@ -75,6 +75,8 @@ export class MonthPickerComponent implements ControlValueAccessor {
   @Input() minSelectableMonths: number = 0;
   @Input() minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
+  @Output()
+  change = new EventEmitter<Date | Array<Date | undefined>>();
 
   minValue: Date | null;
 
@@ -239,7 +241,6 @@ export class MonthPickerComponent implements ControlValueAccessor {
   }
 
   preselectMonth(year: number, month: number, color: string): void {
-    console.log('preselectmonth', year, month);
     const tag: string = `${this.tag}.preselectMonth()`;
     if (this.debug) console.log(tag, `${year}.${month}`);
     const monthMeta: any = this.getYearMeta(year)[month];
