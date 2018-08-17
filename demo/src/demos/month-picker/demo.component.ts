@@ -24,6 +24,9 @@ export class MonthPickerDemoComponent {
   dateOptions: any = {
     month: 'long'
   };
+
+  selectedMonth = new Date(2018, 1);
+
   min = new Date();
   max = new Date(2019, 1, 1);
   constructor() { }
@@ -61,6 +64,10 @@ export class MonthPickerDemoComponent {
     if (this.currentYear === this.thisYear) {
       this.nextYearAvailable = false;
     }
+  }
+
+  btn() {
+    this.selectedMonth = new Date(2018, 4);
   }
 }
 

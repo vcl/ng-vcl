@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { VCLMonthPickerModule, VCLButtonModule, VCLPopoverModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { MonthPickerDemoComponent } from './demo.component';
+import {FormsModule} from "@angular/forms";
 
 export function demo() {
   return {
@@ -29,6 +30,7 @@ export function demo() {
     VCLButtonModule,
     VCLPopoverModule,
     VCLMonthPickerModule,
+    FormsModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,

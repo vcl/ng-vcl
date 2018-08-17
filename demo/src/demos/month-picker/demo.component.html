@@ -1,5 +1,5 @@
 <h3>Demo with 2 selectable months in different colors</h3>
-<vcl-month-picker id="myStyledMonthPicker" #myStyledMonthPicker
+<vcl-month-picker id="myStyledMonthPicker " #myStyledMonthPicker
   [locales]="locales"
   [dateOptions]="dateOptions"
   [prevYearAvailable]="true"
@@ -33,7 +33,8 @@
 <br><br>
 
 <h3>Demo with set range for selectable months</h3>
-<vcl-month-picker [locales]="locales"
+<vcl-month-picker
+                  [locales]="locales"
                   [dateOptions]="dateOptions"
                   [prevYearAvailable]="true"
                   [nextYearAvailable]="true"
@@ -42,3 +43,22 @@
 >
 </vcl-month-picker>
 <br><br>
+
+<h3>Demo with two way data binding</h3>
+<vcl-month-picker
+                  [prevYearAvailable]="true"
+                  [nextYearAvailable]="true"
+                  [(ngModel)]="selectedMonth"
+>
+
+</vcl-month-picker>
+
+{{selectedMonth.toDateString()}}
+
+
+
+<button vcl-button
+
+        label="Change Month"
+        (click)="btn()">
+</button>

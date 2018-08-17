@@ -1,7 +1,8 @@
 import {
   Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ChangeDetectorRef,
-  SimpleChanges,
-} from '@angular/core';
+  SimpleChanges, forwardRef
+} from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 export interface Month {
   date: string;
@@ -15,9 +16,16 @@ export interface Month {
 @Component({
   selector: 'vcl-month-picker',
   templateUrl: 'month-picker.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MonthPickerComponent),
+      multi: true
+    }
+  ]
 })
-export class MonthPickerComponent {
+export class MonthPickerComponent implements ControlValueAccessor {
   static readonly Tag: string = 'MonthPickerComponent';
   readonly tag: string = MonthPickerComponent.Tag;
   static readonly MonthCount: number = 12;
@@ -68,9 +76,6 @@ export class MonthPickerComponent {
   @Input() minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
 
-  @Output()
-  change = new EventEmitter<Date | Array<Date | undefined>>();
-
   minValue: Date | null;
 
   @Input('min')
@@ -119,7 +124,28 @@ export class MonthPickerComponent {
     }
   }
 
-  //
+  onModelChange(value) {
+    this.onChangeCallback && this.onChangeCallback(value);
+  }
+
+  writeValue(value: Date): void {
+    if (value) {
+      this.selectMonth(value.getFullYear(), value.getMonth());
+      this.ref.markForCheck();
+    }
+  }
+
+  onTouchedCallback: (_: any) => void;
+
+  onChangeCallback: (_: any) => void;
+
+  registerOnChange(fn: any): void {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouchedCallback = fn;
+  }
 
   constructor(
     private readonly ref: ChangeDetectorRef,
@@ -204,7 +230,7 @@ export class MonthPickerComponent {
     if (monthMeta.selected) {
       this.setMonthBackgroundColor(year, month);
       this.notifySelect(`${year}.${month}`);
-
+      this.onModelChange(new Date(year, month));
       if (this.maxSelectableMonths === 1 && this.expandable) {
         this.expanded = false;
         this.expandedChange.emit(this.expanded);
@@ -213,6 +239,7 @@ export class MonthPickerComponent {
   }
 
   preselectMonth(year: number, month: number, color: string): void {
+    console.log('preselectmonth', year, month);
     const tag: string = `${this.tag}.preselectMonth()`;
     if (this.debug) console.log(tag, `${year}.${month}`);
     const monthMeta: any = this.getYearMeta(year)[month];
@@ -384,6 +411,7 @@ export class MonthPickerComponent {
 
   notifySelect(date: string): void {
     this.select.emit(date);
+
   }
 
   notifyDeselect(date: string): void {
