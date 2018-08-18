@@ -8,22 +8,28 @@ const CopyWebpackPlugin  = require('copy-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const postcssImport = require('postcss-import');
-const postcssNesting = require('postcss-nesting');
+const postcssUrl = require('postcss-url');
 const postcssCssVariables = require('postcss-css-variables');
+const postcssNesting = require('postcss-nesting');
 const postcssColorFunction = require('postcss-color-function');
-const postcssNext = require('postcss-cssnext');
+const cssnext = require('postcss-cssnext');
 const rucksackCss = require('rucksack-css');
 const cssnano = require('cssnano');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const POST_CSS_PLUGINS_COMMON = [
   postcssImport(),
-  postcssNesting(),
+  postcssUrl(),
   postcssCssVariables(),
+  postcssNesting(),
   postcssColorFunction(),
-  postcssNext(),
   rucksackCss(),
+  cssnext({
+    features: {
+      customProperties: false
+    }
+  }),
 ];
 
 const POST_CSS_PLUGINS_CSSNANO = [
@@ -57,7 +63,7 @@ const DEFAULTS = {
     extractCSS: true,
     htmlPlugin: true,
     copyAssetsPlugin: true,
-    aot: true    
+    aot: true
   }
 };
 
