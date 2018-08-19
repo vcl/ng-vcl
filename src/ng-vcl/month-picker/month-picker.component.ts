@@ -1,8 +1,8 @@
 import {
   Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ChangeDetectorRef,
   SimpleChanges, forwardRef
-} from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface Month {
   date: string;
