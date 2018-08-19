@@ -258,7 +258,7 @@ export class PopoverComponent extends ObservableComponent {
   }
 
   public close(): void {
-    if (this.state === PopoverState.hidden || this.state === PopoverState.closing) {
+    if (this.state === PopoverState.hidden || this.state === PopoverState.opening || this.state === PopoverState.closing) {
       return;
     }
     this.state = PopoverState.closing;
