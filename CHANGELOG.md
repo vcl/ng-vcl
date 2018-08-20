@@ -28,6 +28,8 @@
   - renamed `change` event to `selectionChange`
 - notifier:
   - removed text parameter from notifier service
+- vcl-date-picker:
+  - removed 284px height lock
 
 ## 0.4.x
 

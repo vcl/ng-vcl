@@ -34,7 +34,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclDatePicker]': 'true',
     '[attr.role]': '"listbox"',
     '[attr.aria-multiselectable]': 'false',
-    '[style.height]': '"284px"' // TODO this fixes for IE11
+    // This breaks on months with 6 weeks '[style.height]': '"284px"' // TODO this fixes for IE11
   }
 })
 export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
@@ -59,6 +59,24 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
   @Input()
   displayWeekdays: boolean = true;
+
+  @Input()
+  displayDate: boolean = true;
+
+  @Input()
+  displayTime: boolean = false;
+
+  @Input()
+  displayHours24: boolean = true;
+
+  @Input()
+  displayHours: boolean = true;
+
+  @Input()
+  displayMinutes: boolean = true;
+
+  @Input()
+  displaySeconds: boolean = false;
 
   @Input()
   prevYearBtnIcon: string = 'fa:chevron-left';
@@ -148,6 +166,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
       const currentDate = this.currentDate ? this.currentDate.date : undefined;
       this.onChangeCallback && this.onChangeCallback(currentDate);
       this.change.emit(currentDate);
+      this.selectedDate = currentDate;
     } else {
       const currentDate = this.currentDate ? this.currentDate.date : undefined;
       if (currentDate) {
@@ -259,6 +278,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   private onChangeCallback: (_: Date | undefined) => void;
 
   writeValue(value: Date): void {
+    this.selectedDate = value;
     this.currentDate = new CalendarDate(value);
     this.viewDate = this.currentDate;
     this.cdRef.markForCheck();
@@ -271,6 +291,13 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
+    this.cdRef.markForCheck();
+  }
+
+  timeChange(date: Date) {
+    this.selectedDate = date;
+    this.currentDate = new CalendarDate(date);
+    this.viewDate = this.currentDate;
     this.cdRef.markForCheck();
   }
 }

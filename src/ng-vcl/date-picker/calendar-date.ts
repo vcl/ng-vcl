@@ -61,7 +61,7 @@ export class CalendarDate {
   getFirstDateOfMonth(date: Date): Date {
     return new Date(
       date.getFullYear(), date.getMonth(), 1,
-      12, date.getMinutes(), date.getSeconds()
+      date.getHours(), date.getMinutes(), date.getSeconds()
     );
   }
 
@@ -110,7 +110,7 @@ export class CalendarDate {
    * last day of the month.
    */
   incrementMonths(numberOfMonths: number): CalendarDate {
-    const dateInTargetMonth = new Date(this.date.getFullYear(), this.date.getMonth() + numberOfMonths, 1);
+    const dateInTargetMonth = new Date(this.date.getFullYear(), this.date.getMonth() + numberOfMonths, 1, this.date.getHours(), this.date.getMinutes(), this.date.getSeconds());
     const numberOfDaysInMonth = this.getNumberOfDaysInMonth(dateInTargetMonth);
     if (numberOfDaysInMonth < this.date.getDate()) {
       dateInTargetMonth.setDate(numberOfDaysInMonth);

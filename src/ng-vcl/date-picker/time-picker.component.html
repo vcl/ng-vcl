@@ -1,0 +1,68 @@
+<div class="vclLayoutHorizontal">
+  <div class="vclDatePicker" role="listbox" aria-multiselectable="false" style="width: 18em;" *ngIf="displayHours">
+    <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput" *ngIf="displayHours24">
+      <div class="vclDGRow vclToolbar">
+        <button type="button" class="vclButton vclSquare" style="visibility: hidden">12h</button>
+        <div class="vclDGCell">
+          <span class="vclCalHeaderLabel">Hour</span>
+        </div>
+        <button type="button" class="vclButton vclTransparent vclSquare" (click)="onSwitch24h()" style="height: 100%">12h</button>
+      </div>
+      <div class="vclDGRow" role="row" *ngFor="let i of [0, 1, 2, 3]">
+        <div class="vclDGCell vclCalItem" role="option" *ngFor="let x of [0, 1, 2, 3, 4, 5]" [class.vclSelected]="isHourMarked(i * 6 + x)" (tap)="onHourTap(i * 6 + x)">{{ i * 6 + x }}</div>
+      </div>
+    </div>
+    <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput" *ngIf="!displayHours24">
+      <div class="vclDGRow vclToolbar">
+        <button type="button" class="vclButton vclSquare" style="visibility: hidden">24h</button>
+        <div class="vclDGCell">
+          <span class="vclCalHeaderLabel">AM</span>
+        </div>
+        <button type="button" class="vclButton vclTransparent vclSquare" (click)="onSwitch24h()" style="height: 100%">24h</button>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem" role="option" *ngFor="let i of [12, 1, 2, 3, 4, 5]" [class.vclSelected]="isHourMarked(i % 12)" (tap)="onHourTap(i % 12)">{{ i }}</div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem" role="option" *ngFor="let i of [6, 7, 8, 9, 10, 11]" [class.vclSelected]="isHourMarked(i % 12)" (tap)="onHourTap(i % 12)">{{ i }}</div>
+      </div>
+      <div class="vclDGRow vclToolbar">
+        <div class="vclDGCell">
+          <span class="vclCalHeaderLabel">PM</span>
+        </div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem" role="option" *ngFor="let i of [12, 1, 2, 3, 4, 5]" [class.vclSelected]="isHourMarked(i % 12 + 12)" (tap)="onHourTap(i % 12 + 12)">{{ i }}</div>
+      </div>
+      <div class="vclDGRow" role="row">
+        <div class="vclDGCell vclCalItem" role="option" *ngFor="let i of [6, 7, 8, 9, 10, 11]" [class.vclSelected]="isHourMarked(i % 12 + 12)" (tap)="onHourTap(i % 12 + 12)">{{ i }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vclDatePicker" role="listbox" aria-multiselectable="false" [ngStyle]="{width: '18em', 'margin-left': displayHours ? '10px' : 0}" *ngIf="displayMinutes">
+    <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput">
+      <div class="vclDGRow">
+        <div class="vclDGCell vclToolbar">
+          <span class="vclCalHeaderLabel">Minute</span>
+        </div>
+      </div>
+      <div class="vclDGRow" role="row" *ngFor="let i of [0, 1, 2, 3, 4, 5]">
+        <div class="vclDGCell vclCalItem" role="option" *ngFor="let x of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]" [class.vclSelected]="isMinuteMarked(i * 10 + x)" (tap)="onMinuteTap(i * 10 + x)">:{{ i * 10 + x }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vclDatePicker" role="listbox" aria-multiselectable="false" [ngStyle]="{width: '18em', 'margin-left': displayHours || displayMinutes ? '10px' : 0}" *ngIf="displaySeconds">
+    <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput">
+      <div class="vclDGRow">
+        <div class="vclDGCell vclToolbar">
+          <span class="vclCalHeaderLabel">Second</span>
+        </div>
+      </div>
+      <div class="vclDGRow" role="row" *ngFor="let i of [0, 1, 2, 3, 4, 5]">
+        <div class="vclDGCell vclCalItem" role="option" *ngFor="let x of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]" [class.vclSelected]="isSecondMarked(i * 10 + x)" (tap)="onSecondTap(i * 10 + x)">:{{ i * 10 + x }}</div>
+      </div>
+    </div>
+  </div>
+</div>
