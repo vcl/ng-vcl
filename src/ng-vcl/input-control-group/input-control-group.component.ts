@@ -1,4 +1,4 @@
-import { OnInit, Component, Input, ViewChildren, EventEmitter, Output, HostListener, ElementRef, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'vcl-input-control-group, [vcl-input-control-group]',
