@@ -60,7 +60,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
 
   @Input() colors: string[];
   @Input() locales: string | string[] = 'en-US';
-  @Input() dateOptions: any = { month: 'short' };
+  @Input() dateOptions: Intl.DateTimeFormatOptions = { month: 'short' };
 
   @Input() expandable: boolean = false;
   @Input() prevYearAvailable: boolean = false;
@@ -75,8 +75,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
   @Input() minSelectableMonths: number = 0;
   @Input() minYear: number = Number.MIN_SAFE_INTEGER;
   @Input() maxYear: number = Number.MAX_SAFE_INTEGER;
-  @Output()
-  change = new EventEmitter<Date | Array<Date | undefined>>();
+  @Output() change = new EventEmitter<Date | Array<Date | undefined>>();
 
   minValue: Date | null;
 

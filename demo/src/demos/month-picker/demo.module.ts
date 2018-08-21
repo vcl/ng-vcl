@@ -11,6 +11,10 @@ export function demo() {
     label: 'Month Picker',
     tabs: {
       Demo: MonthPickerDemoComponent,
+      'README.md': {
+        type: 'md',
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!@ng-vcl/ng-vcl/month-picker/README.md')
+      },
       'demo.component.html': {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=html!./demo.component.html')
