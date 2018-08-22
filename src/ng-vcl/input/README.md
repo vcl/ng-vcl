@@ -4,6 +4,16 @@ Enhanced text input
 
 ## Usage
 
+```js
+import { VCLInputModule } from 'ng-vcl';
+
+@NgModule({
+  imports: [ VCLInputModule ],
+  ...
+})
+export class AppComponent {}
+```
+
 ```html
 <input vcl-input [(ngModel)]="data">
 <input vcl-input autoselect>
