@@ -4,7 +4,20 @@ Growl-style notifiers
 
 ## Usage
 
-```ts
+```js
+import { VCLNotifierModule, VCLLayerModule } from 'ng-vcl';
+
+@NgModule({
+  imports: [ 
+    VCLLayerModule.forRoot(),
+    VCLNotifierModule,
+  ],
+  ...
+})
+export class AppComponent {}
+```
+
+```js
 @Component({ ... })
 export class MyComponent {
 
