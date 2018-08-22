@@ -2,8 +2,6 @@
 
 Input-Control-Group to handle the error-state of any object.
 
-[//]: # (.vclError, .vclWarning, .vclSuccess - classes can be used to style the state message.)
-
 ## Usage
 
 ```js
@@ -21,6 +19,11 @@ export class AppComponent {}
   <input vcl-input type="text" />
 </vcl-input-control-group>
 ```
+
+##### Styling of the state message can be done with these selectors:
+* .vclFormControlHint.vclError
+* .vclFormControlHint.vclWarning
+* .vclFormControlHint.vclSuccess
 
 ### API
 
