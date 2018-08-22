@@ -69,9 +69,9 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 
     this.target$.next({
       element: targetElement,
-      select(ac: AutocompleteOption) {
+      select: (ac: AutocompleteOption) => {
         this.select.emit(ac);
-      }
+      },
     });
 
     return new Observable<AutocompleteOption>(observer => {
