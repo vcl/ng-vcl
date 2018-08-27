@@ -1,38 +1,48 @@
-import { interval , Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { scan, map } from 'rxjs/operators';
 
 @Component({
-  templateUrl: 'demo.component.html'
+  templateUrl: 'demo.component.html',
 })
 export class InputControlGroupDemoComponent implements OnInit {
 
-  type: string | undefined;
-  label: string;
-  message = new Subject();
+  public type: string | undefined;
+  public label: string;
+
+  public email: string = '';
+  public password1: string = '';
+  public password2: string = '';
 
   ngOnInit() {
-    // emit messages over time
-    const obs = interval(2000).pipe(
-      scan((s, x) => {
-        s++;
-        if (s > 3) s = 0;
-        return s;
-      }),
-      map(s => {
-        if (s == 0) return 'error';
-        if (s == 1) return 'warning';
-        if (s == 2) return 'success';
-        if (s == 3) return undefined;
-      }),
-      map(type => {
-        this.type = type;
-        this.label = 'my custom ' + type;
-        return {
-          type,
-          value: 'my custom ' + type
-        };
-      })
-    ).subscribe(msg => this.message.next(msg));
+    this.update();
   }
+
+  update() {
+    if (this.email.length < 1) {
+      this.type = 'error';
+      this.label = 'Pleas enter a valid email.';
+      return;
+    }
+
+    if (this.password1.length == 0 && this.password2.length == 0 ) {
+      this.type = 'error';
+      this.label = 'Pleas enter a password.';
+      return;
+    }
+
+    if (this.password1 != this.password2) {
+      this.type = 'error';
+      this.label = 'Password is not matching.';
+      return;
+    }
+
+    if (this.password1.length < 8) {
+      this.type = 'warning';
+      this.label = 'We are recommending to use passwords with at least 8 symbols.';
+      return;
+    }
+
+    this.type = 'success';
+    this.label = 'Everything is perfect!';
+  }
+
 }

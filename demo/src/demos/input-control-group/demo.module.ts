@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { VCLInputControlGroupModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { InputControlGroupDemoComponent } from './demo.component';
+import { FormsModule } from '@angular/forms';
 
 export function demo() {
   return {
@@ -28,6 +29,7 @@ export function demo() {
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
     DemoModule,
     VCLInputControlGroupModule,
