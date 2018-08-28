@@ -81,13 +81,16 @@ export class MonthPickerComponent implements ControlValueAccessor {
 
   @Input('min')
   set min(value: Date) {
-
+    const tag: string = `${this.tag}.min:`;
+    if (this.debug) console.log(tag, 'value:', value);
     if (!value) {
       return;
     }
 
     this.minValue = value;
 
+    if (this.debug) console.log(tag, 'this.maxValue:', this.maxValue);
+    if (this.debug) console.log(tag, 'this.months:', this.months);
     if (!this.maxValue || !this.months) {
       return;
     }
@@ -99,13 +102,16 @@ export class MonthPickerComponent implements ControlValueAccessor {
 
   @Input('max')
   set max(value: Date) {
-
+    const tag: string = `${this.tag}.max:`;
+    if (this.debug) console.log(tag, 'value:', value);
     if (!value) {
       return;
     }
 
     this.maxValue = value;
 
+    if (this.debug) console.log(tag, 'this.minValue:', this.maxValue);
+    if (this.debug) console.log(tag, 'this.months:', this.months);
     if (!this.minValue || !this.months) {
       return;
     }
@@ -346,7 +352,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
 
   addAvailableMonthRange(min: Date = this.minValue, max: Date = this.maxValue): void {
     const tag: string = `${this.tag}.addAvailableMonthRange()`;
-    const debug: boolean = this.debug || true;
+    const debug: boolean = this.debug || false;
     if (debug) console.log(tag, 'min:', min);
     if (debug) console.log(tag, 'max:', max);
     for (const i: Date = new Date(min); i <= max; i.setMonth(i.getMonth() + 1)) {
