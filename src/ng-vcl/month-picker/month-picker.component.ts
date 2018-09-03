@@ -169,6 +169,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
     this.availableColors = this.colors ? this.colors.map(color => true) : [];
 
     this.setYearMeta(this.currentYear);
+    this.addAvailableMonthRange();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
