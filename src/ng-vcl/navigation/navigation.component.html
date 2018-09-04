@@ -9,6 +9,7 @@
         [attr.role]="item.heading && 'sectionhead' || ariaRole"
         [attr.tabindex]="tabindex"
         [ngClass]="item.class"
+        (mouseover)="mouseOver(item)"
         >
 
       <span *ngIf="item.heading">

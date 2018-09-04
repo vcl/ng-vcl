@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'demo.component.html'
 })
 export class NavigationDemoComponent {
+
+  hoverName?: string;
+
   onNavigate(route) {
     console.log('Navigate', route);
   }

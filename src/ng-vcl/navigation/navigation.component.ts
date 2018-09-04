@@ -60,6 +60,9 @@ export class NavigationItemDirective implements NavigationItem {
   @Input()
   exactRoute: boolean = true;
 
+  @Output()
+  onHover = new EventEmitter<NavigationItem>();
+
   @Input()
   set route(route: any[] | undefined) {
     this._route = Array.isArray(route) ? route : [route];
@@ -121,6 +124,10 @@ export class NavigationItemDirective implements NavigationItem {
     return this.items && this.items.length > 0  && this.nav.subLevelHintIconSide === 'right' ? (
       this.opened ? this.nav.subLevelHintIconOpened : this.nav.subLevelHintIconClosed
     ) : this.appIcon;
+  }
+
+  mouseOver() {
+    this.onHover.emit(this);
   }
 }
 
@@ -233,5 +240,9 @@ export class NavigationComponent {
 
   onSubItemSelect(item) {
     this.selectItem(item);
+  }
+
+  mouseOver(item: NavigationItemDirective) {
+    item.mouseOver();
   }
 }

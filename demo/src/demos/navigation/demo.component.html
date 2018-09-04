@@ -23,3 +23,13 @@
 <br>
 
 <button vcl-button (click)="nav2.selectRoute(['/product', 2], true)" label="Select Product 2"></button>
+<br>
+
+<h3>Hover Event</h3>
+
+<nav vcl-navigation #nav3 (navigate)="onNavigate($event)" type="horizontal" (mouseout)="hoverName = undefined">
+  <vcl-navitem label="Home" prepIcon="fa:home" [route]="['/']" (onHover)="hoverName = 'Home'"></vcl-navitem>
+  <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']" (onHover)="hoverName = 'Products'"></vcl-navitem>
+  <vcl-navitem label="Contact" prepIcon="fa:envelope" [route]="['/contact']" (onHover)="hoverName = 'Contact'"></vcl-navitem>
+</nav>
+Hovering item: {{ hoverName }}
