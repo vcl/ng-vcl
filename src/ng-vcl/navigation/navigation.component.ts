@@ -102,6 +102,10 @@ export class NavigationItemDirective implements NavigationItem {
 
   ngAfterContentInit() {
     if (this.nav.useRouter) {
+      if (this.router.navigated) {
+        this.updateSelectedState();
+      }
+
       this._subscription = this.router.events.subscribe(s => {
         if (s instanceof NavigationEnd) {
           this.updateSelectedState();
