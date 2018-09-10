@@ -61,3 +61,4 @@ export class AppComponent {}
 | `appIcon`                | string      |          | Icon appended to the item                      |
 | `class`                  | string      |          | CSS classes which will be added                |
 | `selectable`             | boolean     | true     | Whether this item can be selected              |
+| `showActive`             | boolean     | false    | Show active even if non-selectable             |

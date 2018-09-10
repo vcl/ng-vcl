@@ -60,6 +60,9 @@ export class NavigationItemDirective implements NavigationItem {
   @Input()
   exactRoute: boolean = true;
 
+  @Input()
+  showActive: boolean = false;
+
   @Output()
   onHover = new EventEmitter<NavigationItem>();
 
