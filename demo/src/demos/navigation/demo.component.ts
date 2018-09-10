@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavigationDemoComponent {
 
   hoverName?: string;
+  hoverLastName?: string;
 
   onNavigate(route) {
     console.log('Navigate', route);

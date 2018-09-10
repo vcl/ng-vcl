@@ -57,6 +57,7 @@ export class AppComponent {}
 | `route`                  | any[]       |          | Route which is used onSelect                   |
 | `opened`                 | boolean     | false    | if true and nested this opens the subitems     |
 | `heading`                | boolean     | false    | if true, this is used as hX                    |
-| `prepIcon`               | string      |          |                                                |
-| `appIcon`                | string      |          | icon which should be displayed                 |
-| `class`                  | string      |          | any css-classes which will be added            |
+| `prepIcon`               | string      |          | Icon prepended to the item                     |
+| `appIcon`                | string      |          | Icon appended to the item                      |
+| `class`                  | string      |          | CSS classes which will be added                |
+| `selectable`             | boolean     | true     | Whether this item can be selected              |

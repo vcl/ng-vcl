@@ -28,8 +28,36 @@
 <h3>Hover Event</h3>
 
 <nav vcl-navigation #nav3 (navigate)="onNavigate($event)" type="horizontal" (mouseout)="hoverName = undefined">
-  <vcl-navitem label="Home" prepIcon="fa:home" [route]="['/']" (onHover)="hoverName = 'Home'"></vcl-navitem>
-  <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']" (onHover)="hoverName = 'Products'"></vcl-navitem>
-  <vcl-navitem label="Contact" prepIcon="fa:envelope" [route]="['/contact']" (onHover)="hoverName = 'Contact'"></vcl-navitem>
+  <vcl-navitem
+    label="Home"
+    prepIcon="fa:home"
+    [route]="['/']"
+    (onLeave)="hoverLastName = 'Home'"
+    (onHover)="hoverName = 'Home'">
+  </vcl-navitem>
+  <vcl-navitem
+    label="Products"
+    prepIcon="fa:bicycle"
+    [route]="['/products']"
+    (onLeave)="hoverLastName = 'Products'"
+    (onHover)="hoverName = 'Products'">
+  </vcl-navitem>
+  <vcl-navitem
+    label="Contact"
+    prepIcon="fa:envelope"
+    [route]="['/contact']"
+    (onLeave)="hoverLastName = 'Contact'"
+    (onHover)="hoverName = 'Contact'">
+  </vcl-navitem>
 </nav>
-Hovering item: {{ hoverName }}
+Hovering item: {{ hoverName }}<br>
+Last Hovering item: {{ hoverLastName }}
+<br>
+
+<h3>Un-Selectable items</h3>
+
+<nav vcl-navigation #nav4 (navigate)="onNavigate($event)" type="horizontal">
+  <vcl-navitem label="Home" prepIcon="fa:home" [route]="['/']" [selectable]="false"></vcl-navitem>
+  <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']"></vcl-navitem>
+  <vcl-navitem label="Contact" prepIcon="fa:envelope" [route]="['/contact']" [selectable]="false"></vcl-navitem>
+</nav>

@@ -63,6 +63,9 @@ export class NavigationItemDirective implements NavigationItem {
   @Output()
   onHover = new EventEmitter<NavigationItem>();
 
+  @Output()
+  onLeave = new EventEmitter<NavigationItem>();
+
   @Input()
   set route(route: any[] | undefined) {
     this._route = Array.isArray(route) ? route : [route];
@@ -132,6 +135,10 @@ export class NavigationItemDirective implements NavigationItem {
 
   mouseOver() {
     this.onHover.emit(this);
+  }
+
+  mouseLeave() {
+    this.onLeave.emit(this);
   }
 }
 
@@ -223,6 +230,10 @@ export class NavigationComponent {
       return;
     }
 
+    if (!item.selectable) {
+      return;
+    }
+
     if (this.selectedItem) {
       this.selectedItem.selected = false;
     }
@@ -248,5 +259,9 @@ export class NavigationComponent {
 
   mouseOver(item: NavigationItemDirective) {
     item.mouseOver();
+  }
+
+  mouseLeave(item: NavigationItemDirective) {
+    item.mouseLeave();
   }
 }
