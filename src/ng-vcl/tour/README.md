@@ -15,10 +15,10 @@ export class AppComponent {}
 
 class AppComponent {
 
-  constructor(public hintService: HintService){ }
+  constructor(public hint: HintService){ }
 
   startTour() {
-    this.hintService.initialize();
+    this.hint.initialize();
   }
 }
 ```
@@ -75,6 +75,6 @@ class AppComponent {
 
 ```js
  startTour() {
-    this.hintService.initialize({elementsDisabled: false}); // HintOptions
+    this.hint.initialize({elementsDisabled: false}); // HintOptions
   }
 ```

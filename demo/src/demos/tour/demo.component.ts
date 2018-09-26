@@ -5,9 +5,9 @@ import { HintService } from '@ng-vcl/ng-vcl';
   templateUrl: 'demo.component.html'
 })
 export class TourDemoComponent {
-    constructor(public hintService: HintService) {}
+    constructor(public hint: HintService) {}
 
     startTour() {
-      this.hintService.initialize();
+      this.hint.initialize();
     }
 }

@@ -1,25 +1,34 @@
-<div class="vclTourHintWrapper {{transformClass}} step{{order}} {{position}}"
-  *ngIf="showMe" [ngStyle]="{'top': topPos+'px', 'left': leftPos+'px'}" >
-    <div class="header" *ngIf="title">{{title}}</div>
-    <div class="content"><ng-content></ng-content></div>
-    <div class="footer">
-      <button type="button" class="vclButton" *ngIf="hasPrevious" (click)="previous()">
-        <div class="vclIcogram">
-          <div class="vclIcon fa fa-chevron-left" aria-hidden="true" role="img"></div>
-          <span class="vclText">Previous</span>
-        </div>
+<div *ngIf="showMe"
+  class="vclTourContainer {{ transformClass }} step{{ order }} {{ position }}"
+  [ngStyle]="{'top': topPos+'px', 'left': leftPos+'px'}" >
+
+    <div class="vclTourContainerHeader" *ngIf="title">
+      {{ title }}
+    </div>
+
+    <div class="vclTourContainerContent">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="vclTourContainerFooter">
+      
+      <button vcl-button *ngIf="hasPrevious"
+        [label]="hint.options.previousLabel"
+        [prepIcon]="hint.options.previousIcon"
+        (click)="previous()">
       </button>
-      <button type="button" class="vclButton" *ngIf="hasNext" (click)="next()">
-        <div class="vclIcogram">
-          <div class="vclIcon fa fa-chevron-right" aria-hidden="true" role="img"></div>
-          <span class="vclText">Next</span>
-        </div>
+
+      <button vcl-button *ngIf="hasNext"
+        [label]="hint.options.nextLabel"
+        [prepIcon]="hint.options.nextIcon"
+        (click)="next()">
       </button>
-      <button type="button" class="vclButton" (click)="exit()">
-        <div class="vclIcogram">
-          <div class="vclIcon fa fa-close" aria-hidden="true" role="img"></div>
-          <span class="vclText">Exit</span>
-        </div>
+
+      <button vcl-button
+        [label]="hint.options.exitLabel"
+        [prepIcon]="hint.options.exitIcon"
+        (click)="exit()">
       </button>
+
     </div>
   </div>

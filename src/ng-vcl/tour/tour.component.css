@@ -1,4 +1,4 @@
-.vclTourHintWrapper {
+.vclTourContainer {
     position: absolute !important;
     background-color: #fff;
     z-index: 999;
@@ -10,7 +10,7 @@
     box-shadow: inset 0 0 30px 0 rgba(0, 0, 0, .5);
   }
   
-.vclTourHintWrapper .header {
+.vclTourContainer .vclTourContainerHeader {
   padding: 10px;
   border-bottom: 1px solid #ccc;
   background-color: #ddd;
@@ -19,34 +19,34 @@
   box-shadow: inset 0 0 30px 0 rgba(0, 0, 0, .5);
 }
   
-.vclTourHintWrapper .content {
+.vclTourContainer .vclTourContainerContent {
   padding: 10px;
 }
 
-.vclTourHintWrapper .footer {
+.vclTourContainer .vclTourContainerFooter {
   padding: 10px;
 }
 
-.vclTourHintWrapper .vclButton:first {
+.vclTourContainer .vclButton:first {
   margin-left: 0;
 }
   
-.vclTourHintWrapper.transformX_50.transformY_100 {
+.vclTourContainer.transformX_50.transformY_100 {
   -webkit-transform: translateX(-50%) translateY(-100%);
   transform: translateX(-50%) translateY(-100%);
 }
   
-.vclTourHintWrapper.transformX_50 {
+.vclTourContainer.transformX_50 {
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
 }
   
-.vclTourHintWrapper.transformY_50 {
+.vclTourContainer.transformY_50 {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
   
-.vclTourHintWrapper.transformY_50.transformX_100 {
+.vclTourContainer.transformY_50.transformX_100 {
   -webkit-transform: translateX(-100%) translateY(-50%);
   transform: translateX(-100%) translateY(-50%);
 }

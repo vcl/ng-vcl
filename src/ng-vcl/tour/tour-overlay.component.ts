@@ -9,12 +9,12 @@ import { HintService } from './hint.service';
 export class TourOverlayComponent {
   show: boolean;
 
-  constructor(public hintService: HintService) {
-    this.hintService.overlay$.subscribe(data => this.show = data);
+  constructor(public hint: HintService) {
+    this.hint.overlay$.subscribe(data => this.show = data);
   }
 
   dismiss(): void {
-    if (this.hintService.hintOptions.dismissOnOverlay)
-      this.hintService.overlayNext();
+    if (this.hint.options.dismissOnOverlay)
+      this.hint.overlayNext();
   }
 }

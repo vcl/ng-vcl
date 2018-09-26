@@ -10,6 +10,14 @@ export interface IHintOptions {
     applyRelative: boolean;
     stepTag: string;
     dismissOnOverlay: boolean;
+
+    previousLabel: string;
+    nextLabel: string;
+    exitLabel: string;
+
+    previousIcon: string;
+    nextIcon: string;
+    exitIcon: string;
 }
 
 export class HintOptions implements IHintOptions {
@@ -20,6 +28,14 @@ export class HintOptions implements IHintOptions {
     applyRelative: boolean = HintConfig.APPLY_RELATIVE;
     stepTag: string = HintConfig.HINT_TAG;
     dismissOnOverlay: boolean = HintConfig.DISMISS_ON_OVERLAY;
+
+    previousLabel: string = 'Previous';
+    nextLabel: string = 'Next';
+    exitLabel: string = 'Exit';
+
+    previousIcon: string = 'fa fa-chevron-left';
+    nextIcon: string = 'fa fa-chevron-right';
+    exitIcon: string = 'fa fa-chevron-close';
 }
 
 export const HintConfig = {
@@ -30,16 +46,16 @@ export const HintConfig = {
     DEFAULT_PX_LAYER: 15,
     APPLY_RELATIVE: true,
     DISMISS_ON_OVERLAY: false,
-  };
+};
 
-  export enum Placement {
+export enum Placement {
     Top = 'top',
     Bottom = 'bottom',
     Left = 'left',
     Right = 'right'
-  }
+}
 
-  export interface Step {
+export interface Step {
     selector: string;
     order: number;
-  }
+}

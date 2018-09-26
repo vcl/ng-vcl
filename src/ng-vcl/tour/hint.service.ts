@@ -7,7 +7,7 @@ import { IHintService, IHintOptions, HintOptions, HintConfig, Step } from './typ
 export class HintService implements IHintService {
   currentStep: Step | undefined;
   steps: Step[];
-  hintOptions: HintOptions;
+  options: HintOptions;
   anchors: { [selectorOrderCombination: string]: TourComponent } = {};
   overlay$: Subject<boolean> = new Subject();
   registration$: Subject<boolean> = new Subject();
@@ -21,8 +21,8 @@ export class HintService implements IHintService {
    * @return void
    */
   public initialize(options: IHintOptions = new HintOptions()): void {
-    this.hintOptions = (<any> Object).assign(new HintOptions(), options);
-    let nodes = document.getElementsByTagName(this.hintOptions.stepTag);
+    this.options = (<any> Object).assign(new HintOptions(), options);
+    let nodes = document.getElementsByTagName(this.options.stepTag);
     this.steps = this.initSteps(nodes);
     this.startAt(0);
     this.overlay$.next(true);
@@ -139,7 +139,7 @@ export class HintService implements IHintService {
     for (let i = 0; i < nodes.length; i++) {
         steps.push({
           selector: nodes[i].getAttribute('selector'),
-          order: Number(nodes[i].getAttribute('order')) || this.hintOptions.defaultOrder,
+          order: Number(nodes[i].getAttribute('order')) || this.options.defaultOrder,
         } as Step);
     }
     return steps = steps.sort((el1, el2) => {
