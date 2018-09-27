@@ -476,6 +476,16 @@ export const routes: Routes = [
         category: CAT_MISC,
       }
     }
+  },
+  {
+    loadChildren: './demos/rating/demo.module#RatingDemoModule',
+    path: 'rating',
+    data: {
+      demo: {
+        label: 'Rating',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
   }
 ];
 
