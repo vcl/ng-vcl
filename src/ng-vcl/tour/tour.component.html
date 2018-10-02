@@ -13,18 +13,21 @@
     <div class="vclTourContainerFooter">
       
       <button vcl-button *ngIf="hasPrevious"
+        class="vclText {{ hint?.options?.buttonClass }}"
         [label]="hint.options.previousLabel"
         [prepIcon]="hint.options.previousIcon"
         (click)="previous()">
       </button>
 
       <button vcl-button *ngIf="hasNext"
+        class="{{ hint?.options?.buttonClass }}"
         [label]="hint.options.nextLabel"
         [prepIcon]="hint.options.nextIcon"
         (click)="next()">
       </button>
 
       <button vcl-button
+        class="{{ hint?.options?.buttonClass }}"
         [label]="hint.options.exitLabel"
         [prepIcon]="hint.options.exitIcon"
         (click)="exit()">

@@ -8,6 +8,6 @@ export class TourDemoComponent {
     constructor(public hint: HintService) {}
 
     startTour() {
-      this.hint.initialize();
+      this.hint.start();
     }
 }

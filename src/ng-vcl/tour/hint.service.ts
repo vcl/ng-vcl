@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TourComponent } from './tour.component';
-import { IHintService, IHintOptions, HintOptions, HintConfig, Step } from './types';
+import { IHintOptions, HintOptions, HintConfig, Step } from './types';
 
 @Injectable()
-export class HintService implements IHintService {
+export class HintService {
+  private static readonly Tag: string = 'HintService';
+  private readonly tag: string = HintService.Tag;
+  private readonly debug: boolean = false;
+
   currentStep: Step | undefined;
   steps: Step[];
   options: HintOptions;
@@ -21,11 +25,12 @@ export class HintService implements IHintService {
    * @return void
    */
   public initialize(options: IHintOptions = new HintOptions()): void {
-    this.options = (<any> Object).assign(new HintOptions(), options);
+    const tag: string = `${this.tag}.initialize()`;
+    const debug: boolean = this.debug || false;
+    this.options = Object.assign(new HintOptions(), options);
+    if (debug) console.log(tag, 'this.options:', this.options);
     let nodes = document.getElementsByTagName(this.options.stepTag);
     this.steps = this.initSteps(nodes);
-    this.startAt(0);
-    this.overlay$.next(true);
   }
   /**
    * Show step
@@ -121,12 +126,15 @@ export class HintService implements IHintService {
   }
   /**
    * Start hint tour at some position
-   * @method startAt
+   * @method start
    * @param  stepId position in this.steps
    */
-  public startAt(stepId: number): void {
+  public start(stepId: number = 0): void {
+    if (!this.steps) this.initialize();
+
     this.currentStep = this.steps[stepId];
     this.show(this.currentStep);
+    this.overlay$.next(true);
   }
   /**
    * Convert Element[] to Step[]
@@ -137,10 +145,10 @@ export class HintService implements IHintService {
   private initSteps(nodes: NodeListOf<Element>): Step[] {
     let steps: Array<Step> = [];
     for (let i = 0; i < nodes.length; i++) {
-        steps.push({
-          selector: nodes[i].getAttribute('selector'),
-          order: Number(nodes[i].getAttribute('order')) || this.options.defaultOrder,
-        } as Step);
+      steps.push({
+        selector: nodes[i].getAttribute('selector'),
+        order: Number(nodes[i].getAttribute('order')) || this.options.defaultOrder,
+      } as Step);
     }
     return steps = steps.sort((el1, el2) => {
       return el1.order - el2.order;

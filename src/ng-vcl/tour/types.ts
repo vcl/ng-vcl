@@ -1,8 +1,4 @@
-export interface IHintService {
-    initialize(IHintOptions): void;
-}
-
-export interface IHintOptions {
+export interface IHintOptionsFull {
     elementsDisabled: boolean;
     defaultPosition: string;
     defaultOrder: number;
@@ -18,7 +14,11 @@ export interface IHintOptions {
     previousIcon: string;
     nextIcon: string;
     exitIcon: string;
+
+    buttonClass: string;
 }
+
+export type IHintOptions = Partial<IHintOptionsFull>;
 
 export class HintOptions implements IHintOptions {
     elementsDisabled: boolean = true;
@@ -36,6 +36,8 @@ export class HintOptions implements IHintOptions {
     previousIcon: string = 'fa fa-chevron-left';
     nextIcon: string = 'fa fa-chevron-right';
     exitIcon: string = 'fa fa-chevron-close';
+
+    buttonClass: string = '';
 }
 
 export const HintConfig = {

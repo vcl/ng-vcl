@@ -4,9 +4,9 @@ import { VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { TourOverlayComponent } from './tour-overlay.component';
 import { HintService } from './hint.service';
 import { TourComponent } from './tour.component';
-import { IHintService, IHintOptions, HintConfig, HintOptions, Placement, Step } from './types';
+import { IHintOptions, HintConfig, HintOptions, Placement, Step } from './types';
 
-export { HintService, IHintService, IHintOptions, Step, TourComponent };
+export { HintService, IHintOptions, Step, TourComponent };
 
 @NgModule({
   imports: [CommonModule, VCLButtonModule],

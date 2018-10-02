@@ -8,6 +8,9 @@ import { HintConfig, Placement } from './types';
   styleUrls: ['./tour.component.css']
 })
 export class TourComponent implements OnInit {
+  private static readonly Tag: string = 'TourComponent';
+  private readonly tag: string = TourComponent.Tag;
+  private readonly debug: boolean = false;
 
   @Input() title: string;
   @Input() selector: string;
@@ -27,6 +30,9 @@ export class TourComponent implements OnInit {
   transformX: boolean;
 
   constructor(public hint: HintService) {
+    const tag: string = `${this.tag}.constructor()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'hint.options:', hint.options);
   }
 
   ngOnInit(): void {

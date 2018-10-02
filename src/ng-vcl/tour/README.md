@@ -18,7 +18,7 @@ class AppComponent {
   constructor(public hint: HintService){ }
 
   startTour() {
-    this.hint.initialize();
+    this.hint.start();
   }
 }
 ```
@@ -76,5 +76,6 @@ class AppComponent {
 ```js
  startTour() {
     this.hint.initialize({elementsDisabled: false}); // HintOptions
+    this.hint.start();
   }
 ```
