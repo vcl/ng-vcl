@@ -35,7 +35,7 @@ export class HintOptions implements IHintOptions {
 
     previousIcon: string = 'fa fa-chevron-left';
     nextIcon: string = 'fa fa-chevron-right';
-    exitIcon: string = 'fa fa-chevron-close';
+    exitIcon: string = 'fa fa-close';
 
     buttonClass: string = '';
 }
