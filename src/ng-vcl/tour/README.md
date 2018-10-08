@@ -46,24 +46,29 @@ class AppComponent {
 
 #### vcl-tour-step attributes
 
-| Name                     | Type        | Default  | Description
-| ------------             | ----------- | -------- |--------------
-| `title`                  | string      |          | Tour step title
-| `selector`               | string      |          | Required attribute, elements id which to highlight and attach tour step
-| `order`                  | number      |        0 | The order number in which tour step should be shown, necessary if same element used multiple times
-| `position`               | string      |   bottom | Tour step window position relative to element
+| Name                     | Type                          | Default            | Description
+| ------------------------ | ----------------------------- | ------------------ | --------------
+| `debug`                  | string                        |                    | Output debug information
+| `debugPopover`           | string                        |                    | Output popover debug information
+| `title`                  | string                        |                    | Tour step title
+| `target`                 | string  ElementRef  Element   |                    | The target can be a selector, element or ElementRef instance
+| `order`                  | number                        | 0                  | The order number in which tour step should be shown, necessary if same element used multiple times
+| `targetX`                | AttachmentX                   | AttachmentX.Left   | Position of the target-side
+| `attachmentX`            | AttachmentX                   | AttachmentX.Right  | Position of the popover-side
+| `targetY`                | AttachmentY                   | AttachmentY.Center | Position of the target-vertical
+| `attachmentY`            | AttachmentY                   | AttachmentY.Center | Position of the popover-vertical
 
 #### HintService events
 
 | Name                     | Description
-| ------------             |--------------
+| ------------------------ | --------------
 | `finish$`                | Triggers when tour is finished
 | `showingStep$`           | Triggers on each step show(Params > CurrentStep)
 
 ### HintService default options
 
 | Name                     | Type        | Default  | Description
-| ------------             | ----------- | -------- |--------------
+| ------------------------ | ----------- | -------- |--------------
 | `elementsDisabled`       | boolean     |     true | Disabling highlightedElement (click) wont work
 | `dismissOnOverlay`       | boolean     |    false | Go to next step when clicking on overlay (close tour if this is last step)
 | `defaultPosition`        | string      |   bottom | Position of tour step to highlightedElement
