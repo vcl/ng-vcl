@@ -33,11 +33,7 @@
         order="1"
         title="Step Title"
         [debug]="debugTour"
-        [debugPopover]="debugPopover"
-        [targetX]="AttachmentX.Center"
-        [attachmentX]="AttachmentX.Center"
-        [targetY]="AttachmentY.Bottom"
-        [attachmentY]="AttachmentY.Top">
+        [debugPopover]="debugPopover">
             Demo tour first step with title
     </vcl-tour-step>
 
@@ -65,7 +61,11 @@
         target="#heading4"
         order="4"
         [debug]="debugTour"
-        [debugPopover]="debugPopover">
+        [debugPopover]="debugPopover"
+        [targetX]="AttachmentX.Left"
+        [attachmentX]="AttachmentX.Right"
+        [targetY]="AttachmentY.Center"
+        [attachmentY]="AttachmentY.Center">
             Demo tour fourth step left position
     </vcl-tour-step>
 
@@ -75,7 +75,9 @@
         [debug]="debugTour"
         [debugPopover]="debugPopover"
         [targetX]="AttachmentX.Right"
-        [attachmentX]="AttachmentX.Left">
+        [attachmentX]="AttachmentX.Left"
+        [targetY]="AttachmentY.Center"
+        [attachmentY]="AttachmentY.Center">
             Demo tour fifth step right position
     </vcl-tour-step>
     

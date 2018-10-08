@@ -25,10 +25,10 @@ export class TourComponent implements OnInit {
   @Input() order: number;
 
   @Input() target: string | ElementRef | Element;
-  @Input() targetX: AttachmentX = AttachmentX.Left;
-  @Input() attachmentX: AttachmentX = AttachmentX.Right;
-  @Input() targetY: AttachmentY = AttachmentY.Center;
-  @Input() attachmentY: AttachmentY = AttachmentY.Center;
+  @Input() targetX: AttachmentX = AttachmentX.Center;
+  @Input() attachmentX: AttachmentX = AttachmentX.Center;
+  @Input() targetY: AttachmentY = AttachmentY.Bottom;
+  @Input() attachmentY: AttachmentY = AttachmentY.Top;
 
   visible: boolean;
 

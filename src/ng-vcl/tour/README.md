@@ -53,10 +53,11 @@ class AppComponent {
 | `title`                  | string                        |                    | Tour step title
 | `target`                 | string  ElementRef  Element   |                    | The target can be a selector, element or ElementRef instance
 | `order`                  | number                        | 0                  | The order number in which tour step should be shown, necessary if same element used multiple times
-| `targetX`                | AttachmentX                   | AttachmentX.Left   | Position of the target-side
-| `attachmentX`            | AttachmentX                   | AttachmentX.Right  | Position of the popover-side
-| `targetY`                | AttachmentY                   | AttachmentY.Center | Position of the target-vertical
-| `attachmentY`            | AttachmentY                   | AttachmentY.Center | Position of the popover-vertical
+| `targetX`                | AttachmentX                   | AttachmentX.Center | Position of the target-side
+| `attachmentX`            | AttachmentX                   | AttachmentX.Center | Position of the popover-side
+| `targetY`                | AttachmentY                   | AttachmentY.Bottom | Position of the target-vertical
+| `attachmentY`            | AttachmentY                   | AttachmentY.Top    | Position of the popover-vertical
+
 
 #### HintService events
 
