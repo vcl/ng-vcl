@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild } from '@angular/core';
+import { AttachmentX, AttachmentY, PopoverComponent } from '@ng-vcl/ng-vcl';
 import { HintService } from './hint.service';
-import { HintConfig, Placement } from './types';
+import { HintConfig } from './types';
 
 @Component({
   selector: HintConfig.HINT_TAG,
@@ -10,24 +11,29 @@ import { HintConfig, Placement } from './types';
 export class TourComponent implements OnInit {
   private static readonly Tag: string = 'TourComponent';
   private readonly tag: string = TourComponent.Tag;
-  private readonly debug: boolean = false;
+
+  @Input() readonly debug: boolean = true;
+  @Input() readonly debugPopover: boolean = true;
+
+  @ViewChild('popover') readonly popover: PopoverComponent;
+
+  @HostBinding('class') get classes(): string {
+    return `vclTourContainer step${this.order}`;
+  }
 
   @Input() title: string;
-  @Input() selector: string;
   @Input() order: number;
-  @Input() position: string;
 
-  showMe: boolean;
+  @Input() target: string | ElementRef | Element;
+  @Input() targetX: AttachmentX = AttachmentX.Left;
+  @Input() attachmentX: AttachmentX = AttachmentX.Right;
+  @Input() targetY: AttachmentY = AttachmentY.Center;
+  @Input() attachmentY: AttachmentY = AttachmentY.Center;
+
+  visible: boolean;
 
   hasNext: boolean;
   hasPrevious: boolean;
-
-  topPos: number;
-  leftPos: number;
-
-  transformClass: string;
-  transformY: boolean;
-  transformX: boolean;
 
   constructor(public hint: HintService) {
     const tag: string = `${this.tag}.constructor()`;
@@ -36,15 +42,15 @@ export class TourComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.hint.register(`${this.selector}_${Number(this.order || 0)}`, this);
+    // this.order = Number(typeof this.order === 'number' ? this.order : this.hint.options.defaultOrder);
+    this.hint.register(`${this.target}_${Number(this.order || 0)}`, this);
   }
 
   showStep(): void {
     this.hint.showingStep$.next(this);
-    this.position = this.position || this.hint.options.defaultPosition;
     this.order = +this.order || this.hint.options.defaultOrder;
-    let highlightedElement = document.getElementById(this.selector);
 
+    const highlightedElement: HTMLElement = this.popover.targetElement as HTMLElement;
     if (highlightedElement) {
       highlightedElement.style.zIndex = HintConfig.Z_INDEX;
 
@@ -55,51 +61,22 @@ export class TourComponent implements OnInit {
       if (this.hint.options.applyRelative) {
         this.enableHighlight(highlightedElement);
       }
-
-      switch (this.position) {
-        case Placement.Top:
-          this.transformClass = 'transformX_50 transformY_100';
-          this.topPos = highlightedElement.offsetTop - this.hint.options.defaultLayer;
-          this.leftPos = highlightedElement.offsetLeft + highlightedElement.offsetWidth / 2;
-          break;
-        case Placement.Bottom:
-          this.transformClass = 'transformX_50';
-          this.topPos = highlightedElement.offsetTop + highlightedElement.offsetHeight + this.hint.options.defaultLayer;
-          this.leftPos = highlightedElement.offsetLeft + highlightedElement.offsetWidth / 2;
-          break;
-        case Placement.Left:
-          this.topPos = highlightedElement.offsetTop + highlightedElement.offsetHeight / 2;
-          this.leftPos = highlightedElement.offsetLeft - this.hint.options.defaultLayer;
-          this.transformClass = 'transformY_50 transformX_100';
-          break;
-        case Placement.Right:
-          this.topPos = highlightedElement.offsetTop + highlightedElement.offsetHeight / 2;
-          this.leftPos = highlightedElement.offsetLeft + highlightedElement.offsetWidth + this.hint.options.defaultLayer;
-          this.transformClass = 'transformY_50';
-          break;
-        default:
-          throw 'Invalid hint position: ' + this.position;
-      }
-    } else {
-      this.topPos = 0;
-      this.leftPos = 0;
     }
 
-    this.showMe = true;
+    this.visible = true;
     this.hasNext = this.hint.hasNext();
     this.hasPrevious = this.hint.hasPrevious();
   }
 
   hideStep(): void {
-    let highlightedElement = document.getElementById(this.selector);
-
+    const highlightedElement: HTMLElement = this.popover.targetElement as HTMLElement;
     if (highlightedElement) {
       highlightedElement.style.zIndex = null;
       this.enableClick(highlightedElement);
       this.disableHighlight(highlightedElement);
     }
 
-    this.showMe = false;
+    this.visible = false;
   }
 
   exit(): void {

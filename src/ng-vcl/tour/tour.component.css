@@ -1,7 +1,5 @@
 .vclTourContainer {
-    position: absolute !important;
     background-color: #fff;
-    z-index: 999;
     text-align: center;
     font-size: 14px;
     color: #000;
@@ -30,24 +28,3 @@
 .vclTourContainer .vclButton:first {
   margin-left: 0;
 }
-  
-.vclTourContainer.transformX_50.transformY_100 {
-  -webkit-transform: translateX(-50%) translateY(-100%);
-  transform: translateX(-50%) translateY(-100%);
-}
-  
-.vclTourContainer.transformX_50 {
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-  
-.vclTourContainer.transformY_50 {
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-  
-.vclTourContainer.transformY_50.transformX_100 {
-  -webkit-transform: translateX(-100%) translateY(-50%);
-  transform: translateX(-100%) translateY(-50%);
-}
-  

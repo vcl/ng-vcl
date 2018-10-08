@@ -28,19 +28,55 @@
         </div>
     </div>
 
-    <vcl-tour-step selector="heading1" order="1" title="Step Title">
-        Demo tour first step with title
+    <vcl-tour-step
+        target="#heading1"
+        order="1"
+        title="Step Title"
+        [debug]="debugTour"
+        [debugPopover]="debugPopover"
+        [targetX]="AttachmentX.Center"
+        [attachmentX]="AttachmentX.Center"
+        [targetY]="AttachmentY.Bottom"
+        [attachmentY]="AttachmentY.Top">
+            Demo tour first step with title
     </vcl-tour-step>
-    <vcl-tour-step selector="heading2" order="2">
-        Demo tour second step no title
+
+    <vcl-tour-step 
+        target="#heading2"
+        order="2"
+        [debug]="debugTour"
+        [debugPopover]="debugPopover">
+            Demo tour second step no title
     </vcl-tour-step>
-    <vcl-tour-step selector="heading3" order="3" position="top">
-        Demo tour third step top position
+    
+    <vcl-tour-step
+        target="#heading3"
+        order="3"
+        [debug]="debugTour"
+        [debugPopover]="debugPopover"
+        [targetX]="AttachmentX.Center"
+        [attachmentX]="AttachmentX.Center"
+        [targetY]="AttachmentY.Top"
+        [attachmentY]="AttachmentY.Bottom">
+            Demo tour third step top position
     </vcl-tour-step>
-    <vcl-tour-step selector="heading4" order="4" position="left">
-        Demo tour fourth step left position
+
+    <vcl-tour-step
+        target="#heading4"
+        order="4"
+        [debug]="debugTour"
+        [debugPopover]="debugPopover">
+            Demo tour fourth step left position
     </vcl-tour-step>
-    <vcl-tour-step selector="heading2" order="5" position="right">
-        Demo tour fifth step right position
+
+    <vcl-tour-step
+        target="#heading2"
+        order="5"
+        [debug]="debugTour"
+        [debugPopover]="debugPopover"
+        [targetX]="AttachmentX.Right"
+        [attachmentX]="AttachmentX.Left">
+            Demo tour fifth step right position
     </vcl-tour-step>
+    
 </section>

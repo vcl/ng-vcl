@@ -1,6 +1,9 @@
+import { ElementRef } from '@angular/core';
+
 export interface IHintOptionsFull {
+    debug: boolean;
+
     elementsDisabled: boolean;
-    defaultPosition: string;
     defaultOrder: number;
     defaultLayer: number;
     applyRelative: boolean;
@@ -21,8 +24,9 @@ export interface IHintOptionsFull {
 export type IHintOptions = Partial<IHintOptionsFull>;
 
 export class HintOptions implements IHintOptions {
+    debug: boolean = false;
+
     elementsDisabled: boolean = true;
-    defaultPosition: string = HintConfig.DEFAULT_POSITION;
     defaultOrder: number = HintConfig.DEFAULT_ORDER;
     defaultLayer: number = HintConfig.DEFAULT_PX_LAYER;
     applyRelative: boolean = HintConfig.APPLY_RELATIVE;
@@ -42,7 +46,6 @@ export class HintOptions implements IHintOptions {
 
 export const HintConfig = {
     HINT_TAG: 'vcl-tour-step',
-    DEFAULT_POSITION: 'bottom',
     Z_INDEX: '999',
     DEFAULT_ORDER: 99,
     DEFAULT_PX_LAYER: 15,
@@ -50,14 +53,7 @@ export const HintConfig = {
     DISMISS_ON_OVERLAY: false,
 };
 
-export enum Placement {
-    Top = 'top',
-    Bottom = 'bottom',
-    Left = 'left',
-    Right = 'right'
-}
-
 export interface Step {
-    selector: string;
+    target: string | ElementRef | Element;
     order: number;
 }

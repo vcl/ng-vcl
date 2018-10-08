@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { HintService } from '@ng-vcl/ng-vcl';
+import { HintService, AttachmentX, AttachmentY } from '@ng-vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html'
 })
 export class TourDemoComponent {
-    constructor(public hint: HintService) {}
+  public readonly debugTour: boolean = false;
+  public readonly debugPopover: boolean = false;
 
-    startTour() {
-      this.hint.start();
-    }
+  constructor(public hint: HintService) { }
+
+  public startTour() {
+    this.hint.start();
+  }
+
+  public readonly AttachmentX = AttachmentX;
+  public readonly AttachmentY = AttachmentY;
 }

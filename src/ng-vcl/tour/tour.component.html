@@ -1,6 +1,14 @@
-<div *ngIf="showMe"
-  class="vclTourContainer {{ transformClass }} step{{ order }} {{ position }}"
-  [ngStyle]="{'top': topPos+'px', 'left': leftPos+'px'}" >
+<vcl-popover #popover
+  [debug]="debugPopover"
+  [visible]="visible"
+  [target]="target"
+  [targetX]="targetX"
+  [attachmentX]="attachmentX"
+  [targetY]="targetY"
+  [attachmentY]="attachmentY"
+  [style.z-index]="20">
+
+  <div class="vclTourContainer">
 
     <div class="vclTourContainerHeader" *ngIf="title">
       {{ title }}
@@ -13,25 +21,28 @@
     <div class="vclTourContainerFooter">
       
       <button vcl-button *ngIf="hasPrevious"
-        class="vclText {{ hint?.options?.buttonClass }}"
-        [label]="hint.options.previousLabel"
-        [prepIcon]="hint.options.previousIcon"
+        [ngClass]="hint.options?.buttonClass"
+        [label]="hint.options?.previousLabel"
+        [prepIcon]="hint.options?.previousIcon"
         (click)="previous()">
       </button>
 
       <button vcl-button *ngIf="hasNext"
-        class="{{ hint?.options?.buttonClass }}"
-        [label]="hint.options.nextLabel"
-        [appIcon]="hint.options.nextIcon"
+        [ngClass]="hint.options?.buttonClass"
+        [label]="hint.options?.nextLabel"
+        [appIcon]="hint.options?.nextIcon"
         (click)="next()">
       </button>
 
       <button vcl-button
-        class="{{ hint?.options?.buttonClass }}"
-        [label]="hint.options.exitLabel"
-        [prepIcon]="hint.options.exitIcon"
+        [ngClass]="hint.options?.buttonClass"
+        [label]="hint.options?.exitLabel"
+        [prepIcon]="hint.options?.exitIcon"
         (click)="exit()">
       </button>
 
     </div>
+    
   </div>
+
+</vcl-popover>

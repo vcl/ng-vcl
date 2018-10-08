@@ -7,7 +7,7 @@ import { IHintOptions, HintOptions, HintConfig, Step } from './types';
 export class HintService {
   private static readonly Tag: string = 'HintService';
   private readonly tag: string = HintService.Tag;
-  private readonly debug: boolean = false;
+  private debug: boolean;
 
   currentStep: Step | undefined;
   steps: Step[];
@@ -29,8 +29,13 @@ export class HintService {
     const debug: boolean = this.debug || false;
     this.options = Object.assign(new HintOptions(), options);
     if (debug) console.log(tag, 'this.options:', this.options);
-    let nodes = document.getElementsByTagName(this.options.stepTag);
+    this.debug = this.options.debug || false;
+
+    if (debug) console.log(tag, 'this.options.stepTag:', this.options.stepTag);
+    const nodes: NodeListOf<Element> = document.getElementsByTagName(this.options.stepTag);
+    if (debug) console.log(tag, 'nodes:', nodes);
     this.steps = this.initSteps(nodes);
+    if (debug) console.log(tag, 'this.steps:', this.steps);
   }
   /**
    * Show step
@@ -38,7 +43,12 @@ export class HintService {
    * @param  step [description]
    */
   public show(step: Step): void {
-    const anchor = this.anchors[`${step.selector}_${step.order}`];
+    const tag: string = `${this.tag}.show()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'step:', step);
+    if (!step) return;
+
+    const anchor: TourComponent = this.anchors[`${step.target}_${step.order}`];
     if (!anchor) {
       return;
     }
@@ -49,8 +59,12 @@ export class HintService {
    * @method showNext
    */
   public showNext(): void {
+    const tag: string = `${this.tag}.showNext()`;
+    const debug: boolean = this.debug || false;
     this.currentStep = this.currentStep != undefined ? this.steps[this.steps.indexOf(this.currentStep) + 1] : undefined;
-    const anchor = this.currentStep != undefined ? this.anchors[`${this.currentStep.selector}_${this.currentStep.order}`] : null;
+    if (debug) console.log(tag, 'this.currentStep:', this.currentStep);
+
+    const anchor = this.currentStep != undefined ? this.anchors[`${this.currentStep.target}_${this.currentStep.order}`] : null;
     if (!anchor) {
       return;
     }
@@ -61,8 +75,12 @@ export class HintService {
    * @method overlayNext
    */
   public overlayNext(): void {
+    const tag: string = `${this.tag}.overlayNext()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'this.currentStep:', this.currentStep);
+
     if (this.hasNext() && this.currentStep != undefined) {
-      this.anchors[`${this.currentStep.selector}_${this.currentStep.order}`].hideStep();
+      this.anchors[`${this.currentStep.target}_${this.currentStep.order}`].hideStep();
       this.showNext();
     } else {
       this.end();
@@ -73,8 +91,12 @@ export class HintService {
    * @method showPrevious
    */
   public showPrevious(): void {
+    const tag: string = `${this.tag}.showPrevious()`;
+    const debug: boolean = this.debug || false;
     this.currentStep = this.currentStep != undefined ? this.steps[this.steps.indexOf(this.currentStep) - 1] : undefined;
-    const anchor = this.currentStep != undefined ? this.anchors[`${this.currentStep.selector}_${this.currentStep.order}`] : null;
+    if (debug) console.log(tag, 'this.currentStep:', this.currentStep);
+
+    const anchor = this.currentStep != undefined ? this.anchors[`${this.currentStep.target}_${this.currentStep.order}`] : null;
     if (!anchor) {
       return;
     }
@@ -83,14 +105,14 @@ export class HintService {
   /**
    * Register hint component
    * @method register
-   * @param  selector  bonded to
+   * @param  target  bonded to
    * @param  component itself
    */
-  public register(selector: string, component: TourComponent): void {
-    if (this.anchors[selector]) {
-      throw 'selector ' + selector + ' already registered!';
+  public register(target: string, component: TourComponent): void {
+    if (this.anchors[target]) {
+      throw 'target ' + target + ' already registered!';
     }
-    this.anchors[selector] = component;
+    this.anchors[target] = component;
     this.registration$.next(true);
   }
   /**
@@ -115,8 +137,12 @@ export class HintService {
    * @method end
    */
   public end(): void {
+    const tag: string = `${this.tag}.end()`;
+    const debug: boolean = this.debug || false;
     this.overlay$.next(false);
-    const anchor = this.currentStep != undefined ? this.anchors[`${this.currentStep.selector}_${this.currentStep.order}`] : null;
+    if (debug) console.log(tag, 'this.currentStep:', this.currentStep);
+
+    const anchor = this.currentStep != undefined ? this.anchors[`${this.currentStep.target}_${this.currentStep.order}`] : null;
     if (!anchor) {
       return;
     }
@@ -130,9 +156,16 @@ export class HintService {
    * @param  stepId position in this.steps
    */
   public start(stepId: number = 0): void {
+    const tag: string = `${this.tag}.start()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'stepId:', stepId);
+    if (debug) console.log(tag, 'this.steps:', this.steps);
     if (!this.steps) this.initialize();
 
     this.currentStep = this.steps[stepId];
+    if (debug) console.log(tag, 'this.currentStep:', this.currentStep);
+    if (!this.currentStep) return;
+
     this.show(this.currentStep);
     this.overlay$.next(true);
   }
@@ -143,16 +176,15 @@ export class HintService {
    * @return
    */
   private initSteps(nodes: NodeListOf<Element>): Step[] {
-    let steps: Array<Step> = [];
+    const steps: Array<Step> = [];
     for (let i = 0; i < nodes.length; i++) {
       steps.push({
-        selector: nodes[i].getAttribute('selector'),
+        target: nodes[i].getAttribute('target'),
         order: Number(nodes[i].getAttribute('order')) || this.options.defaultOrder,
       } as Step);
     }
-    return steps = steps.sort((el1, el2) => {
-      return el1.order - el2.order;
-    });
+
+    return steps.sort((el1, el2) => el1.order - el2.order);
   }
 
   private putOverlay(): void {

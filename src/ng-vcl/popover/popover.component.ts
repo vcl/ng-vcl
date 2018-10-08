@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
   ElementRef, EventEmitter, HostBinding, HostListener, Inject,
-  InjectionToken, Input, Optional, Output, SimpleChanges
+  InjectionToken, Input, Optional, Output, SimpleChanges, AfterViewInit
 } from '@angular/core';
 import {
   AnimationBuilder, AnimationFactory, AnimationMetadata
@@ -49,7 +49,7 @@ export interface PopoverAnimationConfig {
     '[style.position]': '"absolute"'
   }
 })
-export class PopoverComponent extends ObservableComponent {
+export class PopoverComponent extends ObservableComponent implements AfterViewInit {
   private static readonly Tag: string = 'PopoverComponent';
 
   private tag: string;
@@ -62,9 +62,9 @@ export class PopoverComponent extends ObservableComponent {
   debug = false;
 
   @Input()
-  target?: string | ElementRef | Element;
+  target: string | ElementRef | Element;
 
-  private targetElement?: Element;
+  targetElement: Element;
 
   @Input()
   targetX: AttachmentX = AttachmentX.Left;
@@ -131,25 +131,42 @@ export class PopoverComponent extends ObservableComponent {
     @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig
   ) {
     super();
-    this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY').subscribe((changes) => {
-      if (changes.target) {
-        this.setTarget(changes.target.currentValue);
-        this.setTag();
-      }
-      this.reposition();
-    });
+    this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY').subscribe(this.onChange.bind(this));
   }
 
-  private setTarget(value: Element | ElementRef | string) {
-    if (typeof value === 'string') {
-      this.targetElement = document.querySelector(value) || undefined;
-    } else if (value instanceof Element) {
-      this.targetElement = value;
-    } else if (value instanceof ElementRef) {
-      this.targetElement = value.nativeElement || undefined;
-    } else {
-      this.targetElement = undefined;
+  private onChange(changes: SimpleChanges = { target: { currentValue: this.target } } as any): void {
+    if (changes.target) {
+      this.setTarget(changes.target.currentValue);
+      this.setTag();
     }
+    this.reposition();
+  }
+
+  private setTarget(value: Element | ElementRef | string = this.target) {
+    this.targetElement = this.getTargetElement(value) as Element;
+  }
+
+  getTargetElement(value: Element | ElementRef | string): Element | undefined {
+    const tag: string = `${PopoverComponent.Tag}.getTargetElement()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'value:', value);
+
+    let el: Element | undefined = undefined;
+    if (typeof value === 'string') {
+      if (debug) console.log(tag, 'typeof value === string');
+      el = document.querySelector(value) as Element;
+    } else if (value instanceof Element) {
+      if (debug) console.log(tag, 'value instanceof Element');
+      el = value;
+    } else if (value instanceof ElementRef) {
+      if (debug) console.log(tag, 'value instanceof ElementRef');
+      el = value.nativeElement;
+    } else {
+      if (debug) console.log(tag, 'value is undefined');
+    }
+
+    if (debug) console.log(tag, 'el:', el);
+    return el;
   }
 
   private setTag(): void {
@@ -212,13 +229,14 @@ export class PopoverComponent extends ObservableComponent {
     if (this.debug) console.log(tag, 'this:', this);
   }
 
-  private ngAfterViewInit(): void {
-    setTimeout(() => this.reposition());
+  public ngAfterViewInit(): void {
+    setTimeout(() => this.onChange());
 
     if (this.animations) {
       if (this.animations.enter) {
         this.enterAnimationFactory = this.builder.build(this.animations.enter);
       }
+
       if (this.animations.leave) {
         this.leaveAnimationFactory = this.builder.build(this.animations.leave);
       }
@@ -227,11 +245,9 @@ export class PopoverComponent extends ObservableComponent {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (this.debug) {
-      const tag: string = `${this.tag}.ngOnChanges()`;
-      console.log(tag, 'changes:', changes);
-    }
     super.ngOnChanges(changes);
+    const tag: string = `${this.tag}.ngOnChanges()`;
+    if (this.debug) console.log(tag, 'changes:', changes);
   }
 
   public open(): void {
