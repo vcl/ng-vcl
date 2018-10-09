@@ -1,7 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TourComponent } from './tour.component';
-import { IHintOptions, HintOptions, HintConfig, Step } from './types';
+
+export class TourOptions {
+  debug: boolean = false;
+  debugTour: boolean = false;
+  debugPopover: boolean = false;
+
+  useOrder: boolean = false;
+  elementsDisabled: boolean = true;
+  applyRelative: boolean = true;
+  dismissOnOverlay: boolean = false;
+
+  zIndex: number = 20;
+
+  previousLabel: string = 'Previous';
+  nextLabel: string = 'Next';
+  exitLabel: string = 'Exit';
+
+  previousIcon: string = 'fa fa-chevron-left';
+  nextIcon: string = 'fa fa-chevron-right';
+  exitIcon: string = 'fa fa-close';
+
+  buttonClass: string = '';
+}
 
 @Injectable()
 export class TourService {
@@ -9,7 +31,7 @@ export class TourService {
   private readonly tag: string = TourService.Tag;
   private debug: boolean;
 
-  public options: HintOptions;
+  public options: TourOptions;
 
   private _tourComponents: TourComponent[] = [];
   private tourComponents: TourComponent[] = [];
@@ -42,7 +64,7 @@ export class TourService {
   }
 
   public finish$: Subject<boolean> = new Subject();
-  public showingStep$: Subject<Step> = new Subject();
+  public showingStep$: Subject<TourComponent> = new Subject();
 
   public register(tourComponent: TourComponent): void {
     const tag: string = `${this.tag}.register()`;
@@ -53,9 +75,9 @@ export class TourService {
     if (debug) console.log(tag, 'this._tourComponents:', this._tourComponents);
   }
 
-  public initialize(options: IHintOptions = new HintOptions()): void {
+  public initialize(options: TourOptions = new TourOptions()): void {
     const tag: string = `${this.tag}.initialize()`;
-    this.options = Object.assign(new HintOptions(), options);
+    this.options = Object.assign(new TourOptions(), options);
     this.debug = this.options.debug || false;
 
     const debug: boolean = this.debug || false;
@@ -69,9 +91,14 @@ export class TourService {
     if (debug) console.log(tag, 'index:', index);
 
     this.tourComponents = this.options.useOrder ?
-      this._tourComponents.sort((s1, s2) => s1.order - s2.order) :
+      this._tourComponents.slice().sort((s1, s2) => s1.order - s2.order) :
       this._tourComponents;
     if (debug) console.log(tag, 'this.tourComponents:', this.tourComponents);
+
+    this.tourComponents.forEach(tourComponent => {
+      tourComponent.debug = tourComponent.debug || this.options.debugTour;
+      tourComponent.debugPopover = tourComponent.debugPopover || this.options.debugPopover;
+    });
 
     this.show(index);
   }

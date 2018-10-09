@@ -1,6 +1,8 @@
 # vcl-tour-step and vcl-tour-overlay
 
-Simple and customizable application tour component with overlay
+Simple and customizable application tour component with overlay.
+
+Note: For the highlight to work, the target element has to have a background-color.
 
 ## Usage
 
@@ -44,8 +46,8 @@ class AppComponent {
 
 | Name                     | Type                          | Default            | Description
 | ------------------------ | ----------------------------- | ------------------ | --------------
-| `debug`                  | string                        |                    | Output debug information
-| `debugPopover`           | string                        |                    | Output popover debug information
+| `debug`                  | boolean                       | false              | Output debug information
+| `debugPopover`           | boolean                       | false              | Output vcl-tour-step's vcl-popover debug information
 | `title`                  | string                        |                    | Tour step title
 | `target`                 | string  ElementRef  Element   |                    | The target can be a selector, element or ElementRef instance
 | `order`                  | number                        |                    | The order number in which tour step should be shown, necessary if same element used multiple times
@@ -66,19 +68,52 @@ class AppComponent {
 
 | Name                     | Type        | Default  | Description
 | ------------------------ | ----------- | -------- |--------------
-| `useOrder`               | boolean     |    false | vcl-tour-step component's `@Input() order` is not used and instead the service relies on the DOM element creation order
-| `elementsDisabled`       | boolean     |     true | Disabling highlightedElement (click) wont work
-| `dismissOnOverlay`       | boolean     |    false | Go to next step when clicking on overlay (close tour if this is last step)
-| `defaultPosition`        | string      |   bottom | Position of tour step to highlightedElement
-| `defaultOrder`           | number      |       99 | Order of showing steps
-| `defaultLayer`           | number      |       15 | Distance between highlightedElement and step in px
-| `applyRelative`          | boolean     |     true | Applying position:relative to highlightedElement (disable in case you want to highlight absolute positioned elements)
+| `debug`                  | boolean     | false    | Output debug information
+| `debugTour`              | boolean     | false    | Output every vcl-tour-step debug information
+| `debugPopover`           | boolean     | false    | Output every vcl-tour-step's vcl-popover debug information
+
+| `useOrder`               | boolean     | false    | vcl-tour-step component's `@Input() order` is not used and instead the service relies on the DOM element creation order
+| `elementsDisabled`       | boolean     | true     | Disabling highlightedElement (click) wont work
+| `applyRelative`          | boolean     | true     | Applying position:relative to highlightedElement (disable in case you want to highlight absolute positioned elements)
+| `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
+
+| `zIndex`                 | number      | 20       | Used `z-index` for `vcl-tour-step` components
+| `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
+| `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
+| `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
+
+
 
 #### Custom options usage
 
 ```js
  startTour() {
-    this.tour.initialize({elementsDisabled: false}); // HintOptions
+    this.tour.initialize({elementsDisabled: false}); // TourOptions
     this.tour.start();
   }
 ```
+
+
+
+export class TourOptions {
+  debug: boolean = false;
+  debugTour: boolean = false;
+  debugPopover: boolean = false;
+
+  useOrder: boolean = false;
+  elementsDisabled: boolean = true;
+  applyRelative: boolean = true;
+  dismissOnOverlay: boolean = false;
+
+  zIndex: number = 20;
+
+  previousLabel: string = 'Previous';
+  nextLabel: string = 'Next';
+  exitLabel: string = 'Exit';
+
+  previousIcon: string = 'fa fa-chevron-left';
+  nextIcon: string = 'fa fa-chevron-right';
+  exitIcon: string = 'fa fa-close';
+
+  buttonClass: string = '';
+}

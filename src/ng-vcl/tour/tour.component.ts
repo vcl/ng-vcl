@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild } from '@angular/core';
 import { AttachmentX, AttachmentY, PopoverComponent } from '@ng-vcl/ng-vcl';
 import { TourService } from './tour.service';
-import { HintConfig } from './types';
+
+export const VCLTourStepTag: string = 'vcl-tour-step';
 
 @Component({
-  selector: HintConfig.HINT_TAG,
+  selector: VCLTourStepTag,
   templateUrl: './tour.component.html',
   styleUrls: ['./tour.component.css']
 })
@@ -12,14 +13,10 @@ export class TourComponent implements OnInit {
   private static readonly Tag: string = 'TourComponent';
   private tag: string;
 
-  @Input() private readonly debug: boolean = false;
-  @Input() public readonly debugPopover: boolean = false;
+  @Input() public debug: boolean = false;
+  @Input() public debugPopover: boolean = false;
 
   @ViewChild('popover') public readonly popover: PopoverComponent;
-
-  @HostBinding('class') public get classes(): string {
-    return `vclTourContainer step${this.order}`;
-  }
 
   @Input() public title: string;
   @Input() public order: number;
@@ -57,7 +54,7 @@ export class TourComponent implements OnInit {
     if (debug) console.log(tag, 'el:', el);
     if (el) {
 
-      el.style.zIndex = HintConfig.Z_INDEX;
+      el.style.zIndex = `${this.tour.options.zIndex}`;
 
       if (debug) console.log(tag, 'tour.options.elementsDisabled:', this.tour.options.elementsDisabled);
       if (this.tour.options.elementsDisabled) {
@@ -76,27 +73,6 @@ export class TourComponent implements OnInit {
     if (debug) console.log(tag, 'this:', this);
   }
 
-  public exit(): void {
-    const tag: string = `${this.tag}.exit()`;
-    const debug: boolean = this.debug || false;
-    if (debug) console.log(tag);
-    this.tour.end();
-  }
-
-  public next(): void {
-    const tag: string = `${this.tag}.next()`;
-    const debug: boolean = this.debug || false;
-    if (debug) console.log(tag);
-    this.tour.showNext();
-  }
-
-  public previous(): void {
-    const tag: string = `${this.tag}.previous()`;
-    const debug: boolean = this.debug || false;
-    if (debug) console.log(tag);
-    this.tour.showPrevious();
-  }
-
   public hide(): void {
     const tag: string = `${this.tag}.hide()`;
     const debug: boolean = this.debug || false;
@@ -112,6 +88,27 @@ export class TourComponent implements OnInit {
 
     this.visible = false;
     if (debug) console.log(tag, 'this:', this);
+  }
+
+  public previous(): void {
+    const tag: string = `${this.tag}.previous()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag);
+    this.tour.showPrevious();
+  }
+
+  public next(): void {
+    const tag: string = `${this.tag}.next()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag);
+    this.tour.showNext();
+  }
+
+  public exit(): void {
+    const tag: string = `${this.tag}.exit()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag);
+    this.tour.end();
   }
 
   private disableClick(element: HTMLElement): void {
