@@ -135,6 +135,9 @@ export class PopoverComponent extends ObservableComponent implements AfterViewIn
   }
 
   private onChange(changes: SimpleChanges = { target: { currentValue: this.target } } as any): void {
+    const tag: string = `${PopoverComponent.Tag}.onChange()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'changes:', changes);
     if (changes.target) {
       this.setTarget(changes.target.currentValue);
       this.setTag();

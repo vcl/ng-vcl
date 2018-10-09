@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild } from '@angular/core';
 import { AttachmentX, AttachmentY, PopoverComponent } from '@ng-vcl/ng-vcl';
-import { HintService } from './hint.service';
+import { TourService } from './tour.service';
 import { HintConfig } from './types';
 
 @Component({
@@ -10,66 +10,100 @@ import { HintConfig } from './types';
 })
 export class TourComponent implements OnInit {
   private static readonly Tag: string = 'TourComponent';
-  private readonly tag: string = TourComponent.Tag;
+  private tag: string;
 
-  @Input() readonly debug: boolean = true;
-  @Input() readonly debugPopover: boolean = true;
+  @Input() private readonly debug: boolean = false;
+  @Input() public readonly debugPopover: boolean = false;
 
-  @ViewChild('popover') readonly popover: PopoverComponent;
+  @ViewChild('popover') public readonly popover: PopoverComponent;
 
-  @HostBinding('class') get classes(): string {
+  @HostBinding('class') public get classes(): string {
     return `vclTourContainer step${this.order}`;
   }
 
-  @Input() title: string;
-  @Input() order: number;
+  @Input() public title: string;
+  @Input() public order: number;
 
-  @Input() target: string | ElementRef | Element;
-  @Input() targetX: AttachmentX = AttachmentX.Center;
-  @Input() attachmentX: AttachmentX = AttachmentX.Center;
-  @Input() targetY: AttachmentY = AttachmentY.Bottom;
-  @Input() attachmentY: AttachmentY = AttachmentY.Top;
+  @Input() public target: string | ElementRef | Element;
+  @Input() public targetX: AttachmentX = AttachmentX.Center;
+  @Input() public attachmentX: AttachmentX = AttachmentX.Center;
+  @Input() public targetY: AttachmentY = AttachmentY.Bottom;
+  @Input() public attachmentY: AttachmentY = AttachmentY.Top;
 
-  visible: boolean;
+  public visible: boolean = false;
 
-  hasNext: boolean;
-  hasPrevious: boolean;
+  public hasNext: boolean = false;
+  public hasPrevious: boolean = false;
 
-  constructor(public hint: HintService) {
+  constructor(public tour: TourService) {
     const tag: string = `${this.tag}.constructor()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'hint.options:', hint.options);
+    if (debug) console.log(tag, 'tour.options:', tour.options);
   }
 
-  ngOnInit(): void {
-    // this.order = Number(typeof this.order === 'number' ? this.order : this.hint.options.defaultOrder);
-    this.hint.register(`${this.target}_${Number(this.order || 0)}`, this);
+  public ngOnInit(): void {
+    this.tag = `${TourComponent.Tag}.${this.target}`;
+
+    const tag: string = `${this.tag}.ngOnInit()`;
+    const debug: boolean = this.debug || false;
+    this.tour.register(this);
   }
 
-  showStep(): void {
-    this.hint.showingStep$.next(this);
-    this.order = +this.order || this.hint.options.defaultOrder;
+  public show(): void {
+    const tag: string = `${this.tag}.show()`;
+    const debug: boolean = this.debug || false;
 
-    const highlightedElement: HTMLElement = this.popover.targetElement as HTMLElement;
-    if (highlightedElement) {
-      highlightedElement.style.zIndex = HintConfig.Z_INDEX;
+    const el: HTMLElement = this.popover.targetElement as HTMLElement;
+    if (debug) console.log(tag, 'el:', el);
+    if (el) {
 
-      if (this.hint.options.elementsDisabled) {
-        this.disableClick(highlightedElement);
+      el.style.zIndex = HintConfig.Z_INDEX;
+
+      if (debug) console.log(tag, 'tour.options.elementsDisabled:', this.tour.options.elementsDisabled);
+      if (this.tour.options.elementsDisabled) {
+        this.disableClick(el);
       }
 
-      if (this.hint.options.applyRelative) {
-        this.enableHighlight(highlightedElement);
+      if (debug) console.log(tag, 'tour.options.applyRelative:', this.tour.options.applyRelative);
+      if (this.tour.options.applyRelative) {
+        this.enableHighlight(el);
       }
     }
 
     this.visible = true;
-    this.hasNext = this.hint.hasNext();
-    this.hasPrevious = this.hint.hasPrevious();
+    this.hasNext = this.tour.hasNext;
+    this.hasPrevious = this.tour.hasPrevious;
+    if (debug) console.log(tag, 'this:', this);
   }
 
-  hideStep(): void {
+  public exit(): void {
+    const tag: string = `${this.tag}.exit()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag);
+    this.tour.end();
+  }
+
+  public next(): void {
+    const tag: string = `${this.tag}.next()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag);
+    this.tour.showNext();
+  }
+
+  public previous(): void {
+    const tag: string = `${this.tag}.previous()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag);
+    this.tour.showPrevious();
+  }
+
+  public hide(): void {
+    const tag: string = `${this.tag}.hide()`;
+    const debug: boolean = this.debug || false;
+
     const highlightedElement: HTMLElement = this.popover.targetElement as HTMLElement;
+    if (debug) console.log(tag, 'highlightedElement:', highlightedElement);
+
     if (highlightedElement) {
       highlightedElement.style.zIndex = null;
       this.enableClick(highlightedElement);
@@ -77,20 +111,7 @@ export class TourComponent implements OnInit {
     }
 
     this.visible = false;
-  }
-
-  exit(): void {
-    this.hint.end();
-  }
-
-  next(): void {
-    this.hideStep();
-    this.hint.showNext();
-  }
-
-  previous(): void {
-    this.hideStep();
-    this.hint.showPrevious();
+    if (debug) console.log(tag, 'this:', this);
   }
 
   private disableClick(element: HTMLElement): void {

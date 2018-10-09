@@ -21,23 +21,23 @@
     <div class="vclTourContainerFooter">
       
       <button vcl-button *ngIf="hasPrevious"
-        [ngClass]="hint.options?.buttonClass"
-        [label]="hint.options?.previousLabel"
-        [prepIcon]="hint.options?.previousIcon"
+        [ngClass]="tour.options?.buttonClass"
+        [label]="tour.options?.previousLabel"
+        [prepIcon]="tour.options?.previousIcon"
         (click)="previous()">
       </button>
 
       <button vcl-button *ngIf="hasNext"
-        [ngClass]="hint.options?.buttonClass"
-        [label]="hint.options?.nextLabel"
-        [appIcon]="hint.options?.nextIcon"
+        [ngClass]="tour.options?.buttonClass"
+        [label]="tour.options?.nextLabel"
+        [appIcon]="tour.options?.nextIcon"
         (click)="next()">
       </button>
 
       <button vcl-button
-        [ngClass]="hint.options?.buttonClass"
-        [label]="hint.options?.exitLabel"
-        [prepIcon]="hint.options?.exitIcon"
+        [ngClass]="tour.options?.buttonClass"
+        [label]="tour.options?.exitLabel"
+        [prepIcon]="tour.options?.exitIcon"
         (click)="exit()">
       </button>
 

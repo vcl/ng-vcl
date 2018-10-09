@@ -15,10 +15,10 @@ export class AppComponent {}
 
 class AppComponent {
 
-  constructor(public hint: HintService){ }
+  constructor(public tour: TourService){ }
 
   startTour() {
-    this.hint.start();
+    this.tour.start();
   }
 }
 ```
@@ -33,12 +33,8 @@ class AppComponent {
 <!-- Some application element -->
 <div id="foo">Some element</div>
 
-<vcl-tour-step selector="foo" order="1" position="right" title="some title">
-  <!-- ANY HTML HERE
-    NOTE: Only selector attribute is required! 
-          If same element used multiple times, 
-          provide order in which the steps should follow!
-  -->
+<vcl-tour-step target="#foo" title="some title">
+  <!-- ANY HTML HERE -->
 </vcl-tour-step>
 ```
 
@@ -52,24 +48,25 @@ class AppComponent {
 | `debugPopover`           | string                        |                    | Output popover debug information
 | `title`                  | string                        |                    | Tour step title
 | `target`                 | string  ElementRef  Element   |                    | The target can be a selector, element or ElementRef instance
-| `order`                  | number                        | 0                  | The order number in which tour step should be shown, necessary if same element used multiple times
+| `order`                  | number                        |                    | The order number in which tour step should be shown, necessary if same element used multiple times
 | `targetX`                | AttachmentX                   | AttachmentX.Center | Position of the target-side
 | `attachmentX`            | AttachmentX                   | AttachmentX.Center | Position of the popover-side
 | `targetY`                | AttachmentY                   | AttachmentY.Bottom | Position of the target-vertical
 | `attachmentY`            | AttachmentY                   | AttachmentY.Top    | Position of the popover-vertical
 
 
-#### HintService events
+#### TourService events
 
-| Name                     | Description
-| ------------------------ | --------------
-| `finish$`                | Triggers when tour is finished
-| `showingStep$`           | Triggers on each step show(Params > CurrentStep)
+| Name                     | Type          | Description
+| ------------------------ | ------------- | --------------
+| `finish$`                | boolean       | Event is emitted when the tour is finished
+| `showingStep$`           | TourComponent | Event is emitted on each shown vcl-tour-step component
 
-### HintService default options
+### TourService default options
 
 | Name                     | Type        | Default  | Description
 | ------------------------ | ----------- | -------- |--------------
+| `useOrder`               | boolean     |    false | vcl-tour-step component's `@Input() order` is not used and instead the service relies on the DOM element creation order
 | `elementsDisabled`       | boolean     |     true | Disabling highlightedElement (click) wont work
 | `dismissOnOverlay`       | boolean     |    false | Go to next step when clicking on overlay (close tour if this is last step)
 | `defaultPosition`        | string      |   bottom | Position of tour step to highlightedElement
@@ -81,7 +78,7 @@ class AppComponent {
 
 ```js
  startTour() {
-    this.hint.initialize({elementsDisabled: false}); // HintOptions
-    this.hint.start();
+    this.tour.initialize({elementsDisabled: false}); // HintOptions
+    this.tour.start();
   }
 ```

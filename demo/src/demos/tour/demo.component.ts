@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HintService, AttachmentX, AttachmentY } from '@ng-vcl/ng-vcl';
+import { TourService, AttachmentX, AttachmentY } from '@ng-vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -8,10 +8,13 @@ export class TourDemoComponent {
   public readonly debugTour: boolean = false;
   public readonly debugPopover: boolean = false;
 
-  constructor(public hint: HintService) { }
+  constructor(public tour: TourService) { }
 
   public startTour() {
-    this.hint.start();
+    this.tour.initialize({
+      debug: this.debugTour,
+    });
+    this.tour.start();
   }
 
   public readonly AttachmentX = AttachmentX;

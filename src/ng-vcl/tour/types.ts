@@ -4,7 +4,7 @@ export interface IHintOptionsFull {
     debug: boolean;
 
     elementsDisabled: boolean;
-    defaultOrder: number;
+    useOrder: boolean;
     defaultLayer: number;
     applyRelative: boolean;
     stepTag: string;
@@ -27,7 +27,7 @@ export class HintOptions implements IHintOptions {
     debug: boolean = false;
 
     elementsDisabled: boolean = true;
-    defaultOrder: number = HintConfig.DEFAULT_ORDER;
+    useOrder: boolean = false;
     defaultLayer: number = HintConfig.DEFAULT_PX_LAYER;
     applyRelative: boolean = HintConfig.APPLY_RELATIVE;
     stepTag: string = HintConfig.HINT_TAG;
@@ -47,7 +47,6 @@ export class HintOptions implements IHintOptions {
 export const HintConfig = {
     HINT_TAG: 'vcl-tour-step',
     Z_INDEX: '999',
-    DEFAULT_ORDER: 99,
     DEFAULT_PX_LAYER: 15,
     APPLY_RELATIVE: true,
     DISMISS_ON_OVERLAY: false,
