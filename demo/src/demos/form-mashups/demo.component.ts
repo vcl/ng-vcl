@@ -18,7 +18,7 @@ export class FormMashupsDemoComponent {
   }
 
   offClick() {
-    if (this.dropOver.state == PopoverState.visible) {
+    if (this.dropOver.visible) {
       this.dropOver.close();
     }
   }

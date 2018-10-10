@@ -22,10 +22,14 @@ export class TourComponent implements OnInit {
   @Input() public order: number;
 
   @Input() public target: string | ElementRef | Element;
+
   @Input() public targetX: AttachmentX = AttachmentX.Center;
   @Input() public attachmentX: AttachmentX = AttachmentX.Center;
+  @Input() public offsetAttachmentX: number;
+
   @Input() public targetY: AttachmentY = AttachmentY.Bottom;
   @Input() public attachmentY: AttachmentY = AttachmentY.Top;
+  @Input() public offsetAttachmentY: number;
 
   public visible: boolean = false;
 

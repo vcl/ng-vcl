@@ -12,7 +12,7 @@ export class TourOptions {
   applyRelative: boolean = true;
   dismissOnOverlay: boolean = false;
 
-  zIndex: number = 20;
+  zIndex: number = 21;
 
   previousLabel: string = 'Previous';
   nextLabel: string = 'Next';
@@ -23,6 +23,9 @@ export class TourOptions {
   exitIcon: string = 'fa fa-close';
 
   buttonClass: string = '';
+
+  offsetAttachmentX: number = 0;
+  offsetAttachmentY: number = 0;
 }
 
 @Injectable()
@@ -37,6 +40,9 @@ export class TourService {
   private tourComponents: TourComponent[] = [];
   private tourComponent: TourComponent | null;
   private index: number = 0;
+
+  public end$: Subject<boolean> = new Subject();
+  public tourComponent$: Subject<TourComponent> = new Subject();
 
   private _showOverlay: boolean = false;
   public set showOverlay(showOverlay: boolean) {
@@ -62,9 +68,6 @@ export class TourService {
     if (debug) console.log(tag, 'hasNext:', hasNext);
     return hasNext;
   }
-
-  public finish$: Subject<boolean> = new Subject();
-  public showingStep$: Subject<TourComponent> = new Subject();
 
   public register(tourComponent: TourComponent): void {
     const tag: string = `${this.tag}.register()`;
@@ -98,6 +101,10 @@ export class TourService {
     this.tourComponents.forEach(tourComponent => {
       tourComponent.debug = tourComponent.debug || this.options.debugTour;
       tourComponent.debugPopover = tourComponent.debugPopover || this.options.debugPopover;
+      tourComponent.offsetAttachmentX = isNumber(tourComponent.offsetAttachmentX) ?
+        tourComponent.offsetAttachmentX : this.options.offsetAttachmentX;
+      tourComponent.offsetAttachmentY = isNumber(tourComponent.offsetAttachmentY) ?
+        tourComponent.offsetAttachmentY : this.options.offsetAttachmentY;
     });
 
     this.show(index);
@@ -124,7 +131,7 @@ export class TourService {
     this.showOverlay = true;
     tourComponent.show();
 
-    this.showingStep$.next(this.tourComponent);
+    this.tourComponent$.next(this.tourComponent);
   }
 
   public showPrevious(): void {
@@ -152,7 +159,7 @@ export class TourService {
     this.tourComponent && this.tourComponent.hide();
     this.showOverlay = false;
     this.index = 0;
-    this.finish$.next(true);
+    this.end$.next(true);
   }
 
   public onOverlayClick(): void {
@@ -162,3 +169,5 @@ export class TourService {
     if (this.options.dismissOnOverlay) this.showNext();
   }
 }
+
+const isNumber = (v: any): boolean => !isNaN(Number(v)) && isFinite(v);

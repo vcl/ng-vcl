@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
   ElementRef, EventEmitter, HostBinding, HostListener, Inject,
-  InjectionToken, Input, Optional, Output, SimpleChanges, AfterViewInit
+  InjectionToken, Input, Optional, Output, SimpleChanges, OnInit, AfterViewInit,
 } from '@angular/core';
 import {
   AnimationBuilder, AnimationFactory, AnimationMetadata
@@ -49,89 +49,100 @@ export interface PopoverAnimationConfig {
     '[style.position]': '"absolute"'
   }
 })
-export class PopoverComponent extends ObservableComponent implements AfterViewInit {
+export class PopoverComponent extends ObservableComponent implements OnInit, AfterViewInit {
   private static readonly Tag: string = 'PopoverComponent';
 
   private tag: string;
 
+  private state: PopoverState = PopoverState.hidden;
+  private translateX: number = 1;
+  private translateY: number = 0;
+
+  private enterAnimationFactory: AnimationFactory | undefined;
+  private leaveAnimationFactory: AnimationFactory | undefined;
+
   @HostBinding('class.vclPopOver')
-  @Input()
-  enableStyling = true;
+  @Input() public enableStyling = true;
 
-  @Input()
-  debug = false;
+  @Input() public debug = false;
 
-  @Input()
-  target: string | ElementRef | Element;
+  @Input() public target: string | ElementRef | Element;
+  public targetElement: Element;
 
-  targetElement: Element;
+  @Input() public targetX: AttachmentX = AttachmentX.Left;
+  @Input() public attachmentX: AttachmentX = AttachmentX.Left;
+  @Input() public offsetAttachmentX: number = 0;
 
-  @Input()
-  targetX: AttachmentX = AttachmentX.Left;
+  @Input() public targetY: AttachmentY = AttachmentY.Bottom;
+  @Input() public attachmentY: AttachmentY = AttachmentY.Top;
+  @Input() public offsetAttachmentY: number = 0;
 
-  @Input()
-  targetY: AttachmentY = AttachmentY.Bottom;
-
-  @Input()
-  attachmentX: AttachmentX = AttachmentX.Left;
-  @Input()
-  offsetAttachmentX: number = 0;
-
-  @Input()
-  attachmentY: AttachmentY = AttachmentY.Top;
-  @Input()
-  offsetAttachmentY: number = 0;
-
-  @Input()
-  set visible(value) {
-    if (value) {
-      this.open();
-    } else {
-      this.close();
-    }
-  }
-
-  @Output()
-  willClose = new EventEmitter<any>();
-
-  @Output()
-  willOpen = new EventEmitter<any>();
-
-  get visible() {
+  public get visible(): boolean {
     return (this.state === PopoverState.opening || this.state === PopoverState.visible);
   }
 
-  state: PopoverState = PopoverState.hidden;
+  @Input()
+  public set visible(value: boolean) {
+    value ? this.open() : this.close();
+  }
+
+  @Output() public willClose = new EventEmitter<any>();
+  @Output() public willOpen = new EventEmitter<any>();
 
   @HostBinding('class.vclLayoutHidden')
-  get classHidden() {
+  public get classHidden() {
     return this.state === PopoverState.hidden;
   }
 
   @HostBinding('style.visibility')
-  get styleVisibility() {
+  public get styleVisibility() {
     return this.state === PopoverState.opening ? 'hidden' : 'visible';
   }
 
-  private translateX: number = 1;
-  private translateY: number = 0;
-
   @HostBinding('style.transform')
-  get transform() {
+  public get transform() {
     return `translate(${String(this.translateX)}px, ${String(this.translateY)}px)`;
   }
 
-  enterAnimationFactory: AnimationFactory | undefined;
-  leaveAnimationFactory: AnimationFactory | undefined;
+  @HostListener('window:resize', ['$event'])
+  private onWindowResize(event: Event): void {
+    this.reposition();
+  }
 
   constructor(
-    protected readonly me: ElementRef,
-    private builder: AnimationBuilder,
-    private cdRef: ChangeDetectorRef,
-    @Optional() @Inject(POPOVER_ANIMATIONS) private animations: PopoverAnimationConfig
+    protected readonly ref: ElementRef,
+    protected readonly builder: AnimationBuilder,
+    protected readonly cd: ChangeDetectorRef,
+    @Optional() @Inject(POPOVER_ANIMATIONS) protected animations: PopoverAnimationConfig
   ) {
     super();
-    this.observeChanges('target', 'targetX', 'targetY', 'attachmentX', 'attachmentY').subscribe(this.onChange.bind(this));
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    const tag: string = `${this.tag}.ngOnChanges()`;
+    if (this.debug) console.log(tag, 'changes:', changes);
+    this.onChange(changes);
+  }
+
+  public ngOnInit(): void {
+    this.setTag();
+    const tag: string = `${this.tag}.ngOnInit()`;
+    if (this.debug) console.log(tag, 'this:', this);
+  }
+
+  public ngAfterViewInit(): void {
+    setTimeout(() => this.onChange());
+
+    if (this.animations) {
+      if (this.animations.enter) {
+        this.enterAnimationFactory = this.builder.build(this.animations.enter);
+      }
+
+      if (this.animations.leave) {
+        this.leaveAnimationFactory = this.builder.build(this.animations.leave);
+      }
+    }
   }
 
   private onChange(changes: SimpleChanges = { target: { currentValue: this.target } } as any): void {
@@ -149,7 +160,11 @@ export class PopoverComponent extends ObservableComponent implements AfterViewIn
     this.targetElement = this.getTargetElement(value) as Element;
   }
 
-  getTargetElement(value: Element | ElementRef | string): Element | undefined {
+  private setTag(): void {
+    this.tag = `${PopoverComponent.Tag}.${this.target}`;
+  }
+
+  private getTargetElement(value: Element | ElementRef | string): Element | undefined {
     const tag: string = `${PopoverComponent.Tag}.getTargetElement()`;
     const debug: boolean = this.debug || false;
     if (debug) console.log(tag, 'value:', value);
@@ -171,11 +186,6 @@ export class PopoverComponent extends ObservableComponent implements AfterViewIn
     if (debug) console.log(tag, 'el:', el);
     return el;
   }
-
-  private setTag(): void {
-    this.tag = `${PopoverComponent.Tag}.${this.target}`;
-  }
-
 
   public reposition(): void {
     const tag: string = `${this.tag}.reposition()`;
@@ -208,7 +218,7 @@ export class PopoverComponent extends ObservableComponent implements AfterViewIn
       ownPos[AttachmentY.Top] + ownPos[Dimension.Height] / 2 :
       ownPos[this.attachmentY];
 
-    const diffY: number = mustY - isY + + this.offsetAttachmentY;
+    const diffY: number = mustY - isY + this.offsetAttachmentY;
 
     if (this.debug) {
       console.log(tag, {
@@ -226,31 +236,8 @@ export class PopoverComponent extends ObservableComponent implements AfterViewIn
     this.translateY = this.translateY + diffY;
   }
 
-  private ngOnInit(): void {
-    this.setTag();
-    const tag: string = `${this.tag}.ngOnInit()`;
-    if (this.debug) console.log(tag, 'this:', this);
-  }
-
-  public ngAfterViewInit(): void {
-    setTimeout(() => this.onChange());
-
-    if (this.animations) {
-      if (this.animations.enter) {
-        this.enterAnimationFactory = this.builder.build(this.animations.enter);
-      }
-
-      if (this.animations.leave) {
-        this.leaveAnimationFactory = this.builder.build(this.animations.leave);
-      }
-    }
-
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    super.ngOnChanges(changes);
-    const tag: string = `${this.tag}.ngOnChanges()`;
-    if (this.debug) console.log(tag, 'changes:', changes);
+  private getAttachmentPosition(): ClientRect {
+    return this.ref.nativeElement.getBoundingClientRect();
   }
 
   public open(): void {
@@ -264,15 +251,15 @@ export class PopoverComponent extends ObservableComponent implements AfterViewIn
     // Also when opening the popover is hidden via the visibility-style. This avoids flashing up on the wrong position.
     setTimeout(() => {
       this.reposition();
-      if (this.enterAnimationFactory && this.me) {
-        const player = this.enterAnimationFactory.create(this.me.nativeElement);
+      if (this.enterAnimationFactory && this.ref) {
+        const player = this.enterAnimationFactory.create(this.ref.nativeElement);
         player.onDone(() => {
           player.destroy();
         });
         player.play();
       }
       this.state = PopoverState.visible;
-      this.cdRef.markForCheck();
+      this.cd.markForCheck();
     }, 0);
   }
 
@@ -282,34 +269,25 @@ export class PopoverComponent extends ObservableComponent implements AfterViewIn
     }
     this.state = PopoverState.closing;
     this.willClose.emit();
-    if (this.leaveAnimationFactory && this.me) {
-      const player = this.leaveAnimationFactory.create(this.me.nativeElement);
+    if (this.leaveAnimationFactory && this.ref) {
+      const player = this.leaveAnimationFactory.create(this.ref.nativeElement);
       player.onDone(() => {
         player.destroy();
         this.state = PopoverState.hidden;
-        this.cdRef.markForCheck();
+        this.cd.markForCheck();
       });
       player.play();
     } else {
       this.state = PopoverState.hidden;
-      this.cdRef.markForCheck();
+      this.cd.markForCheck();
     }
   }
 
-  public toggle() {
+  public toggle(): void {
     if (this.visible) {
       this.close();
     } else {
       this.open();
     }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize(ev): void {
-    this.reposition();
-  }
-
-  private getAttachmentPosition(): ClientRect {
-    return this.me.nativeElement.getBoundingClientRect();
   }
 }

@@ -47,41 +47,43 @@ class AppComponent {
 | Name                     | Type                          | Default            | Description
 | ------------------------ | ----------------------------- | ------------------ | --------------
 | `debug`                  | boolean                       | false              | Output debug information
-| `debugPopover`           | boolean                       | false              | Output vcl-tour-step's vcl-popover debug information
+| `debugPopover`           | boolean                       | false              | Output `vcl-tour-step`'s `vcl-popover` debug information
 | `title`                  | string                        |                    | Tour step title
 | `target`                 | string  ElementRef  Element   |                    | The target can be a selector, element or ElementRef instance
 | `order`                  | number                        |                    | The order number in which tour step should be shown, necessary if same element used multiple times
 | `targetX`                | AttachmentX                   | AttachmentX.Center | Position of the target-side
 | `attachmentX`            | AttachmentX                   | AttachmentX.Center | Position of the popover-side
+| `offsetAttachmentX`      | number                        |                    | `vcl-popover`'s AttachmentX offset
 | `targetY`                | AttachmentY                   | AttachmentY.Bottom | Position of the target-vertical
 | `attachmentY`            | AttachmentY                   | AttachmentY.Top    | Position of the popover-vertical
+| `offsetAttachmentY`      | number                        |                    | `vcl-popover`'s AttachmentY offset
 
 
 #### TourService events
 
 | Name                     | Type          | Description
 | ------------------------ | ------------- | --------------
-| `finish$`                | boolean       | Event is emitted when the tour is finished
-| `showingStep$`           | TourComponent | Event is emitted on each shown vcl-tour-step component
+| `end$`                   | true          | Event is emitted when the tour is finished or ended
+| `tourComponent$`         | TourComponent | Current `TourComponent` is emitted on each `vcl-tour-step`
 
 ### TourService default options
 
 | Name                     | Type        | Default  | Description
 | ------------------------ | ----------- | -------- |--------------
 | `debug`                  | boolean     | false    | Output debug information
-| `debugTour`              | boolean     | false    | Output every vcl-tour-step debug information
-| `debugPopover`           | boolean     | false    | Output every vcl-tour-step's vcl-popover debug information
+| `debugTour`              | boolean     | false    | Output every `vcl-tour-step` debug information
+| `debugPopover`           | boolean     | false    | Output every `vcl-tour-step`'s `vcl-popover` debug information
 
-| `useOrder`               | boolean     | false    | vcl-tour-step component's `@Input() order` is not used and instead the service relies on the DOM element creation order
+| `useOrder`               | boolean     | false    | `vcl-tour-step`'s `@Input() order` is not used and instead the service relies on the DOM element creation order
 | `elementsDisabled`       | boolean     | true     | Disabling highlightedElement (click) wont work
 | `applyRelative`          | boolean     | true     | Applying position:relative to highlightedElement (disable in case you want to highlight absolute positioned elements)
 | `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
 
 | `zIndex`                 | number      | 20       | Used `z-index` for `vcl-tour-step` components
 | `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
-| `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
-| `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
 
+| `offsetAttachmentX`      | number      | 0        | Used AttachmentX offset for `vcl-tour-step` components
+| `offsetAttachmentY`      | number      | 0        | Used AttachmentY offset for `vcl-tour-step` components
 
 
 #### Custom options usage
