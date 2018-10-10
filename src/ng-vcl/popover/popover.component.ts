@@ -146,14 +146,14 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
   }
 
   private onChange(changes: SimpleChanges = { target: { currentValue: this.target } } as any): void {
-    const tag: string = `${PopoverComponent.Tag}.onChange()`;
+    const tag: string = `${this.tag}.onChange()`;
     const debug: boolean = this.debug || false;
     if (debug) console.log(tag, 'changes:', changes);
     if (changes.target) {
       this.setTarget(changes.target.currentValue);
       this.setTag();
     }
-    this.reposition();
+    // this.reposition();
   }
 
   private setTarget(value: Element | ElementRef | string = this.target) {
@@ -189,14 +189,15 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
 
   public reposition(): void {
     const tag: string = `${this.tag}.reposition()`;
+    const debug: boolean = this.debug || false;
 
     const targetPos = this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
-
-    if (this.debug) console.log(tag, 'targetPos:', targetPos);
-    if (!this.visible || !targetPos) return;
+    if (debug) console.log(tag, 'targetPos:', targetPos);
+    if (!targetPos) return;
 
     const ownPos: ClientRect = this.getAttachmentPosition();
-    if (this.debug) console.log(tag, 'ownPos:', ownPos);
+    if (debug) console.log(tag, 'ownPos:', ownPos);
+    if (!ownPos) return;
 
     const mustX: number = this.targetX === AttachmentX.Center ?
       targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :
@@ -220,7 +221,7 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
 
     const diffY: number = mustY - isY + this.offsetAttachmentY;
 
-    if (this.debug) {
+    if (debug) {
       console.log(tag, {
         targetPos,
         ownPos,
@@ -260,15 +261,17 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
       }
       this.state = PopoverState.visible;
       this.cd.markForCheck();
-    }, 0);
+    });
   }
 
   public close(): void {
     if (this.state === PopoverState.hidden || this.state === PopoverState.opening || this.state === PopoverState.closing) {
       return;
     }
+
     this.state = PopoverState.closing;
     this.willClose.emit();
+
     if (this.leaveAnimationFactory && this.ref) {
       const player = this.leaveAnimationFactory.create(this.ref.nativeElement);
       player.onDone(() => {

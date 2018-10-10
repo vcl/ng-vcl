@@ -73,15 +73,12 @@ class AppComponent {
 | `debug`                  | boolean     | false    | Output debug information
 | `debugTour`              | boolean     | false    | Output every `vcl-tour-step` debug information
 | `debugPopover`           | boolean     | false    | Output every `vcl-tour-step`'s `vcl-popover` debug information
-
 | `useOrder`               | boolean     | false    | `vcl-tour-step`'s `@Input() order` is not used and instead the service relies on the DOM element creation order
 | `elementsDisabled`       | boolean     | true     | Disabling highlightedElement (click) wont work
 | `applyRelative`          | boolean     | true     | Applying position:relative to highlightedElement (disable in case you want to highlight absolute positioned elements)
 | `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
-
 | `zIndex`                 | number      | 20       | Used `z-index` for `vcl-tour-step` components
 | `dismissOnOverlay`       | boolean     | false    | Go to next step when clicking on overlay (close tour if this is last step)
-
 | `offsetAttachmentX`      | number      | 0        | Used AttachmentX offset for `vcl-tour-step` components
 | `offsetAttachmentY`      | number      | 0        | Used AttachmentY offset for `vcl-tour-step` components
 
