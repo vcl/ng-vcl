@@ -1,15 +1,15 @@
-# vcl-layer (VCLLayerModule)
+# vcl-layer
 
 A container which stacks up in the z-direction.
 
 ## Usage
 
-### The layer reference
+### The Layer Reference
 
 A layer reference is an object of the type `LayerRef` and allows to open, close, send data to and receive data from the layer.
 It can be created as a template using the `vcl-layer directive or from a component:
 
-#### Template layer
+#### Template Layer
 
 ```html
 <ng-template vcl-layer #myTemplateLayer="layer" [modal]="true">
@@ -27,7 +27,7 @@ It can be created as a template using the `vcl-layer directive or from a compone
 </ng-template>
 ```
 
-#### Component layer
+#### Component Layer
 
 ```js
 import { Layer, LayerRef, ComponentLayerRef, provideLayer } from '@ng-vcl/ng-vcl';
@@ -92,7 +92,7 @@ A component layer must be registered.
 export default class AppModule {  };
 ```
 
-#### Using the layers
+#### Using the Layers
 
 ```js
 import { LayerRef } from '@ng-vcl/ng-vcl';
@@ -118,7 +118,7 @@ export class LayerDemoComponent {
 }
 ```
 
-#### Setting attributes and receiving data
+#### Setting Attributes and receiving Data
 
 The open() method allows to pass data to the layer and returns an Observable which
 allows you to receive data from the layer.
