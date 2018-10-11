@@ -92,6 +92,7 @@ export class TourService {
     const tag: string = `${this.tag}.start()`;
     const debug: boolean = this.debug || false;
     if (debug) console.log(tag, 'index:', index);
+    if (!this.options) this.initialize();
 
     this.tourComponents = this.options.useOrder ?
       this._tourComponents.slice().sort((s1, s2) => s1.order - s2.order) :
