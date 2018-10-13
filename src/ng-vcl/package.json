@@ -1,7 +1,7 @@
 {
   "name": "@ng-vcl/ng-vcl",
   "version": "PLACEHOLDER",
-  "description": "A comprehensive library of components for Angular 2 with VCL based styling",
+  "description": "A comprehensive library of components for Angular 6+ with VCL based styling",
   "repository": {
     "type": "git",
     "url": "https://github.com/ng-vcl/ng-vcl.git"

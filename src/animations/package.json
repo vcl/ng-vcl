@@ -14,7 +14,7 @@
   "peerDependencies": {
     "@angular/core": "^6",
     "@angular/animations": "^6",
-    "@ng-vcl/ng-vcl": "^0.5.0-2"
+    "@ng-vcl/ng-vcl": "^0.6.0"
   },
   "sideEffects": false  
 }
