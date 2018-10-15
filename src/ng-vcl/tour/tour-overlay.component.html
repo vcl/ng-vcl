@@ -1,1 +1,5 @@
-<div class="hintOverlay" *ngIf="show" (click)="dismiss()"></div>
+<div 
+  class="vclTourOverlay" 
+  [class.vclLayoutHidden]="!tour.showOverlay"
+  (click)="tour.onOverlayClick()">
+</div>

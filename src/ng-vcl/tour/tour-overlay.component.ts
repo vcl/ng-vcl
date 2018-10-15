@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HintService } from './hint.service';
+import { TourService } from './tour.service';
 
 @Component({
   selector: 'vcl-tour-overlay',
@@ -7,14 +7,5 @@ import { HintService } from './hint.service';
   styleUrls: ['./tour-overlay.component.css']
 })
 export class TourOverlayComponent {
-  show: boolean;
-
-  constructor(public hintService: HintService) {
-    this.hintService.overlay$.subscribe(data => this.show = data);
-  }
-
-  dismiss(): void {
-    if (this.hintService.hintOptions.dismissOnOverlay)
-      this.hintService.overlayNext();
-  }
+  constructor(public readonly tour: TourService) { }
 }

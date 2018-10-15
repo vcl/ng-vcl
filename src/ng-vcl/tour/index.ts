@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { VCLPopoverModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { TourOverlayComponent } from './tour-overlay.component';
-import { HintService } from './hint.service';
+import { TourService, TourOptions } from './tour.service';
 import { TourComponent } from './tour.component';
-import { IHintService, IHintOptions, HintConfig, HintOptions, Placement, Step } from './types';
 
-export { HintService, IHintService, IHintOptions, Step, TourComponent };
+export { TourService, TourOptions, TourComponent };
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, VCLPopoverModule, VCLButtonModule],
   exports: [TourComponent, TourOverlayComponent],
   declarations: [TourComponent, TourOverlayComponent],
-  providers: [HintService],
+  providers: [TourService],
 })
-export class VCLTourModule {}
+export class VCLTourModule { }

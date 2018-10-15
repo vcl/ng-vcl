@@ -1,25 +1,50 @@
-<div class="vclTourHintWrapper {{transformClass}} step{{order}} {{position}}"
-  *ngIf="showMe" [ngStyle]="{'top': topPos+'px', 'left': leftPos+'px'}" >
-    <div class="header" *ngIf="title">{{title}}</div>
-    <div class="content"><ng-content></ng-content></div>
-    <div class="footer">
-      <button type="button" class="vclButton" *ngIf="hasPrevious" (click)="previous()">
-        <div class="vclIcogram">
-          <div class="vclIcon fa fa-chevron-left" aria-hidden="true" role="img"></div>
-          <span class="vclText">Previous</span>
-        </div>
-      </button>
-      <button type="button" class="vclButton" *ngIf="hasNext" (click)="next()">
-        <div class="vclIcogram">
-          <div class="vclIcon fa fa-chevron-right" aria-hidden="true" role="img"></div>
-          <span class="vclText">Next</span>
-        </div>
-      </button>
-      <button type="button" class="vclButton" (click)="exit()">
-        <div class="vclIcogram">
-          <div class="vclIcon fa fa-close" aria-hidden="true" role="img"></div>
-          <span class="vclText">Exit</span>
-        </div>
-      </button>
+<vcl-popover #popover
+  [debug]="debugPopover"
+  [visible]="visible"
+  [target]="target"
+  [targetX]="targetX"
+  [attachmentX]="attachmentX"
+  [offsetAttachmentX]="offsetAttachmentX"
+  [targetY]="targetY"
+  [attachmentY]="attachmentY"
+  [offsetAttachmentY]="offsetAttachmentY"
+  [style.z-index]="tour.options?.zIndex">
+
+  <div class="vclTourContainer">
+
+    <div class="vclTourContainerHeader" *ngIf="title">
+      {{ title }}
     </div>
+
+    <div class="vclTourContainerContent">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="vclTourContainerFooter">
+      
+      <button vcl-button *ngIf="hasPrevious"
+        [ngClass]="tour.options?.buttonClass"
+        [label]="tour.options?.previousLabel"
+        [prepIcon]="tour.options?.previousIcon"
+        (click)="previous()">
+      </button>
+
+      <button vcl-button *ngIf="hasNext"
+        [ngClass]="tour.options?.buttonClass"
+        [label]="tour.options?.nextLabel"
+        [appIcon]="tour.options?.nextIcon"
+        (click)="next()">
+      </button>
+
+      <button vcl-button
+        [ngClass]="tour.options?.buttonClass"
+        [label]="tour.options?.exitLabel"
+        [prepIcon]="tour.options?.exitIcon"
+        (click)="exit()">
+      </button>
+
+    </div>
+    
   </div>
+
+</vcl-popover>

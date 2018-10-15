@@ -16,14 +16,17 @@ A popover is a dom-element which 'floats' at the position of the target element.
 
 #### Attributes
 
-Name             | Type    | Default  | Description
----------------- | ------- | -------- | --------------------------------
-`visible` _(1)_  | boolean | true     | the popover is hidden if false
-`target`         | any     |          | the target can be a selector, element or ElementRef instance
-`targetX`        | string  | 'left'   | position of the target-side
-`attachmentX`    | string  | 'left'   | position of the popover-side
-`targetY`        | string  | 'bottom' | position of the target-vertical
-`attachmentY`    | string  | 'top'    | position of the popover-vertical
+Name                | Type                        | Default             | Description
+------------------- | --------------------------- | ------------------- | ------------------- 
+`debug`             | boolean                     | false               | output debug information
+`visible` _(1)_     | boolean                     | true                | the popover is hidden if false
+`target`            | string  ElementRef  Element |                     | the target can be a selector, element or ElementRef instance
+`targetX`           | AttachmentX                 | AttachmentX.Left    | position of the target-side
+`attachmentX`       | AttachmentX                 | AttachmentX.Left    | position of the popover-side
+`offsetAttachmentX` | number                      | 0                   | attachmentX offset
+`targetY`           | AttachmentY                 | AttachmentY.Bottom  | position of the target-vertical
+`attachmentY`       | AttachmentY                 | AttachmentY.Top     | position of the popover-vertical
+`offsetAttachmentY` | number                      | 0                   | attachmentY offset
 
 #### Methods
 
