@@ -53,7 +53,7 @@ export class TokenComponent implements Token {
   removable: boolean = false;
 
   @Input()
-  icon: string = 'fa:remove';
+  icon: string = 'fa:times';
 
   @Input()
   tokenIcon?: string;

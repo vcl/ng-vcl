@@ -56,7 +56,7 @@ Name          | Type    | Default   | Description
 `label`       | string  |           | label-text inside of the token
 `selected`    | boolean | false     | if true, the token is highlighted
 `removable`   | boolean | false     | if true, the remove-cross is shown
-`icon`        | string  | fa:remove | remove icon
+`icon`        | string  | fa:times  | remove icon
 
 #### vcl-token events
 
@@ -86,7 +86,7 @@ Name                 | Type     | Default              | Description
 `allowDuplicates`    | boolean  | false                | tokens with matching values are not added
 `preselect`          | boolean  | false                | tokens are preselected after being added if true
 `tokenClass`         | string   |                      | additional css class for tokens
-`removeIcon`         | string   | fa:remove            | remove icon
+`removeIcon`         | string   | fa:times             | remove icon
 `tabindex`           | number   | 0                    | The tabindex of the token-input
 
 #### vcl-token-input-container events

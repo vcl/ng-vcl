@@ -27,10 +27,10 @@ export class CheckboxComponent implements ControlValueAccessor {
   tabindex = 0;
 
   @Input()
-  checkedIcon: string = 'fa:check-square-o';
+  checkedIcon: string = 'far fa-check-square';
 
   @Input()
-  uncheckedIcon: string = 'fa:square-o';
+  uncheckedIcon: string = 'far fa-square';
 
   @Input()
   label?: string;
