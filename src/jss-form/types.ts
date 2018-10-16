@@ -1,4 +1,6 @@
-import { Schema } from 'jsonschema';
+import {Schema} from 'jsonschema';
+import {DatePickerConfig} from '../ng-vcl/date-picker/date-picker.component';
+import {Type} from '@angular/core';
 
 export interface JssFormSchemaOptions {
   label?: string;
@@ -24,4 +26,7 @@ export interface JssFormSchema extends Schema {
   hideLabel?: boolean;
   hint?: string;
   count?: number;
+  datePickerConfig?: DatePickerConfig;
+  customComponent?: Type<any>;
+  customParameters?: any;
 }

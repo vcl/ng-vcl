@@ -6,6 +6,7 @@ import { VCLNotifierModule } from '@ng-vcl/ng-vcl';
 import { VCLJssFormModule } from '@ng-vcl/jss-form';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
+import {CustomSampleComponent} from './custom-sample.component';
 
 export function demo() {
   return {
@@ -23,6 +24,10 @@ export function demo() {
       'demo.component.ts': {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
+      },
+      'custom-sample.component.ts': {
+        type: 'pre',
+        content: require('!highlight-loader?raw=true&lang=ts!./custom-sample.component.ts')
       },
       'hero.ts': {
         type: 'pre',
@@ -45,7 +50,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ JssFormDemoComponent ],
-  declarations: [ JssFormDemoComponent ]
+  entryComponents: [ JssFormDemoComponent, CustomSampleComponent ],
+  declarations: [ JssFormDemoComponent, CustomSampleComponent ]
 })
 export class VCLJssFormDemoModule { }

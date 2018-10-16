@@ -20,6 +20,31 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export interface DatePickerConfig {
+  closeOnSelect: boolean;
+  disabled: boolean;
+  highlightToday: boolean;
+  highlightSelected: boolean;
+  displayWeekNumbers: boolean;
+  displayWeekdays: boolean;
+  displayDate: boolean;
+  displayTime: boolean;
+  displayHours24: boolean;
+  displayHours: boolean;
+  displayMinutes: boolean;
+  displaySeconds: boolean;
+  prevYearBtnIcon: string;
+  nextYearBtnIcon: string;
+  displayJumpToday: boolean;
+  displayJumpSelected: boolean;
+  selectedDate: Date | undefined;
+  selectRange: boolean;
+  selectedRangeEnd: Date | undefined;
+  maxRangeLength: number;
+  minDate: Date | undefined;
+  maxDate: Date | undefined;
+}
+
 @Component({
   selector: 'vcl-date-picker',
   templateUrl: 'date-picker.component.html',
@@ -109,6 +134,9 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   @Input()
   maxDate: Date | undefined;
 
+  @Input()
+  config: DatePickerConfig | undefined;
+
   @Output()
   change = new EventEmitter<Date | Array<Date | undefined>>();
 
@@ -122,6 +150,12 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   constructor(private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
+    if (this.config) {
+      for (let key in this.config) {
+        this[key] = this.config[key];
+      }
+    }
+
     this.setDate(this.selectedDate);
 
     if (this.selectedRangeEnd) {
@@ -150,7 +184,6 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   onDateTap(date: CalendarDate) {
-
     if (this.disabled || this.isDayDisabled(date)) {
       return;
     }
@@ -297,6 +330,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   timeChange(date: Date) {
     this.selectedDate = date;
     this.currentDate = new CalendarDate(date);
+    this.onDateTap(this.currentDate);
     this.viewDate = this.currentDate;
     this.cdRef.markForCheck();
   }

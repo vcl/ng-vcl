@@ -1,7 +1,16 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
-import { JssFormSchemaOptions, JssFormSchema } from './types';
-import { determineType } from './utils';
+import {JssFormSchema, JssFormSchemaOptions} from './types';
+import {determineType} from './utils';
 
 let uniqueID = 0;
 
@@ -21,7 +30,7 @@ export class FormObject {
     public schema: JssFormSchema,
     public key: string,
     public parentKey?: string
-    ) {
+  ) {
 
     this.formObjects = createFormObjects(schema, this);
     this.formType = determineType(schema);
@@ -29,7 +38,7 @@ export class FormObject {
     if (this.formType === 'select' || this.formType === 'dropdown' || this.formType === 'radio') {
       let options;
       if (!schema.options && schema.enum) {
-        options = schema.enum.map((s: string | null) => ({ label: s === null ? '-' : s, value: s }));
+        options = schema.enum.map((s: string | null) => ({label: s === null ? '-' : s, value: s}));
       } else if (schema.options) {
         options = schema.options.map((option) => ({
           value: option.value,
@@ -104,7 +113,44 @@ export function createFormObjects(schema: any, parent?: FormObject): FormObject[
   selector: 'vcl-jss-form-object',
   templateUrl: 'jss-form-object.component.html'
 })
-export class JssFormObjectComponent {
+export class JssFormObjectComponent implements OnInit {
+
+  constructor(private factoryResolver: ComponentFactoryResolver) {
+  }
+
+  ngOnInit() {
+    if (this.isCustom) {
+      this.dynamicViewContainerRef.clear();
+      const factory = this.factoryResolver.resolveComponentFactory(this.fo.schema.customComponent!);
+      const component = this.dynamicViewContainerRef.createComponent(factory);
+      if (!this.validCustom(component.instance)) {
+        console.error(component.instance.constructor.name, 'is not an instance of ControlValueAccessor');
+        this.dynamicViewContainerRef.clear();
+      } else {
+        if (this.fo.schema.customParameters) {
+          for (let key in this.fo.schema.customParameters) {
+            (<any> component.instance)[key] = this.fo.schema.customParameters[key];
+          }
+        }
+
+        (<any> component.instance).registerOnChange((newValue) => {
+          this.form.controls[this.fo.key]!['_pendingValue'] = newValue;
+          this.form.controls[this.fo.key]!['_pendingChange'] = true;
+          this.form.controls[this.fo.key]!['_pendingDirty'] = true;
+          this.form.controls[this.fo.key]!.setValue(newValue, { emitModelToViewChange: false });
+          this.form.controls[this.fo.key]!['_pendingChange'] = false;
+        });
+
+        this.form.controls[this.fo.key]!['registerOnChange'](function (newValue, emitModelEvent) {
+          (<any> component.instance).writeValue(newValue);
+        });
+      }
+    }
+  }
+
+  @ViewChild('dynamic', {read: ViewContainerRef})
+  dynamicViewContainerRef: ViewContainerRef;
+
   @Input()
   form: FormGroup;
 
@@ -148,5 +194,20 @@ export class JssFormObjectComponent {
       }
     }
     return undefined;
+  }
+
+  get isCustom(): boolean {
+    return !!this.fo.schema.customComponent;
+  }
+
+  validCustom(instance: any): boolean {
+    if (!('writeValue' in instance)
+      || !('registerOnChange' in instance)
+      || !('registerOnTouched' in instance)
+      || !('setDisabledState' in instance)) {
+      return false;
+    }
+
+    return true;
   }
 }

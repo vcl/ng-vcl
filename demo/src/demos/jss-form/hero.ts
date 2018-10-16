@@ -1,3 +1,5 @@
+import {CustomSampleComponent} from './custom-sample.component';
+
 export const HERO_SCHEMA = {
   title: 'hero schema',
   description: 'describes a simple hero',
@@ -133,6 +135,25 @@ export const HERO_SCHEMA = {
       label: 'Attributes',
       type: 'array'
     },
+    dob: {
+      formType: 'date',
+      label: 'Date of Birth',
+      type: 'string',
+      datePickerConfig: {
+        displayTime: true
+      }
+    },
+    custom: {
+      formType: 'custom',
+      label: 'Custom Component',
+      type: 'number',
+      minimum: 3,
+      maximum: 5,
+      customComponent: CustomSampleComponent,
+      customParameters: {
+        message: 'Counter:'
+      }
+    },
     items: {
       label: 'Items',
       singularLabel: 'Item',
@@ -183,5 +204,6 @@ export const HERO_DEFAULTS = {
   color: '#ff0000',
   leader: false,
   alive: true,
-  hp: 10
+  hp: 10,
+  custom: 0
 };
