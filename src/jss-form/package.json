@@ -16,7 +16,7 @@
     "@angular/core": "^6",
     "@angular/forms": "^6",
     "rxjs": "^6",
-    "@ng-vcl/ng-vcl": "^0.5.0-2"
+    "@ng-vcl/ng-vcl": "^0.6.0"
   },
   "dependencies": {
     "jsonschema": "^1.1.1"
