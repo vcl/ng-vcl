@@ -21,28 +21,28 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 export interface DatePickerConfig {
-  closeOnSelect: boolean;
-  disabled: boolean;
-  highlightToday: boolean;
-  highlightSelected: boolean;
-  displayWeekNumbers: boolean;
-  displayWeekdays: boolean;
-  displayDate: boolean;
-  displayTime: boolean;
-  displayHours24: boolean;
-  displayHours: boolean;
-  displayMinutes: boolean;
-  displaySeconds: boolean;
-  prevYearBtnIcon: string;
-  nextYearBtnIcon: string;
-  displayJumpToday: boolean;
-  displayJumpSelected: boolean;
-  selectedDate: Date | undefined;
-  selectRange: boolean;
-  selectedRangeEnd: Date | undefined;
-  maxRangeLength: number;
-  minDate: Date | undefined;
-  maxDate: Date | undefined;
+  closeOnSelect?: boolean;
+  disabled?: boolean;
+  highlightToday?: boolean;
+  highlightSelected?: boolean;
+  displayWeekNumbers?: boolean;
+  displayWeekdays?: boolean;
+  displayDate?: boolean;
+  displayTime?: boolean;
+  displayHours24?: boolean;
+  displayHours?: boolean;
+  displayMinutes?: boolean;
+  displaySeconds?: boolean;
+  prevYearBtnIcon?: string;
+  nextYearBtnIcon?: string;
+  displayJumpToday?: boolean;
+  displayJumpSelected?: boolean;
+  selectedDate?: Date | undefined;
+  selectRange?: boolean;
+  selectedRangeEnd?: Date | undefined;
+  maxRangeLength?: number;
+  minDate?: Date | undefined;
+  maxDate?: Date | undefined;
 }
 
 @Component({
