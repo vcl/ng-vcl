@@ -2,7 +2,7 @@
 
   <div class="vclNotificationHeader vclLayoutHorizontal vclLayoutCenter" [ngClass]="titleAlignmentClass" *ngIf="alert.title">
     <div class="vclLayoutFlex">{{alert.title}}</div>
-    <button *ngIf="alert.showCloseButton" type="button" class="vclButton vclTransparent vclSquare" (click)="close()"><i class="fa fa-times"></i></button>
+    <button *ngIf="alert.showCloseButton" type="button" class="vclButton vclTransparent vclSquare" (click)="close()"><i class="fas fa-times"></i></button>
   </div>
 
   <div class="vclNotificationContent vclLayoutVertical vclLayoutCenterJustified ">
@@ -53,7 +53,7 @@
     <div *ngIf="!alert.showCancelButton && !alert.showConfirmButton && !!alert.loader">
       <div class="vclLayoutHorizontal vclLayoutCenterJustified">
         <div class="vclBusyIndicator vclIcogram vclLayoutVertical vclLayoutJustified" role="status">
-            <div class="vclIcon fa fa-circle-o-notch fa-spin fa-3x fa-fw" aria-hidden="true" aria-label="loading…" role="img"></div>
+            <div class="vclIcon fas fa-circle-notch fa-spin fa-3x fa-fw" aria-hidden="true" aria-label="loading…" role="img"></div>
           <div class="vclText">Loading…</div>
         </div>
       </div>

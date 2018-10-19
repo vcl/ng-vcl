@@ -28,7 +28,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class FileInputComponent implements ControlValueAccessor {
 
   @Input()
-  icon: string = 'fa fa-upload';
+  icon: string = 'fas fa-upload';
 
   @Input()
   accept: string = '*';

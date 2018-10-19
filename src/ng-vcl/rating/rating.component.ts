@@ -38,13 +38,13 @@ export class RatingComponent implements ControlValueAccessor {
   type: 'horizontal' | 'vertical' | 'small' = 'horizontal';
 
   @Input()
-  fullStar: string = 'fa fa-star';
+  fullStar: string = 'fas fa-star';
 
   @Input()
-  halfStar: string = 'fa fa-star-half-o';
+  halfStar: string = 'fas fa-star-half-alt';
 
   @Input()
-  emptyStar: string = 'fa fa-star-o';
+  emptyStar: string = 'far fa-star';
 
   @Input()
   starCount: number = 5;

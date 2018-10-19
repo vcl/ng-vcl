@@ -82,23 +82,23 @@ export const TYPE_CLASS_MAP = {
   },
   [AlertType.Question]: {
     alertClass: '',
-    iconClass: 'fa fa-question-circle'
+    iconClass: 'fas fa-question-circle'
   },
   [AlertType.Info]: {
     alertClass: 'vclInfo',
-    iconClass: 'fa fa-info-circle'
+    iconClass: 'fas fa-info-circle'
   },
   [AlertType.Success]: {
     alertClass: 'vclSuccess',
-    iconClass: 'fa fa-check-circle'
+    iconClass: 'fas fa-check-circle'
   },
   [AlertType.Warning]: {
     alertClass: 'vclWarning',
-    iconClass: 'fa fa-warning'
+    iconClass: 'fas fa-exclamation-triangle'
   },
   [AlertType.Error]: {
     alertClass: 'vclError',
-    iconClass: 'fa fa-exclamation-circle'
+    iconClass: 'fas fa-exclamation-circle'
   }
 };
 
