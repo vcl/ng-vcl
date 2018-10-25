@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild } from '@angular/core';
-import { AttachmentX, AttachmentY, PopoverComponent } from '@ng-vcl/ng-vcl';
+import { AttachmentX, AttachmentY, PopoverComponent } from '../popover';
 import { TourService } from './tour.service';
 
 export const VCLTourStepTag: string = 'vcl-tour-step';
