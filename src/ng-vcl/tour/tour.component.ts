@@ -116,19 +116,33 @@ export class TourComponent implements OnInit {
   }
 
   private disableClick(element: HTMLElement): void {
+    const tag: string = `${this.tag}.disableClick()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'element:', element);
     element.style.cursor = 'default';
     element.style.pointerEvents = 'none';
   }
+
   private enableClick(element: HTMLElement): void {
-    element.style.cursor = null;
-    element.style.pointerEvents = null;
+    const tag: string = `${this.tag}.disableClick()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'element:', element);
+    element.style.cursor = 'auto';
+    element.style.pointerEvents = 'visiblePainted';
   }
 
   private enableHighlight(element: HTMLElement): void {
+    const tag: string = `${this.tag}.disableClick()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'element:', element);
+    element.setAttribute('position',  element.style.position as string);
     element.style.position = 'relative';
   }
 
   private disableHighlight(element: HTMLElement): void {
-    element.style.position = null;
+    const tag: string = `${this.tag}.disableClick()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'element:', element);
+    element.style.position = element.getAttribute('position');
   }
 }
