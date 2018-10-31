@@ -21,13 +21,13 @@ Placeholder text and icon on the right
 Button on the right
 <vcl-embedded-input-group>
   <input vcl-input vcl-embedded-input-group />
-  <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fa:search'"></button>
+  <button vcl-button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fa:search'"></button>
 </vcl-embedded-input-group>
 
 Left icon and button on the right
 <vcl-embedded-input-group prepIcon="fa:cog" appIcon="fa:times-circle">
   <input vcl-input vcl-embedded-input-group />
-  <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fa:times-circle'"></button>
+  <button vcl-button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fa:times-circle'"></button>
 </vcl-embedded-input-group>
 ```
 
