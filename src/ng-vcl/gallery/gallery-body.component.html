@@ -1,6 +1,6 @@
 <div class="vclGalleryContent" style="overflow: hidden;">
   <button *ngIf="target.selectedImage > 0 || target.wrap" vcl-button class="vclButton vclGalleryPrevButton" (click)="selectPrevious()">
-    <div class="vclIcon fa fa-caret-left" aria-hidden="true" aria-label="Previous" role="img"></div>
+    <div class="vclIcon fas fa-caret-left" aria-hidden="true" aria-label="Previous" role="img"></div>
   </button>
 
   <div #imageContainer style="position: relative; width: 100%; height: 100%; transition: transform 0.5s" [ngStyle]="imageContainerStyle">
@@ -8,6 +8,6 @@
   </div>
 
   <button *ngIf="target.selectedImage < (target.images ? target.images.length - 1 : 0) || target.wrap" vcl-button class="vclButton vclGalleryNextButton" (click)="selectNext()">
-    <div class="vclIcon fa fa-caret-right" aria-hidden="true" aria-label="Previous" role="img"></div>
+    <div class="vclIcon fas fa-caret-right" aria-hidden="true" aria-label="Previous" role="img"></div>
   </button>
 </div>

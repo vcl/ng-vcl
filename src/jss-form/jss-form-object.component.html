@@ -39,8 +39,8 @@
 
           <vcl-input-control-group [type]="'error'" [label]="errorLabel">
             <vcl-password-input
-              [visibleIcon]="fo.schema.visibleIcon || ' fa fa-eye '"
-              [invisibleIcon]="fo.schema.invisibleIcon || ' fa fa-eye-slash '"
+              [visibleIcon]="fo.schema.visibleIcon || ' fas fa-eye '"
+              [invisibleIcon]="fo.schema.invisibleIcon || ' fas fa-eye-slash '"
             >
               <input vcl-input
                      vcl-password-input
@@ -239,14 +239,14 @@
           <fieldset class="vclFieldset"
                     [formArrayName]="fo.key"
                     [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
-            <legend>{{fo.label}} <vcl-icon icon="fa fa-plus" (tap)="addItem()" style="color: green"></vcl-icon></legend>
+            <legend>{{fo.label}} <vcl-icon icon="fas fa-plus" (click)="addItem()" style="color: green"></vcl-icon></legend>
             <ng-container *ngIf="fo.schema.hint">
               <div class="vclFormControlHint">{{ fo.schema.hint }}</div>
             </ng-container>
             <ng-container *ngFor="let subArray of fo.formObjects; let i = index" [attr.data-index]="i">
               <ng-container [formGroupName]="i">
                 <fieldset>
-                  <legend>{{fo.singularLabel}} <vcl-icon icon="fa fa-times" (tap)="removeItem(i)" style="color: red"></vcl-icon></legend>
+                  <legend>{{fo.singularLabel}} <vcl-icon icon="fas fa-times" (click)="removeItem(i)" style="color: red"></vcl-icon></legend>
                   <ng-container *ngFor="let subFo of subArray">
                     <vcl-jss-form-object [fo]="subFo" [form]="form.get(fo.key).controls[i]" [formComponent]="formComponent"></vcl-jss-form-object>
                   </ng-container>

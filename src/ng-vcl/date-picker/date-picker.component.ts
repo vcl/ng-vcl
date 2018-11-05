@@ -21,28 +21,28 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 export interface DatePickerConfig {
-  closeOnSelect: boolean;
-  disabled: boolean;
-  highlightToday: boolean;
-  highlightSelected: boolean;
-  displayWeekNumbers: boolean;
-  displayWeekdays: boolean;
-  displayDate: boolean;
-  displayTime: boolean;
-  displayHours24: boolean;
-  displayHours: boolean;
-  displayMinutes: boolean;
-  displaySeconds: boolean;
-  prevYearBtnIcon: string;
-  nextYearBtnIcon: string;
-  displayJumpToday: boolean;
-  displayJumpSelected: boolean;
-  selectedDate: Date | undefined;
-  selectRange: boolean;
-  selectedRangeEnd: Date | undefined;
-  maxRangeLength: number;
-  minDate: Date | undefined;
-  maxDate: Date | undefined;
+  closeOnSelect?: boolean;
+  disabled?: boolean;
+  highlightToday?: boolean;
+  highlightSelected?: boolean;
+  displayWeekNumbers?: boolean;
+  displayWeekdays?: boolean;
+  displayDate?: boolean;
+  displayTime?: boolean;
+  displayHours24?: boolean;
+  displayHours?: boolean;
+  displayMinutes?: boolean;
+  displaySeconds?: boolean;
+  prevYearBtnIcon?: string;
+  nextYearBtnIcon?: string;
+  displayJumpToday?: boolean;
+  displayJumpSelected?: boolean;
+  selectedDate?: Date | undefined;
+  selectRange?: boolean;
+  selectedRangeEnd?: Date | undefined;
+  maxRangeLength?: number;
+  minDate?: Date | undefined;
+  maxDate?: Date | undefined;
 }
 
 @Component({
@@ -142,7 +142,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
   currentDate: CalendarDate | undefined;
   currentRangeEnd: CalendarDate | undefined;
-  viewDate: CalendarDate | undefined;
+  viewDate: CalendarDate;
   today: CalendarDate = new CalendarDate();
 
   showYearPick: boolean = false;
@@ -171,8 +171,12 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   setDate(date?: Date) {
-    this.currentDate = new CalendarDate(date);
-    this.viewDate = this.currentDate.clone();
+    if (date) {
+      this.currentDate = new CalendarDate(date);
+      this.viewDate = this.currentDate.clone();
+    } else {
+      this.viewDate = new CalendarDate();
+    }
   }
 
   showYear() {
@@ -312,8 +316,8 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
   writeValue(value: Date): void {
     this.selectedDate = value;
-    this.currentDate = new CalendarDate(value);
-    this.viewDate = this.currentDate;
+    this.currentDate = value ? new CalendarDate(value) : undefined;
+    this.viewDate = this.currentDate ? this.currentDate : new CalendarDate();
     this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
@@ -329,9 +333,11 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
   timeChange(date: Date) {
     this.selectedDate = date;
-    this.currentDate = new CalendarDate(date);
-    this.onDateTap(this.currentDate);
-    this.viewDate = this.currentDate;
+    this.currentDate = date ? new CalendarDate(date) : undefined;
+    if (this.currentDate) {
+      this.onDateTap(this.currentDate);
+    }
+    this.viewDate = this.currentDate ? this.currentDate : new CalendarDate();
     this.cdRef.markForCheck();
   }
 }

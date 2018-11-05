@@ -43,19 +43,19 @@ export const TYPE_CLASS_MAP: any = {
   },
   [NotifierType.Info]: {
     notifierClass: 'vclInfo',
-    iconClass: 'fa fa-info-circle'
+    iconClass: 'fas fa-info-circle'
   },
   [NotifierType.Success]: {
     notifierClass: 'vclSuccess',
-    iconClass: 'fa fa-check-circle'
+    iconClass: 'fas fa-check-circle'
   },
   [NotifierType.Warning]: {
     notifierClass: 'vclWarning',
-    iconClass: 'fa fa-warning'
+    iconClass: 'fas fa-exclamation-triangle'
   },
   [NotifierType.Error]: {
     notifierClass: 'vclError',
-    iconClass: 'fa fa-exclamation-circle'
+    iconClass: 'fas fa-exclamation-circle'
   }
 };
 

@@ -105,7 +105,7 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
   }
 
   @HostListener('window:resize', ['$event'])
-  private onWindowResize(event: Event): void {
+  public onWindowResize(event: Event): void {
     this.reposition();
   }
 
