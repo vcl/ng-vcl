@@ -1,12 +1,30 @@
-<div class="vclPanel vclNoMargin">
-  <div class="vclPanelHeader">
+<div class="vclPanel vclPanelDialog vclNoMargin">
+  <div class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
     <h3 class="vclPanelTitle">{{title}}</h3>
+    <button type="button" class="vclButton vclTransparent" (tap)="onClose()">
+      <div class="vclIcogram">
+        <div class="vclIcon fa fa-times" aria-hidden="true" aria-label="Close" role="img"></div>
+      </div>
+    </button>
   </div>
   <div class="vclPanelBody">
     <p class="vclPanelContent">
-      Send data by pressing the buttons<br><br>
-      <button vcl-button (tap)="onSend()" label="Send data"></button>
-      <button vcl-button (tap)="onClose()" label="close Layer"></button>
+      Send data by pressing the buttons
     </p>
+  </div>
+  <div class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
+    <div></div>
+    <div class="vclLooseButtonGroup">
+      <button type="button" class="vclButton vclTransparent vclOutline" (tap)="onClose()">
+        <div class="vclIcogram">
+          <span class="vclText">Close Layer</span>
+        </div>
+      </button>
+      <button type="button" class="vclButton vclEmphasized" (tap)="onSend()">
+        <div class="vclIcogram">
+          <span class="vclText">Send Data</span>
+        </div>
+      </button>
+    </div>
   </div>
 </div>
