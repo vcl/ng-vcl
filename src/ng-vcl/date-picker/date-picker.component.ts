@@ -264,6 +264,14 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     return !!this.currentDate && !!this.currentRangeEnd && date.inRange(this.currentDate, this.currentRangeEnd);
   }
 
+  isBeginning(date: CalendarDate): boolean {
+    return this.selectRange && !!this.currentDate && !!this.currentRangeEnd && this.currentDate.isSameDay(date);
+  }
+
+  isEnd(date: CalendarDate): boolean {
+    return this.selectRange && !!this.currentDate && !!this.currentRangeEnd && this.currentRangeEnd.isSameDay(date);
+  }
+
   isDayDisabled(day: CalendarDate): boolean {
     const minDate = this.minDate || new Date(0, 0, 1);
     const maxDate = this.maxDate || new Date(10000, 0, 1);
