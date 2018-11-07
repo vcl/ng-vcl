@@ -53,7 +53,7 @@
     "@types/webpack": "^4.4.17",
     "@types/webpack-merge": "^4.1.3",
     "@vcl/breakpoints": "^0.2.1",
-    "@vcl/core-modules": "^0.2.12",
+    "@vcl/core-modules": "^0.2.13",
     "@vcl/default-theme": "^0.2.4",
     "@vcl/default-theme-terms": "^0.2.3",
     "@vcl/font-awesome": "^0.3.0",

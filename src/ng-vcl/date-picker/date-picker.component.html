@@ -32,19 +32,19 @@
           </div>
         </div>
 
-        <div class="vclDGRow" *ngFor="let week of viewDate.getMonthBlock(); index as w">
-          <div *ngIf="displayWeekNumbers && week.length == 7" class="vclDGCell">
+        <div class="vclDGRow " *ngFor="let week of viewDate.getMonthBlock(); index as w">
+          <div *ngIf="displayWeekNumbers && week.length == 7" class="vclDGCell vclWeekdayLabel">
             {{ week[5].getWeekNumber() }}
           </div>
           <div *ngFor="let day of week; index as d"
             [tabindex]="w * d"
-            class="vclDGCell vclCalItem {{ disabled || isDayDisabled(day) ? 'vclDisabled vclUnavailable' : 'vclAvailable' }}"
+            class="vclDGCell vclCalItem"
             [class.vclToday]="highlightSelected && day.isToday()"
             [class.vclOtherMonth]="!day.isSameMonthAndYear(viewDate)"
             [class.vclDisabled]="disabled || isDayDisabled(day)"
             [class.vclSelected]="isMarked(day)"
-            [class.vclSelectedAlt]="isMarked(day)"
-            [class.vclSelectedBeg]="isBeginning(day)"
+            [class.vclSelectedAlt]="isBeginning(day) && !currentRangeEnd"
+            [class.vclSelectedBeg]="isBeginning(day) && currentRangeEnd"
             [class.vclSelectedEnd]="isEnd(day)"
             (click)="onDateTap(day)">
             {{ day.date.getDate() }}

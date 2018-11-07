@@ -63,6 +63,9 @@ export interface DatePickerConfig {
   }
 })
 export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
+  public static readonly Tag: string = 'DatePickerComponent';
+  private readonly tag: string = DatePickerComponent.Tag;
+  private readonly debug: boolean = false;
 
   // behavior
   @Input()
@@ -188,9 +191,14 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   onDateTap(date: CalendarDate) {
-    if (this.disabled || this.isDayDisabled(date)) {
-      return;
-    }
+    const tag: string = `${this.tag}.onDateTap()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'date:', date);
+
+    const isDayDisabled: boolean = this.isDayDisabled(date);
+    if (debug) console.log(tag, 'this.disabled:', this.disabled);
+    if (debug) console.log(tag, 'isDayDisabled:', isDayDisabled);
+    if (this.disabled || isDayDisabled) return;
 
     this.select(date);
 
@@ -209,23 +217,25 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
       if (currentDate) {
         this.onChangeCallback && this.onChangeCallback(currentDate);
       }
-      this.change.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined ]);
+      this.change.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
     }
-
   }
 
   /**
    * activate the given date
    */
   select(date: CalendarDate) {
+    const tag: string = `${this.tag}.select()`;
+    const debug: boolean = this.debug || false;
+    if (debug) console.log(tag, 'date:', date);
 
+    if (debug) console.log(tag, 'this.selectRange:', this.selectRange);
     if (!this.selectRange) {
       this.currentDate = date;
     } else {
 
       if (this.currentDate && this.currentRangeEnd) {
-        // reset all
-        this.currentDate = undefined;
+        this.currentDate = date;
         this.currentRangeEnd = undefined;
       } else if (this.currentDate && !this.currentRangeEnd) {
         this.currentRangeEnd = date;
@@ -265,11 +275,11 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   isBeginning(date: CalendarDate): boolean {
-    return this.selectRange && !!this.currentDate && !!this.currentRangeEnd && this.currentDate.isSameDay(date);
+    return this.selectRange && !!this.currentDate && this.currentDate.isSameDay(date);
   }
 
   isEnd(date: CalendarDate): boolean {
-    return this.selectRange && !!this.currentDate && !!this.currentRangeEnd && this.currentRangeEnd.isSameDay(date);
+    return this.selectRange && !!this.currentRangeEnd && this.currentRangeEnd.isSameDay(date);
   }
 
   isDayDisabled(day: CalendarDate): boolean {
@@ -282,7 +292,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
    * functions to move viewDate
    */
   nextMonth() {
-    const viewDate =  this.viewDate || new CalendarDate();
+    const viewDate = this.viewDate || new CalendarDate();
     if (this.showYearPick) {
       this.viewDate = viewDate.addYears(1);
     } else {
@@ -291,7 +301,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   prevMonth() {
-    const viewDate =  this.viewDate || new CalendarDate();
+    const viewDate = this.viewDate || new CalendarDate();
     if (this.showYearPick) {
       this.viewDate = viewDate.addYears(-1);
     } else {
@@ -311,7 +321,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     if (this.disabled) {
       return;
     }
-    const viewDate =  this.viewDate || new CalendarDate();
+    const viewDate = this.viewDate || new CalendarDate();
     this.viewDate = viewDate.moveToYear(year);
     this.showYearPick = false;
   }
