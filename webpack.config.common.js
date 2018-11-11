@@ -21,8 +21,8 @@ const cssnano = require('cssnano');
 const POST_CSS_PLUGINS_COMMON = [
   postcssImport(),
   postcssUrl(),
-  postcssCssVariables(),
   postcssNesting(),
+  postcssCssVariables(),
   postcssColorFunction(),
   rucksackCss(),
   postcssPreset(),
