@@ -14,22 +14,18 @@ const postcssUrl = require('postcss-url');
 const postcssCssVariables = require('postcss-css-variables');
 const postcssNesting = require('postcss-nesting');
 const postcssColorFunction = require('postcss-color-function');
-const cssnext = require('postcss-cssnext');
+const postcssPreset = require('postcss-preset-env');
 const rucksackCss = require('rucksack-css');
 const cssnano = require('cssnano');
 
 const POST_CSS_PLUGINS_COMMON = [
   postcssImport(),
   postcssUrl(),
-  postcssCssVariables(),
   postcssNesting(),
+  postcssCssVariables(),
   postcssColorFunction(),
   rucksackCss(),
-  cssnext({
-    features: {
-      customProperties: false
-    }
-  }),
+  postcssPreset(),
 ];
 
 const POST_CSS_PLUGINS_CSSNANO = [
