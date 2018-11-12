@@ -22,8 +22,8 @@
 
       <ng-container *ngIf="!showYearPick">
         <div *ngIf="displayWeekNumbers || displayWeekdays" class="vclDGRow">
-          <div *ngIf="displayWeekNumbers" class="vclDGCell vclCalItem vclOtherMonth">
-            {{ 'week' }}
+          <div *ngIf="displayWeekNumbers" class="vclDGCell vclWeekdayLabel">
+            week
           </div>
           <div *ngFor="let day of viewDate.getWeekDays()" class="vclDGCell vclWeekdayLabel">
             <ng-container *ngIf="displayWeekdays">
@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <div class="vclDGRow " *ngFor="let week of viewDate.getMonthBlock(); index as w">
+        <div class="vclDGRow" *ngFor="let week of viewDate.getMonthBlock(); index as w">
           <div *ngIf="displayWeekNumbers && week.length == 7" class="vclDGCell vclWeekdayLabel">
             {{ week[5].getWeekNumber() }}
           </div>
