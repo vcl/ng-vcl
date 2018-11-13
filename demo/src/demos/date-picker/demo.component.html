@@ -2,7 +2,7 @@
 <vcl-date-picker [(ngModel)]="selectedDate" style="width: 18em;"></vcl-date-picker>
 <span>Date: {{ selectedDate.toLocaleString() }}</span>
 
-<h3>Ranged Date Picker</h3>
+<h3>Ranged Date Picker (with a maxRangeLength of '7')</h3>
 <vcl-date-picker style="width: 18em;" 
                  [selectedDate]="selectedDate2" 
                  [selectedRangeEnd]="selectedRangeEnd" 
