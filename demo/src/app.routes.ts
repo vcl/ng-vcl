@@ -328,6 +328,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/modal/demo.module#ModalDemoModule',
+    path: 'modal',
+    data: {
+      demo: {
+        label: 'Modal',
+        category: CAT_OVERLAYS,
+      }
+    }
+  },
+  {
     loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
     path: 'notifier',
     data: {

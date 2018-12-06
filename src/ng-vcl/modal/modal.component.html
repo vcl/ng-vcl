@@ -1,0 +1,32 @@
+
+<ng-template vcl-layer #layerModal="layer" [modal]="true">
+  <div class="vclLayer" role="dialog">
+    <div class="vclLayerBox">
+      <div [ngClass]="class" class="vclPanel vclPanelDialog vclNoMargin" role="dialog">
+          <div *ngIf="showClose || title" class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
+            <h3 class="vclPanelTitle">{{title}}</h3>
+            <button *ngIf="showClose" type="button" class="vclButton vclTransparent" (tap)="layerModal.close()" >
+              <div class="vclIcogram"><div class="vclIcon fa fa-times" aria-hidden="true" aria-label="Close" role="img"></div></div>
+            </button>
+          </div>
+          <div class="vclPanelBody">
+            <div class="vclPanelContent">
+              <ng-content></ng-content>
+            </div>
+          </div>
+          <div *ngIf="buttons" class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
+            <div></div>
+            <div class="vclLooseButtonGroup">
+              <ng-template ngFor let-iB [ngForOf]="buttons">
+                <button type="button" class="vclButton" [ngClass]="iB.class" (tap)="tapButton.emit(iB.onTap) ">
+                  <div class="vclIcogram">
+                    <span class="vclText">{{iB.label}}</span>
+                  </div>
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</ng-template>
