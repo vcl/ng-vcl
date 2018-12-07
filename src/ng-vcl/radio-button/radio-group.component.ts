@@ -81,9 +81,9 @@ export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAc
         });
 
         // Subscribe last radio button to blur event
-        this.blurSub = this.radioButtons.last.blur.subscribe(() => {
+        this.blurSub = this.radioButtons.last && this.radioButtons.last.blur.subscribe(() => {
           this.onTouched();
-        });
+        }) || undefined;
 
         // Subscribe to checked change event
         const checked$ = merge(...(this.radioButtons.map((source, idx) => source.checkedChange.pipe(map(() => ({ source, idx }))))));
