@@ -1,12 +1,7 @@
-import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
-import {  LayerRef } from '@ng-vcl/ng-vcl';
-import { setTimeout } from 'timers';
-
-export interface ButtonOptions {
-  label?: string;
-  class?: string;
-  onTap?: string;
-}
+import { Component, ContentChild, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { LayerRef } from '@ng-vcl/ng-vcl';
+import { ModalBodyComponent } from './modal-body.component';
+import { ModalFooterComponent } from './modal-footer.component';
 
 @Component({
   selector: 'vcl-modal',
@@ -15,16 +10,19 @@ export interface ButtonOptions {
 export class ModalComponent {
 
   @Input()
-  buttons: ButtonOptions[];
-
-  @Input()
-  showClose: boolean;
+  closeButton: boolean;
 
   @Input()
   title: string;
 
   @Input()
   class: string;
+
+  @ContentChild(ModalBodyComponent)
+  bodyComponent: ModalBodyComponent | null;
+
+  @ContentChild(ModalFooterComponent)
+  footerComponent: ModalFooterComponent | null;
 
   @Output()
   tapButton  = new EventEmitter<string>();

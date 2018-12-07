@@ -14,22 +14,6 @@ export class ModalDemoComponent {
   closeDeleteModal() {
     this.modalDelete.close();
   }
-  onButtonTap(button) {
-    switch (button) {
-      case 'cancel':
-        console.log('cancel button was pressed');
-        this.closeDeleteModal();
-        break;
-      case 'delete':
-        console.log('delete button was pressed');
-        this.closeDeleteModal();
-        break;
-      case 'close':
-        console.log('close button was pressed');
-        this.closeDialogModal();
-        break;
-    }
-  }
 
   @ViewChild('modalDialog')
   modalDialog: any;
@@ -41,18 +25,4 @@ export class ModalDemoComponent {
   closeDialogModal() {
     this.modalDialog.close();
   }
-
-  onDialogButtonTap(button) {
-    switch (button) {
-      case 'close':
-        console.log('close button was pressed');
-        this.closeDialogModal();
-        break;
-      case 'send':
-        console.log('send button was pressed');
-        this.closeDialogModal();
-        break;
-    }
-  }
-
 }

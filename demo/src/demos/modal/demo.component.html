@@ -1,22 +1,45 @@
 <button vcl-button (tap)="openDeleteModal()" label="Open modal delete item"></button><br><br>
 <button vcl-button (tap)="openDialogModal()" label="Open dialog modal"></button><br><br>
 
-<vcl-modal
-  #modalDelete
-  class="vclDanger"
-  (tapButton)="onButtonTap($event)" 
-  [buttons]="[{label: 'Cancel', class: 'vclTransparent vclOutline', onTap:'cancel'}, {label: 'Delete', class: 'vclDanger', onTap:'delete'}]">
-    <div class="vclIcogram ">
-      <div class="vclIcon far fa-question-circle vclScale300p" aria-hidden="true" aria-label="account" role="img"></div>
-      <div class="vclText">Do you really want to delete XY?</div>
-    </div>
+<vcl-modal #modalDelete class="vclDanger">
+    <vcl-modal-body>
+      <div class="vclIcogram">
+        <div class="vclIcon far fa-question-circle vclScale300p" aria-hidden="true" aria-label="account" role="img"></div>
+        <div class="vclText">Do you really want to delete XY?</div>
+      </div>
+    </vcl-modal-body>
+    <vcl-modal-footer>
+      <div class="vclLooseButtonGroup">
+        <button type="button" class="vclButton vclTransparent vclOutline" (tap)="closeDeleteModal()">
+          <div class="vclIcogram">
+            <span class="vclText">Cancel</span>
+          </div>
+        </button>
+        <button type="button" class="vclButton vclDanger" (tap)="closeDeleteModal()">
+          <div class="vclIcogram">
+            <span class="vclText">Delete</span>
+          </div>
+        </button>
+      </div>
+    </vcl-modal-footer>
 </vcl-modal>
 
-<vcl-modal
-  #modalDialog
-  (tapButton)="onDialogButtonTap($event)"
-  title="Modal dialog"
-  [showClose]="true" 
-  [buttons]="[{label: 'close', class: 'vclTransparent vclOutline', onTap:'close'}, {label: 'Send Data', class: 'vclEmphasized', onTap:'send'}]">
-    <p>Modal text goes here</p>
+<vcl-modal #modalDialog title="Modal dialog" [closeButton]="true">
+    <vcl-modal-body>
+      <p>Modal text goes here</p>
+    </vcl-modal-body>
+    <vcl-modal-footer>
+      <div class="vclLooseButtonGroup">
+        <button type="button" class="vclButton vclTransparent vclOutline" (tap)="closeDialogModal()">
+          <div class="vclIcogram">
+            <span class="vclText">Cancel</span>
+          </div>
+        </button>
+        <button type="button" class="vclButton vclEmphasized" (tap)="closeDialogModal()">
+          <div class="vclIcogram">
+            <span class="vclText">Save Changes</span>
+          </div>
+        </button>
+      </div>
+    </vcl-modal-footer>
 </vcl-modal>
