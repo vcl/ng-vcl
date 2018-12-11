@@ -11,7 +11,7 @@ let config = wcc({
   mode: process.env.MODE,
   appFolder: root('demo'),
   srcFolders: [root('src')],
-  outputFolder: root('docs')
+  outputFolder: root('docs/' + process.env.SUBDIR)
 });
 
 module.exports = merge(config, {
