@@ -9,9 +9,9 @@ import {ControlValueAccessor} from '@angular/forms';
 export class CustomSampleComponent implements ControlValueAccessor {
 
   @Input()
-  private message = '';
+  message = '';
 
-  private disabled = false;
+  disabled = false;
 
   private _counter = 0;
 
