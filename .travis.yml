@@ -6,6 +6,9 @@ branches:
   only:
   - dev
 
+before_install:
+- echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+
 script:
   - npm install
   - npm run docs:dev
