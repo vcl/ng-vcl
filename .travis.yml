@@ -5,11 +5,12 @@ node_js:
 branches:
   only:
   - dev
+  - master
 
 before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 
 script:
   - npm install
-  - npm run docs:dev
+  - npm run docs:$TRAVIS_BRANCH
   - npm run docs:deploy
