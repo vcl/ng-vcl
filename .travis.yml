@@ -12,5 +12,5 @@ before_install:
 
 script:
   - npm install
-  - npm run docs:$TRAVIS_BRANCH
+  - npm run docs
   - npm run docs:deploy
