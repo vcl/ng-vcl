@@ -8,7 +8,7 @@
     "dev": "cross-env MODE=development webpack-serve --config webpack.config.js",
     "docs:clean": "rimraf docs",
     "docs:pull-current": "npm run docs:clean && git clone -b gh-pages --single-branch https://github.com/ng-vcl/ng-vcl.git docs",
-    "docs:build": "rimraf docs/$TRAVIS_BRANCH && cross-env MODE=production SUBDIR=$TRAVIS_BRANCH webpack",
+    "docs:build": "rimraf docs/$TRAVIS_BRANCH && cross-env MODE=production GIT_BRANCH=$TRAVIS_BRANCH webpack",
     "docs:deploy": "git-directory-deploy --directory docs --branch gh-pages",
     "docs": "npm-run-all lint  docs:pull-current docs:build",
     "build:clean": "rimraf dist",

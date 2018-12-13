@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
@@ -11,7 +12,7 @@ let config = wcc({
   mode: process.env.MODE,
   appFolder: root('demo'),
   srcFolders: [root('src')],
-  outputFolder: root('docs/' + process.env.SUBDIR)
+  outputFolder: root('docs/' + process.env.GIT_BRANCH)
 });
 
 module.exports = merge(config, {

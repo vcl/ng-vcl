@@ -3,7 +3,7 @@
     <div role="banner">
       <a href="#" class="vclLayoutHorizontal vclLayoutCenter">
         <img class="vclResponsiveImage vclLogo" role="presentation" src="https://cdn.rawgit.com/ng-vcl/ng-vcl/master/gfx/angular_vcl_logo_square.png">
-        <h1 class="vclAppName">Angular VCL Demo Browser (v{{version}})</h1>
+        <h1 class="vclAppName">Angular VCL Demo Browser (v{{version}}<span *ngIf="gitBranch"> {{gitBranch}}</span>)</h1>
       </a>
     </div>
     <div><a href="https://github.com/ng-vcl/ng-vcl" target="_blank" title="to Github">
