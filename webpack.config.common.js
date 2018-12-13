@@ -214,6 +214,9 @@ module.exports = function wcc(config) {
         from: path.join(appFolder, 'assets/public'),
         to: ''
       }])] : []),
+      new webpack.DefinePlugin({
+        gitBranch: JSON.stringify(process.env.GIT_BRANCH)
+      }),
       new ProgressPlugin(),
       new CircularDependencyPlugin({
         exclude: /(\\|\/)node_modules(\\|\/)/,

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { routes } from './../../app.routes';
 
 // https://github.com/krisk/Fuse/pull/129
+declare var gitBranch: string;
 interface FuseStub {
   new(...args): FuseStub;
   search(...args): FuseStub;
@@ -16,7 +17,8 @@ const Fuse = require('fuse.js') as FuseStub;
 })
 export class AppComponent {
 
-  version =  require('./../../../../package.json').version;
+  version = require('./../../../../package.json').version;
+  gitBranch = gitBranch;
 
   GROUPED_DEMOS = function () {
     const itemsMap = {};
@@ -40,7 +42,8 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-  ) { }
+  ) {
+   }
 
   ngOnInit() {
     this.router.events.subscribe((path) => {
