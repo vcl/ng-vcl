@@ -34,14 +34,8 @@ git push && git push --tags
 
 ## Building and Deploy the Docs
 
-Build the docs in the `docs` folder
-```
-npm run docs
-```
-Deploy `docs` folder to gh-pages branch
-```
-npm run docs:deploy
-```
+Building and deploying the docs is done automatically via TRAVIS CI for the branches `dev` and `master`.
+Config file: `.travis.yml`.
 
 # Architecture
 
