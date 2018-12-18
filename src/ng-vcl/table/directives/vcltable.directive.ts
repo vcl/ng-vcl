@@ -7,6 +7,9 @@ import { TableService } from '../services/table.service';
 
 @Directive({
   selector: '[vcl-table]',
+  host: {
+    '[class.vclTable]': 'true',
+  }
 })
 export class VclTableDirective implements OnChanges {
 
