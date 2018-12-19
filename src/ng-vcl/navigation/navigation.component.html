@@ -16,13 +16,13 @@
         {{item.label}}
       </span>
 
-    <a vcl-link class="vclNavigationItemLabel"
-       *ngIf="!item.heading"
-       [label]="item.label"
-       [prepIcon]="item.calcPrepIcon"
-       [appIcon]="item.calcAppIcon"
-       (click)="selectItem(item)">
-    </a>
+      <a vcl-link class="vclNavigationItemLabel vclIcogram"
+        *ngIf="!item.heading"
+        (click)="selectItem(item)">
+        <vcl-icon  [icon]="item.calcPrepIcon" alt="cog"></vcl-icon>
+        <span class="vclText"> {{item.label}}</span>
+        <vcl-icon  [icon]="item.calcAppIcon" alt="cog"></vcl-icon>
+      </a>
 
     <nav vcl-navigation *ngIf="item.items && item.items.length > 0"
          [inputItems]="item.items"
