@@ -10,4 +10,4 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule, { preserveWhitespaces: true });
+platformBrowserDynamic().bootstrapModule(AppModule);
