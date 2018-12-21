@@ -198,8 +198,9 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
     */
     const position = this.elementRef.nativeElement.getBoundingClientRect();
     if (this.debug) console.log(tag, 'position:', position);
+    const clientHeight =  document.documentElement ? document.documentElement.clientHeight : undefined;
     const screenHeight = window.innerHeight
-      || document.documentElement.clientHeight
+      || clientHeight
       || document.body.clientHeight;
     if (this.debug) console.log(tag, 'screenHeight:', screenHeight);
 

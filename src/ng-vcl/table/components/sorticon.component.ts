@@ -1,5 +1,7 @@
 import {Component, Input, ElementRef, Renderer2} from '@angular/core';
 
+
+export type SortOptions = -1 | 0 | 1;
 @Component({
   selector: 'sort-icon',
   template: `<ng-content></ng-content>`
@@ -7,7 +9,7 @@ import {Component, Input, ElementRef, Renderer2} from '@angular/core';
 export class SortIconComponent {
 
   @Input()
-  public sort: -1 | 0 | 1 = 0;
+  public sort: SortOptions = 0;
 
   private rootElement: ElementRef;
 
@@ -19,13 +21,13 @@ export class SortIconComponent {
     this.ChangeSortOrder(this.sort);
   }
 
-  public ChangeSortOrder(order: -1 | 0 | 1): void {
+  public ChangeSortOrder(order: SortOptions): void {
     this.renderer.removeClass(this.rootElement.nativeElement, 'fa-sort');
     this.renderer.removeClass(this.rootElement.nativeElement, 'fa-sort-up');
     this.renderer.removeClass(this.rootElement.nativeElement, 'fa-sort-down');
 
     switch (order) {
-      case 1: {
+      case 0: {
         this.renderer.addClass(this.rootElement.nativeElement, 'fa-sort-up');
         break;
       }

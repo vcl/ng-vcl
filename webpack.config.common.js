@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const { ProgressPlugin, ContextReplacementPlugin } = require('webpack');
 
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const { PurifyPlugin } = require('@angular-devkit/build-optimizer');
 const CopyWebpackPlugin  = require('copy-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -180,8 +179,7 @@ module.exports = function wcc(config) {
               {
                 loader: 'css-loader',
                 options: {
-                  importLoaders: 1,
-                  minimize: minify
+                  importLoaders: 1
                 }
               },
               {
@@ -208,7 +206,6 @@ module.exports = function wcc(config) {
           [path.join(appFolder, '/environment/environment.ts')]: path.join(appFolder, `/environment/environment.${replaceEnvFile}.ts`)
         } : {},
       }),
-      new PurifyPlugin(),
       new MiniCssExtractPlugin(),
       ...(copyAssetsPlugin ? [new CopyWebpackPlugin([{
         from: path.join(appFolder, 'assets/public'),

@@ -93,11 +93,13 @@ export class TooltipService {
 
   private offset(nativeEl: any): { width: number, height: number, top: number, left: number } {
     const boundingClientRect = nativeEl.getBoundingClientRect();
+    const scrollTop = window.document.documentElement ? window.document.documentElement.scrollTop : undefined;
+    const scrollLeft =  window.document.documentElement ? window.document.documentElement.scrollLeft : undefined;
     return {
       width: boundingClientRect.width || nativeEl.offsetWidth,
       height: boundingClientRect.height || nativeEl.offsetHeight,
-      top: boundingClientRect.top + (window.pageYOffset || window.document.documentElement.scrollTop),
-      left: boundingClientRect.left + (window.pageXOffset || window.document.documentElement.scrollLeft)
+      top: boundingClientRect.top + (window.pageYOffset || scrollTop),
+      left: boundingClientRect.left + (window.pageXOffset || scrollLeft)
     };
   }
 
