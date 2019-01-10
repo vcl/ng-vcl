@@ -1,5 +1,5 @@
 import { Component, ContentChild, Input, Output, ViewChild, EventEmitter } from '@angular/core';
-import { LayerRef } from '@ng-vcl/ng-vcl';
+import { LayerRef } from '../layer/index';
 import { ModalBodyComponent } from './modal-body.component';
 import { ModalFooterComponent } from './modal-footer.component';
 
