@@ -1,0 +1,19 @@
+{
+  "name": "@ng-vcl/jss-form",
+  "version": "0.7.0-1",
+  "description": "Creates a html-form from a jsonschema",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ng-vcl/ng-vcl.git"
+  },
+  "author": "The ng-vcl authors",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0",
+    "@angular/forms": "^7.2.0",
+    "rxjs": "^7.2.0",
+    "@ng-vcl/ng-vcl": "^0.7.0",
+    "jsonschema": "^1.1.1"
+  }
+}

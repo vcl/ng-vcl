@@ -1,0 +1,16 @@
+{
+  "name": "@ng-vcl/animations",
+  "version": "0.7.0-1",
+  "description": "Animation pack for ng-vcl components",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ng-vcl/ng-vcl.git"
+  },
+  "author": "The ng-vcl authors",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^7.2.0",
+    "@angular/animations": "^7.2.0",
+    "@ng-vcl/ng-vcl": "^0.7.0"
+  }
+}

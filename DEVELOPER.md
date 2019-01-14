@@ -2,35 +2,33 @@
 
 ## Developing
 
+Run `npm run build` to create all the libraries required for the demo.
+
+To have incremental builds on file changes, run one the following commands:
+
 ```
-npm run dev
+npm run dev:ng-vcl
+npm run dev:animations
+npm run dev:jss-form
+```
+
+To start the demo run
+
+```
+npm run dev:demo
 ```
 
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 
 ## Testing
 
-TODO
+```
+npm run test
+```
 
 ## Building and Deploying
 
-Tag and update package.json version
-```sh
-npm version patch/minor/major
-```
-Build the @ng-vcl in the `dist` folder
-```sh
-npm run build
-```
-Publish all @ng-vcl packages to npm
-```sh
-npm run publish
-```
-
-Push the release commit and tag afterwards
-```sh
-git push && git push --tags
-```
+TODO
 
 ## Building and Deploy the Docs
 

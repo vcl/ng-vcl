@@ -1,0 +1,19 @@
+{
+  "name": "@ng-vcl/ng-vcl",
+  "version": "0.7.0-1",
+  "description": "A comprehensive library of components for Angular 6+ with VCL based styling",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ng-vcl/ng-vcl.git"
+  },
+  "author": "The ng-vcl authors",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/animations": "^7.2.0",
+    "@angular/core": "^7.2.0",
+    "@angular/forms": "^7.2.0",
+    "@angular/router": "^7.2.0",
+    "rxjs": "^7.2.0"
+  }
+}

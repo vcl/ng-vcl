@@ -1,48 +1,42 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "strictNullChecks": true,
-    "skipLibCheck": true,
-    "types": [
-      "gulp",
-      "node"
+    "importHelpers": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
     ],
     "lib": [
-      "dom",
-      "es6",
-      "dom.iterable",
-      "scripthost",
-      "es2016.array.include"
+      "es2018",
+      "dom"
     ],
-    "baseUrl": ".",
     "paths": {
-      "@ng-vcl/ng-vcl": ["src/ng-vcl"],
-      "@ng-vcl/ng-vcl/*": ["src/ng-vcl/*"],
-      "@ng-vcl/store": ["src/store"],
-      "@ng-vcl/store/*": ["src/store/*"],
-      "@ng-vcl/json-editor": ["src/json-editor"],
-      "@ng-vcl/json-editor/*": ["src/json-editor/*"],
-      "@ng-vcl/jss-form": ["src/jss-form"],
-      "@ng-vcl/jss-form/*": ["src/jss-form/*"],
-      "@ng-vcl/plotly": ["src/plotly"],
-      "@ng-vcl/plotly/*": ["src/plotly/*"],
-      "@ng-vcl/animations": ["src/animations"],
-      "@ng-vcl/animations/*": ["src/animations/*"]
+      "@ng-vcl/ng-vcl": [
+        "dist/ng-vcl/ng-vcl"
+      ],
+      "@ng-vcl/ng-vcl/*": [
+        "dist/ng-vcl/ng-vcl/*"
+      ],
+      "@ng-vcl/animations": [
+        "dist/ng-vcl/animations"
+      ],
+      "@ng-vcl/animations/*": [
+        "dist/ng-vcl/animations/*"
+      ],
+      "@ng-vcl/jss-form": [
+        "dist/ng-vcl/jss-form"
+      ],
+      "@ng-vcl/jss-form/*": [
+        "dist/ng-vcl/jss-form/*"
+      ]
     }
-  },
-  "include": [
-    "./demo/**/*.ts",
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "scripts",
-    "dist",
-    "docs"
-  ]
+  }
 }
