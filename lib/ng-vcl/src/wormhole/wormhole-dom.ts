@@ -21,7 +21,7 @@ export class DomComponentWormhole<T> extends ComponentWormholeBase<T> {
   get rootComponentRef(): ComponentRef<any> {
     const rootComponent = this.appRef.components && this.appRef.components.length && this.appRef.components[0];
     if (!rootComponent) {
-      throw 'Application root component not found';
+      throw new Error('Application root component not found');
     }
     return rootComponent;
   }
@@ -40,10 +40,10 @@ export class DomComponentWormhole<T> extends ComponentWormholeBase<T> {
     const node = this.node || getComponentRootNode(this.rootComponentRef);
 
     if (!compRefRootNode) {
-      throw 'component root node not found';
+      throw new Error('component root node not found');
     }
     if (!node) {
-      throw 'root node not found';
+      throw new Error('root node not found');
     }
 
     node.appendChild(compRefRootNode);
@@ -73,7 +73,7 @@ export class DomTemplateWormhole extends TemplateWormholeBase {
   get rootComponentRef(): ComponentRef<any> {
     const rootComponent = this.appRef.components && this.appRef.components.length && this.appRef.components[0];
     if (!rootComponent) {
-      throw 'Application root component not found';
+      throw new Error('Application root component not found');
     }
     return rootComponent;
   }
@@ -88,10 +88,10 @@ export class DomTemplateWormhole extends TemplateWormholeBase {
     const node = this.node || getComponentRootNode(this.rootComponentRef);
 
     if (!compRefRootNode) {
-      throw 'component root node not found';
+      throw new Error('component root node not found');
     }
     if (!node) {
-      throw 'root node not found';
+      throw new Error('root node not found');
     }
 
     node.appendChild(compRefRootNode);

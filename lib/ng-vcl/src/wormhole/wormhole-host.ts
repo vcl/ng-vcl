@@ -20,10 +20,13 @@ export abstract class WormholeHostBase {
   }
 
   abstract createWormhole<T>(component: Type<T>): Wormhole;
+  // tslint:disable-next-line:unified-signatures
   abstract createWormhole<T>(templateRef: TemplateRef<T>): Wormhole;
+  // tslint:disable-next-line:unified-signatures
   abstract createWormhole<T>(arg2: Type<T> | TemplateRef<T>): Wormhole;
 
   connectWormhole<T>(component: Type<T>, attrs?: WormholeAttributes, events?: string[]): Wormhole;
+  // tslint:disable-next-line:unified-signatures
   connectWormhole<T>(templateRef: TemplateRef<T>, attrs?: WormholeAttributes, events?: string[]): Wormhole;
   connectWormhole(target, attrs?: WormholeAttributes, events?: string[]): Wormhole {
     const wormhole = this.createWormhole(target);
@@ -32,7 +35,7 @@ export abstract class WormholeHostBase {
   }
 
   disconnectWormhole(index: number) {
-    let w = this.getWormhole(index);
+    const w = this.getWormhole(index);
     if (w) {
       w.disconnect();
     }
@@ -48,7 +51,7 @@ export abstract class WormholeHostBase {
   }
 
   removeWormhole(wormhole: Wormhole | number) {
-    let w = typeof wormhole === 'number' ? this.getWormhole(wormhole) : wormhole;
+    const w = typeof wormhole === 'number' ? this.getWormhole(wormhole) : wormhole;
     if (w) {
       w.disconnect();
       this._wormholes = this._wormholes.filter(cw => cw !== w);
@@ -62,7 +65,7 @@ export class WormholeHost extends WormholeHostBase {
   constructor(private _host: ViewContainerRef, private _injector?: Injector) {
     super();
     if (!_host) {
-      throw 'missing host ViewContainerRef';
+      throw new Error('missing host ViewContainerRef');
     }
   }
 
@@ -75,7 +78,7 @@ export class WormholeHost extends WormholeHostBase {
     } else if (arg2 instanceof TemplateRef && this._host) {
       wormhole = new TemplateWormhole(arg2, this._host);
     } else {
-      throw 'Parameter must be component class or templateRef';
+      throw new Error('Parameter must be component class or templateRef');
     }
     this._wormholes.push(wormhole);
     return wormhole;
@@ -87,7 +90,7 @@ export class DomWormholeHost extends WormholeHostBase {
   constructor(private _host: ApplicationRef, private _node?: HTMLElement, private _injector?: Injector) {
     super();
     if (!_host) {
-      throw 'missing host ApplicationRef';
+      throw new Error('missing host ApplicationRef');
     }
   }
 
@@ -100,7 +103,7 @@ export class DomWormholeHost extends WormholeHostBase {
     } else if (arg2 instanceof TemplateRef && this._host) {
       wormhole = new DomTemplateWormhole(arg2, this._host, this._node, this._injector);
     } else {
-      throw 'Parameter must be component class or templateRef';
+      throw new Error('Parameter must be component class or templateRef');
     }
     this._wormholes.push(wormhole);
     return wormhole;

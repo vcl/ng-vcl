@@ -6,7 +6,7 @@ import { Directive, Input, HostBinding } from '@angular/core';
     '[class.vclLabel]': 'true'
   }
 })
-export class LabelComponent {
+export class LabelDirective {
 
   @Input('vcl-label')
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;

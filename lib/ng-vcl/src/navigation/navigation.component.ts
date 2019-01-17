@@ -1,4 +1,4 @@
-import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter, HostBinding, Inject, forwardRef, Optional, SkipSelf } from '@angular/core';
+import { Component, Directive, ContentChildren, QueryList, Input, Output, EventEmitter, Inject, forwardRef, Optional, SkipSelf, AfterContentInit, OnDestroy } from '@angular/core';
 import { Router, UrlTree, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ export interface NavigationItem {
 @Directive({
   selector: 'vcl-navitem'
 })
-export class NavigationItemDirective implements NavigationItem {
+export class NavigationItemDirective implements NavigationItem, AfterContentInit, OnDestroy {
 
   private _route: any[] | undefined;
   private _urlTree: UrlTree | undefined;
@@ -34,13 +34,13 @@ export class NavigationItemDirective implements NavigationItem {
     return <NavigationItem[]> (this.contentItems && this.contentItems.filter(item => item !== this)) || undefined;
   }
 
-  selected: boolean = false;
+  selected = false;
 
   @Input()
-  selectable: boolean = true;
+  selectable = true;
 
   @Input()
-  opened: boolean = false;
+  opened = false;
 
   @Input()
   heading = false;
@@ -58,10 +58,10 @@ export class NavigationItemDirective implements NavigationItem {
   href: string | undefined;
 
   @Input()
-  exactRoute: boolean = true;
+  exactRoute = true;
 
   @Input()
-  showActive: boolean = false;
+  showActive = false;
 
   @Output()
   onHover = new EventEmitter<NavigationItem>();
@@ -158,22 +158,22 @@ export class NavigationComponent {
   ident: string;
 
   @Input()
-  ariaRole: string = 'presentation';
+  ariaRole = 'presentation';
 
   @Input()
-  tabindex: number = 0;
+  tabindex = 0;
 
   @Input()
-  type: string = 'vertical';
+  type = 'vertical';
 
   @Input()
   useRouter = false;
 
   @Input()
-  subLevelHintIconClosed: string = 'fa:chevron-right';
+  subLevelHintIconClosed = 'fa:chevron-right';
 
   @Input()
-  subLevelHintIconOpened: string = 'fa:chevron-down';
+  subLevelHintIconOpened = 'fa:chevron-down';
 
   @Input()
   subLevelHintIconSide: 'left' | 'right' = 'right';
@@ -190,13 +190,15 @@ export class NavigationComponent {
   @ContentChildren(NavigationItemDirective)
   contentItems?: QueryList<NavigationItem>;
 
+  private selectedItem: NavigationItem | undefined;
+
   constructor(private router: Router) { }
 
   get navigationItems() {
     return this.inputItems || this.contentItems || [];
   }
 
-  private runItems(cb: {(item: NavigationItemDirective): void}) {
+  private runItems(cb: (item: NavigationItemDirective) => void) {
     const runItems = (items) => {
       items.forEach(item => {
         cb(item);
@@ -225,7 +227,6 @@ export class NavigationComponent {
     });
   }
 
-  private selectedItem: NavigationItem | undefined;
 
   selectItem(item: NavigationItemDirective) {
     if (item.items && item.items.length > 0) {

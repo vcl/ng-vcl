@@ -5,13 +5,13 @@ Top alignment is default, for vertically centered content use class
 vclVAlignMiddle and for bottom aligned content vclVAlignBottom on a table or tds.
 */
 
-import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input, OnChanges } from '@angular/core';
 import { TableService } from '../services/table.service';
 
 @Directive({
   selector: '[align-middle]',
 })
-export class AlignmentMiddleDirective {
+export class AlignmentMiddleDirective implements OnChanges {
 
   @Input('align-middle') align: boolean | '';
   tableService: TableService;

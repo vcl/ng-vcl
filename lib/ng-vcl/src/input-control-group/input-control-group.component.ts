@@ -5,7 +5,7 @@ import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'input-control-group.component.html'
 })
-export class InputControlGroup {
+export class InputControlGroupComponent {
 
   @Input()
   type: 'error' | 'warning' | 'success' | undefined;

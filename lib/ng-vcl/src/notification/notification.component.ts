@@ -15,34 +15,34 @@ export class NotificationComponent {
   nType: 'default' | 'info' | 'warning' | 'error' | 'success' = 'default';
 
   @Input()
-  icon: string = '';
+  icon = '';
 
   @Input()
-  iconClass: string = '';
+  iconClass = '';
 
   @Input()
-  iconImage: string = '';
+  iconImage = '';
 
   @Input()
   iconSide: 'left' | 'right' = 'left';
 
   @Input()
-  drawIcon: boolean = true;
+  drawIcon = true;
 
   @Input()
-  header: string = '';
+  header = '';
 
   @Input()
-  footer: string = '';
+  footer = '';
 
   @Input()
-  button: string = '';
+  button = '';
 
   @Input()
-  showButton: boolean = true;
+  showButton = true;
 
   @Input()
-  verticalBody: boolean = false;
+  verticalBody = false;
 
   @Input()
   styleClass: object | string | undefined = undefined;
@@ -57,10 +57,10 @@ export class NotificationComponent {
   footerAlign: 'left' | 'center' | 'right' = 'left';
 
   @Input()
-  textColor: string = '';
+  textColor = '';
 
   @Input()
-  backgroundColor: string = '';
+  backgroundColor = '';
 
   @ContentChild(NotificationHeaderComponent)
   headerComponent: NotificationHeaderComponent | null;
@@ -174,7 +174,7 @@ export class NotificationComponent {
       };
     }
 
-    if (this.iconSide == 'right') {
+    if (this.iconSide === 'right') {
       return {
         order: 1,
         'padding-right': '1em',

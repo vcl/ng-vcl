@@ -5,15 +5,15 @@ import { ICoordinate } from './ICoordinate';
 export class TooltipService {
 
   // padding between tooltip and target obj.
-  offsetCorrection: number = 10;
+  offsetCorrection = 10;
 
   public positionElements(hostEl: HTMLElement, targetEl: HTMLElement, positionStr: string, appendToBody: boolean = false): ICoordinate {
     const tooltipAlignment = positionStr;
     // set tooltip at middle of host element for now
     const alignmentCorrection = 'center';
-    let hostElPos = appendToBody ? this.offset(hostEl) : this.position(hostEl);
-    let targetElWidth = targetEl.offsetWidth;
-    let targetElHeight = targetEl.offsetHeight;
+    const hostElPos = appendToBody ? this.offset(hostEl) : this.position(hostEl);
+    const targetElWidth = targetEl.offsetWidth;
+    const targetElHeight = targetEl.offsetHeight;
 
     const shiftWidth: any = {
       center: (): number => {
@@ -104,11 +104,13 @@ export class TooltipService {
   }
 
   private getStyle(nativeEl: HTMLElement, cssProp: string): string {
-    if ((nativeEl as any).currentStyle) // IE
+    if ((nativeEl as any).currentStyle) { // IE
       return (nativeEl as any).currentStyle[cssProp];
+    }
 
-    if (window.getComputedStyle)
+    if (window.getComputedStyle) {
       return (window.getComputedStyle(nativeEl) as any)[cssProp];
+    }
 
     return (nativeEl.style as any)[cssProp];
   }

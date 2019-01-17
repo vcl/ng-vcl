@@ -15,7 +15,9 @@ import { TableService } from '../services/table.service';
 })
 export class SelectDirective implements OnChanges {
 
-  @Input('selected') selected: boolean | '';
+  @Input()
+  selected: boolean | '';
+
   tableService: TableService;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {

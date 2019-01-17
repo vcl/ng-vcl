@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Injectable, Inject, ComponentRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
 import { AlertComponent, dismiss } from './alert.component';

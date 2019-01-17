@@ -63,73 +63,75 @@ export interface DatePickerConfig {
   }
 })
 export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
+
+  constructor(private cdRef: ChangeDetectorRef) { }
   public static readonly Tag: string = 'DatePickerComponent';
   private readonly tag: string = DatePickerComponent.Tag;
   private readonly debug: boolean = false;
 
   // behavior
   @Input()
-  closeOnSelect: boolean = false;
+  closeOnSelect = false;
 
   @HostBinding('class.vclDisabled')
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   // styling
   @Input()
-  highlightToday: boolean = true;
+  highlightToday = true;
 
   @Input()
-  highlightSelected: boolean = true;
+  highlightSelected = true;
 
   @Input()
-  displayWeekNumbers: boolean = true;
+  displayWeekNumbers = true;
 
   @Input()
-  displayWeekdays: boolean = true;
+  displayWeekdays = true;
 
   @Input()
-  displayDate: boolean = true;
+  displayDate = true;
 
   @Input()
-  displayTime: boolean = false;
+  displayTime = false;
 
   @Input()
-  displayHours24: boolean = true;
+  displayHours24 = true;
 
   @Input()
-  displayHours: boolean = true;
+  displayHours = true;
 
   @Input()
-  displayMinutes: boolean = true;
+  displayMinutes = true;
 
   @Input()
-  displaySeconds: boolean = false;
+  displaySeconds = false;
 
   @Input()
-  prevYearBtnIcon: string = 'fa:chevron-left';
+  prevYearBtnIcon = 'fa:chevron-left';
 
   @Input()
-  nextYearBtnIcon: string = 'fa:chevron-right';
+  nextYearBtnIcon = 'fa:chevron-right';
 
   @Input()
-  displayJumpToday: boolean = true;
+  displayJumpToday = true;
 
   @Input()
-  displayJumpSelected: boolean = true;
+  displayJumpSelected = true;
 
   // values
   @Input()
   selectedDate: Date | undefined;
 
   @Input()
-  selectRange: boolean = false;
+  selectRange = false;
 
   @Input()
   selectedRangeEnd: Date | undefined;
 
   @Input()
-  maxRangeLength: number = Infinity;
+  maxRangeLength = Infinity;
 
   @Input()
   minDate: Date | undefined;
@@ -148,15 +150,13 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   viewDate: CalendarDate;
   today: CalendarDate = new CalendarDate();
 
-  showYearPick: boolean = false;
-
-  constructor(private cdRef: ChangeDetectorRef) { }
+  showYearPick = false;
 
   ngOnInit() {
     if (this.config) {
-      for (let key in this.config) {
+      Object.keys(this.config).forEach(key => {
         this[key] = this.config[key];
-      }
+      });
     }
 
     this.setDate(this.selectedDate);
@@ -191,14 +191,14 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   onDateTap(date: CalendarDate) {
-    const tag: string = `${this.tag}.onDateTap()`;
+    const tag = `${this.tag}.onDateTap()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'date:', date);
+    if (debug) { console.log(tag, 'date:', date); }
 
     const isDayDisabled: boolean = this.isDayDisabled(date);
-    if (debug) console.log(tag, 'this.disabled:', this.disabled);
-    if (debug) console.log(tag, 'isDayDisabled:', isDayDisabled);
-    if (this.disabled || isDayDisabled) return;
+    if (debug) { console.log(tag, 'this.disabled:', this.disabled); }
+    if (debug) { console.log(tag, 'isDayDisabled:', isDayDisabled); }
+    if (this.disabled || isDayDisabled) { return; }
 
     this.select(date);
 
@@ -209,13 +209,13 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
       }
 
       const currentDate = this.currentDate ? this.currentDate.date : undefined;
-      this.onChangeCallback && this.onChangeCallback(currentDate);
+      this.onChange && this.onChange(currentDate);
       this.change.emit(currentDate);
       this.selectedDate = currentDate;
     } else {
       const currentDate = this.currentDate ? this.currentDate.date : undefined;
       if (currentDate) {
-        this.onChangeCallback && this.onChangeCallback(currentDate);
+        this.onChange && this.onChange(currentDate);
       }
       this.change.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
     }
@@ -225,11 +225,11 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
    * activate the given date
    */
   select(date: CalendarDate) {
-    const tag: string = `${this.tag}.select()`;
+    const tag = `${this.tag}.select()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'date:', date);
+    if (debug) { console.log(tag, 'date:', date); }
 
-    if (debug) console.log(tag, 'this.selectRange:', this.selectRange);
+    if (debug) { console.log(tag, 'this.selectRange:', this.selectRange); }
     if (!this.selectRange) {
       this.currentDate = date;
     } else {
@@ -269,7 +269,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
    * ui-markers
    */
   isMarked(date: CalendarDate): boolean {
-    if (!this.selectRange && this.currentDate && this.currentDate.isSameDay(date)) return true;
+    if (!this.selectRange && this.currentDate && this.currentDate.isSameDay(date)) { return true; }
 
     return !!this.currentDate && !!this.currentRangeEnd && date.inRange(this.currentDate, this.currentRangeEnd);
   }
@@ -326,12 +326,6 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     this.showYearPick = false;
   }
 
-  /**
-   * things needed for ControlValueAccessor-Interface
-   */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: Date | undefined) => void;
-
   writeValue(value: Date): void {
     this.selectedDate = value;
     this.currentDate = value ? new CalendarDate(value) : undefined;
@@ -339,10 +333,10 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
+    this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
+    this.onTouched = fn;
   }
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
@@ -358,4 +352,11 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     this.viewDate = this.currentDate ? this.currentDate : new CalendarDate();
     this.cdRef.markForCheck();
   }
+
+   /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
+
 }

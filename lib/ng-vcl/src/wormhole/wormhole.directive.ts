@@ -1,11 +1,11 @@
-import { ViewContainerRef, Directive, Input, SimpleChanges, TemplateRef } from '@angular/core';
+import { ViewContainerRef, Directive, Input, SimpleChanges, TemplateRef, OnChanges, OnDestroy } from '@angular/core';
 import { Wormhole, WormholeAttributes } from './wormhole-base';
 import { WormholeHost } from './wormhole-host';
 
 @Directive({
   selector: 'wormhole'
 })
-export class WormholeDirective extends WormholeHost {
+export class WormholeDirective extends WormholeHost implements OnChanges, OnDestroy {
 
   constructor(viewContainerRef: ViewContainerRef) { super(viewContainerRef); }
 
@@ -13,10 +13,11 @@ export class WormholeDirective extends WormholeHost {
     return !!this.wormhole && this.wormhole.isConnected;
   }
 
+  // tslint:disable-next-line:no-input-rename
   @Input('connect')
   target: any;
 
-  @Input('attrs')
+  @Input()
   attrs: WormholeAttributes;
 
   wormhole: Wormhole;

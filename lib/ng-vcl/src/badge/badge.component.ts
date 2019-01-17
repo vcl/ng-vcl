@@ -6,7 +6,7 @@ import { Directive, Input, HostBinding } from '@angular/core';
     '[class.vclBadge]': 'true'
   }
 })
-export class BadgeComponent {
+export class BadgeDirective {
 
   @Input('vcl-badge')
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;

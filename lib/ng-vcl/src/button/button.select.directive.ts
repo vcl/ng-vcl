@@ -12,7 +12,7 @@ export class ButtonSelectDirective  {
 
   @Input()
   @HostBinding('class.vclSelected')
-  selected: boolean = false;
+  selected = false;
 
   @Output()
   select = new EventEmitter<boolean>();

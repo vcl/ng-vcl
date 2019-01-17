@@ -4,13 +4,13 @@ Wrapping behavior
 To allow breaking words of textual cell content apart, use the modifier vclBreakWords. This works best in combination with the fixed layout mode.
 */
 
-import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input, OnChanges } from '@angular/core';
 import { TableService } from '../services/table.service';
 
 @Directive({
   selector: '[break-words]',
 })
-export class BreakingWordsDirective {
+export class BreakingWordsDirective implements OnChanges {
 
   @Input('break-words') breakWords: boolean | '';
   tableService: TableService;

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewChild, Output, Input, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, Output, Input, EventEmitter, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 
 import { AlertOptions, AlertInput } from './types';
 
@@ -8,7 +8,7 @@ import { AlertOptions, AlertInput } from './types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'alert-input'
 })
-export class AlertInputComponent {
+export class AlertInputComponent implements OnInit, AfterViewInit {
 
   @ViewChild('input')
   input: ElementRef;
@@ -17,6 +17,9 @@ export class AlertInputComponent {
   alert: AlertOptions = {};
 
   @Output()
+
+  inputValue = '';
+
   valueChange = new EventEmitter<any>();
 
   ngOnInit() {
@@ -42,7 +45,6 @@ export class AlertInputComponent {
     return this.alert.inputPlaceholder || '';
   }
 
-  inputValue: string = '';
 
   inputValueChange(value: string) {
     this.valueChange.emit(value);

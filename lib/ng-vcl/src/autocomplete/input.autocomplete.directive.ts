@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Directive, ElementRef, Input, HostListener, OnDestroy, Output, EventEmitter, HostBinding } from '@angular/core';
-import { Autocomplete, AutocompleteOption } from './autocomplete.component';
+import { AutocompleteComponent, AutocompleteOptionDirective } from './autocomplete.component';
 import { ObservableComponent } from '../core/index';
 
 @Directive({
@@ -13,16 +13,17 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
   }
 
   @Output()
-  autocompleteSelect = new EventEmitter<AutocompleteOption>();
+  autocompleteSelect = new EventEmitter<AutocompleteOptionDirective>();
 
   @Input()
-  autocompleteAfterSelectAction: 'label' | 'sublabel' | 'value' | {(option: AutocompleteOption): string} | 'clear' = 'value';
+  autocompleteAfterSelectAction: 'label' | 'sublabel' | 'value' | ((option: AutocompleteOptionDirective) => string) | 'clear' = 'value';
 
+  // tslint:disable-next-line:no-input-rename
   @Input('vcl-input-autocomplete')
-  _ac?: Autocomplete;
-  get ac(): Autocomplete {
-    if (!(this._ac instanceof Autocomplete)) {
-      throw 'invalid vcl-input-autocomplete parameter';
+  _ac?: AutocompleteComponent;
+  get ac(): AutocompleteComponent {
+    if (!(this._ac instanceof AutocompleteComponent)) {
+      throw new Error('invalid vcl-input-autocomplete parameter');
     }
     return this._ac;
   }
@@ -31,7 +32,7 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
 
   @HostBinding('class.vclDisabled')
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @HostBinding('attr.disabled')
   get attrDisabled() {

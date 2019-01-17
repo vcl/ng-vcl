@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { InputControlGroup } from './input-control-group.component';
+import { InputControlGroupComponent } from './input-control-group.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [InputControlGroup],
-  declarations: [InputControlGroup],
+  exports: [InputControlGroupComponent],
+  declarations: [InputControlGroupComponent],
   providers: [],
 })
 export class VCLInputControlGroupModule { }

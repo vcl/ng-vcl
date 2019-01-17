@@ -1,4 +1,4 @@
-import { NgModule, EventEmitter, Output, Input, Directive, ElementRef } from '@angular/core';
+import { NgModule, EventEmitter, Output, Input, Directive, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription ,  Observable ,  timer ,  fromEvent, merge } from 'rxjs';
 import { first, skipUntil, map, filter } from 'rxjs/operators';
 
@@ -6,7 +6,7 @@ import { first, skipUntil, map, filter } from 'rxjs/operators';
   selector: '[offClick]',
   exportAs: 'offClick'
 })
-export class OffClickDirective {
+export class OffClickDirective implements AfterViewInit, OnDestroy {
 
   @Input()
   offClickDelay = 10;
@@ -17,7 +17,7 @@ export class OffClickDirective {
   @Input()
   offClickExcludes?: (ElementRef | Element)[];
 
-  @Output('offClick')
+  @Output()
   offClick = new EventEmitter();
 
   private subs: Subscription[] = [];

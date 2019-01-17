@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostListener, HostBinding, OnChanges } from '@angular/core';
+import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren,
+         QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostBinding, OnChanges, AfterContentInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Subscription ,  Observable ,  merge } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { RadioButtonComponent } from './radio-button.component';
 
@@ -24,7 +25,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     'attr.role': '"radiogroup"'
   }
 })
-export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAccessor {
+export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAccessor, AfterContentInit {
 
   changesSub: Subscription | undefined;
   checkedSub: Subscription | undefined;

@@ -1,4 +1,4 @@
-import { Input, TemplateRef, ChangeDetectorRef, Directive, ViewContainerRef, Injector } from '@angular/core';
+import { Input, TemplateRef, Directive, Injector, OnInit, OnDestroy } from '@angular/core';
 import { WormholeEvent } from './../wormhole/index';
 import { LayerRef } from './layer-ref';
 import { LayerOptions } from './layer-container.component';
@@ -8,7 +8,7 @@ import { LayerManagerService } from './layer-manager.service';
   selector: '[vcl-layer]',
   exportAs: 'layer',
 })
-export class LayerRefDirective extends LayerRef implements LayerOptions {
+export class LayerRefDirective extends LayerRef implements OnInit, OnDestroy, LayerOptions {
 
   @Input()
   modal: boolean;
@@ -43,7 +43,7 @@ export class LayerRefDirective extends LayerRef implements LayerOptions {
     this.layerManager._unregister(this);
   }
 
-  event(event: WormholeEvent) {
+  event(_event: WormholeEvent) {
     // Not required for template components
   }
 }

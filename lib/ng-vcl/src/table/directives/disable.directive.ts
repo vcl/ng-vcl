@@ -14,7 +14,9 @@ import { TableService } from '../services/table.service';
   selector: '[disabled]'
 })
 export class DisableDirective implements OnChanges {
-  @Input('disabled') disabled: boolean | '';
+  @Input()
+  disabled: boolean | '';
+
   tableService: TableService;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {

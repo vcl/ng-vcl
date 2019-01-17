@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Directive, ElementRef, Input, HostListener, OnDestroy, SkipSelf, HostBinding, Optional, EventEmitter, Output } from '@angular/core';
-import { Autocomplete, AutocompleteOption } from './autocomplete.component';
+import { AutocompleteComponent, AutocompleteOptionDirective } from './autocomplete.component';
 import { ObservableComponent } from '../core/index';
 import { TokenInputContainerComponent } from '../token/index';
 
@@ -19,15 +19,9 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
   ) {
     super();
     if (!tokenInputContainer) {
-      throw 'vcl-token-input ,must be used within a vcl-token-input-container';
+      throw new Error('vcl-token-input ,must be used within a vcl-token-input-container');
     }
   }
-
-  @Output()
-  autocompleteSelect = new EventEmitter<AutocompleteOption>();
-
-  @Input()
-  disabled: boolean = false;
 
   get isDisabled() {
     return this.disabled || this.tokenInputContainer.disabled;
@@ -42,18 +36,28 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
   get attrDisabled() {
     return this.disabled ? true : null;
   }
-
-  @Input('vcl-token-input-autocomplete')
-  _ac?: Autocomplete;
-  get ac(): Autocomplete {
-    if (!(this._ac instanceof Autocomplete)) {
-      throw 'invalid vcl-token-input-autocomplete parameter';
+  get ac(): AutocompleteComponent {
+    if (!(this._ac instanceof AutocompleteComponent)) {
+      throw new Error('invalid vcl-token-input-autocomplete parameter');
     }
     return this._ac;
   }
 
+  @Output()
+  autocompleteSelect = new EventEmitter<AutocompleteOptionDirective>();
+
+  @Input()
+  disabled = false;
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('vcl-token-input-autocomplete')
+  _ac?: AutocompleteComponent;
+
   acSub?: Subscription;
   focused = false;
+
+  private lastKey: string | undefined;
+  private wasEmpty = true;
 
   @HostListener('input')
   @HostListener('focus')
@@ -101,9 +105,6 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
     }
   }
 
-  private lastKey: string | undefined;
-  private wasEmpty = true;
-
   @HostListener('keydown', ['$event'])
   onKeyDown(event) {
     const value = event.target.value;
@@ -129,7 +130,7 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
       }
       event.preventDefault();
       return false;
-    } else if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '' && this.wasEmpty) {
+    } else if (code === 'Backspace' && this.lastKey == 'Backspace' && value  === '' && this.wasEmpty) {
       // remove last token
       this.tokenInputContainer.removeLastToken();
     } else if (code === 'Enter') {

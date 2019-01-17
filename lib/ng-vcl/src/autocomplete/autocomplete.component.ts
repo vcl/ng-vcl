@@ -1,7 +1,6 @@
-import { Observable, combineLatest, Subject, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, combineLatest, Subscription, BehaviorSubject } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { Component, Directive, ViewChild, ViewContainerRef, Input, TemplateRef, HostBinding, HostListener, ElementRef, ContentChildren, QueryList, forwardRef, AfterContentInit, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, ContentChild } from '@angular/core';
-import { WormholeHost } from '../wormhole/index';
+import { Component, Directive, ViewChild, Input, TemplateRef, ElementRef, ContentChildren, QueryList, forwardRef, AfterContentInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { PopoverComponent } from '../popover/index';
 import { ObservableComponent } from '../core/index';
 
@@ -19,27 +18,27 @@ import { ObservableComponent } from '../core/index';
   `],
   templateUrl: 'autocomplete.component.html'
 })
-export class Autocomplete extends ObservableComponent implements AfterContentInit, OnDestroy {
+export class AutocompleteComponent extends ObservableComponent implements AfterContentInit, OnDestroy {
 
   @ViewChild('popover')
   popover: PopoverComponent;
 
-  @ContentChildren(forwardRef(() => AutocompleteOption))
-  items?: QueryList<AutocompleteOption>;
+  @ContentChildren(forwardRef(() => AutocompleteOptionDirective))
+  items?: QueryList<AutocompleteOptionDirective>;
 
-  @ContentChildren(forwardRef(() => AutocompleteContent))
-  content?: QueryList<AutocompleteContent>;
+  @ContentChildren(forwardRef(() => AutocompleteContentComponent))
+  content?: QueryList<AutocompleteContentComponent>;
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @Output()
-  select = new EventEmitter<AutocompleteOption>();
+  select = new EventEmitter<AutocompleteOptionDirective>();
 
   target$ = new BehaviorSubject<any>(undefined);
 
-  items$ = new BehaviorSubject<AutocompleteOption[]>([]);
-  content$ = new BehaviorSubject<AutocompleteContent[]>([]);
+  items$ = new BehaviorSubject<AutocompleteOptionDirective[]>([]);
+  content$ = new BehaviorSubject<AutocompleteContentComponent[]>([]);
 
   itemsVisible$ = combineLatest(this.target$, this.items$, ((target, items) => {
     return !!target && items.length > 0;
@@ -62,19 +61,19 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
   itemsSub?: Subscription;
   contentSub?: Subscription;
 
-  highlightedItem: number = -1;
+  highlightedItem = -1;
 
-  open(targetElement: ElementRef): Observable<AutocompleteOption> {
+  open(targetElement: ElementRef): Observable<AutocompleteOptionDirective> {
     this.highlightedItem = -1;
 
     this.target$.next({
       element: targetElement,
-      select: (ac: AutocompleteOption) => {
+      select: (ac: AutocompleteOptionDirective) => {
         this.select.emit(ac);
       },
     });
 
-    return new Observable<AutocompleteOption>(observer => {
+    return new Observable<AutocompleteOptionDirective>(observer => {
       const sub = this.select.subscribe(observer);
       return () => {
         sub.unsubscribe();
@@ -116,7 +115,7 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 
   highlightNext() {
     if (this.items) {
-      let idx = this.items.toArray().findIndex((item, thisIdx) => item.type === 'item' && thisIdx > this.highlightedItem);
+      const idx = this.items.toArray().findIndex((item, thisIdx) => item.type === 'item' && thisIdx > this.highlightedItem);
       if (idx > -1) {
         this.highlightedItem = idx;
       }
@@ -138,8 +137,8 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
     this.itemsSub = items && items.changes.pipe(
       startWith(items.toArray()),
       map(() => items.toArray())
-    ).subscribe(items => {
-      this.items$.next(items);
+    ).subscribe(thisItems => {
+      this.items$.next(thisItems);
       this.highlightedItem = -1;
     });
     this.contentSub = content && content.changes.pipe(
@@ -158,7 +157,7 @@ export class Autocomplete extends ObservableComponent implements AfterContentIni
 @Directive({
   selector: 'vcl-autocomplete-option'
 })
-export class AutocompleteOption {
+export class AutocompleteOptionDirective {
   @Input()
   type: 'item' | 'separator' | 'header' = 'item';
   @Input()
@@ -168,14 +167,14 @@ export class AutocompleteOption {
   @Input()
   sublabel?: string;
   @Input()
-  disabled?: boolean = false;
+  disabled = false;
 }
 
 @Component({
   selector: 'vcl-autocomplete-content',
   template: '<ng-template><ng-content></ng-content></ng-template>'
 })
-export class AutocompleteContent {
+export class AutocompleteContentComponent {
   @ViewChild(TemplateRef)
   templateRef: TemplateRef<any>;
 }

@@ -1,4 +1,3 @@
-import { Injectable, ReflectiveInjector, Injector, ViewContainerRef, Directive, Input, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { WormholeEvent } from './../wormhole/index';
 import { LayerService } from './layer.service';
@@ -70,11 +69,11 @@ export abstract class LayerRef {
     }
   }
 
-  event(event: WormholeEvent) { }
+  event(_event: WormholeEvent) {  }
 }
 
 export class DynamicLayerRef extends LayerRef {
-  constructor(private _register: {(): void}, private _unregister: {(): void}) { super(); }
+  constructor(private _register: () => void, private _unregister: () => void) { super(); }
 
   private _registered = false;
 

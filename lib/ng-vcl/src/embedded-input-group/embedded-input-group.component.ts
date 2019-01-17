@@ -15,7 +15,7 @@ import { ButtonDirective } from '../button/index';
 export class EmbeddedInputGroupComponent extends ObservableComponent {
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @Input()
   prepIcon?: string;

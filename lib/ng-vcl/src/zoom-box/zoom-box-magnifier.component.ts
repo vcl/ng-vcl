@@ -22,10 +22,9 @@ export class ZoomBoxMagnifierComponent {
       display: (!this.parent.hiding && !this.parent.invisible) ? 'block' : 'none',
       'pointer-events': 'none'
     };
-
-    for (let style in styles) {
+    Object.keys(styles).forEach(style => {
       this.renderer.setStyle(this.element.nativeElement, style, styles[style]);
-    }
+    });
   }
 
 }

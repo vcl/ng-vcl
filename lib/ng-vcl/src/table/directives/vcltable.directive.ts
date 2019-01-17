@@ -14,7 +14,9 @@ import { TableService } from '../services/table.service';
 export class VclTableDirective implements OnChanges {
 
 
-  @Input('selectable') selectable: boolean | '';
+  @Input()
+  selectable: boolean | '';
+
   tableService: TableService;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {

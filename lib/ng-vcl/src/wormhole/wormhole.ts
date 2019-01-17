@@ -17,7 +17,7 @@ export class TemplateWormhole extends TemplateWormholeBase {
   constructor(templateRef: TemplateRef<any>, private viewContainerRef: ViewContainerRef) {
     super(templateRef);
     if (!viewContainerRef) {
-      throw 'missing ViewContainerRef';
+      throw new Error('missing ViewContainerRef');
     }
   }
 
@@ -43,7 +43,7 @@ export class ComponentWormhole<T> extends ComponentWormholeBase<T> {
   constructor(componentClass: Type<T>, private viewContainerRef: ViewContainerRef, private injector?: Injector) {
     super(componentClass);
     if (!viewContainerRef) {
-      throw 'missing ViewContainerRef';
+      throw new Error('missing ViewContainerRef');
     }
   }
 

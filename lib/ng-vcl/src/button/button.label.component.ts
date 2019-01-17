@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'button[vcl-button][label]',

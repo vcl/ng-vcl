@@ -1,5 +1,5 @@
-import { Wormhole, WormholeHost } from './../wormhole/index';
-import { Component, Directive, ContentChild, TemplateRef, ContentChildren, QueryList, Input, AfterViewChecked, NgZone, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
+import { WormholeHost } from './../wormhole/index';
+import { Component, ContentChildren, QueryList, Input, Output, EventEmitter, ViewChild, ViewContainerRef, OnDestroy, AfterContentInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TabComponent } from './tab.component';
 
@@ -7,7 +7,7 @@ import { TabComponent } from './tab.component';
   selector: 'vcl-tab-nav',
   templateUrl: 'tab-nav.component.html'
 })
-export class TabNavComponent {
+export class TabNavComponent implements AfterContentInit, OnDestroy {
 
   wormholeHost?: WormholeHost;
 
@@ -22,26 +22,26 @@ export class TabNavComponent {
   tabs?: QueryList<TabComponent>;
 
   @Input()
-  layout: string = '';
+  layout = '';
 
   @Input()
-  tabbableClass: string = '';
+  tabbableClass = '';
 
   @Input()
-  tabsClass: string = '';
+  tabsClass = '';
 
   @Input()
-  tabContentClass: string = '';
+  tabContentClass = '';
 
   @Input()
   hideContent = false;
 
   // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
   @Input()
-  borders: boolean = false;
+  borders = false;
 
   @Input()
-  selectedTabIndex: number = 0;
+  selectedTabIndex = 0;
 
   selectedTabIndexChange$: EventEmitter<number> = new EventEmitter<number>();
   @Output()

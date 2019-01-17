@@ -11,9 +11,9 @@ export class GalleryImageComponent {
   image: string;
 
   @Input()
-  thumbnail: string = '';
+  thumbnail = '';
 
   @Input()
-  alt: string = '';
+  alt = '';
 
 }

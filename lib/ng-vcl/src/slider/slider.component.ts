@@ -10,7 +10,9 @@ import {
   ViewChild,
   ElementRef,
   forwardRef,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  AfterContentInit,
+  OnChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -38,38 +40,38 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderComponent implements ControlValueAccessor {
+export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges {
 
   @HostBinding()
   tabindex = 0;
 
   @Input()
-  value: number = 0;
+  value = 0;
 
   @Output()
   valueChange = new EventEmitter<number>();
 
   @HostBinding('class.vclDisabled')
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @Input()
-  min: number = 0;
+  min = 0;
 
   @Input()
-  max: number = 10;
-
-  @Input('mousewheel')
-  wheel: boolean = false;
+  max = 10;
 
   @Input()
-  lock: boolean = false;
+  mousewheel = false;
+
+  @Input()
+  lock = false;
 
   @Input()
   scale: string[] | number | undefined;
 
   @HostBinding('class.vclFocused')
-  focused: boolean = false;
+  focused = false;
 
   @ViewChild('scale')
   scaleElement: ElementRef;
@@ -84,9 +86,10 @@ export class SliderComponent implements ControlValueAccessor {
     return !isNaN(max) ? max : 0;
   }
 
-  percentLeftKnob: number = 0;
-
+  percentLeftKnob = 0;
   scalePoints: ScalePoint[] = [];
+  lastPercentLeftKnob: number;
+  firstPan = true;
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
@@ -201,7 +204,7 @@ export class SliderComponent implements ControlValueAccessor {
    */
   @HostListener('tap', ['$event'])
   onTap(event) {
-    if (this.disabled || event.target.className == 'vclSliderKnob') {
+    if (this.disabled || event.target.className === 'vclSliderKnob') {
       return;
     }
 
@@ -231,10 +234,10 @@ export class SliderComponent implements ControlValueAccessor {
 
   moveToPoint(direction: MoveDirection) {
     const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob(this.value));
-    const currentPoint = this.scalePoints.find(p => p.percent == currentPointValue);
+    const currentPoint = this.scalePoints.find(p => p.percent === currentPointValue);
     let i = currentPoint ? this.scalePoints.indexOf(currentPoint) : 0;
     let nextPoint;
-    if (direction == MoveDirection.Right) {
+    if (direction === MoveDirection.Right) {
       i++;
       if (i >= this.scalePoints.length) {
         i = this.scalePoints.length - 1;
@@ -257,12 +260,14 @@ export class SliderComponent implements ControlValueAccessor {
 
     if (direction === MoveDirection.Right) {
       value++;
-      if (value > this.pmax)
+      if (value > this.pmax) {
         value = this.pmax;
+      }
     } else {
       value--;
-      if (value < this.pmin)
+      if (value < this.pmin) {
         value = this.pmin;
+      }
     }
 
     this.setValue(value, true);
@@ -270,7 +275,7 @@ export class SliderComponent implements ControlValueAccessor {
 
   @HostListener('wheel', ['$event'])
   onWheel(ev) {
-    if (this.disabled || !this.wheel) {
+    if (this.disabled || !this.mousewheel) {
       return;
     }
     if (ev.deltaY < 0) {
@@ -303,9 +308,6 @@ export class SliderComponent implements ControlValueAccessor {
     }
   }
 
-
-  lastPercentLeftKnob: number;
-  firstPan: boolean = true;
   onPan(ev) {
     if (this.disabled) {
       return;

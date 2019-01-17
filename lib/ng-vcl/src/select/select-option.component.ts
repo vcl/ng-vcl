@@ -4,7 +4,7 @@ import { Directive, ViewChild, Input, TemplateRef } from '@angular/core';
 @Directive({
   selector: 'vcl-select-option'
 })
-export class SelectOption {
+export class SelectOptionDirective {
 
   @ViewChild(TemplateRef)
   content: TemplateRef<any>;
@@ -31,5 +31,5 @@ export class SelectOption {
   prepIconSrc?: string;
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 }

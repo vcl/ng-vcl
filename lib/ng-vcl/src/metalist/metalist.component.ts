@@ -1,5 +1,5 @@
-import { Directive, Component, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef,
-  EventEmitter, forwardRef, OnInit, ElementRef, ViewChild, ContentChildren, QueryList, HostListener, TemplateRef, SimpleChanges, Query, AfterContentInit, OnDestroy, OnChanges, Inject
+import { Component, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef,
+  EventEmitter, forwardRef, ContentChildren, QueryList, AfterContentInit, OnDestroy, Inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   template: '<ng-content></ng-content>',
   exportAs: 'meta'
 })
-export class MetalistItem implements MetalistItem {
+export class MetalistItemComponent {
   constructor(@Inject(forwardRef(() => MetalistComponent)) private metalist) { }
 
   @Input()
@@ -19,7 +19,7 @@ export class MetalistItem implements MetalistItem {
   metadata: any;
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   get marked(): boolean {
     return this.metalist.isMarked(this);
@@ -57,13 +57,13 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   @Output()
   itemsChange = new EventEmitter<any>();
 
-  @ContentChildren(MetalistItem)
-  items?: QueryList<MetalistItem>;
+  @ContentChildren(MetalistItemComponent)
+  items?: QueryList<MetalistItemComponent>;
 
   @Input()
   value: any | any[];
 
-  markedItem?: MetalistItem;
+  markedItem?: MetalistItemComponent;
   itemsSub?: Subscription;
 
   constructor(private cdRef: ChangeDetectorRef) { }
@@ -72,11 +72,11 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     return this.items ? this.items.toArray() : [];
   }
 
-  isMarked(item: MetalistItem) {
+  isMarked(item: MetalistItemComponent) {
     return this.markedItem === item;
   }
 
-  isSelected(item: MetalistItem) {
+  isSelected(item: MetalistItemComponent) {
     const value = this.value;
     if (this.mode === 'multiple'  && Array.isArray(value)) {
       return value.includes(item.value);
@@ -85,11 +85,11 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     }
   }
 
-  get selectedItem(): MetalistItem | undefined {
+  get selectedItem(): MetalistItemComponent | undefined {
     return this.selectedItems[0] || undefined;
   }
 
-  get selectedItems(): MetalistItem[] {
+  get selectedItems(): MetalistItemComponent[] {
     return this.itemsArray.filter(i => i.selected);
   }
 
@@ -110,7 +110,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     this.onChange(this.value);
   }
 
-  select(item?: MetalistItem | number) {
+  select(item?: MetalistItemComponent | number) {
     if (item === undefined) {
       return this.selectMarked();
     }
@@ -118,7 +118,7 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     if (typeof item === 'number') {
       item = this.itemsArray[item];
     }
-    if (item instanceof MetalistItem) {
+    if (item instanceof MetalistItemComponent) {
       if (item.disabled) {
         return;
       }
@@ -148,12 +148,12 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     }
   }
 
-  deselect(item: MetalistItem | number) {
+  deselect(item: MetalistItemComponent | number) {
     if (typeof item === 'number') {
       item = this.itemsArray[item];
     }
 
-    if (item instanceof MetalistItem) {
+    if (item instanceof MetalistItemComponent) {
       const value = item.value;
 
       if (this.mode === 'single' && this.value === value) {
@@ -172,15 +172,15 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
   }
 
   private determineMarkedIndex() {
-    let idx = this.itemsArray.findIndex(item => item.marked);
+    const idx = this.itemsArray.findIndex(item => item.marked);
     return idx >= 0 ? idx : this.itemsArray.findIndex(metaItem => metaItem.selected);
   }
 
-  mark(item: MetalistItem | number) {
+  mark(item: MetalistItemComponent | number) {
     if (typeof item === 'number') {
       item = this.itemsArray[item];
     }
-    if (item instanceof MetalistItem) {
+    if (item instanceof MetalistItemComponent) {
       this.markedItem = item;
       this.itemsChange.emit();
       this.cdRef.markForCheck();
@@ -241,7 +241,6 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
    * things needed for ControlValueAccessor-Interface
    */
   private onChange: (_: any) => void = () => {};
-  private onTouched: () => any = () => {};
 
   writeValue(value: any): void {
     this.setValue(value);
@@ -250,6 +249,5 @@ export class MetalistComponent implements ControlValueAccessor, AfterContentInit
     this.onChange = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouched = fn;
   }
 }

@@ -36,10 +36,10 @@ export enum ImageChange {
 export class GalleryComponent implements AfterContentInit, AfterViewInit {
 
   @Input()
-  selectedImage: number = 0;
+  selectedImage = 0;
 
   @Input()
-  wrap: boolean = false;
+  wrap = false;
 
   @ContentChildren(GalleryImageComponent)
   images?: QueryList<GalleryImageComponent>;

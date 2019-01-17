@@ -1,5 +1,4 @@
-import { Directive, Input, Output, ElementRef, HostListener, EventEmitter, Component, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, ContentChild, OnChanges, SimpleChanges, OnInit, SkipSelf, HostBinding, Optional } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Input, Component, ChangeDetectionStrategy, ContentChild } from '@angular/core';
 import { InputDirective } from './../input/index';
 
 

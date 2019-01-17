@@ -24,7 +24,7 @@ export class SortDirective {
   @ContentChild(SortIconComponent) sortIconComponent: SortIconComponent;
   @Output() change: EventEmitter<-1 | 0 | 1> = new EventEmitter<-1 | 0 | 1>();
 
-  isHeader: boolean = false;
+  isHeader = false;
   order: -1 | 0 | 1;
   tableService: TableService;
 
@@ -39,7 +39,7 @@ export class SortDirective {
   @HostListener('click')
   OnChangeOrder(): void {
     if (this.isHeader) {
-      this.order = this.order == 1 ? -1 : 1;
+      this.order = this.order === 1 ? -1 : 1;
       this.change.emit(this.order);
       switch (this.order) {
         case 1: {

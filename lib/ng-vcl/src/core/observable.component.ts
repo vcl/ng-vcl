@@ -21,7 +21,7 @@ export abstract class ObservableComponent implements OnDestroy, OnChanges  {
 
   protected observeChange(prop: string): Observable<SimpleChange> {
     if (!this.observedProps[prop]) {
-      let c$ = this.changes$.pipe(
+      const c$ = this.changes$.pipe(
                     filter(changes => changes.hasOwnProperty(prop)),
                     map(changes => changes[prop]),
                     publishReplay(1)

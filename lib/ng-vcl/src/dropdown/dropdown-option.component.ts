@@ -1,12 +1,11 @@
 
 import { Component, TemplateRef, ViewChild, Input } from '@angular/core';
-import { MetalistItem } from '../metalist/index';
 
 @Component({
   selector: 'vcl-dropdown-option',
   template: '<ng-template><ng-content></ng-content></ng-template>'
 })
-export class DropdownOption {
+export class DropdownOptionComponent {
 
   @ViewChild(TemplateRef)
   _content: TemplateRef<any>;
@@ -36,6 +35,6 @@ export class DropdownOption {
   prepIconSrc?: string;
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 }
 

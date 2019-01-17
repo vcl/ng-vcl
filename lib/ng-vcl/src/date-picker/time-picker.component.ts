@@ -29,22 +29,29 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class TimePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
 
+  constructor(private cdRef: ChangeDetectorRef) { }
+
   @Input()
   selectedDate: Date | undefined;
 
   @Input()
-  displayHours: boolean = true;
+  displayHours = true;
 
   @Input()
-  displayMinutes: boolean = true;
+  displayMinutes = true;
 
   @Input()
-  displaySeconds: boolean = true;
+  displaySeconds = true;
 
   @Input()
-  displayHours24: boolean = true;
+  displayHours24 = true;
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  private currentHour = -1;
+  private currentMinute = -1;
+  private currentSecond = -1;
+
+  onTouchedCallback: (_: any) => void;
+  onChangeCallback: (_: Date | undefined) => void;
 
   ngOnInit(): void {
     if (this.selectedDate) {
@@ -53,10 +60,6 @@ export class TimePickerComponent implements OnInit, OnChanges, ControlValueAcces
       this.currentSecond = this.selectedDate.getSeconds();
     }
   }
-
-  private currentHour: number = -1;
-  private currentMinute: number = -1;
-  private currentSecond: number = -1;
 
   isHourMarked(hour: number): boolean {
     return hour === this.currentHour;
@@ -77,7 +80,7 @@ export class TimePickerComponent implements OnInit, OnChanges, ControlValueAcces
       this.selectedDate = new Date();
     }
 
-    this.selectedDate!.setHours(hour);
+    this.selectedDate.setHours(hour);
     this.onChangeCallback && this.onChangeCallback(this.selectedDate);
   }
 
@@ -88,7 +91,7 @@ export class TimePickerComponent implements OnInit, OnChanges, ControlValueAcces
       this.selectedDate = new Date();
     }
 
-    this.selectedDate!.setMinutes(minute);
+    this.selectedDate.setMinutes(minute);
     this.onChangeCallback && this.onChangeCallback(this.selectedDate);
   }
 
@@ -99,7 +102,7 @@ export class TimePickerComponent implements OnInit, OnChanges, ControlValueAcces
       this.selectedDate = new Date();
     }
 
-    this.selectedDate!.setSeconds(second);
+    this.selectedDate.setSeconds(second);
     this.onChangeCallback && this.onChangeCallback(this.selectedDate);
   }
 
@@ -117,9 +120,6 @@ export class TimePickerComponent implements OnInit, OnChanges, ControlValueAcces
       }
     }
   }
-
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: Date | undefined) => void;
 
   writeValue(value: Date): void {
     this.selectedDate = value;

@@ -7,15 +7,15 @@ import {
   QueryList,
   forwardRef,
   ChangeDetectorRef,
-  ChangeDetectionStrategy,
   AfterContentInit,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  OnDestroy
 } from '@angular/core';
-import { Observable ,  merge ,  Subscription } from 'rxjs';
+import { merge ,  Subscription } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { Token, TokenComponent } from './token.component';
+import { TokenComponent } from './token.component';
 import { map, startWith } from 'rxjs/operators';
 
 
@@ -35,7 +35,9 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   // Used by select
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenListComponent implements AfterContentInit, OnChanges, ControlValueAccessor {
+export class TokenListComponent implements AfterContentInit, OnChanges, OnDestroy, ControlValueAccessor {
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   tokenSubscription: Subscription | undefined;
 
@@ -43,20 +45,20 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
   tokens?: QueryList<TokenComponent>;
 
   @Input()
-  selectable: boolean = false;
+  selectable = false;
 
   @Input()
-  dispatchEvent: boolean = false;
+  dispatchEvent = false;
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @Output()
   tokensChange = new EventEmitter();
 
   labels: any[] = [];
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  private onChangeCallback?: (_: any) => (_: any) => null;
 
   private syncTokens() {
     const labels = this.labels;
@@ -127,12 +129,6 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
   dispose() {
     this.tokenSubscription && this.tokenSubscription.unsubscribe();
   }
-
-    /**
-   * things needed for ControlValueAccessor-Interface
-   */
-  private onTouchedCallback?: (_: any) => void;
-  private onChangeCallback?: (_: any) => void;
   writeValue(value: any): void {
     this.labels = value;
     this.syncTokens();
@@ -142,7 +138,6 @@ export class TokenListComponent implements AfterContentInit, OnChanges, ControlV
     this.onChangeCallback = fn;
   }
   registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
   }
   setDisabledState(isDisabled: boolean) {
     this.tokens && this.tokens.forEach(t => t.setDisabledState(isDisabled));

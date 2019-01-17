@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter, SimpleChanges, forwardRef, Optional, SkipSelf, Directive, HostBinding, ElementRef, HostListener, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter,
+         forwardRef, SkipSelf, Directive, HostBinding, HostListener, Inject, ChangeDetectorRef, AfterContentInit } from '@angular/core';
 import { Subscription, merge } from 'rxjs';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgModel } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { ButtonDirective } from '../button/index';
 
@@ -24,7 +25,7 @@ export class GroupButtonDirective  {
   }
 
   @HostBinding('class.vclSelected')
-  selected: boolean = false;
+  selected = false;
 
   select = new EventEmitter<boolean>();
 
@@ -50,7 +51,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor {
+export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit {
 
   constructor(private cdRef: ChangeDetectorRef) { }
 

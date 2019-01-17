@@ -1,8 +1,7 @@
-import { Directive, Input, Optional, SkipSelf, NgModule, Inject, OnDestroy, Self, Renderer2, ElementRef } from '@angular/core';
-import { Observable, combineLatest, Subscription } from 'rxjs';
-import { NgClass, CommonModule } from '@angular/common';
+import { Directive, Input, Optional, SkipSelf, NgModule, Inject, OnDestroy, Renderer2, ElementRef } from '@angular/core';
+import { combineLatest, Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { ObservableComponent } from './observable.component';
-import { startWith } from 'rxjs/operators';
 
 export interface VCLLayout {
   [key: string]: string;
@@ -43,17 +42,17 @@ export class LayoutTargetDirective extends ObservableComponent implements OnDest
       // Whenever the name or the layout property on the vclLayout directive changes, update the classes
       this.sub = combineLatest(this.name$, layoutHost.layout$).subscribe(([name, layout]) => {
         // Remove any of previously added classes
-        this.classes.forEach(name => this.renderer.removeClass(this.elRef.nativeElement, name));
+        this.classes.forEach(thisName => this.renderer.removeClass(this.elRef.nativeElement, thisName));
         this.classes = [];
 
         if (name && layout && typeof layout[name] === 'string') {
-          layout[name].split(' ').forEach(name => {
+          layout[name].split(' ').forEach(thisName => {
             // Only add classes that are not present on the element
-            if (!this.elRef.nativeElement.classList.contains(name)) {
+            if (!this.elRef.nativeElement.classList.contains(thisName)) {
               // Add the class to the element
-              this.renderer.addClass(this.elRef.nativeElement, name);
+              this.renderer.addClass(this.elRef.nativeElement, thisName);
               // Remember them so they can be removed on a change
-              this.classes = [...this.classes, name];
+              this.classes = [...this.classes, thisName];
             }
           });
         }

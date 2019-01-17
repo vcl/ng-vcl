@@ -13,7 +13,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
   @ViewChild('imageContainer')
   imageContainer: ElementRef;
 
-  private initialized: boolean = false;
+  private initialized = false;
   private imgS: Element[];
   private containerHeight = 0;
   private loadedCount = 0;
@@ -38,7 +38,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
     if (!this.initialized) {
       const images = this.imageContainer.nativeElement.querySelectorAll('img');
 
-      if (images.length == 0) {
+      if (images.length === 0) {
         return;
       }
 
@@ -55,15 +55,14 @@ export class GalleryBodyComponent implements AfterContentChecked {
   private reload(): void {
     let maxHeight = 0;
     let leftPos = 0;
-    for (let i in this.imgS) {
-      const image = this.imgS[i];
+    this.imgS.forEach(image => {
       if (image.clientHeight > maxHeight) {
         maxHeight = image.clientHeight;
       }
 
       image['style'].left = Math.round(leftPos) + 'px';
       leftPos += image.clientWidth;
-    }
+    });
 
     this.containerHeight = maxHeight;
   }
@@ -87,7 +86,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
     return {
       height: this.containerHeight + 'px',
       transform: 'translateX(' + this.translatePosition + 'px)',
-      transition: this.loadedCount == (this.target.images && this.target.images.length) ? 'transform 0.5s' : ''
+      transition: this.loadedCount === (this.target.images && this.target.images.length) ? 'transform 0.5s' : ''
     };
   }
 

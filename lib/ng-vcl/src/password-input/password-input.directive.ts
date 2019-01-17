@@ -1,5 +1,4 @@
-import { Directive, Input, Output, ElementRef, HostListener, EventEmitter, Component, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, ContentChild, OnChanges, SimpleChanges, OnInit, SkipSelf, HostBinding, Optional, Self } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, SkipSelf, HostBinding, Self } from '@angular/core';
 import { PasswordInputComponent } from './password-input.component';
 import { InputDirective } from '../input/index';
 

@@ -46,7 +46,7 @@ export interface AlertOptions {
   input?: AlertInput;
   inputValue?: any;
   inputPlaceholder?: string;
-  inputValidator?: { (value: any): boolean  };
+  inputValidator?: (value: any) => boolean;
   contentAlignment?: AlertAlignment;
   titleAlignment?: AlertAlignment;
   iconAlignment?: AlertAlignment;
@@ -116,7 +116,7 @@ export const BUTTON_ALIGNMENT_CLASS_MAP = {
 
 export interface AlertResult {
   value?: any;
-  close?: {(): void };
+  close?: () => void;
 }
 
 export class AlertError extends Error {

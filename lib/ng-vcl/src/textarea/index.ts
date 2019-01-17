@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TextareaDirective }   from './textarea.directive';
+import { TextareaDirective } from './textarea.directive';
 
 @NgModule({
   imports: [FormsModule],

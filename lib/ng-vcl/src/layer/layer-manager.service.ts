@@ -1,20 +1,20 @@
-import { Injectable, Injector, TemplateRef, Type, ApplicationRef } from '@angular/core';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { Injectable, Injector, TemplateRef, Type, ApplicationRef, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Wormhole, DomWormholeHost } from '../wormhole/index';
-import { LayerRef, DynamicLayerRef, LayerAttributes } from './layer-ref';
+import { LayerRef } from './layer-ref';
 import { LayerContainerComponent, LayerOptions } from './layer-container.component';
 
 @Injectable()
-export class LayerManagerService {
+export class LayerManagerService implements OnDestroy {
 
   private layerMetaMap = new Map<LayerRef, { wormhole: Wormhole, subscription: Subscription }>();
 
-  baseZIndex: number = 1000;
+  baseZIndex = 1000;
   visibleLayers: LayerRef[] = [];
 
   private host: DomWormholeHost;
 
-  constructor(appRef: ApplicationRef, private injector: Injector) {
+  constructor(appRef: ApplicationRef, injector: Injector) {
     this.host = new DomWormholeHost(appRef, undefined, injector);
   }
 

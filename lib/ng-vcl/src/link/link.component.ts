@@ -1,6 +1,4 @@
-import { Observable ,  Subscription ,  of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Component, Input, HostBinding, ViewChild, ElementRef, Optional, Directive } from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'a[vcl-link]',
@@ -15,7 +13,7 @@ export class LinkComponent {
 
   @HostBinding('class.vclDisabled')
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @HostBinding('style.cursor')
   get styleCursor() {

@@ -28,33 +28,33 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class FileInputComponent implements ControlValueAccessor {
 
   @Input()
-  icon: string = 'fas fa-upload';
+  icon = 'fas fa-upload';
 
   @Input()
-  accept: string = '*';
+  accept = '*';
 
   @Input()
-  multiple: boolean = false;
+  multiple = false;
 
   @Output()
   files = new EventEmitter<FileList>();
 
   @Input()
   @HostBinding('attr.tabindex')
-  tabindex: number = 0;
+  tabindex = 0;
 
   @Input()
   @HostBinding('class.vclDisabled')
-  disabled: boolean = false;
+  disabled = false;
 
   @HostBinding('class.vclError')
   invalidFiles = false;
 
   @HostBinding('class.vclDragndrop')
-  isDragging: boolean = false;
+  isDragging = false;
 
   @HostBinding('class.isFocused')
-  isFocused: boolean = false;
+  isFocused = false;
 
   @ViewChild('input')
   input: ElementRef;
@@ -134,7 +134,7 @@ export class FileInputComponent implements ControlValueAccessor {
     // cancel event and hover styling
     e.preventDefault();
     e.stopPropagation();
-    if (this.disabled) return;
+    if (this.disabled) { return; }
     this.isDragging = false;
 
     // fetch FileList object

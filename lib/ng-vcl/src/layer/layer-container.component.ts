@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, InjectionToken, Input, Optional, ReflectiveInjector, TemplateRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, InjectionToken, Input, Optional, ReflectiveInjector, TemplateRef, Type, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { ComponentWormhole, TemplateWormhole, Wormhole } from '../wormhole/index';
@@ -26,7 +26,7 @@ export interface LayerOptions {
   stickToBottom?: boolean;
   gutterPadding?: boolean;
   customClass?: string;
-  offClick?: { (layerRef: LayerRef): void };
+  offClick?: (layerRef: LayerRef) => void;
   attrs?: LayerAttributes;
   noLayerBox?: boolean;
   events?: string[];
@@ -35,7 +35,7 @@ export interface LayerOptions {
 @Component({
   templateUrl: 'layer-container.component.html',
 })
-export class LayerContainerComponent {
+export class LayerContainerComponent implements AfterViewInit, OnDestroy  {
 
   @ViewChild('container')
   container: ElementRef;
@@ -124,7 +124,7 @@ export class LayerContainerComponent {
       }
 
       if (!this.wormhole) {
-        throw 'invalid layer';
+        throw new Error('invalid layer');
       }
 
       this.eventSub = this.wormhole.connect(this.mergedLayerAttrs, this.layerOpts.events).subscribe(event => {

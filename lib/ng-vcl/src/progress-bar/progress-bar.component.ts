@@ -17,19 +17,19 @@ export class ProgressBarComponent {
   secondaryValue: number;
 
   @Input()
-  minValue: number = 0;
+  minValue = 0;
 
   @Input()
-  maxValue: number = 100;
+  maxValue = 100;
 
   @Input()
-  indeterminate: boolean = false;
+  indeterminate = false;
 
   @Input()
   label: string;
 
   @Input()
-  speed: number = 1;
+  speed = 1;
 
   get showIndeterminate(): boolean {
     return this.indeterminate && !this.validateValue(this.value);

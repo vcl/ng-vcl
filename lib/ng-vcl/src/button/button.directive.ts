@@ -11,7 +11,7 @@ export class ButtonDirective {
   constructor(private elementRef: ElementRef) { }
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @HostBinding('class.vclDisabled')
   @HostBinding('attr.disabled')
@@ -19,14 +19,14 @@ export class ButtonDirective {
     return this.disabled ? true : null;
   }
 
+  @HostBinding('class.vclHovered')
+  hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
+
   @HostListener('mouseenter', ['$event'])
   onMouseEnter(e) { this.hovered = true; }
 
   @HostListener('mouseleave', ['$event'])
   onMouseLeave(e) { this.hovered = false; }
-
-  @HostBinding('class.vclHovered')
-  hovered: boolean = false; // `true` if a pointer device is hovering the button (CSS' :hover)
 
   focus(): void {
     this.elementRef.nativeElement.focus();

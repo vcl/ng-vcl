@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, HostBinding, ElementRef, Directive, Inject, forwardRef, Self, Optional, ViewChild, SkipSelf } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'vcl-icogram, div[vcl-icogram]',

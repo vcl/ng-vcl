@@ -8,10 +8,10 @@ import {ZoomBoxMagnifierComponent} from './zoom-box-magnifier.component';
 export class ZoomBoxContainerComponent implements AfterContentInit {
 
   @Input()
-  x: number = 0;
+  x = 0;
 
   @Input()
-  y: number = 0;
+  y = 0;
 
   @Input()
   width: number;
@@ -20,19 +20,19 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
   height: number;
 
   @Input()
-  resetOnOut: boolean = false;
+  resetOnOut = false;
 
   @Input()
-  hidden: boolean = false;
+  hidden = false;
 
   @Input()
-  hiding: boolean = false;
+  hiding = false;
 
   @Input()
-  invisible: boolean = false;
+  invisible = false;
 
-  private startX: number = -1;
-  private startY: number = -1;
+  private startX = -1;
+  private startY = -1;
 
   private imgContent: any;
 
@@ -53,7 +53,7 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
   }
 
   onMove(event: MouseEvent): void {
-    if (this.startX == -1) {
+    if (this.startX === -1) {
       this.startX = this.x;
       this.startY = this.y;
     }

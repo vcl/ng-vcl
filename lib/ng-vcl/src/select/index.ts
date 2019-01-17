@@ -5,15 +5,15 @@ import { VCLButtonModule } from '../button/index';
 import { VCLOffClickModule } from '../off-click/index';
 import { VCLPopoverModule } from '../popover/index';
 import { VCLTokenModule } from '../token/index';
-import { SelectOption } from './select-option.component';
+import { SelectOptionDirective } from './select-option.component';
 import { SelectComponent, DropDirection } from './select.component';
 
-export { SelectComponent, SelectOption, DropDirection };
+export { SelectComponent, SelectOptionDirective, DropDirection };
 
 @NgModule({
   imports: [CommonModule, VCLDropdownModule, VCLButtonModule, VCLOffClickModule, VCLPopoverModule, VCLTokenModule],
-  exports: [SelectComponent, SelectOption],
-  declarations: [SelectComponent, SelectOption],
+  exports: [SelectComponent, SelectOptionDirective],
+  declarations: [SelectComponent, SelectOptionDirective],
   providers: []
 })
 export class VCLSelectModule { }

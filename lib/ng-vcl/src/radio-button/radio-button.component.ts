@@ -2,11 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input, Output,
-  OnInit, HostBinding, HostListener, OnChanges,
-  SimpleChanges, EventEmitter, ElementRef, forwardRef, ChangeDetectorRef, ViewChild
-} from '@angular/core';
+  HostBinding, HostListener, EventEmitter, forwardRef, ChangeDetectorRef} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -28,7 +25,7 @@ let uniqueID = 0;
 })
 export class RadioButtonComponent implements ControlValueAccessor {
 
-  private uniqueID: string = `vcl-radio-button-${++uniqueID}`;
+  private uniqueID = `vcl-radio-button-${++uniqueID}`;
 
   @HostBinding('attr.id')
   @Input()
@@ -47,7 +44,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
   value: any;
 
   @Input()
-  inline: boolean = false;
+  inline = false;
 
   @Input()
   iconPosition: 'left' | 'right' = 'left';
@@ -59,7 +56,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
   tabindex = 0;
 
   @Input()
-  checked: boolean = false;
+  checked = false;
 
   @Output()
   checkedChange = new EventEmitter<boolean>();
@@ -80,6 +77,8 @@ export class RadioButtonComponent implements ControlValueAccessor {
     return this.checked ? this.checkedIcon : this.uncheckedIcon;
   }
 
+  // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
+  private cvaDisabled = false;
   constructor(private cdRef: ChangeDetectorRef) { }
 
   onKeyup(e: KeyboardEvent) {
@@ -149,8 +148,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
   registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
-  // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
-  private cvaDisabled = false;
+
   setDisabledState(isDisabled: boolean) {
     this.cvaDisabled = isDisabled;
     this.cdRef.markForCheck();

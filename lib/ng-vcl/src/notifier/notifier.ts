@@ -1,6 +1,6 @@
 import { Observable, interval, merge, never, Subject } from 'rxjs';
 import { first, skipWhile } from 'rxjs/operators';
-import { NotifierOptions, NOTIFIER_DEFAULTS, NotifierType, TYPE_CLASS_MAP } from './types';
+import { NotifierOptions, NotifierType, TYPE_CLASS_MAP } from './types';
 
 
 export class Notifier extends Observable<any> {

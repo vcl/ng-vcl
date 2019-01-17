@@ -1,6 +1,4 @@
-import { ReplaySubject ,  Observable ,  Observer ,  BehaviorSubject ,  Subscription ,  Subject } from 'rxjs';
-import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { NotifierOptions, NotifierType } from './types';
+import { Component, ChangeDetectionStrategy, Input, ViewEncapsulation } from '@angular/core';
 import { Notifier } from './notifier';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 

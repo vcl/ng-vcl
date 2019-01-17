@@ -148,7 +148,7 @@ export class CalendarDate {
    * Gets whether two dates are the same day (not not necesarily the same time)
    */
   isSameDay(date: CalendarDate): boolean {
-    return this.date.getDate() == date.date.getDate() && this.isSameMonthAndYear(date);
+    return this.date.getDate() === date.date.getDate() && this.isSameMonthAndYear(date);
   }
 
   isToday(): boolean {
@@ -166,7 +166,7 @@ export class CalendarDate {
    */
   getMonthBlock(): CalendarDate[][] {
 
-    let dates: Date[] = [];
+    const dates: Date[] = [];
 
     const firstDayOfMonth = this.getFirstDateOfMonth(this.date);
     const lastDayOfMonth = this.getLastDateOfMonth(this.date);
@@ -203,10 +203,10 @@ export class CalendarDate {
     const blocks: CalendarDate[][] = [];
 
     // split in weeks
-    let chunk = 7;
+    const chunk = 7;
     for (let i = 0, j = ret.length; i < j; i += chunk) {
       const temparray = ret.slice(i, i + chunk);
-      if (temparray.length == 7) blocks.push(temparray);
+      if (temparray.length === 7) { blocks.push(temparray); }
     }
     return blocks;
   }
@@ -221,10 +221,10 @@ export class CalendarDate {
 
     // split rows
     const ret: number[][] = [];
-    let chunk = 5;
+    const chunk = 5;
     for (let i = 0, j = years.length; i < j; i += chunk) {
       const temparray = years.slice(i, i + chunk);
-      if (temparray.length == 5) ret.push(temparray);
+      if (temparray.length === 5) { ret.push(temparray); }
     }
 
     return ret;
@@ -232,15 +232,15 @@ export class CalendarDate {
 
   getWeekNumber(): number {
     // Copy date so don't modify original
-    let d = new Date(+this.date);
+    const d = new Date(+this.date);
     d.setHours(0, 0, 0);
     // Set to nearest Thursday: current date + 4 - current day number
     // Make Sunday's day number 7
     d.setDate(d.getDate() + 4 - (d.getDay() || 7));
     // Get first day of year
-    let yearStart = new Date(d.getFullYear(), 0, 1);
+    const yearStart = new Date(d.getFullYear(), 0, 1);
     // Calculate full weeks to nearest Thursday
-    let weekNo = Math.ceil((((d.valueOf() - yearStart.valueOf()) / 86400000) + 1) / 7);
+    const weekNo = Math.ceil((((d.valueOf() - yearStart.valueOf()) / 86400000) + 1) / 7);
     // Return array of year and week number
     return weekNo;
   }

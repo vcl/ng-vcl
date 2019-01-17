@@ -17,5 +17,5 @@ export class ToolbarComponent {
   constructor() { }
 
   @Input()
-  ariaLevel: number = 1;
+  ariaLevel = 1;
 }

@@ -5,7 +5,6 @@ import {
   EventEmitter,
   HostListener,
   HostBinding,
-  ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
 
@@ -29,31 +28,23 @@ export interface Token {
 export class TokenComponent implements Token {
 
   @Input()
-  label: string = '';
+  label = '';
 
   @Input()
   value?: string;
 
   @Input()
-  disabled: boolean = false;
-
-  @HostListener('tap', ['$event'])
-  onTap(e: Event) {
-    if (this.isDisabled) {
-      return;
-    }
-    this.select.emit(e);
-  }
+  disabled = false;
 
   @HostBinding('class.vclSelected')
   @Input()
-  selected: boolean = false;
+  selected = false;
 
   @Input()
-  removable: boolean = false;
+  removable = false;
 
   @Input()
-  icon: string = 'fa:times';
+  icon = 'fa:times';
 
   @Input()
   tokenIcon?: string;
@@ -64,6 +55,17 @@ export class TokenComponent implements Token {
   @Output()
   select = new EventEmitter();
 
+  // Store cva disabled state in an extra property to remember the old state after the token-list has been disabled
+  private cvaDisabled = false;
+
+  @HostListener('tap', ['$event'])
+  onTap(e: Event) {
+    if (this.isDisabled) {
+      return;
+    }
+    this.select.emit(e);
+  }
+
   constructor(private cdRef: ChangeDetectorRef) { }
 
   onRemoveClick(event) {
@@ -71,8 +73,7 @@ export class TokenComponent implements Token {
     this.remove.emit(event);
   }
 
-  // Store cva disabled state in an extra property to remember the old state after the token-list has been disabled
-  private cvaDisabled = false;
+
   setDisabledState(isDisabled: boolean) {
     this.cvaDisabled = isDisabled;
     this.cdRef.markForCheck();

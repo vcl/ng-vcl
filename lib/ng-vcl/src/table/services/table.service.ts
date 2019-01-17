@@ -6,10 +6,10 @@ export class TableService {
   constructor(private renderer: Renderer2, private el: ElementRef) { }
 
   public ClassToggle(className: string, add: boolean | '', targetEl: string): boolean {
-    if (this.el.nativeElement.localName == targetEl || !targetEl) {
+    if (this.el.nativeElement.localName === targetEl || !targetEl) {
       if (add === '' || add) {
         // For table tag vclTable class is required to enable vcl table behavior
-        if (targetEl == 'table' && className != 'vclTable') {
+        if (targetEl === 'table' && className !== 'vclTable') {
           this.addClass('vclTable');
         }
         return this.addClass(className);

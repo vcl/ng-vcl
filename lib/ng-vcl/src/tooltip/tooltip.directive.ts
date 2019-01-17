@@ -9,7 +9,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 @Directive({ selector: '[vcl-tooltip]' })
 export class TooltipDirective implements OnDestroy, OnChanges {
 
-  @Input() content: string = '';
+  @Input() content = '';
   @Input() position: Placement;
 
   tooltip: ComponentRef<TooltipComponent>;

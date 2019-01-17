@@ -18,7 +18,7 @@ export class FormControlLabelComponent {
   disabled = false;
 
   @Input()
-  requiredIndicatorCharacter: string = '•';
+  requiredIndicatorCharacter = '•';
 
   @Input()
   label: string | undefined;
@@ -50,7 +50,7 @@ export class FormControlLabelComponent {
 
   // Whether an indicator that an input in to the labeled control is required
   @Input()
-  required: boolean = false;
+  required = false;
 
   // Accessible label for the required indicator
   @Input()

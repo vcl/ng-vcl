@@ -26,17 +26,17 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   tabindex = 0;
 
   @Input()
-  onLabel: string = 'On';
+  onLabel = 'On';
 
   @Input()
-  offLabel: string = 'Off';
+  offLabel = 'Off';
 
   @Input()
-  value: boolean = false;
+  value = false;
 
   @HostBinding('class.vclDisabled')
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @Output()
   valueChange = new EventEmitter<boolean>();

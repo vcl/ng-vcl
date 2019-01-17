@@ -2,7 +2,7 @@ import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild } from '@a
 import { AttachmentX, AttachmentY, PopoverComponent } from '../popover/index';
 import { TourService } from './tour.service';
 
-export const VCLTourStepTag: string = 'vcl-tour-step';
+export const VCLTourStepTag = 'vcl-tour-step';
 
 @Component({
   selector: VCLTourStepTag,
@@ -13,8 +13,8 @@ export class TourComponent implements OnInit {
   private static readonly Tag: string = 'TourComponent';
   private tag: string;
 
-  @Input() public debug: boolean = false;
-  @Input() public debugPopover: boolean = false;
+  @Input() public debug = false;
+  @Input() public debugPopover = false;
 
   @ViewChild('popover') public readonly popover: PopoverComponent;
 
@@ -31,41 +31,41 @@ export class TourComponent implements OnInit {
   @Input() public attachmentY: AttachmentY = AttachmentY.Top;
   @Input() public offsetAttachmentY: number;
 
-  public visible: boolean = false;
+  public visible = false;
 
-  public hasNext: boolean = false;
-  public hasPrevious: boolean = false;
+  public hasNext = false;
+  public hasPrevious = false;
 
   constructor(public tour: TourService) {
-    const tag: string = `${this.tag}.constructor()`;
+    const tag = `${this.tag}.constructor()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'tour.options:', tour.options);
+    if (debug) { console.log(tag, 'tour.options:', tour.options); }
   }
 
   public ngOnInit(): void {
     this.tag = `${TourComponent.Tag}.${this.target}`;
 
-    const tag: string = `${this.tag}.ngOnInit()`;
+    const tag = `${this.tag}.ngOnInit()`;
     const debug: boolean = this.debug || false;
     this.tour.register(this);
   }
 
   public show(): void {
-    const tag: string = `${this.tag}.show()`;
+    const tag = `${this.tag}.show()`;
     const debug: boolean = this.debug || false;
 
     const el: HTMLElement = this.popover.targetElement as HTMLElement;
-    if (debug) console.log(tag, 'el:', el);
+    if (debug) { console.log(tag, 'el:', el); }
     if (el) {
 
       el.style.zIndex = `${this.tour.options.zIndex}`;
 
-      if (debug) console.log(tag, 'tour.options.elementsDisabled:', this.tour.options.elementsDisabled);
+      if (debug) { console.log(tag, 'tour.options.elementsDisabled:', this.tour.options.elementsDisabled); }
       if (this.tour.options.elementsDisabled) {
         this.disableClick(el);
       }
 
-      if (debug) console.log(tag, 'tour.options.applyRelative:', this.tour.options.applyRelative);
+      if (debug) { console.log(tag, 'tour.options.applyRelative:', this.tour.options.applyRelative); }
       if (this.tour.options.applyRelative) {
         this.enableHighlight(el);
       }
@@ -74,15 +74,15 @@ export class TourComponent implements OnInit {
     this.visible = true;
     this.hasNext = this.tour.hasNext;
     this.hasPrevious = this.tour.hasPrevious;
-    if (debug) console.log(tag, 'this:', this);
+    if (debug) { console.log(tag, 'this:', this); }
   }
 
   public hide(): void {
-    const tag: string = `${this.tag}.hide()`;
+    const tag = `${this.tag}.hide()`;
     const debug: boolean = this.debug || false;
 
     const highlightedElement: HTMLElement = this.popover.targetElement as HTMLElement;
-    if (debug) console.log(tag, 'highlightedElement:', highlightedElement);
+    if (debug) { console.log(tag, 'highlightedElement:', highlightedElement); }
 
     if (highlightedElement) {
       highlightedElement.style.zIndex = null;
@@ -91,58 +91,58 @@ export class TourComponent implements OnInit {
     }
 
     this.visible = false;
-    if (debug) console.log(tag, 'this:', this);
+    if (debug) { console.log(tag, 'this:', this); }
   }
 
   public previous(): void {
-    const tag: string = `${this.tag}.previous()`;
+    const tag = `${this.tag}.previous()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag);
+    if (debug) { console.log(tag); }
     this.tour.showPrevious();
   }
 
   public next(): void {
-    const tag: string = `${this.tag}.next()`;
+    const tag = `${this.tag}.next()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag);
+    if (debug) { console.log(tag); }
     this.tour.showNext();
   }
 
   public exit(): void {
-    const tag: string = `${this.tag}.exit()`;
+    const tag = `${this.tag}.exit()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag);
+    if (debug) { console.log(tag); }
     this.tour.end();
   }
 
   private disableClick(element: HTMLElement): void {
-    const tag: string = `${this.tag}.disableClick()`;
+    const tag = `${this.tag}.disableClick()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'element:', element);
+    if (debug) { console.log(tag, 'element:', element); }
     element.style.cursor = 'default';
     element.style.pointerEvents = 'none';
   }
 
   private enableClick(element: HTMLElement): void {
-    const tag: string = `${this.tag}.disableClick()`;
+    const tag = `${this.tag}.disableClick()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'element:', element);
+    if (debug) { console.log(tag, 'element:', element); }
     element.style.cursor = 'auto';
     element.style.pointerEvents = 'visiblePainted';
   }
 
   private enableHighlight(element: HTMLElement): void {
-    const tag: string = `${this.tag}.disableClick()`;
+    const tag = `${this.tag}.disableClick()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'element:', element);
+    if (debug) { console.log(tag, 'element:', element); }
     element.setAttribute('position',  element.style.position as string);
     element.style.position = 'relative';
   }
 
   private disableHighlight(element: HTMLElement): void {
-    const tag: string = `${this.tag}.disableClick()`;
+    const tag = `${this.tag}.disableClick()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'element:', element);
+    if (debug) { console.log(tag, 'element:', element); }
     element.style.position = element.getAttribute('position');
   }
 }

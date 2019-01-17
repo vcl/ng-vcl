@@ -9,7 +9,7 @@ import { Directive, ElementRef, HostBinding, Input, HostListener } from '@angula
 export class InputDirective {
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @HostBinding('class.vclDisabled')
   get isDisabled() {

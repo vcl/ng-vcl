@@ -25,7 +25,7 @@ export abstract class TemplateWormholeBase extends Wormhole {
   constructor(private templateRef: TemplateRef<any>) {
     super();
     if (!(templateRef instanceof TemplateRef)) {
-      throw 'invalid TemplateRef';
+      throw new Error('invalid TemplateRef');
     }
   }
 
@@ -80,7 +80,7 @@ export abstract class ComponentWormholeBase<T> extends Wormhole {
   constructor(private componentClass: Type<T>) {
     super();
     if (!(typeof componentClass === 'function' )) {
-      throw 'invalid component class';
+      throw new Error('invalid component class');
     }
   }
 
@@ -109,8 +109,9 @@ export abstract class ComponentWormholeBase<T> extends Wormhole {
     this.compRef.changeDetectorRef.detectChanges();
 
     const events$ = (events || []).map(event => {
-      if (!instance[event])
-        throw 'Event not found: ' + event;
+      if (!instance[event]) {
+        throw new Error('Event not found: ' + event);
+      }
 
       return instance[event] && instance[event].pipe( map(value => ({type: event, value})) );
     });
@@ -131,6 +132,7 @@ export abstract class ComponentWormholeBase<T> extends Wormhole {
       // https://github.com/angular/angular/issues/12313
       const cdRef = this.compRef.changeDetectorRef;
       if (cdRef && cdRef['_view'] && cdRef['_view'].nodes[0] && cdRef['_view'].nodes[0].componentView) {
+        // tslint:disable-next-line:no-bitwise
         this.compRef.changeDetectorRef['_view'].nodes[0].componentView.state |= (1 << 3);
       }
 

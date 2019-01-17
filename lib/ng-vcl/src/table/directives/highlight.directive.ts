@@ -5,15 +5,17 @@ Single cells and columns can be highlighted by using the
 vclCellHighlight class on each tdin the respective column or on single cells only.
 */
 
-import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input, OnChanges } from '@angular/core';
 import { TableService } from '../services/table.service';
 
 @Directive({
   selector: '[hightlight]',
 })
-export class HighlightDirective {
+export class HighlightDirective implements OnChanges {
 
-  @Input('hightlight') hightlight: boolean | '';
+  @Input()
+  hightlight: boolean | '';
+
   tableService: TableService;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {

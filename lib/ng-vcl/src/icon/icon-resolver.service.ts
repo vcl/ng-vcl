@@ -19,10 +19,9 @@ export class DefaultIconResolverService implements IconResolver {
 
   lookup(icon: string) {
     if (typeof icon === 'string') {
-      let iconName = icon;
-      let providerName: string;
+      const iconName = icon;
       // Split on first : occurrence
-      let iconParts = iconName.split(':');
+      const iconParts = iconName.split(':');
       if (iconParts.length === 0) {
         return icon;
       } else {

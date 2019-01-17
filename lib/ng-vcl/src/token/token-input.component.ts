@@ -25,10 +25,10 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Directive({ selector: '[vcl-token-input-pre]' })
-export class TokenInputLabelPre { }
+export class TokenInputLabelPreDirective { }
 
 @Directive({ selector: '[vcl-token-input-post]' })
-export class TokenInputLabelPost { }
+export class TokenInputLabelPostDirective { }
 
 @Component({
   selector: 'vcl-token-input-container',
@@ -48,22 +48,22 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   tokens: Token[] = [];
 
   @Input()
-  selectable: boolean = false;
+  selectable = false;
 
   @Input()
-  allowDuplicates: boolean = false;
+  allowDuplicates = false;
 
   @Input()
-  preselect: boolean = false;
+  preselect = false;
 
   @Input()
-  removeIcon: string = 'fa:times';
+  removeIcon = 'fa:times';
 
   @Input()
-  removeToken: boolean = true;
+  removeToken = true;
 
   @Input()
-  tabindex: number = 0;
+  tabindex = 0;
 
   @Input()
   tokenClass: string | undefined;
@@ -85,11 +85,11 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   @Output()
   confirm = new EventEmitter<Token[]>();
 
-  @ContentChild(TokenInputLabelPre, { read: TemplateRef })
-  labelPre?: TokenInputLabelPre;
+  @ContentChild(TokenInputLabelPreDirective, { read: TemplateRef })
+  labelPre?: TokenInputLabelPreDirective;
 
-  @ContentChild(TokenInputLabelPost, { read: TemplateRef })
-  labelPost?: TokenInputLabelPost;
+  @ContentChild(TokenInputLabelPostDirective, { read: TemplateRef })
+  labelPost?: TokenInputLabelPostDirective;
 
   constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
@@ -180,7 +180,7 @@ export class TokenInputDirective {
     @SkipSelf() private tokenInputContainer: TokenInputContainerComponent
   ) {
     if (!tokenInputContainer) {
-      throw 'vcl-token-input ,must be used within a vcl-token-input-container';
+      throw new Error('vcl-token-input ,must be used within a vcl-token-input-container');
     }
   }
 
@@ -208,10 +208,10 @@ export class TokenInputDirective {
   onKeydown(ev) {
     const value = ev.target.value;
     const code = ev && (ev.code || ev.key); // fallback for ie11
-    if (code == 'Backspace' && this.lastKey == 'Backspace' && value  === '') {
+    if (code === 'Backspace' && this.lastKey === 'Backspace' && value  === '') {
       // remove last token
       this.tokenInputContainer.removeLastToken();
-    } else if (code == 'Enter') {
+    } else if (code === 'Enter') {
       ev.preventDefault();
     } else if (code) {
       this.lastKey = code;

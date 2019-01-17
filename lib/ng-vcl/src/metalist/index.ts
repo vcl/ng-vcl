@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLWormholeModule } from '../wormhole/index';
-import { MetalistComponent, MetalistItem } from './metalist.component';
+import { MetalistComponent, MetalistItemComponent } from './metalist.component';
 
-export { MetalistItem, MetalistComponent };
+export { MetalistItemComponent, MetalistComponent };
 
 @NgModule({
   imports: [CommonModule, VCLWormholeModule],
-  exports: [MetalistComponent, MetalistItem],
-  declarations: [MetalistComponent, MetalistItem],
+  exports: [MetalistComponent, MetalistItemComponent],
+  declarations: [MetalistComponent, MetalistItemComponent],
   providers: [],
 })
 export class VCLMetalistModule { }

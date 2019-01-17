@@ -4,13 +4,13 @@ Text alignment
 Left alignment is default, for centered text use class vclAlignCentered and for right aligned text vclAlignRight on tds.
 */
 
-import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, AfterContentInit, SimpleChanges, Input, OnChanges } from '@angular/core';
 import { TableService } from '../services/table.service';
 
 @Directive({
   selector: '[align-right]',
 })
-export class AlignmentRightDirective {
+export class AlignmentRightDirective implements OnChanges {
 
   @Input('align-right') align: boolean | '';
   tableService: TableService;

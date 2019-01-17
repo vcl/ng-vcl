@@ -37,7 +37,7 @@ export enum Placement {
 export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   private static readonly Tag: string = 'TooltipComponent';
 
-  @Input() debug: boolean = false;
+  @Input() debug = false;
 
   @Input() content: string;
   @Input() placement: Placement = Placement.Top;
@@ -46,12 +46,12 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   @Input() animationState: AnimationState;
   public _animationState: AnimationState = AnimationState.Hidden;
 
-  @Input() showArrowPointer: boolean = true;
+  @Input() showArrowPointer = true;
 
   // Initial position should out of screen
   tooltipPlacement: ICoordinate = { Top: -1000, Left: -1000 };
   // true if initialized by directive
-  showOnInit: boolean = false;
+  showOnInit = false;
 
   constructor(private element: ElementRef,
     @Inject(DOCUMENT) private document: any,
@@ -65,10 +65,10 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    const tag: string = `${TooltipComponent.Tag}.ngAfterViewInit()`;
+    const tag = `${TooltipComponent.Tag}.ngAfterViewInit()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'this:', this);
-    if (debug) console.log(tag, 'this.animationState:', this.animationState);
+    if (debug) { console.log(tag, 'this:', this); }
+    if (debug) { console.log(tag, 'this.animationState:', this.animationState); }
 
     setTimeout(() => {
       if (this.showOnInit || this.animationState === AnimationState.Shown) {
@@ -84,19 +84,19 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   showTooltip(): Function {
-    const tag: string = `${TooltipComponent.Tag}.showTooltip()`;
+    const tag = `${TooltipComponent.Tag}.showTooltip()`;
     const debug: boolean = this.debug || false;
 
     return () => {
       if (this.hostElement) {
         const tooltipOffset: ICoordinate = this.tooltipService.positionElements(this.hostElement,
           this.element.nativeElement.children[0].children[0], this.placement);
-        if (debug) console.log(tag, 'tooltipOffset:', tooltipOffset);
+        if (debug) { console.log(tag, 'tooltipOffset:', tooltipOffset); }
         this.tooltipPlacement = {
           Top: tooltipOffset.Top,
           Left: tooltipOffset.Left
         };
-        if (debug) console.log(tag, 'this.tooltipPlacement:', this.tooltipPlacement);
+        if (debug) { console.log(tag, 'this.tooltipPlacement:', this.tooltipPlacement); }
         this._animationState = AnimationState.Shown;
         this.document.querySelector('body').appendChild(this.element.nativeElement);
         return true;

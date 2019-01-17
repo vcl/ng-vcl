@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, OnInit, Optional, Output, QueryList, ViewChild, } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren,
+         ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, OnInit, Optional, Output, QueryList, ViewChild, AfterViewInit, } from '@angular/core';
 import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownOption } from './dropdown-option.component';
-import { MetalistComponent, MetalistItem } from '../metalist/index';
+import { DropdownOptionComponent } from './dropdown-option.component';
+import { MetalistComponent, MetalistItemComponent } from '../metalist/index';
 
 export enum DropdownState {
   Expanded,
@@ -33,7 +34,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[attr.tabindex]': '-1',
   }
 })
-export class DropdownComponent implements ControlValueAccessor, OnInit {
+export class DropdownComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+  readonly DropdownState = DropdownState;
 
   @ViewChild('metalist')
   metalist: MetalistComponent;
@@ -41,11 +43,11 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   @ViewChild('metalist', { read: ElementRef })
   listbox: ElementRef;
 
-  @ContentChildren(DropdownOption)
-  items?: QueryList<DropdownOption>;
+  @ContentChildren(DropdownOptionComponent)
+  items?: QueryList<DropdownOptionComponent>;
 
   @Input()
-  tabindex: number = 0;
+  tabindex = 0;
 
   @Input()
   value: any | any[];
@@ -83,7 +85,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   disabled = false;
 
   @Input()
-  listenKeys: boolean = true;
+  listenKeys = true;
 
   @Output()
   change = new EventEmitter<any>();
@@ -174,7 +176,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  onMetalistItemTap(metaItem: MetalistItem) {
+  onMetalistItemTap(metaItem: MetalistItemComponent) {
     this.metalist.select(metaItem);
     this.onTouched();
   }
@@ -251,5 +253,4 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     this.cdRef.markForCheck();
   }
 
-  readonly DropdownState = DropdownState;
 }

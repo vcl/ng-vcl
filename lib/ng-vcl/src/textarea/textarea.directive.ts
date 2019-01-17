@@ -1,6 +1,4 @@
-import { Observable } from 'rxjs';
-import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnInit, Optional, OnChanges, SimpleChanges } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
 
 @Directive({
   selector: 'textarea[vcl-textarea]',
@@ -8,7 +6,7 @@ import { NgModel } from '@angular/forms';
     '[class.vclInput]': 'true',
   }
 })
-export class TextareaDirective implements AfterViewInit, OnChanges {
+export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck {
 
   constructor(private elRef: ElementRef) { }
 

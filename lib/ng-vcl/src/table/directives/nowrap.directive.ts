@@ -17,7 +17,9 @@ import { TableService } from '../services/table.service';
 })
 export class NoWrapDirective implements OnChanges {
 
-  @Input('nowrap') nowrap: boolean | '';
+  @Input()
+  nowrap: boolean | '';
+
   tableService: TableService;
 
   constructor(private renderer: Renderer2, private el: ElementRef) {

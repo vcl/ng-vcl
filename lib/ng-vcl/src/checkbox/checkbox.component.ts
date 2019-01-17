@@ -1,10 +1,8 @@
 import { Component,
-  Input, Output, OnInit,
-  HostBinding, HostListener,
-  OnChanges, SimpleChanges, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, ElementRef
-} from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+  Input, Output, HostListener,
+  EventEmitter,
+  ChangeDetectionStrategy, ChangeDetectorRef, forwardRef} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -27,31 +25,34 @@ export class CheckboxComponent implements ControlValueAccessor {
   tabindex = 0;
 
   @Input()
-  checkedIcon: string = 'far fa-check-square';
+  checkedIcon = 'far fa-check-square';
 
   @Input()
-  uncheckedIcon: string = 'far fa-square';
+  uncheckedIcon = 'far fa-square';
 
   @Input()
   label?: string;
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @Input()
   iconPosition: 'left' | 'right' = 'left';
 
   @Input()
-  checked: boolean = false;
+  checked = false;
 
   @Input()
-  hideLabel: boolean = false;
+  hideLabel = false;
 
   /**
   Action fired when the `checked` state changes due to user interaction.
   */
   @Output()
   checkedChange = new EventEmitter<boolean>();
+
+  // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
+  private cvaDisabled = false;
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
@@ -108,8 +109,7 @@ export class CheckboxComponent implements ControlValueAccessor {
   registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
-  // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
-  private cvaDisabled = false;
+
   setDisabledState(isDisabled: boolean) {
     this.cvaDisabled = isDisabled;
     this.cdRef.markForCheck();

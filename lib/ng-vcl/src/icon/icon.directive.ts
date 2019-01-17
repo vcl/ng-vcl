@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, HostBinding, Self, SimpleChanges, Directive, Inject } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostBinding, Self, SimpleChanges, Directive, Inject, OnChanges } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { VCL_ICON_RESOLVER, IconResolver } from './icon-resolver.service';
 
@@ -41,7 +41,7 @@ export class IconDirective {
   selector: 'vcl-icon[icon], [vcl-icon][icon]',
   providers: [ NgClass ]
 })
-export class IconFontDirective {
+export class IconFontDirective implements OnChanges {
 
   constructor(
     @Self() private ngClass: NgClass,

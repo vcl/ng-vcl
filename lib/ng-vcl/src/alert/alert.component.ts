@@ -72,13 +72,12 @@ export class AlertComponent implements AfterViewInit {
   }
 
   confirm() {
-    if (this.alert.loader) return;
+    if (this.alert.loader) { return; }
 
-    let result: AlertResult = {};
+    const result: AlertResult = {};
 
     if (this.alert.input) {
       if (this.alert.inputValidator) {
-        let validationError = 'Invalid value';
         try {
           const valid = this.alert.inputValidator(this.value);
           if (!valid) {
@@ -98,7 +97,7 @@ export class AlertComponent implements AfterViewInit {
       this.cdRef.markForCheck();
       const $ = from(typeof this.alert.confirmAction === 'function' ? this.alert.confirmAction(result) : this.alert.confirmAction);
       $.subscribe(value => {
-        let asyncResult: AlertResult = {};
+        const asyncResult: AlertResult = {};
         asyncResult.value = value;
         this.alertLayer.send(asyncResult);
       }, err => {

@@ -13,17 +13,17 @@ export class NotifierLayerRef extends LayerRef {
 @Injectable()
 export class NotifierService implements Observer<NotifierOptions> {
 
-  readonly closed = false;
-
   constructor(private ls: LayerService) { }
 
+  readonly closed = false;
+
   layers = new Map<NotifierPosition, NotifierLayerRef>();
+
+  complete: () => void;
 
   next(opts: NotifierOptions) {
     this.queue(opts);
   }
-
-  complete: () => void;
 
   info(opts: NotifierOptions = {}) {
     return this.queue({ type: NotifierType.Info }, opts);

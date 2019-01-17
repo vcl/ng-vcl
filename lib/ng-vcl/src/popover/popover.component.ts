@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
   ElementRef, EventEmitter, HostBinding, HostListener, Inject,
-  InjectionToken, Input, Optional, Output, SimpleChanges, OnInit, AfterViewInit,
+  InjectionToken, Input, Optional, Output, SimpleChanges, OnInit, AfterViewInit, OnChanges,
 } from '@angular/core';
 import {
   AnimationBuilder, AnimationFactory, AnimationMetadata
@@ -49,14 +49,14 @@ export interface PopoverAnimationConfig {
     '[style.position]': '"absolute"'
   }
 })
-export class PopoverComponent extends ObservableComponent implements OnInit, AfterViewInit {
+export class PopoverComponent extends ObservableComponent implements OnInit, AfterViewInit, OnChanges {
   private static readonly Tag: string = 'PopoverComponent';
 
   private tag: string;
 
   private state: PopoverState = PopoverState.hidden;
-  private translateX: number = 1;
-  private translateY: number = 0;
+  private translateX = 1;
+  private translateY = 0;
 
   private enterAnimationFactory: AnimationFactory | undefined;
   private leaveAnimationFactory: AnimationFactory | undefined;
@@ -71,11 +71,11 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
 
   @Input() public targetX: AttachmentX = AttachmentX.Left;
   @Input() public attachmentX: AttachmentX = AttachmentX.Left;
-  @Input() public offsetAttachmentX: number = 0;
+  @Input() public offsetAttachmentX = 0;
 
   @Input() public targetY: AttachmentY = AttachmentY.Bottom;
   @Input() public attachmentY: AttachmentY = AttachmentY.Top;
-  @Input() public offsetAttachmentY: number = 0;
+  @Input() public offsetAttachmentY = 0;
 
   public get visible(): boolean {
     return (this.state === PopoverState.opening || this.state === PopoverState.visible);
@@ -120,15 +120,15 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
 
   public ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
-    const tag: string = `${this.tag}.ngOnChanges()`;
-    if (this.debug) console.log(tag, 'changes:', changes);
+    const tag = `${this.tag}.ngOnChanges()`;
+    if (this.debug) { console.log(tag, 'changes:', changes); }
     this.onChange(changes);
   }
 
   public ngOnInit(): void {
     this.setTag();
-    const tag: string = `${this.tag}.ngOnInit()`;
-    if (this.debug) console.log(tag, 'this:', this);
+    const tag = `${this.tag}.ngOnInit()`;
+    if (this.debug) { console.log(tag, 'this:', this); }
   }
 
   public ngAfterViewInit(): void {
@@ -146,9 +146,9 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
   }
 
   private onChange(changes: SimpleChanges = { target: { currentValue: this.target } } as any): void {
-    const tag: string = `${this.tag}.onChange()`;
+    const tag = `${this.tag}.onChange()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'changes:', changes);
+    if (debug) { console.log(tag, 'changes:', changes); }
     if (changes.target) {
       this.setTarget(changes.target.currentValue);
       this.setTag();
@@ -165,39 +165,39 @@ export class PopoverComponent extends ObservableComponent implements OnInit, Aft
   }
 
   private getTargetElement(value: Element | ElementRef | string): Element | undefined {
-    const tag: string = `${PopoverComponent.Tag}.getTargetElement()`;
+    const tag = `${PopoverComponent.Tag}.getTargetElement()`;
     const debug: boolean = this.debug || false;
-    if (debug) console.log(tag, 'value:', value);
+    if (debug) { console.log(tag, 'value:', value); }
 
-    let el: Element | undefined = undefined;
+    let el: Element | undefined;
     if (typeof value === 'string') {
-      if (debug) console.log(tag, 'typeof value === string');
+      if (debug) { console.log(tag, 'typeof value === string'); }
       el = document.querySelector(value) as Element;
     } else if (value instanceof Element) {
-      if (debug) console.log(tag, 'value instanceof Element');
+      if (debug) { console.log(tag, 'value instanceof Element'); }
       el = value;
     } else if (value instanceof ElementRef) {
-      if (debug) console.log(tag, 'value instanceof ElementRef');
+      if (debug) { console.log(tag, 'value instanceof ElementRef'); }
       el = value.nativeElement;
     } else {
-      if (debug) console.log(tag, 'value is undefined');
+      if (debug) { console.log(tag, 'value is undefined'); }
     }
 
-    if (debug) console.log(tag, 'el:', el);
+    if (debug) { console.log(tag, 'el:', el); }
     return el;
   }
 
   public reposition(): void {
-    const tag: string = `${this.tag}.reposition()`;
+    const tag = `${this.tag}.reposition()`;
     const debug: boolean = this.debug || false;
 
     const targetPos = this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
-    if (debug) console.log(tag, 'targetPos:', targetPos);
-    if (!targetPos) return;
+    if (debug) { console.log(tag, 'targetPos:', targetPos); }
+    if (!targetPos) { return; }
 
     const ownPos: ClientRect = this.getAttachmentPosition();
-    if (debug) console.log(tag, 'ownPos:', ownPos);
-    if (!ownPos) return;
+    if (debug) { console.log(tag, 'ownPos:', ownPos); }
+    if (!ownPos) { return; }
 
     const mustX: number = this.targetX === AttachmentX.Center ?
       targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :

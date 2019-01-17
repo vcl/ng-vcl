@@ -6,7 +6,8 @@ import {
   forwardRef,
   HostBinding,
   Input,
-  Output
+  Output,
+  HostListener
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
@@ -38,25 +39,25 @@ export class RatingComponent implements ControlValueAccessor {
   type: 'horizontal' | 'vertical' | 'small' = 'horizontal';
 
   @Input()
-  fullStar: string = 'fas fa-star';
+  fullStar = 'fas fa-star';
 
   @Input()
-  halfStar: string = 'fas fa-star-half-alt';
+  halfStar = 'fas fa-star-half-alt';
 
   @Input()
-  emptyStar: string = 'far fa-star';
+  emptyStar = 'far fa-star';
 
   @Input()
-  starCount: number = 5;
+  starCount = 5;
 
   @Input()
-  halves: boolean = true;
+  halves = true;
 
   @Input()
-  value: number = 0;
+  value = 0;
 
   @Input()
-  readonly: boolean = false;
+  readonly = false;
 
   @Input()
   iconSize?: string = undefined;
@@ -65,17 +66,22 @@ export class RatingComponent implements ControlValueAccessor {
   textSize?: string = undefined;
 
   @Input()
-  showText: boolean = true;
+  showText = true;
 
   @HostBinding('class.vclDisabled')
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   @Output()
   valueChange = new EventEmitter<number>();
 
-  constructor(private cdRef: ChangeDetectorRef) {
+  constructor(private cdRef: ChangeDetectorRef) { }
+
+  @HostListener('blur')
+  onBlur() {
+    this.onTouchedCallback();
   }
+
 
   clickStar(star) {
     if (this.disabled || this.readonly) {
@@ -88,7 +94,7 @@ export class RatingComponent implements ControlValueAccessor {
   }
 
   isHalfStar(star: number): boolean {
-    return this.halves ? (Math.round(this.value * 2) / 2) == star - 0.5 : false;
+    return this.halves ? (Math.round(this.value * 2) / 2) === star - 0.5 : false;
   }
 
   round(x: number): number {
@@ -129,8 +135,8 @@ export class RatingComponent implements ControlValueAccessor {
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
+  private onTouchedCallback: () => void = () => {};
+  private onChangeCallback: (_: any) => void = () => {};
 
   writeValue(value: number): void {
     this.value = value;
