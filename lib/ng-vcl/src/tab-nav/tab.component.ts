@@ -18,5 +18,5 @@ export class TabComponent {
   disabled = false;
 
   @Input()
-  tabClass: string = '';
+  tabClass = '';
 }

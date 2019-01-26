@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -7,6 +7,9 @@ export class ModalDemoComponent {
   @ViewChild('modalDelete')
   modalDelete: any;
 
+  @ViewChild('modalDialog')
+  modalDialog: any;
+
   openDeleteModal() {
     this.modalDelete.open();
   }
@@ -14,9 +17,6 @@ export class ModalDemoComponent {
   closeDeleteModal() {
     this.modalDelete.close();
   }
-
-  @ViewChild('modalDialog')
-  modalDialog: any;
 
   openDialogModal() {
     this.modalDialog.open();

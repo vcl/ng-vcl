@@ -1,25 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MonthPickerComponent } from '@ng-vcl/ng-vcl';
 
 @Component({
-  selector: 'month-picker',
   templateUrl: 'demo.component.html',
 })
-export class MonthPickerDemoComponent {
+export class MonthPickerDemoComponent implements AfterViewInit {
 
   @ViewChild('myStyledMonthPicker') styledMonthPicker: MonthPickerComponent;
 
-  expanded: boolean = false;
+  expanded = false;
 
   thisYear: number = new Date().getUTCFullYear();
 
   currentYear: number = this.thisYear;
 
-  prevYearAvailable: boolean = true;
+  prevYearAvailable = true;
 
-  nextYearAvailable: boolean = false;
+  nextYearAvailable = false;
 
-  locales: string = 'lv-LV';
+  locales = 'lv-LV';
 
   dateOptions: any = {
     month: 'long'
@@ -30,8 +29,6 @@ export class MonthPickerDemoComponent {
   min = new Date();
   max = new Date(2019, 1, 1);
   constructor() { }
-
-  ngOnInit() { }
 
   ngAfterViewInit() {
     const now: Date = new Date();

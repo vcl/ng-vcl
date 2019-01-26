@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { ToolTipDemoComponent } from './demo.component';
 import { VCLTooltipModule } from '@ng-vcl/ng-vcl';
 import { SampleTooltipComponent } from './sampletooltip.component';
+
 export function demo() {
   return {
     label: 'Tooltip',

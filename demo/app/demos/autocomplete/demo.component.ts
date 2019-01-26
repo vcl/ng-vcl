@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject ,  of } from 'rxjs';
 import { debounceTime, switchMap, map, catchError, startWith } from 'rxjs/operators';
@@ -9,11 +9,7 @@ const BOOK_API_URL = 'https://www.googleapis.com/books/v1/volumes';
   templateUrl: 'demo.component.html'
 })
 export class AutocompleteDemoComponent {
-  constructor(private http: Http) { }
-
-  onChange(change) {
-    console.log(change);
-  }
+  constructor(private http: HttpClient) { }
 
   booksInput$ = new BehaviorSubject<string>('');
 
@@ -25,8 +21,7 @@ export class AutocompleteDemoComponent {
                     return of({ state: 'void', books: [] });
                   } else {
                     return this.http.get(`${BOOK_API_URL}?q=${search}&projection=lite`).pipe(
-                      map(result => result.json()),
-                      map(data => {
+                      map((data: any) => {
                         const items = data.items || [];
                         return {
                           state: 'success',
@@ -44,6 +39,10 @@ export class AutocompleteDemoComponent {
                 }),
                 startWith({ state: 'void', books: [] }) // Initial state
   );
+
+  onChange(change) {
+    console.log(change);
+  }
 }
 
 

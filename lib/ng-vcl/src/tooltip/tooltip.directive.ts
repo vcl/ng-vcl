@@ -4,7 +4,6 @@ import {
   ComponentRef, Inject, OnChanges, SimpleChanges
 } from '@angular/core';
 import { TooltipComponent, Placement } from './tooltip.component';
-import { DOCUMENT } from '@angular/platform-browser';
 
 @Directive({ selector: '[vcl-tooltip]' })
 export class TooltipDirective implements OnDestroy, OnChanges {
@@ -16,8 +15,7 @@ export class TooltipDirective implements OnDestroy, OnChanges {
 
   constructor(private element: ElementRef,
     private resolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef,
-    @Inject(DOCUMENT) private document: any) {
+    private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {

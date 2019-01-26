@@ -4,6 +4,32 @@ import { Component, Directive, ViewChild, Input, TemplateRef, ElementRef, Conten
 import { PopoverComponent } from '../popover/index';
 import { ObservableComponent } from '../core/index';
 
+@Directive({
+  selector: 'vcl-autocomplete-option'
+})
+export class AutocompleteOptionDirective {
+  @Input()
+  type: 'item' | 'separator' | 'header' = 'item';
+  @Input()
+  value?: any;
+  @Input()
+  label?: string;
+  @Input()
+  sublabel?: string;
+  @Input()
+  disabled = false;
+}
+
+@Component({
+  selector: 'vcl-autocomplete-content',
+  template: '<ng-template><ng-content></ng-content></ng-template>'
+})
+export class AutocompleteContentComponent {
+  @ViewChild(TemplateRef)
+  templateRef: TemplateRef<any>;
+}
+
+
 @Component({
   selector: 'vcl-autocomplete',
   exportAs: 'vclAutocomplete',
@@ -40,11 +66,12 @@ export class AutocompleteComponent extends ObservableComponent implements AfterC
   items$ = new BehaviorSubject<AutocompleteOptionDirective[]>([]);
   content$ = new BehaviorSubject<AutocompleteContentComponent[]>([]);
 
-  itemsVisible$ = combineLatest(this.target$, this.items$, ((target, items) => {
+  itemsVisible$ = combineLatest(this.target$, this.items$).pipe(map(([target, items]) => {
     return !!target && items.length > 0;
+
   }));
 
-  visible$ = combineLatest(this.target$, this.items$, this.content$, ((target, items, content) => {
+  visible$ = combineLatest(this.target$, this.items$, this.content$).pipe(map(([target, items, content]) => {
     return !!target && (items.length > 0 || content.length > 0);
   }));
 
@@ -152,29 +179,4 @@ export class AutocompleteComponent extends ObservableComponent implements AfterC
     this.itemsSub && this.itemsSub.unsubscribe();
     this.contentSub && this.contentSub.unsubscribe();
   }
-}
-
-@Directive({
-  selector: 'vcl-autocomplete-option'
-})
-export class AutocompleteOptionDirective {
-  @Input()
-  type: 'item' | 'separator' | 'header' = 'item';
-  @Input()
-  value?: any;
-  @Input()
-  label?: string;
-  @Input()
-  sublabel?: string;
-  @Input()
-  disabled = false;
-}
-
-@Component({
-  selector: 'vcl-autocomplete-content',
-  template: '<ng-template><ng-content></ng-content></ng-template>'
-})
-export class AutocompleteContentComponent {
-  @ViewChild(TemplateRef)
-  templateRef: TemplateRef<any>;
 }

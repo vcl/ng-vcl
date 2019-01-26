@@ -1,4 +1,4 @@
-import { Observable, interval, merge, never, Subject } from 'rxjs';
+import { Observable, interval, merge, Subject, NEVER } from 'rxjs';
 import { first, skipWhile } from 'rxjs/operators';
 import { NotifierOptions, NotifierType, TYPE_CLASS_MAP } from './types';
 
@@ -13,8 +13,9 @@ export class Notifier extends Observable<any> {
     const timeout = this.calculatedTimeout;
     const timeout$ = typeof timeout === 'number' ?
                        interval(timeout).pipe(skipWhile(() => this.state === 'hovered')) :
-                       never();
+                       NEVER;
 
+    // TODO: source is deprecated
     this.source = merge(this.closeSubject, timeout$).pipe(first());
   }
 

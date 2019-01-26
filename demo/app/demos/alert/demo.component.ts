@@ -1,6 +1,5 @@
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { AlertService, AlertType, AlertError, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
+import { AlertService, AlertType, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
 import { retryWhen, switchMap } from 'rxjs/operators';
 
@@ -29,8 +28,7 @@ function async(data: any, error?: boolean | Function): Observable<any> {
 })
 export class AlertDemoComponent {
 
-  constructor(private alert: AlertService, private http: Http) {}
-
+  constructor(private alert: AlertService) {}
 
   message() {
     this.alert.alert('A message');
@@ -135,7 +133,7 @@ export class AlertDemoComponent {
       confirmButtonLabel: 'Next',
       inputValidator: (value) => {
         if (typeof value !== 'string' || value.length < 2) {
-          throw 'This is not your name!';
+          throw new Error('This is not your name!');
         }
         return true;
       }

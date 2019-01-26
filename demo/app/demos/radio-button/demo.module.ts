@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLRadioButtonModule, VCLButtonModule, VCLIcogramModule, VCLLinkModule } from '@ng-vcl/ng-vcl';
+import { VCLRadioButtonModule, VCLIcogramModule, VCLLinkModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { RadioButtonDemoComponent } from './demo.component';
 

@@ -48,13 +48,12 @@ export class ComponentWormhole<T> extends ComponentWormholeBase<T> {
   }
 
   attach(componentClass: Type<T>, index?: number): ComponentRef<T> {
-    const injector = this.injector || this.viewContainerRef.parentInjector;
     if (!this.compFactory) {
-      const componentFactoryResolver = injector.get(ComponentFactoryResolver) as ComponentFactoryResolver;
+      const componentFactoryResolver = this.injector.get<ComponentFactoryResolver>(<any>ComponentFactoryResolver);
       this.compFactory = componentFactoryResolver.resolveComponentFactory<T>(componentClass);
     }
 
-    return this.viewContainerRef.createComponent(this.compFactory, typeof index === 'number' ? index :  this.viewContainerRef.length, injector);
+    return this.viewContainerRef.createComponent(this.compFactory, typeof index === 'number' ? index :  this.viewContainerRef.length, this.injector);
   }
 
   detach() {

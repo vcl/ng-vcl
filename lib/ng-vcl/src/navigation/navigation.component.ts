@@ -64,10 +64,10 @@ export class NavigationItemDirective implements NavigationItem, AfterContentInit
   showActive = false;
 
   @Output()
-  onHover = new EventEmitter<NavigationItem>();
+  hover = new EventEmitter<NavigationItem>();
 
   @Output()
-  onLeave = new EventEmitter<NavigationItem>();
+  leave = new EventEmitter<NavigationItem>();
 
   @Input()
   set route(route: any[] | undefined) {
@@ -137,11 +137,11 @@ export class NavigationItemDirective implements NavigationItem, AfterContentInit
   }
 
   mouseOver() {
-    this.onHover.emit(this);
+    this.hover.emit(this);
   }
 
   mouseLeave() {
-    this.onLeave.emit(this);
+    this.leave.emit(this);
   }
 }
 

@@ -22,6 +22,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class FlipSwitchComponent implements ControlValueAccessor {
 
+  constructor(private cdRef: ChangeDetectorRef) { }
+
   @HostBinding()
   tabindex = 0;
 
@@ -41,7 +43,12 @@ export class FlipSwitchComponent implements ControlValueAccessor {
   @Output()
   valueChange = new EventEmitter<boolean>();
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  // TODO implement touch callback
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: any) => void;
 
   @HostListener('click')
   onTap() {
@@ -79,12 +86,6 @@ export class FlipSwitchComponent implements ControlValueAccessor {
     this.valueChange.emit(this.value);
     this.onChangeCallback && this.onChangeCallback(this.value);
   }
-
-  /**
-   * things needed for ControlValueAccessor-Interface
-   */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: any) => void;
 
   writeValue(value: boolean): void {
     this.value = value;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from './../../app-routing.module';
 import * as Fuse from 'fuse.js';
@@ -6,10 +6,15 @@ import * as Fuse from 'fuse.js';
 declare var gitBranch: string;
 
 @Component({
-  selector: 'app',
+  selector: 'vcl-demo',
   templateUrl: 'app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  constructor(
+    private router: Router,
+  ) {
+   }
 
   version = require('./../../../../package.json').version;
   gitBranch = gitBranch || undefined;
@@ -34,18 +39,13 @@ export class AppComponent {
     }));
   }();
 
-  constructor(
-    private router: Router,
-  ) {
-   }
+  searchResults = [];
 
   ngOnInit() {
     this.router.events.subscribe((path) => {
       window.scrollTo(0, 0);
     });
   }
-
-  searchResults = [];
 
   async search(text) {
     this.searchResults = new Fuse<{ [x: string]: any }>(this.GROUPED_DEMOS, {

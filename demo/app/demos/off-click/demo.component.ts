@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 })
 export class OffClickDemoComponent  {
 
-  clicks: number = 0;
+  clicks = 0;
 
   offClick() {
     this.clicks++;

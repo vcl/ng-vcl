@@ -3,7 +3,9 @@ import { Component, Input } from '@angular/core';
 
 let cnt = 1;
 
-@Component({selector: 'notifier-content-component', template: '<button class="vclButton">{{text}}</button>'})
+@Component({
+  template: '<button class="vclButton">{{text}}</button>'
+})
 export class NotifierContentComponent {
   @Input()text;
 }

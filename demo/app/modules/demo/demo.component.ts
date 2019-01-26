@@ -1,12 +1,11 @@
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Component, Directive, Input, ComponentFactoryResolver, ViewContainerRef, Type, ComponentRef } from '@angular/core';
-import { ComponentWormhole } from '@ng-vcl/ng-vcl';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class DemoComponent {
+export class DemoComponent implements OnInit {
 
   title: string;
   tabs: {name: string, content: string}[] = [];

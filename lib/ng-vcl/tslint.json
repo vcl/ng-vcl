@@ -1,17 +1,20 @@
 {
   "extends": "../../tslint.json",
   "rules": {
+    "no-use-before-declare": false,
     "directive-selector": [
-      true,
-      "attribute",
-      null,
-      "camelCase"
+      false
+      // true,
+      // "attribute",
+      // null,
+      // "camelCase"
     ],
     "true-selector": [
-      true,
-      "element",
-      null,
-      "kebab-case"
+      false
+      // true,
+      // "element",
+      // null,
+      // "kebab-case"
     ]
   }
 }

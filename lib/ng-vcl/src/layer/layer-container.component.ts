@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, InjectionToken, Input, Optional, ReflectiveInjector, TemplateRef, Type, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, InjectionToken, Input, Optional, ReflectiveInjector, TemplateRef, Type, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy, Injector } from '@angular/core';
 import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { ComponentWormhole, TemplateWormhole, Wormhole } from '../wormhole/index';
@@ -115,10 +115,13 @@ export class LayerContainerComponent implements AfterViewInit, OnDestroy  {
 
         // The created injector injects this instance as LayerRef
         // It is used in the component instance created within the wormhole
-        const layerInjector = ReflectiveInjector.resolveAndCreate([{
-          provide: LayerRef,
-          useValue: this.layerRef
-        }], this.layerInjector);
+        const layerInjector = Injector.create({
+          providers: [{
+            provide: LayerRef,
+            useValue: this.layerRef
+          }],
+          parent: this.layerInjector
+        });
 
         this.wormhole = new ComponentWormhole(this.layerTarget, this.layerContentContainer, layerInjector);
       }

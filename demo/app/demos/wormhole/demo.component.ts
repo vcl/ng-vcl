@@ -1,5 +1,5 @@
-import { Component, ViewChild, Input, ViewContainerRef } from '@angular/core';
-import { Wormhole, WormholeHost } from '@ng-vcl/ng-vcl';
+import { Component, ViewChild, Input, ViewContainerRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { WormholeHost } from '@ng-vcl/ng-vcl';
 
 @Component({
   template: '<p>I am a component. And this is my <b>{{value}}</b></p>'
@@ -12,7 +12,7 @@ export class MyComponent {
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class WormholeDemoComponent {
+export class WormholeDemoComponent implements AfterViewInit, OnDestroy {
 
   // Template wormhole
   @ViewChild('myFirstWormhole')

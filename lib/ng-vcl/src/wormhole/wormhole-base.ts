@@ -1,5 +1,5 @@
 import { EmbeddedViewRef, TemplateRef, ComponentRef, Type } from '@angular/core';
-import { never, merge, Observable } from 'rxjs';
+import { NEVER, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WormholeAttributes, WormholeEvent } from './wormhole';
 
@@ -49,7 +49,7 @@ export abstract class TemplateWormholeBase extends Wormhole {
       Object.assign(this.viewRef.context, this.cachedAttrs);
     }
     this.viewRef.detectChanges();
-    return never();
+    return NEVER;
   }
 
   disconnect() {

@@ -1,8 +1,8 @@
 import {
-  Component, Input, ElementRef, AfterViewInit, Inject, Renderer, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+  Component, Input, ElementRef, AfterViewInit, Inject, Renderer2, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { ICoordinate } from './ICoordinate';
 import { TooltipService } from './tooltip.service';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 
 export enum AnimationState {
@@ -55,7 +55,7 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   constructor(private element: ElementRef,
     @Inject(DOCUMENT) private document: any,
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private tooltipService: TooltipService) { }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -75,15 +75,15 @@ export class TooltipComponent implements AfterViewInit, OnDestroy, OnChanges {
         setTimeout(() => this.showTooltip()());
       } else if (!this.animationState) {
         this._animationState = AnimationState.None;
-        this.renderer.listen(this.hostElement, 'mouseenter', () => this.showTooltip());
-        this.renderer.listen(this.hostElement, 'focusin', () => this.showTooltip());
+        this.renderer.listen(this.hostElement, 'mouseenter', () => { this.showTooltip(); });
+        this.renderer.listen(this.hostElement, 'focusin', () => { this.showTooltip(); });
         this.renderer.listen(this.hostElement, 'focusout', () => { this._animationState = AnimationState.Hidden; });
         this.renderer.listen(this.hostElement, 'mouseleave', () => { this._animationState = AnimationState.Hidden; });
       }
     });
   }
 
-  showTooltip(): Function {
+  showTooltip() {
     const tag = `${TooltipComponent.Tag}.showTooltip()`;
     const debug: boolean = this.debug || false;
 

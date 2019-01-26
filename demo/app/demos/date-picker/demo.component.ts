@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'date-picker',
   templateUrl: 'demo.component.html',
   styles: [`
     .100px{

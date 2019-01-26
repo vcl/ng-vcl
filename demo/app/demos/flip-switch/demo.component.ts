@@ -7,7 +7,7 @@ export class FlipSwitchDemoComponent {
 
   selectedItem: any;
 
-  value: boolean = false;
+  value = false;
 
   onChange(ev) {
     console.log('changed:');

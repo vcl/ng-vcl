@@ -8,7 +8,7 @@ export class LayerDemoCanDeactivateGuard implements CanDeactivate<LayerDemoCompo
 
   constructor(private layer: LayerService) {}
 
-  canDeactivate(layerComponent) {
+  canDeactivate() {
     if (this.layer.hasVisibleLayers()) {
       console.log('You cannot navigate, when there are visible layers');
       return false;

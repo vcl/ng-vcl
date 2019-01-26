@@ -7,7 +7,6 @@ export class ButtonGroupDemoComponent {
 
   idx1 = 1;
   idx2 = [0, 2];
-  idx3;
 
   buttonClick(param) {
     console.log('buttonClick, param:', param);

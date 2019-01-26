@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FileInputComponent }   from './file-input.component';
+import { FileInputComponent } from './file-input.component';
 import { CommonModule } from '@angular/common';
 @NgModule({
   imports: [CommonModule],

@@ -130,7 +130,7 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
       }
       event.preventDefault();
       return false;
-    } else if (code === 'Backspace' && this.lastKey == 'Backspace' && value  === '' && this.wasEmpty) {
+    } else if (code === 'Backspace' && this.lastKey === 'Backspace' && value  === '' && this.wasEmpty) {
       // remove last token
       this.tokenInputContainer.removeLastToken();
     } else if (code === 'Enter') {

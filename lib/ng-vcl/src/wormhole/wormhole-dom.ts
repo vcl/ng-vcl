@@ -29,7 +29,7 @@ export class DomComponentWormhole<T> extends ComponentWormholeBase<T> {
   attach(componentClass: Type<T>, index?: number): ComponentRef<T> {
     const injector = this.injector || this.rootComponentRef.injector;
     if (!this.compFactory) {
-      const componentFactoryResolver = injector.get(ComponentFactoryResolver) as ComponentFactoryResolver;
+      const componentFactoryResolver = injector.get<ComponentFactoryResolver>(<any>ComponentFactoryResolver);
       this.compFactory = componentFactoryResolver.resolveComponentFactory<T>(componentClass);
     }
 

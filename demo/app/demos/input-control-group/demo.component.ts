@@ -8,9 +8,9 @@ export class InputControlGroupDemoComponent implements OnInit {
   public type: string | undefined;
   public label: string;
 
-  public email: string = '';
-  public password1: string = '';
-  public password2: string = '';
+  public email = '';
+  public password1 = '';
+  public password2 = '';
 
   ngOnInit() {
     this.update();
@@ -23,13 +23,13 @@ export class InputControlGroupDemoComponent implements OnInit {
       return;
     }
 
-    if (this.password1.length == 0 && this.password2.length == 0 ) {
+    if (this.password1.length === 0 && this.password2.length === 0 ) {
       this.type = 'error';
       this.label = 'Pleas enter a password.';
       return;
     }
 
-    if (this.password1 != this.password2) {
+    if (this.password1 !== this.password2) {
       this.type = 'error';
       this.label = 'Password is not matching.';
       return;

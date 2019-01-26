@@ -8,13 +8,6 @@ import {ControlValueAccessor} from '@angular/forms';
 })
 export class CustomSampleComponent implements ControlValueAccessor {
 
-  @Input()
-  message = '';
-
-  disabled = false;
-
-  private _counter = 0;
-
   get counter(): number {
     return this._counter;
   }
@@ -24,6 +17,19 @@ export class CustomSampleComponent implements ControlValueAccessor {
     this.onChangeCallback && this.onChangeCallback(value);
   }
 
+  @Input()
+  message = '';
+
+  disabled = false;
+
+  private _counter = 0;
+
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: number | undefined) => void;
+
   increment() {
     this.counter++;
   }
@@ -31,12 +37,6 @@ export class CustomSampleComponent implements ControlValueAccessor {
   decrement() {
     this.counter--;
   }
-
-  /**
-   * things needed for ControlValueAccessor-Interface
-   */
-  private onTouchedCallback: (_: any) => void;
-  private onChangeCallback: (_: number | undefined) => void;
 
   writeValue(value: number): void {
     this._counter = value;

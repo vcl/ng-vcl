@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   templateUrl: './demo.component.html',
 })
 export class TableDemoComponent {
-  isSelected: boolean = true;
+  isSelected = true;
   defaultColumnSort: -1 | 0 | 1;
-  readMore: boolean = true;
+  readMore = true;
 
   OnSortingDefaultColumn(sort: -1 | 0 | 1): void {
     this.defaultColumnSort = sort;

@@ -10,6 +10,10 @@ export class LayerDemoComponent {
 
   private dynamicBarLayerRef: LayerRef;
 
+  // Reference to the template layer
+  @ViewChild('layerModal')
+  layerModal: LayerRef;
+
   constructor(
     private layerService: LayerService,
     private fooLayerRef: FooLayer
@@ -27,9 +31,6 @@ export class LayerDemoComponent {
     }
   }
 
-  // Reference to the template layer
-  @ViewChild('layerModal')
-  layerModal: LayerRef;
   openLayer() {
     this.layerModal.open();
   }

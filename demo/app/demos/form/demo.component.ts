@@ -1,10 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, AbstractControl, FormControl } from '@angular/forms';
-
-
-function equalInputMatcher(c: AbstractControl) {
-
-}
+import { Component } from '@angular/core';
+import { FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   templateUrl: 'demo.component.html'
