@@ -2,8 +2,8 @@
 
 A comprehensive library of components for Angular 6+ with [VCL](http://vcl.github.io/) based styling.
 
-**[Browse master demo](https://ng-vcl.github.io/ng-vcl/master)**<br>
-**[Browse dev demo](https://ng-vcl.github.io/ng-vcl/dev)**
+**[Browse master demo](https://ng-vcl.github.io/ng-vcl/master) <br> [![Build Status](https://travis-ci.org/ng-vcl/ng-vcl.svg?branch=master)](https://travis-ci.org/ng-vcl/ng-vcl)**<br>
+**[Browse dev demo](https://ng-vcl.github.io/ng-vcl/dev)** <br>[![Build Status](https://travis-ci.org/ng-vcl/ng-vcl.svg?branch=dev)](https://travis-ci.org/ng-vcl/ng-vcl)
 
 ## Features
 
