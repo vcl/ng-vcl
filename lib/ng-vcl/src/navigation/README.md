@@ -1,6 +1,6 @@
 # vcl-navigation
 
-The nav allows to organize navigation-items.
+The navigation groups navigation items to form a navigation menu.
 
 ## Usage
 
