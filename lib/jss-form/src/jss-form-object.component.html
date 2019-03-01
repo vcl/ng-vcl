@@ -83,7 +83,9 @@
                         [formControlName]="fo.key"
                         [class.vclError]="hasError"
                         [mode]="fo.schema.type==='array' ? 'multiple' : 'single'"
-                        [disabled]="fo.disabled">
+                        [disabled]="fo.disabled"
+                        [expandedIcon]="fo.schema.expandedIcon || 'fa:chevron-up'"
+                        [collapsedIcon]="fo.schema.collapsedIcon || 'fa:chevron-down'">
               <vcl-select-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label" [sublabel]="option.sublabel"></vcl-select-option>
             </vcl-select>
           </vcl-input-control-group>
@@ -125,7 +127,15 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'checkbox'">
-          <vcl-checkbox [id]="fo.id" [formControlName]="fo.key" [label]="fo.label" [disabled]="fo.disabled" [hideLabel]="fo.hideLabel"></vcl-checkbox>
+          <vcl-checkbox [id]="fo.id"
+                        [formControlName]="fo.key" 
+                        [label]="fo.label" 
+                        [disabled]="fo.disabled" 
+                        [hideLabel]="fo.hideLabel"
+                        [iconPosition]="fo.schema.iconPosition || 'left'"
+                        [checkedIcon]="fo.schema.checkedIcon || ' far fa-check-square '"
+                        [uncheckedIcon]="fo.schema.uncheckedIcon || ' far fa-square '">
+          </vcl-checkbox>
         </ng-container>
 
         <ng-container *ngSwitchCase="'radio'">
@@ -136,7 +146,10 @@
               <vcl-radio-button *ngFor="let option of fo.options"
                                 [label]="option.label"
                                 [value]="option.value"
-                                [disabled]="fo.disabled"></vcl-radio-button>
+                                [disabled]="fo.disabled"
+                                [iconPosition]="fo.schema.iconPosition || 'left'"
+                                [checkedIcon]="fo.schema.checkedIcon || ' far fa-dot-circle '"
+                                [uncheckedIcon]="fo.schema.uncheckedIcon || ' far fa-circle '"></vcl-radio-button>
             </vcl-radio-group>
           </vcl-input-control-group>
         </ng-container>

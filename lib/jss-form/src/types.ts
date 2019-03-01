@@ -31,4 +31,9 @@ export interface JssFormSchema extends Schema {
   customParameters?: any;
   visibleIcon: boolean;
   invisibleIcon: boolean;
+  iconPosition: 'left' | 'right';
+  checkedIcon: string;
+  uncheckedIcon: string;
+  expandedIcon: string;
+  collapsedIcon: string;
 }
