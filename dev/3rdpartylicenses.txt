@@ -545,16 +545,13 @@ MIT
 @angular/router
 MIT
 
-@angular/http
-MIT
-
 @ng-vcl/animations
 MIT
 
-@angular/forms
+@angular/core
 MIT
 
-@angular/core
+@angular/forms
 MIT
 
 zone.js
