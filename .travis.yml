@@ -12,5 +12,6 @@ before_install:
 
 script:
   - npm install
+  - npm run build
   - npm run docs
   - npm run docs:deploy
