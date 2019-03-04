@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LabelDirective } from './label.component';
-import { VCLMetalistModule } from '../metalist/index';
+import { LabelDirective } from './label.directive';
 
 @NgModule({
-  imports: [CommonModule, VCLMetalistModule],
+  imports: [CommonModule],
   exports: [LabelDirective],
   declarations: [LabelDirective],
   providers: [],
