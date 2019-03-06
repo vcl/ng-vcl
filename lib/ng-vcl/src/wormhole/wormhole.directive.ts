@@ -1,4 +1,4 @@
-import { ViewContainerRef, Directive, Input, SimpleChanges, TemplateRef, OnChanges, OnDestroy } from '@angular/core';
+import { ViewContainerRef, Directive, Input, SimpleChanges, OnChanges, OnDestroy, Injector } from '@angular/core';
 import { Wormhole, WormholeAttributes } from './wormhole-base';
 import { WormholeHost } from './wormhole-host';
 
@@ -7,7 +7,7 @@ import { WormholeHost } from './wormhole-host';
 })
 export class WormholeDirective extends WormholeHost implements OnChanges, OnDestroy {
 
-  constructor(viewContainerRef: ViewContainerRef) { super(viewContainerRef); }
+  constructor(viewContainerRef: ViewContainerRef, injector: Injector) { super(viewContainerRef, injector); }
 
   get isConnected() {
     return !!this.wormhole && this.wormhole.isConnected;

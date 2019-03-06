@@ -38,21 +38,22 @@ export class TemplateWormhole extends TemplateWormholeBase {
 
 export class ComponentWormhole<T> extends ComponentWormholeBase<T> {
 
-  private compFactory: ComponentFactory<T> | undefined;
+  private compFactory?: ComponentFactory<T>;
+  private injector: Injector;
 
-  constructor(componentClass: Type<T>, private viewContainerRef: ViewContainerRef, private injector?: Injector) {
+  constructor(componentClass: Type<T>, private viewContainerRef: ViewContainerRef, injector?: Injector) {
     super(componentClass);
     if (!viewContainerRef) {
       throw new Error('missing ViewContainerRef');
     }
+    this.injector = injector || viewContainerRef.injector;
   }
 
   attach(componentClass: Type<T>, index?: number): ComponentRef<T> {
-    if (!this.compFactory) {
+    if (!this.compFactory && this.injector) {
       const componentFactoryResolver = this.injector.get<ComponentFactoryResolver>(<any>ComponentFactoryResolver);
       this.compFactory = componentFactoryResolver.resolveComponentFactory<T>(componentClass);
     }
-
     return this.viewContainerRef.createComponent(this.compFactory, typeof index === 'number' ? index :  this.viewContainerRef.length, this.injector);
   }
 
