@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
       keys: ['items.label']
     }).search(text)
       .reduce<any[]>((p: any[], demoGroup: any) => {
-        return p.concat(new Fuse(demoGroup.items, { keys: ['label'] }).search(text));
+        return p.concat(new Fuse<any>(demoGroup.items, { keys: ['label'] }).search(text));
       }, []);
   }
 }
