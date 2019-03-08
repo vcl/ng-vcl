@@ -1,13 +1,13 @@
 <div (offClick)="close()">
   <div
     #select
-    class="vclLayoutHorizontal vclSelect vclInputGroupEmb"
+    class="vclSelect vclInputGroupEmb"
     [style.marginBottom]="0"
     >
-    <div *ngIf="showDisplayValue" class="vclInput" readonly [class.vclSelected]="focused" (click)="toggle()">
+    <div *ngIf="showDisplayValue" class="vclInput vclReadonly vclAppItem" readonly [class.vclSelected]="focused" (click)="toggle()">
       {{displayValue}}
     </div>
-    <div *ngIf="!showDisplayValue" class="vclInput vclTokenInput vclLayoutHorizontal vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle()">
+    <div *ngIf="!showDisplayValue" class="vclInput vclReadonly vclTokenInput vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle()">
       <vcl-token-list [disabled]="disabled">
         <vcl-token *ngFor="let item of selectedItems" [label]="item.label" [removable]="true" (remove)="deselectItem(item.metaItem)"></vcl-token>
       </vcl-token-list>
@@ -17,13 +17,13 @@
       [disabled]="disabled"
       type="button"
       tabindex="-1"
-      class="vclTransparent vclAppended"
+      class="vclAppended"
       [icon]="expanded ? expandedIcon : collapsedIcon"
       (click)="toggle()">
     </button>
   </div>
 
-  <vcl-dropdown 
+  <vcl-dropdown
       #dropdown
       tabindex="-1"
       [disabled]="disabled"
@@ -40,11 +40,11 @@
       (itemsChange)="onItemsChange()"
   >
     <vcl-dropdown-option
-      *ngFor="let item of items" 
-      [metadata]="item" 
-      [value]="item.value" 
-      [disabled]="disabled || item.disabled" 
-      [label]="item.label" 
+      *ngFor="let item of items"
+      [metadata]="item"
+      [value]="item.value"
+      [disabled]="disabled || item.disabled"
+      [label]="item.label"
       [sublabel]="item.sublabel"
       [prepIcon]="item.prepIcon"
       [appIcon]="item.appIcon"
