@@ -5,7 +5,7 @@ const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 /**
- * Returns an extended webpack config with VCL support
+ * Returns a partial webpack config with VCL support
  * @param {object} [opts]
  * @param {boolean} [opts.extractCSS=false] - extract css into seperate file
  * @param {boolean} [opts.sourceMap=false] - generate a source map
@@ -14,9 +14,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
  * @param {string} [opts.theme="@vcl/theme"] - theme to use
  * @param {boolean} [opts.fa=false - font-awesome path fix
  * @param {boolean} [opts.mdi=false - material design icons path fix
- * @return webpack config
+ * @return partial webpack config
  */
-module.exports = function(cfg, opts = {}) {
+module.exports = function(opts = {}) {
   const root = opts.root || process.cwd();
   const globalStyle = path.resolve(root, opts.globalStyle || 'src/styles.sss');
 
@@ -27,7 +27,7 @@ module.exports = function(cfg, opts = {}) {
   });
 
   // VCL support
-  cfg = merge(cfg, {
+  let cfg = {
     module: {
       // Global rule
       rules: [
@@ -78,7 +78,7 @@ module.exports = function(cfg, opts = {}) {
         }
       ]
     }
-  });
+  };
 
   // VCL font-awesome support
   if (opts.fa) {
@@ -116,7 +116,7 @@ module.exports = function(cfg, opts = {}) {
     const fonts = fs.readdirSync(mdiFontPath).filter(file => /^\.(eot|ttf|woff|woff2|svg)$/.test(path.extname(file)));
 
     // Create an alias map for fonts
-    const faAlias = fonts.reduce((alias, filename) => ({
+    const mdiAlias = fonts.reduce((alias, filename) => ({
         ...alias,
         [mdiRelativePath + '/' + filename]: path.resolve(process.cwd(), mdiFontPath, filename)
     }), {});
@@ -124,7 +124,7 @@ module.exports = function(cfg, opts = {}) {
     cfg = merge(cfg, {
       resolve: {
         alias: {
-          ...faAlias,
+          ...mdiAlias,
         }
       }
     });
