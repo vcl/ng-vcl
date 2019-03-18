@@ -24,6 +24,12 @@ ng-vcl is in beta but we adhere to semver.
 - [@ng-vcl/jss-form](https://github.com/ng-vcl/ng-vcl/blob/master/src/jss-form/README.md/)
 - [@ng-vcl/animations](https://github.com/ng-vcl/ng-vcl/blob/master/src/animations/README.md/)
 
+
+## Installation
+
+Check the [webpack helper](tools/webpack-helper) to see how to use the (ng-)vcl with Angular CLI.
+
+
 ## Demo / Docs
 
 Open [https://ng-vcl.github.io/ng-vcl/master](https://ng-vcl.github.io/ng-vcl/master) for master
