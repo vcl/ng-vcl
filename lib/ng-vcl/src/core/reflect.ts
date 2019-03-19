@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 declare var Reflect: any;
 
 export function defineMetadata(key: string, value, target) {

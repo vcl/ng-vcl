@@ -5,7 +5,7 @@
       <div [ngClass]="class" class="vclPanel vclPanelDialog vclNoMargin" role="dialog">
         <div *ngIf="closeButton || title" class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
           <h3 class="vclPanelTitle">{{title}}</h3>
-          <button *ngIf="closeButton" type="button" class="vclButton vclTransparent" (tap)="layerModal.close()" >
+          <button *ngIf="closeButton" type="button" class="vclButton vclTransparent" (click)="layerModal.close()" >
             <div class="vclIcogram"><div class="vclIcon fa fa-times" aria-hidden="true" aria-label="Close" role="img"></div></div>
           </button>
         </div>
