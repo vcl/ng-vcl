@@ -16,9 +16,9 @@ export class AppComponent {}
 
 ```html
 <nav vcl-navigation #nav1 (navigate)="onNavigate($event)">
-  <vcl-navitem label="Home" prepIcon="fa:home" [route]="['/']"></vcl-navitem>
-  <vcl-navitem label="Products" prepIcon="fa:bicycle" [route]="['/products']"></vcl-navitem>
-  <vcl-navitem label="Contact" prepIcon="fa:envelope" [route]="['/contact']"></vcl-navitem>
+  <vcl-navitem label="Home" prepIcon="fas:home" [route]="['/']"></vcl-navitem>
+  <vcl-navitem label="Products" prepIcon="fas:bicycle" [route]="['/products']"></vcl-navitem>
+  <vcl-navitem label="Contact" prepIcon="fas:envelope" [route]="['/contact']"></vcl-navitem>
 </nav>
 ```
 
@@ -27,7 +27,7 @@ export class AppComponent {}
 ```html
 <nav vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
   <vcl-navitem  label="Home" [route]="['/']"></vcl-navitem>
-  <vcl-navitem label="Products" appIcon="fa:bicycle">
+  <vcl-navitem label="Products" appIcon="fas:bicycle">
     <vcl-navitem label="Product 1" [route]="['/product', 1]"></vcl-navitem>
     <vcl-navitem label="Product 2" [route]="['/product', 2]"></vcl-navitem>
   </vcl-navitem>
@@ -45,8 +45,8 @@ export class AppComponent {}
 | `tabindex`               | number        |                  0 |                                            |
 | `useRouter`              | boolean       |              false | Uses the router for navigation if true     |
 | `type`                   | string        |       'horizontal' | Direction (horizontal or vertical)         |
-| `subLevelHintIconClosed` | string        | 'fa:chevron-right' | Icon for nested closed                     |
-| `subLevelHintIconOpened` | string        |  'fa:chevron-down' | Icon for nested opened                     |
+| `subLevelHintIconClosed` | string        | 'fas:chevron-right' | Icon for nested closed                     |
+| `subLevelHintIconOpened` | string        |  'fas:chevron-down' | Icon for nested opened                     |
 | `subLevelHintIconSide`   | string        |             'left' | The side the icon be displayed             |
 
 #### vcl-navitem attributes

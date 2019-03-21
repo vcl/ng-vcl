@@ -9,7 +9,7 @@ export const VCL_ICON_RESOLVER = new InjectionToken('VCL_ICON_RESOLVER');
 
 // The default name resolver following the CSS class name conventions of
 // the well-known Font Awesome icon font. Basically it translates
-// `fa:user` into `fa fa-user`
+// `fas:user` into `fas fa-user`
 @Injectable()
 export class DefaultIconResolverService implements IconResolver {
 

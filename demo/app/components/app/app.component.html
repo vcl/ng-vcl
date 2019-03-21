@@ -14,9 +14,9 @@
     <div class="vclLayoutVertical docNav">
       <div class="vclInputGroupEmb">
         <span class="vclPrepended">
-          <vcl-icon icon="fa:search"></vcl-icon>
+          <vcl-icon icon="fas:search"></vcl-icon>
         </span>
- 
+
         <input #searchInput (keyup)="search(searchInput.value)"
           class="vclInput vclNoBorder vclPrepItem vclAppItem searchInput"
           type="search"
@@ -26,17 +26,17 @@
           autofocus />
 
         <button vcl-button *ngIf="searchInput.value"
-          (tap)="searchInput.value = ''; search('')" 
+          (tap)="searchInput.value = ''; search('')"
           class="vclButton vclTransparent vclSquare vclAppended"
-          icon="fa:times-circle"></button>
+          icon="fas:times-circle"></button>
       </div>
 
       <nav vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex"
         [type]="'vertical'"
         [useRouter]="true"
         [subLevelHintIconSide]="'left'"
-        [subLevelHintIconOpened]="'fa:angle-down'"
-        [subLevelHintIconClosed]="'fa:angle-right'">
+        [subLevelHintIconOpened]="'fas:angle-down'"
+        [subLevelHintIconClosed]="'fas:angle-right'">
 
         <div *ngIf="searchResults.length; else noSearch">
           <vcl-navitem *ngFor="let searchResult of searchResults" [label]="searchResult.label" [route]="searchResult.route"></vcl-navitem>

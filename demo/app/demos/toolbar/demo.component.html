@@ -12,30 +12,30 @@ Multiple level toolbars can be provided using <code>ariaLevel</code> attribute. 
   </a>
 
   <nav vcl-navigation #nav1 type="horizontal">
-    <vcl-navitem label="Link 1" prepIcon="fa:home" [route]="['#']"></vcl-navitem>
-    <vcl-navitem label="Link 2" prepIcon="fa:envelope" [route]="['#']"></vcl-navitem>
+    <vcl-navitem label="Link 1" prepIcon="fas:home" [route]="['#']"></vcl-navitem>
+    <vcl-navitem label="Link 2" prepIcon="fas:envelope" [route]="['#']"></vcl-navitem>
   </nav>
 
   <div class="vclLayoutHorizontal vclLayoutCenter">
-    <button vcl-button class="vclTransparent" appIcon="fa:envelope"></button>
-    <button vcl-button class="vclTransparent" appIcon="fa:user"></button>
+    <button vcl-button class="vclTransparent" appIcon="fas:envelope"></button>
+    <button vcl-button class="vclTransparent" appIcon="fas:user"></button>
   </div>
 </vcl-toolbar>
 <br><br>
 
 <h3>Toolbar with embedded inline input</h3>
 <vcl-toolbar>
-  <button vcl-button class="vclTransparent" appIcon="fa:navicon"></button>
+  <button vcl-button class="vclTransparent" appIcon="fas:navicon"></button>
 
   <div class="vclInputGroupEmb">
     <span class="vclPrepended">
-      <i class="vclIcon fa fa-search"></i>
+      <i class="vclIcon fas fa-search"></i>
     </span>
     <input vcl-input placeholder="Search" class="vclPrepItem"/>
   </div>
 
   <div class="vclLayoutHorizontal vclLayoutCenter">
-    <button vcl-button class="vclTransparent" appIcon="fa:user"></button>
+    <button vcl-button class="vclTransparent" appIcon="fas:user"></button>
     <button vcl-button class="vclTransparent" appIcon="fas fa-plus"></button>
   </div>
 </vcl-toolbar>
@@ -43,7 +43,7 @@ Multiple level toolbars can be provided using <code>ariaLevel</code> attribute. 
 
 <h3>Second level toolbar with title in the middle</h3>
 <vcl-toolbar [ariaLevel]="2" class="vclLayoutCenter">
-  <button vcl-button class="vclTransparent" appIcon="fa:navicon"></button>
+  <button vcl-button class="vclTransparent" appIcon="fas:navicon"></button>
   <div>Level 2 Toolbar Title</div>
   <button vcl-button class="vclTransparent" appIcon="fas fa-plus"></button>
 </vcl-toolbar>

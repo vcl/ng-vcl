@@ -66,10 +66,10 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   // styling
   @Input()
-  expandedIcon = 'fa:chevron-up';
+  expandedIcon = 'fas:chevron-up';
 
   @Input()
-  collapsedIcon = 'fa:chevron-down';
+  collapsedIcon = 'fas:chevron-down';
 
   @Output()
   change = new EventEmitter<any>();

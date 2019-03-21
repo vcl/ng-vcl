@@ -170,10 +170,10 @@ export class NavigationComponent {
   useRouter = false;
 
   @Input()
-  subLevelHintIconClosed = 'fa:chevron-right';
+  subLevelHintIconClosed = 'fas:chevron-right';
 
   @Input()
-  subLevelHintIconOpened = 'fa:chevron-down';
+  subLevelHintIconOpened = 'fas:chevron-down';
 
   @Input()
   subLevelHintIconSide: 'left' | 'right' = 'right';

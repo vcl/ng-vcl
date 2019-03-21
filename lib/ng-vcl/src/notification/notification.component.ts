@@ -99,12 +99,12 @@ export class NotificationComponent {
 
   get eIconClass(): string {
     if (this.icon) {
-      return 'fa ' + this.icon;
+      return 'fas ' + this.icon;
     } else if (this.iconClass) {
       return this.iconClass;
     }
 
-    return 'fa ' + notificationIconFromType(this.eType);
+    return 'fas ' + notificationIconFromType(this.eType);
   }
 
   get iconType(): string {

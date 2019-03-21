@@ -24,13 +24,13 @@ export class AppComponent { ... }
 ### button[vcl-button][label]
 
 ```html
-<button vcl-button label="Action" appIcon="fa:bolt"></button>
+<button vcl-button label="Action" appIcon="fas:bolt"></button>
 ```
 
 ### button[vcl-button][icon]
 
 ```html
-<button vcl-button icon="fa:bolt"></button>
+<button vcl-button icon="fas:bolt"></button>
 ```
 
 ### button[vcl-button][selectable]

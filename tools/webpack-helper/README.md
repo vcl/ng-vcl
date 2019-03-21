@@ -10,7 +10,7 @@ $ npm install @ng-vcl/webpack-helper webpack-merge --save-dev
 
 ## Usage
 
-For this example we use [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) and webpack-merge to add vcl support to the angular cli webpack config. 
+For this example we use [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) and webpack-merge to add vcl support to the angular cli webpack config.
 Check the ngx-build-plus docs for information how to use a plugin.
 
 ```js
@@ -40,5 +40,5 @@ module.exports.default = {
 - globalStyle ['src/styles.sss'] - Path to global style
 - root [process.cwd()] - Base directory
 - theme ["@vcl/theme"] - Theme to use
-- fa [false] - Enable @vcl/font-awesome path fix
+- fas [false] - Enable @vcl/font-awesome path fix
 - mdi [false] - Enable @vcl/mdi path fix

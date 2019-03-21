@@ -109,10 +109,10 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   displaySeconds = false;
 
   @Input()
-  prevYearBtnIcon = 'fa:chevron-left';
+  prevYearBtnIcon = 'fas:chevron-left';
 
   @Input()
-  nextYearBtnIcon = 'fa:chevron-right';
+  nextYearBtnIcon = 'fas:chevron-right';
 
   @Input()
   displayJumpToday = true;

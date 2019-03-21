@@ -32,10 +32,10 @@ export class RadioButtonComponent implements ControlValueAccessor {
   id: string = this.uniqueID;
 
   @Input()
-  checkedIcon = 'far fa-dot-circle';
+  checkedIcon = 'fas fa-dot-circle';
 
   @Input()
-  uncheckedIcon = 'far fa-circle';
+  uncheckedIcon = 'fas fa-circle';
 
   @Input()
   disabled = false;

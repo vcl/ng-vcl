@@ -6,7 +6,7 @@
 <br/>
 <h3>single-select with prepended icon</h3>
 <vcl-dropdown [value]="10" (change)="onSelect($event)" [tabindex]="1">
-  <vcl-dropdown-option *ngFor="let item of items" prepIcon="fa:pencil" [value]="item.value" [disabled]="item.disabled" [label]="item.label"
+  <vcl-dropdown-option *ngFor="let item of items" prepIcon="fas:pencil" [value]="item.value" [disabled]="item.disabled" [label]="item.label"
                        [sublabel]="item.sublabel"></vcl-dropdown-option>
 </vcl-dropdown>
 
@@ -22,12 +22,12 @@
   <vcl-dropdown-option [value]="1">
     <div class="vclDropdownItemLabel">
       <b>item 1</b>
-    </div>  
+    </div>
   </vcl-dropdown-option>
   <vcl-dropdown-option [value]="2">
     <div class="vclDropdownItemLabel">
       <b>item 2 (preselected)</b>
-    </div>  
+    </div>
   </vcl-dropdown-option>
 </vcl-dropdown>
 <br/>

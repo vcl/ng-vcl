@@ -57,7 +57,7 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   preselect = false;
 
   @Input()
-  removeIcon = 'fa:times';
+  removeIcon = 'fas:times';
 
   @Input()
   removeToken = true;

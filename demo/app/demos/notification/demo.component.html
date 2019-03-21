@@ -13,7 +13,7 @@
 <br>
 
 <h3>Warning notification with header and button</h3>
-<vcl-notification nType="warning" header="Some header" button="fa:times" (buttonClick)="click()">
+<vcl-notification nType="warning" header="Some header" button="fas:times" (buttonClick)="click()">
   <ul>
     <li>The following users could not be found:
       <ul>
@@ -26,7 +26,7 @@
 <br>
 
 <h3>Error notification without a header and with a button</h3>
-<vcl-notification nType="error" button="fa:times" (buttonClick)="click()">
+<vcl-notification nType="error" button="fas:times" (buttonClick)="click()">
   <ul>
     <li>Please enter a valid <strong>E-Mail ID</strong>.</li>
     <li>Please enter a valid <strong>Password</strong>.</li>
@@ -39,7 +39,7 @@
 <br>
 
 <h3>Notification without an icon</h3>
-<vcl-notification nType="warning" [drawIcon]="false" button="fa:times" (buttonClick)="click()">Oops! Something went wrong!</vcl-notification>
+<vcl-notification nType="warning" [drawIcon]="false" button="fas:times" (buttonClick)="click()">Oops! Something went wrong!</vcl-notification>
 <br>
 
 <h3>Notification with custom html in the header and footer</h3>
@@ -100,8 +100,8 @@
 <br>
 
 <h3>Custom icon class</h3>
-<vcl-notification iconClass="fa fa-circle-o-notch fa-spin fa-3x fa-fw">Custom spinner icon</vcl-notification>
-<vcl-notification iconClass="fa fa-circle-o-notch fa-spin fa-3x fa-fw" iconSide="right">Custom spinner icon</vcl-notification>
+<vcl-notification iconClass="fas fa-circle-notch fa-spin fa-3x fa-fw">Custom spinner icon</vcl-notification>
+<vcl-notification iconClass="fas fa-circle-notch fa-spin fa-3x fa-fw" iconSide="right">Custom spinner icon</vcl-notification>
 <br>
 
 <h3>Custom icon image</h3>

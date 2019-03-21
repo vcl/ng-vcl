@@ -36,9 +36,9 @@ export class AppComponent {}
 | `prevYearAvailable`   | boolean                    | false                        |                                                                         |
 | `nextYearAvailable`   | boolean                    | false                        |                                                                         |
 | `useAvailableMonths`  | boolean                    | false                        |                                                                         |
-| `closeBtnIcon`        | string                     | 'fa:times'                   |                                                                         |
-| `prevYearBtnIcon`     | string                     | 'fa:chevron-left'            |                                                                         |
-| `nextYearBtnIcon`     | string                     | 'fa:chevron-right'           |                                                                         |
+| `closeBtnIcon`        | string                     | 'fas:times'                   |                                                                         |
+| `prevYearBtnIcon`     | string                     | 'fas:chevron-left'            |                                                                         |
+| `nextYearBtnIcon`     | string                     | 'fas:chevron-right'           |                                                                         |
 | `maxSelectableMonths` | number                     |                              |                                                                         |
 | `minSelectableMonths` | number                     | 0                            |                                                                         |
 | `minYear`             | number                     | `Number.MIN_SAFE_INTEGER`    |                                                                         |

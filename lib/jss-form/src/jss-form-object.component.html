@@ -84,8 +84,8 @@
                         [class.vclError]="hasError"
                         [mode]="fo.schema.type==='array' ? 'multiple' : 'single'"
                         [disabled]="fo.disabled"
-                        [expandedIcon]="fo.schema.expandedIcon || 'fa:chevron-up'"
-                        [collapsedIcon]="fo.schema.collapsedIcon || 'fa:chevron-down'">
+                        [expandedIcon]="fo.schema.expandedIcon || 'fas:chevron-up'"
+                        [collapsedIcon]="fo.schema.collapsedIcon || 'fas:chevron-down'">
               <vcl-select-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label" [sublabel]="option.sublabel"></vcl-select-option>
             </vcl-select>
           </vcl-input-control-group>
@@ -128,13 +128,13 @@
 
         <ng-container *ngSwitchCase="'checkbox'">
           <vcl-checkbox [id]="fo.id"
-                        [formControlName]="fo.key" 
-                        [label]="fo.label" 
-                        [disabled]="fo.disabled" 
+                        [formControlName]="fo.key"
+                        [label]="fo.label"
+                        [disabled]="fo.disabled"
                         [hideLabel]="fo.hideLabel"
                         [iconPosition]="fo.schema.iconPosition || 'left'"
-                        [checkedIcon]="fo.schema.checkedIcon || ' far fa-check-square '"
-                        [uncheckedIcon]="fo.schema.uncheckedIcon || ' far fa-square '">
+                        [checkedIcon]="fo.schema.checkedIcon || ' fas fa-check-square '"
+                        [uncheckedIcon]="fo.schema.uncheckedIcon || ' fas fa-square '">
           </vcl-checkbox>
         </ng-container>
 
@@ -148,8 +148,8 @@
                                 [value]="option.value"
                                 [disabled]="fo.disabled"
                                 [iconPosition]="fo.schema.iconPosition || 'left'"
-                                [checkedIcon]="fo.schema.checkedIcon || ' far fa-dot-circle '"
-                                [uncheckedIcon]="fo.schema.uncheckedIcon || ' far fa-circle '"></vcl-radio-button>
+                                [checkedIcon]="fo.schema.checkedIcon || ' fas fa-dot-circle '"
+                                [uncheckedIcon]="fo.schema.uncheckedIcon || ' fas fa-circle '"></vcl-radio-button>
             </vcl-radio-group>
           </vcl-input-control-group>
         </ng-container>

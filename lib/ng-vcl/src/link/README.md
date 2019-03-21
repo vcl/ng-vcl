@@ -6,7 +6,7 @@ Uses vcl-icogram to display a combination of text and icons if `appIcon` or `app
 ## Usage
 
 ```html
-<a vcl-link href="http://www.example.com" label="Example Link" prepIcon="fa:chevron-right"></a>
+<a vcl-link href="http://www.example.com" label="Example Link" prepIcon="fas:chevron-right"></a>
 ```
 
 ### API

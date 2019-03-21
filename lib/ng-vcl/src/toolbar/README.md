@@ -15,8 +15,8 @@ export class AppComponent {}
 ```html
 <vcl-toolbar>
     <nav vcl-navigation type="horizontal">
-        <vcl-navitem label="Link 1" prepIcon="fa:home" [route]="['#']"></vcl-navitem>
-        <vcl-navitem label="Link 2" prepIcon="fa:envelope" [route]="['#']"></vcl-navitem>
+        <vcl-navitem label="Link 1" prepIcon="fas:home" [route]="['#']"></vcl-navitem>
+        <vcl-navitem label="Link 2" prepIcon="fas:envelope" [route]="['#']"></vcl-navitem>
     </nav>
 </vcl-toolbar>
 ```

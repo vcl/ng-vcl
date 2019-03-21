@@ -18,7 +18,7 @@
 
     <div *ngIf="validationError" class="vclNotification vclError">
       <div class="vclNotificationContent">
-        <vcl-icogram label="{{validationError}}" prepIcon="fa:exclamation-circle"></vcl-icogram>
+        <vcl-icogram label="{{validationError}}" prepIcon="fas:exclamation-circle"></vcl-icogram>
       </div>
     </div>
 
@@ -29,9 +29,9 @@
         (click)="confirm()"
         [style.background-color]="alert.confirmButtonColor"
         [ngClass]="alert.confirmButtonClass"
-        [disabled]="alert.loader"        
+        [disabled]="alert.loader"
         [appIcon]="alert.loader ? null : alert.confirmButtonAppIcon"
-        [prepIcon]="alert.loader ? 'fa:refresh fa-spin' : alert.confirmButtonPrepIcon"
+        [prepIcon]="alert.loader ? 'fas:refresh fa-spin' : alert.confirmButtonPrepIcon"
         [label]="alert.confirmButtonLabel"
         >
       </button>
@@ -44,8 +44,8 @@
         [prepIcon]="alert.cancelButtonPrepIcon"
         [disabled]="(!alert.showConfirmButton && !!alert.loader)"
         [appIcon]="(!alert.showConfirmButton && !!alert.loader) ? null : alert.cancelButtonAppIcon"
-        [prepIcon]="(!alert.showConfirmButton && !!alert.loader) ? 'fa:refresh fa-spin' : alert.cancelButtonPrepIcon"        
-        [label]="alert.cancelButtonLabel"        
+        [prepIcon]="(!alert.showConfirmButton && !!alert.loader) ? 'fas:refresh fa-spin' : alert.cancelButtonPrepIcon"
+        [label]="alert.cancelButtonLabel"
         (click)="cancel()"
         >
       </button>

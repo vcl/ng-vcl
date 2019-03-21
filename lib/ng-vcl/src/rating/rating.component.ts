@@ -45,7 +45,7 @@ export class RatingComponent implements ControlValueAccessor {
   halfStar = 'fas fa-star-half-alt';
 
   @Input()
-  emptyStar = 'far fa-star';
+  emptyStar = 'fas fa-star';
 
   @Input()
   starCount = 5;

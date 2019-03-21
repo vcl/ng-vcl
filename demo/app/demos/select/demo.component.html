@@ -6,7 +6,7 @@
 <br>
 <h3>single-select with prepended icons</h3>
 <vcl-select [value]="3" label="Single select" (change)="onChange($event)" [tabindex]="1">
-  <vcl-select-option *ngFor="let item of items" prepIcon="fa:circle" [value]="item.value" [label]="item.label"
+  <vcl-select-option *ngFor="let item of items" prepIcon="fas:circle" [value]="item.value" [label]="item.label"
                      [sublabel]="item.sublabel"></vcl-select-option>
 </vcl-select>
 

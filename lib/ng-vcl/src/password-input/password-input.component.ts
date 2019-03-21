@@ -16,10 +16,10 @@ export class PasswordInputComponent {
   input?: InputDirective;
 
   @Input()
-  visibleIcon = 'fa:eye';
+  visibleIcon = 'fas:eye';
 
   @Input()
-  invisibleIcon = 'fa:eye-slash';
+  invisibleIcon = 'fas:eye-slash';
 
   @Input()
   visible = false;

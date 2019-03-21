@@ -3,7 +3,7 @@
 ## Usage
 
 ```html
-<vcl-embedded-input-group prepIcon="fa:search">
+<vcl-embedded-input-group prepIcon="fas:search">
   <input vcl-input vcl-embedded-input placeholder="Search" [vcl-input-autocomplete]="acCountry" />
 </vcl-embedded-input-group>
 

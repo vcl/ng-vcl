@@ -78,7 +78,7 @@ export class AlertDemoComponent {
       showCloseButton: true,
       showCancelButton: true,
       confirmButtonClass: 'vclSuggestive',
-      confirmButtonPrepIcon: 'fa:bolt',
+      confirmButtonPrepIcon: 'fas:bolt',
       cancelButtonColor: 'orange',
       customClass: 'vclScale130p',
       titleAlignment: AlertAlignment.Center,

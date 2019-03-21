@@ -13,7 +13,7 @@ See <http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html> for details.
 As a component
 
 ```html
-<vcl-icon icon="fa:chevron-right" label="chevron right"></vcl-icon>
+<vcl-icon icon="fas:chevron-right" label="chevron right"></vcl-icon>
 ```
 
 or via an attribute

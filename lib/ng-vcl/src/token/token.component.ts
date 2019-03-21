@@ -44,7 +44,7 @@ export class TokenComponent implements Token {
   removable = false;
 
   @Input()
-  icon = 'fa:times';
+  icon = 'fas:times';
 
   @Input()
   tokenIcon?: string;

@@ -1,7 +1,7 @@
 <ng-container *ngFor="let notifier of notifiers">
   <vcl-notification (mouseenter)="notifier.mouseEnter()"
                     (mouseleave)="notifier.mouseLeave()"
-                    button="fa:times"
+                    button="fas:times"
                     (buttonClick)="notifier.close()"
                     [showButton]="notifier.showCloseButton"
                     [iconClass]="notifier.iconClass"

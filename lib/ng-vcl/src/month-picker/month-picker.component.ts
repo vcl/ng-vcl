@@ -67,9 +67,9 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   @Input() nextYearAvailable = false;
   @Input() useAvailableMonths = false;
 
-  @Input() closeBtnIcon = 'fa:times';
-  @Input() prevYearBtnIcon = 'fa:chevron-left';
-  @Input() nextYearBtnIcon = 'fa:chevron-right';
+  @Input() closeBtnIcon = 'fas:times';
+  @Input() prevYearBtnIcon = 'fas:chevron-left';
+  @Input() nextYearBtnIcon = 'fas:chevron-right';
 
   @Input() maxSelectableMonths: number;
   @Input() minSelectableMonths = 0;

@@ -9,9 +9,9 @@ attributes.
 ## Usage
 
 ```html
-<vcl-icogram label="some label" prepIcon="fa:chevron-right"></vcl-icogram>
+<vcl-icogram label="some label" prepIcon="fas:chevron-right"></vcl-icogram>
 
-<span vcl-icogram label="some label" prepIcon="fa:chevron-right"></span>
+<span vcl-icogram label="some label" prepIcon="fas:chevron-right"></span>
 ```
 
 ### API
