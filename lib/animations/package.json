@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/animations",
-  "version": "0.7.0-1",
+  "version": "0.7.0",
   "description": "Animation pack for ng-vcl components",
   "repository": {
     "type": "git",

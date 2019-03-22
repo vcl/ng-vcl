@@ -1,6 +1,10 @@
 # Changelog
 
 
+## 0.7.x
+
+Updated to VCL 0.4
+
 ## 0.5.x
 
 ### Breaking changes

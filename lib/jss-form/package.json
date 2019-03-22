@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/jss-form",
-  "version": "0.7.0-1",
+  "version": "0.7.0",
   "description": "Creates a html-form from a jsonschema",
   "repository": {
     "type": "git",
