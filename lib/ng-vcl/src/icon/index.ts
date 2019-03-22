@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconDirective, IconFontDirective } from './icon.directive';
-import { VCL_ICON_RESOLVER, DefaultIconResolverService, IconResolver } from './icon-resolver.service';
+import { VCL_ICON_RESOLVER, FontAwesomeIconResolverService, MDIIconResolverService, IconResolver } from './icon-resolver.service';
 
-export { IconDirective, IconFontDirective, DefaultIconResolverService, IconResolver, VCL_ICON_RESOLVER };
+export { IconDirective, IconFontDirective, FontAwesomeIconResolverService, MDIIconResolverService, IconResolver, VCL_ICON_RESOLVER };
 
 @NgModule({
   imports: [CommonModule],
@@ -11,7 +11,11 @@ export { IconDirective, IconFontDirective, DefaultIconResolverService, IconResol
   declarations: [IconDirective, IconFontDirective],
   providers: [{
     provide: VCL_ICON_RESOLVER,
-    useClass: DefaultIconResolverService,
+    useClass: FontAwesomeIconResolverService,
+    multi: true
+  }, {
+    provide: VCL_ICON_RESOLVER,
+    useClass: MDIIconResolverService,
     multi: true
   }],
 })

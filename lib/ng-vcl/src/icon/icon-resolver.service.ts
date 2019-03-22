@@ -7,28 +7,40 @@ export interface IconResolver {
 
 export const VCL_ICON_RESOLVER = new InjectionToken('VCL_ICON_RESOLVER');
 
-// The default name resolver following the CSS class name conventions of
+// The font-awesome name resolver following the CSS class name conventions of
 // the well-known Font Awesome icon font. Basically it translates
 // `fas:user` into `fas fa-user`
 @Injectable()
-export class DefaultIconResolverService implements IconResolver {
+export class FontAwesomeIconResolverService implements IconResolver {
+
+  private FA_REGEX = /^(fa[bsrl]):([a-z0-9-_]+)$/;
 
   match(icon: string) {
-    return /^[a-z0-9-_]+:[a-z0-9-_]+(:[a-z0-9-_]+)?$/.test(icon);
+    return this.FA_REGEX.test(icon);
   }
 
   lookup(icon: string) {
     if (typeof icon === 'string') {
-      const iconName = icon;
-      // Split on first : occurrence
-      const iconParts = iconName.split(':');
-      if (iconParts.length === 0) {
-        return icon;
-      } else {
-        const setName = iconParts.shift();
-        const iconClasses = iconParts.join(` ${setName}-`);
-        return `${setName} ${setName}-${iconClasses}`;
-      }
+      return icon.replace(this.FA_REGEX,
+             (_, p, i) => `${p} fa-${i}`);
+    }
+    return icon;
+  }
+}
+
+
+@Injectable()
+export class MDIIconResolverService implements IconResolver {
+  private MDI_REGEX = /^(MDI):([a-z0-9-_]+)$/;
+
+  match(icon: string) {
+    return this.MDI_REGEX.test(icon);
+  }
+
+  lookup(icon: string) {
+    if (typeof icon === 'string') {
+      return icon.replace(this.MDI_REGEX,
+             (_, p, i) => `${p} mdi-${i}`);
     }
     return icon;
   }
