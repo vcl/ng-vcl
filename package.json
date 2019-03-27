@@ -56,7 +56,7 @@
     "@vcl/font-awesome": "^0.4.0",
     "@vcl/theme": "^0.4.0",
     "core-js": "^2.5.4",
-    "document-register-element": "^1.13.1",
+    "document-register-element": "1.8.1",
     "fuse.js": "^3.4.4",
     "hammerjs": "^2.0.8",
     "jsonschema": "^1.2.4",
