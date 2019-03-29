@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonGroupComponent, GroupButtonDirective } from './button-group.component';
+import { ButtonGroupComponent, ButtonGroupButtonComponent } from './button-group.component';
 import { VCLButtonModule } from '../button/index';
 
-export { ButtonGroupComponent, GroupButtonDirective };
+export { ButtonGroupComponent, ButtonGroupButtonComponent };
 
 @NgModule({
   imports: [CommonModule, VCLButtonModule],
-  exports: [ButtonGroupComponent, GroupButtonDirective, VCLButtonModule],
-  declarations: [ButtonGroupComponent, GroupButtonDirective],
+  exports: [ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonModule],
+  declarations: [ButtonGroupComponent, ButtonGroupButtonComponent],
   providers: [],
 })
 export class VCLButtonGroupModule { }

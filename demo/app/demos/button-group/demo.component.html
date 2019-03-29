@@ -1,23 +1,23 @@
 <h3>SelectionMode: Single</h3>
-<vcl-button-group [(ngModel)]="idx1">
-  <button vcl-button vcl-button-group>Action 1</button>
-  <button vcl-button vcl-button-group>Action 2</button>
-  <button vcl-button vcl-button-group>Action 3</button>
+<vcl-button-group [(ngModel)]="value1">
+  <button vcl-button-group [value]="1">Action 1</button>
+  <button vcl-button-group [value]="2">Action 2</button>
+  <button vcl-button-group [value]="3">Action 3</button>
 </vcl-button-group>
-<p>Selected index: {{idx1}}</p>
+<p>Selected value: {{value1}}</p>
 
 <h3>SelectionMode: Multiple</h3>
-<vcl-button-group mode="multiple" [(ngModel)]="idx2">
-  <button vcl-button vcl-button-group>Action 1</button>
-  <button vcl-button vcl-button-group>Action 2</button>
-  <button vcl-button vcl-button-group>Action 3</button>
+<vcl-button-group mode="multiple" [(ngModel)]="value2">
+  <button vcl-button-group [value]="1">Action 1</button>
+  <button vcl-button-group [value]="2">Action 2</button>
+  <button vcl-button-group [value]="3">Action 3</button>
 </vcl-button-group>
-<p>Selected index: {{idx2}}</p>
+<p>Selected value: {{value2}}</p>
 
 
 <h3>Disabled</h3>
 <vcl-button-group [disabled]="true" mode="multiple">
-  <button vcl-button vcl-button-group>Action 1</button>
-  <button vcl-button vcl-button-group>Action 2</button>
-  <button vcl-button vcl-button-group>Action 3</button>
+  <button vcl-button-group [value]="1">Action 1</button>
+  <button vcl-button-group [value]="2">Action 2</button>
+  <button vcl-button-group [value]="3">Action 3</button>
 </vcl-button-group>
