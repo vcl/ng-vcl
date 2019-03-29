@@ -63,7 +63,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"common":"common","demos-button-demo-module":"demos-button-demo-module","demos-icogram-demo-module":"demos-icogram-demo-module","demos-icon-demo-module":"demos-icon-demo-module","demos-link-demo-module":"demos-link-demo-module"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"common":"common","demos-button-demo-module":"demos-button-demo-module","demos-button-group-demo-module":"demos-button-group-demo-module","demos-icogram-demo-module":"demos-icogram-demo-module","demos-icon-demo-module":"demos-icon-demo-module","demos-input-demo-module":"demos-input-demo-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
