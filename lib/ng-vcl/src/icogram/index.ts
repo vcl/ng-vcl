@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLLayoutModule } from '../core/index';
 import { VCLIconModule } from '../icon/index';
-import { IcogramComponent, IcogramSpanComponent } from './icogram.component';
+import { IcogramComponent, IcogramLinkComponent } from './icogram.component';
 
-export { IcogramComponent, IcogramSpanComponent };
+export { IcogramComponent, IcogramLinkComponent };
 
 @NgModule({
-  imports: [CommonModule, VCLIconModule, VCLLayoutModule],
-  exports: [IcogramComponent, IcogramSpanComponent, VCLLayoutModule],
-  declarations: [IcogramComponent, IcogramSpanComponent],
+  imports: [CommonModule, VCLIconModule],
+  exports: [IcogramComponent, IcogramLinkComponent],
+  declarations: [IcogramComponent, IcogramLinkComponent],
   providers: [],
 })
 export class VCLIcogramModule { }

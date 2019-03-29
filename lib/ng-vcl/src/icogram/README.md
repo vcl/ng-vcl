@@ -1,17 +1,16 @@
 # vcl-icogram
 
-Combination of icon and text of which both are optional and can be permuted.
+Combination of icon and text.
 Icons can be prepended or appended to a textual label and can be sourced from icon
-fonts or directly from file based imagery.
-The component takes care of accessibility aspects such rendering appropriate aria
-attributes.
+fonts.
+Also supports the anchor tag
 
 ## Usage
 
 ```html
-<vcl-icogram label="some label" prepIcon="fas:chevron-right"></vcl-icogram>
+<vcl-icogram prepIcon="fas:chevron-left" appIcon="fas:chevron-right">Label</vcl-icogram>
 
-<span vcl-icogram label="some label" prepIcon="fas:chevron-right"></span>
+<a vcl-icogram href="'https://github.com/ng-vcl/ng-vcl'" prepIcon="fas:link">Link</a>
 ```
 
 ### API
@@ -20,8 +19,5 @@ attributes.
 
 | Name                         | Type        | Default  | Description
 | ---------------------------- | ----------- | -------- |--------------
-| `label`                      | string      |          | The textual label
-| `prepIcon`                   | string      |          | Icon as defined by the icon component
+| `prepIcon`                   | string      |          | Icon prepended to the label
 | `appIcon`                    | string      |          | Same as `prepIcon` but appended
-| `prepIconSrc`                | string      |          | Image as defined by the icon component
-| `appIconSrc`                 | string      |          | Same as `prepIconSrc` but appended

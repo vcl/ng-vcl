@@ -1,53 +1,55 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'vcl-icogram, div[vcl-icogram]',
-  host: {
-    '[class.vclIcogram]': 'true',
-    '[attr.role]': '"img"',
-  },
+  selector: 'vcl-icogram',
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IcogramComponent {
-  @Input()
-  label: string;
+
+  @HostBinding('class.vclIcogram')
+  clsIcogram = true;
+
+  @HostBinding('attr.role')
+  attrRole = true;
 
   @Input()
   prepIcon: string;
 
   @Input()
   appIcon: string;
-
-  @Input()
-  prepIconSrc: string;
-
-  @Input()
-  appIconSrc: string;
 }
 
 @Component({
-  selector: 'span[vcl-icogram]',
-  host: {
-    '[class.vclIcogram]': 'true',
-    '[attr.role]': '"img"',
-  },
-  templateUrl: 'icogram-span.component.html',
+  selector: 'a[vcl-icogram]',
+  templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IcogramSpanComponent {
+export class IcogramLinkComponent extends IcogramComponent {
+
+  @HostBinding('class.vclContentLink')
+  clsContentLink = true;
+
+  @HostBinding('attr.title')
+  @HostBinding('attr.aria-label')
   @Input()
-  label: string;
+  title: string | undefined;
+
+  @HostBinding('class.vclDisabled')
+  @Input()
+  disabled = false;
+
+  @HostBinding('style.cursor')
+  get styleCursor() {
+    return this.disabled ? 'not-allowed' : 'pointer';
+  }
 
   @Input()
-  prepIcon: string;
+  href: string | undefined;
 
-  @Input()
-  appIcon: string;
+  @HostBinding('attr.href')
+  get attrHref() {
+    return this.disabled ? undefined : this.href;
+  }
 
-  @Input()
-  prepIconSrc: string;
-
-  @Input()
-  appIconSrc: string;
 }

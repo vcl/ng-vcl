@@ -2,46 +2,12 @@ import { Component, Input, ChangeDetectionStrategy, HostBinding, Self, SimpleCha
 import { NgClass } from '@angular/common';
 import { VCL_ICON_RESOLVER, IconResolver } from './icon-resolver.service';
 
-@Directive({
-  selector: 'vcl-icon, [vcl-icon]',
-  host: {
-    '[class.vclIcon]': 'true',
-  },
-  providers: [ NgClass ]
+@Component({
+  selector: 'vcl-icon',
+  providers: [ NgClass ],
+  template: '<ng-content></ng-content>'
 })
-export class IconDirective {
-
-  @Input('aria-label')
-  ariaLabel: string | undefined;
-
-  @Input()
-  alt: string | undefined;
-
-  @Input()
-  role: string | undefined;
-
-  @HostBinding('attr.role')
-  get attrRole() {
-    return this.role || 'img';
-  }
-
-  @HostBinding('attr.aria-label')
-  get attrAriaLabel() {
-    return this.ariaLabel || this.alt;
-  }
-
-  // Do not hide from aria when a label is provided
-  @HostBinding('attr.aria-hidden')
-  get isAriaHidden() {
-    return !this.attrAriaLabel;
-  }
-}
-
-@Directive({
-  selector: 'vcl-icon[icon], [vcl-icon][icon]',
-  providers: [ NgClass ]
-})
-export class IconFontDirective implements OnChanges {
+export class IconComponent implements OnChanges {
 
   constructor(
     @Self() private ngClass: NgClass,
@@ -49,7 +15,18 @@ export class IconFontDirective implements OnChanges {
   ) { }
 
   @Input()
-  icon: string | undefined;
+  role?: string;
+
+  @HostBinding('class.vclIcon')
+  vclIcon = true;
+
+  @HostBinding('attr.role')
+  get attrRole() {
+    return this.role || 'img';
+  }
+
+  @Input()
+  icon?: string;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.icon) {
