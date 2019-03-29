@@ -1,15 +1,21 @@
 import { Directive, ElementRef, HostBinding, Input, HostListener } from '@angular/core';
 
 @Directive({
-  selector: 'input[vcl-input]',
-  host: {
-    '[class.vclInput]': 'true'
-  }
+  selector: 'input[vclInput]',
+  exportAs: 'vclInput'
 })
 export class InputDirective {
 
+  constructor(private elRef: ElementRef<HTMLInputElement>) { }
+
   @Input()
   disabled = false;
+
+  @Input()
+  autoselect = false;
+
+  @HostBinding('class.vclInput')
+  classVclInput = true;
 
   @HostBinding('class.vclDisabled')
   get isDisabled() {
@@ -20,18 +26,12 @@ export class InputDirective {
   get attrDisabled() {
     return this.disabled ? true : null;
   }
-}
-
-@Directive({
-  selector: 'input[vcl-input][autoselect]',
-})
-export class InputAutoSelectDirective {
-
-  constructor(private elRef: ElementRef) { }
 
   // Autoselect
   @HostListener('focus')
   onFocus() {
-    this.elRef.nativeElement.select();
+    if (this.autoselect) {
+      this.elRef.nativeElement.select();
+    }
   }
 }

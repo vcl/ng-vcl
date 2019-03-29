@@ -1,20 +1,20 @@
 <h3>Input</h3>
-<input vcl-input [(ngModel)]="data1" />
+<input vclInput [(ngModel)]="data1" />
 <br>
 <b>Input value:</b> {{data1}}
 
 <br>
 <br>
 <h3>Input (autoselect)</h3>
-<input vcl-input autoselect [value]="'Foo'" />
+<input vclInput autoselect=true [value]="'Foo'" />
 
 <br>
 <br>
 <h3>Input (readonly)</h3>
-<input vcl-input value='readOnly' readonly=true />
+<input vclInput value='readOnly' readonly=true />
 
 <br>
 <br>
 <h3>Input (disabled)</h3>
-<input vcl-input value='disabled' [disabled]="true" />
+<input vclInput value='disabled' [disabled]="true" />
 <br>
