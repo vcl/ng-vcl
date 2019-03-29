@@ -1,12 +1,12 @@
 import { Directive, HostBinding, Input, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Directive({
-  selector: 'button[vcl-button][selectable]',
+  selector: 'button[vclSelectable]',
 })
-export class ButtonSelectDirective  {
+export class ButtonSelectableDirective  {
 
   @Input()
-  set selectable(value: boolean | undefined) {
+  set vclSelectable(value: boolean | undefined) {
     this.selected = !!value;
   }
 

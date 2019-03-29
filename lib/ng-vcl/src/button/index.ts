@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLIcogramModule } from '../icogram/index';
-import { ButtonDirective } from './button.directive';
-import { ButtonLabelComponent } from './button.label.component';
-import { ButtonSelectDirective } from './button.select.directive';
-import { ButtonIconComponent } from './button.icon.component';
+import { VCLIcogramModule } from '../icogram';
+import { VCLIconModule } from '../icon';
+import { ButtonComponent } from './button.component';
+import { ButtonIcogramComponent } from './button-icogram.component';
+import { ButtonIconComponent } from './button-icon.component';
+import { ButtonSelectableDirective } from './button.selectable.directive';
 
-export { ButtonDirective, ButtonLabelComponent, ButtonSelectDirective, ButtonIconComponent };
+export { ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective };
 
 @NgModule({
-  imports: [CommonModule, VCLIcogramModule],
-  exports: [ButtonDirective, ButtonLabelComponent, ButtonSelectDirective, ButtonIconComponent],
-  declarations: [ButtonDirective, ButtonLabelComponent, ButtonSelectDirective, ButtonIconComponent],
+  imports: [CommonModule, VCLIconModule, VCLIcogramModule],
+  exports: [ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective],
+  declarations: [ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective],
   providers: [],
 })
 export class VCLButtonModule { }

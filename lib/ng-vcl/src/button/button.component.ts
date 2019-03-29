@@ -1,12 +1,11 @@
-import { Directive, HostBinding, Input, HostListener, ElementRef} from '@angular/core';
+import { Directive, HostBinding, Input, HostListener, ElementRef, Component} from '@angular/core';
 
-@Directive({
+@Component({
   selector: 'button[vcl-button]',
-  host: {
-    '[class.vclButton]': 'true',
-  },
+  exportAs: 'vclButton',
+  templateUrl: 'button.component.html'
 })
-export class ButtonDirective {
+export class ButtonComponent {
 
   constructor(private elementRef: ElementRef) { }
 
@@ -19,14 +18,21 @@ export class ButtonDirective {
     return this.disabled ? true : null;
   }
 
+  @HostBinding('class.vclButton')
+  vclButton = true;
+
   @HostBinding('class.vclHovered')
   hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
 
-  @HostListener('mouseenter', ['$event'])
-  onMouseEnter(e) { this.hovered = true; }
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.hovered = true;
+  }
 
-  @HostListener('mouseleave', ['$event'])
-  onMouseLeave(e) { this.hovered = false; }
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.hovered = false;
+  }
 
   focus(): void {
     this.elementRef.nativeElement.focus();

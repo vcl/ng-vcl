@@ -21,22 +21,22 @@ export class AppComponent { ... }
 <button vcl-button (click)="someAction($event)">Action</button>
 ```
 
-### button[vcl-button][label]
+### button[vcl-icogram-button]
 
 ```html
-<button vcl-button label="Action" appIcon="fas:bolt"></button>
+<button vcl-icogram-button appIcon="fas:bolt">Action</button>
 ```
 
-### button[vcl-button][icon]
+### button[vcl-icon-button]
 
 ```html
-<button vcl-button icon="fas:bolt"></button>
+<button vcl-icon-button icon="fas:bolt"></button>
 ```
 
-### button[vcl-button][selectable]
+### button[vcl-button][vclSelectable]
 
 ```html
-<button vcl-button selectable (select)="someAction($event)">Action</button>
+<button vcl-button vclSelectable (select)="someAction($event)">Action</button>
 ```
 
 ### API
@@ -47,29 +47,26 @@ export class AppComponent { ... }
 | ------------        | ----------- | -------- |--------------
 | `disabled`          | boolean     | false    | State to indicate that the button is disabled
 
-#### vcl-button[label] attributes
+#### vcl-icogram-button attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
-| `label`             | string      |          | Sets button label
-| `title`             | string      |          | Sets button title
-| `flexLabel`         | boolean     | false    | The label gets a flex layout property if true
 | `prepIcon`          | string      |          | icon to be prepended to the label
 | `appIcon`           | string      |          | Same as prepIcon but appended
 
-#### vcl-button[icon] attributes
+#### vcl-icon-button attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `icon`              | string      |          | Sets the button icon
 
-#### vcl-button[selectable] attributes
+#### vcl-button[vclSelectable] attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `selectable`        | boolean     | false    | Preselect button if true
 
-#### vcl-button[selectable] events
+#### vcl-button[vclSelectable] events
 
 | Name                | Description
 | ------------        | --------------
