@@ -17,7 +17,6 @@ export * from './layer/index';
 export * from './tab-nav/index';
 export * from './navigation/index';
 export * from './toolbar/index';
-export * from './link/index';
 export * from './popover/index';
 export * from './progress-bar/index';
 export * from './radio-button/index';
