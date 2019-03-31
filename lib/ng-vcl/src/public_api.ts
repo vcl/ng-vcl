@@ -7,6 +7,8 @@ export * from './file-input/index';
 export * from './textarea/index';
 export * from './flip-switch/index';
 export * from './icon/index';
+export * from './font-awesome/index';
+export * from './material-design-icons/index';
 export * from './metalist/index';
 export * from './dropdown/index';
 export * from './select/index';

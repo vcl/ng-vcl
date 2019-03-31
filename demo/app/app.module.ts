@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
-  VCLLayerModule
+  VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule
 } from '@ng-vcl/ng-vcl';
 import {
   LayerAnimationsModule, PopoverAnimationsModule,
@@ -27,6 +27,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     VCLButtonModule,
     VCLIconModule,
+    VCLFontAwesomeModule,
+    VCLMaterialDesignModule,
     VCLNavigationModule,
     VCLLayerModule.forRoot(),
     LayerAnimationsModule,

@@ -1,6 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy, HostBinding, Self, SimpleChanges, Directive, Inject, OnChanges } from '@angular/core';
+import { Component, Input, HostBinding, Self, SimpleChanges, OnChanges } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { VCL_ICON_RESOLVER, IconResolver } from './icon-resolver.service';
+import { IconService } from './icon.service';
 
 @Component({
   selector: 'vcl-icon',
@@ -11,7 +11,7 @@ export class IconComponent implements OnChanges {
 
   constructor(
     @Self() private ngClass: NgClass,
-    @Inject(VCL_ICON_RESOLVER) private _iconResolvers: IconResolver[]
+    private iconService: IconService
   ) { }
 
   @Input()
@@ -37,12 +37,7 @@ export class IconComponent implements OnChanges {
       if (!icon) {
         fontIconClass = [];
       } else {
-        const resolver = this._iconResolvers.find(ir => ir.match(icon));
-        if (!resolver) {
-          fontIconClass = icon;
-        } else {
-          fontIconClass = resolver.lookup(icon);
-        }
+        fontIconClass = this.iconService.resolve(icon);
       }
 
       this.ngClass.ngClass = fontIconClass;

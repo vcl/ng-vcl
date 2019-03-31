@@ -1,47 +1,33 @@
-import { Injectable, InjectionToken } from '@angular/core';
+import { Injectable, InjectionToken, Inject, Optional } from '@angular/core';
 
 export interface IconResolver {
-  match(icon: string): boolean;
-  lookup(icon: string): string;
+  resolve(icon: string): string | undefined;
 }
 
-export const VCL_ICON_RESOLVER = new InjectionToken('VCL_ICON_RESOLVER');
-
-// The font-awesome name resolver following the CSS class name conventions of
-// the well-known Font Awesome icon font. Basically it translates
-// `fas:user` into `fas fa-user`
-@Injectable()
-export class FontAwesomeIconResolverService implements IconResolver {
-
-  private FA_REGEX = /^(fa[bsrl]):([a-z0-9-_]+)$/;
-
-  match(icon: string) {
-    return this.FA_REGEX.test(icon);
-  }
-
-  lookup(icon: string) {
-    if (typeof icon === 'string') {
-      return icon.replace(this.FA_REGEX,
-             (_, p, i) => `${p} fa-${i}`);
-    }
-    return icon;
-  }
+export interface IconAliases {
+  close: string;
+  busy: string;
 }
 
+export abstract class IconResolverService implements IconResolver {
+  abstract priority: number;
+  abstract resolve(icon: string): string;
+}
 
-@Injectable()
-export class MDIIconResolverService implements IconResolver {
-  private MDI_REGEX = /^(mdi):([a-z0-9-_]+)$/;
+// The default icon resolver replaces icons prefixed with `vcl`. Usually you should provide only one default icon resolver in your app
+export abstract class VCLIconResolverServiceBase implements IconResolverService {
+  abstract priority;
 
-  match(icon: string) {
-    return this.MDI_REGEX.test(icon);
-  }
+  private VCL_REGEX = /^vcl:([a-z0-9-_]+)$/;
 
-  lookup(icon: string) {
-    if (typeof icon === 'string') {
-      return icon.replace(this.MDI_REGEX,
-             (_, p, i) => `${p} mdi-${i}`);
+  resolve(icon: string) {
+    const result =  this.VCL_REGEX.exec(icon);
+    if (result) {
+      const [s, alias] = result;
+      return this.lookup(alias) || undefined;
     }
-    return icon;
+    return undefined;
   }
+
+  abstract lookup(alias: string): string | undefined;
 }
