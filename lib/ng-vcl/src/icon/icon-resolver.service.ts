@@ -31,7 +31,7 @@ export class FontAwesomeIconResolverService implements IconResolver {
 
 @Injectable()
 export class MDIIconResolverService implements IconResolver {
-  private MDI_REGEX = /^(MDI):([a-z0-9-_]+)$/;
+  private MDI_REGEX = /^(mdi):([a-z0-9-_]+)$/;
 
   match(icon: string) {
     return this.MDI_REGEX.test(icon);
