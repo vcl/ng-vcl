@@ -3,8 +3,8 @@ import { AlertService, AlertType, AlertAlignment, AlertInput } from '@ng-vcl/ng-
 import { Component } from '@angular/core';
 import { retryWhen, switchMap } from 'rxjs/operators';
 
-function async(data: any, error?: boolean | Function): Observable<any> {
-  return Observable.create(observer => {
+function createAsyncResult(data: any, error?: boolean | Function): Observable<any> {
+  return new Observable(observer => {
     setTimeout(() => {
       let err;
       if (typeof error === 'function') {
@@ -97,9 +97,11 @@ export class AlertDemoComponent {
       cancelButtonLabel: 'No',
       confirmButtonLabel: 'Yes'
     }).subscribe((result) => {
-      this.alert.success('File deleted');
-    }, err => {
-      this.alert.error('Reason: ' + err.reason , { title: 'File not deleted' });
+      if (result.action === 'confirm') {
+        this.alert.success('File deleted');
+      } else {
+        this.alert.error('Reason: ' + result.action , { title: 'File not deleted' });
+      }
     });
   }
 
@@ -115,14 +117,19 @@ export class AlertDemoComponent {
   async() {
     this.alert.open({
       text: 'Determine your user agent?',
-      confirmAction: async(window.navigator.userAgent),
+      confirmAction: createAsyncResult(window.navigator.userAgent),
       showCancelButton: true
     }).subscribe(result => {
-      this.alert.info(result.value, {
-        title: 'Your user agent'
-      });
+      console.log(result);
+      if (result.action === 'confirm') {
+        this.alert.info(result.value, {
+          title: 'Your user agent'
+        });
+      }
+
+
     }, err => {
-      this.alert.error('Could not determine user agent');
+      // this.alert.error('Could not determine user agent');
     });
   }
 
@@ -138,36 +145,40 @@ export class AlertDemoComponent {
         return true;
       }
     }).subscribe(result => {
-      this.alert.info('Hello ' + result.value);
+      if (result.action === 'confirm') {
+        this.alert.info('Hello ' + result.value);
+      }
     }, this.alert.noop);
   }
 
   retry() {
     // This fake async request will fail the first time
     let fails = 0;
-    const fakeAsync = async(new Date().toLocaleTimeString(), () => ++fails <= 1);
+    const fakeAsync = createAsyncResult(new Date().toLocaleTimeString(), () => ++fails <= 1);
 
     // Add a retry routine using an alert
-    const fakeAsyncWithRetries = fakeAsync.pipe(retryWhen(errors => {
-      return errors.pipe(switchMap(err => {
-        return this.alert.open({
-          text: 'Retry?',
-          type: AlertType.Warning,
-          showCancelButton: true,
-        });
+    const fakeAsyncWithRetries = fakeAsync.pipe(
+      retryWhen(errors => {
+        return errors.pipe(switchMap(err => {
+          return this.alert.open({
+            text: 'Retry?',
+            type: AlertType.Warning,
+            showCancelButton: true,
+            cancelButtonThrowsError: true,
+            offClickClose: false
+          });
+        }));
       }));
-    }));
 
     this.alert.open({
       text: 'Show current time? (will fail the first time)',
       showCancelButton: true,
-      confirmAction: fakeAsyncWithRetries
+      confirmAction: fakeAsyncWithRetries,
+      cancelButtonThrowsError: true,
+      closeThrowsError: true
     }).subscribe(result => {
       this.alert.info(result.value, { title: 'Time' });
-    }, err => {
-      console.log(err);
-      this.alert.error(String(err ? err.reason : err), { title: 'Error' });
-    });
+    }, err => { });
   }
 
 }

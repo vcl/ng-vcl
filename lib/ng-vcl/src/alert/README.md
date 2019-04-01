@@ -24,9 +24,11 @@ export class MyComponent {
       cancelButtonLabel: 'No',
       confirmButtonLabel: 'Yes'
     }).subscribe((result) => {
-      this.alert.success('File deleted');
-    }, err => {
-      this.alert.error('File not deleted');
+      if (result.action === 'confirm') {
+        this.alert.success('File deleted');
+      } else {
+        this.alert.error('File not deleted');
+      }
     });
   }
 
@@ -76,9 +78,11 @@ this.alert.open({
   cancelButtonLabel: 'No',
   confirmButtonLabel: 'Yes'
 }).subscribe((result) => {
-  this.alert.success('File deleted');
-}, err => {
-  this.alert.error('Reason: ' + err.reason , 'File not deleted');
+  if (result.action === 'confirm') {
+    this.alert.success('File deleted');
+  } else {
+    this.alert.error('File not deleted');
+  }
 });
 
 // Loader without buttons
@@ -95,7 +99,9 @@ this.alert.open({
   confirmAction: this.http.get('/foo/data'),
   showCancelButton: true
 }).subscribe(result => {
-  this.alert.info(result.value, { title: 'Your foo data' });
+  if (result.action === 'confirm') {
+    this.alert.info(result.value, { title: 'Your foo data' });
+  } 
 }, err => {
   this.alert.error(err, { title: 'Could not fetch data' });
 });
@@ -135,35 +141,37 @@ All attributes are optional
 
 | Name                    | Type           | Default         | Description
 | ----------------------- | -------------- | --------------- | --------------
-| `text`                  | string         |                 | The main message
-| `title`                 | string         |                 | A title
-| `html`                  | boolean        | false           | Treats the main message as html when `true`
-| `type`                  | AlertType      | None            | The type. Defines color and icon.
-| `showConfirmButton`     | boolean        | true            | Show the confirmation button
-| `showCancelButton`      | boolean        | false           | Show the cancel button
-| `showCloseButton`       | boolean        | false           | Show the close button
-| `offClickClose`         | boolean        | true            | When false, close alert on offClick
-| `escClose`              | boolean        | true            | When false, close alert by pressing `esc`
-| `customClass`           | string         |                 | A custom css class for the alert modal
-| `confirmButtonLabel`    | string         | 'OK'            | Changes the confirm button label
-| `confirmButtonClass`    | string         | 'vclEmphasized' | Adds a class to the confirm button
-| `confirmButtonPrepIcon` | string         |                 | icon to be prepended to the confirm button label
-| `confirmButtonAppIcon`  | string         |                 | same as `confirmButtonPrepIcon`, but appended
-| `cancelButtonLabel`     | string         | 'Cancel'        | Changes the cancel button label
-| `cancelButtonClass`     | string         | 'vclDanger'     | Adds a class to the cancel button
-| `cancelButtonPrepIcon`  | string         |                 | icon to be prepended to the cancel button label
-| `cancelButtonAppIcon`   | string         |                 | same as `cancelButtonPrepIcon`, but appended
-| `loader`                | boolean        | false           | Enables loader mode
-| `loaderOnConfirm`       | boolean        | false           | Enables loader mode after clicking on the confirm button instead of closing the alert modal
-| `confirmAction`         | Observable     |                 | Enables loader and subscribes to observable. Closes alert when the observable completes or errors.
-| `input`                 | AlertInput     | None            | Input element
-| `inputValue`            | any            |                 | Default value for the input
-| `inputPlaceholder`      | string         |                 | A placeholder. Shown in the input element when using AlertInput.Text
-| `inputValidator`        | function       |                 | Input validator callback
-| `contentAlignment`      | AlertAlignment | Left            | Alignment of the content
-| `titleAlignment`        | AlertAlignment | Left            | Alignment of the title
-| `iconAlignment`         | AlertAlignment | Center          | Alignment of the icon
-| `buttonAlignment`       | AlertAlignment | Right           | Alignment of the buttons
+| `text`                    | string         |                 | The main message
+| `title`                   | string         |                 | A title
+| `html`                    | boolean        | false           | Treats the main message as html when `true`
+| `type`                    | AlertType      | None            | The type. Defines color and icon.
+| `showConfirmButton`       | boolean        | true            | Show the confirmation button
+| `showCancelButton`        | boolean        | false           | Show the cancel button
+| `showCloseButton`         | boolean        | false           | Show the close button
+| `offClickClose`           | boolean        | true            | When false, close alert on offClick
+| `escClose`                | boolean        | true            | When false, close alert by pressing `esc`
+| `customClass`             | string         |                 | A custom css class for the alert modal
+| `confirmButtonLabel`      | string         | 'OK'            | Changes the confirm button label
+| `confirmButtonClass`      | string         | 'vclEmphasized' | Adds a class to the confirm button
+| `confirmButtonPrepIcon`   | string         |                 | icon to be prepended to the confirm button label
+| `confirmButtonAppIcon`    | string         |                 | same as `confirmButtonPrepIcon`, but appended
+| `cancelButtonLabel`       | string         | 'Cancel'        | Changes the cancel button label
+| `cancelButtonClass`       | string         | 'vclDanger'     | Adds a class to the cancel button
+| `cancelButtonPrepIcon`    | string         |                 | icon to be prepended to the cancel button label
+| `cancelButtonAppIcon`     | string         |                 | same as `cancelButtonPrepIcon`, but appended
+| `cancelButtonThrowsError` | boolean        |                 | Throw an error instead of passing a result on cancel
+| `closeThrowsError`        | boolean        |                 | Throw an error instead of passing a result on close
+| `loader`                  | boolean        | false           | Enables loader mode
+| `loaderOnConfirm`         | boolean        | false           | Enables loader mode after clicking on the confirm button instead of closing the alert modal
+| `confirmAction`           | Observable     |                 | Enables loader and subscribes to observable. Closes alert when the observable completes or errors.
+| `input`                   | AlertInput     | None            | Input element
+| `inputValue`              | any            |                 | Default value for the input
+| `inputPlaceholder`        | string         |                 | A placeholder. Shown in the input element when using AlertInput.Text
+| `inputValidator`          | function       |                 | Input validator callback
+| `contentAlignment`        | AlertAlignment | Left            | Alignment of the content
+| `titleAlignment`          | AlertAlignment | Left            | Alignment of the title
+| `iconAlignment`           | AlertAlignment | Center          | Alignment of the icon
+| `buttonAlignment`         | AlertAlignment | Right           | Alignment of the buttons
 
 #### Enums
 

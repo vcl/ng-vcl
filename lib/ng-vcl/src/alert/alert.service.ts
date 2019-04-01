@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
-import { AlertComponent, dismiss } from './alert.component';
+import { AlertComponent } from './alert.component';
 import { LayerService, LayerRef, LayerResult } from './../layer/index';
 
 @Injectable()
@@ -37,19 +37,26 @@ export class AlertService {
   }
 
   open(...opts: AlertOptions[]): LayerResult<AlertResult> {
-    return this.create(...opts).open();
-  }
-
-  create(...opts: AlertOptions[]) {
     const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
     return this.ls.create(AlertComponent, {
       offClick: (layer) => {
-        dismiss(layer, 'offClick');
+        if (alert.offClickClose) {
+          if (alert.closeThrowsError) {
+            layer.closeWithError({
+              action: 'close'
+            });
+          } else {
+            layer.close({
+              action: 'close'
+            });
+          }
+        }
       },
       modal: true,
       transparent: true,
       attrs: {alert}
-    });
+    }).open();
+
   }
 
   noop = () => {};

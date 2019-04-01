@@ -30,6 +30,7 @@ export interface AlertOptions {
   showCloseButton?: boolean;
   offClickClose?: boolean;
   escClose?: boolean;
+  closeThrowsError?: boolean;
   customClass?: string;
   confirmButtonLabel?: string;
   confirmButtonClass?: string;
@@ -41,6 +42,7 @@ export interface AlertOptions {
   cancelButtonColor?: string;
   cancelButtonPrepIcon?: string;
   cancelButtonAppIcon?: string;
+  cancelButtonThrowsError?: boolean;
   loader?: boolean;
   loaderOnConfirm?: boolean;
   input?: AlertInput;
@@ -64,6 +66,8 @@ export const ALERT_DEFAULTS: AlertOptions = {
   escClose: true,
   cancelButtonLabel: 'Cancel',
   cancelButtonClass: 'vclDanger',
+  cancelButtonThrowsError: false,
+  closeThrowsError: false,
   confirmButtonLabel: 'OK',
   confirmButtonClass: 'vclEmphasized',
   loader: false,
@@ -115,6 +119,7 @@ export const BUTTON_ALIGNMENT_CLASS_MAP = {
 };
 
 export interface AlertResult {
+  action: 'confirm' | 'close' | 'cancel';
   value?: any;
   close?: () => void;
 }

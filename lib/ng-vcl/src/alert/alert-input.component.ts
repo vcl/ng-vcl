@@ -16,10 +16,9 @@ export class AlertInputComponent implements OnInit, AfterViewInit {
   @Input()
   alert: AlertOptions = {};
 
-  @Output()
-
   inputValue = '';
 
+  @Output()
   valueChange = new EventEmitter<any>();
 
   ngOnInit() {

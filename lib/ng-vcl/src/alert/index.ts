@@ -1,10 +1,13 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {OverlayModule} from '@angular/cdk/overlay';
 import { VCLIcogramModule } from './../icogram/index';
 import { VCLButtonModule } from './../button/index';
 import { VCLLayerModule } from './../layer/index';
 import { VCLInputModule } from './../input/index';
+import { VCLIconModule } from '../icon';
+import { VCLBusyIndicatorModule } from '../busy-indicator';
 import { AlertComponent } from './alert.component';
 import { AlertInputComponent } from './alert-input.component';
 import { AlertService } from './alert.service';
@@ -16,9 +19,12 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
   imports: [
     FormsModule,
     CommonModule,
+    OverlayModule,
     VCLButtonModule,
     VCLInputModule,
     VCLIcogramModule,
+    VCLIconModule,
+    VCLBusyIndicatorModule,
     VCLLayerModule.forChild({layers: []})
   ],
   exports: [],

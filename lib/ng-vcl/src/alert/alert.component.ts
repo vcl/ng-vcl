@@ -1,15 +1,7 @@
-import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, AfterViewInit, ElementRef } from '@angular/core';
+import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription ,  Subject ,  Observable ,  from } from 'rxjs';
 import { LayerRef, LayerService, Layer } from './../layer/index';
 import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
-
-export function dismiss(layer: LayerRef, err: AlertError | any) {
-  if (err instanceof Error) {
-    layer.closeWithError(err);
-  } else {
-    layer.closeWithError(new AlertError(err));
-  }
-}
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -19,7 +11,9 @@ export function dismiss(layer: LayerRef, err: AlertError | any) {
     '[style.outline]': '"none"'
   }
 })
-export class AlertComponent implements AfterViewInit {
+export class AlertComponent implements AfterViewInit, OnDestroy {
+
+  confirmActionSub?: Subscription;
 
   constructor(private elementRef: ElementRef,  private alertLayer: LayerRef, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
     this.alertLayer = alertLayer;
@@ -36,7 +30,7 @@ export class AlertComponent implements AfterViewInit {
     // Check if the top layer is the alert layer
     if (this.layerService.getTopLayer() === this.alertLayer) {
       if (ev.key === 'Escape' && this.alert.escClose) {
-        dismiss(this.alertLayer, 'esc');
+        this.close();
       } else if (ev.key === 'Enter') {
         this.confirm();
       }
@@ -74,7 +68,9 @@ export class AlertComponent implements AfterViewInit {
   confirm() {
     if (this.alert.loader) { return; }
 
-    const result: AlertResult = {};
+    const result: AlertResult = {
+      action: 'confirm',
+    };
 
     if (this.alert.input) {
       if (this.alert.inputValidator) {
@@ -96,12 +92,14 @@ export class AlertComponent implements AfterViewInit {
       this.alert.loader = true;
       this.cdRef.markForCheck();
       const $ = from(typeof this.alert.confirmAction === 'function' ? this.alert.confirmAction(result) : this.alert.confirmAction);
-      $.subscribe(value => {
-        const asyncResult: AlertResult = {};
+      this.confirmActionSub = $.subscribe(value => {
+        const asyncResult: AlertResult = {
+          action: 'confirm'
+        };
         asyncResult.value = value;
         this.alertLayer.send(asyncResult);
       }, err => {
-        dismiss(this.alertLayer, err);
+        this.alertLayer.closeWithError(err);
       }, () => {
         this.alertLayer.close();
       });
@@ -118,14 +116,32 @@ export class AlertComponent implements AfterViewInit {
   }
 
   cancel() {
-    dismiss(this.alertLayer, 'cancel');
+    const result: AlertResult = {
+      action: 'cancel'
+    };
+    if (this.alert.cancelButtonThrowsError) {
+      this.alertLayer.closeWithError(result);
+    } else {
+      this.alertLayer.close(result);
+    }
   }
 
   close() {
-    dismiss(this.alertLayer, 'close');
+    const result: AlertResult = {
+      action: 'close'
+    };
+    if (this.alert.closeThrowsError) {
+      this.alertLayer.closeWithError(result);
+    } else {
+      this.alertLayer.close(result);
+    }
   }
 
   valueChange(value: any) {
     this.value = value;
+  }
+
+  ngOnDestroy() {
+    this.confirmActionSub && this.confirmActionSub.unsubscribe();
   }
 }
