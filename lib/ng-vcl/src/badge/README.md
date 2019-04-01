@@ -15,17 +15,17 @@ export class AppComponent {}
 ```
 
 ```html
-<span vcl-badge>default</span>
+<vcl-badge>default</vcl-badge>
 
-<span vcl-badge="primary">primary</span>
+<vcl-badge type="primary">primary</vcl-badge>
 
-<span vcl-badge="success">success</span>
+<vcl-badge type="success">success</vcl-badge>
 
-<span vcl-badge="info">info</span>
+<vcl-badge type="info">info</vcl-badge>
 
-<span vcl-badge="warning">warning</span>
+<vcl-badge type="warning">warning</vcl-badge>
 
-<span vcl-badge="error">error</span>
+<vcl-badge type="error">error</vcl-badge>
 ```
 
 ### API
@@ -34,4 +34,4 @@ export class AppComponent {}
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------
-`vcl-badge`| string |         | the badge's type
+`type`     | string |         | the badge's type

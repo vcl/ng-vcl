@@ -1,14 +1,14 @@
 import { Directive, Input, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[vcl-badge]',
+  selector: 'vcl-badge',
   host: {
     '[class.vclBadge]': 'true'
   }
 })
 export class BadgeDirective {
 
-  @Input('vcl-badge')
+  @Input()
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
 
   @HostBinding('class.vclPrimary')
