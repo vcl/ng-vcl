@@ -15,6 +15,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   templateUrl: 'checkbox.component.html',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  exportAs: 'vclCheckbox',
   host: {
     '[class.vclInputControlGroup]': 'true',
   }
@@ -25,19 +26,10 @@ export class CheckboxComponent implements ControlValueAccessor {
   tabindex = 0;
 
   @Input()
-  checkedIcon = 'fas fa-check-square';
-
-  @Input()
-  uncheckedIcon = 'fas fa-square';
-
-  @Input()
-  label?: string;
-
-  @Input()
   disabled = false;
 
   @Input()
-  iconPosition: 'left' | 'right' = 'left';
+  labelPosition: 'after' | 'before' = 'after';
 
   @Input()
   checked = false;
@@ -60,18 +52,18 @@ export class CheckboxComponent implements ControlValueAccessor {
     switch (e.code) {
       case 'Space':
         e.preventDefault();
-        this.updateValue();
+        this.toggleValue();
         break;
     }
   }
 
-  @HostListener('tap', ['$event'])
-  onTap(e) {
+  @HostListener('click', ['$event'])
+  onClick(e) {
     e.preventDefault();
-    return this.updateValue();
+    return this.toggleValue();
   }
 
-  updateValue() {
+  toggleValue() {
     if (this.isDisabled) {
       return;
     }
@@ -79,10 +71,6 @@ export class CheckboxComponent implements ControlValueAccessor {
     this.checkedChange.emit(this.checked);
     this.onTouched();
     this.onChange(this.checked);
-  }
-
-  get icon() {
-    return this.checked ? this.checkedIcon : this.uncheckedIcon;
   }
 
   get isDisabled() {

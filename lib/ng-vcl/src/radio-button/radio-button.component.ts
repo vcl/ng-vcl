@@ -17,11 +17,7 @@ let uniqueID = 0;
   selector: 'vcl-radio-button',
   templateUrl: 'radio-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  host: {
-    '[style.display]': 'inline === true ? "inline-block" : null',
-    '[class.vclInputControlGroup]': 'inline === false',
-  },
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {
 
@@ -32,22 +28,13 @@ export class RadioButtonComponent implements ControlValueAccessor {
   id: string = this.uniqueID;
 
   @Input()
-  checkedIcon = 'fas fa-dot-circle';
-
-  @Input()
-  uncheckedIcon = 'fas fa-circle';
-
-  @Input()
   disabled = false;
 
   @Input()
   value: any;
 
   @Input()
-  inline = false;
-
-  @Input()
-  iconPosition: 'left' | 'right' = 'left';
+  labelPosition: 'after' | 'before' = 'after';
 
   @Input()
   label: string;
@@ -73,10 +60,6 @@ export class RadioButtonComponent implements ControlValueAccessor {
     return this.cvaDisabled || this.disabled;
   }
 
-  get icon() {
-    return this.checked ? this.checkedIcon : this.uncheckedIcon;
-  }
-
   // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
   private cvaDisabled = false;
   constructor(private cdRef: ChangeDetectorRef) { }
@@ -89,8 +72,8 @@ export class RadioButtonComponent implements ControlValueAccessor {
     }
   }
 
-  @HostListener('tap', ['$event'])
-  onTap(e: Event) {
+  @HostListener('click', ['$event'])
+  onClick(e: Event) {
     this.triggerChangeAction(e);
   }
 
@@ -113,11 +96,6 @@ export class RadioButtonComponent implements ControlValueAccessor {
 
   setChecked(value: boolean) {
     this.checked = value;
-    this.cdRef.markForCheck();
-  }
-
-  setInline(value: boolean) {
-    this.inline = value;
     this.cdRef.markForCheck();
   }
 

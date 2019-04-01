@@ -1,5 +1,5 @@
 <h3>Checkable</h3>
-<vcl-radio-button [(checked)]="isChecked" (checkedChange)="onChange($event)"></vcl-radio-button> <a vcl-link (tap)="isChecked=false">Uncheck</a>
+<vcl-radio-button [(checked)]="isChecked" (checkedChange)="onChange($event)"></vcl-radio-button> <a (tap)="isChecked=false">Uncheck</a>
 
 <br>
 <h3>Disabled</h3>
@@ -8,22 +8,22 @@
 <br>
 <h3>With label</h3>
 
-<vcl-radio-button [(checked)]="isChecked2" label="icon left"></vcl-radio-button>
-<vcl-radio-button [(checked)]="isChecked3" label="icon right" iconPosition="right"></vcl-radio-button>
+<vcl-radio-button [(checked)]="isChecked2" label="">label after</vcl-radio-button>
+<vcl-radio-button [(checked)]="isChecked3" label="" labelPosition="before">label before</vcl-radio-button>
 
 <br>
 <h3>With custom content</h3>
 
 <vcl-radio-button [(checked)]="isChecked4">
-  <span vcl-icogram label="Yes" appIcon="fas:check"></span>
+  <vcl-icogram appIcon="fas:check">Yes</vcl-icogram>
 </vcl-radio-button>
 
 
 <h3>Radio Group using index as value</h3>
 
 <vcl-radio-group [(ngModel)]="rgValue1">
-  <vcl-radio-button label="Value 1"></vcl-radio-button>
-  <vcl-radio-button label="Value 2"></vcl-radio-button>
+  <vcl-radio-button>Value 1</vcl-radio-button>
+  <vcl-radio-button>Value 2</vcl-radio-button>
 </vcl-radio-group>
 <br>
 State: {{rgValue1}}
@@ -32,10 +32,10 @@ State: {{rgValue1}}
 
 <vcl-radio-group [(ngModel)]="rgValue2">
   <vcl-radio-button [value]="'f'">
-    <span vcl-icogram label="Female" appIcon="fas:venus"></span>
+    <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
   </vcl-radio-button>
   <vcl-radio-button [value]="'m'">
-    <span vcl-icogram label="Male" appIcon="fas:mars"></span>
+    <vcl-icogram appIcon="fas:mars">Male</vcl-icogram>
   </vcl-radio-button>
 </vcl-radio-group>
 <br>
@@ -44,8 +44,8 @@ State: {{rgValue2}}
 <h3>Vertical Radio Group</h3>
 
 <vcl-radio-group [(ngModel)]="rgValue3" [layout]="'vertical'">
-  <vcl-radio-button label="Value 1"></vcl-radio-button>
-  <vcl-radio-button label="Value 2"></vcl-radio-button>
+  <vcl-radio-button>Value 1</vcl-radio-button>
+  <vcl-radio-button>Value 2</vcl-radio-button>
 </vcl-radio-group>
 <br>
 State: {{rgValue3}}

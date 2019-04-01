@@ -3,7 +3,4 @@
   {{requiredIndicatorCharacter}}
 </em>
 <span *ngIf="subLabel" class="vclFormControlSubLabel">{{subLabel}}</span>
-
-<div [style.display]="hasContent ? undefined : 'none'" #content>
-  <ng-content></ng-content>
-</div>
+<ng-content></ng-content>

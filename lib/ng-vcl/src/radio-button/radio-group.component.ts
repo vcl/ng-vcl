@@ -18,12 +18,21 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'vcl-radio-group',
-  template: `<ng-content></ng-content>`,
+  template: `<ng-content select="vcl-radio-button"></ng-content>`,
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'attr.role': '"radiogroup"'
-  }
+  },
+  styles: [
+    // TODO: Workaround for difficult VCL horizontal/vertical html layout
+    // TODO: ::ng-deep deprecated
+    `
+    :host(.vclInputInlineControlGroup) ::ng-deep vcl-radio-button {
+        display: inline-block;
+      }
+    `
+  ]
 })
 export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAccessor, AfterContentInit {
 
@@ -76,11 +85,6 @@ export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAc
     this.changesSub = this.radioButtons && this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {
       this.dispose();
       if (this.radioButtons) {
-        // Sync inline property
-        this.radioButtons && this.radioButtons.forEach((crbtn) => {
-          crbtn.setInline(this.layout === 'horizontal');
-        });
-
         // Subscribe last radio button to blur event
         this.blurSub = this.radioButtons.last && this.radioButtons.last.blur.subscribe(() => {
           this.onTouched();

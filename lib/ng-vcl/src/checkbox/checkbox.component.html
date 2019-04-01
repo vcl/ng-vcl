@@ -1,20 +1,24 @@
-<ng-template #cb>
-  <div class="vclCheckbox" 
-      [class.vclDisabled]="isDisabled" 
-      role="checkbox" 
-      [attr.tabindex]="tabindex" 
-      [attr.aria-checked]="checked"
-      [attr.aria-disabled]="isDisabled"
-      (keyup)="onKeyup($event)"
-      (blur)="onBlur()"
-      >
-  <div vcl-icon [icon]="icon"></div>
-</div>  
-</ng-template>
+<ng-template #content><ng-content></ng-content></ng-template>
 
-<label vcl-form-control-label [wrapping]="true" [label]="hideLabel ? '' : label">
-  <ng-container *ngIf="iconPosition==='left'" [ngTemplateOutlet]="cb"></ng-container>
-  {{label }}
-  <ng-content></ng-content>
-  <ng-container *ngIf="iconPosition==='right'" [ngTemplateOutlet]="cb"></ng-container>
+<label class="vclFormControlLabel vclFormControlLabelWrapping">
+  <ng-container *ngIf="labelPosition==='before'">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </ng-container>
+
+  <span 
+    class="vclCheckbox" 
+    [class.vclDisabled]="isDisabled" 
+    role="checkbox" 
+    [attr.tabindex]="tabindex" 
+    [attr.aria-checked]="checked"
+    [attr.aria-disabled]="isDisabled"
+    (keyup)="onKeyup($event)"
+    (blur)="onBlur()"
+    >
+    <vcl-icon [icon]="checked ? 'vcl:box-checked' : 'vcl:box'"></vcl-icon>
+  </span>
+
+  <ng-container *ngIf="labelPosition==='after'">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </ng-container>
 </label>
