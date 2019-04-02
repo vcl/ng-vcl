@@ -1,33 +1,39 @@
 
 Icon left and placeholder text
 <vcl-embedded-input-group prepIcon="fas:search">
-  <input vcl-input vcl-embedded-input-group placeholder="Postcode, City, Name of the Workshop" />
+  <input vclEmbeddedInputGroup placeholder="Postcode, City, Name of the Workshop" />
 </vcl-embedded-input-group>
 
 Placeholder text and icon on the right
 <vcl-embedded-input-group appIcon="fas:search">
-  <input vcl-input vcl-embedded-input-group placeholder="Postcode, City, Name of the Workshop" />
+  <input vclEmbeddedInputGroup placeholder="Postcode, City, Name of the Workshop" />
 </vcl-embedded-input-group>
 
 Button on the right
 <vcl-embedded-input-group>
-  <input vcl-input vcl-embedded-input-group />
-  <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fas:times-circle'"></button>
+  <input vclEmbeddedInputGroup />
+  <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
 </vcl-embedded-input-group>
 
 Left icon and button on the right
 <vcl-embedded-input-group prepIcon="fas:cog">
-  <input vcl-input vcl-embedded-input-group />
-  <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fas:times-circle'"></button>
+  <input vclEmbeddedInputGroup />
+  <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
+</vcl-embedded-input-group>
+
+Disabled group
+<vcl-embedded-input-group prepIcon="fas:cog" [disabled]=true>
+  <input vclEmbeddedInputGroup />
+  <button vcl-icon-button vclEmbeddedInputGroup [icon]="'fas:times-circle'"></button>
 </vcl-embedded-input-group>
 
 Combined with Input-group
 <div class="vclInputGroup">
   <vcl-embedded-input-group prepIcon="fas:cog">
-    <input vcl-input vcl-embedded-input-group />
-    <button vcl-button vcl-embedded-input-group (tap)="someAction($event)" [icon]="'fas:times-circle'"></button>
+    <input vclEmbeddedInputGroup />
+    <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
   </vcl-embedded-input-group>
   <div class="vclInputGroupButton">
-    <button vcl-button class="vclButton" label="GO" (tap)="someAction($event)"></button>
+    <button vcl-button class="vclButton" label="" (click)="someAction($event)">GO</button>
   </div>
 </div>

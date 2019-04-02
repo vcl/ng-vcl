@@ -2,10 +2,10 @@
   <vcl-icon [icon]='prepIcon'></vcl-icon>
 </div>
 
-<ng-content select="input[vcl-input][vcl-embedded-input-group]"></ng-content>
+<ng-content select="input[vclEmbeddedInputGroup]"></ng-content>
 
 <div *ngIf='appIcon' class="vclAppended">
   <vcl-icon [icon]='appIcon'></vcl-icon>
 </div>
 
-<ng-content select="button[vcl-button][vcl-embedded-input-group]"></ng-content>
+<ng-content select="button[vclEmbeddedInputGroup]"></ng-content>
