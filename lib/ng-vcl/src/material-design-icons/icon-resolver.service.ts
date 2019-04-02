@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IconResolverService, VCLIconResolverServiceBase } from '../icon';
+import { ALIAS_MAP } from './alias-map';
 
 // The mdi name resolver following the CSS class name conventions of
 // the well-known Font Awesome icon font. Basically it translates
@@ -21,12 +22,6 @@ export class MaterialDesignIconResolverService implements IconResolverService {
   }
 }
 
-const ALIAS_MAP = {
-  'close': 'mdi mdi-close',
-  'busy': 'mdi mdi-loading mdi-spin'
-};
-
-@Injectable()
 export class MaterialDesignVCLIconResolverServiceBase extends VCLIconResolverServiceBase {
   priority = 15;
 

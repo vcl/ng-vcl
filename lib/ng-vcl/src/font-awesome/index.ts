@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
-import { FontAwesomeIconResolverService, FontAwesomeDefaultIconResolverService } from './icon-resolver.service';
-import { VCL_ICON_RESOLVER } from '../icon';
+import { IconResolverService } from '../icon';
+import { FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService } from './icon-resolver.service';
 
-export { FontAwesomeIconResolverService };
+export { FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService };
 
 @NgModule({
-  providers: [{
-    provide: VCL_ICON_RESOLVER,
-    useClass: FontAwesomeIconResolverService,
-    multi: true
-  }, {
-    provide: VCL_ICON_RESOLVER,
-    useClass: FontAwesomeDefaultIconResolverService,
-    multi: true
-  }]
+  providers: [
+    FontAwesomeIconResolverService,
+    FontAwesomeVCLIconResolverService,
+    {
+      provide: IconResolverService,
+      useExisting: FontAwesomeIconResolverService,
+      multi: true
+    }, {
+      provide: IconResolverService,
+      useExisting: FontAwesomeVCLIconResolverService,
+      multi: true
+    }
+  ]
 })
 export class VCLFontAwesomeModule { }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { VCLIconResolverServiceBase, IconResolverService } from '../icon';
-import { constants } from 'os';
+import { ALIAS_MAP } from './alias-map';
 
 // The font-awesome name resolver following the CSS class name conventions of
 // the well-known Font Awesome icon font. Basically it translates
@@ -21,11 +21,6 @@ export class FontAwesomeIconResolverService implements IconResolverService {
     return undefined;
   }
 }
-
-const ALIAS_MAP = {
-  'close': 'fas fa-times',
-  'busy': 'fas fa-circle-notch fa-spin'
-};
 
 @Injectable()
 export class FontAwesomeVCLIconResolverService extends VCLIconResolverServiceBase {
