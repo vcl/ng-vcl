@@ -63,7 +63,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"common":"common","demos-button-demo-module":"demos-button-demo-module","demos-button-group-demo-module":"demos-button-group-demo-module","demos-icogram-demo-module":"demos-icogram-demo-module","demos-icon-demo-module":"demos-icon-demo-module","demos-input-demo-module":"demos-input-demo-module"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"common":"common","demos-alert-demo-module":"demos-alert-demo-module","demos-autocomplete-demo-module":"demos-autocomplete-demo-module","demos-badge-demo-module":"demos-badge-demo-module","demos-busy-indicator-demo-module":"demos-busy-indicator-demo-module","demos-button-demo-module":"demos-button-demo-module","demos-button-group-demo-module":"demos-button-group-demo-module","demos-checkbox-demo-module":"demos-checkbox-demo-module","demos-embedded-input-group-demo-module":"demos-embedded-input-group-demo-module","demos-form-control-label-demo-module":"demos-form-control-label-demo-module","demos-icogram-demo-module":"demos-icogram-demo-module","demos-icon-demo-module":"demos-icon-demo-module","demos-input-demo-module":"demos-input-demo-module","demos-radio-button-demo-module":"demos-radio-button-demo-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function

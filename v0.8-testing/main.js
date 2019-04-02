@@ -8,6 +8,26 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./demos/alert/demo.module": [
+		"./demo/app/demos/alert/demo.module.ts",
+		"common",
+		"demos-alert-demo-module"
+	],
+	"./demos/autocomplete/demo.module": [
+		"./demo/app/demos/autocomplete/demo.module.ts",
+		"common",
+		"demos-autocomplete-demo-module"
+	],
+	"./demos/badge/demo.module": [
+		"./demo/app/demos/badge/demo.module.ts",
+		"common",
+		"demos-badge-demo-module"
+	],
+	"./demos/busy-indicator/demo.module": [
+		"./demo/app/demos/busy-indicator/demo.module.ts",
+		"common",
+		"demos-busy-indicator-demo-module"
+	],
 	"./demos/button-group/demo.module": [
 		"./demo/app/demos/button-group/demo.module.ts",
 		"common",
@@ -17,6 +37,21 @@ var map = {
 		"./demo/app/demos/button/demo.module.ts",
 		"common",
 		"demos-button-demo-module"
+	],
+	"./demos/checkbox/demo.module": [
+		"./demo/app/demos/checkbox/demo.module.ts",
+		"common",
+		"demos-checkbox-demo-module"
+	],
+	"./demos/embedded-input-group/demo.module": [
+		"./demo/app/demos/embedded-input-group/demo.module.ts",
+		"common",
+		"demos-embedded-input-group-demo-module"
+	],
+	"./demos/form-control-label/demo.module": [
+		"./demo/app/demos/form-control-label/demo.module.ts",
+		"common",
+		"demos-form-control-label-demo-module"
 	],
 	"./demos/icogram/demo.module": [
 		"./demo/app/demos/icogram/demo.module.ts",
@@ -32,6 +67,11 @@ var map = {
 		"./demo/app/demos/input/demo.module.ts",
 		"common",
 		"demos-input-demo-module"
+	],
+	"./demos/radio-button/demo.module": [
+		"./demo/app/demos/radio-button/demo.module.ts",
+		"common",
+		"demos-radio-button-demo-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -91,16 +131,16 @@ var routes = [
         path: '',
         component: _components_home_home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"],
     },
-    // {
-    //   loadChildren: './demos/badge/demo.module#BadgeDemoModule',
-    //   path: 'badge',
-    //   data: {
-    //     demo: {
-    //       label: 'Badge',
-    //       category: CAT_TYPOGRAPHICAL,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/badge/demo.module#BadgeDemoModule',
+        path: 'badge',
+        data: {
+            demo: {
+                label: 'Badge',
+                category: CAT_TYPOGRAPHICAL,
+            }
+        }
+    },
     // {
     //   loadChildren: './demos/label/demo.module#LabelDemoModule',
     //   path: 'label',
@@ -161,16 +201,16 @@ var routes = [
             }
         }
     },
-    // {
-    //   loadChildren: './demos/checkbox/demo.module#CheckboxDemoModule',
-    //   path: 'checkbox',
-    //   data: {
-    //     demo: {
-    //       label: 'Checkbox',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/checkbox/demo.module#CheckboxDemoModule',
+        path: 'checkbox',
+        data: {
+            demo: {
+                label: 'Checkbox',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
     // {
     //   loadChildren: './demos/date-picker/demo.module#DatePickerDemoModule',
     //   path: 'date-picker',
@@ -241,16 +281,16 @@ var routes = [
     //     }
     //   }
     // },
-    // {
-    //   loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
-    //   path: 'embedded-input-group',
-    //   data: {
-    //     demo: {
-    //       label: 'Embedded Input Group',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
+        path: 'embedded-input-group',
+        data: {
+            demo: {
+                label: 'Embedded Input Group',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
     // {
     //   loadChildren: './demos/month-picker/demo.module#MonthPickerDemoModule',
     //   path: 'month-picker',
@@ -261,16 +301,16 @@ var routes = [
     //     }
     //   }
     // },
-    // {
-    //   loadChildren: './demos/radio-button/demo.module#RadioButtonDemoModule',
-    //   path: 'radio-button',
-    //   data: {
-    //     demo: {
-    //       label: 'Radio Button',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/radio-button/demo.module#RadioButtonDemoModule',
+        path: 'radio-button',
+        data: {
+            demo: {
+                label: 'Radio Button',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
     // {
     //   loadChildren: './demos/select/demo.module#SelectDemoModule',
     //   path: 'select',
@@ -311,16 +351,16 @@ var routes = [
     //     }
     //   }
     // },
-    // {
-    //   loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
-    //   path: 'autocomplete',
-    //   data: {
-    //     demo: {
-    //       label: 'Autocomplete',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
+        path: 'autocomplete',
+        data: {
+            demo: {
+                label: 'Autocomplete',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
     // {
     //   loadChildren: './demos/form-mashups/demo.module#FormMashupsDemoModule',
     //   path: 'form-mashups',
@@ -341,16 +381,16 @@ var routes = [
     // //     }
     // //   }
     // // },
-    // // {
-    // //   loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
-    // //   path: 'form-control-label',
-    // //   data: {
-    // //     demo: {
-    // //       label: 'Form Control Label',
-    // //       category: CAT_FORMS,
-    // //     }
-    // //   }
-    // // },
+    {
+        loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
+        path: 'form-control-label',
+        data: {
+            demo: {
+                label: 'Form Control Label',
+                category: CAT_FORMS,
+            }
+        }
+    },
     // // {
     // //   loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
     // //   path: 'jss-form',
@@ -371,16 +411,16 @@ var routes = [
     // //     }
     // //   }
     // // },
-    // {
-    //   loadChildren: './demos/alert/demo.module#AlertDemoModule',
-    //   path: 'alert',
-    //   data: {
-    //     demo: {
-    //       label: 'Alert',
-    //       category: CAT_OVERLAYS,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/alert/demo.module#AlertDemoModule',
+        path: 'alert',
+        data: {
+            demo: {
+                label: 'Alert',
+                category: CAT_OVERLAYS,
+            }
+        }
+    },
     // {
     //   loadChildren: './demos/layer/demo.module#LayerDemoModule',
     //   path: 'layer',
@@ -461,6 +501,36 @@ var routes = [
             }
         }
     },
+    // {
+    //   loadChildren: './demos/zoom-box/demo.module#ZoomBoxDemoModule',
+    //   path: 'zoom-box',
+    //   data: {
+    //     demo: {
+    //       label: 'Zoom-Box',
+    //       category: CAT_MEDIA,
+    //     }
+    //   }
+    // },
+    // {
+    //   loadChildren: './demos/gallery/demo.module#GalleryDemoModule',
+    //   path: 'gallery',
+    //   data: {
+    //     demo: {
+    //       label: 'Gallery',
+    //       category: CAT_MEDIA,
+    //     }
+    //   }
+    // },
+    {
+        loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
+        path: 'busy-indicator',
+        data: {
+            demo: {
+                label: 'Busy Indicator',
+                category: CAT_STATUS_INFORMATION,
+            }
+        }
+    },
 ];
 var appRoutingProviders = [];
 var AppRoutingModule = /** @class */ (function () {
@@ -527,6 +597,8 @@ var AppModule = /** @class */ (function () {
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLButtonModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLIconModule"],
+                _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLFontAwesomeModule"],
+                // VCLMaterialDesignModule,
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLNavigationModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLLayerModule"].forRoot(),
                 _ng_vcl_animations__WEBPACK_IMPORTED_MODULE_7__["LayerAnimationsModule"],
@@ -1032,7 +1104,7 @@ var AlertInputComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AlertInputComponent.prototype, "inputValue", void 0);
+    ], AlertInputComponent.prototype, "valueChange", void 0);
     AlertInputComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             template: __webpack_require__(/*! ./alert-input.component.html */ "./lib/ng-vcl/src/alert/alert-input.component.html"),
@@ -1054,7 +1126,7 @@ var AlertInputComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclNotification\" [ngClass]=\"alertClass\">\n\n  <div class=\"vclNotificationHeader vclLayoutHorizontal vclLayoutCenter\" [ngClass]=\"titleAlignmentClass\" *ngIf=\"alert.title\">\n    <div class=\"vclLayoutFlex\">{{alert.title}}</div>\n    <button *ngIf=\"alert.showCloseButton\" type=\"button\" class=\"vclButton vclTransparent vclSquare\" (click)=\"close()\"><i class=\"fas fa-times\"></i></button>\n  </div>\n\n  <div class=\"vclNotificationContent vclLayoutVertical vclLayoutCenterJustified \">\n\n    <div *ngIf=\"iconClass\" class=\"vclNotificationIconContainer\" [ngClass]=\"iconAlignmentClass\">\n      <span class=\"vclIcon vclNotificationIcon\" [ngClass]=\"iconClass\"></span>\n    </div>\n\n    <div style=\"padding-bottom: 1em\" [ngClass]=\"contentAlignmentClass\" *ngIf=\"alert.text && !alert.html\">{{alert.text}}</div>\n    <div style=\"padding-bottom: 1em\" [ngClass]=\"contentAlignmentClass\" [innerHtml]=\"alert.text\" *ngIf=\"alert.text && alert.html\"></div>\n\n    <div style=\"padding-bottom: 0.5em\" *ngIf=\"alert.input\"><alert-input [alert]=\"alert\" (valueChange)=\"valueChange($event)\"></alert-input></div>\n\n    <div *ngIf=\"validationError\" class=\"vclNotification vclError\">\n      <div class=\"vclNotificationContent\">\n        <vcl-icogram prepIcon=\"fas:exclamation-circle\">{{validationError}}</vcl-icogram>\n      </div>\n    </div>\n\n    <div class=\"vclLayoutHorizontal vclLooseButtonGroup\" [ngClass]=\"buttonAlignmentClass\">\n      <button vcl-icogram-button\n        *ngIf=\"!!alert.showConfirmButton\"\n        type=\"button\"\n        (click)=\"confirm()\"\n        [style.background-color]=\"alert.confirmButtonColor\"\n        [ngClass]=\"alert.confirmButtonClass\"\n        [disabled]=\"alert.loader\"\n        [appIcon]=\"alert.loader ? null : alert.confirmButtonAppIcon\"\n        [prepIcon]=\"alert.loader ? 'fas:refresh fa-spin' : alert.confirmButtonPrepIcon\"\n        >\n        {{alert.confirmButtonLabel}}\n      </button>\n      <button vcl-icogram-button\n        *ngIf=\"!!alert.showCancelButton\"\n        type=\"button\"\n        [style.background-color]=\"!!alert.cancelButtonColor\"\n        [ngClass]=\"alert.cancelButtonClass\"\n        [appIcon]=\"alert.cancelButtonAppIcon\"\n        [prepIcon]=\"alert.cancelButtonPrepIcon\"\n        [disabled]=\"(!alert.showConfirmButton && !!alert.loader)\"\n        [appIcon]=\"(!alert.showConfirmButton && !!alert.loader) ? null : alert.cancelButtonAppIcon\"\n        [prepIcon]=\"(!alert.showConfirmButton && !!alert.loader) ? 'fas:refresh fa-spin' : alert.cancelButtonPrepIcon\"\n        (click)=\"cancel()\"\n        >\n        {{alert.cancelButtonLabel}}\n      </button>\n    </div>\n    <div *ngIf=\"!alert.showCancelButton && !alert.showConfirmButton && !!alert.loader\">\n      <div class=\"vclLayoutHorizontal vclLayoutCenterJustified\">\n        <div class=\"vclBusyIndicator vclIcogram vclLayoutVertical vclLayoutJustified\" role=\"status\">\n            <div class=\"vclIcon fas fa-circle-notch fa-spin fa-3x fa-fw\" aria-hidden=\"true\" aria-label=\"loading…\" role=\"img\"></div>\n          <div class=\"vclText\">Loading…</div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"vclNotification\" [ngClass]=\"alertClass\">\n\n  <div class=\"vclNotificationHeader vclLayoutHorizontal vclLayoutCenter\" [ngClass]=\"titleAlignmentClass\" *ngIf=\"alert.title\">\n    <div class=\"vclLayoutFlex\">{{alert.title}}</div>\n    <button vcl-icon-button *ngIf=\"alert.showCloseButton\" class=\"vclTransparent\" (click)=\"close()\" icon=\"vcl:close\"></button>\n  </div>\n\n  <div class=\"vclNotificationContent vclLayoutVertical vclLayoutCenterJustified \">\n\n    <div *ngIf=\"iconClass\" class=\"vclNotificationIconContainer\" [ngClass]=\"iconAlignmentClass\">\n      <vcl-icon class=\"vclNotificationIcon\" [ngClass]=\"iconClass\"></vcl-icon>\n    </div>\n\n    <div class=\"alertText\" [ngClass]=\"contentAlignmentClass\" *ngIf=\"alert.text && !alert.html\">{{alert.text}}</div>\n    <div class=\"alertText\" [ngClass]=\"contentAlignmentClass\" [innerHtml]=\"alert.text\" *ngIf=\"alert.text && alert.html\"></div>\n\n    <div *ngIf=\"alert.input\" class=\"alertInput\">\n      <alert-input [alert]=\"alert\" (valueChange)=\"valueChange($event)\"></alert-input>\n    </div>\n\n    <div *ngIf=\"validationError\" class=\"vclNotification vclError\">\n      <div class=\"vclNotificationContent\">\n        <vcl-icogram prepIcon=\"alert.validationErrorIcon\">{{validationError}}</vcl-icogram>\n      </div>\n    </div>\n\n    <div class=\"vclLayoutHorizontal vclLooseButtonGroup\" [ngClass]=\"buttonAlignmentClass\">\n      <button vcl-icogram-button\n        *ngIf=\"!!alert.showConfirmButton\"\n        type=\"button\"\n        (click)=\"confirm()\"\n        [style.background-color]=\"alert.confirmButtonColor\"\n        [ngClass]=\"alert.confirmButtonClass\"\n        [disabled]=\"alert.loader\"\n        [appIcon]=\"alert.loader ? null : alert.confirmButtonAppIcon\"\n        [prepIcon]=\"alert.loader ? 'vcl:busy' : alert.confirmButtonPrepIcon\"\n        >\n        {{alert.confirmButtonLabel}}\n      </button>\n      <button vcl-icogram-button\n        *ngIf=\"!!alert.showCancelButton\"\n        type=\"button\"\n        [style.background-color]=\"!!alert.cancelButtonColor\"\n        [ngClass]=\"alert.cancelButtonClass\"\n        [appIcon]=\"alert.cancelButtonAppIcon\"\n        [prepIcon]=\"alert.cancelButtonPrepIcon\"\n        [disabled]=\"(!alert.showConfirmButton && !!alert.loader)\"\n        [appIcon]=\"(!alert.showConfirmButton && !!alert.loader) ? null : alert.cancelButtonAppIcon\"\n        [prepIcon]=\"(!alert.showConfirmButton && !!alert.loader) ? 'vcl:busy' : alert.cancelButtonPrepIcon\"\n        (click)=\"cancel()\"\n        >\n        {{alert.cancelButtonLabel}}\n      </button>\n    </div>\n    <div *ngIf=\"!alert.showCancelButton && !alert.showConfirmButton && !!alert.loader\">\n      <div class=\"vclLayoutHorizontal vclLayoutCenterJustified\">\n        <vcl-busy-indicator></vcl-busy-indicator>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1062,12 +1134,11 @@ module.exports = "<div class=\"vclNotification\" [ngClass]=\"alertClass\">\n\n  
 /*!*************************************************!*\
   !*** ./lib/ng-vcl/src/alert/alert.component.ts ***!
   \*************************************************/
-/*! exports provided: dismiss, AlertComponent */
+/*! exports provided: AlertComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dismiss", function() { return dismiss; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertComponent", function() { return AlertComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
@@ -1079,14 +1150,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function dismiss(layer, err) {
-    if (err instanceof Error) {
-        layer.closeWithError(err);
-    }
-    else {
-        layer.closeWithError(new _types__WEBPACK_IMPORTED_MODULE_4__["AlertError"](err));
-    }
-}
 var AlertComponent = /** @class */ (function () {
     function AlertComponent(elementRef, alertLayer, layerService, cdRef) {
         this.elementRef = elementRef;
@@ -1100,7 +1163,7 @@ var AlertComponent = /** @class */ (function () {
         // Check if the top layer is the alert layer
         if (this.layerService.getTopLayer() === this.alertLayer) {
             if (ev.key === 'Escape' && this.alert.escClose) {
-                dismiss(this.alertLayer, 'esc');
+                this.close();
             }
             else if (ev.key === 'Enter') {
                 this.confirm();
@@ -1157,7 +1220,9 @@ var AlertComponent = /** @class */ (function () {
         if (this.alert.loader) {
             return;
         }
-        var result = {};
+        var result = {
+            action: 'confirm',
+        };
         if (this.alert.input) {
             if (this.alert.inputValidator) {
                 try {
@@ -1178,12 +1243,14 @@ var AlertComponent = /** @class */ (function () {
             this.alert.loader = true;
             this.cdRef.markForCheck();
             var $ = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["from"])(typeof this.alert.confirmAction === 'function' ? this.alert.confirmAction(result) : this.alert.confirmAction);
-            $.subscribe(function (value) {
-                var asyncResult = {};
+            this.confirmActionSub = $.subscribe(function (value) {
+                var asyncResult = {
+                    action: 'confirm'
+                };
                 asyncResult.value = value;
                 _this.alertLayer.send(asyncResult);
             }, function (err) {
-                dismiss(_this.alertLayer, err);
+                _this.alertLayer.closeWithError(err);
             }, function () {
                 _this.alertLayer.close();
             });
@@ -1201,13 +1268,32 @@ var AlertComponent = /** @class */ (function () {
         }
     };
     AlertComponent.prototype.cancel = function () {
-        dismiss(this.alertLayer, 'cancel');
+        var result = {
+            action: 'cancel'
+        };
+        if (this.alert.cancelButtonThrowsError) {
+            this.alertLayer.closeWithError(result);
+        }
+        else {
+            this.alertLayer.close(result);
+        }
     };
     AlertComponent.prototype.close = function () {
-        dismiss(this.alertLayer, 'close');
+        var result = {
+            action: 'close'
+        };
+        if (this.alert.closeThrowsError) {
+            this.alertLayer.closeWithError(result);
+        }
+        else {
+            this.alertLayer.close(result);
+        }
     };
     AlertComponent.prototype.valueChange = function (value) {
         this.value = value;
+    };
+    AlertComponent.prototype.ngOnDestroy = function () {
+        this.confirmActionSub && this.confirmActionSub.unsubscribe();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -1291,22 +1377,26 @@ var AlertService = /** @class */ (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             opts[_i] = arguments[_i];
         }
-        return this.create.apply(this, opts).open();
-    };
-    AlertService.prototype.create = function () {
-        var opts = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            opts[_i] = arguments[_i];
-        }
         var alert = Object.assign.apply(Object, [{}, _types__WEBPACK_IMPORTED_MODULE_2__["ALERT_DEFAULTS"]].concat(opts));
         return this.ls.create(_alert_component__WEBPACK_IMPORTED_MODULE_3__["AlertComponent"], {
             offClick: function (layer) {
-                Object(_alert_component__WEBPACK_IMPORTED_MODULE_3__["dismiss"])(layer, 'offClick');
+                if (alert.offClickClose) {
+                    if (alert.closeThrowsError) {
+                        layer.closeWithError({
+                            action: 'close'
+                        });
+                    }
+                    else {
+                        layer.close({
+                            action: 'close'
+                        });
+                    }
+                }
             },
             modal: true,
             transparent: true,
             attrs: { alert: alert }
-        });
+        }).open();
     };
     AlertService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
@@ -1333,23 +1423,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony import */ var _layer_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../layer/index */ "./lib/ng-vcl/src/layer/index.ts");
-/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../input/index */ "./lib/ng-vcl/src/input/index.ts");
-/* harmony import */ var _alert_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./alert.component */ "./lib/ng-vcl/src/alert/alert.component.ts");
-/* harmony import */ var _alert_input_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./alert-input.component */ "./lib/ng-vcl/src/alert/alert-input.component.ts");
-/* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./alert.service */ "./lib/ng-vcl/src/alert/alert.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_service__WEBPACK_IMPORTED_MODULE_10__["AlertService"]; });
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
+/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../button/index */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _layer_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../layer/index */ "./lib/ng-vcl/src/layer/index.ts");
+/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../input/index */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _busy_indicator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../busy-indicator */ "./lib/ng-vcl/src/busy-indicator/index.ts");
+/* harmony import */ var _alert_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./alert.component */ "./lib/ng-vcl/src/alert/alert.component.ts");
+/* harmony import */ var _alert_input_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./alert-input.component */ "./lib/ng-vcl/src/alert/alert-input.component.ts");
+/* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./alert.service */ "./lib/ng-vcl/src/alert/alert.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_service__WEBPACK_IMPORTED_MODULE_13__["AlertService"]; });
 
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/alert/types.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _types__WEBPACK_IMPORTED_MODULE_11__["AlertType"]; });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/alert/types.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _types__WEBPACK_IMPORTED_MODULE_14__["AlertType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _types__WEBPACK_IMPORTED_MODULE_11__["AlertInput"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _types__WEBPACK_IMPORTED_MODULE_14__["AlertInput"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertError", function() { return _types__WEBPACK_IMPORTED_MODULE_11__["AlertError"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertError", function() { return _types__WEBPACK_IMPORTED_MODULE_14__["AlertError"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _types__WEBPACK_IMPORTED_MODULE_11__["AlertAlignment"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _types__WEBPACK_IMPORTED_MODULE_14__["AlertAlignment"]; });
+
+
+
 
 
 
@@ -1372,15 +1468,18 @@ var VCLAlertModule = /** @class */ (function () {
             imports: [
                 _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormsModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"],
-                _button_index__WEBPACK_IMPORTED_MODULE_5__["VCLButtonModule"],
-                _input_index__WEBPACK_IMPORTED_MODULE_7__["VCLInputModule"],
-                _icogram_index__WEBPACK_IMPORTED_MODULE_4__["VCLIcogramModule"],
-                _layer_index__WEBPACK_IMPORTED_MODULE_6__["VCLLayerModule"].forChild({ layers: [] })
+                _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__["OverlayModule"],
+                _button_index__WEBPACK_IMPORTED_MODULE_6__["VCLButtonModule"],
+                _input_index__WEBPACK_IMPORTED_MODULE_8__["VCLInputModule"],
+                _icogram_index__WEBPACK_IMPORTED_MODULE_5__["VCLIcogramModule"],
+                _icon__WEBPACK_IMPORTED_MODULE_9__["VCLIconModule"],
+                _busy_indicator__WEBPACK_IMPORTED_MODULE_10__["VCLBusyIndicatorModule"],
+                _layer_index__WEBPACK_IMPORTED_MODULE_7__["VCLLayerModule"].forChild({ layers: [] })
             ],
             exports: [],
-            declarations: [_alert_component__WEBPACK_IMPORTED_MODULE_8__["AlertComponent"], _alert_input_component__WEBPACK_IMPORTED_MODULE_9__["AlertInputComponent"]],
-            entryComponents: [_alert_component__WEBPACK_IMPORTED_MODULE_8__["AlertComponent"]],
-            providers: [_alert_service__WEBPACK_IMPORTED_MODULE_10__["AlertService"]],
+            declarations: [_alert_component__WEBPACK_IMPORTED_MODULE_11__["AlertComponent"], _alert_input_component__WEBPACK_IMPORTED_MODULE_12__["AlertInputComponent"]],
+            entryComponents: [_alert_component__WEBPACK_IMPORTED_MODULE_11__["AlertComponent"]],
+            providers: [_alert_service__WEBPACK_IMPORTED_MODULE_13__["AlertService"]],
         })
     ], VCLAlertModule);
     return VCLAlertModule;
@@ -1440,6 +1539,8 @@ var ALERT_DEFAULTS = {
     escClose: true,
     cancelButtonLabel: 'Cancel',
     cancelButtonClass: 'vclDanger',
+    cancelButtonThrowsError: false,
+    closeThrowsError: false,
     confirmButtonLabel: 'OK',
     confirmButtonClass: 'vclEmphasized',
     loader: false,
@@ -1500,6 +1601,220 @@ var AlertError = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.html":
+/*!************************************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-header.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"vclDropdownItemGroupHeaderLabel\">\n  <ng-content></ng-content>\n</div>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.ts":
+/*!**********************************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-header.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: AutocompleteHeaderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return AutocompleteHeaderComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var AutocompleteHeaderComponent = /** @class */ (function () {
+    function AutocompleteHeaderComponent() {
+        // TODO: Workaround
+        this.styleDisplay = 'block';
+        this.classVCLDropdownItemGroupHeader = true;
+        // TODO: Find appropriate role
+        // @HostBinding('attr.role')
+        // attrRole = 'menuitem';
+    }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteHeaderComponent.prototype, "styleDisplay", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItemGroupHeader'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteHeaderComponent.prototype, "classVCLDropdownItemGroupHeader", void 0);
+    AutocompleteHeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-autocomplete-header',
+            exportAs: 'vclAutocompleteHeader',
+            template: __webpack_require__(/*! ./autocomplete-header.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.html")
+        })
+    ], AutocompleteHeaderComponent);
+    return AutocompleteHeaderComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html":
+/*!**********************************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div role=\"menuitem\" class=\"vclDropdownItemLabel\">\n  {{label}}\n</div>\n<ng-content></ng-content>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts":
+/*!********************************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts ***!
+  \********************************************************************/
+/*! exports provided: AutocompleteItemComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return AutocompleteItemComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/autocomplete/interfaces.ts");
+
+
+
+var AutocompleteItemComponent = /** @class */ (function () {
+    function AutocompleteItemComponent(host) {
+        this.host = host;
+        this.classVCLDropdownItem = true;
+        this.attrRole = 'menuitem';
+        this.disabled = false;
+    }
+    Object.defineProperty(AutocompleteItemComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled || this.host.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AutocompleteItemComponent.prototype, "isHighlighted", {
+        get: function () {
+            return this.host.highlightedItem === this;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AutocompleteItemComponent.prototype.onclick = function () {
+        if (this.host.target) {
+            this.host.target.select(this);
+        }
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItem'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteItemComponent.prototype, "classVCLDropdownItem", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteItemComponent.prototype, "attrRole", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], AutocompleteItemComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclHighlighted'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], AutocompleteItemComponent.prototype, "isHighlighted", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteItemComponent.prototype, "disabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteItemComponent.prototype, "value", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], AutocompleteItemComponent.prototype, "label", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], AutocompleteItemComponent.prototype, "onclick", null);
+    AutocompleteItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-autocomplete-item',
+            exportAs: 'vclAutocompleteItem',
+            template: __webpack_require__(/*! ./autocomplete-item.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["AUTOCOMPLETE_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+    ], AutocompleteItemComponent);
+    return AutocompleteItemComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.html":
+/*!***************************************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.html ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"vclSeparator\"></div>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.ts":
+/*!*************************************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: AutocompleteSeperatorComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return AutocompleteSeperatorComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var AutocompleteSeperatorComponent = /** @class */ (function () {
+    function AutocompleteSeperatorComponent() {
+        // TODO: Workaround
+        this.styleDisplay = 'block';
+        this.attrRole = 'seperator';
+    }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteSeperatorComponent.prototype, "styleDisplay", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteSeperatorComponent.prototype, "attrRole", void 0);
+    AutocompleteSeperatorComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-autocomplete-seperator',
+            exportAs: 'vclAutocompleteSeperator',
+            template: __webpack_require__(/*! ./autocomplete-seperator.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.html")
+        })
+    ], AutocompleteSeperatorComponent);
+    return AutocompleteSeperatorComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/autocomplete/autocomplete.component.html":
 /*!*****************************************************************!*\
   !*** ./lib/ng-vcl/src/autocomplete/autocomplete.component.html ***!
@@ -1507,7 +1822,7 @@ var AlertError = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container *ngIf=\"(target$ | async) as target\">\n  <vcl-popover #popover \n               *ngIf=\"visible$ | async\"\n               [target]=\"target.element\" \n               [visible]=\"true\" \n               targetX=\"left\" \n               targetY=\"bottom\" \n               attachmentX=\"left\" \n               attachmentY=\"top\" \n               [style.width]=\"popoverWidth$ | async\"\n               (mousedown)=\"$event.preventDefault()\"\n               >\n  \n    <ng-container *ngIf=\"(items$ | async)?.length > 0\">\n      <ul class=\"vclDropdown vclNoBorder vclOpen\" role=\"menu\">\n        <ng-container *ngFor=\"let item of items$ | async; let idx = index\">\n          <li *ngIf=\"item.type==='item'\" \n            class=\"vclDropdownItem\"\n            [class.vclHighlighted]=\"idx === highlightedItem\"\n            [class.vclDisabled]=\"disabled || item.disabled\"\n            role=\"menuitem\"\n            (click)=\"target.select(item)\">\n            <div role=\"menuitem\" class=\"vclDropdownItemLabel\">{{item.label}}</div>\n            <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">{{item.sublabel}}</div>\n          </li>\n          <li *ngIf=\"item.type==='separator'\" role=\"menuitem\">\n            <div class=\"vclSeparator\" role=\"separator\"></div>\n          </li>\n          <li *ngIf=\"item.type==='header'\" class=\"vclDropdownItemGroupHeader\" role=\"menuitem\">\n            <div class=\"vclDropdownItemGroupHeaderLabel\">{{item.label}}</div>\n          </li>\n        </ng-container>\n      </ul>\n    </ng-container>\n    <ng-container *ngFor=\"let c of content$ | async\">\n      <ng-container *ngTemplateOutlet=\"c.templateRef\"></ng-container>\n    </ng-container>\n  </vcl-popover>\n</ng-container>\n"
+module.exports = "<ng-container *ngIf=\"(target) as target\">\n  <vcl-popover #popover \n               *ngIf=\"visible\"\n               [target]=\"target.element\" \n               [visible]=\"true\" \n               targetX=\"left\" \n               targetY=\"bottom\" \n               attachmentX=\"left\" \n               attachmentY=\"top\" \n               [style.width]=\"popoverWidth\"\n               (mousedown)=\"$event.preventDefault()\"\n               >\n    <div class=\"vclDropdown vclNoBorder vclOpen\" role=\"menu\">\n      <ng-content></ng-content>\n    </div>\n  </vcl-popover>\n</ng-container>\n"
 
 /***/ }),
 
@@ -1515,220 +1830,149 @@ module.exports = "<ng-container *ngIf=\"(target$ | async) as target\">\n  <vcl-p
 /*!***************************************************************!*\
   !*** ./lib/ng-vcl/src/autocomplete/autocomplete.component.ts ***!
   \***************************************************************/
-/*! exports provided: AutocompleteOptionDirective, AutocompleteContentComponent, AutocompleteComponent */
+/*! exports provided: AutocompleteComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteOptionDirective", function() { return AutocompleteOptionDirective; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteContentComponent", function() { return AutocompleteContentComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return AutocompleteComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../popover/index */ "./lib/ng-vcl/src/popover/index.ts");
-/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../popover/index */ "./lib/ng-vcl/src/popover/index.ts");
+/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/autocomplete/interfaces.ts");
+/* harmony import */ var _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./autocomplete-item.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts");
 
 
 
 
 
 
-var AutocompleteOptionDirective = /** @class */ (function () {
-    function AutocompleteOptionDirective() {
-        this.type = 'item';
-        this.disabled = false;
-    }
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], AutocompleteOptionDirective.prototype, "type", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteOptionDirective.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], AutocompleteOptionDirective.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], AutocompleteOptionDirective.prototype, "sublabel", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteOptionDirective.prototype, "disabled", void 0);
-    AutocompleteOptionDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Directive"])({
-            selector: 'vcl-autocomplete-option'
-        })
-    ], AutocompleteOptionDirective);
-    return AutocompleteOptionDirective;
-}());
-
-var AutocompleteContentComponent = /** @class */ (function () {
-    function AutocompleteContentComponent() {
-    }
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_3__["TemplateRef"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_3__["TemplateRef"])
-    ], AutocompleteContentComponent.prototype, "templateRef", void 0);
-    AutocompleteContentComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-            selector: 'vcl-autocomplete-content',
-            template: '<ng-template><ng-content></ng-content></ng-template>'
-        })
-    ], AutocompleteContentComponent);
-    return AutocompleteContentComponent;
-}());
 
 var AutocompleteComponent = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](AutocompleteComponent, _super);
     function AutocompleteComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.disabled = false;
-        _this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_3__["EventEmitter"]();
-        _this.target$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](undefined);
-        _this.items$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"]([]);
-        _this.content$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"]([]);
-        _this.itemsVisible$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["combineLatest"])(_this.target$, _this.items$).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (_a) {
-            var target = _a[0], items = _a[1];
-            return !!target && items.length > 0;
-        }));
-        _this.visible$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["combineLatest"])(_this.target$, _this.items$, _this.content$).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (_a) {
-            var target = _a[0], items = _a[1], content = _a[2];
-            return !!target && (items.length > 0 || content.length > 0);
-        }));
-        _this.popoverWidth$ = _this.target$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (target) {
-            if (target && target.element.nativeElement.offsetWidth) {
-                return target.element.nativeElement.offsetWidth + 'px';
+        _this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
+        return _this;
+    }
+    AutocompleteComponent_1 = AutocompleteComponent;
+    Object.defineProperty(AutocompleteComponent.prototype, "popoverWidth", {
+        get: function () {
+            if (this.target && this.target.element && this.target.element.nativeElement.offsetWidth) {
+                return this.target.element.nativeElement.offsetWidth + 'px';
             }
             else {
                 return undefined;
             }
-        }));
-        _this.highlightedItem = -1;
-        return _this;
-    }
-    AutocompleteComponent.prototype.open = function (targetElement) {
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AutocompleteComponent.prototype.render = function (element) {
         var _this = this;
-        this.highlightedItem = -1;
-        this.target$.next({
-            element: targetElement,
-            select: function (ac) {
-                _this.select.emit(ac);
-            },
-        });
+        if (this.target) {
+            this.target.close();
+            this.target = undefined;
+        }
         return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-            var sub = _this.select.subscribe(observer);
+            _this.target = {
+                close: function () { return observer.complete(); },
+                select: function (result) { return observer.next(result); },
+                element: element
+            };
             return function () {
-                sub.unsubscribe();
-                _this.target$.next(undefined);
+                _this.target.close();
+                _this.target = undefined;
+                observer.complete();
             };
         });
     };
     Object.defineProperty(AutocompleteComponent.prototype, "visible", {
         get: function () {
-            return !!this.target$.value;
+            return !!this.target;
         },
         enumerable: true,
         configurable: true
     });
-    AutocompleteComponent.prototype.close = function () {
-        this.target$.next(undefined);
-    };
     AutocompleteComponent.prototype.highlightPrev = function () {
         var _this = this;
         if (this.items) {
-            if (this.highlightedItem < 0) {
-                this.highlightedItem = this.items.toArray().findIndex(function (item) { return item.type === 'item'; });
+            var currIdx_1 = this.items.toArray().findIndex(function (item, thisIdx) { return item === _this.highlightedItem; });
+            if (currIdx_1 < 0) {
+                this.highlightedItem = this.items.first;
             }
             else {
-                var revIdx = this.items.toArray().reverse().findIndex(function (item, thisRevId, items) {
+                var highlightedItem = this.items.toArray().reverse().find(function (item, thisRevId, items) {
                     var thisIdx = (items.length - 1) - thisRevId;
-                    return item.type === 'item' && thisIdx < _this.highlightedItem;
+                    return thisIdx < currIdx_1;
                 });
-                if (revIdx === -1) {
-                    this.highlightedItem = this.items.toArray().findIndex(function (item) { return item.type === 'item'; });
+                if (highlightedItem) {
+                    this.highlightedItem = highlightedItem;
                 }
                 else {
-                    var idx = (this.items.length - 1) - revIdx;
-                    this.highlightedItem = idx;
+                    this.highlightedItem = this.items.first;
                 }
             }
         }
     };
-    Object.defineProperty(AutocompleteComponent.prototype, "isHighlighted", {
-        get: function () {
-            return this.highlightedItem >= 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
     AutocompleteComponent.prototype.highlightNext = function () {
         var _this = this;
         if (this.items) {
-            var idx = this.items.toArray().findIndex(function (item, thisIdx) { return item.type === 'item' && thisIdx > _this.highlightedItem; });
-            if (idx > -1) {
-                this.highlightedItem = idx;
+            var currIdx_2 = this.items.toArray().findIndex(function (item, thisIdx) { return item === _this.highlightedItem; });
+            var highlightedItem = this.items.toArray().find(function (item, thisIdx) { return thisIdx > currIdx_2; });
+            if (highlightedItem) {
+                this.highlightedItem = highlightedItem;
             }
         }
     };
     AutocompleteComponent.prototype.selectHighlighted = function () {
-        if (this.highlightedItem >= 0 && this.target$.value && this.items && this.items.toArray()[this.highlightedItem]) {
-            var item = this.items.toArray()[this.highlightedItem];
-            this.target$.value.select(item);
+        if (this.highlightedItem && this.target) {
+            this.target.select(this.highlightedItem);
             return true;
         }
         return false;
-    };
-    AutocompleteComponent.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        var items = this.items;
-        var content = this.content;
-        this.itemsSub = items && items.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["startWith"])(items.toArray()), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function () { return items.toArray(); })).subscribe(function (thisItems) {
-            _this.items$.next(thisItems);
-            _this.highlightedItem = -1;
-        });
-        this.contentSub = content && content.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["startWith"])(content.toArray()), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function () { return content.toArray(); })).subscribe(this.content$);
     };
     AutocompleteComponent.prototype.ngOnDestroy = function () {
         _super.prototype.ngOnDestroy.call(this);
         this.itemsSub && this.itemsSub.unsubscribe();
         this.contentSub && this.contentSub.unsubscribe();
     };
+    var AutocompleteComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('popover'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _popover_index__WEBPACK_IMPORTED_MODULE_4__["PopoverComponent"])
-    ], AutocompleteComponent.prototype, "popover", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ContentChildren"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["forwardRef"])(function () { return AutocompleteOptionDirective; })),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_3__["QueryList"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ContentChildren"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["forwardRef"])(function () { return _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteItemComponent"]; })),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["QueryList"])
     ], AutocompleteComponent.prototype, "items", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ContentChildren"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["forwardRef"])(function () { return AutocompleteContentComponent; })),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_3__["QueryList"])
-    ], AutocompleteComponent.prototype, "content", void 0);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('popover'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _popover_index__WEBPACK_IMPORTED_MODULE_3__["PopoverComponent"])
+    ], AutocompleteComponent.prototype, "popover", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], AutocompleteComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Output"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], AutocompleteComponent.prototype, "select", void 0);
-    AutocompleteComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+    AutocompleteComponent = AutocompleteComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'vcl-autocomplete',
             exportAs: 'vclAutocomplete',
             template: __webpack_require__(/*! ./autocomplete.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.html"),
+            providers: [
+                {
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_5__["AUTOCOMPLETE_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["forwardRef"])(function () { return AutocompleteComponent_1; })
+                }
+            ],
             styles: ["\n    .vclDropdown {\n      padding: 0;\n      position: static;\n    }\n    .vclPopOver {\n      padding: 0;\n    }\n  "]
         })
     ], AutocompleteComponent);
     return AutocompleteComponent;
-}(_core_index__WEBPACK_IMPORTED_MODULE_5__["ObservableComponent"]));
+}(_core_index__WEBPACK_IMPORTED_MODULE_4__["ObservableComponent"]));
 
 
 
@@ -1738,7 +1982,7 @@ var AutocompleteComponent = /** @class */ (function (_super) {
 /*!**********************************************!*\
   !*** ./lib/ng-vcl/src/autocomplete/index.ts ***!
   \**********************************************/
-/*! exports provided: AutocompleteComponent, AutocompleteOptionDirective, AutocompleteContentComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule */
+/*! exports provided: AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1753,15 +1997,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./autocomplete.component */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteOptionDirective", function() { return _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteOptionDirective"]; });
+/* harmony import */ var _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./autocomplete-item.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteContentComponent", function() { return _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteContentComponent"]; });
+/* harmony import */ var _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./autocomplete-seperator.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"]; });
 
-/* harmony import */ var _input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./input.autocomplete.directive */ "./lib/ng-vcl/src/autocomplete/input.autocomplete.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_7__["InputAutocompleteDirective"]; });
+/* harmony import */ var _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./autocomplete-header.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]; });
 
-/* harmony import */ var _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./token-input.autocomplete.directive */ "./lib/ng-vcl/src/autocomplete/token-input.autocomplete.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_8__["TokenInputAutocompleteDirective"]; });
+/* harmony import */ var _input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./input.autocomplete.directive */ "./lib/ng-vcl/src/autocomplete/input.autocomplete.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__["InputAutocompleteDirective"]; });
+
+/* harmony import */ var _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./token-input.autocomplete.directive */ "./lib/ng-vcl/src/autocomplete/token-input.autocomplete.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__["TokenInputAutocompleteDirective"]; });
+
+
+
 
 
 
@@ -1779,8 +2031,8 @@ var VCLAutocompleteModule = /** @class */ (function () {
     VCLAutocompleteModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _popover_index__WEBPACK_IMPORTED_MODULE_3__["VCLPopoverModule"], _token_index__WEBPACK_IMPORTED_MODULE_5__["VCLTokenModule"]],
-            exports: [_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_7__["InputAutocompleteDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteOptionDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteContentComponent"], _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_8__["TokenInputAutocompleteDirective"]],
-            declarations: [_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_7__["InputAutocompleteDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteOptionDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteContentComponent"], _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_8__["TokenInputAutocompleteDirective"]],
+            exports: [_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__["InputAutocompleteDirective"], _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__["TokenInputAutocompleteDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
+            declarations: [_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__["InputAutocompleteDirective"], _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__["TokenInputAutocompleteDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
             providers: [],
         })
     ], VCLAutocompleteModule);
@@ -1803,32 +2055,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return InputAutocompleteDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _autocomplete_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./autocomplete.component */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.ts");
-/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
 
 
-
-
-var InputAutocompleteDirective = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](InputAutocompleteDirective, _super);
+var InputAutocompleteDirective = /** @class */ (function () {
     function InputAutocompleteDirective(elementRef) {
-        var _this = _super.call(this) || this;
-        _this.elementRef = elementRef;
-        _this.autocompleteSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        _this.autocompleteAfterSelectAction = 'value';
-        _this.disabled = false;
-        return _this;
+        this.elementRef = elementRef;
+        this.autocompleteSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.disabled = false;
     }
-    Object.defineProperty(InputAutocompleteDirective.prototype, "ac", {
-        get: function () {
-            if (!(this._ac instanceof _autocomplete_component__WEBPACK_IMPORTED_MODULE_2__["AutocompleteComponent"])) {
-                throw new Error('invalid vcl-input-autocomplete parameter');
-            }
-            return this._ac;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(InputAutocompleteDirective.prototype, "attrDisabled", {
         get: function () {
             return this.disabled ? true : null;
@@ -1850,22 +2084,8 @@ var InputAutocompleteDirective = /** @class */ (function (_super) {
         if (this.acSub) {
             return;
         }
-        this.acSub = this.ac.open(this.elementRef).subscribe(function (selection) {
-            if (_this.autocompleteAfterSelectAction === 'value') {
-                _this.elementRef.nativeElement.value = String(selection.value);
-            }
-            else if (_this.autocompleteAfterSelectAction === 'label') {
-                _this.elementRef.nativeElement.value = selection.label;
-            }
-            else if (_this.autocompleteAfterSelectAction === 'sublabel') {
-                _this.elementRef.nativeElement.value = selection.sublabel;
-            }
-            else if (typeof _this.autocompleteAfterSelectAction === 'function') {
-                _this.elementRef.nativeElement.value = _this.autocompleteAfterSelectAction(selection);
-            }
-            else {
-                _this.elementRef.nativeElement.value = '';
-            }
+        this.acSub = this.ac.render(this.elementRef).subscribe(function (selection) {
+            _this.elementRef.nativeElement.value = typeof selection.value === 'string' ? selection.value : selection.label;
             _this.elementRef.nativeElement.focus();
             _this.destroyAutocomplete();
             _this.autocompleteSelect.emit(selection);
@@ -1905,9 +2125,9 @@ var InputAutocompleteDirective = /** @class */ (function (_super) {
                 code = event.code || event.key;
                 if (this.ac && code === 'Enter') {
                     event.preventDefault();
-                    if (this.ac.isHighlighted) {
-                        this.ac.selectHighlighted();
-                    }
+                    // if (this.ac.isHighlighted) {
+                    // }
+                    this.ac.selectHighlighted();
                 }
                 return [2 /*return*/];
             });
@@ -1915,20 +2135,15 @@ var InputAutocompleteDirective = /** @class */ (function (_super) {
     };
     InputAutocompleteDirective.prototype.ngOnDestroy = function () {
         this.destroyAutocomplete();
-        _super.prototype.ngOnDestroy.call(this);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], InputAutocompleteDirective.prototype, "autocompleteSelect", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclInputAutocomplete'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], InputAutocompleteDirective.prototype, "autocompleteAfterSelectAction", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vcl-input-autocomplete'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _autocomplete_component__WEBPACK_IMPORTED_MODULE_2__["AutocompleteComponent"])
-    ], InputAutocompleteDirective.prototype, "_ac", void 0);
+    ], InputAutocompleteDirective.prototype, "ac", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -1966,13 +2181,30 @@ var InputAutocompleteDirective = /** @class */ (function (_super) {
     ], InputAutocompleteDirective.prototype, "handleKeyPressEvent", null);
     InputAutocompleteDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vcl-input-autocomplete]',
+            selector: 'input[vclInputAutocomplete]',
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
     ], InputAutocompleteDirective);
     return InputAutocompleteDirective;
-}(_core_index__WEBPACK_IMPORTED_MODULE_3__["ObservableComponent"]));
+}());
 
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/autocomplete/interfaces.ts":
+/*!***************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/interfaces.ts ***!
+  \***************************************************/
+/*! exports provided: AUTOCOMPLETE_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTOCOMPLETE_TOKEN", function() { return AUTOCOMPLETE_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var AUTOCOMPLETE_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('autocomplete');
 
 
 /***/ }),
@@ -1989,10 +2221,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return TokenInputAutocompleteDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _autocomplete_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./autocomplete.component */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.ts");
-/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../token/index */ "./lib/ng-vcl/src/token/index.ts");
-
+/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
+/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../token/index */ "./lib/ng-vcl/src/token/index.ts");
 
 
 
@@ -2033,16 +2263,6 @@ var TokenInputAutocompleteDirective = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TokenInputAutocompleteDirective.prototype, "ac", {
-        get: function () {
-            if (!(this._ac instanceof _autocomplete_component__WEBPACK_IMPORTED_MODULE_2__["AutocompleteComponent"])) {
-                throw new Error('invalid vcl-token-input-autocomplete parameter');
-            }
-            return this._ac;
-        },
-        enumerable: true,
-        configurable: true
-    });
     TokenInputAutocompleteDirective.prototype.listenActivate = function () {
         this.focused = true;
         this.renderAutocomplete();
@@ -2056,10 +2276,11 @@ var TokenInputAutocompleteDirective = /** @class */ (function (_super) {
         if (this.acSub) {
             return;
         }
-        this.acSub = this.ac.open(this.tokenInputContainer.elementRef).subscribe(function (selection) {
+        this.acSub = this.ac.render(this.tokenInputContainer.elementRef).subscribe(function (selection) {
             _this.tokenInputContainer.addToken({
                 label: selection.label || String(selection.value),
-                value: selection.value
+                value: selection.value,
+                selected: true
             });
             _this.elementRef.nativeElement.value = '';
             if (!_this.focused) {
@@ -2111,7 +2332,7 @@ var TokenInputAutocompleteDirective = /** @class */ (function (_super) {
         }
         else if (code === 'Enter') {
             event.preventDefault();
-            if (this.ac.isHighlighted) {
+            if (this.ac.highlightedItem) {
                 this.ac && this.ac.selectHighlighted();
                 this.elementRef.nativeElement.value = '';
             }
@@ -2143,9 +2364,9 @@ var TokenInputAutocompleteDirective = /** @class */ (function (_super) {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], TokenInputAutocompleteDirective.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vcl-token-input-autocomplete'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _autocomplete_component__WEBPACK_IMPORTED_MODULE_2__["AutocompleteComponent"])
-    ], TokenInputAutocompleteDirective.prototype, "_ac", void 0);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclTokenInputAutocomplete'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TokenInputAutocompleteDirective.prototype, "ac", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('input'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
@@ -2179,7 +2400,7 @@ var TokenInputAutocompleteDirective = /** @class */ (function (_super) {
     ], TokenInputAutocompleteDirective.prototype, "onKeyUp", null);
     TokenInputAutocompleteDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vcl-token-input-autocomplete]',
+            selector: 'input[vclTokenInputAutocomplete]',
             host: {
                 '[class.vclInput]': 'true',
                 '[attr.flex]': 'true'
@@ -2187,10 +2408,10 @@ var TokenInputAutocompleteDirective = /** @class */ (function (_super) {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _token_index__WEBPACK_IMPORTED_MODULE_4__["TokenInputContainerComponent"]])
+            _token_index__WEBPACK_IMPORTED_MODULE_3__["TokenInputContainerComponent"]])
     ], TokenInputAutocompleteDirective);
     return TokenInputAutocompleteDirective;
-}(_core_index__WEBPACK_IMPORTED_MODULE_3__["ObservableComponent"]));
+}(_core_index__WEBPACK_IMPORTED_MODULE_2__["ObservableComponent"]));
 
 
 
@@ -2249,7 +2470,7 @@ var BadgeDirective = /** @class */ (function () {
         configurable: true
     });
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vcl-badge'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], BadgeDirective.prototype, "type", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2279,7 +2500,7 @@ var BadgeDirective = /** @class */ (function () {
     ], BadgeDirective.prototype, "vclError", null);
     BadgeDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[vcl-badge]',
+            selector: 'vcl-badge',
             host: {
                 '[class.vclBadge]': 'true'
             }
@@ -2335,7 +2556,7 @@ var VCLBadgeModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\n<div *ngIf=\"busy\" tabindex=\"-1\" class=\"vclLoadingLayer\">\n  <div class=\"vclLoadingLayerContent\">\n    <vcl-busy-indicator [type]=\"busyIndicatorType\" [label]=\"busyLabel\" [iconHeight]=\"busyIconHeight\" [iconWidth]=\"busyIconWidth\"\n                        [layout]=\"busyIndicatorDirection\">\n      <span *ngIf=\"busyLabel\">{{busyLabel}}</span>\n    </vcl-busy-indicator>\n  </div>\n</div>\n"
+module.exports = "<ng-content></ng-content>\n<div *ngIf=\"busy\" tabindex=\"-1\" class=\"vclLoadingLayer\">\n  <div class=\"vclLoadingLayerContent\">\n    <ng-content select=\"vcl-busy-indicator\"></ng-content>\n    <!-- <vcl-busy-indicator [type]=\"busyIndicatorType\" [label]=\"busyLabel\" [iconHeight]=\"busyIconHeight\" [iconWidth]=\"busyIconWidth\"\n                        [layout]=\"busyIndicatorDirection\">\n      <span *ngIf=\"busyLabel\">{{busyLabel}}</span>\n    </vcl-busy-indicator> -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2357,39 +2578,15 @@ var BusyIndicatorCoverComponent = /** @class */ (function () {
     function BusyIndicatorCoverComponent() {
         // tslint:disable-next-line:no-input-rename
         this.busy = false;
-        this.busyIndicatorType = 'circular';
-        this.busyIndicatorDirection = 'vertical';
-        this.busyIconHeight = '3em';
-        this.busyIconWidth = '3em';
     }
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclBusyIndicatorCover'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vcl-busy-indicator-cover'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclLoadingLayerContainer'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], BusyIndicatorCoverComponent.prototype, "busy", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], BusyIndicatorCoverComponent.prototype, "busyIndicatorType", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], BusyIndicatorCoverComponent.prototype, "busyIndicatorDirection", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], BusyIndicatorCoverComponent.prototype, "busyLabel", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BusyIndicatorCoverComponent.prototype, "busyIconHeight", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BusyIndicatorCoverComponent.prototype, "busyIconWidth", void 0);
     BusyIndicatorCoverComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: '[vclBusyIndicatorCover]',
+            selector: '[vcl-busy-indicator-cover]',
             template: __webpack_require__(/*! ./busy-indicator-cover.component.html */ "./lib/ng-vcl/src/busy-indicator/busy-indicator-cover.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         })
@@ -2408,7 +2605,7 @@ var BusyIndicatorCoverComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclLayoutCenterJustified vclIcogram {{layout == 'vertical' ? 'vclLayoutVertical' : 'vclLayoutHorizontal'}}\" role=\"status\">\n  <div class=\"vclIcon vclLayoutSelfCenter {{classSrc}}\" [attr.aria-label]=\"label\" role=\"img\">\n    <img *ngIf=\"!classSrc\" [style.height]=\"iconHeight\" [style.width]=\"iconWidth\" [src]=\"indicatorSrc\" role=”presentation”>\n  </div>\n  <div class=\"vclLayoutSelfCenter\">\n    <ng-content></ng-content>\n  </div>\n</div>\n\n"
+module.exports = "<div class=\"vclLayoutCenterJustified vclIcogram {{layout == 'vertical' ? 'vclLayoutVertical' : 'vclLayoutHorizontal'}}\" role=\"status\">\n  <vcl-icon *ngIf=\"!icon\" class=\"vclLayoutSelfCenter\" [attr.aria-label]=\"label\">\n    <img [src]=\"iconImageSrc\" role=”presentation” [style.height]=\"imageHeight\" [style.width]=\"imageWidth\">\n  </vcl-icon>\n  <vcl-icon *ngIf=\"icon\" class=\"vclLayoutSelfCenter\" [attr.aria-label]=\"label\" [icon]=\"icon\"></vcl-icon>\n\n  <div class=\"vclLayoutSelfCenter\">\n    <ng-content></ng-content>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2430,32 +2627,21 @@ __webpack_require__.r(__webpack_exports__);
 
 // tslint:disable-next-line:max-line-length
 var CIRCULAR = 'data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iCiAgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4xIgogICAgIHZpZXdCb3g9IjAgMCAxMDAgMTAwIgogICAgIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIgoJd2lkdGg9IjEwMCUiCiAgICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICAgIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KCTxnPgoJICAgIDxkZWZzPgoJICAgIAk8Y2xpcFBhdGggaWQ9ImNsaXAiPgoJICAgICAgCQk8cGF0aCAgZD0iTSA1MCA1MCBMIDM1IDAgTCA2NSAwIHoiIC8+CgkJICAgIDwvY2xpcFBhdGg+CgkgICAgCTxlbGxpcHNlIGlkPSJDaXJjbGVCbG9jayIgY2xpcC1wYXRoPSJ1cmwoI2NsaXApIiBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iNDAiIHN0eWxlPSJmaWxsOm5vbmU7IHN0cm9rZTojRThFOEU4IiBzdHJva2Utd2lkdGg9IjE1Ii8+CgkgICAgPC9kZWZzPgoKCQk8dXNlIHhsaW5rOmhyZWY9IiNDaXJjbGVCbG9jayIgLz4KCQk8dXNlIHhsaW5rOmhyZWY9IiNDaXJjbGVCbG9jayIgdHJhbnNmb3JtPSJyb3RhdGUoNDAgNTAgNTApIiAvPgoJCTx1c2UgeGxpbms6aHJlZj0iI0NpcmNsZUJsb2NrIiB0cmFuc2Zvcm09InJvdGF0ZSg4MCA1MCA1MCkiIC8+CgkJPHVzZSB4bGluazpocmVmPSIjQ2lyY2xlQmxvY2siIHRyYW5zZm9ybT0icm90YXRlKDEyMCA1MCA1MCkiLz4KCQk8dXNlIHhsaW5rOmhyZWY9IiNDaXJjbGVCbG9jayIgdHJhbnNmb3JtPSJyb3RhdGUoMTYwIDUwIDUwKSIvPgoJCTx1c2UgeGxpbms6aHJlZj0iI0NpcmNsZUJsb2NrIiB0cmFuc2Zvcm09InJvdGF0ZSgyMDAgNTAgNTApIi8+CgkJPHVzZSB4bGluazpocmVmPSIjQ2lyY2xlQmxvY2siIHRyYW5zZm9ybT0icm90YXRlKDI0MCA1MCA1MCkiLz4KCQk8dXNlIHhsaW5rOmhyZWY9IiNDaXJjbGVCbG9jayIgdHJhbnNmb3JtPSJyb3RhdGUoMjgwIDUwIDUwKSIvPgoJCTx1c2UgeGxpbms6aHJlZj0iI0NpcmNsZUJsb2NrIiB0cmFuc2Zvcm09InJvdGF0ZSgzMjAgNTAgNTApIi8+CgoJCTxlbGxpcHNlIGNsaXAtcGF0aD0idXJsKCNjbGlwKSIgY3g9IjUwIiBjeT0iNTAiIHJ4PSI0MCIgcnk9IjQwIiBzdHlsZT0iZmlsbDpub25lOyBzdHJva2U6IzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxNSI+CgkJCTxhbmltYXRlVHJhbnNmb3JtCgkJCQlhdHRyaWJ1dGVOYW1lPSJ0cmFuc2Zvcm0iCgkJCQlhdHRyaWJ1dGVUeXBlPSJYTUwiCgkJCQl0eXBlPSJyb3RhdGUiCgkJCQl2YWx1ZXM9IjAgNTAgNTA7IDQwIDUwIDUwOyA4MCA1MCA1MDsgMTIwIDUwIDUwOyAxNjAgNTAgNTA7IDIwMCA1MCA1MDsgMjQwIDUwIDUwOyAyODAgNTAgNTA7IDMyMCA1MCA1MCIKCQkJCWR1cj0iM3MiCgkJCQlyZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIKCQkJCWFkZGl0aXZlPSJyZXBsYWNlIgoJCQkJY2FsY01vZGU9ImRpc2NyZXRlIgoJCQkJZmlsbD0iZnJlZXplIi8+CgkJPC9lbGxpcHNlPgoJPC9nPgo8L3N2Zz4=';
-// tslint:disable-next-line:max-line-length
-var STRAIGHT = 'data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iCiAgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4xIgogICAgIHZpZXdCb3g9IjAgMCA5MCA2MCIKICAgICBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCIKCSB3aWR0aD0iMTAwJSIKCSBoZWlnaHQ9IjEyMCUiCiAgICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICAgIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgICA8Zz4KCSAgICA8cmVjdAoJICAgIAlzdHJva2Utd2lkdGg9IjAiCgkgICAgCXN0cm9rZT0iI2ZmZiIKCSAgICAJZmlsbD0ibm9uZSIKCSAgICAJaGVpZ2h0PSIzMCIKCSAgICAJd2lkdGg9IjkwIgoJICAgIAl4PSIwIiB5PSIxNSI+PC9yZWN0PgoJICAgIDxkZWZzPgoJCQk8cmVjdCBjbGFzcz0idGVzdCIgZmlsbD0iI0U4RThFOCIgaWQ9IlJlY3QiIHg9IjAiIHk9IjE1IiBoZWlnaHQ9IjMwIiB3aWR0aD0iMTUiPjwvcmVjdD4KCSAgICA8L2RlZnM+CgoJCTx1c2UgeGxpbms6aHJlZj0iI1JlY3QiIC8+CgkJPHVzZSB4bGluazpocmVmPSIjUmVjdCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUpIiAvPgoJCTx1c2UgeGxpbms6aHJlZj0iI1JlY3QiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUwKSIgLz4KCQk8dXNlIHhsaW5rOmhyZWY9IiNSZWN0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NSkiIC8+CgoJCTxyZWN0IGZpbGw9IiMwMDAiIHg9IjUiIHk9IjE1IiBoZWlnaHQ9IjMwIiB3aWR0aD0iMTUiPgoJCQk8YW5pbWF0ZQoJCQkJZmlsbD0iZnJlZXplIgoJCQkJZHVyPSIxNTAwbXMiCgkJCQljYWxjTW9kZT0iZGlzY3JldGUiCgkJCQlyZXN0YXJ0PSJhbHdheXMiCgkJCQl2YWx1ZXM9IjA7MjU7NTA7NzUiCgkJCQlyZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIKCQkJCWF0dHJpYnV0ZU5hbWU9IngiLz4KCSAgICA8L3JlY3Q+Cgk8L2c+Cjwvc3ZnPgo=';
 var BusyIndicatorComponent = /** @class */ (function () {
     function BusyIndicatorComponent(sanitizer) {
         this.sanitizer = sanitizer;
         this.type = 'circular';
         this.layout = 'vertical';
         this.label = 'Loading';
-        this.iconHeight = '3em';
-        this.iconWidth = '3em';
-        this.indicatorSrc = this.sanitizer.bypassSecurityTrustResourceUrl(CIRCULAR);
+        this.imageHeight = '3em';
+        this.imageWidth = '3em';
+        this.iconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(CIRCULAR);
     }
     BusyIndicatorComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.imageSrc || changes.type) {
-            if (!this.imageSrc) {
-                this.indicatorSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.type === 'straight' ? STRAIGHT : CIRCULAR);
-            }
-            else {
-                this.indicatorSrc = this.imageSrc;
-            }
+        if (changes.imageSrc) {
+            this.iconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(changes.imageSrc.currentValue);
         }
     };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], BusyIndicatorComponent.prototype, "type", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
@@ -2466,16 +2652,16 @@ var BusyIndicatorComponent = /** @class */ (function () {
     ], BusyIndicatorComponent.prototype, "label", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BusyIndicatorComponent.prototype, "iconHeight", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BusyIndicatorComponent.prototype, "iconWidth", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], BusyIndicatorComponent.prototype, "classSrc", void 0);
+    ], BusyIndicatorComponent.prototype, "icon", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], BusyIndicatorComponent.prototype, "imageHeight", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], BusyIndicatorComponent.prototype, "imageWidth", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
@@ -2818,6 +3004,8 @@ var ButtonIcogramComponent = /** @class */ (function (_super) {
     function ButtonIcogramComponent() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    ButtonIcogramComponent_1 = ButtonIcogramComponent;
+    var ButtonIcogramComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
@@ -2826,12 +3014,18 @@ var ButtonIcogramComponent = /** @class */ (function (_super) {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], ButtonIcogramComponent.prototype, "appIcon", void 0);
-    ButtonIcogramComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    ButtonIcogramComponent = ButtonIcogramComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'button[vcl-icogram-button]',
             exportAs: 'vclIcogramButton',
             template: __webpack_require__(/*! ./button-icogram.component.html */ "./lib/ng-vcl/src/button/button-icogram.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            providers: [
+                {
+                    provide: _button_component__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonIcogramComponent_1; })
+                }
+            ]
         })
     ], ButtonIcogramComponent);
     return ButtonIcogramComponent;
@@ -2848,7 +3042,7 @@ var ButtonIcogramComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<vcl-icon [icon]=\"icon\"><ng-content></ng-content></vcl-icon>\n\n"
+module.exports = "<vcl-icon [icon]=\"icon\">\n  <ng-content></ng-content>\n</vcl-icon>\n"
 
 /***/ }),
 
@@ -2875,6 +3069,8 @@ var ButtonIconComponent = /** @class */ (function (_super) {
         _this.vclSquare = true;
         return _this;
     }
+    ButtonIconComponent_1 = ButtonIconComponent;
+    var ButtonIconComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSquare'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -2883,12 +3079,18 @@ var ButtonIconComponent = /** @class */ (function (_super) {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], ButtonIconComponent.prototype, "icon", void 0);
-    ButtonIconComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    ButtonIconComponent = ButtonIconComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'button[vcl-icon-button]',
             exportAs: 'vclIconButton',
             template: __webpack_require__(/*! ./button-icon.component.html */ "./lib/ng-vcl/src/button/button-icon.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            providers: [
+                {
+                    provide: _button_component__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonIconComponent_1; })
+                }
+            ]
         })
     ], ButtonIconComponent);
     return ButtonIconComponent;
@@ -3115,7 +3317,7 @@ var VCLButtonModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #cb>\n  <div class=\"vclCheckbox\" \n      [class.vclDisabled]=\"isDisabled\" \n      role=\"checkbox\" \n      [attr.tabindex]=\"tabindex\" \n      [attr.aria-checked]=\"checked\"\n      [attr.aria-disabled]=\"isDisabled\"\n      (keyup)=\"onKeyup($event)\"\n      (blur)=\"onBlur()\"\n      >\n  <vcl-icon [icon]=\"icon\"></vcl-icon>\n</div>  \n</ng-template>\n\n<label vcl-form-control-label [wrapping]=\"true\" [label]=\"hideLabel ? '' : label\">\n  <ng-container *ngIf=\"iconPosition==='left'\" [ngTemplateOutlet]=\"cb\"></ng-container>\n  {{label }}\n  <ng-content></ng-content>\n  <ng-container *ngIf=\"iconPosition==='right'\" [ngTemplateOutlet]=\"cb\"></ng-container>\n</label>\n"
+module.exports = "<ng-template #content><ng-content></ng-content></ng-template>\n\n<label class=\"vclFormControlLabel vclFormControlLabelWrapping\">\n  <ng-container *ngIf=\"labelPosition==='before'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n\n  <span \n    class=\"vclCheckbox\" \n    [class.vclDisabled]=\"isDisabled\" \n    role=\"checkbox\" \n    [attr.tabindex]=\"tabindex\" \n    [attr.aria-checked]=\"checked\"\n    [attr.aria-disabled]=\"isDisabled\"\n    (keyup)=\"onKeyup($event)\"\n    (blur)=\"onBlur()\"\n    >\n    <vcl-icon [icon]=\"checked ? 'vcl:box-checked' : 'vcl:box'\"></vcl-icon>\n  </span>\n\n  <ng-container *ngIf=\"labelPosition==='after'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n</label>\n"
 
 /***/ }),
 
@@ -3145,10 +3347,8 @@ var CheckboxComponent = /** @class */ (function () {
     function CheckboxComponent(cdRef) {
         this.cdRef = cdRef;
         this.tabindex = 0;
-        this.checkedIcon = 'fas fa-check-square';
-        this.uncheckedIcon = 'fas fa-square';
         this.disabled = false;
-        this.iconPosition = 'left';
+        this.labelPosition = 'after';
         this.checked = false;
         this.hideLabel = false;
         /**
@@ -3167,15 +3367,15 @@ var CheckboxComponent = /** @class */ (function () {
         switch (e.code) {
             case 'Space':
                 e.preventDefault();
-                this.updateValue();
+                this.toggleValue();
                 break;
         }
     };
-    CheckboxComponent.prototype.onTap = function (e) {
+    CheckboxComponent.prototype.onClick = function (e) {
         e.preventDefault();
-        return this.updateValue();
+        return this.toggleValue();
     };
-    CheckboxComponent.prototype.updateValue = function () {
+    CheckboxComponent.prototype.toggleValue = function () {
         if (this.isDisabled) {
             return;
         }
@@ -3184,13 +3384,6 @@ var CheckboxComponent = /** @class */ (function () {
         this.onTouched();
         this.onChange(this.checked);
     };
-    Object.defineProperty(CheckboxComponent.prototype, "icon", {
-        get: function () {
-            return this.checked ? this.checkedIcon : this.uncheckedIcon;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(CheckboxComponent.prototype, "isDisabled", {
         get: function () {
             return this.cvaDisabled || this.disabled;
@@ -3222,23 +3415,11 @@ var CheckboxComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], CheckboxComponent.prototype, "checkedIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], CheckboxComponent.prototype, "uncheckedIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], CheckboxComponent.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], CheckboxComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], CheckboxComponent.prototype, "iconPosition", void 0);
+    ], CheckboxComponent.prototype, "labelPosition", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -3252,17 +3433,18 @@ var CheckboxComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], CheckboxComponent.prototype, "checkedChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('tap', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], CheckboxComponent.prototype, "onTap", null);
+    ], CheckboxComponent.prototype, "onClick", null);
     CheckboxComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-checkbox',
             template: __webpack_require__(/*! ./checkbox.component.html */ "./lib/ng-vcl/src/checkbox/checkbox.component.html"),
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            exportAs: 'vclCheckbox',
             host: {
                 '[class.vclInputControlGroup]': 'true',
             }
@@ -3322,7 +3504,7 @@ var VCLCheckboxModule = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/core/index.ts ***!
   \**************************************/
-/*! exports provided: ObservableComponent, LayoutDirective, LayoutTargetDirective, VCLLayoutModule, defineMetadata, getMetadata */
+/*! exports provided: ObservableComponent, defineMetadata, getMetadata */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3330,133 +3512,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _observable_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./observable.component */ "./lib/ng-vcl/src/core/observable.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObservableComponent", function() { return _observable_component__WEBPACK_IMPORTED_MODULE_0__["ObservableComponent"]; });
 
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./layout */ "./lib/ng-vcl/src/core/layout.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutDirective", function() { return _layout__WEBPACK_IMPORTED_MODULE_1__["LayoutDirective"]; });
+/* harmony import */ var _reflect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reflect */ "./lib/ng-vcl/src/core/reflect.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return _reflect__WEBPACK_IMPORTED_MODULE_1__["defineMetadata"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutTargetDirective", function() { return _layout__WEBPACK_IMPORTED_MODULE_1__["LayoutTargetDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLayoutModule", function() { return _layout__WEBPACK_IMPORTED_MODULE_1__["VCLLayoutModule"]; });
-
-/* harmony import */ var _reflect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reflect */ "./lib/ng-vcl/src/core/reflect.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return _reflect__WEBPACK_IMPORTED_MODULE_2__["defineMetadata"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMetadata", function() { return _reflect__WEBPACK_IMPORTED_MODULE_2__["getMetadata"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMetadata", function() { return _reflect__WEBPACK_IMPORTED_MODULE_1__["getMetadata"]; });
 
 
-
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/core/layout.ts":
-/*!***************************************!*\
-  !*** ./lib/ng-vcl/src/core/layout.ts ***!
-  \***************************************/
-/*! exports provided: LayoutDirective, LayoutTargetDirective, VCLLayoutModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayoutDirective", function() { return LayoutDirective; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayoutTargetDirective", function() { return LayoutTargetDirective; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLLayoutModule", function() { return VCLLayoutModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _observable_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./observable.component */ "./lib/ng-vcl/src/core/observable.component.ts");
-
-
-
-
-
-var LayoutDirective = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](LayoutDirective, _super);
-    function LayoutDirective() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.layout$ = _this.observeChangeValue('layout');
-        return _this;
-    }
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclLayout'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LayoutDirective.prototype, "layout", void 0);
-    LayoutDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[vclLayout]',
-        })
-    ], LayoutDirective);
-    return LayoutDirective;
-}(_observable_component__WEBPACK_IMPORTED_MODULE_4__["ObservableComponent"]));
-
-/**
- * The vclLayoutTarget directive allows to set class injection points on elements in the component's template.
- * Developer can inject style classes into these elements using the vclLayout directive on the component.
- */
-var LayoutTargetDirective = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](LayoutTargetDirective, _super);
-    function LayoutTargetDirective(layoutHost, renderer, elRef) {
-        var _this = _super.call(this) || this;
-        _this.renderer = renderer;
-        _this.elRef = elRef;
-        _this.name$ = _this.observeChangeValue('name');
-        _this.classes = [];
-        if (layoutHost) {
-            // Whenever the name or the layout property on the vclLayout directive changes, update the classes
-            _this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["combineLatest"])(_this.name$, layoutHost.layout$).subscribe(function (_a) {
-                var name = _a[0], layout = _a[1];
-                // Remove any of previously added classes
-                _this.classes.forEach(function (thisName) { return _this.renderer.removeClass(_this.elRef.nativeElement, thisName); });
-                _this.classes = [];
-                if (name && layout && typeof layout[name] === 'string') {
-                    layout[name].split(' ').forEach(function (thisName) {
-                        // Only add classes that are not present on the element
-                        if (!_this.elRef.nativeElement.classList.contains(thisName)) {
-                            // Add the class to the element
-                            _this.renderer.addClass(_this.elRef.nativeElement, thisName);
-                            // Remember them so they can be removed on a change
-                            _this.classes = _this.classes.concat([thisName]);
-                        }
-                    });
-                }
-            });
-        }
-        return _this;
-    }
-    LayoutTargetDirective.prototype.ngOnDestroy = function () {
-        this.sub && this.sub.unsubscribe();
-        _super.prototype.ngOnDestroy.call(this);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclLayoutTarget'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], LayoutTargetDirective.prototype, "name", void 0);
-    LayoutTargetDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[vclLayoutTarget]',
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(LayoutDirective)),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [LayoutDirective,
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
-    ], LayoutTargetDirective);
-    return LayoutTargetDirective;
-}(_observable_component__WEBPACK_IMPORTED_MODULE_4__["ObservableComponent"]));
-
-var VCLLayoutModule = /** @class */ (function () {
-    function VCLLayoutModule() {
-    }
-    VCLLayoutModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"]],
-            declarations: [LayoutTargetDirective, LayoutDirective],
-            exports: [LayoutTargetDirective, LayoutDirective, _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"]],
-            providers: [],
-        })
-    ], VCLLayoutModule);
-    return VCLLayoutModule;
-}());
 
 
 
@@ -4794,6 +4855,179 @@ var VCLDropdownModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.directive.ts":
+/*!**************************************************************************************!*\
+  !*** ./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.directive.ts ***!
+  \**************************************************************************************/
+/*! exports provided: EmbeddedInputGroupButtonDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupButtonDirective", function() { return EmbeddedInputGroupButtonDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/embedded-input-group/interfaces.ts");
+
+
+
+
+var EmbeddedInputGroupButtonDirective = /** @class */ (function () {
+    function EmbeddedInputGroupButtonDirective(button, host) {
+        this.button = button;
+        this.host = host;
+        this.classVCLTransparent = true;
+        this.classVCLAppended = true;
+    }
+    Object.defineProperty(EmbeddedInputGroupButtonDirective.prototype, "classVCLDisabled", {
+        get: function () {
+            return this.isDisabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EmbeddedInputGroupButtonDirective.prototype, "attrDisabled", {
+        get: function () {
+            return this.isDisabled ? true : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EmbeddedInputGroupButtonDirective.prototype, "isDisabled", {
+        get: function () {
+            return (this.button.isDisabled || this.host.disabled) ? true : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclTransparent'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], EmbeddedInputGroupButtonDirective.prototype, "classVCLTransparent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclAppended'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], EmbeddedInputGroupButtonDirective.prototype, "classVCLAppended", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], EmbeddedInputGroupButtonDirective.prototype, "classVCLDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], EmbeddedInputGroupButtonDirective.prototype, "attrDisabled", null);
+    EmbeddedInputGroupButtonDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'button[vclEmbeddedInputGroup]',
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_3__["EMBEDDED_INPUT_GROUP_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_button__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"], Object])
+    ], EmbeddedInputGroupButtonDirective);
+    return EmbeddedInputGroupButtonDirective;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-input.directive.ts":
+/*!*************************************************************************************!*\
+  !*** ./lib/ng-vcl/src/embedded-input-group/embedded-input-group-input.directive.ts ***!
+  \*************************************************************************************/
+/*! exports provided: EmbeddedInputGroupInputDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupInputDirective", function() { return EmbeddedInputGroupInputDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/embedded-input-group/interfaces.ts");
+
+
+
+
+var EmbeddedInputGroupInputDirective = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](EmbeddedInputGroupInputDirective, _super);
+    function EmbeddedInputGroupInputDirective(elRef, host) {
+        var _this = _super.call(this, elRef) || this;
+        _this.host = host;
+        return _this;
+    }
+    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled || this.host.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "classDisabled", {
+        get: function () {
+            return this.isDisabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "attrDisabled", {
+        get: function () {
+            return this.isDisabled ? true : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "prepItem", {
+        get: function () {
+            return !!this.host.prepIcon;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "hasAppendedItem", {
+        get: function () {
+            return this.host.hasAppendedItem;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], EmbeddedInputGroupInputDirective.prototype, "classDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], EmbeddedInputGroupInputDirective.prototype, "attrDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclPrepItem'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], EmbeddedInputGroupInputDirective.prototype, "prepItem", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclAppItem'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], EmbeddedInputGroupInputDirective.prototype, "hasAppendedItem", null);
+    EmbeddedInputGroupInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'input[vclEmbeddedInputGroup]',
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_3__["EMBEDDED_INPUT_GROUP_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], Object])
+    ], EmbeddedInputGroupInputDirective);
+    return EmbeddedInputGroupInputDirective;
+}(_input_index__WEBPACK_IMPORTED_MODULE_2__["InputDirective"]));
+
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group.component.html":
 /*!*********************************************************************************!*\
   !*** ./lib/ng-vcl/src/embedded-input-group/embedded-input-group.component.html ***!
@@ -4801,7 +5035,7 @@ var VCLDropdownModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf='prepIcon' class=\"vclPrepended\">\n  <vcl-icon [icon]='prepIcon'></vcl-icon>\n</div>\n\n<ng-content select=\"input[vcl-input][vcl-embedded-input-group]\"></ng-content>\n\n<div *ngIf='appIcon' class=\"vclAppended\">\n  <vcl-icon [icon]='appIcon'></vcl-icon>\n</div>\n\n<ng-content select=\"button[vcl-button][vcl-embedded-input-group]\"></ng-content>\n"
+module.exports = "<div *ngIf='prepIcon' class=\"vclPrepended\">\n  <vcl-icon [icon]='prepIcon'></vcl-icon>\n</div>\n\n<ng-content select=\"input[vclEmbeddedInputGroup]\"></ng-content>\n\n<div *ngIf='appIcon' class=\"vclAppended\">\n  <vcl-icon [icon]='appIcon'></vcl-icon>\n</div>\n\n<ng-content select=\"button[vclEmbeddedInputGroup]\"></ng-content>\n"
 
 /***/ }),
 
@@ -4809,31 +5043,28 @@ module.exports = "<div *ngIf='prepIcon' class=\"vclPrepended\">\n  <vcl-icon [ic
 /*!*******************************************************************************!*\
   !*** ./lib/ng-vcl/src/embedded-input-group/embedded-input-group.component.ts ***!
   \*******************************************************************************/
-/*! exports provided: EmbeddedInputGroupComponent, EmbeddedInputDirective, EmbeddedButtonDirective */
+/*! exports provided: EmbeddedInputGroupComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupComponent", function() { return EmbeddedInputGroupComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputDirective", function() { return EmbeddedInputDirective; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmbeddedButtonDirective", function() { return EmbeddedButtonDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
-/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/embedded-input-group/interfaces.ts");
+/* harmony import */ var _embedded_input_group_button_directive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./embedded-input-group-button.directive */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.directive.ts");
 
 
 
 
-
-var EmbeddedInputGroupComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](EmbeddedInputGroupComponent, _super);
+var EmbeddedInputGroupComponent = /** @class */ (function () {
     function EmbeddedInputGroupComponent() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.disabled = false;
-        return _this;
+        // TODO remove workaround
+        this.styleDisplay = 'block';
+        this.classVCLInputGroupEmb = true;
+        this.disabled = false;
     }
+    EmbeddedInputGroupComponent_1 = EmbeddedInputGroupComponent;
     Object.defineProperty(EmbeddedInputGroupComponent.prototype, "hasAppendedItem", {
         get: function () {
             return !!this.appIcon || (this.buttons && this.buttons.length > 0);
@@ -4841,6 +5072,15 @@ var EmbeddedInputGroupComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    var EmbeddedInputGroupComponent_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], EmbeddedInputGroupComponent.prototype, "styleDisplay", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputGroupEmb'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], EmbeddedInputGroupComponent.prototype, "classVCLInputGroupEmb", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -4854,126 +5094,23 @@ var EmbeddedInputGroupComponent = /** @class */ (function (_super) {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], EmbeddedInputGroupComponent.prototype, "appIcon", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return EmbeddedButtonDirective; })),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return _embedded_input_group_button_directive__WEBPACK_IMPORTED_MODULE_3__["EmbeddedInputGroupButtonDirective"]; })),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], EmbeddedInputGroupComponent.prototype, "buttons", void 0);
-    EmbeddedInputGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    EmbeddedInputGroupComponent = EmbeddedInputGroupComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-embedded-input-group',
             template: __webpack_require__(/*! ./embedded-input-group.component.html */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group.component.html"),
-            host: {
-                '[class.vclInputGroupEmb]': 'true',
-                '[style.display]': '"block"'
-            }
+            exportAs: 'vclEmbeddedInputGroup',
+            providers: [
+                {
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_2__["EMBEDDED_INPUT_GROUP_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return EmbeddedInputGroupComponent_1; })
+                }
+            ]
         })
     ], EmbeddedInputGroupComponent);
     return EmbeddedInputGroupComponent;
-}(_core_index__WEBPACK_IMPORTED_MODULE_2__["ObservableComponent"]));
-
-var EmbeddedInputDirective = /** @class */ (function () {
-    function EmbeddedInputDirective(input, inputGroup) {
-        this.input = input;
-        this.inputGroup = inputGroup;
-    }
-    Object.defineProperty(EmbeddedInputDirective.prototype, "isDisabled", {
-        get: function () {
-            return this.input.disabled || this.inputGroup.disabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputDirective.prototype, "classDisabled", {
-        get: function () {
-            return this.isDisabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputDirective.prototype, "attrDisabled", {
-        get: function () {
-            return this.isDisabled ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputDirective.prototype, "prepItem", {
-        get: function () {
-            return !!this.inputGroup.prepIcon;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputDirective.prototype, "hasAppendedItem", {
-        get: function () {
-            return this.inputGroup.hasAppendedItem;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputDirective.prototype, "classDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputDirective.prototype, "attrDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclPrepItem'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputDirective.prototype, "prepItem", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclAppItem'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputDirective.prototype, "hasAppendedItem", null);
-    EmbeddedInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vcl-input][vcl-embedded-input-group]',
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_input_index__WEBPACK_IMPORTED_MODULE_3__["InputDirective"],
-            EmbeddedInputGroupComponent])
-    ], EmbeddedInputDirective);
-    return EmbeddedInputDirective;
-}());
-
-var EmbeddedButtonDirective = /** @class */ (function () {
-    function EmbeddedButtonDirective(button, inputGroup) {
-        this.button = button;
-        this.inputGroup = inputGroup;
-    }
-    Object.defineProperty(EmbeddedButtonDirective.prototype, "isDisabled", {
-        get: function () {
-            return (this.button.disabled || this.inputGroup.disabled) ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedButtonDirective.prototype, "isDisabled", null);
-    EmbeddedButtonDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'button[vcl-button][vcl-embedded-input-group][icon]',
-            host: {
-                '[class.vclTransparent]': 'true',
-                '[class.vclAppended]': 'true'
-            }
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_button_index__WEBPACK_IMPORTED_MODULE_4__["ButtonComponent"],
-            EmbeddedInputGroupComponent])
-    ], EmbeddedButtonDirective);
-    return EmbeddedButtonDirective;
 }());
 
 
@@ -4997,6 +5134,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
 /* harmony import */ var _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./embedded-input-group.component */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group.component.ts");
+/* harmony import */ var _embedded_input_group_button_directive__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./embedded-input-group-button.directive */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.directive.ts");
+/* harmony import */ var _embedded_input_group_input_directive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./embedded-input-group-input.directive */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-input.directive.ts");
+
+
 
 
 
@@ -5010,13 +5151,30 @@ var VCLEmbeddedInputGroupModule = /** @class */ (function () {
     VCLEmbeddedInputGroupModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _button_index__WEBPACK_IMPORTED_MODULE_3__["VCLButtonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"]],
-            exports: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputGroupComponent"], _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputDirective"], _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedButtonDirective"]],
-            declarations: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputGroupComponent"], _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputDirective"], _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedButtonDirective"]],
+            exports: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputGroupComponent"], _embedded_input_group_input_directive__WEBPACK_IMPORTED_MODULE_8__["EmbeddedInputGroupInputDirective"], _embedded_input_group_button_directive__WEBPACK_IMPORTED_MODULE_7__["EmbeddedInputGroupButtonDirective"]],
+            declarations: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputGroupComponent"], _embedded_input_group_input_directive__WEBPACK_IMPORTED_MODULE_8__["EmbeddedInputGroupInputDirective"], _embedded_input_group_button_directive__WEBPACK_IMPORTED_MODULE_7__["EmbeddedInputGroupButtonDirective"]],
         })
     ], VCLEmbeddedInputGroupModule);
     return VCLEmbeddedInputGroupModule;
 }());
 
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/embedded-input-group/interfaces.ts":
+/*!***********************************************************!*\
+  !*** ./lib/ng-vcl/src/embedded-input-group/interfaces.ts ***!
+  \***********************************************************/
+/*! exports provided: EMBEDDED_INPUT_GROUP_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMBEDDED_INPUT_GROUP_TOKEN", function() { return EMBEDDED_INPUT_GROUP_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var EMBEDDED_INPUT_GROUP_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('embedded-input-group');
 
 
 /***/ }),
@@ -5533,6 +5691,195 @@ var VCLFlipSwitchModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/font-awesome/alias-map.ts":
+/*!**************************************************!*\
+  !*** ./lib/ng-vcl/src/font-awesome/alias-map.ts ***!
+  \**************************************************/
+/*! exports provided: ALIAS_MAP */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALIAS_MAP", function() { return ALIAS_MAP; });
+var ALIAS_MAP = {
+    'close': 'fas fa-times',
+    'busy': 'fas fa-circle-notch fa-spin',
+    'box': 'fas fa-square',
+    'box-checked': 'fas fa-check-square',
+    'circle': 'fas fa-circle',
+    'circle-checked': 'fas fa-dot-circle',
+};
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/font-awesome/icon-resolver.service.ts":
+/*!**************************************************************!*\
+  !*** ./lib/ng-vcl/src/font-awesome/icon-resolver.service.ts ***!
+  \**************************************************************/
+/*! exports provided: FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return FontAwesomeIconResolverService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeVCLIconResolverService", function() { return FontAwesomeVCLIconResolverService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _alias_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./alias-map */ "./lib/ng-vcl/src/font-awesome/alias-map.ts");
+
+
+
+
+// The font-awesome name resolver following the CSS class name conventions of
+// the well-known Font Awesome icon font. Basically it translates
+// `fas:user` into `fas fa-user`
+var FontAwesomeIconResolverService = /** @class */ (function () {
+    function FontAwesomeIconResolverService() {
+        this.priority = 50;
+        this.FA_REGEX = /^(fa[bsrl]):([a-z0-9-_]+)$/;
+    }
+    FontAwesomeIconResolverService.prototype.resolve = function (icon) {
+        var result = this.FA_REGEX.exec(icon);
+        if (result) {
+            var s = result[0], prefix = result[1], value = result[2];
+            return prefix + " fa-" + value;
+        }
+        return undefined;
+    };
+    FontAwesomeIconResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+    ], FontAwesomeIconResolverService);
+    return FontAwesomeIconResolverService;
+}());
+
+var FontAwesomeVCLIconResolverService = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FontAwesomeVCLIconResolverService, _super);
+    function FontAwesomeVCLIconResolverService() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.priority = 10;
+        return _this;
+    }
+    FontAwesomeVCLIconResolverService.prototype.lookup = function (alias) {
+        return _alias_map__WEBPACK_IMPORTED_MODULE_3__["ALIAS_MAP"][alias];
+    };
+    FontAwesomeVCLIconResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+    ], FontAwesomeVCLIconResolverService);
+    return FontAwesomeVCLIconResolverService;
+}(_icon__WEBPACK_IMPORTED_MODULE_2__["VCLIconResolverServiceBase"]));
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/font-awesome/index.ts":
+/*!**********************************************!*\
+  !*** ./lib/ng-vcl/src/font-awesome/index.ts ***!
+  \**********************************************/
+/*! exports provided: FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLFontAwesomeModule", function() { return VCLFontAwesomeModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./icon-resolver.service */ "./lib/ng-vcl/src/font-awesome/icon-resolver.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIconResolverService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeVCLIconResolverService", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeVCLIconResolverService"]; });
+
+
+
+
+
+
+var VCLFontAwesomeModule = /** @class */ (function () {
+    function VCLFontAwesomeModule() {
+    }
+    VCLFontAwesomeModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            providers: [
+                _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIconResolverService"],
+                _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeVCLIconResolverService"],
+                {
+                    provide: _icon__WEBPACK_IMPORTED_MODULE_2__["IconResolverService"],
+                    useExisting: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIconResolverService"],
+                    multi: true
+                }, {
+                    provide: _icon__WEBPACK_IMPORTED_MODULE_2__["IconResolverService"],
+                    useExisting: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeVCLIconResolverService"],
+                    multi: true
+                }
+            ]
+        })
+    ], VCLFontAwesomeModule);
+    return VCLFontAwesomeModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.html":
+/*!**************************************************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.html ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<span *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">{{subLabel}}</span>\n<ng-content></ng-content>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.ts":
+/*!************************************************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.ts ***!
+  \************************************************************************************/
+/*! exports provided: FormControlLabelWrappingComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelWrappingComponent", function() { return FormControlLabelWrappingComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _form_control_label_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-control-label.component */ "./lib/ng-vcl/src/form-control-label/form-control-label.component.ts");
+
+
+
+var FormControlLabelWrappingComponent = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormControlLabelWrappingComponent, _super);
+    function FormControlLabelWrappingComponent() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.classVCLFormControlLabelWrapping = true;
+        return _this;
+    }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('content'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], FormControlLabelWrappingComponent.prototype, "content", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlLabelWrappingComponent.prototype, "classVCLFormControlLabelWrapping", void 0);
+    FormControlLabelWrappingComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'label[vcl-form-control-label-wrapping]',
+            template: __webpack_require__(/*! ./form-control-label-wrapping.component.html */ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+        })
+    ], FormControlLabelWrappingComponent);
+    return FormControlLabelWrappingComponent;
+}(_form_control_label_component__WEBPACK_IMPORTED_MODULE_2__["FormControlLabelComponent"]));
+
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/form-control-label/form-control-label.component.html":
 /*!*****************************************************************************!*\
   !*** ./lib/ng-vcl/src/form-control-label/form-control-label.component.html ***!
@@ -5540,7 +5887,7 @@ var VCLFlipSwitchModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<span *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">{{subLabel}}</span>\n<div #content><ng-content></ng-content></div>\n"
+module.exports = "{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<span *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">{{subLabel}}</span>\n\n<div [style.display]=\"hasContent ? undefined : 'none'\" #content>\n  <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
 
@@ -5560,6 +5907,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var FormControlLabelComponent = /** @class */ (function () {
     function FormControlLabelComponent() {
+        this.classVCLFormControlLabel = true;
         this.disabled = false;
         this.requiredIndicatorCharacter = '•';
         // Whether an indicator that an input in to the labeled control is required
@@ -5567,17 +5915,31 @@ var FormControlLabelComponent = /** @class */ (function () {
     }
     Object.defineProperty(FormControlLabelComponent.prototype, "vclFormControlLabelWrapping", {
         get: function () {
-            if (typeof this.wrapping === 'boolean') {
-                return this.wrapping;
+            // Not wrapping if "for" is defined
+            if (this.for || !this.content || !this.content.nativeElement) {
+                return false;
             }
-            else { // Auto-determine if wrapping label
-                // Not wrapping if "for" is defined
-                if (this.for || !this.content || !this.content.nativeElement) {
+            // Wrapping if any ng-content is defined
+            return this.hasContent;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlLabelComponent.prototype, "hasContent", {
+        get: function () {
+            var element = this.content.nativeElement;
+            var nodes = Array.from(element.childNodes);
+            return nodes.some(function (node) {
+                // Ignore empty text
+                if (node.nodeType === 3 && node.textContent && node.textContent.trim().length === 0) {
                     return false;
                 }
-                // Wrapping if any ng-content is defined
-                return hasContent(this.content.nativeElement);
-            }
+                // Ignore comments
+                if (node.nodeType === 8) {
+                    return false;
+                }
+                return true;
+            });
         },
         enumerable: true,
         configurable: true
@@ -5586,6 +5948,10 @@ var FormControlLabelComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('content'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
     ], FormControlLabelComponent.prototype, "content", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabel'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlLabelComponent.prototype, "classVCLFormControlLabel", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
@@ -5610,48 +5976,27 @@ var FormControlLabelComponent = /** @class */ (function () {
     ], FormControlLabelComponent.prototype, "for", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], FormControlLabelComponent.prototype, "wrapping", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlLabelComponent.prototype, "vclFormControlLabelWrapping", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], FormControlLabelComponent.prototype, "required", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], FormControlLabelComponent.prototype, "requiredIndLabel", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlLabelComponent.prototype, "vclFormControlLabelWrapping", null);
     FormControlLabelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'label[vcl-form-control-label]',
             template: __webpack_require__(/*! ./form-control-label.component.html */ "./lib/ng-vcl/src/form-control-label/form-control-label.component.html"),
-            host: {
-                '[class.vclFormControlLabel]': 'true',
-            },
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         })
     ], FormControlLabelComponent);
     return FormControlLabelComponent;
 }());
 
-function hasContent(element) {
-    var nodes = Array.from(element.childNodes);
-    return nodes.some(function (node) {
-        // Ignore empty text
-        if (node.nodeType === 3 && node.textContent && node.textContent.trim().length === 0) {
-            return false;
-        }
-        // Ignore comments
-        if (node.nodeType === 8) {
-            return false;
-        }
-        return true;
-    });
-}
 
 
 /***/ }),
@@ -5671,6 +6016,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
 /* harmony import */ var _form_control_label_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form-control-label.component */ "./lib/ng-vcl/src/form-control-label/form-control-label.component.ts");
+/* harmony import */ var _form_control_label_wrapping_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./form-control-label-wrapping.component */ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.ts");
+
 
 
 
@@ -5682,8 +6029,8 @@ var VCLFormControlLabelModule = /** @class */ (function () {
     VCLFormControlLabelModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"]],
-            exports: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]],
-            declarations: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]]
+            exports: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"], _form_control_label_wrapping_component__WEBPACK_IMPORTED_MODULE_5__["FormControlLabelWrappingComponent"]],
+            declarations: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"], _form_control_label_wrapping_component__WEBPACK_IMPORTED_MODULE_5__["FormControlLabelWrappingComponent"]]
         })
     ], VCLFormControlLabelModule);
     return VCLFormControlLabelModule;
@@ -6318,58 +6665,33 @@ var VCLIcogramModule = /** @class */ (function () {
 /*!******************************************************!*\
   !*** ./lib/ng-vcl/src/icon/icon-resolver.service.ts ***!
   \******************************************************/
-/*! exports provided: VCL_ICON_RESOLVER, FontAwesomeIconResolverService, MDIIconResolverService */
+/*! exports provided: IconResolverService, VCLIconResolverServiceBase */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCL_ICON_RESOLVER", function() { return VCL_ICON_RESOLVER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return FontAwesomeIconResolverService; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDIIconResolverService", function() { return MDIIconResolverService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var VCL_ICON_RESOLVER = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('VCL_ICON_RESOLVER');
-// The font-awesome name resolver following the CSS class name conventions of
-// the well-known Font Awesome icon font. Basically it translates
-// `fas:user` into `fas fa-user`
-var FontAwesomeIconResolverService = /** @class */ (function () {
-    function FontAwesomeIconResolverService() {
-        this.FA_REGEX = /^(fa[bsrl]):([a-z0-9-_]+)$/;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconResolverService", function() { return IconResolverService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLIconResolverServiceBase", function() { return VCLIconResolverServiceBase; });
+var IconResolverService = /** @class */ (function () {
+    function IconResolverService() {
     }
-    FontAwesomeIconResolverService.prototype.match = function (icon) {
-        return this.FA_REGEX.test(icon);
-    };
-    FontAwesomeIconResolverService.prototype.lookup = function (icon) {
-        if (typeof icon === 'string') {
-            return icon.replace(this.FA_REGEX, function (_, p, i) { return p + " fa-" + i; });
-        }
-        return icon;
-    };
-    FontAwesomeIconResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
-    ], FontAwesomeIconResolverService);
-    return FontAwesomeIconResolverService;
+    return IconResolverService;
 }());
 
-var MDIIconResolverService = /** @class */ (function () {
-    function MDIIconResolverService() {
-        this.MDI_REGEX = /^(mdi):([a-z0-9-_]+)$/;
+// The default icon resolver replaces icons prefixed with `vcl`. Usually you should provide only one default icon resolver in your app
+var VCLIconResolverServiceBase = /** @class */ (function () {
+    function VCLIconResolverServiceBase() {
+        this.VCL_REGEX = /^vcl:([a-z0-9-_]+)$/;
     }
-    MDIIconResolverService.prototype.match = function (icon) {
-        return this.MDI_REGEX.test(icon);
-    };
-    MDIIconResolverService.prototype.lookup = function (icon) {
-        if (typeof icon === 'string') {
-            return icon.replace(this.MDI_REGEX, function (_, p, i) { return p + " mdi-" + i; });
+    VCLIconResolverServiceBase.prototype.resolve = function (icon) {
+        var result = this.VCL_REGEX.exec(icon);
+        if (result) {
+            var s = result[0], alias = result[1];
+            return this.lookup(alias) || undefined;
         }
-        return icon;
+        return undefined;
     };
-    MDIIconResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
-    ], MDIIconResolverService);
-    return MDIIconResolverService;
+    return VCLIconResolverServiceBase;
 }());
 
 
@@ -6389,15 +6711,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./icon-resolver.service */ "./lib/ng-vcl/src/icon/icon-resolver.service.ts");
+/* harmony import */ var _icon_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./icon.service */ "./lib/ng-vcl/src/icon/icon.service.ts");
 
 
 
 
 var IconComponent = /** @class */ (function () {
-    function IconComponent(ngClass, _iconResolvers) {
+    function IconComponent(ngClass, iconService) {
         this.ngClass = ngClass;
-        this._iconResolvers = _iconResolvers;
+        this.iconService = iconService;
         this.vclIcon = true;
     }
     Object.defineProperty(IconComponent.prototype, "attrRole", {
@@ -6409,19 +6731,13 @@ var IconComponent = /** @class */ (function () {
     });
     IconComponent.prototype.ngOnChanges = function (changes) {
         if (changes.icon) {
-            var icon_1 = changes.icon.currentValue;
+            var icon = changes.icon.currentValue;
             var fontIconClass = void 0;
-            if (!icon_1) {
+            if (!icon) {
                 fontIconClass = [];
             }
             else {
-                var resolver = this._iconResolvers.find(function (ir) { return ir.match(icon_1); });
-                if (!resolver) {
-                    fontIconClass = icon_1;
-                }
-                else {
-                    fontIconClass = resolver.lookup(icon_1);
-                }
+                fontIconClass = this.iconService.resolve(icon);
             }
             this.ngClass.ngClass = fontIconClass;
             this.ngClass.ngDoCheck();
@@ -6451,10 +6767,61 @@ var IconComponent = /** @class */ (function () {
             template: '<ng-content></ng-content>'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["VCL_ICON_RESOLVER"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_2__["NgClass"], Array])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_2__["NgClass"],
+            _icon_service__WEBPACK_IMPORTED_MODULE_3__["IconService"]])
     ], IconComponent);
     return IconComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/icon/icon.service.ts":
+/*!*********************************************!*\
+  !*** ./lib/ng-vcl/src/icon/icon.service.ts ***!
+  \*********************************************/
+/*! exports provided: IconService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconService", function() { return IconService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _icon_resolver_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./icon-resolver.service */ "./lib/ng-vcl/src/icon/icon-resolver.service.ts");
+
+
+
+var IconService = /** @class */ (function () {
+    function IconService(iconResolvers) {
+        if (iconResolvers) {
+            this.iconResolvers = iconResolvers.sort(function (ir1, ir2) { return ir1.priority - ir2.priority; });
+        }
+        else {
+            this.iconResolvers = [];
+        }
+    }
+    IconService.prototype.resolve = function (icon) {
+        // Resolve first match
+        for (var _i = 0, _a = this.iconResolvers; _i < _a.length; _i++) {
+            var resolver = _a[_i];
+            var result = resolver.resolve(icon);
+            if (result !== undefined) {
+                return result;
+            }
+        }
+        return icon;
+    };
+    IconService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_icon_resolver_service__WEBPACK_IMPORTED_MODULE_2__["IconResolverService"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Array])
+    ], IconService);
+    return IconService;
 }());
 
 
@@ -6465,7 +6832,7 @@ var IconComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/icon/index.ts ***!
   \**************************************/
-/*! exports provided: IconComponent, FontAwesomeIconResolverService, MDIIconResolverService, VCL_ICON_RESOLVER, VCLIconModule */
+/*! exports provided: IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6478,11 +6845,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconComponent", function() { return _icon_component__WEBPACK_IMPORTED_MODULE_3__["IconComponent"]; });
 
 /* harmony import */ var _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon-resolver.service */ "./lib/ng-vcl/src/icon/icon-resolver.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIconResolverService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIconResolverServiceBase", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["VCLIconResolverServiceBase"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDIIconResolverService", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["MDIIconResolverService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconResolverService", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["IconResolverService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCL_ICON_RESOLVER", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["VCL_ICON_RESOLVER"]; });
+/* harmony import */ var _icon_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./icon.service */ "./lib/ng-vcl/src/icon/icon.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconService", function() { return _icon_service__WEBPACK_IMPORTED_MODULE_5__["IconService"]; });
+
 
 
 
@@ -6498,15 +6867,7 @@ var VCLIconModule = /** @class */ (function () {
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]],
             exports: [_icon_component__WEBPACK_IMPORTED_MODULE_3__["IconComponent"]],
             declarations: [_icon_component__WEBPACK_IMPORTED_MODULE_3__["IconComponent"]],
-            providers: [{
-                    provide: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["VCL_ICON_RESOLVER"],
-                    useClass: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIconResolverService"],
-                    multi: true
-                }, {
-                    provide: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["VCL_ICON_RESOLVER"],
-                    useClass: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_4__["MDIIconResolverService"],
-                    multi: true
-                }],
+            providers: [_icon_service__WEBPACK_IMPORTED_MODULE_5__["IconService"]]
         })
     ], VCLIconModule);
     return VCLIconModule;
@@ -6520,19 +6881,13 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: ObservableComponent, LayoutDirective, LayoutTargetDirective, VCLLayoutModule, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, FontAwesomeIconResolverService, MDIIconResolverService, VCL_ICON_RESOLVER, VCLIconModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteOptionDirective, AutocompleteContentComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _public_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./public_api */ "./lib/ng-vcl/src/public_api.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObservableComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ObservableComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayoutDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutTargetDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayoutTargetDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLayoutModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLLayoutModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["defineMetadata"]; });
 
@@ -6552,13 +6907,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["IconComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FontAwesomeIconResolverService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIconResolverServiceBase", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLIconResolverServiceBase"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDIIconResolverService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["MDIIconResolverService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconResolverService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["IconResolverService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCL_ICON_RESOLVER", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCL_ICON_RESOLVER"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["IconService"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIconModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLIconModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FontAwesomeIconResolverService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeVCLIconResolverService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FontAwesomeVCLIconResolverService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFontAwesomeModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLFontAwesomeModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignIconResolverService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["MaterialDesignIconResolverService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignVCLIconResolverServiceBase", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["MaterialDesignVCLIconResolverServiceBase"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMaterialDesignModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLMaterialDesignModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistItemComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["MetalistItemComponent"]; });
 
@@ -6766,9 +7133,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteOptionDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteOptionDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteItemComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteContentComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteContentComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteSeperatorComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteHeaderComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["InputAutocompleteDirective"]; });
 
@@ -7838,6 +8207,136 @@ var LayerService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_layer_manager_service__WEBPACK_IMPORTED_MODULE_2__["LayerManagerService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
     ], LayerService);
     return LayerService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/material-design-icons/alias-map.ts":
+/*!***********************************************************!*\
+  !*** ./lib/ng-vcl/src/material-design-icons/alias-map.ts ***!
+  \***********************************************************/
+/*! exports provided: ALIAS_MAP */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALIAS_MAP", function() { return ALIAS_MAP; });
+var ALIAS_MAP = {
+    'close': 'mdi mdi-close',
+    'busy': 'mdi mdi-loading mdi-spin',
+    'box': 'mdi mdi-checkbox-blank-outline',
+    'box-checked': 'mdi mdi-check-box-outline',
+    'circle': 'mdi mdi-radiobox-blank',
+    'circle-checked': 'mdi mdi-radiobox-marked',
+};
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/material-design-icons/icon-resolver.service.ts":
+/*!***********************************************************************!*\
+  !*** ./lib/ng-vcl/src/material-design-icons/icon-resolver.service.ts ***!
+  \***********************************************************************/
+/*! exports provided: MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignIconResolverService", function() { return MaterialDesignIconResolverService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignVCLIconResolverServiceBase", function() { return MaterialDesignVCLIconResolverServiceBase; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _alias_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./alias-map */ "./lib/ng-vcl/src/material-design-icons/alias-map.ts");
+
+
+
+
+// The mdi name resolver following the CSS class name conventions of
+// the well-known Font Awesome icon font. Basically it translates
+// `mdi:user` into `mdi mdi-user`
+var MaterialDesignIconResolverService = /** @class */ (function () {
+    function MaterialDesignIconResolverService() {
+        this.priority = 55;
+        this.MDI_REGEX = /^(mdi):([a-z0-9-_]+)$/;
+    }
+    MaterialDesignIconResolverService.prototype.resolve = function (icon) {
+        var result = this.MDI_REGEX.exec(icon);
+        if (result) {
+            var s = result[0], prefix = result[1], value = result[2];
+            return prefix + " mdi-" + value;
+        }
+        return undefined;
+    };
+    MaterialDesignIconResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+    ], MaterialDesignIconResolverService);
+    return MaterialDesignIconResolverService;
+}());
+
+var MaterialDesignVCLIconResolverServiceBase = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MaterialDesignVCLIconResolverServiceBase, _super);
+    function MaterialDesignVCLIconResolverServiceBase() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.priority = 15;
+        return _this;
+    }
+    MaterialDesignVCLIconResolverServiceBase.prototype.lookup = function (alias) {
+        return _alias_map__WEBPACK_IMPORTED_MODULE_3__["ALIAS_MAP"][alias];
+    };
+    return MaterialDesignVCLIconResolverServiceBase;
+}(_icon__WEBPACK_IMPORTED_MODULE_2__["VCLIconResolverServiceBase"]));
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/material-design-icons/index.ts":
+/*!*******************************************************!*\
+  !*** ./lib/ng-vcl/src/material-design-icons/index.ts ***!
+  \*******************************************************/
+/*! exports provided: MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLMaterialDesignModule", function() { return VCLMaterialDesignModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./icon-resolver.service */ "./lib/ng-vcl/src/material-design-icons/icon-resolver.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignIconResolverService", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["MaterialDesignIconResolverService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignVCLIconResolverServiceBase", function() { return _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["MaterialDesignVCLIconResolverServiceBase"]; });
+
+
+
+
+
+
+var VCLMaterialDesignModule = /** @class */ (function () {
+    function VCLMaterialDesignModule() {
+    }
+    VCLMaterialDesignModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            providers: [
+                _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["MaterialDesignIconResolverService"],
+                _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["MaterialDesignVCLIconResolverServiceBase"],
+                {
+                    provide: _icon__WEBPACK_IMPORTED_MODULE_2__["IconResolverService"],
+                    useExisting: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["MaterialDesignIconResolverService"],
+                    multi: true
+                }, {
+                    provide: _icon__WEBPACK_IMPORTED_MODULE_2__["IconResolverService"],
+                    useExisting: _icon_resolver_service__WEBPACK_IMPORTED_MODULE_3__["MaterialDesignVCLIconResolverServiceBase"],
+                    multi: true
+                }
+            ]
+        })
+    ], VCLMaterialDesignModule);
+    return VCLMaterialDesignModule;
 }());
 
 
@@ -11336,19 +11835,13 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: ObservableComponent, LayoutDirective, LayoutTargetDirective, VCLLayoutModule, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, FontAwesomeIconResolverService, MDIIconResolverService, VCL_ICON_RESOLVER, VCLIconModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteOptionDirective, AutocompleteContentComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core/index */ "./lib/ng-vcl/src/core/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObservableComponent", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["ObservableComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutDirective", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["LayoutDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutTargetDirective", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["LayoutTargetDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLayoutModule", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["VCLLayoutModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["defineMetadata"]; });
 
@@ -11373,297 +11866,315 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./icon/index */ "./lib/ng-vcl/src/icon/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconComponent", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["IconComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeIconResolverService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIconResolverServiceBase", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconResolverServiceBase"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDIIconResolverService", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["MDIIconResolverService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconResolverService", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["IconResolverService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCL_ICON_RESOLVER", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCL_ICON_RESOLVER"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconService", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["IconService"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIconModule", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"]; });
 
-/* harmony import */ var _metalist_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./metalist/index */ "./lib/ng-vcl/src/metalist/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistItemComponent", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_6__["MetalistItemComponent"]; });
+/* harmony import */ var _font_awesome_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./font-awesome/index */ "./lib/ng-vcl/src/font-awesome/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeIconResolverService", function() { return _font_awesome_index__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIconResolverService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistComponent", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_6__["MetalistComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontAwesomeVCLIconResolverService", function() { return _font_awesome_index__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeVCLIconResolverService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMetalistModule", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_6__["VCLMetalistModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFontAwesomeModule", function() { return _font_awesome_index__WEBPACK_IMPORTED_MODULE_6__["VCLFontAwesomeModule"]; });
 
-/* harmony import */ var _dropdown_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./dropdown/index */ "./lib/ng-vcl/src/dropdown/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownOptionComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_7__["DropdownOptionComponent"]; });
+/* harmony import */ var _material_design_icons_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./material-design-icons/index */ "./lib/ng-vcl/src/material-design-icons/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignIconResolverService", function() { return _material_design_icons_index__WEBPACK_IMPORTED_MODULE_7__["MaterialDesignIconResolverService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_7__["DropdownComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaterialDesignVCLIconResolverServiceBase", function() { return _material_design_icons_index__WEBPACK_IMPORTED_MODULE_7__["MaterialDesignVCLIconResolverServiceBase"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DROPDOWN_ANIMATIONS", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_7__["DROPDOWN_ANIMATIONS"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMaterialDesignModule", function() { return _material_design_icons_index__WEBPACK_IMPORTED_MODULE_7__["VCLMaterialDesignModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDropdownModule", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_7__["VCLDropdownModule"]; });
+/* harmony import */ var _metalist_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./metalist/index */ "./lib/ng-vcl/src/metalist/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistItemComponent", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_8__["MetalistItemComponent"]; });
 
-/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_8__["SelectComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistComponent", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_8__["MetalistComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectOptionDirective", function() { return _select_index__WEBPACK_IMPORTED_MODULE_8__["SelectOptionDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMetalistModule", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_8__["VCLMetalistModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDirection", function() { return _select_index__WEBPACK_IMPORTED_MODULE_8__["DropDirection"]; });
+/* harmony import */ var _dropdown_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dropdown/index */ "./lib/ng-vcl/src/dropdown/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownOptionComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownOptionComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_8__["VCLSelectModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownComponent"]; });
 
-/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_9__["IcogramComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DROPDOWN_ANIMATIONS", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DROPDOWN_ANIMATIONS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramLinkComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_9__["IcogramLinkComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDropdownModule", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["VCLDropdownModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIcogramModule", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_9__["VCLIcogramModule"]; });
+/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_10__["SelectComponent"]; });
 
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_10__["ButtonComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectOptionDirective", function() { return _select_index__WEBPACK_IMPORTED_MODULE_10__["SelectOptionDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIcogramComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_10__["ButtonIcogramComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDirection", function() { return _select_index__WEBPACK_IMPORTED_MODULE_10__["DropDirection"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_10__["ButtonIconComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_10__["VCLSelectModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonSelectableDirective", function() { return _button_index__WEBPACK_IMPORTED_MODULE_10__["ButtonSelectableDirective"]; });
+/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_11__["IcogramComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonModule", function() { return _button_index__WEBPACK_IMPORTED_MODULE_10__["VCLButtonModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramLinkComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_11__["IcogramLinkComponent"]; });
 
-/* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./button-group/index */ "./lib/ng-vcl/src/button-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_11__["ButtonGroupComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIcogramModule", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_11__["VCLIcogramModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupButtonComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_11__["ButtonGroupButtonComponent"]; });
+/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./button/index */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["ButtonComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonGroupModule", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_11__["VCLButtonGroupModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIcogramComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["ButtonIcogramComponent"]; });
 
-/* harmony import */ var _layer_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./layer/index */ "./lib/ng-vcl/src/layer/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRefDirective", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["LayerRefDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["ButtonIconComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRef", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["LayerRef"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonSelectableDirective", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["ButtonSelectableDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerService", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["LayerService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonModule", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["VCLButtonModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerContainerComponent", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["LayerContainerComponent"]; });
+/* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./button-group/index */ "./lib/ng-vcl/src/button-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_13__["ButtonGroupComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DynamicLayerRef", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["DynamicLayerRef"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupButtonComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_13__["ButtonGroupButtonComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LAYER_ANIMATIONS", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["LAYER_ANIMATIONS"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonGroupModule", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_13__["VCLButtonGroupModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerResult", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["LayerResult"]; });
+/* harmony import */ var _layer_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./layer/index */ "./lib/ng-vcl/src/layer/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRefDirective", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["LayerRefDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LAYERS", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["LAYERS"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRef", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["LayerRef"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Layer", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["Layer"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerService", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["LayerService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLayerModule", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_12__["VCLLayerModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerContainerComponent", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["LayerContainerComponent"]; });
 
-/* harmony import */ var _tab_nav_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./tab-nav/index */ "./lib/ng-vcl/src/tab-nav/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTabNavModule", function() { return _tab_nav_index__WEBPACK_IMPORTED_MODULE_13__["VCLTabNavModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DynamicLayerRef", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["DynamicLayerRef"]; });
 
-/* harmony import */ var _navigation_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./navigation/index */ "./lib/ng-vcl/src/navigation/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationComponent", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_14__["NavigationComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LAYER_ANIMATIONS", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["LAYER_ANIMATIONS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationItemDirective", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_14__["NavigationItemDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerResult", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["LayerResult"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNavigationModule", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_14__["VCLNavigationModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LAYERS", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["LAYERS"]; });
 
-/* harmony import */ var _toolbar_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./toolbar/index */ "./lib/ng-vcl/src/toolbar/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLToolbarModule", function() { return _toolbar_index__WEBPACK_IMPORTED_MODULE_15__["VCLToolbarModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Layer", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["Layer"]; });
 
-/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./popover/index */ "./lib/ng-vcl/src/popover/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PopoverComponent", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_16__["PopoverComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLayerModule", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_14__["VCLLayerModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AttachmentX", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_16__["AttachmentX"]; });
+/* harmony import */ var _tab_nav_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./tab-nav/index */ "./lib/ng-vcl/src/tab-nav/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTabNavModule", function() { return _tab_nav_index__WEBPACK_IMPORTED_MODULE_15__["VCLTabNavModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AttachmentY", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_16__["AttachmentY"]; });
+/* harmony import */ var _navigation_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./navigation/index */ "./lib/ng-vcl/src/navigation/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationComponent", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_16__["NavigationComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "POPOVER_ANIMATIONS", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_16__["POPOVER_ANIMATIONS"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationItemDirective", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_16__["NavigationItemDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPopoverModule", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_16__["VCLPopoverModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNavigationModule", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_16__["VCLNavigationModule"]; });
 
-/* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./progress-bar/index */ "./lib/ng-vcl/src/progress-bar/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLProgressBarModule", function() { return _progress_bar_index__WEBPACK_IMPORTED_MODULE_17__["VCLProgressBarModule"]; });
+/* harmony import */ var _toolbar_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./toolbar/index */ "./lib/ng-vcl/src/toolbar/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLToolbarModule", function() { return _toolbar_index__WEBPACK_IMPORTED_MODULE_17__["VCLToolbarModule"]; });
 
-/* harmony import */ var _radio_button_index__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./radio-button/index */ "./lib/ng-vcl/src/radio-button/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_18__["RadioButtonComponent"]; });
+/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./popover/index */ "./lib/ng-vcl/src/popover/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PopoverComponent", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_18__["PopoverComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupComponent", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_18__["RadioGroupComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AttachmentX", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_18__["AttachmentX"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRadioButtonModule", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_18__["VCLRadioButtonModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AttachmentY", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_18__["AttachmentY"]; });
 
-/* harmony import */ var _checkbox_index__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./checkbox/index */ "./lib/ng-vcl/src/checkbox/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_19__["CheckboxComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "POPOVER_ANIMATIONS", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_18__["POPOVER_ANIMATIONS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCheckboxModule", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_19__["VCLCheckboxModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPopoverModule", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_18__["VCLPopoverModule"]; });
 
-/* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLOffClickModule", function() { return _off_click_index__WEBPACK_IMPORTED_MODULE_20__["VCLOffClickModule"]; });
+/* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./progress-bar/index */ "./lib/ng-vcl/src/progress-bar/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLProgressBarModule", function() { return _progress_bar_index__WEBPACK_IMPORTED_MODULE_19__["VCLProgressBarModule"]; });
 
-/* harmony import */ var _date_picker_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./date-picker/index */ "./lib/ng-vcl/src/date-picker/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DatePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_21__["DatePickerComponent"]; });
+/* harmony import */ var _radio_button_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./radio-button/index */ "./lib/ng-vcl/src/radio-button/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_20__["RadioButtonComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_21__["TimePickerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupComponent", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_20__["RadioGroupComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_21__["VCLDatePickerModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRadioButtonModule", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_20__["VCLRadioButtonModule"]; });
 
-/* harmony import */ var _form_control_label_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./form-control-label/index */ "./lib/ng-vcl/src/form-control-label/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlLabelModule", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_22__["VCLFormControlLabelModule"]; });
+/* harmony import */ var _checkbox_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./checkbox/index */ "./lib/ng-vcl/src/checkbox/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_21__["CheckboxComponent"]; });
 
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["TemplateWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCheckboxModule", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_21__["VCLCheckboxModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["ComponentWormhole"]; });
+/* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLOffClickModule", function() { return _off_click_index__WEBPACK_IMPORTED_MODULE_22__["VCLOffClickModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["Wormhole"]; });
+/* harmony import */ var _date_picker_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./date-picker/index */ "./lib/ng-vcl/src/date-picker/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DatePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_23__["DatePickerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["WormholeDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_23__["TimePickerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["DomComponentWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_23__["VCLDatePickerModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["DomTemplateWormhole"]; });
+/* harmony import */ var _form_control_label_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./form-control-label/index */ "./lib/ng-vcl/src/form-control-label/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlLabelModule", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_24__["VCLFormControlLabelModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["WormholeHost"]; });
+/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["TemplateWormhole"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["DomWormholeHost"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["ComponentWormhole"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLWormholeModule", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_23__["VCLWormholeModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["Wormhole"]; });
 
-/* harmony import */ var _month_picker_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./month-picker/index */ "./lib/ng-vcl/src/month-picker/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthPickerComponent", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_24__["MonthPickerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["WormholeDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMonthPickerModule", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_24__["VCLMonthPickerModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["DomComponentWormhole"]; });
 
-/* harmony import */ var _label_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./label/index */ "./lib/ng-vcl/src/label/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLabelModule", function() { return _label_index__WEBPACK_IMPORTED_MODULE_25__["VCLLabelModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["DomTemplateWormhole"]; });
 
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./token/index */ "./lib/ng-vcl/src/token/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_26__["TokenComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["WormholeHost"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_26__["TokenInputContainerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["DomWormholeHost"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_index__WEBPACK_IMPORTED_MODULE_26__["TokenInputDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLWormholeModule", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_25__["VCLWormholeModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_26__["TokenListComponent"]; });
+/* harmony import */ var _month_picker_index__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./month-picker/index */ "./lib/ng-vcl/src/month-picker/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthPickerComponent", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_26__["MonthPickerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTokenModule", function() { return _token_index__WEBPACK_IMPORTED_MODULE_26__["VCLTokenModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMonthPickerModule", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_26__["VCLMonthPickerModule"]; });
 
-/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./slider/index */ "./lib/ng-vcl/src/slider/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_27__["SliderComponent"]; });
+/* harmony import */ var _label_index__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./label/index */ "./lib/ng-vcl/src/label/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLabelModule", function() { return _label_index__WEBPACK_IMPORTED_MODULE_27__["VCLLabelModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSliderModule", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_27__["VCLSliderModule"]; });
+/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./token/index */ "./lib/ng-vcl/src/token/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_28__["TokenComponent"]; });
 
-/* harmony import */ var _input_control_group_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./input-control-group/index */ "./lib/ng-vcl/src/input-control-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLInputControlGroupModule", function() { return _input_control_group_index__WEBPACK_IMPORTED_MODULE_28__["VCLInputControlGroupModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_28__["TokenInputContainerComponent"]; });
 
-/* harmony import */ var _alert_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./alert/index */ "./lib/ng-vcl/src/alert/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_29__["AlertService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_index__WEBPACK_IMPORTED_MODULE_28__["TokenInputDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_29__["AlertType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_28__["TokenListComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_29__["AlertInput"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTokenModule", function() { return _token_index__WEBPACK_IMPORTED_MODULE_28__["VCLTokenModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertError", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_29__["AlertError"]; });
+/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./slider/index */ "./lib/ng-vcl/src/slider/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_29__["SliderComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_29__["AlertAlignment"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSliderModule", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_29__["VCLSliderModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAlertModule", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_29__["VCLAlertModule"]; });
+/* harmony import */ var _input_control_group_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./input-control-group/index */ "./lib/ng-vcl/src/input-control-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLInputControlGroupModule", function() { return _input_control_group_index__WEBPACK_IMPORTED_MODULE_30__["VCLInputControlGroupModule"]; });
 
-/* harmony import */ var _busy_indicator_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./busy-indicator/index */ "./lib/ng-vcl/src/busy-indicator/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorCoverComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_30__["BusyIndicatorCoverComponent"]; });
+/* harmony import */ var _alert_index__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./alert/index */ "./lib/ng-vcl/src/alert/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_31__["AlertService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_30__["BusyIndicatorComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_31__["AlertType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBusyIndicatorModule", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_30__["VCLBusyIndicatorModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_31__["AlertInput"]; });
 
-/* harmony import */ var _notifier_index__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./notifier/index */ "./lib/ng-vcl/src/notifier/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Notifier", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_31__["Notifier"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertError", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_31__["AlertError"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_31__["NotifierService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_31__["AlertAlignment"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_31__["NotifierType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAlertModule", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_31__["VCLAlertModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_31__["NotifierPosition"]; });
+/* harmony import */ var _busy_indicator_index__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./busy-indicator/index */ "./lib/ng-vcl/src/busy-indicator/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorCoverComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_32__["BusyIndicatorCoverComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierComponent", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_31__["NotifierComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_32__["BusyIndicatorComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotifierModule", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_31__["VCLNotifierModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBusyIndicatorModule", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_32__["VCLBusyIndicatorModule"]; });
 
-/* harmony import */ var _tooltip_index__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./tooltip/index */ "./lib/ng-vcl/src/tooltip/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["TooltipComponent"]; });
+/* harmony import */ var _notifier_index__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./notifier/index */ "./lib/ng-vcl/src/notifier/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Notifier", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_33__["Notifier"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimationState", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["AnimationState"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_33__["NotifierService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Placement", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["Placement"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_33__["NotifierType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTooltipModule", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["VCLTooltipModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_33__["NotifierPosition"]; });
 
-/* harmony import */ var _table_index__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./table/index */ "./lib/ng-vcl/src/table/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTableModule", function() { return _table_index__WEBPACK_IMPORTED_MODULE_33__["VCLTableModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierComponent", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_33__["NotifierComponent"]; });
 
-/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputComponent", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_34__["PasswordInputComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotifierModule", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_33__["VCLNotifierModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputDirective", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_34__["PasswordInputDirective"]; });
+/* harmony import */ var _tooltip_index__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./tooltip/index */ "./lib/ng-vcl/src/tooltip/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_34__["TooltipComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPasswordInputModule", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_34__["VCLPasswordInputModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimationState", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_34__["AnimationState"]; });
 
-/* harmony import */ var _zoom_box_index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./zoom-box/index */ "./lib/ng-vcl/src/zoom-box/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLZoomBoxModule", function() { return _zoom_box_index__WEBPACK_IMPORTED_MODULE_35__["VCLZoomBoxModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Placement", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_34__["Placement"]; });
 
-/* harmony import */ var _notification_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./notification/index */ "./lib/ng-vcl/src/notification/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotificationModule", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["VCLNotificationModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTooltipModule", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_34__["VCLTooltipModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationTypeFromString", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["notificationTypeFromString"]; });
+/* harmony import */ var _table_index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./table/index */ "./lib/ng-vcl/src/table/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTableModule", function() { return _table_index__WEBPACK_IMPORTED_MODULE_35__["VCLTableModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationIconFromType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["notificationIconFromType"]; });
+/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputComponent", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_36__["PasswordInputComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationStyleClassFromType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["notificationStyleClassFromType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputDirective", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_36__["PasswordInputDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["NotificationType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPasswordInputModule", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_36__["VCLPasswordInputModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FlexAlign", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["FlexAlign"]; });
+/* harmony import */ var _zoom_box_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./zoom-box/index */ "./lib/ng-vcl/src/zoom-box/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLZoomBoxModule", function() { return _zoom_box_index__WEBPACK_IMPORTED_MODULE_37__["VCLZoomBoxModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextAlign", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["TextAlign"]; });
+/* harmony import */ var _notification_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./notification/index */ "./lib/ng-vcl/src/notification/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotificationModule", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["VCLNotificationModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["IconType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationTypeFromString", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["notificationTypeFromString"]; });
 
-/* harmony import */ var _gallery_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./gallery/index */ "./lib/ng-vcl/src/gallery/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GALLERY_ANIMATIONS", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_37__["GALLERY_ANIMATIONS"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationIconFromType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["notificationIconFromType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLGalleryModule", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_37__["VCLGalleryModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationStyleClassFromType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["notificationStyleClassFromType"]; });
 
-/* harmony import */ var _badge_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./badge/index */ "./lib/ng-vcl/src/badge/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBadgeModule", function() { return _badge_index__WEBPACK_IMPORTED_MODULE_38__["VCLBadgeModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["NotificationType"]; });
 
-/* harmony import */ var _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./embedded-input-group/index */ "./lib/ng-vcl/src/embedded-input-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLEmbeddedInputGroupModule", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_39__["VCLEmbeddedInputGroupModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FlexAlign", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["FlexAlign"]; });
 
-/* harmony import */ var _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./autocomplete/index */ "./lib/ng-vcl/src/autocomplete/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextAlign", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["TextAlign"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteOptionDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteOptionDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_38__["IconType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteContentComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteContentComponent"]; });
+/* harmony import */ var _gallery_index__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./gallery/index */ "./lib/ng-vcl/src/gallery/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GALLERY_ANIMATIONS", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_39__["GALLERY_ANIMATIONS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["InputAutocompleteDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLGalleryModule", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_39__["VCLGalleryModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["TokenInputAutocompleteDirective"]; });
+/* harmony import */ var _badge_index__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./badge/index */ "./lib/ng-vcl/src/badge/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBadgeModule", function() { return _badge_index__WEBPACK_IMPORTED_MODULE_40__["VCLBadgeModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["VCLAutocompleteModule"]; });
+/* harmony import */ var _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./embedded-input-group/index */ "./lib/ng-vcl/src/embedded-input-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLEmbeddedInputGroupModule", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_41__["VCLEmbeddedInputGroupModule"]; });
 
-/* harmony import */ var _tour_index__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./tour/index */ "./lib/ng-vcl/src/tour/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["TourService"]; });
+/* harmony import */ var _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./autocomplete/index */ "./lib/ng-vcl/src/autocomplete/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["AutocompleteComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["TourOptions"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["AutocompleteItemComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["TourComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["AutocompleteSeperatorComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTourModule", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["VCLTourModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["AutocompleteHeaderComponent"]; });
 
-/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./rating/index */ "./lib/ng-vcl/src/rating/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _rating_index__WEBPACK_IMPORTED_MODULE_42__["VCLRatingModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["InputAutocompleteDirective"]; });
 
-/* harmony import */ var _modal_index__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./modal/index */ "./lib/ng-vcl/src/modal/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLModalModule", function() { return _modal_index__WEBPACK_IMPORTED_MODULE_43__["VCLModalModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["TokenInputAutocompleteDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["VCLAutocompleteModule"]; });
+
+/* harmony import */ var _tour_index__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./tour/index */ "./lib/ng-vcl/src/tour/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_43__["TourService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_43__["TourOptions"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_43__["TourComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTourModule", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_43__["VCLTourModule"]; });
+
+/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./rating/index */ "./lib/ng-vcl/src/rating/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _rating_index__WEBPACK_IMPORTED_MODULE_44__["VCLRatingModule"]; });
+
+/* harmony import */ var _modal_index__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./modal/index */ "./lib/ng-vcl/src/modal/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLModalModule", function() { return _modal_index__WEBPACK_IMPORTED_MODULE_45__["VCLModalModule"]; });
 
 /*
  * Public API Surface of ng-vcl
  */
+
+
 
 
 
@@ -11765,7 +12276,7 @@ var VCLRadioButtonModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #rb>\n  <div class=\"vclRadioButton\" \n      [class.vclDisabled]=\"isDisabled\" \n      role=\"radio\" \n      [attr.tabindex]=\"tabindex\" \n      [attr.aria-checked]=\"checked\"\n      [attr.aria-disabled]=\"isDisabled\"\n      (keyup)=\"onKeyup($event)\"\n      (blur)=\"onBlur()\"\n      >\n  <vcl-icon [icon]=\"icon\"></vcl-icon>\n</div>  \n</ng-template>\n\n<label vcl-form-control-label [wrapping]=\"true\">\n  <ng-container *ngIf=\"iconPosition==='left'\" [ngTemplateOutlet]=\"rb\"></ng-container>\n  {{label}}  \n  <ng-content></ng-content>\n  <ng-container *ngIf=\"iconPosition==='right'\" [ngTemplateOutlet]=\"rb\"></ng-container>\n</label>\n  "
+module.exports = "<ng-template #content><ng-content></ng-content></ng-template>\n\n<label class=\"vclFormControlLabel vclFormControlLabelWrapping\">\n  <ng-container *ngIf=\"labelPosition==='before'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n\n  <div \n    class=\"vclRadioButton\" \n    [class.vclDisabled]=\"isDisabled\" \n    role=\"radio\" \n    [attr.tabindex]=\"tabindex\" \n    [attr.aria-checked]=\"checked\"\n    [attr.aria-disabled]=\"isDisabled\"\n    (keyup)=\"onKeyup($event)\"\n    (blur)=\"onBlur()\"\n    >\n    <vcl-icon [icon]=\"checked ? 'vcl:circle-checked' : 'vcl:circle'\"></vcl-icon>\n  </div>  \n\n  <ng-container *ngIf=\"labelPosition==='after'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n</label>\n\n<!-- <ng-template #content><ng-content></ng-content></ng-template>\n\n<label class=\"vclFormControlLabel vclFormControlLabelWrapping\">\n  <ng-container *ngIf=\"labelPosition==='before'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n\n  <span \n    class=\"vclCheckbox\" \n    [class.vclDisabled]=\"isDisabled\" \n    role=\"checkbox\" \n    [attr.tabindex]=\"tabindex\" \n    [attr.aria-checked]=\"checked\"\n    [attr.aria-disabled]=\"isDisabled\"\n    (keyup)=\"onKeyup($event)\"\n    (blur)=\"onBlur()\"\n    >\n    <vcl-icon [icon]=\"checked ? 'vcl:box-checked' : 'vcl:box'\"></vcl-icon>\n  </span>\n\n  <ng-container *ngIf=\"labelPosition==='after'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n</label> -->\n"
 
 /***/ }),
 
@@ -11797,11 +12308,8 @@ var RadioButtonComponent = /** @class */ (function () {
         this.cdRef = cdRef;
         this.uniqueID = "vcl-radio-button-" + ++uniqueID;
         this.id = this.uniqueID;
-        this.checkedIcon = 'fas fa-dot-circle';
-        this.uncheckedIcon = 'fas fa-circle';
         this.disabled = false;
-        this.inline = false;
-        this.iconPosition = 'left';
+        this.labelPosition = 'after';
         this.tabindex = 0;
         this.checked = false;
         this.checkedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
@@ -11823,13 +12331,6 @@ var RadioButtonComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(RadioButtonComponent.prototype, "icon", {
-        get: function () {
-            return this.checked ? this.checkedIcon : this.uncheckedIcon;
-        },
-        enumerable: true,
-        configurable: true
-    });
     RadioButtonComponent.prototype.onKeyup = function (e) {
         switch (e.code) {
             case 'Space':
@@ -11837,7 +12338,7 @@ var RadioButtonComponent = /** @class */ (function () {
                 break;
         }
     };
-    RadioButtonComponent.prototype.onTap = function (e) {
+    RadioButtonComponent.prototype.onClick = function (e) {
         this.triggerChangeAction(e);
     };
     RadioButtonComponent.prototype.triggerChangeAction = function (e) {
@@ -11856,10 +12357,6 @@ var RadioButtonComponent = /** @class */ (function () {
     };
     RadioButtonComponent.prototype.setChecked = function (value) {
         this.checked = value;
-        this.cdRef.markForCheck();
-    };
-    RadioButtonComponent.prototype.setInline = function (value) {
-        this.inline = value;
         this.cdRef.markForCheck();
     };
     RadioButtonComponent.prototype.onFocus = function () {
@@ -11893,14 +12390,6 @@ var RadioButtonComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioButtonComponent.prototype, "checkedIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioButtonComponent.prototype, "uncheckedIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], RadioButtonComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -11908,12 +12397,8 @@ var RadioButtonComponent = /** @class */ (function () {
     ], RadioButtonComponent.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioButtonComponent.prototype, "inline", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RadioButtonComponent.prototype, "iconPosition", void 0);
+    ], RadioButtonComponent.prototype, "labelPosition", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
@@ -11939,21 +12424,17 @@ var RadioButtonComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], RadioButtonComponent.prototype, "blur", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('tap', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], RadioButtonComponent.prototype, "onTap", null);
+    ], RadioButtonComponent.prototype, "onClick", null);
     RadioButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-radio-button',
             template: __webpack_require__(/*! ./radio-button.component.html */ "./lib/ng-vcl/src/radio-button/radio-button.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-            host: {
-                '[style.display]': 'inline === true ? "inline-block" : null',
-                '[class.vclInputControlGroup]': 'inline === false',
-            },
+            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], RadioButtonComponent);
@@ -12041,10 +12522,6 @@ var RadioGroupComponent = /** @class */ (function () {
         this.changesSub = this.radioButtons && this.radioButtons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null)).subscribe(function () {
             _this.dispose();
             if (_this.radioButtons) {
-                // Sync inline property
-                _this.radioButtons && _this.radioButtons.forEach(function (crbtn) {
-                    crbtn.setInline(_this.layout === 'horizontal');
-                });
                 // Subscribe last radio button to blur event
                 _this.blurSub = _this.radioButtons.last && _this.radioButtons.last.blur.subscribe(function () {
                     _this.onTouched();
@@ -12106,12 +12583,13 @@ var RadioGroupComponent = /** @class */ (function () {
     RadioGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-radio-group',
-            template: "<ng-content></ng-content>",
+            template: "<ng-content select=\"vcl-radio-button\"></ng-content>",
             providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             host: {
                 'attr.role': '"radiogroup"'
-            }
+            },
+            styles: ["\n    :host(.vclInputInlineControlGroup) ::ng-deep vcl-radio-button {\n        display: inline-block;\n      }\n    "]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], RadioGroupComponent);
@@ -17383,7 +17861,7 @@ module.exports = "<h1 id=\"ng-vcl\"><a href=\"https://ng-vcl.github.io/ng-vcl/\"
 /*! exports provided: name, version, scripts, dependencies, devDependencies, default */
 /***/ (function(module) {
 
-module.exports = {"name":"ng-vcl","version":"0.8.0-1","scripts":{"ng":"ng","start":"npm run dev:demo","dev:demo":"ng serve ng-vcl-demo --plugin ~webpack.custom.js","dev:ng-vcl":"ng build @ng-vcl/ng-vcl --watch","dev:animations":"ng build @ng-vcl/animations --watch","dev:jss-form":"ng build @ng-vcl/jss-form --watch","dev:wc":"ng serve ng-vcl-wc-test --plugin ~webpack.custom.js","docs":"npm-run-all docs:clean docs:pull-current docs:build","docs:build":"cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --plugin ~webpack.custom.js","docs:deploy":"git-directory-deploy --directory docs --branch gh-pages","docs:clean":"rimraf docs","docs:lint":"ng lint ng-vcl-demo","docs:pull-current":"npm run docs:clean && git clone -b gh-pages --single-branch https://github.com/ng-vcl/ng-vcl.git docs","test:ng-vcl":"ng test @ng-vcl/ng-vcl --watch=false","test:animations":"ng test @ng-vcl/animations --watch=false","test:jss-form":"ng test @ng-vcl/jss-form --watch=false","test":"npm-run-all test:ng-vcl test:animations test:jss-form","lint":"ng lint","e2e":"ng e2e","build:clean":"rimraf dist/ng-vcl","build:ng-vcl/ng-vcl":"ng build @ng-vcl/ng-vcl","build:ng-vcl/animations":"ng build @ng-vcl/animations","build:ng-vcl/jss-form":"ng build @ng-vcl/jss-form","build:ng-vcl":"npm-run-all build:ng-vcl/ng-vcl build:ng-vcl/animations build:ng-vcl/jss-form","build":"npm-run-all build:clean build:ng-vcl","build:wc":"ng build ng-vcl-wc-test --prod --output-hashing none --single-bundle false --plugin ~webpack.custom.js","clean":"npm-run-all build:clean docs:clean","docker":"docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash","markdownlint":"markdownlint -c markdownlint.json lib/","publish":"npm-run-all publish:ng-vcl publish:animations publish:jss-form","publish:next":"npm-run-all publish:ng-vcl:next publish:animations:next publish:jss-form:next","publish:ng-vcl":"cd dist/ng-vcl/ng-vcl && npm publish","publish:animations":"cd dist/ng-vcl/animations && npm publish","publish:jss-form":"cd dist/ng-vcl/jss-form && npm publish","publish:ng-vcl:next":"cd dist/ng-vcl/ng-vcl && npm publish --tag next","publish:animations:next":"cd dist/ng-vcl/animations && npm publish --tag next","publish:jss-form:next":"cd dist/ng-vcl/jss-form && npm publish --tag next"},"dependencies":{"@angular/animations":"~7.2.10","@angular/common":"~7.2.10","@angular/compiler":"~7.2.10","@angular/core":"~7.2.10","@angular/elements":"~7.2.10","@angular/forms":"~7.2.10","@angular/http":"~7.2.10","@angular/platform-browser":"~7.2.10","@angular/platform-browser-dynamic":"~7.2.10","@angular/router":"~7.2.10","@vcl/breakpoints":"^0.4.0","@vcl/core-modules":"^0.4.0","@vcl/font-awesome":"^0.4.0","@vcl/theme":"^0.4.0","core-js":"^2.5.4","document-register-element":"1.8.1","fuse.js":"^3.4.4","hammerjs":"^2.0.8","jsonschema":"^1.2.4","ngx-build-plus":"^7.7.6","normalize.css":"^8.0.1","rxjs":"~6.4.0","tslib":"^1.9.0","zone.js":"~0.8.26"},"devDependencies":{"@angular-devkit/build-angular":"^0.13.5","@angular-devkit/build-ng-packagr":"^0.13.5","@angular/cli":"~7.3.6","@angular/compiler-cli":"~7.2.10","@angular/language-service":"~7.2.10","@ng-vcl/webpack-helper":"0.1.0-3","@types/jasmine":"^3.3.9","@types/jasminewd2":"~2.0.3","@types/node":"^8.9.5","@vcl/preprocessor":"^0.4.0","codelyzer":"~4.5.0","cross-env":"^5.2.0","git-branch":"^2.0.1","git-directory-deploy":"^1.5.1","highlight-loader":"^0.7.3","jasmine-core":"^3.3.0","jasmine-spec-reporter":"~4.2.1","karma":"~3.1.1","karma-chrome-launcher":"~2.2.0","karma-coverage-istanbul-reporter":"~2.0.1","karma-jasmine":"~1.1.2","karma-jasmine-html-reporter":"^0.2.2","markdown-loader":"^5.0.0","ng-packagr":"^4.7.1","npm-run-all":"^4.1.5","protractor":"~5.4.0","ts-node":"^8.0.3","tsickle":">=0.34.0","tslib":"^1.9.0","tslint":"^5.14.0","typescript":"~3.2.2"}};
+module.exports = {"name":"ng-vcl","version":"0.8.0-1","scripts":{"ng":"ng","start":"npm run dev:demo","dev:demo":"ng serve ng-vcl-demo --plugin ~webpack.custom.js","dev:ng-vcl":"ng build @ng-vcl/ng-vcl --watch","dev:animations":"ng build @ng-vcl/animations --watch","dev:jss-form":"ng build @ng-vcl/jss-form --watch","dev:wc":"ng serve ng-vcl-wc-test --plugin ~webpack.custom.js","docs":"npm-run-all docs:clean docs:pull-current docs:build","docs:build":"cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --plugin ~webpack.custom.js","docs:deploy":"git-directory-deploy --directory docs --branch gh-pages","docs:clean":"rimraf docs","docs:lint":"ng lint ng-vcl-demo","docs:pull-current":"npm run docs:clean && git clone -b gh-pages --single-branch https://github.com/ng-vcl/ng-vcl.git docs","test:ng-vcl":"ng test @ng-vcl/ng-vcl --watch=false","test:animations":"ng test @ng-vcl/animations --watch=false","test:jss-form":"ng test @ng-vcl/jss-form --watch=false","test":"npm-run-all test:ng-vcl test:animations test:jss-form","lint":"ng lint","e2e":"ng e2e","build:clean":"rimraf dist/ng-vcl","build:ng-vcl/ng-vcl":"ng build @ng-vcl/ng-vcl","build:ng-vcl/animations":"ng build @ng-vcl/animations","build:ng-vcl/jss-form":"ng build @ng-vcl/jss-form","build:ng-vcl":"npm-run-all build:ng-vcl/ng-vcl build:ng-vcl/animations build:ng-vcl/jss-form","build":"npm-run-all build:clean build:ng-vcl","build:wc":"ng build ng-vcl-wc-test --prod --output-hashing none --single-bundle false --plugin ~webpack.custom.js","clean":"npm-run-all build:clean docs:clean","docker":"docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash","markdownlint":"markdownlint -c markdownlint.json lib/","publish":"npm-run-all publish:ng-vcl publish:animations publish:jss-form","publish:next":"npm-run-all publish:ng-vcl:next publish:animations:next publish:jss-form:next","publish:ng-vcl":"cd dist/ng-vcl/ng-vcl && npm publish","publish:animations":"cd dist/ng-vcl/animations && npm publish","publish:jss-form":"cd dist/ng-vcl/jss-form && npm publish","publish:ng-vcl:next":"cd dist/ng-vcl/ng-vcl && npm publish --tag next","publish:animations:next":"cd dist/ng-vcl/animations && npm publish --tag next","publish:jss-form:next":"cd dist/ng-vcl/jss-form && npm publish --tag next"},"dependencies":{"@angular/animations":"~7.2.10","@angular/cdk":"^7.3.6","@angular/common":"~7.2.10","@angular/compiler":"~7.2.10","@angular/core":"~7.2.10","@angular/elements":"~7.2.10","@angular/forms":"~7.2.10","@angular/http":"~7.2.10","@angular/platform-browser":"~7.2.10","@angular/platform-browser-dynamic":"~7.2.10","@angular/router":"~7.2.10","@vcl/breakpoints":"^0.4.0","@vcl/core-modules":"^0.4.0","@vcl/font-awesome":"^0.4.0","@vcl/material-design-icons":"^0.4.0","@vcl/theme":"^0.4.0","core-js":"^2.5.4","document-register-element":"1.8.1","fuse.js":"^3.4.4","hammerjs":"^2.0.8","jsonschema":"^1.2.4","ngx-build-plus":"^7.7.6","normalize.css":"^8.0.1","rxjs":"~6.4.0","tslib":"^1.9.0","zone.js":"~0.8.26"},"devDependencies":{"@angular-devkit/build-angular":"^0.13.5","@angular-devkit/build-ng-packagr":"^0.13.5","@angular/cli":"~7.3.6","@angular/compiler-cli":"~7.2.10","@angular/language-service":"~7.2.10","@ng-vcl/webpack-helper":"0.1.0-3","@types/jasmine":"^3.3.9","@types/jasminewd2":"~2.0.3","@types/node":"^8.9.5","@vcl/preprocessor":"^0.4.0","codelyzer":"~4.5.0","cross-env":"^5.2.0","git-branch":"^2.0.1","git-directory-deploy":"^1.5.1","highlight-loader":"^0.7.3","jasmine-core":"^3.3.0","jasmine-spec-reporter":"~4.2.1","karma":"~3.1.1","karma-chrome-launcher":"~2.2.0","karma-coverage-istanbul-reporter":"~2.0.1","karma-jasmine":"~1.1.2","karma-jasmine-html-reporter":"^0.2.2","markdown-loader":"^5.0.0","ng-packagr":"^4.7.1","npm-run-all":"^4.1.5","protractor":"~5.4.0","ts-node":"^8.0.3","tsickle":">=0.34.0","tslib":"^1.9.0","tslint":"^5.14.0","typescript":"~3.2.2"}};
 
 /***/ }),
 
