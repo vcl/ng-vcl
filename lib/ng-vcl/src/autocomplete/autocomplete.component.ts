@@ -1,34 +1,9 @@
-import { Observable, combineLatest, Subscription, BehaviorSubject } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import { Component, Directive, ViewChild, Input, TemplateRef, ElementRef, ContentChildren, QueryList, forwardRef, AfterContentInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { Component, ViewChild, Input, ElementRef, forwardRef, OnDestroy, EventEmitter, Output, ContentChildren, QueryList } from '@angular/core';
 import { PopoverComponent } from '../popover/index';
 import { ObservableComponent } from '../core/index';
-
-@Directive({
-  selector: 'vcl-autocomplete-option'
-})
-export class AutocompleteOptionDirective {
-  @Input()
-  type: 'item' | 'separator' | 'header' = 'item';
-  @Input()
-  value?: any;
-  @Input()
-  label?: string;
-  @Input()
-  sublabel?: string;
-  @Input()
-  disabled = false;
-}
-
-@Component({
-  selector: 'vcl-autocomplete-content',
-  template: '<ng-template><ng-content></ng-content></ng-template>'
-})
-export class AutocompleteContentComponent {
-  @ViewChild(TemplateRef)
-  templateRef: TemplateRef<any>;
-}
-
+import { AutocompleteResult, AUTOCOMPLETE_TOKEN, AutocompleteHost, AutocompleteTarget } from './interfaces';
+import { AutocompleteItemComponent } from './autocomplete-item.component';
 
 @Component({
   selector: 'vcl-autocomplete',
@@ -42,136 +17,103 @@ export class AutocompleteContentComponent {
       padding: 0;
     }
   `],
-  templateUrl: 'autocomplete.component.html'
+  templateUrl: 'autocomplete.component.html',
+  providers: [
+    {
+      provide: AUTOCOMPLETE_TOKEN,
+      useExisting: forwardRef(() => AutocompleteComponent)
+    }
+  ]
 })
-export class AutocompleteComponent extends ObservableComponent implements AfterContentInit, OnDestroy {
+export class AutocompleteComponent extends ObservableComponent implements OnDestroy, AutocompleteHost {
+
+  @ContentChildren(forwardRef(() => AutocompleteItemComponent))
+  items?: QueryList<AutocompleteItemComponent>;
 
   @ViewChild('popover')
   popover: PopoverComponent;
-
-  @ContentChildren(forwardRef(() => AutocompleteOptionDirective))
-  items?: QueryList<AutocompleteOptionDirective>;
-
-  @ContentChildren(forwardRef(() => AutocompleteContentComponent))
-  content?: QueryList<AutocompleteContentComponent>;
 
   @Input()
   disabled = false;
 
   @Output()
-  select = new EventEmitter<AutocompleteOptionDirective>();
+  select = new EventEmitter<AutocompleteResult>();
 
-  target$ = new BehaviorSubject<any>(undefined);
-
-  items$ = new BehaviorSubject<AutocompleteOptionDirective[]>([]);
-  content$ = new BehaviorSubject<AutocompleteContentComponent[]>([]);
-
-  itemsVisible$ = combineLatest(this.target$, this.items$).pipe(map(([target, items]) => {
-    return !!target && items.length > 0;
-
-  }));
-
-  visible$ = combineLatest(this.target$, this.items$, this.content$).pipe(map(([target, items, content]) => {
-    return !!target && (items.length > 0 || content.length > 0);
-  }));
-
-  popoverWidth$ = this.target$.pipe(
-    map(target => {
-      if (target && target.element.nativeElement.offsetWidth) {
-        return target.element.nativeElement.offsetWidth + 'px';
-      } else {
-        return undefined;
-      }
-    })
-  );
+  get popoverWidth() {
+    if (this.target && this.target.element && this.target.element.nativeElement.offsetWidth) {
+      return this.target.element.nativeElement.offsetWidth + 'px';
+    } else {
+      return undefined;
+    }
+  }
 
   itemsSub?: Subscription;
   contentSub?: Subscription;
 
-  highlightedItem = -1;
+  highlightedItem?: AutocompleteItemComponent;
 
-  open(targetElement: ElementRef): Observable<AutocompleteOptionDirective> {
-    this.highlightedItem = -1;
+  target?: AutocompleteTarget;
 
-    this.target$.next({
-      element: targetElement,
-      select: (ac: AutocompleteOptionDirective) => {
-        this.select.emit(ac);
-      },
-    });
+  render(element: ElementRef): Observable<AutocompleteResult> {
+    if (this.target) {
+      this.target.close();
+      this.target = undefined;
+    }
 
-    return new Observable<AutocompleteOptionDirective>(observer => {
-      const sub = this.select.subscribe(observer);
+    return new Observable<AutocompleteResult>(observer => {
+      this.target = {
+        close: () => observer.complete(),
+        select: (result: AutocompleteResult) => observer.next(result),
+        element: element
+      };
       return () => {
-        sub.unsubscribe();
-        this.target$.next(undefined);
+        this.target.close();
+        this.target = undefined;
+        observer.complete();
       };
     });
   }
 
   get visible(): boolean {
-    return !!this.target$.value;
-  }
-
-  close() {
-    this.target$.next(undefined);
+    return !!this.target;
   }
 
   highlightPrev() {
     if (this.items) {
-      if (this.highlightedItem < 0) {
-        this.highlightedItem = this.items.toArray().findIndex(item => item.type === 'item');
+      const currIdx = this.items.toArray().findIndex((item, thisIdx) => item === this.highlightedItem);
+      if (currIdx < 0) {
+        this.highlightedItem = this.items.first;
       } else {
-        const revIdx = this.items.toArray().reverse().findIndex((item, thisRevId, items) => {
+        const highlightedItem = this.items.toArray().reverse().find((item, thisRevId, items) => {
           const thisIdx = (items.length - 1) - thisRevId;
-          return item.type === 'item' && thisIdx < this.highlightedItem;
+          return thisIdx < currIdx;
         });
-        if (revIdx === - 1) {
-          this.highlightedItem = this.items.toArray().findIndex(item => item.type === 'item');
+        if (highlightedItem) {
+          this.highlightedItem = highlightedItem;
         } else {
-          const idx = (this.items.length - 1) - revIdx;
-          this.highlightedItem = idx;
+          this.highlightedItem = this.items.first;
         }
       }
     }
   }
 
-  get isHighlighted() {
-    return this.highlightedItem >= 0;
-  }
-
   highlightNext() {
     if (this.items) {
-      const idx = this.items.toArray().findIndex((item, thisIdx) => item.type === 'item' && thisIdx > this.highlightedItem);
-      if (idx > -1) {
-        this.highlightedItem = idx;
+      const currIdx = this.items.toArray().findIndex((item, thisIdx) => item === this.highlightedItem);
+
+      const highlightedItem = this.items.toArray().find((item, thisIdx) => thisIdx > currIdx);
+      if (highlightedItem) {
+        this.highlightedItem = highlightedItem;
       }
     }
   }
 
-  selectHighlighted(): boolean {
-    if (this.highlightedItem >= 0 && this.target$.value && this.items && this.items.toArray()[this.highlightedItem]) {
-      const item = this.items.toArray()[this.highlightedItem];
-      this.target$.value.select(item);
+  selectHighlighted() {
+    if (this.highlightedItem && this.target) {
+      this.target.select(this.highlightedItem);
       return true;
     }
     return false;
-  }
-
-  ngAfterContentInit(): void {
-    const items = this.items;
-    const content = this.content;
-    this.itemsSub = items && items.changes.pipe(
-      startWith(items.toArray()),
-      map(() => items.toArray())
-    ).subscribe(thisItems => {
-      this.items$.next(thisItems);
-      this.highlightedItem = -1;
-    });
-    this.contentSub = content && content.changes.pipe(
-      startWith(content.toArray()),
-      map(() => content.toArray())
-    ).subscribe(this.content$);
   }
 
   ngOnDestroy(): void {

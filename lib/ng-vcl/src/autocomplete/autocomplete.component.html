@@ -1,39 +1,17 @@
-<ng-container *ngIf="(target$ | async) as target">
+<ng-container *ngIf="(target) as target">
   <vcl-popover #popover 
-               *ngIf="visible$ | async"
+               *ngIf="visible"
                [target]="target.element" 
                [visible]="true" 
                targetX="left" 
                targetY="bottom" 
                attachmentX="left" 
                attachmentY="top" 
-               [style.width]="popoverWidth$ | async"
+               [style.width]="popoverWidth"
                (mousedown)="$event.preventDefault()"
                >
-  
-    <ng-container *ngIf="(items$ | async)?.length > 0">
-      <ul class="vclDropdown vclNoBorder vclOpen" role="menu">
-        <ng-container *ngFor="let item of items$ | async; let idx = index">
-          <li *ngIf="item.type==='item'" 
-            class="vclDropdownItem"
-            [class.vclHighlighted]="idx === highlightedItem"
-            [class.vclDisabled]="disabled || item.disabled"
-            role="menuitem"
-            (click)="target.select(item)">
-            <div role="menuitem" class="vclDropdownItemLabel">{{item.label}}</div>
-            <div *ngIf="item.sublabel" class="vclDropdownItemSubLabel">{{item.sublabel}}</div>
-          </li>
-          <li *ngIf="item.type==='separator'" role="menuitem">
-            <div class="vclSeparator" role="separator"></div>
-          </li>
-          <li *ngIf="item.type==='header'" class="vclDropdownItemGroupHeader" role="menuitem">
-            <div class="vclDropdownItemGroupHeaderLabel">{{item.label}}</div>
-          </li>
-        </ng-container>
-      </ul>
-    </ng-container>
-    <ng-container *ngFor="let c of content$ | async">
-      <ng-container *ngTemplateOutlet="c.templateRef"></ng-container>
-    </ng-container>
+    <div class="vclDropdown vclNoBorder vclOpen" role="menu">
+      <ng-content></ng-content>
+    </div>
   </vcl-popover>
 </ng-container>

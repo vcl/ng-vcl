@@ -1,47 +1,43 @@
 <h3>vcl-input with fixed data</h3>
 
 <vcl-embedded-input-group prepIcon="fas:search">
-  <input vcl-input vcl-embedded-input-group placeholder="Search"  [vcl-input-autocomplete]="acCountry" (change)="onChange($event);" />
+  <input vclEmbeddedInputGroup placeholder="Search"  [vclInputAutocomplete]="acCountry" (change)="onChange($event);" />
 </vcl-embedded-input-group>
 
 <h3>vcl-token-input with fixed data</h3>
 
 <vcl-token-input-container (tokensChange)="onChange($event)">
-  <input vcl-input placeholder="Search for country to add" [vcl-token-input-autocomplete]="acCountry" />
+  <input vclInput placeholder="Search for country to add" [vclTokenInputAutocomplete]="acCountry" />
 </vcl-token-input-container>
 
 <vcl-autocomplete #acCountry="vclAutocomplete">
-  <vcl-autocomplete-option type="header" label="Europe"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Greece" value="gr"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="France" value="fr"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Germany" value="de"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="The United Kingdom of Great Britain and Northern Ireland" value="uk"></vcl-autocomplete-option>
-  <vcl-autocomplete-option type="header" label="Asia"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Japan" value="jp"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="China" value="cn"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Thailand" value="th"></vcl-autocomplete-option>
+  <vcl-autocomplete-header>Europe</vcl-autocomplete-header>
+  <vcl-autocomplete-item value="gr" label="Greece"></vcl-autocomplete-item>
+  <vcl-autocomplete-item value="fr" label="France"></vcl-autocomplete-item>
+  <vcl-autocomplete-item value="de" label="Germany"></vcl-autocomplete-item>
+  <vcl-autocomplete-item value="uk" label="The United Kingdom of Great Britain and Northern Ireland"></vcl-autocomplete-item>
+  <vcl-autocomplete-header>Asia</vcl-autocomplete-header>
+  <vcl-autocomplete-item value="jp" label="Japan"></vcl-autocomplete-item>
+  <vcl-autocomplete-item value="cn" label="China"></vcl-autocomplete-item>
+  <vcl-autocomplete-item value="th" label="Thailand"></vcl-autocomplete-item>
 </vcl-autocomplete>
 
 <h3>vcl-token-input with async data</h3>
 
 <vcl-token-input-container (tokensChange)="onChange($event)">
-  <input vcl-input
+  <input vclInput
          placeholder="Search for books to add"
-         [vcl-token-input-autocomplete]="acBooks"
+         [vclTokenInputAutocomplete]="acBooks"
          (input)="booksInput$.next($event.target.value)"
          (autocompleteSelect)="booksInput$.next('')" />
 </vcl-token-input-container>
 
 <vcl-autocomplete #acBooks="vclAutocomplete">
   <ng-container *ngIf="ac$ | async as ac">
-    <vcl-autocomplete-content *ngIf="ac.state === 'loading'">
-      <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
-    </vcl-autocomplete-content>
+    <vcl-busy-indicator *ngIf="ac.state === 'loading'" style="padding: 1em"></vcl-busy-indicator>
+    <div *ngIf="ac.state === 'success' && ac.books.length === 0" style="padding: 1em">No books found</div>
     <ng-container *ngIf="ac.state === 'success' && ac.books.length > 0">
-      <vcl-autocomplete-option *ngFor="let book of ac.books" [label]="book.title" [value]="book.id"></vcl-autocomplete-option>
+      <vcl-autocomplete-item *ngFor="let book of ac.books" [label]="book.title" [value]="book.id"></vcl-autocomplete-item>
     </ng-container>
-    <vcl-autocomplete-content *ngIf="ac.state === 'success' && ac.books.length === 0">
-      <div style="padding: 1em">No books found</div>
-    </vcl-autocomplete-content>
   </ng-container>
 </vcl-autocomplete>

@@ -1,32 +1,20 @@
 import { Subscription } from 'rxjs';
 import { Directive, ElementRef, Input, HostListener, OnDestroy, Output, EventEmitter, HostBinding } from '@angular/core';
-import { AutocompleteComponent, AutocompleteOptionDirective } from './autocomplete.component';
-import { ObservableComponent } from '../core/index';
+import { AutocompleteResult, AutocompleteHost } from './interfaces';
 
 @Directive({
-  selector: 'input[vcl-input-autocomplete]',
+  selector: 'input[vclInputAutocomplete]',
 })
-export class InputAutocompleteDirective extends ObservableComponent implements OnDestroy  {
+export class InputAutocompleteDirective implements OnDestroy  {
 
-  constructor(public elementRef: ElementRef) {
-    super();
-  }
+  constructor(public elementRef: ElementRef) { }
 
   @Output()
-  autocompleteSelect = new EventEmitter<AutocompleteOptionDirective>();
-
-  @Input()
-  autocompleteAfterSelectAction: 'label' | 'sublabel' | 'value' | ((option: AutocompleteOptionDirective) => string) | 'clear' = 'value';
+  autocompleteSelect = new EventEmitter<AutocompleteResult>();
 
   // tslint:disable-next-line:no-input-rename
-  @Input('vcl-input-autocomplete')
-  _ac?: AutocompleteComponent;
-  get ac(): AutocompleteComponent {
-    if (!(this._ac instanceof AutocompleteComponent)) {
-      throw new Error('invalid vcl-input-autocomplete parameter');
-    }
-    return this._ac;
-  }
+  @Input('vclInputAutocomplete')
+  ac: AutocompleteHost;
 
   acSub?: Subscription;
 
@@ -57,18 +45,8 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
     if (this.acSub) {
       return;
     }
-    this.acSub = this.ac.open(this.elementRef).subscribe(selection => {
-      if (this.autocompleteAfterSelectAction === 'value') {
-        this.elementRef.nativeElement.value = String(selection.value);
-      } else if (this.autocompleteAfterSelectAction === 'label') {
-        this.elementRef.nativeElement.value = selection.label;
-      } else if (this.autocompleteAfterSelectAction === 'sublabel') {
-        this.elementRef.nativeElement.value = selection.sublabel;
-      } else if (typeof this.autocompleteAfterSelectAction === 'function') {
-        this.elementRef.nativeElement.value = this.autocompleteAfterSelectAction(selection);
-      } else {
-        this.elementRef.nativeElement.value = '';
-      }
+    this.acSub = this.ac.render(this.elementRef).subscribe(selection => {
+      this.elementRef.nativeElement.value = typeof selection.value === 'string' ? selection.value : selection.label;
       this.elementRef.nativeElement.focus();
       this.destroyAutocomplete();
       this.autocompleteSelect.emit(selection);
@@ -107,14 +85,13 @@ export class InputAutocompleteDirective extends ObservableComponent implements O
     const code = event.code || event.key;
     if (this.ac && code === 'Enter') {
       event.preventDefault();
-      if (this.ac.isHighlighted) {
-        this.ac.selectHighlighted();
-      }
+      // if (this.ac.isHighlighted) {
+      // }
+      this.ac.selectHighlighted();
     }
   }
 
   ngOnDestroy() {
     this.destroyAutocomplete();
-    super.ngOnDestroy();
   }
 }

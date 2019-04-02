@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs';
 import { Directive, ElementRef, Input, HostListener, OnDestroy, SkipSelf, HostBinding, Optional, EventEmitter, Output } from '@angular/core';
-import { AutocompleteComponent, AutocompleteOptionDirective } from './autocomplete.component';
 import { ObservableComponent } from '../core/index';
 import { TokenInputContainerComponent } from '../token/index';
+import { AutocompleteResult, AutocompleteHost } from './interfaces';
 
 @Directive({
-  selector: 'input[vcl-token-input-autocomplete]',
+  selector: 'input[vclTokenInputAutocomplete]',
   host: {
     '[class.vclInput]': 'true',
     '[attr.flex]': 'true'
@@ -36,22 +36,16 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
   get attrDisabled() {
     return this.disabled ? true : null;
   }
-  get ac(): AutocompleteComponent {
-    if (!(this._ac instanceof AutocompleteComponent)) {
-      throw new Error('invalid vcl-token-input-autocomplete parameter');
-    }
-    return this._ac;
-  }
 
   @Output()
-  autocompleteSelect = new EventEmitter<AutocompleteOptionDirective>();
+  autocompleteSelect = new EventEmitter<AutocompleteResult>();
 
   @Input()
   disabled = false;
 
   // tslint:disable-next-line:no-input-rename
-  @Input('vcl-token-input-autocomplete')
-  _ac?: AutocompleteComponent;
+  @Input('vclTokenInputAutocomplete')
+  ac: AutocompleteHost;
 
   acSub?: Subscription;
   focused = false;
@@ -77,10 +71,11 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
       return;
     }
 
-    this.acSub = this.ac.open(this.tokenInputContainer.elementRef).subscribe(selection => {
+    this.acSub = this.ac.render(this.tokenInputContainer.elementRef).subscribe(selection => {
       this.tokenInputContainer.addToken({
         label: selection.label || String(selection.value),
-        value: selection.value
+        value: selection.value,
+        selected: true
       });
       this.elementRef.nativeElement.value = '';
       if (!this.focused) {
@@ -135,7 +130,7 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
       this.tokenInputContainer.removeLastToken();
     } else if (code === 'Enter') {
       event.preventDefault();
-      if (this.ac.isHighlighted) {
+      if (this.ac.highlightedItem) {
         this.ac && this.ac.selectHighlighted();
         this.elementRef.nativeElement.value = '';
       }
@@ -149,5 +144,3 @@ export class TokenInputAutocompleteDirective extends ObservableComponent impleme
     super.ngOnDestroy();
   }
 }
-
-

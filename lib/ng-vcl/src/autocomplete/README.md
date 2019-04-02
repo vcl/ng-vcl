@@ -3,24 +3,22 @@
 ## Usage
 
 ```html
-<vcl-embedded-input-group prepIcon="fas:search">
-  <input vcl-input vcl-embedded-input placeholder="Search" [vcl-input-autocomplete]="acCountry" />
-</vcl-embedded-input-group>
+<input vclInput placeholder="Search" [vclInputAutocomplete]="acCountry" />
 
 <vcl-autocomplete #acCountry="vclAutocomplete">
-  <vcl-autocomplete-option type="header" label="Europe"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="France" value="fr"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Germany" value="de"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Greece" value="gr"></vcl-autocomplete-option>
-  <vcl-autocomplete-content>Custom content</vcl-autocomplete-content>
+  <vcl-autocomplete-header>Header</vcl-autocomplete-header>
+  <vcl-autocomplete-item label="France" value="fr"></vcl-autocomplete-item>
+  <vcl-autocomplete-item label="Germany" value="de"></vcl-autocomplete-item>
+  <vcl-autocomplete-seperator></vcl-autocomplete-seperator>
+  <vcl-autocomplete-item label="New Zealand" value="nz"></vcl-autocomplete-item>
+  <div>Custom content</div>
 </vcl-autocomplete>
 
 ```
 
-### vcl-autocomplete-option attributes
+### vcl-autocomplete-item attributes
 
 Name       | Type    | Default | Description
 ---------- | ------- | ------- | --------------------------------------
 `value`    | any     |         | The items value
 `label`    | string  |         | The items label
-`sublabel` | string  |         | The items sub label
