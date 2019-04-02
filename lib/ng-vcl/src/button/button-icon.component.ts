@@ -1,11 +1,17 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding, Input, HostListener, forwardRef } from '@angular/core';
 import { ButtonComponent } from './button.component';
 
 @Component({
   selector: 'button[vcl-icon-button]',
   exportAs: 'vclIconButton',
   templateUrl: 'button-icon.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: ButtonComponent,
+      useExisting: forwardRef(() => ButtonIconComponent)
+    }
+  ]
 })
 export class ButtonIconComponent extends ButtonComponent {
 
