@@ -1657,6 +1657,147 @@ var AutocompleteHeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-input.directive.ts":
+/*!*********************************************************************!*\
+  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-input.directive.ts ***!
+  \*********************************************************************/
+/*! exports provided: AutocompleteInputDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return AutocompleteInputDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../input */ "./lib/ng-vcl/src/input/index.ts");
+
+
+
+var AutocompleteInputDirective = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](AutocompleteInputDirective, _super);
+    function AutocompleteInputDirective(elementRef) {
+        var _this = _super.call(this, elementRef) || this;
+        _this.elementRef = elementRef;
+        _this.autocompleteSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        _this.focused = false;
+        return _this;
+    }
+    AutocompleteInputDirective.prototype.onfocus = function () {
+        this.focused = true;
+        this.update();
+    };
+    AutocompleteInputDirective.prototype.onFocusOrInput = function () {
+        this.update();
+    };
+    AutocompleteInputDirective.prototype.onBlur = function () {
+        this.focused = false;
+        this.update();
+    };
+    AutocompleteInputDirective.prototype.update = function () {
+        var _this = this;
+        if (!this.focused || !this.ac) {
+            this.close();
+            return;
+        }
+        this.acSub = this.ac.render(this.elementRef).subscribe(function (result) {
+            _this.close();
+            _this.autocompleteSelect.emit(result);
+        });
+    };
+    AutocompleteInputDirective.prototype.close = function () {
+        if (this.acSub) {
+            this.acSub.unsubscribe();
+            this.acSub = undefined;
+        }
+    };
+    AutocompleteInputDirective.prototype.onKeyUp = function (event) {
+        var code = event.code || event.key;
+        if (code === 'Escape') {
+            this.close();
+        }
+        else if (code === 'ArrowUp') {
+            this.ac && this.ac.highlightPrev();
+            event.preventDefault();
+            return false;
+        }
+        else if (event.code === 'ArrowDown') {
+            if (!this.acSub) {
+                this.close();
+            }
+            else {
+                this.ac && this.ac.highlightNext();
+            }
+            event.preventDefault();
+            return false;
+        }
+    };
+    AutocompleteInputDirective.prototype.handleKeyPressEvent = function (event) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var code;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                code = event.code || event.key;
+                if (this.ac && code === 'Enter') {
+                    event.preventDefault();
+                    this.ac.selectHighlighted();
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    AutocompleteInputDirective.prototype.ngOnDestroy = function () {
+        this.close();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocompleteInput'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteInputDirective.prototype, "ac", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteInputDirective.prototype, "autocompleteSelect", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], AutocompleteInputDirective.prototype, "onfocus", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('input'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], AutocompleteInputDirective.prototype, "onFocusOrInput", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], AutocompleteInputDirective.prototype, "onBlur", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], AutocompleteInputDirective.prototype, "onKeyUp", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keypress', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", Promise)
+    ], AutocompleteInputDirective.prototype, "handleKeyPressEvent", null);
+    AutocompleteInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'input[vclAutocompleteInput]',
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+    ], AutocompleteInputDirective);
+    return AutocompleteInputDirective;
+}(_input__WEBPACK_IMPORTED_MODULE_2__["InputDirective"]));
+
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html":
 /*!**********************************************************************!*\
   !*** ./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html ***!
@@ -1687,6 +1828,8 @@ __webpack_require__.r(__webpack_exports__);
 var AutocompleteItemComponent = /** @class */ (function () {
     function AutocompleteItemComponent(host) {
         this.host = host;
+        // TODO: Workaround
+        this.styleDisplay = 'block';
         this.classVCLDropdownItem = true;
         this.attrRole = 'menuitem';
         this.disabled = false;
@@ -1706,10 +1849,14 @@ var AutocompleteItemComponent = /** @class */ (function () {
         configurable: true
     });
     AutocompleteItemComponent.prototype.onclick = function () {
-        if (this.host.target) {
-            this.host.target.select(this);
+        if (this.host.handle) {
+            this.host.handle.select(this);
         }
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteItemComponent.prototype, "styleDisplay", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItem'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -1822,7 +1969,7 @@ var AutocompleteSeperatorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container *ngIf=\"(target) as target\">\n  <vcl-popover #popover \n               *ngIf=\"visible\"\n               [target]=\"target.element\" \n               [visible]=\"true\" \n               targetX=\"left\" \n               targetY=\"bottom\" \n               attachmentX=\"left\" \n               attachmentY=\"top\" \n               [style.width]=\"popoverWidth\"\n               (mousedown)=\"$event.preventDefault()\"\n               >\n    <div class=\"vclDropdown vclNoBorder vclOpen\" role=\"menu\">\n      <ng-content></ng-content>\n    </div>\n  </vcl-popover>\n</ng-container>\n"
+module.exports = "<vcl-popover #popover \n              *ngIf=\"handle\"\n              [visible]=\"true\" \n              [target]=\"handle.element\" \n              targetX=\"left\" \n              targetY=\"bottom\" \n              attachmentX=\"left\" \n              attachmentY=\"top\" \n              [style.width]=\"popoverWidth\"\n              (mousedown)=\"$event.preventDefault()\"\n              >\n  <div class=\"vclDropdown vclNoBorder vclOpen\" role=\"menu\">\n    <ng-content></ng-content>\n  </div>\n</vcl-popover>\n"
 
 /***/ }),
 
@@ -1855,14 +2002,13 @@ var AutocompleteComponent = /** @class */ (function (_super) {
     function AutocompleteComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.disabled = false;
-        _this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
         return _this;
     }
     AutocompleteComponent_1 = AutocompleteComponent;
     Object.defineProperty(AutocompleteComponent.prototype, "popoverWidth", {
         get: function () {
-            if (this.target && this.target.element && this.target.element.nativeElement.offsetWidth) {
-                return this.target.element.nativeElement.offsetWidth + 'px';
+            if (this.handle && this.handle.element && this.handle.element.nativeElement.offsetWidth) {
+                return this.handle.element.nativeElement.offsetWidth + 'px';
             }
             else {
                 return undefined;
@@ -1873,30 +2019,26 @@ var AutocompleteComponent = /** @class */ (function (_super) {
     });
     AutocompleteComponent.prototype.render = function (element) {
         var _this = this;
-        if (this.target) {
-            this.target.close();
-            this.target = undefined;
+        if (this.handle) {
+            this.handle.destroy();
         }
         return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-            _this.target = {
-                close: function () { return observer.complete(); },
-                select: function (result) { return observer.next(result); },
+            var handle = _this.handle = {
+                destroy: function () {
+                    _this.handle = undefined;
+                    observer.complete();
+                },
+                select: function (result) {
+                    observer.next(result);
+                    handle.destroy();
+                },
                 element: element
             };
             return function () {
-                _this.target.close();
-                _this.target = undefined;
-                observer.complete();
+                handle.destroy();
             };
         });
     };
-    Object.defineProperty(AutocompleteComponent.prototype, "visible", {
-        get: function () {
-            return !!this.target;
-        },
-        enumerable: true,
-        configurable: true
-    });
     AutocompleteComponent.prototype.highlightPrev = function () {
         var _this = this;
         if (this.items) {
@@ -1929,8 +2071,8 @@ var AutocompleteComponent = /** @class */ (function (_super) {
         }
     };
     AutocompleteComponent.prototype.selectHighlighted = function () {
-        if (this.highlightedItem && this.target) {
-            this.target.select(this.highlightedItem);
+        if (this.highlightedItem && this.handle) {
+            this.handle.select(this.highlightedItem);
             return true;
         }
         return false;
@@ -1953,10 +2095,6 @@ var AutocompleteComponent = /** @class */ (function (_super) {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], AutocompleteComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteComponent.prototype, "select", void 0);
     AutocompleteComponent = AutocompleteComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'vcl-autocomplete',
@@ -1982,7 +2120,7 @@ var AutocompleteComponent = /** @class */ (function (_super) {
 /*!**********************************************!*\
   !*** ./lib/ng-vcl/src/autocomplete/index.ts ***!
   \**********************************************/
-/*! exports provided: AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule */
+/*! exports provided: AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2006,11 +2144,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./autocomplete-header.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]; });
 
-/* harmony import */ var _input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./input.autocomplete.directive */ "./lib/ng-vcl/src/autocomplete/input.autocomplete.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__["InputAutocompleteDirective"]; });
-
-/* harmony import */ var _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./token-input.autocomplete.directive */ "./lib/ng-vcl/src/autocomplete/token-input.autocomplete.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__["TokenInputAutocompleteDirective"]; });
+/* harmony import */ var _autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./autocomplete-input.directive */ "./lib/ng-vcl/src/autocomplete/autocomplete-input.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return _autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__["AutocompleteInputDirective"]; });
 
 
 
@@ -2023,7 +2158,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+// import { TokenInputAutocompleteDirective } from './token-input.autocomplete.directive';
 
 var VCLAutocompleteModule = /** @class */ (function () {
     function VCLAutocompleteModule() {
@@ -2031,161 +2166,12 @@ var VCLAutocompleteModule = /** @class */ (function () {
     VCLAutocompleteModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _popover_index__WEBPACK_IMPORTED_MODULE_3__["VCLPopoverModule"], _token_index__WEBPACK_IMPORTED_MODULE_5__["VCLTokenModule"]],
-            exports: [_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__["InputAutocompleteDirective"], _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__["TokenInputAutocompleteDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
-            declarations: [_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_10__["InputAutocompleteDirective"], _token_input_autocomplete_directive__WEBPACK_IMPORTED_MODULE_11__["TokenInputAutocompleteDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
+            exports: [_autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__["AutocompleteInputDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
+            declarations: [_autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__["AutocompleteInputDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
             providers: [],
         })
     ], VCLAutocompleteModule);
     return VCLAutocompleteModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/input.autocomplete.directive.ts":
-/*!*********************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/input.autocomplete.directive.ts ***!
-  \*********************************************************************/
-/*! exports provided: InputAutocompleteDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return InputAutocompleteDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var InputAutocompleteDirective = /** @class */ (function () {
-    function InputAutocompleteDirective(elementRef) {
-        this.elementRef = elementRef;
-        this.autocompleteSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.disabled = false;
-    }
-    Object.defineProperty(InputAutocompleteDirective.prototype, "attrDisabled", {
-        get: function () {
-            return this.disabled ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    InputAutocompleteDirective.prototype.onFocusOrInput = function () {
-        this.renderAutocomplete();
-    };
-    InputAutocompleteDirective.prototype.onBlur = function () {
-        if (this.acSub) {
-            this.acSub.unsubscribe();
-            this.acSub = undefined;
-        }
-    };
-    InputAutocompleteDirective.prototype.renderAutocomplete = function () {
-        var _this = this;
-        if (this.acSub) {
-            return;
-        }
-        this.acSub = this.ac.render(this.elementRef).subscribe(function (selection) {
-            _this.elementRef.nativeElement.value = typeof selection.value === 'string' ? selection.value : selection.label;
-            _this.elementRef.nativeElement.focus();
-            _this.destroyAutocomplete();
-            _this.autocompleteSelect.emit(selection);
-        });
-    };
-    InputAutocompleteDirective.prototype.destroyAutocomplete = function () {
-        if (this.acSub) {
-            this.acSub.unsubscribe();
-            this.acSub = undefined;
-        }
-    };
-    InputAutocompleteDirective.prototype.onKeyUp = function (event) {
-        var code = event.code || event.key;
-        if (code === 'Escape') {
-            this.destroyAutocomplete();
-        }
-        else if (code === 'ArrowUp') {
-            this.ac && this.ac.highlightPrev();
-            event.preventDefault();
-            return false;
-        }
-        else if (event.code === 'ArrowDown') {
-            if (!this.acSub) {
-                this.renderAutocomplete();
-            }
-            else {
-                this.ac && this.ac.highlightNext();
-            }
-            event.preventDefault();
-            return false;
-        }
-    };
-    InputAutocompleteDirective.prototype.handleKeyPressEvent = function (event) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var code;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                code = event.code || event.key;
-                if (this.ac && code === 'Enter') {
-                    event.preventDefault();
-                    // if (this.ac.isHighlighted) {
-                    // }
-                    this.ac.selectHighlighted();
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
-    InputAutocompleteDirective.prototype.ngOnDestroy = function () {
-        this.destroyAutocomplete();
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], InputAutocompleteDirective.prototype, "autocompleteSelect", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclInputAutocomplete'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], InputAutocompleteDirective.prototype, "ac", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], InputAutocompleteDirective.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], InputAutocompleteDirective.prototype, "attrDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('input'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], InputAutocompleteDirective.prototype, "onFocusOrInput", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], InputAutocompleteDirective.prototype, "onBlur", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], InputAutocompleteDirective.prototype, "onKeyUp", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keypress', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", Promise)
-    ], InputAutocompleteDirective.prototype, "handleKeyPressEvent", null);
-    InputAutocompleteDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vclInputAutocomplete]',
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
-    ], InputAutocompleteDirective);
-    return InputAutocompleteDirective;
 }());
 
 
@@ -2205,214 +2191,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 var AUTOCOMPLETE_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('autocomplete');
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/token-input.autocomplete.directive.ts":
-/*!***************************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/token-input.autocomplete.directive.ts ***!
-  \***************************************************************************/
-/*! exports provided: TokenInputAutocompleteDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return TokenInputAutocompleteDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../token/index */ "./lib/ng-vcl/src/token/index.ts");
-
-
-
-
-var TokenInputAutocompleteDirective = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](TokenInputAutocompleteDirective, _super);
-    function TokenInputAutocompleteDirective(elementRef, tokenInputContainer) {
-        var _this = _super.call(this) || this;
-        _this.elementRef = elementRef;
-        _this.tokenInputContainer = tokenInputContainer;
-        _this.autocompleteSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        _this.disabled = false;
-        _this.focused = false;
-        _this.wasEmpty = true;
-        if (!tokenInputContainer) {
-            throw new Error('vcl-token-input ,must be used within a vcl-token-input-container');
-        }
-        return _this;
-    }
-    Object.defineProperty(TokenInputAutocompleteDirective.prototype, "isDisabled", {
-        get: function () {
-            return this.disabled || this.tokenInputContainer.disabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TokenInputAutocompleteDirective.prototype, "classDisabled", {
-        get: function () {
-            return this.isDisabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TokenInputAutocompleteDirective.prototype, "attrDisabled", {
-        get: function () {
-            return this.disabled ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TokenInputAutocompleteDirective.prototype.listenActivate = function () {
-        this.focused = true;
-        this.renderAutocomplete();
-    };
-    TokenInputAutocompleteDirective.prototype.onBlur = function () {
-        this.focused = false;
-        this.destroyAutocomplete();
-    };
-    TokenInputAutocompleteDirective.prototype.renderAutocomplete = function () {
-        var _this = this;
-        if (this.acSub) {
-            return;
-        }
-        this.acSub = this.ac.render(this.tokenInputContainer.elementRef).subscribe(function (selection) {
-            _this.tokenInputContainer.addToken({
-                label: selection.label || String(selection.value),
-                value: selection.value,
-                selected: true
-            });
-            _this.elementRef.nativeElement.value = '';
-            if (!_this.focused) {
-                _this.destroyAutocomplete();
-            }
-            _this.autocompleteSelect.emit(selection);
-        });
-    };
-    TokenInputAutocompleteDirective.prototype.destroyAutocomplete = function () {
-        if (this.acSub) {
-            this.acSub.unsubscribe();
-            this.acSub = undefined;
-        }
-    };
-    TokenInputAutocompleteDirective.prototype.onKeyPress = function (event) {
-        var code = event.code || event.key;
-        if (code === 'Tab') {
-            this.destroyAutocomplete();
-        }
-    };
-    TokenInputAutocompleteDirective.prototype.onKeyDown = function (event) {
-        var value = event.target.value;
-        this.wasEmpty = value === '';
-    };
-    TokenInputAutocompleteDirective.prototype.onKeyUp = function (event) {
-        var code = event && (event.code || event.key); // fallback for ie11
-        var value = event.target.value;
-        if (code === 'Escape') {
-            this.destroyAutocomplete();
-        }
-        else if (code === 'ArrowUp') {
-            this.ac && this.ac.highlightPrev();
-            event.preventDefault();
-            return false;
-        }
-        else if (code === 'ArrowDown') {
-            if (!this.acSub) {
-                this.renderAutocomplete();
-            }
-            else {
-                this.ac && this.ac.highlightNext();
-            }
-            event.preventDefault();
-            return false;
-        }
-        else if (code === 'Backspace' && this.lastKey === 'Backspace' && value === '' && this.wasEmpty) {
-            // remove last token
-            this.tokenInputContainer.removeLastToken();
-        }
-        else if (code === 'Enter') {
-            event.preventDefault();
-            if (this.ac.highlightedItem) {
-                this.ac && this.ac.selectHighlighted();
-                this.elementRef.nativeElement.value = '';
-            }
-        }
-        else if (code) {
-            this.lastKey = code;
-        }
-    };
-    TokenInputAutocompleteDirective.prototype.ngOnDestroy = function () {
-        this.destroyAutocomplete();
-        _super.prototype.ngOnDestroy.call(this);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TokenInputAutocompleteDirective.prototype, "classDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TokenInputAutocompleteDirective.prototype, "attrDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenInputAutocompleteDirective.prototype, "autocompleteSelect", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenInputAutocompleteDirective.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclTokenInputAutocomplete'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenInputAutocompleteDirective.prototype, "ac", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('input'),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TokenInputAutocompleteDirective.prototype, "listenActivate", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TokenInputAutocompleteDirective.prototype, "onBlur", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keydown', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TokenInputAutocompleteDirective.prototype, "onKeyPress", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keydown', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TokenInputAutocompleteDirective.prototype, "onKeyDown", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TokenInputAutocompleteDirective.prototype, "onKeyUp", null);
-    TokenInputAutocompleteDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vclTokenInputAutocomplete]',
-            host: {
-                '[class.vclInput]': 'true',
-                '[attr.flex]': 'true'
-            }
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _token_index__WEBPACK_IMPORTED_MODULE_3__["TokenInputContainerComponent"]])
-    ], TokenInputAutocompleteDirective);
-    return TokenInputAutocompleteDirective;
-}(_core_index__WEBPACK_IMPORTED_MODULE_2__["ObservableComponent"]));
-
 
 
 /***/ }),
@@ -6881,7 +6659,7 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7139,9 +6917,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteHeaderComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["InputAutocompleteDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TokenInputAutocompleteDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteInputDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLAutocompleteModule"]; });
 
@@ -11835,7 +11611,7 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, InputAutocompleteDirective, TokenInputAutocompleteDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12149,9 +11925,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["AutocompleteHeaderComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputAutocompleteDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["InputAutocompleteDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputAutocompleteDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["TokenInputAutocompleteDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["AutocompleteInputDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_42__["VCLAutocompleteModule"]; });
 
