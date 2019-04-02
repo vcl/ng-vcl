@@ -1,17 +1,15 @@
-<ng-container *ngIf="(target) as target">
-  <vcl-popover #popover 
-               *ngIf="visible"
-               [target]="target.element" 
-               [visible]="true" 
-               targetX="left" 
-               targetY="bottom" 
-               attachmentX="left" 
-               attachmentY="top" 
-               [style.width]="popoverWidth"
-               (mousedown)="$event.preventDefault()"
-               >
-    <div class="vclDropdown vclNoBorder vclOpen" role="menu">
-      <ng-content></ng-content>
-    </div>
-  </vcl-popover>
-</ng-container>
+<vcl-popover #popover 
+              *ngIf="handle"
+              [visible]="true" 
+              [target]="handle.element" 
+              targetX="left" 
+              targetY="bottom" 
+              attachmentX="left" 
+              attachmentY="top" 
+              [style.width]="width"
+              (mousedown)="$event.preventDefault()"
+              >
+  <div class="vclDropdown vclNoBorder vclOpen" role="menu">
+    <ng-content></ng-content>
+  </div>
+</vcl-popover>

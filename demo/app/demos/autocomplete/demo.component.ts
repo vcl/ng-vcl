@@ -1,26 +1,45 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject ,  of } from 'rxjs';
-import { debounceTime, switchMap, map, catchError, startWith } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BehaviorSubject ,  of, timer, EMPTY } from 'rxjs';
+import { debounceTime, switchMap, map, catchError, startWith, debounce, distinctUntilChanged } from 'rxjs/operators';
 
 const BOOK_API_URL = 'https://www.googleapis.com/books/v1/volumes';
+
+interface Book {
+  id: string;
+  title: string;
+  author?: string;
+  date?: string;
+  image?: string;
+}
+interface Search {
+  state: 'cleared' | 'loading' | 'error';
+  books: Book[];
+}
 
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class AutocompleteDemoComponent {
+export class AutocompleteDemoComponent implements OnDestroy {
   constructor(private http: HttpClient) { }
 
-  booksInput$ = new BehaviorSubject<string>('');
+  search: Search = {
+    state: 'cleared',
+    books: []
+  };
 
-  ac$ = this.booksInput$.pipe(
-                 debounceTime(200),
-                 switchMap(search => {
-                  if (!search || search.length < 2) {
-                    // Show nothing if less than 2 characters
-                    return of({ state: 'void', books: [] });
+  books: Book[] = [];
+
+  search$ = new BehaviorSubject<string>('');
+
+  searchSub = this.search$.pipe(
+                distinctUntilChanged(),
+                switchMap(value => {
+                  // Show nothing if less than 2 characters
+                  if (!value || value.length < 2) {
+                    return of({ state: 'cleared', books: [] });
                   } else {
-                    return this.http.get(`${BOOK_API_URL}?q=${search}&projection=lite`).pipe(
+                    return this.http.get(`${BOOK_API_URL}?q=${value}&projection=lite`).pipe(
                       map((data: any) => {
                         const items = data.items || [];
                         return {
@@ -28,7 +47,10 @@ export class AutocompleteDemoComponent {
                           books: items.filter(item => item.id && item.volumeInfo && item.volumeInfo.title)
                                       .map(item => ({
                             id: item.id,
-                            title: item.volumeInfo.title
+                            title: item.volumeInfo.title,
+                            image: item.volumeInfo.imageLinks && item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.smallThumbnail,
+                            author: item.volumeInfo.authors && item.volumeInfo.authors.join(', '),
+                            date: item.volumeInfo.publishedDate,
                           }))
                         };
                       }),
@@ -37,11 +59,20 @@ export class AutocompleteDemoComponent {
                     );
                   }
                 }),
-                startWith({ state: 'void', books: [] }) // Initial state
-  );
+                startWith<Search>({ state: 'cleared', books: [] }) // Initial state
+  ).subscribe(search => this.search = search);
 
-  onChange(change) {
-    console.log(change);
+  onSelectBook(book: Book) {
+    this.search$.next('');
+    this.books.push(book);
+  }
+
+  onClearBooks() {
+    this.books = [];
+  }
+
+  ngOnDestroy() {
+    this.searchSub && this.searchSub.unsubscribe();
   }
 }
 

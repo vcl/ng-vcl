@@ -2,5 +2,4 @@
 
 ### BREAKING CHANGES
 
-- Removed `vcl-autocomplete-option` directive
-- Added `vcl-autocomplete-item`, `vcl-autocomplete-seperator` and `vcl-autocomplete-header` directives
+- Fully reimplemented. Please check README.md for new syntax.

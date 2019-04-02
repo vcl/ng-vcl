@@ -2,7 +2,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Component, ViewChild, Input, ElementRef, forwardRef, OnDestroy, EventEmitter, Output, ContentChildren, QueryList } from '@angular/core';
 import { PopoverComponent } from '../popover/index';
 import { ObservableComponent } from '../core/index';
-import { AutocompleteResult, AUTOCOMPLETE_TOKEN, AutocompleteHost, AutocompleteTarget } from './interfaces';
+import { AUTOCOMPLETE_TOKEN, AutocompleteHost, AutocompleteHandle, AutocompleteItem } from './interfaces';
 import { AutocompleteItemComponent } from './autocomplete-item.component';
 
 @Component({
@@ -26,7 +26,6 @@ import { AutocompleteItemComponent } from './autocomplete-item.component';
   ]
 })
 export class AutocompleteComponent extends ObservableComponent implements OnDestroy, AutocompleteHost {
-
   @ContentChildren(forwardRef(() => AutocompleteItemComponent))
   items?: QueryList<AutocompleteItemComponent>;
 
@@ -36,12 +35,17 @@ export class AutocompleteComponent extends ObservableComponent implements OnDest
   @Input()
   disabled = false;
 
-  @Output()
-  select = new EventEmitter<AutocompleteResult>();
+  @Input()
+  popoverWidth?: number;
 
-  get popoverWidth() {
-    if (this.target && this.target.element && this.target.element.nativeElement.offsetWidth) {
-      return this.target.element.nativeElement.offsetWidth + 'px';
+  @Output()
+  itemSelected = new EventEmitter();
+
+  get width() {
+    if (typeof this.popoverWidth === 'number') {
+      return this.popoverWidth;
+    } else if (this.handle && this.handle.element && this.handle.element.nativeElement.offsetWidth) {
+      return this.handle.element.nativeElement.offsetWidth + 'px';
     } else {
       return undefined;
     }
@@ -52,30 +56,40 @@ export class AutocompleteComponent extends ObservableComponent implements OnDest
 
   highlightedItem?: AutocompleteItemComponent;
 
-  target?: AutocompleteTarget;
+  handle?: AutocompleteHandle;
 
-  render(element: ElementRef): Observable<AutocompleteResult> {
-    if (this.target) {
-      this.target.close();
-      this.target = undefined;
-    }
-
-    return new Observable<AutocompleteResult>(observer => {
-      this.target = {
-        close: () => observer.complete(),
-        select: (result: AutocompleteResult) => observer.next(result),
-        element: element
-      };
-      return () => {
-        this.target.close();
-        this.target = undefined;
-        observer.complete();
-      };
-    });
+  isItemHighlighted(item: AutocompleteItem): boolean {
+    return this.highlightedItem === item;
   }
 
-  get visible(): boolean {
-    return !!this.target;
+  selectItem(item: AutocompleteItem): void {
+    if (this.handle) {
+      this.itemSelected.emit(item.value);
+      this.handle.select(item.value);
+    }
+  }
+
+  render(element: ElementRef): Observable<any> {
+    if (this.handle) {
+      this.handle.destroy();
+    }
+
+    return new Observable<any>(observer => {
+      const handle = this.handle = {
+        destroy: () => {
+          this.handle = undefined;
+          observer.complete();
+        },
+        select: (value: any) => {
+          observer.next(value);
+          handle.destroy();
+        },
+        element
+      };
+      return () => {
+        handle.destroy();
+      };
+    });
   }
 
   highlightPrev() {
@@ -109,8 +123,8 @@ export class AutocompleteComponent extends ObservableComponent implements OnDest
   }
 
   selectHighlighted() {
-    if (this.highlightedItem && this.target) {
-      this.target.select(this.highlightedItem);
+    if (this.highlightedItem && this.handle) {
+      this.handle.select(this.highlightedItem);
       return true;
     }
     return false;

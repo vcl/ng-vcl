@@ -1,5 +1,5 @@
 import { HostBinding, Input, Component, Inject, HostListener } from '@angular/core';
-import { AUTOCOMPLETE_TOKEN, AutocompleteHost, AutocompleteResult } from './interfaces';
+import { AUTOCOMPLETE_TOKEN, AutocompleteHost, AutocompleteItem } from './interfaces';
 
 @Component({
   selector: 'vcl-autocomplete-item',
@@ -7,12 +7,16 @@ import { AUTOCOMPLETE_TOKEN, AutocompleteHost, AutocompleteResult } from './inte
   styles: [],
   templateUrl: 'autocomplete-item.component.html'
 })
-export class AutocompleteItemComponent implements AutocompleteResult {
+export class AutocompleteItemComponent implements AutocompleteItem {
 
   constructor(
     @Inject(AUTOCOMPLETE_TOKEN)
     private host: AutocompleteHost
   ) { }
+
+  // TODO: Workaround
+  @HostBinding('style.display')
+  styleDisplay = 'block';
 
   @HostBinding('class.vclDropdownItem')
   classVCLDropdownItem = true;
@@ -27,7 +31,7 @@ export class AutocompleteItemComponent implements AutocompleteResult {
 
   @HostBinding('class.vclHighlighted')
   get isHighlighted() {
-    return this.host.highlightedItem === this;
+    return this.host.isItemHighlighted(this);
   }
 
   @Input()
@@ -36,13 +40,8 @@ export class AutocompleteItemComponent implements AutocompleteResult {
   @Input()
   value: any;
 
-  @Input()
-  label: string;
-
   @HostListener('click')
   onclick() {
-    if (this.host.target) {
-      this.host.target.select(this);
-    }
+    this.host.selectItem(this);
   }
 }

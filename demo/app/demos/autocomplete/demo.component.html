@@ -1,43 +1,76 @@
-<h3>vcl-input with fixed data</h3>
+<h3>vcl-autocomplete with fixed data</h3>
 
 <vcl-embedded-input-group prepIcon="fas:search">
-  <input vclEmbeddedInputGroup placeholder="Search"  [vclInputAutocomplete]="acCountry" (change)="onChange($event);" />
+  <input #inputCountry 
+         placeholder="Search"
+         vclEmbeddedInputGroup   
+         [vclAutocomplete]="acCountry"
+         />
 </vcl-embedded-input-group>
 
-<h3>vcl-token-input with fixed data</h3>
-
-<vcl-token-input-container (tokensChange)="onChange($event)">
-  <input vclInput placeholder="Search for country to add" [vclTokenInputAutocomplete]="acCountry" />
-</vcl-token-input-container>
-
-<vcl-autocomplete #acCountry="vclAutocomplete">
+<vcl-autocomplete #acCountry="vclAutocomplete" target="inputCountry">
   <vcl-autocomplete-header>Europe</vcl-autocomplete-header>
-  <vcl-autocomplete-item value="gr" label="Greece"></vcl-autocomplete-item>
-  <vcl-autocomplete-item value="fr" label="France"></vcl-autocomplete-item>
-  <vcl-autocomplete-item value="de" label="Germany"></vcl-autocomplete-item>
-  <vcl-autocomplete-item value="uk" label="The United Kingdom of Great Britain and Northern Ireland"></vcl-autocomplete-item>
+  <vcl-autocomplete-item value="gr">Greece</vcl-autocomplete-item>
+  <vcl-autocomplete-item value="fr">France</vcl-autocomplete-item>
+  <vcl-autocomplete-item value="de">Germany</vcl-autocomplete-item>
+  <vcl-autocomplete-item value="uk">The United Kingdom of Great Britain and Northern Ireland</vcl-autocomplete-item>
   <vcl-autocomplete-header>Asia</vcl-autocomplete-header>
-  <vcl-autocomplete-item value="jp" label="Japan"></vcl-autocomplete-item>
-  <vcl-autocomplete-item value="cn" label="China"></vcl-autocomplete-item>
-  <vcl-autocomplete-item value="th" label="Thailand"></vcl-autocomplete-item>
+  <vcl-autocomplete-item value="jp">Japan</vcl-autocomplete-item>
+  <vcl-autocomplete-item value="cn">China</vcl-autocomplete-item>
+  <vcl-autocomplete-item value="th">Thailand</vcl-autocomplete-item>
 </vcl-autocomplete>
 
-<h3>vcl-token-input with async data</h3>
+<h3>vcl-autocomplete with async data</h3>
 
-<vcl-token-input-container (tokensChange)="onChange($event)">
-  <input vclInput
-         placeholder="Search for books to add"
-         [vclTokenInputAutocomplete]="acBooks"
-         (input)="booksInput$.next($event.target.value)"
-         (autocompleteSelect)="booksInput$.next('')" />
-</vcl-token-input-container>
+<vcl-embedded-input-group prepIcon="fas:search">
+  <input #inputBooks 
+         vclEmbeddedInputGroup 
+         placeholder="Search Google Books api" 
+         (input)="search$.next($event.target.value)"
+         [vclAutocomplete]="acBooks"
+         [vclAutocompleteDisabled]="search.state === 'cleared'"
+         [vclAutocompleteSelect]="'void'"
+          />
+  <button vcl-icon-button 
+          vclEmbeddedInputGroup 
+          (click)="inputBooks.value = ''; inputBooks.focus(); search$.next('')" 
+          [icon]="'fas:times-circle'">
+  </button>
+</vcl-embedded-input-group>
 
-<vcl-autocomplete #acBooks="vclAutocomplete">
-  <ng-container *ngIf="ac$ | async as ac">
-    <vcl-busy-indicator *ngIf="ac.state === 'loading'" style="padding: 1em"></vcl-busy-indicator>
-    <div *ngIf="ac.state === 'success' && ac.books.length === 0" style="padding: 1em">No books found</div>
-    <ng-container *ngIf="ac.state === 'success' && ac.books.length > 0">
-      <vcl-autocomplete-item *ngFor="let book of ac.books" [label]="book.title" [value]="book.id"></vcl-autocomplete-item>
-    </ng-container>
+<vcl-autocomplete #acBooks="vclAutocomplete" (itemSelected)="onSelectBook($event);">
+  <vcl-busy-indicator *ngIf="search.state === 'loading'" style="padding: 1em"></vcl-busy-indicator>
+  <div *ngIf="search.state === 'success' && search.books.length === 0" style="padding: 1em">No books found</div>
+  <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
+    <vcl-autocomplete-item *ngFor="let book of search.books" [value]="book">{{book.title}}</vcl-autocomplete-item>
   </ng-container>
 </vcl-autocomplete>
+
+<ng-container *ngIf="books.length > 0">
+
+  <h3>Books ({{books.length}})</h3>
+
+  <div class="vclDataList vclItemSelectability vclItemHoverHighlight vclNoBorder vclScrollable vclY" style="max-height: 20em;">
+    <ul class="vclDataListBody" role="listbox" aria-multiselectable="false">
+      <li *ngFor="let book of books" class="vclDataListItem vclLayoutHorizontal" role="option" aria-selected="false">
+        <div>
+          <img class="vclResponsiveImage" [src]="book.image">
+        </div>
+        <div class="vclGutterMargin vclLayoutFlex">
+          <div class="vclLayoutHorizontal">
+            <div class="vclLayoutHorizontal vclLayoutCenter vclLayoutFlex">
+              <h2 class="vclNoMargin">{{book.title}}</h2>
+            </div>
+            <div class="vclSecondaryTextColor vclAlignRight">
+              <i>{{book.date}}</i><br>
+              <span>{{book.author}}</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <button vcl-button (click)="onClearBooks()">Clear</button>
+
+</ng-container>

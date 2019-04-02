@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLInputModule, VCLAutocompleteModule, VCLEmbeddedInputGroupModule, VCLTokenModule, VCLBusyIndicatorModule } from '@ng-vcl/ng-vcl';
+import { VCLInputModule, VCLAutocompleteModule, VCLEmbeddedInputGroupModule, VCLTokenModule, VCLBusyIndicatorModule, VCLButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { AutocompleteDemoComponent } from './demo.component';
 
@@ -35,6 +35,8 @@ export function demo() {
     VCLInputModule,
     VCLEmbeddedInputGroupModule,
     VCLAutocompleteModule,
+    VCLIcogramModule,
+    VCLButtonModule,
     VCLTokenModule,
     VCLBusyIndicatorModule,
     RouterModule.forChild([{
