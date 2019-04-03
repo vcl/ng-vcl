@@ -117,14 +117,21 @@ example-schema:
           "formType": "text",
           "label": "Skill name",
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "hint": "The items name",
+          "classInputGroup": "vclLayoutHorizontal",
+          "classLabel": "vclLayoutFlex vclLayout1 vclAlignRight paddingRight1",
+          "classInput": "vclLayoutFlex vclLayout11"
         },
         "damage": {
           "formType": "number",
           "label": "Skill damage",
           "type": "number",
           "min": 0,
-          "max": 100
+          "max": 100,
+          "classInputGroup": "vclLayoutHorizontal",
+          "classLabel": "vclLayoutFlex vclLayout1 vclAlignRight paddingRight1",
+          "classInput": "vclLayoutFlex vclLayout11"
         }
       },
       "required": [
@@ -169,17 +176,20 @@ Name     | Type   | Default | Description
 
 In addition to the [generic keywords](https://spacetelescope.github.io/understanding-json-schema/reference/generic.html) of jsonschema, vcl-jss-form is using keywords to let you define the generated form.
 
-Name          | Type                   | Default | Description
-------------- | ------                 | ------- | --------------------------------------------------------------------------------------
-`formType`    | string                 |         | defines the input-type of the form-element. For types see below.
-`label`       | string                 |         | a label-string. attribute name will be the default
-`placeholder` | string                 |         | define a placeholder which will be sued for the input-field
-`options`     | JssFormSchemaOptions[] |         | options used in select, dropdown and radio
-`action`      | any                    |         | value to provide on a button press
-`autoDisable` | boolean                | false   | disables the submit button when the form is invalid
-`prepIcon`    | string                 |         | button icon to be prepended to the label
-`appIcon`     | string                 |         | button icon to be appended to the label
-`class`       | string                 |         | addtional button class
+Name              | Type                   | Default | Description
+----------------- | ------                 | ------- | --------------------------------------------------------------------------------------
+`formType`        | string                 |         | defines the input-type of the form-element. For types see below.
+`label`           | string                 |         | a label-string. attribute name will be the default
+`placeholder`     | string                 |         | define a placeholder which will be sued for the input-field
+`options`         | JssFormSchemaOptions[] |         | options used in select, dropdown and radio
+`action`          | any                    |         | value to provide on a button press
+`autoDisable`     | boolean                | false   | disables the submit button when the form is invalid
+`prepIcon`        | string                 |         | button icon to be prepended to the label
+`appIcon`         | string                 |         | button icon to be appended to the label
+`class`           | string                 |         | addtional button class
+`classInputGroup` | string                 |         | class for input group
+`classLabel`      | string                 |         | class for div containing label
+`classInput`      | string                 |         | class for div containing input, error and hint
 
 #### vcl-dropdown events
 
