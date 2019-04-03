@@ -598,7 +598,7 @@ var AppModule = /** @class */ (function () {
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLButtonModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLIconModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLFontAwesomeModule"],
-                // VCLMaterialDesignModule,
+                _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLMaterialDesignModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLNavigationModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_6__["VCLLayerModule"].forRoot(),
                 _ng_vcl_animations__WEBPACK_IMPORTED_MODULE_7__["LayerAnimationsModule"],
@@ -1670,6 +1670,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../input */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var _autocomplete_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./autocomplete.component */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.ts");
+
 
 
 
@@ -1678,7 +1680,10 @@ var AutocompleteInputDirective = /** @class */ (function (_super) {
     function AutocompleteInputDirective(elementRef) {
         var _this = _super.call(this, elementRef) || this;
         _this.elementRef = elementRef;
-        _this.autocompleteSelect = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        // tslint:disable-next-line:no-input-rename
+        _this.acDisabled = false;
+        // tslint:disable-next-line:no-input-rename
+        _this.select = 'value';
         _this.focused = false;
         return _this;
     }
@@ -1695,13 +1700,20 @@ var AutocompleteInputDirective = /** @class */ (function (_super) {
     };
     AutocompleteInputDirective.prototype.update = function () {
         var _this = this;
-        if (!this.focused || !this.ac) {
+        if (this.disabled || this.acDisabled || !this.focused || !this.ac) {
             this.close();
             return;
         }
-        this.acSub = this.ac.render(this.elementRef).subscribe(function (result) {
+        this.acSub = this.ac.render(this.elementRef).subscribe(function (value) {
+            if (typeof _this.select === 'function') {
+                value = _this.select(value);
+            }
+            else if (_this.select === 'void') {
+                value = '';
+            }
+            _this.elementRef.nativeElement.value = value;
+            _this.elementRef.nativeElement.focus();
             _this.close();
-            _this.autocompleteSelect.emit(result);
         });
     };
     AutocompleteInputDirective.prototype.close = function () {
@@ -1748,13 +1760,17 @@ var AutocompleteInputDirective = /** @class */ (function (_super) {
         this.close();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocompleteInput'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocomplete'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _autocomplete_component__WEBPACK_IMPORTED_MODULE_3__["AutocompleteComponent"])
     ], AutocompleteInputDirective.prototype, "ac", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocompleteDisabled'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteInputDirective.prototype, "autocompleteSelect", void 0);
+    ], AutocompleteInputDirective.prototype, "acDisabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocompleteSelect'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteInputDirective.prototype, "select", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
@@ -1787,7 +1803,7 @@ var AutocompleteInputDirective = /** @class */ (function (_super) {
     ], AutocompleteInputDirective.prototype, "handleKeyPressEvent", null);
     AutocompleteInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vclAutocompleteInput]',
+            selector: 'input[vclAutocomplete]',
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
     ], AutocompleteInputDirective);
@@ -1805,7 +1821,7 @@ var AutocompleteInputDirective = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div role=\"menuitem\" class=\"vclDropdownItemLabel\">\n  {{label}}\n</div>\n<ng-content></ng-content>\n"
+module.exports = "<div role=\"menuitem\" class=\"vclDropdownItemLabel\">\n  <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
 
@@ -1843,15 +1859,13 @@ var AutocompleteItemComponent = /** @class */ (function () {
     });
     Object.defineProperty(AutocompleteItemComponent.prototype, "isHighlighted", {
         get: function () {
-            return this.host.highlightedItem === this;
+            return this.host.isItemHighlighted(this);
         },
         enumerable: true,
         configurable: true
     });
     AutocompleteItemComponent.prototype.onclick = function () {
-        if (this.host.handle) {
-            this.host.handle.select(this);
-        }
+        this.host.selectItem(this);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
@@ -1883,10 +1897,6 @@ var AutocompleteItemComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], AutocompleteItemComponent.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], AutocompleteItemComponent.prototype, "label", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
@@ -1969,7 +1979,7 @@ var AutocompleteSeperatorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<vcl-popover #popover \n              *ngIf=\"handle\"\n              [visible]=\"true\" \n              [target]=\"handle.element\" \n              targetX=\"left\" \n              targetY=\"bottom\" \n              attachmentX=\"left\" \n              attachmentY=\"top\" \n              [style.width]=\"popoverWidth\"\n              (mousedown)=\"$event.preventDefault()\"\n              >\n  <div class=\"vclDropdown vclNoBorder vclOpen\" role=\"menu\">\n    <ng-content></ng-content>\n  </div>\n</vcl-popover>\n"
+module.exports = "<vcl-popover #popover \n              *ngIf=\"handle\"\n              [visible]=\"true\" \n              [target]=\"handle.element\" \n              targetX=\"left\" \n              targetY=\"bottom\" \n              attachmentX=\"left\" \n              attachmentY=\"top\" \n              [style.width]=\"width\"\n              (mousedown)=\"$event.preventDefault()\"\n              >\n  <div class=\"vclDropdown vclNoBorder vclOpen\" role=\"menu\">\n    <ng-content></ng-content>\n  </div>\n</vcl-popover>\n"
 
 /***/ }),
 
@@ -2002,12 +2012,16 @@ var AutocompleteComponent = /** @class */ (function (_super) {
     function AutocompleteComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.disabled = false;
+        _this.itemSelected = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
         return _this;
     }
     AutocompleteComponent_1 = AutocompleteComponent;
-    Object.defineProperty(AutocompleteComponent.prototype, "popoverWidth", {
+    Object.defineProperty(AutocompleteComponent.prototype, "width", {
         get: function () {
-            if (this.handle && this.handle.element && this.handle.element.nativeElement.offsetWidth) {
+            if (typeof this.popoverWidth === 'number') {
+                return this.popoverWidth;
+            }
+            else if (this.handle && this.handle.element && this.handle.element.nativeElement.offsetWidth) {
                 return this.handle.element.nativeElement.offsetWidth + 'px';
             }
             else {
@@ -2017,6 +2031,15 @@ var AutocompleteComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    AutocompleteComponent.prototype.isItemHighlighted = function (item) {
+        return this.highlightedItem === item;
+    };
+    AutocompleteComponent.prototype.selectItem = function (item) {
+        if (this.handle) {
+            this.itemSelected.emit(item.value);
+            this.handle.select(item.value);
+        }
+    };
     AutocompleteComponent.prototype.render = function (element) {
         var _this = this;
         if (this.handle) {
@@ -2028,8 +2051,8 @@ var AutocompleteComponent = /** @class */ (function (_super) {
                     _this.handle = undefined;
                     observer.complete();
                 },
-                select: function (result) {
-                    observer.next(result);
+                select: function (value) {
+                    observer.next(value);
                     handle.destroy();
                 },
                 element: element
@@ -2095,6 +2118,14 @@ var AutocompleteComponent = /** @class */ (function (_super) {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], AutocompleteComponent.prototype, "disabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], AutocompleteComponent.prototype, "popoverWidth", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], AutocompleteComponent.prototype, "itemSelected", void 0);
     AutocompleteComponent = AutocompleteComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'vcl-autocomplete',
@@ -2508,80 +2539,25 @@ var VCLBusyIndicatorModule = /** @class */ (function () {
 /*!***************************************************************!*\
   !*** ./lib/ng-vcl/src/button-group/button-group.component.ts ***!
   \***************************************************************/
-/*! exports provided: ButtonGroupButtonComponent, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, ButtonGroupComponent */
+/*! exports provided: CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, ButtonGroupComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupButtonComponent", function() { return ButtonGroupButtonComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return ButtonGroupComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
 
 
 
 
-
-
-var ButtonGroupButtonComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ButtonGroupButtonComponent, _super);
-    function ButtonGroupButtonComponent(elementRef, buttonGroupContainer) {
-        var _this = _super.call(this, elementRef) || this;
-        _this.buttonGroupContainer = buttonGroupContainer;
-        _this.selected = false;
-        _this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        return _this;
-    }
-    Object.defineProperty(ButtonGroupButtonComponent.prototype, "isDisabled", {
-        get: function () {
-            return this.disabled || this.buttonGroupContainer.disabled ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ButtonGroupButtonComponent.prototype.onClick = function () {
-        this.selected = !this.selected;
-        this.select.emit(this.selected);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], ButtonGroupButtonComponent.prototype, "isDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonGroupButtonComponent.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSelected'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonGroupButtonComponent.prototype, "selected", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], ButtonGroupButtonComponent.prototype, "onClick", null);
-    ButtonGroupButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-button-group]',
-            template: '<ng-content></ng-content>'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonGroupComponent; }))),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], Object])
-    ], ButtonGroupButtonComponent);
-    return ButtonGroupButtonComponent;
-}(_button__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"]));
 
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALUE_ACCESSOR"],
+    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonGroupComponent; }),
     multi: true
 };
@@ -2593,12 +2569,21 @@ var ButtonGroupComponent = /** @class */ (function () {
         // If `multiple` multiple items can be selected
         this.mode = 'single';
         this.selectionChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.formDisabled = false;
         /**
        * things needed for ControlValueAccessor-Interface
        */
         this.onChange = function () { };
         this.onTouched = function () { };
     }
+    ButtonGroupComponent_1 = ButtonGroupComponent;
+    Object.defineProperty(ButtonGroupComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.formDisabled || this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ButtonGroupComponent.prototype.toggle = function (btn) {
         if (this.mode === 'multiple') {
             if (Array.isArray(this.selectedValue)) {
@@ -2633,33 +2618,33 @@ var ButtonGroupComponent = /** @class */ (function () {
             });
         }
     };
+    ButtonGroupComponent.prototype.notifyButtonClick = function (btn) {
+        this.toggle(btn);
+        this.syncButtons();
+        this.triggerChange();
+        this.onTouched();
+    };
+    ButtonGroupComponent.prototype.notifyButtonBlur = function (btn) {
+        if (this.buttons.last === btn) {
+            this.onTouched();
+        }
+    };
     ButtonGroupComponent.prototype.triggerChange = function () {
         this.selectionChange.emit(this.selectedValue);
         this.onChange(this.selectedValue);
     };
     ButtonGroupComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this.buttons && this.buttons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null)).subscribe(function () {
+        // Syncs changed buttons checked state to be in line with the current group value
+        this.buttonsSub = this.buttons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(null)).subscribe(function () {
             if (!_this.buttons) {
                 return;
             }
-            _this.dispose();
-            // Subscribes to button click events
-            var click$ = rxjs__WEBPACK_IMPORTED_MODULE_2__["merge"].apply(void 0, (_this.buttons.map(function (source) { return source.select.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function () { return source; })); })));
-            _this.clickSub = click$.subscribe(function (source) {
-                _this.toggle(source);
-                _this.syncButtons();
-                _this.triggerChange();
-                _this.onTouched();
-            });
             _this.syncButtons();
         });
     };
     ButtonGroupComponent.prototype.ngOnDestroy = function () {
-        this.dispose();
-    };
-    ButtonGroupComponent.prototype.dispose = function () {
-        this.clickSub && this.clickSub.unsubscribe();
+        this.buttonsSub && this.buttonsSub.unsubscribe();
     };
     ButtonGroupComponent.prototype.writeValue = function (value) {
         this.selectedValue = value;
@@ -2672,8 +2657,13 @@ var ButtonGroupComponent = /** @class */ (function () {
     ButtonGroupComponent.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
+    ButtonGroupComponent.prototype.setDisabledState = function (disabled) {
+        this.formDisabled = disabled;
+        this.cdRef.markForCheck();
+    };
+    var ButtonGroupComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(ButtonGroupButtonComponent),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_button__WEBPACK_IMPORTED_MODULE_4__["ButtonComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], ButtonGroupComponent.prototype, "buttons", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2688,14 +2678,20 @@ var ButtonGroupComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], ButtonGroupComponent.prototype, "selectionChange", void 0);
-    ButtonGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    ButtonGroupComponent = ButtonGroupComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-button-group',
             host: {
                 '[class.vclButtonGroup]': 'true',
             },
-            template: "<ng-content select=\"button[vcl-button-group]\"></ng-content>",
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+            template: "<ng-content select=\"button[vclButtonGroup]\"></ng-content>",
+            providers: [
+                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+                {
+                    provide: _button__WEBPACK_IMPORTED_MODULE_4__["BUTTON_PARENT_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonGroupComponent_1; })
+                }
+            ],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
@@ -2711,7 +2707,7 @@ var ButtonGroupComponent = /** @class */ (function () {
 /*!**********************************************!*\
   !*** ./lib/ng-vcl/src/button-group/index.ts ***!
   \**********************************************/
-/*! exports provided: ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule */
+/*! exports provided: ButtonGroupComponent, VCLButtonGroupModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2722,8 +2718,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _button_group_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./button-group.component */ "./lib/ng-vcl/src/button-group/button-group.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return _button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupButtonComponent", function() { return _button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupButtonComponent"]; });
 
 /* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
 
@@ -2738,8 +2732,8 @@ var VCLButtonGroupModule = /** @class */ (function () {
     VCLButtonGroupModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _button_index__WEBPACK_IMPORTED_MODULE_4__["VCLButtonModule"]],
-            exports: [_button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupComponent"], _button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupButtonComponent"], _button_index__WEBPACK_IMPORTED_MODULE_4__["VCLButtonModule"]],
-            declarations: [_button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupComponent"], _button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupButtonComponent"]],
+            exports: [_button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupComponent"], _button_index__WEBPACK_IMPORTED_MODULE_4__["VCLButtonModule"]],
+            declarations: [_button_group_component__WEBPACK_IMPORTED_MODULE_3__["ButtonGroupComponent"]],
             providers: [],
         })
     ], VCLButtonGroupModule);
@@ -2901,18 +2895,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return ButtonComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/button/interfaces.ts");
+
 
 
 var ButtonComponent = /** @class */ (function () {
-    function ButtonComponent(elementRef) {
+    function ButtonComponent(elementRef, parent) {
         this.elementRef = elementRef;
+        this.parent = parent;
         this.disabled = false;
+        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.vclButton = true;
         this.hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
+        this.selectable = false;
+        this.selected = false;
     }
     Object.defineProperty(ButtonComponent.prototype, "isDisabled", {
         get: function () {
-            return this.disabled ? true : null;
+            var parentDisabled = this.parent && this.parent.isDisabled;
+            return this.disabled || parentDisabled ? true : null;
         },
         enumerable: true,
         configurable: true
@@ -2923,6 +2924,16 @@ var ButtonComponent = /** @class */ (function () {
     ButtonComponent.prototype.onMouseLeave = function () {
         this.hovered = false;
     };
+    ButtonComponent.prototype.onClick = function () {
+        if (this.selectable) {
+            this.selected = !this.selected;
+            this.select.emit(this.selected);
+        }
+        this.parent && this.parent.notifyButtonClick(this);
+    };
+    ButtonComponent.prototype.onBlur = function () {
+        this.parent && this.parent.notifyButtonBlur(this);
+    };
     ButtonComponent.prototype.focus = function () {
         this.elementRef.nativeElement.focus();
     };
@@ -2930,6 +2941,10 @@ var ButtonComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], ButtonComponent.prototype, "disabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ButtonComponent.prototype, "select", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
@@ -2945,6 +2960,19 @@ var ButtonComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], ButtonComponent.prototype, "hovered", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ButtonComponent.prototype, "selectable", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ButtonComponent.prototype, "value", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSelected'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ButtonComponent.prototype, "selected", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseenter'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
@@ -2956,77 +2984,30 @@ var ButtonComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], ButtonComponent.prototype, "onMouseLeave", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], ButtonComponent.prototype, "onClick", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], ButtonComponent.prototype, "onBlur", null);
     ButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'button[vcl-button]',
             exportAs: 'vclButton',
             template: __webpack_require__(/*! ./button.component.html */ "./lib/ng-vcl/src/button/button.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["BUTTON_PARENT_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], Object])
     ], ButtonComponent);
     return ButtonComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/button/button.selectable.directive.ts":
-/*!**************************************************************!*\
-  !*** ./lib/ng-vcl/src/button/button.selectable.directive.ts ***!
-  \**************************************************************/
-/*! exports provided: ButtonSelectableDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonSelectableDirective", function() { return ButtonSelectableDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var ButtonSelectableDirective = /** @class */ (function () {
-    function ButtonSelectableDirective() {
-        this.selected = false;
-        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-    }
-    Object.defineProperty(ButtonSelectableDirective.prototype, "vclSelectable", {
-        set: function (value) {
-            this.selected = !!value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ButtonSelectableDirective.prototype.onClick = function () {
-        this.selected = !this.selected;
-        this.select.emit(this.selected);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
-    ], ButtonSelectableDirective.prototype, "vclSelectable", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSelected'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonSelectableDirective.prototype, "selected", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonSelectableDirective.prototype, "select", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], ButtonSelectableDirective.prototype, "onClick", null);
-    ButtonSelectableDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'button[vclSelectable]',
-        })
-    ], ButtonSelectableDirective);
-    return ButtonSelectableDirective;
 }());
 
 
@@ -3037,7 +3018,7 @@ var ButtonSelectableDirective = /** @class */ (function () {
 /*!****************************************!*\
   !*** ./lib/ng-vcl/src/button/index.ts ***!
   \****************************************/
-/*! exports provided: ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule */
+/*! exports provided: ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, BUTTON_PARENT_TOKEN, VCLButtonModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3057,8 +3038,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _button_icon_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./button-icon.component */ "./lib/ng-vcl/src/button/button-icon.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"]; });
 
-/* harmony import */ var _button_selectable_directive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./button.selectable.directive */ "./lib/ng-vcl/src/button/button.selectable.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonSelectableDirective", function() { return _button_selectable_directive__WEBPACK_IMPORTED_MODULE_8__["ButtonSelectableDirective"]; });
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/button/interfaces.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BUTTON_PARENT_TOKEN", function() { return _interfaces__WEBPACK_IMPORTED_MODULE_8__["BUTTON_PARENT_TOKEN"]; });
 
 
 
@@ -3076,14 +3057,31 @@ var VCLButtonModule = /** @class */ (function () {
     VCLButtonModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon__WEBPACK_IMPORTED_MODULE_4__["VCLIconModule"], _icogram__WEBPACK_IMPORTED_MODULE_3__["VCLIcogramModule"]],
-            exports: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"], _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__["ButtonIcogramComponent"], _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"], _button_selectable_directive__WEBPACK_IMPORTED_MODULE_8__["ButtonSelectableDirective"]],
-            declarations: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"], _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__["ButtonIcogramComponent"], _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"], _button_selectable_directive__WEBPACK_IMPORTED_MODULE_8__["ButtonSelectableDirective"]],
+            exports: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"], _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__["ButtonIcogramComponent"], _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"]],
+            declarations: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"], _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__["ButtonIcogramComponent"], _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"]],
             providers: [],
         })
     ], VCLButtonModule);
     return VCLButtonModule;
 }());
 
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/button/interfaces.ts":
+/*!*********************************************!*\
+  !*** ./lib/ng-vcl/src/button/interfaces.ts ***!
+  \*********************************************/
+/*! exports provided: BUTTON_PARENT_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BUTTON_PARENT_TOKEN", function() { return BUTTON_PARENT_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var BUTTON_PARENT_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl_button_parent');
 
 
 /***/ }),
@@ -3095,7 +3093,7 @@ var VCLButtonModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #content><ng-content></ng-content></ng-template>\n\n<label class=\"vclFormControlLabel vclFormControlLabelWrapping\">\n  <ng-container *ngIf=\"labelPosition==='before'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n\n  <span \n    class=\"vclCheckbox\" \n    [class.vclDisabled]=\"isDisabled\" \n    role=\"checkbox\" \n    [attr.tabindex]=\"tabindex\" \n    [attr.aria-checked]=\"checked\"\n    [attr.aria-disabled]=\"isDisabled\"\n    (keyup)=\"onKeyup($event)\"\n    (blur)=\"onBlur()\"\n    >\n    <vcl-icon [icon]=\"checked ? 'vcl:box-checked' : 'vcl:box'\"></vcl-icon>\n  </span>\n\n  <ng-container *ngIf=\"labelPosition==='after'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n</label>\n"
+module.exports = "<vcl-icon [icon]=\"checked ? 'vcl:box-checked' : 'vcl:box'\"></vcl-icon>\n"
 
 /***/ }),
 
@@ -3113,6 +3111,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _form_control_label__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-label */ "./lib/ng-vcl/src/form-control-label/index.ts");
+
 
 
 
@@ -3124,23 +3124,48 @@ var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 var CheckboxComponent = /** @class */ (function () {
     function CheckboxComponent(cdRef) {
         this.cdRef = cdRef;
+        this.classVCLCheckbox = true;
+        this.attrRole = 'checkbox';
         this.tabindex = 0;
         this.disabled = false;
-        this.labelPosition = 'after';
         this.checked = false;
-        this.hideLabel = false;
         /**
         Action fired when the `checked` state changes due to user interaction.
         */
         this.checkedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
-        this.cvaDisabled = false;
+        // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
+        this.formDisabled = false;
         /**
          * things needed for ControlValueAccessor-Interface
          */
         this.onChange = function () { };
         this.onTouched = function () { };
     }
+    CheckboxComponent_1 = CheckboxComponent;
+    Object.defineProperty(CheckboxComponent.prototype, "attrAriaChecked", {
+        get: function () {
+            return this.checked;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CheckboxComponent.prototype, "attrAriaDisabled", {
+        get: function () {
+            return this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CheckboxComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.formDisabled || this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CheckboxComponent.prototype.notifyFormControlLabelClick = function (event) {
+        this.toggleValue();
+    };
     CheckboxComponent.prototype.onKeyup = function (e) {
         switch (e.code) {
             case 'Space':
@@ -3153,24 +3178,18 @@ var CheckboxComponent = /** @class */ (function () {
         e.preventDefault();
         return this.toggleValue();
     };
+    CheckboxComponent.prototype.onBlur = function () {
+        this.onTouched();
+    };
     CheckboxComponent.prototype.toggleValue = function () {
         if (this.isDisabled) {
             return;
         }
         this.checked = !this.checked;
         this.checkedChange.emit(this.checked);
+        this.cdRef.markForCheck();
         this.onTouched();
         this.onChange(this.checked);
-    };
-    Object.defineProperty(CheckboxComponent.prototype, "isDisabled", {
-        get: function () {
-            return this.cvaDisabled || this.disabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CheckboxComponent.prototype.onBlur = function () {
-        this.onTouched();
     };
     CheckboxComponent.prototype.writeValue = function (value) {
         this.checked = !!value;
@@ -3182,11 +3201,36 @@ var CheckboxComponent = /** @class */ (function () {
     CheckboxComponent.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    CheckboxComponent.prototype.setDisabledState = function (isDisabled) {
-        this.cvaDisabled = isDisabled;
+    CheckboxComponent.prototype.setDisabledState = function (disabled) {
+        this.formDisabled = disabled;
         this.cdRef.markForCheck();
     };
+    var CheckboxComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclCheckbox'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], CheckboxComponent.prototype, "classVCLCheckbox", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], CheckboxComponent.prototype, "attrRole", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-checked'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], CheckboxComponent.prototype, "attrAriaChecked", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-disabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], CheckboxComponent.prototype, "attrAriaDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], CheckboxComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.tabindex'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], CheckboxComponent.prototype, "tabindex", void 0);
@@ -3196,36 +3240,43 @@ var CheckboxComponent = /** @class */ (function () {
     ], CheckboxComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], CheckboxComponent.prototype, "labelPosition", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], CheckboxComponent.prototype, "checked", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], CheckboxComponent.prototype, "hideLabel", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], CheckboxComponent.prototype, "checkedChange", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CheckboxComponent.prototype, "onKeyup", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], CheckboxComponent.prototype, "onClick", null);
-    CheckboxComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CheckboxComponent.prototype, "onBlur", null);
+    CheckboxComponent = CheckboxComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-checkbox',
             template: __webpack_require__(/*! ./checkbox.component.html */ "./lib/ng-vcl/src/checkbox/checkbox.component.html"),
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+            providers: [
+                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+                {
+                    provide: _form_control_label__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_LABEL_MEMBER_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return CheckboxComponent_1; })
+                },
+            ],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             exportAs: 'vclCheckbox',
-            host: {
-                '[class.vclInputControlGroup]': 'true',
-            }
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], CheckboxComponent);
@@ -5602,62 +5653,6 @@ var VCLFontAwesomeModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.html":
-/*!**************************************************************************************!*\
-  !*** ./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.html ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<span *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">{{subLabel}}</span>\n<ng-content></ng-content>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.ts":
-/*!************************************************************************************!*\
-  !*** ./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.ts ***!
-  \************************************************************************************/
-/*! exports provided: FormControlLabelWrappingComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelWrappingComponent", function() { return FormControlLabelWrappingComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _form_control_label_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-control-label.component */ "./lib/ng-vcl/src/form-control-label/form-control-label.component.ts");
-
-
-
-var FormControlLabelWrappingComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormControlLabelWrappingComponent, _super);
-    function FormControlLabelWrappingComponent() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.classVCLFormControlLabelWrapping = true;
-        return _this;
-    }
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('content'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
-    ], FormControlLabelWrappingComponent.prototype, "content", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlLabelWrappingComponent.prototype, "classVCLFormControlLabelWrapping", void 0);
-    FormControlLabelWrappingComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'label[vcl-form-control-label-wrapping]',
-            template: __webpack_require__(/*! ./form-control-label-wrapping.component.html */ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
-        })
-    ], FormControlLabelWrappingComponent);
-    return FormControlLabelWrappingComponent;
-}(_form_control_label_component__WEBPACK_IMPORTED_MODULE_2__["FormControlLabelComponent"]));
-
-
-
-/***/ }),
-
 /***/ "./lib/ng-vcl/src/form-control-label/form-control-label.component.html":
 /*!*****************************************************************************!*\
   !*** ./lib/ng-vcl/src/form-control-label/form-control-label.component.html ***!
@@ -5665,7 +5660,7 @@ var FormControlLabelWrappingComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "{{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<span *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">{{subLabel}}</span>\n\n<div [style.display]=\"hasContent ? undefined : 'none'\" #content>\n  <ng-content></ng-content>\n</div>\n"
+module.exports = "<ng-content></ng-content>\n\n\n\n\n<!-- <label vcl-form-control-label>\n  foo\n  <vcl-label-required></vcl-label-required>\n  <vcl-checkbox></vcl-checkbox>\n  <vcl-vcl-form-control-sub-label>foobar</vcl-vcl-form-control-sub-label>\n</label>\n\n\n<label vcl-form-control-label>\n  <vcl-checkbox></vcl-checkbox>\n  foo\n</label>\n\n\n<label vcl-checkbox-label>\n  foo\n  <vcl-checkbox></vcl-checkbox>\n</label> -->\n\n<!-- {{label}}\n<em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<span *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">{{subLabel}}</span>\n\n<div [style.display]=\"hasContent ? undefined : 'none'\" #content> -->\n<!-- </div> -->\n\n\n<!-- <em *ngIf=\"required\" class=\"vclRequiredIndicator\" aria-hidden=\"true\" [attr.aria-label]=\"requiredIndLabel\">\n  {{requiredIndicatorCharacter}}\n</em>\n<span *ngIf=\"subLabel\" class=\"vclFormControlSubLabel\">{{subLabel}}</span> -->\n\n<!-- <div [style.display]=\"hasContent ? undefined : 'none'\" #content>\n    <ng-content></ng-content>\n  \n  </div>\n  \n   -->\n  \n  \n  \n  \n  \n  \n  <!-- \n  <label vcl-form-control-label role=\"label\">\n    <vcl-checkbox></vcl-checkbox>\n  </label>\n  \n  \n  <label class=\"vclFormControlLabel\">\n    <div>\n      <span vlass=\"\"></span>\n    </div>\n  </label>\n    \n  \n  \n  \n  \n  <label vcl-form-control-label label=\"test\" sublabel=\"\" req=true>\n    <vcl-checkbox></vcl-checkbox>\n  </label>\n  \n   -->\n  "
 
 /***/ }),
 
@@ -5681,95 +5676,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return FormControlLabelComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-label/interfaces.ts");
+
 
 
 var FormControlLabelComponent = /** @class */ (function () {
     function FormControlLabelComponent() {
         this.classVCLFormControlLabel = true;
-        this.disabled = false;
-        this.requiredIndicatorCharacter = '•';
-        // Whether an indicator that an input in to the labeled control is required
-        this.required = false;
+        this.classVCLFormControlLabelWrapping = true;
     }
-    Object.defineProperty(FormControlLabelComponent.prototype, "vclFormControlLabelWrapping", {
+    Object.defineProperty(FormControlLabelComponent.prototype, "isDisabled", {
         get: function () {
-            // Not wrapping if "for" is defined
-            if (this.for || !this.content || !this.content.nativeElement) {
-                return false;
-            }
-            // Wrapping if any ng-content is defined
-            return this.hasContent;
+            return this.children.some(function (c) { return c.isDisabled; });
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormControlLabelComponent.prototype, "hasContent", {
-        get: function () {
-            var element = this.content.nativeElement;
-            var nodes = Array.from(element.childNodes);
-            return nodes.some(function (node) {
-                // Ignore empty text
-                if (node.nodeType === 3 && node.textContent && node.textContent.trim().length === 0) {
-                    return false;
-                }
-                // Ignore comments
-                if (node.nodeType === 8) {
-                    return false;
-                }
-                return true;
-            });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('content'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
-    ], FormControlLabelComponent.prototype, "content", void 0);
+    FormControlLabelComponent.prototype.onclick = function (event) {
+        this.children.forEach(function (c) { return c.notifyFormControlLabelClick(event); });
+    };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabel'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], FormControlLabelComponent.prototype, "classVCLFormControlLabel", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlLabelComponent.prototype, "classVCLFormControlLabelWrapping", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlLabelComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlLabelComponent.prototype, "requiredIndicatorCharacter", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], FormControlLabelComponent.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], FormControlLabelComponent.prototype, "subLabel", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlLabelComponent.prototype, "isDisabled", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.for'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], FormControlLabelComponent.prototype, "for", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlLabelComponent.prototype, "required", void 0);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_LABEL_MEMBER_TOKEN"], { read: _interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_LABEL_MEMBER_TOKEN"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
+    ], FormControlLabelComponent.prototype, "children", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], FormControlLabelComponent.prototype, "requiredIndLabel", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlLabelComponent.prototype, "vclFormControlLabelWrapping", null);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], FormControlLabelComponent.prototype, "onclick", null);
     FormControlLabelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'label[vcl-form-control-label]',
             template: __webpack_require__(/*! ./form-control-label.component.html */ "./lib/ng-vcl/src/form-control-label/form-control-label.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
         })
     ], FormControlLabelComponent);
     return FormControlLabelComponent;
@@ -5783,7 +5741,7 @@ var FormControlLabelComponent = /** @class */ (function () {
 /*!****************************************************!*\
   !*** ./lib/ng-vcl/src/form-control-label/index.ts ***!
   \****************************************************/
-/*! exports provided: VCLFormControlLabelModule */
+/*! exports provided: FormControlLabelComponent, FORM_CONTROL_LABEL_MEMBER_TOKEN, VCLFormControlLabelModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5794,7 +5752,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
 /* harmony import */ var _form_control_label_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form-control-label.component */ "./lib/ng-vcl/src/form-control-label/form-control-label.component.ts");
-/* harmony import */ var _form_control_label_wrapping_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./form-control-label-wrapping.component */ "./lib/ng-vcl/src/form-control-label/form-control-label-wrapping.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return _form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]; });
+
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-label/interfaces.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return _interfaces__WEBPACK_IMPORTED_MODULE_5__["FORM_CONTROL_LABEL_MEMBER_TOKEN"]; });
+
+
 
 
 
@@ -5807,13 +5770,30 @@ var VCLFormControlLabelModule = /** @class */ (function () {
     VCLFormControlLabelModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"]],
-            exports: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"], _form_control_label_wrapping_component__WEBPACK_IMPORTED_MODULE_5__["FormControlLabelWrappingComponent"]],
-            declarations: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"], _form_control_label_wrapping_component__WEBPACK_IMPORTED_MODULE_5__["FormControlLabelWrappingComponent"]]
+            exports: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]],
+            declarations: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]]
         })
     ], VCLFormControlLabelModule);
     return VCLFormControlLabelModule;
 }());
 
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-label/interfaces.ts":
+/*!*********************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-label/interfaces.ts ***!
+  \*********************************************************/
+/*! exports provided: FORM_CONTROL_LABEL_MEMBER_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return FORM_CONTROL_LABEL_MEMBER_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var FORM_CONTROL_LABEL_MEMBER_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-label-member');
 
 
 /***/ }),
@@ -6659,7 +6639,7 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, BUTTON_PARENT_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, FormControlLabelComponent, FORM_CONTROL_LABEL_MEMBER_TOKEN, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6739,13 +6719,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ButtonIconComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonSelectableDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ButtonSelectableDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BUTTON_PARENT_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["BUTTON_PARENT_TOKEN"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLButtonModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ButtonGroupComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupButtonComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ButtonGroupButtonComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonGroupModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLButtonGroupModule"]; });
 
@@ -6808,6 +6786,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimePickerComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TimePickerComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLDatePickerModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FormControlLabelComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_LABEL_MEMBER_TOKEN"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlLabelModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLFormControlLabelModule"]; });
 
@@ -11611,7 +11593,7 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective, VCLButtonModule, ButtonGroupComponent, ButtonGroupButtonComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, BUTTON_PARENT_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, LayerRefDirective, LayerRef, LayerService, LayerContainerComponent, DynamicLayerRef, LAYER_ANIMATIONS, LayerResult, LAYERS, Layer, VCLLayerModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, VCLToolbarModule, PopoverComponent, AttachmentX, AttachmentY, POPOVER_ANIMATIONS, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, FormControlLabelComponent, FORM_CONTROL_LABEL_MEMBER_TOKEN, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertError, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, Notifier, NotifierService, NotifierType, NotifierPosition, NotifierComponent, VCLNotifierModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, VCLModalModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11703,14 +11685,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["ButtonIconComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonSelectableDirective", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["ButtonSelectableDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BUTTON_PARENT_TOKEN", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["BUTTON_PARENT_TOKEN"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonModule", function() { return _button_index__WEBPACK_IMPORTED_MODULE_12__["VCLButtonModule"]; });
 
 /* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./button-group/index */ "./lib/ng-vcl/src/button-group/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_13__["ButtonGroupComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupButtonComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_13__["ButtonGroupButtonComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonGroupModule", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_13__["VCLButtonGroupModule"]; });
 
@@ -11785,6 +11765,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_23__["VCLDatePickerModule"]; });
 
 /* harmony import */ var _form_control_label_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./form-control-label/index */ "./lib/ng-vcl/src/form-control-label/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_24__["FormControlLabelComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_24__["FORM_CONTROL_LABEL_MEMBER_TOKEN"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlLabelModule", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_24__["VCLFormControlLabelModule"]; });
 
 /* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
@@ -12043,6 +12027,23 @@ var VCLRadioButtonModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/radio-button/interfaces.ts":
+/*!***************************************************!*\
+  !*** ./lib/ng-vcl/src/radio-button/interfaces.ts ***!
+  \***************************************************/
+/*! exports provided: RADIO_BUTTON_PARENT_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RADIO_BUTTON_PARENT_TOKEN", function() { return RADIO_BUTTON_PARENT_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var RADIO_BUTTON_PARENT_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl_radio_button_parent');
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/radio-button/radio-button.component.html":
 /*!*****************************************************************!*\
   !*** ./lib/ng-vcl/src/radio-button/radio-button.component.html ***!
@@ -12050,7 +12051,7 @@ var VCLRadioButtonModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #content><ng-content></ng-content></ng-template>\n\n<label class=\"vclFormControlLabel vclFormControlLabelWrapping\">\n  <ng-container *ngIf=\"labelPosition==='before'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n\n  <div \n    class=\"vclRadioButton\" \n    [class.vclDisabled]=\"isDisabled\" \n    role=\"radio\" \n    [attr.tabindex]=\"tabindex\" \n    [attr.aria-checked]=\"checked\"\n    [attr.aria-disabled]=\"isDisabled\"\n    (keyup)=\"onKeyup($event)\"\n    (blur)=\"onBlur()\"\n    >\n    <vcl-icon [icon]=\"checked ? 'vcl:circle-checked' : 'vcl:circle'\"></vcl-icon>\n  </div>  \n\n  <ng-container *ngIf=\"labelPosition==='after'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n</label>\n\n<!-- <ng-template #content><ng-content></ng-content></ng-template>\n\n<label class=\"vclFormControlLabel vclFormControlLabelWrapping\">\n  <ng-container *ngIf=\"labelPosition==='before'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n\n  <span \n    class=\"vclCheckbox\" \n    [class.vclDisabled]=\"isDisabled\" \n    role=\"checkbox\" \n    [attr.tabindex]=\"tabindex\" \n    [attr.aria-checked]=\"checked\"\n    [attr.aria-disabled]=\"isDisabled\"\n    (keyup)=\"onKeyup($event)\"\n    (blur)=\"onBlur()\"\n    >\n    <vcl-icon [icon]=\"checked ? 'vcl:box-checked' : 'vcl:box'\"></vcl-icon>\n  </span>\n\n  <ng-container *ngIf=\"labelPosition==='after'\">\n    <ng-container *ngTemplateOutlet=\"content\"></ng-container>\n  </ng-container>\n</label> -->\n"
+module.exports = "<vcl-icon [icon]=\"checked ? 'vcl:circle-checked' : 'vcl:circle'\"></vcl-icon>\n"
 
 /***/ }),
 
@@ -12068,6 +12069,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _form_control_label__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-label */ "./lib/ng-vcl/src/form-control-label/index.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/radio-button/interfaces.ts");
+
+
 
 
 
@@ -12076,75 +12081,86 @@ var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioButtonComponent; }),
     multi: true
 };
-var uniqueID = 0;
 var RadioButtonComponent = /** @class */ (function () {
-    function RadioButtonComponent(cdRef) {
+    function RadioButtonComponent(cdRef, radioButtonParent) {
         this.cdRef = cdRef;
-        this.uniqueID = "vcl-radio-button-" + ++uniqueID;
-        this.id = this.uniqueID;
-        this.disabled = false;
-        this.labelPosition = 'after';
+        this.radioButtonParent = radioButtonParent;
+        this.classVCLCheckbox = true;
+        this.attrRole = 'radio';
         this.tabindex = 0;
+        this.disabled = false;
         this.checked = false;
+        /**
+        Action fired when the `checked` state changes due to user interaction.
+        */
         this.checkedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.focus = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.blur = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.focused = true;
-        // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
-        this.cvaDisabled = false;
+        // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
+        this.formDisabled = false;
         /**
          * things needed for ControlValueAccessor-Interface
          */
         this.onChange = function () { };
         this.onTouched = function () { };
     }
-    Object.defineProperty(RadioButtonComponent.prototype, "isDisabled", {
+    RadioButtonComponent_1 = RadioButtonComponent;
+    Object.defineProperty(RadioButtonComponent.prototype, "attrAriaChecked", {
         get: function () {
-            return this.cvaDisabled || this.disabled;
+            return this.checked;
         },
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(RadioButtonComponent.prototype, "attrAriaDisabled", {
+        get: function () {
+            return this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioButtonComponent.prototype, "isDisabled", {
+        get: function () {
+            var parentDisabled = this.radioButtonParent && this.radioButtonParent.isDisabled;
+            return parentDisabled || this.formDisabled || this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    RadioButtonComponent.prototype.notifyFormControlLabelClick = function (event) {
+        this.setChecked();
+    };
     RadioButtonComponent.prototype.onKeyup = function (e) {
         switch (e.code) {
             case 'Space':
-                this.triggerChangeAction(e);
+                e.preventDefault();
+                this.setChecked();
                 break;
         }
     };
     RadioButtonComponent.prototype.onClick = function (e) {
-        this.triggerChangeAction(e);
-    };
-    RadioButtonComponent.prototype.triggerChangeAction = function (e) {
         e.preventDefault();
+        this.setChecked();
+    };
+    RadioButtonComponent.prototype.onBlur = function () {
+        this.radioButtonParent && this.radioButtonParent.notifyRadioButtonBlur(this);
+        this.onTouched();
+    };
+    RadioButtonComponent.prototype.setChecked = function () {
         if (this.isDisabled) {
             return;
         }
-        // radio-buttons cannot be 'unchecked' by definition
-        if (this.checked === true) {
-            return;
+        if (this.radioButtonParent) {
+            this.radioButtonParent.notifyRadioButtonChecked(this);
         }
+        // radio-buttons cannot be 'unchecked' by definition
         this.checked = true;
         this.checkedChange.emit(this.checked);
-        this.onChange(this.checked);
-        this.onTouched();
-    };
-    RadioButtonComponent.prototype.setChecked = function (value) {
-        this.checked = value;
         this.cdRef.markForCheck();
-    };
-    RadioButtonComponent.prototype.onFocus = function () {
-        this.focused = true;
-        this.focus.emit();
-    };
-    RadioButtonComponent.prototype.onBlur = function () {
-        this.focused = false;
-        this.blur.emit();
+        this.onTouched();
+        this.onChange(this.checked);
     };
     RadioButtonComponent.prototype.writeValue = function (value) {
-        if (value !== this.checked) {
-            this.setChecked(!!value);
-        }
+        this.checked = !!value;
+        this.cdRef.markForCheck();
     };
     RadioButtonComponent.prototype.registerOnChange = function (fn) {
         this.onChange = fn;
@@ -12152,15 +12168,39 @@ var RadioButtonComponent = /** @class */ (function () {
     RadioButtonComponent.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    RadioButtonComponent.prototype.setDisabledState = function (isDisabled) {
-        this.cvaDisabled = isDisabled;
+    RadioButtonComponent.prototype.setDisabledState = function (disabled) {
+        this.formDisabled = disabled;
         this.cdRef.markForCheck();
     };
+    var RadioButtonComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclRadioButton'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RadioButtonComponent.prototype, "classVCLCheckbox", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RadioButtonComponent.prototype, "attrRole", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-checked'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioButtonComponent.prototype, "attrAriaChecked", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-disabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioButtonComponent.prototype, "attrAriaDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioButtonComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.tabindex'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RadioButtonComponent.prototype, "id", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RadioButtonComponent.prototype, "tabindex", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -12168,49 +12208,50 @@ var RadioButtonComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioButtonComponent.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RadioButtonComponent.prototype, "labelPosition", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RadioButtonComponent.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioButtonComponent.prototype, "tabindex", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], RadioButtonComponent.prototype, "checked", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RadioButtonComponent.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], RadioButtonComponent.prototype, "checkedChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioButtonComponent.prototype, "focus", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioButtonComponent.prototype, "blur", void 0);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], RadioButtonComponent.prototype, "onKeyup", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], RadioButtonComponent.prototype, "onClick", null);
-    RadioButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], RadioButtonComponent.prototype, "onBlur", null);
+    RadioButtonComponent = RadioButtonComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-radio-button',
             template: __webpack_require__(/*! ./radio-button.component.html */ "./lib/ng-vcl/src/radio-button/radio-button.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+            providers: [
+                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+                {
+                    provide: _form_control_label__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_LABEL_MEMBER_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioButtonComponent_1; })
+                },
+            ],
+            // changeDetection: ChangeDetectionStrategy.OnPush,
+            exportAs: 'vclCheckbox',
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_4__["RADIO_BUTTON_PARENT_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
     ], RadioButtonComponent);
     return RadioButtonComponent;
 }());
@@ -12234,8 +12275,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/radio-button/interfaces.ts");
 /* harmony import */ var _radio_button_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./radio-button.component */ "./lib/ng-vcl/src/radio-button/radio-button.component.ts");
 
 
@@ -12254,71 +12295,56 @@ var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
     multi: true
 };
 var RadioGroupComponent = /** @class */ (function () {
-    function RadioGroupComponent(cdRef) {
-        this.cdRef = cdRef;
-        this.layout = 'horizontal';
-        this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    function RadioGroupComponent() {
+        this.attrRole = 'radiogroup';
+        // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
+        this.formDisabled = false;
         /**
         * things needed for ControlValueAccessor-Interface
         */
         this.onChange = function () { };
         this.onTouched = function () { };
     }
-    Object.defineProperty(RadioGroupComponent.prototype, "vclInputInlineControlGroup", {
+    RadioGroupComponent_1 = RadioGroupComponent;
+    Object.defineProperty(RadioGroupComponent.prototype, "isDisabled", {
         get: function () {
-            return this.layout === 'horizontal';
+            return this.formDisabled || this.disabled;
         },
         enumerable: true,
         configurable: true
     });
     RadioGroupComponent.prototype.syncRadioButtons = function () {
         var _this = this;
-        if (this.radioButtons) {
-            this.radioButtons.forEach(function (rbtn, idx) {
-                var value = rbtn.value === undefined ? idx : rbtn.value;
-                rbtn.setChecked(_this.value === value);
-            });
-            this.cdRef.markForCheck();
+        if (!this.radioButtons) {
+            return;
         }
-    };
-    RadioGroupComponent.prototype.triggerChange = function () {
-        this.change.emit(this.value);
-        this.onChange(this.value);
-    };
-    RadioGroupComponent.prototype.ngOnChanges = function (changes) {
-        if ('value' in changes) {
-            this.syncRadioButtons();
-        }
+        this.radioButtons.forEach(function (rbtn, idx) {
+            var value = rbtn.value === undefined ? idx : rbtn.value;
+            rbtn.checked = _this.value === value;
+        });
     };
     RadioGroupComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        // Subscribes to radio button change event
-        this.changesSub = this.radioButtons && this.radioButtons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null)).subscribe(function () {
-            _this.dispose();
+        // Syncs changed radio buttons checked state to be in line with the current group value
+        this.radioButtonsSub = this.radioButtons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(null)).subscribe(function () {
             if (_this.radioButtons) {
-                // Subscribe last radio button to blur event
-                _this.blurSub = _this.radioButtons.last && _this.radioButtons.last.blur.subscribe(function () {
-                    _this.onTouched();
-                }) || undefined;
-                // Subscribe to checked change event
-                var checked$ = rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"].apply(void 0, (_this.radioButtons.map(function (source, idx) { return source.checkedChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function () { return ({ source: source, idx: idx }); })); })));
-                _this.checkedSub = checked$.subscribe(function (c) {
-                    // Use index as value if radio button value is undefined
-                    _this.value = c.source.value === undefined ? c.idx : c.source.value;
-                    _this.syncRadioButtons();
-                    _this.triggerChange();
-                });
                 _this.syncRadioButtons();
             }
         });
     };
-    RadioGroupComponent.prototype.ngOnDestroy = function () {
-        this.dispose();
-        this.changesSub && this.changesSub.unsubscribe();
+    RadioGroupComponent.prototype.notifyRadioButtonChecked = function (rb) {
+        this.value = rb.value;
+        this.syncRadioButtons();
+        this.onChange(this.value);
+        this.onTouched();
     };
-    RadioGroupComponent.prototype.dispose = function () {
-        this.blurSub && this.blurSub.unsubscribe();
-        this.checkedSub && this.checkedSub.unsubscribe();
+    RadioGroupComponent.prototype.notifyRadioButtonBlur = function (rb) {
+        if (this.radioButtons.last === rb) {
+            this.onTouched();
+        }
+    };
+    RadioGroupComponent.prototype.ngOnDestroy = function () {
+        this.radioButtonsSub && this.radioButtonsSub.unsubscribe();
     };
     RadioGroupComponent.prototype.writeValue = function (value) {
         this.value = value;
@@ -12330,42 +12356,41 @@ var RadioGroupComponent = /** @class */ (function () {
     RadioGroupComponent.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    RadioGroupComponent.prototype.setDisabledState = function (isDisabled) {
-        this.radioButtons && this.radioButtons.forEach(function (rb) { return rb.setDisabledState(isDisabled); });
+    RadioGroupComponent.prototype.setDisabledState = function (disabled) {
+        this.formDisabled = disabled;
     };
+    var RadioGroupComponent_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
+    ], RadioGroupComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], RadioGroupComponent.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RadioGroupComponent.prototype, "layout", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioGroupComponent.prototype, "change", void 0);
+    ], RadioGroupComponent.prototype, "attrRole", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_radio_button_component__WEBPACK_IMPORTED_MODULE_5__["RadioButtonComponent"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_radio_button_component__WEBPACK_IMPORTED_MODULE_5__["RadioButtonComponent"], {
+            descendants: true
+        }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], RadioGroupComponent.prototype, "radioButtons", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputInlineControlGroup'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], RadioGroupComponent.prototype, "vclInputInlineControlGroup", null);
-    RadioGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    RadioGroupComponent = RadioGroupComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-radio-group',
-            template: "<ng-content select=\"vcl-radio-button\"></ng-content>",
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            host: {
-                'attr.role': '"radiogroup"'
-            },
-            styles: ["\n    :host(.vclInputInlineControlGroup) ::ng-deep vcl-radio-button {\n        display: inline-block;\n      }\n    "]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+            template: "<ng-content></ng-content>",
+            providers: [
+                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+                {
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_4__["RADIO_BUTTON_PARENT_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioGroupComponent_1; })
+                }
+            ],
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+        })
     ], RadioGroupComponent);
     return RadioGroupComponent;
 }());
