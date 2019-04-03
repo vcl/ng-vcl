@@ -169,6 +169,9 @@ export const HERO_SCHEMA = {
             type: 'string',
             minLength: 1,
             hint: 'The items name',
+            classInputGroup: 'vclLayoutHorizontal',
+            classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
+            classInput: 'vclLayoutFlex vclLayout11'
           },
           quantity: {
             formType: 'number',
@@ -176,7 +179,10 @@ export const HERO_SCHEMA = {
             hint: 'The item quantity',
             type: 'number',
             min: 0,
-            max: 100
+            max: 100,
+            classInputGroup: 'vclLayoutHorizontal',
+            classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
+            classInput: 'vclLayoutFlex vclLayout11'
           }
         }
       }
