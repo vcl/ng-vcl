@@ -36,4 +36,7 @@ export interface JssFormSchema extends Schema {
   uncheckedIcon: string;
   expandedIcon: string;
   collapsedIcon: string;
+  classInputGroup: string;
+  classLabel: string;
+  classInput: string;
 }
