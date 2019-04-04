@@ -12,7 +12,7 @@ export interface JssFormSchema extends Schema {
   properties?: { [name: string]: JssFormSchema };
   label?: string;
   singularLabel?: string;
-  formType?: string;
+  formControl?: string;
   placeholder?: string;
   options?: JssFormSchemaOptions[];
   scale?: string[] | number;

@@ -90,7 +90,7 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
           if (p.type === 'object') {
             group[key] = createGroup(p);
           // arrays
-          } else if (p.formType === 'array' && p.type === 'array') {
+          } else if (p.formControl === 'array' && p.type === 'array') {
             const amount = p.count || 1;
             const result: any[] = [];
             for (let i = 0; i < amount; i++) {
@@ -121,7 +121,7 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
 
       });
 
-      if (schema.formType === 'array' && schema.type === 'array') {
+      if (schema.formControl === 'array' && schema.type === 'array') {
         return this.fb.array([
           this.fb.group(group)
         ]);

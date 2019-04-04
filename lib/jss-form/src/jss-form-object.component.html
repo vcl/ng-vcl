@@ -8,13 +8,13 @@
       <div [ngClass]="fo.schema.classInputGroup" >
         <div [ngClass]="fo.schema.classLabel" >
           <label
-                vcl-form-control-label *ngIf="!fo.hideLabel && fo.formType !== 'checkbox'  && fo.formType !== 'submit' && fo.formType !== 'button' && fo.formType !== 'buttons' && fo.formType !== 'hidden'" 
+                vcl-form-control-label *ngIf="!fo.hideLabel && fo.formControl !== 'checkbox'  && fo.formControl !== 'submit' && fo.formControl !== 'button' && fo.formControl !== 'buttons' && fo.formControl !== 'hidden'" 
                 [label]="fo.label" [required]="fo.required" 
                 [for]="fo.id"></label>
         </div>
         <div [ngClass]="fo.schema.classInput">
 
-          <ng-container [ngSwitch]="fo.formType">
+          <ng-container [ngSwitch]="fo.formControl">
             <ng-container *ngSwitchCase="'text'">
 
               <vcl-input-control-group [type]="'error'" [label]="errorLabel">
@@ -208,7 +208,7 @@
             <ng-container *ngSwitchCase="'buttons'">
               <div class="vclLooseButtonGroup">
                 <ng-container *ngFor="let btnFo of fo.buttons">
-                  <ng-container *ngIf="btnFo.formType === 'submit'">
+                  <ng-container *ngIf="btnFo.formControl === 'submit'">
                     <button vcl-button
                             type="submit"
                             [disabled]="(btnFo.schema.autoDisable && !form.valid) || fo.disabled"
@@ -219,7 +219,7 @@
                     </button>
                   </ng-container>
 
-                  <ng-container *ngIf="btnFo.formType === 'button'">
+                  <ng-container *ngIf="btnFo.formControl === 'button'">
                     <button vcl-button
                             type="button"
                             [prepIcon]="btnFo.schema.prepIcon"
@@ -245,7 +245,7 @@
     </ng-container>
 
     <ng-template #nested>
-      <ng-container [ngSwitch]="fo.formType">
+      <ng-container [ngSwitch]="fo.formControl">
         <ng-container *ngSwitchDefault>
           <fieldset class="vclFieldset" [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
             <legend>{{fo.label}}</legend>

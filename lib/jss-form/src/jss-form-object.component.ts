@@ -20,7 +20,7 @@ export class FormObject {
 
   disableOverride: boolean = false;
 
-  formType: string | undefined;
+  formControl: string | undefined;
   formObjects: FormObject[] | FormObject[][] | undefined;
 
   options: JssFormSchemaOptions[] = [];
@@ -33,9 +33,9 @@ export class FormObject {
   ) {
 
     this.formObjects = createFormObjects(schema, this);
-    this.formType = determineType(schema);
+    this.formControl = determineType(schema);
 
-    if (this.formType === 'select' || this.formType === 'dropdown' || this.formType === 'radio') {
+    if (this.formControl === 'select' || this.formControl === 'dropdown' || this.formControl === 'radio') {
       let options;
       if (!schema.options && schema.enum) {
         options = schema.enum.map((s: string | null) => ({label: s === null ? '-' : s, value: s}));
@@ -49,7 +49,7 @@ export class FormObject {
         options = [];
       }
       this.options = options;
-    } else if (this.formType === 'buttons') {
+    } else if (this.formControl === 'buttons') {
       this.buttons = (schema.buttons || []).map(btnSchema => new FormObject(btnSchema, key));
     }
 
@@ -73,7 +73,7 @@ export class FormObject {
   }
 
   get required(): boolean {
-    if (this.formType === 'text') {
+    if (this.formControl === 'text') {
       return typeof this.schema.minLength === 'number' && this.schema.minLength > 0;
     }
 
