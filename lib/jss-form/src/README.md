@@ -186,79 +186,90 @@ Name     | Type   | Default | Description
 #### schema attributes
 
 In addition to the [generic keywords](https://spacetelescope.github.io/understanding-json-schema/reference/generic.html) of jsonschema, vcl-jss-form is using keywords to let you define the generated form.
-
-Name              | Type                   | Default | FormControl           | Description
------------------ | ---------------------- | ------- | --------------------- | ------------------------------------------------------------------
-`formControl`     | string                 |         |                       | defines the input-type of the form-element. For types see below.
-`type`            | string                 |         |                       | defines the type of the value. For types see below.
-`label`           | string                 |         |                       | a label-string. attribute name will be the default
-`placeholder`     | string                 |         |                       | defines a placeholder which will be sued for the input-field
-`hint`            | string                 |         |                       | defines a hint placed under infut field
-`options`         | JssFormSchemaOptions[] |         | select dropdown radio | options used in select, dropdown and radio
-`enum`            | string[]               |         | select dropdown radio | options used in select, dropdown and radio, label same with value
-`hideLabel`       | boolean                | false   |                       | hides the label
-`customComponent` | Component              |         | custom                | an implementation of `ControlValueAccessor`
-`customParameters`| any                    |         | custom                | values will be provided in `customComponent`
-`action`          | any                    |         | submit                | value to provide on a button press
-`autoDisable`     | boolean                | false   | submit                | disables the submit button when the form is invalid
-`prepIcon`        | string                 |         | button                | button icon to be prepended to the label
-`appIcon`         | string                 |         | button                | button icon to be appended to the label
-`class`           | string                 |         | button                | addtional button class
-`singularLabel`   | string                 |         |                       | label for single item when type `array`
-`visibleIcon`     | string                 |         | password              | icon for mode visible of password input
-`invisibleIcon`   | string                 |         | password              | icon for mode hidden of password input
-`classInputGroup` | string                 |         |                       | class for input group
-`classLabel`      | string                 |         |                       | class for div containing label
-`classInput`      | string                 |         |                       | class for div containing input, error and hint
+Name              | Type                     | Default | FormControl           | Description
+----------------- | ------------------------ | ------- | --------------------- | ------------------------------------------------------------------
+`formControl`     | string                   |         |                       | defines the input-type of the form-element. For types see below.
+`properties`      | {[name: string]: schema} |         |                       | used when type `object`
+`buttons`         | schema                   | false   |                       | Buttons placed in Button group
+`disabled`        | boolean                  | false   |                       | form input is disabled
+`label`           | string                   |         |                       | a label-string. attribute name will be the default
+`placeholder`     | string                   |         |                       | defines a placeholder which will be sued for the input-field
+`hint`            | string                   |         |                       | defines a hint placed under input field
+`options`         | JssFormSchemaOptions[]   |         | select dropdown radio | options used in select, dropdown and radio
+`enum`            | string[]                 |         | select dropdown radio | options used in select, dropdown and radio, label same with value
+`hideLabel`       | boolean                  | false   |                       | hides the label
+`customComponent` | Component                |         | custom                | an implementation of `ControlValueAccessor`
+`customParameters`| any                      |         | custom                | values will be provided in `customComponent`
+`action`          | any                      |         | submit                | value to provide on a button press
+`autoDisable`     | boolean                  | false   | submit                | disables the submit button when the form is invalid
+`prepIcon`        | string                   |         | button                | button icon to be prepended to the label
+`appIcon`         | string                   |         | button                | button icon to be appended to the label
+`class`           | string                   |         | button                | additional button class
+`singularLabel`   | string                   |         |                       | label for single item when type `object` ?????
+`visibleIcon`     | string                   |         | password              | icon for mode visible of password input
+`invisibleIcon`   | string                   |         | password              | icon for mode hidden of password input
+`collapsedIcon`   | string                   |         | dropdown              | icon for collapsed mode of dropdown
+`expandedIcon`    | string                   |         | dropdown              | icon for expanded mode of dropdown
+`uncheckedIcon`   | string                   |         | checkbox radio        | icon for unchecked for checkbox or radio
+`checkedIcon`     | string                   |         | checkbox radio        | icon for checked for checkbox or radio
+`iconPosition`    | 'left' | 'right'         |         | checkbox radio        | position of icon
+`classInputGroup` | string                   |         |                       | class for input group
+`classLabel`      | string                   |         |                       | class for div containing label
+`classInput`      | string                   |         |                       | class for div containing input, error and hint
+`datePickerConfig`| DatePickerConfig         |         |  date                 | config for datepicker
+`count`           | number                   | 1       |                       | count of items
+`scale`           | string[] | number        |         |  slider               | legend under slider
 
 #### vcl-dropdown events
 
-Name                  | Type             | Description
---------------------- | ---------------  | -
-`ngSubmit`            | any              | triggered when the form is submitted
-`action`              | any              | triggered when a button is pressed
+Name                  | Type  | Description
+--------------------- | ----- | ------------------------------------
+`ngSubmit`            | any   | triggered when the form is submitted
+`action`              | any   | triggered when a button is pressed
 
 #### formControls
 
-Name       | Type   | ValueType
----------- | ------ | --------------
-`custom`   | string | to be used in combination with `customComponent` and if needed `customParameters`
-`text`     | string | string
-`textarea` | string | string
-`password` | string | string
-`hidden`   | string | string
-`select`   | string | string of enum
-`radio`    | string | string of enum
-`checkbox` | string | boolean
-`switch`   | string | boolean
-`number`   | string | number
-`slider`   | string | number
-`button`   | string | number
-`submit`   | string | number
-`buttons`  | string | number
+Name       | ValueType
+---------- | --------------
+`custom`   |  any
+`text`     | string
+`textarea` | string
+`password` | string
+`hidden`   | string
+`select`   | string of enum
+`radio`    | string of enum
+`checkbox` | boolean
+`switch`   | boolean
+`number`   | number
+`slider`   | number
+`button`   | number
+`submit`   | number
+`buttons`  | number
+`date`     | date
 
 #### type
 
-Name       | Type   | Description
----------- | ------ | --------------
-`text`     | string | string
-`number`   | string | number
-`array`    | string | array
-`object`   | string | object
+Name       | ValueType
+---------- | --------------
+`string`   | string
+`number`   | number
+`array`    | array
+`object`   | object
+`date`     | date
 
 ```ts
 export interface JssFormSchemaOptions {
   label?: string;
+  sublabel?: string
   value: any;
 }
 ```
-
 
 #### CustomFormControl
 
 When value of `formControl` is `custom`,  `customComponent` must be provided as well, and if needed `customParameters`.
 A custom component should be an implementation of `ControlValueAccessor`.
-Parameters provided in `customParameters` are accesible as inputs.
+Parameters provided in `customParameters` are accessible as inputs.
 
 ```ts
 @Component({
@@ -316,4 +327,3 @@ export class CustomSampleComponent implements ControlValueAccessor {
 
 }
 ```
-
