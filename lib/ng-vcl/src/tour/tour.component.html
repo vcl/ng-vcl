@@ -22,25 +22,25 @@
 
     <div class="vclTourContainerFooter">
       
-      <button vcl-button *ngIf="hasPrevious"
+      <button vcl-icogram-button *ngIf="hasPrevious"
         [ngClass]="tour.options?.buttonClass"
-        [label]="tour.options?.previousLabel"
         [prepIcon]="tour.options?.previousIcon"
         (click)="previous()">
+        {{tour.options?.previousLabel}}
       </button>
 
-      <button vcl-button *ngIf="hasNext"
+      <button vcl-icogram-button *ngIf="hasNext"
         [ngClass]="tour.options?.buttonClass"
-        [label]="tour.options?.nextLabel"
         [appIcon]="tour.options?.nextIcon"
         (click)="next()">
+        {{tour.options?.nextLabel}}
       </button>
 
-      <button vcl-button
+      <button vcl-icogram-button
         [ngClass]="tour.options?.buttonClass"
-        [label]="tour.options?.exitLabel"
         [prepIcon]="tour.options?.exitIcon"
         (click)="exit()">
+        {{tour.options?.exitLabel}}
       </button>
 
     </div>

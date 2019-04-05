@@ -1,6 +1,6 @@
-<div *ngIf="tokenIcon" vcl-icogram [appIcon]="tokenIcon" ></div>
+<vcl-icogram *ngIf="tokenIcon"  [appIcon]="tokenIcon" ></vcl-icogram>
 <span class="vclTokenLabel">{{label}}</span>
-<button vcl-button
+<button vcl-icon-button
         [disabled]="isDisabled"
         *ngIf="removable" 
         class="vclTransparent"

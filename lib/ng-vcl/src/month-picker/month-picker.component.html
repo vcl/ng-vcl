@@ -8,7 +8,7 @@
     <div class="vclDGRow">
       <div class="vclToolbar vclLayoutHorizontal vclLayoutFlex vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
         <div class="vclLayoutHorizontal vclLayoutCenter">
-          <button vcl-button class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
+          <button vcl-icon-button class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
             type="button"
             [class.vclDisabled]="!prevYearAvailable"
             [icon]="prevYearBtnIcon"
@@ -17,7 +17,7 @@
 
           <span class="vclCalHeaderLabel">{{ currentYear }}</span>
 
-          <button vcl-button
+          <button vcl-icon-button
             type="button"
             class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
             [class.vclDisabled]="!nextYearAvailable"
@@ -27,7 +27,7 @@
         </div>
 
         <div class="vclLayoutHorizontal vclLayoutFlex vclLayoutEndJustified">
-          <button vcl-button *ngIf="expandable"
+          <button vcl-icon-button *ngIf="expandable"
             type="button"
             class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
             [icon]="closeBtnIcon"
