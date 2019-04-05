@@ -22,7 +22,6 @@ An indicator to show that a lasting operation is currently in progress.
 | ------------------- | -------------------------- | ---------- |--------------
 | `icon`              | string                     | "Loading"  | Alternative icon
 | `label`             | string                     | "Loading"  | icon aria label
-| `imageSrc`          | src                        |            | Alternative image
 | `imageHeight`       | string                     | "3em"      | icon height
 | `imageWidth`        | string                     | "3em"      | icon width
 | `layout`            | "vertical" or "horizontal" | "vertical" | The indicator direction

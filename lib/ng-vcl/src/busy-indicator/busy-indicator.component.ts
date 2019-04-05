@@ -8,11 +8,9 @@ const CIRCULAR = 'data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS
   selector: 'vcl-busy-indicator',
   templateUrl: 'busy-indicator.component.html'
 })
-export class BusyIndicatorComponent implements OnChanges {
+export class BusyIndicatorComponent {
 
   constructor(private sanitizer: DomSanitizer ) { }
-
-  type: 'straight' | 'circular' | string = 'circular';
 
   @Input()
   layout: 'vertical' | 'horizontal' = 'vertical';
@@ -29,15 +27,5 @@ export class BusyIndicatorComponent implements OnChanges {
   @Input()
   imageWidth = '3em';
 
-  @Input()
-  imageSrc?: string;
-
-  iconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(CIRCULAR);
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.imageSrc) {
-      this.iconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(changes.imageSrc.currentValue);
-    }
-  }
-
+  imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(CIRCULAR);
 }
