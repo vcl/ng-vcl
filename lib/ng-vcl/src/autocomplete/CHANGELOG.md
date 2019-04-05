@@ -2,4 +2,4 @@
 
 ### BREAKING CHANGES
 
-- Fully reimplemented. Please check README.md for new syntax.
+Full reimplementation. Please check README.md for new syntax.
