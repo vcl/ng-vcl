@@ -5,7 +5,7 @@ Enhanced textarea
 ## Usage
 
 ```html
-<textarea vcl-textarea [(ngModel)]="data1" [autogrow]="true" [minRows]="5" [maxRows]="10"></textarea>
+<textarea vclInput [(ngModel)]="data1" [autogrow]="true" [minRows]="5" [maxRows]="10"></textarea>
 ```
 
 ### API

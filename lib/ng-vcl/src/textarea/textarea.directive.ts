@@ -1,17 +1,40 @@
 import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
+import { FormControlLabelMember } from '../form-control-label';
 
+let UNIQUE_ID = 0;
 @Directive({
-  selector: 'textarea[vcl-textarea]',
+  selector: 'textarea[vclInput]',
   host: {
     '[class.vclInput]': 'true',
   }
 })
-export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck {
+export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck, FormControlLabelMember {
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef<HTMLTextAreaElement>) { }
+
+  private generatedId = 'vcl_input_' + UNIQUE_ID++;
+
+  @HostBinding('class.vclInput')
+  classVclInput = true;
+
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this.generatedId;
+  }
+
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    return this.disabled;
+  }
 
   @Input()
-  selectAllOnFocus = false;
+  id?: string;
+
+  @Input()
+  disabled = false;
+
+  @Input()
+  autoselect = false;
 
   @Input()
   autogrow = false;
@@ -49,14 +72,7 @@ export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck {
     this.setRows(value);
   }
 
-  @HostListener('focus', ['$event.target.value'])
-  onFocus(value) {
-    if (this.selectAllOnFocus && this.elRef) {
-      this.elRef.nativeElement.select();
-    }
-  }
-
-  setRows(value) {
+  setRows(value: string) {
     if (this.autogrow && typeof value === 'string') {
       const rows = value.split('\n').length + 1;
       if (typeof this.minRows === 'number' && rows < this.minRows) {
@@ -67,5 +83,9 @@ export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck {
         this.rows = rows;
       }
     }
+  }
+
+  notifyFormControlLabelClick(event: Event): void {
+    this.elRef.nativeElement.focus();
   }
 }
