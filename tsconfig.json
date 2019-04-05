@@ -20,22 +20,22 @@
     ],
     "paths": {
       "@ng-vcl/ng-vcl": [
-        "dist/ng-vcl/ng-vcl"
+        "lib/ng-vcl/src"
       ],
       "@ng-vcl/ng-vcl/*": [
-        "dist/ng-vcl/ng-vcl/*"
+        "lib/ng-vcl/src/*"
       ],
       "@ng-vcl/animations": [
-        "dist/ng-vcl/animations"
+        "lib/animations/src"
       ],
       "@ng-vcl/animations/*": [
-        "dist/ng-vcl/animations/*"
+        "lib/animations/src/*"
       ],
       "@ng-vcl/jss-form": [
-        "dist/ng-vcl/jss-form"
+        "lib/jss-form/src"
       ],
       "@ng-vcl/jss-form/*": [
-        "dist/ng-vcl/jss-form/*"
+        "lib/jss-form/src/*"
       ]
     }
   }
