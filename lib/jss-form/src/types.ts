@@ -7,7 +7,6 @@ export interface JssFormSchemaOptions {
   value: any;
 }
 export interface JssFormSchema extends Schema {
-  properties?: { [name: string]: JssFormSchema };
   label?: string;
   singularLabel?: string;
   formControl?: string;

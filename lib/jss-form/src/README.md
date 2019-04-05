@@ -196,7 +196,6 @@ Name              | Type                     | Default | FormControl           |
 `placeholder`     | string                   |         |                       | defines a placeholder which will be sued for the input-field
 `hint`            | string                   |         |                       | defines a hint placed under input field
 `options`         | JssFormSchemaOptions[]   |         | select dropdown radio | options used in select, dropdown and radio
-`enum`            | string[]                 |         | select dropdown radio | options used in select, dropdown and radio, label same with value
 `hideLabel`       | boolean                  | false   |                       | hides the label
 `customComponent` | Component                |         | custom                | an implementation of `ControlValueAccessor`
 `customParameters`| any                      |         | custom                | values will be provided in `customComponent`
@@ -231,7 +230,7 @@ Name                  | Type  | Description
 
 Name       | ValueType
 ---------- | --------------
-`custom`   |  any
+`custom`   | any
 `text`     | string
 `textarea` | string
 `password` | string
