@@ -1,6 +1,6 @@
 {
   "name": "ng-vcl",
-  "version": "0.7.1",
+  "version": "0.8.0-1",
   "scripts": {
     "ng": "ng",
     "start": "npm run dev:demo",
@@ -10,7 +10,7 @@
     "dev:jss-form": "ng build @ng-vcl/jss-form --watch",
     "dev:wc": "ng serve ng-vcl-wc-test --plugin ~webpack.custom.js",
     "docs": "npm-run-all docs:clean docs:pull-current docs:build",
-    "docs:build": "cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --prod --plugin ~webpack.custom.js",
+    "docs:build": "cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --plugin ~webpack.custom.js",
     "docs:deploy": "git-directory-deploy --directory docs --branch gh-pages",
     "docs:clean": "rimraf docs",
     "docs:lint": "ng lint ng-vcl-demo",
@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@angular/animations": "~7.2.10",
+    "@angular/cdk": "^7.3.6",
     "@angular/common": "~7.2.10",
     "@angular/compiler": "~7.2.10",
     "@angular/core": "~7.2.10",
