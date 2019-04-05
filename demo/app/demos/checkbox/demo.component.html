@@ -1,19 +1,19 @@
-<h3>Checkbox</h3>
-<vcl-checkbox [(checked)]="isChecked"></vcl-checkbox>
-<br>
-<b>State:</b> {{isChecked}}
+<h3>Basic</h3>
+<vcl-checkbox [(checked)]="isChecked"></vcl-checkbox> Check!
 
 <h3>Disabled</h3>
-<vcl-checkbox [disabled]="true"></vcl-checkbox>
+<vcl-checkbox [disabled]="true"></vcl-checkbox> Check!
 
-<h3>Checkbox with label</h3>
-<h4>default</h4>
-<vcl-checkbox [(checked)]="isChecked2">Label</vcl-checkbox>
+<h3>With Form Control Label</h3>
 
-<h4>label before</h4>
-<vcl-checkbox [(checked)]="isChecked3" labelPosition="before">Label</vcl-checkbox>
+<label vcl-form-control-label>
+  <vcl-checkbox [(checked)]="isChecked2"></vcl-checkbox>
+  Check!
+</label>
 
-<h3>Checkbox (ngModel)</h3>
-<vcl-checkbox [(ngModel)]="isChecked4"></vcl-checkbox>
-<br>
-<b>State:</b> {{isChecked4}}
+<h3>Disabled with Form Control Label</h3>
+
+<label vcl-form-control-label>
+  <vcl-checkbox [disabled]="true"></vcl-checkbox>
+  Check!
+</label>
