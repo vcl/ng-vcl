@@ -176,20 +176,37 @@ Name     | Type   | Default | Description
 
 In addition to the [generic keywords](https://spacetelescope.github.io/understanding-json-schema/reference/generic.html) of jsonschema, vcl-jss-form is using keywords to let you define the generated form.
 
-Name              | Type                   | Default | Description
------------------ | ------                 | ------- | --------------------------------------------------------------------------------------
-`formType`        | string                 |         | defines the input-type of the form-element. For types see below.
-`label`           | string                 |         | a label-string. attribute name will be the default
-`placeholder`     | string                 |         | define a placeholder which will be sued for the input-field
-`options`         | JssFormSchemaOptions[] |         | options used in select, dropdown and radio
-`action`          | any                    |         | value to provide on a button press
-`autoDisable`     | boolean                | false   | disables the submit button when the form is invalid
-`prepIcon`        | string                 |         | button icon to be prepended to the label
-`appIcon`         | string                 |         | button icon to be appended to the label
-`class`           | string                 |         | addtional button class
-`classInputGroup` | string                 |         | class for input group
-`classLabel`      | string                 |         | class for div containing label
-`classInput`      | string                 |         | class for div containing input, error and hint
+Name              | Type                     | Default | FormType              | Description
+----------------- | ------------------------ | ------- | --------------------- | ------------------------------------------------------------------
+`formType`        | string                   |         |                       | defines the input-type of the form-element. For types see below.
+`buttons`         | schema                   | false   |                       | Buttons placed in Button group
+`disabled`        | boolean                  | false   |                       | form input is disabled
+`label`           | string                   |         |                       | a label-string. attribute name will be the default
+`placeholder`     | string                   |         |                       | defines a placeholder which will be sued for the input-field
+`hint`            | string                   |         |                       | defines a hint placed under input field
+`options`         | JssFormSchemaOptions[]   |         | select dropdown radio | options used in select, dropdown and radio
+`hideLabel`       | boolean                  | false   |                       | hides the label
+`customComponent` | Component                |         | custom                | an implementation of `ControlValueAccessor`
+`customParameters`| any                      |         | custom                | values will be provided in `customComponent`
+`action`          | any                      |         | submit                | value to provide on a button press
+`autoDisable`     | boolean                  | false   | submit                | disables the submit button when the form is invalid
+`prepIcon`        | string                   |         | button                | button icon to be prepended to the label
+`appIcon`         | string                   |         | button                | button icon to be appended to the label
+`class`           | string                   |         | button                | additional button class
+`singularLabel`   | string                   |         |                       | label for single item when type `object` ?????
+`visibleIcon`     | string                   |         | password              | icon for mode visible of password input
+`invisibleIcon`   | string                   |         | password              | icon for mode hidden of password input
+`collapsedIcon`   | string                   |         | dropdown              | icon for collapsed mode of dropdown
+`expandedIcon`    | string                   |         | dropdown              | icon for expanded mode of dropdown
+`uncheckedIcon`   | string                   |         | checkbox radio        | icon for unchecked for checkbox or radio
+`checkedIcon`     | string                   |         | checkbox radio        | icon for checked for checkbox or radio
+`iconPosition`    | 'left' | 'right'         |         | checkbox radio        | position of icon
+`classInputGroup` | string                   |         |                       | class for input group
+`classLabel`      | string                   |         |                       | class for div containing label
+`classInput`      | string                   |         |                       | class for div containing input, error and hint
+`datePickerConfig`| DatePickerConfig         |         |  date                 | config for datepicker
+`count`           | number                   | 1       |                       | count of items
+`scale`           | string[] | number        |         |  slider               | legend under slider
 
 #### vcl-dropdown events
 
@@ -206,8 +223,8 @@ Name       | Type   | ValueType
 `textarea` | string | string
 `password` | string | string
 `hidden`   | string | string
-`select`   | string | string of enum
-`radio`    | string | string of enum
+`select`   | string | any
+`radio`    | string | any
 `checkbox` | string | boolean
 `switch`   | string | boolean
 `number`   | string | number
