@@ -6,13 +6,10 @@ import { Component } from '@angular/core';
 export class RadioButtonDemoComponent {
 
   isChecked = false;
-  isChecked2 = false;
-  isChecked3 = false;
-  isChecked4 = false;
 
-  rgValue1 = 1;
+  rgValue1 = 'red';
   rgValue2 = 'f';
-  rgValue3 = 0;
+  rgValue3 = 'g';
 
   onChange(value) {
     console.log('radio-button onChange fired');

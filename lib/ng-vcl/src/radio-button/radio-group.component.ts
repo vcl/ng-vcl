@@ -1,9 +1,8 @@
-import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren,
-         QueryList, Output, EventEmitter, SimpleChanges, forwardRef, ChangeDetectorRef, HostBinding, OnChanges, AfterContentInit } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, forwardRef, Input, ContentChildren, QueryList, HostBinding, AfterContentInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Subscription, merge } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { RadioButtonComponent } from './radio-button.component';
+import { startWith } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { RadioButtonComponent, RadioButton, RadioButtonObserver, RADIO_BUTTON_OBSERVER_TOKEN } from './radio-button.component';
 
 export enum SelectionMode {
   Single,
@@ -18,104 +17,84 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'vcl-radio-group',
-  template: `<ng-content select="vcl-radio-button"></ng-content>`,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    'attr.role': '"radiogroup"'
-  },
-  styles: [
-    // TODO: Workaround for difficult VCL horizontal/vertical html layout
-    // TODO: ::ng-deep deprecated
-    `
-    :host(.vclInputInlineControlGroup) ::ng-deep vcl-radio-button {
-        display: inline-block;
-      }
-    `
-  ]
+  template: `<ng-content></ng-content>`,
+  providers: [
+    CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+    {
+      provide: RADIO_BUTTON_OBSERVER_TOKEN,
+      useExisting: forwardRef(() => RadioGroupComponent)
+    }
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAccessor, AfterContentInit {
-
-  changesSub: Subscription | undefined;
-  checkedSub: Subscription | undefined;
-  blurSub: Subscription | undefined;
+export class RadioGroupComponent implements OnDestroy, AfterContentInit, ControlValueAccessor, RadioButtonObserver {
+  private _disabled = false;
 
   @Input()
   value: any;
 
+  @HostBinding('attr.role')
+  attrRole = 'radiogroup';
+
+  @ContentChildren(RadioButtonComponent, {
+    descendants: true
+  })
+  radioButtons: QueryList<RadioButton>;
+
   @Input()
-  layout: 'horizontal' | 'vertical' = 'horizontal';
-
-  @Output()
-  change = new EventEmitter<any>();
-
-  @ContentChildren(RadioButtonComponent)
-  radioButtons?: QueryList<RadioButtonComponent> | undefined;
-
-  @HostBinding('class.vclInputInlineControlGroup')
-  get vclInputInlineControlGroup() {
-    return this.layout === 'horizontal';
+  set disabled(disabled: boolean) {
+    this._disabled = disabled;
   }
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  get isDisabled() {
+    return this._disabled || this.formDisabled || this.disabled;
+  }
+
+  // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
+  private formDisabled = false;
+
+  private radioButtonsSub?: Subscription;
 
   private syncRadioButtons() {
-    if (this.radioButtons) {
-      this.radioButtons.forEach((rbtn, idx) => {
-        const value = rbtn.value === undefined ? idx : rbtn.value;
-        rbtn.setChecked(this.value === value);
-      });
-      this.cdRef.markForCheck();
+    if (!this.radioButtons) {
+      return;
     }
-  }
-
-  private triggerChange() {
-    this.change.emit(this.value);
-    this.onChange(this.value);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if ('value' in changes) {
-      this.syncRadioButtons();
-    }
+    this.radioButtons.forEach((rbtn, idx) => {
+      const value = rbtn.value === undefined ? idx : rbtn.value;
+      rbtn.setChecked(this.value === value);
+      rbtn.setDisabled(this.isDisabled);
+    });
   }
 
   ngAfterContentInit() {
-    // Subscribes to radio button change event
-    this.changesSub = this.radioButtons && this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {
-      this.dispose();
+    // Syncs changed radio buttons checked state to be in line with the current group value
+    this.radioButtonsSub = this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {
       if (this.radioButtons) {
-        // Subscribe last radio button to blur event
-        this.blurSub = this.radioButtons.last && this.radioButtons.last.blur.subscribe(() => {
-          this.onTouched();
-        }) || undefined;
-
-        // Subscribe to checked change event
-        const checked$ = merge(...(this.radioButtons.map((source, idx) => source.checkedChange.pipe(map(() => ({ source, idx }))))));
-        this.checkedSub = checked$.subscribe((c) => {
-          // Use index as value if radio button value is undefined
-          this.value = c.source.value === undefined ? c.idx : c.source.value;
-          this.syncRadioButtons();
-          this.triggerChange();
-        });
         this.syncRadioButtons();
       }
     });
   }
 
-  ngOnDestroy() {
-    this.dispose();
-    this.changesSub && this.changesSub.unsubscribe();
+  notifyRadioButtonChecked(rb: RadioButton) {
+    this.value = rb.value;
+    this.syncRadioButtons();
+    this.onChange(this.value);
+    this.onTouched();
   }
 
-  dispose() {
-    this.blurSub && this.blurSub.unsubscribe();
-    this.checkedSub && this.checkedSub.unsubscribe();
+  notifyRadioButtonBlur(rb: RadioButton) {
+    if (this.radioButtons.last === rb) {
+      this.onTouched();
+    }
   }
 
-   /**
-   * things needed for ControlValueAccessor-Interface
-   */
+  ngOnDestroy(): void {
+    this.radioButtonsSub && this.radioButtonsSub.unsubscribe();
+  }
+
+  /**
+  * things needed for ControlValueAccessor-Interface
+  */
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
   writeValue(value: any): void {
@@ -128,7 +107,7 @@ export class RadioGroupComponent implements OnDestroy, OnChanges, ControlValueAc
   registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
-  setDisabledState(isDisabled: boolean) {
-    this.radioButtons && this.radioButtons.forEach(rb => rb.setDisabledState(isDisabled));
+  setDisabledState(disabled: boolean) {
+    this.formDisabled = disabled;
   }
 }

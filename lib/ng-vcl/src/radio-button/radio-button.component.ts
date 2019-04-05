@@ -1,9 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input, Output,
-  HostBinding, HostListener, EventEmitter, forwardRef, ChangeDetectorRef} from '@angular/core';
+import { Component,
+  Input, Output, HostListener,
+  EventEmitter,
+  ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, HostBinding, Optional, Inject, InjectionToken} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FORM_CONTROL_LABEL_MEMBER_TOKEN, FormControlLabelMember } from '../form-control-label';
+// import { RadioButtonParent, RADIO_BUTTON_PARENT_TOKEN } from './interfaces';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,102 +12,153 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
-let uniqueID = 0;
+
+export interface RadioButton {
+  readonly isDisabled: boolean;
+  readonly value: any;
+  setDisabled(disabled: boolean): void;
+  setChecked(checked: boolean): void;
+}
+
+export interface RadioButtonObserver {
+  notifyRadioButtonChecked(rb: RadioButton): void;
+  notifyRadioButtonBlur(rb: RadioButton): void;
+}
+
+export const RADIO_BUTTON_OBSERVER_TOKEN = new InjectionToken<RadioButtonObserver>('vcl_radio_button_observer');
+
+
+let UNIQUE_ID = 0;
 
 @Component({
   selector: 'vcl-radio-button',
   templateUrl: 'radio-button.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [
+    CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+    {
+      provide: FORM_CONTROL_LABEL_MEMBER_TOKEN,
+      useExisting: forwardRef(() => RadioButtonComponent)
+    },
+  ],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
+  exportAs: 'vclCheckbox',
 })
-export class RadioButtonComponent implements ControlValueAccessor {
+export class RadioButtonComponent implements ControlValueAccessor, FormControlLabelMember, RadioButton {
 
-  private uniqueID = `vcl-radio-button-${++uniqueID}`;
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    @Inject(RADIO_BUTTON_OBSERVER_TOKEN)
+    private radioButtonObserver: RadioButtonObserver
+  ) { }
+
+  private generatedId = 'vcl_radiobutton_' + UNIQUE_ID++;
+
+  private _disabled = false;
+
+  @Input()
+  id?: string;
 
   @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this.generatedId;
+  }
+
+  @HostBinding('class.vclRadioButton')
+  classVCLCheckbox = true;
+
+  @HostBinding('attr.role')
+  attrRole = 'radio';
+
+  @HostBinding('attr.aria-checked')
+  get attrAriaChecked() {
+    return this.checked;
+  }
+
+  @HostBinding('attr.aria-disabled')
+  get attrAriaDisabled() {
+    return this.disabled;
+  }
+
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    return this._disabled || this.formDisabled || this.disabled;
+  }
+
+  @HostBinding('attr.tabindex')
   @Input()
-  id: string = this.uniqueID;
+  tabindex = 0;
 
   @Input()
   disabled = false;
 
   @Input()
-  value: any;
-
-  @Input()
-  labelPosition: 'after' | 'before' = 'after';
-
-  @Input()
-  label: string;
-
-  @Input()
-  tabindex = 0;
-
-  @Input()
   checked = false;
 
+  @Input()
+  value: any;
+
+  /**
+  Action fired when the `checked` state changes due to user interaction.
+  */
   @Output()
   checkedChange = new EventEmitter<boolean>();
 
-  @Output()
-  focus  = new EventEmitter<boolean>();
+  // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
+  private formDisabled = false;
 
-  @Output()
-  blur = new EventEmitter<boolean>();
-
-  focused = true;
-
-  get isDisabled() {
-    return this.cvaDisabled || this.disabled;
+  notifyFormControlLabelClick(event: Event): void {
+    this.setCheckedUserInteraction();
   }
 
-  // Store cva disabled state in an extra property to remember the old state after the radio group has been disabled
-  private cvaDisabled = false;
-  constructor(private cdRef: ChangeDetectorRef) { }
-
-  onKeyup(e: KeyboardEvent) {
+  @HostListener('keyup', ['$event'])
+  onKeyup(e) {
     switch (e.code) {
       case 'Space':
-        this.triggerChangeAction(e);
+        e.preventDefault();
+        this.setCheckedUserInteraction();
         break;
     }
   }
 
   @HostListener('click', ['$event'])
-  onClick(e: Event) {
-    this.triggerChangeAction(e);
+  onClick(e) {
+    e.preventDefault();
+    this.setCheckedUserInteraction();
   }
 
-  triggerChangeAction(e: Event) {
-    e.preventDefault();
+  @HostListener('blur', ['$event'])
+  onBlur() {
+    this.radioButtonObserver && this.radioButtonObserver.notifyRadioButtonBlur(this);
+    this.onTouched();
+  }
+
+  private setCheckedUserInteraction() {
     if (this.isDisabled) {
       return;
     }
 
-    // radio-buttons cannot be 'unchecked' by definition
-    if (this.checked === true) {
-      return;
-    }
+    this.radioButtonObserver && this.radioButtonObserver.notifyRadioButtonChecked(this);
 
+    // radio-buttons cannot be 'unchecked' by definition from user interaction
     this.checked = true;
-    this.checkedChange.emit(this.checked);
-    this.onChange(this.checked);
-    this.onTouched();
-  }
-
-  setChecked(value: boolean) {
-    this.checked = value;
     this.cdRef.markForCheck();
+    this.onTouched();
+    this.onChange(this.checked);
+    this.checkedChange.emit(this.checked);
   }
 
-  onFocus() {
-    this.focused = true;
-    this.focus.emit();
+  setChecked(checked: boolean) {
+    this.checked = checked;
+    this.cdRef.markForCheck();
+    this.onTouched();
+    this.onChange(this.checked);
+    this.checkedChange.emit(this.checked);
   }
 
-  onBlur() {
-    this.focused = false;
-    this.blur.emit();
+  setDisabled(disabled: boolean): void {
+    this._disabled = disabled;
+    this.cdRef.markForCheck();
   }
 
   /**
@@ -116,9 +168,8 @@ export class RadioButtonComponent implements ControlValueAccessor {
   private onTouched: () => any = () => {};
 
   writeValue(value: boolean): void {
-    if (value !== this.checked) {
-      this.setChecked(!!value);
-    }
+    this.checked = !!value;
+    this.cdRef.markForCheck();
   }
   registerOnChange(fn: any) {
     this.onChange = fn;
@@ -127,8 +178,8 @@ export class RadioButtonComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean) {
-    this.cvaDisabled = isDisabled;
+  setDisabledState(disabled: boolean) {
+    this.formDisabled = disabled;
     this.cdRef.markForCheck();
   }
 }

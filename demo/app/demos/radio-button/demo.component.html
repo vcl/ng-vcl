@@ -1,51 +1,56 @@
-<h3>Checkable</h3>
-<vcl-radio-button [(checked)]="isChecked" (checkedChange)="onChange($event)"></vcl-radio-button> <a (tap)="isChecked=false">Uncheck</a>
+<h3>Basic</h3>
+<vcl-radio-button [(checked)]="isChecked" (checkedChange)="onChange($event)"></vcl-radio-button> Check!
 
 <br>
 <h3>Disabled</h3>
-<vcl-radio-button [disabled]="true"></vcl-radio-button>
+<vcl-radio-button [disabled]="true"></vcl-radio-button> Check!
 
-<br>
-<h3>With label</h3>
+<h3>With Form Control Label</h3>
+<label vcl-form-control-label>
+  <vcl-radio-button></vcl-radio-button>
+  <vcl-icogram appIcon="fas:check">Check!</vcl-icogram>
+</label>
 
-<vcl-radio-button [(checked)]="isChecked2" label="">label after</vcl-radio-button>
-<vcl-radio-button [(checked)]="isChecked3" label="" labelPosition="before">label before</vcl-radio-button>
-
-<br>
-<h3>With custom content</h3>
-
-<vcl-radio-button [(checked)]="isChecked4">
-  <vcl-icogram appIcon="fas:check">Yes</vcl-icogram>
-</vcl-radio-button>
-
-
-<h3>Radio Group using index as value</h3>
+<h3>Radio group</h3>
 
 <vcl-radio-group [(ngModel)]="rgValue1">
-  <vcl-radio-button>Value 1</vcl-radio-button>
-  <vcl-radio-button>Value 2</vcl-radio-button>
+  <vcl-radio-button value="red"></vcl-radio-button> Red
+  <vcl-radio-button value="green"></vcl-radio-button> Green
 </vcl-radio-group>
-<br>
-State: {{rgValue1}}
+<p></p>
+<p>Current value: {{rgValue1}}</p>
 
-<h3>Radio Group using custom values</h3>
-
-<vcl-radio-group [(ngModel)]="rgValue2">
-  <vcl-radio-button [value]="'f'">
-    <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
-  </vcl-radio-button>
-  <vcl-radio-button [value]="'m'">
+<h3>Radio group with Form Control Label</h3>
+<vcl-radio-group class="vclInputControlGroup" [(ngModel)]="rgValue2">
+  <label vcl-form-control-label>
+    <vcl-radio-button value="m"></vcl-radio-button>
     <vcl-icogram appIcon="fas:mars">Male</vcl-icogram>
-  </vcl-radio-button>
+  </label>
+  <label vcl-form-control-label>
+    <vcl-radio-button value="f"></vcl-radio-button>
+    <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
+  </label>
+  <label vcl-form-control-label>
+    <vcl-radio-button value="g"></vcl-radio-button>
+    <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
+  </label>
 </vcl-radio-group>
-<br>
-State: {{rgValue2}}
+<p>Current value: {{rgValue2}}</p>
 
-<h3>Vertical Radio Group</h3>
-
-<vcl-radio-group [(ngModel)]="rgValue3" [layout]="'vertical'">
-  <vcl-radio-button>Value 1</vcl-radio-button>
-  <vcl-radio-button>Value 2</vcl-radio-button>
+<h3>Inline Radio group with Form Control Label</h3>
+<vcl-radio-group class="vclInputInlineControlGroup" [(ngModel)]="rgValue3">
+  <label vcl-form-control-label>
+    <vcl-radio-button value="m"></vcl-radio-button>
+    <vcl-icogram appIcon="fas:mars">Male</vcl-icogram>
+  </label>
+  <label vcl-form-control-label>
+    <vcl-radio-button value="f"></vcl-radio-button>
+    <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
+  </label>
+  <label vcl-form-control-label>
+    <vcl-radio-button value="g"></vcl-radio-button>
+    <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
+  </label>
 </vcl-radio-group>
-<br>
-State: {{rgValue3}}
+<p>Current value: {{rgValue3}}</p>
+  
