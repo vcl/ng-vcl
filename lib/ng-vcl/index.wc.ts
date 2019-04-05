@@ -10,21 +10,26 @@ import {
   VCLBusyIndicatorModule,
   ButtonComponent,
   VCLButtonModule,
-  ButtonIconComponent
+  ButtonIconComponent,
+  VCLFontAwesomeModule,
+  ButtonIcogramComponent,
 } from './index';
 
 @NgModule({
-  imports: [BrowserModule, VCLFlipSwitchModule, VCLBusyIndicatorModule, VCLButtonModule],
-  entryComponents: [FlipSwitchComponent, BusyIndicatorComponent, ButtonComponent, ButtonIconComponent]
+  imports: [BrowserModule, VCLFlipSwitchModule, VCLBusyIndicatorModule, VCLButtonModule, VCLFontAwesomeModule],
+  entryComponents: [FlipSwitchComponent, BusyIndicatorComponent, ButtonComponent, ButtonIcogramComponent]
 })
 export class WSModule {
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector) {
+  }
 
   ngDoBootstrap() {
     let elm = createCustomElement(FlipSwitchComponent, {injector: this.injector});
     customElements.define('vcl-flip-switch', elm);
+
     elm = createCustomElement(BusyIndicatorComponent, {injector: this.injector});
     customElements.define('vcl-busy-indicator', elm);
+
     elm = createCustomElement(ButtonComponent, {injector: this.injector});
     customElements.define('vcl-button', elm, {
       extends: 'button'
@@ -32,6 +37,11 @@ export class WSModule {
 
     elm = createCustomElement(ButtonIconComponent, {injector: this.injector});
     customElements.define('vcl-icon-button', elm, {
+      extends: 'button'
+    });
+
+    elm = createCustomElement(ButtonIcogramComponent, {injector: this.injector});
+    customElements.define('vcl-icogram-button', elm, {
       extends: 'button'
     });
   }
