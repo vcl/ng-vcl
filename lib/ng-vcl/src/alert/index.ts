@@ -1,7 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {OverlayModule} from '@angular/cdk/overlay';
 import { VCLIcogramModule } from './../icogram/index';
 import { VCLButtonModule } from './../button/index';
 import { VCLLayerModule } from './../layer/index';
@@ -19,7 +18,6 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
   imports: [
     FormsModule,
     CommonModule,
-    OverlayModule,
     VCLButtonModule,
     VCLInputModule,
     VCLIcogramModule,
