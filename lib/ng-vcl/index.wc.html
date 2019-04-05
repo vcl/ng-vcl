@@ -6,14 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ng-vcl wc demo</title>
 </head>
+
 <body>
 
-  <h3>Flip Switch</h3>
-  <vcl-flip-switch></vcl-flip-switch>
-  <h3>Busy Indicator</h3>
-  <vcl-busy-indicator>Loading</vcl-busy-indicator>
-  <h3>Button</h3>
-  <button is="vcl-button">Button</button>
+<h3>Flip Switch</h3>
+<vcl-flip-switch></vcl-flip-switch>
+<h3>Busy Indicator</h3>
+<vcl-busy-indicator>Loading</vcl-busy-indicator>
+<h3>Button</h3>
+<!--todo add some input output attributes to button-->
+<button is="vcl-button">Button</button>
+<h3>Icon Button </h3>
+<button is="vcl-icon-button" icon="fas:bolt" title="Square Button" (click)="someAction($event)">Button</button>
+<br>
+<div class="fas fa-clock"></div>
+
 
 </body>
 </html>
