@@ -2761,7 +2761,7 @@ var VCLButtonGroupModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<vcl-icogram [appIcon]=\"appIcon\" [prepIcon]=\"prepIcon\"><ng-content></ng-content></vcl-icogram>\n\n"
+module.exports = "<vcl-icogram [appIcon]=\"appIcon\" [prepIcon]=\"prepIcon\">\n  <ng-content></ng-content>\n</vcl-icogram>\n\n"
 
 /***/ }),
 
