@@ -15,17 +15,17 @@ export class AppComponent {}
 ```
 
 ```html
-<span vcl-label>default</span>
+<vcl-label>default</vcl-label>
 
-<span vcl-label="primary">primary</span>
+<vcl-label type="primary">primary</vcl-label>
 
-<span vcl-label="success">success</span>
+<vcl-label type="success">success</vcl-label>
 
-<span vcl-label="info">info</span>
+<vcl-label type="info">info</vcl-label>
 
-<span vcl-label="warning">warning</span>
+<vcl-label type="warning">warning</vcl-label>
 
-<span vcl-label="error">error</span>
+<vcl-label type="error">error</vcl-label>
 ```
 
 ### API

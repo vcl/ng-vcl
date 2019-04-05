@@ -1,15 +1,15 @@
 import { Directive, Input, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[vcl-label]',
-  host: {
-    '[class.vclLabel]': 'true'
-  }
+  selector: 'vcl-label'
 })
 export class LabelDirective {
 
-  @Input('vcl-label')
-  type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
+  @HostBinding('class.vclLabel')
+  classVCLLabel = true;
+
+  @Input()
+  type?: 'primary' | 'success' | 'info' | 'warning' | 'error';
 
   @HostBinding('class.vclPrimary')
   get vclPrimary() {
