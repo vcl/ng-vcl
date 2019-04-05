@@ -18,16 +18,16 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
   },
-  // {
-  //   loadChildren: './demos/badge/demo.module#BadgeDemoModule',
-  //   path: 'badge',
-  //   data: {
-  //     demo: {
-  //       label: 'Badge',
-  //       category: CAT_TYPOGRAPHICAL,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/badge/demo.module#BadgeDemoModule',
+    path: 'badge',
+    data: {
+      demo: {
+        label: 'Badge',
+        category: CAT_TYPOGRAPHICAL,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/label/demo.module#LabelDemoModule',
   //   path: 'label',
@@ -88,16 +88,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/checkbox/demo.module#CheckboxDemoModule',
-  //   path: 'checkbox',
-  //   data: {
-  //     demo: {
-  //       label: 'Checkbox',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/checkbox/demo.module#CheckboxDemoModule',
+    path: 'checkbox',
+    data: {
+      demo: {
+        label: 'Checkbox',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/date-picker/demo.module#DatePickerDemoModule',
   //   path: 'date-picker',
@@ -168,16 +168,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
-  //   path: 'embedded-input-group',
-  //   data: {
-  //     demo: {
-  //       label: 'Embedded Input Group',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
+    path: 'embedded-input-group',
+    data: {
+      demo: {
+        label: 'Embedded Input Group',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/month-picker/demo.module#MonthPickerDemoModule',
   //   path: 'month-picker',
@@ -188,16 +188,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/radio-button/demo.module#RadioButtonDemoModule',
-  //   path: 'radio-button',
-  //   data: {
-  //     demo: {
-  //       label: 'Radio Button',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/radio-button/demo.module#RadioButtonDemoModule',
+    path: 'radio-button',
+    data: {
+      demo: {
+        label: 'Radio Button',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/select/demo.module#SelectDemoModule',
   //   path: 'select',
@@ -218,16 +218,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/textarea/demo.module#TextareaDemoModule',
-  //   path: 'textarea',
-  //   data: {
-  //     demo: {
-  //       label: 'Textarea',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/textarea/demo.module#TextareaDemoModule',
+    path: 'textarea',
+    data: {
+      demo: {
+        label: 'Textarea',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/token/demo.module#TokenDemoModule',
   //   path: 'token',
@@ -238,16 +238,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
-  //   path: 'autocomplete',
-  //   data: {
-  //     demo: {
-  //       label: 'Autocomplete',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
+    path: 'autocomplete',
+    data: {
+      demo: {
+        label: 'Autocomplete',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/form-mashups/demo.module#FormMashupsDemoModule',
   //   path: 'form-mashups',
@@ -268,16 +268,16 @@ export const routes: Routes = [
   // //     }
   // //   }
   // // },
-  // // {
-  // //   loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
-  // //   path: 'form-control-label',
-  // //   data: {
-  // //     demo: {
-  // //       label: 'Form Control Label',
-  // //       category: CAT_FORMS,
-  // //     }
-  // //   }
-  // // },
+  {
+    loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
+    path: 'form-control-label',
+    data: {
+      demo: {
+        label: 'Form Control Label',
+        category: CAT_FORMS,
+      }
+    }
+  },
   // // {
   // //   loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
   // //   path: 'jss-form',
