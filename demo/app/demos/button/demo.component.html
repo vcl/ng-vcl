@@ -12,8 +12,6 @@
 <br><br>
 <button vcl-icogram-button (click)="someAction($event)" appIcon="fas:bolt" prepIcon="fas:bolt">Label button with prepended and appended icon</button>
 <br><br>
-<button vcl-button vclSelectable (select)="someAction($event)">Selectable button</button>
+<button vcl-button [selectable]="true" (click)="someAction($event.selected)">Selectable button</button>
 <br><br>
-<button vcl-button vclSelectable="true" (select)="someAction($event)">Selectable button (preselected)</button>
-<br><br>
-<button vcl-icon-button vclSelectable (select)="someAction($event)" icon="fas:bolt"></button>
+<button vcl-icon-button [selectable]="true" (select)="someAction($event.selected)" icon="fas:bolt"></button>

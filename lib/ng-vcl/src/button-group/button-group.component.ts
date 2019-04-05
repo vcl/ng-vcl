@@ -1,45 +1,11 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter,
-         forwardRef, SkipSelf, HostBinding, HostListener, Inject, ChangeDetectorRef, AfterContentInit, ElementRef } from '@angular/core';
-import { Subscription, merge } from 'rxjs';
+         forwardRef, ChangeDetectorRef, AfterContentInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { ButtonComponent } from '../button';
+import { startWith } from 'rxjs/operators';
+import { BUTTON_OBSERVER_TOKEN, ButtonObserver, ButtonComponent } from '../button';
+import { VCLButton } from '../button';
 
-@Component({
-  selector: 'button[vcl-button-group]',
-  template: '<ng-content></ng-content>'
-})
-export class ButtonGroupButtonComponent extends ButtonComponent  {
-
-  constructor(
-    elementRef: ElementRef,
-    @SkipSelf()
-    @Inject(forwardRef(() => ButtonGroupComponent))
-    private buttonGroupContainer
-  ) {
-    super(elementRef);
-   }
-
-  @HostBinding('class.vclDisabled')
-  @HostBinding('attr.disabled')
-  get isDisabled(): boolean | null {
-    return this.disabled || this.buttonGroupContainer.disabled ? true : null;
-  }
-
-  @Input()
-  value: any;
-
-  @HostBinding('class.vclSelected')
-  selected = false;
-
-  select = new EventEmitter<boolean>();
-
-  @HostListener('click')
-  onClick() {
-    this.selected = !this.selected;
-    this.select.emit(this.selected);
-  }
-}
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -52,21 +18,36 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   host: {
     '[class.vclButtonGroup]': 'true',
   },
-  template: `<ng-content select="button[vcl-button-group]"></ng-content>`,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  template: `<ng-content select="button"></ng-content>`,
+  providers: [
+    CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+    {
+      provide: BUTTON_OBSERVER_TOKEN,
+      useExisting: forwardRef(() => ButtonGroupComponent)
+    }
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit {
+export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit, ButtonObserver {
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  private clickSub?: Subscription;
+  private buttonsSub?: Subscription;
 
-  @ContentChildren(ButtonGroupButtonComponent)
-  buttons?: QueryList<ButtonGroupButtonComponent>;
+  @ContentChildren(ButtonComponent)
+  buttons?: QueryList<VCLButton>;
+
+  private _disabled = false;
 
   @Input()
-  disabled = false;
+  set disabled(disabled: boolean) {
+    this._disabled = disabled;
+    this.syncButtons();
+  }
+
+  get disabled() {
+    return this._disabled;
+  }
 
   // If `single`, a single item can be selected
   // If `multiple` multiple items can be selected
@@ -76,9 +57,15 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   @Output()
   selectionChange = new EventEmitter<any | any[]>();
 
+  formDisabled = false;
+
   selectedValue: any | any[];
 
-  private toggle(btn: ButtonGroupButtonComponent) {
+  get isDisabled(): boolean {
+    return this.formDisabled || this.disabled;
+  }
+
+  private toggle(btn: VCLButton) {
     if (this.mode === 'multiple') {
       if (Array.isArray(this.selectedValue)) {
         const selectedValue = this.selectedValue = [...this.selectedValue];
@@ -102,12 +89,30 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     const selectedValue = this.selectedValue;
     if (this.buttons && this.mode === 'multiple' && Array.isArray(selectedValue)) {
       this.buttons.forEach((btn) => {
-        btn.selected = selectedValue.includes(btn.value);
+        btn.setSelected(selectedValue.includes(btn.value));
       });
     } else if (this.buttons && this.mode === 'single') {
       this.buttons.forEach((btn) => {
-        btn.selected = selectedValue === btn.value;
+        btn.setSelected(selectedValue === btn.value);
       });
+    }
+    if (this.buttons) {
+      this.buttons.forEach((btn) => {
+        btn.setDisabled(this.isDisabled);
+      });
+    }
+  }
+
+  notifyButtonClick(btn: VCLButton) {
+    this.toggle(btn);
+    this.syncButtons();
+    this.triggerChange();
+    this.onTouched();
+  }
+
+  notifyButtonBlur(btn: any) {
+    if (this.buttons.last === btn) {
+      this.onTouched();
     }
   }
 
@@ -117,30 +122,17 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   }
 
   ngAfterContentInit() {
-    this.buttons && this.buttons.changes.pipe(startWith(null)).subscribe(() => {
+    // Syncs changed buttons checked state to be in line with the current group value
+    this.buttonsSub = this.buttons.changes.pipe(startWith(null)).subscribe(() => {
       if (!this.buttons) {
         return;
       }
-
-      this.dispose();
-      // Subscribes to button click events
-      const click$ = merge(...(this.buttons.map((source) => source.select.pipe(map(() => source)))));
-      this.clickSub =  click$.subscribe(source => {
-        this.toggle(source);
-        this.syncButtons();
-        this.triggerChange();
-        this.onTouched();
-      });
       this.syncButtons();
     });
   }
 
   ngOnDestroy() {
-    this.dispose();
-  }
-
-  dispose() {
-    this.clickSub && this.clickSub.unsubscribe();
+    this.buttonsSub && this.buttonsSub.unsubscribe();
   }
 
     /**
@@ -158,5 +150,9 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   }
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+  setDisabledState(disabled: boolean) {
+    this.formDisabled = disabled;
+    this.cdRef.markForCheck();
   }
 }

@@ -2,17 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from '../icogram';
 import { VCLIconModule } from '../icon';
-import { ButtonComponent } from './button.component';
+import { ButtonComponent, VCLButton, ButtonObserver, BUTTON_OBSERVER_TOKEN } from './button.component';
 import { ButtonIcogramComponent } from './button-icogram.component';
 import { ButtonIconComponent } from './button-icon.component';
-import { ButtonSelectableDirective } from './button.selectable.directive';
 
-export { ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective };
+export { ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonObserver, BUTTON_OBSERVER_TOKEN, VCLButton };
 
 @NgModule({
   imports: [CommonModule, VCLIconModule, VCLIcogramModule],
-  exports: [ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective],
-  declarations: [ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, ButtonSelectableDirective],
+  exports: [ButtonComponent, ButtonIcogramComponent, ButtonIconComponent],
+  declarations: [ButtonComponent, ButtonIcogramComponent, ButtonIconComponent],
   providers: [],
 })
 export class VCLButtonModule { }

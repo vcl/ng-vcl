@@ -3,7 +3,7 @@ import { ButtonComponent } from './button.component';
 
 @Component({
   selector: 'button[vcl-icogram-button]',
-  exportAs: 'vclIcogramButton',
+  exportAs: 'vclButton',
   templateUrl: 'button-icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

@@ -6,9 +6,7 @@ import { Component, OnInit } from '@angular/core';
 export class ButtonGroupDemoComponent {
 
   value1 = 2;
-  value2 = [1, 3];
+  value2 = 1;
+  value3 = [];
 
-  buttonClick(param) {
-    console.log('buttonClick, param:', param);
-  }
 }

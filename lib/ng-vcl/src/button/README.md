@@ -21,6 +21,10 @@ export class AppComponent { ... }
 <button vcl-button (click)="someAction($event)">Action</button>
 ```
 
+```html
+<button vcl-button [selectable]="true" (select)="someAction($event)">Select</button>
+```
+
 ### button[vcl-icogram-button]
 
 ```html
@@ -33,12 +37,6 @@ export class AppComponent { ... }
 <button vcl-icon-button icon="fas:bolt"></button>
 ```
 
-### button[vcl-button][vclSelectable]
-
-```html
-<button vcl-button vclSelectable (select)="someAction($event)">Action</button>
-```
-
 ### API
 
 #### vcl-button attributes
@@ -46,6 +44,14 @@ export class AppComponent { ... }
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `disabled`          | boolean     | false    | State to indicate that the button is disabled
+| `selectable`        | boolean     | false    | Button selected state toggles if clicked when true
+| `selected`          | boolean     | false    | Whether the button is selected
+
+#### vcl-button events
+
+| Name                | Description
+| ------------        | --------------
+| `select`            | Triggered when the button is selected
 
 #### vcl-icogram-button attributes
 
@@ -59,15 +65,3 @@ export class AppComponent { ... }
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `icon`              | string      |          | Sets the button icon
-
-#### vcl-button[vclSelectable] attributes
-
-| Name                | Type        | Default  | Description
-| ------------        | ----------- | -------- |--------------
-| `selectable`        | boolean     | false    | Preselect button if true
-
-#### vcl-button[vclSelectable] events
-
-| Name                | Description
-| ------------        | --------------
-| `select`            | Triggered when the button is selected

@@ -1,23 +1,31 @@
-<h3>SelectionMode: Single</h3>
+<h3>Basic Button Group</h3>
 <vcl-button-group [(ngModel)]="value1">
-  <button vcl-button-group [value]="1">Action 1</button>
-  <button vcl-button-group [value]="2">Action 2</button>
-  <button vcl-button-group [value]="3">Action 3</button>
+  <button vcl-button [value]="1">One</button>
+  <button vcl-button [value]="2">Two</button>
+  <button vcl-button [value]="3">Three</button>
 </vcl-button-group>
 <p>Selected value: {{value1}}</p>
 
-<h3>SelectionMode: Multiple</h3>
-<vcl-button-group mode="multiple" [(ngModel)]="value2">
-  <button vcl-button-group [value]="1">Action 1</button>
-  <button vcl-button-group [value]="2">Action 2</button>
-  <button vcl-button-group [value]="3">Action 3</button>
+<h3>Vertical Button Group</h3>
+<vcl-button-group class="vclVertical" style="width: 10em" [(ngModel)]="value2">
+  <button vcl-button [value]="1">One</button>
+  <button vcl-button [value]="2">Two</button>
+  <button vcl-button [value]="3">Three</button>
 </vcl-button-group>
 <p>Selected value: {{value2}}</p>
 
+<h3>Button Group with multiselection</h3>
+<vcl-button-group mode="multiple" [(ngModel)]="value3">
+  <button vcl-icon-button icon="fas:italic" [value]="'italic'"></button>
+  <button vcl-icon-button icon="fas:bold" [value]="'bold'"></button>
+  <button vcl-icon-button icon="fas:underline" [value]="'underline'"></button>
+</vcl-button-group>
+<p>Selected values: {{value3}}</p>
 
-<h3>Disabled</h3>
+
+<h3>Disabled Button Group</h3>
 <vcl-button-group [disabled]="true" mode="multiple">
-  <button vcl-button-group [value]="1">Action 1</button>
-  <button vcl-button-group [value]="2">Action 2</button>
-  <button vcl-button-group [value]="3">Action 3</button>
+  <button vcl-icon-button icon="fas:italic" [value]="'italic'"></button>
+  <button vcl-icon-button icon="fas:bold" [value]="'bold'"></button>
+  <button vcl-icon-button icon="fas:underline" [value]="'underline'"></button>
 </vcl-button-group>
