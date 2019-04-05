@@ -12,26 +12,26 @@ Placeholder text and icon on the right
 Button on the right
 <vcl-embedded-input-group>
   <input vclEmbeddedInputGroup />
-  <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
+  <button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
 </vcl-embedded-input-group>
 
 Left icon and button on the right
 <vcl-embedded-input-group prepIcon="fas:cog">
   <input vclEmbeddedInputGroup />
-  <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
+  <button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
 </vcl-embedded-input-group>
 
 Disabled group
 <vcl-embedded-input-group prepIcon="fas:cog" [disabled]=true>
   <input vclEmbeddedInputGroup />
-  <button vcl-icon-button vclEmbeddedInputGroup [icon]="'fas:times-circle'"></button>
+  <button vcl-embedded-input-group [icon]="'fas:times-circle'"></button>
 </vcl-embedded-input-group>
 
 Combined with Input-group
 <div class="vclInputGroup">
   <vcl-embedded-input-group prepIcon="fas:cog">
     <input vclEmbeddedInputGroup />
-    <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
+    <button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
   </vcl-embedded-input-group>
   <div class="vclInputGroupButton">
     <button vcl-button class="vclButton" label="" (click)="someAction($event)">GO</button>

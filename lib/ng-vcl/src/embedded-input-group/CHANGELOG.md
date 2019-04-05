@@ -2,5 +2,6 @@
 
 ### BREAKING CHANGES
 
-- Renamed button/input directives
+- Renamed input directives
+- Removed button directive, added button component
 - vclEmbeddedInputGroup directive includes vclInput directive

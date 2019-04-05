@@ -1,6 +1,6 @@
 import { Component, Input, ContentChildren, forwardRef, QueryList, HostBinding } from '@angular/core';
-import { EMBEDDED_INPUT_GROUP_TOKEN, EmbeddedInputGroupHost } from './interfaces';
-import { EmbeddedInputGroupButtonDirective } from './embedded-input-group-button.directive';
+import { EMBEDDED_INPUT_GROUP_TOKEN, EmbeddedInputGroup } from './interfaces';
+import { EmbeddedInputGroupButtonComponent } from './embedded-input-group-button.component';
 
 @Component({
   selector: 'vcl-embedded-input-group',
@@ -13,7 +13,7 @@ import { EmbeddedInputGroupButtonDirective } from './embedded-input-group-button
     }
   ]
 })
-export class EmbeddedInputGroupComponent implements EmbeddedInputGroupHost {
+export class EmbeddedInputGroupComponent implements EmbeddedInputGroup {
 
   // TODO remove workaround
   @HostBinding('style.display')
@@ -31,8 +31,8 @@ export class EmbeddedInputGroupComponent implements EmbeddedInputGroupHost {
   @Input()
   appIcon?: string;
 
-  @ContentChildren(forwardRef(() => EmbeddedInputGroupButtonDirective))
-  buttons?: QueryList<EmbeddedInputGroupButtonDirective>;
+  @ContentChildren(forwardRef(() => EmbeddedInputGroupButtonComponent))
+  buttons?: QueryList<EmbeddedInputGroupButtonComponent>;
 
   get hasAppendedItem() {
     return !!this.appIcon || (this.buttons && this.buttons.length > 0);

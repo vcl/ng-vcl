@@ -21,13 +21,13 @@ Placeholder text and icon on the right
 Button on the right
 <vcl-embedded-input-group>
   <input vclEmbeddedInputGroup />
-  <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:search'"></button>
+  <button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fas:search'"></button>
 </vcl-embedded-input-group>
 
 Left icon and button on the right
 <vcl-embedded-input-group prepIcon="fas:cog" appIcon="fas:times-circle">
   <input vclEmbeddedInputGroup />
-  <button vcl-icon-button vclEmbeddedInputGroup (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
+  <button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
 </vcl-embedded-input-group>
 ```
 
@@ -40,3 +40,11 @@ Left icon and button on the right
 | `disabled`                          | boolean     | false              | Disables the input group when true
 | `prepIcon`                          | string      |                    | Prepenced icon
 | `appIcon`                           | string      |                    | Appended icon
+
+
+#### button[vcl-embedded-input-group] attributes
+
+| Name                | Type        | Default  | Description
+| ------------        | ----------- | -------- |--------------
+| `disabled`          | boolean     | false    | State to indicate that the button is disabled
+| `icon`              | string      |          | Sets the button icon

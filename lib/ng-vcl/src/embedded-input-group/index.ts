@@ -4,12 +4,12 @@ import { VCLButtonModule } from '../button/index';
 import { VCLInputModule } from '../input/index';
 import { VCLIconModule } from '../icon/index';
 import { EmbeddedInputGroupComponent } from './embedded-input-group.component';
-import { EmbeddedInputGroupButtonDirective } from './embedded-input-group-button.directive';
+import { EmbeddedInputGroupButtonComponent } from './embedded-input-group-button.component';
 import { EmbeddedInputGroupInputDirective } from './embedded-input-group-input.directive';
 
 @NgModule({
   imports: [CommonModule, VCLButtonModule, VCLInputModule, VCLIconModule],
-  exports: [EmbeddedInputGroupComponent, EmbeddedInputGroupInputDirective, EmbeddedInputGroupButtonDirective],
-  declarations: [EmbeddedInputGroupComponent, EmbeddedInputGroupInputDirective, EmbeddedInputGroupButtonDirective],
+  exports: [EmbeddedInputGroupComponent, EmbeddedInputGroupInputDirective, EmbeddedInputGroupButtonComponent],
+  declarations: [EmbeddedInputGroupComponent, EmbeddedInputGroupInputDirective, EmbeddedInputGroupButtonComponent],
 })
 export class VCLEmbeddedInputGroupModule { }

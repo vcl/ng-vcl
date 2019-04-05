@@ -1,15 +1,16 @@
 import { HostBinding, Directive, ElementRef, Inject } from '@angular/core';
 import { InputDirective } from '../input/index';
-import { EMBEDDED_INPUT_GROUP_TOKEN, EmbeddedInputGroupHost } from './interfaces';
+import { EMBEDDED_INPUT_GROUP_TOKEN, EmbeddedInputGroup } from './interfaces';
 
 @Directive({
   selector: 'input[vclEmbeddedInputGroup]',
+  exportAs: 'vclInput'
 })
 export class EmbeddedInputGroupInputDirective extends InputDirective {
   constructor(
     elRef: ElementRef<HTMLInputElement>,
     @Inject(EMBEDDED_INPUT_GROUP_TOKEN)
-    private host: EmbeddedInputGroupHost
+    private host: EmbeddedInputGroup
   ) {
     super(elRef);
   }
