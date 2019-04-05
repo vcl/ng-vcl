@@ -1,11 +1,17 @@
 <h3>Stacked label</h3>
+<label vcl-form-control-label [target]="input1">Label</label>
+<input #input1="vclInput" vclInput> 
+
+<h3>Wrapping label</h3>
+<label vcl-form-control-label>
+  Label
+  <input vclInput>
+</label>
+
+<!-- 
 <label vcl-form-control-label label="Label 1" subLabel="Sub label 1" for="form-control-label-demo-1"></label>
 <input id="form-control-label-demo-1" class="vclInput" type="text">
 
-<h3>Wrapping label</h3>
-<label vcl-form-control-label label="Label 2" subLabel="Sub label 2">
-  <input class="vclInput" type="text">
-</label>
 
 <h3>Disabled label</h3>
 <label vcl-form-control-label label="Label 3 (disabled)" disabled=true>
@@ -15,4 +21,8 @@
 <h3>Required label</h3>
 <label vcl-form-control-label label="Label 4 (required)" required=true>
   <input class="vclInput" type="text">
-</label>
+</label> -->
+
+<!-- 
+<label vcl-form-control-label [target]="input1">Label</label>
+<input #input1="vclInput" vclInput class="vclInput" type="text">  -->
