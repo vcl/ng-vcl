@@ -17,7 +17,7 @@ export interface ButtonObserver {
 
 export const BUTTON_OBSERVER_TOKEN = new InjectionToken<ButtonObserver>('vcl_button_observer');
 @Component({
-  selector: 'button[vcl-button]',
+  selector: 'button[vcl-button], a[vcl-button]',
   exportAs: 'vclButton',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'button.component.html'

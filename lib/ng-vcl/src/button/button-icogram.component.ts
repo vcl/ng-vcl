@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, forwardRef } from '@angular/
 import { ButtonComponent } from './button.component';
 
 @Component({
-  selector: 'button[vcl-icogram-button]',
+  selector: 'button[vcl-icogram-button], a[vcl-icogram-button]',
   exportAs: 'vclButton',
   templateUrl: 'button-icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

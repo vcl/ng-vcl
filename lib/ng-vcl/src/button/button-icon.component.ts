@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, HostBinding, Input, HostListener, f
 import { ButtonComponent } from './button.component';
 
 @Component({
-  selector: 'button[vcl-icon-button]',
+  selector: 'button[vcl-icon-button], a[vcl-icon-button]',
   exportAs: 'vclButton',
   templateUrl: 'button-icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
