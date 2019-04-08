@@ -33,14 +33,14 @@ example-schema:
   "type": "object",
   "properties": {
     "name": {
-      "formType": "text",
+      "formControl": "text",
       "label": "Name",
       "type": "string",
       "minLength": 4,
       "placeholder": "The hero's name"
     },
     "color": {
-      "formType": "select",
+      "formControl": "select",
       "label": "Team",
       "description": "color defines which team the hero belongs to",
       "type": "string",
@@ -64,7 +64,7 @@ example-schema:
       ]
     },
     "gender": {
-      "formType": "radio",
+      "formControl": "radio",
       "label": "Gender",
       "type": "string",
       "enum": [
@@ -73,7 +73,7 @@ example-schema:
       ]
     },
     "perks": {
-      "formType": "dropdown",
+      "formControl": "dropdown",
       "label": "Perks",
       "type": "array",
       "options": [
@@ -92,21 +92,32 @@ example-schema:
       ]
     },
     "leader": {
-      "formType": "checkbox",
+      "formControl": "checkbox",
       "label": "Leader",
       "type": "boolean"
     },
     "hp": {
-      "formType": "slider",
+      "formControl": "slider",
       "label": "Hitpoints",
       "type": "number",
       "minimum": 0,
       "maximum": 20
     },
     "alive": {
-      "formType": "switch",
+      "formControl": "switch",
       "label": "Is alive?",
       "type": "boolean"
+    },
+    "custom": {
+      "formControl": "custom",
+      "label": "Custom Component",
+      "type": "number",
+      "minimum": 3,
+      "maximum": 5,
+      "customComponent": CustomSampleComponent,
+      "customParameters": {
+        "message": "Counter:"
+      }
     },
     "mainSkill": {
       "label": "Main skill",
@@ -114,7 +125,7 @@ example-schema:
       "type": "object",
       "properties": {
         "name": {
-          "formType": "text",
+          "formControl": "text",
           "label": "Skill name",
           "type": "string",
           "minLength": 1,
@@ -124,7 +135,7 @@ example-schema:
           "classInput": "vclLayoutFlex vclLayout11"
         },
         "damage": {
-          "formType": "number",
+          "formControl": "number",
           "label": "Skill damage",
           "type": "number",
           "min": 0,
@@ -140,15 +151,15 @@ example-schema:
       ]
     },
     "submit": {
-      "formType": "buttons",
+      "formControl": "buttons",
       "buttons": [
         {
-          "formType": "submit",
+          "formControl": "submit",
           "label": "Submit",
           "class": "vclEmphasized"
         },
         {
-          "formType": "button",
+          "formControl": "button",
           "label": "Reset",
           "action": "reset"
         }
@@ -175,10 +186,9 @@ Name     | Type   | Default | Description
 #### schema attributes
 
 In addition to the [generic keywords](https://spacetelescope.github.io/understanding-json-schema/reference/generic.html) of jsonschema, vcl-jss-form is using keywords to let you define the generated form.
-
-Name              | Type                     | Default | FormType              | Description
+Name              | Type                     | Default | FormControl           | Description
 ----------------- | ------------------------ | ------- | --------------------- | ------------------------------------------------------------------
-`formType`        | string                   |         |                       | defines the input-type of the form-element. For types see below.
+`formControl`     | string                   |         |                       | defines the input-type of the form-element. For types see below.
 `buttons`         | schema                   | false   |                       | Buttons placed in Button group
 `disabled`        | boolean                  | false   |                       | form input is disabled
 `label`           | string                   |         |                       | a label-string. attribute name will be the default
@@ -210,32 +220,108 @@ Name              | Type                     | Default | FormType              |
 
 #### vcl-dropdown events
 
-Name                  | Type             | Description
---------------------- | ---------------  | -
-`ngSubmit`            | any              | triggered when the form is submitted
-`action`              | any              | triggered when a button is pressed
+Name                  | Type  | Description
+--------------------- | ----- | ------------------------------------
+`ngSubmit`            | any   | triggered when the form is submitted
+`action`              | any   | triggered when a button is pressed
 
-#### formTypes
+#### formControls
 
-Name       | Type   | ValueType
----------- | ------ | --------------
-`text`     | string | string
-`textarea` | string | string
-`password` | string | string
-`hidden`   | string | string
-`select`   | string | any
-`radio`    | string | any
-`checkbox` | string | boolean
-`switch`   | string | boolean
-`number`   | string | number
-`slider`   | string | number
-`button`   | string | number
-`submit`   | string | number
-`buttons`  | string | number
+Name       | ValueType
+---------- | --------------
+`custom`   | any
+`text`     | string
+`textarea` | string
+`password` | string
+`hidden`   | string
+`select`   | string of enum
+`radio`    | string of enum
+`checkbox` | boolean
+`switch`   | boolean
+`number`   | number
+`slider`   | number
+`button`   | number
+`submit`   | number
+`buttons`  | number
+`date`     | date
+
+#### type
+
+Name       | ValueType
+---------- | --------------
+`string`   | string
+`number`   | number
+`array`    | array
+`object`   | object
+`date`     | date
 
 ```ts
 export interface JssFormSchemaOptions {
   label?: string;
+  sublabel?: string
   value: any;
+}
+```
+
+#### CustomFormControl
+
+When value of `formControl` is `custom`,  `customComponent` must be provided as well, and if needed `customParameters`.
+A custom component should be an implementation of `ControlValueAccessor`.
+Parameters provided in `customParameters` are accessible as inputs.
+
+```ts
+@Component({
+  template: `<span>{{ message }} {{ counter }}</span><br>
+  <button vcl-button type="button" class="vclButton" [disabled]="disabled" (click)="increment()">+</button>
+  <button vcl-button type="button" class="vclButton" [disabled]="disabled" (click)="decrement()" style="margin-left: 5px;">-</button>`
+})
+export class CustomSampleComponent implements ControlValueAccessor {
+
+  get counter(): number {
+    return this._counter;
+  }
+
+  set counter(value: number) {
+    this._counter = value;
+    this.onChangeCallback && this.onChangeCallback(value);
+  }
+
+  @Input()
+  message = '';
+
+  disabled = false;
+
+  private _counter = 0;
+
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onTouchedCallback: (_: any) => void;
+  private onChangeCallback: (_: number | undefined) => void;
+
+  increment() {
+    this.counter++;
+  }
+
+  decrement() {
+    this.counter--;
+  }
+
+  writeValue(value: number): void {
+    this._counter = value;
+  }
+
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
+
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
+
 }
 ```
