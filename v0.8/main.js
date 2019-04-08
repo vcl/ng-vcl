@@ -2798,7 +2798,7 @@ var ButtonIcogramComponent = /** @class */ (function (_super) {
     ], ButtonIcogramComponent.prototype, "appIcon", void 0);
     ButtonIcogramComponent = ButtonIcogramComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-icogram-button]',
+            selector: 'button[vcl-icogram-button], a[vcl-icogram-button]',
             exportAs: 'vclButton',
             template: __webpack_require__(/*! ./button-icogram.component.html */ "./lib/ng-vcl/src/button/button-icogram.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
@@ -2863,7 +2863,7 @@ var ButtonIconComponent = /** @class */ (function (_super) {
     ], ButtonIconComponent.prototype, "icon", void 0);
     ButtonIconComponent = ButtonIconComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-icon-button]',
+            selector: 'button[vcl-icon-button], a[vcl-icon-button]',
             exportAs: 'vclButton',
             template: __webpack_require__(/*! ./button-icon.component.html */ "./lib/ng-vcl/src/button/button-icon.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
@@ -3021,7 +3021,7 @@ var ButtonComponent = /** @class */ (function () {
     ], ButtonComponent.prototype, "onBlur", null);
     ButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-button]',
+            selector: 'button[vcl-button], a[vcl-button]',
             exportAs: 'vclButton',
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             template: __webpack_require__(/*! ./button.component.html */ "./lib/ng-vcl/src/button/button.component.html")
