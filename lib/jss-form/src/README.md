@@ -189,7 +189,6 @@ In addition to the [generic keywords](https://spacetelescope.github.io/understan
 Name              | Type                     | Default | FormControl           | Description
 ----------------- | ------------------------ | ------- | --------------------- | ------------------------------------------------------------------
 `formControl`     | string                   |         |                       | defines the input-type of the form-element. For types see below.
-`properties`      | {[name: string]: schema} |         |                       | used when type `object`
 `buttons`         | schema                   | false   |                       | Buttons placed in Button group
 `disabled`        | boolean                  | false   |                       | form input is disabled
 `label`           | string                   |         |                       | a label-string. attribute name will be the default

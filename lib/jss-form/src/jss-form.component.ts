@@ -80,29 +80,33 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
    * create the formGroup for the given schema
    */
   private createFormGroup(schema: JssFormSchema) {
-    const createGroup = (schema: JssFormSchema) => {
+    const createGroup = (schema: JssFormSchema, createValidator = false) => {
       const group = {};
       const props = schema.properties || schema.items || {};
       Object.keys(props).map(key => {
-        const p = props[key];
-        if (p) {
+        const prop = props[key];
+        if (prop) {
           // objects
-          if (p.type === 'object') {
-            group[key] = createGroup(p);
+          if (prop.type === 'object') {
+            group[key] = createGroup(prop);
           // arrays
-          } else if (p.formControl === 'array' && p.type === 'array') {
-            const amount = p.count || 1;
+          } else if (prop.formControl === 'array' && prop.type === 'array') {
+            const amount = prop.count || 1;
             const result: any[] = [];
             for (let i = 0; i < amount; i++) {
-              result.push(createGroup(p.items));
+              result.push(createGroup(prop.items));
             }
             group[key] = this.fb.array(result);
           // non-objects
           } else {
             let state: any = '';
-            switch (p.type) {
+            switch (prop.type) {
               case 'number':
-                state = 0;
+              const propIsNotRequired = !schema.required || (schema.required.indexOf(key) < 0);
+                if (propIsNotRequired) {
+                  prop.type = ['number', 'null'];
+                }
+                state = null;
                 break;
               case 'array':
                 state = [];
@@ -114,7 +118,7 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
                 state = undefined;
                 break;
             }
-            group[key] = new FormControl(state, this.createJsonSchemaValidator(p, false));
+            group[key] = new FormControl(state);
           }
 
         }
@@ -126,13 +130,15 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
           this.fb.group(group)
         ]);
       }
-
-      return this.fb.group(group, {
-        validator: this.createJsonSchemaValidator(schema, true)
-      });
+      if (createValidator) {
+        return this.fb.group(group, {
+          validator: this.createJsonSchemaValidator(schema, true)
+        });
+      } else {
+        return this.fb.group(group);
+      }
     };
-
-    return createGroup(schema);
+    return createGroup(schema, true);
   }
 
   /**
