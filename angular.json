@@ -167,8 +167,8 @@
       }
     },
     "ng-vcl-wc-test": {
-      "root": "lib/ng-vcl",
-      "sourceRoot": "lib/ng-vcl/src",
+      "root": "",
+      "sourceRoot": "wc",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -177,17 +177,17 @@
           "builder": "ngx-build-plus:build",
           "options": {
             "outputPath": "dist/ng-vcl-wc-test",
-            "index": "lib/ng-vcl/index.wc.html",
-            "main": "lib/ng-vcl/index.wc.ts",
-            "polyfills": "lib/ng-vcl/polyfills.wc.ts",
-            "tsConfig": "lib/ng-vcl/tsconfig.wc.json",
+            "index": "wc/index.html",
+            "main": "wc/main.ts",
+            "polyfills": "wc/polyfills.ts",
+            "tsConfig": "wc/tsconfig.json",
             "scripts": [
               {
                 "input": "node_modules/document-register-element/build/document-register-element.js"
               }
             ],
             "styles": [
-              "demo/styles.sss"
+              "wc/styles.sss"
             ]
           },
           "configurations": {

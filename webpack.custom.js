@@ -6,8 +6,11 @@ const webpackHelper = require('@ng-vcl/webpack-helper');
 
 module.exports.default = {
   opts: null,
+  sourceRoot: null,
 
   pre(builderConfig) {
+    this.sourceRoot = builderConfig.sourceRoot;
+
     this.opts = {
       sourceMap: builderConfig.options.sourceMap, // Use settings from builder
       extractCSS: builderConfig.options.extractCss, // Use settings from builder
@@ -17,7 +20,7 @@ module.exports.default = {
   config(cfg) {
     cfg = merge(cfg, webpackHelper({
       ...this.opts,
-      globalStyle: 'demo/styles.sss',
+      globalStyle: this.sourceRoot + '/styles.sss',
       fa: true,
     }));
 
@@ -32,6 +35,20 @@ module.exports.default = {
     }
 
     return merge(cfg, {
+      // module: {
+      //   rules: [
+      //     {
+      //       test: /\.html$/,
+      //       exclude: [path.resolve('demo/index.html')],
+      //       include: [path.resolve('wc/index.html')],
+      //       use: [
+      //         {
+      //           loader: 'wc-loader'
+      //         }]
+      //     },
+
+      //   ]
+      // },
       plugins: [
         new webpack.DefinePlugin({
           gitBranch: JSON.stringify(currentBranch)
