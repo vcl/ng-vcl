@@ -2,11 +2,11 @@ import { FormGroup, AbstractControl } from '@angular/forms';
 import { JssFormSchema } from './types';
 
 /**
- * if no formType is given, this will guess the right one
+ * if no formControl is given, this will guess the right one
  */
 export function determineType(schema: JssFormSchema): string | undefined {
-    if (schema.formType) {
-      return schema.formType;
+    if (schema.formControl) {
+      return schema.formControl;
     } else if (schema.type == 'string') {
       return (schema.enum) ? 'select' : 'text';
     } else if (schema.type == 'number' || schema.type === 'integer') {

@@ -6,7 +6,7 @@ export const HERO_SCHEMA = {
   type: 'object',
   properties: {
     name: {
-      formType: 'text',
+      formControl: 'text',
       label: 'Name',
       type: 'string',
       minLength: 4,
@@ -14,14 +14,14 @@ export const HERO_SCHEMA = {
       hint: 'The hero\'s name',
     },
     description: {
-      formType: 'textarea',
+      formControl: 'textarea',
       label: 'Description',
       type: 'string',
       placeholder: 'Text',
       hint: 'The hero\'s description',
     },
     password: {
-      formType: 'password',
+      formControl: 'password',
       label: 'Password',
       type: 'string',
       placeholder: 'Password',
@@ -30,11 +30,11 @@ export const HERO_SCHEMA = {
       hint: 'The account password'
     },
     mail_old: {
-      formType: 'hidden',
+      formControl: 'hidden',
       type: 'string',
     },
     color: {
-      formType: 'select',
+      formControl: 'select',
       label: 'Team',
       hint: 'color defines which team the hero belongs to',
       type: 'string',
@@ -59,14 +59,14 @@ export const HERO_SCHEMA = {
       ]
     },
     gender: {
-      formType: 'radio',
+      formControl: 'radio',
       label: 'Gender',
       type: 'string',
       enum: ['male', 'female'],
       hint: 'The hero\'s gender',
     },
     perks: {
-      formType: 'dropdown',
+      formControl: 'dropdown',
       label: 'Perks',
       type: 'array',
       hint: 'The hero\'s perks',
@@ -87,14 +87,14 @@ export const HERO_SCHEMA = {
       ]
     },
     leader: {
-      formType: 'checkbox',
+      formControl: 'checkbox',
       label: 'Leader',
       type: 'boolean',
       hideLabel: true,
       hint: 'Whether the hero is a leader',
     },
     hp: {
-      formType: 'slider',
+      formControl: 'slider',
       label: 'Hitpoints',
       type: 'number',
       minimum: 0,
@@ -102,7 +102,7 @@ export const HERO_SCHEMA = {
       hint: 'The hero\'s max health',
     },
     alive: {
-      formType: 'switch',
+      formControl: 'switch',
       label: 'Is alive?',
       type: 'boolean'
     },
@@ -113,14 +113,14 @@ export const HERO_SCHEMA = {
       type: 'object',
       properties: {
         name: {
-          formType: 'text',
+          formControl: 'text',
           label: 'Skill name',
           type: 'string',
           minLength: 1,
           hint: 'The skills name',
         },
         damage: {
-          formType: 'number',
+          formControl: 'number',
           label: 'Skill damage',
           hint: 'The skills max damage',
           type: 'number',
@@ -131,12 +131,12 @@ export const HERO_SCHEMA = {
       required: ['name', 'damage']
     },
     attributes: {
-      formType: 'token',
+      formControl: 'token',
       label: 'Attributes',
       type: 'array'
     },
     dob: {
-      formType: 'date',
+      formControl: 'date',
       label: 'Date of Birth',
       type: 'string',
       datePickerConfig: {
@@ -144,7 +144,7 @@ export const HERO_SCHEMA = {
       }
     },
     custom: {
-      formType: 'custom',
+      formControl: 'custom',
       label: 'Custom Component',
       type: 'number',
       minimum: 3,
@@ -157,14 +157,14 @@ export const HERO_SCHEMA = {
     items: {
       label: 'Items',
       singularLabel: 'Item',
-      formType: 'array',
+      formControl: 'array',
       type: 'array',
       hint: 'The hero\'s items',
       items: {
         type: 'object',
         properties: {
           name: {
-            formType: 'text',
+            formControl: 'text',
             label: 'Item name',
             type: 'string',
             minLength: 1,
@@ -174,7 +174,7 @@ export const HERO_SCHEMA = {
             classInput: 'vclLayoutFlex vclLayout11'
           },
           quantity: {
-            formType: 'number',
+            formControl: 'number',
             label: 'Quantity',
             hint: 'The item quantity',
             type: 'number',
@@ -188,15 +188,15 @@ export const HERO_SCHEMA = {
       }
     },
     submit: {
-      formType: 'buttons',
+      formControl: 'buttons',
       buttons: [
         {
-          formType: 'submit',
+          formControl: 'submit',
           label: 'Submit',
           class: 'vclEmphasized'
         },
         {
-          formType: 'button',
+          formControl: 'button',
           label: 'Reset',
           action: 'reset'
         }
