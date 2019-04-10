@@ -12935,8 +12935,8 @@ Zone.__load_patch('PromiseRejectionEvent', function (global, Zone) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/travis/build/ng-vcl/ng-vcl/demo/polyfills.ts */"./demo/polyfills.ts");
-module.exports = __webpack_require__(/*! /home/travis/build/ng-vcl/ng-vcl/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
+__webpack_require__(/*! /home/dani/dev/ng-vcl/demo/polyfills.ts */"./demo/polyfills.ts");
+module.exports = __webpack_require__(/*! /home/dani/dev/ng-vcl/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
 
 
 /***/ })
