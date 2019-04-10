@@ -18,7 +18,6 @@ export * from './button/index';
 export * from './button-group/index';
 export * from './tab-nav/index';
 export * from './navigation/index';
-export * from './toolbar/index';
 export * from './popover/index';
 export * from './progress-bar/index';
 export * from './radio-button/index';
