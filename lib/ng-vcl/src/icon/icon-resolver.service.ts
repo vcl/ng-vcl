@@ -5,8 +5,17 @@ export interface IconResolver {
 }
 
 export interface IconAliases {
-  close: string;
-  busy: string;
+  'close': string;
+  'busy': string;
+  'box':  string;
+  'box-checked':  string;
+  'circle':  string;
+  'circle-checked':  string;
+  'question': string;
+  'info': string;
+  'success': string;
+  'warning': string;
+  'error': string;
 }
 
 export abstract class IconResolverService implements IconResolver {
