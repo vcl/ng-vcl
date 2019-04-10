@@ -16074,7 +16074,7 @@ module.exports = {"name":"ng-vcl","version":"0.8.0-1","scripts":{"ng":"ng","star
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/dani/dev/ng-vcl/demo/main.ts */"./demo/main.ts");
+module.exports = __webpack_require__(/*! /home/travis/build/ng-vcl/ng-vcl/demo/main.ts */"./demo/main.ts");
 
 
 /***/ })

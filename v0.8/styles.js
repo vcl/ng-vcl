@@ -874,7 +874,7 @@ module.exports = function (css) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/dani/dev/ng-vcl/demo/styles.sss */"./demo/styles.sss");
+module.exports = __webpack_require__(/*! /home/travis/build/ng-vcl/ng-vcl/demo/styles.sss */"./demo/styles.sss");
 
 
 /***/ })
