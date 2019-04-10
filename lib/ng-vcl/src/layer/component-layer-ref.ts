@@ -10,7 +10,7 @@ import { ComponentRef } from '@angular/core/src/render3';
 
 export class ComponentLayerRef<TComponent = any, TData = any, TResult = any> extends LayerRef<TResult> {
 
-  constructor(private componentType: ComponentType<TComponent>, private zone: NgZone, private injector: Injector, private defaultOpts: CreateLayerOptions<TComponent> = {}) {
+  constructor(private componentType: ComponentType<TComponent>, private zone: NgZone, protected injector: Injector, private defaultOpts: CreateLayerOptions<TComponent> = {}) {
     super();
     this.overlay = injector.get(Overlay);
     this.opts = {
@@ -20,10 +20,10 @@ export class ComponentLayerRef<TComponent = any, TData = any, TResult = any> ext
 
   opts: CreateLayerOptions<TComponent>;
 
-  private overlay: Overlay;
   private layerOpenedSub?: Subscription;
   private _afterClose: Subject<TResult | null> = new Subject();
 
+  protected overlay: Overlay;
   protected portal: ComponentPortal<TComponent>;
   protected attachmentRef?: ComponentRef<TComponent>;
 
