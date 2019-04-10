@@ -7052,11 +7052,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentLayerRef", function() { return ComponentLayerRef; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
-/* harmony import */ var _layer_ref__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layer-ref */ "./lib/ng-vcl/src/layer/layer-ref.ts");
-/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var _layer_ref__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./layer-ref */ "./lib/ng-vcl/src/layer/layer-ref.ts");
 
 
 
@@ -7066,17 +7066,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var ComponentLayerRef = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ComponentLayerRef, _super);
-    function ComponentLayerRef(componentType, zone, injector, defaultOpts) {
-        if (defaultOpts === void 0) { defaultOpts = {}; }
+    function ComponentLayerRef(componentType, zone, injector, opts) {
+        if (opts === void 0) { opts = {}; }
         var _this = _super.call(this) || this;
         _this.componentType = componentType;
         _this.zone = zone;
         _this.injector = injector;
-        _this.defaultOpts = defaultOpts;
-        _this._afterClose = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        _this.opts = opts;
+        _this._afterClose = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         _this.afterClose = _this._afterClose.asObservable();
-        _this.overlay = injector.get(_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["Overlay"]);
-        _this.opts = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, defaultOpts);
+        _this.overlay = injector.get(_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["Overlay"]);
         return _this;
     }
     Object.defineProperty(ComponentLayerRef.prototype, "data", {
@@ -7094,14 +7093,23 @@ var ComponentLayerRef = /** @class */ (function (_super) {
         configurable: true
     });
     ComponentLayerRef.prototype.open = function (data, opts) {
-        this.opts = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, this.defaultOpts, opts);
-        this._data = data;
         if (this.isAttached) {
             this.close();
-            // this.componentRef.changeDetectorRef.markForCheck();
-            // this.componentRef.changeDetectorRef.detectChanges();
         }
-        return _super.prototype.attach.call(this);
+        // Merge defaults
+        opts = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, this.opts, opts);
+        this._data = data;
+        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["OverlayConfig"]({
+            scrollStrategy: this.overlay.scrollStrategies.block(),
+            hasBackdrop: true,
+            backdropClass: 'vclLayerCover',
+            panelClass: ['vclLayerBox', 'vclLayerBoxFix'],
+            positionStrategy: opts.position || this.opts.position || this.overlay.position()
+                .global()
+                .centerHorizontally()
+                .centerVertically(),
+        });
+        return this.attach(config);
     };
     ComponentLayerRef.prototype.close = function (result) {
         return _super.prototype.detach.call(this, result);
@@ -7109,40 +7117,28 @@ var ComponentLayerRef = /** @class */ (function (_super) {
     ComponentLayerRef.prototype.getInjector = function () {
         return this.injector;
     };
-    ComponentLayerRef.prototype.getOverlayConfig = function () {
-        return new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["OverlayConfig"]({
-            scrollStrategy: this.overlay.scrollStrategies.block(),
-            hasBackdrop: true,
-            backdropClass: 'vclLayerCover',
-            panelClass: ['vclLayerBox', 'vclLayerBoxFix'],
-            positionStrategy: this.opts.position || this.overlay.position()
-                .global()
-                .centerHorizontally()
-                .centerVertically(),
-        });
-    };
     ComponentLayerRef.prototype.createPortal = function () {
         var injectionTokens = new WeakMap();
         injectionTokens.set(ComponentLayerRef, this);
         var portalInjector = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["PortalInjector"](this.injector, injectionTokens);
         return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["ComponentPortal"](this.componentType, this.opts.viewContainerRef, portalInjector);
     };
-    ComponentLayerRef.prototype.afterOpened = function (overlayRef) {
+    ComponentLayerRef.prototype.afterAttached = function (overlayRef) {
         var _this = this;
-        this.layerOpenedSub = this.zone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(function () {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["merge"])(_this.opts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_5__["NEVER"] : overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["filter"])(function (event) {
-                return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__["ESCAPE"];
-            })), _this.opts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_5__["NEVER"] : overlayRef.backdropClick());
+        this.layerOpenedSub = this.zone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function () {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["merge"])(_this.opts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"] : overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
+                return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["ESCAPE"];
+            })), _this.opts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"] : overlayRef.backdropClick());
         })).subscribe(function (result) {
             _super.prototype.detach.call(_this);
         });
     };
-    ComponentLayerRef.prototype.afterClosed = function (result, overlayRef) {
+    ComponentLayerRef.prototype.afterDetached = function (result, overlayRef) {
         this.layerOpenedSub && this.layerOpenedSub.unsubscribe();
         this._afterClose.next(result);
     };
     return ComponentLayerRef;
-}(_layer_ref__WEBPACK_IMPORTED_MODULE_2__["LayerRef"]));
+}(_layer_ref__WEBPACK_IMPORTED_MODULE_6__["LayerRef"]));
 
 
 
@@ -7170,11 +7166,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layer_ref_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layer-ref.component */ "./lib/ng-vcl/src/layer/layer-ref.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRefComponent", function() { return _layer_ref_component__WEBPACK_IMPORTED_MODULE_7__["LayerRefComponent"]; });
 
-/* harmony import */ var _layer_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layer.service */ "./lib/ng-vcl/src/layer/layer.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return _layer_service__WEBPACK_IMPORTED_MODULE_8__["LayerFactory"]; });
+/* harmony import */ var _component_layer_ref__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./component-layer-ref */ "./lib/ng-vcl/src/layer/component-layer-ref.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentLayerRef", function() { return _component_layer_ref__WEBPACK_IMPORTED_MODULE_8__["ComponentLayerRef"]; });
 
-/* harmony import */ var _component_layer_ref__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./component-layer-ref */ "./lib/ng-vcl/src/layer/component-layer-ref.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentLayerRef", function() { return _component_layer_ref__WEBPACK_IMPORTED_MODULE_9__["ComponentLayerRef"]; });
+/* harmony import */ var _layer_factory_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./layer-factory.service */ "./lib/ng-vcl/src/layer/layer-factory.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return _layer_factory_service__WEBPACK_IMPORTED_MODULE_9__["LayerFactory"]; });
 
 
 
@@ -7195,10 +7191,49 @@ var VCLLayerModule = /** @class */ (function () {
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["OverlayModule"], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__["BidiModule"], _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["PortalModule"]],
             exports: [_layer_ref_component__WEBPACK_IMPORTED_MODULE_7__["LayerRefComponent"]],
             declarations: [_layer_ref_component__WEBPACK_IMPORTED_MODULE_7__["LayerRefComponent"]],
-            providers: [_layer_service__WEBPACK_IMPORTED_MODULE_8__["LayerFactory"]],
+            providers: [_layer_factory_service__WEBPACK_IMPORTED_MODULE_9__["LayerFactory"]],
         })
     ], VCLLayerModule);
     return VCLLayerModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/layer/layer-factory.service.ts":
+/*!*******************************************************!*\
+  !*** ./lib/ng-vcl/src/layer/layer-factory.service.ts ***!
+  \*******************************************************/
+/*! exports provided: LayerFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return LayerFactory; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _component_layer_ref__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component-layer-ref */ "./lib/ng-vcl/src/layer/component-layer-ref.ts");
+
+
+
+var LayerFactory = /** @class */ (function () {
+    function LayerFactory(injector, zone) {
+        this.injector = injector;
+        this.zone = zone;
+    }
+    LayerFactory.prototype.create = function (component, opts) {
+        if (opts === void 0) { opts = {}; }
+        var cls = opts.useClass || _component_layer_ref__WEBPACK_IMPORTED_MODULE_2__["ComponentLayerRef"];
+        return new cls(component, this.zone, this.injector, opts);
+    };
+    LayerFactory = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]])
+    ], LayerFactory);
+    return LayerFactory;
 }());
 
 
@@ -7270,19 +7305,7 @@ var LayerRefComponent = /** @class */ (function (_super) {
         }
     };
     LayerRefComponent.prototype.open = function () {
-        return _super.prototype.attach.call(this);
-    };
-    LayerRefComponent.prototype.close = function (result) {
-        return _super.prototype.detach.call(this, result);
-    };
-    LayerRefComponent.prototype.getInjector = function () {
-        return this.injector;
-    };
-    LayerRefComponent.prototype.createPortal = function () {
-        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_2__["TemplatePortal"](this.template, this.viewContainerRef);
-    };
-    LayerRefComponent.prototype.getOverlayConfig = function () {
-        return new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_1__["OverlayConfig"]({
+        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_1__["OverlayConfig"]({
             scrollStrategy: this.overlay.scrollStrategies.block(),
             hasBackdrop: true,
             backdropClass: 'vclLayerCover',
@@ -7293,12 +7316,22 @@ var LayerRefComponent = /** @class */ (function (_super) {
                     .centerHorizontally()
                     .centerVertically(),
         });
+        return _super.prototype.attach.call(this, config);
     };
-    LayerRefComponent.prototype.afterClosed = function (result, overlayRef) {
+    LayerRefComponent.prototype.close = function (result) {
+        return _super.prototype.detach.call(this, result);
+    };
+    LayerRefComponent.prototype.getInjector = function () {
+        return this.injector;
+    };
+    LayerRefComponent.prototype.createPortal = function () {
+        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_2__["TemplatePortal"](this.template, this.viewContainerRef);
+    };
+    LayerRefComponent.prototype.afterDetached = function (result, overlayRef) {
         this.layerOpenedSub && this.layerOpenedSub.unsubscribe();
         this.afterClose.emit(result);
     };
-    LayerRefComponent.prototype.afterOpened = function (overlayRef) {
+    LayerRefComponent.prototype.afterAttached = function (overlayRef) {
         var _this = this;
         this.layerOpenedSub = this.zone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function () {
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["merge"])(_this.modal ? rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"] : overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["filter"])(function (event) {
@@ -7363,7 +7396,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var LayerRef = /** @class */ (function () {
     function LayerRef() {
-        this._closeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
+        this._detachEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.isLayerDestroyed = false;
     }
     Object.defineProperty(LayerRef.prototype, "isAttached", {
@@ -7373,47 +7406,38 @@ var LayerRef = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    LayerRef.prototype.attach = function () {
+    LayerRef.prototype.attach = function (config) {
+        var _this = this;
         if (!this.overlayRef) {
             var injector = this.getInjector();
             var overlay = injector.get(_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["Overlay"]);
-            this.overlayRef = overlay.create(this.getOverlayConfig());
+            this.overlayRef = overlay.create(config);
             this.portal = this.createPortal();
             this.isLayerDestroyed = false;
         }
-        this._attach();
+        if (!this.isAttached) {
+            this.attachmentRef = this.overlayRef.attach(this.portal);
+            Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["merge"])(this.overlayRef ? this.overlayRef.detachments().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function () { return _this.isAttached; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return undefined; })) : Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(undefined), this._detachEmitter.asObservable()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1)).subscribe(function (result) {
+                _this.overlayRef.detach();
+                // this._closingSub.unsubscribe();
+                _this.afterDetached(result, _this.overlayRef);
+            });
+            this.afterAttached(this.overlayRef);
+        }
     };
     LayerRef.prototype.detach = function (result) {
         if (!this.isAttached) {
             return;
         }
-        this._closeEmitter.next(result);
+        this._detachEmitter.next(result);
     };
     LayerRef.prototype.updatePosition = function () {
         this.overlayRef.updatePosition();
     };
-    LayerRef.prototype._attach = function () {
-        var _this = this;
-        if (!this.isAttached) {
-            this.attachmentRef = this.overlayRef.attach(this.portal);
-            this._closingSub = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["merge"])(this.overlayRef ? this.overlayRef.detachments().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function () { return _this.isAttached; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return undefined; })) : Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(undefined), this._closeEmitter.asObservable()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1)).subscribe(function (result) {
-                _this._detach(result);
-            });
-            this.afterOpened(this.overlayRef);
-        }
-    };
-    LayerRef.prototype._detach = function (result) {
-        if (this.overlayRef && this.overlayRef.hasAttached()) {
-            this.overlayRef.detach();
-            this._closingSub.unsubscribe();
-            this.afterClosed(result, this.overlayRef);
-        }
-    };
     LayerRef.prototype.destroy = function () {
         this.isLayerDestroyed = true;
         if (this.overlayRef) {
-            this._detach();
-            this._closeEmitter.complete();
+            this.detach();
             this.overlayRef.dispose();
             this.overlayRef = undefined;
             this.attachmentRef = undefined;
@@ -7434,45 +7458,6 @@ var LayerRef = /** @class */ (function () {
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return undefined; }));
     };
     return LayerRef;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/layer/layer.service.ts":
-/*!***********************************************!*\
-  !*** ./lib/ng-vcl/src/layer/layer.service.ts ***!
-  \***********************************************/
-/*! exports provided: LayerFactory */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return LayerFactory; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _component_layer_ref__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component-layer-ref */ "./lib/ng-vcl/src/layer/component-layer-ref.ts");
-
-
-
-var LayerFactory = /** @class */ (function () {
-    function LayerFactory(injector, zone) {
-        this.injector = injector;
-        this.zone = zone;
-    }
-    LayerFactory.prototype.create = function (component, opts) {
-        if (opts === void 0) { opts = {}; }
-        var cls = opts.useClass || _component_layer_ref__WEBPACK_IMPORTED_MODULE_2__["ComponentLayerRef"];
-        return new cls(component, this.zone, this.injector, opts);
-    };
-    LayerFactory = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]])
-    ], LayerFactory);
-    return LayerFactory;
 }());
 
 
@@ -9908,8 +9893,25 @@ var PopoverComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    PopoverComponent.prototype.reposition = function () {
+        this.overlayRef && this.overlayRef.updatePosition();
+    };
     PopoverComponent.prototype.open = function () {
-        _super.prototype.attach.call(this);
+        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["OverlayConfig"]({
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
+            direction: this._dir,
+            positionStrategy: this.position || this.overlay.position()
+                .connectedTo(this.target, {
+                originX: this.originX,
+                originY: this.originY
+            }, {
+                overlayX: this.overlayX,
+                overlayY: this.overlayY,
+            })
+                .withOffsetX(this.offsetX)
+                .withOffsetY(this.offsetY),
+        });
+        this.attach(config);
         this.visibleChange.emit(this.isAttached);
     };
     PopoverComponent.prototype.close = function () {
@@ -9930,31 +9932,15 @@ var PopoverComponent = /** @class */ (function (_super) {
     PopoverComponent.prototype.createPortal = function () {
         return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["TemplatePortal"](this.template, this.viewContainerRef);
     };
-    PopoverComponent.prototype.afterOpened = function (overlayRef) {
+    PopoverComponent.prototype.afterAttached = function (overlayRef) {
     };
-    PopoverComponent.prototype.afterClosed = function (result, overlayRef) {
+    PopoverComponent.prototype.afterDetached = function (result, overlayRef) {
         if (!this.isLayerDestroyed) {
             // We need to trigger change detection manually, because
             // `fromEvent` doesn't seem to do it at the proper time.
             this.cdRef.detectChanges();
         }
         this.afterClose.emit();
-    };
-    PopoverComponent.prototype.getOverlayConfig = function () {
-        return new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["OverlayConfig"]({
-            scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            direction: this._dir,
-            positionStrategy: this.position || this.overlay.position()
-                .connectedTo(this.target, {
-                originX: this.originX,
-                originY: this.originY
-            }, {
-                overlayX: this.overlayX,
-                overlayY: this.overlayY,
-            })
-                .withOffsetX(this.offsetX)
-                .withOffsetY(this.offsetY),
-        });
     };
     PopoverComponent.prototype.ngOnDestroy = function () {
         this.destroy();
