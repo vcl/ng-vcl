@@ -74,8 +74,27 @@ export class PopoverComponent extends LayerRef<any> implements OnDestroy {
     return this.isAttached;
   }
 
+  reposition() {
+    this.overlayRef && this.overlayRef.updatePosition();
+  }
+
   open() {
-    super.attach();
+    const config = new OverlayConfig({
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      direction: this._dir,
+      positionStrategy: this.position || this.overlay.position()
+      .connectedTo(this.target, {
+        originX: this.originX,
+        originY: this.originY
+      }, {
+        overlayX: this.overlayX,
+        overlayY: this.overlayY,
+      })
+      .withOffsetX(this.offsetX)
+      .withOffsetY(this.offsetY),
+    });
+
+    this.attach(config);
     this.visibleChange.emit(this.isAttached);
   }
 
@@ -100,34 +119,17 @@ export class PopoverComponent extends LayerRef<any> implements OnDestroy {
     return new TemplatePortal(this.template, this.viewContainerRef);
   }
 
-  protected afterOpened(overlayRef: OverlayRef): void {
+  protected afterAttached(overlayRef: OverlayRef): void {
 
   }
 
-  protected afterClosed(result: any, overlayRef: OverlayRef) {
+  protected afterDetached(result: any, overlayRef: OverlayRef) {
     if (!this.isLayerDestroyed) {
       // We need to trigger change detection manually, because
       // `fromEvent` doesn't seem to do it at the proper time.
       this.cdRef.detectChanges();
     }
     this.afterClose.emit();
-  }
-
-  protected getOverlayConfig(): OverlayConfig {
-    return new OverlayConfig({
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      direction: this._dir,
-      positionStrategy: this.position || this.overlay.position()
-      .connectedTo(this.target, {
-        originX: this.originX,
-        originY: this.originY
-      }, {
-        overlayX: this.overlayX,
-        overlayY: this.overlayY,
-      })
-      .withOffsetX(this.offsetX)
-      .withOffsetY(this.offsetY),
-    });
   }
 
   ngOnDestroy(): void {

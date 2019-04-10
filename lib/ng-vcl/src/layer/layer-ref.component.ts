@@ -49,7 +49,19 @@ export class LayerRefComponent extends LayerRef<any> implements OnDestroy {
   }
 
   open() {
-    return super.attach();
+    const config = new OverlayConfig({
+      scrollStrategy: this.overlay.scrollStrategies.block(),
+      hasBackdrop: true,
+      backdropClass: 'vclLayerCover',
+      // panelClass: 'vclLayerBox',
+      positionStrategy: this.position ||
+                          this.overlay.position()
+                                      .global()
+                                      .centerHorizontally()
+                                      .centerVertically(),
+    });
+
+    return super.attach(config);
   }
 
   close(result?: any) {
@@ -64,26 +76,12 @@ export class LayerRefComponent extends LayerRef<any> implements OnDestroy {
     return new TemplatePortal(this.template, this.viewContainerRef);
   }
 
-  protected getOverlayConfig(): OverlayConfig {
-    return new OverlayConfig({
-      scrollStrategy: this.overlay.scrollStrategies.block(),
-      hasBackdrop: true,
-      backdropClass: 'vclLayerCover',
-      // panelClass: 'vclLayerBox',
-      positionStrategy: this.position ||
-                          this.overlay.position()
-                                      .global()
-                                      .centerHorizontally()
-                                      .centerVertically(),
-    });
-  }
-
-  protected afterClosed(result: any, overlayRef: OverlayRef): void {
+  protected afterDetached(result: any, overlayRef: OverlayRef): void {
     this.layerOpenedSub && this.layerOpenedSub.unsubscribe();
     this.afterClose.emit(result);
   }
 
-  protected afterOpened(overlayRef: OverlayRef): void {
+  protected afterAttached(overlayRef: OverlayRef): void {
     this.layerOpenedSub = this.zone.onStable.asObservable().pipe(take(1)).pipe(
       switchMap(() => {
         return merge(

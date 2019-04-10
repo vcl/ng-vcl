@@ -6,8 +6,8 @@ import { PortalModule } from '@angular/cdk/portal';
 
 import { LayerRef } from './layer-ref';
 import { LayerRefComponent } from './layer-ref.component';
-import { LayerFactory } from './layer.service';
 import { ComponentLayerRef } from './component-layer-ref';
+import { LayerFactory } from './layer-factory.service';
 
 export { LayerRefComponent, ComponentLayerRef, LayerFactory, LayerRef };
 
