@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JssFormComponent, markAsDeeplyTouched } from '@ng-vcl/jss-form';
-import { NotifierService } from '@ng-vcl/ng-vcl';
 import { HERO_SCHEMA, HERO_DEFAULTS } from './hero';
 
 
@@ -9,7 +8,7 @@ import { HERO_SCHEMA, HERO_DEFAULTS } from './hero';
 })
 export class JssFormDemoComponent {
 
-  constructor(private ns: NotifierService) { }
+  constructor() { }
 
   @ViewChild('heroForm')
   heroForm: JssFormComponent;
@@ -22,24 +21,24 @@ export class JssFormDemoComponent {
     console.log('value', value);
 
     if (valid) {
-      this.ns.success({
-        text: `${value.name} is a valid hero`
-      });
+      // this.ns.success({
+      //   text: `${value.name} is a valid hero`
+      // });
     } else {
       if (this.heroForm.form) {
         markAsDeeplyTouched(this.heroForm.form);
       }
-      this.ns.error({
-        text: `Your hero is not valid`
-      });
+      // this.ns.error({
+      //   text: `Your hero is not valid`
+      // });
     }
   }
 
   onAction(action: string) {
     if (action === 'reset' && this.heroForm.form) {
-      this.ns.warning({
-        text: `Hero rejected`
-      });
+      // this.ns.warning({
+      //   text: `Hero rejected`
+      // });
       this.heroForm.form.reset({...HERO_DEFAULTS});
     }
   }
