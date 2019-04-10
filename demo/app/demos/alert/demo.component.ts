@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { AlertService, AlertType, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
-import { retryWhen, switchMap } from 'rxjs/operators';
+import { retryWhen, switchMap, tap } from 'rxjs/operators';
 
 function createAsyncResult(data: any, error?: boolean | Function): Observable<any> {
   return new Observable(observer => {
@@ -81,9 +81,6 @@ export class AlertDemoComponent {
       confirmButtonPrepIcon: 'fas:bolt',
       cancelButtonColor: 'orange',
       customClass: 'vclScale130p',
-      titleAlignment: AlertAlignment.Center,
-      contentAlignment: AlertAlignment.Center,
-      buttonAlignment: AlertAlignment.Center,
     });
   }
 
@@ -105,31 +102,17 @@ export class AlertDemoComponent {
     });
   }
 
-  loader() {
-    this.alert.open({
-      title: 'Loading',
-      text: 'Hit esc to close loader',
-      loader: true,
-      showConfirmButton: false
-    });
-  }
-
   async() {
     this.alert.open({
       text: 'Determine your user agent?',
       confirmAction: createAsyncResult(window.navigator.userAgent),
       showCancelButton: true
     }).subscribe(result => {
-      console.log(result);
       if (result.action === 'confirm') {
         this.alert.info(result.value, {
           title: 'Your user agent'
         });
       }
-
-
-    }, err => {
-      // this.alert.error('Could not determine user agent');
     });
   }
 
@@ -140,7 +123,7 @@ export class AlertDemoComponent {
       confirmButtonLabel: 'Next',
       inputValidator: (value) => {
         if (typeof value !== 'string' || value.length < 2) {
-          throw new Error('This is not your name!');
+          throw new Error('Invalid name!');
         }
         return true;
       }
@@ -148,7 +131,7 @@ export class AlertDemoComponent {
       if (result.action === 'confirm') {
         this.alert.info('Hello ' + result.value);
       }
-    }, this.alert.noop);
+    });
   }
 
   retry() {
@@ -164,9 +147,12 @@ export class AlertDemoComponent {
             text: 'Retry?',
             type: AlertType.Warning,
             showCancelButton: true,
-            cancelButtonThrowsError: true,
-            offClickClose: false
-          });
+            modal: true,
+          }).pipe(tap(result => {
+            if (result.action === 'cancel') {
+              throw new Error();
+            }
+          }));
         }));
       }));
 
@@ -174,11 +160,9 @@ export class AlertDemoComponent {
       text: 'Show current time? (will fail the first time)',
       showCancelButton: true,
       confirmAction: fakeAsyncWithRetries,
-      cancelButtonThrowsError: true,
-      closeThrowsError: true
     }).subscribe(result => {
       this.alert.info(result.value, { title: 'Time' });
-    }, err => { });
+    });
   }
 
 }

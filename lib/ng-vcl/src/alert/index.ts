@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from './../icogram/index';
 import { VCLButtonModule } from './../button/index';
-import { VCLLegacyLayerModule } from './../layer-legacy/index';
+import { VCLLayerModule } from './../layer';
 import { VCLInputModule } from './../input/index';
 import { VCLIconModule } from '../icon';
 import { VCLBusyIndicatorModule } from '../busy-indicator';
 import { AlertComponent } from './alert.component';
-import { AlertInputComponent } from './alert-input.component';
+import { AlertInputDirective } from './input-alert.directive';
 import { AlertService } from './alert.service';
-import { AlertType, AlertError, AlertInput, AlertAlignment } from './types';
+import { AlertType, AlertInput, AlertAlignment } from './types';
 
-export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
+export { AlertService, AlertType, AlertInput, AlertAlignment };
 
 @NgModule({
   imports: [
@@ -23,10 +23,10 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
     VCLIcogramModule,
     VCLIconModule,
     VCLBusyIndicatorModule,
-    VCLLegacyLayerModule.forChild({layers: []})
+    VCLLayerModule
   ],
   exports: [],
-  declarations: [ AlertComponent, AlertInputComponent ],
+  declarations: [ AlertComponent, AlertInputDirective ],
   entryComponents: [ AlertComponent ],
   providers: [ AlertService ],
 })

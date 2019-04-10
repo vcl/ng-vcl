@@ -71,17 +71,17 @@ export class PopoverComponent extends LayerRef<any> implements OnDestroy {
   afterClose = new EventEmitter<any>();
 
   get visible() {
-    return this.isOpen;
+    return this.isAttached;
   }
 
   open() {
-    super.open();
-    this.visibleChange.emit(this.isOpen);
+    super.attach();
+    this.visibleChange.emit(this.isAttached);
   }
 
   close() {
-    super.close();
-    this.visibleChange.emit(this.isOpen);
+    super.detach();
+    this.visibleChange.emit(this.isAttached);
   }
 
   toggle() {

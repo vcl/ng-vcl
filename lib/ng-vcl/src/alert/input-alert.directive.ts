@@ -1,17 +1,18 @@
-import { Component, ChangeDetectionStrategy, ViewChild, Output, Input, EventEmitter, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 
+import { Output, Input, EventEmitter, ElementRef, OnInit, AfterViewInit, Directive, HostBinding } from '@angular/core';
 import { AlertOptions, AlertInput } from './types';
 
 // TODO: support text, password, textarea, select, radio, checkbox file.
-@Component({
-  templateUrl: 'alert-input.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'alert-input'
+@Directive({
+  selector: '[vclInputAlert]'
 })
-export class AlertInputComponent implements OnInit, AfterViewInit {
+export class AlertInputDirective implements OnInit, AfterViewInit {
 
-  @ViewChild('input')
-  input: ElementRef;
+  constructor(private elementRef: ElementRef<HTMLInputElement>) { }
+
+  get input() {
+    return this.elementRef.nativeElement;
+  }
 
   @Input()
   alert: AlertOptions = {};
@@ -28,8 +29,8 @@ export class AlertInputComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.input && this.input.nativeElement && this.input.nativeElement.focus) {
-      setTimeout(() => this.input.nativeElement.focus(), 1);
+    if (this.input) {
+      setTimeout(() => this.input.focus(), 1);
     }
   }
 
@@ -40,6 +41,7 @@ export class AlertInputComponent implements OnInit, AfterViewInit {
     return null;
   }
 
+  @HostBinding('attr.placeholder')
   get placeholder() {
     return this.alert.inputPlaceholder || '';
   }
@@ -48,5 +50,4 @@ export class AlertInputComponent implements OnInit, AfterViewInit {
   inputValueChange(value: string) {
     this.valueChange.emit(value);
   }
-
 }

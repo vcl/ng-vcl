@@ -1,7 +1,9 @@
-import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
-import { Subscription ,  Subject ,  Observable ,  from } from 'rxjs';
-import { LayerRef, LayerService, Layer } from './../layer-legacy/index';
-import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, Provider, Inject } from '@angular/core';
+import { Subscription ,  from } from 'rxjs';
+import { ComponentLayerRef, LayerFactory } from './../layer';
+import { AlertOptions, AlertResult, AlertType, TYPE_CLASS_MAP } from './types';
+
+export class AlertLayerRef extends ComponentLayerRef<AlertComponent, AlertOptions, AlertResult> { }
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -15,26 +17,20 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
 
   confirmActionSub?: Subscription;
 
-  constructor(private elementRef: ElementRef,  private alertLayer: LayerRef, private layerService: LayerService, private cdRef: ChangeDetectorRef) {
-    this.alertLayer = alertLayer;
-   }
-
-  @Input()
-  alert: AlertOptions = {};
+  constructor(
+    private elementRef: ElementRef,
+    @Inject(ComponentLayerRef)
+    private alertLayer: AlertLayerRef,
+    private cdRef: ChangeDetectorRef
+  ) {
+  }
 
   value: any;
   validationError: string;
+  loader = false;
 
-  @HostListener('keyup', ['$event'])
-  onKeyUp(ev: KeyboardEvent) {
-    // Check if the top layer is the alert layer
-    if (this.layerService.getTopLayer() === this.alertLayer) {
-      if (ev.key === 'Escape' && this.alert.escClose) {
-        this.close();
-      } else if (ev.key === 'Enter') {
-        this.confirm();
-      }
-    }
+  get alert() {
+    return this.alertLayer.data;
   }
 
   get alertClass() {
@@ -45,28 +41,12 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
     return TYPE_CLASS_MAP[this.alert.type || AlertType.None].iconClass;
   }
 
-  get titleAlignmentClass() {
-    return TEXT_ALIGNMENT_CLASS_MAP[this.alert.titleAlignment || AlertAlignment.Left];
-  }
-
-  get iconAlignmentClass() {
-    return TEXT_ALIGNMENT_CLASS_MAP[this.alert.iconAlignment || AlertAlignment.Center];
-  }
-
-  get contentAlignmentClass() {
-    return TEXT_ALIGNMENT_CLASS_MAP[this.alert.contentAlignment || AlertAlignment.Left];
-  }
-
-  get buttonAlignmentClass() {
-    return BUTTON_ALIGNMENT_CLASS_MAP[this.alert.buttonAlignment || AlertAlignment.Right];
-  }
-
   ngAfterViewInit(): void {
     this.elementRef.nativeElement.focus();
   }
 
   confirm() {
-    if (this.alert.loader) { return; }
+    if (this.loader) { return; }
 
     const result: AlertResult = {
       action: 'confirm',
@@ -89,52 +69,43 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
     }
 
     if (this.alert.confirmAction) {
-      this.alert.loader = true;
+      this.loader = true;
       this.cdRef.markForCheck();
       const $ = from(typeof this.alert.confirmAction === 'function' ? this.alert.confirmAction(result) : this.alert.confirmAction);
       this.confirmActionSub = $.subscribe(value => {
         const asyncResult: AlertResult = {
-          action: 'confirm'
+          action: 'confirm',
+          value
         };
-        asyncResult.value = value;
-        this.alertLayer.send(asyncResult);
+        this.alertLayer.close(asyncResult);
       }, err => {
-        this.alertLayer.closeWithError(err);
-      }, () => {
-        this.alertLayer.close();
+        const errorResult: AlertResult = {
+          action: 'error',
+          value: err
+        };
+        this.alertLayer.close(errorResult);
       });
     } else {
-      if (this.alert.loaderOnConfirm) {
-        this.alert.loader = true;
-        this.cdRef.markForCheck();
-        result.close = () => this.alertLayer.close();
-        this.alertLayer.send(result);
-      } else  {
-        this.alertLayer.close(result);
-      }
+      this.alertLayer.close(result);
     }
   }
 
   cancel() {
+    if (this.confirmActionSub) {
+      this.confirmActionSub.unsubscribe();
+    }
+
     const result: AlertResult = {
       action: 'cancel'
     };
-    if (this.alert.cancelButtonThrowsError) {
-      this.alertLayer.closeWithError(result);
-    } else {
-      this.alertLayer.close(result);
-    }
+    this.alertLayer.close(result);
   }
 
   close() {
     const result: AlertResult = {
       action: 'close'
     };
-    if (this.alert.closeThrowsError) {
-      this.alertLayer.closeWithError(result);
-    } else {
-      this.alertLayer.close(result);
-    }
+    this.alertLayer.close(result);
   }
 
   valueChange(value: any) {
