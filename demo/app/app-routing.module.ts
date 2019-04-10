@@ -28,16 +28,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/label/demo.module#LabelDemoModule',
-  //   path: 'label',
-  //   data: {
-  //     demo: {
-  //       label: 'Label',
-  //       category: CAT_TYPOGRAPHICAL,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/label/demo.module#LabelDemoModule',
+    path: 'label',
+    data: {
+      demo: {
+        label: 'Label',
+        category: CAT_TYPOGRAPHICAL,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/navigation/demo.module#NavigationDemoModule',
   //   path: 'navigation',
@@ -54,16 +54,6 @@ export const routes: Routes = [
   //   data: {
   //     demo: {
   //       label: 'Tab Navigation',
-  //       category: CAT_NAVIGATION,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/toolbar/demo.module#ToolbarDemoModule',
-  //   path: 'toolbar',
-  //   data: {
-  //     demo: {
-  //       label: 'Toolbar',
   //       category: CAT_NAVIGATION,
   //     }
   //   }
@@ -128,16 +118,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/flip-switch/demo.module#FlipSwitchDemoModule',
-  //   path: 'flip-switch',
-  //   data: {
-  //     demo: {
-  //       label: 'Flip-Switch',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/flip-switch/demo.module#FlipSwitchDemoModule',
+    path: 'flip-switch',
+    data: {
+      demo: {
+        label: 'Flip-Switch',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   {
     loadChildren: './demos/input/demo.module#InputDemoModule',
     path: 'input',
@@ -308,46 +298,26 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/layer/demo.module#LayerDemoModule',
-  //   path: 'layer',
-  //   data: {
-  //     demo: {
-  //       label: 'Layer',
-  //       category: CAT_OVERLAYS,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/modal/demo.module#ModalDemoModule',
-  //   path: 'modal',
-  //   data: {
-  //     demo: {
-  //       label: 'Modal',
-  //       category: CAT_OVERLAYS,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
-  //   path: 'notifier',
-  //   data: {
-  //     demo: {
-  //       label: 'Notifier',
-  //       category: CAT_OVERLAYS,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/popover/demo.module#PopoverDemoModule',
-  //   path: 'popover',
-  //   data: {
-  //     demo: {
-  //       label: 'Popover',
-  //       category: CAT_OVERLAYS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/layer/demo.module#LayerDemoModule',
+    path: 'layer',
+    data: {
+      demo: {
+        label: 'Layer',
+        category: CAT_OVERLAYS,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/popover/demo.module#PopoverDemoModule',
+    path: 'popover',
+    data: {
+      demo: {
+        label: 'Popover',
+        category: CAT_OVERLAYS,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
   //   path: 'tooltip',
@@ -358,16 +328,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/tour/demo.module#TourDemoModule',
-  //   path: 'tour',
-  //   data: {
-  //     demo: {
-  //       label: 'Tour',
-  //       category: CAT_OVERLAYS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/tour/demo.module#TourDemoModule',
+    path: 'tour',
+    data: {
+      demo: {
+        label: 'Tour',
+        category: CAT_OVERLAYS,
+      }
+    }
+  },
   {
     loadChildren: './demos/icon/demo.module#IconDemoModule',
     path: 'icon',
