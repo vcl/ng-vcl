@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from './../icogram/index';
 import { VCLButtonModule } from './../button/index';
-import { VCLLayerModule } from './../layer/index';
+import { VCLLegacyLayerModule } from './../layer-legacy/index';
 import { VCLInputModule } from './../input/index';
 import { VCLIconModule } from '../icon';
 import { VCLBusyIndicatorModule } from '../busy-indicator';
@@ -23,7 +23,7 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
     VCLIcogramModule,
     VCLIconModule,
     VCLBusyIndicatorModule,
-    VCLLayerModule.forChild({layers: []})
+    VCLLegacyLayerModule.forChild({layers: []})
   ],
   exports: [],
   declarations: [ AlertComponent, AlertInputComponent ],

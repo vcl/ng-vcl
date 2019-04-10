@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLButtonModule } from './../button/index';
-import { VCLLayerModule } from './../layer/index';
+import { VCLLegacyLayerModule } from './../layer-legacy/index';
 import { VCLWormholeModule } from './../wormhole/index';
 import { NotifierComponent } from './notifier.component';
 import { NotifierService } from './notifier.service';
@@ -18,7 +18,7 @@ export { Notifier, NotifierService, NotifierOptions, NotifierType, NotifierPosit
     FormsModule,
     CommonModule,
     VCLButtonModule,
-    VCLLayerModule.forChild(),
+    VCLLegacyLayerModule.forChild(),
     VCLWormholeModule,
     VCLNotificationModule
   ],

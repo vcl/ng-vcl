@@ -8,15 +8,12 @@ import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
   VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule
 } from '@ng-vcl/ng-vcl';
-import {
-  LayerAnimationsModule, PopoverAnimationsModule,
-  DropdownAnimationsModule,
-} from '@ng-vcl/animations';
 
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -30,10 +27,8 @@ import { AppRoutingModule } from './app-routing.module';
     VCLFontAwesomeModule,
     VCLMaterialDesignModule,
     VCLNavigationModule,
-    VCLLayerModule.forRoot(),
-    LayerAnimationsModule,
-    PopoverAnimationsModule,
-    DropdownAnimationsModule
+    VCLLayerModule,
+    ScrollingModule
   ],
   declarations: [
     AppComponent,

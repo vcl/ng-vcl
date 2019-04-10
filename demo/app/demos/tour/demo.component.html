@@ -11,61 +11,59 @@
         </div>   
         <div>
             <div class="vclGridSpan-25p">
-                <h1 class="vclContainer" id="heading1">Heading</h1>
+                <h1 class="vclContainer" #heading1>Heading</h1>
             </div>
             <div class="vclGridSpan-25p">
                 <br>
-                <p class="vclContainer" id="heading2">Heading</p>
+                <p class="vclContainer" #heading2>Heading</p>
             </div>
             <div class="vclGridSpan-25p">
                 <br>
-                <p class="vclContainer" id="heading3">Heading</p>
+                <p class="vclContainer" #heading3>Heading</p>
             </div>
             <div class="vclGridSpan-25p">
                 <br>
-                <p class="vclContainer" id="heading4">Heading</p>
+                <p class="vclContainer" #heading4>Heading</p>
             </div>
         </div>
     </div>
 
     <vcl-tour-step
-        target="#heading1"
-        title="Step Title"
-        [debug]="debugTour"
-        [debugPopover]="debugPopover">
+        [target]="heading1"
+        title="Step Title">
             Demo tour first step with title
     </vcl-tour-step>
 
     <vcl-tour-step 
-        target="#heading2"
-        [offsetAttachmentY]="50">
+        [target]="heading2"
+        [offsetY]="50">
             Demo tour second step no title with Y offset
     </vcl-tour-step>
     
     <vcl-tour-step
-        target="#heading3"
-        [targetX]="AttachmentX.Center"
-        [attachmentX]="AttachmentX.Center"
-        [targetY]="AttachmentY.Top"
-        [attachmentY]="AttachmentY.Bottom">
+        [target]="heading3"
+        [originX]="'center'"
+        [originY]="'top'"
+        [overlayX]="'center'"
+        [overlayY]="'bottom'">
             Demo tour third step top position
     </vcl-tour-step>
 
     <vcl-tour-step
-        target="#heading4"
-        [targetX]="AttachmentX.Left"
-        [attachmentX]="AttachmentX.Right"
-        [targetY]="AttachmentY.Center"
-        [attachmentY]="AttachmentY.Center">
+        [target]="heading4"
+        [originX]="'start'"
+        [overlayX]="'end'"
+        [originY]="'center'"
+        [overlayY]="'center'">
             Demo tour fourth step left position
     </vcl-tour-step>
 
     <vcl-tour-step
-        target="#heading2"
-        [targetX]="AttachmentX.Right"
-        [attachmentX]="AttachmentX.Left"
-        [targetY]="AttachmentY.Center"
-        [attachmentY]="AttachmentY.Center">
+        [target]="heading2"
+        [originX]="'end'"
+        [overlayX]="'start'"
+        [originY]="'center'"
+        [overlayY]="'center'">
             Demo tour fifth step right position
     </vcl-tour-step>
     

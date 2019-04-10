@@ -1,6 +1,6 @@
 import { forwardRef, Inject, Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Injectable, HostListener, Input, Output, EventEmitter, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription ,  Subject ,  Observable ,  from } from 'rxjs';
-import { LayerRef, LayerService, Layer } from './../layer/index';
+import { LayerRef, LayerService, Layer } from './../layer-legacy/index';
 import { AlertOptions, AlertError, AlertResult, AlertType, AlertInput, AlertAlignment, TYPE_CLASS_MAP, ALERT_DEFAULTS, TEXT_ALIGNMENT_CLASS_MAP, BUTTON_ALIGNMENT_CLASS_MAP } from './types';
 
 @Component({

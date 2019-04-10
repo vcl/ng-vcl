@@ -1,49 +1,30 @@
-import { Injectable, Injector, Type } from '@angular/core';
-import { LayerManagerService } from './layer-manager.service';
-import { LayerRef, DynamicLayerRef, LayerAttributes } from './layer-ref';
-import { LayerOptions } from './layer-container.component';
+import { Injectable, Injector, ViewContainerRef, NgZone } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
+import { PositionStrategy } from '@angular/cdk/overlay';
+import { ComponentLayerRef } from './component-layer-ref';
 
-@Injectable()
-export class LayerService {
+type ComponentLayerRefCtor<TComponent> = new(component: ComponentType<TComponent>, zone: NgZone, injector: Injector, opts: CreateLayerOptions<TComponent>) => ComponentLayerRef;
 
-  constructor(private layerManager: LayerManagerService, private injector: Injector) { }
+export interface LayerOptions {
+  position?: PositionStrategy;
+  modal?: boolean;
+}
 
-  hasVisibleLayers() {
-    return this.layerManager.visibleLayers.length > 0;
+export interface CreateLayerOptions<TComponent> extends LayerOptions {
+  viewContainerRef?: ViewContainerRef;
+  useClass?: ComponentLayerRefCtor<TComponent>;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LayerFactory {
+
+  constructor(private injector: Injector, private zone: NgZone) { }
+
+  create<TComponent = any, TData = any, TResult = any>(component: ComponentType<TComponent>, opts: CreateLayerOptions<TComponent> = {}): ComponentLayerRef<TData, TResult> {
+    const cls = opts.useClass || ComponentLayerRef;
+    return new cls(component, this.zone, this.injector, opts);
   }
 
-  getVisibleLayers() {
-    return [...this.layerManager.visibleLayers];
-  }
-
-  getTopLayer(): LayerRef | undefined {
-    return [...this.layerManager.visibleLayers].pop();
-  }
-
-  closeAll() {
-    this.layerManager.visibleLayers.forEach(layer => layer.close());
-  }
-
-  closeTop() {
-    const topLayer = this.getTopLayer();
-    if (topLayer) {
-      topLayer.close();
-    }
-  }
-
-  create(component: Type<any>, opts?: LayerOptions): LayerRef {
-    const layerRef = new DynamicLayerRef(() => {
-      this.layerManager._register(layerRef, component, this.injector, opts);
-    }, () => {
-      this.layerManager._unregister(layerRef);
-    });
-
-    return layerRef;
-  }
-
-  open(component: Type<any>, attrs?: LayerAttributes, opts?: LayerOptions) {
-    const layerRef = this.create(component, opts);
-    layerRef.open(attrs);
-    return layerRef;
-  }
 }

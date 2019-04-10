@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { VCLLayerModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
-import { FooLayer, FooComponent } from './foo.layer';
-import { BarComponent } from './bar.component';
-import { LayerDemoCanDeactivateGuard } from './demo.guard';
+import { ExampleComponent, ExampleLayerProvider } from './example.component';
 
 export function demo() {
   return {
@@ -25,25 +23,13 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-      'demo.guard.ts': {
+      'example.component.html': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./demo.guard.ts')
+        content: require('!highlight-loader?raw=true&lang=html!./example.component.html')
       },
-      'foo.layer.html': {
+      'example.component.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./foo.layer.html')
-      },
-      'foo.layer.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./foo.layer.ts')
-      },
-      'bar.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./bar.component.html')
-      },
-      'bar.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./bar.component.ts')
+        content: require('!highlight-loader?raw=true&lang=ts!./example.component.ts')
       }
     },
   };
@@ -53,27 +39,24 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    VCLLayerModule.forChild({layers: [FooLayer]}),
+    VCLLayerModule,
     VCLButtonModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
       data: {demo},
-      canDeactivate: [LayerDemoCanDeactivateGuard],
     }]),
   ],
   providers: [
-    LayerDemoCanDeactivateGuard
+    ExampleLayerProvider
   ],
   entryComponents: [
     LayerDemoComponent,
-    FooComponent,
-    BarComponent
+    ExampleComponent
   ],
   declarations: [
     LayerDemoComponent,
-    FooComponent,
-    BarComponent
+    ExampleComponent
   ]
 })
 export class LayerDemoModule { }

@@ -1,296 +1,136 @@
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  ElementRef, EventEmitter, HostBinding, HostListener, Inject,
-  InjectionToken, Input, Optional, Output, SimpleChanges, OnInit, AfterViewInit, OnChanges,
-} from '@angular/core';
-import {
-  AnimationBuilder, AnimationFactory, AnimationMetadata
-} from '@angular/animations';
-import { ObservableComponent } from '../core/index';
-
-export type AttachmentX = 'left' | 'center' | 'right';
-export const AttachmentX = {
-  Left: 'left' as AttachmentX,
-  Center: 'center' as AttachmentX,
-  Right: 'right' as AttachmentX,
-};
-
-export type AttachmentY = 'top' | 'center' | 'bottom';
-export const AttachmentY = {
-  Top: 'top' as AttachmentY,
-  Center: 'center' as AttachmentY,
-  Bottom: 'bottom' as AttachmentY,
-};
-
-const Dimension = {
-  Width: 'width',
-  Height: 'height',
-};
-
-export enum PopoverState {
-  visible,
-  hidden,
-  opening,
-  closing
-}
-
-export const POPOVER_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#popover_animations');
-
-export interface PopoverAnimationConfig {
-  enter?: AnimationMetadata | AnimationMetadata[];
-  leave?: AnimationMetadata | AnimationMetadata[];
-}
+import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef, Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector } from '@angular/core';
+import { OverlayConfig, PositionStrategy, Overlay, OverlayRef, HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { Directionality } from '@angular/cdk/bidi';
+import { LayerRef } from '../layer';
+import { TemplatePortal, Portal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'vcl-popover',
-  template: '<ng-content></ng-content>',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[style.position]': '"absolute"'
-  }
+  templateUrl: 'popover.component.html',
+  exportAs: 'vclPopover',
 })
-export class PopoverComponent extends ObservableComponent implements OnInit, AfterViewInit, OnChanges {
-  private static readonly Tag: string = 'PopoverComponent';
-
-  private tag: string;
-
-  private state: PopoverState = PopoverState.hidden;
-  private translateX = 1;
-  private translateY = 0;
-
-  private enterAnimationFactory: AnimationFactory | undefined;
-  private leaveAnimationFactory: AnimationFactory | undefined;
-
-  @HostBinding('class.vclPopOver')
-  @Input() public enableStyling = true;
-
-  @Input() public debug = false;
-
-  @Input() public target: string | ElementRef | Element;
-  public targetElement: Element;
-
-  @Input() public targetX: AttachmentX = AttachmentX.Left;
-  @Input() public attachmentX: AttachmentX = AttachmentX.Left;
-  @Input() public offsetAttachmentX = 0;
-
-  @Input() public targetY: AttachmentY = AttachmentY.Bottom;
-  @Input() public attachmentY: AttachmentY = AttachmentY.Top;
-  @Input() public offsetAttachmentY = 0;
-
-  public get visible(): boolean {
-    return (this.state === PopoverState.opening || this.state === PopoverState.visible);
-  }
-
-  @Input()
-  public set visible(value: boolean) {
-    value ? this.open() : this.close();
-  }
-
-  @Output() public willClose = new EventEmitter<any>();
-  @Output() public willOpen = new EventEmitter<any>();
-
-  @HostBinding('class.vclLayoutHidden')
-  public get classHidden() {
-    return this.state === PopoverState.hidden;
-  }
-
-  @HostBinding('style.visibility')
-  public get styleVisibility() {
-    return this.state === PopoverState.opening ? 'hidden' : 'visible';
-  }
-
-  @HostBinding('style.transform')
-  public get transform() {
-    return `translate(${String(this.translateX)}px, ${String(this.translateY)}px)`;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  public onWindowResize(event: Event): void {
-    this.reposition();
-  }
+export class PopoverComponent extends LayerRef<any> implements OnDestroy {
 
   constructor(
-    protected readonly ref: ElementRef,
-    protected readonly builder: AnimationBuilder,
-    protected readonly cd: ChangeDetectorRef,
-    @Optional() @Inject(POPOVER_ANIMATIONS) protected animations: PopoverAnimationConfig
+    @Optional()
+    private _dir: Directionality,
+    private viewContainerRef: ViewContainerRef,
+    private overlay: Overlay,
+    private injector: Injector,
+    private cdRef: ChangeDetectorRef
   ) {
     super();
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    super.ngOnChanges(changes);
-    const tag = `${this.tag}.ngOnChanges()`;
-    if (this.debug) { console.log(tag, 'changes:', changes); }
-    this.onChange(changes);
-  }
+  @ViewChild(TemplateRef)
+  template: TemplateRef<any>;
 
-  public ngOnInit(): void {
-    this.setTag();
-    const tag = `${this.tag}.ngOnInit()`;
-    if (this.debug) { console.log(tag, 'this:', this); }
-  }
+  @Input()
+  target: ElementRef<HTMLElement>;
 
-  public ngAfterViewInit(): void {
-    setTimeout(() => this.onChange());
+  @Input()
+  originX: HorizontalConnectionPos = 'start';
 
-    if (this.animations) {
-      if (this.animations.enter) {
-        this.enterAnimationFactory = this.builder.build(this.animations.enter);
-      }
+  @Input()
+  originY: VerticalConnectionPos = 'bottom';
 
-      if (this.animations.leave) {
-        this.leaveAnimationFactory = this.builder.build(this.animations.leave);
-      }
-    }
-  }
+  @Input()
+  overlayX: HorizontalConnectionPos  = 'start';
 
-  private onChange(changes: SimpleChanges = { target: { currentValue: this.target } } as any): void {
-    const tag = `${this.tag}.onChange()`;
-    const debug: boolean = this.debug || false;
-    if (debug) { console.log(tag, 'changes:', changes); }
-    if (changes.target) {
-      this.setTarget(changes.target.currentValue);
-      this.setTag();
-    }
-    // this.reposition();
-  }
+  @Input()
+  overlayY: VerticalConnectionPos = 'top';
 
-  private setTarget(value: Element | ElementRef | string = this.target) {
-    this.targetElement = this.getTargetElement(value) as Element;
-  }
+  @Input()
+  offsetX = 0;
 
-  private setTag(): void {
-    this.tag = `${PopoverComponent.Tag}.${this.target}`;
-  }
+  @Input()
+  offsetY = 0;
 
-  private getTargetElement(value: Element | ElementRef | string): Element | undefined {
-    const tag = `${PopoverComponent.Tag}.getTargetElement()`;
-    const debug: boolean = this.debug || false;
-    if (debug) { console.log(tag, 'value:', value); }
+  @Input()
+  width?: number;
 
-    let el: Element | undefined;
-    if (typeof value === 'string') {
-      if (debug) { console.log(tag, 'typeof value === string'); }
-      el = document.querySelector(value) as Element;
-    } else if (value instanceof Element) {
-      if (debug) { console.log(tag, 'value instanceof Element'); }
-      el = value;
-    } else if (value instanceof ElementRef) {
-      if (debug) { console.log(tag, 'value instanceof ElementRef'); }
-      el = value.nativeElement;
+  @Input()
+  height?: number;
+
+  @Input()
+  position?: PositionStrategy;
+
+  @Input()
+  set visible(visible: boolean) {
+    if (visible) {
+      this.open();
     } else {
-      if (debug) { console.log(tag, 'value is undefined'); }
-    }
-
-    if (debug) { console.log(tag, 'el:', el); }
-    return el;
-  }
-
-  public reposition(): void {
-    const tag = `${this.tag}.reposition()`;
-    const debug: boolean = this.debug || false;
-
-    const targetPos = this.targetElement ? this.targetElement.getBoundingClientRect() : undefined;
-    if (debug) { console.log(tag, 'targetPos:', targetPos); }
-    if (!targetPos) { return; }
-
-    const ownPos: ClientRect = this.getAttachmentPosition();
-    if (debug) { console.log(tag, 'ownPos:', ownPos); }
-    if (!ownPos) { return; }
-
-    const mustX: number = this.targetX === AttachmentX.Center ?
-      targetPos[AttachmentX.Left] + targetPos[Dimension.Width] / 2 :
-      targetPos[this.targetX];
-
-    const isX: number = this.attachmentX === AttachmentX.Center ?
-      ownPos[AttachmentX.Left] + ownPos[Dimension.Width] / 2 :
-      ownPos[this.attachmentX];
-
-    const diffX: number = mustX - isX;
-
-    this.translateX = this.translateX + diffX + this.offsetAttachmentX;
-
-    const mustY: number = this.targetY === AttachmentY.Center ?
-      targetPos[AttachmentY.Top] + targetPos[Dimension.Height] / 2 :
-      targetPos[this.targetY];
-
-    const isY: number = this.attachmentY === AttachmentY.Center ?
-      ownPos[AttachmentY.Top] + ownPos[Dimension.Height] / 2 :
-      ownPos[this.attachmentY];
-
-    const diffY: number = mustY - isY + this.offsetAttachmentY;
-
-    if (debug) {
-      console.log(tag, {
-        targetPos,
-        ownPos,
-        mustX,
-        isX,
-        diffX,
-        mustY,
-        isY,
-        diffY
-      });
-    }
-
-    this.translateY = this.translateY + diffY;
-  }
-
-  private getAttachmentPosition(): ClientRect {
-    return this.ref.nativeElement.getBoundingClientRect();
-  }
-
-  public open(): void {
-    if (this.state === PopoverState.visible || this.state === PopoverState.opening) {
-      return;
-    }
-
-    this.state = PopoverState.opening;
-    this.willOpen.emit();
-    // We have to wait one runloop before calling reposition(), so the element is rendered and the right bounds can be determined.
-    // Also when opening the popover is hidden via the visibility-style. This avoids flashing up on the wrong position.
-    setTimeout(() => {
-      this.reposition();
-      if (this.enterAnimationFactory && this.ref) {
-        const player = this.enterAnimationFactory.create(this.ref.nativeElement);
-        player.onDone(() => {
-          player.destroy();
-        });
-        player.play();
-      }
-      this.state = PopoverState.visible;
-      this.cd.markForCheck();
-    });
-  }
-
-  public close(): void {
-    if (this.state === PopoverState.hidden || this.state === PopoverState.opening || this.state === PopoverState.closing) {
-      return;
-    }
-
-    this.state = PopoverState.closing;
-    this.willClose.emit();
-
-    if (this.leaveAnimationFactory && this.ref) {
-      const player = this.leaveAnimationFactory.create(this.ref.nativeElement);
-      player.onDone(() => {
-        player.destroy();
-        this.state = PopoverState.hidden;
-        this.cd.markForCheck();
-      });
-      player.play();
-    } else {
-      this.state = PopoverState.hidden;
-      this.cd.markForCheck();
+      this.close();
     }
   }
 
-  public toggle(): void {
+  @Output()
+  visibleChange = new EventEmitter<boolean>();
+
+  @Output()
+  afterClose = new EventEmitter<any>();
+
+  get visible() {
+    return this.isOpen;
+  }
+
+  open() {
+    super.open();
+    this.visibleChange.emit(this.isOpen);
+  }
+
+  close() {
+    super.close();
+    this.visibleChange.emit(this.isOpen);
+  }
+
+  toggle() {
     if (this.visible) {
       this.close();
     } else {
       this.open();
     }
+  }
+
+  protected getInjector() {
+    return this.injector;
+  }
+
+  protected createPortal(): Portal<any> {
+    return new TemplatePortal(this.template, this.viewContainerRef);
+  }
+
+  protected afterOpened(overlayRef: OverlayRef): void {
+
+  }
+
+  protected afterClosed(result: any, overlayRef: OverlayRef) {
+    if (!this.isLayerDestroyed) {
+      // We need to trigger change detection manually, because
+      // `fromEvent` doesn't seem to do it at the proper time.
+      this.cdRef.detectChanges();
+    }
+    this.afterClose.emit();
+  }
+
+  protected getOverlayConfig(): OverlayConfig {
+    return new OverlayConfig({
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      direction: this._dir,
+      positionStrategy: this.position || this.overlay.position()
+      .connectedTo(this.target, {
+        originX: this.originX,
+        originY: this.originY
+      }, {
+        overlayX: this.overlayX,
+        overlayY: this.overlayY,
+      })
+      .withOffsetX(this.offsetX)
+      .withOffsetY(this.offsetY),
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy();
   }
 }
