@@ -98,16 +98,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/dropdown/demo.module#DropdownDemoModule',
-  //   path: 'dropdown',
-  //   data: {
-  //     demo: {
-  //       label: 'Dropdown',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/dropdown/demo.module#DropdownDemoModule',
+    path: 'dropdown',
+    data: {
+      demo: {
+        label: 'Dropdown',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/file-input/demo.module#FileInputDemoModule',
   //   path: 'file-input',
@@ -189,16 +189,6 @@ export const routes: Routes = [
     }
   },
   // {
-  //   loadChildren: './demos/select/demo.module#SelectDemoModule',
-  //   path: 'select',
-  //   data: {
-  //     demo: {
-  //       label: 'Select',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
-  // {
   //   loadChildren: './demos/slider/demo.module#SliderDemoModule',
   //   path: 'slider',
   //   data: {
@@ -228,16 +218,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  {
-    loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
-    path: 'autocomplete',
-    data: {
-      demo: {
-        label: 'Autocomplete',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
+  // {
+  //   loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
+  //   path: 'autocomplete',
+  //   data: {
+  //     demo: {
+  //       label: 'Autocomplete',
+  //       category: CAT_FORM_CONTROLS,
+  //     }
+  //   }
+  // },
   // {
   //   loadChildren: './demos/form-mashups/demo.module#FormMashupsDemoModule',
   //   path: 'form-mashups',
@@ -428,26 +418,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/metalist/demo.module#MetalistDemoModule',
-  //   path: 'metalist',
-  //   data: {
-  //     demo: {
-  //       label: 'Metalist',
-  //       category: CAT_MISC,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/off-click/demo.module#OffClickDemoModule',
-  //   path: 'off-click',
-  //   data: {
-  //     demo: {
-  //       label: 'Off Click',
-  //       category: CAT_MISC,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/off-click/demo.module#OffClickDemoModule',
+    path: 'off-click',
+    data: {
+      demo: {
+        label: 'Off Click',
+        category: CAT_MISC,
+      }
+    }
+  },
   // {
   //   loadChildren: './demos/rating/demo.module#RatingDemoModule',
   //   path: 'rating',

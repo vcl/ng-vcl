@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { VCLFormControlLabelModule, VCLInputControlGroupModule, VCLButtonModule, VCLButtonGroupModule,
-         VCLInputModule, VCLFileInputModule, VCLFlipSwitchModule, VCLSelectModule, VCLDropdownModule, VCLCheckboxModule, VCLLabelModule, VCLSliderModule, VCLTokenModule, VCLTextareaModule,
+         VCLInputModule, VCLFileInputModule, VCLFlipSwitchModule, VCLDropdownModule, VCLCheckboxModule, VCLLabelModule, VCLSliderModule, VCLTokenModule, VCLTextareaModule,
          VCLRadioButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormDemoComponent } from './demo.component';
@@ -38,7 +38,6 @@ export function demo() {
     VCLInputModule,
     VCLFileInputModule,
     VCLFlipSwitchModule,
-    VCLSelectModule,
     VCLDropdownModule,
     VCLCheckboxModule,
     VCLLabelModule,

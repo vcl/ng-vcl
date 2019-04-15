@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   templateUrl: 'demo.component.html'
 })
 export class DropdownDemoComponent {
+
+  @ViewChild('btn', { read: ElementRef })
+  btnElRef;
+
+  visible = false;
 
   selectedItem = 10;
 

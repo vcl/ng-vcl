@@ -1,256 +1,221 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren,
-         ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, OnInit, Optional, Output, QueryList, ViewChild, AfterViewInit, } from '@angular/core';
-import { AnimationBuilder, AnimationFactory, AnimationMetadata } from '@angular/animations';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownOptionComponent } from './dropdown-option.component';
-import { MetalistComponent, MetalistItemComponent } from '../metalist/index';
-
-export enum DropdownState {
-  Expanded,
-  Closed,
-  Expanding,
-  Closing
-}
-
-export const DROPDOWN_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#dropdown_animations');
-
-export interface DropdownAnimationConfig {
-  enter?: AnimationMetadata | AnimationMetadata[];
-  leave?: AnimationMetadata | AnimationMetadata[];
-}
-
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => DropdownComponent),
-  multi: true
-};
+import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef,
+         Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector, forwardRef, NgZone, ContentChildren, QueryList, HostBinding } from '@angular/core';
+import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
+import { Directionality } from '@angular/cdk/bidi';
+import { Subscription, merge, NEVER, Subject, Observable } from 'rxjs';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { filter, switchMap, take, startWith, tap } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
+import { TemplateOverlay } from '../overlay';
+import { createOffClickStream } from '../off-click';
+import { DropdownItemComponent } from './components/dropdown-item.component';
+import { DROPDOWN_TOKEN, Dropdown, DropdownItem, DropdownAction, DropdownOptions } from './types';
 
 @Component({
   selector: 'vcl-dropdown',
   templateUrl: 'dropdown.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  host: {
-    '[attr.tabindex]': '-1',
-  }
-})
-export class DropdownComponent implements ControlValueAccessor, OnInit, AfterViewInit {
-  readonly DropdownState = DropdownState;
-
-  @ViewChild('metalist')
-  metalist: MetalistComponent;
-
-  @ViewChild('metalist', { read: ElementRef })
-  listbox: ElementRef;
-
-  @ContentChildren(DropdownOptionComponent)
-  items?: QueryList<DropdownOptionComponent>;
-
-  @Input()
-  tabindex = 0;
-
-  @Input()
-  value: any | any[];
-
-  state: DropdownState = DropdownState.Expanded;
-
-  get expanded() {
-    return (this.state === DropdownState.Expanding || this.state === DropdownState.Expanded);
-  }
-
-  @Input()
-  set expanded(value) {
-    if (value) {
-      this.expand();
-    } else {
-      this.close();
+  exportAs: 'vclDropdown',
+  providers: [
+    {
+      provide: DROPDOWN_TOKEN,
+      useExisting: forwardRef(() => DropdownComponent)
     }
-  }
-
-  @Output()
-  willClose = new EventEmitter<any>();
-
-  @Output()
-  willExpand = new EventEmitter<any>();
-
-  // If `single`, a single item can be selected
-  // If `multiple` multiple items can be selected
-  @Input()
-  mode: 'multiple' | 'single' = 'single';
-
-  @Input()
-  maxSelectableItems?: number;
-
-  @Input()
-  disabled = false;
-
-  @Input()
-  listenKeys = true;
-
-  @Output()
-  change = new EventEmitter<any>();
-
-  @Output()
-  itemsChange = new EventEmitter<any>();
-
-  focused = false;
-
-  enterAnimationFactory: AnimationFactory | undefined;
-  leaveAnimationFactory: AnimationFactory | undefined;
+  ]
+})
+export class DropdownComponent extends TemplateOverlay<DropdownItem> implements Dropdown, OnDestroy {
 
   constructor(
-    public readonly elementRef: ElementRef,
-    private readonly cdRef: ChangeDetectorRef,
-    private readonly builder: AnimationBuilder,
-    @Optional() @Inject(DROPDOWN_ANIMATIONS) private animations: DropdownAnimationConfig) { }
-
-  ngOnInit() {
-    this.scroll('selected');
+    injector: Injector,
+    @Optional()
+    private _dir: Directionality,
+    private viewContainerRef: ViewContainerRef,
+    private overlay: Overlay,
+    private cdRef: ChangeDetectorRef,
+  ) {
+    super(injector);
   }
 
-  public async expand(): Promise<void> {
-    if (this.state === DropdownState.Expanded || this.state === DropdownState.Expanding) {
-      return;
-    }
+  private _dropdownOpenedSub?: Subscription;
+  private _target?: ElementRef;
+  private _offClickExclude?: (ElementRef | HTMLElement)[];
+  private _highlightedItem: DropdownItem;
+  private _values: any[] = [];
+  private _actionEmitter: Subject<DropdownAction>;
 
-    this.state = DropdownState.Expanding;
-    this.willExpand.emit();
+  @ViewChild(TemplateRef)
+  private _templateRef: TemplateRef<any>;
 
-    if (this.enterAnimationFactory && this.elementRef) {
-      const player = this.enterAnimationFactory.create(this.elementRef.nativeElement);
-      player.onDone(() => {
-        player.destroy();
-        this.state = DropdownState.Expanded;
-        this.cdRef.markForCheck();
-      });
-      player.play();
+  @ContentChildren(DropdownItemComponent)
+  private _items?: QueryList<DropdownItemComponent>;
+
+  // The dropdown element should not be visible in dom. Only its content.
+  @HostBinding('style.display')
+  styleDisplay = 'none';
+
+  protected getTemplateRef(): TemplateRef<any> {
+    return this._templateRef;
+  }
+
+  protected getViewContainerRef(): ViewContainerRef {
+    return this.viewContainerRef;
+  }
+
+  isItemHighlighted(item: DropdownItem): boolean {
+    return item === this._highlightedItem;
+  }
+
+  isItemSelected(item: DropdownItem): boolean {
+    return this._values.includes(item.value);
+  }
+
+  selectItem(item: DropdownItem): void {
+    if (this._values.includes(item.value)) {
+      this._values = this._values.filter(_value => _value !== item.value);
     } else {
-      this.state = DropdownState.Expanded;
-      this.cdRef.markForCheck();
+      this._values = [...this._values, item.value];
     }
+    const selectedItems = this._items.filter(_item => this._values.includes(_item.value));
+
+    this._actionEmitter.next({
+      type: 'select',
+      item: item,
+      selectedItems
+    });
   }
 
-  public close(): void {
-    if (this.state === DropdownState.Closed || this.state === DropdownState.Closing) {
-      return;
-    }
-
-    this.state = DropdownState.Closing;
-    this.willClose.emit();
-
-    if (this.leaveAnimationFactory && this.elementRef) {
-      const player = this.leaveAnimationFactory.create(this.elementRef.nativeElement);
-      player.onDone(() => {
-        player.destroy();
-        this.state = DropdownState.Closed;
-        this.cdRef.markForCheck();
-      });
-      player.play();
-    } else {
-      this.state = DropdownState.Closed;
-      this.cdRef.markForCheck();
-    }
+  highlight(value: any) {
+    this._highlightedItem = this._items.find((item) => item.value === value);
   }
 
-  async scroll(target: 'selected' | 'marked') {
-    await new Promise(res => setTimeout(res, 0));
-    if (this.listbox.nativeElement) {
-      const selectedItem = this.listbox.nativeElement.querySelectorAll('.vclSelected')[0];
-      if (!selectedItem) {
-        return;
-      }
+  highlightIndex(idx: any) {
+    this._highlightedItem = this._items.find((item, _idx) => idx === _idx);
+  }
 
-      const allItems = this.listbox.nativeElement.querySelectorAll('.vclDropdownItem');
-      let scrollTop = - this.listbox.nativeElement.clientHeight / 2 + (selectedItem.clientHeight / 2);
-
-      const metalistItems = this.metalist.itemsArray;
-
-      metalistItems.some((item, idx) => {
-        if (item[target]) {
-          this.listbox.nativeElement.scrollTop = scrollTop;
-          return true;
+  highlightPrev() {
+    if (this._items) {
+      const currIdx = this._items.toArray().findIndex((item) => item === this._highlightedItem);
+      if (currIdx < 0) {
+        this._highlightedItem = this._items.first;
+      } else {
+        const highlightedItem = this._items.toArray().reverse().find((item, thisRevId, items) => {
+          const thisIdx = (items.length - 1) - thisRevId;
+          return thisIdx < currIdx;
+        });
+        if (highlightedItem) {
+          this._highlightedItem = highlightedItem;
+        } else {
+          this._highlightedItem = this._items.first;
         }
-        scrollTop += allItems[idx].clientHeight;
-        return false;
-      });
-    }
-  }
-
-  onMetalistItemTap(metaItem: MetalistItemComponent) {
-    this.metalist.select(metaItem);
-    this.onTouched();
-  }
-
-  onMetalistKeydown(ev) {
-    if (this.listenKeys) {
-      let prevent = true;
-      switch (ev.code) {
-        case 'ArrowDown':
-          this.metalist.markNext();
-          this.scroll('marked');
-          break;
-        case 'ArrowUp':
-          this.metalist.markPrev();
-          this.scroll('marked');
-          break;
-        case 'Enter':
-          this.metalist.selectMarked();
-          break;
-        default:
-          prevent = false;
-      }
-      this.onTouched();
-      prevent && ev.preventDefault();
-    }
-  }
-  ngAfterViewInit() {
-    if (this.animations) {
-      if (this.animations.enter) {
-        this.enterAnimationFactory = this.builder.build(this.animations.enter);
-      }
-      if (this.animations.leave) {
-        this.leaveAnimationFactory = this.builder.build(this.animations.leave);
       }
     }
   }
-  onMetalistFocus() {
-    this.focused = true;
-  }
-  onMetalistBlur() {
-    this.focused = false;
-    this.onTouched();
+
+  highlightNext() {
+    if (this._items) {
+      const currIdx = this._items.toArray().findIndex((item) => item === this._highlightedItem);
+
+      const highlightedItem = this._items.toArray().find((item, thisIdx) => thisIdx > currIdx);
+      if (highlightedItem) {
+        this._highlightedItem = highlightedItem;
+      }
+    }
   }
 
-  onMetalistChange(value: any) {
-    this.change.emit(value);
-    this.onChange(value);
+  getItems() {
+    return this._items.toArray();
   }
 
-  onItemsChange() {
-    // Nested meta items have changed. So we need need to trigger change detection
-    this.cdRef.detectChanges();
-    this.itemsChange.emit();
+  getHighlightedItem() {
+    return this._highlightedItem;
   }
 
-  /**
-   * things needed for ControlValueAccessor-Interface
-   */
-  private onChange: (_: any) => void = () => { };
-  private onTouched: () => any = () => { };
-
-  writeValue(value: any): void {
-    this.value = value;
-    this.metalist.setValue(value);
-  }
-  registerOnChange(fn: any) {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
-    this.cdRef.markForCheck();
+  get isOpen() {
+    return this.isAttached;
   }
 
+  open(opts: DropdownOptions): Observable<DropdownAction> {
+    if (this.isAttached) {
+      this.detach();
+    }
+
+    this._actionEmitter = new Subject();
+
+    this._target = opts.target;
+    this._offClickExclude = opts.offClickExclude;
+    this._values = opts.values || [];
+
+    const config = new OverlayConfig({
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      direction: this._dir,
+      width: opts.width !== undefined ? opts.width : this._target.nativeElement.getBoundingClientRect().width,
+      panelClass: ['vclDropdown', 'vclOpen'],
+      positionStrategy: this.overlay.position()
+      .connectedTo(this._target, {
+        originX: 'start',
+        originY: 'bottom'
+      }, {
+        overlayX: 'start',
+        overlayY: 'top'
+      }).withFallbackPosition({
+        originX: 'start',
+        originY: 'top'
+      }, {
+        overlayX: 'start',
+        overlayY: 'bottom'
+      })
+    });
+    this.attach(config);
+
+    return this._actionEmitter.asObservable();
+  }
+
+  close() {
+    this.detach();
+  }
+
+  protected afterAttached(): void {
+    this._dropdownOpenedSub = this._items.changes.pipe(
+      startWith(undefined),
+      switchMap(() => {
+        if (!this.isAttached) {
+          return NEVER;
+        }
+        return merge(
+          this.overlayRef.keydownEvents().pipe(
+            filter(event => {
+              return event.keyCode === ESCAPE;
+            })
+          ),
+          createOffClickStream([this.overlayRef.overlayElement, this._target, ...this._offClickExclude], {
+            document: this.injector.get(DOCUMENT)
+          })
+        );
+      })
+    ).subscribe(() => {
+      this.detach();
+    });
+  }
+
+  protected afterDetached(result) {
+    if (!this.isDestroyed) {
+      // We need to trigger change detection manually, because
+      // `fromEvent` doesn't seem to do it at the proper time.
+      this.cdRef.detectChanges();
+    }
+    this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
+    this._target = undefined;
+    this._highlightedItem = undefined;
+
+    const selectedItems = this._items.filter(_item => this._values.includes(_item.value));
+
+    this._actionEmitter && this._actionEmitter.next({
+      type: 'close',
+      selectedItems
+    });
+    this._actionEmitter && this._actionEmitter.complete();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy();
+  }
 }

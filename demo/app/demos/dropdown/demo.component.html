@@ -1,40 +1,42 @@
-<h3>single-select</h3>
-<vcl-dropdown [value]="10" (change)="onSelect($event)" [tabindex]="1">
-  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
+<h3>vcl-dropdown on input</h3>
+
+<vcl-embedded-input-group prepIcon="fas:flag">
+  <input placeholder="Search"
+         vclEmbeddedInputGroup
+         [vclDropdown]="dropdownCountries"
+         />
+</vcl-embedded-input-group>
+ 
+
+<vcl-dropdown #dropdownCountries="vclDropdown">
+  <vcl-dropdown-header>Europe</vcl-dropdown-header>
+  <vcl-dropdown-item value="gr" label="Greece">
+    fancy html
+  </vcl-dropdown-item>
+  <vcl-dropdown-label-item value="fr">France</vcl-dropdown-label-item>
+  <vcl-dropdown-label-item value="de">Germany</vcl-dropdown-label-item>
+  <vcl-dropdown-label-item value="uk">The United Kingdom of Great Britain and Northern Ireland</vcl-dropdown-label-item>
+  <vcl-dropdown-header>Asia</vcl-dropdown-header>
+  <vcl-dropdown-label-item value="jp">Japan</vcl-dropdown-label-item>
+  <vcl-dropdown-label-item value="cn">China</vcl-dropdown-label-item>
+  <vcl-dropdown-label-item value="th">Thailand</vcl-dropdown-label-item>
 </vcl-dropdown>
 
-<br/>
-<h3>single-select with prepended icon</h3>
-<vcl-dropdown [value]="10" (change)="onSelect($event)" [tabindex]="1">
-  <vcl-dropdown-option *ngFor="let item of items" prepIcon="fas:pencil" [value]="item.value" [disabled]="item.disabled" [label]="item.label"
-                       [sublabel]="item.sublabel"></vcl-dropdown-option>
-</vcl-dropdown>
+<h3>vcl-dropdown on select</h3>
 
-<br/>
-<h3>multi-select</h3>
-<vcl-dropdown [value]="[10]" (change)="onSelect($event)" [tabindex]="2" mode="multiple" [maxSelectableItems]="3">
-  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
-</vcl-dropdown>
+<vcl-select [value]="'fr'" mode="multiple">
+  <vcl-dropdown>
+    <vcl-dropdown-header>Europe</vcl-dropdown-header>
+    <vcl-dropdown-label-item value="gr">Greece</vcl-dropdown-label-item>
+    <vcl-dropdown-label-item value="fr">France</vcl-dropdown-label-item>
+    <vcl-dropdown-label-item value="de">Germany</vcl-dropdown-label-item>
+    <vcl-dropdown-label-item value="uk">The United Kingdom of Great Britain and Northern Ireland</vcl-dropdown-label-item>
+    <vcl-dropdown-header>Asia</vcl-dropdown-header>
+    <vcl-dropdown-label-item value="jp">Japan</vcl-dropdown-label-item>
+    <vcl-dropdown-label-item value="cn">China</vcl-dropdown-label-item>
+    <vcl-dropdown-label-item value="th">Thailand</vcl-dropdown-label-item>
+  </vcl-dropdown>
+</vcl-select>
+  
 
-<br/>
-<h3>vcl-dropdown-option with content</h3>
-<vcl-dropdown [value]="2" (change)="onSelect($event)" [tabindex]="5">
-  <vcl-dropdown-option [value]="1">
-    <div class="vclDropdownItemLabel">
-      <b>item 1</b>
-    </div>
-  </vcl-dropdown-option>
-  <vcl-dropdown-option [value]="2">
-    <div class="vclDropdownItemLabel">
-      <b>item 2 (preselected)</b>
-    </div>
-  </vcl-dropdown-option>
-</vcl-dropdown>
-<br/>
 
-<h3>single-select with ngModel</h3>
-<vcl-dropdown [(ngModel)]="selectedItem" [tabindex]="6">
-  <vcl-dropdown-option *ngFor="let item of items" [value]="item.value" [disabled]="item.disabled" [label]="item.label" [sublabel]="item.sublabel"></vcl-dropdown-option>
-</vcl-dropdown>
-<br/>
-Selected item: {{selectedItem}}

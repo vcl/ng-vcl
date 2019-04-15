@@ -1,0 +1,23 @@
+<input #input 
+       vclInput
+       [value]="inputValue"
+       [attr.tabindex]="tabindex"
+       (keyup)="onKeyUp($event)"
+       (keydown)="onKeyDown($event)"
+       (keypress)="onKeyPress($event)"
+       (focus)="openDropdown()"
+       (click)="openDropdown()"
+       [disabled]="isDisabled"
+       class="vclAppItem vclReadonly"
+       role="listbox"
+       readonly
+       >
+<button #btn
+        vcl-icon-button
+        (click)="openDropdown()"
+        [disabled]="isDisabled"
+        icon="fas:chevron-down"
+        class="vclAppended"
+        ></button>
+
+<ng-content select="vcl-dropdown"></ng-content>

@@ -1,16 +1,12 @@
 import { Component, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'vcl-autocomplete-header',
-  exportAs: 'vclAutocompleteHeader',
+  selector: 'vcl-dropdown-header',
+  exportAs: 'vclDropdownHeader',
   styles: [],
-  templateUrl: 'autocomplete-header.component.html'
+  templateUrl: 'dropdown-header.component.html'
 })
-export class AutocompleteHeaderComponent {
-  // TODO: Workaround
-  @HostBinding('style.display')
-  styleDisplay = 'block';
-
+export class DropdownHeaderComponent {
   @HostBinding('class.vclDropdownItemGroupHeader')
   classVCLDropdownItemGroupHeader = true;
 

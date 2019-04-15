@@ -18,9 +18,9 @@ interface Search {
 }
 
 @Component({
-  templateUrl: 'demo.component.html'
+  templateUrl: 'async.component.html'
 })
-export class AutocompleteDemoComponent implements OnDestroy {
+export class DropdownAsyncDemoComponent implements OnDestroy {
   constructor(private http: HttpClient) { }
 
   search: Search = {
@@ -75,5 +75,3 @@ export class AutocompleteDemoComponent implements OnDestroy {
     this.searchSub && this.searchSub.unsubscribe();
   }
 }
-
-
