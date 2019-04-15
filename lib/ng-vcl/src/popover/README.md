@@ -29,7 +29,6 @@ Name                | Type                          | Default             | Desc
 `offsetY`           | number                        | 0                   | vertical popover offset
 `width`             | number \| string              |                     | popover width
 `offsetY`           | number \| string              |                     | popover height
-`position`          | PositionStrategy              |                     | A custom position strategy. See cdk docs.
   
 #### Methods  
 

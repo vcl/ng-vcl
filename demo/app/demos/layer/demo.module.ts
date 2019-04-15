@@ -1,10 +1,11 @@
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { VCLLayerModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
-import { ExampleComponent, ExampleLayerProvider } from './example.component';
+import { FooLayer, FooComponent } from './foo.component';
+import { BarComponent } from './bar.component';
 
 export function demo() {
   return {
@@ -23,13 +24,21 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-      'example.component.html': {
+      'foo.component.html': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./example.component.html')
+        content: require('!highlight-loader?raw=true&lang=html!./foo.component.html')
       },
-      'example.component.ts': {
+      'foo.component.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./example.component.ts')
+        content: require('!highlight-loader?raw=true&lang=ts!./foo.component.ts')
+      },
+      'bar.component.html': {
+        type: 'pre',
+        content: require('!highlight-loader?raw=true&lang=html!./bar.component.html')
+      },
+      'bar.component.ts': {
+        type: 'pre',
+        content: require('!highlight-loader?raw=true&lang=ts!./bar.component.ts')
       }
     },
   };
@@ -48,15 +57,17 @@ export function demo() {
     }]),
   ],
   providers: [
-    ExampleLayerProvider
+    FooLayer
   ],
   entryComponents: [
     LayerDemoComponent,
-    ExampleComponent
+    BarComponent,
+    FooComponent
   ],
   declarations: [
     LayerDemoComponent,
-    ExampleComponent
+    BarComponent,
+    FooComponent
   ]
 })
 export class LayerDemoModule { }

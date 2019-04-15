@@ -1,29 +1,28 @@
 import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef, Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector } from '@angular/core';
-import { OverlayConfig, PositionStrategy, Overlay, OverlayRef, HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { OverlayConfig, Overlay, HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { LayerRef } from '../layer';
-import { TemplatePortal, Portal } from '@angular/cdk/portal';
+import { TemplateOverlay } from '../overlay';
 
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
   exportAs: 'vclPopover',
 })
-export class PopoverComponent extends LayerRef<any> implements OnDestroy {
+export class PopoverComponent extends TemplateOverlay<any> implements OnDestroy {
 
   constructor(
     @Optional()
+    injector: Injector,
     private _dir: Directionality,
-    private viewContainerRef: ViewContainerRef,
     private overlay: Overlay,
-    private injector: Injector,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    protected viewContainerRef: ViewContainerRef,
   ) {
-    super();
+    super(injector);
   }
 
   @ViewChild(TemplateRef)
-  template: TemplateRef<any>;
+  private template: TemplateRef<any>;
 
   @Input()
   target: ElementRef<HTMLElement>;
@@ -53,9 +52,6 @@ export class PopoverComponent extends LayerRef<any> implements OnDestroy {
   height?: number;
 
   @Input()
-  position?: PositionStrategy;
-
-  @Input()
   set visible(visible: boolean) {
     if (visible) {
       this.open();
@@ -74,6 +70,14 @@ export class PopoverComponent extends LayerRef<any> implements OnDestroy {
     return this.isAttached;
   }
 
+  protected getViewContainerRef(): ViewContainerRef {
+    return this.viewContainerRef;
+  }
+
+  protected getTemplateRef(): TemplateRef<any> {
+    return this.template;
+  }
+
   reposition() {
     this.overlayRef && this.overlayRef.updatePosition();
   }
@@ -82,7 +86,8 @@ export class PopoverComponent extends LayerRef<any> implements OnDestroy {
     const config = new OverlayConfig({
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       direction: this._dir,
-      positionStrategy: this.position || this.overlay.position()
+      panelClass: 'vclPopOver',
+      positionStrategy: this.overlay.position()
       .connectedTo(this.target, {
         originX: this.originX,
         originY: this.originY
@@ -111,20 +116,8 @@ export class PopoverComponent extends LayerRef<any> implements OnDestroy {
     }
   }
 
-  protected getInjector() {
-    return this.injector;
-  }
-
-  protected createPortal(): Portal<any> {
-    return new TemplatePortal(this.template, this.viewContainerRef);
-  }
-
-  protected afterAttached(overlayRef: OverlayRef): void {
-
-  }
-
-  protected afterDetached(result: any, overlayRef: OverlayRef) {
-    if (!this.isLayerDestroyed) {
+  protected afterDetached(result) {
+    if (!this.isDestroyed) {
       // We need to trigger change detection manually, because
       // `fromEvent` doesn't seem to do it at the proper time.
       this.cdRef.detectChanges();

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { ExampleLayerRef } from './example.component';
+import { Component, ViewContainerRef } from '@angular/core';
+import { LayerService } from '@ng-vcl/ng-vcl';
+import { FooLayer } from './foo.component';
+import { BarComponent } from './bar.component';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -7,16 +9,30 @@ import { ExampleLayerRef } from './example.component';
 export class LayerDemoComponent {
 
   constructor(
-    private layerRef: ExampleLayerRef
+    private fooLayer: FooLayer,
+    private layerService: LayerService,
+    private viewContainerRef: ViewContainerRef
   ) {
-    layerRef.afterClose.subscribe(result => {
+    fooLayer.afterClose.subscribe(result => {
       console.log(result.value);
     });
   }
 
-  openComponentLayer() {
-    this.layerRef.open({
-      title: 'Component Layer'
+  openBarLayer() {
+    const layer = this.layerService.open(BarComponent, {
+      title: 'bar component layer title'
+    }, {
+      modal: true
+    });
+    layer.afterClose.subscribe(result => {
+      layer.destroy(); // Layer is not needed anymore
+      console.log(result.value);
+    });
+  }
+
+  openFooLayer() {
+    this.fooLayer.open({
+      title: 'foo component layer title'
     });
   }
 }

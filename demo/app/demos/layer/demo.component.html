@@ -1,14 +1,16 @@
-<button vcl-button (click)="layer1.open()">Open template layer</button>
+<button vcl-button (click)="layer.open()">Open template layer</button>
 <br><br>
-<button vcl-button (click)="openComponentLayer()">Open component layer</button>
+<button vcl-button (click)="openFooLayer()">Open foo component</button>
+<br><br>
+<button vcl-button (click)="openBarLayer()">Open bar component layer</button>
 
-<vcl-layer #layer1="vclLayer">
+<vcl-layer #layer="vclLayer">
   <div class="vclPanel vclPanelDialog vclNoMargin">
     <div class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
       <h3 class="vclPanelTitle">
         Layer
       </h3>
-      <button vcl-icon-button icon="fas:times" class="vclTransparent" (click)="layer1.close()"></button>
+      <button vcl-icon-button icon="fas:times" class="vclTransparent" (click)="layer.close()"></button>
     </div>
     <div class="vclPanelBody">
       <p class="vclPanelContent">
@@ -18,29 +20,10 @@
     <div class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
       <div></div>
       <div class="vclLooseButtonGroup">
-        <button vcl-button icon="fas:times" class="vclTransparent vclOutline" (click)="layer1.close()">Close layer</button>
-        <button vcl-button icon="fas:times" class="vclEmphasized" (click)="layer2.open()">Open modal layer</button>
+        <button vcl-button icon="fas:times" class="vclTransparent vclOutline" (click)="layer.close()">Close layer</button>
+        <button vcl-button icon="fas:times" class="vclEmphasized" (click)="openFooLayer()">Open foo layer</button>
       </div>
     </div>
   </div>
 </vcl-layer>
 
-<vcl-layer #layer2="vclLayer" [modal]="true">
-  <div class="vclPanel vclPanelDialog vclNoMargin">
-    <div class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
-      <h3 class="vclPanelTitle">Modal Layer</h3>
-      <button vcl-icon-button icon="fas:times" class="vclTransparent" (click)="layer2.close()"></button>
-    </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
-        Modal layers cannot be closed with escape or outside click
-      </p>
-    </div>
-    <div class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
-      <div></div>
-      <div class="vclLooseButtonGroup">
-        <button vcl-button icon="fas:times" class="vclTransparent vclOutline" (click)="layer2.close()">Close layer</button>
-      </div>
-    </div>
-  </div>
-</vcl-layer>

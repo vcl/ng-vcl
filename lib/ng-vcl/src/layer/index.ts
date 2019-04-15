@@ -4,17 +4,17 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { BidiModule } from '@angular/cdk/bidi';
 import { PortalModule } from '@angular/cdk/portal';
 
-import { LayerRef } from './layer-ref';
-import { LayerRefComponent } from './layer-ref.component';
-import { ComponentLayerRef } from './component-layer-ref';
-import { LayerFactory } from './layer-factory.service';
+import { LayerComponent } from './layer.component';
+import { LayerBase, LAYER_TOKEN } from './layer-base';
+import { LayerService } from './layer.service';
+import { Layer } from './interfaces';
 
-export { LayerRefComponent, ComponentLayerRef, LayerFactory, LayerRef };
+export { LayerComponent, LayerBase, LAYER_TOKEN, LayerService, Layer };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, BidiModule, PortalModule],
-  exports: [LayerRefComponent],
-  declarations: [LayerRefComponent],
-  providers: [LayerFactory],
+  exports: [LayerComponent],
+  declarations: [LayerComponent],
+  providers: [LayerService],
 })
 export class VCLLayerModule { }
