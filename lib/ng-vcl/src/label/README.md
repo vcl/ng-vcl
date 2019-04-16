@@ -34,4 +34,4 @@ export class AppComponent {}
 
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------
-`vcl-label`| string |         | the label's type
+`type`     | string |         | the label's type

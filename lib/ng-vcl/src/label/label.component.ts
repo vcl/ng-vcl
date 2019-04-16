@@ -1,9 +1,11 @@
-import { Directive, Input, HostBinding } from '@angular/core';
+import { Input, HostBinding, Component, ChangeDetectionStrategy } from '@angular/core';
 
-@Directive({
-  selector: 'vcl-label'
+@Component({
+  selector: 'vcl-label',
+  template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LabelDirective {
+export class LabelComponent {
 
   @HostBinding('class.vclLabel')
   classVCLLabel = true;
