@@ -7,21 +7,19 @@ import { VCLButtonModule } from '../button';
 
 import { DropdownComponent } from './dropdown.component';
 import { DropdownHeaderComponent } from './components/dropdown-header.component';
-import { DropdownItemComponent } from './components/dropdown-item.component';
-import { DropdownLabelItemComponent } from './components/dropdown-label-item.component';
+import { DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective } from './components/dropdown-item.component';
 import { DropdownSeperatorComponent } from './components/dropdown-seperator.component';
+import { DropdownContentComponent } from './components/dropdown-content.component';
 import { DropdownInputDirective } from './dropdown-input.directive';
-import { SelectComponent } from './select.component';
 import { VCLInputModule } from '../input';
 import { VCLIcogramModule } from '../icogram';
 
-
-export { DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelItemComponent, DropdownSeperatorComponent, DropdownInputDirective, SelectComponent };
+export { DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule],
-  exports: [DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelItemComponent, DropdownSeperatorComponent, DropdownInputDirective, SelectComponent],
-  declarations: [DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelItemComponent, DropdownSeperatorComponent, DropdownInputDirective, SelectComponent],
+  exports: [DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective],
+  declarations: [DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective],
   providers: [],
 })
 export class VCLDropdownModule { }

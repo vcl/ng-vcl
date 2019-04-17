@@ -1,27 +1,34 @@
 
 <h3>vcl-dropdown with async data</h3>
 
-<vcl-embedded-input-group prepIcon="fas:search">
+<vcl-embedded-input-group>
+  <vcl-icon vclPrepend icon="fas:search"></vcl-icon>
   <input #inputBooks 
-         vclEmbeddedInputGroup 
+         vclInput 
          placeholder="Search Google Books api" 
          (input)="search$.next($event.target.value)"
          [vclDropdown]="dropdownBooks"
          [vclDropdownDisabled]="search.state === 'cleared'"
-         [vclDropdownMapValue]="'void'"
-         (vclDropdownSelect)="onSelectBook($event)"
+         [vclDropdownMapViewValue]="'void'"
+         (vclDropdownSelectionChange)="onSelectBook($event)"
          />
-  <button vcl-embedded-input-group 
-          (click)="inputBooks.value = ''; inputBooks.focus(); search$.next('')" 
-          [icon]="'fas:times-circle'">
+  <button vcl-square-button vclAppend
+          (click)="inputBooks.value = ''; inputBooks.focus(); search$.next('')">
+    <vcl-icon [icon]="'fas:times-circle'"></vcl-icon>
   </button>
 </vcl-embedded-input-group>
 
 <vcl-dropdown #dropdownBooks="vclDropdown">
-  <vcl-busy-indicator *ngIf="search.state === 'loading'" style="padding: 1em"></vcl-busy-indicator>
-  <div *ngIf="search.state === 'success' && search.books.length === 0" style="padding: 1em">No books found</div>
+  <vcl-dropdown-content *ngIf="search.state === 'loading'" >
+    <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
+  </vcl-dropdown-content>
+  <vcl-dropdown-content *ngIf="search.state === 'success' && search.books.length === 0">
+    <div style="padding: 1em">No books found</div>
+  </vcl-dropdown-content>
   <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
-    <vcl-dropdown-label-item *ngFor="let book of search.books" [value]="book">{{book.title}}</vcl-dropdown-label-item>
+    <vcl-dropdown-item *ngFor="let book of search.books" [value]="book">
+      <vcl-dropdown-label>{{book.title}}</vcl-dropdown-label>
+    </vcl-dropdown-item>
   </ng-container>
 </vcl-dropdown>
 

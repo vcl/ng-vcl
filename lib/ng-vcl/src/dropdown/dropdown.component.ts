@@ -10,6 +10,8 @@ import { TemplateOverlay } from '../overlay';
 import { createOffClickStream } from '../off-click';
 import { DropdownItemComponent } from './components/dropdown-item.component';
 import { DROPDOWN_TOKEN, Dropdown, DropdownItem, DropdownAction, DropdownOptions } from './types';
+import { DropdownHeaderComponent } from '.';
+import { DropdownContentComponent } from './components/dropdown-content.component';
 
 @Component({
   selector: 'vcl-dropdown',
@@ -36,11 +38,35 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
   }
 
   private _dropdownOpenedSub?: Subscription;
-  private _target?: ElementRef;
-  private _offClickExclude?: (ElementRef | HTMLElement)[];
   private _highlightedItem: DropdownItem;
-  private _values: any[] = [];
   private _actionEmitter: Subject<DropdownAction>;
+
+  @Input()
+  selectionMode: 'single' | 'multiple' | 'none' = 'single';
+
+  @Input()
+  value?: any | any[];
+
+  @Input()
+  target?: ElementRef | HTMLElement | {elementRef};
+
+  @Input()
+  width?: number | string;
+
+  @Input()
+  height?: number | string;
+
+  @Input()
+  maxHeight?: number | string;
+
+  @Input()
+  offClickExcludes?: any[];
+
+  @Output()
+  valueChange =  new EventEmitter();
+
+  @Output()
+  afterClose =  new EventEmitter();
 
   @ViewChild(TemplateRef)
   private _templateRef: TemplateRef<any>;
@@ -48,7 +74,10 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
   @ContentChildren(DropdownItemComponent)
   private _items?: QueryList<DropdownItemComponent>;
 
-  // The dropdown element should not be visible in dom. Only its content.
+  @ContentChildren(DropdownContentComponent)
+  private _content?: QueryList<DropdownContentComponent>;
+
+  // The dropdown element should not be visible in dom. Only its content rendered at the app root element.
   @HostBinding('style.display')
   styleDisplay = 'none';
 
@@ -60,27 +89,56 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
     return this.viewContainerRef;
   }
 
+  get hasContent() {
+    return this._items.length > 0 && this._content.length > 0;
+  }
+
+  private get _valueArray() {
+    if (Array.isArray(this.value)) {
+      return this.value;
+    } else {
+      return this.value === undefined ? [] : [this.value];
+    }
+  }
+
   isItemHighlighted(item: DropdownItem): boolean {
     return item === this._highlightedItem;
   }
 
   isItemSelected(item: DropdownItem): boolean {
-    return this._values.includes(item.value);
+    return this._valueArray.includes(item.value);
   }
 
   selectItem(item: DropdownItem): void {
-    if (this._values.includes(item.value)) {
-      this._values = this._values.filter(_value => _value !== item.value);
+    if (this.selectionMode === 'none') {
+      this.value = undefined;
+    } else if (this.selectionMode === 'single') {
+      this.value = item.value;
     } else {
-      this._values = [...this._values, item.value];
+      const values = this._valueArray;
+      if (values.includes(item.value)) {
+        this.value = values.filter(_value => _value !== item.value);
+      } else {
+        this.value = [...values, item.value];
+      }
     }
-    const selectedItems = this._items.filter(_item => this._values.includes(_item.value));
+
+    this.valueChange.emit(this.value);
 
     this._actionEmitter.next({
       type: 'select',
       item: item,
-      selectedItems
+      selectedItems: this.selectedItems
     });
+
+    if (this.selectionMode === 'single' || this.selectionMode === 'none') {
+      this.close();
+    }
+  }
+
+  get selectedItems() {
+    return this._items.filter(_item => this._valueArray.includes(_item.value));
+
   }
 
   highlight(value: any) {
@@ -93,6 +151,11 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
 
   highlightPrev() {
     if (this._items) {
+      if (!this._highlightedItem) {
+        const selectedItems = this.selectedItems;
+        this._highlightedItem = selectedItems[0];
+      }
+
       const currIdx = this._items.toArray().findIndex((item) => item === this._highlightedItem);
       if (currIdx < 0) {
         this._highlightedItem = this._items.first;
@@ -112,6 +175,11 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
 
   highlightNext() {
     if (this._items) {
+      if (!this._highlightedItem) {
+        const selectedItems = this.selectedItems;
+        this._highlightedItem = selectedItems[0];
+      }
+
       const currIdx = this._items.toArray().findIndex((item) => item === this._highlightedItem);
 
       const highlightedItem = this._items.toArray().find((item, thisIdx) => thisIdx > currIdx);
@@ -133,24 +201,47 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
     return this.isAttached;
   }
 
-  open(opts: DropdownOptions): Observable<DropdownAction> {
+  private getTargetHTMLElement(): HTMLElement {
+    if (this.target instanceof ElementRef) {
+      return this.target.nativeElement;
+    } else if (this.target instanceof HTMLElement) {
+      return this.target;
+    } else {
+      if (this.target && this.target.elementRef && this.target.elementRef.nativeElement) {
+        return this.target.elementRef.nativeElement;
+      }
+      throw new Error('INVALID_DROPDOWN_TARGET');
+    }
+  }
+
+  open(opts?: DropdownOptions): Observable<DropdownAction> {
     if (this.isAttached) {
       this.detach();
     }
 
     this._actionEmitter = new Subject();
 
-    this._target = opts.target;
-    this._offClickExclude = opts.offClickExclude;
-    this._values = opts.values || [];
+    if (opts) {
+      this.target = opts.target || this.target;
+      this.offClickExcludes = opts.offClickExcludes || this.offClickExcludes;
+      this.value = opts.value === undefined ? this.value : opts.value;
+      this.selectionMode = opts.selectionMode || this.selectionMode;
+      this.width = opts.width || this.width;
+      this.height = opts.height || this.height;
+      this.maxHeight = opts.maxHeight || this.maxHeight;
+    }
+
+    const target = this.getTargetHTMLElement();
 
     const config = new OverlayConfig({
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       direction: this._dir,
-      width: opts.width !== undefined ? opts.width : this._target.nativeElement.getBoundingClientRect().width,
+      width: this.width !== undefined ? this.width : target.getBoundingClientRect().width,
+      height: this.height,
+      maxHeight: this.maxHeight || '20em',
       panelClass: ['vclDropdown', 'vclOpen'],
       positionStrategy: this.overlay.position()
-      .connectedTo(this._target, {
+      .connectedTo(target as any, {
         originX: 'start',
         originY: 'bottom'
       }, {
@@ -186,7 +277,7 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
               return event.keyCode === ESCAPE;
             })
           ),
-          createOffClickStream([this.overlayRef.overlayElement, this._target, ...this._offClickExclude], {
+          createOffClickStream([this.overlayRef.overlayElement, this.target, ...(this.offClickExcludes || [])], {
             document: this.injector.get(DOCUMENT)
           })
         );
@@ -203,16 +294,15 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
       this.cdRef.detectChanges();
     }
     this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
-    this._target = undefined;
     this._highlightedItem = undefined;
-
-    const selectedItems = this._items.filter(_item => this._values.includes(_item.value));
 
     this._actionEmitter && this._actionEmitter.next({
       type: 'close',
-      selectedItems
+      selectedItems: this.selectedItems
     });
     this._actionEmitter && this._actionEmitter.complete();
+
+    this.afterClose.emit(this.value);
   }
 
   ngOnDestroy(): void {

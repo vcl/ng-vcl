@@ -1,0 +1,44 @@
+<h3>single-select</h3>
+<vcl-select [value]="undefined" (selectionChange)="onChange($event)" [tabindex]="1">
+  <vcl-dropdown #dropdownCountries="vclDropdown">
+    <vcl-dropdown-item label=" -">
+      <vcl-dropdown-label>[Clear selection]</vcl-dropdown-label>
+    </vcl-dropdown-item>
+    <vcl-dropdown-header>Europe</vcl-dropdown-header>
+    <vcl-dropdown-item value="gr">
+      <vcl-dropdown-label>Greece</vcl-dropdown-label>
+      <vcl-dropdown-sublabel>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-dropdown-sublabel>
+    </vcl-dropdown-item>
+    <vcl-dropdown-item value="fr">
+      <vcl-dropdown-label>France</vcl-dropdown-label>
+    </vcl-dropdown-item>
+    <vcl-dropdown-item value="de">
+      <vcl-dropdown-label>Germany</vcl-dropdown-label>
+    </vcl-dropdown-item>
+    <vcl-dropdown-item value="uk" label="United Kingdom">
+      <vcl-dropdown-label>The United Kingdom of Great Britain and Northern Ireland</vcl-dropdown-label>
+    </vcl-dropdown-item>
+    <vcl-dropdown-header>Asia</vcl-dropdown-header>
+    <vcl-dropdown-item value="jp">
+      <vcl-dropdown-label>Japan</vcl-dropdown-label>
+    </vcl-dropdown-item>
+    <vcl-dropdown-item value="cn">
+      <vcl-dropdown-label>China</vcl-dropdown-label>
+    </vcl-dropdown-item>
+    <vcl-dropdown-item value="th">
+      <vcl-dropdown-label>Thailand</vcl-dropdown-label>
+    </vcl-dropdown-item>
+  </vcl-dropdown>
+</vcl-select>
+
+<br>
+
+<h3>multi-select</h3>
+<vcl-select [value]="[]" label="Select items" (selectionChange)="onChange($event)" [tabindex]="1" selectionMode="multiple" >
+  <vcl-dropdown>
+    <vcl-dropdown-item *ngFor="let item of items" [value]="item.value">
+      <vcl-dropdown-label>{{item.label}}</vcl-dropdown-label>
+    </vcl-dropdown-item>
+  </vcl-dropdown>
+</vcl-select>
+

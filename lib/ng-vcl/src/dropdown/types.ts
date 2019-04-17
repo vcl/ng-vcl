@@ -13,10 +13,13 @@ export interface Dropdown {
 export const DROPDOWN_TOKEN = new InjectionToken<Dropdown>('dropdown');
 
 export interface DropdownOptions {
+  selectionMode: 'single' | 'multiple';
   target: ElementRef;
-  offClickExclude?: (ElementRef | HTMLElement)[];
+  offClickExcludes?: (ElementRef | HTMLElement)[];
   width?: number;
-  values?: any[];
+  height?: number | string;
+  maxHeight?: number | string;
+  value?: any | any[];
 }
 
 export interface DropdownSelectAction {

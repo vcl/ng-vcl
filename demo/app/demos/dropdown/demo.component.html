@@ -1,42 +1,61 @@
 <h3>vcl-dropdown on input</h3>
 
-<vcl-embedded-input-group prepIcon="fas:flag">
+<vcl-embedded-input-group>
+  <vcl-icon vclPrepend icon="fas:flag"></vcl-icon>
   <input placeholder="Search"
-         vclEmbeddedInputGroup
+         vclInput
          [vclDropdown]="dropdownCountries"
          />
 </vcl-embedded-input-group>
- 
 
 <vcl-dropdown #dropdownCountries="vclDropdown">
   <vcl-dropdown-header>Europe</vcl-dropdown-header>
-  <vcl-dropdown-item value="gr" label="Greece">
-    fancy html
+  <vcl-dropdown-item value="Greece">
+    <vcl-dropdown-label>Greece</vcl-dropdown-label>
+    <vcl-dropdown-sublabel>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-dropdown-sublabel>
   </vcl-dropdown-item>
-  <vcl-dropdown-label-item value="fr">France</vcl-dropdown-label-item>
-  <vcl-dropdown-label-item value="de">Germany</vcl-dropdown-label-item>
-  <vcl-dropdown-label-item value="uk">The United Kingdom of Great Britain and Northern Ireland</vcl-dropdown-label-item>
+  <vcl-dropdown-item value="France">
+    <vcl-dropdown-label>France</vcl-dropdown-label>
+  </vcl-dropdown-item>
+  <vcl-dropdown-item value="Germany">
+    <vcl-dropdown-label>Germany</vcl-dropdown-label>
+  </vcl-dropdown-item>
+  <vcl-dropdown-item value="The United Kingdom">
+    <vcl-dropdown-label>The United Kingdom of Great Britain and Northern Ireland</vcl-dropdown-label>
+  </vcl-dropdown-item>
   <vcl-dropdown-header>Asia</vcl-dropdown-header>
-  <vcl-dropdown-label-item value="jp">Japan</vcl-dropdown-label-item>
-  <vcl-dropdown-label-item value="cn">China</vcl-dropdown-label-item>
-  <vcl-dropdown-label-item value="th">Thailand</vcl-dropdown-label-item>
+  <vcl-dropdown-item value="Japan">
+    <vcl-dropdown-label>Japan</vcl-dropdown-label>
+  </vcl-dropdown-item>
+  <vcl-dropdown-item value="China">
+    <vcl-dropdown-label>China</vcl-dropdown-label>
+  </vcl-dropdown-item>
+  <vcl-dropdown-item value="Thailand">
+    <vcl-dropdown-label>Thailand</vcl-dropdown-label>
+  </vcl-dropdown-item>
 </vcl-dropdown>
 
-<h3>vcl-dropdown on select</h3>
+<h3>vcl-dropdown on input</h3>
 
-<vcl-select [value]="'fr'" mode="multiple">
-  <vcl-dropdown>
-    <vcl-dropdown-header>Europe</vcl-dropdown-header>
-    <vcl-dropdown-label-item value="gr">Greece</vcl-dropdown-label-item>
-    <vcl-dropdown-label-item value="fr">France</vcl-dropdown-label-item>
-    <vcl-dropdown-label-item value="de">Germany</vcl-dropdown-label-item>
-    <vcl-dropdown-label-item value="uk">The United Kingdom of Great Britain and Northern Ireland</vcl-dropdown-label-item>
-    <vcl-dropdown-header>Asia</vcl-dropdown-header>
-    <vcl-dropdown-label-item value="jp">Japan</vcl-dropdown-label-item>
-    <vcl-dropdown-label-item value="cn">China</vcl-dropdown-label-item>
-    <vcl-dropdown-label-item value="th">Thailand</vcl-dropdown-label-item>
-  </vcl-dropdown>
-</vcl-select>
+<button #btn vcl-button (click)="dropdownMenu.open()">
+  <vcl-icogram>
+    Open menu
+    <vcl-icon vclAppend icon="fas:chevron-down"></vcl-icon>
+  </vcl-icogram>
+</button>
   
+
+<vcl-dropdown #dropdownMenu="vclDropdown" [target]="btn" selectionMode="none">
+  <vcl-dropdown-item value="one">
+    <vcl-dropdown-label>
+      Menu 1
+    </vcl-dropdown-label>
+  </vcl-dropdown-item>
+  <vcl-dropdown-item value="two">
+    <vcl-dropdown-label>
+      Menu 2
+    </vcl-dropdown-label>
+  </vcl-dropdown-item>
+</vcl-dropdown>
 
 

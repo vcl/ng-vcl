@@ -1,5 +1,23 @@
-import { HostBinding, Input, Component, Inject, HostListener } from '@angular/core';
+import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef } from '@angular/core';
 import { Dropdown, DROPDOWN_TOKEN, DropdownItem } from '../types';
+
+@Directive({
+  selector: 'vcl-dropdown-label',
+  exportAs: 'vclDropdownLabel'
+})
+export class DropdownLabelDirective {
+  @HostBinding('class.vclDropdownItemLabel')
+  classVCLDropdownItemSubLabel = true;
+}
+
+@Directive({
+  selector: 'vcl-dropdown-sublabel',
+  exportAs: 'vclDropdownSublabel'
+})
+export class DropdownSublabelDirective {
+  @HostBinding('class.vclDropdownItemSubLabel')
+  classVCLDropdownItemSubLabel = true;
+}
 
 @Component({
   selector: 'vcl-dropdown-item',
@@ -10,7 +28,8 @@ export class DropdownItemComponent implements DropdownItem {
 
   constructor(
     @Inject(DROPDOWN_TOKEN)
-    private dropdown: Dropdown
+    private dropdown: Dropdown,
+    private elementRef: ElementRef<HTMLElement>
   ) { }
 
   @HostBinding('class.vclDropdownItem')
@@ -38,22 +57,21 @@ export class DropdownItemComponent implements DropdownItem {
   disabled = false;
 
   @Input()
-  sublabel?: string;
-
-  @Input()
   value: any;
 
   // tslint:disable-next-line:no-input-rename
   @Input('label')
   _label?: string;
 
+  @ContentChild(DropdownLabelDirective, { read: ElementRef})
+  _labelElementRef?: ElementRef<HTMLElement>;
+
+  get label() {
+    return this._label || (this._labelElementRef ? this._labelElementRef.nativeElement.innerText : (this.elementRef.nativeElement.innerText || ''));
+  }
+
   @HostListener('click')
   onclick() {
     this.dropdown.selectItem(this);
   }
-
-  get label() {
-    return this._label;
-  }
-
 }

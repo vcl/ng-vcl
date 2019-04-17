@@ -3,12 +3,11 @@ import { Directive, ElementRef, Input, HostListener, OnDestroy, Output, EventEmi
 import { InputDirective } from '../input';
 import { DropdownComponent } from './dropdown.component';
 import { DOWN_ARROW, UP_ARROW, ESCAPE, TAB } from '@angular/cdk/keycodes';
-import { DropdownItem } from './types';
 
 @Directive({
   selector: 'input[vclDropdown]',
 })
-export class DropdownInputDirective extends InputDirective implements OnDestroy  {
+export class DropdownInputDirective extends InputDirective implements OnDestroy, OnChanges  {
 
   constructor(private elementRef: ElementRef<HTMLInputElement>) {
     super(elementRef);
@@ -23,16 +22,16 @@ export class DropdownInputDirective extends InputDirective implements OnDestroy 
   dropdown?: DropdownComponent;
 
   // tslint:disable-next-line:no-input-rename
-  @Input('vclDropdownMapValue')
-  mapValue: 'value' | 'label' | 'void' | ((value: any) => string) = 'value';
+  @Input('vclDropdownMapViewValue')
+  mapViewValue: 'value' | 'label' | 'void' | ((value: any) => string) = 'value';
 
   // tslint:disable-next-line:no-input-rename
   @Input('vclDropdownDisabled')
   ddDisabled: false;
 
   // tslint:disable-next-line:no-output-rename
-  @Output('vclDropdownSelect')
-  select = new EventEmitter();
+  @Output('vclDropdownSelectionChange')
+  selectionChange = new EventEmitter();
 
   focused = false;
 
@@ -54,14 +53,22 @@ export class DropdownInputDirective extends InputDirective implements OnDestroy 
     this.focused = false;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.ddDisabled || changes.dropdown) {
+      this.openDropdown();
+    }
+  }
+
   private openDropdown() {
-    if (this.ddDisabled || this.isDisabled || !this.focused || !this.dropdown || this.dropdown.isOpen) {
+    if (this.ddDisabled || this.isDisabled || !this.focused || !this.dropdown) {
       this.dropdown.close();
       return;
     }
 
     this.dropdown.open({
       target: this.elementRef,
+      selectionMode: 'single',
+      value: this.elementRef.nativeElement.value
     }).subscribe((action) => {
       if (!action || action.type !== 'select') {
         return;
@@ -70,11 +77,11 @@ export class DropdownInputDirective extends InputDirective implements OnDestroy 
       const item = action.item;
       let value = item.value;
 
-      if (typeof this.mapValue === 'function') {
-        value = this.mapValue(value);
-      } else if (this.mapValue === 'void') {
+      if (typeof this.mapViewValue === 'function') {
+        value = this.mapViewValue(value);
+      } else if (this.mapViewValue === 'void') {
         value = '';
-      } else if (this.mapValue === 'label') {
+      } else if (this.mapViewValue === 'label') {
         value = item.label;
       }
       if (value !== undefined) {
@@ -84,7 +91,7 @@ export class DropdownInputDirective extends InputDirective implements OnDestroy 
         this._deactiveFocusTrigger = false;
       }
 
-      this.select.emit(value);
+      this.selectionChange.emit(item.value);
 
       this.closeDropdown();
     });

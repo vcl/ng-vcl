@@ -13,11 +13,12 @@
        readonly
        >
 <button #btn
-        vcl-icon-button
+        vcl-square-button
         (click)="openDropdown()"
         [disabled]="isDisabled"
-        icon="fas:chevron-down"
         class="vclAppended"
-        ></button>
+      >
+      <vcl-icon icon="fas:chevron-down"></vcl-icon>
+</button>
 
 <ng-content select="vcl-dropdown"></ng-content>
