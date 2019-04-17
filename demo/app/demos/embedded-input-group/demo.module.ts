@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLInputControlGroupModule, VCLButtonModule, VCLInputModule, VCLEmbeddedInputGroupModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonModule, VCLInputModule, VCLEmbeddedInputGroupModule, VCLIcogramModule, VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { EmbeddedInputGroupDemoComponent } from './demo.component';
 
@@ -30,8 +30,9 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    VCLInputControlGroupModule,
     VCLInputModule,
+    VCLIcogramModule,
+    VCLIconModule,
     VCLButtonModule,
     VCLEmbeddedInputGroupModule,
     RouterModule.forChild([{

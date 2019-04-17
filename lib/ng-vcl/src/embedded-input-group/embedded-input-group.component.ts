@@ -1,6 +1,9 @@
-import { Component, Input, ContentChildren, forwardRef, QueryList, HostBinding } from '@angular/core';
+import { Component, Input, ContentChildren, forwardRef, QueryList, HostBinding, Directive, ElementRef, ContentChild, AfterContentInit, Renderer2, OnDestroy } from '@angular/core';
 import { EMBEDDED_INPUT_GROUP_TOKEN, EmbeddedInputGroup } from './interfaces';
-import { EmbeddedInputGroupButtonComponent } from './embedded-input-group-button.component';
+import { InputDirective } from '../input';
+import { merge, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+import { PrependDirective, AppendDirective } from '../core';
 
 @Component({
   selector: 'vcl-embedded-input-group',
@@ -13,28 +16,38 @@ import { EmbeddedInputGroupButtonComponent } from './embedded-input-group-button
     }
   ]
 })
-export class EmbeddedInputGroupComponent implements EmbeddedInputGroup {
+export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy {
 
-  // TODO remove workaround
-  @HostBinding('style.display')
-  styleDisplay = 'block';
+  private sub?: Subscription;
+
+  constructor( private renderer: Renderer2) { }
 
   @HostBinding('class.vclInputGroupEmb')
   classVCLInputGroupEmb = true;
 
-  @Input()
-  disabled = false;
+  @ContentChildren(PrependDirective, { read: ElementRef })
+  prepend?: QueryList<ElementRef<HTMLElement>>;
 
-  @Input()
-  prepIcon?: string;
+  @ContentChildren(AppendDirective, { read: ElementRef })
+  append?: QueryList<ElementRef<HTMLElement>>;
 
-  @Input()
-  appIcon?: string;
+  @ContentChildren(InputDirective, { read: ElementRef })
+  input?: QueryList<ElementRef<HTMLElement>>;
 
-  @ContentChildren(forwardRef(() => EmbeddedInputGroupButtonComponent))
-  buttons?: QueryList<EmbeddedInputGroupButtonComponent>;
+  ngAfterContentInit(): void {
+    this.sub = merge(this.input.changes, this.prepend.changes, this.append.changes).pipe(startWith(undefined)).subscribe(() => {
+      this.prepend.forEach(el => this.renderer.addClass(el.nativeElement, 'vclPrepended'));
+      if (this.prepend.length > 0) {
+        this.input.forEach(el => this.renderer.addClass(el.nativeElement, 'vclPrepItem'));
+      }
+      this.append.forEach(el => this.renderer.addClass(el.nativeElement, 'vclAppended'));
+      if (this.append.length > 0) {
+        this.input.forEach(el => this.renderer.addClass(el.nativeElement, 'vclAppItem'));
+      }
+    });
+  }
 
-  get hasAppendedItem() {
-    return !!this.appIcon || (this.buttons && this.buttons.length > 0);
+  ngOnDestroy(): void {
+    this.sub && this.sub.unsubscribe();
   }
 }

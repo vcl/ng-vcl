@@ -2,6 +2,4 @@
 
 ### BREAKING CHANGES
 
-- Renamed input directives
-- Removed button directive, added button component
-- vclEmbeddedInputGroup directive includes vclInput directive
+Full reimplementation. Please check README.md for new syntax.
