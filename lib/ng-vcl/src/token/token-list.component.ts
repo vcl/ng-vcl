@@ -10,14 +10,15 @@ import {
   AfterContentInit,
   OnChanges,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { merge ,  Subscription } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { TokenComponent } from './token.component';
+import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
 import { map, startWith } from 'rxjs/operators';
-
+import { TokenObserver, Token } from './interfaces';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -31,94 +32,87 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     '[class.vclTokenList]': 'true',
     '[class.vclTokenContainer]': 'true'
   },
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  // Used by select
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [
+    CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+    {
+      provide: TOKEN_OBSERVER_TOKEN,
+      useExisting: TokenListComponent
+    }
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenListComponent implements AfterContentInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class TokenListComponent implements AfterContentInit, OnChanges, OnDestroy, ControlValueAccessor, TokenObserver {
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  tokenSubscription: Subscription | undefined;
+  tokenSub: Subscription | undefined;
+
+  private cvaDisabled = false;
 
   @ContentChildren(TokenComponent)
   tokens?: QueryList<TokenComponent>;
 
   @Input()
+  disabled = false;
+
+  @Input()
   selectable = false;
 
   @Input()
-  dispatchEvent = false;
-
-  @Input()
-  disabled = false;
+  removable = false;
 
   @Output()
   tokensChange = new EventEmitter();
 
-  labels: any[] = [];
+  @Input()
+  value: any[] = [];
 
-  private onChangeCallback?: (_: any) => (_: any) => null;
+  get isDisabled() {
+    return this.disabled || this.cvaDisabled;
+  }
+
+  private onChangeCallback = (value: any) => {};
+  private onTouchedCallback = () => {};
 
   private syncTokens() {
-    const labels = this.labels;
-    if (Array.isArray(labels)) {
-      this.tokens && this.tokens.forEach((token) => {
-        token.selected = labels.includes(token.label);
-      });
+    let value = this.value;
+    if (!Array.isArray(value)) {
+      value = [];
     }
-  }
-
-  private syncSelectedValues() {
-    this.labels = this.tokens ? this.tokens.filter(t => t.selected).map(t => t.label) : [];
-  }
-
-
-  private triggerChange() {
-    this.tokensChange.emit(this.labels);
-    !!this.onChangeCallback && this.onChangeCallback(this.labels);
+    this.tokens && this.tokens.forEach((token) => {
+      token.selected = value.includes(token.value);
+      token.selectable = this.selectable;
+      token.removable = this.removable;
+      token.setDisabledState(this.isDisabled);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.disabled) {
-      this.setDisabledState(changes.disabled.currentValue);
+    if (changes.disabled || changes.value) {
+      this.syncTokens();
+    }
+  }
+
+  notifyTokenRemove(token: Token): void {
+    // this.value = this.tokens.filter(t => t !== token).map(t => t.value);
+    this.syncTokens();
+  }
+
+  notifyTokenSelect(token: Token): void {
+    this.value = this.tokens ? this.tokens.filter(t => t.selected).map(t => t.value) : [];
+    this.syncTokens();
+    this.onChangeCallback(this.value);
+  }
+
+  notifyTokenBlur(token: Token): void {
+    if (token === this.tokens.last) {
+      this.onTouchedCallback();
     }
   }
 
   ngAfterContentInit() {
-    // Update the selectedIndex to match the selected buttons when not using ngModel
-    if (!this.onChangeCallback) {
-      this.syncSelectedValues();
-      this.triggerChange();
-    }
-
-    // Subscribes to buttons press event
-    const listenButtonPress = () => {
-      if (!this.tokens) {
-        return;
-      }
-
-      this.dispose();
-
-      this.cdRef.markForCheck();
-
-      const select$ = merge(...(this.tokens.map(token => token.select.pipe(map(() => token)))));
-
-      this.tokenSubscription =  select$.subscribe(token => {
-        if (this.selectable) {
-          token.selected = !token.selected;
-        }
-        this.syncSelectedValues();
-        this.triggerChange();
-      });
-    };
-
-    this.tokens && this.tokens.changes.pipe(startWith(null)).subscribe(() => {
-      listenButtonPress();
-      setTimeout(() => {
-        this.syncSelectedValues();
-        this.setDisabledState(this.disabled);
-      });
+    this.tokenSub = this.tokens && this.tokens.changes.pipe(startWith(null)).subscribe(() => {
+      this.syncTokens();
     });
   }
 
@@ -127,20 +121,26 @@ export class TokenListComponent implements AfterContentInit, OnChanges, OnDestro
   }
 
   dispose() {
-    this.tokenSubscription && this.tokenSubscription.unsubscribe();
+    this.tokenSub && this.tokenSub.unsubscribe();
   }
+
   writeValue(value: any): void {
-    this.labels = value;
+    this.value = value;
     this.syncTokens();
     this.cdRef.markForCheck();
   }
+
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
   }
+
   registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
   }
+
   setDisabledState(isDisabled: boolean) {
-    this.tokens && this.tokens.forEach(t => t.setDisabledState(isDisabled));
+    this.cvaDisabled = isDisabled;
+    this.syncTokens();
   }
 }
 

@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputDirective } from '../input/index';
-import { Token } from './token.component';
+import { Token } from './interfaces';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -57,9 +57,6 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   preselect = false;
 
   @Input()
-  removeIcon = 'fas:times';
-
-  @Input()
   removeToken = true;
 
   @Input()
@@ -67,9 +64,6 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
 
   @Input()
   tokenClass: string | undefined;
-
-  @Input()
-  controlAsString = false;
 
   @HostBinding('class.vclDisabled')
   @Input()
@@ -85,12 +79,6 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   @Output()
   confirm = new EventEmitter<Token[]>();
 
-  @ContentChild(TokenInputLabelPreDirective, { read: TemplateRef })
-  labelPre?: TokenInputLabelPreDirective;
-
-  @ContentChild(TokenInputLabelPostDirective, { read: TemplateRef })
-  labelPost?: TokenInputLabelPostDirective;
-
   constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
 
   removeLastToken() {
@@ -101,12 +89,11 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   }
 
   addToken(token: Token | string) {
-    token = typeof token === 'string' ? { label: token } : token;
+    token = typeof token === 'string' ? { label: token, value: token } : token;
 
     const newToken: Token = {
-      ...token,
       selected: token.selected === undefined ? this.preselect : token.selected,
-      value: token.value === undefined ? token.label : token.value
+      ...token,
     };
 
     if (this.allowDuplicates === false && this.tokens.some(thisToken => thisToken.value === newToken.value)) {
@@ -116,6 +103,7 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
     this.tokens = [...this.tokens, newToken];
     this.triggerChange();
     this.cdRef.markForCheck();
+    this.onTouched();
   }
 
   select(token: Token) {
@@ -135,11 +123,11 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
 
   triggerChange() {
     this.tokensChange.emit(this.tokens);
-    if (this.controlAsString) {
-      this.onChange(this.tokens.map(t => t.label));
-    } else {
-      this.onChange(this.tokens);
-    }
+    this.onChange(this.tokens);
+  }
+
+  onBlur() {
+    this.onTouched();
   }
 
   /**
@@ -171,7 +159,7 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
 
 
 @Directive({
-  selector: 'input[vcl-token-input]'
+  selector: 'input[vclTokenInput]'
 })
 export class TokenInputDirective {
   constructor(
@@ -184,8 +172,9 @@ export class TokenInputDirective {
     }
   }
 
-  @Input()
-  addTokenOnEnter = true;
+  // tslint:disable-next-line:no-input-rename
+  @Input('vclTokenInputAddOnEnter')
+  addOnEnter = true;
 
   get isDisabled() {
     return this.input.disabled || this.tokenInputContainer.disabled;
@@ -222,7 +211,7 @@ export class TokenInputDirective {
     const value = ev.target.value;
     if (value === '') {
       this.tokenInputContainer.confirm.emit();
-    } else if (this.addTokenOnEnter) {
+    } else if (this.addOnEnter) {
       this.tokenInputContainer.addToken(value);
       this.elementRef.nativeElement.value = '';
     }

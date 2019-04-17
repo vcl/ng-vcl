@@ -7,9 +7,10 @@ import { VCLButtonModule } from '../button/index';
 import { VCLWormholeModule } from '../wormhole/index';
 import { VCLIcogramModule } from '../icogram/index';
 
-import { TokenComponent, Token } from './token.component';
-import { TokenListComponent } from './token-list.component';
+import { TokenComponent } from './token.component';
 import { TokenInputContainerComponent, TokenInputLabelPostDirective, TokenInputLabelPreDirective, TokenInputDirective } from './token-input.component';
+import { TokenListComponent } from './token-list.component';
+import { Token } from './interfaces';
 
 export { TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, Token };
 

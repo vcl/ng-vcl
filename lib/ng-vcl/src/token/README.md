@@ -15,35 +15,35 @@ export class AppComponent {}
 ## single token
 
 ```html
-<vcl-token label="mytoken"></vcl-token>
+<vcl-token>mytoken</vcl-token>
 ```
 
 ## single selected token
 
 ```html
-<vcl-token label="mytoken" [selected]="true"></vcl-token>
+<vcl-token [selected]="true">mytoken</vcl-token>
 ```
 
 ## single removable token
 
 ```html
-<vcl-token label="mytoken" [removable]="true" (remove)="onRemove()"></vcl-token>
+<vcl-token [removable]="true" (remove)="onRemove()">mytoken</vcl-token>
 ```
 
 ## token-list
 
 ```html
 <vcl-token-list [selectable]="true" (change)="changed($event);">
-  <vcl-token label="mytoken 1" [selected]="true"></vcl-token>
-  <vcl-token label="mytoken 2" [selected]="false"></vcl-token>
+  <vcl-token [selected]="true">mytoken 1</vcl-token>
+  <vcl-token [selected]="false">mytoken 2</vcl-token>
 </vcl-token-list>
 ```
 
 ## token-insert
 
 ```html
-<vcl-token-input-container (change)="changed($event);">
-  <input vcl-input vcl-token-input />
+<vcl-token-input-container (tokensChange)="changed($event);">
+  <input vclInput vclTokenInput />
 </vcl-token-input-container>
 ```
 
@@ -53,10 +53,9 @@ export class AppComponent {}
 
 Name          | Type    | Default   | Description
 ------------  | ------- | -------   | ---------------------------------------
-`label`       | string  |           | label-text inside of the token
+`value`       | any     |           | token value
 `selected`    | boolean | false     | if true, the token is highlighted
 `removable`   | boolean | false     | if true, the remove-cross is shown
-`icon`        | string  | fa:times  | remove icon
 
 #### vcl-token events
 
@@ -68,7 +67,7 @@ Name        | Type    | Description
 
 Name         | Type     | Default  | Description
 ------------ | -------- | -------- | ------------------------------------------------------------
-`ngModel`    | string[] | string[] | The labels of the selected tokens
+`ngModel`    | any[]    | any[]    | The values of the selected tokens
 `selectable` | boolean  | false    | tokens are selectable if true
 
 #### token-list events
@@ -86,7 +85,6 @@ Name                 | Type     | Default              | Description
 `allowDuplicates`    | boolean  | false                | tokens with matching values are not added
 `preselect`          | boolean  | false                | tokens are preselected after being added if true
 `tokenClass`         | string   |                      | additional css class for tokens
-`removeIcon`         | string   | fa:times             | remove icon
 `tabindex`           | number   | 0                    | The tabindex of the token-input
 
 #### vcl-token-input-container events
@@ -101,7 +99,7 @@ Name            | Type    | Description
 ```ts
 interface Token {
   label: string;
+  value: any;
   selected?: boolean;
-  removable?: boolean;
 }
 ```
