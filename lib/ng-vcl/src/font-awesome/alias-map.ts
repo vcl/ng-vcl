@@ -11,5 +11,7 @@ export const ALIAS_MAP: IconAliases = {
   'info': 'fas fa-info-circle',
   'success': 'fas fa-check-circle',
   'warning': 'fas fa-exclamation-triangle',
-  'error': 'fas fa-exclamation-circle'
+  'error': 'fas fa-exclamation-circle',
+  'arrow-left': 'fas fa-chevron-left',
+  'arrow-right': 'fas fa-chevron-right'
 };

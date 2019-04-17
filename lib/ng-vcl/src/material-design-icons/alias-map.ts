@@ -11,5 +11,7 @@ export const ALIAS_MAP: IconAliases = {
   'info': 'mdi mdi-information',
   'success': 'mdi mdi-check',
   'warning': 'mdi mdi-alert',
-  'error': 'mdi mdi-alert-circle'
+  'error': 'mdi mdi-alert-circle',
+  'arrow-left': 'mdi mdi-arrow-left',
+  'arrow-right': 'mdi mdi-arrow-right'
 };

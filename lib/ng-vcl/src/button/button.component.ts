@@ -1,18 +1,8 @@
 import { HostBinding, Input, HostListener, ElementRef, Component, SkipSelf, Inject, Output, EventEmitter, Optional, InjectionToken, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
 
-export interface VCLButton {
-  readonly isDisabled: boolean;
-  readonly value: any;
-  readonly hovered: boolean;
-  readonly selected: boolean;
-  readonly selectable: boolean;
-  setDisabled(disabled: boolean): void;
-  setSelected(selected: boolean): void;
-}
-
 export interface ButtonObserver {
-  notifyButtonClick(btn: VCLButton): void;
-  notifyButtonBlur(btn: VCLButton): void;
+  notifyButtonClick(btn: ButtonComponent): void;
+  notifyButtonBlur(btn: ButtonComponent): void;
 }
 
 export const BUTTON_OBSERVER_TOKEN = new InjectionToken<ButtonObserver>('vcl_button_observer');
@@ -22,7 +12,7 @@ export const BUTTON_OBSERVER_TOKEN = new InjectionToken<ButtonObserver>('vcl_but
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'button.component.html'
 })
-export class ButtonComponent implements VCLButton {
+export class ButtonComponent {
 
   constructor(
     private cdRef: ChangeDetectorRef,

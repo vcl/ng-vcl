@@ -14,9 +14,9 @@ export class TourOptions {
   nextLabel = 'Next';
   exitLabel = 'Exit';
 
-  previousIcon = 'fas fa-chevron-left';
-  nextIcon = 'fas fa-chevron-right';
-  exitIcon = 'fas fa-close';
+  previousIcon = 'vcl:arrow-left';
+  nextIcon = 'vcl:arrow-right';
+  exitIcon = 'vcl:close';
 
   buttonClass = '';
 

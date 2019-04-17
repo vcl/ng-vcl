@@ -21,29 +21,32 @@
 
     <div class="vclTourContainerFooter">
       
-      <button vcl-icogram-button *ngIf="hasPrevious"
+      <button vcl-button *ngIf="hasPrevious"
         [ngClass]="tour.options?.buttonClass"
-        [prepIcon]="tour.options?.previousIcon"
         (click)="previous()">
-        {{tour.options?.previousLabel}}
+        <vcl-icogram>
+          {{tour.options?.previousLabel}}
+          <vcl-icon vclPrepend *ngIf="tour.options?.previousIcon" [icon]="tour.options?.previousIcon"></vcl-icon>
+        </vcl-icogram>
       </button>
 
-      <button vcl-icogram-button *ngIf="hasNext"
+      <button vcl-button *ngIf="hasNext"
         [ngClass]="tour.options?.buttonClass"
-        [appIcon]="tour.options?.nextIcon"
         (click)="next()">
-        {{tour.options?.nextLabel}}
+        <vcl-icogram>
+          {{tour.options?.nextLabel}}
+          <vcl-icon vclAppend *ngIf="tour.options?.nextIcon" [icon]="tour.options?.nextIcon"></vcl-icon>
+        </vcl-icogram>
       </button>
 
-      <button vcl-icogram-button
+      <button vcl-button
         [ngClass]="tour.options?.buttonClass"
-        [prepIcon]="tour.options?.exitIcon"
         (click)="exit()">
-        {{tour.options?.exitLabel}}
+        <vcl-icogram>
+          <vcl-icon vclPrepend *ngIf="tour.options?.exitIcon" [icon]="tour.options?.exitIcon"></vcl-icon>
+          {{tour.options?.exitLabel}}
+        </vcl-icogram>
       </button>
-
     </div>
-    
   </div>
-
 </vcl-popover>

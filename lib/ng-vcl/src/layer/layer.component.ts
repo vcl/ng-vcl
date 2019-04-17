@@ -4,8 +4,7 @@ import { Subscription, merge, NEVER, Observable } from 'rxjs';
 import { take, switchMap, filter } from 'rxjs/operators';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { TemplateOverlay } from '../overlay';
-import { Layer } from './interfaces';
-import { LayerOptions } from '../overlay.1';
+import { Layer, LayerOptions } from './interfaces';
 
 @Component({
   selector: 'vcl-layer',

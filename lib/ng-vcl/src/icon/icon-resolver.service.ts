@@ -16,6 +16,8 @@ export interface IconAliases {
   'success': string;
   'warning': string;
   'error': string;
+  'arrow-left': string;
+  'arrow-right': string;
 }
 
 export abstract class IconResolverService implements IconResolver {
