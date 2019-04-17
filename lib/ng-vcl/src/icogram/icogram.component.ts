@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'vcl-icogram',
+  selector: 'vcl-icogram, [vcl-icogram]',
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -9,9 +9,6 @@ export class IcogramComponent {
 
   @HostBinding('class.vclIcogram')
   clsIcogram = true;
-
-  @HostBinding('attr.role')
-  attrRole = true;
 
   @Input()
   prepIcon: string;
@@ -21,7 +18,7 @@ export class IcogramComponent {
 }
 
 @Component({
-  selector: 'a[vcl-icogram]',
+  selector: '[vcl-a-icogram]',
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

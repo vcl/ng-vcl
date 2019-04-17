@@ -1,7 +1,5 @@
-<vcl-icon *ngIf="prepIcon" [icon]="prepIcon">
-  <ng-content select="[prepIcon]"></ng-content>
-</vcl-icon>
-<span class="vclText"><ng-content></ng-content></span>
-<vcl-icon *ngIf="appIcon" [icon]="appIcon">
-  <ng-content select="[appIcon]"></ng-content>
-</vcl-icon>
+<ng-content select="vcl-icon[vclPrepend]"></ng-content>
+<span class="vclText">
+  <ng-content></ng-content>
+</span>
+<ng-content select="vcl-icon[vclAppend]"></ng-content>

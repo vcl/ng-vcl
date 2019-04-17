@@ -8,16 +8,16 @@ Also supports the anchor tag
 ## Usage
 
 ```html
-<vcl-icogram prepIcon="fas:chevron-left" appIcon="fas:chevron-right">Label</vcl-icogram>
-
-<a vcl-icogram href="'https://github.com/ng-vcl/ng-vcl'" prepIcon="fas:link">Link</a>
+<vcl-icogram>
+  <vcl-icon vclPrepend icon="fas:chevron-left"></vcl-icon>
+  Label
+  <vcl-icon vclAppend icon="fas:chevron-right"></vcl-icon>
+</vcl-icogram>
+  
+<a vcl-icogram
+  [href]="'https://github.com/ng-vcl/ng-vcl'"
+  [disabled]="true">
+  <vcl-icon vclPrepend icon="fas:link"></vcl-icon>
+  Link
+</a>
 ```
-
-### API
-
-#### Attributes
-
-| Name                         | Type        | Default  | Description
-| ---------------------------- | ----------- | -------- |--------------
-| `prepIcon`                   | string      |          | Icon prepended to the label
-| `appIcon`                    | string      |          | Same as `prepIcon` but appended
