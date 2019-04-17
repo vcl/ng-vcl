@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonModule, VCLIcogramModule, VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ButtonDemoComponent } from './demo.component';
 
@@ -31,6 +31,7 @@ export function demo() {
     CommonModule,
     DemoModule,
     VCLButtonModule,
+    VCLIconModule,
     VCLIcogramModule,
     RouterModule.forChild([{
       path: '',

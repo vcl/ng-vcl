@@ -17,7 +17,7 @@ export interface ButtonObserver {
 
 export const BUTTON_OBSERVER_TOKEN = new InjectionToken<ButtonObserver>('vcl_button_observer');
 @Component({
-  selector: 'button[vcl-button], a[vcl-button]',
+  selector: 'button[vcl-button], a[vcl-button], button[vcl-square-button], button[vcl-square-button]',
   exportAs: 'vclButton',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'button.component.html'
@@ -39,7 +39,12 @@ export class ButtonComponent implements VCLButton {
   disabled = false;
 
   @Output()
-  select = new EventEmitter<boolean>();
+  selectionChange = new EventEmitter<boolean>();
+
+  @HostBinding('class.vclSquare')
+  get classVCLSquare() {
+    return this.elementRef.nativeElement.hasAttribute('vcl-square-button');
+  }
 
   @HostBinding('class.vclDisabled')
   @HostBinding('attr.disabled')
@@ -77,7 +82,7 @@ export class ButtonComponent implements VCLButton {
   onClick() {
     if (this.selectable) {
       this.selected = !this.selected;
-      this.select.emit(this.selected);
+      this.selectionChange.emit(this.selected);
     }
     this.observer && this.observer.notifyButtonClick(this);
   }

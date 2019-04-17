@@ -16,16 +16,28 @@
 
 <h3>Button Group with multiselection</h3>
 <vcl-button-group mode="multiple" [(ngModel)]="value3">
-  <button vcl-icon-button icon="fas:italic" [value]="'italic'"></button>
-  <button vcl-icon-button icon="fas:bold" [value]="'bold'"></button>
-  <button vcl-icon-button icon="fas:underline" [value]="'underline'"></button>
+  <button vcl-square-button [value]="'italic'">
+    <vcl-icon icon="fas:italic"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'bold'">
+    <vcl-icon icon="fas:bold"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'underline'">
+    <vcl-icon icon="fas:underline"></vcl-icon>
+  </button>
 </vcl-button-group>
 <p>Selected values: {{value3}}</p>
 
 
 <h3>Disabled Button Group</h3>
 <vcl-button-group [disabled]="true" mode="multiple">
-  <button vcl-icon-button icon="fas:italic" [value]="'italic'"></button>
-  <button vcl-icon-button icon="fas:bold" [value]="'bold'"></button>
-  <button vcl-icon-button icon="fas:underline" [value]="'underline'"></button>
+  <button vcl-square-button [value]="'italic'">
+    <vcl-icon icon="fas:italic"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'bold'">
+    <vcl-icon icon="fas:bold"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'underline'">
+    <vcl-icon icon="fas:underline"></vcl-icon>
+  </button>
 </vcl-button-group>

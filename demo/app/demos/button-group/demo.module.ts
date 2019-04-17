@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLButtonGroupModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonGroupModule, VCLButtonModule, VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ButtonGroupDemoComponent } from './demo.component';
 
@@ -34,6 +34,7 @@ export function demo() {
     DemoModule,
     VCLButtonGroupModule,
     VCLButtonModule,
+    VCLIconModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
