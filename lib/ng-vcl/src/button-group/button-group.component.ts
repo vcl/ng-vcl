@@ -1,17 +1,18 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter,
-         forwardRef, ChangeDetectorRef, AfterContentInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+         forwardRef, ChangeDetectorRef, AfterContentInit, HostBinding, Optional, Inject, ElementRef } from '@angular/core';
+import { Subscription, Subject } from 'rxjs';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { BUTTON_OBSERVER_TOKEN, ButtonObserver, ButtonComponent } from '../button';
-import { VCLButton } from '../button';
-
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => ButtonGroupComponent),
   multi: true
 };
+
+let UNIQUE_ID = 0;
 
 @Component({
   selector: 'vcl-button-group',
@@ -24,18 +25,52 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     {
       provide: BUTTON_OBSERVER_TOKEN,
       useExisting: forwardRef(() => ButtonGroupComponent)
+    },
+    {
+      provide: FORM_CONTROL_INPUT,
+      useExisting: forwardRef(() => ButtonGroupComponent)
     }
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit, ButtonObserver {
+export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit, ButtonObserver, FormControlInput {
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    public ngControl?: NgControl,
+    @Optional()
+    private ngForm?: NgForm,
+    @Optional()
+    private formGroup?: FormGroupDirective,
+    @Optional()
+    @Inject(FORM_CONTROL_ERROR_MATCHER)
+    private errorMatcher?: FormControlErrorMatcher
+    ) { }
 
   private buttonsSub?: Subscription;
+  private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
+  private stateChangeEmitter = new Subject<void>();
+
+  stateChange = this.stateChangeEmitter.asObservable();
+  controlType = 'button-group';
+
+  @Input()
+  id?: string;
+
+  @Input()
+  value: any | any[];
+
+  @Output()
+  valueChange = new EventEmitter<any | any[]>();
+
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this._generatedId;
+  }
 
   @ContentChildren(ButtonComponent)
-  buttons?: QueryList<VCLButton>;
+  buttons?: QueryList<ButtonComponent>;
 
   private _disabled = false;
 
@@ -45,65 +80,74 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     this.syncButtons();
   }
 
-  get disabled() {
+  get disabled(): boolean {
     return this._disabled;
   }
 
   // If `single`, a single item can be selected
   // If `multiple` multiple items can be selected
   @Input()
-  mode: 'multiple' | 'single' = 'single';
-
-  @Output()
-  selectionChange = new EventEmitter<any | any[]>();
+  selectionMode: 'multiple' | 'single' = 'single';
 
   formDisabled = false;
 
-  selectedValue: any | any[];
+  @HostBinding('class.vclError')
+  get hasError() {
+    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+  }
 
   get isDisabled(): boolean {
     return this.formDisabled || this.disabled;
   }
 
-  private toggle(btn: VCLButton) {
-    if (this.mode === 'multiple') {
-      if (Array.isArray(this.selectedValue)) {
-        const selectedValue = this.selectedValue = [...this.selectedValue];
-        const idx = this.selectedValue.indexOf(btn.value);
+  get isFocused(): boolean {
+    return this.buttons.some(b => b.isFocused);
+  }
+
+  private toggle(btn: ButtonComponent) {
+    if (this.selectionMode === 'multiple') {
+      if (Array.isArray(this.value)) {
+        const selectedValue = this.value = [...this.value];
+        const idx = this.value.indexOf(btn.value);
 
         if (idx >= 0) {
           selectedValue.splice(idx, 1);
-          this.selectedValue = selectedValue;
+          this.value = selectedValue;
         } else {
-          this.selectedValue = [...this.selectedValue, btn.value];
+          this.value = [...this.value, btn.value];
         }
       } else {
-        this.selectedValue = [btn.value];
+        this.value = [btn.value];
       }
     } else {
-      this.selectedValue = btn.value;
+      this.value = btn.value;
     }
   }
 
   private syncButtons() {
-    const selectedValue = this.selectedValue;
-    if (this.buttons && this.mode === 'multiple' && Array.isArray(selectedValue)) {
+    const value = this.value;
+    if (this.buttons && this.selectionMode === 'multiple' && Array.isArray(value)) {
       this.buttons.forEach((btn) => {
-        btn.setSelected(selectedValue.includes(btn.value));
+        btn.setSelected(value.includes(btn.value));
       });
-    } else if (this.buttons && this.mode === 'single') {
+    } else if (this.buttons && this.selectionMode === 'single') {
       this.buttons.forEach((btn) => {
-        btn.setSelected(selectedValue === btn.value);
+        btn.setSelected(value === btn.value);
       });
     }
     if (this.buttons) {
       this.buttons.forEach((btn) => {
+        btn.selectable = true;
         btn.setDisabled(this.isDisabled);
       });
     }
   }
 
-  notifyButtonClick(btn: VCLButton) {
+  onLabelClick(event: Event): void {
+
+  }
+
+  notifyButtonClick(btn: ButtonComponent) {
     this.toggle(btn);
     this.syncButtons();
     this.triggerChange();
@@ -117,8 +161,8 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   }
 
   private triggerChange() {
-    this.selectionChange.emit(this.selectedValue);
-    this.onChange(this.selectedValue);
+    this.valueChange.emit(this.value);
+    this.onChange(this.value);
   }
 
   ngAfterContentInit() {
@@ -133,6 +177,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
 
   ngOnDestroy() {
     this.buttonsSub && this.buttonsSub.unsubscribe();
+    this.stateChangeEmitter && this.stateChangeEmitter.complete();
   }
 
     /**
@@ -141,7 +186,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
   writeValue(value: any): void {
-    this.selectedValue = value;
+    this.value = value;
     this.syncButtons();
     this.cdRef.markForCheck();
   }
