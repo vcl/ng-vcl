@@ -1,19 +1,12 @@
 <h3>Basic</h3>
-<vcl-checkbox [(checked)]="isChecked"></vcl-checkbox> Check!
 
-<h3>Disabled</h3>
-<vcl-checkbox [disabled]="true"></vcl-checkbox> Check!
-
-<h3>With Form Control Label</h3>
-
-<label vcl-form-control-label>
-  <vcl-checkbox [(checked)]="isChecked2"></vcl-checkbox>
-  Check!
+<label vclCheckboxLabel>
+  <vcl-checkbox [(checked)]="value1"></vcl-checkbox>
+  Check! 
 </label>
 
-<h3>Disabled with Form Control Label</h3>
-
-<label vcl-form-control-label>
-  <vcl-checkbox [disabled]="true"></vcl-checkbox>
-  Check!
+<h3>Disabled</h3>
+<label vclCheckboxLabel>
+  <vcl-checkbox [(checked)]="value2" disabled=true></vcl-checkbox>
+  Check! (disabled) 
 </label>
