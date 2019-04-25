@@ -1,8 +1,8 @@
 <h3>single-select</h3>
-<vcl-select [value]="undefined" (selectionChange)="onChange($event)" [tabindex]="1">
+<vcl-select [(value)]="value1">
   <vcl-dropdown #dropdownCountries="vclDropdown">
-    <vcl-dropdown-item label=" -">
-      <vcl-dropdown-label>[Clear selection]</vcl-dropdown-label>
+    <vcl-dropdown-item label=" - ">
+      <vcl-dropdown-label>None</vcl-dropdown-label>
     </vcl-dropdown-item>
     <vcl-dropdown-header>Europe</vcl-dropdown-header>
     <vcl-dropdown-item value="gr">
@@ -31,10 +31,12 @@
   </vcl-dropdown>
 </vcl-select>
 
+<p> Selected value: {{value1}}</p>
+
 <br>
 
 <h3>multi-select</h3>
-<vcl-select [value]="[]" label="Select items" (selectionChange)="onChange($event)" [tabindex]="1" selectionMode="multiple" >
+<vcl-select [(value)]="value2" label="Select items" selectionMode="multiple" >
   <vcl-dropdown>
     <vcl-dropdown-item *ngFor="let item of items" [value]="item.value">
       <vcl-dropdown-label>{{item.label}}</vcl-dropdown-label>
@@ -42,3 +44,4 @@
   </vcl-dropdown>
 </vcl-select>
 
+<p> Selected values: {{value2}}</p>

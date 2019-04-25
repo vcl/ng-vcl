@@ -1,8 +1,9 @@
-import { Component, Input, HostBinding, ViewChild, ElementRef, HostListener, ContentChild, forwardRef, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, Input, HostBinding, ViewChild, ElementRef, HostListener, ContentChild, forwardRef, ChangeDetectorRef, Output, EventEmitter, Optional, Inject, OnDestroy } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { DropdownComponent } from '../dropdown';
-import { FormControlInput, FORM_CONTROL_INPUT } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
+import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
 
@@ -11,23 +12,37 @@ let UNIQUE_ID = 0;
   templateUrl: 'select.component.html',
   exportAs: 'vclSelect',
   providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SelectComponent),
-    multi: true
-  }, {
     provide: FORM_CONTROL_INPUT,
     useExisting: forwardRef(() => SelectComponent)
   }]
 })
-export class SelectComponent implements ControlValueAccessor, FormControlInput {
-
+export class SelectComponent implements OnDestroy, ControlValueAccessor, FormControlInput {
   constructor(
     private elementRef: ElementRef<HTMLElement>,
-    private cdRef: ChangeDetectorRef
-  ) { }
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    public ngControl?: NgControl,
+    @Optional()
+    private ngForm?: NgForm,
+    @Optional()
+    private formGroup?: FormGroupDirective,
+    @Optional()
+    @Inject(FORM_CONTROL_ERROR_MATCHER)
+    private errorMatcher?: FormControlErrorMatcher
+  ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
+  private _focused = false;
   private cvaDisabled = false;
   private generatedId = 'vcl_select_' + UNIQUE_ID++;
+  private stateChangeEmitter = new Subject<void>();
+
+  stateChange = this.stateChangeEmitter.asObservable();
+  controlType = 'select';
 
   @Input()
   id?: string;
@@ -49,15 +64,13 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
   @HostBinding('attr.role')
   attrRole = 'listbox';
 
-  @HostBinding('attr.tabindex')
-  attrTabindex = -1;
-
   @HostBinding('class.vclSelect')
   classVCLSelect = true;
 
   @HostBinding('class.vclInputGroupEmb')
   classVCLInputGroupEmb = true;
 
+  @HostBinding('attr.tabindex')
   @Input()
   tabindex = 0;
 
@@ -74,16 +87,31 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
   value: any | any[];
 
   @Output()
-  selectionChange = new EventEmitter();
+  valueChange = new EventEmitter<any | any[]>();
 
-  @Input()
-  prepIcon?: string;
-
-  @HostListener('blur')
-  onBlur() {
-    this.onTouched();
+  get isFocused() {
+    return this._focused || this.dropdown.isOpen;
   }
 
+  @HostBinding('class.vclError')
+  get hasError() {
+    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+  }
+
+  @HostListener('focus')
+  onFocus() {
+    this._focused = true;
+    this.stateChangeEmitter.next();
+    this.openDropdown();
+  }
+  @HostListener('blur')
+  onBlur() {
+    this._focused = false;
+    this.onTouched();
+    this.stateChangeEmitter.next();
+  }
+
+  @HostListener('keyup', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === ESCAPE) {
@@ -104,6 +132,7 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
     }
   }
 
+  @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === TAB) {
@@ -111,6 +140,7 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
     }
   }
 
+  @HostListener('keypress', ['$event'])
   onKeyPress(event: KeyboardEvent) {
     const code = event.code || event.key;
     if (this.dropdown && code === 'Enter') {
@@ -130,7 +160,7 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
 
     if (this.selectionMode === 'single') {
       const items = this.dropdown.getItems();
-      const item = items.find(_item => _item.value === this.value);
+      const item = items.find(_item => this.value === _item.value);
       return item ? item.label : (this.label || '');
     } else {
       const value = Array.isArray(this.value) ? this.value : [];
@@ -140,7 +170,15 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
 
       return labels.length === 0 ? (this.label || '') : labels.join(', ');
     }
+  }
 
+  @HostListener('click', ['$event'])
+  onClick() {
+    if (this.dropdown.isOpen) {
+      this.closeDropdown();
+    } else {
+      this.openDropdown();
+    }
   }
 
   private openDropdown() {
@@ -149,17 +187,16 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
       return;
     }
 
-    let values;
+    let values: any[];
     if (this.selectionMode === 'single') {
       values = [this.value];
     } else {
       values = Array.isArray(this.value) ? this.value : [];
     }
 
-
     this.dropdown.open({
       target: this.elementRef,
-      offClickExcludes: [this.button],
+      offClickExcludes: [this.input, this.button],
       selectionMode: this.selectionMode,
       value: values
     }).subscribe(action => {
@@ -170,11 +207,10 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
         } else {
           this.value = action.selectedItems.map(item => item.value);
         }
-        this.selectionChange.emit(this.value);
+        this.valueChange.emit(this.value);
         this.onChange(this.value);
         this.onTouched();
       }
-
     });
   }
 
@@ -182,8 +218,12 @@ export class SelectComponent implements ControlValueAccessor, FormControlInput {
     this.dropdown.close();
   }
 
-  notifyFormControlLabelClick(event: Event): void {
+  onLabelClick(event: Event): void {
     this.openDropdown();
+  }
+
+  ngOnDestroy() {
+    this.stateChangeEmitter && this.stateChangeEmitter.complete();
   }
 
   private onChange: (_: any) => void = () => {};

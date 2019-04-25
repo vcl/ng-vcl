@@ -6,14 +6,12 @@ import { VCLSelectModule } from '@ng-vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { SelectDemoComponent } from './demo.component';
-// import { DropdownAsyncDemoComponent } from './async.component';
 
 export function demo() {
   return {
     name: 'Dropdown',
     tabs: {
       Demo: SelectDemoComponent,
-      // Demo2: DropdownAsyncDemoComponent,
       'README.md': {
         type: 'md',
         content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/dropdown/README.md')
@@ -36,12 +34,6 @@ export function demo() {
     FormsModule,
     DemoModule,
     VCLSelectModule,
-    // VCLEmbeddedInputGroupModule,
-    // VCLDropdownModule,
-    // VCLIconModule,
-    // VCLInputModule,
-    // VCLIcogramModule,
-    // VCLBusyIndicatorModule,
     ScrollingModule,
     RouterModule.forChild([{
       path: '',

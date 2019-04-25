@@ -1,12 +1,7 @@
 <input #input 
        vclInput
        [value]="inputValue"
-       [attr.tabindex]="tabindex"
-       (keyup)="onKeyUp($event)"
-       (keydown)="onKeyDown($event)"
-       (keypress)="onKeyPress($event)"
-       (focus)="openDropdown()"
-       (click)="openDropdown()"
+       [attr.tabindex]="-1"
        [disabled]="isDisabled"
        class="vclAppItem vclReadonly"
        role="listbox"
@@ -14,7 +9,7 @@
        >
 <button #btn
         vcl-square-button
-        (click)="openDropdown()"
+        tabindex="-1"
         [disabled]="isDisabled"
         class="vclAppended"
       >

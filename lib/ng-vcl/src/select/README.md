@@ -5,7 +5,7 @@ A select control. Uses the dropdown component to render a list of selectable ite
 ## Usage
 
 ```html
-<vcl-select [value]="value" (selectionChange)="onSelectionChange($event)" [tabindex]="1">
+<vcl-select [(value)]="value">
   <vcl-dropdown>
     <vcl-dropdown-item label=" -">
       <vcl-dropdown-label>[Clear selection]</vcl-dropdown-label>
@@ -29,12 +29,13 @@ A select control. Uses the dropdown component to render a list of selectable ite
 
 Name                  | Type                        | Default  | Description
 --------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
-`ngModel`             | any &#124; any[]            |          | value(s) of the selected option(s)
 `value`               | any &#124; any[]            |          | value(s) of the selected option(s)
 `selectionMode`       | "single" &#124; "multiple"  | "single" |
+`tabindex`            | number                      | 0        | The tabindex of the select
+`disabled`            | boolean                     | false    | Disabled the control when true
 
 #### vcl-select events
 
 Name                  | Type             | Description
 --------------------- | ---------------  | -
-`selectionChange`     | any &#124; any[] | emits the new value when the selected options change
+`valueChange`         | any &#124; any[] | emits the new value when the selected options change
