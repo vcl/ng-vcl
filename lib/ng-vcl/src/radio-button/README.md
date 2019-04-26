@@ -1,15 +1,11 @@
 # vcl-radio-button
 
-A radio button utilizing `vcl-icon`
+A radio group with radio buttons utilizing `vcl-icon`
 
 ## Usage
 
 ```html
-<vcl-radio-button [(checked)]="checked"></vcl-radio-button> Label
-```
-
-```html
-<vcl-radio-group [(ngModel)]="value">
+<vcl-radio-group [(value)]="value">
   <vcl-radio-button value="red"></vcl-radio-button> Red
   <vcl-radio-button value="green"></vcl-radio-button> Green
 </vcl-radio-group>
@@ -29,7 +25,11 @@ A radio button utilizing `vcl-icon`
 
 | Name                  | Type                          | Default      | Description
 | --------------------- | ----------------------        | --------     |--------------
-| `ngModel`             | any                           |              | Value of the checked radio button
+| `value`               | any \| any[]                  |              | Value of the checked radio button
+| `layout`              | 'horizontal' \| 'vertical'    | 'horizontal' | Renders radio group horizontally or vertically
 
+#### Events
 
-*(1) Supports Two-way binding*
+| Name                  | Type             | Description
+| --------------------- | ---------------  | -
+| `valueChange`         | any &#124; any[] | emits the new value when radio group value changes

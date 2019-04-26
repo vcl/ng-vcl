@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLRadioButtonModule, VCLIcogramModule, VCLFormControlLabelModule } from '@ng-vcl/ng-vcl';
+import { VCLRadioButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { RadioButtonDemoComponent } from './demo.component';
 
@@ -33,7 +33,6 @@ export function demo() {
     FormsModule,
     DemoModule,
     VCLRadioButtonModule,
-    VCLFormControlLabelModule,
     VCLIcogramModule,
     RouterModule.forChild([{
       path: '',

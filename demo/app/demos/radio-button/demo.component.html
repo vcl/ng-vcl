@@ -1,53 +1,33 @@
-<h3>Basic</h3>
-<vcl-radio-button [(checked)]="isChecked" (checkedChange)="onChange($event)"></vcl-radio-button> Check!
-
-<br>
-<h3>Disabled</h3>
-<vcl-radio-button [disabled]="true"></vcl-radio-button> Check!
-
-<h3>With Form Control Label</h3>
-<label vcl-form-control-label>
-  <vcl-radio-button></vcl-radio-button>
-  <vcl-icogram appIcon="fas:check">Check!</vcl-icogram>
-</label>
-
-<h3>Radio group</h3>
-
-<vcl-radio-group [(ngModel)]="rgValue1">
-  <vcl-radio-button value="red"></vcl-radio-button> Red
-  <vcl-radio-button value="green"></vcl-radio-button> Green
-</vcl-radio-group>
-<p></p>
 <p>Current value: {{rgValue1}}</p>
 
-<h3>Radio group with Form Control Label</h3>
-<vcl-radio-group class="vclInputControlGroup" [(ngModel)]="rgValue2">
-  <label vcl-form-control-label>
+<h3>Basic radio group</h3>
+<vcl-radio-group [(ngModel)]="rgValue2">
+  <label vclRadioButtonLabel>
     <vcl-radio-button value="m"></vcl-radio-button>
     <vcl-icogram appIcon="fas:mars">Male</vcl-icogram>
   </label>
-  <label vcl-form-control-label>
+  <label vclRadioButtonLabel>
     <vcl-radio-button value="f"></vcl-radio-button>
     <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
   </label>
-  <label vcl-form-control-label>
+  <label vclRadioButtonLabel>
     <vcl-radio-button value="g"></vcl-radio-button>
     <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
   </label>
 </vcl-radio-group>
 <p>Current value: {{rgValue2}}</p>
 
-<h3>Inline Radio group with Form Control Label</h3>
-<vcl-radio-group class="vclInputInlineControlGroup" [(ngModel)]="rgValue3">
-  <label vcl-form-control-label>
+<h3>Vertical radio group</h3>
+<vcl-radio-group layout="vertical" [(ngModel)]="rgValue3">
+  <label vclRadioButtonLabel>
     <vcl-radio-button value="m"></vcl-radio-button>
     <vcl-icogram appIcon="fas:mars">Male</vcl-icogram>
   </label>
-  <label vcl-form-control-label>
+  <label vclRadioButtonLabel>
     <vcl-radio-button value="f"></vcl-radio-button>
     <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
   </label>
-  <label vcl-form-control-label>
+  <label vclRadioButtonLabel>
     <vcl-radio-button value="g"></vcl-radio-button>
     <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
   </label>
