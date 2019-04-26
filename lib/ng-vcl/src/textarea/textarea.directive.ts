@@ -1,18 +1,38 @@
-import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
-import { FormControlLabelMember } from '../form-control-label';
+import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck, forwardRef, Optional, Inject, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
+import { Subject } from 'rxjs';
+import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 
 let UNIQUE_ID = 0;
 @Directive({
   selector: 'textarea[vclInput]',
-  host: {
-    '[class.vclInput]': 'true',
-  }
+  providers: [{
+    provide: FORM_CONTROL_INPUT,
+    useExisting: forwardRef(() => TextareaDirective)
+  }]
 })
-export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck, FormControlLabelMember {
+export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, DoCheck, FormControlInput {
 
-  constructor(private elRef: ElementRef<HTMLTextAreaElement>) { }
+  constructor(
+    private elementRef: ElementRef<HTMLTextAreaElement>,
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    public ngControl?: NgControl,
+    @Optional()
+    private ngForm?: NgForm,
+    @Optional()
+    private formGroup?: FormGroupDirective,
+    @Optional()
+    @Inject(FORM_CONTROL_ERROR_MATCHER)
+    private errorMatcher?: FormControlErrorMatcher
+  ) { }
 
-  private generatedId = 'vcl_input_' + UNIQUE_ID++;
+  private stateChangeEmitter = new Subject<void>();
+  private _focused = false;
+  private generatedId = 'vcl_textarea_' + UNIQUE_ID++;
+
+  controlType = 'textarea';
+  stateChange = this.stateChangeEmitter.asObservable();
 
   @HostBinding('class.vclInput')
   classVclInput = true;
@@ -49,11 +69,34 @@ export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck, For
   @Input()
   rows: number;
 
+  get isFocused() {
+    return this._focused;
+  }
+
+  get value() {
+    return this.elementRef.nativeElement.value;
+  }
+
+  @HostBinding('class.vclError')
+  get hasError() {
+    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+  }
+
   @HostListener('propertychange')
   @HostListener('input')
   onChange() {
-    const value = this.elRef && this.elRef.nativeElement.value;
+    const value = this.elementRef && this.elementRef.nativeElement.value;
     this.setRows(value);
+  }
+
+  @HostListener('focus')
+  onFocus() {
+    this._focused = true;
+  }
+
+  @HostListener('blur')
+  onBlur() {
+    this._focused = false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -63,13 +106,17 @@ export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck, For
   }
 
   ngDoCheck() {
-    const value = this.elRef && this.elRef.nativeElement.value;
+    const value = this.elementRef && this.elementRef.nativeElement.value;
     this.setRows(value);
   }
 
   ngAfterViewInit() {
-    const value = this.elRef && this.elRef.nativeElement.value;
+    const value = this.elementRef && this.elementRef.nativeElement.value;
     this.setRows(value);
+  }
+
+  onLabelClick(event: Event): void {
+    this.elementRef.nativeElement.focus();
   }
 
   setRows(value: string) {
@@ -86,6 +133,10 @@ export class TextareaDirective implements AfterViewInit, OnChanges, DoCheck, For
   }
 
   notifyFormControlLabelClick(event: Event): void {
-    this.elRef.nativeElement.focus();
+    this.elementRef.nativeElement.focus();
+  }
+
+  ngOnDestroy() {
+    this.stateChangeEmitter && this.stateChangeEmitter.complete();
   }
 }

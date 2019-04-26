@@ -9,4 +9,3 @@ import { TextareaDirective } from './textarea.directive';
   providers: [],
 })
 export class VCLTextareaModule { }
-
