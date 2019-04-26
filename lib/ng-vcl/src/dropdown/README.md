@@ -50,6 +50,7 @@ A dropdown menu consisting of a list of items which can be selected.
 
 Name            | Type                             | Default     | Description
 ----------      | -------                          | -------     | --------------------------------------
+`value`         | any                              |             | Current value
 `target`        | ElementRef                       |             | The target the dropdown attaches to
 `width`         | number \| string                 |             | Dropdown width
 `height`        | number \| string                 | '20em'      | Dropdown height
@@ -66,10 +67,10 @@ Name            | Type    | Description
 
 ### vcl-dropdown-item attributes
 
-Name       | Type    | Default | Description
----------- | ------- | ------- | --------------------------------------
-`value`    | any     |         | The items value
-`disabled` | boolean |         | Disables the item
+Name              | Type                  | Default   | Description
+----------        | -------               | -------   | --------------------------------------
+`value`           | any                   |           | The items value
+`disabled`        | boolean               |           | Disables the item
 
 ### input[vclDropdown] attributes
 

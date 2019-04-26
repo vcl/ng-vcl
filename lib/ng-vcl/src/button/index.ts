@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from '../icogram';
 import { VCLIconModule } from '../icon';
-import { ButtonComponent, VCLButton, ButtonObserver, BUTTON_OBSERVER_TOKEN } from './button.component';
+import { ButtonComponent, ButtonObserver, BUTTON_OBSERVER_TOKEN } from './button.component';
 
-export { ButtonComponent, ButtonObserver, BUTTON_OBSERVER_TOKEN, VCLButton };
+export { ButtonComponent, ButtonObserver, BUTTON_OBSERVER_TOKEN };
 
 @NgModule({
   imports: [CommonModule, VCLIconModule, VCLIcogramModule],

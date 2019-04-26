@@ -9,7 +9,7 @@ import { DOWN_ARROW, UP_ARROW, ESCAPE, TAB } from '@angular/cdk/keycodes';
 })
 export class DropdownInputDirective extends InputDirective implements OnDestroy, OnChanges  {
 
-  constructor(private elementRef: ElementRef<HTMLInputElement>) {
+  constructor(elementRef: ElementRef<HTMLInputElement>) {
     super(elementRef);
   }
 
@@ -140,6 +140,7 @@ export class DropdownInputDirective extends InputDirective implements OnDestroy,
   }
 
   ngOnDestroy() {
+    super.ngOnDestroy();
     if (this.dropdownCloseSub) {
       this.dropdownCloseSub.unsubscribe();
       this.dropdownCloseSub = undefined;

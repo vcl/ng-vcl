@@ -55,4 +55,4 @@ export class AppComponent { ... }
 
 | Name                | Description
 | ------------        | --------------
-| `selectionChange`   | Triggered when the button is selected/deselected
+| `selectedChange`    | Triggered when the button is selected state changes

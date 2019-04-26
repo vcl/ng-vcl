@@ -10,7 +10,6 @@ import { TemplateOverlay } from '../overlay';
 import { createOffClickStream } from '../off-click';
 import { DropdownItemComponent } from './components/dropdown-item.component';
 import { DROPDOWN_TOKEN, Dropdown, DropdownItem, DropdownAction, DropdownOptions } from './types';
-import { DropdownHeaderComponent } from '.';
 import { DropdownContentComponent } from './components/dropdown-content.component';
 
 @Component({
@@ -93,7 +92,7 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
     return this._items.length > 0 && this._content.length > 0;
   }
 
-  private get _valueArray() {
+  private get _valueAsArray() {
     if (Array.isArray(this.value)) {
       return this.value;
     } else {
@@ -106,7 +105,7 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
   }
 
   isItemSelected(item: DropdownItem): boolean {
-    return this._valueArray.includes(item.value);
+    return this._valueAsArray.includes(item.value);
   }
 
   selectItem(item: DropdownItem): void {
@@ -115,7 +114,7 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
     } else if (this.selectionMode === 'single') {
       this.value = item.value;
     } else {
-      const values = this._valueArray;
+      const values = this._valueAsArray;
       if (values.includes(item.value)) {
         this.value = values.filter(_value => _value !== item.value);
       } else {
@@ -137,7 +136,7 @@ export class DropdownComponent extends TemplateOverlay<DropdownItem> implements 
   }
 
   get selectedItems() {
-    return this._items.filter(_item => this._valueArray.includes(_item.value));
+    return this._items.filter(_item => this._valueAsArray.includes(_item.value));
 
   }
 

@@ -24,16 +24,22 @@ export class ButtonComponent {
   ) { }
 
   private _disabled = false;
+  private _focused = false;
 
   @Input()
   disabled = false;
 
   @Output()
-  selectionChange = new EventEmitter<boolean>();
+  selectedChange = new EventEmitter<boolean>();
 
   @HostBinding('class.vclSquare')
   get classVCLSquare() {
     return this.elementRef.nativeElement.hasAttribute('vcl-square-button');
+  }
+
+  @HostBinding('attr.type')
+  get attrType() {
+    return this.type || (this.selectable ? 'button' : null);
   }
 
   @HostBinding('class.vclDisabled')
@@ -48,11 +54,20 @@ export class ButtonComponent {
   @HostBinding('class.vclHovered')
   hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
 
+  @HostBinding('attr.aria-pressed')
   @Input()
   selectable = false;
 
   @Input()
+  type?: string;
+
+  @Input()
   value: any;
+
+  get isFocused() {
+    return this._focused;
+  }
+
 
   @Input()
   @HostBinding('class.vclSelected')
@@ -72,13 +87,19 @@ export class ButtonComponent {
   onClick() {
     if (this.selectable) {
       this.selected = !this.selected;
-      this.selectionChange.emit(this.selected);
+      this.selectedChange.emit(this.selected);
     }
     this.observer && this.observer.notifyButtonClick(this);
   }
 
+  @HostListener('focus')
+  onFocus() {
+    this._focused = true;
+  }
+
   @HostListener('blur')
   onBlur() {
+    this._focused = false;
     this.observer && this.observer.notifyButtonBlur(this);
   }
 

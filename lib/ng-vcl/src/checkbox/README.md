@@ -27,8 +27,12 @@ export class AppComponent {}
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------
-| `checked` *(1)*     | boolean     | false              | State of checkbox
+| `checked`           | boolean     | false              | State of checkbox
 | `tabindex`          | number      | 0                  | The tabindex of the checkbox
 | `disabled`          | boolean     | false              | Disables checkbox if true
 
-*(1) Supports Two-way binding*
+### Events
+
+Name            | Type    | Description
+----------      | ------- | --------------------------------------
+`valueChange`   | any     | Fired when the checked state has changed

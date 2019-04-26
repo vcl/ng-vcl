@@ -14,7 +14,7 @@
         <div [innerHtml]="alert.text" *ngIf="alert.text && alert.html"></div>
       </div>
 
-      <div class="vclInputControlGroup" *ngIf="alert.input">
+      <div class="vclFormControlGroup" *ngIf="alert.input">
         <p></p>
         <input vclInput vclInputAlert [class.vclError]="validationError" [alert]="alert" (input)="valueChange($event.target.value)">
         <div *ngIf="validationError" class="vclFormControlHint vclError">
