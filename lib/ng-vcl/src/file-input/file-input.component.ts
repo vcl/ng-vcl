@@ -1,40 +1,92 @@
 import {
   Component, forwardRef, ChangeDetectionStrategy, Input,
   Output, ViewChild, HostBinding, ElementRef, EventEmitter,
-  HostListener, ChangeDetectorRef
+  HostListener, ChangeDetectorRef, Optional, Self, Inject
 } from '@angular/core';
 import {
   ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR
 } from '@angular/forms';
 import { accept } from './accept';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
+import { Subject } from 'rxjs';
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => FileInputComponent),
-  multi: true
-};
+let UNIQUE_ID = 0;
 
 @Component({
   selector: 'vcl-file-input',
   templateUrl: 'file-input.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  providers: [{
+    provide: FORM_CONTROL_INPUT,
+    useExisting: forwardRef(() => FileInputComponent)
+  }],
   host: {
     '[class.vclInput]': 'true',
     '[class.vclFileInput]': 'true',
     role: 'button',
   }
 })
-export class FileInputComponent implements ControlValueAccessor {
+export class FileInputComponent implements ControlValueAccessor, FormControlInput {
+
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    @Self()
+    public ngControl?: NgControl,
+    @Optional()
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
+    @Optional()
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
+  ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  private stateChangeEmitter = new Subject<void>();
+
+  stateChange = this.stateChangeEmitter.asObservable();
+
+  controlType = 'file-input_';
+
+  private _disabled = false;
+
+  private generatedId = 'vcl_file-input_' + UNIQUE_ID++;
 
   @Input()
-  icon = 'fas fa-upload';
+  id?: string;
+
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this.generatedId;
+  }
+
+  @Output()
+  valueChange = new EventEmitter<any>();
 
   @Input()
-  accept = '*';
+  disabled = false;
+
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
+  @HostBinding('class.vclError')
+  get hasError() {
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  }
+
+  @Input()
+  accept?: string;
 
   @Input()
   multiple = false;
+
+  @Input()
+  value: FileList | undefined;
 
   @Output()
   files = new EventEmitter<FileList>();
@@ -43,9 +95,10 @@ export class FileInputComponent implements ControlValueAccessor {
   @HostBinding('attr.tabindex')
   tabindex = 0;
 
-  @Input()
   @HostBinding('class.vclDisabled')
-  disabled = false;
+  get isDisabled() {
+    return this.disabled || this._disabled;
+  }
 
   @HostBinding('class.vclError')
   invalidFiles = false;
@@ -59,10 +112,7 @@ export class FileInputComponent implements ControlValueAccessor {
   @ViewChild('input')
   input: ElementRef;
 
-  value: FileList | undefined;
   filename: string | undefined;
-
-  constructor(private cdRef: ChangeDetectorRef) { }
 
   get fileInput(): HTMLInputElement | undefined {
     return this.input && this.input.nativeElement;
@@ -79,6 +129,14 @@ export class FileInputComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
+  onLabelClick(event: Event): void {
+    if (this.disabled) {
+      return;
+    }
+    this.fileInput && this.fileInput.click();
+    this.onTouched();
+  }
+
   onInputChange() {
     if (this.fileInput && this.fileInput.files) {
       this.updateFiles(this.fileInput.files);
@@ -86,9 +144,11 @@ export class FileInputComponent implements ControlValueAccessor {
   }
 
   checkFiles(files: FileList) {
-    const hasWrongFiles: boolean = Array.from(files).some((file: File) => !accept(file, this.accept));
-    // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
-    this.invalidFiles = hasWrongFiles && this.accept !== '*';
+    if (accept) {
+      this.invalidFiles = Array.from(files).some((file: File) => !accept(file, this.accept));
+    } else {
+      this.invalidFiles = false;
+    }
   }
 
   @HostListener('keydown', ['$event'])
@@ -153,6 +213,7 @@ export class FileInputComponent implements ControlValueAccessor {
       this.value = files;
       this.checkFiles(files);
       this.files.emit(files);
+      this.valueChange.emit(files);
       this.onChange(files);
     }
   }
@@ -174,7 +235,7 @@ export class FileInputComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this._disabled = isDisabled;
     this.cdRef.markForCheck();
   }
 }

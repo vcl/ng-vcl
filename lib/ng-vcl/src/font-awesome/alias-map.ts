@@ -13,5 +13,6 @@ export const ALIAS_MAP: IconAliases = {
   'warning': 'fas fa-exclamation-triangle',
   'error': 'fas fa-exclamation-circle',
   'arrow-left': 'fas fa-chevron-left',
-  'arrow-right': 'fas fa-chevron-right'
+  'arrow-right': 'fas fa-chevron-right',
+  'upload': 'fas fa-upload',
 };
