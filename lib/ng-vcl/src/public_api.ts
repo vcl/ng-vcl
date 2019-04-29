@@ -22,7 +22,6 @@ export * from './radio-button/index';
 export * from './checkbox/index';
 export * from './off-click/index';
 export * from './date-picker/index';
-export * from './wormhole/index';
 export * from './month-picker/index';
 export * from './label/index';
 export * from './token/index';
