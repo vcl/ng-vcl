@@ -99,8 +99,8 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   @Output()
   valueChange = new EventEmitter<boolean>();
 
-  private onTouchedCallback: () => void;
-  private onChangeCallback: (_: any) => void;
+  private onTouchedCallback: () => void = () => {};
+  private onChangeCallback: (_: any) => void =  () => {};
 
   @HostListener('click')
   onClick() {

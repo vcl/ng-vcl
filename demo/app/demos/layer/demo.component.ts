@@ -11,10 +11,9 @@ export class LayerDemoComponent {
   constructor(
     private fooLayer: FooLayer,
     private layerService: LayerService,
-    private viewContainerRef: ViewContainerRef
   ) {
     fooLayer.afterClose.subscribe(result => {
-      console.log(result.value);
+      console.log(result);
     });
   }
 
