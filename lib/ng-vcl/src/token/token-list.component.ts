@@ -13,11 +13,11 @@ import {
   OnDestroy,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { merge ,  Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { startWith } from 'rxjs/operators';
 
 import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
-import { map, startWith } from 'rxjs/operators';
 import { TokenObserver, Token } from './interfaces';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -71,7 +71,7 @@ export class TokenListComponent implements AfterContentInit, OnChanges, OnDestro
     return this.disabled || this.cvaDisabled;
   }
 
-  private onChangeCallback = (value: any) => {};
+  private onChangeCallback = (_value) => {};
   private onTouchedCallback = () => {};
 
   private syncTokens() {

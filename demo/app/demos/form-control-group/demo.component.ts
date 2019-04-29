@@ -15,7 +15,7 @@ export class FormControlGroupDemoComponent {
   };
 
   formGroup = new FormGroup({
-    name: new FormControl('test', [
+    name: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
     ]),
