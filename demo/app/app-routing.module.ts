@@ -349,16 +349,6 @@ export const routes: Routes = [
   //   }
   // },
   // {
-  //   loadChildren: './demos/notification/demo.module#NotificationDemoModule',
-  //   path: 'notification',
-  //   data: {
-  //     demo: {
-  //       label: 'Notification',
-  //       category: CAT_STATUS_INFORMATION,
-  //     }
-  //   }
-  // },
-  // {
   //   loadChildren: './demos/table/demo.module#TableDemoModule',
   //   path: 'table',
   //   data: {
