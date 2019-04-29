@@ -35,4 +35,4 @@ export class AppComponent {}
 
 Name            | Type    | Description
 ----------      | ------- | --------------------------------------
-`valueChange`   | any     | Fired when the checked state has changed
+`checkedChange` | any     | Fired when the checked state has changed

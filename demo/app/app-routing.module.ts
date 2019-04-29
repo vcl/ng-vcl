@@ -108,16 +108,26 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/file-input/demo.module#FileInputDemoModule',
-  //   path: 'file-input',
-  //   data: {
-  //     demo: {
-  //       label: 'File Input',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/select/demo.module#SelectDemoModule',
+    path: 'select',
+    data: {
+      demo: {
+        label: 'Select',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/file-input/demo.module#FileInputDemoModule',
+    path: 'file-input',
+    data: {
+      demo: {
+        label: 'File Input',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   {
     loadChildren: './demos/flip-switch/demo.module#FlipSwitchDemoModule',
     path: 'flip-switch',
@@ -144,16 +154,6 @@ export const routes: Routes = [
   //   data: {
   //     demo: {
   //       label: 'Password Input',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/input-control-group/demo.module#InputControlGroupDemoModule',
-  //   path: 'input-control-group',
-  //   data: {
-  //     demo: {
-  //       label: 'Input Control Group',
   //       category: CAT_FORM_CONTROLS,
   //     }
   //   }
@@ -188,16 +188,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/slider/demo.module#SliderDemoModule',
-  //   path: 'slider',
-  //   data: {
-  //     demo: {
-  //       label: 'Slider',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/slider/demo.module#SliderDemoModule',
+    path: 'slider',
+    data: {
+      demo: {
+        label: 'Slider',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   {
     loadChildren: './demos/textarea/demo.module#TextareaDemoModule',
     path: 'textarea',
@@ -208,52 +208,22 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/token/demo.module#TokenDemoModule',
-  //   path: 'token',
-  //   data: {
-  //     demo: {
-  //       label: 'Token',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
-  //   path: 'autocomplete',
-  //   data: {
-  //     demo: {
-  //       label: 'Autocomplete',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/form-mashups/demo.module#FormMashupsDemoModule',
-  //   path: 'form-mashups',
-  //   data: {
-  //     demo: {
-  //       label: 'Mashups',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
-  // // {
-  // //   loadChildren: './demos/form/demo.module#FormDemoModule',
-  // //   path: 'form',
-  // //   data: {
-  // //     demo: {
-  // //       label: 'All Controls Example',
-  // //       category: CAT_FORMS,
-  // //     }
-  // //   }
-  // // },
   {
-    loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
-    path: 'form-control-label',
+    loadChildren: './demos/token/demo.module#TokenDemoModule',
+    path: 'token',
     data: {
       demo: {
-        label: 'Form Control Label',
+        label: 'Token',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/form-control-group/demo.module#FormControlGroupDemoModule',
+    path: 'form-control-group',
+    data: {
+      demo: {
+        label: 'Form Control Group',
         category: CAT_FORMS,
       }
     }
@@ -264,16 +234,6 @@ export const routes: Routes = [
   // //   data: {
   // //     demo: {
   // //       label: 'JSS-Form',
-  // //       category: CAT_FORMS,
-  // //     }
-  // //   }
-  // // },
-  // // {
-  // //   loadChildren: './demos/form-layouts/demo.module#FormLayoutsDemoModule',
-  // //   path: 'form-layouts',
-  // //   data: {
-  // //     demo: {
-  // //       label: 'Layouts',
   // //       category: CAT_FORMS,
   // //     }
   // //   }
@@ -405,16 +365,6 @@ export const routes: Routes = [
   //     demo: {
   //       label: 'Table',
   //       category: CAT_TABULAR_DATA,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/wormhole/demo.module#WormholeDemoModule',
-  //   path: 'wormhole',
-  //   data: {
-  //     demo: {
-  //       label: 'Wormhole',
-  //       category: CAT_MISC,
   //     }
   //   }
   // },

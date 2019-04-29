@@ -1,16 +1,10 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter,
-         forwardRef, ChangeDetectorRef, AfterContentInit, HostBinding, Optional, Inject, ElementRef } from '@angular/core';
+         forwardRef, ChangeDetectorRef, AfterContentInit, HostBinding, Optional, Inject, Self } from '@angular/core';
 import { Subscription, Subject } from 'rxjs';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { BUTTON_OBSERVER_TOKEN, ButtonObserver, ButtonComponent } from '../button';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
-
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => ButtonGroupComponent),
-  multi: true
-};
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_HOST, FormControlHost } from '../form-control-group';
 
 let UNIQUE_ID = 0;
 
@@ -21,7 +15,6 @@ let UNIQUE_ID = 0;
   },
   template: `<ng-content select="button"></ng-content>`,
   providers: [
-    CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
     {
       provide: BUTTON_OBSERVER_TOKEN,
       useExisting: forwardRef(() => ButtonGroupComponent)
@@ -38,15 +31,20 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   constructor(
     private cdRef: ChangeDetectorRef,
     @Optional()
+    @Self()
     public ngControl?: NgControl,
     @Optional()
-    private ngForm?: NgForm,
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
     @Optional()
-    private formGroup?: FormGroupDirective,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_MATCHER)
-    private errorMatcher?: FormControlErrorMatcher
-    ) { }
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
+  ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   private buttonsSub?: Subscription;
   private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
@@ -91,9 +89,13 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
 
   formDisabled = false;
 
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
   @HostBinding('class.vclError')
   get hasError() {
-    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
   }
 
   get isDisabled(): boolean {
@@ -163,6 +165,10 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   private triggerChange() {
     this.valueChange.emit(this.value);
     this.onChange(this.value);
+  }
+
+  getError(error: string) {
+    return this.hasError && this.ngControl.getError(error);
   }
 
   ngAfterContentInit() {

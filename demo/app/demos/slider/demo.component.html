@@ -1,10 +1,10 @@
 <h3>Basic</h3>
-<vcl-slider [(ngModel)]="value1"></vcl-slider>
+<vcl-slider [(value)]="value1"></vcl-slider>
 Value: {{value1}}
 
 <h3>With a scale</h3>
 <vcl-slider 
-  [(ngModel)]="value2" 
+  [(value)]="value2" 
   [min]="0" 
   [max]="100"
   [scale]="10">
@@ -13,10 +13,10 @@ Value: {{value2}}
 
 <h3>With value locked to the scale</h3>
 <vcl-slider 
-  [(ngModel)]="value3" 
+  [(value)]="value3" 
   [min]="0" 
   [max]="100"
-  [scale]="10"
+  [scale]="11"
   [lock]="true" >
 </vcl-slider>
 Value: {{value3}}
@@ -24,10 +24,10 @@ Value: {{value3}}
 
 <h3>custom labeled scale</h3>
 <vcl-slider 
-  [(ngModel)]="value4" 
+  [(value)]="value4" 
   [min]="0" 
   [max]="5" 
-  [mousewheel]="true" 
+  [enableWheel]="true" 
   [scale]="['☀','☁','☂','☃','☄','1']">
 </vcl-slider>
 Value: {{value4}}
@@ -36,7 +36,7 @@ Value: {{value4}}
 <h3>disabled</h3>
 
 <vcl-slider 
-  [(ngModel)]="value5" 
+  [(value)]="value5" 
   [min]="0" 
   [max]="7" 
   [disabled]="true" 

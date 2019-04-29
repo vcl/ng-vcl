@@ -5,7 +5,7 @@ import { FormControlErrorStateAgent, FormControlHost, FormControlInput } from 'l
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class FormDemoComponent {
+export class FormControlGroupDemoComponent {
 
   defaultValues = {
     leader: false,

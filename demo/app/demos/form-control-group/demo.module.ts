@@ -11,13 +11,17 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLSelectModule,
          VCLEmbeddedInputGroupModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { FormDemoComponent } from './demo.component';
+import { FormControlGroupDemoComponent } from './demo.component';
 
 export function demo() {
   return {
     name: 'Form',
     tabs: {
-      Demo: FormDemoComponent,
+      Demo: FormControlGroupDemoComponent,
+      'README.md': {
+        type: 'md',
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/form-control-group/README.md')
+      },
       'demo.component.html': {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=html!./demo.component.html')
@@ -59,7 +63,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ FormDemoComponent ],
-  declarations: [ FormDemoComponent ]
+  entryComponents: [ FormControlGroupDemoComponent ],
+  declarations: [ FormControlGroupDemoComponent ]
 })
-export class FormDemoModule { }
+export class FormControlGroupDemoModule { }

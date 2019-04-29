@@ -3,7 +3,7 @@ import { Component,
   EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, HostBinding, Optional, Inject, OnDestroy, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -28,12 +28,11 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     @Optional()
     public ngControl?: NgControl,
     @Optional()
-    private ngForm?: NgForm,
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
     @Optional()
-    private formGroup?: FormGroupDirective,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_MATCHER)
-    private errorMatcher?: FormControlErrorMatcher,
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
   ) {
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {
@@ -52,6 +51,9 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
 
   @Input()
   id?: string;
+
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
 
   @HostBinding('attr.id')
   get elementId() {
@@ -83,9 +85,11 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     return this.formDisabled || this.disabled;
   }
 
+
   @HostBinding('class.vclError')
   get hasError() {
-    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
   }
 
   @HostBinding('attr.tabindex')

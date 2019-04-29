@@ -1,118 +1,138 @@
-<form class="vclForm" novalidate [formGroup]="form">
+<form vclForm novalidate [formGroup]="formGroup" #form="ngForm">
+  <h2>Create your hero</h2>
 
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-input" for="vcl-input"></label>
-    <input vcl-input [class.vclError]="input1.touched && input1.invalid" formControlName="input1" id="vcl-input">
-    <div *ngIf="input1.touched && input1.invalid" class="vclFormControlHint vclError">
-      <ng-container *ngIf="input1.touched && input1.hasError('required')">input1 is required</ng-container>
-      <ng-container *ngIf="input1.touched && input1.hasError('minlength')">input1 must have a minimum of 4 characters</ng-container>
-    </div>
-  </div>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Name<vcl-required></vcl-required></label>
+    <input vclInput formControlName="name" placeholder="Name of the hero">
+    <vcl-hint-error error="required">Name is required</vcl-hint-error>
+    <vcl-hint-error error="minlength">Name must have a length of at least 2 characters</vcl-hint-error>
+  </vcl-form-control-group>
 
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-input (repeat)" for="vcl-input-repeat"></label>
-    <input vcl-input [class.vclError]="input2.touched && form.hasError('inputsNotEqual')" formControlName="input2" id="vcl-input-repeat">
-    <div *ngIf="input2.touched && form.hasError('inputsNotEqual')" class="vclFormControlHint vclError">
-      Inputs must be equal
-    </div>
-  </div>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Description</label>
+    <textarea vclInput formControlName="description" placeholder="Description of the hero" [autogrow]="true" [minRows]="3" [maxRows]="10"></textarea>
+  </vcl-form-control-group>
 
-  <div class="vclInputControlGroup">
-    <vcl-checkbox formControlName="checkbox">
-      vcl-checkbox
-    </vcl-checkbox>
-  </div>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Leader</label>
+    <vcl-flip-switch formControlName="leader"></vcl-flip-switch>
+  </vcl-form-control-group>
 
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label label="vcl-button-group"></label>
-    <vcl-button-group [class.vclError]="buttonGroup.touched && buttonGroup.invalid" mode="multiple" formControlName="buttonGroup">
-      <button vcl-button label="Action 1"></button>
-      <button vcl-button label="Action 2"></button>
-      <button vcl-button label="Action 3"></button>
-      <button vcl-button label="Action 4"></button>
-    </vcl-button-group>
-    <div *ngIf="buttonGroup.touched && buttonGroup.hasError('noSelection')" class="vclFormControlHint vclError">
-      Select at least one button
-    </div>
-  </div>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Picture</label>
+    <vcl-file-input [multiple]="false" formControlName="picture">Picture of the hero</vcl-file-input>
+  </vcl-form-control-group>
 
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-dropdown"></label>
-    <vcl-dropdown [class.vclError]="dropdown.touched && dropdown.invalid" mode="multiple" formControlName="dropdown">
-      <vcl-dropdown-option [value]="1" label="Item 1"></vcl-dropdown-option>
-      <vcl-dropdown-option [value]="2" label="Item 2"></vcl-dropdown-option>
-      <vcl-dropdown-option [value]="3" label="Item 3"></vcl-dropdown-option>
-    </vcl-dropdown>
-    <div *ngIf="dropdown.touched && dropdown.hasError('noSelection')" class="vclFormControlHint vclError">
-      Select at least one item
-    </div>
-  </div>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Email</label>
+    <vcl-embedded-input-group>
+      <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+      <input vclInput formControlName="email">
+    </vcl-embedded-input-group>
+    <vcl-hint-error error="required">Email is required</vcl-hint-error>
+    <vcl-hint-error error="email">Invalid Email address</vcl-hint-error>
+  </vcl-form-control-group>
 
-
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label label="vcl-file-input"></label>
-    <vcl-file-input [multiple]="true" formControlName="fileinput">Files</vcl-file-input>
-  </div>
-
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label label="vcl-flip-switch"></label>
-    <vcl-flip-switch formControlName="flipswitch"></vcl-flip-switch>
-  </div>
-
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-radio-group"></label>
-    <vcl-radio-group [class.vclError]="radiogroup.touched && radiogroup.invalid" formControlName="radiogroup">
-      <vcl-radio-button label="Value 1" [value]="'r1'"></vcl-radio-button>
-      <vcl-radio-button label="Value 2" [value]="'r2'"></vcl-radio-button>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Gender<vcl-required></vcl-required></label>
+    <vcl-radio-group formControlName="gender">
+      <label vclRadioButtonLabel>
+        <vcl-radio-button value="m">Male</vcl-radio-button>
+        <vcl-icogram>
+          Male
+          <vcl-icon vclAppend icon="fas:mars"></vcl-icon>
+        </vcl-icogram>
+      </label>
+      <label vclRadioButtonLabel>
+        <vcl-radio-button value="f"></vcl-radio-button>
+        <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
+      </label>
+      <label vclRadioButtonLabel>
+        <vcl-radio-button value="g"></vcl-radio-button>
+        <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
+      </label>
+      <vcl-hint-error error="required">You must select a gender</vcl-hint-error>
     </vcl-radio-group>
-    <div *ngIf="radiogroup.touched && radiogroup.invalid" class="vclFormControlHint vclError">
-      <ng-container *ngIf="radiogroup.hasError('required')">Select a button</ng-container>
-    </div>
-  </div>
 
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-select"></label>
-    <vcl-select [class.vclError]="select.touched && select.invalid" formControlName="select">
-      <vcl-select-option [value]="1" label="Item 1"></vcl-select-option>
-      <vcl-select-option [value]="2" label="Item 2"></vcl-select-option>
-      <vcl-select-option [value]="3" label="Item 3"></vcl-select-option>
+  </vcl-form-control-group>
+
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Alignment<vcl-required></vcl-required></label>
+    <vcl-button-group formControlName="alignment">
+      <button vcl-button [value]="'good'">Good</button>
+      <button vcl-button [value]="'neutral'">Neutral</button>
+      <button vcl-button [value]="'evil'">Evil</button>
+    </vcl-button-group>
+    <vcl-hint-error error="required">You must select an alignment</vcl-hint-error>
+  </vcl-form-control-group>
+
+  <h3>Skills</h3>
+
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Strength<vcl-required></vcl-required></label>
+    <vcl-slider formControlName="strength" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider>
+  </vcl-form-control-group>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Agility<vcl-required></vcl-required></label>
+    <vcl-slider formControlName="agility" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider>
+  </vcl-form-control-group>
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Intelligence<vcl-required></vcl-required></label>
+    <vcl-slider formControlName="intelligence" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider>
+  </vcl-form-control-group>
+  <vcl-hint-warning *ngIf="!form.hasError('skills') && skillPoints < 20">The hero still has {{20 - skillPoints}} skill points available</vcl-hint-warning>
+  <vcl-hint-error *ngIf="form.hasError('skills')">Your hero has used more than 20 skill points combined</vcl-hint-error>
+
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Perks<vcl-required></vcl-required></label>
+    <vcl-select formControlName="perks" label="Select perks" selectionMode="multiple" >
+      <vcl-dropdown>
+        <vcl-dropdown-item [value]="'snakeeater'">
+          <vcl-dropdown-label>Snake Eater</vcl-dropdown-label>
+          <vcl-dropdown-sublabel>It gives you a 25% increase to your poison resistance.	</vcl-dropdown-sublabel>
+        </vcl-dropdown-item>
+        <vcl-dropdown-item [value]="'swiftlearner'">
+          <vcl-dropdown-label>Swift Learner</vcl-dropdown-label>
+          <vcl-dropdown-sublabel>Swift Learner	Whenever you gain experience, you'll receive 5% more experience per level of the perk.</vcl-dropdown-sublabel>
+        </vcl-dropdown-item>
+        <vcl-dropdown-item [value]="'toughness'">
+          <vcl-dropdown-label>Toughness</vcl-dropdown-label>
+          <vcl-dropdown-sublabel>It adds 10% to your general damage resistance per level.</vcl-dropdown-sublabel>
+        </vcl-dropdown-item>
+        <vcl-dropdown-item [value]="'explorer'">
+          <vcl-dropdown-label>Explorer</vcl-dropdown-label>
+          <vcl-dropdown-sublabel>You'll get more random encounters with this perk.</vcl-dropdown-sublabel>
+        </vcl-dropdown-item>
+      </vcl-dropdown>
     </vcl-select>
-    <div *ngIf="select.touched && select.invalid" class="vclFormControlHint vclError">
-      <ng-container *ngIf="select.hasError('required')">Select an item</ng-container>
-    </div>
+    <vcl-hint-error error="perks">You must select at least two perks</vcl-hint-error>
+  </vcl-form-control-group>
+
+  <vcl-form-control-group>
+    <label vclCheckboxLabel>
+      <vcl-checkbox formControlName="terms" [errorStateAgent]="termsErrorStateAgent"></vcl-checkbox>
+      Agree to our terms<vcl-required></vcl-required>
+    </label>
+    <vcl-hint>Read the <a href="'https://github.com/ng-vcl/ng-vcl'" target="'_blank'">terms</a> to learn how we collect, use and share your data</vcl-hint>
+    <vcl-hint-error error="termsDisagree">You must agree to our Terms</vcl-hint-error>
+  </vcl-form-control-group>
+
+  <div class="vclLooseButtonGroup">
+    <button vcl-button type="submit" class="vclEmphasized">Submit</button>
+    <button vcl-button type="button" (click)="form.resetForm(defaultValues)">Reset</button>
   </div>
 
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-slider"></label>
-    <vcl-slider [class.vclError]="slider.touched && slider.invalid" [min]="0" [max]="5" [scale]="true" formControlName="slider"></vcl-slider>
-    <div *ngIf="slider.touched && slider.hasError('lowValue')" class="vclFormControlHint vclError">
-      Value must be greater than 1
-    </div>    
+  <div class="value">
+    <h4>Form</h4>
+    <pre>status: {{ form.status }}</pre>
+    <pre>valid: {{ form.valid }}</pre>
+    <pre>dirty: {{ form.dirty }}</pre>
+    <pre>submitted: {{ form.submitted }}</pre>
+    <pre>touched: {{ form.touched }}</pre>
+    <pre>pristine: {{ form.pristine }}</pre>
+    <pre>errors: {{ form.errors | json }}</pre>
+    <pre>value: {{ form.value | json }}</pre>
+
   </div>
 
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-textarea" for="vcl-textarea"></label>
-    <textarea vcl-textarea [class.vclError]="textarea.touched && textarea.invalid" [autogrow]="true" formControlName="textarea" id="vcl-textarea"></textarea>
-    <div *ngIf="textarea.touched && textarea.invalid" class="vclFormControlHint vclError">
-      <ng-container *ngIf="textarea.touched && textarea.hasError('required')">textarea is required</ng-container>
-    </div>
-  </div>
-
-  <div class="vclInputControlGroup">
-    <label vcl-form-control-label [required]="true" label="vcl-token-input" for="vcl-token"></label>
-    <vcl-token-input-container [class.vclError]="tokeninput.touched && tokeninput.invalid" formControlName="tokeninput">
-      <input vcl-input vcl-token-input id="vcl-token" />
-    </vcl-token-input-container>
-    <div *ngIf="tokeninput.touched && tokeninput.hasError('noSelection')" class="vclFormControlHint vclError">
-      Add at least one token
-    </div>    
-  </div>
 </form>
-
-<div class="value">
-  <h4>Value: {{ form.value | json }}</h4>
-</div>
-
-<div class="error">
-  <h4>Status: {{ form.status }}</h4>
-</div>

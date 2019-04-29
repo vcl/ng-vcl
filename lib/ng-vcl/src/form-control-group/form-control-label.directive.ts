@@ -1,0 +1,59 @@
+import { Input, HostBinding, HostListener, Inject, Optional, ElementRef, Directive, ChangeDetectorRef } from '@angular/core';
+import { FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
+
+@Directive({
+  selector: 'label[vclFormControlLabel]',
+})
+export class FormControlLabelDirective {
+
+  constructor(
+    private elementRef: ElementRef<HTMLElement>,
+    cdRef: ChangeDetectorRef,
+    @Optional()
+    @Inject(FORM_CONTROL_GROUP)
+    private fcg?: FormControlGroup
+  ) {
+    this.fcg && this.fcg.stateChange.subscribe(() => {
+      cdRef.markForCheck();
+      cdRef.detectChanges();
+    });
+  }
+
+  @HostBinding('class.vclFormControlLabel')
+  classVCLFormControlLabel = true;
+
+  @HostBinding('attr.for')
+  get attrFor() {
+    if (this.for) {
+      return this.for;
+    } else if (this.fcg && this.fcg.input) {
+      return this.fcg.input.elementId;
+    }
+    return null;
+  }
+
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    const input = this.fcg && this.fcg.input;
+    return input && input.isDisabled;
+  }
+
+  @Input()
+  for?: string;
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('label')
+  @HostBinding('attr.aria-label')
+  _label?: string;
+
+  @HostListener('click', ['$event'])
+  onClick(event: Event) {
+    const input = this.fcg && this.fcg.input;
+    input && input.onLabelClick(event);
+  }
+
+  get label() {
+    return this._label || this.elementRef.nativeElement.innerText;
+  }
+
+}

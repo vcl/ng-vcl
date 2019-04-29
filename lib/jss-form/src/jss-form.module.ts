@@ -5,8 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {
   VCLButtonModule, VCLDropdownModule, VCLFlipSwitchModule,
   VCLSliderModule, VCLCheckboxModule,
-  VCLRadioButtonModule, VCLInputControlGroupModule,
-  VCLFormControlLabelModule, VCLTokenModule, VCLIconModule,
+  VCLRadioButtonModule, VCLTokenModule, VCLIconModule,
   VCLTextareaModule, VCLPasswordInputModule, VCLInputModule, VCLDatePickerModule
 } from '@ng-vcl/ng-vcl';
 import { JssFormObjectComponent } from './jss-form-object.component';
@@ -25,8 +24,6 @@ export { markAsDeeplyTouched } from './utils';
     VCLSliderModule,
     VCLCheckboxModule,
     VCLRadioButtonModule,
-    VCLFormControlLabelModule,
-    VCLInputControlGroupModule,
     VCLInputModule,
     VCLTextareaModule,
     VCLPasswordInputModule,

@@ -1,8 +1,0 @@
-<ng-content></ng-content>
-
-<div *ngIf="type && label && label!==''" class="vclFormControlHint"
-  [class.vclError]="type=='error'"
-  [class.vclWarning]="type=='warning'"
-  [class.vclSuccess]="type=='success'">
-  {{label}}
-</div>

@@ -2,7 +2,7 @@ import { Component, Input, HostBinding, ViewChild, ElementRef, HostListener, Con
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { DropdownComponent } from '../dropdown';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -23,12 +23,11 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor, FormCon
     @Optional()
     public ngControl?: NgControl,
     @Optional()
-    private ngForm?: NgForm,
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
     @Optional()
-    private formGroup?: FormGroupDirective,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_MATCHER)
-    private errorMatcher?: FormControlErrorMatcher
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
   ) {
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {
@@ -86,6 +85,9 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor, FormCon
   @Input()
   value: any | any[];
 
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
   @Output()
   valueChange = new EventEmitter<any | any[]>();
 
@@ -95,7 +97,8 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor, FormCon
 
   @HostBinding('class.vclError')
   get hasError() {
-    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
   }
 
   @HostListener('focus')

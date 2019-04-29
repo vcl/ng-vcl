@@ -1,9 +1,9 @@
 import { OnDestroy, forwardRef, Input, ContentChildren, QueryList, HostBinding, AfterContentInit, Directive, Optional, Inject, Self, EventEmitter, Output } from '@angular/core';
-import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import { RadioButtonComponent } from './radio-button.component';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
 import { RADIO_BUTTON_GROUP_TOKEN, RadioButtonGroup, RadioButton } from './interfaces';
 
 let UNIQUE_ID = 0;
@@ -33,12 +33,11 @@ export class RadioGroupDirective implements OnDestroy, AfterContentInit, Control
     @Self()
     public ngControl?: NgControl,
     @Optional()
-    private ngForm?: NgForm,
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
     @Optional()
-    private formGroup?: FormGroupDirective,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_MATCHER)
-    private errorMatcher?: FormControlErrorMatcher
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
   ) {
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {
@@ -78,6 +77,15 @@ export class RadioGroupDirective implements OnDestroy, AfterContentInit, Control
     this._disabled = disabled;
   }
 
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
+  @HostBinding('class.vclError')
+  get hasError() {
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  }
+
   @HostBinding('class.vclFormControlGroup')
   get classVclFormControlGroup() {
     return this.layout === 'vertical';
@@ -108,11 +116,6 @@ export class RadioGroupDirective implements OnDestroy, AfterContentInit, Control
   private formDisabled = false;
 
   private radioButtonsSub?: Subscription;
-
-  @HostBinding('class.vclError')
-  get hasError() {
-    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
-  }
 
   private syncRadioButtons() {
     if (!this.radioButtons) {

@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy } from '@angular/core';
-import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
+import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
 import { FormControl, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
+import { FormControlHost, FORM_CONTROL_HOST } from '../form-control-group/interfaces';
 
 export let UNIQUE_ID = 0;
 
@@ -27,12 +28,11 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
     @Optional()
     public ngControl?: NgControl,
     @Optional()
-    private ngForm?: NgForm,
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
     @Optional()
-    private formGroup?: FormGroupDirective,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_MATCHER)
-    private errorMatcher?: FormControlErrorMatcher,
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
   ) { }
 
   private uniqueId = 'vcl_input_' + UNIQUE_ID++;
@@ -51,12 +51,14 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
   @Input()
   id?: string;
 
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
   @HostBinding('attr.id')
   get elementId() {
     return this.id || this.uniqueId;
   }
 
-  @HostBinding('attr.id')
   get isFocused() {
     return this._focused;
   }
@@ -77,7 +79,8 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
 
   @HostBinding('class.vclError')
   get hasError() {
-    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
   }
 
   @HostBinding('attr.disabled')
@@ -113,6 +116,10 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
 
   ngOnDestroy() {
     this.stateChangeEmitter && this.stateChangeEmitter.complete();
+  }
+
+  getError(error: string) {
+    return this.hasError && this.ngControl.getError(error);
   }
 
 }

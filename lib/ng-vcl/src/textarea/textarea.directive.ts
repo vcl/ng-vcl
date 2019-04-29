@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck, forwardRef, Optional, Inject, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_MATCHER, FormControlErrorMatcher } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
 import { Subject } from 'rxjs';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 
@@ -19,12 +19,11 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     @Optional()
     public ngControl?: NgControl,
     @Optional()
-    private ngForm?: NgForm,
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
     @Optional()
-    private formGroup?: FormGroupDirective,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_MATCHER)
-    private errorMatcher?: FormControlErrorMatcher
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
   ) { }
 
   private stateChangeEmitter = new Subject<void>();
@@ -69,6 +68,9 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
   @Input()
   rows: number;
 
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
   get isFocused() {
     return this._focused;
   }
@@ -79,7 +81,8 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
 
   @HostBinding('class.vclError')
   get hasError() {
-    return this.errorMatcher ? this.errorMatcher(this, this.ngForm || this.formGroup) : false;
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
   }
 
   @HostListener('propertychange')
