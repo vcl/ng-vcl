@@ -94,6 +94,10 @@ var map = {
 		"./demo/app/demos/slider/demo.module.ts",
 		"demos-slider-demo-module"
 	],
+	"./demos/tab-nav/demo.module": [
+		"./demo/app/demos/tab-nav/demo.module.ts",
+		"demos-tab-nav-demo-module"
+	],
 	"./demos/textarea/demo.module": [
 		"./demo/app/demos/textarea/demo.module.ts",
 		"demos-textarea-demo-module"
@@ -194,16 +198,16 @@ var routes = [
     //     }
     //   }
     // },
-    // {
-    //   loadChildren: './demos/tab-nav/demo.module#TabNavDemoModule',
-    //   path: 'tab-nav',
-    //   data: {
-    //     demo: {
-    //       label: 'Tab Navigation',
-    //       category: CAT_NAVIGATION,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/tab-nav/demo.module#TabNavDemoModule',
+        path: 'tab-nav',
+        data: {
+            demo: {
+                label: 'Tab Navigation',
+                category: CAT_NAVIGATION,
+            }
+        }
+    },
     {
         loadChildren: './demos/button/demo.module#ButtonDemoModule',
         path: 'button',
@@ -2532,7 +2536,7 @@ var VCLCheckboxModule = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/core/index.ts ***!
   \**************************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2542,6 +2546,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLCoreModule", function() { return VCLCoreModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./lib/ng-vcl/src/core/utils.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hasProjectedContent", function() { return _utils__WEBPACK_IMPORTED_MODULE_2__["hasProjectedContent"]; });
+
 
 
 var PrependDirective = /** @class */ (function () {
@@ -2576,6 +2583,34 @@ var VCLCoreModule = /** @class */ (function () {
     return VCLCoreModule;
 }());
 
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/core/utils.ts":
+/*!**************************************!*\
+  !*** ./lib/ng-vcl/src/core/utils.ts ***!
+  \**************************************/
+/*! exports provided: hasProjectedContent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasProjectedContent", function() { return hasProjectedContent; });
+function hasProjectedContent(elementRef) {
+    if (!elementRef) {
+        return false;
+    }
+    var projectedContent = elementRef.nativeElement.childNodes;
+    for (var i = 0; i < projectedContent.length; i++) {
+        if (projectedContent.item(i).nodeType !== 8) {
+            // nodeType: 8 == comment
+            return true;
+        }
+    }
+    return false;
+}
 
 
 /***/ }),
@@ -6733,7 +6768,7 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6744,6 +6779,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AppendDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AppendDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCoreModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLCoreModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hasProjectedContent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["hasProjectedContent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["InputDirective"]; });
 
@@ -6862,24 +6899,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimePickerComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TimePickerComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLDatePickerModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TemplateWormhole"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ComponentWormhole"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["Wormhole"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["WormholeDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DomComponentWormhole"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DomTemplateWormhole"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["WormholeHost"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DomWormholeHost"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLWormholeModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLWormholeModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthPickerComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["MonthPickerComponent"]; });
 
@@ -9778,7 +9797,7 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9789,6 +9808,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AppendDirective", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["AppendDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCoreModule", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["VCLCoreModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hasProjectedContent", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["hasProjectedContent"]; });
 
 /* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input/index */ "./lib/ng-vcl/src/input/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputDirective", function() { return _input_index__WEBPACK_IMPORTED_MODULE_1__["InputDirective"]; });
@@ -9928,138 +9949,118 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_20__["VCLDatePickerModule"]; });
 
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["TemplateWormhole"]; });
+/* harmony import */ var _month_picker_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./month-picker/index */ "./lib/ng-vcl/src/month-picker/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthPickerComponent", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_21__["MonthPickerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["ComponentWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMonthPickerModule", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_21__["VCLMonthPickerModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["Wormhole"]; });
+/* harmony import */ var _label_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./label/index */ "./lib/ng-vcl/src/label/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLabelModule", function() { return _label_index__WEBPACK_IMPORTED_MODULE_22__["VCLLabelModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["WormholeDirective"]; });
+/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./token/index */ "./lib/ng-vcl/src/token/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_23__["TokenComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["DomComponentWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_23__["TokenInputContainerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["DomTemplateWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_index__WEBPACK_IMPORTED_MODULE_23__["TokenInputDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["WormholeHost"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_23__["TokenListComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["DomWormholeHost"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTokenModule", function() { return _token_index__WEBPACK_IMPORTED_MODULE_23__["VCLTokenModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLWormholeModule", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["VCLWormholeModule"]; });
+/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./slider/index */ "./lib/ng-vcl/src/slider/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_24__["SliderComponent"]; });
 
-/* harmony import */ var _month_picker_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./month-picker/index */ "./lib/ng-vcl/src/month-picker/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthPickerComponent", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_22__["MonthPickerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSliderModule", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_24__["VCLSliderModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMonthPickerModule", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_22__["VCLMonthPickerModule"]; });
+/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlGroupComponent", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__["FormControlGroupComponent"]; });
 
-/* harmony import */ var _label_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./label/index */ "./lib/ng-vcl/src/label/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLabelModule", function() { return _label_index__WEBPACK_IMPORTED_MODULE_23__["VCLLabelModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__["FORM_CONTROL_INPUT"]; });
 
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./token/index */ "./lib/ng-vcl/src/token/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__["FORM_CONTROL_ERROR_STATE_AGENT"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenInputContainerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__["FormControlHostDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenInputDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__["FORM_CONTROL_HOST"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenListComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__["defaultFormControlErrorMatcher"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTokenModule", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["VCLTokenModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_25__["VCLFormControlGroupModule"]; });
 
-/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./slider/index */ "./lib/ng-vcl/src/slider/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_25__["SliderComponent"]; });
+/* harmony import */ var _alert_index__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./alert/index */ "./lib/ng-vcl/src/alert/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_26__["AlertService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSliderModule", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_25__["VCLSliderModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_26__["AlertType"]; });
 
-/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlGroupComponent", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FormControlGroupComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_26__["AlertInput"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FORM_CONTROL_INPUT"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_26__["AlertAlignment"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FORM_CONTROL_ERROR_STATE_AGENT"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAlertModule", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_26__["VCLAlertModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FormControlHostDirective"]; });
+/* harmony import */ var _busy_indicator_index__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./busy-indicator/index */ "./lib/ng-vcl/src/busy-indicator/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorCoverComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_27__["BusyIndicatorCoverComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FORM_CONTROL_HOST"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_27__["BusyIndicatorComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["defaultFormControlErrorMatcher"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBusyIndicatorModule", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_27__["VCLBusyIndicatorModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["VCLFormControlGroupModule"]; });
+/* harmony import */ var _tooltip_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./tooltip/index */ "./lib/ng-vcl/src/tooltip/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_28__["TooltipComponent"]; });
 
-/* harmony import */ var _alert_index__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./alert/index */ "./lib/ng-vcl/src/alert/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimationState", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_28__["AnimationState"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Placement", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_28__["Placement"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertInput"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTooltipModule", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_28__["VCLTooltipModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertAlignment"]; });
+/* harmony import */ var _table_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./table/index */ "./lib/ng-vcl/src/table/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTableModule", function() { return _table_index__WEBPACK_IMPORTED_MODULE_29__["VCLTableModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAlertModule", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["VCLAlertModule"]; });
+/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputComponent", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_30__["PasswordInputComponent"]; });
 
-/* harmony import */ var _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./busy-indicator/index */ "./lib/ng-vcl/src/busy-indicator/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorCoverComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__["BusyIndicatorCoverComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputDirective", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_30__["PasswordInputDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__["BusyIndicatorComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPasswordInputModule", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_30__["VCLPasswordInputModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBusyIndicatorModule", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__["VCLBusyIndicatorModule"]; });
+/* harmony import */ var _zoom_box_index__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./zoom-box/index */ "./lib/ng-vcl/src/zoom-box/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLZoomBoxModule", function() { return _zoom_box_index__WEBPACK_IMPORTED_MODULE_31__["VCLZoomBoxModule"]; });
 
-/* harmony import */ var _tooltip_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./tooltip/index */ "./lib/ng-vcl/src/tooltip/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["TooltipComponent"]; });
+/* harmony import */ var _gallery_index__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./gallery/index */ "./lib/ng-vcl/src/gallery/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GALLERY_ANIMATIONS", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_32__["GALLERY_ANIMATIONS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimationState", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["AnimationState"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLGalleryModule", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_32__["VCLGalleryModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Placement", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["Placement"]; });
+/* harmony import */ var _badge_index__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./badge/index */ "./lib/ng-vcl/src/badge/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBadgeModule", function() { return _badge_index__WEBPACK_IMPORTED_MODULE_33__["VCLBadgeModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTooltipModule", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["VCLTooltipModule"]; });
+/* harmony import */ var _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./embedded-input-group/index */ "./lib/ng-vcl/src/embedded-input-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupComponent", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_34__["EmbeddedInputGroupComponent"]; });
 
-/* harmony import */ var _table_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./table/index */ "./lib/ng-vcl/src/table/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTableModule", function() { return _table_index__WEBPACK_IMPORTED_MODULE_30__["VCLTableModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLEmbeddedInputGroupModule", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_34__["VCLEmbeddedInputGroupModule"]; });
 
-/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputComponent", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_31__["PasswordInputComponent"]; });
+/* harmony import */ var _tour_index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./tour/index */ "./lib/ng-vcl/src/tour/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_35__["TourService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputDirective", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_31__["PasswordInputDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_35__["TourOptions"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPasswordInputModule", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_31__["VCLPasswordInputModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_35__["TourComponent"]; });
 
-/* harmony import */ var _zoom_box_index__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./zoom-box/index */ "./lib/ng-vcl/src/zoom-box/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLZoomBoxModule", function() { return _zoom_box_index__WEBPACK_IMPORTED_MODULE_32__["VCLZoomBoxModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTourModule", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_35__["VCLTourModule"]; });
 
-/* harmony import */ var _gallery_index__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./gallery/index */ "./lib/ng-vcl/src/gallery/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GALLERY_ANIMATIONS", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_33__["GALLERY_ANIMATIONS"]; });
+/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./rating/index */ "./lib/ng-vcl/src/rating/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _rating_index__WEBPACK_IMPORTED_MODULE_36__["VCLRatingModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLGalleryModule", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_33__["VCLGalleryModule"]; });
+/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_37__["SelectComponent"]; });
 
-/* harmony import */ var _badge_index__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./badge/index */ "./lib/ng-vcl/src/badge/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBadgeModule", function() { return _badge_index__WEBPACK_IMPORTED_MODULE_34__["VCLBadgeModule"]; });
-
-/* harmony import */ var _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./embedded-input-group/index */ "./lib/ng-vcl/src/embedded-input-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupComponent", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_35__["EmbeddedInputGroupComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLEmbeddedInputGroupModule", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_35__["VCLEmbeddedInputGroupModule"]; });
-
-/* harmony import */ var _tour_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./tour/index */ "./lib/ng-vcl/src/tour/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["TourService"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["TourOptions"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["TourComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTourModule", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["VCLTourModule"]; });
-
-/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./rating/index */ "./lib/ng-vcl/src/rating/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _rating_index__WEBPACK_IMPORTED_MODULE_37__["VCLRatingModule"]; });
-
-/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_38__["SelectComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_38__["VCLSelectModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_37__["VCLSelectModule"]; });
 
 /*
  * Public API Surface of ng-vcl
  */
-
 
 
 
@@ -11866,7 +11867,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _tab_nav_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tab-nav.component */ "./lib/ng-vcl/src/tab-nav/tab-nav.component.ts");
 /* harmony import */ var _tab_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tab.component */ "./lib/ng-vcl/src/tab-nav/tab.component.ts");
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+/* harmony import */ var _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/observers */ "./node_modules/@angular/cdk/esm5/observers.es5.js");
+
 
 
 
@@ -11878,7 +11881,7 @@ var VCLTabNavModule = /** @class */ (function () {
     }
     VCLTabNavModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _wormhole_index__WEBPACK_IMPORTED_MODULE_5__["VCLWormholeModule"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["PortalModule"], _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_6__["ObserversModule"]],
             exports: [_tab_component__WEBPACK_IMPORTED_MODULE_4__["TabComponent"], _tab_component__WEBPACK_IMPORTED_MODULE_4__["TabLabelDirective"], _tab_nav_component__WEBPACK_IMPORTED_MODULE_3__["TabNavComponent"]],
             declarations: [_tab_component__WEBPACK_IMPORTED_MODULE_4__["TabComponent"], _tab_component__WEBPACK_IMPORTED_MODULE_4__["TabLabelDirective"], _tab_nav_component__WEBPACK_IMPORTED_MODULE_3__["TabNavComponent"]],
             providers: [],
@@ -11891,6 +11894,23 @@ var VCLTabNavModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/tab-nav/interfaces.ts":
+/*!**********************************************!*\
+  !*** ./lib/ng-vcl/src/tab-nav/interfaces.ts ***!
+  \**********************************************/
+/*! exports provided: TAB_NAV_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TAB_NAV_TOKEN", function() { return TAB_NAV_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var TAB_NAV_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl_tab_nav');
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/tab-nav/tab-nav.component.html":
 /*!*******************************************************!*\
   !*** ./lib/ng-vcl/src/tab-nav/tab-nav.component.html ***!
@@ -11898,7 +11918,7 @@ var VCLTabNavModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclTabbable {{tabbableClass}}\"\n     [class.vclTabsLeft]=\"layout==='left'\"\n     [class.vclTabsRight]=\"layout==='right'\">\n  <div class=\"vclTabs {{tabsClass}}\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n    <div *ngFor=\"let tab of tabs; let i = index\"\n         class=\"vclTab {{tab.tabClass}}\" \n         role=\"tab\"\n         [class.vclDisabled]=\"tab.disabled\"\n         [class.vclSelected]=\"selectedTabIndex===i\"\n         [class.aria-selected]=\"selectedTabIndex===i\"\n         (click)=\"onTabClick(tab)\">\n        <span class=\"vclTabLabel\"> \n          <wormhole [connect]=\"tab.label\"></wormhole>\n        </span>\n    </div>\n  </div>\n  <div [style.display]=\"hideContent === true ? 'none' : null\" class=\"vclTabContent {{tabContentClass}}\" [class.vclNoBorder]=\"!borders\">\n      <div role=\"tabpanel\" class=\"vclTabPanel\">\n          <div #tabContent></div>\n    </div>\n    <div role=\"tabpanel\" class=\"vclTabPanel\">\n        <ng-content></ng-content>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"vclTabs\" [class.vclTabStyleUni]=\"!!borders\" role=\"tablist\">\n  <ng-content select=\"vcl-tab\"></ng-content>\n</div>\n<div [style.display]=\"hasContent === false ? 'none' : null\" class=\"vclTabContent\" [class.vclNoBorder]=\"!borders\">\n  <div #panel role=\"tabpanel\" class=\"vclTabPanel\">\n    <ng-template *ngIf=\"currentTab && currentTab.portal\" [cdkPortalOutlet]=\"currentTab.portal\"></ng-template>\n    <ng-content></ng-content>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -11913,39 +11933,46 @@ module.exports = "<div class=\"vclTabbable {{tabbableClass}}\"\n     [class.vclT
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabNavComponent", function() { return TabNavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _tab_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tab.component */ "./lib/ng-vcl/src/tab-nav/tab.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tab_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tab.component */ "./lib/ng-vcl/src/tab-nav/tab.component.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/tab-nav/interfaces.ts");
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core */ "./lib/ng-vcl/src/core/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
 
 
 
 
 
 var TabNavComponent = /** @class */ (function () {
-    function TabNavComponent() {
-        this.layout = '';
-        this.tabbableClass = '';
-        this.tabsClass = '';
-        this.tabContentClass = '';
-        this.hideContent = false;
+    function TabNavComponent(cdRef) {
+        this.cdRef = cdRef;
+        this._currentTabChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.currentTabChanged = this._currentTabChangedEmitter.asObservable();
+        this.classVclTabbable = true;
+        this.selectedTabIndex = 0;
         // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
         this.borders = false;
-        this.selectedTabIndex = 0;
-        this.selectedTabIndexChange$ = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
+        this.selectedTabIndexChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
-    Object.defineProperty(TabNavComponent.prototype, "tabContent", {
-        set: function (tabContent) {
-            if (tabContent) {
-                this.wormholeHost = new _wormhole_index__WEBPACK_IMPORTED_MODULE_1__["WormholeHost"](tabContent);
-            }
+    TabNavComponent_1 = TabNavComponent;
+    Object.defineProperty(TabNavComponent.prototype, "classVclTabsLeft", {
+        get: function () {
+            return this.layout === 'left';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TabNavComponent.prototype, "selectedTabIndexChange", {
+    Object.defineProperty(TabNavComponent.prototype, "classVclTabsRight", {
         get: function () {
-            return this.selectedTabIndexChange$.asObservable();
+            return this.layout === 'right';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TabNavComponent.prototype, "hasContent", {
+        get: function () {
+            return !!this.panel && Object(_core__WEBPACK_IMPORTED_MODULE_4__["hasProjectedContent"])(this.panel);
         },
         enumerable: true,
         configurable: true
@@ -11956,92 +11983,106 @@ var TabNavComponent = /** @class */ (function () {
             return;
         }
         var tabs = this.tabs.toArray();
-        var tabIdx;
-        var tabComp;
-        if (tab instanceof _tab_component__WEBPACK_IMPORTED_MODULE_4__["TabComponent"]) {
-            tabIdx = tabs.indexOf(tab);
-            tabComp = tab;
-        }
-        else if (typeof tab === 'number' && tabs[tab]) {
-            tabIdx = tab;
-            tabComp = tabs[tabIdx];
-        }
-        else {
-            tabIdx = -1;
-            tabComp = null;
-        }
-        if (tabIdx >= 0 && tabComp instanceof _tab_component__WEBPACK_IMPORTED_MODULE_4__["TabComponent"] && !tabComp.disabled) {
-            if (this.wormholeHost) {
-                this.wormholeHost.clearWormholes();
-                this.wormholeHost.connectWormhole(tabComp.content);
-            }
-            this.selectedTabIndex = tabIdx;
-        }
+        var tabIndex = tabs.findIndex(function (_tab) { return _tab === tab; });
+        this.selectedTabIndex = tabIndex;
+        this.currentTab = tab;
+        this.selectedTabIndexChange.next(this.selectedTabIndex);
+        this._currentTabChangedEmitter.next();
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
     };
-    TabNavComponent.prototype.onTabClick = function (tab) {
-        this.selectTab(tab);
-        this.selectedTabIndexChange$.emit(this.selectedTabIndex);
+    TabNavComponent.prototype.selectTabIndex = function (idx) {
+        this.selectedTabIndex = idx;
+        if (!this.tabs) {
+            return;
+        }
+        var tabs = this.tabs.toArray();
+        var nextTab;
+        if (typeof idx === 'number' && tabs[idx]) {
+            nextTab = tabs[idx];
+        }
+        this.currentTab = nextTab;
+        this._currentTabChangedEmitter.next();
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
     };
-    TabNavComponent.prototype.ngAfterContentInit = function () {
-        this.selectTab(this.selectedTabIndex);
+    TabNavComponent.prototype.ngAfterViewInit = function () {
+        this.selectTabIndex(this.selectedTabIndex);
+    };
+    TabNavComponent.prototype.ngOnChanges = function (changes) {
+        if (changes.selectedTabIndex) {
+            this.selectTabIndex(changes.selectedTabIndex.currentValue);
+        }
     };
     TabNavComponent.prototype.ngOnDestroy = function () {
-        if (this.wormholeHost) {
-            this.wormholeHost.clearWormholes();
-        }
+        this._currentTabChangedEmitter.complete();
     };
+    var TabNavComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('tabContent', { read: _angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"] }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"]])
-    ], TabNavComponent.prototype, "tabContent", null);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclTabbable'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TabNavComponent.prototype, "classVclTabbable", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ContentChildren"])(_tab_component__WEBPACK_IMPORTED_MODULE_4__["TabComponent"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["QueryList"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclTabsLeft'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], TabNavComponent.prototype, "classVclTabsLeft", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclTabsRight'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], TabNavComponent.prototype, "classVclTabsRight", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_tab_component__WEBPACK_IMPORTED_MODULE_2__["TabComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], TabNavComponent.prototype, "tabs", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], TabNavComponent.prototype, "layout", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabNavComponent.prototype, "tabbableClass", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabNavComponent.prototype, "tabsClass", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabNavComponent.prototype, "tabContentClass", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabNavComponent.prototype, "hideContent", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabNavComponent.prototype, "borders", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], TabNavComponent.prototype, "selectedTabIndex", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TabNavComponent.prototype, "selectedTabIndexChange", null);
-    TabNavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TabNavComponent.prototype, "borders", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('panel', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], TabNavComponent.prototype, "panel", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], TabNavComponent.prototype, "selectedTabIndexChange", void 0);
+    TabNavComponent = TabNavComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-tab-nav',
-            template: __webpack_require__(/*! ./tab-nav.component.html */ "./lib/ng-vcl/src/tab-nav/tab-nav.component.html")
-        })
+            template: __webpack_require__(/*! ./tab-nav.component.html */ "./lib/ng-vcl/src/tab-nav/tab-nav.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            providers: [{
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_3__["TAB_NAV_TOKEN"],
+                    useExisting: TabNavComponent_1
+                }]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], TabNavComponent);
     return TabNavComponent;
 }());
 
 
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/tab-nav/tab.component.html":
+/*!***************************************************!*\
+  !*** ./lib/ng-vcl/src/tab-nav/tab.component.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-content select=\"vcl-tab-label\"></ng-content>\n\n<ng-template #contentTemplate>\n  <ng-content></ng-content>\n</ng-template>\n"
 
 /***/ }),
 
@@ -12058,43 +12099,90 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabComponent", function() { return TabComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/tab-nav/interfaces.ts");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
 
 
 var TabLabelDirective = /** @class */ (function () {
     function TabLabelDirective() {
+        this.classCclTabLabel = true;
     }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclTabLabel'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TabLabelDirective.prototype, "classCclTabLabel", void 0);
     TabLabelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({ selector: '[vcl-tab-label]' })
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'vcl-tab-label',
+        })
     ], TabLabelDirective);
     return TabLabelDirective;
 }());
 
 var TabComponent = /** @class */ (function () {
-    function TabComponent() {
+    function TabComponent(cdRef, tabNav, viewContainerRef) {
+        var _this = this;
+        this.cdRef = cdRef;
+        this.tabNav = tabNav;
+        this.viewContainerRef = viewContainerRef;
+        this.classVclTab = true;
+        this.attrRole = 'tab';
         this.disabled = false;
-        this.tabClass = '';
+        this.selected = false;
+        tabNav.currentTabChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(0)).subscribe(function () {
+            _this.selected = tabNav.currentTab === _this;
+        });
     }
+    TabComponent.prototype.onClick = function () {
+        if (this.disabled) {
+            return;
+        }
+        this.selected = true;
+        this.tabNav.selectTab(this);
+    };
+    TabComponent.prototype.ngAfterViewInit = function () {
+        this.portal = this.contentTemplate ? new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_3__["TemplatePortal"](this.contentTemplate, this.viewContainerRef) : undefined;
+    };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(TabLabelDirective, { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"] }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", TabLabelDirective)
-    ], TabComponent.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('contentTemplate', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"] }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"])
-    ], TabComponent.prototype, "content", void 0);
+    ], TabComponent.prototype, "contentTemplate", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclTab'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TabComponent.prototype, "classVclTab", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TabComponent.prototype, "attrRole", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], TabComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSelected'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-selected'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabComponent.prototype, "tabClass", void 0);
+    ], TabComponent.prototype, "selected", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], TabComponent.prototype, "onClick", null);
     TabComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-tab',
-            template: '<ng-template><ng-content></ng-content></ng-template>'
-        })
+            template: __webpack_require__(/*! ./tab.component.html */ "./lib/ng-vcl/src/tab-nav/tab.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["TAB_NAV_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"]])
     ], TabComponent);
     return TabComponent;
 }());
@@ -13334,19 +13422,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
 /* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
-/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
-/* harmony import */ var _token_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./token.component */ "./lib/ng-vcl/src/token/token.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"]; });
+/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
+/* harmony import */ var _token_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./token.component */ "./lib/ng-vcl/src/token/token.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_component__WEBPACK_IMPORTED_MODULE_8__["TokenComponent"]; });
 
-/* harmony import */ var _token_input_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./token-input.component */ "./lib/ng-vcl/src/token/token-input.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputContainerComponent"]; });
+/* harmony import */ var _token_input_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./token-input.component */ "./lib/ng-vcl/src/token/token-input.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputContainerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputDirective"]; });
 
-/* harmony import */ var _token_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./token-list.component */ "./lib/ng-vcl/src/token/token-list.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_list_component__WEBPACK_IMPORTED_MODULE_11__["TokenListComponent"]; });
-
+/* harmony import */ var _token_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./token-list.component */ "./lib/ng-vcl/src/token/token-list.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_list_component__WEBPACK_IMPORTED_MODULE_10__["TokenListComponent"]; });
 
 
 
@@ -13365,9 +13451,9 @@ var VCLTokenModule = /** @class */ (function () {
     }
     VCLTokenModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _button_index__WEBPACK_IMPORTED_MODULE_6__["VCLButtonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"], _icogram_index__WEBPACK_IMPORTED_MODULE_8__["VCLIcogramModule"], _wormhole_index__WEBPACK_IMPORTED_MODULE_7__["VCLWormholeModule"]],
-            exports: [_token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_11__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPreDirective"]],
-            declarations: [_token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_11__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPreDirective"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _button_index__WEBPACK_IMPORTED_MODULE_6__["VCLButtonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"], _icogram_index__WEBPACK_IMPORTED_MODULE_7__["VCLIcogramModule"]],
+            exports: [_token_component__WEBPACK_IMPORTED_MODULE_8__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_10__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputLabelPreDirective"]],
+            declarations: [_token_component__WEBPACK_IMPORTED_MODULE_8__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_10__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_9__["TokenInputLabelPreDirective"]],
             providers: [],
         })
     ], VCLTokenModule);
@@ -13685,8 +13771,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _token_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./token.component */ "./lib/ng-vcl/src/token/token.component.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _token_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./token.component */ "./lib/ng-vcl/src/token/token.component.ts");
 
 
 
@@ -13706,7 +13792,7 @@ var TokenListComponent = /** @class */ (function () {
         this.removable = false;
         this.tokensChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.value = [];
-        this.onChangeCallback = function (value) { };
+        this.onChangeCallback = function (_value) { };
         this.onTouchedCallback = function () { };
     }
     TokenListComponent_1 = TokenListComponent;
@@ -13751,7 +13837,7 @@ var TokenListComponent = /** @class */ (function () {
     };
     TokenListComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this.tokenSub = this.tokens && this.tokens.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null)).subscribe(function () {
+        this.tokenSub = this.tokens && this.tokens.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(null)).subscribe(function () {
             _this.syncTokens();
         });
     };
@@ -13778,7 +13864,7 @@ var TokenListComponent = /** @class */ (function () {
     };
     var TokenListComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_token_component__WEBPACK_IMPORTED_MODULE_3__["TokenComponent"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_token_component__WEBPACK_IMPORTED_MODULE_4__["TokenComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], TokenListComponent.prototype, "tokens", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -13812,7 +13898,7 @@ var TokenListComponent = /** @class */ (function () {
             providers: [
                 CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
                 {
-                    provide: _token_component__WEBPACK_IMPORTED_MODULE_3__["TOKEN_OBSERVER_TOKEN"],
+                    provide: _token_component__WEBPACK_IMPORTED_MODULE_4__["TOKEN_OBSERVER_TOKEN"],
                     useExisting: TokenListComponent_1
                 }
             ],
@@ -13834,7 +13920,7 @@ var TokenListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <vcl-icogram *ngIf=\"tokenIcon\"  [appIcon]=\"tokenIcon\" ></vcl-icogram> -->\n<span class=\"vclTokenLabel\">\n  <ng-content></ng-content>\n</span>\n<button vcl-square-button\n        [disabled]=\"isDisabled\"\n        *ngIf=\"removable\" \n        class=\"vclTransparent\"\n        title=\"Remove\"\n        (click)=\"onRemoveClick($event)\">\n    <vcl-icon [icon]=\"'vcl:close'\"></vcl-icon>\n</button>\n"
+module.exports = "<span class=\"vclTokenLabel\">\n  <ng-content></ng-content>\n</span>\n<button vcl-square-button\n        [disabled]=\"isDisabled\"\n        *ngIf=\"removable\" \n        class=\"vclTransparent\"\n        title=\"Remove\"\n        (click)=\"onRemoveClick($event)\">\n    <vcl-icon [icon]=\"'vcl:close'\"></vcl-icon>\n</button>\n"
 
 /***/ }),
 
@@ -14872,624 +14958,6 @@ var TourService = /** @class */ (function () {
 }());
 
 var isNumber = function (v) { return !isNaN(Number(v)) && isFinite(v); };
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/wormhole/index.ts":
-/*!******************************************!*\
-  !*** ./lib/ng-vcl/src/wormhole/index.ts ***!
-  \******************************************/
-/*! exports provided: TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLWormholeModule", function() { return VCLWormholeModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _wormhole_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wormhole-base */ "./lib/ng-vcl/src/wormhole/wormhole-base.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return _wormhole_base__WEBPACK_IMPORTED_MODULE_2__["Wormhole"]; });
-
-/* harmony import */ var _wormhole__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./wormhole */ "./lib/ng-vcl/src/wormhole/wormhole.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _wormhole__WEBPACK_IMPORTED_MODULE_3__["TemplateWormhole"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return _wormhole__WEBPACK_IMPORTED_MODULE_3__["ComponentWormhole"]; });
-
-/* harmony import */ var _wormhole_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./wormhole-dom */ "./lib/ng-vcl/src/wormhole/wormhole-dom.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return _wormhole_dom__WEBPACK_IMPORTED_MODULE_4__["DomComponentWormhole"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return _wormhole_dom__WEBPACK_IMPORTED_MODULE_4__["DomTemplateWormhole"]; });
-
-/* harmony import */ var _wormhole_directive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./wormhole.directive */ "./lib/ng-vcl/src/wormhole/wormhole.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return _wormhole_directive__WEBPACK_IMPORTED_MODULE_5__["WormholeDirective"]; });
-
-/* harmony import */ var _wormhole_host__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./wormhole-host */ "./lib/ng-vcl/src/wormhole/wormhole-host.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return _wormhole_host__WEBPACK_IMPORTED_MODULE_6__["WormholeHost"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return _wormhole_host__WEBPACK_IMPORTED_MODULE_6__["DomWormholeHost"]; });
-
-
-
-
-
-
-
-
-
-var VCLWormholeModule = /** @class */ (function () {
-    function VCLWormholeModule() {
-    }
-    VCLWormholeModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            exports: [_wormhole_directive__WEBPACK_IMPORTED_MODULE_5__["WormholeDirective"]],
-            declarations: [_wormhole_directive__WEBPACK_IMPORTED_MODULE_5__["WormholeDirective"]],
-            providers: []
-        })
-    ], VCLWormholeModule);
-    return VCLWormholeModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/wormhole/wormhole-base.ts":
-/*!**************************************************!*\
-  !*** ./lib/ng-vcl/src/wormhole/wormhole-base.ts ***!
-  \**************************************************/
-/*! exports provided: Wormhole, TemplateWormholeBase, ComponentWormholeBase */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return Wormhole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateWormholeBase", function() { return TemplateWormholeBase; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentWormholeBase", function() { return ComponentWormholeBase; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-
-
-
-
-var Wormhole = /** @class */ (function () {
-    function Wormhole() {
-    }
-    return Wormhole;
-}());
-
-var TemplateWormholeBase = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](TemplateWormholeBase, _super);
-    // The wormhole directive needs a reference to the template
-    function TemplateWormholeBase(templateRef) {
-        var _this = _super.call(this) || this;
-        _this.templateRef = templateRef;
-        if (!(templateRef instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"])) {
-            throw new Error('invalid TemplateRef');
-        }
-        return _this;
-    }
-    Object.defineProperty(TemplateWormholeBase.prototype, "isConnected", {
-        get: function () {
-            return !!(this.viewRef);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TemplateWormholeBase.prototype.connect = function (attrs, events, index) {
-        var _this = this;
-        if (typeof attrs === 'object' && attrs) {
-            this.cachedAttrs = attrs;
-        }
-        this.disconnect();
-        this.viewRef = this.attach(this.templateRef, index);
-        this.viewRef.onDestroy(function () {
-            _this.viewRef = undefined;
-        });
-        if (this.cachedAttrs && typeof this.cachedAttrs === 'object') {
-            Object.assign(this.viewRef.context, this.cachedAttrs);
-        }
-        this.viewRef.detectChanges();
-        return rxjs__WEBPACK_IMPORTED_MODULE_2__["NEVER"];
-    };
-    TemplateWormholeBase.prototype.disconnect = function () {
-        this.detach();
-        this.viewRef = undefined;
-    };
-    TemplateWormholeBase.prototype.setAttributes = function (attrs) {
-        this.cachedAttrs = attrs;
-        if (this.viewRef && attrs && typeof attrs === 'object') {
-            Object.assign(this.viewRef.context, attrs);
-            this.viewRef.markForCheck();
-        }
-    };
-    return TemplateWormholeBase;
-}(Wormhole));
-
-var ComponentWormholeBase = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ComponentWormholeBase, _super);
-    function ComponentWormholeBase(componentClass) {
-        var _this = _super.call(this) || this;
-        _this.componentClass = componentClass;
-        if (!(typeof componentClass === 'function')) {
-            throw new Error('invalid component class');
-        }
-        return _this;
-    }
-    Object.defineProperty(ComponentWormholeBase.prototype, "compInstance", {
-        get: function () {
-            return this.compRef && this.compRef.instance;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ComponentWormholeBase.prototype, "isConnected", {
-        get: function () {
-            return !!this.compRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ComponentWormholeBase.prototype.connect = function (attrs, events, index) {
-        var _this = this;
-        if (typeof attrs === 'object' && attrs) {
-            this.cachedAttrs = attrs;
-        }
-        this.disconnect();
-        this.compRef = this.attach(this.componentClass, index);
-        this.compRef.onDestroy(function () {
-            _this.compRef = undefined;
-        });
-        var instance = this.compRef.instance;
-        if (this.cachedAttrs && typeof this.cachedAttrs === 'object') {
-            Object.assign(instance, this.cachedAttrs);
-        }
-        this.compRef.changeDetectorRef.detectChanges();
-        var events$ = (events || []).map(function (event) {
-            if (!instance[event]) {
-                throw new Error('Event not found: ' + event);
-            }
-            return instance[event] && instance[event].pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) { return ({ type: event, value: value }); }));
-        });
-        return rxjs__WEBPACK_IMPORTED_MODULE_2__["merge"].apply(void 0, events$);
-    };
-    ComponentWormholeBase.prototype.disconnect = function () {
-        this.detach();
-        this.compRef = undefined;
-    };
-    ComponentWormholeBase.prototype.setAttributes = function (attrs) {
-        this.cachedAttrs = attrs;
-        if (this.compRef && attrs && typeof attrs === 'object') {
-            Object.assign(this.compRef.instance, attrs);
-            // TODO: Change detection is not triggering when changedetection is set to onPush
-            // Workaround for ng 4
-            // https://github.com/angular/angular/issues/12313
-            var cdRef = this.compRef.changeDetectorRef;
-            if (cdRef && cdRef['_view'] && cdRef['_view'].nodes[0] && cdRef['_view'].nodes[0].componentView) {
-                // tslint:disable-next-line:no-bitwise
-                this.compRef.changeDetectorRef['_view'].nodes[0].componentView.state |= (1 << 3);
-            }
-            this.compRef.changeDetectorRef.markForCheck();
-        }
-    };
-    return ComponentWormholeBase;
-}(Wormhole));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/wormhole/wormhole-dom.ts":
-/*!*************************************************!*\
-  !*** ./lib/ng-vcl/src/wormhole/wormhole-dom.ts ***!
-  \*************************************************/
-/*! exports provided: DomComponentWormhole, DomTemplateWormhole */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return DomComponentWormhole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return DomTemplateWormhole; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _wormhole_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wormhole-base */ "./lib/ng-vcl/src/wormhole/wormhole-base.ts");
-
-
-
-function getViewRootNode(embeddedViewRef) {
-    var rootNodes = embeddedViewRef.rootNodes;
-    return (rootNodes && rootNodes.length && rootNodes[0]) || undefined;
-}
-function getComponentRootNode(componentRef) {
-    return getViewRootNode(componentRef.hostView);
-}
-var DomComponentWormhole = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](DomComponentWormhole, _super);
-    function DomComponentWormhole(componentClass, appRef, node, injector) {
-        var _this = _super.call(this, componentClass) || this;
-        _this.appRef = appRef;
-        _this.node = node;
-        _this.injector = injector;
-        return _this;
-    }
-    Object.defineProperty(DomComponentWormhole.prototype, "rootComponentRef", {
-        get: function () {
-            var rootComponent = this.appRef.components && this.appRef.components.length && this.appRef.components[0];
-            if (!rootComponent) {
-                throw new Error('Application root component not found');
-            }
-            return rootComponent;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DomComponentWormhole.prototype.attach = function (componentClass, index) {
-        var injector = this.injector || this.rootComponentRef.injector;
-        if (!this.compFactory) {
-            var componentFactoryResolver = injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ComponentFactoryResolver"]);
-            this.compFactory = componentFactoryResolver.resolveComponentFactory(componentClass);
-        }
-        var compRef = this.compFactory.create(injector);
-        this.appRef.attachView(compRef.hostView);
-        var compRefRootNode = getComponentRootNode(compRef);
-        var node = this.node || getComponentRootNode(this.rootComponentRef);
-        if (!compRefRootNode) {
-            throw new Error('component root node not found');
-        }
-        if (!node) {
-            throw new Error('root node not found');
-        }
-        node.appendChild(compRefRootNode);
-        return compRef;
-    };
-    DomComponentWormhole.prototype.detach = function () {
-        if (this.compRef) {
-            this.compRef.destroy();
-        }
-    };
-    Object.defineProperty(DomComponentWormhole.prototype, "currentIndex", {
-        get: function () {
-            return this.compRef ? 0 : -1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return DomComponentWormhole;
-}(_wormhole_base__WEBPACK_IMPORTED_MODULE_2__["ComponentWormholeBase"]));
-
-var DomTemplateWormhole = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](DomTemplateWormhole, _super);
-    // The wormhole directive needs a reference to the template
-    function DomTemplateWormhole(templateRef, appRef, node, injector) {
-        var _this = _super.call(this, templateRef) || this;
-        _this.appRef = appRef;
-        _this.node = node;
-        _this.injector = injector;
-        return _this;
-    }
-    Object.defineProperty(DomTemplateWormhole.prototype, "rootComponentRef", {
-        get: function () {
-            var rootComponent = this.appRef.components && this.appRef.components.length && this.appRef.components[0];
-            if (!rootComponent) {
-                throw new Error('Application root component not found');
-            }
-            return rootComponent;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DomTemplateWormhole.prototype.attach = function (templateRef, index) {
-        var injector = this.injector || this.rootComponentRef.injector;
-        var embeddedView = templateRef.createEmbeddedView(undefined);
-        this.appRef.attachView(embeddedView);
-        var compRefRootNode = getViewRootNode(embeddedView);
-        var node = this.node || getComponentRootNode(this.rootComponentRef);
-        if (!compRefRootNode) {
-            throw new Error('component root node not found');
-        }
-        if (!node) {
-            throw new Error('root node not found');
-        }
-        node.appendChild(compRefRootNode);
-        return embeddedView;
-    };
-    DomTemplateWormhole.prototype.detach = function () {
-        if (this.viewRef && this.currentIndex >= 0) {
-            this.viewRef.destroy();
-        }
-    };
-    Object.defineProperty(DomTemplateWormhole.prototype, "currentIndex", {
-        get: function () {
-            return this.viewRef ? 0 : -1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return DomTemplateWormhole;
-}(_wormhole_base__WEBPACK_IMPORTED_MODULE_2__["TemplateWormholeBase"]));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/wormhole/wormhole-host.ts":
-/*!**************************************************!*\
-  !*** ./lib/ng-vcl/src/wormhole/wormhole-host.ts ***!
-  \**************************************************/
-/*! exports provided: WormholeHostBase, WormholeHost, DomWormholeHost */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WormholeHostBase", function() { return WormholeHostBase; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return WormholeHost; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return DomWormholeHost; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _wormhole__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wormhole */ "./lib/ng-vcl/src/wormhole/wormhole.ts");
-/* harmony import */ var _wormhole_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./wormhole-dom */ "./lib/ng-vcl/src/wormhole/wormhole-dom.ts");
-
-
-
-
-var WormholeHostBase = /** @class */ (function () {
-    function WormholeHostBase() {
-        this._wormholes = [];
-    }
-    Object.defineProperty(WormholeHostBase.prototype, "wormholes", {
-        get: function () {
-            return this._wormholes.filter(function (w) { return w.isConnected; }).length;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WormholeHostBase.prototype, "connectedWormholes", {
-        get: function () {
-            return this._wormholes.filter(function (w) { return w.isConnected; }).length;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    WormholeHostBase.prototype.getWormhole = function (index) {
-        return this._wormholes[index];
-    };
-    WormholeHostBase.prototype.connectWormhole = function (target, attrs, events) {
-        var wormhole = this.createWormhole(target);
-        wormhole.connect(attrs, events);
-        return wormhole;
-    };
-    WormholeHostBase.prototype.disconnectWormhole = function (index) {
-        var w = this.getWormhole(index);
-        if (w) {
-            w.disconnect();
-        }
-    };
-    WormholeHostBase.prototype.disconnectWormholes = function () {
-        this._wormholes.forEach(function (w) { return w.disconnect(); });
-    };
-    WormholeHostBase.prototype.clearWormholes = function () {
-        this.disconnectWormholes();
-        this._wormholes = [];
-    };
-    WormholeHostBase.prototype.removeWormhole = function (wormhole) {
-        var w = typeof wormhole === 'number' ? this.getWormhole(wormhole) : wormhole;
-        if (w) {
-            w.disconnect();
-            this._wormholes = this._wormholes.filter(function (cw) { return cw !== w; });
-        }
-    };
-    return WormholeHostBase;
-}());
-
-var WormholeHost = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](WormholeHost, _super);
-    function WormholeHost(_host, _injector) {
-        var _this = _super.call(this) || this;
-        _this._host = _host;
-        _this._injector = _injector;
-        if (!_host) {
-            throw new Error('missing host ViewContainerRef');
-        }
-        return _this;
-    }
-    WormholeHost.prototype.createWormhole = function (arg2) {
-        var wormhole;
-        if (typeof arg2 === 'function' && this._host) {
-            wormhole = new _wormhole__WEBPACK_IMPORTED_MODULE_2__["ComponentWormhole"](arg2, this._host, this._injector);
-        }
-        else if (arg2 instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"] && this._host) {
-            wormhole = new _wormhole__WEBPACK_IMPORTED_MODULE_2__["TemplateWormhole"](arg2, this._host);
-        }
-        else {
-            throw new Error('Parameter must be component class or templateRef');
-        }
-        this._wormholes.push(wormhole);
-        return wormhole;
-    };
-    return WormholeHost;
-}(WormholeHostBase));
-
-var DomWormholeHost = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](DomWormholeHost, _super);
-    function DomWormholeHost(_host, _node, _injector) {
-        var _this = _super.call(this) || this;
-        _this._host = _host;
-        _this._node = _node;
-        _this._injector = _injector;
-        if (!_host) {
-            throw new Error('missing host ApplicationRef');
-        }
-        return _this;
-    }
-    DomWormholeHost.prototype.createWormhole = function (arg2) {
-        var wormhole;
-        if (typeof arg2 === 'function' && this._host instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["ApplicationRef"]) {
-            wormhole = new _wormhole_dom__WEBPACK_IMPORTED_MODULE_3__["DomComponentWormhole"](arg2, this._host, this._node, this._injector);
-        }
-        else if (arg2 instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"] && this._host) {
-            wormhole = new _wormhole_dom__WEBPACK_IMPORTED_MODULE_3__["DomTemplateWormhole"](arg2, this._host, this._node, this._injector);
-        }
-        else {
-            throw new Error('Parameter must be component class or templateRef');
-        }
-        this._wormholes.push(wormhole);
-        return wormhole;
-    };
-    return DomWormholeHost;
-}(WormholeHostBase));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/wormhole/wormhole.directive.ts":
-/*!*******************************************************!*\
-  !*** ./lib/ng-vcl/src/wormhole/wormhole.directive.ts ***!
-  \*******************************************************/
-/*! exports provided: WormholeDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return WormholeDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _wormhole_host__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wormhole-host */ "./lib/ng-vcl/src/wormhole/wormhole-host.ts");
-
-
-
-var WormholeDirective = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](WormholeDirective, _super);
-    function WormholeDirective(viewContainerRef, injector) {
-        return _super.call(this, viewContainerRef, injector) || this;
-    }
-    Object.defineProperty(WormholeDirective.prototype, "isConnected", {
-        get: function () {
-            return !!this.wormhole && this.wormhole.isConnected;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    WormholeDirective.prototype.ngOnChanges = function (changes) {
-        var attrs = ('attrs' in changes && changes['attrs'].currentValue) || undefined;
-        if ('target' in changes) {
-            this.clearWormholes();
-            var target = changes['target'].currentValue;
-            if (target) {
-                this.wormhole = this.connectWormhole(target, attrs);
-            }
-        }
-        else if (attrs && this.wormhole) {
-            this.wormhole.setAttributes(attrs);
-        }
-    };
-    WormholeDirective.prototype.ngOnDestroy = function () {
-        if (this.wormhole) {
-            this.wormhole.disconnect();
-        }
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('connect'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], WormholeDirective.prototype, "target", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], WormholeDirective.prototype, "attrs", void 0);
-    WormholeDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'wormhole'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
-    ], WormholeDirective);
-    return WormholeDirective;
-}(_wormhole_host__WEBPACK_IMPORTED_MODULE_2__["WormholeHost"]));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/wormhole/wormhole.ts":
-/*!*********************************************!*\
-  !*** ./lib/ng-vcl/src/wormhole/wormhole.ts ***!
-  \*********************************************/
-/*! exports provided: TemplateWormhole, ComponentWormhole */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return TemplateWormhole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return ComponentWormhole; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _wormhole_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wormhole-base */ "./lib/ng-vcl/src/wormhole/wormhole-base.ts");
-
-
-
-var TemplateWormhole = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](TemplateWormhole, _super);
-    // The wormhole directive needs a reference to the template
-    function TemplateWormhole(templateRef, viewContainerRef) {
-        var _this = _super.call(this, templateRef) || this;
-        _this.viewContainerRef = viewContainerRef;
-        if (!viewContainerRef) {
-            throw new Error('missing ViewContainerRef');
-        }
-        return _this;
-    }
-    TemplateWormhole.prototype.attach = function (templateRef, index) {
-        return this.viewContainerRef.createEmbeddedView(templateRef, null, typeof index === 'number' ? index : this.viewContainerRef.length);
-    };
-    TemplateWormhole.prototype.detach = function () {
-        if (this.isConnected && this.currentIndex >= 0) {
-            this.viewContainerRef.remove(this.currentIndex);
-        }
-    };
-    Object.defineProperty(TemplateWormhole.prototype, "currentIndex", {
-        get: function () {
-            return this.viewRef ? this.viewContainerRef.indexOf(this.viewRef) : -1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TemplateWormhole;
-}(_wormhole_base__WEBPACK_IMPORTED_MODULE_2__["TemplateWormholeBase"]));
-
-var ComponentWormhole = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ComponentWormhole, _super);
-    function ComponentWormhole(componentClass, viewContainerRef, injector) {
-        var _this = _super.call(this, componentClass) || this;
-        _this.viewContainerRef = viewContainerRef;
-        if (!viewContainerRef) {
-            throw new Error('missing ViewContainerRef');
-        }
-        _this.injector = injector || viewContainerRef.injector;
-        return _this;
-    }
-    ComponentWormhole.prototype.attach = function (componentClass, index) {
-        if (!this.compFactory && this.injector) {
-            var componentFactoryResolver = this.injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ComponentFactoryResolver"]);
-            this.compFactory = componentFactoryResolver.resolveComponentFactory(componentClass);
-        }
-        return this.viewContainerRef.createComponent(this.compFactory, typeof index === 'number' ? index : this.viewContainerRef.length, this.injector);
-    };
-    ComponentWormhole.prototype.detach = function () {
-        if (this.compRef) {
-            this.compRef.destroy();
-        }
-    };
-    Object.defineProperty(ComponentWormhole.prototype, "currentIndex", {
-        get: function () {
-            return this.compRef ? this.viewContainerRef.indexOf(this.compRef.hostView) : -1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return ComponentWormhole;
-}(_wormhole_base__WEBPACK_IMPORTED_MODULE_2__["ComponentWormholeBase"]));
-
 
 
 /***/ }),
