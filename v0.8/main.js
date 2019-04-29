@@ -10,97 +10,100 @@
 var map = {
 	"./demos/alert/demo.module": [
 		"./demo/app/demos/alert/demo.module.ts",
-		"common",
 		"demos-alert-demo-module"
-	],
-	"./demos/autocomplete/demo.module": [
-		"./demo/app/demos/autocomplete/demo.module.ts",
-		"common",
-		"demos-autocomplete-demo-module"
 	],
 	"./demos/badge/demo.module": [
 		"./demo/app/demos/badge/demo.module.ts",
-		"common",
 		"demos-badge-demo-module"
 	],
 	"./demos/busy-indicator/demo.module": [
 		"./demo/app/demos/busy-indicator/demo.module.ts",
-		"common",
 		"demos-busy-indicator-demo-module"
 	],
 	"./demos/button-group/demo.module": [
 		"./demo/app/demos/button-group/demo.module.ts",
-		"common",
 		"demos-button-group-demo-module"
 	],
 	"./demos/button/demo.module": [
 		"./demo/app/demos/button/demo.module.ts",
-		"common",
 		"demos-button-demo-module"
 	],
 	"./demos/checkbox/demo.module": [
 		"./demo/app/demos/checkbox/demo.module.ts",
-		"common",
 		"demos-checkbox-demo-module"
+	],
+	"./demos/dropdown/demo.module": [
+		"./demo/app/demos/dropdown/demo.module.ts",
+		"default~demos-dropdown-demo-module~demos-select-demo-module",
+		"demos-dropdown-demo-module"
 	],
 	"./demos/embedded-input-group/demo.module": [
 		"./demo/app/demos/embedded-input-group/demo.module.ts",
-		"common",
 		"demos-embedded-input-group-demo-module"
+	],
+	"./demos/file-input/demo.module": [
+		"./demo/app/demos/file-input/demo.module.ts",
+		"demos-file-input-demo-module"
 	],
 	"./demos/flip-switch/demo.module": [
 		"./demo/app/demos/flip-switch/demo.module.ts",
-		"common",
 		"demos-flip-switch-demo-module"
 	],
-	"./demos/form-control-label/demo.module": [
-		"./demo/app/demos/form-control-label/demo.module.ts",
-		"common",
-		"demos-form-control-label-demo-module"
+	"./demos/form-control-group/demo.module": [
+		"./demo/app/demos/form-control-group/demo.module.ts",
+		"demos-form-control-group-demo-module"
 	],
 	"./demos/icogram/demo.module": [
 		"./demo/app/demos/icogram/demo.module.ts",
-		"common",
 		"demos-icogram-demo-module"
 	],
 	"./demos/icon/demo.module": [
 		"./demo/app/demos/icon/demo.module.ts",
-		"common",
 		"demos-icon-demo-module"
 	],
 	"./demos/input/demo.module": [
 		"./demo/app/demos/input/demo.module.ts",
-		"common",
 		"demos-input-demo-module"
 	],
 	"./demos/label/demo.module": [
 		"./demo/app/demos/label/demo.module.ts",
-		"common",
 		"demos-label-demo-module"
 	],
 	"./demos/layer/demo.module": [
 		"./demo/app/demos/layer/demo.module.ts",
-		"common",
 		"demos-layer-demo-module"
+	],
+	"./demos/off-click/demo.module": [
+		"./demo/app/demos/off-click/demo.module.ts",
+		"demos-off-click-demo-module"
 	],
 	"./demos/popover/demo.module": [
 		"./demo/app/demos/popover/demo.module.ts",
-		"common",
 		"demos-popover-demo-module"
 	],
 	"./demos/radio-button/demo.module": [
 		"./demo/app/demos/radio-button/demo.module.ts",
-		"common",
 		"demos-radio-button-demo-module"
+	],
+	"./demos/select/demo.module": [
+		"./demo/app/demos/select/demo.module.ts",
+		"default~demos-dropdown-demo-module~demos-select-demo-module",
+		"demos-select-demo-module"
+	],
+	"./demos/slider/demo.module": [
+		"./demo/app/demos/slider/demo.module.ts",
+		"demos-slider-demo-module"
 	],
 	"./demos/textarea/demo.module": [
 		"./demo/app/demos/textarea/demo.module.ts",
-		"common",
 		"demos-textarea-demo-module"
+	],
+	"./demos/token/demo.module": [
+		"./demo/app/demos/token/demo.module.ts",
+		"demos-token-demo-module"
 	],
 	"./demos/tour/demo.module": [
 		"./demo/app/demos/tour/demo.module.ts",
-		"common",
 		"demos-tour-demo-module"
 	]
 };
@@ -241,26 +244,36 @@ var routes = [
     //     }
     //   }
     // },
-    // {
-    //   loadChildren: './demos/dropdown/demo.module#DropdownDemoModule',
-    //   path: 'dropdown',
-    //   data: {
-    //     demo: {
-    //       label: 'Dropdown',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
-    // {
-    //   loadChildren: './demos/file-input/demo.module#FileInputDemoModule',
-    //   path: 'file-input',
-    //   data: {
-    //     demo: {
-    //       label: 'File Input',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/dropdown/demo.module#DropdownDemoModule',
+        path: 'dropdown',
+        data: {
+            demo: {
+                label: 'Dropdown',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
+    {
+        loadChildren: './demos/select/demo.module#SelectDemoModule',
+        path: 'select',
+        data: {
+            demo: {
+                label: 'Select',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
+    {
+        loadChildren: './demos/file-input/demo.module#FileInputDemoModule',
+        path: 'file-input',
+        data: {
+            demo: {
+                label: 'File Input',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
     {
         loadChildren: './demos/flip-switch/demo.module#FlipSwitchDemoModule',
         path: 'flip-switch',
@@ -287,16 +300,6 @@ var routes = [
     //   data: {
     //     demo: {
     //       label: 'Password Input',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
-    // {
-    //   loadChildren: './demos/input-control-group/demo.module#InputControlGroupDemoModule',
-    //   path: 'input-control-group',
-    //   data: {
-    //     demo: {
-    //       label: 'Input Control Group',
     //       category: CAT_FORM_CONTROLS,
     //     }
     //   }
@@ -331,26 +334,16 @@ var routes = [
             }
         }
     },
-    // {
-    //   loadChildren: './demos/select/demo.module#SelectDemoModule',
-    //   path: 'select',
-    //   data: {
-    //     demo: {
-    //       label: 'Select',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
-    // {
-    //   loadChildren: './demos/slider/demo.module#SliderDemoModule',
-    //   path: 'slider',
-    //   data: {
-    //     demo: {
-    //       label: 'Slider',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
+    {
+        loadChildren: './demos/slider/demo.module#SliderDemoModule',
+        path: 'slider',
+        data: {
+            demo: {
+                label: 'Slider',
+                category: CAT_FORM_CONTROLS,
+            }
+        }
+    },
     {
         loadChildren: './demos/textarea/demo.module#TextareaDemoModule',
         path: 'textarea',
@@ -361,52 +354,22 @@ var routes = [
             }
         }
     },
-    // {
-    //   loadChildren: './demos/token/demo.module#TokenDemoModule',
-    //   path: 'token',
-    //   data: {
-    //     demo: {
-    //       label: 'Token',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
     {
-        loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
-        path: 'autocomplete',
+        loadChildren: './demos/token/demo.module#TokenDemoModule',
+        path: 'token',
         data: {
             demo: {
-                label: 'Autocomplete',
+                label: 'Token',
                 category: CAT_FORM_CONTROLS,
             }
         }
     },
-    // {
-    //   loadChildren: './demos/form-mashups/demo.module#FormMashupsDemoModule',
-    //   path: 'form-mashups',
-    //   data: {
-    //     demo: {
-    //       label: 'Mashups',
-    //       category: CAT_FORM_CONTROLS,
-    //     }
-    //   }
-    // },
-    // // {
-    // //   loadChildren: './demos/form/demo.module#FormDemoModule',
-    // //   path: 'form',
-    // //   data: {
-    // //     demo: {
-    // //       label: 'All Controls Example',
-    // //       category: CAT_FORMS,
-    // //     }
-    // //   }
-    // // },
     {
-        loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
-        path: 'form-control-label',
+        loadChildren: './demos/form-control-group/demo.module#FormControlGroupDemoModule',
+        path: 'form-control-group',
         data: {
             demo: {
-                label: 'Form Control Label',
+                label: 'Form Control Group',
                 category: CAT_FORMS,
             }
         }
@@ -417,16 +380,6 @@ var routes = [
     // //   data: {
     // //     demo: {
     // //       label: 'JSS-Form',
-    // //       category: CAT_FORMS,
-    // //     }
-    // //   }
-    // // },
-    // // {
-    // //   loadChildren: './demos/form-layouts/demo.module#FormLayoutsDemoModule',
-    // //   path: 'form-layouts',
-    // //   data: {
-    // //     demo: {
-    // //       label: 'Layouts',
     // //       category: CAT_FORMS,
     // //     }
     // //   }
@@ -531,6 +484,36 @@ var routes = [
             }
         }
     },
+    // {
+    //   loadChildren: './demos/progress-bar/demo.module#ProgressBarDemoModule',
+    //   path: 'progress-bar',
+    //   data: {
+    //     demo: {
+    //       label: 'Progress-Bar',
+    //       category: CAT_STATUS_INFORMATION,
+    //     }
+    //   }
+    // },
+    // {
+    //   loadChildren: './demos/table/demo.module#TableDemoModule',
+    //   path: 'table',
+    //   data: {
+    //     demo: {
+    //       label: 'Table',
+    //       category: CAT_TABULAR_DATA,
+    //     }
+    //   }
+    // },
+    {
+        loadChildren: './demos/off-click/demo.module#OffClickDemoModule',
+        path: 'off-click',
+        data: {
+            demo: {
+                label: 'Off Click',
+                category: CAT_MISC,
+            }
+        }
+    },
 ];
 var appRoutingProviders = [];
 var AppRoutingModule = /** @class */ (function () {
@@ -627,7 +610,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclLayoutVertical docMain\">\n  <header class=\"vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified\">\n    <div role=\"banner\">\n      <a href=\"#\" class=\"vclLayoutHorizontal vclLayoutCenter\">\n        <img class=\"vclResponsiveImage vclLogo\" role=\"presentation\" src=\"https://cdn.jsdelivr.net/gh/ng-vcl/ng-vcl/gfx/angular_vcl_logo_square.png\">\n        <h1 class=\"vclAppName\">Angular VCL Demo Browser (v{{version}}<span *ngIf=\"gitBranch\"> {{gitBranch}}</span>)</h1>\n      </a>\n    </div>\n    <div><a href=\"https://github.com/ng-vcl/ng-vcl\" target=\"_blank\" title=\"to Github\">\n      <span class=\"vclIcon fab fa-github fa-3x\"></span> </a>\n    </div>\n  </header>\n  <div class=\"vclContentArea vclLayoutFlex vclLayoutHorizontal\">\n    <div class=\"vclLayoutVertical docNav\">\n      <div class=\"vclInputGroupEmb\">\n        <span class=\"vclPrepended\">\n          <vcl-icon icon=\"fas:search\"></vcl-icon>\n        </span>\n\n        <input #searchInput (keyup)=\"search(searchInput.value)\"\n          class=\"vclInput vclNoBorder vclPrepItem vclAppItem searchInput\"\n          type=\"search\"\n          name=\"search\"\n          placeholder=\"Search Modules\"\n          autocomplete=\"off\"\n          autofocus />\n\n        <button vcl-button *ngIf=\"searchInput.value\"\n          (tap)=\"searchInput.value = ''; search('')\"\n          class=\"vclButton vclTransparent vclSquare vclAppended\"\n          icon=\"fas:times-circle\"></button>\n      </div>\n\n      <nav vcl-navigation class=\"vclScrollable vclYOnHover vclLayoutFlex\"\n        [type]=\"'vertical'\"\n        [useRouter]=\"true\"\n        [subLevelHintIconSide]=\"'left'\"\n        [subLevelHintIconOpened]=\"'fas:angle-down'\"\n        [subLevelHintIconClosed]=\"'fas:angle-right'\">\n\n        <div *ngIf=\"searchResults.length; else noSearch\">\n          <vcl-navitem *ngFor=\"let searchResult of searchResults\" [label]=\"searchResult.label\" [route]=\"searchResult.route\"></vcl-navitem>\n        </div>\n\n        <ng-template #noSearch>\n          <vcl-navitem *ngFor=\"let item of GROUPED_DEMOS\" [label]=\"item.label\">\n            <ng-container *ngIf=\"item.items\">\n              <vcl-navitem *ngFor=\"let subitem of item.items\" [label]=\"subitem.label\" [route]=\"subitem.route\"></vcl-navitem>\n            </ng-container>\n          </vcl-navitem>\n        </ng-template>\n\n      </nav>\n    </div>\n    <div class=\"vclScrollable vclLayoutFlex docContent\"> \n      <router-outlet></router-outlet>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"vclLayoutVertical docMain\">\n  <header class=\"vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified\">\n    <div role=\"banner\">\n      <a href=\"#\" class=\"vclLayoutHorizontal vclLayoutCenter\">\n        <img class=\"vclResponsiveImage vclLogo\" role=\"presentation\" src=\"https://cdn.jsdelivr.net/gh/ng-vcl/ng-vcl/gfx/angular_vcl_logo_square.png\">\n        <h1 class=\"vclAppName\">Angular VCL Demo Browser (v{{version}}<span *ngIf=\"gitBranch\"> {{gitBranch}}</span>)</h1>\n      </a>\n    </div>\n    <div><a href=\"https://github.com/ng-vcl/ng-vcl\" target=\"_blank\" title=\"to Github\">\n      <span class=\"vclIcon fab fa-github fa-3x\"></span> </a>\n    </div>\n  </header>\n  <div class=\"vclContentArea vclLayoutFlex vclLayoutHorizontal\">\n    <div class=\"vclLayoutVertical docNav\">\n      <div class=\"vclInputGroupEmb\">\n        <span class=\"vclPrepended\">\n          <vcl-icon icon=\"fas:search\"></vcl-icon>\n        </span>\n\n        <input #searchInput (keyup)=\"search(searchInput.value)\"\n          class=\"vclInput vclNoBorder vclPrepItem vclAppItem searchInput\"\n          type=\"search\"\n          name=\"search\"\n          placeholder=\"Search Modules\"\n          autocomplete=\"off\"\n          autofocus />\n\n        <button vcl-button *ngIf=\"searchInput.value\"\n          (tap)=\"searchInput.value = ''; search('')\"\n          class=\"vclButton vclTransparent vclSquare vclAppended\"\n          icon=\"fas:times-circle\"></button>\n      </div>\n\n      <nav vcl-navigation class=\"vclScrollable vclYOnHover vclLayoutFlex\"\n        [type]=\"'vertical'\"\n        [useRouter]=\"true\"\n        [subLevelHintIconSide]=\"'left'\"\n        [subLevelHintIconOpened]=\"'fas:angle-down'\"\n        [subLevelHintIconClosed]=\"'fas:angle-right'\">\n\n        <div *ngIf=\"searchResults.length; else noSearch\">\n          <vcl-navitem *ngFor=\"let searchResult of searchResults\" [label]=\"searchResult.label\" [route]=\"searchResult.route\"></vcl-navitem>\n        </div>\n\n        <ng-template #noSearch>\n          <vcl-navitem *ngFor=\"let item of GROUPED_DEMOS\" [label]=\"item.label\">\n            <ng-container *ngIf=\"item.items\">\n              <vcl-navitem *ngFor=\"let subitem of item.items\" [label]=\"subitem.label\" [route]=\"subitem.route\"></vcl-navitem>\n            </ng-container>\n          </vcl-navitem>\n        </ng-template>\n\n      </nav>\n    </div>\n    <div class=\"vclScrollable vclLayoutFlex docContent\" cdkScrollable> \n      <router-outlet></router-outlet>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -823,7 +806,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclPanel vclPanelDialog vclNoMargin\" [ngClass]=\"alertClass\" style=\"min-width: 25em\" role=\"dialog\">\n  <div *ngIf=\"alert.title\" class=\"vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\">\n    <h3 class=\"vclPanelTitle\">{{alert.title}}</h3>\n    <button *ngIf=\"alert.showCloseButton\" vcl-icon-button icon=\"fas:times\" class=\"vclTransparent\" (click)=\"close()\"></button>\n  </div>\n\n  <div class=\"vclPanelBody\">\n    <div class=\"vclPanelContent\">\n      <div class=\"vclIcogram\">\n        <vcl-icon *ngIf=\"iconClass\" class=\"vclScale300p\" [icon]=\"iconClass\" aria-hidden=\"true\" role=\"img\"></vcl-icon>\n        <div *ngIf=\"alert.text && !alert.html\">{{alert.text}}</div>\n        <div [innerHtml]=\"alert.text\" *ngIf=\"alert.text && alert.html\"></div>\n      </div>\n\n      <div class=\"vclInputControlGroup\" *ngIf=\"alert.input\">\n        <p></p>\n        <input vclInput vclInputAlert [class.vclError]=\"validationError\" [alert]=\"alert\" (input)=\"valueChange($event.target.value)\">\n        <div *ngIf=\"validationError\" class=\"vclFormControlHint vclError\">\n          {{validationError}}\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\">\n    <div></div>\n    <div class=\"vclLooseButtonGroup\">\n\n      <button vcl-icogram-button\n        *ngIf=\"!!alert.showCancelButton\"\n        type=\"button\"\n        [style.background-color]=\"!!alert.cancelButtonColor\"\n        [ngClass]=\"alert.cancelButtonClass\"\n        [appIcon]=\"alert.cancelButtonAppIcon\"\n        [prepIcon]=\"alert.cancelButtonPrepIcon\"\n        [disabled]=\"(!alert.showConfirmButton && !!loader)\"\n        [appIcon]=\"(!alert.showConfirmButton && !!loader) ? null : alert.cancelButtonAppIcon\"\n        [prepIcon]=\"(!alert.showConfirmButton && !!loader) ? 'vcl:busy' : alert.cancelButtonPrepIcon\"\n        (click)=\"cancel()\"\n        >\n        {{alert.cancelButtonLabel}}\n      </button>\n\n      <button vcl-icogram-button\n        *ngIf=\"!!alert.showConfirmButton\"\n        type=\"button\"\n        (click)=\"confirm()\"\n        [style.background-color]=\"alert.confirmButtonColor\"\n        [ngClass]=\"alert.confirmButtonClass\"\n        [disabled]=\"loader\"\n        [appIcon]=\"loader ? null : alert.confirmButtonAppIcon\"\n        [prepIcon]=\"loader ? 'vcl:busy' : alert.confirmButtonPrepIcon\"\n        >\n        {{alert.confirmButtonLabel}}\n      </button>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"vclPanel vclPanelDialog vclNoMargin\" [ngClass]=\"alertClass\" style=\"min-width: 25em\" role=\"dialog\">\n  <div *ngIf=\"alert.title\" class=\"vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\">\n    <h3 class=\"vclPanelTitle\">{{alert.title}}</h3>\n    <button *ngIf=\"alert.showCloseButton\" vcl-square-button class=\"vclTransparent\" (click)=\"close()\">\n      <vcl-icon icon=\"fas:times\"></vcl-icon>\n    </button>\n  </div>\n\n  <div class=\"vclPanelBody\">\n    <div class=\"vclPanelContent\">\n      <div class=\"vclIcogram\">\n        <vcl-icon *ngIf=\"iconClass\" class=\"vclScale300p\" [icon]=\"iconClass\" aria-hidden=\"true\" role=\"img\"></vcl-icon>\n        <div *ngIf=\"alert.text && !alert.html\">{{alert.text}}</div>\n        <div [innerHtml]=\"alert.text\" *ngIf=\"alert.text && alert.html\"></div>\n      </div>\n\n      <div class=\"vclFormControlGroup\" *ngIf=\"alert.input\">\n        <p></p>\n        <input vclInput vclInputAlert [class.vclError]=\"validationError\" [alert]=\"alert\" (input)=\"valueChange($event.target.value)\">\n        <div *ngIf=\"validationError\" class=\"vclFormControlHint vclError\">\n          {{validationError}}\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter\">\n    <div></div>\n    <div class=\"vclLooseButtonGroup\">\n\n      <button vcl-button\n        *ngIf=\"!!alert.showCancelButton\"\n        type=\"button\"\n        [style.background-color]=\"!!alert.cancelButtonColor\"\n        [ngClass]=\"alert.cancelButtonClass\"\n        [disabled]=\"(!alert.showConfirmButton && !!loader)\"\n        (click)=\"cancel()\"\n        >\n        <vcl-icogram>\n          <vcl-icon *ngIf=\"alert.cancelButtonPrepIcon\" prepIcon [icon]=\"(!alert.showConfirmButton && !!loader) ? 'vcl:busy' : alert.cancelButtonPrepIcon\"></vcl-icon>\n          {{alert.cancelButtonLabel}}\n          <vcl-icon *ngIf=\"alert.cancelButtonAppIcon\" appIcon [icon]=\"(!alert.showConfirmButton && !!loader) ? null : alert.cancelButtonAppIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n\n      <button vcl-button\n        *ngIf=\"!!alert.showConfirmButton\"\n        type=\"button\"\n        (click)=\"confirm()\"\n        [style.background-color]=\"alert.confirmButtonColor\"\n        [ngClass]=\"alert.confirmButtonClass\"\n        [disabled]=\"loader\"\n        >\n        <vcl-icogram>\n          <vcl-icon *ngIf=\"alert.confirmButtonPrepIcon\" prepIcon [icon]=\"loader ? 'vcl:busy' : alert.confirmButtonPrepIcon\"></vcl-icon>\n          {{alert.confirmButtonLabel}}\n          <vcl-icon *ngIf=\"alert.confirmButtonAppIcon\" appIcon [icon]=\"loader ? null : alert.confirmButtonAppIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -831,12 +814,12 @@ module.exports = "<div class=\"vclPanel vclPanelDialog vclNoMargin\" [ngClass]=\
 /*!*************************************************!*\
   !*** ./lib/ng-vcl/src/alert/alert.component.ts ***!
   \*************************************************/
-/*! exports provided: AlertLayerRef, AlertComponent */
+/*! exports provided: AlertLayer, AlertComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertLayerRef", function() { return AlertLayerRef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertLayer", function() { return AlertLayer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertComponent", function() { return AlertComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
@@ -848,13 +831,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var AlertLayerRef = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](AlertLayerRef, _super);
-    function AlertLayerRef() {
+var AlertLayer = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](AlertLayer, _super);
+    function AlertLayer() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return AlertLayerRef;
-}(_layer__WEBPACK_IMPORTED_MODULE_3__["ComponentLayerRef"]));
+    AlertLayer.prototype.getComponent = function () {
+        return AlertComponent;
+    };
+    AlertLayer = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+    ], AlertLayer);
+    return AlertLayer;
+}(_layer__WEBPACK_IMPORTED_MODULE_3__["LayerBase"]));
 
 var AlertComponent = /** @class */ (function () {
     function AlertComponent(elementRef, alertLayer, cdRef) {
@@ -961,11 +950,14 @@ var AlertComponent = /** @class */ (function () {
             host: {
                 '[tabindex]': '0',
                 '[style.outline]': '"none"'
-            }
+            },
+            providers: [{
+                    provide: AlertLayer,
+                    useExisting: _layer__WEBPACK_IMPORTED_MODULE_3__["LAYER_TOKEN"]
+                }]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_layer__WEBPACK_IMPORTED_MODULE_3__["ComponentLayerRef"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            AlertLayerRef,
+            AlertLayer,
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], AlertComponent);
     return AlertComponent;
@@ -990,16 +982,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/alert/types.ts");
 /* harmony import */ var _alert_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./alert.component */ "./lib/ng-vcl/src/alert/alert.component.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _layer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../layer */ "./lib/ng-vcl/src/layer/index.ts");
-
 
 
 
 
 
 var AlertService = /** @class */ (function () {
-    function AlertService(lf) {
-        this.lf = lf;
+    function AlertService(injector) {
+        this.injector = injector;
     }
     AlertService.prototype.alert = function (text, opts) {
         if (opts === void 0) { opts = {}; }
@@ -1031,12 +1021,11 @@ var AlertService = /** @class */ (function () {
             opts[_i] = arguments[_i];
         }
         var alert = Object.assign.apply(Object, [{}, _types__WEBPACK_IMPORTED_MODULE_2__["ALERT_DEFAULTS"]].concat(opts));
-        var layerRef = this.lf.create(_alert_component__WEBPACK_IMPORTED_MODULE_3__["AlertComponent"], {
+        var layer = new _alert_component__WEBPACK_IMPORTED_MODULE_3__["AlertLayer"](this.injector, {
             modal: alert.modal,
-            useClass: _alert_component__WEBPACK_IMPORTED_MODULE_3__["AlertLayerRef"]
         });
-        layerRef.open(alert);
-        return layerRef.afterClose.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (result) {
+        layer.open(alert);
+        return layer.afterClose.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (result) {
             return result || {
                 action: 'close'
             };
@@ -1044,7 +1033,7 @@ var AlertService = /** @class */ (function () {
     };
     AlertService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_layer__WEBPACK_IMPORTED_MODULE_5__["LayerFactory"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
     ], AlertService);
     return AlertService;
 }());
@@ -1294,677 +1283,53 @@ var TYPE_CLASS_MAP = (_a = {},
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.html":
-/*!************************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-header.component.html ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"vclDropdownItemGroupHeaderLabel\">\n  <ng-content></ng-content>\n</div>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.ts":
-/*!**********************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-header.component.ts ***!
-  \**********************************************************************/
-/*! exports provided: AutocompleteHeaderComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return AutocompleteHeaderComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var AutocompleteHeaderComponent = /** @class */ (function () {
-    function AutocompleteHeaderComponent() {
-        // TODO: Workaround
-        this.styleDisplay = 'block';
-        this.classVCLDropdownItemGroupHeader = true;
-        // TODO: Find appropriate role
-        // @HostBinding('attr.role')
-        // attrRole = 'menuitem';
-    }
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteHeaderComponent.prototype, "styleDisplay", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItemGroupHeader'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteHeaderComponent.prototype, "classVCLDropdownItemGroupHeader", void 0);
-    AutocompleteHeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-autocomplete-header',
-            exportAs: 'vclAutocompleteHeader',
-            template: __webpack_require__(/*! ./autocomplete-header.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.html")
-        })
-    ], AutocompleteHeaderComponent);
-    return AutocompleteHeaderComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-input.directive.ts":
-/*!*********************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-input.directive.ts ***!
-  \*********************************************************************/
-/*! exports provided: AutocompleteInputDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return AutocompleteInputDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../input */ "./lib/ng-vcl/src/input/index.ts");
-/* harmony import */ var _autocomplete_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./autocomplete.component */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.ts");
-
-
-
-
-var AutocompleteInputDirective = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](AutocompleteInputDirective, _super);
-    function AutocompleteInputDirective(elementRef) {
-        var _this = _super.call(this, elementRef) || this;
-        _this.elementRef = elementRef;
-        // tslint:disable-next-line:no-input-rename
-        _this.acDisabled = false;
-        // tslint:disable-next-line:no-input-rename
-        _this.select = 'value';
-        _this.focused = false;
-        return _this;
-    }
-    AutocompleteInputDirective.prototype.onfocus = function () {
-        this.focused = true;
-        this.update();
-    };
-    AutocompleteInputDirective.prototype.onFocusOrInput = function () {
-        this.update();
-    };
-    AutocompleteInputDirective.prototype.onBlur = function () {
-        this.focused = false;
-        this.update();
-    };
-    AutocompleteInputDirective.prototype.update = function () {
-        var _this = this;
-        if (this.disabled || this.acDisabled || !this.focused || !this.ac) {
-            this.close();
-            return;
-        }
-        this.acSub = this.ac.render(this.elementRef).subscribe(function (value) {
-            if (typeof _this.select === 'function') {
-                value = _this.select(value);
-            }
-            else if (_this.select === 'void') {
-                value = '';
-            }
-            _this.elementRef.nativeElement.value = value;
-            _this.elementRef.nativeElement.focus();
-            _this.close();
-        });
-    };
-    AutocompleteInputDirective.prototype.close = function () {
-        if (this.acSub) {
-            this.acSub.unsubscribe();
-            this.acSub = undefined;
-        }
-    };
-    AutocompleteInputDirective.prototype.onKeyUp = function (event) {
-        var code = event.code || event.key;
-        if (code === 'Escape') {
-            this.close();
-        }
-        else if (code === 'ArrowUp') {
-            this.ac && this.ac.highlightPrev();
-            event.preventDefault();
-            return false;
-        }
-        else if (event.code === 'ArrowDown') {
-            if (!this.acSub) {
-                this.close();
-            }
-            else {
-                this.ac && this.ac.highlightNext();
-            }
-            event.preventDefault();
-            return false;
-        }
-    };
-    AutocompleteInputDirective.prototype.handleKeyPressEvent = function (event) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var code;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                code = event.code || event.key;
-                if (this.ac && code === 'Enter') {
-                    event.preventDefault();
-                    this.ac.selectHighlighted();
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
-    AutocompleteInputDirective.prototype.ngOnDestroy = function () {
-        this.close();
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocomplete'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _autocomplete_component__WEBPACK_IMPORTED_MODULE_3__["AutocompleteComponent"])
-    ], AutocompleteInputDirective.prototype, "ac", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocompleteDisabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteInputDirective.prototype, "acDisabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclAutocompleteSelect'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteInputDirective.prototype, "select", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], AutocompleteInputDirective.prototype, "onfocus", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('input'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], AutocompleteInputDirective.prototype, "onFocusOrInput", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], AutocompleteInputDirective.prototype, "onBlur", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], AutocompleteInputDirective.prototype, "onKeyUp", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keypress', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", Promise)
-    ], AutocompleteInputDirective.prototype, "handleKeyPressEvent", null);
-    AutocompleteInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vclAutocomplete]',
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
-    ], AutocompleteInputDirective);
-    return AutocompleteInputDirective;
-}(_input__WEBPACK_IMPORTED_MODULE_2__["InputDirective"]));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html":
-/*!**********************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div role=\"menuitem\" class=\"vclDropdownItemLabel\">\n  <ng-content></ng-content>\n</div>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts":
-/*!********************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts ***!
-  \********************************************************************/
-/*! exports provided: AutocompleteItemComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return AutocompleteItemComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/autocomplete/interfaces.ts");
-
-
-
-var AutocompleteItemComponent = /** @class */ (function () {
-    function AutocompleteItemComponent(host) {
-        this.host = host;
-        // TODO: Workaround
-        this.styleDisplay = 'block';
-        this.classVCLDropdownItem = true;
-        this.attrRole = 'menuitem';
-        this.disabled = false;
-    }
-    Object.defineProperty(AutocompleteItemComponent.prototype, "isDisabled", {
-        get: function () {
-            return this.disabled || this.host.disabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(AutocompleteItemComponent.prototype, "isHighlighted", {
-        get: function () {
-            return this.host.isItemHighlighted(this);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    AutocompleteItemComponent.prototype.onclick = function () {
-        this.host.selectItem(this);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteItemComponent.prototype, "styleDisplay", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItem'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteItemComponent.prototype, "classVCLDropdownItem", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteItemComponent.prototype, "attrRole", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], AutocompleteItemComponent.prototype, "isDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclHighlighted'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], AutocompleteItemComponent.prototype, "isHighlighted", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteItemComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteItemComponent.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], AutocompleteItemComponent.prototype, "onclick", null);
-    AutocompleteItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-autocomplete-item',
-            exportAs: 'vclAutocompleteItem',
-            template: __webpack_require__(/*! ./autocomplete-item.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.html")
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["AUTOCOMPLETE_TOKEN"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], AutocompleteItemComponent);
-    return AutocompleteItemComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.html":
-/*!***************************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.html ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"vclSeparator\"></div>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.ts":
-/*!*************************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.ts ***!
-  \*************************************************************************/
-/*! exports provided: AutocompleteSeperatorComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return AutocompleteSeperatorComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var AutocompleteSeperatorComponent = /** @class */ (function () {
-    function AutocompleteSeperatorComponent() {
-        // TODO: Workaround
-        this.styleDisplay = 'block';
-        this.attrRole = 'seperator';
-    }
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteSeperatorComponent.prototype, "styleDisplay", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteSeperatorComponent.prototype, "attrRole", void 0);
-    AutocompleteSeperatorComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-autocomplete-seperator',
-            exportAs: 'vclAutocompleteSeperator',
-            template: __webpack_require__(/*! ./autocomplete-seperator.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.html")
-        })
-    ], AutocompleteSeperatorComponent);
-    return AutocompleteSeperatorComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete.component.html":
-/*!*****************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete.component.html ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<vcl-popover #popover \n              *ngIf=\"handle\"\n              [visible]=\"true\" \n              [target]=\"handle.element\" \n              targetX=\"left\" \n              targetY=\"bottom\" \n              attachmentX=\"left\" \n              attachmentY=\"top\" \n              [style.width]=\"width\"\n              (mousedown)=\"$event.preventDefault()\"\n              >\n  <div class=\"vclDropdown vclNoBorder vclOpen\" role=\"menu\">\n    <ng-content></ng-content>\n  </div>\n</vcl-popover>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/autocomplete.component.ts":
-/*!***************************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/autocomplete.component.ts ***!
-  \***************************************************************/
-/*! exports provided: AutocompleteComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return AutocompleteComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../popover/index */ "./lib/ng-vcl/src/popover/index.ts");
-/* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/index */ "./lib/ng-vcl/src/core/index.ts");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/autocomplete/interfaces.ts");
-/* harmony import */ var _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./autocomplete-item.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts");
-
-
-
-
-
-
-
-var AutocompleteComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](AutocompleteComponent, _super);
-    function AutocompleteComponent() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.disabled = false;
-        _this.itemSelected = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
-        return _this;
-    }
-    AutocompleteComponent_1 = AutocompleteComponent;
-    Object.defineProperty(AutocompleteComponent.prototype, "width", {
-        get: function () {
-            if (typeof this.popoverWidth === 'number') {
-                return this.popoverWidth;
-            }
-            else if (this.handle && this.handle.element && this.handle.element.nativeElement.offsetWidth) {
-                return this.handle.element.nativeElement.offsetWidth + 'px';
-            }
-            else {
-                return undefined;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    AutocompleteComponent.prototype.isItemHighlighted = function (item) {
-        return this.highlightedItem === item;
-    };
-    AutocompleteComponent.prototype.selectItem = function (item) {
-        if (this.handle) {
-            this.itemSelected.emit(item.value);
-            this.handle.select(item.value);
-        }
-    };
-    AutocompleteComponent.prototype.render = function (element) {
-        var _this = this;
-        if (this.handle) {
-            this.handle.destroy();
-        }
-        return new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (observer) {
-            var handle = _this.handle = {
-                destroy: function () {
-                    _this.handle = undefined;
-                    observer.complete();
-                },
-                select: function (value) {
-                    observer.next(value);
-                    handle.destroy();
-                },
-                element: element
-            };
-            return function () {
-                handle.destroy();
-            };
-        });
-    };
-    AutocompleteComponent.prototype.highlightPrev = function () {
-        var _this = this;
-        if (this.items) {
-            var currIdx_1 = this.items.toArray().findIndex(function (item, thisIdx) { return item === _this.highlightedItem; });
-            if (currIdx_1 < 0) {
-                this.highlightedItem = this.items.first;
-            }
-            else {
-                var highlightedItem = this.items.toArray().reverse().find(function (item, thisRevId, items) {
-                    var thisIdx = (items.length - 1) - thisRevId;
-                    return thisIdx < currIdx_1;
-                });
-                if (highlightedItem) {
-                    this.highlightedItem = highlightedItem;
-                }
-                else {
-                    this.highlightedItem = this.items.first;
-                }
-            }
-        }
-    };
-    AutocompleteComponent.prototype.highlightNext = function () {
-        var _this = this;
-        if (this.items) {
-            var currIdx_2 = this.items.toArray().findIndex(function (item, thisIdx) { return item === _this.highlightedItem; });
-            var highlightedItem = this.items.toArray().find(function (item, thisIdx) { return thisIdx > currIdx_2; });
-            if (highlightedItem) {
-                this.highlightedItem = highlightedItem;
-            }
-        }
-    };
-    AutocompleteComponent.prototype.selectHighlighted = function () {
-        if (this.highlightedItem && this.handle) {
-            this.handle.select(this.highlightedItem);
-            return true;
-        }
-        return false;
-    };
-    AutocompleteComponent.prototype.ngOnDestroy = function () {
-        _super.prototype.ngOnDestroy.call(this);
-        this.itemsSub && this.itemsSub.unsubscribe();
-        this.contentSub && this.contentSub.unsubscribe();
-    };
-    var AutocompleteComponent_1;
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ContentChildren"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["forwardRef"])(function () { return _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteItemComponent"]; })),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["QueryList"])
-    ], AutocompleteComponent.prototype, "items", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('popover'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _popover_index__WEBPACK_IMPORTED_MODULE_3__["PopoverComponent"])
-    ], AutocompleteComponent.prototype, "popover", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], AutocompleteComponent.prototype, "popoverWidth", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], AutocompleteComponent.prototype, "itemSelected", void 0);
-    AutocompleteComponent = AutocompleteComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
-            selector: 'vcl-autocomplete',
-            exportAs: 'vclAutocomplete',
-            template: __webpack_require__(/*! ./autocomplete.component.html */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.html"),
-            providers: [
-                {
-                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_5__["AUTOCOMPLETE_TOKEN"],
-                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["forwardRef"])(function () { return AutocompleteComponent_1; })
-                }
-            ],
-            styles: ["\n    .vclDropdown {\n      padding: 0;\n      position: static;\n    }\n    .vclPopOver {\n      padding: 0;\n    }\n  "]
-        })
-    ], AutocompleteComponent);
-    return AutocompleteComponent;
-}(_core_index__WEBPACK_IMPORTED_MODULE_4__["ObservableComponent"]));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/index.ts":
-/*!**********************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/index.ts ***!
-  \**********************************************/
-/*! exports provided: AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return VCLAutocompleteModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../popover/index */ "./lib/ng-vcl/src/popover/index.ts");
-/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../token/index */ "./lib/ng-vcl/src/token/index.ts");
-/* harmony import */ var _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./autocomplete.component */ "./lib/ng-vcl/src/autocomplete/autocomplete.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"]; });
-
-/* harmony import */ var _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./autocomplete-item.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-item.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"]; });
-
-/* harmony import */ var _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./autocomplete-seperator.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-seperator.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"]; });
-
-/* harmony import */ var _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./autocomplete-header.component */ "./lib/ng-vcl/src/autocomplete/autocomplete-header.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]; });
-
-/* harmony import */ var _autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./autocomplete-input.directive */ "./lib/ng-vcl/src/autocomplete/autocomplete-input.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return _autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__["AutocompleteInputDirective"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-// import { TokenInputAutocompleteDirective } from './token-input.autocomplete.directive';
-
-var VCLAutocompleteModule = /** @class */ (function () {
-    function VCLAutocompleteModule() {
-    }
-    VCLAutocompleteModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _popover_index__WEBPACK_IMPORTED_MODULE_3__["VCLPopoverModule"], _token_index__WEBPACK_IMPORTED_MODULE_5__["VCLTokenModule"]],
-            exports: [_autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__["AutocompleteInputDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
-            declarations: [_autocomplete_input_directive__WEBPACK_IMPORTED_MODULE_10__["AutocompleteInputDirective"], _autocomplete_component__WEBPACK_IMPORTED_MODULE_6__["AutocompleteComponent"], _autocomplete_item_component__WEBPACK_IMPORTED_MODULE_7__["AutocompleteItemComponent"], _autocomplete_seperator_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteSeperatorComponent"], _autocomplete_header_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteHeaderComponent"]],
-            providers: [],
-        })
-    ], VCLAutocompleteModule);
-    return VCLAutocompleteModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/autocomplete/interfaces.ts":
-/*!***************************************************!*\
-  !*** ./lib/ng-vcl/src/autocomplete/interfaces.ts ***!
-  \***************************************************/
-/*! exports provided: AUTOCOMPLETE_TOKEN */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTOCOMPLETE_TOKEN", function() { return AUTOCOMPLETE_TOKEN; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-var AUTOCOMPLETE_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('autocomplete');
-
-
-/***/ }),
-
 /***/ "./lib/ng-vcl/src/badge/badge.component.ts":
 /*!*************************************************!*\
   !*** ./lib/ng-vcl/src/badge/badge.component.ts ***!
   \*************************************************/
-/*! exports provided: BadgeDirective */
+/*! exports provided: BadgeComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BadgeDirective", function() { return BadgeDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BadgeComponent", function() { return BadgeComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
-var BadgeDirective = /** @class */ (function () {
-    function BadgeDirective() {
+var BadgeComponent = /** @class */ (function () {
+    function BadgeComponent() {
+        this.classVCLBadge = true;
     }
-    Object.defineProperty(BadgeDirective.prototype, "vclPrimary", {
+    Object.defineProperty(BadgeComponent.prototype, "vclPrimary", {
         get: function () {
             return this.type === 'primary';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(BadgeDirective.prototype, "vclSuccess", {
+    Object.defineProperty(BadgeComponent.prototype, "vclSuccess", {
         get: function () {
             return this.type === 'success';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(BadgeDirective.prototype, "vclInfo", {
+    Object.defineProperty(BadgeComponent.prototype, "vclInfo", {
         get: function () {
             return this.type === 'info';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(BadgeDirective.prototype, "vclWarning", {
+    Object.defineProperty(BadgeComponent.prototype, "vclWarning", {
         get: function () {
             return this.type === 'warning';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(BadgeDirective.prototype, "vclError", {
+    Object.defineProperty(BadgeComponent.prototype, "vclError", {
         get: function () {
             return this.type === 'error';
         },
@@ -1974,41 +1339,44 @@ var BadgeDirective = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], BadgeDirective.prototype, "type", void 0);
+    ], BadgeComponent.prototype, "type", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclBadge'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], BadgeComponent.prototype, "classVCLBadge", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclPrimary'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], BadgeDirective.prototype, "vclPrimary", null);
+    ], BadgeComponent.prototype, "vclPrimary", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSuccess'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], BadgeDirective.prototype, "vclSuccess", null);
+    ], BadgeComponent.prototype, "vclSuccess", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInfo'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], BadgeDirective.prototype, "vclInfo", null);
+    ], BadgeComponent.prototype, "vclInfo", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclWarning'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], BadgeDirective.prototype, "vclWarning", null);
+    ], BadgeComponent.prototype, "vclWarning", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], BadgeDirective.prototype, "vclError", null);
-    BadgeDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+    ], BadgeComponent.prototype, "vclError", null);
+    BadgeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-badge',
-            host: {
-                '[class.vclBadge]': 'true'
-            }
+            template: '<ng-content></ng-content>',
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         })
-    ], BadgeDirective);
-    return BadgeDirective;
+    ], BadgeComponent);
+    return BadgeComponent;
 }());
 
 
@@ -2039,8 +1407,8 @@ var VCLBadgeModule = /** @class */ (function () {
     VCLBadgeModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]],
-            exports: [_badge_component__WEBPACK_IMPORTED_MODULE_3__["BadgeDirective"]],
-            declarations: [_badge_component__WEBPACK_IMPORTED_MODULE_3__["BadgeDirective"]],
+            exports: [_badge_component__WEBPACK_IMPORTED_MODULE_3__["BadgeComponent"]],
+            declarations: [_badge_component__WEBPACK_IMPORTED_MODULE_3__["BadgeComponent"]],
             providers: [],
         })
     ], VCLBadgeModule);
@@ -2222,44 +1590,61 @@ var VCLBusyIndicatorModule = /** @class */ (function () {
 /*!***************************************************************!*\
   !*** ./lib/ng-vcl/src/button-group/button-group.component.ts ***!
   \***************************************************************/
-/*! exports provided: CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, ButtonGroupComponent */
+/*! exports provided: ButtonGroupComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return ButtonGroupComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
 
 
 
 
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonGroupComponent; }),
-    multi: true
-};
+
+
+var UNIQUE_ID = 0;
 var ButtonGroupComponent = /** @class */ (function () {
-    function ButtonGroupComponent(cdRef) {
+    function ButtonGroupComponent(cdRef, ngControl, formControlHost, _errorStateAgent) {
         this.cdRef = cdRef;
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this._generatedId = 'vcl_button_group_' + UNIQUE_ID++;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.stateChange = this.stateChangeEmitter.asObservable();
+        this.controlType = 'button-group';
+        this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this._disabled = false;
         // If `single`, a single item can be selected
         // If `multiple` multiple items can be selected
-        this.mode = 'single';
-        this.selectionChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.selectionMode = 'single';
         this.formDisabled = false;
         /**
        * things needed for ControlValueAccessor-Interface
        */
         this.onChange = function () { };
         this.onTouched = function () { };
+        // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
     }
     ButtonGroupComponent_1 = ButtonGroupComponent;
+    Object.defineProperty(ButtonGroupComponent.prototype, "elementId", {
+        get: function () {
+            return this.id || this._generatedId;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ButtonGroupComponent.prototype, "disabled", {
         get: function () {
             return this._disabled;
@@ -2271,6 +1656,14 @@ var ButtonGroupComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ButtonGroupComponent.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ButtonGroupComponent.prototype, "isDisabled", {
         get: function () {
             return this.formDisabled || this.disabled;
@@ -2278,45 +1671,55 @@ var ButtonGroupComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ButtonGroupComponent.prototype, "isFocused", {
+        get: function () {
+            return this.buttons.some(function (b) { return b.isFocused; });
+        },
+        enumerable: true,
+        configurable: true
+    });
     ButtonGroupComponent.prototype.toggle = function (btn) {
-        if (this.mode === 'multiple') {
-            if (Array.isArray(this.selectedValue)) {
-                var selectedValue = this.selectedValue = this.selectedValue.slice();
-                var idx = this.selectedValue.indexOf(btn.value);
+        if (this.selectionMode === 'multiple') {
+            if (Array.isArray(this.value)) {
+                var selectedValue = this.value = this.value.slice();
+                var idx = this.value.indexOf(btn.value);
                 if (idx >= 0) {
                     selectedValue.splice(idx, 1);
-                    this.selectedValue = selectedValue;
+                    this.value = selectedValue;
                 }
                 else {
-                    this.selectedValue = this.selectedValue.concat([btn.value]);
+                    this.value = this.value.concat([btn.value]);
                 }
             }
             else {
-                this.selectedValue = [btn.value];
+                this.value = [btn.value];
             }
         }
         else {
-            this.selectedValue = btn.value;
+            this.value = btn.value;
         }
     };
     ButtonGroupComponent.prototype.syncButtons = function () {
         var _this = this;
-        var selectedValue = this.selectedValue;
-        if (this.buttons && this.mode === 'multiple' && Array.isArray(selectedValue)) {
+        var value = this.value;
+        if (this.buttons && this.selectionMode === 'multiple' && Array.isArray(value)) {
             this.buttons.forEach(function (btn) {
-                btn.setSelected(selectedValue.includes(btn.value));
+                btn.setSelected(value.includes(btn.value));
             });
         }
-        else if (this.buttons && this.mode === 'single') {
+        else if (this.buttons && this.selectionMode === 'single') {
             this.buttons.forEach(function (btn) {
-                btn.setSelected(selectedValue === btn.value);
+                btn.setSelected(value === btn.value);
             });
         }
         if (this.buttons) {
             this.buttons.forEach(function (btn) {
+                btn.selectable = true;
                 btn.setDisabled(_this.isDisabled);
             });
         }
+    };
+    ButtonGroupComponent.prototype.onLabelClick = function (event) {
     };
     ButtonGroupComponent.prototype.notifyButtonClick = function (btn) {
         this.toggle(btn);
@@ -2330,13 +1733,16 @@ var ButtonGroupComponent = /** @class */ (function () {
         }
     };
     ButtonGroupComponent.prototype.triggerChange = function () {
-        this.selectionChange.emit(this.selectedValue);
-        this.onChange(this.selectedValue);
+        this.valueChange.emit(this.value);
+        this.onChange(this.value);
+    };
+    ButtonGroupComponent.prototype.getError = function (error) {
+        return this.hasError && this.ngControl.getError(error);
     };
     ButtonGroupComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
         // Syncs changed buttons checked state to be in line with the current group value
-        this.buttonsSub = this.buttons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(null)).subscribe(function () {
+        this.buttonsSub = this.buttons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null)).subscribe(function () {
             if (!_this.buttons) {
                 return;
             }
@@ -2345,9 +1751,10 @@ var ButtonGroupComponent = /** @class */ (function () {
     };
     ButtonGroupComponent.prototype.ngOnDestroy = function () {
         this.buttonsSub && this.buttonsSub.unsubscribe();
+        this.stateChangeEmitter && this.stateChangeEmitter.complete();
     };
     ButtonGroupComponent.prototype.writeValue = function (value) {
-        this.selectedValue = value;
+        this.value = value;
         this.syncButtons();
         this.cdRef.markForCheck();
     };
@@ -2363,7 +1770,24 @@ var ButtonGroupComponent = /** @class */ (function () {
     };
     var ButtonGroupComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_button__WEBPACK_IMPORTED_MODULE_4__["ButtonComponent"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], ButtonGroupComponent.prototype, "id", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ButtonGroupComponent.prototype, "value", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ButtonGroupComponent.prototype, "valueChange", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ButtonGroupComponent.prototype, "elementId", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_button__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], ButtonGroupComponent.prototype, "buttons", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2374,11 +1798,16 @@ var ButtonGroupComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonGroupComponent.prototype, "mode", void 0);
+    ], ButtonGroupComponent.prototype, "selectionMode", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonGroupComponent.prototype, "selectionChange", void 0);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], ButtonGroupComponent.prototype, "errorStateAgent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ButtonGroupComponent.prototype, "hasError", null);
     ButtonGroupComponent = ButtonGroupComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-button-group',
@@ -2387,15 +1816,25 @@ var ButtonGroupComponent = /** @class */ (function () {
             },
             template: "<ng-content select=\"button\"></ng-content>",
             providers: [
-                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
                 {
-                    provide: _button__WEBPACK_IMPORTED_MODULE_4__["BUTTON_OBSERVER_TOKEN"],
+                    provide: _button__WEBPACK_IMPORTED_MODULE_5__["BUTTON_OBSERVER_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonGroupComponent_1; })
+                },
+                {
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_INPUT"],
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonGroupComponent_1; })
                 }
             ],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControl"], Object, Function])
     ], ButtonGroupComponent);
     return ButtonGroupComponent;
 }());
@@ -2445,134 +1884,6 @@ var VCLButtonGroupModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/button/button-icogram.component.html":
-/*!*************************************************************!*\
-  !*** ./lib/ng-vcl/src/button/button-icogram.component.html ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<vcl-icogram [appIcon]=\"appIcon\" [prepIcon]=\"prepIcon\">\n  <ng-content></ng-content>\n</vcl-icogram>\n\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/button/button-icogram.component.ts":
-/*!***********************************************************!*\
-  !*** ./lib/ng-vcl/src/button/button-icogram.component.ts ***!
-  \***********************************************************/
-/*! exports provided: ButtonIcogramComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonIcogramComponent", function() { return ButtonIcogramComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _button_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./button.component */ "./lib/ng-vcl/src/button/button.component.ts");
-
-
-
-var ButtonIcogramComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ButtonIcogramComponent, _super);
-    function ButtonIcogramComponent() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ButtonIcogramComponent_1 = ButtonIcogramComponent;
-    var ButtonIcogramComponent_1;
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonIcogramComponent.prototype, "prepIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonIcogramComponent.prototype, "appIcon", void 0);
-    ButtonIcogramComponent = ButtonIcogramComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-icogram-button], a[vcl-icogram-button]',
-            exportAs: 'vclButton',
-            template: __webpack_require__(/*! ./button-icogram.component.html */ "./lib/ng-vcl/src/button/button-icogram.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [
-                {
-                    provide: _button_component__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"],
-                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonIcogramComponent_1; })
-                }
-            ]
-        })
-    ], ButtonIcogramComponent);
-    return ButtonIcogramComponent;
-}(_button_component__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"]));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/button/button-icon.component.html":
-/*!**********************************************************!*\
-  !*** ./lib/ng-vcl/src/button/button-icon.component.html ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<vcl-icon [icon]=\"icon\">\n  <ng-content></ng-content>\n</vcl-icon>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/button/button-icon.component.ts":
-/*!********************************************************!*\
-  !*** ./lib/ng-vcl/src/button/button-icon.component.ts ***!
-  \********************************************************/
-/*! exports provided: ButtonIconComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return ButtonIconComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _button_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./button.component */ "./lib/ng-vcl/src/button/button.component.ts");
-
-
-
-var ButtonIconComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ButtonIconComponent, _super);
-    function ButtonIconComponent() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.vclSquare = true;
-        return _this;
-    }
-    ButtonIconComponent_1 = ButtonIconComponent;
-    var ButtonIconComponent_1;
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSquare'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonIconComponent.prototype, "vclSquare", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonIconComponent.prototype, "icon", void 0);
-    ButtonIconComponent = ButtonIconComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-icon-button], a[vcl-icon-button]',
-            exportAs: 'vclButton',
-            template: __webpack_require__(/*! ./button-icon.component.html */ "./lib/ng-vcl/src/button/button-icon.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [
-                {
-                    provide: _button_component__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"],
-                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return ButtonIconComponent_1; })
-                }
-            ]
-        })
-    ], ButtonIconComponent);
-    return ButtonIconComponent;
-}(_button_component__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"]));
-
-
-
-/***/ }),
-
 /***/ "./lib/ng-vcl/src/button/button.component.html":
 /*!*****************************************************!*\
   !*** ./lib/ng-vcl/src/button/button.component.html ***!
@@ -2606,16 +1917,38 @@ var ButtonComponent = /** @class */ (function () {
         this.elementRef = elementRef;
         this.observer = observer;
         this._disabled = false;
+        this._focused = false;
         this.disabled = false;
-        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.selectedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.vclButton = true;
         this.hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
         this.selectable = false;
         this.selected = false;
     }
+    Object.defineProperty(ButtonComponent.prototype, "classVCLSquare", {
+        get: function () {
+            return this.elementRef.nativeElement.hasAttribute('vcl-square-button');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ButtonComponent.prototype, "attrType", {
+        get: function () {
+            return this.type || (this.selectable ? 'button' : null);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ButtonComponent.prototype, "isDisabled", {
         get: function () {
             return (this.disabled || this._disabled) ? true : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ButtonComponent.prototype, "isFocused", {
+        get: function () {
+            return this._focused;
         },
         enumerable: true,
         configurable: true
@@ -2629,11 +1962,15 @@ var ButtonComponent = /** @class */ (function () {
     ButtonComponent.prototype.onClick = function () {
         if (this.selectable) {
             this.selected = !this.selected;
-            this.select.emit(this.selected);
+            this.selectedChange.emit(this.selected);
         }
         this.observer && this.observer.notifyButtonClick(this);
     };
+    ButtonComponent.prototype.onFocus = function () {
+        this._focused = true;
+    };
     ButtonComponent.prototype.onBlur = function () {
+        this._focused = false;
         this.observer && this.observer.notifyButtonBlur(this);
     };
     ButtonComponent.prototype.focus = function () {
@@ -2658,7 +1995,17 @@ var ButtonComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonComponent.prototype, "select", void 0);
+    ], ButtonComponent.prototype, "selectedChange", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSquare'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ButtonComponent.prototype, "classVCLSquare", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.type'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ButtonComponent.prototype, "attrType", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
@@ -2674,9 +2021,14 @@ var ButtonComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], ButtonComponent.prototype, "hovered", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-pressed'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], ButtonComponent.prototype, "selectable", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], ButtonComponent.prototype, "type", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -2705,6 +2057,12 @@ var ButtonComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], ButtonComponent.prototype, "onClick", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], ButtonComponent.prototype, "onFocus", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
@@ -2712,7 +2070,7 @@ var ButtonComponent = /** @class */ (function () {
     ], ButtonComponent.prototype, "onBlur", null);
     ButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-button], a[vcl-button]',
+            selector: 'button[vcl-button], a[vcl-button], button[vcl-square-button], button[vcl-square-button]',
             exportAs: 'vclButton',
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             template: __webpack_require__(/*! ./button.component.html */ "./lib/ng-vcl/src/button/button.component.html")
@@ -2734,7 +2092,7 @@ var ButtonComponent = /** @class */ (function () {
 /*!****************************************!*\
   !*** ./lib/ng-vcl/src/button/index.ts ***!
   \****************************************/
-/*! exports provided: ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule */
+/*! exports provided: ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2750,14 +2108,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BUTTON_OBSERVER_TOKEN", function() { return _button_component__WEBPACK_IMPORTED_MODULE_5__["BUTTON_OBSERVER_TOKEN"]; });
 
-/* harmony import */ var _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./button-icogram.component */ "./lib/ng-vcl/src/button/button-icogram.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIcogramComponent", function() { return _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__["ButtonIcogramComponent"]; });
-
-/* harmony import */ var _button_icon_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./button-icon.component */ "./lib/ng-vcl/src/button/button-icon.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"]; });
-
-
-
 
 
 
@@ -2771,12 +2121,83 @@ var VCLButtonModule = /** @class */ (function () {
     VCLButtonModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon__WEBPACK_IMPORTED_MODULE_4__["VCLIconModule"], _icogram__WEBPACK_IMPORTED_MODULE_3__["VCLIcogramModule"]],
-            exports: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"], _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__["ButtonIcogramComponent"], _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"]],
-            declarations: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"], _button_icogram_component__WEBPACK_IMPORTED_MODULE_6__["ButtonIcogramComponent"], _button_icon_component__WEBPACK_IMPORTED_MODULE_7__["ButtonIconComponent"]],
+            exports: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"]],
+            declarations: [_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"]],
             providers: [],
         })
     ], VCLButtonModule);
     return VCLButtonModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/checkbox/checkbox-label.directive.ts":
+/*!*************************************************************!*\
+  !*** ./lib/ng-vcl/src/checkbox/checkbox-label.directive.ts ***!
+  \*************************************************************/
+/*! exports provided: CheckboxLabelDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CheckboxLabelDirective", function() { return CheckboxLabelDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _checkbox_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./checkbox.component */ "./lib/ng-vcl/src/checkbox/checkbox.component.ts");
+
+
+
+var CheckboxLabelDirective = /** @class */ (function () {
+    function CheckboxLabelDirective() {
+        this.classVCLFormControlLabel = true;
+        this.classVCLFormControlLabelWrapping = true;
+    }
+    Object.defineProperty(CheckboxLabelDirective.prototype, "isDisabled", {
+        get: function () {
+            return this.checkbox && this.checkbox.isDisabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CheckboxLabelDirective.prototype.onClick = function (event) {
+        this.checkbox && this.checkbox.onLabelClick(event);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_checkbox_component__WEBPACK_IMPORTED_MODULE_2__["CheckboxComponent"], { read: _checkbox_component__WEBPACK_IMPORTED_MODULE_2__["CheckboxComponent"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _checkbox_component__WEBPACK_IMPORTED_MODULE_2__["CheckboxComponent"])
+    ], CheckboxLabelDirective.prototype, "checkbox", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabel'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], CheckboxLabelDirective.prototype, "classVCLFormControlLabel", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], CheckboxLabelDirective.prototype, "classVCLFormControlLabelWrapping", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], CheckboxLabelDirective.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('label'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-label'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], CheckboxLabelDirective.prototype, "_label", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CheckboxLabelDirective.prototype, "onClick", null);
+    CheckboxLabelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'label[vclCheckboxLabel]'
+        })
+    ], CheckboxLabelDirective);
+    return CheckboxLabelDirective;
 }());
 
 
@@ -2798,30 +2219,33 @@ module.exports = "<vcl-icon [icon]=\"checked ? 'vcl:box-checked' : 'vcl:box'\"><
 /*!*******************************************************!*\
   !*** ./lib/ng-vcl/src/checkbox/checkbox.component.ts ***!
   \*******************************************************/
-/*! exports provided: CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, CheckboxComponent */
+/*! exports provided: CheckboxComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return CheckboxComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _form_control_label__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-label */ "./lib/ng-vcl/src/form-control-label/index.ts");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 
 
 
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return CheckboxComponent; }),
-    multi: true
-};
+
 var UNIQUE_ID = 0;
 var CheckboxComponent = /** @class */ (function () {
-    function CheckboxComponent(cdRef) {
+    function CheckboxComponent(cdRef, ngControl, formControlHost, _errorStateAgent) {
         this.cdRef = cdRef;
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.stateChange = this.stateChangeEmitter.asObservable();
+        this.controlType = 'checkbox';
+        this._focused = false;
         this.generatedId = 'vcl_checkbox_' + UNIQUE_ID++;
         this.classVCLCheckbox = true;
         this.attrRole = 'checkbox';
@@ -2839,11 +2263,22 @@ var CheckboxComponent = /** @class */ (function () {
          */
         this.onChange = function () { };
         this.onTouched = function () { };
+        // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
     }
     CheckboxComponent_1 = CheckboxComponent;
     Object.defineProperty(CheckboxComponent.prototype, "elementId", {
         get: function () {
             return this.id || this.generatedId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CheckboxComponent.prototype, "isFocused", {
+        get: function () {
+            return this._focused;
         },
         enumerable: true,
         configurable: true
@@ -2857,7 +2292,7 @@ var CheckboxComponent = /** @class */ (function () {
     });
     Object.defineProperty(CheckboxComponent.prototype, "attrAriaDisabled", {
         get: function () {
-            return this.disabled;
+            return this.isDisabled;
         },
         enumerable: true,
         configurable: true
@@ -2869,7 +2304,22 @@ var CheckboxComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    CheckboxComponent.prototype.notifyFormControlLabelClick = function (event) {
+    Object.defineProperty(CheckboxComponent.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CheckboxComponent.prototype, "value", {
+        get: function () {
+            return this.checked;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CheckboxComponent.prototype.onLabelClick = function (event) {
         this.toggleValue();
     };
     CheckboxComponent.prototype.onKeyup = function (e) {
@@ -2885,7 +2335,13 @@ var CheckboxComponent = /** @class */ (function () {
         return this.toggleValue();
     };
     CheckboxComponent.prototype.onBlur = function () {
+        this._focused = false;
         this.onTouched();
+        this.stateChangeEmitter.next();
+    };
+    CheckboxComponent.prototype.onFocus = function () {
+        this._focused = true;
+        this.stateChangeEmitter.next();
     };
     CheckboxComponent.prototype.toggleValue = function () {
         if (this.isDisabled) {
@@ -2896,6 +2352,10 @@ var CheckboxComponent = /** @class */ (function () {
         this.cdRef.markForCheck();
         this.onTouched();
         this.onChange(this.checked);
+        this.stateChangeEmitter.next();
+    };
+    CheckboxComponent.prototype.ngOnDestroy = function () {
+        this.stateChangeEmitter && this.stateChangeEmitter.complete();
     };
     CheckboxComponent.prototype.writeValue = function (value) {
         this.checked = !!value;
@@ -2916,6 +2376,10 @@ var CheckboxComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], CheckboxComponent.prototype, "id", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], CheckboxComponent.prototype, "errorStateAgent", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
@@ -2944,6 +2408,11 @@ var CheckboxComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], CheckboxComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], CheckboxComponent.prototype, "hasError", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.tabindex'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -2979,21 +2448,33 @@ var CheckboxComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], CheckboxComponent.prototype, "onBlur", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CheckboxComponent.prototype, "onFocus", null);
     CheckboxComponent = CheckboxComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-checkbox',
             template: __webpack_require__(/*! ./checkbox.component.html */ "./lib/ng-vcl/src/checkbox/checkbox.component.html"),
             providers: [
-                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
                 {
-                    provide: _form_control_label__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_LABEL_MEMBER_TOKEN"],
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_INPUT"],
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return CheckboxComponent_1; })
                 },
             ],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             exportAs: 'vclCheckbox',
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControl"], Object, Function])
     ], CheckboxComponent);
     return CheckboxComponent;
 }());
@@ -3006,7 +2487,7 @@ var CheckboxComponent = /** @class */ (function () {
 /*!******************************************!*\
   !*** ./lib/ng-vcl/src/checkbox/index.ts ***!
   \******************************************/
-/*! exports provided: CheckboxComponent, VCLCheckboxModule */
+/*! exports provided: CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3016,15 +2497,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
-/* harmony import */ var _form_control_label_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../form-control-label/index */ "./lib/ng-vcl/src/form-control-label/index.ts");
-/* harmony import */ var _checkbox_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./checkbox.component */ "./lib/ng-vcl/src/checkbox/checkbox.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return _checkbox_component__WEBPACK_IMPORTED_MODULE_5__["CheckboxComponent"]; });
+/* harmony import */ var _checkbox_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./checkbox.component */ "./lib/ng-vcl/src/checkbox/checkbox.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return _checkbox_component__WEBPACK_IMPORTED_MODULE_4__["CheckboxComponent"]; });
+
+/* harmony import */ var _checkbox_label_directive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./checkbox-label.directive */ "./lib/ng-vcl/src/checkbox/checkbox-label.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxLabelDirective", function() { return _checkbox_label_directive__WEBPACK_IMPORTED_MODULE_5__["CheckboxLabelDirective"]; });
 
 
 
 
 
 
+// import { CheckboxInputGroupComponent } from './checkbox-input-group.component';
 
 
 var VCLCheckboxModule = /** @class */ (function () {
@@ -3032,9 +2516,9 @@ var VCLCheckboxModule = /** @class */ (function () {
     }
     VCLCheckboxModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"], _form_control_label_index__WEBPACK_IMPORTED_MODULE_4__["VCLFormControlLabelModule"]],
-            exports: [_checkbox_component__WEBPACK_IMPORTED_MODULE_5__["CheckboxComponent"]],
-            declarations: [_checkbox_component__WEBPACK_IMPORTED_MODULE_5__["CheckboxComponent"]]
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"]],
+            exports: [_checkbox_component__WEBPACK_IMPORTED_MODULE_4__["CheckboxComponent"], _checkbox_label_directive__WEBPACK_IMPORTED_MODULE_5__["CheckboxLabelDirective"]],
+            declarations: [_checkbox_component__WEBPACK_IMPORTED_MODULE_4__["CheckboxComponent"], _checkbox_label_directive__WEBPACK_IMPORTED_MODULE_5__["CheckboxLabelDirective"]]
         })
     ], VCLCheckboxModule);
     return VCLCheckboxModule;
@@ -3048,96 +2532,50 @@ var VCLCheckboxModule = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/core/index.ts ***!
   \**************************************/
-/*! exports provided: ObservableComponent, defineMetadata, getMetadata */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _observable_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./observable.component */ "./lib/ng-vcl/src/core/observable.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObservableComponent", function() { return _observable_component__WEBPACK_IMPORTED_MODULE_0__["ObservableComponent"]; });
-
-/* harmony import */ var _reflect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reflect */ "./lib/ng-vcl/src/core/reflect.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return _reflect__WEBPACK_IMPORTED_MODULE_1__["defineMetadata"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMetadata", function() { return _reflect__WEBPACK_IMPORTED_MODULE_1__["getMetadata"]; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrependDirective", function() { return PrependDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppendDirective", function() { return AppendDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLCoreModule", function() { return VCLCoreModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/core/observable.component.ts":
-/*!*****************************************************!*\
-  !*** ./lib/ng-vcl/src/core/observable.component.ts ***!
-  \*****************************************************/
-/*! exports provided: ObservableComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObservableComponent", function() { return ObservableComponent; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-
-
-var ObservableComponent = /** @class */ (function () {
-    function ObservableComponent() {
-        this.changesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this.observedProps = {};
-        this.changes$ = this.changesSubject.asObservable();
+var PrependDirective = /** @class */ (function () {
+    function PrependDirective() {
     }
-    ObservableComponent.prototype.ngOnChanges = function (changes) {
-        this.changesSubject.next(changes);
-    };
-    ObservableComponent.prototype.ngOnDestroy = function () {
-        this.changesSubject.complete();
-    };
-    ObservableComponent.prototype.observeChanges = function () {
-        var props = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            props[_i] = arguments[_i];
-        }
-        return this.changes$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (changes) { return props.some(function (p) { return changes.hasOwnProperty(p); }); }));
-    };
-    ObservableComponent.prototype.observeChange = function (prop) {
-        if (!this.observedProps[prop]) {
-            var c$ = this.changes$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (changes) { return changes.hasOwnProperty(prop); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (changes) { return changes[prop]; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["publishReplay"])(1));
-            c$.connect();
-            this.observedProps[prop] = c$;
-        }
-        return this.observedProps[prop];
-    };
-    ObservableComponent.prototype.observeChangeValue = function (prop) {
-        return this.observeChange(prop).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (change) { return change.currentValue; }));
-    };
-    return ObservableComponent;
+    PrependDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({ selector: '[vclPrepend]' }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], PrependDirective);
+    return PrependDirective;
 }());
 
+var AppendDirective = /** @class */ (function () {
+    function AppendDirective() {
+    }
+    AppendDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({ selector: '[vclAppend]' }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], AppendDirective);
+    return AppendDirective;
+}());
 
+var VCLCoreModule = /** @class */ (function () {
+    function VCLCoreModule() {
+    }
+    VCLCoreModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            exports: [PrependDirective, AppendDirective],
+            declarations: [PrependDirective, AppendDirective],
+        })
+    ], VCLCoreModule);
+    return VCLCoreModule;
+}());
 
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/core/reflect.ts":
-/*!****************************************!*\
-  !*** ./lib/ng-vcl/src/core/reflect.ts ***!
-  \****************************************/
-/*! exports provided: defineMetadata, getMetadata */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return defineMetadata; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMetadata", function() { return getMetadata; });
-/* harmony import */ var reflect_metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reflect-metadata */ "./node_modules/reflect-metadata/Reflect.js");
-/* harmony import */ var reflect_metadata__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(reflect_metadata__WEBPACK_IMPORTED_MODULE_0__);
-
-function defineMetadata(key, value, target) {
-    Reflect.defineMetadata(key, value, target);
-}
-function getMetadata(key, target) {
-    return Reflect.getMetadata(key, target);
-}
 
 
 /***/ }),
@@ -3961,72 +3399,504 @@ var TimePickerComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/dropdown/dropdown-option.component.ts":
-/*!**************************************************************!*\
-  !*** ./lib/ng-vcl/src/dropdown/dropdown-option.component.ts ***!
-  \**************************************************************/
-/*! exports provided: DropdownOptionComponent */
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-content.component.html":
+/*!****************************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-content.component.html ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-content></ng-content>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-content.component.ts":
+/*!**************************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-content.component.ts ***!
+  \**************************************************************************/
+/*! exports provided: DropdownContentComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownOptionComponent", function() { return DropdownOptionComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownContentComponent", function() { return DropdownContentComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
-var DropdownOptionComponent = /** @class */ (function () {
-    function DropdownOptionComponent() {
-        this.disabled = false;
+var DropdownContentComponent = /** @class */ (function () {
+    function DropdownContentComponent() {
+    }
+    DropdownContentComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-dropdown-content',
+            exportAs: 'vclDropdownContent',
+            template: __webpack_require__(/*! ./dropdown-content.component.html */ "./lib/ng-vcl/src/dropdown/components/dropdown-content.component.html")
+        })
+    ], DropdownContentComponent);
+    return DropdownContentComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-header.component.html":
+/*!***************************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-header.component.html ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"vclDropdownItemGroupHeaderLabel\">\n  <ng-content></ng-content>\n</div>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-header.component.ts":
+/*!*************************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-header.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: DropdownHeaderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownHeaderComponent", function() { return DropdownHeaderComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var DropdownHeaderComponent = /** @class */ (function () {
+    function DropdownHeaderComponent() {
+        this.classVCLDropdownItemGroupHeader = true;
+        // TODO: Find appropriate role
+        // @HostBinding('attr.role')
+        // attrRole = 'menuitem';
     }
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"])
-    ], DropdownOptionComponent.prototype, "_content", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItemGroupHeader'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownOptionComponent.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownOptionComponent.prototype, "metadata", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], DropdownOptionComponent.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], DropdownOptionComponent.prototype, "sublabel", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], DropdownOptionComponent.prototype, "prepIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], DropdownOptionComponent.prototype, "appIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], DropdownOptionComponent.prototype, "appIconSrc", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], DropdownOptionComponent.prototype, "prepIconSrc", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownOptionComponent.prototype, "disabled", void 0);
-    DropdownOptionComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    ], DropdownHeaderComponent.prototype, "classVCLDropdownItemGroupHeader", void 0);
+    DropdownHeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-dropdown-option',
-            template: '<ng-template><ng-content></ng-content></ng-template>'
+            selector: 'vcl-dropdown-header',
+            exportAs: 'vclDropdownHeader',
+            template: __webpack_require__(/*! ./dropdown-header.component.html */ "./lib/ng-vcl/src/dropdown/components/dropdown-header.component.html")
         })
-    ], DropdownOptionComponent);
-    return DropdownOptionComponent;
+    ], DropdownHeaderComponent);
+    return DropdownHeaderComponent;
 }());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-item.component.html":
+/*!*************************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-item.component.html ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-content></ng-content>\n<ng-content select=\"vcl-dropdown-label\"></ng-content>\n<ng-content select=\"vcl-dropdown-sublabel\"></ng-content>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-item.component.ts":
+/*!***********************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-item.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: DropdownLabelDirective, DropdownSublabelDirective, DropdownItemComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownLabelDirective", function() { return DropdownLabelDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownSublabelDirective", function() { return DropdownSublabelDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownItemComponent", function() { return DropdownItemComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types */ "./lib/ng-vcl/src/dropdown/types.ts");
+
+
+
+var DropdownLabelDirective = /** @class */ (function () {
+    function DropdownLabelDirective() {
+        this.classVCLDropdownItemSubLabel = true;
+    }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItemLabel'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownLabelDirective.prototype, "classVCLDropdownItemSubLabel", void 0);
+    DropdownLabelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'vcl-dropdown-label',
+            exportAs: 'vclDropdownLabel'
+        })
+    ], DropdownLabelDirective);
+    return DropdownLabelDirective;
+}());
+
+var DropdownSublabelDirective = /** @class */ (function () {
+    function DropdownSublabelDirective() {
+        this.classVCLDropdownItemSubLabel = true;
+    }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItemSubLabel'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownSublabelDirective.prototype, "classVCLDropdownItemSubLabel", void 0);
+    DropdownSublabelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'vcl-dropdown-sublabel',
+            exportAs: 'vclDropdownSublabel'
+        })
+    ], DropdownSublabelDirective);
+    return DropdownSublabelDirective;
+}());
+
+var DropdownItemComponent = /** @class */ (function () {
+    function DropdownItemComponent(dropdown, elementRef) {
+        this.dropdown = dropdown;
+        this.elementRef = elementRef;
+        this.classVCLDropdownItem = true;
+        this.attrRole = 'menuitem';
+        this.disabled = false;
+    }
+    Object.defineProperty(DropdownItemComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropdownItemComponent.prototype, "isHighlighted", {
+        get: function () {
+            return this.dropdown.isItemHighlighted(this);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropdownItemComponent.prototype, "isSelected", {
+        get: function () {
+            return this.dropdown.isItemSelected(this);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropdownItemComponent.prototype, "label", {
+        get: function () {
+            return this._label || (this._labelElementRef ? this._labelElementRef.nativeElement.innerText : (this.elementRef.nativeElement.innerText || ''));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    DropdownItemComponent.prototype.onclick = function () {
+        this.dropdown.selectItem(this);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDropdownItem'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownItemComponent.prototype, "classVCLDropdownItem", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownItemComponent.prototype, "attrRole", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DropdownItemComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclHighlighted'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DropdownItemComponent.prototype, "isHighlighted", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSelected'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DropdownItemComponent.prototype, "isSelected", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownItemComponent.prototype, "disabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownItemComponent.prototype, "value", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('label'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], DropdownItemComponent.prototype, "_label", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(DropdownLabelDirective, { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], DropdownItemComponent.prototype, "_labelElementRef", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DropdownItemComponent.prototype, "onclick", null);
+    DropdownItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-dropdown-item',
+            exportAs: 'vclDropdownItem',
+            template: __webpack_require__(/*! ./dropdown-item.component.html */ "./lib/ng-vcl/src/dropdown/components/dropdown-item.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_types__WEBPACK_IMPORTED_MODULE_2__["DROPDOWN_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+    ], DropdownItemComponent);
+    return DropdownItemComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-seperator.component.html":
+/*!******************************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-seperator.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"vclSeparator\"></div>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/components/dropdown-seperator.component.ts":
+/*!****************************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/components/dropdown-seperator.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: DropdownSeperatorComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownSeperatorComponent", function() { return DropdownSeperatorComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var DropdownSeperatorComponent = /** @class */ (function () {
+    function DropdownSeperatorComponent() {
+        this.attrRole = 'seperator';
+    }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownSeperatorComponent.prototype, "attrRole", void 0);
+    DropdownSeperatorComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-dropdown-seperator',
+            exportAs: 'vclDropdownSeperator',
+            template: __webpack_require__(/*! ./dropdown-seperator.component.html */ "./lib/ng-vcl/src/dropdown/components/dropdown-seperator.component.html")
+        })
+    ], DropdownSeperatorComponent);
+    return DropdownSeperatorComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/dropdown/dropdown-input.directive.ts":
+/*!*************************************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/dropdown-input.directive.ts ***!
+  \*************************************************************/
+/*! exports provided: DropdownInputDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownInputDirective", function() { return DropdownInputDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../input */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var _dropdown_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dropdown.component */ "./lib/ng-vcl/src/dropdown/dropdown.component.ts");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+
+
+
+
+
+var DropdownInputDirective = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](DropdownInputDirective, _super);
+    function DropdownInputDirective(elementRef) {
+        var _this = _super.call(this, elementRef) || this;
+        _this._deactiveFocusTrigger = false;
+        // tslint:disable-next-line:no-input-rename
+        _this.mapViewValue = 'value';
+        // tslint:disable-next-line:no-output-rename
+        _this.selectionChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        _this.focused = false;
+        return _this;
+    }
+    DropdownInputDirective.prototype.onfocus = function () {
+        this.focused = true;
+        if (!this._deactiveFocusTrigger) {
+            this.openDropdown();
+        }
+    };
+    DropdownInputDirective.prototype.onFocusOrInput = function () {
+        this.openDropdown();
+    };
+    DropdownInputDirective.prototype.onBlur = function () {
+        this.focused = false;
+    };
+    DropdownInputDirective.prototype.ngOnChanges = function (changes) {
+        if (changes.ddDisabled || changes.dropdown) {
+            this.openDropdown();
+        }
+    };
+    DropdownInputDirective.prototype.openDropdown = function () {
+        var _this = this;
+        if (this.ddDisabled || this.isDisabled || !this.focused || !this.dropdown) {
+            this.dropdown.close();
+            return;
+        }
+        this.dropdown.open({
+            target: this.elementRef,
+            selectionMode: 'single',
+            value: this.elementRef.nativeElement.value
+        }).subscribe(function (action) {
+            if (!action || action.type !== 'select') {
+                return;
+            }
+            var item = action.item;
+            var value = item.value;
+            if (typeof _this.mapViewValue === 'function') {
+                value = _this.mapViewValue(value);
+            }
+            else if (_this.mapViewValue === 'void') {
+                value = '';
+            }
+            else if (_this.mapViewValue === 'label') {
+                value = item.label;
+            }
+            if (value !== undefined) {
+                _this.elementRef.nativeElement.value = value;
+                _this._deactiveFocusTrigger = true;
+                _this.elementRef.nativeElement.focus();
+                _this._deactiveFocusTrigger = false;
+            }
+            _this.selectionChange.emit(item.value);
+            _this.closeDropdown();
+        });
+    };
+    DropdownInputDirective.prototype.closeDropdown = function () {
+        this.dropdown.close();
+    };
+    DropdownInputDirective.prototype.onKeyUp = function (event) {
+        var code = event.keyCode;
+        if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["ESCAPE"]) {
+            this.closeDropdown();
+            this.elementRef.nativeElement.blur();
+        }
+        else if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["UP_ARROW"]) {
+            this.dropdown && this.dropdown.highlightPrev();
+            event.preventDefault();
+            return false;
+        }
+        else if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["DOWN_ARROW"]) {
+            if (this.dropdown.isOpen) {
+                this.dropdown && this.dropdown.highlightNext();
+            }
+            else {
+                this.openDropdown();
+            }
+            event.preventDefault();
+            return false;
+        }
+    };
+    DropdownInputDirective.prototype.onKeyDown = function (event) {
+        var code = event.keyCode;
+        if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_4__["TAB"]) {
+            this.closeDropdown();
+        }
+    };
+    DropdownInputDirective.prototype.handleKeyPressEvent = function (event) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var code;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                code = event.code || event.key;
+                if (this.dropdown && code === 'Enter') {
+                    event.preventDefault();
+                    this.dropdown.selectItem(this.dropdown.getHighlightedItem());
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    DropdownInputDirective.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        if (this.dropdownCloseSub) {
+            this.dropdownCloseSub.unsubscribe();
+            this.dropdownCloseSub = undefined;
+        }
+        this.closeDropdown();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclDropdown'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _dropdown_component__WEBPACK_IMPORTED_MODULE_3__["DropdownComponent"])
+    ], DropdownInputDirective.prototype, "dropdown", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclDropdownMapViewValue'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownInputDirective.prototype, "mapViewValue", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclDropdownDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
+    ], DropdownInputDirective.prototype, "ddDisabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])('vclDropdownSelectionChange'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownInputDirective.prototype, "selectionChange", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DropdownInputDirective.prototype, "onfocus", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('input'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DropdownInputDirective.prototype, "onFocusOrInput", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DropdownInputDirective.prototype, "onBlur", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DropdownInputDirective.prototype, "onKeyUp", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keydown', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DropdownInputDirective.prototype, "onKeyDown", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keypress', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", Promise)
+    ], DropdownInputDirective.prototype, "handleKeyPressEvent", null);
+    DropdownInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'input[vclDropdown]',
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+    ], DropdownInputDirective);
+    return DropdownInputDirective;
+}(_input__WEBPACK_IMPORTED_MODULE_2__["InputDirective"]));
 
 
 
@@ -4039,7 +3909,7 @@ var DropdownOptionComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ul vcl-metalist #metalist\n  class=\"vclDropdown vclOpen\"\n  role=\"listbox\"\n  [class.vclLayoutHidden]=\"state === DropdownState.Closed\" \n  [value]=\"value\"\n  [mode]=\"mode\"\n  [maxSelectableItems]=\"maxSelectableItems\"\n  [class.vclDisabled]=\"disabled\"\n  [attr.tabindex]=\"tabindex\"\n  [attr.aria-multiselectable]=\"mode === 'multiple'\"\n  [style.position]=\"'static'\"\n  (change)=\"onMetalistChange($event)\"\n  (focus)=\"onMetalistFocus()\"\n  (blur)=\"onMetalistBlur()\"\n  (keydown)=\"onMetalistKeydown($event)\"\n  (itemsChange)=\"onItemsChange()\"\n  >\n    <li \n      *ngFor=\"let item of items\" \n      vcl-metalist-item\n      #meta=meta\n      [metadata]=\"item\"\n      [disabled]=\"disabled || item.disabled\"\n      [value]=\"item.value\"\n      role=\"option\"\n      class=\"vclDropdownItem\"\n      [class.vclSelected]=\"meta.selected\"\n      [class.vclDisabled]=\"disabled || meta.disabled\"\n      [class.vclHighlighted]=\"focused && meta.marked\"\n      [attr.aria-selected]=\"meta.selected\"\n      (click)=\"onMetalistItemTap(meta)\">\n      <vcl-icogram *ngIf=\"item.label\" class=\"vclDropdownItemLabel\"\n         [prepIcon]=\"item.prepIcon\"\n         [appIcon]=\"item.appIcon\"\n      >\n        {{item.label}}\n      </vcl-icogram>\n      <div *ngIf=\"item.sublabel\" class=\"vclDropdownItemSubLabel\">\n        {{item.sublabel}}\n      </div>\n      <wormhole *ngIf=\"item._content\" [connect]=\"item._content\"></wormhole>\n    </li>\n</ul>\n"
+module.exports = "<ng-template>\n  <ng-content></ng-content>\n</ng-template>\n"
 
 /***/ }),
 
@@ -4047,302 +3917,341 @@ module.exports = "<ul vcl-metalist #metalist\n  class=\"vclDropdown vclOpen\"\n 
 /*!*******************************************************!*\
   !*** ./lib/ng-vcl/src/dropdown/dropdown.component.ts ***!
   \*******************************************************/
-/*! exports provided: DropdownState, DROPDOWN_ANIMATIONS, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, DropdownComponent */
+/*! exports provided: DropdownComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownState", function() { return DropdownState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DROPDOWN_ANIMATIONS", function() { return DROPDOWN_ANIMATIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return DropdownComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _dropdown_option_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dropdown-option.component */ "./lib/ng-vcl/src/dropdown/dropdown-option.component.ts");
-/* harmony import */ var _metalist_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../metalist/index */ "./lib/ng-vcl/src/metalist/index.ts");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/bidi */ "./node_modules/@angular/cdk/esm5/bidi.es5.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _overlay__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../overlay */ "./lib/ng-vcl/src/overlay/index.ts");
+/* harmony import */ var _off_click__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../off-click */ "./lib/ng-vcl/src/off-click/index.ts");
+/* harmony import */ var _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/dropdown-item.component */ "./lib/ng-vcl/src/dropdown/components/dropdown-item.component.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/dropdown/types.ts");
+/* harmony import */ var _components_dropdown_content_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/dropdown-content.component */ "./lib/ng-vcl/src/dropdown/components/dropdown-content.component.ts");
 
 
 
 
 
 
-var DropdownState;
-(function (DropdownState) {
-    DropdownState[DropdownState["Expanded"] = 0] = "Expanded";
-    DropdownState[DropdownState["Closed"] = 1] = "Closed";
-    DropdownState[DropdownState["Expanding"] = 2] = "Expanding";
-    DropdownState[DropdownState["Closing"] = 3] = "Closing";
-})(DropdownState || (DropdownState = {}));
-var DROPDOWN_ANIMATIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('@ng-vcl/ng-vcl#dropdown_animations');
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropdownComponent; }),
-    multi: true
-};
-var DropdownComponent = /** @class */ (function () {
-    function DropdownComponent(elementRef, cdRef, builder, animations) {
-        this.elementRef = elementRef;
-        this.cdRef = cdRef;
-        this.builder = builder;
-        this.animations = animations;
-        this.DropdownState = DropdownState;
-        this.tabindex = 0;
-        this.state = DropdownState.Expanded;
-        this.willClose = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.willExpand = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        // If `single`, a single item can be selected
-        // If `multiple` multiple items can be selected
-        this.mode = 'single';
-        this.disabled = false;
-        this.listenKeys = true;
-        this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.itemsChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.focused = false;
-        /**
-         * things needed for ControlValueAccessor-Interface
-         */
-        this.onChange = function () { };
-        this.onTouched = function () { };
+
+
+
+
+
+
+
+var DropdownComponent = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](DropdownComponent, _super);
+    function DropdownComponent(injector, _dir, viewContainerRef, overlay, cdRef) {
+        var _this = _super.call(this, injector) || this;
+        _this._dir = _dir;
+        _this.viewContainerRef = viewContainerRef;
+        _this.overlay = overlay;
+        _this.cdRef = cdRef;
+        _this.selectionMode = 'single';
+        _this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        _this.afterClose = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        // The dropdown element should not be visible in dom. Only its content rendered at the app root element.
+        _this.styleDisplay = 'none';
+        return _this;
     }
-    Object.defineProperty(DropdownComponent.prototype, "expanded", {
+    DropdownComponent_1 = DropdownComponent;
+    DropdownComponent.prototype.getTemplateRef = function () {
+        return this._templateRef;
+    };
+    DropdownComponent.prototype.getViewContainerRef = function () {
+        return this.viewContainerRef;
+    };
+    Object.defineProperty(DropdownComponent.prototype, "hasContent", {
         get: function () {
-            return (this.state === DropdownState.Expanding || this.state === DropdownState.Expanded);
+            return this._items.length > 0 && this._content.length > 0;
         },
-        set: function (value) {
-            if (value) {
-                this.expand();
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropdownComponent.prototype, "_valueAsArray", {
+        get: function () {
+            if (Array.isArray(this.value)) {
+                return this.value;
             }
             else {
-                this.close();
+                return this.value === undefined ? [] : [this.value];
             }
         },
         enumerable: true,
         configurable: true
     });
-    DropdownComponent.prototype.ngOnInit = function () {
-        this.scroll('selected');
+    DropdownComponent.prototype.isItemHighlighted = function (item) {
+        return item === this._highlightedItem;
     };
-    DropdownComponent.prototype.expand = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var player_1;
-            var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                if (this.state === DropdownState.Expanded || this.state === DropdownState.Expanding) {
-                    return [2 /*return*/];
-                }
-                this.state = DropdownState.Expanding;
-                this.willExpand.emit();
-                if (this.enterAnimationFactory && this.elementRef) {
-                    player_1 = this.enterAnimationFactory.create(this.elementRef.nativeElement);
-                    player_1.onDone(function () {
-                        player_1.destroy();
-                        _this.state = DropdownState.Expanded;
-                        _this.cdRef.markForCheck();
-                    });
-                    player_1.play();
-                }
-                else {
-                    this.state = DropdownState.Expanded;
-                    this.cdRef.markForCheck();
-                }
-                return [2 /*return*/];
-            });
-        });
+    DropdownComponent.prototype.isItemSelected = function (item) {
+        return this._valueAsArray.includes(item.value);
     };
-    DropdownComponent.prototype.close = function () {
-        var _this = this;
-        if (this.state === DropdownState.Closed || this.state === DropdownState.Closing) {
-            return;
+    DropdownComponent.prototype.selectItem = function (item) {
+        if (this.selectionMode === 'none') {
+            this.value = undefined;
         }
-        this.state = DropdownState.Closing;
-        this.willClose.emit();
-        if (this.leaveAnimationFactory && this.elementRef) {
-            var player_2 = this.leaveAnimationFactory.create(this.elementRef.nativeElement);
-            player_2.onDone(function () {
-                player_2.destroy();
-                _this.state = DropdownState.Closed;
-                _this.cdRef.markForCheck();
-            });
-            player_2.play();
+        else if (this.selectionMode === 'single') {
+            this.value = item.value;
         }
         else {
-            this.state = DropdownState.Closed;
-            this.cdRef.markForCheck();
+            var values = this._valueAsArray;
+            if (values.includes(item.value)) {
+                this.value = values.filter(function (_value) { return _value !== item.value; });
+            }
+            else {
+                this.value = values.concat([item.value]);
+            }
+        }
+        this.valueChange.emit(this.value);
+        this._actionEmitter.next({
+            type: 'select',
+            item: item,
+            selectedItems: this.selectedItems
+        });
+        if (this.selectionMode === 'single' || this.selectionMode === 'none') {
+            this.close();
         }
     };
-    DropdownComponent.prototype.scroll = function (target) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var selectedItem, allItems_1, scrollTop_1, metalistItems;
+    Object.defineProperty(DropdownComponent.prototype, "selectedItems", {
+        get: function () {
             var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, new Promise(function (res) { return setTimeout(res, 0); })];
-                    case 1:
-                        _a.sent();
-                        if (this.listbox.nativeElement) {
-                            selectedItem = this.listbox.nativeElement.querySelectorAll('.vclSelected')[0];
-                            if (!selectedItem) {
-                                return [2 /*return*/];
-                            }
-                            allItems_1 = this.listbox.nativeElement.querySelectorAll('.vclDropdownItem');
-                            scrollTop_1 = -this.listbox.nativeElement.clientHeight / 2 + (selectedItem.clientHeight / 2);
-                            metalistItems = this.metalist.itemsArray;
-                            metalistItems.some(function (item, idx) {
-                                if (item[target]) {
-                                    _this.listbox.nativeElement.scrollTop = scrollTop_1;
-                                    return true;
-                                }
-                                scrollTop_1 += allItems_1[idx].clientHeight;
-                                return false;
-                            });
-                        }
-                        return [2 /*return*/];
+            return this._items.filter(function (_item) { return _this._valueAsArray.includes(_item.value); });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    DropdownComponent.prototype.highlight = function (value) {
+        this._highlightedItem = this._items.find(function (item) { return item.value === value; });
+    };
+    DropdownComponent.prototype.highlightIndex = function (idx) {
+        this._highlightedItem = this._items.find(function (item, _idx) { return idx === _idx; });
+    };
+    DropdownComponent.prototype.highlightPrev = function () {
+        var _this = this;
+        if (this._items) {
+            if (!this._highlightedItem) {
+                var selectedItems = this.selectedItems;
+                this._highlightedItem = selectedItems[0];
+            }
+            var currIdx_1 = this._items.toArray().findIndex(function (item) { return item === _this._highlightedItem; });
+            if (currIdx_1 < 0) {
+                this._highlightedItem = this._items.first;
+            }
+            else {
+                var highlightedItem = this._items.toArray().reverse().find(function (item, thisRevId, items) {
+                    var thisIdx = (items.length - 1) - thisRevId;
+                    return thisIdx < currIdx_1;
+                });
+                if (highlightedItem) {
+                    this._highlightedItem = highlightedItem;
                 }
-            });
+                else {
+                    this._highlightedItem = this._items.first;
+                }
+            }
+        }
+    };
+    DropdownComponent.prototype.highlightNext = function () {
+        var _this = this;
+        if (this._items) {
+            if (!this._highlightedItem) {
+                var selectedItems = this.selectedItems;
+                this._highlightedItem = selectedItems[0];
+            }
+            var currIdx_2 = this._items.toArray().findIndex(function (item) { return item === _this._highlightedItem; });
+            var highlightedItem = this._items.toArray().find(function (item, thisIdx) { return thisIdx > currIdx_2; });
+            if (highlightedItem) {
+                this._highlightedItem = highlightedItem;
+            }
+        }
+    };
+    DropdownComponent.prototype.getItems = function () {
+        return this._items.toArray();
+    };
+    DropdownComponent.prototype.getHighlightedItem = function () {
+        return this._highlightedItem;
+    };
+    Object.defineProperty(DropdownComponent.prototype, "isOpen", {
+        get: function () {
+            return this.isAttached;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    DropdownComponent.prototype.getTargetHTMLElement = function () {
+        if (this.target instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]) {
+            return this.target.nativeElement;
+        }
+        else if (this.target instanceof HTMLElement) {
+            return this.target;
+        }
+        else {
+            if (this.target && this.target.elementRef && this.target.elementRef.nativeElement) {
+                return this.target.elementRef.nativeElement;
+            }
+            throw new Error('INVALID_DROPDOWN_TARGET');
+        }
+    };
+    DropdownComponent.prototype.open = function (opts) {
+        if (this.isAttached) {
+            this.detach();
+        }
+        this._actionEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        if (opts) {
+            this.target = opts.target || this.target;
+            this.offClickExcludes = opts.offClickExcludes || this.offClickExcludes;
+            this.value = opts.value === undefined ? this.value : opts.value;
+            this.selectionMode = opts.selectionMode || this.selectionMode;
+            this.width = opts.width || this.width;
+            this.height = opts.height || this.height;
+            this.maxHeight = opts.maxHeight || this.maxHeight;
+        }
+        var target = this.getTargetHTMLElement();
+        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["OverlayConfig"]({
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
+            direction: this._dir,
+            width: this.width !== undefined ? this.width : target.getBoundingClientRect().width,
+            height: this.height,
+            maxHeight: this.maxHeight || '20em',
+            panelClass: ['vclDropdown', 'vclOpen'],
+            positionStrategy: this.overlay.position()
+                .connectedTo(target, {
+                originX: 'start',
+                originY: 'bottom'
+            }, {
+                overlayX: 'start',
+                overlayY: 'top'
+            }).withFallbackPosition({
+                originX: 'start',
+                originY: 'top'
+            }, {
+                overlayX: 'start',
+                overlayY: 'bottom'
+            })
+        });
+        this.attach(config);
+        return this._actionEmitter.asObservable();
+    };
+    DropdownComponent.prototype.close = function () {
+        this.detach();
+    };
+    DropdownComponent.prototype.afterAttached = function () {
+        var _this = this;
+        this._dropdownOpenedSub = this._items.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["startWith"])(undefined), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function () {
+            if (!_this.isAttached) {
+                return rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"];
+            }
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["merge"])(_this.overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["filter"])(function (event) {
+                return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["ESCAPE"];
+            })), Object(_off_click__WEBPACK_IMPORTED_MODULE_9__["createOffClickStream"])([_this.overlayRef.overlayElement, _this.target].concat((_this.offClickExcludes || [])), {
+                document: _this.injector.get(_angular_common__WEBPACK_IMPORTED_MODULE_7__["DOCUMENT"])
+            }));
+        })).subscribe(function () {
+            _this.detach();
         });
     };
-    DropdownComponent.prototype.onMetalistItemTap = function (metaItem) {
-        this.metalist.select(metaItem);
-        this.onTouched();
-    };
-    DropdownComponent.prototype.onMetalistKeydown = function (ev) {
-        if (this.listenKeys) {
-            var prevent = true;
-            switch (ev.code) {
-                case 'ArrowDown':
-                    this.metalist.markNext();
-                    this.scroll('marked');
-                    break;
-                case 'ArrowUp':
-                    this.metalist.markPrev();
-                    this.scroll('marked');
-                    break;
-                case 'Enter':
-                    this.metalist.selectMarked();
-                    break;
-                default:
-                    prevent = false;
-            }
-            this.onTouched();
-            prevent && ev.preventDefault();
+    DropdownComponent.prototype.afterDetached = function (result) {
+        if (!this.isDestroyed) {
+            // We need to trigger change detection manually, because
+            // `fromEvent` doesn't seem to do it at the proper time.
+            this.cdRef.detectChanges();
         }
+        this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
+        this._highlightedItem = undefined;
+        this._actionEmitter && this._actionEmitter.next({
+            type: 'close',
+            selectedItems: this.selectedItems
+        });
+        this._actionEmitter && this._actionEmitter.complete();
+        this.afterClose.emit(this.value);
     };
-    DropdownComponent.prototype.ngAfterViewInit = function () {
-        if (this.animations) {
-            if (this.animations.enter) {
-                this.enterAnimationFactory = this.builder.build(this.animations.enter);
-            }
-            if (this.animations.leave) {
-                this.leaveAnimationFactory = this.builder.build(this.animations.leave);
-            }
-        }
+    DropdownComponent.prototype.ngOnDestroy = function () {
+        this.destroy();
     };
-    DropdownComponent.prototype.onMetalistFocus = function () {
-        this.focused = true;
-    };
-    DropdownComponent.prototype.onMetalistBlur = function () {
-        this.focused = false;
-        this.onTouched();
-    };
-    DropdownComponent.prototype.onMetalistChange = function (value) {
-        this.change.emit(value);
-        this.onChange(value);
-    };
-    DropdownComponent.prototype.onItemsChange = function () {
-        // Nested meta items have changed. So we need need to trigger change detection
-        this.cdRef.detectChanges();
-        this.itemsChange.emit();
-    };
-    DropdownComponent.prototype.writeValue = function (value) {
-        this.value = value;
-        this.metalist.setValue(value);
-    };
-    DropdownComponent.prototype.registerOnChange = function (fn) {
-        this.onChange = fn;
-    };
-    DropdownComponent.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
-    };
-    DropdownComponent.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
-        this.cdRef.markForCheck();
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('metalist'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _metalist_index__WEBPACK_IMPORTED_MODULE_5__["MetalistComponent"])
-    ], DropdownComponent.prototype, "metalist", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('metalist', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
-    ], DropdownComponent.prototype, "listbox", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_dropdown_option_component__WEBPACK_IMPORTED_MODULE_4__["DropdownOptionComponent"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
-    ], DropdownComponent.prototype, "items", void 0);
+    var DropdownComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownComponent.prototype, "tabindex", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], DropdownComponent.prototype, "selectionMode", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], DropdownComponent.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], DropdownComponent.prototype, "expanded", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownComponent.prototype, "willClose", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownComponent.prototype, "willExpand", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], DropdownComponent.prototype, "mode", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], DropdownComponent.prototype, "maxSelectableItems", void 0);
+    ], DropdownComponent.prototype, "target", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownComponent.prototype, "disabled", void 0);
+    ], DropdownComponent.prototype, "width", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownComponent.prototype, "listenKeys", void 0);
+    ], DropdownComponent.prototype, "height", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownComponent.prototype, "maxHeight", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Array)
+    ], DropdownComponent.prototype, "offClickExcludes", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownComponent.prototype, "change", void 0);
+    ], DropdownComponent.prototype, "valueChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropdownComponent.prototype, "itemsChange", void 0);
-    DropdownComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    ], DropdownComponent.prototype, "afterClose", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"])
+    ], DropdownComponent.prototype, "_templateRef", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_10__["DropdownItemComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
+    ], DropdownComponent.prototype, "_items", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_components_dropdown_content_component__WEBPACK_IMPORTED_MODULE_12__["DropdownContentComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
+    ], DropdownComponent.prototype, "_content", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], DropdownComponent.prototype, "styleDisplay", void 0);
+    DropdownComponent = DropdownComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-dropdown',
             template: __webpack_require__(/*! ./dropdown.component.html */ "./lib/ng-vcl/src/dropdown/dropdown.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-            host: {
-                '[attr.tabindex]': '-1',
-            }
+            exportAs: 'vclDropdown',
+            providers: [
+                {
+                    provide: _types__WEBPACK_IMPORTED_MODULE_11__["DROPDOWN_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropdownComponent_1; })
+                }
+            ]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(DROPDOWN_ANIMATIONS)),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
-            _angular_animations__WEBPACK_IMPORTED_MODULE_2__["AnimationBuilder"], Object])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
+            _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_3__["Directionality"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"],
+            _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["Overlay"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], DropdownComponent);
     return DropdownComponent;
-}());
+}(_overlay__WEBPACK_IMPORTED_MODULE_8__["TemplateOverlay"]));
 
 
 
@@ -4352,7 +4261,7 @@ var DropdownComponent = /** @class */ (function () {
 /*!******************************************!*\
   !*** ./lib/ng-vcl/src/dropdown/index.ts ***!
   \******************************************/
-/*! exports provided: DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule */
+/*! exports provided: DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4361,17 +4270,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
-/* harmony import */ var _metalist_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../metalist/index */ "./lib/ng-vcl/src/metalist/index.ts");
-/* harmony import */ var _dropdown_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dropdown.component */ "./lib/ng-vcl/src/dropdown/dropdown.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return _dropdown_component__WEBPACK_IMPORTED_MODULE_5__["DropdownComponent"]; });
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _dropdown_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dropdown.component */ "./lib/ng-vcl/src/dropdown/dropdown.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return _dropdown_component__WEBPACK_IMPORTED_MODULE_6__["DropdownComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DROPDOWN_ANIMATIONS", function() { return _dropdown_component__WEBPACK_IMPORTED_MODULE_5__["DROPDOWN_ANIMATIONS"]; });
+/* harmony import */ var _components_dropdown_header_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown-header.component */ "./lib/ng-vcl/src/dropdown/components/dropdown-header.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownHeaderComponent", function() { return _components_dropdown_header_component__WEBPACK_IMPORTED_MODULE_7__["DropdownHeaderComponent"]; });
 
-/* harmony import */ var _dropdown_option_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dropdown-option.component */ "./lib/ng-vcl/src/dropdown/dropdown-option.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownOptionComponent", function() { return _dropdown_option_component__WEBPACK_IMPORTED_MODULE_6__["DropdownOptionComponent"]; });
+/* harmony import */ var _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/dropdown-item.component */ "./lib/ng-vcl/src/dropdown/components/dropdown-item.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownItemComponent", function() { return _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownItemComponent"]; });
 
-/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownLabelDirective", function() { return _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownLabelDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownSublabelDirective", function() { return _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownSublabelDirective"]; });
+
+/* harmony import */ var _components_dropdown_seperator_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/dropdown-seperator.component */ "./lib/ng-vcl/src/dropdown/components/dropdown-seperator.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownSeperatorComponent", function() { return _components_dropdown_seperator_component__WEBPACK_IMPORTED_MODULE_9__["DropdownSeperatorComponent"]; });
+
+/* harmony import */ var _components_dropdown_content_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/dropdown-content.component */ "./lib/ng-vcl/src/dropdown/components/dropdown-content.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownContentComponent", function() { return _components_dropdown_content_component__WEBPACK_IMPORTED_MODULE_10__["DropdownContentComponent"]; });
+
+/* harmony import */ var _dropdown_input_directive__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./dropdown-input.directive */ "./lib/ng-vcl/src/dropdown/dropdown-input.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownInputDirective", function() { return _dropdown_input_directive__WEBPACK_IMPORTED_MODULE_11__["DropdownInputDirective"]; });
+
+/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../input */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var _icogram__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../icogram */ "./lib/ng-vcl/src/icogram/index.ts");
+
+
+
+
+
+
 
 
 
@@ -4386,9 +4317,9 @@ var VCLDropdownModule = /** @class */ (function () {
     }
     VCLDropdownModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _metalist_index__WEBPACK_IMPORTED_MODULE_4__["VCLMetalistModule"], _wormhole_index__WEBPACK_IMPORTED_MODULE_3__["VCLWormholeModule"], _icogram_index__WEBPACK_IMPORTED_MODULE_7__["VCLIcogramModule"]],
-            exports: [_dropdown_component__WEBPACK_IMPORTED_MODULE_5__["DropdownComponent"], _dropdown_option_component__WEBPACK_IMPORTED_MODULE_6__["DropdownOptionComponent"]],
-            declarations: [_dropdown_component__WEBPACK_IMPORTED_MODULE_5__["DropdownComponent"], _dropdown_option_component__WEBPACK_IMPORTED_MODULE_6__["DropdownOptionComponent"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["OverlayModule"], _input__WEBPACK_IMPORTED_MODULE_12__["VCLInputModule"], _icon__WEBPACK_IMPORTED_MODULE_4__["VCLIconModule"], _icogram__WEBPACK_IMPORTED_MODULE_13__["VCLIcogramModule"], _button__WEBPACK_IMPORTED_MODULE_5__["VCLButtonModule"]],
+            exports: [_dropdown_component__WEBPACK_IMPORTED_MODULE_6__["DropdownComponent"], _components_dropdown_header_component__WEBPACK_IMPORTED_MODULE_7__["DropdownHeaderComponent"], _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownItemComponent"], _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownLabelDirective"], _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownSublabelDirective"], _components_dropdown_seperator_component__WEBPACK_IMPORTED_MODULE_9__["DropdownSeperatorComponent"], _components_dropdown_content_component__WEBPACK_IMPORTED_MODULE_10__["DropdownContentComponent"], _dropdown_input_directive__WEBPACK_IMPORTED_MODULE_11__["DropdownInputDirective"]],
+            declarations: [_dropdown_component__WEBPACK_IMPORTED_MODULE_6__["DropdownComponent"], _components_dropdown_header_component__WEBPACK_IMPORTED_MODULE_7__["DropdownHeaderComponent"], _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownItemComponent"], _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownLabelDirective"], _components_dropdown_item_component__WEBPACK_IMPORTED_MODULE_8__["DropdownSublabelDirective"], _components_dropdown_seperator_component__WEBPACK_IMPORTED_MODULE_9__["DropdownSeperatorComponent"], _components_dropdown_content_component__WEBPACK_IMPORTED_MODULE_10__["DropdownContentComponent"], _dropdown_input_directive__WEBPACK_IMPORTED_MODULE_11__["DropdownInputDirective"]],
             providers: [],
         })
     ], VCLDropdownModule);
@@ -4399,173 +4330,19 @@ var VCLDropdownModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.component.ts":
-/*!**************************************************************************************!*\
-  !*** ./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.component.ts ***!
-  \**************************************************************************************/
-/*! exports provided: EmbeddedInputGroupButtonComponent */
+/***/ "./lib/ng-vcl/src/dropdown/types.ts":
+/*!******************************************!*\
+  !*** ./lib/ng-vcl/src/dropdown/types.ts ***!
+  \******************************************/
+/*! exports provided: DROPDOWN_TOKEN */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupButtonComponent", function() { return EmbeddedInputGroupButtonComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/embedded-input-group/interfaces.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DROPDOWN_TOKEN", function() { return DROPDOWN_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
-
-
-
-var EmbeddedInputGroupButtonComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](EmbeddedInputGroupButtonComponent, _super);
-    function EmbeddedInputGroupButtonComponent(group, elementRef, cdRef, observer) {
-        var _this = _super.call(this, cdRef, elementRef, observer) || this;
-        _this.group = group;
-        _this.classVCLTransparent = true;
-        _this.classVCLAppended = true;
-        return _this;
-    }
-    EmbeddedInputGroupButtonComponent_1 = EmbeddedInputGroupButtonComponent;
-    Object.defineProperty(EmbeddedInputGroupButtonComponent.prototype, "isDisabled", {
-        get: function () {
-            return (this.getDisabled() || this.group.disabled) ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    var EmbeddedInputGroupButtonComponent_1;
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclTransparent'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], EmbeddedInputGroupButtonComponent.prototype, "classVCLTransparent", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclAppended'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], EmbeddedInputGroupButtonComponent.prototype, "classVCLAppended", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputGroupButtonComponent.prototype, "isDisabled", null);
-    EmbeddedInputGroupButtonComponent = EmbeddedInputGroupButtonComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'button[vcl-embedded-input-group]',
-            template: __webpack_require__(/*! ../button/button-icon.component.html */ "./lib/ng-vcl/src/button/button-icon.component.html"),
-            exportAs: 'vclButton',
-            providers: [
-                {
-                    provide: _button__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"],
-                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return EmbeddedInputGroupButtonComponent_1; })
-                }
-            ]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_3__["EMBEDDED_INPUT_GROUP_TOKEN"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_button__WEBPACK_IMPORTED_MODULE_2__["BUTTON_OBSERVER_TOKEN"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
-    ], EmbeddedInputGroupButtonComponent);
-    return EmbeddedInputGroupButtonComponent;
-}(_button__WEBPACK_IMPORTED_MODULE_2__["ButtonIconComponent"]));
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-input.directive.ts":
-/*!*************************************************************************************!*\
-  !*** ./lib/ng-vcl/src/embedded-input-group/embedded-input-group-input.directive.ts ***!
-  \*************************************************************************************/
-/*! exports provided: EmbeddedInputGroupInputDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupInputDirective", function() { return EmbeddedInputGroupInputDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/embedded-input-group/interfaces.ts");
-
-
-
-
-var EmbeddedInputGroupInputDirective = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](EmbeddedInputGroupInputDirective, _super);
-    function EmbeddedInputGroupInputDirective(elRef, host) {
-        var _this = _super.call(this, elRef) || this;
-        _this.host = host;
-        return _this;
-    }
-    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "isDisabled", {
-        get: function () {
-            return this.disabled || this.host.disabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "classDisabled", {
-        get: function () {
-            return this.isDisabled;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "attrDisabled", {
-        get: function () {
-            return this.isDisabled ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "prepItem", {
-        get: function () {
-            return !!this.host.prepIcon;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EmbeddedInputGroupInputDirective.prototype, "hasAppendedItem", {
-        get: function () {
-            return this.host.hasAppendedItem;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputGroupInputDirective.prototype, "classDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputGroupInputDirective.prototype, "attrDisabled", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclPrepItem'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputGroupInputDirective.prototype, "prepItem", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclAppItem'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EmbeddedInputGroupInputDirective.prototype, "hasAppendedItem", null);
-    EmbeddedInputGroupInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vclEmbeddedInputGroup]',
-            exportAs: 'vclInput'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_3__["EMBEDDED_INPUT_GROUP_TOKEN"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], Object])
-    ], EmbeddedInputGroupInputDirective);
-    return EmbeddedInputGroupInputDirective;
-}(_input_index__WEBPACK_IMPORTED_MODULE_2__["InputDirective"]));
-
+var DROPDOWN_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('dropdown');
 
 
 /***/ }),
@@ -4577,7 +4354,7 @@ var EmbeddedInputGroupInputDirective = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf='prepIcon' class=\"vclPrepended\">\n  <vcl-icon [icon]='prepIcon'></vcl-icon>\n</div>\n\n<ng-content select=\"input[vclEmbeddedInputGroup]\"></ng-content>\n\n<div *ngIf='appIcon' class=\"vclAppended\">\n  <vcl-icon [icon]='appIcon'></vcl-icon>\n</div>\n\n<ng-content select=\"button[vcl-embedded-input-group]\"></ng-content>\n"
+module.exports = "<ng-content select=\"[vclPrepend]\"></ng-content>\n<ng-content select=\"input[vclInput]\"></ng-content>\n<ng-content select=\"[vclAppend]\"></ng-content>\n"
 
 /***/ }),
 
@@ -4594,51 +4371,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/embedded-input-group/interfaces.ts");
-/* harmony import */ var _embedded_input_group_button_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./embedded-input-group-button.component */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.component.ts");
+/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../input */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../core */ "./lib/ng-vcl/src/core/index.ts");
+
+
+
 
 
 
 
 var EmbeddedInputGroupComponent = /** @class */ (function () {
-    function EmbeddedInputGroupComponent() {
-        // TODO remove workaround
-        this.styleDisplay = 'block';
+    function EmbeddedInputGroupComponent(renderer) {
+        this.renderer = renderer;
         this.classVCLInputGroupEmb = true;
-        this.disabled = false;
     }
     EmbeddedInputGroupComponent_1 = EmbeddedInputGroupComponent;
-    Object.defineProperty(EmbeddedInputGroupComponent.prototype, "hasAppendedItem", {
-        get: function () {
-            return !!this.appIcon || (this.buttons && this.buttons.length > 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
+    EmbeddedInputGroupComponent.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this.sub = Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["merge"])(this.input.changes, this.prepend.changes, this.append.changes).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["startWith"])(undefined)).subscribe(function () {
+            _this.prepend.forEach(function (el) { return _this.renderer.addClass(el.nativeElement, 'vclPrepended'); });
+            if (_this.prepend.length > 0) {
+                _this.input.forEach(function (el) { return _this.renderer.addClass(el.nativeElement, 'vclPrepItem'); });
+            }
+            _this.append.forEach(function (el) { return _this.renderer.addClass(el.nativeElement, 'vclAppended'); });
+            if (_this.append.length > 0) {
+                _this.input.forEach(function (el) { return _this.renderer.addClass(el.nativeElement, 'vclAppItem'); });
+            }
+        });
+    };
+    EmbeddedInputGroupComponent.prototype.ngOnDestroy = function () {
+        this.sub && this.sub.unsubscribe();
+    };
     var EmbeddedInputGroupComponent_1;
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], EmbeddedInputGroupComponent.prototype, "styleDisplay", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputGroupEmb'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], EmbeddedInputGroupComponent.prototype, "classVCLInputGroupEmb", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], EmbeddedInputGroupComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], EmbeddedInputGroupComponent.prototype, "prepIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], EmbeddedInputGroupComponent.prototype, "appIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return _embedded_input_group_button_component__WEBPACK_IMPORTED_MODULE_3__["EmbeddedInputGroupButtonComponent"]; })),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_core__WEBPACK_IMPORTED_MODULE_6__["PrependDirective"], { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
-    ], EmbeddedInputGroupComponent.prototype, "buttons", void 0);
+    ], EmbeddedInputGroupComponent.prototype, "prepend", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_core__WEBPACK_IMPORTED_MODULE_6__["AppendDirective"], { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
+    ], EmbeddedInputGroupComponent.prototype, "append", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_input__WEBPACK_IMPORTED_MODULE_3__["InputDirective"], { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
+    ], EmbeddedInputGroupComponent.prototype, "input", void 0);
     EmbeddedInputGroupComponent = EmbeddedInputGroupComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-embedded-input-group',
@@ -4650,7 +4432,8 @@ var EmbeddedInputGroupComponent = /** @class */ (function () {
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return EmbeddedInputGroupComponent_1; })
                 }
             ]
-        })
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"]])
     ], EmbeddedInputGroupComponent);
     return EmbeddedInputGroupComponent;
 }());
@@ -4663,7 +4446,7 @@ var EmbeddedInputGroupComponent = /** @class */ (function () {
 /*!******************************************************!*\
   !*** ./lib/ng-vcl/src/embedded-input-group/index.ts ***!
   \******************************************************/
-/*! exports provided: VCLEmbeddedInputGroupModule */
+/*! exports provided: EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4672,15 +4455,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
-/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
-/* harmony import */ var _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./embedded-input-group.component */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group.component.ts");
-/* harmony import */ var _embedded_input_group_button_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./embedded-input-group-button.component */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-button.component.ts");
-/* harmony import */ var _embedded_input_group_input_directive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./embedded-input-group-input.directive */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group-input.directive.ts");
+/* harmony import */ var _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./embedded-input-group.component */ "./lib/ng-vcl/src/embedded-input-group/embedded-input-group.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupComponent", function() { return _embedded_input_group_component__WEBPACK_IMPORTED_MODULE_3__["EmbeddedInputGroupComponent"]; });
 
-
-
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core */ "./lib/ng-vcl/src/core/index.ts");
 
 
 
@@ -4692,9 +4470,9 @@ var VCLEmbeddedInputGroupModule = /** @class */ (function () {
     }
     VCLEmbeddedInputGroupModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _button_index__WEBPACK_IMPORTED_MODULE_3__["VCLButtonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"]],
-            exports: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputGroupComponent"], _embedded_input_group_input_directive__WEBPACK_IMPORTED_MODULE_8__["EmbeddedInputGroupInputDirective"], _embedded_input_group_button_component__WEBPACK_IMPORTED_MODULE_7__["EmbeddedInputGroupButtonComponent"]],
-            declarations: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_6__["EmbeddedInputGroupComponent"], _embedded_input_group_input_directive__WEBPACK_IMPORTED_MODULE_8__["EmbeddedInputGroupInputDirective"], _embedded_input_group_button_component__WEBPACK_IMPORTED_MODULE_7__["EmbeddedInputGroupButtonComponent"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _core__WEBPACK_IMPORTED_MODULE_4__["VCLCoreModule"]],
+            exports: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_3__["EmbeddedInputGroupComponent"], _core__WEBPACK_IMPORTED_MODULE_4__["VCLCoreModule"]],
+            declarations: [_embedded_input_group_component__WEBPACK_IMPORTED_MODULE_3__["EmbeddedInputGroupComponent"]],
         })
     ], VCLEmbeddedInputGroupModule);
     return VCLEmbeddedInputGroupModule;
@@ -4764,7 +4542,7 @@ function accept(file, acceptedFiles) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<input #input type=\"file\" [style.display]=\"'none'\" (change)=\"onInputChange()\" [accept]=\"accept\" [multiple]=\"multiple\" [disabled]=\"disabled\" />\n<div class=\"vclFileInputIcon vclIcon {{ icon }}\" aria-hidden=\"true\" aria-label=\"account\" role=\"img\"></div>\n<div class=\"vclFileInputPlaceholder\">\n  <ng-container *ngIf=\"filename\">{{ filename }}</ng-container>\n  <div *ngIf=\"!filename\">\n    <ng-content></ng-content>\n  </div>\n</div>\n"
+module.exports = "<input #input type=\"file\" [style.display]=\"'none'\" (change)=\"onInputChange()\" [accept]=\"accept\" [multiple]=\"multiple\" [disabled]=\"disabled\" />\n<vcl-icon class=\"vclFileInputIcon\" [icon]=\"'vcl:upload'\" aria-hidden=\"true\" role=\"img\"></vcl-icon>\n<div class=\"vclFileInputPlaceholder\">\n  <ng-container *ngIf=\"filename\">{{ filename }}</ng-container>\n  <div *ngIf=\"!filename\">\n    <ng-content></ng-content>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -4772,35 +4550,41 @@ module.exports = "<input #input type=\"file\" [style.display]=\"'none'\" (change
 /*!***********************************************************!*\
   !*** ./lib/ng-vcl/src/file-input/file-input.component.ts ***!
   \***********************************************************/
-/*! exports provided: CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, FileInputComponent */
+/*! exports provided: FileInputComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileInputComponent", function() { return FileInputComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _accept__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./accept */ "./lib/ng-vcl/src/file-input/accept.ts");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 
 
 
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return FileInputComponent; }),
-    multi: true
-};
+
+
+var UNIQUE_ID = 0;
 var FileInputComponent = /** @class */ (function () {
-    function FileInputComponent(cdRef) {
+    function FileInputComponent(cdRef, ngControl, formControlHost, _errorStateAgent) {
         this.cdRef = cdRef;
-        this.icon = 'fas fa-upload';
-        this.accept = '*';
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.stateChange = this.stateChangeEmitter.asObservable();
+        this.controlType = 'file-input_';
+        this._disabled = false;
+        this.generatedId = 'vcl_file-input_' + UNIQUE_ID++;
+        this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.disabled = false;
         this.multiple = false;
         this.files = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.tabindex = 0;
-        this.disabled = false;
         this.invalidFiles = false;
         this.isDragging = false;
         this.isFocused = false;
@@ -4809,7 +4593,34 @@ var FileInputComponent = /** @class */ (function () {
          */
         this.onChange = function () { };
         this.onTouched = function () { };
+        // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
     }
+    FileInputComponent_1 = FileInputComponent;
+    Object.defineProperty(FileInputComponent.prototype, "elementId", {
+        get: function () {
+            return this.id || this.generatedId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FileInputComponent.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FileInputComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled || this._disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FileInputComponent.prototype, "fileInput", {
         get: function () {
             return this.input && this.input.nativeElement;
@@ -4824,6 +4635,13 @@ var FileInputComponent = /** @class */ (function () {
         this.isFocused = false;
         this.onTouched();
     };
+    FileInputComponent.prototype.onLabelClick = function (event) {
+        if (this.disabled) {
+            return;
+        }
+        this.fileInput && this.fileInput.click();
+        this.onTouched();
+    };
     FileInputComponent.prototype.onInputChange = function () {
         if (this.fileInput && this.fileInput.files) {
             this.updateFiles(this.fileInput.files);
@@ -4831,9 +4649,12 @@ var FileInputComponent = /** @class */ (function () {
     };
     FileInputComponent.prototype.checkFiles = function (files) {
         var _this = this;
-        var hasWrongFiles = Array.from(files).some(function (file) { return !Object(_accept__WEBPACK_IMPORTED_MODULE_3__["accept"])(file, _this.accept); });
-        // TODO remove *-check after issue https://github.com/okonet/attr-accept/issues/8
-        this.invalidFiles = hasWrongFiles && this.accept !== '*';
+        if (_accept__WEBPACK_IMPORTED_MODULE_3__["accept"]) {
+            this.invalidFiles = Array.from(files).some(function (file) { return !Object(_accept__WEBPACK_IMPORTED_MODULE_3__["accept"])(file, _this.accept); });
+        }
+        else {
+            this.invalidFiles = false;
+        }
     };
     FileInputComponent.prototype.keydown = function (ev) {
         switch (ev.code) {
@@ -4888,6 +4709,7 @@ var FileInputComponent = /** @class */ (function () {
             this.value = files;
             this.checkFiles(files);
             this.files.emit(files);
+            this.valueChange.emit(files);
             this.onChange(files);
         }
     };
@@ -4902,21 +4724,48 @@ var FileInputComponent = /** @class */ (function () {
         this.onTouched = fn;
     };
     FileInputComponent.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
+        this._disabled = isDisabled;
         this.cdRef.markForCheck();
     };
+    var FileInputComponent_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], FileInputComponent.prototype, "id", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FileInputComponent.prototype, "elementId", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FileInputComponent.prototype, "valueChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FileInputComponent.prototype, "icon", void 0);
+    ], FileInputComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], FileInputComponent.prototype, "errorStateAgent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FileInputComponent.prototype, "hasError", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], FileInputComponent.prototype, "accept", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], FileInputComponent.prototype, "multiple", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", FileList)
+    ], FileInputComponent.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -4927,10 +4776,10 @@ var FileInputComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], FileInputComponent.prototype, "tabindex", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FileInputComponent.prototype, "disabled", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FileInputComponent.prototype, "isDisabled", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -4989,19 +4838,29 @@ var FileInputComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], FileInputComponent.prototype, "onDrop", null);
-    FileInputComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    FileInputComponent = FileInputComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-file-input',
             template: __webpack_require__(/*! ./file-input.component.html */ "./lib/ng-vcl/src/file-input/file-input.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+            providers: [{
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_4__["FORM_CONTROL_INPUT"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return FileInputComponent_1; })
+                }],
             host: {
                 '[class.vclInput]': 'true',
                 '[class.vclFileInput]': 'true',
                 role: 'button',
             }
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_4__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_4__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControl"], Object, Function])
     ], FileInputComponent);
     return FileInputComponent;
 }());
@@ -5023,7 +4882,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _file_input_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./file-input.component */ "./lib/ng-vcl/src/file-input/file-input.component.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
 
 
 
@@ -5033,7 +4894,7 @@ var VCLFileInputModule = /** @class */ (function () {
     }
     VCLFileInputModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"], _icon__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"]],
             exports: [_file_input_component__WEBPACK_IMPORTED_MODULE_2__["FileInputComponent"]],
             declarations: [_file_input_component__WEBPACK_IMPORTED_MODULE_2__["FileInputComponent"]],
             providers: [],
@@ -5061,36 +4922,94 @@ module.exports = "<label class=\"vclFlipSwitchLabel\">\n  <div class=\"vclFlipSw
 /*!*************************************************************!*\
   !*** ./lib/ng-vcl/src/flip-switch/flip-switch.component.ts ***!
   \*************************************************************/
-/*! exports provided: CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, FlipSwitchComponent */
+/*! exports provided: FlipSwitchComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FlipSwitchComponent", function() { return FlipSwitchComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 
 
 
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return FlipSwitchComponent; }),
-    multi: true
-};
+
+
+var UNIQUE_ID = 0;
 var FlipSwitchComponent = /** @class */ (function () {
-    function FlipSwitchComponent(cdRef) {
+    function FlipSwitchComponent(cdRef, ngControl, formControlHost, _errorStateAgent) {
         this.cdRef = cdRef;
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this.uniqueId = 'vcl_flipswitch_' + UNIQUE_ID++;
+        this._disabled = false;
+        this._focused = false;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.controlType = 'flip-switch';
         this.tabindex = 0;
         this.onLabel = 'On';
         this.offLabel = 'Off';
         this.value = false;
         this.disabled = false;
         this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.onTouchedCallback = function () { };
+        this.onChangeCallback = function () { };
+        // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
     }
-    FlipSwitchComponent.prototype.onTap = function () {
+    FlipSwitchComponent_1 = FlipSwitchComponent;
+    Object.defineProperty(FlipSwitchComponent.prototype, "stateChange", {
+        get: function () {
+            return this.stateChangeEmitter.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlipSwitchComponent.prototype, "elementId", {
+        get: function () {
+            return this.id || this.uniqueId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlipSwitchComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled || this._disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlipSwitchComponent.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FlipSwitchComponent.prototype, "isFocused", {
+        get: function () {
+            return this._focused;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FlipSwitchComponent.prototype.onClick = function () {
         this.toggle();
+        this.onTouchedCallback();
+    };
+    FlipSwitchComponent.prototype.onFocus = function () {
+        this._focused = true;
+    };
+    FlipSwitchComponent.prototype.onBlur = function () {
+        this._focused = false;
+        this.onTouchedCallback();
     };
     FlipSwitchComponent.prototype.keydown = function (ev) {
         switch (ev.code) {
@@ -5120,6 +5039,9 @@ var FlipSwitchComponent = /** @class */ (function () {
         this.valueChange.emit(this.value);
         this.onChangeCallback && this.onChangeCallback(this.value);
     };
+    FlipSwitchComponent.prototype.onLabelClick = function (event) {
+        this.toggle();
+    };
     FlipSwitchComponent.prototype.writeValue = function (value) {
         this.value = value;
         this.cdRef.markForCheck();
@@ -5131,9 +5053,19 @@ var FlipSwitchComponent = /** @class */ (function () {
         this.onTouchedCallback = fn;
     };
     FlipSwitchComponent.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
+        this._disabled = isDisabled;
         this.cdRef.markForCheck();
     };
+    var FlipSwitchComponent_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FlipSwitchComponent.prototype, "elementId", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], FlipSwitchComponent.prototype, "id", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -5151,10 +5083,23 @@ var FlipSwitchComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], FlipSwitchComponent.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], FlipSwitchComponent.prototype, "disabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], FlipSwitchComponent.prototype, "errorStateAgent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FlipSwitchComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FlipSwitchComponent.prototype, "hasError", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -5164,19 +5109,35 @@ var FlipSwitchComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], FlipSwitchComponent.prototype, "onTap", null);
+    ], FlipSwitchComponent.prototype, "onClick", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], FlipSwitchComponent.prototype, "onFocus", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], FlipSwitchComponent.prototype, "onBlur", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keydown', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], FlipSwitchComponent.prototype, "keydown", null);
-    FlipSwitchComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    FlipSwitchComponent = FlipSwitchComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-flip-switch',
             template: __webpack_require__(/*! ./flip-switch.component.html */ "./lib/ng-vcl/src/flip-switch/flip-switch.component.html"),
+            exportAs: 'vclFlipSwitch',
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+            providers: [{
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_INPUT"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return FlipSwitchComponent_1; })
+                }],
             host: {
                 '[class.vclFlipSwitch]': 'true',
                 '[class.vclFlipSwitchPressed]': 'value',
@@ -5185,7 +5146,14 @@ var FlipSwitchComponent = /** @class */ (function () {
                 '[attr.touch-action]': '"pan-y"'
             }
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControl"], Object, Function])
     ], FlipSwitchComponent);
     return FlipSwitchComponent;
 }());
@@ -5254,7 +5222,10 @@ var ALIAS_MAP = {
     'info': 'fas fa-info-circle',
     'success': 'fas fa-check-circle',
     'warning': 'fas fa-exclamation-triangle',
-    'error': 'fas fa-exclamation-circle'
+    'error': 'fas fa-exclamation-circle',
+    'arrow-left': 'fas fa-chevron-left',
+    'arrow-right': 'fas fa-chevron-right',
+    'upload': 'fas fa-upload',
 };
 
 
@@ -5371,175 +5342,557 @@ var VCLFontAwesomeModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/form-control-label/form-control-label.component.ts":
+/***/ "./lib/ng-vcl/src/form-control-group/form-control-group.component.html":
+/*!*****************************************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-group/form-control-group.component.html ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-content></ng-content>\n<ng-content select=\"vcl-hint\"></ng-content>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-group/form-control-group.component.ts":
 /*!***************************************************************************!*\
-  !*** ./lib/ng-vcl/src/form-control-label/form-control-label.component.ts ***!
+  !*** ./lib/ng-vcl/src/form-control-group/form-control-group.component.ts ***!
   \***************************************************************************/
-/*! exports provided: FormControlLabelComponent */
+/*! exports provided: FormControlGroupComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return FormControlLabelComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlGroupComponent", function() { return FormControlGroupComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-label/interfaces.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 
 
 
-var FormControlLabelComponent = /** @class */ (function () {
-    function FormControlLabelComponent() {
-        this.classVCLFormControlLabel = true;
+
+var FormControlGroupComponent = /** @class */ (function () {
+    function FormControlGroupComponent(elementRef) {
+        this.elementRef = elementRef;
+        this._stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+        this.stateChange = this._stateChangeEmitter.asObservable();
     }
-    Object.defineProperty(FormControlLabelComponent.prototype, "attrFor", {
+    FormControlGroupComponent_1 = FormControlGroupComponent;
+    Object.defineProperty(FormControlGroupComponent.prototype, "classVclFormControlGroup", {
+        get: function () {
+            return !this.classVclFormInlineControlGroup;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "classVclFormInlineControlGroup", {
+        get: function () {
+            return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-form-inline-control-group';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FormControlGroupComponent.prototype.ngAfterViewInit = function () {
+        if (this.input) {
+            this.input.stateChange.subscribe(this._stateChangeEmitter);
+        }
+    };
+    FormControlGroupComponent.prototype.ngOnDestroy = function () {
+        return this._stateChangeEmitter.complete();
+    };
+    var FormControlGroupComponent_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlGroup'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlGroupComponent.prototype, "classVclFormControlGroup", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormInlineControlGroup'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlGroupComponent.prototype, "classVclFormInlineControlGroup", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_INPUT"], { read: _interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_INPUT"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlGroupComponent.prototype, "input", void 0);
+    FormControlGroupComponent = FormControlGroupComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-form-control-group, vcl-form-inline-control-group',
+            template: __webpack_require__(/*! ./form-control-group.component.html */ "./lib/ng-vcl/src/form-control-group/form-control-group.component.html"),
+            exportAs: 'vclFormControlGroup',
+            providers: [{
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_GROUP"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return FormControlGroupComponent_1; })
+                }]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+    ], FormControlGroupComponent);
+    return FormControlGroupComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-group/form-control-host.directive.ts":
+/*!**************************************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-group/form-control-host.directive.ts ***!
+  \**************************************************************************/
+/*! exports provided: FormControlHostFactory, FormControlHostDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlHostFactory", function() { return FormControlHostFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return FormControlHostDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+
+
+
+
+var FormControlHostFactory = function (ngForm, formGroup) {
+    return ngForm || formGroup;
+};
+var FormControlHostDirective = /** @class */ (function () {
+    function FormControlHostDirective(formGroup, ngForm) {
+        this.formGroup = formGroup;
+        this.ngForm = ngForm;
+        this.classVclForm = true;
+    }
+    Object.defineProperty(FormControlHostDirective.prototype, "_form", {
+        get: function () {
+            return this.ngForm || this.formGroup;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHostDirective.prototype, "pending", {
+        get: function () {
+            return this._form.pending;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHostDirective.prototype, "invalid", {
+        get: function () {
+            return this._form.invalid;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHostDirective.prototype, "valid", {
+        get: function () {
+            return this._form.valid;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHostDirective.prototype, "touched", {
+        get: function () {
+            return this._form.touched;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHostDirective.prototype, "untouched", {
+        get: function () {
+            return this._form.untouched;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHostDirective.prototype, "submitted", {
+        get: function () {
+            return this._form.submitted;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclForm'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlHostDirective.prototype, "classVclForm", void 0);
+    FormControlHostDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'form[vclForm]',
+            exportAs: 'vclFormControlHost',
+            providers: [{
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_HOST"],
+                    deps: [
+                        [new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"](), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"]],
+                        [new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"](), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"]]
+                    ],
+                    useFactory: FormControlHostFactory
+                }]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"]])
+    ], FormControlHostDirective);
+    return FormControlHostDirective;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-group/form-control-label.directive.ts":
+/*!***************************************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-group/form-control-label.directive.ts ***!
+  \***************************************************************************/
+/*! exports provided: FormControlLabelDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelDirective", function() { return FormControlLabelDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+
+
+
+var FormControlLabelDirective = /** @class */ (function () {
+    function FormControlLabelDirective(elementRef, cdRef, fcg) {
+        this.elementRef = elementRef;
+        this.fcg = fcg;
+        this.classVCLFormControlLabel = true;
+        this.fcg && this.fcg.stateChange.subscribe(function () {
+            cdRef.markForCheck();
+            cdRef.detectChanges();
+        });
+    }
+    Object.defineProperty(FormControlLabelDirective.prototype, "attrFor", {
         get: function () {
             if (this.for) {
                 return this.for;
             }
-            else if (this.target && this.target.elementId) {
-                return this.target && this.target.elementId;
+            else if (this.fcg && this.fcg.input) {
+                return this.fcg.input.elementId;
             }
             return null;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormControlLabelComponent.prototype, "classVCLFormControlLabelWrapping", {
+    Object.defineProperty(FormControlLabelDirective.prototype, "isDisabled", {
         get: function () {
-            return this.children && this.children.length > 0;
+            var input = this.fcg && this.fcg.input;
+            return input && input.isDisabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormControlLabelComponent.prototype, "isDisabled", {
-        get: function () {
-            return this.targets.every(function (t) { return t.isDisabled; });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlLabelComponent.prototype, "targets", {
-        get: function () {
-            return [this.target].concat(this.children.toArray()).filter(function (c) { return !!c; });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    FormControlLabelComponent.prototype.onclick = function (event) {
-        this.targets.forEach(function (t) { return t.notifyFormControlLabelClick(event); });
+    FormControlLabelDirective.prototype.onClick = function (event) {
+        var input = this.fcg && this.fcg.input;
+        input && input.onLabelClick(event);
     };
+    Object.defineProperty(FormControlLabelDirective.prototype, "label", {
+        get: function () {
+            return this._label || this.elementRef.nativeElement.innerText;
+        },
+        enumerable: true,
+        configurable: true
+    });
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabel'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlLabelComponent.prototype, "target", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], FormControlLabelComponent.prototype, "for", void 0);
+    ], FormControlLabelDirective.prototype, "classVCLFormControlLabel", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.for'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlLabelComponent.prototype, "attrFor", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlLabelComponent.prototype, "classVCLFormControlLabelWrapping", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_LABEL_MEMBER_TOKEN"], {
-            read: _interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_LABEL_MEMBER_TOKEN"],
-            descendants: true
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
-    ], FormControlLabelComponent.prototype, "children", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabel'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlLabelComponent.prototype, "classVCLFormControlLabel", void 0);
+    ], FormControlLabelDirective.prototype, "attrFor", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlLabelComponent.prototype, "isDisabled", null);
+    ], FormControlLabelDirective.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], FormControlLabelDirective.prototype, "for", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('label'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-label'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], FormControlLabelDirective.prototype, "_label", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], FormControlLabelComponent.prototype, "onclick", null);
-    FormControlLabelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'label[vcl-form-control-label]',
-            template: '<ng-content></ng-content>',
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-        })
-    ], FormControlLabelComponent);
-    return FormControlLabelComponent;
+    ], FormControlLabelDirective.prototype, "onClick", null);
+    FormControlLabelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'label[vclFormControlLabel]',
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_GROUP"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
+    ], FormControlLabelDirective);
+    return FormControlLabelDirective;
 }());
 
 
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/form-control-label/index.ts":
-/*!****************************************************!*\
-  !*** ./lib/ng-vcl/src/form-control-label/index.ts ***!
-  \****************************************************/
-/*! exports provided: FormControlLabelComponent, FORM_CONTROL_LABEL_MEMBER_TOKEN, VCLFormControlLabelModule */
+/***/ "./lib/ng-vcl/src/form-control-group/hint.component.ts":
+/*!*************************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-group/hint.component.ts ***!
+  \*************************************************************/
+/*! exports provided: FormControlHintComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlLabelModule", function() { return VCLFormControlLabelModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlHintComponent", function() { return FormControlHintComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+
+
+
+var FormControlHintComponent = /** @class */ (function () {
+    function FormControlHintComponent(elementRef, cdRef, fcg) {
+        var _this = this;
+        this.elementRef = elementRef;
+        this.cdRef = cdRef;
+        this.fcg = fcg;
+        this.classVCLFormControlHint = true;
+        fcg && fcg.stateChange.subscribe(function () {
+            _this.cdRef.detectChanges();
+            _this.cdRef.markForCheck();
+        });
+    }
+    Object.defineProperty(FormControlHintComponent.prototype, "classVCLError", {
+        get: function () {
+            return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-error';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHintComponent.prototype, "classVCLWarning", {
+        get: function () {
+            return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-warning';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHintComponent.prototype, "classVCLSuccess", {
+        get: function () {
+            return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-success';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHintComponent.prototype, "styleDisplay", {
+        get: function () {
+            return this.visible ? null : 'none';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlHintComponent.prototype, "visible", {
+        get: function () {
+            var input = this.fcg && this.fcg.input;
+            if (!input) {
+                return true;
+            }
+            if (this.error === undefined) {
+                // Show hint
+                return true;
+            }
+            else if (typeof this.error === 'string') {
+                return input.ngControl && input.hasError ? !!input.ngControl.getError(this.error) : false;
+            }
+            return true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlHint'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlHintComponent.prototype, "classVCLFormControlHint", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlHintComponent.prototype, "classVCLError", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclWarning'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlHintComponent.prototype, "classVCLWarning", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSuccess'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlHintComponent.prototype, "classVCLSuccess", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], FormControlHintComponent.prototype, "error", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.display'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], FormControlHintComponent.prototype, "styleDisplay", null);
+    FormControlHintComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-hint, vcl-hint-error, vcl-hint-warning, vcl-hint-success',
+            template: "<ng-content></ng-content>"
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_GROUP"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
+    ], FormControlHintComponent);
+    return FormControlHintComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-group/index.ts":
+/*!****************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-group/index.ts ***!
+  \****************************************************/
+/*! exports provided: FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return defaultFormControlErrorMatcher; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return VCLFormControlGroupModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
-/* harmony import */ var _form_control_label_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form-control-label.component */ "./lib/ng-vcl/src/form-control-label/form-control-label.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return _form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]; });
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_INPUT"]; });
 
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-label/interfaces.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return _interfaces__WEBPACK_IMPORTED_MODULE_5__["FORM_CONTROL_LABEL_MEMBER_TOKEN"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_ERROR_STATE_AGENT"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_HOST"]; });
+
+/* harmony import */ var _form_control_group_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form-control-group.component */ "./lib/ng-vcl/src/form-control-group/form-control-group.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlGroupComponent", function() { return _form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"]; });
+
+/* harmony import */ var _hint_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hint.component */ "./lib/ng-vcl/src/form-control-group/hint.component.ts");
+/* harmony import */ var _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./form-control-label.directive */ "./lib/ng-vcl/src/form-control-group/form-control-label.directive.ts");
+/* harmony import */ var _required_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./required.component */ "./lib/ng-vcl/src/form-control-group/required.component.ts");
+/* harmony import */ var _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./form-control-host.directive */ "./lib/ng-vcl/src/form-control-group/form-control-host.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__["FormControlHostDirective"]; });
 
 
 
 
 
 
-// import { FormControlLabelWrappingComponent } from './form-control-label-wrapping.component';
 
 
-var VCLFormControlLabelModule = /** @class */ (function () {
-    function VCLFormControlLabelModule() {
+
+
+
+var defaultFormControlErrorMatcher = function (form, input, error) {
+    return form && input && input.ngControl && !input.isFocused && input.ngControl.invalid && (input.ngControl.touched || form.submitted);
+};
+var VCLFormControlGroupModule = /** @class */ (function () {
+    function VCLFormControlGroupModule() {
     }
-    VCLFormControlLabelModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    VCLFormControlGroupModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"]],
-            exports: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]],
-            declarations: [_form_control_label_component__WEBPACK_IMPORTED_MODULE_4__["FormControlLabelComponent"]]
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]],
+            exports: [_form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"], _hint_component__WEBPACK_IMPORTED_MODULE_5__["FormControlHintComponent"], _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__["FormControlLabelDirective"], _required_component__WEBPACK_IMPORTED_MODULE_7__["FormControlRequiredComponent"], _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__["FormControlHostDirective"]],
+            declarations: [_form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"], _hint_component__WEBPACK_IMPORTED_MODULE_5__["FormControlHintComponent"], _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__["FormControlLabelDirective"], _required_component__WEBPACK_IMPORTED_MODULE_7__["FormControlRequiredComponent"], _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__["FormControlHostDirective"]],
+            providers: [{
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_ERROR_STATE_AGENT"],
+                    useValue: defaultFormControlErrorMatcher
+                }],
         })
-    ], VCLFormControlLabelModule);
-    return VCLFormControlLabelModule;
+    ], VCLFormControlGroupModule);
+    return VCLFormControlGroupModule;
 }());
 
 
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/form-control-label/interfaces.ts":
+/***/ "./lib/ng-vcl/src/form-control-group/interfaces.ts":
 /*!*********************************************************!*\
-  !*** ./lib/ng-vcl/src/form-control-label/interfaces.ts ***!
+  !*** ./lib/ng-vcl/src/form-control-group/interfaces.ts ***!
   \*********************************************************/
-/*! exports provided: FORM_CONTROL_LABEL_MEMBER_TOKEN */
+/*! exports provided: FORM_CONTROL_HOST, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_GROUP, FORM_CONTROL_INPUT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return FORM_CONTROL_LABEL_MEMBER_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return FORM_CONTROL_HOST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return FORM_CONTROL_ERROR_STATE_AGENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_GROUP", function() { return FORM_CONTROL_GROUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return FORM_CONTROL_INPUT; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
-var FORM_CONTROL_LABEL_MEMBER_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-label-member');
+var FORM_CONTROL_HOST = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-host');
+var FORM_CONTROL_ERROR_STATE_AGENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-error-state-agent');
+var FORM_CONTROL_GROUP = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-group');
+var FORM_CONTROL_INPUT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-input');
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/form-control-group/required.component.ts":
+/*!*****************************************************************!*\
+  !*** ./lib/ng-vcl/src/form-control-group/required.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: FormControlRequiredComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlRequiredComponent", function() { return FormControlRequiredComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var FormControlRequiredComponent = /** @class */ (function () {
+    function FormControlRequiredComponent() {
+        this.indicator = '•';
+        this.attrAriaHidden = true;
+        this.classVclRequiredIndicator = true;
+    }
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlRequiredComponent.prototype, "indicator", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-hidden'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlRequiredComponent.prototype, "attrAriaHidden", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclRequiredIndicator'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], FormControlRequiredComponent.prototype, "classVclRequiredIndicator", void 0);
+    FormControlRequiredComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-required',
+            template: "{{indicator}}",
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+        })
+    ], FormControlRequiredComponent);
+    return FormControlRequiredComponent;
+}());
+
 
 
 /***/ }),
@@ -6007,7 +6360,7 @@ var VCLGalleryModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<vcl-icon *ngIf=\"prepIcon\" [icon]=\"prepIcon\">\n  <ng-content select=\"[prepIcon]\"></ng-content>\n</vcl-icon>\n<span class=\"vclText\"><ng-content></ng-content></span>\n<vcl-icon *ngIf=\"appIcon\" [icon]=\"appIcon\">\n  <ng-content select=\"[appIcon]\"></ng-content>\n</vcl-icon>\n"
+module.exports = "<ng-content select=\"vcl-icon[vclPrepend]\"></ng-content>\n<span class=\"vclText\">\n  <ng-content></ng-content>\n</span>\n<ng-content select=\"vcl-icon[vclAppend]\"></ng-content>\n"
 
 /***/ }),
 
@@ -6029,16 +6382,11 @@ __webpack_require__.r(__webpack_exports__);
 var IcogramComponent = /** @class */ (function () {
     function IcogramComponent() {
         this.clsIcogram = true;
-        this.attrRole = true;
     }
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclIcogram'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], IcogramComponent.prototype, "clsIcogram", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], IcogramComponent.prototype, "attrRole", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
@@ -6049,7 +6397,7 @@ var IcogramComponent = /** @class */ (function () {
     ], IcogramComponent.prototype, "appIcon", void 0);
     IcogramComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-icogram',
+            selector: 'vcl-icogram, [vcl-icogram]',
             template: __webpack_require__(/*! ./icogram.component.html */ "./lib/ng-vcl/src/icogram/icogram.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         })
@@ -6110,7 +6458,7 @@ var IcogramLinkComponent = /** @class */ (function (_super) {
     ], IcogramLinkComponent.prototype, "attrHref", null);
     IcogramLinkComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'a[vcl-icogram]',
+            selector: '[vcl-a-icogram]',
             template: __webpack_require__(/*! ./icogram.component.html */ "./lib/ng-vcl/src/icogram/icogram.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         })
@@ -6385,17 +6733,17 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerRefComponent, ComponentLayerRef, LayerFactory, LayerRef, VCLLayerModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, FormControlLabelComponent, FORM_CONTROL_LABEL_MEMBER_TOKEN, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _public_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./public_api */ "./lib/ng-vcl/src/public_api.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObservableComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ObservableComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrependDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["PrependDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["defineMetadata"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AppendDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AppendDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMetadata", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["getMetadata"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCoreModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLCoreModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["InputDirective"]; });
 
@@ -6431,37 +6779,33 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMaterialDesignModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLMaterialDesignModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRefComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayerRefComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentLayerRef", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ComponentLayerRef"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerBase", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayerBase"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayerFactory"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LAYER_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LAYER_TOKEN"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRef", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayerRef"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["LayerService"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLayerModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLLayerModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistItemComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["MetalistItemComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["MetalistComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMetalistModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLMetalistModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownOptionComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownOptionComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DROPDOWN_ANIMATIONS", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DROPDOWN_ANIMATIONS"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownHeaderComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownHeaderComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownItemComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownItemComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownLabelDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownLabelDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownSublabelDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownSublabelDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownSeperatorComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownSeperatorComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownContentComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownContentComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownInputDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropdownInputDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDropdownModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLDropdownModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectOptionDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectOptionDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDirection", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["DropDirection"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLSelectModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["IcogramComponent"]; });
 
@@ -6470,10 +6814,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIcogramModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLIcogramModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ButtonComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIcogramComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ButtonIcogramComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["ButtonIconComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BUTTON_OBSERVER_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["BUTTON_OBSERVER_TOKEN"]; });
 
@@ -6499,13 +6839,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["RadioButtonComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["RadioGroupComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["RadioGroupDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonLabelDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["RadioButtonLabelDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRadioButtonModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLRadioButtonModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["CheckboxComponent"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxLabelDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["CheckboxLabelDirective"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCheckboxModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLCheckboxModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createOffClickStream", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["createOffClickStream"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OffClickDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["OffClickDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLOffClickModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLOffClickModule"]; });
 
@@ -6514,12 +6862,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimePickerComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TimePickerComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLDatePickerModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FormControlLabelComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_LABEL_MEMBER_TOKEN"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlLabelModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLFormControlLabelModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TemplateWormhole"]; });
 
@@ -6559,7 +6901,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSliderModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLSliderModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLInputControlGroupModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLInputControlGroupModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlGroupComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FormControlGroupComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_INPUT"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_ERROR_STATE_AGENT"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FormControlHostDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_HOST"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["defaultFormControlErrorMatcher"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLFormControlGroupModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AlertService"]; });
 
@@ -6595,27 +6949,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLZoomBoxModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLZoomBoxModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotificationModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLNotificationModule"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GALLERY_ANIMATIONS", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["GALLERY_ANIMATIONS"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLGalleryModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLGalleryModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBadgeModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLBadgeModule"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["EmbeddedInputGroupComponent"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLEmbeddedInputGroupModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLEmbeddedInputGroupModule"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteItemComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteSeperatorComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteHeaderComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["AutocompleteInputDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLAutocompleteModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TourService"]; });
 
@@ -6627,124 +6969,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLRatingModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationTypeFromString", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["notificationTypeFromString"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationIconFromType", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["notificationIconFromType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLSelectModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationStyleClassFromType", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["notificationStyleClassFromType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationType", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["NotificationType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FlexAlign", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FlexAlign"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextAlign", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["TextAlign"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconType", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["IconType"]; });
-
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/input-control-group/index.ts":
-/*!*****************************************************!*\
-  !*** ./lib/ng-vcl/src/input-control-group/index.ts ***!
-  \*****************************************************/
-/*! exports provided: VCLInputControlGroupModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLInputControlGroupModule", function() { return VCLInputControlGroupModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _input_control_group_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./input-control-group.component */ "./lib/ng-vcl/src/input-control-group/input-control-group.component.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-
-
-
-
-var VCLInputControlGroupModule = /** @class */ (function () {
-    function VCLInputControlGroupModule() {
-    }
-    VCLInputControlGroupModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"]],
-            exports: [_input_control_group_component__WEBPACK_IMPORTED_MODULE_2__["InputControlGroupComponent"]],
-            declarations: [_input_control_group_component__WEBPACK_IMPORTED_MODULE_2__["InputControlGroupComponent"]],
-            providers: [],
-        })
-    ], VCLInputControlGroupModule);
-    return VCLInputControlGroupModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/input-control-group/input-control-group.component.html":
-/*!*******************************************************************************!*\
-  !*** ./lib/ng-vcl/src/input-control-group/input-control-group.component.html ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<ng-content></ng-content>\n\n<div *ngIf=\"type && label && label!==''\" class=\"vclFormControlHint\"\n  [class.vclError]=\"type=='error'\"\n  [class.vclWarning]=\"type=='warning'\"\n  [class.vclSuccess]=\"type=='success'\">\n  {{label}}\n</div>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/input-control-group/input-control-group.component.ts":
-/*!*****************************************************************************!*\
-  !*** ./lib/ng-vcl/src/input-control-group/input-control-group.component.ts ***!
-  \*****************************************************************************/
-/*! exports provided: InputControlGroupComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InputControlGroupComponent", function() { return InputControlGroupComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var InputControlGroupComponent = /** @class */ (function () {
-    function InputControlGroupComponent() {
-        this.inline = false;
-    }
-    Object.defineProperty(InputControlGroupComponent.prototype, "notInline", {
-        get: function () {
-            return !this.inline;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], InputControlGroupComponent.prototype, "type", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], InputControlGroupComponent.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputInlineControlGroup'),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], InputControlGroupComponent.prototype, "inline", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputControlGroup'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], InputControlGroupComponent.prototype, "notInline", null);
-    InputControlGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-input-control-group, [vcl-input-control-group]',
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            template: __webpack_require__(/*! ./input-control-group.component.html */ "./lib/ng-vcl/src/input-control-group/input-control-group.component.html")
-        })
-    ], InputControlGroupComponent);
-    return InputControlGroupComponent;
-}());
 
 
 
@@ -6800,24 +7028,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InputDirective", function() { return InputDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _form_control_label__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../form-control-label */ "./lib/ng-vcl/src/form-control-label/index.ts");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _form_control_group_interfaces__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../form-control-group/interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+
+
+
 
 
 
 var UNIQUE_ID = 0;
 var InputDirective = /** @class */ (function () {
-    function InputDirective(elRef) {
-        this.elRef = elRef;
-        this.generatedId = 'vcl_input_' + UNIQUE_ID++;
+    function InputDirective(elementRef, ngControl, formControlHost, _errorStateAgent) {
+        this.elementRef = elementRef;
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this.uniqueId = 'vcl_input_' + UNIQUE_ID++;
         this._disabled = false;
+        this._focused = false;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.controlType = 'input';
         this.disabled = false;
         this.autoselect = false;
         this.classVclInput = true;
     }
     InputDirective_1 = InputDirective;
+    Object.defineProperty(InputDirective.prototype, "stateChange", {
+        get: function () {
+            return this.stateChangeEmitter.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(InputDirective.prototype, "elementId", {
         get: function () {
-            return this.id || this.generatedId;
+            return this.id || this.uniqueId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(InputDirective.prototype, "isFocused", {
+        get: function () {
+            return this._focused;
         },
         enumerable: true,
         configurable: true
@@ -6829,6 +7083,14 @@ var InputDirective = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(InputDirective.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(InputDirective.prototype, "attrDisabled", {
         get: function () {
             return this.disabled ? true : null;
@@ -6836,23 +7098,44 @@ var InputDirective = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    // Autoselect
     InputDirective.prototype.onFocus = function () {
+        this._focused = true;
+        // Autoselect
         if (this.autoselect) {
-            this.elRef.nativeElement.select();
+            this.elementRef.nativeElement.select();
         }
+    };
+    InputDirective.prototype.onBlur = function () {
+        this._focused = false;
     };
     InputDirective.prototype.setDisabled = function (disabled) {
         this._disabled = disabled;
     };
-    InputDirective.prototype.notifyFormControlLabelClick = function (event) {
-        this.elRef.nativeElement.focus();
+    InputDirective.prototype.onLabelClick = function (event) {
+        this.elementRef.nativeElement.focus();
+    };
+    Object.defineProperty(InputDirective.prototype, "value", {
+        get: function () {
+            return this.elementRef.nativeElement.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    InputDirective.prototype.ngOnDestroy = function () {
+        this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    };
+    InputDirective.prototype.getError = function (error) {
+        return this.hasError && this.ngControl.getError(error);
     };
     var InputDirective_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], InputDirective.prototype, "id", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], InputDirective.prototype, "errorStateAgent", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
@@ -6876,6 +7159,11 @@ var InputDirective = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], InputDirective.prototype, "isDisabled", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], InputDirective.prototype, "hasError", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.disabled'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
@@ -6886,18 +7174,30 @@ var InputDirective = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], InputDirective.prototype, "onFocus", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], InputDirective.prototype, "onBlur", null);
     InputDirective = InputDirective_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'input[vclInput]',
             exportAs: 'vclInput',
             providers: [
                 {
-                    provide: _form_control_label__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_LABEL_MEMBER_TOKEN"],
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_INPUT"],
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return InputDirective_1; })
                 },
             ],
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group_interfaces__WEBPACK_IMPORTED_MODULE_5__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControl"], Object, Function])
     ], InputDirective);
     return InputDirective;
 }());
@@ -6919,7 +7219,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _label_directive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./label.directive */ "./lib/ng-vcl/src/label/label.directive.ts");
+/* harmony import */ var _label_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./label.component */ "./lib/ng-vcl/src/label/label.component.ts");
 
 
 
@@ -6930,8 +7230,8 @@ var VCLLabelModule = /** @class */ (function () {
     VCLLabelModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]],
-            exports: [_label_directive__WEBPACK_IMPORTED_MODULE_3__["LabelDirective"]],
-            declarations: [_label_directive__WEBPACK_IMPORTED_MODULE_3__["LabelDirective"]],
+            exports: [_label_component__WEBPACK_IMPORTED_MODULE_3__["LabelComponent"]],
+            declarations: [_label_component__WEBPACK_IMPORTED_MODULE_3__["LabelComponent"]],
             providers: [],
         })
     ], VCLLabelModule);
@@ -6942,53 +7242,53 @@ var VCLLabelModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/label/label.directive.ts":
+/***/ "./lib/ng-vcl/src/label/label.component.ts":
 /*!*************************************************!*\
-  !*** ./lib/ng-vcl/src/label/label.directive.ts ***!
+  !*** ./lib/ng-vcl/src/label/label.component.ts ***!
   \*************************************************/
-/*! exports provided: LabelDirective */
+/*! exports provided: LabelComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LabelDirective", function() { return LabelDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LabelComponent", function() { return LabelComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
-var LabelDirective = /** @class */ (function () {
-    function LabelDirective() {
+var LabelComponent = /** @class */ (function () {
+    function LabelComponent() {
         this.classVCLLabel = true;
     }
-    Object.defineProperty(LabelDirective.prototype, "vclPrimary", {
+    Object.defineProperty(LabelComponent.prototype, "vclPrimary", {
         get: function () {
             return this.type === 'primary';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(LabelDirective.prototype, "vclSuccess", {
+    Object.defineProperty(LabelComponent.prototype, "vclSuccess", {
         get: function () {
             return this.type === 'success';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(LabelDirective.prototype, "vclInfo", {
+    Object.defineProperty(LabelComponent.prototype, "vclInfo", {
         get: function () {
             return this.type === 'info';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(LabelDirective.prototype, "vclWarning", {
+    Object.defineProperty(LabelComponent.prototype, "vclWarning", {
         get: function () {
             return this.type === 'warning';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(LabelDirective.prototype, "vclError", {
+    Object.defineProperty(LabelComponent.prototype, "vclError", {
         get: function () {
             return this.type === 'error';
         },
@@ -6998,147 +7298,45 @@ var LabelDirective = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclLabel'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LabelDirective.prototype, "classVCLLabel", void 0);
+    ], LabelComponent.prototype, "classVCLLabel", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], LabelDirective.prototype, "type", void 0);
+    ], LabelComponent.prototype, "type", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclPrimary'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LabelDirective.prototype, "vclPrimary", null);
+    ], LabelComponent.prototype, "vclPrimary", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSuccess'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LabelDirective.prototype, "vclSuccess", null);
+    ], LabelComponent.prototype, "vclSuccess", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInfo'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LabelDirective.prototype, "vclInfo", null);
+    ], LabelComponent.prototype, "vclInfo", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclWarning'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LabelDirective.prototype, "vclWarning", null);
+    ], LabelComponent.prototype, "vclWarning", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LabelDirective.prototype, "vclError", null);
-    LabelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'vcl-label'
+    ], LabelComponent.prototype, "vclError", null);
+    LabelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-label',
+            template: '<ng-content></ng-content>',
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         })
-    ], LabelDirective);
-    return LabelDirective;
+    ], LabelComponent);
+    return LabelComponent;
 }());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/layer/component-layer-ref.ts":
-/*!*****************************************************!*\
-  !*** ./lib/ng-vcl/src/layer/component-layer-ref.ts ***!
-  \*****************************************************/
-/*! exports provided: ComponentLayerRef */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentLayerRef", function() { return ComponentLayerRef; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
-/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
-/* harmony import */ var _layer_ref__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./layer-ref */ "./lib/ng-vcl/src/layer/layer-ref.ts");
-
-
-
-
-
-
-
-var ComponentLayerRef = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ComponentLayerRef, _super);
-    function ComponentLayerRef(componentType, zone, injector, opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = _super.call(this) || this;
-        _this.componentType = componentType;
-        _this.zone = zone;
-        _this.injector = injector;
-        _this.opts = opts;
-        _this._afterClose = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
-        _this.afterClose = _this._afterClose.asObservable();
-        _this.overlay = injector.get(_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["Overlay"]);
-        return _this;
-    }
-    Object.defineProperty(ComponentLayerRef.prototype, "data", {
-        get: function () {
-            return this._data;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ComponentLayerRef.prototype, "componentRef", {
-        get: function () {
-            return this.attachmentRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ComponentLayerRef.prototype.open = function (data, opts) {
-        if (this.isAttached) {
-            this.close();
-        }
-        // Merge defaults
-        opts = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, this.opts, opts);
-        this._data = data;
-        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["OverlayConfig"]({
-            scrollStrategy: this.overlay.scrollStrategies.block(),
-            hasBackdrop: true,
-            backdropClass: 'vclLayerCover',
-            panelClass: ['vclLayerBox', 'vclLayerBoxFix'],
-            positionStrategy: opts.position || this.opts.position || this.overlay.position()
-                .global()
-                .centerHorizontally()
-                .centerVertically(),
-        });
-        return this.attach(config);
-    };
-    ComponentLayerRef.prototype.close = function (result) {
-        return _super.prototype.detach.call(this, result);
-    };
-    ComponentLayerRef.prototype.getInjector = function () {
-        return this.injector;
-    };
-    ComponentLayerRef.prototype.createPortal = function () {
-        var injectionTokens = new WeakMap();
-        injectionTokens.set(ComponentLayerRef, this);
-        var portalInjector = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["PortalInjector"](this.injector, injectionTokens);
-        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["ComponentPortal"](this.componentType, this.opts.viewContainerRef, portalInjector);
-    };
-    ComponentLayerRef.prototype.afterAttached = function (overlayRef) {
-        var _this = this;
-        this.layerOpenedSub = this.zone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function () {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["merge"])(_this.opts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"] : overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
-                return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["ESCAPE"];
-            })), _this.opts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"] : overlayRef.backdropClick());
-        })).subscribe(function (result) {
-            _super.prototype.detach.call(_this);
-        });
-    };
-    ComponentLayerRef.prototype.afterDetached = function (result, overlayRef) {
-        this.layerOpenedSub && this.layerOpenedSub.unsubscribe();
-        this._afterClose.next(result);
-    };
-    return ComponentLayerRef;
-}(_layer_ref__WEBPACK_IMPORTED_MODULE_6__["LayerRef"]));
 
 
 
@@ -7148,7 +7346,7 @@ var ComponentLayerRef = /** @class */ (function (_super) {
 /*!***************************************!*\
   !*** ./lib/ng-vcl/src/layer/index.ts ***!
   \***************************************/
-/*! exports provided: LayerRefComponent, ComponentLayerRef, LayerFactory, LayerRef, VCLLayerModule */
+/*! exports provided: LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7160,18 +7358,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
 /* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/bidi */ "./node_modules/@angular/cdk/esm5/bidi.es5.js");
 /* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
-/* harmony import */ var _layer_ref__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./layer-ref */ "./lib/ng-vcl/src/layer/layer-ref.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRef", function() { return _layer_ref__WEBPACK_IMPORTED_MODULE_6__["LayerRef"]; });
+/* harmony import */ var _layer_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./layer.component */ "./lib/ng-vcl/src/layer/layer.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerComponent", function() { return _layer_component__WEBPACK_IMPORTED_MODULE_6__["LayerComponent"]; });
 
-/* harmony import */ var _layer_ref_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layer-ref.component */ "./lib/ng-vcl/src/layer/layer-ref.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRefComponent", function() { return _layer_ref_component__WEBPACK_IMPORTED_MODULE_7__["LayerRefComponent"]; });
+/* harmony import */ var _layer_base__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layer-base */ "./lib/ng-vcl/src/layer/layer-base.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerBase", function() { return _layer_base__WEBPACK_IMPORTED_MODULE_7__["LayerBase"]; });
 
-/* harmony import */ var _component_layer_ref__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./component-layer-ref */ "./lib/ng-vcl/src/layer/component-layer-ref.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentLayerRef", function() { return _component_layer_ref__WEBPACK_IMPORTED_MODULE_8__["ComponentLayerRef"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LAYER_TOKEN", function() { return _layer_base__WEBPACK_IMPORTED_MODULE_7__["LAYER_TOKEN"]; });
 
-/* harmony import */ var _layer_factory_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./layer-factory.service */ "./lib/ng-vcl/src/layer/layer-factory.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return _layer_factory_service__WEBPACK_IMPORTED_MODULE_9__["LayerFactory"]; });
-
+/* harmony import */ var _layer_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layer.service */ "./lib/ng-vcl/src/layer/layer.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerService", function() { return _layer_service__WEBPACK_IMPORTED_MODULE_8__["LayerService"]; });
 
 
 
@@ -7189,9 +7385,9 @@ var VCLLayerModule = /** @class */ (function () {
     VCLLayerModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["OverlayModule"], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__["BidiModule"], _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["PortalModule"]],
-            exports: [_layer_ref_component__WEBPACK_IMPORTED_MODULE_7__["LayerRefComponent"]],
-            declarations: [_layer_ref_component__WEBPACK_IMPORTED_MODULE_7__["LayerRefComponent"]],
-            providers: [_layer_factory_service__WEBPACK_IMPORTED_MODULE_9__["LayerFactory"]],
+            exports: [_layer_component__WEBPACK_IMPORTED_MODULE_6__["LayerComponent"]],
+            declarations: [_layer_component__WEBPACK_IMPORTED_MODULE_6__["LayerComponent"]],
+            providers: [_layer_service__WEBPACK_IMPORTED_MODULE_8__["LayerService"]],
         })
     ], VCLLayerModule);
     return VCLLayerModule;
@@ -7201,74 +7397,25 @@ var VCLLayerModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/layer/layer-factory.service.ts":
-/*!*******************************************************!*\
-  !*** ./lib/ng-vcl/src/layer/layer-factory.service.ts ***!
-  \*******************************************************/
-/*! exports provided: LayerFactory */
+/***/ "./lib/ng-vcl/src/layer/layer-base.ts":
+/*!********************************************!*\
+  !*** ./lib/ng-vcl/src/layer/layer-base.ts ***!
+  \********************************************/
+/*! exports provided: LAYER_TOKEN, LayerBase */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return LayerFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LAYER_TOKEN", function() { return LAYER_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerBase", function() { return LayerBase; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _component_layer_ref__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component-layer-ref */ "./lib/ng-vcl/src/layer/component-layer-ref.ts");
-
-
-
-var LayerFactory = /** @class */ (function () {
-    function LayerFactory(injector, zone) {
-        this.injector = injector;
-        this.zone = zone;
-    }
-    LayerFactory.prototype.create = function (component, opts) {
-        if (opts === void 0) { opts = {}; }
-        var cls = opts.useClass || _component_layer_ref__WEBPACK_IMPORTED_MODULE_2__["ComponentLayerRef"];
-        return new cls(component, this.zone, this.injector, opts);
-    };
-    LayerFactory = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]])
-    ], LayerFactory);
-    return LayerFactory;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/layer/layer-ref.component.html":
-/*!*******************************************************!*\
-  !*** ./lib/ng-vcl/src/layer/layer-ref.component.html ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<ng-template>\n  <div class=\"vclLayerBox\">\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/layer/layer-ref.component.ts":
-/*!*****************************************************!*\
-  !*** ./lib/ng-vcl/src/layer/layer-ref.component.ts ***!
-  \*****************************************************/
-/*! exports provided: LayerRefComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerRefComponent", function() { return LayerRefComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
 /* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
-/* harmony import */ var _layer_ref__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layer-ref */ "./lib/ng-vcl/src/layer/layer-ref.ts");
+/* harmony import */ var _overlay__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../overlay */ "./lib/ng-vcl/src/overlay/index.ts");
 
 
 
@@ -7277,26 +7424,163 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var LayerRefComponent = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](LayerRefComponent, _super);
-    function LayerRefComponent(viewContainerRef, overlay, injector, zone) {
-        var _this = _super.call(this) || this;
-        _this.viewContainerRef = viewContainerRef;
-        _this.overlay = overlay;
+var LAYER_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('vcl-layer');
+var LayerBase = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](LayerBase, _super);
+    function LayerBase(injector, opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = _super.call(this, injector) || this;
         _this.injector = injector;
-        _this.zone = zone;
-        _this.modal = false;
-        _this.afterClose = new _angular_core__WEBPACK_IMPORTED_MODULE_3__["EventEmitter"]();
+        _this._afterClose = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        _this.afterClose = _this._afterClose.asObservable();
+        _this._zone = injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]);
+        _this._overlay = injector.get(_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["Overlay"]);
+        _this._defaultOpts = opts;
         return _this;
     }
-    Object.defineProperty(LayerRefComponent.prototype, "visible", {
+    Object.defineProperty(LayerBase.prototype, "visible", {
         get: function () {
             return this.isAttached;
         },
         enumerable: true,
         configurable: true
     });
-    LayerRefComponent.prototype.toggle = function () {
+    Object.defineProperty(LayerBase.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    LayerBase.prototype.open = function (data, opts) {
+        if (opts === void 0) { opts = {}; }
+        if (this.isAttached) {
+            this.close();
+        }
+        // Merge defaults
+        this._currentOpts = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, this._defaultOpts, opts);
+        this._data = data;
+        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["OverlayConfig"]({
+            scrollStrategy: this._overlay.scrollStrategies.block(),
+            hasBackdrop: true,
+            backdropClass: 'vclLayerCover',
+            panelClass: ['vclLayerBox', 'vclLayerBoxFix'],
+            positionStrategy: opts.position || this._currentOpts.position || this._overlay.position()
+                .global()
+                .centerHorizontally()
+                .centerVertically(),
+        });
+        this.attach(config);
+        return this.afterClose.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1));
+    };
+    LayerBase.prototype.close = function (result) {
+        return _super.prototype.detach.call(this, result);
+    };
+    LayerBase.prototype.getInjector = function () {
+        return this.injector;
+    };
+    LayerBase.prototype.createInjector = function () {
+        var injectionTokens = new WeakMap();
+        injectionTokens.set(LAYER_TOKEN, this);
+        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_2__["PortalInjector"](this.injector, injectionTokens);
+    };
+    LayerBase.prototype.afterAttached = function () {
+        var _this = this;
+        this._layerOpenedSub = this._zone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(function () {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["merge"])(_this._currentOpts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_5__["NEVER"] : _this.overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["filter"])(function (event) {
+                return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__["ESCAPE"];
+            })), _this._currentOpts.modal ? rxjs__WEBPACK_IMPORTED_MODULE_5__["NEVER"] : _this.overlayRef.backdropClick());
+        })).subscribe(function () {
+            _super.prototype.detach.call(_this);
+        });
+    };
+    LayerBase.prototype.afterDetached = function (result) {
+        this._layerOpenedSub && this._layerOpenedSub.unsubscribe();
+        this._afterClose.next(result);
+    };
+    return LayerBase;
+}(_overlay__WEBPACK_IMPORTED_MODULE_7__["ComponentOverlay"]));
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/layer/layer.component.html":
+/*!***************************************************!*\
+  !*** ./lib/ng-vcl/src/layer/layer.component.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-template>\n  <ng-content></ng-content>\n</ng-template>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/layer/layer.component.ts":
+/*!*************************************************!*\
+  !*** ./lib/ng-vcl/src/layer/layer.component.ts ***!
+  \*************************************************/
+/*! exports provided: LayerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerComponent", function() { return LayerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var _overlay__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../overlay */ "./lib/ng-vcl/src/overlay/index.ts");
+
+
+
+
+
+
+
+var LayerComponent = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](LayerComponent, _super);
+    function LayerComponent(viewContainerRef, zone, overlay, injector) {
+        var _this = _super.call(this, injector) || this;
+        _this.viewContainerRef = viewContainerRef;
+        _this.zone = zone;
+        _this.overlay = overlay;
+        _this.modal = false;
+        _this.afterClose = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
+        _this.visibleChange = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["EventEmitter"]();
+        return _this;
+    }
+    Object.defineProperty(LayerComponent.prototype, "visible", {
+        get: function () {
+            return this.isAttached;
+        },
+        set: function (visible) {
+            if (visible) {
+                this.open();
+            }
+            else {
+                this.close();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LayerComponent.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    LayerComponent.prototype.getViewContainerRef = function () {
+        return this.viewContainerRef;
+    };
+    LayerComponent.prototype.getTemplateRef = function () {
+        return this.template;
+    };
+    LayerComponent.prototype.toggle = function () {
         if (this.visible) {
             this.close();
         }
@@ -7304,160 +7588,135 @@ var LayerRefComponent = /** @class */ (function (_super) {
             this.open();
         }
     };
-    LayerRefComponent.prototype.open = function () {
+    LayerComponent.prototype.open = function (data, opts) {
+        if (opts === void 0) { opts = {}; }
+        this._data = data;
         var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_1__["OverlayConfig"]({
             scrollStrategy: this.overlay.scrollStrategies.block(),
             hasBackdrop: true,
             backdropClass: 'vclLayerCover',
-            // panelClass: 'vclLayerBox',
-            positionStrategy: this.position ||
+            panelClass: ['vclLayerBox', 'vclLayerBoxFix'],
+            positionStrategy: opts.position || this.position ||
                 this.overlay.position()
                     .global()
                     .centerHorizontally()
                     .centerVertically(),
         });
-        return _super.prototype.attach.call(this, config);
+        this.attach(config);
+        return this.afterClose.asObservable();
     };
-    LayerRefComponent.prototype.close = function (result) {
-        return _super.prototype.detach.call(this, result);
+    LayerComponent.prototype.close = function (result) {
+        return this.detach(result);
     };
-    LayerRefComponent.prototype.getInjector = function () {
-        return this.injector;
-    };
-    LayerRefComponent.prototype.createPortal = function () {
-        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_2__["TemplatePortal"](this.template, this.viewContainerRef);
-    };
-    LayerRefComponent.prototype.afterDetached = function (result, overlayRef) {
+    LayerComponent.prototype.afterDetached = function (result) {
+        _super.prototype.afterDetached.call(this, result);
         this.layerOpenedSub && this.layerOpenedSub.unsubscribe();
         this.afterClose.emit(result);
+        this.visibleChange.emit(this.visible);
     };
-    LayerRefComponent.prototype.afterAttached = function (overlayRef) {
+    LayerComponent.prototype.afterAttached = function () {
         var _this = this;
-        this.layerOpenedSub = this.zone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function () {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["merge"])(_this.modal ? rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"] : overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["filter"])(function (event) {
-                return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__["ESCAPE"];
-            })), _this.modal ? rxjs__WEBPACK_IMPORTED_MODULE_4__["NEVER"] : overlayRef.backdropClick());
+        this.layerOpenedSub = this.zone.onStable.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(function () {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"])(_this.modal ? rxjs__WEBPACK_IMPORTED_MODULE_3__["NEVER"] : _this.overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["filter"])(function (event) {
+                return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["ESCAPE"];
+            })), _this.modal ? rxjs__WEBPACK_IMPORTED_MODULE_3__["NEVER"] : _this.overlayRef.backdropClick());
         })).subscribe(function (result) {
             _this.close();
         });
     };
-    LayerRefComponent.prototype.ngOnDestroy = function () {
+    LayerComponent.prototype.ngOnDestroy = function () {
         this.destroy();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LayerRefComponent.prototype, "position", void 0);
+    ], LayerComponent.prototype, "position", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LayerRefComponent.prototype, "modal", void 0);
+    ], LayerComponent.prototype, "modal", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Output"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
+    ], LayerComponent.prototype, "visible", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LayerRefComponent.prototype, "afterClose", void 0);
+    ], LayerComponent.prototype, "afterClose", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_3__["TemplateRef"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_3__["TemplateRef"])
-    ], LayerRefComponent.prototype, "template", void 0);
-    LayerRefComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], LayerComponent.prototype, "visibleChange", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"])
+    ], LayerComponent.prototype, "template", void 0);
+    LayerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'vcl-layer',
-            template: __webpack_require__(/*! ./layer-ref.component.html */ "./lib/ng-vcl/src/layer/layer-ref.component.html"),
+            template: __webpack_require__(/*! ./layer.component.html */ "./lib/ng-vcl/src/layer/layer.component.html"),
             exportAs: 'vclLayer',
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewContainerRef"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"],
             _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_1__["Overlay"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_3__["Injector"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_3__["NgZone"]])
-    ], LayerRefComponent);
-    return LayerRefComponent;
-}(_layer_ref__WEBPACK_IMPORTED_MODULE_7__["LayerRef"]));
+            _angular_core__WEBPACK_IMPORTED_MODULE_2__["Injector"]])
+    ], LayerComponent);
+    return LayerComponent;
+}(_overlay__WEBPACK_IMPORTED_MODULE_6__["TemplateOverlay"]));
 
 
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/layer/layer-ref.ts":
-/*!*******************************************!*\
-  !*** ./lib/ng-vcl/src/layer/layer-ref.ts ***!
-  \*******************************************/
-/*! exports provided: LayerRef */
+/***/ "./lib/ng-vcl/src/layer/layer.service.ts":
+/*!***********************************************!*\
+  !*** ./lib/ng-vcl/src/layer/layer.service.ts ***!
+  \***********************************************/
+/*! exports provided: LayerService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerRef", function() { return LayerRef; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayerService", function() { return LayerService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _layer_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layer-base */ "./lib/ng-vcl/src/layer/layer-base.ts");
 
 
 
-var LayerRef = /** @class */ (function () {
-    function LayerRef() {
-        this._detachEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this.isLayerDestroyed = false;
+var LayerService = /** @class */ (function () {
+    function LayerService(injector) {
+        this.injector = injector;
     }
-    Object.defineProperty(LayerRef.prototype, "isAttached", {
-        get: function () {
-            return this.overlayRef && this.overlayRef.hasAttached();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    LayerRef.prototype.attach = function (config) {
-        var _this = this;
-        if (!this.overlayRef) {
-            var injector = this.getInjector();
-            var overlay = injector.get(_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["Overlay"]);
-            this.overlayRef = overlay.create(config);
-            this.portal = this.createPortal();
-            this.isLayerDestroyed = false;
-        }
-        if (!this.isAttached) {
-            this.attachmentRef = this.overlayRef.attach(this.portal);
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["merge"])(this.overlayRef ? this.overlayRef.detachments().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function () { return _this.isAttached; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return undefined; })) : Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(undefined), this._detachEmitter.asObservable()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1)).subscribe(function (result) {
-                _this.overlayRef.detach();
-                // this._closingSub.unsubscribe();
-                _this.afterDetached(result, _this.overlayRef);
-            });
-            this.afterAttached(this.overlayRef);
-        }
+    LayerService.prototype.create = function (component, opts) {
+        if (opts === void 0) { opts = {}; }
+        var TransientComponentLayer = /** @class */ (function (_super) {
+            tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](TransientComponentLayer, _super);
+            function TransientComponentLayer() {
+                return _super !== null && _super.apply(this, arguments) || this;
+            }
+            TransientComponentLayer.prototype.getComponent = function () {
+                return component;
+            };
+            return TransientComponentLayer;
+        }(_layer_base__WEBPACK_IMPORTED_MODULE_2__["LayerBase"]));
+        return new TransientComponentLayer(this.injector, opts);
     };
-    LayerRef.prototype.detach = function (result) {
-        if (!this.isAttached) {
-            return;
-        }
-        this._detachEmitter.next(result);
+    LayerService.prototype.open = function (component, data, opts) {
+        if (opts === void 0) { opts = {}; }
+        var layer = this.create(component, opts);
+        layer.open(data, opts);
+        return layer;
     };
-    LayerRef.prototype.updatePosition = function () {
-        this.overlayRef.updatePosition();
-    };
-    LayerRef.prototype.destroy = function () {
-        this.isLayerDestroyed = true;
-        if (this.overlayRef) {
-            this.detach();
-            this.overlayRef.dispose();
-            this.overlayRef = undefined;
-            this.attachmentRef = undefined;
-        }
-    };
-    LayerRef.prototype.createLayerOffClickStream = function (document, exclude) {
-        var _this = this;
-        if (!document) {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(undefined);
-        }
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["merge"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["fromEvent"])(document, 'click'), Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["fromEvent"])(document, 'touchend'))
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (event) {
-            var clickTarget = event.target;
-            var isOffClick = _this.isAttached &&
-                exclude.every(function (element) { return clickTarget !== element; }) &&
-                (!!_this.overlayRef && !_this.overlayRef.overlayElement.contains(clickTarget));
-            return isOffClick;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return undefined; }));
-    };
-    return LayerRef;
+    LayerService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
+    ], LayerService);
+    return LayerService;
 }());
 
 
@@ -7485,7 +7744,10 @@ var ALIAS_MAP = {
     'info': 'mdi mdi-information',
     'success': 'mdi mdi-check',
     'warning': 'mdi mdi-alert',
-    'error': 'mdi mdi-alert-circle'
+    'error': 'mdi mdi-alert-circle',
+    'arrow-left': 'mdi mdi-arrow-left',
+    'arrow-right': 'mdi mdi-arrow-right',
+    'upload': 'mdi mdi-upload'
 };
 
 
@@ -7593,353 +7855,6 @@ var VCLMaterialDesignModule = /** @class */ (function () {
         })
     ], VCLMaterialDesignModule);
     return VCLMaterialDesignModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/metalist/index.ts":
-/*!******************************************!*\
-  !*** ./lib/ng-vcl/src/metalist/index.ts ***!
-  \******************************************/
-/*! exports provided: MetalistItemComponent, MetalistComponent, VCLMetalistModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLMetalistModule", function() { return VCLMetalistModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
-/* harmony import */ var _metalist_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./metalist.component */ "./lib/ng-vcl/src/metalist/metalist.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistItemComponent", function() { return _metalist_component__WEBPACK_IMPORTED_MODULE_4__["MetalistItemComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistComponent", function() { return _metalist_component__WEBPACK_IMPORTED_MODULE_4__["MetalistComponent"]; });
-
-
-
-
-
-
-
-var VCLMetalistModule = /** @class */ (function () {
-    function VCLMetalistModule() {
-    }
-    VCLMetalistModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _wormhole_index__WEBPACK_IMPORTED_MODULE_3__["VCLWormholeModule"]],
-            exports: [_metalist_component__WEBPACK_IMPORTED_MODULE_4__["MetalistComponent"], _metalist_component__WEBPACK_IMPORTED_MODULE_4__["MetalistItemComponent"]],
-            declarations: [_metalist_component__WEBPACK_IMPORTED_MODULE_4__["MetalistComponent"], _metalist_component__WEBPACK_IMPORTED_MODULE_4__["MetalistItemComponent"]],
-            providers: [],
-        })
-    ], VCLMetalistModule);
-    return VCLMetalistModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/metalist/metalist.component.html":
-/*!*********************************************************!*\
-  !*** ./lib/ng-vcl/src/metalist/metalist.component.html ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<ng-content></ng-content>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/metalist/metalist.component.ts":
-/*!*******************************************************!*\
-  !*** ./lib/ng-vcl/src/metalist/metalist.component.ts ***!
-  \*******************************************************/
-/*! exports provided: MetalistItemComponent, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, MetalistComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MetalistItemComponent", function() { return MetalistItemComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MetalistComponent", function() { return MetalistComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-
-
-
-var MetalistItemComponent = /** @class */ (function () {
-    function MetalistItemComponent(metalist) {
-        this.metalist = metalist;
-        this.disabled = false;
-    }
-    Object.defineProperty(MetalistItemComponent.prototype, "marked", {
-        get: function () {
-            return this.metalist.isMarked(this);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MetalistItemComponent.prototype, "selected", {
-        get: function () {
-            return this.metalist.isSelected(this);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MetalistItemComponent.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MetalistItemComponent.prototype, "metadata", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MetalistItemComponent.prototype, "disabled", void 0);
-    MetalistItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: '[vcl-metalist-item]',
-            template: '<ng-content></ng-content>',
-            exportAs: 'meta'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return MetalistComponent; }))),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], MetalistItemComponent);
-    return MetalistItemComponent;
-}());
-
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return MetalistComponent; }),
-    multi: true
-};
-var MetalistComponent = /** @class */ (function () {
-    function MetalistComponent(cdRef) {
-        this.cdRef = cdRef;
-        // If `single`, a single item can be selected
-        // If `multiple` multiple items can be selected
-        this.mode = 'single';
-        this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.itemsChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        /**
-         * things needed for ControlValueAccessor-Interface
-         */
-        this.onChange = function () { };
-    }
-    Object.defineProperty(MetalistComponent.prototype, "itemsArray", {
-        get: function () {
-            return this.items ? this.items.toArray() : [];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MetalistComponent.prototype.isMarked = function (item) {
-        return this.markedItem === item;
-    };
-    MetalistComponent.prototype.isSelected = function (item) {
-        var value = this.value;
-        if (this.mode === 'multiple' && Array.isArray(value)) {
-            return value.includes(item.value);
-        }
-        else {
-            return item.value === value;
-        }
-    };
-    Object.defineProperty(MetalistComponent.prototype, "selectedItem", {
-        get: function () {
-            return this.selectedItems[0] || undefined;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MetalistComponent.prototype, "selectedItems", {
-        get: function () {
-            return this.itemsArray.filter(function (i) { return i.selected; });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MetalistComponent.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this.itemsSub = this.items && this.items.changes.subscribe(function () {
-            _this.itemsChange.emit();
-        });
-    };
-    MetalistComponent.prototype.ngOnDestroy = function () {
-        this.itemsSub && this.itemsSub.unsubscribe();
-    };
-    MetalistComponent.prototype.triggerChange = function () {
-        this.itemsChange.emit();
-        this.change.emit(this.value);
-        this.onChange(this.value);
-    };
-    MetalistComponent.prototype.select = function (item) {
-        if (item === undefined) {
-            return this.selectMarked();
-        }
-        if (typeof item === 'number') {
-            item = this.itemsArray[item];
-        }
-        if (item instanceof MetalistItemComponent) {
-            if (item.disabled) {
-                return;
-            }
-            if (this.mode === 'multiple') {
-                var selectedItems = this.itemsArray.filter(function (i) { return i.selected; });
-                if (item.selected) {
-                    var value_1 = item.value;
-                    if (!Array.isArray(this.value)) {
-                        this.value = [];
-                    }
-                    this.value = this.value.filter(function (v) { return v !== value_1; });
-                }
-                else {
-                    // prevent overflow
-                    var maxSelectableItems = typeof this.maxSelectableItems === 'number' ? this.maxSelectableItems : Infinity;
-                    if (selectedItems.length < maxSelectableItems) {
-                        if (!Array.isArray(this.value)) {
-                            this.value = [];
-                        }
-                        this.value.push(item.value);
-                    }
-                }
-            }
-            else {
-                this.value = item.value;
-            }
-            this.triggerChange();
-            this.cdRef.markForCheck();
-        }
-    };
-    MetalistComponent.prototype.deselect = function (item) {
-        if (typeof item === 'number') {
-            item = this.itemsArray[item];
-        }
-        if (item instanceof MetalistItemComponent) {
-            var value_2 = item.value;
-            if (this.mode === 'single' && this.value === value_2) {
-                this.value = undefined;
-                this.triggerChange();
-            }
-            else if (this.mode === 'multiple') {
-                if (!Array.isArray(this.value)) {
-                    this.value = [];
-                }
-                this.value = this.value.filter(function (v) { return v !== value_2; });
-                this.triggerChange();
-            }
-            this.cdRef.markForCheck();
-        }
-    };
-    MetalistComponent.prototype.determineMarkedIndex = function () {
-        var idx = this.itemsArray.findIndex(function (item) { return item.marked; });
-        return idx >= 0 ? idx : this.itemsArray.findIndex(function (metaItem) { return metaItem.selected; });
-    };
-    MetalistComponent.prototype.mark = function (item) {
-        if (typeof item === 'number') {
-            item = this.itemsArray[item];
-        }
-        if (item instanceof MetalistItemComponent) {
-            this.markedItem = item;
-            this.itemsChange.emit();
-            this.cdRef.markForCheck();
-        }
-    };
-    MetalistComponent.prototype.markNext = function () {
-        var _this = this;
-        var items = this.itemsArray;
-        var newIdx = this.determineMarkedIndex() + 1;
-        if (newIdx >= (items.length)) {
-            newIdx = items.length - 1;
-        }
-        items.every(function (item, cidx) {
-            var mark = cidx >= newIdx;
-            if (!item.disabled && mark) {
-                _this.markedItem = item;
-                return false;
-            }
-            return true;
-        });
-        this.itemsChange.emit();
-        this.cdRef.markForCheck();
-    };
-    MetalistComponent.prototype.markPrev = function () {
-        var _this = this;
-        var items = this.itemsArray.reverse();
-        var newIdx = this.determineMarkedIndex() - 1;
-        if (newIdx <= 0 && items.length > 0) {
-            newIdx = 0;
-        }
-        newIdx = (items.length - 1) - newIdx;
-        items.every(function (item, cidx) {
-            var mark = cidx >= newIdx;
-            if (!item.disabled && mark) {
-                _this.markedItem = item;
-                return false;
-            }
-            return true;
-        });
-        this.itemsChange.emit();
-        this.cdRef.markForCheck();
-    };
-    MetalistComponent.prototype.selectMarked = function () {
-        if (this.markedItem) {
-            this.select(this.markedItem);
-            this.cdRef.markForCheck();
-        }
-    };
-    MetalistComponent.prototype.setValue = function (value) {
-        this.value = value;
-        this.cdRef.markForCheck();
-    };
-    MetalistComponent.prototype.writeValue = function (value) {
-        this.setValue(value);
-    };
-    MetalistComponent.prototype.registerOnChange = function (fn) {
-        this.onChange = fn;
-    };
-    MetalistComponent.prototype.registerOnTouched = function (fn) {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], MetalistComponent.prototype, "mode", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], MetalistComponent.prototype, "maxSelectableItems", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MetalistComponent.prototype, "change", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MetalistComponent.prototype, "itemsChange", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(MetalistItemComponent),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
-    ], MetalistComponent.prototype, "items", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MetalistComponent.prototype, "value", void 0);
-    MetalistComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-metalist, [vcl-metalist]',
-            template: __webpack_require__(/*! ./metalist.component.html */ "./lib/ng-vcl/src/metalist/metalist.component.html"),
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
-    ], MetalistComponent);
-    return MetalistComponent;
 }());
 
 
@@ -8899,585 +8814,11 @@ var NavigationComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/notification/index.ts":
-/*!**********************************************!*\
-  !*** ./lib/ng-vcl/src/notification/index.ts ***!
-  \**********************************************/
-/*! exports provided: VCLNotificationModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLNotificationModule", function() { return VCLNotificationModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony import */ var _notification_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./notification.component */ "./lib/ng-vcl/src/notification/notification.component.ts");
-/* harmony import */ var _notification_header_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./notification-header.component */ "./lib/ng-vcl/src/notification/notification-header.component.ts");
-/* harmony import */ var _notification_body_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./notification-body.component */ "./lib/ng-vcl/src/notification/notification-body.component.ts");
-/* harmony import */ var _notification_footer_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./notification-footer.component */ "./lib/ng-vcl/src/notification/notification-footer.component.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notification/types.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationTypeFromString", function() { return _types__WEBPACK_IMPORTED_MODULE_8__["notificationTypeFromString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationIconFromType", function() { return _types__WEBPACK_IMPORTED_MODULE_8__["notificationIconFromType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationStyleClassFromType", function() { return _types__WEBPACK_IMPORTED_MODULE_8__["notificationStyleClassFromType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationType", function() { return _types__WEBPACK_IMPORTED_MODULE_8__["NotificationType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FlexAlign", function() { return _types__WEBPACK_IMPORTED_MODULE_8__["FlexAlign"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextAlign", function() { return _types__WEBPACK_IMPORTED_MODULE_8__["TextAlign"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconType", function() { return _types__WEBPACK_IMPORTED_MODULE_8__["IconType"]; });
-
-
-
-
-
-
-
-
-
-
-var VCLNotificationModule = /** @class */ (function () {
-    function VCLNotificationModule() {
-    }
-    VCLNotificationModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _button_index__WEBPACK_IMPORTED_MODULE_3__["VCLButtonModule"]],
-            exports: [_notification_component__WEBPACK_IMPORTED_MODULE_4__["NotificationComponent"], _notification_header_component__WEBPACK_IMPORTED_MODULE_5__["NotificationHeaderComponent"], _notification_body_component__WEBPACK_IMPORTED_MODULE_6__["NotificationBodyComponent"], _notification_footer_component__WEBPACK_IMPORTED_MODULE_7__["NotificationFooterComponent"]],
-            declarations: [_notification_component__WEBPACK_IMPORTED_MODULE_4__["NotificationComponent"], _notification_header_component__WEBPACK_IMPORTED_MODULE_5__["NotificationHeaderComponent"], _notification_body_component__WEBPACK_IMPORTED_MODULE_6__["NotificationBodyComponent"], _notification_footer_component__WEBPACK_IMPORTED_MODULE_7__["NotificationFooterComponent"]]
-        })
-    ], VCLNotificationModule);
-    return VCLNotificationModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/notification/notification-body.component.ts":
-/*!********************************************************************!*\
-  !*** ./lib/ng-vcl/src/notification/notification-body.component.ts ***!
-  \********************************************************************/
-/*! exports provided: NotificationBodyComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationBodyComponent", function() { return NotificationBodyComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notification/types.ts");
-
-
-
-var NotificationBodyComponent = /** @class */ (function () {
-    function NotificationBodyComponent() {
-        this.align = 'center';
-    }
-    Object.defineProperty(NotificationBodyComponent.prototype, "alignItems", {
-        get: function () {
-            return _types__WEBPACK_IMPORTED_MODULE_2__["FlexAlign"][this.align];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationBodyComponent.prototype, "align", void 0);
-    NotificationBodyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-notification-body',
-            template: '<ng-content></ng-content>',
-        })
-    ], NotificationBodyComponent);
-    return NotificationBodyComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/notification/notification-footer.component.ts":
-/*!**********************************************************************!*\
-  !*** ./lib/ng-vcl/src/notification/notification-footer.component.ts ***!
-  \**********************************************************************/
-/*! exports provided: NotificationFooterComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationFooterComponent", function() { return NotificationFooterComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notification/types.ts");
-
-
-
-var NotificationFooterComponent = /** @class */ (function () {
-    function NotificationFooterComponent() {
-        this.align = 'left';
-    }
-    Object.defineProperty(NotificationFooterComponent.prototype, "alignItems", {
-        get: function () {
-            return _types__WEBPACK_IMPORTED_MODULE_2__["FlexAlign"][this.align];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationFooterComponent.prototype, "align", void 0);
-    NotificationFooterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-notification-footer',
-            template: '<ng-content></ng-content>',
-        })
-    ], NotificationFooterComponent);
-    return NotificationFooterComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/notification/notification-header.component.ts":
-/*!**********************************************************************!*\
-  !*** ./lib/ng-vcl/src/notification/notification-header.component.ts ***!
-  \**********************************************************************/
-/*! exports provided: NotificationHeaderComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationHeaderComponent", function() { return NotificationHeaderComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notification/types.ts");
-
-
-
-var NotificationHeaderComponent = /** @class */ (function () {
-    function NotificationHeaderComponent() {
-        this.align = 'left';
-    }
-    Object.defineProperty(NotificationHeaderComponent.prototype, "alignItems", {
-        get: function () {
-            return _types__WEBPACK_IMPORTED_MODULE_2__["FlexAlign"][this.align];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationHeaderComponent.prototype, "align", void 0);
-    NotificationHeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-notification-header',
-            template: '<ng-content></ng-content>',
-        })
-    ], NotificationHeaderComponent);
-    return NotificationHeaderComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/notification/notification.component.html":
-/*!*****************************************************************!*\
-  !*** ./lib/ng-vcl/src/notification/notification.component.html ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div #notification class=\"vclNotification\" [ngClass]=\"notificationStyleClass\" [ngStyle]=\"notificationStyles\">\n\n  <div class=\"vclNotificationHeader vclLayoutHorizontal vclLayoutCenter\" *ngIf=\"header || (nested && headerComponent != null)\" [ngStyle]=\"headerStyle\">\n    <div class=\"vclLayoutFlex\" *ngIf=\"!nested\">{{ header }}</div>\n    <button vcl-icon-button class=\"vclTransparent\" *ngIf=\"(button && showButton) && !nested\" (click)=\"onClick()\" [icon]=\"button\"></button>\n\n    <ng-content *ngIf=\"nested && headerComponent != null\" select=\"vcl-notification-header\"></ng-content>\n  </div>\n\n  <div [ngClass]=\"{'vclLayoutHorizontal': !verticalBody, 'vlcLayoutVertical': verticalBody}\" [ngStyle]=\"bodyStyle\">\n    <div class=\"vclNotificationIconContainer\" *ngIf=\"drawIcon\" [ngStyle]=\"bodyIconStyle\">\n      <span class=\"vclIcon vclNotificationIcon {{ eIconClass }}\" *ngIf=\"iconType == 'fa' || iconType == 'custom'\"></span>\n      <img class=\"vclIcon vclNotificationIcon\" [src]=\"iconImage\" *ngIf=\"iconType == 'image'\">\n    </div>\n\n    <div class=\"vclNotificationContent vclLayoutFlex\">\n      <ng-content *ngIf=\"!nested\"></ng-content>\n\n      <ng-content *ngIf=\"nested && bodyComponent != null\" select=\"vcl-notification-body\"></ng-content>\n    </div>\n\n    <button vcl-icon-button class=\"vclTransparent vclLayoutSelfStart\" *ngIf=\"(button && showButton) && !header\" (click)=\"onClick()\" [icon]=\"button\"></button>\n  </div>\n\n  <div class=\"vclNotificationFooter vclLayoutHorizontal vclLayoutCenter\" [ngStyle]=\"footerStyle\" *ngIf=\"footer || (nested && footerComponent != null)\">\n    <ng-container *ngIf=\"footer && !nested\">{{ footer }}</ng-container>\n    <ng-content *ngIf=\"nested && footerComponent != null\" select=\"vcl-notification-footer\"></ng-content>\n  </div>\n\n</div>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/notification/notification.component.ts":
-/*!***************************************************************!*\
-  !*** ./lib/ng-vcl/src/notification/notification.component.ts ***!
-  \***************************************************************/
-/*! exports provided: NotificationComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationComponent", function() { return NotificationComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notification/types.ts");
-/* harmony import */ var _notification_body_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./notification-body.component */ "./lib/ng-vcl/src/notification/notification-body.component.ts");
-/* harmony import */ var _notification_footer_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./notification-footer.component */ "./lib/ng-vcl/src/notification/notification-footer.component.ts");
-/* harmony import */ var _notification_header_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./notification-header.component */ "./lib/ng-vcl/src/notification/notification-header.component.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-
-
-
-
-
-
-
-var NotificationComponent = /** @class */ (function () {
-    function NotificationComponent() {
-        this.nType = 'default';
-        this.icon = '';
-        this.iconClass = '';
-        this.iconImage = '';
-        this.iconSide = 'left';
-        this.drawIcon = true;
-        this.header = '';
-        this.footer = '';
-        this.button = '';
-        this.showButton = true;
-        this.verticalBody = false;
-        this.styleClass = undefined;
-        this.headerAlign = 'left';
-        this.bodyAlign = 'center';
-        this.footerAlign = 'left';
-        this.textColor = '';
-        this.backgroundColor = '';
-        this.buttonClickEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-    }
-    Object.defineProperty(NotificationComponent.prototype, "buttonClick", {
-        get: function () {
-            return this.buttonClickEvent.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "eType", {
-        get: function () {
-            return Object(_types__WEBPACK_IMPORTED_MODULE_2__["notificationTypeFromString"])(this.nType);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "notificationStyleClass", {
-        get: function () {
-            if (this.styleClass) {
-                return this.styleClass;
-            }
-            return Object(_types__WEBPACK_IMPORTED_MODULE_2__["notificationStyleClassFromType"])(this.eType);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "notificationStyles", {
-        get: function () {
-            return {
-                color: this.textColor,
-                'background-color': this.backgroundColor
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "eIconClass", {
-        get: function () {
-            if (this.icon) {
-                return 'fas ' + this.icon;
-            }
-            else if (this.iconClass) {
-                return this.iconClass;
-            }
-            return 'fas ' + Object(_types__WEBPACK_IMPORTED_MODULE_2__["notificationIconFromType"])(this.eType);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "iconType", {
-        get: function () {
-            if (this.iconImage) {
-                return _types__WEBPACK_IMPORTED_MODULE_2__["IconType"].Image;
-            }
-            else if (this.iconClass) {
-                return _types__WEBPACK_IMPORTED_MODULE_2__["IconType"].Custom;
-            }
-            return _types__WEBPACK_IMPORTED_MODULE_2__["IconType"].FA;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "nested", {
-        get: function () {
-            return this.headerComponent != null || this.bodyComponent != null || this.footerComponent != null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "headerStyle", {
-        get: function () {
-            if (this.nested) {
-                return {
-                    padding: 0,
-                    'flex-flow': 'column',
-                    'align-items': (this.headerComponent != null ? this.headerComponent.alignItems : 'flex-start')
-                };
-            }
-            return {
-                'text-align': _types__WEBPACK_IMPORTED_MODULE_2__["TextAlign"][this.headerAlign]
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "bodyStyle", {
-        get: function () {
-            if (this.nested) {
-                return {
-                    padding: 0,
-                    'flex-flow': 'column',
-                    'flex-direction': 'row',
-                    'align-items': (this.bodyComponent != null ? this.bodyComponent.alignItems : 'flex-start')
-                };
-            }
-            return {
-                'flex-flow': this.verticalBody ? 'column' : '',
-                'align-items': _types__WEBPACK_IMPORTED_MODULE_2__["FlexAlign"][this.bodyAlign],
-                'text-align': this.verticalBody ? _types__WEBPACK_IMPORTED_MODULE_2__["TextAlign"][this.bodyAlign] : ''
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "footerStyle", {
-        get: function () {
-            if (this.nested) {
-                return {
-                    padding: 0,
-                    'flex-flow': 'column',
-                    'align-items': (this.footerComponent != null ? this.footerComponent.alignItems : 'flex-start')
-                };
-            }
-            return {
-                display: 'block',
-                'text-align': _types__WEBPACK_IMPORTED_MODULE_2__["TextAlign"][this.footerAlign],
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NotificationComponent.prototype, "bodyIconStyle", {
-        get: function () {
-            if (this.verticalBody) {
-                return {
-                    padding: '1em',
-                };
-            }
-            if (this.iconSide === 'right') {
-                return {
-                    order: 1,
-                    'padding-right': '1em',
-                    'padding-left': '0.3em'
-                };
-            }
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    NotificationComponent.prototype.onClick = function () {
-        this.buttonClickEvent.emit(null);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationComponent.prototype, "nType", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "icon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "iconClass", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "iconImage", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationComponent.prototype, "iconSide", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "drawIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "header", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "footer", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "button", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "showButton", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "verticalBody", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "styleClass", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationComponent.prototype, "headerAlign", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationComponent.prototype, "bodyAlign", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], NotificationComponent.prototype, "footerAlign", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "textColor", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], NotificationComponent.prototype, "backgroundColor", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_notification_header_component__WEBPACK_IMPORTED_MODULE_5__["NotificationHeaderComponent"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _notification_header_component__WEBPACK_IMPORTED_MODULE_5__["NotificationHeaderComponent"])
-    ], NotificationComponent.prototype, "headerComponent", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_notification_body_component__WEBPACK_IMPORTED_MODULE_3__["NotificationBodyComponent"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _notification_body_component__WEBPACK_IMPORTED_MODULE_3__["NotificationBodyComponent"])
-    ], NotificationComponent.prototype, "bodyComponent", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_notification_footer_component__WEBPACK_IMPORTED_MODULE_4__["NotificationFooterComponent"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _notification_footer_component__WEBPACK_IMPORTED_MODULE_4__["NotificationFooterComponent"])
-    ], NotificationComponent.prototype, "footerComponent", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", rxjs__WEBPACK_IMPORTED_MODULE_6__["Observable"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], NotificationComponent.prototype, "buttonClick", null);
-    NotificationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-notification',
-            template: __webpack_require__(/*! ./notification.component.html */ "./lib/ng-vcl/src/notification/notification.component.html"),
-        })
-    ], NotificationComponent);
-    return NotificationComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/notification/types.ts":
-/*!**********************************************!*\
-  !*** ./lib/ng-vcl/src/notification/types.ts ***!
-  \**********************************************/
-/*! exports provided: notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notificationTypeFromString", function() { return notificationTypeFromString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notificationIconFromType", function() { return notificationIconFromType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notificationStyleClassFromType", function() { return notificationStyleClassFromType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationType", function() { return NotificationType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FlexAlign", function() { return FlexAlign; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TextAlign", function() { return TextAlign; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconType", function() { return IconType; });
-var _a;
-var NotificationType;
-(function (NotificationType) {
-    NotificationType[NotificationType["Default"] = 0] = "Default";
-    NotificationType[NotificationType["Info"] = 1] = "Info";
-    NotificationType[NotificationType["Warning"] = 2] = "Warning";
-    NotificationType[NotificationType["Error"] = 3] = "Error";
-    NotificationType[NotificationType["Success"] = 4] = "Success";
-})(NotificationType || (NotificationType = {}));
-var DATA = (_a = {},
-    _a[NotificationType.Default] = {
-        icon: 'fa-bell-o',
-        class: ''
-    },
-    _a[NotificationType.Info] = {
-        icon: 'fa-info-circle',
-        class: 'vclInfo'
-    },
-    _a[NotificationType.Warning] = {
-        icon: 'fa-warning',
-        class: 'vclWarning'
-    },
-    _a[NotificationType.Error] = {
-        icon: 'fa-exclamation-circle',
-        class: 'vclError'
-    },
-    _a[NotificationType.Success] = {
-        icon: 'fa-check-circle',
-        class: 'vclSuccess'
-    },
-    _a);
-var FlexAlign = {
-    left: 'flex-start',
-    center: 'center',
-    right: 'flex-end'
-};
-var TextAlign = {
-    left: 'left',
-    center: 'center',
-    right: 'right'
-};
-var IconType;
-(function (IconType) {
-    IconType["FA"] = "fa";
-    IconType["Custom"] = "custom";
-    IconType["Image"] = "image";
-})(IconType || (IconType = {}));
-function notificationTypeFromString(type) {
-    switch (type.toLocaleLowerCase()) {
-        default:
-            return NotificationType.Default;
-        case 'info':
-            return NotificationType.Info;
-        case 'warning':
-            return NotificationType.Warning;
-        case 'error':
-            return NotificationType.Error;
-        case 'success':
-            return NotificationType.Success;
-    }
-}
-function notificationIconFromType(type) {
-    return DATA[type].icon;
-}
-function notificationStyleClassFromType(type) {
-    return DATA[type].class;
-}
-
-
-
-/***/ }),
-
 /***/ "./lib/ng-vcl/src/off-click/index.ts":
 /*!*******************************************!*\
   !*** ./lib/ng-vcl/src/off-click/index.ts ***!
   \*******************************************/
-/*! exports provided: VCLOffClickModule */
+/*! exports provided: createOffClickStream, OffClickDirective, VCLOffClickModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9486,6 +8827,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _off_click_directive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./off-click.directive */ "./lib/ng-vcl/src/off-click/off-click.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createOffClickStream", function() { return _off_click_directive__WEBPACK_IMPORTED_MODULE_2__["createOffClickStream"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OffClickDirective", function() { return _off_click_directive__WEBPACK_IMPORTED_MODULE_2__["OffClickDirective"]; });
+
+
 
 
 
@@ -9509,56 +8855,53 @@ var VCLOffClickModule = /** @class */ (function () {
 /*!*********************************************************!*\
   !*** ./lib/ng-vcl/src/off-click/off-click.directive.ts ***!
   \*********************************************************/
-/*! exports provided: OffClickDirective */
+/*! exports provided: OffClickDirective, createOffClickStream */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OffClickDirective", function() { return OffClickDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createOffClickStream", function() { return createOffClickStream; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+
 
 
 
 
 var OffClickDirective = /** @class */ (function () {
-    function OffClickDirective(elem) {
-        this.elem = elem;
-        this.offClickDelay = 10;
+    function OffClickDirective(document, elementRef) {
+        var _this = this;
+        this.document = document;
+        this.elementRef = elementRef;
+        this.changes$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.offClickDelay = 0;
         this.offClickListen = true;
+        this.offClickExcludes = [];
         this.offClick = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.subs = [];
+        this._sub = this.changes$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function () {
+            if (!_this.elementRef || !_this.offClickListen) {
+                return rxjs__WEBPACK_IMPORTED_MODULE_2__["NEVER"];
+            }
+            else {
+                return createOffClickStream([_this.elementRef].concat(_this.offClickExcludes), {
+                    delay: _this.offClickDelay,
+                    document: _this.document
+                });
+            }
+        })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function () { return _this.offClickListen; })).subscribe(this.offClick);
     }
     OffClickDirective.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        if (typeof document !== 'undefined') {
-            // Track mouse move on host element and store hovered inner elements
-            var subTrack = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["merge"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.elem.nativeElement, 'mouseover').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (e) { return e.target || undefined; })), Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.elem.nativeElement, 'mouseleave').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function () { return undefined; }))).subscribe(function (target) { return _this.hoveredElement = target; });
-            // Add a small delay, so any click that causes this directive to render does not trigger an off-click
-            var subClick = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(document, 'click').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function () { return _this.offClickListen; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["skipUntil"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["timer"])(this.offClickDelay).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()))).subscribe(function (ev) {
-                var popoverHostElement = _this.elem.nativeElement;
-                // Check that the target is not the off-clicks target element or any sub element
-                var checks = [
-                    _this.hoveredElement,
-                    popoverHostElement
-                ].concat((_this.offClickExcludes || []).map(function (e) { return e instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] ? e.nativeElement : e; }).filter(function (e) { return e instanceof Element; })).filter(function (el) { return !!el; });
-                var target = ev.target;
-                if (target) {
-                    var targetIsNotExcludedElementOrChildElement = checks.every(function (el) {
-                        return !(el === target || el.contains(target));
-                    });
-                    if (targetIsNotExcludedElementOrChildElement) {
-                        _this.offClick.emit();
-                    }
-                }
-            });
-            this.subs = [subTrack, subClick];
-        }
+        this.changes$.next();
+    };
+    OffClickDirective.prototype.ngOnChanges = function (changes) {
+        this.changes$.next();
     };
     OffClickDirective.prototype.ngOnDestroy = function () {
-        this.subs.forEach(function (sub) { return sub.unsubscribe(); });
+        this._sub && this._sub.unsubscribe();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -9581,11 +8924,253 @@ var OffClickDirective = /** @class */ (function () {
             selector: '[offClick]',
             exportAs: 'offClick'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["DOCUMENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
     ], OffClickDirective);
     return OffClickDirective;
 }());
 
+function createOffClickStream(elements, opts) {
+    if (opts === void 0) { opts = {}; }
+    var doc = opts.document || (typeof document !== 'undefined' ? document : undefined);
+    if (!document) {
+        return rxjs__WEBPACK_IMPORTED_MODULE_2__["NEVER"];
+    }
+    var _elements = elements.map(function (el) { return el instanceof _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] ? el.nativeElement : el; }).filter(function (el) { return el instanceof Element; });
+    return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["merge"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(doc, 'click'), Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(doc, 'touchend'))
+        .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["skipUntil"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["timer"])(opts.delay || 0).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])())), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
+        var clickTarget = event.target;
+        return _elements.every(function (element) { return clickTarget !== element && !element.contains(clickTarget); });
+    }));
+}
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/overlay/component-overlay.ts":
+/*!*****************************************************!*\
+  !*** ./lib/ng-vcl/src/overlay/component-overlay.ts ***!
+  \*****************************************************/
+/*! exports provided: ComponentOverlay */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentOverlay", function() { return ComponentOverlay; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+/* harmony import */ var _overlay_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./overlay-base */ "./lib/ng-vcl/src/overlay/overlay-base.ts");
+
+
+
+var ComponentOverlay = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](ComponentOverlay, _super);
+    function ComponentOverlay() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ComponentOverlay.prototype._createPortal = function () {
+        var portalInjector = this.createInjector();
+        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["ComponentPortal"](this.getComponent(), this.getViewContainerRef(), portalInjector);
+    };
+    ComponentOverlay.prototype.getViewContainerRef = function () {
+        return undefined;
+    };
+    ComponentOverlay.prototype.createInjector = function () {
+        var injectionTokens = new WeakMap();
+        injectionTokens.set(ComponentOverlay, this);
+        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["PortalInjector"](this.injector, injectionTokens);
+    };
+    return ComponentOverlay;
+}(_overlay_base__WEBPACK_IMPORTED_MODULE_2__["OverlayBase"]));
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/overlay/index.ts":
+/*!*****************************************!*\
+  !*** ./lib/ng-vcl/src/overlay/index.ts ***!
+  \*****************************************/
+/*! exports provided: ComponentOverlay, TemplateOverlay, createOffClickStream */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component-overlay */ "./lib/ng-vcl/src/overlay/component-overlay.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentOverlay", function() { return _component_overlay__WEBPACK_IMPORTED_MODULE_0__["ComponentOverlay"]; });
+
+/* harmony import */ var _template_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template-overlay */ "./lib/ng-vcl/src/overlay/template-overlay.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateOverlay", function() { return _template_overlay__WEBPACK_IMPORTED_MODULE_1__["TemplateOverlay"]; });
+
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./lib/ng-vcl/src/overlay/utils.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createOffClickStream", function() { return _utils__WEBPACK_IMPORTED_MODULE_2__["createOffClickStream"]; });
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/overlay/overlay-base.ts":
+/*!************************************************!*\
+  !*** ./lib/ng-vcl/src/overlay/overlay-base.ts ***!
+  \************************************************/
+/*! exports provided: OverlayBase */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OverlayBase", function() { return OverlayBase; });
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+
+
+
+var OverlayBase = /** @class */ (function () {
+    function OverlayBase(injector) {
+        this._detachEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
+        this._isDestroyed = false;
+        this.injector = injector;
+    }
+    OverlayBase.prototype.afterAttached = function () { };
+    OverlayBase.prototype.afterDetached = function (result) { };
+    Object.defineProperty(OverlayBase.prototype, "overlayRef", {
+        get: function () {
+            return this._overlayRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(OverlayBase.prototype, "instanceRef", {
+        get: function () {
+            return this._instanceRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(OverlayBase.prototype, "isDestroyed", {
+        get: function () {
+            return this._isDestroyed;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(OverlayBase.prototype, "isAttached", {
+        get: function () {
+            return this.overlayRef && this.overlayRef.hasAttached();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    OverlayBase.prototype.attach = function (config) {
+        var _this = this;
+        if (!this.overlayRef || !this._portal) {
+            var injector = this.injector;
+            var overlay = injector.get(_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["Overlay"]);
+            this._overlayRef = overlay.create(config);
+            this._isDestroyed = false;
+        }
+        if (!this._portal) {
+            this._portal = this._createPortal();
+        }
+        if (!this.isAttached) {
+            this._instanceRef = this.overlayRef.attach(this._portal);
+            Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["merge"])(this.overlayRef.detachments().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function () { return _this.isAttached; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return ({ action: 'detach' }); })), this._detachEmitter.asObservable()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1)).subscribe(function (result) {
+                _this.overlayRef.detach();
+                _this.afterDetached(result);
+                _this._instanceRef = undefined;
+            });
+            this.afterAttached();
+        }
+        else {
+            this.overlayRef.updatePositionStrategy(config.positionStrategy);
+        }
+    };
+    OverlayBase.prototype.detach = function (result) {
+        if (!this.isAttached) {
+            return;
+        }
+        this._detachEmitter.next(result);
+    };
+    OverlayBase.prototype.updatePosition = function () {
+        this.overlayRef.updatePosition();
+    };
+    OverlayBase.prototype.destroy = function () {
+        this._isDestroyed = true;
+        if (this.overlayRef) {
+            this.detach();
+            this.overlayRef.dispose();
+            this._overlayRef = undefined;
+        }
+    };
+    return OverlayBase;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/overlay/template-overlay.ts":
+/*!****************************************************!*\
+  !*** ./lib/ng-vcl/src/overlay/template-overlay.ts ***!
+  \****************************************************/
+/*! exports provided: TemplateOverlay */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateOverlay", function() { return TemplateOverlay; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+/* harmony import */ var _overlay_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./overlay-base */ "./lib/ng-vcl/src/overlay/overlay-base.ts");
+
+
+
+var TemplateOverlay = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](TemplateOverlay, _super);
+    function TemplateOverlay() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TemplateOverlay.prototype._createPortal = function () {
+        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["TemplatePortal"](this.getTemplateRef(), this.getViewContainerRef());
+    };
+    return TemplateOverlay;
+}(_overlay_base__WEBPACK_IMPORTED_MODULE_2__["OverlayBase"]));
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/overlay/utils.ts":
+/*!*****************************************!*\
+  !*** ./lib/ng-vcl/src/overlay/utils.ts ***!
+  \*****************************************/
+/*! exports provided: createOffClickStream */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createOffClickStream", function() { return createOffClickStream; });
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+function createOffClickStream(overlayRef, document, exclude) {
+    if (!document) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(undefined);
+    }
+    return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["merge"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["fromEvent"])(document, 'click'), Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["fromEvent"])(document, 'touchend'))
+        .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (event) {
+        var clickTarget = event.target;
+        var isOffClick = overlayRef &&
+            overlayRef.hasAttached() &&
+            exclude.every(function (element) { return clickTarget !== element && !element.contains(clickTarget); }) &&
+            overlayRef.overlayElement.contains(clickTarget);
+        return isOffClick;
+    }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return undefined; }));
+}
 
 
 /***/ }),
@@ -9833,7 +9418,7 @@ var VCLPopoverModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template>\n  <!-- TODO: workaround. Unset vclPopOver position as it interferes with the positioning of the cdk overlay -->\n  <div class=\"vclPopOver\" style=\"position: unset\">\n    <ng-content></ng-content>\n  </div>\n</ng-template>'\n"
+module.exports = "<ng-template>\n  <ng-content></ng-content>\n</ng-template>'\n"
 
 /***/ }),
 
@@ -9851,9 +9436,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
 /* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/bidi */ "./node_modules/@angular/cdk/esm5/bidi.es5.js");
-/* harmony import */ var _layer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../layer */ "./lib/ng-vcl/src/layer/index.ts");
-/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
-
+/* harmony import */ var _overlay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../overlay */ "./lib/ng-vcl/src/overlay/index.ts");
 
 
 
@@ -9861,13 +9444,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var PopoverComponent = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](PopoverComponent, _super);
-    function PopoverComponent(_dir, viewContainerRef, overlay, injector, cdRef) {
-        var _this = _super.call(this) || this;
+    function PopoverComponent(injector, _dir, overlay, cdRef, viewContainerRef) {
+        var _this = _super.call(this, injector) || this;
         _this._dir = _dir;
-        _this.viewContainerRef = viewContainerRef;
         _this.overlay = overlay;
-        _this.injector = injector;
         _this.cdRef = cdRef;
+        _this.viewContainerRef = viewContainerRef;
         _this.originX = 'start';
         _this.originY = 'bottom';
         _this.overlayX = 'start';
@@ -9893,6 +9475,12 @@ var PopoverComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    PopoverComponent.prototype.getViewContainerRef = function () {
+        return this.viewContainerRef;
+    };
+    PopoverComponent.prototype.getTemplateRef = function () {
+        return this.template;
+    };
     PopoverComponent.prototype.reposition = function () {
         this.overlayRef && this.overlayRef.updatePosition();
     };
@@ -9900,7 +9488,8 @@ var PopoverComponent = /** @class */ (function (_super) {
         var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["OverlayConfig"]({
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             direction: this._dir,
-            positionStrategy: this.position || this.overlay.position()
+            panelClass: 'vclPopOver',
+            positionStrategy: this.overlay.position()
                 .connectedTo(this.target, {
                 originX: this.originX,
                 originY: this.originY
@@ -9926,16 +9515,8 @@ var PopoverComponent = /** @class */ (function (_super) {
             this.open();
         }
     };
-    PopoverComponent.prototype.getInjector = function () {
-        return this.injector;
-    };
-    PopoverComponent.prototype.createPortal = function () {
-        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["TemplatePortal"](this.template, this.viewContainerRef);
-    };
-    PopoverComponent.prototype.afterAttached = function (overlayRef) {
-    };
-    PopoverComponent.prototype.afterDetached = function (result, overlayRef) {
-        if (!this.isLayerDestroyed) {
+    PopoverComponent.prototype.afterDetached = function (result) {
+        if (!this.isDestroyed) {
             // We need to trigger change detection manually, because
             // `fromEvent` doesn't seem to do it at the proper time.
             this.cdRef.detectChanges();
@@ -9987,10 +9568,6 @@ var PopoverComponent = /** @class */ (function (_super) {
     ], PopoverComponent.prototype, "height", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], PopoverComponent.prototype, "position", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
     ], PopoverComponent.prototype, "visible", null);
@@ -10009,14 +9586,14 @@ var PopoverComponent = /** @class */ (function (_super) {
             exportAs: 'vclPopover',
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_3__["Directionality"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
+            _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_3__["Directionality"],
             _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_2__["Overlay"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"]])
     ], PopoverComponent);
     return PopoverComponent;
-}(_layer__WEBPACK_IMPORTED_MODULE_4__["LayerRef"]));
+}(_overlay__WEBPACK_IMPORTED_MODULE_4__["TemplateOverlay"]));
 
 
 
@@ -10201,17 +9778,17 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: ObservableComponent, defineMetadata, getMetadata, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerRefComponent, ComponentLayerRef, LayerFactory, LayerRef, VCLLayerModule, MetalistItemComponent, MetalistComponent, VCLMetalistModule, DropdownOptionComponent, DropdownComponent, DROPDOWN_ANIMATIONS, VCLDropdownModule, SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, ButtonIcogramComponent, ButtonIconComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule, CheckboxComponent, VCLCheckboxModule, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, FormControlLabelComponent, FORM_CONTROL_LABEL_MEMBER_TOKEN, VCLFormControlLabelModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, VCLInputControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, VCLNotificationModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, VCLEmbeddedInputGroupModule, AutocompleteComponent, AutocompleteItemComponent, AutocompleteSeperatorComponent, AutocompleteHeaderComponent, AutocompleteInputDirective, VCLAutocompleteModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, notificationTypeFromString, notificationIconFromType, notificationStyleClassFromType, NotificationType, FlexAlign, TextAlign, IconType */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, TemplateWormhole, ComponentWormhole, Wormhole, WormholeDirective, DomComponentWormhole, DomTemplateWormhole, WormholeHost, DomWormholeHost, VCLWormholeModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core/index */ "./lib/ng-vcl/src/core/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObservableComponent", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["ObservableComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrependDirective", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["PrependDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineMetadata", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["defineMetadata"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AppendDirective", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["AppendDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMetadata", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["getMetadata"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCoreModule", function() { return _core_index__WEBPACK_IMPORTED_MODULE_0__["VCLCoreModule"]; });
 
 /* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input/index */ "./lib/ng-vcl/src/input/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InputDirective", function() { return _input_index__WEBPACK_IMPORTED_MODULE_1__["InputDirective"]; });
@@ -10255,257 +9832,233 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMaterialDesignModule", function() { return _material_design_icons_index__WEBPACK_IMPORTED_MODULE_7__["VCLMaterialDesignModule"]; });
 
 /* harmony import */ var _layer_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layer/index */ "./lib/ng-vcl/src/layer/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRefComponent", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["LayerRefComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerComponent", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["LayerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentLayerRef", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["ComponentLayerRef"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerBase", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["LayerBase"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerFactory", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["LayerFactory"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LAYER_TOKEN", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["LAYER_TOKEN"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerRef", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["LayerRef"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayerService", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["LayerService"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLayerModule", function() { return _layer_index__WEBPACK_IMPORTED_MODULE_8__["VCLLayerModule"]; });
 
-/* harmony import */ var _metalist_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./metalist/index */ "./lib/ng-vcl/src/metalist/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistItemComponent", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_9__["MetalistItemComponent"]; });
+/* harmony import */ var _dropdown_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dropdown/index */ "./lib/ng-vcl/src/dropdown/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MetalistComponent", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_9__["MetalistComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownHeaderComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownHeaderComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMetalistModule", function() { return _metalist_index__WEBPACK_IMPORTED_MODULE_9__["VCLMetalistModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownItemComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownItemComponent"]; });
 
-/* harmony import */ var _dropdown_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./dropdown/index */ "./lib/ng-vcl/src/dropdown/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownOptionComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_10__["DropdownOptionComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownLabelDirective", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownLabelDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_10__["DropdownComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownSublabelDirective", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownSublabelDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DROPDOWN_ANIMATIONS", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_10__["DROPDOWN_ANIMATIONS"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownSeperatorComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownSeperatorComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDropdownModule", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_10__["VCLDropdownModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownContentComponent", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownContentComponent"]; });
 
-/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_11__["SelectComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropdownInputDirective", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["DropdownInputDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectOptionDirective", function() { return _select_index__WEBPACK_IMPORTED_MODULE_11__["SelectOptionDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDropdownModule", function() { return _dropdown_index__WEBPACK_IMPORTED_MODULE_9__["VCLDropdownModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDirection", function() { return _select_index__WEBPACK_IMPORTED_MODULE_11__["DropDirection"]; });
+/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_10__["IcogramComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_11__["VCLSelectModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramLinkComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_10__["IcogramLinkComponent"]; });
 
-/* harmony import */ var _icogram_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./icogram/index */ "./lib/ng-vcl/src/icogram/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_12__["IcogramComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIcogramModule", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_10__["VCLIcogramModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IcogramLinkComponent", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_12__["IcogramLinkComponent"]; });
+/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./button/index */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_11__["ButtonComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLIcogramModule", function() { return _icogram_index__WEBPACK_IMPORTED_MODULE_12__["VCLIcogramModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BUTTON_OBSERVER_TOKEN", function() { return _button_index__WEBPACK_IMPORTED_MODULE_11__["BUTTON_OBSERVER_TOKEN"]; });
 
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_13__["ButtonComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonModule", function() { return _button_index__WEBPACK_IMPORTED_MODULE_11__["VCLButtonModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIcogramComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_13__["ButtonIcogramComponent"]; });
+/* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./button-group/index */ "./lib/ng-vcl/src/button-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_12__["ButtonGroupComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return _button_index__WEBPACK_IMPORTED_MODULE_13__["ButtonIconComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonGroupModule", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_12__["VCLButtonGroupModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BUTTON_OBSERVER_TOKEN", function() { return _button_index__WEBPACK_IMPORTED_MODULE_13__["BUTTON_OBSERVER_TOKEN"]; });
+/* harmony import */ var _tab_nav_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./tab-nav/index */ "./lib/ng-vcl/src/tab-nav/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTabNavModule", function() { return _tab_nav_index__WEBPACK_IMPORTED_MODULE_13__["VCLTabNavModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonModule", function() { return _button_index__WEBPACK_IMPORTED_MODULE_13__["VCLButtonModule"]; });
+/* harmony import */ var _navigation_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./navigation/index */ "./lib/ng-vcl/src/navigation/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationComponent", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_14__["NavigationComponent"]; });
 
-/* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./button-group/index */ "./lib/ng-vcl/src/button-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonGroupComponent", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_14__["ButtonGroupComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationItemDirective", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_14__["NavigationItemDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLButtonGroupModule", function() { return _button_group_index__WEBPACK_IMPORTED_MODULE_14__["VCLButtonGroupModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNavigationModule", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_14__["VCLNavigationModule"]; });
 
-/* harmony import */ var _tab_nav_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./tab-nav/index */ "./lib/ng-vcl/src/tab-nav/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTabNavModule", function() { return _tab_nav_index__WEBPACK_IMPORTED_MODULE_15__["VCLTabNavModule"]; });
+/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./popover/index */ "./lib/ng-vcl/src/popover/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PopoverComponent", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_15__["PopoverComponent"]; });
 
-/* harmony import */ var _navigation_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./navigation/index */ "./lib/ng-vcl/src/navigation/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationComponent", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_16__["NavigationComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPopoverModule", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_15__["VCLPopoverModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigationItemDirective", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_16__["NavigationItemDirective"]; });
+/* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./progress-bar/index */ "./lib/ng-vcl/src/progress-bar/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLProgressBarModule", function() { return _progress_bar_index__WEBPACK_IMPORTED_MODULE_16__["VCLProgressBarModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNavigationModule", function() { return _navigation_index__WEBPACK_IMPORTED_MODULE_16__["VCLNavigationModule"]; });
+/* harmony import */ var _radio_button_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./radio-button/index */ "./lib/ng-vcl/src/radio-button/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_17__["RadioButtonComponent"]; });
 
-/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./popover/index */ "./lib/ng-vcl/src/popover/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PopoverComponent", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_17__["PopoverComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupDirective", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_17__["RadioGroupDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPopoverModule", function() { return _popover_index__WEBPACK_IMPORTED_MODULE_17__["VCLPopoverModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonLabelDirective", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_17__["RadioButtonLabelDirective"]; });
 
-/* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./progress-bar/index */ "./lib/ng-vcl/src/progress-bar/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLProgressBarModule", function() { return _progress_bar_index__WEBPACK_IMPORTED_MODULE_18__["VCLProgressBarModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRadioButtonModule", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_17__["VCLRadioButtonModule"]; });
 
-/* harmony import */ var _radio_button_index__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./radio-button/index */ "./lib/ng-vcl/src/radio-button/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_19__["RadioButtonComponent"]; });
+/* harmony import */ var _checkbox_index__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./checkbox/index */ "./lib/ng-vcl/src/checkbox/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_18__["CheckboxComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupComponent", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_19__["RadioGroupComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxLabelDirective", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_18__["CheckboxLabelDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRadioButtonModule", function() { return _radio_button_index__WEBPACK_IMPORTED_MODULE_19__["VCLRadioButtonModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCheckboxModule", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_18__["VCLCheckboxModule"]; });
 
-/* harmony import */ var _checkbox_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./checkbox/index */ "./lib/ng-vcl/src/checkbox/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"]; });
+/* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createOffClickStream", function() { return _off_click_index__WEBPACK_IMPORTED_MODULE_19__["createOffClickStream"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLCheckboxModule", function() { return _checkbox_index__WEBPACK_IMPORTED_MODULE_20__["VCLCheckboxModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OffClickDirective", function() { return _off_click_index__WEBPACK_IMPORTED_MODULE_19__["OffClickDirective"]; });
 
-/* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLOffClickModule", function() { return _off_click_index__WEBPACK_IMPORTED_MODULE_21__["VCLOffClickModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLOffClickModule", function() { return _off_click_index__WEBPACK_IMPORTED_MODULE_19__["VCLOffClickModule"]; });
 
-/* harmony import */ var _date_picker_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./date-picker/index */ "./lib/ng-vcl/src/date-picker/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DatePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_22__["DatePickerComponent"]; });
+/* harmony import */ var _date_picker_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./date-picker/index */ "./lib/ng-vcl/src/date-picker/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DatePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_20__["DatePickerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_22__["TimePickerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimePickerComponent", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_20__["TimePickerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_22__["VCLDatePickerModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLDatePickerModule", function() { return _date_picker_index__WEBPACK_IMPORTED_MODULE_20__["VCLDatePickerModule"]; });
 
-/* harmony import */ var _form_control_label_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./form-control-label/index */ "./lib/ng-vcl/src/form-control-label/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelComponent", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_23__["FormControlLabelComponent"]; });
+/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["TemplateWormhole"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_LABEL_MEMBER_TOKEN", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_23__["FORM_CONTROL_LABEL_MEMBER_TOKEN"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["ComponentWormhole"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlLabelModule", function() { return _form_control_label_index__WEBPACK_IMPORTED_MODULE_23__["VCLFormControlLabelModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["Wormhole"]; });
 
-/* harmony import */ var _wormhole_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./wormhole/index */ "./lib/ng-vcl/src/wormhole/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["TemplateWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["WormholeDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["ComponentWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["DomComponentWormhole"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Wormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["Wormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["DomTemplateWormhole"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeDirective", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["WormholeDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["WormholeHost"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomComponentWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["DomComponentWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["DomWormholeHost"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomTemplateWormhole", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["DomTemplateWormhole"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLWormholeModule", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_21__["VCLWormholeModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["WormholeHost"]; });
+/* harmony import */ var _month_picker_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./month-picker/index */ "./lib/ng-vcl/src/month-picker/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthPickerComponent", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_22__["MonthPickerComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomWormholeHost", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["DomWormholeHost"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMonthPickerModule", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_22__["VCLMonthPickerModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLWormholeModule", function() { return _wormhole_index__WEBPACK_IMPORTED_MODULE_24__["VCLWormholeModule"]; });
+/* harmony import */ var _label_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./label/index */ "./lib/ng-vcl/src/label/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLabelModule", function() { return _label_index__WEBPACK_IMPORTED_MODULE_23__["VCLLabelModule"]; });
 
-/* harmony import */ var _month_picker_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./month-picker/index */ "./lib/ng-vcl/src/month-picker/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthPickerComponent", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_25__["MonthPickerComponent"]; });
+/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./token/index */ "./lib/ng-vcl/src/token/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLMonthPickerModule", function() { return _month_picker_index__WEBPACK_IMPORTED_MODULE_25__["VCLMonthPickerModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenInputContainerComponent"]; });
 
-/* harmony import */ var _label_index__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./label/index */ "./lib/ng-vcl/src/label/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLLabelModule", function() { return _label_index__WEBPACK_IMPORTED_MODULE_26__["VCLLabelModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenInputDirective"]; });
 
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./token/index */ "./lib/ng-vcl/src/token/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_27__["TokenComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["TokenListComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_27__["TokenInputContainerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTokenModule", function() { return _token_index__WEBPACK_IMPORTED_MODULE_24__["VCLTokenModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_index__WEBPACK_IMPORTED_MODULE_27__["TokenInputDirective"]; });
+/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./slider/index */ "./lib/ng-vcl/src/slider/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_25__["SliderComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_index__WEBPACK_IMPORTED_MODULE_27__["TokenListComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSliderModule", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_25__["VCLSliderModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTokenModule", function() { return _token_index__WEBPACK_IMPORTED_MODULE_27__["VCLTokenModule"]; });
+/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlGroupComponent", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FormControlGroupComponent"]; });
 
-/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./slider/index */ "./lib/ng-vcl/src/slider/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_28__["SliderComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FORM_CONTROL_INPUT"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSliderModule", function() { return _slider_index__WEBPACK_IMPORTED_MODULE_28__["VCLSliderModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FORM_CONTROL_ERROR_STATE_AGENT"]; });
 
-/* harmony import */ var _input_control_group_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./input-control-group/index */ "./lib/ng-vcl/src/input-control-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLInputControlGroupModule", function() { return _input_control_group_index__WEBPACK_IMPORTED_MODULE_29__["VCLInputControlGroupModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FormControlHostDirective"]; });
 
-/* harmony import */ var _alert_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./alert/index */ "./lib/ng-vcl/src/alert/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_30__["AlertService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["FORM_CONTROL_HOST"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_30__["AlertType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["defaultFormControlErrorMatcher"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_30__["AlertInput"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_26__["VCLFormControlGroupModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_30__["AlertAlignment"]; });
+/* harmony import */ var _alert_index__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./alert/index */ "./lib/ng-vcl/src/alert/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAlertModule", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_30__["VCLAlertModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertType", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertType"]; });
 
-/* harmony import */ var _busy_indicator_index__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./busy-indicator/index */ "./lib/ng-vcl/src/busy-indicator/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorCoverComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_31__["BusyIndicatorCoverComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertInput", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertInput"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_31__["BusyIndicatorComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlertAlignment", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["AlertAlignment"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBusyIndicatorModule", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_31__["VCLBusyIndicatorModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAlertModule", function() { return _alert_index__WEBPACK_IMPORTED_MODULE_27__["VCLAlertModule"]; });
 
-/* harmony import */ var _tooltip_index__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./tooltip/index */ "./lib/ng-vcl/src/tooltip/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["TooltipComponent"]; });
+/* harmony import */ var _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./busy-indicator/index */ "./lib/ng-vcl/src/busy-indicator/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorCoverComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__["BusyIndicatorCoverComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimationState", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["AnimationState"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BusyIndicatorComponent", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__["BusyIndicatorComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Placement", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["Placement"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBusyIndicatorModule", function() { return _busy_indicator_index__WEBPACK_IMPORTED_MODULE_28__["VCLBusyIndicatorModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTooltipModule", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_32__["VCLTooltipModule"]; });
+/* harmony import */ var _tooltip_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./tooltip/index */ "./lib/ng-vcl/src/tooltip/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["TooltipComponent"]; });
 
-/* harmony import */ var _table_index__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./table/index */ "./lib/ng-vcl/src/table/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTableModule", function() { return _table_index__WEBPACK_IMPORTED_MODULE_33__["VCLTableModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimationState", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["AnimationState"]; });
 
-/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputComponent", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_34__["PasswordInputComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Placement", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["Placement"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputDirective", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_34__["PasswordInputDirective"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTooltipModule", function() { return _tooltip_index__WEBPACK_IMPORTED_MODULE_29__["VCLTooltipModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPasswordInputModule", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_34__["VCLPasswordInputModule"]; });
+/* harmony import */ var _table_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./table/index */ "./lib/ng-vcl/src/table/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTableModule", function() { return _table_index__WEBPACK_IMPORTED_MODULE_30__["VCLTableModule"]; });
 
-/* harmony import */ var _zoom_box_index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./zoom-box/index */ "./lib/ng-vcl/src/zoom-box/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLZoomBoxModule", function() { return _zoom_box_index__WEBPACK_IMPORTED_MODULE_35__["VCLZoomBoxModule"]; });
+/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputComponent", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_31__["PasswordInputComponent"]; });
 
-/* harmony import */ var _notification_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./notification/index */ "./lib/ng-vcl/src/notification/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotificationModule", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["VCLNotificationModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordInputDirective", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_31__["PasswordInputDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationTypeFromString", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["notificationTypeFromString"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLPasswordInputModule", function() { return _password_input_index__WEBPACK_IMPORTED_MODULE_31__["VCLPasswordInputModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationIconFromType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["notificationIconFromType"]; });
+/* harmony import */ var _zoom_box_index__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./zoom-box/index */ "./lib/ng-vcl/src/zoom-box/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLZoomBoxModule", function() { return _zoom_box_index__WEBPACK_IMPORTED_MODULE_32__["VCLZoomBoxModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notificationStyleClassFromType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["notificationStyleClassFromType"]; });
+/* harmony import */ var _gallery_index__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./gallery/index */ "./lib/ng-vcl/src/gallery/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GALLERY_ANIMATIONS", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_33__["GALLERY_ANIMATIONS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["NotificationType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLGalleryModule", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_33__["VCLGalleryModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FlexAlign", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["FlexAlign"]; });
+/* harmony import */ var _badge_index__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./badge/index */ "./lib/ng-vcl/src/badge/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBadgeModule", function() { return _badge_index__WEBPACK_IMPORTED_MODULE_34__["VCLBadgeModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextAlign", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["TextAlign"]; });
+/* harmony import */ var _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./embedded-input-group/index */ "./lib/ng-vcl/src/embedded-input-group/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmbeddedInputGroupComponent", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_35__["EmbeddedInputGroupComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IconType", function() { return _notification_index__WEBPACK_IMPORTED_MODULE_36__["IconType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLEmbeddedInputGroupModule", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_35__["VCLEmbeddedInputGroupModule"]; });
 
-/* harmony import */ var _gallery_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./gallery/index */ "./lib/ng-vcl/src/gallery/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GALLERY_ANIMATIONS", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_37__["GALLERY_ANIMATIONS"]; });
+/* harmony import */ var _tour_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./tour/index */ "./lib/ng-vcl/src/tour/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["TourService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLGalleryModule", function() { return _gallery_index__WEBPACK_IMPORTED_MODULE_37__["VCLGalleryModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["TourOptions"]; });
 
-/* harmony import */ var _badge_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./badge/index */ "./lib/ng-vcl/src/badge/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLBadgeModule", function() { return _badge_index__WEBPACK_IMPORTED_MODULE_38__["VCLBadgeModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["TourComponent"]; });
 
-/* harmony import */ var _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./embedded-input-group/index */ "./lib/ng-vcl/src/embedded-input-group/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLEmbeddedInputGroupModule", function() { return _embedded_input_group_index__WEBPACK_IMPORTED_MODULE_39__["VCLEmbeddedInputGroupModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTourModule", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_36__["VCLTourModule"]; });
 
-/* harmony import */ var _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./autocomplete/index */ "./lib/ng-vcl/src/autocomplete/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteComponent"]; });
+/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./rating/index */ "./lib/ng-vcl/src/rating/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _rating_index__WEBPACK_IMPORTED_MODULE_37__["VCLRatingModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteItemComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteItemComponent"]; });
+/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_38__["SelectComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteSeperatorComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteSeperatorComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteHeaderComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteHeaderComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteInputDirective", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["AutocompleteInputDirective"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_40__["VCLAutocompleteModule"]; });
-
-/* harmony import */ var _tour_index__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./tour/index */ "./lib/ng-vcl/src/tour/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["TourService"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["TourOptions"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["TourComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTourModule", function() { return _tour_index__WEBPACK_IMPORTED_MODULE_41__["VCLTourModule"]; });
-
-/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./rating/index */ "./lib/ng-vcl/src/rating/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _rating_index__WEBPACK_IMPORTED_MODULE_42__["VCLRatingModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_38__["VCLSelectModule"]; });
 
 /*
  * Public API Surface of ng-vcl
  */
-
-
-
-
 
 
 
@@ -10553,7 +10106,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ./lib/ng-vcl/src/radio-button/index.ts ***!
   \**********************************************/
-/*! exports provided: RadioButtonComponent, RadioGroupComponent, VCLRadioButtonModule */
+/*! exports provided: RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10566,10 +10119,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _radio_button_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./radio-button.component */ "./lib/ng-vcl/src/radio-button/radio-button.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return _radio_button_component__WEBPACK_IMPORTED_MODULE_4__["RadioButtonComponent"]; });
 
-/* harmony import */ var _radio_group_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./radio-group.component */ "./lib/ng-vcl/src/radio-button/radio-group.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupComponent", function() { return _radio_group_component__WEBPACK_IMPORTED_MODULE_5__["RadioGroupComponent"]; });
+/* harmony import */ var _radio_group_directive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./radio-group.directive */ "./lib/ng-vcl/src/radio-button/radio-group.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioGroupDirective", function() { return _radio_group_directive__WEBPACK_IMPORTED_MODULE_5__["RadioGroupDirective"]; });
 
-/* harmony import */ var _form_control_label_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../form-control-label/index */ "./lib/ng-vcl/src/form-control-label/index.ts");
+/* harmony import */ var _radio_button_label_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./radio-button-label.directive */ "./lib/ng-vcl/src/radio-button/radio-button-label.directive.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RadioButtonLabelDirective", function() { return _radio_button_label_directive__WEBPACK_IMPORTED_MODULE_6__["RadioButtonLabelDirective"]; });
+
 
 
 
@@ -10583,12 +10138,100 @@ var VCLRadioButtonModule = /** @class */ (function () {
     }
     VCLRadioButtonModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"], _form_control_label_index__WEBPACK_IMPORTED_MODULE_6__["VCLFormControlLabelModule"]],
-            exports: [_radio_button_component__WEBPACK_IMPORTED_MODULE_4__["RadioButtonComponent"], _radio_group_component__WEBPACK_IMPORTED_MODULE_5__["RadioGroupComponent"]],
-            declarations: [_radio_button_component__WEBPACK_IMPORTED_MODULE_4__["RadioButtonComponent"], _radio_group_component__WEBPACK_IMPORTED_MODULE_5__["RadioGroupComponent"]]
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_3__["VCLIconModule"]],
+            exports: [_radio_button_component__WEBPACK_IMPORTED_MODULE_4__["RadioButtonComponent"], _radio_group_directive__WEBPACK_IMPORTED_MODULE_5__["RadioGroupDirective"], _radio_button_label_directive__WEBPACK_IMPORTED_MODULE_6__["RadioButtonLabelDirective"]],
+            declarations: [_radio_button_component__WEBPACK_IMPORTED_MODULE_4__["RadioButtonComponent"], _radio_group_directive__WEBPACK_IMPORTED_MODULE_5__["RadioGroupDirective"], _radio_button_label_directive__WEBPACK_IMPORTED_MODULE_6__["RadioButtonLabelDirective"]]
         })
     ], VCLRadioButtonModule);
     return VCLRadioButtonModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/radio-button/interfaces.ts":
+/*!***************************************************!*\
+  !*** ./lib/ng-vcl/src/radio-button/interfaces.ts ***!
+  \***************************************************/
+/*! exports provided: RADIO_BUTTON_GROUP_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RADIO_BUTTON_GROUP_TOKEN", function() { return RADIO_BUTTON_GROUP_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var RADIO_BUTTON_GROUP_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl_radio_button_group');
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/radio-button/radio-button-label.directive.ts":
+/*!*********************************************************************!*\
+  !*** ./lib/ng-vcl/src/radio-button/radio-button-label.directive.ts ***!
+  \*********************************************************************/
+/*! exports provided: RadioButtonLabelDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RadioButtonLabelDirective", function() { return RadioButtonLabelDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _radio_button_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./radio-button.component */ "./lib/ng-vcl/src/radio-button/radio-button.component.ts");
+
+
+
+var RadioButtonLabelDirective = /** @class */ (function () {
+    function RadioButtonLabelDirective() {
+        this.classVCLFormControlLabel = true;
+        this.classVCLFormControlLabelWrapping = true;
+    }
+    Object.defineProperty(RadioButtonLabelDirective.prototype, "isDisabled", {
+        get: function () {
+            return this.rb && this.rb.isDisabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    RadioButtonLabelDirective.prototype.onClick = function (event) {
+        this.rb && this.rb.onLabelClick(event);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_radio_button_component__WEBPACK_IMPORTED_MODULE_2__["RadioButtonComponent"], { read: _radio_button_component__WEBPACK_IMPORTED_MODULE_2__["RadioButtonComponent"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _radio_button_component__WEBPACK_IMPORTED_MODULE_2__["RadioButtonComponent"])
+    ], RadioButtonLabelDirective.prototype, "rb", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabel'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RadioButtonLabelDirective.prototype, "classVCLFormControlLabel", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlLabelWrapping'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RadioButtonLabelDirective.prototype, "classVCLFormControlLabelWrapping", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioButtonLabelDirective.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('label'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-label'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], RadioButtonLabelDirective.prototype, "_label", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], RadioButtonLabelDirective.prototype, "onClick", null);
+    RadioButtonLabelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: 'label[vclRadioButtonLabel]'
+        })
+    ], RadioButtonLabelDirective);
+    return RadioButtonLabelDirective;
 }());
 
 
@@ -10610,36 +10253,24 @@ module.exports = "<vcl-icon [icon]=\"checked ? 'vcl:circle-checked' : 'vcl:circl
 /*!***************************************************************!*\
   !*** ./lib/ng-vcl/src/radio-button/radio-button.component.ts ***!
   \***************************************************************/
-/*! exports provided: CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, RADIO_BUTTON_OBSERVER_TOKEN, RadioButtonComponent */
+/*! exports provided: RadioButtonComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RADIO_BUTTON_OBSERVER_TOKEN", function() { return RADIO_BUTTON_OBSERVER_TOKEN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return RadioButtonComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _form_control_label__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-label */ "./lib/ng-vcl/src/form-control-label/index.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/radio-button/interfaces.ts");
 
 
 
-
-// import { RadioButtonParent, RADIO_BUTTON_PARENT_TOKEN } from './interfaces';
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioButtonComponent; }),
-    multi: true
-};
-var RADIO_BUTTON_OBSERVER_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('vcl_radio_button_observer');
-var UNIQUE_ID = 0;
 var RadioButtonComponent = /** @class */ (function () {
-    function RadioButtonComponent(cdRef, radioButtonObserver) {
+    function RadioButtonComponent(cdRef, rbg) {
         this.cdRef = cdRef;
-        this.radioButtonObserver = radioButtonObserver;
-        this.generatedId = 'vcl_radiobutton_' + UNIQUE_ID++;
+        this.rbg = rbg;
         this._disabled = false;
+        this._focused = false;
         this.classVCLCheckbox = true;
         this.attrRole = 'radio';
         this.tabindex = 0;
@@ -10649,22 +10280,7 @@ var RadioButtonComponent = /** @class */ (function () {
         Action fired when the `checked` state changes due to user interaction.
         */
         this.checkedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
-        this.formDisabled = false;
-        /**
-         * things needed for ControlValueAccessor-Interface
-         */
-        this.onChange = function () { };
-        this.onTouched = function () { };
     }
-    RadioButtonComponent_1 = RadioButtonComponent;
-    Object.defineProperty(RadioButtonComponent.prototype, "elementId", {
-        get: function () {
-            return this.id || this.generatedId;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(RadioButtonComponent.prototype, "attrAriaChecked", {
         get: function () {
             return this.checked;
@@ -10681,14 +10297,18 @@ var RadioButtonComponent = /** @class */ (function () {
     });
     Object.defineProperty(RadioButtonComponent.prototype, "isDisabled", {
         get: function () {
-            return this._disabled || this.formDisabled || this.disabled;
+            return this._disabled || this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    RadioButtonComponent.prototype.notifyFormControlLabelClick = function (event) {
-        this.setCheckedUserInteraction();
-    };
+    Object.defineProperty(RadioButtonComponent.prototype, "isFocused", {
+        get: function () {
+            return this._focused;
+        },
+        enumerable: true,
+        configurable: true
+    });
     RadioButtonComponent.prototype.onKeyup = function (e) {
         switch (e.code) {
             case 'Space':
@@ -10701,57 +10321,35 @@ var RadioButtonComponent = /** @class */ (function () {
         e.preventDefault();
         this.setCheckedUserInteraction();
     };
+    RadioButtonComponent.prototype.onLabelClick = function (event) {
+        this.setCheckedUserInteraction();
+    };
+    RadioButtonComponent.prototype.onFocus = function () {
+        this._focused = true;
+    };
     RadioButtonComponent.prototype.onBlur = function () {
-        this.radioButtonObserver && this.radioButtonObserver.notifyRadioButtonBlur(this);
-        this.onTouched();
+        this._focused = false;
+        this.rbg && this.rbg.notifyRadioButtonBlur(this);
     };
     RadioButtonComponent.prototype.setCheckedUserInteraction = function () {
         if (this.isDisabled) {
             return;
         }
-        this.radioButtonObserver && this.radioButtonObserver.notifyRadioButtonChecked(this);
+        this.rbg && this.rbg.notifyRadioButtonChecked(this);
         // radio-buttons cannot be 'unchecked' by definition from user interaction
         this.checked = true;
         this.cdRef.markForCheck();
-        this.onTouched();
-        this.onChange(this.checked);
         this.checkedChange.emit(this.checked);
     };
     RadioButtonComponent.prototype.setChecked = function (checked) {
         this.checked = checked;
         this.cdRef.markForCheck();
-        this.onTouched();
-        this.onChange(this.checked);
         this.checkedChange.emit(this.checked);
     };
     RadioButtonComponent.prototype.setDisabled = function (disabled) {
         this._disabled = disabled;
         this.cdRef.markForCheck();
     };
-    RadioButtonComponent.prototype.writeValue = function (value) {
-        this.checked = !!value;
-        this.cdRef.markForCheck();
-    };
-    RadioButtonComponent.prototype.registerOnChange = function (fn) {
-        this.onChange = fn;
-    };
-    RadioButtonComponent.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
-    };
-    RadioButtonComponent.prototype.setDisabledState = function (disabled) {
-        this.formDisabled = disabled;
-        this.cdRef.markForCheck();
-    };
-    var RadioButtonComponent_1;
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RadioButtonComponent.prototype, "id", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], RadioButtonComponent.prototype, "elementId", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclRadioButton'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -10809,27 +10407,26 @@ var RadioButtonComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], RadioButtonComponent.prototype, "onClick", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], RadioButtonComponent.prototype, "onFocus", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], RadioButtonComponent.prototype, "onBlur", null);
-    RadioButtonComponent = RadioButtonComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    RadioButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-radio-button',
             template: __webpack_require__(/*! ./radio-button.component.html */ "./lib/ng-vcl/src/radio-button/radio-button.component.html"),
-            providers: [
-                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
-                {
-                    provide: _form_control_label__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_LABEL_MEMBER_TOKEN"],
-                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioButtonComponent_1; })
-                },
-            ],
-            // changeDetection: ChangeDetectionStrategy.OnPush,
-            exportAs: 'vclCheckbox',
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            exportAs: 'vclRadioButton',
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(RADIO_BUTTON_OBSERVER_TOKEN)),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["RADIO_BUTTON_GROUP_TOKEN"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
     ], RadioButtonComponent);
     return RadioButtonComponent;
@@ -10839,41 +10436,51 @@ var RadioButtonComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/radio-button/radio-group.component.ts":
+/***/ "./lib/ng-vcl/src/radio-button/radio-group.directive.ts":
 /*!**************************************************************!*\
-  !*** ./lib/ng-vcl/src/radio-button/radio-group.component.ts ***!
+  !*** ./lib/ng-vcl/src/radio-button/radio-group.directive.ts ***!
   \**************************************************************/
-/*! exports provided: SelectionMode, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, RadioGroupComponent */
+/*! exports provided: SelectionMode, RadioGroupDirective */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectionMode", function() { return SelectionMode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RadioGroupComponent", function() { return RadioGroupComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RadioGroupDirective", function() { return RadioGroupDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _radio_button_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./radio-button.component */ "./lib/ng-vcl/src/radio-button/radio-button.component.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _radio_button_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./radio-button.component */ "./lib/ng-vcl/src/radio-button/radio-button.component.ts");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/radio-button/interfaces.ts");
 
 
 
 
 
+
+
+
+var UNIQUE_ID = 0;
 var SelectionMode;
 (function (SelectionMode) {
     SelectionMode[SelectionMode["Single"] = 0] = "Single";
     SelectionMode[SelectionMode["Multiple"] = 1] = "Multiple";
 })(SelectionMode || (SelectionMode = {}));
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioGroupComponent; }),
-    multi: true
-};
-var RadioGroupComponent = /** @class */ (function () {
-    function RadioGroupComponent() {
+var RadioGroupDirective = /** @class */ (function () {
+    function RadioGroupDirective(ngControl, formControlHost, _errorStateAgent) {
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.stateChange = this.stateChangeEmitter.asObservable();
+        this.controlType = 'radio-group';
         this._disabled = false;
+        this.generatedId = 'vcl_radiogroup_' + UNIQUE_ID++;
+        this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.layout = 'horizontal';
         this.attrRole = 'radiogroup';
         // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
         this.formDisabled = false;
@@ -10882,23 +10489,63 @@ var RadioGroupComponent = /** @class */ (function () {
         */
         this.onChange = function () { };
         this.onTouched = function () { };
+        // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
     }
-    RadioGroupComponent_1 = RadioGroupComponent;
-    Object.defineProperty(RadioGroupComponent.prototype, "disabled", {
+    RadioGroupDirective_1 = RadioGroupDirective;
+    Object.defineProperty(RadioGroupDirective.prototype, "elementId", {
+        get: function () {
+            return this.id || this.generatedId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioGroupDirective.prototype, "disabled", {
         set: function (disabled) {
             this._disabled = disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(RadioGroupComponent.prototype, "isDisabled", {
+    Object.defineProperty(RadioGroupDirective.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioGroupDirective.prototype, "classVclFormControlGroup", {
+        get: function () {
+            return this.layout === 'vertical';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioGroupDirective.prototype, "classVclFormInlineControlGroup", {
+        get: function () {
+            return this.layout === 'horizontal';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioGroupDirective.prototype, "isDisabled", {
         get: function () {
             return this._disabled || this.formDisabled || this.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    RadioGroupComponent.prototype.syncRadioButtons = function () {
+    Object.defineProperty(RadioGroupDirective.prototype, "isFocused", {
+        get: function () {
+            return this.radioButtons.some(function (rb) { return rb.isFocused; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    RadioGroupDirective.prototype.syncRadioButtons = function () {
         var _this = this;
         if (!this.radioButtons) {
             return;
@@ -10909,7 +10556,7 @@ var RadioGroupComponent = /** @class */ (function () {
             rbtn.setDisabled(_this.isDisabled);
         });
     };
-    RadioGroupComponent.prototype.ngAfterContentInit = function () {
+    RadioGroupDirective.prototype.ngAfterContentInit = function () {
         var _this = this;
         // Syncs changed radio buttons checked state to be in line with the current group value
         this.radioButtonsSub = this.radioButtons.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(null)).subscribe(function () {
@@ -10918,68 +10565,116 @@ var RadioGroupComponent = /** @class */ (function () {
             }
         });
     };
-    RadioGroupComponent.prototype.notifyRadioButtonChecked = function (rb) {
+    RadioGroupDirective.prototype.notifyRadioButtonChecked = function (rb) {
         this.value = rb.value;
         this.syncRadioButtons();
+        this.valueChange.emit(this.value);
         this.onChange(this.value);
         this.onTouched();
     };
-    RadioGroupComponent.prototype.notifyRadioButtonBlur = function (rb) {
+    RadioGroupDirective.prototype.notifyRadioButtonBlur = function (rb) {
         if (this.radioButtons.last === rb) {
             this.onTouched();
         }
     };
-    RadioGroupComponent.prototype.ngOnDestroy = function () {
-        this.radioButtonsSub && this.radioButtonsSub.unsubscribe();
+    RadioGroupDirective.prototype.onLabelClick = function (event) {
     };
-    RadioGroupComponent.prototype.writeValue = function (value) {
+    RadioGroupDirective.prototype.ngOnDestroy = function () {
+        this.radioButtonsSub && this.radioButtonsSub.unsubscribe();
+        this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    };
+    RadioGroupDirective.prototype.writeValue = function (value) {
         this.value = value;
         this.syncRadioButtons();
     };
-    RadioGroupComponent.prototype.registerOnChange = function (fn) {
+    RadioGroupDirective.prototype.registerOnChange = function (fn) {
         this.onChange = fn;
     };
-    RadioGroupComponent.prototype.registerOnTouched = function (fn) {
+    RadioGroupDirective.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    RadioGroupComponent.prototype.setDisabledState = function (disabled) {
+    RadioGroupDirective.prototype.setDisabledState = function (disabled) {
         this.formDisabled = disabled;
     };
-    var RadioGroupComponent_1;
+    var RadioGroupDirective_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], RadioGroupDirective.prototype, "id", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioGroupDirective.prototype, "elementId", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioGroupComponent.prototype, "value", void 0);
+    ], RadioGroupDirective.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RadioGroupComponent.prototype, "attrRole", void 0);
+    ], RadioGroupDirective.prototype, "valueChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_radio_button_component__WEBPACK_IMPORTED_MODULE_4__["RadioButtonComponent"], {
-            descendants: true
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
-    ], RadioGroupComponent.prototype, "radioButtons", void 0);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], RadioGroupDirective.prototype, "layout", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
-    ], RadioGroupComponent.prototype, "disabled", null);
-    RadioGroupComponent = RadioGroupComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    ], RadioGroupDirective.prototype, "disabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], RadioGroupDirective.prototype, "errorStateAgent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioGroupDirective.prototype, "hasError", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormControlGroup'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioGroupDirective.prototype, "classVclFormControlGroup", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFormInlineControlGroup'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RadioGroupDirective.prototype, "classVclFormInlineControlGroup", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RadioGroupDirective.prototype, "attrRole", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_radio_button_component__WEBPACK_IMPORTED_MODULE_5__["RadioButtonComponent"], {
+            descendants: true
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
+    ], RadioGroupDirective.prototype, "radioButtons", void 0);
+    RadioGroupDirective = RadioGroupDirective_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'vcl-radio-group',
-            template: "<ng-content></ng-content>",
             providers: [
-                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
                 {
-                    provide: _radio_button_component__WEBPACK_IMPORTED_MODULE_4__["RADIO_BUTTON_OBSERVER_TOKEN"],
-                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioGroupComponent_1; })
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_7__["RADIO_BUTTON_GROUP_TOKEN"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioGroupDirective_1; })
+                },
+                {
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_INPUT"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return RadioGroupDirective_1; })
                 }
-            ],
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
-        })
-    ], RadioGroupComponent);
-    return RadioGroupComponent;
+            ]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControl"], Object, Function])
+    ], RadioGroupDirective);
+    return RadioGroupDirective;
 }());
 
 
@@ -11230,7 +10925,7 @@ var RatingComponent = /** @class */ (function () {
 /*!****************************************!*\
   !*** ./lib/ng-vcl/src/select/index.ts ***!
   \****************************************/
-/*! exports provided: SelectComponent, SelectOptionDirective, DropDirection, VCLSelectModule */
+/*! exports provided: SelectComponent, VCLSelectModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11239,18 +10934,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _dropdown_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dropdown/index */ "./lib/ng-vcl/src/dropdown/index.ts");
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
-/* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../popover/index */ "./lib/ng-vcl/src/popover/index.ts");
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../token/index */ "./lib/ng-vcl/src/token/index.ts");
-/* harmony import */ var _select_option_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./select-option.component */ "./lib/ng-vcl/src/select/select-option.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectOptionDirective", function() { return _select_option_component__WEBPACK_IMPORTED_MODULE_8__["SelectOptionDirective"]; });
-
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../input */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var _icogram__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../icogram */ "./lib/ng-vcl/src/icogram/index.ts");
+/* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../dropdown */ "./lib/ng-vcl/src/dropdown/index.ts");
 /* harmony import */ var _select_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./select.component */ "./lib/ng-vcl/src/select/select.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_component__WEBPACK_IMPORTED_MODULE_9__["SelectComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDirection", function() { return _select_component__WEBPACK_IMPORTED_MODULE_9__["DropDirection"]; });
 
 
 
@@ -11268,79 +10959,13 @@ var VCLSelectModule = /** @class */ (function () {
     }
     VCLSelectModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _dropdown_index__WEBPACK_IMPORTED_MODULE_3__["VCLDropdownModule"], _button_index__WEBPACK_IMPORTED_MODULE_4__["VCLButtonModule"], _off_click_index__WEBPACK_IMPORTED_MODULE_5__["VCLOffClickModule"], _popover_index__WEBPACK_IMPORTED_MODULE_6__["VCLPopoverModule"], _token_index__WEBPACK_IMPORTED_MODULE_7__["VCLTokenModule"]],
-            exports: [_select_component__WEBPACK_IMPORTED_MODULE_9__["SelectComponent"], _select_option_component__WEBPACK_IMPORTED_MODULE_8__["SelectOptionDirective"]],
-            declarations: [_select_component__WEBPACK_IMPORTED_MODULE_9__["SelectComponent"], _select_option_component__WEBPACK_IMPORTED_MODULE_8__["SelectOptionDirective"]],
-            providers: []
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_3__["OverlayModule"], _input__WEBPACK_IMPORTED_MODULE_6__["VCLInputModule"], _icon__WEBPACK_IMPORTED_MODULE_4__["VCLIconModule"], _icogram__WEBPACK_IMPORTED_MODULE_7__["VCLIcogramModule"], _button__WEBPACK_IMPORTED_MODULE_5__["VCLButtonModule"], _dropdown__WEBPACK_IMPORTED_MODULE_8__["VCLDropdownModule"]],
+            exports: [_select_component__WEBPACK_IMPORTED_MODULE_9__["SelectComponent"], _dropdown__WEBPACK_IMPORTED_MODULE_8__["VCLDropdownModule"]],
+            declarations: [_select_component__WEBPACK_IMPORTED_MODULE_9__["SelectComponent"]],
+            providers: [],
         })
     ], VCLSelectModule);
     return VCLSelectModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/select/select-option.component.ts":
-/*!**********************************************************!*\
-  !*** ./lib/ng-vcl/src/select/select-option.component.ts ***!
-  \**********************************************************/
-/*! exports provided: SelectOptionDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectOptionDirective", function() { return SelectOptionDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var SelectOptionDirective = /** @class */ (function () {
-    function SelectOptionDirective() {
-        this.disabled = false;
-    }
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"])
-    ], SelectOptionDirective.prototype, "content", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectOptionDirective.prototype, "value", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectOptionDirective.prototype, "sublabel", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectOptionDirective.prototype, "label", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectOptionDirective.prototype, "prepIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectOptionDirective.prototype, "appIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectOptionDirective.prototype, "appIconSrc", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectOptionDirective.prototype, "prepIconSrc", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectOptionDirective.prototype, "disabled", void 0);
-    SelectOptionDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'vcl-select-option'
-        })
-    ], SelectOptionDirective);
-    return SelectOptionDirective;
 }());
 
 
@@ -11354,7 +10979,7 @@ var SelectOptionDirective = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div (offClick)=\"close()\">\n  <div\n    #select\n    class=\"vclSelect vclInputGroupEmb\"\n    [style.marginBottom]=\"0\"\n    >\n    <div *ngIf=\"showDisplayValue\" class=\"vclInput vclReadonly vclAppItem\" readonly [class.vclSelected]=\"focused\" (click)=\"toggle()\">\n      {{displayValue}}\n    </div>\n    <div *ngIf=\"!showDisplayValue\" class=\"vclInput vclReadonly vclTokenInput vclLayoutWrap\" readonly [class.vclSelected]=\"focused\" (click)=\"toggle()\">\n      <vcl-token-list [disabled]=\"disabled\">\n        <vcl-token *ngFor=\"let item of selectedItems\" [label]=\"item.label\" [removable]=\"true\" (remove)=\"deselectItem(item.metaItem)\"></vcl-token>\n      </vcl-token-list>\n    </div>\n\n    <button vcl-icon-button\n      [disabled]=\"disabled\"\n      type=\"button\"\n      tabindex=\"-1\"\n      class=\"vclAppended\"\n      [icon]=\"expanded ? expandedIcon : collapsedIcon\"\n      (click)=\"toggle()\">\n    </button>\n  </div>\n\n  <vcl-dropdown\n      #dropdown\n      tabindex=\"-1\"\n      [disabled]=\"disabled\"\n      [expanded]=\"expanded\"\n      [value]=\"value\"\n      [mode]=\"mode\"\n      [maxSelectableItems]=\"maxSelectableItems\"\n      [style.position]=\"'relative'\"\n      [style.top.px]=\"dropdownTop\"\n      [style.width]=\"'100%'\"\n      [style.position]=\"'absolute'\"\n      [style.zIndex]=\"zIndex\"\n      (change)=\"onDropdownChange($event)\"\n      (itemsChange)=\"onItemsChange()\"\n  >\n    <vcl-dropdown-option\n      *ngFor=\"let item of items\"\n      [metadata]=\"item\"\n      [value]=\"item.value\"\n      [disabled]=\"disabled || item.disabled\"\n      [label]=\"item.label\"\n      [sublabel]=\"item.sublabel\"\n      [prepIcon]=\"item.prepIcon\"\n      [appIcon]=\"item.appIcon\"\n      [appIconSrc]=\"item.appIconSrc\"\n      [prepIconSrc]=\"item.prepIconSrc\"\n      >\n    </vcl-dropdown-option>\n  </vcl-dropdown>\n</div>\n"
+module.exports = "<input #input \n       vclInput\n       [value]=\"inputValue\"\n       [attr.tabindex]=\"-1\"\n       [disabled]=\"isDisabled\"\n       class=\"vclAppItem vclReadonly\"\n       role=\"listbox\"\n       readonly\n       >\n<button #btn\n        vcl-square-button\n        tabindex=\"-1\"\n        [disabled]=\"isDisabled\"\n        class=\"vclAppended\"\n      >\n      <vcl-icon icon=\"fas:chevron-down\"></vcl-icon>\n</button>\n\n<ng-content select=\"vcl-dropdown\"></ng-content>\n"
 
 /***/ }),
 
@@ -11362,264 +10987,202 @@ module.exports = "<div (offClick)=\"close()\">\n  <div\n    #select\n    class=\
 /*!***************************************************!*\
   !*** ./lib/ng-vcl/src/select/select.component.ts ***!
   \***************************************************/
-/*! exports provided: DropDirection, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, SelectComponent */
+/*! exports provided: SelectComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDirection", function() { return DropDirection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return SelectComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _dropdown_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dropdown/index */ "./lib/ng-vcl/src/dropdown/index.ts");
-/* harmony import */ var _select_option_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./select-option.component */ "./lib/ng-vcl/src/select/select-option.component.ts");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dropdown */ "./lib/ng-vcl/src/dropdown/index.ts");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 
 
 
 
 
-var DropDirection;
-(function (DropDirection) {
-    DropDirection[DropDirection["Top"] = 0] = "Top";
-    DropDirection[DropDirection["Bottom"] = 1] = "Bottom";
-})(DropDirection || (DropDirection = {}));
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SelectComponent; }),
-    multi: true
-};
+
+
+var UNIQUE_ID = 0;
 var SelectComponent = /** @class */ (function () {
-    function SelectComponent(elementRef, cdRef) {
+    function SelectComponent(elementRef, cdRef, ngControl, formControlHost, _errorStateAgent) {
         this.elementRef = elementRef;
         this.cdRef = cdRef;
-        this.debug = false;
-        // If `Single`, a single item can be selected
-        // If `Multiple` multiple items can be selected
-        this.mode = 'single';
-        this.placeholder = 'Select value';
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this._focused = false;
+        this.cvaDisabled = false;
+        this.generatedId = 'vcl_select_' + UNIQUE_ID++;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
+        this.stateChange = this.stateChangeEmitter.asObservable();
+        this.controlType = 'select';
+        this.attrRole = 'listbox';
+        this.classVCLSelect = true;
+        this.classVCLInputGroupEmb = true;
         this.tabindex = 0;
-        this.expanded = false;
-        this.zIndex = 999999;
         this.disabled = false;
-        this.listenKeys = true;
-        // styling
-        this.expandedIcon = 'fas:chevron-up';
-        this.collapsedIcon = 'fas:chevron-down';
-        this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.focused = false;
-        this.dropdownTop = -1;
-        this.selectedItems = [];
-        /**
-         * Things needed for ControlValueAccessor-Interface.
-         */
+        this.selectionMode = 'single';
+        this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.onChange = function () { };
         this.onTouched = function () { };
+        // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
     }
     SelectComponent_1 = SelectComponent;
-    SelectComponent.prototype.ngAfterViewInit = function () {
-        var tag = SelectComponent_1.Tag + ".ngAfterViewInit()";
-        var debug = this.debug || false;
-        if (debug) {
-            console.log(tag);
-        }
-        this.onItemsChange();
-    };
-    SelectComponent.prototype.keydown = function (ev) {
-        if (this.listenKeys) {
-            var prevent = true;
-            switch (ev.code) {
-                case 'ArrowDown':
-                    if (this.expanded) {
-                        this.dropdown.onMetalistKeydown(ev);
-                        // this.dropdown.metalist.markNext();
-                    }
-                    else {
-                        this.open();
-                    }
-                    break;
-                case 'ArrowUp':
-                    if (this.expanded) {
-                        this.dropdown.onMetalistKeydown(ev);
-                        // this.dropdown.metalist.markPrev();
-                    }
-                    else {
-                        this.open();
-                    }
-                    break;
-                case 'Enter':
-                    if (this.expanded) {
-                        this.dropdown.onMetalistKeydown(ev);
-                        // this.dropdown.metalist.selectMarked();
-                        // this.cdRef.detectChanges();
-                    }
-                    else {
-                        this.open();
-                    }
-                    break;
-                case 'Space':
-                    this.toggle();
-                    break;
-                case 'Tab':
-                    this.close();
-                    break;
-                case 'Escape':
-                    this.close();
-                    break;
-                default:
-                    prevent = false;
-            }
-            prevent && ev.preventDefault();
-        }
-    };
-    SelectComponent.prototype.reFocus = function () {
-        this.elementRef.nativeElement.focus();
-    };
-    SelectComponent.prototype.onFocus = function (event) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                this.focused = true;
-                return [2 /*return*/];
-            });
-        });
-    };
-    SelectComponent.prototype.onBlur = function (event) {
-        var _this = this;
-        // When the element loses focus, the dropdown should close
-        // Only close when the active element is not a child element of the select component
-        setTimeout(function () {
-            var target = typeof document !== undefined && document.activeElement;
-            var nativeElement = _this.elementRef && _this.elementRef.nativeElement;
-            if (target && nativeElement && !_this.elementRef.nativeElement.contains(target)) {
-                _this.close();
-                _this.cdRef.markForCheck();
-            }
-        }, 1);
-        this.focused = false;
-        this.onTouched();
-    };
-    SelectComponent.prototype.toggle = function () {
-        if (this.disabled) {
-            return;
-        }
-        if (!this.expanded) {
-            this.open();
-        }
-        else {
-            this.close();
-        }
-    };
-    SelectComponent.prototype.close = function () {
-        this.expanded = false;
-    };
-    Object.defineProperty(SelectComponent.prototype, "showDisplayValue", {
+    Object.defineProperty(SelectComponent.prototype, "elementId", {
         get: function () {
-            return this.mode === 'single' || this.selectedItems.length === 0;
+            return this.id || this.generatedId;
         },
         enumerable: true,
         configurable: true
     });
-    SelectComponent.prototype.open = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var tag, debug, position, clientHeight, screenHeight, spaceBottom, spaceTop, dropDirection;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        tag = SelectComponent_1.Tag + ".open()";
-                        debug = this.debug || false;
-                        this.expanded = true;
-                        position = this.elementRef.nativeElement.getBoundingClientRect();
-                        if (this.debug) {
-                            console.log(tag, 'position:', position);
-                        }
-                        clientHeight = document.documentElement ? document.documentElement.clientHeight : undefined;
-                        screenHeight = window.innerHeight
-                            || clientHeight
-                            || document.body.clientHeight;
-                        if (this.debug) {
-                            console.log(tag, 'screenHeight:', screenHeight);
-                        }
-                        spaceBottom = screenHeight - position.bottom;
-                        if (this.debug) {
-                            console.log(tag, 'spaceBottom:', spaceBottom);
-                        }
-                        spaceTop = position.top;
-                        if (this.debug) {
-                            console.log(tag, 'spaceTop:', spaceTop);
-                        }
-                        dropDirection = (this.dropDirection === DropDirection.Top ||
-                            this.dropDirection === DropDirection.Bottom) ? this.dropDirection :
-                            (spaceBottom < spaceTop) ? DropDirection.Top : DropDirection.Bottom;
-                        if (this.debug) {
-                            console.log(tag, 'dropDirection:', DropDirection[dropDirection]);
-                        }
-                        // Wait for the dropdown to be rendered, so the offsetHeight can be determined
-                        return [4 /*yield*/, new Promise(function (res) { return setTimeout(res, 0); })];
-                    case 1:
-                        // Wait for the dropdown to be rendered, so the offsetHeight can be determined
-                        _a.sent();
-                        switch (dropDirection) {
-                            case DropDirection.Top:
-                                this.dropdownTop = -1 *
-                                    (this.dropdown.elementRef.nativeElement.children[0].offsetHeight
-                                        - 1 // border
-                                        + 0.3 // fix chrome ugly 1-pixel-render
-                                    );
-                                break;
-                            case DropDirection.Bottom:
-                                this.dropdownTop = -1.1
-                                    + this.select.nativeElement.offsetHeight;
-                                break;
-                        }
-                        this.cdRef.markForCheck();
-                        return [2 /*return*/];
-                }
-            });
-        });
+    Object.defineProperty(SelectComponent.prototype, "isFocused", {
+        get: function () {
+            return this._focused || this.dropdown.isOpen;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SelectComponent.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SelectComponent.prototype.onFocus = function () {
+        this._focused = true;
+        this.stateChangeEmitter.next();
+        this.openDropdown();
     };
-    SelectComponent.prototype.syncDisplayValue = function () {
-        var items = ((this.dropdown && this.dropdown.metalist && this.dropdown.metalist.selectedItems) || []);
-        this.selectedItems = items.map(function (_item) {
-            var label = (_item.metadata && _item.metadata.metadata && _item.metadata.metadata.label) || String(_item.value);
-            return {
-                label: label,
-                metaItem: _item
-            };
-        });
-        var item = this.selectedItems[0];
-        if (item) {
-            this.displayValue = item.label;
+    SelectComponent.prototype.onBlur = function () {
+        this._focused = false;
+        this.onTouched();
+        this.stateChangeEmitter.next();
+    };
+    SelectComponent.prototype.onKeyUp = function (event) {
+        var code = event.keyCode;
+        if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["ESCAPE"]) {
+            this.closeDropdown();
+            this.elementRef.nativeElement.blur();
+        }
+        else if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["UP_ARROW"]) {
+            this.dropdown && this.dropdown.highlightPrev();
+            event.preventDefault();
+            return false;
+        }
+        else if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["DOWN_ARROW"]) {
+            if (this.dropdown.isOpen) {
+                this.dropdown && this.dropdown.highlightNext();
+            }
+            else {
+                this.openDropdown();
+            }
+            event.preventDefault();
+            return false;
+        }
+    };
+    SelectComponent.prototype.onKeyDown = function (event) {
+        var code = event.keyCode;
+        if (code === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["TAB"]) {
+            this.closeDropdown();
+        }
+    };
+    SelectComponent.prototype.onKeyPress = function (event) {
+        var code = event.code || event.key;
+        if (this.dropdown && code === 'Enter') {
+            event.preventDefault();
+            this.dropdown.selectItem(this.dropdown.getHighlightedItem());
+        }
+    };
+    Object.defineProperty(SelectComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled || this.cvaDisabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SelectComponent.prototype, "inputValue", {
+        get: function () {
+            var _this = this;
+            if (!this.dropdown) {
+                return '';
+            }
+            if (this.selectionMode === 'single') {
+                var items = this.dropdown.getItems();
+                var item = items.find(function (_item) { return _this.value === _item.value; });
+                return item ? item.label : (this.label || '');
+            }
+            else {
+                var value_1 = Array.isArray(this.value) ? this.value : [];
+                var items = this.dropdown.getItems();
+                var labels = items.filter(function (item) { return value_1.includes(item.value); }).map(function (item) { return item.label; });
+                return labels.length === 0 ? (this.label || '') : labels.join(', ');
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SelectComponent.prototype.onClick = function () {
+        if (this.dropdown.isOpen) {
+            this.closeDropdown();
         }
         else {
-            this.displayValue = this.placeholder;
+            this.openDropdown();
         }
     };
-    SelectComponent.prototype.deselectItem = function (item) {
-        this.dropdown.metalist.deselect(item);
-    };
-    SelectComponent.prototype.onItemsChange = function () {
-        this.syncDisplayValue();
-        this.cdRef.detectChanges();
-        this.cdRef.markForCheck();
-    };
-    SelectComponent.prototype.onDropdownChange = function (value) {
+    SelectComponent.prototype.openDropdown = function () {
         var _this = this;
-        if (this.mode === 'single') {
-            this.close();
+        if (this.isDisabled || !this.dropdown) {
+            this.dropdown.close();
+            return;
         }
-        this.syncDisplayValue();
-        // propagate value change
-        this.change.emit(value);
-        // propagate form-change
-        this.onChange(value);
-        // refocus
-        setTimeout(function () { return _this.reFocus(); }, 0);
+        var values;
+        if (this.selectionMode === 'single') {
+            values = [this.value];
+        }
+        else {
+            values = Array.isArray(this.value) ? this.value : [];
+        }
+        this.dropdown.open({
+            target: this.elementRef,
+            offClickExcludes: [this.input, this.button],
+            selectionMode: this.selectionMode,
+            value: values
+        }).subscribe(function (action) {
+            if (action.type === 'select') {
+                if (_this.selectionMode === 'single') {
+                    _this.value = action.item.value;
+                    _this.closeDropdown();
+                }
+                else {
+                    _this.value = action.selectedItems.map(function (item) { return item.value; });
+                }
+                _this.valueChange.emit(_this.value);
+                _this.onChange(_this.value);
+                _this.onTouched();
+            }
+        });
+    };
+    SelectComponent.prototype.closeDropdown = function () {
+        this.dropdown.close();
+    };
+    SelectComponent.prototype.onLabelClick = function (event) {
+        this.openDropdown();
+    };
+    SelectComponent.prototype.ngOnDestroy = function () {
+        this.stateChangeEmitter && this.stateChangeEmitter.complete();
     };
     SelectComponent.prototype.writeValue = function (value) {
         this.value = value;
-        this.dropdown.writeValue(value);
-        this.syncDisplayValue();
         this.cdRef.markForCheck();
     };
     SelectComponent.prototype.registerOnChange = function (fn) {
@@ -11629,35 +11192,42 @@ var SelectComponent = /** @class */ (function () {
         this.onTouched = fn;
     };
     SelectComponent.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
-        this.cdRef.markForCheck();
+        this.cvaDisabled = isDisabled;
     };
     var SelectComponent_1;
-    SelectComponent.Tag = 'SelectComponent';
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "debug", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('dropdown'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _dropdown_index__WEBPACK_IMPORTED_MODULE_3__["DropdownComponent"])
-    ], SelectComponent.prototype, "dropdown", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_select_option_component__WEBPACK_IMPORTED_MODULE_4__["SelectOptionDirective"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
-    ], SelectComponent.prototype, "items", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('select'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
-    ], SelectComponent.prototype, "select", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectComponent.prototype, "mode", void 0);
+    ], SelectComponent.prototype, "id", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], SelectComponent.prototype, "elementId", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_dropdown__WEBPACK_IMPORTED_MODULE_4__["DropdownComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _dropdown__WEBPACK_IMPORTED_MODULE_4__["DropdownComponent"])
+    ], SelectComponent.prototype, "dropdown", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('input', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], SelectComponent.prototype, "input", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('btn', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], SelectComponent.prototype, "button", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.role'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "placeholder", void 0);
+    ], SelectComponent.prototype, "attrRole", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclSelect'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], SelectComponent.prototype, "classVCLSelect", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputGroupEmb'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], SelectComponent.prototype, "classVCLInputGroupEmb", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.tabindex'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -11666,74 +11236,86 @@ var SelectComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "expanded", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "zIndex", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SelectComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "listenKeys", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], SelectComponent.prototype, "label", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], SelectComponent.prototype, "maxSelectableItems", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "expandedIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "collapsedIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "change", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], SelectComponent.prototype, "dropDirection", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], SelectComponent.prototype, "selectionMode", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SelectComponent.prototype, "value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keydown', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], SelectComponent.prototype, "keydown", null);
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], SelectComponent.prototype, "errorStateAgent", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], SelectComponent.prototype, "valueChange", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], SelectComponent.prototype, "hasError", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", Promise)
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], SelectComponent.prototype, "onFocus", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], SelectComponent.prototype, "onBlur", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], SelectComponent.prototype, "onKeyUp", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keydown', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], SelectComponent.prototype, "onKeyDown", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keypress', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], SelectComponent.prototype, "onKeyPress", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], SelectComponent.prototype, "onClick", null);
     SelectComponent = SelectComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-select',
             template: __webpack_require__(/*! ./select.component.html */ "./lib/ng-vcl/src/select/select.component.html"),
-            // changeDetection: ChangeDetectionStrategy.OnPush,
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-            host: {
-                '[style.position]': '"relative"',
-                '[style.display]': '"block"'
-            }
+            exportAs: 'vclSelect',
+            providers: [{
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_5__["FORM_CONTROL_INPUT"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SelectComponent_1; })
+                }]
         }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_5__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_5__["FORM_CONTROL_ERROR_STATE_AGENT"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControl"], Object, Function])
     ], SelectComponent);
     return SelectComponent;
 }());
@@ -11796,40 +11378,47 @@ module.exports = "<div class=\"vclSliderRail\">\n  <div class=\"vclSliderScale\"
 /*!***************************************************!*\
   !*** ./lib/ng-vcl/src/slider/slider.component.ts ***!
   \***************************************************/
-/*! exports provided: MoveDirection, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR, SliderComponent */
+/*! exports provided: MoveDirection, SliderComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MoveDirection", function() { return MoveDirection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR", function() { return CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return SliderComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 
 
 
+
+
+var UNIQUE_ID = 0;
 var MoveDirection;
 (function (MoveDirection) {
     MoveDirection[MoveDirection["Left"] = 0] = "Left";
     MoveDirection[MoveDirection["Right"] = 1] = "Right";
 })(MoveDirection || (MoveDirection = {}));
-var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SliderComponent; }),
-    multi: true
-};
 var SliderComponent = /** @class */ (function () {
-    function SliderComponent(cdRef) {
+    function SliderComponent(cdRef, ngControl, formControlHost, _errorStateAgent) {
         this.cdRef = cdRef;
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this._cvaDisabled = false;
+        this.generatedId = 'vcl_slider_' + UNIQUE_ID++;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.stateChange = this.stateChangeEmitter.asObservable();
+        this.controlType = 'slider';
         this.tabindex = 0;
         this.value = 0;
         this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.disabled = false;
         this.min = 0;
         this.max = 10;
-        this.mousewheel = false;
+        this.enableWheel = false;
         this.lock = false;
         this.focused = false;
         this.percentLeftKnob = 0;
@@ -11840,7 +11429,41 @@ var SliderComponent = /** @class */ (function () {
          */
         this.onChange = function () { };
         this.onTouched = function () { };
+        // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
     }
+    SliderComponent_1 = SliderComponent;
+    Object.defineProperty(SliderComponent.prototype, "elementId", {
+        get: function () {
+            return this.id || this.generatedId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SliderComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled || this._cvaDisabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SliderComponent.prototype, "isFocused", {
+        get: function () {
+            return this.focused;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SliderComponent.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(SliderComponent.prototype, "pmin", {
         get: function () {
             var min = Number(this.min);
@@ -11862,17 +11485,17 @@ var SliderComponent = /** @class */ (function () {
     };
     Object.defineProperty(SliderComponent.prototype, "valueValid", {
         get: function () {
-            return this.validateValue(this.value);
+            return this.validateValue();
         },
         enumerable: true,
         configurable: true
     });
-    SliderComponent.prototype.validateValue = function (value) {
+    SliderComponent.prototype.validateValue = function () {
         return typeof this.value === 'number' && this.value >= this.pmin && this.value <= this.pmax;
     };
     Object.defineProperty(SliderComponent.prototype, "showScale", {
         get: function () {
-            return Array.isArray(this.scale) || (typeof this.scale === 'boolean' && this.scale);
+            return Array.isArray(this.scale) || typeof this.scale === 'number' || (typeof this.scale === 'boolean' && this.scale);
         },
         enumerable: true,
         configurable: true
@@ -11894,7 +11517,7 @@ var SliderComponent = /** @class */ (function () {
         this.onChange(this.value);
     };
     SliderComponent.prototype.calculatePercentLeftKnob = function (value) {
-        if (!this.validateValue(value)) {
+        if (!this.validateValue()) {
             return 0;
         }
         var rangeLength = this.pmax - this.pmin;
@@ -11904,7 +11527,7 @@ var SliderComponent = /** @class */ (function () {
     };
     SliderComponent.prototype.percentToValue = function (per) {
         var rangeLength = this.pmax - this.pmin;
-        var newVal = (rangeLength / 100) * per;
+        var newVal = ((rangeLength / 100) * per) + this.pmin;
         return Math.round(newVal);
     };
     SliderComponent.prototype.updateScalePoints = function () {
@@ -11927,7 +11550,7 @@ var SliderComponent = /** @class */ (function () {
                 steps_2 = this.pmax - this.pmin + 1;
             }
             this.scalePoints = Array.from(Array(steps_2).keys()).map(function (i) {
-                var percent = (100 / (steps_2 - 1)) * i;
+                var percent = (100 / (steps_2 - 1)) * (i);
                 return {
                     label: _this.percentToValue(percent).toString(),
                     percent: percent
@@ -11962,11 +11585,11 @@ var SliderComponent = /** @class */ (function () {
     /**
      * clicking the rail should also reposition the bar
      */
-    SliderComponent.prototype.onTap = function (event) {
+    SliderComponent.prototype.onClick = function (event) {
         if (this.disabled || event.target.className === 'vclSliderKnob') {
             return;
         }
-        var railX = event.changedPointers[0].offsetX;
+        var railX = event.offsetX;
         if (railX <= 0) {
             return;
         }
@@ -12026,7 +11649,7 @@ var SliderComponent = /** @class */ (function () {
         this.setValue(value, true);
     };
     SliderComponent.prototype.onWheel = function (ev) {
-        if (this.disabled || !this.mousewheel) {
+        if (this.disabled || !this.enableWheel) {
             return;
         }
         if (ev.deltaY < 0) {
@@ -12086,6 +11709,8 @@ var SliderComponent = /** @class */ (function () {
             this.setValue(value, false);
         }
     };
+    SliderComponent.prototype.onLabelClick = function (event) {
+    };
     SliderComponent.prototype.writeValue = function (value) {
         this.setValue(value, true);
         this.cdRef.markForCheck();
@@ -12097,9 +11722,19 @@ var SliderComponent = /** @class */ (function () {
         this.onTouched = fn;
     };
     SliderComponent.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
+        this._cvaDisabled = isDisabled;
         this.cdRef.markForCheck();
     };
+    var SliderComponent_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], SliderComponent.prototype, "id", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.id'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], SliderComponent.prototype, "elementId", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -12113,7 +11748,6 @@ var SliderComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SliderComponent.prototype, "valueChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SliderComponent.prototype, "disabled", void 0);
@@ -12128,7 +11762,7 @@ var SliderComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SliderComponent.prototype, "mousewheel", void 0);
+    ], SliderComponent.prototype, "enableWheel", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -12138,6 +11772,10 @@ var SliderComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SliderComponent.prototype, "scale", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], SliderComponent.prototype, "errorStateAgent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclFocused'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SliderComponent.prototype, "focused", void 0);
@@ -12145,6 +11783,16 @@ var SliderComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('scale'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
     ], SliderComponent.prototype, "scaleElement", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], SliderComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], SliderComponent.prototype, "hasError", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
@@ -12158,11 +11806,11 @@ var SliderComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], SliderComponent.prototype, "onBlur", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('tap', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], SliderComponent.prototype, "onTap", null);
+    ], SliderComponent.prototype, "onClick", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('wheel', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
@@ -12175,17 +11823,26 @@ var SliderComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], SliderComponent.prototype, "keydown", null);
-    SliderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    SliderComponent = SliderComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-slider',
             template: __webpack_require__(/*! ./slider.component.html */ "./lib/ng-vcl/src/slider/slider.component.html"),
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
             host: {
                 '[class.vclSlider]': 'true'
             },
+            providers: [{
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_INPUT"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SliderComponent_1; })
+                }],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControl"], Object, Function])
     ], SliderComponent);
     return SliderComponent;
 }());
@@ -13455,18 +13112,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TextareaDirective", function() { return TextareaDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _form_control_group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
 
 
 var UNIQUE_ID = 0;
 var TextareaDirective = /** @class */ (function () {
-    function TextareaDirective(elRef) {
-        this.elRef = elRef;
-        this.generatedId = 'vcl_input_' + UNIQUE_ID++;
+    function TextareaDirective(elementRef, cdRef, ngControl, formControlHost, _errorStateAgent) {
+        this.elementRef = elementRef;
+        this.cdRef = cdRef;
+        this.ngControl = ngControl;
+        this.formControlHost = formControlHost;
+        this._errorStateAgent = _errorStateAgent;
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+        this._focused = false;
+        this.generatedId = 'vcl_textarea_' + UNIQUE_ID++;
+        this.controlType = 'textarea';
+        this.stateChange = this.stateChangeEmitter.asObservable();
         this.classVclInput = true;
         this.disabled = false;
         this.autoselect = false;
         this.autogrow = false;
     }
+    TextareaDirective_1 = TextareaDirective;
     Object.defineProperty(TextareaDirective.prototype, "elementId", {
         get: function () {
             return this.id || this.generatedId;
@@ -13481,9 +13153,37 @@ var TextareaDirective = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TextareaDirective.prototype, "isFocused", {
+        get: function () {
+            return this._focused;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TextareaDirective.prototype, "value", {
+        get: function () {
+            return this.elementRef.nativeElement.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TextareaDirective.prototype, "hasError", {
+        get: function () {
+            var errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+            return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
     TextareaDirective.prototype.onChange = function () {
-        var value = this.elRef && this.elRef.nativeElement.value;
+        var value = this.elementRef && this.elementRef.nativeElement.value;
         this.setRows(value);
+    };
+    TextareaDirective.prototype.onFocus = function () {
+        this._focused = true;
+    };
+    TextareaDirective.prototype.onBlur = function () {
+        this._focused = false;
     };
     TextareaDirective.prototype.ngOnChanges = function (changes) {
         if ('value' in changes) {
@@ -13491,12 +13191,15 @@ var TextareaDirective = /** @class */ (function () {
         }
     };
     TextareaDirective.prototype.ngDoCheck = function () {
-        var value = this.elRef && this.elRef.nativeElement.value;
+        var value = this.elementRef && this.elementRef.nativeElement.value;
         this.setRows(value);
     };
     TextareaDirective.prototype.ngAfterViewInit = function () {
-        var value = this.elRef && this.elRef.nativeElement.value;
+        var value = this.elementRef && this.elementRef.nativeElement.value;
         this.setRows(value);
+    };
+    TextareaDirective.prototype.onLabelClick = function (event) {
+        this.elementRef.nativeElement.focus();
     };
     TextareaDirective.prototype.setRows = function (value) {
         if (this.autogrow && typeof value === 'string') {
@@ -13513,8 +13216,12 @@ var TextareaDirective = /** @class */ (function () {
         }
     };
     TextareaDirective.prototype.notifyFormControlLabelClick = function (event) {
-        this.elRef.nativeElement.focus();
+        this.elementRef.nativeElement.focus();
     };
+    TextareaDirective.prototype.ngOnDestroy = function () {
+        this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    };
+    var TextareaDirective_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInput'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -13559,20 +13266,49 @@ var TextareaDirective = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
     ], TextareaDirective.prototype, "rows", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function)
+    ], TextareaDirective.prototype, "errorStateAgent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclError'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], TextareaDirective.prototype, "hasError", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('propertychange'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('input'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], TextareaDirective.prototype, "onChange", null);
-    TextareaDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], TextareaDirective.prototype, "onFocus", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], TextareaDirective.prototype, "onBlur", null);
+    TextareaDirective = TextareaDirective_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'textarea[vclInput]',
-            host: {
-                '[class.vclInput]': 'true',
-            }
+            providers: [{
+                    provide: _form_control_group__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_INPUT"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return TextareaDirective_1; })
+                }]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"], Object, Function])
     ], TextareaDirective);
     return TextareaDirective;
 }());
@@ -13603,13 +13339,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _token_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./token.component */ "./lib/ng-vcl/src/token/token.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return _token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"]; });
 
-/* harmony import */ var _token_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./token-list.component */ "./lib/ng-vcl/src/token/token-list.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_list_component__WEBPACK_IMPORTED_MODULE_10__["TokenListComponent"]; });
+/* harmony import */ var _token_input_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./token-input.component */ "./lib/ng-vcl/src/token/token-input.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputContainerComponent"]; });
 
-/* harmony import */ var _token_input_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./token-input.component */ "./lib/ng-vcl/src/token/token-input.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputContainerComponent", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputContainerComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenInputDirective", function() { return _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputDirective"]; });
+/* harmony import */ var _token_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./token-list.component */ "./lib/ng-vcl/src/token/token-list.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return _token_list_component__WEBPACK_IMPORTED_MODULE_11__["TokenListComponent"]; });
 
 
 
@@ -13630,8 +13366,8 @@ var VCLTokenModule = /** @class */ (function () {
     VCLTokenModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _input_index__WEBPACK_IMPORTED_MODULE_4__["VCLInputModule"], _button_index__WEBPACK_IMPORTED_MODULE_6__["VCLButtonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"], _icogram_index__WEBPACK_IMPORTED_MODULE_8__["VCLIcogramModule"], _wormhole_index__WEBPACK_IMPORTED_MODULE_7__["VCLWormholeModule"]],
-            exports: [_token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_10__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputLabelPreDirective"]],
-            declarations: [_token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_10__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_11__["TokenInputLabelPreDirective"]],
+            exports: [_token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_11__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPreDirective"]],
+            declarations: [_token_component__WEBPACK_IMPORTED_MODULE_9__["TokenComponent"], _token_list_component__WEBPACK_IMPORTED_MODULE_11__["TokenListComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputContainerComponent"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPostDirective"], _token_input_component__WEBPACK_IMPORTED_MODULE_10__["TokenInputLabelPreDirective"]],
             providers: [],
         })
     ], VCLTokenModule);
@@ -13649,7 +13385,7 @@ var VCLTokenModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclTokenContainer\">\n  <wormhole *ngIf=\"labelPre\" [connect]=\"labelPre\"></wormhole>\n  <vcl-token *ngFor=\"let token of tokens\"\n             (remove)=\"onTokenRemove(token)\"\n             (click)=\"select(token)\"\n             [tokenIcon]=\"token.tokenIcon\"\n             [disabled]=\"disabled\"\n             [ngClass]=\"tokenClass\"\n             [selected]=\"token.selected\"\n             [removable]=\"true\"\n             [icon]=\"removeIcon\"\n             [attr.tabindex]=\"-1\"\n             [label]=\"token.label\">\n  </vcl-token>\n  <wormhole *ngIf=\"labelPost\" [connect]=\"labelPost\"></wormhole>\n</div>\n<ng-content></ng-content>\n"
+module.exports = "<div class=\"vclTokenContainer\">\n  <vcl-token *ngFor=\"let token of tokens\"\n             (remove)=\"onTokenRemove(token)\"\n             (click)=\"select(token)\"\n             (blur)=\"onBlur()\"\n             [disabled]=\"disabled\"\n             [ngClass]=\"tokenClass\"\n             [selected]=\"token.selected\"\n             [removable]=\"true\"\n             [attr.tabindex]=\"-1\">\n    {{token.label}}\n  </vcl-token>\n</div>\n<ng-content></ng-content>\n\n"
 
 /***/ }),
 
@@ -13706,10 +13442,8 @@ var TokenInputContainerComponent = /** @class */ (function () {
         this.selectable = false;
         this.allowDuplicates = false;
         this.preselect = false;
-        this.removeIcon = 'fas:times';
         this.removeToken = true;
         this.tabindex = 0;
-        this.controlAsString = false;
         this.disabled = false;
         this.tokensChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.remove = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
@@ -13728,14 +13462,15 @@ var TokenInputContainerComponent = /** @class */ (function () {
         this.cdRef.markForCheck();
     };
     TokenInputContainerComponent.prototype.addToken = function (token) {
-        token = typeof token === 'string' ? { label: token } : token;
-        var newToken = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, token, { selected: token.selected === undefined ? this.preselect : token.selected, value: token.value === undefined ? token.label : token.value });
+        token = typeof token === 'string' ? { label: token, value: token } : token;
+        var newToken = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ selected: token.selected === undefined ? this.preselect : token.selected }, token);
         if (this.allowDuplicates === false && this.tokens.some(function (thisToken) { return thisToken.value === newToken.value; })) {
             return;
         }
         this.tokens = this.tokens.concat([newToken]);
         this.triggerChange();
         this.cdRef.markForCheck();
+        this.onTouched();
     };
     TokenInputContainerComponent.prototype.select = function (token) {
         if (this.selectable) {
@@ -13752,12 +13487,10 @@ var TokenInputContainerComponent = /** @class */ (function () {
     };
     TokenInputContainerComponent.prototype.triggerChange = function () {
         this.tokensChange.emit(this.tokens);
-        if (this.controlAsString) {
-            this.onChange(this.tokens.map(function (t) { return t.label; }));
-        }
-        else {
-            this.onChange(this.tokens);
-        }
+        this.onChange(this.tokens);
+    };
+    TokenInputContainerComponent.prototype.onBlur = function () {
+        this.onTouched();
     };
     TokenInputContainerComponent.prototype.writeValue = function (tokens) {
         var _this = this;
@@ -13794,10 +13527,6 @@ var TokenInputContainerComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenInputContainerComponent.prototype, "removeIcon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], TokenInputContainerComponent.prototype, "removeToken", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -13807,10 +13536,6 @@ var TokenInputContainerComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], TokenInputContainerComponent.prototype, "tokenClass", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenInputContainerComponent.prototype, "controlAsString", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -13828,14 +13553,6 @@ var TokenInputContainerComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], TokenInputContainerComponent.prototype, "confirm", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(TokenInputLabelPreDirective, { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"] }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", TokenInputLabelPreDirective)
-    ], TokenInputContainerComponent.prototype, "labelPre", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(TokenInputLabelPostDirective, { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"] }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", TokenInputLabelPostDirective)
-    ], TokenInputContainerComponent.prototype, "labelPost", void 0);
     TokenInputContainerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-token-input-container',
@@ -13860,7 +13577,8 @@ var TokenInputDirective = /** @class */ (function () {
         this.elementRef = elementRef;
         this.input = input;
         this.tokenInputContainer = tokenInputContainer;
-        this.addTokenOnEnter = true;
+        // tslint:disable-next-line:no-input-rename
+        this.addOnEnter = true;
         if (!tokenInputContainer) {
             throw new Error('vcl-token-input ,must be used within a vcl-token-input-container');
         }
@@ -13905,15 +13623,15 @@ var TokenInputDirective = /** @class */ (function () {
         if (value === '') {
             this.tokenInputContainer.confirm.emit();
         }
-        else if (this.addTokenOnEnter) {
+        else if (this.addOnEnter) {
             this.tokenInputContainer.addToken(value);
             this.elementRef.nativeElement.value = '';
         }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('vclTokenInputAddOnEnter'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenInputDirective.prototype, "addTokenOnEnter", void 0);
+    ], TokenInputDirective.prototype, "addOnEnter", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
@@ -13938,7 +13656,7 @@ var TokenInputDirective = /** @class */ (function () {
     ], TokenInputDirective.prototype, "onKeyPressEnter", null);
     TokenInputDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'input[vcl-token-input]'
+            selector: 'input[vclTokenInput]'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
@@ -13966,89 +13684,85 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokenListComponent", function() { return TokenListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _token_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./token.component */ "./lib/ng-vcl/src/token/token.component.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _token_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./token.component */ "./lib/ng-vcl/src/token/token.component.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 
 
 
 
 
 var CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALUE_ACCESSOR"],
+    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return TokenListComponent; }),
     multi: true
 };
 var TokenListComponent = /** @class */ (function () {
     function TokenListComponent(cdRef) {
         this.cdRef = cdRef;
-        this.selectable = false;
-        this.dispatchEvent = false;
+        this.cvaDisabled = false;
         this.disabled = false;
+        this.selectable = false;
+        this.removable = false;
         this.tokensChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.labels = [];
+        this.value = [];
+        this.onChangeCallback = function (value) { };
+        this.onTouchedCallback = function () { };
     }
+    TokenListComponent_1 = TokenListComponent;
+    Object.defineProperty(TokenListComponent.prototype, "isDisabled", {
+        get: function () {
+            return this.disabled || this.cvaDisabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
     TokenListComponent.prototype.syncTokens = function () {
-        var labels = this.labels;
-        if (Array.isArray(labels)) {
-            this.tokens && this.tokens.forEach(function (token) {
-                token.selected = labels.includes(token.label);
-            });
+        var _this = this;
+        var value = this.value;
+        if (!Array.isArray(value)) {
+            value = [];
         }
-    };
-    TokenListComponent.prototype.syncSelectedValues = function () {
-        this.labels = this.tokens ? this.tokens.filter(function (t) { return t.selected; }).map(function (t) { return t.label; }) : [];
-    };
-    TokenListComponent.prototype.triggerChange = function () {
-        this.tokensChange.emit(this.labels);
-        !!this.onChangeCallback && this.onChangeCallback(this.labels);
+        this.tokens && this.tokens.forEach(function (token) {
+            token.selected = value.includes(token.value);
+            token.selectable = _this.selectable;
+            token.removable = _this.removable;
+            token.setDisabledState(_this.isDisabled);
+        });
     };
     TokenListComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.disabled) {
-            this.setDisabledState(changes.disabled.currentValue);
+        if (changes.disabled || changes.value) {
+            this.syncTokens();
+        }
+    };
+    TokenListComponent.prototype.notifyTokenRemove = function (token) {
+        // this.value = this.tokens.filter(t => t !== token).map(t => t.value);
+        this.syncTokens();
+    };
+    TokenListComponent.prototype.notifyTokenSelect = function (token) {
+        this.value = this.tokens ? this.tokens.filter(function (t) { return t.selected; }).map(function (t) { return t.value; }) : [];
+        this.syncTokens();
+        this.onChangeCallback(this.value);
+    };
+    TokenListComponent.prototype.notifyTokenBlur = function (token) {
+        if (token === this.tokens.last) {
+            this.onTouchedCallback();
         }
     };
     TokenListComponent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        // Update the selectedIndex to match the selected buttons when not using ngModel
-        if (!this.onChangeCallback) {
-            this.syncSelectedValues();
-            this.triggerChange();
-        }
-        // Subscribes to buttons press event
-        var listenButtonPress = function () {
-            if (!_this.tokens) {
-                return;
-            }
-            _this.dispose();
-            _this.cdRef.markForCheck();
-            var select$ = rxjs__WEBPACK_IMPORTED_MODULE_2__["merge"].apply(void 0, (_this.tokens.map(function (token) { return token.select.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function () { return token; })); })));
-            _this.tokenSubscription = select$.subscribe(function (token) {
-                if (_this.selectable) {
-                    token.selected = !token.selected;
-                }
-                _this.syncSelectedValues();
-                _this.triggerChange();
-            });
-        };
-        this.tokens && this.tokens.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["startWith"])(null)).subscribe(function () {
-            listenButtonPress();
-            setTimeout(function () {
-                _this.syncSelectedValues();
-                _this.setDisabledState(_this.disabled);
-            });
+        this.tokenSub = this.tokens && this.tokens.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null)).subscribe(function () {
+            _this.syncTokens();
         });
     };
     TokenListComponent.prototype.ngOnDestroy = function () {
         this.dispose();
     };
     TokenListComponent.prototype.dispose = function () {
-        this.tokenSubscription && this.tokenSubscription.unsubscribe();
+        this.tokenSub && this.tokenSub.unsubscribe();
     };
     TokenListComponent.prototype.writeValue = function (value) {
-        this.labels = value;
+        this.value = value;
         this.syncTokens();
         this.cdRef.markForCheck();
     };
@@ -14056,14 +13770,21 @@ var TokenListComponent = /** @class */ (function () {
         this.onChangeCallback = fn;
     };
     TokenListComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
     };
     TokenListComponent.prototype.setDisabledState = function (isDisabled) {
-        this.tokens && this.tokens.forEach(function (t) { return t.setDisabledState(isDisabled); });
+        this.cvaDisabled = isDisabled;
+        this.syncTokens();
     };
+    var TokenListComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_token_component__WEBPACK_IMPORTED_MODULE_4__["TokenComponent"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_token_component__WEBPACK_IMPORTED_MODULE_3__["TokenComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], TokenListComponent.prototype, "tokens", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TokenListComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -14071,16 +13792,16 @@ var TokenListComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenListComponent.prototype, "dispatchEvent", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenListComponent.prototype, "disabled", void 0);
+    ], TokenListComponent.prototype, "removable", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], TokenListComponent.prototype, "tokensChange", void 0);
-    TokenListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Array)
+    ], TokenListComponent.prototype, "value", void 0);
+    TokenListComponent = TokenListComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-token-list',
             template: '<ng-content></ng-content>',
@@ -14088,7 +13809,14 @@ var TokenListComponent = /** @class */ (function () {
                 '[class.vclTokenList]': 'true',
                 '[class.vclTokenContainer]': 'true'
             },
-            providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+            providers: [
+                CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+                {
+                    provide: _token_component__WEBPACK_IMPORTED_MODULE_3__["TOKEN_OBSERVER_TOKEN"],
+                    useExisting: TokenListComponent_1
+                }
+            ],
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], TokenListComponent);
@@ -14106,7 +13834,7 @@ var TokenListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<vcl-icogram *ngIf=\"tokenIcon\"  [appIcon]=\"tokenIcon\" ></vcl-icogram>\n<span class=\"vclTokenLabel\">{{label}}</span>\n<button vcl-icon-button\n        [disabled]=\"isDisabled\"\n        *ngIf=\"removable\" \n        class=\"vclTransparent\"\n        type=\"button\" \n        title=\"Remove\"\n        [icon]=\"icon\"\n        (click)=\"onRemoveClick($event)\">\n</button>\n"
+module.exports = "<!-- <vcl-icogram *ngIf=\"tokenIcon\"  [appIcon]=\"tokenIcon\" ></vcl-icogram> -->\n<span class=\"vclTokenLabel\">\n  <ng-content></ng-content>\n</span>\n<button vcl-square-button\n        [disabled]=\"isDisabled\"\n        *ngIf=\"removable\" \n        class=\"vclTransparent\"\n        title=\"Remove\"\n        (click)=\"onRemoveClick($event)\">\n    <vcl-icon [icon]=\"'vcl:close'\"></vcl-icon>\n</button>\n"
 
 /***/ }),
 
@@ -14114,38 +13842,72 @@ module.exports = "<vcl-icogram *ngIf=\"tokenIcon\"  [appIcon]=\"tokenIcon\" ></v
 /*!*************************************************!*\
   !*** ./lib/ng-vcl/src/token/token.component.ts ***!
   \*************************************************/
-/*! exports provided: TokenComponent */
+/*! exports provided: TOKEN_OBSERVER_TOKEN, TokenComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOKEN_OBSERVER_TOKEN", function() { return TOKEN_OBSERVER_TOKEN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokenComponent", function() { return TokenComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
+var TOKEN_OBSERVER_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('vcl_token_observer');
 var TokenComponent = /** @class */ (function () {
-    function TokenComponent(cdRef) {
+    function TokenComponent(cdRef, elementRef, observer) {
         this.cdRef = cdRef;
-        this.label = '';
+        this.elementRef = elementRef;
+        this.observer = observer;
+        this.tabindex = 0;
         this.disabled = false;
         this.selected = false;
+        this.selectable = false;
         this.removable = false;
-        this.icon = 'fas:times';
         this.remove = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.selectionChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         // Store cva disabled state in an extra property to remember the old state after the token-list has been disabled
         this.cvaDisabled = false;
     }
-    TokenComponent.prototype.onTap = function (e) {
-        if (this.isDisabled) {
+    Object.defineProperty(TokenComponent.prototype, "label", {
+        get: function () {
+            return this._label || this.elementRef.nativeElement.innerHTML;
+        },
+        set: function (label) {
+            this._label = label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TokenComponent.prototype, "value", {
+        get: function () {
+            return this._value || this.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TokenComponent.prototype, "styleCursor", {
+        get: function () {
+            return !this.selectable ? 'unset' : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TokenComponent.prototype.onBlur = function (e) {
+        this.observer && this.observer.notifyTokenBlur(this);
+    };
+    TokenComponent.prototype.onClick = function (e) {
+        if (this.isDisabled || !this.selectable) {
             return;
         }
-        this.select.emit(e);
+        this.selected = !this.selected;
+        this.selectionChange.emit(this.selected);
+        this.observer && this.observer.notifyTokenSelect(this);
     };
     TokenComponent.prototype.onRemoveClick = function (event) {
         event.stopPropagation();
         this.remove.emit(event);
+        this.observer && this.observer.notifyTokenRemove(this);
     };
     TokenComponent.prototype.setDisabledState = function (isDisabled) {
         this.cvaDisabled = isDisabled;
@@ -14159,13 +13921,18 @@ var TokenComponent = /** @class */ (function () {
         configurable: true
     });
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.tabindex'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenComponent.prototype, "label", void 0);
+    ], TokenComponent.prototype, "tabindex", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('label'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TokenComponent.prototype, "value", void 0);
+    ], TokenComponent.prototype, "_label", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('value'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], TokenComponent.prototype, "_value", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -14178,15 +13945,16 @@ var TokenComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenComponent.prototype, "removable", void 0);
+    ], TokenComponent.prototype, "selectable", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.cursor'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], TokenComponent.prototype, "styleCursor", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenComponent.prototype, "icon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TokenComponent.prototype, "tokenIcon", void 0);
+    ], TokenComponent.prototype, "removable", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -14194,13 +13962,19 @@ var TokenComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TokenComponent.prototype, "select", void 0);
+    ], TokenComponent.prototype, "selectionChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('tap', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TokenComponent.prototype, "onTap", null);
+    ], TokenComponent.prototype, "onBlur", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], TokenComponent.prototype, "onClick", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclDisabled'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
@@ -14213,8 +13987,13 @@ var TokenComponent = /** @class */ (function () {
             host: {
                 '[class.vclToken]': 'true',
             },
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(TOKEN_OBSERVER_TOKEN)),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], Object])
     ], TokenComponent);
     return TokenComponent;
 }());
@@ -14696,14 +14475,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
 /* harmony import */ var _popover_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../popover/index */ "./lib/ng-vcl/src/popover/index.ts");
-/* harmony import */ var _tour_overlay_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tour-overlay.component */ "./lib/ng-vcl/src/tour/tour-overlay.component.ts");
-/* harmony import */ var _tour_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tour.service */ "./lib/ng-vcl/src/tour/tour.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_service__WEBPACK_IMPORTED_MODULE_6__["TourService"]; });
+/* harmony import */ var _icogram__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icogram */ "./lib/ng-vcl/src/icogram/index.ts");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _tour_overlay_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tour-overlay.component */ "./lib/ng-vcl/src/tour/tour-overlay.component.ts");
+/* harmony import */ var _tour_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tour.service */ "./lib/ng-vcl/src/tour/tour.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourService", function() { return _tour_service__WEBPACK_IMPORTED_MODULE_8__["TourService"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_service__WEBPACK_IMPORTED_MODULE_6__["TourOptions"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourOptions", function() { return _tour_service__WEBPACK_IMPORTED_MODULE_8__["TourOptions"]; });
 
-/* harmony import */ var _tour_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tour.component */ "./lib/ng-vcl/src/tour/tour.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_component__WEBPACK_IMPORTED_MODULE_7__["TourComponent"]; });
+/* harmony import */ var _tour_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tour.component */ "./lib/ng-vcl/src/tour/tour.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TourComponent", function() { return _tour_component__WEBPACK_IMPORTED_MODULE_9__["TourComponent"]; });
+
+
 
 
 
@@ -14719,10 +14502,10 @@ var VCLTourModule = /** @class */ (function () {
     }
     VCLTourModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _popover_index__WEBPACK_IMPORTED_MODULE_4__["VCLPopoverModule"], _button_index__WEBPACK_IMPORTED_MODULE_3__["VCLButtonModule"]],
-            exports: [_tour_component__WEBPACK_IMPORTED_MODULE_7__["TourComponent"], _tour_overlay_component__WEBPACK_IMPORTED_MODULE_5__["TourOverlayComponent"]],
-            declarations: [_tour_component__WEBPACK_IMPORTED_MODULE_7__["TourComponent"], _tour_overlay_component__WEBPACK_IMPORTED_MODULE_5__["TourOverlayComponent"]],
-            providers: [_tour_service__WEBPACK_IMPORTED_MODULE_6__["TourService"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _popover_index__WEBPACK_IMPORTED_MODULE_4__["VCLPopoverModule"], _button_index__WEBPACK_IMPORTED_MODULE_3__["VCLButtonModule"], _icogram__WEBPACK_IMPORTED_MODULE_5__["VCLIcogramModule"], _icon__WEBPACK_IMPORTED_MODULE_6__["VCLIconModule"]],
+            exports: [_tour_component__WEBPACK_IMPORTED_MODULE_9__["TourComponent"], _tour_overlay_component__WEBPACK_IMPORTED_MODULE_7__["TourOverlayComponent"]],
+            declarations: [_tour_component__WEBPACK_IMPORTED_MODULE_9__["TourComponent"], _tour_overlay_component__WEBPACK_IMPORTED_MODULE_7__["TourOverlayComponent"]],
+            providers: [_tour_service__WEBPACK_IMPORTED_MODULE_8__["TourService"]],
         })
     ], VCLTourModule);
     return VCLTourModule;
@@ -14807,7 +14590,7 @@ module.exports = ".vclTourContainer {\n    background-color: #fff;\n    text-ali
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<vcl-popover #popover\n  [visible]=\"visible\"\n  [target]=\"target\"\n  [originX]=\"originX\"\n  [overlayX]=\"overlayX\"\n  [offsetX]=\"offsetX\"\n  [originY]=\"originY\"\n  [overlayY]=\"overlayY\"\n  [offsetY]=\"offsetY\"\n  [style.z-index]=\"tour.options?.zIndex\">\n\n  <div class=\"vclTourContainer\">\n\n    <div class=\"vclTourContainerHeader\" *ngIf=\"title\">\n      {{ title }}\n    </div>\n\n    <div class=\"vclTourContainerContent\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"vclTourContainerFooter\">\n      \n      <button vcl-icogram-button *ngIf=\"hasPrevious\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        [prepIcon]=\"tour.options?.previousIcon\"\n        (click)=\"previous()\">\n        {{tour.options?.previousLabel}}\n      </button>\n\n      <button vcl-icogram-button *ngIf=\"hasNext\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        [appIcon]=\"tour.options?.nextIcon\"\n        (click)=\"next()\">\n        {{tour.options?.nextLabel}}\n      </button>\n\n      <button vcl-icogram-button\n        [ngClass]=\"tour.options?.buttonClass\"\n        [prepIcon]=\"tour.options?.exitIcon\"\n        (click)=\"exit()\">\n        {{tour.options?.exitLabel}}\n      </button>\n\n    </div>\n    \n  </div>\n\n</vcl-popover>\n"
+module.exports = "<vcl-popover #popover\n  [visible]=\"visible\"\n  [target]=\"target\"\n  [originX]=\"originX\"\n  [overlayX]=\"overlayX\"\n  [offsetX]=\"offsetX\"\n  [originY]=\"originY\"\n  [overlayY]=\"overlayY\"\n  [offsetY]=\"offsetY\"\n  [style.z-index]=\"tour.options?.zIndex\">\n\n  <div class=\"vclTourContainer\">\n\n    <div class=\"vclTourContainerHeader\" *ngIf=\"title\">\n      {{ title }}\n    </div>\n\n    <div class=\"vclTourContainerContent\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"vclTourContainerFooter\">\n      \n      <button vcl-button *ngIf=\"hasPrevious\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"previous()\">\n        <vcl-icogram>\n          {{tour.options?.previousLabel}}\n          <vcl-icon vclPrepend *ngIf=\"tour.options?.previousIcon\" [icon]=\"tour.options?.previousIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n\n      <button vcl-button *ngIf=\"hasNext\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"next()\">\n        <vcl-icogram>\n          {{tour.options?.nextLabel}}\n          <vcl-icon vclAppend *ngIf=\"tour.options?.nextIcon\" [icon]=\"tour.options?.nextIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n\n      <button vcl-button\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"exit()\">\n        <vcl-icogram>\n          <vcl-icon vclPrepend *ngIf=\"tour.options?.exitIcon\" [icon]=\"tour.options?.exitIcon\"></vcl-icon>\n          {{tour.options?.exitLabel}}\n        </vcl-icogram>\n      </button>\n    </div>\n  </div>\n</vcl-popover>\n"
 
 /***/ }),
 
@@ -14975,9 +14758,9 @@ var TourOptions = /** @class */ (function () {
         this.previousLabel = 'Previous';
         this.nextLabel = 'Next';
         this.exitLabel = 'Exit';
-        this.previousIcon = 'fas fa-chevron-left';
-        this.nextIcon = 'fas fa-chevron-right';
-        this.exitIcon = 'fas fa-close';
+        this.previousIcon = 'vcl:arrow-left';
+        this.nextIcon = 'vcl:arrow-right';
+        this.exitIcon = 'vcl:close';
         this.buttonClass = '';
         this.offsetX = 0;
         this.offsetY = 0;
@@ -16049,7 +15832,7 @@ module.exports = "<h1 id=\"ng-vcl\"><a href=\"https://ng-vcl.github.io/ng-vcl/\"
 /*! exports provided: name, version, scripts, dependencies, devDependencies, default */
 /***/ (function(module) {
 
-module.exports = {"name":"ng-vcl","version":"0.8.0-1","scripts":{"ng":"ng","start":"npm run dev:demo","dev:demo":"ng serve ng-vcl-demo --plugin ~webpack.custom.js","dev:ng-vcl":"ng build @ng-vcl/ng-vcl --watch","dev:animations":"ng build @ng-vcl/animations --watch","dev:jss-form":"ng build @ng-vcl/jss-form --watch","dev:wc":"ng serve ng-vcl-wc-test --plugin ~webpack.custom.js","docs":"npm-run-all docs:clean docs:pull-current docs:build","docs:build":"cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --plugin ~webpack.custom.js","docs:deploy":"git-directory-deploy --directory docs --branch gh-pages","docs:clean":"rimraf docs","docs:lint":"ng lint ng-vcl-demo","docs:pull-current":"npm run docs:clean && git clone -b gh-pages --single-branch https://github.com/ng-vcl/ng-vcl.git docs","test:ng-vcl":"ng test @ng-vcl/ng-vcl --watch=false","test:animations":"ng test @ng-vcl/animations --watch=false","test:jss-form":"ng test @ng-vcl/jss-form --watch=false","test":"npm-run-all test:ng-vcl test:animations test:jss-form","lint":"ng lint","e2e":"ng e2e","build:clean":"rimraf dist/ng-vcl","build:ng-vcl/ng-vcl":"ng build @ng-vcl/ng-vcl","build:ng-vcl/animations":"ng build @ng-vcl/animations","build:ng-vcl/jss-form":"ng build @ng-vcl/jss-form","build:ng-vcl":"npm-run-all build:ng-vcl/ng-vcl build:ng-vcl/animations build:ng-vcl/jss-form","build":"npm-run-all build:clean build:ng-vcl","build:wc":"ng build ng-vcl-wc-test --prod --output-hashing none --single-bundle false --plugin ~webpack.custom.js","clean":"npm-run-all build:clean docs:clean","docker":"docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash","markdownlint":"markdownlint -c markdownlint.json lib/","publish":"npm-run-all publish:ng-vcl publish:animations publish:jss-form","publish:next":"npm-run-all publish:ng-vcl:next publish:animations:next publish:jss-form:next","publish:ng-vcl":"cd dist/ng-vcl/ng-vcl && npm publish","publish:animations":"cd dist/ng-vcl/animations && npm publish","publish:jss-form":"cd dist/ng-vcl/jss-form && npm publish","publish:ng-vcl:next":"cd dist/ng-vcl/ng-vcl && npm publish --tag next","publish:animations:next":"cd dist/ng-vcl/animations && npm publish --tag next","publish:jss-form:next":"cd dist/ng-vcl/jss-form && npm publish --tag next"},"dependencies":{"@angular/animations":"~7.2.10","@angular/cdk":"^7.3.6","@angular/common":"~7.2.10","@angular/compiler":"~7.2.10","@angular/core":"~7.2.10","@angular/elements":"~7.2.10","@angular/forms":"~7.2.10","@angular/http":"~7.2.10","@angular/platform-browser":"~7.2.10","@angular/platform-browser-dynamic":"~7.2.10","@angular/router":"~7.2.10","@vcl/breakpoints":"^0.4.0","@vcl/core-modules":"^0.4.0","@vcl/font-awesome":"^0.4.0","@vcl/theme":"^0.4.0","core-js":"^2.5.4","document-register-element":"1.8.1","fuse.js":"^3.4.4","hammerjs":"^2.0.8","jsonschema":"^1.2.4","ngx-build-plus":"^7.7.6","normalize.css":"^8.0.1","rxjs":"~6.4.0","tslib":"^1.9.0","zone.js":"~0.8.26"},"devDependencies":{"@angular-devkit/build-angular":"^0.13.5","@angular-devkit/build-ng-packagr":"^0.13.5","@angular/cli":"~7.3.6","@angular/compiler-cli":"~7.2.10","@angular/language-service":"~7.2.10","@ng-vcl/webpack-helper":"0.1.0-3","@types/jasmine":"^3.3.9","@types/jasminewd2":"~2.0.3","@types/node":"^8.9.5","@vcl/preprocessor":"^0.4.0","codelyzer":"~4.5.0","cross-env":"^5.2.0","git-branch":"^2.0.1","git-directory-deploy":"^1.5.1","highlight-loader":"^0.7.3","jasmine-core":"^3.3.0","jasmine-spec-reporter":"~4.2.1","karma":"~3.1.1","karma-chrome-launcher":"~2.2.0","karma-coverage-istanbul-reporter":"~2.0.1","karma-jasmine":"~1.1.2","karma-jasmine-html-reporter":"^0.2.2","markdown-loader":"^5.0.0","ng-packagr":"^4.7.1","npm-run-all":"^4.1.5","protractor":"~5.4.0","ts-node":"^8.0.3","tsickle":">=0.34.0","tslib":"^1.9.0","tslint":"^5.14.0","typescript":"~3.2.2"}};
+module.exports = {"name":"ng-vcl","version":"0.8.0-1","scripts":{"ng":"ng","start":"npm run dev:demo","dev:demo":"ng serve ng-vcl-demo --plugin ~webpack.custom.js","dev:ng-vcl":"ng build @ng-vcl/ng-vcl --watch","dev:animations":"ng build @ng-vcl/animations --watch","dev:jss-form":"ng build @ng-vcl/jss-form --watch","dev:wc":"ng serve ng-vcl-wc-test --plugin ~webpack.custom.js","docs":"npm-run-all docs:clean docs:pull-current docs:build","docs:build":"cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --plugin ~webpack.custom.js","docs:deploy":"git-directory-deploy --directory docs --branch gh-pages","docs:clean":"rimraf docs","docs:lint":"ng lint ng-vcl-demo","docs:pull-current":"npm run docs:clean && git clone -b gh-pages --single-branch https://github.com/ng-vcl/ng-vcl.git docs","test:ng-vcl":"ng test @ng-vcl/ng-vcl --watch=false","test:animations":"ng test @ng-vcl/animations --watch=false","test:jss-form":"ng test @ng-vcl/jss-form --watch=false","test":"npm-run-all test:ng-vcl test:animations test:jss-form","lint":"ng lint","e2e":"ng e2e","build:clean":"rimraf dist/ng-vcl","build:ng-vcl/ng-vcl":"ng build @ng-vcl/ng-vcl","build:ng-vcl/animations":"ng build @ng-vcl/animations","build:ng-vcl/jss-form":"ng build @ng-vcl/jss-form","build:ng-vcl":"npm-run-all build:ng-vcl/ng-vcl build:ng-vcl/animations build:ng-vcl/jss-form","build":"npm-run-all build:clean build:ng-vcl","build:wc":"ng build ng-vcl-wc-test --prod --output-hashing none --single-bundle false --plugin ~webpack.custom.js","clean":"npm-run-all build:clean docs:clean","docker":"docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash","markdownlint":"markdownlint -c markdownlint.json lib/","publish":"npm-run-all publish:ng-vcl publish:animations publish:jss-form","publish:next":"npm-run-all publish:ng-vcl:next publish:animations:next publish:jss-form:next","publish:ng-vcl":"cd dist/ng-vcl/ng-vcl && npm publish","publish:animations":"cd dist/ng-vcl/animations && npm publish","publish:jss-form":"cd dist/ng-vcl/jss-form && npm publish","publish:ng-vcl:next":"cd dist/ng-vcl/ng-vcl && npm publish --tag next","publish:animations:next":"cd dist/ng-vcl/animations && npm publish --tag next","publish:jss-form:next":"cd dist/ng-vcl/jss-form && npm publish --tag next"},"dependencies":{"@angular/animations":"~7.2.10","@angular/cdk":"^7.3.6","@angular/common":"~7.2.10","@angular/compiler":"~7.2.10","@angular/core":"~7.2.10","@angular/elements":"~7.2.10","@angular/forms":"~7.2.10","@angular/http":"~7.2.10","@angular/platform-browser":"~7.2.10","@angular/platform-browser-dynamic":"~7.2.10","@angular/router":"~7.2.10","@vcl/breakpoints":"^0.4.2","@vcl/core-modules":"^0.4.2","@vcl/font-awesome":"^0.4.2","@vcl/theme":"^0.4.2","core-js":"^2.5.4","document-register-element":"1.8.1","fuse.js":"^3.4.4","hammerjs":"^2.0.8","jsonschema":"^1.2.4","ngx-build-plus":"^7.7.6","normalize.css":"^8.0.1","rxjs":"~6.4.0","tslib":"^1.9.0","zone.js":"~0.8.26"},"devDependencies":{"@angular-devkit/build-angular":"^0.13.5","@angular-devkit/build-ng-packagr":"^0.13.5","@angular/cli":"~7.3.6","@angular/compiler-cli":"~7.2.10","@angular/language-service":"~7.2.10","@ng-vcl/webpack-helper":"0.1.0-3","@types/jasmine":"^3.3.9","@types/jasminewd2":"~2.0.3","@types/node":"^8.9.5","@vcl/preprocessor":"^0.4.2","codelyzer":"~4.5.0","cross-env":"^5.2.0","git-branch":"^2.0.1","git-directory-deploy":"^1.5.1","highlight-loader":"^0.7.3","jasmine-core":"^3.3.0","jasmine-spec-reporter":"~4.2.1","karma":"~3.1.1","karma-chrome-launcher":"~2.2.0","karma-coverage-istanbul-reporter":"~2.0.1","karma-jasmine":"~1.1.2","karma-jasmine-html-reporter":"^0.2.2","markdown-loader":"^5.0.0","ng-packagr":"^4.7.1","npm-run-all":"^4.1.5","protractor":"~5.4.0","ts-node":"^8.0.3","tsickle":">=0.34.0","tslib":"^1.9.0","tslint":"^5.14.0","typescript":"~3.2.2"}};
 
 /***/ }),
 

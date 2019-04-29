@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button vcl-button (click)=\"someAction($event)\">Button</button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" disabled=true>Disabled button</button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" class=\"vclEmphasized\">Emphasized label button</button>\n<br><br>\n<a vcl-button (click)=\"someAction($event)\">Button (a-tag)</a>\n<br><br>\n<button vcl-icon-button icon=\"fas:bolt\" title=\"Square Button\" (click)=\"someAction($event)\"></button>\n<br><br>\n<button vcl-icogram-button (click)=\"someAction($event)\" appIcon=\"fas:bolt\">Icogram button with appended icon</button>\n<br><br>\n<button vcl-icogram-button (click)=\"someAction($event)\" prepIcon=\"fas:bolt\">Icogram button with prepended icon</button>\n<br><br>\n<button vcl-icogram-button (click)=\"someAction($event)\" appIcon=\"fas:bolt\" prepIcon=\"fas:bolt\">Icogram button with prepended and appended icon</button>\n<br><br>\n<button vcl-button [selectable]=\"true\" (click)=\"someAction($event.selected)\">Selectable button</button>\n"
+module.exports = "<button vcl-button (click)=\"someAction($event)\">Button</button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" disabled=true>Disabled button</button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" class=\"vclEmphasized\">Emphasized label button</button>\n<br><br>\n<a vcl-button (click)=\"someAction($event)\">Button (a-tag)</a>\n<br><br>\n<button vcl-square-button  title=\"Square Button\" (click)=\"someAction($event)\">\n  <vcl-icon icon=\"fas:bolt\"></vcl-icon>\n</button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\" >\n  <vcl-icogram>\n    <vcl-icon vclAppend icon=\"fas:bolt\"></vcl-icon>\n     Icogram button with appended icon\n  </vcl-icogram>\n</button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\">\n  <vcl-icogram>\n    <vcl-icon vclPrepend icon=\"fas:bolt\"></vcl-icon>\n    Icogram button with prepended icon\n  </vcl-icogram>\n</button>\n<br><br>\n<button vcl-button (click)=\"someAction($event)\">\n  <vcl-icogram>\n      <vcl-icon vclPrepend icon=\"fas:bolt\"></vcl-icon>\n      Icogram button with prepended and appended icon\n      <vcl-icon vclAppend icon=\"fas:bolt\"></vcl-icon>\n  </vcl-icogram>\n</button>\n<br><br>\n<button vcl-button [selectable]=\"true\" (click)=\"someAction($event.selected)\">Selectable button</button>\n"
 
 /***/ }),
 
@@ -97,6 +97,7 @@ var ButtonDemoModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _modules_demo_demo_module__WEBPACK_IMPORTED_MODULE_5__["DemoModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_4__["VCLButtonModule"],
+                _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_4__["VCLIconModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_4__["VCLIcogramModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild([{
                         path: '',
@@ -115,6 +116,136 @@ var ButtonDemoModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./demo/app/modules/demo/demo.component.html":
+/*!***************************************************!*\
+  !*** ./demo/app/modules/demo/demo.component.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class=\"vclArticleHeader\"> {{title}}</h2>\n<div *ngIf=\"tabs.length>0\">\n  <vcl-tab-nav borders=true>\n    <vcl-tab *ngFor=\"let tab of tabs\">\n      <ng-template vcl-tab-label>{{tab.name}}</ng-template>\n      <wormhole *ngIf=\"tab.type==='component'\" [connect]=\"tab.content\"></wormhole>\n      <div *ngIf=\"tab.type==='text'\"><pre>{{tab.content}}</pre></div>\n      <div *ngIf=\"tab.type==='html'\" [innerHtml]=\"tab.content\"></div>\n      <div *ngIf=\"tab.type==='md'\"   class=\"markdown-body\"  [innerHtml]=\"tab.content\"></div>\n      <pre *ngIf=\"tab.type==='pre'\"  [innerHtml]=\"tab.content\"></pre>\n    </vcl-tab>\n  </vcl-tab-nav>\n</div>\n"
+
+/***/ }),
+
+/***/ "./demo/app/modules/demo/demo.component.ts":
+/*!*************************************************!*\
+  !*** ./demo/app/modules/demo/demo.component.ts ***!
+  \*************************************************/
+/*! exports provided: DemoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DemoComponent", function() { return DemoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+
+
+var DemoComponent = /** @class */ (function () {
+    function DemoComponent(activatedRoute, sanitizer) {
+        this.activatedRoute = activatedRoute;
+        this.sanitizer = sanitizer;
+        this.tabs = [];
+    }
+    DemoComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var data = this.activatedRoute.snapshot.data['demo']();
+        if (data) {
+            this.title = data.label;
+            if (data.tabs) {
+                this.tabs = Object.keys(data.tabs).map(function (key) {
+                    var type;
+                    var content;
+                    if (typeof data.tabs[key] === 'object' && data.tabs[key]) {
+                        type = data.tabs[key].type;
+                        if (type === 'pre' || type === 'html' || type === 'md') {
+                            content = _this.sanitizer.bypassSecurityTrustHtml(data.tabs[key].content);
+                        }
+                        else {
+                            content = data.tabs[key].content;
+                        }
+                    }
+                    else if (typeof data.tabs[key] === 'function') {
+                        type = 'component';
+                        content = data.tabs[key];
+                    }
+                    return {
+                        name: key,
+                        content: content,
+                        type: type
+                    };
+                });
+            }
+            else {
+                this.tabs = [];
+            }
+        }
+        else {
+            this.title = 'ng-vcl';
+            this.tabs = [];
+        }
+    };
+    DemoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+            template: __webpack_require__(/*! ./demo.component.html */ "./demo/app/modules/demo/demo.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
+    ], DemoComponent);
+    return DemoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./demo/app/modules/demo/demo.module.ts":
+/*!**********************************************!*\
+  !*** ./demo/app/modules/demo/demo.module.ts ***!
+  \**********************************************/
+/*! exports provided: DemoComponent, DemoModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DemoModule", function() { return DemoModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-vcl/ng-vcl */ "./lib/ng-vcl/src/index.ts");
+/* harmony import */ var _demo_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./demo.component */ "./demo/app/modules/demo/demo.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DemoComponent", function() { return _demo_component__WEBPACK_IMPORTED_MODULE_4__["DemoComponent"]; });
+
+
+
+
+
+
+
+var DemoModule = /** @class */ (function () {
+    function DemoModule() {
+    }
+    DemoModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_3__["VCLTabNavModule"],
+                _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_3__["VCLWormholeModule"]
+            ],
+            declarations: [_demo_component__WEBPACK_IMPORTED_MODULE_4__["DemoComponent"],]
+        })
+    ], DemoModule);
+    return DemoModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./node_modules/highlight-loader/index.js?raw=true&lang=html!./demo/app/demos/button/demo.component.html":
 /*!******************************************************************************************************!*\
   !*** ./node_modules/highlight-loader?raw=true&lang=html!./demo/app/demos/button/demo.component.html ***!
@@ -122,7 +253,7 @@ var ButtonDemoModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span>Button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> <span class=\"hljs-attr\">disabled</span>=<span class=\"hljs-string\">true</span>&gt;</span>Disabled button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> <span class=\"hljs-attr\">class</span>=<span class=\"hljs-string\">\"vclEmphasized\"</span>&gt;</span>Emphasized label button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">a</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span>Button (a-tag)<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">a</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-icon-button</span> <span class=\"hljs-attr\">icon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span> <span class=\"hljs-attr\">title</span>=<span class=\"hljs-string\">\"Square Button\"</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-icogram-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> <span class=\"hljs-attr\">appIcon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span>Icogram button with appended icon<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-icogram-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> <span class=\"hljs-attr\">prepIcon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span>Icogram button with prepended icon<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-icogram-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> <span class=\"hljs-attr\">appIcon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span> <span class=\"hljs-attr\">prepIcon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span>Icogram button with prepended and appended icon<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> [<span class=\"hljs-attr\">selectable</span>]=<span class=\"hljs-string\">\"true\"</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event.selected)\"</span>&gt;</span>Selectable button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n"
+module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span>Button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> <span class=\"hljs-attr\">disabled</span>=<span class=\"hljs-string\">true</span>&gt;</span>Disabled button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> <span class=\"hljs-attr\">class</span>=<span class=\"hljs-string\">\"vclEmphasized\"</span>&gt;</span>Emphasized label button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">a</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span>Button (a-tag)<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">a</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-square-button</span>  <span class=\"hljs-attr\">title</span>=<span class=\"hljs-string\">\"Square Button\"</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icon</span> <span class=\"hljs-attr\">icon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icon</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span> &gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icogram</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icon</span> <span class=\"hljs-attr\">vclAppend</span> <span class=\"hljs-attr\">icon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icon</span>&gt;</span>\n     Icogram button with appended icon\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icogram</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icogram</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icon</span> <span class=\"hljs-attr\">vclPrepend</span> <span class=\"hljs-attr\">icon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icon</span>&gt;</span>\n    Icogram button with prepended icon\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icogram</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event)\"</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icogram</span>&gt;</span>\n      <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icon</span> <span class=\"hljs-attr\">vclPrepend</span> <span class=\"hljs-attr\">icon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icon</span>&gt;</span>\n      Icogram button with prepended and appended icon\n      <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icon</span> <span class=\"hljs-attr\">vclAppend</span> <span class=\"hljs-attr\">icon</span>=<span class=\"hljs-string\">\"fas:bolt\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icon</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icogram</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span> [<span class=\"hljs-attr\">selectable</span>]=<span class=\"hljs-string\">\"true\"</span> (<span class=\"hljs-attr\">click</span>)=<span class=\"hljs-string\">\"someAction($event.selected)\"</span>&gt;</span>Selectable button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span>\n"
 
 /***/ }),
 
@@ -144,7 +275,7 @@ module.exports = "<span class=\"hljs-keyword\">import</span> { Component } <span
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 id=\"vcl-button\">vcl-button</h1>\n<p><code>vcl-button</code> enhances the HTML <code>&lt;button&gt;</code> with styling and features.<br>It is the main control for triggering actions.</p>\n<h2 id=\"usage\">Usage</h2>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { VCLButtonModule } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;@ng-vcl/ng-vcl&apos;</span>;\n\n@NgModule({\n  <span class=\"hljs-attr\">imports</span>: [ VCLButtonModule ],\n  ...\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-class\"><span class=\"hljs-keyword\">class</span> <span class=\"hljs-title\">AppComponent</span> </span>{ ... }</pre>\n<h3 id=\"buttonvcl-button\">button[vcl-button]</h3>\n<pre class=\"hljs\"><code>&lt;button vcl-button (click)=&quot;someAction($event)&quot;&gt;Action&lt;/button&gt;</code></pre>\n<pre class=\"hljs\"><code>&lt;button vcl-button [selectable]=&quot;true&quot; (select)=&quot;someAction($event)&quot;&gt;Select&lt;/button&gt;</code></pre>\n<h3 id=\"buttonvcl-icogram-button\">button[vcl-icogram-button]</h3>\n<pre class=\"hljs\"><code>&lt;button vcl-icogram-button appIcon=&quot;fas:bolt&quot;&gt;Action&lt;/button&gt;</code></pre>\n<h3 id=\"buttonvcl-icon-button\">button[vcl-icon-button]</h3>\n<pre class=\"hljs\"><code>&lt;button vcl-icon-button icon=&quot;fas:bolt&quot;&gt;&lt;/button&gt;</code></pre>\n<h3 id=\"api\">API</h3>\n<h4 id=\"vcl-button-attributes\">vcl-button attributes</h4>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>disabled</code></td>\n<td>boolean</td>\n<td>false</td>\n<td>State to indicate that the button is disabled</td>\n</tr>\n<tr>\n<td><code>selectable</code></td>\n<td>boolean</td>\n<td>false</td>\n<td>Button selected state toggles if clicked when true</td>\n</tr>\n<tr>\n<td><code>selected</code></td>\n<td>boolean</td>\n<td>false</td>\n<td>Whether the button is selected</td>\n</tr>\n</tbody></table>\n<h4 id=\"vcl-button-events\">vcl-button events</h4>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>select</code></td>\n<td>Triggered when the button is selected</td>\n</tr>\n</tbody></table>\n<h4 id=\"vcl-icogram-button-attributes\">vcl-icogram-button attributes</h4>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>prepIcon</code></td>\n<td>string</td>\n<td></td>\n<td>icon to be prepended to the label</td>\n</tr>\n<tr>\n<td><code>appIcon</code></td>\n<td>string</td>\n<td></td>\n<td>Same as prepIcon but appended</td>\n</tr>\n</tbody></table>\n<h4 id=\"vcl-icon-button-attributes\">vcl-icon-button attributes</h4>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>icon</code></td>\n<td>string</td>\n<td></td>\n<td>Sets the button icon</td>\n</tr>\n</tbody></table>\n"
+module.exports = "<h1 id=\"vcl-button\">vcl-button</h1>\n<p><code>vcl-button</code> and <code>vcl-square-button</code> enhance the HTML <code>&lt;button&gt;</code> with styling and features.<br>It is the main control for triggering actions.</p>\n<h2 id=\"usage\">Usage</h2>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { VCLButtonModule } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;@ng-vcl/ng-vcl&apos;</span>;\n\n@NgModule({\n  <span class=\"hljs-attr\">imports</span>: [ VCLButtonModule ],\n  ...\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-class\"><span class=\"hljs-keyword\">class</span> <span class=\"hljs-title\">AppComponent</span> </span>{ ... }</pre>\n<h3 id=\"basic-button\">Basic button</h3>\n<pre class=\"hljs\"><code>&lt;button vcl-button (click)=&quot;someAction($event)&quot;&gt;Action&lt;/button&gt;</code></pre>\n<pre class=\"hljs\"><code>&lt;button vcl-button [selectable]=&quot;true&quot; (select)=&quot;someAction($event)&quot;&gt;Select&lt;/button&gt;</code></pre>\n<h3 id=\"icogram-button\">Icogram button</h3>\n<pre class=\"hljs\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-button</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icogram</span> <span class=\"hljs-attr\">appIcon</span>=<span class=\"hljs-string\">&quot;fas:bolt&quot;</span>&gt;</span>Action<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icogram</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span></pre>\n<h3 id=\"square-button\">Square button</h3>\n<pre class=\"hljs\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span> <span class=\"hljs-attr\">vcl-square-button</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-icon</span> <span class=\"hljs-attr\">icon</span>=<span class=\"hljs-string\">&quot;fas:bolt&quot;</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-icon</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span>&gt;</span></pre>\n<h3 id=\"api\">API</h3>\n<h4 id=\"vcl-buttonvcl-square-button-attributes\">vcl-button/vcl-square-button attributes</h4>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>disabled</code></td>\n<td>boolean</td>\n<td>false</td>\n<td>State to indicate that the button is disabled</td>\n</tr>\n<tr>\n<td><code>selectable</code></td>\n<td>boolean</td>\n<td>false</td>\n<td>Button selected state toggles if clicked when true</td>\n</tr>\n<tr>\n<td><code>selected</code></td>\n<td>boolean</td>\n<td>false</td>\n<td>Whether the button is selected</td>\n</tr>\n</tbody></table>\n<h4 id=\"vcl-buttonvcl-square-button-events\">vcl-button/vcl-square-button events</h4>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>selectedChange</code></td>\n<td>Triggered when the button is selected state changes</td>\n</tr>\n</tbody></table>\n"
 
 /***/ })
 
