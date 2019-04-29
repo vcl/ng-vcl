@@ -18,15 +18,15 @@ export class AppComponent {}
 ```html
 <vcl-tab-nav>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab1</ng-template>
+    <vcl-tab-label>Tab1</vcl-tab-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab2</ng-template>
+    <vcl-tab-label>Tab2</vcl-tab-label>
     Content2
   </vcl-tab>
   <vcl-tab [disabled]="true">
-    <ng-template vcl-tab-label>Tab3 (disabled)</ng-template>
+    <vcl-tab-label>Tab3</vcl-tab-label>
     Content3
   </vcl-tab>
 </vcl-tab-nav>
@@ -38,18 +38,20 @@ export class AppComponent {}
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
-| `selectedTabIndex` *(1)* | number      |        0 | The index of the currently visible tab
+| `selectedTabIndex`       | number      |        0 | The index of the currently visible tab
 | `borders`                | boolean     |    false | Enables borders for the tab-nav
-| `layout`                 | string      |          | The layout: `null`, `"left"` or `"right"`
-| `tabbableClass`          | string      |          | Modifier classes for vclTabbable
-| `tabsClass`              | string      |          | Modifier classes for vclTabs
-| `tabContentClass`        | string      |          | Modifier classes for vclTabContent
+| `layout`                 | string      |          | The layout: `undefined` , `"left"` or `"right"`
+
+#### Events
+
+| Name                             | Type             | Description
+| ---------------------            | ---------------  | -
+| `selectedTabIndexChange`         | number           | emits the new value when the tab changes
+
 
 #### vcl-tab attributes
 
 | Name                     | Type        | Default  | Description
 | ------------             | ----------- | -------- |--------------
 | `disabled`               | boolean     |   false  | Disables the tab when true
-| `tabClass`               | string      |          | Modifier classes for vclTab
 
-*(1) Supports Two-way binding*

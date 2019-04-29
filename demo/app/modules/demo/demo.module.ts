@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLTabNavModule, VCLWormholeModule } from '@ng-vcl/ng-vcl';
+import { VCLTabNavModule } from '@ng-vcl/ng-vcl';
 import { DemoComponent } from './demo.component';
+import { PortalModule } from '@angular/cdk/portal';
 
 export { DemoComponent };
 
@@ -9,7 +10,7 @@ export { DemoComponent };
   imports: [
     CommonModule,
     VCLTabNavModule,
-    VCLWormholeModule
+    PortalModule
   ],
   declarations: [ DemoComponent, ]
 })

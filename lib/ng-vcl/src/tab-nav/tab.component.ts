@@ -1,22 +1,63 @@
-import { Component, ContentChild, ViewChild, Input, Directive, TemplateRef } from '@angular/core';
+import { Component, ViewChild, Input, Directive, TemplateRef, HostBinding, Inject, HostListener, ViewContainerRef, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { debounceTime } from 'rxjs/operators';
 
-@Directive({ selector: '[vcl-tab-label]' })
-export class TabLabelDirective { }
+@Directive({
+  selector: 'vcl-tab-label',
+})
+export class TabLabelDirective {
+  @HostBinding('class.vclTabLabel')
+  classCclTabLabel = true;
+}
 
 @Component({
   selector: 'vcl-tab',
-  template: '<ng-template><ng-content></ng-content></ng-template>'
+  templateUrl: './tab.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabComponent {
-  @ContentChild(TabLabelDirective, { read: TemplateRef })
-  label: TabLabelDirective;
+export class TabComponent implements Tab, AfterViewInit {
 
-  @ViewChild(TemplateRef)
-  content: TemplateRef<any>;
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Inject(TAB_NAV_TOKEN)
+    private tabNav: TabNav,
+    private viewContainerRef: ViewContainerRef
+    ) {
+      tabNav.currentTabChanged.pipe(debounceTime(0)).subscribe(() => {
+        this.selected = tabNav.currentTab === this;
+      });
+    }
 
+  @ViewChild('contentTemplate', { read: TemplateRef })
+  contentTemplate?: TemplateRef<any>;
+
+  portal?: TemplatePortal;
+
+  @HostBinding('class.vclTab')
+  classVclTab = true;
+
+  @HostBinding('attr.role')
+  attrRole = 'tab';
+
+  @HostBinding('class.vclDisabled')
   @Input()
   disabled = false;
 
-  @Input()
-  tabClass = '';
+  @HostBinding('class.vclSelected')
+  @HostBinding('attr.aria-selected')
+  selected = false;
+
+  @HostListener('click')
+  onClick() {
+    if (this.disabled) {
+      return;
+    }
+    this.selected = true;
+    this.tabNav.selectTab(this);
+  }
+
+  ngAfterViewInit() {
+    this.portal = this.contentTemplate ? new TemplatePortal(this.contentTemplate, this.viewContainerRef) : undefined;
+  }
 }

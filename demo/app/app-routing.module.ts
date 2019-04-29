@@ -48,16 +48,16 @@ export const routes: Routes = [
   //     }
   //   }
   // },
-  // {
-  //   loadChildren: './demos/tab-nav/demo.module#TabNavDemoModule',
-  //   path: 'tab-nav',
-  //   data: {
-  //     demo: {
-  //       label: 'Tab Navigation',
-  //       category: CAT_NAVIGATION,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/tab-nav/demo.module#TabNavDemoModule',
+    path: 'tab-nav',
+    data: {
+      demo: {
+        label: 'Tab Navigation',
+        category: CAT_NAVIGATION,
+      }
+    }
+  },
   {
     loadChildren: './demos/button/demo.module#ButtonDemoModule',
     path: 'button',

@@ -2,8 +2,10 @@
 <div *ngIf="tabs.length>0">
   <vcl-tab-nav borders=true>
     <vcl-tab *ngFor="let tab of tabs">
-      <ng-template vcl-tab-label>{{tab.name}}</ng-template>
-      <wormhole *ngIf="tab.type==='component'" [connect]="tab.content"></wormhole>
+      <vcl-tab-label>{{tab.name}}</vcl-tab-label>
+      <div *ngIf="tab.type==='component'">
+        <ng-template [cdkPortalOutlet]="tab.content"></ng-template>
+      </div>
       <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
       <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div>
       <div *ngIf="tab.type==='md'"   class="markdown-body"  [innerHtml]="tab.content"></div>

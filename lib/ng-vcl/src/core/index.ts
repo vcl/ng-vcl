@@ -15,3 +15,5 @@ export class AppendDirective {
   declarations: [ PrependDirective, AppendDirective],
 })
 export class VCLCoreModule { }
+
+export { hasProjectedContent } from './utils';
