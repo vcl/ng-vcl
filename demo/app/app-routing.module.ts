@@ -259,6 +259,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
+    path: 'notifier',
+    data: {
+      demo: {
+        label: 'Notifier',
+        category: CAT_OVERLAYS,
+      }
+    }
+  },
+  {
     loadChildren: './demos/popover/demo.module#PopoverDemoModule',
     path: 'popover',
     data: {

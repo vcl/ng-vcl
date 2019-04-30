@@ -1,0 +1,17 @@
+<vcl-button-group [(value)]="position" mode="single">
+  <button vcl-button [value]="positions.TopRight">Top Right</button>
+  <button vcl-button [value]="positions.Top">Top</button>
+  <button vcl-button [value]="positions.TopLeft">Top Left</button>
+  <button vcl-button [value]="positions.BottomRight">Bottom Right</button>
+  <button vcl-button [value]="positions.Bottom">Bottom</button>
+  <button vcl-button [value]="positions.BottomLeft">Bottom Left</button>
+</vcl-button-group>
+
+<br><br>
+
+<button vcl-button (click)="default()">An message</button><br><br>
+<button vcl-button (click)="info()">An info message</button><br><br>
+<button vcl-button (click)="success()">A success message</button><br><br>
+<button vcl-button (click)="warning()">A warning</button><br><br>
+<button vcl-button (click)="error()">An error message</button><br><br>
+<button vcl-button (click)="custom()">A custom message</button><br><br>
