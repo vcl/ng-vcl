@@ -73,6 +73,10 @@ var map = {
 		"./demo/app/demos/layer/demo.module.ts",
 		"demos-layer-demo-module"
 	],
+	"./demos/notifier/demo.module": [
+		"./demo/app/demos/notifier/demo.module.ts",
+		"demos-notifier-demo-module"
+	],
 	"./demos/off-click/demo.module": [
 		"./demo/app/demos/off-click/demo.module.ts",
 		"demos-off-click-demo-module"
@@ -404,6 +408,16 @@ var routes = [
         data: {
             demo: {
                 label: 'Layer',
+                category: CAT_OVERLAYS,
+            }
+        }
+    },
+    {
+        loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
+        path: 'notifier',
+        data: {
+            demo: {
+                label: 'Notifier',
                 category: CAT_OVERLAYS,
             }
         }
@@ -6768,7 +6782,7 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6991,6 +7005,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLSelectModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["NotificationComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["NotifierService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["NotifierType"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["NotifierPosition"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_CONFIG_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["NOTIFICATION_CONFIG_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_ANIMATION_PARAMS_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["NOTIFICATION_ANIMATION_PARAMS_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotifierModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLNotifierModule"]; });
 
 
 
@@ -8833,6 +8861,568 @@ var NavigationComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/notifier/index.ts":
+/*!******************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/index.ts ***!
+  \******************************************/
+/*! exports provided: NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLNotifierModule", function() { return VCLNotifierModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../button */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icon */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _notification_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./notification.component */ "./lib/ng-vcl/src/notifier/notification.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationComponent", function() { return _notification_component__WEBPACK_IMPORTED_MODULE_7__["NotificationComponent"]; });
+
+/* harmony import */ var _notifier_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./notifier.service */ "./lib/ng-vcl/src/notifier/notifier.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return _notifier_service__WEBPACK_IMPORTED_MODULE_8__["NotifierService"]; });
+
+/* harmony import */ var _notifications_manager_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./notifications-manager.service */ "./lib/ng-vcl/src/notifier/notifications-manager.service.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notifier/types.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return _types__WEBPACK_IMPORTED_MODULE_10__["NotifierType"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return _types__WEBPACK_IMPORTED_MODULE_10__["NotifierPosition"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_CONFIG_TOKEN", function() { return _types__WEBPACK_IMPORTED_MODULE_10__["NOTIFICATION_CONFIG_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_ANIMATION_PARAMS_TOKEN", function() { return _types__WEBPACK_IMPORTED_MODULE_10__["NOTIFICATION_ANIMATION_PARAMS_TOKEN"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+var VCLNotifierModule = /** @class */ (function () {
+    function VCLNotifierModule() {
+    }
+    VCLNotifierModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+            imports: [
+                _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormsModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"],
+                _button__WEBPACK_IMPORTED_MODULE_5__["VCLButtonModule"],
+                _icon__WEBPACK_IMPORTED_MODULE_6__["VCLIconModule"],
+                _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__["OverlayModule"]
+            ],
+            exports: [],
+            declarations: [_notification_component__WEBPACK_IMPORTED_MODULE_7__["NotificationComponent"]],
+            entryComponents: [_notification_component__WEBPACK_IMPORTED_MODULE_7__["NotificationComponent"]],
+            providers: [
+                _notifier_service__WEBPACK_IMPORTED_MODULE_8__["NotifierService"],
+                _notifications_manager_service__WEBPACK_IMPORTED_MODULE_9__["NotificationsManagerService"],
+                {
+                    provide: _types__WEBPACK_IMPORTED_MODULE_10__["NOTIFICATION_CONFIG_TOKEN"],
+                    useValue: _types__WEBPACK_IMPORTED_MODULE_10__["NOTIFICATION_CONFIG_DEFAULTS"]
+                },
+                {
+                    provide: _types__WEBPACK_IMPORTED_MODULE_10__["NOTIFICATION_ANIMATION_PARAMS_TOKEN"],
+                    useValue: _types__WEBPACK_IMPORTED_MODULE_10__["NOTIFICATION_ANIMATION_PARAMS_DEFAULTS"]
+                }
+            ],
+        })
+    ], VCLNotifierModule);
+    return VCLNotifierModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/notifier/notification-ref.ts":
+/*!*****************************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/notification-ref.ts ***!
+  \*****************************************************/
+/*! exports provided: NotificationRef */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationRef", function() { return NotificationRef; });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notifier/types.ts");
+
+var NotificationRef = /** @class */ (function () {
+    function NotificationRef(_notificationsManager, opts) {
+        this._notificationsManager = _notificationsManager;
+        this.text = '';
+        this.icon = '';
+        this.html = false;
+        this.type = _types__WEBPACK_IMPORTED_MODULE_0__["NotifierType"].None;
+        this.showCloseButton = true;
+        this.position = _types__WEBPACK_IMPORTED_MODULE_0__["NotifierPosition"].TopRight;
+        this.timeout = true;
+        Object.assign(this, opts);
+    }
+    NotificationRef.prototype.close = function () {
+        this._notificationsManager.remove(this);
+    };
+    Object.defineProperty(NotificationRef.prototype, "visible", {
+        get: function () {
+            return this._notificationsManager.isVisible(this);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return NotificationRef;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/notifier/notification.animations.ts":
+/*!************************************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/notification.animations.ts ***!
+  \************************************************************/
+/*! exports provided: stateVoidOpenAnimation, stateOpenClosingAnimation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateVoidOpenAnimation", function() { return stateVoidOpenAnimation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateOpenClosingAnimation", function() { return stateOpenClosingAnimation; });
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+
+var stateVoidOpenAnimation = Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animation"])([
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 0 }),
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('{{openClosingTime}}ms', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 1 }))
+]);
+var stateOpenClosingAnimation = Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animation"])([
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 1 }),
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('{{voidOpenTime}}ms', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 0 }))
+]);
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/notifier/notification.component.html":
+/*!*************************************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/notification.component.html ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"vclNotificationIconContainer\">\n  <vcl-icon class=\"vclNotificationIcon\" [icon]=\"icon\"></vcl-icon>\n</div>\n<div class=\"vclNotificationContent vclLayoutFlex\">\n  <div *ngIf=\"!notificationRef.html\">{{notificationRef.text}}</div>\n  <div *ngIf=\"notificationRef.html\" [innerHtml]=\"notificationRef.text\"></div>\n</div>\n<button vcl-square-button class=\"vclTransparent vclLayoutSelfStart\">\n  <vcl-icon icon=\"vcl:close\" (click)=\"close()\"></vcl-icon>\n</button>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/notifier/notification.component.ts":
+/*!***********************************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/notification.component.ts ***!
+  \***********************************************************/
+/*! exports provided: NotificationComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationComponent", function() { return NotificationComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var _notification_ref__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./notification-ref */ "./lib/ng-vcl/src/notifier/notification-ref.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notifier/types.ts");
+/* harmony import */ var _notification_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./notification.animations */ "./lib/ng-vcl/src/notifier/notification.animations.ts");
+
+
+
+
+
+
+
+
+
+var NotificationComponent = /** @class */ (function () {
+    function NotificationComponent(notificationRef, ngClass, animationParams) {
+        this.notificationRef = notificationRef;
+        this.animationParams = animationParams;
+        this.classVclNotification = true;
+        this.classVclLayoutHorizontal = true;
+        this.classVclLayoutCenter = true;
+        this.state = 'open';
+        var type = _types__WEBPACK_IMPORTED_MODULE_5__["TYPE_CLASS_MAP"][notificationRef.type];
+        ngClass.ngClass = type.notifier;
+        ngClass.ngDoCheck();
+        this.icon = notificationRef.icon || type.icon;
+    }
+    NotificationComponent.prototype.requestClose = function (cb) {
+        this.state = 'closing';
+        this.closeCb = cb;
+    };
+    Object.defineProperty(NotificationComponent.prototype, "fadeAnimation", {
+        get: function () {
+            return {
+                value: this.state,
+                params: this.animationParams
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    NotificationComponent.prototype.onFadeFinished = function (event) {
+        var isClosingOut = event.toState === 'closing';
+        var itFinished = this.state === 'closing';
+        if (isClosingOut && itFinished) {
+            this.state = 'closed';
+            this.closeCb && this.closeCb();
+        }
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclNotification'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], NotificationComponent.prototype, "classVclNotification", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclLayoutHorizontal'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], NotificationComponent.prototype, "classVclLayoutHorizontal", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclLayoutCenter'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], NotificationComponent.prototype, "classVclLayoutCenter", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('@stateAnimation'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], NotificationComponent.prototype, "fadeAnimation", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('@stateAnimation.done', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], NotificationComponent.prototype, "onFadeFinished", null);
+    NotificationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-notification',
+            template: __webpack_require__(/*! ./notification.component.html */ "./lib/ng-vcl/src/notifier/notification.component.html"),
+            providers: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgClass"]],
+            animations: [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["trigger"])('stateAnimation', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])('void => open', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["useAnimation"])(_notification_animations__WEBPACK_IMPORTED_MODULE_6__["stateVoidOpenAnimation"])),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])('open => closing', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["useAnimation"])(_notification_animations__WEBPACK_IMPORTED_MODULE_6__["stateOpenClosingAnimation"]))
+                ])
+            ],
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_types__WEBPACK_IMPORTED_MODULE_5__["NOTIFICATION_ANIMATION_PARAMS_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_notification_ref__WEBPACK_IMPORTED_MODULE_3__["NotificationRef"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgClass"], Object])
+    ], NotificationComponent);
+    return NotificationComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/notifier/notifications-manager.service.ts":
+/*!******************************************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/notifications-manager.service.ts ***!
+  \******************************************************************/
+/*! exports provided: NotificationsManagerService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationsManagerService", function() { return NotificationsManagerService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notifier/types.ts");
+/* harmony import */ var _notification_ref__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./notification-ref */ "./lib/ng-vcl/src/notifier/notification-ref.ts");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+/* harmony import */ var _notification_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./notification.component */ "./lib/ng-vcl/src/notifier/notification.component.ts");
+
+
+
+
+
+
+
+var NotificationsManagerService = /** @class */ (function () {
+    function NotificationsManagerService(_overlay, _injector, _config) {
+        this._overlay = _overlay;
+        this._injector = _injector;
+        this._config = _config;
+        this._notifications = [];
+    }
+    NotificationsManagerService.prototype.add = function (notificationRef) {
+        var _this = this;
+        var overlayRef = this._overlay.create();
+        var portal = this._createPortal(notificationRef);
+        var componentRef = overlayRef.attach(portal);
+        this._notifications.push([notificationRef, overlayRef, componentRef]);
+        this._updatePositions();
+        var timeout;
+        if (typeof notificationRef.timeout === 'number' || notificationRef.timeout === false) {
+            timeout = notificationRef.timeout;
+        }
+        else {
+            timeout = this._config.timeout;
+        }
+        if (timeout !== false) {
+            setTimeout(function () {
+                _this.remove(notificationRef);
+            }, timeout);
+        }
+    };
+    NotificationsManagerService.prototype.remove = function (notificationRef) {
+        var _this = this;
+        var _a = this._notifications.find(function (_a) {
+            var n = _a[0];
+            return n === notificationRef;
+        }), overlayRef = _a[1], componentRef = _a[2];
+        if (overlayRef) {
+            componentRef.instance.requestClose(function () {
+                overlayRef.dispose();
+                _this._updatePositions();
+            });
+        }
+        this._notifications = this._notifications.filter(function (_a) {
+            var n = _a[0];
+            return n !== notificationRef;
+        });
+    };
+    NotificationsManagerService.prototype.isVisible = function (notificationRef) {
+        var overlayRef = this.getOverlayRef(notificationRef);
+        return !!overlayRef && !!overlayRef.overlayElement;
+    };
+    NotificationsManagerService.prototype.getNotifications = function (pos) {
+        return this._notifications.filter(function (_a) {
+            var n = _a[0];
+            return n.visible && (pos ? n.position === pos : true);
+        }).map(function (_a) {
+            var n = _a[0];
+            return n;
+        });
+    };
+    NotificationsManagerService.prototype.getOverlayRef = function (notificationRef) {
+        var _a = this._notifications.find(function (_a) {
+            var n = _a[0];
+            return n === notificationRef;
+        }), overlayRef = _a[1];
+        return overlayRef;
+    };
+    NotificationsManagerService.prototype._updatePositions = function () {
+        var _this = this;
+        this.getNotifications().forEach(function (n) { return _this.updatePosition(n); });
+    };
+    NotificationsManagerService.prototype._createPortal = function (notificationRef) {
+        var tokens = new WeakMap();
+        tokens.set(_notification_ref__WEBPACK_IMPORTED_MODULE_3__["NotificationRef"], notificationRef);
+        var injector = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["PortalInjector"](this._injector, tokens);
+        return new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["ComponentPortal"](_notification_component__WEBPACK_IMPORTED_MODULE_6__["NotificationComponent"], null, injector);
+    };
+    NotificationsManagerService.prototype.updatePosition = function (notificationRef) {
+        var _this = this;
+        var overlayRef = this.getOverlayRef(notificationRef);
+        var notifications = this.getNotifications(notificationRef.position);
+        var idx = notifications.indexOf(notificationRef);
+        var queue = notifications.splice(0, idx);
+        var nOffset = queue.reduce(function (height, _notificationRef) {
+            var _overlayRef = _this.getOverlayRef(_notificationRef);
+            return height + _overlayRef.overlayElement.getBoundingClientRect().height;
+        }, 0);
+        var offset = (Math.floor(nOffset) || this._config.offset) + 'px';
+        var posStrategy;
+        switch (notificationRef.position) {
+            case _types__WEBPACK_IMPORTED_MODULE_2__["NotifierPosition"].TopRight: {
+                posStrategy = this.posStrategyTopRight(offset);
+                break;
+            }
+            case _types__WEBPACK_IMPORTED_MODULE_2__["NotifierPosition"].BottomRight: {
+                posStrategy = this.posStrategyBottomRight(offset);
+                break;
+            }
+            case _types__WEBPACK_IMPORTED_MODULE_2__["NotifierPosition"].Bottom: {
+                posStrategy = this.posStrategyBottom(offset);
+                break;
+            }
+            case _types__WEBPACK_IMPORTED_MODULE_2__["NotifierPosition"].BottomLeft: {
+                posStrategy = this.posStrategyBottomLeft(offset);
+                break;
+            }
+            case _types__WEBPACK_IMPORTED_MODULE_2__["NotifierPosition"].TopLeft: {
+                posStrategy = this.posStrategyTopLeft(offset);
+                break;
+            }
+            case _types__WEBPACK_IMPORTED_MODULE_2__["NotifierPosition"].Top: {
+                posStrategy = this.posStrategyTop(offset);
+                break;
+            }
+        }
+        overlayRef.updatePositionStrategy(posStrategy);
+    };
+    NotificationsManagerService.prototype.posStrategyTopRight = function (offset) {
+        return this._overlay.position().global().top(offset).right('1em');
+    };
+    NotificationsManagerService.prototype.posStrategyTopLeft = function (offset) {
+        return this._overlay.position().global().top(offset).left('1em');
+    };
+    NotificationsManagerService.prototype.posStrategyTop = function (offset) {
+        return this._overlay.position().global().top(offset).centerHorizontally();
+    };
+    NotificationsManagerService.prototype.posStrategyBottomRight = function (offset) {
+        return this._overlay.position().global().bottom(offset).right('1em');
+    };
+    NotificationsManagerService.prototype.posStrategyBottomLeft = function (offset) {
+        return this._overlay.position().global().bottom(offset).left('1em');
+    };
+    NotificationsManagerService.prototype.posStrategyBottom = function (offset) {
+        return this._overlay.position().global().bottom(offset).centerHorizontally();
+    };
+    NotificationsManagerService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_types__WEBPACK_IMPORTED_MODULE_2__["NOTIFICATION_CONFIG_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__["Overlay"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"], Object])
+    ], NotificationsManagerService);
+    return NotificationsManagerService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/notifier/notifier.service.ts":
+/*!*****************************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/notifier.service.ts ***!
+  \*****************************************************/
+/*! exports provided: NotifierService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return NotifierService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/notifier/types.ts");
+/* harmony import */ var _notification_ref__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./notification-ref */ "./lib/ng-vcl/src/notifier/notification-ref.ts");
+/* harmony import */ var _notifications_manager_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./notifications-manager.service */ "./lib/ng-vcl/src/notifier/notifications-manager.service.ts");
+
+
+
+
+
+var NotifierService = /** @class */ (function () {
+    function NotifierService(_notificationsManagerService) {
+        this._notificationsManagerService = _notificationsManagerService;
+    }
+    NotifierService.prototype.info = function (opts) {
+        return this.queue(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ type: _types__WEBPACK_IMPORTED_MODULE_2__["NotifierType"].Info }, opts));
+    };
+    NotifierService.prototype.success = function (opts) {
+        return this.queue(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ type: _types__WEBPACK_IMPORTED_MODULE_2__["NotifierType"].Success }, opts));
+    };
+    NotifierService.prototype.warning = function (opts) {
+        return this.queue(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ type: _types__WEBPACK_IMPORTED_MODULE_2__["NotifierType"].Warning }, opts));
+    };
+    NotifierService.prototype.error = function (opts) {
+        return this.queue(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ type: _types__WEBPACK_IMPORTED_MODULE_2__["NotifierType"].Error }, opts));
+    };
+    NotifierService.prototype.queue = function (opts) {
+        var notificationRef = new _notification_ref__WEBPACK_IMPORTED_MODULE_3__["NotificationRef"](this._notificationsManagerService, opts);
+        this._notificationsManagerService.add(notificationRef);
+        return notificationRef;
+    };
+    NotifierService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_notifications_manager_service__WEBPACK_IMPORTED_MODULE_4__["NotificationsManagerService"]])
+    ], NotifierService);
+    return NotifierService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/notifier/types.ts":
+/*!******************************************!*\
+  !*** ./lib/ng-vcl/src/notifier/types.ts ***!
+  \******************************************/
+/*! exports provided: NotifierType, NotifierPosition, TYPE_CLASS_MAP, NOTIFICATION_CONFIG_DEFAULTS, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_DEFAULTS, NOTIFICATION_ANIMATION_PARAMS_TOKEN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return NotifierType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return NotifierPosition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TYPE_CLASS_MAP", function() { return TYPE_CLASS_MAP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_CONFIG_DEFAULTS", function() { return NOTIFICATION_CONFIG_DEFAULTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_CONFIG_TOKEN", function() { return NOTIFICATION_CONFIG_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_ANIMATION_PARAMS_DEFAULTS", function() { return NOTIFICATION_ANIMATION_PARAMS_DEFAULTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_ANIMATION_PARAMS_TOKEN", function() { return NOTIFICATION_ANIMATION_PARAMS_TOKEN; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var _a;
+
+var NotifierType;
+(function (NotifierType) {
+    NotifierType["None"] = "none";
+    NotifierType["Info"] = "info";
+    NotifierType["Success"] = "success";
+    NotifierType["Warning"] = "warning";
+    NotifierType["Error"] = "error";
+})(NotifierType || (NotifierType = {}));
+var NotifierPosition;
+(function (NotifierPosition) {
+    NotifierPosition[NotifierPosition["TopRight"] = 0] = "TopRight";
+    NotifierPosition[NotifierPosition["Top"] = 1] = "Top";
+    NotifierPosition[NotifierPosition["TopLeft"] = 2] = "TopLeft";
+    NotifierPosition[NotifierPosition["BottomRight"] = 3] = "BottomRight";
+    NotifierPosition[NotifierPosition["Bottom"] = 4] = "Bottom";
+    NotifierPosition[NotifierPosition["BottomLeft"] = 5] = "BottomLeft";
+})(NotifierPosition || (NotifierPosition = {}));
+var TYPE_CLASS_MAP = (_a = {},
+    _a[NotifierType.None] = {
+        notifier: undefined,
+        icon: undefined
+    },
+    _a[NotifierType.Info] = {
+        notifier: 'vclInfo',
+        icon: 'vcl:info'
+    },
+    _a[NotifierType.Success] = {
+        notifier: 'vclSuccess',
+        icon: 'vcl:success'
+    },
+    _a[NotifierType.Warning] = {
+        notifier: 'vclWarning',
+        icon: 'vcl:warning'
+    },
+    _a[NotifierType.Error] = {
+        notifier: 'vclError',
+        icon: 'vcl:error'
+    },
+    _a);
+var NOTIFICATION_CONFIG_DEFAULTS = {
+    timeout: 3000,
+    offset: 10
+};
+var NOTIFICATION_CONFIG_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-notification-config');
+var NOTIFICATION_ANIMATION_PARAMS_DEFAULTS = {
+    voidOpenTime: 300,
+    openClosingTime: 300
+};
+var NOTIFICATION_ANIMATION_PARAMS_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-notification-animation-config');
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/off-click/index.ts":
 /*!*******************************************!*\
   !*** ./lib/ng-vcl/src/off-click/index.ts ***!
@@ -9797,7 +10387,7 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, PasswordInputDirective, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10058,9 +10648,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_37__["VCLSelectModule"]; });
 
+/* harmony import */ var _notifier_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./notifier/index */ "./lib/ng-vcl/src/notifier/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationComponent", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotificationComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotifierService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotifierType"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotifierPosition"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_CONFIG_TOKEN", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NOTIFICATION_CONFIG_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_ANIMATION_PARAMS_TOKEN", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NOTIFICATION_ANIMATION_PARAMS_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotifierModule", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["VCLNotifierModule"]; });
+
 /*
  * Public API Surface of ng-vcl
  */
+
 
 
 
