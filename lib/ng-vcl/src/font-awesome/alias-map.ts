@@ -1,4 +1,4 @@
-import { IconAliases } from '../icon';
+import { IconAliases } from '../icon/index';
 
 export const ALIAS_MAP: IconAliases = {
   'close': 'fas fa-times',

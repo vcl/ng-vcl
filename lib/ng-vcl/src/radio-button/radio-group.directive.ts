@@ -3,7 +3,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import { RadioButtonComponent } from './radio-button.component';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
 import { RADIO_BUTTON_GROUP_TOKEN, RadioButtonGroup, RadioButton } from './interfaces';
 
 let UNIQUE_ID = 0;

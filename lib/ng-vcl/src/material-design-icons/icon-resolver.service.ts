@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IconResolverService, VCLIconResolverServiceBase } from '../icon';
+import { IconResolverService, VCLIconResolverServiceBase } from '../icon/index';
 import { ALIAS_MAP } from './alias-map';
 
 // The mdi name resolver following the CSS class name conventions of

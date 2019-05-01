@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck, forwardRef, Optional, Inject, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 

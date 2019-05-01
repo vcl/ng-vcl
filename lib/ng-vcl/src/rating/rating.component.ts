@@ -21,14 +21,14 @@ import {
 } from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import { RatingItemComponent, Rating, RATING_TOKEN } from './rating-item.component';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
 
 @Component({
   selector: 'vcl-rating',
-  templateUrl: 'rating.component.html',
+  templateUrl: './rating.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {

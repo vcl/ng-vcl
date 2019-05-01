@@ -1,7 +1,7 @@
 import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef, Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector } from '@angular/core';
 import { OverlayConfig, Overlay, HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { TemplateOverlay } from '../overlay';
+import { TemplateOverlay } from '../overlay/index';
 
 @Component({
   selector: 'vcl-popover',

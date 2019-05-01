@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLButtonModule } from '../button/index';
 import { MonthPickerComponent, Month } from './month-picker.component';
-import { VCLIconModule } from '../icon';
+import { VCLIconModule } from '../icon/index';
 
 export { MonthPickerComponent, Month };
 

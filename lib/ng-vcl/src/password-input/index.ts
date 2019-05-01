@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { VCLInputModule } from '../input/index';
 import { VCLButtonModule } from '../button/index';
 import { PasswordInputComponent } from './password-input.component';
-import { VCLIconModule } from '../icon';
+import { VCLIconModule } from '../icon/index';
 
 export { PasswordInputComponent };
 

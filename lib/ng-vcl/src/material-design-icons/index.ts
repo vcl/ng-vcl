@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { IconResolverService } from '../icon';
+import { IconResolverService } from '../icon/index';
 import { MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase } from './icon-resolver.service';
 
 export { MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase };

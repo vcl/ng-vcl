@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Directive, ElementRef, Input, HostListener, OnDestroy, Output, EventEmitter, HostBinding, AfterViewInit, SimpleChanges, OnChanges } from '@angular/core';
-import { InputDirective } from '../input';
+import { InputDirective } from '../input/index';
 import { DropdownComponent } from './dropdown.component';
 import { DOWN_ARROW, UP_ARROW, ESCAPE, TAB, ENTER } from '@angular/cdk/keycodes';
 

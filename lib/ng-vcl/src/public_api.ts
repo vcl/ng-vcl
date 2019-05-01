@@ -2,6 +2,7 @@
  * Public API Surface of ng-vcl
  */
 export * from './core/index';
+export * from './form-control-group/index';
 export * from './input/index';
 export * from './file-input/index';
 export * from './textarea/index';
@@ -9,6 +10,7 @@ export * from './flip-switch/index';
 export * from './icon/index';
 export * from './font-awesome/index';
 export * from './material-design-icons/index';
+export * from './overlay/index';
 export * from './layer/index';
 export * from './dropdown/index';
 export * from './icogram/index';
@@ -26,7 +28,6 @@ export * from './month-picker/index';
 export * from './label/index';
 export * from './token/index';
 export * from './slider/index';
-export * from './form-control-group/index';
 export * from './alert/index';
 export * from './busy-indicator/index';
 export * from './tooltip/index';

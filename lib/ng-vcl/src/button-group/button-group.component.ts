@@ -3,8 +3,8 @@ import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, 
 import { Subscription, Subject } from 'rxjs';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { BUTTON_OBSERVER_TOKEN, ButtonObserver, ButtonComponent } from '../button';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_HOST, FormControlHost } from '../form-control-group';
+import { BUTTON_OBSERVER_TOKEN, ButtonObserver, ButtonComponent } from '../button/index';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_HOST, FormControlHost } from '../form-control-group/index';
 
 let UNIQUE_ID = 0;
 

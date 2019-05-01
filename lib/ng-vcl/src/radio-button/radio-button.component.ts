@@ -86,12 +86,12 @@ export class RadioButtonComponent implements RadioButton {
     this.setCheckedUserInteraction();
   }
 
-  @HostListener('focus', ['$event'])
+  @HostListener('focus')
   onFocus() {
     this._focused = true;
   }
 
-  @HostListener('blur', ['$event'])
+  @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.rbg && this.rbg.notifyRadioButtonBlur(this);

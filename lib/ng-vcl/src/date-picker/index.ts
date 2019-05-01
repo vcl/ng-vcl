@@ -4,7 +4,7 @@ import { DatePickerComponent } from './date-picker.component';
 import { VCLButtonModule } from '../button/index';
 import { TimePickerComponent } from './time-picker.component';
 import { FormsModule } from '@angular/forms';
-import { VCLIconModule } from '../icon';
+import { VCLIconModule } from '../icon/index';
 
 export { DatePickerComponent, TimePickerComponent };
 

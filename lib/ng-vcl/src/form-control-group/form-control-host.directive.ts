@@ -2,7 +2,7 @@ import { Directive, Inject, Self, Optional, HostBinding } from '@angular/core';
 import { FormGroupDirective, NgForm } from '@angular/forms';
 import { FormControlHost, FORM_CONTROL_HOST } from './interfaces';
 
-export const FormControlHostFactory = (ngForm, formGroup) => {
+export function formControlHostFactory(ngForm, formGroup) {
   return ngForm || formGroup;
 };
 
@@ -15,7 +15,7 @@ export const FormControlHostFactory = (ngForm, formGroup) => {
       [new Optional(), NgForm],
       [new Optional(), FormGroupDirective]
     ],
-    useFactory: FormControlHostFactory
+    useFactory: formControlHostFactory
   }]
 })
 export class FormControlHostDirective implements FormControlHost {

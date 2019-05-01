@@ -1,6 +1,5 @@
-import { Component, Input, HostBinding, ChangeDetectionStrategy, Optional, Inject, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { FORM_CONTROL_GROUP, FormControlGroup, FORM_CONTROL_HOST, FormControlHost } from './interfaces';
-import { NgForm, FormGroupDirective } from '@angular/forms';
+import { Component, Input, HostBinding, Optional, Inject, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
 
 @Component({
   selector: 'vcl-hint, vcl-hint-error, vcl-hint-warning, vcl-hint-success',

@@ -3,7 +3,7 @@ import { Component,
   EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, HostBinding, Optional, Inject, OnDestroy, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -135,14 +135,14 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     return this.toggleValue();
   }
 
-  @HostListener('blur', ['$event'])
+  @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.onTouched();
     this.stateChangeEmitter.next();
   }
 
-  @HostListener('focus', ['$event'])
+  @HostListener('focus')
   onFocus() {
     this._focused = true;
     this.stateChangeEmitter.next();

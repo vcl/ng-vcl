@@ -5,8 +5,8 @@ import {GalleryImageComponent} from './gallery-image.component';
 import {GalleryBodyComponent} from './gallery-body.component';
 import {GalleryFooterComponent} from './gallery-footer.component';
 import {GalleryThumbnailsComponent} from './gallery-thumbnails.component';
-import { VCLButtonModule } from '../button';
-import { VCLIconModule } from '../icon';
+import { VCLButtonModule } from '../button/index';
+import { VCLIconModule } from '../icon/index';
 
 export {GalleryAnimationConfig, GALLERY_ANIMATIONS};
 

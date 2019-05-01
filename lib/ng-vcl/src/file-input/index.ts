@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FileInputComponent } from './file-input.component';
-import { VCLIconModule } from '../icon';
+import { VCLIconModule } from '../icon/index';
 import { CommonModule } from '@angular/common';
 
 @NgModule({

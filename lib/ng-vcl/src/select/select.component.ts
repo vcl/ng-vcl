@@ -1,9 +1,9 @@
 import { Component, Input, HostBinding, ViewChild, ElementRef, HostListener, ContentChild, forwardRef, ChangeDetectorRef, Output, EventEmitter, Optional, Inject, OnDestroy } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { DropdownComponent } from '../dropdown';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
 import { Subject } from 'rxjs';
+import { DropdownComponent } from '../dropdown/index';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
 
 let UNIQUE_ID = 0;
 
@@ -175,7 +175,7 @@ export class SelectComponent implements OnDestroy, ControlValueAccessor, FormCon
     }
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener('click')
   onClick() {
     if (this.dropdown.isOpen) {
       this.closeDropdown();

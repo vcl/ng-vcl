@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RatingComponent} from './rating.component';
 import {CommonModule} from '@angular/common';
 import { RatingItemComponent } from './rating-item.component';
-import { VCLIconModule } from '../icon';
+import { VCLIconModule } from '../icon/index';
 
 @NgModule({
   imports: [CommonModule, VCLIconModule],

@@ -4,7 +4,7 @@ import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { take, switchMap, filter } from 'rxjs/operators';
 import { merge, NEVER, Subject, Subscription } from 'rxjs';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { ComponentOverlay } from '../overlay';
+import { ComponentOverlay } from '../overlay/index';
 import { Layer, LayerOptions } from './interfaces';
 
 export const LAYER_TOKEN = new InjectionToken('vcl-layer');

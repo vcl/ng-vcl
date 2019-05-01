@@ -3,7 +3,7 @@ import { TemplateRef, ViewContainerRef, Component, ViewChild, OnDestroy, EventEm
 import { Subscription, merge, NEVER, Observable } from 'rxjs';
 import { take, switchMap, filter } from 'rxjs/operators';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { TemplateOverlay } from '../overlay';
+import { TemplateOverlay } from '../overlay/index';
 import { Layer, LayerOptions } from './interfaces';
 
 @Component({

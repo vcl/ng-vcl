@@ -1,8 +1,7 @@
 import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy } from '@angular/core';
-import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
-import { FormControl, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
-import { FormControlHost, FORM_CONTROL_HOST } from '../form-control-group/interfaces';
+import { NgControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlHost, FORM_CONTROL_HOST } from '../form-control-group/index';
 
 export let UNIQUE_ID = 0;
 

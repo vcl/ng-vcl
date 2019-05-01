@@ -1,9 +1,9 @@
 import { Component, Input, ContentChildren, forwardRef, QueryList, HostBinding, Directive, ElementRef, ContentChild, AfterContentInit, Renderer2, OnDestroy } from '@angular/core';
 import { EMBEDDED_INPUT_GROUP_TOKEN, EmbeddedInputGroup } from './interfaces';
-import { InputDirective } from '../input';
+import { InputDirective } from '../input/index';
 import { merge, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { PrependDirective, AppendDirective } from '../core';
+import { PrependDirective, AppendDirective } from '../core/index';
 
 @Component({
   selector: 'vcl-embedded-input-group',

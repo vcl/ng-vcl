@@ -2,8 +2,8 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { VCLButtonModule } from './../button';
-import { VCLIconModule } from '../icon';
+import { VCLButtonModule } from '../button/index';
+import { VCLIconModule } from '../icon/index';
 import { NotificationComponent } from './notification.component';
 import { NotifierService } from './notifier.service';
 import { NotifierOptions, NotifierPosition, NotifierType,

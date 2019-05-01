@@ -2,7 +2,7 @@ import { Component, ContentChildren, QueryList, Input, Output,
          EventEmitter, ViewChild, HostBinding, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { TabComponent } from './tab.component';
 import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
-import { hasProjectedContent } from '../core';
+import { hasProjectedContent } from '../core/index';
 import { Subject } from 'rxjs';
 
 @Component({

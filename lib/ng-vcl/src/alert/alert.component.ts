@@ -1,9 +1,8 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, Provider, Inject, Injectable } from '@angular/core';
-import { Subscription ,  from } from 'rxjs';
-import { LayerBase, LAYER_TOKEN } from './../layer';
-import { AlertOptions, AlertResult, AlertType, TYPE_CLASS_MAP } from './types';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, Provider, Inject, Injectable, Injector } from '@angular/core';
+import { Subscription, from } from 'rxjs';
+import { LayerBase, LAYER_TOKEN } from '../layer/index';
+import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 
-@Injectable()
 export class AlertLayer extends LayerBase<AlertOptions, AlertResult, AlertComponent> {
   protected getComponent() {
     return AlertComponent;
@@ -16,11 +15,7 @@ export class AlertLayer extends LayerBase<AlertOptions, AlertResult, AlertCompon
   host: {
     '[tabindex]': '0',
     '[style.outline]': '"none"'
-  },
-  providers: [{
-    provide: AlertLayer,
-    useExisting: LAYER_TOKEN
-  }]
+  }
 })
 export class AlertComponent implements AfterViewInit, OnDestroy {
 
@@ -28,6 +23,7 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef,
+    @Inject(LAYER_TOKEN)
     private alertLayer: AlertLayer,
     private cdRef: ChangeDetectorRef
   ) {

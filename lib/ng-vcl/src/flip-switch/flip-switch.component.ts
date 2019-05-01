@@ -1,6 +1,6 @@
 import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewChild, forwardRef, HostBinding, HostListener, ChangeDetectorRef, Self, Optional, Inject } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group';
+import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;

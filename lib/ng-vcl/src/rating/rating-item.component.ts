@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ENTER } from '@angular/cdk/keycodes';
-import { IconService } from '../icon';
+import { IconService } from '../icon/index';
 
 export interface Rating {
   fullStar: string;
@@ -15,7 +15,7 @@ export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
 
 @Component({
   selector: 'vcl-rating-item',
-  templateUrl: 'rating.component.html',
+  templateUrl: 'rating-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [NgClass],
 })
