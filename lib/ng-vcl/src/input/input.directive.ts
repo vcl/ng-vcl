@@ -24,7 +24,7 @@ export interface VCLInput {
 export class InputDirective implements OnDestroy, FormControlInput<string>, VCLInput {
 
   constructor(
-    protected elementRef: ElementRef<HTMLInputElement>,
+    public elementRef: ElementRef<HTMLInputElement>,
     @Optional()
     public ngControl?: NgControl,
     @Optional()

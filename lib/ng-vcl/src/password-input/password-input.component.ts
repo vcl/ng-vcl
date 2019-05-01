@@ -1,4 +1,4 @@
-import { Input, Component, ChangeDetectionStrategy, ContentChild } from '@angular/core';
+import { Input, Component, ChangeDetectionStrategy, ContentChild, AfterContentInit } from '@angular/core';
 import { InputDirective } from './../input/index';
 
 
@@ -11,27 +11,28 @@ import { InputDirective } from './../input/index';
     '[attr.tabindex]': '-1'
   }
 })
-export class PasswordInputComponent {
+export class PasswordInputComponent implements AfterContentInit {
   @ContentChild(InputDirective, { read: InputDirective })
   input?: InputDirective;
 
   @Input()
-  visibleIcon = 'fas:eye';
-
-  @Input()
-  invisibleIcon = 'fas:eye-slash';
-
-  @Input()
   visible = false;
-
-  @Input()
-  disabled = false;
-
-  get buttonIcon() {
-    return this.visible ? this.visibleIcon : this.invisibleIcon;
-  }
 
   toggle() {
     this.visible = !this.visible;
+    this.updateType();
   }
+
+  get disabled() {
+    return this.input && this.input.isDisabled;
+  }
+
+  updateType() {
+    this.input.elementRef.nativeElement.type = this.visible ? 'text' : 'password';
+  }
+
+  ngAfterContentInit() {
+    this.updateType();
+  }
+
 }

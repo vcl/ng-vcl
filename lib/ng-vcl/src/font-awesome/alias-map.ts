@@ -15,4 +15,6 @@ export const ALIAS_MAP: IconAliases = {
   'arrow-left': 'fas fa-chevron-left',
   'arrow-right': 'fas fa-chevron-right',
   'upload': 'fas fa-upload',
+  'eye': 'fas fa-eye',
+  'eye-off': 'fas fa-eye-slash',
 };

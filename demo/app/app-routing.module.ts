@@ -148,16 +148,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/password-input/demo.module#PasswordInputDemoModule',
-  //   path: 'password-input',
-  //   data: {
-  //     demo: {
-  //       label: 'Password Input',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/password-input/demo.module#PasswordInputDemoModule',
+    path: 'password-input',
+    data: {
+      demo: {
+        label: 'Password Input',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   {
     loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
     path: 'embedded-input-group',

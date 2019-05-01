@@ -19,6 +19,8 @@ export interface IconAliases {
   'arrow-left': string;
   'arrow-right': string;
   'upload': string;
+  'eye': string;
+  'eye-off': string;
 }
 
 export abstract class IconResolverService implements IconResolver {
