@@ -8,33 +8,32 @@
     <div class="vclDGRow">
       <div class="vclToolbar vclLayoutHorizontal vclLayoutFlex vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
         <div class="vclLayoutHorizontal vclLayoutCenter">
-          <button vcl-icon-button class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
+          <button vcl-square-button class="vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
             type="button"
             [class.vclDisabled]="!prevYearAvailable"
-            [icon]="prevYearBtnIcon"
             (click)="onPrevYearTap()">
+            <vcl-icon icon="vcl:arrow-left"></vcl-icon>
           </button>
 
           <span class="vclCalHeaderLabel">{{ currentYear }}</span>
 
-          <button vcl-icon-button
+          <button vcl-square-button
             type="button"
             class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
             [class.vclDisabled]="!nextYearAvailable"
-            [icon]="nextYearBtnIcon"
             (click)="onNextYearTap()">
+            <vcl-icon icon="vcl:arrow-right"></vcl-icon>
           </button>
         </div>
 
         <div class="vclLayoutHorizontal vclLayoutFlex vclLayoutEndJustified">
-          <button vcl-icon-button *ngIf="expandable"
+          <button vcl-square-button *ngIf="expandable"
             type="button"
             class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
-            [icon]="closeBtnIcon"
             (click)="onCloseBtnTap()">
+            <vcl-icon icon="vcl:close"></vcl-icon>
           </button>
         </div>
-
       </div>
     </div>
 

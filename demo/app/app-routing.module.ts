@@ -168,16 +168,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/month-picker/demo.module#MonthPickerDemoModule',
-  //   path: 'month-picker',
-  //   data: {
-  //     demo: {
-  //       label: 'Month Picker',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/month-picker/demo.module#MonthPickerDemoModule',
+    path: 'month-picker',
+    data: {
+      demo: {
+        label: 'Month Picker',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   {
     loadChildren: './demos/radio-button/demo.module#RadioButtonDemoModule',
     path: 'radio-button',
