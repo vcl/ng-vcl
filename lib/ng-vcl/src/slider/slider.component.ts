@@ -144,7 +144,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   firstPan = true;
 
   ngAfterContentInit() {
-    this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
+    this.updatePercentLeftKnob();
   }
 
   get valueValid() {
@@ -164,14 +164,14 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
       this.updateScalePoints();
     }
     if ('value' in  changes) {
-      this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
+      this.updatePercentLeftKnob();
     }
   }
 
   setValue(value: number, updateKnob: boolean) {
     this.value = Number(value);
     if (updateKnob) {
-      this.percentLeftKnob = this.calculatePercentLeftKnob(value);
+      this.updatePercentLeftKnob();
     }
     this.valueChange.emit(this.value);
     this.onChange(this.value);
@@ -184,7 +184,12 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     const rangeLength = this.pmax - this.pmin;
     const valueLeft = value - this.pmin;
     const delta = rangeLength / valueLeft;
+    console.log(delta);
     return 100 / delta;
+  }
+
+  updatePercentLeftKnob() {
+    this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
   }
 
   percentToValue(per: number): number {
@@ -393,7 +398,6 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   onLabelClick(event: Event): void {
 
   }
-
 
   /**
    * things needed for ControlValueAccessor-Interface

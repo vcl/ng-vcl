@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'vcl-progress-bar',
