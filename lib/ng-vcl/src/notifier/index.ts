@@ -6,9 +6,9 @@ import { VCLButtonModule } from './../button';
 import { VCLIconModule } from '../icon';
 import { NotificationComponent } from './notification.component';
 import { NotifierService } from './notifier.service';
-import { NotificationsManagerService } from './notifications-manager.service';
 import { NotifierOptions, NotifierPosition, NotifierType,
   NOTIFICATION_CONFIG_DEFAULTS, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, NOTIFICATION_ANIMATION_PARAMS_DEFAULTS, NotificationConfig, NotificationAnimationParams } from './types';
+import { NotificationsHandlerService } from './notifications-handler.service';
 
 export { NotificationComponent, NotifierService, NotifierOptions, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NotificationConfig, NOTIFICATION_ANIMATION_PARAMS_TOKEN, NotificationAnimationParams };
 
@@ -25,7 +25,7 @@ export { NotificationComponent, NotifierService, NotifierOptions, NotifierType, 
   entryComponents: [ NotificationComponent ],
   providers: [
     NotifierService,
-    NotificationsManagerService,
+    NotificationsHandlerService,
     {
       provide: NOTIFICATION_CONFIG_TOKEN,
       useValue: NOTIFICATION_CONFIG_DEFAULTS

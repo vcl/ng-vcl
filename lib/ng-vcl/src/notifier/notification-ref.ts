@@ -1,17 +1,15 @@
-import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { NotifierOptions, NotifierType, NotifierPosition } from './types';
-import { Subject } from 'rxjs';
 
-export interface NotificationsManager {
-  add(notificationRef: NotificationRef): void;
-  remove(notificationRef: NotificationRef): void;
-  isVisible(notificationRef: NotificationRef): boolean;
+export interface NotificationRefHandler {
+  close(notificationRef: NotificationRef): void;
+  destroy(notificationRef: NotificationRef): void;
+  isDestroyed(notificationRef: NotificationRef): boolean;
 }
 
 export class NotificationRef {
 
   constructor(
-    private _notificationsManager: NotificationsManager,
+    private _handler: NotificationRefHandler,
     opts: NotifierOptions
   ) {
     Object.assign(this, opts);
@@ -26,12 +24,14 @@ export class NotificationRef {
   readonly timeout: number | boolean = true;
 
   close() {
-    this._notificationsManager.remove(this);
+    this._handler.close(this);
   }
 
-  get visible() {
-    return this._notificationsManager.isVisible(this);
+  destroy() {
+    this._handler.destroy(this);
   }
 
-
+  get isDestroyed() {
+    return this._handler.isDestroyed(this);
+  }
 }

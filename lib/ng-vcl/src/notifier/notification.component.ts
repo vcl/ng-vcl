@@ -2,10 +2,11 @@ import { Component, HostBinding, HostListener, Inject } from '@angular/core';
 import { AnimationEvent, useAnimation } from '@angular/animations';
 import { NotificationRef } from './notification-ref';
 import { NgClass } from '@angular/common';
-import { TYPE_CLASS_MAP } from './types';
+import { TYPE_CLASS_MAP, NOTIFICATION_CONFIG_TOKEN, NotificationConfig } from './types';
 import { trigger, transition, } from '@angular/animations';
 import { stateVoidOpenAnimation, stateOpenClosingAnimation } from './notification.animations';
 import { NOTIFICATION_ANIMATION_PARAMS_TOKEN, NotificationAnimationParams } from './types';
+import { OverlayRef } from '@angular/cdk/overlay';
 
 export type NotificationAnimationState = 'open' | 'closing' | 'closed';
 
@@ -23,15 +24,32 @@ export type NotificationAnimationState = 'open' | 'closing' | 'closed';
 export class NotificationComponent {
 
   constructor(
-    public  notificationRef: NotificationRef,
+    public notificationRef: NotificationRef,
+    private overlayRef: OverlayRef,
     ngClass: NgClass,
     @Inject(NOTIFICATION_ANIMATION_PARAMS_TOKEN)
-    private animationParams: NotificationAnimationParams
+    private _animationParams: NotificationAnimationParams,
+    @Inject(NOTIFICATION_CONFIG_TOKEN)
+    private _config: NotificationConfig,
   ) {
     const type = TYPE_CLASS_MAP[notificationRef.type];
     ngClass.ngClass = type.notifier;
     ngClass.ngDoCheck();
     this.icon = notificationRef.icon || type.icon;
+
+    let timeout: number | false;
+    if (typeof notificationRef.timeout === 'number' || notificationRef.timeout === false) {
+      timeout = notificationRef.timeout;
+    } else {
+      timeout = this._config.timeout;
+    }
+
+    if (timeout !== false) {
+      setTimeout(() => {
+        this.state = 'closing';
+      }, timeout);
+    }
+
   }
 
   @HostBinding('class.vclNotification')
@@ -46,18 +64,15 @@ export class NotificationComponent {
   state: NotificationAnimationState = 'open';
   icon: string;
 
-  private closeCb?;
-
-  requestClose(cb) {
+  close() {
     this.state = 'closing';
-    this.closeCb = cb;
   }
 
   @HostBinding('@stateAnimation')
   get fadeAnimation() {
     return {
       value: this.state,
-      params: this.animationParams
+      params: this._animationParams
     };
   }
 
@@ -68,7 +83,7 @@ export class NotificationComponent {
 
     if (isClosingOut && itFinished) {
       this.state = 'closed';
-      this.closeCb && this.closeCb();
+      this.notificationRef.destroy();
     }
   }
 }

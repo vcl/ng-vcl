@@ -1,55 +1,51 @@
 import { Injectable, Injector, Inject, ComponentRef } from '@angular/core';
 import { NotifierPosition, NotificationConfig, NOTIFICATION_CONFIG_TOKEN } from './types';
-import { NotificationRef, NotificationsManager } from './notification-ref';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { NotificationComponent } from './notification.component';
+import { NotificationRef, NotificationRefHandler } from './notification-ref';
+import { NotifierOptions } from './types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationsManagerService implements NotificationsManager {
+export class NotificationsHandlerService implements NotificationRefHandler {
   constructor(
     private _overlay: Overlay,
     private _injector: Injector,
     @Inject(NOTIFICATION_CONFIG_TOKEN)
-    private _config: NotificationConfig
+    private _config: NotificationConfig,
   ) { }
 
   private _notifications: ([NotificationRef, OverlayRef, ComponentRef<NotificationComponent>])[] = [];
 
-  add(notificationRef: NotificationRef) {
+  create(opts: NotifierOptions): NotificationRef {
+    const notificationRef = new NotificationRef(this, opts);
     const overlayRef = this._overlay.create();
-    const portal = this._createPortal(notificationRef);
+    const portal = this._createPortal(notificationRef, overlayRef);
     const componentRef = overlayRef.attach(portal);
-
     this._notifications.push([notificationRef, overlayRef, componentRef]);
-    this._updatePositions();
+    this.updatePosition(notificationRef);
+    return notificationRef;
+  }
 
-    let timeout: number | false;
-    if (typeof notificationRef.timeout === 'number' || notificationRef.timeout === false) {
-      timeout = notificationRef.timeout;
-    } else {
-      timeout = this._config.timeout;
-    }
-
-    if (timeout !== false) {
-      setTimeout(() => {
-        this.remove(notificationRef);
-      }, timeout);
+  close(notificationRef: NotificationRef): void {
+    const [_, __, componentRef] = this._notifications.find(([n]) => n === notificationRef);
+    if (componentRef) {
+      componentRef.instance.close();
     }
   }
 
-  remove(notificationRef: NotificationRef): void {
-    const [, overlayRef, componentRef] = this._notifications.find(([n]) => n === notificationRef);
-
+  destroy(notificationRef: NotificationRef): void {
+    const [, overlayRef] = this._notifications.find(([n]) => n === notificationRef);
     if (overlayRef) {
-      componentRef.instance.requestClose(() => {
-        overlayRef.dispose();
-        this._updatePositions();
-      });
+      overlayRef.dispose();
     }
     this._notifications = this._notifications.filter(([n]) => n !== notificationRef);
+  }
+
+  isDestroyed(notificationRef: NotificationRef): boolean {
+    return !!this.getOverlayRef(notificationRef);
   }
 
   isVisible(notificationRef: NotificationRef): boolean {
@@ -58,7 +54,7 @@ export class NotificationsManagerService implements NotificationsManager {
   }
 
   getNotifications(pos?: NotifierPosition): NotificationRef[] {
-    return this._notifications.filter(([n]) => n.visible && (pos ? n.position === pos : true)).map(([n]) => n);
+    return this._notifications.filter(([n]) => (pos ? n.position === pos : true)).map(([n]) => n);
   }
 
   getOverlayRef(notificationRef: NotificationRef) {
@@ -66,19 +62,16 @@ export class NotificationsManagerService implements NotificationsManager {
     return overlayRef;
   }
 
-  private _updatePositions() {
-    this.getNotifications().forEach(n => this.updatePosition(n));
-  }
-
-  private _createPortal(notificationRef: NotificationRef) {
+  private _createPortal(notificationRef: NotificationRef, overlayRef: OverlayRef) {
     const tokens = new WeakMap();
     tokens.set(NotificationRef, notificationRef);
+    tokens.set(OverlayRef, overlayRef);
     const injector = new PortalInjector(this._injector, tokens);
     return new ComponentPortal(NotificationComponent, null, injector);
   }
 
   updatePosition(notificationRef: NotificationRef) {
-    const overlayRef = this.getOverlayRef(notificationRef);
+    const [_, overlayRef, componentRef] = this._notifications.find(([n]) => n === notificationRef);
 
     const notifications = this.getNotifications(notificationRef.position);
     const idx = notifications.indexOf(notificationRef);
@@ -118,7 +111,6 @@ export class NotificationsManagerService implements NotificationsManager {
         break;
       }
     }
-
     overlayRef.updatePositionStrategy(posStrategy);
   }
 

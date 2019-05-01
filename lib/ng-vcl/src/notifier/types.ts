@@ -52,7 +52,6 @@ export const TYPE_CLASS_MAP: {[key: string]: {notifier: string, icon: string} } 
   }
 };
 
-
 export interface NotificationConfig {
   timeout: number;
   offset: number;
