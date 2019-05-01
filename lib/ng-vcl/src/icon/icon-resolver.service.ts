@@ -21,6 +21,9 @@ export interface IconAliases {
   'upload': string;
   'eye': string;
   'eye-off': string;
+  'star': string;
+  'star-half': string;
+  'star-empty': string;
 }
 
 export abstract class IconResolverService implements IconResolver {

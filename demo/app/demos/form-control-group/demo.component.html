@@ -66,23 +66,33 @@
       <vcl-hint-error error="required">You must select an alignment</vcl-hint-error>
     </vcl-form-control-group>
   
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Hit points<vcl-required></vcl-required></label>
+      <vcl-slider formControlName="hitpoints" [min]="5" [max]="20" [scale]="16" [lock]="true"></vcl-slider>
+    </vcl-form-control-group>
+
     <h3>Skills</h3>
   
     <vcl-form-control-group>
       <label vclFormControlLabel>Strength<vcl-required></vcl-required></label>
-      <vcl-slider formControlName="strength" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider>
+      <!-- <vcl-slider formControlName="strength" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider> -->
+      <vcl-rating formControlName="strength"></vcl-rating>
     </vcl-form-control-group>
     <vcl-form-control-group>
       <label vclFormControlLabel>Agility<vcl-required></vcl-required></label>
-      <vcl-slider formControlName="agility" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider>
+      <!-- <vcl-slider formControlName="agility" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider> -->
+      <vcl-rating formControlName="agility"></vcl-rating>
     </vcl-form-control-group>
     <vcl-form-control-group>
       <label vclFormControlLabel>Intelligence<vcl-required></vcl-required></label>
-      <vcl-slider formControlName="intelligence" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider>
+      <vcl-rating formControlName="intelligence"></vcl-rating>
     </vcl-form-control-group>
-    <vcl-hint-warning *ngIf="!form.hasError('skills') && skillPoints < 20">The hero still has {{20 - skillPoints}} skill points available</vcl-hint-warning>
-    <vcl-hint-error *ngIf="form.hasError('skills')">Your hero has used more than 20 skill points combined</vcl-hint-error>
+    <vcl-hint-warning *ngIf="!form.hasError('skills') && skillPoints < 20">The hero still has {{10 - skillPoints}} skill points available</vcl-hint-warning>
+    <vcl-hint-error *ngIf="form.hasError('skills')">Your hero has used more than 10 skill points combined</vcl-hint-error>
   
+    <!-- <vcl-slider formControlName="intelligence" [min]="1" [max]="10" [scale]="10" [lock]="true"></vcl-slider> -->
+
+
     <vcl-form-control-group>
       <label vclFormControlLabel>Perks<vcl-required></vcl-required></label>
       <vcl-select formControlName="perks" label="Select perks" selectionMode="multiple" >

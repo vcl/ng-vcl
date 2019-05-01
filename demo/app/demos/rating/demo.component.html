@@ -6,44 +6,16 @@
 <vcl-rating type="vertical" [(ngModel)]="verticalValue"></vcl-rating>
 <div>Value: {{ verticalValue }}</div>
 
-<h2>Small</h2>
-<h3>With Text</h3>
-<vcl-rating type="small"></vcl-rating>
-<vcl-rating type="small" [value]="1"></vcl-rating>
-<vcl-rating type="small" [value]="2"></vcl-rating>
-<vcl-rating type="small" [value]="3"></vcl-rating>
-<vcl-rating type="small" [value]="4"></vcl-rating>
-<vcl-rating type="small" [value]="5"></vcl-rating>
-
-<h3>Without Text</h3>
-<vcl-rating type="small" [showText]="false"></vcl-rating>
-<vcl-rating type="small" [showText]="false" [value]="1"></vcl-rating>
-<vcl-rating type="small" [showText]="false" [value]="2"></vcl-rating>
-<vcl-rating type="small" [showText]="false" [value]="3"></vcl-rating>
-<vcl-rating type="small" [showText]="false" [value]="4"></vcl-rating>
-<vcl-rating type="small" [showText]="false" [value]="5"></vcl-rating>
-
 <h2>Custom Star Count</h2>
 <vcl-rating [starCount]="15" [(ngModel)]="customValue"></vcl-rating>
 <div>Value: {{ customValue }}</div>
 
 <h2>Custom Icons</h2>
 <vcl-rating fullStar="fas fa-battery-full" halfStar="fas fa-battery-half" emptyStar="fas fa-battery-empty" [value]="2.5"></vcl-rating>
-<br>
-<vcl-rating type="small" fullStar="fas fa-hourglass" halfStar="fas fa-hourglass-end" emptyStar="fas fa-hourglass-o"></vcl-rating>
-<vcl-rating type="small" fullStar="fas fa-hourglass" halfStar="fas fa-hourglass-end" emptyStar="fas fa-hourglass-o" [value]="1"></vcl-rating>
-<vcl-rating type="small" fullStar="fas fa-hourglass" halfStar="fas fa-hourglass-end" emptyStar="fas fa-hourglass-o" [value]="2"></vcl-rating>
-<vcl-rating type="small" fullStar="fas fa-hourglass" halfStar="fas fa-hourglass-end" emptyStar="fas fa-hourglass-o" [value]="3"></vcl-rating>
-<vcl-rating type="small" fullStar="fas fa-hourglass" halfStar="fas fa-hourglass-end" emptyStar="fas fa-hourglass-o" [value]="4"></vcl-rating>
-<vcl-rating type="small" fullStar="fas fa-hourglass" halfStar="fas fa-hourglass-end" emptyStar="fas fa-hourglass-o" [value]="5"></vcl-rating>
 
-
-<h2>Custom Scale</h2>
-<vcl-rating [value]="2.5" iconSize="12px"></vcl-rating>
-<br>
-<vcl-rating type="small" iconSize="14px" textSize="14px"></vcl-rating>
-<vcl-rating type="small" iconSize="16px" textSize="16px" [value]="1"></vcl-rating>
-<vcl-rating type="small" iconSize="18px" textSize="18px" [value]="2"></vcl-rating>
-<vcl-rating type="small" iconSize="20px" textSize="20px" [value]="3"></vcl-rating>
-<vcl-rating type="small" iconSize="22px" textSize="22px" [value]="4"></vcl-rating>
-<vcl-rating type="small" iconSize="24px" textSize="24px" [value]="5"></vcl-rating>
+<h2>Custom rating items</h2>
+<vcl-rating>
+  <vcl-rating-item></vcl-rating-item> Bad
+  <vcl-rating-item></vcl-rating-item> Average
+  <vcl-rating-item></vcl-rating-item> Good
+</vcl-rating>

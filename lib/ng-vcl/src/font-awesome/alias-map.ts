@@ -17,4 +17,7 @@ export const ALIAS_MAP: IconAliases = {
   'upload': 'fas fa-upload',
   'eye': 'fas fa-eye',
   'eye-off': 'fas fa-eye-slash',
+  'star': 'fas fa-star',
+  'star-half': 'fas fa-star-half-alt',
+  'star-empty': 'far fa-star',
 };

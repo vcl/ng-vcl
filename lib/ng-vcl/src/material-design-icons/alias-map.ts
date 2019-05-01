@@ -17,4 +17,7 @@ export const ALIAS_MAP: IconAliases = {
   'upload': 'mdi mdi-upload',
   'eye': 'mdi mdi-eye',
   'eye-off': 'mdi mdi-eye-off',
+  'star': 'mdi mdi-star',
+  'star-half': 'mdi mdi-star-empty',
+  'star-empty': 'mdi mdi-star-outline',
 };

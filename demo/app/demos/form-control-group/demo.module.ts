@@ -9,7 +9,8 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLIcogramModule,
          VCLIconModule,
          VCLSelectModule,
-         VCLEmbeddedInputGroupModule} from '@ng-vcl/ng-vcl';
+         VCLEmbeddedInputGroupModule,
+         VCLRatingModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
 
@@ -44,6 +45,7 @@ export function demo() {
     VCLEmbeddedInputGroupModule,
     VCLButtonGroupModule,
     VCLInputModule,
+    VCLRatingModule,
     VCLFileInputModule,
     VCLFlipSwitchModule,
     VCLIconModule,

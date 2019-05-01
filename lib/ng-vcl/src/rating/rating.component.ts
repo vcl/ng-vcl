@@ -7,45 +7,140 @@ import {
   HostBinding,
   Input,
   Output,
-  HostListener
+  ViewChildren,
+  QueryList,
+  ContentChildren,
+  SimpleChanges,
+  ElementRef,
+  Optional,
+  Inject,
+  OnDestroy,
+  OnChanges,
+  AfterViewInit,
+  AfterContentInit
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
+import { RatingItemComponent, Rating, RATING_TOKEN } from './rating-item.component';
+import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group';
+import { Subject } from 'rxjs';
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => RatingComponent),
-  multi: true
-};
+let UNIQUE_ID = 0;
 
 @Component({
   selector: 'vcl-rating',
   templateUrl: 'rating.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: RATING_TOKEN,
+      useExisting: forwardRef(() => RatingComponent)
+    }
+  ],
   styles: [
     `
-      .vclRatingVertical {
+      :host.vclRatingVertical {
         flex-direction: column;
       }
     `
   ]
 })
-export class RatingComponent implements ControlValueAccessor {
+export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChanges, AfterContentInit, AfterViewInit, Rating, FormControlInput {
 
-  @HostBinding()
-  tabindex = 0;
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    public ngControl?: NgControl,
+    @Optional()
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
+    @Optional()
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
+  ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  private cvaDisabled = false;
+  private generatedId = 'vcl_rating_' + UNIQUE_ID++;
+  private stateChangeEmitter = new Subject<void>();
+
+  controlType = 'rating';
+
+  stateChange = this.stateChangeEmitter.asObservable();
+
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this.generatedId;
+  }
+
+  @HostBinding('class.vclRating')
+  classVclRating = true;
+
+  @HostBinding('attr.role')
+  attrRole = 'slider';
+
+  @HostBinding('attr.aria-valuemax')
+  get attrAriaValuemax() {
+    return this.ratingItems.length;
+  }
+
+  @HostBinding('attr.aria-valuemin')
+  attrAriaValuemin = 0;
+
+  @HostBinding('class.vclRatingVertical')
+  get classVclRatingVertical() {
+    return this.type === 'vertical';
+  }
+
+  @HostBinding('style.height')
+  get styleHeight() {
+    return this.type === 'vertical' ? 'unset' : null;
+  }
+
+  @HostBinding('class.vclError')
+  get hasError() {
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  }
+
+  @ViewChildren(RatingItemComponent)
+  ratingItemViewChildren: QueryList<RatingItemComponent>;
+
+  @ContentChildren(RatingItemComponent)
+  ratingItemContentChildren: QueryList<RatingItemComponent>;
+
+  get hasContent() {
+    return this.ratingItemContentChildren && this.ratingItemContentChildren.length > 0;
+  }
+
+  get ratingItems() {
+    if (this.hasContent) {
+      return this.ratingItemContentChildren.toArray();
+    } else {
+      return this.ratingItemViewChildren ? this.ratingItemViewChildren.toArray() : [];
+    }
+  }
+
+  @Input()
+  id?: string;
+
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
 
   @Input()
   type: 'horizontal' | 'vertical' | 'small' = 'horizontal';
 
   @Input()
-  fullStar = 'fas fa-star';
+  fullStar = 'vcl:star';
 
   @Input()
-  halfStar = 'fas fa-star-half-alt';
+  halfStar = 'vcl:star-half';
 
   @Input()
-  emptyStar = 'fas fa-star';
+  emptyStar = 'vcl:star-empty';
 
   @Input()
   starCount = 5;
@@ -53,6 +148,7 @@ export class RatingComponent implements ControlValueAccessor {
   @Input()
   halves = true;
 
+  @HostBinding('attr.aria-valuenow')
   @Input()
   value = 0;
 
@@ -60,35 +156,31 @@ export class RatingComponent implements ControlValueAccessor {
   readonly = false;
 
   @Input()
-  iconSize?: string = undefined;
-
-  @Input()
-  textSize?: string = undefined;
-
-  @Input()
-  showText = true;
-
-  @HostBinding('class.vclDisabled')
-  @Input()
   disabled = false;
 
   @Output()
   valueChange = new EventEmitter<number>();
 
-  constructor(private cdRef: ChangeDetectorRef) { }
-
-  @HostListener('blur')
-  onBlur() {
-    this.onTouchedCallback();
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    return this.cvaDisabled || this.disabled;
   }
 
+  get isFocused() {
+    return this.ratingItems.some(ri => ri.focused);
+  }
 
-  clickStar(star) {
+  onLabelClick(event: Event): void {
+
+  }
+
+  onRatingItemClick(item: RatingItemComponent) {
     if (this.disabled || this.readonly) {
       return;
     }
 
-    this.value = star;
+    this.value = this.ratingItems.indexOf(item) + 1;
+    this.sync();
     this.valueChange.emit(this.value);
     this.onChangeCallback && this.onChangeCallback(this.value);
   }
@@ -101,35 +193,48 @@ export class RatingComponent implements ControlValueAccessor {
     return Math.round(x);
   }
 
-  getIcon(stars: number, small: boolean = false) {
-    const classes = [
-      'vclRatingItem',
-      'vclIcon'
-    ];
-
-    if (small) {
-      if (this.value >= this.starCount) {
-        classes.push(...this.fullStar.split(' '));
-      } else if (this.value >= this.starCount / 2 && this.value < this.starCount) {
-        classes.push(...this.halfStar.split(' '));
-      } else {
-        classes.push(...this.emptyStar.split(' '));
-      }
-    } else {
+  sync() {
+    this.ratingItems.forEach((ri, idx) => {
+      const stars = idx + 1;
       if (this.round(this.value) >= stars && !this.isHalfStar(stars)) {
-        classes.push(...this.fullStar.split(' '));
+        ri.setState('full');
       } else if (this.isHalfStar(stars)) {
-        classes.push(...this.halfStar.split(' '));
+        ri.setState('half');
       } else {
-        classes.push(...this.emptyStar.split(' '));
+        ri.setState('empty');
       }
-    }
+    });
+  }
 
-    return classes;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.value) {
+      this.sync();
+    }
+  }
+
+  ngAfterViewInit() {
+    this.sync();
+    this.cdRef.detectChanges();
+  }
+
+  ngAfterContentInit() {
+    this.sync();
+    this.cdRef.detectChanges();
+  }
+
+  ngOnDestroy() {
+    this.stateChangeEmitter.complete();
+  }
+
+  onRatingItemBlur(item: RatingItemComponent): void {
+    if (this.ratingItems.pop() === item) {
+      this.onTouchedCallback();
+      this.stateChangeEmitter.next();
+    }
   }
 
   get starArray() {
-    return Array(this.starCount).fill(0).map((x, i) => i + 1);
+    return this.starCount === undefined ? undefined : Array(this.starCount).fill(0).map((x, i) => i + 1);
   }
 
   /**
@@ -140,6 +245,7 @@ export class RatingComponent implements ControlValueAccessor {
 
   writeValue(value: number): void {
     this.value = value;
+    this.sync();
     this.cdRef.markForCheck();
   }
 
@@ -152,7 +258,7 @@ export class RatingComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this.cvaDisabled = isDisabled;
     this.cdRef.markForCheck();
   }
 }

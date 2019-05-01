@@ -318,26 +318,26 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/zoom-box/demo.module#ZoomBoxDemoModule',
-  //   path: 'zoom-box',
-  //   data: {
-  //     demo: {
-  //       label: 'Zoom-Box',
-  //       category: CAT_MEDIA,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/gallery/demo.module#GalleryDemoModule',
-  //   path: 'gallery',
-  //   data: {
-  //     demo: {
-  //       label: 'Gallery',
-  //       category: CAT_MEDIA,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/zoom-box/demo.module#ZoomBoxDemoModule',
+    path: 'zoom-box',
+    data: {
+      demo: {
+        label: 'Zoom-Box',
+        category: CAT_MEDIA,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/gallery/demo.module#GalleryDemoModule',
+    path: 'gallery',
+    data: {
+      demo: {
+        label: 'Gallery',
+        category: CAT_MEDIA,
+      }
+    }
+  },
   {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
     path: 'busy-indicator',
@@ -348,26 +348,26 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/progress-bar/demo.module#ProgressBarDemoModule',
-  //   path: 'progress-bar',
-  //   data: {
-  //     demo: {
-  //       label: 'Progress-Bar',
-  //       category: CAT_STATUS_INFORMATION,
-  //     }
-  //   }
-  // },
-  // {
-  //   loadChildren: './demos/table/demo.module#TableDemoModule',
-  //   path: 'table',
-  //   data: {
-  //     demo: {
-  //       label: 'Table',
-  //       category: CAT_TABULAR_DATA,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/progress-bar/demo.module#ProgressBarDemoModule',
+    path: 'progress-bar',
+    data: {
+      demo: {
+        label: 'Progress-Bar',
+        category: CAT_STATUS_INFORMATION,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/table/demo.module#TableDemoModule',
+    path: 'table',
+    data: {
+      demo: {
+        label: 'Table',
+        category: CAT_TABULAR_DATA,
+      }
+    }
+  },
   {
     loadChildren: './demos/off-click/demo.module#OffClickDemoModule',
     path: 'off-click',
@@ -378,16 +378,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/rating/demo.module#RatingDemoModule',
-  //   path: 'rating',
-  //   data: {
-  //     demo: {
-  //       label: 'Rating',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // }
+  {
+    loadChildren: './demos/rating/demo.module#RatingDemoModule',
+    path: 'rating',
+    data: {
+      demo: {
+        label: 'Rating',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  }
 ];
 
 

@@ -1,20 +1,4 @@
-<ng-container *ngIf="type === 'horizontal' || type === 'vertical'">
-  <span class="vclRating"
-        [class.vclDisabled]="disabled"
-        [class.vclRatingVertical]="type === 'vertical'"
-        style="height: unset">
-    <span *ngFor="let star of starArray"
-          [ngClass]="getIcon(star)"
-          [attr.tabindex]="readonly ? undefined : 0"
-          (mousedown)="clickStar(star)"
-          [ngStyle]="{'font-size': iconSize}">
-    </span>
-  </span>
+<ng-container *ngIf="!hasContent">
+  <vcl-rating-item *ngFor="let star of starArray"></vcl-rating-item>
 </ng-container>
-<ng-container *ngIf="type === 'small'">
-  <span class="vclRating" [class.vclDisabled]="disabled" style="height: unset">
-    <span [ngClass]="getIcon(0, true)" [ngStyle]="{'font-size': iconSize}">
-    </span>
-    <strong *ngIf="showText" [ngStyle]="{'font-size': textSize}">{{ value }}</strong>
-  </span>
-</ng-container>
+<ng-content></ng-content>

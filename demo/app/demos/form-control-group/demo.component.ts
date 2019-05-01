@@ -9,9 +9,10 @@ export class FormControlGroupDemoComponent {
 
   defaultValues = {
     leader: false,
-    strength: 5,
-    agility: 5,
-    intelligence: 5,
+    hitpoints: 10,
+    strength: 3,
+    agility: 3,
+    intelligence: 3,
   };
 
   formGroup = new FormGroup({
@@ -37,6 +38,7 @@ export class FormControlGroupDemoComponent {
     ]),
     gender: new FormControl(null, Validators.required),
     alignment: new FormControl(null, [ Validators.required ]),
+    hitpoints: new FormControl(this.defaultValues.hitpoints, [ Validators.min(1), Validators.max(100)]),
     strength: new FormControl(this.defaultValues.strength, [ Validators.min(1), Validators.max(10)]),
     agility: new FormControl(this.defaultValues.agility, [ Validators.min(1), Validators.max(10)]),
     intelligence: new FormControl(this.defaultValues.intelligence, [ Validators.min(1), Validators.max(10)]),
@@ -56,7 +58,7 @@ export class FormControlGroupDemoComponent {
   }
 
   validateSkills(c: AbstractControl) {
-    if ((this.skillPoints) > 20) {
+    if ((this.skillPoints) > 10) {
       return {
         skills: true
       };
