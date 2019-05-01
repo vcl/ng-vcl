@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
-  VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule
+  VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule, VCLIcogramModule
 } from '@ng-vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
@@ -24,6 +24,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     AppRoutingModule,
     VCLButtonModule,
     VCLIconModule,
+    VCLIcogramModule,
     VCLFontAwesomeModule,
     VCLMaterialDesignModule,
     VCLNavigationModule,

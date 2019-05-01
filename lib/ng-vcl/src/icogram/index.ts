@@ -7,7 +7,7 @@ export { IcogramComponent, IcogramLinkComponent };
 
 @NgModule({
   imports: [CommonModule, VCLIconModule],
-  exports: [IcogramComponent, IcogramLinkComponent],
+  exports: [IcogramComponent, IcogramLinkComponent, VCLIconModule],
   declarations: [IcogramComponent, IcogramLinkComponent],
   providers: [],
 })

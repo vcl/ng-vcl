@@ -31,26 +31,28 @@
           icon="fas:times-circle"></button>
       </div>
 
-      <nav vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex"
-        [type]="'vertical'"
-        [useRouter]="true"
-        [subLevelHintIconSide]="'left'"
-        [subLevelHintIconOpened]="'fas:angle-down'"
-        [subLevelHintIconClosed]="'fas:angle-right'">
-
-        <div *ngIf="searchResults.length; else noSearch">
-          <vcl-navitem *ngFor="let searchResult of searchResults" [label]="searchResult.label" [route]="searchResult.route"></vcl-navitem>
-        </div>
-
+      <vcl-navigation>
+        <ng-container *ngIf="searchResults.length; else noSearch">
+          <vcl-navigation-item *ngFor="let searchResult of searchResults" [routerLink]="searchResult.route"  routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
+            <vcl-navigation-label>{{searchResult.label}}</vcl-navigation-label>
+          </vcl-navigation-item>
+        </ng-container>
         <ng-template #noSearch>
-          <vcl-navitem *ngFor="let item of GROUPED_DEMOS" [label]="item.label">
-            <ng-container *ngIf="item.items">
-              <vcl-navitem *ngFor="let subitem of item.items" [label]="subitem.label" [route]="subitem.route"></vcl-navitem>
-            </ng-container>
-          </vcl-navitem>
+          <vcl-navigation-item *ngFor="let item of GROUPED_DEMOS" #navItem="vclNavigationItem">
+            <vcl-navigation-label>
+              <vcl-icogram>
+                <vcl-icon vclPrepend [icon]="navItem.opened ? 'fas:angle-down' : 'fas:angle-right'"></vcl-icon>
+                &nbsp;{{item.label}}
+              </vcl-icogram>
+            </vcl-navigation-label>
+            <vcl-navigation *ngIf="item.items">
+              <vcl-navigation-item *ngFor="let subitem of item.items" [routerLink]="subitem.route"  routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
+                <vcl-navigation-label>{{subitem.label}}</vcl-navigation-label>
+              </vcl-navigation-item>
+            </vcl-navigation>
+          </vcl-navigation-item>
         </ng-template>
-
-      </nav>
+      </vcl-navigation>
     </div>
     <div class="vclScrollable vclLayoutFlex docContent" cdkScrollable> 
       <router-outlet></router-outlet>

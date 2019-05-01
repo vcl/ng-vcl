@@ -38,16 +38,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/navigation/demo.module#NavigationDemoModule',
-  //   path: 'navigation',
-  //   data: {
-  //     demo: {
-  //       label: 'Navigation',
-  //       category: CAT_NAVIGATION,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/navigation/demo.module#NavigationDemoModule',
+    path: 'navigation',
+    data: {
+      demo: {
+        label: 'Navigation',
+        category: CAT_NAVIGATION,
+      }
+    }
+  },
   {
     loadChildren: './demos/tab-nav/demo.module#TabNavDemoModule',
     path: 'tab-nav',
