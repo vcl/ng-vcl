@@ -4,11 +4,12 @@ import { DatePickerComponent } from './date-picker.component';
 import { VCLButtonModule } from '../button/index';
 import { TimePickerComponent } from './time-picker.component';
 import { FormsModule } from '@angular/forms';
+import { VCLIconModule } from '../icon';
 
 export { DatePickerComponent, TimePickerComponent };
 
 @NgModule({
-  imports: [CommonModule, VCLButtonModule, FormsModule],
+  imports: [CommonModule, VCLButtonModule, VCLIconModule, FormsModule],
   exports: [DatePickerComponent, TimePickerComponent],
   declarations: [DatePickerComponent, TimePickerComponent],
   providers: [],

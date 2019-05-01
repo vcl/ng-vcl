@@ -88,16 +88,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/date-picker/demo.module#DatePickerDemoModule',
-  //   path: 'date-picker',
-  //   data: {
-  //     demo: {
-  //       label: 'Date Picker',
-  //       category: CAT_FORM_CONTROLS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/date-picker/demo.module#DatePickerDemoModule',
+    path: 'date-picker',
+    data: {
+      demo: {
+        label: 'Date Picker',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
   {
     loadChildren: './demos/dropdown/demo.module#DropdownDemoModule',
     path: 'dropdown',
