@@ -1,3 +1,12 @@
 
-@import './styles/workaround.sss'
 @import '@angular/cdk/overlay-prebuilt.css'
+
+// TODO: remove vcl workarounds 
+.vclLayerBox
+  min-width: unset
+
+.vclPopOver
+  position: unset
+
+.vclInputGroupEmb, .vclFormControlGroup, .vclDropdownItem, .vclDropdownSeperator, .vclDropdownHeader, .vclFormInlineControlGroup
+  display: block
