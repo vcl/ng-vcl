@@ -54,7 +54,7 @@ export abstract class LayerBase<TData = any, TResult = any, TComponent = any> ex
       scrollStrategy: this._overlay.scrollStrategies.block(),
       hasBackdrop: true,
       backdropClass: 'vclLayerCover',
-      panelClass: ['vclLayerBox', 'vclLayerBoxFix'],
+      panelClass: ['vclLayerBox'],
       positionStrategy: opts.position || this._currentOpts.position || this._overlay.position()
         .global()
         .centerHorizontally()
