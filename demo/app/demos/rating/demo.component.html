@@ -1,21 +1,25 @@
 <h2>Horizontal</h2>
-<vcl-rating [(ngModel)]="horizontalValue"></vcl-rating>
+<vcl-rating [(value)]="horizontalValue"></vcl-rating>
 <div>Value: {{ horizontalValue }}</div>
 
 <h2>Vertical</h2>
-<vcl-rating type="vertical" [(ngModel)]="verticalValue"></vcl-rating>
+<vcl-rating type="vertical" [(value)]="verticalValue"></vcl-rating>
 <div>Value: {{ verticalValue }}</div>
 
 <h2>Custom Star Count</h2>
-<vcl-rating [starCount]="15" [(ngModel)]="customValue"></vcl-rating>
+<vcl-rating [ratingItemCount]="15" [(value)]="customValue"></vcl-rating>
 <div>Value: {{ customValue }}</div>
 
-<h2>Custom Icons</h2>
-<vcl-rating fullStar="fas fa-battery-full" halfStar="fas fa-battery-half" emptyStar="fas fa-battery-empty" [value]="2.5"></vcl-rating>
+<h2>With label</h2>
 
-<h2>Custom rating items</h2>
-<vcl-rating>
-  <vcl-rating-item></vcl-rating-item> Bad
-  <vcl-rating-item></vcl-rating-item> Average
-  <vcl-rating-item></vcl-rating-item> Good
+<label class="vclFormControlLabel" for="vInputEx1">
+  Rating: <vcl-rating-item-label [target]="rating"></vcl-rating-item-label>
+</label>
+<vcl-rating [value]="2" #rating="vclRating">
+  <vcl-rating-item>Bad</vcl-rating-item> 
+  <vcl-rating-item>Average</vcl-rating-item>
+  <vcl-rating-item>Good</vcl-rating-item>
 </vcl-rating>
+
+<h2>Custom Icons</h2>
+<vcl-rating ratingFullIcon="fas fa-battery-full" ratingHalfIcon="fas fa-battery-half" ratingEmptyIcon="fas fa-battery-empty" [value]="2.5"></vcl-rating>

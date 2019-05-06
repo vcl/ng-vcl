@@ -1,13 +1,15 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener, ViewChild, TemplateRef } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ENTER } from '@angular/cdk/keycodes';
 import { IconService } from '../icon/index';
 
 export interface Rating {
-  fullStar: string;
-  halfStar: string;
-  emptyStar: string;
+  ratingFullIcon: string;
+  ratingHalfIcon: string;
+  ratingEmptyIcon: string;
+  isDisabled: boolean;
   onRatingItemClick(item: RatingItemComponent): void;
+  onRatingItemHover(item: RatingItemComponent): void;
   onRatingItemBlur(item: RatingItemComponent): void;
 }
 
@@ -30,13 +32,19 @@ export class RatingItemComponent {
     this.setState(this.state);
   }
 
+  @ViewChild(TemplateRef)
+  content?: TemplateRef<any>;
+
   focused = false;
 
-  @HostBinding('class.vclRatingItem')
-  vclRatingItem = true;
+  @Input()
+  disabled = false;
 
   @HostBinding('class.vclRatingItem')
-  vclIcon = true;
+  classVclRatingItem = true;
+
+  @HostBinding('class.vclIcon')
+  classVclIcon = true;
 
   @HostBinding('attr.tabindex')
   attrTabindex = 0;
@@ -47,14 +55,19 @@ export class RatingItemComponent {
     this.state = state;
     let icon;
     if (this.state === 'empty') {
-      icon = this._rating.emptyStar;
+      icon = this._rating.ratingEmptyIcon;
     } else if (this.state === 'half') {
-      icon = this._rating.halfStar;
+      icon = this._rating.ratingHalfIcon;
     } else {
-      icon = this._rating.fullStar;
+      icon = this._rating.ratingFullIcon;
     }
+
     this.ngClass.ngClass = this.iconService.resolve(icon);
     this.ngClass.ngDoCheck();
+  }
+
+  get isDisabled() {
+    return this._rating.isDisabled || this.disabled;
   }
 
   @HostListener('click')
@@ -69,6 +82,11 @@ export class RatingItemComponent {
       event.preventDefault();
       this._rating.onRatingItemClick(this);
     }
+  }
+
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this._rating.onRatingItemHover(this);
   }
 
   @HostListener('focus')

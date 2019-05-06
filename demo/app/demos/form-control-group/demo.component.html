@@ -74,19 +74,37 @@
     <h3>Skills</h3>
   
     <vcl-form-control-group>
-      <label vclFormControlLabel>Strength<vcl-required></vcl-required></label>
-      <vcl-rating formControlName="strength"></vcl-rating>
+      <label vclFormControlLabel>Strength (<vcl-rating-item-label [target]="strengthRating"></vcl-rating-item-label>)</label>
+      <vcl-rating formControlName="strength" #strengthRating="vclRating">
+          <vcl-rating-item>1</vcl-rating-item>
+          <vcl-rating-item>2</vcl-rating-item>
+          <vcl-rating-item>3</vcl-rating-item>
+          <vcl-rating-item>4</vcl-rating-item>
+          <vcl-rating-item>5</vcl-rating-item>
+      </vcl-rating>
     </vcl-form-control-group>
     <vcl-form-control-group>
-      <label vclFormControlLabel>Agility<vcl-required></vcl-required></label>
-      <vcl-rating formControlName="agility"></vcl-rating>
+      <label vclFormControlLabel>Agility (<vcl-rating-item-label [target]="agilityRating"></vcl-rating-item-label>)</label>
+      <vcl-rating formControlName="agility" #agilityRating="vclRating">
+        <vcl-rating-item>1</vcl-rating-item>
+        <vcl-rating-item>2</vcl-rating-item>
+        <vcl-rating-item>3</vcl-rating-item>
+        <vcl-rating-item>4</vcl-rating-item>
+        <vcl-rating-item>5</vcl-rating-item>
+      </vcl-rating>
     </vcl-form-control-group>
     <vcl-form-control-group>
-      <label vclFormControlLabel>Intelligence<vcl-required></vcl-required></label>
-      <vcl-rating formControlName="intelligence"></vcl-rating>
+      <label vclFormControlLabel>Intelligence (<vcl-rating-item-label [target]="intelligenceRating"></vcl-rating-item-label>)</label>
+      <vcl-rating formControlName="intelligence" #intelligenceRating="vclRating">
+        <vcl-rating-item>1</vcl-rating-item>
+        <vcl-rating-item>2</vcl-rating-item>
+        <vcl-rating-item>3</vcl-rating-item>
+        <vcl-rating-item>4</vcl-rating-item>
+        <vcl-rating-item>5</vcl-rating-item>
+      </vcl-rating>
     </vcl-form-control-group>
-    <vcl-hint-warning *ngIf="!form.hasError('skills') && skillPoints < 20">The hero still has {{10 - skillPoints}} skill points available</vcl-hint-warning>
-    <vcl-hint-error *ngIf="form.hasError('skills')">Your hero has used more than 10 skill points combined</vcl-hint-error>
+    <vcl-hint *ngIf="!form.hasError('skills')" [style.color]="skillPointsAvailable > 0 ? 'orange' : null">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint>
+    <vcl-hint-error *ngIf="form.hasError('skills')">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint-error>
 
     <vcl-form-control-group>
       <label vclFormControlLabel>Perks<vcl-required></vcl-required></label>

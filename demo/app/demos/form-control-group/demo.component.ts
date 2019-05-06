@@ -7,6 +7,8 @@ import { FormControlErrorStateAgent, FormControlHost, FormControlInput } from 'l
 })
 export class FormControlGroupDemoComponent {
 
+  skillPointsMax = 10;
+
   defaultValues = {
     leader: false,
     hitpoints: 10,
@@ -57,8 +59,12 @@ export class FormControlGroupDemoComponent {
     return 0;
   }
 
+  get skillPointsAvailable() {
+    return this.skillPointsMax - this.skillPoints;
+  }
+
   validateSkills(c: AbstractControl) {
-    if ((this.skillPoints) > 10) {
+    if ((this.skillPoints) > this.skillPointsMax) {
       return {
         skills: true
       };

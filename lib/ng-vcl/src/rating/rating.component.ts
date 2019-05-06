@@ -11,13 +11,13 @@ import {
   QueryList,
   ContentChildren,
   SimpleChanges,
-  ElementRef,
   Optional,
   Inject,
   OnDestroy,
   OnChanges,
   AfterViewInit,
-  AfterContentInit
+  AfterContentInit,
+  HostListener
 } from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import { RatingItemComponent, Rating, RATING_TOKEN } from './rating-item.component';
@@ -30,6 +30,7 @@ let UNIQUE_ID = 0;
   selector: 'vcl-rating',
   templateUrl: './rating.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  exportAs: 'vclRating',
   providers: [
     {
       provide: RATING_TOKEN,
@@ -66,10 +67,9 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   private cvaDisabled = false;
   private generatedId = 'vcl_rating_' + UNIQUE_ID++;
   private stateChangeEmitter = new Subject<void>();
+  stateChange = this.stateChangeEmitter.asObservable();
 
   controlType = 'rating';
-
-  stateChange = this.stateChangeEmitter.asObservable();
 
   @HostBinding('attr.id')
   get elementId() {
@@ -134,23 +134,22 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   type: 'horizontal' | 'vertical' | 'small' = 'horizontal';
 
   @Input()
-  fullStar = 'vcl:star';
+  ratingFullIcon = 'vcl:star';
 
   @Input()
-  halfStar = 'vcl:star-half';
+  ratingHalfIcon = 'vcl:star-half';
 
   @Input()
-  emptyStar = 'vcl:star-empty';
+  ratingEmptyIcon = 'vcl:star-empty';
 
   @Input()
-  starCount = 5;
-
-  @Input()
-  halves = true;
+  ratingItemCount = 5;
 
   @HostBinding('attr.aria-valuenow')
   @Input()
   value = 0;
+
+  _hoveredValue?: number;
 
   @Input()
   readonly = false;
@@ -174,6 +173,17 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
 
   }
 
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this._hoveredValue = undefined;
+    this.sync();
+  }
+
+  onRatingItemHover(item: RatingItemComponent) {
+    this._hoveredValue = this.ratingItems.indexOf(item) + 1;
+    this.sync();
+  }
+
   onRatingItemClick(item: RatingItemComponent) {
     if (this.disabled || this.readonly) {
       return;
@@ -182,11 +192,12 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     this.value = this.ratingItems.indexOf(item) + 1;
     this.sync();
     this.valueChange.emit(this.value);
+    this.onTouchedCallback();
     this.onChangeCallback && this.onChangeCallback(this.value);
   }
 
-  isHalfStar(star: number): boolean {
-    return this.halves ? (Math.round(this.value * 2) / 2) === star - 0.5 : false;
+  isHalf(item: number, value: number): boolean {
+    return (Math.round(value * 2) / 2) === item - 0.5;
   }
 
   round(x: number): number {
@@ -195,15 +206,19 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
 
   sync() {
     this.ratingItems.forEach((ri, idx) => {
-      const stars = idx + 1;
-      if (this.round(this.value) >= stars && !this.isHalfStar(stars)) {
+      const current = idx + 1;
+      const value = this._hoveredValue === undefined ? this.value : this._hoveredValue;
+      const isHalf = (Math.round(value * 2) / 2) === current - 0.5;
+
+      if (this.round(value) >= current && !isHalf) {
         ri.setState('full');
-      } else if (this.isHalfStar(stars)) {
+      } else if (isHalf) {
         ri.setState('half');
       } else {
         ri.setState('empty');
       }
     });
+    this.stateChangeEmitter.next();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -233,8 +248,8 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     }
   }
 
-  get starArray() {
-    return this.starCount === undefined ? undefined : Array(this.starCount).fill(0).map((x, i) => i + 1);
+  get ratingItemsArray() {
+    return this.ratingItemCount === undefined ? undefined : Array(this.ratingItemCount).fill(0).map((x, i) => i + 1);
   }
 
   /**
