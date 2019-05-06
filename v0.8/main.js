@@ -2390,8 +2390,8 @@ var CheckboxComponent = /** @class */ (function () {
         }
     };
     CheckboxComponent.prototype.onClick = function (e) {
-        e.preventDefault();
-        return this.toggleValue();
+        this.toggleValue();
+        e.stopPropagation();
     };
     CheckboxComponent.prototype.onBlur = function () {
         this._focused = false;
@@ -2498,7 +2498,7 @@ var CheckboxComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], CheckboxComponent.prototype, "onClick", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -5866,12 +5866,12 @@ var FormControlHintComponent = /** @class */ (function () {
 /*!****************************************************!*\
   !*** ./lib/ng-vcl/src/form-control-group/index.ts ***!
   \****************************************************/
-/*! exports provided: FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule */
+/*! exports provided: FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return defaultFormControlErrorMatcher; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorStateAgent", function() { return defaultFormControlErrorStateAgent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return VCLFormControlGroupModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
@@ -5902,7 +5902,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function defaultFormControlErrorMatcher(form, input, error) {
+function defaultFormControlErrorStateAgent(form, input, error) {
     return form && input && input.ngControl && !input.isFocused && input.ngControl.invalid && (input.ngControl.touched || form.submitted);
 }
 var VCLFormControlGroupModule = /** @class */ (function () {
@@ -5915,7 +5915,7 @@ var VCLFormControlGroupModule = /** @class */ (function () {
             declarations: [_form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"], _hint_component__WEBPACK_IMPORTED_MODULE_5__["FormControlHintComponent"], _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__["FormControlLabelDirective"], _required_component__WEBPACK_IMPORTED_MODULE_7__["FormControlRequiredComponent"], _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__["FormControlHostDirective"]],
             providers: [{
                     provide: _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_ERROR_STATE_AGENT"],
-                    useValue: defaultFormControlErrorMatcher
+                    useValue: defaultFormControlErrorStateAgent
                 }],
         })
     ], VCLFormControlGroupModule);
@@ -6002,7 +6002,7 @@ var FormControlRequiredComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclGalleryContent\" style=\"overflow: hidden;\">\n  <button *ngIf=\"target.selectedImage > 0 || target.wrap\" vcl-button class=\"vclGalleryPrevButton\" (click)=\"selectPrevious()\" aria-label=\"Previous\">\n    <vcl-icon icon=\"vcl:arrow-left\"></vcl-icon>\n  </button>\n\n  <div #imageContainer style=\"position: relative; width: 100%; height: 100%; transition: transform 0.5s\" [ngStyle]=\"imageContainerStyle\">\n    <img *ngFor=\"let img of target.imageArray; let i = index\" [attr.data-index]=\"i\" (click)=\"target.selectImage(i)\" (load)=\"imageLoaded()\" [src]=\"img.image\" [alt]=\"img.alt\" style=\"touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: absolute; left: 0; top: 0\">\n  </div>\n\n  <button *ngIf=\"target.selectedImage < (target.images ? target.images.length - 1 : 0) || target.wrap\" vcl-button class=\"vclGalleryNextButton\" (click)=\"selectNext()\" aria-label=\"Next\" >\n    <vcl-icon icon=\"vcl:arrow-right\"></vcl-icon>\n  </button>\n</div>\n  "
+module.exports = "<div class=\"vclGalleryContent\" style=\"overflow: hidden;\">\n  <button *ngIf=\"target.selectedImage > 0 || target.wrap\" vcl-button type=\"button\" class=\"vclGalleryPrevButton\" (click)=\"selectPrevious()\" aria-label=\"Previous\">\n    <vcl-icon icon=\"vcl:arrow-left\"></vcl-icon>\n  </button>\n\n  <div #imageContainer style=\"position: relative; width: 100%; height: 100%; transition: transform 0.5s\" [ngStyle]=\"imageContainerStyle\">\n    <img *ngFor=\"let img of target.imageArray; let i = index\" [attr.data-index]=\"i\" (click)=\"target.selectImage(i)\" (load)=\"imageLoaded()\" [src]=\"img.image\" [alt]=\"img.alt\" style=\"touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: absolute; left: 0; top: 0\">\n  </div>\n\n  <button  *ngIf=\"target.selectedImage < (target.images ? target.images.length - 1 : 0) || target.wrap\" vcl-button type=\"button\" class=\"vclGalleryNextButton\" (click)=\"selectNext()\" aria-label=\"Next\" >\n    <vcl-icon icon=\"vcl:arrow-right\"></vcl-icon>\n  </button>\n</div>\n  "
 
 /***/ }),
 
@@ -6835,7 +6835,7 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, ComponentOverlay, TemplateOverlay */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, ComponentOverlay, TemplateOverlay */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6859,7 +6859,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_HOST"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["defaultFormControlErrorMatcher"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorStateAgent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["defaultFormControlErrorStateAgent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLFormControlGroupModule"]; });
 
@@ -8939,7 +8939,7 @@ var stateOpenClosingAnimation = Object(_angular_animations__WEBPACK_IMPORTED_MOD
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclNotificationIconContainer\">\n  <vcl-icon class=\"vclNotificationIcon\" [icon]=\"icon\"></vcl-icon>\n</div>\n<div class=\"vclNotificationContent vclLayoutFlex\">\n  <div *ngIf=\"!notificationRef.html\">{{notificationRef.text}}</div>\n  <div *ngIf=\"notificationRef.html\" [innerHtml]=\"notificationRef.text\"></div>\n</div>\n<button vcl-square-button (click)=\"close()\" class=\"vclTransparent vclLayoutSelfStart\">\n  <vcl-icon icon=\"vcl:close\"></vcl-icon>\n</button>\n"
+module.exports = "<div class=\"vclNotificationIconContainer\">\n  <vcl-icon class=\"vclNotificationIcon\" [icon]=\"icon\"></vcl-icon>\n</div>\n<div class=\"vclNotificationContent vclLayoutFlex\">\n  <div *ngIf=\"!notificationRef.html\">{{notificationRef.text}}</div>\n  <div *ngIf=\"notificationRef.html\" [innerHtml]=\"notificationRef.text\"></div>\n</div>\n<button vcl-square-button type=\"button\" (click)=\"close()\" class=\"vclTransparent vclLayoutSelfStart\">\n  <vcl-icon icon=\"vcl:close\"></vcl-icon>\n</button>\n"
 
 /***/ }),
 
@@ -9734,7 +9734,7 @@ var VCLPasswordInputModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\n<button vcl-square-button\n        [disabled]=\"disabled\"\n        (click)=\"toggle()\">\n  <vcl-icon [icon]=\"visible ? 'vcl:eye' : 'vcl:eye-off'\"></vcl-icon>\n</button>\n"
+module.exports = "<ng-content></ng-content>\n<button vcl-square-button\n        type=\"button\"\n        [disabled]=\"disabled\"\n        (click)=\"toggle()\">\n  <vcl-icon [icon]=\"visible ? 'vcl:eye' : 'vcl:eye-off'\"></vcl-icon>\n</button>\n"
 
 /***/ }),
 
@@ -10212,7 +10212,7 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorMatcher, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, ComponentOverlay, TemplateOverlay */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, DropdownComponent, DropdownHeaderComponent, DropdownItemComponent, DropdownLabelDirective, DropdownSublabelDirective, DropdownSeperatorComponent, DropdownContentComponent, DropdownInputDirective, VCLDropdownModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, TooltipComponent, AnimationState, Placement, VCLTooltipModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, ComponentOverlay, TemplateOverlay */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10237,7 +10237,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["FORM_CONTROL_HOST"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorMatcher", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["defaultFormControlErrorMatcher"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultFormControlErrorStateAgent", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["defaultFormControlErrorStateAgent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLFormControlGroupModule", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["VCLFormControlGroupModule"]; });
 
@@ -10634,7 +10634,7 @@ var RadioButtonLabelDirective = /** @class */ (function () {
         configurable: true
     });
     RadioButtonLabelDirective.prototype.onClick = function (event) {
-        // this.rb && this.rb.onLabelClick(event);
+        this.rb && this.rb.onLabelClick(event);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_radio_button_component__WEBPACK_IMPORTED_MODULE_2__["RadioButtonComponent"], { read: _radio_button_component__WEBPACK_IMPORTED_MODULE_2__["RadioButtonComponent"] }),
@@ -10756,7 +10756,7 @@ var RadioButtonComponent = /** @class */ (function () {
         }
     };
     RadioButtonComponent.prototype.onClick = function (e) {
-        e.preventDefault();
+        e.stopPropagation();
         this.setCheckedUserInteraction();
     };
     RadioButtonComponent.prototype.onLabelClick = function (event) {
@@ -10841,7 +10841,7 @@ var RadioButtonComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Event]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], RadioButtonComponent.prototype, "onClick", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -11135,6 +11135,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _rating_item_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./rating-item.component */ "./lib/ng-vcl/src/rating/rating-item.component.ts");
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _rating_label_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./rating-label.component */ "./lib/ng-vcl/src/rating/rating-label.component.ts");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+
+
 
 
 
@@ -11146,9 +11150,9 @@ var VCLRatingModule = /** @class */ (function () {
     }
     VCLRatingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"]],
-            exports: [_rating_component__WEBPACK_IMPORTED_MODULE_2__["RatingComponent"], _rating_item_component__WEBPACK_IMPORTED_MODULE_4__["RatingItemComponent"]],
-            declarations: [_rating_component__WEBPACK_IMPORTED_MODULE_2__["RatingComponent"], _rating_item_component__WEBPACK_IMPORTED_MODULE_4__["RatingItemComponent"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"], _icon_index__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"], _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_7__["PortalModule"]],
+            exports: [_rating_component__WEBPACK_IMPORTED_MODULE_2__["RatingComponent"], _rating_item_component__WEBPACK_IMPORTED_MODULE_4__["RatingItemComponent"], _rating_label_component__WEBPACK_IMPORTED_MODULE_6__["RatingItemLabelComponent"]],
+            declarations: [_rating_component__WEBPACK_IMPORTED_MODULE_2__["RatingComponent"], _rating_item_component__WEBPACK_IMPORTED_MODULE_4__["RatingItemComponent"], _rating_label_component__WEBPACK_IMPORTED_MODULE_6__["RatingItemLabelComponent"]],
             providers: [],
         })
     ], VCLRatingModule);
@@ -11166,7 +11170,7 @@ var VCLRatingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\n"
+module.exports = "<ng-template>\n  <ng-content></ng-content>\n</ng-template>\n"
 
 /***/ }),
 
@@ -11198,8 +11202,9 @@ var RatingItemComponent = /** @class */ (function () {
         this.ngClass = ngClass;
         this.iconService = iconService;
         this.focused = false;
-        this.vclRatingItem = true;
-        this.vclIcon = true;
+        this.disabled = false;
+        this.classVclRatingItem = true;
+        this.classVclIcon = true;
         this.attrTabindex = 0;
         this.setState(this.state);
     }
@@ -11207,17 +11212,24 @@ var RatingItemComponent = /** @class */ (function () {
         this.state = state;
         var icon;
         if (this.state === 'empty') {
-            icon = this._rating.emptyStar;
+            icon = this._rating.ratingEmptyIcon;
         }
         else if (this.state === 'half') {
-            icon = this._rating.halfStar;
+            icon = this._rating.ratingHalfIcon;
         }
         else {
-            icon = this._rating.fullStar;
+            icon = this._rating.ratingFullIcon;
         }
         this.ngClass.ngClass = this.iconService.resolve(icon);
         this.ngClass.ngDoCheck();
     };
+    Object.defineProperty(RatingItemComponent.prototype, "isDisabled", {
+        get: function () {
+            return this._rating.isDisabled || this.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
     RatingItemComponent.prototype.onClick = function () {
         this._rating.onRatingItemClick(this);
     };
@@ -11234,6 +11246,9 @@ var RatingItemComponent = /** @class */ (function () {
             });
         });
     };
+    RatingItemComponent.prototype.onMouseEnter = function () {
+        this._rating.onRatingItemHover(this);
+    };
     RatingItemComponent.prototype.onFocus = function () {
         this.focused = true;
     };
@@ -11242,13 +11257,21 @@ var RatingItemComponent = /** @class */ (function () {
         this._rating.onRatingItemBlur(this);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclRatingItem'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"])
+    ], RatingItemComponent.prototype, "content", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RatingItemComponent.prototype, "vclRatingItem", void 0);
+    ], RatingItemComponent.prototype, "disabled", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclRatingItem'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RatingItemComponent.prototype, "vclIcon", void 0);
+    ], RatingItemComponent.prototype, "classVclRatingItem", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclIcon'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RatingItemComponent.prototype, "classVclIcon", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.tabindex'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -11265,6 +11288,12 @@ var RatingItemComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", Promise)
     ], RatingItemComponent.prototype, "handleKeyPressEvent", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseenter'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], RatingItemComponent.prototype, "onMouseEnter", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('focus'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
@@ -11295,6 +11324,71 @@ var RatingItemComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/rating/rating-label.component.ts":
+/*!*********************************************************!*\
+  !*** ./lib/ng-vcl/src/rating/rating-label.component.ts ***!
+  \*********************************************************/
+/*! exports provided: RatingItemLabelComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RatingItemLabelComponent", function() { return RatingItemLabelComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _rating_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rating.component */ "./lib/ng-vcl/src/rating/rating.component.ts");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+
+
+
+
+var RatingItemLabelComponent = /** @class */ (function () {
+    function RatingItemLabelComponent(viewContainerRef, cdRef) {
+        this.viewContainerRef = viewContainerRef;
+        this.cdRef = cdRef;
+    }
+    Object.defineProperty(RatingItemLabelComponent.prototype, "target", {
+        set: function (target) {
+            var _this = this;
+            this._target = target;
+            if (this._target) {
+                this._target.stateChange.subscribe(function () {
+                    var value = _this._target._hoveredValue === undefined ? _this._target.value : _this._target._hoveredValue;
+                    var idx = Math.floor(value) - 1;
+                    var item = _this._target.ratingItems[idx];
+                    if (item && item.content) {
+                        _this.setTemplate(item.content);
+                    }
+                });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    RatingItemLabelComponent.prototype.setTemplate = function (template) {
+        this.portal = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_3__["TemplatePortal"](template, this.viewContainerRef);
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _rating_component__WEBPACK_IMPORTED_MODULE_2__["RatingComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_rating_component__WEBPACK_IMPORTED_MODULE_2__["RatingComponent"]])
+    ], RatingItemLabelComponent.prototype, "target", null);
+    RatingItemLabelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-rating-item-label',
+            template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], RatingItemLabelComponent);
+    return RatingItemLabelComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/rating/rating.component.html":
 /*!*****************************************************!*\
   !*** ./lib/ng-vcl/src/rating/rating.component.html ***!
@@ -11302,7 +11396,7 @@ var RatingItemComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container *ngIf=\"!hasContent\">\n  <vcl-rating-item *ngFor=\"let star of starArray\"></vcl-rating-item>\n</ng-container>\n<ng-content></ng-content>\n"
+module.exports = "<ng-container *ngIf=\"!hasContent\">\n  <vcl-rating-item *ngFor=\"let ratingItem of ratingItemsArray\"></vcl-rating-item>\n</ng-container>\n<ng-content></ng-content>\n"
 
 /***/ }),
 
@@ -11338,17 +11432,16 @@ var RatingComponent = /** @class */ (function () {
         this.cvaDisabled = false;
         this.generatedId = 'vcl_rating_' + UNIQUE_ID++;
         this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
-        this.controlType = 'rating';
         this.stateChange = this.stateChangeEmitter.asObservable();
+        this.controlType = 'rating';
         this.classVclRating = true;
         this.attrRole = 'slider';
         this.attrAriaValuemin = 0;
         this.type = 'horizontal';
-        this.fullStar = 'vcl:star';
-        this.halfStar = 'vcl:star-half';
-        this.emptyStar = 'vcl:star-empty';
-        this.starCount = 5;
-        this.halves = true;
+        this.ratingFullIcon = 'vcl:star';
+        this.ratingHalfIcon = 'vcl:star-half';
+        this.ratingEmptyIcon = 'vcl:star-empty';
+        this.ratingItemCount = 5;
         this.value = 0;
         this.readonly = false;
         this.disabled = false;
@@ -11435,6 +11528,14 @@ var RatingComponent = /** @class */ (function () {
     });
     RatingComponent.prototype.onLabelClick = function (event) {
     };
+    RatingComponent.prototype.onMouseLeave = function () {
+        this._hoveredValue = undefined;
+        this.sync();
+    };
+    RatingComponent.prototype.onRatingItemHover = function (item) {
+        this._hoveredValue = this.ratingItems.indexOf(item) + 1;
+        this.sync();
+    };
     RatingComponent.prototype.onRatingItemClick = function (item) {
         if (this.disabled || this.readonly) {
             return;
@@ -11442,10 +11543,11 @@ var RatingComponent = /** @class */ (function () {
         this.value = this.ratingItems.indexOf(item) + 1;
         this.sync();
         this.valueChange.emit(this.value);
+        this.onTouchedCallback();
         this.onChangeCallback && this.onChangeCallback(this.value);
     };
-    RatingComponent.prototype.isHalfStar = function (star) {
-        return this.halves ? (Math.round(this.value * 2) / 2) === star - 0.5 : false;
+    RatingComponent.prototype.isHalf = function (item, value) {
+        return (Math.round(value * 2) / 2) === item - 0.5;
     };
     RatingComponent.prototype.round = function (x) {
         return Math.round(x);
@@ -11453,17 +11555,20 @@ var RatingComponent = /** @class */ (function () {
     RatingComponent.prototype.sync = function () {
         var _this = this;
         this.ratingItems.forEach(function (ri, idx) {
-            var stars = idx + 1;
-            if (_this.round(_this.value) >= stars && !_this.isHalfStar(stars)) {
+            var current = idx + 1;
+            var value = _this._hoveredValue === undefined ? _this.value : _this._hoveredValue;
+            var isHalf = (Math.round(value * 2) / 2) === current - 0.5;
+            if (_this.round(value) >= current && !isHalf) {
                 ri.setState('full');
             }
-            else if (_this.isHalfStar(stars)) {
+            else if (isHalf) {
                 ri.setState('half');
             }
             else {
                 ri.setState('empty');
             }
         });
+        this.stateChangeEmitter.next();
     };
     RatingComponent.prototype.ngOnChanges = function (changes) {
         if (changes.value) {
@@ -11487,9 +11592,9 @@ var RatingComponent = /** @class */ (function () {
             this.stateChangeEmitter.next();
         }
     };
-    Object.defineProperty(RatingComponent.prototype, "starArray", {
+    Object.defineProperty(RatingComponent.prototype, "ratingItemsArray", {
         get: function () {
-            return this.starCount === undefined ? undefined : Array(this.starCount).fill(0).map(function (x, i) { return i + 1; });
+            return this.ratingItemCount === undefined ? undefined : Array(this.ratingItemCount).fill(0).map(function (x, i) { return i + 1; });
         },
         enumerable: true,
         configurable: true
@@ -11570,23 +11675,19 @@ var RatingComponent = /** @class */ (function () {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RatingComponent.prototype, "fullStar", void 0);
+    ], RatingComponent.prototype, "ratingFullIcon", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RatingComponent.prototype, "halfStar", void 0);
+    ], RatingComponent.prototype, "ratingHalfIcon", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RatingComponent.prototype, "emptyStar", void 0);
+    ], RatingComponent.prototype, "ratingEmptyIcon", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RatingComponent.prototype, "starCount", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RatingComponent.prototype, "halves", void 0);
+    ], RatingComponent.prototype, "ratingItemCount", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('attr.aria-valuenow'),
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -11609,11 +11710,18 @@ var RatingComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], RatingComponent.prototype, "isDisabled", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseleave'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], RatingComponent.prototype, "onMouseLeave", null);
     RatingComponent = RatingComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-rating',
             template: __webpack_require__(/*! ./rating.component.html */ "./lib/ng-vcl/src/rating/rating.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            exportAs: 'vclRating',
             providers: [
                 {
                     provide: _rating_item_component__WEBPACK_IMPORTED_MODULE_3__["RATING_TOKEN"],
@@ -11695,7 +11803,7 @@ var VCLSelectModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<input #input \n       vclInput\n       [value]=\"inputValue\"\n       [attr.tabindex]=\"-1\"\n       [disabled]=\"isDisabled\"\n       class=\"vclAppItem vclReadonly\"\n       role=\"listbox\"\n       readonly\n       >\n<button #btn\n        vcl-square-button\n        tabindex=\"-1\"\n        [disabled]=\"isDisabled\"\n        class=\"vclAppended\"\n      >\n      <vcl-icon icon=\"fas:chevron-down\"></vcl-icon>\n</button>\n\n<ng-content select=\"vcl-dropdown\"></ng-content>\n"
+module.exports = "<input #input \n       vclInput\n       [value]=\"inputValue\"\n       [attr.tabindex]=\"-1\"\n       [disabled]=\"isDisabled\"\n       class=\"vclAppItem vclReadonly\"\n       role=\"listbox\"\n       readonly\n       >\n<button #btn\n        vcl-square-button\n        type=\"button\"\n        tabindex=\"-1\"\n        [disabled]=\"isDisabled\"\n        class=\"vclAppended\"\n      >\n      <vcl-icon icon=\"fas:chevron-down\"></vcl-icon>\n</button>\n\n<ng-content select=\"vcl-dropdown\"></ng-content>\n"
 
 /***/ }),
 
@@ -14639,7 +14747,7 @@ var TokenListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"vclTokenLabel\">\n  <ng-content></ng-content>\n</span>\n<button vcl-square-button\n        [disabled]=\"isDisabled\"\n        *ngIf=\"removable\" \n        class=\"vclTransparent\"\n        title=\"Remove\"\n        (click)=\"onRemoveClick($event)\">\n    <vcl-icon [icon]=\"'vcl:close'\"></vcl-icon>\n</button>\n"
+module.exports = "<span class=\"vclTokenLabel\">\n  <ng-content></ng-content>\n</span>\n<button vcl-square-button\n        type=\"button\"\n        [disabled]=\"isDisabled\"\n        *ngIf=\"removable\" \n        class=\"vclTransparent\"\n        title=\"Remove\"\n        (click)=\"onRemoveClick($event)\">\n    <vcl-icon [icon]=\"'vcl:close'\"></vcl-icon>\n</button>\n"
 
 /***/ }),
 
@@ -15395,7 +15503,7 @@ module.exports = ".vclTourContainer {\n    background-color: #fff;\n    text-ali
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<vcl-popover #popover\n  [visible]=\"visible\"\n  [target]=\"target\"\n  [originX]=\"originX\"\n  [overlayX]=\"overlayX\"\n  [offsetX]=\"offsetX\"\n  [originY]=\"originY\"\n  [overlayY]=\"overlayY\"\n  [offsetY]=\"offsetY\"\n  [style.z-index]=\"tour.options?.zIndex\">\n\n  <div class=\"vclTourContainer\">\n\n    <div class=\"vclTourContainerHeader\" *ngIf=\"title\">\n      {{ title }}\n    </div>\n\n    <div class=\"vclTourContainerContent\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"vclTourContainerFooter\">\n      \n      <button vcl-button *ngIf=\"hasPrevious\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"previous()\">\n        <vcl-icogram>\n          {{tour.options?.previousLabel}}\n          <vcl-icon vclPrepend *ngIf=\"tour.options?.previousIcon\" [icon]=\"tour.options?.previousIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n\n      <button vcl-button *ngIf=\"hasNext\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"next()\">\n        <vcl-icogram>\n          {{tour.options?.nextLabel}}\n          <vcl-icon vclAppend *ngIf=\"tour.options?.nextIcon\" [icon]=\"tour.options?.nextIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n\n      <button vcl-button\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"exit()\">\n        <vcl-icogram>\n          <vcl-icon vclPrepend *ngIf=\"tour.options?.exitIcon\" [icon]=\"tour.options?.exitIcon\"></vcl-icon>\n          {{tour.options?.exitLabel}}\n        </vcl-icogram>\n      </button>\n    </div>\n  </div>\n</vcl-popover>\n"
+module.exports = "<vcl-popover #popover\n  [visible]=\"visible\"\n  [target]=\"target\"\n  [originX]=\"originX\"\n  [overlayX]=\"overlayX\"\n  [offsetX]=\"offsetX\"\n  [originY]=\"originY\"\n  [overlayY]=\"overlayY\"\n  [offsetY]=\"offsetY\"\n  [style.z-index]=\"tour.options?.zIndex\">\n\n  <div class=\"vclTourContainer\">\n\n    <div class=\"vclTourContainerHeader\" *ngIf=\"title\">\n      {{ title }}\n    </div>\n\n    <div class=\"vclTourContainerContent\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"vclTourContainerFooter\">\n      \n      <button vcl-button type=\"button\" *ngIf=\"hasPrevious\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"previous()\">\n        <vcl-icogram>\n          {{tour.options?.previousLabel}}\n          <vcl-icon vclPrepend *ngIf=\"tour.options?.previousIcon\" [icon]=\"tour.options?.previousIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n\n      <button vcl-button type=\"button\" *ngIf=\"hasNext\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"next()\">\n        <vcl-icogram>\n          {{tour.options?.nextLabel}}\n          <vcl-icon vclAppend *ngIf=\"tour.options?.nextIcon\" [icon]=\"tour.options?.nextIcon\"></vcl-icon>\n        </vcl-icogram>\n      </button>\n\n      <button vcl-button type=\"button\"\n        [ngClass]=\"tour.options?.buttonClass\"\n        (click)=\"exit()\">\n        <vcl-icogram>\n          <vcl-icon vclPrepend *ngIf=\"tour.options?.exitIcon\" [icon]=\"tour.options?.exitIcon\"></vcl-icon>\n          {{tour.options?.exitLabel}}\n        </vcl-icogram>\n      </button>\n    </div>\n  </div>\n</vcl-popover>\n"
 
 /***/ }),
 
