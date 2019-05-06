@@ -5,6 +5,6 @@
   <div *ngIf="!notificationRef.html">{{notificationRef.text}}</div>
   <div *ngIf="notificationRef.html" [innerHtml]="notificationRef.text"></div>
 </div>
-<button vcl-square-button (click)="close()" class="vclTransparent vclLayoutSelfStart">
+<button vcl-square-button type="button" (click)="close()" class="vclTransparent vclLayoutSelfStart">
   <vcl-icon icon="vcl:close"></vcl-icon>
 </button>

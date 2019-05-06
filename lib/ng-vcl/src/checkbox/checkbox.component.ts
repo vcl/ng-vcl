@@ -130,9 +130,9 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
   }
 
   @HostListener('click', ['$event'])
-  onClick(e) {
-    e.preventDefault();
-    return this.toggleValue();
+  onClick(e: Event) {
+    this.toggleValue();
+    e.stopPropagation();
   }
 
   @HostListener('blur')

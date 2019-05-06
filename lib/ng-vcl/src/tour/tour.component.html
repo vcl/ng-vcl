@@ -21,7 +21,7 @@
 
     <div class="vclTourContainerFooter">
       
-      <button vcl-button *ngIf="hasPrevious"
+      <button vcl-button type="button" *ngIf="hasPrevious"
         [ngClass]="tour.options?.buttonClass"
         (click)="previous()">
         <vcl-icogram>
@@ -30,7 +30,7 @@
         </vcl-icogram>
       </button>
 
-      <button vcl-button *ngIf="hasNext"
+      <button vcl-button type="button" *ngIf="hasNext"
         [ngClass]="tour.options?.buttonClass"
         (click)="next()">
         <vcl-icogram>
@@ -39,7 +39,7 @@
         </vcl-icogram>
       </button>
 
-      <button vcl-button
+      <button vcl-button type="button"
         [ngClass]="tour.options?.buttonClass"
         (click)="exit()">
         <vcl-icogram>

@@ -77,8 +77,8 @@ export class RadioButtonComponent implements RadioButton {
   }
 
   @HostListener('click', ['$event'])
-  onClick(e) {
-    e.preventDefault();
+  onClick(e: Event) {
+    e.stopPropagation();
     this.setCheckedUserInteraction();
   }
 

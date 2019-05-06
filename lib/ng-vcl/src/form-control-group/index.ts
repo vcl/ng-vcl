@@ -9,7 +9,7 @@ import { FormControlHostDirective } from './form-control-host.directive';
 
 export { FormControlGroupComponent, FORM_CONTROL_INPUT, FormControlInput, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FormControlHost, FORM_CONTROL_HOST };
 
-export function defaultFormControlErrorMatcher(form?: FormControlHost, input?: FormControlInput<any>, error?: string) {
+export function defaultFormControlErrorStateAgent(form?: FormControlHost, input?: FormControlInput<any>, error?: string) {
   return form && input && input.ngControl && !input.isFocused && input.ngControl.invalid && (input.ngControl.touched || form.submitted);
 }
 
@@ -19,7 +19,7 @@ export function defaultFormControlErrorMatcher(form?: FormControlHost, input?: F
   declarations: [FormControlGroupComponent, FormControlHintComponent, FormControlLabelDirective, FormControlRequiredComponent, FormControlHostDirective],
   providers: [{
     provide: FORM_CONTROL_ERROR_STATE_AGENT,
-    useValue: defaultFormControlErrorMatcher
+    useValue: defaultFormControlErrorStateAgent
   }],
 })
 export class VCLFormControlGroupModule { }

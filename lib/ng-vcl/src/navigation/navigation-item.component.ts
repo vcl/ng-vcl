@@ -1,4 +1,4 @@
-import { Component, HostBinding, Directive, Input, HostListener, ContentChild, QueryList, ContentChildren, SkipSelf, Inject } from '@angular/core';
+import { Component, HostBinding, Directive, Input, HostListener, ContentChild, SkipSelf, Inject } from '@angular/core';
 import { NAVIGATION_TOKEN } from './types';
 
 @Directive({

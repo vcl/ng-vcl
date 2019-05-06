@@ -27,6 +27,6 @@ export class RadioButtonLabelDirective {
 
   @HostListener('click', ['$event'])
   onClick(event: Event) {
-    // this.rb && this.rb.onLabelClick(event);
+    this.rb && this.rb.onLabelClick(event);
   }
 }
