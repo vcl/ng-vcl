@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouteConfigLoadEnd, RouteConfigLoadStart, RouterEvent } from '@angular/router';
 import { routes } from './../../app-routing.module';
 import * as Fuse from 'fuse.js';
+import { map, distinctUntilChanged, scan } from 'rxjs/operators';
 
 declare var gitBranch: string;
 
 @Component({
-  selector: 'vcl-demo',
+  selector: 'demo-app',
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-  ) {
-   }
+  ) { }
+
+  busy$ = this.router.events.pipe(
+    scan<RouterEvent, number>((cur, event) => {
+      if ( event instanceof RouteConfigLoadStart ) {
+        return cur + 1;
+      } else if ( event instanceof RouteConfigLoadEnd ) {
+        return cur - 1;
+      }
+      return cur;
+    }, 0),
+    map(cnt => cnt > 0),
+    distinctUntilChanged(),
+  );
 
   version = require('./../../../../package.json').version;
   gitBranch = gitBranch || undefined;
@@ -42,7 +55,7 @@ export class AppComponent implements OnInit {
   searchResults = [];
 
   ngOnInit() {
-    this.router.events.subscribe((path) => {
+    this.router.events.subscribe(() => {
       window.scrollTo(0, 0);
     });
   }

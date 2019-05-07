@@ -1,5 +1,5 @@
 import { Overlay, OverlayConfig, PositionStrategy, OverlayRef } from '@angular/cdk/overlay';
-import { TemplateRef, ViewContainerRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, NgZone, InjectionToken } from '@angular/core';
+import { TemplateRef, ViewContainerRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, NgZone, InjectionToken, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription, merge, NEVER, Observable } from 'rxjs';
 import { take, switchMap, filter } from 'rxjs/operators';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -10,6 +10,7 @@ import { Layer, LayerOptions } from './interfaces';
   selector: 'vcl-layer',
   templateUrl: 'layer.component.html',
   exportAs: 'vclLayer',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayerComponent extends TemplateOverlay<any> implements Layer<any, any>, OnDestroy {
   constructor(

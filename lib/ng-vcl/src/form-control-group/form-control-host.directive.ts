@@ -4,7 +4,7 @@ import { FormControlHost, FORM_CONTROL_HOST } from './interfaces';
 
 export function formControlHostFactory(ngForm, formGroup) {
   return ngForm || formGroup;
-};
+}
 
 @Directive({
   selector: 'form[vclForm]',

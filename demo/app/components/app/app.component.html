@@ -31,23 +31,31 @@
           icon="fas:times-circle"></button>
       </div>
 
-      <vcl-navigation>
+      <vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex">
         <ng-container *ngIf="searchResults.length; else noSearch">
-          <vcl-navigation-item *ngFor="let searchResult of searchResults" [routerLink]="searchResult.route"  routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
+          <vcl-navigation-item *ngFor="let searchResult of searchResults" [routerLink]="searchResult.route" routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
             <vcl-navigation-label>{{searchResult.label}}</vcl-navigation-label>
           </vcl-navigation-item>
         </ng-container>
         <ng-template #noSearch>
-          <vcl-navigation-item *ngFor="let item of GROUPED_DEMOS" #navItem="vclNavigationItem">
+          <vcl-navigation-item *ngFor="let item of GROUPED_DEMOS" #navGroupItem="vclNavigationItem">
             <vcl-navigation-label>
               <vcl-icogram>
-                <vcl-icon vclPrepend [icon]="navItem.opened ? 'fas:angle-down' : 'fas:angle-right'"></vcl-icon>
+                <vcl-icon vclPrepend [icon]="navGroupItem.opened ? 'fas:angle-down' : 'fas:angle-right'"></vcl-icon>
                 &nbsp;{{item.label}}
               </vcl-icogram>
             </vcl-navigation-label>
             <vcl-navigation *ngIf="item.items">
-              <vcl-navigation-item *ngFor="let subitem of item.items" [routerLink]="subitem.route"  routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
-                <vcl-navigation-label>{{subitem.label}}</vcl-navigation-label>
+              <vcl-navigation-item *ngFor="let subitem of item.items" [routerLink]="subitem.route" routerLinkActive #navItem="vclNavigationItem" #rla="routerLinkActive" [selected]="rla.isActive">
+                <vcl-navigation-label>
+                  <vcl-icogram>
+                    {{subitem.label}}
+                    <!-- Router loading animation -->
+                    <ng-container *ngIf="busy$ | async">
+                      <vcl-icon *ngIf="navItem.selected" vclAppend icon="vcl:busy"></vcl-icon>
+                    </ng-container>
+                  </vcl-icogram>
+                </vcl-navigation-label>
               </vcl-navigation-item>
             </vcl-navigation>
           </vcl-navigation-item>

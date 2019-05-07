@@ -15,16 +15,12 @@ let UNIQUE_ID = 0;
 @Component({
   selector: 'vcl-file-input',
   templateUrl: 'file-input.component.html',
+  exportAs: 'vclFileInput',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: FORM_CONTROL_INPUT,
     useExisting: forwardRef(() => FileInputComponent)
-  }],
-  host: {
-    '[class.vclInput]': 'true',
-    '[class.vclFileInput]': 'true',
-    role: 'button',
-  }
+  }]
 })
 export class FileInputComponent implements ControlValueAccessor, FormControlInput {
 
@@ -45,6 +41,15 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
       this.ngControl.valueAccessor = this;
     }
   }
+
+  @HostBinding('class.vclInput')
+  classVclInput = true;
+
+  @HostBinding('class.vclFileInput')
+  classVclFileInput = true;
+
+  @HostBinding('attr.role')
+  attrRole = 'button';
 
   private stateChangeEmitter = new Subject<void>();
 

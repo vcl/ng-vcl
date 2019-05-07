@@ -1,5 +1,5 @@
-import { Component, Input, HostBinding, ViewChild, ElementRef, HostListener, ContentChild, forwardRef, ChangeDetectorRef, Output, EventEmitter, Optional, Inject, OnDestroy } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
+import { Component, Input, HostBinding, ViewChild, ElementRef, HostListener, ContentChild, forwardRef, ChangeDetectorRef, Output, EventEmitter, Optional, Inject, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { DropdownComponent } from '../dropdown/index';
@@ -11,6 +11,7 @@ let UNIQUE_ID = 0;
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
   exportAs: 'vclSelect',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: FORM_CONTROL_INPUT,
     useExisting: forwardRef(() => SelectComponent)

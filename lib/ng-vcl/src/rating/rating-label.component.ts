@@ -1,11 +1,12 @@
-import { Input, HostBinding, HostListener, ContentChild, Directive, Component, TemplateRef, ViewContainerRef, AfterContentInit, ChangeDetectorRef } from '@angular/core';
+import { Input, Component, TemplateRef, ViewContainerRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { RatingComponent } from './rating.component';
 import { TemplatePortal } from '@angular/cdk/portal';
 
-
 @Component({
   selector: 'vcl-rating-item-label',
-  template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>'
+  template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>',
+  exportAs: 'vclRatingItemLabel',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RatingItemLabelComponent {
   constructor(private viewContainerRef: ViewContainerRef, private cdRef: ChangeDetectorRef) { }

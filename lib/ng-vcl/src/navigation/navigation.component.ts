@@ -1,5 +1,5 @@
-import { Component, forwardRef, HostBinding, ContentChildren, QueryList, SkipSelf, Optional } from '@angular/core';
-import { NAVIGATION_TOKEN } from './types';
+import { Component, forwardRef, HostBinding, ContentChildren, QueryList, SkipSelf, Optional, Input, ChangeDetectionStrategy } from '@angular/core';
+import { NAVIGATION_TOKEN, Navigation } from './types';
 import { NavigationItemComponent } from './navigation-item.component';
 
 @Component({
@@ -8,11 +8,15 @@ import { NavigationItemComponent } from './navigation-item.component';
   providers: [{
     provide: NAVIGATION_TOKEN,
     useExisting: forwardRef(() => NavigationComponent)
-  }]
+  }],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent {
+export class NavigationComponent implements Navigation {
 
   constructor(@Optional() @SkipSelf() private parentNav: NavigationComponent ) { }
+
+  @Input()
+  layout: 'horizontal' | 'vertical' = 'vertical';
 
   @HostBinding('class.vclNavigation')
   classVclNavigation = true;
@@ -22,14 +26,10 @@ export class NavigationComponent {
   })
   items: QueryList<NavigationItemComponent>;
 
-
-  select(item: NavigationItemComponent) {
-    if (this.parentNav) {
-      this.parentNav.select(item);
-      return;
-    }
+  deselectAll() {
+    this.parentNav && this.parentNav.deselectAll();
     this.items.forEach(_item => {
-      _item.selected = item === _item;
+      _item.selected = false;
     });
   }
 }

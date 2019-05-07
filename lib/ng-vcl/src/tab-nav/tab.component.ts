@@ -14,6 +14,7 @@ export class TabLabelDirective {
 @Component({
   selector: 'vcl-tab',
   templateUrl: './tab.component.html',
+  exportAs: 'vclTab',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabComponent implements Tab, AfterViewInit {

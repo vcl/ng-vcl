@@ -33,19 +33,21 @@ export class TokenInputLabelPostDirective { }
 @Component({
   selector: 'vcl-token-input-container',
   templateUrl: 'token-input.component.html',
-  host: {
-    '[class.vclInput]': 'true',
-    '[class.vclTokenInput]': 'true',
-    '[class.vclLayoutHorizontal]': 'true',
-    '[class.vclLayoutWrap]': 'true',
-    '[attr.tabindex]': '-1',
-  },
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TokenInputContainerComponent implements ControlValueAccessor {
 
   tokens: Token[] = [];
+
+  @HostBinding('class.vclInput')
+  @HostBinding('class.vclTokenInput')
+  @HostBinding('class.vclLayoutHorizontal')
+  @HostBinding('class.vclLayoutWrap')
+  _hostClasses = true;
+
+  @HostBinding('attr.tabindex')
+  _hostAttrTabindex = -1;
 
   @Input()
   selectable = false;

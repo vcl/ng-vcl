@@ -1,4 +1,4 @@
-import { Component, HostBinding, ContentChild, ElementRef, forwardRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, HostBinding, ContentChild, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
 import { Subject } from 'rxjs';
 
@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
   selector: 'vcl-form-control-group, vcl-form-inline-control-group',
   templateUrl: 'form-control-group.component.html',
   exportAs: 'vclFormControlGroup',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: FORM_CONTROL_GROUP,
     useExisting: forwardRef(() => FormControlGroupComponent)

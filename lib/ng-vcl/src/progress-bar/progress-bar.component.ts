@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   host: {
     '[attr.role]': '"progressbar"',
   },
+  exportAs: 'vclProgressBar',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressBarComponent {

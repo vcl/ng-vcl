@@ -1,4 +1,4 @@
-import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef, Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef, Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { OverlayConfig, Overlay, HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplateOverlay } from '../overlay/index';
@@ -7,6 +7,7 @@ import { TemplateOverlay } from '../overlay/index';
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
   exportAs: 'vclPopover',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopoverComponent extends TemplateOverlay<any> implements OnDestroy {
 

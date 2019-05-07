@@ -10,7 +10,8 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLIconModule,
          VCLSelectModule,
          VCLEmbeddedInputGroupModule,
-         VCLRatingModule} from '@ng-vcl/ng-vcl';
+         VCLRatingModule,
+         VCLNotifierModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
 
@@ -58,6 +59,7 @@ export function demo() {
     VCLSelectModule,
     VCLTokenModule,
     VCLTextareaModule,
+    VCLNotifierModule,
     VCLFormControlGroupModule,
     RouterModule.forChild([{
       path: '',

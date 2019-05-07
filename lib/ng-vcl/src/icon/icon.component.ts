@@ -1,11 +1,12 @@
-import { Component, Input, HostBinding, Self, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, HostBinding, Self, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { IconService } from './icon.service';
 
 @Component({
   selector: 'vcl-icon',
   providers: [ NgClass ],
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconComponent implements OnChanges {
 

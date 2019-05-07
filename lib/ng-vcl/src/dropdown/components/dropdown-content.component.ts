@@ -1,10 +1,10 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'vcl-dropdown-content',
   exportAs: 'vclDropdownContent',
-  styles: [],
-  templateUrl: 'dropdown-content.component.html'
+  templateUrl: 'dropdown-content.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownContentComponent {
 

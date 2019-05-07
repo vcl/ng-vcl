@@ -1,7 +1,7 @@
 import { Component,
   Input, Output, HostListener,
   EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, Optional, Inject, InjectionToken} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, Optional, Inject} from '@angular/core';
 import { RadioButton, RadioButtonGroup, RADIO_BUTTON_GROUP_TOKEN } from './interfaces';
 
 @Component({

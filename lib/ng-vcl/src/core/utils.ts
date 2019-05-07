@@ -1,11 +1,13 @@
 import { ElementRef } from '@angular/core';
 
-export function hasProjectedContent(elementRef: ElementRef<HTMLElement>) {
-  if (!elementRef) {
+export function hasProjectedContent(element: ElementRef<HTMLElement> | HTMLElement) {
+  if (!element) {
     return false;
   }
 
-  const projectedContent = elementRef.nativeElement.childNodes;
+  element = element instanceof ElementRef ? element.nativeElement : element;
+
+  const projectedContent = element.childNodes;
   for (let i = 0; i < projectedContent.length; i++) {
     if (projectedContent.item(i).nodeType !== 8) {
       // nodeType: 8 == comment

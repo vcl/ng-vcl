@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, Inject } from '@angular/core';
+import { Component, HostBinding, HostListener, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { AnimationEvent, useAnimation } from '@angular/animations';
 import { NotificationRef } from './notification-ref';
 import { NgClass } from '@angular/common';
@@ -20,6 +20,7 @@ export type NotificationAnimationState = 'open' | 'closing' | 'closed';
       transition('open => closing', useAnimation(stateOpenClosingAnimation))
     ])
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationComponent {
 

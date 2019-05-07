@@ -1,11 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, Validators, AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, Validators, AbstractControl, FormControl, ValidationErrors, NgForm } from '@angular/forms';
 import { FormControlErrorStateAgent, FormControlHost, FormControlInput } from 'lib/ng-vcl';
+import { NotifierService, FormControlErrorStateAgent, FormControlHost, FormControlInput } from '@ng-vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html'
 })
 export class FormControlGroupDemoComponent {
+
+  constructor(private notifier: NotifierService) { }
+
+  @ViewChild('form')
+  form: NgForm;
 
   skillPointsMax = 10;
 
@@ -80,4 +86,16 @@ export class FormControlGroupDemoComponent {
     return form && input && input.ngControl && input.ngControl.invalid && form.submitted;
   }
 
+  onSubmit() {
+    if (this.formGroup.valid) {
+      this.notifier.success('Hero created');
+    } else {
+     this.notifier.error('Hero invalid');
+    }
+  }
+
+  onReset() {
+    this.form.resetForm(this.defaultValues);
+    this.notifier.info('Hero reset');
+  }
 }

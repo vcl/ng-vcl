@@ -99,12 +99,22 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/dropdown/demo.module#DropdownDemoModule',
-    path: 'dropdown',
+    loadChildren: './demos/select-list/demo.module#SelectListDemoModule',
+    path: 'select-list',
     data: {
       demo: {
-        label: 'Dropdown',
+        label: 'Select List',
         category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/autocomplete/demo.module#DropdownDemoModule',
+    path: 'autocomplete',
+    data: {
+      demo: {
+        label: 'Autocomplete',
+        category: CAT_OVERLAYS,
       }
     }
   },

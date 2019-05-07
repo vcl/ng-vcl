@@ -53,10 +53,15 @@ export class AppComponent {}
 
 ### API
 
+#### vcl-navigation attributes
+
+| Name                     | Type                           | Default        | Description                                    |
+| ------------------------ | -----------                    | --------       |----------------------------------------------- |
+| `layout`                 | 'horizontal' \| 'vertical'     | 'horizontal'   | 
 
 #### vcl-navigation-item attributes
 
 | Name                     | Type        | Default  | Description                                    |
 | ------------------------ | ----------- | -------- |----------------------------------------------- |
 | `opened`                 | boolean     | false    | if true and nested this opens the subitems     |
-| `selectable`             | boolean     |          | Whether this item can be selected              |
+| `selected`               | boolean     | false    | Wether the item is selected                    |

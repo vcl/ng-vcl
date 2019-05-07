@@ -1,4 +1,4 @@
-import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef } from '@angular/core';
+import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { Dropdown, DROPDOWN_TOKEN, DropdownItem } from '../types';
 
 @Directive({
@@ -22,7 +22,8 @@ export class DropdownSublabelDirective {
 @Component({
   selector: 'vcl-dropdown-item',
   exportAs: 'vclDropdownItem',
-  templateUrl: 'dropdown-item.component.html'
+  templateUrl: 'dropdown-item.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownItemComponent implements DropdownItem {
 

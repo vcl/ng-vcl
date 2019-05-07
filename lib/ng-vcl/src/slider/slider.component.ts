@@ -34,9 +34,6 @@ export interface ScalePoint {
 @Component({
   selector: 'vcl-slider',
   templateUrl: 'slider.component.html',
-  host: {
-    '[class.vclSlider]': 'true'
-  },
   providers: [{
     provide: FORM_CONTROL_INPUT,
     useExisting: forwardRef(() => SliderComponent)
@@ -61,6 +58,9 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
       this.ngControl.valueAccessor = this;
     }
   }
+
+  @HostBinding('class.vclSlider')
+  classVclSlider = true;
 
   private _cvaDisabled = false;
   private generatedId = 'vcl_slider_' + UNIQUE_ID++;
@@ -184,7 +184,6 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     const rangeLength = this.pmax - this.pmin;
     const valueLeft = value - this.pmin;
     const delta = rangeLength / valueLeft;
-    console.log(delta);
     return 100 / delta;
   }
 

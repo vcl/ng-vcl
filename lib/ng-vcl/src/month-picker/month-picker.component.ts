@@ -163,8 +163,8 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
 
     this.availableColors = this.colors ? this.colors.map(color => true) : [];
 
-    this.setYearMeta(this.currentYear);
     this.addAvailableMonthRange();
+    this.setYearMeta(this.currentYear);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -180,11 +180,18 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
     if (!this.yearMeta[year]) {
       this.yearMeta[year] = this.createYearMeta(year);
     }
-    this.currentMeta = this.yearMeta[year];
+    setTimeout(() => {
+      this.currentMeta = this.yearMeta[year];
+      this.ref.markForCheck();
+    }, 0);
   }
 
   createYearMeta(year: number): any[] {
     return this.months.map(_ => ({}));
+  }
+
+  isSelected(idx) {
+    return this.currentMeta && (this.currentMeta[idx].selected || this.currentMeta[idx].preselected);
   }
 
   selectMonth(year: number, month: number): void {

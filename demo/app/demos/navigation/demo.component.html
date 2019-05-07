@@ -9,6 +9,71 @@
       </vcl-icogram>
     </vcl-navigation-label>
   </vcl-navigation-item>
+  <vcl-navigation-item #products="vclNavigationItem">
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend [icon]="products.opened ? 'fas:chevron-down' : 'fas:chevron-right'"></vcl-icon>
+        Products
+      </vcl-icogram>
+    </vcl-navigation-label>
+    <vcl-navigation>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:bicycle"></vcl-icon>
+            Product 1
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:bicycle"></vcl-icon>
+            Product 2
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+    </vcl-navigation>
+  </vcl-navigation-item>
+  <vcl-navigation-item #contact="vclNavigationItem">
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend [icon]="contact.opened ? 'fas:chevron-down' : 'fas:chevron-right'"></vcl-icon>
+        Contact
+      </vcl-icogram>
+    </vcl-navigation-label>
+    <vcl-navigation>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+            Contact 1
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+            Contact 2
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+    </vcl-navigation>    
+  </vcl-navigation-item>
+</vcl-navigation>
+
+<h3>Horizontal navigation</h3>
+
+<vcl-navigation layout="horizontal">
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:home"></vcl-icon>
+        Home
+      </vcl-icogram>
+    </vcl-navigation-label>
+  </vcl-navigation-item>
   <vcl-navigation-item>
     <vcl-navigation-label>
       <vcl-icogram>
@@ -16,21 +81,14 @@
         Products
       </vcl-icogram>
     </vcl-navigation-label>
-    <vcl-navigation>
-      <vcl-navigation-item>
-        <vcl-navigation-label>Product 1</vcl-navigation-label>
-      </vcl-navigation-item>
-      <vcl-navigation-item>
-        <vcl-navigation-label>Product 2</vcl-navigation-label>
-      </vcl-navigation-item>
-    </vcl-navigation>
   </vcl-navigation-item>
   <vcl-navigation-item>
     <vcl-navigation-label>
       <vcl-icogram>
         <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
-        Contact
+        Contacts
       </vcl-icogram>
     </vcl-navigation-label>
   </vcl-navigation-item>
 </vcl-navigation>
+  

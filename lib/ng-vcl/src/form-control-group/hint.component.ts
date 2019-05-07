@@ -1,9 +1,10 @@
-import { Component, Input, HostBinding, Optional, Inject, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, HostBinding, Optional, Inject, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
 
 @Component({
   selector: 'vcl-hint, vcl-hint-error, vcl-hint-warning, vcl-hint-success',
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormControlHintComponent {
 

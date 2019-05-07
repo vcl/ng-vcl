@@ -1,10 +1,9 @@
-import { Component, HostBinding, Directive, Input, HostListener, ContentChild, SkipSelf, Inject } from '@angular/core';
-import { NAVIGATION_TOKEN } from './types';
+import { Component, HostBinding, Directive, Input, HostListener, ContentChild, SkipSelf, Inject, Optional, ChangeDetectionStrategy } from '@angular/core';
+import { NAVIGATION_TOKEN, Navigation } from './types';
 
 @Directive({
   selector: 'vcl-navigation-label',
   exportAs: 'vclNavigationLabel'
-
 })
 export class NavigationLabelDirective {
   @HostBinding('class.vclNavigationItemLabel')
@@ -14,16 +13,20 @@ export class NavigationLabelDirective {
 @Component({
   selector: 'vcl-navigation-item',
   templateUrl: 'navigation-item.component.html',
-  exportAs: 'vclNavigationItem'
+  exportAs: 'vclNavigationItem',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationItemComponent {
 
   constructor(
     @SkipSelf()
     @Inject(NAVIGATION_TOKEN)
-    private parentNav: any
+    public nav: Navigation,
+    @Optional()
+    @SkipSelf()
+    @Inject(NavigationItemComponent)
+    public parentNavItem: NavigationItemComponent
     ) { }
-
 
   @HostBinding('class.vclNavigationItem')
   classVclNavigationItem = true;
@@ -31,33 +34,51 @@ export class NavigationItemComponent {
   @HostBinding('attr.tabindex')
   attrTabindex = 0;
 
+  @Input()
+  opened = false;
+
   @HostBinding('class.vclClose')
   @Input()
-  closed = true;
+  get closed() {
+    return !this.opened;
+  }
 
   @HostBinding('class.vclSelected')
-  @Input()
-  selected = false;
+  private _selected = false;
 
   @Input()
-  selectable?;
+  set selected(value: boolean) {
+    this._selected = value;
+    if (value) {
+      this.openParent();
+    }
+  }
+  get selected() {
+    return this._selected;
+  }
 
   @ContentChild(NAVIGATION_TOKEN as any)
-  childNav: any;
+  nestedNav?: Navigation;
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
-    const selectable = this.selectable === undefined ? !this.childNav : true;
-
-    if (selectable) {
+    if (this.nestedNav) {
+      this.opened = !this.opened;
+    } else {
+      this.nav && this.nav.deselectAll();
       this.selected = true;
-      this.parentNav && this.parentNav.select(this);
-    }
-
-    if (this.childNav) {
-      this.closed = !this.closed;
     }
     event.stopPropagation();
   }
 
+  openParent() {
+    if (this.nestedNav) {
+      Promise.resolve().then(() => {
+        this.opened = true;
+      });
+    }
+    if (this.parentNavItem) {
+      this.parentNavItem.openParent();
+    }
+  }
 }

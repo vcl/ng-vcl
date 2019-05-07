@@ -1,5 +1,5 @@
 import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef,
-         Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector, forwardRef, NgZone, ContentChildren, QueryList, HostBinding } from '@angular/core';
+         Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector, forwardRef, NgZone, ContentChildren, QueryList, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subscription, merge, NEVER, Subject, Observable } from 'rxjs';
@@ -16,6 +16,7 @@ import { DropdownContentComponent } from './components/dropdown-content.componen
   selector: 'vcl-dropdown',
   templateUrl: 'dropdown.component.html',
   exportAs: 'vclDropdown',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: DROPDOWN_TOKEN,

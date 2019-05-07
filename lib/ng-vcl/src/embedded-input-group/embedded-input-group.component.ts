@@ -1,5 +1,4 @@
-import { Component, Input, ContentChildren, forwardRef, QueryList, HostBinding, Directive, ElementRef, ContentChild, AfterContentInit, Renderer2, OnDestroy } from '@angular/core';
-import { EMBEDDED_INPUT_GROUP_TOKEN, EmbeddedInputGroup } from './interfaces';
+import { Component, ContentChildren, QueryList, HostBinding, ElementRef, AfterContentInit, Renderer2, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { InputDirective } from '../input/index';
 import { merge, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -9,12 +8,7 @@ import { PrependDirective, AppendDirective } from '../core/index';
   selector: 'vcl-embedded-input-group',
   templateUrl: 'embedded-input-group.component.html',
   exportAs: 'vclEmbeddedInputGroup',
-  providers: [
-    {
-      provide: EMBEDDED_INPUT_GROUP_TOKEN,
-      useExisting: forwardRef(() => EmbeddedInputGroupComponent)
-    }
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy {
 

@@ -1,4 +1,4 @@
-<form vclForm novalidate [formGroup]="formGroup" #form="ngForm">
+<form vclForm novalidate [formGroup]="formGroup" #form="ngForm" (submit)="onSubmit()">
     <h2>Create your hero</h2>
   
     <vcl-form-control-group>
@@ -142,7 +142,7 @@
   
     <div class="vclLooseButtonGroup">
       <button vcl-button type="submit" class="vclEmphasized">Submit</button>
-      <button vcl-button type="button" (click)="form.resetForm(defaultValues)">Reset</button>
+      <button vcl-button type="button" (click)="onReset()">Reset</button>
     </div>
   
     <div class="value">
@@ -155,8 +155,6 @@
       <pre>pristine: {{ form.pristine }}</pre>
       <pre>errors: {{ form.errors | json }}</pre>
       <pre>value: {{ form.value | json }}</pre>
-  
     </div>
-  
   </form>
   

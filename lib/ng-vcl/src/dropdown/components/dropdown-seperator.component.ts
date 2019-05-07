@@ -1,10 +1,10 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'vcl-dropdown-seperator',
   exportAs: 'vclDropdownSeperator',
-  styles: [],
-  templateUrl: 'dropdown-seperator.component.html'
+  templateUrl: 'dropdown-seperator.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownSeperatorComponent {
   @HostBinding('attr.role')

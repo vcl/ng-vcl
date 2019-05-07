@@ -1,17 +1,21 @@
-import { Input, Component, ChangeDetectionStrategy, ContentChild, AfterContentInit } from '@angular/core';
+import { Input, Component, ChangeDetectionStrategy, ContentChild, AfterContentInit, HostBinding } from '@angular/core';
 import { InputDirective } from './../input/index';
 
 
 @Component({
   templateUrl: 'password-input.component.html',
   selector: 'vcl-password-input',
+  exportAs: 'vclPasswordInput',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[class.vclInputGroup]': 'true',
-    '[attr.tabindex]': '-1'
-  }
 })
 export class PasswordInputComponent implements AfterContentInit {
+
+  @HostBinding('class.vclInputGroup')
+  classVclInputGroup = true;
+
+  @HostBinding('attr.tabindex')
+  attrTabindex = -1;
+
   @ContentChild(InputDirective, { read: InputDirective })
   input?: InputDirective;
 

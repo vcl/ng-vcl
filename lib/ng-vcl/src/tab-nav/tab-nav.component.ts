@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'vcl-tab-nav',
   templateUrl: 'tab-nav.component.html',
+  exportAs: 'vclTabNav',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: TAB_NAV_TOKEN,

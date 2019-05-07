@@ -11,7 +11,8 @@ import {
   OnChanges,
   SimpleChanges,
   OnDestroy,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  HostBinding
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -28,10 +29,6 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-token-list',
   template: '<ng-content></ng-content>',
-  host: {
-    '[class.vclTokenList]': 'true',
-    '[class.vclTokenContainer]': 'true'
-  },
   providers: [
     CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
     {
@@ -48,6 +45,10 @@ export class TokenListComponent implements AfterContentInit, OnChanges, OnDestro
   tokenSub: Subscription | undefined;
 
   private cvaDisabled = false;
+
+  @HostBinding('class.vclTokenList')
+  @HostBinding('class.vclTokenContainer')
+  _hostClasses = true;
 
   @ContentChildren(TokenComponent)
   tokens?: QueryList<TokenComponent>;

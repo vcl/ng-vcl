@@ -20,9 +20,7 @@ export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>('vcl_token
 @Component({
   selector: 'vcl-token',
   templateUrl: 'token.component.html',
-  host: {
-    '[class.vclToken]': 'true',
-  },
+  exportAs: 'vclToken',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TokenComponent implements Token {
@@ -35,6 +33,10 @@ export class TokenComponent implements Token {
     @Inject(TOKEN_OBSERVER_TOKEN)
     private observer?: TokenObserver
   ) { }
+
+  @HostBinding('class.vclToken')
+  @Input()
+  classVclToken = true;
 
   @HostBinding('attr.tabindex')
   @Input()
