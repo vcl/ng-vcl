@@ -1,13 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, ChangeDetectionStrategy, SimpleChanges, forwardRef } from '@angular/core';
 import {
-  FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR, ControlValueAccessor,
-  FormControl
+  Component, Input, Output, EventEmitter, OnChanges,
+  SimpleChanges, forwardRef
+} from '@angular/core';
+import {
+  FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR,
+  ControlValueAccessor, FormControl
 } from '@angular/forms';
-import { Observable ,  Subscription } from 'rxjs';
+import {  Subscription } from 'rxjs';
 import { Schema, Validator } from 'jsonschema';
-import { FormObject, createFormObjects } from './jss-form-object.component';
-import { JssFormSchema } from './types';
-import { determineType } from './utils';
+import { FormObject, createFormObjects } from './jss-form-object.model';
+import { VCLFormSchema, VCLFormSchemaRoot } from './types';
+import { ValidatorFn } from '@angular/forms';
 
 let VALIDATOR: Validator;
 
@@ -25,7 +28,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class JssFormComponent implements OnChanges, ControlValueAccessor {
 
   @Input()
-  schema: JssFormSchema | undefined;
+  schema: VCLFormSchemaRoot | undefined;
 
   @Output()
   ngSubmit = new EventEmitter<any>();
@@ -33,7 +36,7 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   @Output()
   action = new EventEmitter<any>();
 
-  private _disable: boolean = false;
+  private _disable = false;
 
   get disable(): boolean {
     return this._disable;
@@ -79,67 +82,109 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   /**
    * create the formGroup for the given schema
    */
-  private createFormGroup(schema: JssFormSchema) {
-    const createGroup = (schema: JssFormSchema) => {
+  private createFormGroup(schemaB: VCLFormSchema) {
+    const createGroup = (schema: VCLFormSchema) => {
       const group = {};
-      const props = schema.properties || schema.items || {};
+      const props = (schema.formControl === 'object') ? schema.properties : []; // || schema.items || {};
       Object.keys(props).map(key => {
-        const p = props[key];
-        if (p) {
+        const prop = props[key];
+        if (prop) {
           // objects
-          if (p.type === 'object') {
-            group[key] = createGroup(p);
+          if (prop.formControl === 'object') {
+            group[key] = createGroup(prop);
           // arrays
-          } else if (p.formType === 'array' && p.type === 'array') {
-            const amount = p.count || 1;
+          } else if (prop.formControl === 'array' ) {
+            const amount = prop.count || 1;
             const result: any[] = [];
             for (let i = 0; i < amount; i++) {
-              result.push(createGroup(p.items));
+              result.push(createGroup(prop.items));
             }
-            group[key] = this.fb.array(result);
+            group[key] = this.fb.array(result, this.createChildControlsValidator());
           // non-objects
           } else {
             let state: any = '';
-            switch (p.type) {
+            switch (prop.formControl) {
               case 'number':
-                state = 0;
+                state = null;
                 break;
-              case 'array':
+              case 'token':
                 state = [];
                 break;
-              case 'boolean':
+              case 'dropdown':
+                if (prop.selectionMode === 'multiple') {
+                  state = [];
+                }
+                break;
+              case 'checkbox':
                 state = false;
                 break;
               case undefined:
                 state = undefined;
                 break;
             }
-            group[key] = new FormControl(state, this.createJsonSchemaValidator(p, false));
+            const validator = this.createValidator(prop);
+            group[key] = new FormControl(state, validator);
           }
-
         }
 
       });
 
-      if (schema.formType === 'array' && schema.type === 'array') {
+      if (schema.formControl === 'array') {
         return this.fb.array([
           this.fb.group(group)
         ]);
       }
 
-      return this.fb.group(group, {
-        validator: this.createJsonSchemaValidator(schema, true)
-      });
-    };
+      return this.fb.group(group);
 
-    return createGroup(schema);
+    };
+    return createGroup(schemaB);
   }
 
   /**
    * validate if value matches schema
    * @return error-array or null if no errors
    */
-  private createJsonSchemaValidator(schema: JssFormSchema, prefix: boolean) {
+  private createValidator(schema: VCLFormSchema) {
+    const isJsonSchema = typeof schema.validator === 'object';
+    if (isJsonSchema) {
+      return this.createJSSValidator(schema.validator as Schema);
+    } else if (schema.validator) {
+      return schema.validator as ValidatorFn;
+    } else {
+      let validatorProps;
+      switch (schema.formControl) {
+        case 'input' : case 'textarea': case 'password' : {
+          validatorProps = this.geValidatorProps('string', schema);
+          break;
+        }
+        case 'number': {
+          validatorProps = this.geValidatorProps('number', schema);
+          break;
+        }
+        case 'dropdown' : {
+          const type = schema.selectionMode === 'multiple' ? 'array' : 'string';
+          validatorProps = this.geValidatorProps(type, schema);
+          break;
+        }
+        case 'switch' || 'checkbox': {
+          validatorProps = { type: 'boolean' };
+          break;
+        }
+        case 'slider': {
+          validatorProps = { type: 'number' };
+          break;
+        }
+        case 'token': {
+          validatorProps = this.geValidatorProps('array', schema);
+          break;
+        }
+      }
+
+      return validatorProps ? this.createJSSValidator(validatorProps) : null;
+    }
+  }
+  private createJSSValidator(schema: Schema) {
     return (c: AbstractControl) => {
       if (!VALIDATOR) {
         VALIDATOR = new Validator();
@@ -148,14 +193,41 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
       if (result && !result.valid) {
         const error = {};
         result.errors.forEach(err => {
-          const key = prefix ? err.property + '.' + err.name : err.name;
-          error[key] = err.message;
+          error[err.name] = err.message;
         });
         return error;
       }
 
       return null;
     };
+  }
+  private createChildControlsValidator() {
+    return (c: AbstractControl) => {
+      const controls = (c as FormGroup).controls;
+        const controlNames = Object.keys(controls);
+        const isArray = Array.isArray(controls);
+        return controlNames.reduce((accumulator, controlName) => {
+          const childErrors = controls[controlName].errors || {};
+          Object.keys(childErrors).forEach(cErr => {
+            const key = isArray ? '[' + controlName + ']' + '.' + cErr : controlName + '.' + cErr;
+            accumulator[key] = childErrors[cErr];
+          });
+          return accumulator;
+        }, {});
+    };
+  }
+  geValidatorProps(type: string, schema: VCLFormSchema){
+    switch (type) {
+      case 'string':  {
+        return schema.required ? { type, minLength: 1 } : { type };
+      }
+      case 'array': {
+        return schema.required ? { type, minItems: 1 } : { type };
+      }
+      case 'number': {
+        return { type: schema.required ? 'number' : ['number', 'null']};
+      }
+    }
   }
 
   /**

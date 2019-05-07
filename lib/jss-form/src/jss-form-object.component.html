@@ -1,284 +1,106 @@
 <div [formGroup]="form">
-
-  <label vcl-form-control-label *ngIf="isCustom && !fo.hideLabel" [label]="fo.label" [required]="fo.required" [for]="fo.id"></label>
-  <ng-template #dynamic></ng-template>
-
-  <ng-container *ngIf="!isCustom">
-    <ng-container *ngIf="!fo.formObjects;else nested">
-      <div [ngClass]="fo.schema.classInputGroup" >
-        <div [ngClass]="fo.schema.classLabel" >
-          <label
-                vcl-form-control-label *ngIf="!fo.hideLabel && fo.formType !== 'checkbox'  && fo.formType !== 'submit' && fo.formType !== 'button' && fo.formType !== 'buttons' && fo.formType !== 'hidden'" 
-                [label]="fo.label" [required]="fo.required" 
-                [for]="fo.id"></label>
-        </div>
-        <div [ngClass]="fo.schema.classInput">
-
-          <ng-container [ngSwitch]="fo.formType">
-            <ng-container *ngSwitchCase="'text'">
-
-              <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-                <input vcl-input
-                      [id]="fo.id"
-                      type="text"
-                      [class.vclError]="hasError"
-                      [placeholder]="fo.placeholder"
-                      [formControlName]="fo.key"
-                      [disabled]="fo.disabled"/>
-              </vcl-input-control-group>
-            </ng-container>
-
-            <ng-container  *ngSwitchCase="'textarea'">
-           
-              <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-                <textarea vcl-textarea
-                          [id]="fo.id"
-                          [formControlName]="fo.key"
-                          [autogrow]="true"
-                          [minRows]="5"
-                          [maxRows]="10"
-                          [readonly]="fo.disabled"></textarea>
-              </vcl-input-control-group>
-            </ng-container>
-
-            <ng-container  *ngSwitchCase="'password'">
-            
-              <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-                <vcl-password-input
-                  [visibleIcon]="fo.schema.visibleIcon || ' fas fa-eye '"
-                  [invisibleIcon]="fo.schema.invisibleIcon || ' fas fa-eye-slash '"
-                >
-                  <input vcl-input
-                        vcl-password-input
-                        [id]="fo.id"
-                        [class.vclError]="hasError"
-                        [placeholder]="fo.placeholder"
-                        [formControlName]="fo.key"
-                        [disabled]="fo.disabled"/>
-                </vcl-password-input>
-              </vcl-input-control-group>
-            </ng-container>
-
-            <ng-container  *ngSwitchCase="'hidden'">
-                <input
-                      [id]="fo.id"
-                      type="hidden"
-                      [formControlName]="fo.key" />
-
-            </ng-container>
-
-            <ng-container  *ngSwitchCase="'number'">
-           
-              <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-                <input vcl-input
-                      [id]="fo.id"
-                      type="number"
-                      valueType="number"
-                      placeholder="number"
-                      [class.vclError]="hasError"
-                      [name]="fo.key"
-                      [formControlName]="fo.key"
-                      [disabled]="fo.disabled"/>
-              </vcl-input-control-group>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'select'">
-            
-              <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-                <vcl-select [id]="fo.id"
-                            [formControlName]="fo.key"
-                            [class.vclError]="hasError"
-                            [mode]="fo.schema.type==='array' ? 'multiple' : 'single'"
-                            [disabled]="fo.disabled"
-                            [expandedIcon]="fo.schema.expandedIcon || 'fas:chevron-up'"
-                            [collapsedIcon]="fo.schema.collapsedIcon || 'fas:chevron-down'">
-                  <vcl-select-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label" [sublabel]="option.sublabel"></vcl-select-option>
-                </vcl-select>
-              </vcl-input-control-group>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'dropdown'">
-             
-              <vcl-input-control-group [type]="'error'" [label]="errorLabel">
-                <vcl-dropdown [id]="fo.id"
-                              [formControlName]="fo.key"
-                              [class.vclError]="hasError"
-                              [mode]="fo.schema.type==='array' ? 'multiple' : 'single'"
-                              [disabled]="fo.disabled">
-                  <vcl-dropdown-option *ngFor="let option of fo.options" [value]="option.value" [label]="option.label" [sublabel]="option.sublabel"></vcl-dropdown-option>
-                </vcl-dropdown>
-              </vcl-input-control-group>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'switch'">
-             
-              <vcl-flip-switch [id]="fo.id"
-                              onLabel="{{'Yes' }}"
-                              offLabel="{{'No'}}"
-                              [formControlName]="fo.key"
-                              [disabled]="fo.disabled">
-              </vcl-flip-switch>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'slider'">
-             
-              <vcl-slider [id]="fo.id"
-                          [class.vclError]="hasError"
-                          [min]="fo.schema.minimum"
-                          [max]="fo.schema.maximum"
-                          [scale]="fo.schema.scale"
-                          [formControlName]="fo.key"
-                          [disabled]="fo.disabled">
-              </vcl-slider>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'radio'">
-          
-              <vcl-input-control-group [type]="'error'" [label]="errorLabel" inline=true>
-                <vcl-radio-group [id]="fo.id" [formControlName]="fo.key"
-                                  [class.vclError]="hasError">
-                  <vcl-radio-button *ngFor="let option of fo.options"
-                                    [label]="option.label"
-                                    [value]="option.value"
-                                    [disabled]="fo.disabled"
-                                    [iconPosition]="fo.schema.iconPosition || 'left'"
-                                    [checkedIcon]="fo.schema.checkedIcon || ' fas fa-dot-circle '"
-                                    [uncheckedIcon]="fo.schema.uncheckedIcon || ' fas fa-circle '"></vcl-radio-button>
-                </vcl-radio-group>
-              </vcl-input-control-group>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'token'">
-             
-              <vcl-token-input-container [disabled]="fo.disabled" [controlAsString]="true" [formControlName]="fo.key">
-                <input vcl-input vcl-token-input />
-              </vcl-token-input-container>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'date'">
-             
-              <vcl-date-picker [id]="fo.id"
-                              [formControlName]="fo.key"
-                              [config]="fo.schema.datePickerConfig">
-              </vcl-date-picker>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'custom'">
-              
-              <vcl-date-picker [id]="fo.id"
-                              [formControlName]="fo.key"
-                              [config]="fo.schema.datePickerConfig">
-              </vcl-date-picker>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'checkbox'">
-              <vcl-checkbox [id]="fo.id"
-                            [formControlName]="fo.key"
-                            [label]="fo.label"
-                            [disabled]="fo.disabled"
-                            [hideLabel]="fo.hideLabel"
-                            [iconPosition]="fo.schema.iconPosition || 'left'"
-                            [checkedIcon]="fo.schema.checkedIcon || ' fas fa-check-square '"
-                            [uncheckedIcon]="fo.schema.uncheckedIcon || ' fas fa-square '">
-              </vcl-checkbox>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'submit'">
-              <button vcl-button
-                      type="submit"
-                      [disabled]="(fo.schema.autoDisable && !form.valid) || fo.disabled"
-                      [prepIcon]="fo.schema.prepIcon"
-                      [appIcon]="fo.schema.appIcon"
-                      [ngClass]="fo.schema.class"
-                      [label]="fo.schema.label">
-              </button>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'button'">
-              <button vcl-button
-                      type="button"
-                      [prepIcon]="fo.schema.prepIcon"
-                      [appIcon]="fo.schema.appIcon"
-                      [ngClass]="fo.schema.class"
-                      [label]="fo.schema.label"
-                      (click)="onAction(fo.schema.action || fo.schema)"
-                      [disabled]="fo.disabled"></button>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'buttons'">
-              <div class="vclLooseButtonGroup">
-                <ng-container *ngFor="let btnFo of fo.buttons">
-                  <ng-container *ngIf="btnFo.formType === 'submit'">
-                    <button vcl-button
-                            type="submit"
-                            [disabled]="(btnFo.schema.autoDisable && !form.valid) || fo.disabled"
-                            [prepIcon]="btnFo.schema.prepIcon"
-                            [appIcon]="btnFo.schema.appIcon"
-                            [ngClass]="btnFo.schema.class"
-                            [label]="btnFo.schema.label">
-                    </button>
-                  </ng-container>
-
-                  <ng-container *ngIf="btnFo.formType === 'button'">
-                    <button vcl-button
-                            type="button"
-                            [prepIcon]="btnFo.schema.prepIcon"
-                            [appIcon]="btnFo.schema.appIcon"
-                            [ngClass]="btnFo.schema.class"
-                            [label]="btnFo.schema.label"
-                            (click)="onAction(btnFo.schema.action || 'button')"
-                            [disabled]="fo.disabled"></button>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </ng-container>
-
-          </ng-container>
-
-          <ng-container *ngIf="fo.schema && fo.schema.hint">
-            <div class="vclFormControlHint">
-              {{ fo.schema.hint }}
-            </div>
-          </ng-container>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-template #nested>
-      <ng-container [ngSwitch]="fo.formType">
-        <ng-container *ngSwitchDefault>
-          <fieldset class="vclFieldset" [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
-            <legend>{{fo.label}}</legend>
-            <ng-container *ngIf="fo.schema.hint">
-              <div class="vclFormControlHint">{{ fo.schema.hint }}</div>
-            </ng-container>
-            <ng-container *ngFor="let subFo of fo.formObjects">
-              <vcl-jss-form-object [fo]="subFo" [form]="form.get(fo.key)"></vcl-jss-form-object>
-            </ng-container>
-          </fieldset>
-        </ng-container>
-        <ng-container *ngSwitchCase="'array'">
-          <fieldset class="vclFieldset"
-                    [formArrayName]="fo.key"
-                    [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
-            <legend>{{fo.label}} <vcl-icon icon="fas fa-plus" (click)="addItem()" style="color: green"></vcl-icon></legend>
-            <ng-container *ngIf="fo.schema.hint">
-              <div class="vclFormControlHint">{{ fo.schema.hint }}</div>
-            </ng-container>
-            <ng-container *ngFor="let subArray of fo.formObjects; let i = index" [attr.data-index]="i">
-              <ng-container [formGroupName]="i">
-                <fieldset>
-                  <legend>{{fo.singularLabel}} <vcl-icon icon="fas fa-times" (click)="removeItem(i)" style="color: red"></vcl-icon></legend>
-                  <ng-container *ngFor="let subFo of subArray">
-                    <vcl-jss-form-object [fo]="subFo" [form]="getFormControl(fo.key, i)" [formComponent]="formComponent"></vcl-jss-form-object>
-                  </ng-container>
-                </fieldset>
-              </ng-container>
-            </ng-container>
-          </fieldset>
-        </ng-container>
+  <!-- <ng-container *ngIf="fo.schema.formControl !== 'object' && fo.schema.formControl !== 'array'">  -->
+  <vcl-form-control-group >
+    <ng-container [ngSwitch]="fo.formControl">
+       <!-- input -->
+      <ng-container *ngSwitchCase="'input'">
+        <label *ngIf="!!fo.label" vclFormControlLabel>{{fo.label}}<vcl-required *ngIf="fo.required"></vcl-required></label>
+        <input vclInput [placeholder]="fo.placeholder">
       </ng-container>
-    </ng-template>
-  </ng-container>
+      <!-- textarea -->
+      <ng-container *ngSwitchCase="'textarea'">
+        <label *ngIf="!!fo.label" vclFormControlLabel>{{fo.label}}<vcl-required *ngIf="fo.required"></vcl-required></label>
+        <textarea vclInput [formControlName]="fo.key" [placeholder]="fo.placeholder" [autogrow]="true" [minRows]="fo.minRows || 3" [maxRows]="fo.minRows || 10"></textarea>
+      </ng-container>
+      <!-- switch -->
+      <ng-container *ngSwitchCase="'switch'">
+        <label *ngIf="!!fo.label" vclFormControlLabel>{{fo.label}}<vcl-required *ngIf="fo.required"></vcl-required></label>
+        <vcl-flip-switch [formControlName]="fo.key"></vcl-flip-switch>
+      </ng-container>
+      <!-- radio -->
+      <ng-container *ngSwitchCase="'radio'">
+        <label *ngIf="!!fo.label" vclFormControlLabel>{{fo.label}}<vcl-required *ngIf="fo.required"></vcl-required></label>
+        <vcl-radio-group [formControlName]="fo.key">
+          <label vclRadioButtonLabel *ngFor="let option of fo.options">
+            <vcl-radio-button [value]="option.label"></vcl-radio-button>
+            <vcl-icon vclAppend >{{option.label}}</vcl-icon>
+          </label>
+        </vcl-radio-group>
+      </ng-container>
+      <!--  button-group -->
+      <ng-container *ngSwitchCase="'button-group'">
+        <label *ngIf="!!fo.label" vclFormControlLabel>{{fo.label}}<vcl-required *ngIf="fo.required"></vcl-required></label>
+        <vcl-button-group [formControlName]="fo.key">
+          <button vcl-button [type]="button.schema.formControl" (click)="onAction(button.schema.action)"  *ngFor="let button of fo.buttons" >{{button.schema.label}}</button>
+        </vcl-button-group>
+      </ng-container>
+      <!--  button -->
+      <ng-container *ngSwitchCase="'button'">
+        <button vcl-button [type]="fo.schema.formControl" (click)="onAction(fo.schema.action)" >{{fo.schema.label}}</button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'checkbox'">
+        <label vclCheckboxLabel>
+          <vcl-checkbox [formControlName]="fo.key"></vcl-checkbox>
+          {{fo.schema.label}}<vcl-required *ngIf="fo.required"></vcl-required>
+        </label>
+      </ng-container>
+      <!--  dropdown -->
+      <ng-container *ngSwitchCase="'dropdown'">
+        <vcl-select [formControlName]="fo.key" [label]="fo.schema.label" [selectionMode]="fo.schema.selectionMode" >
+          <vcl-dropdown>
+            <vcl-dropdown-item *ngFor="let option of fo.options" [value]="option.value">
+              <vcl-dropdown-label>{{option.label}}</vcl-dropdown-label>
+              <vcl-dropdown-sublabel>{{option.sublabel}}</vcl-dropdown-sublabel>
+            </vcl-dropdown-item>
+          </vcl-dropdown>
+        </vcl-select>
+      </ng-container>
+    </ng-container>
+    <!--  hint -->
+    <ng-container *ngFor="let hint of fo.schema.hints">
+      <vcl-hint *ngIf="!hint.error" > {{ hint }}</vcl-hint>
+      <vcl-hint-error error="required" > {{ hint.message }}</vcl-hint-error>
+    </ng-container>
+</vcl-form-control-group>
 
+  <!-- </ng-container> -->
+
+
+<!-- 
+<ng-template #nested>
+  <ng-container [ngSwitch]="fo.formControl">
+    <ng-container *ngSwitchDefault>
+      <fieldset class="vclFieldset" [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
+        <legend>{{fo.label}}</legend>
+        <ng-container *ngIf="fo.schema.hint">
+          <div class="vclFormControlHint">{{ fo.schema.hint }}</div>
+        </ng-container>
+        <ng-container *ngFor="let subFo of fo.formObjects">
+          <vcl-jss-form-object [fo]="subFo" [form]="form.get(fo.key)"></vcl-jss-form-object>
+        </ng-container>
+      </fieldset>
+    </ng-container>
+    <ng-container *ngSwitchCase="'array'">
+      <fieldset class="vclFieldset"
+                [formArrayName]="fo.key"
+                [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px', 'padding-top': fo.schema.hint ? '0.3em' : undefined}">
+        <legend>{{fo.label}} <vcl-icon icon="fas fa-plus" (click)="addItem()" style="color: green"></vcl-icon></legend>
+        <ng-container *ngIf="fo.schema.hint">
+          <div class="vclFormControlHint">{{ fo.schema.hint }}</div>
+        </ng-container>
+        <ng-container *ngFor="let subArray of fo.formObjects; let i = index" [attr.data-index]="i">
+          <ng-container [formGroupName]="i">
+            <fieldset>
+              <legend>{{fo.singularLabel}} <vcl-icon icon="fas fa-times" (click)="removeItem(i)" style="color: red"></vcl-icon></legend>
+              <ng-container *ngFor="let subFo of subArray">
+                <vcl-jss-form-object [fo]="subFo" [form]="getFormControl(fo.key, i)" [formComponent]="formComponent"></vcl-jss-form-object>
+              </ng-container>
+            </fieldset>
+          </ng-container>
+        </ng-container>
+      </fieldset>
+    </ng-container>
+  </ng-container>
+</ng-template> -->
+  
 </div>

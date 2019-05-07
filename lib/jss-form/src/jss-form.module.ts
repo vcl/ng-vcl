@@ -4,14 +4,17 @@ import { JssFormComponent } from './jss-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   VCLButtonModule, VCLDropdownModule, VCLFlipSwitchModule,
-  VCLSliderModule, VCLCheckboxModule,
-  VCLRadioButtonModule, VCLTokenModule, VCLIconModule,
-  VCLTextareaModule, VCLPasswordInputModule, VCLInputModule, VCLDatePickerModule
+  VCLSliderModule, VCLCheckboxModule,VCLFormControlGroupModule,
+  VCLRadioButtonModule, VCLTokenModule, VCLIconModule,VCLSelectModule,
+  VCLTextareaModule, VCLPasswordInputModule, VCLInputModule, VCLDatePickerModule, VCLButtonGroupModule
 } from '@ng-vcl/ng-vcl';
-import { JssFormObjectComponent } from './jss-form-object.component';
-import { JssFormSchemaOptions, JssFormSchema } from './types';
 
-export { JssFormComponent, JssFormObjectComponent, JssFormSchema, JssFormSchemaOptions };
+
+import { JssFormObjectComponent } from './jss-form-object.component';
+import { VCLFormSchemaOptions, VCLFormSchema } from './types';
+import { FormsModule } from '@angular/forms';
+
+export { JssFormComponent, JssFormObjectComponent, VCLFormSchema, VCLFormSchemaOptions };
 export { markAsDeeplyTouched } from './utils';
 
 @NgModule({
@@ -19,6 +22,7 @@ export { markAsDeeplyTouched } from './utils';
     CommonModule,
     ReactiveFormsModule,
     VCLButtonModule,
+    VCLButtonGroupModule,
     VCLDropdownModule,
     VCLFlipSwitchModule,
     VCLSliderModule,
@@ -29,11 +33,15 @@ export { markAsDeeplyTouched } from './utils';
     VCLPasswordInputModule,
     VCLTokenModule,
     VCLIconModule,
-    VCLDatePickerModule
+    VCLFormControlGroupModule,
+    VCLDatePickerModule,
+    VCLSelectModule,
+    FormsModule
   ],
   exports: [JssFormComponent, JssFormObjectComponent],
   declarations: [JssFormComponent, JssFormObjectComponent],
   providers: [],
+  entryComponents: []
 })
 export class VCLJssFormModule { }
 

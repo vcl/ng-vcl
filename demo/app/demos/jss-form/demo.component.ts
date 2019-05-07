@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { JssFormComponent, markAsDeeplyTouched } from '@ng-vcl/jss-form';
+import { JssFormComponent, markAsDeeplyTouched } from '../../../../lib/jss-form';
 import { HERO_SCHEMA, HERO_DEFAULTS } from './hero';
 
 

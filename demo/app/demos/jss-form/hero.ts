@@ -1,79 +1,76 @@
 import {CustomSampleComponent} from './custom-sample.component';
+import { AbstractControl, Validators } from '@angular/forms';
+import { VCLFormSchema } from '../../../../lib/jss-form';
 
-export const HERO_SCHEMA = {
+export const HERO_SCHEMA: VCLFormSchema = {
   title: 'hero schema',
-  description: 'describes a simple hero',
-  type: 'object',
+  formControl: 'object',
   properties: {
     name: {
-      formType: 'text',
+      formControl: 'input',
       label: 'Name',
-      type: 'string',
-      minLength: 4,
+      required: true,
       placeholder: 'The hero\'s name',
-      hint: 'The hero\'s name',
+      hints: ['The hero\'s name', {error: 'required', message: 'heyy'}],
+      validator: Validators.required
     },
     description: {
-      formType: 'textarea',
+      formControl: 'textarea',
       label: 'Description',
-      type: 'string',
-      placeholder: 'Text',
-      hint: 'The hero\'s description',
+      placeholder: 'The hero\'s Description',
+      hints: ['The hero\'s description'],
     },
-    password: {
-      formType: 'password',
-      label: 'Password',
-      type: 'string',
-      placeholder: 'Password',
-      visibleIcon: ' fas fa-unlock ',
-      invisibleIcon: ' fas fa-unlock-alt ',
-      hint: 'The account password'
-    },
-    mail_old: {
-      formType: 'hidden',
-      type: 'string',
-    },
-    color: {
-      formType: 'select',
-      label: 'Team',
-      hint: 'color defines which team the hero belongs to',
-      type: 'string',
-      options: [
-        {
-          label: 'Red',
-          value: '#ff0000'
-        },
-        {
-          label: 'Green',
-          value: '#008000'
-        },
-        {
-          label: 'Blue',
-          value: '#0000FF',
-          sublabel: 'Sublabels!'
-        },
-        {
-          label: 'Yellow',
-          value: '#FFFF00'
-        }
-      ]
-    },
+    // password: {
+    //   formControl: 'password',
+    //   label: 'Password',
+    //   placeholder: 'Password',
+    //   visibleIcon: ' fas fa-unlock ',
+    //   invisibleIcon: ' fas fa-unlock-alt ',
+    //   hint: 'The account password'
+    // },
+    // mail_old: {
+    //   formControl: 'hidden',
+    // },
+    // color: {
+    //   formControl: 'select',
+    //   label: 'Team',
+    //   hint: 'color defines which team the hero belongs to',
+    //   mode: 'single',
+    //   options: [
+    //     {
+    //       label: 'Red',
+    //       value: '#ff0000'
+    //     },
+    //     {
+    //       label: 'Green',
+    //       value: '#008000'
+    //     },
+    //     {
+    //       label: 'Blue',
+    //       value: '#0000FF',
+    //       sublabel: 'Sublabels!'
+    //     },
+    //     {
+    //       label: 'Yellow',
+    //       value: '#FFFF00'
+    //     }
+    //   ]
+    // },
     gender: {
-      formType: 'radio',
+      formControl: 'radio',
       label: 'Gender',
-      type: 'string',
-      enum: ['male', 'female'],
-      hint: 'The hero\'s gender',
+      options: [{value: 'male', label: 'male'}, {value: 'female', label: 'female'}],
+      hints: ['The hero\'s description', {error: 'required', message: 'is req'}],
     },
     perks: {
-      formType: 'dropdown',
+      formControl: 'dropdown',
       label: 'Perks',
-      type: 'array',
-      hint: 'The hero\'s perks',
+      hints: ['The hero\'s perks'],
+      selectionMode: 'multiple',
       options: [
         {
           label: 'Heave Ho!',
-          value: 'heave_ho	'
+          value: 'heave_ho'
         },
         {
           label: 'Snakeater',
@@ -87,129 +84,136 @@ export const HERO_SCHEMA = {
       ]
     },
     leader: {
-      formType: 'checkbox',
+      formControl: 'checkbox',
       label: 'Leader',
-      type: 'boolean',
-      hideLabel: true,
-      hint: 'Whether the hero is a leader',
+      hints: ['Whether the hero is a leader'],
     },
-    hp: {
-      formType: 'slider',
-      label: 'Hitpoints',
-      type: 'number',
-      minimum: 0,
-      maximum: 20,
-      hint: 'The hero\'s max health',
-    },
+    // hp: {
+    //   formControl: 'slider',
+    //   label: 'Hitpoints',
+    //   minimum: 0,
+    //   maximum: 20,
+    //   scale: 2,
+    //   lock: false,
+    //   hint: 'The hero\'s max health',
+    // },
     alive: {
-      formType: 'switch',
-      label: 'Is alive?',
-      type: 'boolean'
+      formControl: 'switch',
+      onLabel: 'yes',
+      offLabel: 'no',
+      label: 'Is alive ?',
     },
-    mainSkill: {
-      label: 'Main skill',
-      description: 'nested object',
-      hint: 'The hero\'s main skill',
-      type: 'object',
-      properties: {
-        name: {
-          formType: 'text',
-          label: 'Skill name',
-          type: 'string',
-          minLength: 1,
-          hint: 'The skills name',
-        },
-        damage: {
-          formType: 'number',
-          label: 'Skill damage',
-          hint: 'The skills max damage',
-          type: 'number',
-          min: 0,
-          max: 100
-        }
-      },
-      required: ['name', 'damage']
-    },
-    attributes: {
-      formType: 'token',
-      label: 'Attributes',
-      type: 'array'
-    },
-    dob: {
-      formType: 'date',
-      label: 'Date of Birth',
-      type: 'string',
-      datePickerConfig: {
-        displayTime: true
-      }
-    },
-    custom: {
-      formType: 'custom',
-      label: 'Custom Component',
-      type: 'number',
-      minimum: 3,
-      maximum: 5,
-      customComponent: CustomSampleComponent,
-      customParameters: {
-        message: 'Counter:'
-      }
-    },
-    items: {
-      label: 'Items',
-      singularLabel: 'Item',
-      formType: 'array',
-      type: 'array',
-      hint: 'The hero\'s items',
-      items: {
-        type: 'object',
-        properties: {
-          name: {
-            formType: 'text',
-            label: 'Item name',
-            type: 'string',
-            minLength: 1,
-            hint: 'The items name',
-            classInputGroup: 'vclLayoutHorizontal',
-            classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
-            classInput: 'vclLayoutFlex vclLayout11'
-          },
-          quantity: {
-            formType: 'number',
-            label: 'Quantity',
-            hint: 'The item quantity',
-            type: 'number',
-            min: 0,
-            max: 100,
-            classInputGroup: 'vclLayoutHorizontal',
-            classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
-            classInput: 'vclLayoutFlex vclLayout11'
-          }
-        }
-      }
+    // mainSkill: {
+    //   label: 'Main skill',
+    //   description: 'nested object',
+    //   hint: 'The hero\'s main skill',
+    //   formControl: 'object',
+    //   properties: {
+    //     name: {
+    //       formControl: 'input',
+    //       label: 'Skill name',
+    //       hint: 'The skills name',
+    //       validator: {
+    //         type: 'string',
+    //         minLength: 6
+    //       }
+    //     },
+    //     damage: {
+    //       formControl: 'number',
+    //       label: 'Skill damage',
+    //       hint: 'The skills max damage',
+    //       validator: {
+    //         type: ['number', 'null'],
+    //         minimum: 0,
+    //         maximum: 100,
+    //       }
+    //     }
+    //   },
+    // },
+    // attributes: {
+    //   formControl: 'token',
+    //   label: 'Attributes',
+    // },
+    // dob: {
+    //   formControl: 'date',
+    //   label: 'Date of Birth',
+    //   datePickerConfig: {
+    //     displayTime: true
+    //   }
+    // },
+    // custom: {
+    //   formControl: 'custom',
+    //   label: 'Custom Component',
+    //   customComponent: CustomSampleComponent,
+    //   customParameters: {
+    //     message: 'Counter:'
+    //   }
+    // },
+    // items: {
+    //   label: 'Items',
+    //   singularLabel: 'Item',
+    //   formControl: 'array',
+    //   hint: 'The hero\'s items',
+    //   count: 2,
+    //   items: {
+    //     formControl: 'object',
+    //     properties: {
+    //       name: {
+    //         formControl: 'input',
+    //         label: 'Item name',
+    //         validator: (c: AbstractControl) => {
+    //           if (c.value) {
+    //             return null;
+    //           }
+    //           return {
+    //             foo: 'bar'
+    //           };
+    //         },
+    //         hint: 'The items name',
+    //         classInputGroup: 'vclLayoutHorizontal',
+    //         classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
+    //         classInput: 'vclLayoutFlex vclLayout11'
+    //       },
+    //       quantity: {
+    //         formControl: 'number',
+    //         label: 'Quantity',
+    //         hint: 'The item quantity',
+    //         required: true,
+    //         classInputGroup: 'vclLayoutHorizontal',
+    //         classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
+    //         classInput: 'vclLayoutFlex vclLayout11'
+    //       }
+    //     }
+    //   }
+    // },
+    simpleButton: {
+      formControl: 'button',
+      label: 'simpleButton',
+      action: 'simpleButton'
     },
     submit: {
-      formType: 'buttons',
+      formControl: 'button-group',
       buttons: [
         {
-          formType: 'submit',
+          formControl: 'submit',
           label: 'Submit',
           class: 'vclEmphasized'
         },
         {
-          formType: 'button',
+          formControl: 'button',
           label: 'Reset',
           action: 'reset'
         }
       ]
     }
   },
-  required: ['name', 'color', 'perks']
 };
-
 export const HERO_DEFAULTS = {
-  color: '#ff0000',
-  leader: false,
-  alive: true,
-  hp: 10,
-  custom: 0
+  color: '#008000',
+  gender: 'male',
+  hp: 5,
+  custom: 3,
+  attributes: ['test token'],
+  items: [{name: 'Item 1', quantity: 2}],
+  perks: ['heave_ho']
 };
