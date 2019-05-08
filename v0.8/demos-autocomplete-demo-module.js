@@ -15,12 +15,12 @@ module.exports = "\n<h3>vcl-dropdown with async data</h3>\n\n<vcl-embedded-input
 /*!********************************************************!*\
   !*** ./demo/app/demos/autocomplete/async.component.ts ***!
   \********************************************************/
-/*! exports provided: DropdownAsyncDemoComponent */
+/*! exports provided: AutocompleteAsyncDemoComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownAsyncDemoComponent", function() { return DropdownAsyncDemoComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteAsyncDemoComponent", function() { return AutocompleteAsyncDemoComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
@@ -32,8 +32,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BOOK_API_URL = 'https://www.googleapis.com/books/v1/volumes';
-var DropdownAsyncDemoComponent = /** @class */ (function () {
-    function DropdownAsyncDemoComponent(http) {
+var AutocompleteAsyncDemoComponent = /** @class */ (function () {
+    function AutocompleteAsyncDemoComponent(http) {
         var _this = this;
         this.http = http;
         this.search = {
@@ -68,25 +68,25 @@ var DropdownAsyncDemoComponent = /** @class */ (function () {
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])({ state: 'cleared', books: [] }) // Initial state
         ).subscribe(function (search) { return _this.search = search; });
     }
-    DropdownAsyncDemoComponent.prototype.onSelectBook = function (book) {
+    AutocompleteAsyncDemoComponent.prototype.onSelectBook = function (book) {
         if (book) {
             this.search$.next('');
             this.books.push(book);
         }
     };
-    DropdownAsyncDemoComponent.prototype.onClearBooks = function () {
+    AutocompleteAsyncDemoComponent.prototype.onClearBooks = function () {
         this.books = [];
     };
-    DropdownAsyncDemoComponent.prototype.ngOnDestroy = function () {
+    AutocompleteAsyncDemoComponent.prototype.ngOnDestroy = function () {
         this.searchSub && this.searchSub.unsubscribe();
     };
-    DropdownAsyncDemoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    AutocompleteAsyncDemoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             template: __webpack_require__(/*! ./async.component.html */ "./demo/app/demos/autocomplete/async.component.html")
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], DropdownAsyncDemoComponent);
-    return DropdownAsyncDemoComponent;
+    ], AutocompleteAsyncDemoComponent);
+    return AutocompleteAsyncDemoComponent;
 }());
 
 
@@ -108,25 +108,25 @@ module.exports = "<h3>Basic autocomplete</h3>\n\n<vcl-embedded-input-group>\n  <
 /*!*******************************************************!*\
   !*** ./demo/app/demos/autocomplete/demo.component.ts ***!
   \*******************************************************/
-/*! exports provided: DropdownDemoComponent */
+/*! exports provided: AutocompleteDemoComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownDemoComponent", function() { return DropdownDemoComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteDemoComponent", function() { return AutocompleteDemoComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
-var DropdownDemoComponent = /** @class */ (function () {
-    function DropdownDemoComponent() {
+var AutocompleteDemoComponent = /** @class */ (function () {
+    function AutocompleteDemoComponent() {
     }
-    DropdownDemoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    AutocompleteDemoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             template: __webpack_require__(/*! ./demo.component.html */ "./demo/app/demos/autocomplete/demo.component.html")
         })
-    ], DropdownDemoComponent);
-    return DropdownDemoComponent;
+    ], AutocompleteDemoComponent);
+    return AutocompleteDemoComponent;
 }());
 
 
@@ -137,13 +137,13 @@ var DropdownDemoComponent = /** @class */ (function () {
 /*!****************************************************!*\
   !*** ./demo/app/demos/autocomplete/demo.module.ts ***!
   \****************************************************/
-/*! exports provided: demo, DropdownDemoModule */
+/*! exports provided: demo, AutocompleteDemoModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "demo", function() { return demo; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropdownDemoModule", function() { return DropdownDemoModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteDemoModule", function() { return AutocompleteDemoModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
@@ -166,14 +166,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function demo() {
     return {
-        name: 'Dropdown',
+        name: 'Autocomplete',
         tabs: {
-            Demo: _demo_component__WEBPACK_IMPORTED_MODULE_8__["DropdownDemoComponent"],
-            'Async Demo': _async_component__WEBPACK_IMPORTED_MODULE_9__["DropdownAsyncDemoComponent"],
-            // 'README.md': {
-            //   type: 'md',
-            //   content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/dropdown/README.md')
-            // },
+            Demo: _demo_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteDemoComponent"],
+            'Async Demo': _async_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteAsyncDemoComponent"],
+            'README.md': {
+                type: 'md',
+                content: __webpack_require__(/*! raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/autocomplete/README.md */ "./node_modules/raw-loader/index.js!./node_modules/highlight-loader/index.js!./node_modules/markdown-loader/index.js?breaks=true!./lib/ng-vcl/src/autocomplete/README.md")
+            },
             'demo.component.html': {
                 type: 'pre',
                 content: __webpack_require__(/*! highlight-loader?raw=true&lang=html!./demo.component.html */ "./node_modules/highlight-loader/index.js?raw=true&lang=html!./demo/app/demos/autocomplete/demo.component.html")
@@ -193,10 +193,10 @@ function demo() {
         }
     };
 }
-var DropdownDemoModule = /** @class */ (function () {
-    function DropdownDemoModule() {
+var AutocompleteDemoModule = /** @class */ (function () {
+    function AutocompleteDemoModule() {
     }
-    DropdownDemoModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    AutocompleteDemoModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -216,11 +216,11 @@ var DropdownDemoModule = /** @class */ (function () {
                         data: { demo: demo }
                     }]),
             ],
-            entryComponents: [_demo_component__WEBPACK_IMPORTED_MODULE_8__["DropdownDemoComponent"], _async_component__WEBPACK_IMPORTED_MODULE_9__["DropdownAsyncDemoComponent"]],
-            declarations: [_demo_component__WEBPACK_IMPORTED_MODULE_8__["DropdownDemoComponent"], _async_component__WEBPACK_IMPORTED_MODULE_9__["DropdownAsyncDemoComponent"]]
+            entryComponents: [_demo_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteDemoComponent"], _async_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteAsyncDemoComponent"]],
+            declarations: [_demo_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteDemoComponent"], _async_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteAsyncDemoComponent"]]
         })
-    ], DropdownDemoModule);
-    return DropdownDemoModule;
+    ], AutocompleteDemoModule);
+    return AutocompleteDemoModule;
 }());
 
 
@@ -256,7 +256,7 @@ module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">h3</spa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-keyword\">import</span> { HttpClient } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/common/http'</span>;\n<span class=\"hljs-keyword\">import</span> { Component, OnInit, OnDestroy } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n<span class=\"hljs-keyword\">import</span> { BehaviorSubject ,  of, timer, EMPTY } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs'</span>;\n<span class=\"hljs-keyword\">import</span> { debounceTime, switchMap, map, catchError, startWith, debounce, distinctUntilChanged } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs/operators'</span>;\n\n<span class=\"hljs-keyword\">const</span> BOOK_API_URL = <span class=\"hljs-string\">'https://www.googleapis.com/books/v1/volumes'</span>;\n\n<span class=\"hljs-keyword\">interface</span> Book {\n  id: <span class=\"hljs-built_in\">string</span>;\n  title: <span class=\"hljs-built_in\">string</span>;\n  author?: <span class=\"hljs-built_in\">string</span>;\n  date?: <span class=\"hljs-built_in\">string</span>;\n  image?: <span class=\"hljs-built_in\">string</span>;\n}\n<span class=\"hljs-keyword\">interface</span> Search {\n  state: <span class=\"hljs-string\">'cleared'</span> | <span class=\"hljs-string\">'loading'</span> | <span class=\"hljs-string\">'error'</span>;\n  books: Book[];\n}\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'async.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> DropdownAsyncDemoComponent <span class=\"hljs-keyword\">implements</span> OnDestroy {\n  <span class=\"hljs-keyword\">constructor</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">private</span> http: HttpClient</span>) { }\n\n  search: Search = {\n    state: <span class=\"hljs-string\">'cleared'</span>,\n    books: []\n  };\n\n  books: Book[] = [];\n\n  search$ = <span class=\"hljs-keyword\">new</span> BehaviorSubject&lt;<span class=\"hljs-built_in\">string</span>&gt;(<span class=\"hljs-string\">''</span>);\n\n  searchSub = <span class=\"hljs-keyword\">this</span>.search$.pipe(\n                distinctUntilChanged(),\n                switchMap(<span class=\"hljs-function\"><span class=\"hljs-params\">value</span> =&gt;</span> {\n                  <span class=\"hljs-comment\">// Show nothing if less than 2 characters</span>\n                  <span class=\"hljs-keyword\">if</span> (!value || value.length &lt; <span class=\"hljs-number\">2</span>) {\n                    <span class=\"hljs-keyword\">return</span> of({ state: <span class=\"hljs-string\">'cleared'</span>, books: [] });\n                  } <span class=\"hljs-keyword\">else</span> {\n                    <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">this</span>.http.get(<span class=\"hljs-string\">`<span class=\"hljs-subst\">${BOOK_API_URL}</span>?q=<span class=\"hljs-subst\">${value}</span>&amp;projection=lite`</span>).pipe(\n                      map(<span class=\"hljs-function\">(<span class=\"hljs-params\">data: <span class=\"hljs-built_in\">any</span></span>) =&gt;</span> {\n                        <span class=\"hljs-keyword\">const</span> items = data.items || [];\n                        <span class=\"hljs-keyword\">return</span> {\n                          state: <span class=\"hljs-string\">'success'</span>,\n                          books: items.filter(<span class=\"hljs-function\"><span class=\"hljs-params\">item</span> =&gt;</span> item.id &amp;&amp; item.volumeInfo &amp;&amp; item.volumeInfo.title)\n                                      .map(<span class=\"hljs-function\"><span class=\"hljs-params\">item</span> =&gt;</span> ({\n                            id: item.id,\n                            title: item.volumeInfo.title,\n                            image: item.volumeInfo.imageLinks &amp;&amp; item.volumeInfo.imageLinks &amp;&amp; item.volumeInfo.imageLinks.smallThumbnail,\n                            author: item.volumeInfo.authors &amp;&amp; item.volumeInfo.authors.join(<span class=\"hljs-string\">', '</span>),\n                            date: item.volumeInfo.publishedDate,\n                          }))\n                        };\n                      }),\n                      catchError(<span class=\"hljs-function\"><span class=\"hljs-params\">ex</span> =&gt;</span> of({ state: <span class=\"hljs-string\">'error'</span>, books: [] })), <span class=\"hljs-comment\">// Error state</span>\n                      startWith({ state: <span class=\"hljs-string\">'loading'</span>, books: [] }) <span class=\"hljs-comment\">// Set state to loading before the request</span>\n                    );\n                  }\n                }),\n                startWith&lt;Search&gt;({ state: <span class=\"hljs-string\">'cleared'</span>, books: [] }) <span class=\"hljs-comment\">// Initial state</span>\n  ).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">search</span> =&gt;</span> <span class=\"hljs-keyword\">this</span>.search = search);\n\n  onSelectBook(book: Book) {\n    <span class=\"hljs-keyword\">if</span> (book) {\n      <span class=\"hljs-keyword\">this</span>.search$.next(<span class=\"hljs-string\">''</span>);\n      <span class=\"hljs-keyword\">this</span>.books.push(book);\n    }\n  }\n\n  onClearBooks() {\n    <span class=\"hljs-keyword\">this</span>.books = [];\n  }\n\n  ngOnDestroy() {\n    <span class=\"hljs-keyword\">this</span>.searchSub &amp;&amp; <span class=\"hljs-keyword\">this</span>.searchSub.unsubscribe();\n  }\n}\n"
+module.exports = "<span class=\"hljs-keyword\">import</span> { HttpClient } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/common/http'</span>;\n<span class=\"hljs-keyword\">import</span> { Component, OnInit, OnDestroy } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n<span class=\"hljs-keyword\">import</span> { BehaviorSubject ,  of, timer, EMPTY } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs'</span>;\n<span class=\"hljs-keyword\">import</span> { debounceTime, switchMap, map, catchError, startWith, debounce, distinctUntilChanged } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs/operators'</span>;\n\n<span class=\"hljs-keyword\">const</span> BOOK_API_URL = <span class=\"hljs-string\">'https://www.googleapis.com/books/v1/volumes'</span>;\n\n<span class=\"hljs-keyword\">interface</span> Book {\n  id: <span class=\"hljs-built_in\">string</span>;\n  title: <span class=\"hljs-built_in\">string</span>;\n  author?: <span class=\"hljs-built_in\">string</span>;\n  date?: <span class=\"hljs-built_in\">string</span>;\n  image?: <span class=\"hljs-built_in\">string</span>;\n}\n<span class=\"hljs-keyword\">interface</span> Search {\n  state: <span class=\"hljs-string\">'cleared'</span> | <span class=\"hljs-string\">'loading'</span> | <span class=\"hljs-string\">'error'</span>;\n  books: Book[];\n}\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'async.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> AutocompleteAsyncDemoComponent <span class=\"hljs-keyword\">implements</span> OnDestroy {\n  <span class=\"hljs-keyword\">constructor</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">private</span> http: HttpClient</span>) { }\n\n  search: Search = {\n    state: <span class=\"hljs-string\">'cleared'</span>,\n    books: []\n  };\n\n  books: Book[] = [];\n\n  search$ = <span class=\"hljs-keyword\">new</span> BehaviorSubject&lt;<span class=\"hljs-built_in\">string</span>&gt;(<span class=\"hljs-string\">''</span>);\n\n  searchSub = <span class=\"hljs-keyword\">this</span>.search$.pipe(\n                distinctUntilChanged(),\n                switchMap(<span class=\"hljs-function\"><span class=\"hljs-params\">value</span> =&gt;</span> {\n                  <span class=\"hljs-comment\">// Show nothing if less than 2 characters</span>\n                  <span class=\"hljs-keyword\">if</span> (!value || value.length &lt; <span class=\"hljs-number\">2</span>) {\n                    <span class=\"hljs-keyword\">return</span> of({ state: <span class=\"hljs-string\">'cleared'</span>, books: [] });\n                  } <span class=\"hljs-keyword\">else</span> {\n                    <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">this</span>.http.get(<span class=\"hljs-string\">`<span class=\"hljs-subst\">${BOOK_API_URL}</span>?q=<span class=\"hljs-subst\">${value}</span>&amp;projection=lite`</span>).pipe(\n                      map(<span class=\"hljs-function\">(<span class=\"hljs-params\">data: <span class=\"hljs-built_in\">any</span></span>) =&gt;</span> {\n                        <span class=\"hljs-keyword\">const</span> items = data.items || [];\n                        <span class=\"hljs-keyword\">return</span> {\n                          state: <span class=\"hljs-string\">'success'</span>,\n                          books: items.filter(<span class=\"hljs-function\"><span class=\"hljs-params\">item</span> =&gt;</span> item.id &amp;&amp; item.volumeInfo &amp;&amp; item.volumeInfo.title)\n                                      .map(<span class=\"hljs-function\"><span class=\"hljs-params\">item</span> =&gt;</span> ({\n                            id: item.id,\n                            title: item.volumeInfo.title,\n                            image: item.volumeInfo.imageLinks &amp;&amp; item.volumeInfo.imageLinks &amp;&amp; item.volumeInfo.imageLinks.smallThumbnail,\n                            author: item.volumeInfo.authors &amp;&amp; item.volumeInfo.authors.join(<span class=\"hljs-string\">', '</span>),\n                            date: item.volumeInfo.publishedDate,\n                          }))\n                        };\n                      }),\n                      catchError(<span class=\"hljs-function\"><span class=\"hljs-params\">ex</span> =&gt;</span> of({ state: <span class=\"hljs-string\">'error'</span>, books: [] })), <span class=\"hljs-comment\">// Error state</span>\n                      startWith({ state: <span class=\"hljs-string\">'loading'</span>, books: [] }) <span class=\"hljs-comment\">// Set state to loading before the request</span>\n                    );\n                  }\n                }),\n                startWith&lt;Search&gt;({ state: <span class=\"hljs-string\">'cleared'</span>, books: [] }) <span class=\"hljs-comment\">// Initial state</span>\n  ).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">search</span> =&gt;</span> <span class=\"hljs-keyword\">this</span>.search = search);\n\n  onSelectBook(book: Book) {\n    <span class=\"hljs-keyword\">if</span> (book) {\n      <span class=\"hljs-keyword\">this</span>.search$.next(<span class=\"hljs-string\">''</span>);\n      <span class=\"hljs-keyword\">this</span>.books.push(book);\n    }\n  }\n\n  onClearBooks() {\n    <span class=\"hljs-keyword\">this</span>.books = [];\n  }\n\n  ngOnDestroy() {\n    <span class=\"hljs-keyword\">this</span>.searchSub &amp;&amp; <span class=\"hljs-keyword\">this</span>.searchSub.unsubscribe();\n  }\n}\n"
 
 /***/ }),
 
@@ -267,7 +267,18 @@ module.exports = "<span class=\"hljs-keyword\">import</span> { HttpClient } <spa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-keyword\">import</span> { Component, ViewChild, ElementRef } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> DropdownDemoComponent {\n\n}\n"
+module.exports = "<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> AutocompleteDemoComponent {\n\n}\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./node_modules/highlight-loader/index.js!./node_modules/markdown-loader/index.js?breaks=true!./lib/ng-vcl/src/autocomplete/README.md":
+/*!****************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./node_modules/highlight-loader!./node_modules/markdown-loader?breaks=true!./lib/ng-vcl/src/autocomplete/README.md ***!
+  \****************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 id=\"vcl-autocomplete\">vcl-autocomplete</h1>\n<p>An autocomplete extension for inputs utilizing the select-list</p>\n<h2 id=\"usage\">Usage</h2>\n<pre class=\"hljs\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span> <span class=\"hljs-attr\">placeholder</span>=<span class=\"hljs-string\">&quot;Type to open dropdown&quot;</span> [<span class=\"hljs-attr\">vclAutocomplete</span>]=<span class=\"hljs-string\">&quot;ac&quot;</span> /&gt;</span>\n\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-autocomplete</span> #<span class=\"hljs-attr\">ac</span>=<span class=\"hljs-string\">&quot;vclAutocomplete&quot;</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-header</span>&gt;</span>Items<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-header</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-item</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">&quot;1&quot;</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>Item 1<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>Description of Item 1<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-item</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-item</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">&quot;2&quot;</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>Item 2<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>Description of Item 2<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-item</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-item</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">&quot;3&quot;</span> [<span class=\"hljs-attr\">disabled</span>]=<span class=\"hljs-string\">&quot;true&quot;</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>Item 3<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>Description of Item 3<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-item</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-seperator</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-seperator</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-item</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">&quot;4&quot;</span> [<span class=\"hljs-attr\">disabled</span>]=<span class=\"hljs-string\">&quot;true&quot;</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>Seperated Item 4<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-label</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>Description of Item 4<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-sublabel</span>&gt;</span>\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-select-list-item</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-autocomplete</span>&gt;</span></pre>\n<h3 id=\"vcl-autocomplete-attributes\">vcl-autocomplete attributes</h3>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>width</code></td>\n<td>number | string</td>\n<td></td>\n<td>Dropdown width</td>\n</tr>\n<tr>\n<td><code>height</code></td>\n<td>number | string</td>\n<td>&apos;20em&apos;</td>\n<td>Dropdown height</td>\n</tr>\n<tr>\n<td><code>maxHeight</code></td>\n<td>number | string</td>\n<td></td>\n<td>Dropdown max height</td>\n</tr>\n</tbody></table>\n<h3 id=\"vcl-autocomplete-events\">vcl-autocomplete events</h3>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>afterClose</code></td>\n<td>any</td>\n<td>Fired after the dropdown was closed</td>\n</tr>\n</tbody></table>\n<h3 id=\"inputvclautocomplete-attributes\">input[vclAutocomplete] attributes</h3>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>vclAutocomplete</code></td>\n<td>vcl-autocomplete</td>\n<td></td>\n<td>The autocomplete component to use</td>\n</tr>\n</tbody></table>\n"
 
 /***/ })
 

@@ -337,7 +337,7 @@ var routes = [
         }
     },
     {
-        loadChildren: './demos/autocomplete/demo.module#DropdownDemoModule',
+        loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
         path: 'autocomplete',
         data: {
             demo: {
@@ -6368,7 +6368,7 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, ComponentOverlay, TemplateOverlay */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SELECT_LIST_CONTENT_TOKEN, VCLSelectListModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, ComponentOverlay, TemplateOverlay */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6561,6 +6561,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLTourModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLTourModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLRatingModule"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectListDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListHeaderComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectListHeaderComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListItemComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectListItemComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListLabelDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectListLabelDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListSublabelDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectListSublabelDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListSeparatorComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectListSeparatorComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListContentDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectListContentDirective"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SELECT_LIST_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SELECT_LIST_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SELECT_LIST_CONTENT_TOKEN", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SELECT_LIST_CONTENT_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectListModule", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["VCLSelectListModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["SelectComponent"]; });
 
@@ -9791,7 +9811,7 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, ComponentOverlay, TemplateOverlay */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SELECT_LIST_CONTENT_TOKEN, VCLSelectListModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, ComponentOverlay, TemplateOverlay */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10024,34 +10044,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./rating/index */ "./lib/ng-vcl/src/rating/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLRatingModule", function() { return _rating_index__WEBPACK_IMPORTED_MODULE_35__["VCLRatingModule"]; });
 
-/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_36__["SelectComponent"]; });
+/* harmony import */ var _select_list_index__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./select-list/index */ "./lib/ng-vcl/src/select-list/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListDirective", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SelectListDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_36__["VCLSelectModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListHeaderComponent", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SelectListHeaderComponent"]; });
 
-/* harmony import */ var _notifier_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./notifier/index */ "./lib/ng-vcl/src/notifier/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationComponent", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_37__["NotificationComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListItemComponent", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SelectListItemComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_37__["NotifierService"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListLabelDirective", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SelectListLabelDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_37__["NotifierType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListSublabelDirective", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SelectListSublabelDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_37__["NotifierPosition"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListSeparatorComponent", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SelectListSeparatorComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_CONFIG_TOKEN", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_37__["NOTIFICATION_CONFIG_TOKEN"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListContentDirective", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SelectListContentDirective"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_ANIMATION_PARAMS_TOKEN", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_37__["NOTIFICATION_ANIMATION_PARAMS_TOKEN"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SELECT_LIST_TOKEN", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SELECT_LIST_TOKEN"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotifierModule", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_37__["VCLNotifierModule"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SELECT_LIST_CONTENT_TOKEN", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["SELECT_LIST_CONTENT_TOKEN"]; });
 
-/* harmony import */ var _autocomplete_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./autocomplete/index */ "./lib/ng-vcl/src/autocomplete/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_38__["AutocompleteComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectListModule", function() { return _select_list_index__WEBPACK_IMPORTED_MODULE_36__["VCLSelectListModule"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_38__["VCLAutocompleteModule"]; });
+/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./select/index */ "./lib/ng-vcl/src/select/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _select_index__WEBPACK_IMPORTED_MODULE_37__["SelectComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLSelectModule", function() { return _select_index__WEBPACK_IMPORTED_MODULE_37__["VCLSelectModule"]; });
+
+/* harmony import */ var _notifier_index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./notifier/index */ "./lib/ng-vcl/src/notifier/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotificationComponent", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotificationComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierService", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotifierService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierType", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotifierType"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NotifierPosition", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NotifierPosition"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_CONFIG_TOKEN", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NOTIFICATION_CONFIG_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOTIFICATION_ANIMATION_PARAMS_TOKEN", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["NOTIFICATION_ANIMATION_PARAMS_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLNotifierModule", function() { return _notifier_index__WEBPACK_IMPORTED_MODULE_38__["VCLNotifierModule"]; });
+
+/* harmony import */ var _autocomplete_index__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./autocomplete/index */ "./lib/ng-vcl/src/autocomplete/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AutocompleteComponent", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_39__["AutocompleteComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VCLAutocompleteModule", function() { return _autocomplete_index__WEBPACK_IMPORTED_MODULE_39__["VCLAutocompleteModule"]; });
 
 /*
  * Public API Surface of ng-vcl
  */
+
 
 
 
@@ -11416,8 +11458,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectListItemComponent", function() { return SelectListItemComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types */ "./lib/ng-vcl/src/select-list/types.ts");
-/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types */ "./lib/ng-vcl/src/select-list/types.ts");
 
 
 
@@ -11513,7 +11555,7 @@ var SelectListItemComponent = /** @class */ (function () {
         this.selectList.onItemBlur(this);
     };
     SelectListItemComponent.prototype.onKeypress = function (event) {
-        if (event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["ENTER"]) {
+        if (event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_2__["ENTER"]) {
             this.selectList.selectItem(this);
         }
     };
@@ -11592,11 +11634,11 @@ var SelectListItemComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./select-list-item.component.html */ "./lib/ng-vcl/src/select-list/components/select-list-item.component.html"),
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             providers: [{
-                    provide: _types__WEBPACK_IMPORTED_MODULE_2__["SELECT_LIST_CONTENT_TOKEN"],
+                    provide: _types__WEBPACK_IMPORTED_MODULE_3__["SELECT_LIST_CONTENT_TOKEN"],
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SelectListItemComponent_1; })
                 }]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_types__WEBPACK_IMPORTED_MODULE_2__["SELECT_LIST_TOKEN"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_types__WEBPACK_IMPORTED_MODULE_3__["SELECT_LIST_TOKEN"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
     ], SelectListItemComponent);
     return SelectListItemComponent;
@@ -11666,7 +11708,7 @@ var SelectListSeparatorComponent = /** @class */ (function () {
 /*!*********************************************!*\
   !*** ./lib/ng-vcl/src/select-list/index.ts ***!
   \*********************************************/
-/*! exports provided: SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, VCLSelectListModule */
+/*! exports provided: SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SELECT_LIST_CONTENT_TOKEN, VCLSelectListModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11697,6 +11739,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _components_select_list_content_directive__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/select-list-content.directive */ "./lib/ng-vcl/src/select-list/components/select-list-content.directive.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectListContentDirective", function() { return _components_select_list_content_directive__WEBPACK_IMPORTED_MODULE_11__["SelectListContentDirective"]; });
+
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/select-list/types.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SELECT_LIST_TOKEN", function() { return _types__WEBPACK_IMPORTED_MODULE_12__["SELECT_LIST_TOKEN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SELECT_LIST_CONTENT_TOKEN", function() { return _types__WEBPACK_IMPORTED_MODULE_12__["SELECT_LIST_CONTENT_TOKEN"]; });
+
 
 
 
@@ -11741,11 +11789,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectListDirective", function() { return SelectListDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _components_select_list_item_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/select-list-item.component */ "./lib/ng-vcl/src/select-list/components/select-list-item.component.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/select-list/types.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/select-list/types.ts");
+/* harmony import */ var _components_select_list_item_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/select-list-item.component */ "./lib/ng-vcl/src/select-list/components/select-list-item.component.ts");
 
 
 
@@ -11761,11 +11809,11 @@ var SelectListDirective = /** @class */ (function () {
         this._errorStateAgent = _errorStateAgent;
         this._cvaDisabled = false;
         this.generatedId = 'vcl_select_list_' + UNIQUE_ID++;
-        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.stateChange = this.stateChangeEmitter.asObservable();
         this.controlType = 'slider';
         this._hostClasses = true;
-        this._itemsChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this._itemsChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.itemsChange = this._itemsChangeEmitter.asObservable();
         this.selectionMode = 'single';
         this.disabled = false;
@@ -11986,11 +12034,11 @@ var SelectListDirective = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SelectListDirective.prototype, "valueChange", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_components_select_list_item_component__WEBPACK_IMPORTED_MODULE_2__["SelectListItemComponent"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_components_select_list_item_component__WEBPACK_IMPORTED_MODULE_6__["SelectListItemComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], SelectListDirective.prototype, "_items", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_types__WEBPACK_IMPORTED_MODULE_3__["SELECT_LIST_CONTENT_TOKEN"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"])(_types__WEBPACK_IMPORTED_MODULE_5__["SELECT_LIST_CONTENT_TOKEN"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["QueryList"])
     ], SelectListDirective.prototype, "_content", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -12004,21 +12052,21 @@ var SelectListDirective = /** @class */ (function () {
             exportAs: 'vclSelectList',
             providers: [
                 {
-                    provide: _types__WEBPACK_IMPORTED_MODULE_3__["SELECT_LIST_TOKEN"],
+                    provide: _types__WEBPACK_IMPORTED_MODULE_5__["SELECT_LIST_TOKEN"],
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SelectListDirective_1; })
                 },
                 {
-                    provide: _form_control_group_index__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_INPUT"],
+                    provide: _form_control_group_index__WEBPACK_IMPORTED_MODULE_4__["FORM_CONTROL_INPUT"],
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SelectListDirective_1; })
                 }
             ]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group_index__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_HOST"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group_index__WEBPACK_IMPORTED_MODULE_4__["FORM_CONTROL_HOST"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group_index__WEBPACK_IMPORTED_MODULE_6__["FORM_CONTROL_ERROR_STATE_AGENT"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"], Object, Function])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_form_control_group_index__WEBPACK_IMPORTED_MODULE_4__["FORM_CONTROL_ERROR_STATE_AGENT"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControl"], Object, Function])
     ], SelectListDirective);
     return SelectListDirective;
 }());
@@ -12104,7 +12152,7 @@ var VCLSelectModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<input #input \n       vclInput\n       [value]=\"inputValue\"\n       [attr.tabindex]=\"-1\"\n       [disabled]=\"isDisabled\"\n       class=\"vclAppItem vclReadonly\"\n       role=\"listbox\"\n       readonly\n       >\n<button #btn\n        vcl-square-button\n        type=\"button\"\n        tabindex=\"-1\"\n        [disabled]=\"isDisabled\"\n        class=\"vclAppended\"\n      >\n      <vcl-icon icon=\"fas:chevron-down\"></vcl-icon>\n</button>\n\n<ng-template>\n  <div style=\"width: 100%\">\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n\n"
+module.exports = "<input #input \n       vclInput\n       [value]=\"inputValue\"\n       [attr.tabindex]=\"-1\"\n       [disabled]=\"isDisabled\"\n       class=\"vclAppItem vclReadonly\"\n       role=\"listbox\"\n       readonly\n       >\n<button #btn\n        vcl-square-button\n        type=\"button\"\n        tabindex=\"-1\"\n        [disabled]=\"isDisabled\"\n        class=\"vclAppended\"\n      >\n      <vcl-icon icon=\"fas:chevron-down\"></vcl-icon>\n</button>\n\n<ng-template>\n  <div style=\"width: 100%\">\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n"
 
 /***/ }),
 
@@ -12122,13 +12170,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _select_list_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../select-list/index */ "./lib/ng-vcl/src/select-list/index.ts");
-/* harmony import */ var _overlay_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../overlay/index */ "./lib/ng-vcl/src/overlay/index.ts");
-/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
-/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/cdk/bidi */ "./node_modules/@angular/cdk/esm5/bidi.es5.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/overlay */ "./node_modules/@angular/cdk/esm5/overlay.es5.js");
+/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/bidi */ "./node_modules/@angular/cdk/esm5/bidi.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
+/* harmony import */ var _overlay_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../overlay/index */ "./lib/ng-vcl/src/overlay/index.ts");
+/* harmony import */ var _select_list_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../select-list/index */ "./lib/ng-vcl/src/select-list/index.ts");
 
 
 
@@ -12260,7 +12308,7 @@ var SelectComponent = /** @class */ (function (_super) {
         }
     };
     SelectComponent.prototype.attach = function () {
-        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_6__["OverlayConfig"]({
+        var config = new _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__["OverlayConfig"]({
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             direction: this._dir,
             width: this.width !== undefined ? this.width : this.elementRef.nativeElement.getBoundingClientRect().width,
@@ -12292,7 +12340,7 @@ var SelectComponent = /** @class */ (function (_super) {
     };
     SelectComponent.prototype.afterAttached = function () {
         var _this = this;
-        this.selectList.valueChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["takeUntil"])(this.afterClose)).subscribe(function () {
+        this.selectList.valueChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this.afterClose)).subscribe(function () {
             if (_this.isAttached) {
                 if (_this.selectList.selectionMode === 'single') {
                     _this.detach();
@@ -12302,14 +12350,14 @@ var SelectComponent = /** @class */ (function (_super) {
                 }
             }
         });
-        this._dropdownOpenedSub = this.selectList.itemsChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["startWith"])(undefined), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["switchMap"])(function () {
+        this._dropdownOpenedSub = this.selectList.itemsChange.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["startWith"])(undefined), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function () {
             if (!_this.isAttached) {
                 return rxjs__WEBPACK_IMPORTED_MODULE_3__["NEVER"];
             }
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"])(_this.overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["filter"])(function (event) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"])(_this.overlayRef.keydownEvents().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["filter"])(function (event) {
                 return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_2__["ESCAPE"];
-            })), Object(_off_click_index__WEBPACK_IMPORTED_MODULE_9__["createOffClickStream"])([_this.overlayRef.overlayElement, _this.elementRef.nativeElement], {
-                document: _this.injector.get(_angular_platform_browser__WEBPACK_IMPORTED_MODULE_10__["DOCUMENT"])
+            })), Object(_off_click_index__WEBPACK_IMPORTED_MODULE_8__["createOffClickStream"])([_this.overlayRef.overlayElement, _this.elementRef.nativeElement], {
+                document: _this.injector.get(_angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["DOCUMENT"])
             }));
         })).subscribe(function () {
             _this.detach();
@@ -12329,8 +12377,8 @@ var SelectComponent = /** @class */ (function (_super) {
         this.destroy();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_select_list_index__WEBPACK_IMPORTED_MODULE_4__["SelectListDirective"]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _select_list_index__WEBPACK_IMPORTED_MODULE_4__["SelectListDirective"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_select_list_index__WEBPACK_IMPORTED_MODULE_10__["SelectListDirective"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _select_list_index__WEBPACK_IMPORTED_MODULE_10__["SelectListDirective"])
     ], SelectComponent.prototype, "selectList", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('input', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
@@ -12427,14 +12475,14 @@ var SelectComponent = /** @class */ (function (_super) {
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
-            _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_7__["Directionality"],
-            _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_6__["Overlay"],
+            _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__["Directionality"],
+            _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_4__["Overlay"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], SelectComponent);
     return SelectComponent;
-}(_overlay_index__WEBPACK_IMPORTED_MODULE_5__["TemplateOverlay"]));
+}(_overlay_index__WEBPACK_IMPORTED_MODULE_9__["TemplateOverlay"]));
 
 
 

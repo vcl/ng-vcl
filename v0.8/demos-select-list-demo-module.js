@@ -62,8 +62,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/scrolling */ "./node_modules/@angular/cdk/esm5/scrolling.es5.js");
 /* harmony import */ var _modules_demo_demo_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../modules/demo/demo.module */ "./demo/app/modules/demo/demo.module.ts");
 /* harmony import */ var _demo_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./demo.component */ "./demo/app/demos/select-list/demo.component.ts");
-/* harmony import */ var _ng_vcl_ng_vcl_select_list__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ng-vcl/ng-vcl/select-list */ "./lib/ng-vcl/src/select-list/index.ts");
-
 
 
 
@@ -104,7 +102,7 @@ var SelectListDemoModule = /** @class */ (function () {
                 _modules_demo_demo_module__WEBPACK_IMPORTED_MODULE_7__["DemoModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_5__["VCLButtonModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_5__["VCLEmbeddedInputGroupModule"],
-                _ng_vcl_ng_vcl_select_list__WEBPACK_IMPORTED_MODULE_9__["VCLSelectListModule"],
+                _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_5__["VCLSelectModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_5__["VCLIconModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_5__["VCLInputModule"],
                 _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_5__["VCLIcogramModule"],
