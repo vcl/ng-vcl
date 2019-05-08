@@ -108,25 +108,25 @@
 
     <vcl-form-control-group>
       <label vclFormControlLabel>Perks<vcl-required></vcl-required></label>
-      <vcl-select formControlName="perks" label="Select perks" selectionMode="multiple" >
-        <vcl-dropdown>
-          <vcl-dropdown-item [value]="'snakeeater'">
-            <vcl-dropdown-label>Snake Eater</vcl-dropdown-label>
-            <vcl-dropdown-sublabel>It gives you a 25% increase to your poison resistance.	</vcl-dropdown-sublabel>
-          </vcl-dropdown-item>
-          <vcl-dropdown-item [value]="'swiftlearner'">
-            <vcl-dropdown-label>Swift Learner</vcl-dropdown-label>
-            <vcl-dropdown-sublabel>Swift Learner	Whenever you gain experience, you'll receive 5% more experience per level of the perk.</vcl-dropdown-sublabel>
-          </vcl-dropdown-item>
-          <vcl-dropdown-item [value]="'toughness'">
-            <vcl-dropdown-label>Toughness</vcl-dropdown-label>
-            <vcl-dropdown-sublabel>It adds 10% to your general damage resistance per level.</vcl-dropdown-sublabel>
-          </vcl-dropdown-item>
-          <vcl-dropdown-item [value]="'explorer'">
-            <vcl-dropdown-label>Explorer</vcl-dropdown-label>
-            <vcl-dropdown-sublabel>You'll get more random encounters with this perk.</vcl-dropdown-sublabel>
-          </vcl-dropdown-item> 
-        </vcl-dropdown>
+      <vcl-select label="Select perks">
+        <vcl-select-list formControlName="perks"  selectionMode="multiple">
+          <vcl-select-list-item [value]="'snakeeater'">
+            <vcl-select-list-label>Snake Eater</vcl-select-list-label>
+            <vcl-select-list-sublabel>It gives you a 25% increase to your poison resistance.	</vcl-select-list-sublabel>
+          </vcl-select-list-item>
+          <vcl-select-list-item [value]="'swiftlearner'">
+            <vcl-select-list-label>Swift Learner</vcl-select-list-label>
+            <vcl-select-list-sublabel>Swift Learner	Whenever you gain experience, you'll receive 5% more experience per level of the perk.</vcl-select-list-sublabel>
+          </vcl-select-list-item>
+          <vcl-select-list-item [value]="'toughness'">
+            <vcl-select-list-label>Toughness</vcl-select-list-label>
+            <vcl-select-list-sublabel>It adds 10% to your general damage resistance per level.</vcl-select-list-sublabel>
+          </vcl-select-list-item>
+          <vcl-select-list-item [value]="'explorer'">
+            <vcl-select-list-label>Explorer</vcl-select-list-label>
+            <vcl-select-list-sublabel>You'll get more random encounters with this perk.</vcl-select-list-sublabel>
+          </vcl-select-list-item> 
+        </vcl-select-list>
       </vcl-select>
       <vcl-hint-error error="perks">You must select at least two perks</vcl-hint-error>
     </vcl-form-control-group>

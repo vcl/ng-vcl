@@ -7,10 +7,10 @@
          vclInput 
          placeholder="Search Google Books api" 
          (input)="search$.next($event.target.value)"
-         [vclDropdown]="dropdownBooks"
-         [vclDropdownDisabled]="search.state === 'cleared'"
-         [vclDropdownMapViewValue]="'void'"
-         (vclDropdownSelectionChange)="onSelectBook($event)"
+         [vclAutocomplete]="acBooks"
+         [vclAutocompleteDisabled]="search.state === 'cleared'"
+         [vclAutocompleteMapInputValue]="'void'"
+         (vclAutocompleteSelectionChange)="onSelectBook($event)"
          />
   <button vcl-square-button vclAppend
           (click)="inputBooks.value = ''; inputBooks.focus(); search$.next('')">
@@ -18,19 +18,21 @@
   </button>
 </vcl-embedded-input-group>
 
-<vcl-dropdown #dropdownBooks="vclDropdown">
-  <vcl-dropdown-content *ngIf="search.state === 'loading'" >
-    <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
-  </vcl-dropdown-content>
-  <vcl-dropdown-content *ngIf="search.state === 'success' && search.books.length === 0">
-    <div style="padding: 1em">No books found</div>
-  </vcl-dropdown-content>
-  <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
-    <vcl-dropdown-item *ngFor="let book of search.books" [value]="book">
-      <vcl-dropdown-label>{{book.title}}</vcl-dropdown-label>
-    </vcl-dropdown-item>
-  </ng-container>
-</vcl-dropdown>
+<vcl-autocomplete #acBooks="vclAutocomplete">
+  <vcl-select-list>
+    <vcl-select-list-content *ngIf="search.state === 'loading'" >
+      <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
+    </vcl-select-list-content>
+    <vcl-select-list-content *ngIf="search.state === 'success' && search.books.length === 0">
+      <div style="padding: 1em">No books found</div>
+    </vcl-select-list-content>
+    <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
+      <vcl-select-list-item *ngFor="let book of search.books" [value]="book">
+        <vcl-select-list-label>{{book.title}}</vcl-select-list-label>
+      </vcl-select-list-item>
+    </ng-container>
+  </vcl-select-list>
+</vcl-autocomplete>
 
 <ng-container *ngIf="books.length > 0">
 

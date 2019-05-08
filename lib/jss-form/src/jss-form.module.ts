@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JssFormComponent } from './jss-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  VCLButtonModule, VCLDropdownModule, VCLFlipSwitchModule,
+  VCLButtonModule, VCLFlipSwitchModule,
   VCLSliderModule, VCLCheckboxModule,
   VCLRadioButtonModule, VCLTokenModule, VCLIconModule,
   VCLTextareaModule, VCLPasswordInputModule, VCLInputModule, VCLDatePickerModule
@@ -19,7 +19,6 @@ export { markAsDeeplyTouched } from './utils';
     CommonModule,
     ReactiveFormsModule,
     VCLButtonModule,
-    VCLDropdownModule,
     VCLFlipSwitchModule,
     VCLSliderModule,
     VCLCheckboxModule,

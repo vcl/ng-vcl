@@ -2,21 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLButtonModule, VCLEmbeddedInputGroupModule, VCLDropdownModule, VCLBusyIndicatorModule, VCLIconModule, VCLIcogramModule, VCLInputModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonModule, VCLEmbeddedInputGroupModule, VCLBusyIndicatorModule, VCLIconModule, VCLIcogramModule, VCLInputModule } from '@ng-vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { DropdownDemoComponent } from './demo.component';
-import { DropdownAsyncDemoComponent } from './async.component';
+import { SelectListDemoComponent } from './demo.component';
+import { VCLSelectListModule } from '@ng-vcl/ng-vcl/select-list';
 
 export function demo() {
   return {
-    name: 'Dropdown',
+    name: 'Select List',
     tabs: {
-      Demo: DropdownDemoComponent,
-      'Async Demo': DropdownAsyncDemoComponent,
+      Demo: SelectListDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/dropdown/README.md')
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/select-list/README.md')
       },
       'demo.component.html': {
         type: 'pre',
@@ -25,14 +24,6 @@ export function demo() {
       'demo.component.ts': {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
-      },
-      'async.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./async.component.html')
-      },
-      'async.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./async.component.ts')
       }
     }
   };
@@ -45,7 +36,7 @@ export function demo() {
     DemoModule,
     VCLButtonModule,
     VCLEmbeddedInputGroupModule,
-    VCLDropdownModule,
+    VCLSelectListModule,
     VCLIconModule,
     VCLInputModule,
     VCLIcogramModule,
@@ -57,7 +48,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ DropdownDemoComponent, DropdownAsyncDemoComponent ],
-  declarations: [ DropdownDemoComponent, DropdownAsyncDemoComponent ]
+  entryComponents: [ SelectListDemoComponent ],
+  declarations: [ SelectListDemoComponent ]
 })
-export class DropdownDemoModule { }
+export class SelectListDemoModule { }

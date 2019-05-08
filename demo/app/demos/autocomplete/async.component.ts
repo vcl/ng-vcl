@@ -63,8 +63,10 @@ export class DropdownAsyncDemoComponent implements OnDestroy {
   ).subscribe(search => this.search = search);
 
   onSelectBook(book: Book) {
-    this.search$.next('');
-    this.books.push(book);
+    if (book) {
+      this.search$.next('');
+      this.books.push(book);
+    }
   }
 
   onClearBooks() {

@@ -1,25 +1,25 @@
 # vcl-select
 
-A select control. Uses the dropdown component to render a list of selectable items.
+A select control. Utilizes the select-list to render a list of selectable items in a dropdown.
 
 ## Usage
 
 ```html
 <vcl-select [(value)]="value">
-  <vcl-dropdown>
-    <vcl-dropdown-item label=" -">
-      <vcl-dropdown-label>[Clear selection]</vcl-dropdown-label>
-    </vcl-dropdown-item>
-    <vcl-dropdown-item [value]="1">
-      <vcl-dropdown-label>Item 1</vcl-dropdown-label>
-    </vcl-dropdown-item>
-    <vcl-dropdown-item [value]="2">
-      <vcl-dropdown-label>Item 2</vcl-dropdown-label>
-    </vcl-dropdown-item>
-    <vcl-dropdown-item [value]="3">
-      <vcl-dropdown-label>Item 3</vcl-dropdown-label>
-    </vcl-dropdown-item>
-  </vcl-dropdown>
+  <vcl-select-list>
+    <vcl-select-list-item label=" -">
+      <vcl-select-list-label>[Clear selection]</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item [value]="1">
+      <vcl-select-list-label>Item 1</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item [value]="2">
+      <vcl-select-list-label>Item 2</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item [value]="3">
+      <vcl-select-list-label>Item 3</vcl-select-list-label>
+    </vcl-select-list-item>
+  </vcl-select-list>
 </vcl-select>
 ```
 

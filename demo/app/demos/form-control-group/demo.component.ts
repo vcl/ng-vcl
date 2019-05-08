@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, FormControl, ValidationErrors, NgForm } from '@angular/forms';
-import { FormControlErrorStateAgent, FormControlHost, FormControlInput } from 'lib/ng-vcl';
 import { NotifierService, FormControlErrorStateAgent, FormControlHost, FormControlInput } from '@ng-vcl/ng-vcl';
 
 @Component({
@@ -21,6 +20,7 @@ export class FormControlGroupDemoComponent {
     strength: 3,
     agility: 3,
     intelligence: 3,
+    perks: []
   };
 
   formGroup = new FormGroup({
@@ -50,7 +50,7 @@ export class FormControlGroupDemoComponent {
     strength: new FormControl(this.defaultValues.strength, [ Validators.min(1), Validators.max(10)]),
     agility: new FormControl(this.defaultValues.agility, [ Validators.min(1), Validators.max(10)]),
     intelligence: new FormControl(this.defaultValues.intelligence, [ Validators.min(1), Validators.max(10)]),
-    perks: new FormControl(null, [ this.validatePerks.bind(this) ])
+    perks: new FormControl(this.defaultValues.perks, [ this.validatePerks.bind(this) ])
   }, [
     this.validateSkills.bind(this)
   ]);
@@ -79,7 +79,9 @@ export class FormControlGroupDemoComponent {
   }
 
   validatePerks(c: AbstractControl) {
-    return (Array.isArray(c.value) && c.value.length >= 2) ? null : { perks: true };
+    const x = (Array.isArray(c.value) && c.value.length >= 2) ? null : { perks: true };
+    console.log(x);
+    return x;
   }
 
   termsErrorStateAgent: FormControlErrorStateAgent = (form?: FormControlHost, input?: FormControlInput<any>) => {

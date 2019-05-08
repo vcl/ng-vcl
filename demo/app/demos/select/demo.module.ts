@@ -9,12 +9,12 @@ import { SelectDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    name: 'Dropdown',
+    name: 'Select',
     tabs: {
       Demo: SelectDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/dropdown/README.md')
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/select/README.md')
       },
       'demo.component.html': {
         type: 'pre',
