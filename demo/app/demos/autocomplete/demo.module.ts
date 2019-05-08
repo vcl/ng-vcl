@@ -5,19 +5,19 @@ import { RouterModule } from '@angular/router';
 import { VCLButtonModule, VCLEmbeddedInputGroupModule, VCLBusyIndicatorModule, VCLIconModule, VCLIcogramModule, VCLInputModule, VCLAutocompleteModule } from '@ng-vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { DropdownDemoComponent } from './demo.component';
-import { DropdownAsyncDemoComponent } from './async.component';
+import { AutocompleteDemoComponent } from './demo.component';
+import { AutocompleteAsyncDemoComponent } from './async.component';
 
 export function demo() {
   return {
-    name: 'Dropdown',
+    name: 'Autocomplete',
     tabs: {
-      Demo: DropdownDemoComponent,
-      'Async Demo': DropdownAsyncDemoComponent,
-      // 'README.md': {
-      //   type: 'md',
-      //   content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/dropdown/README.md')
-      // },
+      Demo: AutocompleteDemoComponent,
+      'Async Demo': AutocompleteAsyncDemoComponent,
+      'README.md': {
+        type: 'md',
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/autocomplete/README.md')
+      },
       'demo.component.html': {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=html!./demo.component.html')
@@ -57,7 +57,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ DropdownDemoComponent, DropdownAsyncDemoComponent ],
-  declarations: [ DropdownDemoComponent, DropdownAsyncDemoComponent ]
+  entryComponents: [ AutocompleteDemoComponent, AutocompleteAsyncDemoComponent ],
+  declarations: [ AutocompleteDemoComponent, AutocompleteAsyncDemoComponent ]
 })
-export class DropdownDemoModule { }
+export class AutocompleteDemoModule { }

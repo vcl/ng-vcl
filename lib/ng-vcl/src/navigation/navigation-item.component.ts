@@ -44,7 +44,7 @@ export class NavigationItemComponent {
   }
 
   @HostBinding('class.vclSelected')
-  private _selected = false;
+  _selected = false;
 
   @Input()
   set selected(value: boolean) {

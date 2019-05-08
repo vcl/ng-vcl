@@ -11,8 +11,10 @@ import { SelectListHeaderComponent } from './components/select-list-header.compo
 import { SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective } from './components/select-list-item.component';
 import { SelectListSeparatorComponent } from './components/select-list-separator.component';
 import { SelectListContentDirective } from './components/select-list-content.directive';
+import {  SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from './types';
 
-export { SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective };
+export { SelectListDirective, SelectListHeaderComponent, SelectListItemComponent,
+  SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN };
 
 @NgModule({
   imports: [CommonModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule],

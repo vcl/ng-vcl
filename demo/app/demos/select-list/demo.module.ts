@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLButtonModule, VCLEmbeddedInputGroupModule, VCLBusyIndicatorModule, VCLIconModule, VCLIcogramModule, VCLInputModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonModule, VCLEmbeddedInputGroupModule, VCLBusyIndicatorModule, VCLIconModule, VCLIcogramModule, VCLInputModule, VCLSelectModule } from '@ng-vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { SelectListDemoComponent } from './demo.component';
-import { VCLSelectListModule } from '@ng-vcl/ng-vcl/select-list';
 
 export function demo() {
   return {
@@ -36,7 +35,7 @@ export function demo() {
     DemoModule,
     VCLButtonModule,
     VCLEmbeddedInputGroupModule,
-    VCLSelectListModule,
+    VCLSelectModule,
     VCLIconModule,
     VCLInputModule,
     VCLIcogramModule,

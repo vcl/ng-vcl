@@ -20,7 +20,7 @@ interface Search {
 @Component({
   templateUrl: 'async.component.html'
 })
-export class DropdownAsyncDemoComponent implements OnDestroy {
+export class AutocompleteAsyncDemoComponent implements OnDestroy {
   constructor(private http: HttpClient) { }
 
   search: Search = {

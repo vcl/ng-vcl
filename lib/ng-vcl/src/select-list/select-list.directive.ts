@@ -1,9 +1,9 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Directive, ChangeDetectorRef, Optional, Inject } from '@angular/core';
-import { SelectListItemComponent } from './components/select-list-item.component';
-import { SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from './types';
+import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Directive, Optional, Inject } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlInput, FORM_CONTROL_INPUT } from '../form-control-group/index';
+import { SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from './types';
+import { SelectListItemComponent } from './components/select-list-item.component';
 
 let UNIQUE_ID = 0;
 

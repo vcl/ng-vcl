@@ -109,7 +109,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/autocomplete/demo.module#DropdownDemoModule',
+    loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
     path: 'autocomplete',
     data: {
       demo: {

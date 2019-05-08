@@ -1,17 +1,14 @@
 import { Component, Input, HostBinding, ViewChild,
-  ElementRef, HostListener, ContentChild, forwardRef, ChangeDetectorRef, Output, EventEmitter, Optional, Inject, OnDestroy, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+  ElementRef, HostListener, ContentChild, ChangeDetectorRef, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector } from '@angular/core';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { Subject, NEVER, merge, Subscription } from 'rxjs';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
-import { SelectListDirective } from '../select-list/index';
-import { TemplateOverlay } from '../overlay/index';
-import { SelectListItem } from '../select-list/types';
+import { NEVER, merge, Subscription } from 'rxjs';
 import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { startWith, switchMap, filter, take, takeUntil } from 'rxjs/operators';
-import { createOffClickStream } from '../off-click/index';
+import { startWith, switchMap, filter, takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/platform-browser';
+import { createOffClickStream } from '../off-click/index';
+import { TemplateOverlay } from '../overlay/index';
+import { SelectListItem, SelectListDirective } from '../select-list/index';
 
 @Component({
   selector: 'vcl-select',
