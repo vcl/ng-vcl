@@ -49,37 +49,37 @@ export class JssFormObjectComponent {
   ngOnInit() {
     const { schema } = this.fo;
     console.log(schema.hints)
-    if (schema.formControl === 'custom' ) {
-      this.formComponentRef.clear();
+    // if (schema.formControl === 'custom' ) {
+    //   this.formComponentRef.clear();
 
-      const componentConstructor = schema.customComponent;
-      const factory = this.factoryResolver.resolveComponentFactory(componentConstructor as any);
-      const component = this.formComponentRef.createComponent(factory);
+    //   const componentConstructor = schema.customComponent;
+    //   const factory = this.factoryResolver.resolveComponentFactory(componentConstructor as any);
+    //   const component = this.formComponentRef.createComponent(factory);
 
-      if (!this.validCustom(component.instance)) {
-        console.error(component.instance.constructor.name, 'is not an instance of ControlValueAccessor');
-        this.formComponentRef.clear();
-      } else {
-        const { customParameters } = schema;
-        // tslint:disable-next-line: forin
-        for (const key in customParameters) {
-          (<any> component.instance)[key] = customParameters[key];
-        }
+    //   if (!this.validCustom(component.instance)) {
+    //     console.error(component.instance.constructor.name, 'is not an instance of ControlValueAccessor');
+    //     this.formComponentRef.clear();
+    //   } else {
+    //     const { customParameters } = schema;
+    //     // tslint:disable-next-line: forin
+    //     for (const key in customParameters) {
+    //       (<any> component.instance)[key] = customParameters[key];
+    //     }
 
-        (<any> component.instance).registerOnChange((newValue) => {
-          this.form.controls[this.fo.key]!['_pendingValue'] = newValue;
-          this.form.controls[this.fo.key]!['_pendingChange'] = true;
-          this.form.controls[this.fo.key]!['_pendingDirty'] = true;
-          this.form.controls[this.fo.key]!.setValue(newValue, { emitModelToViewChange: false });
-          this.form.controls[this.fo.key]!['_pendingChange'] = false;
-        });
+    //     (<any> component.instance).registerOnChange((newValue) => {
+    //       this.form.controls[this.fo.key]!['_pendingValue'] = newValue;
+    //       this.form.controls[this.fo.key]!['_pendingChange'] = true;
+    //       this.form.controls[this.fo.key]!['_pendingDirty'] = true;
+    //       this.form.controls[this.fo.key]!.setValue(newValue, { emitModelToViewChange: false });
+    //       this.form.controls[this.fo.key]!['_pendingChange'] = false;
+    //     });
 
-        this.form.controls[this.fo.key]!['registerOnChange'](function (newValue, emitModelEvent) {
-          (<any> component.instance).writeValue(newValue);
-        });
-      }
+    //     this.form.controls[this.fo.key]!['registerOnChange'](function (newValue, emitModelEvent) {
+    //       (<any> component.instance).writeValue(newValue);
+    //     });
+    //   }
      
-    }
+    // }
     this.cd.detectChanges();
   }
 

@@ -25,8 +25,8 @@ export class JssFormDemoComponent {
       //   text: `${value.name} is a valid hero`
       // });
     } else {
-      if (this.heroForm.form) {
-        markAsDeeplyTouched(this.heroForm.form);
+      if (this.heroForm.formGr) {
+        markAsDeeplyTouched(this.heroForm.formGr);
       }
       // this.ns.error({
       //   text: `Your hero is not valid`
@@ -35,11 +35,11 @@ export class JssFormDemoComponent {
   }
 
   onAction(action: string) {
-    if (action === 'reset' && this.heroForm.form) {
+    if (action === 'reset' && this.heroForm.formGr) {
       // this.ns.warning({
       //   text: `Hero rejected`
       // });
-      this.heroForm.form.reset({...HERO_DEFAULTS});
+      this.heroForm.formGr.reset({...HERO_DEFAULTS});
     }
   }
 

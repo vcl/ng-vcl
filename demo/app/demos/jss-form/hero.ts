@@ -9,9 +9,8 @@ export const HERO_SCHEMA: VCLFormSchema = {
     name: {
       formControl: 'input',
       label: 'Name',
-      required: true,
       placeholder: 'The hero\'s name',
-      hints: ['The hero\'s name', {error: 'required', message: 'heyy'}],
+      hints: ['The hero\'s name'],
       validator: Validators.required
     },
     description: {
@@ -186,6 +185,11 @@ export const HERO_SCHEMA: VCLFormSchema = {
     //     }
     //   }
     // },
+    quantity: {
+      formControl: 'number',
+      label: 'Quantity',
+      required: true,
+    },
     simpleButton: {
       formControl: 'button',
       label: 'simpleButton',

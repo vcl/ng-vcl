@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JssFormComponent } from './jss-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import {
   VCLButtonModule, VCLDropdownModule, VCLFlipSwitchModule,
   VCLSliderModule, VCLCheckboxModule,VCLFormControlGroupModule,
@@ -12,7 +13,7 @@ import {
 
 import { JssFormObjectComponent } from './jss-form-object.component';
 import { VCLFormSchemaOptions, VCLFormSchema } from './types';
-import { FormsModule } from '@angular/forms';
+
 
 export { JssFormComponent, JssFormObjectComponent, VCLFormSchema, VCLFormSchemaOptions };
 export { markAsDeeplyTouched } from './utils';
@@ -20,6 +21,7 @@ export { markAsDeeplyTouched } from './utils';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     VCLButtonModule,
     VCLButtonGroupModule,
@@ -36,7 +38,6 @@ export { markAsDeeplyTouched } from './utils';
     VCLFormControlGroupModule,
     VCLDatePickerModule,
     VCLSelectModule,
-    FormsModule
   ],
   exports: [JssFormComponent, JssFormObjectComponent],
   declarations: [JssFormComponent, JssFormObjectComponent],

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges,
-  SimpleChanges, forwardRef
+  SimpleChanges, forwardRef, ChangeDetectorRef
 } from '@angular/core';
 import {
   FormGroup, FormBuilder, AbstractControl, NG_VALUE_ACCESSOR,
@@ -52,15 +52,16 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
     }
   }
 
-  form: FormGroup | undefined;
+  formGr: FormGroup | undefined;
   formObjects: FormObject[] | undefined;
 
   private formValueChangeSub: Subscription;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private cd:ChangeDetectorRef) { }
 
   onSubmit() {
-    this.ngSubmit.emit(this.form && this.form.value);
+    console.log(this.formGr)
+    this.ngSubmit.emit(this.formGr && this.formGr.value);
   }
   onAction(event) {
     this.action.emit(event);
@@ -70,15 +71,17 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
     if (changes.schema) {
       const schema = changes.schema.currentValue;
       this.formObjects = (<FormObject[] | undefined> createFormObjects(schema));
-      this.form = (<FormGroup> this.createFormGroup(schema));
-
+      this.formGr = (<FormGroup> this.createFormGroup(schema));
+      console.log(this.formGr )
       this.formValueChangeSub && this.formValueChangeSub.unsubscribe();
-      this.formValueChangeSub = this.form.valueChanges.subscribe(value => {
+      this.formValueChangeSub = this.formGr.valueChanges.subscribe(value => {
         this.onChange && this.onChange(value);
       });
     }
   }
-
+  ngOnInit() {
+    this.cd.detectChanges();
+  }
   /**
    * create the formGroup for the given schema
    */
@@ -103,27 +106,33 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
           // non-objects
           } else {
             let state: any = '';
+            let typeValidator: ValidatorFn;
             switch (prop.formControl) {
               case 'number':
                 state = null;
+                typeValidator = this.createTypeValidator((value) => typeof value === 'number');
                 break;
               case 'token':
                 state = [];
+                typeValidator = this.createTypeValidator((value) => Array.isArray(value));
                 break;
               case 'dropdown':
                 if (prop.selectionMode === 'multiple') {
                   state = [];
+                  typeValidator = this.createTypeValidator((value) => Array.isArray(value));
                 }
                 break;
               case 'checkbox':
+              case 'switch':
+                typeValidator = this.createTypeValidator((value) => typeof value === 'boolean');
                 state = false;
                 break;
               case undefined:
                 state = undefined;
                 break;
             }
-            const validator = this.createValidator(prop);
-            group[key] = new FormControl(state, validator);
+            const validators = [prop.validator, typeValidator].filter(v => v);
+            group[key] = new FormControl(state,validators);
           }
         }
 
@@ -132,75 +141,24 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
       if (schema.formControl === 'array') {
         return this.fb.array([
           this.fb.group(group)
-        ]);
+        ], this.createChildControlsValidator());
       }
 
-      return this.fb.group(group);
+      return this.fb.group(group, this.createChildControlsValidator());
 
     };
     return createGroup(schemaB);
   }
 
-  /**
-   * validate if value matches schema
-   * @return error-array or null if no errors
-   */
-  private createValidator(schema: VCLFormSchema) {
-    const isJsonSchema = typeof schema.validator === 'object';
-    if (isJsonSchema) {
-      return this.createJSSValidator(schema.validator as Schema);
-    } else if (schema.validator) {
-      return schema.validator as ValidatorFn;
-    } else {
-      let validatorProps;
-      switch (schema.formControl) {
-        case 'input' : case 'textarea': case 'password' : {
-          validatorProps = this.geValidatorProps('string', schema);
-          break;
-        }
-        case 'number': {
-          validatorProps = this.geValidatorProps('number', schema);
-          break;
-        }
-        case 'dropdown' : {
-          const type = schema.selectionMode === 'multiple' ? 'array' : 'string';
-          validatorProps = this.geValidatorProps(type, schema);
-          break;
-        }
-        case 'switch' || 'checkbox': {
-          validatorProps = { type: 'boolean' };
-          break;
-        }
-        case 'slider': {
-          validatorProps = { type: 'number' };
-          break;
-        }
-        case 'token': {
-          validatorProps = this.geValidatorProps('array', schema);
-          break;
-        }
-      }
-
-      return validatorProps ? this.createJSSValidator(validatorProps) : null;
-    }
-  }
-  private createJSSValidator(schema: Schema) {
+  private createTypeValidator(isValid) {
     return (c: AbstractControl) => {
-      if (!VALIDATOR) {
-        VALIDATOR = new Validator();
-      }
-      const result = VALIDATOR.validate(c.value, schema, {});
-      if (result && !result.valid) {
-        const error = {};
-        result.errors.forEach(err => {
-          error[err.name] = err.message;
-        });
-        return error;
-      }
-
-      return null;
+      const hasError = !isValid(c.value);
+      console.log(c.value)
+      console.log(hasError)
+      return hasError ? { type: hasError} : undefined;
     };
   }
+
   private createChildControlsValidator() {
     return (c: AbstractControl) => {
       const controls = (c as FormGroup).controls;
@@ -216,19 +174,7 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
         }, {});
     };
   }
-  geValidatorProps(type: string, schema: VCLFormSchema){
-    switch (type) {
-      case 'string':  {
-        return schema.required ? { type, minLength: 1 } : { type };
-      }
-      case 'array': {
-        return schema.required ? { type, minItems: 1 } : { type };
-      }
-      case 'number': {
-        return { type: schema.required ? 'number' : ['number', 'null']};
-      }
-    }
-  }
+
 
   /**
    * things needed for ControlValueAccessor-Interface
@@ -237,8 +183,8 @@ export class JssFormComponent implements OnChanges, ControlValueAccessor {
   private onTouched: () => any = () => {};
 
   writeValue(value: any): void {
-    if (this.form && value && typeof value === 'object') {
-      this.form.patchValue(value);
+    if (this.formGr && value && typeof value === 'object') {
+      this.formGr.patchValue(value);
     }
   }
   registerOnChange(fn: any) {
