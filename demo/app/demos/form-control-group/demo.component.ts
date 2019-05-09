@@ -79,9 +79,7 @@ export class FormControlGroupDemoComponent {
   }
 
   validatePerks(c: AbstractControl) {
-    const x = (Array.isArray(c.value) && c.value.length >= 2) ? null : { perks: true };
-    console.log(x);
-    return x;
+    return (Array.isArray(c.value) && c.value.length === 2) ? null : { perks: true };
   }
 
   termsErrorStateAgent: FormControlErrorStateAgent = (form?: FormControlHost, input?: FormControlInput<any>) => {

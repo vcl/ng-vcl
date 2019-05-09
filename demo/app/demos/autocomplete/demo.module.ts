@@ -10,7 +10,7 @@ import { AutocompleteAsyncDemoComponent } from './async.component';
 
 export function demo() {
   return {
-    name: 'Autocomplete',
+    label: 'Autocomplete',
     tabs: {
       Demo: AutocompleteDemoComponent,
       'Async Demo': AutocompleteAsyncDemoComponent,

@@ -30,6 +30,7 @@ A select control. Utilizes the select-list to render a list of selectable items 
 Name                  | Type                        | Default  | Description
 --------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
 `value`               | any &#124; any[]            |          | value(s) of the selected option(s)
+`placeholder`         | string                      |          | 
 `selectionMode`       | "single" &#124; "multiple"  | "single" |
 `tabindex`            | number                      | 0        | The tabindex of the select
 `disabled`            | boolean                     | false    | Disabled the control when true

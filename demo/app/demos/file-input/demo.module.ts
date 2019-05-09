@@ -8,7 +8,7 @@ import { FileInputDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    name: 'File Input',
+    label: 'File Input',
     tabs: {
       Demo: FileInputDemoComponent,
       'README.md': {

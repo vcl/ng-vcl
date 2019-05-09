@@ -108,7 +108,7 @@
 
     <vcl-form-control-group>
       <label vclFormControlLabel>Perks<vcl-required></vcl-required></label>
-      <vcl-select label="Select perks">
+      <vcl-select placeholder="Select perks">
         <vcl-select-list formControlName="perks"  selectionMode="multiple">
           <vcl-select-list-item [value]="'snakeeater'">
             <vcl-select-list-label>Snake Eater</vcl-select-list-label>
@@ -128,7 +128,7 @@
           </vcl-select-list-item> 
         </vcl-select-list>
       </vcl-select>
-      <vcl-hint-error error="perks">You must select at least two perks</vcl-hint-error>
+      <vcl-hint-error error="perks">You must select two perks</vcl-hint-error>
     </vcl-form-control-group>
   
     <vcl-form-control-group>

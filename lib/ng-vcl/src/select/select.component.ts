@@ -65,7 +65,7 @@ export class SelectComponent extends TemplateOverlay<SelectListItem, any> implem
   maxHeight?: number | string;
 
   @Input()
-  label?: string;
+  placeholder?: string;
 
   @Output()
   afterClose = new EventEmitter<any | any[]>();
@@ -145,14 +145,12 @@ export class SelectComponent extends TemplateOverlay<SelectListItem, any> implem
     if (this.selectList.selectionMode === 'single') {
       const items = this.selectList.getItems();
       const item = items.find(_item => this.selectList.value === _item.value);
-      return item ? item.label : (this.label || '');
+      return item ? item.label : (this.placeholder || '');
     } else {
       const value = Array.isArray(this.selectList.value) ? this.selectList.value : [];
-
       const items = this.selectList.getItems();
       const labels = items.filter(item => value.includes(item.value)).map(item => item.label);
-
-      return labels.length === 0 ? (this.label || '') : labels.join(', ');
+      return labels.length === 0 ? (this.placeholder || '') : labels.join(', ');
     }
   }
 

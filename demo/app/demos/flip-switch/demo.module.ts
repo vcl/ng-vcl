@@ -8,7 +8,7 @@ import { FlipSwitchDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    name: 'Flip-Switch',
+    label: 'Flip-Switch',
     tabs: {
       Demo: FlipSwitchDemoComponent,
       'README.md': {

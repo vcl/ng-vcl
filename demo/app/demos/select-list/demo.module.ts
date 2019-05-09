@@ -9,7 +9,7 @@ import { SelectListDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    name: 'Select List',
+    label: 'Select List',
     tabs: {
       Demo: SelectListDemoComponent,
       'README.md': {

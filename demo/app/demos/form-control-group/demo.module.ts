@@ -17,7 +17,7 @@ import { FormControlGroupDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    name: 'Form',
+    label: 'Form Control Group',
     tabs: {
       Demo: FormControlGroupDemoComponent,
       'README.md': {

@@ -8,7 +8,7 @@ import {VCLRatingModule} from '@ng-vcl/ng-vcl';
 
 export function demo() {
   return {
-    name: 'Rating',
+    label: 'Rating',
     tabs: {
       Demo: RatingDemoComponent,
       'README.md': {

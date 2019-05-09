@@ -1,6 +1,7 @@
 import { Component, HostBinding, ContentChild, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
 import { Subject } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'vcl-form-control-group, vcl-form-inline-control-group',
@@ -37,7 +38,7 @@ export class FormControlGroupComponent implements FormControlGroup, AfterViewIni
 
   ngAfterViewInit() {
     if (this.input) {
-      this.input.stateChange.subscribe(this._stateChangeEmitter);
+      this.input.stateChange.pipe(startWith(undefined)).subscribe(this._stateChangeEmitter);
     }
   }
 
