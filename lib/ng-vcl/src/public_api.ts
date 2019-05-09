@@ -41,3 +41,4 @@ export * from './select-list/index';
 export * from './select/index';
 export * from './notifier/index';
 export * from './autocomplete/index';
+export * from './jss-form/index';
