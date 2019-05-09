@@ -3,18 +3,18 @@
   #heroForm 
   [schema]="heroSchema" 
   [(ngModel)]="value" 
-  (ngSubmit)="onSubmit($event, heroForm.form.valid)" 
+  (ngSubmit)="onSubmit($event, heroForm.formGr.valid)" 
   (action)="onAction($event)">
 </vcl-jss-form>
 
 <div class="error">
-  <pre>Status: {{ heroForm.form.status }}</pre>
+  <pre>Status: {{ heroForm.formGr.status }}</pre>
 </div>
 
 <div class="value">
-  <pre>Value: {{ heroForm.form.value | json }}</pre>
+  <pre>Value: {{ heroForm.formGr.value | json }}</pre>
 </div>
 
 <div class="error">
-  <pre>Errors: {{ heroForm.form.errors | json }}</pre>
+  <pre>Errors: {{ heroForm.formGr.errors | json }}</pre>
 </div>

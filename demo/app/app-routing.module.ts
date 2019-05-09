@@ -238,16 +238,16 @@ export const routes: Routes = [
       }
     }
   },
-  // // {
-  // //   loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
-  // //   path: 'jss-form',
-  // //   data: {
-  // //     demo: {
-  // //       label: 'JSS-Form',
-  // //       category: CAT_FORMS,
-  // //     }
-  // //   }
-  // // },
+  {
+    loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
+    path: 'jss-form',
+    data: {
+      demo: {
+        label: 'JSS-Form',
+        category: CAT_FORMS,
+      }
+    }
+  },
   {
     loadChildren: './demos/alert/demo.module#AlertDemoModule',
     path: 'alert',

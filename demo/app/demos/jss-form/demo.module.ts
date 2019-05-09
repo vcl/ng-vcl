@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { VCLJssFormModule } from '../../../../lib/jss-form';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
 import {CustomSampleComponent} from './custom-sample.component';
@@ -40,6 +41,7 @@ export function demo() {
     CommonModule,
     FormsModule,
     DemoModule,
+    VCLJssFormModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
