@@ -69,7 +69,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function demo() {
     return {
-        name: 'File Input',
+        label: 'File Input',
         tabs: {
             Demo: _demo_component__WEBPACK_IMPORTED_MODULE_7__["FileInputDemoComponent"],
             'README.md': {

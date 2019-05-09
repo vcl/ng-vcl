@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function demo() {
     return {
-        name: 'Select List',
+        label: 'Select List',
         tabs: {
             Demo: _demo_component__WEBPACK_IMPORTED_MODULE_8__["SelectListDemoComponent"],
             'README.md': {

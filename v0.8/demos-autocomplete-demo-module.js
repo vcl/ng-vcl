@@ -166,7 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function demo() {
     return {
-        name: 'Autocomplete',
+        label: 'Autocomplete',
         tabs: {
             Demo: _demo_component__WEBPACK_IMPORTED_MODULE_8__["AutocompleteDemoComponent"],
             'Async Demo': _async_component__WEBPACK_IMPORTED_MODULE_9__["AutocompleteAsyncDemoComponent"],
