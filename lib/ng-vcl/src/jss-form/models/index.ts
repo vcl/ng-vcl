@@ -47,7 +47,7 @@ export abstract class FormModelGroup<T extends VCLFormSchemaGroups> {
     return undefined;
   }
 
-  protected createDefaultValue() {
+  get defaultValue() {
     return this.models.reduce((value, model) => {
       if (model instanceof FormModelControl) {
         return {
