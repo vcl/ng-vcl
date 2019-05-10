@@ -5001,14 +5001,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
 
 
 
 
 
 var FormControlGroupComponent = /** @class */ (function () {
-    function FormControlGroupComponent(elementRef) {
+    function FormControlGroupComponent(elementRef, formGroup, ngForm) {
         this.elementRef = elementRef;
+        this.formGroup = formGroup;
+        this.ngForm = ngForm;
         this._stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.stateChange = this._stateChangeEmitter.asObservable();
     }
@@ -5023,6 +5027,55 @@ var FormControlGroupComponent = /** @class */ (function () {
     Object.defineProperty(FormControlGroupComponent.prototype, "classVclFormInlineControlGroup", {
         get: function () {
             return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-form-inline-control-group';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "_form", {
+        get: function () {
+            return this.ngForm || this.formGroup;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "pending", {
+        get: function () {
+            return this._form.pending;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "invalid", {
+        get: function () {
+            return this._form.invalid;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "valid", {
+        get: function () {
+            return this._form.valid;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "touched", {
+        get: function () {
+            return this._form.touched;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "untouched", {
+        get: function () {
+            return this._form.untouched;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormControlGroupComponent.prototype, "submitted", {
+        get: function () {
+            return this._form.submitted;
         },
         enumerable: true,
         configurable: true
@@ -5057,123 +5110,46 @@ var FormControlGroupComponent = /** @class */ (function () {
             exportAs: 'vclFormControlGroup',
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             providers: [{
-                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_GROUP"],
+                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_HOST"],
                     useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return FormControlGroupComponent_1; })
                 }]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"])()),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormGroupDirective"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgForm"]])
     ], FormControlGroupComponent);
     return FormControlGroupComponent;
 }());
 
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/form-control-group/form-control-host.directive.ts":
-/*!**************************************************************************!*\
-  !*** ./lib/ng-vcl/src/form-control-group/form-control-host.directive.ts ***!
-  \**************************************************************************/
-/*! exports provided: formControlHostFactory, FormControlHostDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formControlHostFactory", function() { return formControlHostFactory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return FormControlHostDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
-
-
-
-
-function formControlHostFactory(ngForm, formGroup) {
-    return ngForm || formGroup;
-}
-var FormControlHostDirective = /** @class */ (function () {
-    function FormControlHostDirective(formGroup, ngForm) {
-        this.formGroup = formGroup;
-        this.ngForm = ngForm;
-        this.classVclForm = true;
-    }
-    Object.defineProperty(FormControlHostDirective.prototype, "_form", {
-        get: function () {
-            return this.ngForm || this.formGroup;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlHostDirective.prototype, "pending", {
-        get: function () {
-            return this._form.pending;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlHostDirective.prototype, "invalid", {
-        get: function () {
-            return this._form.invalid;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlHostDirective.prototype, "valid", {
-        get: function () {
-            return this._form.valid;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlHostDirective.prototype, "touched", {
-        get: function () {
-            return this._form.touched;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlHostDirective.prototype, "untouched", {
-        get: function () {
-            return this._form.untouched;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlHostDirective.prototype, "submitted", {
-        get: function () {
-            return this._form.submitted;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclForm'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlHostDirective.prototype, "classVclForm", void 0);
-    FormControlHostDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: 'form[vclForm]',
-            exportAs: 'vclFormControlHost',
-            providers: [{
-                    provide: _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_HOST"],
-                    deps: [
-                        [new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"](), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"]],
-                        [new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"](), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"]]
-                    ],
-                    useFactory: formControlHostFactory
-                }]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Self"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"]])
-    ], FormControlHostDirective);
-    return FormControlHostDirective;
-}());
-
+// @Directive({
+//   selector: 'form[vclForm]',
+//   exportAs: 'vclForm',
+//   providers: [{
+//     provide: FORM_CONTROL_HOST,
+//     deps: [
+//       [new Optional(), NgForm],
+//       [new Optional(), FormGroupDirective]
+//     ],
+//     useFactory: formControlHostFactory
+//   }]
+// })
+// export class FormControlHostDirective implements FormControlHost {
+//   constructor(
+//     @Optional()
+//     @Self()
+//     private formGroup?: FormGroupDirective,
+//     @Optional()
+//     @Self()
+//     private ngForm?: NgForm,
+//   ) { }
+//   @HostBinding('class.vclForm')
+//   classVclForm = true;
+// }
 
 
 /***/ }),
@@ -5190,7 +5166,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlLabelDirective", function() { return FormControlLabelDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+/* harmony import */ var _form_control_group_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-control-group.component */ "./lib/ng-vcl/src/form-control-group/form-control-group.component.ts");
 
 
 
@@ -5270,9 +5246,9 @@ var FormControlLabelDirective = /** @class */ (function () {
             selector: 'label[vclFormControlLabel]',
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_GROUP"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _form_control_group_component__WEBPACK_IMPORTED_MODULE_2__["FormControlGroupComponent"]])
     ], FormControlLabelDirective);
     return FormControlLabelDirective;
 }());
@@ -5293,7 +5269,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormControlHintComponent", function() { return FormControlHintComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _interfaces__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interfaces */ "./lib/ng-vcl/src/form-control-group/interfaces.ts");
+/* harmony import */ var _form_control_group_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-control-group.component */ "./lib/ng-vcl/src/form-control-group/form-control-group.component.ts");
 
 
 
@@ -5390,9 +5366,9 @@ var FormControlHintComponent = /** @class */ (function () {
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_GROUP"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _form_control_group_component__WEBPACK_IMPORTED_MODULE_2__["FormControlGroupComponent"]])
     ], FormControlHintComponent);
     return FormControlHintComponent;
 }());
@@ -5405,7 +5381,7 @@ var FormControlHintComponent = /** @class */ (function () {
 /*!****************************************************!*\
   !*** ./lib/ng-vcl/src/form-control-group/index.ts ***!
   \****************************************************/
-/*! exports provided: FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule */
+/*! exports provided: FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5428,10 +5404,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hint_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hint.component */ "./lib/ng-vcl/src/form-control-group/hint.component.ts");
 /* harmony import */ var _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./form-control-label.directive */ "./lib/ng-vcl/src/form-control-group/form-control-label.directive.ts");
 /* harmony import */ var _required_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./required.component */ "./lib/ng-vcl/src/form-control-group/required.component.ts");
-/* harmony import */ var _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./form-control-host.directive */ "./lib/ng-vcl/src/form-control-group/form-control-host.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__["FormControlHostDirective"]; });
-
-
 
 
 
@@ -5450,8 +5422,8 @@ var VCLFormControlGroupModule = /** @class */ (function () {
     VCLFormControlGroupModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]],
-            exports: [_form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"], _hint_component__WEBPACK_IMPORTED_MODULE_5__["FormControlHintComponent"], _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__["FormControlLabelDirective"], _required_component__WEBPACK_IMPORTED_MODULE_7__["FormControlRequiredComponent"], _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__["FormControlHostDirective"]],
-            declarations: [_form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"], _hint_component__WEBPACK_IMPORTED_MODULE_5__["FormControlHintComponent"], _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__["FormControlLabelDirective"], _required_component__WEBPACK_IMPORTED_MODULE_7__["FormControlRequiredComponent"], _form_control_host_directive__WEBPACK_IMPORTED_MODULE_8__["FormControlHostDirective"]],
+            exports: [_form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"], _hint_component__WEBPACK_IMPORTED_MODULE_5__["FormControlHintComponent"], _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__["FormControlLabelDirective"], _required_component__WEBPACK_IMPORTED_MODULE_7__["FormControlRequiredComponent"]],
+            declarations: [_form_control_group_component__WEBPACK_IMPORTED_MODULE_4__["FormControlGroupComponent"], _hint_component__WEBPACK_IMPORTED_MODULE_5__["FormControlHintComponent"], _form_control_label_directive__WEBPACK_IMPORTED_MODULE_6__["FormControlLabelDirective"], _required_component__WEBPACK_IMPORTED_MODULE_7__["FormControlRequiredComponent"]],
             providers: [{
                     provide: _interfaces__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_ERROR_STATE_AGENT"],
                     useValue: defaultFormControlErrorStateAgent
@@ -5469,20 +5441,18 @@ var VCLFormControlGroupModule = /** @class */ (function () {
 /*!*********************************************************!*\
   !*** ./lib/ng-vcl/src/form-control-group/interfaces.ts ***!
   \*********************************************************/
-/*! exports provided: FORM_CONTROL_HOST, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_GROUP, FORM_CONTROL_INPUT */
+/*! exports provided: FORM_CONTROL_HOST, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_INPUT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return FORM_CONTROL_HOST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return FORM_CONTROL_ERROR_STATE_AGENT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_GROUP", function() { return FORM_CONTROL_GROUP; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return FORM_CONTROL_INPUT; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 var FORM_CONTROL_HOST = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-host');
 var FORM_CONTROL_ERROR_STATE_AGENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-error-state-agent');
-var FORM_CONTROL_GROUP = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-group');
 var FORM_CONTROL_INPUT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('vcl-form-control-input');
 
 
@@ -6375,7 +6345,7 @@ var VCLIconModule = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./lib/ng-vcl/src/index.ts ***!
   \*********************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SELECT_LIST_CONTENT_TOKEN, VCLSelectListModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, JssFormComponent, VCLJssFormModule, ComponentOverlay, TemplateOverlay */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SELECT_LIST_CONTENT_TOKEN, VCLSelectListModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, JssFormComponent, VCLJssFormModule, ComponentOverlay, TemplateOverlay */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6394,8 +6364,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_INPUT"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_ERROR_STATE_AGENT"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FormControlHostDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _public_api__WEBPACK_IMPORTED_MODULE_0__["FORM_CONTROL_HOST"]; });
 
@@ -6748,9 +6716,11 @@ var InputDirective = /** @class */ (function () {
         if (this.autoselect) {
             this.elementRef.nativeElement.select();
         }
+        this.stateChangeEmitter.next();
     };
     InputDirective.prototype.onBlur = function () {
         this._focused = false;
+        this.stateChangeEmitter.next();
     };
     InputDirective.prototype.setDisabled = function (disabled) {
         this._disabled = disabled;
@@ -6863,27 +6833,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _jss_form_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./jss-form.component */ "./lib/ng-vcl/src/jss-form/jss-form.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JssFormComponent", function() { return _jss_form_component__WEBPACK_IMPORTED_MODULE_3__["JssFormComponent"]; });
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
+/* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button-group/index */ "./lib/ng-vcl/src/button-group/index.ts");
+/* harmony import */ var _select_list_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../select-list/index */ "./lib/ng-vcl/src/select-list/index.ts");
+/* harmony import */ var _flip_switch_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../flip-switch/index */ "./lib/ng-vcl/src/flip-switch/index.ts");
+/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../slider/index */ "./lib/ng-vcl/src/slider/index.ts");
+/* harmony import */ var _checkbox_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../checkbox/index */ "./lib/ng-vcl/src/checkbox/index.ts");
+/* harmony import */ var _radio_button_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../radio-button/index */ "./lib/ng-vcl/src/radio-button/index.ts");
+/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
+/* harmony import */ var _textarea_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../textarea/index */ "./lib/ng-vcl/src/textarea/index.ts");
+/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
+/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../token/index */ "./lib/ng-vcl/src/token/index.ts");
+/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
+/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
+/* harmony import */ var _date_picker_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../date-picker/index */ "./lib/ng-vcl/src/date-picker/index.ts");
+/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../select/index */ "./lib/ng-vcl/src/select/index.ts");
+/* harmony import */ var _file_input_index__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../file-input/index */ "./lib/ng-vcl/src/file-input/index.ts");
+/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../rating/index */ "./lib/ng-vcl/src/rating/index.ts");
+/* harmony import */ var _jss_form_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./jss-form.component */ "./lib/ng-vcl/src/jss-form/jss-form.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JssFormComponent", function() { return _jss_form_component__WEBPACK_IMPORTED_MODULE_21__["JssFormComponent"]; });
 
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../button/index */ "./lib/ng-vcl/src/button/index.ts");
-/* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../button-group/index */ "./lib/ng-vcl/src/button-group/index.ts");
-/* harmony import */ var _select_list_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../select-list/index */ "./lib/ng-vcl/src/select-list/index.ts");
-/* harmony import */ var _flip_switch_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../flip-switch/index */ "./lib/ng-vcl/src/flip-switch/index.ts");
-/* harmony import */ var _slider_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../slider/index */ "./lib/ng-vcl/src/slider/index.ts");
-/* harmony import */ var _checkbox_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../checkbox/index */ "./lib/ng-vcl/src/checkbox/index.ts");
-/* harmony import */ var _radio_button_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../radio-button/index */ "./lib/ng-vcl/src/radio-button/index.ts");
-/* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../input/index */ "./lib/ng-vcl/src/input/index.ts");
-/* harmony import */ var _textarea_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../textarea/index */ "./lib/ng-vcl/src/textarea/index.ts");
-/* harmony import */ var _password_input_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../password-input/index */ "./lib/ng-vcl/src/password-input/index.ts");
-/* harmony import */ var _token_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../token/index */ "./lib/ng-vcl/src/token/index.ts");
-/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../icon/index */ "./lib/ng-vcl/src/icon/index.ts");
-/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
-/* harmony import */ var _date_picker_index__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../date-picker/index */ "./lib/ng-vcl/src/date-picker/index.ts");
-/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../select/index */ "./lib/ng-vcl/src/select/index.ts");
-/* harmony import */ var _file_input_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../file-input/index */ "./lib/ng-vcl/src/file-input/index.ts");
-/* harmony import */ var _rating_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../rating/index */ "./lib/ng-vcl/src/rating/index.ts");
+/* harmony import */ var _jss_form_control_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./jss-form-control.component */ "./lib/ng-vcl/src/jss-form/jss-form-control.component.ts");
+/* harmony import */ var _jss_form_hints_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./jss-form-hints.component */ "./lib/ng-vcl/src/jss-form/jss-form-hints.component.ts");
+
+
 
 
 
@@ -6914,28 +6888,28 @@ var VCLJssFormModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
-                _button_index__WEBPACK_IMPORTED_MODULE_5__["VCLButtonModule"],
-                _button_group_index__WEBPACK_IMPORTED_MODULE_6__["VCLButtonGroupModule"],
-                _select_list_index__WEBPACK_IMPORTED_MODULE_7__["VCLSelectListModule"],
-                _flip_switch_index__WEBPACK_IMPORTED_MODULE_8__["VCLFlipSwitchModule"],
-                _slider_index__WEBPACK_IMPORTED_MODULE_9__["VCLSliderModule"],
-                _checkbox_index__WEBPACK_IMPORTED_MODULE_10__["VCLCheckboxModule"],
-                _radio_button_index__WEBPACK_IMPORTED_MODULE_11__["VCLRadioButtonModule"],
-                _input_index__WEBPACK_IMPORTED_MODULE_12__["VCLInputModule"],
-                _textarea_index__WEBPACK_IMPORTED_MODULE_13__["VCLTextareaModule"],
-                _password_input_index__WEBPACK_IMPORTED_MODULE_14__["VCLPasswordInputModule"],
-                _token_index__WEBPACK_IMPORTED_MODULE_15__["VCLTokenModule"],
-                _icon_index__WEBPACK_IMPORTED_MODULE_16__["VCLIconModule"],
-                _form_control_group_index__WEBPACK_IMPORTED_MODULE_17__["VCLFormControlGroupModule"],
-                _date_picker_index__WEBPACK_IMPORTED_MODULE_18__["VCLDatePickerModule"],
-                _select_index__WEBPACK_IMPORTED_MODULE_19__["VCLSelectModule"],
-                _file_input_index__WEBPACK_IMPORTED_MODULE_20__["VCLFileInputModule"],
-                _rating_index__WEBPACK_IMPORTED_MODULE_21__["VCLRatingModule"]
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                _button_index__WEBPACK_IMPORTED_MODULE_4__["VCLButtonModule"],
+                _button_group_index__WEBPACK_IMPORTED_MODULE_5__["VCLButtonGroupModule"],
+                _select_list_index__WEBPACK_IMPORTED_MODULE_6__["VCLSelectListModule"],
+                _flip_switch_index__WEBPACK_IMPORTED_MODULE_7__["VCLFlipSwitchModule"],
+                _slider_index__WEBPACK_IMPORTED_MODULE_8__["VCLSliderModule"],
+                _checkbox_index__WEBPACK_IMPORTED_MODULE_9__["VCLCheckboxModule"],
+                _radio_button_index__WEBPACK_IMPORTED_MODULE_10__["VCLRadioButtonModule"],
+                _input_index__WEBPACK_IMPORTED_MODULE_11__["VCLInputModule"],
+                _textarea_index__WEBPACK_IMPORTED_MODULE_12__["VCLTextareaModule"],
+                _password_input_index__WEBPACK_IMPORTED_MODULE_13__["VCLPasswordInputModule"],
+                _token_index__WEBPACK_IMPORTED_MODULE_14__["VCLTokenModule"],
+                _icon_index__WEBPACK_IMPORTED_MODULE_15__["VCLIconModule"],
+                _form_control_group_index__WEBPACK_IMPORTED_MODULE_16__["VCLFormControlGroupModule"],
+                _date_picker_index__WEBPACK_IMPORTED_MODULE_17__["VCLDatePickerModule"],
+                _select_index__WEBPACK_IMPORTED_MODULE_18__["VCLSelectModule"],
+                _file_input_index__WEBPACK_IMPORTED_MODULE_19__["VCLFileInputModule"],
+                _rating_index__WEBPACK_IMPORTED_MODULE_20__["VCLRatingModule"]
             ],
-            exports: [_jss_form_component__WEBPACK_IMPORTED_MODULE_3__["JssFormComponent"]],
-            declarations: [_jss_form_component__WEBPACK_IMPORTED_MODULE_3__["JssFormComponent"]],
+            exports: [_jss_form_component__WEBPACK_IMPORTED_MODULE_21__["JssFormComponent"]],
+            declarations: [_jss_form_component__WEBPACK_IMPORTED_MODULE_21__["JssFormComponent"], _jss_form_control_component__WEBPACK_IMPORTED_MODULE_22__["JssFormControlComponent"], _jss_form_hints_component__WEBPACK_IMPORTED_MODULE_23__["JssFormHintsComponent"]],
             providers: [],
             entryComponents: []
         })
@@ -6947,16 +6921,410 @@ var VCLJssFormModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./lib/ng-vcl/src/jss-form/jss-form-models.ts":
-/*!****************************************************!*\
-  !*** ./lib/ng-vcl/src/jss-form/jss-form-models.ts ***!
-  \****************************************************/
-/*! exports provided: FormModelBase, FormModelInput, FormModelTextArea, FormModelSelect, FormModelSwitch, FormModelSlider, FormModelCheckbox, FormModelRadioGroup, FormModelToken, FormModelDate, FormModelFileInput, FormModelSubmit, FormModelButton, FormModelButtons, FormModelHidden, FormModelObject, createFormModelRoot, createFormModel */
+/***/ "./lib/ng-vcl/src/jss-form/jss-form-control.component.html":
+/*!*****************************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/jss-form-control.component.html ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-container *ngIf=\"fm.formControl === 'object' && !fm.type\">\n  <div [formGroup]=\"fm.control\">\n    <vcl-jss-form-control *ngFor=\"let fm2 of fm.models\" [model]=\"fm2\"></vcl-jss-form-control>\n    <vcl-jss-form-hints [model]=\"fm\"></vcl-jss-form-hints>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"fm.formControl === 'object' && fm.type === 'fieldset'\">\n  <fieldset [formGroup]=\"fm.control\">\n    <legend *ngIf=\"!!fm.label\">{{fm.label}}</legend>\n    <vcl-jss-form-control *ngFor=\"let fm2 of fm.models\" [model]=\"fm2\"></vcl-jss-form-control>\n    <vcl-jss-form-hints [model]=\"fm\"></vcl-jss-form-hints>\n  </fieldset> \n</ng-container>\n<ng-container *ngIf=\"fm.formControl !== 'object'\">\n  <vcl-form-control-group>\n    <ng-container [ngSwitch]=\"fm.formControl\">\n        <!-- input -->\n      <ng-container *ngSwitchCase=\"'input'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <input vclInput [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\" [placeholder]=\"fm.placeholder\">\n      </ng-container>\n        <!-- number -->\n      <ng-container *ngSwitchCase=\"'number'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <input vclInput type=\"number\" [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\" [placeholder]=\"fm.placeholder\">\n        </ng-container>\n      <!-- textarea -->\n      <ng-container *ngSwitchCase=\"'textarea'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <textarea vclInput [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\" [placeholder]=\"fm.placeholder\" [autogrow]=\"true\" [minRows]=\"fm.minRows || 3\" [maxRows]=\"fm.minRows || 10\"></textarea>\n      </ng-container>\n      <!-- switch -->\n      <ng-container *ngSwitchCase=\"'switch'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <vcl-flip-switch [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\"></vcl-flip-switch>\n      </ng-container>\n      <!-- slider -->\n      <ng-container *ngSwitchCase=\"'slider'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <vcl-slider [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\" [min]=\"fm.min\" [max]=\"fm.max\" [scale]=\"fm.scale\" [lock]=\"fm.lock\"></vcl-slider>\n      </ng-container>\n      <!-- radio -->\n      <ng-container *ngSwitchCase=\"'radio-group'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <vcl-radio-group [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\">\n          <label vclRadioButtonLabel *ngFor=\"let option of fm.options\">\n            <vcl-radio-button [value]=\"option.label\"></vcl-radio-button>\n            <vcl-icon vclAppend >{{option.label}}</vcl-icon>\n          </label>\n        </vcl-radio-group>\n      </ng-container>\n      <!--  buttons -->\n      <ng-container *ngSwitchCase=\"'buttons'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <div class=\"vclLooseButtonGroup\">\n          <button vcl-button *ngFor=\"let button of fm.buttons\" [type]=\"button.formControl\" (click)=\"onAction(button.action)\">{{button.label}}</button>\n        </div>\n      </ng-container>\n      <!--  button-group -->\n      <ng-container *ngSwitchCase=\"'button-group'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <vcl-button-group [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\">\n          <button vcl-button *ngFor=\"let option of fm.options\" [type]=\"option.formControl\" [value]=\"option.value\">{{option.label}}</button>\n        </vcl-button-group>\n      </ng-container>\n      <!--  button -->\n      <ng-container *ngSwitchCase=\"'button'\">\n        <button vcl-button [type]=\"fm.formControl\" (click)=\"onAction(fm.action)\" >{{fm.label}}</button>\n      </ng-container>\n      <!--  checkbox -->\n      <ng-container *ngSwitchCase=\"'checkbox'\">\n        <label vclCheckboxLabel>\n          <vcl-checkbox [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\"></vcl-checkbox>\n          {{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required>\n        </label>\n      </ng-container>\n      <!--  select -->\n      <ng-container *ngSwitchCase=\"'select'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n        <vcl-select [placeholder]=\"fm.placeholder\">\n          <vcl-select-list [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\" [selectionMode]=\"fm.selectionMode\">\n            <vcl-select-list-item *ngFor=\"let option of fm.options\" [value]=\"option.value\">\n              <vcl-select-list-label>{{option.label}}</vcl-select-list-label>\n              <vcl-select-list-sublabel>{{option.sublabel}}</vcl-select-list-sublabel>\n            </vcl-select-list-item>\n          </vcl-select-list>\n        </vcl-select>\n      </ng-container>\n      <!--  file-input -->\n      <ng-container *ngSwitchCase=\"'file-input'\">\n        <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}</label>\n        <vcl-file-input [multiple]=\"fm.multiple\" [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\">{{fm.placeholder}}</vcl-file-input>\n      </ng-container>\n      <ng-container *ngSwitchCase=\"'rating'\">\n        <ng-container *ngIf=\"rating.labelChange | async as label\">\n          <label *ngIf=\"!!fm.createLabel(label)\" vclFormControlLabel>{{fm.createLabel(label)}}</label>\n        </ng-container>\n        <vcl-rating #rating=\"vclRating\" [ratingEmptyIcon]=\"fm.ratingEmptyIcon\" [ratingFullIcon]=\"fm.ratingFullIcon\" [ratingHalfIcon]=\"fm.ratingHalfIcon\" [ratingItemCount]=\"fm.ratingItemCount\" [formControl]=\"fm.control\" [errorStateAgent]=\"fm.errorStateAgent\">\n          <vcl-rating-item *ngFor=\"let item of fm.items\">{{item}}</vcl-rating-item>\n        </vcl-rating>\n      </ng-container>\n    </ng-container>\n    <!--  hint -->\n    <vcl-jss-form-hints [model]=\"fm\" [input]=\"input\"></vcl-jss-form-hints>\n  </vcl-form-control-group>\n\n</ng-container>\n\n\n\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/jss-form-control.component.ts":
+/*!***************************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/jss-form-control.component.ts ***!
+  \***************************************************************/
+/*! exports provided: JssFormControlComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelBase", function() { return FormModelBase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JssFormControlComponent", function() { return JssFormControlComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
+
+
+
+
+var JssFormControlComponent = /** @class */ (function () {
+    function JssFormControlComponent() {
+        this.action = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    }
+    Object.defineProperty(JssFormControlComponent.prototype, "fm", {
+        // FormModel[] template parser does not support Type Assertion
+        // Workaround is to cast models to any[]
+        get: function () {
+            return this.model;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    JssFormControlComponent.prototype.onAction = function (action) {
+        if (action) {
+            this.action.emit(action);
+        }
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JssFormControlComponent.prototype, "model", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"])
+    ], JssFormControlComponent.prototype, "formGroup", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JssFormControlComponent.prototype, "action", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_form_control_group_index__WEBPACK_IMPORTED_MODULE_3__["FORM_CONTROL_INPUT"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JssFormControlComponent.prototype, "input", void 0);
+    JssFormControlComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-jss-form-control',
+            template: __webpack_require__(/*! ./jss-form-control.component.html */ "./lib/ng-vcl/src/jss-form/jss-form-control.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            exportAs: 'vclJssFormControl'
+        })
+    ], JssFormControlComponent);
+    return JssFormControlComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/jss-form-hints.component.html":
+/*!***************************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/jss-form-hints.component.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-container *ngFor=\"let hint of hints$ | async\">\n  <vcl-hint *ngIf=\"hint.type === 'default'\">{{ hint.message }}</vcl-hint>\n  <vcl-hint-warning *ngIf=\"hint.type === 'warning'\" >{{ hint.message }}</vcl-hint-warning>\n  <vcl-hint-error *ngIf=\"hint.type === 'error'\" [error]=\"hint.error\">{{ hint.message }}</vcl-hint-error>\n</ng-container>       \n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/jss-form-hints.component.ts":
+/*!*************************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/jss-form-hints.component.ts ***!
+  \*************************************************************/
+/*! exports provided: JssFormHintsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JssFormHintsComponent", function() { return JssFormHintsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+var JssFormHintsComponent = /** @class */ (function () {
+    function JssFormHintsComponent() {
+        var _this = this;
+        this._hintsEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.hints$ = this._hintsEmitter.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function () {
+            if (!_this.model || !_this.model.hints) {
+                return [];
+            }
+            return _this.model.hints.map(function (hint) {
+                if (typeof hint === 'string') {
+                    return {
+                        type: 'default',
+                        message: hint
+                    };
+                }
+                else if (typeof hint === 'function') {
+                    return hint(_this.model.control, _this.input);
+                }
+                return hint;
+            });
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (hint) { return !!hint; }));
+    }
+    JssFormHintsComponent.prototype.ngOnChanges = function () {
+        this._sub && this._sub.unsubscribe();
+        var $ = [];
+        if (this.input) {
+            $.push(this.input.stateChange);
+        }
+        if (this.model.control) {
+            $.push(this.model.control.valueChanges, this.model.control.statusChanges);
+        }
+        this._sub = rxjs__WEBPACK_IMPORTED_MODULE_2__["merge"].apply(void 0, $).subscribe(this._hintsEmitter);
+    };
+    JssFormHintsComponent.prototype.ngAfterViewInit = function () {
+        this._hintsEmitter.next();
+    };
+    JssFormHintsComponent.prototype.ngOnDestroy = function () {
+        this._sub && this._sub.unsubscribe();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JssFormHintsComponent.prototype, "model", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JssFormHintsComponent.prototype, "input", void 0);
+    JssFormHintsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-jss-form-hints',
+            template: __webpack_require__(/*! ./jss-form-hints.component.html */ "./lib/ng-vcl/src/jss-form/jss-form-hints.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            exportAs: 'vclJssFormControl'
+        })
+    ], JssFormHintsComponent);
+    return JssFormHintsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/jss-form.component.html":
+/*!*********************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/jss-form.component.html ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<form class=\"vclForm\" novalidate #form=\"ngForm\" [formGroup]=\"model.control\" (ngSubmit)=\"formSubmit.emit(form.value)\" >\n  <vcl-jss-form-control *ngFor=\"let fm of model.models\" [model]=\"fm\"></vcl-jss-form-control>\n  <ng-content></ng-content>\n  <vcl-jss-form-hints [model]=\"model\"></vcl-jss-form-hints>\n</form>\n"
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/jss-form.component.ts":
+/*!*******************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/jss-form.component.ts ***!
+  \*******************************************************/
+/*! exports provided: JssFormComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JssFormComponent", function() { return JssFormComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _models_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./models/index */ "./lib/ng-vcl/src/jss-form/models/index.ts");
+
+
+
+
+var JssFormComponent = /** @class */ (function () {
+    function JssFormComponent(cdRef) {
+        this.cdRef = cdRef;
+        this.formSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.formAction = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    }
+    Object.defineProperty(JssFormComponent.prototype, "schema", {
+        set: function (value) {
+            if (value) {
+                this.model = new _models_index__WEBPACK_IMPORTED_MODULE_3__["FormModelRoot"](value);
+            }
+            else {
+                this.model = undefined;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    JssFormComponent.prototype.ngAfterContentInit = function () {
+        // TODO: workaround to avoid ExpressionChangedAfterItHasBeenCheckedError on ngForm
+        this.cdRef.detectChanges();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+    ], JssFormComponent.prototype, "schema", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JssFormComponent.prototype, "formSubmit", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JssFormComponent.prototype, "formAction", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('form'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"])
+    ], JssFormComponent.prototype, "ngForm", void 0);
+    JssFormComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'vcl-jss-form',
+            template: __webpack_require__(/*! ./jss-form.component.html */ "./lib/ng-vcl/src/jss-form/jss-form.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            exportAs: 'vclJssForm'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+    ], JssFormComponent);
+    return JssFormComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/models/basic.ts":
+/*!*************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/models/basic.ts ***!
+  \*************************************************/
+/*! exports provided: FormModelBasic, FormModelSubmit, FormModelButtons, FormModelButton */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelBasic", function() { return FormModelBasic; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelSubmit", function() { return FormModelSubmit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelButtons", function() { return FormModelButtons; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelButton", function() { return FormModelButton; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+var FormModelBasic = /** @class */ (function () {
+    function FormModelBasic(_schema) {
+        this._schema = _schema;
+    }
+    Object.defineProperty(FormModelBasic.prototype, "schema", {
+        get: function () {
+            return this._schema;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelBasic.prototype, "formControl", {
+        get: function () {
+            return this._schema.formControl;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FormModelBasic;
+}());
+
+var FormModelSubmit = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelSubmit, _super);
+    function FormModelSubmit() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(FormModelSubmit.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelSubmit.prototype, "prepIcon", {
+        get: function () {
+            return this.schema.prepIcon;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelSubmit.prototype, "appIcon", {
+        get: function () {
+            return this.schema.appIcon;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelSubmit.prototype, "class", {
+        get: function () {
+            return this.schema.class;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelSubmit.prototype, "autoDisable", {
+        get: function () {
+            return this.schema.autoDisable || false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FormModelSubmit;
+}(FormModelBasic));
+
+var FormModelButtons = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelButtons, _super);
+    function FormModelButtons() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(FormModelButtons.prototype, "buttons", {
+        get: function () {
+            return this.schema.buttons || [];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FormModelButtons;
+}(FormModelBasic));
+
+var FormModelButton = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelButton, _super);
+    function FormModelButton() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(FormModelButton.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelButton.prototype, "prepIcon", {
+        get: function () {
+            return this.schema.prepIcon;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelButton.prototype, "appIcon", {
+        get: function () {
+            return this.schema.appIcon;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelButton.prototype, "class", {
+        get: function () {
+            return this.schema.class;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelButton.prototype, "action", {
+        get: function () {
+            return this.schema.action;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FormModelButton;
+}(FormModelBasic));
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/models/controls.ts":
+/*!****************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/models/controls.ts ***!
+  \****************************************************/
+/*! exports provided: FormModelControl, FormModelInput, FormModelTextArea, FormModelSelect, FormModelSwitch, FormModelSlider, FormModelCheckbox, FormModelRadioGroup, FormModelToken, FormModelDate, FormModelFileInput, FormModelRating, FormModelHidden */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelControl", function() { return FormModelControl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelInput", function() { return FormModelInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelTextArea", function() { return FormModelTextArea; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelSelect", function() { return FormModelSelect; });
@@ -6967,102 +7335,76 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelToken", function() { return FormModelToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelDate", function() { return FormModelDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelFileInput", function() { return FormModelFileInput; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelSubmit", function() { return FormModelSubmit; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelButton", function() { return FormModelButton; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelButtons", function() { return FormModelButtons; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelRating", function() { return FormModelRating; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelHidden", function() { return FormModelHidden; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelObject", function() { return FormModelObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFormModelRoot", function() { return createFormModelRoot; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFormModel", function() { return createFormModel; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 
 
-var uniqueID = 0;
-var FormModelBase = /** @class */ (function () {
-    function FormModelBase(_schema, _parent, key) {
+var FormModelControl = /** @class */ (function () {
+    function FormModelControl(_schema, key) {
         this._schema = _schema;
-        this.key = typeof key === 'string' ? key : "vcl-jss-form-" + ++uniqueID;
-        if (_parent && _parent.key) {
-            this.key = _parent.key + '.' + this.key;
-        }
+        this.key = key;
         this.id = _schema.id || this.key;
-        this.init(_schema);
+        this.control = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](this.defaultValue, this.validators);
     }
-    Object.defineProperty(FormModelBase.prototype, "schema", {
+    Object.defineProperty(FormModelControl.prototype, "schema", {
         get: function () {
             return this._schema;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelBase.prototype, "formControl", {
+    Object.defineProperty(FormModelControl.prototype, "formControl", {
         get: function () {
             return this._schema.formControl;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelBase.prototype, "defaultValue", {
+    Object.defineProperty(FormModelControl.prototype, "defaultValue", {
         get: function () {
             return this._schema.defaultValue === undefined ? this.createDefaultValue() : this._schema.defaultValue;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelBase.prototype, "validators", {
+    Object.defineProperty(FormModelControl.prototype, "validators", {
         get: function () {
-            return this._schema.validators === undefined ? this.createDefaultValidator() : this._schema.validators;
+            return this._schema.validators === undefined ? undefined : this._schema.validators;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelBase.prototype, "label", {
-        get: function () {
-            return this._schema.label;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormModelBase.prototype, "disabled", {
+    Object.defineProperty(FormModelControl.prototype, "disabled", {
         get: function () {
             return !!this._schema.disabled;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelBase.prototype, "required", {
+    Object.defineProperty(FormModelControl.prototype, "required", {
         get: function () {
             return !!this._schema.required;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelBase.prototype, "hints", {
+    Object.defineProperty(FormModelControl.prototype, "hints", {
         get: function () {
-            return (this.schema.hints || []).map(function (hint) { return typeof hint === 'string' ? { type: 'default', message: hint } : hint; });
+            return this._schema.hints || [];
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelBase.prototype, "hasValue", {
+    Object.defineProperty(FormModelControl.prototype, "hasValue", {
         get: function () {
             return true;
         },
         enumerable: true,
         configurable: true
     });
-    FormModelBase.prototype.init = function (schema) { };
-    FormModelBase.prototype.createDefaultValue = function () {
-        return undefined;
-    };
-    FormModelBase.prototype.createDefaultValidator = function () {
-        return undefined;
-    };
-    FormModelBase.prototype.createControl = function () {
-        return new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](this.defaultValue, this.validators);
-    };
-    return FormModelBase;
+    return FormModelControl;
 }());
 
 var FormModelInput = /** @class */ (function (_super) {
@@ -7070,6 +7412,13 @@ var FormModelInput = /** @class */ (function (_super) {
     function FormModelInput() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelInput.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelInput.prototype, "placeholder", {
         get: function () {
             return this.schema.placeholder || '';
@@ -7081,7 +7430,7 @@ var FormModelInput = /** @class */ (function (_super) {
         return this.formControl !== 'number' ? '' : undefined;
     };
     return FormModelInput;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelTextArea = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelTextArea, _super);
@@ -7113,13 +7462,20 @@ var FormModelTextArea = /** @class */ (function (_super) {
         return '';
     };
     return FormModelTextArea;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelSelect = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelSelect, _super);
     function FormModelSelect() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelSelect.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelSelect.prototype, "selectionMode", {
         get: function () {
             return this.schema.selectionMode || 'single';
@@ -7145,13 +7501,20 @@ var FormModelSelect = /** @class */ (function (_super) {
         return this.selectionMode === 'single' ? undefined : [];
     };
     return FormModelSelect;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelSwitch = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelSwitch, _super);
     function FormModelSwitch() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelSwitch.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelSwitch.prototype, "onLabel", {
         get: function () {
             return this.schema.onLabel;
@@ -7177,13 +7540,20 @@ var FormModelSwitch = /** @class */ (function (_super) {
         return false;
     };
     return FormModelSwitch;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelSlider = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelSlider, _super);
     function FormModelSlider() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelSlider.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelSlider.prototype, "scale", {
         get: function () {
             return this.schema.scale;
@@ -7212,14 +7582,24 @@ var FormModelSlider = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    FormModelSlider.prototype.createDefaultValue = function () {
+        return undefined;
+    };
     return FormModelSlider;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelCheckbox = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelCheckbox, _super);
     function FormModelCheckbox() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelCheckbox.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelCheckbox.prototype, "iconPosition", {
         get: function () {
             return this.schema.iconPosition || 'right';
@@ -7231,13 +7611,20 @@ var FormModelCheckbox = /** @class */ (function (_super) {
         return false;
     };
     return FormModelCheckbox;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelRadioGroup = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelRadioGroup, _super);
     function FormModelRadioGroup() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelRadioGroup.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelRadioGroup.prototype, "iconPosition", {
         get: function () {
             return this.schema.iconPosition || 'right';
@@ -7256,21 +7643,31 @@ var FormModelRadioGroup = /** @class */ (function (_super) {
         return [];
     };
     return FormModelRadioGroup;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelToken = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelToken, _super);
     function FormModelToken() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    FormModelToken.prototype.createDefaultValue = function () {
+        return undefined;
+    };
     return FormModelToken;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelDate = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelDate, _super);
     function FormModelDate() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelDate.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelDate.prototype, "datePickerConfig", {
         get: function () {
             return this.schema.datePickerConfig;
@@ -7282,13 +7679,20 @@ var FormModelDate = /** @class */ (function (_super) {
         return Date.now();
     };
     return FormModelDate;
-}(FormModelBase));
+}(FormModelControl));
 
 var FormModelFileInput = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelFileInput, _super);
     function FormModelFileInput() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormModelFileInput.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FormModelFileInput.prototype, "placeholder", {
         get: function () {
             return this.schema.placeholder || '';
@@ -7296,276 +7700,287 @@ var FormModelFileInput = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    FormModelFileInput.prototype.createDefaultValue = function () {
+        return undefined;
+    };
     return FormModelFileInput;
-}(FormModelBase));
+}(FormModelControl));
 
-var FormModelSubmit = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelSubmit, _super);
-    function FormModelSubmit() {
+var FormModelRating = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelRating, _super);
+    function FormModelRating() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(FormModelSubmit.prototype, "prepIcon", {
+    Object.defineProperty(FormModelRating.prototype, "label", {
         get: function () {
-            return this.schema.prepIcon;
+            return this.schema.label;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelSubmit.prototype, "appIcon", {
+    Object.defineProperty(FormModelRating.prototype, "ratingItemCount", {
         get: function () {
-            return this.schema.appIcon;
+            return this.schema.ratingItemCount || 5;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelSubmit.prototype, "class", {
+    Object.defineProperty(FormModelRating.prototype, "ratingEmptyIcon", {
         get: function () {
-            return this.schema.class;
+            return this.schema.ratingEmptyIcon || 'vcl:star-empty';
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelSubmit.prototype, "autoDisable", {
+    Object.defineProperty(FormModelRating.prototype, "ratingHalfIcon", {
         get: function () {
-            return this.schema.autoDisable || false;
+            return this.schema.ratingHalfIcon || 'vcl:star-half';
         },
         enumerable: true,
         configurable: true
     });
-    FormModelSubmit.prototype.createControl = function () {
+    Object.defineProperty(FormModelRating.prototype, "ratingFullIcon", {
+        get: function () {
+            return this.schema.ratingFullIcon || 'vcl:star';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelRating.prototype, "items", {
+        get: function () {
+            return this.schema.items || [];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FormModelRating.prototype.createLabel = function (label) {
+        if (typeof this.label === 'function') {
+            return this.label(label);
+        }
+        return this.label;
+    };
+    FormModelRating.prototype.createDefaultValue = function () {
         return undefined;
     };
-    return FormModelSubmit;
-}(FormModelBase));
-
-var FormModelButton = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelButton, _super);
-    function FormModelButton() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Object.defineProperty(FormModelButton.prototype, "prepIcon", {
-        get: function () {
-            return this.schema.prepIcon;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormModelButton.prototype, "appIcon", {
-        get: function () {
-            return this.schema.appIcon;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormModelButton.prototype, "class", {
-        get: function () {
-            return this.schema.class;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormModelButton.prototype, "action", {
-        get: function () {
-            return this.schema.action;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    FormModelButton.prototype.createControl = function () {
-        return undefined;
-    };
-    return FormModelButton;
-}(FormModelBase));
-
-var FormModelButtons = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelButtons, _super);
-    function FormModelButtons() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    FormModelButtons.prototype.init = function (schema) {
-        var _this = this;
-        this._buttons = (schema.buttons || []).map(function (_schema) { return createFormModel(_schema, _this); });
-    };
-    Object.defineProperty(FormModelButtons.prototype, "buttons", {
-        get: function () {
-            return this._buttons;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    FormModelButtons.prototype.createControl = function () {
-        return undefined;
-    };
-    return FormModelButtons;
-}(FormModelBase));
+    return FormModelRating;
+}(FormModelControl));
 
 var FormModelHidden = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelHidden, _super);
     function FormModelHidden() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return FormModelHidden;
-}(FormModelBase));
-
-var FormModelObject = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelObject, _super);
-    function FormModelObject() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    FormModelObject.prototype.init = function (schema) {
-        var _this = this;
-        this._models = Object.keys(schema.properties).map(function (key) { return createFormModel(schema.properties[key], _this, key); });
+    FormModelHidden.prototype.createDefaultValue = function () {
+        return undefined;
     };
-    Object.defineProperty(FormModelObject.prototype, "models", {
+    return FormModelHidden;
+}(FormModelControl));
+
+
+
+/***/ }),
+
+/***/ "./lib/ng-vcl/src/jss-form/models/index.ts":
+/*!*************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/models/index.ts ***!
+  \*************************************************/
+/*! exports provided: FormModelGroup, FormModelObject, FormModelRoot, createFormModel, FormModelBasic, FormModelSubmit, FormModelButtons, FormModelButton, FormModelControl, FormModelInput, FormModelTextArea, FormModelSelect, FormModelSwitch, FormModelSlider, FormModelCheckbox, FormModelRadioGroup, FormModelToken, FormModelDate, FormModelFileInput, FormModelRating, FormModelHidden */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelGroup", function() { return FormModelGroup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelObject", function() { return FormModelObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModelRoot", function() { return FormModelRoot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFormModel", function() { return createFormModel; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _basic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./basic */ "./lib/ng-vcl/src/jss-form/models/basic.ts");
+/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./controls */ "./lib/ng-vcl/src/jss-form/models/controls.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelBasic", function() { return _basic__WEBPACK_IMPORTED_MODULE_2__["FormModelBasic"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelSubmit", function() { return _basic__WEBPACK_IMPORTED_MODULE_2__["FormModelSubmit"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelButtons", function() { return _basic__WEBPACK_IMPORTED_MODULE_2__["FormModelButtons"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelButton", function() { return _basic__WEBPACK_IMPORTED_MODULE_2__["FormModelButton"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelControl", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelControl"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelInput", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelInput"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelTextArea", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelTextArea"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelSelect", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelSelect"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelSwitch", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelSwitch"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelSlider", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelSlider"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelCheckbox", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelCheckbox"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelRadioGroup", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelRadioGroup"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelToken", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelToken"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelDate", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelFileInput", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelFileInput"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelRating", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelRating"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormModelHidden", function() { return _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelHidden"]; });
+
+
+
+
+
+
+
+var FormModelGroup = /** @class */ (function () {
+    function FormModelGroup(_schema, key) {
+        this._schema = _schema;
+        this.key = key;
+        this._models = Object.keys(_schema.properties).map(function (_key) { return createFormModel(_schema.properties[_key], _key); });
+        this.control = this.createControl();
+    }
+    Object.defineProperty(FormModelGroup.prototype, "models", {
         get: function () {
             return this._models;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormModelObject.prototype, "title", {
+    Object.defineProperty(FormModelGroup.prototype, "schema", {
         get: function () {
-            return this.schema.title;
+            return this._schema;
         },
         enumerable: true,
         configurable: true
     });
-    FormModelObject.prototype.createControl = function () {
+    Object.defineProperty(FormModelGroup.prototype, "hints", {
+        get: function () {
+            return this._schema.hints;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelGroup.prototype, "validators", {
+        get: function () {
+            return this._schema.validators === undefined ? this.createDefaultValidator() : this._schema.validators;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelGroup.prototype, "formControl", {
+        get: function () {
+            return this._schema.formControl;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FormModelGroup.prototype.createDefaultValidator = function () {
+        return undefined;
+    };
+    Object.defineProperty(FormModelGroup.prototype, "defaultValue", {
+        get: function () {
+            return this.models.reduce(function (value, model) {
+                var _a;
+                if (model instanceof _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelControl"]) {
+                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, value, (_a = {}, _a[model.key] = model.defaultValue, _a));
+                }
+                return value;
+            }, {});
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FormModelGroup.prototype.createControl = function () {
         var param = this.models.reduce(function (group, model) {
             var _a;
-            var control = model.createControl();
-            return control ? tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, group, (_a = {}, _a[model.key] = control, _a)) : group;
+            if (model instanceof _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelControl"] || model instanceof FormModelGroup) {
+                return model.control ? tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, group, (_a = {}, _a[model.key] = model.control, _a)) : group;
+            }
+            return group;
         }, {});
         var validators = this.validators === undefined ? this.createDefaultValidator() : this.validators;
         return new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"](param, validators);
     };
-    return FormModelObject;
-}(FormModelBase));
+    return FormModelGroup;
+}());
 
-function createFormModelRoot(schema) {
-    return new FormModelObject(schema, undefined, '');
-}
-function createFormModel(schema, parent, key) {
+var FormModelObject = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelObject, _super);
+    function FormModelObject() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(FormModelObject.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormModelObject.prototype, "type", {
+        get: function () {
+            return this.schema.type;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FormModelObject;
+}(FormModelGroup));
+
+var FormModelRoot = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormModelRoot, _super);
+    function FormModelRoot(schema) {
+        return _super.call(this, schema, '') || this;
+    }
+    return FormModelRoot;
+}(FormModelGroup));
+
+function createFormModel(schema, key) {
     switch (schema.formControl) {
         case 'button':
-            return new FormModelButton(schema, parent, key);
+            return new _basic__WEBPACK_IMPORTED_MODULE_2__["FormModelButton"](schema);
         case 'buttons':
-            return new FormModelButtons(schema, parent, key);
+            return new _basic__WEBPACK_IMPORTED_MODULE_2__["FormModelButtons"](schema);
+        case 'submit':
+            return new _basic__WEBPACK_IMPORTED_MODULE_2__["FormModelSubmit"](schema);
         case 'checkbox':
-            return new FormModelCheckbox(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelCheckbox"](schema, key);
         case 'date':
-            return new FormModelDate(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelDate"](schema, key);
         case 'hidden':
-            return new FormModelHidden(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelHidden"](schema, key);
         case 'input':
         case 'number':
         case 'password':
-            return new FormModelInput(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelInput"](schema, key);
         case 'object':
-            return new FormModelObject(schema, parent, key);
+            return new FormModelObject(schema, key);
         case 'radio-group':
-            return new FormModelRadioGroup(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelRadioGroup"](schema, key);
         case 'select':
         case 'select-list':
         case 'button-group':
-            return new FormModelSelect(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelSelect"](schema, key);
         case 'slider':
-            return new FormModelSlider(schema, parent, key);
-        case 'submit':
-            return new FormModelSubmit(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelSlider"](schema, key);
         case 'switch':
-            return new FormModelSwitch(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelSwitch"](schema, key);
         case 'textarea':
-            return new FormModelTextArea(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelTextArea"](schema, key);
         case 'token':
-            return new FormModelToken(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelToken"](schema, key);
         case 'file-input':
-            return new FormModelFileInput(schema, parent, key);
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelFileInput"](schema, key);
+        case 'rating':
+            return new _controls__WEBPACK_IMPORTED_MODULE_3__["FormModelRating"](schema, key);
         default:
             throw new Error('unsupported formControl');
     }
 }
-
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/jss-form/jss-form.component.html":
-/*!*********************************************************!*\
-  !*** ./lib/ng-vcl/src/jss-form/jss-form.component.html ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<form vclForm novalidate [formGroup]=\"formGroup\" (ngSubmit)=\"onSubmit()\" >\n\n  <ng-container *ngFor=\"let fm of rootModel.models\">\n    <vcl-form-control-group>\n      <ng-container [ngSwitch]=\"fm.formControl\">\n          <!-- input -->\n        <ng-container *ngSwitchCase=\"'input'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <input vclInput [formControlName]=\"fm.key\" [placeholder]=\"fm.placeholder\">\n        </ng-container>\n          <!-- number -->\n        <ng-container *ngSwitchCase=\"'number'\">\n            <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n            <input vclInput type=\"number\" [formControlName]=\"fm.key\" [placeholder]=\"fm.placeholder\">\n          </ng-container>\n        <!-- textarea -->\n        <ng-container *ngSwitchCase=\"'textarea'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <textarea vclInput [formControlName]=\"fm.key\" [placeholder]=\"fm.placeholder\" [autogrow]=\"true\" [minRows]=\"fm.minRows || 3\" [maxRows]=\"fm.minRows || 10\"></textarea>\n        </ng-container>\n        <!-- switch -->\n        <ng-container *ngSwitchCase=\"'switch'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <vcl-flip-switch [formControlName]=\"fm.key\"></vcl-flip-switch>\n        </ng-container>\n        <!-- slider -->\n        <ng-container *ngSwitchCase=\"'slider'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <vcl-slider [formControlName]=\"fm.key\" [min]=\"fm.min\" [max]=\"fm.max\" [scale]=\"fm.scale\" [lock]=\"fm.lock\"></vcl-slider>\n        </ng-container>\n        <!-- radio -->\n        <ng-container *ngSwitchCase=\"'radio-group'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <vcl-radio-group [formControlName]=\"fm.key\">\n            <label vclRadioButtonLabel *ngFor=\"let option of fm.options\">\n              <vcl-radio-button [value]=\"option.label\"></vcl-radio-button>\n              <vcl-icon vclAppend >{{option.label}}</vcl-icon>\n            </label>\n          </vcl-radio-group>\n        </ng-container>\n        <!--  button-group -->\n        <ng-container *ngSwitchCase=\"'buttons'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <div class=\"vclLooseButtonGroup\">\n            <button vcl-button *ngFor=\"let button of fm.buttons\" [type]=\"button.formControl\" (click)=\"onAction(button.action)\">{{button.label}}</button>\n          </div>\n        </ng-container>\n        <!--  button-group -->\n        <ng-container *ngSwitchCase=\"'button-group'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <vcl-button-group>\n            <button vcl-button *ngFor=\"let option of fm.options\" [type]=\"option.formControl\" [value]=\"option.value\">{{option.label}}</button>\n          </vcl-button-group>\n        </ng-container>\n        <!--  button -->\n        <ng-container *ngSwitchCase=\"'button'\">\n          <button vcl-button [type]=\"fm.formControl\" (click)=\"onAction(fm.action)\" >{{fm.label}}</button>\n        </ng-container>\n        <!--  checkbox -->\n        <ng-container *ngSwitchCase=\"'checkbox'\">\n          <label vclCheckboxLabel>\n            <vcl-checkbox [formControlName]=\"fm.key\"></vcl-checkbox>\n            {{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required>\n          </label>\n        </ng-container>\n        <!--  select -->\n        <ng-container *ngSwitchCase=\"'select'\">\n          <label *ngIf=\"!!fm.label\" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf=\"fm.required\"></vcl-required></label>\n          <vcl-select [placeholder]=\"fm.placeholder\">\n            <vcl-select-list [formControlName]=\"fm.key\" [selectionMode]=\"fm.selectionMode\">\n              <vcl-select-list-item *ngFor=\"let option of fm.options\" [value]=\"option.value\">\n                <vcl-select-list-label>{{option.label}}</vcl-select-list-label>\n                <vcl-select-list-sublabel>{{option.sublabel}}</vcl-select-list-sublabel>\n              </vcl-select-list-item>\n            </vcl-select-list>\n          </vcl-select>\n        </ng-container>\n        <!--  file-input -->\n        <ng-container *ngSwitchCase=\"'file-input'\">\n          <label vclFormControlLabel>{{fm.label}}</label>\n          <vcl-file-input [multiple]=\"fm.multiple\" [formControlName]=\"fm.key\">{{fm.placeholder}}</vcl-file-input>\n      </ng-container>\n      </ng-container>\n      <!--  hint -->\n      <ng-container *ngFor=\"let hint of fm.hints\">\n        <vcl-hint *ngIf=\"hint.type === 'default'\" > {{ hint.message }}</vcl-hint>\n        <vcl-hint-warning *ngIf=\"hint.type === 'warning'\" > {{ hint.message }}</vcl-hint-warning>\n        <vcl-hint-error *ngIf=\"hint.type === 'error'\" [error]=\"hint.error\" > {{ hint.message }}</vcl-hint-error>\n      </ng-container>\n    </vcl-form-control-group>\n  </ng-container>\n  <ng-content></ng-content>\n</form>\n"
-
-/***/ }),
-
-/***/ "./lib/ng-vcl/src/jss-form/jss-form.component.ts":
-/*!*******************************************************!*\
-  !*** ./lib/ng-vcl/src/jss-form/jss-form.component.ts ***!
-  \*******************************************************/
-/*! exports provided: JssFormComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JssFormComponent", function() { return JssFormComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _jss_form_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./jss-form-models */ "./lib/ng-vcl/src/jss-form/jss-form-models.ts");
-
-
-
-var JssFormComponent = /** @class */ (function () {
-    function JssFormComponent() {
-        this.formSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.formAction = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-    }
-    JssFormComponent.prototype.onSubmit = function () {
-        this.formSubmit.emit(this.formGroup && this.formGroup.value);
-    };
-    JssFormComponent.prototype.x = function () {
-        // this.rootModel.models.forEach(m )
-    };
-    JssFormComponent.prototype.onAction = function (event) {
-        this.formAction.emit(event);
-    };
-    JssFormComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.schema) {
-            var schema = this.schema;
-            if (schema) {
-                this.rootModel = Object(_jss_form_models__WEBPACK_IMPORTED_MODULE_2__["createFormModelRoot"])(schema);
-                this.formGroup = this.rootModel.createControl();
-            }
-            else {
-                this.rootModel = undefined;
-                this.formGroup = undefined;
-            }
-        }
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], JssFormComponent.prototype, "schema", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], JssFormComponent.prototype, "formSubmit", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], JssFormComponent.prototype, "formAction", void 0);
-    JssFormComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'vcl-jss-form',
-            template: __webpack_require__(/*! ./jss-form.component.html */ "./lib/ng-vcl/src/jss-form/jss-form.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            exportAs: 'vclJssForm'
-        })
-    ], JssFormComponent);
-    return JssFormComponent;
-}());
-
 
 
 /***/ }),
@@ -10542,7 +10957,7 @@ var ProgressBarComponent = /** @class */ (function () {
 /*!**************************************!*\
   !*** ./lib/ng-vcl/src/public_api.ts ***!
   \**************************************/
-/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHostDirective, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SELECT_LIST_CONTENT_TOKEN, VCLSelectListModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, JssFormComponent, VCLJssFormModule, ComponentOverlay, TemplateOverlay */
+/*! exports provided: PrependDirective, AppendDirective, VCLCoreModule, hasProjectedContent, FormControlGroupComponent, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, defaultFormControlErrorStateAgent, VCLFormControlGroupModule, InputDirective, VCLInputModule, VCLFileInputModule, VCLTextareaModule, VCLFlipSwitchModule, FlipSwitchComponent, IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, VCLIconModule, FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService, VCLFontAwesomeModule, MaterialDesignIconResolverService, MaterialDesignVCLIconResolverServiceBase, VCLMaterialDesignModule, LayerComponent, LayerBase, LAYER_TOKEN, LayerService, VCLLayerModule, IcogramComponent, IcogramLinkComponent, VCLIcogramModule, ButtonComponent, BUTTON_OBSERVER_TOKEN, VCLButtonModule, ButtonGroupComponent, VCLButtonGroupModule, VCLTabNavModule, NavigationComponent, NavigationItemComponent, NavigationLabelDirective, VCLNavigationModule, PopoverComponent, VCLPopoverModule, VCLProgressBarModule, RadioButtonComponent, RadioGroupDirective, RadioButtonLabelDirective, VCLRadioButtonModule, CheckboxComponent, CheckboxLabelDirective, VCLCheckboxModule, createOffClickStream, OffClickDirective, VCLOffClickModule, DatePickerComponent, TimePickerComponent, VCLDatePickerModule, MonthPickerComponent, VCLMonthPickerModule, VCLLabelModule, TokenComponent, TokenInputContainerComponent, TokenInputDirective, TokenListComponent, VCLTokenModule, SliderComponent, VCLSliderModule, AlertService, AlertType, AlertInput, AlertAlignment, VCLAlertModule, BusyIndicatorCoverComponent, BusyIndicatorComponent, VCLBusyIndicatorModule, VCLTableModule, PasswordInputComponent, VCLPasswordInputModule, VCLZoomBoxModule, GALLERY_ANIMATIONS, VCLGalleryModule, VCLBadgeModule, EmbeddedInputGroupComponent, VCLEmbeddedInputGroupModule, TourService, TourOptions, TourComponent, VCLTourModule, VCLRatingModule, SelectListDirective, SelectListHeaderComponent, SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective, SelectListSeparatorComponent, SelectListContentDirective, SELECT_LIST_TOKEN, SELECT_LIST_CONTENT_TOKEN, VCLSelectListModule, SelectComponent, VCLSelectModule, NotificationComponent, NotifierService, NotifierType, NotifierPosition, NOTIFICATION_CONFIG_TOKEN, NOTIFICATION_ANIMATION_PARAMS_TOKEN, VCLNotifierModule, AutocompleteComponent, VCLAutocompleteModule, JssFormComponent, VCLJssFormModule, ComponentOverlay, TemplateOverlay */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10562,8 +10977,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_INPUT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["FORM_CONTROL_INPUT"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_ERROR_STATE_AGENT", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["FORM_CONTROL_ERROR_STATE_AGENT"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormControlHostDirective", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["FormControlHostDirective"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FORM_CONTROL_HOST", function() { return _form_control_group_index__WEBPACK_IMPORTED_MODULE_1__["FORM_CONTROL_HOST"]; });
 
@@ -11498,7 +11911,7 @@ var VCLRatingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template>\n  <ng-content></ng-content>\n</ng-template>\n"
+module.exports = "<ng-template #labelTemplate>\n  <ng-content></ng-content>\n</ng-template>\n<div #label style=\"display: none\">\n  <ng-container *ngTemplateOutlet=\"labelTemplate\"></ng-container>\n</div>\n"
 
 /***/ }),
 
@@ -11525,7 +11938,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var RATING_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('vcl_rating');
 var RatingItemComponent = /** @class */ (function () {
-    function RatingItemComponent(_rating, ngClass, iconService) {
+    function RatingItemComponent(
+    // private elementRef: ElementRef<HTMLElement>,
+    _rating, ngClass, iconService) {
         this._rating = _rating;
         this.ngClass = ngClass;
         this.iconService = iconService;
@@ -11584,14 +11999,29 @@ var RatingItemComponent = /** @class */ (function () {
         this.focused = false;
         this._rating.onRatingItemBlur(this);
     };
+    Object.defineProperty(RatingItemComponent.prototype, "label", {
+        get: function () {
+            return this._label || this.labelElementRef.nativeElement.innerText;
+        },
+        enumerable: true,
+        configurable: true
+    });
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"]),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('labelTemplate', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"] }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["TemplateRef"])
-    ], RatingItemComponent.prototype, "content", void 0);
+    ], RatingItemComponent.prototype, "labelTemplateRef", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('label', { read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], RatingItemComponent.prototype, "labelElementRef", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], RatingItemComponent.prototype, "disabled", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('label'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], RatingItemComponent.prototype, "_label", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclRatingItem'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -11681,23 +12111,26 @@ var RatingItemLabelComponent = /** @class */ (function () {
             var _this = this;
             this._target = target;
             if (this._target) {
-                this._target.stateChange.subscribe(function () {
-                    var value = _this._target._hoveredValue === undefined ? _this._target.value : _this._target._hoveredValue;
-                    var idx = Math.floor(value) - 1;
-                    var item = _this._target.ratingItems[idx];
-                    if (item && item.content) {
-                        _this.setTemplate(item.content);
+                this._sub && this._sub.unsubscribe();
+                this._sub = undefined;
+                this._target.labelTemplateChange.subscribe(function (tpl) {
+                    if (tpl) {
+                        _this.portal = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_3__["TemplatePortal"](tpl, _this.viewContainerRef);
                     }
+                    else {
+                        _this.portal = undefined;
+                    }
+                    _this.cdRef.markForCheck();
+                    _this.cdRef.detectChanges();
                 });
             }
         },
         enumerable: true,
         configurable: true
     });
-    RatingItemLabelComponent.prototype.setTemplate = function (template) {
-        this.portal = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_3__["TemplatePortal"](template, this.viewContainerRef);
-        this.cdRef.markForCheck();
-        this.cdRef.detectChanges();
+    RatingItemLabelComponent.prototype.ngOnDestroy = function () {
+        this._sub && this._sub.unsubscribe();
+        this._sub = undefined;
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -11747,6 +12180,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _rating_item_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rating-item.component */ "./lib/ng-vcl/src/rating/rating-item.component.ts");
 /* harmony import */ var _form_control_group_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../form-control-group/index */ "./lib/ng-vcl/src/form-control-group/index.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
 
 
 
@@ -11756,6 +12191,7 @@ __webpack_require__.r(__webpack_exports__);
 var UNIQUE_ID = 0;
 var RatingComponent = /** @class */ (function () {
     function RatingComponent(cdRef, ngControl, formControlHost, _errorStateAgent) {
+        var _this = this;
         this.cdRef = cdRef;
         this.ngControl = ngControl;
         this.formControlHost = formControlHost;
@@ -11763,7 +12199,17 @@ var RatingComponent = /** @class */ (function () {
         this.cvaDisabled = false;
         this.generatedId = 'vcl_rating_' + UNIQUE_ID++;
         this.stateChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
-        this.stateChange = this.stateChangeEmitter.asObservable();
+        this.labelChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.stateChange = this.labelChangeEmitter.asObservable();
+        this.labelChange = this.labelChangeEmitter.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(10), // TODO: use scheduler to avoid change detection probs
+        Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function () {
+            var item = _this.currentHoveredItem || _this.currentItem;
+            return item && item.label;
+        }));
+        this.labelTemplateChange = this.labelChangeEmitter.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function () {
+            var item = _this.currentHoveredItem || _this.currentItem;
+            return item && item.labelTemplateRef;
+        }));
         this.controlType = 'rating';
         this.classVclRating = true;
         this.attrRole = 'slider';
@@ -11857,6 +12303,25 @@ var RatingComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(RatingComponent.prototype, "currentItem", {
+        get: function () {
+            var idx = Math.floor(this.value) - 1;
+            return this.ratingItems[idx];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RatingComponent.prototype, "currentHoveredItem", {
+        get: function () {
+            if (this._hoveredValue === undefined) {
+                return undefined;
+            }
+            var idx = Math.floor(this._hoveredValue) - 1;
+            return this.ratingItems[idx];
+        },
+        enumerable: true,
+        configurable: true
+    });
     RatingComponent.prototype.onLabelClick = function (event) {
     };
     RatingComponent.prototype.onMouseLeave = function () {
@@ -11899,6 +12364,7 @@ var RatingComponent = /** @class */ (function () {
                 ri.setState('empty');
             }
         });
+        this.labelChangeEmitter.next();
         this.stateChangeEmitter.next();
     };
     RatingComponent.prototype.ngOnChanges = function (changes) {
