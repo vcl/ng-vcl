@@ -53,6 +53,7 @@ export class NavigationItemComponent {
       this.openParent();
     }
   }
+
   get selected() {
     return this._selected;
   }

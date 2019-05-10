@@ -1,5 +1,5 @@
 import { Input, HostBinding, HostListener, Inject, Optional, ElementRef, Directive, ChangeDetectorRef } from '@angular/core';
-import { FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
+import { FormControlGroupComponent } from './form-control-group.component';
 
 @Directive({
   selector: 'label[vclFormControlLabel]',
@@ -10,8 +10,7 @@ export class FormControlLabelDirective {
     private elementRef: ElementRef<HTMLElement>,
     cdRef: ChangeDetectorRef,
     @Optional()
-    @Inject(FORM_CONTROL_GROUP)
-    private fcg?: FormControlGroup
+    private fcg?: FormControlGroupComponent
   ) {
     this.fcg && this.fcg.stateChange.subscribe(() => {
       cdRef.markForCheck();

@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, Optional, Inject, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
+import { FormControlGroupComponent } from './form-control-group.component';
 
 @Component({
   selector: 'vcl-hint, vcl-hint-error, vcl-hint-warning, vcl-hint-success',
@@ -12,8 +12,7 @@ export class FormControlHintComponent {
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
     @Optional()
-    @Inject(FORM_CONTROL_GROUP)
-    private fcg?: FormControlGroup,
+    private fcg?: FormControlGroupComponent,
   ) {
     fcg && fcg.stateChange.subscribe(() => {
       this.cdRef.detectChanges();

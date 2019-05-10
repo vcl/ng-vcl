@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener, ViewChild, TemplateRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ENTER } from '@angular/cdk/keycodes';
 import { IconService } from '../icon/index';
@@ -25,6 +25,7 @@ export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
 export class RatingItemComponent {
 
   constructor(
+    // private elementRef: ElementRef<HTMLElement>,
     @Inject(RATING_TOKEN)
     private _rating: Rating,
     private ngClass: NgClass,
@@ -33,13 +34,20 @@ export class RatingItemComponent {
     this.setState(this.state);
   }
 
-  @ViewChild(TemplateRef)
-  content?: TemplateRef<any>;
+  @ViewChild('labelTemplate', {read: TemplateRef})
+  labelTemplateRef?: TemplateRef<any>;
+
+  @ViewChild('label', {read: ElementRef})
+  labelElementRef?: ElementRef<any>;
 
   focused = false;
 
   @Input()
   disabled = false;
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('label')
+  _label?: string;
 
   @HostBinding('class.vclRatingItem')
   classVclRatingItem = true;
@@ -99,5 +107,9 @@ export class RatingItemComponent {
   onBlur() {
     this.focused = false;
     this._rating.onRatingItemBlur(this);
+  }
+
+  get label() {
+    return this._label || this.labelElementRef.nativeElement.innerText;
   }
 }

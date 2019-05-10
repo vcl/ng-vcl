@@ -18,7 +18,6 @@ Name          | Type                              | Default                | Des
 `halfStar`    | string                            | 'vcl:star-half'        | Half star icon
 `emptyStar`   | string                            | 'vcl:star-empty'       | Empty star icon
 `starCount`   | number                            | 5                      | Max rating
-`halves`      | boolean                           | true                   | Whether to show halves
 `readonly`    | boolean                           | false                  | Whether the stars can be clicked
 
 #### Events

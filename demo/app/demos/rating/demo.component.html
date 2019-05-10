@@ -13,12 +13,23 @@
 <h2>With label</h2>
 
 <label class="vclFormControlLabel" for="vInputEx1">
-  Rating: <vcl-rating-item-label [target]="rating"></vcl-rating-item-label>
+  Rating: {{rating1.labelChange | async}}
 </label>
-<vcl-rating [value]="2" #rating="vclRating">
-  <vcl-rating-item>Bad</vcl-rating-item> 
-  <vcl-rating-item>Average</vcl-rating-item>
-  <vcl-rating-item>Good</vcl-rating-item>
+<vcl-rating [value]="2" #rating1="vclRating">
+  <vcl-rating-item><span style="color: red">Bad</span></vcl-rating-item> 
+  <vcl-rating-item><span style="color: orange">Average</span></vcl-rating-item>
+  <vcl-rating-item><span style="color: green">Good</span></vcl-rating-item>
+</vcl-rating>
+
+<h2>With rich label</h2>
+
+<label class="vclFormControlLabel" for="vInputEx1">
+  Rating: <vcl-rating-item-label [target]="rating2"></vcl-rating-item-label>
+</label>
+<vcl-rating [value]="2" #rating2="vclRating">
+  <vcl-rating-item><span style="color: red">Bad</span></vcl-rating-item> 
+  <vcl-rating-item><span style="color: orange">Average</span></vcl-rating-item>
+  <vcl-rating-item><span style="color: green">Good</span></vcl-rating-item>
 </vcl-rating>
 
 <h2>Custom Icons</h2>

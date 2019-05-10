@@ -1,7 +1,8 @@
-import { Component, HostBinding, ContentChild, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_GROUP, FormControlGroup } from './interfaces';
+import { Component, HostBinding, ContentChild, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy, Optional, Self, SkipSelf } from '@angular/core';
+import { FormControlInput, FORM_CONTROL_INPUT, FormControlHost, FORM_CONTROL_HOST } from './interfaces';
 import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { NgForm, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'vcl-form-control-group, vcl-form-inline-control-group',
@@ -9,14 +10,21 @@ import { startWith } from 'rxjs/operators';
   exportAs: 'vclFormControlGroup',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
-    provide: FORM_CONTROL_GROUP,
+    provide: FORM_CONTROL_HOST,
     useExisting: forwardRef(() => FormControlGroupComponent)
   }]
 })
-export class FormControlGroupComponent implements FormControlGroup, AfterViewInit, OnDestroy {
+export class FormControlGroupComponent implements FormControlHost, AfterViewInit, OnDestroy {
 
   constructor(
+    @Self()
     private elementRef: ElementRef<HTMLElement>,
+    @Optional()
+    @SkipSelf()
+    private formGroup?: FormGroupDirective,
+    @Optional()
+    @SkipSelf()
+    private ngForm?: NgForm
   ) { }
 
   @HostBinding('class.vclFormControlGroup')
@@ -36,6 +44,28 @@ export class FormControlGroupComponent implements FormControlGroup, AfterViewIni
   @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT })
   input?: FormControlInput;
 
+  private get _form() {
+    return this.ngForm || this.formGroup;
+  }
+  get pending() {
+    return this._form.pending;
+  }
+  get invalid() {
+    return this._form.invalid;
+  }
+  get valid() {
+    return this._form.valid;
+  }
+  get touched() {
+    return this._form.touched;
+  }
+  get untouched() {
+    return this._form.untouched;
+  }
+  get submitted() {
+    return this._form.submitted;
+  }
+
   ngAfterViewInit() {
     if (this.input) {
       this.input.stateChange.pipe(startWith(undefined)).subscribe(this._stateChangeEmitter);
@@ -46,3 +76,32 @@ export class FormControlGroupComponent implements FormControlGroup, AfterViewIni
     return this._stateChangeEmitter.complete();
   }
 }
+
+
+// @Directive({
+//   selector: 'form[vclForm]',
+//   exportAs: 'vclForm',
+//   providers: [{
+//     provide: FORM_CONTROL_HOST,
+//     deps: [
+//       [new Optional(), NgForm],
+//       [new Optional(), FormGroupDirective]
+//     ],
+//     useFactory: formControlHostFactory
+//   }]
+// })
+// export class FormControlHostDirective implements FormControlHost {
+
+//   constructor(
+//     @Optional()
+//     @Self()
+//     private formGroup?: FormGroupDirective,
+//     @Optional()
+//     @Self()
+//     private ngForm?: NgForm,
+//   ) { }
+
+//   @HostBinding('class.vclForm')
+//   classVclForm = true;
+
+// }

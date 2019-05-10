@@ -23,6 +23,7 @@ import {ControlValueAccessor, NgControl} from '@angular/forms';
 import { RatingItemComponent, Rating, RATING_TOKEN } from './rating-item.component';
 import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Subject } from 'rxjs';
+import { map,  debounceTime } from 'rxjs/operators';
 
 let UNIQUE_ID = 0;
 
@@ -67,7 +68,24 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   private cvaDisabled = false;
   private generatedId = 'vcl_rating_' + UNIQUE_ID++;
   private stateChangeEmitter = new Subject<void>();
-  stateChange = this.stateChangeEmitter.asObservable();
+  private labelChangeEmitter = new Subject<void>();
+
+  stateChange = this.labelChangeEmitter.asObservable();
+
+  labelChange = this.labelChangeEmitter.pipe(
+    debounceTime(10), // TODO: use scheduler to avoid change detection probs
+    map(() => {
+      const item = this.currentHoveredItem || this.currentItem;
+      return item && item.label;
+    }
+  ));
+
+  labelTemplateChange = this.labelChangeEmitter.pipe(
+    map(() => {
+      const item = this.currentHoveredItem || this.currentItem;
+      return item && item.labelTemplateRef;
+    }
+  ));
 
   controlType = 'rating';
 
@@ -169,6 +187,19 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     return this.ratingItems.some(ri => ri.focused);
   }
 
+  get currentItem() {
+    const idx = Math.floor(this.value) - 1;
+    return this.ratingItems[idx];
+  }
+
+  get currentHoveredItem() {
+    if (this._hoveredValue  === undefined) {
+      return undefined;
+    }
+    const idx = Math.floor(this._hoveredValue) - 1;
+    return this.ratingItems[idx];
+  }
+
   onLabelClick(event: Event): void {
 
   }
@@ -218,6 +249,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
         ri.setState('empty');
       }
     });
+    this.labelChangeEmitter.next();
     this.stateChangeEmitter.next();
   }
 
