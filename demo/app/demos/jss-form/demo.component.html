@@ -2,18 +2,18 @@
 <vcl-jss-form 
   #heroForm="vclJssForm"
   [schema]="heroSchema" 
-  (formSubmit)="onSubmit($event, heroForm.formGroup.valid)" 
+  (formSubmit)="onSubmit($event, heroForm.ngForm.valid)" 
   (formAction)="onAction($event)">
 </vcl-jss-form>
 
 <div class="value">
   <h4>Form</h4>
-  <pre>status: {{ heroForm.formGroup.status }}</pre>
-  <pre>valid: {{ heroForm.formGroup.valid }}</pre>
-  <pre>dirty: {{ heroForm.formGroup.dirty }}</pre>
-  <pre>submitted: {{ heroForm.formGroup.submitted }}</pre>
-  <pre>touched: {{ heroForm.formGroup.touched }}</pre>
-  <pre>pristine: {{ heroForm.formGroup.pristine }}</pre>
-  <pre>errors: {{ heroForm.formGroup.errors | json }}</pre>
-  <pre>value: {{ heroForm.formGroup.value | json }}</pre>
+  <!-- <pre>status: {{ heroForm.ngForm.status }}</pre>
+  <pre>valid: {{ heroForm.ngForm.valid }}</pre>
+  <pre>dirty: {{ heroForm.ngForm.dirty }}</pre>
+  <pre>submitted: {{ heroForm.ngForm.submitted }}</pre>
+  <pre>touched: {{ heroForm.ngForm.touched }}</pre>
+  <pre>pristine: {{ heroForm.ngForm.pristine }}</pre>
+  <pre>errors: {{ heroForm.ngForm.errors | json }}</pre> -->
+  <pre>value: {{ heroForm.ngForm.value | json }}</pre>
 </div>

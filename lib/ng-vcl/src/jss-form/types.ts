@@ -1,51 +1,64 @@
+import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { DatePickerConfig } from '../date-picker/index';
-import { ValidatorFn } from '@angular/forms';
+import { FormControlErrorStateAgent, FormControlInput } from '../form-control-group/index';
 
 
 export type FormControlTypes = 'input' | 'textarea' | 'password' | 'number' | 'select' | 'select-list' |
                                'switch' | 'slider' | 'radio-group' | 'checkbox' | 'token' | 'date' | 'button-group' | 'file-input' |
+                               'rating' |
                                // jss form specific types
-                               'hidden' | 'buttons' | 'submit' | 'button' | 'object' | 'root';
+                               'hidden' | 'buttons' | 'submit' | 'button' | 'object' | 'form';
 
-                               export interface ErrorHint {
+export interface ErrorHint {
   type: 'error';
-  error: String;
   message: String;
+  error?: string;
 }
 export interface WarningHint {
   type: 'warning';
-  message: String;
+  message: string;
+  error?: string;
 }
 export interface DefaultHint {
   type: 'default';
-  message: String;
+  message: string;
+  error?: string;
 }
 
 export type Hint = DefaultHint | ErrorHint | WarningHint;
 
-
 export interface VCLFormSchemaBase {
   formControl: FormControlTypes;
   id?: string;
-  label?: string;
-  hints?: (Hint | String)[];
+}
+export interface VCLFormSchemaGroupBase extends VCLFormSchemaBase {
+  properties?: { [name: string]: VCLFormSchema };
+  validators?: ValidatorFn[];
+  hints?: (Hint | string | ((control: AbstractControl, input?: FormControlInput) => Hint))[];
+}
+
+export interface VCLFormSchemaControlBase extends VCLFormSchemaBase {
+  hints?: (Hint | string | ((control: AbstractControl, input?: FormControlInput) => Hint))[];
   required?: boolean;
   disabled?: boolean;
   validators?: ValidatorFn[];
   defaultValue?: any;
+  errorStateAgent?: FormControlErrorStateAgent;
 }
 
-export interface VCLFormSchemaInput extends VCLFormSchemaBase {
+export interface VCLFormSchemaInput extends VCLFormSchemaControlBase {
   formControl: 'input' | 'number' | 'password';
+  label?: string;
   placeholder?: string;
 }
 
-export interface VCLFormSchemaHidden extends VCLFormSchemaBase {
+export interface VCLFormSchemaHidden extends VCLFormSchemaControlBase {
   formControl: 'hidden';
 }
 
-export interface VCLFormSchemaTextarea extends VCLFormSchemaBase {
+export interface VCLFormSchemaTextarea extends VCLFormSchemaControlBase {
   formControl: 'textarea';
+  label?: string;
   placeholder?: string;
   minRows?: number;
   maxRows?: number;
@@ -57,91 +70,115 @@ export interface VCLFormSchemaOptions {
   value: any;
 }
 
-export interface VCLFormSchemaSelect extends VCLFormSchemaBase {
+export interface VCLFormSchemaSelect extends VCLFormSchemaControlBase {
   formControl: 'select' | 'select-list' | 'button-group';
+  label?: string;
   selectionMode?: 'multiple' | 'single';
   options: VCLFormSchemaOptions[];
   placeholder?: string;
 }
 
-
-export interface VCLFormSchemaSwitch extends VCLFormSchemaBase {
+export interface VCLFormSchemaSwitch extends VCLFormSchemaControlBase {
   formControl: 'switch';
+  label?: string;
   onLabel?: string;
   offLabel?: string;
 }
 
-export interface VCLFormSchemaSlider extends VCLFormSchemaBase {
+export interface VCLFormSchemaSlider extends VCLFormSchemaControlBase {
   formControl: 'slider';
+  label?: string;
   scale?: number | string[];
   lock?: boolean;
   min: number;
   max: number;
 }
-export interface VCLFormSchemaCheckbox extends VCLFormSchemaBase {
+
+export interface VCLFormSchemaCheckbox extends VCLFormSchemaControlBase {
   formControl: 'checkbox';
+  label?: string;
   iconPosition?: 'left' | 'right';
-  checkedIcon?: string;
-  uncheckedIcon?: string;
 }
 
-export interface VCLFormSchemaRadioGroup extends VCLFormSchemaBase {
+export interface VCLFormSchemaRating extends VCLFormSchemaControlBase {
+  formControl: 'rating';
+  label?: string | ((label: string) => string);
+  type?:	'horizontal' | 'vertical';
+  items?: string[];
+  ratingFullIcon?: string;
+  ratingHalfIcon?: string;
+  ratingEmptyIcon?: string;
+  ratingItemCount?: number;
+}
+
+export interface VCLFormSchemaRadioGroup extends VCLFormSchemaControlBase {
   formControl: 'radio-group';
+  label?: string;
   iconPosition?: 'left' | 'right';
   options: VCLFormSchemaOptions[];
 }
 
-export interface VCLFormSchemaToken extends VCLFormSchemaBase {
+export interface VCLFormSchemaToken extends VCLFormSchemaControlBase {
   formControl: 'token';
+  label?: string;
 }
 
-export interface VCLFormSchemaDate extends VCLFormSchemaBase {
+export interface VCLFormSchemaDate extends VCLFormSchemaControlBase {
   formControl: 'date';
+  label?: string;
   datePickerConfig: DatePickerConfig;
 }
 
-export interface VCLFormSchemaFileInput extends VCLFormSchemaBase {
+export interface VCLFormSchemaFileInput extends VCLFormSchemaControlBase {
   formControl: 'file-input';
+  label?: string;
   multiple: boolean;
   placeholder?: string;
 }
 
+export interface VCLFormSchemaObject extends VCLFormSchemaGroupBase {
+  formControl: 'object';
+  type?: 'fieldset' | 'form';
+  label?: string;
+}
+
+export interface VCLFormSchemaRoot extends VCLFormSchemaGroupBase {
+  formControl: 'form';
+  properties?: { [name: string]: VCLFormSchema };
+}
+
+export interface VCLFormSchemaButton extends VCLFormSchemaBase {
+  formControl: 'button';
+  label?: string;
+  prepIcon?: string;
+  appIcon?: string;
+  class?: string;
+  action?: string;
+}
+
 export interface VCLFormSchemaSubmit extends VCLFormSchemaBase {
   formControl: 'submit';
+  label?: string;
   prepIcon?: string;
   appIcon?: string;
   class?: string;
   autoDisable?: boolean;
 }
 
-export interface VCLFormSchemaButton extends VCLFormSchemaBase {
-  formControl: 'button';
-  prepIcon?: string;
-  appIcon?: string;
-  class?: string;
-  action?: any;
-}
-
-export interface VCLFormSchemaObject extends VCLFormSchemaBase {
-  formControl: 'object';
-  title?: string;
-  properties?: { [name: string]: VCLFormSchema };
-}
-
-export interface VCLFormSchemaButtons extends VCLFormSchemaBase {
+export interface VCLFormSchemaButtons {
   formControl: 'buttons';
   buttons: (VCLFormSchemaButton | VCLFormSchemaSubmit)[];
 }
 
-export interface VCLFormSchemaRoot extends VCLFormSchemaObject {
-  formControl: 'object';
-  description?: string;
-}
-
-export type VCLFormSchema = VCLFormSchemaObject | VCLFormSchemaInput | VCLFormSchemaTextarea
+export type VCLFormSchemaControls = VCLFormSchemaInput | VCLFormSchemaTextarea
                           | VCLFormSchemaHidden | VCLFormSchemaFileInput
                           | VCLFormSchemaCheckbox | VCLFormSchemaSelect
-                          | VCLFormSchemaSwitch | VCLFormSchemaSlider
+                          | VCLFormSchemaSwitch | VCLFormSchemaSlider | VCLFormSchemaRating
                           | VCLFormSchemaRadioGroup | VCLFormSchemaToken | VCLFormSchemaDate
-                          | VCLFormSchemaSubmit | VCLFormSchemaButton
-                          | VCLFormSchemaButtons;
+                          ;
+
+export type VCLFormSchemaGroups = VCLFormSchemaObject | VCLFormSchemaRoot;
+
+export type VCLFormSchemaBasic = VCLFormSchemaSubmit | VCLFormSchemaButton | VCLFormSchemaButtons;
+
+export type VCLFormSchema = VCLFormSchemaBasic | VCLFormSchemaControls | VCLFormSchemaGroups;

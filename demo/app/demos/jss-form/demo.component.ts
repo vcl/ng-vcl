@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HERO_SCHEMA, HERO_DEFAULTS } from './hero';
-import { JssFormComponent } from '@ng-vcl/ng-vcl';
+import { JssFormComponent, NotifierService } from '@ng-vcl/ng-vcl';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { JssFormComponent } from '@ng-vcl/ng-vcl';
 })
 export class JssFormDemoComponent {
 
-  constructor() { }
+  constructor(private notifier: NotifierService) { }
 
   @ViewChild('heroForm')
   heroForm: JssFormComponent;
@@ -17,30 +17,18 @@ export class JssFormDemoComponent {
 
   value = {...HERO_DEFAULTS};
 
-  onSubmit(value, valid) {
-    console.log('value', value);
-
-    if (valid) {
-      // this.ns.success({
-      //   text: `${value.name} is a valid hero`
-      // });
+  onSubmit() {
+    if (this.heroForm.ngForm.valid) {
+      this.notifier.success('Hero created');
     } else {
-      if (this.heroForm.formGroup) {
-        // markAsDeeplyTouched(this.heroForm.formGr);
-      }
-      // this.ns.error({
-      //   text: `Your hero is not valid`
-      // });
+     this.notifier.error('Hero invalid');
     }
   }
 
   onAction(action: string) {
-    if (action === 'reset' && this.heroForm.formGroup) {
-      // this.ns.warning({
-      //   text: `Hero rejected`
-      // });
-      this.heroForm.formGroup.reset({...HERO_DEFAULTS});
+    if (action === 'reset' && this.heroForm.ngForm) {
+      this.heroForm.ngForm.resetForm(this.heroForm.model.defaultValue);
+      this.notifier.info('Hero reset');
     }
   }
-
 }

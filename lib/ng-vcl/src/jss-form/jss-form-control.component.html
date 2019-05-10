@@ -1,0 +1,110 @@
+<ng-container *ngIf="fm.formControl === 'object' && !fm.type">
+  <div [formGroup]="fm.control">
+    <vcl-jss-form-control *ngFor="let fm2 of fm.models" [model]="fm2"></vcl-jss-form-control>
+    <vcl-jss-form-hints [model]="fm"></vcl-jss-form-hints>
+  </div>
+</ng-container>
+<ng-container *ngIf="fm.formControl === 'object' && fm.type === 'fieldset'">
+  <fieldset [formGroup]="fm.control">
+    <legend *ngIf="!!fm.label">{{fm.label}}</legend>
+    <vcl-jss-form-control *ngFor="let fm2 of fm.models" [model]="fm2"></vcl-jss-form-control>
+    <vcl-jss-form-hints [model]="fm"></vcl-jss-form-hints>
+  </fieldset> 
+</ng-container>
+<ng-container *ngIf="fm.formControl !== 'object'">
+  <vcl-form-control-group>
+    <ng-container [ngSwitch]="fm.formControl">
+        <!-- input -->
+      <ng-container *ngSwitchCase="'input'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <input vclInput [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent" [placeholder]="fm.placeholder">
+      </ng-container>
+        <!-- number -->
+      <ng-container *ngSwitchCase="'number'">
+          <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+          <input vclInput type="number" [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent" [placeholder]="fm.placeholder">
+        </ng-container>
+      <!-- textarea -->
+      <ng-container *ngSwitchCase="'textarea'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <textarea vclInput [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent" [placeholder]="fm.placeholder" [autogrow]="true" [minRows]="fm.minRows || 3" [maxRows]="fm.minRows || 10"></textarea>
+      </ng-container>
+      <!-- switch -->
+      <ng-container *ngSwitchCase="'switch'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <vcl-flip-switch [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent"></vcl-flip-switch>
+      </ng-container>
+      <!-- slider -->
+      <ng-container *ngSwitchCase="'slider'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <vcl-slider [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent" [min]="fm.min" [max]="fm.max" [scale]="fm.scale" [lock]="fm.lock"></vcl-slider>
+      </ng-container>
+      <!-- radio -->
+      <ng-container *ngSwitchCase="'radio-group'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <vcl-radio-group [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent">
+          <label vclRadioButtonLabel *ngFor="let option of fm.options">
+            <vcl-radio-button [value]="option.label"></vcl-radio-button>
+            <vcl-icon vclAppend >{{option.label}}</vcl-icon>
+          </label>
+        </vcl-radio-group>
+      </ng-container>
+      <!--  buttons -->
+      <ng-container *ngSwitchCase="'buttons'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <div class="vclLooseButtonGroup">
+          <button vcl-button *ngFor="let button of fm.buttons" [type]="button.formControl" (click)="onAction(button.action)">{{button.label}}</button>
+        </div>
+      </ng-container>
+      <!--  button-group -->
+      <ng-container *ngSwitchCase="'button-group'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <vcl-button-group [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent">
+          <button vcl-button *ngFor="let option of fm.options" [type]="option.formControl" [value]="option.value">{{option.label}}</button>
+        </vcl-button-group>
+      </ng-container>
+      <!--  button -->
+      <ng-container *ngSwitchCase="'button'">
+        <button vcl-button [type]="fm.formControl" (click)="onAction(fm.action)" >{{fm.label}}</button>
+      </ng-container>
+      <!--  checkbox -->
+      <ng-container *ngSwitchCase="'checkbox'">
+        <label vclCheckboxLabel>
+          <vcl-checkbox [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent"></vcl-checkbox>
+          {{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required>
+        </label>
+      </ng-container>
+      <!--  select -->
+      <ng-container *ngSwitchCase="'select'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}<vcl-required *ngIf="fm.required"></vcl-required></label>
+        <vcl-select [placeholder]="fm.placeholder">
+          <vcl-select-list [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent" [selectionMode]="fm.selectionMode">
+            <vcl-select-list-item *ngFor="let option of fm.options" [value]="option.value">
+              <vcl-select-list-label>{{option.label}}</vcl-select-list-label>
+              <vcl-select-list-sublabel>{{option.sublabel}}</vcl-select-list-sublabel>
+            </vcl-select-list-item>
+          </vcl-select-list>
+        </vcl-select>
+      </ng-container>
+      <!--  file-input -->
+      <ng-container *ngSwitchCase="'file-input'">
+        <label *ngIf="!!fm.label" vclFormControlLabel>{{fm.label}}</label>
+        <vcl-file-input [multiple]="fm.multiple" [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent">{{fm.placeholder}}</vcl-file-input>
+      </ng-container>
+      <ng-container *ngSwitchCase="'rating'">
+        <ng-container *ngIf="rating.labelChange | async as label">
+          <label *ngIf="!!fm.createLabel(label)" vclFormControlLabel>{{fm.createLabel(label)}}</label>
+        </ng-container>
+        <vcl-rating #rating="vclRating" [ratingEmptyIcon]="fm.ratingEmptyIcon" [ratingFullIcon]="fm.ratingFullIcon" [ratingHalfIcon]="fm.ratingHalfIcon" [ratingItemCount]="fm.ratingItemCount" [formControl]="fm.control" [errorStateAgent]="fm.errorStateAgent">
+          <vcl-rating-item *ngFor="let item of fm.items">{{item}}</vcl-rating-item>
+        </vcl-rating>
+      </ng-container>
+    </ng-container>
+    <!--  hint -->
+    <vcl-jss-form-hints [model]="fm" [input]="input"></vcl-jss-form-hints>
+  </vcl-form-control-group>
+
+</ng-container>
+
+
+

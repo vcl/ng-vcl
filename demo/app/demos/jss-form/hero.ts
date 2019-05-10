@@ -2,8 +2,7 @@ import { Validators, AbstractControl } from '@angular/forms';
 import { VCLFormSchemaRoot } from '@ng-vcl/ng-vcl';
 
 export const HERO_SCHEMA: VCLFormSchemaRoot = {
-  title: 'hero schema',
-  formControl: 'object',
+  formControl: 'form',
   properties: {
     name: {
       formControl: 'input',
@@ -98,9 +97,65 @@ export const HERO_SCHEMA: VCLFormSchemaRoot = {
       scale: 16,
       lock: true
     },
-    // skill: {
-    //   formControl: 'rat'
-    // }
+    skills: {
+      formControl: 'object',
+      type: 'fieldset',
+      label: 'Skills',
+      properties: {
+        strength: {
+          formControl: 'rating',
+          label: (label) => `Strength (${label})`,
+          items: ['1', '2', '3', '4', '5'],
+          defaultValue: 3
+        },
+        agility: {
+          formControl: 'rating',
+          label: (label) => `Agility (${label})`,
+          items: ['1', '2', '3', '4', '5'],
+          defaultValue: 3
+        },
+        intelligence: {
+          formControl: 'rating',
+          label: (label) => `Intelligence (${label})`,
+          items: ['1', '2', '3', '4', '5'],
+          defaultValue: 3
+        }
+      },
+      validators: [(control: AbstractControl) => {
+        const s = control.get('strength');
+        const a = control.get('agility');
+        const i = control.get('intelligence');
+        const skillPoints = (s && a && i) ? (s.value + a.value + i.value) : 0;
+        return skillPoints > 10 ? { skills: true } : null;
+      }],
+      hints: [
+        (control) => {
+          const s = control.get('strength');
+          const a = control.get('agility');
+          const i = control.get('intelligence');
+          const skillPoints = (s && a && i) ? (s.value + a.value + i.value) : 0;
+          const message = `${skillPoints} of 10 skill points used`;
+          if (control.hasError('skills')) {
+            return {
+              type: 'error',
+              message
+            };
+          } else {
+            const skillPointsAvailable = 10 - skillPoints;
+            if (skillPointsAvailable > 0) {
+              return {
+                type: 'warning',
+                message
+              };
+            }
+            return {
+              type: 'default',
+              message
+            };
+          }
+        }
+      ]
+    },
     perks: {
       formControl: 'select',
       label: 'Perks',

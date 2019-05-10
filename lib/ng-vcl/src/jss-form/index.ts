@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JssFormComponent } from './jss-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { VCLFormSchemaOptions, VCLFormSchema, VCLFormSchemaRoot } from './types';
 import { VCLButtonModule } from '../button/index';
 import { VCLButtonGroupModule } from '../button-group/index';
 import { VCLSelectListModule } from '../select-list/index';
@@ -20,6 +18,12 @@ import { VCLDatePickerModule } from '../date-picker/index';
 import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
+
+import { VCLFormSchemaOptions, VCLFormSchema, VCLFormSchemaRoot } from './types';
+import { JssFormComponent } from './jss-form.component';
+import { JssFormControlComponent } from './jss-form-control.component';
+import { JssFormHintsComponent } from './jss-form-hints.component';
+
 
 export { JssFormComponent, VCLFormSchema, VCLFormSchemaOptions, VCLFormSchemaRoot };
 export * from './types';
@@ -48,7 +52,7 @@ export * from './types';
     VCLRatingModule
   ],
   exports: [JssFormComponent],
-  declarations: [JssFormComponent],
+  declarations: [JssFormComponent, JssFormControlComponent, JssFormHintsComponent],
   providers: [],
   entryComponents: []
 })

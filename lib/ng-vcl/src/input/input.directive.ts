@@ -94,11 +94,13 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
     if (this.autoselect) {
       this.elementRef.nativeElement.select();
     }
+    this.stateChangeEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
+    this.stateChangeEmitter.next();
   }
 
   setDisabled(disabled: boolean) {

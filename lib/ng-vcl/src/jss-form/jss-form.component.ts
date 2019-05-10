@@ -1,13 +1,15 @@
 import {
-  Component, Input, OnChanges,
-  SimpleChanges,
-  Output,
+  Component, Input, Output,
   EventEmitter,
-  ChangeDetectionStrategy} from '@angular/core';
+  ChangeDetectionStrategy,
+  ViewChild,
+  ChangeDetectorRef,
+  AfterViewInit,
+  AfterContentInit} from '@angular/core';
 import {
-  FormGroup} from '@angular/forms';
-import { createFormModel, FormModelObject, createFormModelRoot } from './jss-form-models';
-import { VCLFormSchemaObject, VCLFormSchemaRoot } from './types';
+  NgForm} from '@angular/forms';
+import { VCLFormSchemaRoot } from './types';
+import { FormModelRoot } from './models/index';
 
 @Component({
   selector: 'vcl-jss-form',
@@ -15,10 +17,18 @@ import { VCLFormSchemaObject, VCLFormSchemaRoot } from './types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclJssForm'
 })
-export class JssFormComponent implements OnChanges {
+export class JssFormComponent implements AfterContentInit {
+
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   @Input()
-  schema?: VCLFormSchemaRoot;
+  set schema(value: VCLFormSchemaRoot) {
+    if (value) {
+      this.model = new FormModelRoot(value);
+    } else {
+      this.model = undefined;
+    }
+  }
 
   @Output()
   formSubmit = new EventEmitter<any>();
@@ -26,32 +36,14 @@ export class JssFormComponent implements OnChanges {
   @Output()
   formAction = new EventEmitter<any>();
 
-  rootModel?: FormModelObject;
-  formGroup?: FormGroup | undefined;
+  model?: FormModelRoot;
 
-  onSubmit() {
-    this.formSubmit.emit(this.formGroup && this.formGroup.value);
-  }
+  @ViewChild('form')
+  ngForm?: NgForm;
 
-  x() {
-    // this.rootModel.models.forEach(m )
-  }
-
-  onAction(event) {
-    this.formAction.emit(event);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.schema) {
-      const schema = this.schema;
-      if (schema) {
-        this.rootModel = createFormModelRoot(schema);
-        this.formGroup = this.rootModel.createControl() ;
-      } else {
-        this.rootModel = undefined;
-        this.formGroup = undefined;
-      }
-    }
+  ngAfterContentInit() {
+    // TODO: workaround to avoid ExpressionChangedAfterItHasBeenCheckedError on ngForm
+    this.cdRef.detectChanges();
   }
 
 }
