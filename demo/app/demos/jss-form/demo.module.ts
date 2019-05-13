@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLJssFormModule, VCLNotifierModule } from '@ng-vcl/ng-vcl';
+import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
-import {CustomSampleComponent} from './custom-sample.component';
+import { CounterComponent, FormFieldCounterComponent} from './counter.component';
 
 export function demo() {
   return {
@@ -24,9 +24,9 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-      'custom-sample.component.ts': {
+      'counter.component.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./custom-sample.component.ts')
+        content: require('!highlight-loader?raw=true&lang=ts!./counter.component.ts')
       },
       'hero.ts': {
         type: 'pre',
@@ -40,7 +40,9 @@ export function demo() {
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     DemoModule,
+    VCLButtonModule,
     VCLJssFormModule,
     VCLNotifierModule,
     RouterModule.forChild([{
@@ -49,7 +51,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ JssFormDemoComponent, CustomSampleComponent ],
-  declarations: [ JssFormDemoComponent, CustomSampleComponent ]
+  entryComponents: [ JssFormDemoComponent, CounterComponent, FormFieldCounterComponent ],
+  declarations: [ JssFormDemoComponent, CounterComponent, FormFieldCounterComponent ]
 })
 export class VCLJssFormDemoModule { }

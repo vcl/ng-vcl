@@ -1,5 +1,3 @@
-<form class="vclForm" novalidate #form="ngForm" [formGroup]="model.control" (ngSubmit)="formSubmit.emit(form.value)" >
-  <vcl-jss-form-control *ngFor="let fm of model.models" [model]="fm"></vcl-jss-form-control>
-  <ng-content></ng-content>
-  <vcl-jss-form-hints [model]="model"></vcl-jss-form-hints>
+<form class="vclForm" novalidate #form="ngForm" [formGroup]="field.control" (ngSubmit)="formSubmit.emit(form.value)" >
+  <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
 </form>

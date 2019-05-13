@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 
 export interface FormControlHost {
+  readonly input?: FormControlInput;
   readonly pending: boolean;
   readonly invalid: boolean;
   readonly valid: boolean;

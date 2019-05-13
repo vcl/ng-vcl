@@ -19,20 +19,22 @@ import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
 
-import { VCLFormSchemaOptions, VCLFormSchema, VCLFormSchemaRoot } from './types';
 import { JssFormComponent } from './jss-form.component';
-import { JssFormControlComponent } from './jss-form-control.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
+import { PortalModule } from '@angular/cdk/portal';
+import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSubmitComponent,
+         FormFieldObjectComponent, FormFieldRatingComponent, registerField, registerControlField, FormFieldControl, FormField, FormFieldButtonsComponent } from './fields/index';
 
-
-export { JssFormComponent, VCLFormSchema, VCLFormSchemaOptions, VCLFormSchemaRoot };
+export { JssFormComponent };
+export * from './schemas';
 export * from './types';
-
+export { registerField, registerControlField, FormField, FormFieldControl };
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    PortalModule,
     VCLButtonModule,
     VCLButtonGroupModule,
     VCLSelectListModule,
@@ -52,9 +54,25 @@ export * from './types';
     VCLRatingModule
   ],
   exports: [JssFormComponent],
-  declarations: [JssFormComponent, JssFormControlComponent, JssFormHintsComponent],
+  declarations: [
+    JssFormComponent,
+    JssFormHintsComponent,
+    FormFieldButtonComponent,
+    FormFieldButtonsComponent,
+    FormFieldInputComponent,
+    FormFieldSubmitComponent,
+    FormFieldRatingComponent,
+    FormFieldObjectComponent
+  ],
   providers: [],
-  entryComponents: []
+  entryComponents: [
+    FormFieldButtonComponent,
+    FormFieldButtonsComponent,
+    FormFieldInputComponent,
+    FormFieldSubmitComponent,
+    FormFieldRatingComponent,
+    FormFieldObjectComponent
+  ]
 })
 export class VCLJssFormModule { }
 

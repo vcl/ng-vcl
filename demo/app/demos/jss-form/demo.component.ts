@@ -27,7 +27,7 @@ export class JssFormDemoComponent {
 
   onAction(action: string) {
     if (action === 'reset' && this.heroForm.ngForm) {
-      this.heroForm.ngForm.resetForm(this.heroForm.model.defaultValue);
+      this.heroForm.ngForm.resetForm(this.heroForm.field.defaultValue);
       this.notifier.info('Hero reset');
     }
   }
