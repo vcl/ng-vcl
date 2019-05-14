@@ -2,13 +2,22 @@ import { Component, Input, forwardRef } from '@angular/core';
 import { FormFieldControl, registerControlField } from '@ng-vcl/ng-vcl';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-
 @Component({
   selector: 'demo-counter',
+  styles: [`
+    vcl-icogram {
+      font-size: 2.5em; user-select: none;
+    }
+    vcl-icon {
+      cursor: pointer;
+    }
+  `],
   template: `
-  <button vcl-button type="button" (click)="decrement()" style="margin-left: 5px;">-</button>
-  {{counter}}
-  <button vcl-button type="button" (click)="increment()">+</button>
+    <vcl-icogram>
+      <vcl-icon vclPrepend tabindex=0 (keydown.enter)="decrement()" (click)="decrement()" icon="fas:minus-square"></vcl-icon>
+      {{counter}}
+      <vcl-icon vclAppend tabindex=0 (blur)="onTouched()" (keydown.enter)="increment()" (click)="increment()" icon="fas:plus-square"></vcl-icon>
+    </vcl-icogram>
   `,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
@@ -18,15 +27,21 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class CounterComponent implements ControlValueAccessor {
   counter = 0;
-  onChange;
+
+  @Input()
+  min?: number;
 
   increment() {
     this.counter++;
     this.onChange(this.counter);
   }
   decrement() {
+    if (typeof this.min === 'number' && this.counter <= this.min) {
+      return;
+    }
     this.counter--;
     this.onChange(this.counter);
+    this.onTouched();
   }
   writeValue(obj: any): void {
     this.counter = obj;
@@ -34,17 +49,22 @@ export class CounterComponent implements ControlValueAccessor {
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void { }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+  onChange: (_: any) => void = () => {};
+  onTouched: () => void = () => {};
 }
 
 @Component({
   template: `
     <span *ngIf="label">{{ label }}</span><br>
-    <demo-counter [formControl]="field.control"></demo-counter>
+    <demo-counter [formControl]="field.control" [min]="min"></demo-counter>
     `,
     styles: [
       `:host {
         display: block;
+        padding-top: 1em;
         padding-bottom: 2em;
       }`
     ]
@@ -52,8 +72,10 @@ export class CounterComponent implements ControlValueAccessor {
 export class FormFieldCounterComponent {
   constructor(public field: FormFieldControl) {
     this.label = field.schema.label || '';
+    this.min = field.schema.min;
   }
   label: string;
+  min?: number;
 }
 
 registerControlField('counter', FormFieldCounterComponent);

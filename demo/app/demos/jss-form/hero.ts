@@ -222,9 +222,10 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         return Array.isArray(control.value) && control.value.length > 1 ? null : { minLength: true };
       }],
     },
-    counter: {
+    level: {
       type: 'counter',
-      label: 'Counter',
+      label: 'Level',
+      min: 1,
       defaultValue: 1
     },
     perks: {

@@ -1,4 +1,3 @@
-// import { FieldTypes } from '../../types';
 import { VCLFormFieldSchema } from '../../schemas';
 
 export class FormField<T extends VCLFormFieldSchema = any> {
