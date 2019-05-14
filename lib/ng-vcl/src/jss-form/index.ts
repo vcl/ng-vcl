@@ -23,7 +23,8 @@ import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
 import { PortalModule } from '@angular/cdk/portal';
 import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSubmitComponent,
-         FormFieldObjectComponent, FormFieldRatingComponent, registerField, registerControlField, FormFieldControl, FormField, FormFieldButtonsComponent } from './fields/index';
+         FormFieldObjectComponent, FormFieldRatingComponent, registerField, registerControlField, FormFieldControl, FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent, FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDateComponent, FormFieldFileInputComponent, FormFieldHiddenComponent } from './fields/index';
+import { FormFieldSwitch, FormFieldSwitchComponent } from './fields/controls/switch';
 
 export { JssFormComponent };
 export * from './schemas';
@@ -60,6 +61,16 @@ export { registerField, registerControlField, FormField, FormFieldControl };
     FormFieldButtonComponent,
     FormFieldButtonsComponent,
     FormFieldInputComponent,
+    FormFieldTextareaComponent,
+    FormFieldSelectComponent,
+    FormFieldSwitchComponent,
+    FormFieldSliderComponent,
+    FormFieldCheckboxComponent,
+    FormFieldRadioGroupComponent,
+    FormFieldTokenComponent,
+    FormFieldDateComponent,
+    FormFieldFileInputComponent,
+    FormFieldHiddenComponent,
     FormFieldSubmitComponent,
     FormFieldRatingComponent,
     FormFieldObjectComponent
@@ -69,6 +80,16 @@ export { registerField, registerControlField, FormField, FormFieldControl };
     FormFieldButtonComponent,
     FormFieldButtonsComponent,
     FormFieldInputComponent,
+    FormFieldTextareaComponent,
+    FormFieldSelectComponent,
+    FormFieldSwitchComponent,
+    FormFieldSliderComponent,
+    FormFieldCheckboxComponent,
+    FormFieldRadioGroupComponent,
+    FormFieldTokenComponent,
+    FormFieldDateComponent,
+    FormFieldFileInputComponent,
+    FormFieldHiddenComponent,
     FormFieldSubmitComponent,
     FormFieldRatingComponent,
     FormFieldObjectComponent

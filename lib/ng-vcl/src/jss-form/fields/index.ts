@@ -4,6 +4,16 @@ export * from './basic/buttons';
 export * from './basic/submit';
 export * from './controls/control';
 export * from './controls/input';
+export * from './controls/textarea';
+export * from './controls/select';
+export * from './controls/switch';
+export * from './controls/slider';
+export * from './controls/checkbox';
+export * from './controls/radio-group';
+export * from './controls/token';
+export * from './controls/date-picker';
+export * from './controls/file-input';
+export * from './controls/hidden';
 export * from './controls/rating';
 export * from './controls/object';
 
