@@ -262,57 +262,70 @@ var HERO_SCHEMA = {
                 }
             ]
         },
-        // description: {
-        //   type: 'textarea',
-        //   label: 'Description',
-        //   placeholder: 'The hero\'s Description',
-        // },
-        // leader: {
-        //   type: 'switch',
-        //   offLabel: 'No',
-        //   onLabel: 'Yes',
-        //   defaultValue: false,
-        //   label: 'Leader'
-        // },
-        // picture: {
-        //   type: 'file-input',
-        //   label: 'Picture',
-        //   multiple: false,
-        //   placeholder: 'Picture of the hero'
-        // },
-        // email: {
-        //   type: 'input',
-        //   label: 'Email',
-        //   validators: [ Validators.required, Validators.email ],
-        //   required: true,
-        //   hints: [
-        //     {
-        //       type: 'error',
-        //       error: 'required',
-        //       message: 'Email is required'
-        //     },
-        //     {
-        //       type: 'error',
-        //       error: 'email',
-        //       message: 'Invalid Email address'
-        //     }
-        //   ]
-        // },
-        // gender: {
-        //   type: 'radio-group',
-        //   label: 'Gender',
-        //   options: [{
-        //     label: 'Male',
-        //     value: 'm'
-        //   }, {
-        //     label: 'Female',
-        //     value: 'f'
-        //   }, {
-        //     label: 'Genderless',
-        //     value: 'g'
-        //   }],
-        //   defaultValue: 'm'
-        // },
+        description: {
+            type: 'textarea',
+            label: 'Description',
+            placeholder: 'The hero\'s Description',
+            required: true,
+            validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required],
+            hints: [
+                {
+                    type: 'default',
+                    message: 'Name is required'
+                },
+                {
+                    type: 'error',
+                    error: 'required',
+                    message: 'Description is required'
+                }
+            ]
+        },
+        leader: {
+            type: 'switch',
+            offLabel: 'No',
+            onLabel: 'Yes',
+            defaultValue: false,
+            label: 'Leader'
+        },
+        picture: {
+            type: 'file-input',
+            label: 'Picture',
+            multiple: false,
+            placeholder: 'Picture of the hero'
+        },
+        email: {
+            type: 'input',
+            label: 'Email',
+            validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].email],
+            required: true,
+            hints: [
+                {
+                    type: 'error',
+                    error: 'required',
+                    message: 'Email is required'
+                },
+                {
+                    type: 'error',
+                    error: 'email',
+                    message: 'Invalid Email address'
+                }
+            ]
+        },
+        gender: {
+            type: 'radio-group',
+            label: 'Gender',
+            options: [{
+                    label: 'Male',
+                    value: 'm'
+                }, {
+                    label: 'Female',
+                    value: 'f'
+                }, {
+                    label: 'Genderless',
+                    value: 'g'
+                }],
+            defaultValue: 'm'
+        },
         // alignment: {
         //   type: 'button-group',
         //   label: 'Alignment',
@@ -327,15 +340,14 @@ var HERO_SCHEMA = {
         //     value: -1
         //   }]
         // },
-        // hitpoints: {
-        //   type: 'slider',
-        //   label: 'Hit Points',
-        //   defaultValue: 10,
-        //   min: 5,
-        //   max: 20,
-        //   scale: 16,
-        //   lock: true
-        // },
+        hitpoints: {
+            type: 'slider',
+            label: 'Hit Points',
+            min: 5,
+            max: 20,
+            scale: 16,
+            lock: true
+        },
         skills: {
             type: 'object',
             layout: 'fieldset',
@@ -396,72 +408,76 @@ var HERO_SCHEMA = {
                 }
             ]
         },
+        attributes: {
+            type: 'token',
+            label: 'Attributes'
+        },
         counter: {
             type: 'counter',
             label: 'Counter',
             defaultValue: 1
         },
-        // perks: {
-        //   type: 'select',
-        //   label: 'Perks',
-        //   placeholder: 'Select perks',
-        //   selectionMode: 'multiple',
-        //   options: [{
-        //     label: 'Snake Eater',
-        //     sublabel: 'It gives you a 25% increase to your poison resistance.',
-        //     value: 'snakeeater'
-        //   },
-        //   {
-        //     label: 'Swift Learner',
-        //     sublabel: 'Swift Learner	Whenever you gain experience, you\'ll receive 5% more experience per level of the perk.',
-        //     value: 'swiftlearner',
-        //   },
-        //   {
-        //     label: 'Toughness',
-        //     sublabel: 'It adds 10% to your general damage resistance per level.',
-        //     value: 'toughness'
-        //   },
-        //   {
-        //     label: 'Explorer',
-        //     sublabel: 'You\'ll get more random encounters with this perk.',
-        //     value: 'explorer'
-        //   }],
-        //   validators: [
-        //     ((ctrl: AbstractControl) => {
-        //       if (ctrl.value && Array.isArray(ctrl.value) && ctrl.value.length === 2) {
-        //         return null;
-        //       }
-        //       return {
-        //         perks: true
-        //       };
-        //     })
-        //   ],
-        //   hints: [{
-        //     type: 'error',
-        //     error: 'perks',
-        //     message: 'You must select two perks'
-        //   }],
-        // },
-        // terms: {
-        //   type: 'checkbox',
-        //   label: 'Agree to our terms',
-        //   validators: [(control: AbstractControl) => {
-        //     if (!control.value) {
-        //       return {
-        //         termsDisagree: true,
-        //       };
-        //     }
-        //     return null;
-        //   }],
-        //   hints: [
-        //     'Read the terms to learn how we collect, use and share your data',
-        //     {
-        //       type: 'error',
-        //       error: 'termsDisagree',
-        //       message: 'You must agree to our Terms'
-        //     }
-        //   ]
-        // },
+        perks: {
+            type: 'select',
+            label: 'Perks',
+            placeholder: 'Select perks',
+            selectionMode: 'multiple',
+            options: [{
+                    label: 'Snake Eater',
+                    sublabel: 'It gives you a 25% increase to your poison resistance.',
+                    value: 'snakeeater'
+                },
+                {
+                    label: 'Swift Learner',
+                    sublabel: 'Swift Learner	Whenever you gain experience, you\'ll receive 5% more experience per level of the perk.',
+                    value: 'swiftlearner',
+                },
+                {
+                    label: 'Toughness',
+                    sublabel: 'It adds 10% to your general damage resistance per level.',
+                    value: 'toughness'
+                },
+                {
+                    label: 'Explorer',
+                    sublabel: 'You\'ll get more random encounters with this perk.',
+                    value: 'explorer'
+                }],
+            validators: [
+                function (ctrl) {
+                    if (ctrl.value && Array.isArray(ctrl.value) && ctrl.value.length === 2) {
+                        return null;
+                    }
+                    return {
+                        perks: true
+                    };
+                }
+            ],
+            hints: [{
+                    type: 'error',
+                    error: 'perks',
+                    message: 'You must select two perks'
+                }],
+        },
+        terms: {
+            type: 'checkbox',
+            label: 'Agree to our terms',
+            validators: [function (control) {
+                    if (!control.value) {
+                        return {
+                            termsDisagree: true,
+                        };
+                    }
+                    return null;
+                }],
+            hints: [
+                'Read the terms to learn how we collect, use and share your data',
+                {
+                    type: 'error',
+                    error: 'termsDisagree',
+                    message: 'You must agree to our Terms'
+                }
+            ]
+        },
         submit: {
             type: 'buttons',
             buttons: [
@@ -484,7 +500,6 @@ var HERO_DEFAULTS = {
     gender: 'male',
     hp: 5,
     custom: 3,
-    attributes: ['test token'],
     items: [{ name: 'Item 1', quantity: 2 }],
     perks: ['heave_ho']
 };
@@ -532,7 +547,7 @@ module.exports = "<span class=\"hljs-keyword\">import</span> { Component, OnInit
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-keyword\">import</span> { Validators, AbstractControl } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/forms'</span>;\n<span class=\"hljs-keyword\">import</span> { VCLFormFieldSchemaRoot } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@ng-vcl/ng-vcl'</span>;\n\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> HERO_SCHEMA: VCLFormFieldSchemaRoot = {\n  <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'form'</span>,\n  fields: {\n    name: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'input'</span>,\n      label: <span class=\"hljs-string\">'Name'</span>,\n      placeholder: <span class=\"hljs-string\">'The hero\\'s name'</span>,\n      validators: [ Validators.required, Validators.minLength(<span class=\"hljs-number\">2</span>) ],\n      required: <span class=\"hljs-literal\">true</span>,\n      hints: [\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'required'</span>,\n          message: <span class=\"hljs-string\">'Name is required'</span>\n        },\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'minlength'</span>,\n          message: <span class=\"hljs-string\">'Name must have a length of at least 2 characters'</span>\n        }\n      ]\n    },\n    <span class=\"hljs-comment\">// description: {</span>\n    <span class=\"hljs-comment\">//   type: 'textarea',</span>\n    <span class=\"hljs-comment\">//   label: 'Description',</span>\n    <span class=\"hljs-comment\">//   placeholder: 'The hero\\'s Description',</span>\n    <span class=\"hljs-comment\">// },</span>\n    <span class=\"hljs-comment\">// leader: {</span>\n    <span class=\"hljs-comment\">//   type: 'switch',</span>\n    <span class=\"hljs-comment\">//   offLabel: 'No',</span>\n    <span class=\"hljs-comment\">//   onLabel: 'Yes',</span>\n    <span class=\"hljs-comment\">//   defaultValue: false,</span>\n    <span class=\"hljs-comment\">//   label: 'Leader'</span>\n    <span class=\"hljs-comment\">// },</span>\n    <span class=\"hljs-comment\">// picture: {</span>\n    <span class=\"hljs-comment\">//   type: 'file-input',</span>\n    <span class=\"hljs-comment\">//   label: 'Picture',</span>\n    <span class=\"hljs-comment\">//   multiple: false,</span>\n    <span class=\"hljs-comment\">//   placeholder: 'Picture of the hero'</span>\n    <span class=\"hljs-comment\">// },</span>\n    <span class=\"hljs-comment\">// email: {</span>\n    <span class=\"hljs-comment\">//   type: 'input',</span>\n    <span class=\"hljs-comment\">//   label: 'Email',</span>\n    <span class=\"hljs-comment\">//   validators: [ Validators.required, Validators.email ],</span>\n    <span class=\"hljs-comment\">//   required: true,</span>\n    <span class=\"hljs-comment\">//   hints: [</span>\n    <span class=\"hljs-comment\">//     {</span>\n    <span class=\"hljs-comment\">//       type: 'error',</span>\n    <span class=\"hljs-comment\">//       error: 'required',</span>\n    <span class=\"hljs-comment\">//       message: 'Email is required'</span>\n    <span class=\"hljs-comment\">//     },</span>\n    <span class=\"hljs-comment\">//     {</span>\n    <span class=\"hljs-comment\">//       type: 'error',</span>\n    <span class=\"hljs-comment\">//       error: 'email',</span>\n    <span class=\"hljs-comment\">//       message: 'Invalid Email address'</span>\n    <span class=\"hljs-comment\">//     }</span>\n    <span class=\"hljs-comment\">//   ]</span>\n    <span class=\"hljs-comment\">// },</span>\n    <span class=\"hljs-comment\">// gender: {</span>\n    <span class=\"hljs-comment\">//   type: 'radio-group',</span>\n    <span class=\"hljs-comment\">//   label: 'Gender',</span>\n    <span class=\"hljs-comment\">//   options: [{</span>\n    <span class=\"hljs-comment\">//     label: 'Male',</span>\n    <span class=\"hljs-comment\">//     value: 'm'</span>\n    <span class=\"hljs-comment\">//   }, {</span>\n    <span class=\"hljs-comment\">//     label: 'Female',</span>\n    <span class=\"hljs-comment\">//     value: 'f'</span>\n    <span class=\"hljs-comment\">//   }, {</span>\n    <span class=\"hljs-comment\">//     label: 'Genderless',</span>\n    <span class=\"hljs-comment\">//     value: 'g'</span>\n    <span class=\"hljs-comment\">//   }],</span>\n    <span class=\"hljs-comment\">//   defaultValue: 'm'</span>\n    <span class=\"hljs-comment\">// },</span>\n    <span class=\"hljs-comment\">// alignment: {</span>\n    <span class=\"hljs-comment\">//   type: 'button-group',</span>\n    <span class=\"hljs-comment\">//   label: 'Alignment',</span>\n    <span class=\"hljs-comment\">//   options: [{</span>\n    <span class=\"hljs-comment\">//     label: 'Good',</span>\n    <span class=\"hljs-comment\">//     value: 1</span>\n    <span class=\"hljs-comment\">//   }, {</span>\n    <span class=\"hljs-comment\">//     label: 'Neutral',</span>\n    <span class=\"hljs-comment\">//     value: 0</span>\n    <span class=\"hljs-comment\">//   }, {</span>\n    <span class=\"hljs-comment\">//     label: 'Evil',</span>\n    <span class=\"hljs-comment\">//     value: -1</span>\n    <span class=\"hljs-comment\">//   }]</span>\n    <span class=\"hljs-comment\">// },</span>\n    <span class=\"hljs-comment\">// hitpoints: {</span>\n    <span class=\"hljs-comment\">//   type: 'slider',</span>\n    <span class=\"hljs-comment\">//   label: 'Hit Points',</span>\n    <span class=\"hljs-comment\">//   defaultValue: 10,</span>\n    <span class=\"hljs-comment\">//   min: 5,</span>\n    <span class=\"hljs-comment\">//   max: 20,</span>\n    <span class=\"hljs-comment\">//   scale: 16,</span>\n    <span class=\"hljs-comment\">//   lock: true</span>\n    <span class=\"hljs-comment\">// },</span>\n    skills: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'object'</span>,\n      layout: <span class=\"hljs-string\">'fieldset'</span>,\n      label: <span class=\"hljs-string\">'Skills'</span>,\n      fields: {\n        strength: {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'rating'</span>,\n          label: <span class=\"hljs-function\">(<span class=\"hljs-params\">label</span>) =&gt;</span> <span class=\"hljs-string\">`Strength (<span class=\"hljs-subst\">${label}</span>)`</span>,\n          items: [<span class=\"hljs-string\">'1'</span>, <span class=\"hljs-string\">'2'</span>, <span class=\"hljs-string\">'3'</span>, <span class=\"hljs-string\">'4'</span>, <span class=\"hljs-string\">'5'</span>],\n          defaultValue: <span class=\"hljs-number\">3</span>\n        },\n        agility: {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'rating'</span>,\n          label: <span class=\"hljs-function\">(<span class=\"hljs-params\">label</span>) =&gt;</span> <span class=\"hljs-string\">`Agility (<span class=\"hljs-subst\">${label}</span>)`</span>,\n          items: [<span class=\"hljs-string\">'1'</span>, <span class=\"hljs-string\">'2'</span>, <span class=\"hljs-string\">'3'</span>, <span class=\"hljs-string\">'4'</span>, <span class=\"hljs-string\">'5'</span>],\n          defaultValue: <span class=\"hljs-number\">3</span>\n        },\n        intelligence: {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'rating'</span>,\n          label: <span class=\"hljs-function\">(<span class=\"hljs-params\">label</span>) =&gt;</span> <span class=\"hljs-string\">`Intelligence (<span class=\"hljs-subst\">${label}</span>)`</span>,\n          items: [<span class=\"hljs-string\">'1'</span>, <span class=\"hljs-string\">'2'</span>, <span class=\"hljs-string\">'3'</span>, <span class=\"hljs-string\">'4'</span>, <span class=\"hljs-string\">'5'</span>],\n          defaultValue: <span class=\"hljs-number\">3</span>\n        }\n      },\n      validators: [<span class=\"hljs-function\">(<span class=\"hljs-params\">control: AbstractControl</span>) =&gt;</span> {\n        <span class=\"hljs-keyword\">const</span> s = control.get(<span class=\"hljs-string\">'strength'</span>);\n        <span class=\"hljs-keyword\">const</span> a = control.get(<span class=\"hljs-string\">'agility'</span>);\n        <span class=\"hljs-keyword\">const</span> i = control.get(<span class=\"hljs-string\">'intelligence'</span>);\n        <span class=\"hljs-keyword\">const</span> skillPoints = (s &amp;&amp; a &amp;&amp; i) ? (s.value + a.value + i.value) : <span class=\"hljs-number\">0</span>;\n        <span class=\"hljs-keyword\">return</span> skillPoints &gt; <span class=\"hljs-number\">10</span> ? { skills: <span class=\"hljs-literal\">true</span> } : <span class=\"hljs-literal\">null</span>;\n      }],\n      hints: [\n        <span class=\"hljs-function\">(<span class=\"hljs-params\">control</span>) =&gt;</span> {\n          <span class=\"hljs-keyword\">const</span> s = control.get(<span class=\"hljs-string\">'strength'</span>);\n          <span class=\"hljs-keyword\">const</span> a = control.get(<span class=\"hljs-string\">'agility'</span>);\n          <span class=\"hljs-keyword\">const</span> i = control.get(<span class=\"hljs-string\">'intelligence'</span>);\n          <span class=\"hljs-keyword\">const</span> skillPoints = (s &amp;&amp; a &amp;&amp; i) ? (s.value + a.value + i.value) : <span class=\"hljs-number\">0</span>;\n          <span class=\"hljs-keyword\">const</span> message = <span class=\"hljs-string\">`<span class=\"hljs-subst\">${skillPoints}</span> of 10 skill points used`</span>;\n          <span class=\"hljs-keyword\">if</span> (control.hasError(<span class=\"hljs-string\">'skills'</span>)) {\n            <span class=\"hljs-keyword\">return</span> {\n              <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n              message\n            };\n          } <span class=\"hljs-keyword\">else</span> {\n            <span class=\"hljs-keyword\">const</span> skillPointsAvailable = <span class=\"hljs-number\">10</span> - skillPoints;\n            <span class=\"hljs-keyword\">if</span> (skillPointsAvailable &gt; <span class=\"hljs-number\">0</span>) {\n              <span class=\"hljs-keyword\">return</span> {\n                <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'warning'</span>,\n                message\n              };\n            }\n            <span class=\"hljs-keyword\">return</span> {\n              <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'default'</span>,\n              message\n            };\n          }\n        }\n      ]\n    },\n    counter: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'counter'</span>,\n      label: <span class=\"hljs-string\">'Counter'</span>,\n      defaultValue: <span class=\"hljs-number\">1</span>\n    },\n    <span class=\"hljs-comment\">// perks: {</span>\n    <span class=\"hljs-comment\">//   type: 'select',</span>\n    <span class=\"hljs-comment\">//   label: 'Perks',</span>\n    <span class=\"hljs-comment\">//   placeholder: 'Select perks',</span>\n    <span class=\"hljs-comment\">//   selectionMode: 'multiple',</span>\n    <span class=\"hljs-comment\">//   options: [{</span>\n    <span class=\"hljs-comment\">//     label: 'Snake Eater',</span>\n    <span class=\"hljs-comment\">//     sublabel: 'It gives you a 25% increase to your poison resistance.',</span>\n    <span class=\"hljs-comment\">//     value: 'snakeeater'</span>\n    <span class=\"hljs-comment\">//   },</span>\n    <span class=\"hljs-comment\">//   {</span>\n    <span class=\"hljs-comment\">//     label: 'Swift Learner',</span>\n    <span class=\"hljs-comment\">//     sublabel: 'Swift Learner\tWhenever you gain experience, you\\'ll receive 5% more experience per level of the perk.',</span>\n    <span class=\"hljs-comment\">//     value: 'swiftlearner',</span>\n    <span class=\"hljs-comment\">//   },</span>\n    <span class=\"hljs-comment\">//   {</span>\n    <span class=\"hljs-comment\">//     label: 'Toughness',</span>\n    <span class=\"hljs-comment\">//     sublabel: 'It adds 10% to your general damage resistance per level.',</span>\n    <span class=\"hljs-comment\">//     value: 'toughness'</span>\n    <span class=\"hljs-comment\">//   },</span>\n    <span class=\"hljs-comment\">//   {</span>\n    <span class=\"hljs-comment\">//     label: 'Explorer',</span>\n    <span class=\"hljs-comment\">//     sublabel: 'You\\'ll get more random encounters with this perk.',</span>\n    <span class=\"hljs-comment\">//     value: 'explorer'</span>\n    <span class=\"hljs-comment\">//   }],</span>\n    <span class=\"hljs-comment\">//   validators: [</span>\n    <span class=\"hljs-comment\">//     ((ctrl: AbstractControl) =&gt; {</span>\n    <span class=\"hljs-comment\">//       if (ctrl.value &amp;&amp; Array.isArray(ctrl.value) &amp;&amp; ctrl.value.length === 2) {</span>\n    <span class=\"hljs-comment\">//         return null;</span>\n    <span class=\"hljs-comment\">//       }</span>\n    <span class=\"hljs-comment\">//       return {</span>\n    <span class=\"hljs-comment\">//         perks: true</span>\n    <span class=\"hljs-comment\">//       };</span>\n    <span class=\"hljs-comment\">//     })</span>\n    <span class=\"hljs-comment\">//   ],</span>\n    <span class=\"hljs-comment\">//   hints: [{</span>\n    <span class=\"hljs-comment\">//     type: 'error',</span>\n    <span class=\"hljs-comment\">//     error: 'perks',</span>\n    <span class=\"hljs-comment\">//     message: 'You must select two perks'</span>\n    <span class=\"hljs-comment\">//   }],</span>\n    <span class=\"hljs-comment\">// },</span>\n    <span class=\"hljs-comment\">// terms: {</span>\n    <span class=\"hljs-comment\">//   type: 'checkbox',</span>\n    <span class=\"hljs-comment\">//   label: 'Agree to our terms',</span>\n    <span class=\"hljs-comment\">//   validators: [(control: AbstractControl) =&gt; {</span>\n    <span class=\"hljs-comment\">//     if (!control.value) {</span>\n    <span class=\"hljs-comment\">//       return {</span>\n    <span class=\"hljs-comment\">//         termsDisagree: true,</span>\n    <span class=\"hljs-comment\">//       };</span>\n    <span class=\"hljs-comment\">//     }</span>\n    <span class=\"hljs-comment\">//     return null;</span>\n    <span class=\"hljs-comment\">//   }],</span>\n    <span class=\"hljs-comment\">//   hints: [</span>\n    <span class=\"hljs-comment\">//     'Read the terms to learn how we collect, use and share your data',</span>\n    <span class=\"hljs-comment\">//     {</span>\n    <span class=\"hljs-comment\">//       type: 'error',</span>\n    <span class=\"hljs-comment\">//       error: 'termsDisagree',</span>\n    <span class=\"hljs-comment\">//       message: 'You must agree to our Terms'</span>\n    <span class=\"hljs-comment\">//     }</span>\n    <span class=\"hljs-comment\">//   ]</span>\n    <span class=\"hljs-comment\">// },</span>\n    submit: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'buttons'</span>,\n      buttons: [\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'submit'</span>,\n          label: <span class=\"hljs-string\">'Submit'</span>,\n          <span class=\"hljs-keyword\">class</span>: <span class=\"hljs-string\">'vclEmphasized'</span>\n        },\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'button'</span>,\n          label: <span class=\"hljs-string\">'Reset'</span>,\n          action: <span class=\"hljs-string\">'reset'</span>\n        }\n      ]\n    }\n  },\n};\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> HERO_DEFAULTS = {\n  color: <span class=\"hljs-string\">'#008000'</span>,\n  gender: <span class=\"hljs-string\">'male'</span>,\n  hp: <span class=\"hljs-number\">5</span>,\n  custom: <span class=\"hljs-number\">3</span>,\n  attributes: [<span class=\"hljs-string\">'test token'</span>],\n  items: [{name: <span class=\"hljs-string\">'Item 1'</span>, quantity: <span class=\"hljs-number\">2</span>}],\n  perks: [<span class=\"hljs-string\">'heave_ho'</span>]\n};\n"
+module.exports = "<span class=\"hljs-keyword\">import</span> { Validators, AbstractControl } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/forms'</span>;\n<span class=\"hljs-keyword\">import</span> { VCLFormFieldSchemaRoot } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@ng-vcl/ng-vcl'</span>;\n\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> HERO_SCHEMA: VCLFormFieldSchemaRoot = {\n  <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'form'</span>,\n  fields: {\n    name: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'input'</span>,\n      label: <span class=\"hljs-string\">'Name'</span>,\n      placeholder: <span class=\"hljs-string\">'The hero\\'s name'</span>,\n      validators: [ Validators.required, Validators.minLength(<span class=\"hljs-number\">2</span>) ],\n      required: <span class=\"hljs-literal\">true</span>,\n      hints: [\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'required'</span>,\n          message: <span class=\"hljs-string\">'Name is required'</span>\n        },\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'minlength'</span>,\n          message: <span class=\"hljs-string\">'Name must have a length of at least 2 characters'</span>\n        }\n      ]\n    },\n    description: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'textarea'</span>,\n      label: <span class=\"hljs-string\">'Description'</span>,\n      placeholder: <span class=\"hljs-string\">'The hero\\'s Description'</span>,\n      required: <span class=\"hljs-literal\">true</span>,\n      validators: [ Validators.required ],\n      hints: [\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'default'</span>,\n          message: <span class=\"hljs-string\">'Name is required'</span>\n        },\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'required'</span>,\n          message: <span class=\"hljs-string\">'Description is required'</span>\n        }\n      ]\n    },\n    leader: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'switch'</span>,\n      offLabel: <span class=\"hljs-string\">'No'</span>,\n      onLabel: <span class=\"hljs-string\">'Yes'</span>,\n      defaultValue: <span class=\"hljs-literal\">false</span>,\n      label: <span class=\"hljs-string\">'Leader'</span>\n    },\n    picture: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'file-input'</span>,\n      label: <span class=\"hljs-string\">'Picture'</span>,\n      multiple: <span class=\"hljs-literal\">false</span>,\n      placeholder: <span class=\"hljs-string\">'Picture of the hero'</span>\n    },\n    email: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'input'</span>,\n      label: <span class=\"hljs-string\">'Email'</span>,\n      validators: [ Validators.required, Validators.email ],\n      required: <span class=\"hljs-literal\">true</span>,\n      hints: [\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'required'</span>,\n          message: <span class=\"hljs-string\">'Email is required'</span>\n        },\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'email'</span>,\n          message: <span class=\"hljs-string\">'Invalid Email address'</span>\n        }\n      ]\n    },\n    gender: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'radio-group'</span>,\n      label: <span class=\"hljs-string\">'Gender'</span>,\n      options: [{\n        label: <span class=\"hljs-string\">'Male'</span>,\n        value: <span class=\"hljs-string\">'m'</span>\n      }, {\n        label: <span class=\"hljs-string\">'Female'</span>,\n        value: <span class=\"hljs-string\">'f'</span>\n      }, {\n        label: <span class=\"hljs-string\">'Genderless'</span>,\n        value: <span class=\"hljs-string\">'g'</span>\n      }],\n      defaultValue: <span class=\"hljs-string\">'m'</span>\n    },\n    <span class=\"hljs-comment\">// alignment: {</span>\n    <span class=\"hljs-comment\">//   type: 'button-group',</span>\n    <span class=\"hljs-comment\">//   label: 'Alignment',</span>\n    <span class=\"hljs-comment\">//   options: [{</span>\n    <span class=\"hljs-comment\">//     label: 'Good',</span>\n    <span class=\"hljs-comment\">//     value: 1</span>\n    <span class=\"hljs-comment\">//   }, {</span>\n    <span class=\"hljs-comment\">//     label: 'Neutral',</span>\n    <span class=\"hljs-comment\">//     value: 0</span>\n    <span class=\"hljs-comment\">//   }, {</span>\n    <span class=\"hljs-comment\">//     label: 'Evil',</span>\n    <span class=\"hljs-comment\">//     value: -1</span>\n    <span class=\"hljs-comment\">//   }]</span>\n    <span class=\"hljs-comment\">// },</span>\n    hitpoints: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'slider'</span>,\n      label: <span class=\"hljs-string\">'Hit Points'</span>,\n      min: <span class=\"hljs-number\">5</span>,\n      max: <span class=\"hljs-number\">20</span>,\n      scale: <span class=\"hljs-number\">16</span>,\n      lock: <span class=\"hljs-literal\">true</span>\n    },\n    skills: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'object'</span>,\n      layout: <span class=\"hljs-string\">'fieldset'</span>,\n      label: <span class=\"hljs-string\">'Skills'</span>,\n      fields: {\n        strength: {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'rating'</span>,\n          label: <span class=\"hljs-function\">(<span class=\"hljs-params\">label</span>) =&gt;</span> <span class=\"hljs-string\">`Strength (<span class=\"hljs-subst\">${label}</span>)`</span>,\n          items: [<span class=\"hljs-string\">'1'</span>, <span class=\"hljs-string\">'2'</span>, <span class=\"hljs-string\">'3'</span>, <span class=\"hljs-string\">'4'</span>, <span class=\"hljs-string\">'5'</span>],\n          defaultValue: <span class=\"hljs-number\">3</span>\n        },\n        agility: {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'rating'</span>,\n          label: <span class=\"hljs-function\">(<span class=\"hljs-params\">label</span>) =&gt;</span> <span class=\"hljs-string\">`Agility (<span class=\"hljs-subst\">${label}</span>)`</span>,\n          items: [<span class=\"hljs-string\">'1'</span>, <span class=\"hljs-string\">'2'</span>, <span class=\"hljs-string\">'3'</span>, <span class=\"hljs-string\">'4'</span>, <span class=\"hljs-string\">'5'</span>],\n          defaultValue: <span class=\"hljs-number\">3</span>\n        },\n        intelligence: {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'rating'</span>,\n          label: <span class=\"hljs-function\">(<span class=\"hljs-params\">label</span>) =&gt;</span> <span class=\"hljs-string\">`Intelligence (<span class=\"hljs-subst\">${label}</span>)`</span>,\n          items: [<span class=\"hljs-string\">'1'</span>, <span class=\"hljs-string\">'2'</span>, <span class=\"hljs-string\">'3'</span>, <span class=\"hljs-string\">'4'</span>, <span class=\"hljs-string\">'5'</span>],\n          defaultValue: <span class=\"hljs-number\">3</span>\n        }\n      },\n      validators: [<span class=\"hljs-function\">(<span class=\"hljs-params\">control: AbstractControl</span>) =&gt;</span> {\n        <span class=\"hljs-keyword\">const</span> s = control.get(<span class=\"hljs-string\">'strength'</span>);\n        <span class=\"hljs-keyword\">const</span> a = control.get(<span class=\"hljs-string\">'agility'</span>);\n        <span class=\"hljs-keyword\">const</span> i = control.get(<span class=\"hljs-string\">'intelligence'</span>);\n        <span class=\"hljs-keyword\">const</span> skillPoints = (s &amp;&amp; a &amp;&amp; i) ? (s.value + a.value + i.value) : <span class=\"hljs-number\">0</span>;\n        <span class=\"hljs-keyword\">return</span> skillPoints &gt; <span class=\"hljs-number\">10</span> ? { skills: <span class=\"hljs-literal\">true</span> } : <span class=\"hljs-literal\">null</span>;\n      }],\n      hints: [\n        <span class=\"hljs-function\">(<span class=\"hljs-params\">control</span>) =&gt;</span> {\n          <span class=\"hljs-keyword\">const</span> s = control.get(<span class=\"hljs-string\">'strength'</span>);\n          <span class=\"hljs-keyword\">const</span> a = control.get(<span class=\"hljs-string\">'agility'</span>);\n          <span class=\"hljs-keyword\">const</span> i = control.get(<span class=\"hljs-string\">'intelligence'</span>);\n          <span class=\"hljs-keyword\">const</span> skillPoints = (s &amp;&amp; a &amp;&amp; i) ? (s.value + a.value + i.value) : <span class=\"hljs-number\">0</span>;\n          <span class=\"hljs-keyword\">const</span> message = <span class=\"hljs-string\">`<span class=\"hljs-subst\">${skillPoints}</span> of 10 skill points used`</span>;\n          <span class=\"hljs-keyword\">if</span> (control.hasError(<span class=\"hljs-string\">'skills'</span>)) {\n            <span class=\"hljs-keyword\">return</span> {\n              <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n              message\n            };\n          } <span class=\"hljs-keyword\">else</span> {\n            <span class=\"hljs-keyword\">const</span> skillPointsAvailable = <span class=\"hljs-number\">10</span> - skillPoints;\n            <span class=\"hljs-keyword\">if</span> (skillPointsAvailable &gt; <span class=\"hljs-number\">0</span>) {\n              <span class=\"hljs-keyword\">return</span> {\n                <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'warning'</span>,\n                message\n              };\n            }\n            <span class=\"hljs-keyword\">return</span> {\n              <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'default'</span>,\n              message\n            };\n          }\n        }\n      ]\n    },\n    attributes: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'token'</span>,\n      label: <span class=\"hljs-string\">'Attributes'</span>\n    },\n    counter: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'counter'</span>,\n      label: <span class=\"hljs-string\">'Counter'</span>,\n      defaultValue: <span class=\"hljs-number\">1</span>\n    },\n    perks: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'select'</span>,\n      label: <span class=\"hljs-string\">'Perks'</span>,\n      placeholder: <span class=\"hljs-string\">'Select perks'</span>,\n      selectionMode: <span class=\"hljs-string\">'multiple'</span>,\n      options: [{\n        label: <span class=\"hljs-string\">'Snake Eater'</span>,\n        sublabel: <span class=\"hljs-string\">'It gives you a 25% increase to your poison resistance.'</span>,\n        value: <span class=\"hljs-string\">'snakeeater'</span>\n      },\n      {\n        label: <span class=\"hljs-string\">'Swift Learner'</span>,\n        sublabel: <span class=\"hljs-string\">'Swift Learner\tWhenever you gain experience, you\\'ll receive 5% more experience per level of the perk.'</span>,\n        value: <span class=\"hljs-string\">'swiftlearner'</span>,\n      },\n      {\n        label: <span class=\"hljs-string\">'Toughness'</span>,\n        sublabel: <span class=\"hljs-string\">'It adds 10% to your general damage resistance per level.'</span>,\n        value: <span class=\"hljs-string\">'toughness'</span>\n      },\n      {\n        label: <span class=\"hljs-string\">'Explorer'</span>,\n        sublabel: <span class=\"hljs-string\">'You\\'ll get more random encounters with this perk.'</span>,\n        value: <span class=\"hljs-string\">'explorer'</span>\n      }],\n      validators: [\n        <span class=\"hljs-function\">(<span class=\"hljs-params\">ctrl: AbstractControl</span>) =&gt;</span> {\n          <span class=\"hljs-keyword\">if</span> (ctrl.value &amp;&amp; <span class=\"hljs-built_in\">Array</span>.isArray(ctrl.value) &amp;&amp; ctrl.value.length === <span class=\"hljs-number\">2</span>) {\n            <span class=\"hljs-keyword\">return</span> <span class=\"hljs-literal\">null</span>;\n          }\n          <span class=\"hljs-keyword\">return</span> {\n            perks: <span class=\"hljs-literal\">true</span>\n          };\n        }\n      ],\n      hints: [{\n        <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n        error: <span class=\"hljs-string\">'perks'</span>,\n        message: <span class=\"hljs-string\">'You must select two perks'</span>\n      }],\n    },\n    terms: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'checkbox'</span>,\n      label: <span class=\"hljs-string\">'Agree to our terms'</span>,\n      validators: [<span class=\"hljs-function\">(<span class=\"hljs-params\">control: AbstractControl</span>) =&gt;</span> {\n        <span class=\"hljs-keyword\">if</span> (!control.value) {\n          <span class=\"hljs-keyword\">return</span> {\n            termsDisagree: <span class=\"hljs-literal\">true</span>,\n          };\n        }\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-literal\">null</span>;\n      }],\n      hints: [\n        <span class=\"hljs-string\">'Read the terms to learn how we collect, use and share your data'</span>,\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'error'</span>,\n          error: <span class=\"hljs-string\">'termsDisagree'</span>,\n          message: <span class=\"hljs-string\">'You must agree to our Terms'</span>\n        }\n      ]\n    },\n    submit: {\n      <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'buttons'</span>,\n      buttons: [\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'submit'</span>,\n          label: <span class=\"hljs-string\">'Submit'</span>,\n          <span class=\"hljs-keyword\">class</span>: <span class=\"hljs-string\">'vclEmphasized'</span>\n        },\n        {\n          <span class=\"hljs-keyword\">type</span>: <span class=\"hljs-string\">'button'</span>,\n          label: <span class=\"hljs-string\">'Reset'</span>,\n          action: <span class=\"hljs-string\">'reset'</span>\n        }\n      ]\n    }\n  },\n};\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> HERO_DEFAULTS = {\n  color: <span class=\"hljs-string\">'#008000'</span>,\n  gender: <span class=\"hljs-string\">'male'</span>,\n  hp: <span class=\"hljs-number\">5</span>,\n  custom: <span class=\"hljs-number\">3</span>,\n  items: [{name: <span class=\"hljs-string\">'Item 1'</span>, quantity: <span class=\"hljs-number\">2</span>}],\n  perks: [<span class=\"hljs-string\">'heave_ho'</span>]\n};\n"
 
 /***/ }),
 
