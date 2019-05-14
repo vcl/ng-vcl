@@ -13,8 +13,8 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
     super(elementRef);
   }
 
-  private _deactivateFocusTrigger = false;
-  private _afterCloseSub?: Subscription;
+  private deactivateFocusTrigger = false;
+  private afterCloseSub?: Subscription;
 
   // tslint:disable-next-line:no-input-rename
   @Input('vclAutocomplete')
@@ -35,12 +35,13 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
   focused = false;
 
   @HostBinding('attr.autocomplete')
+  // tslint:disable-next-line:variable-name
   _hostAutocomplete = 'off';
 
   @HostListener('focus')
   onFocus() {
     this.focused = true;
-    if (!this._deactivateFocusTrigger) {
+    if (!this.deactivateFocusTrigger) {
       this.triggerAutocomplete();
     }
   }
@@ -68,7 +69,9 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
     }
 
     this.autocomplete.open(this.elementRef, this.elementRef.nativeElement.value);
-    this._afterCloseSub = this.autocomplete.afterClose.subscribe((value: any) => {
+
+    this.afterCloseSub && this.afterCloseSub.unsubscribe();
+    this.afterCloseSub = this.autocomplete.afterClose.subscribe((value: any) => {
       if (value === undefined) {
         return;
       }
@@ -84,9 +87,9 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
 
       if (value !== undefined) {
         this.elementRef.nativeElement.value = inputValue;
-        this._deactivateFocusTrigger = true;
+        this.deactivateFocusTrigger = true;
         this.elementRef.nativeElement.focus();
-        this._deactivateFocusTrigger = false;
+        this.deactivateFocusTrigger = false;
       }
 
       this.selectionChange.emit(value);
@@ -138,9 +141,9 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
   }
 
   ngOnDestroy() {
-    if (this._afterCloseSub) {
-      this._afterCloseSub.unsubscribe();
-      this._afterCloseSub = undefined;
+    if (this.afterCloseSub) {
+      this.afterCloseSub.unsubscribe();
+      this.afterCloseSub = undefined;
     }
     super.ngOnDestroy();
     this.closeAutocomplete();

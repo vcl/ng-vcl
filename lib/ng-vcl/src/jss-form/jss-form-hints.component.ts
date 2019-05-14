@@ -2,7 +2,7 @@ import { Component,  ChangeDetectionStrategy, OnDestroy, OnChanges, AfterViewIni
 import { Subject, Observable, merge, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { FORM_CONTROL_HOST, FormControlHost } from '../form-control-group/index';
-import { Hint, DefaultHint } from './types';
+import { Hint, DefaultHint, FormFieldHints } from './types';
 import { FormFieldControl, FormField } from './fields/index';
 import { AbstractControl } from '@angular/forms';
 
@@ -19,11 +19,11 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
     @Optional() field?: FormField<any> ,
     @Optional() @Inject(FORM_CONTROL_HOST) private fch?: FormControlHost
   ) {
-    if (field['hints']) {
-      this.hints = field['hints'];
-    }
     if (field instanceof FormFieldControl) {
+      this.hints = field.hints;
       this.control = field.control;
+    } else if ('hints' in field) {
+      this.hints = (field as FormFieldHints).hints;
     }
 
     const $: Observable<any>[] = [];

@@ -49,7 +49,7 @@ export class ButtonComponent {
   }
 
   @HostBinding('class.vclButton')
-  vclButton = true;
+  _hostClasses = true;
 
   @HostBinding('class.vclHovered')
   hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)

@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
-import { AlertService, AlertType, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
+import { AlertService, AlertType, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
 
-function createAsyncResult(data: any, error?: boolean | Function): Observable<any> {
+function createAsyncResult(data: any, error?: boolean | (() => (any))): Observable<any> {
   return new Observable(observer => {
     setTimeout(() => {
       let err;

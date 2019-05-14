@@ -3,10 +3,8 @@ import { PopoverComponent } from '../popover/index';
 import { TourService } from './tour.service';
 import { HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
 
-export const VCLTourStepTag = 'vcl-tour-step';
-
 @Component({
-  selector: VCLTourStepTag,
+  selector: 'vcl-tour-step',
   templateUrl: './tour.component.html',
   styleUrls: ['./tour.component.css']
 })

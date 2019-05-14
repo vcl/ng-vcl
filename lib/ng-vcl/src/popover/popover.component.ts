@@ -61,15 +61,15 @@ export class PopoverComponent extends TemplateOverlay<any> implements OnDestroy 
     }
   }
 
+  get visible() {
+    return this.isAttached;
+  }
+
   @Output()
   visibleChange = new EventEmitter<boolean>();
 
   @Output()
   afterClose = new EventEmitter<any>();
-
-  get visible() {
-    return this.isAttached;
-  }
 
   protected getViewContainerRef(): ViewContainerRef {
     return this.viewContainerRef;
@@ -89,15 +89,15 @@ export class PopoverComponent extends TemplateOverlay<any> implements OnDestroy 
       direction: this._dir,
       panelClass: 'vclPopOver',
       positionStrategy: this.overlay.position()
-      .connectedTo(this.target, {
+      .flexibleConnectedTo(this.target)
+      .withPositions([{
         originX: this.originX,
-        originY: this.originY
-      }, {
+        originY: this.originY,
         overlayX: this.overlayX,
         overlayY: this.overlayY,
-      })
-      .withOffsetX(this.offsetX)
-      .withOffsetY(this.offsetY),
+        offsetX: this.offsetX,
+        offsetY: this.offsetY,
+      }])
     });
 
     this.attach(config);

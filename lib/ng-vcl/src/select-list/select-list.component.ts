@@ -1,4 +1,4 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Directive, Optional, Inject } from '@angular/core';
+import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlInput, FORM_CONTROL_INPUT } from '../form-control-group/index';
@@ -7,21 +7,22 @@ import { SelectListItemComponent } from './components/select-list-item.component
 
 let UNIQUE_ID = 0;
 
-@Directive({
+@Component({
   selector: 'vcl-select-list',
+  template: '<ng-content></ng-content>',
   exportAs: 'vclSelectList',
   providers: [
     {
       provide: SELECT_LIST_TOKEN,
-      useExisting: forwardRef(() => SelectListDirective)
+      useExisting: forwardRef(() => SelectListComponent)
     },
     {
       provide: FORM_CONTROL_INPUT,
-      useExisting: forwardRef(() => SelectListDirective)
+      useExisting: forwardRef(() => SelectListComponent)
     }
   ]
 })
-export class SelectListDirective implements SelectList, AfterContentInit, OnDestroy, ControlValueAccessor, FormControlInput {
+export class SelectListComponent implements SelectList, AfterContentInit, OnDestroy, ControlValueAccessor, FormControlInput {
   constructor(
     @Optional()
     public ngControl?: NgControl,

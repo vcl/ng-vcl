@@ -7,7 +7,8 @@ import {
   InjectionToken,
   Input,
   Optional,
-  QueryList
+  QueryList,
+  HostBinding
 } from '@angular/core';
 
 import {GalleryImageComponent} from './gallery-image.component';
@@ -29,11 +30,11 @@ export enum ImageChange {
 @Component({
   selector: 'vcl-gallery',
   templateUrl: 'gallery.component.html',
-  host: {
-    '[attr.role]': '"gallery"',
-  },
 })
 export class GalleryComponent implements AfterContentInit, AfterViewInit {
+
+  @HostBinding('attr.role')
+  _hostAttrRole = 'gallery';
 
   @Input()
   selectedImage = 0;

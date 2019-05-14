@@ -1,21 +1,16 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, Provider, Inject, Injectable, Injector } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, Inject, HostBinding } from '@angular/core';
 import { Subscription, from } from 'rxjs';
 import { LayerBase, LAYER_TOKEN } from '../layer/index';
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 
-export class AlertLayer extends LayerBase<AlertOptions, AlertResult, AlertComponent> {
-  protected getComponent() {
-    return AlertComponent;
-  }
-}
-
 @Component({
   templateUrl: 'alert.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[tabindex]': '0',
-    '[style.outline]': '"none"'
-  }
+  styles: [`
+    :host {
+      outline: none
+    }
+  `]
 })
 export class AlertComponent implements AfterViewInit, OnDestroy {
 
@@ -32,6 +27,9 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   value: any;
   validationError: string;
   loader = false;
+
+  @HostBinding('attr.tabindex')
+  tabindex = 0;
 
   get alert() {
     return this.alertLayer.data;
@@ -118,5 +116,11 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.confirmActionSub && this.confirmActionSub.unsubscribe();
+  }
+}
+
+export class AlertLayer extends LayerBase<AlertOptions, AlertResult, AlertComponent> {
+  protected getComponent() {
+    return AlertComponent;
   }
 }

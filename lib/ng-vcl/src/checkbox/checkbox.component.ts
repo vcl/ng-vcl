@@ -65,7 +65,7 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
   }
 
   @HostBinding('class.vclCheckbox')
-  classVCLCheckbox = true;
+  _hostClasses = true;
 
   @HostBinding('attr.role')
   attrRole = 'checkbox';
@@ -102,9 +102,6 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
   @Input()
   checked = false;
 
-  /**
-  Action fired when the `checked` state changes due to user interaction.
-  */
   @Output()
   checkedChange = new EventEmitter<boolean>();
 

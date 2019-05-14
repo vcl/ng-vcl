@@ -1,11 +1,12 @@
 import { Component, HostBinding, Directive, Input, HostListener, ContentChild, SkipSelf, Inject, Optional, ChangeDetectionStrategy } from '@angular/core';
 import { NAVIGATION_TOKEN, Navigation } from './types';
 
-@Directive({
+@Component({
   selector: 'vcl-navigation-label',
+  template: '<ng-content></ng-content>',
   exportAs: 'vclNavigationLabel'
 })
-export class NavigationLabelDirective {
+export class NavigationLabelComponent {
   @HostBinding('class.vclNavigationItemLabel')
   classVclNavigationItemLabel = true;
 }

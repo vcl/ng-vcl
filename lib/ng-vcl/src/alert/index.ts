@@ -10,9 +10,9 @@ import { VCLBusyIndicatorModule } from '../busy-indicator/index';
 import { AlertComponent } from './alert.component';
 import { AlertInputDirective } from './input-alert.directive';
 import { AlertService } from './alert.service';
-import { AlertType, AlertInput, AlertAlignment } from './types';
+import { AlertType, AlertInput, AlertAlignment, AlertResult } from './types';
 
-export { AlertService, AlertType, AlertInput, AlertAlignment };
+export { AlertService, AlertType, AlertInput, AlertAlignment, AlertResult };
 
 @NgModule({
   imports: [

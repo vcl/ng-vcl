@@ -43,13 +43,11 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   }
 
   @HostBinding('class.vclInput')
-  classVclInput = true;
-
   @HostBinding('class.vclFileInput')
-  classVclFileInput = true;
+  _hostClasses = true;
 
   @HostBinding('attr.role')
-  attrRole = 'button';
+  _hostAttrRole = 'button';
 
   private stateChangeEmitter = new Subject<void>();
 

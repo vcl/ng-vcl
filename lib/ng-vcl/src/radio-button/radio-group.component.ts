@@ -1,4 +1,4 @@
-import { OnDestroy, forwardRef, Input, ContentChildren, QueryList, HostBinding, AfterContentInit, Directive, Optional, Inject, Self, EventEmitter, Output } from '@angular/core';
+import { OnDestroy, forwardRef, Input, ContentChildren, QueryList, HostBinding, AfterContentInit, Optional, Inject, Self, EventEmitter, Output, Component } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
@@ -8,20 +8,21 @@ import { RADIO_BUTTON_GROUP_TOKEN, RadioButtonGroup, RadioButton } from './inter
 
 let UNIQUE_ID = 0;
 
-@Directive({
+@Component({
   selector: 'vcl-radio-group',
+  template: '<ng-content></ng-content>',
   providers: [
     {
       provide: RADIO_BUTTON_GROUP_TOKEN,
-      useExisting: forwardRef(() => RadioGroupDirective)
+      useExisting: forwardRef(() => RadioGroupComponent)
     },
     {
       provide: FORM_CONTROL_INPUT,
-      useExisting: forwardRef(() => RadioGroupDirective)
+      useExisting: forwardRef(() => RadioGroupComponent)
     }
   ]
 })
-export class RadioGroupDirective implements OnDestroy, AfterContentInit, ControlValueAccessor, RadioButtonGroup, FormControlInput {
+export class RadioGroupComponent implements OnDestroy, AfterContentInit, ControlValueAccessor, RadioButtonGroup, FormControlInput {
 
   constructor(
     @Optional()
@@ -156,8 +157,8 @@ export class RadioGroupDirective implements OnDestroy, AfterContentInit, Control
   }
 
   /**
-  * things needed for ControlValueAccessor-Interface
-  */
+   * things needed for ControlValueAccessor-Interface
+   */
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
   writeValue(value: any): void {

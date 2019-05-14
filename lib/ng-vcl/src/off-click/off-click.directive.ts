@@ -1,11 +1,12 @@
-import { NgModule, EventEmitter, Output, Input, Directive, ElementRef, AfterViewInit, OnDestroy, Inject, OnChanges, SimpleChanges } from '@angular/core';
-import { Subscription ,  Observable ,  timer ,  fromEvent, merge, NEVER, Subject } from 'rxjs';
-import { first, skipUntil, map, filter, switchAll, switchMap } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/platform-browser';
+  // tslint:disable:no-input-rename
+import { EventEmitter, Output, Input, Directive, ElementRef, AfterViewInit, OnDestroy, Inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Observable ,  timer ,  fromEvent, merge, NEVER, Subject } from 'rxjs';
+import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
-  selector: '[offClick]',
-  exportAs: 'offClick'
+  selector: '[vclOffClick]',
+  exportAs: 'vclOffClick'
 })
 export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
 
@@ -13,31 +14,31 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
 
   changes$ = new Subject();
 
-  @Input()
-  offClickDelay = 0;
+  @Input('vclOffClickDelay')
+  delay = 0;
 
-  @Input()
-  offClickListen = true;
+  @Input('vclOffClickListen')
+  listen = true;
 
-  @Input()
-  offClickExcludes: (ElementRef | Element)[] = [];
+  @Input('vclOffClickExcludes')
+  excludes: (ElementRef | Element)[] = [];
 
-  @Output()
+  @Output('vclOffClick')
   offClick = new EventEmitter<MouseEvent | TouchEvent>();
 
   _sub = this.changes$.pipe(
     switchMap(() => {
-      if (!this.elementRef || !this.offClickListen) {
+      if (!this.elementRef || !this.listen) {
         return NEVER;
       } else {
-        return createOffClickStream([this.elementRef, ...this.offClickExcludes], {
-          delay: this.offClickDelay,
+        return createOffClickStream([this.elementRef, ...this.excludes], {
+          delay: this.delay,
           document: this.document
         });
       }
     })
   ).pipe(
-    filter(() => this.offClickListen)
+    filter(() => this.listen)
   ).subscribe(this.offClick);
 
   ngAfterViewInit(): void {

@@ -44,7 +44,7 @@ export interface AlertOptions {
   inputValue?: any;
   inputPlaceholder?: string;
   inputValidator?: (value: any) => boolean;
-  confirmAction?: Function | Observable<any>;
+  confirmAction?: ((result: AlertResult) => (Promise<any>)) | Observable<any>;
 }
 
 export const ALERT_DEFAULTS: AlertOptions = {

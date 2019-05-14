@@ -80,8 +80,10 @@ export class JssFormComponent implements JssForm, AfterContentInit {
           useValue: field
         });
       }
-
-      const componentInjector = Injector.create(providers, this.injector);
+      const componentInjector = Injector.create({
+        parent: this.injector,
+        providers
+      });
       return new ComponentPortal(meta.componentClass, null, componentInjector);
     });
   }

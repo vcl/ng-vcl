@@ -14,7 +14,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
   imageContainer: ElementRef;
 
   private initialized = false;
-  private imgS: Element[];
+  private imgS: HTMLElement[];
   private containerHeight = 0;
   private loadedCount = 0;
 
@@ -60,7 +60,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
         maxHeight = image.clientHeight;
       }
 
-      image['style'].left = Math.round(leftPos) + 'px';
+      image.style.left = Math.round(leftPos) + 'px';
       leftPos += image.clientWidth;
     });
 

@@ -17,7 +17,7 @@ export class DemoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const data = this.activatedRoute.snapshot.data['demo']();
+    const data = this.activatedRoute.snapshot.data.demo();
     if (data) {
       this.title = data.label;
       if (data.tabs) {

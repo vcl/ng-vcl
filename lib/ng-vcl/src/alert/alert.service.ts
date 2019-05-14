@@ -44,9 +44,9 @@ export class AlertService {
 
     layer.open(alert);
     return layer.afterClose.pipe(map(result => {
-      return result || <AlertResult> {
+      return result || {
         action: 'close'
-      };
+      } as AlertResult;
     }), take(1));
   }
 }

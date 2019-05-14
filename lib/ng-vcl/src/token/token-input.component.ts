@@ -18,22 +18,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputDirective } from '../input/index';
 import { Token } from './interfaces';
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TokenInputContainerComponent),
-  multi: true
-};
-
-@Directive({ selector: '[vcl-token-input-pre]' })
-export class TokenInputLabelPreDirective { }
-
-@Directive({ selector: '[vcl-token-input-post]' })
-export class TokenInputLabelPostDirective { }
-
 @Component({
   selector: 'vcl-token-input-container',
   templateUrl: 'token-input.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TokenInputContainerComponent),
+    multi: true
+  }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TokenInputContainerComponent implements ControlValueAccessor {

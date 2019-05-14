@@ -7,10 +7,10 @@ export interface IconResolver {
 export interface IconAliases {
   'close': string;
   'busy': string;
-  'box':  string;
-  'box-checked':  string;
-  'circle':  string;
-  'circle-checked':  string;
+  'box': string;
+  'box-checked': string;
+  'circle': string;
+  'circle-checked': string;
   'question': string;
   'info': string;
   'success': string;

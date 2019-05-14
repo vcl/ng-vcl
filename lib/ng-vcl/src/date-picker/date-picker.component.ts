@@ -16,6 +16,7 @@ import { CalendarDate } from './calendar-date';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => DatePickerComponent),
   multi: true
 };
@@ -54,20 +55,20 @@ export interface DatePickerConfig {
     `
   ],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[class.vclDatePicker]': 'true',
-    '[attr.role]': '"listbox"',
-    '[attr.aria-multiselectable]': 'false',
-    // This breaks on months with 6 weeks '[style.height]': '"284px"' // TODO this fixes for IE11
-  }
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   constructor(private cdRef: ChangeDetectorRef) { }
-  public static readonly Tag: string = 'DatePickerComponent';
-  private readonly tag: string = DatePickerComponent.Tag;
-  private readonly debug: boolean = false;
+
+  @HostBinding('class.vclDatePicker')
+  _hostClasses = true;
+
+  @HostBinding('attr.role')
+  _hostAttrRole = 'listbox';
+
+  @HostBinding('attr.aria-multiselectable')
+  _hostAttrAriaMultiselectable = false;
 
   // behavior
   @Input()
@@ -143,7 +144,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   config: DatePickerConfig | undefined;
 
   @Output()
-  change = new EventEmitter<Date | Array<Date | undefined>>();
+  dateChange = new EventEmitter<Date | Array<Date | undefined>>();
 
   currentDate: CalendarDate | undefined;
   currentRangeEnd: CalendarDate | undefined;
@@ -191,13 +192,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   onDateTap(date: CalendarDate) {
-    const tag = `${this.tag}.onDateTap()`;
-    const debug: boolean = this.debug || false;
-    if (debug) { console.log(tag, 'date:', date); }
-
     const isDayDisabled: boolean = this.isDayDisabled(date);
-    if (debug) { console.log(tag, 'this.disabled:', this.disabled); }
-    if (debug) { console.log(tag, 'isDayDisabled:', isDayDisabled); }
     if (this.disabled || isDayDisabled) { return; }
 
     this.select(date);
@@ -210,14 +205,14 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
       const currentDate = this.currentDate ? this.currentDate.date : undefined;
       this.onChange && this.onChange(currentDate);
-      this.change.emit(currentDate);
+      this.dateChange.emit(currentDate);
       this.selectedDate = currentDate;
     } else {
       const currentDate = this.currentDate ? this.currentDate.date : undefined;
       if (currentDate) {
         this.onChange && this.onChange(currentDate);
       }
-      this.change.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
+      this.dateChange.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
     }
   }
 
@@ -225,11 +220,6 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
    * activate the given date
    */
   select(date: CalendarDate) {
-    const tag = `${this.tag}.select()`;
-    const debug: boolean = this.debug || false;
-    if (debug) { console.log(tag, 'date:', date); }
-
-    if (debug) { console.log(tag, 'this.selectRange:', this.selectRange); }
     if (!this.selectRange) {
       this.currentDate = date;
     } else {
@@ -353,7 +343,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     this.cdRef.markForCheck();
   }
 
-   /**
+  /**
    * things needed for ControlValueAccessor-Interface
    */
   private onChange: (_: any) => void = () => {};

@@ -11,7 +11,7 @@ export interface JssForm {
 
 export interface ErrorHint {
   type: 'error';
-  message: String;
+  message: string;
   error?: string;
 }
 export interface WarningHint {

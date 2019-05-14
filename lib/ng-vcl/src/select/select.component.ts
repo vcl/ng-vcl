@@ -5,10 +5,10 @@ import { NEVER, merge, Subscription } from 'rxjs';
 import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { startWith, switchMap, filter, takeUntil } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { createOffClickStream } from '../off-click/index';
 import { TemplateOverlay } from '../overlay/index';
-import { SelectListItem, SelectListDirective } from '../select-list/index';
+import { SelectListItem, SelectListComponent } from '../select-list/index';
 
 @Component({
   selector: 'vcl-select',
@@ -32,8 +32,8 @@ export class SelectComponent extends TemplateOverlay<SelectListItem, any> implem
   private _dropdownOpenedSub?: Subscription;
   private _focused = false;
 
-  @ContentChild(SelectListDirective)
-  selectList: SelectListDirective;
+  @ContentChild(SelectListComponent)
+  selectList: SelectListComponent;
 
   @ViewChild('input', { read: ElementRef })
   input: ElementRef<HTMLInputElement>;
@@ -179,19 +179,18 @@ export class SelectComponent extends TemplateOverlay<SelectListItem, any> implem
       maxHeight: this.maxHeight || '20em',
       panelClass: [],
       positionStrategy: this.overlay.position()
-      .connectedTo(this.elementRef, {
+      .flexibleConnectedTo(this.elementRef)
+      .withPositions([{
         originX: 'start',
-        originY: 'bottom'
-      }, {
+        originY: 'bottom',
         overlayX: 'start',
         overlayY: 'top'
-      }).withFallbackPosition({
-        originX: 'start',
-        originY: 'top'
       }, {
+        originX: 'start',
+        originY: 'top',
         overlayX: 'start',
         overlayY: 'bottom'
-      })
+      }])
     });
     super.attach(config);
   }

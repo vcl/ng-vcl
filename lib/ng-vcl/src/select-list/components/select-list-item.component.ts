@@ -2,22 +2,24 @@ import { HostBinding, Input, Component, Inject, HostListener, Directive, Content
 import { ENTER } from '@angular/cdk/keycodes';
 import { SelectList, SELECT_LIST_TOKEN, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from '../types';
 
-@Directive({
+@Component({
   selector: 'vcl-select-list-label',
+  template: '<ng-content></ng-content>',
   exportAs: 'vclSelectListLabel'
 })
-export class SelectListLabelDirective {
+export class SelectListLabelComponent {
   @HostBinding('class.vclDropdownItemLabel')
-  classVCLDropdownItemSubLabel = true;
+  _hostClasses = true;
 }
 
-@Directive({
+@Component({
   selector: 'vcl-select-list-sublabel',
+  template: '<ng-content></ng-content>',
   exportAs: 'vclSelectListSublabel'
 })
-export class SelectListSublabelDirective {
+export class SelectListSublabelComponent {
   @HostBinding('class.vclDropdownItemSubLabel')
-  classVCLDropdownItemSubLabel = true;
+  _hostClasses = true;
 }
 
 @Component({
@@ -41,7 +43,7 @@ export class SelectListItemComponent implements SelectListItem {
   private _focused = false;
 
   @HostBinding('class.vclDropdownItem')
-  classVCLDropdownItem = true;
+  _hostClasses = true;
 
   @HostBinding('attr.role')
   attrRole = 'menuitem';
@@ -78,7 +80,7 @@ export class SelectListItemComponent implements SelectListItem {
   @Input('label')
   _label?: string;
 
-  @ContentChild(SelectListLabelDirective, { read: ElementRef})
+  @ContentChild(SelectListLabelComponent, { read: ElementRef})
   _labelElementRef?: ElementRef<HTMLElement>;
 
   get label() {

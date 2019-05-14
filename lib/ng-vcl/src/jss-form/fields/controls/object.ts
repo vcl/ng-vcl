@@ -32,11 +32,11 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject> 
   }
 
   get label() {
-    return this.schema['label'];
+    return this.schema.label;
   }
 
   get layout() {
-    return this.schema['layout'];
+    return this.schema.layout;
   }
 
   get defaultValue() {
@@ -119,7 +119,10 @@ export class FormFieldObjectComponent {
         });
       }
 
-      const componentInjector = Injector.create(providers, this.injector);
+      const componentInjector = Injector.create({
+        parent: this.injector,
+        providers
+      });
       return new ComponentPortal(meta.componentClass, null, componentInjector);
     });
   }

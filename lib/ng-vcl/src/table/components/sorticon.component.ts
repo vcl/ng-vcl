@@ -1,3 +1,4 @@
+/* tslint:disable */
 import {Component, Input, ElementRef, Renderer2} from '@angular/core';
 
 

@@ -1,11 +1,12 @@
 import {
   Component, ChangeDetectionStrategy, Input, OnInit, ChangeDetectorRef, forwardRef,
-  OnChanges, SimpleChanges
+  OnChanges, SimpleChanges, HostBinding
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => TimePickerComponent),
   multi: true
 };
@@ -13,23 +14,30 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'vcl-time-picker',
   templateUrl: 'time-picker.component.html',
+  // TODO height: fixes IE11
   styles: [
     `.hidden{display:none;}
      .date-picker-pointer{cursor: pointer;}
+     :host {
+       height: 284px;
+     }
     `
   ],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[class.vclDatePicker]': 'true',
-    '[attr.role]': '"listbox"',
-    '[attr.aria-multiselectable]': 'false',
-    '[style.height]': '"284px"' // TODO this fixes for IE11
-  }
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   constructor(private cdRef: ChangeDetectorRef) { }
+
+  @HostBinding('class.vclDatePicker')
+  _hostClasses = true;
+
+  @HostBinding('attr.role')
+  _hostAttrRole = 'listbox';
+
+  @HostBinding('attr.aria-multiselectable')
+  _hostAttrAriaMultiselectable = false;
 
   @Input()
   selectedDate: Date | undefined;

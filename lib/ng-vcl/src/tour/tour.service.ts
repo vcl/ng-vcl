@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TourComponent } from './tour.component';
 
+function isNumber(v: any): boolean {
+  return !isNaN(Number(v)) && isFinite(v);
+}
+
 export class TourOptions {
   useOrder = false;
   elementsDisabled = true;
@@ -124,5 +128,3 @@ export class TourService {
     if (this.options.dismissOnOverlay) { this.showNext(); }
   }
 }
-
-const isNumber = (v: any): boolean => !isNaN(Number(v)) && isFinite(v);

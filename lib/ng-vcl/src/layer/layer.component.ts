@@ -40,6 +40,10 @@ export class LayerComponent extends TemplateOverlay<any> implements Layer<any, a
     }
   }
 
+  get visible() {
+    return this.isAttached;
+  }
+
   @Output()
   afterClose = new EventEmitter<any>();
 
@@ -48,10 +52,6 @@ export class LayerComponent extends TemplateOverlay<any> implements Layer<any, a
 
   @ViewChild(TemplateRef)
   protected template: TemplateRef<any>;
-
-  get visible() {
-    return this.isAttached;
-  }
 
   get data() {
     return this._data;

@@ -17,7 +17,7 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy 
   constructor( private renderer: Renderer2) { }
 
   @HostBinding('class.vclInputGroupEmb')
-  classVCLInputGroupEmb = true;
+  _hostClasses = true;
 
   @ContentChildren(PrependDirective, { read: ElementRef })
   prepend?: QueryList<ElementRef<HTMLElement>>;

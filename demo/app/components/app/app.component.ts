@@ -32,11 +32,11 @@ export class AppComponent implements OnInit {
   version = require('./../../../../package.json').version;
   gitBranch = gitBranch || undefined;
 
-  GROUPED_DEMOS = function () {
+  GROUPED_DEMOS = (() => {
     const itemsMap = {};
     routes.forEach(r => {
-      if (r.data && r.data['demo']) {
-        const demo = r.data['demo'];
+      if (r.data && r.data.demo) {
+        const demo = r.data.demo;
         if (!itemsMap[demo.category]) { itemsMap[demo.category] = []; }
 
         itemsMap[demo.category].push({
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
       label: category,
       items: itemsMap[category]
     }));
-  }();
+  })();
 
   searchResults = [];
 

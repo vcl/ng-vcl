@@ -10,9 +10,6 @@ let UNIQUE_ID = 0;
 
 @Component({
   selector: 'vcl-button-group',
-  host: {
-    '[class.vclButtonGroup]': 'true',
-  },
   template: `<ng-content select="button"></ng-content>`,
   providers: [
     {
@@ -61,6 +58,9 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
 
   @Output()
   valueChange = new EventEmitter<any | any[]>();
+
+  @HostBinding('class.vclButtonGroup')
+  _hostClasses = true;
 
   @HostBinding('attr.id')
   get elementId() {
@@ -173,6 +173,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
 
   ngAfterContentInit() {
     // Syncs changed buttons checked state to be in line with the current group value
+    // tslint:disable-next-line:deprecation
     this.buttonsSub = this.buttons.changes.pipe(startWith(null)).subscribe(() => {
       if (!this.buttons) {
         return;
@@ -186,7 +187,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     this.stateChangeEmitter && this.stateChangeEmitter.complete();
   }
 
-    /**
+  /**
    * things needed for ControlValueAccessor-Interface
    */
   private onChange: (_: any) => void = () => {};

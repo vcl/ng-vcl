@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BehaviorSubject ,  of, timer, EMPTY } from 'rxjs';
-import { debounceTime, switchMap, map, catchError, startWith, debounce, distinctUntilChanged } from 'rxjs/operators';
+import { Component, OnDestroy } from '@angular/core';
+import { BehaviorSubject ,  of, scheduled, asapScheduler } from 'rxjs';
+import { switchMap, map, catchError, startWith, distinctUntilChanged } from 'rxjs/operators';
 
 const BOOK_API_URL = 'https://www.googleapis.com/books/v1/volumes';
 
@@ -37,7 +37,7 @@ export class AutocompleteAsyncDemoComponent implements OnDestroy {
                 switchMap(value => {
                   // Show nothing if less than 2 characters
                   if (!value || value.length < 2) {
-                    return of({ state: 'cleared', books: [] });
+                    return scheduled<Search>([{ state: 'cleared', books: [] }], asapScheduler);
                   } else {
                     return this.http.get(`${BOOK_API_URL}?q=${value}&projection=lite`).pipe(
                       map((data: any) => {
@@ -54,7 +54,7 @@ export class AutocompleteAsyncDemoComponent implements OnDestroy {
                           }))
                         };
                       }),
-                      catchError(ex => of({ state: 'error', books: [] })), // Error state
+                      catchError(() => scheduled<Search>([{ state: 'error', books: [] }], asapScheduler)), // Error state
                       startWith({ state: 'loading', books: [] }) // Set state to loading before the request
                     );
                   }

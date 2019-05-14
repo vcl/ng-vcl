@@ -13,14 +13,7 @@ let UNIQUE_ID = 0;
   providers: [{
     provide: FORM_CONTROL_INPUT,
     useExisting: forwardRef(() => FlipSwitchComponent)
-  }],
-  host: {
-    '[class.vclFlipSwitch]': 'true',
-    '[class.vclFlipSwitchPressed]': 'value',
-    '[attr.role]': '"button"',
-    '[attr.aria-pressed]': 'value',
-    '[attr.touch-action]': '"pan-y"'
-  }
+  }]
 })
 export class FlipSwitchComponent implements ControlValueAccessor, FormControlInput {
 
@@ -41,6 +34,15 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
       this.ngControl.valueAccessor = this;
     }
   }
+
+  @HostBinding('class.vclFlipSwitch')
+  _hostClasses = true;
+
+  @HostBinding('attr.role')
+  _attrRole = 'button';
+
+  @HostBinding('attr.touch-action')
+  _attrTouchAction = 'pan-y';
 
   private uniqueId = 'vcl_flipswitch_' + UNIQUE_ID++;
 
@@ -72,6 +74,8 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   @Input()
   offLabel = 'Off';
 
+  @HostBinding('class.vclFlipSwitchPressed')
+  @HostBinding('attr.aria-pressed')
   @Input()
   value = false;
 

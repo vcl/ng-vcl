@@ -2,13 +2,13 @@ import { Component, Input, ViewChild,
   ElementRef, ContentChild, ChangeDetectorRef, Output, EventEmitter, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector, OnDestroy } from '@angular/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { NEVER, merge, Subscription } from 'rxjs';
-import { SelectListDirective } from '../select-list/index';
+import { SelectListComponent } from '../select-list/index';
 import { TemplateOverlay } from '../overlay/index';
 import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { startWith, switchMap, filter, take, takeUntil } from 'rxjs/operators';
 import { createOffClickStream } from '../off-click/index';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'vcl-autocomplete',
@@ -31,8 +31,8 @@ export class AutocompleteComponent extends TemplateOverlay<any, any> implements 
   private _dropdownOpenedSub?: Subscription;
   private _target?: ElementRef<HTMLElement>;
 
-  @ContentChild(SelectListDirective)
-  selectList: SelectListDirective;
+  @ContentChild(SelectListComponent)
+  selectList: SelectListComponent;
 
   @ViewChild(TemplateRef)
   templateRef: TemplateRef<any>;
@@ -72,19 +72,21 @@ export class AutocompleteComponent extends TemplateOverlay<any, any> implements 
       maxHeight: this.maxHeight || '20em',
       panelClass: [],
       positionStrategy: this.overlay.position()
-      .connectedTo(target, {
-        originX: 'start',
-        originY: 'bottom'
-      }, {
-        overlayX: 'start',
-        overlayY: 'top'
-      }).withFallbackPosition({
-        originX: 'start',
-        originY: 'top'
-      }, {
-        overlayX: 'start',
-        overlayY: 'bottom'
-      })
+      .flexibleConnectedTo(target)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top'
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'bottom'
+        }
+      ])
     });
     this.attach(config);
   }
@@ -104,6 +106,7 @@ export class AutocompleteComponent extends TemplateOverlay<any, any> implements 
     });
 
     this._dropdownOpenedSub = this.selectList.itemsChange.pipe(
+      // tslint:disable-next-line:deprecation
       startWith(undefined),
       switchMap(() => {
         if (!this.isAttached) {

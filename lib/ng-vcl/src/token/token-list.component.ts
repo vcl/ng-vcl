@@ -21,16 +21,15 @@ import { startWith } from 'rxjs/operators';
 import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
 import { TokenObserver, Token } from './interfaces';
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TokenListComponent),
-  multi: true
-};
 @Component({
   selector: 'vcl-token-list',
   template: '<ng-content></ng-content>',
   providers: [
-    CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR,
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TokenListComponent),
+      multi: true
+    },
     {
       provide: TOKEN_OBSERVER_TOKEN,
       useExisting: TokenListComponent

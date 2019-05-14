@@ -61,8 +61,8 @@ export class RadioButtonComponent implements RadioButton {
   value: any;
 
   /**
-  Action fired when the `checked` state changes due to user interaction.
-  */
+   * Action fired when the `checked` state changes due to user interaction.
+   */
   @Output()
   checkedChange = new EventEmitter<boolean>();
 

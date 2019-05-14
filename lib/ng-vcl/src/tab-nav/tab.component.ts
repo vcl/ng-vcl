@@ -3,10 +3,12 @@ import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { debounceTime } from 'rxjs/operators';
 
-@Directive({
+@Component({
   selector: 'vcl-tab-label',
+  template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabLabelDirective {
+export class TabLabelComponent {
   @HostBinding('class.vclTabLabel')
   classCclTabLabel = true;
 }
@@ -20,7 +22,6 @@ export class TabLabelDirective {
 export class TabComponent implements Tab, AfterViewInit {
 
   constructor(
-    private cdRef: ChangeDetectorRef,
     @Inject(TAB_NAV_TOKEN)
     private tabNav: TabNav,
     private viewContainerRef: ViewContainerRef

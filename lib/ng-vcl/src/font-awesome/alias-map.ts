@@ -1,3 +1,4 @@
+// tslint:disable:object-literal-key-quotes
 import { IconAliases } from '../icon/index';
 
 export const ALIAS_MAP: IconAliases = {

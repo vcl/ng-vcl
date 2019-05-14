@@ -1,12 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
 import {ZoomBoxContainerComponent} from './zoom-box-container.component';
 
 @Component({
   selector: 'vcl-zoom-box',
   templateUrl: 'zoom-box.component.html',
-  host: {
-    '[attr.role]': '"zoombox"',
-  },
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ZoomBoxComponent {
@@ -19,6 +16,9 @@ export class ZoomBoxComponent {
 
   @Input()
   scale: number;
+
+  @HostBinding('attr.role')
+  _hostAttrRole = 'zoombox';
 
   get zoomedSource(): string {
     if (this.image) {

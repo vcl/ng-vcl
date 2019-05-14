@@ -36,7 +36,7 @@
 <br>
 
 <h3>multi-select</h3>
-<vcl-select label="Select items">
+<vcl-select placeholder="Select items">
   <vcl-select-list [(value)]="value2" selectionMode="multiple" >
     <vcl-select-list-item *ngFor="let item of items" [value]="item.value">
       <vcl-select-list-label>{{item.label}}</vcl-select-list-label>
