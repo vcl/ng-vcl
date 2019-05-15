@@ -1,7 +1,7 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { LayerService } from '@ng-vcl/ng-vcl';
-import { FooLayer } from './foo.component';
 import { BarComponent } from './bar.component';
+import { FooLayer } from './foo.component';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -19,8 +19,9 @@ export class LayerDemoComponent {
 
   openBarLayer() {
     const layer = this.layerService.open(BarComponent, {
-      title: 'bar component layer title'
-    }, {
+      data: {
+        title: 'bar component layer title'
+      },
       modal: true
     });
     layer.afterClose.subscribe(result => {
@@ -31,7 +32,9 @@ export class LayerDemoComponent {
 
   openFooLayer() {
     this.fooLayer.open({
-      title: 'foo component layer title'
+      data: {
+        title: 'foo component layer title'
+      }
     });
   }
 }

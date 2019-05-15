@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, Inject, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, HostBinding } from '@angular/core';
 import { Subscription, from } from 'rxjs';
-import { LayerBase, LAYER_TOKEN } from '../layer/index';
+import { LayerRef } from '../layer/index';
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 
 @Component({
@@ -18,8 +18,7 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef,
-    @Inject(LAYER_TOKEN)
-    private alertLayer: AlertLayer,
+    private alertLayer: LayerRef<AlertOptions, AlertResult>,
     private cdRef: ChangeDetectorRef
   ) {
   }
@@ -116,11 +115,5 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.confirmActionSub && this.confirmActionSub.unsubscribe();
-  }
-}
-
-export class AlertLayer extends LayerBase<AlertOptions, AlertResult, AlertComponent> {
-  protected getComponent() {
-    return AlertComponent;
   }
 }

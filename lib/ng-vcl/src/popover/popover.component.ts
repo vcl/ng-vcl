@@ -1,7 +1,8 @@
 import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef, Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { OverlayConfig, Overlay, HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { TemplateOverlay } from '../overlay/index';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { LayerBase } from '../layer/index';
 
 @Component({
   selector: 'vcl-popover',
@@ -9,7 +10,7 @@ import { TemplateOverlay } from '../overlay/index';
   exportAs: 'vclPopover',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PopoverComponent extends TemplateOverlay<any> implements OnDestroy {
+export class PopoverComponent extends LayerBase implements OnDestroy {
 
   constructor(
     @Optional()
@@ -23,7 +24,7 @@ export class PopoverComponent extends TemplateOverlay<any> implements OnDestroy 
   }
 
   @ViewChild(TemplateRef)
-  private template: TemplateRef<any>;
+  private templateRef: TemplateRef<any>;
 
   @Input()
   target: ElementRef<HTMLElement>;
@@ -71,12 +72,8 @@ export class PopoverComponent extends TemplateOverlay<any> implements OnDestroy 
   @Output()
   afterClose = new EventEmitter<any>();
 
-  protected getViewContainerRef(): ViewContainerRef {
-    return this.viewContainerRef;
-  }
-
-  protected getTemplateRef(): TemplateRef<any> {
-    return this.template;
+  createPortal() {
+    return new TemplatePortal(this.templateRef, this.viewContainerRef);
   }
 
   reposition() {

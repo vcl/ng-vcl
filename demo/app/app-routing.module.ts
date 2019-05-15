@@ -288,16 +288,16 @@ export const routes: Routes = [
       }
     }
   },
-  // {
-  //   loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
-  //   path: 'tooltip',
-  //   data: {
-  //     demo: {
-  //       label: 'Tooltip',
-  //       category: CAT_OVERLAYS,
-  //     }
-  //   }
-  // },
+  {
+    loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
+    path: 'tooltip',
+    data: {
+      demo: {
+        label: 'Tooltip',
+        category: CAT_OVERLAYS,
+      }
+    }
+  },
   {
     loadChildren: './demos/tour/demo.module#TourDemoModule',
     path: 'tour',

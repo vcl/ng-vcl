@@ -5,11 +5,11 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { PortalModule } from '@angular/cdk/portal';
 
 import { LayerComponent } from './layer.component';
-import { LayerBase, LAYER_TOKEN } from './layer-base';
+import { LayerBase } from './layer-base';
 import { LayerService } from './layer.service';
-import { Layer } from './interfaces';
+import { LayerRef } from './layer-ref';
 
-export { LayerComponent, LayerBase, LAYER_TOKEN, LayerService, Layer };
+export { LayerComponent, LayerBase, LayerRef, LayerService };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, BidiModule, PortalModule],

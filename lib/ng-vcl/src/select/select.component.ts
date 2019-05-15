@@ -1,13 +1,14 @@
 import { Component, Input, HostBinding, ViewChild,
   ElementRef, HostListener, ContentChild, ChangeDetectorRef, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector } from '@angular/core';
-import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
+import { DOCUMENT } from '@angular/common';
 import { NEVER, merge, Subscription } from 'rxjs';
+import { startWith, switchMap, filter, takeUntil } from 'rxjs/operators';
+import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { startWith, switchMap, filter, takeUntil } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { createOffClickStream } from '../off-click/index';
-import { TemplateOverlay } from '../overlay/index';
+import { LayerBase } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
 
 @Component({
@@ -16,7 +17,7 @@ import { SelectListItem, SelectListComponent } from '../select-list/index';
   exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectComponent extends TemplateOverlay<SelectListItem, any> implements OnDestroy {
+export class SelectComponent extends LayerBase<SelectListItem> implements OnDestroy {
 
   constructor(
     injector: Injector,
@@ -154,11 +155,8 @@ export class SelectComponent extends TemplateOverlay<SelectListItem, any> implem
     }
   }
 
-  protected getTemplateRef(): TemplateRef<any> {
-    return this.templateRef;
-  }
-  protected getViewContainerRef(): ViewContainerRef {
-    return this.viewContainerRef;
+  createPortal() {
+    return new TemplatePortal(this.templateRef, this.viewContainerRef);
   }
 
   @HostListener('click')

@@ -4,9 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: 'demo.component.html',
 })
 export class PopoverDemoComponent {
-  style = {
-    border: '3px double red',
-    padding: '20px',
-    overflow: 'hidden'
-  };
+
 }

@@ -1,14 +1,15 @@
 import { Component, Input, ViewChild,
   ElementRef, ContentChild, ChangeDetectorRef, Output, EventEmitter, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector, OnDestroy } from '@angular/core';
-import { ESCAPE } from '@angular/cdk/keycodes';
 import { NEVER, merge, Subscription } from 'rxjs';
-import { SelectListComponent } from '../select-list/index';
-import { TemplateOverlay } from '../overlay/index';
+import { startWith, switchMap, filter, take, takeUntil } from 'rxjs/operators';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
 import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { startWith, switchMap, filter, take, takeUntil } from 'rxjs/operators';
+import { SelectListComponent } from '../select-list/index';
 import { createOffClickStream } from '../off-click/index';
-import { DOCUMENT } from '@angular/common';
+import { LayerBase } from '../layer/index';
 
 @Component({
   selector: 'vcl-autocomplete',
@@ -16,7 +17,7 @@ import { DOCUMENT } from '@angular/common';
   exportAs: 'vclAutocomplete',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteComponent extends TemplateOverlay<any, any> implements OnDestroy {
+export class AutocompleteComponent extends LayerBase implements OnDestroy {
 
   constructor(
     injector: Injector,
@@ -49,11 +50,8 @@ export class AutocompleteComponent extends TemplateOverlay<any, any> implements 
   @Output()
   afterClose = new EventEmitter<any | any[]>();
 
-  protected getTemplateRef(): TemplateRef<any> {
-    return this.templateRef;
-  }
-  protected getViewContainerRef(): ViewContainerRef {
-    return this.viewContainerRef;
+  createPortal() {
+    return new TemplatePortal(this.templateRef, this.viewContainerRef);
   }
 
   get isOpen() {

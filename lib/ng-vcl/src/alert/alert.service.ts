@@ -2,13 +2,14 @@ import { Observable } from 'rxjs';
 import { Injectable, Injector } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
-import { AlertLayer, AlertComponent } from './alert.component';
+import { LayerService } from '../layer/index';
 import { map, take } from 'rxjs/operators';
+import { AlertComponent } from './alert.component';
 
 @Injectable()
 export class AlertService {
 
-  constructor(private injector: Injector) { }
+  constructor(private layerService: LayerService) { }
 
   alert(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text }, opts);
@@ -37,8 +38,7 @@ export class AlertService {
   open(...opts: AlertOptions[]): Observable<AlertResult> {
     const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
 
-
-    const layer = new AlertLayer(this.injector, {
+    const layer = this.layerService.create(AlertComponent, {
       modal: alert.modal,
     });
 

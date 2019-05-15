@@ -6,7 +6,7 @@ An overlay placed in the center of the screen.
 
 ### The layer reference object
 
-A layer implements the `Layer` interface which allows to listen for events and open/close the layer.
+A layer implements the `LayerRef` interface which allows to listen for events and open/close the layer.
 It can be created via the `vcl-layer` component or with the `LayerService` from a component class:
 
 #### vcl-layer
@@ -29,7 +29,7 @@ It can be created via the `vcl-layer` component or with the `LayerService` from 
 #### Component Layer
 
 ```js
-import { Layer } from '@ng-vcl/ng-vcl';
+import { LayerRef } from '@ng-vcl/ng-vcl';
 
 // This is just a common component
 @Component({ ... })
@@ -37,7 +37,7 @@ export class MyLayerComponent {
 
   // layer is a reference to the current layer.
   // Its value is null when the component is not used as a layer
-  constructor(@Optional() @Inject(LAYER_TOKEN) private layer: Layer) { }
+  constructor(@Optional() private layer: LayerRef) { }
 
   close() {
     // Close the layer
@@ -69,9 +69,9 @@ export class DemoComponent {
 ### API
 
 ```js
-export interface Layer {
+export interface LayerRef {
   readonly visible: boolean;
-  afterClose: Observable<any | undefined>;
+  readonly afterClose: Observable<any | undefined>;
   open(data?: any, opts?: LayerOptions): Observable<any>;
   close(result?: any): void;
   destroy(): void;
@@ -79,10 +79,11 @@ export interface Layer {
 
 class LayerService {
   create(component: any, opts?: LayerOptions): Layer;
-  open(component: ComponentType<TComponent>, data: any, opts?: LayerOptions): Layer;
+  open(component: ComponentType<TComponent>, opts?: LayerOptions): Layer;
 }
 
 export interface LayerOptions {
+  data?: any;
   position?: PositionStrategy;
   modal?: boolean;
 }

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VCLLayerModule, VCLButtonModule, VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
-import { FooLayer, FooComponent } from './foo.component';
+import { FooComponent, FooLayer } from './foo.component';
 import { BarComponent } from './bar.component';
 
 export function demo() {
@@ -57,9 +57,6 @@ export function demo() {
       data: {demo},
     }]),
   ],
-  providers: [
-    FooLayer
-  ],
   entryComponents: [
     LayerDemoComponent,
     BarComponent,
@@ -69,6 +66,9 @@ export function demo() {
     LayerDemoComponent,
     BarComponent,
     FooComponent
+  ],
+  providers: [
+    FooLayer
   ]
 })
 export class LayerDemoModule { }

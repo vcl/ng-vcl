@@ -1,12 +1,12 @@
-import { Component, Provider, Injectable, Injector, Inject } from '@angular/core';
-import { Layer, LAYER_TOKEN } from '@ng-vcl/ng-vcl';
+import { Component } from '@angular/core';
+import { LayerRef } from '@ng-vcl/ng-vcl';
 
 @Component({
   templateUrl: 'bar.component.html',
 })
 export class BarComponent {
 
-  constructor(@Inject(LAYER_TOKEN) private layer: Layer) { }
+  constructor(private layer: LayerRef) { }
 
   get title() {
     return this.layer.data.title;

@@ -1,5 +1,5 @@
-import { Component, Injectable, Injector, Inject } from '@angular/core';
-import { LayerBase, LAYER_TOKEN } from '@ng-vcl/ng-vcl';
+import { Component, Injector, Injectable, Inject, forwardRef } from '@angular/core';
+import { LayerRef } from '@ng-vcl/ng-vcl';
 
 export interface FooLayerData {
   title: string;
@@ -14,7 +14,8 @@ export interface FooLayerResult {
 })
 export class FooComponent {
 
-  constructor(@Inject(LAYER_TOKEN) private layer: FooLayer) { }
+  // Utilize forwardRef to avoid using FooLayer before it was declared
+  constructor(@Inject(forwardRef(() => FooLayer)) public layer: FooLayer) { }
 
   get title() {
     return this.layer.data.title;
@@ -30,12 +31,17 @@ export class FooComponent {
 @Injectable({
   providedIn: 'root'
 })
-export class FooLayer extends LayerBase<FooLayerData, FooLayerResult, FooComponent> {
+export class FooLayer extends LayerRef<FooLayerData, FooLayerResult> {
+
   constructor(injector: Injector) {
-    super(injector);
+    super(injector, {
+      modal: true
+    });
   }
-  protected getComponent() {
-    return FooComponent;
+
+  templateOrComponent = FooComponent;
+
+  get title() {
+    return this.data.title;
   }
 }
-

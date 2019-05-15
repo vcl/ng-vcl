@@ -1,102 +1,95 @@
-import { Injector, NgZone, InjectionToken } from '@angular/core';
-import { PortalInjector } from '@angular/cdk/portal';
-import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
-import { take, switchMap, filter } from 'rxjs/operators';
-import { merge, NEVER, Subject, Subscription } from 'rxjs';
-import { ESCAPE } from '@angular/cdk/keycodes';
-import { ComponentOverlay } from '../overlay/index';
-import { Layer, LayerOptions } from './interfaces';
+import { Subject, merge } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
+import { OverlayRef, Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { Portal } from '@angular/cdk/portal';
+import { Injector } from '@angular/core';
 
-export const LAYER_TOKEN = new InjectionToken('vcl-layer');
-
-export abstract class LayerBase<TData = any, TResult = any, TComponent = any> extends ComponentOverlay<TResult, TComponent> implements Layer<TData, TResult> {
-
-  constructor(
-    protected injector: Injector,
-    opts: LayerOptions = {}
-  ) {
-    super(injector);
-    this._zone = injector.get(NgZone);
-    this._overlay = injector.get(Overlay);
-    this._defaultOpts = opts;
+export abstract class LayerBase<TResult = any, TInstanceRef = any> {
+  constructor(injector: Injector) {
+    this.injector = injector;
   }
 
-  private _zone: NgZone;
-  private _overlay: Overlay;
-  private _layerOpenedSub?: Subscription;
-  private _afterClose = new Subject<TResult | undefined>();
+  private _detachEmitter: Subject<TResult> = new Subject();
+  private _instanceRef?: TInstanceRef;
+  private _overlayRef?: OverlayRef;
+  private _isDestroyed = false;
+  private _portal: Portal<any>;
 
-  afterClose = this._afterClose.asObservable();
+  protected readonly injector?: Injector;
 
-  private _data: TData;
-  private _defaultOpts: LayerOptions;
-  private _currentOpts: LayerOptions;
+  protected afterAttached(): void { }
+  protected afterDetached(result?: TResult): void { }
 
-  get visible() {
-    return this.isAttached;
+  protected get overlayRef() {
+    return this._overlayRef;
   }
 
-  get data() {
-    return this._data;
+  protected get instanceRef() {
+    return this._instanceRef;
   }
 
-  open(data?: TData, opts: LayerOptions = {}) {
-    if (this.isAttached) {
-      this.close();
+  protected get isDestroyed() {
+    return this._isDestroyed;
+  }
+
+  protected get isAttached(): boolean {
+    return this.overlayRef && this.overlayRef.hasAttached();
+  }
+
+  protected abstract createPortal(): Portal<any>;
+
+  protected attach(config: OverlayConfig) {
+    if (this.isDestroyed) {
+      throw new Error('Cannot attach destroyed layer');
     }
 
-    // Merge defaults
-    this._currentOpts = { ...this._defaultOpts, ...opts};
+    if (!this.overlayRef || !this._portal) {
+      const injector = this.injector;
+      const overlay = injector.get(Overlay);
+      this._overlayRef = overlay.create(config);
+    }
 
-    this._data = data;
+    if (!this._portal) {
+      this._portal = this.createPortal();
+    }
 
-    const config = new OverlayConfig({
-      scrollStrategy: this._overlay.scrollStrategies.block(),
-      hasBackdrop: true,
-      backdropClass: 'vclLayerCover',
-      panelClass: ['vclLayerBox'],
-      positionStrategy: opts.position || this._currentOpts.position || this._overlay.position()
-        .global()
-        .centerHorizontally()
-        .centerVertically(),
-    });
+    if (!this.isAttached) {
+      this._instanceRef = this.overlayRef.attach(this._portal);
 
-    this.attach(config);
-
-    return this.afterClose.pipe(take(1));
-  }
-
-  close(result?: TResult) {
-    return super.detach(result);
-  }
-
-  protected getInjector(): Injector {
-    return this.injector;
-  }
-
-  protected createInjector() {
-    const injectionTokens = new WeakMap();
-    injectionTokens.set(LAYER_TOKEN, this);
-    return new PortalInjector(this.injector, injectionTokens);
-  }
-
-  protected afterAttached(): void {
-    this._layerOpenedSub = this._zone.onStable.asObservable().pipe(take(1)).pipe(switchMap(() => {
-      return merge(
-        this._currentOpts.modal ? NEVER : this.overlayRef.keydownEvents().pipe(
-          filter(event => {
-            return event.keyCode === ESCAPE;
-          })
+      merge<TResult>(
+        this.overlayRef.detachments().pipe(
+          filter(() => this.isAttached),
+          map(() => ({action: 'detach'}))
         ),
-        this._currentOpts.modal ? NEVER : this.overlayRef.backdropClick()
-      );
-    })).subscribe(() => {
-      super.detach();
-    });
+        this._detachEmitter.asObservable(),
+      ).pipe(take(1)).subscribe((result) => {
+        this.overlayRef.detach();
+        this._instanceRef = undefined;
+        this._overlayRef = undefined;
+        this.afterDetached(result);
+      });
+      this.afterAttached();
+    } else {
+      this.overlayRef.updatePositionStrategy(config.positionStrategy);
+    }
   }
 
-  protected afterDetached(result?: TResult): void {
-    this._layerOpenedSub && this._layerOpenedSub.unsubscribe();
-    this._afterClose.next(result);
+  protected detach(result?: TResult) {
+    if (!this.isAttached) {
+      return;
+    }
+    this._detachEmitter.next(result);
+  }
+
+  public updatePosition() {
+    this.overlayRef.updatePosition();
+  }
+
+  public destroy() {
+    this._isDestroyed = true;
+    if (this.overlayRef) {
+      this.detach();
+      this.overlayRef.dispose();
+    }
   }
 }
