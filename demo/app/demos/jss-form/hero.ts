@@ -31,10 +31,6 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       validators: [ Validators.required ],
       hints: [
         {
-          type: 'default',
-          message: 'Name is required'
-        },
-        {
           type: 'error',
           error: 'required',
           message: 'Description is required'
@@ -46,7 +42,23 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       offLabel: 'No',
       onLabel: 'Yes',
       defaultValue: false,
-      label: 'Leader'
+      label: 'Leader',
+      validators: [(control: AbstractControl) => {
+        if (!control.value) {
+          return {
+            termsDisagree: true,
+          };
+        }
+        return null;
+      }],
+      hints: [
+        'Read the terms to learn how we collect, use and share your data',
+        {
+          type: 'error',
+          error: 'termsDisagree',
+          message: 'You must agree to our Terms'
+        }
+      ]
     },
     picture: {
       type: 'file-input',
@@ -101,13 +113,38 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
     //     value: -1
     //   }]
     // },
+    mail_old:{
+      type: 'hidden'
+    },
+    dob: {
+      type: 'date-picker',
+      label: 'Date of Birth',
+      datePickerConfig: {
+        displayTime: true
+      }
+    },
     hitpoints: {
       type: 'slider',
       label: 'Hit Points',
       min: 5,
       max: 20,
       scale: 16,
-      lock: true
+      lock: true,
+      validators: [(control: AbstractControl) => {
+        if (control.value < 15) {
+          return {
+            minVal: true,
+          };
+        }
+        return null;
+      }],
+      hints: [
+        {
+          type: 'error',
+          error: 'minVal',
+          message: 'Minimum value is 15'
+        }
+      ]
     },
     skills: {
       type: 'object',
@@ -168,10 +205,10 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         }
       ]
     },
-    attributes: {
-      type: 'token',
-      label: 'Attributes'
-    },
+    // attributes: {
+    //   type: 'token',
+    //   label: 'Attributes'
+    // },
     counter: {
       type: 'counter',
       label: 'Counter',
@@ -257,7 +294,7 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
 };
 export const HERO_DEFAULTS = {
   color: '#008000',
-  gender: 'male',
+  mail_old: 'a',
   hp: 5,
   custom: 3,
   items: [{name: 'Item 1', quantity: 2}],

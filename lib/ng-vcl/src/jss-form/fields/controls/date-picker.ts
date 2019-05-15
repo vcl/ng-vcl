@@ -22,7 +22,7 @@ export class FormFieldDate extends FormFieldControl<VCLFormFieldSchemaDate> {
   template: `
     <vcl-form-control-group>
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
-      <vcl-date-picker  [config]="datePickerConfig" [formControl]="field.control"> </vcl-date-picker>
+      <vcl-date-picker [config]="datePickerConfig" [formControl]="field.control"> </vcl-date-picker>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>
   `

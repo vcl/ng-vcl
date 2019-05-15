@@ -22,9 +22,11 @@ import { VCLRatingModule } from '../rating/index';
 import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
 import { PortalModule } from '@angular/cdk/portal';
-import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSubmitComponent,
-         FormFieldObjectComponent, FormFieldRatingComponent, registerField, registerControlField, FormFieldControl, FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent, FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDateComponent, FormFieldFileInputComponent, FormFieldHiddenComponent } from './fields/index';
-import { FormFieldSwitch, FormFieldSwitchComponent } from './fields/controls/switch';
+import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSubmitComponent, FormFieldSwitchComponent,
+         FormFieldObjectComponent, FormFieldRatingComponent, registerField, registerControlField, FormFieldControl,
+         FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
+         FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDateComponent,
+         FormFieldFileInputComponent, FormFieldHiddenComponent } from './fields/index';
 
 export { JssFormComponent };
 export * from './schemas';

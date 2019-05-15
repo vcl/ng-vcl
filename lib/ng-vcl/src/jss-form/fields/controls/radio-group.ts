@@ -25,7 +25,7 @@ export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGrou
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
         <vcl-radio-group [formControl]="field.control" [errorStateAgent]="field.errorStateAgent">
           <label vclRadioButtonLabel *ngFor="let option of field.options">
-            <vcl-radio-button [value]="option.label"></vcl-radio-button>
+            <vcl-radio-button [value]="option.value"></vcl-radio-button>
             <vcl-icon vclAppend >{{option.label}}</vcl-icon>
           </label>
         </vcl-radio-group>
