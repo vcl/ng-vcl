@@ -7085,6 +7085,68 @@ Object(_registry__WEBPACK_IMPORTED_MODULE_2__["registerField"])('submit', FormFi
 
 /***/ }),
 
+/***/ "./lib/ng-vcl/src/jss-form/fields/controls/button-group.ts":
+/*!*****************************************************************!*\
+  !*** ./lib/ng-vcl/src/jss-form/fields/controls/button-group.ts ***!
+  \*****************************************************************/
+/*! exports provided: FormFieldButtonGroup, FormFieldButtonGroupComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormFieldButtonGroup", function() { return FormFieldButtonGroup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormFieldButtonGroupComponent", function() { return FormFieldButtonGroupComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _registry__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../registry */ "./lib/ng-vcl/src/jss-form/fields/registry.ts");
+/* harmony import */ var _control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./control */ "./lib/ng-vcl/src/jss-form/fields/controls/control.ts");
+
+
+
+
+var FormFieldButtonGroup = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](FormFieldButtonGroup, _super);
+    function FormFieldButtonGroup() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(FormFieldButtonGroup.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormFieldButtonGroup.prototype, "options", {
+        get: function () {
+            return this.schema.options || [];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FormFieldButtonGroup.prototype.createDefaultValue = function () {
+        return undefined;
+    };
+    return FormFieldButtonGroup;
+}(_control__WEBPACK_IMPORTED_MODULE_3__["FormFieldControl"]));
+
+var FormFieldButtonGroupComponent = /** @class */ (function () {
+    function FormFieldButtonGroupComponent(field) {
+        this.field = field;
+    }
+    FormFieldButtonGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n      <vcl-button-group [formControl]=\"field.control\" [errorStateAgent]=\"field.errorStateAgent\">\n        <button vcl-button *ngFor=\"let option of field.options\" [type]=\"option.formControl\" [value]=\"option.value\">{{option.label}}</button>\n      </vcl-button-group>\n      <vcl-jss-form-hints></vcl-jss-form-hints>\n    </vcl-form-control-group>\n  "
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [FormFieldButtonGroup])
+    ], FormFieldButtonGroupComponent);
+    return FormFieldButtonGroupComponent;
+}());
+
+Object(_registry__WEBPACK_IMPORTED_MODULE_2__["registerControlField"])('button-group', FormFieldButtonGroupComponent, FormFieldButtonGroup);
+
+
+/***/ }),
+
 /***/ "./lib/ng-vcl/src/jss-form/fields/controls/checkbox.ts":
 /*!*************************************************************!*\
   !*** ./lib/ng-vcl/src/jss-form/fields/controls/checkbox.ts ***!
@@ -7669,7 +7731,7 @@ var FormFieldRadio = /** @class */ (function (_super) {
         configurable: true
     });
     FormFieldRadio.prototype.createDefaultValue = function () {
-        return [];
+        return undefined;
     };
     return FormFieldRadio;
 }(_control__WEBPACK_IMPORTED_MODULE_3__["FormFieldControl"]));
@@ -8124,6 +8186,13 @@ var FormFieldToken = /** @class */ (function (_super) {
     function FormFieldToken() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(FormFieldToken.prototype, "label", {
+        get: function () {
+            return this.schema.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
     FormFieldToken.prototype.createDefaultValue = function () {
         return undefined;
     };
@@ -8136,7 +8205,7 @@ var FormFieldTokenComponent = /** @class */ (function () {
     }
     FormFieldTokenComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n      <vcl-token-input-container [disabled]=\"true\">\n        <input vclInput vcl-token-input />\n      </vcl-token-input-container>\n      <vcl-jss-form-hints></vcl-jss-form-hints>\n    </vcl-form-control-group>\n  "
+            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n      <vcl-token-input-container [formControl]=\"field.control\" >\n        <input vclInput vclTokenInput [errorStateAgent]=\"field.errorStateAgent\" />\n      </vcl-token-input-container>\n      <vcl-jss-form-hints></vcl-jss-form-hints>\n    </vcl-form-control-group>\n  "
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [FormFieldToken])
     ], FormFieldTokenComponent);
@@ -8152,7 +8221,7 @@ Object(_registry__WEBPACK_IMPORTED_MODULE_2__["registerControlField"])('token', 
 /*!*************************************************!*\
   !*** ./lib/ng-vcl/src/jss-form/fields/index.ts ***!
   \*************************************************/
-/*! exports provided: FormField, FormFieldButton, FormFieldButtonComponent, FormFieldButtons, FormFieldButtonsComponent, FormFieldSubmit, FormFieldSubmitComponent, FormFieldControl, DefaultFormFieldControl, FormFieldInput, FormFieldInputComponent, FormFieldTextarea, FormFieldTextareaComponent, FormFieldSelect, FormFieldSelectComponent, FormFieldSwitch, FormFieldSwitchComponent, FormFieldSlider, FormFieldSliderComponent, FormFieldCheckbox, FormFieldCheckboxComponent, FormFieldRadio, FormFieldRadioGroupComponent, FormFieldToken, FormFieldTokenComponent, FormFieldDate, FormFieldDateComponent, FormFieldFileInput, FormFieldFileInputComponent, FormFieldHidden, FormFieldHiddenComponent, FormFieldRating, FormFieldRatingComponent, FormFieldObject, FormFieldObjectComponent, FIELD_SCHEMA_TOKEN, registerField, registerControlField, lookupField */
+/*! exports provided: FormField, FormFieldButton, FormFieldButtonComponent, FormFieldButtons, FormFieldButtonsComponent, FormFieldSubmit, FormFieldSubmitComponent, FormFieldControl, DefaultFormFieldControl, FormFieldInput, FormFieldInputComponent, FormFieldTextarea, FormFieldTextareaComponent, FormFieldSelect, FormFieldSelectComponent, FormFieldSwitch, FormFieldSwitchComponent, FormFieldSlider, FormFieldSliderComponent, FormFieldCheckbox, FormFieldCheckboxComponent, FormFieldRadio, FormFieldRadioGroupComponent, FormFieldToken, FormFieldTokenComponent, FormFieldDate, FormFieldDateComponent, FormFieldFileInput, FormFieldFileInputComponent, FormFieldButtonGroup, FormFieldButtonGroupComponent, FormFieldHidden, FormFieldHiddenComponent, FormFieldRating, FormFieldRatingComponent, FormFieldObject, FormFieldObjectComponent, FIELD_SCHEMA_TOKEN, registerField, registerControlField, lookupField */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8230,29 +8299,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldFileInputComponent", function() { return _controls_file_input__WEBPACK_IMPORTED_MODULE_14__["FormFieldFileInputComponent"]; });
 
-/* harmony import */ var _controls_hidden__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./controls/hidden */ "./lib/ng-vcl/src/jss-form/fields/controls/hidden.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldHidden", function() { return _controls_hidden__WEBPACK_IMPORTED_MODULE_15__["FormFieldHidden"]; });
+/* harmony import */ var _controls_button_group__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./controls/button-group */ "./lib/ng-vcl/src/jss-form/fields/controls/button-group.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldButtonGroup", function() { return _controls_button_group__WEBPACK_IMPORTED_MODULE_15__["FormFieldButtonGroup"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldHiddenComponent", function() { return _controls_hidden__WEBPACK_IMPORTED_MODULE_15__["FormFieldHiddenComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldButtonGroupComponent", function() { return _controls_button_group__WEBPACK_IMPORTED_MODULE_15__["FormFieldButtonGroupComponent"]; });
 
-/* harmony import */ var _controls_rating__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./controls/rating */ "./lib/ng-vcl/src/jss-form/fields/controls/rating.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldRating", function() { return _controls_rating__WEBPACK_IMPORTED_MODULE_16__["FormFieldRating"]; });
+/* harmony import */ var _controls_hidden__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./controls/hidden */ "./lib/ng-vcl/src/jss-form/fields/controls/hidden.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldHidden", function() { return _controls_hidden__WEBPACK_IMPORTED_MODULE_16__["FormFieldHidden"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldRatingComponent", function() { return _controls_rating__WEBPACK_IMPORTED_MODULE_16__["FormFieldRatingComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldHiddenComponent", function() { return _controls_hidden__WEBPACK_IMPORTED_MODULE_16__["FormFieldHiddenComponent"]; });
 
-/* harmony import */ var _controls_object__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./controls/object */ "./lib/ng-vcl/src/jss-form/fields/controls/object.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldObject", function() { return _controls_object__WEBPACK_IMPORTED_MODULE_17__["FormFieldObject"]; });
+/* harmony import */ var _controls_rating__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./controls/rating */ "./lib/ng-vcl/src/jss-form/fields/controls/rating.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldRating", function() { return _controls_rating__WEBPACK_IMPORTED_MODULE_17__["FormFieldRating"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldObjectComponent", function() { return _controls_object__WEBPACK_IMPORTED_MODULE_17__["FormFieldObjectComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldRatingComponent", function() { return _controls_rating__WEBPACK_IMPORTED_MODULE_17__["FormFieldRatingComponent"]; });
 
-/* harmony import */ var _registry__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./registry */ "./lib/ng-vcl/src/jss-form/fields/registry.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FIELD_SCHEMA_TOKEN", function() { return _registry__WEBPACK_IMPORTED_MODULE_18__["FIELD_SCHEMA_TOKEN"]; });
+/* harmony import */ var _controls_object__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./controls/object */ "./lib/ng-vcl/src/jss-form/fields/controls/object.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldObject", function() { return _controls_object__WEBPACK_IMPORTED_MODULE_18__["FormFieldObject"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "registerField", function() { return _registry__WEBPACK_IMPORTED_MODULE_18__["registerField"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldObjectComponent", function() { return _controls_object__WEBPACK_IMPORTED_MODULE_18__["FormFieldObjectComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "registerControlField", function() { return _registry__WEBPACK_IMPORTED_MODULE_18__["registerControlField"]; });
+/* harmony import */ var _registry__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./registry */ "./lib/ng-vcl/src/jss-form/fields/registry.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FIELD_SCHEMA_TOKEN", function() { return _registry__WEBPACK_IMPORTED_MODULE_19__["FIELD_SCHEMA_TOKEN"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "lookupField", function() { return _registry__WEBPACK_IMPORTED_MODULE_18__["lookupField"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "registerField", function() { return _registry__WEBPACK_IMPORTED_MODULE_19__["registerField"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "registerControlField", function() { return _registry__WEBPACK_IMPORTED_MODULE_19__["registerControlField"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "lookupField", function() { return _registry__WEBPACK_IMPORTED_MODULE_19__["lookupField"]; });
+
 
 
 
@@ -8448,6 +8523,7 @@ var VCLJssFormModule = /** @class */ (function () {
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldDateComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldFileInputComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldHiddenComponent"],
+                _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldButtonGroupComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSubmitComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldRatingComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldObjectComponent"]
@@ -8467,6 +8543,7 @@ var VCLJssFormModule = /** @class */ (function () {
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldDateComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldFileInputComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldHiddenComponent"],
+                _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldButtonGroupComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSubmitComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldRatingComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldObjectComponent"]
