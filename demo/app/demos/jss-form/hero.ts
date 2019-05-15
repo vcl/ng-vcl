@@ -8,7 +8,7 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       type: 'input',
       label: 'Name',
       placeholder: 'The hero\'s name',
-      validators: [ Validators.required, Validators.minLength(2) ],
+      validators: [Validators.required, Validators.minLength(2)],
       required: true,
       hints: [
         {
@@ -28,7 +28,7 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       label: 'Description',
       placeholder: 'The hero\'s Description',
       required: true,
-      validators: [ Validators.required ],
+      validators: [Validators.required],
       hints: [
         {
           type: 'error',
@@ -46,17 +46,16 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       validators: [(control: AbstractControl) => {
         if (!control.value) {
           return {
-            termsDisagree: true,
+            leader: true,
           };
         }
         return null;
       }],
       hints: [
-        'Read the terms to learn how we collect, use and share your data',
         {
           type: 'error',
-          error: 'termsDisagree',
-          message: 'You must agree to our Terms'
+          error: 'leader',
+          message: 'Hero must be leader'
         }
       ]
     },
@@ -69,7 +68,7 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
     email: {
       type: 'input',
       label: 'Email',
-      validators: [ Validators.required, Validators.email ],
+      validators: [Validators.required, Validators.email],
       required: true,
       hints: [
         {
@@ -99,21 +98,21 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       }],
       defaultValue: 'm'
     },
-    // alignment: {
-    //   type: 'button-group',
-    //   label: 'Alignment',
-    //   options: [{
-    //     label: 'Good',
-    //     value: 1
-    //   }, {
-    //     label: 'Neutral',
-    //     value: 0
-    //   }, {
-    //     label: 'Evil',
-    //     value: -1
-    //   }]
-    // },
-    mail_old:{
+    alignment: {
+      type: 'button-group',
+      label: 'Alignment',
+      options: [{
+        label: 'Good',
+        value: 1
+      }, {
+        label: 'Neutral',
+        value: 0
+      }, {
+        label: 'Evil',
+        value: -1
+      }]
+    },
+    mail_old: {
       type: 'hidden'
     },
     dob: {
@@ -205,10 +204,24 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         }
       ]
     },
-    // attributes: {
-    //   type: 'token',
-    //   label: 'Attributes'
-    // },
+    attributes: {
+      type: 'token',
+      label: 'Attributes',
+      hints: [
+        {
+          type: 'default',
+          message: 'Attributes'
+        },
+        {
+          type: 'error',
+          error: 'minLength',
+          message: 'Minimum length is 2'
+        },
+      ],
+      validators: [(control: AbstractControl) => {
+        return Array.isArray(control.value) && control.value.length > 1 ? null : { minLength: true };
+      }],
+    },
     counter: {
       type: 'counter',
       label: 'Counter',

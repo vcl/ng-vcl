@@ -13,6 +13,7 @@ export * from './controls/radio-group';
 export * from './controls/token';
 export * from './controls/date-picker';
 export * from './controls/file-input';
+export * from './controls/button-group';
 export * from './controls/hidden';
 export * from './controls/rating';
 export * from './controls/object';

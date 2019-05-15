@@ -2,8 +2,6 @@ import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { DatePickerConfig } from '../date-picker/index';
 import { FormControlErrorStateAgent, FormControlInput } from '../form-control-group/index';
 import { Hint } from './types';
-// import { FieldTypes, Hint } from './types';
-
 
 
 export interface VCLFormFieldSchema {
@@ -92,6 +90,12 @@ export interface VCLFormFieldSchemaRadioGroup extends VCLFormFieldControlSchema 
   options: VCLFormFieldSchemaOptions[];
 }
 
+export interface  VCLFormFieldSchemaButtonGroup extends VCLFormFieldControlSchema {
+  type: 'button-group';
+  label?: string;
+  options: VCLFormFieldSchemaOptions[];
+}
+
 export interface VCLFormFieldSchemaToken extends VCLFormFieldControlSchema {
   type: 'token';
   label?: string;
@@ -153,11 +157,9 @@ export interface VCLFormFieldSchemaCustom {
 }
 
 export type VCLFormFieldSchemas = VCLFormFieldSchemaInput | VCLFormFieldSchemaTextarea
-                          | VCLFormFieldSchemaHidden | VCLFormFieldSchemaFileInput
-                          | VCLFormFieldSchemaCheckbox | VCLFormFieldSchemaSelect
+                          | VCLFormFieldSchemaHidden | VCLFormFieldSchemaFileInput  | VCLFormFieldSchemaObject
+                          | VCLFormFieldSchemaCheckbox | VCLFormFieldSchemaSelect  | VCLFormFieldSchemaCustom
                           | VCLFormFieldSchemaSwitch | VCLFormFieldSchemaSlider | VCLFormFieldSchemaRating
                           | VCLFormFieldSchemaRadioGroup | VCLFormFieldSchemaToken | VCLFormFieldSchemaDate
-                          | VCLFormFieldSchemaObject
                           | VCLFormFieldSchemaSubmit | VCLFormFieldSchemaButton | VCLFormFieldSchemaButtons
-                          | VCLFormFieldSchemaCustom
                           ;

@@ -15,7 +15,7 @@ export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGrou
     return this.schema.options || [];
   }
   protected createDefaultValue() {
-    return [];
+    return undefined;
   }
 }
 

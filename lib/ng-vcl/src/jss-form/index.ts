@@ -26,7 +26,7 @@ import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSubmitCompo
          FormFieldObjectComponent, FormFieldRatingComponent, registerField, registerControlField, FormFieldControl,
          FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
          FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDateComponent,
-         FormFieldFileInputComponent, FormFieldHiddenComponent } from './fields/index';
+         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent } from './fields/index';
 
 export { JssFormComponent };
 export * from './schemas';
@@ -73,6 +73,7 @@ export { registerField, registerControlField, FormField, FormFieldControl };
     FormFieldDateComponent,
     FormFieldFileInputComponent,
     FormFieldHiddenComponent,
+    FormFieldButtonGroupComponent,
     FormFieldSubmitComponent,
     FormFieldRatingComponent,
     FormFieldObjectComponent
@@ -92,6 +93,7 @@ export { registerField, registerControlField, FormField, FormFieldControl };
     FormFieldDateComponent,
     FormFieldFileInputComponent,
     FormFieldHiddenComponent,
+    FormFieldButtonGroupComponent,
     FormFieldSubmitComponent,
     FormFieldRatingComponent,
     FormFieldObjectComponent

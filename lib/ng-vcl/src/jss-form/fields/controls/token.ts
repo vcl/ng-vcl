@@ -6,6 +6,10 @@ import { FormFieldControl } from './control';
 export class FormFieldToken extends FormFieldControl<VCLFormFieldSchemaToken> {
   type: 'token';
 
+  get label(): string {
+    return this.schema.label;
+  }
+
   protected createDefaultValue() {
     return undefined;
   }
@@ -15,8 +19,8 @@ export class FormFieldToken extends FormFieldControl<VCLFormFieldSchemaToken> {
   template: `
     <vcl-form-control-group>
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
-      <vcl-token-input-container [disabled]="true">
-        <input vclInput vcl-token-input />
+      <vcl-token-input-container [formControl]="field.control" >
+        <input vclInput vclTokenInput [errorStateAgent]="field.errorStateAgent" />
       </vcl-token-input-container>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>
