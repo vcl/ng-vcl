@@ -10,6 +10,7 @@ export interface RadioButton {
 
 export interface RadioButtonGroup {
   notifyRadioButtonChecked(rb: RadioButton): void;
+  notifyRadioButtonFocus(rb: RadioButton): void;
   notifyRadioButtonBlur(rb: RadioButton): void;
 }
 

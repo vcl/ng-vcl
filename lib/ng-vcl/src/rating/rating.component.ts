@@ -273,11 +273,15 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     this.stateChangeEmitter.complete();
   }
 
+  onRatingItemFocus(item: RatingItemComponent): void {
+    this.stateChangeEmitter.next();
+  }
+
   onRatingItemBlur(item: RatingItemComponent): void {
     if (this.ratingItems.pop() === item) {
       this.onTouchedCallback();
-      this.stateChangeEmitter.next();
     }
+    this.stateChangeEmitter.next();
   }
 
   get ratingItemsArray() {

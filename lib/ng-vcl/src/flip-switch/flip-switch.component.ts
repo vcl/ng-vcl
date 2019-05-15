@@ -115,12 +115,14 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   @HostListener('focus')
   onFocus() {
     this._focused = true;
+    this.stateChangeEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.onTouchedCallback();
+    this.stateChangeEmitter.next();
   }
 
 

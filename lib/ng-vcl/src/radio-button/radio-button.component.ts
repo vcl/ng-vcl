@@ -89,6 +89,7 @@ export class RadioButtonComponent implements RadioButton {
   @HostListener('focus')
   onFocus() {
     this._focused = true;
+    this.rbg && this.rbg.notifyRadioButtonFocus(this);
   }
 
   @HostListener('blur')

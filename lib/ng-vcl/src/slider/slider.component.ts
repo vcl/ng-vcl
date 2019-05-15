@@ -245,12 +245,14 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @HostListener('focus')
   onFocus() {
     this.focused = true;
+    this.stateChangeEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this.focused = false;
     this.onTouched();
+    this.stateChangeEmitter.next();
   }
 
   /**

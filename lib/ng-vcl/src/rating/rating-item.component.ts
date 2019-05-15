@@ -11,6 +11,7 @@ export interface Rating {
   onRatingItemClick(item: RatingItemComponent): void;
   onRatingItemHover(item: RatingItemComponent): void;
   onRatingItemBlur(item: RatingItemComponent): void;
+  onRatingItemFocus(item: RatingItemComponent): void;
 }
 
 export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
@@ -101,6 +102,7 @@ export class RatingItemComponent {
   @HostListener('focus')
   onFocus() {
     this.focused = true;
+    this._rating.onRatingItemFocus(this);
   }
 
   @HostListener('blur')

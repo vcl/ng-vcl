@@ -95,6 +95,7 @@ export class SelectListItemComponent implements SelectListItem {
   @HostListener('focus')
   onFocus() {
     this._focused = true;
+    this.selectList.onItemFocus(this);
   }
 
   @HostListener('blur')

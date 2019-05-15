@@ -145,6 +145,11 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
     if (this.radioButtons.last === rb) {
       this.onTouched();
     }
+    this.stateChangeEmitter.next();
+  }
+
+  notifyRadioButtonFocus(rb: RadioButton) {
+    this.stateChangeEmitter.next();
   }
 
   onLabelClick(event: Event): void {

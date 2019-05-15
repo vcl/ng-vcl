@@ -154,10 +154,15 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
   }
 
+  onItemFocus(item: SelectListItem) {
+    this.stateChangeEmitter.next();
+  }
+
   onItemBlur(item: SelectListItem) {
     if (this._items.last === item) {
       this.onTouched();
     }
+    this.stateChangeEmitter.next();
   }
 
   get selectedItems() {

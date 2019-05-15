@@ -124,11 +124,13 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   @HostListener('focus')
   onFocus() {
     this.isFocused = true;
+    this.stateChangeEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this.isFocused = false;
+    this.stateChangeEmitter.next();
     this.onTouched();
   }
 

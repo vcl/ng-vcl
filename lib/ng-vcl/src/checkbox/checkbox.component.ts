@@ -96,8 +96,16 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
   @Input()
   tabindex = 0;
 
+  _disabled = false;
+
   @Input()
-  disabled = false;
+  set disabled(disabled: boolean) {
+    this._disabled = disabled;
+    this.stateChangeEmitter.next();
+  }
+  get disabled() {
+    return this._disabled;
+  }
 
   @Input()
   checked = false;

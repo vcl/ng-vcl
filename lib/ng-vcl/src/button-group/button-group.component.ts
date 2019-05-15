@@ -76,6 +76,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   set disabled(disabled: boolean) {
     this._disabled = disabled;
     this.syncButtons();
+    this.stateChangeEmitter.next();
   }
 
   get disabled(): boolean {
@@ -160,7 +161,13 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     if (this.buttons.last === btn) {
       this.onTouched();
     }
+    this.stateChangeEmitter.next();
   }
+
+  notifyButtonFocus(btn: any) {
+    this.stateChangeEmitter.next();
+  }
+
 
   private triggerChange() {
     this.valueChange.emit(this.value);

@@ -95,11 +95,13 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
   @HostListener('focus')
   onFocus() {
     this._focused = true;
+    this.stateChangeEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
+    this.stateChangeEmitter.next();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

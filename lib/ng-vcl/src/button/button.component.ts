@@ -2,6 +2,7 @@ import { HostBinding, Input, HostListener, ElementRef, Component, SkipSelf, Inje
 
 export interface ButtonObserver {
   notifyButtonClick(btn: ButtonComponent): void;
+  notifyButtonFocus(btn: ButtonComponent): void;
   notifyButtonBlur(btn: ButtonComponent): void;
 }
 
@@ -95,6 +96,7 @@ export class ButtonComponent {
   @HostListener('focus')
   onFocus() {
     this._focused = true;
+    this.observer && this.observer.notifyButtonFocus(this);
   }
 
   @HostListener('blur')
