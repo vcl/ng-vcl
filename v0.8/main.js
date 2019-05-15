@@ -7294,7 +7294,7 @@ var FormFieldDateComponent = /** @class */ (function () {
     }
     FormFieldDateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n      <vcl-date-picker  [config]=\"datePickerConfig\" [formControl]=\"field.control\"> </vcl-date-picker>\n      <vcl-jss-form-hints></vcl-jss-form-hints>\n    </vcl-form-control-group>\n  "
+            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n      <vcl-date-picker [config]=\"datePickerConfig\" [formControl]=\"field.control\"> </vcl-date-picker>\n      <vcl-jss-form-hints></vcl-jss-form-hints>\n    </vcl-form-control-group>\n  "
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [FormFieldDate])
     ], FormFieldDateComponent);
@@ -7400,7 +7400,7 @@ var FormFieldHidden = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     FormFieldHidden.prototype.createDefaultValue = function () {
-        return undefined;
+        return '';
     };
     return FormFieldHidden;
 }(_control__WEBPACK_IMPORTED_MODULE_3__["FormFieldControl"]));
@@ -7411,7 +7411,7 @@ var FormFieldHiddenComponent = /** @class */ (function () {
     }
     FormFieldHiddenComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n      <input vclInput type=\"hidden\" [formControl]=\"field.control\" >\n      <vcl-jss-form-hints></vcl-jss-form-hints>\n    </vcl-form-control-group>\n  "
+            template: "\n    <vcl-form-control-group>\n      <input vclInput type=\"hidden\" [formControl]=\"field.control\" [errorStateAgent]=\"field.errorStateAgent\" >\n      <vcl-jss-form-hints></vcl-jss-form-hints>\n    </vcl-form-control-group>\n  "
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [FormFieldHidden])
     ], FormFieldHiddenComponent);
@@ -7680,7 +7680,7 @@ var FormFieldRadioGroupComponent = /** @class */ (function () {
     }
     FormFieldRadioGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n        <vcl-radio-group [formControl]=\"field.control\" [errorStateAgent]=\"field.errorStateAgent\">\n          <label vclRadioButtonLabel *ngFor=\"let option of field.options\">\n            <vcl-radio-button [value]=\"option.label\"></vcl-radio-button>\n            <vcl-icon vclAppend >{{option.label}}</vcl-icon>\n          </label>\n        </vcl-radio-group>\n    </vcl-form-control-group>\n  "
+            template: "\n    <vcl-form-control-group>\n      <label *ngIf=\"!!field.label\" vclFormControlLabel>{{field.label}}<vcl-required *ngIf=\"field.required\"></vcl-required></label>\n        <vcl-radio-group [formControl]=\"field.control\" [errorStateAgent]=\"field.errorStateAgent\">\n          <label vclRadioButtonLabel *ngFor=\"let option of field.options\">\n            <vcl-radio-button [value]=\"option.value\"></vcl-radio-button>\n            <vcl-icon vclAppend >{{option.label}}</vcl-icon>\n          </label>\n        </vcl-radio-group>\n    </vcl-form-control-group>\n  "
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [FormFieldRadio])
     ], FormFieldRadioGroupComponent);
@@ -8372,10 +8372,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormFieldControl", function() { return _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldControl"]; });
 
-/* harmony import */ var _fields_controls_switch__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./fields/controls/switch */ "./lib/ng-vcl/src/jss-form/fields/controls/switch.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/jss-form/types.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JSS_FORM_TOKEN", function() { return _types__WEBPACK_IMPORTED_MODULE_26__["JSS_FORM_TOKEN"]; });
-
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./types */ "./lib/ng-vcl/src/jss-form/types.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JSS_FORM_TOKEN", function() { return _types__WEBPACK_IMPORTED_MODULE_25__["JSS_FORM_TOKEN"]; });
 
 
 
@@ -8442,7 +8440,7 @@ var VCLJssFormModule = /** @class */ (function () {
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldInputComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldTextareaComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSelectComponent"],
-                _fields_controls_switch__WEBPACK_IMPORTED_MODULE_25__["FormFieldSwitchComponent"],
+                _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSwitchComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSliderComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldCheckboxComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldRadioGroupComponent"],
@@ -8461,7 +8459,7 @@ var VCLJssFormModule = /** @class */ (function () {
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldInputComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldTextareaComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSelectComponent"],
-                _fields_controls_switch__WEBPACK_IMPORTED_MODULE_25__["FormFieldSwitchComponent"],
+                _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSwitchComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldSliderComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldCheckboxComponent"],
                 _fields_index__WEBPACK_IMPORTED_MODULE_24__["FormFieldRadioGroupComponent"],
