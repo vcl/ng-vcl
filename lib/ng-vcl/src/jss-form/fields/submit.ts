@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaSubmit } from '../../schemas';
-import { registerField } from '../registry';
+import { VCLFormFieldSchemaSubmit } from '../schemas';
+import { registerField } from './registry';
 import { FormField } from './field';
 
 export class FormFieldSubmit extends FormField<VCLFormFieldSchemaSubmit> {

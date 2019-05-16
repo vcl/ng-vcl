@@ -4,7 +4,7 @@ import { map, filter } from 'rxjs/operators';
 import { FORM_CONTROL_HOST, FormControlHost } from '../form-control-group/index';
 import { Hint, DefaultHint, FormFieldHints, HintObject } from './types';
 import { FormFieldControl, FormField } from './fields/index';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, NgForm } from '@angular/forms';
 
 
 @Component({
@@ -16,7 +16,8 @@ import { AbstractControl } from '@angular/forms';
 export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
 
   constructor(
-    @Optional() field?: FormField<any> ,
+    private ngForm: NgForm,
+    @Optional() field?: FormField<any>,
     @Optional() @Inject(FORM_CONTROL_HOST) private fch?: FormControlHost
   ) {
     if (field instanceof FormFieldControl) {
@@ -55,7 +56,7 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
             message: hint
           } as DefaultHint;
         } else if (typeof hint === 'function') {
-          return hint(this.control, this.fch && this.fch.input);
+          return hint(this.control || this.ngForm.form);
         }
         return hint;
       });

@@ -1,9 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { VCLFormFieldSchema } from '../schemas';
-import { FormField } from './basic/field';
-import { FormFieldControl } from './controls/control';
+import { FormField, FormFieldControl } from './field';
 import { ComponentType } from '@angular/cdk/portal';
-// import { FieldTypes } from '../types';
 
 export const FIELD_SCHEMA_TOKEN = new InjectionToken<VCLFormFieldSchema>('field_schema_token');
 

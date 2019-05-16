@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaButtonGroup } from '../../schemas';
-import { registerControlField } from '../registry';
-import { FormFieldControl } from './control';
+import { VCLFormFieldSchemaButtonGroup } from '../schemas';
+import { registerControlField } from './registry';
+import { FormFieldControl } from './field';
 
 export class FormFieldButtonGroup extends FormFieldControl<VCLFormFieldSchemaButtonGroup> {
   type: 'file-input';

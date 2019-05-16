@@ -1,11 +1,10 @@
 import { FormGroup, NgForm } from '@angular/forms';
 import { Component, Injector } from '@angular/core';
 import { ComponentPortal, Portal } from '@angular/cdk/portal';
-import { FormFieldHints } from '../../types';
-import { FormField } from '../basic/field';
-import { FormFieldControl, DefaultFormFieldControl } from '../controls/control';
-import { registerField, lookupField } from '../registry';
-import { VCLFormFieldSchemaObject } from '../../schemas';
+import { FormFieldHints } from '../types';
+import { FormField, FormFieldControl } from './field';
+import { registerField, lookupField } from './registry';
+import { VCLFormFieldSchemaObject } from '../schemas';
 
 export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject> implements FormFieldHints {
   constructor(schema: VCLFormFieldSchemaObject, key: string, parent?: FormField) {
@@ -19,13 +18,12 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject> 
       if (meta.fieldClass) {
         return new meta.fieldClass(fieldSchema, _key, parent);
       } else {
-        return meta.is === 'control' ? new DefaultFormFieldControl(fieldSchema, _key, parent) : new FormField(fieldSchema, _key, parent);
+        return meta.is === 'control' ? new FormFieldControl(fieldSchema, _key, parent) : new FormField(fieldSchema, _key, parent);
       }
     });
   }
 
   private _fields: FormField<any>[];
-  private cachedPortals = {};
 
   get fields(): FormField<any>[] {
     return this._fields;
@@ -63,16 +61,6 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject> 
     return {};
   }
 
-  createPortals(injector: Injector, providers: any[]): Portal<any>[] {
-    this.fields.forEach(_field => {
-      if (!this.cachedPortals[_field.key]) {
-        this.cachedPortals[_field.key] = createPortal(_field, injector, providers);
-      }
-    });
-
-    return this.fields.map(field => this.cachedPortals[field.key]);
-  }
-
   destroy() {
     this.fields.forEach(f => f.destroy());
   }
@@ -103,9 +91,8 @@ export class FormFieldObjectComponent {
   constructor(
     public field: FormFieldObject,
     injector: Injector,
-    ngForm: NgForm,
   ) {
-    this.portals = field.createPortals(injector, []);
+    this.portals = createPortals(this.field.fields, injector, []);
   }
 
   portals: Portal<any>[];
@@ -125,6 +112,10 @@ export class FormFieldObjectComponent {
 }
 
 registerField('object', FormFieldObjectComponent, FormFieldObject);
+
+function createPortals(fields: FormField[], injector: Injector, providers: any[]): Portal<any>[] {
+  return fields.map(field => createPortal(field, injector, providers));
+}
 
 export function createPortal(field: FormField, injector: Injector, providers: any[]) {
   const type = field.type;

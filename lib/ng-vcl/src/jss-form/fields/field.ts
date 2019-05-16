@@ -1,8 +1,46 @@
+import { VCLFormFieldSchema, VCLFormFieldControlSchema } from '../schemas';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { VCLFormFieldControlSchema } from '../../schemas';
-import { FormField } from '../basic/field';
 
-export abstract class FormFieldControl<T extends VCLFormFieldControlSchema = any> extends FormField<T> {
+export class FormField<T extends VCLFormFieldSchema = any> {
+  constructor(public readonly schema: T, public key: string, public readonly parent?: FormField) {
+    this.id = schema.id || ((this.parent && this.parent.key) ? (this.parent.key + '.' + 'key') : key);
+
+    if (typeof schema.visible === 'object') {
+      // TODO
+    } else if (typeof this.schema.visible === 'boolean') {
+      this._visible = this.schema.visible;
+    } else {
+      this._visible = true;
+    }
+
+  }
+
+  private _visible = false;
+
+  readonly id: string;
+
+  get type(): string {
+    return this.schema.type;
+  }
+
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  get rootField() {
+    const walk = (field: FormField) => {
+      return field.parent ? walk(field.parent) : field;
+    };
+    const root = walk(this);
+    return root instanceof FormFieldControl ? root : undefined;
+  }
+
+  destroy() {
+
+  }
+}
+
+export class FormFieldControl<T extends VCLFormFieldControlSchema = any> extends FormField<T> {
 
   constructor(
     schema: T,
@@ -18,11 +56,6 @@ export abstract class FormFieldControl<T extends VCLFormFieldControlSchema = any
   get control(): AbstractControl {
     if (!this._control) {
       this._control = this.createControl();
-      // this.control.valueChanges.subscribe(() => {
-      //   console.log(this.key, this.control.value);
-      // }, null, () => {
-      //   console.log(this.key, 'done');
-      // });
     }
     return this._control;
   }
@@ -55,10 +88,6 @@ export abstract class FormFieldControl<T extends VCLFormFieldControlSchema = any
     return new FormControl(this.defaultValue, this.validators);
   }
 
-  protected abstract createDefaultValue(): any;
-}
-
-export class DefaultFormFieldControl<T extends VCLFormFieldControlSchema> extends FormFieldControl<T> {
   protected createDefaultValue() {
     return undefined;
   }

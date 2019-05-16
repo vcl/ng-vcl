@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaRadioGroup } from '../../schemas';
-import { registerControlField } from '../registry';
-import { FormFieldControl } from './control';
+import { VCLFormFieldSchemaRadioGroup } from '../schemas';
+import { registerControlField } from './registry';
+import { FormFieldControl } from './field';
 
 export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGroup> {
   type: 'radio-group';
@@ -26,7 +26,7 @@ export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGrou
         <vcl-radio-group [formControl]="field.control" [errorStateAgent]="field.errorStateAgent">
           <label vclRadioButtonLabel *ngFor="let option of field.options">
             <vcl-radio-button [value]="option.value"></vcl-radio-button>
-            <vcl-icon vclAppend >{{option.label}}</vcl-icon>
+            {{option.label}}
           </label>
         </vcl-radio-group>
     </vcl-form-control-group>

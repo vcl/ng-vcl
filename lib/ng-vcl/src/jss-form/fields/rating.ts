@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaRating } from '../../schemas';
-import { registerControlField } from '../registry';
-import { FormFieldControl } from './control';
+import { VCLFormFieldSchemaRating } from '../schemas';
+import { registerControlField } from './registry';
+import { FormFieldControl } from './field';
 
 export class FormFieldRating extends FormFieldControl<VCLFormFieldSchemaRating> {
   type: 'rating';

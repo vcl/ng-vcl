@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaSlider } from '../../schemas';
-import { registerControlField } from '../registry';
-import { FormFieldControl } from './control';
+import { VCLFormFieldSchemaSlider } from '../schemas';
+import { registerControlField } from './registry';
+import { FormFieldControl } from './field';
 
 export class FormFieldSlider extends FormFieldControl<VCLFormFieldSchemaSlider> {
   type: 'slider';

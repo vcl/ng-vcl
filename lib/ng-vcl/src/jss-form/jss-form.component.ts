@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ComponentPortal, Portal } from '@angular/cdk/portal';
 import { FormFieldControl, FormField, lookupField, FormFieldObject, createPortal } from './fields/index';
@@ -12,7 +12,7 @@ import { Subject, Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclJssForm'
 })
-export class JssFormComponent implements JssForm, AfterContentInit {
+export class JssFormComponent implements JssForm, AfterContentInit, AfterViewInit, OnDestroy {
 
   constructor(private cdRef: ChangeDetectorRef, private injector: Injector) { }
 

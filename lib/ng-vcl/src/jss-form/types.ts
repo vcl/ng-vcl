@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { AbstractControl, NgForm } from '@angular/forms';
 import { FormControlInput } from '../form-control-group/index';
-import { Observable } from 'rxjs';
 
 export const JSS_FORM_TOKEN = new InjectionToken<JssForm>('jss_form');
 
@@ -29,7 +28,7 @@ export interface DefaultHint {
 
 export type HintObject = DefaultHint | ErrorHint | WarningHint;
 
-export type HintCallback = ((control: AbstractControl, input?: FormControlInput) => HintObject);
+export type HintCallback = ((control: AbstractControl) => HintObject);
 
 export type Hint = DefaultHint | ErrorHint | WarningHint | string | HintCallback;
 

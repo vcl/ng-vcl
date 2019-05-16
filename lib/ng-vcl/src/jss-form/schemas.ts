@@ -1,6 +1,6 @@
-import { ValidatorFn, AbstractControl, FormGroup, NgForm } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms';
 import { DatePickerConfig } from '../date-picker/index';
-import { FormControlErrorStateAgent, FormControlInput } from '../form-control-group/index';
+import { FormControlErrorStateAgent } from '../form-control-group/index';
 import { Hint } from './types';
 
 export interface Conditional {
@@ -109,7 +109,7 @@ export interface VCLFormFieldSchemaToken extends VCLFormFieldControlSchema {
 export interface VCLFormFieldSchemaDate extends VCLFormFieldControlSchema {
   type: 'date';
   label?: string;
-  datePickerConfig: DatePickerConfig;
+  datePickerConfig?: DatePickerConfig;
 }
 
 export interface VCLFormFieldSchemaFileInput extends VCLFormFieldControlSchema {

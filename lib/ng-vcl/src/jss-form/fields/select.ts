@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaSelect } from '../../schemas';
-import { registerControlField } from '../registry';
-import { FormFieldControl } from './control';
+import { VCLFormFieldSchemaSelect } from '../schemas';
+import { registerControlField } from './registry';
+import { FormFieldControl } from './field';
 
 export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect> {
   type: 'select' | 'select-list';
@@ -31,7 +31,7 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect> 
       <vcl-select-list [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [selectionMode]="field.selectionMode">
         <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
           <vcl-select-list-label>{{option.label}}</vcl-select-list-label>
-          <vcl-select-list-sublabel>{{option.sublabel}}</vcl-select-list-sublabel>
+          <vcl-select-list-sublabel *ngIf="option.sublabel">{{option.sublabel}}</vcl-select-list-sublabel>
         </vcl-select-list-item>
       </vcl-select-list>
     </vcl-select>
