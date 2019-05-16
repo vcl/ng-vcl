@@ -39,7 +39,7 @@ var DemoComponent = /** @class */ (function () {
     }
     DemoComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var data = this.activatedRoute.snapshot.data['demo']();
+        var data = this.activatedRoute.snapshot.data.demo();
         if (data) {
             this.title = data.label;
             if (data.tabs) {
