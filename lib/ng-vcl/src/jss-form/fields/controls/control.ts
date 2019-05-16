@@ -6,10 +6,10 @@ export abstract class FormFieldControl<T extends VCLFormFieldControlSchema = any
 
   constructor(
     schema: T,
-    key?: string
+    key: string,
+    parent?: FormField,
   ) {
-    super(schema, key);
-    this.id = schema.id || this.key;
+    super(schema, key, parent);
   }
 
   readonly id: string;
@@ -18,6 +18,11 @@ export abstract class FormFieldControl<T extends VCLFormFieldControlSchema = any
   get control(): AbstractControl {
     if (!this._control) {
       this._control = this.createControl();
+      // this.control.valueChanges.subscribe(() => {
+      //   console.log(this.key, this.control.value);
+      // }, null, () => {
+      //   console.log(this.key, 'done');
+      // });
     }
     return this._control;
   }

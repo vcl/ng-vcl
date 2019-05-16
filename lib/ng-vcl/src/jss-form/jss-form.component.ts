@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { FormFieldControl, FormField, lookupField, FormFieldObject } from './fields/index';
+import { ComponentPortal, Portal } from '@angular/cdk/portal';
+import { FormFieldControl, FormField, lookupField, FormFieldObject, createPortal } from './fields/index';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
+import { Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'vcl-jss-form',
@@ -21,12 +22,21 @@ export class JssFormComponent implements JssForm, AfterContentInit {
       // Treat root as a FormFieldObject
       this.field = new FormFieldObject({
         ...value,
-        type: 'object'
-      });
-      this.portals = this.createPortals();
+        type: 'object',
+        visible: true
+      }, '');
+      // this.startListen();
+      this.portal = createPortal(this.field, this.injector, [{
+            provide: JSS_FORM_TOKEN,
+            useExisting: JssFormComponent
+          }, {
+              provide: NgForm,
+              useValue: this.ngForm
+          }]);
     } else {
+      this.field && this.field.destroy();
       this.field = undefined;
-      this.portals = undefined;
+      this.portal = undefined;
     }
   }
 
@@ -37,59 +47,29 @@ export class JssFormComponent implements JssForm, AfterContentInit {
   formAction = new EventEmitter<any>();
 
   field: FormFieldObject;
-  portals: ComponentPortal<any>[];
+  portal: Portal<any>;
+
 
   @ViewChild('form')
-  ngForm?: NgForm;
+  ngForm: NgForm;
 
   ngAfterContentInit() {
     // TODO: workaround to avoid ExpressionChangedAfterItHasBeenCheckedError on ngForm
     this.cdRef.detectChanges();
   }
 
-  private createPortals() {
-    if (!this.field) {
-      return;
-    }
-
-    return this.field.fields.map(field => {
-      const type = field.type;
-      const meta = lookupField(type);
-
-      const providers: any[] = [{
-        provide: JSS_FORM_TOKEN,
-        useExisting: JssFormComponent
-      }, {
-        provide: FormField,
-        useValue: field
-      }, {
-        provide: NgForm,
-        useValue: this.ngForm
-      }];
-
-      if (meta.fieldClass) {
-        providers.push({
-          provide: meta.fieldClass,
-          useValue: field
-        });
-      }
-
-      if (field instanceof FormFieldControl) {
-        providers.push({
-          provide: FormFieldControl,
-          useValue: field
-        });
-      }
-      const componentInjector = Injector.create({
-        parent: this.injector,
-        providers
-      });
-      return new ComponentPortal(meta.componentClass, null, componentInjector);
-    });
+  ngAfterViewInit() {
+    // TODO: workaround to avoid ExpressionChangedAfterItHasBeenCheckedError on ngForm
+    // this.startListen();
+    this.cdRef.detectChanges();
   }
+
 
   onAction(action: string): void {
     this.formAction.emit(action);
   }
 
+  ngOnDestroy() {
+    this.field && this.field.destroy();
+  }
 }

@@ -18,7 +18,7 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput> {
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
       <input vclInput [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [placeholder]="field.placeholder">
       <vcl-jss-form-hints></vcl-jss-form-hints>

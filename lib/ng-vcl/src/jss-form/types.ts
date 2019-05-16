@@ -1,11 +1,13 @@
 import { InjectionToken } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, NgForm } from '@angular/forms';
 import { FormControlInput } from '../form-control-group/index';
+import { Observable } from 'rxjs';
 
 export const JSS_FORM_TOKEN = new InjectionToken<JssForm>('jss_form');
 
 export interface JssForm {
   readonly field: any;
+  readonly ngForm: NgForm;
   onAction(action: string): void;
 }
 

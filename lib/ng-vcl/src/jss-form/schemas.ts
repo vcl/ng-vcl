@@ -1,18 +1,23 @@
-import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { ValidatorFn, AbstractControl, FormGroup, NgForm } from '@angular/forms';
 import { DatePickerConfig } from '../date-picker/index';
 import { FormControlErrorStateAgent, FormControlInput } from '../form-control-group/index';
 import { Hint } from './types';
 
+export interface Conditional {
+  fields: string[];
+  check: (...values: any[]) => boolean;
+}
 
 export interface VCLFormFieldSchema {
   type: string;
   id?: string;
+  visible?: boolean | Conditional;
 }
 
 export interface VCLFormFieldControlSchema extends VCLFormFieldSchema {
   hints?: Hint[];
   required?: boolean;
-  disabled?: boolean;
+  disabled?: boolean | Conditional;
   validators?: ValidatorFn[];
   defaultValue?: any;
   errorStateAgent?: FormControlErrorStateAgent;
@@ -138,7 +143,7 @@ export interface VCLFormFieldSchemaButtons extends VCLFormFieldSchema {
 }
 
 export interface VCLFormFieldSchemaObject extends VCLFormFieldControlSchema {
-  type: 'object';
+  type: 'object' | 'form';
   layout?: 'fieldset';
   label?: string;
   fields?: { [name: string]: VCLFormFieldSchemas };
@@ -146,12 +151,11 @@ export interface VCLFormFieldSchemaObject extends VCLFormFieldControlSchema {
   hints?: Hint[];
 }
 
-export interface VCLFormFieldSchemaRoot {
+export interface VCLFormFieldSchemaRoot extends VCLFormFieldSchemaObject {
   type: 'form';
-  fields?: { [name: string]: VCLFormFieldSchemas };
 }
 
-export interface VCLFormFieldSchemaCustom {
+export interface VCLFormFieldSchemaCustom extends VCLFormFieldSchema {
   type: string;
   [key: string]: any;
 }

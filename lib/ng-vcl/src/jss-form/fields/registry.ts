@@ -5,16 +5,16 @@ import { FormFieldControl } from './controls/control';
 import { ComponentType } from '@angular/cdk/portal';
 // import { FieldTypes } from '../types';
 
-export const FIELD_SCHEMA_TOKEN = new InjectionToken<VCLFormFieldSchema>('x');
+export const FIELD_SCHEMA_TOKEN = new InjectionToken<VCLFormFieldSchema>('field_schema_token');
 
-export type FormFieldClass = new (schema: VCLFormFieldSchema, key?: string) => FormField<any>;
-export type FormFieldControlClass = new (schema: VCLFormFieldSchema, key?: string) => FormFieldControl<any>;
+export type FormFieldClass = new (schema: VCLFormFieldSchema, key: string, parent: FormField<any>) => FormField<any>;
+export type FormFieldControlClass = new (schema: VCLFormFieldSchema, key: string, parent: FormField<any>) => FormFieldControl<any>;
 
 interface FieldRegistry {
   [key: string]: {
     is: 'control' | 'field';
     componentClass: ComponentType<any>;
-    fieldClass?: FormFieldClass;
+    fieldClass?: FormFieldClass | FormFieldControlClass;
   };
 }
 
