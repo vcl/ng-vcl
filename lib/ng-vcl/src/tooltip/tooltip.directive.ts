@@ -1,5 +1,5 @@
 import { HostListener, Injector, ElementRef, Input, InjectionToken, ViewContainerRef, Directive, Injectable } from '@angular/core';
-import { LayerBase } from '../layer';
+import { LayerBase } from '../layer/index';
 import { Overlay, ConnectedPosition } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { Subject, interval, EMPTY } from 'rxjs';
