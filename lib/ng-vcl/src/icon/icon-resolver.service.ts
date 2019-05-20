@@ -24,6 +24,8 @@ export interface IconAliases {
   'star': string;
   'star-half': string;
   'star-empty': string;
+  'add': string;
+  'remove': string;
 }
 
 export abstract class IconResolverService implements IconResolver {

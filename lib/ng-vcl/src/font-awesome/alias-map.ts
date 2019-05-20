@@ -21,4 +21,6 @@ export const ALIAS_MAP: IconAliases = {
   'star': 'fas fa-star',
   'star-half': 'fas fa-star-half-alt',
   'star-empty': 'far fa-star',
+  'add': 'fas fa-plus',
+  'remove': 'fas fa-minus'
 };

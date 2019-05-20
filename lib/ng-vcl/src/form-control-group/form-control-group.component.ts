@@ -76,32 +76,3 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
     return this._stateChangeEmitter.complete();
   }
 }
-
-
-// @Directive({
-//   selector: 'form[vclForm]',
-//   exportAs: 'vclForm',
-//   providers: [{
-//     provide: FORM_CONTROL_HOST,
-//     deps: [
-//       [new Optional(), NgForm],
-//       [new Optional(), FormGroupDirective]
-//     ],
-//     useFactory: formControlHostFactory
-//   }]
-// })
-// export class FormControlHostDirective implements FormControlHost {
-
-//   constructor(
-//     @Optional()
-//     @Self()
-//     private formGroup?: FormGroupDirective,
-//     @Optional()
-//     @Self()
-//     private ngForm?: NgForm,
-//   ) { }
-
-//   @HostBinding('class.vclForm')
-//   classVclForm = true;
-
-// }
