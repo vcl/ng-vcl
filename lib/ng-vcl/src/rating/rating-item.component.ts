@@ -39,7 +39,7 @@ export class RatingItemComponent {
   labelTemplateRef?: TemplateRef<any>;
 
   @ViewChild('label', {read: ElementRef})
-  labelElementRef?: ElementRef<any>;
+  labelElementRef?: ElementRef<HTMLElement>;
 
   focused = false;
 

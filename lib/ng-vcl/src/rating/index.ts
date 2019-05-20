@@ -6,6 +6,7 @@ import { VCLIconModule } from '../icon/index';
 import { RatingItemLabelComponent } from './rating-label.component';
 import { PortalModule } from '@angular/cdk/portal';
 
+export { RatingComponent, RatingItemComponent, RatingItemLabelComponent };
 @NgModule({
   imports: [CommonModule, VCLIconModule, PortalModule],
   exports: [RatingComponent, RatingItemComponent, RatingItemLabelComponent],

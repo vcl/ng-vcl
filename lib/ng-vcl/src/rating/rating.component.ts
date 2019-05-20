@@ -211,12 +211,16 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   }
 
   onRatingItemHover(item: RatingItemComponent) {
+    if (this.isDisabled || this.readonly) {
+      return;
+    }
+
     this._hoveredValue = this.ratingItems.indexOf(item) + 1;
     this.sync();
   }
 
   onRatingItemClick(item: RatingItemComponent) {
-    if (this.disabled || this.readonly) {
+    if (this.isDisabled || this.readonly) {
       return;
     }
 
@@ -271,6 +275,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
 
   ngOnDestroy() {
     this.stateChangeEmitter.complete();
+    this.labelChangeEmitter.complete();
   }
 
   onRatingItemFocus(item: RatingItemComponent): void {
@@ -311,5 +316,6 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   setDisabledState(isDisabled: boolean) {
     this.cvaDisabled = isDisabled;
     this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 }
