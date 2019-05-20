@@ -260,7 +260,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
    */
   @HostListener('click', ['$event'])
   onClick(event) {
-    if (this.disabled || event.target.className === 'vclSliderKnob') {
+    if (this.isDisabled || event.target.className === 'vclSliderKnob') {
       return;
     }
 
