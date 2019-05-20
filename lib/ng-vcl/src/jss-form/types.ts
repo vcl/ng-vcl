@@ -1,13 +1,27 @@
 import { InjectionToken } from '@angular/core';
 import { AbstractControl, NgForm } from '@angular/forms';
-import { FormControlInput } from '../form-control-group/index';
 
 export const JSS_FORM_TOKEN = new InjectionToken<JssForm>('jss_form');
+
+export type ConditionalCallback<T> = (...controls: AbstractControl[]) => T;
+
+export class Conditional<T> {
+  constructor(public fields: string[], public cb: ConditionalCallback<T>) { }
+}
+
+export function conditional<T>(fields: string[], cb: ConditionalCallback<T>) {
+  return new Conditional(fields, cb);
+}
 
 export interface JssForm {
   readonly field: any;
   readonly ngForm: NgForm;
   onAction(action: string): void;
+}
+
+export interface HintBase {
+  type: string;
+  message: string;
 }
 
 export interface ErrorHint {
@@ -18,20 +32,18 @@ export interface ErrorHint {
 export interface WarningHint {
   type: 'warning';
   message: string;
-  error?: string;
 }
 export interface DefaultHint {
   type: 'default';
   message: string;
-  error?: string;
 }
 
-export type HintObject = DefaultHint | ErrorHint | WarningHint;
+export type Hint = HintBase | DefaultHint | ErrorHint | WarningHint;
 
-export type HintCallback = ((control: AbstractControl) => HintObject);
+export interface FormHints {
+  hints?: (Hint | Conditional<Hint>)[];
+}
 
-export type Hint = DefaultHint | ErrorHint | WarningHint | string | HintCallback;
-
-export interface FormFieldHints {
-  hints: Hint[];
+export function hasFormHints(arg: any): arg is FormHints {
+  return Array.isArray(arg.hints);
 }

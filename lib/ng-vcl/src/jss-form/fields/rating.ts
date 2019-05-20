@@ -1,46 +1,36 @@
-import { Component } from '@angular/core';
-import { VCLFormFieldSchemaRating } from '../schemas';
-import { registerControlField } from './registry';
+import { Component, ChangeDetectorRef, ViewChild, AfterContentInit, AfterViewInit } from '@angular/core';
+import { VCLFormFieldSchemaRating, VCLFormFieldSchemaRatingParams } from '../schemas';
+import { RatingComponent } from '../../rating/index';
 import { FormFieldControl } from './field';
 
-export class FormFieldRating extends FormFieldControl<VCLFormFieldSchemaRating> {
-  type: 'rating';
-  get label() {
-    return this.schema.label;
-  }
+export class FormFieldRating extends FormFieldControl<VCLFormFieldSchemaRating, VCLFormFieldSchemaRatingParams> {
   get ratingItemCount(): number | undefined  {
-    return this.schema.ratingItemCount || 5;
+    return this.params.ratingItemCount || 5;
   }
   get ratingEmptyIcon(): string | undefined  {
-    return this.schema.ratingEmptyIcon || 'vcl:star-empty';
+    return this.params.ratingEmptyIcon || 'vcl:star-empty';
   }
   get ratingHalfIcon(): string | undefined  {
-    return this.schema.ratingHalfIcon || 'vcl:star-half';
+    return this.params.ratingHalfIcon || 'vcl:star-half';
   }
   get ratingFullIcon(): string | undefined  {
-    return this.schema.ratingFullIcon || 'vcl:star';
+    return this.params.ratingFullIcon || 'vcl:star';
   }
   get items() {
-    return this.schema.items || [];
+    return this.params.items || [];
   }
-  createLabel(label: string) {
-    if (typeof this.label === 'function') {
-      return this.label(label);
-    }
-    return this.label;
+  get valueLabel() {
+    return this.params.valueLabel;
   }
   protected createDefaultValue() {
-    return undefined;
+    return null;
   }
 }
 
 @Component({
   template: `
-    <vcl-form-control-group>
-
-      <ng-container *ngIf="rating.labelChange | async as label">
-      <label *ngIf="!!field.createLabel(label)" vclFormControlLabel>{{field.createLabel(label)}}</label>
-      </ng-container>
+    <vcl-form-control-group *ngIf="field.visible">
+      <label *ngIf="!!label" vclFormControlLabel>{{label}}</label>
       <vcl-rating #rating="vclRating" [ratingEmptyIcon]="field.ratingEmptyIcon"
                   [ratingFullIcon]="field.ratingFullIcon" [ratingHalfIcon]="field.ratingHalfIcon" [ratingItemCount]="field.ratingItemCount" [formControl]="field.control" [errorStateAgent]="field.errorStateAgent">
         <vcl-rating-item *ngFor="let item of field.items">{{item}}</vcl-rating-item>
@@ -49,9 +39,36 @@ export class FormFieldRating extends FormFieldControl<VCLFormFieldSchemaRating> 
     </vcl-form-control-group>
   `
 })
-export class FormFieldRatingComponent {
-  constructor(public field: FormFieldRating) { }
+export class FormFieldRatingComponent implements AfterViewInit {
+  constructor(public field: FormFieldRating, cdRef: ChangeDetectorRef) {
+    field.stateChange.subscribe(() => {
+      cdRef.markForCheck();
+    });
+  }
 
+  @ViewChild(RatingComponent)
+  rating: RatingComponent;
+
+  _valueLabel: string;
+
+  ngAfterViewInit() {
+    this.rating.labelChange.subscribe(label => {
+      this.updateValueLabel();
+    });
+    this.updateValueLabel();
+  }
+
+  updateValueLabel(label?: string) {
+    if (this.field.valueLabel) {
+      this._valueLabel = this.field.valueLabel(label);
+    } else {
+      this._valueLabel = undefined;
+    }
+  }
+
+  get label() {
+    return this._valueLabel || this.field.label;
+  }
 }
 
-registerControlField('rating', FormFieldRatingComponent, FormFieldRating);
+FormFieldControl.register('rating', FormFieldRatingComponent, FormFieldRating);

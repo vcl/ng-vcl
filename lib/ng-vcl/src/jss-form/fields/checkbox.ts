@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaCheckbox } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaCheckbox, VCLFormFieldSchemaCheckboxParams } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldCheckbox extends FormFieldControl<VCLFormFieldSchemaCheckbox> {
-  type: 'checkbox';
-  get label(): string {
-    return this.schema.label;
-  }
+export class FormFieldCheckbox extends FormFieldControl<VCLFormFieldSchemaCheckbox, VCLFormFieldSchemaCheckboxParams> {
   get iconPosition()  {
-    return this.schema.iconPosition || 'right';
+    return this.params.iconPosition || 'right';
   }
   protected createDefaultValue() {
     return false;
@@ -18,7 +13,7 @@ export class FormFieldCheckbox extends FormFieldControl<VCLFormFieldSchemaCheckb
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label vclCheckboxLabel>
         <vcl-checkbox [formControl]="field.control" [errorStateAgent]="field.errorStateAgent"></vcl-checkbox>
         {{field.label}}<vcl-required *ngIf="field.required"></vcl-required>
@@ -31,4 +26,4 @@ export class FormFieldCheckboxComponent {
   constructor(public field: FormFieldCheckbox) { }
 }
 
-registerControlField('checkbox', FormFieldCheckboxComponent, FormFieldCheckbox);
+FormFieldControl.register('checkbox', FormFieldCheckboxComponent, FormFieldCheckbox);

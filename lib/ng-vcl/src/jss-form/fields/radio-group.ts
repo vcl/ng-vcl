@@ -1,27 +1,25 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaRadioGroup } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaRadioGroup, VCLFormFieldSchemaRadioGroupParams } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGroup> {
-  type: 'radio-group';
+export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGroup, VCLFormFieldSchemaRadioGroupParams> {
   get label(): string {
     return this.schema.label;
   }
   get iconPosition()  {
-    return this.schema.iconPosition || 'right';
+    return this.params.iconPosition || 'right';
   }
   get options()  {
-    return this.schema.options || [];
+    return this.params.options || [];
   }
   protected createDefaultValue() {
-    return undefined;
+    return null;
   }
 }
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
         <vcl-radio-group [formControl]="field.control" [errorStateAgent]="field.errorStateAgent">
           <label vclRadioButtonLabel *ngFor="let option of field.options">
@@ -36,4 +34,4 @@ export class FormFieldRadioGroupComponent {
   constructor(public field: FormFieldRadio) { }
 }
 
-registerControlField('radio-group', FormFieldRadioGroupComponent, FormFieldRadio);
+FormFieldControl.register('radio-group', FormFieldRadioGroupComponent, FormFieldRadio);

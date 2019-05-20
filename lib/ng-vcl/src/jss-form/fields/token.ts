@@ -1,23 +1,16 @@
 import { Component } from '@angular/core';
 import { VCLFormFieldSchemaToken } from '../schemas';
-import { registerControlField } from './registry';
 import { FormFieldControl } from './field';
 
-export class FormFieldToken extends FormFieldControl<VCLFormFieldSchemaToken> {
-  type: 'token';
-
-  get label(): string {
-    return this.schema.label;
-  }
-
+export class FormFieldToken extends FormFieldControl<VCLFormFieldSchemaToken, {}> {
   protected createDefaultValue() {
-    return undefined;
+    return [];
   }
 }
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
       <vcl-token-input-container [formControl]="field.control" >
         <input vclInput vclTokenInput [errorStateAgent]="field.errorStateAgent" />
@@ -30,4 +23,4 @@ export class FormFieldTokenComponent {
   constructor(public field: FormFieldToken) { }
 }
 
-registerControlField('token', FormFieldTokenComponent, FormFieldToken);
+FormFieldControl.register('token', FormFieldTokenComponent, FormFieldToken);

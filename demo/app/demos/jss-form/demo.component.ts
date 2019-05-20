@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HERO_SCHEMA, HERO_DEFAULTS } from './hero';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { JssFormComponent, NotifierService } from '@ng-vcl/ng-vcl';
+import { merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HERO_SCHEMA } from './hero';
 
 
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class JssFormDemoComponent {
+export class JssFormDemoComponent implements AfterViewInit {
 
   constructor(private notifier: NotifierService) { }
 
@@ -15,7 +17,7 @@ export class JssFormDemoComponent {
 
   heroSchema = HERO_SCHEMA;
 
-  value = {...HERO_DEFAULTS};
+  state$: Observable<any>;
 
   onSubmit() {
     if (this.heroForm.ngForm.valid) {
@@ -30,5 +32,22 @@ export class JssFormDemoComponent {
       this.heroForm.ngForm.resetForm(this.heroForm.field.defaultValue);
       this.notifier.info('Hero reset');
     }
+  }
+
+  ngAfterViewInit() {
+    this.state$ = merge(this.heroForm.ngForm.statusChanges, this.heroForm.ngForm.valueChanges, this.heroForm.ngForm.ngSubmit).pipe(
+      map(() => {
+        return {
+          status: this.heroForm.ngForm.status,
+          valid: this.heroForm.ngForm.valid,
+          dirty: this.heroForm.ngForm.dirty,
+          submitted: this.heroForm.ngForm.submitted,
+          touched: this.heroForm.ngForm.touched,
+          pristine: this.heroForm.ngForm.pristine,
+          errors: this.heroForm.ngForm.errors,
+          value: this.heroForm.ngForm.value,
+        };
+      })
+    );
   }
 }

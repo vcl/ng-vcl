@@ -1,21 +1,13 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaSwitch } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaSwitch, VCLFormFieldSchemaSwitchParams } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldSwitch extends FormFieldControl<VCLFormFieldSchemaSwitch> {
-  type: 'switch';
-  get label(): string {
-    return this.schema.label;
-  }
+export class FormFieldSwitch extends FormFieldControl<VCLFormFieldSchemaSwitch, VCLFormFieldSchemaSwitchParams> {
   get onLabel()  {
-    return this.schema.onLabel;
+    return this.params.onLabel;
   }
   get offLabel()  {
-    return this.schema.onLabel;
-  }
-  get defaultValue() {
-    return this.schema.defaultValue || false;
+    return this.params.onLabel;
   }
   protected createDefaultValue() {
     return false;
@@ -24,7 +16,7 @@ export class FormFieldSwitch extends FormFieldControl<VCLFormFieldSchemaSwitch> 
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
       <vcl-flip-switch [formControl]="field.control" [errorStateAgent]="field.errorStateAgent"></vcl-flip-switch>
       <vcl-jss-form-hints></vcl-jss-form-hints>
@@ -35,4 +27,4 @@ export class FormFieldSwitchComponent {
   constructor(public field: FormFieldSwitch) { }
 }
 
-registerControlField('switch', FormFieldSwitchComponent, FormFieldSwitch);
+FormFieldControl.register('switch', FormFieldSwitchComponent, FormFieldSwitch);

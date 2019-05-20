@@ -1,33 +1,28 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaSelect } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaSelect, VCLFormFieldSchemaSelectParams } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect> {
-  type: 'select' | 'select-list';
-  get label(): string {
-    return this.schema.label;
-  }
+export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, VCLFormFieldSchemaSelectParams> {
   get selectionMode(): 'multiple' | 'single' {
-    return this.schema.selectionMode || 'single';
+    return this.params.selectionMode || 'single';
   }
   get placeholder()  {
-    return this.schema.placeholder || '';
+    return this.params.placeholder || '';
   }
   get options()  {
-    return this.schema.options || [];
+    return this.params.options || [];
   }
   protected createDefaultValue() {
-    return this.selectionMode === 'single' ? undefined : [];
+    return this.selectionMode === 'single' ? null : [];
   }
 
 }
 
 @Component({
   template: `
-  <vcl-form-control-group>
+  <vcl-form-control-group *ngIf="field.visible">
     <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
-    <vcl-select *ngIf="field.type === 'select'" [placeholder]="field.placeholder">
+    <vcl-select [placeholder]="field.placeholder">
       <vcl-select-list [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [selectionMode]="field.selectionMode">
         <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
           <vcl-select-list-label>{{option.label}}</vcl-select-list-label>
@@ -43,5 +38,4 @@ export class FormFieldSelectComponent {
   constructor(public field: FormFieldSelect) { }
 }
 
-registerControlField('select', FormFieldSelectComponent, FormFieldSelect);
-registerControlField('select-list', FormFieldSelectComponent, FormFieldSelect);
+FormFieldControl.register('select', FormFieldSelectComponent, FormFieldSelect);

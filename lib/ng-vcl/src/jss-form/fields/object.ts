@@ -1,25 +1,20 @@
 import { FormGroup, NgForm } from '@angular/forms';
 import { Component, Injector } from '@angular/core';
 import { ComponentPortal, Portal } from '@angular/cdk/portal';
-import { FormFieldHints } from '../types';
 import { FormField, FormFieldControl } from './field';
-import { registerField, lookupField } from './registry';
 import { VCLFormFieldSchemaObject } from '../schemas';
 
-export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject> implements FormFieldHints {
+export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, {}> {
   constructor(schema: VCLFormFieldSchemaObject, key: string, parent?: FormField) {
     super(schema, key, parent);
 
     this._fields = Object.keys(schema.fields).map(_key => {
-      const type = schema.fields[_key].type;
-      const meta = lookupField(type);
       const fieldSchema = schema.fields[_key];
-
-      if (meta.fieldClass) {
-        return new meta.fieldClass(fieldSchema, _key, parent);
-      } else {
-        return meta.is === 'control' ? new FormFieldControl(fieldSchema, _key, parent) : new FormField(fieldSchema, _key, parent);
-      }
+      return FormField.createInstance({
+        schema: fieldSchema,
+        key: _key,
+        parent: this
+      });
     });
   }
 
@@ -37,7 +32,7 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject> 
     return this.schema.layout;
   }
 
-  get rootField(): FormFieldObject {
+  get root(): FormFieldObject {
     const walk = (field: FormField) => {
       return field.parent ? walk(field.parent) : field;
     };
@@ -61,44 +56,18 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject> 
     return {};
   }
 
+  formReady() {
+    super.formReady();
+    this.fields.forEach(f => f.formReady());
+  }
+
   destroy() {
+    super.destroy();
     this.fields.forEach(f => f.destroy());
   }
-}
-
-@Component({
-  selector: 'vcl-jss-form-object',
-  template: `
-  <ng-container *ngIf="!field.layout">
-    <div [formGroup]="field.control">
-      <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="field.layout === 'fieldset'">
-    <fieldset [formGroup]="field.control">
-      <legend *ngIf="!!field.label">{{field.label}}</legend>
-      <ng-container *ngFor="let portal of portals">
-        <ng-container *ngIf="true">
-          <ng-template [cdkPortalOutlet]="portal"></ng-template>
-        </ng-container>
-      </ng-container>
-      <vcl-jss-form-hints></vcl-jss-form-hints>
-    </fieldset>
-  </ng-container>
-  `
-})
-export class FormFieldObjectComponent {
-  constructor(
-    public field: FormFieldObject,
-    injector: Injector,
-  ) {
-    this.portals = createPortals(this.field.fields, injector, []);
-  }
-
-  portals: Portal<any>[];
 
   protected createControl(): FormGroup {
-    const param =  this.field.fields.reduce((group, field) => {
+    const param =  this.fields.reduce((group, field) => {
       if (field instanceof FormFieldControl) {
         return field.control ? {
           ...group,
@@ -107,42 +76,43 @@ export class FormFieldObjectComponent {
       }
       return group;
     }, {} as any);
-    return new FormGroup(param, this.field.validators);
-  }
-}
-
-registerField('object', FormFieldObjectComponent, FormFieldObject);
-
-function createPortals(fields: FormField[], injector: Injector, providers: any[]): Portal<any>[] {
-  return fields.map(field => createPortal(field, injector, providers));
-}
-
-export function createPortal(field: FormField, injector: Injector, providers: any[]) {
-  const type = field.type;
-  const meta = lookupField(type);
-
-  const portalProviders: any[] = [{
-    provide: FormField,
-    useValue: field
-  }, ...providers];
-
-
-  if (meta.fieldClass) {
-    portalProviders.push({
-      provide: meta.fieldClass,
-      useValue: field
-    });
+    return new FormGroup(param, this.validators);
   }
 
-  if (field instanceof FormFieldControl) {
-    portalProviders.push({
-      provide: FormFieldControl,
-      useValue: field
-    });
-  }
-  const componentInjector = Injector.create({
-    parent: injector,
-    providers: portalProviders
-  });
-  return new ComponentPortal(meta.componentClass, null, componentInjector);
 }
+
+@Component({
+  selector: 'vcl-jss-form-object',
+  template: `
+  <ng-container *ngIf="field.visible">
+    <ng-container *ngIf="!field.layout">
+      <div [formGroup]="field.control">
+        <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="field.layout === 'fieldset'">
+      <fieldset [formGroup]="field.control">
+        <legend *ngIf="!!field.label">{{field.label}}</legend>
+        <ng-container *ngFor="let portal of portals">
+          <ng-container *ngIf="true">
+            <ng-template [cdkPortalOutlet]="portal"></ng-template>
+          </ng-container>
+        </ng-container>
+      </fieldset>
+    </ng-container>
+    <vcl-jss-form-hints></vcl-jss-form-hints>
+  </ng-container>
+  `
+})
+export class FormFieldObjectComponent {
+  constructor(
+    public field: FormFieldObject,
+    injector: Injector,
+  ) {
+    this.portals = this.field.fields.map(_field => _field.createPortal(injector, []));
+  }
+
+  portals: Portal<any>[];
+}
+
+FormFieldControl.register('object', FormFieldObjectComponent, FormFieldObject);

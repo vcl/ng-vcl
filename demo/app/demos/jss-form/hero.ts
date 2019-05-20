@@ -1,14 +1,18 @@
 import { Validators, AbstractControl } from '@angular/forms';
-import { VCLFormFieldSchemaRoot } from '@ng-vcl/ng-vcl';
+import { VCLFormFieldSchemaRoot, conditional } from '@ng-vcl/ng-vcl';
 
-export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
+export const HERO_SCHEMA: VCLFormFieldSchemaRoot<'counter'> = {
   type: 'form',
   fields: {
     name: {
       type: 'input',
       label: 'Name',
-      placeholder: 'The hero\'s name',
-      validators: [Validators.required, Validators.minLength(2)],
+      params: {
+        placeholder: 'The hero\'s name',
+      },
+      validators: [
+        Validators.required, Validators.minLength(2)
+      ],
       required: true,
       hints: [
         {
@@ -26,23 +30,24 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
     description: {
       type: 'textarea',
       label: 'Description',
-      placeholder: 'The hero\'s Description',
-      required: true,
-      validators: [Validators.required],
-      hints: [
-        {
-          type: 'error',
-          error: 'required',
-          message: 'Description is required'
-        }
-      ]
+      params: {
+        placeholder: 'The hero\'s Description',
+      }
+    },
+    level: {
+      type: 'counter',
+      label: 'Level',
+      defaultValue: 1,
+      params: {
+        min: 1,
+        max: 10
+      }
     },
     leader: {
       type: 'switch',
-      offLabel: 'No',
-      onLabel: 'Yes',
-      defaultValue: false,
       label: 'Leader',
+      defaultValue: false,
+      visible: conditional(['level'], (level: AbstractControl) => level.value >= 5),
       validators: [(control: AbstractControl) => {
         if (!control.value) {
           return {
@@ -51,19 +56,18 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         }
         return null;
       }],
-      hints: [
-        {
-          type: 'error',
-          error: 'leader',
-          message: 'Hero must be leader'
-        }
-      ]
+      params: {
+        offLabel: 'No',
+        onLabel: 'Yes',
+      }
     },
     picture: {
       type: 'file-input',
       label: 'Picture',
-      multiple: false,
-      placeholder: 'Picture of the hero'
+      params: {
+        multiple: false,
+        placeholder: 'Picture of the hero'
+      }
     },
     email: {
       type: 'input',
@@ -86,64 +90,90 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
     gender: {
       type: 'radio-group',
       label: 'Gender',
-      options: [{
-        label: 'Male',
-        value: 'm'
-      }, {
-        label: 'Female',
-        value: 'f'
-      }, {
-        label: 'Genderless',
-        value: 'g'
-      }],
-      defaultValue: 'm'
+      defaultValue: 'm',
+      params: {
+        options: [{
+          label: 'Male',
+          value: 'm'
+        }, {
+          label: 'Female',
+          value: 'f'
+        }, {
+          label: 'Genderless',
+          value: 'g'
+        }],
+      }
+    },
+    dob: {
+      type: 'date-picker',
+      label: 'Date of Birth'
     },
     alignment: {
       type: 'button-group',
       label: 'Alignment',
-      options: [{
-        label: 'Good',
-        value: 1
-      }, {
-        label: 'Neutral',
-        value: 0
-      }, {
-        label: 'Evil',
-        value: -1
-      }]
+      params: {
+        options: [{
+          label: 'Good',
+          value: 1
+        }, {
+          label: 'Neutral',
+          value: 0
+        }, {
+          label: 'Evil',
+          value: -1
+        }]
+      }
     },
-    mail_old: {
-      type: 'hidden'
+    language: {
+      type: 'hidden',
+      defaultValue: navigator.language
     },
-    dob: {
-      type: 'date-picker',
-      label: 'Date of Birth',
-      datePickerConfig: {
-        displayTime: true
+    class: {
+      type: 'select-list',
+      label: 'Class',
+      defaultValue: null,
+      params: {
+        options: [{
+          label: 'Warrior',
+          value: 'warrior'
+        }, {
+          label: 'Mage',
+          value: 'mage'
+        }, {
+          label: 'Rogue',
+          value: 'rogue'
+        }]
       }
     },
     hitpoints: {
       type: 'slider',
       label: 'Hit Points',
-      min: 5,
-      max: 20,
-      scale: 16,
-      lock: true,
-      validators: [(control: AbstractControl) => {
-        if (control.value < 15) {
+      defaultValue: 15,
+      disabled: conditional(['class'], (c) => !c.value),
+      params: conditional(['class'], (control) => {
+        if (control.value === 'rogue') {
           return {
-            minVal: true,
+            min: 8,
+            max: 18,
+            scale: 11,
+            lock: true,
+          };
+        }  else if (control.value === 'mage') {
+          return {
+            min: 5,
+            max: 15,
+            scale: 11,
+            lock: true,
+          };
+        } else {
+          return {
+            min: 10,
+            max: 20,
+            scale: 11,
+            lock: true,
           };
         }
-        return null;
-      }],
-      hints: [
-        {
-          type: 'error',
-          error: 'minVal',
-          message: 'Minimum value is 15'
-        }
-      ]
+      }),
     },
     skills: {
       type: 'object',
@@ -152,22 +182,28 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       fields: {
         strength: {
           type: 'rating',
-          label: (label) => `Strength (${label})`,
-          items: ['1', '2', '3', '4', '5'],
-          defaultValue: 3
+          defaultValue: 3,
+          params: {
+            items: ['1', '2', '3', '4', '5'],
+            valueLabel: (label) => `Strength (${label})`,
+          },
         },
         agility: {
           type: 'rating',
-          label: (label) => `Agility (${label})`,
-          items: ['1', '2', '3', '4', '5'],
-          defaultValue: 3
+          defaultValue: 3,
+          params: {
+            items: ['1', '2', '3', '4', '5'],
+            valueLabel: (label) => `Agility (${label})`,
+          },
         },
         intelligence: {
           type: 'rating',
-          label: (label) => `Intelligence (${label})`,
-          items: ['1', '2', '3', '4', '5'],
-          defaultValue: 3
-        }
+          defaultValue: 3,
+          params: {
+            items: ['1', '2', '3', '4', '5'],
+            valueLabel: (label) => `Intelligence (${label})`,
+          },
+        },
       },
       validators: [(control: AbstractControl) => {
         const s = control.get('strength');
@@ -177,10 +213,7 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         return skillPoints > 10 ? { skills: true } : null;
       }],
       hints: [
-        (control) => {
-          const s = control.get('strength');
-          const a = control.get('agility');
-          const i = control.get('intelligence');
+        conditional(['skills', 'skills.strength', 'skills.agility', 'skills.intelligence'], (control, s, a, i) => {
           const skillPoints = (s && a && i) ? (s.value + a.value + i.value) : 0;
           const message = `${skillPoints} of 10 skill points used`;
           if (control.hasError('skills')) {
@@ -201,7 +234,7 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
               message
             };
           }
-        }
+        })
       ]
     },
     attributes: {
@@ -222,37 +255,33 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         return Array.isArray(control.value) && control.value.length > 1 ? null : { minLength: true };
       }],
     },
-    level: {
-      type: 'counter',
-      label: 'Level',
-      min: 1,
-      defaultValue: 1
-    },
     perks: {
       type: 'select',
       label: 'Perks',
-      placeholder: 'Select perks',
-      selectionMode: 'multiple',
-      options: [{
-        label: 'Snake Eater',
-        sublabel: 'It gives you a 25% increase to your poison resistance.',
-        value: 'snakeeater'
+      params: {
+        placeholder: 'Select perks',
+        selectionMode: 'multiple',
+        options: [{
+          label: 'Snake Eater',
+          sublabel: 'It gives you a 25% increase to your poison resistance.',
+          value: 'snakeeater'
+        },
+        {
+          label: 'Swift Learner',
+          sublabel: 'Swift Learner	Whenever you gain experience, you\'ll receive 5% more experience per level of the perk.',
+          value: 'swiftlearner',
+        },
+        {
+          label: 'Toughness',
+          sublabel: 'It adds 10% to your general damage resistance per level.',
+          value: 'toughness'
+        },
+        {
+          label: 'Explorer',
+          sublabel: 'You\'ll get more random encounters with this perk.',
+          value: 'explorer'
+        }],
       },
-      {
-        label: 'Swift Learner',
-        sublabel: 'Swift Learner	Whenever you gain experience, you\'ll receive 5% more experience per level of the perk.',
-        value: 'swiftlearner',
-      },
-      {
-        label: 'Toughness',
-        sublabel: 'It adds 10% to your general damage resistance per level.',
-        value: 'toughness'
-      },
-      {
-        label: 'Explorer',
-        sublabel: 'You\'ll get more random encounters with this perk.',
-        value: 'explorer'
-      }],
       validators: [
         (ctrl: AbstractControl) => {
           if (ctrl.value && Array.isArray(ctrl.value) && ctrl.value.length === 2) {
@@ -269,6 +298,54 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         message: 'You must select two perks'
       }],
     },
+    items: {
+      type: 'array',
+      label: 'Items',
+      initialFields: 2,
+      fieldLabel: (index) => 'Item ' + (index + 1),
+      noFieldsLabel: 'Hero carries no items',
+      field: {
+        type: 'object',
+        fields: {
+          item_name: {
+            type: 'input',
+            label: 'Name',
+            validators: [ Validators.required],
+            required: true,
+            hints: [
+              {
+                type: 'error',
+                error: 'required',
+                message: 'Item name is required'
+              },
+            ]
+          },
+          item_quantity: {
+            type: 'number',
+            label: 'Quantity',
+            validators: [ Validators.required, Validators.min(1), Validators.max(10)],
+            required: true,
+            hints: [
+              {
+                type: 'error',
+                error: 'required',
+                message: 'Item quantity is required'
+              },
+              {
+                type: 'error',
+                error: 'min',
+                message: 'Minimum is 1'
+              },
+              {
+                type: 'error',
+                error: 'max',
+                message: 'Maximum is 10'
+              },
+            ]
+          }
+        }
+      }
+    },
     terms: {
       type: 'checkbox',
       label: 'Agree to our terms',
@@ -281,7 +358,10 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
         return null;
       }],
       hints: [
-        'Read the terms to learn how we collect, use and share your data',
+        {
+          type: 'default',
+          message: 'Read the terms to learn how we collect, use and share your data'
+        },
         {
           type: 'error',
           error: 'termsDisagree',
@@ -305,12 +385,4 @@ export const HERO_SCHEMA: VCLFormFieldSchemaRoot = {
       ]
     }
   },
-};
-export const HERO_DEFAULTS = {
-  color: '#008000',
-  mail_old: 'a',
-  hp: 5,
-  custom: 3,
-  items: [{name: 'Item 1', quantity: 2}],
-  perks: ['heave_ho']
 };

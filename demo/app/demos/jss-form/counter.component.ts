@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { FormFieldControl, registerControlField } from '@ng-vcl/ng-vcl';
+import { FormFieldControl } from '@ng-vcl/ng-vcl';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -31,7 +31,13 @@ export class CounterComponent implements ControlValueAccessor {
   @Input()
   min?: number;
 
+  @Input()
+  max?: number;
+
   increment() {
+    if (typeof this.max === 'number' && this.counter >= this.max) {
+      return;
+    }
     this.counter++;
     this.onChange(this.counter);
   }
@@ -58,24 +64,19 @@ export class CounterComponent implements ControlValueAccessor {
 
 @Component({
   template: `
-    <span *ngIf="label">{{ label }}</span><br>
-    <demo-counter [formControl]="field.control" [min]="min"></demo-counter>
+    <span *ngIf="field.label">{{ field.label }}</span><br>
+    <demo-counter [formControl]="field.control" [min]="field.params.min" [max]="field.params.max"></demo-counter>
     `,
     styles: [
       `:host {
         display: block;
         padding-top: 1em;
-        padding-bottom: 2em;
+        padding-bottom: 1em;
       }`
     ]
 })
 export class FormFieldCounterComponent {
-  constructor(public field: FormFieldControl) {
-    this.label = field.schema.label || '';
-    this.min = field.schema.min;
-  }
-  label: string;
-  min?: number;
+  constructor(public field: FormFieldControl) { }
 }
 
-registerControlField('counter', FormFieldCounterComponent);
+FormFieldControl.register('counter', FormFieldCounterComponent);

@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
 import { DatePickerConfig } from '../../date-picker/index';
-import { VCLFormFieldSchemaDate } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaDatePicker } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldDate extends FormFieldControl<VCLFormFieldSchemaDate> {
-  type: 'date-picker';
-
-  get label(): string {
-    return this.schema.label;
-  }
+export class FormFieldDatePicker extends FormFieldControl<VCLFormFieldSchemaDatePicker, DatePickerConfig> {
   get datePickerConfig(): DatePickerConfig | undefined  {
-    return this.schema.datePickerConfig;
+    return this.params;
   }
   protected createDefaultValue() {
     return new Date();
@@ -20,15 +14,15 @@ export class FormFieldDate extends FormFieldControl<VCLFormFieldSchemaDate> {
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
       <vcl-date-picker [config]="field.datePickerConfig" [formControl]="field.control"> </vcl-date-picker>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>
   `
 })
-export class FormFieldDateComponent {
-  constructor(public field: FormFieldDate) { }
+export class FormFieldDatePickerComponent {
+  constructor(public field: FormFieldDatePicker) { }
 }
 
-registerControlField('date-picker', FormFieldDateComponent, FormFieldDate);
+FormFieldControl.register('date-picker', FormFieldDatePickerComponent, FormFieldDatePicker);

@@ -22,16 +22,16 @@ import { VCLRatingModule } from '../rating/index';
 import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
 import { PortalModule } from '@angular/cdk/portal';
-import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSubmitComponent, FormFieldSwitchComponent,
-         FormFieldObjectComponent, FormFieldRatingComponent, registerField, registerControlField, FormFieldControl,
+import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSwitchComponent,
+         FormFieldObjectComponent, FormFieldRatingComponent, FormFieldControl,
          FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
-         FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDateComponent,
-         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent } from './fields/index';
+         FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDatePickerComponent,
+         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent } from './fields/index';
 
 export { JssFormComponent };
 export * from './schemas';
 export * from './types';
-export { registerField, registerControlField, FormField, FormFieldControl };
+export {FormField, FormFieldControl };
 @NgModule({
   imports: [
     CommonModule,
@@ -53,6 +53,7 @@ export { registerField, registerControlField, FormField, FormFieldControl };
     VCLFormControlGroupModule,
     VCLDatePickerModule,
     VCLSelectModule,
+    VCLSelectListModule,
     VCLFileInputModule,
     VCLRatingModule
   ],
@@ -65,18 +66,19 @@ export { registerField, registerControlField, FormField, FormFieldControl };
     FormFieldInputComponent,
     FormFieldTextareaComponent,
     FormFieldSelectComponent,
+    FormFieldSelectListComponent,
     FormFieldSwitchComponent,
     FormFieldSliderComponent,
     FormFieldCheckboxComponent,
     FormFieldRadioGroupComponent,
     FormFieldTokenComponent,
-    FormFieldDateComponent,
+    FormFieldDatePickerComponent,
     FormFieldFileInputComponent,
     FormFieldHiddenComponent,
     FormFieldButtonGroupComponent,
-    FormFieldSubmitComponent,
     FormFieldRatingComponent,
-    FormFieldObjectComponent
+    FormFieldObjectComponent,
+    FormFieldArrayComponent
   ],
   providers: [],
   entryComponents: [
@@ -85,18 +87,19 @@ export { registerField, registerControlField, FormField, FormFieldControl };
     FormFieldInputComponent,
     FormFieldTextareaComponent,
     FormFieldSelectComponent,
+    FormFieldSelectListComponent,
     FormFieldSwitchComponent,
     FormFieldSliderComponent,
     FormFieldCheckboxComponent,
     FormFieldRadioGroupComponent,
     FormFieldTokenComponent,
-    FormFieldDateComponent,
+    FormFieldDatePickerComponent,
     FormFieldFileInputComponent,
     FormFieldHiddenComponent,
     FormFieldButtonGroupComponent,
-    FormFieldSubmitComponent,
     FormFieldRatingComponent,
-    FormFieldObjectComponent
+    FormFieldObjectComponent,
+    FormFieldArrayComponent
   ]
 })
 export class VCLJssFormModule { }

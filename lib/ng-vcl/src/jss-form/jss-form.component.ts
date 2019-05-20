@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ComponentPortal, Portal } from '@angular/cdk/portal';
-import { FormFieldControl, FormField, lookupField, FormFieldObject, createPortal } from './fields/index';
+import { FormFieldControl, FormField, FormFieldObject } from './fields/index';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
 import { Subject, Observable } from 'rxjs';
@@ -25,8 +25,7 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
         type: 'object',
         visible: true
       }, '');
-      // this.startListen();
-      this.portal = createPortal(this.field, this.injector, [{
+      this.portal = this.field.createPortal(this.injector, [{
             provide: JSS_FORM_TOKEN,
             useExisting: JssFormComponent
           }, {
@@ -60,10 +59,9 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
 
   ngAfterViewInit() {
     // TODO: workaround to avoid ExpressionChangedAfterItHasBeenCheckedError on ngForm
-    // this.startListen();
+    this.field.formReady();
     this.cdRef.detectChanges();
   }
-
 
   onAction(action: string): void {
     this.formAction.emit(action);

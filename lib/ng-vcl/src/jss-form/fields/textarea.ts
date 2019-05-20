@@ -1,22 +1,16 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaTextarea } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaTextarea, VCLFormFieldSchemaTextareaParams } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextarea> {
-  type: 'textarea';
-
-  get label(): string {
-    return this.schema.label;
-  }
+export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextarea, VCLFormFieldSchemaTextareaParams> {
   get placeholder(): string | undefined {
-    return this.schema.placeholder || '';
+    return this.params.placeholder || '';
   }
   get minRows(): number | undefined {
-    return this.schema.minRows;
+    return this.params.minRows;
   }
   get maxRows(): number | undefined {
-    return this.schema.maxRows;
+    return this.params.maxRows;
   }
   protected createDefaultValue() {
     return '';
@@ -25,7 +19,7 @@ export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextar
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
       <textarea vclInput
                 [formControl]="field.control"
@@ -42,4 +36,4 @@ export class FormFieldTextareaComponent {
   constructor(public field: FormFieldTextarea) { }
 }
 
-registerControlField('textarea', FormFieldTextareaComponent, FormFieldTextarea);
+FormFieldControl.register('textarea', FormFieldTextareaComponent, FormFieldTextarea);

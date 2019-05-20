@@ -1,21 +1,21 @@
 import { Component, Inject } from '@angular/core';
 import { VCLFormFieldSchemaButtons } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
-import { registerField } from './registry';
 import { FormField } from './field';
+import { FormFieldButton } from './button';
 
 export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
-
-  field: 'buttons';
   get buttons() {
-    return this.schema.buttons || [];
+    return (this.schema.buttons || [].map((btn, idx) => new FormFieldButton(btn, this.key + idx, this)));
   }
 }
 
 @Component({
   template: `
   <div class="vclLooseButtonGroup">
-    <button vcl-button *ngFor="let button of field.buttons" [type]="button.type" (click)="onAction(button.action)">{{button.label}}</button>
+   <ng-container *ngFor="let button of field.buttons">
+    <button vcl-button [disabled]="button.disabled" [type]="field.type" (click)="onAction(button.action)" >{{button.label}}</button>
+   </ng-container>
   </div>
   `
 })
@@ -30,4 +30,4 @@ export class FormFieldButtonsComponent {
   }
 }
 
-registerField('buttons', FormFieldButtonsComponent, FormFieldButtons);
+FormField.register('buttons', FormFieldButtonsComponent, FormFieldButtons);

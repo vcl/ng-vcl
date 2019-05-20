@@ -1,12 +1,22 @@
 import { Component, Inject } from '@angular/core';
 import { VCLFormFieldSchemaButton } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
-import { registerField } from './registry';
 import { FormField } from './field';
 
 export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
+  field: 'button' | 'submit';
 
-  field: 'button';
+  constructor(a1, a2, a3) {
+    super(a1, a2, a3);
+    this.registerConditional(this.schema.disabled, (disabled) => this._disabled = !!disabled);
+  }
+
+  private _disabled: boolean;
+
+  get disabled() {
+    return this._disabled;
+  }
+
   get label() {
     return this.schema.label;
   }
@@ -26,7 +36,7 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
 
 @Component({
   template: `
-   <button vcl-button [type]="field.type" (click)="onAction(field.action)" >{{field.label}}</button>
+   <button vcl-button [disabled]="field.disabled" [type]="field.type" (click)="onAction(field.action)" >{{field.label}}</button>
   `
 })
 export class FormFieldButtonComponent {
@@ -40,4 +50,4 @@ export class FormFieldButtonComponent {
   }
 }
 
-registerField('button', FormFieldButtonComponent, FormFieldButton);
+FormField.register('button', FormFieldButtonComponent, FormFieldButton);

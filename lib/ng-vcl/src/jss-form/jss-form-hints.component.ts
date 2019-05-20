@@ -1,8 +1,8 @@
 import { Component,  ChangeDetectionStrategy, OnDestroy, OnChanges, AfterViewInit, Optional, Inject} from '@angular/core';
-import { Subject, Observable, merge, Subscription } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { Subject, Observable, merge, Subscription, of, combineLatest } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { FORM_CONTROL_HOST, FormControlHost } from '../form-control-group/index';
-import { Hint, DefaultHint, FormFieldHints, HintObject } from './types';
+import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
 import { FormFieldControl, FormField } from './fields/index';
 import { AbstractControl, NgForm } from '@angular/forms';
 
@@ -17,51 +17,51 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
 
   constructor(
     private ngForm: NgForm,
-    @Optional() field?: FormField<any>,
-    @Optional() @Inject(FORM_CONTROL_HOST) private fch?: FormControlHost
+    @Optional() private field?: FormField<any>,
+    @Optional() @Inject(FORM_CONTROL_HOST) private fch?: FormControlHost,
   ) {
+    let control: AbstractControl;
     if (field instanceof FormFieldControl) {
-      this.hints = field.hints;
-      this.control = field.control;
-    } else if ('hints' in field) {
-      this.hints = (field as FormFieldHints).hints;
+      this._hints = field.hints || [];
+      control = field.control;
+    } else if (hasFormHints(field)) {
+      this._hints = field.hints || [];
+    } else {
+      this._hints = [];
     }
 
     const $: Observable<any>[] = [];
+
+    $.push(this.ngForm && this.ngForm.statusChanges);
+    $.push(this.ngForm && this.ngForm.ngSubmit);
+
     if (this.fch && this.fch.input) {
       $.push(this.fch && this.fch.input.stateChange);
     }
-    if (this.control) {
-      $.push(this.control.valueChanges, this.control.statusChanges);
+    if (control) {
+      $.push(control.valueChanges, control.statusChanges);
     }
     this._sub = merge(...$).subscribe(this._hintsEmitter);
   }
 
-  private hints: Hint[];
-  private control?: AbstractControl;
-
+  private _hints: (Hint | Conditional<Hint>)[];
   private _sub: Subscription;
   _hintsEmitter = new Subject<void>();
 
-  hints$: Observable<HintObject[]> = this._hintsEmitter.asObservable().pipe(
-    map(() => {
-      if (!this.hints) {
-        return [];
-      }
-
-      return this.hints.map(hint => {
+  hints$: Observable<Hint[]> = this._hintsEmitter.asObservable().pipe(
+    switchMap(() => {
+      return combineLatest(...this._hints.map(hint => {
         if (typeof hint === 'string') {
-          return {
+          return of({
             type: 'default',
             message: hint
-          } as DefaultHint;
-        } else if (typeof hint === 'function') {
-          return hint(this.control || this.ngForm.form);
+          } as DefaultHint);
+        } else if (hint instanceof Conditional) {
+          return this.field.createConditionalStream(hint);
         }
-        return hint;
-      });
-    }),
-    filter(hint => !!hint)
+        return of(hint as Hint);
+      }));
+    })
   );
 
   ngAfterViewInit() {

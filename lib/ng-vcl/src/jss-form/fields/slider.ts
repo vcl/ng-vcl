@@ -1,33 +1,29 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaSlider } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaSlider, VCLFormFieldSchemaSliderParams } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldSlider extends FormFieldControl<VCLFormFieldSchemaSlider> {
+export class FormFieldSlider extends FormFieldControl<VCLFormFieldSchemaSlider, VCLFormFieldSchemaSliderParams> {
   type: 'slider';
-  get label(): string {
-    return this.schema.label;
-  }
   get scale()  {
-    return this.schema.scale;
+    return this.params.scale;
   }
   get lock()  {
-    return this.schema.lock;
+    return this.params.lock;
   }
   get min()  {
-    return this.schema.min;
+    return this.params.min;
   }
   get max()  {
-    return this.schema.max;
+    return this.params.max;
   }
   protected createDefaultValue() {
-    return undefined;
+    return null;
   }
 }
 
 @Component({
   template: `
-    <vcl-form-control-group>
+    <vcl-form-control-group *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
       <vcl-slider [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [min]="field.min" [max]="field.max" [scale]="field.scale" [lock]="field.lock"></vcl-slider>
       <vcl-jss-form-hints></vcl-jss-form-hints>
@@ -38,4 +34,4 @@ export class FormFieldSliderComponent {
   constructor(public field: FormFieldSlider) { }
 }
 
-registerControlField('slider', FormFieldSliderComponent, FormFieldSlider);
+FormFieldControl.register('slider', FormFieldSliderComponent, FormFieldSlider);

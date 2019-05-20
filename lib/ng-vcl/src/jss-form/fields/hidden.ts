@@ -1,14 +1,8 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaInput } from '../schemas';
-import { registerControlField } from './registry';
+import { VCLFormFieldSchemaHidden } from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldHidden extends FormFieldControl<VCLFormFieldSchemaInput> {
-  type: 'hidden';
-  protected createDefaultValue() {
-    return '';
-  }
-}
+export class FormFieldHidden extends FormFieldControl<VCLFormFieldSchemaHidden, {}> { }
 
 @Component({
   template: ``
@@ -17,4 +11,4 @@ export class FormFieldHiddenComponent {
   constructor(public field: FormFieldHidden) { }
 }
 
-registerControlField('hidden', FormFieldHiddenComponent, FormFieldHidden);
+FormFieldControl.register('hidden', FormFieldHiddenComponent, FormFieldHidden);
