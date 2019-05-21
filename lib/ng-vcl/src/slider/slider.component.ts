@@ -162,6 +162,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   ngOnChanges(changes: SimpleChanges) {
     if ('min' in  changes || 'max' in  changes || 'scale' in  changes) {
       this.updateScalePoints();
+      this.updatePercentLeftKnob();
     }
     if ('value' in  changes) {
       this.updatePercentLeftKnob();
