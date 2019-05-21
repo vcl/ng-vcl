@@ -15,7 +15,10 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-checkbox [(checked)]="checked"></vcl-checkbox>
+<label vclCheckboxLabel>
+  <vcl-checkbox [(checked)]="value1"></vcl-checkbox>
+  Check! 
+</label>
 ```
 
 ### API
@@ -24,11 +27,12 @@ export class AppComponent {}
 
 | Name                | Type        | Default            | Description
 | ------------        | ----------- | ------------------ |--------------
-| `checked` *(1)*     | boolean     | false              | State of checkbox
-| `checkedIcon`       | string      | fa:check-square-o  | Icon to be displayed when checked
-| `uncheckedIcon`     | string      | fa:square-o        | Icon to be displayed when unchecked
+| `checked`           | boolean     | false              | State of checkbox
 | `tabindex`          | number      | 0                  | The tabindex of the checkbox
 | `disabled`          | boolean     | false              | Disables checkbox if true
-| `iconPosition`      | string      | left               | Icon positioning relative to content
 
-*(1) Supports Two-way binding*
+### Events
+
+Name            | Type    | Description
+----------      | ------- | --------------------------------------
+`checkedChange` | any     | Fired when the checked state has changed

@@ -1,42 +1,37 @@
 # vcl-embedded-input-group
 
-Embedded-Input-Group
-
 Adds the possibility to prepend and append icons or buttons inside of input fields.
 
 ## Usage
 
 ```html
 
-Icon left and placeholder text
-<vcl-embedded-input-group prepIcon="fas:search">
-  <input vcl-input vcl-embedded-input-group placeholder="placeholder text" />
-</vcl-embedded-input-group>
-
-Placeholder text and icon on the right
-<vcl-embedded-input-group appIcon="fas:times-circle">
-  <input vcl-input vcl-embedded-input-group placeholder="Postcode, City, Name of the Workshop" />
-</vcl-embedded-input-group>
-
-Button on the right
+Input with icon on the left
 <vcl-embedded-input-group>
-  <input vcl-input vcl-embedded-input-group />
-  <button vcl-button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fas:search'"></button>
+  <vcl-icon vclPrepend icon="fas:search"></vcl-icon>
+  <input vclInput placeholder="placeholder text" />
 </vcl-embedded-input-group>
 
-Left icon and button on the right
+Input with icon on the right
+<vcl-embedded-input-group>
+  <input vclInput placeholder="Postcode, City, Name of the Workshop" />
+  <vcl-icon vclApppend icon="fas:times-circle"></vcl-icon>
+</vcl-embedded-input-group>
+
+Input with button on the right
+<vcl-embedded-input-group>
+  <input vclInput />
+  <button vcl-square-button vclApppend (click)="someAction($event)">
+    <vcl-icon icon="fas:times-circle"></vcl-icon>
+  </button>
+</vcl-embedded-input-group>
+
+Input with icon on the left and button on the right
 <vcl-embedded-input-group prepIcon="fas:cog" appIcon="fas:times-circle">
-  <input vcl-input vcl-embedded-input-group />
-  <button vcl-button vcl-embedded-input-group (click)="someAction($event)" [icon]="'fas:times-circle'"></button>
+  <vcl-icon vclPrepend icon="fas:search"></vcl-icon>
+  <input vclInput />
+  <button vcl-square-button vclApppend (click)="someAction($event)">
+    <vcl-icon icon="fas:times-circle"></vcl-icon>
+  </button>
 </vcl-embedded-input-group>
 ```
-
-### API
-
-#### vcl-embedded-input-group attributes
-
-| Name                                | Type        | Default            | Description
-| ----------------------------------  | ----------- | ------------------ |--------------
-| `disabled`                          | boolean     | false              | Disables the input group when true
-| `prepIcon`                          | string      |                    | left icon
-| `appIcon`                           | string      |                    | left icon

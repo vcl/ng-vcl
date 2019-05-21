@@ -1,21 +1,20 @@
+import { Component } from '@angular/core';
 import { LayerRef } from '@ng-vcl/ng-vcl';
-import { Component, Input } from '@angular/core';
 
 @Component({
-  templateUrl: 'bar.component.html'
+  templateUrl: 'bar.component.html',
 })
 export class BarComponent {
 
-  @Input()
-  title: string;
+  constructor(private layer: LayerRef) { }
 
-  constructor(private layerRef: LayerRef) { }
-
-  onClose() {
-    this.layerRef.close('close');
+  get title() {
+    return this.layer.data.title;
   }
 
-  onSend() {
-    this.layerRef.send('send');
+  close(value?: string) {
+    this.layer.close({
+      value
+    });
   }
 }

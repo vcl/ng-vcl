@@ -1,0 +1,64 @@
+
+<h3>vcl-dropdown with async data</h3>
+
+<vcl-embedded-input-group>
+  <vcl-icon vclPrepend icon="fas:search"></vcl-icon>
+  <input #inputBooks 
+         vclInput 
+         placeholder="Search Google Books api" 
+         (input)="search$.next($event.target.value)"
+         [vclAutocomplete]="acBooks"
+         [vclAutocompleteDisabled]="search.state === 'cleared'"
+         [vclAutocompleteMapInputValue]="'void'"
+         (vclAutocompleteSelectionChange)="onSelectBook($event)"
+         />
+  <button vcl-square-button vclAppend
+          (click)="inputBooks.value = ''; inputBooks.focus(); search$.next('')">
+    <vcl-icon [icon]="'fas:times-circle'"></vcl-icon>
+  </button>
+</vcl-embedded-input-group>
+
+<vcl-autocomplete #acBooks="vclAutocomplete">
+  <vcl-select-list>
+    <vcl-select-list-content *ngIf="search.state === 'loading'" >
+      <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
+    </vcl-select-list-content>
+    <vcl-select-list-content *ngIf="search.state === 'success' && search.books.length === 0">
+      <div style="padding: 1em">No books found</div>
+    </vcl-select-list-content>
+    <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
+      <vcl-select-list-item *ngFor="let book of search.books" [value]="book">
+        <vcl-select-list-label>{{book.title}}</vcl-select-list-label>
+      </vcl-select-list-item>
+    </ng-container>
+  </vcl-select-list>
+</vcl-autocomplete>
+
+<ng-container *ngIf="books.length > 0">
+
+  <h3>Books ({{books.length}})</h3>
+
+  <div class="vclDataList vclItemSelectability vclItemHoverHighlight vclNoBorder vclScrollable vclY" style="max-height: 20em;">
+    <ul class="vclDataListBody" role="listbox" aria-multiselectable="false">
+      <li *ngFor="let book of books" class="vclDataListItem vclLayoutHorizontal" role="option" aria-selected="false">
+        <div>
+          <img class="vclResponsiveImage" [src]="book.image">
+        </div>
+        <div class="vclGutterMargin vclLayoutFlex">
+          <div class="vclLayoutHorizontal">
+            <div class="vclLayoutHorizontal vclLayoutCenter vclLayoutFlex">
+              <h2 class="vclNoMargin">{{book.title}}</h2>
+            </div>
+            <div class="vclSecondaryTextColor vclAlignRight">
+              <i>{{book.date}}</i><br>
+              <span>{{book.author}}</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <button vcl-button (click)="onClearBooks()">Clear</button>
+
+</ng-container>

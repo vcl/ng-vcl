@@ -1,145 +1,206 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter,
-         forwardRef, SkipSelf, Directive, HostBinding, HostListener, Inject, ChangeDetectorRef, AfterContentInit } from '@angular/core';
-import { Subscription, merge } from 'rxjs';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { ButtonDirective } from '../button/index';
+         forwardRef, ChangeDetectorRef, AfterContentInit, HostBinding, Optional, Inject, Self } from '@angular/core';
+import { Subscription, Subject } from 'rxjs';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { startWith } from 'rxjs/operators';
+import { BUTTON_OBSERVER_TOKEN, ButtonObserver, ButtonComponent } from '../button/index';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_HOST, FormControlHost } from '../form-control-group/index';
 
-
-@Directive({
-  selector: 'button[vcl-button][vcl-button-group]',
-})
-export class GroupButtonDirective  {
-
-  constructor(
-    @SkipSelf()
-    @Inject(forwardRef(() => ButtonGroupComponent))
-    private buttonGroupContainer,
-    private host: ButtonDirective
-  ) { }
-
-  @HostBinding('class.vclDisabled')
-  @HostBinding('attr.disabled')
-  get isDisabled(): boolean | null {
-    return this.host.disabled || this.buttonGroupContainer.disabled ? true : null;
-  }
-
-  @HostBinding('class.vclSelected')
-  selected = false;
-
-  select = new EventEmitter<boolean>();
-
-  @HostListener('click')
-  onClick() {
-    this.selected = !this.selected;
-    this.select.emit(this.selected);
-  }
-}
-
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => ButtonGroupComponent),
-  multi: true
-};
+let UNIQUE_ID = 0;
 
 @Component({
   selector: 'vcl-button-group',
-  host: {
-    '[class.vclButtonGroup]': 'true',
-  },
-  template: `<ng-content></ng-content>`,
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+  template: `<ng-content select="button"></ng-content>`,
+  providers: [
+    {
+      provide: BUTTON_OBSERVER_TOKEN,
+      useExisting: forwardRef(() => ButtonGroupComponent)
+    },
+    {
+      provide: FORM_CONTROL_INPUT,
+      useExisting: forwardRef(() => ButtonGroupComponent)
+    }
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit {
+export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit, ButtonObserver, FormControlInput {
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    @Self()
+    public ngControl?: NgControl,
+    @Optional()
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
+    @Optional()
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
+  ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
-  private pressSubscription: Subscription | undefined;
+  private buttonsSub?: Subscription;
+  private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
+  private stateChangeEmitter = new Subject<void>();
 
-  @ContentChildren(GroupButtonDirective)
-  buttons?: QueryList<GroupButtonDirective>;
+  stateChange = this.stateChangeEmitter.asObservable();
+  controlType = 'button-group';
 
   @Input()
-  disabled = false;
+  id?: string;
+
+  @Input()
+  value: any | any[];
+
+  @Output()
+  valueChange = new EventEmitter<any | any[]>();
+
+  @HostBinding('class.vclButtonGroup')
+  _hostClasses = true;
+
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this._generatedId;
+  }
+
+  @ContentChildren(ButtonComponent)
+  buttons?: QueryList<ButtonComponent>;
+
+  private _disabled = false;
+
+  @Input()
+  set disabled(disabled: boolean) {
+    this._disabled = disabled;
+    this.syncButtons();
+    this.stateChangeEmitter.next();
+  }
+
+  get disabled(): boolean {
+    return this._disabled;
+  }
 
   // If `single`, a single item can be selected
   // If `multiple` multiple items can be selected
   @Input()
-  mode: 'multiple' | 'single' = 'single';
+  selectionMode: 'multiple' | 'single' = 'single';
 
-  @Output()
-  selectionChange = new EventEmitter<number | number[]>();
+  formDisabled = false;
 
-  selectedIndex: number | number[];
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
 
-  private select(idx: number) {
-    if (this.mode === 'multiple') {
-      if (!Array.isArray(this.selectedIndex)) {
-        this.selectedIndex = [];
-      }
-      if (this.selectedIndex.includes(idx)) {
-        this.selectedIndex = this.selectedIndex.filter(thisIdx => thisIdx !== idx);
+  @HostBinding('class.vclError')
+  get hasError() {
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  }
+
+  get isDisabled(): boolean {
+    return this.formDisabled || this.disabled;
+  }
+
+  get isFocused(): boolean {
+    return this.buttons.some(b => b.isFocused);
+  }
+
+  private toggle(btn: ButtonComponent) {
+    if (this.selectionMode === 'multiple') {
+      if (Array.isArray(this.value)) {
+        const selectedValue = this.value = [...this.value];
+        const idx = this.value.indexOf(btn.value);
+
+        if (idx >= 0) {
+          selectedValue.splice(idx, 1);
+          this.value = selectedValue;
+        } else {
+          this.value = [...this.value, btn.value];
+        }
       } else {
-        this.selectedIndex = [...this.selectedIndex, idx];
+        this.value = [btn.value];
       }
     } else {
-      this.selectedIndex = idx;
+      this.value = btn.value;
     }
   }
 
   private syncButtons() {
-    const selectedIndex = this.selectedIndex;
-    if (this.buttons && this.mode === 'multiple' && Array.isArray(selectedIndex)) {
-      this.buttons.forEach((btn, idx) => {
-        btn.selected = selectedIndex.includes(idx);
+    const value = this.value;
+    if (this.buttons && this.selectionMode === 'multiple' && Array.isArray(value)) {
+      this.buttons.forEach((btn) => {
+        btn.setSelected(value.includes(btn.value));
       });
-    } else if (this.buttons && this.mode === 'single' && typeof selectedIndex === 'number') {
-      this.buttons.forEach((btn, idx) => {
-        btn.selected = selectedIndex === idx;
+    } else if (this.buttons && this.selectionMode === 'single') {
+      this.buttons.forEach((btn) => {
+        btn.setSelected(value === btn.value);
+      });
+    }
+    if (this.buttons) {
+      this.buttons.forEach((btn) => {
+        btn.selectable = true;
+        btn.setDisabled(this.isDisabled);
       });
     }
   }
 
+  onLabelClick(event: Event): void {
+
+  }
+
+  notifyButtonClick(btn: ButtonComponent) {
+    this.toggle(btn);
+    this.syncButtons();
+    this.triggerChange();
+    this.onTouched();
+  }
+
+  notifyButtonBlur(btn: any) {
+    if (this.buttons.last === btn) {
+      this.onTouched();
+    }
+    this.stateChangeEmitter.next();
+  }
+
+  notifyButtonFocus(btn: any) {
+    this.stateChangeEmitter.next();
+  }
+
+
   private triggerChange() {
-    this.selectionChange.emit(this.selectedIndex);
-    this.onChange(this.selectedIndex);
+    this.valueChange.emit(this.value);
+    this.onChange(this.value);
+  }
+
+  getError(error: string) {
+    return this.hasError && this.ngControl.getError(error);
   }
 
   ngAfterContentInit() {
-    this.buttons && this.buttons.changes.pipe(startWith(null)).subscribe(() => {
+    // Syncs changed buttons checked state to be in line with the current group value
+    // tslint:disable-next-line:deprecation
+    this.buttonsSub = this.buttons.changes.pipe(startWith(null)).subscribe(() => {
       if (!this.buttons) {
         return;
       }
-
-      this.dispose();
-      // Subscribes to button click events
-      const click$ = merge(...(this.buttons.map((source, idx) => source.select.pipe(map(() => idx)))));
-      this.pressSubscription =  click$.subscribe(idx => {
-        this.select(idx);
-        this.syncButtons();
-        this.triggerChange();
-        this.onTouched();
-      });
       this.syncButtons();
     });
   }
 
   ngOnDestroy() {
-    this.dispose();
+    this.buttonsSub && this.buttonsSub.unsubscribe();
+    this.stateChangeEmitter && this.stateChangeEmitter.complete();
   }
 
-  dispose() {
-    this.pressSubscription && this.pressSubscription.unsubscribe();
-  }
-
-    /**
+  /**
    * things needed for ControlValueAccessor-Interface
    */
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
   writeValue(value: any): void {
-    this.selectedIndex = value;
+    this.value = value;
     this.syncButtons();
     this.cdRef.markForCheck();
   }
@@ -148,5 +209,9 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   }
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+  setDisabledState(disabled: boolean) {
+    this.formDisabled = disabled;
+    this.cdRef.markForCheck();
   }
 }

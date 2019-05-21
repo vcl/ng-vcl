@@ -1,56 +1,24 @@
-<div (offClick)="close()">
-  <div
-    #select
-    class="vclSelect vclInputGroupEmb"
-    [style.marginBottom]="0"
-    >
-    <div *ngIf="showDisplayValue" class="vclInput vclReadonly vclAppItem" readonly [class.vclSelected]="focused" (click)="toggle()">
-      {{displayValue}}
-    </div>
-    <div *ngIf="!showDisplayValue" class="vclInput vclReadonly vclTokenInput vclLayoutWrap" readonly [class.vclSelected]="focused" (click)="toggle()">
-      <vcl-token-list [disabled]="disabled">
-        <vcl-token *ngFor="let item of selectedItems" [label]="item.label" [removable]="true" (remove)="deselectItem(item.metaItem)"></vcl-token>
-      </vcl-token-list>
-    </div>
-
-    <button vcl-button
-      [disabled]="disabled"
-      type="button"
-      tabindex="-1"
-      class="vclAppended"
-      [icon]="expanded ? expandedIcon : collapsedIcon"
-      (click)="toggle()">
-    </button>
-  </div>
-
-  <vcl-dropdown
-      #dropdown
-      tabindex="-1"
-      [disabled]="disabled"
-      [expanded]="expanded"
-      [value]="value"
-      [mode]="mode"
-      [maxSelectableItems]="maxSelectableItems"
-      [style.position]="'relative'"
-      [style.top.px]="dropdownTop"
-      [style.width]="'100%'"
-      [style.position]="'absolute'"
-      [style.zIndex]="zIndex"
-      (change)="onDropdownChange($event)"
-      (itemsChange)="onItemsChange()"
-  >
-    <vcl-dropdown-option
-      *ngFor="let item of items"
-      [metadata]="item"
-      [value]="item.value"
-      [disabled]="disabled || item.disabled"
-      [label]="item.label"
-      [sublabel]="item.sublabel"
-      [prepIcon]="item.prepIcon"
-      [appIcon]="item.appIcon"
-      [appIconSrc]="item.appIconSrc"
-      [prepIconSrc]="item.prepIconSrc"
+<input #input 
+       vclInput
+       [value]="inputValue"
+       [attr.tabindex]="-1"
+       [disabled]="isDisabled"
+       class="vclAppItem vclReadonly"
+       role="listbox"
+       readonly
+       >
+<button #btn
+        vcl-square-button
+        type="button"
+        tabindex="-1"
+        [disabled]="isDisabled"
+        class="vclAppended"
       >
-    </vcl-dropdown-option>
-  </vcl-dropdown>
-</div>
+      <vcl-icon icon="fas:chevron-down"></vcl-icon>
+</button>
+
+<ng-template>
+  <div style="width: 100%">
+    <ng-content></ng-content>
+  </div>
+</ng-template>

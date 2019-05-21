@@ -1,87 +1,47 @@
-import { Component, Output, EventEmitter, Input, AfterViewInit, ViewChild, HostBinding, ContentChildren, forwardRef, QueryList, Self, SkipSelf, Directive } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { ObservableComponent } from '../core/index';
+import { Component, ContentChildren, QueryList, HostBinding, ElementRef, AfterContentInit, Renderer2, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { InputDirective } from '../input/index';
-import { ButtonDirective } from '../button/index';
+import { merge, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+import { PrependDirective, AppendDirective } from '../core/index';
 
 @Component({
   selector: 'vcl-embedded-input-group',
   templateUrl: 'embedded-input-group.component.html',
-  host: {
-    '[class.vclInputGroupEmb]': 'true',
-    '[style.display]': '"block"'
-  }
+  exportAs: 'vclEmbeddedInputGroup',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmbeddedInputGroupComponent extends ObservableComponent {
+export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy {
 
-  @Input()
-  disabled = false;
+  private sub?: Subscription;
 
-  @Input()
-  prepIcon?: string;
+  constructor( private renderer: Renderer2) { }
 
-  @Input()
-  appIcon?: string;
+  @HostBinding('class.vclInputGroupEmb')
+  _hostClasses = true;
 
-  @ContentChildren(forwardRef(() => EmbeddedButtonDirective))
-  buttons?: QueryList<EmbeddedButtonDirective>;
+  @ContentChildren(PrependDirective, { read: ElementRef })
+  prepend?: QueryList<ElementRef<HTMLElement>>;
 
-  get hasAppendedItem() {
-    return !!this.appIcon || (this.buttons && this.buttons.length > 0);
-  }
-}
+  @ContentChildren(AppendDirective, { read: ElementRef })
+  append?: QueryList<ElementRef<HTMLElement>>;
 
-@Directive({
-  selector: 'input[vcl-input][vcl-embedded-input-group]',
-})
-export class EmbeddedInputDirective {
-  constructor(
-    @Self() private input: InputDirective,
-    @SkipSelf() private inputGroup: EmbeddedInputGroupComponent
-  ) { }
+  @ContentChildren(InputDirective, { read: ElementRef })
+  input?: QueryList<ElementRef<HTMLElement>>;
 
-  get isDisabled() {
-    return this.input.disabled || this.inputGroup.disabled;
-  }
-
-  @HostBinding('class.vclDisabled')
-  get classDisabled() {
-    return this.isDisabled;
+  ngAfterContentInit(): void {
+    this.sub = merge(this.input.changes, this.prepend.changes, this.append.changes).pipe(startWith(undefined)).subscribe(() => {
+      this.prepend.forEach(el => this.renderer.addClass(el.nativeElement, 'vclPrepended'));
+      if (this.prepend.length > 0) {
+        this.input.forEach(el => this.renderer.addClass(el.nativeElement, 'vclPrepItem'));
+      }
+      this.append.forEach(el => this.renderer.addClass(el.nativeElement, 'vclAppended'));
+      if (this.append.length > 0) {
+        this.input.forEach(el => this.renderer.addClass(el.nativeElement, 'vclAppItem'));
+      }
+    });
   }
 
-  @HostBinding('attr.disabled')
-  get attrDisabled() {
-    return this.isDisabled ? true : null;
-  }
-
-  @HostBinding('class.vclPrepItem')
-  get prepItem() {
-    return !!this.inputGroup.prepIcon;
-  }
-
-  @HostBinding('class.vclAppItem')
-  get hasAppendedItem() {
-    return this.inputGroup.hasAppendedItem;
-  }
-}
-
-@Directive({
-  selector: 'button[vcl-button][vcl-embedded-input-group][icon]',
-  host: {
-    '[class.vclTransparent]': 'true',
-    '[class.vclAppended]': 'true'
-  }
-})
-export class EmbeddedButtonDirective {
-
-  constructor(
-    @Self() private button: ButtonDirective,
-    @SkipSelf() private inputGroup: EmbeddedInputGroupComponent
-  ) { }
-
-  @HostBinding('class.vclDisabled')
-  @HostBinding('attr.disabled')
-  get isDisabled() {
-    return (this.button.disabled || this.inputGroup.disabled) ? true : null;
+  ngOnDestroy(): void {
+    this.sub && this.sub.unsubscribe();
   }
 }

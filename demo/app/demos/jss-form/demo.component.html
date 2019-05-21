@@ -1,20 +1,12 @@
 <h2>Create a hero</h2>
 <vcl-jss-form 
-  #heroForm 
+  #heroForm="vclJssForm"
   [schema]="heroSchema" 
-  [(ngModel)]="value" 
-  (ngSubmit)="onSubmit($event, heroForm.form.valid)" 
-  (action)="onAction($event)">
+  (formSubmit)="onSubmit($event)" 
+  (formAction)="onAction($event)">
 </vcl-jss-form>
 
-<div class="error">
-  <pre>Status: {{ heroForm.form.status }}</pre>
-</div>
-
-<div class="value">
-  <pre>Value: {{ heroForm.form.value | json }}</pre>
-</div>
-
-<div class="error">
-  <pre>Errors: {{ heroForm.form.errors | json }}</pre>
+<div class="value" *ngIf="state$ | async as formState">
+  <h4>Form</h4>
+  <pre>{{formState | json}}</pre>
 </div>

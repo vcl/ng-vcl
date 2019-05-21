@@ -1,16 +1,15 @@
 import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
-import { AlertComponent, dismiss } from './alert.component';
-import { LayerService, LayerRef, LayerResult } from './../layer/index';
+import { LayerService } from '../layer/index';
+import { map, take } from 'rxjs/operators';
+import { AlertComponent } from './alert.component';
 
 @Injectable()
 export class AlertService {
 
-  constructor(private ls: LayerService) { }
-
-  currentLayer: LayerRef | undefined;
+  constructor(private layerService: LayerService) { }
 
   alert(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text }, opts);
@@ -36,21 +35,18 @@ export class AlertService {
     return this.open({ text, type: AlertType.Question, showCancelButton: true }, opts);
   }
 
-  open(...opts: AlertOptions[]): LayerResult<AlertResult> {
-    return this.create(...opts).open();
-  }
-
-  create(...opts: AlertOptions[]) {
+  open(...opts: AlertOptions[]): Observable<AlertResult> {
     const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
-    return this.ls.create(AlertComponent, {
-      offClick: (layer) => {
-        dismiss(layer, 'offClick');
-      },
-      modal: true,
-      transparent: true,
-      attrs: {alert}
-    });
-  }
 
-  noop = () => {};
+    const layer = this.layerService.create(AlertComponent, {
+      modal: alert.modal,
+    });
+
+    layer.open(alert);
+    return layer.afterClose.pipe(map(result => {
+      return result || {
+        action: 'close'
+      } as AlertResult;
+    }), take(1));
+  }
 }

@@ -1,6 +1,6 @@
 # vcl-button
 
-`vcl-button` enhances the HTML `<button>` with styling and features.
+`vcl-button` and `vcl-square-button` enhance the HTML `<button>` with styling and features.
 It is the main control for triggering actions.
 
 ## Usage
@@ -15,62 +15,44 @@ import { VCLButtonModule } from '@ng-vcl/ng-vcl';
 export class AppComponent { ... }
 ```
 
-### button[vcl-button]
+### Basic button
 
 ```html
 <button vcl-button (click)="someAction($event)">Action</button>
 ```
 
-### button[vcl-button][label]
-
 ```html
-<button vcl-button label="Action" appIcon="fas:bolt"></button>
+<button vcl-button [selectable]="true" (select)="someAction($event)">Select</button>
 ```
 
-### button[vcl-button][icon]
+### Icogram button
 
 ```html
-<button vcl-button icon="fas:bolt"></button>
+<button vcl-button>
+  <vcl-icogram appIcon="fas:bolt">Action</vcl-icogram>
+</button>
 ```
 
-### button[vcl-button][selectable]
+### Square button
 
 ```html
-<button vcl-button selectable (select)="someAction($event)">Action</button>
+<button vcl-square-button>
+  <vcl-icon icon="fas:bolt"></vcl-icon>
+</button>
 ```
 
 ### API
 
-#### vcl-button attributes
+#### vcl-button/vcl-square-button attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `disabled`          | boolean     | false    | State to indicate that the button is disabled
+| `selectable`        | boolean     | false    | Button selected state toggles if clicked when true
+| `selected`          | boolean     | false    | Whether the button is selected
 
-#### vcl-button[label] attributes
-
-| Name                | Type        | Default  | Description
-| ------------        | ----------- | -------- |--------------
-| `label`             | string      |          | Sets button label
-| `title`             | string      |          | Sets button title
-| `flexLabel`         | boolean     | false    | The label gets a flex layout property if true
-| `prepIcon`          | string      |          | icon to be prepended to the label
-| `appIcon`           | string      |          | Same as prepIcon but appended
-
-#### vcl-button[icon] attributes
-
-| Name                | Type        | Default  | Description
-| ------------        | ----------- | -------- |--------------
-| `icon`              | string      |          | Sets the button icon
-
-#### vcl-button[selectable] attributes
-
-| Name                | Type        | Default  | Description
-| ------------        | ----------- | -------- |--------------
-| `selectable`        | boolean     | false    | Preselect button if true
-
-#### vcl-button[selectable] events
+#### vcl-button/vcl-square-button events
 
 | Name                | Description
 | ------------        | --------------
-| `select`            | Triggered when the button is selected
+| `selectedChange`    | Triggered when the button is selected state changes

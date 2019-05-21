@@ -19,16 +19,6 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    loadChildren: './demos/link/demo.module#LinkDemoModule',
-    path: 'link',
-    data: {
-      demo: {
-        label: 'Links',
-        category: CAT_TYPOGRAPHICAL,
-      }
-    }
-  },
-  {
     loadChildren: './demos/badge/demo.module#BadgeDemoModule',
     path: 'badge',
     data: {
@@ -64,16 +54,6 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Tab Navigation',
-        category: CAT_NAVIGATION,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/toolbar/demo.module#ToolbarDemoModule',
-    path: 'toolbar',
-    data: {
-      demo: {
-        label: 'Toolbar',
         category: CAT_NAVIGATION,
       }
     }
@@ -119,11 +99,31 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/dropdown/demo.module#DropdownDemoModule',
-    path: 'dropdown',
+    loadChildren: './demos/select-list/demo.module#SelectListDemoModule',
+    path: 'select-list',
     data: {
       demo: {
-        label: 'Dropdown',
+        label: 'Select List',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
+    path: 'autocomplete',
+    data: {
+      demo: {
+        label: 'Autocomplete',
+        category: CAT_OVERLAYS,
+      }
+    }
+  },
+  {
+    loadChildren: './demos/select/demo.module#SelectDemoModule',
+    path: 'select',
+    data: {
+      demo: {
+        label: 'Select',
         category: CAT_FORM_CONTROLS,
       }
     }
@@ -169,16 +169,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/input-control-group/demo.module#InputControlGroupDemoModule',
-    path: 'input-control-group',
-    data: {
-      demo: {
-        label: 'Input Control Group',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
     loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
     path: 'embedded-input-group',
     data: {
@@ -204,16 +194,6 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Radio Button',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/select/demo.module#SelectDemoModule',
-    path: 'select',
-    data: {
-      demo: {
-        label: 'Select',
         category: CAT_FORM_CONTROLS,
       }
     }
@@ -249,41 +229,11 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
-    path: 'autocomplete',
+    loadChildren: './demos/form-control-group/demo.module#FormControlGroupDemoModule',
+    path: 'form-control-group',
     data: {
       demo: {
-        label: 'Autocomplete',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/form-mashups/demo.module#FormMashupsDemoModule',
-    path: 'form-mashups',
-    data: {
-      demo: {
-        label: 'Mashups',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/form/demo.module#FormDemoModule',
-    path: 'form',
-    data: {
-      demo: {
-        label: 'All Controls Example',
-        category: CAT_FORMS,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/form-control-label/demo.module#FormControlLabelDemoModule',
-    path: 'form-control-label',
-    data: {
-      demo: {
-        label: 'Form Control Label',
+        label: 'Form Control Group',
         category: CAT_FORMS,
       }
     }
@@ -294,16 +244,6 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'JSS-Form',
-        category: CAT_FORMS,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/form-layouts/demo.module#FormLayoutsDemoModule',
-    path: 'form-layouts',
-    data: {
-      demo: {
-        label: 'Layouts',
         category: CAT_FORMS,
       }
     }
@@ -324,16 +264,6 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Layer',
-        category: CAT_OVERLAYS,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/modal/demo.module#ModalDemoModule',
-    path: 'modal',
-    data: {
-      demo: {
-        label: 'Modal',
         category: CAT_OVERLAYS,
       }
     }
@@ -420,10 +350,10 @@ export const routes: Routes = [
   },
   {
     loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
-    path: 'busy',
+    path: 'busy-indicator',
     data: {
       demo: {
-        label: 'Busy-Indicator',
+        label: 'Busy Indicator',
         category: CAT_STATUS_INFORMATION,
       }
     }
@@ -439,42 +369,12 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/notification/demo.module#NotificationDemoModule',
-    path: 'notification',
-    data: {
-      demo: {
-        label: 'Notification',
-        category: CAT_STATUS_INFORMATION,
-      }
-    }
-  },
-  {
     loadChildren: './demos/table/demo.module#TableDemoModule',
     path: 'table',
     data: {
       demo: {
         label: 'Table',
         category: CAT_TABULAR_DATA,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/wormhole/demo.module#WormholeDemoModule',
-    path: 'wormhole',
-    data: {
-      demo: {
-        label: 'Wormhole',
-        category: CAT_MISC,
-      }
-    }
-  },
-  {
-    loadChildren: './demos/metalist/demo.module#MetalistDemoModule',
-    path: 'metalist',
-    data: {
-      demo: {
-        label: 'Metalist',
-        category: CAT_MISC,
       }
     }
   },

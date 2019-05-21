@@ -1,0 +1,10 @@
+<div class="vclNotificationIconContainer">
+  <vcl-icon class="vclNotificationIcon" [icon]="icon"></vcl-icon>
+</div>
+<div class="vclNotificationContent vclLayoutFlex">
+  <div *ngIf="!notificationRef.html">{{notificationRef.text}}</div>
+  <div *ngIf="notificationRef.html" [innerHtml]="notificationRef.text"></div>
+</div>
+<button vcl-square-button type="button" (click)="close()" class="vclTransparent vclLayoutSelfStart">
+  <vcl-icon icon="vcl:close"></vcl-icon>
+</button>

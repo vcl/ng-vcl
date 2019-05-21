@@ -2,14 +2,34 @@
 <br><br>
 <button vcl-button (click)="someAction($event)" disabled=true>Disabled button</button>
 <br><br>
-<button vcl-button (click)="someAction($event)" label="Label button with appended icon" appIcon="fas:bolt"></button>
+<button vcl-button (click)="someAction($event)" class="vclEmphasized">Emphasized label button</button>
 <br><br>
-<button vcl-button (click)="someAction($event)" label="Label button with prepended icon" prepIcon="fas:bolt"></button>
+<a vcl-button (click)="someAction($event)">Button (a-tag)</a>
 <br><br>
-<button vcl-button (click)="someAction($event)" label="Emphasized label button" class="vclEmphasized"></button>
+<button vcl-square-button  title="Square Button" (click)="someAction($event)">
+  <vcl-icon icon="fas:bolt"></vcl-icon>
+</button>
 <br><br>
-<button vcl-button icon="fas:bolt" title="Square Button" (click)="someAction($event)"></button>
+<button vcl-button (click)="someAction($event)" >
+  <vcl-icogram>
+    <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
+     Icogram button with appended icon
+  </vcl-icogram>
+</button>
 <br><br>
-<button vcl-button selectable (select)="someAction($event)">Selectable button</button>
+<button vcl-button (click)="someAction($event)">
+  <vcl-icogram>
+    <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
+    Icogram button with prepended icon
+  </vcl-icogram>
+</button>
 <br><br>
-<button vcl-button [selectable]="true" (select)="someAction($event)">Selectable button (preselected)</button>
+<button vcl-button (click)="someAction($event)">
+  <vcl-icogram>
+      <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
+      Icogram button with prepended and appended icon
+      <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
+  </vcl-icogram>
+</button>
+<br><br>
+<button vcl-button [selectable]="true" (click)="someAction($event.selected)">Selectable button</button>

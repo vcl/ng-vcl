@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LabelDirective } from './label.directive';
+import { LabelComponent } from './label.component';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [LabelDirective],
-  declarations: [LabelDirective],
+  exports: [LabelComponent],
+  declarations: [LabelComponent],
   providers: [],
 })
 export class VCLLabelModule { }

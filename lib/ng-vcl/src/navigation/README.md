@@ -5,7 +5,7 @@ The navigation groups navigation items to form a navigation menu.
 ## Usage
 
 ```js
-import { VCLNavigationModule } from 'ng-vcl';
+import { VCLNavigationModule } from '@ng-vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLNavigationModule ],
@@ -15,50 +15,53 @@ export class AppComponent {}
 ```
 
 ```html
-<nav vcl-navigation #nav1 (navigate)="onNavigate($event)">
-  <vcl-navitem label="Home" prepIcon="fas:home" [route]="['/']"></vcl-navitem>
-  <vcl-navitem label="Products" prepIcon="fas:bicycle" [route]="['/products']"></vcl-navitem>
-  <vcl-navitem label="Contact" prepIcon="fas:envelope" [route]="['/contact']"></vcl-navitem>
-</nav>
-```
-
-## Nested
-
-```html
-<nav vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
-  <vcl-navitem  label="Home" [route]="['/']"></vcl-navitem>
-  <vcl-navitem label="Products" appIcon="fas:bicycle">
-    <vcl-navitem label="Product 1" [route]="['/product', 1]"></vcl-navitem>
-    <vcl-navitem label="Product 2" [route]="['/product', 2]"></vcl-navitem>
-  </vcl-navitem>
-  <vcl-navitem label="Contact" [route]="['/contact']"></vcl-navitem>
-</nav>
+<vcl-navigation>
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:home"></vcl-icon>
+        Home
+      </vcl-icogram>
+    </vcl-navigation-label>
+  </vcl-navigation-item>
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:bicycle"></vcl-icon>
+        Products
+      </vcl-icogram>
+    </vcl-navigation-label>
+    <vcl-navigation>
+      <vcl-navigation-item>
+        <vcl-navigation-label>Product 1</vcl-navigation-label>
+      </vcl-navigation-item>
+      <vcl-navigation-item>
+        <vcl-navigation-label>Product 2</vcl-navigation-label>
+      </vcl-navigation-item>
+    </vcl-navigation>
+  </vcl-navigation-item>
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+        Contact
+      </vcl-icogram>
+    </vcl-navigation-label>
+  </vcl-navigation-item>
+</vcl-navigation>
 ```
 
 ### API
 
 #### vcl-navigation attributes
 
-| Name                     | Type          | Default            | Description                                |
-| ------------             | ------------- | ------------------ |--------------------------------------------|
-| `ariaRole`               | string        |                    |                                            |
-| `tabindex`               | number        |                  0 |                                            |
-| `useRouter`              | boolean       |              false | Uses the router for navigation if true     |
-| `type`                   | string        |       'horizontal' | Direction (horizontal or vertical)         |
-| `subLevelHintIconClosed` | string        | 'fas:chevron-right' | Icon for nested closed                     |
-| `subLevelHintIconOpened` | string        |  'fas:chevron-down' | Icon for nested opened                     |
-| `subLevelHintIconSide`   | string        |             'left' | The side the icon be displayed             |
+| Name                     | Type                           | Default        | Description                                    |
+| ------------------------ | -----------                    | --------       |----------------------------------------------- |
+| `layout`                 | 'horizontal' \| 'vertical'     | 'horizontal'   | 
 
-#### vcl-navitem attributes
+#### vcl-navigation-item attributes
 
-| Name                     | Type        | Default  | Description                                   |
-| ------------------------ | ----------- | -------- |-----------------------------------------------|
-| `label`                  | string      |          | Label of this item                             |
-| `route`                  | any[]       |          | Route which is used onSelect                   |
+| Name                     | Type        | Default  | Description                                    |
+| ------------------------ | ----------- | -------- |----------------------------------------------- |
 | `opened`                 | boolean     | false    | if true and nested this opens the subitems     |
-| `heading`                | boolean     | false    | if true, this is used as hX                    |
-| `prepIcon`               | string      |          | Icon prepended to the item                     |
-| `appIcon`                | string      |          | Icon appended to the item                      |
-| `class`                  | string      |          | CSS classes which will be added                |
-| `selectable`             | boolean     | true     | Whether this item can be selected              |
-| `showActive`             | boolean     | false    | Show active even if non-selectable             |
+| `selected`               | boolean     | false    | Wether the item is selected                    |

@@ -1,15 +1,17 @@
-import { Directive, Input, HostBinding } from '@angular/core';
+import { Input, HostBinding, Component, ChangeDetectionStrategy } from '@angular/core';
 
-@Directive({
-  selector: '[vcl-badge]',
-  host: {
-    '[class.vclBadge]': 'true'
-  }
+@Component({
+  selector: 'vcl-badge',
+  template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BadgeDirective {
+export class BadgeComponent {
 
-  @Input('vcl-badge')
+  @Input()
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
+
+  @HostBinding('class.vclBadge')
+  classVCLBadge = true;
 
   @HostBinding('class.vclPrimary')
   get vclPrimary() {

@@ -1,0 +1,6 @@
+<ng-template #labelTemplate>
+  <ng-content></ng-content>
+</ng-template>
+<div #label style="display: none">
+  <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
+</div>

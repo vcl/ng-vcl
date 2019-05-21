@@ -1,25 +1,10 @@
-<div class="vclTabbable {{tabbableClass}}"
-     [class.vclTabsLeft]="layout==='left'"
-     [class.vclTabsRight]="layout==='right'">
-  <div class="vclTabs {{tabsClass}}" [class.vclTabStyleUni]="!!borders" role="tablist">
-    <div *ngFor="let tab of tabs; let i = index"
-         class="vclTab {{tab.tabClass}}" 
-         role="tab"
-         [class.vclDisabled]="tab.disabled"
-         [class.vclSelected]="selectedTabIndex===i"
-         [class.aria-selected]="selectedTabIndex===i"
-         (click)="onTabClick(tab)">
-        <span class="vclTabLabel"> 
-          <wormhole [connect]="tab.label"></wormhole>
-        </span>
-    </div>
-  </div>
-  <div [style.display]="hideContent === true ? 'none' : null" class="vclTabContent {{tabContentClass}}" [class.vclNoBorder]="!borders">
-      <div role="tabpanel" class="vclTabPanel">
-          <div #tabContent></div>
-    </div>
-    <div role="tabpanel" class="vclTabPanel">
-        <ng-content></ng-content>
-    </div>
+<div class="vclTabs" [class.vclTabStyleUni]="!!borders" role="tablist">
+  <ng-content select="vcl-tab"></ng-content>
+</div>
+<div [style.display]="hasContent === false ? 'none' : null" class="vclTabContent" [class.vclNoBorder]="!borders">
+  <div #panel role="tabpanel" class="vclTabPanel">
+    <ng-template *ngIf="currentTab && currentTab.portal" [cdkPortalOutlet]="currentTab.portal"></ng-template>
+    <ng-content></ng-content>
   </div>
 </div>
+

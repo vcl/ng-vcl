@@ -1,11 +1,12 @@
-<div *ngIf="tokenIcon" vcl-icogram [appIcon]="tokenIcon" ></div>
-<span class="vclTokenLabel">{{label}}</span>
-<button vcl-button
+<span class="vclTokenLabel">
+  <ng-content></ng-content>
+</span>
+<button vcl-square-button
+        type="button"
         [disabled]="isDisabled"
         *ngIf="removable" 
         class="vclTransparent"
-        type="button" 
         title="Remove"
-        [icon]="icon"
         (click)="onRemoveClick($event)">
+    <vcl-icon [icon]="'vcl:close'"></vcl-icon>
 </button>

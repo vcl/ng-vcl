@@ -9,12 +9,18 @@ import {
   EventEmitter,
   ViewChild,
   ElementRef,
-  forwardRef,
   ChangeDetectorRef,
   AfterContentInit,
-  OnChanges
+  OnChanges,
+  Optional,
+  Inject,
+  forwardRef
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group/index';
+import { Subject } from 'rxjs';
+
+let UNIQUE_ID = 0;
 
 export enum MoveDirection {
   Left, Right
@@ -25,22 +31,51 @@ export interface ScalePoint {
   percent: number;
 }
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SliderComponent),
-  multi: true
-};
-
 @Component({
   selector: 'vcl-slider',
   templateUrl: 'slider.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-  host: {
-    '[class.vclSlider]': 'true'
-  },
+  providers: [{
+    provide: FORM_CONTROL_INPUT,
+    useExisting: forwardRef(() => SliderComponent)
+  }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges {
+export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges, FormControlInput {
+
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Optional()
+    public ngControl?: NgControl,
+    @Optional()
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
+    @Optional()
+    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
+    ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  @HostBinding('class.vclSlider')
+  classVclSlider = true;
+
+  private _cvaDisabled = false;
+  private generatedId = 'vcl_slider_' + UNIQUE_ID++;
+  private stateChangeEmitter = new Subject<void>();
+
+  stateChange = this.stateChangeEmitter.asObservable();
+  controlType = 'slider';
+
+  @Input()
+  id?: string;
+
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this.generatedId;
+  }
 
   @HostBinding()
   tabindex = 0;
@@ -51,7 +86,6 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @Output()
   valueChange = new EventEmitter<number>();
 
-  @HostBinding('class.vclDisabled')
   @Input()
   disabled = false;
 
@@ -62,7 +96,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   max = 10;
 
   @Input()
-  mousewheel = false;
+  enableWheel = false;
 
   @Input()
   lock = false;
@@ -70,11 +104,29 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @Input()
   scale: string[] | number | undefined;
 
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
   @HostBinding('class.vclFocused')
   focused = false;
 
   @ViewChild('scale')
   scaleElement: ElementRef;
+
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    return this.disabled || this._cvaDisabled;
+  }
+
+  get isFocused() {
+    return this.focused;
+  }
+
+  @HostBinding('class.vclError')
+  get hasError() {
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  }
 
   get pmin(): number {
     const min = Number(this.min);
@@ -91,44 +143,43 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   lastPercentLeftKnob: number;
   firstPan = true;
 
-  constructor(private cdRef: ChangeDetectorRef) { }
-
   ngAfterContentInit() {
-    this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
+    this.updatePercentLeftKnob();
   }
 
   get valueValid() {
-    return this.validateValue(this.value);
+    return this.validateValue();
   }
 
-  validateValue(value: number) {
+  validateValue() {
     return typeof this.value === 'number' && this.value >= this.pmin && this.value <= this.pmax;
   }
 
   get showScale() {
-    return Array.isArray(this.scale) || (typeof this.scale === 'boolean' && this.scale);
+    return Array.isArray(this.scale) || typeof this.scale === 'number' || (typeof this.scale === 'boolean' && this.scale);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if ('min' in  changes || 'max' in  changes || 'scale' in  changes) {
       this.updateScalePoints();
+      this.updatePercentLeftKnob();
     }
     if ('value' in  changes) {
-      this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
+      this.updatePercentLeftKnob();
     }
   }
 
   setValue(value: number, updateKnob: boolean) {
     this.value = Number(value);
     if (updateKnob) {
-      this.percentLeftKnob = this.calculatePercentLeftKnob(value);
+      this.updatePercentLeftKnob();
     }
     this.valueChange.emit(this.value);
     this.onChange(this.value);
   }
 
   calculatePercentLeftKnob(value: number) {
-    if (!this.validateValue(value)) {
+    if (!this.validateValue()) {
       return 0;
     }
     const rangeLength = this.pmax - this.pmin;
@@ -137,9 +188,13 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     return 100 / delta;
   }
 
+  updatePercentLeftKnob() {
+    this.percentLeftKnob = this.calculatePercentLeftKnob(this.value);
+  }
+
   percentToValue(per: number): number {
     const rangeLength = this.pmax - this.pmin;
-    const newVal = (rangeLength / 100) * per;
+    const newVal = ((rangeLength / 100) * per) + this.pmin;
     return Math.round(newVal);
   }
 
@@ -160,7 +215,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
         steps = this.pmax - this.pmin + 1;
       }
       this.scalePoints = Array.from(Array(steps).keys()).map((i) => {
-        const percent = (100 / (steps - 1)) * i;
+        const percent = (100 / (steps - 1)) * (i);
         return {
           label: this.percentToValue(percent).toString(),
           percent
@@ -191,24 +246,26 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @HostListener('focus')
   onFocus() {
     this.focused = true;
+    this.stateChangeEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this.focused = false;
     this.onTouched();
+    this.stateChangeEmitter.next();
   }
 
   /**
    * clicking the rail should also reposition the bar
    */
-  @HostListener('tap', ['$event'])
-  onTap(event) {
-    if (this.disabled || event.target.className === 'vclSliderKnob') {
+  @HostListener('click', ['$event'])
+  onClick(event) {
+    if (this.isDisabled || event.target.className === 'vclSliderKnob') {
       return;
     }
 
-    const railX = event.changedPointers[0].offsetX;
+    const railX = event.offsetX;
     if (railX <= 0) {
       return;
     }
@@ -275,7 +332,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
 
   @HostListener('wheel', ['$event'])
   onWheel(ev) {
-    if (this.disabled || !this.mousewheel) {
+    if (this.disabled || !this.enableWheel) {
       return;
     }
     if (ev.deltaY < 0) {
@@ -340,6 +397,9 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     }
   }
 
+  onLabelClick(event: Event): void {
+
+  }
 
   /**
    * things needed for ControlValueAccessor-Interface
@@ -358,7 +418,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     this.onTouched = fn;
   }
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this._cvaDisabled = isDisabled;
     this.cdRef.markForCheck();
   }
 }

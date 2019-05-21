@@ -1,0 +1,61 @@
+<h3>Basic vcl-select-list</h3>
+
+<vcl-select-list [(value)]="value1">
+  <vcl-select-list-header>Europe</vcl-select-list-header>
+  <vcl-select-list-item value="gr">
+    <vcl-select-list-label>Greece</vcl-select-list-label>
+    <vcl-select-list-sublabel>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-select-list-sublabel>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="fr">
+    <vcl-select-list-label>France</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="de">
+    <vcl-select-list-label>Germany</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="gb">
+    <vcl-select-list-label>The United Kingdom of Great Britain and Northern Ireland</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-header>Asia</vcl-select-list-header>
+  <vcl-select-list-item value="jp">
+    <vcl-select-list-label>Japan</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="ch">
+    <vcl-select-list-label>China</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="th">
+    <vcl-select-list-label>Thailand</vcl-select-list-label>
+  </vcl-select-list-item>
+</vcl-select-list>
+
+Value: {{value1}}
+
+<h3>multi-select</h3>
+
+<vcl-select-list [(value)]="value2" selectionMode="multiple">
+  <vcl-select-list-header>Europe</vcl-select-list-header>
+  <vcl-select-list-item value="gr">
+    <vcl-select-list-label>Greece</vcl-select-list-label>
+    <vcl-select-list-sublabel>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-select-list-sublabel>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="fr">
+    <vcl-select-list-label>France</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="de">
+    <vcl-select-list-label>Germany</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="gb">
+    <vcl-select-list-label>The United Kingdom of Great Britain and Northern Ireland</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-header>Asia</vcl-select-list-header>
+  <vcl-select-list-item value="jp">
+    <vcl-select-list-label>Japan</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="ch">
+    <vcl-select-list-label>China</vcl-select-list-label>
+  </vcl-select-list-item>
+  <vcl-select-list-item value="th">
+    <vcl-select-list-label>Thailand</vcl-select-list-label>
+  </vcl-select-list-item>
+</vcl-select-list>
+
+Value: {{value2}}

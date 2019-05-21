@@ -1,0 +1,11 @@
+<div class="vclTooltip" role="tooltip"
+  [class.vclArrowPointerRight]="tooltip.position === 'left'"
+  [class.vclArrowPointerLeft]="tooltip.position === 'right'"
+  [class.vclArrowPointerTop]="tooltip.position === 'bottom'"
+  [class.vclArrowPointerBottom]="tooltip.position === 'top'"
+  >
+  <div class="vclTooltipContent" >
+    {{tooltip.content}}
+  </div>
+  <div *ngIf="tooltip.arrowPointer" class="vclArrowPointer"></div>
+</div>

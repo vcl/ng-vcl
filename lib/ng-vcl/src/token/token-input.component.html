@@ -1,17 +1,15 @@
 <div class="vclTokenContainer">
-  <wormhole *ngIf="labelPre" [connect]="labelPre"></wormhole>
   <vcl-token *ngFor="let token of tokens"
              (remove)="onTokenRemove(token)"
              (click)="select(token)"
-             [tokenIcon]="token.tokenIcon"
+             (blur)="onBlur()"
              [disabled]="disabled"
              [ngClass]="tokenClass"
              [selected]="token.selected"
              [removable]="true"
-             [icon]="removeIcon"
-             [attr.tabindex]="-1"
-             [label]="token.label">
+             [attr.tabindex]="-1">
+    {{token.label}}
   </vcl-token>
-  <wormhole *ngIf="labelPost" [connect]="labelPost"></wormhole>
 </div>
 <ng-content></ng-content>
+

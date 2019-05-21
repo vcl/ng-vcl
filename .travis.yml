@@ -6,6 +6,7 @@ branches:
   only:
   - dev
   - master
+  - v0.8
 
 before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc

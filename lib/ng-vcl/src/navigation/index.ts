@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLLinkModule } from '../link/index';
-import { VCLIconModule } from '../icon/index';
-import { NavigationComponent, NavigationItem, NavigationItemDirective } from './navigation.component';
+import { VCLIcogramModule } from '../icogram/index';
+import { NavigationComponent } from './navigation.component';
+import { NavigationItemComponent, NavigationLabelComponent } from './navigation-item.component';
 
-export { NavigationComponent, NavigationItem, NavigationItemDirective };
+export { NavigationComponent, NavigationItemComponent, NavigationLabelComponent };
 
 @NgModule({
-  imports: [CommonModule, VCLLinkModule, VCLIconModule],
-  exports: [NavigationComponent, NavigationItemDirective],
-  declarations: [NavigationComponent, NavigationItemDirective],
+  imports: [CommonModule, VCLIcogramModule],
+  exports: [NavigationComponent, NavigationItemComponent, NavigationLabelComponent],
+  declarations: [NavigationComponent, NavigationItemComponent, NavigationLabelComponent],
   providers: [],
 })
 export class VCLNavigationModule { }

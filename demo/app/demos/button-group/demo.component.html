@@ -1,23 +1,43 @@
-<h3>SelectionMode: Single</h3>
-<vcl-button-group [(ngModel)]="idx1">
-  <button vcl-button vcl-button-group>Action 1</button>
-  <button vcl-button vcl-button-group>Action 2</button>
-  <button vcl-button vcl-button-group>Action 3</button>
+<h3>Horizontal button group</h3>
+<vcl-button-group [(value)]="value1">
+  <button vcl-button [value]="1">One</button>
+  <button vcl-button [value]="2">Two</button>
+  <button vcl-button [value]="3">Three</button>
 </vcl-button-group>
-<p>Selected index: {{idx1}}</p>
+<p>Selected value: {{value1}}</p>
 
-<h3>SelectionMode: Multiple</h3>
-<vcl-button-group mode="multiple" [(ngModel)]="idx2">
-  <button vcl-button vcl-button-group>Action 1</button>
-  <button vcl-button vcl-button-group>Action 2</button>
-  <button vcl-button vcl-button-group>Action 3</button>
+<h3>Vertical button group</h3>
+<vcl-button-group class="vclVertical" style="width: 10em" [(value)]="value2">
+  <button vcl-button [value]="1">One</button>
+  <button vcl-button [value]="2">Two</button>
+  <button vcl-button [value]="3">Three</button>
 </vcl-button-group>
-<p>Selected index: {{idx2}}</p>
+<p>Selected value: {{value2}}</p>
+
+<h3>Horizontal button group (multiple selection)</h3>
+<vcl-button-group selectionMode="multiple" [(value)]="value3">
+  <button vcl-square-button [value]="'italic'">
+    <vcl-icon icon="fas:italic"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'bold'">
+    <vcl-icon icon="fas:bold"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'underline'">
+    <vcl-icon icon="fas:underline"></vcl-icon>
+  </button>
+</vcl-button-group>
+<p>Selected values: {{value3}}</p>
 
 
-<h3>Disabled</h3>
-<vcl-button-group [disabled]="true" mode="multiple">
-  <button vcl-button vcl-button-group>Action 1</button>
-  <button vcl-button vcl-button-group>Action 2</button>
-  <button vcl-button vcl-button-group>Action 3</button>
+<h3>Disabled button group</h3>
+<vcl-button-group [disabled]="true" selectionMode="multiple">
+  <button vcl-square-button [value]="'italic'">
+    <vcl-icon icon="fas:italic"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'bold'">
+    <vcl-icon icon="fas:bold"></vcl-icon>
+  </button>
+  <button vcl-square-button [value]="'underline'">
+    <vcl-icon icon="fas:underline"></vcl-icon>
+  </button>
 </vcl-button-group>

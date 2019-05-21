@@ -5,11 +5,13 @@ import {GalleryImageComponent} from './gallery-image.component';
 import {GalleryBodyComponent} from './gallery-body.component';
 import {GalleryFooterComponent} from './gallery-footer.component';
 import {GalleryThumbnailsComponent} from './gallery-thumbnails.component';
+import { VCLButtonModule } from '../button/index';
+import { VCLIconModule } from '../icon/index';
 
 export {GalleryAnimationConfig, GALLERY_ANIMATIONS};
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, VCLButtonModule, VCLIconModule],
   exports: [GalleryComponent, GalleryImageComponent, GalleryBodyComponent, GalleryFooterComponent, GalleryThumbnailsComponent],
   declarations: [GalleryComponent, GalleryImageComponent, GalleryBodyComponent, GalleryFooterComponent, GalleryThumbnailsComponent]
 })

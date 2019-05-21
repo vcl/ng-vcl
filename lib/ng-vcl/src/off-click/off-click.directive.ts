@@ -1,71 +1,77 @@
-import { NgModule, EventEmitter, Output, Input, Directive, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subscription ,  Observable ,  timer ,  fromEvent, merge } from 'rxjs';
-import { first, skipUntil, map, filter } from 'rxjs/operators';
+  // tslint:disable:no-input-rename
+import { EventEmitter, Output, Input, Directive, ElementRef, AfterViewInit, OnDestroy, Inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Observable ,  timer ,  fromEvent, merge, NEVER, Subject } from 'rxjs';
+import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
-  selector: '[offClick]',
-  exportAs: 'offClick'
+  selector: '[vclOffClick]',
+  exportAs: 'vclOffClick'
 })
-export class OffClickDirective implements AfterViewInit, OnDestroy {
+export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
 
-  @Input()
-  offClickDelay = 10;
+  constructor(@Inject(DOCUMENT) private document: any, private elementRef: ElementRef) { }
 
-  @Input()
-  offClickListen = true;
+  changes$ = new Subject();
 
-  @Input()
-  offClickExcludes?: (ElementRef | Element)[];
+  @Input('vclOffClickDelay')
+  delay = 0;
 
-  @Output()
-  offClick = new EventEmitter();
+  @Input('vclOffClickListen')
+  listen = true;
 
-  private subs: Subscription[] = [];
+  @Input('vclOffClickExcludes')
+  excludes: (ElementRef | Element)[] = [];
 
-  private hoveredElement?: Element;
+  @Output('vclOffClick')
+  offClick = new EventEmitter<MouseEvent | TouchEvent>();
 
-  constructor(private elem: ElementRef) { }
+  _sub = this.changes$.pipe(
+    switchMap(() => {
+      if (!this.elementRef || !this.listen) {
+        return NEVER;
+      } else {
+        return createOffClickStream([this.elementRef, ...this.excludes], {
+          delay: this.delay,
+          document: this.document
+        });
+      }
+    })
+  ).pipe(
+    filter(() => this.listen)
+  ).subscribe(this.offClick);
 
-  ngAfterViewInit() {
-    if (typeof document !== 'undefined') {
-
-      // Track mouse move on host element and store hovered inner elements
-      const subTrack = merge(
-        fromEvent<Event>(this.elem.nativeElement, 'mouseover').pipe(map((e) => e.target || undefined)),
-        fromEvent<Event>(this.elem.nativeElement, 'mouseleave').pipe(map(() => undefined))
-      ).subscribe((target) => this.hoveredElement = target as Element);
-
-      // Add a small delay, so any click that causes this directive to render does not trigger an off-click
-      const subClick = fromEvent<Event>(document, 'click').pipe(
-        filter(() => this.offClickListen),
-        skipUntil(timer(this.offClickDelay).pipe(first()))
-      ).subscribe(ev => {
-
-        const popoverHostElement = this.elem.nativeElement as Element;
-        // Check that the target is not the off-clicks target element or any sub element
-        const checks = [
-          this.hoveredElement,
-          popoverHostElement,
-          ...(this.offClickExcludes || []).map(e => e instanceof ElementRef ? e.nativeElement : e).filter(e => e instanceof Element) as Element[]
-        ].filter(el => !!el) as Element[];
-
-        const target = ev.target;
-
-        if (target) {
-          const targetIsNotExcludedElementOrChildElement = checks.every(el => {
-            return !(el === target || el.contains(target as Node));
-          });
-          if (targetIsNotExcludedElementOrChildElement) {
-            this.offClick.emit();
-          }
-        }
-      });
-
-      this.subs = [subTrack, subClick];
-    }
+  ngAfterViewInit(): void {
+    this.changes$.next();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.changes$.next();
+  }
   ngOnDestroy() {
-    this.subs.forEach(sub => sub.unsubscribe());
+    this._sub && this._sub.unsubscribe();
   }
 }
+
+export function createOffClickStream(elements: (ElementRef | Element)[], opts: { delay?: number; document?: Document} = {}): Observable<MouseEvent | TouchEvent> {
+  const doc = opts.document || (typeof document !== 'undefined' ? document : undefined);
+
+  if (!document) {
+    return NEVER;
+  }
+
+  const _elements: Element[] = elements.map(el => el instanceof ElementRef ? el.nativeElement : el).filter(el => el instanceof Element);
+
+  return merge(
+    fromEvent(doc, 'click') as Observable<MouseEvent>,
+    fromEvent(doc, 'touchend') as Observable<TouchEvent>
+  )
+  .pipe(
+    skipUntil(timer(opts.delay || 0).pipe(first())),
+    filter(event => {
+      const clickTarget = event.target as HTMLElement;
+      return _elements.every(element => clickTarget !== element && !element.contains(clickTarget));
+    }
+  ));
+}
+

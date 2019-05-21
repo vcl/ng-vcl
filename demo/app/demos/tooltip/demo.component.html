@@ -1,28 +1,34 @@
-<div style="display: flex;height:100px">
-  <div vcl-tooltip content="Tooltip on the top" style="background-color:#E6E6E6;flex:1">
+<div style="display: flex; height:100px">
+  <div vclTooltip="Tooltip on the top" style="background-color:#E6E6E6;flex:1">
     <p>Tooltip on the top</p>
   </div>
-  <div vcl-tooltip position="right" content="Tooltip on the right" style="background-color:#D8D8D8;flex:1">
+  <div vclTooltip="Tooltip on the right" vclTooltipPosition="right" style="background-color:#D8D8D8;flex:1">
     <p>Tooltip on the right</p>
   </div>
-  <div vcl-tooltip position="left" content="Tooltip on the left" style="background-color:#BDBDBD;flex:1">
+  <div vclTooltip="Tooltip on the left" vclTooltipPosition="left" style="background-color:#BDBDBD;flex:1">
     <p>Tooltip on the left</p>
   </div>
-  <div vcl-tooltip position="bottom" content="Tooltip on the bottom" style="background-color:#A4A4A4;flex:1">
+  <div vclTooltip="Tooltip on the bottom" vclTooltipPosition="bottom" style="background-color:#A4A4A4;flex:1">
     <p>Tooltip on the bottom</p>
   </div>
 </div>
-<div style="display: flex;height:100px">
-  <div #hostContainer1 style="background-color:#A4A4A4;flex:0.25">
-    <p>Custom tooltip</p>
-    <vcl-tooltip [hostElement]="hostContainer1" class="vclLayoutHorizontal vclLayoutCenter">
-      Custom tooltip
-    </vcl-tooltip>
+<div style="display: flex; height:100px; padding-top: 2em">
+  <div vclTooltip="Tooltip with no pointer arrow" [vclTooltipArrowPointer]="false" style="background-color:#E6E6E6;flex:1">
+    <p>Tooltip with no pointer arrow</p>
   </div>
-  <div #hostContainer2 style="background-color:#BDBDBD;flex:0.25">
-    <p>Custom tooltip with rich content</p>
-    <vcl-tooltip [hostElement]="hostContainer2" placement="right">
-      <vcl-demo-my-tooltip-sample></vcl-demo-my-tooltip-sample>
+  <div vclTooltip="Tooltip with delay before showing" [vclTooltipShowDelay]="500" style="background-color:#D8D8D8;flex:1">
+    <p>Tooltip with delay before showing</p>
+  </div>
+  <div vclTooltip="Tooltip with delay before hiding" [vclTooltipHideDelay]="500" style="background-color:#BDBDBD;flex:1">
+    <p>Tooltip with delay before hiding</p>
+  </div>
+  <div [vclTooltip]="tt" style="background-color:#A4A4A4;flex:1">
+    <p>Tooltip with rich content</p>
+    <vcl-tooltip #tt="vclTooltip">
+      <div class="vclLayoutHorizontal vclLayoutCenter">
+        <img src="http://lorempixel.com/50/50/cats/" />
+        <span class="vclGutterMarginLR">Tooltip with rich content </span>
+      </div>
     </vcl-tooltip>
   </div>
 </div>

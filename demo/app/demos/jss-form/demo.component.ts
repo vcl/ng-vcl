@@ -1,47 +1,53 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { JssFormComponent, markAsDeeplyTouched } from '@ng-vcl/jss-form';
-import { NotifierService } from '@ng-vcl/ng-vcl';
-import { HERO_SCHEMA, HERO_DEFAULTS } from './hero';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { JssFormComponent, NotifierService } from '@ng-vcl/ng-vcl';
+import { merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HERO_SCHEMA } from './hero';
 
 
 @Component({
   templateUrl: 'demo.component.html'
 })
-export class JssFormDemoComponent {
+export class JssFormDemoComponent implements AfterViewInit {
 
-  constructor(private ns: NotifierService) { }
+  constructor(private notifier: NotifierService) { }
 
   @ViewChild('heroForm')
   heroForm: JssFormComponent;
 
   heroSchema = HERO_SCHEMA;
 
-  value = {...HERO_DEFAULTS};
+  state$: Observable<any>;
 
-  onSubmit(value, valid) {
-    console.log('value', value);
-
-    if (valid) {
-      this.ns.success({
-        text: `${value.name} is a valid hero`
-      });
+  onSubmit() {
+    if (this.heroForm.ngForm.valid) {
+      this.notifier.success('Hero created');
     } else {
-      if (this.heroForm.form) {
-        markAsDeeplyTouched(this.heroForm.form);
-      }
-      this.ns.error({
-        text: `Your hero is not valid`
-      });
+     this.notifier.error('Hero invalid');
     }
   }
 
   onAction(action: string) {
-    if (action === 'reset' && this.heroForm.form) {
-      this.ns.warning({
-        text: `Hero rejected`
-      });
-      this.heroForm.form.reset({...HERO_DEFAULTS});
+    if (action === 'reset' && this.heroForm.ngForm) {
+      this.heroForm.ngForm.resetForm(this.heroForm.field.defaultValue);
+      this.notifier.info('Hero reset');
     }
   }
 
+  ngAfterViewInit() {
+    this.state$ = merge(this.heroForm.ngForm.statusChanges, this.heroForm.ngForm.valueChanges, this.heroForm.ngForm.ngSubmit).pipe(
+      map(() => {
+        return {
+          status: this.heroForm.ngForm.status,
+          valid: this.heroForm.ngForm.valid,
+          dirty: this.heroForm.ngForm.dirty,
+          submitted: this.heroForm.ngForm.submitted,
+          touched: this.heroForm.ngForm.touched,
+          pristine: this.heroForm.ngForm.pristine,
+          errors: this.heroForm.ngForm.errors,
+          value: this.heroForm.ngForm.value,
+        };
+      })
+    );
+  }
 }

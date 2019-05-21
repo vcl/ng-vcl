@@ -1,63 +1,94 @@
+<h3>Basic navigation</h3>
+
+<vcl-navigation>
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:home"></vcl-icon>
+        Home
+      </vcl-icogram>
+    </vcl-navigation-label>
+  </vcl-navigation-item>
+  <vcl-navigation-item #products="vclNavigationItem">
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend [icon]="products.opened ? 'fas:chevron-down' : 'fas:chevron-right'"></vcl-icon>
+        Products
+      </vcl-icogram>
+    </vcl-navigation-label>
+    <vcl-navigation>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:bicycle"></vcl-icon>
+            Product 1
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:bicycle"></vcl-icon>
+            Product 2
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+    </vcl-navigation>
+  </vcl-navigation-item>
+  <vcl-navigation-item #contact="vclNavigationItem">
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend [icon]="contact.opened ? 'fas:chevron-down' : 'fas:chevron-right'"></vcl-icon>
+        Contact
+      </vcl-icogram>
+    </vcl-navigation-label>
+    <vcl-navigation>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+            Contact 1
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+      <vcl-navigation-item>
+        <vcl-navigation-label>
+          <vcl-icogram>
+            <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+            Contact 2
+          </vcl-icogram>
+        </vcl-navigation-label>
+      </vcl-navigation-item>
+    </vcl-navigation>    
+  </vcl-navigation-item>
+</vcl-navigation>
+
 <h3>Horizontal navigation</h3>
 
-<nav vcl-navigation #nav1 (navigate)="onNavigate($event)" type="horizontal">
-  <vcl-navitem label="Home" prepIcon="fas:home" [route]="['/']"></vcl-navitem>
-  <vcl-navitem label="Products" prepIcon="fas:bicycle" [route]="['/products']"></vcl-navitem>
-  <vcl-navitem label="Contact" prepIcon="fas:envelope" [route]="['/contact']"></vcl-navitem>
-</nav>
-<br>
-
-<button vcl-button (click)="nav1.selectRoute(['/products'], true)" label="Select Products"></button>
-<br>
-
-<h3>Vertical navigation</h3>
-
-<nav vcl-navigation #nav2 type="vertical" (navigate)="onNavigate($event)">
-  <vcl-navitem label="Home" [route]="['/']"></vcl-navitem>
-  <vcl-navitem label="Products" appIcon="fas:bicycle">
-    <vcl-navitem label="Product 1" [route]="['/product', 1]"></vcl-navitem>
-    <vcl-navitem label="Product 2" [route]="['/product', 2]"></vcl-navitem>
-  </vcl-navitem>
-  <vcl-navitem label="Contact" [route]="['/contact']"></vcl-navitem>
-</nav>
-<br>
-
-<button vcl-button (click)="nav2.selectRoute(['/product', 2], true)" label="Select Product 2"></button>
-<br>
-
-<h3>Hover Event</h3>
-
-<nav vcl-navigation #nav3 (navigate)="onNavigate($event)" type="horizontal" (mouseout)="hoverName = undefined">
-  <vcl-navitem
-    label="Home"
-    prepIcon="fas:home"
-    [route]="['/']"
-    (onLeave)="hoverLastName = 'Home'"
-    (onHover)="hoverName = 'Home'">
-  </vcl-navitem>
-  <vcl-navitem
-    label="Products"
-    prepIcon="fas:bicycle"
-    [route]="['/products']"
-    (onLeave)="hoverLastName = 'Products'"
-    (onHover)="hoverName = 'Products'">
-  </vcl-navitem>
-  <vcl-navitem
-    label="Contact"
-    prepIcon="fas:envelope"
-    [route]="['/contact']"
-    (onLeave)="hoverLastName = 'Contact'"
-    (onHover)="hoverName = 'Contact'">
-  </vcl-navitem>
-</nav>
-Hovering item: {{ hoverName }}<br>
-Last Hovering item: {{ hoverLastName }}
-<br>
-
-<h3>Un-Selectable items</h3>
-
-<nav vcl-navigation #nav4 (navigate)="onNavigate($event)" type="horizontal">
-  <vcl-navitem label="Home" prepIcon="fas:home" [route]="['/']" [selectable]="false"></vcl-navitem>
-  <vcl-navitem label="Products" prepIcon="fas:bicycle" [route]="['/products']"></vcl-navitem>
-  <vcl-navitem label="Contact" prepIcon="fas:envelope" [route]="['/contact']" [selectable]="false"></vcl-navitem>
-</nav>
+<vcl-navigation layout="horizontal">
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:home"></vcl-icon>
+        Home
+      </vcl-icogram>
+    </vcl-navigation-label>
+  </vcl-navigation-item>
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:bicycle"></vcl-icon>
+        Products
+      </vcl-icogram>
+    </vcl-navigation-label>
+  </vcl-navigation-item>
+  <vcl-navigation-item>
+    <vcl-navigation-label>
+      <vcl-icogram>
+        <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+        Contacts
+      </vcl-icogram>
+    </vcl-navigation-label>
+  </vcl-navigation-item>
+</vcl-navigation>
+  

@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class DemoComponent implements OnInit {
 
   title: string;
-  tabs: {name: string, content: string}[] = [];
+  tabs: {name: string, type: string, content: any }[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -16,7 +17,7 @@ export class DemoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const data = this.activatedRoute.snapshot.data['demo']();
+    const data = this.activatedRoute.snapshot.data.demo();
     if (data) {
       this.title = data.label;
       if (data.tabs) {
@@ -32,7 +33,7 @@ export class DemoComponent implements OnInit {
             }
           } else if (typeof data.tabs[key] === 'function') {
             type = 'component';
-            content = data.tabs[key];
+            content = new ComponentPortal(data.tabs[key]);
           }
 
           return {

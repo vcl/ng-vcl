@@ -1,10 +1,9 @@
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { NgModule } from '@angular/core';
-import { ToolTipDemoComponent } from './demo.component';
 import { VCLTooltipModule } from '@ng-vcl/ng-vcl';
-import { SampleTooltipComponent } from './sampletooltip.component';
+import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
+import { ToolTipDemoComponent } from './demo.component';
 
 export function demo() {
   return {
@@ -38,11 +37,7 @@ export function demo() {
       data: { demo }
     }]),
   ],
-  entryComponents: [
-    ToolTipDemoComponent,
-  ],
-  declarations: [
-    ToolTipDemoComponent, SampleTooltipComponent
-  ]
+  entryComponents: [ ToolTipDemoComponent ],
+  declarations: [ ToolTipDemoComponent ]
 })
 export class ToolTipDemoModule { }

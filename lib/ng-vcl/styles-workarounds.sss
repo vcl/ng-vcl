@@ -1,0 +1,25 @@
+// TODO: remove vcl workarounds 
+.vclLayerBox
+  min-width: unset
+
+.vclPopOver
+  position: unset
+
+.vclTooltip
+  position: relative
+
+.vclInputGroupEmb, .vclFormControlGroup, .vclDropdownItem, .vclDropdownSeperator, .vclDropdownHeader, .vclFormInlineControlGroup, .vclNavigation, .vclNavigationItem
+  display: block
+
+.vclNavigation.vclLayoutHorizontal
+  flex-wrap: nowrap
+
+.vclDropdown
+  position: unset
+  z-index: unset
+  min-width: 0
+  max-height: 100%
+
+vcl-hint-warning
+  &.vclWarning
+    color: var(--warning-dark-color)

@@ -1,18 +1,17 @@
-<vcl-button-group [(ngModel)]="position" mode="single">
-  <button vcl-button vcl-button-group label="Top Right"></button>
-  <button vcl-button vcl-button-group label="Top"></button>
-  <button vcl-button vcl-button-group label="Top Left"></button>
-  <button vcl-button vcl-button-group label="Bottom Right"></button>
-  <button vcl-button vcl-button-group label="Bottom"></button>
-  <button vcl-button vcl-button-group label="Bottom Left"></button>
+<vcl-button-group [(value)]="position" mode="single">
+  <button vcl-button [value]="positions.TopRight">Top Right</button>
+  <button vcl-button [value]="positions.Top">Top</button>
+  <button vcl-button [value]="positions.TopLeft">Top Left</button>
+  <button vcl-button [value]="positions.BottomRight">Bottom Right</button>
+  <button vcl-button [value]="positions.Bottom">Bottom</button>
+  <button vcl-button [value]="positions.BottomLeft">Bottom Left</button>
 </vcl-button-group>
 
 <br><br>
 
-<button vcl-button (tap)="default()" label="An message"></button><br><br>
-<button vcl-button (tap)="info()" label="An info message"></button><br><br>
-<button vcl-button (tap)="success()" label="A success message"></button><br><br>
-<button vcl-button (tap)="warning()" label="A warning"></button><br><br>
-<button vcl-button (tap)="error()" label="An error message"></button><br><br>
-<button vcl-button (tap)="custom()" label="A custom message"></button><br><br>
-<button vcl-button (tap)="componentAsContent()" label="A custom component message"></button><br><br>
+<button vcl-button (click)="default()">An message</button><br><br>
+<button vcl-button (click)="info()">An info message</button><br><br>
+<button vcl-button (click)="success()">A success message</button><br><br>
+<button vcl-button (click)="warning()">A warning</button><br><br>
+<button vcl-button (click)="error()">An error message</button><br><br>
+<button vcl-button (click)="custom()">A custom message</button><br><br>

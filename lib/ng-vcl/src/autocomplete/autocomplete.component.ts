@@ -1,182 +1,144 @@
-import { Observable, combineLatest, Subscription, BehaviorSubject } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import { Component, Directive, ViewChild, Input, TemplateRef, ElementRef, ContentChildren, QueryList, forwardRef, AfterContentInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { PopoverComponent } from '../popover/index';
-import { ObservableComponent } from '../core/index';
-
-@Directive({
-  selector: 'vcl-autocomplete-option'
-})
-export class AutocompleteOptionDirective {
-  @Input()
-  type: 'item' | 'separator' | 'header' = 'item';
-  @Input()
-  value?: any;
-  @Input()
-  label?: string;
-  @Input()
-  sublabel?: string;
-  @Input()
-  disabled = false;
-}
-
-@Component({
-  selector: 'vcl-autocomplete-content',
-  template: '<ng-template><ng-content></ng-content></ng-template>'
-})
-export class AutocompleteContentComponent {
-  @ViewChild(TemplateRef)
-  templateRef: TemplateRef<any>;
-}
-
+import { Component, Input, ViewChild,
+  ElementRef, ContentChild, ChangeDetectorRef, Output, EventEmitter, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector, OnDestroy } from '@angular/core';
+import { NEVER, merge, Subscription } from 'rxjs';
+import { startWith, switchMap, filter, take, takeUntil } from 'rxjs/operators';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
+import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
+import { Directionality } from '@angular/cdk/bidi';
+import { SelectListComponent } from '../select-list/index';
+import { createOffClickStream } from '../off-click/index';
+import { LayerBase } from '../layer/index';
 
 @Component({
   selector: 'vcl-autocomplete',
+  templateUrl: 'autocomplete.component.html',
   exportAs: 'vclAutocomplete',
-  styles: [`
-    .vclDropdown {
-      padding: 0;
-      position: static;
-    }
-    .vclPopOver {
-      padding: 0;
-    }
-  `],
-  templateUrl: 'autocomplete.component.html'
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteComponent extends ObservableComponent implements AfterContentInit, OnDestroy {
+export class AutocompleteComponent extends LayerBase implements OnDestroy {
 
-  @ViewChild('popover')
-  popover: PopoverComponent;
-
-  @ContentChildren(forwardRef(() => AutocompleteOptionDirective))
-  items?: QueryList<AutocompleteOptionDirective>;
-
-  @ContentChildren(forwardRef(() => AutocompleteContentComponent))
-  content?: QueryList<AutocompleteContentComponent>;
-
-  @Input()
-  disabled = false;
-
-  @Output()
-  select = new EventEmitter<AutocompleteOptionDirective>();
-
-  target$ = new BehaviorSubject<any>(undefined);
-
-  items$ = new BehaviorSubject<AutocompleteOptionDirective[]>([]);
-  content$ = new BehaviorSubject<AutocompleteContentComponent[]>([]);
-
-  itemsVisible$ = combineLatest(this.target$, this.items$).pipe(map(([target, items]) => {
-    return !!target && items.length > 0;
-
-  }));
-
-  visible$ = combineLatest(this.target$, this.items$, this.content$).pipe(map(([target, items, content]) => {
-    return !!target && (items.length > 0 || content.length > 0);
-  }));
-
-  popoverWidth$ = this.target$.pipe(
-    map(target => {
-      if (target && target.element.nativeElement.offsetWidth) {
-        return target.element.nativeElement.offsetWidth + 'px';
-      } else {
-        return undefined;
-      }
-    })
-  );
-
-  itemsSub?: Subscription;
-  contentSub?: Subscription;
-
-  highlightedItem = -1;
-
-  open(targetElement: ElementRef): Observable<AutocompleteOptionDirective> {
-    this.highlightedItem = -1;
-
-    this.target$.next({
-      element: targetElement,
-      select: (ac: AutocompleteOptionDirective) => {
-        this.select.emit(ac);
-      },
-    });
-
-    return new Observable<AutocompleteOptionDirective>(observer => {
-      const sub = this.select.subscribe(observer);
-      return () => {
-        sub.unsubscribe();
-        this.target$.next(undefined);
-      };
-    });
+  constructor(
+    injector: Injector,
+    private _dir: Directionality,
+    private overlay: Overlay,
+    private viewContainerRef: ViewContainerRef,
+    private cdRef: ChangeDetectorRef,
+  ) {
+    super(injector);
   }
 
-  get visible(): boolean {
-    return !!this.target$.value;
+  private _dropdownOpenedSub?: Subscription;
+  private _target?: ElementRef<HTMLElement>;
+
+  @ContentChild(SelectListComponent)
+  selectList: SelectListComponent;
+
+  @ViewChild(TemplateRef)
+  templateRef: TemplateRef<any>;
+
+  @Input()
+  width?: number | string;
+
+  @Input()
+  height?: number | string;
+
+  @Input()
+  maxHeight?: number | string;
+
+  @Output()
+  afterClose = new EventEmitter<any | any[]>();
+
+  createPortal() {
+    return new TemplatePortal(this.templateRef, this.viewContainerRef);
+  }
+
+  get isOpen() {
+    return this.isAttached;
+  }
+
+  open(target: ElementRef<HTMLElement>, value: string) {
+    this.selectList.writeValue(value);
+    this._target = target;
+
+    const config = new OverlayConfig({
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      direction: this._dir,
+      width: this.width !== undefined ? this.width : target.nativeElement.getBoundingClientRect().width,
+      height: this.height,
+      maxHeight: this.maxHeight || '20em',
+      panelClass: [],
+      positionStrategy: this.overlay.position()
+      .flexibleConnectedTo(target)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top'
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'bottom'
+        }
+      ])
+    });
+    this.attach(config);
   }
 
   close() {
-    this.target$.next(undefined);
+    this.detach();
   }
 
-  highlightPrev() {
-    if (this.items) {
-      if (this.highlightedItem < 0) {
-        this.highlightedItem = this.items.toArray().findIndex(item => item.type === 'item');
-      } else {
-        const revIdx = this.items.toArray().reverse().findIndex((item, thisRevId, items) => {
-          const thisIdx = (items.length - 1) - thisRevId;
-          return item.type === 'item' && thisIdx < this.highlightedItem;
-        });
-        if (revIdx === - 1) {
-          this.highlightedItem = this.items.toArray().findIndex(item => item.type === 'item');
-        } else {
-          const idx = (this.items.length - 1) - revIdx;
-          this.highlightedItem = idx;
-        }
+  protected afterAttached(): void {
+    this.selectList.valueChange.pipe(
+      takeUntil(this.afterClose),
+      take(1)
+    ).subscribe((value) => {
+      if (this.isAttached) {
+        this.detach(value);
       }
-    }
-  }
-
-  get isHighlighted() {
-    return this.highlightedItem >= 0;
-  }
-
-  highlightNext() {
-    if (this.items) {
-      const idx = this.items.toArray().findIndex((item, thisIdx) => item.type === 'item' && thisIdx > this.highlightedItem);
-      if (idx > -1) {
-        this.highlightedItem = idx;
-      }
-    }
-  }
-
-  selectHighlighted(): boolean {
-    if (this.highlightedItem >= 0 && this.target$.value && this.items && this.items.toArray()[this.highlightedItem]) {
-      const item = this.items.toArray()[this.highlightedItem];
-      this.target$.value.select(item);
-      return true;
-    }
-    return false;
-  }
-
-  ngAfterContentInit(): void {
-    const items = this.items;
-    const content = this.content;
-    this.itemsSub = items && items.changes.pipe(
-      startWith(items.toArray()),
-      map(() => items.toArray())
-    ).subscribe(thisItems => {
-      this.items$.next(thisItems);
-      this.highlightedItem = -1;
     });
-    this.contentSub = content && content.changes.pipe(
-      startWith(content.toArray()),
-      map(() => content.toArray())
-    ).subscribe(this.content$);
+
+    this._dropdownOpenedSub = this.selectList.itemsChange.pipe(
+      // tslint:disable-next-line:deprecation
+      startWith(undefined),
+      switchMap(() => {
+        if (!this.isAttached) {
+          return NEVER;
+        }
+        return merge(
+          this.overlayRef.keydownEvents().pipe(
+            filter(event => {
+              return event.keyCode === ESCAPE;
+            })
+          ),
+          createOffClickStream([this.overlayRef.overlayElement, this._target.nativeElement], {
+            document: this.injector.get(DOCUMENT)
+          })
+        );
+      })
+    ).subscribe(() => {
+      this.detach();
+    });
   }
 
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-    this.itemsSub && this.itemsSub.unsubscribe();
-    this.contentSub && this.contentSub.unsubscribe();
+  protected afterDetached(result?: any) {
+    if (!this.isDestroyed) {
+      // We need to trigger change detection manually, because
+      // `fromEvent` doesn't seem to do it at the proper time.
+      this.cdRef.detectChanges();
+    }
+    this._target = undefined;
+    this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
+    this.selectList.highlight(undefined);
+    this.afterClose.emit(result);
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

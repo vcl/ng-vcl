@@ -1,28 +1,30 @@
 <div style="min-height:500px; width: 100%;">
-  <button vcl-button (tap)="popover1.toggle()" label="toggle popover"></button>
+  <button vcl-button [selectable]="true" [selected]="popover1.visible" (click)="popover1.toggle()">Toggle Popover</button>
   <div #target style="position: absolute; top: 300px; left: 200px; padding: 10px; border: 3px double green">
-    this is the target
+    The target
   </div>
 </div>
 
 <vcl-popover
   #popover1
   [target]="target"
-  [style]="style"
-  (willClose)="popover2.close()">
-  <div #target2>
-    popover text goes here <br>
-    <button vcl-button (tap)="popover2.open()" label="show popover2"></button>
-    <button vcl-button (tap)="popover1.close();" label="close popover"></button>
+  (afterClose)="popover2.close()">
+  <div style="width: 400px">
+    Popover is connected to the target <br>
+    <button vcl-button (click)="popover2.open()">Show additional Popover</button>
+    &nbsp;
+    <button vcl-button (click)="popover1.close();">Close Popovers</button>
   </div>
 </vcl-popover>
 
 <vcl-popover
   #popover2
-  [target]="target2"
-  targetX="right"
-  attachmentX="left"
-  targetY="top"
-  attachmentY="top">
-  popover 2 text goes here <br>
+  [target]="target"
+  originX="start"
+  originY="top"
+  overlayX="start"
+  overlayY="bottom">
+  <div style="width: 300px; height: 50px;">
+      Popover is connected to the target<br>
+  </div>
 </vcl-popover>

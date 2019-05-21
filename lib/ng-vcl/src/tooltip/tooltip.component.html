@@ -1,8 +1,13 @@
-﻿<div [@enterAnimation]="animationState || _animationState" [style.left]="tooltipPlacement.Left + 'px'" [style.top]="tooltipPlacement.Top + 'px'"
-  style="white-space:nowrap;" role="tooltip" [class]="tooltipPosition">
-  <div class="vclTooltipContent">
-    {{ content }}
-    <ng-content></ng-content>
+<ng-template let-tooltip="tooltip">
+  <div class="vclTooltip" role="tooltip"
+      [class.vclArrowPointerRight]="tooltip.position === 'left'"
+      [class.vclArrowPointerLeft]="tooltip.position === 'right'"
+      [class.vclArrowPointerTop]="tooltip.position === 'bottom'"
+      [class.vclArrowPointerBottom]="tooltip.position === 'top'"
+      >
+    <div class="vclTooltipContent">
+      <ng-content></ng-content>
+    </div>
+    <div *ngIf="tooltip.arrowPointer" class="vclArrowPointer"></div>
   </div>
-  <div [class.vclArrowPointer]="showArrowPointer"></div>
-</div>
+</ng-template>

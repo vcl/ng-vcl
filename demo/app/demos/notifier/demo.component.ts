@@ -17,11 +17,12 @@ export class NotifierDemoComponent {
 
   constructor(private notifier: NotifierService) {}
 
+  positions = NotifierPosition;
   position: NotifierPosition = NotifierPosition.TopRight;
 
   default() {
     this.notifier.queue({
-      text: 'An default message ' + cnt++,
+      text: 'A message ' + cnt++,
       position: this.position
     });
   }
@@ -53,17 +54,11 @@ export class NotifierDemoComponent {
     this.notifier.queue({
       text: '<b>A <i>custom</i> message</b>',
       html: true,
-      backgroundColor: 'black',
-      textColor: 'white',
+      // backgroundColor: 'black',
+      // textColor: 'white',
       position: this.position,
       showCloseButton: false,
       timeout: 10000
-    });
-  }
-  componentAsContent() {
-    this.notifier.info({
-      position: this.position,
-      contentComponentDetails: {contentComponentClass: NotifierContentComponent, attributes: {text: `notifier content custom component button ${cnt++}`}}
     });
   }
 

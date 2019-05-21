@@ -18,7 +18,7 @@ export class MonthPickerDemoComponent implements AfterViewInit {
 
   nextYearAvailable = false;
 
-  locales = 'lv-LV';
+  locales = 'en-us';
 
   dateOptions: any = {
     month: 'long'

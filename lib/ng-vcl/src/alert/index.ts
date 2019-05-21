@@ -5,12 +5,14 @@ import { VCLIcogramModule } from './../icogram/index';
 import { VCLButtonModule } from './../button/index';
 import { VCLLayerModule } from './../layer/index';
 import { VCLInputModule } from './../input/index';
+import { VCLIconModule } from '../icon/index';
+import { VCLBusyIndicatorModule } from '../busy-indicator/index';
 import { AlertComponent } from './alert.component';
-import { AlertInputComponent } from './alert-input.component';
+import { AlertInputDirective } from './input-alert.directive';
 import { AlertService } from './alert.service';
-import { AlertType, AlertError, AlertInput, AlertAlignment } from './types';
+import { AlertType, AlertInput, AlertAlignment, AlertResult } from './types';
 
-export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
+export { AlertService, AlertType, AlertInput, AlertAlignment, AlertResult };
 
 @NgModule({
   imports: [
@@ -19,10 +21,12 @@ export { AlertService, AlertType, AlertInput, AlertError, AlertAlignment };
     VCLButtonModule,
     VCLInputModule,
     VCLIcogramModule,
-    VCLLayerModule.forChild({layers: []})
+    VCLIconModule,
+    VCLBusyIndicatorModule,
+    VCLLayerModule
   ],
   exports: [],
-  declarations: [ AlertComponent, AlertInputComponent ],
+  declarations: [ AlertComponent, AlertInputDirective ],
   entryComponents: [ AlertComponent ],
   providers: [ AlertService ],
 })

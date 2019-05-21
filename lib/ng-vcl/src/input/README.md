@@ -15,18 +15,15 @@ export class AppComponent {}
 ```
 
 ```html
-<input vcl-input [(ngModel)]="data">
-<input vcl-input autoselect>
+<input vclInput [(ngModel)]="data">
+<input vclInput autoselect=true>
 ```
 
 ### API
 
-#### vcl-input attributes
+#### vclInput attributes
 
 Name            | Type    | Default | Description
 --------------- | ------- | ------- | -----------------------------------------------
 `disabled`      | boolean | false   | Disables the input when true
-
-#### Directives
-
-`input[vcl-input][autoselect]`      | selects text on focus
+`autoselect`    | boolean | false   | Selects text on focus

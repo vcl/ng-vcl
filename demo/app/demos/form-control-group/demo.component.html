@@ -1,0 +1,160 @@
+<form novalidate [formGroup]="formGroup" #form="ngForm" class="vclForm" (submit)="onSubmit()">
+    <h2>Create your hero</h2>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Name<vcl-required></vcl-required></label>
+      <input vclInput formControlName="name" placeholder="Name of the hero">
+      <vcl-hint-error error="required">Name is required</vcl-hint-error>
+      <vcl-hint-error error="minlength">Name must have a length of at least 2 characters</vcl-hint-error>
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Description</label>
+      <textarea vclInput formControlName="description" placeholder="Description of the hero" [autogrow]="true" [minRows]="3" [maxRows]="10"></textarea>
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Leader</label>
+      <vcl-flip-switch formControlName="leader"></vcl-flip-switch>
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Picture</label>
+      <vcl-file-input [multiple]="false" formControlName="picture">Picture of the hero</vcl-file-input>
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Email</label>
+      <vcl-embedded-input-group>
+        <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+        <input vclInput formControlName="email">
+      </vcl-embedded-input-group>
+      <vcl-hint-error error="required">Email is required</vcl-hint-error>
+      <vcl-hint-error error="email">Invalid Email address</vcl-hint-error>
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Gender<vcl-required></vcl-required></label>
+      <vcl-radio-group formControlName="gender">
+        <label vclRadioButtonLabel>
+          <vcl-radio-button value="m">Male</vcl-radio-button>
+          <vcl-icogram>
+            Male
+            <vcl-icon vclAppend icon="fas:mars"></vcl-icon>
+          </vcl-icogram>
+        </label>
+        <label vclRadioButtonLabel>
+          <vcl-radio-button value="f"></vcl-radio-button>
+          <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
+        </label>
+        <label vclRadioButtonLabel>
+          <vcl-radio-button value="g"></vcl-radio-button>
+          <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
+        </label>
+        <vcl-hint-error error="required">You must select a gender</vcl-hint-error>
+      </vcl-radio-group>
+  
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Alignment<vcl-required></vcl-required></label>
+      <vcl-button-group formControlName="alignment">
+        <button vcl-button [value]="'good'">Good</button>
+        <button vcl-button [value]="'neutral'">Neutral</button>
+        <button vcl-button [value]="'evil'">Evil</button>
+      </vcl-button-group>
+      <vcl-hint-error error="required">You must select an alignment</vcl-hint-error>
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Hit points<vcl-required></vcl-required></label>
+      <vcl-slider formControlName="hitpoints" [min]="5" [max]="20" [scale]="16" [lock]="true"></vcl-slider>
+    </vcl-form-control-group>
+
+    <h3>Skills</h3>
+  
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Strength (<vcl-rating-item-label [target]="strengthRating"></vcl-rating-item-label>)</label>
+      <vcl-rating formControlName="strength" #strengthRating="vclRating">
+          <vcl-rating-item>1</vcl-rating-item>
+          <vcl-rating-item>2</vcl-rating-item>
+          <vcl-rating-item>3</vcl-rating-item>
+          <vcl-rating-item>4</vcl-rating-item>
+          <vcl-rating-item>5</vcl-rating-item>
+      </vcl-rating>
+    </vcl-form-control-group>
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Agility (<vcl-rating-item-label [target]="agilityRating"></vcl-rating-item-label>)</label>
+      <vcl-rating formControlName="agility" #agilityRating="vclRating">
+        <vcl-rating-item>1</vcl-rating-item>
+        <vcl-rating-item>2</vcl-rating-item>
+        <vcl-rating-item>3</vcl-rating-item>
+        <vcl-rating-item>4</vcl-rating-item>
+        <vcl-rating-item>5</vcl-rating-item>
+      </vcl-rating>
+    </vcl-form-control-group>
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Intelligence (<vcl-rating-item-label [target]="intelligenceRating"></vcl-rating-item-label>)</label>
+      <vcl-rating formControlName="intelligence" #intelligenceRating="vclRating">
+        <vcl-rating-item>1</vcl-rating-item>
+        <vcl-rating-item>2</vcl-rating-item>
+        <vcl-rating-item>3</vcl-rating-item>
+        <vcl-rating-item>4</vcl-rating-item>
+        <vcl-rating-item>5</vcl-rating-item>
+      </vcl-rating>
+    </vcl-form-control-group>
+    <vcl-hint *ngIf="!form.hasError('skills')" [style.color]="skillPointsAvailable > 0 ? 'orange' : null">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint>
+    <vcl-hint-error *ngIf="form.hasError('skills')">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint-error>
+
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Perks<vcl-required></vcl-required></label>
+      <vcl-select placeholder="Select perks">
+        <vcl-select-list formControlName="perks"  selectionMode="multiple">
+          <vcl-select-list-item [value]="'snakeeater'">
+            <vcl-select-list-label>Snake Eater</vcl-select-list-label>
+            <vcl-select-list-sublabel>It gives you a 25% increase to your poison resistance.	</vcl-select-list-sublabel>
+          </vcl-select-list-item>
+          <vcl-select-list-item [value]="'swiftlearner'">
+            <vcl-select-list-label>Swift Learner</vcl-select-list-label>
+            <vcl-select-list-sublabel>Swift Learner	Whenever you gain experience, you'll receive 5% more experience per level of the perk.</vcl-select-list-sublabel>
+          </vcl-select-list-item>
+          <vcl-select-list-item [value]="'toughness'">
+            <vcl-select-list-label>Toughness</vcl-select-list-label>
+            <vcl-select-list-sublabel>It adds 10% to your general damage resistance per level.</vcl-select-list-sublabel>
+          </vcl-select-list-item>
+          <vcl-select-list-item [value]="'explorer'">
+            <vcl-select-list-label>Explorer</vcl-select-list-label>
+            <vcl-select-list-sublabel>You'll get more random encounters with this perk.</vcl-select-list-sublabel>
+          </vcl-select-list-item> 
+        </vcl-select-list>
+      </vcl-select>
+      <vcl-hint-error error="perks">You must select two perks</vcl-hint-error>
+    </vcl-form-control-group>
+  
+    <vcl-form-control-group>
+      <label vclCheckboxLabel>
+        <vcl-checkbox formControlName="terms" [errorStateAgent]="termsErrorStateAgent"></vcl-checkbox>
+        Agree to our terms<vcl-required></vcl-required>
+      </label>
+      <vcl-hint>Read the <a href="'https://github.com/ng-vcl/ng-vcl'" target="'_blank'">terms</a> to learn how we collect, use and share your data</vcl-hint>
+      <vcl-hint-error error="termsDisagree">You must agree to our Terms</vcl-hint-error>
+    </vcl-form-control-group>
+  
+    <div class="vclLooseButtonGroup">
+      <button vcl-button type="submit" class="vclEmphasized">Submit</button>
+      <button vcl-button type="button" (click)="onReset()">Reset</button>
+    </div>
+  
+    <div class="value">
+      <h4>Form</h4>
+      <pre>status: {{ form.status }}</pre>
+      <pre>valid: {{ form.valid }}</pre>
+      <pre>dirty: {{ form.dirty }}</pre>
+      <pre>submitted: {{ form.submitted }}</pre>
+      <pre>touched: {{ form.touched }}</pre>
+      <pre>pristine: {{ form.pristine }}</pre>
+      <pre>errors: {{ form.errors | json }}</pre>
+      <pre>value: {{ form.value | json }}</pre>
+    </div>
+  </form>
+  

@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { VCLLayerModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { VCLLayerModule, VCLButtonModule, VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
-import { FooLayer, FooComponent } from './foo.layer';
+import { FooComponent, FooLayer } from './foo.component';
 import { BarComponent } from './bar.component';
-import { LayerDemoCanDeactivateGuard } from './demo.guard';
 
 export function demo() {
   return {
@@ -25,17 +24,13 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-      'demo.guard.ts': {
+      'foo.component.html': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./demo.guard.ts')
+        content: require('!highlight-loader?raw=true&lang=html!./foo.component.html')
       },
-      'foo.layer.html': {
+      'foo.component.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./foo.layer.html')
-      },
-      'foo.layer.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./foo.layer.ts')
+        content: require('!highlight-loader?raw=true&lang=ts!./foo.component.ts')
       },
       'bar.component.html': {
         type: 'pre',
@@ -53,27 +48,27 @@ export function demo() {
   imports: [
     CommonModule,
     DemoModule,
-    VCLLayerModule.forChild({layers: [FooLayer]}),
+    VCLLayerModule,
     VCLButtonModule,
+    VCLIconModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
       data: {demo},
-      canDeactivate: [LayerDemoCanDeactivateGuard],
     }]),
-  ],
-  providers: [
-    LayerDemoCanDeactivateGuard
   ],
   entryComponents: [
     LayerDemoComponent,
-    FooComponent,
-    BarComponent
+    BarComponent,
+    FooComponent
   ],
   declarations: [
     LayerDemoComponent,
-    FooComponent,
-    BarComponent
+    BarComponent,
+    FooComponent
+  ],
+  providers: [
+    FooLayer
   ]
 })
 export class LayerDemoModule { }

@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ng-vcl wc demo</title>
+</head>
+
+<body>
+
+<div style="margin-left: 10px;">
+
+  <h3>Flip Switch</h3>
+  <vcl-flip-switch></vcl-flip-switch>
+
+  <h3>Busy Indicator</h3>
+  <vcl-busy-indicator>Loading</vcl-busy-indicator>
+
+  <h3>Button</h3>
+  <button is="vcl-button">Button</button>
+
+  <h3>Icon Button </h3>
+  <button is="vcl-icon-button" icon="fas:bolt" title="Square Button"></button>
+
+  <h3>Icogram Button </h3>
+  <!--dash-case is converted to camelCase (prep-icon -> prepIcon) -->
+  <button is="vcl-icogram-button" app-icon="fas:clock">Label button with appended icon</button>
+  <button is="vcl-icogram-button" prep-icon="fas:bolt">Label button with prepended icon</button>
+  <button is="vcl-icogram-button" app-icon="fas:bolt" prep-icon="fas:bolt">Label button with prepended and appended icon</button>
+
+</div>
+</body>
+</html>

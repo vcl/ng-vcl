@@ -2,14 +2,15 @@
 
 <vcl-tab-nav >
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab1</ng-template>
+    <vcl-tab-label>Tab1</vcl-tab-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab2</ng-template>
+      <vcl-tab-label>Tab2</vcl-tab-label>
     Content2
   </vcl-tab>
-  <vcl-tab [disabled]="true"><ng-template vcl-tab-label>Tab3 disabled</ng-template>
+  <vcl-tab [disabled]="true">
+    <vcl-tab-label>Tab3</vcl-tab-label>
     Content3
   </vcl-tab>
 </vcl-tab-nav>
@@ -20,12 +21,16 @@
 
 <vcl-tab-nav layout="right" tabContentClass="vclSpan-70p" tabsClass="vclSpan-30p">
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab1</ng-template>
+    <vcl-tab-label>Tab1</vcl-tab-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab2</ng-template>
+      <vcl-tab-label>Tab2</vcl-tab-label>
     Content2
+  </vcl-tab>
+  <vcl-tab [disabled]="true">
+    <vcl-tab-label>Tab3</vcl-tab-label>
+    Content3
   </vcl-tab>
 </vcl-tab-nav>
 
@@ -35,38 +40,67 @@
 
 <vcl-tab-nav layout="left" tabContentClass="vclSpan-70p" tabsClass="vclSpan-30p">
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab1</ng-template>
+    <vcl-tab-label>Tab1</vcl-tab-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab2</ng-template>
+      <vcl-tab-label>Tab2</vcl-tab-label>
     Content2
+  </vcl-tab>
+  <vcl-tab [disabled]="true">
+    <vcl-tab-label>Tab3</vcl-tab-label>
+    Content3
   </vcl-tab>
 </vcl-tab-nav>
 
 <hr>
 
-<h3>With borders=true</h3>
+<h3>With borders</h3>
 
 <vcl-tab-nav borders=true>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab1</ng-template>
+    <vcl-tab-label>Tab1</vcl-tab-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab2</ng-template>
+      <vcl-tab-label>Tab2</vcl-tab-label>
     Content2
+  </vcl-tab>
+  <vcl-tab [disabled]="true">
+    <vcl-tab-label>Tab3</vcl-tab-label>
+    Content3
   </vcl-tab>
 </vcl-tab-nav>
 
-<h3>Shared content template</h3>
+<hr>
+
+
+<h3>Shared content</h3>
 
 <vcl-tab-nav [(selectedTabIndex)]="tabIndex">
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab1</ng-template>
+    <vcl-tab-label>Tab1</vcl-tab-label>
   </vcl-tab>
   <vcl-tab>
-    <ng-template vcl-tab-label>Tab2</ng-template>
+      <vcl-tab-label>Tab2</vcl-tab-label>
+  </vcl-tab>
+  <vcl-tab [disabled]="true">
+    <vcl-tab-label>Tab3</vcl-tab-label>
   </vcl-tab>
   Shared Content Tab: {{tabIndex}}
+</vcl-tab-nav>
+
+
+<h3>No content</h3>
+
+<vcl-tab-nav>
+  <vcl-tab>
+    <vcl-tab-label>Tab1</vcl-tab-label>
+  </vcl-tab>
+  <vcl-tab>
+      <vcl-tab-label>Tab2</vcl-tab-label>
+  </vcl-tab>
+  <vcl-tab [disabled]="true">
+    <vcl-tab-label>Tab3</vcl-tab-label>
+  </vcl-tab>
 </vcl-tab-nav>

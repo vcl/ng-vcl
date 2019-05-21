@@ -1,0 +1,5 @@
+<ng-container *ngFor="let hint of hints$ | async">
+  <vcl-hint *ngIf="hint.type === 'default'">{{ hint.message }}</vcl-hint>
+  <vcl-hint-warning *ngIf="hint.type === 'warning'" >{{ hint.message }}</vcl-hint-warning>
+  <vcl-hint-error *ngIf="hint.type === 'error'" [error]="hint.error">{{ hint.message }}</vcl-hint-error>
+</ng-container>       

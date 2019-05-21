@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { VCLBusyIndicatorModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { BusyDemoComponent } from './demo.component';
+import { VCLIconModule } from '@ng-vcl/ng-vcl/icon';
 
 export function demo() {
   return {
-    label: 'Busy',
+    label: 'Busy Indicator',
     tabs: {
       Demo: BusyDemoComponent,
       'README.md': {
@@ -31,6 +32,7 @@ export function demo() {
     CommonModule,
     DemoModule,
     VCLButtonModule,
+    VCLIconModule,
     VCLBusyIndicatorModule,
     RouterModule.forChild([{
       path: '',

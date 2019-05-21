@@ -1,47 +1,38 @@
-<h3>vcl-input with fixed data</h3>
+<h3>Basic autocomplete</h3>
 
-<vcl-embedded-input-group prepIcon="fas:search">
-  <input vcl-input vcl-embedded-input-group placeholder="Search"  [vcl-input-autocomplete]="acCountry" (change)="onChange($event);" />
+<vcl-embedded-input-group>
+  <vcl-icon vclPrepend icon="fas:flag"></vcl-icon>
+  <input placeholder="Search"
+         vclInput
+         [vclAutocomplete]="acCountries"
+         />
 </vcl-embedded-input-group>
 
-<h3>vcl-token-input with fixed data</h3>
-
-<vcl-token-input-container (tokensChange)="onChange($event)">
-  <input vcl-input placeholder="Search for country to add" [vcl-token-input-autocomplete]="acCountry" />
-</vcl-token-input-container>
-
-<vcl-autocomplete #acCountry="vclAutocomplete">
-  <vcl-autocomplete-option type="header" label="Europe"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Greece" value="gr"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="France" value="fr"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Germany" value="de"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="The United Kingdom of Great Britain and Northern Ireland" value="uk"></vcl-autocomplete-option>
-  <vcl-autocomplete-option type="header" label="Asia"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Japan" value="jp"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="China" value="cn"></vcl-autocomplete-option>
-  <vcl-autocomplete-option label="Thailand" value="th"></vcl-autocomplete-option>
-</vcl-autocomplete>
-
-<h3>vcl-token-input with async data</h3>
-
-<vcl-token-input-container (tokensChange)="onChange($event)">
-  <input vcl-input
-         placeholder="Search for books to add"
-         [vcl-token-input-autocomplete]="acBooks"
-         (input)="booksInput$.next($event.target.value)"
-         (autocompleteSelect)="booksInput$.next('')" />
-</vcl-token-input-container>
-
-<vcl-autocomplete #acBooks="vclAutocomplete">
-  <ng-container *ngIf="ac$ | async as ac">
-    <vcl-autocomplete-content *ngIf="ac.state === 'loading'">
-      <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
-    </vcl-autocomplete-content>
-    <ng-container *ngIf="ac.state === 'success' && ac.books.length > 0">
-      <vcl-autocomplete-option *ngFor="let book of ac.books" [label]="book.title" [value]="book.id"></vcl-autocomplete-option>
-    </ng-container>
-    <vcl-autocomplete-content *ngIf="ac.state === 'success' && ac.books.length === 0">
-      <div style="padding: 1em">No books found</div>
-    </vcl-autocomplete-content>
-  </ng-container>
+<vcl-autocomplete #acCountries="vclAutocomplete">
+  <vcl-select-list>
+    <vcl-select-list-header>Europe</vcl-select-list-header>
+    <vcl-select-list-item value="Greece">
+      <vcl-select-list-label>Greece</vcl-select-list-label>
+      <vcl-select-list-sublabel>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-select-list-sublabel>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="France">
+      <vcl-select-list-label>France</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="Germany">
+      <vcl-select-list-label>Germany</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="The United Kingdom">
+      <vcl-select-list-label>The United Kingdom of Great Britain and Northern Ireland</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-header>Asia</vcl-select-list-header>
+    <vcl-select-list-item value="Japan">
+      <vcl-select-list-label>Japan</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="China">
+      <vcl-select-list-label>China</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="Thailand">
+      <vcl-select-list-label>Thailand</vcl-select-list-label>
+    </vcl-select-list-item>
+  </vcl-select-list>
 </vcl-autocomplete>

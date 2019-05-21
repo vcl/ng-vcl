@@ -1,24 +1,47 @@
 <h3>single-select</h3>
-<vcl-select [value]="3" label="Single select" (change)="onChange($event)" [tabindex]="1">
-  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel"></vcl-select-option>
+<vcl-select>
+  <vcl-select-list [(value)]="value1">
+    <vcl-select-list-item label=" - ">
+      <vcl-select-list-label>None</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-header>Europe</vcl-select-list-header>
+    <vcl-select-list-item value="gr">
+      <vcl-select-list-label>Greece</vcl-select-list-label>
+      <vcl-select-list-sublabel>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-select-list-sublabel>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="fr">
+      <vcl-select-list-label>France</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="de">
+      <vcl-select-list-label>Germany</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="gb" label="United Kingdom">
+      <vcl-select-list-label>The United Kingdom of Great Britain and Northern Ireland</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-header>Asia</vcl-select-list-header>
+    <vcl-select-list-item value="jp">
+      <vcl-select-list-label>Japan</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="cn">
+      <vcl-select-list-label>China</vcl-select-list-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="th">
+      <vcl-select-list-label>Thailand</vcl-select-list-label>
+    </vcl-select-list-item>
+  </vcl-select-list>
 </vcl-select>
+
+<p> Selected value: {{value1}}</p>
 
 <br>
-<h3>single-select with prepended icons</h3>
-<vcl-select [value]="3" label="Single select" (change)="onChange($event)" [tabindex]="1">
-  <vcl-select-option *ngFor="let item of items" prepIcon="fas:circle" [value]="item.value" [label]="item.label"
-                     [sublabel]="item.sublabel"></vcl-select-option>
+
+<h3>multi-select</h3>
+<vcl-select placeholder="Select items">
+  <vcl-select-list [(value)]="value2" selectionMode="multiple" >
+    <vcl-select-list-item *ngFor="let item of items" [value]="item.value">
+      <vcl-select-list-label>{{item.label}}</vcl-select-list-label>
+    </vcl-select-list-item>
+  </vcl-select-list>
 </vcl-select>
 
-<br>
-<h3>multi-select, 3 items selectable</h3>
-<vcl-select [value]="[3]"  (change)="onChange($event)" mode="multiple" [maxSelectableItems]="3" [tabindex]="2">
-  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel"></vcl-select-option>
-</vcl-select>
-
-
-<h3>Single select with ngModel</h3>
-<vcl-select label="Single select" [(ngModel)]="value" [tabindex]="3">
-  <vcl-select-option *ngFor="let item of items" [value]="item.value" [label]="item.label" [sublabel]="item.sublabel"></vcl-select-option>
-</vcl-select>
-<br>Current value: {{value}}
+<p> Selected values: {{value2}}</p>

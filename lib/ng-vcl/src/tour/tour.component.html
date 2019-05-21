@@ -1,13 +1,12 @@
 <vcl-popover #popover
-  [debug]="debugPopover"
   [visible]="visible"
   [target]="target"
-  [targetX]="targetX"
-  [attachmentX]="attachmentX"
-  [offsetAttachmentX]="offsetAttachmentX"
-  [targetY]="targetY"
-  [attachmentY]="attachmentY"
-  [offsetAttachmentY]="offsetAttachmentY"
+  [originX]="originX"
+  [overlayX]="overlayX"
+  [offsetX]="offsetX"
+  [originY]="originY"
+  [overlayY]="overlayY"
+  [offsetY]="offsetY"
   [style.z-index]="tour.options?.zIndex">
 
   <div class="vclTourContainer">
@@ -22,29 +21,32 @@
 
     <div class="vclTourContainerFooter">
       
-      <button vcl-button *ngIf="hasPrevious"
+      <button vcl-button type="button" *ngIf="hasPrevious"
         [ngClass]="tour.options?.buttonClass"
-        [label]="tour.options?.previousLabel"
-        [prepIcon]="tour.options?.previousIcon"
         (click)="previous()">
+        <vcl-icogram>
+          {{tour.options?.previousLabel}}
+          <vcl-icon vclPrepend *ngIf="tour.options?.previousIcon" [icon]="tour.options?.previousIcon"></vcl-icon>
+        </vcl-icogram>
       </button>
 
-      <button vcl-button *ngIf="hasNext"
+      <button vcl-button type="button" *ngIf="hasNext"
         [ngClass]="tour.options?.buttonClass"
-        [label]="tour.options?.nextLabel"
-        [appIcon]="tour.options?.nextIcon"
         (click)="next()">
+        <vcl-icogram>
+          {{tour.options?.nextLabel}}
+          <vcl-icon vclAppend *ngIf="tour.options?.nextIcon" [icon]="tour.options?.nextIcon"></vcl-icon>
+        </vcl-icogram>
       </button>
 
-      <button vcl-button
+      <button vcl-button type="button"
         [ngClass]="tour.options?.buttonClass"
-        [label]="tour.options?.exitLabel"
-        [prepIcon]="tour.options?.exitIcon"
         (click)="exit()">
+        <vcl-icogram>
+          <vcl-icon vclPrepend *ngIf="tour.options?.exitIcon" [icon]="tour.options?.exitIcon"></vcl-icon>
+          {{tour.options?.exitLabel}}
+        </vcl-icogram>
       </button>
-
     </div>
-    
   </div>
-
 </vcl-popover>

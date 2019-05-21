@@ -1,0 +1,20 @@
+<div class="vclPanel vclPanelDialog vclNoMargin">
+  <div class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
+    <h3 class="vclPanelTitle">{{title}}</h3>
+    <button vcl-square-button class="vclTransparent" (click)="close()">
+      <vcl-icon icon="fas:times"></vcl-icon>
+    </button>
+  </div>
+  <div class="vclPanelBody">
+    <p class="vclPanelContent">
+      foo layer content
+    </p>
+  </div>
+  <div class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
+    <div></div>
+    <div class="vclLooseButtonGroup">
+      <button vcl-button class="vclTransparent vclOutline" (click)="close()">Close Layer</button>
+      <button vcl-button class="vclEmphasized" (click)="close('data')">Close Layer with result</button>
+    </div>
+  </div>
+</div>

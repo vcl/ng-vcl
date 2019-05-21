@@ -33,7 +33,7 @@ export class CalendarDate {
 
   constructor(date?: Date) {
     if (!(date instanceof Date)) {
-      date = new Date;
+      date = new Date();
     }
     this.date = date;
   }
@@ -122,8 +122,8 @@ export class CalendarDate {
   }
 
   /**
-    * Gets the number of days in the month for the given date's month
-    */
+   * Gets the number of days in the month for the given date's month
+   */
   getNumberOfDaysInMonth(date: Date): number {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   }
@@ -138,8 +138,8 @@ export class CalendarDate {
   }
 
   /**
-    * Gets whether two dates have the same month and year
-    */
+   * Gets whether two dates have the same month and year
+   */
   isSameMonthAndYear(date: CalendarDate = new CalendarDate()): boolean {
     return this.date.getFullYear() === date.date.getFullYear() && this.date.getMonth() === date.date.getMonth();
   }

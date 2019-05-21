@@ -1,70 +1,31 @@
-Press escape to close the top layer<br><br>
+<button vcl-button (click)="layer.open()">Open template layer</button>
+<br><br>
+<button vcl-button (click)="openFooLayer()">Open foo component</button>
+<br><br>
+<button vcl-button (click)="openBarLayer()">Open bar component layer</button>
 
-<button vcl-button (tap)="layerNonModal.open()" label="open non-modal layer per reference"></button><br><br>
-<button vcl-button (tap)="layerModal.open()" label="open modal layer per reference"></button><br><br>
-<button vcl-button (tap)="openLayer()" label="open layer programmatically"></button><br><br>
-<button vcl-button (tap)="openFooLayer()" label="open FooComponent layer"></button><br><br>
-<button vcl-button (tap)="openBarLayer()" label="open dynamic BarComponent layer"></button>
-
-<ng-template vcl-layer #layerNonModal="layer" [modal]="false">
+<vcl-layer #layer="vclLayer">
   <div class="vclPanel vclPanelDialog vclNoMargin">
     <div class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
       <h3 class="vclPanelTitle">
-        Non-modal layer title goes here
+        Layer
       </h3>
-      <button type="button" class="vclButton vclTransparent" (tap)="layerNonModal.close()">
-        <div class="vclIcogram">
-          <div class="vclIcon fas fa-times" aria-hidden="true" aria-label="Close" role="img"></div>
-        </div>
+      <button vcl-square-button class="vclTransparent" (click)="layer.close()">
+        <vcl-icon icon="fas:times"></vcl-icon>
       </button>
     </div>
     <div class="vclPanelBody">
       <p class="vclPanelContent">
-        Non-modal layer text goes here
+        Press escape or click outside of layer to close<br><br>
       </p>
     </div>
     <div class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
       <div></div>
       <div class="vclLooseButtonGroup">
-        <button type="button" class="vclButton vclTransparent vclOutline" (tap)="layerNonModal.close()">
-          <div class="vclIcogram">
-            <span class="vclText">Close Layer</span>
-          </div>
-        </button>
+        <button vcl-button icon="fas:times" class="vclTransparent vclOutline" (click)="layer.close()">Close layer</button>
+        <button vcl-button icon="fas:times" class="vclEmphasized" (click)="openFooLayer()">Open foo layer</button>
       </div>
     </div>
   </div>
-</ng-template>
+</vcl-layer>
 
-<ng-template vcl-layer #layerModal="layer" [modal]="true">
-  <div class="vclPanel vclPanelDialog vclNoMargin">
-    <div class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
-      <h3 class="vclPanelTitle">Modal layer title goes here</h3>
-      <button type="button" class="vclButton vclTransparent" (tap)="layerModal.close()">
-        <div class="vclIcogram">
-          <div class="vclIcon fas fa-times" aria-hidden="true" aria-label="Close" role="img"></div>
-        </div>
-      </button>
-    </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
-        Modal layer text goes here
-      </p>
-    </div>
-    <div class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
-      <div></div>
-      <div class="vclLooseButtonGroup">
-        <button type="button" class="vclButton vclTransparent vclOutline" (tap)="layerModal.close()">
-          <div class="vclIcogram">
-            <span class="vclText">Close Layer</span>
-          </div>
-        </button>
-        <button type="button" class="vclButton vclEmphasized" (tap)="layerNonModal.open()">
-          <div class="vclIcogram">
-            <span class="vclText">Open Non-Modal Layer</span>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-</ng-template>

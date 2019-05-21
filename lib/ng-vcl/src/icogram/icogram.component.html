@@ -1,8 +1,5 @@
-<div vclLayoutTarget="prepIcon" vcl-icon *ngIf="prepIcon || prepIconSrc" [icon]="prepIcon">
-  <ng-content select="[prepIcon]"></ng-content>
-</div>
-<div vclLayoutTarget="label" *ngIf="!!label" class="vclText">{{label}}</div>
-<ng-content></ng-content>
-<div vclLayoutTarget="appIcon" vcl-icon *ngIf="appIcon || appIconSrc" [icon]="appIcon">
-  <ng-content select="[appIcon]"></ng-content>
-</div>
+<ng-content select="vcl-icon[vclPrepend]"></ng-content>
+<span class="vclText">
+  <ng-content></ng-content>
+</span>
+<ng-content select="vcl-icon[vclAppend]"></ng-content>

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLSelectModule} from '@ng-vcl/ng-vcl';
+import { VCLSelectModule } from '@ng-vcl/ng-vcl';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { SelectDemoComponent } from './demo.component';
 
@@ -33,6 +34,7 @@ export function demo() {
     FormsModule,
     DemoModule,
     VCLSelectModule,
+    ScrollingModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,

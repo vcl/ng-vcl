@@ -4,6 +4,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+const MONTH_COUNT = 12;
+
 export interface Month {
   date: string;
   label: string;
@@ -26,10 +28,6 @@ export interface Month {
   ]
 })
 export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnChanges {
-  static readonly Tag: string = 'MonthPickerComponent';
-  static readonly MonthCount: number = 12;
-
-  readonly tag: string = MonthPickerComponent.Tag;
   readonly now: Date = new Date();
 
   months: string[];
@@ -39,8 +37,6 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   currentMeta: any[];
 
   availableColors: boolean[];
-
-  @Input() debug = false;
 
   @Input() expanded = true;
   @Output() expandedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -67,10 +63,6 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   @Input() nextYearAvailable = false;
   @Input() useAvailableMonths = false;
 
-  @Input() closeBtnIcon = 'fas:times';
-  @Input() prevYearBtnIcon = 'fas:chevron-left';
-  @Input() nextYearBtnIcon = 'fas:chevron-right';
-
   @Input() maxSelectableMonths: number;
   @Input() minSelectableMonths = 0;
   @Input() minYear: number = Number.MIN_SAFE_INTEGER;
@@ -81,16 +73,10 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
 
   @Input('min')
   set min(value: Date) {
-    const tag = `${this.tag}.min:`;
-    if (this.debug) { console.log(tag, 'value:', value); }
     if (!value) {
       return;
     }
-
     this.minValue = value;
-
-    if (this.debug) { console.log(tag, 'this.maxValue:', this.maxValue); }
-    if (this.debug) { console.log(tag, 'this.months:', this.months); }
     if (!this.maxValue || !this.months) {
       return;
     }
@@ -102,16 +88,11 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
 
   @Input('max')
   set max(value: Date) {
-    const tag = `${this.tag}.max:`;
-    if (this.debug) { console.log(tag, 'value:', value); }
     if (!value) {
       return;
     }
 
     this.maxValue = value;
-
-    if (this.debug) { console.log(tag, 'this.minValue:', this.maxValue); }
-    if (this.debug) { console.log(tag, 'this.months:', this.months); }
     if (!this.minValue || !this.months) {
       return;
     }
@@ -152,10 +133,9 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   ) { }
 
   ngOnInit(): void {
-    const tag = `${this.tag}.ngOnInit()`;
     // Create month labels.
     const date: Date = new Date(this.now.getFullYear(), 0);
-    this.months = Array(MonthPickerComponent.MonthCount).fill(0).map(_ => {
+    this.months = Array(MONTH_COUNT).fill(0).map(_ => {
       const month: string = date.toLocaleString(this.locales, this.dateOptions);
       date.setMonth(date.getMonth() + 1);
       return month;
@@ -167,28 +147,30 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
 
     this.availableColors = this.colors ? this.colors.map(color => true) : [];
 
-    this.setYearMeta(this.currentYear);
     this.addAvailableMonthRange();
+    this.setYearMeta(this.currentYear);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const tag = `${this.tag}.ngOnChanges()`;
-    if (this.debug) { console.log(tag, 'changes:', changes); }
     if (changes.currentYear && !changes.currentYear.isFirstChange()) { this.setYearMeta(changes.currentYear.currentValue); }
   }
 
   setYearMeta(year: number): void {
-    const tag = `${this.tag}.setYearMeta()`;
-    if (this.debug) { console.log(tag, 'year:', year); }
-
     if (!this.yearMeta[year]) {
       this.yearMeta[year] = this.createYearMeta(year);
     }
-    this.currentMeta = this.yearMeta[year];
+    setTimeout(() => {
+      this.currentMeta = this.yearMeta[year];
+      this.ref.markForCheck();
+    }, 0);
   }
 
   createYearMeta(year: number): any[] {
     return this.months.map(_ => ({}));
+  }
+
+  isSelected(idx) {
+    return this.currentMeta && (this.currentMeta[idx].selected || this.currentMeta[idx].preselected);
   }
 
   selectMonth(year: number, month: number): void {
@@ -227,29 +209,21 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   }
 
   preselectMonth(year: number, month: number, color: string): void {
-    const tag = `${this.tag}.preselectMonth()`;
-    const debug: boolean = this.debug && false;
-    if (debug) { console.log(tag, `${year}.${month}`); }
     const monthMeta: any = this.getYearMeta(year)[month];
     if (monthMeta.selected) {
       this.deselectMonth(year, month);
     }
     monthMeta.preselected = true;
     monthMeta.color = color;
-    if (debug) { console.log(tag, 'monthMeta:', monthMeta); }
     this.ref.markForCheck();
   }
 
   dePreselectMonth(year: number, month: number): void {
-    const tag = `${this.tag}.dePreselectMonth()`;
-    const debug: boolean = this.debug && false;
-    if (debug) { console.log(tag, `${year}.${month}`); }
     if (!this.isMonthPreselected(year, month)) { return; }
 
     const monthMeta: any = this.getYearMeta(year)[month];
     monthMeta.preselected = false;
     delete monthMeta.color;
-    if (debug) { console.log(tag, 'monthMeta:', monthMeta); }
     this.ref.markForCheck();
   }
 
@@ -263,7 +237,7 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   }
 
   isMonthInBounds(month: number): boolean {
-    return month > -1 && month < MonthPickerComponent.MonthCount;
+    return month > -1 && month < MONTH_COUNT;
   }
 
   isYearInBounds(year: number): boolean {
@@ -271,12 +245,8 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   }
 
   isMonthPreselected(year: number, month: number): boolean {
-    const tag = `${this.tag}.isMonthPreselected()`;
-    const debug: boolean = this.debug && false;
-    if (debug) { console.log(tag, `${year}.${month}`); }
     const isMonthPreselected: boolean = !!(this.isDateInBounds(year, month) &&
       this.yearMeta[year] && this.yearMeta[year][month].preselected);
-    if (debug) { console.log(tag, 'isMonthPreselected:', isMonthPreselected); }
     return isMonthPreselected;
   }
 
@@ -351,10 +321,6 @@ export class MonthPickerComponent implements ControlValueAccessor, OnInit, OnCha
   }
 
   addAvailableMonthRange(min: Date = this.minValue, max: Date = this.maxValue): void {
-    const tag = `${this.tag}.addAvailableMonthRange()`;
-    const debug: boolean = this.debug || false;
-    if (debug) { console.log(tag, 'min:', min); }
-    if (debug) { console.log(tag, 'max:', max); }
     for (const i: Date = new Date(min); i <= max; i.setMonth(i.getMonth() + 1)) {
       this.addAvailableMonth(i.getFullYear(), i.getMonth());
     }

@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLButtonModule } from '../button/index';
-import { VCLInputModule } from '../input/index';
-import { VCLIconModule } from '../icon/index';
-import { EmbeddedInputGroupComponent, EmbeddedInputDirective, EmbeddedButtonDirective } from './embedded-input-group.component';
+import { EmbeddedInputGroupComponent } from './embedded-input-group.component';
+import { VCLCoreModule } from '../core/index';
 
+export { EmbeddedInputGroupComponent };
 @NgModule({
-  imports: [CommonModule, VCLButtonModule, VCLInputModule, VCLIconModule],
-  exports: [EmbeddedInputGroupComponent, EmbeddedInputDirective, EmbeddedButtonDirective],
-  declarations: [EmbeddedInputGroupComponent, EmbeddedInputDirective, EmbeddedButtonDirective],
+  imports: [CommonModule, VCLCoreModule],
+  exports: [EmbeddedInputGroupComponent, VCLCoreModule ],
+  declarations: [EmbeddedInputGroupComponent],
 })
 export class VCLEmbeddedInputGroupModule { }

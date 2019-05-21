@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TooltipComponent, AnimationState, Placement } from './tooltip.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { TooltipComponent } from './tooltip.component';
 import { TooltipDirective } from './tooltip.directive';
-import { TooltipService } from './tooltip.service';
+import { TooltipInlineComponent } from './tooltip-inline.component';
 
-export { TooltipComponent, AnimationState, Placement };
+export { TooltipComponent, TooltipDirective, TooltipInlineComponent };
 
 @NgModule({
-  imports: [CommonModule],
-  exports: [TooltipComponent, TooltipDirective],
-  declarations: [TooltipComponent, TooltipDirective],
-  providers: [TooltipService],
-  entryComponents: [TooltipComponent]
+  imports: [CommonModule, OverlayModule],
+  exports: [TooltipComponent, TooltipDirective, TooltipInlineComponent],
+  declarations: [TooltipComponent, TooltipDirective, TooltipInlineComponent],
+  entryComponents: [TooltipInlineComponent]
 })
+
 export class VCLTooltipModule { }

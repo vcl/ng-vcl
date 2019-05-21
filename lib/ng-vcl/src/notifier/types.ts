@@ -1,11 +1,12 @@
-import { WormholeAttributes } from '../wormhole/wormhole';
+import { PositionStrategy, OverlayRef } from '@angular/cdk/overlay';
+import { InjectionToken } from '@angular/core';
 
 export enum NotifierType {
-  None,
-  Info,
-  Success,
-  Warning,
-  Error
+  None = 'none',
+  Info = 'info',
+  Success = 'success',
+  Warning = 'warning',
+  Error = 'error'
 }
 
 export enum NotifierPosition {
@@ -18,73 +19,60 @@ export enum NotifierPosition {
 }
 
 export interface NotifierOptions {
-  text?: string;
+  text: string;
+  icon?: string;
   html?: boolean;
-  contentComponentDetails?: { contentComponentClass: any, attributes?: WormholeAttributes};
   type?: NotifierType;
   showCloseButton?: boolean;
   position?: NotifierPosition;
   timeout?: number | boolean;
-  backgroundColor?: string;
-  textColor?: string;
 }
 
-export const NOTIFIER_DEFAULTS: NotifierOptions = {
-  html: false,
-  type: NotifierType.None,
-  position: NotifierPosition.TopRight,
-  showCloseButton: true
-};
 
-export const TYPE_CLASS_MAP: any = {
+export const TYPE_CLASS_MAP: {[key: string]: {notifier: string, icon: string} } = {
   [NotifierType.None]: {
-    notifierClass: '',
-    iconClass: ''
+    notifier: undefined,
+    icon: undefined
   },
   [NotifierType.Info]: {
-    notifierClass: 'vclInfo',
-    iconClass: 'fas fa-info-circle'
+    notifier: 'vclInfo',
+    icon: 'vcl:info'
   },
   [NotifierType.Success]: {
-    notifierClass: 'vclSuccess',
-    iconClass: 'fas fa-check-circle'
+    notifier: 'vclSuccess',
+    icon: 'vcl:success'
   },
   [NotifierType.Warning]: {
-    notifierClass: 'vclWarning',
-    iconClass: 'fas fa-exclamation-triangle'
+    notifier: 'vclWarning',
+    icon: 'vcl:warning'
   },
   [NotifierType.Error]: {
-    notifierClass: 'vclError',
-    iconClass: 'fas fa-exclamation-circle'
+    notifier: 'vclError',
+    icon: 'vcl:error'
   }
 };
 
+export interface NotificationConfig {
+  timeout: number;
+  offset: number;
+}
 
-export const POSITION_MAP = {
-  [NotifierPosition.TopRight]: {
-    class: 'vclLayerNotificationTopRight',
-    reverse: true
-  },
-  [NotifierPosition.Top]: {
-    class: 'vclLayerNotificationTop',
-    reverse: true,
-  },
-  [NotifierPosition.TopLeft]: {
-    class: 'vclLayerNotificationTopLeft',
-    reverse: true
-  },
-  [NotifierPosition.BottomRight]: {
-    class: 'vclLayerNotificationBottomRight',
-    reverse: false
-  },
-  [NotifierPosition.Bottom]: {
-    class: 'vclLayerNotificationBottom',
-    reverse: false
-  },
-  [NotifierPosition.BottomLeft]: {
-    class: 'vclLayerNotificationBottomLeft',
-    reverse: false
-  },
+export const NOTIFICATION_CONFIG_DEFAULTS: NotificationConfig = {
+  timeout: 3000,
+  offset: 10
 };
 
-const x = NotifierType.Error;
+export const NOTIFICATION_CONFIG_TOKEN = new InjectionToken<NotificationConfig>('vcl-notification-config');
+
+
+export interface NotificationAnimationParams {
+  voidOpenTime: number;
+  openClosingTime: number;
+}
+
+export const NOTIFICATION_ANIMATION_PARAMS_DEFAULTS: NotificationAnimationParams = {
+  voidOpenTime: 300,
+  openClosingTime: 300
+};
+
+export const NOTIFICATION_ANIMATION_PARAMS_TOKEN = new InjectionToken<NotificationConfig>('vcl-notification-animation-config');

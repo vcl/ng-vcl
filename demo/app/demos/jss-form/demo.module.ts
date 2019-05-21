@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLNotifierModule } from '@ng-vcl/ng-vcl';
-import { VCLJssFormModule } from '@ng-vcl/jss-form';
+import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
-import {CustomSampleComponent} from './custom-sample.component';
+import { CounterComponent, FormFieldCounterComponent} from './counter.component';
 
 export function demo() {
   return {
@@ -15,7 +14,7 @@ export function demo() {
       Demo: JssFormDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/jss-form/src/README.md')
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/jss-form/README.md')
       },
       'demo.component.html': {
         type: 'pre',
@@ -25,9 +24,9 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-      'custom-sample.component.ts': {
+      'counter.component.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./custom-sample.component.ts')
+        content: require('!highlight-loader?raw=true&lang=ts!./counter.component.ts')
       },
       'hero.ts': {
         type: 'pre',
@@ -41,16 +40,19 @@ export function demo() {
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     DemoModule,
-    VCLNotifierModule,
+    VCLIcogramModule,
+    VCLButtonModule,
     VCLJssFormModule,
+    VCLNotifierModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
       data: {demo}
     }]),
   ],
-  entryComponents: [ JssFormDemoComponent, CustomSampleComponent ],
-  declarations: [ JssFormDemoComponent, CustomSampleComponent ]
+  entryComponents: [ JssFormDemoComponent, CounterComponent, FormFieldCounterComponent ],
+  declarations: [ JssFormDemoComponent, CounterComponent, FormFieldCounterComponent ]
 })
 export class VCLJssFormDemoModule { }

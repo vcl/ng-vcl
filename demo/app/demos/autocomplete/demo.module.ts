@@ -2,18 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLInputModule, VCLAutocompleteModule, VCLEmbeddedInputGroupModule, VCLTokenModule, VCLBusyIndicatorModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonModule, VCLEmbeddedInputGroupModule, VCLBusyIndicatorModule, VCLIconModule, VCLIcogramModule, VCLInputModule, VCLAutocompleteModule } from '@ng-vcl/ng-vcl';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { AutocompleteDemoComponent } from './demo.component';
+import { AutocompleteAsyncDemoComponent } from './async.component';
 
 export function demo() {
   return {
-    label: 'Input',
+    label: 'Autocomplete',
     tabs: {
       Demo: AutocompleteDemoComponent,
+      'Async Demo': AutocompleteAsyncDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!./../../../../lib/ng-vcl/src/autocomplete/README.md')
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/autocomplete/README.md')
       },
       'demo.component.html': {
         type: 'pre',
@@ -23,7 +26,15 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-    },
+      'async.component.html': {
+        type: 'pre',
+        content: require('!highlight-loader?raw=true&lang=html!./async.component.html')
+      },
+      'async.component.ts': {
+        type: 'pre',
+        content: require('!highlight-loader?raw=true&lang=ts!./async.component.ts')
+      }
+    }
   };
 }
 
@@ -32,18 +43,21 @@ export function demo() {
     CommonModule,
     FormsModule,
     DemoModule,
-    VCLInputModule,
+    VCLButtonModule,
     VCLEmbeddedInputGroupModule,
-    VCLAutocompleteModule,
-    VCLTokenModule,
+    VCLIconModule,
+    VCLInputModule,
+    VCLIcogramModule,
     VCLBusyIndicatorModule,
+    VCLAutocompleteModule,
+    ScrollingModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,
       data: {demo}
     }]),
   ],
-  entryComponents: [ AutocompleteDemoComponent ],
-  declarations: [ AutocompleteDemoComponent ]
+  entryComponents: [ AutocompleteDemoComponent, AutocompleteAsyncDemoComponent ],
+  declarations: [ AutocompleteDemoComponent, AutocompleteAsyncDemoComponent ]
 })
 export class AutocompleteDemoModule { }

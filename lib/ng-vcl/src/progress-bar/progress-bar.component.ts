@@ -3,12 +3,13 @@ import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular
 @Component({
   selector: 'vcl-progress-bar',
   templateUrl: 'progress-bar.component.html',
-  host: {
-    '[attr.role]': '"progressbar"',
-  },
+  exportAs: 'vclProgressBar',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressBarComponent {
+
+  @HostBinding('attr.role')
+  _hostAttrRole = 'progressbar';
 
   @Input()
   value: number;
@@ -73,6 +74,6 @@ export class ProgressBarComponent {
   }
 
   isNumber(value: number): boolean {
-    return typeof value === 'number' && value !== NaN;
+    return typeof value === 'number' && isFinite(value);
   }
 }

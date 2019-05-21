@@ -1,97 +1,116 @@
-import { WormholeHost } from './../wormhole/index';
-import { Component, ContentChildren, QueryList, Input, Output, EventEmitter, ViewChild, ViewContainerRef, OnDestroy, AfterContentInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, ContentChildren, QueryList, Input, Output,
+         EventEmitter, ViewChild, HostBinding, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { TabComponent } from './tab.component';
+import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
+import { hasProjectedContent } from '../core/index';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'vcl-tab-nav',
-  templateUrl: 'tab-nav.component.html'
+  templateUrl: 'tab-nav.component.html',
+  exportAs: 'vclTabNav',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: TAB_NAV_TOKEN,
+    useExisting: TabNavComponent
+  }]
 })
-export class TabNavComponent implements AfterContentInit, OnDestroy {
+export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChanges {
 
-  wormholeHost?: WormholeHost;
+  constructor(private cdRef: ChangeDetectorRef) { }
 
-  @ViewChild('tabContent', {read: ViewContainerRef})
-  set tabContent(tabContent: ViewContainerRef | undefined) {
-    if (tabContent) {
-      this.wormholeHost = new WormholeHost(tabContent);
-    }
+  private _currentTabChangedEmitter = new Subject<void>();
+
+  currentTabChanged = this._currentTabChangedEmitter.asObservable();
+
+  @HostBinding('class.vclTabbable')
+  classVclTabbable = true;
+
+  @HostBinding('class.vclTabsLeft')
+  get classVclTabsLeft() {
+    return this.layout === 'left';
+  }
+
+  @HostBinding('class.vclTabsRight')
+  get classVclTabsRight() {
+    return this.layout === 'right';
   }
 
   @ContentChildren(TabComponent)
-  tabs?: QueryList<TabComponent>;
+  tabs?: QueryList<Tab>;
 
   @Input()
-  layout = '';
+  layout?: 'left' | 'right';
 
   @Input()
-  tabbableClass = '';
+  selectedTabIndex = 0;
 
-  @Input()
-  tabsClass = '';
-
-  @Input()
-  tabContentClass = '';
-
-  @Input()
-  hideContent = false;
+  currentTab?: Tab;
 
   // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
   @Input()
   borders = false;
 
-  @Input()
-  selectedTabIndex = 0;
+  @ViewChild('panel', { read: ElementRef })
+  panel?: ElementRef<HTMLElement>;
 
-  selectedTabIndexChange$: EventEmitter<number> = new EventEmitter<number>();
   @Output()
-  get selectedTabIndexChange(): Observable<number> {
-    return this.selectedTabIndexChange$.asObservable();
+  selectedTabIndexChange: EventEmitter<number> = new EventEmitter<number>();
+
+  get hasContent() {
+    return !!this.panel && hasProjectedContent(this.panel);
   }
 
   // Sets a valid selectedTabIndex
-  selectTab(tab: number | TabComponent) {
+  selectTab(tab: Tab) {
     if (!this.tabs) {
       return;
     }
 
     const tabs = this.tabs.toArray();
-    let tabIdx;
-    let tabComp;
+    const tabIndex = tabs.findIndex(_tab => _tab === tab);
 
-    if (tab instanceof TabComponent) {
-      tabIdx = tabs.indexOf(tab);
-      tabComp = tab;
-    } else if (typeof tab === 'number' && tabs[tab]) {
-      tabIdx = tab;
-      tabComp = tabs[tabIdx];
-    } else {
-      tabIdx = -1;
-      tabComp = null;
-    }
+    this.selectedTabIndex = tabIndex;
+    this.currentTab = tab;
 
-    if (tabIdx >= 0 && tabComp instanceof TabComponent && !tabComp.disabled) {
-      if (this.wormholeHost) {
-        this.wormholeHost.clearWormholes();
-        this.wormholeHost.connectWormhole(tabComp.content);
-      }
-
-      this.selectedTabIndex = tabIdx;
-    }
+    this.selectedTabIndexChange.next(this.selectedTabIndex);
+    this._currentTabChangedEmitter.next();
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 
-  onTabClick(tab: number | TabComponent) {
-    this.selectTab(tab);
-    this.selectedTabIndexChange$.emit(this.selectedTabIndex);
+  selectTabIndex(idx: number) {
+    this.selectedTabIndex = idx;
+
+    if (!this.tabs) {
+      return;
+    }
+
+    const tabs = this.tabs.toArray();
+    let nextTab: Tab;
+
+    if (typeof idx === 'number' && tabs[idx]) {
+      nextTab = tabs[idx];
+    }
+
+    this.currentTab = nextTab;
+    this._currentTabChangedEmitter.next();
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 
-  ngAfterContentInit() {
-    this.selectTab(this.selectedTabIndex);
+
+  ngAfterViewInit() {
+    this.selectTabIndex(this.selectedTabIndex);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.selectedTabIndex) {
+      this.selectTabIndex(changes.selectedTabIndex.currentValue);
+    }
   }
 
   ngOnDestroy() {
-    if (this.wormholeHost) {
-      this.wormholeHost.clearWormholes();
-    }
+    this._currentTabChangedEmitter.complete();
   }
 }

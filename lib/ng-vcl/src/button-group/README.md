@@ -15,10 +15,10 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-button-group mode="single">
-  <button vcl-button vcl-button-group label="Action 1"></button>
-  <button vcl-button vcl-button-group label="Action 2"></button>
-  <button vcl-button vcl-button-group label="Action 3"></button>
+<vcl-button-group [(value)]="value" mode="single">
+  <button vcl-button [value]="1">Action 1</button>
+  <button vcl-button [value]="2">Action 2</button>
+  <button vcl-button [value]="3">Action 3</button>
 </vcl-button-group>
 ```
 
@@ -28,11 +28,11 @@ export class AppComponent {}
 
 | Name                  | Type                           | Default  | Description
 | --------------------- | ----------------------         | -------- |--------------
-| `ngModel`             | number &#124; number[]         |          | Index of the selected button(s)
-| `mode`                | string                         | `single` | `single` or `multiple`
+| `value`               | any &#124; any[]               |          | Index of the selected button(s)
+| `selectionMode`       | `single` \| `multiple`         | `single` | Select only one or multiple buttons
 
 #### Events
 
 | Name                  | Type                           | Description
 | -                     | -                              | -
-| `selectionChange`     | event (number &#124; number[]) | Triggers when selected buttons change
+| `valueChange`         | event (any &#124; any[])       | Triggers when selected buttons change

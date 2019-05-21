@@ -28,8 +28,7 @@ export interface AlertOptions {
   showConfirmButton?: boolean;
   showCancelButton?: boolean;
   showCloseButton?: boolean;
-  offClickClose?: boolean;
-  escClose?: boolean;
+  modal?: boolean;
   customClass?: string;
   confirmButtonLabel?: string;
   confirmButtonClass?: string;
@@ -41,17 +40,11 @@ export interface AlertOptions {
   cancelButtonColor?: string;
   cancelButtonPrepIcon?: string;
   cancelButtonAppIcon?: string;
-  loader?: boolean;
-  loaderOnConfirm?: boolean;
   input?: AlertInput;
   inputValue?: any;
   inputPlaceholder?: string;
   inputValidator?: (value: any) => boolean;
-  contentAlignment?: AlertAlignment;
-  titleAlignment?: AlertAlignment;
-  iconAlignment?: AlertAlignment;
-  buttonAlignment?: AlertAlignment;
-  confirmAction?: Function | Observable<any>;
+  confirmAction?: ((result: AlertResult) => (Promise<any>)) | Observable<any>;
 }
 
 export const ALERT_DEFAULTS: AlertOptions = {
@@ -60,19 +53,12 @@ export const ALERT_DEFAULTS: AlertOptions = {
   showConfirmButton: true,
   showCancelButton: false,
   showCloseButton: false,
-  offClickClose: true,
-  escClose: true,
+  modal: false,
   cancelButtonLabel: 'Cancel',
-  cancelButtonClass: 'vclDanger',
+  cancelButtonClass: 'vclTransparent vclOutline',
   confirmButtonLabel: 'OK',
   confirmButtonClass: 'vclEmphasized',
-  loader: false,
-  loaderOnConfirm: false,
   input: AlertInput.None,
-  contentAlignment: AlertAlignment.Left,
-  titleAlignment: AlertAlignment.Left,
-  iconAlignment: AlertAlignment.Left,
-  buttonAlignment: AlertAlignment.Right,
 };
 
 export const TYPE_CLASS_MAP = {
@@ -82,45 +68,27 @@ export const TYPE_CLASS_MAP = {
   },
   [AlertType.Question]: {
     alertClass: '',
-    iconClass: 'fas fa-question-circle'
+    iconClass: 'vcl:question'
   },
   [AlertType.Info]: {
     alertClass: 'vclInfo',
-    iconClass: 'fas fa-info-circle'
+    iconClass: 'vcl:info'
   },
   [AlertType.Success]: {
     alertClass: 'vclSuccess',
-    iconClass: 'fas fa-check-circle'
+    iconClass: 'vcl:success'
   },
   [AlertType.Warning]: {
     alertClass: 'vclWarning',
-    iconClass: 'fas fa-exclamation-triangle'
+    iconClass: 'vcl:warning'
   },
   [AlertType.Error]: {
     alertClass: 'vclError',
-    iconClass: 'fas fa-exclamation-circle'
+    iconClass: 'vcl:error'
   }
-};
-
-export const TEXT_ALIGNMENT_CLASS_MAP = {
-  [AlertAlignment.Left]: 'vclAlignLeft',
-  [AlertAlignment.Center]: 'vclAlignCentered',
-  [AlertAlignment.Right]: 'vclAlignRight',
-};
-
-export const BUTTON_ALIGNMENT_CLASS_MAP = {
-  [AlertAlignment.Left]: 'vclLayoutStartJustified',
-  [AlertAlignment.Center]: 'vclLayoutCenterJustified',
-  [AlertAlignment.Right]: 'vclLayoutEndJustified',
 };
 
 export interface AlertResult {
+  action: 'confirm' | 'close' | 'cancel' | 'error';
   value?: any;
-  close?: () => void;
-}
-
-export class AlertError extends Error {
-  constructor(public reason: string, message?: string) {
-    super(message);
-  }
 }

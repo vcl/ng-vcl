@@ -1,215 +1,388 @@
-import {CustomSampleComponent} from './custom-sample.component';
+import { Validators, AbstractControl } from '@angular/forms';
+import { VCLFormFieldSchemaRoot, conditional } from '@ng-vcl/ng-vcl';
 
-export const HERO_SCHEMA = {
-  title: 'hero schema',
-  description: 'describes a simple hero',
-  type: 'object',
-  properties: {
+export const HERO_SCHEMA: VCLFormFieldSchemaRoot<'counter'> = {
+  type: 'form',
+  fields: {
     name: {
-      formControl: 'text',
+      type: 'input',
       label: 'Name',
-      type: 'string',
-      minLength: 4,
-      placeholder: 'The hero\'s name',
-      hint: 'The hero\'s name',
+      params: {
+        placeholder: 'The hero\'s name',
+      },
+      validators: [
+        Validators.required, Validators.minLength(2)
+      ],
+      required: true,
+      hints: [
+        {
+          type: 'error',
+          error: 'required',
+          message: 'Name is required'
+        },
+        {
+          type: 'error',
+          error: 'minlength',
+          message: 'Name must have a length of at least 2 characters'
+        }
+      ]
     },
     description: {
-      formControl: 'textarea',
+      type: 'textarea',
       label: 'Description',
-      type: 'string',
-      placeholder: 'Text',
-      hint: 'The hero\'s description',
+      params: {
+        placeholder: 'The hero\'s Description',
+      }
     },
-    password: {
-      formControl: 'password',
-      label: 'Password',
-      type: 'string',
-      placeholder: 'Password',
-      visibleIcon: ' fas fa-unlock ',
-      invisibleIcon: ' fas fa-unlock-alt ',
-      hint: 'The account password'
+    level: {
+      type: 'counter',
+      label: 'Level',
+      defaultValue: 1,
+      params: {
+        min: 1,
+        max: 10
+      }
     },
-    mail_old: {
-      formControl: 'hidden',
-      type: 'string',
+    leader: {
+      type: 'switch',
+      label: 'Leader',
+      defaultValue: false,
+      visible: conditional(['level'], (level: AbstractControl) => level.value >= 5),
+      validators: [(control: AbstractControl) => {
+        if (!control.value) {
+          return {
+            leader: true,
+          };
+        }
+        return null;
+      }],
+      params: {
+        offLabel: 'No',
+        onLabel: 'Yes',
+      }
     },
-    color: {
-      formControl: 'select',
-      label: 'Team',
-      hint: 'color defines which team the hero belongs to',
-      type: 'string',
-      options: [
+    picture: {
+      type: 'file-input',
+      label: 'Picture',
+      params: {
+        multiple: false,
+        placeholder: 'Picture of the hero'
+      }
+    },
+    email: {
+      type: 'input',
+      label: 'Email',
+      validators: [Validators.required, Validators.email],
+      required: true,
+      hints: [
         {
-          label: 'Red',
-          value: '#ff0000'
+          type: 'error',
+          error: 'required',
+          message: 'Email is required'
         },
         {
-          label: 'Green',
-          value: '#008000'
-        },
-        {
-          label: 'Blue',
-          value: '#0000FF',
-          sublabel: 'Sublabels!'
-        },
-        {
-          label: 'Yellow',
-          value: '#FFFF00'
+          type: 'error',
+          error: 'email',
+          message: 'Invalid Email address'
         }
       ]
     },
     gender: {
-      formControl: 'radio',
+      type: 'radio-group',
       label: 'Gender',
-      type: 'string',
-      enum: ['male', 'female'],
-      hint: 'The hero\'s gender',
-    },
-    perks: {
-      formControl: 'dropdown',
-      label: 'Perks',
-      type: 'array',
-      hint: 'The hero\'s perks',
-      options: [
-        {
-          label: 'Heave Ho!',
-          value: 'heave_ho	'
-        },
-        {
-          label: 'Snakeater',
-          value: 'snakeater',
-          sublabel: 'Sublabels!'
-        },
-        {
-          label: 'Karma Beacon',
-          value: 'karma_beacon'
-        },
-      ]
-    },
-    leader: {
-      formControl: 'checkbox',
-      label: 'Leader',
-      type: 'boolean',
-      hideLabel: true,
-      hint: 'Whether the hero is a leader',
-    },
-    hp: {
-      formControl: 'slider',
-      label: 'Hitpoints',
-      type: 'number',
-      minimum: 0,
-      maximum: 20,
-      hint: 'The hero\'s max health',
-    },
-    alive: {
-      formControl: 'switch',
-      label: 'Is alive?',
-      type: 'boolean'
-    },
-    mainSkill: {
-      label: 'Main skill',
-      description: 'nested object',
-      hint: 'The hero\'s main skill',
-      type: 'object',
-      properties: {
-        name: {
-          formControl: 'text',
-          label: 'Skill name',
-          type: 'string',
-          minLength: 1,
-          hint: 'The skills name',
-        },
-        damage: {
-          formControl: 'number',
-          label: 'Skill damage',
-          hint: 'The skills max damage',
-          type: 'number',
-          min: 0,
-          max: 100
-        }
-      },
-      required: ['name', 'damage']
-    },
-    attributes: {
-      formControl: 'token',
-      label: 'Attributes',
-      type: 'array'
+      defaultValue: 'm',
+      params: {
+        options: [{
+          label: 'Male',
+          value: 'm'
+        }, {
+          label: 'Female',
+          value: 'f'
+        }, {
+          label: 'Genderless',
+          value: 'g'
+        }],
+      }
     },
     dob: {
-      formControl: 'date',
-      label: 'Date of Birth',
-      type: 'string',
-      datePickerConfig: {
-        displayTime: true
+      type: 'date-picker',
+      label: 'Date of Birth'
+    },
+    alignment: {
+      type: 'button-group',
+      label: 'Alignment',
+      params: {
+        options: [{
+          label: 'Good',
+          value: 1
+        }, {
+          label: 'Neutral',
+          value: 0
+        }, {
+          label: 'Evil',
+          value: -1
+        }]
       }
     },
-    custom: {
-      formControl: 'custom',
-      label: 'Custom Component',
-      type: 'number',
-      minimum: 3,
-      maximum: 5,
-      customComponent: CustomSampleComponent,
-      customParameters: {
-        message: 'Counter:'
+    language: {
+      type: 'hidden',
+      defaultValue: navigator.language
+    },
+    class: {
+      type: 'select-list',
+      label: 'Class',
+      defaultValue: null,
+      params: {
+        options: [{
+          label: 'Warrior',
+          value: 'warrior'
+        }, {
+          label: 'Mage',
+          value: 'mage'
+        }, {
+          label: 'Rogue',
+          value: 'rogue'
+        }]
       }
+    },
+    hitpoints: {
+      type: 'slider',
+      label: 'Hit Points',
+      defaultValue: 15,
+      disabled: conditional(['class'], (c) => !c.value),
+      params: conditional(['class'], (control) => {
+        if (control.value === 'rogue') {
+          return {
+            min: 8,
+            max: 18,
+            scale: 11,
+            lock: true,
+          };
+        }  else if (control.value === 'mage') {
+          return {
+            min: 5,
+            max: 15,
+            scale: 11,
+            lock: true,
+          };
+        } else {
+          return {
+            min: 10,
+            max: 20,
+            scale: 11,
+            lock: true,
+          };
+        }
+      }),
+    },
+    skills: {
+      type: 'object',
+      layout: 'fieldset',
+      label: 'Skills',
+      fields: {
+        strength: {
+          type: 'rating',
+          defaultValue: 3,
+          params: {
+            items: ['1', '2', '3', '4', '5'],
+            valueLabel: (label) => `Strength (${label})`,
+          },
+        },
+        agility: {
+          type: 'rating',
+          defaultValue: 3,
+          params: {
+            items: ['1', '2', '3', '4', '5'],
+            valueLabel: (label) => `Agility (${label})`,
+          },
+        },
+        intelligence: {
+          type: 'rating',
+          defaultValue: 3,
+          params: {
+            items: ['1', '2', '3', '4', '5'],
+            valueLabel: (label) => `Intelligence (${label})`,
+          },
+        },
+      },
+      validators: [(control: AbstractControl) => {
+        const s = control.get('strength');
+        const a = control.get('agility');
+        const i = control.get('intelligence');
+        const skillPoints = (s && a && i) ? (s.value + a.value + i.value) : 0;
+        return skillPoints > 10 ? { skills: true } : null;
+      }],
+      hints: [
+        conditional(['skills', 'skills.strength', 'skills.agility', 'skills.intelligence'], (control, s, a, i) => {
+          const skillPoints = (s && a && i) ? (s.value + a.value + i.value) : 0;
+          const message = `${skillPoints} of 10 skill points used`;
+          if (control.hasError('skills')) {
+            return {
+              type: 'error',
+              message
+            };
+          } else {
+            const skillPointsAvailable = 10 - skillPoints;
+            if (skillPointsAvailable > 0) {
+              return {
+                type: 'warning',
+                message
+              };
+            }
+            return {
+              type: 'default',
+              message
+            };
+          }
+        })
+      ]
+    },
+    attributes: {
+      type: 'token',
+      label: 'Attributes',
+      hints: [
+        {
+          type: 'default',
+          message: 'Attributes'
+        },
+        {
+          type: 'error',
+          error: 'minLength',
+          message: 'Minimum length is 2'
+        },
+      ],
+      validators: [(control: AbstractControl) => {
+        return Array.isArray(control.value) && control.value.length > 1 ? null : { minLength: true };
+      }],
+    },
+    perks: {
+      type: 'select',
+      label: 'Perks',
+      params: {
+        placeholder: 'Select perks',
+        selectionMode: 'multiple',
+        options: [{
+          label: 'Snake Eater',
+          sublabel: 'It gives you a 25% increase to your poison resistance.',
+          value: 'snakeeater'
+        },
+        {
+          label: 'Swift Learner',
+          sublabel: 'Swift Learner	Whenever you gain experience, you\'ll receive 5% more experience per level of the perk.',
+          value: 'swiftlearner',
+        },
+        {
+          label: 'Toughness',
+          sublabel: 'It adds 10% to your general damage resistance per level.',
+          value: 'toughness'
+        },
+        {
+          label: 'Explorer',
+          sublabel: 'You\'ll get more random encounters with this perk.',
+          value: 'explorer'
+        }],
+      },
+      validators: [
+        (ctrl: AbstractControl) => {
+          if (ctrl.value && Array.isArray(ctrl.value) && ctrl.value.length === 2) {
+            return null;
+          }
+          return {
+            perks: true
+          };
+        }
+      ],
+      hints: [{
+        type: 'error',
+        error: 'perks',
+        message: 'You must select two perks'
+      }],
     },
     items: {
-      label: 'Items',
-      singularLabel: 'Item',
-      formControl: 'array',
       type: 'array',
-      hint: 'The hero\'s items',
-      items: {
+      label: 'Items',
+      initialFields: 2,
+      fieldLabel: (index) => 'Item ' + (index + 1),
+      noFieldsLabel: 'Hero carries no items',
+      field: {
         type: 'object',
-        properties: {
-          name: {
-            formControl: 'text',
-            label: 'Item name',
-            type: 'string',
-            minLength: 1,
-            hint: 'The items name',
-            classInputGroup: 'vclLayoutHorizontal',
-            classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
-            classInput: 'vclLayoutFlex vclLayout11'
+        fields: {
+          item_name: {
+            type: 'input',
+            label: 'Name',
+            validators: [ Validators.required],
+            required: true,
+            hints: [
+              {
+                type: 'error',
+                error: 'required',
+                message: 'Item name is required'
+              },
+            ]
           },
-          quantity: {
-            formControl: 'number',
-            label: 'Quantity',
-            hint: 'The item quantity',
+          item_quantity: {
             type: 'number',
-            min: 0,
-            max: 100,
-            classInputGroup: 'vclLayoutHorizontal',
-            classLabel: 'vclLayoutFlex vclLayout1 vclAlignRight paddingRight1',
-            classInput: 'vclLayoutFlex vclLayout11'
+            label: 'Quantity',
+            validators: [ Validators.required, Validators.min(1), Validators.max(10)],
+            required: true,
+            hints: [
+              {
+                type: 'error',
+                error: 'required',
+                message: 'Item quantity is required'
+              },
+              {
+                type: 'error',
+                error: 'min',
+                message: 'Minimum is 1'
+              },
+              {
+                type: 'error',
+                error: 'max',
+                message: 'Maximum is 10'
+              },
+            ]
           }
         }
       }
     },
+    terms: {
+      type: 'checkbox',
+      label: 'Agree to our terms',
+      validators: [(control: AbstractControl) => {
+        if (!control.value) {
+          return {
+            termsDisagree: true,
+          };
+        }
+        return null;
+      }],
+      hints: [
+        {
+          type: 'default',
+          message: 'Read the terms to learn how we collect, use and share your data'
+        },
+        {
+          type: 'error',
+          error: 'termsDisagree',
+          message: 'You must agree to our Terms'
+        }
+      ]
+    },
     submit: {
-      formControl: 'buttons',
+      type: 'buttons',
       buttons: [
         {
-          formControl: 'submit',
+          type: 'submit',
           label: 'Submit',
           class: 'vclEmphasized'
         },
         {
-          formControl: 'button',
+          type: 'button',
           label: 'Reset',
           action: 'reset'
         }
       ]
     }
   },
-  required: ['name', 'color', 'perks']
-};
-
-export const HERO_DEFAULTS = {
-  color: '#ff0000',
-  leader: false,
-  alive: true,
-  hp: 10,
-  custom: 0
 };

@@ -1,3 +1,4 @@
+/* tslint:disable */
 /*
 Cell and column highlighting
 

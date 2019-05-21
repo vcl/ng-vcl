@@ -1,42 +1,41 @@
 # vcl-tooltip
 
+The tooltip directive provides a message or rich content that is displayed when the user hovers an element.
+
 ## Usage
 
-`vcl-tooltip` directive with `content` input is the minimal settings required to set up tooltip.
-
 ```html
-<div vcl-tooltip content="Tooltip on the top">
+<div vclTooltip="Tooltip message">
   ...
 </div>
 ```
 
-Default tooltip placement is at the `top` of target element. To change tooltip placement set `position` value to either `right`, `left` or `bottom`.
+Default tooltip placement is at the `top` of target element. To change tooltip placement set `vclTooltipPosition` value to either `right`, `left` or `bottom`.
 
 ```html
-<div vcl-tooltip position="right" content="Tooltip on the right">
+<div vclTooltip="Tooltip message" vclTooltipPosition="right">
   ...
 </div>
 ```
 
-The content can also be made up of other components.
+You can also use rich content.
 
 ```html
-<div #hostElement>
-  <vcl-tooltip [hostElement]="hostElement" placement="bottom">
-    <my-component></my-component>
+<div [vclTooltip]="tt">
+  <vcl-tooltip #tt="vclTooltip">
+    <p>My content</p>
   </vcl-tooltip>
 </div>
 ```
 
 ### API
 
-#### Attributes
+#### [vclTooltip] Attributes
 
-| Name                | Type           | Default       | Description
-| ------------        | -------------- | ------------- |--------------
-| `debug`             | boolean        | false         | Whether to output debug information
-| `content`           | string         |               | Content displayed within the tooltip (for the directive)
-| `placement`         | Placement      | Placement.Top | Placement of the tooltip
-| `hostElement`       | HTMLElement    |               | The describyed element by the tooltip
-| `animationState`    | AnimationState |               | Override the tooltip
-| `showArrowPointer`  | boolean        | true          | Whether to show the tooltip's arrow pointer
+| Name                      | Type           | Default       | Description
+| ------------              | -------------- | ------------- |--------------
+| `vclTooltip`              | string         |               | Content displayed within the tooltip 
+| `vclTooltipPosition`      | string         | top           | Placement of the tooltip
+| `vclTooltipArrowPointer`  | boolean        | true          | Whether to show the tooltip's arrow pointer
+| `vclTooltipShowDelay`     | number         | 0             | Delay before showing the tooltip after hovering the element
+| `vclTooltipHideDelay`     | number         | 0             | Delay before hiding the tooltip after the element loses hover

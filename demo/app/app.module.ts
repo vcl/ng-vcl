@@ -3,15 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
-  VCLLayerModule
+  VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule, VCLIcogramModule,
+  VCLBusyIndicatorModule
 } from '@ng-vcl/ng-vcl';
-import {
-  LayerAnimationsModule, PopoverAnimationsModule,
-  DropdownAnimationsModule,
-} from '@ng-vcl/animations';
 
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -27,11 +25,13 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     VCLButtonModule,
     VCLIconModule,
+    VCLIcogramModule,
+    VCLFontAwesomeModule,
+    VCLMaterialDesignModule,
     VCLNavigationModule,
-    VCLLayerModule.forRoot(),
-    LayerAnimationsModule,
-    PopoverAnimationsModule,
-    DropdownAnimationsModule
+    VCLBusyIndicatorModule,
+    VCLLayerModule,
+    ScrollingModule
   ],
   declarations: [
     AppComponent,

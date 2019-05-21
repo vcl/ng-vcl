@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
-import { AlertService, AlertType, AlertAlignment, AlertInput } from '@ng-vcl/ng-vcl';
+import { AlertService, AlertType, AlertInput } from '@ng-vcl/ng-vcl';
 import { Component } from '@angular/core';
-import { retryWhen, switchMap } from 'rxjs/operators';
+import { retryWhen, switchMap, tap } from 'rxjs/operators';
 
-function async(data: any, error?: boolean | Function): Observable<any> {
-  return Observable.create(observer => {
+function createAsyncResult(data: any, error?: boolean | (() => (any))): Observable<any> {
+  return new Observable(observer => {
     setTimeout(() => {
       let err;
       if (typeof error === 'function') {
@@ -81,9 +81,6 @@ export class AlertDemoComponent {
       confirmButtonPrepIcon: 'fas:bolt',
       cancelButtonColor: 'orange',
       customClass: 'vclScale130p',
-      titleAlignment: AlertAlignment.Center,
-      contentAlignment: AlertAlignment.Center,
-      buttonAlignment: AlertAlignment.Center,
     });
   }
 
@@ -97,32 +94,25 @@ export class AlertDemoComponent {
       cancelButtonLabel: 'No',
       confirmButtonLabel: 'Yes'
     }).subscribe((result) => {
-      this.alert.success('File deleted');
-    }, err => {
-      this.alert.error('Reason: ' + err.reason , { title: 'File not deleted' });
-    });
-  }
-
-  loader() {
-    this.alert.open({
-      title: 'Loading',
-      text: 'Hit esc to close loader',
-      loader: true,
-      showConfirmButton: false
+      if (result.action === 'confirm') {
+        this.alert.success('File deleted');
+      } else {
+        this.alert.error('Reason: ' + result.action , { title: 'File not deleted' });
+      }
     });
   }
 
   async() {
     this.alert.open({
       text: 'Determine your user agent?',
-      confirmAction: async(window.navigator.userAgent),
+      confirmAction: createAsyncResult(window.navigator.userAgent),
       showCancelButton: true
     }).subscribe(result => {
-      this.alert.info(result.value, {
-        title: 'Your user agent'
-      });
-    }, err => {
-      this.alert.error('Could not determine user agent');
+      if (result.action === 'confirm') {
+        this.alert.info(result.value, {
+          title: 'Your user agent'
+        });
+      }
     });
   }
 
@@ -133,40 +123,45 @@ export class AlertDemoComponent {
       confirmButtonLabel: 'Next',
       inputValidator: (value) => {
         if (typeof value !== 'string' || value.length < 2) {
-          throw new Error('This is not your name!');
+          throw new Error('Invalid name!');
         }
         return true;
       }
     }).subscribe(result => {
-      this.alert.info('Hello ' + result.value);
-    }, this.alert.noop);
+      if (result.action === 'confirm') {
+        this.alert.info('Hello ' + result.value);
+      }
+    });
   }
 
   retry() {
     // This fake async request will fail the first time
     let fails = 0;
-    const fakeAsync = async(new Date().toLocaleTimeString(), () => ++fails <= 1);
+    const fakeAsync = createAsyncResult(new Date().toLocaleTimeString(), () => ++fails <= 1);
 
     // Add a retry routine using an alert
-    const fakeAsyncWithRetries = fakeAsync.pipe(retryWhen(errors => {
-      return errors.pipe(switchMap(err => {
-        return this.alert.open({
-          text: 'Retry?',
-          type: AlertType.Warning,
-          showCancelButton: true,
-        });
+    const fakeAsyncWithRetries = fakeAsync.pipe(
+      retryWhen(errors => {
+        return errors.pipe(switchMap(err => {
+          return this.alert.open({
+            text: 'Retry?',
+            type: AlertType.Warning,
+            showCancelButton: true,
+            modal: true,
+          }).pipe(tap(result => {
+            if (result.action === 'cancel') {
+              throw new Error();
+            }
+          }));
+        }));
       }));
-    }));
 
     this.alert.open({
       text: 'Show current time? (will fail the first time)',
       showCancelButton: true,
-      confirmAction: fakeAsyncWithRetries
+      confirmAction: fakeAsyncWithRetries,
     }).subscribe(result => {
       this.alert.info(result.value, { title: 'Time' });
-    }, err => {
-      console.log(err);
-      this.alert.error(String(err ? err.reason : err), { title: 'Error' });
     });
   }
 
