@@ -170,7 +170,9 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
 
   protected attach() {
     const config = new OverlayConfig({
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      scrollStrategy: this.overlay.scrollStrategies.reposition({
+        autoClose: true
+      }),
       direction: this._dir,
       width: this.width !== undefined ? this.width : this.elementRef.nativeElement.getBoundingClientRect().width,
       height: this.height,
@@ -188,7 +190,7 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
         originY: 'top',
         overlayX: 'start',
         overlayY: 'bottom'
-      }])
+      }]).withPush(false)
     });
     super.attach(config);
   }
