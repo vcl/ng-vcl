@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
-import { CounterComponent, FormFieldCounterComponent} from './counter.component';
+import { CounterComponent } from './counter.component';
+import { FormFieldCounterComponent } from './jss-form-extended';
 
 export function demo() {
   return {

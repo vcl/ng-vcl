@@ -1,7 +1,8 @@
 import { Validators, AbstractControl } from '@angular/forms';
-import { VCLFormFieldSchemaRoot, conditional } from '@ng-vcl/ng-vcl';
+import { conditional } from '@ng-vcl/ng-vcl';
+import { ExtendedFormFieldSchemaRoot } from './jss-form-extended';
 
-export const HERO_SCHEMA: VCLFormFieldSchemaRoot<'counter'> = {
+export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
   type: 'form',
   fields: {
     name: {

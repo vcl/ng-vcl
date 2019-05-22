@@ -1,7 +1,7 @@
 import { VCLFormFieldSchema, VCLFormFieldControlSchema } from '../schemas';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { combineLatest, Subject, Subscription, ReplaySubject } from 'rxjs';
-import { Conditional } from '../types';
+import { Conditional, InternalConditional } from '../types';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { Injector } from '@angular/core';
 import { ComponentType, ComponentPortal } from '@angular/cdk/portal';
@@ -80,9 +80,11 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
   }
 
   createConditionalStream<TConditional>(conditional: Conditional<TConditional>) {
+    const _conditional = conditional as unknown as InternalConditional<TConditional>;
+
     return this._formReady$.pipe(
       map(() => {
-        return this.root ? conditional.fields.map(key => {
+        return this.root ? _conditional.fields.map(key => {
           return this.root.control.get(key);
         }) : [];
       }),
@@ -92,7 +94,7 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
           map(() => controls)
         );
       }),
-      map((controls) => conditional.cb(...controls)),
+      map((controls) => _conditional.cb(...controls)),
     );
   }
 
@@ -142,7 +144,7 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
   }
 }
 
-export class FormFieldControl<T extends VCLFormFieldControlSchema<TParams> = VCLFormFieldControlSchema<any>, TParams = any> extends FormField<T> {
+export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormFieldControlSchema, TParams = any> extends FormField<T> {
 
   constructor(schema: T, key: string, parent?: FormField) {
     super(schema, key, parent);
