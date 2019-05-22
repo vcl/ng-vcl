@@ -1,7 +1,7 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { LayerService } from '@ng-vcl/ng-vcl';
 import { BarComponent } from './bar.component';
-import { FooLayer } from './foo.component';
+import { NagLayer } from './nag.component';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -9,31 +9,34 @@ import { FooLayer } from './foo.component';
 export class LayerDemoComponent {
 
   constructor(
-    private fooLayer: FooLayer,
+    private nagLayer: NagLayer,
     private layerService: LayerService,
-  ) {
-    fooLayer.afterClose.subscribe(result => {
-      console.log(result);
-    });
-  }
+  ) {  }
 
-  openBarLayer() {
+  openBarComponent() {
     const layer = this.layerService.open(BarComponent, {
       data: {
         title: 'bar component layer title'
       },
-      modal: true
+      closeOnBackdropClick: false,
+      closeOnEscape: false
     });
     layer.afterClose.subscribe(result => {
       layer.destroy(); // Layer is not needed anymore
-      console.log(result.value);
+      console.log('Bar component result:' + result.value);
     });
   }
 
-  openFooLayer() {
-    this.fooLayer.open({
+  openNagLayer() {
+    this.nagLayer.open({
       data: {
-        title: 'foo component layer title'
+        allowDecline: true
+      }
+    }).subscribe((result) => {
+      if (result.accept) {
+        console.log('Accepted');
+      } else {
+        console.log('Declined');
       }
     });
   }

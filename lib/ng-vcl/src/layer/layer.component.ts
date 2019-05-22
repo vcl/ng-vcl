@@ -1,7 +1,6 @@
 import { PositionStrategy } from '@angular/cdk/overlay';
 import { TemplateRef, ViewContainerRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { LayerOptions } from './interfaces';
+import { LayerConfig } from './config';
 import { LayerRef } from './layer-ref';
 
 @Component({
@@ -19,10 +18,13 @@ export class LayerComponent extends LayerRef implements OnDestroy {
   }
 
   @Input()
-  position?: PositionStrategy;
+  positionStrategy?: PositionStrategy;
 
   @Input()
-  modal = false;
+  closeOnBackdropClick?: boolean;
+
+  @Input()
+  closeOnEscape?: boolean;
 
   @Input()
   set visible(visible: boolean) {
@@ -47,16 +49,23 @@ export class LayerComponent extends LayerRef implements OnDestroy {
   @ViewChild(TemplateRef)
   protected templateRef: TemplateRef<any>;
 
-  open(opts: LayerOptions = {}) {
-    return super.open({
-      modal: this.modal,
-      position: this.position,
-      ...opts
-    });
-  }
+  open(config?: LayerConfig) {
+    const inputConfig: LayerConfig = {};
 
-  createPortal() {
-    return new TemplatePortal(this.templateRef, this.viewContainerRef);
+    if (this.positionStrategy !== undefined) {
+      inputConfig.positionStrategy = this.positionStrategy;
+    }
+    if (this.closeOnBackdropClick !== undefined) {
+      inputConfig.closeOnBackdropClick = this.closeOnBackdropClick;
+    }
+    if (this.closeOnEscape !== undefined) {
+      inputConfig.closeOnEscape = this.closeOnEscape;
+    }
+
+    return super.open({
+      ...inputConfig,
+      ...(config || {})
+    });
   }
 
   protected afterDetached(result: any): void {

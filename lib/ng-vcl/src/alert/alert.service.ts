@@ -38,11 +38,14 @@ export class AlertService {
   open(...opts: AlertOptions[]): Observable<AlertResult> {
     const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
 
-    const layer = this.layerService.create(AlertComponent, {
-      modal: alert.modal,
+    const layer = this.layerService.create(AlertComponent);
+
+    layer.open({
+      closeOnBackdropClick: alert.closeOnBackdropClick,
+      closeOnEscape: alert.closeOnEscape,
+      data: alert
     });
 
-    layer.open(alert);
     return layer.afterClose.pipe(map(result => {
       return result || {
         action: 'close'

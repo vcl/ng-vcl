@@ -8,8 +8,9 @@ import { LayerComponent } from './layer.component';
 import { LayerBase } from './layer-base';
 import { LayerService } from './layer.service';
 import { LayerRef } from './layer-ref';
+import { LayerConfig } from './config';
 
-export { LayerComponent, LayerBase, LayerRef, LayerService };
+export { LayerComponent, LayerBase, LayerRef, LayerService, LayerConfig };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, BidiModule, PortalModule],

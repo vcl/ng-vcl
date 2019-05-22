@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VCLLayerModule, VCLButtonModule, VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
-import { FooComponent, FooLayer } from './foo.component';
+import { NagComponent, NagLayer } from './nag.component';
 import { BarComponent } from './bar.component';
 
 export function demo() {
@@ -24,13 +24,13 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-      'foo.component.html': {
+      'nag.component.html': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./foo.component.html')
+        content: require('!highlight-loader?raw=true&lang=html!./nag.component.html')
       },
-      'foo.component.ts': {
+      'nag.component.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./foo.component.ts')
+        content: require('!highlight-loader?raw=true&lang=ts!./nag.component.ts')
       },
       'bar.component.html': {
         type: 'pre',
@@ -60,15 +60,15 @@ export function demo() {
   entryComponents: [
     LayerDemoComponent,
     BarComponent,
-    FooComponent
+    NagComponent
   ],
   declarations: [
     LayerDemoComponent,
     BarComponent,
-    FooComponent
+    NagComponent
   ],
   providers: [
-    FooLayer
+    NagLayer
   ]
 })
 export class LayerDemoModule { }

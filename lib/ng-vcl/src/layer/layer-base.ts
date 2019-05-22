@@ -88,8 +88,8 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
   public destroy() {
     this._isDestroyed = true;
     if (this.overlayRef) {
-      this.detach();
       this.overlayRef.dispose();
+      this.detach();
     }
   }
 }

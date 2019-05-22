@@ -72,27 +72,28 @@ export class DemoComponent {
 export interface LayerRef {
   readonly visible: boolean;
   readonly afterClose: Observable<any | undefined>;
-  open(data?: any, opts?: LayerOptions): Observable<any>;
+  open(config?: LayerConfig): Observable<any>;
   close(result?: any): void;
   destroy(): void;
 }
 
 class LayerService {
-  create(component: any, opts?: LayerOptions): Layer;
-  open(component: ComponentType<TComponent>, opts?: LayerOptions): Layer;
+  create(component: any, config?: LayerConfig): Layer;
+  open(component: ComponentType<TComponent>, config?: LayerConfig): Layer;
 }
 
-export interface LayerOptions {
-  data?: any;
-  position?: PositionStrategy;
-  modal?: boolean;
+export class LayerConfig<TData = any> extends OverlayConfig {
+  data?: TData;
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
 }
 
 ```
 
 #### vcl-layer attributes
 
-| Name                | Type                 | Default  | Description
-| ------------        | -----------          | -------- |--------------
-| `modal`             | boolean              | false    | Wether a non-modal layer should close when clicked outside
-| `position`          | PositionStrategy     |          | 
+| Name                   | Type                 | Default  | Description
+| ------------           | -----------          | -------- |--------------
+| `closeOnBackdropClick` | boolean              | true     | Wether a the layer should close when clicked outside
+| `closeOnEscape`        | boolean              | true     | Wether a the layer should close when escape is pressed
+| `position`             | PositionStrategy     |          | 

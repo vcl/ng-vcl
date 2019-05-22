@@ -1,8 +1,8 @@
-<button vcl-button (click)="layer.open()">Open template layer</button>
+<button vcl-button (click)="layer.open()">Open inline layer</button>
 <br><br>
-<button vcl-button (click)="openFooLayer()">Open foo component</button>
+<button vcl-button (click)="openBarComponent()">Open bar component as layer</button>
 <br><br>
-<button vcl-button (click)="openBarLayer()">Open bar component layer</button>
+<button vcl-button (click)="openNagLayer()">Open nag layer</button>
 
 <vcl-layer #layer="vclLayer">
   <div class="vclPanel vclPanelDialog vclNoMargin">
@@ -23,9 +23,7 @@
       <div></div>
       <div class="vclLooseButtonGroup">
         <button vcl-button icon="fas:times" class="vclTransparent vclOutline" (click)="layer.close()">Close layer</button>
-        <button vcl-button icon="fas:times" class="vclEmphasized" (click)="openFooLayer()">Open foo layer</button>
       </div>
     </div>
   </div>
 </vcl-layer>
-

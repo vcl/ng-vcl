@@ -28,7 +28,8 @@ export interface AlertOptions {
   showConfirmButton?: boolean;
   showCancelButton?: boolean;
   showCloseButton?: boolean;
-  modal?: boolean;
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
   customClass?: string;
   confirmButtonLabel?: string;
   confirmButtonClass?: string;
@@ -53,7 +54,8 @@ export const ALERT_DEFAULTS: AlertOptions = {
   showConfirmButton: true,
   showCancelButton: false,
   showCloseButton: false,
-  modal: false,
+  closeOnBackdropClick: true,
+  closeOnEscape: true,
   cancelButtonLabel: 'Cancel',
   cancelButtonClass: 'vclTransparent vclOutline',
   confirmButtonLabel: 'OK',

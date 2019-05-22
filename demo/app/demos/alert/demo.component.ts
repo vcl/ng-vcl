@@ -147,7 +147,8 @@ export class AlertDemoComponent {
             text: 'Retry?',
             type: AlertType.Warning,
             showCancelButton: true,
-            modal: true,
+            closeOnBackdropClick: false,
+            closeOnEscape: false
           }).pipe(tap(result => {
             if (result.action === 'cancel') {
               throw new Error();
