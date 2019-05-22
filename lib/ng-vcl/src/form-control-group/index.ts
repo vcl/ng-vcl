@@ -9,7 +9,12 @@ import { FormControlRequiredComponent } from './required.component';
 export { FormControlGroupComponent, FORM_CONTROL_INPUT, FormControlInput, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHost, FORM_CONTROL_HOST };
 
 export function defaultFormControlErrorStateAgent(form?: FormControlHost, input?: FormControlInput<any>, error?: string) {
-  return form && input && input.ngControl && !input.isFocused && input.ngControl.invalid && (input.ngControl.touched || form.submitted);
+  return form &&
+         input &&
+         input.ngControl &&
+         !input.isFocused &&
+         input.ngControl.invalid &&
+         (input.ngControl.touched || form.submitted);
 }
 
 @NgModule({
