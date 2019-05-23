@@ -14,6 +14,7 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLNotifierModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
+import { CounterComponent, VCLCounterModule } from './counter.component';
 
 export function demo() {
   return {
@@ -42,6 +43,7 @@ export function demo() {
     FormsModule,
     ReactiveFormsModule,
     DemoModule,
+    VCLCounterModule,
     VCLButtonModule,
     VCLEmbeddedInputGroupModule,
     VCLButtonGroupModule,

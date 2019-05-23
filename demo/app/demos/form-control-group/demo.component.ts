@@ -15,6 +15,7 @@ export class FormControlGroupDemoComponent {
   skillPointsMax = 10;
 
   defaultValues = {
+    level: 1,
     leader: false,
     hitpoints: 10,
     strength: 3,
@@ -29,8 +30,9 @@ export class FormControlGroupDemoComponent {
       Validators.minLength(2),
     ]),
     description: new FormControl('', []),
-    picture: new FormControl(null, [ ]),
-    leader: new FormControl(this.defaultValues.leader, [ ]),
+    picture: new FormControl(null, []),
+    level: new FormControl(this.defaultValues.level, []),
+    leader: new FormControl(this.defaultValues.leader, []),
     email: new FormControl('', [
       Validators.email,
     ]),
@@ -45,6 +47,7 @@ export class FormControlGroupDemoComponent {
       }
     ]),
     gender: new FormControl(null, Validators.required),
+    class: new FormControl(null, [ Validators.required ]),
     alignment: new FormControl(null, [ Validators.required ]),
     hitpoints: new FormControl(this.defaultValues.hitpoints, [ Validators.min(1), Validators.max(100)]),
     strength: new FormControl(this.defaultValues.strength, [ Validators.min(1), Validators.max(10)]),
@@ -54,6 +57,11 @@ export class FormControlGroupDemoComponent {
   }, [
     this.validateSkills.bind(this)
   ]);
+
+  get level() {
+    const c = this.formGroup && this.formGroup.get('level');
+    return c ? c.value : 0;
+  }
 
   get skillPoints() {
     const s = this.formGroup && this.formGroup.get('strength');

@@ -1,5 +1,5 @@
 <form novalidate [formGroup]="formGroup" #form="ngForm" class="vclForm" (submit)="onSubmit()">
-    <h2>Create your hero</h2>
+    <h2>Create a hero</h2>
   
     <vcl-form-control-group>
       <label vclFormControlLabel>Name<vcl-required></vcl-required></label>
@@ -14,6 +14,11 @@
     </vcl-form-control-group>
   
     <vcl-form-control-group>
+      <label vclFormControlLabel>Level</label>
+      <demo-counter formControlName="level" [min]="1" [max]="10"></demo-counter>
+    </vcl-form-control-group>
+
+    <vcl-form-control-group *ngIf="level >= 5">
       <label vclFormControlLabel>Leader</label>
       <vcl-flip-switch formControlName="leader"></vcl-flip-switch>
     </vcl-form-control-group>
@@ -67,6 +72,22 @@
     </vcl-form-control-group>
   
     <vcl-form-control-group>
+      <label vclFormControlLabel>Class<vcl-required></vcl-required></label>
+      <vcl-select-list formControlName="class">
+        <vcl-select-list-item [value]="'warrior'">
+          <vcl-select-list-label>Warrior</vcl-select-list-label>
+        </vcl-select-list-item>
+        <vcl-select-list-item [value]="'mage'">
+          <vcl-select-list-label>Mage</vcl-select-list-label>
+        </vcl-select-list-item>
+        <vcl-select-list-item [value]="'Rogue'">
+          <vcl-select-list-label>rogue</vcl-select-list-label>
+        </vcl-select-list-item>
+      </vcl-select-list>
+    </vcl-form-control-group>
+
+
+    <vcl-form-control-group>
       <label vclFormControlLabel>Hit points<vcl-required></vcl-required></label>
       <vcl-slider formControlName="hitpoints" [min]="5" [max]="20" [scale]="16" [lock]="true"></vcl-slider>
     </vcl-form-control-group>
@@ -76,11 +97,11 @@
     <vcl-form-control-group>
       <label vclFormControlLabel>Strength (<vcl-rating-item-label [target]="strengthRating"></vcl-rating-item-label>)</label>
       <vcl-rating formControlName="strength" #strengthRating="vclRating">
-          <vcl-rating-item>1</vcl-rating-item>
-          <vcl-rating-item>2</vcl-rating-item>
-          <vcl-rating-item>3</vcl-rating-item>
-          <vcl-rating-item>4</vcl-rating-item>
-          <vcl-rating-item>5</vcl-rating-item>
+        <vcl-rating-item>1</vcl-rating-item>
+        <vcl-rating-item>2</vcl-rating-item>
+        <vcl-rating-item>3</vcl-rating-item>
+        <vcl-rating-item>4</vcl-rating-item>
+        <vcl-rating-item>5</vcl-rating-item>
       </vcl-rating>
     </vcl-form-control-group>
     <vcl-form-control-group>
