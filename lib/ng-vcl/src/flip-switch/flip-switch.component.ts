@@ -1,4 +1,4 @@
-import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewChild, forwardRef, HostBinding, HostListener, ChangeDetectorRef, Self, Optional, Inject } from '@angular/core';
+import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewChild, forwardRef, HostBinding, HostListener, ChangeDetectorRef, Self, Optional, Inject, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group/index';
 import { Subject } from 'rxjs';
@@ -15,7 +15,7 @@ let UNIQUE_ID = 0;
     useExisting: forwardRef(() => FlipSwitchComponent)
   }]
 })
-export class FlipSwitchComponent implements ControlValueAccessor, FormControlInput {
+export class FlipSwitchComponent implements ControlValueAccessor, FormControlInput, OnDestroy {
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -49,11 +49,9 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   private _disabled = false;
   private _focused = false;
 
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  get stateChange() {
-    return this.stateChangeEmitter.asObservable();
-  }
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   controlType = 'flip-switch';
 
@@ -115,14 +113,14 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   @HostListener('focus')
   onFocus() {
     this._focused = true;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.onTouchedCallback();
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
 
@@ -160,6 +158,10 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
 
   onLabelClick(event: Event): void {
     this.toggle();
+  }
+
+  ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   writeValue(value: boolean): void {

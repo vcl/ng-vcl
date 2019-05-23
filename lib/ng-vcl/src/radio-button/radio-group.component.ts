@@ -41,9 +41,9 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
     }
   }
 
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  stateChange = this.stateChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   controlType = 'radio-group';
 
@@ -145,11 +145,11 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
     if (this.radioButtons.last === rb) {
       this.onTouched();
     }
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   notifyRadioButtonFocus(rb: RadioButton) {
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   onLabelClick(event: Event): void {
@@ -158,7 +158,7 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
 
   ngOnDestroy(): void {
     this.radioButtonsSub && this.radioButtonsSub.unsubscribe();
-    this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   /**

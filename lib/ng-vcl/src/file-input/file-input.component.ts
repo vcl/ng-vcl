@@ -1,7 +1,7 @@
 import {
   Component, forwardRef, ChangeDetectionStrategy, Input,
   Output, ViewChild, HostBinding, ElementRef, EventEmitter,
-  HostListener, ChangeDetectorRef, Optional, Self, Inject
+  HostListener, ChangeDetectorRef, Optional, Self, Inject, OnDestroy
 } from '@angular/core';
 import {
   ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR
@@ -22,7 +22,7 @@ let UNIQUE_ID = 0;
     useExisting: forwardRef(() => FileInputComponent)
   }]
 })
-export class FileInputComponent implements ControlValueAccessor, FormControlInput {
+export class FileInputComponent implements ControlValueAccessor, FormControlInput, OnDestroy {
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -49,9 +49,9 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   @HostBinding('attr.role')
   _hostAttrRole = 'button';
 
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  stateChange = this.stateChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   controlType = 'file-input_';
 
@@ -124,13 +124,13 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   @HostListener('focus')
   onFocus() {
     this.isFocused = true;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this.isFocused = false;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
     this.onTouched();
   }
 
@@ -221,6 +221,10 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
       this.valueChange.emit(files);
       this.onChange(files);
     }
+  }
+
+  ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   /**

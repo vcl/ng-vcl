@@ -40,9 +40,9 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     }
   }
 
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  stateChange = this.stateChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   controlType = 'checkbox';
 
@@ -101,7 +101,7 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
   @Input()
   set disabled(disabled: boolean) {
     this._disabled = disabled;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
   get disabled() {
     return this._disabled;
@@ -144,13 +144,13 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
   onBlur() {
     this._focused = false;
     this.onTouched();
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('focus')
   onFocus() {
     this._focused = true;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   toggleValue() {
@@ -162,11 +162,11 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     this.cdRef.markForCheck();
     this.onTouched();
     this.onChange(this.checked);
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   ngOnDestroy() {
-    this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   /**

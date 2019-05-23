@@ -45,9 +45,9 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
 
   private buttonsSub?: Subscription;
   private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  stateChange = this.stateChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
   controlType = 'button-group';
 
   @Input()
@@ -76,7 +76,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   set disabled(disabled: boolean) {
     this._disabled = disabled;
     this.syncButtons();
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   get disabled(): boolean {
@@ -161,11 +161,11 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     if (this.buttons.last === btn) {
       this.onTouched();
     }
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   notifyButtonFocus(btn: any) {
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
 
@@ -191,7 +191,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
 
   ngOnDestroy() {
     this.buttonsSub && this.buttonsSub.unsubscribe();
-    this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   /**

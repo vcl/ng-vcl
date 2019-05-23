@@ -41,9 +41,9 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
   private _cvaDisabled = false;
   private generatedId = 'vcl_select_list_' + UNIQUE_ID++;
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  stateChange = this.stateChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
   controlType = 'slider';
 
   @Input()
@@ -155,14 +155,14 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   }
 
   onItemFocus(item: SelectListItem) {
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   onItemBlur(item: SelectListItem) {
     if (this._items.last === item) {
       this.onTouched();
     }
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   get selectedItems() {
@@ -226,6 +226,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   }
 
   ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
     this._itemsChangeSub && this._itemsChangeSub.unsubscribe();
   }
 

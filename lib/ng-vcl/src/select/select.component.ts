@@ -205,10 +205,10 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
   protected afterAttached(): void {
     this.selectList.valueChange.pipe(
       takeUntil(this.afterClose)
-    ).subscribe(() => {
+    ).subscribe((value) => {
       if (this.isAttached) {
         if (this.selectList.selectionMode === 'single') {
-          this.detach();
+          this.detach(value);
         } else {
           this.cdRef.markForCheck();
         }

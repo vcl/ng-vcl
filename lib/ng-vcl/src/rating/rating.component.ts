@@ -67,10 +67,10 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
 
   private cvaDisabled = false;
   private generatedId = 'vcl_rating_' + UNIQUE_ID++;
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
   private labelChangeEmitter = new Subject<void>();
 
-  stateChange = this.labelChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   labelChange = this.labelChangeEmitter.pipe(
     debounceTime(10), // TODO: use scheduler to avoid change detection probs
@@ -254,7 +254,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
       }
     });
     this.labelChangeEmitter.next();
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -274,19 +274,19 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   }
 
   ngOnDestroy() {
-    this.stateChangeEmitter.complete();
+    this.stateChangedEmitter.complete();
     this.labelChangeEmitter.complete();
   }
 
   onRatingItemFocus(item: RatingItemComponent): void {
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   onRatingItemBlur(item: RatingItemComponent): void {
     if (this.ratingItems.pop() === item) {
       this.onTouchedCallback();
     }
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   get ratingItemsArray() {

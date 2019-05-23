@@ -26,12 +26,12 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     private _errorStateAgent?: FormControlErrorStateAgent,
   ) { }
 
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
   private _focused = false;
   private generatedId = 'vcl_textarea_' + UNIQUE_ID++;
 
   controlType = 'textarea';
-  stateChange = this.stateChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   @HostBinding('class.vclInput')
   classVclInput = true;
@@ -95,13 +95,13 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
   @HostListener('focus')
   onFocus() {
     this._focused = true;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -142,6 +142,6 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
   }
 
   ngOnDestroy() {
-    this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 }

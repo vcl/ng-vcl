@@ -13,7 +13,7 @@ export interface FormControlHost {
 }
 
 export interface FormControlInput<T = any> {
-  readonly stateChange: Observable<void>;
+  readonly stateChanged: Observable<void>;
   readonly controlType: string;
   readonly elementId: string;
   readonly isDisabled: boolean;

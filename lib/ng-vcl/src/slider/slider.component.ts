@@ -14,11 +14,12 @@ import {
   OnChanges,
   Optional,
   Inject,
-  forwardRef
+  forwardRef,
+  OnDestroy
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group/index';
 import { Subject } from 'rxjs';
+import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group/index';
 
 let UNIQUE_ID = 0;
 
@@ -40,7 +41,7 @@ export interface ScalePoint {
   }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges, FormControlInput {
+export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges, FormControlInput, OnDestroy {
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -64,9 +65,9 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
 
   private _cvaDisabled = false;
   private generatedId = 'vcl_slider_' + UNIQUE_ID++;
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  stateChange = this.stateChangeEmitter.asObservable();
+  stateChanged = this.stateChangedEmitter.asObservable();
   controlType = 'slider';
 
   @Input()
@@ -246,14 +247,14 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @HostListener('focus')
   onFocus() {
     this.focused = true;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this.focused = false;
     this.onTouched();
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   /**
@@ -400,6 +401,12 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   onLabelClick(event: Event): void {
 
   }
+
+
+  ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
+  }
+
 
   /**
    * things needed for ControlValueAccessor-Interface

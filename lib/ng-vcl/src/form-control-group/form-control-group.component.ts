@@ -37,9 +37,9 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
     return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-form-inline-control-group';
   }
 
-  private _stateChangeEmitter = new Subject<void>();
+  private _stateChangedEmitter = new Subject<void>();
 
-  stateChange = this._stateChangeEmitter.asObservable();
+  stateChange = this._stateChangedEmitter.asObservable();
 
   @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT })
   input?: FormControlInput;
@@ -68,11 +68,11 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
 
   ngAfterViewInit() {
     if (this.input) {
-      this.input.stateChange.pipe(startWith(undefined)).subscribe(this._stateChangeEmitter);
+      this.input.stateChanged.pipe(startWith(undefined)).subscribe(this._stateChangedEmitter);
     }
   }
 
   ngOnDestroy() {
-    return this._stateChangeEmitter.complete();
+    return this._stateChangedEmitter.complete();
   }
 }

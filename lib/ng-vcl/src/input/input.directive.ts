@@ -39,11 +39,9 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
   private _disabled = false;
   private _focused = false;
 
-  private stateChangeEmitter = new Subject<void>();
+  private stateChangedEmitter = new Subject<void>();
 
-  get stateChange() {
-    return this.stateChangeEmitter.asObservable();
-  }
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   controlType = 'input';
 
@@ -94,13 +92,13 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
     if (this.autoselect) {
       this.elementRef.nativeElement.select();
     }
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
-    this.stateChangeEmitter.next();
+    this.stateChangedEmitter.next();
   }
 
   setDisabled(disabled: boolean) {
@@ -116,7 +114,7 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
   }
 
   ngOnDestroy() {
-    this.stateChangeEmitter && this.stateChangeEmitter.complete();
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   getError(error: string) {
