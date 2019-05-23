@@ -24,7 +24,16 @@ export interface FormControlInput<T = any> {
   onLabelClick(event: Event): void;
 }
 
-export type FormControlErrorStateAgent = (host?: FormControlHost, input?: FormControlInput) => (boolean);
+export interface FormControlAgentInput<T = any> {
+  readonly controlType: string;
+  readonly elementId: string;
+  readonly isDisabled: boolean;
+  readonly isFocused: boolean;
+  readonly ngControl?: NgControl;
+  readonly value: T;
+}
+
+export type FormControlErrorStateAgent = (host?: FormControlHost, input?: FormControlAgentInput) => (boolean);
 
 export const FORM_CONTROL_HOST = new InjectionToken<FormControlHost>('vcl-form-control-host');
 export const FORM_CONTROL_ERROR_STATE_AGENT = new InjectionToken<FormControlErrorStateAgent>('vcl-form-control-error-state-agent');

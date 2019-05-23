@@ -8,14 +8,15 @@ import { FormControlRequiredComponent } from './required.component';
 
 export { FormControlGroupComponent, FORM_CONTROL_INPUT, FormControlInput, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHost, FORM_CONTROL_HOST };
 
-export function defaultFormControlErrorStateAgent(form?: FormControlHost, input?: FormControlInput<any>, error?: string) {
+// tslint:disable-next-line:only-arrow-functions
+export const defaultFormControlErrorStateAgent: FormControlErrorStateAgent = function(form?, input?) {
   return form &&
          input &&
-         input.ngControl &&
+         input .ngControl &&
          !input.isFocused &&
          input.ngControl.invalid &&
          (input.ngControl.touched || form.submitted);
-}
+};
 
 @NgModule({
   imports: [CommonModule],
