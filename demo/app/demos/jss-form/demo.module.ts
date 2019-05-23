@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
-import { CounterComponent } from './counter.component';
 import { FormFieldCounterComponent } from './jss-form-extended';
+import { VCLCounterModule } from '../form-control-group/counter.component';
 
 export function demo() {
   return {
@@ -25,9 +25,9 @@ export function demo() {
         type: 'pre',
         content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
       },
-      'counter.component.ts': {
+      'jss-form-extended.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./counter.component.ts')
+        content: require('!highlight-loader?raw=true&lang=ts!./jss-form-extended.ts')
       },
       'hero.ts': {
         type: 'pre',
@@ -43,6 +43,7 @@ export function demo() {
     FormsModule,
     ReactiveFormsModule,
     DemoModule,
+    VCLCounterModule,
     VCLIcogramModule,
     VCLButtonModule,
     VCLJssFormModule,
@@ -53,7 +54,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ JssFormDemoComponent, CounterComponent, FormFieldCounterComponent ],
-  declarations: [ JssFormDemoComponent, CounterComponent, FormFieldCounterComponent ]
+  entryComponents: [ JssFormDemoComponent, FormFieldCounterComponent ],
+  declarations: [ JssFormDemoComponent, FormFieldCounterComponent ]
 })
 export class VCLJssFormDemoModule { }

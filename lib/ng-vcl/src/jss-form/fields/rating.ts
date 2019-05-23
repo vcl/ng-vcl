@@ -41,7 +41,7 @@ export class FormFieldRating extends FormFieldControl<VCLFormFieldSchemaRating, 
 })
 export class FormFieldRatingComponent implements AfterViewInit {
   constructor(public field: FormFieldRating, cdRef: ChangeDetectorRef) {
-    field.stateChange.subscribe(() => {
+    field.stateChanged.subscribe(() => {
       cdRef.markForCheck();
     });
   }

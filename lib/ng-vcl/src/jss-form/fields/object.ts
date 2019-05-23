@@ -5,14 +5,12 @@ import { FormField, FormFieldControl } from './field';
 import { VCLFormFieldSchemaObject } from '../schemas';
 
 export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, {}> {
-  constructor(schema: VCLFormFieldSchemaObject, key: string, parent?: FormField) {
-    super(schema, key, parent);
+  constructor(schema: VCLFormFieldSchemaObject, parent?: FormField) {
+    super(schema, parent);
 
-    this._fields = Object.keys(schema.fields).map(_key => {
-      const fieldSchema = schema.fields[_key];
+    this._fields = schema.fields.map(fieldSchema => {
       return FormField.createInstance({
         schema: fieldSchema,
-        key: _key,
         parent: this
       });
     });
@@ -45,7 +43,7 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, 
       if (field instanceof FormFieldControl) {
         return {
           ...value,
-          [field.key]: field.defaultValue,
+          [field.name]: field.defaultValue,
         };
       }
       return value;
@@ -71,7 +69,7 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, 
       if (field instanceof FormFieldControl) {
         return field.control ? {
           ...group,
-          [field.key]: field.control
+          [field.name]: field.control
         } : group;
       }
       return group;

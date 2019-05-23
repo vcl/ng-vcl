@@ -6,8 +6,13 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 import { Injector } from '@angular/core';
 import { ComponentType, ComponentPortal } from '@angular/cdk/portal';
 
+export type FormFieldClass = new (schema: VCLFormFieldSchema, parent: FormField<any>) => FormField<any>;
+export type FormFieldControlClass = new (schema: VCLFormFieldSchema, parent: FormField<any>) => FormFieldControl<any, any>;
+
+let uniqueId = 0;
+
 interface FieldRegistry {
-  [key: string]: {
+  [type: string]: {
     componentClass: ComponentType<any>;
     fieldClass: FormFieldClass | FormFieldControlClass;
   };
@@ -17,9 +22,8 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
 
   static registry: FieldRegistry = {};
 
-  constructor(public readonly schema: T, key: string, public readonly parent?: FormField) {
-    this.key = key;
-    this.id = schema.id || this.key;
+  constructor(public readonly schema: T, public readonly parent?: FormField) {
+    this.id = schema.id || ('vcl-form-input' + uniqueId++);
     this.registerConditional(this.schema.visible, (visible) => this.updateVisible(visible));
   }
 
@@ -27,15 +31,10 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
   private _visible = true;
   private _formReady$ = new ReplaySubject(1);
 
-  protected stateChangeEmitter = new Subject();
+  protected stateChangedEmitter = new Subject();
 
   readonly id: string;
-  readonly key: string;
-  readonly stateChange = this.stateChangeEmitter.asObservable();
-
-  get path(): string {
-    return this.parent ? this.parent.key + '.' + this.key : this.key;
-  }
+  readonly stateChanged = this.stateChangedEmitter.asObservable();
 
   get type(): string {
     return this.schema.type;
@@ -70,13 +69,12 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     };
   }
 
-  static createInstance({key, schema, parent}: {
+  static createInstance({schema, parent}: {
     schema: VCLFormFieldSchema;
-    key: string;
     parent?: FormField;
   }) {
     const meta = this.lookup(schema.type);
-    return new meta.fieldClass(schema, key, parent);
+    return new meta.fieldClass(schema, parent);
   }
 
   createConditionalStream<TConditional>(conditional: Conditional<TConditional>) {
@@ -102,7 +100,7 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     if (conditional instanceof Conditional) {
       const sub  = this.createConditionalStream(conditional).subscribe((value) => {
         cb(value);
-        this.stateChangeEmitter.next();
+        this.stateChangedEmitter.next();
       });
       this._conditionalSubs.push(sub);
     } else {
@@ -121,7 +119,7 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
 
   destroy() {
     this._conditionalSubs.forEach(sub => sub.unsubscribe());
-    this.stateChangeEmitter.complete();
+    this.stateChangedEmitter.complete();
   }
 
   createPortal(injector: Injector, additionalProviders: any[]) {
@@ -146,8 +144,9 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
 
 export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormFieldControlSchema, TParams = any> extends FormField<T> {
 
-  constructor(schema: T, key: string, parent?: FormField) {
-    super(schema, key, parent);
+  constructor(schema: T, parent?: FormField) {
+    super(schema, parent);
+    this.name = schema.name;
     this.registerConditional(this.schema.disabled, (disabled) => this.updateDisabled(disabled));
     this.registerConditional(this.schema.params, (params) => this.updateParams(params));
   }
@@ -155,6 +154,7 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
   private _disabled = false;
   private _params: TParams;
   readonly id: string;
+  readonly name: string;
   private _control?: AbstractControl;
 
   get control(): AbstractControl {
@@ -251,6 +251,3 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
     return new ComponentPortal(meta.componentClass, null, componentInjector);
   }
 }
-
-export type FormFieldClass = new (schema: VCLFormFieldSchema, key: string, parent: FormField<any>) => FormField<any>;
-export type FormFieldControlClass = new (schema: VCLFormFieldSchema, key: string, parent: FormField<any>) => FormFieldControl<any, any>;

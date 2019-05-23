@@ -1,10 +1,9 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ComponentPortal, Portal } from '@angular/cdk/portal';
-import { FormFieldControl, FormField, FormFieldObject } from './fields/index';
+import { Portal } from '@angular/cdk/portal';
+import { FormFieldObject } from './fields/index';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
-import { Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'vcl-jss-form',
@@ -22,9 +21,10 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
       // Treat root as a FormFieldObject
       this.field = new FormFieldObject({
         ...value,
+        name: 'root',
         type: 'object',
         visible: true
-      }, '');
+      });
       this.portal = this.field.createPortal(this.injector, [{
             provide: JSS_FORM_TOKEN,
             useExisting: JssFormComponent

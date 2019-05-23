@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaRoot, FormFieldControl } from '@ng-vcl/ng-vcl';
+import { VCLFormFieldSchemaRoot, FormFieldControl, VCLFormFieldControlSchema, Conditional } from '@ng-vcl/ng-vcl';
 
 @Component({
   template: `
@@ -21,5 +21,15 @@ export class FormFieldCounterComponent {
 // Register counter component as field
 FormFieldControl.register('counter', FormFieldCounterComponent);
 
+export interface CounterSchemaParams {
+  min?: number;
+  max?: number;
+}
+
+export interface CounterSchema extends VCLFormFieldControlSchema {
+  type: 'counter';
+  params?: CounterSchemaParams | Conditional<CounterSchemaParams>;
+}
+
 // Add counter to schema
-export type ExtendedFormFieldSchemaRoot = VCLFormFieldSchemaRoot<'counter'>;
+export type ExtendedFormFieldSchemaRoot = VCLFormFieldSchemaRoot<CounterSchema>;

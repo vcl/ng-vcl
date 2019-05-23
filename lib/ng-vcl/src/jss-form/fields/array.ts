@@ -43,7 +43,6 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
 
     const field = FormField.createInstance({
       schema,
-      key: index.toString(),
       parent: this
     });
 
@@ -72,7 +71,7 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
 @Component({
   template: `
   <ng-container [formGroup]="field.parentControl">
-    <fieldset class="vclFieldset" [formArrayName]="field.key">
+    <fieldset class="vclFieldset" [formArrayName]="field.name">
       <legend>{{field.label}} <vcl-icon class="vclJssFormAdd" icon="vcl:add" (click)="addItem()"></vcl-icon></legend>
       <ng-container *ngIf="items.length === 0">
         {{field.noFieldsLabel}}

@@ -36,7 +36,7 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
     $.push(this.ngForm && this.ngForm.ngSubmit);
 
     if (this.fch && this.fch.input) {
-      $.push(this.fch && this.fch.input.stateChange);
+      $.push(this.fch && this.fch.input.stateChanged);
     }
     if (control) {
       $.push(control.valueChanges, control.statusChanges);

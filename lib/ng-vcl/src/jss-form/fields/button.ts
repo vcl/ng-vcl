@@ -6,8 +6,8 @@ import { FormField } from './field';
 export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
   field: 'button' | 'submit';
 
-  constructor(a1, a2, a3) {
-    super(a1, a2, a3);
+  constructor(a1, a2) {
+    super(a1, a2);
     this.registerConditional(this.schema.disabled, (disabled) => this._disabled = !!disabled);
   }
 
@@ -32,11 +32,12 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
   get action(): string  {
     return this.schema.action;
   }
+
 }
 
 @Component({
   template: `
-   <button vcl-button [disabled]="field.disabled" [type]="field.type" (click)="onAction(field.action)" >{{field.label}}</button>
+   <button vcl-button [disabled]="field.disabled" [type]="field.type" (click)="onAction(field)">{{field.label}}</button>
   `
 })
 export class FormFieldButtonComponent {
@@ -45,8 +46,10 @@ export class FormFieldButtonComponent {
     @Inject(JSS_FORM_TOKEN) private jssForm: JssForm,
   ) { }
 
-  onAction(action: string) {
-    this.jssForm.onAction(action);
+  onAction(button: FormFieldButton) {
+    if (button.type === 'button') {
+      this.jssForm.onAction(button.action);
+    }
   }
 }
 

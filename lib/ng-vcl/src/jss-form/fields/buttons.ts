@@ -6,7 +6,7 @@ import { FormFieldButton } from './button';
 
 export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
   get buttons() {
-    return (this.schema.buttons || [].map((btn, idx) => new FormFieldButton(btn, this.key + idx, this)));
+    return (this.schema.buttons || [].map((btn) => new FormFieldButton(btn, this)));
   }
 }
 
@@ -14,7 +14,7 @@ export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
   template: `
   <div class="vclLooseButtonGroup">
    <ng-container *ngFor="let button of field.buttons">
-    <button vcl-button [disabled]="button.disabled" [type]="field.type" (click)="onAction(button.action)" >{{button.label}}</button>
+    <button vcl-button [disabled]="button.disabled" [type]="button.type" (click)="onAction(button)" >{{button.label}}</button>
    </ng-container>
   </div>
   `
@@ -25,8 +25,10 @@ export class FormFieldButtonsComponent {
     @Inject(JSS_FORM_TOKEN) private jssForm: JssForm,
   ) { }
 
-  onAction(action: string) {
-    this.jssForm.onAction(action);
+  onAction(button: FormFieldButton) {
+    if (button.type === 'button') {
+      this.jssForm.onAction(button.action);
+    }
   }
 }
 

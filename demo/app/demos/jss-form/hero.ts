@@ -4,12 +4,14 @@ import { ExtendedFormFieldSchemaRoot } from './jss-form-extended';
 
 export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
   type: 'form',
-  fields: {
-    name: {
+  fields: [
+    {
+      name: 'name',
       type: 'input',
       label: 'Name',
       params: {
         placeholder: 'The hero\'s name',
+        inputType: 'password'
       },
       validators: [
         Validators.required, Validators.minLength(2)
@@ -28,15 +30,17 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         }
       ]
     },
-    description: {
+    {
       type: 'textarea',
+      name: 'description',
       label: 'Description',
       params: {
         placeholder: 'The hero\'s Description',
       }
     },
-    level: {
+    {
       type: 'counter',
+      name: 'level',
       label: 'Level',
       defaultValue: 1,
       params: {
@@ -44,8 +48,9 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         max: 10
       }
     },
-    leader: {
+    {
       type: 'switch',
+      name: 'leader',
       label: 'Leader',
       defaultValue: false,
       visible: conditional(['level'], (level: AbstractControl) => level.value >= 5),
@@ -62,16 +67,18 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         onLabel: 'Yes',
       }
     },
-    picture: {
+    {
       type: 'file-input',
+      name: 'picture',
       label: 'Picture',
       params: {
         multiple: false,
         placeholder: 'Picture of the hero'
       }
     },
-    email: {
+    {
       type: 'input',
+      name: 'email',
       label: 'Email',
       validators: [Validators.required, Validators.email],
       required: true,
@@ -88,8 +95,9 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         }
       ]
     },
-    gender: {
+    {
       type: 'radio-group',
+      name: 'gender',
       label: 'Gender',
       defaultValue: 'm',
       params: {
@@ -105,12 +113,9 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         }],
       }
     },
-    dob: {
-      type: 'date-picker',
-      label: 'Date of Birth'
-    },
-    alignment: {
+    {
       type: 'button-group',
+      name: 'alignment',
       label: 'Alignment',
       params: {
         options: [{
@@ -125,12 +130,14 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         }]
       }
     },
-    language: {
+    {
       type: 'hidden',
+      name: 'language',
       defaultValue: navigator.language
     },
-    class: {
+    {
       type: 'select-list',
+      name: 'class',
       label: 'Class',
       defaultValue: null,
       params: {
@@ -146,8 +153,9 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         }]
       }
     },
-    hitpoints: {
+    {
       type: 'slider',
+      name: 'hitpoints',
       label: 'Hit Points',
       defaultValue: 15,
       disabled: conditional(['class'], (c) => !c.value),
@@ -176,36 +184,40 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         }
       }),
     },
-    skills: {
+    {
       type: 'object',
+      name: 'skills',
       layout: 'fieldset',
       label: 'Skills',
-      fields: {
-        strength: {
+      fields: [
+        {
           type: 'rating',
+          name: 'strength',
           defaultValue: 3,
           params: {
             items: ['1', '2', '3', '4', '5'],
             valueLabel: (label) => `Strength (${label})`,
           },
         },
-        agility: {
+        {
           type: 'rating',
+          name: 'agility',
           defaultValue: 3,
           params: {
             items: ['1', '2', '3', '4', '5'],
             valueLabel: (label) => `Agility (${label})`,
           },
         },
-        intelligence: {
+        {
           type: 'rating',
+          name: 'intelligence',
           defaultValue: 3,
           params: {
             items: ['1', '2', '3', '4', '5'],
             valueLabel: (label) => `Intelligence (${label})`,
           },
         },
-      },
+      ],
       validators: [(control: AbstractControl) => {
         const s = control.get('strength');
         const a = control.get('agility');
@@ -238,8 +250,9 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         })
       ]
     },
-    attributes: {
+    {
       type: 'token',
+      name: 'attributes',
       label: 'Attributes',
       hints: [
         {
@@ -256,8 +269,9 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         return Array.isArray(control.value) && control.value.length > 1 ? null : { minLength: true };
       }],
     },
-    perks: {
+    {
       type: 'select',
+      name: 'perks',
       label: 'Perks',
       params: {
         placeholder: 'Select perks',
@@ -299,17 +313,20 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         message: 'You must select two perks'
       }],
     },
-    items: {
+    {
       type: 'array',
+      name: 'items',
       label: 'Items',
-      initialFields: 2,
+      initialFields: 0,
       fieldLabel: (index) => 'Item ' + (index + 1),
-      noFieldsLabel: 'Hero carries no items',
+      noFieldsLabel: 'No items',
       field: {
         type: 'object',
-        fields: {
-          item_name: {
+        name: 'item_object',
+        fields: [
+          {
             type: 'input',
+            name: 'item_name',
             label: 'Name',
             validators: [ Validators.required],
             required: true,
@@ -321,9 +338,13 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
               },
             ]
           },
-          item_quantity: {
-            type: 'number',
+          {
+            type: 'input',
+            name: 'item_quantity',
             label: 'Quantity',
+            params: {
+              inputType: 'number'
+            },
             validators: [ Validators.required, Validators.min(1), Validators.max(10)],
             required: true,
             hints: [
@@ -344,11 +365,12 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
               },
             ]
           }
-        }
+        ]
       }
     },
-    terms: {
+    {
       type: 'checkbox',
+      name: 'terms',
       label: 'Agree to our terms',
       validators: [(control: AbstractControl) => {
         if (!control.value) {
@@ -368,9 +390,10 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
           error: 'termsDisagree',
           message: 'You must agree to our Terms'
         }
-      ]
+      ],
+      errorStateAgent: (host, input) => input.ngControl.invalid && host.submitted
     },
-    submit: {
+    {
       type: 'buttons',
       buttons: [
         {
@@ -385,5 +408,5 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         }
       ]
     }
-  },
+  ]
 };

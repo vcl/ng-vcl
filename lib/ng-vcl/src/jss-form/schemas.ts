@@ -15,6 +15,7 @@ export interface VCLFormFieldSchema {
 }
 
 export interface VCLFormFieldControlSchema extends VCLFormFieldSchema {
+  name: string;
   label?: string;
   hints?: (Hint | Conditional<Hint>)[];
   required?: boolean | Conditional<boolean>;
@@ -27,6 +28,7 @@ export interface VCLFormFieldControlSchema extends VCLFormFieldSchema {
 
 export interface VCLFormFieldSchemaInputParams {
   placeholder?: string;
+  inputType?: string;
 }
 
 export interface VCLFormFieldSchemaInput extends VCLFormFieldControlSchema {
@@ -195,40 +197,38 @@ export interface VCLFormFieldSchemaButtons extends VCLFormFieldSchema {
   buttons: (VCLFormFieldSchemaButton | VCLFormFieldSchemaSubmit)[];
 }
 
-export interface VCLFormFieldSchemaArray<TCustomType extends string = never> extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaArray<TCustomFields extends VCLFormFieldSchema = never> extends VCLFormFieldControlSchema {
   type: 'array';
   noFieldsLabel?: string;
   fieldLabel?: string | ((index: number) => string);
   initialFields?: number;
-  field: VCLFormFieldSchemas<TCustomType>;
+  field: VCLFormFieldSchemas<TCustomFields>;
 }
 
-export interface VCLFormFieldSchemaObject<TCustomType extends string = never> extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaObject<TCustomFields extends VCLFormFieldSchema = never> extends VCLFormFieldControlSchema {
   type: 'object';
-  fields?: { [name: string]: VCLFormFieldSchemas<TCustomType> };
+  fields: VCLFormFieldSchemas<TCustomFields>[];
   validators?: ValidatorFn[];
   layout?: 'fieldset';
 }
 
-export interface VCLFormFieldSchemaRoot<TCustomType extends string = never> extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaRoot<TCustomFields extends VCLFormFieldSchema = never> {
   type: 'form';
-  fields?: { [name: string]: VCLFormFieldSchemas<TCustomType> };
+  fields: VCLFormFieldSchemas<TCustomFields>[];
+  hints?: (Hint | Conditional<Hint>)[];
+  disabled?: boolean | Conditional<boolean>;
   validators?: ValidatorFn[];
-  layout?: 'fieldset';
+  errorStateAgent?: FormControlErrorStateAgent;
 }
 
-export interface VCLFormFieldSchemaCustom<TCustomType extends string> {
-  type: TCustomType;
-  [key: string]: any;
-}
-
-export type VCLFormFieldSchemas<TCustomType extends string> =
+export type VCLFormFieldSchemas<TCustomFields extends VCLFormFieldSchema> =
                             VCLFormFieldSchemaInput | VCLFormFieldSchemaNumber | VCLFormFieldSchemaPassword | VCLFormFieldSchemaTextarea
-                          | VCLFormFieldSchemaHidden | VCLFormFieldSchemaFileInput  | VCLFormFieldSchemaObject<TCustomType>
+                          | VCLFormFieldSchemaHidden | VCLFormFieldSchemaFileInput  | VCLFormFieldSchemaObject<TCustomFields>
                           | VCLFormFieldSchemaCheckbox | VCLFormFieldSchemaSelect | VCLFormFieldSchemaSelectList | VCLFormFieldSchemaButtonGroup
                           | VCLFormFieldSchemaSwitch | VCLFormFieldSchemaSlider | VCLFormFieldSchemaRating
                           | VCLFormFieldSchemaRadioGroup | VCLFormFieldSchemaToken | VCLFormFieldSchemaDatePicker
                           | VCLFormFieldSchemaButton | VCLFormFieldSchemaSubmit | VCLFormFieldSchemaButtons
-                          | VCLFormFieldSchemaCustom<TCustomType> | VCLFormFieldSchemaArray<TCustomType>
+                          | VCLFormFieldSchemaArray<TCustomFields>
+                          | TCustomFields
                           ;
 
