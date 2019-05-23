@@ -1,5 +1,5 @@
 import { Subject, merge } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { OverlayRef, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { Portal } from '@angular/cdk/portal';
 import { Injector } from '@angular/core';
@@ -9,7 +9,7 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
     this.injector = injector;
   }
 
-  private _detachEmitter: Subject<TResult> = new Subject();
+  private _requestDetachEmitter: Subject<TResult> = new Subject();
   private _instanceRef?: TInstanceRef;
   private _overlayRef?: OverlayRef;
   private _isDestroyed = false;
@@ -57,13 +57,17 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
       this._instanceRef = this.overlayRef.attach(this._portal);
 
       merge<TResult>(
-        this.overlayRef.detachments().pipe(
-          filter(() => this.isAttached),
-          map(() => ({action: 'detach'}))
-        ),
-        this._detachEmitter.asObservable(),
-      ).pipe(take(1)).subscribe((result) => {
-        this.overlayRef.detach();
+        // Called when detached via detach() method
+        this._requestDetachEmitter.asObservable(),
+        // Called when detached from anywhere else
+        this.overlayRef.detachments().pipe(map(() => undefined)),
+      ).pipe(
+        take(1) // Take 1 to make sure cleanup is only done once
+      ).subscribe((result) => {
+        // The overlay is not detached after an event from the request emitter
+        if (this.overlayRef && this.overlayRef.hasAttached()) {
+          this.overlayRef.detach();
+        }
         this._instanceRef = undefined;
         this._overlayRef = undefined;
         this.afterDetached(result);
@@ -78,7 +82,7 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
     if (!this.isAttached) {
       return;
     }
-    this._detachEmitter.next(result);
+    this._requestDetachEmitter.next(result);
   }
 
   public updatePosition() {
