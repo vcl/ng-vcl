@@ -60,33 +60,5 @@ export class NagLayer extends LayerRef<NagLayerData, NagLayerResult> {
     });
   }
 
-  // getLayerConfig(): LayerConfig {
-  //   return new LayerConfig({
-  //     closeOnEscape: false,
-  //     hasBackdrop: false,
-  //     width: '30em',
-  //     positionStrategy: this.overlay.position()
-  //       .global()
-  //       .bottom('1em')
-  //       .right('1em')
-  //   });
-  // }
-
-  // getLayerConfig(): LayerConfig {
-  //   return new LayerConfig({
-  //     closeOnEscape: false,
-  //     hasBackdrop: false,
-  //     width: '30em',
-  //     positionStrategy: this.overlay.position()
-  //       .flexibleConnectedTo(document.querySelector('.github') as HTMLElement)
-  //       .withPositions([{
-  //         originX: 'end',
-  //         originY: 'bottom',
-  //         overlayX: 'end',
-  //         overlayY: 'top',
-  //       }])
-  //   });
-  // }
-
 
 }
