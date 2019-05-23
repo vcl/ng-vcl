@@ -4,13 +4,6 @@ import { Component, Input } from '@angular/core';
 let cnt = 1;
 
 @Component({
-  template: '<button class="vclButton">{{text}}</button>'
-})
-export class NotifierContentComponent {
-  @Input()text;
-}
-
-@Component({
   templateUrl: 'demo.component.html'
 })
 export class NotifierDemoComponent {
@@ -61,5 +54,4 @@ export class NotifierDemoComponent {
       timeout: 10000
     });
   }
-
 }

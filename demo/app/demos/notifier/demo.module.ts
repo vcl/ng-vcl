@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { VCLButtonGroupModule, VCLButtonModule, VCLNotifierModule } from '@ng-vcl/ng-vcl';
 import { DemoComponent, DemoModule } from './../../modules/demo/demo.module';
-import { NotifierContentComponent, NotifierDemoComponent } from './demo.component';
+import { NotifierDemoComponent } from './demo.component';
 
 export function demo() {
   return {
@@ -41,7 +41,7 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ NotifierDemoComponent, NotifierContentComponent ],
-  declarations: [ NotifierDemoComponent, NotifierContentComponent ]
+  entryComponents: [ NotifierDemoComponent ],
+  declarations: [ NotifierDemoComponent ]
 })
 export class NotifierDemoModule { }
