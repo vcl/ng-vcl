@@ -39,6 +39,55 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
       }
     },
     {
+      type: 'password-input',
+      name: 'password',
+      label: 'Password',
+      params: {
+        placeholder: 'Enter password',
+      },
+      validators: [
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'),
+      ],
+      hints: [
+        {
+          type: 'error',
+          error: 'required',
+          message: 'Password is required'
+        },
+        {
+          type: 'error',
+          error: 'pattern',
+          message: 'Password must...'
+        },
+        {
+          type: 'error',
+          error: 'pattern',
+          message: '- At least 8 characters in length'
+        },
+        {
+          type: 'error',
+          error: 'pattern',
+          message: '- Contain a lowercase letters'
+        },
+        {
+          type: 'error',
+          error: 'pattern',
+          message: '- Contain a uppercase letters'
+        },
+        {
+          type: 'error',
+          error: 'pattern',
+          message: '- Contain a number'
+        },
+        {
+          type: 'error',
+          error: 'pattern',
+          message: '- Contain a special character'
+        }
+      ]
+    },
+    {
       type: 'counter',
       name: 'level',
       label: 'Level',

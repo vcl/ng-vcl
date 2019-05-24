@@ -36,6 +36,15 @@ export interface VCLFormFieldSchemaInput extends VCLFormFieldControlSchema {
   params?: VCLFormFieldSchemaInputParams | Conditional<VCLFormFieldSchemaInputParams>;
 }
 
+export interface VCLFormFieldSchemaPasswordInputParams {
+  placeholder?: string;
+}
+
+export interface VCLFormFieldSchemaPasswordInput extends VCLFormFieldControlSchema {
+  type: 'password-input';
+  params?: VCLFormFieldSchemaPasswordInputParams | Conditional<VCLFormFieldSchemaPasswordInputParams>;
+}
+
 export interface VCLFormFieldSchemaNumber extends VCLFormFieldControlSchema {
   type: 'number';
   params?: VCLFormFieldSchemaInputParams | Conditional<VCLFormFieldSchemaInputParams>;
@@ -222,7 +231,7 @@ export interface VCLFormFieldSchemaRoot<TCustomFields extends VCLFormFieldSchema
 }
 
 export type VCLFormFieldSchemas<TCustomFields extends VCLFormFieldSchema> =
-                            VCLFormFieldSchemaInput | VCLFormFieldSchemaNumber | VCLFormFieldSchemaPassword | VCLFormFieldSchemaTextarea
+                            VCLFormFieldSchemaInput | VCLFormFieldSchemaPasswordInput | VCLFormFieldSchemaNumber | VCLFormFieldSchemaPassword | VCLFormFieldSchemaTextarea
                           | VCLFormFieldSchemaHidden | VCLFormFieldSchemaFileInput  | VCLFormFieldSchemaObject<TCustomFields>
                           | VCLFormFieldSchemaCheckbox | VCLFormFieldSchemaSelect | VCLFormFieldSchemaSelectList | VCLFormFieldSchemaButtonGroup
                           | VCLFormFieldSchemaSwitch | VCLFormFieldSchemaSlider | VCLFormFieldSchemaRating

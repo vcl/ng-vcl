@@ -26,7 +26,7 @@ import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSwitchCompo
          FormFieldObjectComponent, FormFieldRatingComponent, FormFieldControl,
          FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
          FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDatePickerComponent,
-         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent } from './fields/index';
+         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent, FormFieldPasswordInputComponent } from './fields/index';
 
 export { JssFormComponent };
 export * from './schemas';
@@ -78,7 +78,8 @@ export {FormField, FormFieldControl };
     FormFieldButtonGroupComponent,
     FormFieldRatingComponent,
     FormFieldObjectComponent,
-    FormFieldArrayComponent
+    FormFieldArrayComponent,
+    FormFieldPasswordInputComponent
   ],
   providers: [],
   entryComponents: [
@@ -99,7 +100,8 @@ export {FormField, FormFieldControl };
     FormFieldButtonGroupComponent,
     FormFieldRatingComponent,
     FormFieldObjectComponent,
-    FormFieldArrayComponent
+    FormFieldArrayComponent,
+    FormFieldPasswordInputComponent
   ]
 })
 export class VCLJssFormModule { }
