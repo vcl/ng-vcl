@@ -12,25 +12,54 @@ import {
   TemplateRef,
   SkipSelf,
   Self,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ViewChild,
+  Optional,
+  Inject
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputDirective } from '../input/index';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel, NgControl } from '@angular/forms';
+import { InputDirective, INPUT_HOST_TOKEN, InputHost } from '../input/index';
+import { FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Token } from './interfaces';
+import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
+import { Subject } from 'rxjs';
+
+let uniqueID = 0;
 
 @Component({
-  selector: 'vcl-token-input-container',
+  selector: 'vcl-token-input',
   templateUrl: 'token-input.component.html',
   providers: [{
-    provide: NG_VALUE_ACCESSOR,
+    provide: INPUT_HOST_TOKEN,
     useExisting: forwardRef(() => TokenInputContainerComponent),
-    multi: true
   }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenInputContainerComponent implements ControlValueAccessor {
+export class TokenInputContainerComponent implements ControlValueAccessor, FormControlInput, InputHost {
 
-  tokens: Token[] = [];
+  constructor(
+    public elementRef: ElementRef,
+    private cdRef: ChangeDetectorRef,
+    @Optional() @Self()
+    public ngControl?: NgControl,
+    @Optional() @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
+    @Optional() @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
+    private _errorStateAgent?: FormControlErrorStateAgent,
+  ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  private _stateChangedEmitter = new Subject<void>();
+  private _generatedId = 'vcl_token-input_' + uniqueID++;
+  private _cvaDisabled = false;
+  private _lastKeyCode: number | undefined;
+
+  stateChanged = this._stateChangedEmitter.asObservable();
+  controlType = 'token-input';
 
   @HostBinding('class.vclInput')
   @HostBinding('class.vclTokenInput')
@@ -38,33 +67,61 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   @HostBinding('class.vclLayoutWrap')
   _hostClasses = true;
 
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this._generatedId;
+  }
+
+  @HostBinding('class.vclDisabled')
+  get isDisabled() {
+    return this._cvaDisabled || this.disabled;
+  }
+
+  get isFocused() {
+    return this.input.isFocused;
+  }
+
+  @HostBinding('class.vclError')
+  get hasError() {
+    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
+    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  }
+
   @HostBinding('attr.tabindex')
   _hostAttrTabindex = -1;
+
+  @Input()
+  errorStateAgent?: FormControlErrorStateAgent;
+
+  @Input()
+  id?: string;
 
   @Input()
   selectable = false;
 
   @Input()
+  addOnEnter = true;
+
+  @Input()
   allowDuplicates = false;
 
   @Input()
-  preselect = false;
+  preselect = true;
 
   @Input()
   removeToken = true;
 
   @Input()
-  tabindex = 0;
+  value: Token[] = [];
 
   @Input()
   tokenClass: string | undefined;
 
-  @HostBinding('class.vclDisabled')
   @Input()
   disabled = false;
 
   @Output()
-  tokensChange = new EventEmitter<Token[]>();
+  valueChange = new EventEmitter<Token[]>();
 
   @Output()
   remove = new EventEmitter<Token>();
@@ -73,11 +130,15 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   @Output()
   confirm = new EventEmitter<Token[]>();
 
-  constructor(public elementRef: ElementRef, private cdRef: ChangeDetectorRef) { }
+  @ContentChild(InputDirective, { read: InputDirective })
+  input: InputDirective;
+
+  @ContentChild(InputDirective, { read: ElementRef })
+  inputElementRef: ElementRef<HTMLInputElement>;
 
   removeLastToken() {
-    this.tokens = [...this.tokens];
-    this.tokens.pop();
+    this.value = [...this.value];
+    this.value.pop();
     this.triggerChange();
     this.cdRef.markForCheck();
   }
@@ -90,14 +151,22 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
       ...token,
     };
 
-    if (this.allowDuplicates === false && this.tokens.some(thisToken => thisToken.value === newToken.value)) {
+    if (this.allowDuplicates === false && this.value.some(thisToken => thisToken.value === newToken.value)) {
       return;
     }
 
-    this.tokens = [...this.tokens, newToken];
+    this.value = [...this.value, newToken];
     this.triggerChange();
     this.cdRef.markForCheck();
     this.onTouched();
+  }
+
+  notifyInputFocus(btn: InputDirective): void {
+    this._stateChangedEmitter.next();
+  }
+  notifyInputBlur(btn: InputDirective): void {
+    this.onTouched();
+    this._stateChangedEmitter.next();
   }
 
   select(token: Token) {
@@ -110,18 +179,18 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   onTokenRemove(token: Token) {
     this.remove.emit(token);
     if (this.removeToken) {
-      this.tokens = this.tokens.filter(t => t !== token);
+      this.value = this.value.filter(t => t !== token);
       this.triggerChange();
     }
   }
 
   triggerChange() {
-    this.tokensChange.emit(this.tokens);
-    this.onChange(this.tokens);
+    this.valueChange.emit(this.value);
+    this.onChange(this.value);
   }
 
-  onBlur() {
-    this.onTouched();
+  onLabelClick(event: Event): void {
+    this.inputElementRef.nativeElement.focus();
   }
 
   /**
@@ -130,12 +199,12 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
 
-  writeValue(tokens: any): void {
-    if (Array.isArray(tokens)) {
-      this.tokens = tokens.map(t => typeof t === 'string' ? {label: t, selected: this.preselect} : t)
+  writeValue(value: any): void {
+    if (Array.isArray(value)) {
+      this.value = value.map(t => typeof t === 'string' ? {label: t, selected: this.preselect} : t)
                           .filter(t => typeof t === 'object' && t);
     } else {
-      this.tokens = [];
+      this.value = [];
     }
     this.cdRef.markForCheck();
   }
@@ -149,65 +218,37 @@ export class TokenInputContainerComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
   }
-}
 
-
-@Directive({
-  selector: 'input[vclTokenInput]'
-})
-export class TokenInputDirective {
-  constructor(
-    private elementRef: ElementRef,
-    @Self() private input: InputDirective,
-    @SkipSelf() private tokenInputContainer: TokenInputContainerComponent
-  ) {
-    if (!tokenInputContainer) {
-      throw new Error('vcl-token-input ,must be used within a vcl-token-input-container');
-    }
-  }
-
-  // tslint:disable-next-line:no-input-rename
-  @Input('vclTokenInputAddOnEnter')
-  addOnEnter = true;
-
-  get isDisabled() {
-    return this.input.disabled || this.tokenInputContainer.disabled;
-  }
-
-  @HostBinding('class.vclDisabled')
-  get classDisabled() {
-    return this.isDisabled;
-  }
-
-  @HostBinding('attr.disabled')
-  get attrDisabled() {
-    return this.isDisabled ? true : null;
-  }
-  /**
-   * remove last token on double-backspace
-   */
-  private lastKey: string | undefined;
+ /**
+  * remove last token on double-backspace
+  */
   @HostListener('keydown', ['$event'])
-  onKeydown(ev) {
-    const value = ev.target.value;
-    const code = ev && (ev.code || ev.key); // fallback for ie11
-    if (code === 'Backspace' && this.lastKey === 'Backspace' && value  === '') {
-      // remove last token
-      this.tokenInputContainer.removeLastToken();
-    } else if (code === 'Enter') {
-      ev.preventDefault();
-    } else if (code) {
-      this.lastKey = code;
+  onKeydown(ev: KeyboardEvent) {
+    if (ev.target !== this.inputElementRef.nativeElement) {
+      return;
     }
+    const value = this.inputElementRef.nativeElement.value;
+    const keyCode = ev.keyCode;
+    if (keyCode === BACKSPACE && this._lastKeyCode === BACKSPACE && value  === '') {
+      // remove last token
+      this.removeLastToken();
+    } else if (keyCode === ENTER) {
+      ev.preventDefault();
+    }
+    this._lastKeyCode = keyCode;
   }
+
   @HostListener('keyup.enter', ['$event'])
-  onKeyPressEnter(ev) {
-    const value = ev.target.value;
+  onKeyPressEnter(ev: KeyboardEvent) {
+    if (ev.target !== this.inputElementRef.nativeElement) {
+      return;
+    }
+    const value = this.inputElementRef.nativeElement.value;
     if (value === '') {
-      this.tokenInputContainer.confirm.emit();
+      this.confirm.emit();
     } else if (this.addOnEnter) {
-      this.tokenInputContainer.addToken(value);
-      this.elementRef.nativeElement.value = '';
+      this.addToken(value);
+      this.inputElementRef.nativeElement.value = '';
     }
   }
 }

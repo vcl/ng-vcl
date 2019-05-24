@@ -6,7 +6,7 @@
 
 <br/>
 
-<h3>tokenlist</h3>
+<h3>token-list</h3>
 <vcl-token-list [value]="[1]" (valueChange)="onListChange($event);">
   <vcl-token [value]="1">my token 1</vcl-token>
   <vcl-token [value]="2">my token 2</vcl-token>
@@ -20,14 +20,12 @@
 </vcl-token-list>
 <br/>
 
-<h3>tokeninput</h3>
-<vcl-token-input-container (tokensChange)="onInputChange($event);">
-  <input vclInput vclTokenInput />
-  <!-- <input vclInput vcl-token-input /> -->
-</vcl-token-input-container>
+<h3>token-input</h3>
+<vcl-token-input (valueChange)="onInputChange($event);">
+  <input vclInput />
+</vcl-token-input>
 
-<h3>tokeninput (disabled)</h3>
-<vcl-token-input-container [disabled]="true">
-  <input vclInput vclTokenInput />
-  <!-- <input vclInput vcl-token-input /> -->
-</vcl-token-input-container>
+<h3>token-input (disabled)</h3>
+<vcl-token-input [disabled]="true">
+  <input vclInput />
+</vcl-token-input>

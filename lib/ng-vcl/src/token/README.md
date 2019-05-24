@@ -39,12 +39,12 @@ export class AppComponent {}
 </vcl-token-list>
 ```
 
-## token-insert
+## token-input
 
 ```html
-<vcl-token-input-container (tokensChange)="changed($event);">
-  <input vclInput vclTokenInput />
-</vcl-token-input-container>
+<vcl-token-input (valueChange)="changed($event);">
+  <input vclInput />
+</vcl-token-input>
 ```
 
 ### API
@@ -67,7 +67,7 @@ Name        | Type    | Description
 
 Name         | Type     | Default  | Description
 ------------ | -------- | -------- | ------------------------------------------------------------
-`ngModel`    | any[]    | any[]    | The values of the selected tokens
+`value`      | any[]    | any[]    | The values of the selected tokens
 `selectable` | boolean  | false    | tokens are selectable if true
 
 #### token-list events
@@ -76,22 +76,23 @@ Name                  | Type     | Description
 --------------------- | -------- | -----------
 `tokensChange`        | string[] | called when the selection of token changes
 
-#### vcl-token-input-container attributes
+#### vcl-token-input attributes
 
 Name                 | Type     | Default              | Description
 ------------         | -------- | -------              | ------------------------------------------------------------
-`ngModel`            | Token[]  | []                   | List of tokens
+`value`              | Token[]  | []                   | List of tokens
 `selectable`         | boolean  | false                | tokens are selectable if true
 `allowDuplicates`    | boolean  | false                | tokens with matching values are not added
-`preselect`          | boolean  | false                | tokens are preselected after being added if true
+`addOnEnter`         | boolean  | true                 | New token will be added when pressing enter
+`preselect`          | boolean  | true                 | tokens are preselected after being added if true
 `tokenClass`         | string   |                      | additional css class for tokens
 `tabindex`           | number   | 0                    | The tabindex of the token-input
 
-#### vcl-token-input-container events
+#### vcl-token-input events
 
 Name            | Type    | Description
 --------------- | ------- | ---------------
-`tokensChange`  | Token[] | called after tokens are added/removed or the selection of token changes
+`valueChange`   | Token[] | called after tokens are added/removed or the selection of token changes
 `confirm`       | Token[] | called after `enter` is pressed when input element is empty
 
 #### interfaces

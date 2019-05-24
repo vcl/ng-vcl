@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { InputDirective, VCLInput } from './input.directive';
+import { InputDirective, INPUT_HOST_TOKEN, InputHost } from './input.directive';
 
-export { InputDirective, VCLInput };
+export { InputDirective, INPUT_HOST_TOKEN, InputHost };
 
 @NgModule({
   imports: [],

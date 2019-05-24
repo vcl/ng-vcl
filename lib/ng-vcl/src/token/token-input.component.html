@@ -1,8 +1,7 @@
 <div class="vclTokenContainer">
-  <vcl-token *ngFor="let token of tokens"
+  <vcl-token *ngFor="let token of value"
              (remove)="onTokenRemove(token)"
              (click)="select(token)"
-             (blur)="onBlur()"
              [disabled]="disabled"
              [ngClass]="tokenClass"
              [selected]="token.selected"
