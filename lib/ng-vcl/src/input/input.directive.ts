@@ -1,14 +1,17 @@
-import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy, InjectionToken } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlHost, FORM_CONTROL_HOST } from '../form-control-group/index';
 
-export let UNIQUE_ID = 0;
-
-export interface VCLInput {
+export interface InputHost {
   readonly isDisabled: boolean;
-  setDisabled(disabled: boolean): void;
+  notifyInputFocus(btn: InputDirective): void;
+  notifyInputBlur(btn: InputDirective): void;
 }
+
+export const INPUT_HOST_TOKEN = new InjectionToken<InputHost>('vcl_input_host');
+
+export let UNIQUE_ID = 0;
 
 @Directive({
   selector: 'input[vclInput]',
@@ -20,7 +23,7 @@ export interface VCLInput {
     },
   ],
 })
-export class InputDirective implements OnDestroy, FormControlInput<string>, VCLInput {
+export class InputDirective implements OnDestroy, FormControlInput<string> {
 
   constructor(
     public elementRef: ElementRef<HTMLInputElement>,
@@ -32,6 +35,9 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
     @Optional()
     @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
     private _errorStateAgent?: FormControlErrorStateAgent,
+    @Optional()
+    @Inject(INPUT_HOST_TOKEN)
+    private inputHost?: InputHost,
   ) { }
 
   private uniqueId = 'vcl_input_' + UNIQUE_ID++;
@@ -71,7 +77,7 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
 
   @HostBinding('class.vclDisabled')
   get isDisabled() {
-    return this.disabled || this._disabled;
+    return this.disabled || this._disabled || (this.inputHost && this.inputHost.isDisabled);
   }
 
   @HostBinding('class.vclError')
@@ -82,7 +88,11 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
 
   @HostBinding('attr.disabled')
   get attrDisabled() {
-    return this.disabled ? true : null;
+    return this.isDisabled ? true : null;
+  }
+
+  focus() {
+    this.elementRef.nativeElement.focus();
   }
 
   @HostListener('focus')
@@ -92,17 +102,15 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
     if (this.autoselect) {
       this.elementRef.nativeElement.select();
     }
+    this.inputHost && this.inputHost.notifyInputFocus(this);
     this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
+    this.inputHost && this.inputHost.notifyInputBlur(this);
     this.stateChangedEmitter.next();
-  }
-
-  setDisabled(disabled: boolean) {
-    this._disabled = disabled;
   }
 
   onLabelClick(event: Event): void {
@@ -120,5 +128,4 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, VCLI
   getError(error: string) {
     return this.hasError && this.ngControl.getError(error);
   }
-
 }
