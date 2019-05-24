@@ -1,6 +1,7 @@
-<h3>2-way-binding</h3>
-<vcl-flip-switch onLabel="On" offLabel="Off" [(value)]="value"></vcl-flip-switch><br>
-Current value: {{value}}
+<h3>Basic</h3>
+<vcl-flip-switch [(value)]="value1"></vcl-flip-switch><br>
+Current value: {{value1}}
 
-<h3>Preset "on"</h3>
-<vcl-flip-switch value="true" onLabel="On" offLabel="Off" (change)="onChange($event)"></vcl-flip-switch>
+<h3>With custom labels</h3>
+<vcl-flip-switch onLabel="Yes" offLabel="No" [(value)]="value2"></vcl-flip-switch><br>
+Current value: {{value2}}
