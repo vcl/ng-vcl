@@ -11,10 +11,11 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLSelectModule,
          VCLEmbeddedInputGroupModule,
          VCLRatingModule,
-         VCLNotifierModule } from '@ng-vcl/ng-vcl';
+         VCLNotifierModule,
+         VCLPasswordInputModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
-import { CounterComponent, VCLCounterModule } from './counter.component';
+import { VCLCounterModule } from './counter.component';
 
 export function demo() {
   return {
@@ -48,6 +49,7 @@ export function demo() {
     VCLEmbeddedInputGroupModule,
     VCLButtonGroupModule,
     VCLInputModule,
+    VCLPasswordInputModule,
     VCLRatingModule,
     VCLFileInputModule,
     VCLFlipSwitchModule,

@@ -30,6 +30,10 @@ export class FormControlGroupDemoComponent {
       Validators.minLength(2),
     ]),
     description: new FormControl('', []),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'),
+    ]),
     picture: new FormControl(null, []),
     level: new FormControl(this.defaultValues.level, []),
     leader: new FormControl(this.defaultValues.leader, []),
@@ -90,6 +94,7 @@ export class FormControlGroupDemoComponent {
     return (Array.isArray(c.value) && c.value.length === 2) ? null : { perks: true };
   }
 
+  // Show only if invalid and after submitted
   termsErrorStateAgent: FormControlErrorStateAgent = (form?: FormControlHost, input?: FormControlInput<any>) => {
     return form && input && input.ngControl && input.ngControl.invalid && form.submitted;
   }

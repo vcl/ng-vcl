@@ -12,6 +12,21 @@
       <label vclFormControlLabel>Description</label>
       <textarea vclInput formControlName="description" placeholder="Description of the hero" [autogrow]="true" [minRows]="3" [maxRows]="10"></textarea>
     </vcl-form-control-group>
+    
+    <vcl-form-control-group>
+      <label vclFormControlLabel>Password</label>
+      <vcl-password-input>
+        <input vclInput formControlName="password" placeholder="Enter password">
+      </vcl-password-input>
+      <vcl-hint-error error="required">Password is required</vcl-hint-error>
+      <vcl-hint-error error="pattern">Password must x </vcl-hint-error>
+      <vcl-hint-error error="pattern">- At least 8 characters in length</vcl-hint-error>
+      <vcl-hint-error error="pattern">- Contain a lowercase letters</vcl-hint-error>
+      <vcl-hint-error error="pattern">- Contain a uppercase letters</vcl-hint-error>
+      <vcl-hint-error error="pattern">- Contain a number</vcl-hint-error>
+      <vcl-hint-error error="pattern">- Contain a special character</vcl-hint-error>
+    </vcl-form-control-group>
+
   
     <vcl-form-control-group>
       <label vclFormControlLabel>Level</label>
