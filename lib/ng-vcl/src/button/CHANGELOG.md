@@ -2,4 +2,4 @@
 
 ### BREAKING CHANGES
 
-Full reimplementation. Please check README.md for new syntax.
+Icogram/icon integration removed. Please check README.md for new syntax.
