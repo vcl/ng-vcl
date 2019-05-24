@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>2-way-binding</h3>\n<vcl-flip-switch onLabel=\"On\" offLabel=\"Off\" [(value)]=\"value\"></vcl-flip-switch><br>\nCurrent value: {{value}}\n\n<h3>Preset \"on\"</h3>\n<vcl-flip-switch value=\"true\" onLabel=\"On\" offLabel=\"Off\" (change)=\"onChange($event)\"></vcl-flip-switch>\n"
+module.exports = "<h3>Basic</h3>\n<vcl-flip-switch [(value)]=\"value1\"></vcl-flip-switch><br>\nCurrent value: {{value1}}\n\n<h3>With custom labels</h3>\n<vcl-flip-switch onLabel=\"Yes\" offLabel=\"No\" [(value)]=\"value2\"></vcl-flip-switch><br>\nCurrent value: {{value2}}\n"
 
 /***/ }),
 
@@ -27,12 +27,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var FlipSwitchDemoComponent = /** @class */ (function () {
     function FlipSwitchDemoComponent() {
-        this.value = false;
+        this.value1 = false;
+        this.value2 = false;
     }
-    FlipSwitchDemoComponent.prototype.onChange = function (ev) {
-        console.log('changed:');
-        console.dir(ev);
-    };
     FlipSwitchDemoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             template: __webpack_require__(/*! ./demo.component.html */ "./demo/app/demos/flip-switch/demo.component.html")
@@ -260,7 +257,7 @@ var DemoModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">h3</span>&gt;</span>2-way-binding<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">h3</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-flip-switch</span> <span class=\"hljs-attr\">onLabel</span>=<span class=\"hljs-string\">\"On\"</span> <span class=\"hljs-attr\">offLabel</span>=<span class=\"hljs-string\">\"Off\"</span> [(<span class=\"hljs-attr\">value</span>)]=<span class=\"hljs-string\">\"value\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-flip-switch</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\nCurrent value: {{value}}\n\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">h3</span>&gt;</span>Preset \"on\"<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">h3</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-flip-switch</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"true\"</span> <span class=\"hljs-attr\">onLabel</span>=<span class=\"hljs-string\">\"On\"</span> <span class=\"hljs-attr\">offLabel</span>=<span class=\"hljs-string\">\"Off\"</span> (<span class=\"hljs-attr\">change</span>)=<span class=\"hljs-string\">\"onChange($event)\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-flip-switch</span>&gt;</span>\n"
+module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">h3</span>&gt;</span>Basic<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">h3</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-flip-switch</span> [(<span class=\"hljs-attr\">value</span>)]=<span class=\"hljs-string\">\"value1\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-flip-switch</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\nCurrent value: {{value1}}\n\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">h3</span>&gt;</span>With custom labels<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">h3</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-flip-switch</span> <span class=\"hljs-attr\">onLabel</span>=<span class=\"hljs-string\">\"Yes\"</span> <span class=\"hljs-attr\">offLabel</span>=<span class=\"hljs-string\">\"No\"</span> [(<span class=\"hljs-attr\">value</span>)]=<span class=\"hljs-string\">\"value2\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">vcl-flip-switch</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">br</span>&gt;</span>\nCurrent value: {{value2}}\n"
 
 /***/ }),
 
@@ -271,7 +268,7 @@ module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">h3</spa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-keyword\">import</span> { Component, OnInit } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> FlipSwitchDemoComponent {\n\n  selectedItem: <span class=\"hljs-built_in\">any</span>;\n\n  value = <span class=\"hljs-literal\">false</span>;\n\n  onChange(ev) {\n    <span class=\"hljs-built_in\">console</span>.log(<span class=\"hljs-string\">'changed:'</span>);\n    <span class=\"hljs-built_in\">console</span>.dir(ev);\n  }\n}\n"
+module.exports = "<span class=\"hljs-keyword\">import</span> { Component, OnInit } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> FlipSwitchDemoComponent {\n  value1 = <span class=\"hljs-literal\">false</span>;\n  value2 = <span class=\"hljs-literal\">false</span>;\n}\n"
 
 /***/ }),
 
