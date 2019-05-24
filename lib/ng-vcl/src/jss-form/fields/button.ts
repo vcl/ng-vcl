@@ -37,7 +37,13 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
 
 @Component({
   template: `
-   <button vcl-button [disabled]="field.disabled" [type]="field.type" (click)="onAction(field)">{{field.label}}</button>
+   <button vcl-button [ngClass]="field.class" [disabled]="field.disabled" [type]="field.type" (click)="onAction(field)">
+     <vcl-icogram>
+       <vcl-icon *ngIf="field.prepIcon" vclPrepend [icon]="">field.prepIcon</vcl-icon>
+       {{field.label}}
+       <vcl-icon *ngIf="field.appIcon" vclAppend [icon]="field.appIcon"></vcl-icon>
+     </vcl-icogram>
+   </button>
   `
 })
 export class FormFieldButtonComponent {
@@ -54,3 +60,4 @@ export class FormFieldButtonComponent {
 }
 
 FormField.register('button', FormFieldButtonComponent, FormFieldButton);
+FormField.register('submit', FormFieldButtonComponent, FormFieldButton);

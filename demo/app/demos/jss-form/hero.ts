@@ -448,7 +448,8 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         {
           type: 'submit',
           label: 'Submit',
-          class: 'vclEmphasized'
+          class: 'vclEmphasized',
+          appIcon: 'fas:arrow-circle-right'
         },
         {
           type: 'button',
