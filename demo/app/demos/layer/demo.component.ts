@@ -23,7 +23,7 @@ export class LayerDemoComponent {
     });
     layer.afterClose.subscribe(result => {
       layer.destroy(); // Layer is not needed anymore
-      console.log('Bar component result:' + result.value);
+      console.log('Bar component result: ' + result && result.value);
     });
   }
 

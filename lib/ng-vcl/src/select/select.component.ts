@@ -238,11 +238,6 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
   }
 
   protected afterDetached(result) {
-    if (!this.isDestroyed) {
-      // We need to trigger change detection manually, because
-      // `fromEvent` doesn't seem to do it at the proper time.
-      this.cdRef.detectChanges();
-    }
     this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
     this.selectList.highlight(undefined);
     this.afterClose.emit(this.selectList.value);

@@ -17,7 +17,6 @@ export class PopoverComponent extends LayerBase implements OnDestroy {
     injector: Injector,
     private _dir: Directionality,
     private overlay: Overlay,
-    private cdRef: ChangeDetectorRef,
     protected viewContainerRef: ViewContainerRef,
   ) {
     super(injector);
@@ -115,11 +114,6 @@ export class PopoverComponent extends LayerBase implements OnDestroy {
   }
 
   protected afterDetached(result) {
-    if (!this.isDestroyed) {
-      // We need to trigger change detection manually, because
-      // `fromEvent` doesn't seem to do it at the proper time.
-      this.cdRef.detectChanges();
-    }
     this.afterClose.emit();
   }
 

@@ -43,7 +43,7 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
       throw new Error('Cannot attach destroyed layer');
     }
 
-    if (!this.overlayRef || !this._portal) {
+    if (!this.overlayRef) {
       const injector = this.injector;
       const overlay = injector.get(Overlay);
       this._overlayRef = overlay.create(config);
@@ -60,7 +60,7 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
         // Called when detached via detach() method
         this._requestDetachEmitter.asObservable(),
         // Called when detached from anywhere else
-        this.overlayRef.detachments().pipe(map(() => undefined)),
+        this._overlayRef.detachments().pipe(map(() => undefined)),
       ).pipe(
         take(1) // Take 1 to make sure cleanup is only done once
       ).subscribe((result) => {
@@ -69,12 +69,11 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
           this.overlayRef.detach();
         }
         this._instanceRef = undefined;
-        this._overlayRef = undefined;
         this.afterDetached(result);
       });
       this.afterAttached();
     } else {
-      this.overlayRef.updatePositionStrategy(config.positionStrategy);
+      this._overlayRef.updatePositionStrategy(config.positionStrategy);
     }
   }
 
@@ -86,14 +85,14 @@ export abstract class LayerBase<TResult = any, TInstanceRef = any> {
   }
 
   public updatePosition() {
-    this.overlayRef.updatePosition();
+    this._overlayRef.updatePosition();
   }
 
   public destroy() {
     this._isDestroyed = true;
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.detach();
+    if (this._overlayRef) {
+      this._overlayRef.dispose();
+      this._overlayRef = undefined;
     }
   }
 }
