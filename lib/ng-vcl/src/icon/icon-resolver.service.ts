@@ -18,6 +18,8 @@ export interface IconAliases {
   'error': string;
   'arrow-left': string;
   'arrow-right': string;
+  'arrow-down': string;
+  'arrow-up': string;
   'upload': string;
   'eye': string;
   'eye-off': string;

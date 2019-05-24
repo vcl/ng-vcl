@@ -15,6 +15,8 @@ export const ALIAS_MAP: IconAliases = {
   'error': 'mdi mdi-alert-circle',
   'arrow-left': 'mdi mdi-arrow-left',
   'arrow-right': 'mdi mdi-arrow-right',
+  'arrow-up': 'mdi mdi-arrow-up',
+  'arrow-down': 'mdi mdi-arrow-down',
   'upload': 'mdi mdi-upload',
   'eye': 'mdi mdi-eye',
   'eye-off': 'mdi mdi-eye-off',
