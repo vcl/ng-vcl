@@ -1,12 +1,14 @@
 import { HostBinding, Input, HostListener, ElementRef, Component, SkipSelf, Inject, Output, EventEmitter, Optional, InjectionToken, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
 
-export interface ButtonObserver {
+export interface ButtonHost {
+  readonly isDisabled: boolean;
   notifyButtonClick(btn: ButtonComponent): void;
   notifyButtonFocus(btn: ButtonComponent): void;
   notifyButtonBlur(btn: ButtonComponent): void;
 }
 
-export const BUTTON_OBSERVER_TOKEN = new InjectionToken<ButtonObserver>('vcl_button_observer');
+export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>('vcl_button_host');
+
 @Component({
   selector: 'button[vcl-button], a[vcl-button], button[vcl-square-button], button[vcl-square-button]',
   exportAs: 'vclButton',
@@ -20,11 +22,10 @@ export class ButtonComponent {
     private elementRef: ElementRef<HTMLButtonElement>,
     @SkipSelf()
     @Optional()
-    @Inject(BUTTON_OBSERVER_TOKEN)
-    private observer?: ButtonObserver
+    @Inject(BUTTON_HOST_TOKEN)
+    private host?: ButtonHost
   ) { }
 
-  private _disabled = false;
   private _focused = false;
 
   @Input()
@@ -46,7 +47,7 @@ export class ButtonComponent {
   @HostBinding('class.vclDisabled')
   @HostBinding('attr.disabled')
   get isDisabled(): boolean | null {
-    return (this.disabled || this._disabled) ? true : null;
+    return (this.disabled || (this.host && this.host.isDisabled)) ? true : null;
   }
 
   @HostBinding('class.vclButton')
@@ -69,7 +70,6 @@ export class ButtonComponent {
     return this._focused;
   }
 
-
   @Input()
   @HostBinding('class.vclSelected')
   selected = false;
@@ -90,37 +90,27 @@ export class ButtonComponent {
       this.selected = !this.selected;
       this.selectedChange.emit(this.selected);
     }
-    this.observer && this.observer.notifyButtonClick(this);
+    this.host && this.host.notifyButtonClick(this);
   }
 
   @HostListener('focus')
   onFocus() {
     this._focused = true;
-    this.observer && this.observer.notifyButtonFocus(this);
+    this.host && this.host.notifyButtonFocus(this);
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
-    this.observer && this.observer.notifyButtonBlur(this);
+    this.host && this.host.notifyButtonBlur(this);
   }
 
   focus(): void {
     this.elementRef.nativeElement.focus();
   }
 
-  setDisabled(disabled: boolean) {
-    this._disabled = disabled;
-    this.cdRef.markForCheck();
-  }
-
   setSelected(selected: boolean) {
     this.selected = selected;
     this.cdRef.markForCheck();
-  }
-
-  // Workaround as not super.getters are allowed in ts
-  getDisabled() {
-    return (this.disabled || this._disabled);
   }
 }

@@ -3,7 +3,7 @@ import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, 
 import { Subscription, Subject } from 'rxjs';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { BUTTON_OBSERVER_TOKEN, ButtonObserver, ButtonComponent } from '../button/index';
+import { BUTTON_HOST_TOKEN, ButtonHost, ButtonComponent } from '../button/index';
 import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_HOST, FormControlHost } from '../form-control-group/index';
 
 let UNIQUE_ID = 0;
@@ -13,7 +13,7 @@ let UNIQUE_ID = 0;
   template: `<ng-content select="button"></ng-content>`,
   providers: [
     {
-      provide: BUTTON_OBSERVER_TOKEN,
+      provide: BUTTON_HOST_TOKEN,
       useExisting: forwardRef(() => ButtonGroupComponent)
     },
     {
@@ -23,7 +23,7 @@ let UNIQUE_ID = 0;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit, ButtonObserver, FormControlInput {
+export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit, ButtonHost, FormControlInput {
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -141,7 +141,6 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     if (this.buttons) {
       this.buttons.forEach((btn) => {
         btn.selectable = true;
-        btn.setDisabled(this.isDisabled);
       });
     }
   }
