@@ -3318,8 +3318,8 @@ var CalendarDate = /** @class */ (function () {
         var blocks = [];
         // split in weeks
         var chunk = 7;
-        for (var i = 0, j = ret.length; i < j; i += chunk) {
-            var temparray = ret.slice(i, i + chunk);
+        for (var j = 0; j < ret.length; j += chunk) {
+            var temparray = ret.slice(j, j + chunk);
             if (temparray.length === 7) {
                 blocks.push(temparray);
             }
@@ -3499,11 +3499,11 @@ var DatePickerComponent = /** @class */ (function () {
             this.selectedDate = currentDate;
         }
         else {
-            var currentDate = this.currentDate ? this.currentDate.date : undefined;
-            if (currentDate) {
-                this.onChange && this.onChange(currentDate);
+            var _currentDate = this.currentDate ? this.currentDate.date : undefined;
+            if (_currentDate) {
+                this.onChange && this.onChange(_currentDate);
             }
-            this.dateChange.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
+            this.dateChange.emit([_currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
         }
     };
     /**
@@ -4881,7 +4881,7 @@ var FontAwesomeIconResolverService = /** @class */ (function () {
     FontAwesomeIconResolverService.prototype.resolve = function (icon) {
         var result = this.FA_REGEX.exec(icon);
         if (result) {
-            var s = result[0], prefix = result[1], value = result[2];
+            var prefix = result[1], value = result[2];
             return prefix + " fa-" + value;
         }
         return undefined;
@@ -6128,7 +6128,7 @@ var VCLIconResolverServiceBase = /** @class */ (function () {
     VCLIconResolverServiceBase.prototype.resolve = function (icon) {
         var result = this.VCL_REGEX.exec(icon);
         if (result) {
-            var s = result[0], alias = result[1];
+            var alias = result[1];
             return this.lookup(alias) || undefined;
         }
         return undefined;
@@ -9719,7 +9719,7 @@ var MaterialDesignIconResolverService = /** @class */ (function () {
     MaterialDesignIconResolverService.prototype.resolve = function (icon) {
         var result = this.MDI_REGEX.exec(icon);
         if (result) {
-            var s = result[0], prefix = result[1], value = result[2];
+            var prefix = result[1], value = result[2];
             return prefix + " mdi-" + value;
         }
         return undefined;
@@ -10919,31 +10919,22 @@ var NotificationsHandlerService = /** @class */ (function () {
         var overlayRef = this._overlay.create();
         var portal = this._createPortal(notificationRef, overlayRef);
         var componentRef = overlayRef.attach(portal);
-        this._notifications.push([notificationRef, overlayRef, componentRef]);
+        this._notifications.push({ notificationRef: notificationRef, overlayRef: overlayRef, componentRef: componentRef });
         this.updatePosition(notificationRef);
         return notificationRef;
     };
     NotificationsHandlerService.prototype.close = function (notificationRef) {
-        var _a = this._notifications.find(function (_a) {
-            var n = _a[0];
-            return n === notificationRef;
-        }), _ = _a[0], __ = _a[1], componentRef = _a[2];
-        if (componentRef) {
-            componentRef.instance.close();
+        var notification = this._notifications.find(function (n) { return n.notificationRef === notificationRef; });
+        if (notification) {
+            notification.componentRef.instance.close();
         }
     };
     NotificationsHandlerService.prototype.destroy = function (notificationRef) {
-        var _a = this._notifications.find(function (_a) {
-            var n = _a[0];
-            return n === notificationRef;
-        }), overlayRef = _a[1];
-        if (overlayRef) {
-            overlayRef.dispose();
+        var notification = this._notifications.find(function (n) { return n.notificationRef === notificationRef; });
+        if (notification) {
+            notification.overlayRef.dispose();
         }
-        this._notifications = this._notifications.filter(function (_a) {
-            var n = _a[0];
-            return n !== notificationRef;
-        });
+        this._notifications = this._notifications.filter(function (n) { return n.notificationRef !== notificationRef; });
     };
     NotificationsHandlerService.prototype.isDestroyed = function (notificationRef) {
         return !!this.getOverlayRef(notificationRef);
@@ -10953,20 +10944,11 @@ var NotificationsHandlerService = /** @class */ (function () {
         return !!overlayRef && !!overlayRef.overlayElement;
     };
     NotificationsHandlerService.prototype.getNotifications = function (pos) {
-        return this._notifications.filter(function (_a) {
-            var n = _a[0];
-            return (pos ? n.position === pos : true);
-        }).map(function (_a) {
-            var n = _a[0];
-            return n;
-        });
+        return this._notifications.filter(function (n) { return (pos ? n.notificationRef.position === pos : true); }).map(function (n) { return n.notificationRef; });
     };
     NotificationsHandlerService.prototype.getOverlayRef = function (notificationRef) {
-        var _a = this._notifications.find(function (_a) {
-            var n = _a[0];
-            return n === notificationRef;
-        }), overlayRef = _a[1];
-        return overlayRef;
+        var notification = this._notifications.find(function (n) { return n.notificationRef === notificationRef; });
+        return notification && notification.overlayRef;
     };
     NotificationsHandlerService.prototype._createPortal = function (notificationRef, overlayRef) {
         var tokens = new WeakMap();
@@ -10977,10 +10959,10 @@ var NotificationsHandlerService = /** @class */ (function () {
     };
     NotificationsHandlerService.prototype.updatePosition = function (notificationRef) {
         var _this = this;
-        var _a = this._notifications.find(function (_a) {
-            var n = _a[0];
-            return n === notificationRef;
-        }), _ = _a[0], overlayRef = _a[1], componentRef = _a[2];
+        var notification = this._notifications.find(function (n) { return n.notificationRef === notificationRef; });
+        if (!notification) {
+            return;
+        }
         var notifications = this.getNotifications(notificationRef.position);
         var idx = notifications.indexOf(notificationRef);
         var queue = notifications.splice(0, idx);
@@ -11016,7 +10998,7 @@ var NotificationsHandlerService = /** @class */ (function () {
                 break;
             }
         }
-        overlayRef.updatePositionStrategy(posStrategy);
+        notification.overlayRef.updatePositionStrategy(posStrategy);
     };
     NotificationsHandlerService.prototype.posStrategyTopRight = function (offset) {
         return this._overlay.position().global().top(offset).right('1em');
@@ -14677,7 +14659,7 @@ var VCLSliderModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"vclSliderRail\">\n  <div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\" #scale>\n    <div *ngFor=\"let point of scalePoints\" class=\"vclSliderScalePointMark\"></div>\n  </div>\n  <div *ngIf=\"valueValid\" class=\"vclSliderKnobContainer\" [style.left]=\"percentLeftKnob + '%'\" (pan)=\"onPan($event)\">\n    <div  class=\"vclSliderKnob\"></div>\n  </div>\n</div>\n<div *ngIf=\"showScale\" class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\">\n  <div *ngFor=\"let point of scalePoints\" class=\"vclSliderScalePointLabel\" (click)=\"selectPoint(point)\">{{point.label}}</div>\n</div>\n"
+module.exports = "<div class=\"vclSliderRail\">\n  <div class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\" #scale>\n    <div *ngFor=\"let point of scalePoints\" class=\"vclSliderScalePointMark\"></div>\n  </div>\n  <div *ngIf=\"percentLeftKnob >= 0\" class=\"vclSliderKnobContainer\" [style.left]=\"percentLeftKnob + '%'\" (pan)=\"onPan($event)\">\n    <div  class=\"vclSliderKnob\"></div>\n  </div>\n</div>\n<div *ngIf=\"showScale\" class=\"vclSliderScale\" horizontal=\"\" justified=\"\" layout=\"\">\n  <div *ngFor=\"let point of scalePoints\" class=\"vclSliderScalePointLabel\" (click)=\"selectPoint(point)\">{{point.label}}</div>\n</div>\n"
 
 /***/ }),
 
@@ -14729,7 +14711,7 @@ var SliderComponent = /** @class */ (function () {
         this.enableWheel = false;
         this.lock = false;
         this.focused = false;
-        this.percentLeftKnob = 0;
+        this.percentLeftKnob = -1;
         this.scalePoints = [];
         this.firstPan = true;
         /**
@@ -14791,15 +14773,8 @@ var SliderComponent = /** @class */ (function () {
     SliderComponent.prototype.ngAfterContentInit = function () {
         this.updatePercentLeftKnob();
     };
-    Object.defineProperty(SliderComponent.prototype, "valueValid", {
-        get: function () {
-            return this.validateValue();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SliderComponent.prototype.validateValue = function () {
-        return typeof this.value === 'number' && this.value >= this.pmin && this.value <= this.pmax;
+    SliderComponent.prototype.validateValue = function (value) {
+        return typeof value === 'number' && value >= this.pmin && value <= this.pmax;
     };
     Object.defineProperty(SliderComponent.prototype, "showScale", {
         get: function () {
@@ -14826,8 +14801,9 @@ var SliderComponent = /** @class */ (function () {
         this.onChange(this.value);
     };
     SliderComponent.prototype.calculatePercentLeftKnob = function (value) {
-        if (!this.validateValue()) {
-            return 0;
+        var isValid = this.validateValue(value);
+        if (!isValid) {
+            return -1;
         }
         var rangeLength = this.pmax - this.pmin;
         var valueLeft = value - this.pmin;
@@ -14947,7 +14923,8 @@ var SliderComponent = /** @class */ (function () {
         this.setValue(value, true);
     };
     SliderComponent.prototype.moveValue = function (direction) {
-        var value = this.valueValid ? this.value : this.pmin;
+        var isValid = this.validateValue(this.value);
+        var value = isValid ? this.value : this.pmin;
         if (direction === MoveDirection.Right) {
             value++;
             if (value > this.pmax) {
@@ -18581,7 +18558,7 @@ module.exports = "<h1 id=\"ng-vcl\"><a href=\"https://ng-vcl.github.io/ng-vcl/\"
 /*! exports provided: name, version, scripts, dependencies, devDependencies, default */
 /***/ (function(module) {
 
-module.exports = {"name":"ng-vcl","version":"0.8.0-10","scripts":{"ng":"ng","start":"npm run dev:demo","dev:demo":"ng serve ng-vcl-demo --plugin ~webpack.custom.js","dev:ng-vcl":"ng build @ng-vcl/ng-vcl --watch","dev:animations":"ng build @ng-vcl/animations --watch","dev:jss-form":"ng build @ng-vcl/jss-form --watch","dev:wc":"ng serve ng-vcl-wc-test --plugin ~webpack.custom.js","docs":"npm-run-all docs:clean docs:pull-current docs:build","docs:build":"cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --plugin ~webpack.custom.js","docs:deploy":"git-directory-deploy --directory docs --branch gh-pages","docs:clean":"rimraf docs","docs:lint":"ng lint ng-vcl-demo","docs:pull-current":"npm run docs:clean && git clone -b gh-pages --single-branch https://github.com/ng-vcl/ng-vcl.git docs","test:ng-vcl":"ng test @ng-vcl/ng-vcl --watch=false","test:animations":"ng test @ng-vcl/animations --watch=false","test:jss-form":"ng test @ng-vcl/jss-form --watch=false","test":"npm-run-all test:ng-vcl test:animations test:jss-form","lint":"ng lint","e2e":"ng e2e","build:clean":"rimraf dist/ng-vcl","build:ng-vcl/ng-vcl":"ng build @ng-vcl/ng-vcl","postbuild:ng-vcl/ng-vcl":"cp lib/ng-vcl/styles.sss dist/ng-vcl/ng-vcl","build:ng-vcl":"npm-run-all build:ng-vcl/ng-vcl","build":"npm-run-all build:clean build:ng-vcl","build:wc":"ng build ng-vcl-wc-test --prod --output-hashing none --single-bundle false --plugin ~webpack.custom.js","clean":"npm-run-all build:clean docs:clean","docker":"docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash","markdownlint":"markdownlint -c markdownlint.json lib/","publish":"npm-run-all publish:ng-vcl publish:animations publish:jss-form","publish:next":"npm-run-all publish:ng-vcl:next publish:animations:next publish:jss-form:next","publish:ng-vcl":"cd dist/ng-vcl/ng-vcl && npm publish","publish:animations":"cd dist/ng-vcl/animations && npm publish","publish:jss-form":"cd dist/ng-vcl/jss-form && npm publish","publish:ng-vcl:next":"cd dist/ng-vcl/ng-vcl && npm publish --tag next","publish:animations:next":"cd dist/ng-vcl/animations && npm publish --tag next","publish:jss-form:next":"cd dist/ng-vcl/jss-form && npm publish --tag next"},"dependencies":{"@angular/animations":"^7.2.15","@angular/cdk":"^7.3.7","@angular/common":"^7.2.15","@angular/compiler":"^7.2.15","@angular/core":"^7.2.15","@angular/elements":"^7.2.15","@angular/forms":"^7.2.15","@angular/http":"^7.2.15","@angular/platform-browser":"^7.2.15","@angular/platform-browser-dynamic":"^7.2.15","@angular/router":"^7.2.15","@vcl/breakpoints":"^0.4.2","@vcl/core-modules":"^0.4.2","@vcl/font-awesome":"^0.4.2","@vcl/theme":"^0.4.2","core-js":"^2.5.4","document-register-element":"1.13.2","fuse.js":"^3.4.4","hammerjs":"^2.0.8","jsonschema":"^1.2.4","ngx-build-plus":"^7.8.3","normalize.css":"^8.0.1","rxjs":"~6.5.2","tslib":"^1.9.0","zone.js":"~0.9.1"},"devDependencies":{"@angular-devkit/build-angular":"^0.13.9","@angular-devkit/build-ng-packagr":"^0.13.9","@angular/cli":"^7.3.9","@angular/compiler-cli":"^7.2.15","@angular/language-service":"^7.2.15","@ng-vcl/webpack-helper":"0.1.0","@types/jasmine":"^3.3.12","@types/jasminewd2":"~2.0.3","@types/node":"^12.0.1","@vcl/preprocessor":"^0.4.2","codelyzer":"~4.5.0","cross-env":"^5.2.0","git-branch":"^2.0.1","git-directory-deploy":"^1.5.1","highlight-loader":"^0.7.3","jasmine-core":"^3.4.0","jasmine-spec-reporter":"~4.2.1","karma":"~4.1.0","karma-chrome-launcher":"~2.2.0","karma-coverage-istanbul-reporter":"~2.0.1","karma-jasmine":"~2.0.1","karma-jasmine-html-reporter":"^1.4.2","markdown-loader":"^5.0.0","ng-packagr":"^5.1.0","npm-run-all":"^4.1.5","protractor":"~5.4.0","ts-node":"^8.1.0","tsickle":"0.35.0","tslib":"^1.9.0","tslint":"^5.16.0","typescript":"^3.2.4"}};
+module.exports = {"name":"ng-vcl","version":"0.8.0-11","scripts":{"ng":"ng","start":"npm run dev:demo","dev:demo":"ng serve ng-vcl-demo --plugin ~webpack.custom.js","dev:ng-vcl":"ng build @ng-vcl/ng-vcl --watch","dev:animations":"ng build @ng-vcl/animations --watch","dev:jss-form":"ng build @ng-vcl/jss-form --watch","dev:wc":"ng serve ng-vcl-wc-test --plugin ~webpack.custom.js","docs":"npm-run-all docs:clean docs:pull-current docs:build","docs:build":"cross-env GIT_BRANCH=$TRAVIS_BRANCH ng build --plugin ~webpack.custom.js","docs:deploy":"git-directory-deploy --directory docs --branch gh-pages","docs:clean":"rimraf docs","docs:lint":"ng lint ng-vcl-demo","docs:pull-current":"npm run docs:clean && git clone -b gh-pages --single-branch https://github.com/ng-vcl/ng-vcl.git docs","test:ng-vcl":"ng test @ng-vcl/ng-vcl --watch=false","test:animations":"ng test @ng-vcl/animations --watch=false","test:jss-form":"ng test @ng-vcl/jss-form --watch=false","test":"npm-run-all test:ng-vcl test:animations test:jss-form","lint":"ng lint","e2e":"ng e2e","build:clean":"rimraf dist/ng-vcl","build:ng-vcl/ng-vcl":"ng build @ng-vcl/ng-vcl","postbuild:ng-vcl/ng-vcl":"cp lib/ng-vcl/styles.sss dist/ng-vcl/ng-vcl","build:ng-vcl":"npm-run-all build:ng-vcl/ng-vcl","build":"npm-run-all build:clean build:ng-vcl","build:wc":"ng build ng-vcl-wc-test --prod --output-hashing none --single-bundle false --plugin ~webpack.custom.js","clean":"npm-run-all build:clean docs:clean","docker":"docker run -it -v $(pwd):/app -p 0.0.0.0:3000:3000 node:6.9.1 /bin/bash /app/entrypoint.bash","markdownlint":"markdownlint -c markdownlint.json lib/","publish":"npm-run-all publish:ng-vcl publish:animations publish:jss-form","publish:next":"npm-run-all publish:ng-vcl:next publish:animations:next publish:jss-form:next","publish:ng-vcl":"cd dist/ng-vcl/ng-vcl && npm publish","publish:animations":"cd dist/ng-vcl/animations && npm publish","publish:jss-form":"cd dist/ng-vcl/jss-form && npm publish","publish:ng-vcl:next":"cd dist/ng-vcl/ng-vcl && npm publish --tag next","publish:animations:next":"cd dist/ng-vcl/animations && npm publish --tag next","publish:jss-form:next":"cd dist/ng-vcl/jss-form && npm publish --tag next"},"dependencies":{"@angular/animations":"^7.2.15","@angular/cdk":"^7.3.7","@angular/common":"^7.2.15","@angular/compiler":"^7.2.15","@angular/core":"^7.2.15","@angular/elements":"^7.2.15","@angular/forms":"^7.2.15","@angular/http":"^7.2.15","@angular/platform-browser":"^7.2.15","@angular/platform-browser-dynamic":"^7.2.15","@angular/router":"^7.2.15","@vcl/breakpoints":"^0.4.2","@vcl/core-modules":"^0.4.2","@vcl/font-awesome":"^0.4.2","@vcl/theme":"^0.4.2","core-js":"^2.5.4","document-register-element":"1.13.2","fuse.js":"^3.4.4","hammerjs":"^2.0.8","jsonschema":"^1.2.4","ngx-build-plus":"^7.8.3","normalize.css":"^8.0.1","rxjs":"~6.5.2","tslib":"^1.9.0","zone.js":"~0.9.1"},"devDependencies":{"@angular-devkit/build-angular":"^0.13.9","@angular-devkit/build-ng-packagr":"^0.13.9","@angular/cli":"^7.3.9","@angular/compiler-cli":"^7.2.15","@angular/language-service":"^7.2.15","@ng-vcl/webpack-helper":"^0.1.1","@types/jasmine":"^3.3.12","@types/jasminewd2":"~2.0.3","@types/node":"^12.0.1","@vcl/preprocessor":"^0.4.2","codelyzer":"~4.5.0","cross-env":"^5.2.0","git-branch":"^2.0.1","git-directory-deploy":"^1.5.1","highlight-loader":"^0.7.3","jasmine-core":"^3.4.0","jasmine-spec-reporter":"~4.2.1","karma":"~4.1.0","karma-chrome-launcher":"~2.2.0","karma-coverage-istanbul-reporter":"~2.0.1","karma-jasmine":"~2.0.1","karma-jasmine-html-reporter":"^1.4.2","markdown-loader":"^5.0.0","ng-packagr":"^5.1.0","npm-run-all":"^4.1.5","protractor":"~5.4.0","ts-node":"^8.1.0","tsickle":"0.35.0","tslib":"^1.9.0","tslint":"^5.16.0","typescript":"^3.2.4"}};
 
 /***/ }),
 
