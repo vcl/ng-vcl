@@ -9,4 +9,5 @@ export class SliderDemoComponent {
   value3 = 0;
   value4 = 0;
   value5 = 0;
+  value6 = 0;
 }

@@ -139,7 +139,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     return !isNaN(max) ? max : 0;
   }
 
-  percentLeftKnob = 0;
+  percentLeftKnob = -1;
   scalePoints: ScalePoint[] = [];
   lastPercentLeftKnob: number;
   firstPan = true;
@@ -148,12 +148,8 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     this.updatePercentLeftKnob();
   }
 
-  get valueValid() {
-    return this.validateValue();
-  }
-
-  validateValue() {
-    return typeof this.value === 'number' && this.value >= this.pmin && this.value <= this.pmax;
+  validateValue(value: number) {
+    return typeof value === 'number' && value >= this.pmin && value <= this.pmax;
   }
 
   get showScale() {
@@ -180,8 +176,9 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   }
 
   calculatePercentLeftKnob(value: number) {
-    if (!this.validateValue()) {
-      return 0;
+    const isValid = this.validateValue(value);
+    if (!isValid) {
+      return -1;
     }
     const rangeLength = this.pmax - this.pmin;
     const valueLeft = value - this.pmin;
@@ -314,7 +311,8 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   }
 
   moveValue(direction: MoveDirection) {
-    let value = this.valueValid ? this.value : this.pmin;
+    const isValid = this.validateValue(this.value);
+    let value = isValid ? this.value : this.pmin;
 
     if (direction === MoveDirection.Right) {
       value++;

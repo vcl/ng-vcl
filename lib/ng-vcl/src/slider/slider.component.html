@@ -2,7 +2,7 @@
   <div class="vclSliderScale" horizontal="" justified="" layout="" #scale>
     <div *ngFor="let point of scalePoints" class="vclSliderScalePointMark"></div>
   </div>
-  <div *ngIf="valueValid" class="vclSliderKnobContainer" [style.left]="percentLeftKnob + '%'" (pan)="onPan($event)">
+  <div *ngIf="percentLeftKnob >= 0" class="vclSliderKnobContainer" [style.left]="percentLeftKnob + '%'" (pan)="onPan($event)">
     <div  class="vclSliderKnob"></div>
   </div>
 </div>
