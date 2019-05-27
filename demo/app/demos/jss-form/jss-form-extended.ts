@@ -30,6 +30,3 @@ export interface CounterSchema extends VCLFormFieldControlSchema {
   type: 'counter';
   params?: CounterSchemaParams | Conditional<CounterSchemaParams>;
 }
-
-// Add counter to schema
-export type ExtendedFormFieldSchemaRoot = VCLFormFieldSchemaRoot<CounterSchema>;
