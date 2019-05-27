@@ -15,6 +15,6 @@
     "@angular/core": "^7.2.0",
     "@angular/forms": "^7.2.0",
     "@angular/router": "^7.2.0",
-    "rxjs": "^7.2.0"
+    "rxjs": "^6.5.2"
   }
 }
