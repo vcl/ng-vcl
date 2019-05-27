@@ -1,10 +1,16 @@
 import { Injectable, Injector, Inject, ComponentRef } from '@angular/core';
 import { NotifierPosition, NotificationConfig, NOTIFICATION_CONFIG_TOKEN } from './types';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { NotificationComponent } from './notification.component';
 import { NotificationRef, NotificationRefHandler } from './notification-ref';
 import { NotifierOptions } from './types';
+
+interface Notification {
+  notificationRef: NotificationRef;
+  overlayRef: OverlayRef;
+  componentRef: ComponentRef<NotificationComponent>;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,31 +23,31 @@ export class NotificationsHandlerService implements NotificationRefHandler {
     private _config: NotificationConfig,
   ) { }
 
-  private _notifications: ([NotificationRef, OverlayRef, ComponentRef<NotificationComponent>])[] = [];
+  private _notifications: Notification[] = [];
 
   create(opts: NotifierOptions): NotificationRef {
     const notificationRef = new NotificationRef(this, opts);
     const overlayRef = this._overlay.create();
     const portal = this._createPortal(notificationRef, overlayRef);
     const componentRef = overlayRef.attach(portal);
-    this._notifications.push([notificationRef, overlayRef, componentRef]);
+    this._notifications.push({ notificationRef, overlayRef, componentRef });
     this.updatePosition(notificationRef);
     return notificationRef;
   }
 
   close(notificationRef: NotificationRef): void {
-    const [_, __, componentRef] = this._notifications.find(([n]) => n === notificationRef);
-    if (componentRef) {
-      componentRef.instance.close();
+    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    if (notification) {
+      notification.componentRef.instance.close();
     }
   }
 
   destroy(notificationRef: NotificationRef): void {
-    const [, overlayRef] = this._notifications.find(([n]) => n === notificationRef);
-    if (overlayRef) {
-      overlayRef.dispose();
+    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    if (notification) {
+      notification.overlayRef.dispose();
     }
-    this._notifications = this._notifications.filter(([n]) => n !== notificationRef);
+    this._notifications = this._notifications.filter((n) => n.notificationRef !== notificationRef);
   }
 
   isDestroyed(notificationRef: NotificationRef): boolean {
@@ -54,12 +60,12 @@ export class NotificationsHandlerService implements NotificationRefHandler {
   }
 
   getNotifications(pos?: NotifierPosition): NotificationRef[] {
-    return this._notifications.filter(([n]) => (pos ? n.position === pos : true)).map(([n]) => n);
+    return this._notifications.filter((n) => (pos ? n.notificationRef.position === pos : true)).map((n) => n.notificationRef);
   }
 
   getOverlayRef(notificationRef: NotificationRef) {
-    const [, overlayRef] = this._notifications.find(([n]) => n === notificationRef);
-    return overlayRef;
+    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    return notification && notification.overlayRef;
   }
 
   private _createPortal(notificationRef: NotificationRef, overlayRef: OverlayRef) {
@@ -71,7 +77,10 @@ export class NotificationsHandlerService implements NotificationRefHandler {
   }
 
   updatePosition(notificationRef: NotificationRef) {
-    const [_, overlayRef, componentRef] = this._notifications.find(([n]) => n === notificationRef);
+    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    if (!notification) {
+      return;
+    }
 
     const notifications = this.getNotifications(notificationRef.position);
     const idx = notifications.indexOf(notificationRef);
@@ -84,7 +93,7 @@ export class NotificationsHandlerService implements NotificationRefHandler {
 
     const offset = (Math.floor(nOffset) || this._config.offset) + 'px';
 
-    let posStrategy;
+    let posStrategy: PositionStrategy;
     switch (notificationRef.position) {
       case NotifierPosition.TopRight: {
         posStrategy = this.posStrategyTopRight(offset);
@@ -111,7 +120,7 @@ export class NotificationsHandlerService implements NotificationRefHandler {
         break;
       }
     }
-    overlayRef.updatePositionStrategy(posStrategy);
+    notification.overlayRef.updatePositionStrategy(posStrategy);
   }
 
   private posStrategyTopRight(offset: string) {
