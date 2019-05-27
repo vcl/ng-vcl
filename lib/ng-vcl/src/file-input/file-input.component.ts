@@ -199,7 +199,9 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
     // cancel event and hover styling
     e.preventDefault();
     e.stopPropagation();
-    if (this.disabled) { return; }
+    if (this.disabled) {
+      return;
+    }
     this.isDragging = false;
 
     // fetch FileList object

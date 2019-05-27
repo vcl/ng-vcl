@@ -208,11 +208,11 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
       this.dateChange.emit(currentDate);
       this.selectedDate = currentDate;
     } else {
-      const currentDate = this.currentDate ? this.currentDate.date : undefined;
-      if (currentDate) {
-        this.onChange && this.onChange(currentDate);
+      const _currentDate = this.currentDate ? this.currentDate.date : undefined;
+      if (_currentDate) {
+        this.onChange && this.onChange(_currentDate);
       }
-      this.dateChange.emit([currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
+      this.dateChange.emit([_currentDate, this.currentRangeEnd ? this.currentRangeEnd.date : undefined]);
     }
   }
 

@@ -204,8 +204,8 @@ export class CalendarDate {
 
     // split in weeks
     const chunk = 7;
-    for (let i = 0, j = ret.length; i < j; i += chunk) {
-      const temparray = ret.slice(i, i + chunk);
+    for (let j = 0; j < ret.length; j += chunk) {
+      const temparray = ret.slice(j, j + chunk);
       if (temparray.length === 7) { blocks.push(temparray); }
     }
     return blocks;

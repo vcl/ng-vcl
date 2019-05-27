@@ -15,7 +15,7 @@ export class FontAwesomeIconResolverService implements IconResolverService {
   resolve(icon: string) {
     const result =  this.FA_REGEX.exec(icon);
     if (result) {
-      const [s, prefix, value] = result;
+      const [, prefix, value] = result;
       return `${prefix} fa-${value}`;
     }
     return undefined;

@@ -15,7 +15,7 @@ export class MaterialDesignIconResolverService implements IconResolverService {
   resolve(icon: string) {
     const result =  this.MDI_REGEX.exec(icon);
     if (result) {
-      const [s, prefix, value] = result;
+      const [, prefix, value] = result;
       return `${prefix} mdi-${value}`;
     }
     return undefined;

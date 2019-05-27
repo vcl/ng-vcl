@@ -44,7 +44,7 @@ export abstract class VCLIconResolverServiceBase implements IconResolverService 
   resolve(icon: string) {
     const result =  this.VCL_REGEX.exec(icon);
     if (result) {
-      const [s, alias] = result;
+      const [, alias] = result;
       return this.lookup(alias) || undefined;
     }
     return undefined;
