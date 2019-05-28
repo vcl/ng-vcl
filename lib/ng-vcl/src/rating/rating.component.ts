@@ -75,8 +75,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   labelChange = this.labelChangeEmitter.pipe(
     debounceTime(10), // TODO: use scheduler to avoid change detection probs
     map(() => {
-      const item = this.currentHoveredItem || this.currentItem;
-      return item && item.label;
+      return this.label;
     }
   ));
 
@@ -86,6 +85,11 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
       return item && item.labelTemplateRef;
     }
   ));
+
+  get label() {
+    const item = this.currentHoveredItem || this.currentItem;
+    return item && item.label;
+  }
 
   controlType = 'rating';
 
