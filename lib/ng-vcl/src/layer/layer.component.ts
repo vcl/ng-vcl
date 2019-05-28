@@ -1,7 +1,6 @@
-import { PositionStrategy } from '@angular/cdk/overlay';
-import { TemplateRef, ViewContainerRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { LayerConfig } from './config';
-import { LayerRef } from './layer-ref';
+import { TemplateRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy, ViewContainerRef } from '@angular/core';
+import { LayerConfig } from './types';
+import { TemplateLayerRef } from './layer-ref';
 
 @Component({
   selector: 'vcl-layer',
@@ -9,16 +8,16 @@ import { LayerRef } from './layer-ref';
   exportAs: 'vclLayer',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LayerComponent extends LayerRef implements OnDestroy {
+export class LayerComponent extends TemplateLayerRef implements OnDestroy {
   constructor(
-    private viewContainerRef: ViewContainerRef,
-    injector: Injector
+    injector: Injector,
+    public viewContainerRef: ViewContainerRef
   ) {
     super(injector);
   }
 
   @Input()
-  positionStrategy?: PositionStrategy;
+  config?: LayerConfig;
 
   @Input()
   closeOnBackdropClick?: boolean;
@@ -35,9 +34,6 @@ export class LayerComponent extends LayerRef implements OnDestroy {
     }
   }
 
-  get templateOrComponent() {
-    return this.templateRef;
-  }
 
   // tslint:disable-next-line:no-output-rename
   @Output('afterClose')
@@ -49,12 +45,13 @@ export class LayerComponent extends LayerRef implements OnDestroy {
   @ViewChild(TemplateRef)
   protected templateRef: TemplateRef<any>;
 
+  getLayerConfig(): LayerConfig {
+    return this.config || super.getLayerConfig();
+  }
+
   open(config?: LayerConfig) {
     const inputConfig: LayerConfig = {};
 
-    if (this.positionStrategy !== undefined) {
-      inputConfig.positionStrategy = this.positionStrategy;
-    }
     if (this.closeOnBackdropClick !== undefined) {
       inputConfig.closeOnBackdropClick = this.closeOnBackdropClick;
     }

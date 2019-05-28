@@ -68,7 +68,10 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
       return;
     }
 
-    this.autocomplete.open(this.elementRef, this.elementRef.nativeElement.value);
+    this.autocomplete.open({
+      target: this.elementRef,
+      value: this.elementRef.nativeElement.value
+    });
 
     this.afterCloseSub && this.afterCloseSub.unsubscribe();
     this.afterCloseSub = this.autocomplete.afterClose.subscribe((value: any) => {

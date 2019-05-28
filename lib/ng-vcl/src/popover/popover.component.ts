@@ -1,56 +1,30 @@
-import { Component, ViewChild, TemplateRef, ViewContainerRef, ElementRef, Input, Optional, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { OverlayConfig, Overlay, HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
-import { Directionality } from '@angular/cdk/bidi';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { LayerBase } from '../layer/index';
+import { TemplateRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy, ElementRef, ViewContainerRef } from '@angular/core';
+import { Overlay, ConnectedPosition } from '@angular/cdk/overlay';
+import { LayerConfig, TemplateLayerRef } from '../layer/index';
 
 @Component({
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
   exportAs: 'vclPopover',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PopoverComponent extends LayerBase implements OnDestroy {
-
+export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
   constructor(
-    @Optional()
     injector: Injector,
-    private _dir: Directionality,
-    private overlay: Overlay,
-    protected viewContainerRef: ViewContainerRef,
+    public viewContainerRef: ViewContainerRef,
+    private overlay: Overlay
   ) {
     super(injector);
   }
 
-  @ViewChild(TemplateRef)
-  private templateRef: TemplateRef<any>;
+  @Input()
+  closeOnEscape?: boolean;
 
   @Input()
-  target: ElementRef<HTMLElement>;
+  target?: ElementRef | HTMLElement;
 
   @Input()
-  originX: HorizontalConnectionPos = 'start';
-
-  @Input()
-  originY: VerticalConnectionPos = 'bottom';
-
-  @Input()
-  overlayX: HorizontalConnectionPos  = 'start';
-
-  @Input()
-  overlayY: VerticalConnectionPos = 'top';
-
-  @Input()
-  offsetX = 0;
-
-  @Input()
-  offsetY = 0;
-
-  @Input()
-  width?: number;
-
-  @Input()
-  height?: number;
+  positions?: ConnectedPosition[];
 
   @Input()
   set visible(visible: boolean) {
@@ -61,60 +35,58 @@ export class PopoverComponent extends LayerBase implements OnDestroy {
     }
   }
 
-  get visible() {
-    return this.isAttached;
+  get templateOrComponent() {
+    return this.templateRef;
   }
+
+  // tslint:disable-next-line:no-output-rename
+  @Output('afterClose')
+  afterCloseOutput = this.afterClose;
 
   @Output()
   visibleChange = new EventEmitter<boolean>();
 
-  @Output()
-  afterClose = new EventEmitter<any>();
+  @ViewChild(TemplateRef)
+  protected templateRef: TemplateRef<any>;
 
-  createPortal() {
-    return new TemplatePortal(this.templateRef, this.viewContainerRef);
-  }
-
-  reposition() {
-    this.overlayRef && this.overlayRef.updatePosition();
-  }
-
-  open() {
-    const config = new OverlayConfig({
+  getLayerConfig(): LayerConfig {
+    return new LayerConfig({
+      closeOnBackdropClick: false,
+      closeOnEscape: false,
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      direction: this._dir,
       panelClass: 'vclPopOver',
       positionStrategy: this.overlay.position()
       .flexibleConnectedTo(this.target)
-      .withPositions([{
-        originX: this.originX,
-        originY: this.originY,
-        overlayX: this.overlayX,
-        overlayY: this.overlayY,
-        offsetX: this.offsetX,
-        offsetY: this.offsetY,
+      .withPositions(this.positions || [{
+        originX: 'start',
+        originY: 'bottom',
+        overlayX: 'start',
+        overlayY: 'top',
       }])
     });
-
-    this.attach(config);
-    this.visibleChange.emit(this.isAttached);
   }
 
-  close() {
-    super.detach();
-    this.visibleChange.emit(this.isAttached);
-  }
+  open(config?: LayerConfig) {
+    const inputConfig: LayerConfig = {};
 
-  toggle() {
-    if (this.visible) {
-      this.close();
-    } else {
-      this.open();
+    if (this.closeOnEscape !== undefined) {
+      inputConfig.closeOnEscape = this.closeOnEscape;
     }
+
+    return super.open({
+      ...inputConfig,
+      ...(config || {})
+    });
   }
 
-  protected afterDetached(result) {
-    this.afterClose.emit();
+  protected afterDetached(result: any): void {
+    super.afterDetached(result);
+    this.visibleChange.emit(this.visible);
+  }
+
+  protected afterAttached(): void {
+    super.afterAttached();
+    this.visibleChange.emit(this.visible);
   }
 
   ngOnDestroy(): void {

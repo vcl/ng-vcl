@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { LayerRef } from '@ng-vcl/ng-vcl';
+import { ComponentLayerRef } from '@ng-vcl/ng-vcl';
 
 @Component({
   templateUrl: 'bar.component.html',
 })
 export class BarComponent {
 
-  constructor(private layer: LayerRef) { }
+  constructor(private layer: ComponentLayerRef) { }
 
   get title() {
     return this.layer.data.title;

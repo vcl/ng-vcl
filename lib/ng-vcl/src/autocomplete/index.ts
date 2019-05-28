@@ -8,10 +8,10 @@ import { VCLInputModule } from '../input/index';
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLSelectListModule } from '../select-list/index';
 
-import { AutocompleteComponent } from './autocomplete.component';
+import { AutocompleteComponent, AutocompleteConfig } from './autocomplete.component';
 import { AutocompleteInputDirective } from './autocomplete-input.directive';
 
-export { AutocompleteComponent };
+export { AutocompleteComponent, AutocompleteConfig, AutocompleteInputDirective };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLSelectListModule],

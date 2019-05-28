@@ -8,7 +8,7 @@ import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { createOffClickStream } from '../off-click/index';
-import { LayerBase } from '../layer/index';
+import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
 
 @Component({
@@ -17,13 +17,13 @@ import { SelectListItem, SelectListComponent } from '../select-list/index';
   exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectComponent extends LayerBase<SelectListItem> implements OnDestroy {
+export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements OnDestroy {
 
   constructor(
     injector: Injector,
     private _dir: Directionality,
     private overlay: Overlay,
-    private viewContainerRef: ViewContainerRef,
+    protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
   ) {
@@ -88,7 +88,7 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
   onFocus() {
     this._focused = true;
     if (!this.isAttached) {
-      this.attach();
+      this.open();
     }
   }
 
@@ -102,7 +102,7 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
   onKeyUp(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === ESCAPE) {
-      this.detach();
+      this.close();
       this.elementRef.nativeElement.blur();
     } else if (code === UP_ARROW) {
       this.selectList && this.selectList.highlightPrev();
@@ -113,7 +113,7 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
         this.selectList && this.selectList.highlightNext();
       } else {
         if (!this.isAttached) {
-          this.attach();
+          this.open();
         }
       }
       event.preventDefault();
@@ -125,7 +125,7 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
   onKeyDown(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === TAB) {
-      this.detach();
+      this.close();
     }
   }
 
@@ -161,15 +161,17 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
 
   @HostListener('click')
   onClick() {
-    if (this.isAttached) {
-      this.detach();
+    if (!this.isAttached) {
+      this.open();
     } else {
-      this.attach();
+      this.close();
     }
   }
 
-  protected attach() {
-    const config = new OverlayConfig({
+  protected getLayerConfig(): LayerConfig {
+    return new LayerConfig({
+      closeOnEscape: true,
+      hasBackdrop: false,
       scrollStrategy: this.overlay.scrollStrategies.reposition({
         autoClose: true
       }),
@@ -192,14 +194,13 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
         overlayY: 'bottom'
       }]).withPush(false)
     });
-    super.attach(config);
   }
 
   onLabelClick(event: Event): void {
     if (this.isAttached) {
       return;
     }
-    this.attach();
+    this.open();
   }
 
   protected afterAttached(): void {
@@ -208,7 +209,7 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
     ).subscribe((value) => {
       if (this.isAttached) {
         if (this.selectList.selectionMode === 'single') {
-          this.detach(value);
+          this.close(value);
         } else {
           this.cdRef.markForCheck();
         }
@@ -221,19 +222,12 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
         if (!this.isAttached) {
           return NEVER;
         }
-        return merge(
-          this.overlayRef.keydownEvents().pipe(
-            filter(event => {
-              return event.keyCode === ESCAPE;
-            })
-          ),
-          createOffClickStream([this.overlayRef.overlayElement, this.elementRef.nativeElement], {
-            document: this.injector.get(DOCUMENT)
-          })
-        );
+        return createOffClickStream([this.overlayRef.overlayElement, this.elementRef.nativeElement], {
+          document: this.injector.get(DOCUMENT)
+        });
       })
     ).subscribe(() => {
-      this.detach();
+      this.close();
     });
   }
 
@@ -241,6 +235,8 @@ export class SelectComponent extends LayerBase<SelectListItem> implements OnDest
     this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
     this.selectList.highlight(undefined);
     this.afterClose.emit(this.selectList.value);
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 
   ngOnDestroy() {

@@ -9,7 +9,12 @@ import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectListComponent } from '../select-list/index';
 import { createOffClickStream } from '../off-click/index';
-import { LayerBase } from '../layer/index';
+import { TemplateLayerRef, LayerConfig } from '../layer/index';
+
+export class AutocompleteConfig extends LayerConfig {
+  value: string;
+  target: ElementRef;
+}
 
 @Component({
   selector: 'vcl-autocomplete',
@@ -17,13 +22,13 @@ import { LayerBase } from '../layer/index';
   exportAs: 'vclAutocomplete',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteComponent extends LayerBase implements OnDestroy {
+export class AutocompleteComponent extends TemplateLayerRef implements OnDestroy {
 
   constructor(
     injector: Injector,
     private _dir: Directionality,
     private overlay: Overlay,
-    private viewContainerRef: ViewContainerRef,
+    protected viewContainerRef: ViewContainerRef,
     private cdRef: ChangeDetectorRef,
   ) {
     super(injector);
@@ -58,19 +63,16 @@ export class AutocompleteComponent extends LayerBase implements OnDestroy {
     return this.isAttached;
   }
 
-  open(target: ElementRef<HTMLElement>, value: string) {
-    this.selectList.writeValue(value);
-    this._target = target;
-
-    const config = new OverlayConfig({
+  getLayerConfig() {
+    return new OverlayConfig({
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       direction: this._dir,
-      width: this.width !== undefined ? this.width : target.nativeElement.getBoundingClientRect().width,
+      width: this.width !== undefined ? this.width : this._target.nativeElement.getBoundingClientRect().width,
       height: this.height,
       maxHeight: this.maxHeight || '20em',
       panelClass: [],
       positionStrategy: this.overlay.position()
-      .flexibleConnectedTo(target)
+      .flexibleConnectedTo(this._target)
       .withPositions([
         {
           originX: 'start',
@@ -86,20 +88,22 @@ export class AutocompleteComponent extends LayerBase implements OnDestroy {
         }
       ])
     });
-    this.attach(config);
   }
 
-  close() {
-    this.detach();
+  open(config: AutocompleteConfig) {
+    this.selectList.writeValue(config.value);
+    this._target = config.target;
+    return super.open(config);
   }
 
   protected afterAttached(): void {
+    super.afterAttached();
     this.selectList.valueChange.pipe(
       takeUntil(this.afterClose),
       take(1)
     ).subscribe((value) => {
       if (this.isAttached) {
-        this.detach(value);
+        this.close(value);
       }
     });
 
@@ -122,11 +126,12 @@ export class AutocompleteComponent extends LayerBase implements OnDestroy {
         );
       })
     ).subscribe(() => {
-      this.detach();
+      this.close();
     });
   }
 
   protected afterDetached(result?: any) {
+    super.afterDetached(result);
     if (!this.isDestroyed) {
       // We need to trigger change detection manually, because
       // `fromEvent` doesn't seem to do it at the proper time.

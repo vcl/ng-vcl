@@ -1,6 +1,6 @@
 import { Component, Injector, Injectable, Inject, forwardRef, HostBinding } from '@angular/core';
-import { LayerRef, LayerConfig } from '@ng-vcl/ng-vcl';
 import { Overlay } from '@angular/cdk/overlay';
+import { ComponentLayerRef, LayerConfig } from '@ng-vcl/ng-vcl';
 
 export interface NagLayerData {
   allowDecline: boolean;
@@ -40,13 +40,13 @@ export class NagComponent {
 @Injectable({
   providedIn: 'root'
 })
-export class NagLayer extends LayerRef<NagLayerData, NagLayerResult> {
+export class NagLayer extends ComponentLayerRef<NagLayerData, NagLayerResult, NagComponent> {
 
   constructor(injector: Injector, private overlay: Overlay) {
     super(injector);
   }
 
-  templateOrComponent = NagComponent;
+  component = NagComponent;
 
   getLayerConfig(): LayerConfig {
     return new LayerConfig({

@@ -1,9 +1,9 @@
 import { HostListener, Injector, ElementRef, Input, InjectionToken, ViewContainerRef, Directive, Injectable } from '@angular/core';
-import { LayerBase } from '../layer/index';
 import { Overlay, ConnectedPosition } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { Subject, interval, EMPTY } from 'rxjs';
 import { debounce, take } from 'rxjs/operators';
+import { LayerRef, LayerConfig } from '../layer/index';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipInlineComponent } from './tooltip-inline.component';
 import { TOOLTIP_TOKEN, Tooltip, TooltipPosition } from './types';
@@ -52,7 +52,7 @@ const calcPos = (position: TooltipPosition, offset: number): ConnectedPosition =
 @Directive({
   selector: '[vclTooltip]',
 })
-export class TooltipDirective extends LayerBase {
+export class TooltipDirective extends LayerRef {
 
   constructor(
     injector: Injector,
@@ -82,9 +82,9 @@ export class TooltipDirective extends LayerBase {
     )
   ).subscribe(visible => {
     if (visible && !this.isAttached) {
-      this.show();
+      this.open();
     } else if (!visible && this.isAttached) {
-      this.hide();
+      this.close();
     }
   });
 
@@ -123,23 +123,22 @@ export class TooltipDirective extends LayerBase {
     this.mouseOverEmitter.next(false);
   }
 
-  show() {
-    this.attach({
-      positionStrategy: this.overlay
-                            .position()
-                            .flexibleConnectedTo(this.elementRef)
-                            .withPositions([
-                              calcPos(this.position, this.offset),
-                              calcPos('right', this.offset),
-                              calcPos('left', this.offset),
-                              calcPos('top', this.offset),
-                              calcPos('bottom', this.offset),
-                            ])
+  protected getLayerConfig(): LayerConfig {
+    return new LayerConfig({
+      hasBackdrop: false,
+      scrollStrategy: this.overlay.scrollStrategies.reposition({
+        autoClose: true
+      }),
+      positionStrategy: this.overlay.position()
+        .flexibleConnectedTo(this.elementRef)
+        .withPositions([
+          calcPos(this.position, this.offset),
+          calcPos('right', this.offset),
+          calcPos('left', this.offset),
+          calcPos('top', this.offset),
+          calcPos('bottom', this.offset),
+        ])
     });
-  }
-
-  hide() {
-    this.detach();
   }
 
   createPortal() {

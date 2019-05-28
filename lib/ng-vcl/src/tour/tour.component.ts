@@ -1,14 +1,14 @@
-import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild, OnChanges } from '@angular/core';
 import { PopoverComponent } from '../popover/index';
 import { TourService } from './tour.service';
-import { HorizontalConnectionPos, VerticalConnectionPos } from '@angular/cdk/overlay';
+import { HorizontalConnectionPos, VerticalConnectionPos, ConnectedPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'vcl-tour-step',
   templateUrl: './tour.component.html',
   styleUrls: ['./tour.component.css']
 })
-export class TourComponent implements OnInit {
+export class TourComponent implements OnInit, OnChanges {
 
   @ViewChild('popover') public readonly popover: PopoverComponent;
 
@@ -25,6 +25,8 @@ export class TourComponent implements OnInit {
 
   @Input() public offsetY: number;
 
+  public positions: ConnectedPosition[];
+
   public visible = false;
 
   public hasNext = false;
@@ -37,8 +39,22 @@ export class TourComponent implements OnInit {
     this.tour.register(this);
   }
 
+  public ngOnChanges(): void {
+
+    this.positions = [{
+      originX: this.originX,
+      originY: this.originY,
+      overlayX: this.overlayX,
+      overlayY: this.overlayY,
+      offsetX: this.offsetX,
+      offsetY: this.offsetY
+    }];
+
+  }
+
   public show(): void {
-    const el: HTMLElement = this.popover.target.nativeElement as HTMLElement;
+    const target = this.popover.target;
+    const el = target instanceof ElementRef ? target.nativeElement : target;
     if (el) {
 
       el.style.zIndex = `${this.tour.options.zIndex}`;
@@ -58,7 +74,8 @@ export class TourComponent implements OnInit {
   }
 
   public hide(): void {
-    const highlightedElement: HTMLElement = this.popover.target.nativeElement as HTMLElement;
+    const target = this.popover.target;
+    const highlightedElement = target instanceof ElementRef ? target.nativeElement : target;
 
     if (highlightedElement) {
       highlightedElement.style.zIndex = null;

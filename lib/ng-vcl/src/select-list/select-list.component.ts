@@ -1,4 +1,4 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component } from '@angular/core';
+import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlInput, FORM_CONTROL_INPUT } from '../form-control-group/index';
@@ -24,6 +24,7 @@ let UNIQUE_ID = 0;
 })
 export class SelectListComponent implements SelectList, AfterContentInit, OnDestroy, ControlValueAccessor, FormControlInput {
   constructor(
+    private cdRef: ChangeDetectorRef,
     @Optional()
     public ngControl?: NgControl,
     @Optional()
@@ -171,6 +172,8 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
   highlight(value: any) {
     this._highlightedItem = this._items.find((item) => item.value === value);
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 
   highlightIndex(idx: any) {
