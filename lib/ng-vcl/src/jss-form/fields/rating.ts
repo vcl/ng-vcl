@@ -40,7 +40,7 @@ export class FormFieldRating extends FormFieldControl<VCLFormFieldSchemaRating, 
   `
 })
 export class FormFieldRatingComponent implements AfterViewInit {
-  constructor(public field: FormFieldRating, cdRef: ChangeDetectorRef) {
+  constructor(public field: FormFieldRating, private cdRef: ChangeDetectorRef) {
     field.stateChanged.subscribe(() => {
       cdRef.markForCheck();
     });
@@ -53,9 +53,9 @@ export class FormFieldRatingComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.rating.labelChange.subscribe(label => {
-      this.updateValueLabel();
+      this.updateValueLabel(label);
     });
-    this.updateValueLabel();
+    this.updateValueLabel(this.rating.label);
   }
 
   updateValueLabel(label?: string) {
@@ -64,6 +64,8 @@ export class FormFieldRatingComponent implements AfterViewInit {
     } else {
       this._valueLabel = undefined;
     }
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 
   get label() {
