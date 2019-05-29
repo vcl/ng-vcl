@@ -1,6 +1,6 @@
 {
   "name": "ng-vcl",
-  "version": "0.8.0-12",
+  "version": "0.8.0-13",
   "scripts": {
     "ng": "ng",
     "start": "npm run dev:demo",
@@ -23,7 +23,7 @@
     "e2e": "ng e2e",
     "build:clean": "rimraf dist/ng-vcl",
     "build:ng-vcl/ng-vcl": "ng build @ng-vcl/ng-vcl",
-    "postbuild:ng-vcl/ng-vcl": "cp lib/ng-vcl/styles.sss dist/ng-vcl/ng-vcl",
+    "postbuild:ng-vcl/ng-vcl": "cp lib/ng-vcl/*.sss dist/ng-vcl/ng-vcl",
     "build:ng-vcl": "npm-run-all build:ng-vcl/ng-vcl",
     "build": "npm-run-all build:clean build:ng-vcl",
     "build:wc": "ng build ng-vcl-wc-test --prod --output-hashing none --single-bundle false --plugin ~webpack.custom.js",
