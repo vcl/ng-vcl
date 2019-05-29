@@ -31,7 +31,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ProgressBarDemoComponent = /** @class */ (function () {
     function ProgressBarDemoComponent() {
-        this.value$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["zip"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["range"])(0, 1000), Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["interval"])(50)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (_a) {
+        this.value$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["zip"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["range"])(0, 1000), Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["interval"])(50, rxjs__WEBPACK_IMPORTED_MODULE_2__["animationFrameScheduler"])).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (_a) {
             var x = _a[0];
             return x;
         }));
@@ -271,7 +271,7 @@ module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">vcl-pro
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n<span class=\"hljs-keyword\">import</span> { zip, range, interval } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs'</span>;\n<span class=\"hljs-keyword\">import</span> { map } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs/operators'</span>;\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> ProgressBarDemoComponent {\n  value$ = zip(range(<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">1000</span>), interval(<span class=\"hljs-number\">50</span>)).pipe(map(<span class=\"hljs-function\">(<span class=\"hljs-params\">[x]</span>) =&gt;</span> x));\n}\n"
+module.exports = "<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n<span class=\"hljs-keyword\">import</span> { zip, range, interval, animationFrameScheduler } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs'</span>;\n<span class=\"hljs-keyword\">import</span> { map } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs/operators'</span>;\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> ProgressBarDemoComponent {\n  value$ = zip(range(<span class=\"hljs-number\">0</span>, <span class=\"hljs-number\">1000</span>), interval(<span class=\"hljs-number\">50</span>, animationFrameScheduler)).pipe(map(<span class=\"hljs-function\">(<span class=\"hljs-params\">[x]</span>) =&gt;</span> x));\n}\n"
 
 /***/ }),
 
