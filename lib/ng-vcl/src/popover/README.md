@@ -1,15 +1,14 @@
 # vcl-popover
 
-A popover is a dom-element which 'floats' at the position of the target element.
+A popover is an overlay floating at the position of the target element.
 
 ## Usage
 
-Provide a
-
 ```html
-<div #myTarget>any dom-element which is the target</div>
+<div #myTarget>any dom element can be the target</div>
+<button (click)="popover.toggle()"> 
 
-<vcl-popover [target]="myTarget" [position]="myPositions" [(visible)]="true">
+<vcl-popover #popover="vclPopover" [target]="myTarget" [position]="myPositions">
   Popover-Content
 </vcl-popover>
 ```
@@ -20,10 +19,9 @@ Provide a
 
 Name                | Type                          | Default             | Description
 ------------------- | ---------------------------   | ------------------- | ------------------- 
-`visible` _(1)_     | boolean                       | false                | the popover is hidden if false
 `target`            | ElementRef \| HTMLElement     |                     | the target must be an ElementRef instance
-`positions`         | OverlayPosition[]             |                     | @angular/cdk OverlayPosition array
-`config`            | OverlayConfig                 |                     | @angular/cdk OverlayConfig
+`positions`         | [ConnectedPosition](https://material.angular.io/cdk/overlay/api#ConnectedPosition) | | @angular/cdk OverlayPosition array
+`visible` _(1)_     | boolean                       | false               | the popover is hidden if false
   
 #### Methods  
 
@@ -31,6 +29,6 @@ Name             | Attributes | Description
 ------------     | ---------- | --------------------------------------------------------------------------
 `open`           |            | will show the popover
 `close`          |            | will hide the popover
-`reposition`     |            | re-positions the popover, use this if the popover changes its content-size
+`toggle`         |            | will show when hidden and hide when visible
 
 _(1) Supports Two-way binding_

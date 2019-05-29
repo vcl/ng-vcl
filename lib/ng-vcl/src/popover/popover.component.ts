@@ -35,10 +35,6 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
     }
   }
 
-  get templateOrComponent() {
-    return this.templateRef;
-  }
-
   // tslint:disable-next-line:no-output-rename
   @Output('afterClose')
   afterCloseOutput = this.afterClose;
@@ -50,10 +46,13 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
   protected templateRef: TemplateRef<any>;
 
   getLayerConfig(): LayerConfig {
+    if (!this.target) {
+      throw new Error('Popover has no target');
+    }
+
     return new LayerConfig({
-      closeOnBackdropClick: false,
-      closeOnEscape: false,
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      hasBackdrop: false,
+      closeOnEscape: this.closeOnEscape || false,
       panelClass: 'vclPopOver',
       positionStrategy: this.overlay.position()
       .flexibleConnectedTo(this.target)
@@ -80,12 +79,10 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
   }
 
   protected afterDetached(result: any): void {
-    super.afterDetached(result);
     this.visibleChange.emit(this.visible);
   }
 
   protected afterAttached(): void {
-    super.afterAttached();
     this.visibleChange.emit(this.visible);
   }
 
