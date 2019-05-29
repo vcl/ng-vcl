@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
+import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule, VCLIcogramModule, VCLFormControlGroupModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
 import { FormFieldCounterComponent } from './jss-form-extended';
@@ -46,6 +46,7 @@ export function demo() {
     VCLCounterModule,
     VCLIcogramModule,
     VCLButtonModule,
+    VCLFormControlGroupModule,
     VCLJssFormModule,
     VCLNotifierModule,
     RouterModule.forChild([{

@@ -3,16 +3,11 @@ import { VCLFormFieldSchemaRoot, FormFieldControl, VCLFormFieldControlSchema, Co
 
 @Component({
   template: `
-    <span *ngIf="field.label">{{ field.label }}</span><br>
-    <demo-counter [formControl]="field.control" [min]="field.params.min" [max]="field.params.max"></demo-counter>
+    <vcl-form-control-group *ngIf="field.visible">
+      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
+      <demo-counter [formControl]="field.control" [min]="field.params.min" [max]="field.params.max"></demo-counter>
+    </vcl-form-control-group>
     `,
-    styles: [
-      `:host {
-        display: block;
-        padding-top: 1em;
-        padding-bottom: 1em;
-      }`
-    ]
 })
 export class FormFieldCounterComponent {
   constructor(public field: FormFieldControl) { }

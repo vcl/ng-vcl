@@ -107,40 +107,42 @@
       <vcl-slider formControlName="hitpoints" [min]="5" [max]="20" [scale]="16" [lock]="true"></vcl-slider>
     </vcl-form-control-group>
 
-    <h3>Skills</h3>
-  
-    <vcl-form-control-group>
-      <label vclFormControlLabel>Strength (<vcl-rating-item-label [target]="strengthRating"></vcl-rating-item-label>)</label>
-      <vcl-rating formControlName="strength" #strengthRating="vclRating">
-        <vcl-rating-item>1</vcl-rating-item>
-        <vcl-rating-item>2</vcl-rating-item>
-        <vcl-rating-item>3</vcl-rating-item>
-        <vcl-rating-item>4</vcl-rating-item>
-        <vcl-rating-item>5</vcl-rating-item>
-      </vcl-rating>
-    </vcl-form-control-group>
-    <vcl-form-control-group>
-      <label vclFormControlLabel>Agility (<vcl-rating-item-label [target]="agilityRating"></vcl-rating-item-label>)</label>
-      <vcl-rating formControlName="agility" #agilityRating="vclRating">
-        <vcl-rating-item>1</vcl-rating-item>
-        <vcl-rating-item>2</vcl-rating-item>
-        <vcl-rating-item>3</vcl-rating-item>
-        <vcl-rating-item>4</vcl-rating-item>
-        <vcl-rating-item>5</vcl-rating-item>
-      </vcl-rating>
-    </vcl-form-control-group>
-    <vcl-form-control-group>
-      <label vclFormControlLabel>Intelligence (<vcl-rating-item-label [target]="intelligenceRating"></vcl-rating-item-label>)</label>
-      <vcl-rating formControlName="intelligence" #intelligenceRating="vclRating">
-        <vcl-rating-item>1</vcl-rating-item>
-        <vcl-rating-item>2</vcl-rating-item>
-        <vcl-rating-item>3</vcl-rating-item>
-        <vcl-rating-item>4</vcl-rating-item>
-        <vcl-rating-item>5</vcl-rating-item>
-      </vcl-rating>
-    </vcl-form-control-group>
-    <vcl-hint *ngIf="!form.hasError('skills')" [style.color]="skillPointsAvailable > 0 ? 'orange' : null">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint>
-    <vcl-hint-error *ngIf="form.hasError('skills')">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint-error>
+    <fieldset>
+      <legend>Skills</legend>
+      <vcl-form-control-group>
+        <label vclFormControlLabel>Strength (<vcl-rating-item-label [target]="strengthRating"></vcl-rating-item-label>)</label>
+        <vcl-rating formControlName="strength" #strengthRating="vclRating">
+          <vcl-rating-item>1</vcl-rating-item>
+          <vcl-rating-item>2</vcl-rating-item>
+          <vcl-rating-item>3</vcl-rating-item>
+          <vcl-rating-item>4</vcl-rating-item>
+          <vcl-rating-item>5</vcl-rating-item>
+        </vcl-rating>
+      </vcl-form-control-group>
+      <vcl-form-control-group>
+        <label vclFormControlLabel>Agility (<vcl-rating-item-label [target]="agilityRating"></vcl-rating-item-label>)</label>
+        <vcl-rating formControlName="agility" #agilityRating="vclRating">
+          <vcl-rating-item>1</vcl-rating-item>
+          <vcl-rating-item>2</vcl-rating-item>
+          <vcl-rating-item>3</vcl-rating-item>
+          <vcl-rating-item>4</vcl-rating-item>
+          <vcl-rating-item>5</vcl-rating-item>
+        </vcl-rating>
+      </vcl-form-control-group>
+      <vcl-form-control-group>
+        <label vclFormControlLabel>Intelligence (<vcl-rating-item-label [target]="intelligenceRating"></vcl-rating-item-label>)</label>
+        <vcl-rating formControlName="intelligence" #intelligenceRating="vclRating">
+          <vcl-rating-item>1</vcl-rating-item>
+          <vcl-rating-item>2</vcl-rating-item>
+          <vcl-rating-item>3</vcl-rating-item>
+          <vcl-rating-item>4</vcl-rating-item>
+          <vcl-rating-item>5</vcl-rating-item>
+        </vcl-rating>
+      </vcl-form-control-group>
+      <vcl-hint *ngIf="!form.hasError('skills') && skillPointsAvailable === 0">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint>
+      <vcl-hint-warning *ngIf="!form.hasError('skills') && skillPointsAvailable > 0">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint-warning>
+      <vcl-hint-error *ngIf="form.hasError('skills')">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint-error>
+    </fieldset>
 
     <vcl-form-control-group>
       <label vclFormControlLabel>Perks<vcl-required></vcl-required></label>
