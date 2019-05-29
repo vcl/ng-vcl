@@ -1,7 +1,7 @@
 # vcl-layer
 
 An overlay placed in the center of the screen.
-The layer uses [@angular/cdk's](https://material.angular.io/cdk/overlay/overview) overlay for positioning.
+The layer uses @angular/cdk's [overlay api](https://material.angular.io/cdk/overlay/api) for positioning.
 
 ## Usage
 
