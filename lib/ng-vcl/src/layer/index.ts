@@ -6,10 +6,10 @@ import { PortalModule } from '@angular/cdk/portal';
 
 import { LayerComponent } from './layer.component';
 import { LayerService } from './layer.service';
-import { LayerRef, TemplateLayerRef, ComponentLayerRef } from './layer-ref';
+import { LayerRef, TemplateLayerRef, ComponentLayerRef, DynamicLayerRef, DynamicLayerParams } from './layer-ref';
 import { LayerConfig, Layer } from './types';
 
-export { Layer, LayerComponent, LayerRef, TemplateLayerRef, ComponentLayerRef, LayerService, LayerConfig };
+export { Layer, LayerComponent, LayerRef, TemplateLayerRef, ComponentLayerRef, DynamicLayerRef, DynamicLayerParams, LayerService, LayerConfig };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, BidiModule, PortalModule],
