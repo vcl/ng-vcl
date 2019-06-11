@@ -47,8 +47,10 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
   private stateChangedEmitter = new Subject<void>();
 
-  stateChanged = this.stateChangedEmitter.asObservable();
-  controlType = 'button-group';
+  readonly stateChanged = this.stateChangedEmitter.asObservable();
+  readonly controlType = 'button-group';
+  readonly hasInputBox = false;
+  readonly hasPrependedLabel = false;
 
   @Input()
   id?: string;

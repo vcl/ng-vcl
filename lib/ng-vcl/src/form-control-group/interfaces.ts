@@ -10,6 +10,7 @@ export interface FormControlHost {
   readonly touched: boolean;
   readonly untouched: boolean;
   readonly submitted: boolean;
+  readonly isMaterial: boolean;
 }
 
 export interface FormControlInput<T = any> {
@@ -21,6 +22,19 @@ export interface FormControlInput<T = any> {
   readonly hasError: boolean;
   readonly ngControl?: NgControl;
   readonly value: T;
+
+  /***
+   * Whether the component has an input box.
+   * (used by material design)
+   */
+  readonly hasInputBox: boolean;
+
+  /***
+   * Whether the input box has a prepended icon.
+   * (used by material design)
+   */
+  readonly hasPrependedLabel: boolean;
+
   onLabelClick(event: Event): void;
 }
 

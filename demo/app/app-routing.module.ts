@@ -239,6 +239,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: './demos/form-control-group-material/demo.module#FormControlGroupMaterialDemoModule',
+    path: 'form-control-group-material',
+    data: {
+      demo: {
+        label: 'Form Control Group Material',
+        category: CAT_FORMS,
+      }
+    }
+  },
+  {
     loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
     path: 'jss-form',
     data: {

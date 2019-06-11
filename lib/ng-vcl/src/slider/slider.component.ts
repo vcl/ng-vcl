@@ -67,8 +67,10 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   private generatedId = 'vcl_slider_' + UNIQUE_ID++;
   private stateChangedEmitter = new Subject<void>();
 
-  stateChanged = this.stateChangedEmitter.asObservable();
-  controlType = 'slider';
+  readonly stateChanged = this.stateChangedEmitter.asObservable();
+  readonly controlType = 'slider';
+  readonly hasInputBox = false;
+  readonly hasPrependedLabel = false;
 
   @Input()
   id?: string;

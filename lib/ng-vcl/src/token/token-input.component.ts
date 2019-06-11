@@ -58,8 +58,10 @@ export class TokenInputContainerComponent implements ControlValueAccessor, FormC
   private _cvaDisabled = false;
   private _lastKeyCode: number | undefined;
 
-  stateChanged = this._stateChangedEmitter.asObservable();
-  controlType = 'token-input';
+  readonly stateChanged = this._stateChangedEmitter.asObservable();
+  readonly controlType = 'token-input';
+  readonly hasInputBox = true;
+  readonly hasPrependedLabel = false;
 
   @HostBinding('class.vclInput')
   @HostBinding('class.vclTokenInput')

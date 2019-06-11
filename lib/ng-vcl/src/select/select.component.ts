@@ -1,5 +1,21 @@
-import { Component, Input, HostBinding, ViewChild,
-  ElementRef, HostListener, ContentChild, ChangeDetectorRef, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector } from '@angular/core';
+import {
+  Component,
+  Input,
+  HostBinding,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  ContentChild,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ViewContainerRef,
+  TemplateRef,
+  Injector,
+  forwardRef, Optional, Inject
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NEVER, merge, Subscription } from 'rxjs';
 import { startWith, switchMap, filter, takeUntil } from 'rxjs/operators';
@@ -10,14 +26,26 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { createOffClickStream } from '../off-click/index';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
+import {
+  FORM_CONTROL_HOST,
+  FORM_CONTROL_INPUT,
+  FormControlHost,
+  FormControlInput
+} from '@ng-vcl/ng-vcl/form-control-group';
 
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
   exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: FORM_CONTROL_INPUT,
+      useExisting: forwardRef(() => SelectComponent)
+    }
+  ]
 })
-export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements OnDestroy {
+export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements OnDestroy, FormControlInput {
 
   constructor(
     injector: Injector,
@@ -26,12 +54,35 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
+    @Optional()
+    @Inject(FORM_CONTROL_HOST)
+    private formControlHost?: FormControlHost,
   ) {
     super(injector);
   }
 
   private _dropdownOpenedSub?: Subscription;
   private _focused = false;
+
+  readonly controlType = 'select';
+  readonly hasInputBox = true;
+  readonly hasPrependedLabel = false;
+
+  get elementId() {
+    return this.selectList.elementId;
+  }
+
+  get ngControl() {
+    return this.selectList.ngControl;
+  }
+
+  get stateChanged() {
+    return this.selectList.stateChanged;
+  }
+
+  get value() {
+    return this.selectList.value;
+  }
 
   @ContentChild(SelectListComponent)
   selectList: SelectListComponent;

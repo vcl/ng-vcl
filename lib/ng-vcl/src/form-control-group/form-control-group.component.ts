@@ -1,4 +1,17 @@
-import { Component, HostBinding, ContentChild, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy, Optional, Self, SkipSelf } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  ContentChild,
+  ElementRef,
+  forwardRef,
+  AfterViewInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  Optional,
+  Self,
+  SkipSelf,
+  Input,
+} from '@angular/core';
 import { FormControlInput, FORM_CONTROL_INPUT, FormControlHost, FORM_CONTROL_HOST } from './interfaces';
 import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -37,6 +50,46 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
     return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-form-inline-control-group';
   }
 
+  @HostBinding('class.vclMaterial')
+  get classVclMaterial() {
+    return this.material === true || this.material === '';
+  }
+
+  @HostBinding('class.vclMaterialStatic')
+  get classVclMaterialStatic() {
+    return !this.input || !this.input.hasInputBox;
+  }
+
+  @HostBinding('class.vclPrependedLabel')
+  get classVclPrependedLabel() {
+    return this.input && this.input.hasPrependedLabel;
+  }
+
+  @HostBinding('class.vclInputFocused')
+  get classVclInputFocused() {
+    return this.input && this.input.isFocused;
+  }
+
+  @HostBinding('class.vclInputActive')
+  get classVclInputActive() {
+    if (!this.input) {
+      return false;
+    }
+
+    if (this.input.value) {
+      if (Array.isArray(this.input.value)) {
+        return this.input.value.length > 0;
+      }
+
+      return true;
+    }
+
+    return false;
+  }
+
+  @Input()
+  material: any = false;
+
   private _stateChangedEmitter = new Subject<void>();
 
   stateChange = this._stateChangedEmitter.asObservable();
@@ -64,6 +117,10 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
   }
   get submitted() {
     return this._form.submitted;
+  }
+
+  get isMaterial() {
+    return this.material === true || this.material === '';
   }
 
   ngAfterViewInit() {
