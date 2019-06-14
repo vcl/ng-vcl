@@ -50,7 +50,7 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
   @Output()
   visibleChange = new EventEmitter<boolean>();
 
-  @ViewChild(TemplateRef)
+  @ViewChild(TemplateRef, { static: true })
   protected templateRef: TemplateRef<any>;
 
   getLayerConfig(): LayerConfig {

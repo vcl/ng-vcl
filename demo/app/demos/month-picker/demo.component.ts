@@ -6,7 +6,7 @@ import { MonthPickerComponent } from '@ng-vcl/ng-vcl';
 })
 export class MonthPickerDemoComponent implements AfterViewInit {
 
-  @ViewChild('myStyledMonthPicker') styledMonthPicker: MonthPickerComponent;
+  @ViewChild('myStyledMonthPicker', { static: false }) styledMonthPicker: MonthPickerComponent;
 
   expanded = false;
 

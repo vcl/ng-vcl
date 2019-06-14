@@ -41,7 +41,7 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
 
   stateChange = this._stateChangedEmitter.asObservable();
 
-  @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT })
+  @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT, static: false })
   input?: FormControlInput;
 
   private get _form() {

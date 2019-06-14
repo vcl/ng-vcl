@@ -9,7 +9,7 @@ export class FormControlGroupDemoComponent {
 
   constructor(private notifier: NotifierService) { }
 
-  @ViewChild('form')
+  @ViewChild('form', { static: false })
   form: NgForm;
 
   skillPointsMax = 10;

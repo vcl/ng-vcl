@@ -49,7 +49,7 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
   portal: Portal<any>;
 
 
-  @ViewChild('form')
+  @ViewChild('form', { static: true })
   ngForm: NgForm;
 
   ngAfterContentInit() {

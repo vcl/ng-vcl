@@ -16,7 +16,7 @@ export class PasswordInputComponent implements AfterContentInit {
   @HostBinding('attr.tabindex')
   attrTabindex = -1;
 
-  @ContentChild(InputDirective, { read: InputDirective })
+  @ContentChild(InputDirective, { read: InputDirective, static: false })
   input?: InputDirective;
 
   @Input()

@@ -42,7 +42,7 @@ export class LayerComponent extends TemplateLayerRef implements OnDestroy {
   @Output()
   visibleChange = new EventEmitter<boolean>();
 
-  @ViewChild(TemplateRef)
+  @ViewChild(TemplateRef, { static: true })
   protected templateRef: TemplateRef<any>;
 
   getLayerConfig(): LayerConfig {

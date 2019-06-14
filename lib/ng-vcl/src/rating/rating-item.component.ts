@@ -31,10 +31,10 @@ export class RatingItemComponent implements AfterViewInit {
     private hostIconRenderer: HostIconRendererService
   ) { }
 
-  @ViewChild('labelTemplate', {read: TemplateRef})
+  @ViewChild('labelTemplate', {read: TemplateRef, static: false })
   labelTemplateRef?: TemplateRef<any>;
 
-  @ViewChild('label', {read: ElementRef})
+  @ViewChild('label', {read: ElementRef, static: false })
   labelElementRef?: ElementRef<HTMLElement>;
 
   focused = false;

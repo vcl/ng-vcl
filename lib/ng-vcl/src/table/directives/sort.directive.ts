@@ -22,7 +22,7 @@ import { TableService } from '../services/table.service';
   exportAs: 'sort-directive'
 })
 export class SortDirective {
-  @ContentChild(SortIconComponent) sortIconComponent: SortIconComponent;
+  @ContentChild(SortIconComponent, { static: false }) sortIconComponent: SortIconComponent;
   @Output() change: EventEmitter<-1 | 0 | 1> = new EventEmitter<-1 | 0 | 1>();
 
   isHeader = false;

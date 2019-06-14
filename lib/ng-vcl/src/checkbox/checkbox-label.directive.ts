@@ -6,7 +6,7 @@ import { CheckboxComponent } from './checkbox.component';
 })
 export class CheckboxLabelDirective {
 
-  @ContentChild(CheckboxComponent, { read: CheckboxComponent })
+  @ContentChild(CheckboxComponent, { read: CheckboxComponent, static: false })
   checkbox?: CheckboxComponent;
 
   @HostBinding('class.vclFormControlLabel')

@@ -112,7 +112,7 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   @HostBinding('class.isFocused')
   isFocused = false;
 
-  @ViewChild('input')
+  @ViewChild('input', { static: true })
   input: ElementRef;
 
   filename: string | undefined;

@@ -130,10 +130,10 @@ export class TokenInputContainerComponent implements ControlValueAccessor, FormC
   @Output()
   confirm = new EventEmitter<Token[]>();
 
-  @ContentChild(InputDirective, { read: InputDirective })
+  @ContentChild(InputDirective, { read: InputDirective, static: false })
   input: InputDirective;
 
-  @ContentChild(InputDirective, { read: ElementRef })
+  @ContentChild(InputDirective, { read: ElementRef, static: false })
   inputElementRef: ElementRef<HTMLInputElement>;
 
   removeLastToken() {

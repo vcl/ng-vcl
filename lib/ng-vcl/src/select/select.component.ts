@@ -1,5 +1,21 @@
-import { Component, Input, HostBinding, ViewChild,
-  ElementRef, HostListener, ContentChild, ChangeDetectorRef, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy, ViewContainerRef, TemplateRef, Injector } from '@angular/core';
+import {
+  Component,
+  Input,
+  HostBinding,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  ContentChild,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ViewContainerRef,
+  TemplateRef,
+  Injector,
+  forwardRef, Optional, Inject
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NEVER, merge, Subscription } from 'rxjs';
 import { startWith, switchMap, filter, takeUntil } from 'rxjs/operators';
@@ -33,16 +49,16 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   private _dropdownOpenedSub?: Subscription;
   private _focused = false;
 
-  @ContentChild(SelectListComponent)
+  @ContentChild(SelectListComponent, { static: false })
   selectList: SelectListComponent;
 
-  @ViewChild('input', { read: ElementRef })
+  @ViewChild('input', { read: ElementRef, static: true })
   input: ElementRef<HTMLInputElement>;
 
-  @ViewChild('btn', { read: ElementRef })
+  @ViewChild('btn', { read: ElementRef, static: true })
   button: ElementRef<HTMLInputElement>;
 
-  @ViewChild(TemplateRef)
+  @ViewChild(TemplateRef, { static: true })
   templateRef: TemplateRef<any>;
 
   @HostBinding('attr.role')

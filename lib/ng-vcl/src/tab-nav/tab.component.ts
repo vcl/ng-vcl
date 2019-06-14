@@ -31,7 +31,7 @@ export class TabComponent implements Tab, AfterViewInit {
       });
     }
 
-  @ViewChild('contentTemplate', { read: TemplateRef })
+  @ViewChild('contentTemplate', { read: TemplateRef, static: false })
   contentTemplate?: TemplateRef<any>;
 
   portal?: TemplatePortal;

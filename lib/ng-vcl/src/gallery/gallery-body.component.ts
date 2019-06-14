@@ -10,7 +10,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
   @Input()
   target: GalleryComponent;
 
-  @ViewChild('imageContainer')
+  @ViewChild('imageContainer', { static: true })
   imageContainer: ElementRef;
 
   private initialized = false;

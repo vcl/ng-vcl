@@ -36,7 +36,7 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
 
   private imgContent: any;
 
-  @ContentChild(ZoomBoxMagnifierComponent)
+  @ContentChild(ZoomBoxMagnifierComponent, { static: false })
   private magnifier: ZoomBoxMagnifierComponent;
 
   constructor(private element: ElementRef, renderer: Renderer2) {

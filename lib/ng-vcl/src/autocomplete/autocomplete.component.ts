@@ -37,10 +37,10 @@ export class AutocompleteComponent extends TemplateLayerRef implements OnDestroy
   private _dropdownOpenedSub?: Subscription;
   private _target?: ElementRef<HTMLElement>;
 
-  @ContentChild(SelectListComponent)
+  @ContentChild(SelectListComponent, { static: false })
   selectList: SelectListComponent;
 
-  @ViewChild(TemplateRef)
+  @ViewChild(TemplateRef, { static: false })
   templateRef: TemplateRef<any>;
 
   @Input()

@@ -9,18 +9,16 @@ module.exports.default = {
   sourceRoot: null,
 
   pre(builderConfig) {
-    this.sourceRoot = builderConfig.sourceRoot;
-
     this.opts = {
-      sourceMap: builderConfig.options.sourceMap, // Use settings from builder
-      extractCSS: builderConfig.options.extractCss, // Use settings from builder
+      sourceMap: builderConfig.sourceMap, // Use settings from builder
+      extractCSS: !!builderConfig.extractCss, // Use settings from builder
     };
   },
 
   config(cfg) {
     cfg = merge(cfg, webpackHelper({
       ...this.opts,
-      globalStyle: this.sourceRoot + '/styles.sss',
+      globalStyle: path.resolve(__dirname, 'demo/styles.sss'),
       fa: true,
     }));
 

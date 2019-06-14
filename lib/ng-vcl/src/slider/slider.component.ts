@@ -111,7 +111,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @HostBinding('class.vclFocused')
   focused = false;
 
-  @ViewChild('scale')
+  @ViewChild('scale', { static: false })
   scaleElement: ElementRef;
 
   @HostBinding('class.vclDisabled')

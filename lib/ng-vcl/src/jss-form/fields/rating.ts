@@ -46,7 +46,7 @@ export class FormFieldRatingComponent implements AfterViewInit {
     });
   }
 
-  @ViewChild(RatingComponent)
+  @ViewChild(RatingComponent, { static: false })
   rating: RatingComponent;
 
   _valueLabel: string;
