@@ -1,18 +1,19 @@
-import { Component, Input, HostBinding, Self, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { IconService } from './icon.service';
+import { Component, Input, HostBinding, Self, SimpleChanges, OnChanges, ChangeDetectionStrategy, Renderer2, ElementRef, AfterViewInit } from '@angular/core';
+import { HostIconRendererService } from './host-icon-renderer.service';
 
 @Component({
   selector: 'vcl-icon',
-  providers: [ NgClass ],
+  providers: [
+    HostIconRendererService
+  ],
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IconComponent implements OnChanges {
+export class IconComponent implements OnChanges, AfterViewInit {
 
   constructor(
-    @Self() private ngClass: NgClass,
-    private iconService: IconService
+    private hostIcon: HostIconRendererService,
+    private elementRef: ElementRef
   ) { }
 
   @Input()
@@ -30,19 +31,13 @@ export class IconComponent implements OnChanges {
   icon?: string;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.icon) {
-      const icon = changes.icon.currentValue;
-
-      let fontIconClass: string | string[];
-
-      if (!icon) {
-        fontIconClass = [];
-      } else {
-        fontIconClass = this.iconService.resolve(icon);
-      }
-
-      this.ngClass.ngClass = fontIconClass;
-      this.ngClass.ngDoCheck();
+    if (changes.icon && !changes.icon.isFirstChange()) {
+      this.hostIcon.setIcon(this.elementRef, changes.icon.currentValue);
     }
   }
+
+  ngAfterViewInit() {
+    this.hostIcon.setIcon(this.elementRef, this.icon);
+  }
+
 }

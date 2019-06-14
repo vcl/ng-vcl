@@ -1,19 +1,16 @@
-import { Component, HostBinding, HostListener, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, HostListener, Inject, ChangeDetectionStrategy, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 import { AnimationEvent, useAnimation } from '@angular/animations';
-import { NotificationRef } from './notification-ref';
-import { NgClass } from '@angular/common';
-import { TYPE_CLASS_MAP, NOTIFICATION_CONFIG_TOKEN, NotificationConfig } from './types';
 import { trigger, transition, } from '@angular/animations';
+import { TYPE_CLASS_MAP, NOTIFICATION_CONFIG_TOKEN, NotificationConfig } from './types';
+import { NotificationRef } from './notification-ref';
 import { stateVoidOpenAnimation, stateOpenClosingAnimation } from './notification.animations';
 import { NOTIFICATION_ANIMATION_PARAMS_TOKEN, NotificationAnimationParams } from './types';
-import { OverlayRef } from '@angular/cdk/overlay';
 
 export type NotificationAnimationState = 'open' | 'closing' | 'closed';
 
 @Component({
   selector: 'vcl-notification',
   templateUrl: './notification.component.html',
-  providers: [ NgClass ],
   animations: [
     trigger('stateAnimation', [
       transition('void => open', useAnimation(stateVoidOpenAnimation)),
@@ -22,21 +19,20 @@ export type NotificationAnimationState = 'open' | 'closing' | 'closed';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotificationComponent {
+export class NotificationComponent implements AfterViewInit {
 
   constructor(
     public notificationRef: NotificationRef,
-    private overlayRef: OverlayRef,
-    ngClass: NgClass,
+    private elementRef: ElementRef,
     @Inject(NOTIFICATION_ANIMATION_PARAMS_TOKEN)
     private _animationParams: NotificationAnimationParams,
     @Inject(NOTIFICATION_CONFIG_TOKEN)
     private _config: NotificationConfig,
+    private renderer: Renderer2
   ) {
-    const type = TYPE_CLASS_MAP[notificationRef.type];
-    ngClass.ngClass = type.notifier;
-    ngClass.ngDoCheck();
+    const type = TYPE_CLASS_MAP[this.notificationRef.type];
     this.icon = notificationRef.icon || type.icon;
+    this.notifierClass = type.notifier;
 
     let timeout: number | false;
     if (typeof notificationRef.timeout === 'number' || notificationRef.timeout === false) {
@@ -50,7 +46,6 @@ export class NotificationComponent {
         this.state = 'closing';
       }, timeout);
     }
-
   }
 
   @HostBinding('class.vclNotification')
@@ -64,6 +59,7 @@ export class NotificationComponent {
 
   state: NotificationAnimationState = 'open';
   icon: string;
+  notifierClass: string;
 
   close() {
     this.state = 'closing';
@@ -75,6 +71,12 @@ export class NotificationComponent {
       value: this.state,
       params: this._animationParams
     };
+  }
+
+  ngAfterViewInit() {
+    if (this.notifierClass) {
+      this.renderer.addClass(this.elementRef.nativeElement, this.notifierClass);
+    }
   }
 
   @HostListener('@stateAnimation.done', ['$event'])

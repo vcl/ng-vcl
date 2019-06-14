@@ -16,7 +16,7 @@ type AttachmentType<TLayerRefType, TType> =
     TLayerRefType extends 'template' ? EmbeddedViewRef<TType> :
     any;
 
-export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRefType extends 'component' | 'template' | 'universal' = 'universal'> implements Layer {
+export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRefType extends 'component' | 'template' | 'dynamic' = 'dynamic'> implements Layer {
 
   constructor(protected injector: Injector) {
     this._zone = injector.get(NgZone);
@@ -217,5 +217,45 @@ export abstract class TemplateLayerRef<TData = any, TResult = any, TContext = an
 
   protected createPortal() {
     return new TemplatePortal(this.templateRef, this.viewContainerRef);
+  }
+}
+
+export interface DynamicLayerParams {
+  injector: Injector;
+  templateOrComponent: TemplateRef<any> | ComponentType<any>;
+  viewContainerRef?: ViewContainerRef;
+  config?: LayerConfig;
+}
+
+export class DynamicLayerRef extends LayerRef {
+
+  constructor(private params: DynamicLayerParams) {
+    super(params.injector);
+  }
+
+  protected createPortal() {
+    if (this.params.templateOrComponent instanceof TemplateRef) {
+      return new TemplatePortal(this.params.templateOrComponent, this.params.viewContainerRef);
+    } else {
+      const injector = this.createInjector();
+      return new ComponentPortal(this.params.templateOrComponent, this.params.viewContainerRef, injector);
+    }
+  }
+
+  getLayerConfig() {
+    return this.params.config || super.getLayerConfig();
+  }
+
+  private createInjector() {
+    return Injector.create([{
+      provide: LayerRef,
+      useValue: this
+    }, {
+      provide: ComponentLayerRef,
+      useValue: this
+    } , {
+      provide: this.constructor,
+      useValue: this
+    }], this.injector);
   }
 }

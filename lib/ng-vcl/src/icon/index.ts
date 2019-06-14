@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { IconComponent  } from './icon.component';
 import { VCLIconResolverServiceBase, IconResolverService, IconAliases } from './icon-resolver.service';
 import { IconService } from './icon.service';
+import { HostIconRendererService } from './host-icon-renderer.service';
 
-export { IconComponent, VCLIconResolverServiceBase, IconResolverService, IconService, IconAliases };
+export { IconComponent, HostIconRendererService, VCLIconResolverServiceBase, IconResolverService, IconService, IconAliases };
 
 @NgModule({
   imports: [CommonModule],

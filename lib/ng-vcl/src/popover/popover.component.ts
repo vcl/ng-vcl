@@ -1,4 +1,4 @@
-import { TemplateRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy, ElementRef, ViewContainerRef } from '@angular/core';
+import { TemplateRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy, ElementRef, ViewContainerRef, HostBinding } from '@angular/core';
 import { Overlay, ConnectedPosition } from '@angular/cdk/overlay';
 import { LayerConfig, TemplateLayerRef } from '../layer/index';
 
@@ -6,7 +6,12 @@ import { LayerConfig, TemplateLayerRef } from '../layer/index';
   selector: 'vcl-popover',
   templateUrl: 'popover.component.html',
   exportAs: 'vclPopover',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [`
+    :host {
+      display: none;
+    }
+  `]
 })
 export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
   constructor(
@@ -22,6 +27,9 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
 
   @Input()
   target?: ElementRef | HTMLElement;
+
+  @Input()
+  panelClass = 'vclPopOver';
 
   @Input()
   positions?: ConnectedPosition[];
@@ -53,7 +61,7 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
     return new LayerConfig({
       hasBackdrop: false,
       closeOnEscape: this.closeOnEscape || false,
-      panelClass: 'vclPopOver',
+      panelClass: this.panelClass,
       positionStrategy: this.overlay.position()
       .flexibleConnectedTo(this.target)
       .withPositions(this.positions || [{

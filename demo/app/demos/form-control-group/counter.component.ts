@@ -17,11 +17,11 @@ let uniqueID = 0;
     }
   `],
   template: `
-    <button vcl-square-button vclPrepend type="button" (click)="decrement()" (keydown.enter)="decrement()" (focus)="onFocus('decrement')" (focus)="onBlur('decrement')">
+    <button vcl-square-button vclPrepend type="button" (click)="decrement()" (keydown.enter)="decrement()" (focus)="onFocus()" (focus)="onBlur(false)">
       <vcl-icon icon="fas:minus"></vcl-icon>
     </button>
     <div class="vclText">{{value}}</div>
-    <button vcl-square-button vclAppend type="button" (click)="increment()" (keydown.enter)="increment()" (focus)="onFocus('increment')" (focus)="onBlur('increment')">
+    <button vcl-square-button vclAppend type="button" (click)="increment()" (keydown.enter)="increment()" (focus)="onFocus()" (focus)="onBlur(true)">
       <vcl-icon icon="fas:plus"></vcl-icon>
     </button>
   `
@@ -91,14 +91,17 @@ export class CounterComponent implements ControlValueAccessor, FormControlInput 
 
   onLabelClick(event: Event): void { }
 
-  onFocus(event: Event): void {
+  onFocus(): void {
     this._focused = true;
     this._stateChangedEmitter.next();
   }
 
-  onBlur(event: Event): void {
+  onBlur(markTouched: boolean): void {
     this._focused = false;
     this._stateChangedEmitter.next();
+    if (markTouched) {
+      this.onTouched();
+    }
   }
 
   increment() {

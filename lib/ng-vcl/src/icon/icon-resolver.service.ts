@@ -1,5 +1,3 @@
-import { Injectable, InjectionToken, Inject, Optional } from '@angular/core';
-
 export interface IconResolver {
   resolve(icon: string): string | undefined;
 }
