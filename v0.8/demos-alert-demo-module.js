@@ -164,7 +164,8 @@ var AlertDemoComponent = /** @class */ (function () {
                     text: 'Retry?',
                     type: _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_2__["AlertType"].Warning,
                     showCancelButton: true,
-                    modal: true,
+                    closeOnBackdropClick: false,
+                    closeOnEscape: false
                 }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (result) {
                     if (result.action === 'cancel') {
                         throw new Error();
@@ -265,6 +266,140 @@ var AlertDemoModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./demo/app/modules/demo/demo.component.html":
+/*!***************************************************!*\
+  !*** ./demo/app/modules/demo/demo.component.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class=\"vclArticleHeader\"> {{title}}</h2>\n<div *ngIf=\"tabs.length>0\">\n  <vcl-tab-nav borders=true>\n    <vcl-tab *ngFor=\"let tab of tabs\">\n      <vcl-tab-label>{{tab.name}}</vcl-tab-label>\n      <div *ngIf=\"tab.type==='component'\">\n        <ng-template [cdkPortalOutlet]=\"tab.content\"></ng-template>\n      </div>\n      <div *ngIf=\"tab.type==='text'\"><pre>{{tab.content}}</pre></div>\n      <div *ngIf=\"tab.type==='html'\" [innerHtml]=\"tab.content\"></div>\n      <div *ngIf=\"tab.type==='md'\"   class=\"markdown-body\"  [innerHtml]=\"tab.content\"></div>\n      <pre *ngIf=\"tab.type==='pre'\"  [innerHtml]=\"tab.content\"></pre>\n    </vcl-tab>\n  </vcl-tab-nav>\n</div>\n"
+
+/***/ }),
+
+/***/ "./demo/app/modules/demo/demo.component.ts":
+/*!*************************************************!*\
+  !*** ./demo/app/modules/demo/demo.component.ts ***!
+  \*************************************************/
+/*! exports provided: DemoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DemoComponent", function() { return DemoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+
+
+
+
+
+var DemoComponent = /** @class */ (function () {
+    function DemoComponent(activatedRoute, sanitizer) {
+        this.activatedRoute = activatedRoute;
+        this.sanitizer = sanitizer;
+        this.tabs = [];
+    }
+    DemoComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var data = this.activatedRoute.snapshot.data.demo();
+        if (data) {
+            this.title = data.label;
+            if (data.tabs) {
+                this.tabs = Object.keys(data.tabs).map(function (key) {
+                    var type;
+                    var content;
+                    if (typeof data.tabs[key] === 'object' && data.tabs[key]) {
+                        type = data.tabs[key].type;
+                        if (type === 'pre' || type === 'html' || type === 'md') {
+                            content = _this.sanitizer.bypassSecurityTrustHtml(data.tabs[key].content);
+                        }
+                        else {
+                            content = data.tabs[key].content;
+                        }
+                    }
+                    else if (typeof data.tabs[key] === 'function') {
+                        type = 'component';
+                        content = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_4__["ComponentPortal"](data.tabs[key]);
+                    }
+                    return {
+                        name: key,
+                        content: content,
+                        type: type
+                    };
+                });
+            }
+            else {
+                this.tabs = [];
+            }
+        }
+        else {
+            this.title = 'ng-vcl';
+            this.tabs = [];
+        }
+    };
+    DemoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+            template: __webpack_require__(/*! ./demo.component.html */ "./demo/app/modules/demo/demo.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
+    ], DemoComponent);
+    return DemoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./demo/app/modules/demo/demo.module.ts":
+/*!**********************************************!*\
+  !*** ./demo/app/modules/demo/demo.module.ts ***!
+  \**********************************************/
+/*! exports provided: DemoComponent, DemoModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DemoModule", function() { return DemoModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-vcl/ng-vcl */ "./lib/ng-vcl/src/index.ts");
+/* harmony import */ var _demo_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./demo.component */ "./demo/app/modules/demo/demo.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DemoComponent", function() { return _demo_component__WEBPACK_IMPORTED_MODULE_4__["DemoComponent"]; });
+
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+
+
+
+
+
+
+
+var DemoModule = /** @class */ (function () {
+    function DemoModule() {
+    }
+    DemoModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _ng_vcl_ng_vcl__WEBPACK_IMPORTED_MODULE_3__["VCLTabNavModule"],
+                _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_5__["PortalModule"]
+            ],
+            declarations: [_demo_component__WEBPACK_IMPORTED_MODULE_4__["DemoComponent"],]
+        })
+    ], DemoModule);
+    return DemoModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./node_modules/highlight-loader/index.js?raw=true&lang=html!./demo/app/demos/alert/demo.component.html":
 /*!*****************************************************************************************************!*\
   !*** ./node_modules/highlight-loader?raw=true&lang=html!./demo/app/demos/alert/demo.component.html ***!
@@ -283,7 +418,7 @@ module.exports = "<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button<
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"hljs-keyword\">import</span> { Observable } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs'</span>;\n<span class=\"hljs-keyword\">import</span> { AlertService, AlertType, AlertInput } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@ng-vcl/ng-vcl'</span>;\n<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n<span class=\"hljs-keyword\">import</span> { retryWhen, switchMap, tap } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs/operators'</span>;\n\n<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">createAsyncResult</span>(<span class=\"hljs-params\">data: <span class=\"hljs-built_in\">any</span>, error?: <span class=\"hljs-built_in\">boolean</span> | (() =&gt; (<span class=\"hljs-built_in\">any</span>))</span>): <span class=\"hljs-title\">Observable</span>&lt;<span class=\"hljs-title\">any</span>&gt; </span>{\n  <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">new</span> Observable(<span class=\"hljs-function\"><span class=\"hljs-params\">observer</span> =&gt;</span> {\n    setTimeout(<span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">let</span> err;\n      <span class=\"hljs-keyword\">if</span> (<span class=\"hljs-keyword\">typeof</span> error === <span class=\"hljs-string\">'function'</span>) {\n        err = error();\n      } <span class=\"hljs-keyword\">else</span> {\n        err = !!error;\n      }\n\n      <span class=\"hljs-keyword\">if</span> (err) {\n        observer.error(data);\n      } <span class=\"hljs-keyword\">else</span> {\n        observer.next(data);\n        observer.complete();\n      }\n    }, <span class=\"hljs-number\">1000</span>);\n  });\n}\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> AlertDemoComponent {\n\n  <span class=\"hljs-keyword\">constructor</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">private</span> alert: AlertService</span>) {}\n\n  message() {\n    <span class=\"hljs-keyword\">this</span>.alert.alert(<span class=\"hljs-string\">'A message'</span>);\n  }\n\n  messageWithTitle() {\n    <span class=\"hljs-keyword\">this</span>.alert.alert(<span class=\"hljs-string\">'A message'</span>, {\n      title: <span class=\"hljs-string\">'A title'</span>\n    });\n  }\n\n  info() {\n    <span class=\"hljs-keyword\">this</span>.alert.info(<span class=\"hljs-string\">'This is an information'</span>, {\n      title: <span class=\"hljs-string\">'An information'</span>\n    });\n  }\n\n  success() {\n    <span class=\"hljs-keyword\">this</span>.alert.success(<span class=\"hljs-string\">'You are successful'</span>, {\n      title: <span class=\"hljs-string\">'A success'</span>\n    });\n  }\n\n  warning() {\n    <span class=\"hljs-keyword\">this</span>.alert.warning(<span class=\"hljs-string\">'This is a warning'</span>, {\n      title: <span class=\"hljs-string\">'A warning'</span>\n    });\n  }\n\n  error() {\n    <span class=\"hljs-keyword\">this</span>.alert.error(<span class=\"hljs-string\">'This is an error'</span>, {\n      title: <span class=\"hljs-string\">'An error'</span>\n    });\n  }\n\n  htmlMessage() {\n    <span class=\"hljs-keyword\">this</span>.alert.alert(<span class=\"hljs-string\">`Use &lt;i&gt;as much&lt;i&gt; &lt;a href=\"//www.w3schools.com/html/\"&gt;HTML&lt;/a&gt; as you &lt;b&gt;like&lt;/b&gt;`</span>, {\n      html: <span class=\"hljs-literal\">true</span>\n    });\n  }\n\n  custom() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'This is a bit customized...'</span>,\n      title: <span class=\"hljs-string\">'Information'</span>,\n      <span class=\"hljs-keyword\">type</span>: AlertType.Info,\n      showCloseButton: <span class=\"hljs-literal\">true</span>,\n      showCancelButton: <span class=\"hljs-literal\">true</span>,\n      confirmButtonClass: <span class=\"hljs-string\">'vclSuggestive'</span>,\n      confirmButtonPrepIcon: <span class=\"hljs-string\">'fas:bolt'</span>,\n      cancelButtonColor: <span class=\"hljs-string\">'orange'</span>,\n      customClass: <span class=\"hljs-string\">'vclScale130p'</span>,\n    });\n  }\n\n  question() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'Do you really want to delete the file?'</span>,\n      title: <span class=\"hljs-string\">'Delete file?'</span>,\n      <span class=\"hljs-keyword\">type</span>: AlertType.Question,\n      showCloseButton: <span class=\"hljs-literal\">true</span>,\n      showCancelButton: <span class=\"hljs-literal\">true</span>,\n      cancelButtonLabel: <span class=\"hljs-string\">'No'</span>,\n      confirmButtonLabel: <span class=\"hljs-string\">'Yes'</span>\n    }).subscribe(<span class=\"hljs-function\">(<span class=\"hljs-params\">result</span>) =&gt;</span> {\n      <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'confirm'</span>) {\n        <span class=\"hljs-keyword\">this</span>.alert.success(<span class=\"hljs-string\">'File deleted'</span>);\n      } <span class=\"hljs-keyword\">else</span> {\n        <span class=\"hljs-keyword\">this</span>.alert.error(<span class=\"hljs-string\">'Reason: '</span> + result.action , { title: <span class=\"hljs-string\">'File not deleted'</span> });\n      }\n    });\n  }\n\n  <span class=\"hljs-keyword\">async</span>() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'Determine your user agent?'</span>,\n      confirmAction: createAsyncResult(<span class=\"hljs-built_in\">window</span>.navigator.userAgent),\n      showCancelButton: <span class=\"hljs-literal\">true</span>\n    }).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'confirm'</span>) {\n        <span class=\"hljs-keyword\">this</span>.alert.info(result.value, {\n          title: <span class=\"hljs-string\">'Your user agent'</span>\n        });\n      }\n    });\n  }\n\n  inputText() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'What is your name?'</span>,\n      input: AlertInput.Text,\n      confirmButtonLabel: <span class=\"hljs-string\">'Next'</span>,\n      inputValidator: <span class=\"hljs-function\">(<span class=\"hljs-params\">value</span>) =&gt;</span> {\n        <span class=\"hljs-keyword\">if</span> (<span class=\"hljs-keyword\">typeof</span> value !== <span class=\"hljs-string\">'string'</span> || value.length &lt; <span class=\"hljs-number\">2</span>) {\n          <span class=\"hljs-keyword\">throw</span> <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Error</span>(<span class=\"hljs-string\">'Invalid name!'</span>);\n        }\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-literal\">true</span>;\n      }\n    }).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'confirm'</span>) {\n        <span class=\"hljs-keyword\">this</span>.alert.info(<span class=\"hljs-string\">'Hello '</span> + result.value);\n      }\n    });\n  }\n\n  retry() {\n    <span class=\"hljs-comment\">// This fake async request will fail the first time</span>\n    <span class=\"hljs-keyword\">let</span> fails = <span class=\"hljs-number\">0</span>;\n    <span class=\"hljs-keyword\">const</span> fakeAsync = createAsyncResult(<span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Date</span>().toLocaleTimeString(), <span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> ++fails &lt;= <span class=\"hljs-number\">1</span>);\n\n    <span class=\"hljs-comment\">// Add a retry routine using an alert</span>\n    <span class=\"hljs-keyword\">const</span> fakeAsyncWithRetries = fakeAsync.pipe(\n      retryWhen(<span class=\"hljs-function\"><span class=\"hljs-params\">errors</span> =&gt;</span> {\n        <span class=\"hljs-keyword\">return</span> errors.pipe(switchMap(<span class=\"hljs-function\"><span class=\"hljs-params\">err</span> =&gt;</span> {\n          <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">this</span>.alert.open({\n            text: <span class=\"hljs-string\">'Retry?'</span>,\n            <span class=\"hljs-keyword\">type</span>: AlertType.Warning,\n            showCancelButton: <span class=\"hljs-literal\">true</span>,\n            modal: <span class=\"hljs-literal\">true</span>,\n          }).pipe(tap(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n            <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'cancel'</span>) {\n              <span class=\"hljs-keyword\">throw</span> <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Error</span>();\n            }\n          }));\n        }));\n      }));\n\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'Show current time? (will fail the first time)'</span>,\n      showCancelButton: <span class=\"hljs-literal\">true</span>,\n      confirmAction: fakeAsyncWithRetries,\n    }).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">this</span>.alert.info(result.value, { title: <span class=\"hljs-string\">'Time'</span> });\n    });\n  }\n\n}\n"
+module.exports = "<span class=\"hljs-keyword\">import</span> { Observable } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs'</span>;\n<span class=\"hljs-keyword\">import</span> { AlertService, AlertType, AlertInput } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@ng-vcl/ng-vcl'</span>;\n<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'@angular/core'</span>;\n<span class=\"hljs-keyword\">import</span> { retryWhen, switchMap, tap } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">'rxjs/operators'</span>;\n\n<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">createAsyncResult</span>(<span class=\"hljs-params\">data: <span class=\"hljs-built_in\">any</span>, error?: <span class=\"hljs-built_in\">boolean</span> | (() =&gt; (<span class=\"hljs-built_in\">any</span>))</span>): <span class=\"hljs-title\">Observable</span>&lt;<span class=\"hljs-title\">any</span>&gt; </span>{\n  <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">new</span> Observable(<span class=\"hljs-function\"><span class=\"hljs-params\">observer</span> =&gt;</span> {\n    setTimeout(<span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">let</span> err;\n      <span class=\"hljs-keyword\">if</span> (<span class=\"hljs-keyword\">typeof</span> error === <span class=\"hljs-string\">'function'</span>) {\n        err = error();\n      } <span class=\"hljs-keyword\">else</span> {\n        err = !!error;\n      }\n\n      <span class=\"hljs-keyword\">if</span> (err) {\n        observer.error(data);\n      } <span class=\"hljs-keyword\">else</span> {\n        observer.next(data);\n        observer.complete();\n      }\n    }, <span class=\"hljs-number\">1000</span>);\n  });\n}\n\n<span class=\"hljs-meta\">@Component</span>({\n  templateUrl: <span class=\"hljs-string\">'demo.component.html'</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> AlertDemoComponent {\n\n  <span class=\"hljs-keyword\">constructor</span>(<span class=\"hljs-params\"><span class=\"hljs-keyword\">private</span> alert: AlertService</span>) {}\n\n  message() {\n    <span class=\"hljs-keyword\">this</span>.alert.alert(<span class=\"hljs-string\">'A message'</span>);\n  }\n\n  messageWithTitle() {\n    <span class=\"hljs-keyword\">this</span>.alert.alert(<span class=\"hljs-string\">'A message'</span>, {\n      title: <span class=\"hljs-string\">'A title'</span>\n    });\n  }\n\n  info() {\n    <span class=\"hljs-keyword\">this</span>.alert.info(<span class=\"hljs-string\">'This is an information'</span>, {\n      title: <span class=\"hljs-string\">'An information'</span>\n    });\n  }\n\n  success() {\n    <span class=\"hljs-keyword\">this</span>.alert.success(<span class=\"hljs-string\">'You are successful'</span>, {\n      title: <span class=\"hljs-string\">'A success'</span>\n    });\n  }\n\n  warning() {\n    <span class=\"hljs-keyword\">this</span>.alert.warning(<span class=\"hljs-string\">'This is a warning'</span>, {\n      title: <span class=\"hljs-string\">'A warning'</span>\n    });\n  }\n\n  error() {\n    <span class=\"hljs-keyword\">this</span>.alert.error(<span class=\"hljs-string\">'This is an error'</span>, {\n      title: <span class=\"hljs-string\">'An error'</span>\n    });\n  }\n\n  htmlMessage() {\n    <span class=\"hljs-keyword\">this</span>.alert.alert(<span class=\"hljs-string\">`Use &lt;i&gt;as much&lt;i&gt; &lt;a href=\"//www.w3schools.com/html/\"&gt;HTML&lt;/a&gt; as you &lt;b&gt;like&lt;/b&gt;`</span>, {\n      html: <span class=\"hljs-literal\">true</span>\n    });\n  }\n\n  custom() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'This is a bit customized...'</span>,\n      title: <span class=\"hljs-string\">'Information'</span>,\n      <span class=\"hljs-keyword\">type</span>: AlertType.Info,\n      showCloseButton: <span class=\"hljs-literal\">true</span>,\n      showCancelButton: <span class=\"hljs-literal\">true</span>,\n      confirmButtonClass: <span class=\"hljs-string\">'vclSuggestive'</span>,\n      confirmButtonPrepIcon: <span class=\"hljs-string\">'fas:bolt'</span>,\n      cancelButtonColor: <span class=\"hljs-string\">'orange'</span>,\n      customClass: <span class=\"hljs-string\">'vclScale130p'</span>,\n    });\n  }\n\n  question() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'Do you really want to delete the file?'</span>,\n      title: <span class=\"hljs-string\">'Delete file?'</span>,\n      <span class=\"hljs-keyword\">type</span>: AlertType.Question,\n      showCloseButton: <span class=\"hljs-literal\">true</span>,\n      showCancelButton: <span class=\"hljs-literal\">true</span>,\n      cancelButtonLabel: <span class=\"hljs-string\">'No'</span>,\n      confirmButtonLabel: <span class=\"hljs-string\">'Yes'</span>\n    }).subscribe(<span class=\"hljs-function\">(<span class=\"hljs-params\">result</span>) =&gt;</span> {\n      <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'confirm'</span>) {\n        <span class=\"hljs-keyword\">this</span>.alert.success(<span class=\"hljs-string\">'File deleted'</span>);\n      } <span class=\"hljs-keyword\">else</span> {\n        <span class=\"hljs-keyword\">this</span>.alert.error(<span class=\"hljs-string\">'Reason: '</span> + result.action , { title: <span class=\"hljs-string\">'File not deleted'</span> });\n      }\n    });\n  }\n\n  <span class=\"hljs-keyword\">async</span>() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'Determine your user agent?'</span>,\n      confirmAction: createAsyncResult(<span class=\"hljs-built_in\">window</span>.navigator.userAgent),\n      showCancelButton: <span class=\"hljs-literal\">true</span>\n    }).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'confirm'</span>) {\n        <span class=\"hljs-keyword\">this</span>.alert.info(result.value, {\n          title: <span class=\"hljs-string\">'Your user agent'</span>\n        });\n      }\n    });\n  }\n\n  inputText() {\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'What is your name?'</span>,\n      input: AlertInput.Text,\n      confirmButtonLabel: <span class=\"hljs-string\">'Next'</span>,\n      inputValidator: <span class=\"hljs-function\">(<span class=\"hljs-params\">value</span>) =&gt;</span> {\n        <span class=\"hljs-keyword\">if</span> (<span class=\"hljs-keyword\">typeof</span> value !== <span class=\"hljs-string\">'string'</span> || value.length &lt; <span class=\"hljs-number\">2</span>) {\n          <span class=\"hljs-keyword\">throw</span> <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Error</span>(<span class=\"hljs-string\">'Invalid name!'</span>);\n        }\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-literal\">true</span>;\n      }\n    }).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'confirm'</span>) {\n        <span class=\"hljs-keyword\">this</span>.alert.info(<span class=\"hljs-string\">'Hello '</span> + result.value);\n      }\n    });\n  }\n\n  retry() {\n    <span class=\"hljs-comment\">// This fake async request will fail the first time</span>\n    <span class=\"hljs-keyword\">let</span> fails = <span class=\"hljs-number\">0</span>;\n    <span class=\"hljs-keyword\">const</span> fakeAsync = createAsyncResult(<span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Date</span>().toLocaleTimeString(), <span class=\"hljs-function\"><span class=\"hljs-params\">()</span> =&gt;</span> ++fails &lt;= <span class=\"hljs-number\">1</span>);\n\n    <span class=\"hljs-comment\">// Add a retry routine using an alert</span>\n    <span class=\"hljs-keyword\">const</span> fakeAsyncWithRetries = fakeAsync.pipe(\n      retryWhen(<span class=\"hljs-function\"><span class=\"hljs-params\">errors</span> =&gt;</span> {\n        <span class=\"hljs-keyword\">return</span> errors.pipe(switchMap(<span class=\"hljs-function\"><span class=\"hljs-params\">err</span> =&gt;</span> {\n          <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">this</span>.alert.open({\n            text: <span class=\"hljs-string\">'Retry?'</span>,\n            <span class=\"hljs-keyword\">type</span>: AlertType.Warning,\n            showCancelButton: <span class=\"hljs-literal\">true</span>,\n            closeOnBackdropClick: <span class=\"hljs-literal\">false</span>,\n            closeOnEscape: <span class=\"hljs-literal\">false</span>\n          }).pipe(tap(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n            <span class=\"hljs-keyword\">if</span> (result.action === <span class=\"hljs-string\">'cancel'</span>) {\n              <span class=\"hljs-keyword\">throw</span> <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Error</span>();\n            }\n          }));\n        }));\n      }));\n\n    <span class=\"hljs-keyword\">this</span>.alert.open({\n      text: <span class=\"hljs-string\">'Show current time? (will fail the first time)'</span>,\n      showCancelButton: <span class=\"hljs-literal\">true</span>,\n      confirmAction: fakeAsyncWithRetries,\n    }).subscribe(<span class=\"hljs-function\"><span class=\"hljs-params\">result</span> =&gt;</span> {\n      <span class=\"hljs-keyword\">this</span>.alert.info(result.value, { title: <span class=\"hljs-string\">'Time'</span> });\n    });\n  }\n\n}\n"
 
 /***/ }),
 
