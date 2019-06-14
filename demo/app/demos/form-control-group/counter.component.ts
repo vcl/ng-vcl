@@ -50,10 +50,8 @@ export class CounterComponent implements ControlValueAccessor, FormControlInput 
   private _focused = false;
   private _cvaDisabled = false;
 
-  readonly stateChanged = this._stateChangedEmitter.asObservable();
-  readonly controlType = 'counter';
-  readonly hasInputBox = false;
-  readonly hasPrependedLabel = false;
+  stateChanged = this._stateChangedEmitter.asObservable();
+  controlType = 'counter';
 
   value = 0;
 

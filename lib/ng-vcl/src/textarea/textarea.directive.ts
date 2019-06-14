@@ -30,10 +30,8 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
   private _focused = false;
   private generatedId = 'vcl_textarea_' + UNIQUE_ID++;
 
-  readonly stateChanged = this.stateChangedEmitter.asObservable();
-  readonly controlType = 'textarea';
-  readonly hasInputBox = true;
-  readonly hasPrependedLabel = false;
+  controlType = 'textarea';
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   @HostBinding('class.vclInput')
   classVclInput = true;

@@ -44,10 +44,8 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   private generatedId = 'vcl_select_list_' + UNIQUE_ID++;
   private stateChangedEmitter = new Subject<void>();
 
-  readonly stateChanged = this.stateChangedEmitter.asObservable();
-  readonly controlType = 'select-list';
-  readonly hasInputBox = false;
-  readonly hasPrependedLabel = false;
+  stateChanged = this.stateChangedEmitter.asObservable();
+  controlType = 'slider';
 
   @Input()
   id?: string;

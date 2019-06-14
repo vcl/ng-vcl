@@ -47,13 +47,9 @@ export class InputDirective implements OnDestroy, FormControlInput<string> {
 
   private stateChangedEmitter = new Subject<void>();
 
-  readonly stateChanged = this.stateChangedEmitter.asObservable();
-  readonly controlType = 'input';
-  readonly hasInputBox = true;
+  stateChanged = this.stateChangedEmitter.asObservable();
 
-  get hasPrependedLabel() {
-    return this.elementRef.nativeElement.classList.contains('vclPrepItem');
-  }
+  controlType = 'input';
 
   @Input()
   id?: string;

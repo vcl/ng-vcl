@@ -91,9 +91,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     return item && item.label;
   }
 
-  readonly controlType = 'rating';
-  readonly hasInputBox = false;
-  readonly hasPrependedLabel = false;
+  controlType = 'rating';
 
   @HostBinding('attr.id')
   get elementId() {

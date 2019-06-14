@@ -43,10 +43,9 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
 
   private stateChangedEmitter = new Subject<void>();
 
-  readonly stateChanged = this.stateChangedEmitter.asObservable();
-  readonly controlType = 'radio-group';
-  readonly hasInputBox = false;
-  readonly hasPrependedLabel = false;
+  stateChanged = this.stateChangedEmitter.asObservable();
+
+  controlType = 'radio-group';
 
   private _disabled = false;
 

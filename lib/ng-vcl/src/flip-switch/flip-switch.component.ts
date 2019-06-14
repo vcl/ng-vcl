@@ -51,10 +51,9 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
 
   private stateChangedEmitter = new Subject<void>();
 
-  readonly stateChanged = this.stateChangedEmitter.asObservable();
-  readonly controlType = 'flip-switch';
-  readonly hasInputBox = false;
-  readonly hasPrependedLabel = false;
+  stateChanged = this.stateChangedEmitter.asObservable();
+
+  controlType = 'flip-switch';
 
   @HostBinding('attr.id')
   get elementId() {

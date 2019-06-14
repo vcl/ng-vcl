@@ -51,10 +51,9 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
 
   private stateChangedEmitter = new Subject<void>();
 
-  readonly stateChanged = this.stateChangedEmitter.asObservable();
-  readonly controlType = 'file-input_';
-  readonly hasInputBox = false;
-  readonly hasPrependedLabel = false;
+  stateChanged = this.stateChangedEmitter.asObservable();
+
+  controlType = 'file-input_';
 
   private _disabled = false;
 

@@ -42,10 +42,9 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
 
   private stateChangedEmitter = new Subject<void>();
 
-  readonly stateChanged = this.stateChangedEmitter.asObservable();
-  readonly controlType = 'checkbox';
-  readonly hasInputBox = false;
-  readonly hasPrependedLabel = false;
+  stateChanged = this.stateChangedEmitter.asObservable();
+
+  controlType = 'checkbox';
 
   private _focused = false;
   private generatedId = 'vcl_checkbox_' + UNIQUE_ID++;
