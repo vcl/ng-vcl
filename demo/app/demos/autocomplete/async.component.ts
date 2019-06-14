@@ -13,7 +13,7 @@ interface Book {
   image?: string;
 }
 interface Search {
-  state: 'cleared' | 'loading' | 'error';
+  state: 'cleared' | 'loading' | 'error' | 'success';
   books: Book[];
 }
 
