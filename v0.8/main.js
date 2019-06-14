@@ -10,200 +10,156 @@
 var map = {
 	"./demos/alert/demo.module": [
 		"./demo/app/demos/alert/demo.module.ts",
-		"common",
 		"demos-alert-demo-module"
 	],
 	"./demos/autocomplete/demo.module": [
 		"./demo/app/demos/autocomplete/demo.module.ts",
-		"common",
 		"demos-autocomplete-demo-module"
 	],
 	"./demos/badge/demo.module": [
 		"./demo/app/demos/badge/demo.module.ts",
-		"common",
 		"demos-badge-demo-module"
 	],
 	"./demos/busy-indicator/demo.module": [
 		"./demo/app/demos/busy-indicator/demo.module.ts",
-		"common",
 		"demos-busy-indicator-demo-module"
 	],
 	"./demos/button-group/demo.module": [
 		"./demo/app/demos/button-group/demo.module.ts",
-		"common",
 		"demos-button-group-demo-module"
 	],
 	"./demos/button/demo.module": [
 		"./demo/app/demos/button/demo.module.ts",
-		"common",
 		"demos-button-demo-module"
 	],
 	"./demos/checkbox/demo.module": [
 		"./demo/app/demos/checkbox/demo.module.ts",
-		"common",
 		"demos-checkbox-demo-module"
 	],
 	"./demos/date-picker/demo.module": [
 		"./demo/app/demos/date-picker/demo.module.ts",
-		"common",
 		"demos-date-picker-demo-module"
 	],
 	"./demos/embedded-input-group/demo.module": [
 		"./demo/app/demos/embedded-input-group/demo.module.ts",
-		"common",
 		"demos-embedded-input-group-demo-module"
 	],
 	"./demos/file-input/demo.module": [
 		"./demo/app/demos/file-input/demo.module.ts",
-		"common",
 		"demos-file-input-demo-module"
 	],
 	"./demos/flip-switch/demo.module": [
 		"./demo/app/demos/flip-switch/demo.module.ts",
-		"common",
 		"demos-flip-switch-demo-module"
-	],
-	"./demos/form-control-group-material/demo.module": [
-		"./demo/app/demos/form-control-group-material/demo.module.ts",
-		"default~demos-form-control-group-demo-module~demos-form-control-group-material-demo-module~demos-jss~9efbde75",
-		"common",
-		"demos-form-control-group-material-demo-module"
 	],
 	"./demos/form-control-group/demo.module": [
 		"./demo/app/demos/form-control-group/demo.module.ts",
-		"default~demos-form-control-group-demo-module~demos-form-control-group-material-demo-module~demos-jss~9efbde75",
-		"common",
+		"default~demos-form-control-group-demo-module~demos-jss-form-demo-module",
 		"demos-form-control-group-demo-module"
 	],
 	"./demos/gallery/demo.module": [
 		"./demo/app/demos/gallery/demo.module.ts",
-		"common",
 		"demos-gallery-demo-module"
 	],
 	"./demos/icogram/demo.module": [
 		"./demo/app/demos/icogram/demo.module.ts",
-		"common",
 		"demos-icogram-demo-module"
 	],
 	"./demos/icon/demo.module": [
 		"./demo/app/demos/icon/demo.module.ts",
-		"common",
 		"demos-icon-demo-module"
 	],
 	"./demos/input/demo.module": [
 		"./demo/app/demos/input/demo.module.ts",
-		"common",
 		"demos-input-demo-module"
 	],
 	"./demos/jss-form/demo.module": [
 		"./demo/app/demos/jss-form/demo.module.ts",
-		"default~demos-form-control-group-demo-module~demos-form-control-group-material-demo-module~demos-jss~9efbde75",
-		"common",
+		"default~demos-form-control-group-demo-module~demos-jss-form-demo-module",
 		"demos-jss-form-demo-module"
 	],
 	"./demos/label/demo.module": [
 		"./demo/app/demos/label/demo.module.ts",
-		"common",
 		"demos-label-demo-module"
 	],
 	"./demos/layer/demo.module": [
 		"./demo/app/demos/layer/demo.module.ts",
-		"common",
 		"demos-layer-demo-module"
 	],
 	"./demos/month-picker/demo.module": [
 		"./demo/app/demos/month-picker/demo.module.ts",
-		"common",
 		"demos-month-picker-demo-module"
 	],
 	"./demos/navigation/demo.module": [
 		"./demo/app/demos/navigation/demo.module.ts",
-		"common",
 		"demos-navigation-demo-module"
 	],
 	"./demos/notifier/demo.module": [
 		"./demo/app/demos/notifier/demo.module.ts",
-		"common",
 		"demos-notifier-demo-module"
 	],
 	"./demos/off-click/demo.module": [
 		"./demo/app/demos/off-click/demo.module.ts",
-		"common",
 		"demos-off-click-demo-module"
 	],
 	"./demos/password-input/demo.module": [
 		"./demo/app/demos/password-input/demo.module.ts",
-		"common",
 		"demos-password-input-demo-module"
 	],
 	"./demos/popover/demo.module": [
 		"./demo/app/demos/popover/demo.module.ts",
-		"common",
 		"demos-popover-demo-module"
 	],
 	"./demos/progress-bar/demo.module": [
 		"./demo/app/demos/progress-bar/demo.module.ts",
-		"common",
 		"demos-progress-bar-demo-module"
 	],
 	"./demos/radio-button/demo.module": [
 		"./demo/app/demos/radio-button/demo.module.ts",
-		"common",
 		"demos-radio-button-demo-module"
 	],
 	"./demos/rating/demo.module": [
 		"./demo/app/demos/rating/demo.module.ts",
-		"common",
 		"demos-rating-demo-module"
 	],
 	"./demos/select-list/demo.module": [
 		"./demo/app/demos/select-list/demo.module.ts",
-		"common",
 		"demos-select-list-demo-module"
 	],
 	"./demos/select/demo.module": [
 		"./demo/app/demos/select/demo.module.ts",
-		"common",
 		"demos-select-demo-module"
 	],
 	"./demos/slider/demo.module": [
 		"./demo/app/demos/slider/demo.module.ts",
-		"common",
 		"demos-slider-demo-module"
 	],
 	"./demos/tab-nav/demo.module": [
 		"./demo/app/demos/tab-nav/demo.module.ts",
-		"common",
 		"demos-tab-nav-demo-module"
 	],
 	"./demos/table/demo.module": [
 		"./demo/app/demos/table/demo.module.ts",
-		"common",
 		"demos-table-demo-module"
 	],
 	"./demos/textarea/demo.module": [
 		"./demo/app/demos/textarea/demo.module.ts",
-		"common",
 		"demos-textarea-demo-module"
 	],
 	"./demos/token/demo.module": [
 		"./demo/app/demos/token/demo.module.ts",
-		"common",
 		"demos-token-demo-module"
 	],
 	"./demos/tooltip/demo.module": [
 		"./demo/app/demos/tooltip/demo.module.ts",
-		"common",
 		"demos-tooltip-demo-module"
 	],
 	"./demos/tour/demo.module": [
 		"./demo/app/demos/tour/demo.module.ts",
-		"common",
 		"demos-tour-demo-module"
 	],
 	"./demos/zoom-box/demo.module": [
 		"./demo/app/demos/zoom-box/demo.module.ts",
-		"common",
 		"demos-zoom-box-demo-module"
 	]
 };
@@ -480,16 +436,6 @@ var routes = [
         data: {
             demo: {
                 label: 'Form Control Group',
-                category: CAT_FORMS,
-            }
-        }
-    },
-    {
-        loadChildren: './demos/form-control-group-material/demo.module#FormControlGroupMaterialDemoModule',
-        path: 'form-control-group-material',
-        data: {
-            demo: {
-                label: 'Form Control Group Material',
                 category: CAT_FORMS,
             }
         }
@@ -2216,8 +2162,6 @@ var ButtonGroupComponent = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'button-group';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
         this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this._hostClasses = true;
         this._disabled = false;
@@ -2840,8 +2784,6 @@ var CheckboxComponent = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'checkbox';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
         this._focused = false;
         this.generatedId = 'vcl_checkbox_' + UNIQUE_ID++;
         this._hostClasses = true;
@@ -4245,8 +4187,6 @@ var FileInputComponent = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'file-input_';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
         this._disabled = false;
         this.generatedId = 'vcl_file-input_' + UNIQUE_ID++;
         this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
@@ -4633,8 +4573,6 @@ var FlipSwitchComponent = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'flip-switch';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
         this.tabindex = 0;
         this.onLabel = 'On';
         this.offLabel = 'Off';
@@ -5079,7 +5017,6 @@ var FormControlGroupComponent = /** @class */ (function () {
         this.elementRef = elementRef;
         this.formGroup = formGroup;
         this.ngForm = ngForm;
-        this.material = false;
         this._stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.stateChange = this._stateChangedEmitter.asObservable();
     }
@@ -5094,50 +5031,6 @@ var FormControlGroupComponent = /** @class */ (function () {
     Object.defineProperty(FormControlGroupComponent.prototype, "classVclFormInlineControlGroup", {
         get: function () {
             return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-form-inline-control-group';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlGroupComponent.prototype, "classVclMaterial", {
-        get: function () {
-            return this.material === true || this.material === '';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlGroupComponent.prototype, "classVclMaterialStatic", {
-        get: function () {
-            return !this.input || !this.input.hasInputBox;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlGroupComponent.prototype, "classVclPrependedLabel", {
-        get: function () {
-            return this.input && this.input.hasPrependedLabel;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlGroupComponent.prototype, "classVclInputFocused", {
-        get: function () {
-            return this.input && this.input.isFocused;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormControlGroupComponent.prototype, "classVclInputActive", {
-        get: function () {
-            if (!this.input) {
-                return false;
-            }
-            if (this.input.value) {
-                if (Array.isArray(this.input.value)) {
-                    return this.input.value.length > 0;
-                }
-                return true;
-            }
-            return false;
         },
         enumerable: true,
         configurable: true
@@ -5191,13 +5084,6 @@ var FormControlGroupComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(FormControlGroupComponent.prototype, "isMaterial", {
-        get: function () {
-            return this.material === true || this.material === '';
-        },
-        enumerable: true,
-        configurable: true
-    });
     FormControlGroupComponent.prototype.ngAfterViewInit = function () {
         if (this.input) {
             this.input.stateChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(undefined)).subscribe(this._stateChangedEmitter);
@@ -5217,35 +5103,6 @@ var FormControlGroupComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], FormControlGroupComponent.prototype, "classVclFormInlineControlGroup", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclMaterial'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlGroupComponent.prototype, "classVclMaterial", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclMaterialStatic'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlGroupComponent.prototype, "classVclMaterialStatic", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclPrependedLabel'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlGroupComponent.prototype, "classVclPrependedLabel", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputFocused'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlGroupComponent.prototype, "classVclInputFocused", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.vclInputActive'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], FormControlGroupComponent.prototype, "classVclInputActive", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], FormControlGroupComponent.prototype, "material", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_INPUT"], { read: _interfaces__WEBPACK_IMPORTED_MODULE_2__["FORM_CONTROL_INPUT"] }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -6886,19 +6743,11 @@ var InputDirective = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'input';
-        this.hasInputBox = true;
         this.disabled = false;
         this.autoselect = false;
         this.classVclInput = true;
     }
     InputDirective_1 = InputDirective;
-    Object.defineProperty(InputDirective.prototype, "hasPrependedLabel", {
-        get: function () {
-            return this.elementRef.nativeElement.classList.contains('vclPrepItem');
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(InputDirective.prototype, "elementId", {
         get: function () {
             return this.id || this.uniqueId;
@@ -12754,8 +12603,6 @@ var RadioGroupComponent = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'radio-group';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
         this._disabled = false;
         this.generatedId = 'vcl_radiogroup_' + UNIQUE_ID++;
         this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
@@ -13324,8 +13171,6 @@ var RatingComponent = /** @class */ (function () {
             return item && item.labelTemplateRef;
         }));
         this.controlType = 'rating';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
         this.classVclRating = true;
         this.attrRole = 'slider';
         this.attrAriaValuemin = 0;
@@ -14150,9 +13995,7 @@ var SelectListComponent = /** @class */ (function () {
         this.generatedId = 'vcl_select_list_' + UNIQUE_ID++;
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
-        this.controlType = 'select-list';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
+        this.controlType = 'slider';
         this._hostClasses = true;
         this._itemsChangeEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.itemsChange = this._itemsChangeEmitter.asObservable();
@@ -14528,8 +14371,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _off_click_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../off-click/index */ "./lib/ng-vcl/src/off-click/index.ts");
 /* harmony import */ var _layer_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../layer/index */ "./lib/ng-vcl/src/layer/index.ts");
 /* harmony import */ var _select_list_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../select-list/index */ "./lib/ng-vcl/src/select-list/index.ts");
-/* harmony import */ var _ng_vcl_ng_vcl_form_control_group__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ng-vcl/ng-vcl/form-control-group */ "./lib/ng-vcl/src/form-control-group/index.ts");
-
 
 
 
@@ -14544,53 +14385,20 @@ __webpack_require__.r(__webpack_exports__);
 
 var SelectComponent = /** @class */ (function (_super) {
     tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](SelectComponent, _super);
-    function SelectComponent(injector, _dir, overlay, viewContainerRef, elementRef, cdRef, formControlHost) {
+    function SelectComponent(injector, _dir, overlay, viewContainerRef, elementRef, cdRef) {
         var _this = _super.call(this, injector) || this;
         _this._dir = _dir;
         _this.overlay = overlay;
         _this.viewContainerRef = viewContainerRef;
         _this.elementRef = elementRef;
         _this.cdRef = cdRef;
-        _this.formControlHost = formControlHost;
         _this._focused = false;
-        _this.controlType = 'select';
-        _this.hasInputBox = true;
-        _this.hasPrependedLabel = false;
         _this.attrRole = 'listbox';
         _this._hostClasses = true;
         _this.tabindex = 0;
         _this.afterClose = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         return _this;
     }
-    SelectComponent_1 = SelectComponent;
-    Object.defineProperty(SelectComponent.prototype, "elementId", {
-        get: function () {
-            return this.selectList.elementId;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SelectComponent.prototype, "ngControl", {
-        get: function () {
-            return this.selectList.ngControl;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SelectComponent.prototype, "stateChanged", {
-        get: function () {
-            return this.selectList.stateChanged;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SelectComponent.prototype, "value", {
-        get: function () {
-            return this.selectList.value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(SelectComponent.prototype, "isFocused", {
         get: function () {
             return this._focused || this.isAttached;
@@ -14757,7 +14565,6 @@ var SelectComponent = /** @class */ (function (_super) {
     SelectComponent.prototype.ngOnDestroy = function () {
         this.destroy();
     };
-    var SelectComponent_1;
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"])(_select_list_index__WEBPACK_IMPORTED_MODULE_11__["SelectListComponent"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _select_list_index__WEBPACK_IMPORTED_MODULE_11__["SelectListComponent"])
@@ -14849,27 +14656,19 @@ var SelectComponent = /** @class */ (function (_super) {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], SelectComponent.prototype, "onClick", null);
-    SelectComponent = SelectComponent_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    SelectComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'vcl-select',
             template: __webpack_require__(/*! ./select.component.html */ "./lib/ng-vcl/src/select/select.component.html"),
             exportAs: 'vclSelect',
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
-            providers: [
-                {
-                    provide: _ng_vcl_ng_vcl_form_control_group__WEBPACK_IMPORTED_MODULE_12__["FORM_CONTROL_INPUT"],
-                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return SelectComponent_1; })
-                }
-            ]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](6, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"])()),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](6, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_ng_vcl_ng_vcl_form_control_group__WEBPACK_IMPORTED_MODULE_12__["FORM_CONTROL_HOST"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
             _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_7__["Directionality"],
             _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_6__["Overlay"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"],
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], SelectComponent);
     return SelectComponent;
 }(_layer_index__WEBPACK_IMPORTED_MODULE_10__["TemplateLayerRef"]));
@@ -14967,8 +14766,6 @@ var SliderComponent = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'slider';
-        this.hasInputBox = false;
-        this.hasPrependedLabel = false;
         this.tabindex = 0;
         this.value = 0;
         this.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
@@ -16798,10 +16595,8 @@ var TextareaDirective = /** @class */ (function () {
         this.stateChangedEmitter = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this._focused = false;
         this.generatedId = 'vcl_textarea_' + UNIQUE_ID++;
-        this.stateChanged = this.stateChangedEmitter.asObservable();
         this.controlType = 'textarea';
-        this.hasInputBox = true;
-        this.hasPrependedLabel = false;
+        this.stateChanged = this.stateChangedEmitter.asObservable();
         this.classVclInput = true;
         this.disabled = false;
         this.autoselect = false;
@@ -17093,8 +16888,6 @@ var TokenInputContainerComponent = /** @class */ (function () {
         this._cvaDisabled = false;
         this.stateChanged = this._stateChangedEmitter.asObservable();
         this.controlType = 'token-input';
-        this.hasInputBox = true;
-        this.hasPrependedLabel = false;
         this._hostClasses = true;
         this._hostAttrTabindex = -1;
         this.selectable = false;
