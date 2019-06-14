@@ -1,7 +1,6 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener, ViewChild, TemplateRef, ElementRef } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener, ViewChild, TemplateRef, ElementRef, AfterViewInit } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
-import { IconService } from '../icon/index';
+import { HostIconRendererService } from '../icon/index';
 
 export interface Rating {
   ratingFullIcon: string;
@@ -21,19 +20,16 @@ export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
   templateUrl: 'rating-item.component.html',
   exportAs: 'vclRatingItem',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [NgClass],
+  providers: [HostIconRendererService],
 })
-export class RatingItemComponent {
+export class RatingItemComponent implements AfterViewInit {
 
   constructor(
-    // private elementRef: ElementRef<HTMLElement>,
     @Inject(RATING_TOKEN)
     private _rating: Rating,
-    private ngClass: NgClass,
-    private iconService: IconService
-  ) {
-    this.setState(this.state);
-  }
+    private elementRef: ElementRef,
+    private hostIconRenderer: HostIconRendererService
+  ) { }
 
   @ViewChild('labelTemplate', {read: TemplateRef})
   labelTemplateRef?: TemplateRef<any>;
@@ -61,19 +57,13 @@ export class RatingItemComponent {
 
   state: 'empty' | 'half' | 'full';
 
+  get label() {
+    return this._label || this.labelElementRef.nativeElement.innerText;
+  }
+
   setState(state: 'empty' | 'half' | 'full') {
     this.state = state;
-    let icon;
-    if (this.state === 'empty') {
-      icon = this._rating.ratingEmptyIcon;
-    } else if (this.state === 'half') {
-      icon = this._rating.ratingHalfIcon;
-    } else {
-      icon = this._rating.ratingFullIcon;
-    }
-
-    this.ngClass.ngClass = this.iconService.resolve(icon);
-    this.ngClass.ngDoCheck();
+    this.updateFontIconClass();
   }
 
   get isDisabled() {
@@ -111,7 +101,20 @@ export class RatingItemComponent {
     this._rating.onRatingItemBlur(this);
   }
 
-  get label() {
-    return this._label || this.labelElementRef.nativeElement.innerText;
+  ngAfterViewInit() {
+    this.updateFontIconClass();
+  }
+
+  // Remove old and set new icon classes on host
+  private updateFontIconClass() {
+    let icon: string;
+    if (this.state === 'empty') {
+      icon = this._rating.ratingEmptyIcon;
+    } else if (this.state === 'half') {
+      icon = this._rating.ratingHalfIcon;
+    } else {
+      icon = this._rating.ratingFullIcon;
+    }
+    this.hostIconRenderer.setIcon(this.elementRef, icon);
   }
 }
