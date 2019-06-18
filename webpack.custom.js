@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
-const branch = require('git-branch');
 const webpackHelper = require('@ng-vcl/webpack-helper');
 
 module.exports.default = {
@@ -22,7 +21,7 @@ module.exports.default = {
       fa: true,
     }));
 
-    const currentBranch = process.env.GIT_BRANCH || branch.sync() || 'unknown';
+    const currentBranch = process.env.GIT_BRANCH || 'unknown';
     
     if (cfg.output.path.endsWith('docs') || cfg.output.path.endsWith('docs/')) {
       cfg = merge(cfg, {
