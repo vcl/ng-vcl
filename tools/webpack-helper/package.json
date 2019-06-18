@@ -24,8 +24,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@vcl/preprocessor": "^0.3.0-15",
-    "webpack-merge": "^4.2.1",
-    "css-loader": "^2.1.1"
+    "@vcl/preprocessor": "^0.4.2",
+    "css-loader": "^3.0.0",
+    "webpack-merge": "^4.2.1"
   }
 }
