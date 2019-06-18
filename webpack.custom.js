@@ -33,20 +33,6 @@ module.exports.default = {
     }
 
     return merge(cfg, {
-      // module: {
-      //   rules: [
-      //     {
-      //       test: /\.html$/,
-      //       exclude: [path.resolve('demo/index.html')],
-      //       include: [path.resolve('wc/index.html')],
-      //       use: [
-      //         {
-      //           loader: 'wc-loader'
-      //         }]
-      //     },
-
-      //   ]
-      // },
       plugins: [
         new webpack.DefinePlugin({
           gitBranch: JSON.stringify(currentBranch)
