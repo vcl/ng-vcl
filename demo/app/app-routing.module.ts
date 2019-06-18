@@ -19,7 +19,7 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    loadChildren: './demos/badge/demo.module#BadgeDemoModule',
+    loadChildren: () => import('./demos/badge/demo.module').then(m => m.BadgeDemoModule),
     path: 'badge',
     data: {
       demo: {
@@ -29,7 +29,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/label/demo.module#LabelDemoModule',
+    loadChildren: () => import('./demos/label/demo.module').then(m => m.LabelDemoModule),
     path: 'label',
     data: {
       demo: {
@@ -39,7 +39,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/navigation/demo.module#NavigationDemoModule',
+    loadChildren: () => import('./demos/navigation/demo.module').then(m => m.NavigationDemoModule),
     path: 'navigation',
     data: {
       demo: {
@@ -49,7 +49,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/tab-nav/demo.module#TabNavDemoModule',
+    loadChildren: () => import('./demos/tab-nav/demo.module').then(m => m.TabNavDemoModule),
     path: 'tab-nav',
     data: {
       demo: {
@@ -59,7 +59,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/button/demo.module#ButtonDemoModule',
+    loadChildren: () => import('./demos/button/demo.module').then(m => m.ButtonDemoModule),
     path: 'button',
     data: {
       demo: {
@@ -69,7 +69,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/button-group/demo.module#ButtonGroupDemoModule',
+    loadChildren: () => import('./demos/button-group/demo.module').then(m => m.ButtonGroupDemoModule),
     path: 'button-group',
     data: {
       demo: {
@@ -79,7 +79,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/checkbox/demo.module#CheckboxDemoModule',
+    loadChildren: () => import('./demos/checkbox/demo.module').then(m => m.CheckboxDemoModule),
     path: 'checkbox',
     data: {
       demo: {
@@ -89,7 +89,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/date-picker/demo.module#DatePickerDemoModule',
+    loadChildren: () => import('./demos/date-picker/demo.module').then(m => m.DatePickerDemoModule),
     path: 'date-picker',
     data: {
       demo: {
@@ -99,7 +99,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/select-list/demo.module#SelectListDemoModule',
+    loadChildren: () => import('./demos/select-list/demo.module').then(m => m.SelectListDemoModule),
     path: 'select-list',
     data: {
       demo: {
@@ -109,7 +109,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/autocomplete/demo.module#AutocompleteDemoModule',
+    loadChildren: () => import('./demos/autocomplete/demo.module').then(m => m.AutocompleteDemoModule),
     path: 'autocomplete',
     data: {
       demo: {
@@ -119,7 +119,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/select/demo.module#SelectDemoModule',
+    loadChildren: () => import('./demos/select/demo.module').then(m => m.SelectDemoModule),
     path: 'select',
     data: {
       demo: {
@@ -129,7 +129,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/file-input/demo.module#FileInputDemoModule',
+    loadChildren: () => import('./demos/file-input/demo.module').then(m => m.FileInputDemoModule),
     path: 'file-input',
     data: {
       demo: {
@@ -139,7 +139,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/flip-switch/demo.module#FlipSwitchDemoModule',
+    loadChildren: () => import('./demos/flip-switch/demo.module').then(m => m.FlipSwitchDemoModule),
     path: 'flip-switch',
     data: {
       demo: {
@@ -149,7 +149,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/input/demo.module#InputDemoModule',
+    loadChildren: () => import('./demos/input/demo.module').then(m => m.InputDemoModule),
     path: 'input',
     data: {
       demo: {
@@ -159,7 +159,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/password-input/demo.module#PasswordInputDemoModule',
+    loadChildren: () => import('./demos/password-input/demo.module').then(m => m.PasswordInputDemoModule),
     path: 'password-input',
     data: {
       demo: {
@@ -169,7 +169,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/embedded-input-group/demo.module#EmbeddedInputGroupDemoModule',
+    loadChildren: () => import('./demos/embedded-input-group/demo.module').then(m => m.EmbeddedInputGroupDemoModule),
     path: 'embedded-input-group',
     data: {
       demo: {
@@ -179,7 +179,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/month-picker/demo.module#MonthPickerDemoModule',
+    loadChildren: () => import('./demos/month-picker/demo.module').then(m => m.MonthPickerDemoModule),
     path: 'month-picker',
     data: {
       demo: {
@@ -189,7 +189,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/radio-button/demo.module#RadioButtonDemoModule',
+    loadChildren: () => import('./demos/radio-button/demo.module').then(m => m.RadioButtonDemoModule),
     path: 'radio-button',
     data: {
       demo: {
@@ -199,7 +199,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/slider/demo.module#SliderDemoModule',
+    loadChildren: () => import('./demos/slider/demo.module').then(m => m.SliderDemoModule),
     path: 'slider',
     data: {
       demo: {
@@ -209,7 +209,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/textarea/demo.module#TextareaDemoModule',
+    loadChildren: () => import('./demos/textarea/demo.module').then(m => m.TextareaDemoModule),
     path: 'textarea',
     data: {
       demo: {
@@ -219,7 +219,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/token/demo.module#TokenDemoModule',
+    loadChildren: () => import('./demos/token/demo.module').then(m => m.TokenDemoModule),
     path: 'token',
     data: {
       demo: {
@@ -229,7 +229,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/form-control-group/demo.module#FormControlGroupDemoModule',
+    loadChildren: () => import('./demos/form-control-group/demo.module').then(m => m.FormControlGroupDemoModule),
     path: 'form-control-group',
     data: {
       demo: {
@@ -239,7 +239,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/jss-form/demo.module#VCLJssFormDemoModule',
+    loadChildren: () => import('./demos/jss-form/demo.module').then(m => m.VCLJssFormDemoModule),
     path: 'jss-form',
     data: {
       demo: {
@@ -249,7 +249,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/alert/demo.module#AlertDemoModule',
+    loadChildren: () => import('./demos/alert/demo.module').then(m => m.AlertDemoModule),
     path: 'alert',
     data: {
       demo: {
@@ -259,7 +259,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/layer/demo.module#LayerDemoModule',
+    loadChildren: () => import('./demos/layer/demo.module').then(m => m.LayerDemoModule),
     path: 'layer',
     data: {
       demo: {
@@ -269,7 +269,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/notifier/demo.module#NotifierDemoModule',
+    loadChildren: () => import('./demos/notifier/demo.module').then(m => m.NotifierDemoModule),
     path: 'notifier',
     data: {
       demo: {
@@ -279,7 +279,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/popover/demo.module#PopoverDemoModule',
+    loadChildren: () => import('./demos/popover/demo.module').then(m => m.PopoverDemoModule),
     path: 'popover',
     data: {
       demo: {
@@ -289,7 +289,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/tooltip/demo.module#ToolTipDemoModule',
+    loadChildren: () => import('./demos/tooltip/demo.module').then(m => m.ToolTipDemoModule),
     path: 'tooltip',
     data: {
       demo: {
@@ -299,7 +299,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/tour/demo.module#TourDemoModule',
+    loadChildren: () => import('./demos/tour/demo.module').then(m => m.TourDemoModule),
     path: 'tour',
     data: {
       demo: {
@@ -309,7 +309,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/icon/demo.module#IconDemoModule',
+    loadChildren: () => import('./demos/icon/demo.module').then(m => m.IconDemoModule),
     path: 'icon',
     data: {
       demo: {
@@ -319,7 +319,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/icogram/demo.module#IcogramDemoModule',
+    loadChildren: () => import('./demos/icogram/demo.module').then(m => m.IcogramDemoModule),
     path: 'icogram',
     data: {
       demo: {
@@ -329,7 +329,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/zoom-box/demo.module#ZoomBoxDemoModule',
+    loadChildren: () => import('./demos/zoom-box/demo.module').then(m => m.ZoomBoxDemoModule),
     path: 'zoom-box',
     data: {
       demo: {
@@ -339,7 +339,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/gallery/demo.module#GalleryDemoModule',
+    loadChildren: () => import('./demos/gallery/demo.module').then(m => m.GalleryDemoModule),
     path: 'gallery',
     data: {
       demo: {
@@ -349,7 +349,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/busy-indicator/demo.module#BusyDemoModule',
+    loadChildren: () => import('./demos/busy-indicator/demo.module').then(m => m.BusyDemoModule),
     path: 'busy-indicator',
     data: {
       demo: {
@@ -359,7 +359,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/progress-bar/demo.module#ProgressBarDemoModule',
+    loadChildren: () => import('./demos/progress-bar/demo.module').then(m => m.ProgressBarDemoModule),
     path: 'progress-bar',
     data: {
       demo: {
@@ -369,7 +369,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/table/demo.module#TableDemoModule',
+    loadChildren: () => import('./demos/table/demo.module').then(m => m.TableDemoModule),
     path: 'table',
     data: {
       demo: {
@@ -379,7 +379,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/off-click/demo.module#OffClickDemoModule',
+    loadChildren: () => import('./demos/off-click/demo.module').then(m => m.OffClickDemoModule),
     path: 'off-click',
     data: {
       demo: {
@@ -389,7 +389,7 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: './demos/rating/demo.module#RatingDemoModule',
+    loadChildren: () => import('./demos/rating/demo.module').then(m => m.RatingDemoModule),
     path: 'rating',
     data: {
       demo: {
