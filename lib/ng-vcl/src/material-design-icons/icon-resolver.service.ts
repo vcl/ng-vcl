@@ -6,13 +6,15 @@ import { ALIAS_MAP } from './alias-map';
 // the well-known Font Awesome icon font. Basically it translates
 // `mdi:user` into `mdi mdi-user`
 @Injectable()
-export class MaterialDesignIconResolverService implements IconResolverService {
+export class MaterialDesignIconResolverService extends VCLIconResolverServiceBase implements IconResolverService {
+  constructor() { super(ALIAS_MAP); }
 
+  name = 'mdi';
   priority = 55;
 
   private MDI_REGEX = /^(mdi):([a-z0-9-_]+)$/;
 
-  resolve(icon: string) {
+  resolveFallback(icon: string) {
     const result =  this.MDI_REGEX.exec(icon);
     if (result) {
       const [, prefix, value] = result;
@@ -21,12 +23,3 @@ export class MaterialDesignIconResolverService implements IconResolverService {
     return undefined;
   }
 }
-
-export class MaterialDesignVCLIconResolverServiceBase extends VCLIconResolverServiceBase {
-  priority = 15;
-
-  lookup(alias: string) {
-    return ALIAS_MAP[alias];
-  }
-}
-

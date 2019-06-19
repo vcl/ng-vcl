@@ -1,10 +1,9 @@
 import { Injectable, Optional, Inject } from '@angular/core';
 import { IconResolverService } from './icon-resolver.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class IconService {
+@Injectable()
+export class IconService extends IconResolverService {
+  priority = 0;
   private iconResolvers: IconResolverService[];
 
   constructor(
@@ -12,11 +11,8 @@ export class IconService {
     @Inject(IconResolverService)
     iconResolvers: IconResolverService[]
   ) {
-    if (iconResolvers) {
-      this.iconResolvers = iconResolvers.sort((ir1, ir2) => ir1.priority - ir2.priority);
-    } else {
-      this.iconResolvers =  [];
-    }
+    super();
+    this.iconResolvers = iconResolvers || [];
   }
 
   resolve(icon: string): string {

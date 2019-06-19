@@ -19,6 +19,7 @@ module.exports.default = {
       ...this.opts,
       globalStyle: path.resolve(__dirname, 'demo/styles.sss'),
       fa: true,
+      mdi: true,
     }));
 
     const currentBranch = process.env.GIT_BRANCH || 'unknown';

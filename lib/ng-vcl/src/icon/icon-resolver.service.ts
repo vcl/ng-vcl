@@ -1,4 +1,5 @@
 export interface IconResolver {
+  priority: number;
   resolve(icon: string): string | undefined;
 }
 
@@ -18,6 +19,10 @@ export interface IconAliases {
   'arrow-right': string;
   'arrow-down': string;
   'arrow-up': string;
+  'arrow-double-left': string;
+  'arrow-double-right': string;
+  'arrow-double-down': string;
+  'arrow-double-up': string;
   'upload': string;
   'eye': string;
   'eye-off': string;
@@ -28,25 +33,27 @@ export interface IconAliases {
   'remove': string;
 }
 
-export abstract class IconResolverService implements IconResolver {
-  abstract priority: number;
+export abstract class IconResolverService {
   abstract resolve(icon: string): string;
 }
 
 // The default icon resolver replaces icons prefixed with `vcl`. Usually you should provide only one default icon resolver in your app
-export abstract class VCLIconResolverServiceBase implements IconResolverService {
-  abstract priority;
-
+export abstract class VCLIconResolverServiceBase extends IconResolverService {
   private VCL_REGEX = /^vcl:([a-z0-9-_]+)$/;
+
+  constructor(private aliases: IconAliases) {
+    super();
+  }
 
   resolve(icon: string) {
     const result =  this.VCL_REGEX.exec(icon);
     if (result) {
       const [, alias] = result;
-      return this.lookup(alias) || undefined;
+      return this.aliases[alias];
+    } else {
+      this.resolveFallback(icon);
     }
-    return undefined;
   }
 
-  abstract lookup(alias: string): string | undefined;
+  abstract resolveFallback(icon: string): string | undefined;
 }

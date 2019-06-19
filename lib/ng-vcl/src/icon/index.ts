@@ -11,6 +11,10 @@ export { IconComponent, HostIconRendererService, VCLIconResolverServiceBase, Ico
   imports: [CommonModule],
   exports: [IconComponent],
   declarations: [IconComponent],
-  providers: [IconService]
+  providers: [
+    IconService,
+  ]
 })
-export class VCLIconModule { }
+export class VCLIconModule {
+
+}

@@ -1,20 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IconResolverService } from '../icon/index';
-import { FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService } from './icon-resolver.service';
+import { FontAwesomeIconResolverService } from './icon-resolver.service';
 
-export { FontAwesomeIconResolverService, FontAwesomeVCLIconResolverService };
+export { FontAwesomeIconResolverService };
 
 @NgModule({
   providers: [
     FontAwesomeIconResolverService,
-    FontAwesomeVCLIconResolverService,
     {
       provide: IconResolverService,
       useExisting: FontAwesomeIconResolverService,
-      multi: true
-    }, {
-      provide: IconResolverService,
-      useExisting: FontAwesomeVCLIconResolverService,
       multi: true
     }
   ]

@@ -6,27 +6,17 @@ import { ALIAS_MAP } from './alias-map';
 // the well-known Font Awesome icon font. Basically it translates
 // `fas:user` into `fas fa-user`
 @Injectable()
-export class FontAwesomeIconResolverService implements IconResolverService {
-
-  priority = 50;
+export class FontAwesomeIconResolverService extends VCLIconResolverServiceBase implements IconResolverService {
+  constructor() { super(ALIAS_MAP); }
 
   private FA_REGEX = /^(fa[bsrl]):([a-z0-9-_]+)$/;
 
-  resolve(icon: string) {
+  resolveFallback(icon: string) {
     const result =  this.FA_REGEX.exec(icon);
     if (result) {
       const [, prefix, value] = result;
       return `${prefix} fa-${value}`;
     }
     return undefined;
-  }
-}
-
-@Injectable()
-export class FontAwesomeVCLIconResolverService extends VCLIconResolverServiceBase {
-  priority = 10;
-
-  lookup(alias: string) {
-    return ALIAS_MAP[alias];
   }
 }
