@@ -11,7 +11,7 @@ export class FontAwesomeIconResolverService extends VCLIconResolverServiceBase i
 
   private FA_REGEX = /^(fa[bsrl]):([a-z0-9-_]+)$/;
 
-  resolveFallback(icon: string) {
+  resolveDefault(icon: string) {
     const result =  this.FA_REGEX.exec(icon);
     if (result) {
       const [, prefix, value] = result;

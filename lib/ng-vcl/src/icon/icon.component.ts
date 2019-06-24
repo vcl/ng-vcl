@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, Self, SimpleChanges, OnChanges, ChangeDetectionStrategy, Renderer2, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, HostBinding, SimpleChanges, OnChanges, ChangeDetectionStrategy, ElementRef, AfterViewInit } from '@angular/core';
 import { HostIconRendererService } from './host-icon-renderer.service';
 
 @Component({
@@ -37,7 +37,8 @@ export class IconComponent implements OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.hostIcon.setIcon(this.elementRef, this.icon);
+    if (this.icon) {
+      this.hostIcon.setIcon(this.elementRef, this.icon);
+    }
   }
-
 }

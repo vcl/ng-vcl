@@ -14,7 +14,7 @@ export class MaterialDesignIconResolverService extends VCLIconResolverServiceBas
 
   private MDI_REGEX = /^(mdi):([a-z0-9-_]+)$/;
 
-  resolveFallback(icon: string) {
+  resolveDefault(icon: string) {
     const result =  this.MDI_REGEX.exec(icon);
     if (result) {
       const [, prefix, value] = result;
