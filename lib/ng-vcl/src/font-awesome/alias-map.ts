@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-key-quotes
-import { IconAliases } from '../icon/index';
+import { VCLIconAliasMap } from '../icon/index';
 
-export const ALIAS_MAP: IconAliases = {
+export const ALIAS_MAP: VCLIconAliasMap = {
   'close': 'fas fa-times',
   'busy': 'fas fa-circle-notch fa-spin',
   'box': 'fas fa-square',

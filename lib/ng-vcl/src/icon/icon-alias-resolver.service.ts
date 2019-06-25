@@ -1,6 +1,6 @@
 import { IconResolverService } from './icon-resolver.service';
 
-export interface IconAliases {
+export interface VCLIconAliasMap {
   'close': string;
   'busy': string;
   'box': string;
@@ -30,23 +30,22 @@ export interface IconAliases {
   'remove': string;
 }
 
-// The default icon resolver replaces icons prefixed with `vcl`. Usually you should provide only one default icon resolver in your app
-export abstract class VCLIconResolverServiceBase extends IconResolverService {
-  private VCL_REGEX = /^vcl:([a-z0-9-_]+)$/;
+// The icon resolver replaces icons prefixed with an alias. Usually you should provide only one default icon resolver in your app
+export class IconAliasResolverServiceBase extends IconResolverService {
 
-  constructor(private aliases: IconAliases) {
+  protected regex: RegExp;
+
+  constructor(protected alias: string, protected map: {[key: string]: string | undefined }) {
     super();
+    this.regex = new RegExp(`^${this.alias}:([a-z0-9-_]+)$`);
   }
 
   resolve(icon: string) {
-    const result =  this.VCL_REGEX.exec(icon);
+    const result =  this.regex.exec(icon);
     if (result) {
       const [, alias] = result;
-      return this.aliases[alias];
-    } else {
-      return this.resolveDefault(icon);
+      return this.map[alias];
     }
+    return undefined;
   }
-
-  abstract resolveDefault(icon: string): string | undefined;
 }

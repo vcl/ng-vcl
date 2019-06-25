@@ -12,7 +12,7 @@ export class HostIconRendererService  {
 
   // Remove old and set new icon classes on host
   setIcon(elementRef: ElementRef, icon: string) {
-    const fontIconClass = icon ? this.iconService.resolve(icon) : '';
+    const fontIconClass = (icon ? this.iconService.resolve(icon) : '') || '';
 
     this._currentFontIconClasses.forEach(cls => {
       this.renderer.removeClass(elementRef.nativeElement, cls);

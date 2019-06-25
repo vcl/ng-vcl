@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-key-quotes
-import { IconAliases } from '../icon/index';
+import { VCLIconAliasMap } from '../icon/index';
 
-export const ALIAS_MAP: IconAliases = {
+export const ALIAS_MAP: VCLIconAliasMap = {
   'close': 'mdi mdi-close',
   'busy': 'mdi mdi-loading mdi-spin',
   'box': 'mdi mdi-checkbox-blank-outline',

@@ -3,7 +3,6 @@ import { IconResolverService } from './icon-resolver.service';
 
 @Injectable()
 export class IconService extends IconResolverService {
-  priority = 0;
   private iconResolvers: IconResolverService[];
 
   constructor(
@@ -12,10 +11,11 @@ export class IconService extends IconResolverService {
     iconResolvers: IconResolverService[]
   ) {
     super();
-    this.iconResolvers = iconResolvers || [];
+    // Prioritize resolvers added the later
+    this.iconResolvers = iconResolvers ? [...iconResolvers].reverse() : [];
   }
 
-  resolve(icon: string): string {
+  resolve(icon: string): string | undefined {
     // Resolve first match
     for (const resolver of this.iconResolvers) {
       const result = resolver.resolve(icon);

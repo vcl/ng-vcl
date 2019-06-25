@@ -4,9 +4,9 @@ import { IconComponent  } from './icon.component';
 import { IconResolverService } from './icon-resolver.service';
 import { IconService } from './icon.service';
 import { HostIconRendererService } from './host-icon-renderer.service';
-import { VCLIconResolverServiceBase, IconAliases } from './vcl-icon-resolver.service';
+import { IconAliasResolverServiceBase, VCLIconAliasMap  } from './icon-alias-resolver.service';
 
-export { IconComponent, HostIconRendererService, VCLIconResolverServiceBase, IconResolverService, IconService, IconAliases };
+export { IconComponent, HostIconRendererService, IconAliasResolverServiceBase, VCLIconAliasMap, IconResolverService, IconService };
 
 @NgModule({
   imports: [CommonModule],
@@ -16,6 +16,4 @@ export { IconComponent, HostIconRendererService, VCLIconResolverServiceBase, Ico
     IconService,
   ]
 })
-export class VCLIconModule {
-
-}
+export class VCLIconModule { }
