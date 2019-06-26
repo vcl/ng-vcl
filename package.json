@@ -100,10 +100,5 @@
     "tsickle": "0.35.0",
     "tslint": "^5.17.0",
     "typescript": "^3.4.5"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
