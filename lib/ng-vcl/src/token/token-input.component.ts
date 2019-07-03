@@ -7,22 +7,22 @@ import {
   ElementRef,
   ChangeDetectorRef,
   HostBinding,
-  Directive,
   ContentChild,
-  TemplateRef,
-  SkipSelf,
   Self,
   ChangeDetectionStrategy,
-  ViewChild,
   Optional,
-  Inject
+  Inject,
+  AfterContentInit,
+  OnDestroy,
+  Renderer2
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel, NgControl } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { InputDirective, INPUT_HOST_TOKEN, InputHost } from '../input/index';
 import { FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Token } from './interfaces';
 import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
-import { Subject } from 'rxjs';
+import { Subject, merge } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 let uniqueID = 0;
 
@@ -35,10 +35,11 @@ let uniqueID = 0;
   }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenInputContainerComponent implements ControlValueAccessor, FormControlInput, InputHost {
+export class TokenInputContainerComponent implements AfterContentInit, ControlValueAccessor, FormControlInput, InputHost {
 
   constructor(
     public elementRef: ElementRef,
+    private renderer: Renderer2,
     private cdRef: ChangeDetectorRef,
     @Optional() @Self()
     public ngControl?: NgControl,
@@ -249,6 +250,12 @@ export class TokenInputContainerComponent implements ControlValueAccessor, FormC
     } else if (this.addOnEnter) {
       this.addToken(value);
       this.inputElementRef.nativeElement.value = '';
+    }
+  }
+
+  ngAfterContentInit(): void {
+    if (this.inputElementRef) {
+      this.renderer.addClass(this.inputElementRef.nativeElement, 'vclLayoutFlex');
     }
   }
 }
