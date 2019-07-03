@@ -10,7 +10,7 @@ module.exports.default = {
   pre(builderConfig) {
     this.opts = {
       sourceMap: builderConfig.sourceMap, // Use settings from builder
-      extractCSS: !!builderConfig.extractCss, // Use settings from builder
+      extractCss: !!builderConfig.extractCss, // Use settings from builder
     };
   },
 
