@@ -13,8 +13,7 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
       type: 'input',
       label: 'Name',
       params: {
-        placeholder: 'The hero\'s name',
-        inputType: 'password'
+        placeholder: 'The hero\'s name'
       },
       validators: [
         Validators.required, Validators.minLength(2)

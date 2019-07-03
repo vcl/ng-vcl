@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck, forwardRef, Optional, Inject, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Subject } from 'rxjs';
-import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
+import { NgControl } from '@angular/forms';
+import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
+import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
 
 let UNIQUE_ID = 0;
 @Directive({
@@ -9,9 +10,12 @@ let UNIQUE_ID = 0;
   providers: [{
     provide: FORM_CONTROL_INPUT,
     useExisting: forwardRef(() => TextareaDirective)
+  }, {
+    provide: FORM_CONTROL_MATERIAL_INPUT,
+    useExisting: forwardRef(() => TextareaDirective)
   }]
 })
-export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, DoCheck, FormControlInput {
+export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, DoCheck, FormControlInput, FormControlMaterialInput {
 
   constructor(
     private elementRef: ElementRef<HTMLTextAreaElement>,
@@ -75,8 +79,12 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     return this._focused;
   }
 
+  get isLabelFloating() {
+    return this.isFocused || this.value.length > 0;
+  }
+
   get value() {
-    return this.elementRef.nativeElement.value;
+    return this.elementRef.nativeElement.value || '';
   }
 
   @HostBinding('class.vclError')
@@ -85,11 +93,13 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
   }
 
+  @HostListener('ngModelChange')
   @HostListener('propertychange')
   @HostListener('input')
   onChange() {
     const value = this.elementRef && this.elementRef.nativeElement.value;
     this.setRows(value);
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('focus')

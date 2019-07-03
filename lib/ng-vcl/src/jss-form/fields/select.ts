@@ -20,7 +20,7 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
 
 @Component({
   template: `
-  <vcl-form-control-group *ngIf="field.visible">
+  <vcl-form-control-group [vclMaterial]="field.material" *ngIf="field.visible">
     <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
     <vcl-select [placeholder]="field.placeholder">
       <vcl-select-list [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [selectionMode]="field.selectionMode">

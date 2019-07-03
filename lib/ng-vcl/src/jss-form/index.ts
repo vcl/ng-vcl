@@ -18,6 +18,7 @@ import { VCLDatePickerModule } from '../date-picker/index';
 import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
+import { VCLMaterialDesignInputsModule } from '../material-design-inputs/index';
 
 import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
@@ -51,6 +52,7 @@ export {FormField, FormFieldControl };
     VCLTokenModule,
     VCLIconModule,
     VCLFormControlGroupModule,
+    VCLMaterialDesignInputsModule,
     VCLDatePickerModule,
     VCLSelectModule,
     VCLSelectListModule,

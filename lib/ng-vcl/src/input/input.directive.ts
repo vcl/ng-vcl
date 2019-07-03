@@ -2,13 +2,13 @@ import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Op
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlHost, FORM_CONTROL_HOST } from '../form-control-group/index';
+import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
 
 export interface InputHost {
   readonly isDisabled: boolean;
   notifyInputFocus(btn: InputDirective): void;
   notifyInputBlur(btn: InputDirective): void;
 }
-
 export const INPUT_HOST_TOKEN = new InjectionToken<InputHost>('vcl_input_host');
 
 export let UNIQUE_ID = 0;
@@ -21,10 +21,13 @@ export let UNIQUE_ID = 0;
       provide: FORM_CONTROL_INPUT,
       useExisting: forwardRef(() => InputDirective)
     },
+    {
+      provide: FORM_CONTROL_MATERIAL_INPUT,
+      useExisting: forwardRef(() => InputDirective)
+    },
   ],
 })
-export class InputDirective implements OnDestroy, FormControlInput<string> {
-
+export class InputDirective implements OnDestroy, FormControlInput<string>, FormControlMaterialInput {
   constructor(
     public elementRef: ElementRef<HTMLInputElement>,
     @Optional()
@@ -51,6 +54,8 @@ export class InputDirective implements OnDestroy, FormControlInput<string> {
 
   controlType = 'input';
 
+  materialModifierClass: string = undefined;
+
   @Input()
   id?: string;
 
@@ -64,6 +69,10 @@ export class InputDirective implements OnDestroy, FormControlInput<string> {
 
   get isFocused() {
     return this._focused;
+  }
+
+  get isLabelFloating() {
+    return this.isFocused || this.value.length > 0;
   }
 
   @Input()
@@ -118,7 +127,7 @@ export class InputDirective implements OnDestroy, FormControlInput<string> {
   }
 
   get value() {
-    return this.elementRef.nativeElement.value;
+    return this.elementRef.nativeElement.value || '';
   }
 
   ngOnDestroy() {
@@ -127,5 +136,12 @@ export class InputDirective implements OnDestroy, FormControlInput<string> {
 
   getError(error: string) {
     return this.hasError && this.ngControl.getError(error);
+  }
+
+  @HostListener('input')
+  @HostListener('change')
+  @HostListener('ngModelChange')
+  onInput() {
+    this.stateChangedEmitter.next();
   }
 }

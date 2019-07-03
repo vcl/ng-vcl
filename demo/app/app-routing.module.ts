@@ -239,6 +239,16 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: () => import('./demos/material-design-inputs/demo.module').then(m => m.MaterialDesignInputsDemoModule),
+    path: 'material-design-inputs',
+    data: {
+      demo: {
+        label: 'Material Design Inputs',
+        category: CAT_FORMS,
+      }
+    }
+  },
+  {
     loadChildren: () => import('./demos/jss-form/demo.module').then(m => m.VCLJssFormDemoModule),
     path: 'jss-form',
     data: {

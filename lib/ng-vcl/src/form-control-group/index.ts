@@ -6,7 +6,16 @@ import { FormControlHintComponent } from './hint.component';
 import { FormControlLabelDirective } from './form-control-label.directive';
 import { FormControlRequiredComponent } from './required.component';
 
-export { FormControlGroupComponent, FORM_CONTROL_INPUT, FormControlInput, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHost, FORM_CONTROL_HOST };
+export {
+  FormControlGroupComponent,
+  FORM_CONTROL_INPUT,
+  FormControlInput,
+  FormControlErrorStateAgent,
+  FORM_CONTROL_ERROR_STATE_AGENT,
+  FormControlHost,
+  FORM_CONTROL_HOST
+};
+
 // tslint:disable-next-line:only-arrow-functions
 export function defaultFormControlErrorStateAgent(form?, input?) {
   return form &&

@@ -3,6 +3,7 @@
  */
 export * from './core/index';
 export * from './form-control-group/index';
+export * from './material-design-inputs/index';
 export * from './input/index';
 export * from './file-input/index';
 export * from './textarea/index';

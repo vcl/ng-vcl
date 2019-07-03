@@ -14,26 +14,38 @@ import {
   ViewContainerRef,
   TemplateRef,
   Injector,
-  forwardRef, Optional, Inject
-} from '@angular/core';
+  forwardRef,
+  AfterContentInit} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { NEVER, merge, Subscription } from 'rxjs';
-import { startWith, switchMap, filter, takeUntil } from 'rxjs/operators';
+import { NEVER, Subscription, Subject, merge } from 'rxjs';
+import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { OverlayConfig, Overlay } from '@angular/cdk/overlay';
+import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { createOffClickStream } from '../off-click/index';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
+import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
+import { FORM_CONTROL_INPUT } from '../form-control-group/index';
 
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
   exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: FORM_CONTROL_INPUT,
+      useExisting: forwardRef(() => SelectComponent)
+    },
+    {
+      provide: FORM_CONTROL_MATERIAL_INPUT,
+      useExisting: forwardRef(() => SelectComponent)
+    }
+  ]
 })
-export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements OnDestroy {
+export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements AfterContentInit, OnDestroy, FormControlMaterialInput {
 
   constructor(
     injector: Injector,
@@ -45,8 +57,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   ) {
     super(injector);
   }
-
+  private stateChangedEmitter = new Subject<void>();
   private _dropdownOpenedSub?: Subscription;
+  private _valueChangeSub?: Subscription;
   private _focused = false;
 
   @ContentChild(SelectListComponent, { static: false })
@@ -87,12 +100,33 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   @Output()
   afterClose = new EventEmitter<any | any[]>();
 
+  get stateChanged() {
+    return merge(this.selectList.stateChanged, this.stateChangedEmitter);
+  }
+
   get isFocused() {
     return this._focused || this.isAttached;
   }
 
   get isDisabled() {
     return this.selectList.isDisabled;
+  }
+
+  get isLabelFloating() {
+    return this.isAttached || this.inputValue.length > 0;
+  }
+
+  controlType = 'select';
+  materialModifierClass = undefined;
+
+  get elementId() {
+    return this.selectList.elementId;
+  }
+  get ngControl() {
+    return this.selectList.ngControl;
+  }
+  get value() {
+    return this.selectList.value;
   }
 
   @HostBinding('class.vclError')
@@ -106,12 +140,14 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     if (!this.isAttached) {
       this.open();
     }
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.selectList.onTouched();
+    this.stateChangedEmitter.next();
   }
 
   @HostListener('keyup', ['$event'])
@@ -167,7 +203,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       const value = Array.isArray(this.selectList.value) ? this.selectList.value : [];
       const items = this.selectList.getItems();
       const labels = items.filter(item => value.includes(item.value)).map(item => item.label);
-      return labels.length === 0 ? (this.placeholder || '') : labels.join(', ');
+      return labels.length === 0 ? '' : labels.join(', ');
     }
   }
 
@@ -219,6 +255,13 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this.open();
   }
 
+  ngAfterContentInit(): void {
+    this._valueChangeSub = this.selectList.valueChange.subscribe(() => {
+      this.cdRef.markForCheck();
+      this.stateChangedEmitter.next();
+    });
+  }
+
   protected afterAttached(): void {
     this.selectList.valueChange.pipe(
       takeUntil(this.afterClose)
@@ -229,8 +272,11 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
         } else {
           this.cdRef.markForCheck();
         }
+        this.stateChangedEmitter.next();
       }
+      this.cdRef.markForCheck();
     });
+    this.stateChangedEmitter.next();
 
     this._dropdownOpenedSub = this.selectList.itemsChange.pipe(
       startWith(undefined),
@@ -244,6 +290,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       })
     ).subscribe(() => {
       this.close();
+      this.stateChangedEmitter.next();
     });
   }
 
@@ -256,6 +303,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   ngOnDestroy() {
+    this._valueChangeSub && this._valueChangeSub.unsubscribe();
     this.destroy();
   }
 }

@@ -19,7 +19,7 @@ export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextar
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
+    <vcl-form-control-group [vclMaterial]="field.material" *ngIf="field.visible">
       <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
       <textarea vclInput
                 [formControl]="field.control"

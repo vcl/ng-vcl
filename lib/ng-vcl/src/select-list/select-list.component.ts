@@ -147,6 +147,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     }
 
     this.valueChange.emit(this.value);
+    this.stateChangedEmitter.next();
     this.onTouched();
     this.onChange(this.value);
   }
@@ -241,6 +242,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
   writeValue(value: any): void {
     this.value = value;
+    this.valueChange.emit(value);
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

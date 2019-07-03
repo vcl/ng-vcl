@@ -4,6 +4,7 @@ import { Portal } from '@angular/cdk/portal';
 import { FormFieldObject } from './fields/index';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
+import { FormControlGroupMaterialConfig } from '../material-design-inputs/index';
 
 @Component({
   selector: 'vcl-jss-form',
@@ -25,13 +26,18 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
         type: 'object',
         visible: true
       });
-      this.portal = this.field.createPortal(this.injector, [{
+      this.portal = this.field.createPortal(this.injector, [
+          {
             provide: JSS_FORM_TOKEN,
             useExisting: JssFormComponent
           }, {
               provide: NgForm,
               useValue: this.ngForm
-          }]);
+          }, {
+            provide: FormControlGroupMaterialConfig,
+            useValue: new FormControlGroupMaterialConfig(value.material)
+          }
+        ]);
     } else {
       this.field && this.field.destroy();
       this.field = undefined;

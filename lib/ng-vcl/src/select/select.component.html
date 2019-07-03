@@ -1,9 +1,10 @@
 <input #input 
-       vclInput
+       [placeholder]="placeholder || ''"
        [value]="inputValue"
        [attr.tabindex]="-1"
        [disabled]="isDisabled"
-       class="vclAppItem vclReadonly"
+       [class.vclDisabled]="isDisabled"
+       class="vclInput vclAppItem vclReadonly"
        role="listbox"
        readonly
        >
