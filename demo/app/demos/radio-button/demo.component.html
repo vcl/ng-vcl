@@ -1,18 +1,25 @@
-<p>Current value: {{rgValue1}}</p>
-
 <h3>Basic radio group</h3>
 <vcl-radio-group [(ngModel)]="rgValue2">
   <label vclRadioButtonLabel>
     <vcl-radio-button value="m"></vcl-radio-button>
-    <vcl-icogram appIcon="fas:mars">Male</vcl-icogram>
+    <vcl-icogram>
+      Male
+      <vcl-icon icon="fas:mars"></vcl-icon>
+    </vcl-icogram>
   </label>
   <label vclRadioButtonLabel>
     <vcl-radio-button value="f"></vcl-radio-button>
-    <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
+    <vcl-icogram>
+      Female
+      <vcl-icon icon="fas:venus"></vcl-icon>
+    </vcl-icogram>
   </label>
   <label vclRadioButtonLabel>
     <vcl-radio-button value="g"></vcl-radio-button>
-    <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
+    <vcl-icogram>
+      Genderless
+      <vcl-icon icon="fas:genderless"></vcl-icon>
+    </vcl-icogram>
   </label>
 </vcl-radio-group>
 <p>Current value: {{rgValue2}}</p>
@@ -21,16 +28,24 @@
 <vcl-radio-group layout="vertical" [(ngModel)]="rgValue3">
   <label vclRadioButtonLabel>
     <vcl-radio-button value="m"></vcl-radio-button>
-    <vcl-icogram appIcon="fas:mars">Male</vcl-icogram>
+    <vcl-icogram>
+      Male
+      <vcl-icon icon="fas:mars"></vcl-icon>
+    </vcl-icogram>
   </label>
   <label vclRadioButtonLabel>
     <vcl-radio-button value="f"></vcl-radio-button>
-    <vcl-icogram appIcon="fas:venus">Female</vcl-icogram>
+    <vcl-icogram>
+      Female
+      <vcl-icon icon="fas:venus"></vcl-icon>
+    </vcl-icogram>
   </label>
   <label vclRadioButtonLabel>
     <vcl-radio-button value="g"></vcl-radio-button>
-    <vcl-icogram appIcon="fas:genderless">Genderless</vcl-icogram>
+    <vcl-icogram>
+      Genderless
+      <vcl-icon icon="fas:genderless"></vcl-icon>
+    </vcl-icogram>
   </label>
 </vcl-radio-group>
 <p>Current value: {{rgValue3}}</p>
-  
