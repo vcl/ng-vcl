@@ -41,6 +41,11 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
 
   stateChange = this._stateChangedEmitter.asObservable();
 
+  @HostBinding('attr.vclControlType')
+  get attrVCLControlType() {
+    return this.input && this.input.controlType;
+  }
+
   @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT, static: false })
   input?: FormControlInput;
 

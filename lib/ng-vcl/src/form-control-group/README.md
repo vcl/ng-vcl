@@ -5,10 +5,10 @@ Form control group to handle the error-state of form controls
 ## Usage
 
 ```js
-import { vclFormControlGroupModule } from '@ng-vcl/ng-vcl';
+import { VCLFormControlGroupModule } from '@ng-vcl/ng-vcl';
 
 @NgModule({
-  imports: [ vclFormControlGroupModule ],
+  imports: [ VCLFormControlGroupModule ],
   ...
 })
 export class AppComponent {}
