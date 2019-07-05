@@ -1,7 +1,7 @@
   // tslint:disable:no-input-rename
 import { EventEmitter, Output, Input, Directive, ElementRef, AfterViewInit, OnDestroy, Inject, OnChanges, SimpleChanges } from '@angular/core';
-import { Observable ,  timer ,  fromEvent, merge, NEVER, Subject } from 'rxjs';
-import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
+import { Observable ,  timer ,  fromEvent, merge, NEVER, Subject, Subscription } from 'rxjs';
+import { first, skipUntil, filter, switchMap, tap } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
 @Directive({
@@ -13,6 +13,7 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   constructor(@Inject(DOCUMENT) private document: any, private elementRef: ElementRef) { }
 
   changes$ = new Subject();
+  _sub?: Subscription;
 
   @Input('vclOffClickDelay')
   delay = 0;
@@ -26,22 +27,22 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   @Output('vclOffClick')
   offClick = new EventEmitter<MouseEvent | TouchEvent>();
 
-  _sub = this.changes$.pipe(
-    switchMap(() => {
-      if (!this.elementRef || !this.listen) {
-        return NEVER;
-      } else {
-        return createOffClickStream([this.elementRef, ...this.excludes], {
-          delay: this.delay,
-          document: this.document
-        });
-      }
-    })
-  ).pipe(
-    filter(() => this.listen)
-  ).subscribe(this.offClick);
 
   ngAfterViewInit(): void {
+    this._sub = this.changes$.pipe(
+      switchMap(() => {
+        if (!this.elementRef || !this.listen) {
+          return NEVER;
+        } else {
+          return createOffClickStream([this.elementRef, ...this.excludes], {
+            delay: this.delay,
+            document: this.document
+          });
+        }
+      })
+    ).pipe(
+      filter(() => this.listen),
+    ).subscribe(this.offClick);
     this.changes$.next();
   }
 
