@@ -1,6 +1,10 @@
-import { TemplateRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy, ElementRef, ViewContainerRef, HostBinding } from '@angular/core';
-import { Overlay, ConnectedPosition } from '@angular/cdk/overlay';
+import { TemplateRef, Component, ViewChild, OnDestroy, EventEmitter, Output, Input, Injector, ChangeDetectionStrategy, ElementRef, ViewContainerRef, HostBinding, Inject } from '@angular/core';
+import { Overlay, ConnectedPosition, ScrollStrategy } from '@angular/cdk/overlay';
 import { LayerConfig, TemplateLayerRef } from '../layer/index';
+import { createOffClickStream } from '../off-click';
+import { startWith, switchMap } from 'rxjs/operators';
+import { NEVER, Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'vcl-popover',
@@ -17,13 +21,22 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
   constructor(
     injector: Injector,
     public viewContainerRef: ViewContainerRef,
-    private overlay: Overlay
+    private overlay: Overlay,
+    @Inject(DOCUMENT) private document
   ) {
     super(injector);
   }
 
+  private _popoverAttachedSub?: Subscription;
+
   @Input()
   closeOnEscape?: boolean;
+
+  @Input()
+  closeOnOffClick?: boolean;
+
+  @Input()
+  scrollStrategy?: ScrollStrategy;
 
   @Input()
   target?: ElementRef | HTMLElement;
@@ -43,6 +56,10 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
     }
   }
 
+  get visible() {
+    return this.isAttached;
+  }
+
   // tslint:disable-next-line:no-output-rename
   @Output('afterClose')
   afterCloseOutput = this.afterClose;
@@ -60,6 +77,10 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
 
     return new LayerConfig({
       hasBackdrop: false,
+      scrollStrategy: this.scrollStrategy || this.overlay.scrollStrategies.reposition({
+        autoClose: false,
+      }),
+      closeOnBackdropClick: false,
       closeOnEscape: this.closeOnEscape || false,
       panelClass: this.panelClass,
       positionStrategy: this.overlay.position()
@@ -86,15 +107,24 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
     });
   }
 
-  protected afterDetached(result: any): void {
-    this.visibleChange.emit(this.visible);
-  }
-
   protected afterAttached(): void {
     this.visibleChange.emit(this.visible);
+    if (this.closeOnOffClick) {
+      this._popoverAttachedSub = createOffClickStream([this.overlayRef.overlayElement], {
+        document: this.document
+      }).subscribe(() => {
+        this.close();
+      });
+    }
+  }
+
+  protected afterDetached(result: any): void {
+    this.visibleChange.emit(this.visible);
+    this._popoverAttachedSub && this._popoverAttachedSub.unsubscribe();
   }
 
   ngOnDestroy(): void {
     this.destroy();
+    this._popoverAttachedSub && this._popoverAttachedSub.unsubscribe();
   }
 }

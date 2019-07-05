@@ -6,7 +6,7 @@
 </div>
 
 <vcl-popover
-  #popover1
+  #popover1="vclPopover"
   [target]="target"
   (afterClose)="popover2.close()">
   <div style="width: 400px">
@@ -18,7 +18,8 @@
 </vcl-popover>
 
 <vcl-popover
-  #popover2
+  #popover2="vclPopover"
+  [closeOnOffClick]="true"
   [target]="target"
   [positions]="[{
     originX: 'start',

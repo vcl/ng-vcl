@@ -21,6 +21,8 @@ Name                | Type                          | Default             | Desc
 ------------------- | ---------------------------   | ------------------- | ------------------- 
 `target`            | ElementRef \| HTMLElement     |                     | the target must be an ElementRef instance
 `positions`         | [ConnectedPosition](https://material.angular.io/cdk/overlay/api#ConnectedPosition) | | @angular/cdk OverlayPosition array
+`scrollStrategy`    | [ScrollStrategy](https://material.angular.io/cdk/overlay/api#ScrollStrategy) | | @angular/cdk ScrollStrategy
+`closeOnOffClick`   | boolean                       | false               | Close popover when on a click outside of the popover
 `visible` _(1)_     | boolean                       | false               | the popover is hidden if false
   
 #### Methods  
