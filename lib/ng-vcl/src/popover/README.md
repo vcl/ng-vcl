@@ -8,7 +8,7 @@ A popover is an overlay floating at the position of the target element.
 <div #myTarget>any dom element can be the target</div>
 <button (click)="popover.toggle()"> 
 
-<vcl-popover #popover="vclPopover" [target]="myTarget" [position]="myPositions">
+<vcl-popover #popover="vclPopover" [target]="myTarget" [positions]="myPositions">
   Popover-Content
 </vcl-popover>
 ```
