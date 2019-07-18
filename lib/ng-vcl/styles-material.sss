@@ -50,47 +50,21 @@
       line-height: inherit
 
   // Initial state with the label overlaying the input
-  &:not(.vclMaterialStatic)
-    & .vclFormControlLabel, &.vclFormControlLabel
-      &:not(.vclFormControlLabelWrapping), &.vclFormControlLabelWrapping:before
-        position: relative
-        top: 27px
-        transition: all 400ms cubic-bezier(.25, .8, .25, 1)
-        opacity: 0.6
-        pointer-events: none
-        margin-bottom: 5px
+  & .vclFormControlLabel, &.vclFormControlLabel
+    &:not(.vclFormControlLabelWrapping), &.vclFormControlLabelWrapping:before
+      position: relative
+      top: 27px
+      transition: all 400ms cubic-bezier(.25, .8, .25, 1)
+      opacity: 0.6
+      pointer-events: none
+      margin-bottom: 5px
 
-      &.vclFormControlLabelWrapping:before
-        content: attr(data-label)
-        top: 22px
-
-  &.vclMaterialStatic
-    & .vclFormControlLabel, &.vclFormControlLabel
-      &.vclFormControlLabelWrapping
-        position: relative
-
-      &.vclFormControlLabelWrapping:before
-        position: absolute
-        content: attr(data-label)
-        top: 19px
-        line-height: 0
-
-  &.vclMaterialStatic
-    & .vclFormControlLabel, &.vclFormControlLabel
-      &.vclFormControlLabelWrapping
-        padding-top: 21px
-
-      &:not(.vclFormControlLabelWrapping), &.vclFormControlLabelWrapping:before
-        font-size: 13px
-        opacity: 0.6
-        padding-bottom: 9px
-
-      &.vclFormControlLabelWrapping:before
-        transition: all 400ms cubic-bezier(.25, .8, .25, 1)
-        top: 8px
+    &.vclFormControlLabelWrapping:before
+      content: attr(data-label)
+      top: 22px
 
   // State when label is floating above the input
-  &:not(.vclMaterialStatic).vclMaterialFloatingLabel
+  &.vclMaterialFloatingLabel
     & .vclFormControlLabel, &.vclFormControlLabel
       &:not(.vclFormControlLabelWrapping), &.vclFormControlLabelWrapping:before
         font-size: 13px
@@ -108,17 +82,34 @@
     &.vclFormControlLabelWrapping select
       display: block
 
-
-  // Remove placeholders, they are replaced by animated labels
-  &:not(.vclMaterialStatic):not(.vclMaterialFloatingLabel)
-    & ::-webkit-input-placeholder, &::-webkit-input-placeholder
-      opacity: 0
-    & :-moz-placeholder, &:-moz-placeholder
-      opacity: 0
-    & ::-moz-placeholder, &::-moz-placeholder
-      opacity: 0
-    & :-ms-input-placeholder, &:-ms-input-placeholder
-      opacity: 0
+  // Remove placeholders when not floating, they are replaced by labels
+  &:not(.vclMaterialFloatingLabel)
+    & input, 
+    & textarea
+      &::-webkit-input-placeholder
+        // placeholder transitions are only working in chrome
+        transition: opacity 0.2s ease-out
+        opacity: 0
+      &:-moz-placeholder
+        opacity: 0
+      &::-moz-placeholder
+        opacity: 0
+      &:-ms-input-placeholder
+        opacity: 0
+  
+  &.vclMaterialFloatingLabel
+    & input,
+    & textarea
+      &::-webkit-input-placeholder
+        // placeholder transitions are only working in chrome
+        transition: opacity 0.2s ease-in
+        opacity: 1
+      &:-moz-placeholder
+        opacity: 1
+      &::-moz-placeholder
+        opacity: 1
+      &:-ms-input-placeholder
+        opacity: 1
 
   // embedded-input-group 
   // Left padding if prefixed icon/btn is used

@@ -17,12 +17,12 @@ import {
   Renderer2
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { InputDirective, INPUT_HOST_TOKEN, InputHost } from '../input/index';
-import { FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent } from '../form-control-group/index';
 import { Token } from './interfaces';
 import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent } from '../form-control-group/index';
+import { InputDirective, INPUT_HOST_TOKEN, InputHost } from '../input/index';
+import { FormControlMaterialInput, FORM_CONTROL_MATERIAL_INPUT } from '../material-design-inputs/index';
 
 let uniqueID = 0;
 
@@ -32,10 +32,13 @@ let uniqueID = 0;
   providers: [{
     provide: INPUT_HOST_TOKEN,
     useExisting: forwardRef(() => TokenInputContainerComponent),
+  }, {
+    provide: FORM_CONTROL_MATERIAL_INPUT,
+    useExisting: forwardRef(() => TokenInputContainerComponent),
   }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenInputContainerComponent implements AfterContentInit, ControlValueAccessor, FormControlInput, InputHost {
+export class TokenInputContainerComponent implements AfterContentInit, ControlValueAccessor, FormControlInput, InputHost, FormControlMaterialInput {
 
   constructor(
     public elementRef: ElementRef,
@@ -81,6 +84,11 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   get isFocused() {
     return this.input.isFocused;
   }
+
+  get isLabelFloating() {
+    return this.input.isLabelFloating || (this.value && this.value.length > 0);
+  }
+
 
   @HostBinding('class.vclError')
   get hasError() {

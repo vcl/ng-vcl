@@ -62,15 +62,14 @@ export class FormControlGroupMaterialDirective implements AfterViewInit {
     return this.active && this.mode !== 'disabled';
   }
 
-  @HostBinding('class.vclMaterialStatic')
-  get classMaterialStatic() {
-    return this.active && this.mode === 'static';
-  }
-
   @HostBinding('class.vclMaterialFocused')
   focused = false;
 
   @HostBinding('class.vclMaterialFloatingLabel')
+  get classMaterialFloatingLabel() {
+    return this.active && (this.mode === 'static' || (this.mode === 'float' && this.float));
+  }
+
   float = false;
 
   _currentModifierClass?: string;
