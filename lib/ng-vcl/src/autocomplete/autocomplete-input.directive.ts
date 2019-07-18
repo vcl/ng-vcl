@@ -66,6 +66,8 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
     if (this.ddDisabled || this.isDisabled || !this.focused || !this.autocomplete) {
       this.autocomplete.close();
       return;
+    } else if (this.autocomplete && this.autocomplete.isOpen) {
+      return;
     }
 
     this.autocomplete.open({
