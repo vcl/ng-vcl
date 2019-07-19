@@ -17,7 +17,7 @@ module.exports.default = {
   config(cfg) {
     cfg = merge(cfg, webpackHelper({
       ...this.opts,
-      globalStyle: path.resolve(__dirname, 'demo/styles.sss'),
+      globalStyle: ['demo/styles.sss', 'wc/styles.sss'],
       fa: true,
       mdi: true,
     }));
