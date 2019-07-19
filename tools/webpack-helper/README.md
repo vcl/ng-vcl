@@ -37,8 +37,7 @@ module.exports.default = {
 
 - extractCSS [false] - Extract css into seperate file
 - sourceMap [false] - Generate a source map
-- globalStyle ['src/styles.sss'] - Path to global style
+- globalStyle ['src/styles.sss'] - Path to global style(s). Can be array or string.
 - root [process.cwd()] - Base directory
-- theme ["@vcl/theme"] - Theme to use
-- fas [false] - Enable @vcl/font-awesome path fix
+- fa [false] - Enable @vcl/font-awesome path fix
 - mdi [false] - Enable @vcl/mdi path fix

@@ -18,12 +18,22 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
  */
 module.exports = function(opts = {}) {
   const root = opts.root || process.cwd();
-  const globalStyle = path.resolve(root, opts.globalStyle || 'src/styles.sss');
+
+  let globalStyle;
+
+  if (typeof opts.globalStyle === 'string') {
+    globalStyle = [opts.globalStyle];
+  } else if (Array.isArray(opts.globalStyle)) {
+    globalStyle = opts.globalStyle;
+  } else {
+    globalStyle = ['src/styles.sss']
+  }
+
+  globalStyle =  globalStyle.map(gs => path.resolve(root, gs));
 
   const plugins = vcl.createPostCSSPlugins({
     optimize: false,
     root,
-    theme: opts.theme
   });
 
   // VCL support
