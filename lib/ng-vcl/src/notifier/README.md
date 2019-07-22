@@ -9,7 +9,6 @@ import { VCLNotifierModule, VCLLayerModule } from 'ng-vcl';
 
 @NgModule({
   imports: [ 
-    VCLLayerModule.forRoot(),
     VCLNotifierModule,
   ],
   ...
