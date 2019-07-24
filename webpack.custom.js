@@ -1,11 +1,9 @@
 const webpack = require('webpack');
-const path = require('path');
 const merge = require('webpack-merge');
 const webpackHelper = require('@ng-vcl/webpack-helper');
 
 module.exports.default = {
   opts: null,
-  sourceRoot: null,
 
   pre(builderConfig) {
     this.opts = {
@@ -24,14 +22,6 @@ module.exports.default = {
 
     const currentBranch = process.env.GIT_BRANCH || 'unknown';
     
-    if (cfg.output.path.endsWith('docs') || cfg.output.path.endsWith('docs/')) {
-      cfg = merge(cfg, {
-        output: {
-          path: path.resolve(cfg.output.path, currentBranch)
-        }
-      });
-    }
-
     return merge(cfg, {
       plugins: [
         new webpack.DefinePlugin({

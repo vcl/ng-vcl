@@ -5,11 +5,10 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": [
@@ -17,7 +16,8 @@
     ],
     "lib": [
       "es2018",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
     "paths": {
       "@ng-vcl/ng-vcl": [
@@ -25,18 +25,6 @@
       ],
       "@ng-vcl/ng-vcl/*": [
         "lib/ng-vcl/src/*"
-      ],
-      "@ng-vcl/animations": [
-        "lib/animations/src"
-      ],
-      "@ng-vcl/animations/*": [
-        "lib/animations/src/*"
-      ],
-      "@ng-vcl/jss-form": [
-        "lib/jss-form/src"
-      ],
-      "@ng-vcl/jss-form/*": [
-        "lib/jss-form/src/*"
       ]
     }
   }

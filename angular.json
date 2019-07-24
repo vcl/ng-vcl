@@ -25,7 +25,8 @@
             "styles": [
               "demo/styles.sss"
             ],
-            "deleteOutputPath": false
+            "scripts": [],
+            "es5BrowserSupport": true
           },
           "configurations": {
             "production": {
