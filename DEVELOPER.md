@@ -2,18 +2,6 @@
 
 ## Developing
 
-Run `npm run build` to create all the libraries required for the demo.
-
-To have incremental builds on file changes, run one the following commands:
-
-```
-npm run dev:ng-vcl
-npm run dev:animations
-npm run dev:jss-form
-```
-
-To start the demo run
-
 ```
 npm run dev:demo
 ```
