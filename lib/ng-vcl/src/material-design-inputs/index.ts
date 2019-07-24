@@ -5,6 +5,10 @@ import { FormControlGroupMaterialDirective } from './form-control-group.directiv
 import { FormControlMaterialInput, FORM_CONTROL_MATERIAL_INPUT, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost, MaterialMode, FormControlGroupMaterialConfig } from './types';
 import { FormControlGroupMaterialConfigDirective } from './config.directive';
 
+export function materialDesignInputsConfigFactory() {
+  return new FormControlGroupMaterialConfig();
+}
+
 export {
   MaterialMode,
   FormControlGroupMaterialConfig,
@@ -22,7 +26,7 @@ export {
   declarations: [FormControlGroupMaterialDirective, FormControlGroupMaterialConfigDirective],
   providers: [{
     provide: FormControlGroupMaterialConfig,
-    useValue: new FormControlGroupMaterialConfig()
+    useFactory: materialDesignInputsConfigFactory
   }]
 })
 export class VCLMaterialDesignInputsModule { }
