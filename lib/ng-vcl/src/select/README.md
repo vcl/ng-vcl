@@ -1,12 +1,12 @@
 # vcl-select
 
-A select control. Utilizes the select-list to render a list of selectable items in a dropdown.
+A select control. Wraps the vcl-select-list to render a list of selectable items in a dropdown.
 
 ## Usage
 
 ```html
-<vcl-select [(value)]="value">
-  <vcl-select-list>
+<vcl-select>
+  <vcl-select-list [(value)]="value">
     <vcl-select-list-item label=" -">
       <vcl-select-list-label>[Clear selection]</vcl-select-list-label>
     </vcl-select-list-item>
@@ -29,14 +29,5 @@ A select control. Utilizes the select-list to render a list of selectable items 
 
 Name                  | Type                        | Default  | Description
 --------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
-`value`               | any &#124; any[]            |          | value(s) of the selected option(s)
 `placeholder`         | string                      |          | 
-`selectionMode`       | "single" &#124; "multiple"  | "single" |
 `tabindex`            | number                      | 0        | The tabindex of the select
-`disabled`            | boolean                     | false    | Disabled the control when true
-
-#### vcl-select events
-
-Name                  | Type             | Description
---------------------- | ---------------  | -
-`valueChange`         | any &#124; any[] | emits the new value when the selected options change
