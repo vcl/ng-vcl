@@ -134,6 +134,10 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     }
   }
 
+  highlightSelected(): void {
+    this._highlightedItem = this.selectedItems[0];
+  }
+
   selectItem(item: SelectListItem): void {
     if (this.selectionMode === 'single') {
       this.value = item.value;

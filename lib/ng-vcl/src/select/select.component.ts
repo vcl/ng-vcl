@@ -296,7 +296,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   protected afterDetached(result) {
     this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
-    this.selectList.highlight(undefined);
+    this.selectList.highlightSelected();
     this.afterClose.emit(this.selectList.value);
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
