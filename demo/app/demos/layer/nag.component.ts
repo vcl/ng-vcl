@@ -10,13 +10,19 @@ export interface NagLayerResult {
   accept: boolean;
 }
 
+export interface INagLayer extends ComponentLayerRef<NagLayerData, NagLayerResult, NagComponent> {
+  nag(): void;
+}
+
 @Component({
   templateUrl: 'nag.component.html',
   styles: [`:host { width: 100%; }`]
 })
 export class NagComponent {
-  // Utilize forwardRef to avoid using NagLayer before it was declared
-  constructor(@Inject(forwardRef(() => NagLayer)) public layer: NagLayer) { }
+  // Inject the ComponentLayerRef and use an interface for typings
+  // Injecting with forwardRef(() => NagLayer) would result in an `Cannot access 'NagLayer' before initialization` at runtime when targeting es2015
+  // See https://github.com/angular/angular/issues/30106
+  constructor(@Inject(ComponentLayerRef) public layer: INagLayer) { }
 
   @HostBinding('class.vclNag')
   @HostBinding('class.vclContainer')
@@ -25,6 +31,7 @@ export class NagComponent {
   _hostClasses = true;
 
   accept() {
+    this.layer.nag();
     this.layer.close({
       accept: true
     });
@@ -40,7 +47,8 @@ export class NagComponent {
 @Injectable({
   providedIn: 'root'
 })
-export class NagLayer extends ComponentLayerRef<NagLayerData, NagLayerResult, NagComponent> {
+export class NagLayer extends ComponentLayerRef<NagLayerData, NagLayerResult, NagComponent> implements INagLayer {
+
 
   constructor(injector: Injector, private overlay: Overlay) {
     super(injector);
@@ -60,5 +68,7 @@ export class NagLayer extends ComponentLayerRef<NagLayerData, NagLayerResult, Na
     });
   }
 
-
+  nag(): void {
+    console.log('Nag...');
+  }
 }
