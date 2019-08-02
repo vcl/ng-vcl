@@ -13,7 +13,8 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLNotifierModule,
          VCLPasswordInputModule,
          VCLMaterialDesignInputsModule,
-         VCLRadioButtonModule} from '@ng-vcl/ng-vcl';
+         VCLRadioButtonModule,
+         VCLDatepickerModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { MaterialDesignInputsDemoComponent } from './demo.component';
 
@@ -55,6 +56,7 @@ export function demo() {
     VCLSelectModule,
     VCLTextareaModule,
     VCLNotifierModule,
+    VCLDatepickerModule,
     VCLFormControlGroupModule,
     VCLMaterialDesignInputsModule,
     RouterModule.forChild([{

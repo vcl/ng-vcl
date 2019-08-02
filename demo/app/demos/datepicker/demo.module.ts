@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLDatePickerModule } from '@ng-vcl/ng-vcl';
+import { VCLDatepickerModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { DatePickerDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Date Picker',
+    label: 'Datepicker',
     tabs: {
       Demo: DatePickerDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/date-picker/README.md')
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/datepicker/README.md')
       },
       'demo.component.html': {
         type: 'pre',
@@ -32,7 +32,7 @@ export function demo() {
     CommonModule,
     FormsModule,
     DemoModule,
-    VCLDatePickerModule,
+    VCLDatepickerModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,

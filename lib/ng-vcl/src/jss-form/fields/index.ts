@@ -12,7 +12,7 @@ export * from './slider';
 export * from './checkbox';
 export * from './radio-group';
 export * from './token';
-export * from './date-picker';
+export * from './datepicker';
 export * from './file-input';
 export * from './button-group';
 export * from './hidden';

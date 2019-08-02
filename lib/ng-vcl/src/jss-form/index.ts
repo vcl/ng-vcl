@@ -14,7 +14,7 @@ import { VCLPasswordInputModule } from '../password-input/index';
 import { VCLTokenModule } from '../token/index';
 import { VCLIconModule } from '../icon/index';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
-import { VCLDatePickerModule } from '../date-picker/index';
+import { VCLDatepickerModule } from '../datepicker/index';
 import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
@@ -26,8 +26,8 @@ import { PortalModule } from '@angular/cdk/portal';
 import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSwitchComponent,
          FormFieldObjectComponent, FormFieldRatingComponent, FormFieldControl,
          FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
-         FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent, FormFieldDatePickerComponent,
-         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent, FormFieldPasswordInputComponent } from './fields/index';
+         FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent,
+         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent, FormFieldPasswordInputComponent, FormFieldDatepickerComponent } from './fields/index';
 
 export { JssFormComponent };
 export * from './schemas';
@@ -53,7 +53,7 @@ export {FormField, FormFieldControl };
     VCLIconModule,
     VCLFormControlGroupModule,
     VCLMaterialDesignInputsModule,
-    VCLDatePickerModule,
+    VCLDatepickerModule,
     VCLSelectModule,
     VCLSelectListModule,
     VCLFileInputModule,
@@ -74,7 +74,7 @@ export {FormField, FormFieldControl };
     FormFieldCheckboxComponent,
     FormFieldRadioGroupComponent,
     FormFieldTokenComponent,
-    FormFieldDatePickerComponent,
+    FormFieldDatepickerComponent,
     FormFieldFileInputComponent,
     FormFieldHiddenComponent,
     FormFieldButtonGroupComponent,
@@ -96,7 +96,7 @@ export {FormField, FormFieldControl };
     FormFieldCheckboxComponent,
     FormFieldRadioGroupComponent,
     FormFieldTokenComponent,
-    FormFieldDatePickerComponent,
+    FormFieldDatepickerComponent,
     FormFieldFileInputComponent,
     FormFieldHiddenComponent,
     FormFieldButtonGroupComponent,

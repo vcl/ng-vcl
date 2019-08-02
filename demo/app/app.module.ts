@@ -8,7 +8,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
   VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule, VCLIcogramModule,
-  VCLBusyIndicatorModule
+  VCLBusyIndicatorModule,
+  VCL_NATIVE_DATE_ADAPTER_PARSER,
+  NativeDateAdapterParserEN
 } from '@ng-vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
@@ -40,6 +42,13 @@ import { AppRoutingModule } from './app-routing.module';
   entryComponents: [],
   bootstrap: [
     AppComponent
+  ],
+  providers: [
+    {
+      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
+      useClass: NativeDateAdapterParserEN,
+      multi: true
+    }
   ]
 })
 export class AppModule { }

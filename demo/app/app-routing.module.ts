@@ -89,11 +89,11 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/date-picker/demo.module').then(m => m.DatePickerDemoModule),
-    path: 'date-picker',
+    loadChildren: () => import('./demos/datepicker/demo.module').then(m => m.DatePickerDemoModule),
+    path: 'datepicker',
     data: {
       demo: {
-        label: 'Date Picker',
+        label: 'Datepicker',
         category: CAT_FORM_CONTROLS,
       }
     }
@@ -384,6 +384,16 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Table',
+        category: CAT_TABULAR_DATA,
+      }
+    }
+  },
+  {
+    loadChildren: () => import('./demos/calendar/demo.module').then(m => m.CalendarDemoModule),
+    path: 'calendar',
+    data: {
+      demo: {
+        label: 'Calendar',
         category: CAT_TABULAR_DATA,
       }
     }

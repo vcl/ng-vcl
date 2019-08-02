@@ -30,6 +30,9 @@ export class FormControlGroupDemoComponent {
       Validators.minLength(2),
     ]),
     description: new FormControl('', []),
+    dob: new FormControl(null, [
+      Validators.required
+    ]),
     password: new FormControl('', [
       Validators.required,
       Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'),

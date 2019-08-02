@@ -1,0 +1,22 @@
+<div class="vclDGRow">
+  <div class="vclDGCell vclToolbar">
+    <div class="vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar">
+      <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToPrevYears()">
+        <vcl-icon icon="vcl:arrow-left"></vcl-icon>
+      </button>
+      <span class="vclCalHeaderLabel">{{calendarYears.label}}</span>
+      <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToNextYears()">
+        <vcl-icon icon="vcl:arrow-right"></vcl-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="vclDGRow" role="row" *ngFor="let group of groupedYears">
+  <div *ngFor="let year of group" 
+       class="vclDGCell vclCalItem" 
+       [class.vclToday]="year.isCurrentYear"
+       role="gridcell" 
+       tabindex="0" 
+       (click)="onSelectYear(year.date)"
+       >{{year.label}}</div>
+</div>

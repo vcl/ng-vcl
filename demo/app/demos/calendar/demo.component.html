@@ -1,0 +1,20 @@
+<h3>Basic calendar</h3>
+
+<vcl-calendar [date]="date"></vcl-calendar>
+
+<h3>Calendar with custom footer</h3>
+
+<vcl-calendar [date]="date" #calendar="vclCalendar">
+  <div vclCalendarFooter class="vclDGRow" *ngIf="calendar.view === 'month'">
+    <div class="vclDGCell vclToolbar">
+      <div class="vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar">
+        <button vcl-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.setViewDate()">
+          go to today
+        </button>
+        <button vcl-square-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.setViewDate(calendar.date)">
+          go to selected
+        </button>
+      </div>
+    </div>
+  </div>
+</vcl-calendar>

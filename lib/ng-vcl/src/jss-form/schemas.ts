@@ -1,12 +1,11 @@
 import { ValidatorFn } from '@angular/forms';
-import { DatePickerConfig } from '../date-picker/index';
 import { FormControlErrorStateAgent } from '../form-control-group/index';
 import { Hint, Conditional } from './types';
 import { MaterialMode } from '../material-design-inputs/index';
 
 export type VCLFormFieldSchemaType = 'input' | 'number' | 'password' | 'hidden' |
                                      'textarea' | 'select' | 'select-list' | 'switch' | 'slider' | 'checkbox' | 'rating' |
-                                     'radio-group' | 'button-group' | 'token' | 'date-picker' | 'file-input' | 'button' | 'submit' | 'buttons' |
+                                     'radio-group' | 'button-group' | 'token' | 'datepicker' | 'file-input' | 'button' | 'submit' | 'buttons' |
                                      'array' | 'object' | 'form';
 
 export interface VCLFormFieldSchema {
@@ -168,8 +167,8 @@ export interface VCLFormFieldSchemaToken extends VCLFormFieldControlSchema {
 }
 
 export interface VCLFormFieldSchemaDatePicker extends VCLFormFieldControlSchema {
-  type: 'date-picker';
-  params?: DatePickerConfig | Conditional<DatePickerConfig>;
+  type: 'datepicker';
+  params?: {} | Conditional<{}>;
 }
 
 export interface VCLFormFieldSchemaFileInputParams {

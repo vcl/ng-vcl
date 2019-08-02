@@ -1,0 +1,25 @@
+<input #input 
+       vclInput
+       [disabled]="isDisabled"
+       [placeholder]="placeholder || ''"
+       [disabled]="isDisabled"
+       class="vclAppItem"
+       autocomplete="new-password"
+       [class.vclError]="hasError"
+       (focus)="onFocus()"
+       (blur)="onBlur()"
+       >
+<button #btn
+        vcl-square-button
+        type="button"
+        tabindex="-1"
+        [disabled]="isDisabled"
+        class="vclAppended"
+        (click)="onButtonClick()"
+      >
+      <vcl-icon icon="vcl:calendar"></vcl-icon>
+</button>
+
+<ng-template>
+  <ng-content select="vcl-calendar"></ng-content>
+</ng-template>

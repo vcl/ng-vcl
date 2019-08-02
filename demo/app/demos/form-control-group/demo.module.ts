@@ -12,7 +12,8 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLEmbeddedInputGroupModule,
          VCLRatingModule,
          VCLNotifierModule,
-         VCLPasswordInputModule} from '@ng-vcl/ng-vcl';
+         VCLPasswordInputModule,
+         VCLDatepickerModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
 import { VCLCounterModule } from './counter.component';
@@ -63,6 +64,7 @@ export function demo() {
     VCLTokenModule,
     VCLTextareaModule,
     VCLNotifierModule,
+    VCLDatepickerModule,
     VCLFormControlGroupModule,
     RouterModule.forChild([{
       path: '',

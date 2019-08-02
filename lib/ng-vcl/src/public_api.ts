@@ -23,6 +23,8 @@ export * from './radio-button/index';
 export * from './checkbox/index';
 export * from './off-click/index';
 export * from './date-picker-legacy/index';
+export * from './datepicker/index';
+export * from './calendar/index';
 export * from './month-picker/index';
 export * from './label/index';
 export * from './token/index';

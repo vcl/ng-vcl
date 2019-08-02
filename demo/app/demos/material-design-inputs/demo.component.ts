@@ -23,6 +23,9 @@ export class MaterialDesignInputsDemoComponent {
       Validators.required,
       Validators.minLength(2),
     ]),
+    dob: new FormControl(null, [
+      Validators.required
+    ]),
     description: new FormControl('', []),
     password: new FormControl('', [
       Validators.required

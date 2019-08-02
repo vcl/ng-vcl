@@ -41,6 +41,14 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
       }
     },
     {
+      type: 'datepicker',
+      name: 'dob',
+      label: 'Date of Birth',
+      params: {
+        placeholder: 'MM/DD/YYYY',
+      }
+    },
+    {
       type: 'password-input',
       name: 'password',
       label: 'Password',

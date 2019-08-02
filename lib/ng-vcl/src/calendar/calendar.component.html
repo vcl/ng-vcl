@@ -1,0 +1,29 @@
+<!-- <div class="" [ngSwitch]="currentView"> -->
+<div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput" role="grid" aria-readonly="true" style="width: 18em;">
+  <ng-content select="[vclCalendarHeader]"></ng-content>
+  <vcl-calendar-years *ngIf="view === 'years'" 
+                     [date]="date" 
+                     [viewDate]="viewDate" 
+                     (viewDateChange)="onViewDateChange($event)"
+                     (changeView)="onChangeView($event)"
+                     ></vcl-calendar-years>
+  <vcl-calendar-year *ngIf="view === 'year'" 
+                     [date]="date" 
+                     [viewDate]="viewDate" 
+                     (changeView)="onChangeView($event)"
+                     (viewDateChange)="onViewDateChange($event)"
+                     ></vcl-calendar-year>
+  <vcl-calendar-month *ngIf="view === 'month'" 
+                      [date]="date" 
+                      [viewDate]="viewDate" 
+                      [available]="available" 
+                      [unavailable]="unavailable" 
+                      [minDate]="minDate"
+                      [maxDate]="maxDate"
+                      (changeView)="onChangeView($event)"
+                      (viewDateChange)="onViewDateChange($event)"
+                      (dateChange)="onSelectDay($event)"
+                      ></vcl-calendar-month>
+  <ng-content select="[vclCalendarFooter]"></ng-content>                      
+</div>
+  

@@ -30,7 +30,14 @@
     <label vclFormControlLabel>Description</label>
     <textarea vclInput formControlName="description" placeholder="Description of the hero" [autogrow]="true" [minRows]="3" [maxRows]="10"></textarea>
   </vcl-form-control-group>
-  
+
+  <vcl-form-control-group>
+    <label vclFormControlLabel>Date of Birth</label>
+    <vcl-datepicker formControlName="dob" placeholder="MM/DD/YYYY">
+      <vcl-calendar></vcl-calendar>
+    </vcl-datepicker>
+  </vcl-form-control-group>
+
   <vcl-form-control-group>
     <label vclFormControlLabel>Email</label>
     <vcl-embedded-input-group>
