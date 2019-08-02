@@ -22,7 +22,7 @@ export * from './progress-bar/index';
 export * from './radio-button/index';
 export * from './checkbox/index';
 export * from './off-click/index';
-export * from './date-picker/index';
+export * from './date-picker-legacy/index';
 export * from './month-picker/index';
 export * from './label/index';
 export * from './token/index';
