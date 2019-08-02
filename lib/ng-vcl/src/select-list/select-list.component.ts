@@ -241,7 +241,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onChange: (_: any) => void = () => {};
+  onChange: (_: any) => void = () => {};
   onTouched: () => void = () => {};
 
   writeValue(value: any): void {

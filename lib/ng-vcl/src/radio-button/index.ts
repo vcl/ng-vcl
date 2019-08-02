@@ -4,8 +4,9 @@ import { VCLIconModule } from './../icon/index';
 import { RadioButtonComponent } from './radio-button.component';
 import { RadioGroupComponent } from './radio-group.component';
 import { RadioButtonLabelDirective } from './radio-button-label.directive';
+import { VCLFormControlGroupModule } from '../form-control-group/index';
 
-export { RadioButtonComponent, RadioGroupComponent, RadioButtonLabelDirective };
+export { RadioButtonComponent, RadioGroupComponent, RadioButtonLabelDirective, VCLFormControlGroupModule };
 
 @NgModule({
   imports: [CommonModule, VCLIconModule],

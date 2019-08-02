@@ -7,13 +7,14 @@ import { VCLButtonModule } from '../button/index';
 import { VCLInputModule } from '../input/index';
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLSelectListModule } from '../select-list/index';
+import { VCLFormControlGroupModule } from '../form-control-group/index';
 
 import { SelectComponent } from './select.component';
 
 export { SelectComponent };
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLSelectListModule],
+  imports: [CommonModule, OverlayModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLSelectListModule, VCLFormControlGroupModule],
   exports: [SelectComponent, VCLSelectListModule],
   declarations: [SelectComponent],
   providers: [],
