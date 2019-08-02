@@ -28,5 +28,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   'star-half': 'fas fa-star-half-alt',
   'star-empty': 'far fa-star',
   'add': 'fas fa-plus',
-  'remove': 'fas fa-minus'
+  'remove': 'fas fa-minus',
+  'calendar': 'fas fa-calendar'
 };
