@@ -298,8 +298,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
     this.selectList.highlightSelected();
     this.afterClose.emit(this.selectList.value);
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
+    if (!this.isDestroyed) {
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    }
   }
 
   ngOnDestroy() {
