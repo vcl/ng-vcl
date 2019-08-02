@@ -130,6 +130,11 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
     return this.elementRef.nativeElement.value || '';
   }
 
+  set value(value: string) {
+    this.elementRef.nativeElement.value = value;
+    this.stateChangedEmitter.next();
+  }
+
   ngOnDestroy() {
     this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
