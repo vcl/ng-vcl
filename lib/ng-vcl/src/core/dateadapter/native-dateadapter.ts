@@ -1,6 +1,6 @@
 import { Inject, Optional, LOCALE_ID } from '@angular/core';
-import { VCLDateAdapterDisplayFormats, VCLDateAdapter, VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from './dateadapter';
-import { IsoDateAdapterParser, VCL_NATIVE_DATE_ADAPTER_PARSER, VCLNativeDateAdapterParser,  } from './native-dateadapter-parsers';
+import { VCLDateAdapterDisplayFormats, VCLDateAdapter, VCL_DATE_ADAPTER_WEEKDAY_OFFSET, VCLDateAdapterParseFormats } from './dateadapter';
+import { VCL_NATIVE_DATE_ADAPTER_PARSER, VCLNativeDateAdapterParser, NativeDateAdapterParserEN,  } from './native-dateadapter-parsers';
 import { VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS,  } from './native-dateadapter-formats';
 
 export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
@@ -28,7 +28,7 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
     }
 
     if (!this.parser) {
-      this.parser = new IsoDateAdapterParser();
+      this.parser = new NativeDateAdapterParserEN();
     }
     this.weekDayOffset = typeof weekDayOffset === 'number' ? weekDayOffset : 0;
   }
@@ -37,6 +37,12 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
 
   isDate(date: any): date is Date {
     return date instanceof Date && isFinite(date.getTime());
+  }
+
+  use24hTime(): boolean {
+    return !new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric' } )
+                    .format(new Date())
+                    .match(/am|pm/i);
   }
 
   addMonths(date: Date, months: number): Date {
@@ -75,20 +81,35 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
     return date.getDate();
   }
 
+  getHour(date: Date): number {
+    return date.getHours();
+  }
+  getMinute(date: Date): number {
+    return date.getMinutes();
+  }
+
+  max(): Date {
+    return new Date(8640000000000000);
+  }
+
+  min(): Date {
+    return new Date(-8640000000000000);
+  }
+
   format(date: Date, type: VCLDateAdapterDisplayFormats): string {
-    if (type === 'input_date') {
-      return this.parser.format(date);
+    if (type === 'input_date' || type === 'input_time' || type === 'input_month') {
+      return this.parser.format(date, type);
     }
 
     const dtf = new Intl.DateTimeFormat(this.locale || 'default', {
       timeZone: 'utc',
       ...this.formats[type]
     });
-    return dtf.format(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    return dtf.format(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
   }
 
-  parse(date: string): Date {
-    return this.parser.parse(date);
+  parse(date: string, format: VCLDateAdapterParseFormats): Date {
+    return this.parser.parse(date, format);
   }
 
   getWeekOfTheYear(date: Date): number {
@@ -122,6 +143,15 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
 
   createDate(year: number, month: number, day: number): Date {
     return new Date(year, month, day);
+  }
+
+  createDateTime(year: number, month: number, day: number, hour: number, minute: number, second: number): Date {
+    return new Date(year, month, day, hour, minute, second);
+  }
+
+  createTime(hour: number, minute: number, second: number): Date {
+    const date = this.today();
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute, second);
   }
 
   today(): Date {

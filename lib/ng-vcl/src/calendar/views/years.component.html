@@ -11,10 +11,11 @@
     </div>
   </div>
 </div>
-<div class="vclDGRow" role="row" *ngFor="let group of groupedYears">
+<div class="vclDGRow" role="row" *ngFor="let group of calendarYears.years">
   <div *ngFor="let year of group" 
        class="vclDGCell vclCalItem" 
        [class.vclToday]="year.isCurrentYear"
+       [class.vclDisabled]="disabled"
        role="gridcell" 
        tabindex="0" 
        (click)="onSelectYear(year.date)"

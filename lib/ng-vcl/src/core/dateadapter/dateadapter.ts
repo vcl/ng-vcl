@@ -1,10 +1,5 @@
-import { Inject, InjectionToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
-function invalidDateParameter(): never {
-  throw new Error('Invalid Date Parameter');
-}
-
-// export const VCL_LOCALE = new InjectionToken('VCL_LOCALE');
 export const VCL_DATE_ADAPTER = new InjectionToken('VCL_DATE_ADAPTER');
 export const VCL_DATE_ADAPTER_WEEKDAY_OFFSET = new InjectionToken('VCL_DATE_ADAPTER_WEEKDAY_OFFSET');
 
@@ -13,7 +8,9 @@ export interface VCLDateRange<VCLDate> {
   end: VCLDate;
 }
 
-export type VCLDateAdapterDisplayFormats = 'day' | 'month' | 'year' | 'yearAndMonth' | 'weekday' | 'date' | 'input_date';
+export type VCLDateAdapterDisplayInputFormats = 'input_date' | 'input_time' | 'input_month';
+export type VCLDateAdapterDisplayFormats = VCLDateAdapterDisplayInputFormats | 'day' | 'month' | 'year' | 'yearAndMonth' | 'weekday' | 'date' | 'time' | 'minute' | 'hour';
+export type VCLDateAdapterParseFormats = 'input_date' | 'input_time' | 'input_month';
 
 export abstract class VCLDateAdapter<VCLDate> {
 
@@ -23,19 +20,33 @@ export abstract class VCLDateAdapter<VCLDate> {
   abstract weekDayOffset: number;
 
   abstract isDate(date: any): date is VCLDate;
+  abstract use24hTime(): boolean;
   abstract today(): VCLDate;
+  abstract max(): VCLDate;
+  abstract min(): VCLDate;
   abstract clone(date: VCLDate): VCLDate;
-  abstract parse(date: string): VCLDate | undefined;
+  abstract parse(date: string, format: VCLDateAdapterParseFormats): VCLDate | undefined;
   abstract addMonths(date: VCLDate, months: number): VCLDate;
   abstract addDays(date: VCLDate, days: number): VCLDate;
   abstract getDaysInMonth(date: VCLDate): number;
   abstract getYear(date: VCLDate): number;
   abstract getMonth(date: VCLDate): number;
   abstract getDay(date: VCLDate): number;
+  abstract getHour(date: VCLDate): number;
+  abstract getMinute(date: VCLDate): number;
   abstract getDayOfWeek(date: VCLDate): number;
   abstract getWeekOfTheYear(date: VCLDate): number;
   abstract getDayOfWeekNames(): string[];
   abstract createDate(year: number, month: number, day: number): VCLDate;
+  abstract createDateTime(year: number, month: number, day: number, hour: number, minute: number, second: number): VCLDate;
+  abstract createTime(hour: number, minute: number, second: number): VCLDate;
+
+  always(): VCLDateRange<VCLDate> {
+    return {
+      start: this.min(),
+      end: this.max()
+    };
+  }
 
   getFirstWeekdayOfMonth(date: VCLDate): number {
     const firstOfMonthDate =  this.createDate(this.getYear(date), this.getMonth(date), 1);
@@ -49,15 +60,27 @@ export abstract class VCLDateAdapter<VCLDate> {
   }
 
   /**
-   * Compares two dates
-   * @param date1 The first date to compare.
-   * @param date2 The second date to compare.
    * @returns 0 if  equal, less than 0 if the first date is earlier, greater than 0 if the first date is later.
    */
   compareDate(date1: VCLDate, date2: VCLDate): number {
     return this.getYear(date1) - this.getYear(date2) ||
            this.getMonth(date1) - this.getMonth(date2) ||
            this.getDay(date1) - this.getDay(date2);
+  }
+
+  /**
+   * @returns 0 if  equal, less than 0 if the first date's month is earlier, greater than 0 if the first date's month is later.
+   */
+  compareMonth(date1: VCLDate, date2: VCLDate): number {
+    return this.getYear(date1) - this.getYear(date2) ||
+           this.getMonth(date1) - this.getMonth(date2);
+  }
+
+  /**
+   * @returns 0 if  equal, less than 0 if the first date's year is earlier, greater than 0 if the first date's year is later.
+   */
+  compareYear(date1: VCLDate, date2: VCLDate): number {
+    return this.getYear(date1) - this.getYear(date2);
   }
 
   isSameMonth(date1: VCLDate, date2: VCLDate): boolean {
@@ -86,7 +109,21 @@ export abstract class VCLDateAdapter<VCLDate> {
     return typeof date === 'object' && date && this.isDate((date as any).start) && this.isDate((date as any).end);
   }
 
-  toDate(date: any): VCLDate {
+  createRange(start: VCLDate, end: VCLDate): VCLDateRange<VCLDate> {
+    if (this.compareDate(start, end) <= 0) {
+      return {
+        start,
+        end
+      };
+    } else {
+      return {
+        start: end,
+        end: start
+      };
+    }
+  }
+
+  toDate(date: any): VCLDate | undefined {
     if (this.isDate(date)) {
       return date;
     } else if (this.isRange(date)) {
@@ -96,6 +133,6 @@ export abstract class VCLDateAdapter<VCLDate> {
         return date[0];
       }
     }
-    invalidDateParameter();
+    return undefined;
   }
 }

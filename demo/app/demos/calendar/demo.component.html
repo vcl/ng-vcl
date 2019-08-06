@@ -1,17 +1,51 @@
 <h3>Basic calendar</h3>
 
-<vcl-calendar [date]="date"></vcl-calendar>
+<vcl-calendar [(value)]="date"></vcl-calendar>
+Value: {{date}}
+
+<h3>Calendar (selectionMode="range")</h3>
+
+<vcl-calendar [(value)]="dateRange" selectionMode="range"></vcl-calendar>
+Value: {{dateRange?.start}} - {{dateRange?.end}}
+
+<h3>Calendar (selectionMode="multiple")</h3>
+
+<vcl-calendar [(value)]="dateArray" selectionMode="multiple"></vcl-calendar>
+Value: {{dateArray}}
+
+<h3>Calendar (selectionMode="month")</h3>
+
+<vcl-calendar [(value)]="month" selectionMode="month"></vcl-calendar>
+Value: {{month}}
+
+<h3>Calendar (selectionMode="month-range")</h3>
+
+<vcl-calendar [(value)]="monthRange" selectionMode="month-range"></vcl-calendar>
+Value: {{monthRange?.start}} - {{monthRange?.end}}
+
+<h3>Calendar (selectionMode="month-multiple")</h3>
+
+<vcl-calendar [(value)]="monthArray" selectionMode="month-multiple"></vcl-calendar>
+Value: {{monthArray}}
+
+<h3>Calendar (disabled)</h3>
+
+<vcl-calendar [disabled]="true"></vcl-calendar>
+
+<h3>Calendar with (un)available dates</h3>
+
+<vcl-calendar [available]="available" [unavailable]="unavailable" [viewDate]="viewDate"></vcl-calendar>
 
 <h3>Calendar with custom footer</h3>
 
-<vcl-calendar [date]="date" #calendar="vclCalendar">
+<vcl-calendar #calendar="vclCalendar">
   <div vclCalendarFooter class="vclDGRow" *ngIf="calendar.view === 'month'">
     <div class="vclDGCell vclToolbar">
       <div class="vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar">
-        <button vcl-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.setViewDate()">
+        <button vcl-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.viewDate = today">
           go to today
         </button>
-        <button vcl-square-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.setViewDate(calendar.date)">
+        <button vcl-square-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.viewDate = calendar.date">
           go to selected
         </button>
       </div>

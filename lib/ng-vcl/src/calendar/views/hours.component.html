@@ -1,0 +1,37 @@
+  <div class="vclDGRow">
+    <div class="vclDGCell">
+      <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
+        <div class="vclButtonDim"></div>
+        <button vcl-button class="vclTransparent vclCalHeaderLabel" (click)="onLabelClick()">
+          {{hoursCalendar.use24hTime ? 'Hours' : 'AM' }}
+        </button>
+        <div class="vclButtonDim"></div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let hoursRow of hoursCalendar.hours; let i = index">
+    <div class="vclDGRow" *ngIf="!hoursCalendar.use24hTime && i === 2">
+      <div class="vclDGCell">
+        <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
+          <div class="vclButtonDim"></div>
+          <div class="vclCalHeaderLabel">PM</div>
+          <div class="vclButtonDim"></div>
+        </div>
+      </div>
+    </div>
+    <div class="vclDGRow" role="row">
+      <div *ngFor="let h of hoursRow" 
+           class="vclDGCell vclCalItem" 
+           [class.vclDisabled]="disabled"
+           role="option" 
+           tabindex="0" 
+           [class.vclSelected]="hour === h.hour" 
+           [attr.aria-selected]="hour === h.hour" 
+           (click)="onSelectHour(h.hour)">
+        {{h.label}}
+      </div>
+    </div>
+  </ng-container>
+  
+  

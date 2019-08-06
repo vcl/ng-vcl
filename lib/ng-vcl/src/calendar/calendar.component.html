@@ -1,29 +1,40 @@
-<!-- <div class="" [ngSwitch]="currentView"> -->
-<div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput" role="grid" aria-readonly="true" style="width: 18em;">
-  <ng-content select="[vclCalendarHeader]"></ng-content>
-  <vcl-calendar-years *ngIf="view === 'years'" 
-                     [date]="date" 
-                     [viewDate]="viewDate" 
-                     (viewDateChange)="onViewDateChange($event)"
-                     (changeView)="onChangeView($event)"
-                     ></vcl-calendar-years>
-  <vcl-calendar-year *ngIf="view === 'year'" 
-                     [date]="date" 
-                     [viewDate]="viewDate" 
-                     (changeView)="onChangeView($event)"
-                     (viewDateChange)="onViewDateChange($event)"
-                     ></vcl-calendar-year>
-  <vcl-calendar-month *ngIf="view === 'month'" 
-                      [date]="date" 
-                      [viewDate]="viewDate" 
-                      [available]="available" 
-                      [unavailable]="unavailable" 
-                      [minDate]="minDate"
-                      [maxDate]="maxDate"
-                      (changeView)="onChangeView($event)"
-                      (viewDateChange)="onViewDateChange($event)"
-                      (dateChange)="onSelectDay($event)"
-                      ></vcl-calendar-month>
-  <ng-content select="[vclCalendarFooter]"></ng-content>                      
-</div>
-  
+<ng-content select="[vclCalendarHeader]"></ng-content>
+<vcl-calendar-view-years *ngIf="view === 'years'" 
+                    [value]="value" 
+                    [viewDate]="viewDate"
+                    (valueChange)="onValueChange('years', $event)"
+                    (viewDateChange)="onViewDateChange('years', $event)"
+                    ></vcl-calendar-view-years>
+<vcl-calendar-view-year *ngIf="view === 'year'" 
+                    [value]="value" 
+                    [viewDate]="viewDate" 
+                    (viewDateChange)="onViewDateChange('year', $event)"
+                    (valueChange)="onValueChange('year', $event)"
+                    (labelClick)="onLabelClick('year', $event)"                    
+                    ></vcl-calendar-view-year>
+<vcl-calendar-view-month *ngIf="view === 'month'" 
+                    [disabled]="disabled"
+                    [value]="value" 
+                    [viewDate]="viewDate" 
+                    [available]="available" 
+                    [unavailable]="unavailable" 
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                    [showWeekOfTheYear]="showWeekOfTheYear"
+                    (viewDateChange)="onViewDateChange('month', $event)"
+                    (valueChange)="onValueChange('month', $event)"
+                    (labelClick)="onLabelClick('month', $event)"
+                    ></vcl-calendar-view-month>
+<vcl-calendar-view-hours *ngIf="view === 'hours'" 
+                    [value]="value" 
+                    (labelClick)="onLabelClick('hours', $event)"
+                    (valueChange)="onValueChange('hours', $event)"
+                    (labelClick)="onLabelClick('hours', $event)"
+                    ></vcl-calendar-view-hours>                           
+<vcl-calendar-view-minutes *ngIf="view === 'minutes'" 
+                    [value]="value" 
+                    (labelClick)="onLabelClick('minutes', $event)"
+                    (valueChange)="onValueChange('minutes', $event)"
+                    (labelClick)="onLabelClick('minutes', $event)"
+                    ></vcl-calendar-view-minutes>                           
+<ng-content select="[vclCalendarFooter]"></ng-content>                      

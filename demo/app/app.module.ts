@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,7 +10,8 @@ import {
   VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule, VCLIcogramModule,
   VCLBusyIndicatorModule,
   VCL_NATIVE_DATE_ADAPTER_PARSER,
-  NativeDateAdapterParserEN
+  NativeDateAdapterParserEN,
+  NativeDateAdapterParserDE
 } from '@ng-vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
@@ -44,11 +45,20 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent
   ],
   providers: [
-    {
-      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-      useClass: NativeDateAdapterParserEN,
-      multi: true
-    }
+    // {
+    //   provide: LOCALE_ID,
+    //   useValue: 'en'
+    // },
+    // {
+    //   provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
+    //   useClass: NativeDateAdapterParserEN,
+    //   multi: true
+    // },
+    // {
+    //   provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
+    //   useClass: NativeDateAdapterParserDE,
+    //   multi: true
+    // }
   ]
 })
 export class AppModule { }

@@ -45,7 +45,7 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
       name: 'dob',
       label: 'Date of Birth',
       params: {
-        placeholder: 'MM/DD/YYYY',
+        placeholder: 'MM/DD/YYYY'
       }
     },
     {

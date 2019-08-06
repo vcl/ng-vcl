@@ -7,7 +7,7 @@ import { CalendarDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Input',
+    label: 'Calendar',
     tabs: {
       Demo: CalendarDemoComponent,
       'README.md': {

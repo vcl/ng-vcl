@@ -1,23 +1,42 @@
-import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
-import { VCLDateAdapter, VCLDateRange } from '../core/index';
-import { CalendarView } from './interfaces';
-import { CalendarService } from './calendar.service';
+import { Component, Input, EventEmitter, Output, HostBinding, Inject, OnInit } from '@angular/core';
+import { VCLDateRange } from '../core/index';
+import { VCLCalendarView } from './interfaces';
+
+
+export abstract class CalendarHandler<VCLDate> {
+  abstract readonly mode: string;
+  abstract init(calendar: CalendarComponent<VCLDate>): void;
+  abstract handleValueChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, date: VCLDate): void;
+  abstract handleViewDateChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, viewDate: VCLDate): void;
+  abstract handleLabelClick(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView): void;
+}
+
+export type VCLCalendarSelectionMode = 'date' | 'multiple' | 'range' | 'month' | 'month-multiple' | 'month-range';
 
 @Component({
   selector: 'vcl-calendar',
   templateUrl: 'calendar.component.html',
-  exportAs: 'vclCalendar',
-  providers: [CalendarService]
+  exportAs: 'vclCalendar'
 })
-
-export class CalendarComponent<VCLDate> {
+export class CalendarComponent<VCLDate> implements OnInit {
   constructor(
-    private dateAdapter: VCLDateAdapter<VCLDate>,
-    private cdRef: ChangeDetectorRef
+    @Inject(CalendarHandler)
+    private handlers: CalendarHandler<VCLDate>[],
   ) { }
 
+  @HostBinding('class.vclDataGrid')
+  @HostBinding('class.vclDGVAlignMiddle')
+  @HostBinding('class.vclDGAlignCentered')
+  @HostBinding('class.vclCalendar')
+  @HostBinding('class.vclCalInput')
+  _calendarHostClasses = true;
+
+  view: VCLCalendarView = 'month';
+
+  handler?: CalendarHandler<VCLDate>;
+
   @Input()
-  date?: VCLDate | VCLDateRange<VCLDate>;
+  value?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
 
   @Input()
   available?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
@@ -29,7 +48,10 @@ export class CalendarComponent<VCLDate> {
   viewDate?: VCLDate;
 
   @Input()
-  view: CalendarView = 'month';
+  disabled = false;
+
+  @Input()
+  showWeekOfTheYear = false;
 
   @Input()
   minDate?: VCLDate;
@@ -38,62 +60,33 @@ export class CalendarComponent<VCLDate> {
   maxDate?: VCLDate;
 
   @Output()
-  dateChange = new EventEmitter<VCLDate | VCLDateRange<VCLDate>>();
+  valueChange = new EventEmitter<VCLDate | VCLDate[] | VCLDateRange<VCLDate>>();
 
   @Output()
   viewDateChange = new EventEmitter<VCLDate>();
 
-  @Output()
-  viewChange = new EventEmitter<CalendarView>();
+  @Input()
+  selectionMode: VCLCalendarSelectionMode | string = 'date';
 
-  onChangeView(view: CalendarView) {
-    this.view = view;
-    this.viewChange.emit(view);
+  onViewDateChange(source: VCLCalendarView, viewDate: VCLDate) {
+    this.handler.handleViewDateChange(this, source, viewDate);
   }
 
-  onViewDateChange(date: VCLDate) {
-    this.viewDate = date;
-    this.viewDateChange.emit(date);
+  onValueChange(source: VCLCalendarView, date: VCLDate) {
+    this.handler.handleValueChange(this, source, date);
   }
 
-  onSelectYear(date: VCLDate) {
-    this.viewDate = date;
-    this.view = 'year';
-    this.viewChange.emit(this.view);
-    this.viewDateChange.emit(date);
+  ngOnInit(): void {
+    this.handler = this.handlers.find(handler => handler.mode === this.selectionMode);
+    if (!this.handler) {
+      throw new Error('No CalendarHandler found for ' + this.selectionMode);
+    }
+
+    this.handler.init(this);
   }
 
-  onSelectMonth(date: VCLDate) {
-    this.viewDate = date;
-    this.view = 'month';
-    this.viewChange.emit(this.view);
-    this.viewDateChange.emit(date);
-  }
+  onLabelClick(source: VCLCalendarView) {
+    this.handler.handleLabelClick(this, source);
 
-  onSelectDay(date: VCLDate) {
-    this.viewDate = date;
-    this.date = date;
-    this.viewChange.emit(this.view);
-    this.dateChange.emit(date);
-    this.viewDateChange.emit(date);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
-  }
-
-  setViewDate(date?: VCLDate) {
-    this.viewDate = date || this.dateAdapter.today();
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
-  }
-
-  setDate(date: VCLDate | VCLDateRange<VCLDate>) {
-    this.date = date;
-    this.viewDate = date ? this.dateAdapter.toDate(date) : this.dateAdapter.today();
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
   }
 }

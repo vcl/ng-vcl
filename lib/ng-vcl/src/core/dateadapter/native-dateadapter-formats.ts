@@ -25,7 +25,19 @@ const DEFAULT_DISPLAY_FORMATS: {[key in VCLDateAdapterDisplayFormats]: Intl.Date
     month: '2-digit',
     day: '2-digit'
   },
-  input_date: null
+  time: {
+    hour: 'numeric',
+    minute: '2-digit',
+  },
+  minute: {
+    minute: 'numeric',
+  },
+  hour: {
+    hour: 'numeric',
+  },
+  input_date: null,
+  input_time: null,
+  input_month: null,
 };
 
 export const VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS_DEFAULT_PROVIDER: Provider = {

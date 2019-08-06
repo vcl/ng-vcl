@@ -1,0 +1,23 @@
+<div class="vclDGRow">
+  <div class="vclDGCell">
+    <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
+      <div class="vclButtonDim"></div>
+      <button vcl-button class="vclTransparent vclCalHeaderLabel" (click)="onLabelClick()">
+        Minutes
+      </button>
+      <div class="vclButtonDim"></div>
+    </div>
+  </div>
+</div>
+
+<div class="vclDGRow" role="row" *ngFor="let minutesRow of minutesCalendar.minutes">
+  <div *ngFor="let m of minutesRow" 
+       role="option" 
+       tabindex="0" 
+       class="vclDGCell vclCalItem" 
+       [class.vclDisabled]="disabled"
+       [class.vclSelected]="minute === m.minute" 
+       [attr.aria-selected]="minute === m.minute" 
+       (click)="onSelectMinute(m.minute)">
+       :{{m.label}}</div>
+</div>

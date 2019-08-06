@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLDatepickerModule } from '@ng-vcl/ng-vcl';
+import { VCLDatepickerModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { DatePickerDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Datepicker',
+    label: 'Input',
     tabs: {
       Demo: DatePickerDemoComponent,
       'README.md': {
@@ -30,8 +29,8 @@ export function demo() {
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     DemoModule,
+    VCLButtonModule,
     VCLDatepickerModule,
     RouterModule.forChild([{
       path: '',
@@ -42,4 +41,4 @@ export function demo() {
   entryComponents: [ DatePickerDemoComponent ],
   declarations: [ DatePickerDemoComponent ]
 })
-export class DatePickerDemoModule { }
+export class DatepickerDemoModule { }

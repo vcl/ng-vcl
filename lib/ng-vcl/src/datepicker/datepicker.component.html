@@ -17,9 +17,10 @@
         class="vclAppended"
         (click)="onButtonClick()"
       >
-      <vcl-icon icon="vcl:calendar"></vcl-icon>
+      <vcl-icon [icon]="pick === 'time' ? 'vcl:clock' : 'vcl:calendar'"></vcl-icon>
 </button>
 
 <ng-template>
-  <ng-content select="vcl-calendar"></ng-content>
+  <vcl-calendar [selectionMode]="pick" [value]="value" (valueChange)="onSelect($event)" style="width: 100%"></vcl-calendar>
 </ng-template>
+

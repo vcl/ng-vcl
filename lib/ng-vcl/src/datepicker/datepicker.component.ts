@@ -4,7 +4,6 @@ import {
   HostBinding,
   ViewChild,
   ElementRef,
-  ContentChild,
   ChangeDetectorRef,
   Output,
   EventEmitter,
@@ -14,27 +13,26 @@ import {
   TemplateRef,
   Injector,
   forwardRef,
-  AfterContentInit,
   Optional,
   Inject,
   OnChanges,
-  SimpleChanges} from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+  SimpleChanges,
+  AfterViewInit} from '@angular/core';
 import { Subscription, Subject, merge } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { createOffClickStream } from '../off-click/index';
+import { NgControl, ControlValueAccessor } from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
 import { FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT } from '../form-control-group/index';
-import { CalendarComponent } from '../calendar/index';
 import { VCLDateRange, VCLDateAdapter } from '../core/index';
 import { InputDirective } from '../input/index';
-import { NgControl, ControlValueAccessor } from '@angular/forms';
+import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayInputFormats } from '../core/dateadapter/dateadapter';
 
 let UNIQUE_ID = 0;
+
+export type DatepickerPick = 'date' | 'month' | 'time';
 
 @Component({
   selector: 'vcl-datepicker',
@@ -52,7 +50,7 @@ let UNIQUE_ID = 0;
     }
   ]
 })
-export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>> implements AfterContentInit, OnDestroy, FormControlMaterialInput, ControlValueAccessor, OnChanges {
+export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>> implements OnDestroy, FormControlMaterialInput, ControlValueAccessor, OnChanges, AfterViewInit {
 
   constructor(
     injector: Injector,
@@ -84,9 +82,6 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   private uniqueId = 'vcl_datepicker_' + UNIQUE_ID++;
 
-  @ContentChild(CalendarComponent, { static: false })
-  calendar: CalendarComponent<VCLDate>;
-
   @ViewChild('input', { read: InputDirective, static: true })
   input: InputDirective;
 
@@ -107,6 +102,9 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   @Output()
   valueChange = new EventEmitter<VCLDate>();
+
+  @Input()
+  pick: DatepickerPick = 'date';
 
   @Output()
   afterClose = new EventEmitter<any | any[]>();
@@ -130,6 +128,22 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     return this.isAttached || this.input.isLabelFloating;
   }
 
+  get parseFormat(): VCLDateAdapterParseFormats {
+    if (this.pick === 'date') {
+      return 'input_date';
+    } else if (this.pick === 'month') {
+      return 'input_month';
+    } else if (this.pick === 'time') {
+      return 'input_time';
+    } else {
+      throw new Error('Datepicker: Unsupported pick value: ' + this.pick);
+    }
+  }
+
+  get displayFormat(): VCLDateAdapterDisplayInputFormats {
+    return this.parseFormat;
+  }
+
   controlType = 'date-picker';
   materialModifierClass = undefined;
 
@@ -147,33 +161,18 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   }
 
   onButtonClick() {
-    this.calendar.setDate(this.value);
     this.toggle();
   }
 
   onBlur() {
-    const date = this.dateAdapter.parse(this.input.value);
-    this.propagateValueChange(date);
-    this.valueChange.emit(date);
-    this.onChange(date);
+    this.value = this.dateAdapter.parse(this.input.value, this.parseFormat);
+    this.updateInput();
+    this.valueChange.emit(this.value);
+    this.onChange(this.value);
     this.onTouched();
     this.stateChangedEmitter.next();
     // TODO: Change detection is not triggered after blur event?
     this.cdRef.detectChanges();
-  }
-
-  private propagateValueChange(date: VCLDate | undefined) {
-    if (this.calendar && this.isAttached) {
-      this.calendar.setDate(date);
-    }
-    if (this.input) {
-      if (date) {
-        this.input.value = this.dateAdapter.format(date, 'input_date');
-      } else {
-        this.input.value = '';
-      }
-    }
-    this.value = date;
   }
 
   createPortal() {
@@ -183,7 +182,8 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   protected getLayerConfig(): LayerConfig {
     return new LayerConfig({
       closeOnEscape: true,
-      hasBackdrop: false,
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this.overlay.scrollStrategies.reposition({
         autoClose: true
       }),
@@ -205,45 +205,40 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     });
   }
 
+  ngAfterViewInit() {
+    this.updateInput();
+  }
+
+  updateInput() {
+    if (this.input && this.value) {
+      this.input.value = this.dateAdapter.format(this.value, this.displayFormat);
+    } else if (this.input) {
+      this.input.value = '';
+    }
+  }
+
   onLabelClick(event: Event): void {
     this.input.focus();
   }
 
-  ngAfterContentInit(): void {
-    this._valueChangeSub = this.calendar.dateChange.subscribe(() => {
-      this.cdRef.markForCheck();
+  protected afterAttached(): void {
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.onTouched();
       this.stateChangedEmitter.next();
+      this.close();
     });
   }
 
-  protected afterAttached(): void {
-    this.calendar.dateChange.pipe(
-      takeUntil(this.afterClose)
-    ).subscribe((value) => {
-      if (this.isAttached) {
-        this.close(value);
-        this.stateChangedEmitter.next();
-      }
-      this.cdRef.markForCheck();
-    });
-    this.stateChangedEmitter.next();
-
-    this._dropdownOpenedSub = createOffClickStream([this.overlayRef.overlayElement, this.elementRef.nativeElement], {
-      document: this.injector.get(DOCUMENT)
-    }).subscribe(() => {
-      this.onTouched();
-      this.close();
-      this.stateChangedEmitter.next();
-    });
+  onSelect(date: VCLDate) {
+    this.value = date;
+    this.updateInput();
+    this.valueChange.emit(date);
+    this.onChange(date);
+    this.close();
   }
 
   protected afterDetached(date) {
     this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
-    if (date) {
-      this.propagateValueChange(date);
-      this.valueChange.emit(date);
-      this.onChange(date);
-    }
     this.afterClose.emit(date);
     if (!this.isDestroyed) {
       this.cdRef.markForCheck();
@@ -252,8 +247,8 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.value) {
-      this.propagateValueChange(changes.value.currentValue);
+    if (changes.value && !changes.value.isFirstChange()) {
+      this.updateInput();
     }
   }
 
@@ -269,9 +264,8 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   onTouched: () => void = () => {};
 
   writeValue(date: any): void {
-    console.log(date);
     this.value = date;
-    this.propagateValueChange(date);
+    this.updateInput();
     this.valueChange.emit(date);
   }
   registerOnChange(fn: any): void {
