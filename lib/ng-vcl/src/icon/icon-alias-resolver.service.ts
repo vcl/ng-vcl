@@ -29,6 +29,7 @@ export interface VCLIconAliasMap {
   'add': string;
   'remove': string;
   'calendar': string;
+  'clock': string;
 }
 
 // The icon resolver replaces icons prefixed with an alias. Usually you should provide only one default icon resolver in your app
