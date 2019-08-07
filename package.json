@@ -1,6 +1,6 @@
 {
   "name": "ng-vcl",
-  "version": "0.10.0",
+  "version": "0.10.0-1",
   "scripts": {
     "ng": "ng",
     "start": "npm run dev:demo",

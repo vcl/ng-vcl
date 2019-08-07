@@ -1,4 +1,72 @@
-# Changelog
+# [0.10.0-1](https://github.com/ng-vcl/ng-vcl/compare/v0.9.1...v0.10.0-1) (2019-08-07)
+
+
+### Bug Fixes
+
+* **datepicker:** remove bottom margin ([d8d463e](https://github.com/ng-vcl/ng-vcl/commit/d8d463e))
+* **select:** do not detect changes if view is destroyed ([3eabb52](https://github.com/ng-vcl/ng-vcl/commit/3eabb52))
+* add missing form control group imports ([d42a24e](https://github.com/ng-vcl/ng-vcl/commit/d42a24e))
+* **demo:** layer - fix forwardRef() runtime error when targeting es2015 ([26c2c0e](https://github.com/ng-vcl/ng-vcl/commit/26c2c0e))
+* **material-design-inputs:** fix input group style ([4aa3429](https://github.com/ng-vcl/ng-vcl/commit/4aa3429))
+* **select:** highlight selected item ([8f6823e](https://github.com/ng-vcl/ng-vcl/commit/8f6823e))
+
+
+### Features
+
+* **calendar:** add basic calendar/datepicker implementation ([a97ddfb](https://github.com/ng-vcl/ng-vcl/commit/a97ddfb))
+* **calendar:** mark partial ranges with alt selected class ([b486cf8](https://github.com/ng-vcl/ng-vcl/commit/b486cf8))
+* **calendar/datepicker:** add calendar/datepicker features ([fcc959d](https://github.com/ng-vcl/ng-vcl/commit/fcc959d))
+* **date-adapter:** add partial range support ([797470e](https://github.com/ng-vcl/ng-vcl/commit/797470e))
+* **date-picker:** deprecate and rename date-picker module ([ab253e5](https://github.com/ng-vcl/ng-vcl/commit/ab253e5))
+* **icon:** add vcl:calendar ([687a082](https://github.com/ng-vcl/ng-vcl/commit/687a082))
+* **icon:** add vcl:clock ([b9dbf20](https://github.com/ng-vcl/ng-vcl/commit/b9dbf20))
+* **input:** allow settings the value via vclInput directive ([e06a9b4](https://github.com/ng-vcl/ng-vcl/commit/e06a9b4))
+* **month-picker:** deprecate and rename month-picker module ([7336c0d](https://github.com/ng-vcl/ng-vcl/commit/7336c0d))
+
+
+### BREAKING CHANGES
+
+* **month-picker:** The VCLMonthPickerModule is deprecated and renamed to VCLMonthPickerLegacyModule
+* **date-picker:** The VCLDatePickerModule module is deprecated and renamed to
+VCLDatePickerLegacyModule
+
+
+
+## [0.9.1](https://github.com/ng-vcl/ng-vcl/compare/v0.9.0...v0.9.1) (2019-07-24)
+
+
+### Bug Fixes
+
+* **autocomplete:** Do not trigger autocomplete when attached ([a55e3c3](https://github.com/ng-vcl/ng-vcl/commit/a55e3c3))
+* **material-design-inputs:** create config in factory. Fixes aot error ([008823c](https://github.com/ng-vcl/ng-vcl/commit/008823c))
+
+
+### Features
+
+* **material-design-inputs:** Simplify styles, add placeholder face out/in, fixes ([ffcc9db](https://github.com/ng-vcl/ng-vcl/commit/ffcc9db))
+* **webpack-helper:** Support multiple global styles ([d446a14](https://github.com/ng-vcl/ng-vcl/commit/d446a14))
+
+
+
+# [0.9.0](https://github.com/ng-vcl/ng-vcl/compare/v0.8.0...v0.9.0) (2019-07-05)
+
+
+### Bug Fixes
+
+* **demo:** fix form-control-group radio buttons ([eadcd7f](https://github.com/ng-vcl/ng-vcl/commit/eadcd7f))
+* **demo:** radio button icons ([b16ccb8](https://github.com/ng-vcl/ng-vcl/commit/b16ccb8))
+* **offclick:** Move event handler to ngAfterInity ([d9cd634](https://github.com/ng-vcl/ng-vcl/commit/d9cd634))
+* **token:** Add flex class to input ([4311ca8](https://github.com/ng-vcl/ng-vcl/commit/4311ca8))
+* Update deps ([4b35730](https://github.com/ng-vcl/ng-vcl/commit/4b35730))
+
+
+### Features
+
+* **form-control-group:** Add materiel design inputs module ([1f4d6ac](https://github.com/ng-vcl/ng-vcl/commit/1f4d6ac))
+* **form-control-group:** provide type attribute ([16a22a8](https://github.com/ng-vcl/ng-vcl/commit/16a22a8))
+* **icon:** Allow defining icon resolvers on module/component level ([a126bb7](https://github.com/ng-vcl/ng-vcl/commit/a126bb7))
+* **popover:** Add support for offclick close and scrollStrategy ([8d8189f](https://github.com/ng-vcl/ng-vcl/commit/8d8189f))
+
 
 
 ## 0.7.x
