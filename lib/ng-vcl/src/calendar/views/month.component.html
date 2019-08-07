@@ -18,7 +18,8 @@
 <div class="vclDGRow" role="row" *ngFor="let week of calendarMonth.weeks">
   <div *ngIf="showWeekOfTheYear" class="vclDGCell vclWeekdayLabel" role="columnheader">{{week.weekOfTheYear}}</div>
   <div *ngFor="let day of week.days" class="vclDGCell vclCalItem vclD0" 
-                                [class.vclSelected]="!!day.selected"
+                                [class.vclSelected]="day.selected === true || day.selected === 'range'"
+                                [class.vclSelectedAlt]="day.selected === 'range-partial'"
                                 [class.vclSelectedBeg]="day.selected === 'range-start' || day.selected === 'range-start-end'"
                                 [class.vclSelectedEnd]="day.selected === 'range-end' || day.selected === 'range-start-end'"
                                 [class.vclAvailable]="day.available"

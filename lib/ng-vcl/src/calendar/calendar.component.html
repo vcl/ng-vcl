@@ -10,7 +10,7 @@
                     [viewDate]="viewDate" 
                     (viewDateChange)="onViewDateChange('year', $event)"
                     (valueChange)="onValueChange('year', $event)"
-                    (labelClick)="onLabelClick('year', $event)"                    
+                    (labelClick)="onLabelClick('year')"                    
                     ></vcl-calendar-view-year>
 <vcl-calendar-view-month *ngIf="view === 'month'" 
                     [disabled]="disabled"
@@ -23,18 +23,16 @@
                     [showWeekOfTheYear]="showWeekOfTheYear"
                     (viewDateChange)="onViewDateChange('month', $event)"
                     (valueChange)="onValueChange('month', $event)"
-                    (labelClick)="onLabelClick('month', $event)"
+                    (labelClick)="onLabelClick('month')"
                     ></vcl-calendar-view-month>
 <vcl-calendar-view-hours *ngIf="view === 'hours'" 
                     [value]="value" 
-                    (labelClick)="onLabelClick('hours', $event)"
+                    (labelClick)="onLabelClick('hours')"
                     (valueChange)="onValueChange('hours', $event)"
-                    (labelClick)="onLabelClick('hours', $event)"
                     ></vcl-calendar-view-hours>                           
 <vcl-calendar-view-minutes *ngIf="view === 'minutes'" 
                     [value]="value" 
-                    (labelClick)="onLabelClick('minutes', $event)"
+                    (labelClick)="onLabelClick('minutes')"
                     (valueChange)="onValueChange('minutes', $event)"
-                    (labelClick)="onLabelClick('minutes', $event)"
                     ></vcl-calendar-view-minutes>                           
 <ng-content select="[vclCalendarFooter]"></ng-content>                      

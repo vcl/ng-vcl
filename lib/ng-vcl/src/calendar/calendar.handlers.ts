@@ -62,6 +62,8 @@ export class DateSingleHandler<VCLDate> extends DateHandler<VCLDate> {
   handleMonthValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
     calendar.value = date;
     calendar.valueChange.emit(calendar.value);
+    calendar.viewDate = date;
+    calendar.viewDateChange.emit(calendar.viewDate);
   }
 }
 
@@ -88,6 +90,8 @@ export class DateMultipleHandler<VCLDate> extends DateHandler<VCLDate> {
         calendar.value = [...calendar.value, date];
       }
     }
+    calendar.viewDate = date;
+    calendar.viewDateChange.emit(calendar.viewDate);
     calendar.valueChange.emit(calendar.value);
   }
 }
@@ -102,13 +106,19 @@ export class DateRangeHandler<VCLDate> extends DateHandler<VCLDate> {
 
   mode = 'range';
 
+  init(calendar: CalendarComponent<VCLDate>) {
+    super.init(calendar);
+  }
+
   handleMonthValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
-    if (this.dateAdapter.isDate(calendar.value)) {
-      calendar.value = this.dateAdapter.createRange(calendar.value, date);
+    if (this.dateAdapter.isPartialRange(calendar.value)) {
+      calendar.value = this.dateAdapter.createRange(calendar.value.start, date);
       calendar.valueChange.emit(calendar.value);
     } else {
-      calendar.value = date;
+      calendar.value = this.dateAdapter.createRange(date, null);
     }
+    calendar.viewDate = date;
+    calendar.viewDateChange.emit(calendar.viewDate);
   }
 }
 
@@ -205,12 +215,16 @@ export class MonthRangeHandler<VCLDate> extends MonthHandler<VCLDate> {
 
   mode = 'month-range';
 
+  init(calendar: CalendarComponent<VCLDate>) {
+    super.init(calendar);
+  }
+
   handleYearValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
-    if (this.dateAdapter.isDate(calendar.value)) {
-      calendar.value = this.dateAdapter.createRange(calendar.value, date);
+    if (this.dateAdapter.isPartialRange(calendar.value)) {
+      calendar.value = this.dateAdapter.createRange(calendar.value.start, date);
       calendar.valueChange.emit(calendar.value);
     } else {
-      calendar.value = date;
+      calendar.value = this.dateAdapter.createRange(date, null);
     }
   }
 }

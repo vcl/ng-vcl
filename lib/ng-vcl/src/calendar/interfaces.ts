@@ -2,6 +2,9 @@ import { VCLDateRange } from '../core/index';
 
 export type VCLCalendarView = 'month' | 'year' | 'years' | 'hours' | 'minutes';
 
+export type VCLCalendarSelection = boolean | 'range' | 'range-start' | 'range-end' | 'range-start-end' | 'range-partial';
+
+
 export interface VCLCalendarBase<VCLDate> {
   readonly date: VCLDate;
   readonly label: string;
@@ -16,7 +19,7 @@ export interface VCLCalendarYears<VCLDate> extends VCLCalendarBase<VCLDate> {
 export interface VCLCalendarYear<VCLDate> extends VCLCalendarBase<VCLDate> {
   readonly months: ReadonlyArray<ReadonlyArray<VCLCalendarBase<VCLDate> & {
     readonly isCurrentMonth: boolean;
-    readonly selected: 'range' | 'range-end' | 'range-start' | 'range-start-end' | boolean;
+    readonly selected: VCLCalendarSelection;
   }>>;
 }
 export interface VCLCalendarMonth<VCLDate> extends VCLCalendarBase<VCLDate> {
@@ -31,7 +34,7 @@ export interface VCLCalendarWeek<VCLDate> extends VCLCalendarBase<VCLDate> {
 export interface VCLCalendarDay<VCLDate> extends VCLCalendarBase<VCLDate> {
   readonly inMonth: boolean;
   readonly isToday: boolean;
-  readonly selected: 'range' | 'range-end' | 'range-start' | 'range-start-end' | boolean;
+  readonly selected: VCLCalendarSelection;
   readonly disabled: boolean;
   readonly available: boolean;
   readonly unavailable: boolean;
