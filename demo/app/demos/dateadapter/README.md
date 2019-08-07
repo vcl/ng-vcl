@@ -85,7 +85,6 @@ import { VCLDateAdapter } from '@ng-vcl/ng-vcl';
 
 @NgModule({
   providers: [
-    // Calendar starts on Monday
     { provide: VCLDateAdapter, useClass: MyDateAdapter }
   ],
 })
