@@ -106,11 +106,15 @@ export abstract class VCLDateAdapter<VCLDate> {
   }
 
   isRange(date: any): date is VCLDateRange<VCLDate> {
-    return typeof date === 'object' && date && this.isDate((date as any).start) && this.isDate((date as any).end);
+    return typeof date === 'object' && date && this.isDate((date).start) && this.isDate((date).end);
   }
 
-  createRange(start: VCLDate, end: VCLDate): VCLDateRange<VCLDate> {
-    if (this.compareDate(start, end) <= 0) {
+  isPartialRange(date: any): date is VCLDateRange<VCLDate> {
+    return typeof date === 'object' && date && this.isDate(date.start) && (date.end === undefined || date.end === null);
+  }
+
+  createRange(start: VCLDate, end?: VCLDate): VCLDateRange<VCLDate> {
+    if (!end || this.compareDate(start, end) <= 0) {
       return {
         start,
         end
