@@ -1,4 +1,4 @@
-# vcl-date-picker
+# vcl-date-picker (deprecated)
 
 Lets users pick dates and points in time comfortably.
 
