@@ -19,8 +19,8 @@ header
 
 .docMetadata
   margin-bottom: 1em
-  .vclGridSpan-gca,
-  .vclGridSpan-gcb
+  & .vclGridSpan-gca,
+  & .vclGridSpan-gcb
     text-overflow: ellipsis
     overflow: hidden
 
@@ -79,43 +79,6 @@ header
 
 code.hljs
   white-space: inherit
-
-// Month Picker
-.vclDatePicker
-  .vclButton:nth-of-type(3)
-    margin-left: auto
-
-#myStyledMonthPicker
-  .vclCalendar.vclCalInput .vclCalItem:hover:not(.vclSelected)
-    color: var(--calendar-item-hover-color) !important
-    background-color: var(--calendar-item-hover-bg-color) !important
-
-  .vclCalItem.vclToday,
-  .vclCalendar.vclCalInput .vclCalItem.vclToday:hover
-    color: inherit
-
-  .vclCalItem.vclOtherMonth,
-  .vclCalendar.vclCalInput .vclCalItem.vclOtherMonth:hover
-    color: inherit
-
-  .vclCalItem.vclAvailable.vclSelected,
-  .vclCalendar.vclCalInput .vclCalItem.vclAvailable.vclSelected:hover
-    color: var(--calendar-selected-item-color) !important
-    background-color: var(--calendar-selected-item-bg-color)
-
-  .vclCalItem.vclDisabled,
-  .vclCalendar.vclCalInput .vclCalItem.vclDisabled:hover
-    color: var(--calendar-disabled-item-color) !important
-    background-color: var(--calendar-disabled-item-bg-color) !important
-
-  .vclCalItem.vclAvailable,
-  .vclCalendar.vclCalInput .vclCalItem.vclAvailable:hover
-    background-color: transparent
-
-  .vclCalItem.vclUnavailable,
-  .vclCalendar.vclCalInput .vclCalItem.vclUnavailable:hover
-    background-color: transparent
-// Month Picker
 
 // json-editor
 .jsoneditor-frame input
