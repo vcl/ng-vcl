@@ -1,4 +1,4 @@
-# vcl-month-picker
+# vcl-month-picker (deprecated)
 
 Lets users pick months comfortably.
 

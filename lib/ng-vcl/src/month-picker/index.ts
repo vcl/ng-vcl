@@ -12,6 +12,6 @@ export { MonthPickerComponent, Month };
   declarations: [MonthPickerComponent],
   providers: [],
 })
-export class VCLMonthPickerModule { }
+export class VCLMonthPickerLegacyModule { }
 
 

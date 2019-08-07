@@ -193,7 +193,7 @@ export const routes: Routes = [
     path: 'month-picker',
     data: {
       demo: {
-        label: 'Month Picker',
+        label: 'Month Picker (deprecated)',
         category: CAT_FORM_CONTROLS,
       }
     }

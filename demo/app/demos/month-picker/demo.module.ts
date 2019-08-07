@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLMonthPickerModule, VCLButtonModule, VCLPopoverModule } from '@ng-vcl/ng-vcl';
+import { VCLMonthPickerLegacyModule, VCLButtonModule, VCLPopoverModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { MonthPickerDemoComponent } from './demo.component';
 import {FormsModule} from '@angular/forms';
 
 export function demo() {
   return {
-    label: 'Month Picker',
+    label: 'Month Picker (deprecated)',
     tabs: {
       Demo: MonthPickerDemoComponent,
       'README.md': {
@@ -33,7 +33,7 @@ export function demo() {
     DemoModule,
     VCLButtonModule,
     VCLPopoverModule,
-    VCLMonthPickerModule,
+    VCLMonthPickerLegacyModule,
     FormsModule,
     RouterModule.forChild([{
       path: '',
