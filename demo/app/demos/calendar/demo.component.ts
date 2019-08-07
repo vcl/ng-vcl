@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 import { VCLDateRange, VCLDateAdapter } from '@ng-vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'demo.component.html'
+  templateUrl: 'demo.component.html',
+  styles: [`
+  vcl-calendar {
+    width: 18em;
+  }
+  `]
 })
 export class CalendarDemoComponent {
   constructor(private dateAdapter: VCLDateAdapter<Date>) { }

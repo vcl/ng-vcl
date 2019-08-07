@@ -7,7 +7,7 @@ import { DatePickerDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Input',
+    label: 'Datepicker',
     tabs: {
       Demo: DatePickerDemoComponent,
       'README.md': {

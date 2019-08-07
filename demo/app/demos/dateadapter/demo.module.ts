@@ -6,7 +6,7 @@ import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 
 export function demo() {
   return {
-    label: 'VCLDateAdapter',
+    label: 'Date Adapter',
     tabs: {
       'README.md': {
         type: 'md',

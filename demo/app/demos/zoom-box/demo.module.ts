@@ -7,7 +7,7 @@ import { ZoomBoxDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Busy',
+    label: 'Zoom Box',
     tabs: {
       Demo: ZoomBoxDemoComponent,
       'README.md': {

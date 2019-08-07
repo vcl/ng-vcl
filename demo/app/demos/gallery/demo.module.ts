@@ -7,7 +7,7 @@ import { GalleryDemoComponent } from './demo.component';
 
 export function demo() {
   return {
-    label: 'Busy',
+    label: 'Gallery',
     tabs: {
       Demo: GalleryDemoComponent,
       'README.md': {
