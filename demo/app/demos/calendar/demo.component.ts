@@ -14,12 +14,38 @@ export class CalendarDemoComponent {
   constructor(private dateAdapter: VCLDateAdapter<Date>) { }
 
   date: Date;
+  get sdate() {
+    return this.dateAdapter.format(this.date, 'date');
+  }
   dateRange: VCLDateRange<Date>;
-  dateArray: Date[];
+  get sdateRange() {
+    if (this.dateAdapter.isRange(this.dateRange)) {
+      return this.dateAdapter.format(this.dateRange.start, 'date') + ' - ' + this.dateAdapter.format(this.dateRange.end, 'date');
+    }
+    return '-';
+  }
+  dateArray: Date[] = [];
+  get sdateArray() {
+    return this.dateArray.map(d => this.dateAdapter.format(d, 'date')).join(', ');
+  }
 
   month: Date;
+  get smonth() {
+    return this.dateAdapter.format(this.month, 'yearMonth');
+  }
   monthRange: VCLDateRange<Date>;
-  monthArray: Date[];
+  get smonthRange() {
+    if (this.dateAdapter.isRange(this.monthRange)) {
+      return this.dateAdapter.format(this.monthRange.start, 'yearMonth') + ' - ' + this.dateAdapter.format(this.monthRange.end, 'yearMonth');
+    }
+    return '-';
+  }
+  monthArray: Date[] = [];
+  get smonthArray() {
+    return this.monthArray.map(d => this.dateAdapter.format(d, 'yearMonth')).join(', ');
+  }
+
+  today = this.dateAdapter.today();
 
   available: VCLCalendarDateModifier<Date>[] = [
     {

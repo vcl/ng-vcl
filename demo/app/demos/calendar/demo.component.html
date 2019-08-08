@@ -1,32 +1,32 @@
 <h3>Basic calendar</h3>
 
 <vcl-calendar [(value)]="date"></vcl-calendar>
-Value: {{date}}
+Value: {{sdate}}
 
 <h3>With selectionMode="range"</h3>
 
 <vcl-calendar [(value)]="dateRange" selectionMode="range"></vcl-calendar>
-Value: {{dateRange?.start}} - {{dateRange?.end}}
+Value: {{sdateRange}}
 
 <h3>With selectionMode="multiple", maxSelectableDates=3</h3>
 
 <vcl-calendar [(value)]="dateArray" selectionMode="multiple" [maxSelectableDates]="3"></vcl-calendar>
-Value: {{dateArray}}
+Value: {{sdateArray}}
 
 <h3>With selectionMode="month"</h3>
 
 <vcl-calendar [(value)]="month" selectionMode="month"></vcl-calendar>
-Value: {{month}}
+Value: {{smonth}}
 
 <h3>With selectionMode="month-range"</h3>
 
 <vcl-calendar [(value)]="monthRange" selectionMode="month-range"></vcl-calendar>
-Value: {{monthRange?.start}} - {{monthRange?.end}}
+Value: {{smonthRange}}
 
 <h3>With selectionMode="month-multiple", maxSelectableDates=2</h3>
 
 <vcl-calendar [(value)]="monthArray" selectionMode="month-multiple" [maxSelectableDates]="2"></vcl-calendar>
-Value: {{monthArray}}
+Value: {{smonthArray}}
 
 <h3>Disabled</h3>
 
@@ -35,8 +35,6 @@ Value: {{monthArray}}
 <h3>With dateModifiers</h3>
 
 <vcl-calendar [dateModifiers]="available"></vcl-calendar>
-
-Value: {{date}}
 
 <h3>Custom Footer</h3>
 

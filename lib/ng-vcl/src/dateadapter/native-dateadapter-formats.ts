@@ -13,9 +13,13 @@ const DEFAULT_DISPLAY_FORMATS: {[key in VCLDateAdapterDisplayFormats]: Intl.Date
   year: {
     year: 'numeric'
   },
-  yearAndMonth: {
+  yearMonthLong: {
     year: 'numeric',
     month: 'long'
+  },
+  yearMonth: {
+    year: 'numeric',
+    month: '2-digit',
   },
   weekday: {
     weekday: 'short'

@@ -67,7 +67,7 @@ export abstract class VCLDateAdapter<VCLDate> {
   /**
    * Formats a VCLDate tp the specified format and returns it as a string
    */
-  abstract format(date: VCLDate, format: VCLDateAdapterDisplayFormats): string;
+  abstract format(date: VCLDate, format: VCLDateAdapterDisplayFormats): string | undefined;
 
   abstract addMonths(date: VCLDate, months: number): VCLDate;
   abstract addDays(date: VCLDate, days: number): VCLDate;

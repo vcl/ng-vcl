@@ -45,20 +45,20 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent
   ],
   providers: [
-    // {
-    //   provide: LOCALE_ID,
-    //   useValue: 'en'
-    // },
-    // {
-    //   provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-    //   useClass: NativeDateAdapterParserEN,
-    //   multi: true
-    // },
-    // {
-    //   provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-    //   useClass: NativeDateAdapterParserDE,
-    //   multi: true
-    // }
+    {
+      provide: LOCALE_ID,
+      useValue: navigator.language
+    },
+    {
+      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
+      useClass: NativeDateAdapterParserEN,
+      multi: true
+    },
+    {
+      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
+      useClass: NativeDateAdapterParserDE,
+      multi: true
+    }
   ]
 })
 export class AppModule { }

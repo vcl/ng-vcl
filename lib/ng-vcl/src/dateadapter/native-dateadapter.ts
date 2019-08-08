@@ -98,7 +98,11 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
     return new Date(-8640000000000000);
   }
 
-  format(date: Date, type: VCLDateAdapterDisplayFormats): string {
+  format(date: Date, type: VCLDateAdapterDisplayFormats): string | undefined {
+    if (!this.isDate(date)) {
+      return undefined;
+    }
+
     if (type === 'input_date' || type === 'input_time' || type === 'input_month') {
       return this.parser.format(date, type);
     }

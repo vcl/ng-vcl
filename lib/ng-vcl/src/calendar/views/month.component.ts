@@ -160,7 +160,7 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
     this.calendar = {
       date,
       label: this.dateAdapter.format(date, 'month'),
-      yearAndMonthLabel: this.dateAdapter.format(date, 'yearAndMonth'),
+      yearAndMonthLabel: this.dateAdapter.format(date, 'yearMonthLong'),
       weeks,
     };
   }
