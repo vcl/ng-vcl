@@ -20,9 +20,10 @@
        [class.vclSelectedAlt]="month.selected === 'range-partial'"
        [class.vclSelectedBeg]="month.selected === 'range-start' || month.selected === 'range-start-end'"
        [class.vclSelectedEnd]="month.selected === 'range-end' || month.selected === 'range-start-end'"
-       [class.vclDisabled]="disabled"
+       [class.vclDisabled]="month.disabled || disabled"
+       [ngClass]="month.class"       
        role="gridcell" 
        tabindex="0" 
-       (click)="onSelectMonth(month.date)"
+       (click)="onSelectMonth(month)"
        >{{month.label}}</div>
 </div>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { VCLDateAdapter } from '../dateadapter/index';
-import { VCLCalendarView } from './interfaces';
-import { CalendarComponent, VCLCalendarHandler } from './calendar.component';
+import { VCLCalendarView, VCLCalendarHandler, VCLCalendar } from './interfaces';
 
 export abstract class DateHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
   constructor(
@@ -12,38 +11,37 @@ export abstract class DateHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
 
   readonly abstract mode: string;
 
-  init(calendar: CalendarComponent<VCLDate>, ) {
-    calendar.view = 'month';
+  init(calendar: VCLCalendar<VCLDate>, ) {
+    calendar.setView('month');
   }
 
-  handleValueChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, date: VCLDate) {
+  handleValueChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, date: VCLDate) {
     if (source === 'years') {
-      calendar.view = 'year';
-      calendar.viewDate = date;
+      calendar.setView('year');
+      calendar.setViewDate(date, true);
     } else if (source === 'year') {
-      calendar.view = 'month';
-      calendar.viewDate = date;
+      calendar.setView('month');
+      calendar.setViewDate(date, true);
     } else if (source === 'month') {
       this.handleMonthValueChange(calendar, date);
     } else {
-      calendar.view = 'month';
+      calendar.setView('month');
     }
   }
 
-  abstract handleMonthValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate);
+  abstract handleMonthValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate): void;
 
-  handleViewDateChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
-    calendar.viewDate = viewDate;
-    calendar.viewDateChange.emit(viewDate);
+  handleViewDateChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
+    calendar.setViewDate(viewDate, true);
   }
 
-  handleLabelClick(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView) {
+  handleLabelClick(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView) {
     if (source === 'year') {
-      calendar.view = 'years';
+      calendar.setView('years');
     } else if (source === 'month') {
-      calendar.view = 'year';
+      calendar.setView('year');
     } else {
-      calendar.view = 'month';
+      calendar.setView('month');
     }
   }
 }
@@ -58,11 +56,9 @@ export class DateSingleHandler<VCLDate> extends DateHandler<VCLDate> {
 
   mode = 'date';
 
-  handleMonthValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
-    calendar.value = date;
-    calendar.valueChange.emit(calendar.value);
-    calendar.viewDate = date;
-    calendar.viewDateChange.emit(calendar.viewDate);
+  handleMonthValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
+    calendar.setValue(date, true);
+    calendar.setViewDate(date, true);
   }
 }
 
@@ -76,22 +72,28 @@ export class DateMultipleHandler<VCLDate> extends DateHandler<VCLDate> {
 
   mode = 'multiple';
 
-  handleMonthValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
+  handleMonthValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
     if (!this.dateAdapter.isDateArray(calendar.value)) {
-      calendar.value = [date];
+      calendar.setValue([date], true);
     } else {
       const idx = calendar.value.findIndex(d => this.dateAdapter.isSameDay(d, date));
       if (idx >= 0) {
         const tmpValue = [...calendar.value];
         tmpValue.splice(idx, 1);
-        calendar.value = tmpValue;
+        calendar.setValue(tmpValue, true);
       } else {
-        calendar.value = [...calendar.value, date];
+        const maxSelectableDates = typeof calendar.maxSelectableDates === 'number' ? calendar.maxSelectableDates : Infinity;
+        // If less than max selectable items
+        if (calendar.value.length < maxSelectableDates) {
+          // Add date element as the last element
+          calendar.setValue([...calendar.value, date], true);
+        } else {
+          // Remove element and add date as the last element
+          calendar.setValue([...([...calendar.value].splice(1)), date], true);
+        }
       }
     }
-    calendar.viewDate = date;
-    calendar.viewDateChange.emit(calendar.viewDate);
-    calendar.valueChange.emit(calendar.value);
+    calendar.setViewDate(date, true);
   }
 }
 
@@ -105,19 +107,17 @@ export class DateRangeHandler<VCLDate> extends DateHandler<VCLDate> {
 
   mode = 'range';
 
-  init(calendar: CalendarComponent<VCLDate>) {
+  init(calendar: VCLCalendar<VCLDate>) {
     super.init(calendar);
   }
 
-  handleMonthValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
+  handleMonthValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
     if (this.dateAdapter.isPartialRange(calendar.value)) {
-      calendar.value = this.dateAdapter.createRange(calendar.value.start, date);
-      calendar.valueChange.emit(calendar.value);
+      calendar.setValue(this.dateAdapter.createRange(calendar.value.start, date), true);
     } else {
-      calendar.value = this.dateAdapter.createRange(date, null);
+      calendar.setValue(this.dateAdapter.createRange(date, null), false);
     }
-    calendar.viewDate = date;
-    calendar.viewDateChange.emit(calendar.viewDate);
+    calendar.setViewDate(date, true);
   }
 }
 
@@ -130,33 +130,32 @@ export abstract class MonthHandler<VCLDate> extends VCLCalendarHandler<VCLDate> 
 
   readonly abstract mode: string;
 
-  init(calendar: CalendarComponent<VCLDate>, ) {
-    calendar.view = 'year';
+  init(calendar: VCLCalendar<VCLDate>, ) {
+    calendar.setView('year');
   }
 
-  handleValueChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, date: VCLDate) {
+  handleValueChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, date: VCLDate) {
     if (source === 'years') {
-      calendar.view = 'year';
-      calendar.viewDate = date;
+      calendar.setView('year');
+      calendar.setViewDate(date, true);
     } else if (source === 'year') {
       this.handleYearValueChange(calendar, date);
     } else {
-      calendar.view = 'year';
+      calendar.setView('year');
     }
   }
 
-  abstract handleYearValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate);
+  abstract handleYearValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate): void;
 
-  handleViewDateChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
-    calendar.viewDate = viewDate;
-    calendar.viewDateChange.emit(viewDate);
+  handleViewDateChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
+    calendar.setViewDate(viewDate, true);
   }
 
-  handleLabelClick(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView) {
+  handleLabelClick(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView) {
     if (source === 'year') {
-      calendar.view = 'years';
+      calendar.setView('years');
     } else {
-      calendar.view = 'year';
+      calendar.setView('year');
     }
   }
 }
@@ -171,9 +170,8 @@ export class MonthSingleHandler<VCLDate> extends MonthHandler<VCLDate> {
 
   mode = 'month';
 
-  handleYearValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
-    calendar.value = date;
-    calendar.valueChange.emit(calendar.value);
+  handleYearValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
+    calendar.setValue(date, true);
   }
 }
 
@@ -187,20 +185,27 @@ export class MonthMultipleHandler<VCLDate> extends MonthHandler<VCLDate> {
 
   mode = 'month-multiple';
 
-  handleYearValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
+  handleYearValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
     if (!this.dateAdapter.isDateArray(calendar.value)) {
-      calendar.value = [date];
+      calendar.setValue([date], true);
     } else {
       const idx = calendar.value.findIndex(d => this.dateAdapter.isSameMonth(d, date));
       if (idx >= 0) {
         const tmpValue = [...calendar.value];
         tmpValue.splice(idx, 1);
-        calendar.value = tmpValue;
+        calendar.setValue(tmpValue, true);
       } else {
-        calendar.value = [...calendar.value, date];
+        // If less than max selectable items
+        const maxSelectableDates = typeof calendar.maxSelectableDates === 'number' ? calendar.maxSelectableDates : Infinity;
+        if (calendar.value.length < maxSelectableDates) {
+          // Add date element as the last element
+          calendar.setValue([...calendar.value, date], true);
+        } else {
+          // Remove element and add date as the last element
+          calendar.setValue([...([...calendar.value].splice(1)), date], true);
+        }
       }
     }
-    calendar.valueChange.emit(calendar.value);
   }
 }
 
@@ -214,16 +219,15 @@ export class MonthRangeHandler<VCLDate> extends MonthHandler<VCLDate> {
 
   mode = 'month-range';
 
-  init(calendar: CalendarComponent<VCLDate>) {
+  init(calendar: VCLCalendar<VCLDate>) {
     super.init(calendar);
   }
 
-  handleYearValueChange(calendar: CalendarComponent<VCLDate>, date: VCLDate) {
+  handleYearValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
     if (this.dateAdapter.isPartialRange(calendar.value)) {
-      calendar.value = this.dateAdapter.createRange(calendar.value.start, date);
-      calendar.valueChange.emit(calendar.value);
+      calendar.setValue(this.dateAdapter.createRange(calendar.value.start, date), true);
     } else {
-      calendar.value = this.dateAdapter.createRange(date, null);
+      calendar.setValue(this.dateAdapter.createRange(date, null), false);
     }
   }
 }

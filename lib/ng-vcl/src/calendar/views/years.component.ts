@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnInit } from '@angular/core';
 import { VCLDateAdapter, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarYears } from '../interfaces';
+import { compare } from '../utils';
 
 @Component({
   selector: 'vcl-calendar-view-years',
@@ -72,12 +73,15 @@ export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
       viewDate = this.dateAdapter.today();
     }
 
+    const compareYear = this.dateAdapter.compareYear.bind(this.dateAdapter);
+
     const years = Array.from(Array(25).keys()).map(i => {
       const yearDate = this.dateAdapter.createDate(this.dateAdapter.getYear(viewDate) + (i - 12), 0, 1);
       return {
         label: this.dateAdapter.format(yearDate, 'year'),
         date: yearDate,
         isCurrentYear: this.dateAdapter.isSameYear(this.dateAdapter.today(), yearDate),
+        selected: compare(this.dateAdapter, this.value, yearDate, compareYear)
       };
     });
 

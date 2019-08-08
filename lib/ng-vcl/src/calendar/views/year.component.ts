@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnInit } from '@angular/core';
-import { VCLCalendarYear } from '../interfaces';
+import { VCLCalendarYear, VCLCalendarDateModifier, VCLCalendarMonth, VCLCalendarYearMonth } from '../interfaces';
 import { VCLDateAdapter, VCLDateRange } from '../../dateadapter/index';
 import { compare } from '../utils';
 
@@ -23,6 +23,9 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
 
   @Input()
   viewDate: VCLDate;
+
+  @Input()
+  dateModifiers?: VCLCalendarDateModifier<VCLDate>[];
 
   @Output()
   viewDateChange = new EventEmitter<VCLDate>();
@@ -54,13 +57,13 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
     this.labelClick.emit();
   }
 
-  onSelectMonth(date: VCLDate) {
-    if (this.disabled) {
+  onSelectMonth(month: VCLCalendarYearMonth<VCLDate>) {
+    if (this.disabled || month.disabled) {
       return;
     }
 
-    this.value = date;
-    this.valueChange.emit(date);
+    this.value = month.date;
+    this.valueChange.emit(month.date);
   }
 
   onGoToPrevYear() {
@@ -79,13 +82,25 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
       viewDate = this.dateAdapter.today();
     }
 
+    const compareMonth = this.dateAdapter.compareMonth.bind(this.dateAdapter);
+
     const months = Array.from(Array(12).keys()).map(i => {
       const monthDate = this.dateAdapter.createDate(this.dateAdapter.getYear(viewDate), i, 1);
+
+      const dateModifier = !!Array.isArray(this.dateModifiers) && this.dateModifiers.find(_dm => {
+        return (!_dm.view || _dm.view === 'year') && !!compare(this.dateAdapter, _dm.match, monthDate, compareMonth);
+      });
+
+      const dateClass = dateModifier ? dateModifier.class : undefined;
+      const disabled = !!dateModifier && !!dateModifier.disabled;
+
       return {
         label: this.dateAdapter.format(monthDate, 'month'),
         date: monthDate,
         isCurrentMonth: this.dateAdapter.isSameMonth(this.dateAdapter.today(), monthDate),
-        selected: compare(this.dateAdapter, this.value, monthDate, 'month')
+        selected: compare(this.dateAdapter, this.value, monthDate, compareMonth),
+        class: dateClass,
+        disabled
       };
     });
     this.calendar = {

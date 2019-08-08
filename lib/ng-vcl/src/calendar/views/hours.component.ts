@@ -17,7 +17,6 @@ export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
 
   calendar: VCLCalendarHours;
 
-
   @Input()
   disabled = false;
 
@@ -41,7 +40,6 @@ export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
       }
     }
   }
-
 
   onSelectHour(hour: number) {
     if (this.disabled) {

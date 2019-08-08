@@ -42,20 +42,15 @@ An array of object implementing the `VCLCalendarDateModifier` can be passed to t
 ```html
 <vcl-calendar [dateModifiers]="dateModifiers"></vcl-calendar>
 ```
+
 ```ts
-// Adds holiday class and disables January, 1.
 dateModifiers = [{
-  match: new Date(2019, 0, 1),
-  class: 'holiday',
-  disabled: true
+  match: new Date(2019, 0, 1), // Matches January, 1
+  class: 'holiday', // Adds holiday css class
+  disabled: true, // Disabled date
+  view: 'month' // Limits  modifier to month view
 }]
-
 ```
-
-
-
-
-### API
 
 #### vcl-calendar attributes
 
@@ -63,12 +58,11 @@ Name                | Type                                            | Default 
 ---------------     | -------                                         | ------- | -----------------------------------------------
 `value`             | VCLDate \| VCLDate[] \| VCLDateRange<VCLDate>   |         | Selected date(s)/date range in the calendar
 `viewDate`          | VCLDate                                         | today   | The currently shown date in the calendar 
-`minDate`           | VCLDate                                         |         | Minimum selectable date
-`maxDate`           | VCLDate                                         |         | Maximum selectable date
 `selectionMode`     | VCLCalendarSelectionMode                        |         | See selectionMode description
 `disabled`          | boolean                                         | false   | Disables the calendar when true
-`dateModifier`      | VCLCalendarDateModifier[]                       |         | only `month` See dateModifier description
-`showWeekOfTheYear` | boolean                                         | false   | only `month` Show of the year when true
+`dateModifier`      | VCLCalendarDateModifier[]                       |         | only `month` view: See dateModifier description
+`showWeekOfTheYear` | boolean                                         | false   | only `month` view: Show of the year when true
+`maxSelectableDates`| boolean                                         |         | only for selectionMode `multiple` and `month-range`: Maximum number of selectable dates
 
 #### vcl-calendar events
 Name                | Type                                              | Description
@@ -80,6 +74,7 @@ Name                | Type                                              | Descri
 
 ```ts
 export type VCLCalendarSelectionMode = 'date' | 'multiple' | 'range' | 'month' | 'month-multiple' | 'month-range';
+export type VCLCalendarView = 'month' | 'year' | 'years' | 'hours' | 'minutes';
 
 interface VCLDateRange<VCLDate> {
   start: VCLDate;
@@ -90,5 +85,6 @@ export interface VCLCalendarDateModifier<VCLDate> {
   match: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
   class?: string;
   disabled?: boolean;
+  view:? VCLCalendarView;
 }
 ```

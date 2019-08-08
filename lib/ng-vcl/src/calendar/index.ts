@@ -8,8 +8,8 @@ import { CalendarViewYearComponent } from './views/year.component';
 import { CalendarViewYearsComponent } from './views/years.component';
 import { CalendarViewHoursComponent } from './views/hours.component';
 import { CalendarViewMinutesComponent } from './views/minutes.component';
-import { CalendarComponent, VCLCalendarHandler } from './calendar.component';
-import { VCLCalendarView, VCLCalendarDateModifier } from './interfaces';
+import { CalendarComponent } from './calendar.component';
+import { VCLCalendarView, VCLCalendarDateModifier, VCLCalendarHandler, VCLCalendar } from './interfaces';
 import { DateSingleHandler, DateMultipleHandler, DateRangeHandler, MonthSingleHandler, MonthMultipleHandler, MonthRangeHandler } from './calendar.handlers';
 
 export {
@@ -21,7 +21,8 @@ export {
   CalendarViewMinutesComponent,
   VCLCalendarView,
   VCLCalendarDateModifier,
-  VCLCalendarHandler
+  VCLCalendarHandler,
+  VCLCalendar
 };
 
 @NgModule({

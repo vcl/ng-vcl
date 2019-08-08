@@ -8,9 +8,9 @@ Value: {{date}}
 <vcl-calendar [(value)]="dateRange" selectionMode="range"></vcl-calendar>
 Value: {{dateRange?.start}} - {{dateRange?.end}}
 
-<h3>With selectionMode="multiple"</h3>
+<h3>With selectionMode="multiple", maxSelectableDates=3</h3>
 
-<vcl-calendar [(value)]="dateArray" selectionMode="multiple"></vcl-calendar>
+<vcl-calendar [(value)]="dateArray" selectionMode="multiple" [maxSelectableDates]="3"></vcl-calendar>
 Value: {{dateArray}}
 
 <h3>With selectionMode="month"</h3>
@@ -23,9 +23,9 @@ Value: {{month}}
 <vcl-calendar [(value)]="monthRange" selectionMode="month-range"></vcl-calendar>
 Value: {{monthRange?.start}} - {{monthRange?.end}}
 
-<h3>With selectionMode="month-multiple"</h3>
+<h3>With selectionMode="month-multiple", maxSelectableDates=2</h3>
 
-<vcl-calendar [(value)]="monthArray" selectionMode="month-multiple"></vcl-calendar>
+<vcl-calendar [(value)]="monthArray" selectionMode="month-multiple" [maxSelectableDates]="2"></vcl-calendar>
 Value: {{monthArray}}
 
 <h3>Disabled</h3>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { VCLDateAdapter } from '../dateadapter/index';
-import { VCLCalendarHandler, CalendarComponent, VCLCalendarView } from '../calendar/index';
+import { VCLCalendarHandler, CalendarComponent, VCLCalendarView, VCLCalendar } from '../calendar/index';
 
 @Injectable()
 export class DatepickerTimeHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
@@ -12,34 +12,31 @@ export class DatepickerTimeHandler<VCLDate> extends VCLCalendarHandler<VCLDate> 
 
   readonly mode = 'time';
 
-  init(calendar: CalendarComponent<VCLDate>, ) {
-    calendar.view = 'hours';
+  init(calendar: VCLCalendar<VCLDate>, ) {
+    calendar.setView('hours');
   }
 
-  handleValueChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, date: VCLDate) {
+  handleValueChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, date: VCLDate) {
     if (source === 'hours') {
-      calendar.view = 'minutes';
-      calendar.value = date;
+      calendar.setView('minutes');
+      calendar.setValue(date, false);
     } else if (source === 'minutes') {
-      calendar.value = date;
-      calendar.valueChange.emit(calendar.value);
+      calendar.setView('hours');
+      calendar.setValue(date, true);
     } else {
-      calendar.view = 'hours';
+      calendar.setView('hours');
     }
   }
 
-  handleViewDateChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
-    calendar.viewDate = viewDate;
-    calendar.viewDateChange.emit(viewDate);
+  handleViewDateChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
+    calendar.setViewDate(viewDate, true);
   }
 
-  handleLabelClick(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView) {
+  handleLabelClick(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView) {
     if (source === 'hours') {
-      calendar.view = 'minutes';
-    } else if (source === 'minutes') {
-      calendar.view = 'hours';
+      calendar.setView('minutes');
     } else {
-      calendar.view = 'hours';
+      calendar.setView('hours');
     }
   }
 }

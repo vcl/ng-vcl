@@ -29,13 +29,13 @@ export class CalendarDemoComponent {
         end: this.dateAdapter.addDays(this.dateAdapter.today(), 14),
       },
       class: 'vclAvailable',
+      view: 'month' // Limit to month view
     }, {
       // Set vclUnavailable class and disable on specific range
       match: this.dateAdapter.always(), // Still works as first modifier is prioritized
       class: 'vclUnavailable',
-      disabled: true
+      disabled: true,
+      view: 'month' // Limit to month view
     }
   ];
 }
-
-

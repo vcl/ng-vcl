@@ -2,8 +2,11 @@ import { VCLDateAdapter, VCLDateRange } from '../dateadapter/index';
 import { VCLCalendarSelection } from './interfaces';
 
 
-export function compare<VCLDate>(adapter: VCLDateAdapter<VCLDate>, date1: VCLDate | VCLDate[] | VCLDateRange<VCLDate>, date2: VCLDate, scope: 'month' | 'date'): VCLCalendarSelection {
-  const compareFn = scope === 'date' ? adapter.compareDate.bind(adapter) : (scope === 'month' ? adapter.compareMonth.bind(adapter) : adapter.compareYear.bind(adapter));
+export function compare<VCLDate>(
+  adapter: VCLDateAdapter<VCLDate>,
+  date1: VCLDate | VCLDate[] | VCLDateRange<VCLDate>,
+  date2: VCLDate,
+  compareFn: (date1: VCLDate, date2: VCLDate) => number): VCLCalendarSelection {
   if (adapter.isRange(date1) && !(compareFn(date1.start, date1.end) === 0)) {
     if (compareFn(date2, date1.start) > 0 && compareFn(date2, date1.end) < 0) {
       return 'range';

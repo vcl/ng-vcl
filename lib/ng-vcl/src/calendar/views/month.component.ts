@@ -23,9 +23,6 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   value?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
 
   @Input()
-  dateDisabled?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-
-  @Input()
   viewDate: VCLDate;
 
   @Input()
@@ -33,12 +30,6 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
 
   @Input()
   disabled?: boolean;
-
-  @Input()
-  minDate?: VCLDate;
-
-  @Input()
-  maxDate?: VCLDate;
 
   @Output()
   viewDateChange = new EventEmitter<VCLDate>();
@@ -53,7 +44,7 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   weekdayLabels = this.dateAdapter.getDayOfWeekNames();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.value || changes.viewDate || changes.minDate || changes.maxDate) {
+    if (changes.value || changes.viewDate || changes.dateModifiers || changes.disabled) {
       if (changes.value && changes.value.currentValue && (!this.viewDate)) {
         this.viewDate = this.dateAdapter.toDate(changes.value.currentValue);
       }
@@ -128,14 +119,19 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
         };
       }
 
+      const compareDate = this.dateAdapter.compareDate.bind(this.dateAdapter);
+
       const inMonth = dayInMonth >= 1 && dayInMonth <= daysInMonth;
       const dayDate = this.dateAdapter.createDate(this.dateAdapter.getYear(date), this.dateAdapter.getMonth(date), dayInMonth);
 
-      const disabled = !!this.dateDisabled && !!compare(this.dateAdapter, this.dateDisabled, dayDate, 'date');
+      const dateModifier = !!Array.isArray(this.dateModifiers) && this.dateModifiers.find(_dm => {
+        return (!_dm.view || _dm.view === 'month') && !!compare(this.dateAdapter, _dm.match, dayDate, compareDate);
+      });
 
-      const dateModifier = !!Array.isArray(this.dateModifiers) && this.dateModifiers.find(_dm => !!compare(this.dateAdapter, _dm.match, dayDate, 'date'));
+      const dateClass = dateModifier ? dateModifier.class : undefined;
+      const disabled = !!dateModifier && !!dateModifier.disabled;
 
-      let selected = compare(this.dateAdapter, this.value, dayDate, 'date');
+      let selected = compare(this.dateAdapter, this.value, dayDate, compareDate);
       // Disabled days cannot be selected
       if (disabled && selected) {
         selected = false;
@@ -146,8 +142,8 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
         inMonth,
         label: this.dateAdapter.format(dayDate, 'day'),
         selected,
-        disabled: dateModifier && dateModifier.disabled,
-        class: dateModifier && dateModifier.class,
+        disabled,
+        class: dateClass,
         isToday: this.dateAdapter.compareDate(dayDate, this.dateAdapter.today()) === 0
       });
 
