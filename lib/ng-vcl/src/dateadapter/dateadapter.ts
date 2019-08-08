@@ -1,16 +1,8 @@
 import { InjectionToken } from '@angular/core';
+import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats, VCLDateRange } from './interfaces';
 
 export const VCL_DATE_ADAPTER = new InjectionToken('VCL_DATE_ADAPTER');
 export const VCL_DATE_ADAPTER_WEEKDAY_OFFSET = new InjectionToken('VCL_DATE_ADAPTER_WEEKDAY_OFFSET');
-
-export interface VCLDateRange<VCLDate> {
-  start: VCLDate;
-  end: VCLDate;
-}
-
-export type VCLDateAdapterDisplayInputFormats = 'input_date' | 'input_time' | 'input_month';
-export type VCLDateAdapterDisplayFormats = VCLDateAdapterDisplayInputFormats | 'day' | 'month' | 'year' | 'yearAndMonth' | 'weekday' | 'date' | 'time' | 'minute' | 'hour';
-export type VCLDateAdapterParseFormats = 'input_date' | 'input_time' | 'input_month';
 
 export abstract class VCLDateAdapter<VCLDate> {
 
@@ -20,12 +12,63 @@ export abstract class VCLDateAdapter<VCLDate> {
   abstract weekDayOffset: number;
 
   abstract isDate(date: any): date is VCLDate;
+  /**
+   * Checks if value is an array with valid dates
+   */
+  isDateArray(date: any): date is VCLDate[] {
+    return Array.isArray(date) && date.every(d => this.isDate(d));
+  }
+  /**
+   * Checks if value is a valid date range
+   */
+  isRange(date: any): date is VCLDateRange<VCLDate> {
+    return typeof date === 'object' && date && this.isDate((date).start) && this.isDate((date).end);
+  }
+  /**
+   * Checks if value is a date range consisting of at least a starting date
+   */
+  isPartialRange(date: any): date is VCLDateRange<VCLDate> {
+    return typeof date === 'object' && date && this.isDate(date.start) && (date.end === undefined || date.end === null);
+  }
+
+  /**
+   * Checks if defined locale is in 24h format
+   */
   abstract use24hTime(): boolean;
+  /**
+   * Returns a date representing today's date
+   */
   abstract today(): VCLDate;
+  /**
+   * Returns a the latest possible date
+   */
   abstract max(): VCLDate;
+  /**
+   * Returns a the earliest possible date
+   */
   abstract min(): VCLDate;
+  /**
+   * Returns a date range that represents all possible dates
+   */
+  always(): VCLDateRange<VCLDate> {
+    return {
+      start: this.min(),
+      end: this.max()
+    };
+  }
+  /**
+   * Clones a Date
+   */
   abstract clone(date: VCLDate): VCLDate;
+  /**
+   * Parses a date string in specified format and returns a VCLDate instance
+   */
   abstract parse(date: string, format: VCLDateAdapterParseFormats): VCLDate | undefined;
+  /**
+   * Formats a VCLDate tp the specified format and returns it as a string
+   */
+  abstract format(date: VCLDate, format: VCLDateAdapterDisplayFormats): string;
+
   abstract addMonths(date: VCLDate, months: number): VCLDate;
   abstract addDays(date: VCLDate, days: number): VCLDate;
   abstract getDaysInMonth(date: VCLDate): number;
@@ -40,13 +83,6 @@ export abstract class VCLDateAdapter<VCLDate> {
   abstract createDate(year: number, month: number, day: number): VCLDate;
   abstract createDateTime(year: number, month: number, day: number, hour: number, minute: number, second: number): VCLDate;
   abstract createTime(hour: number, minute: number, second: number): VCLDate;
-
-  always(): VCLDateRange<VCLDate> {
-    return {
-      start: this.min(),
-      end: this.max()
-    };
-  }
 
   getFirstWeekdayOfMonth(date: VCLDate): number {
     const firstOfMonthDate =  this.createDate(this.getYear(date), this.getMonth(date), 1);
@@ -97,20 +133,6 @@ export abstract class VCLDateAdapter<VCLDate> {
 
   isSameDay(date1: VCLDate, date2: VCLDate): boolean {
     return this.compareDate(date1, date2) === 0;
-  }
-
-  abstract format(date: VCLDate, format: VCLDateAdapterDisplayFormats): string;
-
-  isDateArray(date: any): date is VCLDate[] {
-    return Array.isArray(date) && date.every(d => this.isDate(d));
-  }
-
-  isRange(date: any): date is VCLDateRange<VCLDate> {
-    return typeof date === 'object' && date && this.isDate((date).start) && this.isDate((date).end);
-  }
-
-  isPartialRange(date: any): date is VCLDateRange<VCLDate> {
-    return typeof date === 'object' && date && this.isDate(date.start) && (date.end === undefined || date.end === null);
   }
 
   createRange(start: VCLDate, end?: VCLDate): VCLDateRange<VCLDate> {

@@ -1,4 +1,4 @@
-import { VCLDateAdapter, VCLDateRange } from '../core/index';
+import { VCLDateAdapter, VCLDateRange } from '../dateadapter/index';
 import { VCLCalendarSelection } from './interfaces';
 
 

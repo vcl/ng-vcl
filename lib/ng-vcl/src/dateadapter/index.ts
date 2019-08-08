@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET, VCLDateAdapter, VCLDateAdapterDisplayFormats, VCLDateRange } from './dateadapter';
+import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET, VCLDateAdapter } from './dateadapter';
 import { VCLNativeDateAdapter } from './native-dateadapter';
-import { VCL_NATIVE_DATE_ADAPTER_PARSER, VCLNativeDateAdapterParser, NativeDateAdapterParserDE, NativeDateAdapterParserEN, NativeDateAdapterParserENGB } from './native-dateadapter-parsers';
+import { VCL_NATIVE_DATE_ADAPTER_PARSER, VCLNativeDateAdapterParser, NativeDateAdapterParserDE, NativeDateAdapterParserEN, NativeDateAdapterParserENGB } from './parsers/index';
 import { VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS_DEFAULT_PROVIDER, VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS } from './native-dateadapter-formats';
+import { VCLDateAdapterDisplayFormats, VCLDateRange, VCLDateAdapterParseFormats } from './interfaces';
 
 export {
   VCLDateAdapter,
@@ -12,6 +13,7 @@ export {
   VCL_DATE_ADAPTER_WEEKDAY_OFFSET,
   VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS,
   VCLDateAdapterDisplayFormats,
+  VCLDateAdapterParseFormats,
   VCLDateRange,
   NativeDateAdapterParserDE,
   NativeDateAdapterParserEN,

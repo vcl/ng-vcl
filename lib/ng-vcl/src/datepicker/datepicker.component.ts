@@ -26,9 +26,8 @@ import { NgControl, ControlValueAccessor } from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
 import { FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT } from '../form-control-group/index';
-import { VCLDateRange, VCLDateAdapter } from '../core/index';
+import { VCLDateRange, VCLDateAdapter, VCLDateAdapterParseFormats } from '../dateadapter/index';
 import { InputDirective } from '../input/index';
-import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayInputFormats } from '../core/dateadapter/dateadapter';
 
 let UNIQUE_ID = 0;
 
@@ -140,10 +139,6 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     }
   }
 
-  get displayFormat(): VCLDateAdapterDisplayInputFormats {
-    return this.parseFormat;
-  }
-
   controlType = 'date-picker';
   materialModifierClass = undefined;
 
@@ -211,7 +206,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   updateInput() {
     if (this.input && this.value) {
-      this.input.value = this.dateAdapter.format(this.value, this.displayFormat);
+      this.input.value = this.dateAdapter.format(this.value, this.parseFormat);
     } else if (this.input) {
       this.input.value = '';
     }

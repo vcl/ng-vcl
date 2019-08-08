@@ -1,5 +1,5 @@
 import { InjectionToken, Provider } from '@angular/core';
-import { VCLDateAdapterDisplayFormats } from './dateadapter';
+import { VCLDateAdapterDisplayFormats } from './interfaces';
 
 export const VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS = new InjectionToken('VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS');
 

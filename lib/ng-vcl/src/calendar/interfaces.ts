@@ -1,4 +1,4 @@
-import { VCLDateRange } from '../core/index';
+import { VCLDateRange } from '../dateadapter/index';
 
 export type VCLCalendarView = 'month' | 'year' | 'years' | 'hours' | 'minutes';
 

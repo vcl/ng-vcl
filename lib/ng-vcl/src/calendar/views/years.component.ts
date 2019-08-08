@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnInit } from '@angular/core';
-import { VCLDateAdapter, VCLDateRange } from '../../core/index';
+import { VCLDateAdapter, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarYears } from '../interfaces';
 
 @Component({

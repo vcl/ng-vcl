@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output, HostBinding, Inject, OnInit } from '@angular/core';
-import { VCLDateRange } from '../core/index';
+import { VCLDateRange } from '../dateadapter/index';
 import { VCLCalendarView } from './interfaces';
 
 

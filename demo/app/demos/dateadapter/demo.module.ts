@@ -10,7 +10,7 @@ export function demo() {
     tabs: {
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!./README.md')
+        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/dateadapter/README.md')
       }
     },
   };

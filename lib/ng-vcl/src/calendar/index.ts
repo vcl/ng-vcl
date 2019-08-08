@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
-import { VCLDateAdapterModule } from '../core/index';
+import { VCLDateAdapterModule } from '../dateadapter/index';
 import { CalendarViewMonthComponent } from './views/month.component';
 import { CalendarViewYearComponent } from './views/year.component';
 import { CalendarViewYearsComponent } from './views/years.component';

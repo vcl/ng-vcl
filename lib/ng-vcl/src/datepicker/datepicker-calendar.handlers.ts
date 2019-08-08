@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VCLDateAdapter } from '../core/index';
+import { VCLDateAdapter } from '../dateadapter/index';
 import { CalendarHandler, CalendarComponent, VCLCalendarView } from '../calendar/index';
 
 @Injectable()
