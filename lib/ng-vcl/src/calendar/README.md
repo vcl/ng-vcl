@@ -32,7 +32,7 @@ The calendar supports a variety of selection modes. The default `selectionMode` 
 - `multiple` Can select multiple dates
 - `month` Can a single month
 - `month-multiple` Can select multiple months 
-- `month-range` Can a month range with a starting and ending month (see `VCLDateRange` interface)
+- `month-range` Can select a month range with a starting and ending month (see `VCLDateRange` interface)
 
 ### dateModifier
 
@@ -60,7 +60,7 @@ Name                | Type                                            | Default 
 `viewDate`          | VCLDate                                         | today   | The currently shown date in the calendar 
 `selectionMode`     | VCLCalendarSelectionMode                        |         | See selectionMode description
 `disabled`          | boolean                                         | false   | Disables the calendar when true
-`dateModifier`      | VCLCalendarDateModifier[]                       |         | only `month` view: See dateModifier description
+`dateModifiers`     | VCLCalendarDateModifier[]                       |         | only `month` view: See dateModifier description
 `showWeekOfTheYear` | boolean                                         | false   | only `month` view: Show of the year when true
 `maxSelectableDates`| boolean                                         |         | only for selectionMode `multiple` and `month-range`: Maximum number of selectable dates
 
@@ -75,11 +75,6 @@ Name                | Type                                              | Descri
 ```ts
 export type VCLCalendarSelectionMode = 'date' | 'multiple' | 'range' | 'month' | 'month-multiple' | 'month-range';
 export type VCLCalendarView = 'month' | 'year' | 'years' | 'hours' | 'minutes';
-
-interface VCLDateRange<VCLDate> {
-  start: VCLDate;
-  end: VCLDate;
-}
 
 export interface VCLCalendarDateModifier<VCLDate> {
   match: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
