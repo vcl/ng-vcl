@@ -1,3 +1,20 @@
+# [0.10.0-2](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0-1...v0.10.0-2) (2019-08-08)
+
+
+### Features
+
+* **calendar:** add dateModifier support. Remove (un)available properties ([2daf49f](https://github.com/ng-vcl/ng-vcl/commit/2daf49f))
+* **calendar:** support per view dateModifier, add cva support and add maxSelectableDates property ([3ccfe80](https://github.com/ng-vcl/ng-vcl/commit/3ccfe80))
+* **datepicker:** add dateModifier support ([4df1965](https://github.com/ng-vcl/ng-vcl/commit/4df1965))
+
+
+### BREAKING CHANGES
+
+* **calendar:** Removed available/unavailable properties of vcl-calender. Use dateModifiers
+instead.
+
+
+
 # [0.10.0-1](https://github.com/ng-vcl/ng-vcl/compare/v0.9.1...v0.10.0-1) (2019-08-07)
 
 
