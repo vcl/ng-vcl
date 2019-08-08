@@ -21,6 +21,10 @@
 </button>
 
 <ng-template>
-  <vcl-calendar [selectionMode]="pick" [value]="value" (valueChange)="onSelect($event)"></vcl-calendar>
+  <vcl-calendar [selectionMode]="pick" 
+                [showWeekOfTheYear]="showWeekOfTheYear"
+                [dateModifiers]="dateModifier"
+                [viewDate]="viewDate"
+                [value]="value"  
+                (valueChange)="onSelect($event)"></vcl-calendar>
 </ng-template>
-

@@ -28,6 +28,7 @@ import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../materi
 import { FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT } from '../form-control-group/index';
 import { VCLDateRange, VCLDateAdapter, VCLDateAdapterParseFormats } from '../dateadapter/index';
 import { InputDirective } from '../input/index';
+import { VCLCalendarDateModifier } from '../calendar/index';
 
 let UNIQUE_ID = 0;
 
@@ -99,8 +100,17 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   @Input()
   value: VCLDate | undefined;
 
+  @Input()
+  showWeekOfTheYear?: boolean;
+
+  @Input()
+  dateModifier?: VCLCalendarDateModifier<VCLDate>[];
+
   @Output()
   valueChange = new EventEmitter<VCLDate>();
+
+  @Input()
+  viewDate?: VCLDate;
 
   @Input()
   pick: DatepickerPick = 'date';

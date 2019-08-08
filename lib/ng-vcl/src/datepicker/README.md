@@ -35,11 +35,14 @@ Check the [`VCLDateAdapter` docs](#/dateadapter) for further information.
 
 #### vcl-datepicker attributes
 
-Name         | Type                              | Default | Description
------------- | -------                           | ------- | -----------------------------------------------
-`value`      | VCLDate                           |         | Selected datein the calendar
-`disabled`   | boolean                           | false   | Disables the datepicker when true
-`pick`       | 'date' \| 'month' \| 'time'       | 'date'  | Datepicker mode
+Name                | Type                                            | Default | Description
+------------        | -------                                         | ------- | -----------------------------------------------
+`value`             | VCLDate                                         |         | Current value
+`viewDate`          | VCLDate                                         | today   | The currently shown date in the calendar 
+`disabled`          | boolean                                         | false   | Disables the datepicker when true
+`pick`              | 'date' \| 'month' \| 'time'                     | 'date'  | Datepicker mode
+`dateModifier`      | VCLCalendarDateModifier[]                       |         | See vcl-calendar
+`showWeekOfTheYear` | boolean                                         | false   | See vcl-calendar
 
 #### vcl-datepicker events
 Name                | Type       | Description
