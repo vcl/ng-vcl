@@ -11,9 +11,11 @@ import { VCLCalendarMinutes } from '../interfaces';
 export class CalendarViewMinutesComponent<VCLDate> implements OnChanges {
   constructor(
     private dateAdapter: VCLDateAdapter<VCLDate>,
-  ) { }
+  ) {
+    this.updateCalendarMinutes();
+  }
 
-  minutesCalendar = this.createCalendarMinutes();
+  calendar: VCLCalendarMinutes;
 
   @Input()
   disabled = false;
@@ -64,7 +66,7 @@ export class CalendarViewMinutesComponent<VCLDate> implements OnChanges {
   }
 
 
-  createCalendarMinutes(): VCLCalendarMinutes {
+  updateCalendarMinutes() {
     const minutes = Array.from(new Array(6)).map((_, i) => Array.from(new Array(10)).map((__, j) => {
       const minute = i * 10 + j;
       return {
@@ -73,7 +75,7 @@ export class CalendarViewMinutesComponent<VCLDate> implements OnChanges {
       };
     }));
 
-    return {
+    this.calendar = {
       minutes,
     };
   }

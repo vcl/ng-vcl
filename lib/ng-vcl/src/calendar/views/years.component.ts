@@ -29,28 +29,20 @@ export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
   @Output()
   viewDateChange = new EventEmitter<VCLDate>();
 
-  calendarYears: VCLCalendarYears<VCLDate>;
-
-  private updateCalendar() {
-    let date = this.viewDate || this.dateAdapter.today();
-    if (!this.dateAdapter.isDate(date)) {
-      date = this.dateAdapter.today();
-    }
-    this.calendarYears = this.createCalendarYears(date);
-  }
+  calendar: VCLCalendarYears<VCLDate>;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.value || changes.viewDate) {
       if (changes.value && changes.value.currentValue && (!this.viewDate)) {
         this.viewDate = this.dateAdapter.toDate(changes.value.currentValue);
       }
-      this.updateCalendar();
+      this.updateCalendarYears();
     }
   }
 
   ngOnInit() {
-    if (!this.calendarYears) {
-      this.updateCalendar();
+    if (!this.calendar) {
+      this.updateCalendarYears();
     }
   }
 
@@ -63,20 +55,25 @@ export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
   }
 
   onGoToPrevYears() {
-    this.viewDate = this.dateAdapter.addYears(this.calendarYears.date, -(this.calendarYears.years.length - 1 / 2));
+    this.viewDate = this.dateAdapter.addYears(this.calendar.date, -(this.calendar.years.length - 1 / 2));
     this.viewDateChange.emit(this.viewDate);
-    this.updateCalendar();
+    this.updateCalendarYears();
   }
 
   onGoToNextYears() {
-    this.viewDate = this.dateAdapter.addYears(this.calendarYears.date, (this.calendarYears.years.length - 1 / 2));
+    this.viewDate = this.dateAdapter.addYears(this.calendar.date, (this.calendar.years.length - 1 / 2));
     this.viewDateChange.emit(this.viewDate);
-    this.updateCalendar();
+    this.updateCalendarYears();
   }
 
-  createCalendarYears(date: VCLDate): VCLCalendarYears<VCLDate> {
+  updateCalendarYears() {
+    let viewDate = this.viewDate || this.dateAdapter.today();
+    if (!this.dateAdapter.isDate(viewDate)) {
+      viewDate = this.dateAdapter.today();
+    }
+
     const years = Array.from(Array(25).keys()).map(i => {
-      const yearDate = this.dateAdapter.createDate(this.dateAdapter.getYear(date) + (i - 12), 0, 1);
+      const yearDate = this.dateAdapter.createDate(this.dateAdapter.getYear(viewDate) + (i - 12), 0, 1);
       return {
         label: this.dateAdapter.format(yearDate, 'year'),
         date: yearDate,
@@ -88,8 +85,8 @@ export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
 
     const yearEndLabel = this.dateAdapter.format(years[years.length - 1].date, 'year');
 
-    return {
-      date,
+    this.calendar = {
+      date: viewDate,
       years: years.map((_, index) => {
         return index % 5 === 0 ? years.slice(index, index + 5) : null;
       }),

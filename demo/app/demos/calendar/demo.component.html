@@ -3,49 +3,51 @@
 <vcl-calendar [(value)]="date"></vcl-calendar>
 Value: {{date}}
 
-<h3>Calendar (selectionMode="range")</h3>
+<h3>With selectionMode="range"</h3>
 
 <vcl-calendar [(value)]="dateRange" selectionMode="range"></vcl-calendar>
 Value: {{dateRange?.start}} - {{dateRange?.end}}
 
-<h3>Calendar (selectionMode="multiple")</h3>
+<h3>With selectionMode="multiple"</h3>
 
 <vcl-calendar [(value)]="dateArray" selectionMode="multiple"></vcl-calendar>
 Value: {{dateArray}}
 
-<h3>Calendar (selectionMode="month")</h3>
+<h3>With selectionMode="month"</h3>
 
 <vcl-calendar [(value)]="month" selectionMode="month"></vcl-calendar>
 Value: {{month}}
 
-<h3>Calendar (selectionMode="month-range")</h3>
+<h3>With selectionMode="month-range"</h3>
 
 <vcl-calendar [(value)]="monthRange" selectionMode="month-range"></vcl-calendar>
 Value: {{monthRange?.start}} - {{monthRange?.end}}
 
-<h3>Calendar (selectionMode="month-multiple")</h3>
+<h3>With selectionMode="month-multiple"</h3>
 
 <vcl-calendar [(value)]="monthArray" selectionMode="month-multiple"></vcl-calendar>
 Value: {{monthArray}}
 
-<h3>Calendar (disabled)</h3>
+<h3>Disabled</h3>
 
 <vcl-calendar [disabled]="true"></vcl-calendar>
 
-<h3>Calendar with (un)available dates</h3>
+<h3>With dateModifiers</h3>
 
-<vcl-calendar [available]="available" [unavailable]="unavailable" [viewDate]="viewDate"></vcl-calendar>
+<vcl-calendar [dateModifiers]="available"></vcl-calendar>
 
-<h3>Calendar with custom footer</h3>
+Value: {{date}}
 
-<vcl-calendar #calendar="vclCalendar">
-  <div vclCalendarFooter class="vclDGRow" *ngIf="calendar.view === 'month'">
+<h3>Custom Footer</h3>
+
+<vcl-calendar #c="vclCalendar">
+  <div vclCalendarFooter class="vclDGRow" *ngIf="c.view === 'month'">
     <div class="vclDGCell vclToolbar">
       <div class="vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar">
-        <button vcl-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.viewDate = today">
+        <button vcl-button class="vclTransparent vclLayoutFlex" type="button" (click)="c.viewDate = today">
           go to today
         </button>
-        <button vcl-square-button class="vclTransparent vclLayoutFlex" type="button" (click)="calendar.viewDate = calendar.value">
+        <button vcl-square-button class="vclTransparent vclLayoutFlex" type="button" (click)="c.viewDate = c.value">
           go to selected
         </button>
       </div>

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnInit } from '@angular/core';
-import { VCLCalendarYear, VCLCreateCalendarYearOptions } from '../interfaces';
+import { VCLCalendarYear } from '../interfaces';
 import { VCLDateAdapter, VCLDateRange } from '../../dateadapter/index';
 import { compare } from '../utils';
 
@@ -33,30 +33,20 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
   @Output()
   labelClick = new EventEmitter<any>();
 
-  calendarYear: VCLCalendarYear<VCLDate>;
-
-  private updateCalendar() {
-    let viewDate = this.viewDate || this.dateAdapter.today();
-    if (!this.dateAdapter.isDate(viewDate)) {
-      viewDate = this.dateAdapter.today();
-    }
-    this.calendarYear = this.createCalendarYear(viewDate, {
-      selectedDate: this.value
-    });
-  }
+  calendar: VCLCalendarYear<VCLDate>;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.value || changes.viewDate) {
       if (changes.value && changes.value.currentValue && (!this.viewDate)) {
         this.viewDate = this.dateAdapter.toDate(changes.value.currentValue);
       }
-      this.updateCalendar();
+      this.updateCalendarYear();
     }
   }
 
   ngOnInit() {
-    if (!this.calendarYear) {
-      this.updateCalendar();
+    if (!this.calendar) {
+      this.updateCalendarYear();
     }
   }
 
@@ -74,31 +64,36 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
   }
 
   onGoToPrevYear() {
-    this.viewDate = this.dateAdapter.addYears(this.calendarYear.date, -1);
+    this.viewDate = this.dateAdapter.addYears(this.calendar.date, -1);
     this.viewDateChange.emit(this.viewDate);
   }
 
   onGoToNextYear() {
-    this.viewDate = this.dateAdapter.addYears(this.calendarYear.date, 1);
+    this.viewDate = this.dateAdapter.addYears(this.calendar.date, 1);
     this.viewDateChange.emit(this.viewDate);
   }
 
-  createCalendarYear(date: VCLDate, opts: VCLCreateCalendarYearOptions<VCLDate>): VCLCalendarYear<VCLDate> {
+  updateCalendarYear() {
+    let viewDate = this.viewDate || this.dateAdapter.today();
+    if (!this.dateAdapter.isDate(viewDate)) {
+      viewDate = this.dateAdapter.today();
+    }
+
     const months = Array.from(Array(12).keys()).map(i => {
-      const monthDate = this.dateAdapter.createDate(this.dateAdapter.getYear(date), i, 1);
+      const monthDate = this.dateAdapter.createDate(this.dateAdapter.getYear(viewDate), i, 1);
       return {
         label: this.dateAdapter.format(monthDate, 'month'),
         date: monthDate,
         isCurrentMonth: this.dateAdapter.isSameMonth(this.dateAdapter.today(), monthDate),
-        selected: compare(this.dateAdapter, opts.selectedDate, monthDate, 'month')
+        selected: compare(this.dateAdapter, this.value, monthDate, 'month')
       };
     });
-    return {
-      date,
+    this.calendar = {
+      date: viewDate,
       months: months.map((item, index) => {
         return index % 3 === 0 ? months.slice(index, index + 3) : null;
       }),
-      label: this.dateAdapter.format(date, 'year'),
+      label: this.dateAdapter.format(viewDate, 'year'),
     };
   }
 

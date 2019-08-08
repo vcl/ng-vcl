@@ -23,7 +23,7 @@ export class AppComponent {}
 The calendar uses the `VCLDateAdapter` for date representation.
 Check the [`VCLDateAdapter` docs](#/dateadapter) for further information.
 
-### vcl-calendar selectionMode
+### selectionMode
 
 The calendar supports a variety of selection modes. The default `selectionMode` is `date`
 
@@ -33,6 +33,26 @@ The calendar supports a variety of selection modes. The default `selectionMode` 
 - `month-multiple` Can select a single dates
 - `month-multiple` Can select multiple months 
 - `month-range` Can a month range with a starting and ending month (see `VCLDateRange` interface)
+
+### dateModifier
+
+A date modifier allows to customize specific days in the month calendar.
+An array of object implementing the `VCLCalendarDateModifier` can be passed to the calendar.
+
+```html
+<vcl-calendar [dateModifiers]="dateModifiers"></vcl-calendar>
+```
+```ts
+// Adds holiday class and disables January, 1.
+dateModifiers = [{
+  match: new Date(2019, 0, 1),
+  class: 'holiday',
+  disabled: true
+}]
+
+```
+
+
 
 
 ### API
@@ -45,11 +65,10 @@ Name                | Type                                            | Default 
 `viewDate`          | VCLDate                                         | today   | The currently shown date in the calendar 
 `minDate`           | VCLDate                                         |         | Minimum selectable date
 `maxDate`           | VCLDate                                         |         | Maximum selectable date
-`disabled`          | boolean                                         | false   | Disables the calendar when true
-`available`         | VCLDate \| VCLDate[] \| VCLDateRange<VCLDate>   |         | Marks dates as available
-`unavailable`       | VCLDate \| VCLDate[] \| VCLDateRange<VCLDate>   |         | Marks dates as unavailable
 `selectionMode`     | VCLCalendarSelectionMode                        |         | See selectionMode description
-`showWeekOfTheYear` | boolean                                         | false   | Show of the year when true
+`disabled`          | boolean                                         | false   | Disables the calendar when true
+`dateModifier`      | VCLCalendarDateModifier[]                       |         | only `month` See dateModifier description
+`showWeekOfTheYear` | boolean                                         | false   | only `month` Show of the year when true
 
 #### vcl-calendar events
 Name                | Type                                              | Description
@@ -65,5 +84,11 @@ export type VCLCalendarSelectionMode = 'date' | 'multiple' | 'range' | 'month' |
 interface VCLDateRange<VCLDate> {
   start: VCLDate;
   end: VCLDate;
+}
+
+export interface VCLCalendarDateModifier<VCLDate> {
+  match: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
+  class?: string;
+  disabled?: boolean;
 }
 ```

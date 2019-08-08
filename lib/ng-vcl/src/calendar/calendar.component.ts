@@ -1,9 +1,8 @@
 import { Component, Input, EventEmitter, Output, HostBinding, Inject, OnInit } from '@angular/core';
 import { VCLDateRange } from '../dateadapter/index';
-import { VCLCalendarView } from './interfaces';
+import { VCLCalendarView, VCLCalendarDateModifier } from './interfaces';
 
-
-export abstract class CalendarHandler<VCLDate> {
+export abstract class VCLCalendarHandler<VCLDate> {
   abstract readonly mode: string;
   abstract init(calendar: CalendarComponent<VCLDate>): void;
   abstract handleValueChange(calendar: CalendarComponent<VCLDate>, source: VCLCalendarView, date: VCLDate): void;
@@ -20,8 +19,8 @@ export type VCLCalendarSelectionMode = 'date' | 'multiple' | 'range' | 'month' |
 })
 export class CalendarComponent<VCLDate> implements OnInit {
   constructor(
-    @Inject(CalendarHandler)
-    private handlers: CalendarHandler<VCLDate>[],
+    @Inject(VCLCalendarHandler)
+    private handlers: VCLCalendarHandler<VCLDate>[],
   ) { }
 
   @HostBinding('class.vclDataGrid')
@@ -33,19 +32,16 @@ export class CalendarComponent<VCLDate> implements OnInit {
 
   view: VCLCalendarView = 'month';
 
-  handler?: CalendarHandler<VCLDate>;
+  handler?: VCLCalendarHandler<VCLDate>;
 
   @Input()
   value?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
 
   @Input()
-  available?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-
-  @Input()
-  unavailable?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-
-  @Input()
   viewDate?: VCLDate;
+
+  @Input()
+  dateModifiers?: VCLCalendarDateModifier<VCLDate>[];
 
   @Input()
   disabled = false;

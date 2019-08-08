@@ -36,8 +36,7 @@ export interface VCLCalendarDay<VCLDate> extends VCLCalendarBase<VCLDate> {
   readonly isToday: boolean;
   readonly selected: VCLCalendarSelection;
   readonly disabled: boolean;
-  readonly available: boolean;
-  readonly unavailable: boolean;
+  readonly class: string;
 }
 
 export interface VCLCalendarHours {
@@ -58,16 +57,8 @@ export interface VCLCalendarMinute {
   label: string;
 }
 
-export interface VCLCreateCalendarMonthOptions<VCLDate> {
-  selectedDate?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-  available?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-  unavailable?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-  min?: VCLDate;
-  max?: VCLDate;
-}
-
-export interface VCLCreateCalendarYearOptions<VCLDate> {
-  selectedDate?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-  min?: VCLDate;
-  max?: VCLDate;
+export interface VCLCalendarDateModifier<VCLDate> {
+  match: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
+  class?: string;
+  disabled?: boolean;
 }

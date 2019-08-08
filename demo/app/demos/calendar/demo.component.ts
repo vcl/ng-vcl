@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { VCLDateRange, VCLDateAdapter } from '@ng-vcl/ng-vcl';
+import { VCLCalendarDateModifier } from '@ng-vcl/ng-vcl/calendar/interfaces';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -20,14 +21,21 @@ export class CalendarDemoComponent {
   monthRange: VCLDateRange<Date>;
   monthArray: Date[];
 
-  today = this.dateAdapter.today();
-
-  viewDate = new Date(2019, 2, 1);
-
-  available = {
-    start: new Date(2019, 2, 1),
-    end: new Date(2019, 2, 31),
-  };
-
-  unavailable = this.dateAdapter.always();
+  available: VCLCalendarDateModifier<Date>[] = [
+    {
+      // Set vclAvailable class on specific range
+      match: {
+        start: this.dateAdapter.addDays(this.dateAdapter.today(), 1),
+        end: this.dateAdapter.addDays(this.dateAdapter.today(), 14),
+      },
+      class: 'vclAvailable',
+    }, {
+      // Set vclUnavailable class and disable on specific range
+      match: this.dateAdapter.always(), // Still works as first modifier is prioritized
+      class: 'vclUnavailable',
+      disabled: true
+    }
+  ];
 }
+
+

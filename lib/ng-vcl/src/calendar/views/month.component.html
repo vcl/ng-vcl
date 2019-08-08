@@ -4,7 +4,7 @@
       <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToPrevMonth()">
         <vcl-icon icon="vcl:arrow-left"></vcl-icon>
       </button>
-      <button vcl-button class="vclTransparent vclCalHeaderLabel" (click)="onLabelClick()">{{calendarMonth.yearAndMonthLabel}}</button>
+      <button vcl-button class="vclTransparent vclCalHeaderLabel" (click)="onLabelClick()">{{calendar.yearAndMonthLabel}}</button>
       <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToNextMonth()">
         <vcl-icon icon="vcl:arrow-right"></vcl-icon>
       </button>
@@ -15,18 +15,17 @@
   <div *ngIf="showWeekOfTheYear" class="vclDGCell vclWeekdayLabel" role="columnheader">week</div>
   <div *ngFor="let weekdayLabel of weekdayLabels" class="vclDGCell vclWeekdayLabel" role="columnheader">{{weekdayLabel}}</div>
 </div>
-<div class="vclDGRow" role="row" *ngFor="let week of calendarMonth.weeks">
+<div class="vclDGRow" role="row" *ngFor="let week of calendar.weeks">
   <div *ngIf="showWeekOfTheYear" class="vclDGCell vclWeekdayLabel" role="columnheader">{{week.weekOfTheYear}}</div>
   <div *ngFor="let day of week.days" class="vclDGCell vclCalItem vclD0" 
                                 [class.vclSelected]="day.selected === true || day.selected === 'range'"
                                 [class.vclSelectedAlt]="day.selected === 'range-partial'"
                                 [class.vclSelectedBeg]="day.selected === 'range-start' || day.selected === 'range-start-end'"
                                 [class.vclSelectedEnd]="day.selected === 'range-end' || day.selected === 'range-start-end'"
-                                [class.vclAvailable]="day.available"
-                                [class.vclUnavailable]="day.unavailable"
                                 [class.vclOtherMonth]="!day.inMonth"
                                 [class.vclDisabled]="day.disabled || disabled"
                                 [class.vclToday]="day.isToday"
+                                [ngClass]="day.class"
                                 role="gridcell" 
                                 tabindex="0"
                                 (click)="onSelectDay(day)"

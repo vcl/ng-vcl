@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
-import { VCLCalendarModule, CalendarHandler } from '../calendar/index';
+import { VCLCalendarModule, VCLCalendarHandler } from '../calendar/index';
 import { VCLInputModule } from '../input/index';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
 import { DatepickerComponent, DatepickerPick } from './datepicker.component';
@@ -15,7 +15,7 @@ export { DatepickerComponent, DatepickerPick, DatepickerTimeHandler };
   exports: [DatepickerComponent, VCLCalendarModule],
   declarations: [DatepickerComponent],
   providers: [{
-    provide: CalendarHandler,
+    provide: VCLCalendarHandler,
     useClass: DatepickerTimeHandler,
     multi: true
   }],

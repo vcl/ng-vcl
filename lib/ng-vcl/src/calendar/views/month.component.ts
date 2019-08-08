@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { VCLDateAdapter, VCLDateRange } from '../../dateadapter/index';
-import { VCLCalendarMonth, VCLCalendarDay } from '../interfaces';
-import { VCLCreateCalendarMonthOptions, VCLCalendarWeek } from '../interfaces';
+import { VCLCalendarMonth, VCLCalendarDay, VCLCalendarDateModifier } from '../interfaces';
+import { VCLCalendarWeek } from '../interfaces';
 import { compare } from '../utils';
 
 @Component({
@@ -23,13 +23,13 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   value?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
 
   @Input()
+  dateDisabled?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
+
+  @Input()
   viewDate: VCLDate;
 
   @Input()
-  available?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
-
-  @Input()
-  unavailable?: VCLDate | VCLDate[] | VCLDateRange<VCLDate>;
+  dateModifiers?: VCLCalendarDateModifier<VCLDate>[];
 
   @Input()
   disabled?: boolean;
@@ -49,36 +49,21 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   @Output()
   labelClick = new EventEmitter<any>();
 
-  calendarMonth: VCLCalendarMonth<VCLDate>;
+  calendar: VCLCalendarMonth<VCLDate>;
   weekdayLabels = this.dateAdapter.getDayOfWeekNames();
-
-  private updateCalendar() {
-    let date = this.viewDate || this.dateAdapter.today();
-    if (!this.dateAdapter.isDate(date)) {
-      date = this.dateAdapter.today();
-    }
-
-    this.calendarMonth = this.createCalendarMonth(date, {
-      selectedDate: this.value,
-      available: this.available,
-      unavailable: this.unavailable,
-      min: this.minDate,
-      max: this.maxDate,
-    });
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.value || changes.viewDate || changes.minDate || changes.maxDate) {
       if (changes.value && changes.value.currentValue && (!this.viewDate)) {
         this.viewDate = this.dateAdapter.toDate(changes.value.currentValue);
       }
-      this.updateCalendar();
+      this.updateCalendarMonth();
     }
   }
 
   ngOnInit() {
-    if (!this.calendarMonth) {
-      this.updateCalendar();
+    if (!this.calendar) {
+      this.updateCalendarMonth();
     }
   }
 
@@ -87,15 +72,15 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   }
 
   onGoToPrevMonth() {
-    this.viewDate = this.dateAdapter.addMonths(this.calendarMonth.date, -1);
-    this.updateCalendar();
+    this.viewDate = this.dateAdapter.addMonths(this.calendar.date, -1);
+    this.updateCalendarMonth();
     this.viewDateChange.emit(this.viewDate);
   }
 
   onGoToNextMonth() {
-    this.viewDate = this.dateAdapter.addMonths(this.calendarMonth.date, 1);
+    this.viewDate = this.dateAdapter.addMonths(this.calendar.date, 1);
     this.viewDateChange.emit(this.viewDate);
-    this.updateCalendar();
+    this.updateCalendarMonth();
   }
 
   onSelectDay(day: VCLCalendarDay<VCLDate>) {
@@ -103,11 +88,16 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
       return;
     }
     this.value = day.date;
-    this.updateCalendar();
+    this.updateCalendarMonth();
     this.valueChange.emit(this.value);
   }
 
-  createCalendarMonth(date: VCLDate, opts?: VCLCreateCalendarMonthOptions<VCLDate>): VCLCalendarMonth<VCLDate> {
+  updateCalendarMonth() {
+    let date = this.viewDate || this.dateAdapter.today();
+    if (!this.dateAdapter.isDate(date)) {
+      date = this.dateAdapter.today();
+    }
+
     const weeks: VCLCalendarWeek<VCLDate>[] = [];
 
     const daysInMonth = this.dateAdapter.getDaysInMonth(date);
@@ -141,36 +131,11 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
       const inMonth = dayInMonth >= 1 && dayInMonth <= daysInMonth;
       const dayDate = this.dateAdapter.createDate(this.dateAdapter.getYear(date), this.dateAdapter.getMonth(date), dayInMonth);
 
-      let available = compare(this.dateAdapter, opts.available, dayDate, 'date');
-      let unavailable = compare(this.dateAdapter, opts.unavailable, dayDate, 'date');
+      const disabled = !!this.dateDisabled && !!compare(this.dateAdapter, this.dateDisabled, dayDate, 'date');
 
-      // Prefer direct date hits over range hits on conflicts
-      // Prefer available over unavailable when both are direct date hits
-      if (available && unavailable) {
-        if (typeof available === 'boolean' && typeof unavailable === 'string' ) {
-          unavailable = false;
-        } else if (typeof available === 'string' && typeof unavailable === 'boolean' ) {
-          available = false;
-        } else {
-          unavailable = false;
-        }
-      }
+      const dateModifier = !!Array.isArray(this.dateModifiers) && this.dateModifiers.find(_dm => !!compare(this.dateAdapter, _dm.match, dayDate, 'date'));
 
-      let disabled = !!unavailable;
-
-      if (!unavailable && opts.min) {
-        if (this.dateAdapter.compareDate(dayDate, opts.min) <= 0) {
-          disabled = true;
-        }
-      }
-
-      if (!unavailable && opts.max) {
-        if (this.dateAdapter.compareDate(dayDate, opts.max) >= 0) {
-          disabled = true;
-        }
-      }
-
-      let selected = compare(this.dateAdapter, opts.selectedDate, dayDate, 'date');
+      let selected = compare(this.dateAdapter, this.value, dayDate, 'date');
       // Disabled days cannot be selected
       if (disabled && selected) {
         selected = false;
@@ -181,9 +146,8 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
         inMonth,
         label: this.dateAdapter.format(dayDate, 'day'),
         selected,
-        unavailable: !!unavailable,
-        disabled,
-        available: !!available,
+        disabled: dateModifier && dateModifier.disabled,
+        class: dateModifier && dateModifier.class,
         isToday: this.dateAdapter.compareDate(dayDate, this.dateAdapter.today()) === 0
       });
 
@@ -197,7 +161,7 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
       }
     }
 
-    return {
+    this.calendar = {
       date,
       label: this.dateAdapter.format(date, 'month'),
       yearAndMonthLabel: this.dateAdapter.format(date, 'yearAndMonth'),

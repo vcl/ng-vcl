@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { VCLDateAdapter } from '../dateadapter/index';
-import { CalendarHandler, CalendarComponent, VCLCalendarView } from '../calendar/index';
+import { VCLCalendarHandler, CalendarComponent, VCLCalendarView } from '../calendar/index';
 
 @Injectable()
-export class DatepickerTimeHandler<VCLDate> extends CalendarHandler<VCLDate> {
+export class DatepickerTimeHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
   constructor(
     protected dateAdapter: VCLDateAdapter<VCLDate>,
   ) {

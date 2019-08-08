@@ -4,14 +4,14 @@
       <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToPrevYears()">
         <vcl-icon icon="vcl:arrow-left"></vcl-icon>
       </button>
-      <span class="vclCalHeaderLabel">{{calendarYears.label}}</span>
+      <span class="vclCalHeaderLabel">{{calendar.label}}</span>
       <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToNextYears()">
         <vcl-icon icon="vcl:arrow-right"></vcl-icon>
       </button>
     </div>
   </div>
 </div>
-<div class="vclDGRow" role="row" *ngFor="let group of calendarYears.years">
+<div class="vclDGRow" role="row" *ngFor="let group of calendar.years">
   <div *ngFor="let year of group" 
        class="vclDGCell vclCalItem" 
        [class.vclToday]="year.isCurrentYear"

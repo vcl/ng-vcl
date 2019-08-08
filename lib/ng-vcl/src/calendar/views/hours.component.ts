@@ -11,9 +11,12 @@ import { VCLCalendarHours } from '../interfaces';
 export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
   constructor(
     private dateAdapter: VCLDateAdapter<VCLDate>,
-  ) { }
+  ) {
+    this.updateCalendarHours();
+  }
 
-  hoursCalendar = this.createCalendarHours();
+  calendar: VCLCalendarHours;
+
 
   @Input()
   disabled = false;
@@ -65,7 +68,7 @@ export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
     this.labelClick.emit();
   }
 
-  createCalendarHours(): VCLCalendarHours {
+  updateCalendarHours() {
     const use24hTime = this.dateAdapter.use24hTime();
     const hours = Array.from(new Array(4)).map((_, i) => Array.from(new Array(6)).map((__, j) => {
       const hour = i * + 6 + j;
@@ -75,7 +78,7 @@ export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
       };
     }));
 
-    return {
+    this.calendar = {
       use24hTime,
       hours
     };
