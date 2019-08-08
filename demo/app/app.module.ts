@@ -11,13 +11,18 @@ import {
   VCLBusyIndicatorModule,
   VCL_NATIVE_DATE_ADAPTER_PARSER,
   NativeDateAdapterParserEN,
-  NativeDateAdapterParserDE
+  NativeDateAdapterParserDE,
+  NativeDateAdapterParserENGB
 } from '@ng-vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 
 import { AppRoutingModule } from './app-routing.module';
+
+export function localeProviderFactory() {
+  return navigator.language || 'en-us';
+}
 
 @NgModule({
   imports: [
@@ -47,11 +52,16 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     {
       provide: LOCALE_ID,
-      useValue: navigator.language
+      useFactory: localeProviderFactory
     },
     {
       provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
       useClass: NativeDateAdapterParserEN,
+      multi: true
+    },
+    {
+      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
+      useClass: NativeDateAdapterParserENGB,
       multi: true
     },
     {
