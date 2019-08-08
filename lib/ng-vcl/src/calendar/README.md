@@ -27,10 +27,10 @@ Check the [`VCLDateAdapter` docs](#/dateadapter) for further information.
 
 The calendar supports a variety of selection modes. The default `selectionMode` is `date`
 
-- `date` Can select a single dates
+- `date` Can select a single date
 - `range` Can select a date range with a starting and ending date (see `VCLDateRange` interface)
+- `multiple` Can select multiple dates
 - `month` Can a single month
-- `month-multiple` Can select a single dates
 - `month-multiple` Can select multiple months 
 - `month-range` Can a month range with a starting and ending month (see `VCLDateRange` interface)
 
