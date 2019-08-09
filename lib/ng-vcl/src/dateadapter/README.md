@@ -97,7 +97,7 @@ export class MyApp {}
 ```
 
 Other locales can be added by providing `VCL_NATIVE_DATE_ADAPTER_PARSER` with a class implementing the `VCLNativeDateAdapterParser`
-Check one of the existing [providers](https://github.com/ng-vcl/ng-vcl/tree/master/lib/ng-vcl/src/dateadapter/parsers) for an example.
+Check one of the existing [providers](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/parsers) for an example.
 
 ### Weekday offset
 
