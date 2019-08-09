@@ -7,7 +7,7 @@ const REGEX_MONTH = /^\s*(\d{4})-(1[012]|0?[1-9])\s*$/;
 const REGEX_TIME = /^\s*([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s*$/;
 
 export class NativeDateAdapterParserISO implements VCLNativeDateAdapterParser {
-  supportedLocales = [];
+  supportedLocales = []; // Default parser when no locale matches
 
   parse(value: string, format: VCLDateAdapterParseFormats): Date {
     if (format === 'input_date') {

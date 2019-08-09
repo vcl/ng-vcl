@@ -11,16 +11,6 @@ export function extractInt(value: string, regEx: RegExp): number[] | undefined {
   return undefined;
 }
 
-export function formatDate(date: Date, locale: string) {
-  const dtf = new Intl.DateTimeFormat(locale, {
-    timeZone: 'utc',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  });
-  return dtf.format(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-}
-
 export function pad(value: number, size: number) {
   return ('0000' + value).substr(-size);
 }
