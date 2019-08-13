@@ -12,6 +12,7 @@ const CAT_BUTTONS            = 'Buttons';
 const CAT_FORMS              = 'Forms';
 const CAT_MEDIA              = 'Media';
 const CAT_MISC               = 'Misc';
+const CAT_AREAS               = 'Areas';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,16 @@ export const routes: Routes = [
       demo: {
         label: 'Label',
         category: CAT_TYPOGRAPHICAL,
+      }
+    }
+  },
+  {
+    loadChildren: () => import('./demos/drawer/demo.module').then(m => m.DrawerDemoModule),
+    path: 'drawer',
+    data: {
+      demo: {
+        label: 'Drawer',
+        category: CAT_AREAS,
       }
     }
   },
@@ -437,17 +448,8 @@ export const routes: Routes = [
         category: CAT_MISC,
       }
     }
-  },
-  {
-    loadChildren: () => import('./demos/drawer/demo.module').then(m => m.DrawerDemoModule),
-    path: 'drawer',
-    data: {
-      demo: {
-        label: 'Drawer',
-        category: CAT_MISC,
-      }
-    }
-  },
+  }
+
 ];
 
 
