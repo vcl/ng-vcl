@@ -1,69 +1,73 @@
 <div class="vclLayoutVertical docMain">
-  <header class="vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified">
-    <div role="banner">
-      <a href="#" class="vclLayoutHorizontal vclLayoutCenter">
-        <img class="vclResponsiveImage vclLogo" role="presentation" src="https://cdn.jsdelivr.net/gh/ng-vcl/ng-vcl/gfx/angular_vcl_logo_square.png">
-        <h1 class="vclAppName">Angular VCL Demo Browser (v{{version}}<span *ngIf="gitBranch"> {{gitBranch}}</span>)</h1>
-      </a>
-    </div>
-    <div class="github"><a href="https://github.com/ng-vcl/ng-vcl" target="_blank" title="to Github">
-      <span class="vclIcon fab fa-github fa-3x"></span> </a>
-    </div>
-  </header>
-  <div class="vclContentArea vclLayoutFlex vclLayoutHorizontal">
-    <div class="vclLayoutVertical docNav">
-      <div class="vclInputGroupEmb">
-        <span class="vclPrepended">
-          <vcl-icon icon="fas:search"></vcl-icon>
-        </span>
-
-        <input #searchInput (keyup)="search(searchInput.value)"
-          class="vclInput vclNoBorder vclPrepItem vclAppItem searchInput"
-          type="search"
-          name="search"
-          placeholder="Search Modules"
-          autocomplete="off"
-          autofocus />
-
-        <button vcl-button *ngIf="searchInput.value"
-          (tap)="searchInput.value = ''; search('')"
-          class="vclButton vclTransparent vclSquare vclAppended"
-          icon="fas:times-circle"></button>
+    <header class="vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified">
+      <button vcl-square-button class="vclTransparent" *ngIf="xsmall" (click)="drawer.toggle()">
+        <vcl-icon icon="vcl:menu"></vcl-icon>
+      </button>
+      <div role="banner">
+        <a href="#" class="vclLayoutHorizontal vclLayoutCenter">
+          <img class="vclResponsiveImage vclLogo" role="presentation" src="https://cdn.jsdelivr.net/gh/ng-vcl/ng-vcl/gfx/angular_vcl_logo_square.png">
+          <h1 *ngIf="!xsmall" class="vclAppName">Angular VCL Demo Browser (v{{version}}<span *ngIf="gitBranch"> {{gitBranch}}</span>)</h1>
+        </a>
       </div>
-
-      <vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex">
-        <ng-container *ngIf="searchResults.length; else noSearch">
-          <vcl-navigation-item *ngFor="let searchResult of searchResults" [routerLink]="searchResult.route" routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
-            <vcl-navigation-label>{{searchResult.label}}</vcl-navigation-label>
-          </vcl-navigation-item>
-        </ng-container>
-        <ng-template #noSearch>
-          <vcl-navigation-item *ngFor="let item of GROUPED_DEMOS" #navGroupItem="vclNavigationItem">
-            <vcl-navigation-label>
-              <vcl-icogram>
-                <vcl-icon vclPrepend [icon]="navGroupItem.opened ? 'fas:angle-down' : 'fas:angle-right'"></vcl-icon>
-                &nbsp;{{item.label}}
-              </vcl-icogram>
-            </vcl-navigation-label>
-            <vcl-navigation *ngIf="item.items">
-              <vcl-navigation-item *ngFor="let subitem of item.items" [routerLink]="subitem.route" routerLinkActive #navItem="vclNavigationItem" #rla="routerLinkActive" [selected]="rla.isActive">
-                <vcl-navigation-label>
-                  <vcl-icogram>
-                    {{subitem.label}}
-                    <!-- Router loading animation -->
-                    <ng-container *ngIf="busy$ | async">
-                      <vcl-icon *ngIf="navItem.selected" vclAppend icon="vcl:busy"></vcl-icon>
-                    </ng-container>
-                  </vcl-icogram>
-                </vcl-navigation-label>
-              </vcl-navigation-item>
-            </vcl-navigation>
-          </vcl-navigation-item>
-        </ng-template>
-      </vcl-navigation>
-    </div>
-    <div class="vclScrollable vclLayoutFlex docContent" cdkScrollable> 
-      <router-outlet></router-outlet>
-    </div>
+      <div *ngIf="!xsmall || !xsmall" class="github"><a href="https://github.com/ng-vcl/ng-vcl" target="_blank" title="to Github">
+        <span class="vclIcon fab fa-github fa-3x"></span> </a>
+      </div>
+    </header>
+    <vcl-drawer-container class="vclContentArea vclLayoutFlex">
+      <vcl-drawer [opened]="xsmall ? false : true" class="vclLayoutVertical docNav"  #drawer="vclDrawer" [mode]="!xsmall ? 'side' : 'over'">
+        <div class="vclInputGroupEmb">
+          <span class="vclPrepended">
+            <vcl-icon icon="fas:search"></vcl-icon>
+          </span>
+  
+          <input #searchInput (keyup)="search(searchInput.value)"
+            class="vclInput vclNoBorder vclPrepItem vclAppItem searchInput"
+            type="search"
+            name="search"
+            placeholder="Search Modules"
+            autocomplete="off"
+            autofocus />
+  
+          <button vcl-button *ngIf="searchInput.value"
+            (tap)="searchInput.value = ''; search('')"
+            class="vclButton vclTransparent vclSquare vclAppended"
+            icon="fas:times-circle"></button>
+        </div>
+  
+        <vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex">
+          <ng-container *ngIf="searchResults.length; else noSearch">
+            <vcl-navigation-item *ngFor="let searchResult of searchResults" [routerLink]="searchResult.route" routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
+              <vcl-navigation-label>{{searchResult.label}}</vcl-navigation-label>
+            </vcl-navigation-item>
+          </ng-container>
+          <ng-template #noSearch>
+            <vcl-navigation-item *ngFor="let item of GROUPED_DEMOS" #navGroupItem="vclNavigationItem">
+              <vcl-navigation-label>
+                <vcl-icogram>
+                  <vcl-icon vclPrepend [icon]="navGroupItem.opened ? 'fas:angle-down' : 'fas:angle-right'"></vcl-icon>
+                  &nbsp;{{item.label}}
+                </vcl-icogram>
+              </vcl-navigation-label>
+              <vcl-navigation *ngIf="item.items">
+                <vcl-navigation-item *ngFor="let subitem of item.items" [routerLink]="subitem.route" routerLinkActive #navItem="vclNavigationItem" #rla="routerLinkActive" [selected]="rla.isActive" (click)="onNavItemClick()">
+                  <vcl-navigation-label>
+                    <vcl-icogram>
+                      {{subitem.label}}
+                      <!-- Router loading animation -->
+                      <ng-container *ngIf="busy$ | async">
+                        <vcl-icon *ngIf="navItem.selected" vclAppend icon="vcl:busy"></vcl-icon>
+                      </ng-container>
+                    </vcl-icogram>
+                  </vcl-navigation-label>
+                </vcl-navigation-item>
+              </vcl-navigation>
+            </vcl-navigation-item>
+          </ng-template>
+        </vcl-navigation>
+      </vcl-drawer>
+      <div class="vclScrollable docContent" vclDrawerContent cdkScrollable> 
+        <router-outlet></router-outlet>
+      </div>
+    </vcl-drawer-container>
   </div>
-</div>
+  

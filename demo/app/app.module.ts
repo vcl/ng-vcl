@@ -12,7 +12,8 @@ import {
   VCL_NATIVE_DATE_ADAPTER_PARSER,
   NativeDateAdapterParserEN,
   NativeDateAdapterParserDE,
-  NativeDateAdapterParserENGB
+  NativeDateAdapterParserENGB,
+  VCLDrawerModule
 } from '@ng-vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
@@ -39,6 +40,7 @@ export function localeProviderFactory() {
     VCLNavigationModule,
     VCLBusyIndicatorModule,
     VCLLayerModule,
+    VCLDrawerModule,
     ScrollingModule
   ],
   declarations: [

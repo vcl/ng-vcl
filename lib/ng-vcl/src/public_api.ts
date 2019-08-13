@@ -2,6 +2,7 @@
  * Public API Surface of ng-vcl
  */
 export * from './core/index';
+export * from './drawer/index';
 export * from './dateadapter/index';
 export * from './form-control-group/index';
 export * from './material-design-inputs/index';

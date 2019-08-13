@@ -438,6 +438,16 @@ export const routes: Routes = [
       }
     }
   },
+  {
+    loadChildren: () => import('./demos/drawer/demo.module').then(m => m.DrawerDemoModule),
+    path: 'drawer',
+    data: {
+      demo: {
+        label: 'Drawer',
+        category: CAT_MISC,
+      }
+    }
+  },
 ];
 
 

@@ -1,0 +1,7 @@
+<div *ngIf="hasBackdrop" class="vclDrawerBackdrop" [class.vclDrawerBackdropVisible]="showBackdrop" (click)="onBackdropClick()"></div>
+
+<ng-content select="vcl-drawer"></ng-content>
+
+<div class="vclDrawerContent" [style.margin-left.px]="marginLeft" [style.margin-right.px]="marginRight">
+  <ng-content></ng-content>
+</div>

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MediaMatcher, BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router, RouteConfigLoadEnd, RouteConfigLoadStart, RouterEvent } from '@angular/router';
 import { routes } from './../../app-routing.module';
 import * as Fuse from 'fuse.js';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { DrawerComponent } from '@ng-vcl/ng-vcl';
 
 declare var gitBranch: string;
 
@@ -10,11 +13,23 @@ declare var gitBranch: string;
   selector: 'demo-app',
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private breakpointObserver: BreakpointObserver
   ) { }
+
+  @ViewChild('drawer', {
+    static: true,
+    read: DrawerComponent
+  })
+  drawer: DrawerComponent;
+
+  breakpointSub: Subscription;
+
+  xsmall = true;
+  left = true;
 
   busy$ = this.router.events.pipe(
     scan<RouterEvent, number>((cur, event) => {
@@ -54,10 +69,26 @@ export class AppComponent implements OnInit {
 
   searchResults = [];
 
+  onNavItemClick() {
+    if (this.xsmall) {
+      this.drawer.close();
+    }
+  }
+
   ngOnInit() {
     this.router.events.subscribe(() => {
       window.scrollTo(0, 0);
     });
+
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+    ]).subscribe(state => {
+      this.xsmall = state.breakpoints[Breakpoints.XSmall];
+    });
+  }
+
+  ngOnDestroy() {
+    this.breakpointSub && this.breakpointSub.unsubscribe();
   }
 
   async search(text) {
