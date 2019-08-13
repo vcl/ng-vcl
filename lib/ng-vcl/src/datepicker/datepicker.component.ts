@@ -17,7 +17,8 @@ import {
   Inject,
   OnChanges,
   SimpleChanges,
-  AfterViewInit} from '@angular/core';
+  AfterViewInit,
+  ViewEncapsulation} from '@angular/core';
 import { Subscription, Subject, merge } from 'rxjs';
 import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
@@ -48,7 +49,13 @@ export type DatepickerPick = 'date' | 'month' | 'time';
       provide: FORM_CONTROL_MATERIAL_INPUT,
       useExisting: forwardRef(() => DatepickerComponent)
     }
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None,
+  styles: [`
+    .vclPopOver.vclDatePicker > .vclCalendar {
+      width: 100%
+    }
+  `]
 })
 export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>> implements OnDestroy, FormControlMaterialInput, ControlValueAccessor, OnChanges, AfterViewInit {
 

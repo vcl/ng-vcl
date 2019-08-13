@@ -9,7 +9,11 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
   providers: [{
     provide: SELECT_LIST_CONTENT_TOKEN,
     useExisting: forwardRef(() => SelectListHeaderComponent)
-  }]
+  }],
+  styles: [`
+  :host {
+    display: block
+  }`]
 })
 export class SelectListHeaderComponent {
   @HostBinding('class.vclDropdownItemGroupHeader')
