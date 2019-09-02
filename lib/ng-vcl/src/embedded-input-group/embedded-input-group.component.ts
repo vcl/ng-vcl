@@ -58,7 +58,7 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy,
     return this.input.isLabelFloating;
   }
   get materialModifierClass() {
-    return this.prepend.length > 0 ? 'vclMaterialPrepItem' : undefined;
+    return this.prepend.length > 0 ? 'vclMaterialInputGroupEmbPrepItem' : undefined;
   }
 
   @HostBinding('class.vclInputGroupEmb')
