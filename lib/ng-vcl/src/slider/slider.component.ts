@@ -257,9 +257,9 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   /**
    * clicking the rail should also reposition the bar
    */
-  @HostListener('click', ['$event'])
-  onClick(event) {
-    if (this.isDisabled || event.target.className === 'vclSliderKnob') {
+  // @HostListener('click', ['$event'])
+  onRailClick(event: MouseEvent) {
+    if (this.isDisabled) {
       return;
     }
 
@@ -274,7 +274,10 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     this.setValue(value, false);
   }
 
-  selectPoint(p: ScalePoint) {
+  onScalePointClick(p: ScalePoint) {
+    if (this.isDisabled) {
+      return;
+    }
     const value = this.percentToValue(p.percent);
     this.setValue(value, true);
   }
@@ -389,7 +392,10 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
       this.percentLeftKnob = this.calculatePercentLeftKnob(newValue);
     }
 
+    this.focused = true;
+
     if (ev.isFinal) {
+      this.focused = false;
       this.firstPan = true;
       const value = this.percentToValue(this.percentLeftKnob);
       this.setValue(value, false);

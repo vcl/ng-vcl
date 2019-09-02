@@ -1,11 +1,11 @@
 <div class="vclSliderRail">
-  <div class="vclSliderScale" horizontal="" justified="" layout="" #scale>
-    <div *ngFor="let point of scalePoints" class="vclSliderScalePointMark"></div>
+  <div class="vclSliderScale vclLayoutHorizontal vclLayoutJustified" #scale (click)="onRailClick($event)">
+    <div *ngFor="let point of scalePoints" class="vclSliderScalePointMark" (click)="onScalePointClick(point); $event.stopPropagation();"></div>
   </div>
-  <div *ngIf="percentLeftKnob >= 0" class="vclSliderKnobContainer" [style.left]="percentLeftKnob + '%'" (pan)="onPan($event)">
-    <div  class="vclSliderKnob"></div>
+  <div class="vclSliderKnobContainer" [style.display]="percentLeftKnob >= 0 ? null : 'none'" [style.left]="percentLeftKnob + '%'" (pan)="onPan($event)">
+    <div class="vclSliderKnob"></div>
   </div>
 </div>
-<div *ngIf="showScale" class="vclSliderScale" horizontal="" justified="" layout="">
-  <div *ngFor="let point of scalePoints" class="vclSliderScalePointLabel" (click)="selectPoint(point)">{{point.label}}</div>
+<div *ngIf="showScale" class="vclSliderScale vclLayoutHorizontal vclLayoutJustified">
+  <div *ngFor="let point of scalePoints" class="vclSliderScalePointLabel" (click)="onScalePointClick(point)">{{point.label}}</div>
 </div>
