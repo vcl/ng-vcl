@@ -26,6 +26,7 @@ export interface NotifierOptions {
   showCloseButton?: boolean;
   position?: NotifierPosition;
   timeout?: number | boolean;
+  class?: string;
 }
 
 

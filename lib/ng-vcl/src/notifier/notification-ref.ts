@@ -22,6 +22,7 @@ export class NotificationRef {
   readonly showCloseButton = true;
   readonly position: NotifierPosition = NotifierPosition.TopRight;
   readonly timeout: number | boolean = true;
+  readonly class: string | undefined = undefined;
 
   close() {
     this._handler.close(this);

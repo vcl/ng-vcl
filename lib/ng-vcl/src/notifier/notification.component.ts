@@ -32,13 +32,17 @@ export class NotificationComponent implements AfterViewInit {
   ) {
     const type = TYPE_CLASS_MAP[this.notificationRef.type];
     this.icon = notificationRef.icon || type.icon;
-    this.notifierClass = type.notifier;
+    this.notifierClasses = [type.notifier];
 
     let timeout: number | false;
     if (typeof notificationRef.timeout === 'number' || notificationRef.timeout === false) {
       timeout = notificationRef.timeout;
     } else {
       timeout = this._config.timeout;
+    }
+
+    if (typeof notificationRef.class === 'string') {
+      this.notifierClasses.push(notificationRef.class);
     }
 
     if (timeout !== false) {
@@ -59,7 +63,7 @@ export class NotificationComponent implements AfterViewInit {
 
   state: NotificationAnimationState = 'open';
   icon: string;
-  notifierClass: string;
+  notifierClasses: string[];
 
   close() {
     this.state = 'closing';
@@ -74,9 +78,9 @@ export class NotificationComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.notifierClass) {
-      this.renderer.addClass(this.elementRef.nativeElement, this.notifierClass);
-    }
+    this.notifierClasses.forEach(cls => {
+      this.renderer.addClass(this.elementRef.nativeElement, cls);
+    });
   }
 
   @HostListener('@stateAnimation.done', ['$event'])

@@ -54,7 +54,8 @@ export class MyComponent {
       textColor: 'white',
       position: NotifierPosition.TopLeft,
       showCloseButton: false,
-      timeout: 10000
+      timeout: 10000,
+      notifierClass: 'myclass'
     });
   }
 }
@@ -89,5 +90,6 @@ export interface NotifierOptions {
   timeout?: number | boolean;
   backgroundColor?: string;
   textColor?: string;
+  notifierClass?: string;
 }
 ```

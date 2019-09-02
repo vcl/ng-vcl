@@ -1,10 +1,17 @@
 import { NotifierPosition, NotifierService } from '@ng-vcl/ng-vcl';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 let cnt = 1;
 
 @Component({
-  templateUrl: 'demo.component.html'
+  templateUrl: 'demo.component.html',
+  encapsulation: ViewEncapsulation.None,
+  styles: [`
+    .demoCustomNotifier {
+      background-color: black;
+      color: white;
+    }
+  `]
 })
 export class NotifierDemoComponent {
 
@@ -47,11 +54,10 @@ export class NotifierDemoComponent {
     this.notifier.queue({
       text: '<b>A <i>custom</i> message</b>',
       html: true,
-      // backgroundColor: 'black',
-      // textColor: 'white',
       position: this.position,
       showCloseButton: false,
-      timeout: 10000
+      timeout: 10000,
+      class: 'demoCustomNotifier'
     });
   }
 }
