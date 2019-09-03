@@ -1,4 +1,4 @@
-<div class="vclGalleryThumbs vclLayoutHorizontal vclLayoutCenterJustified" touch-action="pan-y">
+<div class="vclGalleryThumbs vclHor vclJustifyCenter" touch-action="pan-y">
   <div *ngFor="let image of target.images; let i = index" class="vclGalleryThumbWrapper" [ngClass]="{'vclSelected': i == target.selectedImage}" (click)="target.selectImage(i)">
     <img class="vclGalleryThumb" [src]="image.thumbnail || image.image" [alt]="image.alt">
   </div>

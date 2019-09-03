@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { VCLTooltipModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ToolTipDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/tooltip/README.md';
 
 export function demo() {
   return {
@@ -12,7 +13,7 @@ export function demo() {
       Demo: ToolTipDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/tooltip/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

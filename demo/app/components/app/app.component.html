@@ -1,20 +1,20 @@
-<div class="vclLayoutVertical docMain">
-    <header class="vclApplicationHeader vclLayoutHorizontal vclLayoutCenter vclLayoutJustified">
+<div class="vclVer docMain">
+    <header class="vclApplicationHeader vclHor vclCenter vclJustifyBetween">
       <button vcl-square-button class="vclTransparent" *ngIf="xsmall" (click)="drawer.toggle()">
         <vcl-icon icon="vcl:menu" class="vclScale180p"></vcl-icon>
       </button>
       <div role="banner">
-        <a href="#" class="vclLayoutHorizontal vclLayoutCenter">
+        <a href="#" class="vclHor vclCenter">
           <img class="vclResponsiveImage vclLogo" role="presentation" src="https://cdn.jsdelivr.net/gh/ng-vcl/ng-vcl/gfx/angular_vcl_logo_square.png">
           <h1 *ngIf="!xsmall" class="vclAppName">Angular VCL Demo Browser (v{{version}}<span *ngIf="gitBranch"> {{gitBranch}}</span>)</h1>
         </a>
       </div>
-      <div *ngIf="!xsmall || !xsmall" class="github"><a href="https://github.com/ng-vcl/ng-vcl" target="_blank" title="to Github">
+      <div class="github"><a href="https://github.com/ng-vcl/ng-vcl" target="_blank" title="to Github">
         <span class="vclIcon fab fa-github fa-3x"></span> </a>
       </div>
     </header>
-    <vcl-drawer-container class="vclContentArea vclLayoutFlex">
-      <vcl-drawer [opened]="xsmall ? false : true" class="vclLayoutVertical docNav"  #drawer="vclDrawer" [mode]="!xsmall ? 'side' : 'over'">
+    <vcl-drawer-container class="vclContentArea vclFlex">
+      <vcl-drawer [opened]="xsmall ? false : true" class="vclVer docNav"  #drawer="vclDrawer" [mode]="!xsmall ? 'side' : 'over'">
         <div class="vclInputGroupEmb">
           <span class="vclPrepended">
             <vcl-icon icon="fas:search"></vcl-icon>
@@ -34,7 +34,7 @@
             icon="fas:times-circle"></button>
         </div>
   
-        <vcl-navigation class="vclScrollable vclYOnHover vclLayoutFlex">
+        <vcl-navigation class="vclScrollable vclYOnHover vclFlex">
           <ng-container *ngIf="searchResults.length; else noSearch">
             <vcl-navigation-item *ngFor="let searchResult of searchResults" [routerLink]="searchResult.route" routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
               <vcl-navigation-label>{{searchResult.label}}</vcl-navigation-label>

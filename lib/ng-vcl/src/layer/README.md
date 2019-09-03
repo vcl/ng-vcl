@@ -19,7 +19,7 @@ A layer reference can be created via the `vcl-layer` component or with the `Laye
 
 <vcl-layer #myTemplateLayer="vclLayer">
   <!-- myTemplateLayer is of type TemplateLayerRef -->
-  <div class="vclPanel vclNoMargin">
+  <div class="vclPanel vclM-0">
     <div class="vclPanelBody">
       <p class="vclPanelContent">
         Content

@@ -23,6 +23,14 @@ module.exports.default = {
     const currentBranch = process.env.GIT_BRANCH || 'unknown';
     
     return merge(cfg, {
+      module: {
+        rules: [
+          {
+            test: /\.md$/i,
+            use: ['raw-loader', 'highlight-loader', 'markdown-loader?breaks=true']
+          },
+        ],
+      },
       plugins: [
         new webpack.DefinePlugin({
           gitBranch: JSON.stringify(currentBranch)
@@ -31,4 +39,3 @@ module.exports.default = {
     });
   }
 };
-

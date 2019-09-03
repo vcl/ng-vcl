@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { VCLAlertModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { AlertDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/alert/README.md';
 
 export function demo() {
   return {
@@ -12,7 +13,7 @@ export function demo() {
       Demo: AlertDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/alert/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

@@ -26,6 +26,18 @@ export class AppComponent {}
 <vcl-badge type="warning">warning</vcl-badge>
 
 <vcl-badge type="error">error</vcl-badge>
+
+<vcl-badge vclRounded>default</vcl-badge>
+
+<vcl-badge vclRounded type="primary">primary</vcl-badge>
+
+<vcl-badge vclRounded type="success">success</vcl-badge>
+
+<vcl-badge vclRounded type="info">info</vcl-badge>
+
+<vcl-badge vclRounded type="warning">warning</vcl-badge>
+
+<vcl-badge vclRounded type="error">error</vcl-badge>
 ```
 
 ### API
@@ -35,3 +47,9 @@ export class AppComponent {}
 Name       | Type   | Default | Description
 ---------- | ------ | ------- | ------------------------------------------------------------
 `type`     | string |         | the badge's type
+
+#### vclRounded directive
+
+Name         | Description
+----------   | ------------------------------------------------------------
+`vclRounded` | Enables rounded corners

@@ -41,11 +41,11 @@ Value: {{smonthArray}}
 <vcl-calendar #c="vclCalendar">
   <div vclCalendarFooter class="vclDGRow" *ngIf="c.view === 'month'">
     <div class="vclDGCell vclToolbar">
-      <div class="vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar">
-        <button vcl-button class="vclTransparent vclLayoutFlex" type="button" (click)="c.viewDate = today">
+      <div class="vclFlex vclHor vclJustifyBetween vclCenter" role="menubar">
+        <button vcl-button class="vclTransparent vclFlex" type="button" (click)="c.viewDate = today">
           go to today
         </button>
-        <button vcl-square-button class="vclTransparent vclLayoutFlex" type="button" (click)="c.viewDate = c.value">
+        <button vcl-square-button class="vclTransparent vclFlex" type="button" (click)="c.viewDate = c.value">
           go to selected
         </button>
       </div>

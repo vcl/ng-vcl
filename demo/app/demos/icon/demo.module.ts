@@ -5,6 +5,7 @@ import { VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { IconDemoComponent } from './demo.component';
 import { DemoMdiIconsComponent, DemoFontAwesomeComponent } from './icons.component';
+import README from '@ng-vcl/ng-vcl/icon/README.md';
 
 export function demo() {
   return {
@@ -15,7 +16,7 @@ export function demo() {
       'Font Awesome Icons Aliases': DemoFontAwesomeComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/icon/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

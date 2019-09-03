@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { VCLInputModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { InputDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/input/README.md';
 
 export function demo() {
   return {
@@ -13,7 +14,7 @@ export function demo() {
       Demo: InputDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/input/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

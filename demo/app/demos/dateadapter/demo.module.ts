@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { VCLCalendarModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
+import README from '@ng-vcl/ng-vcl/dateadapter/README.md';
 
 export function demo() {
   return {
@@ -10,7 +11,7 @@ export function demo() {
     tabs: {
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/dateadapter/README.md')
+        content: README
       }
     },
   };

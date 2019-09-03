@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { VCLButtonGroupModule, VCLButtonModule, VCLNotifierModule } from '@ng-vcl/ng-vcl';
 import { DemoComponent, DemoModule } from './../../modules/demo/demo.module';
 import { NotifierDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/notifier/README.md';
 
 export function demo() {
   return {
@@ -13,7 +14,7 @@ export function demo() {
       Demo: NotifierDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/notifier/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

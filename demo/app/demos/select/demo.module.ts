@@ -6,6 +6,7 @@ import { VCLSelectModule } from '@ng-vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { SelectDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/select/README.md';
 
 export function demo() {
   return {
@@ -14,7 +15,7 @@ export function demo() {
       Demo: SelectDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/select/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

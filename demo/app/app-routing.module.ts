@@ -30,16 +30,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/label/demo.module').then(m => m.LabelDemoModule),
-    path: 'label',
-    data: {
-      demo: {
-        label: 'Label',
-        category: CAT_TYPOGRAPHICAL,
-      }
-    }
-  },
-  {
     loadChildren: () => import('./demos/drawer/demo.module').then(m => m.DrawerDemoModule),
     path: 'drawer',
     data: {

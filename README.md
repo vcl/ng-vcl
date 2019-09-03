@@ -16,7 +16,7 @@ A comprehensive library of components for Angular 8+ with [VCL](http://vcl.githu
 
 ## Status
 
-ng-vcl is in beta but we adhere to semver.
+ng-vcl is production ready. We adhere to semver.
 
 ## Packages
 
@@ -24,7 +24,7 @@ ng-vcl is in beta but we adhere to semver.
 
 ## Installation
 
-Check the [webpack helper](tools/webpack-helper) to see how to use the (ng-)vcl with Angular CLI.
+Check the [webpack helper](https://github.com/ng-vcl/ng-vcl/tree/master/tools/webpack-helper) to see how to use the (ng-)vcl with Angular CLI.
 
 ## Demo / Docs
 
@@ -37,8 +37,7 @@ OR
 git clone https://github.com/ng-vcl/ng-vcl.git
 cd ng-vcl
 npm install
-npm run build
-npm run dev:demo
+npm start
 ```
 
 Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.

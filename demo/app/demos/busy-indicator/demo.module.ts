@@ -5,6 +5,7 @@ import { VCLBusyIndicatorModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { BusyDemoComponent } from './demo.component';
 import { VCLIconModule } from '@ng-vcl/ng-vcl/icon';
+import README from '@ng-vcl/ng-vcl/busy-indicator/README.md';
 
 export function demo() {
   return {
@@ -13,7 +14,7 @@ export function demo() {
       Demo: BusyDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/busy-indicator/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

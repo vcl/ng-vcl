@@ -28,7 +28,6 @@ export * from './date-picker/index';
 export * from './datepicker/index';
 export * from './calendar/index';
 export * from './month-picker/index';
-export * from './label/index';
 export * from './token/index';
 export * from './slider/index';
 export * from './alert/index';

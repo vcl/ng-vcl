@@ -1,10 +1,10 @@
-<div class="vclLayoutCenterJustified vclIcogram {{layout == 'vertical' ? 'vclLayoutVertical' : 'vclLayoutHorizontal'}}" role="status">
-  <vcl-icon *ngIf="!icon" class="vclLayoutSelfCenter" [attr.aria-label]="label">
+<div class="vclJustifyCenter vclIcogram {{layout == 'vertical' ? 'vclVer' : 'vclHor'}}" role="status">
+  <vcl-icon *ngIf="!icon" class="vclSelfCenter" [attr.aria-label]="label">
     <img [src]="imageSrc" role=”presentation” [style.width]="imageWidth" [style.height]="imageHeight">
   </vcl-icon>
-  <vcl-icon *ngIf="icon" class="vclLayoutSelfCenter" [attr.aria-label]="label" [icon]="icon"></vcl-icon>
+  <vcl-icon *ngIf="icon" class="vclSelfCenter" [attr.aria-label]="label" [icon]="icon"></vcl-icon>
 
-  <div class="vclLayoutSelfCenter">
+  <div class="vclSelfCenter">
     <ng-content></ng-content>
   </div>
 </div>

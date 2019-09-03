@@ -4,6 +4,7 @@ import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { NgModule } from '@angular/core';
 import { TableDemoComponent } from './demo.component';
 import { VCLTableModule } from '@ng-vcl/ng-vcl';
+import README from '@ng-vcl/ng-vcl/table/README.md';
 
 export function demo() {
   return {
@@ -12,7 +13,7 @@ export function demo() {
       Demo: TableDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/table/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

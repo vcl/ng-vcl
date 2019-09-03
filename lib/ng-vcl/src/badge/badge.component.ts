@@ -1,4 +1,4 @@
-import { Input, HostBinding, Component, ChangeDetectionStrategy } from '@angular/core';
+import { Input, HostBinding, Component, ChangeDetectionStrategy, Directive } from '@angular/core';
 
 @Component({
   selector: 'vcl-badge',
@@ -33,4 +33,12 @@ export class BadgeComponent {
   get vclError() {
     return this.type === 'error';
   }
+}
+
+@Directive({
+  selector: 'vcl-badge[vclRounded]'
+})
+export class BadgeRoundedDirective {
+  @HostBinding('class.vclRounded')
+  rounded = true;
 }

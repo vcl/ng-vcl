@@ -6,6 +6,7 @@ import { VCLButtonModule, VCLEmbeddedInputGroupModule, VCLBusyIndicatorModule, V
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { SelectListDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/select-list/README.md';
 
 export function demo() {
   return {
@@ -14,7 +15,7 @@ export function demo() {
       Demo: SelectListDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/select-list/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

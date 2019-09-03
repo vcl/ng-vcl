@@ -1,14 +1,14 @@
 <div class="vclDatePicker">
-  <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput vclNoMargin"
+  <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput vclM-0"
     [attr.role]="'grid'"
     [attr.tabindex]="tabindex"
     [attr.aria-multiselectable]="maxSelectableMonths > 1"
     [attr.aria-expanded]="expanded">
 
     <div class="vclDGRow">
-      <div class="vclToolbar vclLayoutHorizontal vclLayoutFlex vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
-        <div class="vclLayoutHorizontal vclLayoutCenter">
-          <button vcl-square-button class="vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
+      <div class="vclToolbar vclHor vclFlex vclJustifyBetween vclCenter" role="menubar" aria-level="1">
+        <div class="vclHor vclCenter">
+          <button vcl-square-button class="vclTransparent vclHor vclCenterCenter"
             type="button"
             [class.vclDisabled]="!prevYearAvailable"
             (click)="onPrevYearTap()">
@@ -19,17 +19,17 @@
 
           <button vcl-square-button
             type="button"
-            class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
+            class="vclButton vclTransparent vclHor vclCenterCenter"
             [class.vclDisabled]="!nextYearAvailable"
             (click)="onNextYearTap()">
             <vcl-icon icon="vcl:arrow-right"></vcl-icon>
           </button>
         </div>
 
-        <div class="vclLayoutHorizontal vclLayoutFlex vclLayoutEndJustified">
+        <div class="vclHor vclFlex vclJustifyEnd">
           <button vcl-square-button *ngIf="expandable"
             type="button"
-            class="vclButton vclTransparent vclLayoutHorizontal vclLayoutCenterCenter"
+            class="vclButton vclTransparent vclHor vclCenterCenter"
             (click)="onCloseBtnTap()">
             <vcl-icon icon="vcl:close"></vcl-icon>
           </button>
@@ -55,7 +55,7 @@
           [attr.aria-selected]="isSelected(i + j)"
           [tabindex]="i+j"
           role="gridcell">
-            <div class="vclLayoutHorizontal vclLayoutCenterJustified vclMonthPickerListItemLabel">
+            <div class="vclHor vclJustifyCenter vclMonthPickerListItemLabel">
               {{months[i + j]}}
             </div>
         </div>

@@ -1,6 +1,6 @@
   <div class="vclDGRow">
     <div class="vclDGCell">
-      <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
+      <div class="vclToolbar vclFlex vclHor vclJustifyBetween vclCenter" role="menubar" aria-level="1">
         <div class="vclButtonDim"></div>
         <button vcl-button class="vclTransparent vclCalHeaderLabel" (click)="onLabelClick()">
           {{calendar.use24hTime ? 'Hours' : 'AM' }}
@@ -13,7 +13,7 @@
   <ng-container *ngFor="let hoursRow of calendar.hours; let i = index">
     <div class="vclDGRow" *ngIf="!calendar.use24hTime && i === 2">
       <div class="vclDGCell">
-        <div class="vclToolbar vclLayoutFlex vclLayoutHorizontal vclLayoutJustified vclLayoutCenter" role="menubar" aria-level="1">
+        <div class="vclToolbar vclFlex vclHor vclJustifyBetween vclCenter" role="menubar" aria-level="1">
           <div class="vclButtonDim"></div>
           <div class="vclCalHeaderLabel">PM</div>
           <div class="vclButtonDim"></div>

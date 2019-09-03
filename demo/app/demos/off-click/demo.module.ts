@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { VCLOffClickModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { OffClickDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/off-click/README.md';
 
 export function demo() {
   return {
@@ -12,7 +13,7 @@ export function demo() {
       Demo: OffClickDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/off-click/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

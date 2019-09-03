@@ -67,7 +67,7 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
 
   @HostBinding('class.vclInput')
   @HostBinding('class.vclTokenInput')
-  @HostBinding('class.vclLayoutHorizontal')
+  @HostBinding('class.vclHor')
   @HostBinding('class.vclLayoutWrap')
   _hostClasses = true;
 
@@ -263,7 +263,7 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
 
   ngAfterContentInit(): void {
     if (this.inputElementRef) {
-      this.renderer.addClass(this.inputElementRef.nativeElement, 'vclLayoutFlex');
+      this.renderer.addClass(this.inputElementRef.nativeElement, 'vclFlex');
     }
   }
 }

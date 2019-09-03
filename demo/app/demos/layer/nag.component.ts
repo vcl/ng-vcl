@@ -26,8 +26,8 @@ export class NagComponent {
 
   @HostBinding('class.vclNag')
   @HostBinding('class.vclContainer')
-  @HostBinding('class.vclLayoutHorizontal')
-  @HostBinding('class.vclLayoutCenterJustified')
+  @HostBinding('class.vclHor')
+  @HostBinding('class.vclJustifyCenter')
   _hostClasses = true;
 
   accept() {

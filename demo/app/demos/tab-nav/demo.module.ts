@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { VCLTabNavModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { TabNavDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/tab-nav/README.md';
 
 export function demo() {
   return {
@@ -12,7 +13,7 @@ export function demo() {
       Demo: TabNavDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/tab-nav/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

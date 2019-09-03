@@ -5,8 +5,8 @@
 <button vcl-button (click)="openNagLayer()">Open nag layer</button>
 
 <vcl-layer #layer="vclLayer">
-  <div class="vclPanel vclPanelDialog vclNoMargin">
-    <div class="vclPanelHeader vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
+  <div class="vclPanel vclPanelDialog vclM-0">
+    <div class="vclPanelHeader vclNoBg vclHor vclJustifyBetween vclCenter">
       <h3 class="vclPanelTitle">
         Layer
       </h3>
@@ -19,7 +19,7 @@
         Press escape or click outside of layer to close<br><br>
       </p>
     </div>
-    <div class="vclPanelFooter vclNoBg vclLayoutHorizontal vclLayoutJustified vclLayoutCenter">
+    <div class="vclPanelFooter vclNoBg vclHor vclJustifyBetween vclCenter">
       <div></div>
       <div class="vclLooseButtonGroup">
         <button vcl-button icon="fas:times" class="vclTransparent vclOutline" (click)="layer.close()">Close layer</button>

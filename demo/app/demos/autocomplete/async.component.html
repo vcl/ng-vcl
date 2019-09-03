@@ -40,14 +40,14 @@
 
   <div class="vclDataList vclItemSelectability vclItemHoverHighlight vclNoBorder vclScrollable vclY" style="max-height: 20em;">
     <ul class="vclDataListBody" role="listbox" aria-multiselectable="false">
-      <li *ngFor="let book of books" class="vclDataListItem vclLayoutHorizontal" role="option" aria-selected="false">
+      <li *ngFor="let book of books" class="vclDataListItem vclHor" role="option" aria-selected="false">
         <div>
           <img class="vclResponsiveImage" [src]="book.image">
         </div>
-        <div class="vclGutterMargin vclLayoutFlex">
-          <div class="vclLayoutHorizontal">
-            <div class="vclLayoutHorizontal vclLayoutCenter vclLayoutFlex">
-              <h2 class="vclNoMargin">{{book.title}}</h2>
+        <div class="vclGutterMargin vclFlex">
+          <div class="vclHor">
+            <div class="vclHor vclCenter vclFlex">
+              <h2 class="vclM-0">{{book.title}}</h2>
             </div>
             <div class="vclSecondaryTextColor vclAlignRight">
               <i>{{book.date}}</i><br>

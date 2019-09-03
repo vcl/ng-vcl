@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { VCLCheckboxModule, VCLFormControlGroupModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { CheckboxDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/checkbox/README.md';
 
 export function demo() {
   return {
@@ -13,7 +14,7 @@ export function demo() {
       Demo: CheckboxDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/checkbox/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

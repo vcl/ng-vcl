@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { VCLButtonGroupModule, VCLButtonModule, VCLIconModule } from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ButtonGroupDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/button-group/README.md';
 
 export function demo() {
   return {
@@ -13,7 +14,7 @@ export function demo() {
       Demo: ButtonGroupDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/button-group/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

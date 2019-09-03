@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { VCLButtonModule, VCLButtonGroupModule,
-         VCLInputModule, VCLFileInputModule, VCLFlipSwitchModule, VCLCheckboxModule, VCLLabelModule, VCLSliderModule, VCLTokenModule, VCLTextareaModule,
+         VCLInputModule, VCLFileInputModule, VCLFlipSwitchModule, VCLCheckboxModule, VCLSliderModule, VCLTokenModule, VCLTextareaModule,
          VCLRadioButtonModule,
          VCLFormControlGroupModule,
          VCLIcogramModule,
@@ -17,6 +17,7 @@ import { VCLButtonModule, VCLButtonGroupModule,
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
 import { VCLCounterModule } from './counter.component';
+import README from '@ng-vcl/ng-vcl/form-control-group/README.md';
 
 export function demo() {
   return {
@@ -25,7 +26,7 @@ export function demo() {
       Demo: FormControlGroupDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/form-control-group/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',
@@ -57,7 +58,6 @@ export function demo() {
     VCLIconModule,
     VCLCheckboxModule,
     VCLIcogramModule,
-    VCLLabelModule,
     VCLRadioButtonModule,
     VCLSliderModule,
     VCLSelectModule,

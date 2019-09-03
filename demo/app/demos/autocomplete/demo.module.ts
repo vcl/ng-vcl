@@ -7,6 +7,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { AutocompleteDemoComponent } from './demo.component';
 import { AutocompleteAsyncDemoComponent } from './async.component';
+import README from '@ng-vcl/ng-vcl/autocomplete/README.md';
 
 export function demo() {
   return {
@@ -16,7 +17,7 @@ export function demo() {
       'Async Demo': AutocompleteAsyncDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/autocomplete/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

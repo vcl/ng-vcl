@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { VCLTextareaModule} from '@ng-vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { TextareaDemoComponent } from './demo.component';
+import README from '@ng-vcl/ng-vcl/textarea/README.md';
 
 export function demo() {
   return {
@@ -13,7 +14,7 @@ export function demo() {
       Demo: TextareaDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/textarea/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

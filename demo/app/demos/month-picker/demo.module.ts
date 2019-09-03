@@ -5,6 +5,7 @@ import { VCLMonthPickerLegacyModule, VCLButtonModule, VCLPopoverModule } from '@
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { MonthPickerDemoComponent } from './demo.component';
 import {FormsModule} from '@angular/forms';
+import README from '@ng-vcl/ng-vcl/month-picker/README.md';
 
 export function demo() {
   return {
@@ -13,7 +14,7 @@ export function demo() {
       Demo: MonthPickerDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/month-picker/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',

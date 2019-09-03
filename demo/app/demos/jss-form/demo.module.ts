@@ -7,6 +7,7 @@ import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
 import { FormFieldCounterComponent } from './jss-form-extended';
 import { VCLCounterModule } from '../form-control-group/counter.component';
+import README from '@ng-vcl/ng-vcl/jss-form/README.md';
 
 export function demo() {
   return {
@@ -15,7 +16,7 @@ export function demo() {
       Demo: JssFormDemoComponent,
       'README.md': {
         type: 'md',
-        content: require('raw-loader!highlight-loader?!markdown-loader?breaks=true!../../../../lib/ng-vcl/src/jss-form/README.md')
+        content: README
       },
       'demo.component.html': {
         type: 'pre',
