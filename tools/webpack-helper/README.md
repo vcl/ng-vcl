@@ -2,10 +2,18 @@
 
 Extends the Angular CLI webpack config with vcl support.
 
-## Installation
+## Requirements / Installation
+
+- @vcl/preprocessor: ^0.6.0
+- css-loader: ^3.2.0
+- webpack-merge: ^4.2.2
 
 ```sh
-$ npm install @ng-vcl/webpack-helper webpack-merge --save-dev
+npm install @vcl/preprocessor webpack-merge css-loader --save-dev
+```
+
+```sh
+$ npm install @vcl/preprocessor webpack-merge css-loader @ng-vcl/webpack-helper --save-dev
 ```
 
 ## Usage

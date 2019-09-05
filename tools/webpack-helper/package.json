@@ -1,10 +1,11 @@
 {
   "name": "@ng-vcl/webpack-helper",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Helper for VCL support in Angular CLI",
   "main": "index.js",
   "homepage": "https://github.com/ng-vcl/ng-vcl",
   "keywords": [
+    "angular",
     "vcl",
     "ng-vcl",
     "preprocessor",
@@ -23,9 +24,9 @@
     }
   ],
   "license": "MIT",
-  "dependencies": {
-    "@vcl/preprocessor": "^0.4.5",
+  "peerDependencies": {
+    "@vcl/preprocessor": "^0.6.0",
     "css-loader": "^3.2.0",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.2"
   }
 }

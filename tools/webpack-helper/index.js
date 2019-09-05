@@ -11,7 +11,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
  * @param {boolean} [opts.sourceMap=false] - generate a source map
  * @param {string} [opts.root=process.cwd()] - base directory
  * @param {string} [opts.globalStyle='src/styles.sss'] - path to global style
- * @param {string} [opts.theme="@vcl/theme"] - theme to use
  * @param {boolean} [opts.fa=false - font-awesome path fix
  * @param {boolean} [opts.mdi=false - material design icons path fix
  * @return partial webpack config
