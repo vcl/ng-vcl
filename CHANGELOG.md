@@ -1,25 +1,9 @@
-# [0.10.0-2](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0-1...v0.10.0-2) (2019-08-08)
-
-
-### Features
-
-* **calendar:** add dateModifier support. Remove (un)available properties ([2daf49f](https://github.com/ng-vcl/ng-vcl/commit/2daf49f))
-* **calendar:** support per view dateModifier, add cva support and add maxSelectableDates property ([3ccfe80](https://github.com/ng-vcl/ng-vcl/commit/3ccfe80))
-* **datepicker:** add dateModifier support ([4df1965](https://github.com/ng-vcl/ng-vcl/commit/4df1965))
-
-
-### BREAKING CHANGES
-
-* **calendar:** Removed available/unavailable properties of vcl-calender. Use dateModifiers
-instead.
-
-
-
-# [0.10.0-1](https://github.com/ng-vcl/ng-vcl/compare/v0.9.1...v0.10.0-1) (2019-08-07)
+# [0.10.0](https://github.com/ng-vcl/ng-vcl/compare/v0.9.1...v0.10.0) (2019-09-03)
 
 
 ### Bug Fixes
 
+* **slider:** fix/optimize click behavior ([0e714a9](https://github.com/ng-vcl/ng-vcl/commit/0e714a9))
 * **datepicker:** remove bottom margin ([d8d463e](https://github.com/ng-vcl/ng-vcl/commit/d8d463e))
 * **select:** do not detect changes if view is destroyed ([3eabb52](https://github.com/ng-vcl/ng-vcl/commit/3eabb52))
 * add missing form control group imports ([d42a24e](https://github.com/ng-vcl/ng-vcl/commit/d42a24e))
@@ -30,19 +14,20 @@ instead.
 
 ### Features
 
-* **calendar:** add basic calendar/datepicker implementation ([a97ddfb](https://github.com/ng-vcl/ng-vcl/commit/a97ddfb))
-* **calendar:** mark partial ranges with alt selected class ([b486cf8](https://github.com/ng-vcl/ng-vcl/commit/b486cf8))
-* **calendar/datepicker:** add calendar/datepicker features ([fcc959d](https://github.com/ng-vcl/ng-vcl/commit/fcc959d))
-* **date-adapter:** add partial range support ([797470e](https://github.com/ng-vcl/ng-vcl/commit/797470e))
-* **date-picker:** deprecate and rename date-picker module ([ab253e5](https://github.com/ng-vcl/ng-vcl/commit/ab253e5))
+* **drawer:** introduce drawer ([c266363](https://github.com/ng-vcl/ng-vcl/commit/c266363))
+* **notifier:** add custom class support ([f02e0ff](https://github.com/ng-vcl/ng-vcl/commit/f02e0ff))
+* **datepicker:** add dateModifier support ([4df1965](https://github.com/ng-vcl/ng-vcl/commit/4df1965))
+* **month-picker:** deprecate and rename month-picker module ([7336c0d](https://github.com/ng-vcl/ng-vcl/commit/7336c0d))
+* **calendar:** add calendar support ([a97ddfb](https://github.com/ng-vcl/ng-vcl/commit/a97ddfb))
+* **icon:** add vcl:menu ([1822183](https://github.com/ng-vcl/ng-vcl/commit/1822183))
 * **icon:** add vcl:calendar ([687a082](https://github.com/ng-vcl/ng-vcl/commit/687a082))
 * **icon:** add vcl:clock ([b9dbf20](https://github.com/ng-vcl/ng-vcl/commit/b9dbf20))
 * **input:** allow settings the value via vclInput directive ([e06a9b4](https://github.com/ng-vcl/ng-vcl/commit/e06a9b4))
-* **month-picker:** deprecate and rename month-picker module ([7336c0d](https://github.com/ng-vcl/ng-vcl/commit/7336c0d))
-
 
 ### BREAKING CHANGES
 
+* Requires VCL ^0.6
+* Angular ^8.2.1 required
 * **month-picker:** The VCLMonthPickerModule is deprecated and renamed to VCLMonthPickerLegacyModule
 * **date-picker:** The VCLDatePickerModule module is deprecated and renamed to
 VCLDatePickerLegacyModule
