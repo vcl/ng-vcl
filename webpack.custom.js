@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const webpackHelper = require('@ng-vcl/webpack-helper');
+const webpackHelper = require('./tools/webpack-helper');
 
 module.exports.default = {
   opts: null,
