@@ -3,7 +3,6 @@ import { Component, ChangeDetectionStrategy, Input, HostBinding, ElementRef, Inj
 import { DRAWER_CONTAINER_HOST, DrawerContainer, Drawer } from './types';
 
 @Component({
-  moduleId: module.id,
   selector: 'vcl-drawer',
   exportAs: 'vclDrawer',
   templateUrl: 'drawer.component.html',
