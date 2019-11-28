@@ -1,3 +1,22 @@
+# [0.11.0-alpha.1](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.1) (2019-11-28)
+
+Updated to VCL 0.7. Check BREAKING CHANGES.
+
+### Code Refactoring
+
+* migrate to VCL 0.7 ([c4a7bc0](https://github.com/ng-vcl/ng-vcl/commit/c4a7bc0003b8b3b05fd8b8f7db0f896e9562a064))
+* remove deprecated month-picker and date-picker ([a006339](https://github.com/ng-vcl/ng-vcl/commit/a00633956cc94418ceb7d0914e161f033f377fb4))
+* **table:** remove table ([64961ba](https://github.com/ng-vcl/ng-vcl/commit/64961baccbd686925995f6e4d6bad80cebec17e1))
+
+
+### BREAKING CHANGES
+
+* Migrated to VCL 0.7. Check VCL changelog for breaking changes.
+* Removed deprecated month-picker and date-picker. Use calendar instead.
+* **table:** Removed table. Use native VCL table instead.
+
+
+
 # [0.10.0](https://github.com/ng-vcl/ng-vcl/compare/v0.9.1...v0.10.0) (2019-09-03)
 
 
