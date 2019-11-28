@@ -96,7 +96,7 @@ export class DrawerContainerComponent implements AfterContentInit, OnDestroy, Dr
   notifyDrawerStateChange(drawer: Drawer, action: 'check' | 'toggle') {
     this.updateContentMargins();
     if (action === 'toggle') {
-      this.elementRef.nativeElement.classList.add('vclDrawerAnimations');
+      this.elementRef.nativeElement.classList.add('drawer-animations');
       this.cdRef.markForCheck();
     }
   }
