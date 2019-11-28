@@ -1,0 +1,36 @@
+{
+  "name": "@ng-vcl/migration",
+  "version": "0.1.0",
+  "description": "Migration tools for VCL/ng-vcl",
+  "main": "index.js",
+  "homepage": "https://github.com/ng-vcl/ng-vcl",
+  "bin": {
+    "vcl-migrate": "migrate.js"
+  },
+  "keywords": [
+    "angular",
+    "vcl",
+    "ng-vcl",
+    "preprocessor",
+    "postcss",
+    "webpack"
+  ],
+  "author": {
+    "name": "n-fuse GmbH",
+    "email": "info@n-fuse.co",
+    "url": "https://www.n-fuse.co"
+  },
+  "contributors": [
+    {
+      "name": "Daniel Hartmann",
+      "email": "daniel.hartmann@n-fuse.co"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "yargs": "^15.0.2"
+  },
+  "devDependencies": {
+    "@types/yargs": "^13.0.3"
+  }
+}
