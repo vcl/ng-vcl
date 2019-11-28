@@ -100,16 +100,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/date-picker/demo.module').then(m => m.DatePickerDemoModule),
-    path: 'date-picker',
-    data: {
-      demo: {
-        label: 'Date-Picker (deprecated)',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
     loadChildren: () => import('./demos/select-list/demo.module').then(m => m.SelectListDemoModule),
     path: 'select-list',
     data: {
@@ -185,16 +175,6 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Embedded Input Group',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
-    loadChildren: () => import('./demos/month-picker/demo.module').then(m => m.MonthPickerDemoModule),
-    path: 'month-picker',
-    data: {
-      demo: {
-        label: 'Month Picker (deprecated)',
         category: CAT_FORM_CONTROLS,
       }
     }
