@@ -30,7 +30,7 @@ export class TimePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  @HostBinding('class.vclDatePicker')
+  @HostBinding('class.date-picker')
   _hostClasses = true;
 
   @HostBinding('attr.role')

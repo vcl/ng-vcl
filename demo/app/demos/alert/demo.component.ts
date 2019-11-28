@@ -77,10 +77,10 @@ export class AlertDemoComponent {
       type: AlertType.Info,
       showCloseButton: true,
       showCancelButton: true,
-      confirmButtonClass: 'vclSuggestive',
+      confirmButtonClass: 'suggestive',
       confirmButtonPrepIcon: 'fas:bolt',
       cancelButtonColor: 'orange',
-      customClass: 'vclScale130p',
+      customClass: 'scale130p',
     });
   }
 

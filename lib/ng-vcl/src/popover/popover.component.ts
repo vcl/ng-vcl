@@ -42,7 +42,7 @@ export class PopoverComponent extends TemplateLayerRef implements OnDestroy {
   target?: ElementRef | HTMLElement;
 
   @Input()
-  panelClass = 'vclPopOver';
+  panelClass = 'pop-over';
 
   @Input()
   positions?: ConnectedPosition[];

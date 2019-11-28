@@ -7,7 +7,7 @@ import { NAVIGATION_TOKEN, Navigation } from './types';
   exportAs: 'vclNavigationLabel'
 })
 export class NavigationLabelComponent {
-  @HostBinding('class.vclNavigationItemLabel')
+  @HostBinding('class.navigation-item-label')
   classVclNavigationItemLabel = true;
 }
 
@@ -29,7 +29,7 @@ export class NavigationItemComponent {
     public parentNavItem: NavigationItemComponent
     ) { }
 
-  @HostBinding('class.vclNavigationItem')
+  @HostBinding('class.navigation-item')
   classVclNavigationItem = true;
 
   @HostBinding('attr.tabindex')
@@ -38,13 +38,13 @@ export class NavigationItemComponent {
   @Input()
   opened = false;
 
-  @HostBinding('class.vclClose')
+  @HostBinding('class.close')
   @Input()
   get closed() {
     return !this.opened;
   }
 
-  @HostBinding('class.vclSelected')
+  @HostBinding('class.selected')
   _selected = false;
 
   @Input()

@@ -40,7 +40,7 @@ let UNIQUE_ID = 0;
   ],
   styles: [
     `
-      :host.vclRatingVertical {
+      :host.rating-vertical {
         flex-direction: column;
       }
     `
@@ -98,7 +98,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     return this.id || this.generatedId;
   }
 
-  @HostBinding('class.vclRating')
+  @HostBinding('class.rating')
   classVclRating = true;
 
   @HostBinding('attr.role')
@@ -112,7 +112,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   @HostBinding('attr.aria-valuemin')
   attrAriaValuemin = 0;
 
-  @HostBinding('class.vclRatingVertical')
+  @HostBinding('class.rating-vertical')
   get classVclRatingVertical() {
     return this.type === 'vertical';
   }
@@ -122,7 +122,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     return this.type === 'vertical' ? 'unset' : null;
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
@@ -182,7 +182,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   @Output()
   valueChange = new EventEmitter<number>();
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.cvaDisabled || this.disabled;
   }

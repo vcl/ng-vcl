@@ -1,26 +1,26 @@
 
-<div class="vclDGRow">
-  <div class="vclDGCell vclToolbar">
-    <div class="vclFlex vclHor vclJustifyBetween vclCenter" role="menubar">
-      <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToPrevYear()">
+<div class="d-g-row">
+  <div class="d-g-cell toolbar">
+    <div class="flex row justify-between center" role="menubar">
+      <button vcl-square-button class="transparent" type="button" (click)="onGoToPrevYear()">
         <vcl-icon icon="vcl:arrow-left"></vcl-icon>
       </button>
-      <button vcl-button class="vclTransparent vclCalHeaderLabel" (click)="onLabelClick()">{{calendar.label}}</button>
-      <button vcl-square-button class="vclTransparent" type="button" (click)="onGoToNextYear()">
+      <button vcl-button class="transparent cal-header-label" (click)="onLabelClick()">{{calendar.label}}</button>
+      <button vcl-square-button class="transparent" type="button" (click)="onGoToNextYear()">
         <vcl-icon icon="vcl:arrow-right"></vcl-icon>
       </button>
     </div>
   </div>
 </div>
-<div class="vclDGRow" role="row" *ngFor="let group of calendar.months">
+<div class="d-g-row" role="row" *ngFor="let group of calendar.months">
   <div *ngFor="let month of group"
-       class="vclDGCell vclCalItem" 
-       [class.vclToday]="month.isCurrentMonth"
-       [class.vclSelected]="month.selected === true || month.selected === 'range'"
-       [class.vclSelectedAlt]="month.selected === 'range-partial'"
-       [class.vclSelectedBeg]="month.selected === 'range-start' || month.selected === 'range-start-end'"
-       [class.vclSelectedEnd]="month.selected === 'range-end' || month.selected === 'range-start-end'"
-       [class.vclDisabled]="month.disabled || disabled"
+       class="d-g-cell cal-item" 
+       [class.today]="month.isCurrentMonth"
+       [class.selected]="month.selected === true || month.selected === 'range'"
+       [class.selected-alt]="month.selected === 'range-partial'"
+       [class.selected-beg]="month.selected === 'range-start' || month.selected === 'range-start-end'"
+       [class.selected-end]="month.selected === 'range-end' || month.selected === 'range-start-end'"
+       [class.disabled]="month.disabled || disabled"
        [ngClass]="month.class"       
        role="gridcell" 
        tabindex="0" 

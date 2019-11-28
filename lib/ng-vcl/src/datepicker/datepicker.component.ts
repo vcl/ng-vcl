@@ -52,7 +52,7 @@ export type DatepickerPick = 'date' | 'month' | 'time';
   ],
   encapsulation: ViewEncapsulation.None,
   styles: [`
-    .vclPopOver.vclDatePicker > .vclCalendar {
+    .pop-over.date-picker > .cCalendar {
       width: 100%
     }
   `]
@@ -92,7 +92,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   @ViewChild('input', { read: InputDirective, static: true })
   input: InputDirective;
 
-  @HostBinding('class.vclInputGroupEmb')
+  @HostBinding('class.input-group-emb')
   _hostClasses = true;
 
   @ViewChild(TemplateRef, { static: true })
@@ -200,7 +200,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
         autoClose: true
       }),
       direction: this._dir,
-      panelClass: ['vclPopOver', 'vclDatePicker'],
+      panelClass: ['pop-over', 'date-picker'],
       positionStrategy: this.overlay.position()
       .flexibleConnectedTo(this.elementRef)
       .withPositions([{

@@ -76,8 +76,8 @@ export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRe
       closeOnEscape: false,
       scrollStrategy: this._overlay.scrollStrategies.block(),
       hasBackdrop: true,
-      backdropClass: 'vclLayerCover',
-      panelClass: ['vclLayerBox'],
+      backdropClass: 'layer-cover',
+      panelClass: ['layer-box'],
       positionStrategy: this._overlay.position()
         .global()
         .centerHorizontally()

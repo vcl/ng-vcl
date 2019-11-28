@@ -61,7 +61,7 @@ export class DatePickerLegacyComponent implements OnInit, OnChanges, ControlValu
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
-  @HostBinding('class.vclDatePicker')
+  @HostBinding('class.date-picker')
   _hostClasses = true;
 
   @HostBinding('attr.role')
@@ -74,7 +74,7 @@ export class DatePickerLegacyComponent implements OnInit, OnChanges, ControlValu
   @Input()
   closeOnSelect = false;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   @Input()
   disabled = false;
 

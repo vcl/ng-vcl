@@ -36,7 +36,7 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
   controlType = 'password-input';
   materialModifierClass = undefined;
 
-  @HostBinding('class.vclInputGroupEmb')
+  @HostBinding('class.input-group-emb')
   classVclInputGroup = true;
 
   get btnTransparent() {
@@ -94,7 +94,7 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
 
   ngAfterContentInit() {
     this.updateType();
-    this.renderer.addClass(this.input.elementRef.nativeElement, 'vclAppItem');
+    this.renderer.addClass(this.input.elementRef.nativeElement, 'app-item');
   }
 
   onLabelClick(event: Event): void {

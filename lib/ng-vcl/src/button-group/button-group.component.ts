@@ -59,7 +59,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   @Output()
   valueChange = new EventEmitter<any | any[]>();
 
-  @HostBinding('class.vclButtonGroup')
+  @HostBinding('class.button-group')
   _hostClasses = true;
 
   @HostBinding('attr.id')
@@ -93,7 +93,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   @Input()
   errorStateAgent?: FormControlErrorStateAgent;
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

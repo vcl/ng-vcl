@@ -26,7 +26,7 @@ export class SpanDirective implements AfterContentInit, OnChanges {
   ngAfterContentInit() {
     // Apply class only on header
     if (this.el.nativeElement.localName === 'th') {
-      const vclSpan = `vclSpan-${this.width}p`;
+      const vclSpan = `w-${this.width}p`;
       this.renderer.addClass(this.el.nativeElement, vclSpan);
     } else {
       throw new Error('Column width can be set only for header tag!');

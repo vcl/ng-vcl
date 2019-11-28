@@ -1,20 +1,20 @@
-<div class="vclPanel vclPanelDialog vclM-0">
-  <div class="vclPanelHeader vclNoBg vclHor vclJustifyBetween vclCenter">
-    <h3 class="vclPanelTitle">{{title}}</h3>
-    <button vcl-square-button class="vclTransparent" (click)="close()">
+<div class="panel panel-dialog m-0">
+  <div class="panel-header no-bg row justify-between center">
+    <h3 class="panel-title">{{title}}</h3>
+    <button vcl-square-button class="transparent" (click)="close()">
       <vcl-icon icon="fas:times"></vcl-icon>
     </button>
   </div>
-  <div class="vclPanelBody">
-    <p class="vclPanelContent">
+  <div class="panel-body">
+    <p class="panel-content">
       bar layer content
     </p>
   </div>
-  <div class="vclPanelFooter vclNoBg vclHor vclJustifyBetween vclCenter">
+  <div class="panel-footer no-bg row justify-between center">
     <div></div>
-    <div class="vclLooseButtonGroup">
-      <button vcl-button class="vclTransparent vclOutline" (click)="close()">Close Layer</button>
-      <button vcl-button class="vclEmphasized" (click)="close('data')">Close Layer with result</button>
+    <div class="loose-button-group">
+      <button vcl-button class="transparent outline" (click)="close()">Close Layer</button>
+      <button vcl-button class="emphasized" (click)="close('data')">Close Layer with result</button>
     </div>
   </div>
 </div>

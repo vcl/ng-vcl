@@ -35,7 +35,7 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
     }
   }
 
-  @HostBinding('class.vclFlipSwitch')
+  @HostBinding('class.flip-switch')
   _hostClasses = true;
 
   @HostBinding('attr.role')
@@ -72,7 +72,7 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   @Input()
   offLabel = 'Off';
 
-  @HostBinding('class.vclFlipSwitchPressed')
+  @HostBinding('class.flip-switch-pressed')
   @HostBinding('attr.aria-pressed')
   @Input()
   value = false;
@@ -83,12 +83,12 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   @Input()
   errorStateAgent?: FormControlErrorStateAgent;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.disabled || this._disabled;
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

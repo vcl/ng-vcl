@@ -1,35 +1,35 @@
-<div class="vclDatePicker">
-  <div class="vclDataGrid vclDGVAlignMiddle vclDGAlignCentered vclCalendar vclCalInput vclM-0"
+<div class="date-picker">
+  <div class="data-grid d-g-v-align-middle d-g-align-centered calendar cal-input m-0"
     [attr.role]="'grid'"
     [attr.tabindex]="tabindex"
     [attr.aria-multiselectable]="maxSelectableMonths > 1"
     [attr.aria-expanded]="expanded">
 
-    <div class="vclDGRow">
-      <div class="vclToolbar vclHor vclFlex vclJustifyBetween vclCenter" role="menubar" aria-level="1">
-        <div class="vclHor vclCenter">
-          <button vcl-square-button class="vclTransparent vclHor vclCenterCenter"
+    <div class="d-g-row">
+      <div class="toolbar row flex justify-between center" role="menubar" aria-level="1">
+        <div class="row center">
+          <button vcl-square-button class="transparent row center-center"
             type="button"
-            [class.vclDisabled]="!prevYearAvailable"
+            [class.disabled]="!prevYearAvailable"
             (click)="onPrevYearTap()">
             <vcl-icon icon="vcl:arrow-left"></vcl-icon>
           </button>
 
-          <span class="vclCalHeaderLabel">{{ currentYear }}</span>
+          <span class="cal-header-label">{{ currentYear }}</span>
 
           <button vcl-square-button
             type="button"
-            class="vclButton vclTransparent vclHor vclCenterCenter"
-            [class.vclDisabled]="!nextYearAvailable"
+            class="button transparent row center-center"
+            [class.disabled]="!nextYearAvailable"
             (click)="onNextYearTap()">
             <vcl-icon icon="vcl:arrow-right"></vcl-icon>
           </button>
         </div>
 
-        <div class="vclHor vclFlex vclJustifyEnd">
+        <div class="row flex justify-end">
           <button vcl-square-button *ngIf="expandable"
             type="button"
-            class="vclButton vclTransparent vclHor vclCenterCenter"
+            class="button transparent row center-center"
             (click)="onCloseBtnTap()">
             <vcl-icon icon="vcl:close"></vcl-icon>
           </button>
@@ -37,25 +37,25 @@
       </div>
     </div>
 
-    <div class="vclSeparator"></div>
+    <div class="separator"></div>
 
     <ng-template ngFor let-iM [ngForOf]="months" let-i="index">
-      <div *ngIf="currentMeta && i % monthsPerRow === 0" class="vclDGRow" role="row">
+      <div *ngIf="currentMeta && i % monthsPerRow === 0" class="d-g-row" role="row">
         <div *ngFor="let jM of months.slice(i, (i + monthsPerRow > months.length ? months.length : i + monthsPerRow)); let j = index;"
           (click)="selectMonth(currentYear, i+j)"
-          class="vclDGCell vclCalItem"
-          [class.vclAvailable]="!useAvailableMonths || currentMeta[i+j].available"
-          [class.vclUnavailable]="useAvailableMonths && !currentMeta[i+j].available"
-          [class.vclToday]="isCurrentMonth(i+j)"
-          [class.vclOtherMonth]="!isCurrentMonth(i+j)"
-          [class.vclDisabled]="useAvailableMonths && !currentMeta[i+j].available"
-          [class.vclSelected]="isSelected(i + j)"
+          class="d-g-cell cal-item"
+          [class.available]="!useAvailableMonths || currentMeta[i+j].available"
+          [class.unavailable]="useAvailableMonths && !currentMeta[i+j].available"
+          [class.today]="isCurrentMonth(i+j)"
+          [class.other-month]="!isCurrentMonth(i+j)"
+          [class.disabled]="useAvailableMonths && !currentMeta[i+j].available"
+          [class.selected]="isSelected(i + j)"
           [style.background-color]="currentMeta[i+j].color"
           [style.order]="i+j"
           [attr.aria-selected]="isSelected(i + j)"
           [tabindex]="i+j"
           role="gridcell">
-            <div class="vclHor vclJustifyCenter vclMonthPickerListItemLabel">
+            <div class="row justify-center month-picker-list-item-label">
               {{months[i + j]}}
             </div>
         </div>

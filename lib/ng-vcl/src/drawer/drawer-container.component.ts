@@ -20,7 +20,7 @@ import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
 })
 export class DrawerContainerComponent implements AfterContentInit, OnDestroy, DrawerContainer {
 
-  @HostBinding('class.vclDrawerContainer')
+  @HostBinding('class.drawer-container')
   _hostClasses = true;
 
   @ContentChildren(DrawerComponent)

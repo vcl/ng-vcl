@@ -5,24 +5,24 @@
 <button vcl-button (click)="openNagLayer()">Open nag layer</button>
 
 <vcl-layer #layer="vclLayer">
-  <div class="vclPanel vclPanelDialog vclM-0">
-    <div class="vclPanelHeader vclNoBg vclHor vclJustifyBetween vclCenter">
-      <h3 class="vclPanelTitle">
+  <div class="panel panel-dialog m-0">
+    <div class="panel-header no-bg row justify-between center">
+      <h3 class="panel-title">
         Layer
       </h3>
-      <button vcl-square-button class="vclTransparent" (click)="layer.close()">
+      <button vcl-square-button class="transparent" (click)="layer.close()">
         <vcl-icon icon="fas:times"></vcl-icon>
       </button>
     </div>
-    <div class="vclPanelBody">
-      <p class="vclPanelContent">
+    <div class="panel-body">
+      <p class="panel-content">
         Press escape or click outside of layer to close<br><br>
       </p>
     </div>
-    <div class="vclPanelFooter vclNoBg vclHor vclJustifyBetween vclCenter">
+    <div class="panel-footer no-bg row justify-between center">
       <div></div>
-      <div class="vclLooseButtonGroup">
-        <button vcl-button icon="fas:times" class="vclTransparent vclOutline" (click)="layer.close()">Close layer</button>
+      <div class="loose-button-group">
+        <button vcl-button icon="fas:times" class="transparent outline" (click)="layer.close()">Close layer</button>
       </div>
     </div>
   </div>

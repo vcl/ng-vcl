@@ -18,7 +18,7 @@ export class FormControlLabelDirective {
     });
   }
 
-  @HostBinding('class.vclFormControlLabel')
+  @HostBinding('class.form-control-label')
   classVCLFormControlLabel = true;
 
   @HostBinding('attr.for')
@@ -31,7 +31,7 @@ export class FormControlLabelDirective {
     return null;
   }
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     const input = this.fcg && this.fcg.input;
     return input && input.isDisabled;

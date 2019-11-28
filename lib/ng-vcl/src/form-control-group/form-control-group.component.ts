@@ -27,12 +27,12 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
     private ngForm?: NgForm
   ) { }
 
-  @HostBinding('class.vclFormControlGroup')
+  @HostBinding('class.form-control-group')
   get classVclFormControlGroup() {
     return !this.classVclFormInlineControlGroup;
   }
 
-  @HostBinding('class.vclFormInlineControlGroup')
+  @HostBinding('class.form-inline-control-group')
   get classVclFormInlineControlGroup() {
     return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-form-inline-control-group';
   }

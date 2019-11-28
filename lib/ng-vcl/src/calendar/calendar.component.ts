@@ -18,11 +18,11 @@ export class CalendarComponent<VCLDate> implements OnInit, ControlValueAccessor,
     private cdRef: ChangeDetectorRef
   ) { }
 
-  @HostBinding('class.vclDataGrid')
-  @HostBinding('class.vclDGVAlignMiddle')
-  @HostBinding('class.vclDGAlignCentered')
-  @HostBinding('class.vclCalendar')
-  @HostBinding('class.vclCalInput')
+  @HostBinding('class.data-grid')
+  @HostBinding('class.d-g-v-align-middle')
+  @HostBinding('class.d-g-align-centered')
+  @HostBinding('class.calendar')
+  @HostBinding('class.cal-input')
   _calendarHostClasses = true;
 
   view: VCLCalendarView = 'month';

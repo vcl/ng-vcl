@@ -10,7 +10,7 @@ export class ZoomBoxMagnifierComponent {
   parent: ZoomBoxContainerComponent;
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
-    renderer.addClass(element.nativeElement, 'vclZoomBoxMagnifier');
+    renderer.addClass(element.nativeElement, 'zoom-box-magnifier');
   }
 
   update(): void {

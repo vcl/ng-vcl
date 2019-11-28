@@ -37,7 +37,7 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
   controlType = 'textarea';
   stateChanged = this.stateChangedEmitter.asObservable();
 
-  @HostBinding('class.vclInput')
+  @HostBinding('class.input')
   classVclInput = true;
 
   @HostBinding('attr.id')
@@ -45,7 +45,7 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     return this.id || this.generatedId;
   }
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.disabled;
   }
@@ -87,7 +87,7 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     return this.elementRef.nativeElement.value || '';
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

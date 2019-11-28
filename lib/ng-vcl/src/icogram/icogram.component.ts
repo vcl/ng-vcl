@@ -7,7 +7,7 @@ import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular
 })
 export class IcogramComponent {
 
-  @HostBinding('class.vclIcogram')
+  @HostBinding('class.icogram')
   clsIcogram = true;
 
   @Input()
@@ -24,7 +24,7 @@ export class IcogramComponent {
 })
 export class IcogramLinkComponent extends IcogramComponent {
 
-  @HostBinding('class.vclContentLink')
+  @HostBinding('class.content-link')
   clsContentLink = true;
 
   @HostBinding('attr.title')
@@ -32,7 +32,7 @@ export class IcogramLinkComponent extends IcogramComponent {
   @Input()
   title: string | undefined;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   @Input()
   disabled = false;
 

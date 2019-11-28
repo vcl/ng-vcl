@@ -60,7 +60,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     }
   }
 
-  @HostBinding('class.vclSlider')
+  @HostBinding('class.slider')
   classVclSlider = true;
 
   private _cvaDisabled = false;
@@ -108,13 +108,13 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @Input()
   errorStateAgent?: FormControlErrorStateAgent;
 
-  @HostBinding('class.vclFocused')
+  @HostBinding('class.focused')
   focused = false;
 
   @ViewChild('scale', { static: false })
   scaleElement: ElementRef;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.disabled || this._cvaDisabled;
   }
@@ -123,7 +123,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     return this.focused;
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

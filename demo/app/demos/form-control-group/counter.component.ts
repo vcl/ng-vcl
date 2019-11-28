@@ -42,7 +42,7 @@ export class CounterComponent implements ControlValueAccessor, FormControlInput 
     }
   }
 
-  @HostBinding('class.vclIcogram')
+  @HostBinding('class.icogram')
   _hostClasses = true;
 
   private _stateChangedEmitter = new Subject<void>();
@@ -83,7 +83,7 @@ export class CounterComponent implements ControlValueAccessor, FormControlInput 
     return this._focused;
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

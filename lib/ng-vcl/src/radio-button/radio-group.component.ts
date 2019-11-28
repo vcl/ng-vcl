@@ -76,18 +76,18 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
   @Input()
   errorStateAgent?: FormControlErrorStateAgent;
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
   }
 
-  @HostBinding('class.vclFormControlGroup')
+  @HostBinding('class.form-control-group')
   get classVclFormControlGroup() {
     return this.layout === 'vertical';
   }
 
-  @HostBinding('class.vclFormInlineControlGroup')
+  @HostBinding('class.form-inline-control-group')
   get classVclFormInlineControlGroup() {
     return this.layout === 'horizontal';
   }

@@ -52,13 +52,13 @@ export class NotificationComponent implements AfterViewInit {
     }
   }
 
-  @HostBinding('class.vclNotification')
+  @HostBinding('class.notification')
   classVclNotification = true;
 
-  @HostBinding('class.vclHor')
+  @HostBinding('class.row')
   classVclLayoutHorizontal = true;
 
-  @HostBinding('class.vclCenter')
+  @HostBinding('class.center')
   classVclLayoutCenter = true;
 
   state: NotificationAnimationState = 'open';

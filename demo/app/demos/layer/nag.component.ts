@@ -24,10 +24,10 @@ export class NagComponent {
   // See https://github.com/angular/angular/issues/30106
   constructor(@Inject(ComponentLayerRef) public layer: INagLayer) { }
 
-  @HostBinding('class.vclNag')
-  @HostBinding('class.vclContainer')
-  @HostBinding('class.vclHor')
-  @HostBinding('class.vclJustifyCenter')
+  @HostBinding('class.nag')
+  @HostBinding('class.container')
+  @HostBinding('class.row')
+  @HostBinding('class.justify-center')
   _hostClasses = true;
 
   accept() {

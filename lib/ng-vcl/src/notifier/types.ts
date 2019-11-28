@@ -36,19 +36,19 @@ export const TYPE_CLASS_MAP: {[key: string]: {notifier: string, icon: string} } 
     icon: undefined
   },
   [NotifierType.Info]: {
-    notifier: 'vclInfo',
+    notifier: 'info',
     icon: 'vcl:info'
   },
   [NotifierType.Success]: {
-    notifier: 'vclSuccess',
+    notifier: 'success',
     icon: 'vcl:success'
   },
   [NotifierType.Warning]: {
-    notifier: 'vclWarning',
+    notifier: 'warning',
     icon: 'vcl:warning'
   },
   [NotifierType.Error]: {
-    notifier: 'vclError',
+    notifier: 'error',
     icon: 'vcl:error'
   }
 };

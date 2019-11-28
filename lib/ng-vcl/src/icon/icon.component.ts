@@ -19,7 +19,7 @@ export class IconComponent implements OnChanges, AfterViewInit {
   @Input()
   role?: string;
 
-  @HostBinding('class.vclIcon')
+  @HostBinding('class.icon')
   vclIcon = true;
 
   @HostBinding('attr.role')

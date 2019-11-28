@@ -9,6 +9,6 @@ import { Component, Input, HostBinding, ChangeDetectionStrategy } from '@angular
 export class BusyIndicatorCoverComponent {
   // tslint:disable-next-line:no-input-rename
   @Input('vcl-busy-indicator-cover')
-  @HostBinding('class.vclLoadingLayerContainer')
+  @HostBinding('class.loading-layer-container')
   busy = false;
 }

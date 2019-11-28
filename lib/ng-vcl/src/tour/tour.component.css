@@ -1,4 +1,4 @@
-.vclTourContainer {
+.tour-container {
     background-color: #fff;
     text-align: center;
     font-size: 14px;
@@ -8,7 +8,7 @@
     box-shadow: inset 0 0 30px 0 rgba(0, 0, 0, .5);
   }
   
-.vclTourContainer .vclTourContainerHeader {
+.tour-container .tour-container-header {
   padding: 10px;
   border-bottom: 1px solid #ccc;
   background-color: #ddd;
@@ -17,14 +17,14 @@
   box-shadow: inset 0 0 30px 0 rgba(0, 0, 0, .5);
 }
   
-.vclTourContainer .vclTourContainerContent {
+.tour-container .tour-container-content {
   padding: 10px;
 }
 
-.vclTourContainer .vclTourContainerFooter {
+.tour-container .tour-container-footer {
   padding: 10px;
 }
 
-.vclTourContainer .vclButton:first {
+.tour-container .button:first {
   margin-left: 0;
 }

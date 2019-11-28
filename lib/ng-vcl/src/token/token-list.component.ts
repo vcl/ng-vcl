@@ -45,8 +45,8 @@ export class TokenListComponent implements AfterContentInit, OnChanges, OnDestro
 
   private cvaDisabled = false;
 
-  @HostBinding('class.vclTokenList')
-  @HostBinding('class.vclTokenContainer')
+  @HostBinding('class.token-list')
+  @HostBinding('class.token-container')
   _hostClasses = true;
 
   @ContentChildren(TokenComponent)

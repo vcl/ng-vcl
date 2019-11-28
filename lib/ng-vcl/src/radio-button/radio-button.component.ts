@@ -22,7 +22,7 @@ export class RadioButtonComponent implements RadioButton {
   private _disabled = false;
   private _focused = false;
 
-  @HostBinding('class.vclRadioButton')
+  @HostBinding('class.radio-button')
   classVCLCheckbox = true;
 
   @HostBinding('attr.role')
@@ -38,7 +38,7 @@ export class RadioButtonComponent implements RadioButton {
     return this.disabled;
   }
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this._disabled || this.disabled;
   }

@@ -1,5 +1,5 @@
-<div class="vclGalleryContent" style="overflow: hidden;">
-  <button *ngIf="target.selectedImage > 0 || target.wrap" vcl-button type="button" class="vclGalleryPrevButton" (click)="selectPrevious()" aria-label="Previous">
+<div class="gallery-content" style="overflow: hidden;">
+  <button *ngIf="target.selectedImage > 0 || target.wrap" vcl-button type="button" class="gallery-prev-button" (click)="selectPrevious()" aria-label="Previous">
     <vcl-icon icon="vcl:arrow-left"></vcl-icon>
   </button>
 
@@ -7,7 +7,7 @@
     <img *ngFor="let img of target.imageArray; let i = index" [attr.data-index]="i" (click)="target.selectImage(i)" (load)="imageLoaded()" [src]="img.image" [alt]="img.alt" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: absolute; left: 0; top: 0">
   </div>
 
-  <button  *ngIf="target.selectedImage < (target.images ? target.images.length - 1 : 0) || target.wrap" vcl-button type="button" class="vclGalleryNextButton" (click)="selectNext()" aria-label="Next" >
+  <button  *ngIf="target.selectedImage < (target.images ? target.images.length - 1 : 0) || target.wrap" vcl-button type="button" class="gallery-next-button" (click)="selectNext()" aria-label="Next" >
     <vcl-icon icon="vcl:arrow-right"></vcl-icon>
   </button>
 </div>

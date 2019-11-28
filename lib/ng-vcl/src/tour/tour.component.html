@@ -4,17 +4,17 @@
   [positions]="positions"
   >
 
-  <div class="vclTourContainer">
+  <div class="tour-container">
 
-    <div class="vclTourContainerHeader" *ngIf="title">
+    <div class="tour-container-header" *ngIf="title">
       {{ title }}
     </div>
 
-    <div class="vclTourContainerContent">
+    <div class="tour-container-content">
       <ng-content></ng-content>
     </div>
 
-    <div class="vclTourContainerFooter">
+    <div class="tour-container-footer">
       
       <button vcl-button type="button" *ngIf="hasPrevious"
         [ngClass]="tour.options?.buttonClass"

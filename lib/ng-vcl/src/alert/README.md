@@ -140,11 +140,11 @@ All attributes are optional
 | `showCancelButton`        | boolean        | false           | Show the cancel button
 | `showCloseButton`         | boolean        | false           | Show the close button
 | `confirmButtonLabel`      | string         | 'OK'            | Changes the confirm button label
-| `confirmButtonClass`      | string         | 'vclEmphasized' | Adds a class to the confirm button
+| `confirmButtonClass`      | string         | 'emphasized'    | Adds a class to the confirm button
 | `confirmButtonPrepIcon`   | string         |                 | icon to be prepended to the confirm button label
 | `confirmButtonAppIcon`    | string         |                 | same as `confirmButtonPrepIcon`, but appended
 | `cancelButtonLabel`       | string         | 'Cancel'        | Changes the cancel button label
-| `cancelButtonClass`       | string         | 'vclDanger'     | Adds a class to the cancel button
+| `cancelButtonClass`       | string         | 'danger'        | Adds a class to the cancel button
 | `cancelButtonPrepIcon`    | string         |                 | icon to be prepended to the cancel button label
 | `cancelButtonAppIcon`     | string         |                 | same as `cancelButtonPrepIcon`, but appended
 | `cancelButtonThrowsError` | boolean        |                 | Throw an error instead of passing a result on cancel

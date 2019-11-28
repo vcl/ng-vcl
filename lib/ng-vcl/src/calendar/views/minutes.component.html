@@ -1,22 +1,22 @@
-<div class="vclDGRow">
-  <div class="vclDGCell">
-    <div class="vclToolbar vclFlex vclHor vclJustifyBetween vclCenter" role="menubar" aria-level="1">
-      <div class="vclButtonDim"></div>
-      <button vcl-button class="vclTransparent vclCalHeaderLabel" (click)="onLabelClick()">
+<div class="d-g-row">
+  <div class="d-g-cell">
+    <div class="toolbar flex row justify-between center" role="menubar" aria-level="1">
+      <div class="button-dim"></div>
+      <button vcl-button class="transparent cal-header-label" (click)="onLabelClick()">
         Minutes
       </button>
-      <div class="vclButtonDim"></div>
+      <div class="button-dim"></div>
     </div>
   </div>
 </div>
 
-<div class="vclDGRow" role="row" *ngFor="let minutesRow of calendar.minutes">
+<div class="d-g-row" role="row" *ngFor="let minutesRow of calendar.minutes">
   <div *ngFor="let m of minutesRow" 
        role="option" 
        tabindex="0" 
-       class="vclDGCell vclCalItem" 
-       [class.vclDisabled]="disabled"
-       [class.vclSelected]="minute === m.minute" 
+       class="d-g-cell cal-item" 
+       [class.disabled]="disabled"
+       [class.selected]="minute === m.minute" 
        [attr.aria-selected]="minute === m.minute" 
        (click)="onSelectMinute(m.minute)">
        :{{m.label}}</div>

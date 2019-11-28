@@ -9,7 +9,7 @@ import { debounceTime } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabLabelComponent {
-  @HostBinding('class.vclTabLabel')
+  @HostBinding('class.tab-label')
   classCclTabLabel = true;
 }
 
@@ -36,17 +36,17 @@ export class TabComponent implements Tab, AfterViewInit {
 
   portal?: TemplatePortal;
 
-  @HostBinding('class.vclTab')
+  @HostBinding('class.tab')
   classVclTab = true;
 
   @HostBinding('attr.role')
   attrRole = 'tab';
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   @Input()
   disabled = false;
 
-  @HostBinding('class.vclSelected')
+  @HostBinding('class.selected')
   @HostBinding('attr.aria-selected')
   selected = false;
 

@@ -34,7 +34,7 @@ export class TokenComponent implements Token {
     private observer?: TokenObserver
   ) { }
 
-  @HostBinding('class.vclToken')
+  @HostBinding('class.token')
   @Input()
   classVclToken = true;
 
@@ -65,7 +65,7 @@ export class TokenComponent implements Token {
   @Input()
   disabled = false;
 
-  @HostBinding('class.vclSelected')
+  @HostBinding('class.selected')
   @Input()
   selected = false;
 
@@ -115,7 +115,7 @@ export class TokenComponent implements Token {
     this.cdRef.markForCheck();
   }
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.cvaDisabled || this.disabled;
   }

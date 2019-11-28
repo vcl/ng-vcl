@@ -57,9 +57,9 @@ export const ALERT_DEFAULTS: AlertOptions = {
   closeOnBackdropClick: true,
   closeOnEscape: true,
   cancelButtonLabel: 'Cancel',
-  cancelButtonClass: 'vclTransparent vclOutline',
+  cancelButtonClass: 'transparent outline',
   confirmButtonLabel: 'OK',
-  confirmButtonClass: 'vclEmphasized',
+  confirmButtonClass: 'emphasized',
   input: AlertInput.None,
 };
 
@@ -73,19 +73,19 @@ export const TYPE_CLASS_MAP = {
     iconClass: 'vcl:question'
   },
   [AlertType.Info]: {
-    alertClass: 'vclInfo',
+    alertClass: 'info',
     iconClass: 'vcl:info'
   },
   [AlertType.Success]: {
-    alertClass: 'vclSuccess',
+    alertClass: 'success',
     iconClass: 'vcl:success'
   },
   [AlertType.Warning]: {
-    alertClass: 'vclWarning',
+    alertClass: 'warning',
     iconClass: 'vcl:warning'
   },
   [AlertType.Error]: {
-    alertClass: 'vclError',
+    alertClass: 'error',
     iconClass: 'vcl:error'
   }
 };

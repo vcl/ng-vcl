@@ -1,11 +1,11 @@
-<div class="vclTooltip" role="tooltip"
-  [class.vclArrowPointerRight]="tooltip.position === 'left'"
-  [class.vclArrowPointerLeft]="tooltip.position === 'right'"
-  [class.vclArrowPointerTop]="tooltip.position === 'bottom'"
-  [class.vclArrowPointerBottom]="tooltip.position === 'top'"
+<div class="tooltip" role="tooltip"
+  [class.arrow-pointer-right]="tooltip.position === 'left'"
+  [class.arrow-pointer-left]="tooltip.position === 'right'"
+  [class.arrow-pointer-top]="tooltip.position === 'bottom'"
+  [class.arrow-pointer-bottom]="tooltip.position === 'top'"
   >
-  <div class="vclTooltipContent" >
+  <div class="tooltip-content" >
     {{tooltip.content}}
   </div>
-  <div *ngIf="tooltip.arrowPointer" class="vclArrowPointer"></div>
+  <div *ngIf="tooltip.arrowPointer" class="arrow-pointer"></div>
 </div>

@@ -65,10 +65,10 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   stateChanged = this._stateChangedEmitter.asObservable();
   controlType = 'token-input';
 
-  @HostBinding('class.vclInput')
-  @HostBinding('class.vclTokenInput')
-  @HostBinding('class.vclHor')
-  @HostBinding('class.vclLayoutWrap')
+  @HostBinding('class.input')
+  @HostBinding('class.token-input')
+  @HostBinding('class.row')
+  @HostBinding('class.layout-wrap')
   _hostClasses = true;
 
   @HostBinding('attr.id')
@@ -76,7 +76,7 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
     return this.id || this._generatedId;
   }
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this._cvaDisabled || this.disabled;
   }
@@ -90,7 +90,7 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   }
 
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
@@ -263,7 +263,7 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
 
   ngAfterContentInit(): void {
     if (this.inputElementRef) {
-      this.renderer.addClass(this.inputElementRef.nativeElement, 'vclFlex');
+      this.renderer.addClass(this.inputElementRef.nativeElement, 'flex');
     }
   }
 }

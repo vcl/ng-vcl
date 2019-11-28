@@ -64,7 +64,7 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     return this._focused;
   }
 
-  @HostBinding('class.vclCheckbox')
+  @HostBinding('class.checkbox')
   _hostClasses = true;
 
   @HostBinding('attr.role')
@@ -80,13 +80,13 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     return this.isDisabled;
   }
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.formDisabled || this.disabled;
   }
 
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

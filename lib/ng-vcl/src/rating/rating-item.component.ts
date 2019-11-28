@@ -46,10 +46,10 @@ export class RatingItemComponent implements AfterViewInit {
   @Input('label')
   _label?: string;
 
-  @HostBinding('class.vclRatingItem')
+  @HostBinding('class.rating-item')
   classVclRatingItem = true;
 
-  @HostBinding('class.vclIcon')
+  @HostBinding('class.icon')
   classVclIcon = true;
 
   @HostBinding('attr.tabindex')

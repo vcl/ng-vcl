@@ -42,8 +42,8 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
     }
   }
 
-  @HostBinding('class.vclInput')
-  @HostBinding('class.vclFileInput')
+  @HostBinding('class.input')
+  @HostBinding('class.file-input')
   _hostClasses = true;
 
   @HostBinding('attr.role')
@@ -76,7 +76,7 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   @Input()
   errorStateAgent?: FormControlErrorStateAgent;
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
@@ -98,15 +98,15 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   @HostBinding('attr.tabindex')
   tabindex = 0;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.disabled || this._disabled;
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   invalidFiles = false;
 
-  @HostBinding('class.vclDragndrop')
+  @HostBinding('class.dragndrop')
   isDragging = false;
 
   @HostBinding('class.isFocused')

@@ -3,9 +3,9 @@
        [disabled]="isDisabled"
        [placeholder]="placeholder || ''"
        [disabled]="isDisabled"
-       class="vclAppItem"
+       class="app-item"
        autocomplete="new-password"
-       [class.vclError]="hasError"
+       [class.error]="hasError"
        (focus)="onFocus()"
        (blur)="onBlur()"
        >
@@ -14,7 +14,7 @@
         type="button"
         tabindex="-1"
         [disabled]="isDisabled"
-        class="vclAppended"
+        class="appended"
         (click)="onButtonClick()"
       >
       <vcl-icon [icon]="pick === 'time' ? 'vcl:clock' : 'vcl:calendar'"></vcl-icon>

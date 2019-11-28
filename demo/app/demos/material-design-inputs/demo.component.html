@@ -16,7 +16,7 @@
   </vcl-radio-group>
 </vcl-form-control-group>
 
-<form novalidate [formGroup]="formGroup" #form="ngForm" class="vclForm" (submit)="onSubmit()" [vclMaterial]="material">
+<form novalidate [formGroup]="formGroup" #form="ngForm" class="form" (submit)="onSubmit()" [vclMaterial]="material">
   <h2>Create a hero</h2>
 
   <vcl-form-control-group>
@@ -81,8 +81,8 @@
     <vcl-hint-error error="perks">You must select two perks</vcl-hint-error>
   </vcl-form-control-group>
 
-  <div class="vclLooseButtonGroup">
-    <button vcl-button type="submit" class="vclEmphasized">Submit</button>
+  <div class="loose-button-group">
+    <button vcl-button type="submit" class="emphasized">Submit</button>
     <button vcl-button type="button" (click)="onReset()">Reset</button>
   </div>
 

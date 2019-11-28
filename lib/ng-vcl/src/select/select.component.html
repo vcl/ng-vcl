@@ -3,8 +3,8 @@
        [value]="inputValue"
        [attr.tabindex]="-1"
        [disabled]="isDisabled"
-       [class.vclDisabled]="isDisabled"
-       class="vclInput vclAppItem vclReadonly"
+       [class.disabled]="isDisabled"
+       class="input app-item readonly"
        role="listbox"
        readonly
        >
@@ -13,7 +13,7 @@
         type="button"
         tabindex="-1"
         [disabled]="isDisabled"
-        class="vclAppended"
+        class="appended"
       >
       <vcl-icon icon="vcl:arrow-down"></vcl-icon>
 </button>

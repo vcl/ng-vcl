@@ -10,15 +10,15 @@ import { DRAWER_CONTAINER_HOST, DrawerContainer, Drawer } from './types';
 })
 export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
 
-  @HostBinding('class.vclDrawer')
+  @HostBinding('class.drawer')
   hostClasses = true;
 
-  @HostBinding('class.vclDrawerRight')
+  @HostBinding('class.drawer-right')
   get classRight() {
     return this.position === 'right';
   }
 
-  @HostBinding('class.vclDrawerOpen')
+  @HostBinding('class.drawer-open')
   get classOpen() {
     return this.opened;
   }

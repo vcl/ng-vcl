@@ -20,20 +20,20 @@ export class FormControlHintComponent {
     });
   }
 
-  @HostBinding('class.vclFormControlHint')
+  @HostBinding('class.form-control-hint')
   classVCLFormControlHint = true;
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get classVCLError() {
     return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-error';
   }
 
-  @HostBinding('class.vclWarning')
+  @HostBinding('class.warning')
   get classVCLWarning() {
     return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-warning';
   }
 
-  @HostBinding('class.vclSuccess')
+  @HostBinding('class.success')
   get classVCLSuccess() {
     return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-success';
   }

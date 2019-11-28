@@ -34,7 +34,7 @@ export class ButtonComponent {
   @Output()
   selectedChange = new EventEmitter<boolean>();
 
-  @HostBinding('class.vclSquare')
+  @HostBinding('class.square')
   get classVCLSquare() {
     return this.elementRef.nativeElement.hasAttribute('vcl-square-button');
   }
@@ -44,16 +44,16 @@ export class ButtonComponent {
     return this.type || (this.selectable ? 'button' : null);
   }
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   @HostBinding('attr.disabled')
   get isDisabled(): boolean | null {
     return (this.disabled || (this.host && this.host.isDisabled)) ? true : null;
   }
 
-  @HostBinding('class.vclButton')
+  @HostBinding('class.button')
   _hostClasses = true;
 
-  @HostBinding('class.vclHovered')
+  @HostBinding('class.hovered')
   hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
 
   @HostBinding('attr.aria-pressed')
@@ -71,7 +71,7 @@ export class ButtonComponent {
   }
 
   @Input()
-  @HostBinding('class.vclSelected')
+  @HostBinding('class.selected')
   selected = false;
 
   @HostListener('mouseenter')

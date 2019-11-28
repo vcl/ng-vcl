@@ -23,15 +23,15 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
 
   currentTabChanged = this._currentTabChangedEmitter.asObservable();
 
-  @HostBinding('class.vclTabbable')
+  @HostBinding('class.tabbable')
   classVclTabbable = true;
 
-  @HostBinding('class.vclTabsLeft')
+  @HostBinding('class.tabs-left')
   get classVclTabsLeft() {
     return this.layout === 'left';
   }
 
-  @HostBinding('class.vclTabsRight')
+  @HostBinding('class.tabs-right')
   get classVclTabsRight() {
     return this.layout === 'right';
   }

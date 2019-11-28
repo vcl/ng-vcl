@@ -57,15 +57,15 @@ export class FormControlGroupMaterialDirective implements AfterViewInit {
     return this.elementRef.nativeElement.hasAttribute('vclMaterial');
   }
 
-  @HostBinding('class.vclMaterial')
+  @HostBinding('class.material')
   get classMaterial() {
     return this.active && this.mode !== 'disabled';
   }
 
-  @HostBinding('class.vclMaterialFocused')
+  @HostBinding('class.material-focused')
   focused = false;
 
-  @HostBinding('class.vclMaterialFloatingLabel')
+  @HostBinding('class.material-floating-label')
   get classMaterialFloatingLabel() {
     return this.active && (this.mode === 'static' || (this.mode === 'float' && this.float));
   }

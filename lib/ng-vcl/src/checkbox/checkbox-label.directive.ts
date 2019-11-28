@@ -9,13 +9,13 @@ export class CheckboxLabelDirective {
   @ContentChild(CheckboxComponent, { read: CheckboxComponent, static: false })
   checkbox?: CheckboxComponent;
 
-  @HostBinding('class.vclFormControlLabel')
+  @HostBinding('class.form-control-label')
   classVCLFormControlLabel = true;
 
-  @HostBinding('class.vclFormControlLabelWrapping')
+  @HostBinding('class.form-control-label-wrapping')
   classVCLFormControlLabelWrapping = true;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.checkbox && this.checkbox.isDisabled;
   }

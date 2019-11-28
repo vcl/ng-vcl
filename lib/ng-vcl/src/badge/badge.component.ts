@@ -10,26 +10,26 @@ export class BadgeComponent {
   @Input()
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
 
-  @HostBinding('class.vclBadge')
+  @HostBinding('class.badge')
   classVCLBadge = true;
 
-  @HostBinding('class.vclPrimary')
+  @HostBinding('class.primary')
   get vclPrimary() {
     return this.type === 'primary';
   }
-  @HostBinding('class.vclSuccess')
+  @HostBinding('class.success')
   get vclSuccess() {
     return this.type === 'success';
   }
-  @HostBinding('class.vclInfo')
+  @HostBinding('class.info')
   get vclInfo() {
     return this.type === 'info';
   }
-  @HostBinding('class.vclWarning')
+  @HostBinding('class.warning')
   get vclWarning() {
     return this.type === 'warning';
   }
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get vclError() {
     return this.type === 'error';
   }
@@ -39,6 +39,6 @@ export class BadgeComponent {
   selector: 'vcl-badge[vclRounded]'
 })
 export class BadgeRoundedDirective {
-  @HostBinding('class.vclRounded')
+  @HostBinding('class.rounded')
   rounded = true;
 }

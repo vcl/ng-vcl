@@ -55,8 +55,8 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     return this.id || this.generatedId;
   }
 
-  @HostBinding('class.vclDropdown')
-  @HostBinding('class.vclOpen')
+  @HostBinding('class.dropdown')
+  @HostBinding('class.open')
   _hostClasses = true;
 
   private _itemsChangeSub?: Subscription;
@@ -102,7 +102,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     return this._items.toArray();
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

@@ -111,7 +111,7 @@ const SCHEMA: VCLFormFieldSchemaRoot = {
         {
           type: 'submit',
           label: 'Submit',
-          class: 'vclEmphasized'
+          class: 'emphasized'
         },
         {
           type: 'button',

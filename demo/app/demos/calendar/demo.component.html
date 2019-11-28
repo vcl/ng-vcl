@@ -39,13 +39,13 @@ Value: {{smonthArray}}
 <h3>Custom Footer</h3>
 
 <vcl-calendar #c="vclCalendar">
-  <div vclCalendarFooter class="vclDGRow" *ngIf="c.view === 'month'">
-    <div class="vclDGCell vclToolbar">
-      <div class="vclFlex vclHor vclJustifyBetween vclCenter" role="menubar">
-        <button vcl-button class="vclTransparent vclFlex" type="button" (click)="c.viewDate = today">
+  <div vclCalendarFooter class="d-g-row" *ngIf="c.view === 'month'">
+    <div class="d-g-cell toolbar">
+      <div class="flex row justify-between center" role="menubar">
+        <button vcl-button class="transparent flex" type="button" (click)="c.viewDate = today">
           go to today
         </button>
-        <button vcl-square-button class="vclTransparent vclFlex" type="button" (click)="c.viewDate = c.value">
+        <button vcl-square-button class="transparent flex" type="button" (click)="c.viewDate = c.value">
           go to selected
         </button>
       </div>

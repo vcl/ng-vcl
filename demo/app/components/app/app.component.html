@@ -1,27 +1,27 @@
-<div class="vclVer docMain">
-    <header class="vclApplicationHeader vclHor vclCenter vclJustifyBetween">
-      <button vcl-square-button class="vclTransparent" *ngIf="xsmall" (click)="drawer.toggle()">
-        <vcl-icon icon="vcl:menu" class="vclScale180p"></vcl-icon>
+<div class="col docMain">
+    <header class="application-header row center justify-between">
+      <button vcl-square-button class="transparent" *ngIf="xsmall" (click)="drawer.toggle()">
+        <vcl-icon icon="vcl:menu" class="scale180p"></vcl-icon>
       </button>
       <div role="banner">
-        <a href="#" class="vclHor vclCenter">
-          <img class="vclResponsiveImage vclLogo" role="presentation" src="https://cdn.jsdelivr.net/gh/ng-vcl/ng-vcl/gfx/angular_vcl_logo_square.png">
-          <h1 *ngIf="!xsmall" class="vclAppName">Angular VCL Demo Browser (v{{version}}<span *ngIf="gitBranch"> {{gitBranch}}</span>)</h1>
+        <a href="#" class="row center">
+          <img class="responsive-image logo" role="presentation" src="https://cdn.jsdelivr.net/gh/ng-vcl/ng-vcl/gfx/angular_vcl_logo_square.png">
+          <h1 *ngIf="!xsmall" class="app-name">Angular VCL Demo Browser (v{{version}}<span *ngIf="gitBranch"> {{gitBranch}}</span>)</h1>
         </a>
       </div>
       <div class="github"><a href="https://github.com/ng-vcl/ng-vcl" target="_blank" title="to Github">
-        <span class="vclIcon fab fa-github fa-3x"></span> </a>
+        <span class="icon fab fa-github fa-3x"></span> </a>
       </div>
     </header>
-    <vcl-drawer-container class="vclContentArea vclFlex">
-      <vcl-drawer [opened]="xsmall ? false : true" class="vclVer docNav"  #drawer="vclDrawer" [mode]="!xsmall ? 'side' : 'over'">
-        <div class="vclInputGroupEmb">
-          <span class="vclPrepended">
+    <vcl-drawer-container class="content-area flex">
+      <vcl-drawer [opened]="xsmall ? false : true" class="col docNav"  #drawer="vclDrawer" [mode]="!xsmall ? 'side' : 'over'">
+        <div class="input-group-emb">
+          <span class="prepended">
             <vcl-icon icon="fas:search"></vcl-icon>
           </span>
   
           <input #searchInput (keyup)="search(searchInput.value)"
-            class="vclInput vclNoBorder vclPrepItem vclAppItem searchInput"
+            class="input no-border prep-item app-item searchInput"
             type="search"
             name="search"
             placeholder="Search Modules"
@@ -30,11 +30,11 @@
   
           <button vcl-button *ngIf="searchInput.value"
             (tap)="searchInput.value = ''; search('')"
-            class="vclButton vclTransparent vclSquare vclAppended"
+            class="button transparent square appended"
             icon="fas:times-circle"></button>
         </div>
   
-        <vcl-navigation class="vclScrollable vclYOnHover vclFlex">
+        <vcl-navigation class="scrollable y-on-hover flex">
           <ng-container *ngIf="searchResults.length; else noSearch">
             <vcl-navigation-item *ngFor="let searchResult of searchResults" [routerLink]="searchResult.route" routerLinkActive #rla="routerLinkActive" [selected]="rla.isActive">
               <vcl-navigation-label>{{searchResult.label}}</vcl-navigation-label>
@@ -65,7 +65,7 @@
           </ng-template>
         </vcl-navigation>
       </vcl-drawer>
-      <div class="vclScrollable docContent" vclDrawerContent cdkScrollable> 
+      <div class="scrollable docContent" vclDrawerContent cdkScrollable> 
         <router-outlet></router-outlet>
       </div>
     </vcl-drawer-container>

@@ -16,6 +16,6 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
   }`]
 })
 export class SelectListHeaderComponent {
-  @HostBinding('class.vclDropdownItemGroupHeader')
+  @HostBinding('class.dropdown-item-group-header')
   classVCLDropdownItemGroupHeader = true;
 }

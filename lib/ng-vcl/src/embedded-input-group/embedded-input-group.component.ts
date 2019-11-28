@@ -58,10 +58,10 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy,
     return this.input.isLabelFloating;
   }
   get materialModifierClass() {
-    return this.prepend.length > 0 ? 'vclMaterialInputGroupEmbPrepItem' : undefined;
+    return this.prepend.length > 0 ? 'material-input-group-emb-prep-item' : undefined;
   }
 
-  @HostBinding('class.vclInputGroupEmb')
+  @HostBinding('class.input-group-emb')
   _hostClasses = true;
 
   @ContentChildren(PrependDirective, { read: ElementRef })
@@ -79,13 +79,13 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy,
 
   ngAfterContentInit(): void {
     this.sub = merge(this.prepend.changes, this.append.changes).pipe(startWith(undefined)).subscribe(() => {
-      this.prepend.forEach(el => this.renderer.addClass(el.nativeElement, 'vclPrepended'));
+      this.prepend.forEach(el => this.renderer.addClass(el.nativeElement, 'prepended'));
       if (this.prepend.length > 0) {
-        this.renderer.addClass(this.input.elementRef.nativeElement, 'vclPrepItem');
+        this.renderer.addClass(this.input.elementRef.nativeElement, 'prep-item');
       }
-      this.append.forEach(el => this.renderer.addClass(el.nativeElement, 'vclAppended'));
+      this.append.forEach(el => this.renderer.addClass(el.nativeElement, 'appended'));
       if (this.append.length > 0)  {
-        this.renderer.addClass(this.input.elementRef.nativeElement, 'vclAppItem');
+        this.renderer.addClass(this.input.elementRef.nativeElement, 'app-item');
       }
       this.stateChangedEmitter.next();
     });

@@ -1,32 +1,32 @@
-<div class="vclPanel vclPanelDialog vclM-0" [ngClass]="alertClass" style="min-width: 25em" role="dialog">
-  <div *ngIf="alert.title" class="vclPanelHeader vclNoBg vclHor vclJustifyBetween vclCenter">
-    <h3 class="vclPanelTitle">{{alert.title}}</h3>
-    <button *ngIf="alert.showCloseButton" vcl-square-button class="vclTransparent" (click)="close()">
+<div class="panel panel-dialog m-0" [ngClass]="alertClass" style="min-width: 25em" role="dialog">
+  <div *ngIf="alert.title" class="panel-header no-bg row justify-between center">
+    <h3 class="panel-title">{{alert.title}}</h3>
+    <button *ngIf="alert.showCloseButton" vcl-square-button class="transparent" (click)="close()">
       <vcl-icon icon="fas:times"></vcl-icon>
     </button>
   </div>
 
-  <div class="vclPanelBody">
-    <div class="vclPanelContent">
-      <div class="vclIcogram">
-        <vcl-icon *ngIf="iconClass" class="vclScale300p" [icon]="iconClass" aria-hidden="true" role="img"></vcl-icon>
+  <div class="panel-body">
+    <div class="panel-content">
+      <div class="icogram">
+        <vcl-icon *ngIf="iconClass" class="scale300p" [icon]="iconClass" aria-hidden="true" role="img"></vcl-icon>
         <div *ngIf="alert.text && !alert.html">{{alert.text}}</div>
         <div [innerHtml]="alert.text" *ngIf="alert.text && alert.html"></div>
       </div>
 
-      <div class="vclFormControlGroup" *ngIf="alert.input">
+      <div class="form-control-group" *ngIf="alert.input">
         <p></p>
-        <input vclInput vclInputAlert [class.vclError]="validationError" [alert]="alert" (input)="valueChange($event.target.value)">
-        <div *ngIf="validationError" class="vclFormControlHint vclError">
+        <input vclInput vclInputAlert [class.error]="validationError" [alert]="alert" (input)="valueChange($event.target.value)">
+        <div *ngIf="validationError" class="form-control-hint error">
           {{validationError}}
         </div>
       </div>
     </div>
   </div>
 
-  <div class="vclPanelFooter vclNoBg vclHor vclJustifyBetween vclCenter">
+  <div class="panel-footer no-bg row justify-between center">
     <div></div>
-    <div class="vclLooseButtonGroup">
+    <div class="loose-button-group">
 
       <button vcl-button
         *ngIf="!!alert.showCancelButton"

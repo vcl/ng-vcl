@@ -77,8 +77,8 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   @HostBinding('attr.role')
   attrRole = 'listbox';
 
-  @HostBinding('class.vclSelect')
-  @HostBinding('class.vclInputGroupEmb')
+  @HostBinding('class.select')
+  @HostBinding('class.input-group-emb')
   _hostClasses = true;
 
   @HostBinding('attr.tabindex')
@@ -129,7 +129,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     return this.selectList.value;
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     return this.selectList.hasError;
   }

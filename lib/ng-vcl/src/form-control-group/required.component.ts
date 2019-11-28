@@ -13,6 +13,6 @@ export class FormControlRequiredComponent {
   @HostBinding('attr.aria-hidden')
   attrAriaHidden = true;
 
-  @HostBinding('class.vclRequiredIndicator')
+  @HostBinding('class.required-indicator')
   classVclRequiredIndicator = true;
 }

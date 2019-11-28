@@ -18,7 +18,7 @@ export class NavigationComponent implements Navigation {
   @Input()
   layout: 'horizontal' | 'vertical' = 'vertical';
 
-  @HostBinding('class.vclNavigation')
+  @HostBinding('class.navigation')
   classVclNavigation = true;
 
   @ContentChildren(NavigationItemComponent, {

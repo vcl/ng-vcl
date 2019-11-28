@@ -81,15 +81,15 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
   @Input()
   autoselect = false;
 
-  @HostBinding('class.vclInput')
+  @HostBinding('class.input')
   classVclInput = true;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.disabled || this._disabled || (this.inputHost && this.inputHost.isDisabled);
   }
 
-  @HostBinding('class.vclError')
+  @HostBinding('class.error')
   get hasError() {
     const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
     return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;

@@ -9,13 +9,13 @@ export class RadioButtonLabelDirective {
   @ContentChild(RadioButtonComponent, { read: RadioButtonComponent, static: false })
   rb?: RadioButtonComponent;
 
-  @HostBinding('class.vclFormControlLabel')
+  @HostBinding('class.form-control-label')
   classVCLFormControlLabel = true;
 
-  @HostBinding('class.vclFormControlLabelWrapping')
+  @HostBinding('class.form-control-label-wrapping')
   classVCLFormControlLabelWrapping = true;
 
-  @HostBinding('class.vclDisabled')
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.rb && this.rb.isDisabled;
   }

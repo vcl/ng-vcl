@@ -12,7 +12,7 @@
 
 <h2>With label</h2>
 
-<label class="vclFormControlLabel" for="vInputEx1">
+<label class="form-control-label" for="vInputEx1">
   Rating: {{rating1.labelChange | async}}
 </label>
 <vcl-rating [value]="2" #rating1="vclRating">
@@ -23,7 +23,7 @@
 
 <h2>With rich label</h2>
 
-<label class="vclFormControlLabel" for="vInputEx1">
+<label class="form-control-label" for="vInputEx1">
   Rating: <vcl-rating-item-label [target]="rating2"></vcl-rating-item-label>
 </label>
 <vcl-rating [value]="2" #rating2="vclRating">

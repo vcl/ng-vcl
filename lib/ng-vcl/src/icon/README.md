@@ -19,7 +19,7 @@ With image resource
 With SVG
 
 ```html
-<vcl-icon [class]="'vclIconSize1'">
+<vcl-icon [class]="'icon-size1'">
   <svg  ...></svg>
 </vcl-icon>
 ```
