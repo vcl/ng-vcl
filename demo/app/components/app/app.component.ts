@@ -92,11 +92,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async search(text) {
-    this.searchResults = new Fuse<{ [x: string]: any }>(this.GROUPED_DEMOS, {
+    this.searchResults = new Fuse(this.GROUPED_DEMOS, {
       keys: ['items.label']
     }).search(text)
       .reduce<any[]>((p: any[], demoGroup: any) => {
-        return p.concat(new Fuse<any>(demoGroup.items, { keys: ['label'] }).search(text));
+        return p.concat(new Fuse(demoGroup.items, { keys: ['label'] }).search(text));
       }, []);
   }
 }
