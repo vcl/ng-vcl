@@ -30,7 +30,6 @@ export * from './token/index';
 export * from './slider/index';
 export * from './alert/index';
 export * from './busy-indicator/index';
-export * from './table/index';
 export * from './password-input/index';
 export * from './zoom-box/index';
 export * from './gallery/index';

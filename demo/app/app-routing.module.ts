@@ -370,16 +370,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/table/demo.module').then(m => m.TableDemoModule),
-    path: 'table',
-    data: {
-      demo: {
-        label: 'Table',
-        category: CAT_TABULAR_DATA,
-      }
-    }
-  },
-  {
     loadChildren: () => import('./demos/calendar/demo.module').then(m => m.CalendarDemoModule),
     path: 'calendar',
     data: {
