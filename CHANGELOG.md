@@ -1,3 +1,7 @@
+# [0.11.0-alpha.2](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.2) (2020-01-07)
+
+
+
 # [0.11.0-alpha.1](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.1) (2019-11-28)
 
 Updated to VCL 0.7. Check BREAKING CHANGES.
