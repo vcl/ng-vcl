@@ -1,6 +1,6 @@
 {
   "name": "ng-vcl",
-  "version": "0.11.0-alpha.2",
+  "version": "0.11.0-alpha.3",
   "scripts": {
     "ng": "ng",
     "start": "npm run dev:demo",
@@ -41,7 +41,7 @@
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
-    "@vcl/vcl": "^0.7.0-alpha.1",
+    "@vcl/vcl": "^0.7.0-alpha.3",
     "core-js": "^3.6.2",
     "document-register-element": "1.14.3",
     "fuse.js": "^3.4.6",
