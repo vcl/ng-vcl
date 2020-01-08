@@ -29,9 +29,18 @@ export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
   @Input()
   mode: 'over' | 'side' = 'side';
 
-  // Use toggle to trigger animation
+  private _opened?: boolean;
+
   @Input()
-  opened = false;
+  set opened(value: boolean) {
+    this._opened = !!value;
+  }
+  get opened() {
+    if (typeof this._opened === 'boolean') {
+      return this._opened;
+    }
+    return this.mode === 'over' ? false : true;
+  }
 
   @Output()
   openedChange = new EventEmitter<boolean>();
@@ -42,12 +51,18 @@ export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (
-      (changes.mode && ! changes.mode.firstChange)
+      (changes.mode && !changes.mode.firstChange)
       ||
-      (changes.position && ! changes.position.firstChange)
+      (changes.position && !changes.position.firstChange)
     ) {
       this.container.updateContentMargins();
+    } else if (changes.opened && !changes.opened.firstChange) {
+      this.container.notifyDrawerStateChange(this, 'toggle');
     }
+  }
+
+  ngAfterViewInit() {
+    this.container.updateContentMargins();
   }
 
   open() {

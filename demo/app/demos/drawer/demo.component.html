@@ -1,10 +1,24 @@
 
+
+<button vcl-button (click)="opened = !opened">Toggle drawer</button>
+
+<br><br>
+
+<vcl-drawer-container style="width: 20em; height: 20em; background-color: #b47c17">
+  <vcl-drawer [opened]="opened" style="width: 5em; background-color: #166a24" >
+    Drawer
+  </vcl-drawer>
+  Content
+</vcl-drawer-container>
+
+<br><br>
+
 <button vcl-button (click)="drawer1.toggle()">Toggle drawer</button>
 
 <br><br>
 
 <vcl-drawer-container style="width: 20em; height: 20em; background-color: #b47c17">
-  <vcl-drawer #drawer1="vclDrawer" [opened]="true" mode="side" style="width: 5em; background-color: #166a24" >
+  <vcl-drawer #drawer1="vclDrawer" mode="side" style="width: 5em; background-color: #166a24" >
     Drawer
   </vcl-drawer>
   Content
@@ -17,8 +31,10 @@
 <br><br>
 
 <vcl-drawer-container style="width: 20em; height: 20em; background-color: #b47c17">
-  <vcl-drawer #drawer2="vclDrawer" [opened]="false" mode="over" style="width: 5em; background-color: #166a24" >
+  <vcl-drawer #drawer2="vclDrawer" mode="over" style="width: 5em; background-color: #166a24" >
     Drawer
   </vcl-drawer>
   Content
 </vcl-drawer-container>
+
+<br><br>

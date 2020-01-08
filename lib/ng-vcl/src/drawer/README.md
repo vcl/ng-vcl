@@ -38,8 +38,8 @@ It exposes a `open()`, `close()` and `toggle()` method.
 
 #### Attributes
 
-| Name                | Type                  | Default  | Description
-| ------------        | -----------           | -------- |--------------
-| `position`          | 'left  \| 'right'     | 'left'   | Drawer position
-| `mode`              | 'side  \| 'over'      | 'side'   | Drawer mode
-| `opened`            | boolean               | false    | Drawer is opened
+| Name                | Type                  | Default            | Description
+| ------------        | -----------           | --------           |--------------
+| `position`          | 'left  \| 'right'     | 'left'             | Drawer position
+| `mode`              | 'side  \| 'over'      | 'side'             | Drawer mode
+| `opened`            | boolean               | `false` | `true`   | Drawer is opened. Default value is `true` for `side` mode and `false` for `over` mode.
