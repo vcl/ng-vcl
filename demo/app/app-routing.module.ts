@@ -408,6 +408,16 @@ export const routes: Routes = [
         category: CAT_MISC,
       }
     }
+  },
+  {
+    loadChildren: () => import('./demos/breakpoints/demo.module').then(m => m.BreakpointsDemoModule),
+    path: 'breakpoints',
+    data: {
+      demo: {
+        label: 'Breakpoints',
+        category: CAT_MISC,
+      }
+    }
   }
 
 ];
