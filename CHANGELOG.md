@@ -1,3 +1,11 @@
+# [0.11.0-alpha.4](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.4) (2020-01-10)
+
+### Features
+
+* **breakpoints:** add breakpoints module ([48d0bb0](https://github.com/ng-vcl/ng-vcl/commit/48d0bb04550ec6fc0d6be57c4df1c45004d3e526))
+
+
+
 # [0.11.0-alpha.2](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.2) (2020-01-07)
 
 

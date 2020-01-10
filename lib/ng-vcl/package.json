@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/ng-vcl",
-  "version": "0.11.0-alpha.3",
+  "version": "0.11.0-alpha.4",
   "description": "A comprehensive library of components for Angular 8+ with VCL based styling",
   "repository": {
     "type": "git",
