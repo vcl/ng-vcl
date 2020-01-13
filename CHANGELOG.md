@@ -1,3 +1,12 @@
+# [0.11.0-alpha.5](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.5) (2020-01-13)
+
+
+### Bug Fixes
+
+* **jss-form:** fixes dead code elimination issue on optimized builds ([4b9f3ff](https://github.com/ng-vcl/ng-vcl/commit/4b9f3ffe6156d8472cdb8372e553d15a15fcf8de))
+
+
+
 # [0.11.0-alpha.4](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.4) (2020-01-10)
 
 ### Features
