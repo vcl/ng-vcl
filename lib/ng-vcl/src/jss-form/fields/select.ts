@@ -38,4 +38,3 @@ export class FormFieldSelectComponent {
   constructor(public field: FormFieldSelect) { }
 }
 
-FormFieldControl.register('select', FormFieldSelectComponent, FormFieldSelect);

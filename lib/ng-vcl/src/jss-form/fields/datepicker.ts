@@ -28,4 +28,3 @@ export class FormFieldDatepickerComponent {
   constructor(public field: FormFieldDatePicker) { }
 }
 
-FormFieldControl.register('datepicker', FormFieldDatepickerComponent, FormFieldDatePicker);

@@ -73,4 +73,3 @@ export class FormFieldRatingComponent implements AfterViewInit {
   }
 }
 
-FormFieldControl.register('rating', FormFieldRatingComponent, FormFieldRating);

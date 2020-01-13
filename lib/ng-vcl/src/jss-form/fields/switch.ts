@@ -27,4 +27,3 @@ export class FormFieldSwitchComponent {
   constructor(public field: FormFieldSwitch) { }
 }
 
-FormFieldControl.register('switch', FormFieldSwitchComponent, FormFieldSwitch);

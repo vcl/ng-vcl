@@ -28,11 +28,15 @@ import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSwitchCompo
          FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
          FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent,
          FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent, FormFieldPasswordInputComponent, FormFieldDatepickerComponent } from './fields/index';
+import { initializeFields  } from './fields/index';
 
 export { JssFormComponent };
 export * from './schemas';
 export * from './types';
 export {FormField, FormFieldControl };
+
+let fieldsInitialized = false;
+
 @NgModule({
   imports: [
     CommonModule,
@@ -106,5 +110,11 @@ export {FormField, FormFieldControl };
     FormFieldPasswordInputComponent
   ]
 })
-export class VCLJssFormModule { }
-
+export class VCLJssFormModule { 
+  constructor() {
+    if (!fieldsInitialized) {
+      initializeFields();
+      fieldsInitialized = true;
+    }
+  }
+}

@@ -26,4 +26,3 @@ export class FormFieldPasswordInputComponent {
   constructor(public field: FormFieldPasswordInput) { }
 }
 
-FormFieldControl.register('password-input', FormFieldPasswordInputComponent, FormFieldPasswordInput);

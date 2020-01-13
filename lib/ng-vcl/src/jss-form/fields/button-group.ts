@@ -29,5 +29,3 @@ export class FormFieldButtonGroup extends FormFieldControl<VCLFormFieldSchemaBut
 export class FormFieldButtonGroupComponent {
   constructor(public field: FormFieldButtonGroup) { }
 }
-
-FormFieldControl.register('button-group', FormFieldButtonGroupComponent, FormFieldButtonGroup);

@@ -34,4 +34,3 @@ export class FormFieldSliderComponent {
   constructor(public field: FormFieldSlider) { }
 }
 
-FormFieldControl.register('slider', FormFieldSliderComponent, FormFieldSlider);

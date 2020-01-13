@@ -136,6 +136,4 @@ export class FormFieldArrayComponent {
   }
 }
 
-FormFieldControl.register('array', FormFieldArrayComponent, FormFieldArray);
-
 

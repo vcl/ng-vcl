@@ -114,4 +114,3 @@ export class FormFieldObjectComponent {
   portals: Portal<any>[];
 }
 
-FormFieldControl.register('object', FormFieldObjectComponent, FormFieldObject);

@@ -11,4 +11,3 @@ export class FormFieldHiddenComponent {
   constructor(public field: FormFieldHidden) { }
 }
 
-FormFieldControl.register('hidden', FormFieldHiddenComponent, FormFieldHidden);

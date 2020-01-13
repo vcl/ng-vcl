@@ -23,4 +23,3 @@ export class FormFieldTokenComponent {
   constructor(public field: FormFieldToken) { }
 }
 
-FormFieldControl.register('token', FormFieldTokenComponent, FormFieldToken);

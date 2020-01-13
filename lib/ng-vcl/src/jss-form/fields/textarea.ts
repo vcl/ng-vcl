@@ -36,4 +36,3 @@ export class FormFieldTextareaComponent {
   constructor(public field: FormFieldTextarea) { }
 }
 
-FormFieldControl.register('textarea', FormFieldTextareaComponent, FormFieldTextarea);

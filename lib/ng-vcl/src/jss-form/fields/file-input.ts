@@ -27,4 +27,3 @@ export class FormFieldFileInputComponent {
   constructor(public field: FormFieldFileInput) { }
 }
 
-FormFieldControl.register('file-input', FormFieldFileInputComponent, FormFieldFileInput);

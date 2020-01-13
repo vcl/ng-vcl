@@ -26,4 +26,3 @@ export class FormFieldCheckboxComponent {
   constructor(public field: FormFieldCheckbox) { }
 }
 
-FormFieldControl.register('checkbox', FormFieldCheckboxComponent, FormFieldCheckbox);

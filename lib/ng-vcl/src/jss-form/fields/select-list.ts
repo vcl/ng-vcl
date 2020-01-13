@@ -32,4 +32,3 @@ export class FormFieldSelectListComponent {
   constructor(public field: FormFieldSelectList) { }
 }
 
-FormFieldControl.register('select-list', FormFieldSelectListComponent, FormFieldSelectList);

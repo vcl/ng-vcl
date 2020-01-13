@@ -28,4 +28,3 @@ export class FormFieldInputComponent {
   constructor(public field: FormFieldInput) { }
 }
 
-FormFieldControl.register('input', FormFieldInputComponent, FormFieldInput);

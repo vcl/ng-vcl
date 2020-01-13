@@ -34,4 +34,3 @@ export class FormFieldRadioGroupComponent {
   constructor(public field: FormFieldRadio) { }
 }
 
-FormFieldControl.register('radio-group', FormFieldRadioGroupComponent, FormFieldRadio);

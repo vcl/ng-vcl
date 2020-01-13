@@ -54,5 +54,3 @@ export class FormFieldButtonsComponent {
     }
   }
 }
-
-FormField.register('buttons', FormFieldButtonsComponent, FormFieldButtons);
