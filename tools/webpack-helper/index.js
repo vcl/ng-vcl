@@ -69,13 +69,6 @@ module.exports = function(opts = {}) {
           use: [
             'raw-loader',
             {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                url: true
-              }
-            },
-            {
               loader: 'postcss-loader',
               options: {
                 parser: 'sugarss',
