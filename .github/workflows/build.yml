@@ -2,8 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - master
-      - dev
+      - gh_actions_test
 
 jobs:
   build:
@@ -14,6 +13,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -27,8 +31,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install, build and deploy
+          
+      - name: install and build
+        env:
+          GIT_BRANCH: ${{ steps.extract_branch.outputs.branch }}
         run: |
           npm ci
           npm run docs
-          npm run docs:deploy
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs
