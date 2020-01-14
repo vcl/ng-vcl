@@ -2,8 +2,11 @@
 
 A comprehensive library of components for Angular 8+ with [VCL](http://vcl.github.io/) based styling.
 
-**[Browse master demo](https://ng-vcl.github.io/ng-vcl/master) <br> [![Build Status](https://travis-ci.org/ng-vcl/ng-vcl.svg?branch=master)](https://travis-ci.org/ng-vcl/ng-vcl)**<br>
-**[Browse dev demo](https://ng-vcl.github.io/ng-vcl/dev)** <br>[![Build Status](https://travis-ci.org/ng-vcl/ng-vcl.svg?branch=dev)](https://travis-ci.org/ng-vcl/ng-vcl)
+**[Browse master demo](https://ng-vcl.github.io/ng-vcl/master)**
+
+**[Browse dev demo](https://ng-vcl.github.io/ng-vcl/dev)** 
+
+[![Build Status](https://github.com/ng-vcl/ng-vcl/workflows/Build/badge.svg)](https://travis-ci.org/ng-vcl/ng-vcl)
 
 ## Features
 
