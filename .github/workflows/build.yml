@@ -1,0 +1,27 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Node $
+        uses: actions/setup-node@v1
+        with:
+          node-version: $
+
+      - name: install, build and deploy
+        run: |
+          npm ci
+          npm run docs:
+          npm run docs:deploy 
