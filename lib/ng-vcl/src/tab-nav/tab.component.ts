@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Directive, TemplateRef, HostBinding, Inject, HostListener, ViewContainerRef, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, Input, Directive, TemplateRef, HostBinding, Inject, HostListener, ViewContainerRef, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
 import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { debounceTime } from 'rxjs/operators';
@@ -19,22 +19,23 @@ export class TabLabelComponent {
   exportAs: 'vclTab',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabComponent implements Tab, AfterViewInit {
+export class TabComponent implements OnInit, Tab {
 
   constructor(
     @Inject(TAB_NAV_TOKEN)
     private tabNav: TabNav,
-    private viewContainerRef: ViewContainerRef
-    ) {
-      tabNav.currentTabChanged.pipe(debounceTime(0)).subscribe(() => {
-        this.selected = tabNav.currentTab === this;
-      });
-    }
+  ) { }
+
+  ngOnInit() {
+    this.tabNav.currentTab$.subscribe((tab) => {
+      setTimeout(() => {
+        this.selected = tab === this;
+      }, 0);
+    });
+  }
 
   @ViewChild('contentTemplate', { read: TemplateRef, static: false })
   contentTemplate?: TemplateRef<any>;
-
-  portal?: TemplatePortal;
 
   @HostBinding('class.tab')
   classVclTab = true;
@@ -57,9 +58,5 @@ export class TabComponent implements Tab, AfterViewInit {
     }
     this.selected = true;
     this.tabNav.selectTab(this);
-  }
-
-  ngAfterViewInit() {
-    this.portal = this.contentTemplate ? new TemplatePortal(this.contentTemplate, this.viewContainerRef) : undefined;
   }
 }

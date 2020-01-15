@@ -3,7 +3,7 @@
 </div>
 <div [style.display]="hasContent === false ? 'none' : null" class="tab-content" [class.no-border]="!borders">
   <div #panel role="tabpanel" class="tab-panel">
-    <ng-template *ngIf="currentTab && currentTab.portal" [cdkPortalOutlet]="currentTab.portal"></ng-template>
+    <ng-template *ngIf="portal" [cdkPortalOutlet]="portal"></ng-template>
     <ng-content></ng-content>
   </div>
 </div>

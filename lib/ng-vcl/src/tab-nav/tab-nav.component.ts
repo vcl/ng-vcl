@@ -1,9 +1,10 @@
 import { Component, ContentChildren, QueryList, Input, Output,
-         EventEmitter, ViewChild, HostBinding, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
+         EventEmitter, ViewChild, HostBinding, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewContainerRef } from '@angular/core';
 import { TabComponent } from './tab.component';
 import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'vcl-tab-nav',
@@ -17,14 +18,21 @@ import { Subject } from 'rxjs';
 })
 export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChanges {
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private viewContainerRef: ViewContainerRef
+  ) { }
 
-  private _currentTabChangedEmitter = new Subject<void>();
+  private _currentTabEmitter = new BehaviorSubject<Tab | undefined>(undefined);
 
-  currentTabChanged = this._currentTabChangedEmitter.asObservable();
+  currentTab$ = this._currentTabEmitter.asObservable();
+
+  get currentTab() {
+    return this._currentTabEmitter.value;
+  }
 
   @HostBinding('class.tabbable')
-  classVclTabbable = true;
+  _hostClasses = true;
 
   @HostBinding('class.tabs-left')
   get classVclTabsLeft() {
@@ -45,7 +53,7 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
   @Input()
   selectedTabIndex = 0;
 
-  currentTab?: Tab;
+  portal: TemplatePortal;
 
   // Sets vclTabStyleUni on vclTabs and removes vclNoBorder on vclTabContent when true
   @Input()
@@ -61,7 +69,6 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
     return !!this.panel && hasProjectedContent(this.panel);
   }
 
-  // Sets a valid selectedTabIndex
   selectTab(tab: Tab) {
     if (!this.tabs) {
       return;
@@ -69,14 +76,7 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
 
     const tabs = this.tabs.toArray();
     const tabIndex = tabs.findIndex(_tab => _tab === tab);
-
-    this.selectedTabIndex = tabIndex;
-    this.currentTab = tab;
-
-    this.selectedTabIndexChange.next(this.selectedTabIndex);
-    this._currentTabChangedEmitter.next();
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
+    this.selectTabIndex(tabIndex);
   }
 
   selectTabIndex(idx: number) {
@@ -87,30 +87,41 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
     }
 
     const tabs = this.tabs.toArray();
-    let nextTab: Tab;
+    let tab: Tab;
 
     if (typeof idx === 'number' && tabs[idx]) {
-      nextTab = tabs[idx];
+      tab = tabs[idx];
     }
 
-    this.currentTab = nextTab;
-    this._currentTabChangedEmitter.next();
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
+    if (!tab) {
+      this.portal = undefined;
+      this._currentTabEmitter.next(undefined);
+      return;
+    } else {
+      this._currentTabEmitter.next(tab);
+      this.portal = new TemplatePortal(tab.contentTemplate, this.viewContainerRef);
+      this.cdRef.detectChanges();
+    }
   }
 
-
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.selectTabIndex(this.selectedTabIndex);
   }
 
+  ngAfterViewInit() {
+    if (this.currentTab) {
+      this.portal = new TemplatePortal(this.currentTab.contentTemplate, this.viewContainerRef);
+      this.cdRef.detectChanges();
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.selectedTabIndex) {
+    if (changes.selectedTabIndex && !changes.selectedTabIndex.firstChange) {
       this.selectTabIndex(changes.selectedTabIndex.currentValue);
     }
   }
 
   ngOnDestroy() {
-    this._currentTabChangedEmitter.complete();
+    this._currentTabEmitter.complete();
   }
 }

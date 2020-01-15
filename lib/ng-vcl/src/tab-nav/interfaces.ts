@@ -3,12 +3,13 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { Observable, Subject } from 'rxjs';
 
 export interface Tab {
-  portal?: TemplatePortal;
+  // portal?: TemplatePortal;
+  contentTemplate?: TemplateRef<any>;
 }
 
 export interface TabNav {
-  currentTab?: Tab;
-  currentTabChanged: Observable<void>;
+  currentTab$: Observable<Tab | undefined>;
+  currentTab: Tab | undefined;
   selectTab(tab?: Tab): void;
 }
 
