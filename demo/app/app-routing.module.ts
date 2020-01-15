@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 const CAT_STATUS_INFORMATION = 'Status Information';
 const CAT_TYPOGRAPHICAL      = 'Typographical';
 const CAT_FORM_CONTROLS      = 'Form Controls';
-const CAT_TABULAR_DATA       = 'Tabular Data';
 const CAT_NAVIGATION         = 'Navigation';
 const CAT_OVERLAYS           = 'Overlays';
 const CAT_BUTTONS            = 'Buttons';
@@ -375,7 +374,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Calendar',
-        category: CAT_TABULAR_DATA,
+        category: CAT_FORM_CONTROLS, 
       }
     }
   },

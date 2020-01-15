@@ -32,35 +32,37 @@ export class AutocompleteAsyncDemoComponent implements OnDestroy {
 
   search$ = new BehaviorSubject<string>('');
 
-  searchSub = this.search$.pipe(
-                distinctUntilChanged(),
-                switchMap(value => {
-                  // Show nothing if less than 2 characters
-                  if (!value || value.length < 2) {
-                    return scheduled<Search>([{ state: 'cleared', books: [] }], asapScheduler);
-                  } else {
-                    return this.http.get(`${BOOK_API_URL}?q=${value}&projection=lite`).pipe(
-                      map((data: any) => {
-                        const items = data.items || [];
-                        return {
-                          state: 'success',
-                          books: items.filter(item => item.id && item.volumeInfo && item.volumeInfo.title)
-                                      .map(item => ({
-                            id: item.id,
-                            title: item.volumeInfo.title,
-                            image: item.volumeInfo.imageLinks && item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.smallThumbnail,
-                            author: item.volumeInfo.authors && item.volumeInfo.authors.join(', '),
-                            date: item.volumeInfo.publishedDate,
-                          }))
-                        };
-                      }),
-                      catchError(() => scheduled<Search>([{ state: 'error', books: [] }], asapScheduler)), // Error state
-                      startWith({ state: 'loading', books: [] }) // Set state to loading before the request
-                    );
-                  }
-                }),
-                startWith<Search>({ state: 'cleared', books: [] }) // Initial state
-  ).subscribe(search => this.search = search);
+  ngOnInit() {
+    this.search$.pipe(
+      distinctUntilChanged(),
+      switchMap(value => {
+        // Show nothing if less than 2 characters
+        if (!value || value.length < 2) {
+          return scheduled<Search>([{ state: 'cleared', books: [] }], asapScheduler);
+        } else {
+          return this.http.get(`${BOOK_API_URL}?q=${value}&projection=lite`).pipe(
+            map((data: any) => {
+              const items = data.items || [];
+              return {
+                state: 'success',
+                books: items.filter(item => item.id && item.volumeInfo && item.volumeInfo.title)
+                            .map(item => ({
+                  id: item.id,
+                  title: item.volumeInfo.title,
+                  image: item.volumeInfo.imageLinks && item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.smallThumbnail,
+                  author: item.volumeInfo.authors && item.volumeInfo.authors.join(', '),
+                  date: item.volumeInfo.publishedDate,
+                }))
+              };
+            }),
+            catchError(() => scheduled<Search>([{ state: 'error', books: [] }], asapScheduler)), // Error state
+            startWith({ state: 'loading', books: [] }) // Set state to loading before the request
+          );
+        }
+      }),
+      startWith<Search>({ state: 'cleared', books: [] }) // Initial state
+    ).subscribe(search => this.search = search);
+  }
 
   onSelectBook(book: Book) {
     if (book) {
@@ -74,6 +76,6 @@ export class AutocompleteAsyncDemoComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.searchSub && this.searchSub.unsubscribe();
+    this.search$.complete();
   }
 }

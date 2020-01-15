@@ -20,17 +20,17 @@
 
 <vcl-autocomplete #acBooks="vclAutocomplete">
   <vcl-select-list>
-    <vcl-select-list-content >
-      <vcl-busy-indicator style="padding: 1em"></vcl-busy-indicator>
+    <vcl-select-list-content *ngIf="search.state === 'loading'">
+      <vcl-busy-indicator style="padding: 1em"> </vcl-busy-indicator>
     </vcl-select-list-content>
-    <!-- <vcl-select-list-content *ngIf="search.state === 'success' && search.books.length === 0">
+    <vcl-select-list-content *ngIf="search.state === 'success' && search.books.length === 0">
       <div style="padding: 1em">No books found</div>
-    </vcl-select-list-content> -->
-    <!-- <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
+    </vcl-select-list-content>
+    <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
       <vcl-select-list-item *ngFor="let book of search.books" [value]="book">
         <vcl-select-list-label>{{book.title}}</vcl-select-list-label>
       </vcl-select-list-item>
-    </ng-container> -->
+    </ng-container>
   </vcl-select-list>
 </vcl-autocomplete>
 
