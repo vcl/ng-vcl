@@ -1,11 +1,12 @@
 import { Inject, Optional, LOCALE_ID, Injectable } from '@angular/core';
 import { VCLDateAdapter, VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from './dateadapter';
-// import { VCL_NATIVE_DATE_ADAPTER_PARSER, VCLNativeDateAdapterParser, NativeDateAdapterParserEN,  } from './native-dateadapter-parsers';
 import { VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS,  } from './native-dateadapter-formats';
 import { VCLDateAdapterDisplayFormats, VCLDateAdapterParseFormats } from './interfaces';
 import { VCL_NATIVE_DATE_ADAPTER_PARSER, VCLNativeDateAdapterParser, NativeDateAdapterParserISO } from './parsers/index';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
 
   locale: string;
@@ -13,7 +14,7 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
 
   constructor(
     @Inject(VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS)
-    private formats: {[key in VCLDateAdapterDisplayFormats]: Intl.DateTimeFormatOptions },
+    private formats: any, // TODO: cannot build with type:   {[key in VCLDateAdapterDisplayFormats]: Intl.DateTimeFormatOptions }
     @Inject(VCL_DATE_ADAPTER_WEEKDAY_OFFSET)
     weekDayOffset: number,
     @Optional()
