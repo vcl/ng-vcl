@@ -26,7 +26,7 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
 
   // tslint:disable-next-line:no-input-rename
   @Input('vclAutocompleteDisabled')
-  ddDisabled: false;
+  ddDisabled: boolean = false;
 
   // tslint:disable-next-line:no-output-rename
   @Output('vclAutocompleteSelectionChange')

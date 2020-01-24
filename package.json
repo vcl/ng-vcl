@@ -19,7 +19,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:clean": "rimraf dist/ng-vcl",
-    "build:ng-vcl/ng-vcl": "ng build @ng-vcl/ng-vcl",
+    "build:ng-vcl/ng-vcl": "ng build @ng-vcl/ng-vcl --prod",
     "postbuild:ng-vcl/ng-vcl": "cp lib/ng-vcl/*.scss dist/ng-vcl/ng-vcl",
     "build:ng-vcl": "npm-run-all build:ng-vcl/ng-vcl",
     "build": "npm-run-all build:clean build:ng-vcl",
