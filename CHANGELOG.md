@@ -1,3 +1,21 @@
+# [1.0.0-beta.1](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v1.0.0-beta.1) (2020-01-24)
+
+
+### Bug Fixes
+
+* ivy compatibility fixes ([77f85cb](https://github.com/ng-vcl/ng-vcl/commit/77f85cbe14131669c42e9d569ad6500cf4ecef43))
+
+
+### Code Refactoring
+
+* update to vcl 1.0.0 and angular 9 ([edf7a02](https://github.com/ng-vcl/ng-vcl/commit/edf7a02633c530c3176fee004bd04b08bbcbab50))
+
+
+### BREAKING CHANGES
+
+* VCL 1.0.0+ and angular 9+ are required.
+
+
 # [0.11.0-alpha.5](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v0.11.0-alpha.5) (2020-01-13)
 
 
