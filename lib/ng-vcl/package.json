@@ -1,6 +1,6 @@
 {
   "name": "@ng-vcl/ng-vcl",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "A comprehensive library of components for Angular 9+ with VCL based styling",
   "repository": {
     "type": "git",
@@ -8,6 +8,7 @@
   },
   "author": "The ng-vcl authors",
   "license": "MIT",
+  "sass": "index.scss",
   "scss": "index.scss",
   "peerDependencies": {
     "@angular/common": "^8.2.1",
