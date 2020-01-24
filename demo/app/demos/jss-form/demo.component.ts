@@ -12,7 +12,7 @@ export class JssFormDemoComponent implements AfterViewInit {
 
   constructor(private notifier: NotifierService) { }
 
-  @ViewChild('heroForm', { static: false })
+  @ViewChild('heroForm')
   heroForm: JssFormComponent;
 
   heroSchema = HERO_SCHEMA;

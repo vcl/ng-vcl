@@ -34,7 +34,7 @@ export class TabComponent implements OnInit, Tab {
     });
   }
 
-  @ViewChild('contentTemplate', { read: TemplateRef, static: false })
+  @ViewChild('contentTemplate', { read: TemplateRef })
   contentTemplate?: TemplateRef<any>;
 
   @HostBinding('class.tab')

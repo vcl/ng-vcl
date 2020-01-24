@@ -50,7 +50,7 @@ export class FormControlGroupMaterialDirective implements AfterViewInit {
     return (this.config || this.hasMaterialDirective) && this.input;
   }
 
-  @ContentChild(FORM_CONTROL_MATERIAL_INPUT as any, { read: FORM_CONTROL_MATERIAL_INPUT, static: false })
+  @ContentChild(FORM_CONTROL_MATERIAL_INPUT as any, { read: FORM_CONTROL_MATERIAL_INPUT })
   input?: FormControlMaterialInput;
 
   get hasMaterialDirective() {

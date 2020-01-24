@@ -80,7 +80,7 @@ export class SelectListItemComponent implements SelectListItem {
   @Input('label')
   _label?: string;
 
-  @ContentChild(SelectListLabelComponent, { read: ElementRef, static: false })
+  @ContentChild(SelectListLabelComponent, { read: ElementRef })
   _labelElementRef?: ElementRef<HTMLElement>;
 
   get label() {

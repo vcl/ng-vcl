@@ -11,7 +11,7 @@ export class MaterialDesignInputsDemoComponent {
 
   material = 'float';
 
-  @ViewChild('form', { static: false })
+  @ViewChild('form')
   form: NgForm;
 
   defaultValues = {

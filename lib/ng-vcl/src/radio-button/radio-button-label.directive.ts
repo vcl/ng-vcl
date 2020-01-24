@@ -6,7 +6,7 @@ import { RadioButtonComponent } from './radio-button.component';
 })
 export class RadioButtonLabelDirective {
 
-  @ContentChild(RadioButtonComponent, { read: RadioButtonComponent, static: false })
+  @ContentChild(RadioButtonComponent, { read: RadioButtonComponent })
   rb?: RadioButtonComponent;
 
   @HostBinding('class.form-control-label')

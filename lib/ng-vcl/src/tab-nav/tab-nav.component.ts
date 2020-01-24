@@ -59,7 +59,7 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
   @Input()
   borders = false;
 
-  @ViewChild('panel', { read: ElementRef, static: false })
+  @ViewChild('panel', { read: ElementRef })
   panel?: ElementRef<HTMLElement>;
 
   @Output()

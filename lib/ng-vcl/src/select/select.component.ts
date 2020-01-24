@@ -62,7 +62,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   private _valueChangeSub?: Subscription;
   private _focused = false;
 
-  @ContentChild(SelectListComponent, { static: false })
+  @ContentChild(SelectListComponent)
   selectList: SelectListComponent;
 
   @ViewChild('input', { read: ElementRef, static: true })

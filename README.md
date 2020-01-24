@@ -1,6 +1,6 @@
 # [ng-vcl](https://ng-vcl.github.io/ng-vcl/)
 
-A comprehensive library of components for Angular 8+ with [VCL](http://vcl.github.io/) based styling.
+A comprehensive library of components for Angular 9+ with [VCL](http://vcl.github.io/) based styling.
 
 **[Browse master demo](https://ng-vcl.github.io/ng-vcl/master)**
 
@@ -24,10 +24,6 @@ ng-vcl is production ready. We adhere to semver.
 ## Packages
 
 - [@ng-vcl/ng-vcl](https://github.com/ng-vcl/ng-vcl/blob/master/src/ng-vcl/README.md/)
-
-## Installation
-
-Check the [webpack helper](https://github.com/ng-vcl/ng-vcl/tree/master/tools/webpack-helper) to see how to use the (ng-)vcl with Angular CLI.
 
 ## Demo / Docs
 

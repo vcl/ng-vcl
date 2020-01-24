@@ -26,8 +26,11 @@
               }
             ],
             "styles": [
-              "demo/styles.sss"
+              "demo/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules"]
+            },
             "scripts": [],
             "es5BrowserSupport": true
           },
@@ -84,7 +87,7 @@
             "tsConfig": "demo/tsconfig.spec.json",
             "karmaConfig": "demo/karma.conf.js",
             "styles": [
-              "demo/styles.sss"
+              "demo/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -166,7 +169,7 @@
               }
             ],
             "styles": [
-              "wc/styles.sss"
+              "wc/styles.scss"
             ]
           },
           "configurations": {

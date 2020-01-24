@@ -70,10 +70,10 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
   @HostBinding('attr.tabindex')
   attrTabindex = -1;
 
-  @ContentChild(InputDirective, { read: InputDirective, static: false })
+  @ContentChild(InputDirective, { read: InputDirective })
   input?: InputDirective;
 
-  @ViewChild(ButtonComponent, { read: ButtonComponent, static: false })
+  @ViewChild(ButtonComponent, { read: ButtonComponent })
   button?: ButtonComponent;
 
   @Input()

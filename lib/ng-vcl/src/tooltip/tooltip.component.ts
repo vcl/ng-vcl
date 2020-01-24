@@ -7,6 +7,6 @@ import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@ang
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TooltipComponent {
-  @ViewChild(TemplateRef, { static: false })
+  @ViewChild(TemplateRef)
   templateRef: TemplateRef<any>;
 }

@@ -59,7 +59,7 @@ export class NavigationItemComponent {
     return this._selected;
   }
 
-  @ContentChild(NAVIGATION_TOKEN as any, { static: false })
+  @ContentChild((NAVIGATION_TOKEN as any))
   nestedNav?: Navigation;
 
   @HostListener('click', ['$event'])

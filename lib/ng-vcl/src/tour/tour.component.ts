@@ -10,7 +10,7 @@ import { HorizontalConnectionPos, VerticalConnectionPos, ConnectedPosition } fro
 })
 export class TourComponent implements OnInit, OnChanges {
 
-  @ViewChild('popover', { static: false }) public readonly popover: PopoverComponent;
+  @ViewChild('popover') public readonly popover: PopoverComponent;
 
   @Input() public title: string;
   @Input() public order: number;

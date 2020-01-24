@@ -36,7 +36,7 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
 
   private imgContent: any;
 
-  @ContentChild(ZoomBoxMagnifierComponent, { static: false })
+  @ContentChild(ZoomBoxMagnifierComponent)
   private magnifier: ZoomBoxMagnifierComponent;
 
   constructor(private element: ElementRef, renderer: Renderer2) {
@@ -64,8 +64,8 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
     const minY = this.height / 2;
     const maxY = this.imgContent.height - (this.height / 2);
 
-    this.x = Math.max(minX, Math.min(maxX, event.layerX)) - (this.width / 2);
-    this.y = Math.max(minY, Math.min(maxY, event.layerY)) - (this.height / 2);
+    this.x = Math.max(minX, Math.min(maxX, event['layerX'])) - (this.width / 2);
+    this.y = Math.max(minY, Math.min(maxY, event['layerY'])) - (this.height / 2);
 
     this.magnifier.update();
   }

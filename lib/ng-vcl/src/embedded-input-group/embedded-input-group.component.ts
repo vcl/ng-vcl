@@ -70,7 +70,7 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy,
   @ContentChildren(AppendDirective, { read: ElementRef })
   append?: QueryList<ElementRef<HTMLElement>>;
 
-  @ContentChild(InputDirective, { read: InputDirective, static: false })
+  @ContentChild(InputDirective, { read: InputDirective })
   input?: InputDirective;
 
   onLabelClick(event: Event): void {

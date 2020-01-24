@@ -8,7 +8,7 @@
   },
   "author": "The ng-vcl authors",
   "license": "MIT",
-  "style": "styles.sss",
+  "scss": "index.scss",
   "peerDependencies": {
     "@angular/common": "^8.2.1",
     "@angular/animations": "^8.2.1",

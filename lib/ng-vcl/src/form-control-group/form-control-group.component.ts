@@ -46,7 +46,7 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
     return this.input && this.input.controlType;
   }
 
-  @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT, static: false })
+  @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT })
   input?: FormControlInput;
 
   private get _form() {

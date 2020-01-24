@@ -139,10 +139,10 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   @Output()
   confirm = new EventEmitter<Token[]>();
 
-  @ContentChild(InputDirective, { read: InputDirective, static: false })
+  @ContentChild(InputDirective, { read: InputDirective })
   input: InputDirective;
 
-  @ContentChild(InputDirective, { read: ElementRef, static: false })
+  @ContentChild(InputDirective, { read: ElementRef })
   inputElementRef: ElementRef<HTMLInputElement>;
 
   removeLastToken() {
