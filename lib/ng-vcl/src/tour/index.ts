@@ -8,7 +8,7 @@ import { TourOverlayComponent } from './tour-overlay.component';
 import { TourService, TourOptions } from './tour.service';
 import { TourComponent } from './tour.component';
 
-export { TourService, TourOptions, TourComponent };
+export { TourService, TourOptions, TourComponent, TourOverlayComponent };
 
 @NgModule({
   imports: [CommonModule, VCLPopoverModule, VCLButtonModule, VCLIcogramModule, VCLIconModule],

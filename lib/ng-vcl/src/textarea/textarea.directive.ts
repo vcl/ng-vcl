@@ -28,7 +28,11 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     @Optional()
     @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
     private _errorStateAgent?: FormControlErrorStateAgent,
-  ) { }
+  ) { 
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
+  }
 
   private stateChangedEmitter = new Subject<void>();
   private _focused = false;

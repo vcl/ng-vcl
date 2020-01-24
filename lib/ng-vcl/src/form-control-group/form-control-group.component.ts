@@ -1,5 +1,5 @@
-import { Component, HostBinding, ContentChild, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy, Optional, Self, SkipSelf } from '@angular/core';
-import { FormControlInput, FORM_CONTROL_INPUT, FormControlHost, FORM_CONTROL_HOST } from './interfaces';
+import { Component, HostBinding, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy, Optional, Self, SkipSelf } from '@angular/core';
+import { FormControlInput, FormControlHost, FORM_CONTROL_HOST } from './interfaces';
 import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { NgForm, FormGroupDirective } from '@angular/forms';
@@ -38,6 +38,7 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
   }
 
   private _stateChangedEmitter = new Subject<void>();
+  input: FormControlInput | undefined;
 
   stateChange = this._stateChangedEmitter.asObservable();
 
@@ -46,8 +47,13 @@ export class FormControlGroupComponent implements FormControlHost, AfterViewInit
     return this.input && this.input.controlType;
   }
 
-  @ContentChild(FORM_CONTROL_INPUT as any, { read: FORM_CONTROL_INPUT })
-  input?: FormControlInput;
+  registerInput(input: FormControlInput) {
+    if (!this.input) {
+      this.input = input;
+    } else {
+      // TODO: Make sure the top input element is used
+    }
+  }
 
   private get _form() {
     return this.ngForm || this.formGroup;

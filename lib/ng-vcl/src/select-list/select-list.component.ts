@@ -1,9 +1,10 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef, Injector, ContentChild } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlInput, FORM_CONTROL_INPUT } from '../form-control-group/index';
 import { SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from './types';
 import { SelectListItemComponent } from './components/select-list-item.component';
+import { SelectListContentComponent } from './components/select-list-content.component';
 
 let UNIQUE_ID = 0;
 
@@ -37,6 +38,9 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
+    }
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
     }
   }
 
@@ -83,8 +87,8 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   @ContentChildren(SelectListItemComponent)
   private _items?: QueryList<SelectListItem>;
 
-  @ContentChildren(SELECT_LIST_CONTENT_TOKEN as any)
-  private _content?: QueryList<any>;
+  @ContentChildren(SelectListContentComponent)
+  _content: QueryList<any> | undefined;
 
   get hasContent() {
     return this._content && this._content.length > 0;

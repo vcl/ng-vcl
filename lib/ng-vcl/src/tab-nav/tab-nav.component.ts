@@ -104,11 +104,10 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
     }
   }
 
-  ngAfterContentInit() {
-    this.selectTabIndex(this.selectedTabIndex);
-  }
-
   ngAfterViewInit() {
+    this.selectTabIndex(this.selectedTabIndex);
+
+
     if (this.currentTab) {
       this.portal = new TemplatePortal(this.currentTab.contentTemplate, this.viewContainerRef);
       this.cdRef.detectChanges();

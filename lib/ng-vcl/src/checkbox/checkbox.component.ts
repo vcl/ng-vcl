@@ -38,6 +38,9 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
   }
 
   private stateChangedEmitter = new Subject<void>();

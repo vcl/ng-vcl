@@ -40,6 +40,9 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
   }
 
   @HostBinding('class.input')

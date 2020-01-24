@@ -39,6 +39,9 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
   }
 
   private stateChangedEmitter = new Subject<void>();

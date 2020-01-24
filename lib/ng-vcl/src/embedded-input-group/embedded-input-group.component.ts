@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, HostBinding, ElementRef, AfterContentInit, Renderer2, OnDestroy, ChangeDetectionStrategy, ContentChild, Inject, Optional, forwardRef } from '@angular/core';
+import { Component, ContentChildren, QueryList, HostBinding, ElementRef, AfterContentInit, Renderer2, OnDestroy, ChangeDetectionStrategy, ContentChild, Inject, Optional, forwardRef, AfterViewInit } from '@angular/core';
 import { InputDirective } from '../input/index';
 import { merge, Subscription, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -22,7 +22,7 @@ import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../materi
     }
   ]
 })
-export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy, FormControlMaterialInput {
+export class EmbeddedInputGroupComponent implements AfterContentInit, AfterViewInit, OnDestroy, FormControlMaterialInput {
 
   private sub?: Subscription;
 
@@ -34,7 +34,7 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy,
   controlType = 'embedded-input-group';
 
   get stateChanged() {
-    return merge(this.input.stateChanged, this.stateChangedEmitter);
+    return this.stateChangedEmitter.asObservable();
   }
   get elementId() {
     return this.input.elementId;
@@ -89,6 +89,10 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, OnDestroy,
       }
       this.stateChangedEmitter.next();
     });
+  }
+
+  ngAfterViewInit() {
+    this.input.stateChanged.subscribe(this.stateChangedEmitter);
   }
 
   ngOnDestroy(): void {

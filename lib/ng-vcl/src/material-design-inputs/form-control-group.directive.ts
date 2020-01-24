@@ -1,7 +1,7 @@
 
-import { Directive, HostBinding, ContentChild, AfterViewInit, Optional, SkipSelf, ElementRef, Input, Renderer2, forwardRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, HostBinding, AfterViewInit, Optional, SkipSelf, ElementRef, Input, Renderer2, forwardRef, ChangeDetectorRef } from '@angular/core';
 import { startWith } from 'rxjs/operators';
-import { MaterialMode, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialInput, FORM_CONTROL_MATERIAL_INPUT } from './types';
+import { MaterialMode, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialInput, FormControlMaterialHost } from './types';
 import { FormControlGroupMaterialConfig } from './types';
 
 @Directive({
@@ -15,7 +15,8 @@ import { FormControlGroupMaterialConfig } from './types';
     }
   ]
 })
-export class FormControlGroupMaterialDirective implements AfterViewInit {
+export class FormControlGroupMaterialDirective implements AfterViewInit, FormControlMaterialHost {
+
   constructor(
     @Optional()
     @SkipSelf()
@@ -50,8 +51,16 @@ export class FormControlGroupMaterialDirective implements AfterViewInit {
     return (this.config || this.hasMaterialDirective) && this.input;
   }
 
-  @ContentChild(FORM_CONTROL_MATERIAL_INPUT as any, { read: FORM_CONTROL_MATERIAL_INPUT })
-  input?: FormControlMaterialInput;
+  input: FormControlMaterialInput | undefined;
+
+  registerInput(input: FormControlMaterialInput) {
+    if (!this.input) {
+      this.input = input;
+    } else {
+      // TODO: Make sure the top input element is used
+    }
+  }
+
 
   get hasMaterialDirective() {
     return this.elementRef.nativeElement.hasAttribute('vclMaterial');

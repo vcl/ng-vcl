@@ -1,4 +1,4 @@
-import { Component, HostBinding, Directive, Input, HostListener, ContentChild, SkipSelf, Inject, Optional, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, Input, HostListener, SkipSelf, Inject, Optional, ChangeDetectionStrategy } from '@angular/core';
 import { NAVIGATION_TOKEN, Navigation } from './types';
 
 @Component({
@@ -59,8 +59,14 @@ export class NavigationItemComponent {
     return this._selected;
   }
 
-  @ContentChild((NAVIGATION_TOKEN as any))
-  nestedNav?: Navigation;
+  registerNav(nav: Navigation) {
+    if (this.nestedNav) {
+      throw new Error('A NavigationItem can only have one nested Navigation');
+    }
+    this.nestedNav = nav;
+  }
+
+  nestedNav: Navigation | undefined;
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {

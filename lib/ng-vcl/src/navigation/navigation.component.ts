@@ -13,7 +13,15 @@ import { NavigationItemComponent } from './navigation-item.component';
 })
 export class NavigationComponent implements Navigation {
 
-  constructor(@Optional() @SkipSelf() private parentNav: NavigationComponent ) { }
+  constructor(
+    @Optional() @SkipSelf() private parentNav: NavigationComponent,
+    @Optional() @SkipSelf() private parentNavItem: NavigationItemComponent 
+  ) {
+    if (this.parentNavItem) {
+      this.parentNavItem.registerNav(this);
+    }
+
+  }
 
   @Input()
   layout: 'horizontal' | 'vertical' = 'vertical';

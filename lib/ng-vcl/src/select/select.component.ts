@@ -101,7 +101,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   afterClose = new EventEmitter<any | any[]>();
 
   get stateChanged() {
-    return merge(this.selectList.stateChanged, this.stateChangedEmitter);
+    return this.stateChangedEmitter.asObservable();
   }
 
   get isFocused() {
@@ -302,6 +302,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     }
+  }
+
+  ngAfterViewInit() {
+    this.selectList.stateChanged.subscribe(this.stateChangedEmitter);
   }
 
   ngOnDestroy() {

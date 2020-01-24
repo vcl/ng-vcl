@@ -8,7 +8,7 @@ import {GalleryThumbnailsComponent} from './gallery-thumbnails.component';
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
 
-export {GalleryAnimationConfig, GALLERY_ANIMATIONS};
+export { GalleryAnimationConfig, GALLERY_ANIMATIONS, GalleryComponent, GalleryImageComponent, GalleryBodyComponent, GalleryFooterComponent, GalleryThumbnailsComponent };
 
 @NgModule({
   imports: [CommonModule, VCLButtonModule, VCLIconModule],

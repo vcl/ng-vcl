@@ -5,6 +5,8 @@ import { TabComponent, TabLabelComponent } from './tab.component';
 import { PortalModule } from '@angular/cdk/portal';
 import { ObserversModule } from '@angular/cdk/observers';
 
+export { TabComponent, TabLabelComponent, TabNavComponent };
+
 @NgModule({
   imports: [CommonModule, PortalModule, ObserversModule],
   exports: [TabComponent, TabLabelComponent, TabNavComponent],

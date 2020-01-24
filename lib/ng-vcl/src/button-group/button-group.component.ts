@@ -41,6 +41,9 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
   }
 
   private buttonsSub?: Subscription;

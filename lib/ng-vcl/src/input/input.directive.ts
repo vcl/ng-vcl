@@ -41,7 +41,11 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
     @Optional()
     @Inject(INPUT_HOST_TOKEN)
     private inputHost?: InputHost,
-  ) { }
+  ) { 
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
+  }
 
   private uniqueId = 'vcl_input_' + UNIQUE_ID++;
 

@@ -29,7 +29,11 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
     @Optional()
     @Inject(FORM_CONTROL_MATERIAL_HOST)
      private fcmh?: FormControlMaterialHost,
-  ) { }
+  ) { 
+    if (this.fcmh) {
+      this.fcmh.registerInput(this);
+    };
+  }
 
   private stateChangedEmitter = new Subject<void>();
 
@@ -46,7 +50,7 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
     return this.input.isDisabled;
   }
   get stateChanged() {
-    return merge(this.input.stateChanged, this.stateChangedEmitter);
+    return this.stateChangedEmitter.asObservable();
   }
   get isLabelFloating() {
     return this.input.isLabelFloating;
@@ -95,6 +99,10 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
   ngAfterContentInit() {
     this.updateType();
     this.renderer.addClass(this.input.elementRef.nativeElement, 'app-item');
+  }
+
+  ngAfterViewInit() {
+    this.input.stateChanged.subscribe(this.stateChangedEmitter);
   }
 
   onLabelClick(event: Event): void {

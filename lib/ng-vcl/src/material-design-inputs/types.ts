@@ -10,6 +10,8 @@ export interface FormControlMaterialInput extends FormControlInput {
 }
 
 export interface FormControlMaterialHost {
+  registerInput(input: FormControlMaterialInput);
+  readonly input?: FormControlMaterialInput;
   readonly mode: MaterialMode;
 }
 

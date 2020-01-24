@@ -79,6 +79,9 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
   }
 
   private stateChangedEmitter = new Subject<void>();
@@ -129,7 +132,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   errorStateAgent?: FormControlErrorStateAgent;
 
   get stateChanged() {
-    return merge(this.input.stateChanged, this.stateChangedEmitter);
+    return this.stateChangedEmitter.asObservable();
   }
 
   get isFocused() {
@@ -219,6 +222,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   ngAfterViewInit() {
     this.updateInput();
+    this.input.stateChanged.subscribe(this.stateChangedEmitter);
   }
 
   updateInput() {

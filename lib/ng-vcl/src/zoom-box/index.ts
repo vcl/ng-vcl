@@ -4,6 +4,8 @@ import { ZoomBoxComponent } from './zoom-box.component';
 import { ZoomBoxMagnifierComponent } from './zoom-box-magnifier.component';
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
+export { ZoomBoxComponent, ZoomBoxMagnifierComponent, ZoomBoxContainerComponent };
+
 @NgModule({
   imports: [CommonModule],
   exports: [ZoomBoxComponent, ZoomBoxMagnifierComponent, ZoomBoxContainerComponent],
