@@ -9,7 +9,7 @@
     "dev:ng-vcl": "ng build @ng-vcl/ng-vcl --watch",
     "dev:wc": "ng serve ng-vcl-wc-test --plugin ~webpack.custom.js",
     "docs": "cross-env-shell npm run docs:set-env npm-run-all docs:set-env docs:clean docs:pull-current docs:build",
-    "docs:set-env": "cross-env-shell GIT_BRANCH=${TRAVIS_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}",
+    "docs:set-env": "cross-env-shell GIT_BRANCH=${GIT_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}",
     "docs:build": "cross-env-shell ng build --prod --outputPath=docs/${GIT_BRANCH} --plugin ~webpack.custom.js",
     "docs:deploy": "git-directory-deploy --directory docs --branch gh-pages",
     "docs:clean": "rimraf docs",
