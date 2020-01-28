@@ -1,3 +1,17 @@
+# [1.0.0-beta.4](https://github.com/vcl/ng-vcl/compare/v0.10.0...v1.0.0-beta.4) (2020-01-28)
+
+
+### Code Refactoring
+
+* move repository to [@vcl](https://github.com/vcl) org ([7cb2c54](https://github.com/vcl/ng-vcl/commit/7cb2c54c6b844977cda94d39b4a30f8cfa981371))
+
+
+### BREAKING CHANGES
+
+* ng-vcl was moved to the `@vcl` namespace. Use `@vcl/ng-vcl` instead of
+`@ng-vcl/ng-vcl`.
+
+
 # [1.0.0-beta.1](https://github.com/ng-vcl/ng-vcl/compare/v0.10.0...v1.0.0-beta.1) (2020-01-24)
 
 
