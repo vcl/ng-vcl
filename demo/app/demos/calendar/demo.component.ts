@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { VCLDateRange, VCLDateAdapter } from '@vcl/ng-vcl';
-import { VCLCalendarDateModifier } from '@vcl/ng-vcl/calendar/interfaces';
+import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
