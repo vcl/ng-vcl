@@ -3,7 +3,7 @@
 The `VCLDateAdapter` is a service that provides utils for date operations.
 
 ```js
-import { VCLDateadapterModule } from '@ng-vcl/ng-vcl';;
+import { VCLDateadapterModule } from '@vcl/ng-vcl';;
 
 @NgModule({
   imports: [ VCLDateadapterModule ],
@@ -13,7 +13,7 @@ export class AppComponent {}
 
 ```
 ```ts
-import { VCLDateAdapter } from '@ng-vcl/ng-vcl';;
+import { VCLDateAdapter } from '@vcl/ng-vcl';;
 
 @Component({ ... })
 export class MyComponent {
@@ -69,7 +69,7 @@ ng-vcl provides support for the following locales: `en`, `en-us`, `en-gb`, `de`,
 Add one or more of the following providers to active support for a locale.
 
 ```ts
-import { VCL_NATIVE_DATE_ADAPTER_PARSER, NativeDateAdapterParserEN, NativeDateAdapterParserENGB, NativeDateAdapterParserDE } from '@ng-vcl/ng-vcl';
+import { VCL_NATIVE_DATE_ADAPTER_PARSER, NativeDateAdapterParserEN, NativeDateAdapterParserENGB, NativeDateAdapterParserDE } from '@vcl/ng-vcl';
 
 @NgModule({
   providers: [
@@ -105,7 +105,7 @@ The default first day of the week is Sunday.
 Add the following provider for a weekday offset.
 
 ```ts
-import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from '@ng-vcl/ng-vcl';
+import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from '@vcl/ng-vcl';
 
 @NgModule({
   providers: [
@@ -142,7 +142,7 @@ export class MyDateAdapter extends VCLDateAdapter<MyDate> {
 ```
 
 ```ts
-import { VCLDateAdapter } from '@ng-vcl/ng-vcl';
+import { VCLDateAdapter } from '@vcl/ng-vcl';
 
 @NgModule({
   providers: [

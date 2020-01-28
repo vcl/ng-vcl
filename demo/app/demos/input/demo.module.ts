@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLInputModule } from '@ng-vcl/ng-vcl';
+import { VCLInputModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { InputDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/input/README.md';
+import README from '@vcl/ng-vcl/input/README.md';
 
 export function demo() {
   return {

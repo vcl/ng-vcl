@@ -1,5 +1,5 @@
 import { Validators, AbstractControl } from '@angular/forms';
-import { conditional, VCLFormFieldSchemaRoot } from '@ng-vcl/ng-vcl';
+import { conditional, VCLFormFieldSchemaRoot } from '@vcl/ng-vcl';
 import { CounterSchema } from './jss-form-extended';
 
 // Extended schema including the custom counter component

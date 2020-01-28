@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLIconModule } from '@ng-vcl/ng-vcl';
+import { VCLIconModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { IconDemoComponent } from './demo.component';
 import { DemoMdiIconsComponent, DemoFontAwesomeComponent } from './icons.component';
-import README from '@ng-vcl/ng-vcl/icon/README.md';
+import README from '@vcl/ng-vcl/icon/README.md';
 
 export function demo() {
   return {

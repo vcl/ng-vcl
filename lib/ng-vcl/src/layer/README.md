@@ -36,7 +36,7 @@ Any component can inject the ComponentLayerRef class.
 It will be available if the component is opened via the layer service
 
 ```ts
-import { ComponentLayerRef } from '@ng-vcl/ng-vcl';
+import { ComponentLayerRef } from '@vcl/ng-vcl';
 
 // This is just a common component
 @Component({ ... })
@@ -56,7 +56,7 @@ Any component can be opened with the layer service.
 Make sure the component is provided in your module as part of the `entryComponents`.
 
 ```ts
-import { LayerService } from '@ng-vcl/ng-vcl';
+import { LayerService } from '@vcl/ng-vcl';
 import { MyLayerComponent } from './my-layer.component';
 
 @Component({ ... })

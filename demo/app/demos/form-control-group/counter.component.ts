@@ -1,6 +1,6 @@
 import { Component, Input, forwardRef, HostBinding, Optional, Self, Inject, NgModule } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, VCLIcogramModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, VCLIcogramModule, VCLButtonModule } from '@vcl/ng-vcl';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 

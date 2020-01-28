@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLTextareaModule} from '@ng-vcl/ng-vcl';
+import { VCLTextareaModule} from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { TextareaDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/textarea/README.md';
+import README from '@vcl/ng-vcl/textarea/README.md';
 
 export function demo() {
   return {

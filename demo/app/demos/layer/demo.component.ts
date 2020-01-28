@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LayerService } from '@ng-vcl/ng-vcl';
+import { LayerService } from '@vcl/ng-vcl';
 import { BarComponent } from './bar.component';
 import { NagLayer } from './nag.component';
 

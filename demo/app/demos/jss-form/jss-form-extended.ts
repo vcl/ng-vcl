@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaRoot, FormFieldControl, VCLFormFieldControlSchema, Conditional } from '@ng-vcl/ng-vcl';
+import { VCLFormFieldSchemaRoot, FormFieldControl, VCLFormFieldControlSchema, Conditional } from '@vcl/ng-vcl';
 
 @Component({
   template: `

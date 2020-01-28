@@ -5,7 +5,7 @@ import { routes } from './../../app-routing.module';
 import * as Fuse from 'fuse.js';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { DrawerComponent } from '@ng-vcl/ng-vcl';
+import { DrawerComponent } from '@vcl/ng-vcl';
 
 declare var gitBranch: string;
 

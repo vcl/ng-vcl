@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentLayerRef } from '@ng-vcl/ng-vcl';
+import { ComponentLayerRef } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'bar.component.html',

@@ -20,10 +20,10 @@
       "esnext.asynciterable"
     ],
     "paths": {
-      "@ng-vcl/ng-vcl": [
+      "@vcl/ng-vcl": [
         "lib/ng-vcl/src"
       ],
-      "@ng-vcl/ng-vcl/*": [
+      "@vcl/ng-vcl/*": [
         "lib/ng-vcl/src/*"
       ]
     }

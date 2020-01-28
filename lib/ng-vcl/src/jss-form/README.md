@@ -5,7 +5,7 @@ Creates a html-form from a provided schema.
 ## Usage
 
 ```ts
-import { VCLJssFormModule } from '@ng-vcl/ng-vcl';
+import { VCLJssFormModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLJssFormModule ],
@@ -20,7 +20,7 @@ export class AppComponent {}
 
 ```ts
 import { Validators } from '@angular/forms';
-import { VCLFormFieldSchemaRoot } from '@ng-vcl/ng-vcl';
+import { VCLFormFieldSchemaRoot } from '@vcl/ng-vcl';
 
 const SCHEMA: VCLFormFieldSchemaRoot = {
   type: 'form',
@@ -129,7 +129,7 @@ const SCHEMA: VCLFormFieldSchemaRoot = {
 Some properties can be conditional and change when another field value changes.
 
 ```ts
-import { VCLFormFieldSchemaRoot, conditional } from '@ng-vcl/ng-vcl';
+import { VCLFormFieldSchemaRoot, conditional } from '@vcl/ng-vcl';
 
 const SCHEMA: VCLFormFieldSchemaRoot = {
   type: 'form',
@@ -166,7 +166,7 @@ FormFieldControl.register('counter', CounterFormFieldComponent);
 ```
 
 ```ts
-import { VCLFormFieldSchemaRoot, conditional } from '@ng-vcl/ng-vcl';
+import { VCLFormFieldSchemaRoot, conditional } from '@vcl/ng-vcl';
 
 const SCHEMA: VCLFormFieldSchemaRoot = {
   type: 'form',

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {VCLGalleryModule} from '@ng-vcl/ng-vcl';
+import {VCLGalleryModule} from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { GalleryDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/gallery/README.md';
+import README from '@vcl/ng-vcl/gallery/README.md';
 
 export function demo() {
   return {

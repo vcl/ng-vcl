@@ -1,6 +1,6 @@
 import { Component, Injector, Injectable, Inject, forwardRef, HostBinding } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentLayerRef, LayerConfig } from '@ng-vcl/ng-vcl';
+import { ComponentLayerRef, LayerConfig } from '@vcl/ng-vcl';
 
 export interface NagLayerData {
   allowDecline: boolean;

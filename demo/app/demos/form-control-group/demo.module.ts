@@ -13,11 +13,11 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLRatingModule,
          VCLNotifierModule,
          VCLPasswordInputModule,
-         VCLDatepickerModule} from '@ng-vcl/ng-vcl';
+         VCLDatepickerModule} from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
 import { VCLCounterModule } from './counter.component';
-import README from '@ng-vcl/ng-vcl/form-control-group/README.md';
+import README from '@vcl/ng-vcl/form-control-group/README.md';
 
 export function demo() {
   return {

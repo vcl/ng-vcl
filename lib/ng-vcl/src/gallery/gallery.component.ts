@@ -14,7 +14,7 @@ import {
 import {GalleryImageComponent} from './gallery-image.component';
 import {AnimationBuilder, AnimationFactory, AnimationMetadata} from '@angular/animations';
 
-export const GALLERY_ANIMATIONS = new InjectionToken('@ng-vcl/ng-vcl#gallery_animations');
+export const GALLERY_ANIMATIONS = new InjectionToken('@vcl/ng-vcl#gallery_animations');
 
 export interface GalleryAnimationConfig {
   middleRefade?: AnimationMetadata | AnimationMetadata[];

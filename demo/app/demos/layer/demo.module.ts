@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { VCLLayerModule, VCLButtonModule, VCLIconModule } from '@ng-vcl/ng-vcl';
+import { VCLLayerModule, VCLButtonModule, VCLIconModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
 import { NagComponent, NagLayer } from './nag.component';
 import { BarComponent } from './bar.component';
-import README from '@ng-vcl/ng-vcl/layer/README.md';
+import README from '@vcl/ng-vcl/layer/README.md';
 
 export function demo() {
   return {

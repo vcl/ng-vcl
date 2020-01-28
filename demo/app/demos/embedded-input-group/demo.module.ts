@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLButtonModule, VCLInputModule, VCLEmbeddedInputGroupModule, VCLIcogramModule, VCLIconModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonModule, VCLInputModule, VCLEmbeddedInputGroupModule, VCLIcogramModule, VCLIconModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { EmbeddedInputGroupDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/embedded-input-group/README.md';
+import README from '@vcl/ng-vcl/embedded-input-group/README.md';
 
 export function demo() {
   return {

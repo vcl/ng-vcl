@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MaterialDesignVCLIconAliasResolverService, FontAwesomeVCLIconAliasResolverService, IconService, IconResolverService, MaterialDesignIconResolverService, FontAwesomeIconResolverService } from '@ng-vcl/ng-vcl';
+import { MaterialDesignVCLIconAliasResolverService, FontAwesomeVCLIconAliasResolverService, IconService, IconResolverService, MaterialDesignIconResolverService, FontAwesomeIconResolverService } from '@vcl/ng-vcl';
 
 // Icon resolvers can be set on module or component level by setting providers
 

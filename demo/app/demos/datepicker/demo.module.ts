@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLDatepickerModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { VCLDatepickerModule, VCLButtonModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { DatePickerDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/datepicker/README.md';
+import README from '@vcl/ng-vcl/datepicker/README.md';
 
 export function demo() {
   return {

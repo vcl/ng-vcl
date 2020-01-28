@@ -5,7 +5,7 @@ The navigation groups navigation items to form a navigation menu.
 ## Usage
 
 ```js
-import { VCLNavigationModule } from '@ng-vcl/ng-vcl';
+import { VCLNavigationModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLNavigationModule ],

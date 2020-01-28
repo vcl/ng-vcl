@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLCalendarModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { VCLCalendarModule, VCLButtonModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import README from '@ng-vcl/ng-vcl/dateadapter/README.md';
+import README from '@vcl/ng-vcl/dateadapter/README.md';
 
 export function demo() {
   return {

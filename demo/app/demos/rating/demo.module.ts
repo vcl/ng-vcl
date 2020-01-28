@@ -4,8 +4,8 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {DemoComponent, DemoModule} from './../../modules/demo/demo.module';
 import {RatingDemoComponent} from './demo.component';
-import {VCLRatingModule} from '@ng-vcl/ng-vcl';
-import README from '@ng-vcl/ng-vcl/rating/README.md';
+import {VCLRatingModule} from '@vcl/ng-vcl';
+import README from '@vcl/ng-vcl/rating/README.md';
 
 export function demo() {
   return {

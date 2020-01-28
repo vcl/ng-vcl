@@ -6,7 +6,7 @@ It is the main control for triggering actions.
 ## Usage
 
 ```js
-import { VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { VCLButtonModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLButtonModule ],

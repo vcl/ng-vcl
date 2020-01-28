@@ -5,7 +5,7 @@ VCL Breakpoint queries to be used with `@angular/cdk`'s BreakpointObserver or `w
 ### Usage
 
 ```ts
-import { VCLBreakpoints } from '@ng-vcl/ng-vcl';
+import { VCLBreakpoints } from '@vcl/ng-vcl';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 export class MyComponent implements OnInit {

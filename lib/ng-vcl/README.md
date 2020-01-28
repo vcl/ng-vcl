@@ -8,13 +8,13 @@ A comprehensive library of components for Angular 8+ with [VCL](http://vcl.githu
 ## Installation
 
 ```sh
-npm install @ng-vcl/ng-vcl --save
+npm install @vcl/ng-vcl --save
 ```
 
 ## Usage
 
 ```js
-import { VCLIconModule, VCLLayerModule } from '@ng-vcl/ng-vcl';
+import { VCLIconModule, VCLLayerModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [

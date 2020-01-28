@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "lib",
   "projects": {
     "ng-vcl-demo": {
       "root": "",
@@ -113,7 +113,7 @@
         }
       }
     },
-    "@ng-vcl/ng-vcl": {
+    "@vcl/ng-vcl": {
       "root": "lib/ng-vcl",
       "sourceRoot": "lib/ng-vcl/src",
       "projectType": "library",
@@ -144,65 +144,6 @@
             "exclude": [
               "**/node_modules/**"
             ]
-          }
-        }
-      }
-    },
-    "ng-vcl-wc-test": {
-      "root": "",
-      "sourceRoot": "wc",
-      "projectType": "application",
-      "prefix": "app",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "ngx-build-plus:build",
-          "options": {
-            "outputPath": "dist/ng-vcl-wc-test",
-            "index": "wc/index.html",
-            "main": "wc/main.ts",
-            "polyfills": "wc/polyfills.ts",
-            "tsConfig": "wc/tsconfig.json",
-            "scripts": [
-              {
-                "input": "node_modules/document-register-element/build/document-register-element.js"
-              }
-            ],
-            "styles": [
-              "wc/styles.scss"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "ngx-build-plus:dev-server",
-          "options": {
-            "browserTarget": "ng-vcl-wc-test:build",
-            "port": 3000
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "ng-vcl-wc-test:build:production"
-            }
           }
         }
       }

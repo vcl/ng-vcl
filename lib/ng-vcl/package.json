@@ -1,5 +1,5 @@
 {
-  "name": "@ng-vcl/ng-vcl",
+  "name": "@vcl/ng-vcl",
   "version": "1.0.0-beta.3",
   "description": "A comprehensive library of components for Angular 9+ with VCL based styling",
   "repository": {
@@ -11,11 +11,11 @@
   "sass": "index.scss",
   "scss": "index.scss",
   "peerDependencies": {
-    "@angular/common": "^8.2.1",
-    "@angular/animations": "^8.2.1",
-    "@angular/core": "^8.2.1",
-    "@angular/forms": "^8.2.1",
-    "@angular/router": "^8.2.1",
+    "@angular/common": "^9",
+    "@angular/animations": "^9",
+    "@angular/core": "^9",
+    "@angular/forms": "^9",
+    "@angular/router": "^9",
     "rxjs": "^6.5.2"
   }
 }

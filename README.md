@@ -2,11 +2,13 @@
 
 A comprehensive library of components for Angular 9+ with [VCL](http://vcl.github.io/) based styling.
 
-**[Browse master demo](https://ng-vcl.github.io/ng-vcl/master)**
+**[Browse master demo](https://vcl.github.io/ng-vcl/master)** 
 
-**[Browse dev demo](https://ng-vcl.github.io/ng-vcl/dev)** 
+![Build](https://github.com/vcl/ng-vcl/workflows/Build/badge.svg?branch=master)
 
-[![Build Status](https://github.com/ng-vcl/ng-vcl/workflows/Build/badge.svg)](https://travis-ci.org/ng-vcl/ng-vcl)
+**[Browse dev demo](https://vcl.github.io/ng-vcl/dev)** 
+
+![Build](https://github.com/vcl/ng-vcl/workflows/Build/badge.svg?branch=dev)
 
 ## Features
 
@@ -21,14 +23,30 @@ A comprehensive library of components for Angular 9+ with [VCL](http://vcl.githu
 
 ng-vcl is production ready. We adhere to semver.
 
-## Packages
+## Installation
 
-- [@ng-vcl/ng-vcl](https://github.com/ng-vcl/ng-vcl/blob/master/src/ng-vcl/README.md/)
+Install via npm
+
+```sh
+npm install @vcl/ng-vcl
+```
+
+## Usage
+
+```ts
+import { VCLIconModule } from '@vcl/ng-vcl';
+…
+@NgModule ({....
+  imports: [...,
+    VCLIconModule,
+  …]
+})
+```
 
 ## Demo / Docs
 
-Open [https://ng-vcl.github.io/ng-vcl/master](https://ng-vcl.github.io/ng-vcl/master) for master
-and [https://ng-vcl.github.io/ng-vcl/dev](https://ng-vcl.github.io/ng-vcl/dev) for dev
+Open [https://vcl.github.io/ng-vcl/master](https://ng-vcl.github.io/ng-vcl/master) for master
+and [https://vcl.github.io/ng-vcl/dev](https://ng-vcl.github.io/ng-vcl/dev) for dev
 
 OR
 

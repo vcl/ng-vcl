@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { BreakpointsDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/breakpoints/README.md';
+import README from '@vcl/ng-vcl/breakpoints/README.md';
 
 export function demo() {
   return {

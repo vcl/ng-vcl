@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule, VCLIcogramModule, VCLFormControlGroupModule } from '@ng-vcl/ng-vcl';
+import { VCLJssFormModule, VCLNotifierModule, VCLButtonModule, VCLIcogramModule, VCLFormControlGroupModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
 import { FormFieldCounterComponent } from './jss-form-extended';
 import { VCLCounterModule } from '../form-control-group/counter.component';
-import README from '@ng-vcl/ng-vcl/jss-form/README.md';
+import README from '@vcl/ng-vcl/jss-form/README.md';
 
 export function demo() {
   return {

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLProgressBarModule} from '@ng-vcl/ng-vcl';
+import { VCLProgressBarModule} from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ProgressBarDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/progress-bar/README.md';
+import README from '@vcl/ng-vcl/progress-bar/README.md';
 
 export function demo() {
   return {

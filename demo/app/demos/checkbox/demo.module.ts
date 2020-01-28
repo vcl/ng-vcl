@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLCheckboxModule, VCLFormControlGroupModule } from '@ng-vcl/ng-vcl';
+import { VCLCheckboxModule, VCLFormControlGroupModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { CheckboxDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/checkbox/README.md';
+import README from '@vcl/ng-vcl/checkbox/README.md';
 
 export function demo() {
   return {

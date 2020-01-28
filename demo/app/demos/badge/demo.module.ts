@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLBadgeModule } from '@ng-vcl/ng-vcl';
+import { VCLBadgeModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { BadgeDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/badge/README.md';
+import README from '@vcl/ng-vcl/badge/README.md';
 
 export function demo() {
   return {

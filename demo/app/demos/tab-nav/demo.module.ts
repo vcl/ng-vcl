@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLTabNavModule} from '@ng-vcl/ng-vcl';
+import { VCLTabNavModule} from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { TabNavDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/tab-nav/README.md';
+import README from '@vcl/ng-vcl/tab-nav/README.md';
 
 export function demo() {
   return {

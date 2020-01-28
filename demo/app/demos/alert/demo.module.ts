@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLAlertModule, VCLButtonModule } from '@ng-vcl/ng-vcl';
+import { VCLAlertModule, VCLButtonModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { AlertDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/alert/README.md';
+import README from '@vcl/ng-vcl/alert/README.md';
 
 export function demo() {
   return {

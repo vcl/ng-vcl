@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, FormControl, ValidationErrors, NgForm } from '@angular/forms';
-import { NotifierService, FormControlErrorStateAgent, FormControlHost, FormControlInput } from '@ng-vcl/ng-vcl';
+import { NotifierService, FormControlErrorStateAgent, FormControlHost, FormControlInput } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html'

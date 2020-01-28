@@ -1,4 +1,4 @@
-import { NotifierPosition, NotifierService } from '@ng-vcl/ng-vcl';
+import { NotifierPosition, NotifierService } from '@vcl/ng-vcl';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 let cnt = 1;

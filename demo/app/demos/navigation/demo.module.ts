@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLNavigationModule, VCLButtonModule, VCLIcogramModule } from '@ng-vcl/ng-vcl';
+import { VCLNavigationModule, VCLButtonModule, VCLIcogramModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { NavigationDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/navigation/README.md';
+import README from '@vcl/ng-vcl/navigation/README.md';
 
 export function demo() {
   return {

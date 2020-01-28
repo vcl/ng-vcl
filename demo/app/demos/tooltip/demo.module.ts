@@ -1,10 +1,10 @@
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { VCLTooltipModule } from '@ng-vcl/ng-vcl';
+import { VCLTooltipModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { ToolTipDemoComponent } from './demo.component';
-import README from '@ng-vcl/ng-vcl/tooltip/README.md';
+import README from '@vcl/ng-vcl/tooltip/README.md';
 
 export function demo() {
   return {

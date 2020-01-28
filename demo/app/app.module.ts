@@ -14,7 +14,7 @@ import {
   NativeDateAdapterParserDE,
   NativeDateAdapterParserENGB,
   VCLDrawerModule
-} from '@ng-vcl/ng-vcl';
+} from '@vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';

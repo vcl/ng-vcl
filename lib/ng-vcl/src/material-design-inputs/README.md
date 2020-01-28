@@ -5,7 +5,7 @@ Material design inputs
 ## Usage
 
 ```js
-import { VCLMaterialDesignInputsModule } from '@ng-vcl/ng-vcl';
+import { VCLMaterialDesignInputsModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLMaterialDesignInputsModule ],

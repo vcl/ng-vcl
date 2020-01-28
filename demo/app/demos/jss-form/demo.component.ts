@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { JssFormComponent, NotifierService } from '@ng-vcl/ng-vcl';
+import { JssFormComponent, NotifierService } from '@vcl/ng-vcl';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HERO_SCHEMA } from './hero';

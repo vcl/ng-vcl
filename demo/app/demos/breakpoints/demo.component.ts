@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { VCLBreakpoints } from '@ng-vcl/ng-vcl';
+import { VCLBreakpoints } from '@vcl/ng-vcl';
 import { map } from 'rxjs/operators';
 
 const pickMatches = map((state: BreakpointState) => state.matches);
