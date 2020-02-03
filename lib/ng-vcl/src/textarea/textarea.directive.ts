@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit,
 import { Subject } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
-import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
+import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost } from '../material-design-inputs/index';
 
 let UNIQUE_ID = 0;
 @Directive({
@@ -26,11 +26,17 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
     @Inject(FORM_CONTROL_HOST)
     private formControlHost?: FormControlHost,
     @Optional()
+    @Inject(FORM_CONTROL_MATERIAL_HOST)
+    private formControlMaterialHost?: FormControlMaterialHost,
+    @Optional()
     @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
     private _errorStateAgent?: FormControlErrorStateAgent,
   ) { 
     if (this.formControlHost) {
       this.formControlHost.registerInput(this);
+    }
+    if (this.formControlMaterialHost) {
+      this.formControlMaterialHost.registerInput(this);
     }
   }
 

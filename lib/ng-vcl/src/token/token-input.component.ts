@@ -22,7 +22,7 @@ import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
 import { FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent } from '../form-control-group/index';
 import { InputDirective, INPUT_HOST_TOKEN, InputHost } from '../input/index';
-import { FormControlMaterialInput, FORM_CONTROL_MATERIAL_INPUT } from '../material-design-inputs/index';
+import { FormControlMaterialInput, FORM_CONTROL_MATERIAL_INPUT, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost } from '../material-design-inputs/index';
 
 let uniqueID = 0;
 
@@ -48,12 +48,20 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
     public ngControl?: NgControl,
     @Optional() @Inject(FORM_CONTROL_HOST)
     private formControlHost?: FormControlHost,
+    @Optional() @Inject(FORM_CONTROL_MATERIAL_HOST)
+    private formControlMaterialHost?: FormControlMaterialHost,
     @Optional() @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
     private _errorStateAgent?: FormControlErrorStateAgent,
   ) {
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
+    }
+    if (this.formControlHost) {
+      this.formControlHost.registerInput(this);
+    }
+    if (this.formControlMaterialHost) {
+      this.formControlMaterialHost.registerInput(this);
     }
   }
 

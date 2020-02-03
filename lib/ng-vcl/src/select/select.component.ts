@@ -15,7 +15,9 @@ import {
   TemplateRef,
   Injector,
   forwardRef,
-  AfterContentInit} from '@angular/core';
+  AfterContentInit,
+  Inject,
+  Optional} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NEVER, Subscription, Subject, merge } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
@@ -26,7 +28,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { createOffClickStream } from '../off-click/index';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
-import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
+import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost } from '../material-design-inputs/index';
 import { FORM_CONTROL_INPUT } from '../form-control-group/index';
 
 @Component({
@@ -54,8 +56,14 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
+    @Optional()
+    @Inject(FORM_CONTROL_MATERIAL_HOST)
+    private formControlMaterialHost?: FormControlMaterialHost,    
   ) {
     super(injector);
+    if (this.formControlMaterialHost) {
+      this.formControlMaterialHost.registerInput(this);
+    }
   }
   private stateChangedEmitter = new Subject<void>();
   private _dropdownOpenedSub?: Subscription;

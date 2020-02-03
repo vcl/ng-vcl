@@ -4,7 +4,7 @@ import { merge, Subscription, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { PrependDirective, AppendDirective } from '../core/index';
 import { FORM_CONTROL_INPUT } from '../form-control-group/index';
-import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
+import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost } from '../material-design-inputs/index';
 
 @Component({
   selector: 'vcl-embedded-input-group',
@@ -28,7 +28,14 @@ export class EmbeddedInputGroupComponent implements AfterContentInit, AfterViewI
 
   constructor(
     private renderer: Renderer2,
-  ) { }
+    @Optional()
+    @Inject(FORM_CONTROL_MATERIAL_HOST)
+    private formControlMaterialHost?: FormControlMaterialHost,
+  ) { 
+    if (this.formControlMaterialHost) {
+      this.formControlMaterialHost.registerInput(this);
+    }
+  }
 
   private stateChangedEmitter = new Subject<void>();
   controlType = 'embedded-input-group';

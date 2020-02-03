@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Op
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlHost, FORM_CONTROL_HOST } from '../form-control-group/index';
-import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput } from '../material-design-inputs/index';
+import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput, FormControlMaterialHost, FORM_CONTROL_MATERIAL_HOST } from '../material-design-inputs/index';
 
 export interface InputHost {
   readonly isDisabled: boolean;
@@ -36,6 +36,9 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
     @Inject(FORM_CONTROL_HOST)
     private formControlHost?: FormControlHost,
     @Optional()
+    @Inject(FORM_CONTROL_MATERIAL_HOST)
+    private formControlMaterialHost?: FormControlMaterialHost,
+    @Optional()
     @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
     private _errorStateAgent?: FormControlErrorStateAgent,
     @Optional()
@@ -44,6 +47,9 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
   ) { 
     if (this.formControlHost) {
       this.formControlHost.registerInput(this);
+    }
+    if (this.formControlMaterialHost) {
+      this.formControlMaterialHost.registerInput(this);
     }
   }
 
