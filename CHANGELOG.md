@@ -1,3 +1,12 @@
+# [1.0.0-beta.5](https://github.com/vcl/ng-vcl/compare/v0.10.0...v1.0.0-beta.5) (2020-02-03)
+
+
+### Bug Fixes
+
+* **material-design-inputs:** add missing registerInput calls ([d36f515](https://github.com/vcl/ng-vcl/commit/d36f515d2a85d16aadbf1459fdc3746124e8ef97))
+
+
+
 # [1.0.0-beta.4](https://github.com/vcl/ng-vcl/compare/v0.10.0...v1.0.0-beta.4) (2020-01-28)
 
 
