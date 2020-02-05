@@ -13,9 +13,6 @@ export class FormFieldCounterComponent {
   constructor(public field: FormFieldControl) { }
 }
 
-// Register counter component as field
-FormFieldControl.register('counter', FormFieldCounterComponent);
-
 export interface CounterSchemaParams {
   min?: number;
   max?: number;
