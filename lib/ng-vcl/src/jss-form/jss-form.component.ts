@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy, SimpleChanges, OnInit, OnChanges} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Portal } from '@angular/cdk/portal';
 import { FormFieldObject } from './fields/index';
@@ -12,16 +12,38 @@ import { FormControlGroupMaterialConfig } from '../material-design-inputs/index'
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclJssForm'
 })
-export class JssFormComponent implements JssForm, AfterContentInit, AfterViewInit, OnDestroy {
+export class JssFormComponent implements JssForm, AfterContentInit, AfterViewInit, OnDestroy, OnInit, OnChanges {
 
   constructor(private cdRef: ChangeDetectorRef, private injector: Injector) { }
 
   @Input()
-  set schema(value: VCLFormFieldSchemaRoot) {
-    if (value) {
+  schema?: VCLFormFieldSchemaRoot;
+
+  ngOnInit() {
+    this.createField();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.schema && !changes.schema.firstChange) {
+      this.createField();
+    }
+  }
+
+  @Output()
+  formSubmit = new EventEmitter<any>();
+
+  @Output()
+  formAction = new EventEmitter<any>();
+
+  field: FormFieldObject;
+  portal: Portal<any>;
+
+  private createField() {
+    const schema = this.schema;
+    if (schema) {
       // Treat root as a FormFieldObject
       this.field = new FormFieldObject({
-        ...value,
+        ...schema,
         name: 'root',
         type: 'object',
         visible: true
@@ -35,7 +57,7 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
               useValue: this.ngForm
           }, {
             provide: FormControlGroupMaterialConfig,
-            useValue: new FormControlGroupMaterialConfig(value.material)
+            useValue: new FormControlGroupMaterialConfig(schema.material)
           }
         ]);
     } else {
@@ -44,15 +66,6 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
       this.portal = undefined;
     }
   }
-
-  @Output()
-  formSubmit = new EventEmitter<any>();
-
-  @Output()
-  formAction = new EventEmitter<any>();
-
-  field: FormFieldObject;
-  portal: Portal<any>;
 
 
   @ViewChild('form', { static: true })
