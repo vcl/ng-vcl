@@ -11,6 +11,7 @@
   "sass": "index.scss",
   "scss": "index.scss",
   "peerDependencies": {
+    "@angular/cdk": "^9",
     "@angular/common": "^9",
     "@angular/animations": "^9",
     "@angular/core": "^9",
