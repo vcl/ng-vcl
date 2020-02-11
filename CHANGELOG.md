@@ -1,3 +1,31 @@
+# [1.0.0](https://github.com/vcl/ng-vcl/compare/v0.10.0...v1.0.0) (2020-02-11)
+
+
+
+### Code Refactoring
+
+* move repository to [@vcl](https://github.com/vcl) org ([7cb2c54](https://github.com/vcl/ng-vcl/commit/7cb2c54c6b844977cda94d39b4a30f8cfa981371))
+* update to vcl 1.0.0 and angular 9 ([edf7a02](https://github.com/vcl/ng-vcl/commit/edf7a02633c530c3176fee004bd04b08bbcbab50))
+* **table:** remove table ([64961ba](https://github.com/vcl/ng-vcl/commit/64961baccbd686925995f6e4d6bad80cebec17e1))
+* migrate to VCL 0.7 ([c4a7bc0](https://github.com/vcl/ng-vcl/commit/c4a7bc0003b8b3b05fd8b8f7db0f896e9562a064))
+* remove deprecated month-picker and date-picker ([a006339](https://github.com/vcl/ng-vcl/commit/a00633956cc94418ceb7d0914e161f033f377fb4))
+
+
+### Features
+
+* **breakpoints:** add breakpoints module ([48d0bb0](https://github.com/vcl/ng-vcl/commit/48d0bb04550ec6fc0d6be57c4df1c45004d3e526))
+
+
+### BREAKING CHANGES
+
+* ng-vcl was moved to the `@vcl` namespace. Use `@vcl/ng-vcl` instead of
+`@ng-vcl/ng-vcl`.
+* VCL 1.0.0+ and angular 9+ are required.
+* **table:** Removed table. Use native VCL table instead.
+* Removed deprecated month-picker and date-picker. Use calendar instead.
+
+
+
 # [1.0.0-beta.5](https://github.com/vcl/ng-vcl/compare/v0.10.0...v1.0.0-beta.5) (2020-02-03)
 
 
