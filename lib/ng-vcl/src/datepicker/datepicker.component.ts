@@ -213,14 +213,14 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
       positionStrategy: this.overlay.position()
       .flexibleConnectedTo(this.elementRef)
       .withPositions([{
-        originX: 'start',
+        originX: 'end',
         originY: 'bottom',
-        overlayX: 'start',
+        overlayX: 'end',
         overlayY: 'top'
       }, {
-        originX: 'start',
+        originX: 'end',
         originY: 'top',
-        overlayX: 'start',
+        overlayX: 'end',
         overlayY: 'bottom'
       }]).withPush(false)
     });
