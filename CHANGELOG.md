@@ -1,3 +1,7 @@
+## [1.0.1](https://github.com/vcl/ng-vcl/compare/v1.0.0...v1.0.1) (2020-03-25)
+
+
+
 # [1.0.0](https://github.com/vcl/ng-vcl/compare/v0.10.0...v1.0.0) (2020-02-11)
 
 
