@@ -26,6 +26,7 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
   ngOnChanges(changes: SimpleChanges) {
     if (changes.schema && !changes.schema.firstChange) {
       this.createField();
+      this.field.formReady();
     }
   }
 
@@ -40,6 +41,16 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
 
   private createField() {
     const schema = this.schema;
+
+    if (this.field) {
+      this.field && this.field.destroy();
+      this.field = undefined;
+    }
+    if (this.portal) {
+      this.portal.detach();
+      this.portal = undefined;
+    }
+
     if (schema) {
       // Treat root as a FormFieldObject
       this.field = new FormFieldObject({
@@ -60,10 +71,6 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
             useValue: new FormControlGroupMaterialConfig(schema.material)
           }
         ]);
-    } else {
-      this.field && this.field.destroy();
-      this.field = undefined;
-      this.portal = undefined;
     }
   }
 

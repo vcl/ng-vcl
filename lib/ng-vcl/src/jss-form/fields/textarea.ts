@@ -4,7 +4,7 @@ import { FormFieldControl } from './field';
 
 export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextarea, VCLFormFieldSchemaTextareaParams> {
   get placeholder(): string | undefined {
-    return this.params.placeholder || '';
+    return this.params.placeholder || null;
   }
   get minRows(): number | undefined {
     return this.params.minRows;
@@ -24,7 +24,7 @@ export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextar
       <textarea vclInput
                 [formControl]="field.control"
                 [errorStateAgent]="field.errorStateAgent"
-                [placeholder]="field.placeholder"
+                [attr.placeholder]="field.placeholder"
                 [autogrow]="true"
                 [minRows]="field.minRows || 3"
                 [maxRows]="field.minRows || 10"></textarea>

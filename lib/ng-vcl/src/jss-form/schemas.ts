@@ -31,6 +31,7 @@ export interface VCLFormFieldControlSchema extends VCLFormFieldSchema {
 export interface VCLFormFieldSchemaInputParams {
   placeholder?: string;
   inputType?: string;
+  autocomplete?: string;
 }
 
 export interface VCLFormFieldSchemaInput extends VCLFormFieldControlSchema {
@@ -40,6 +41,7 @@ export interface VCLFormFieldSchemaInput extends VCLFormFieldControlSchema {
 
 export interface VCLFormFieldSchemaPasswordInputParams {
   placeholder?: string;
+  autocomplete?: string;
 }
 
 export interface VCLFormFieldSchemaPasswordInput extends VCLFormFieldControlSchema {
