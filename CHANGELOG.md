@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/vcl/ng-vcl/compare/v1.0.1...v1.1.0) (2020-04-08)
+
+
+### Features
+
+* **data-list:** add data-list component ([0d4a870](https://github.com/vcl/ng-vcl/commit/0d4a870b46820abfa28a55672908afa3f5ebea36))
+
+
+
 ## [1.0.1](https://github.com/vcl/ng-vcl/compare/v1.0.0...v1.0.1) (2020-03-25)
 
 
