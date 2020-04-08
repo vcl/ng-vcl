@@ -38,6 +38,7 @@ export * from './badge/index';
 export * from './embedded-input-group/index';
 export * from './tour/index';
 export * from './rating/index';
+export * from './data-list/index';
 export * from './select-list/index';
 export * from './select/index';
 export * from './notifier/index';

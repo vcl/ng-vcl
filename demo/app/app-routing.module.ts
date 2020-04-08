@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 const CAT_STATUS_INFORMATION = 'Status Information';
 const CAT_TYPOGRAPHICAL      = 'Typographical';
 const CAT_FORM_CONTROLS      = 'Form Controls';
-const CAT_NAVIGATION         = 'Navigation';
+const CAT_TABULAR            = 'Tabular';
 const CAT_OVERLAYS           = 'Overlays';
 const CAT_BUTTONS            = 'Buttons';
 const CAT_FORMS              = 'Forms';
@@ -44,7 +44,17 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Navigation',
-        category: CAT_NAVIGATION,
+        category: CAT_TABULAR,
+      }
+    }
+  },
+  {
+    loadChildren: () => import('./demos/data-list/demo.module').then(m => m.DataListDemoModule),
+    path: 'data-list',
+    data: {
+      demo: {
+        label: 'Data List',
+        category: CAT_TABULAR,
       }
     }
   },
@@ -54,7 +64,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Tab Navigation',
-        category: CAT_NAVIGATION,
+        category: CAT_TABULAR,
       }
     }
   },
