@@ -18,15 +18,15 @@ export class AppComponent {}
 ```html
 <vcl-tab-nav>
   <vcl-tab>
-    <vcl-tab-label>Tab1</vcl-tab-label>
+    <vcl-label>Tab1</vcl-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-    <vcl-tab-label>Tab2</vcl-tab-label>
+    <vcl-label>Tab2</vcl-label>
     Content2
   </vcl-tab>
   <vcl-tab [disabled]="true">
-    <vcl-tab-label>Tab3</vcl-tab-label>
+    <vcl-label>Tab3</vcl-label>
     Content3
   </vcl-tab>
 </vcl-tab-nav>

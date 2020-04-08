@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabNavComponent } from './tab-nav.component';
-import { TabComponent, TabLabelComponent } from './tab.component';
 import { PortalModule } from '@angular/cdk/portal';
 import { ObserversModule } from '@angular/cdk/observers';
+import { VCLCoreContentProjectionModule  } from '../core';
+import { TabNavComponent } from './tab-nav.component';
+import { TabComponent, TabLabelDirective } from './tab.component';
 
-export { TabComponent, TabLabelComponent, TabNavComponent };
+export { TabComponent, TabLabelDirective, TabNavComponent };
 
 @NgModule({
-  imports: [CommonModule, PortalModule, ObserversModule],
-  exports: [TabComponent, TabLabelComponent, TabNavComponent],
-  declarations: [TabComponent, TabLabelComponent, TabNavComponent],
+  imports: [CommonModule, PortalModule, ObserversModule, VCLCoreContentProjectionModule],
+  exports: [TabComponent, TabLabelDirective, TabNavComponent, VCLCoreContentProjectionModule],
+  declarations: [TabComponent, TabLabelDirective, TabNavComponent],
   providers: [],
 })
 export class VCLTabNavModule { }

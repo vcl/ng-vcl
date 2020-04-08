@@ -7,6 +7,7 @@ export interface SelectListItem {
 }
 
 export interface SelectList {
+  readonly isDisabled: boolean;
   isItemHighlighted(item: SelectListItem): boolean;
   isItemSelected(item: SelectListItem): boolean;
   selectItem(item: SelectListItem): void;
@@ -14,15 +15,5 @@ export interface SelectList {
   onItemBlur(item: SelectListItem): void;
 }
 export const SELECT_LIST_TOKEN = new InjectionToken<SelectList>('select-list');
-
-export interface SelectListOptions {
-  selectionMode: 'single' | 'multiple';
-  target: ElementRef;
-  offClickExcludes?: (ElementRef | HTMLElement)[];
-  width?: number;
-  height?: number | string;
-  maxHeight?: number | string;
-  value?: any | any[];
-}
 
 export const SELECT_LIST_CONTENT_TOKEN = new InjectionToken('select-list-content');

@@ -1,25 +1,24 @@
-import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef, ChangeDetectionStrategy, forwardRef } from '@angular/core';
+import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef, ChangeDetectionStrategy, forwardRef, ViewChild } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { SelectList, SELECT_LIST_TOKEN, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from '../types';
+import { LabelDirective } from '../../core';
 
-@Component({
+@Directive({
   selector: 'vcl-select-list-label',
-  template: '<ng-content></ng-content>',
-  exportAs: 'vclSelectListLabel'
 })
-export class SelectListLabelComponent {
-  @HostBinding('class.dropdown-item-label')
-  _hostClasses = true;
+export class SelectListLabelDirective {
+  ngOnInit() {
+    console.warn('vcl-select-list-label is deprecated. Use vcl-label instead');
+  }
 }
 
-@Component({
+@Directive({
   selector: 'vcl-select-list-sublabel',
-  template: '<ng-content></ng-content>',
-  exportAs: 'vclSelectListSublabel'
 })
-export class SelectListSublabelComponent {
-  @HostBinding('class.dropdown-item-sub-label')
-  _hostClasses = true;
+export class SelectListSublabelDirective { 
+  ngOnInit() {
+    console.warn('vcl-select-list-sublabel is deprecated. Use vcl-sub-label instead');
+  }
 }
 
 @Component({
@@ -42,7 +41,7 @@ export class SelectListItemComponent implements SelectListItem {
 
   private _focused = false;
 
-  @HostBinding('class.dropdown-item')
+  @HostBinding('class.select-list-item')
   _hostClasses = true;
 
   @HostBinding('attr.role')
@@ -53,7 +52,7 @@ export class SelectListItemComponent implements SelectListItem {
 
   @HostBinding('class.disabled')
   get isDisabled() {
-    return this.disabled;
+    return this.disabled || this.selectList.isDisabled;
   }
 
   @HostBinding('class.highlighted')
@@ -80,16 +79,29 @@ export class SelectListItemComponent implements SelectListItem {
   @Input('label')
   _label?: string;
 
-  @ContentChild(SelectListLabelComponent, { read: ElementRef })
+  @ContentChild(LabelDirective, { read: LabelDirective })
+  _labelDirective?: LabelDirective;
+  
+  @ViewChild('label', { read: ElementRef })
   _labelElementRef?: ElementRef<HTMLElement>;
 
   get label() {
-    return this._label || (this._labelElementRef ? this._labelElementRef.nativeElement.innerText : (this.elementRef.nativeElement.innerText || ''));
+    if (this._label) {
+      return this._label;
+    } else if (this._labelDirective) {
+      return this._labelDirective.label;
+    } else if (this._labelElementRef) {
+      return this._labelElementRef.nativeElement.innerText;
+    } else {
+      return this.elementRef.nativeElement.innerText || ''
+    }
   }
 
   @HostListener('click')
   onClick() {
-    this.selectList.selectItem(this);
+    if (!this.isDisabled) {
+      this.selectList.selectItem(this);
+    }
   }
 
   @HostListener('focus')
@@ -106,7 +118,7 @@ export class SelectListItemComponent implements SelectListItem {
 
   @HostListener('keypress', ['$event'])
   onKeypress(event: KeyboardEvent) {
-    if (event.keyCode === ENTER) {
+    if (!this.isDisabled && event.keyCode === ENTER) {
       this.selectList.selectItem(this);
     }
   }

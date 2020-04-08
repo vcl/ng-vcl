@@ -28,7 +28,7 @@
     </vcl-select-list-content>
     <ng-container *ngIf="search.state === 'success' && search.books.length > 0">
       <vcl-select-list-item *ngFor="let book of search.books" [value]="book">
-        <vcl-select-list-label>{{book.title}}</vcl-select-list-label>
+        {{book.title}}
       </vcl-select-list-item>
     </ng-container>
   </vcl-select-list>

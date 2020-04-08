@@ -1,3 +1,15 @@
-<ng-content></ng-content>
-<ng-content select="vcl-select-list-label"></ng-content>
-<ng-content select="vcl-select-list-sublabel"></ng-content>
+<div class="select-list-item-label icogram">
+  <ng-content select="vcl-icon[vclPrepend]"></ng-content>
+  <ng-content select="vcl-icon"></ng-content>
+  <div class="text" #label>
+    <ng-content></ng-content>
+    <ng-content select="vcl-label, [vclLabel]"></ng-content>
+    <ng-content select="vcl-select-list-label"></ng-content>
+  </div>
+  <ng-content select="vcl-icon[vclAppend]"></ng-content>
+</div>
+<div class="select-list-item-sub-label">
+  <ng-content select="vcl-sub-label, [vclSubLabel]"></ng-content>
+  <ng-content select="vcl-select-list-sublabel"></ng-content>
+</div>
+

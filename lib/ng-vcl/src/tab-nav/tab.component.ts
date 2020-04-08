@@ -3,14 +3,13 @@ import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { debounceTime } from 'rxjs/operators';
 
-@Component({
-  selector: 'vcl-tab-label',
-  template: '<ng-content></ng-content>',
-  changeDetection: ChangeDetectionStrategy.OnPush
+@Directive({
+  selector: 'vcl-tab-label'
 })
-export class TabLabelComponent {
-  @HostBinding('class.tab-label')
-  classCclTabLabel = true;
+export class TabLabelDirective {
+  ngOnInit() {
+    console.warn('vcl-tab-label is deprecated. Use vcl-label instead');
+  }
 }
 
 @Component({

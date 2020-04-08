@@ -25,8 +25,8 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
     <vcl-select [placeholder]="field.placeholder">
       <vcl-select-list [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [selectionMode]="field.selectionMode">
         <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
-          <vcl-select-list-label>{{option.label}}</vcl-select-list-label>
-          <vcl-select-list-sublabel *ngIf="option.sublabel">{{option.sublabel}}</vcl-select-list-sublabel>
+          <vcl-label>{{option.label}}</vcl-label>
+          <vcl-sub-label *ngIf="option.sublabel">{{option.sublabel}}</vcl-sub-label>
         </vcl-select-list-item>
       </vcl-select-list>
     </vcl-select>

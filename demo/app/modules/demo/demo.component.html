@@ -2,7 +2,7 @@
 <div *ngIf="tabs.length>0">
   <vcl-tab-nav borders=true>
     <vcl-tab *ngFor="let tab of tabs">
-      <vcl-tab-label>{{tab.name}}</vcl-tab-label>
+      <vcl-label>{{tab.name}}</vcl-label>
       <div *ngIf="tab.type==='component'">
         <ng-template [cdkPortalOutlet]="tab.content"></ng-template>
       </div>

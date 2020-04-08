@@ -1,4 +1,7 @@
-<ng-content select="vcl-tab-label"></ng-content>
+
+<span class="tab-label">
+  <ng-content select="vcl-tab-label, vclLabel, vcl-label"></ng-content>
+</span>
 
 <ng-template #contentTemplate>
   <ng-content></ng-content>

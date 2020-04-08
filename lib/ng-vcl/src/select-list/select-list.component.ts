@@ -49,7 +49,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   private stateChangedEmitter = new Subject<void>();
 
   stateChanged = this.stateChangedEmitter.asObservable();
-  controlType = 'slider';
+  controlType = 'select-list';
 
   @Input()
   id?: string;
@@ -59,7 +59,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     return this.id || this.generatedId;
   }
 
-  @HostBinding('class.dropdown')
+  @HostBinding('class.select-list')
   @HostBinding('class.open')
   _hostClasses = true;
 

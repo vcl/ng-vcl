@@ -2,31 +2,31 @@
 <vcl-select>
   <vcl-select-list [(value)]="value1">
     <vcl-select-list-item label=" - ">
-      <vcl-select-list-label>None</vcl-select-list-label>
+      None
     </vcl-select-list-item>
     <vcl-select-list-header>Europe</vcl-select-list-header>
     <vcl-select-list-item value="gr">
-      <vcl-select-list-label>Greece</vcl-select-list-label>
-      <vcl-select-list-sublabel>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-select-list-sublabel>
+      Greece
+      <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
     </vcl-select-list-item>
     <vcl-select-list-item value="fr">
-      <vcl-select-list-label>France</vcl-select-list-label>
+      France
     </vcl-select-list-item>
     <vcl-select-list-item value="de">
-      <vcl-select-list-label>Germany</vcl-select-list-label>
+      Germany
     </vcl-select-list-item>
     <vcl-select-list-item value="gb" label="United Kingdom">
-      <vcl-select-list-label>The United Kingdom of Great Britain and Northern Ireland</vcl-select-list-label>
+      The United Kingdom of Great Britain and Northern Ireland
     </vcl-select-list-item>
     <vcl-select-list-header>Asia</vcl-select-list-header>
     <vcl-select-list-item value="jp">
-      <vcl-select-list-label>Japan</vcl-select-list-label>
+      Japan
     </vcl-select-list-item>
     <vcl-select-list-item value="cn">
-      <vcl-select-list-label>China</vcl-select-list-label>
+      China
     </vcl-select-list-item>
     <vcl-select-list-item value="th">
-      <vcl-select-list-label>Thailand</vcl-select-list-label>
+      Thailand
     </vcl-select-list-item>
   </vcl-select-list>
 </vcl-select>
@@ -36,12 +36,67 @@
 <br>
 
 <h3>multi-select</h3>
-<vcl-select placeholder="Select items">
-  <vcl-select-list [(value)]="value2" selectionMode="multiple" >
-    <vcl-select-list-item *ngFor="let item of items" [value]="item.value">
-      <vcl-select-list-label>{{item.label}}</vcl-select-list-label>
+<vcl-select placeholder="Select countries">
+  <vcl-select-list [(value)]="value2" selectionMode="multiple">
+    <vcl-select-list-header>Europe</vcl-select-list-header>
+    <vcl-select-list-item value="gr">
+      Greece
+      <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="fr">
+      France
+    </vcl-select-list-item>
+    <vcl-select-list-item value="de">
+      Germany
+    </vcl-select-list-item>
+    <vcl-select-list-item value="gb">
+      The United Kingdom of Great Britain and Northern Ireland
+    </vcl-select-list-item>
+    <vcl-select-list-header>Asia</vcl-select-list-header>
+    <vcl-select-list-item value="jp">
+      Japan
+    </vcl-select-list-item>
+    <vcl-select-list-item value="ch">
+      China
+    </vcl-select-list-item>
+    <vcl-select-list-item value="th">
+      Thailand
     </vcl-select-list-item>
   </vcl-select-list>
 </vcl-select>
 
 <p> Selected values: {{value2}}</p>
+
+
+<h3>single-select</h3>
+<vcl-select>
+  <vcl-select-list [(value)]="value3" [disabled]="true">
+    <vcl-select-list-item label=" - ">
+      None
+    </vcl-select-list-item>
+    <vcl-select-list-header>Europe</vcl-select-list-header>
+    <vcl-select-list-item value="gr">
+      Greece
+      <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
+    </vcl-select-list-item>
+    <vcl-select-list-item value="fr">
+      France
+    </vcl-select-list-item>
+    <vcl-select-list-item value="de">
+      Germany
+    </vcl-select-list-item>
+    <vcl-select-list-item value="gb" label="United Kingdom">
+      The United Kingdom of Great Britain and Northern Ireland
+    </vcl-select-list-item>
+    <vcl-select-list-header>Asia</vcl-select-list-header>
+    <vcl-select-list-item value="jp">
+      Japan
+    </vcl-select-list-item>
+    <vcl-select-list-item value="cn">
+      China
+    </vcl-select-list-item>
+    <vcl-select-list-item value="th">
+      Thailand
+    </vcl-select-list-item>
+  </vcl-select-list>
+</vcl-select>

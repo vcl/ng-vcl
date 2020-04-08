@@ -8,16 +8,16 @@ A select control. Wraps the vcl-select-list to render a list of selectable items
 <vcl-select>
   <vcl-select-list [(value)]="value">
     <vcl-select-list-item label=" -">
-      <vcl-select-list-label>[Clear selection]</vcl-select-list-label>
+      [Clear selection]
     </vcl-select-list-item>
     <vcl-select-list-item [value]="1">
-      <vcl-select-list-label>Item 1</vcl-select-list-label>
+      Item 1
     </vcl-select-list-item>
     <vcl-select-list-item [value]="2">
-      <vcl-select-list-label>Item 2</vcl-select-list-label>
+      Item 2
     </vcl-select-list-item>
     <vcl-select-list-item [value]="3">
-      <vcl-select-list-label>Item 3</vcl-select-list-label>
+      Item 3
     </vcl-select-list-item>
   </vcl-select-list>
 </vcl-select>

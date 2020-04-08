@@ -6,4 +6,5 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 export class SelectListDemoComponent {
   value1 = 'gr';
   value2 = [];
+  value3 = 'gr';
 }
