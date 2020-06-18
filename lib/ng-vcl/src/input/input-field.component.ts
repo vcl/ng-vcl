@@ -59,10 +59,6 @@ export class InputFieldComponent implements AfterContentInit, OnDestroy, Embedde
     this.updateState();
   }
   
-  ngAfterViewInit() {
-    console.log('InputFieldComponent ngAfterViewInit', this.input?.value);
-  }
-
   updateState() {
     if (this.input) {
       this.isFocused = this.input.isFocused;

@@ -165,7 +165,6 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   setErrorState(error: boolean): void {
     this.hasError = error;
-    console.log(error);
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
   }

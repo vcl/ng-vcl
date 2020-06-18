@@ -70,14 +70,10 @@ export class InputDirective implements OnDestroy, FormControlGroupInputState<str
   }
 
   ngOnInit() {
-    this.ngControl?.valueChanges.subscribe(() => {
-      console.log('valueChanges', this.value);
+    const ngControl = this.ngControl;
+    if (ngControl && ngControl.valueChanges) {
       this.stateChangedEmitter.next();
-    });
-  }
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit', this.value);
+    }
   }
 
   focus() {

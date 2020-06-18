@@ -59,8 +59,6 @@ export class NotifierComponent implements OnInit {
     if (typeof notifierOverlayRef.class === 'string') {
       this.notifierClasses.push(notifierOverlayRef.class);
     }
-
-    console.log(notifierOverlayRef);
   }
 
   @HostBinding('class.notification')

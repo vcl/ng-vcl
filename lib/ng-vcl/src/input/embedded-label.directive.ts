@@ -99,7 +99,6 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   private updateState() {
     if (this.input && this.enabled) {
       this.floating = this.input?.isLabelFloating ?? false;
-      console.log('updateState:floating', this.floating);
       this.prependedElements = this.input.prependedElements ?? 0;
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
