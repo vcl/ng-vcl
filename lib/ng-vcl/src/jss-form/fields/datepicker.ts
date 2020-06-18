@@ -17,8 +17,8 @@ export class FormFieldDatePicker extends FormFieldControl<VCLFormFieldSchemaDate
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-datepicker [formControl]="field.control" [pick]="field.pick" [placeholder]="field.placeholder"></vcl-datepicker>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild, OnChanges } from '@angular/core';
-import { PopoverComponent } from '../popover/index';
 import { TourService } from './tour.service';
 import { HorizontalConnectionPos, VerticalConnectionPos, ConnectedPosition } from '@angular/cdk/overlay';
+import { PopoverDirective } from '../popover/index';
 
 @Component({
   selector: 'vcl-tour-step',
@@ -10,7 +10,8 @@ import { HorizontalConnectionPos, VerticalConnectionPos, ConnectedPosition } fro
 })
 export class TourComponent implements OnInit, OnChanges {
 
-  @ViewChild('popover') public readonly popover: PopoverComponent;
+  @ViewChild('popover')
+  public readonly popover: PopoverDirective;
 
   @Input() public title: string;
   @Input() public order: number;

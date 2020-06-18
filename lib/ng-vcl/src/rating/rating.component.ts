@@ -17,11 +17,12 @@ import {
   OnChanges,
   AfterViewInit,
   AfterContentInit,
-  HostListener
+  HostListener,
+  Injector
 } from '@angular/core';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { RatingItemComponent, Rating, RATING_TOKEN } from './rating-item.component';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 import { map,  debounceTime } from 'rxjs/operators';
 
@@ -34,7 +35,16 @@ let UNIQUE_ID = 0;
   exportAs: 'vclRating',
   providers: [
     {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RatingComponent),
+      multi: true,
+    },
+    {
       provide: RATING_TOKEN,
+      useExisting: forwardRef(() => RatingComponent)
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
       useExisting: forwardRef(() => RatingComponent)
     }
   ],
@@ -46,24 +56,12 @@ let UNIQUE_ID = 0;
     `
   ]
 })
-export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChanges, AfterContentInit, AfterViewInit, Rating, FormControlInput {
+export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChanges, AfterContentInit, AfterViewInit, Rating, FormControlGroupInputState {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    @Optional()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
+    private injector: Injector,
+  ) { }
 
   private cvaDisabled = false;
   private generatedId = 'vcl_rating_' + UNIQUE_ID++;
@@ -122,10 +120,8 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     return this.type === 'vertical' ? 'unset' : null;
   }
 
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
   @ViewChildren(RatingItemComponent)
@@ -148,9 +144,6 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
 
   @Input()
   id?: string;
-
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
 
   @Input()
   type: 'horizontal' | 'vertical' | 'small' = 'horizontal';
@@ -204,8 +197,11 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     return this.ratingItems[idx];
   }
 
-  onLabelClick(event: Event): void {
+  @HostBinding('class.error')
+  hasError = false;
 
+  setErrorState(error: boolean): void {
+    this.hasError = error;
   }
 
   @HostListener('mouseleave')

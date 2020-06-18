@@ -1,5 +1,5 @@
 <div class="panel panel-dialog m-0" [ngClass]="alertClass" style="min-width: 25em" role="dialog">
-  <div *ngIf="alert.title" class="panel-header no-bg row justify-between center">
+  <div *ngIf="alert.title" class="panel-header no-bg row justify-between align-items-center">
     <h3 class="panel-title">{{alert.title}}</h3>
     <button *ngIf="alert.showCloseButton" vcl-square-button class="transparent" (click)="close()">
       <vcl-icon icon="fas:times"></vcl-icon>
@@ -14,17 +14,16 @@
         <div [innerHtml]="alert.text" *ngIf="alert.text && alert.html"></div>
       </div>
 
-      <div class="form-control-group" *ngIf="alert.input">
-        <p></p>
-        <input vclInput vclInputAlert [class.error]="validationError" [alert]="alert" (input)="valueChange($event.target.value)">
-        <div *ngIf="validationError" class="form-control-hint error">
-          {{validationError}}
-        </div>
-      </div>
+      <vcl-form-control-group *ngIf="alert.input">
+        <vcl-input-field>
+          <input vclInput vclInputAlert [class.error]="validationError" [alert]="alert" (input)="valueChange($event.target.value)">
+        </vcl-input-field>
+        <vcl-hint-error *ngIf="validationError">{{validationError}}</vcl-hint-error>
+      </vcl-form-control-group>
     </div>
   </div>
 
-  <div class="panel-footer no-bg row justify-between center">
+  <div class="panel-footer no-bg row justify-between align-items-center">
     <div></div>
     <div class="loose-button-group">
 

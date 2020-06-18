@@ -1,6 +1,6 @@
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren,
-         ElementRef, EventEmitter, OnDestroy, Optional, Output, QueryList, HostBinding, forwardRef } from '@angular/core';
+         ElementRef, EventEmitter, OnDestroy, Optional, Output, QueryList, HostBinding, forwardRef, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { DrawerComponent } from './drawer.component';
@@ -10,6 +10,8 @@ import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
   selector: 'vcl-drawer-container',
   exportAs: 'vclDrawerContainer',
   templateUrl: 'drawer-container.component.html',
+  styleUrls: ['drawer-container.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {

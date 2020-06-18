@@ -20,12 +20,12 @@ Tabular data browser, selection list and navigation menu.
 
 ### vcl-data-list attributes
 
-Name            | Type                             | Default     | Description
-----------      | -------                          | -------     | --------------------------------------
-`value`         | any                              |             | Current value
-`divider`       | boolean                          | false       | Show a vertical divider (border) between items when true
-`noBorder`      | boolean                          | false       | No top/ bottom borders when true
-`selectionMode` | 'single' \| 'multiple' \| 'none' | 'single'    | `single` allows only one item to be selected. `multi` allows multiple items to be selected
+Name            | Type                                          | Default     | Description
+----------      | -------                                       | -------     | --------------------------------------
+`value`         | any                                           |             | Current value
+`divider`       | boolean                                       | false       | Show a vertical divider (border) between items when true
+`noBorder`      | boolean                                       | false       | No top/ bottom borders when true
+`mode`          | 'single' \| 'multiple' \| 'none' \| 'content' | 'single'    | `single` allows only one item to be selected. `multi` allows multiple items to be selected. `content` disables item interaction.
 
 ### vcl-data-list events
 
@@ -36,7 +36,9 @@ Name            | Type    | Description
 
 ### vcl-data-list-item attributes
 
-Name              | Type                  | Default   | Description
-----------        | -------               | -------   | --------------------------------------
-`value`           | any                   |           | The items value
-`disabled`        | boolean               |           | Disables the item
+Name                 | Type                  | Default   | Description
+----------           | -------               | -------   | --------------------------------------
+`value`              | any                   |           | The items value
+`disabled`           | boolean               |           | Disables the item
+`selectable`         | boolean \| undefined  | undefined | 
+

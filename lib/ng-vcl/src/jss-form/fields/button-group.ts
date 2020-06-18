@@ -17,9 +17,9 @@ export class FormFieldButtonGroup extends FormFieldControl<VCLFormFieldSchemaBut
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
-      <vcl-button-group [formControl]="field.control" [selectionMode]="field.selectionMode" [errorStateAgent]="field.errorStateAgent">
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
+      <vcl-button-group [formControl]="field.control" [selectionMode]="field.selectionMode">
         <button vcl-button *ngFor="let option of field.options" [value]="option.value">{{option.label}}</button>
       </vcl-button-group>
       <vcl-jss-form-hints></vcl-jss-form-hints>

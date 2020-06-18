@@ -6,7 +6,7 @@ Only one tab is visible at a given time.
 ## Usage
 
 ```js
-import { VCLTabNavModule } from 'ng-vcl';
+import { VCLTabNavModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLTabNavModule ],

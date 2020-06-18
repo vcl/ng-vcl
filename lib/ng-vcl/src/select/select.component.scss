@@ -1,0 +1,15 @@
+vcl-select {
+  display: block;
+}
+
+.vcl-select-overlay {
+  &.pop-over {
+    padding: 0;
+  }
+  
+  .select-list {
+    border: 0;
+    margin-bottom: 0;
+  }
+}
+

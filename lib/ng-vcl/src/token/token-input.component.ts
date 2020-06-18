@@ -7,63 +7,41 @@ import {
   ElementRef,
   ChangeDetectorRef,
   HostBinding,
-  ContentChild,
-  Self,
   ChangeDetectionStrategy,
-  Optional,
-  Inject,
   AfterContentInit,
-  OnDestroy,
-  Renderer2
+  Renderer2,
+  ViewChild,
+  Injector
 } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Token } from './interfaces';
 import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
-import { Subject, merge } from 'rxjs';
-import { FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent } from '../form-control-group/index';
-import { InputDirective, INPUT_HOST_TOKEN, InputHost } from '../input/index';
-import { FormControlMaterialInput, FORM_CONTROL_MATERIAL_INPUT, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost } from '../material-design-inputs/index';
+import { Subject } from 'rxjs';
+import { FormControlGroupInputState } from '../form-control-group/index';
+import { InputDirective } from '../input/index';
 
 let uniqueID = 0;
 
 @Component({
   selector: 'vcl-token-input',
   templateUrl: 'token-input.component.html',
-  providers: [{
-    provide: INPUT_HOST_TOKEN,
-    useExisting: forwardRef(() => TokenInputContainerComponent),
-  }, {
-    provide: FORM_CONTROL_MATERIAL_INPUT,
-    useExisting: forwardRef(() => TokenInputContainerComponent),
-  }],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TokenInputContainerComponent),
+      multi: true,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TokenInputContainerComponent implements AfterContentInit, ControlValueAccessor, FormControlInput, InputHost, FormControlMaterialInput {
+export class TokenInputContainerComponent implements AfterContentInit, ControlValueAccessor, FormControlGroupInputState {
 
   constructor(
     public elementRef: ElementRef,
     private renderer: Renderer2,
     private cdRef: ChangeDetectorRef,
-    @Optional() @Self()
-    public ngControl?: NgControl,
-    @Optional() @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional() @Inject(FORM_CONTROL_MATERIAL_HOST)
-    private formControlMaterialHost?: FormControlMaterialHost,
-    @Optional() @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-    if (this.formControlMaterialHost) {
-      this.formControlMaterialHost.registerInput(this);
-    }
-  }
+    private injector: Injector,
+  ) { }
 
   private _stateChangedEmitter = new Subject<void>();
   private _generatedId = 'vcl_token-input_' + uniqueID++;
@@ -73,15 +51,17 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   stateChanged = this._stateChangedEmitter.asObservable();
   controlType = 'token-input';
 
-  @HostBinding('class.input')
+  @HostBinding('class.input-field')
   @HostBinding('class.token-input')
-  @HostBinding('class.row')
-  @HostBinding('class.layout-wrap')
   _hostClasses = true;
 
   @HostBinding('attr.id')
   get elementId() {
     return this.id || this._generatedId;
+  }
+
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
   @HostBinding('class.disabled')
@@ -94,21 +74,11 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   }
 
   get isLabelFloating() {
-    return this.input.isLabelFloating || (this.value && this.value.length > 0);
-  }
-
-
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+    return !this.isFocused && this.value.length === 0;
   }
 
   @HostBinding('attr.tabindex')
   _hostAttrTabindex = -1;
-
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
 
   @Input()
   id?: string;
@@ -147,11 +117,18 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   @Output()
   confirm = new EventEmitter<Token[]>();
 
-  @ContentChild(InputDirective, { read: InputDirective })
+  @ViewChild(InputDirective, { read: InputDirective })
   input: InputDirective;
 
-  @ContentChild(InputDirective, { read: ElementRef })
+  @ViewChild(InputDirective, { read: ElementRef })
   inputElementRef: ElementRef<HTMLInputElement>;
+
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
+  }
 
   removeLastToken() {
     this.value = [...this.value];
@@ -178,10 +155,10 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
     this.onTouched();
   }
 
-  notifyInputFocus(btn: InputDirective): void {
+  onInputFocus(): void {
     this._stateChangedEmitter.next();
   }
-  notifyInputBlur(btn: InputDirective): void {
+  onInputBlur(): void {
     this.onTouched();
     this._stateChangedEmitter.next();
   }

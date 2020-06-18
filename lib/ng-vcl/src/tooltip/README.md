@@ -32,10 +32,11 @@ You can also use rich content.
 
 #### [vclTooltip] Attributes
 
-| Name                      | Type           | Default       | Description
-| ------------              | -------------- | ------------- |--------------
-| `vclTooltip`              | string         |               | Content displayed within the tooltip 
-| `vclTooltipPosition`      | string         | top           | Placement of the tooltip
-| `vclTooltipArrowPointer`  | boolean        | true          | Whether to show the tooltip's arrow pointer
-| `vclTooltipShowDelay`     | number         | 0             | Delay before showing the tooltip after hovering the element
-| `vclTooltipHideDelay`     | number         | 0             | Delay before hiding the tooltip after the element loses hover
+| Name                      | Type                  | Default                             | Description
+| ------------              | --------------        | -------------                       |--------------
+| `vclTooltip`              | string \| TemplateRef |                                     | Content displayed within the tooltip 
+| `vclTooltipPosition`      | string \| string[]    | ['top', 'right', 'left', 'bottom']; | Placement of the tooltip
+| `vclTooltipArrowPointer`  | boolean               | true                                | Whether to show the tooltip's arrow pointer
+| `vclTooltipShowDelay`     | number                | 0                                   | Delay before showing the tooltip after hovering the element
+| `vclTooltipHideDelay`     | number                | 0                                   | Delay before hiding the tooltip after the element loses hover
+| `vclTooltipCursor`        | string                | help                                | Cursor type when hovering

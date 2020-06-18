@@ -12,7 +12,7 @@ export { DatepickerComponent, DatepickerPick, DatepickerTimeHandler };
 
 @NgModule({
   imports: [CommonModule, VCLCalendarModule, VCLButtonModule, VCLIconModule, VCLInputModule, VCLFormControlGroupModule],
-  exports: [DatepickerComponent, VCLCalendarModule],
+  exports: [DatepickerComponent, VCLCalendarModule, VCLInputModule, VCLFormControlGroupModule],
   declarations: [DatepickerComponent],
   providers: [{
     provide: VCLCalendarHandler,

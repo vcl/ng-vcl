@@ -13,11 +13,8 @@ export class FormFieldCheckbox extends FormFieldControl<VCLFormFieldSchemaCheckb
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <label vclCheckboxLabel>
-        <vcl-checkbox [formControl]="field.control" [errorStateAgent]="field.errorStateAgent"></vcl-checkbox>
-        {{field.label}}<vcl-required *ngIf="field.required"></vcl-required>
-      </label>
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <vcl-checkbox [formControl]="field.control">{{field.label}}</vcl-checkbox>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>
   `

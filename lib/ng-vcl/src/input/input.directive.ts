@@ -1,15 +1,8 @@
-import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy, InjectionToken } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy, InjectionToken, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
-import { FORM_CONTROL_INPUT, FormControlInput, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlHost, FORM_CONTROL_HOST } from '../form-control-group/index';
-import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput, FormControlMaterialHost, FORM_CONTROL_MATERIAL_HOST } from '../material-design-inputs/index';
-
-export interface InputHost {
-  readonly isDisabled: boolean;
-  notifyInputFocus(btn: InputDirective): void;
-  notifyInputBlur(btn: InputDirective): void;
-}
-export const INPUT_HOST_TOKEN = new InjectionToken<InputHost>('vcl_input_host');
+import { FORM_CONTROL_GROUP_INPUT_STATE, FormControlGroupInputState } from '../form-control-group/index';
+import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from './embedded-label.directive';
+import { NgControl } from '@angular/forms';
 
 export let UNIQUE_ID = 0;
 
@@ -18,40 +11,17 @@ export let UNIQUE_ID = 0;
   exportAs: 'vclInput',
   providers: [
     {
-      provide: FORM_CONTROL_INPUT,
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
       useExisting: forwardRef(() => InputDirective)
-    },
-    {
-      provide: FORM_CONTROL_MATERIAL_INPUT,
-      useExisting: forwardRef(() => InputDirective)
-    },
+    }
   ],
 })
-export class InputDirective implements OnDestroy, FormControlInput<string>, FormControlMaterialInput {
+export class InputDirective implements OnDestroy, FormControlGroupInputState<string> {
   constructor(
     public elementRef: ElementRef<HTMLInputElement>,
-    @Optional()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_MATERIAL_HOST)
-    private formControlMaterialHost?: FormControlMaterialHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-    @Optional()
-    @Inject(INPUT_HOST_TOKEN)
-    private inputHost?: InputHost,
-  ) { 
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-    if (this.formControlMaterialHost) {
-      this.formControlMaterialHost.registerInput(this);
-    }
-  }
+    private injector: Injector
+  ) {
+   }
 
   private uniqueId = 'vcl_input_' + UNIQUE_ID++;
 
@@ -64,25 +34,20 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
 
   controlType = 'input';
 
-  materialModifierClass: string = undefined;
-
   @Input()
   id?: string;
-
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
 
   @HostBinding('attr.id')
   get elementId() {
     return this.id || this.uniqueId;
   }
 
-  get isFocused() {
-    return this._focused;
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
-  get isLabelFloating() {
-    return this.isFocused || this.value.length > 0;
+  get isFocused() {
+    return this._focused;
   }
 
   @Input()
@@ -92,22 +57,27 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
   autoselect = false;
 
   @HostBinding('class.input')
-  classVclInput = true;
+  hostClasses = true;
 
   @HostBinding('class.disabled')
   get isDisabled() {
-    return this.disabled || this._disabled || (this.inputHost && this.inputHost.isDisabled);
-  }
-
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+    return this.disabled ?? this._disabled ?? false;
   }
 
   @HostBinding('attr.disabled')
   get attrDisabled() {
     return this.isDisabled ? true : null;
+  }
+
+  ngOnInit() {
+    this.ngControl?.valueChanges.subscribe(() => {
+      console.log('valueChanges', this.value);
+      this.stateChangedEmitter.next();
+    });
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit', this.value);
   }
 
   focus() {
@@ -121,23 +91,28 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
     if (this.autoselect) {
       this.elementRef.nativeElement.select();
     }
-    this.inputHost && this.inputHost.notifyInputFocus(this);
     this.stateChangedEmitter.next();
   }
 
   @HostListener('blur')
   onBlur() {
     this._focused = false;
-    this.inputHost && this.inputHost.notifyInputBlur(this);
     this.stateChangedEmitter.next();
   }
 
   onLabelClick(event: Event): void {
-    this.elementRef.nativeElement.focus();
+    this.focus();
+  }
+
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
   }
 
   get value() {
-    return this.elementRef.nativeElement.value || '';
+    return this.elementRef.nativeElement.value ?? '';
   }
 
   set value(value: string) {
@@ -147,10 +122,6 @@ export class InputDirective implements OnDestroy, FormControlInput<string>, Form
 
   ngOnDestroy() {
     this.stateChangedEmitter && this.stateChangedEmitter.complete();
-  }
-
-  getError(error: string) {
-    return this.hasError && this.ngControl.getError(error);
   }
 
   @HostListener('input')

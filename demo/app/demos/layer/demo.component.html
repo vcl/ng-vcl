@@ -1,29 +1,13 @@
-<button vcl-button (click)="layer.open()">Open inline layer</button>
+<button vcl-button (click)="layer.open({data: { title: 'Template layer' }})">Open inline layer</button>
 <br><br>
 <button vcl-button (click)="openBarComponent()">Open bar component as layer</button>
 <br><br>
 <button vcl-button (click)="openNagLayer()">Open nag layer</button>
 
-<vcl-layer #layer="vclLayer">
-  <div class="panel panel-dialog m-0">
-    <div class="panel-header no-bg row justify-between center">
-      <h3 class="panel-title">
-        Layer
-      </h3>
-      <button vcl-square-button class="transparent" (click)="layer.close()">
-        <vcl-icon icon="fas:times"></vcl-icon>
-      </button>
-    </div>
-    <div class="panel-body">
-      <p class="panel-content">
-        Press escape or click outside of layer to close<br><br>
-      </p>
-    </div>
-    <div class="panel-footer no-bg row justify-between center">
-      <div></div>
-      <div class="loose-button-group">
-        <button vcl-button icon="fas:times" class="transparent outline" (click)="layer.close()">Close layer</button>
-      </div>
-    </div>
-  </div>
-</vcl-layer>
+<ng-template vclLayer #layer="vclLayer" let-title="title">
+  <vcl-panel-dialog [showCloseButton]="true" (close)="layer.close()">
+    <vcl-panel-title>{{title}}</vcl-panel-title>
+    Press escape or click outside of layer to close<br><br>
+    <button vcl-button vclPanelFooterButton class="transparent outline" (click)="layer.close()">Close layer</button>
+  </vcl-panel-dialog>
+</ng-template>

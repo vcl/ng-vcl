@@ -1,7 +1,7 @@
 import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef, ChangeDetectionStrategy, forwardRef, ViewChild } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { SelectList, SELECT_LIST_TOKEN, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from '../types';
-import { LabelDirective } from '../../core';
+import { LabelDirective } from '../../core/index';
 
 @Directive({
   selector: 'vcl-select-list-label',

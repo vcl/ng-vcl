@@ -1,8 +1,19 @@
-<h3>Basic datepicker</h3>
-<vcl-datepicker [value]="date" (valueChange)="onChange($event)"></vcl-datepicker>
+<vcl-form-control-group>
+  <vcl-label>Basic datepicker</vcl-label>
+  <vcl-datepicker [(ngModel)]="date"></vcl-datepicker>
+</vcl-form-control-group>
 
-<h3>Month Picker</h3>
-<vcl-datepicker [value]="date" (valueChange)="onChange($event)" pick="month"></vcl-datepicker>
+<vcl-form-control-group>
+  <vcl-label>Month Picker</vcl-label>
+  <vcl-datepicker [(ngModel)]="month" pick="month"></vcl-datepicker>
+</vcl-form-control-group>
 
-<h3>Time Picker</h3>
-<vcl-datepicker [value]="date" (valueChange)="onChange($event)" pick="time"></vcl-datepicker>
+<vcl-form-control-group>
+  <vcl-label>Time Picker</vcl-label>
+  <vcl-datepicker [(ngModel)]="time" pick="time"></vcl-datepicker>
+</vcl-form-control-group>
+
+<vcl-form-control-group>
+  <vcl-label>Disabled datepicker</vcl-label>
+  <vcl-datepicker [disabled]="true"></vcl-datepicker>
+</vcl-form-control-group>

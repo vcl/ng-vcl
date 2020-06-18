@@ -1,8 +1,7 @@
 import { ValidatorFn } from '@angular/forms';
-import { FormControlErrorStateAgent } from '../form-control-group/index';
 import { Hint, Conditional } from './types';
-import { MaterialMode } from '../material-design-inputs/index';
 import { DatepickerPick } from '../datepicker/index';
+import { FormControlErrorStateAgent } from '../form-control-group/index';
 
 export type VCLFormFieldSchemaType = 'input' | 'number' | 'password' | 'hidden' |
                                      'textarea' | 'select' | 'select-list' | 'switch' | 'slider' | 'checkbox' | 'rating' |
@@ -25,7 +24,7 @@ export interface VCLFormFieldControlSchema extends VCLFormFieldSchema {
   defaultValue?: any;
   errorStateAgent?: FormControlErrorStateAgent;
   params?: any | Conditional<any>;
-  material?: MaterialMode;
+  // material?: MaterialMode;
 }
 
 export interface VCLFormFieldSchemaInputParams {
@@ -233,7 +232,7 @@ export interface VCLFormFieldSchemaObject<TCustomFields extends VCLFormFieldSche
 export interface VCLFormFieldSchemaRoot<TCustomFields extends VCLFormFieldSchema = never> {
   type: 'form';
   fields: VCLFormFieldSchemas<TCustomFields>[];
-  material?: MaterialMode;
+  // material?: MaterialMode;
   hints?: (Hint | Conditional<Hint>)[];
   disabled?: boolean | Conditional<boolean>;
   validators?: ValidatorFn[];

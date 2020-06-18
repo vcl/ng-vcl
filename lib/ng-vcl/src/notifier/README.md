@@ -1,11 +1,11 @@
-# vcl-notifier
+# vcl-notifications
 
-Growl-style notifiers
+Notification messages for events with growl-style support
 
 ## Usage
 
 ```js
-import { VCLNotifierModule, VCLLayerModule } from 'ng-vcl';
+import { VCLNotifierModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ 
@@ -16,50 +16,55 @@ import { VCLNotifierModule, VCLLayerModule } from 'ng-vcl';
 export class AppComponent {}
 ```
 
-```js
+```ts
 @Component({ ... })
 export class MyComponent {
 
   constructor(private notifier: NotifierService) {}
 
   info() {
+    this.notifier.queue({
+      content: 'A message'
+    });
+  }
+  info() {
     this.notifier.info({
-      text: 'An info message'
+      content: 'An info message'
     });
   }
   success() {
     this.notifier.success({
-      text: 'A success message',
+      content: 'A success message',
       position: NotifierPosition.BottomRight
     });
   }
   warning() {
     this.notifier.warning({
-      text: 'A warning',
-      showCloseButton: false,
+      content: 'A warning',
+      showCloseButton: true,
       timeout: 10000
     });
   }
   error() {
     this.notifier.error({
-      text: 'An error message',
-      timeout: false
-    });
-  }
-  custom() {
-    this.notifier.show({
-      text: '<b>A <i>custom</i> message</b>',
-      html: true,
-      backgroundColor: 'black',
-      textColor: 'white',
+      content: 'An error message',
+      timeout: false,
+      icon: 'fas:warning',
       position: NotifierPosition.TopLeft,
-      showCloseButton: false,
-      timeout: 10000,
-      notifierClass: 'myclass'
+      class: 'my-error-message'
     });
   }
 }
 ```
+
+```html
+<ng-template [vclNotifier]="{ title: 'Title' }" #n="vclNotifier">
+  <p>Hello</p>
+</ng-template>
+<button (click)="n.open()">Show notification</button>
+
+```
+
 
 ### API
 
@@ -79,17 +84,17 @@ export enum NotifierPosition {
   BottomRight,
   Bottom,
   BottomLeft,
+  Center
 }
 
 export interface NotifierOptions {
-  text?: string;
-  html?: boolean;
+  content?: string;
   type?: NotifierType;
+  icon: string | false;
   showCloseButton?: boolean;
   position?: NotifierPosition;
   timeout?: number | boolean;
-  backgroundColor?: string;
-  textColor?: string;
-  notifierClass?: string;
+  class?: string;
+  context?: any;
 }
 ```

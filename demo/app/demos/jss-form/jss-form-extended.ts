@@ -4,7 +4,7 @@ import { VCLFormFieldSchemaRoot, FormFieldControl, VCLFormFieldControlSchema, Co
 @Component({
   template: `
     <vcl-form-control-group *ngIf="field.visible">
-      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
+      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <demo-counter [formControl]="field.control" [min]="field.params.min" [max]="field.params.max"></demo-counter>
     </vcl-form-control-group>
     `,

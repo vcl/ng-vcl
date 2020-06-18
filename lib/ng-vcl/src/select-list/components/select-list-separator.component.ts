@@ -10,10 +10,6 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
     provide: SELECT_LIST_CONTENT_TOKEN,
     useExisting: forwardRef(() => SelectListSeparatorComponent)
   }],
-  styles: [`
-  :host {
-    display: block
-  }`]
 })
 export class SelectListSeparatorComponent {
   @HostBinding('attr.role')

@@ -1,13 +1,13 @@
 import {
   Component, forwardRef, ChangeDetectionStrategy, Input,
   Output, ViewChild, HostBinding, ElementRef, EventEmitter,
-  HostListener, ChangeDetectorRef, Optional, Self, Inject, OnDestroy
+  HostListener, ChangeDetectorRef, Optional, Self, Inject, OnDestroy, Injector
 } from '@angular/core';
 import {
   ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR
 } from '@angular/forms';
 import { accept } from './accept';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -17,33 +17,23 @@ let UNIQUE_ID = 0;
   templateUrl: 'file-input.component.html',
   exportAs: 'vclFileInput',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: FORM_CONTROL_INPUT,
-    useExisting: forwardRef(() => FileInputComponent)
-  }]
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => FileInputComponent)
+    }, {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FileInputComponent),
+      multi: true,
+    }
+  ]
 })
-export class FileInputComponent implements ControlValueAccessor, FormControlInput, OnDestroy {
+export class FileInputComponent implements ControlValueAccessor, FormControlGroupInputState, OnDestroy {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    @Optional()
-    @Self()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-  }
+    private injector: Injector,
+  ) { }
 
   @HostBinding('class.input')
   @HostBinding('class.file-input')
@@ -77,15 +67,6 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   disabled = false;
 
   @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
-
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
-  }
-
-  @Input()
   accept?: string;
 
   @Input()
@@ -100,6 +81,13 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
   @Input()
   @HostBinding('attr.tabindex')
   tabindex = 0;
+
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
+  }
 
   @HostBinding('class.disabled')
   get isDisabled() {
@@ -122,6 +110,10 @@ export class FileInputComponent implements ControlValueAccessor, FormControlInpu
 
   get fileInput(): HTMLInputElement | undefined {
     return this.input && this.input.nativeElement;
+  }
+
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
   @HostListener('focus')

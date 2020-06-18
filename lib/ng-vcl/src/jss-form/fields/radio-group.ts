@@ -19,13 +19,10 @@ export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGrou
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
-        <vcl-radio-group [formControl]="field.control" [errorStateAgent]="field.errorStateAgent">
-          <label vclRadioButtonLabel *ngFor="let option of field.options">
-            <vcl-radio-button [value]="option.value"></vcl-radio-button>
-            {{option.label}}
-          </label>
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
+        <vcl-radio-group [formControl]="field.control">
+          <vcl-radio-button *ngFor="let option of field.options" [value]="option.value">{{option.label}}</vcl-radio-button>
         </vcl-radio-group>
     </vcl-form-control-group>
   `

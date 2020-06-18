@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { VCLIconModule } from './../icon/index';
 import { CheckboxComponent } from './checkbox.component';
 // import { CheckboxInputGroupComponent } from './checkbox-input-group.component';
-import { CheckboxLabelDirective } from './checkbox-label.directive';
+// import { CheckboxLabelDirective } from './checkbox-label.directive';
 
-export { CheckboxComponent, CheckboxLabelDirective };
+export { CheckboxComponent };
 
 @NgModule({
   imports: [CommonModule, VCLIconModule],
-  exports: [CheckboxComponent, CheckboxLabelDirective],
-  declarations: [CheckboxComponent, CheckboxLabelDirective]
+  exports: [CheckboxComponent],
+  declarations: [CheckboxComponent]
 })
 export class VCLCheckboxModule { }

@@ -11,6 +11,8 @@ import { Component } from '@angular/core';
 export class DatePickerDemoComponent {
 
   date = new Date();
+  month = new Date();
+  time = new Date();
 
   onChange(date) {
     console.log('onChange', date);

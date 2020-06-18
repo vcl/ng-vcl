@@ -3,7 +3,7 @@
 ## Usage
 
 ```js
-import { VCLTokenModule } from 'ng-vcl';
+import { VCLTokenModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLTokenModule ],

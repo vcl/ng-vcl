@@ -1,12 +1,12 @@
-<h3>Basic</h3>
+<h3>Horizontal</h3>
+<vcl-checkbox [(checked)]="value1">Check 1! </vcl-checkbox>
+<vcl-checkbox [(checked)]="value2">Check 2! </vcl-checkbox>
+<vcl-checkbox [(checked)]="value3" [disabled]=true>Check 3! (disabled) </vcl-checkbox>
 
-<label vclCheckboxLabel>
-  <vcl-checkbox [(checked)]="value1"></vcl-checkbox>
-  Check! 
-</label>
+<h3>Vertical</h3>
 
-<h3>Disabled</h3>
-<label vclCheckboxLabel>
-  <vcl-checkbox [(checked)]="value2" disabled=true></vcl-checkbox>
-  Check! (disabled) 
-</label>
+<div class="col">
+  <vcl-checkbox [(checked)]="value1">Check 1! </vcl-checkbox>
+  <vcl-checkbox [(checked)]="value2">Check 2! </vcl-checkbox>
+  <vcl-checkbox [(checked)]="value3" [disabled]=true>Check 3! (disabled) </vcl-checkbox>
+</div>

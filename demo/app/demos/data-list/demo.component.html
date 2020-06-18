@@ -27,8 +27,8 @@
   <vcl-data-list-item value="fr">
     <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
   </vcl-data-list-item>
-  <vcl-data-list-item value="de">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany' }"></ng-container>
+  <vcl-data-list-item value="de" [disabled]="true">
+    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany (disabled)' }"></ng-container>
   </vcl-data-list-item>
   <vcl-data-list-item value="gb">
     <ng-container *ngTemplateOutlet="country; context: {name: 'The United Kingdom of Great Britain and Northern Ireland' }"></ng-container>
@@ -55,17 +55,17 @@
  
 Value: {{value1}}
 
-<h3>selectionMode="multiple"</h3>
+<h3>mode="multiple"</h3>
 
-<vcl-data-list [(value)]="value2" selectionMode="multiple">
+<vcl-data-list [(value)]="value2" mode="multiple">
   <vcl-data-list-item value="gr">
     <ng-container *ngTemplateOutlet="country; context: {name: 'Greece', desc: 'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas' }"></ng-container>
   </vcl-data-list-item>
   <vcl-data-list-item value="fr">
     <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
   </vcl-data-list-item>
-  <vcl-data-list-item value="de">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany' }"></ng-container>
+  <vcl-data-list-item value="de" [disabled]="true">
+    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany (disabled)' }"></ng-container>
   </vcl-data-list-item>
   <vcl-data-list-item value="gb">
     <ng-container *ngTemplateOutlet="country; context: {name: 'The United Kingdom of Great Britain and Northern Ireland' }"></ng-container>
@@ -83,17 +83,17 @@ Value: {{value1}}
 
 Value: {{value2}}
 
-<h3>selectionMode="none"</h3>
+<h3>mode="none"</h3>
 
-<vcl-data-list selectionMode="none">
+<vcl-data-list mode="none">
   <vcl-data-list-item value="gr">
     <ng-container *ngTemplateOutlet="country; context: {name: 'Greece', desc: 'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas' }"></ng-container>
   </vcl-data-list-item>
   <vcl-data-list-item value="fr">
     <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
   </vcl-data-list-item>
-  <vcl-data-list-item value="de">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany' }"></ng-container>
+  <vcl-data-list-item value="de" [disabled]="true">
+    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany (disabled)' }"></ng-container>
   </vcl-data-list-item>
   <vcl-data-list-item value="gb">
     <ng-container *ngTemplateOutlet="country; context: {name: 'The United Kingdom of Great Britain and Northern Ireland' }"></ng-container>
@@ -107,4 +107,19 @@ Value: {{value2}}
   <vcl-data-list-item value="th">
     <ng-container *ngTemplateOutlet="country; context: {name: 'Thailand' }"></ng-container>
   </vcl-data-list-item>
+</vcl-data-list>
+
+<h3>Mixed in custom content</h3>
+
+<vcl-data-list [(value)]="value3">
+  <vcl-data-list-header>
+    <h2>Countries</h2>
+  </vcl-data-list-header>
+  <vcl-data-list-item value="gr">
+    <ng-container *ngTemplateOutlet="country; context: {name: 'Greece', desc: 'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas' }"></ng-container>
+  </vcl-data-list-item>
+  <vcl-data-list-item value="fr">
+    <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
+  </vcl-data-list-item>
+  <vcl-busy-indicator class="p-3 w-100p"></vcl-busy-indicator>
 </vcl-data-list>

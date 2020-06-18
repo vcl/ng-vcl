@@ -1,2 +1,13 @@
-<ng-content></ng-content>
-<ng-content select="vcl-hint"></ng-content>
+<label
+  [class.disabled]="isDisabled"
+  [class.clickable]="isLabelClickable"
+  [attr.for]="inputId"
+  (click)="onLabelClick && onLabelClick($event)"
+  >
+  <ng-content select="vcl-label, [vclLabel]"></ng-content>
+  <em *ngIf="hideRequiredIndicator !== true && isRequired" aria-hidden="true" class="required-indicator">•</em>
+</label>
+<div class="form-control-group-input-wrapper">
+  <ng-content></ng-content>
+</div>
+<ng-content select="vcl-hint, vcl-hint-error, vcl-hint-warning, vcl-hint-success"></ng-content>

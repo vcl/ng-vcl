@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { VCLButtonModule, VCLButtonGroupModule,
-         VCLInputModule, VCLFileInputModule, VCLFlipSwitchModule, VCLCheckboxModule, VCLSliderModule, VCLTokenModule, VCLTextareaModule,
+         VCLInputModule, VCLFileInputModule, VCLFlipSwitchModule, VCLCheckboxModule, VCLSliderModule, VCLTokenModule,
          VCLRadioButtonModule,
          VCLFormControlGroupModule,
          VCLIcogramModule,
          VCLIconModule,
          VCLSelectModule,
-         VCLEmbeddedInputGroupModule,
          VCLRatingModule,
          VCLNotifierModule,
          VCLPasswordInputModule,
-         VCLDatepickerModule} from '@vcl/ng-vcl';
+         VCLDatepickerModule,
+         VCLTooltipModule,
+         VCLLayerModule,
+         VCLPanelModule} from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { FormControlGroupDemoComponent } from './demo.component';
 import { VCLCounterModule } from './counter.component';
@@ -48,21 +50,22 @@ export function demo() {
     DemoModule,
     VCLCounterModule,
     VCLButtonModule,
-    VCLEmbeddedInputGroupModule,
     VCLButtonGroupModule,
     VCLInputModule,
     VCLPasswordInputModule,
     VCLRatingModule,
     VCLFileInputModule,
+    VCLLayerModule,
     VCLFlipSwitchModule,
     VCLIconModule,
+    VCLPanelModule,
     VCLCheckboxModule,
     VCLIcogramModule,
     VCLRadioButtonModule,
     VCLSliderModule,
     VCLSelectModule,
     VCLTokenModule,
-    VCLTextareaModule,
+    VCLTooltipModule,
     VCLNotifierModule,
     VCLDatepickerModule,
     VCLFormControlGroupModule,

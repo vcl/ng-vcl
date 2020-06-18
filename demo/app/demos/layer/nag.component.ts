@@ -49,15 +49,18 @@ export class NagComponent {
 })
 export class NagLayer extends ComponentLayerRef<NagLayerData, NagLayerResult, NagComponent> implements INagLayer {
 
-
   constructor(injector: Injector, private overlay: Overlay) {
     super(injector);
   }
 
-  component = NagComponent;
+  // Return the layer component
+  getComponent() {
+    return NagComponent;
+  }
 
-  getLayerConfig(): LayerConfig {
-    return new LayerConfig({
+  // Overrides default configuration
+  createLayerConfig(config?: LayerConfig): LayerConfig {
+    return super.createLayerConfig({
       closeOnEscape: false,
       hasBackdrop: false,
       width: '100%',
@@ -65,7 +68,7 @@ export class NagLayer extends ComponentLayerRef<NagLayerData, NagLayerResult, Na
         .global()
         .bottom()
         .centerHorizontally()
-    });
+    }, config);
   }
 
   nag(): void {

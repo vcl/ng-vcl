@@ -5,13 +5,14 @@ import { NgModule } from '@angular/core';
 const CAT_STATUS_INFORMATION = 'Status Information';
 const CAT_TYPOGRAPHICAL      = 'Typographical';
 const CAT_FORM_CONTROLS      = 'Form Controls';
+const CAT_FORMS              = 'Forms';
 const CAT_TABULAR            = 'Tabular';
+const CAT_CONTAINERS         = 'Containers';
 const CAT_OVERLAYS           = 'Overlays';
 const CAT_BUTTONS            = 'Buttons';
-const CAT_FORMS              = 'Forms';
 const CAT_MEDIA              = 'Media';
 const CAT_MISC               = 'Misc';
-const CAT_AREAS               = 'Areas';
+const CAT_AREAS              = 'Areas';
 
 export const routes: Routes = [
   {
@@ -179,16 +180,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/embedded-input-group/demo.module').then(m => m.EmbeddedInputGroupDemoModule),
-    path: 'embedded-input-group',
-    data: {
-      demo: {
-        label: 'Embedded Input Group',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
     loadChildren: () => import('./demos/radio-button/demo.module').then(m => m.RadioButtonDemoModule),
     path: 'radio-button',
     data: {
@@ -209,16 +200,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/textarea/demo.module').then(m => m.TextareaDemoModule),
-    path: 'textarea',
-    data: {
-      demo: {
-        label: 'Textarea',
-        category: CAT_FORM_CONTROLS,
-      }
-    }
-  },
-  {
     loadChildren: () => import('./demos/token/demo.module').then(m => m.TokenDemoModule),
     path: 'token',
     data: {
@@ -234,16 +215,6 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Form Control Group',
-        category: CAT_FORMS,
-      }
-    }
-  },
-  {
-    loadChildren: () => import('./demos/material-design-inputs/demo.module').then(m => m.MaterialDesignInputsDemoModule),
-    path: 'material-design-inputs',
-    data: {
-      demo: {
-        label: 'Material Design Inputs',
         category: CAT_FORMS,
       }
     }
@@ -279,12 +250,32 @@ export const routes: Routes = [
     }
   },
   {
+    loadChildren: () => import('./demos/notification/demo.module').then(m => m.NotificationDemoModule),
+    path: 'notification',
+    data: {
+      demo: {
+        label: 'Notification',
+        category: CAT_STATUS_INFORMATION,
+      }
+    }
+  },
+  {
     loadChildren: () => import('./demos/notifier/demo.module').then(m => m.NotifierDemoModule),
     path: 'notifier',
     data: {
       demo: {
         label: 'Notifier',
         category: CAT_OVERLAYS,
+      }
+    }
+  },
+  {
+    loadChildren: () => import('./demos/panel/demo.module').then(m => m.PanelDemoModule),
+    path: 'panel',
+    data: {
+      demo: {
+        label: 'Panel',
+        category: CAT_CONTAINERS,
       }
     }
   },

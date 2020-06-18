@@ -1,8 +1,8 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef, Injector, ContentChild } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef, Injector, ContentChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FormControlInput, FORM_CONTROL_INPUT } from '../form-control-group/index';
-import { SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from './types';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import { SELECT_LIST_TOKEN, SelectList, SelectListItem } from './types';
 import { SelectListItemComponent } from './components/select-list-item.component';
 import { SelectListContentComponent } from './components/select-list-content.component';
 
@@ -11,38 +11,30 @@ let UNIQUE_ID = 0;
 @Component({
   selector: 'vcl-select-list',
   template: '<ng-content></ng-content>',
+  styleUrls: ['select-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   exportAs: 'vclSelectList',
   providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectListComponent),
+      multi: true,
+    },
     {
       provide: SELECT_LIST_TOKEN,
       useExisting: forwardRef(() => SelectListComponent)
     },
     {
-      provide: FORM_CONTROL_INPUT,
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
       useExisting: forwardRef(() => SelectListComponent)
     }
   ]
 })
-export class SelectListComponent implements SelectList, AfterContentInit, OnDestroy, ControlValueAccessor, FormControlInput {
+export class SelectListComponent implements SelectList, AfterContentInit, OnDestroy, ControlValueAccessor, FormControlGroupInputState {
   constructor(
     private cdRef: ChangeDetectorRef,
-    @Optional()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-    ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-  }
+    private injector: Injector,
+    ) { }
 
   private _cvaDisabled = false;
   private generatedId = 'vcl_select_list_' + UNIQUE_ID++;
@@ -78,9 +70,6 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   @Input()
   disabled = false;
 
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
-
   @Output()
   valueChange =  new EventEmitter<any | any[]>();
 
@@ -106,10 +95,8 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     return this._items.toArray();
   }
 
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
   private get _valueAsArray() {
@@ -122,6 +109,13 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
         return [];
       }
     }
+  }
+
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
   }
 
   isItemHighlighted(item: SelectListItem): boolean {
@@ -158,10 +152,6 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     this.stateChangedEmitter.next();
     this.onTouched();
     this.onChange(this.value);
-  }
-
-  onLabelClick(event: Event): void {
-
   }
 
   onItemFocus(item: SelectListItem) {
@@ -251,6 +241,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   writeValue(value: any): void {
     this.value = value;
     this.valueChange.emit(value);
+    this.stateChangedEmitter.next();
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

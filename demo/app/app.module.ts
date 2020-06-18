@@ -13,7 +13,8 @@ import {
   NativeDateAdapterParserEN,
   NativeDateAdapterParserDE,
   NativeDateAdapterParserENGB,
-  VCLDrawerModule
+  VCLDrawerModule,
+  VCLInputModule
 } from '@vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
@@ -32,6 +33,7 @@ export function localeProviderFactory() {
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    VCLInputModule,
     VCLButtonModule,
     VCLIconModule,
     VCLIcogramModule,

@@ -29,10 +29,10 @@ export class FormFieldRating extends FormFieldControl<VCLFormFieldSchemaRating, 
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <label *ngIf="!!label" vclFormControlLabel>{{label}}</label>
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <label *ngIf="!!label">{{label}}</label>
       <vcl-rating #rating="vclRating" [ratingEmptyIcon]="field.ratingEmptyIcon"
-                  [ratingFullIcon]="field.ratingFullIcon" [ratingHalfIcon]="field.ratingHalfIcon" [ratingItemCount]="field.ratingItemCount" [formControl]="field.control" [errorStateAgent]="field.errorStateAgent">
+                  [ratingFullIcon]="field.ratingFullIcon" [ratingHalfIcon]="field.ratingHalfIcon" [ratingItemCount]="field.ratingItemCount" [formControl]="field.control">
         <vcl-rating-item *ngFor="let item of field.items">{{item}}</vcl-rating-item>
       </vcl-rating>
       <vcl-jss-form-hints></vcl-jss-form-hints>

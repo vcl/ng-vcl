@@ -1,9 +1,9 @@
 import { Component,
   Input, Output, HostListener,
   EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, HostBinding, Optional, Inject, OnDestroy, Self } from '@angular/core';
-import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
+  ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, HostBinding, Optional, Inject, OnDestroy, Self, Injector } from '@angular/core';
+import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -13,35 +13,23 @@ let UNIQUE_ID = 0;
   templateUrl: 'checkbox.component.html',
   providers: [
     {
-      provide: FORM_CONTROL_INPUT,
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
       useExisting: forwardRef(() => CheckboxComponent)
-    },
+    }, {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CheckboxComponent),
+      multi: true,
+    }
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclCheckbox',
 })
-export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormControlInput<boolean> {
+export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormControlGroupInputState<boolean> {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    @Self()
-    @Optional()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-  }
+    private injector: Injector,
+  ) { }
 
   private stateChangedEmitter = new Subject<void>();
 
@@ -55,10 +43,6 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
   @Input()
   id?: string;
 
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
-
-  @HostBinding('attr.id')
   get elementId() {
     return this.id || this.generatedId;
   }
@@ -83,19 +67,27 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     return this.isDisabled;
   }
 
+  @HostBinding('attr.aria-labelledby')
+  get attrAriaLabeledby() {
+    return this.elementId;
+  }
+
   @HostBinding('class.disabled')
   get isDisabled() {
     return this.formDisabled || this.disabled;
   }
 
-
   @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
   }
 
-  @HostBinding('attr.tabindex')
+  get ngControl() {
+    return this.injector.get(NgControl, null);
+  }
+
   @Input()
   tabindex = 0;
 
@@ -123,11 +115,10 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     return this.checked;
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(): void {
     this.toggleValue();
   }
 
-  @HostListener('keyup', ['$event'])
   onKeyup(e) {
     switch (e.code) {
       case 'Space':
@@ -137,20 +128,12 @@ export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormC
     }
   }
 
-  @HostListener('click', ['$event'])
-  onClick(e: Event) {
-    this.toggleValue();
-    e.stopPropagation();
-  }
-
-  @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.onTouched();
     this.stateChangedEmitter.next();
   }
 
-  @HostListener('focus')
   onFocus() {
     this._focused = true;
     this.stateChangedEmitter.next();

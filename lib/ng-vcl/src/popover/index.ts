@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLOffClickModule } from '../off-click/index';
-import { PopoverComponent } from './popover.component';
+import { PopoverDirective } from './popover.directive';
 import { VCLLayerModule } from '../layer/index';
 
-export { PopoverComponent };
+export { PopoverDirective };
 
 @NgModule({
   imports: [
@@ -15,10 +15,10 @@ export { PopoverComponent };
   providers: [ ],
   exports: [
     VCLLayerModule,
-    PopoverComponent
+    PopoverDirective
   ],
   declarations: [
-    PopoverComponent
+    PopoverDirective
   ]
 })
 

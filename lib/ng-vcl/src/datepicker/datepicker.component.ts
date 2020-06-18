@@ -13,22 +13,19 @@ import {
   TemplateRef,
   Injector,
   forwardRef,
-  Optional,
-  Inject,
   OnChanges,
   SimpleChanges,
   AfterViewInit,
   ViewEncapsulation} from '@angular/core';
-import { Subscription, Subject, merge } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { NgControl, ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
-import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost } from '../material-design-inputs/index';
-import { FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT } from '../form-control-group/index';
+import { FORM_CONTROL_GROUP_INPUT_STATE, FormControlGroupInputState } from '../form-control-group/index';
 import { VCLDateRange, VCLDateAdapter, VCLDateAdapterParseFormats } from '../dateadapter/index';
-import { InputDirective } from '../input/index';
+import { InputDirective, FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from '../input/index';
 import { VCLCalendarDateModifier } from '../calendar/index';
 
 let UNIQUE_ID = 0;
@@ -42,22 +39,28 @@ export type DatepickerPick = 'date' | 'month' | 'time';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
-      provide: FORM_CONTROL_INPUT,
+      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
       useExisting: forwardRef(() => DatepickerComponent)
     },
     {
-      provide: FORM_CONTROL_MATERIAL_INPUT,
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
       useExisting: forwardRef(() => DatepickerComponent)
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatepickerComponent),
+      multi: true,
     }
   ],
+  styleUrls: ['datepicker.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  styles: [`
-    .pop-over.date-picker > .cCalendar {
-      width: 100%
-    }
-  `]
+  // styles: [`
+  //   /* .pop-over.date-picker > .cCalendar {
+  //     width: 100%
+  //   } */
+  // `]
 })
-export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>> implements OnDestroy, FormControlMaterialInput, ControlValueAccessor, OnChanges, AfterViewInit {
+export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>> implements OnDestroy, ControlValueAccessor, OnChanges, AfterViewInit, FormControlGroupInputState, EmbeddedInputFieldLabelInput {
 
   constructor(
     injector: Injector,
@@ -67,33 +70,13 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
     private dateAdapter: VCLDateAdapter<VCLDate>,
-    @Optional()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_MATERIAL_HOST)
-    private formControlMaterialHost?: FormControlMaterialHost,
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
   ) {
     super(injector);
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-    if (this.formControlMaterialHost) {
-      this.formControlMaterialHost.registerInput(this);
-    }
   }
 
   private stateChangedEmitter = new Subject<void>();
   private _dropdownOpenedSub?: Subscription;
   private _valueChangeSub?: Subscription;
-  private _disabled = false;
   private _cvaDisabled = false;
 
   private uniqueId = 'vcl_datepicker_' + UNIQUE_ID++;
@@ -101,7 +84,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   @ViewChild('input', { read: InputDirective, static: true })
   input: InputDirective;
 
-  @HostBinding('class.input-group-emb')
+  @HostBinding('class.input-field')
   _hostClasses = true;
 
   @ViewChild(TemplateRef, { static: true })
@@ -112,6 +95,9 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   @Input()
   id?: string;
+
+  @Input()
+  disabled = false;
 
   @Input()
   value: VCLDate | undefined;
@@ -134,23 +120,26 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   @Output()
   afterClose = new EventEmitter<any | any[]>();
 
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
-
   get stateChanged() {
     return this.stateChangedEmitter.asObservable();
   }
 
+  get ngControl() {
+    return this.injector.get(NgControl, null);
+  }
+
+  @HostBinding('class.focused')
   get isFocused() {
     return this.input.isFocused || this.isAttached;
   }
 
-  get isDisabled() {
-    return this._cvaDisabled || this._disabled;
+  get isLabelFloating() {
+    return !this.isFocused && !this.dateAdapter.isDate(this.value);
   }
 
-  get isLabelFloating() {
-    return this.isAttached || this.input.isLabelFloating;
+  @HostBinding('class.disabled')
+  get isDisabled() {
+    return this._cvaDisabled || this.disabled;
   }
 
   get parseFormat(): VCLDateAdapterParseFormats {
@@ -166,15 +155,19 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   }
 
   controlType = 'date-picker';
-  materialModifierClass = undefined;
 
   get elementId() {
     return this.id || this.uniqueId;
   }
 
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
+    console.log(error);
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 
   onFocus() {
@@ -200,8 +193,8 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     return new TemplatePortal(this.templateRef, this.viewContainerRef);
   }
 
-  protected getLayerConfig(): LayerConfig {
-    return new LayerConfig({
+  protected createLayerConfig(...configs: LayerConfig[]): LayerConfig {
+    return super.createLayerConfig({
       closeOnEscape: true,
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -223,7 +216,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
         overlayX: 'end',
         overlayY: 'bottom'
       }]).withPush(false)
-    });
+    }, ...configs)
   }
 
   ngAfterViewInit() {
@@ -237,6 +230,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     } else if (this.input) {
       this.input.value = '';
     }
+    this.stateChangedEmitter.next();
   }
 
   onLabelClick(event: Event): void {
@@ -285,8 +279,8 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   onChange: (_: any) => void = () => {};
   onTouched: () => void = () => {};
 
-  writeValue(date: any): void {
-    this.value = date;
+  writeValue(date: VCLDate | null): void {
+    this.value = date ?? undefined;
     this.updateInput();
     this.valueChange.emit(date);
   }

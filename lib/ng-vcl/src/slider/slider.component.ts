@@ -12,14 +12,14 @@ import {
   ChangeDetectorRef,
   AfterContentInit,
   OnChanges,
-  Optional,
-  Inject,
   forwardRef,
-  OnDestroy
+  OnDestroy,
+  Injector,
+  ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group/index';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
 
 let UNIQUE_ID = 0;
 
@@ -35,33 +35,27 @@ export interface ScalePoint {
 @Component({
   selector: 'vcl-slider',
   templateUrl: 'slider.component.html',
-  providers: [{
-    provide: FORM_CONTROL_INPUT,
-    useExisting: forwardRef(() => SliderComponent)
-  }],
+  styleUrls: ['slider.component.scss'],
+  encapsulation: ViewEncapsulation.None,  
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SliderComponent),
+      multi: true,
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => SliderComponent)
+    }
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges, FormControlInput, OnDestroy {
+export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges, FormControlGroupInputState, OnDestroy {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    @Optional()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-    ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-  }
+    private injector: Injector,
+    ) { }
 
   @HostBinding('class.slider')
   classVclSlider = true;
@@ -108,9 +102,6 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   @Input()
   scale: string[] | number | undefined;
 
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
-
   @HostBinding('class.focused')
   focused = false;
 
@@ -126,10 +117,8 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     return this.focused;
   }
 
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
   get pmin(): number {
@@ -153,6 +142,13 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
 
   validateValue(value: number) {
     return typeof value === 'number' && value >= this.pmin && value <= this.pmax;
+  }
+
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
   }
 
   get showScale() {
@@ -404,11 +400,6 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
       this.setValue(value, false);
     }
   }
-
-  onLabelClick(event: Event): void {
-
-  }
-
 
   ngOnDestroy() {
     this.stateChangedEmitter && this.stateChangedEmitter.complete();

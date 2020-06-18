@@ -1,10 +1,10 @@
 import { Component,  ChangeDetectionStrategy, OnDestroy, OnChanges, AfterViewInit, Optional, Inject} from '@angular/core';
 import { Subject, Observable, merge, Subscription, of, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { FORM_CONTROL_HOST, FormControlHost } from '../form-control-group/index';
 import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
 import { FormFieldControl, FormField } from './fields/index';
 import { AbstractControl, NgForm } from '@angular/forms';
+import { FORM_CONTROL_GROUP_STATE, FormControlGroupState } from '../form-control-group/index';
 
 
 @Component({
@@ -17,8 +17,10 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
 
   constructor(
     private ngForm: NgForm,
-    @Optional() private field?: FormField<any>,
-    @Optional() @Inject(FORM_CONTROL_HOST) private fch?: FormControlHost,
+    @Optional() 
+    private field?: FormField<any>,
+    @Optional() @Inject(FORM_CONTROL_GROUP_STATE) 
+    private fcgs?: FormControlGroupState,
   ) {
     let control: AbstractControl;
     if (field instanceof FormFieldControl) {
@@ -35,8 +37,8 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
     $.push(this.ngForm && this.ngForm.statusChanges);
     $.push(this.ngForm && this.ngForm.ngSubmit);
 
-    if (this.fch && this.fch.input) {
-      $.push(this.fch && this.fch.input.stateChanged);
+    if (this.fcgs && this.fcgs.input) {
+      $.push(this.fcgs && this.fcgs.input.stateChanged);
     }
     if (control) {
       $.push(control.valueChanges, control.statusChanges);

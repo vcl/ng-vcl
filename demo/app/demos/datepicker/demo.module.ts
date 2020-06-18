@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLDatepickerModule, VCLButtonModule } from '@vcl/ng-vcl';
+import { VCLDatepickerModule, VCLButtonModule, VCLFormControlGroupModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { DatePickerDemoComponent } from './demo.component';
 import README from '@vcl/ng-vcl/datepicker/README.md';
+import { FormsModule } from '@angular/forms';
 
 export function demo() {
   return {
@@ -30,8 +31,10 @@ export function demo() {
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     DemoModule,
     VCLButtonModule,
+    VCLFormControlGroupModule,
     VCLDatepickerModule,
     RouterModule.forChild([{
       path: '',

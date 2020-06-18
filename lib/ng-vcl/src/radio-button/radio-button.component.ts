@@ -4,6 +4,8 @@ import { Component,
   ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, Optional, Inject} from '@angular/core';
 import { RadioButton, RadioButtonGroup, RADIO_BUTTON_GROUP_TOKEN } from './interfaces';
 
+let UNIQUE_ID = 0;
+
 @Component({
   selector: 'vcl-radio-button',
   templateUrl: 'radio-button.component.html',
@@ -22,8 +24,18 @@ export class RadioButtonComponent implements RadioButton {
   private _disabled = false;
   private _focused = false;
 
+  private generatedId = 'vcl_radiogroup_' + UNIQUE_ID++;
+
+  @Input()
+  id?: string;
+
+  @HostBinding('attr.id')
+  get elementId() {
+    return this.id || this.generatedId;
+  }
+
   @HostBinding('class.radio-button')
-  classVCLCheckbox = true;
+  hostClasses = true;
 
   @HostBinding('attr.role')
   attrRole = 'radio';
@@ -47,7 +59,11 @@ export class RadioButtonComponent implements RadioButton {
     return this._focused;
   }
 
-  @HostBinding('attr.tabindex')
+  @HostBinding('attr.aria-labelledby')
+  get attrAriaLabeledby() {
+    return this.elementId;
+  }
+
   @Input()
   tabindex = 0;
 
@@ -66,7 +82,6 @@ export class RadioButtonComponent implements RadioButton {
   @Output()
   checkedChange = new EventEmitter<boolean>();
 
-  @HostListener('keyup', ['$event'])
   onKeyup(e) {
     switch (e.code) {
       case 'Space':
@@ -76,23 +91,20 @@ export class RadioButtonComponent implements RadioButton {
     }
   }
 
-  @HostListener('click', ['$event'])
   onClick(e: Event) {
     e.stopPropagation();
     this.setCheckedUserInteraction();
   }
 
-  onLabelClick(event: Event) {
+  onLabelClick() {
     this.setCheckedUserInteraction();
   }
 
-  @HostListener('focus')
   onFocus() {
     this._focused = true;
     this.rbg && this.rbg.notifyRadioButtonFocus(this);
   }
 
-  @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.rbg && this.rbg.notifyRadioButtonBlur(this);

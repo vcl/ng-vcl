@@ -1,12 +1,12 @@
 <h3>Basic autocomplete</h3>
 
-<vcl-embedded-input-group>
-  <vcl-icon vclPrepend icon="fas:flag"></vcl-icon>
+<vcl-input-field>
+  <vcl-icon icon="fas:flag"></vcl-icon>
   <input placeholder="Search"
          vclInput
-         [vclAutocomplete]="acCountries"
+         [vclAutocompleteInput]="acCountries"
          />
-</vcl-embedded-input-group>
+</vcl-input-field>
 
 <vcl-autocomplete #acCountries="vclAutocomplete">
   <vcl-select-list>

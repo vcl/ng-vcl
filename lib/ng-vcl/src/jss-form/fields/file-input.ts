@@ -16,9 +16,9 @@ export class FormFieldFileInput extends FormFieldControl<VCLFormFieldSchemaFileI
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
-      <vcl-file-input [multiple]="field.multiple" [formControl]="field.control" [errorStateAgent]="field.errorStateAgent">{{field.placeholder}}</vcl-file-input>
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
+      <vcl-file-input [multiple]="field.multiple" [formControl]="field.control">{{field.placeholder}}</vcl-file-input>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>
   `

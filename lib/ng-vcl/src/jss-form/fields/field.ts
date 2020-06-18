@@ -168,9 +168,9 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
     return this.schema.errorStateAgent;
   }
 
-  get material() {
-    return this.schema.material;
-  }
+  // get material() {
+  //   return this.schema.material;
+  // }
 
   get defaultValue() {
     return this.schema.defaultValue  === undefined ? this.createDefaultValue() : this.schema.defaultValue;

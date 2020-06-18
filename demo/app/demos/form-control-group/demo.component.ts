@@ -1,9 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormGroup, Validators, AbstractControl, FormControl, ValidationErrors, NgForm } from '@angular/forms';
-import { NotifierService, FormControlErrorStateAgent, FormControlHost, FormControlInput } from '@vcl/ng-vcl';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormGroup, Validators, AbstractControl, FormControl, NgForm } from '@angular/forms';
+import { NotifierService, FormControlErrorStateAgent, LayerConfig } from '@vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'demo.component.html'
+  templateUrl: 'demo.component.html',
+  styles: [`
+    .form-control-group-demo-help-notification {
+      max-width: 30em;
+    }
+  `],
+  encapsulation: ViewEncapsulation.None
 })
 export class FormControlGroupDemoComponent {
 
@@ -84,7 +90,7 @@ export class FormControlGroupDemoComponent {
     return this.skillPointsMax - this.skillPoints;
   }
 
-  validateSkills(c: AbstractControl) {
+  validateSkills() {
     if ((this.skillPoints) > this.skillPointsMax) {
       return {
         skills: true
@@ -98,8 +104,8 @@ export class FormControlGroupDemoComponent {
   }
 
   // Show only if invalid and after submitted
-  termsErrorStateAgent: FormControlErrorStateAgent = (form?: FormControlHost, input?: FormControlInput<any>) => {
-    return form && input && input.ngControl && input.ngControl.invalid && form.submitted;
+  termsErrorStateAgent: FormControlErrorStateAgent = (form?, ngControl?) => {
+    return form && ngControl && ngControl.invalid && form.submitted;
   }
 
   onSubmit() {
@@ -113,5 +119,11 @@ export class FormControlGroupDemoComponent {
   onReset() {
     this.form.resetForm(this.defaultValues);
     this.notifier.info('Hero reset');
+  }
+
+
+  helpLayerConfig: LayerConfig = {
+    style: 'transparent', 
+    maxWidth: '25em',
   }
 }

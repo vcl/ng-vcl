@@ -23,9 +23,9 @@ export class FormFieldSlider extends FormFieldControl<VCLFormFieldSchemaSlider, 
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
-      <vcl-slider [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [min]="field.min" [max]="field.max" [scale]="field.scale" [lock]="field.lock"></vcl-slider>
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
+      <vcl-slider [formControl]="field.control" [min]="field.min" [max]="field.max" [scale]="field.scale" [lock]="field.lock"></vcl-slider>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>
   `

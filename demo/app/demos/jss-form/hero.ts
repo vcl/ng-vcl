@@ -450,7 +450,7 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
           message: 'You must agree to our Terms'
         }
       ],
-      errorStateAgent: (host, input) => input.ngControl.invalid && host.submitted
+      // errorStateAgent: (host, input) => input.ngControl.invalid && host.submitted
     },
     {
       type: 'buttons',

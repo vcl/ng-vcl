@@ -9,7 +9,6 @@ import { VCLSliderModule } from '../slider/index';
 import { VCLCheckboxModule } from '../checkbox/index';
 import { VCLRadioButtonModule } from '../radio-button/index';
 import { VCLInputModule } from '../input/index';
-import { VCLTextareaModule } from '../textarea/index';
 import { VCLPasswordInputModule } from '../password-input/index';
 import { VCLTokenModule } from '../token/index';
 import { VCLIconModule } from '../icon/index';
@@ -18,7 +17,6 @@ import { VCLDatepickerModule } from '../datepicker/index';
 import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
-import { VCLMaterialDesignInputsModule } from '../material-design-inputs/index';
 
 import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
@@ -51,12 +49,10 @@ let fieldsInitialized = false;
     VCLCheckboxModule,
     VCLRadioButtonModule,
     VCLInputModule,
-    VCLTextareaModule,
     VCLPasswordInputModule,
     VCLTokenModule,
     VCLIconModule,
     VCLFormControlGroupModule,
-    VCLMaterialDesignInputsModule,
     VCLDatepickerModule,
     VCLSelectModule,
     VCLSelectListModule,

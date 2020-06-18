@@ -15,7 +15,7 @@ export { TokenComponent, TokenInputContainerComponent, TokenListComponent, Token
 
 @NgModule({
   imports: [CommonModule, VCLInputModule, VCLButtonModule, FormsModule, VCLIconModule, VCLIcogramModule],
-  exports: [TokenComponent, TokenListComponent, TokenInputContainerComponent ],
+  exports: [TokenComponent, TokenListComponent, TokenInputContainerComponent, VCLInputModule ],
   declarations: [TokenComponent, TokenListComponent, TokenInputContainerComponent ],
   providers: [],
 })

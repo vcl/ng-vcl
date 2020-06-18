@@ -1,6 +1,6 @@
-import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewChild, forwardRef, HostBinding, HostListener, ChangeDetectorRef, Self, Optional, Inject, OnDestroy } from '@angular/core';
+import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewChild, forwardRef, HostBinding, HostListener, ChangeDetectorRef, Self, Optional, Inject, OnDestroy, Injector, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, FORM_CONTROL_INPUT } from '../form-control-group/index';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -8,32 +8,27 @@ let UNIQUE_ID = 0;
 @Component({
   selector: 'vcl-flip-switch',
   templateUrl: 'flip-switch.component.html',
+  styleUrls: ['flip-switch.component.scss'],
+  encapsulation: ViewEncapsulation.None,  
   exportAs: 'vclFlipSwitch',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: FORM_CONTROL_INPUT,
-    useExisting: forwardRef(() => FlipSwitchComponent)
-  }]
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => FlipSwitchComponent)
+    }, {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FlipSwitchComponent),
+      multi: true,
+    }
+  ]
 })
-export class FlipSwitchComponent implements ControlValueAccessor, FormControlInput, OnDestroy {
+export class FlipSwitchComponent implements ControlValueAccessor, FormControlGroupInputState, OnDestroy {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    @Self()
-    @Optional()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
+    private injector: Injector,
+  ) { }
 
   @HostBinding('class.flip-switch')
   _hostClasses = true;
@@ -80,18 +75,13 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
   @Input()
   disabled = false;
 
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
-
   @HostBinding('class.disabled')
   get isDisabled() {
     return this.disabled || this._disabled;
   }
 
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
   get isFocused() {
@@ -100,6 +90,13 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlInp
 
   @Output()
   valueChange = new EventEmitter<boolean>();
+
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
+  }
 
   private onTouchedCallback: () => void = () => {};
   private onChangeCallback: (_: any) => void =  () => {};

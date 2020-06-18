@@ -1,29 +1,35 @@
 import { Component } from '@angular/core';
-import { LayerService } from '@vcl/ng-vcl';
+import { LayerService, LayerRef } from '@vcl/ng-vcl';
 import { BarComponent } from './bar.component';
 import { NagLayer } from './nag.component';
+
+let i = 0;
 
 @Component({
   templateUrl: 'demo.component.html',
 })
 export class LayerDemoComponent {
 
+  barLayer: LayerRef;
+
   constructor(
     private nagLayer: NagLayer,
-    private layerService: LayerService,
-  ) {  }
-
-  openBarComponent() {
-    const layer = this.layerService.open(BarComponent, {
-      data: {
-        title: 'bar component layer title'
-      },
+    layerService: LayerService,
+  ) {  
+    this.barLayer = layerService.create(BarComponent, {
       closeOnBackdropClick: false,
       closeOnEscape: false
     });
-    layer.afterClose.subscribe(result => {
-      layer.destroy(); // Layer is not needed anymore
-      console.log('Bar component result: ' + result && result.value);
+
+  }
+
+  openBarComponent() {
+    this.barLayer.open({
+      data: {
+        title: `bar component layer title (${i++})`
+      }
+    }).subscribe(result => {
+      console.log('Bar component result: ' + result?.value);
     });
   }
 
@@ -39,5 +45,9 @@ export class LayerDemoComponent {
         console.log('Declined');
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.barLayer?.destroy();
   }
 }

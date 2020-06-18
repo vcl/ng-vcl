@@ -1,0 +1,18 @@
+<div class="notification-header title-container row align-items-center" *ngIf="notifierOverlayRef?.title || showCloseButton">
+  <div class="flex" *ngIf="notifierOverlayRef.title">
+    <span>{{notifierOverlayRef.title}}</span>
+  </div>
+  <div class="flex"></div>
+  <button vcl-square-button *ngIf="showCloseButton" type="button" (click)="onCloseClick()" class="transparent">
+    <vcl-icon icon="vcl:close"></vcl-icon>
+  </button>  
+</div>
+<div *ngIf="hasIcon" class="notification-icon-container">
+  <vcl-icon class="notification-icon" [icon]="icon || typeIcon"></vcl-icon>
+</div>
+<div class="notification-content row">
+  <div class="flex">
+    <div *ngIf="notifierOverlayRef.contentIsString">{{notifierOverlayRef.content}}</div>
+    <div *ngIf="notifierOverlayRef.contentIsPortal" [cdkPortalOutlet]="notifierOverlayRef.content"></div>
+  </div>
+</div>

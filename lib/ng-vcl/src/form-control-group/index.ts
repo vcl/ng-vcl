@@ -1,49 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FORM_CONTROL_INPUT, FormControlInput, FormControlErrorStateAgent, FORM_CONTROL_ERROR_STATE_AGENT, FormControlHost, FORM_CONTROL_HOST } from './interfaces';
+import { VCLCoreLabelModule } from '../core/index';
+import { FormControlGroupInputState, FormControlGroupFormState, FormControlErrorStateAgent, FORM_CONTROL_GROUP_INPUT_STATE, FORM_CONTROL_GROUP_STATE, FormControlGroupState, FORM_CONTROL_GROUP_FORM_STATE } from './interfaces';
+import { FormDirective } from './form.directive';
 import { FormControlGroupComponent } from './form-control-group.component';
-import { FormControlHintComponent } from './hint.component';
-import { FormControlLabelDirective } from './form-control-label.directive';
+import { FormControlHintComponent, FormControlHintErrorComponent } from './hint.component';
 import { FormControlRequiredComponent } from './required.component';
+import { defaultFormControlErrorStateAgent, dirtyFormControlErrorStateAgent } from './error-state-agent';
 
 export {
+  defaultFormControlErrorStateAgent,
+  dirtyFormControlErrorStateAgent,
+  FORM_CONTROL_GROUP_FORM_STATE,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+  FORM_CONTROL_GROUP_STATE,
   FormControlGroupComponent,
-  FORM_CONTROL_INPUT,
-  FormControlInput,
   FormControlHintComponent, 
-  FormControlLabelDirective, 
-  FormControlRequiredComponent,
+  FormControlHintErrorComponent,
+  FormControlGroupInputState,
+  FormControlGroupFormState, 
+  FormControlGroupState, 
   FormControlErrorStateAgent,
-  FORM_CONTROL_ERROR_STATE_AGENT,
-  FormControlHost,
-  FORM_CONTROL_HOST
+  FormControlRequiredComponent,
 };
 
-// tslint:disable-next-line:only-arrow-functions
-export function defaultFormControlErrorStateAgent(form?, input?) {
-  return form &&
-         input &&
-         input.ngControl &&
-         input.ngControl.invalid &&
-         (input.ngControl.touched || form.submitted);
-}
-
-// tslint:disable-next-line:only-arrow-functions
-export function dirtyFormControlErrorStateAgent(form?, input?) {
-  return form &&
-         input &&
-         input .ngControl &&
-         input.ngControl.invalid &&
-         (input.ngControl.dirty || form.submitted);
-}
-
 @NgModule({
-  imports: [CommonModule],
-  exports: [FormControlGroupComponent, FormControlHintComponent, FormControlLabelDirective, FormControlRequiredComponent],
-  declarations: [FormControlGroupComponent, FormControlHintComponent, FormControlLabelDirective, FormControlRequiredComponent],
-  providers: [{
-    provide: FORM_CONTROL_ERROR_STATE_AGENT,
-    useValue: defaultFormControlErrorStateAgent
-  }],
+  imports: [CommonModule, VCLCoreLabelModule],
+  exports: [FormControlGroupComponent, FormControlHintComponent, FormControlHintErrorComponent, FormControlRequiredComponent, VCLCoreLabelModule, FormDirective],
+  declarations: [FormControlGroupComponent, FormControlHintComponent, FormControlHintErrorComponent, FormControlRequiredComponent, FormDirective],
 })
 export class VCLFormControlGroupModule { }

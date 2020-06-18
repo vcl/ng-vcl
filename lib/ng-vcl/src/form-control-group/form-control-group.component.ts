@@ -1,86 +1,126 @@
-import { Component, HostBinding, ElementRef, forwardRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy, Optional, Self, SkipSelf } from '@angular/core';
-import { FormControlInput, FormControlHost, FORM_CONTROL_HOST } from './interfaces';
-import { Subject } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-import { NgForm, FormGroupDirective } from '@angular/forms';
+import { Component, HostBinding, OnDestroy, ChangeDetectionStrategy, AfterContentInit, ChangeDetectorRef, ContentChild, Input, forwardRef, Inject, Optional, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Subject, merge, NEVER } from 'rxjs';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE, FormControlErrorStateAgent, FormControlGroupState, FORM_CONTROL_GROUP_STATE, FORM_CONTROL_GROUP_FORM_STATE, FormControlGroupFormState, FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN } from './interfaces';
+import { AbstractControl } from '@angular/forms';
+import { defaultFormControlErrorStateAgent } from './error-state-agent';
+import { FormDirective } from './form.directive';
 
 @Component({
-  selector: 'vcl-form-control-group, vcl-form-inline-control-group',
+  selector: 'vcl-form-control-group',
   templateUrl: 'form-control-group.component.html',
   exportAs: 'vclFormControlGroup',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: FORM_CONTROL_HOST,
-    useExisting: forwardRef(() => FormControlGroupComponent)
-  }]
+  styleUrls: ['form-control-group.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_STATE,
+      useExisting: forwardRef(() => FormControlGroupComponent)
+    }
+  ]
 })
-export class FormControlGroupComponent implements FormControlHost, AfterViewInit, OnDestroy {
+export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy, FormControlGroupState<T> {
 
   constructor(
-    @Self()
-    private elementRef: ElementRef<HTMLElement>,
+    private cdRef: ChangeDetectorRef,
+    @Inject(FORM_CONTROL_GROUP_FORM_STATE)
     @Optional()
-    @SkipSelf()
-    private formGroup?: FormGroupDirective,
+    form: FormControlGroupFormState,
+    @Inject(FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN)
     @Optional()
-    @SkipSelf()
-    private ngForm?: NgForm
-  ) { }
+    private _errorStateAgent?: FormControlErrorStateAgent,
+  ) { 
+    this.form = form ?? new FormDirective(undefined, undefined);
+  }
+
+  form: FormControlGroupFormState;
+
+  get isLabelClickable() {
+    return !!this.input?.onLabelClick;
+  }
+
+  onLabelClick(event: Event): void {
+    if (this.input?.onLabelClick) {
+      this.input.onLabelClick(event);
+    }
+  }
+
+  @Input('errorStateAgent')
+  errorStateAgentInput: FormControlErrorStateAgent = undefined;
+
+  get errorStateAgent() {
+    return this.errorStateAgentInput ?? this._errorStateAgent ?? defaultFormControlErrorStateAgent;
+  }
+
+  @Input()
+  hideRequiredIndicator = false;
 
   @HostBinding('class.form-control-group')
-  get classVclFormControlGroup() {
-    return !this.classVclFormInlineControlGroup;
-  }
-
-  @HostBinding('class.form-inline-control-group')
-  get classVclFormInlineControlGroup() {
-    return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-form-inline-control-group';
-  }
+  hostClasses = true;
 
   private _stateChangedEmitter = new Subject<void>();
-  input: FormControlInput | undefined;
 
-  stateChange = this._stateChangedEmitter.asObservable();
+  stateChanged = this._stateChangedEmitter.asObservable();
 
-  @HostBinding('attr.vclControlType')
-  get attrVCLControlType() {
-    return this.input && this.input.controlType;
+  @HostBinding('class')
+  get classAttribute(): string {
+    return `form-control-group-${this.controlType}`;
+  };
+
+  controlType?: string;
+  
+  @HostBinding('class.disabled')
+  isDisabled: boolean = false;
+
+  @HostBinding('class.focused')
+  isFocused: boolean = false;
+
+  inputId?: string;
+
+  @ContentChild(FORM_CONTROL_GROUP_INPUT_STATE as any)
+  input: FormControlGroupInputState;
+
+  get hasError() {
+    const ngControl = this.input?.ngControl;
+    const form = this.form;
+    return (ngControl && form) ? this.errorStateAgent(form, ngControl) : false;
   }
 
-  registerInput(input: FormControlInput) {
-    if (!this.input) {
-      this.input = input;
-    } else {
-      // TODO: Make sure the top input element is used
+  getError(errorCode: string, path?: string | (string | number)[]) {
+    const ngControl = this.input?.ngControl;
+    return ngControl?.getError(errorCode, path) ?? undefined;
+  }
+
+  private updateState() {
+    this.controlType = this.input?.controlType ?? undefined;
+    this.isFocused = this.input?.isFocused ?? false;
+    this.isDisabled = this.input?.isDisabled ?? false;
+    this.inputId = this.input?.elementId ?? undefined;
+    this.input?.setErrorState(this.hasError);
+  }
+
+  get isRequired() {
+    const control = this.input?.ngControl?.control;
+    if (control && control.validator) {
+      const validator = control.validator({} as AbstractControl)
+      if (validator && validator.required) {
+        return true;
+      }
     }
+    return false;
   }
 
-  private get _form() {
-    return this.ngForm || this.formGroup;
-  }
-  get pending() {
-    return this._form.pending;
-  }
-  get invalid() {
-    return this._form.invalid;
-  }
-  get valid() {
-    return this._form.valid;
-  }
-  get touched() {
-    return this._form.touched;
-  }
-  get untouched() {
-    return this._form.untouched;
-  }
-  get submitted() {
-    return this._form.submitted;
-  }
-
-  ngAfterViewInit() {
-    if (this.input) {
-      this.input.stateChanged.pipe(startWith(undefined)).subscribe(this._stateChangedEmitter);
-    }
+  ngAfterContentInit() {
+    this.updateState();
+    // TODO: Add warning
+    // if (!this.input) {
+    // }
+    merge(this.form.stateChanged, this.input?.stateChanged ?? NEVER).subscribe(() => {
+      this.updateState();
+      this._stateChangedEmitter.next();
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    });
   }
 
   ngOnDestroy() {

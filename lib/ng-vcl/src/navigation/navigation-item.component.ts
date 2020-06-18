@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, HostListener, SkipSelf, Inject, Optional, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, Input, HostListener, SkipSelf, Inject, Optional, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NAVIGATION_TOKEN, Navigation } from './types';
 
 @Component({
@@ -14,6 +14,8 @@ export class NavigationLabelComponent {
 @Component({
   selector: 'vcl-navigation-item',
   templateUrl: 'navigation-item.component.html',
+  styleUrls: ['navigation-item.component.scss'],
+  encapsulation: ViewEncapsulation.None,  
   exportAs: 'vclNavigationItem',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

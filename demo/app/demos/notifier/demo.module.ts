@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { VCLButtonGroupModule, VCLButtonModule, VCLNotifierModule } from '@vcl/ng-vcl';
-import { DemoComponent, DemoModule } from './../../modules/demo/demo.module';
+import { DemoComponent, DemoModule } from '../../modules/demo/demo.module';
 import { NotifierDemoComponent } from './demo.component';
 import README from '@vcl/ng-vcl/notifier/README.md';
 
 export function demo() {
   return {
-    label: 'Notifiers',
+    label: 'Notifier',
     tabs: {
       Demo: NotifierDemoComponent,
       'README.md': {

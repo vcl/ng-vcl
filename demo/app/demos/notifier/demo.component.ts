@@ -1,5 +1,6 @@
-import { NotifierPosition, NotifierService } from '@vcl/ng-vcl';
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { NotifierPosition, NotifierService, NotifierOptions } from '@vcl/ng-vcl';
+import { Component, Input, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 let cnt = 1;
 
@@ -20,44 +21,61 @@ export class NotifierDemoComponent {
   positions = NotifierPosition;
   position: NotifierPosition = NotifierPosition.TopRight;
 
+  @ViewChild('htmlNotification')
+  htmlNotification: TemplatePortal;
+
   default() {
     this.notifier.queue({
-      text: 'A message ' + cnt++,
+      content: 'A message ' + cnt++,
       position: this.position
     });
   }
   info() {
     this.notifier.info({
-      text: 'An info message ' + cnt++,
-      position: this.position
+      content: 'An info message ' + cnt++,
+      title: 'Info',
+      icon: 'vcl:info',
+      position: this.position,
     });
   }
   success() {
     this.notifier.success({
-      text: 'A success message ' + cnt++,
+      content: 'A success message ' + cnt++,
+      title: 'Success',
       position: this.position
     });
   }
   warning() {
     this.notifier.warning({
-      text: 'A warning ' + cnt++,
+      content: 'A warning ' + cnt++,
+      title: 'Warning',
       position: this.position
     });
   }
   error() {
     this.notifier.error({
-      text: 'An error message ' + cnt++,
+      content: 'An error message ' + cnt++,
+      title: 'Error',
       position: this.position
     });
   }
   custom() {
     this.notifier.queue({
-      text: '<b>A <i>custom</i> message</b>',
-      html: true,
+      content: 'A custom class message',
       position: this.position,
       showCloseButton: false,
       timeout: 10000,
       class: 'demoCustomNotifier'
     });
   }
+
+  modalNotificationOptions: NotifierOptions = {
+    content: 'I am modal!', 
+    position: NotifierPosition.Center, 
+    title: 'Modal Title', 
+    hasBackdrop: true, 
+    timeout: false, 
+    showCloseButton: true 
+  }
+
 }

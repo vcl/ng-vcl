@@ -1,23 +1,5 @@
 <h2>Create a hero</h2>
 
-<vcl-form-control-group>
-  <label vclFormControlLabel>Material input mode</label>
-  <vcl-radio-group [value]="material" (valueChange)="setMaterial($event)">
-    <label vclRadioButtonLabel>
-      <vcl-radio-button value="float"></vcl-radio-button>
-      Float
-    </label>
-    <label vclRadioButtonLabel>
-      <vcl-radio-button value="static"></vcl-radio-button>
-      Static
-    </label>
-    <label vclRadioButtonLabel>
-      <vcl-radio-button value="disabled"></vcl-radio-button>
-      Disabled
-    </label>
-  </vcl-radio-group>
-</vcl-form-control-group>
-
 <vcl-jss-form 
   #heroForm="vclJssForm"
   [schema]="heroSchema" 

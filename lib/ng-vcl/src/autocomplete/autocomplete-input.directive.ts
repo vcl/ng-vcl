@@ -1,35 +1,54 @@
 import { Subscription } from 'rxjs';
-import { Directive, ElementRef, Input, HostListener, OnDestroy, Output, EventEmitter, SimpleChanges, OnChanges, HostBinding } from '@angular/core';
+import { Directive, ElementRef, Input, HostListener, OnDestroy, Output, EventEmitter, SimpleChanges, OnChanges, HostBinding, Inject, Injector, Self } from '@angular/core';
 import { InputDirective } from '../input/index';
 import { AutocompleteComponent } from './autocomplete.component';
 import { DOWN_ARROW, UP_ARROW, ESCAPE, TAB, ENTER } from '@angular/cdk/keycodes';
 
+export type AutocompleteInputOptionsMapValue = 'value' | 'void' | ((value: any) => string);
+
+export interface AutocompleteInputOptions {
+  autocomplete: AutocompleteComponent;
+  mapInputValue?: AutocompleteInputOptionsMapValue;
+}
+
 @Directive({
-  selector: 'input[vclAutocomplete]',
+  selector: 'input[vclAutocompleteInput]',
+  providers:[]
 })
 export class AutocompleteInputDirective extends InputDirective implements OnDestroy, OnChanges  {
 
-  constructor(elementRef: ElementRef<HTMLInputElement>) {
-    super(elementRef);
+  constructor(
+    elementRef: ElementRef<HTMLInputElement>,
+    @Self()
+    injector: Injector
+  ) {
+    super(elementRef, injector);
   }
 
   private deactivateFocusTrigger = false;
   private afterCloseSub?: Subscription;
 
   // tslint:disable-next-line:no-input-rename
-  @Input('vclAutocomplete')
+  @Input('vclAutocompleteInput')
+  set aclAutocompleteInput(autocompleteInputOptions: AutocompleteComponent | AutocompleteInputOptions) {
+    if (autocompleteInputOptions instanceof AutocompleteComponent) {
+      this.autocomplete = autocompleteInputOptions;
+    } else if (autocompleteInputOptions) {
+      this.autocomplete = autocompleteInputOptions.autocomplete;
+      this.mapInputValue  = autocompleteInputOptions.mapInputValue ?? 'value';
+    } else if (!autocompleteInputOptions && this.autocomplete) {
+      this.autocomplete.close();
+      this.autocomplete = undefined;
+      this.mapInputValue  = 'value';
+    }
+  }
+
   autocomplete?: AutocompleteComponent;
 
-  // tslint:disable-next-line:no-input-rename
-  @Input('vclAutocompleteMapInputValue')
-  mapInputValue: 'value' | 'void' | ((value: any) => string) = 'value';
-
-  // tslint:disable-next-line:no-input-rename
-  @Input('vclAutocompleteDisabled')
-  ddDisabled: boolean = false;
+  mapInputValue: AutocompleteInputOptionsMapValue = 'value';
 
   // tslint:disable-next-line:no-output-rename
-  @Output('vclAutocompleteSelectionChange')
+  @Output('vclAutocompleteInputSelectionChange')
   selectionChange = new EventEmitter();
 
   focused = false;
@@ -63,8 +82,8 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
   }
 
   private triggerAutocomplete() {
-    if (this.ddDisabled || this.isDisabled || !this.focused || !this.autocomplete) {
-      this.autocomplete.close();
+    if (!this.autocomplete || this.isDisabled || !this.focused || !this.autocomplete) {
+      this.autocomplete && this.autocomplete.close();
       return;
     } else if (this.autocomplete && this.autocomplete.isOpen) {
       return;
@@ -104,7 +123,7 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
   }
 
   private closeAutocomplete() {
-    this.autocomplete.close();
+    this.autocomplete?.close();
   }
 
   @HostListener('keyup', ['$event'])

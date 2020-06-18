@@ -7,7 +7,7 @@ Note: For the highlight to work, the target element has to have a background-col
 ## Usage
 
 ```js
-import { VCLTourModule } from 'ng-vcl';
+import { VCLTourModule } from '@vcl/ng-vcl';
 
 @NgModule({
   imports: [ VCLTourModule ],

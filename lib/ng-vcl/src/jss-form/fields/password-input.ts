@@ -17,10 +17,10 @@ export class FormFieldPasswordInput extends FormFieldControl<VCLFormFieldSchemaI
 
 @Component({
   template: `
-    <vcl-form-control-group [vclMaterial]="field.material" *ngIf="field.visible">
-      <label *ngIf="!!field.label" vclFormControlLabel>{{field.label}}<vcl-required *ngIf="field.required"></vcl-required></label>
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-password-input>
-        <input vclInput [formControl]="field.control" [errorStateAgent]="field.errorStateAgent" [attr.placeholder]="field.placeholder" [attr.autocomplete]="field.autocomplete">
+        <input vclInput [formControl]="field.control" [attr.placeholder]="field.placeholder" [attr.autocomplete]="field.autocomplete">
       </vcl-password-input>
       <vcl-jss-form-hints></vcl-jss-form-hints>
     </vcl-form-control-group>

@@ -1,8 +1,8 @@
-import { OnDestroy, forwardRef, Input, ContentChildren, QueryList, HostBinding, AfterContentInit, Optional, Inject, Self, EventEmitter, Output, Component } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { OnDestroy, forwardRef, Input, ContentChildren, QueryList, HostBinding, AfterContentInit, Optional, Inject, Self, EventEmitter, Output, Component, Injector } from '@angular/core';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
-import { FormControlInput, FORM_CONTROL_INPUT, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent } from '../form-control-group/index';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
 import { RadioButtonComponent } from './radio-button.component';
 import { RADIO_BUTTON_GROUP_TOKEN, RadioButtonGroup, RadioButton } from './interfaces';
 
@@ -13,36 +13,25 @@ let UNIQUE_ID = 0;
   template: '<ng-content></ng-content>',
   providers: [
     {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RadioGroupComponent),
+      multi: true,
+    },
+    {
       provide: RADIO_BUTTON_GROUP_TOKEN,
       useExisting: forwardRef(() => RadioGroupComponent)
     },
     {
-      provide: FORM_CONTROL_INPUT,
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
       useExisting: forwardRef(() => RadioGroupComponent)
     }
   ]
 })
-export class RadioGroupComponent implements OnDestroy, AfterContentInit, ControlValueAccessor, RadioButtonGroup, FormControlInput {
+export class RadioGroupComponent implements OnDestroy, AfterContentInit, ControlValueAccessor, RadioButtonGroup, FormControlGroupInputState {
 
   constructor(
-    @Optional()
-    @Self()
-    public ngControl?: NgControl,
-    @Optional()
-    @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional()
-    @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    if (this.formControlHost) {
-      this.formControlHost.registerInput(this);
-    }
-  }
+    private injector: Injector,
+  ) { }
 
   private stateChangedEmitter = new Subject<void>();
 
@@ -56,6 +45,9 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
 
   @Input()
   id?: string;
+
+  @HostBinding('class.radio-group')
+  hostClasses = true;
 
   @HostBinding('attr.id')
   get elementId() {
@@ -76,23 +68,13 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
     this._disabled = disabled;
   }
 
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
-
-  @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
+  get ngControl() {
+    return this.injector.get(NgControl, null);
   }
 
-  @HostBinding('class.form-control-group')
-  get classVclFormControlGroup() {
+  @HostBinding('class.vertical')
+  get classVertical() {
     return this.layout === 'vertical';
-  }
-
-  @HostBinding('class.form-inline-control-group')
-  get classVclFormInlineControlGroup() {
-    return this.layout === 'horizontal';
   }
 
   @HostBinding('attr.role')
@@ -116,6 +98,13 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
 
   private radioButtonsSub?: Subscription;
 
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
+  }
+
   private syncRadioButtons() {
     if (!this.radioButtons) {
       return;
@@ -126,7 +115,7 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
       rbtn.setDisabled(this.isDisabled);
     });
   }
-
+  
   ngAfterContentInit() {
     // Syncs changed radio buttons checked state to be in line with the current group value
     this.radioButtonsSub = this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {
@@ -153,10 +142,6 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
 
   notifyRadioButtonFocus(rb: RadioButton) {
     this.stateChangedEmitter.next();
-  }
-
-  onLabelClick(event: Event): void {
-
   }
 
   ngOnDestroy(): void {

@@ -1,13 +1,16 @@
-<ng-template let-tooltip="tooltip">
-  <div class="tooltip" role="tooltip"
-      [class.arrow-pointer-right]="tooltip.position === 'left'"
-      [class.arrow-pointer-left]="tooltip.position === 'right'"
-      [class.arrow-pointer-top]="tooltip.position === 'bottom'"
-      [class.arrow-pointer-bottom]="tooltip.position === 'top'"
-      >
-    <div class="tooltip-content">
-      <ng-content></ng-content>
-    </div>
-    <div *ngIf="tooltip.arrowPointer" class="arrow-pointer"></div>
+<div *ngIf="tooltip.value" class="tooltip" role="tooltip">
+  <div *ngIf="isString" class="tooltip-content">
+    {{tooltip.value}}
   </div>
-</ng-template>
+  <div *ngIf="isTemplatePortal" class="tooltip-content">
+    <ng-template [cdkPortalOutlet]="tooltip.value"></ng-template>
+  </div>
+  <div 
+    *ngIf="tooltip.arrowPointer" 
+    class="arrow-pointer"
+    [class.arrow-pointer-right]="tooltip.arrowPosition === 'left'"
+    [class.arrow-pointer-left]="tooltip.arrowPosition === 'right'"
+    [class.arrow-pointer-top]="tooltip.arrowPosition === 'bottom'"
+    [class.arrow-pointer-bottom]="tooltip.arrowPosition === 'top'"
+  ></div>
+</div>

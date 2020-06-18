@@ -1,8 +1,8 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef, Directive } from '@angular/core';
+import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef, Directive, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { DATA_LIST_TOKEN, DataList, DataListItem } from './types';
-import { DataListItemComponent } from './data-list-item.component';
+import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
+import { DataListItemDirective } from './data-list-item.directive';
 
 @Directive({
   selector: 'vcl-data-list-header',
@@ -23,7 +23,10 @@ export class DataListFooterDirective {
 @Component({
   selector: 'vcl-data-list',
   templateUrl: './data-list.component.html',
+  styleUrls: ['./data-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   exportAs: 'vclDataList',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: DATA_LIST_TOKEN,
@@ -33,7 +36,6 @@ export class DataListFooterDirective {
 })
 export class DataListComponent implements DataList, AfterContentInit, OnDestroy, ControlValueAccessor {
   constructor(
-    private cdRef: ChangeDetectorRef,
     @Optional()
     public ngControl?: NgControl,
     ) {
@@ -43,13 +45,9 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
     }
   }
 
-  private _cvaDisabled = false;
+  stateChange = new Subject<void>();
 
-  @HostBinding('class.item-selectability')
-  @HostBinding('class.item-hover-highlight')
-  get classItemSelectability() {
-    return this.selectionMode !== 'none';
-  }
+  private _cvaDisabled = false;
 
   @HostBinding('class.data-list')
   _hostClasses = true;
@@ -60,7 +58,7 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
   readonly itemsChange = this._itemsChangeEmitter.asObservable();
 
   @Input()
-  selectionMode: 'single' | 'multiple' | 'none' = 'single';
+  selectionMode: DataListMode = 'single';
 
   @Input()
   value: any | any[];
@@ -79,37 +77,21 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
   @Output()
   valueChange =  new EventEmitter<any | any[]>();
 
-  @ContentChildren(DataListItemComponent)
+  @ContentChildren(DataListItemDirective)
   private _items?: QueryList<DataListItem>;
 
   get isDisabled() {
     return this._cvaDisabled || this.disabled;
   }
 
-  get isFocused() {
-    return this.items.some(item => item.isFocused);
-  }
-
-  get items() {
-    return this._items.toArray();
-  }
-
-  private get _valueAsArray() {
-    if (Array.isArray(this.value)) {
-      return this.value;
-    } else {
-      if (this.selectionMode === 'single') {
-        return [this.value];
-      } else if (this.selectionMode === 'multiple') {
-        return [this.value];
-      } else {
-        return [];
-      }
-    }
-  }
-
   isItemSelected(item: DataListItem): boolean {
-    return this._valueAsArray.includes(item.value);
+    if (this.selectionMode === 'single') {
+      return item.value === this.value;
+    } else if (this.selectionMode === 'multiple') {
+      return Array.isArray(this.value) && this.value.includes(item.value);
+    } else {
+      return false;
+    }
   }
 
   selectItem(item: DataListItem): void {
@@ -118,7 +100,7 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
     } else if (this.selectionMode === 'single') {
       this.value = item.value;
     } else {
-      const values = this._valueAsArray;
+      const values = Array.isArray(this.value) ? this.value : [this.value];
       if (values.includes(item.value)) {
         this.value = values.filter(_value => _value !== item.value);
       } else {
@@ -129,13 +111,11 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
     this.valueChange.emit(this.value);
     this.onTouched();
     this.onChange(this.value);
-  }
-
-  onLabelClick(event: Event): void {
-
+    this.stateChange.next();
   }
 
   onItemFocus(item: DataListItem) {
+
   }
 
   onItemBlur(item: DataListItem) {
@@ -144,20 +124,13 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
     }
   }
 
-  get selectedItems() {
-    return this._items.filter(_item => this._valueAsArray.includes(_item.value));
-  }
-
-  getItems() {
-    return this._items.toArray();
-  }
-
   ngAfterContentInit() {
     this._itemsChangeSub = this._items.changes.subscribe(this._itemsChangeEmitter);
   }
 
   ngOnDestroy() {
     this._itemsChangeSub && this._itemsChangeSub.unsubscribe();
+    this.stateChange.complete();
   }
 
   /**
@@ -169,6 +142,7 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
   writeValue(value: any): void {
     this.value = value;
     this.valueChange.emit(value);
+    this.stateChange.next();
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

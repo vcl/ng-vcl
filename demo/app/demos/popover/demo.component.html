@@ -5,7 +5,8 @@
   </div>
 </div>
 
-<vcl-popover
+<ng-template
+  vclPopover
   #popover1="vclPopover"
   [target]="target"
   (afterClose)="popover2.close()">
@@ -15,9 +16,10 @@
     &nbsp;
     <button vcl-button (click)="popover1.close();">Close Popovers</button>
   </div>
-</vcl-popover>
+</ng-template>
 
-<vcl-popover
+<ng-template
+  vclPopover
   #popover2="vclPopover"
   [closeOnOffClick]="true"
   [target]="target"
@@ -30,4 +32,4 @@
   <div style="width: 300px; height: 50px;">
       Popover is connected to the target<br>
   </div>
-</vcl-popover>
+</ng-template>

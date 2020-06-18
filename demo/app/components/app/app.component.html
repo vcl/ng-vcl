@@ -15,13 +15,11 @@
     </header>
     <vcl-drawer-container class="content-area flex">
       <vcl-drawer [opened]="xsmall ? false : true" class="col docNav"  #drawer="vclDrawer" [mode]="!xsmall ? 'side' : 'over'">
-        <div class="input-group-emb">
-          <span class="prepended">
-            <vcl-icon icon="fas:search"></vcl-icon>
-          </span>
-  
-          <input #searchInput (keyup)="search(searchInput.value)"
-            class="input no-border prep-item app-item searchInput"
+        <vcl-input-field class="no-border searchInput">
+          <vcl-icon icon="fas:search"></vcl-icon>
+          <input vclInput 
+            #searchInput 
+            (keyup)="search(searchInput.value)"
             type="search"
             name="search"
             placeholder="Search Modules"
@@ -32,7 +30,7 @@
             (tap)="searchInput.value = ''; search('')"
             class="button transparent square appended"
             icon="fas:times-circle"></button>
-        </div>
+        </vcl-input-field>
   
         <vcl-navigation class="scrollable y-on-hover flex">
           <ng-container *ngIf="searchResults.length; else noSearch">

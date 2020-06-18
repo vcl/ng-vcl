@@ -1,6 +1,6 @@
-import { Component, Input, forwardRef, HostBinding, Optional, Self, Inject, NgModule } from '@angular/core';
+import { Component, Input, forwardRef, HostBinding, Optional, Self, Inject, NgModule, Injector } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FormControlInput, FORM_CONTROL_HOST, FormControlHost, FORM_CONTROL_ERROR_STATE_AGENT, FormControlErrorStateAgent, VCLIcogramModule, VCLButtonModule } from '@vcl/ng-vcl';
+import { VCLIcogramModule, VCLButtonModule, FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '@vcl/ng-vcl';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -9,40 +9,44 @@ let uniqueID = 0;
 @Component({
   selector: 'demo-counter',
   styles: [`
-    .vclText {
-      font-size: 2.5em;
+    :host {
+      display: flex;
+      align-items: center;
+    }
+    :host > span {
+      font-size: 2em;
       user-select: none;
       padding-left: 0.2em;
       padding-right: 0.2em;
     }
   `],
   template: `
-    <button vcl-square-button vclPrepend type="button" (click)="decrement()" (keydown.enter)="decrement()" (focus)="onFocus()" (focus)="onBlur(false)">
+    <button vcl-square-button class="transparent" type="button" (click)="decrement()" (keydown.enter)="decrement(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(false)">
       <vcl-icon icon="fas:minus"></vcl-icon>
     </button>
-    <div class="vclText">{{value}}</div>
-    <button vcl-square-button vclAppend type="button" (click)="increment()" (keydown.enter)="increment()" (focus)="onFocus()" (focus)="onBlur(true)">
+    <span>{{value}}</span>
+    <button vcl-square-button class="transparent" type="button" (click)="increment()" (keydown.enter)="increment(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(true)">
       <vcl-icon icon="fas:plus"></vcl-icon>
     </button>
-  `
+  `,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CounterComponent),
+      multi: true,
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => CounterComponent)
+    }
+  ]
 })
-export class CounterComponent implements ControlValueAccessor, FormControlInput {
+export class CounterComponent implements ControlValueAccessor, FormControlGroupInputState {
 
   constructor(
-    @Optional() @Self()
-    public ngControl?: NgControl,
-    @Optional() @Inject(FORM_CONTROL_HOST)
-    private formControlHost?: FormControlHost,
-    @Optional() @Inject(FORM_CONTROL_ERROR_STATE_AGENT)
-    private _errorStateAgent?: FormControlErrorStateAgent,
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
+    private injector: Injector
+  ) { }
 
-  @HostBinding('class.icogram')
   _hostClasses = true;
 
   private _stateChangedEmitter = new Subject<void>();
@@ -55,8 +59,9 @@ export class CounterComponent implements ControlValueAccessor, FormControlInput 
 
   value = 0;
 
-  @Input()
-  errorStateAgent?: FormControlErrorStateAgent;
+  get ngControl() {
+    return this.injector.get(NgControl, null);
+  };
 
   @Input()
   id?: string;
@@ -84,12 +89,11 @@ export class CounterComponent implements ControlValueAccessor, FormControlInput 
   }
 
   @HostBinding('class.error')
-  get hasError() {
-    const errorStateAgent = this.errorStateAgent || this._errorStateAgent;
-    return errorStateAgent ? errorStateAgent(this.formControlHost, this) : false;
-  }
+  hasError = false;
 
-  onLabelClick(event: Event): void { }
+  setErrorState(error: boolean): void {
+    this.hasError = error;
+  }
 
   onFocus(): void {
     this._focused = true;

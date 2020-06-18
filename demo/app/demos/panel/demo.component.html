@@ -1,0 +1,31 @@
+<vcl-panel>
+  <vcl-panel-title>Panel Title</vcl-panel-title>
+  Panel Content
+  <vcl-panel-footer>
+    <div class="row align-items-center py-1">
+      Panel Footer
+    </div>
+  </vcl-panel-footer>
+</vcl-panel>
+
+<vcl-panel-dialog [showCloseButton]="true">
+  <vcl-panel-title>Panel Title</vcl-panel-title>
+  <div class="row gutterx-3 align-items-center">
+    <vcl-icon icon="fas:exclamation-circle" class="scale300p"></vcl-icon>
+    <div>Panel Content</div>
+  </div>
+  <button type="button" vcl-button vclPanelFooterButton class="transparent outline">
+    Cancel
+  </button>
+  <button type="button" vcl-button vclPanelFooterButton class="emphasized">
+    Save Changes
+  </button>
+</vcl-panel-dialog>
+
+<vcl-panel type="warning">
+  <vcl-panel-title>Panel Title</vcl-panel-title>
+  <div class="row gutterx-3 align-items-center">
+    <vcl-icon icon="fas:exclamation-circle" class="scale300p"></vcl-icon>
+    <div>Panel with semantic coloring</div>
+  </div>
+</vcl-panel>

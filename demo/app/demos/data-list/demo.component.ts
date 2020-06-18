@@ -5,6 +5,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 })
 export class DataListDemoComponent {
   value1 = 'gr';
-  value2 = [];
+  value2 = ['fr'];
   value3 = undefined;
 }

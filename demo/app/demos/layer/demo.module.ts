@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { VCLLayerModule, VCLButtonModule, VCLIconModule } from '@vcl/ng-vcl';
+import { VCLLayerModule, VCLButtonModule, VCLIconModule, VCLPanelModule } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
 import { NagComponent, NagLayer } from './nag.component';
@@ -52,6 +52,7 @@ export function demo() {
     VCLLayerModule,
     VCLButtonModule,
     VCLIconModule,
+    VCLPanelModule,
     RouterModule.forChild([{
       path: '',
       component: DemoComponent,

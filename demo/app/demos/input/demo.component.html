@@ -1,20 +1,49 @@
-<h3>Input</h3>
-<input vclInput [(ngModel)]="data1" />
-<br>
+<vcl-form-control-group>
+  <vcl-label>Basic input</vcl-label>
+  <vcl-input-field>
+    <input vclInput [(ngModel)]="data1" />
+  </vcl-input-field>
+</vcl-form-control-group>
 <b>Input value:</b> {{data1}}
 
-<br>
-<br>
-<h3>Input (autoselect)</h3>
-<input vclInput autoselect=true [value]="'Foo'" />
+<vcl-form-control-group>
+  <vcl-label>Input (autoselect)</vcl-label>
+  <vcl-input-field>
+    <input vclInput autoselect=true />
+  </vcl-input-field>
+</vcl-form-control-group>
 
-<br>
-<br>
-<h3>Input (readonly)</h3>
-<input vclInput value='readOnly' readonly=true />
+<vcl-form-control-group>
+  <vcl-label>Readonly input</vcl-label>
+  <vcl-input-field>
+    <input vclInput value='readonly' [readonly]="true" />
+  </vcl-input-field>
+</vcl-form-control-group>
 
-<br>
-<br>
-<h3>Input (disabled)</h3>
-<input vclInput value='disabled' [disabled]="true" />
-<br>
+<vcl-form-control-group>
+  <vcl-label>Disabled input</vcl-label>
+  <vcl-input-field>
+    <input vclInput value='disabled' [disabled]="true" />
+  </vcl-input-field>
+</vcl-form-control-group>
+
+<vcl-form-control-group>
+  <vcl-label>textarea</vcl-label>
+  <vcl-input-field>
+    <textarea vclInput rows="3"></textarea>
+  </vcl-input-field>
+</vcl-form-control-group>
+
+<vcl-form-control-group>
+  <vcl-label>Autogrowing textarea</vcl-label>
+  <vcl-input-field>
+    <textarea vclInput [autogrow]="true" [minRows]="5" [maxRows]="10"></textarea>
+  </vcl-input-field>
+</vcl-form-control-group>
+
+<vcl-form-control-group>
+  <vcl-label>Disabled textarea</vcl-label>
+  <vcl-input-field>
+    <textarea vclInput [disabled]="true"></textarea>
+  </vcl-input-field>
+</vcl-form-control-group>

@@ -11,6 +11,7 @@ import { AlertComponent } from './alert.component';
 import { AlertInputDirective } from './input-alert.directive';
 import { AlertService } from './alert.service';
 import { AlertType, AlertInput, AlertAlignment, AlertResult } from './types';
+import { VCLFormControlGroupModule } from '../radio-button/index';
 
 export { AlertService, AlertType, AlertInput, AlertAlignment, AlertResult };
 
@@ -19,6 +20,7 @@ export { AlertService, AlertType, AlertInput, AlertAlignment, AlertResult };
     FormsModule,
     CommonModule,
     VCLButtonModule,
+    VCLFormControlGroupModule,
     VCLInputModule,
     VCLIcogramModule,
     VCLIconModule,

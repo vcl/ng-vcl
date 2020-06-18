@@ -6,7 +6,7 @@ import { VCLButtonModule } from '../button/index';
 import { VCLInputModule } from '../input/index';
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
-import { VCLCoreContentProjectionModule } from '../core';
+import { VCLCoreLabelModule } from '../core/index';
 
 import { SelectListComponent } from './select-list.component';
 import { SelectListHeaderComponent } from './components/select-list-header.component';
@@ -18,8 +18,8 @@ import {  SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOK
 export { SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN, SelectListLabelDirective, SelectListSublabelDirective };
 
 @NgModule({
-  imports: [CommonModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLFormControlGroupModule, VCLCoreContentProjectionModule],
-  exports: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SelectListLabelDirective, SelectListSublabelDirective, VCLCoreContentProjectionModule],
+  imports: [CommonModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLFormControlGroupModule, VCLCoreLabelModule],
+  exports: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SelectListLabelDirective, SelectListSublabelDirective, VCLCoreLabelModule],
   declarations: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SelectListLabelDirective, SelectListSublabelDirective],
   providers: [],
 })

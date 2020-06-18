@@ -1,47 +1,48 @@
 import { Injectable } from '@angular/core';
-import { NotifierOptions, NotifierType } from './types';
-import { NotificationsHandlerService } from './notifications-handler.service';
+import { NotifierOptions } from './types';
+import { NotifierHandlerService } from './notifier-handler.service';
+import { NotificationType } from '../notification/index';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotifierService {
-  constructor(private _notificationsHandler: NotificationsHandlerService) { }
+  constructor(private _notificationsHandler: NotifierHandlerService) { }
 
   info(opts: NotifierOptions | string) {
-    opts = typeof opts === 'string' ? { text: opts } : opts;
+    opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
-      type: NotifierType.Info,
+      type: NotificationType.Info,
       ...opts
     });
   }
 
   success(opts: NotifierOptions | string) {
-    opts = typeof opts === 'string' ? { text: opts } : opts;
+    opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
-      type: NotifierType.Success,
+      type: NotificationType.Success,
       ...opts
     });
   }
 
   warning(opts: NotifierOptions | string) {
-    opts = typeof opts === 'string' ? { text: opts } : opts;
+    opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
-      type: NotifierType.Warning,
+      type: NotificationType.Warning,
       ...opts
     });
   }
 
   error(opts: NotifierOptions | string) {
-    opts = typeof opts === 'string' ? { text: opts } : opts;
+    opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
-      type: NotifierType.Error,
+      type: NotificationType.Error,
       ...opts
     });
   }
 
   queue(opts: NotifierOptions | string) {
-    opts = typeof opts === 'string' ? { text: opts } : opts;
+    opts = typeof opts === 'string' ? { content: opts } : opts;
     return this._notificationsHandler.create(opts);
   }
 }

@@ -7,7 +7,12 @@ const CIRCULAR = 'data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS
 @Component({
   selector: 'vcl-busy-indicator',
   templateUrl: 'busy-indicator.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `:host {
+      display: inline-block;
+    }`
+  ]
 })
 export class BusyIndicatorComponent {
 

@@ -1,20 +1,6 @@
-<div class="panel panel-dialog m-0">
-  <div class="panel-header no-bg row justify-between center">
-    <h3 class="panel-title">{{title}}</h3>
-    <button vcl-square-button class="transparent" (click)="close()">
-      <vcl-icon icon="fas:times"></vcl-icon>
-    </button>
-  </div>
-  <div class="panel-body">
-    <p class="panel-content">
-      bar layer content
-    </p>
-  </div>
-  <div class="panel-footer no-bg row justify-between center">
-    <div></div>
-    <div class="loose-button-group">
-      <button vcl-button class="transparent outline" (click)="close()">Close Layer</button>
-      <button vcl-button class="emphasized" (click)="close('data')">Close Layer with result</button>
-    </div>
-  </div>
-</div>
+<vcl-panel-dialog [showCloseButton]="true" (close)="close()">
+  <vcl-panel-title>{{title}}</vcl-panel-title>
+  bar layer content
+  <button vcl-button vclPanelFooterButton class="transparent outline" (click)="close()">Close Layer</button>
+  <button vcl-button vclPanelFooterButton class="emphasized" (click)="close('data')">Close Layer with result</button>
+</vcl-panel-dialog>

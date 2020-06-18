@@ -1,10 +1,8 @@
-import { Input, Component, ChangeDetectionStrategy, ContentChild, AfterContentInit, HostBinding, Optional, Inject, Renderer2, forwardRef, ViewChild } from '@angular/core';
-import { Subject, merge } from 'rxjs';
-import { InputDirective } from './../input/index';
-import { FormControlMaterialHost, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialInput, FORM_CONTROL_MATERIAL_INPUT } from '../material-design-inputs/index';
-import { FORM_CONTROL_INPUT } from '../form-control-group/index';
+import { Input, Component, ChangeDetectionStrategy, ContentChild, AfterContentInit, HostBinding, forwardRef, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputDirective, FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from '../input/index';
 import { ButtonComponent } from '../button/index';
-
 
 @Component({
   templateUrl: 'password-input.component.html',
@@ -13,62 +11,45 @@ import { ButtonComponent } from '../button/index';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
-      provide: FORM_CONTROL_INPUT,
+      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
       useExisting: forwardRef(() => PasswordInputComponent)
     },
     {
-      provide: FORM_CONTROL_MATERIAL_INPUT,
-      useExisting: forwardRef(() => PasswordInputComponent)
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PasswordInputComponent),
+      multi: true,
     }
   ]
 })
-export class PasswordInputComponent implements AfterContentInit, FormControlMaterialInput {
-
-  constructor(
-    private renderer: Renderer2,
-    @Optional()
-    @Inject(FORM_CONTROL_MATERIAL_HOST)
-     private fcmh?: FormControlMaterialHost,
-  ) { 
-    if (this.fcmh) {
-      this.fcmh.registerInput(this);
-    };
-  }
-
+export class PasswordInputComponent implements AfterContentInit, EmbeddedInputFieldLabelInput {
   private stateChangedEmitter = new Subject<void>();
 
-  controlType = 'password-input';
-  materialModifierClass = undefined;
+  @HostBinding('class.input-field')
+  hostClasses = true;
 
-  @HostBinding('class.input-group-emb')
-  classVclInputGroup = true;
-
-  get btnTransparent() {
-    return this.fcmh && this.fcmh.mode !== 'disabled';
-  }
+  @HostBinding('class.disabled')
   get isDisabled() {
-    return this.input.isDisabled;
+    return this.input?.isDisabled;
   }
   get stateChanged() {
     return this.stateChangedEmitter.asObservable();
   }
   get isLabelFloating() {
-    return this.input.isLabelFloating;
+    return !this.isFocused && this.input?.value === '';
   }
+
+  @HostBinding('class.focused')
   get isFocused() {
-    return this.input.isFocused || this.button.isFocused;
+    return !!(this.input?.isFocused) || (!!this.button?.isFocused);
   }
-  get elementId() {
-    return this.input.elementId;
-  }
+
+  @HostBinding('class.error')
   get hasError() {
     return this.input.hasError;
   }
+
   get value() {
     return this.input.value;
-  }
-  get ngControl() {
-    return this.input.ngControl;
   }
 
   @HostBinding('attr.tabindex')
@@ -83,13 +64,11 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
   @Input()
   visible = false;
 
+  autocomplete = 'current-password';
+
   toggle() {
     this.visible = !this.visible;
     this.updateType();
-  }
-
-  get disabled() {
-    return this.input && this.input.isDisabled;
   }
 
   updateType() {
@@ -98,14 +77,12 @@ export class PasswordInputComponent implements AfterContentInit, FormControlMate
 
   ngAfterContentInit() {
     this.updateType();
-    this.renderer.addClass(this.input.elementRef.nativeElement, 'app-item');
   }
 
   ngAfterViewInit() {
     this.input.stateChanged.subscribe(this.stateChangedEmitter);
   }
 
-  onLabelClick(event: Event): void {
-    this.input.onLabelClick(event);
-  }
+  notifyInputFocus(btn: InputDirective): void { }
+  notifyInputBlur(btn: InputDirective): void { }
 }

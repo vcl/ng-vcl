@@ -1,4 +1,6 @@
-<vcl-popover #popover
+<ng-template 
+  vclPopover
+  #popover="vclPopover"
   [visible]="visible"
   [target]="target"
   [positions]="positions"
@@ -14,7 +16,7 @@
       <ng-content></ng-content>
     </div>
 
-    <div class="tour-container-footer">
+    <div class="tour-container-footer gutterx-3">
       
       <button vcl-button type="button" *ngIf="hasPrevious"
         [ngClass]="tour.options?.buttonClass"
@@ -44,4 +46,4 @@
       </button>
     </div>
   </div>
-</vcl-popover>
+</ng-template>

@@ -1,1 +1,113 @@
-<ng-content></ng-content>
+import { HostBinding, Input, Component, Inject, HostListener, ChangeDetectionStrategy, forwardRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { ENTER } from '@angular/cdk/keycodes';
+import { DataList, DATA_LIST_TOKEN, DataListItem, DATA_LIST_ITEM_TOKEN } from './types';
+import { Subscription } from 'rxjs';
+
+@Component({
+  selector: 'vcl-data-list-item',
+  exportAs: 'vclDataListItem',
+  templateUrl: 'data-list-item.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: DATA_LIST_ITEM_TOKEN,
+    useExisting: forwardRef(() => DataListItemComponent)
+  }]
+})
+export class DataListItemComponent implements DataListItem, OnDestroy {
+
+  constructor(
+    @Inject(DATA_LIST_TOKEN)
+    private dataList: DataList,
+    private cdRef: ChangeDetectorRef
+  ) { }
+
+  private _focused = false;
+
+  @HostBinding('class.data-list-item')
+  _hostClasses = true;
+
+  @HostBinding('attr.role')
+  get attrRole() {
+    return this.dataList.mode !== 'content' ? 'option' : undefined;
+  }
+
+  @Input()
+  disableInteraction = false
+
+  @Input()
+  disabled = false;
+
+  @Input()
+  value: any;
+
+  private sub?: Subscription;
+
+  @HostBinding('class.selectable')
+  get isSelectable() {
+    if (this.isDisabled || this.disableInteraction) {
+      return false;
+    } else {
+      return this.dataList.mode !== 'content';
+    }
+  }
+
+  get isDisabled() {
+    return this.disabled || this.dataList.isDisabled;
+  }
+
+  @HostBinding('attr.tabindex')
+  get attrTabindex() {
+    return this.isSelectable ? 0 : undefined;
+  }
+
+  @HostBinding('class.disabled')
+  get classDisabled() {
+    return this.isDisabled; 
+  }
+
+  @HostBinding('class.selected')
+  get isSelected() {
+    return this.isSelectable && this.dataList.isItemSelected(this);
+  }
+
+  @HostBinding('class.focused')
+  get isFocused() {
+    return this._focused;
+  }
+
+  ngOnInit(): void {
+    this.sub = this.dataList.stateChange.subscribe(() => {
+      this.cdRef.markForCheck();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
+
+  @HostListener('click')
+  onClick() {
+    if (this.isSelectable) {
+      this.dataList.selectItem(this);
+    }
+  }
+
+  @HostListener('focus')
+  onFocus() {
+    this._focused = true;
+    this.dataList.onItemFocus(this);
+  }
+
+  @HostListener('blur')
+  onBlur() {
+    this._focused = false;
+    this.dataList.onItemBlur(this);
+  }
+
+  @HostListener('keypress', ['$event'])
+  onKeypress(event: KeyboardEvent) {
+    if (this.isSelectable && event.keyCode === ENTER) {
+      this.dataList.selectItem(this);
+    }
+  }
+}

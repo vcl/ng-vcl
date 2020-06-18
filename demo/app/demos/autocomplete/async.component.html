@@ -1,27 +1,27 @@
 
 <h3>vcl-dropdown with async data</h3>
 
-<vcl-embedded-input-group>
+<vcl-input-field>
   <vcl-icon vclPrepend icon="fas:search"></vcl-icon>
   <input #inputBooks 
          vclInput 
          placeholder="Search Google Books api" 
          (input)="search$.next($event.target.value)"
-         [vclAutocomplete]="acBooks"
-         [vclAutocompleteDisabled]="search.state === 'cleared'"
-         [vclAutocompleteMapInputValue]="'void'"
-         (vclAutocompleteSelectionChange)="onSelectBook($event)"
+         [vclAutocompleteInput]="search.state === 'cleared' ? undefined : {autocomplete: acBooks, mapInputValue: 'void'}"
+         (vclAutocompleteInputSelectionChange)="onSelectBook($event)"
          />
   <button vcl-square-button vclAppend
           (click)="inputBooks.value = ''; inputBooks.focus(); search$.next('')">
     <vcl-icon [icon]="'fas:times-circle'"></vcl-icon>
   </button>
-</vcl-embedded-input-group>
+</vcl-input-field>
 
 <vcl-autocomplete #acBooks="vclAutocomplete">
   <vcl-select-list>
     <vcl-select-list-content *ngIf="search.state === 'loading'">
-      <vcl-busy-indicator style="padding: 1em"> </vcl-busy-indicator>
+      <div class="row justify-content-center">
+        <vcl-busy-indicator style="padding: 1em"> </vcl-busy-indicator>
+      </div>
     </vcl-select-list-content>
     <vcl-select-list-content *ngIf="search.state === 'success' && search.books.length === 0">
       <div style="padding: 1em">No books found</div>

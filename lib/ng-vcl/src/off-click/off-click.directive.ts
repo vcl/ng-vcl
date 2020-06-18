@@ -16,7 +16,7 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   _sub?: Subscription;
 
   @Input('vclOffClickDelay')
-  delay = 0;
+  delay?: number = undefined;
 
   @Input('vclOffClickListen')
   listen = true;
@@ -68,7 +68,7 @@ export function createOffClickStream(elements: (ElementRef | Element)[], opts: {
     fromEvent(doc, 'touchend') as Observable<TouchEvent>
   )
   .pipe(
-    skipUntil(timer(opts.delay || 0).pipe(first())),
+    skipUntil(timer(opts.delay ?? 50).pipe(first())),
     filter(event => {
       const clickTarget = event.target as HTMLElement;
       return _elements.every(element => clickTarget !== element && !element.contains(clickTarget));

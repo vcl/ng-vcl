@@ -1,22 +1,22 @@
-import { Injector, NgZone, TemplateRef, ViewContainerRef, ComponentRef, EmbeddedViewRef } from '@angular/core';
+import { Injector, NgZone, TemplateRef, ViewContainerRef, ComponentRef, EmbeddedViewRef, EventEmitter } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { take, switchMap, filter, map } from 'rxjs/operators';
 import { merge, NEVER, Subject, Subscription } from 'rxjs';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { Layer, LayerConfig } from './types';
+import { Layer, LayerConfig, LayerData } from './types';
 import { ComponentType, Portal, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 
-type PortalType<TLayerRefType, TType> =
-    TLayerRefType extends 'component' ? ComponentPortal<TType> :
-    TLayerRefType extends 'template' ? TemplatePortal<TType> :
+type PortalType<TLayerRefType, TContextOrComponent> =
+    TLayerRefType extends 'component' ? ComponentPortal<TContextOrComponent> :
+    TLayerRefType extends 'template' ? TemplatePortal<TContextOrComponent> :
     Portal<any>;
 
-type AttachmentType<TLayerRefType, TType> =
-    TLayerRefType extends 'component' ? ComponentRef<TType> :
-    TLayerRefType extends 'template' ? EmbeddedViewRef<TType> :
+type AttachmentType<TLayerRefType, TContext> =
+    TLayerRefType extends 'component' ? ComponentRef<TContext> :
+    TLayerRefType extends 'template' ? EmbeddedViewRef<TContext> :
     any;
 
-export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRefType extends 'component' | 'template' | 'dynamic' = 'dynamic'> implements Layer {
+export abstract class LayerRef<TLayerData extends LayerData = any, TResult = any, TContext = any, TLayerRefType extends 'component' | 'template' | 'dynamic' = 'dynamic'> implements Layer {
 
   constructor(protected injector: Injector) {
     this._zone = injector.get(NgZone);
@@ -24,10 +24,10 @@ export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRe
   }
 
   private _requestDetachEmitter: Subject<TResult> = new Subject();
-  private _attachmentRef?: AttachmentType<TLayerRefType, TType>;
+  private _attachmentRef?: AttachmentType<TLayerRefType, TContext>;
   private _overlayRef?: OverlayRef;
   private _isDestroyed = false;
-  private _portal: PortalType<TLayerRefType, TType>;
+  private _portal: PortalType<TLayerRefType, TContext>;
 
   private _zone: NgZone;
   private _overlay: Overlay;
@@ -42,7 +42,7 @@ export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRe
     return this.isAttached;
   }
 
-  get data(): TData {
+  get data(): TLayerData {
     return this._currentConfig.data;
   }
 
@@ -52,6 +52,10 @@ export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRe
 
   protected get overlayRef() {
     return this._overlayRef;
+  }
+
+  protected get portal() {
+    return this._portal;
   }
 
   protected get attachmentRef() {
@@ -70,57 +74,97 @@ export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRe
     }
   }
 
-  protected getLayerConfig(): LayerConfig {
-    return new LayerConfig({
-      closeOnBackdropClick: false,
-      closeOnEscape: false,
+  protected createLayerConfig(...configs: LayerConfig[]): LayerConfig {
+    const defaultConfig = new LayerConfig({
+      closeOnBackdropClick: true,
+      closeOnEscape: true,
       scrollStrategy: this._overlay.scrollStrategies.block(),
       hasBackdrop: true,
-      backdropClass: 'layer-cover',
-      panelClass: ['layer-box'],
       positionStrategy: this._overlay.position()
         .global()
         .centerHorizontally()
         .centerVertically(),
     });
+
+    const config = [defaultConfig, ...configs].reduce((agg, config) => {
+      return {
+        ...agg,
+        ...config
+      };
+    }, {});
+
+
+    const panelClass = [];
+    if (Array.isArray(config.panelClass)) {
+      panelClass.push(... config.panelClass);
+    } else if (typeof config.panelClass === 'string') {
+      panelClass.push(config.panelClass);
+    }
+    
+    const backdropClass = [];
+    if (Array.isArray(config.backdropClass)) {
+      backdropClass.push(... config.backdropClass);
+    } else if (typeof config.backdropClass === 'string') {
+      backdropClass.push(config.backdropClass);
+    }
+
+    const style = config.style ?? 'default';
+
+    if (style !== 'none') {
+      panelClass.push('layer-box'); 
+      backdropClass.push('layer-cover'); 
+      if (config.style === 'transparent') {
+        panelClass.push('transparent'); 
+      }
+    }
+
+    config.backdropClass = backdropClass;
+    config.panelClass = panelClass;
+
+    return new LayerConfig(config);
   }
 
-  open(config?: LayerConfig<TData>) {
-    const defaultConfig = this.getLayerConfig();
-    // Merge defaults
-    this._currentConfig = new LayerConfig({
-      ...defaultConfig,
-      ...(config || {})
-    });
-
-    this.attach(this._currentConfig);
-
-    return this.afterClose.pipe(take(1));
-  }
+  protected abstract createPortal(): PortalType<TLayerRefType, TContext>;
+  protected abstract updatePortal(): PortalType<TLayerRefType, TContext>;
 
   close(result?: TResult) {
-    return this.detach(result);
+    if (!this.isAttached) {
+      return;
+    }
+    this._requestDetachEmitter.next(result);
   }
 
-  protected abstract createPortal(): PortalType<TLayerRefType, TType>;
-
-  private attach(config: OverlayConfig) {
+  open(config?: LayerConfig) {
     if (this.isDestroyed) {
       throw new Error('Cannot attach destroyed layer');
     }
 
+    this._currentConfig = this.createLayerConfig(config);
     if (!this.overlayRef) {
       const injector = this.injector;
       const overlay = injector.get(Overlay);
-      this._overlayRef = overlay.create(config);
+      this._overlayRef = overlay.create(this._currentConfig);
+    } else {
+      if (this._currentConfig.scrollStrategy) {
+        this._overlayRef.updateScrollStrategy(this._currentConfig.scrollStrategy)
+      }
+      if (this._currentConfig.direction) {
+        this._overlayRef.setDirection(this._currentConfig.direction)
+      }
+      if (this._currentConfig.positionStrategy) {
+        this._overlayRef.updatePositionStrategy(this._currentConfig.positionStrategy)
+      }
     }
 
     if (!this._portal) {
       this._portal = this.createPortal();
+    } else {
+      this._portal = this.updatePortal();
     }
 
     if (!this.isAttached) {
       this._attachmentRef = this.overlayRef.attach(this._portal);
+            
 
       merge<TResult>(
         // Called when detached via detach() method
@@ -142,31 +186,24 @@ export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRe
       });
 
       this._layerOpenedSub = this._zone.onStable.asObservable().pipe(take(1)).pipe(switchMap(() => {
+        const closeOnEscape = this._currentConfig.closeOnEscape ?? true;
+        const closeOnBackdropClick = this._currentConfig.hasBackdrop && (this._currentConfig.closeOnBackdropClick ?? true);
         return merge(
-          this._currentConfig.closeOnEscape ? NEVER : this.overlayRef.keydownEvents().pipe(
+          closeOnEscape ? this.overlayRef.keydownEvents().pipe(
             filter(event => {
               return event.keyCode === ESCAPE;
             })
-          ),
-          (this._currentConfig.hasBackdrop && this._currentConfig.closeOnBackdropClick) ? NEVER : this.overlayRef.backdropClick()
+          ): NEVER,
+          closeOnBackdropClick ? this.overlayRef.backdropClick() : NEVER
         );
       })).subscribe(() => {
-        this.detach();
+        this.close();
       });
 
       this.afterAttached();
-    } else {
-      this._overlayRef.updatePositionStrategy(config.positionStrategy);
     }
+    return this.afterClose.pipe(take(1));
   }
-
-  private detach(result?: TResult) {
-    if (!this.isAttached) {
-      return;
-    }
-    this._requestDetachEmitter.next(result);
-  }
-
 
   protected afterAttached(): void { }
 
@@ -187,13 +224,20 @@ export abstract class LayerRef<TData = any, TResult = any, TType = any, TLayerRe
 }
 
 
-export abstract class ComponentLayerRef<TData = any, TResult = any, TComponent = any> extends LayerRef<TData, TResult, TComponent, 'component'> {
+export abstract class ComponentLayerRef<TLayerData extends LayerData = any, TResult = any, TComponent = any> extends LayerRef<TLayerData, TResult, TComponent, 'component'> {
 
-  protected abstract get component(): ComponentType<TComponent>;
+  protected abstract getComponent(): ComponentType<LayerData>;
+  private stateChangedEmitter = new Subject();
+  stateChanged = this.stateChangedEmitter.asObservable();
 
   protected createPortal() {
     const injector = this.createInjector();
-    return new ComponentPortal(this.component, null, injector);
+    return new ComponentPortal(this.getComponent(), null, injector);
+  }
+
+  protected updatePortal() {
+    this.stateChangedEmitter.next();
+    return this.portal;
   }
 
   protected createInjector() {
@@ -210,13 +254,20 @@ export abstract class ComponentLayerRef<TData = any, TResult = any, TComponent =
   }
 }
 
-export abstract class TemplateLayerRef<TData = any, TResult = any, TContext = any> extends LayerRef<TData, TResult, TContext, 'template'> {
+export abstract class TemplateLayerRef<TLayerData extends LayerData = any, TResult = any> extends LayerRef<TLayerData, TResult, LayerData, 'template'> {
 
-  protected abstract get templateRef(): TemplateRef<TContext>;
+  protected abstract get templateRef(): TemplateRef<TLayerData>;
   protected abstract get viewContainerRef(): ViewContainerRef;
 
   protected createPortal() {
-    return new TemplatePortal(this.templateRef, this.viewContainerRef);
+    return new TemplatePortal<TLayerData>(this.templateRef, this.viewContainerRef, this.data);
+  }
+
+  protected updatePortal() {
+    if (this.portal.isAttached) {
+      this.portal.detach();
+    }
+    return new TemplatePortal<TLayerData>(this.templateRef, this.viewContainerRef, this.data);
   }
 }
 
@@ -225,37 +276,4 @@ export interface DynamicLayerParams {
   templateOrComponent: TemplateRef<any> | ComponentType<any>;
   viewContainerRef?: ViewContainerRef;
   config?: LayerConfig;
-}
-
-export class DynamicLayerRef extends LayerRef {
-
-  constructor(private params: DynamicLayerParams) {
-    super(params.injector);
-  }
-
-  protected createPortal() {
-    if (this.params.templateOrComponent instanceof TemplateRef) {
-      return new TemplatePortal(this.params.templateOrComponent, this.params.viewContainerRef);
-    } else {
-      const injector = this.createInjector();
-      return new ComponentPortal(this.params.templateOrComponent, this.params.viewContainerRef, injector);
-    }
-  }
-
-  getLayerConfig() {
-    return this.params.config || super.getLayerConfig();
-  }
-
-  private createInjector() {
-    return Injector.create([{
-      provide: LayerRef,
-      useValue: this
-    }, {
-      provide: ComponentLayerRef,
-      useValue: this
-    } , {
-      provide: this.constructor,
-      useValue: this
-    }], this.injector);
-  }
 }

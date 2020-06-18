@@ -16,38 +16,41 @@ import {
   Injector,
   forwardRef,
   AfterContentInit,
-  Inject,
-  Optional} from '@angular/core';
+  ViewEncapsulation} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { NEVER, Subscription, Subject, merge } from 'rxjs';
+import { NEVER, Subscription, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { createOffClickStream } from '../off-click/index';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
-import { FORM_CONTROL_MATERIAL_INPUT, FormControlMaterialInput, FORM_CONTROL_MATERIAL_HOST, FormControlMaterialHost } from '../material-design-inputs/index';
-import { FORM_CONTROL_INPUT } from '../form-control-group/index';
+import { EmbeddedInputFieldLabelInput, FORM_CONTROL_EMBEDDED_LABEL_INPUT } from '../input/index';
 
 @Component({
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
+  styleUrls: ['select.component.scss'],
+  encapsulation: ViewEncapsulation.None,    
   exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
+    // FormControlState,
     {
-      provide: FORM_CONTROL_INPUT,
-      useExisting: forwardRef(() => SelectComponent)
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectComponent),
+      multi: true,
     },
     {
-      provide: FORM_CONTROL_MATERIAL_INPUT,
+      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
       useExisting: forwardRef(() => SelectComponent)
-    }
+    },
   ]
 })
-export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements AfterContentInit, OnDestroy, FormControlMaterialInput {
+export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput {
 
   constructor(
     injector: Injector,
@@ -56,15 +59,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
-    @Optional()
-    @Inject(FORM_CONTROL_MATERIAL_HOST)
-    private formControlMaterialHost?: FormControlMaterialHost,    
   ) {
     super(injector);
-    if (this.formControlMaterialHost) {
-      this.formControlMaterialHost.registerInput(this);
-    }
   }
+
   private stateChangedEmitter = new Subject<void>();
   private _dropdownOpenedSub?: Subscription;
   private _valueChangeSub?: Subscription;
@@ -86,10 +84,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   attrRole = 'listbox';
 
   @HostBinding('class.select')
-  @HostBinding('class.input-group-emb')
+  @HostBinding('class.input-field')
   _hostClasses = true;
 
-  @HostBinding('attr.tabindex')
   @Input()
   tabindex = 0;
 
@@ -112,16 +109,23 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     return this.stateChangedEmitter.asObservable();
   }
 
+  @HostBinding('attr.tabindex')
+  get attrTabindex() {
+    return this.isDisabled ? undefined : this.tabindex;
+  }
+
+  @HostBinding('class.focused')
   get isFocused() {
     return this._focused || this.isAttached;
   }
 
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.selectList.isDisabled;
   }
 
   get isLabelFloating() {
-    return this.isAttached || this.inputValue.length > 0;
+    return !this.isAttached && this.inputValue.length === 0;
   }
 
   controlType = 'select';
@@ -129,9 +133,6 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   get elementId() {
     return this.selectList.elementId;
-  }
-  get ngControl() {
-    return this.selectList.ngControl;
   }
   get value() {
     return this.selectList.value;
@@ -144,6 +145,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   @HostListener('focus')
   onFocus() {
+    if (this.isDisabled) {
+      return;
+    }
     this._focused = true;
     if (!this.isAttached) {
       this.open();
@@ -221,6 +225,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   @HostListener('click')
   onClick() {
+    if (this.isDisabled) {
+      return;
+    }
     if (!this.isAttached) {
       this.open();
     } else {
@@ -228,8 +235,8 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     }
   }
 
-  protected getLayerConfig(): LayerConfig {
-    return new LayerConfig({
+  createLayerConfig(...configs: LayerConfig[]): LayerConfig {
+    return super.createLayerConfig({
       closeOnEscape: true,
       hasBackdrop: false,
       scrollStrategy: this.overlay.scrollStrategies.reposition({
@@ -239,7 +246,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       width: this.width !== undefined ? this.width : this.elementRef.nativeElement.getBoundingClientRect().width,
       height: this.height,
       maxHeight: this.maxHeight || '20em',
-      panelClass: [],
+      panelClass: ['vcl-select-overlay', 'pop-over'],
       positionStrategy: this.overlay.position()
       .flexibleConnectedTo(this.elementRef)
       .withPositions([{
@@ -253,10 +260,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
         overlayX: 'start',
         overlayY: 'bottom'
       }]).withPush(false)
-    });
+    }, ...configs)    
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(): void {
     if (this.isAttached) {
       return;
     }

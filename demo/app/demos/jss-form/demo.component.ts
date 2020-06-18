@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { JssFormComponent, NotifierService, MaterialMode } from '@vcl/ng-vcl';
+import { JssFormComponent, NotifierService } from '@vcl/ng-vcl';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HERO_SCHEMA, ExtendedFormFieldSchemaRoot } from './hero';
@@ -15,31 +15,19 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   @ViewChild('heroForm')
   heroForm: JssFormComponent;
 
-  material: MaterialMode = 'disabled';
   heroSchema?: ExtendedFormFieldSchemaRoot;
 
   state$: Observable<any>;
 
   ngOnInit(): void {
-    this.heroSchema = {
-      ...HERO_SCHEMA,
-      material: this.material
-    }
-  }
-
-  setMaterial(material: MaterialMode) {
-    this.material = material;
-    this.heroSchema = {
-      ...HERO_SCHEMA,
-      material: this.material
-    }
+    this.heroSchema = HERO_SCHEMA;
   }
 
   onSubmit() {
     if (this.heroForm.ngForm.valid) {
       this.notifier.success('Hero created');
     } else {
-     this.notifier.error('Hero invalid');
+      this.notifier.error('Hero invalid');
     }
   }
 
