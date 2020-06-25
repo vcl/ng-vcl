@@ -17,15 +17,13 @@ import {
   forwardRef,
   AfterContentInit,
   ViewEncapsulation} from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { NEVER, Subscription, Subject } from 'rxjs';
-import { startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { createOffClickStream } from '../off-click/index';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
 import { EmbeddedInputFieldLabelInput, FORM_CONTROL_EMBEDDED_LABEL_INPUT } from '../input/index';
@@ -64,7 +62,6 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   private stateChangedEmitter = new Subject<void>();
-  private _dropdownOpenedSub?: Subscription;
   private _valueChangeSub?: Subscription;
   private _focused = false;
 
@@ -238,7 +235,8 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
     return super.createLayerConfig({
       closeOnEscape: true,
-      hasBackdrop: false,
+      hasBackdrop: true,
+      closeOnBackdropClick: true,
       scrollStrategy: this.overlay.scrollStrategies.reposition({
         autoClose: true
       }),
@@ -246,6 +244,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       width: this.width !== undefined ? this.width : this.elementRef.nativeElement.getBoundingClientRect().width,
       height: this.height,
       maxHeight: this.maxHeight || '20em',
+      backdropClass: 'cdk-overlay-transparent-backdrop',
       panelClass: ['vcl-select-overlay', 'pop-over'],
       positionStrategy: this.overlay.position()
       .flexibleConnectedTo(this.elementRef)
@@ -292,31 +291,16 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       this.cdRef.markForCheck();
     });
     this.stateChangedEmitter.next();
-
-    this._dropdownOpenedSub = this.selectList.itemsChange.pipe(
-      startWith(undefined),
-      switchMap(() => {
-        if (!this.isAttached) {
-          return NEVER;
-        }
-        return createOffClickStream([this.overlayRef.overlayElement, this.elementRef.nativeElement], {
-          document: this.injector.get(DOCUMENT)
-        });
-      })
-    ).subscribe(() => {
-      this.close();
-      this.stateChangedEmitter.next();
-    });
   }
 
   protected afterDetached(result) {
-    this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
     this.selectList.highlightSelected();
     this.afterClose.emit(this.selectList.value);
     if (!this.isDestroyed) {
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     }
+    this.stateChangedEmitter.next();
   }
 
   ngAfterViewInit() {

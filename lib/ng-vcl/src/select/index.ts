@@ -15,7 +15,7 @@ export { SelectComponent };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLSelectListModule, VCLFormControlGroupModule],
-  exports: [SelectComponent, VCLSelectListModule],
+  exports: [SelectComponent, VCLSelectListModule, VCLFormControlGroupModule, VCLInputModule],
   declarations: [SelectComponent],
   providers: [],
 })
