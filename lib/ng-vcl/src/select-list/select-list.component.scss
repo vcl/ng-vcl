@@ -7,3 +7,15 @@ vcl-select-list-content,
 vcl-select-list-seperator {
   display: block;
 }
+
+// TODO move to autocomplete module
+.vcl-autocomplete-overlay {
+  &.pop-over {
+    padding: 0;
+  }
+  
+  .select-list {
+    border: 0;
+    margin-bottom: 0;
+  }
+}

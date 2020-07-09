@@ -6,9 +6,9 @@ An autocomplete extension for inputs utilizing the select-list
 
 
 ```html
-<input placeholder="Type to open dropdown" [vclAutocomplete]="ac" />
+<input placeholder="Type to open dropdown" [vclAutocompleteInput]="ac" />
 
-<vcl-autocomplete #ac="vclAutocomplete">
+<ng-template vclAutocomplete #ac="vclAutocomplete">
   <vcl-select-list>
     <vcl-select-list-header>Items</vcl-select-list-header>
     <vcl-select-list-item value="1">
@@ -29,10 +29,10 @@ An autocomplete extension for inputs utilizing the select-list
       <vcl-sub-label>Description of Item 4</vcl-sub-label>
     </vcl-select-list-item>
   </vcl-select-list>
-</vcl-autocomplete>
+</ng-template>
 ```
 
-### vcl-autocomplete attributes
+### vclAutocomplete attributes
 
 Name            | Type                             | Default     | Description
 ----------      | -------                          | -------     | --------------------------------------
@@ -40,13 +40,13 @@ Name            | Type                             | Default     | Description
 `height`        | number \| string                 | '20em'      | Dropdown height
 `maxHeight`     | number \| string                 |             | Dropdown max height
 
-### vcl-autocomplete events
+### vclAutocomplete events
 
 Name            | Type    | Description
 ----------      | ------- | --------------------------------------
 `afterClose`    | any     | Fired after the dropdown was closed
 
-### input[vclAutocomplete] attributes
+### input[vclAutocompleteInput] attributes
 
 Name                         | Type                                   | Default | Description
 ----------                   | -------                                | ------- | --------------------------------------

@@ -1,13 +1,13 @@
 import { Subscription } from 'rxjs';
 import { Directive, ElementRef, Input, HostListener, OnDestroy, Output, EventEmitter, SimpleChanges, OnChanges, HostBinding, Inject, Injector, Self } from '@angular/core';
 import { InputDirective } from '../input/index';
-import { AutocompleteComponent } from './autocomplete.component';
+import { AutocompleteDirective } from './autocomplete.directive';
 import { DOWN_ARROW, UP_ARROW, ESCAPE, TAB, ENTER } from '@angular/cdk/keycodes';
 
 export type AutocompleteInputOptionsMapValue = 'value' | 'void' | ((value: any) => string);
 
 export interface AutocompleteInputOptions {
-  autocomplete: AutocompleteComponent;
+  autocomplete: AutocompleteDirective;
   mapInputValue?: AutocompleteInputOptionsMapValue;
 }
 
@@ -30,8 +30,8 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
 
   // tslint:disable-next-line:no-input-rename
   @Input('vclAutocompleteInput')
-  set aclAutocompleteInput(autocompleteInputOptions: AutocompleteComponent | AutocompleteInputOptions) {
-    if (autocompleteInputOptions instanceof AutocompleteComponent) {
+  set aclAutocompleteInput(autocompleteInputOptions: AutocompleteDirective | AutocompleteInputOptions) {
+    if (autocompleteInputOptions instanceof AutocompleteDirective) {
       this.autocomplete = autocompleteInputOptions;
     } else if (autocompleteInputOptions) {
       this.autocomplete = autocompleteInputOptions.autocomplete;
@@ -43,7 +43,7 @@ export class AutocompleteInputDirective extends InputDirective implements OnDest
     }
   }
 
-  autocomplete?: AutocompleteComponent;
+  autocomplete?: AutocompleteDirective;
 
   mapInputValue: AutocompleteInputOptionsMapValue = 'value';
 

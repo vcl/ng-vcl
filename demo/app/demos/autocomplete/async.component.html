@@ -16,7 +16,7 @@
   </button>
 </vcl-input-field>
 
-<vcl-autocomplete #acBooks="vclAutocomplete">
+<ng-template vclAutocomplete #acBooks="vclAutocomplete">
   <vcl-select-list>
     <vcl-select-list-content *ngIf="search.state === 'loading'">
       <div class="row justify-content-center">
@@ -32,7 +32,7 @@
       </vcl-select-list-item>
     </ng-container>
   </vcl-select-list>
-</vcl-autocomplete>
+</ng-template>
 
 <ng-container *ngIf="books.length > 0">
 

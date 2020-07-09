@@ -1,11 +1,17 @@
 <h3>Password input</h3>
-<vcl-password-input>
-  <input vclInput [(value)]="password" placeholder="Enter password">
-</vcl-password-input>
+<vcl-form-control-group>
+  <vcl-label>Password</vcl-label>
+  <vcl-password-input>
+    <input vclInput [(value)]="password" placeholder="Enter password">
+  </vcl-password-input>
+</vcl-form-control-group>
 <br>
 <b>Password input value:</b> {{password}}
 
 <h3>Password input (disabled)</h3>
-<vcl-password-input>
-  <input vclInput [disabled]="true" placeholder="Enter password">
-</vcl-password-input> 
+<vcl-form-control-group>
+  <vcl-label>Password</vcl-label>
+  <vcl-password-input>
+    <input vclInput [disabled]="true" placeholder="Enter password">
+  </vcl-password-input> 
+</vcl-form-control-group>

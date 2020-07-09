@@ -1,102 +1,105 @@
-<h3>single-select</h3>
-<vcl-select>
-  <vcl-select-list [(value)]="value1">
-    <vcl-select-list-item label=" - ">
-      None
-    </vcl-select-list-item>
-    <vcl-select-list-header>Europe</vcl-select-list-header>
-    <vcl-select-list-item value="gr">
-      Greece
-      <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
-    </vcl-select-list-item>
-    <vcl-select-list-item value="fr">
-      France
-    </vcl-select-list-item>
-    <vcl-select-list-item value="de">
-      Germany
-    </vcl-select-list-item>
-    <vcl-select-list-item value="gb" label="United Kingdom">
-      The United Kingdom of Great Britain and Northern Ireland
-    </vcl-select-list-item>
-    <vcl-select-list-header>Asia</vcl-select-list-header>
-    <vcl-select-list-item value="jp">
-      Japan
-    </vcl-select-list-item>
-    <vcl-select-list-item value="cn">
-      China
-    </vcl-select-list-item>
-    <vcl-select-list-item value="th">
-      Thailand
-    </vcl-select-list-item>
-  </vcl-select-list>
-</vcl-select>
+<h3>Simple select</h3>
+<vcl-form-control-group>
+  <vcl-label>Select country</vcl-label>
+  <vcl-select>
+    <vcl-select-list [(value)]="value1">
+      <vcl-select-list-header>Europe</vcl-select-list-header>
+      <vcl-select-list-item value="gr">
+        Greece
+        <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
+      </vcl-select-list-item>
+      <vcl-select-list-item value="fr">
+        France
+      </vcl-select-list-item>
+      <vcl-select-list-item value="de">
+        Germany
+      </vcl-select-list-item>
+      <vcl-select-list-item value="gb" label="United Kingdom">
+        The United Kingdom of Great Britain and Northern Ireland
+      </vcl-select-list-item>
+      <vcl-select-list-header>Asia</vcl-select-list-header>
+      <vcl-select-list-item value="jp">
+        Japan
+      </vcl-select-list-item>
+      <vcl-select-list-item value="cn">
+        China
+      </vcl-select-list-item>
+      <vcl-select-list-item value="th">
+        Thailand
+      </vcl-select-list-item>
+    </vcl-select-list>
+  </vcl-select>
+</vcl-form-control-group>
 
 <p> Selected value: {{value1}}</p>
 
-<br>
-
-<h3>multi-select</h3>
-<vcl-select placeholder="Select countries">
-  <vcl-select-list [(value)]="value2" selectionMode="multiple">
-    <vcl-select-list-header>Europe</vcl-select-list-header>
-    <vcl-select-list-item value="gr">
-      Greece
-      <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
-    </vcl-select-list-item>
-    <vcl-select-list-item value="fr">
-      France
-    </vcl-select-list-item>
-    <vcl-select-list-item value="de">
-      Germany
-    </vcl-select-list-item>
-    <vcl-select-list-item value="gb">
-      The United Kingdom of Great Britain and Northern Ireland
-    </vcl-select-list-item>
-    <vcl-select-list-header>Asia</vcl-select-list-header>
-    <vcl-select-list-item value="jp">
-      Japan
-    </vcl-select-list-item>
-    <vcl-select-list-item value="ch">
-      China
-    </vcl-select-list-item>
-    <vcl-select-list-item value="th">
-      Thailand
-    </vcl-select-list-item>
-  </vcl-select-list>
-</vcl-select>
+<h3>Multi select</h3>
+<vcl-form-control-group>
+  <vcl-label>Select countries</vcl-label>
+  <vcl-select>
+    <vcl-select-list [(value)]="value2" selectionMode="multiple">
+      <vcl-select-list-header>Europe</vcl-select-list-header>
+      <vcl-select-list-item value="gr">
+        Greece
+        <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
+      </vcl-select-list-item>
+      <vcl-select-list-item value="fr">
+        France
+      </vcl-select-list-item>
+      <vcl-select-list-item value="de">
+        Germany
+      </vcl-select-list-item>
+      <vcl-select-list-item value="gb">
+        The United Kingdom of Great Britain and Northern Ireland
+      </vcl-select-list-item>
+      <vcl-select-list-header>Asia</vcl-select-list-header>
+      <vcl-select-list-item value="jp">
+        Japan
+      </vcl-select-list-item>
+      <vcl-select-list-item value="ch">
+        China
+      </vcl-select-list-item>
+      <vcl-select-list-item value="th">
+        Thailand
+      </vcl-select-list-item>
+    </vcl-select-list>
+  </vcl-select>
+</vcl-form-control-group>
 
 <p> Selected values: {{value2}}</p>
 
-
-<h3>single-select</h3>
-<vcl-select>
-  <vcl-select-list [(value)]="value3" [disabled]="true">
-    <vcl-select-list-item label=" - ">
-      None
-    </vcl-select-list-item>
-    <vcl-select-list-header>Europe</vcl-select-list-header>
-    <vcl-select-list-item value="gr">
-      Greece
-      <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
-    </vcl-select-list-item>
-    <vcl-select-list-item value="fr">
-      France
-    </vcl-select-list-item>
-    <vcl-select-list-item value="de">
-      Germany
-    </vcl-select-list-item>
-    <vcl-select-list-item value="gb" label="United Kingdom">
-      The United Kingdom of Great Britain and Northern Ireland
-    </vcl-select-list-item>
-    <vcl-select-list-header>Asia</vcl-select-list-header>
-    <vcl-select-list-item value="jp">
-      Japan
-    </vcl-select-list-item>
-    <vcl-select-list-item value="cn">
-      China
-    </vcl-select-list-item>
-    <vcl-select-list-item value="th">
-      Thailand
-    </vcl-select-list-item>
-  </vcl-select-list>
-</vcl-select>
+<h3>Disabled</h3>
+<vcl-form-control-group>
+  <vcl-label>Select country</vcl-label>
+  <vcl-select>
+    <vcl-select-list [(value)]="value3" [disabled]="true">
+      <vcl-select-list-item label=" - ">
+        None
+      </vcl-select-list-item>
+      <vcl-select-list-header>Europe</vcl-select-list-header>
+      <vcl-select-list-item value="gr">
+        Greece
+        <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
+      </vcl-select-list-item>
+      <vcl-select-list-item value="fr">
+        France
+      </vcl-select-list-item>
+      <vcl-select-list-item value="de">
+        Germany
+      </vcl-select-list-item>
+      <vcl-select-list-item value="gb" label="United Kingdom">
+        The United Kingdom of Great Britain and Northern Ireland
+      </vcl-select-list-item>
+      <vcl-select-list-header>Asia</vcl-select-list-header>
+      <vcl-select-list-item value="jp">
+        Japan
+      </vcl-select-list-item>
+      <vcl-select-list-item value="cn">
+        China
+      </vcl-select-list-item>
+      <vcl-select-list-item value="th">
+        Thailand
+      </vcl-select-list-item>
+    </vcl-select-list>
+  </vcl-select>
+</vcl-form-control-group>

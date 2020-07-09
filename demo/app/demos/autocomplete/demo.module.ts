@@ -57,7 +57,13 @@ export function demo() {
       data: {demo}
     }]),
   ],
-  entryComponents: [ AutocompleteDemoComponent, AutocompleteAsyncDemoComponent ],
-  declarations: [ AutocompleteDemoComponent, AutocompleteAsyncDemoComponent ]
+  entryComponents: [ 
+    AutocompleteDemoComponent, 
+    AutocompleteAsyncDemoComponent
+  ],
+  declarations: [ 
+    AutocompleteDemoComponent, 
+    AutocompleteAsyncDemoComponent
+  ]
 })
 export class AutocompleteDemoModule { }

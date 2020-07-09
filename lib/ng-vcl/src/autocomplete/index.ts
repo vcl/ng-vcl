@@ -8,15 +8,15 @@ import { VCLInputModule } from '../input/index';
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLSelectListModule } from '../select-list/index';
 
-import { AutocompleteComponent, AutocompleteConfig } from './autocomplete.component';
+import { AutocompleteDirective, AutocompleteSelectListDirective, AutocompleteConfig } from './autocomplete.directive';
 import { AutocompleteInputDirective } from './autocomplete-input.directive';
 
-export { AutocompleteComponent, AutocompleteConfig, AutocompleteInputDirective };
+export { AutocompleteDirective, AutocompleteSelectListDirective, AutocompleteConfig, AutocompleteInputDirective };
 
 @NgModule({
   imports: [CommonModule, OverlayModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLSelectListModule],
-  exports: [AutocompleteComponent, AutocompleteInputDirective, VCLSelectListModule],
-  declarations: [AutocompleteComponent, AutocompleteInputDirective],
+  exports: [AutocompleteDirective, AutocompleteSelectListDirective, AutocompleteInputDirective, VCLSelectListModule],
+  declarations: [AutocompleteDirective, AutocompleteSelectListDirective, AutocompleteInputDirective],
   providers: [],
 })
 export class VCLAutocompleteModule { }
