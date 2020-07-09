@@ -11,8 +11,7 @@ import {
   AfterContentInit,
   Renderer2,
   ViewChild,
-  Injector
-} from '@angular/core';
+  Injector} from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Token } from './interfaces';
 import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
@@ -76,9 +75,6 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   get isLabelFloating() {
     return !this.isFocused && this.value.length === 0;
   }
-
-  @HostBinding('attr.tabindex')
-  _hostAttrTabindex = -1;
 
   @Input()
   id?: string;

@@ -42,9 +42,7 @@ export class AppComponent {}
 ## token-input
 
 ```html
-<vcl-token-input (valueChange)="changed($event);">
-  <input vclInput />
-</vcl-token-input>
+<vcl-token-input (valueChange)="changed($event);"></vcl-token-input>
 ```
 
 ### API

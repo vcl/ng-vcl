@@ -10,4 +10,4 @@
     {{token.label}}
   </vcl-token>
 </div>
-<input vclInput (focus)="onInputFocus()" (blur)="onInputBlur()" class="flex">
+<input vclInput [disabled]="isDisabled" (focus)="onInputFocus()" (blur)="onInputBlur()" class="flex">
