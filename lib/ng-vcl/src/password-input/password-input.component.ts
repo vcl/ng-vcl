@@ -52,9 +52,6 @@ export class PasswordInputComponent implements AfterContentInit, EmbeddedInputFi
     return this.input.value;
   }
 
-  @HostBinding('attr.tabindex')
-  attrTabindex = -1;
-
   @ContentChild(InputDirective, { read: InputDirective })
   input?: InputDirective;
 
