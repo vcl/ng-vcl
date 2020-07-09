@@ -15,10 +15,7 @@ export class AppComponent {}
 ```
 
 ```html
-<label vclCheckboxLabel>
-  <vcl-checkbox [(checked)]="value1"></vcl-checkbox>
-  Check! 
-</label>
+<vcl-checkbox [(checked)]="value">Check!</vcl-checkbox>
 ```
 
 ### API

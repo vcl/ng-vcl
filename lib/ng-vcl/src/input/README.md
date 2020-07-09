@@ -15,9 +15,20 @@ export class AppComponent {}
 ```
 
 ```html
-<input vclInput [(ngModel)]="data">
-<input vclInput autoselect=true>
-<textarea vclInput [(ngModel)]="data1" [autogrow]="true" [minRows]="5" [maxRows]="10"></textarea>
+<vcl-form-control-group>
+  <vcl-label>Basic input</vcl-label>
+  <vcl-input-field>
+    <input vclInput [(ngModel)]="data1" />
+  </vcl-input-field>
+</vcl-form-control-group>
+
+<vcl-form-control-group>
+  <vcl-label>Basic textarea</vcl-label>
+  <vcl-input-field>
+    <textarea vclInput [(ngModel)]="data1" [autogrow]="true" [minRows]="5" [maxRows]="10"></textarea>
+  </vcl-input-field>
+</vcl-form-control-group>
+
 ```
 
 ### API

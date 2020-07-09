@@ -6,7 +6,7 @@ A select control. Wraps the vcl-select-list to render a list of selectable items
 
 ```html
 <vcl-form-control-group>
-  <vcl-label>Basic textarea</vcl-label>
+  <vcl-label>Select item</vcl-label>
   <vcl-select>
     <vcl-select-list [(value)]="value">
       <vcl-select-list-item label=" -">

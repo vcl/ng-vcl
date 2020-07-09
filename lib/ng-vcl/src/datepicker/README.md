@@ -15,15 +15,23 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-datepicker [value]="value" (valueChange)="onValueChange($event)"></vcl-datepicker>
+<vcl-form-control-group>
+  <vcl-label>Date picker</vcl-label>
+  <vcl-datepicker [value]="value" (valueChange)="onValueChange($event)"></vcl-datepicker>
+</vcl-form-control-group>
+```
+```html
+<vcl-form-control-group>
+  <vcl-label>Month picker</vcl-label>
+  <vcl-datepicker [value]="value" (valueChange)="onValueChange($event)" pick="month"></vcl-datepicker>
+</vcl-form-control-group>
 ```
 
 ```html
-<vcl-datepicker [value]="value" (valueChange)="onValueChange($event)" pick="month"></vcl-datepicker>
-```
-
-```html
-<vcl-datepicker [value]="value" (valueChange)="onValueChange($event)" pick="time"></vcl-datepicker>
+  <vcl-form-control-group>
+    <vcl-label>Time picker</vcl-label>
+    <vcl-datepicker [value]="value" (valueChange)="onValueChange($event)" pick="time"></vcl-datepicker>
+  </vcl-form-control-group>
 ```
 
 ### Date representation

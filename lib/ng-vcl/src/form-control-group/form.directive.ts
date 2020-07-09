@@ -30,7 +30,7 @@ export class FormDirective implements FormControlGroupFormState, OnInit, OnDestr
 
   ngOnInit(): void {
     this.form?.statusChanges.subscribe(this._stateChangedEmitter);
-    this.form?.valueChanges.subscribe(this._stateChangedEmitter);
+    // this.form?.valueChanges.subscribe(this._stateChangedEmitter);
   }
 
   ngOnDestroy(): void {

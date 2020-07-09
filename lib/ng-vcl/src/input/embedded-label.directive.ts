@@ -67,11 +67,11 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   get enabled() {
     // Do not if child input does not provide FORM_CONTROL_MATERIAL_INPUT
     // return (this.config || this.hasMaterialDirective) && this.input;
-    return this.input && this.mode !== 'disabled';
+    return this.inputField && this.mode !== 'disabled';
   }
 
   @ContentChild(FORM_CONTROL_EMBEDDED_LABEL_INPUT as any)
-  input: EmbeddedInputFieldLabelInput | undefined;
+  inputField: EmbeddedInputFieldLabelInput | undefined;
 
   @HostBinding('class.embedded-input-field-label')
   get classEmbeddedInputFieldLabel() {
@@ -97,9 +97,9 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   }
 
   private updateState() {
-    if (this.input && this.enabled) {
-      this.floating = this.input?.isLabelFloating ?? false;
-      this.prependedElements = this.input.prependedElements ?? 0;
+    if (this.inputField && this.enabled) {
+      this.floating = this.inputField?.isLabelFloating ?? false;
+      this.prependedElements = this.inputField.prependedElements ?? 0;
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     }
@@ -108,7 +108,7 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   ngAfterContentInit() {
     this.updateState();
     if (this.enabled) {
-      this.input?.stateChanged.subscribe(() => {
+      this.inputField?.stateChanged.subscribe(() => {
         this.updateState();
       });
     }

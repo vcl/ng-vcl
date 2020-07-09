@@ -1,7 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy, InjectionToken, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FORM_CONTROL_GROUP_INPUT_STATE, FormControlGroupInputState } from '../form-control-group/index';
-import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from './embedded-label.directive';
 import { NgControl } from '@angular/forms';
 
 export let UNIQUE_ID = 0;
@@ -72,7 +71,7 @@ export class InputDirective implements OnDestroy, FormControlGroupInputState<str
   ngOnInit() {
     const ngControl = this.ngControl;
     if (ngControl && ngControl.valueChanges) {
-      this.stateChangedEmitter.next();
+      this.ngControl.valueChanges.subscribe(this.stateChangedEmitter);
     }
   }
 
@@ -125,5 +124,9 @@ export class InputDirective implements OnDestroy, FormControlGroupInputState<str
   @HostListener('ngModelChange')
   onInput() {
     this.stateChangedEmitter.next();
+  }
+
+  setDisabledState(isDisabled: boolean) {
+    this._disabled = isDisabled;
   }
 }
