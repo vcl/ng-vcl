@@ -7,7 +7,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { AutocompleteDemoComponent } from './demo.component';
 import { AutocompleteAsyncDemoComponent } from './async.component';
-import README from '@vcl/ng-vcl/autocomplete/README.md';
+import README from '!raw-loader!@vcl/ng-vcl/autocomplete/README.md';
 
 export function demo() {
   return {
@@ -20,20 +20,20 @@ export function demo() {
         content: README
       },
       'demo.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./demo.component.html')
+        type: 'html',
+        content: require('!raw-loader!./demo.component.html')
       },
       'demo.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
+        type: 'ts',
+        content: require('!raw-loader!./demo.component.ts')
       },
       'async.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./async.component.html')
+        type: 'html',
+        content: require('!raw-loader!./async.component.html')
       },
       'async.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./async.component.ts')
+        type: 'ts',
+        content: require('!raw-loader!./async.component.ts')
       }
     }
   };

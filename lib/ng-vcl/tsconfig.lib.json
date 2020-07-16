@@ -24,6 +24,10 @@
     "enableResourceInlining": true,
     "enableIvy": false
   },
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"

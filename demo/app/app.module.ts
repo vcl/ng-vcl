@@ -1,9 +1,10 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
@@ -23,7 +24,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 
 export function localeProviderFactory() {
-  return navigator.language || 'en-us';
+  return navigator?.language ?? 'en-us';
 }
 
 @NgModule({
@@ -43,7 +44,21 @@ export function localeProviderFactory() {
     VCLBusyIndicatorModule,
     VCLLayerModule,
     VCLDrawerModule,
-    ScrollingModule
+    ScrollingModule,
+    MarkdownModule.forRoot({
+      sanitize: SecurityContext.NONE,
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          gfm: true,
+          breaks: true,
+          pedantic: false,
+          smartLists: true,
+          smartypants: false,
+          tables: true
+        },
+      },
+    })
   ],
   declarations: [
     AppComponent,

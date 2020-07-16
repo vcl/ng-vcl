@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MediaMatcher, BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router, RouteConfigLoadEnd, RouteConfigLoadStart, RouterEvent } from '@angular/router';
 import { routes } from './../../app-routing.module';
-import * as Fuse from 'fuse.js';
+import Fuse from 'fuse.js';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { DrawerComponent } from '@vcl/ng-vcl';
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   );
 
   version = require('./../../../../package.json').version;
-  gitBranch = gitBranch || undefined;
+  gitBranch = window['gitBranch'] ?? undefined;
 
   GROUPED_DEMOS = (() => {
     const itemsMap = {};

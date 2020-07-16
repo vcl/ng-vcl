@@ -4,5 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: 'demo.component.html'
 })
 export class InputDemoComponent {
-  data1 = 'foobar';
+  data1 = '';
 }

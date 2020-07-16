@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { VCLTabNavModule } from '@vcl/ng-vcl';
 import { DemoComponent } from './demo.component';
 import { PortalModule } from '@angular/cdk/portal';
+import { MarkdownModule } from 'ngx-markdown';
 
 export { DemoComponent };
 
@@ -10,7 +11,8 @@ export { DemoComponent };
   imports: [
     CommonModule,
     VCLTabNavModule,
-    PortalModule
+    PortalModule,
+    MarkdownModule.forChild()
   ],
   declarations: [ DemoComponent, ]
 })

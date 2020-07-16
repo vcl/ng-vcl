@@ -7,7 +7,7 @@ import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent } from './demo.component';
 import { FormFieldCounterComponent } from './jss-form-extended';
 import { VCLCounterModule } from '../form-control-group/counter.component';
-import README from '@vcl/ng-vcl/jss-form/README.md';
+import README from '!raw-loader!@vcl/ng-vcl/jss-form/README.md';
 
 // Register counter component as field
 FormFieldControl.register('counter', FormFieldCounterComponent);
@@ -22,20 +22,20 @@ export function demo() {
         content: README
       },
       'demo.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./demo.component.html')
+        type: 'html',
+        content: require('!raw-loader!./demo.component.html')
       },
       'demo.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
+        type: 'ts',
+        content: require('!raw-loader!./demo.component.ts')
       },
       'jss-form-extended.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./jss-form-extended.ts')
+        content: require('!raw-loader!./jss-form-extended.ts')
       },
       'hero.ts': {
         type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./hero.ts')
+        content: require('!raw-loader!./hero.ts')
       }
     }
   };

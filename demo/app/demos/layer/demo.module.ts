@@ -6,7 +6,7 @@ import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { LayerDemoComponent } from './demo.component';
 import { NagComponent, NagLayer } from './nag.component';
 import { BarComponent } from './bar.component';
-import README from '@vcl/ng-vcl/layer/README.md';
+import README from '!raw-loader!@vcl/ng-vcl/layer/README.md';
 
 export function demo() {
   return {
@@ -18,28 +18,28 @@ export function demo() {
         content: README
       },
       'demo.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./demo.component.html')
+        type: 'html',
+        content: require('!raw-loader!./demo.component.html')
       },
       'demo.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./demo.component.ts')
+        type: 'ts',
+        content: require('!raw-loader!./demo.component.ts')
       },
       'nag.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./nag.component.html')
+        type: 'html',
+        content: require('!raw-loader!./nag.component.html')
       },
       'nag.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./nag.component.ts')
+        type: 'ts',
+        content: require('!raw-loader!./nag.component.ts')
       },
       'bar.component.html': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=html!./bar.component.html')
+        type: 'html',
+        content: require('!raw-loader!./bar.component.html')
       },
       'bar.component.ts': {
-        type: 'pre',
-        content: require('!highlight-loader?raw=true&lang=ts!./bar.component.ts')
+        type: 'ts',
+        content: require('!raw-loader!./bar.component.ts')
       }
     },
   };

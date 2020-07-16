@@ -21,13 +21,13 @@ export class DemoComponent implements OnInit {
     if (data) {
       this.title = data.label;
       if (data.tabs) {
-        this.tabs = Object.keys(data.tabs).map(key => {
+        this.tabs = Object.keys(data.tabs).reduce((aggr, key) => {
           let type;
           let content;
           if (typeof data.tabs[key] === 'object' && data.tabs[key]) {
             type = data.tabs[key].type;
-            if (type === 'pre' || type === 'html' || type === 'md') {
-              content = this.sanitizer.bypassSecurityTrustHtml(data.tabs[key].content);
+            if (typeof data.tabs[key].content === 'object' && data.tabs[key].content && data.tabs[key].content.default) {
+              content = data.tabs[key].content.default;
             } else {
               content = data.tabs[key].content;
             }
@@ -36,12 +36,19 @@ export class DemoComponent implements OnInit {
             content = new ComponentPortal(data.tabs[key]);
           }
 
-          return {
-            name: key,
-            content,
-            type
-          };
-      });
+          if (content && type) {
+            return [
+              ...aggr,
+              {
+                name: key,
+                content,
+                type
+              }
+            ]
+          } else {
+            return aggr;
+          }
+      }, []);
       } else {
         this.tabs = [];
       }

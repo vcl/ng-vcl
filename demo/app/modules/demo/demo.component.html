@@ -6,10 +6,16 @@
       <div *ngIf="tab.type==='component'">
         <ng-template [cdkPortalOutlet]="tab.content"></ng-template>
       </div>
+      <!-- <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div> -->
+      <!-- <div ngIf="tab.type==='md'" [innerHTML]="typescriptMarkdown | language : 'typescript' | markdown"></div> -->
+      <!-- <div ngIf="tab.type==='md'" [innerHTML]="tab.content | markdown"></div> -->
       <div *ngIf="tab.type==='text'"><pre>{{tab.content}}</pre></div>
-      <div *ngIf="tab.type==='html'" [innerHtml]="tab.content"></div>
-      <div *ngIf="tab.type==='md'"   class="markdown-body"  [innerHtml]="tab.content"></div>
-      <pre *ngIf="tab.type==='pre'"  [innerHtml]="tab.content"></pre>
+      <markdown *ngIf="tab.type==='md'" [data]="tab.content"></markdown>
+      <markdown *ngIf="tab.type==='ts'" [data]="tab.content | language : 'typescript'"></markdown>
+      <markdown *ngIf="tab.type==='html'" [data]="tab.content | language : 'html'"></markdown>
+
+      <!-- <div ngIf="tab.type==='md'" [innerHTML]="tab.content | language : 'typescript' | markdown"></div> -->
+      <!-- <pre *ngIf="tab.type==='pre'"  [innerHtml]="tab.content"></pre> -->
     </vcl-tab>
   </vcl-tab-nav>
 </div>

@@ -1,4 +1,4 @@
-# [ng-vcl](https://ng-vcl.github.io/ng-vcl/)
+# [ng-vcl](https://vcl.github.io/ng-vcl/master/)
 
 A comprehensive library of components for Angular 9+ with [VCL](http://vcl.github.io/) based styling.
 
