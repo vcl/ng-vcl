@@ -24,6 +24,7 @@ export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
   //   <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
   // </div>
   // `
+  selector: 'vcl-jss-form-buttons',  
   template: `
   <div class="vclLooseButtonGroup">
     <ng-container *ngFor="let buttonField of field.buttons">

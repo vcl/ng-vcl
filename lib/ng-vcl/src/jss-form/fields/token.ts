@@ -9,11 +9,12 @@ export class FormFieldToken extends FormFieldControl<VCLFormFieldSchemaToken, {}
 }
 
 @Component({
+  selector: 'vcl-jss-form-token',  
   template: `
     <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-token-input [formControl]="field.control"></vcl-token-input>
-      <vcl-jss-form-hints></vcl-jss-form-hints>
+      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `
 })

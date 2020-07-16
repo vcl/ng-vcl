@@ -15,11 +15,12 @@ export class FormFieldFileInput extends FormFieldControl<VCLFormFieldSchemaFileI
 }
 
 @Component({
+  selector: 'vcl-jss-form-file-input',  
   template: `
     <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-file-input [multiple]="field.multiple" [formControl]="field.control">{{field.placeholder}}</vcl-file-input>
-      <vcl-jss-form-hints></vcl-jss-form-hints>
+      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `
 })

@@ -1,4 +1,5 @@
 <label
+  class="form-control-label"
   [class.disabled]="isDisabled"
   [class.clickable]="isLabelClickable"
   [attr.for]="inputId"
@@ -10,4 +11,4 @@
 <div class="form-control-group-input-wrapper">
   <ng-content></ng-content>
 </div>
-<ng-content select="vcl-hint, vcl-hint-error, vcl-hint-warning, vcl-hint-success"></ng-content>
+<ng-content select="vcl-hint, vcl-hint-error, vcl-hint-warning, vcl-hint-success, [vclHint]"></ng-content>

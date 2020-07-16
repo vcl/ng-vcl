@@ -19,6 +19,7 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
 }
 
 @Component({
+  selector: 'vcl-jss-form-select',  
   template: `
   <vcl-form-control-group [errorStateAgent]="field.errorStateAgent" *ngIf="field.visible">
     <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
@@ -30,7 +31,7 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
         </vcl-select-list-item>
       </vcl-select-list>
     </vcl-select>
-    <vcl-jss-form-hints></vcl-jss-form-hints>
+    <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
   </vcl-form-control-group>
   `
 })

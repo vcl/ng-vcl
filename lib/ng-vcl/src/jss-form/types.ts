@@ -23,11 +23,6 @@ export interface JssForm {
   onAction(action: string): void;
 }
 
-export interface HintBase {
-  type: string;
-  message: string;
-}
-
 export interface ErrorHint {
   type: 'error';
   message: string;
@@ -42,7 +37,7 @@ export interface DefaultHint {
   message: string;
 }
 
-export type Hint = HintBase | DefaultHint | ErrorHint | WarningHint;
+export type Hint = DefaultHint | ErrorHint | WarningHint;
 
 export interface FormHints {
   hints?: (Hint | Conditional<Hint>)[];

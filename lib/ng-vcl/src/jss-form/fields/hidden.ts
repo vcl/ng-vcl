@@ -5,6 +5,7 @@ import { FormFieldControl } from './field';
 export class FormFieldHidden extends FormFieldControl<VCLFormFieldSchemaHidden, {}> { }
 
 @Component({
+  selector: 'vcl-jss-form-hidden',  
   template: ``
 })
 export class FormFieldHiddenComponent {

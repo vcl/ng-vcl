@@ -20,13 +20,14 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
 }
 
 @Component({
+  selector: 'vcl-jss-form-input',  
   template: `
     <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-input-field>
         <input [type]="field.inputType" vclInput [formControl]="field.control" [attr.placeholder]="field.placeholder" [attr.autocomplete]="field.autocomplete">
       </vcl-input-field>
-      <vcl-jss-form-hints></vcl-jss-form-hints>
+      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `
 })

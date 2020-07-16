@@ -36,6 +36,7 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
 }
 
 @Component({
+  selector: 'vcl-jss-form-button',
   template: `
    <button vcl-button [ngClass]="field.class" [disabled]="field.disabled" [type]="field.type" (click)="onAction(field)">
      <vcl-icogram>

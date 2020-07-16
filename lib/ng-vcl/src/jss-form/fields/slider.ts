@@ -22,11 +22,12 @@ export class FormFieldSlider extends FormFieldControl<VCLFormFieldSchemaSlider, 
 }
 
 @Component({
+  selector: 'vcl-jss-form-slider',  
   template: `
     <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-slider [formControl]="field.control" [min]="field.min" [max]="field.max" [scale]="field.scale" [lock]="field.lock"></vcl-slider>
-      <vcl-jss-form-hints></vcl-jss-form-hints>
+      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `
 })

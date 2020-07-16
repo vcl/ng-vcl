@@ -87,7 +87,7 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, 
       <div [formGroup]="field.control">
         <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
       </div>
-      <vcl-jss-form-hints></vcl-jss-form-hints>
+      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </ng-container>
     <ng-container *ngIf="field.layout === 'fieldset'">
       <fieldset [formGroup]="field.control">
@@ -97,7 +97,7 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, 
             <ng-template [cdkPortalOutlet]="portal"></ng-template>
           </ng-container>
         </ng-container>
-        <vcl-jss-form-hints></vcl-jss-form-hints>
+        <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
       </fieldset>
     </ng-container>
   </ng-container>

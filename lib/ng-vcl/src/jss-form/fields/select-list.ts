@@ -15,6 +15,7 @@ export class FormFieldSelectList extends FormFieldControl<VCLFormFieldSchemaSele
 }
 
 @Component({
+  selector: 'vcl-jss-form-select-list',  
   template: `
   <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
     <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
@@ -24,7 +25,7 @@ export class FormFieldSelectList extends FormFieldControl<VCLFormFieldSchemaSele
         <vcl-sub-label *ngIf="option.sublabel">{{option.sublabel}}</vcl-sub-label>
       </vcl-select-list-item>
     </vcl-select-list>
-    <vcl-jss-form-hints></vcl-jss-form-hints>
+    <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
   </vcl-form-control-group>
   `
 })
