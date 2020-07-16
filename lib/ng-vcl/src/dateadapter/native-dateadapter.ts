@@ -1,7 +1,6 @@
 import { Inject, Optional, LOCALE_ID, Injectable } from '@angular/core';
 import { VCLDateAdapter, VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from './dateadapter';
-import { VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS,  } from './native-dateadapter-formats';
-import { VCLDateAdapterDisplayFormats, VCLDateAdapterParseFormats } from './interfaces';
+import { VCLDateAdapterDisplayFormats, VCLDateAdapterParseFormats, VCLDateAdapterPattern } from './interfaces';
 import { VCL_NATIVE_DATE_ADAPTER_PARSER, VCLNativeDateAdapterParser, NativeDateAdapterParserISO } from './parsers/index';
 
 @Injectable({
@@ -13,8 +12,6 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
   weekDayOffset: number;
 
   constructor(
-    @Inject(VCL_NATIVE_DATE_ADAPTER_DISPLAY_FORMATS)
-    private formats: any, // TODO: cannot build with type:   {[key in VCLDateAdapterDisplayFormats]: Intl.DateTimeFormatOptions }
     @Inject(VCL_DATE_ADAPTER_WEEKDAY_OFFSET)
     weekDayOffset: number,
     @Optional()
@@ -26,7 +23,6 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
   ) {
     super();
     this.locale = locale || undefined;
-
     if (this.locale && Array.isArray(parsers)) {
       this.parser = parsers.find(p =>  p.supportedLocales.some(l => l.toLowerCase() === this.locale.toLowerCase()));
     }
@@ -105,15 +101,11 @@ export class VCLNativeDateAdapter extends VCLDateAdapter<Date> {
       return undefined;
     }
 
-    if (type === 'input_date' || type === 'input_time' || type === 'input_month') {
-      return this.parser.format(date, type);
-    }
+    return this.parser.format(date, type);
+  }
 
-    const dtf = new Intl.DateTimeFormat(this.locale || 'default', {
-      timeZone: 'utc',
-      ...this.formats[type]
-    });
-    return dtf.format(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  pattern(type: VCLDateAdapterPattern): string | undefined {
+    return this.parser.pattern(type);
   }
 
   parse(date: string, format: VCLDateAdapterParseFormats): Date {

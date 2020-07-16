@@ -3,5 +3,6 @@ export interface VCLDateRange<VCLDate> {
   end: VCLDate;
 }
 
-export type VCLDateAdapterParseFormats = 'input_date' | 'input_time' | 'input_month';
-export type VCLDateAdapterDisplayFormats = VCLDateAdapterParseFormats | 'day' | 'month' | 'year' | 'yearMonth' | 'yearMonthLong' | 'weekday' | 'date' | 'time' | 'minute' | 'hour';
+export type VCLDateAdapterParseFormats = 'date' | 'time' | 'month';
+export type VCLDateAdapterDisplayFormats = 'date' | 'time' | 'month' | 'yearMonth' | 'yearMonthLong' | 'day' | 'weekday' | 'month' | 'year' | 'minute' | 'hour';
+export type VCLDateAdapterPattern = 'date' | 'time' | 'month';

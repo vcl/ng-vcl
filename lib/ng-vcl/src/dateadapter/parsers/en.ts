@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats } from '../interfaces';
 import { VCLNativeDateAdapterParser } from './types';
-import { extractInt, unsupportedFormat, pad } from './utils';
+import { extractInt, unsupportedFormat, pad, intlFallback } from './utils';
 
 const REGEX_DATE = /^\s*(1[012]|0?[1-9])\/(3[01]|[12][0-9]|0?[1-9])\/(\d{4})\s*$/;
 const REGEX_MONTH = /^\s*(1[012]|0?[1-9])\.(\d{4})\s*$/;
@@ -33,27 +33,45 @@ export class NativeDateAdapterParserEN implements VCLNativeDateAdapterParser {
   supportedLocales = ['en', 'en-us'];
 
   parse(value: string, format: VCLDateAdapterParseFormats): Date {
-    if (format === 'input_date') {
+    if (format === 'date') {
       const result = extractInt(value, REGEX_DATE);
       return result ? new Date(result[2], result[0], result[1]) : undefined;
-    } else if (format === 'input_month') {
+    } else if (format === 'month') {
       const result = extractInt(value, REGEX_MONTH);
       return result ? new Date(result[1], result[0], 1) : undefined;
-    } else if (format === 'input_time') {
+    } else if (format === 'time') {
       return parseENTime(value);
     } else {
       unsupportedFormat(format);
     }
   }
   format(date: Date, format: VCLDateAdapterDisplayFormats): string {
-    if (format === 'input_date') {
-      return `${pad(date.getMonth(), 2)}/${pad(date.getDate(), 2)}/${pad(date.getFullYear(), 4)}`;
-    } else if (format === 'input_month') {
-      return `${pad(date.getMonth(), 2)}/${pad(date.getFullYear(), 4)}`;
-    } else if (format === 'input_time') {
-      return formatENTime(date);
-    } else {
-      unsupportedFormat(format);
+    switch(format) {
+      case "date": {
+        return `${pad(date.getMonth(), 2)}/${pad(date.getDate(), 2)}/${pad(date.getFullYear(), 4)}`;
+      }
+      case "month": {
+        return `${pad(date.getMonth(), 2)}/${pad(date.getFullYear(), 4)}`;
+      }
+      case "time": {
+        return formatENTime(date);
+      }
+      default: {
+        return intlFallback('en-us', date, format);
+      }
     }
   }
+  pattern(format: VCLDateAdapterParseFormats): string {
+    switch(format) {
+      case "date": {
+        return `MM/DD/YYYY`;
+      }
+      case "month": {
+        return `MM/YYYY`;
+      }
+      case "time": {
+        return `hh:mm am/pm`;
+      }
+    }  
+  }  
 }

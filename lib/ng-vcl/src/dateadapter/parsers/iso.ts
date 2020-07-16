@@ -1,6 +1,6 @@
 import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats } from '../interfaces';
 import { VCLNativeDateAdapterParser } from './types';
-import { extractInt, unsupportedFormat, pad } from './utils';
+import { extractInt, unsupportedFormat, pad, intlFallback } from './utils';
 
 const REGEX_DATE = /^\s*(\d{4})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])\s*$/;
 const REGEX_MONTH = /^\s*(\d{4})-(1[012]|0?[1-9])\s*$/;
@@ -10,13 +10,13 @@ export class NativeDateAdapterParserISO implements VCLNativeDateAdapterParser {
   supportedLocales = []; // Default parser when no locale matches
 
   parse(value: string, format: VCLDateAdapterParseFormats): Date {
-    if (format === 'input_date') {
+    if (format === 'date') {
       const result = extractInt(value, REGEX_DATE);
       return result ? new Date(result[0], result[1], result[2]) : undefined;
-    } else if (format === 'input_month') {
+    } else if (format === 'month') {
       const result = extractInt(value, REGEX_MONTH);
       return result ? new Date(result[0], result[1], 1) : undefined;
-    } else if (format === 'input_time') {
+    } else if (format === 'time') {
       const result = extractInt(value, REGEX_TIME);
       const now = new Date();
       return result ? new Date(now.getFullYear(), now.getMonth(), now.getDate(), result[0], result[1], 0) : undefined;
@@ -25,14 +25,32 @@ export class NativeDateAdapterParserISO implements VCLNativeDateAdapterParser {
     }
   }
   format(date: Date, format: VCLDateAdapterDisplayFormats): string {
-    if (format === 'input_date') {
-      return date.toISOString().slice(0, 10);
-    } else if (format === 'input_month') {
-      return date.toISOString().slice(0, 7);
-    } else if (format === 'input_time') {
-      return `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}`;
-    } else {
-      unsupportedFormat(format);
+    switch(format) {
+      case "date": {
+        return date.toISOString().slice(0, 10);
+      }
+      case "month": {
+        return date.toISOString().slice(0, 7);
+      }
+      case "time": {
+        return `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}`;
+      }
+      default: {
+        return intlFallback('en-us', date, format);
+      }
     }
   }
+  pattern(format: VCLDateAdapterParseFormats): string {
+    switch(format) {
+      case "date": {
+        return `YYYY-MM-DD`;
+      }
+      case "month": {
+        return `YYYY-MM`;
+      }
+      case "time": {
+        return `HH:mm`;
+      }
+    }  
+  }      
 }

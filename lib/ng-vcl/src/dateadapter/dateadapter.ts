@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats, VCLDateRange } from './interfaces';
+import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats, VCLDateRange, VCLDateAdapterPattern } from './interfaces';
 
 export const VCL_DATE_ADAPTER = new InjectionToken('VCL_DATE_ADAPTER');
 export const VCL_DATE_ADAPTER_WEEKDAY_OFFSET = new InjectionToken('VCL_DATE_ADAPTER_WEEKDAY_OFFSET');
@@ -68,6 +68,7 @@ export abstract class VCLDateAdapter<VCLDate> {
    * Formats a VCLDate tp the specified format and returns it as a string
    */
   abstract format(date: VCLDate, format: VCLDateAdapterDisplayFormats): string | undefined;
+  abstract pattern(pattern: VCLDateAdapterPattern): string | undefined;
 
   abstract addMonths(date: VCLDate, months: number): VCLDate;
   abstract addDays(date: VCLDate, days: number): VCLDate;

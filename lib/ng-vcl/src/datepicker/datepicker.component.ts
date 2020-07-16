@@ -144,11 +144,11 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   get parseFormat(): VCLDateAdapterParseFormats {
     if (this.pick === 'date') {
-      return 'input_date';
+      return 'date';
     } else if (this.pick === 'month') {
-      return 'input_month';
+      return 'month';
     } else if (this.pick === 'time') {
-      return 'input_time';
+      return 'time';
     } else {
       throw new Error('Datepicker: Unsupported pick value: ' + this.pick);
     }
