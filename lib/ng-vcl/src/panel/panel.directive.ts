@@ -14,6 +14,7 @@ export class PanelDialogDirective  {
 export class PanelTitleDirective  {
   @HostBinding('class.panel-title')
   @HostBinding('class.flex')
+  @HostBinding('class.mx-3')
   hostClasses = true;
 }
 
