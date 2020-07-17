@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, HostBinding, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'vcl-progress-bar',
@@ -13,27 +13,35 @@ export class ProgressBarComponent {
   @HostBinding('attr.role')
   _hostAttrRole = 'progressbar';
 
+  @HostBinding('class.progress-bar')
+  hostClasses = true;
+
+  @HostBinding('attr.valuenow')
   @Input()
   value: number;
 
   @Input()
   secondaryValue: number;
 
+  @HostBinding('attr.valuemin')
   @Input()
   minValue = 0;
 
+  @HostBinding('attr.valuemax')
   @Input()
   maxValue = 100;
 
   @Input()
   indeterminate = false;
 
+  @HostBinding('attr.aria-valuetext')
   @Input()
   label: string;
 
   @Input()
   speed = 1;
 
+  @HostBinding('class.indeterminate')
   get showIndeterminate(): boolean {
     return this.indeterminate && !this.validateValue(this.value);
   }

@@ -1,12 +1,4 @@
-<div class="progress-bar"
-     [attr.aria-valuenow]="value" 
-     [attr.aria-valuemin]="minValue" 
-     [attr.aria-valuemax]="maxValue" 
-     [attr.aria-valuetext]="label"
-     [class.indeterminate]="showIndeterminate"
-     >
-  <div *ngIf="showValue" class="progress primary layout-fit" [style.transform]="transformValue"></div>
-  <div *ngIf="showSecondaryValue" class="progress secondary layout-fit" [style.transform]="transformSecondaryValue"></div>
-  <div *ngIf="showIndeterminate" class="progress primary layout-fit" [style.animation-duration]="animationDurationValue"></div>
-</div>
+<div *ngIf="showValue" class="progress primary layout-fit" [style.transform]="transformValue"></div>
+<div *ngIf="showSecondaryValue" class="progress secondary layout-fit" [style.transform]="transformSecondaryValue"></div>
+<div *ngIf="showIndeterminate" class="progress primary layout-fit" [style.animation-duration]="animationDurationValue"></div>
 
