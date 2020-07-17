@@ -4,6 +4,7 @@ import { Portal } from '@angular/cdk/portal';
 import { FormFieldObject } from './fields/index';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
+import { FormDirective, FORM_CONTROL_GROUP_FORM } from '../form-control-group/index';
 
 @Component({
   selector: 'vcl-jss-form',
@@ -59,24 +60,24 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
         visible: true
       });
       this.portal = this.field.createPortal(this.injector, [
-          {
-            provide: JSS_FORM_TOKEN,
-            useExisting: JssFormComponent
-          }, {
-              provide: NgForm,
-              useValue: this.ngForm
-          }, 
-          // {
-          //   provide: FormControlGroupMaterialConfig,
-          //   useValue: new FormControlGroupMaterialConfig(schema.material)
-          // }
-        ]);
+        {
+          provide: JSS_FORM_TOKEN,
+          useExisting: JssFormComponent
+        }, 
+        {
+          provide: FORM_CONTROL_GROUP_FORM,
+          useValue: this.form
+        }, 
+      ]);
     }
   }
 
+  get defaultValue() {
+    return this.field?.defaultValue;
+  }
 
-  @ViewChild('form', { static: true })
-  ngForm: NgForm;
+  @ViewChild('form', { static: true, read: FormDirective })
+  form: FormDirective;
 
   ngAfterContentInit() {
     // TODO: workaround to avoid ExpressionChangedAfterItHasBeenCheckedError on ngForm

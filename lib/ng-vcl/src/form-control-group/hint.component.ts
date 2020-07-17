@@ -1,11 +1,12 @@
-import { Component, Input, HostBinding, Optional, Inject, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, HostBinding, Optional, Inject, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
 
 @Component({
   selector: 'vcl-hint, vcl-hint-warning, vcl-hint-success',
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['hint.component.scss']
+  styleUrls: ['hint.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FormControlHintComponent {
 
@@ -14,9 +15,12 @@ export class FormControlHintComponent {
     private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
     @Optional()
-    fcgs?: FormControlGroupState,
+    private fcgs?: FormControlGroupState,
   ) {
-    fcgs && fcgs.stateChanged.subscribe(() => {
+  }
+  
+  ngOnInit() {
+    this.fcgs?.stateChanged.subscribe(() => {
       this.cdRef.detectChanges();
       this.cdRef.markForCheck();
     });
@@ -48,8 +52,10 @@ export class FormControlHintErrorComponent {
     @Inject(FORM_CONTROL_GROUP_STATE)
     @Optional()
     private fcgs?: FormControlGroupState,
-  ) {
-    fcgs && fcgs.stateChanged.subscribe(() => {
+  ) { }
+
+  ngOnInit() {
+    this.fcgs?.stateChanged.subscribe(() => {
       this.cdRef.detectChanges();
       this.cdRef.markForCheck();
     });

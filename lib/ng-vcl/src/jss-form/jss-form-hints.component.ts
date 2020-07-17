@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs/operators';
 import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
 import { FormFieldControl, FormField } from './fields/index';
 import { AbstractControl, NgForm } from '@angular/forms';
-import { FORM_CONTROL_GROUP_STATE, FormControlGroupState } from '../form-control-group/index';
+import { FORM_CONTROL_GROUP_STATE, FormControlGroupState, FORM_CONTROL_GROUP_FORM, FormControlGroupForm } from '../form-control-group/index';
 
 
 @Component({
@@ -16,26 +16,30 @@ import { FORM_CONTROL_GROUP_STATE, FormControlGroupState } from '../form-control
 export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
 
   constructor(
-    private ngForm: NgForm,
+    @Inject(FORM_CONTROL_GROUP_FORM)
+    private form: FormControlGroupForm,
     @Optional() 
     private field?: FormField<any>,
     @Optional() @Inject(FORM_CONTROL_GROUP_STATE) 
     private fcgs?: FormControlGroupState,
-  ) {
+  ) { }
+
+  ngOnInit() {
     let control: AbstractControl;
-    if (field instanceof FormFieldControl) {
-      this._hints = field.hints || [];
-      control = field.control;
-    } else if (hasFormHints(field)) {
-      this._hints = field.hints || [];
+    if (this.field instanceof FormFieldControl) {
+      this._hints = this.field.hints || [];
+      control = this.field.control;
+    } else if (hasFormHints(this.field)) {
+      this._hints = this.field.hints || [];
     } else {
       this._hints = [];
     }
 
     const $: Observable<any>[] = [];
 
-    $.push(this.ngForm && this.ngForm.statusChanges);
-    $.push(this.ngForm && this.ngForm.ngSubmit);
+    $.push(this.form && this.form.statusChanges);
+    $.push(this.form && this.form.valueChanges);
+    $.push(this.form && this.form.ngSubmit);
 
     if (this.fcgs && this.fcgs.input) {
       $.push(this.fcgs && this.fcgs.input.stateChanged);

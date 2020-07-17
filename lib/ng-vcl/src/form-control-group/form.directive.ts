@@ -1,18 +1,19 @@
 import { Directive, HostBinding, Optional, Self, forwardRef, OnInit, OnDestroy } from "@angular/core";
 import { FormGroupDirective, NgForm } from '@angular/forms';
-import { Observable, never, NEVER, Subject } from 'rxjs';
-import { FormControlGroupFormState, FORM_CONTROL_GROUP_FORM_STATE } from './interfaces';
+import { NEVER, Subject } from 'rxjs';
+import { FormControlGroupForm, FORM_CONTROL_GROUP_FORM } from './interfaces';
 
 @Directive({ 
   selector: '[vclForm]',
+  exportAs: 'vclForm',
   providers: [
     {
-      provide: FORM_CONTROL_GROUP_FORM_STATE,
+      provide: FORM_CONTROL_GROUP_FORM,
       useExisting: forwardRef(() => FormDirective)
     }
   ]
 })
-export class FormDirective implements FormControlGroupFormState, OnInit, OnDestroy {
+export class FormDirective implements FormControlGroupForm {
 
   @HostBinding('class.form')
   hostClasses = true;
@@ -28,19 +29,29 @@ export class FormDirective implements FormControlGroupFormState, OnInit, OnDestr
     this.form = ngForm ?? formGroup;
   }
 
-  ngOnInit(): void {
-    this.form?.statusChanges.subscribe(this._stateChangedEmitter);
-  }
-
-  ngOnDestroy(): void {
-    this._stateChangedEmitter.complete();
-  }
-
-  private _stateChangedEmitter = new Subject<void>();
-  stateChanged = this._stateChangedEmitter.asObservable();
-
   form: NgForm | FormGroupDirective;
 
+  reset(value?: any) {
+    this.form.reset(value);
+  }
+  resetForm(value?: any) {
+    this.form.resetForm(value);
+  }
+  get status() {
+    return this.form?.status ?? undefined;
+  }
+  get dirty() {
+    return this.form?.dirty ?? false;
+  }
+  get pristine() {
+    return this.form?.pristine ?? false;
+  }
+  get value() {
+    return this.form?.value ?? undefined;
+  }
+  get errors() {
+    return this.form?.errors ?? undefined;
+  }
   get pending() {
     return this.form?.pending ?? false;
   }
@@ -64,5 +75,8 @@ export class FormDirective implements FormControlGroupFormState, OnInit, OnDestr
   }
   get statusChanges() {
     return this.form?.statusChanges ?? NEVER;
+  }
+  get ngSubmit() {
+    return this.form?.ngSubmit ?? NEVER;
   }
 }

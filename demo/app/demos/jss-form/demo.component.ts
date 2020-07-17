@@ -24,7 +24,7 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   }
 
   onSubmit() {
-    if (this.heroForm.ngForm.valid) {
+    if (this.heroForm.form.valid) {
       this.notifier.success('Hero created');
     } else {
       this.notifier.error('Hero invalid');
@@ -32,24 +32,24 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   }
 
   onAction(action: string) {
-    if (action === 'reset' && this.heroForm.ngForm) {
-      this.heroForm.ngForm.resetForm(this.heroForm.field.defaultValue);
+    if (action === 'reset' && this.heroForm.form) {
+      this.heroForm.form.resetForm(this.heroForm.defaultValue);
       this.notifier.info('Hero reset');
     }
   }
 
   ngAfterViewInit() {
-    this.state$ = merge(this.heroForm.ngForm.statusChanges, this.heroForm.ngForm.valueChanges, this.heroForm.ngForm.ngSubmit).pipe(
+    this.state$ = merge(this.heroForm.form.statusChanges, this.heroForm.form.valueChanges, this.heroForm.form.ngSubmit).pipe(
       map(() => {
         return {
-          status: this.heroForm.ngForm.status,
-          valid: this.heroForm.ngForm.valid,
-          dirty: this.heroForm.ngForm.dirty,
-          submitted: this.heroForm.ngForm.submitted,
-          touched: this.heroForm.ngForm.touched,
-          pristine: this.heroForm.ngForm.pristine,
-          errors: this.heroForm.ngForm.errors,
-          value: this.heroForm.ngForm.value,
+          status: this.heroForm.form.status,
+          valid: this.heroForm.form.valid,
+          dirty: this.heroForm.form.dirty,
+          submitted: this.heroForm.form.submitted,
+          touched: this.heroForm.form.touched,
+          pristine: this.heroForm.form.pristine,
+          errors: this.heroForm.form.errors,
+          value: this.heroForm.form.value,
         };
       })
     );

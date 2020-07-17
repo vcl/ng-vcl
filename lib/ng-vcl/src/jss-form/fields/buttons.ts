@@ -20,13 +20,13 @@ export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
 // Portals will create a wrapped ng-component around each button interfering with loose button group styling
 @Component({
   // template: `
-  // <div class="vclLooseButtonGroup">
+  // <div class="loose-button-group">
   //   <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
   // </div>
   // `
   selector: 'vcl-jss-form-buttons',  
   template: `
-  <div class="vclLooseButtonGroup">
+  <div class="loose-button-group">
     <ng-container *ngFor="let buttonField of field.buttons">
       <button vcl-button [ngClass]="buttonField.class" [disabled]="buttonField.disabled" [type]="buttonField.type" (click)="onAction(buttonField)">
         <vcl-icogram>

@@ -316,7 +316,7 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
       hints: [
         {
           type: 'default',
-          message: 'Attributes'
+          message: 'Press enter to add attribute'
         },
         {
           type: 'error',
@@ -450,7 +450,7 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
           message: 'You must agree to our Terms'
         }
       ],
-      // errorStateAgent: (host, input) => input.ngControl.invalid && host.submitted
+      errorStateAgent: (host, input) => input.control.invalid && host.submitted
     },
     {
       type: 'buttons',

@@ -76,7 +76,7 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
       <ng-container *ngIf="items.length === 0">
         {{field.noFieldsLabel}}
       </ng-container>
-      <ng-container *ngFor="let item of items; let i = index" [attr.data-index]="i">
+      <ng-container *ngFor="let item of items; let i = index">
         <fieldset class="vclJssFormItem">
           <legend>{{item.label}} <vcl-icon class="vclJssFormRemove" icon="vcl:remove" (click)="removeItem(i)"></vcl-icon></legend>
           <ng-template [cdkPortalOutlet]="item.portal"></ng-template>

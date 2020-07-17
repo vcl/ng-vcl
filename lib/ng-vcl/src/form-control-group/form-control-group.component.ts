@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnDestroy, ChangeDetectionStrategy, AfterContentInit, ChangeDetectorRef, ContentChild, Input, forwardRef, Inject, Optional, ElementRef, ViewEncapsulation } from '@angular/core';
 import { Subject, merge, NEVER } from 'rxjs';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE, FormControlErrorStateAgent, FormControlGroupState, FORM_CONTROL_GROUP_STATE, FORM_CONTROL_GROUP_FORM_STATE, FormControlGroupFormState, FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN } from './interfaces';
+import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE, FormControlErrorStateAgent, FormControlGroupState, FORM_CONTROL_GROUP_STATE, FORM_CONTROL_GROUP_FORM, FormControlGroupForm, FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN } from './interfaces';
 import { AbstractControl } from '@angular/forms';
 import { defaultFormControlErrorStateAgent } from './error-state-agent';
 import { FormDirective } from './form.directive';
@@ -23,9 +23,9 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    @Inject(FORM_CONTROL_GROUP_FORM_STATE)
+    @Inject(FORM_CONTROL_GROUP_FORM)
     @Optional()
-    form: FormControlGroupFormState,
+    form: FormControlGroupForm,
     @Inject(FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN)
     @Optional()
     private _errorStateAgent?: FormControlErrorStateAgent,
@@ -33,7 +33,7 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
     this.form = form ?? new FormDirective(undefined, undefined);
   }
 
-  form: FormControlGroupFormState;
+  form: FormControlGroupForm;
 
   get isLabelClickable() {
     return !!this.input?.onLabelClick;
@@ -115,7 +115,8 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
     // TODO: Add warning
     // if (!this.input) {
     // }
-    merge(this.form.stateChanged, this.input?.stateChanged ?? NEVER).subscribe(() => {
+    merge(this.form.statusChanges, this.form.ngSubmit, this.input?.stateChanged ?? NEVER).subscribe(() => {
+      console.log(1);
       this.updateState();
       this._stateChangedEmitter.next();
       this.cdRef.markForCheck();
