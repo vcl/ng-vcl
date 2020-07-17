@@ -1,3 +1,25 @@
+# [2.0.0-beta.1](https://github.com/vcl/ng-vcl/compare/v2.0.0-alpha.3...v2.0.0-beta.1) (2020-07-17)
+
+
+### Bug Fixes
+
+* misc display style fixes ([8ce08a3](https://github.com/vcl/ng-vcl/commit/8ce08a34e342f4fc6a9cfbe366415e5c2f64f21f))
+* **form-control-group/jss-form:** fixes and optimizations ([2dabdb9](https://github.com/vcl/ng-vcl/commit/2dabdb97494dc4f32bf7da3d180ccac9fb9d9556))
+* **jss-form:** fix hint content projection ([1cc884c](https://github.com/vcl/ng-vcl/commit/1cc884cce5afa5e8ca62cd53d631c9fc50bf05dd))
+* **panel:** fix padding ([c40f1b0](https://github.com/vcl/ng-vcl/commit/c40f1b034a43e75eb16f7b2441fc9bcf79647a9a))
+* misc fixes and optimizations ([e9f98fb](https://github.com/vcl/ng-vcl/commit/e9f98fb82ae8bdff8aa2d80ec0862c9624bb76c2))
+* **password-input:** remove tabindex ([f2b0ccd](https://github.com/vcl/ng-vcl/commit/f2b0ccdb220d4ed34c39ec9201c7b1e43444c20a))
+* **token-input:** misc fixes ([e25eb91](https://github.com/vcl/ng-vcl/commit/e25eb9145e3eb708bac68b78004b096dee36dbf4))
+
+
+### Features
+
+* **dataadapter:** add pattern helper ([a56bbf8](https://github.com/vcl/ng-vcl/commit/a56bbf8b621c20f056bfacd7547e015f0c517173))
+
+### BREAKING CHANGES
+
+* ng-vcl 2.0.0+ requires VCL 2.0.0+
+
 # [1.1.0](https://github.com/vcl/ng-vcl/compare/v1.0.1...v1.1.0) (2020-04-08)
 
 
