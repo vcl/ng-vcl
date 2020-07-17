@@ -1,5 +1,5 @@
 import { Component, ContentChildren, QueryList, Input, Output,
-         EventEmitter, ViewChild, HostBinding, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewContainerRef } from '@angular/core';
+         EventEmitter, ViewChild, HostBinding, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { TabComponent } from './tab.component';
 import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
@@ -10,6 +10,8 @@ import { TemplatePortal } from '@angular/cdk/portal';
   selector: 'vcl-tab-nav',
   templateUrl: 'tab-nav.component.html',
   exportAs: 'vclTabNav',
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['tab-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: TAB_NAV_TOKEN,

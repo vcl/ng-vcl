@@ -116,7 +116,6 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
     // if (!this.input) {
     // }
     merge(this.form.statusChanges, this.form.ngSubmit, this.input?.stateChanged ?? NEVER).subscribe(() => {
-      console.log(1);
       this.updateState();
       this._stateChangedEmitter.next();
       this.cdRef.markForCheck();

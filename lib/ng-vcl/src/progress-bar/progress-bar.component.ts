@@ -5,6 +5,8 @@ import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular
   templateUrl: 'progress-bar.component.html',
   exportAs: 'vclProgressBar',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['progress-bar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProgressBarComponent {
 

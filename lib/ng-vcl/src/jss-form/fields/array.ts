@@ -69,6 +69,7 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
 }
 
 @Component({
+  selector: 'vcl-jss-form-array',
   template: `
   <ng-container [formGroup]="field.parentControl">
     <fieldset class="vclFieldset" [formArrayName]="field.name">

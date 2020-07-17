@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy, SimpleChanges, OnInit, OnChanges} from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy, SimpleChanges, OnInit, OnChanges, ViewEncapsulation} from '@angular/core';
 import { Portal } from '@angular/cdk/portal';
 import { FormFieldObject } from './fields/index';
 import { JSS_FORM_TOKEN, JssForm } from './types';
@@ -10,6 +9,8 @@ import { FormDirective, FORM_CONTROL_GROUP_FORM } from '../form-control-group/in
   selector: 'vcl-jss-form',
   templateUrl: 'jss-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['jss-form.component.scss'],
   exportAs: 'vclJssForm'
 })
 export class JssFormComponent implements JssForm, AfterContentInit, AfterViewInit, OnDestroy, OnInit, OnChanges {
