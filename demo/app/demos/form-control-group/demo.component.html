@@ -1,7 +1,7 @@
 <form novalidate [formGroup]="formGroup" #form="ngForm" style="max-width: 40em;" (submit)="onSubmit()" vclForm>
   <h2>Create a hero</h2>
 
-  <ng-template [vclLayer]="helpLayerConfig" #help="vclLayer" let-header="header" let-text="text">
+  <ng-template [vclLayer]="{width: '25em'}" #help="vclLayer" let-header="header" let-text="text">
     <vcl-panel-dialog>
       <vcl-panel-title>{{header}}</vcl-panel-title>
       {{text}}

@@ -123,7 +123,6 @@ export class FormControlGroupDemoComponent {
 
 
   helpLayerConfig: LayerConfig = {
-    style: 'transparent', 
     maxWidth: '25em',
   }
 }
