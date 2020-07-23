@@ -99,6 +99,8 @@ export abstract class LayerRef<TLayerData extends LayerData = any, TResult = any
       panelClass.push(... config.panelClass);
     } else if (typeof config.panelClass === 'string') {
       panelClass.push(config.panelClass);
+    } else {
+      panelClass.push('layer-box');
     }
     
     const backdropClass = [];
@@ -108,15 +110,6 @@ export abstract class LayerRef<TLayerData extends LayerData = any, TResult = any
       backdropClass.push(config.backdropClass);
     }
 
-    const style = config.style ?? 'default';
-
-    if (style !== 'none') {
-      panelClass.push('layer-box'); 
-      backdropClass.push('layer-cover'); 
-      if (config.style === 'transparent') {
-        panelClass.push('transparent'); 
-      }
-    }
 
     config.backdropClass = backdropClass;
     config.panelClass = panelClass;

@@ -16,7 +16,6 @@ export class LayerConfig<TLayerData extends LayerData = any> extends OverlayConf
   data?: TLayerData;
   closeOnBackdropClick?: boolean;
   closeOnEscape?: boolean;
-  style?: 'none' | 'transparent' | 'default'
 }
 
 export interface Layer {
