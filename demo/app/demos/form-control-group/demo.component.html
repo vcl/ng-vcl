@@ -11,12 +11,14 @@
  
   <vcl-form-control-group>
     <vcl-label>Name</vcl-label>
-    <vcl-input-field>
-      <input vclInput formControlName="name">
-    </vcl-input-field>
-    <button vcl-square-button class="transparent" (click)="help.open({data: { header: 'Name', text: 'The name of the hero. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi ad excepturi molestiae esse unde repellendus ex accusantium officia placeat voluptatem commodi et, laboriosam laudantium, cum, ratione debitis inventore? Esse, eaque!'}})" type="button">
-      <vcl-icon class="scale130p" icon="vcl:info"></vcl-icon>
-    </button>
+    <div class="help-wrapper">
+      <vcl-input-field>
+        <input vclInput formControlName="name">
+      </vcl-input-field>
+      <button vcl-square-button class="transparent" (click)="help.open({data: { header: 'Name', text: 'The name of the hero. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi ad excepturi molestiae esse unde repellendus ex accusantium officia placeat voluptatem commodi et, laboriosam laudantium, cum, ratione debitis inventore? Esse, eaque!'}})" type="button">
+        <vcl-icon class="scale130p" icon="vcl:info"></vcl-icon>
+      </button>
+    </div>
     <vcl-hint-error error="required">Name is required</vcl-hint-error>
     <vcl-hint-error error="minlength">Name must have a length of at least 2 characters</vcl-hint-error>
   </vcl-form-control-group>
@@ -26,9 +28,6 @@
     <vcl-input-field>
       <textarea vclInput formControlName="description" placeholder="Description of the hero" [autogrow]="true" [minRows]="3" [maxRows]="10"></textarea>
     </vcl-input-field>
-    <button vcl-square-button class="transparent" (click)="help.open({data: { header: 'Description', text: 'The description of the hero. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi ad excepturi molestiae esse unde repellendus ex accusantium officia placeat voluptatem commodi et, laboriosam laudantium, cum, ratione debitis inventore? Esse, eaque!'}})" type="button">
-      <vcl-icon class="scale130p" icon="vcl:info"></vcl-icon>
-    </button>
   </vcl-form-control-group>
 
   <div class="row gutterx-4">

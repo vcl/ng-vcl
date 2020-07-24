@@ -1,9 +1,0 @@
-.form-control-group > .form-control-group-input-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  & > *:first-child:not(:only-child) {
-    flex: 0 0 95%;
-  }
-}

@@ -4,11 +4,7 @@ import { NotifierService, FormControlErrorStateAgent, LayerConfig } from '@vcl/n
 
 @Component({
   templateUrl: 'demo.component.html',
-  styles: [`
-    .form-control-group-demo-help-notification {
-      max-width: 30em;
-    }
-  `],
+  styleUrls: ['demo.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class FormControlGroupDemoComponent {
