@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ViewContainerRef, TemplateRef } from '@angular/core';
 import { LayerService, LayerRef } from '@vcl/ng-vcl';
 import { BarComponent } from './bar.component';
 import { NagLayer } from './nag.component';
@@ -8,19 +8,28 @@ let i = 0;
 @Component({
   templateUrl: 'demo.component.html',
 })
-export class LayerDemoComponent {
+export class LayerDemoComponent implements AfterViewInit {
 
   barLayer: LayerRef;
 
+  @ViewChild('tplLayerRef')
+  tplLayerRef: TemplateRef<any>;
+
+  tplLayer: LayerRef;
+
   constructor(
     private nagLayer: NagLayer,
-    layerService: LayerService,
+    private layerService: LayerService,
+    private viewContainerRef: ViewContainerRef
   ) {  
     this.barLayer = layerService.create(BarComponent, {
       closeOnBackdropClick: false,
       closeOnEscape: false
     });
 
+  }
+  ngAfterViewInit(): void {
+    this.tplLayer = this.layerService.createTemplateLayer(this.tplLayerRef, this.viewContainerRef);
   }
 
   openBarComponent() {
