@@ -4,7 +4,7 @@
   align-items: flex-start;
   justify-content: space-between;
   
-  :first-child {
+  > :first-child {
     flex: 0 0 90%;
   }
 }

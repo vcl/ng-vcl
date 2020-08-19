@@ -6,15 +6,8 @@ import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IcogramComponent {
-
   @HostBinding('class.icogram')
-  clsIcogram = true;
-
-  @Input()
-  prepIcon: string;
-
-  @Input()
-  appIcon: string;
+  hostClasses = true;
 }
 
 @Component({
