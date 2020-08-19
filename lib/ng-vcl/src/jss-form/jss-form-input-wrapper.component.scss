@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+  > .spacer {
+    flex: 1 1 10%;
+  }
+  > .spacer:last-child {
+    flex: 0 0 0%;
+  }
+
+  // > :only-child {
+  //   flex: 0 0 100%;
+  // }
+}

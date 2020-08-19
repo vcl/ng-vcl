@@ -3,7 +3,7 @@ import { Subject, Observable, merge, Subscription, of, combineLatest } from 'rxj
 import { switchMap } from 'rxjs/operators';
 import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
 import { FormFieldControl, FormField } from './fields/index';
-import { AbstractControl, NgForm } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { FORM_CONTROL_GROUP_STATE, FormControlGroupState, FORM_CONTROL_GROUP_FORM, FormControlGroupForm } from '../form-control-group/index';
 
 

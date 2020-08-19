@@ -18,12 +18,6 @@ export function conditional<T>(fields: string[], cb: ConditionalCallback<T>) {
   return new Conditional(fields, cb);
 }
 
-export interface JssForm {
-  readonly field: any;
-  readonly form: FormControlGroupForm;
-  onAction(action: string): void;
-}
-
 export interface ErrorHint {
   type: 'error';
   message: string;
@@ -40,6 +34,19 @@ export interface DefaultHint {
 
 export type Hint = DefaultHint | ErrorHint | WarningHint;
 
+export interface HelpConfig {
+  icon?: string;
+  confirmButtonLabel?: string;
+  layerWidth?: string;
+}
+
+export interface HelpObject extends HelpConfig {
+  text: string;
+  title?: string;
+}
+
+export type Help = HelpObject | string;
+
 export interface FormHints {
   hints?: (Hint | Conditional<Hint>)[];
 }
@@ -47,3 +54,12 @@ export interface FormHints {
 export function hasFormHints(arg: any): arg is FormHints {
   return Array.isArray(arg.hints);
 }
+
+export interface JssForm {
+  readonly field: any;
+  readonly form: FormControlGroupForm;
+  onAction(action: string): void;
+  help?: HelpConfig;
+}
+
+export const JSS_FORM_HELP_CONFIG_TOKEN = new InjectionToken<HelpConfig>('JSS_FORM_HELP_CONFIG');

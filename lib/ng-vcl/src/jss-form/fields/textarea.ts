@@ -22,14 +22,16 @@ export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextar
   template: `
     <vcl-form-control-group [errorStateAgent]="field.errorStateAgent" *ngIf="field.visible">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
-      <vcl-input-field>
-        <textarea vclInput
-                  [formControl]="field.control"
-                  [attr.placeholder]="field.placeholder"
-                  [autogrow]="true"
-                  [minRows]="field.minRows || 3"
-                  [maxRows]="field.minRows || 10"></textarea>
-      </vcl-input-field>
+      <vcl-jss-form-input-wrapper>
+        <vcl-input-field>
+          <textarea vclInput
+                    [formControl]="field.control"
+                    [attr.placeholder]="field.placeholder"
+                    [autogrow]="true"
+                    [minRows]="field.minRows || 3"
+                    [maxRows]="field.minRows || 10"></textarea>
+        </vcl-input-field>
+      </vcl-jss-form-input-wrapper>
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `

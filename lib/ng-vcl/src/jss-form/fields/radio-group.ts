@@ -22,9 +22,11 @@ export class FormFieldRadio extends FormFieldControl<VCLFormFieldSchemaRadioGrou
   template: `
     <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
+      <vcl-jss-form-input-wrapper>
         <vcl-radio-group [formControl]="field.control">
           <vcl-radio-button *ngFor="let option of field.options" [value]="option.value">{{option.label}}</vcl-radio-button>
         </vcl-radio-group>
+      </vcl-jss-form-input-wrapper>
     </vcl-form-control-group>
   `
 })

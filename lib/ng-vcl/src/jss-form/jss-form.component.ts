@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy, SimpleChanges, OnInit, OnChanges, ViewEncapsulation} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy, SimpleChanges, OnInit, OnChanges, ViewEncapsulation, Inject, Optional} from '@angular/core';
 import { Portal } from '@angular/cdk/portal';
 import { FormFieldObject } from './fields/index';
-import { JSS_FORM_TOKEN, JssForm } from './types';
+import { JSS_FORM_TOKEN, JssForm, HelpConfig, JSS_FORM_HELP_CONFIG_TOKEN } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
 import { FormDirective, FORM_CONTROL_GROUP_FORM } from '../form-control-group/index';
 
@@ -15,10 +15,26 @@ import { FormDirective, FORM_CONTROL_GROUP_FORM } from '../form-control-group/in
 })
 export class JssFormComponent implements JssForm, AfterContentInit, AfterViewInit, OnDestroy, OnInit, OnChanges {
 
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) { }
+  constructor(
+    private cdRef: ChangeDetectorRef, 
+    private injector: Injector,
+    @Optional()
+    @Inject(JSS_FORM_HELP_CONFIG_TOKEN)
+    private helpConfig: HelpConfig
+  ) { }
 
   @Input()
   schema?: VCLFormFieldSchemaRoot;
+
+  _help: HelpConfig;
+
+  @Input('help')
+  get help() {
+    return this._help ?? this.helpConfig;
+  }
+  set help(value: HelpConfig) {
+    this._help = value;
+  }
 
   ngOnInit() {
     this.createField();

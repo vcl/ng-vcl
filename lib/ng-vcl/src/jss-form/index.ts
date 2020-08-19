@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PortalModule } from '@angular/cdk/portal';
+
 import { VCLButtonModule } from '../button/index';
 import { VCLButtonGroupModule } from '../button-group/index';
 import { VCLSelectListModule } from '../select-list/index';
@@ -17,16 +19,18 @@ import { VCLDatepickerModule } from '../datepicker/index';
 import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
+import { VCLLayerModule } from '../layer/index';
+import { VCLPanelModule } from '../panel/index';
 
 import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
-import { PortalModule } from '@angular/cdk/portal';
 import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSwitchComponent,
          FormFieldObjectComponent, FormFieldRatingComponent, FormFieldControl,
          FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
          FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent,
          FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent, FormFieldPasswordInputComponent, FormFieldDatepickerComponent } from './fields/index';
 import { initializeFields  } from './fields/index';
+import { JssFormInputWrapperComponent } from './jss-form-input-wrapper.component';
 
 export { JssFormComponent };
 export * from './schemas';
@@ -57,12 +61,15 @@ let fieldsInitialized = false;
     VCLSelectModule,
     VCLSelectListModule,
     VCLFileInputModule,
-    VCLRatingModule
+    VCLRatingModule,
+    VCLLayerModule,
+    VCLPanelModule
   ],
   exports: [JssFormComponent],
   declarations: [
     JssFormComponent,
     JssFormHintsComponent,
+    JssFormInputWrapperComponent,
     FormFieldButtonComponent,
     FormFieldButtonsComponent,
     FormFieldInputComponent,

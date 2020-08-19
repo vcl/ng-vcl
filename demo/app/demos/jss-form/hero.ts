@@ -19,6 +19,10 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
         Validators.required, Validators.minLength(2)
       ],
       required: true,
+      help: {
+        title: 'Help title',
+        text: 'Help text',
+      },
       hints: [
         {
           type: 'error',
@@ -46,7 +50,14 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
       label: 'Date of Birth',
       params: {
         placeholder: 'MM/DD/YYYY'
-      }
+      },
+      help: {
+        title: 'Date of Birth title',
+        text: 'Date of Birth text',
+        confirmButtonLabel: 'Confirm',
+        layerWidth: '15em',
+        icon: 'vcl:question'
+      },
     },
     {
       type: 'password-input',
@@ -137,6 +148,9 @@ export const HERO_SCHEMA: ExtendedFormFieldSchemaRoot = {
     },
     {
       type: 'input',
+      params: {
+        prependedIcon: 'mdi:email',
+      },
       name: 'email',
       label: 'Email',
       validators: [Validators.required, Validators.email],

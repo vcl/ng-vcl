@@ -19,7 +19,9 @@ export class FormFieldSwitch extends FormFieldControl<VCLFormFieldSchemaSwitch, 
   template: `
     <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
-      <vcl-flip-switch [formControl]="field.control"></vcl-flip-switch>
+      <vcl-jss-form-input-wrapper>
+        <vcl-flip-switch [formControl]="field.control"></vcl-flip-switch>
+      </vcl-jss-form-input-wrapper>
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `

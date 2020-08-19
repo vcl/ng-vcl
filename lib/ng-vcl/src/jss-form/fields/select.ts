@@ -23,14 +23,16 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
   template: `
   <vcl-form-control-group [errorStateAgent]="field.errorStateAgent" *ngIf="field.visible">
     <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
-    <vcl-select [placeholder]="field.placeholder">
-      <vcl-select-list [formControl]="field.control" [selectionMode]="field.selectionMode">
-        <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
-          <vcl-label>{{option.label}}</vcl-label>
-          <vcl-sub-label *ngIf="option.sublabel">{{option.sublabel}}</vcl-sub-label>
-        </vcl-select-list-item>
-      </vcl-select-list>
-    </vcl-select>
+    <vcl-jss-form-input-wrapper>
+      <vcl-select [placeholder]="field.placeholder">
+        <vcl-select-list [formControl]="field.control" [selectionMode]="field.selectionMode">
+          <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
+            <vcl-label>{{option.label}}</vcl-label>
+            <vcl-sub-label *ngIf="option.sublabel">{{option.sublabel}}</vcl-sub-label>
+          </vcl-select-list-item>
+        </vcl-select-list>
+      </vcl-select>
+    </vcl-jss-form-input-wrapper>
     <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
   </vcl-form-control-group>
   `

@@ -1,7 +1,7 @@
 import { VCLFormFieldSchema, VCLFormFieldControlSchema } from '../schemas';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { combineLatest, Subject, Subscription, ReplaySubject } from 'rxjs';
-import { Conditional, InternalConditional } from '../types';
+import { Conditional, InternalConditional, HelpObject } from '../types';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { Injector } from '@angular/core';
 import { ComponentType, ComponentPortal } from '@angular/cdk/portal';
@@ -170,6 +170,16 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
 
   get defaultValue() {
     return this.schema.defaultValue  === undefined ? this.createDefaultValue() : this.schema.defaultValue;
+  }
+
+  get help(): HelpObject {
+    if (typeof this.schema.help === 'string') {
+      return {
+        text: this.schema.help
+      }
+    } else {
+      return this.schema.help;
+    }
   }
 
   get validators() {
