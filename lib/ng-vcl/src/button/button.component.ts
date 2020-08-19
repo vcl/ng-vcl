@@ -1,4 +1,5 @@
-import { HostBinding, Input, HostListener, ElementRef, Component, SkipSelf, Inject, Output, EventEmitter, Optional, InjectionToken, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
+import { HostBinding, Input, HostListener, ElementRef, Component, SkipSelf, Inject, Output, EventEmitter, Optional, InjectionToken, ChangeDetectorRef, ChangeDetectionStrategy, Directive} from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export interface ButtonHost {
   readonly isDisabled: boolean;
@@ -10,7 +11,7 @@ export interface ButtonHost {
 export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>('vcl_button_host');
 
 @Component({
-  selector: 'button[vcl-button], a[vcl-button], button[vcl-square-button], button[vcl-square-button]',
+  selector: 'button[vcl-button], a[vcl-button]',
   exportAs: 'vclButton',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'button.component.html'
@@ -34,10 +35,11 @@ export class ButtonComponent {
   @Output()
   selectedChange = new EventEmitter<boolean>();
 
+  private _square: boolean;
   @HostBinding('class.square')
-  get classVCLSquare() {
-    return this.elementRef.nativeElement.hasAttribute('vcl-square-button');
-  }
+  @Input()
+  get square() { return this._square; }
+  set square(value: any) { this._square = coerceBooleanProperty(value); }
 
   @HostBinding('attr.type')
   get attrType() {

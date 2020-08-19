@@ -21,11 +21,11 @@ let uniqueID = 0;
     }
   `],
   template: `
-    <button vcl-square-button class="transparent" type="button" (click)="decrement()" (keydown.enter)="decrement(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(false)">
+    <button vcl-button square class="transparent" type="button" (click)="decrement()" (keydown.enter)="decrement(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(false)">
       <vcl-icon icon="fas:minus"></vcl-icon>
     </button>
     <span>{{value}}</span>
-    <button vcl-square-button class="transparent" type="button" (click)="increment()" (keydown.enter)="increment(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(true)">
+    <button vcl-button square class="transparent" type="button" (click)="increment()" (keydown.enter)="increment(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(true)">
       <vcl-icon icon="fas:plus"></vcl-icon>
     </button>
   `,

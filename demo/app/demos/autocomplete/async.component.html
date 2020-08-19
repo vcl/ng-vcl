@@ -10,7 +10,7 @@
          [vclAutocompleteInput]="search.state === 'cleared' ? undefined : {autocomplete: acBooks, mapInputValue: 'void'}"
          (vclAutocompleteInputSelectionChange)="onSelectBook($event)"
          />
-  <button vcl-square-button vclAppend
+  <button vcl-button square vclAppend
           (click)="inputBooks.value = ''; inputBooks.focus(); search$.next('')">
     <vcl-icon [icon]="'fas:times-circle'"></vcl-icon>
   </button>

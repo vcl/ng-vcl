@@ -1,6 +1,6 @@
 # vcl-button
 
-`vcl-button` and `vcl-square-button` enhance the HTML `<button>` with styling and features.
+`vcl-button` enhance the HTML `<button>` with styling, features and icogram support.
 It is the main control for triggering actions.
 
 ## Usage
@@ -36,22 +36,23 @@ export class AppComponent { ... }
 ### Square button
 
 ```html
-<button vcl-square-button>
+<button vcl-button square>
   <vcl-icon icon="fas:bolt"></vcl-icon>
 </button>
 ```
 
 ### API
 
-#### vcl-button/vcl-square-button attributes
+#### vcl-button/vcl-button square attributes
 
 | Name                | Type        | Default  | Description
 | ------------        | ----------- | -------- |--------------
 | `disabled`          | boolean     | false    | State to indicate that the button is disabled
 | `selectable`        | boolean     | false    | Button selected state toggles if clicked when true
 | `selected`          | boolean     | false    | Whether the button is selected
+| `square`            | boolean     | false    | Whether the button is square
 
-#### vcl-button/vcl-square-button events
+#### vcl-button/vcl-button  events
 
 | Name                | Description
 | ------------        | --------------
