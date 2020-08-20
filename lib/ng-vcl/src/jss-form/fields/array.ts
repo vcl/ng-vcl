@@ -60,7 +60,10 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
 
   removeField(field: FormField) {
     field.destroy();
+    const idx = this.fields.indexOf(field);
     this.fields = this.fields.filter(_field => _field !== field);
+    const control = this.control as FormArray;
+    control.removeAt(idx);
   }
 
   createDefaultValue() {
