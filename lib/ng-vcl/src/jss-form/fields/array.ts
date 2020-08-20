@@ -75,14 +75,14 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
   selector: 'vcl-jss-form-array',
   template: `
   <ng-container [formGroup]="field.parentControl">
-    <fieldset class="vclFieldset" [formArrayName]="field.name">
-      <legend>{{field.label}} <vcl-icon class="vclJssFormAdd" icon="vcl:add" (click)="addItem()"></vcl-icon></legend>
+    <fieldset class="fieldset mb-form-control" [formArrayName]="field.name">
+      <legend>{{field.label}} <vcl-icon class="vcl-jss-form-add" icon="vcl:add" (click)="addItem()"></vcl-icon></legend>
       <ng-container *ngIf="items.length === 0">
         {{field.noFieldsLabel}}
       </ng-container>
       <ng-container *ngFor="let item of items; let i = index">
-        <fieldset class="vclJssFormItem">
-          <legend>{{item.label}} <vcl-icon class="vclJssFormRemove" icon="vcl:remove" (click)="removeItem(i)"></vcl-icon></legend>
+        <fieldset class="mb-form-control">
+          <legend>{{item.label}} <vcl-icon class="vcl-jss-form-remove" icon="vcl:remove" (click)="removeItem(i)"></vcl-icon></legend>
           <ng-template [cdkPortalOutlet]="item.portal"></ng-template>
         </fieldset>
       </ng-container>
@@ -93,17 +93,12 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
     `
       :host {
         display: block;
-        margin-top: 20px;
-        margin-bottom: 20px;
       }
-      .vclJssFormItem {
-        margin-top: 10px;
-      }
-      .vclJssFormAdd {
+      .vcl-jss-form-add {
         color: green;
         cursor: pointer;
       }
-      .vclJssFormRemove {
+      .vcl-jss-form-remove {
         color: red;
         cursor: pointer;
       }
