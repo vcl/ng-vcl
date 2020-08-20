@@ -1,5 +1,10 @@
-# [2.0.0-beta.1](https://github.com/vcl/ng-vcl/compare/v2.0.0-alpha.3...v2.0.0-beta.1) (2020-07-17)
+# [2.0.0](https://github.com/vcl/ng-vcl/compare/v2.0.0-alpha.3...v2.0.0) (2020-08-20)
 
+
+### Bug Fixes
+
+* **jss-form:** add fieldset bottom margin ([e08354c](https://github.com/vcl/ng-vcl/commit/e08354c2f1360d7f0276d2a352f8ef03ca672940))
+* **jss-form:** fix objects not removed from array ([56d59e4](https://github.com/vcl/ng-vcl/commit/56d59e44dd9ebcd3082722cf23428f4f48352a47))
 
 ### Bug Fixes
 
@@ -16,8 +21,22 @@
 
 * **dataadapter:** add pattern helper ([a56bbf8](https://github.com/vcl/ng-vcl/commit/a56bbf8b621c20f056bfacd7547e015f0c517173))
 
+### Code Refactoring
+
+* **button:** implement button square mode as option ([f3e6ebe](https://github.com/vcl/ng-vcl/commit/f3e6ebe92359b5bf957e6192924a0e14b791f0e5))
+* **input:** add input-field component
+
 ### BREAKING CHANGES
 
+* **input:** Updated to VCL 2. `input` and `textarea` elements require a `vcl-input-field` wrapper component. Check docs for more information.
+* **popover:** Replaced `vcl-popover` component with `vclPopover` template directive
+* **layer:** Replaced `vcl-layer` component with `vclLayer` template directive
+* **embedded-input-group:** Removed. Use `input-field` instead.
+* **material-design-inputs:** Removed
+* **checkbox:** Updated to VCL 2. Check docs for more information.
+* **radio-button:** Updated to VCL 2. Check docs for more information.
+* **button:** `vcl-square-button` is removed. Use square option instead. Example: `<button
+vcl-button square>...</button>`
 * ng-vcl 2.0.0+ requires VCL 2.0.0+
 
 # [1.1.0](https://github.com/vcl/ng-vcl/compare/v1.0.1...v1.1.0) (2020-04-08)
