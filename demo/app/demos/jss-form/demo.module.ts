@@ -30,11 +30,11 @@ export function demo() {
         content: require('!raw-loader!./demo.component.ts')
       },
       'jss-form-extended.ts': {
-        type: 'pre',
+        type: 'ts',
         content: require('!raw-loader!./jss-form-extended.ts')
       },
       'hero.ts': {
-        type: 'pre',
+        type: 'ts',
         content: require('!raw-loader!./hero.ts')
       }
     }
