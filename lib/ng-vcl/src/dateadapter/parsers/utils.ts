@@ -1,4 +1,4 @@
-import { VCLDateAdapterDisplayFormats } from '../interfaces';
+import { DateAdapterBaseDisplayFormats } from '../interfaces';
 
 export function unsupportedFormat(format: string): never {
   throw new Error('Unsupported format: ' + format);
@@ -55,7 +55,7 @@ const DEFAULT_DISPLAY_FORMATS = {
   }
 };  
 
-export function intlFallback(locale: string, date: Date, type: VCLDateAdapterDisplayFormats) {
+export function intlFallback(locale: string, date: Date, type: DateAdapterBaseDisplayFormats) {
   if (DEFAULT_DISPLAY_FORMATS[type]) {
     return new Intl.DateTimeFormat(locale, DEFAULT_DISPLAY_FORMATS[type]).format(date);
   }

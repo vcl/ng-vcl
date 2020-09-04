@@ -1,15 +1,15 @@
-import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats } from '../interfaces';
-import { VCLNativeDateAdapterParser } from './types';
+import { DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '../interfaces';
+import { DateAdapterParser } from './types';
 import { extractInt, unsupportedFormat, pad, intlFallback } from './utils';
 
 const REGEX_DATE = /^\s*(\d{4})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])\s*$/;
 const REGEX_MONTH = /^\s*(\d{4})-(1[012]|0?[1-9])\s*$/;
 const REGEX_TIME = /^\s*([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s*$/;
 
-export class NativeDateAdapterParserISO implements VCLNativeDateAdapterParser {
+export class DateAdapterParserISO implements DateAdapterParser {
   supportedLocales = []; // Default parser when no locale matches
 
-  parse(value: string, format: VCLDateAdapterParseFormats): Date {
+  parse(value: string, format: DateAdapterBaseParseFormats): Date {
     if (format === 'date') {
       const result = extractInt(value, REGEX_DATE);
       return result ? new Date(result[0], result[1], result[2]) : undefined;
@@ -24,7 +24,7 @@ export class NativeDateAdapterParserISO implements VCLNativeDateAdapterParser {
       unsupportedFormat(format);
     }
   }
-  format(date: Date, format: VCLDateAdapterDisplayFormats): string {
+  format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
       case "date": {
         return date.toISOString().slice(0, 10);
@@ -40,7 +40,7 @@ export class NativeDateAdapterParserISO implements VCLNativeDateAdapterParser {
       }
     }
   }
-  pattern(format: VCLDateAdapterParseFormats): string {
+  pattern(format: DateAdapterBaseParseFormats): string {
     switch(format) {
       case "date": {
         return `YYYY-MM-DD`;

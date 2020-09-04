@@ -1,34 +1,34 @@
-# VCLDateAdapter
+# DateAdapter
 
-The `VCLDateAdapter` is a service that provides utils for date operations.
+The `DateAdapter` is a service that provides utils for date operations.
 
 ```js
-import { VCLDateadapterModule } from '@vcl/ng-vcl';;
+import { VCLDateAdapterModule } from '@vcl/ng-vcl';;
 
 @NgModule({
-  imports: [ VCLDateadapterModule ],
+  imports: [ VCLDateAdapterModule.forRoot() ],
   ...
 })
 export class AppComponent {}
 
 ```
 ```ts
-import { VCLDateAdapter } from '@vcl/ng-vcl';;
+import { DateAdapter } from '@vcl/ng-vcl';;
 
 @Component({ ... })
 export class MyComponent {
 
-  constructor(private dateAdapter: VCLDateAdapter<Date>) {
+  constructor(private dateAdapter: DateAdapter) {
     const today = new Date();
     const s = dateAdapter.format(today, 'date');
   }
 ```
 
-Check the `VCLDateAdapter` [abstract class](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/dateadapter.ts) for an overview of methods and properties.
+Check the `DateAdapterBase` [abstract class](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/dateadapter-base.ts) for an overview of methods and properties.
 
 ### Date representation
 
-The DateAdapter and components use the `VCLDate` generic type. The exact type is defined by the `VCLDateAdapter`.
+The DateAdapter and components use the `VCLDate` generic type. The exact type is defined by the `DateAdapterBase`.
 The default implementation is using the native javascript date object.
 
 #### Date range
@@ -48,6 +48,7 @@ The default date adapter uses the javascript `Intl` interfaces for localization.
 The angular `LOCALE_ID` token is used to determine the application locale.
 
 Example:
+
 ```ts
 import { LOCALE_ID } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -65,39 +66,33 @@ Check the [official docs](https://angular.io/guide/i18n) for further information
 One shortcomings of the native Date object is the lack of parsing support for specific locales.
 The default data adapter expresses date and time for inputs in `ISO 8601`. e.g. `2019-08-08` or `18:11`
 
-ng-vcl provides support for the following locales: `en`, `en-us`, `en-gb`, `de`, `de-AT`, `de-CH`, `de-DE`, `de-LI` and `de-LU`
-Add one or more of the following providers to active support for a locale.
+ng-vcl provides parsing support for the following locales: `en`, `en-us`, `en-gb`, `de`, `de-AT`, `de-CH`, `de-DE`, `de-LI` and `de-LU`
+
+Other locales can be added by providing `VCL_DATE_ADAPTER_PARSER` with a class implementing the `DateAdapterParser`
+Check one of the existing [providers](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/parsers) for a full example.
 
 ```ts
-import { VCL_NATIVE_DATE_ADAPTER_PARSER, NativeDateAdapterParserEN, NativeDateAdapterParserENGB, NativeDateAdapterParserDE } from '@vcl/ng-vcl';
+import { DateAdapterParser, DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '@vcl/ng-vcl';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DateAdapterParserFR implements DateAdapterParser {
+  supportedLocales = ['fr', 'fr-FR'];
+  ...
+}
 
 @NgModule({
   providers: [
     {
-      // `en`, `en-us`
-      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-      useClass: NativeDateAdapterParserEN,
+      provide: VCL_DATE_ADAPTER_PARSER,
+      useClass: DateAdapterParserFR,
       multi: true
     },
-    {
-      // `en-gb
-      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-      useClass: NativeDateAdapterParserENGB,
-      multi: true
-    }  ,
-    {
-      // `de`, `de-AT`, `de-CH`, `de-DE`, `de-LI`, `de-LU`
-      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-      useClass: NativeDateAdapterParserDE,
-      multi: true
-    }  
   ],
 })
 export class MyApp {}
 ```
-
-Other locales can be added by providing `VCL_NATIVE_DATE_ADAPTER_PARSER` with a class implementing the `VCLNativeDateAdapterParser`
-Check one of the existing [providers](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/parsers) for an example.
 
 ### Weekday offset
 
@@ -109,7 +104,7 @@ import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from '@vcl/ng-vcl';
 
 @NgModule({
   providers: [
-    // Calendar starts on Monday
+    // Calendar week starts on Monday
     { provide: VCL_DATE_ADAPTER_WEEKDAY_OFFSET, useValue: 1 }
   ],
 })
@@ -118,10 +113,10 @@ export class MyApp {}
 
 ### Custom date adapter
 
-A custom adapter must extend from `VCLDateAdapter` and implement the abstract methods.
+A custom adapter must extend from `DateAdapterBase` and implement the abstract methods.
 
 ```ts
-export class MyDateAdapter extends VCLDateAdapter<MyDate> {
+export class MyDateAdapter extends DateAdapterBase<MyDate> {
 
   constructor(
     @Inject(VCL_DATE_ADAPTER_WEEKDAY_OFFSET)
@@ -142,11 +137,12 @@ export class MyDateAdapter extends VCLDateAdapter<MyDate> {
 ```
 
 ```ts
-import { VCLDateAdapter } from '@vcl/ng-vcl';
+import { DateAdapterBase } from '@vcl/ng-vcl';
 
 @NgModule({
   providers: [
-    { provide: VCLDateAdapter, useClass: MyDateAdapter }
+    MyDateAdapter
+    { provide: DateAdapterBase, useExisting: MyDateAdapter },
   ],
 })
 export class MyApp {}

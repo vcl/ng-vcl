@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges } from '@angular/core';
-import { VCLDateAdapter, VCLDateRange } from '../../dateadapter/index';
+import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarHours } from '../interfaces';
 
 @Component({
@@ -10,7 +10,7 @@ import { VCLCalendarHours } from '../interfaces';
 })
 export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
   constructor(
-    private dateAdapter: VCLDateAdapter<VCLDate>,
+    private dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     this.updateCalendarHours();
   }

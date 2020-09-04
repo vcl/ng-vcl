@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, FormControl, NgForm } from '@angular/forms';
-import { NotifierService, FormControlErrorStateAgent, LayerConfig } from '@vcl/ng-vcl';
+import { NotifierService, FormControlErrorStateAgent, LayerConfig, DateAdapter } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -9,10 +9,12 @@ import { NotifierService, FormControlErrorStateAgent, LayerConfig } from '@vcl/n
 })
 export class FormControlGroupDemoComponent {
 
-  constructor(private notifier: NotifierService) { }
+  constructor(private notifier: NotifierService, private da: DateAdapter) { }
 
   @ViewChild('form')
   form: NgForm;
+
+  datePattern = this.da.pattern('date');
 
   skillPointsMax = 10;
 

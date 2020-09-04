@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { VCLDateAdapter } from '../dateadapter/index';
+import { DateAdapterBase } from '../dateadapter/index';
 import { VCLCalendarView, VCLCalendarHandler, VCLCalendar } from './interfaces';
 
 export abstract class DateHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
   constructor(
-    protected dateAdapter: VCLDateAdapter<VCLDate>,
+    protected dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super();
   }
@@ -49,7 +49,7 @@ export abstract class DateHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
 @Injectable()
 export class DateSingleHandler<VCLDate> extends DateHandler<VCLDate> {
   constructor(
-    dateAdapter: VCLDateAdapter<VCLDate>,
+    dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super(dateAdapter);
   }
@@ -65,7 +65,7 @@ export class DateSingleHandler<VCLDate> extends DateHandler<VCLDate> {
 @Injectable()
 export class DateMultipleHandler<VCLDate> extends DateHandler<VCLDate> {
   constructor(
-    dateAdapter: VCLDateAdapter<VCLDate>,
+    dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super(dateAdapter);
   }
@@ -100,7 +100,7 @@ export class DateMultipleHandler<VCLDate> extends DateHandler<VCLDate> {
 @Injectable()
 export class DateRangeHandler<VCLDate> extends DateHandler<VCLDate> {
   constructor(
-    dateAdapter: VCLDateAdapter<VCLDate>,
+    dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super(dateAdapter);
   }
@@ -123,7 +123,7 @@ export class DateRangeHandler<VCLDate> extends DateHandler<VCLDate> {
 
 export abstract class MonthHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
   constructor(
-    protected dateAdapter: VCLDateAdapter<VCLDate>,
+    protected dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super();
   }
@@ -163,7 +163,7 @@ export abstract class MonthHandler<VCLDate> extends VCLCalendarHandler<VCLDate> 
 @Injectable()
 export class MonthSingleHandler<VCLDate> extends MonthHandler<VCLDate> {
   constructor(
-    dateAdapter: VCLDateAdapter<VCLDate>,
+    dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super(dateAdapter);
   }
@@ -178,7 +178,7 @@ export class MonthSingleHandler<VCLDate> extends MonthHandler<VCLDate> {
 @Injectable()
 export class MonthMultipleHandler<VCLDate> extends MonthHandler<VCLDate> {
   constructor(
-    dateAdapter: VCLDateAdapter<VCLDate>,
+    dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super(dateAdapter);
   }
@@ -212,7 +212,7 @@ export class MonthMultipleHandler<VCLDate> extends MonthHandler<VCLDate> {
 @Injectable()
 export class MonthRangeHandler<VCLDate> extends MonthHandler<VCLDate> {
   constructor(
-    dateAdapter: VCLDateAdapter<VCLDate>,
+    dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super(dateAdapter);
   }

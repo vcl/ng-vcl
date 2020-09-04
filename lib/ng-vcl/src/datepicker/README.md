@@ -36,8 +36,8 @@ export class AppComponent {}
 
 ### Date representation
 
-The datepicker uses the `VCLDateAdapter` for date representation.
-Check the [`VCLDateAdapter` docs](#/dateadapter) for further information.
+The datepicker uses the `DateAdapterBase` for date representation.
+Check the [`DateAdapterBase` docs](#/dateadapter) for further information.
 
 ### API
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VCLDateRange, VCLDateAdapter } from '@vcl/ng-vcl';
+import { VCLDateRange, DateAdapterBase } from '@vcl/ng-vcl';
 import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
 
 @Component({
@@ -11,7 +11,7 @@ import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
   `]
 })
 export class CalendarDemoComponent {
-  constructor(private dateAdapter: VCLDateAdapter<Date>) { }
+  constructor(private dateAdapter: DateAdapterBase<Date>) { }
 
   date: Date;
   get sdate() {

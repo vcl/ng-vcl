@@ -1,165 +1,162 @@
-import { InjectionToken } from '@angular/core';
-import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats, VCLDateRange, VCLDateAdapterPattern } from './interfaces';
+import { Inject, Optional, LOCALE_ID, Injectable } from '@angular/core';
+import { DateAdapterBase, VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from './dateadapter-base';
+import { DateAdapterBaseDisplayFormats, DateAdapterBaseParseFormats, DateAdapterBasePattern } from './interfaces';
+import { VCL_DATE_ADAPTER_PARSER, DateAdapterParser, DateAdapterParserISO } from './parsers/index';
 
-export const VCL_DATE_ADAPTER = new InjectionToken('VCL_DATE_ADAPTER');
-export const VCL_DATE_ADAPTER_WEEKDAY_OFFSET = new InjectionToken('VCL_DATE_ADAPTER_WEEKDAY_OFFSET');
+@Injectable({
+  providedIn: 'root'
+})
+export class DateAdapter extends DateAdapterBase<Date> {
 
-export abstract class VCLDateAdapter<VCLDate> {
+  locale: string;
+  weekDayOffset: number;
 
-  daysPerWeek = 7;
-
-  abstract locale?: string;
-  abstract weekDayOffset: number;
-
-  abstract isDate(date: any): date is VCLDate;
-  /**
-   * Checks if value is an array with valid dates
-   */
-  isDateArray(date: any): date is VCLDate[] {
-    return Array.isArray(date) && date.every(d => this.isDate(d));
-  }
-  /**
-   * Checks if value is a valid date range
-   */
-  isRange(date: any): date is VCLDateRange<VCLDate> {
-    return typeof date === 'object' && date && this.isDate((date).start) && this.isDate((date).end);
-  }
-  /**
-   * Checks if value is a date range consisting of at least a starting date
-   */
-  isPartialRange(date: any): date is VCLDateRange<VCLDate> {
-    return typeof date === 'object' && date && this.isDate(date.start) && (date.end === undefined || date.end === null);
-  }
-
-  /**
-   * Checks if defined locale is in 24h format
-   */
-  abstract use24hTime(): boolean;
-  /**
-   * Returns a date representing today's date
-   */
-  abstract today(): VCLDate;
-  /**
-   * Returns a the latest possible date
-   */
-  abstract max(): VCLDate;
-  /**
-   * Returns a the earliest possible date
-   */
-  abstract min(): VCLDate;
-  /**
-   * Returns a date range that represents all possible dates
-   */
-  always(): VCLDateRange<VCLDate> {
-    return {
-      start: this.min(),
-      end: this.max()
-    };
-  }
-  /**
-   * Clones a Date
-   */
-  abstract clone(date: VCLDate): VCLDate;
-  /**
-   * Parses a date string in specified format and returns a VCLDate instance
-   */
-  abstract parse(date: string, format: VCLDateAdapterParseFormats): VCLDate | undefined;
-  /**
-   * Formats a VCLDate tp the specified format and returns it as a string
-   */
-  abstract format(date: VCLDate, format: VCLDateAdapterDisplayFormats): string | undefined;
-  abstract pattern(pattern: VCLDateAdapterPattern): string | undefined;
-
-  abstract addMonths(date: VCLDate, months: number): VCLDate;
-  abstract addDays(date: VCLDate, days: number): VCLDate;
-  abstract getDaysInMonth(date: VCLDate): number;
-  abstract getYear(date: VCLDate): number;
-  abstract getMonth(date: VCLDate): number;
-  abstract getDay(date: VCLDate): number;
-  abstract getHour(date: VCLDate): number;
-  abstract getMinute(date: VCLDate): number;
-  abstract getDayOfWeek(date: VCLDate): number;
-  abstract getWeekOfTheYear(date: VCLDate): number;
-  abstract getDayOfWeekNames(): string[];
-  abstract createDate(year: number, month: number, day: number): VCLDate;
-  abstract createDateTime(year: number, month: number, day: number, hour: number, minute: number, second: number): VCLDate;
-  abstract createTime(hour: number, minute: number, second: number): VCLDate;
-
-  getFirstWeekdayOfMonth(date: VCLDate): number {
-    const firstOfMonthDate =  this.createDate(this.getYear(date), this.getMonth(date), 1);
-    return this.getDayOfWeek(firstOfMonthDate);
-  }
-
-  getLastWeekdayOfMonth(date: VCLDate): number {
-    const daysInMonth = this.getDaysInMonth(date);
-    const lastOfMonthDate =  this.createDate(this.getYear(date), this.getMonth(date), daysInMonth);
-    return this.getDayOfWeek(lastOfMonthDate);
-  }
-
-  /**
-   * @returns 0 if  equal, less than 0 if the first date is earlier, greater than 0 if the first date is later.
-   */
-  compareDate(date1: VCLDate, date2: VCLDate): number {
-    return this.getYear(date1) - this.getYear(date2) ||
-           this.getMonth(date1) - this.getMonth(date2) ||
-           this.getDay(date1) - this.getDay(date2);
-  }
-
-  /**
-   * @returns 0 if  equal, less than 0 if the first date's month is earlier, greater than 0 if the first date's month is later.
-   */
-  compareMonth(date1: VCLDate, date2: VCLDate): number {
-    return this.getYear(date1) - this.getYear(date2) ||
-           this.getMonth(date1) - this.getMonth(date2);
-  }
-
-  /**
-   * @returns 0 if  equal, less than 0 if the first date's year is earlier, greater than 0 if the first date's year is later.
-   */
-  compareYear(date1: VCLDate, date2: VCLDate): number {
-    return this.getYear(date1) - this.getYear(date2);
-  }
-
-  isSameMonth(date1: VCLDate, date2: VCLDate): boolean {
-    return this.getMonth(date1) === this.getMonth(date2) &&
-           this.getYear(date1) === this.getYear(date2);
-  }
-  isSameYear(date1: VCLDate, date2: VCLDate): boolean {
-    return this.getYear(date1) === this.getYear(date2);
-  }
-
-  addYears(date: VCLDate, years: number): VCLDate {
-    return this.addMonths(date, years * 12);
-  }
-
-  isSameDay(date1: VCLDate, date2: VCLDate): boolean {
-    return this.compareDate(date1, date2) === 0;
-  }
-
-  createRange(start: VCLDate, end?: VCLDate): VCLDateRange<VCLDate> {
-    if (!end || this.compareDate(start, end) <= 0) {
-      return {
-        start,
-        end
-      };
-    } else {
-      return {
-        start: end,
-        end: start
-      };
+  constructor(
+    @Inject(VCL_DATE_ADAPTER_WEEKDAY_OFFSET)
+    weekDayOffset: number,
+    @Optional()
+    @Inject(LOCALE_ID)
+    locale?: string,
+    @Optional()
+    @Inject(VCL_DATE_ADAPTER_PARSER)
+    parsers?: DateAdapterParser[],
+  ) {
+    super();
+    this.locale = locale || undefined;
+    if (this.locale && Array.isArray(parsers)) {
+      this.parser = parsers.find(p =>  p.supportedLocales.some(l => l.toLowerCase() === this.locale.toLowerCase()));
     }
+
+    if (!this.parser) {
+      this.parser = new DateAdapterParserISO();
+    }
+    this.weekDayOffset = typeof weekDayOffset === 'number' ? weekDayOffset : 0;
   }
 
-  toDate(date: any): VCLDate | undefined {
-    if (this.isDate(date)) {
-      return date;
-    } else if (this.isRange(date)) {
-      return date.start;
-    } else if (this.isDateArray(date)) {
-      if (date.length > 0) {
-        return date[0];
-      }
+  parser: DateAdapterParser;
+
+  isDate(date: any): date is Date {
+    return date instanceof Date && isFinite(date.getTime());
+  }
+
+  use24hTime(): boolean {
+    return !new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric' } )
+                    .format(new Date())
+                    .match(/am|pm/i);
+  }
+
+  addMonths(date: Date, months: number): Date {
+    const newDate = this.clone(date);
+    // Handle overflow when the new month has less days than the old month
+    newDate.setMonth(date.getMonth() + months, 1);
+    const m = newDate.getMonth();
+    newDate.setDate(date.getDate());
+    if (newDate.getMonth() !== m) {
+      newDate.setDate(0);
     }
-    return undefined;
+    return newDate;
+  }
+
+  addDays(date: Date, days: number): Date {
+    return this.createDate(date.getFullYear(), date.getMonth(), date.getDate() + days);
+  }
+
+  convertToNativeDate(date: Date): Date {
+    return date;
+  }
+
+  getDaysInMonth(date: Date): number {
+    return this.createDate(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  }
+
+  getYear(date: Date): number {
+    return date.getFullYear();
+  }
+
+  getMonth(date: Date): number {
+    return date.getMonth();
+  }
+
+  getDay(date: Date): number {
+    return date.getDate();
+  }
+
+  getHour(date: Date): number {
+    return date.getHours();
+  }
+  getMinute(date: Date): number {
+    return date.getMinutes();
+  }
+
+  max(): Date {
+    return new Date(8640000000000000);
+  }
+
+  min(): Date {
+    return new Date(-8640000000000000);
+  }
+
+  format(date: Date, type: DateAdapterBaseDisplayFormats): string | undefined {
+    if (!this.isDate(date)) {
+      return undefined;
+    }
+
+    return this.parser.format(date, type);
+  }
+
+  pattern(type: DateAdapterBasePattern): string | undefined {
+    return this.parser.pattern(type);
+  }
+
+  parse(date: string, format: DateAdapterBaseParseFormats): Date {
+    return this.parser.parse(date, format);
+  }
+
+  getWeekOfTheYear(date: Date): number {
+    // Copy date so don't modify original
+    const d = this.clone(date);
+    d.setHours(0, 0, 0);
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+    // Get first day of year
+    const yearStart = this.createDate(d.getFullYear(), 0, 1);
+    // Calculate full weeks to nearest Thursday
+    const weekNo = Math.ceil((((d.valueOf() - yearStart.valueOf()) / 86400000) + 1) / 7);
+    // Return array of year and week number
+    return weekNo;
+  }
+
+  getDayOfWeekNames(): string[] {
+    return Array.from(Array(this.daysPerWeek).keys()).map(i => {
+      return this.format(new Date(1970, 0, i + 4 + this.weekDayOffset), 'weekday');
+    });
+  }
+
+  getDayOfWeek(date: Date): number {
+    return date.getDay();
+  }
+
+  clone(date: Date): Date {
+    return new Date(date.getTime());
+  }
+
+  createDate(year: number, month: number, day: number): Date {
+    return new Date(year, month, day);
+  }
+
+  createDateTime(year: number, month: number, day: number, hour: number, minute: number, second: number): Date {
+    return new Date(year, month, day, hour, minute, second);
+  }
+
+  createTime(hour: number, minute: number, second: number): Date {
+    const date = this.today();
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute, second);
+  }
+
+  today(): Date {
+    return new Date();
   }
 }
+
+

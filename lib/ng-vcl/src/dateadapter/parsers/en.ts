@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { VCLDateAdapterParseFormats, VCLDateAdapterDisplayFormats } from '../interfaces';
-import { VCLNativeDateAdapterParser } from './types';
+import { DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '../interfaces';
+import { DateAdapterParser } from './types';
 import { extractInt, unsupportedFormat, pad, intlFallback } from './utils';
 
 const REGEX_DATE = /^\s*(1[012]|0?[1-9])\/(3[01]|[12][0-9]|0?[1-9])\/(\d{4})\s*$/;
@@ -29,10 +29,10 @@ function formatENTime(date: Date) {
 @Injectable({
   providedIn: 'root'
 })
-export class NativeDateAdapterParserEN implements VCLNativeDateAdapterParser {
+export class DateAdapterParserEN implements DateAdapterParser {
   supportedLocales = ['en', 'en-us'];
 
-  parse(value: string, format: VCLDateAdapterParseFormats): Date {
+  parse(value: string, format: DateAdapterBaseParseFormats): Date {
     if (format === 'date') {
       const result = extractInt(value, REGEX_DATE);
       return result ? new Date(result[2], result[0], result[1]) : undefined;
@@ -45,7 +45,7 @@ export class NativeDateAdapterParserEN implements VCLNativeDateAdapterParser {
       unsupportedFormat(format);
     }
   }
-  format(date: Date, format: VCLDateAdapterDisplayFormats): string {
+  format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
       case "date": {
         return `${pad(date.getMonth(), 2)}/${pad(date.getDate(), 2)}/${pad(date.getFullYear(), 4)}`;
@@ -61,7 +61,7 @@ export class NativeDateAdapterParserEN implements VCLNativeDateAdapterParser {
       }
     }
   }
-  pattern(format: VCLDateAdapterParseFormats): string {
+  pattern(format: DateAdapterBaseParseFormats): string {
     switch(format) {
       case "date": {
         return `MM/DD/YYYY`;

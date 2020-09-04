@@ -1,8 +1,8 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { JssFormComponent, NotifierService } from '@vcl/ng-vcl';
+import { JssFormComponent, NotifierService, DateAdapter } from '@vcl/ng-vcl';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HERO_SCHEMA, ExtendedFormFieldSchemaRoot } from './hero';
+import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { HERO_SCHEMA, ExtendedFormFieldSchemaRoot } from './hero';
 })
 export class JssFormDemoComponent implements AfterViewInit, OnInit {
 
-  constructor(private notifier: NotifierService) { }
+  constructor(private notifier: NotifierService, private da: DateAdapter) { }
 
   @ViewChild('heroForm')
   heroForm: JssFormComponent;
@@ -20,7 +20,9 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   state$: Observable<any>;
 
   ngOnInit(): void {
-    this.heroSchema = HERO_SCHEMA;
+    this.heroSchema = buildHeroSchema({
+      datepickerPlaceholder: this.da.pattern('date')
+    });
   }
 
   onSubmit() {

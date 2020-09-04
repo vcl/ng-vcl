@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
-import { VCLDateAdapterModule } from '../dateadapter/index';
 import { CalendarViewMonthComponent } from './views/month.component';
 import { CalendarViewYearComponent } from './views/year.component';
 import { CalendarViewYearsComponent } from './views/years.component';
@@ -26,7 +25,7 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule, VCLButtonModule, VCLIconModule, VCLDateAdapterModule],
+  imports: [CommonModule, VCLButtonModule, VCLIconModule],
   exports: [CalendarComponent, CalendarViewYearsComponent, CalendarViewYearComponent, CalendarViewMonthComponent, CalendarViewHoursComponent, CalendarViewMinutesComponent],
   declarations: [CalendarComponent, CalendarViewYearsComponent, CalendarViewYearComponent, CalendarViewMonthComponent, CalendarViewHoursComponent, CalendarViewMinutesComponent],
   providers: [

@@ -10,12 +10,9 @@ import {
   VCLIconModule, VCLNavigationModule, VCLButtonModule,
   VCLLayerModule, VCLFontAwesomeModule, VCLMaterialDesignModule, VCLIcogramModule,
   VCLBusyIndicatorModule,
-  VCL_NATIVE_DATE_ADAPTER_PARSER,
-  NativeDateAdapterParserEN,
-  NativeDateAdapterParserDE,
-  NativeDateAdapterParserENGB,
   VCLDrawerModule,
-  VCLInputModule
+  VCLInputModule,
+  VCLDateAdapterModule,
 } from '@vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
@@ -23,8 +20,13 @@ import { HomeComponent } from './components/home/home.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
-export function localeProviderFactory() {
-  return navigator?.language ?? 'en-us';
+export function determineLocale() {
+  return ((navigator.languages && navigator.languages[0]) ?? navigator?.language ?? 'en-us').toLowerCase();
+}
+
+export function determineWeekdayOffset() {
+  const locale = determineLocale();
+  return locale.startsWith('de') ? 1 : 0;
 }
 
 @NgModule({
@@ -44,6 +46,9 @@ export function localeProviderFactory() {
     VCLBusyIndicatorModule,
     VCLLayerModule,
     VCLDrawerModule,
+    VCLDateAdapterModule.forRoot({
+      weekDayOffset: determineWeekdayOffset()
+    }),
     ScrollingModule,
     MarkdownModule.forRoot({
       sanitize: SecurityContext.NONE,
@@ -71,23 +76,8 @@ export function localeProviderFactory() {
   providers: [
     {
       provide: LOCALE_ID,
-      useFactory: localeProviderFactory
+      useFactory: determineLocale
     },
-    {
-      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-      useClass: NativeDateAdapterParserEN,
-      multi: true
-    },
-    {
-      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-      useClass: NativeDateAdapterParserENGB,
-      multi: true
-    },
-    {
-      provide: VCL_NATIVE_DATE_ADAPTER_PARSER,
-      useClass: NativeDateAdapterParserDE,
-      multi: true
-    }
   ]
 })
 export class AppModule { }

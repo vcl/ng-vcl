@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, OnInit } from '@angular/core';
-import { VCLDateAdapter, VCLDateRange } from '../../dateadapter/index';
+import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarMonth, VCLCalendarDay, VCLCalendarDateModifier } from '../interfaces';
 import { VCLCalendarWeek } from '../interfaces';
 import { compare } from '../utils';
@@ -13,7 +13,7 @@ import { compare } from '../utils';
 export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
 
   constructor(
-    private dateAdapter: VCLDateAdapter<VCLDate>,
+    private dateAdapter: DateAdapterBase<VCLDate>,
   ) { }
 
   @Input()

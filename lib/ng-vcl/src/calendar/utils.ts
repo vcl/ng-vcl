@@ -1,9 +1,9 @@
-import { VCLDateAdapter, VCLDateRange } from '../dateadapter/index';
+import { DateAdapterBase, VCLDateRange } from '../dateadapter/index';
 import { VCLCalendarSelection } from './interfaces';
 
 
 export function compare<VCLDate>(
-  adapter: VCLDateAdapter<VCLDate>,
+  adapter: DateAdapterBase<VCLDate>,
   date1: VCLDate | VCLDate[] | VCLDateRange<VCLDate>,
   date2: VCLDate,
   compareFn: (date1: VCLDate, date2: VCLDate) => number): VCLCalendarSelection {

@@ -24,7 +24,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { FORM_CONTROL_GROUP_INPUT_STATE, FormControlGroupInputState } from '../form-control-group/index';
-import { VCLDateRange, VCLDateAdapter, VCLDateAdapterParseFormats } from '../dateadapter/index';
+import { VCLDateRange, DateAdapterBase, DateAdapterBaseParseFormats } from '../dateadapter/index';
 import { InputDirective, FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from '../input/index';
 import { VCLCalendarDateModifier } from '../calendar/index';
 
@@ -69,7 +69,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
-    private dateAdapter: VCLDateAdapter<VCLDate>,
+    private dateAdapter: DateAdapterBase<VCLDate>,
   ) {
     super(injector);
   }
@@ -142,7 +142,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     return this._cvaDisabled || this.disabled;
   }
 
-  get parseFormat(): VCLDateAdapterParseFormats {
+  get parseFormat(): DateAdapterBaseParseFormats {
     if (this.pick === 'date') {
       return 'date';
     } else if (this.pick === 'month') {

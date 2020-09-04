@@ -33,9 +33,7 @@
   <div class="row gutterx-4">
     <vcl-form-control-group class="flex">
       <vcl-label>Date of Birth</vcl-label>
-      <vcl-datepicker formControlName="dob" placeholder="MM/DD/YYYY">
-        <vcl-calendar></vcl-calendar>
-      </vcl-datepicker>
+      <vcl-datepicker formControlName="dob" [placeholder]="datePattern"></vcl-datepicker>
       <vcl-hint-error error="required">Date of Birth is required</vcl-hint-error>
     </vcl-form-control-group>
   
