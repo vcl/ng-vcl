@@ -3,7 +3,6 @@ import { VCLFormFieldSchemaSlider, VCLFormFieldSchemaSliderParams } from '../sch
 import { FormFieldControl } from './field';
 
 export class FormFieldSlider extends FormFieldControl<VCLFormFieldSchemaSlider, VCLFormFieldSchemaSliderParams> {
-  type: 'slider';
   get scale()  {
     return this.params.scale;
   }

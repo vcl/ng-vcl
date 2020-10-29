@@ -3,7 +3,6 @@ import { VCLFormFieldSchemaButtonGroup, VCLFormFieldSchemaButtonGroupParams } fr
 import { FormFieldControl } from './field';
 
 export class FormFieldButtonGroup extends FormFieldControl<VCLFormFieldSchemaButtonGroup, VCLFormFieldSchemaButtonGroupParams> {
-  type: 'button-group';
   get options()  {
     return this.params.options || [];
   }
