@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/vcl/ng-vcl/compare/v2.0.0...v2.0.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **jss-form:** remove redundant field type props ([35cf059](https://github.com/vcl/ng-vcl/commit/35cf05988937096070267f64002bd40d9423e03c))
+
+
+
 # [2.0.0](https://github.com/vcl/ng-vcl/compare/v2.0.0-alpha.3...v2.0.0) (2020-08-20)
 
 
