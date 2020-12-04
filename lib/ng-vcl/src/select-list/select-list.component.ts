@@ -133,7 +133,8 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   }
 
   highlightSelected(): void {
-    this._highlightedItem = this.selectedItems[0];
+    // TODO implement highlightSelected
+    // this._highlightedItem = this.selectedItems[0];
   }
 
   selectItem(item: SelectListItem): void {

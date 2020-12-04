@@ -32,7 +32,7 @@ import { EmbeddedInputFieldLabelInput, FORM_CONTROL_EMBEDDED_LABEL_INPUT } from 
   selector: 'vcl-select',
   templateUrl: 'select.component.html',
   styleUrls: ['select.component.scss'],
-  encapsulation: ViewEncapsulation.None,    
+  encapsulation: ViewEncapsulation.None,
   exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -259,7 +259,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
         overlayX: 'start',
         overlayY: 'bottom'
       }]).withPush(false)
-    }, ...configs)    
+    }, ...configs)
   }
 
   onLabelClick(): void {
@@ -294,7 +294,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   protected afterDetached(result) {
-    this.selectList.highlightSelected();
+    // this.selectList.highlightSelected(); // TODO uncomment when highlightSelected is implemented
     this.afterClose.emit(this.selectList.value);
     if (!this.isDestroyed) {
       this.cdRef.markForCheck();

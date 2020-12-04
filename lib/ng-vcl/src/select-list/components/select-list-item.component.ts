@@ -57,7 +57,7 @@ export class SelectListItemComponent implements SelectListItem {
 
   @HostBinding('class.highlighted')
   get isHighlighted() {
-    return this.isFocused || this.selectList.isItemHighlighted(this);
+    return this.selectList.isItemHighlighted(this);
   }
 
   get isFocused() {
@@ -81,7 +81,7 @@ export class SelectListItemComponent implements SelectListItem {
 
   @ContentChild(LabelDirective, { read: LabelDirective })
   _labelDirective?: LabelDirective;
-  
+
   @ViewChild('label', { read: ElementRef })
   _labelElementRef?: ElementRef<HTMLElement>;
 
