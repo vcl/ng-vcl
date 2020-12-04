@@ -12,7 +12,7 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
   }
 
   protected createDefaultValue() {
-    return this.type !== 'number' ? '' : null;
+    return this.params.inputType !== 'number' ? '' : null;
   }
 
   get inputType() {
@@ -42,7 +42,7 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
 }
 
 @Component({
-  selector: 'vcl-jss-form-input',  
+  selector: 'vcl-jss-form-input',
   template: `
     <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
