@@ -43,6 +43,10 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    if (this.alert && this.alert.inputValue) {
+      this.value = this.alert.inputValue;
+    }
+
     this.elementRef.nativeElement.focus();
   }
 

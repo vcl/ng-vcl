@@ -16,7 +16,8 @@
 
       <vcl-form-control-group *ngIf="alert.input">
         <vcl-input-field>
-          <input vclInput vclInputAlert [class.error]="validationError" [alert]="alert" (input)="valueChange($event.target.value)">
+          <input vclInput vclInputAlert [class.error]="validationError" [alert]="alert"
+                 (input)="valueChange($event.target.value)" [value]="alert.inputValue ? alert.inputValue : ''">
         </vcl-input-field>
         <vcl-hint-error *ngIf="validationError">{{validationError}}</vcl-hint-error>
       </vcl-form-control-group>
