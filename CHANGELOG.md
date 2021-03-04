@@ -1,3 +1,12 @@
+## [2.0.3](https://github.com/Vilsol/ng-vcl/compare/v2.0.1...v2.0.3) (2021-03-04)
+
+
+### Bug Fixes
+
+* **alert:** prefill input with provided value if exists ([c7452fc](https://github.com/Vilsol/ng-vcl/commit/c7452fc59774e4ac22e3127925680db83036529b))
+
+
+
 ## [2.0.1](https://github.com/vcl/ng-vcl/compare/v2.0.0...v2.0.1) (2020-10-29)
 
 
