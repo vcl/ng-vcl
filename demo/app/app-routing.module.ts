@@ -430,8 +430,9 @@ export const appRoutingProviders: any[] = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    useHash: true
-  })],
+    useHash: true,
+    relativeLinkResolution: 'legacy'
+})],
   providers: [...appRoutingProviders],
   exports: [RouterModule]
 })
