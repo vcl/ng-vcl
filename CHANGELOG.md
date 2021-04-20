@@ -1,3 +1,15 @@
+## [2.0.4](https://github.com/vcl/ng-vcl/compare/v2.0.1...v2.0.3) (2021-04-20)
+
+
+### Bug Fixes
+
+* **alert:** prefill input with provided value if exists ([c7452fc](https://github.com/vcl/ng-vcl/commit/c7452fc59774e4ac22e3127925680db83036529b))
+
+### BREAKING CHANGES
+
+* Upgrading dependency angular from 10 to 11.
+
+
 ## [2.0.3](https://github.com/Vilsol/ng-vcl/compare/v2.0.1...v2.0.3) (2021-03-04)
 
 
