@@ -34,6 +34,10 @@ export class GalleryBodyComponent implements AfterContentChecked {
     this.selectPrevious();
   }
 
+  @HostListener('window:resize') function(){
+    this.imageLoaded();
+  }
+
   ngAfterContentChecked() {
     if (!this.initialized) {
       const images = this.imageContainer.nativeElement.querySelectorAll('img');
