@@ -15,6 +15,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
 
   private initialized = false;
   private imgS: HTMLElement[];
+  private imgContainers: HTMLElement[];
   private containerHeight = 0;
   private loadedCount = 0;
 
@@ -34,14 +35,17 @@ export class GalleryBodyComponent implements AfterContentChecked {
     this.selectPrevious();
   }
 
+  @HostListener('window:resize') function(){
+    this.imageLoaded();
+    this.ngAfterContentChecked();
+  }
+
   ngAfterContentChecked() {
     if (!this.initialized) {
       const images = this.imageContainer.nativeElement.querySelectorAll('img');
-
       if (images.length === 0) {
         return;
       }
-
       this.initialized = true;
       this.imgS = Array.from(images);
     }
@@ -55,13 +59,15 @@ export class GalleryBodyComponent implements AfterContentChecked {
   private reload(): void {
     let maxHeight = 0;
     let leftPos = 0;
-    this.imgS.forEach(image => {
+    this.imgS.forEach((image, i) => {
       if (image.clientHeight > maxHeight) {
         maxHeight = image.clientHeight;
       }
 
-      image.style.left = Math.round(leftPos) + 'px';
-      leftPos += image.clientWidth;
+      image.style.left = Math.round(leftPos) + 
+      ((this.imageContainer.nativeElement.clientWidth - image.clientWidth)/2) + 
+      'px';
+      leftPos += this.imageContainer.nativeElement.clientWidth;
     });
 
     this.containerHeight = maxHeight;
@@ -72,12 +78,11 @@ export class GalleryBodyComponent implements AfterContentChecked {
       return 0;
     }
 
-    let result = this.imageContainer.nativeElement.clientWidth / 2;
+    let result = 0
     for (let i = 0; i < this.target.selectedImage; i++) {
-      result -= this.imgS['' + i].clientWidth;
+      result -= this.imageContainer.nativeElement.clientWidth;
     }
 
-    result -= this.imgS['' + this.target.selectedImage].clientWidth / 2;
 
     return result;
   }
