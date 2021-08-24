@@ -1,4 +1,4 @@
-<div class="gallery-content" style="overflow: hidden;">
+<div class="gallery-content" style="overflow: hidden;" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
   <button *ngIf="target.selectedImage > 0 || target.wrap" vcl-button type="button" class="gallery-prev-button" (click)="selectPrevious()" aria-label="Previous">
     <vcl-icon icon="vcl:arrow-left"></vcl-icon>
   </button>
