@@ -1,3 +1,17 @@
+# [2.1.0](https://github.com/vcl/ng-vcl/compare/v2.0.2...v2.1.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* **alert:** prefill input with provided value if exists ([c7452fc](https://github.com/vcl/ng-vcl/commit/c7452fc59774e4ac22e3127925680db83036529b))
+
+
+### Features
+
+* angular 12 ([4985e85](https://github.com/vcl/ng-vcl/commit/4985e856e4bfe047e4a93f2773afd440bb715662))
+
+
+
 ## [2.0.4](https://github.com/vcl/ng-vcl/compare/v2.0.2...v2.0.4) (2021-08-27)
 
 
