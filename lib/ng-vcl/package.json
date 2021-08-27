@@ -9,12 +9,12 @@
   "author": "The ng-vcl authors",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/cdk": "^11",
-    "@angular/common": "^11",
-    "@angular/animations": "^11",
-    "@angular/core": "^11",
-    "@angular/forms": "^11",
-    "@angular/router": "^11",
+    "@angular/cdk": "^12",
+    "@angular/common": "^12",
+    "@angular/animations": "^12",
+    "@angular/core": "^12",
+    "@angular/forms": "^12",
+    "@angular/router": "^12",
     "rxjs": "^6.6.6"
   }
 }
