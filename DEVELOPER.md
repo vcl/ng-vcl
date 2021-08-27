@@ -2,7 +2,7 @@
 
 ## Developing
 
-```
+```sh
 npm run dev:demo
 ```
 
@@ -10,7 +10,7 @@ Open [http://localhost:3000/](http://localhost:3000/) to see the demo browser.
 
 ## Testing
 
-```
+```sh
 npm run test
 ```
 
@@ -21,5 +21,4 @@ There is no commit message validation, so make sure your commits stuck to the gu
 
 ## Building and Deploy the Docs
 
-Building and deploying the docs is done automatically via TRAVIS CI for the branches `dev` and `master`.
-Config file: `.travis.yml`.
+Building and deploying the docs is done automatically via GH Actions for the branches `dev` and `master`.
