@@ -20,39 +20,39 @@ export function pad(value: number, size: number) {
 const DEFAULT_DISPLAY_FORMATS = {
   day: {
     day: 'numeric'
-  },
+  } as const,
   month: {
     month: 'long'
-  },
+  } as const,
   year: {
     year: 'numeric'
-  },
+  } as const,
   yearMonthLong: {
     year: 'numeric',
     month: 'long'
-  },
+  } as const,
   yearMonth: {
     year: 'numeric',
     month: '2-digit',
-  },
+  } as const,
   weekday: {
     weekday: 'short'
-  },
+  } as const,
   date: {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit'
-  },
+  } as const,
   time: {
     hour: 'numeric',
     minute: '2-digit',
-  },
+  } as const,
   minute: {
     minute: 'numeric',
-  },
+  } as const,
   hour: {
     hour: 'numeric',
-  }
+  } as const
 };  
 
 export function intlFallback(locale: string, date: Date, type: DateAdapterBaseDisplayFormats) {
