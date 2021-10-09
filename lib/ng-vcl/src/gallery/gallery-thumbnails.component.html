@@ -1,7 +1,7 @@
-<div class="gallery-thumbs" touch-action="pan-y" style="display: flex; justify-content: center; width: 100%;">
-  <div style="display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x;">
+<div class="gallery-thumbs" touch-action="pan-y">
+  <div class="gallery-thumbs-container">
     <div *ngFor="let image of target.images; let i = index" class="gallery-thumb-wrapper" [ngClass]="{'selected': i == target.selectedImage}" (click)="target.selectImage(i)">
-      <img class="gallery-thumb" [src]="image.thumbnail || image.image" [alt]="image.alt" style="scroll-snap-align: center; border-radius: 10px;">
+      <img class="gallery-thumb" [src]="image.thumbnail || image.image" [alt]="image.alt">
     </div>
   </div>
 </div>
