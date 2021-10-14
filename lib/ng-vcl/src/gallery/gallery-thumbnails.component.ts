@@ -9,6 +9,8 @@ export class GalleryThumbnailsComponent {
 
   @Input()
   galleryTitle: string;
+  @Input()
+  alignment: string;
 
   @Input()
   target: GalleryComponent;
