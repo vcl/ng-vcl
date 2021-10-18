@@ -10,8 +10,7 @@ export class GalleryThumbnailsComponent {
   @Input()
   galleryTitle: string;
   @Input()
-  alignment: string;
-
+  vertical: boolean;
   @Input()
   target: GalleryComponent;
 

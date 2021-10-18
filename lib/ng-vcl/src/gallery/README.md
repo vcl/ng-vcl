@@ -69,4 +69,4 @@ Name            | Type              | Default  | Description
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
 `target`        | GalleryComponent  |          | gallery component (required if outside of it)
-`alignment`     | string            |  `""`    | enter "vertical" for vertical thumbnails
+`vertical`      | boolean           |          | set to "true" for vertical thumbnails
