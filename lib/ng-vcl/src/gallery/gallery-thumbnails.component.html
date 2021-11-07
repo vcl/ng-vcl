@@ -1,5 +1,5 @@
-<div touch-action="pan-y" [ngClass]="vertical === true ? 'gallery-thumbs-vertical' : 'gallery-thumbs'">
-  <div [ngClass]="vertical === true ? 'gallery-thumbs-container-vertical' : 'gallery-thumbs-container'">
+<div touch-action="pan-y" [ngClass]="vertical ? 'gallery-thumbs-vertical' : 'gallery-thumbs'">
+  <div [ngClass]="vertical ? 'gallery-thumbs-container-vertical' : 'gallery-thumbs-container'">
     <div *ngFor="let image of target.images; let i = index" class="gallery-thumb-wrapper" [ngClass]="{'selected': i == target.selectedImage}" (click)="target.selectImage(i)">
       <img class="gallery-thumb" [src]="image.thumbnail || image.image" [alt]="image.alt">
     </div>

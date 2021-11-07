@@ -4,14 +4,21 @@ import {GalleryComponent} from './gallery.component';
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
+  host: {'class': 'gallery-host'}
 })
 export class GalleryBodyComponent implements AfterContentChecked {
 
   @Input()
   target: GalleryComponent;
 
+  @Input()
+  wrapped: boolean;
+
   @ViewChild('imageContainer', { static: true })
   imageContainer: ElementRef;
+
+  @ViewChild('galleryContent', { static: true })
+  galleryContent: ElementRef;
 
   private initialized = false;
   private imgS: HTMLElement[];
@@ -55,7 +62,12 @@ export class GalleryBodyComponent implements AfterContentChecked {
 
   imageLoaded(): void {
     this.loadedCount++;
-    this.reload();
+    console.log(this.wrapped);
+    if (this.wrapped) {
+      this.reloadWrapped();
+    } else {
+      this.reload();
+    }
   }
 
   private reload(): void {
@@ -73,6 +85,18 @@ export class GalleryBodyComponent implements AfterContentChecked {
     });
 
     this.containerHeight = maxHeight;
+  }
+
+  private reloadWrapped(): void {
+
+    let leftPos = 0;
+    this.imgS.forEach((image, i) => {
+      image.style.left = Math.round(leftPos) + 
+      ((this.imageContainer.nativeElement.clientWidth - image.clientWidth)/2) + 
+      'px';
+      leftPos += this.imageContainer.nativeElement.clientWidth;
+    });
+    this.containerHeight = this.galleryContent.nativeElement.offsetHeight;
   }
 
   get translatePosition(): number {
