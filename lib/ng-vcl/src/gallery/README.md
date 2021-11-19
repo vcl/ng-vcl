@@ -28,6 +28,7 @@ Name            | Type    | Default  | Description
 --------------- | ------- | -------- | ----------------------------------
 `selectedImage` | number  | 0        | the selected image (optional)
 `wrap`          | string  | false    | whether to wrap around (optional)
+`row`           | boolean | false    | align body and thumbnails in a row
 
 #### Gallery Methods
 
@@ -69,4 +70,3 @@ Name            | Type              | Default  | Description
 Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
 `target`        | GalleryComponent  |          | gallery component (required if outside of it)
-`vertical`      | boolean           |          | set to "true" for vertical thumbnails

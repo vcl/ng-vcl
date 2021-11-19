@@ -1,3 +1,3 @@
-<div class="gallery" touch-action="pan-y" style="height: 100%; display: flex; flex-direction: column;">
+<div #galleryContainer class="gallery" touch-action="pan-y" [ngStyle]="!row && {'flex-direction': 'column'}">
   <ng-content></ng-content>
 </div>

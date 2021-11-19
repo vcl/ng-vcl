@@ -8,11 +8,15 @@ import {
   Input,
   Optional,
   QueryList,
-  HostBinding
+  HostBinding,
+  ElementRef,
+  ViewChild,
+  ContentChild,
 } from '@angular/core';
 
 import {GalleryImageComponent} from './gallery-image.component';
 import {AnimationBuilder, AnimationFactory, AnimationMetadata} from '@angular/animations';
+import { GalleryBodyComponent, GalleryThumbnailsComponent } from 'lib/ng-vcl/src/gallery';
 
 export const GALLERY_ANIMATIONS = new InjectionToken('@vcl/ng-vcl#gallery_animations');
 
@@ -42,11 +46,24 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
   @Input()
   wrap = false;
 
+  @Input()
+  row = false;
+
   @ContentChildren(GalleryImageComponent)
   images?: QueryList<GalleryImageComponent>;
 
-  imageArray: GalleryImageComponent[];
+  @ContentChild(GalleryThumbnailsComponent)
+  galleryThumbnailsComponent: GalleryThumbnailsComponent;
 
+  @ContentChild(GalleryBodyComponent)
+  GalleryBodyComponent: GalleryBodyComponent;
+
+  @ViewChild('galleryContainer', { static: true })
+  galleryContainer: ElementRef;
+
+  imageArray: GalleryImageComponent[];
+  thumbnails: HTMLElement;
+  thumbnailsContainer: HTMLElement;
   middleRefadeAnimationFactory: AnimationFactory | undefined;
   nextToMiddleAnimationFactory: AnimationFactory | undefined;
   previousToMiddleAnimationFactory: AnimationFactory | undefined;
@@ -72,6 +89,22 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
 
   ngAfterContentInit() {
     this.imageArray = this.images ? this.images.toArray() : [];
+
+    let galleryBody = this.GalleryBodyComponent.elem.nativeElement;
+    let galleryThumbnails = this.galleryThumbnailsComponent.elem.nativeElement;
+
+    this.thumbnails = galleryThumbnails.querySelector('div.gallery-thumbs');
+    this.thumbnailsContainer = galleryThumbnails.querySelector('div.gallery-thumbs-container');
+
+    if (this.row) {
+      galleryBody.classList = "";
+      galleryBody.classList.add('gallery-body-row');
+
+      this.thumbnails.classList.remove('gallery-thumbs');
+      this.thumbnails.classList.add('gallery-thumbs-vertical');
+      this.thumbnailsContainer.classList.remove('gallery-thumbs-container');
+      this.thumbnailsContainer.classList.add('gallery-thumbs-container-vertical');
+    }
   }
 
   selectImage(index: number): void {

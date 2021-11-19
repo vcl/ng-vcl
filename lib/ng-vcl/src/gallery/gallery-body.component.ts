@@ -4,15 +4,12 @@ import {GalleryComponent} from './gallery.component';
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
-  host: {'class': 'gallery-host'}
+  host: {'class': 'gallery-body-norow'}
 })
 export class GalleryBodyComponent implements AfterContentChecked {
 
   @Input()
   target: GalleryComponent;
-
-  @Input()
-  wrapped: boolean;
 
   @ViewChild('imageContainer', { static: true })
   imageContainer: ElementRef;
@@ -22,13 +19,12 @@ export class GalleryBodyComponent implements AfterContentChecked {
 
   private initialized = false;
   private imgS: HTMLElement[];
-  private imgContainers: HTMLElement[];
   private containerHeight = 0;
   private loadedCount = 0;
   private swipeCoord?: [number, number];
   private swipeTime?: number;
 
-  constructor(@Optional() parent: GalleryComponent, private elementRef: ElementRef) {
+  constructor(@Optional() parent: GalleryComponent, private elementRef: ElementRef, public elem: ElementRef) {
     if (this.target == null) {
       this.target = parent;
     }
@@ -62,15 +58,24 @@ export class GalleryBodyComponent implements AfterContentChecked {
 
   imageLoaded(): void {
     this.loadedCount++;
-    console.log(this.wrapped);
-    if (this.wrapped) {
-      this.reloadWrapped();
-    } else {
-      this.reload();
-    }
+    this.reload();
   }
 
   private reload(): void {
+    let leftPos = 0;
+    this.imgS.forEach((image, i) => {
+      image.style.left = Math.round(leftPos) + 
+      ((this.imageContainer.nativeElement.clientWidth - image.clientWidth)/2) + 
+      'px';
+      leftPos += this.imageContainer.nativeElement.clientWidth;
+    });
+    if (this.galleryContent.nativeElement.offsetHeight === 0) {
+      this.reloadUnwrapped();
+    } else (
+      this.containerHeight = this.galleryContent.nativeElement.offsetHeight)
+  }
+
+  private reloadUnwrapped(): void {
     let maxHeight = 0;
     let leftPos = 0;
     this.imgS.forEach((image, i) => {
@@ -85,18 +90,6 @@ export class GalleryBodyComponent implements AfterContentChecked {
     });
 
     this.containerHeight = maxHeight;
-  }
-
-  private reloadWrapped(): void {
-
-    let leftPos = 0;
-    this.imgS.forEach((image, i) => {
-      image.style.left = Math.round(leftPos) + 
-      ((this.imageContainer.nativeElement.clientWidth - image.clientWidth)/2) + 
-      'px';
-      leftPos += this.imageContainer.nativeElement.clientWidth;
-    });
-    this.containerHeight = this.galleryContent.nativeElement.offsetHeight;
   }
 
   get translatePosition(): number {
