@@ -29,19 +29,18 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLCheckboxModule,
-    VCLFormControlGroupModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ CheckboxDemoComponent ],
-  declarations: [ CheckboxDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLCheckboxModule,
+        VCLFormControlGroupModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [CheckboxDemoComponent]
 })
 export class CheckboxDemoModule { }

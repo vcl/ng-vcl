@@ -28,17 +28,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLZoomBoxModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ ZoomBoxDemoComponent ],
-  declarations: [ ZoomBoxDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLZoomBoxModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [ZoomBoxDemoComponent]
 })
 export class ZoomBoxDemoModule { }

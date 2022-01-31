@@ -29,19 +29,18 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLRadioButtonModule,
-    VCLIcogramModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ RadioButtonDemoComponent ],
-  declarations: [ RadioButtonDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLRadioButtonModule,
+        VCLIcogramModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [RadioButtonDemoComponent]
 })
 export class RadioButtonDemoModule { }

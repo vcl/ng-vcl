@@ -28,17 +28,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLTooltipModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: { demo }
-    }]),
-  ],
-  entryComponents: [ ToolTipDemoComponent ],
-  declarations: [ ToolTipDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLTooltipModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [ToolTipDemoComponent]
 })
 export class ToolTipDemoModule { }

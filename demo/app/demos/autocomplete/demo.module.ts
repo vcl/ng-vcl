@@ -40,30 +40,26 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLIconModule,
-    VCLInputModule,
-    VCLIcogramModule,
-    VCLBusyIndicatorModule,
-    VCLAutocompleteModule,
-    ScrollingModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ 
-    AutocompleteDemoComponent, 
-    AutocompleteAsyncDemoComponent
-  ],
-  declarations: [ 
-    AutocompleteDemoComponent, 
-    AutocompleteAsyncDemoComponent
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLButtonModule,
+        VCLIconModule,
+        VCLInputModule,
+        VCLIcogramModule,
+        VCLBusyIndicatorModule,
+        VCLAutocompleteModule,
+        ScrollingModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [
+        AutocompleteDemoComponent,
+        AutocompleteAsyncDemoComponent
+    ]
 })
 export class AutocompleteDemoModule { }

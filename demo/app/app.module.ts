@@ -30,54 +30,53 @@ export function determineWeekdayOffset() {
 }
 
 @NgModule({
-  imports: [
-    FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    VCLInputModule,
-    VCLButtonModule,
-    VCLIconModule,
-    VCLIcogramModule,
-    VCLFontAwesomeModule,
-    VCLMaterialDesignModule,
-    VCLNavigationModule,
-    VCLBusyIndicatorModule,
-    VCLLayerModule,
-    VCLDrawerModule,
-    VCLDateAdapterModule.forRoot({
-      weekDayOffset: determineWeekdayOffset()
-    }),
-    ScrollingModule,
-    MarkdownModule.forRoot({
-      sanitize: SecurityContext.NONE,
-      markedOptions: {
-        provide: MarkedOptions,
-        useValue: {
-          gfm: true,
-          breaks: true,
-          pedantic: false,
-          smartLists: true,
-          smartypants: false,
-          tables: true
+    imports: [
+        FormsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        VCLInputModule,
+        VCLButtonModule,
+        VCLIconModule,
+        VCLIcogramModule,
+        VCLFontAwesomeModule,
+        VCLMaterialDesignModule,
+        VCLNavigationModule,
+        VCLBusyIndicatorModule,
+        VCLLayerModule,
+        VCLDrawerModule,
+        VCLDateAdapterModule.forRoot({
+            weekDayOffset: determineWeekdayOffset()
+        }),
+        ScrollingModule,
+        MarkdownModule.forRoot({
+            sanitize: SecurityContext.NONE,
+            markedOptions: {
+                provide: MarkedOptions,
+                useValue: {
+                    gfm: true,
+                    breaks: true,
+                    pedantic: false,
+                    smartLists: true,
+                    smartypants: false,
+                    tables: true
+                },
+            },
+        })
+    ],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+    ],
+    bootstrap: [
+        AppComponent
+    ],
+    providers: [
+        {
+            provide: LOCALE_ID,
+            useFactory: determineLocale
         },
-      },
-    })
-  ],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-  ],
-  entryComponents: [],
-  bootstrap: [
-    AppComponent
-  ],
-  providers: [
-    {
-      provide: LOCALE_ID,
-      useFactory: determineLocale
-    },
-  ]
+    ]
 })
 export class AppModule { }

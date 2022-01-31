@@ -28,19 +28,18 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLIconModule,
-    VCLIcogramModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ ButtonDemoComponent ],
-  declarations: [ ButtonDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLButtonModule,
+        VCLIconModule,
+        VCLIcogramModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [ButtonDemoComponent]
 })
 export class ButtonDemoModule { }

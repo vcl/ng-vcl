@@ -28,17 +28,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLTabNavModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ TabNavDemoComponent ],
-  declarations: [ TabNavDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLTabNavModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [TabNavDemoComponent]
 })
 export class TabNavDemoModule { }

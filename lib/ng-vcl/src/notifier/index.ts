@@ -16,30 +16,29 @@ import { NotifierHandlerService } from './notifier-handler.service';
 export { NotifierComponent, NotifierService, NotifierOptions, NotifierPosition, NOTIFIER_CONFIG_TOKEN, NotifierConfig, NOTIFIER_ANIMATION_PARAMS_TOKEN, NotificationAnimationParams };
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-    VCLButtonModule,
-    VCLIconModule,
-    VCLNotificationModule,
-    OverlayModule,
-    PortalModule,
-  ],
-  exports: [PortalModule, NotifierDirective, NotifierComponent, VCLNotificationModule],
-  declarations: [ NotifierComponent, NotifierDirective ],
-  entryComponents: [ NotifierComponent ],
-  providers: [
-    NotifierService,
-    NotifierHandlerService,
-    {
-      provide: NOTIFIER_CONFIG_TOKEN,
-      useValue: NOTIFIER_CONFIG_DEFAULTS
-    },
-    {
-      provide: NOTIFIER_ANIMATION_PARAMS_TOKEN,
-      useValue: NOTIFIER_ANIMATION_PARAMS_DEFAULTS
-    }
-  ],
+    imports: [
+        FormsModule,
+        CommonModule,
+        VCLButtonModule,
+        VCLIconModule,
+        VCLNotificationModule,
+        OverlayModule,
+        PortalModule,
+    ],
+    exports: [PortalModule, NotifierDirective, NotifierComponent, VCLNotificationModule],
+    declarations: [NotifierComponent, NotifierDirective],
+    providers: [
+        NotifierService,
+        NotifierHandlerService,
+        {
+            provide: NOTIFIER_CONFIG_TOKEN,
+            useValue: NOTIFIER_CONFIG_DEFAULTS
+        },
+        {
+            provide: NOTIFIER_ANIMATION_PARAMS_TOKEN,
+            useValue: NOTIFIER_ANIMATION_PARAMS_DEFAULTS
+        }
+    ]
 })
 export class VCLNotifierModule {
 

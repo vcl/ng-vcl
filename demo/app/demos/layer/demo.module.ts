@@ -46,32 +46,27 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLLayerModule,
-    VCLButtonModule,
-    VCLIconModule,
-    VCLPanelModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo},
-    }]),
-  ],
-  entryComponents: [
-    LayerDemoComponent,
-    BarComponent,
-    NagComponent
-  ],
-  declarations: [
-    LayerDemoComponent,
-    BarComponent,
-    NagComponent
-  ],
-  providers: [
-    NagLayer
-  ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLLayerModule,
+        VCLButtonModule,
+        VCLIconModule,
+        VCLPanelModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo },
+            }]),
+    ],
+    declarations: [
+        LayerDemoComponent,
+        BarComponent,
+        NagComponent
+    ],
+    providers: [
+        NagLayer
+    ]
 })
 export class LayerDemoModule { }
 

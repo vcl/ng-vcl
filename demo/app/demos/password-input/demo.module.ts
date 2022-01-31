@@ -29,20 +29,19 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLPasswordInputModule,
-    VCLInputModule,
-    VCLFormControlGroupModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ PasswordInputDemoComponent ],
-  declarations: [ PasswordInputDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLPasswordInputModule,
+        VCLInputModule,
+        VCLFormControlGroupModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [PasswordInputDemoComponent]
 })
 export class PasswordInputDemoModule { }

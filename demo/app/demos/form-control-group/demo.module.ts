@@ -43,39 +43,38 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DemoModule,
-    VCLCounterModule,
-    VCLButtonModule,
-    VCLButtonGroupModule,
-    VCLInputModule,
-    VCLPasswordInputModule,
-    VCLRatingModule,
-    VCLFileInputModule,
-    VCLLayerModule,
-    VCLFlipSwitchModule,
-    VCLIconModule,
-    VCLPanelModule,
-    VCLCheckboxModule,
-    VCLIcogramModule,
-    VCLRadioButtonModule,
-    VCLSliderModule,
-    VCLSelectModule,
-    VCLTokenModule,
-    VCLTooltipModule,
-    VCLNotifierModule,
-    VCLDatepickerModule,
-    VCLFormControlGroupModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ FormControlGroupDemoComponent ],
-  declarations: [ FormControlGroupDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DemoModule,
+        VCLCounterModule,
+        VCLButtonModule,
+        VCLButtonGroupModule,
+        VCLInputModule,
+        VCLPasswordInputModule,
+        VCLRatingModule,
+        VCLFileInputModule,
+        VCLLayerModule,
+        VCLFlipSwitchModule,
+        VCLIconModule,
+        VCLPanelModule,
+        VCLCheckboxModule,
+        VCLIcogramModule,
+        VCLRadioButtonModule,
+        VCLSliderModule,
+        VCLSelectModule,
+        VCLTokenModule,
+        VCLTooltipModule,
+        VCLNotifierModule,
+        VCLDatepickerModule,
+        VCLFormControlGroupModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [FormControlGroupDemoComponent]
 })
 export class FormControlGroupDemoModule { }

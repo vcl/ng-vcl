@@ -104,18 +104,6 @@
               }
             ]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "demo/tsconfig.app.json",
-              "demo/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -138,18 +126,6 @@
             "main": "lib/ng-vcl/src/test.ts",
             "tsConfig": "lib/ng-vcl/tsconfig.spec.json",
             "karmaConfig": "lib/ng-vcl/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "lib/ng-vcl/tsconfig.lib.json",
-              "lib/ng-vcl/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
