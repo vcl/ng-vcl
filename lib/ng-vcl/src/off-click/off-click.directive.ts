@@ -43,11 +43,11 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
     ).pipe(
       filter(() => this.listen),
     ).subscribe(this.offClick);
-    this.changes$.next();
+    this.changes$.next(undefined);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.changes$.next();
+    this.changes$.next(undefined);
   }
   ngOnDestroy() {
     this._sub && this._sub.unsubscribe();

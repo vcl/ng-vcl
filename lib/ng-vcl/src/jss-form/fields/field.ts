@@ -100,7 +100,7 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     if (conditional instanceof Conditional) {
       const sub  = this.createConditionalStream(conditional).subscribe((value) => {
         cb(value);
-        this.stateChangedEmitter.next();
+        this.stateChangedEmitter.next(undefined);
       });
       this._conditionalSubs.push(sub);
     } else {
@@ -113,7 +113,7 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
   }
 
   formReady() {
-    this._formReady$.next();
+    this._formReady$.next(undefined);
     this._formReady$.complete();
   }
 

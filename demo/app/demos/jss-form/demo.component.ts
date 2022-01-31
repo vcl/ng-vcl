@@ -41,7 +41,7 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    this.state$ = merge(this.heroForm.form.statusChanges, this.heroForm.form.valueChanges, this.heroForm.form.ngSubmit).pipe(
+    this.state$ = merge(this.heroForm.form.statusChanges, this.heroForm.form.valueChanges as any, this.heroForm.form.ngSubmit as any).pipe(
       map(() => {
         return {
           status: this.heroForm.form.status,

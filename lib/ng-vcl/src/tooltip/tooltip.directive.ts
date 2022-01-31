@@ -155,7 +155,7 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
     this.positionStrategy = this.overlay.position().flexibleConnectedTo(this.elementRef).withPositions(connectedPositions);
     this.positionStrategy.positionChanges.subscribe((change) => {
       this.arrowPosition = change?.connectionPair?.panelClass as TooltipPosition;
-      this.stateChangedEmitter.next();
+      this.stateChangedEmitter.next(undefined);
     });
 
   }

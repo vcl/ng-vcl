@@ -102,7 +102,7 @@ export abstract class LayerRef<TLayerData extends LayerData = any, TResult = any
     } else {
       panelClass.push('layer-box');
     }
-    
+
     const backdropClass = [];
     if (Array.isArray(config.backdropClass)) {
       backdropClass.push(... config.backdropClass);
@@ -157,8 +157,9 @@ export abstract class LayerRef<TLayerData extends LayerData = any, TResult = any
 
     if (!this.isAttached) {
       this._attachmentRef = this.overlayRef.attach(this._portal);
-            
 
+
+      // @ts-ignore
       merge<TResult>(
         // Called when detached via detach() method
         this._requestDetachEmitter.asObservable(),
@@ -173,8 +174,10 @@ export abstract class LayerRef<TLayerData extends LayerData = any, TResult = any
         }
         this._attachmentRef = undefined;
         this._layerOpenedSub && this._layerOpenedSub.unsubscribe();
+        // @ts-ignore
         this._afterClose.next(result);
 
+        // @ts-ignore
         this.afterDetached(result);
       });
 
@@ -229,7 +232,7 @@ export abstract class ComponentLayerRef<TLayerData extends LayerData = any, TRes
   }
 
   protected updatePortal() {
-    this.stateChangedEmitter.next();
+    this.stateChangedEmitter.next(undefined);
     return this.portal;
   }
 
