@@ -1,6 +1,7 @@
 *.*~
 *.swp
 *.swo
+.angular
 .cache
 .DS_Store
 .settings
