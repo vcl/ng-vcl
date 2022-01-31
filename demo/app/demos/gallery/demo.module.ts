@@ -28,17 +28,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLGalleryModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ GalleryDemoComponent ],
-  declarations: [ GalleryDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLGalleryModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [GalleryDemoComponent]
 })
 export class GalleryDemoModule { }

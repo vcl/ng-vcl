@@ -28,17 +28,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLOffClickModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ OffClickDemoComponent ],
-  declarations: [ OffClickDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLOffClickModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [OffClickDemoComponent]
 })
 export class OffClickDemoModule { }

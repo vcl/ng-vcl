@@ -29,20 +29,19 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLFormControlGroupModule,
-    VCLDatepickerModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ DatePickerDemoComponent ],
-  declarations: [ DatePickerDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLButtonModule,
+        VCLFormControlGroupModule,
+        VCLDatepickerModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [DatePickerDemoComponent]
 })
 export class DatepickerDemoModule { }

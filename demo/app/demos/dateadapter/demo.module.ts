@@ -18,18 +18,17 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLCalendarModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [  ],
-  declarations: [ ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLButtonModule,
+        VCLCalendarModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: []
 })
 export class DateadapterDemoModule { }

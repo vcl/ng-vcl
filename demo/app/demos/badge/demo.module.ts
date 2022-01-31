@@ -28,17 +28,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLBadgeModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ BadgeDemoComponent ],
-  declarations: [ BadgeDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLBadgeModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [BadgeDemoComponent]
 })
 export class BadgeDemoModule { }

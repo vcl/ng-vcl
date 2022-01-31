@@ -29,19 +29,18 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLRatingModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [RatingDemoComponent],
-  declarations: [RatingDemoComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLRatingModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [RatingDemoComponent]
 })
 export class RatingDemoModule {
 }

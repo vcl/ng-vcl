@@ -27,16 +27,15 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ BreakpointsDemoComponent ],
-  declarations: [ BreakpointsDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [BreakpointsDemoComponent]
 })
 export class BreakpointsDemoModule { }

@@ -39,17 +39,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLIconModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ IconDemoComponent, DemoMdiIconsComponent, DemoFontAwesomeComponent ],
-  declarations: [ IconDemoComponent, DemoMdiIconsComponent, DemoFontAwesomeComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLIconModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [IconDemoComponent, DemoMdiIconsComponent, DemoFontAwesomeComponent]
 })
 export class IconDemoModule { }

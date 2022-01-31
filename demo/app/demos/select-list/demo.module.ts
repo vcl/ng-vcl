@@ -30,24 +30,23 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLSelectModule,
-    VCLIconModule,
-    VCLInputModule,
-    VCLIcogramModule,
-    VCLBusyIndicatorModule,
-    ScrollingModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ SelectListDemoComponent ],
-  declarations: [ SelectListDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLButtonModule,
+        VCLSelectModule,
+        VCLIconModule,
+        VCLInputModule,
+        VCLIcogramModule,
+        VCLBusyIndicatorModule,
+        ScrollingModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [SelectListDemoComponent]
 })
 export class SelectListDemoModule { }

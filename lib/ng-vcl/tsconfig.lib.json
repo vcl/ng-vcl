@@ -17,16 +17,15 @@
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,
+    "compilationMode": "partial",
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "enableResourceInlining": true,
-    "enableIvy": true
+    "enableResourceInlining": true
   },
   "files": [
-    "main.ts",
-    "polyfills.ts"
+    "src/public_api.ts"
   ],
   "exclude": [
     "src/test.ts",

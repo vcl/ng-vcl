@@ -7,7 +7,7 @@ import { VCLIconModule } from '../icon/index';
 import { PanelFooterDirective, PanelHeaderDirective, PanelTitleDirective, PanelFooterButtonDirective, PanelDialogDirective } from './panel.directive';
 import { PanelComponent } from './panel.component';
 
-export { PanelComponent };
+export { PanelComponent, PanelDialogDirective, PanelTitleDirective, PanelFooterButtonDirective, PanelHeaderDirective, PanelFooterDirective };
 
 @NgModule({
   imports: [

@@ -1,5 +1,5 @@
 import { Component,  ChangeDetectionStrategy, Optional, OnInit, Inject} from '@angular/core';
-import { FormFieldControl } from './fields/index';
+import { FormFieldControl } from './fields/field';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 
 @Component({

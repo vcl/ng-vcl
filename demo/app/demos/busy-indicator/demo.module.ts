@@ -28,19 +28,18 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLIconModule,
-    VCLBusyIndicatorModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ BusyDemoComponent ],
-  declarations: [ BusyDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLButtonModule,
+        VCLIconModule,
+        VCLBusyIndicatorModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [BusyDemoComponent]
 })
 export class BusyDemoModule { }

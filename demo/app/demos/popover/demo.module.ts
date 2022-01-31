@@ -28,18 +28,17 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLPopoverModule,
-    VCLButtonModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ PopoverDemoComponent ],
-  declarations: [ PopoverDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLPopoverModule,
+        VCLButtonModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [PopoverDemoComponent]
 })
 export class PopoverDemoModule { }

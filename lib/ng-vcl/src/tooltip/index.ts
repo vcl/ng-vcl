@@ -8,10 +8,9 @@ import { TooltipDirective } from './tooltip.directive';
 export { TooltipComponent, TooltipDirective };
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, PortalModule],
-  exports: [TooltipComponent, TooltipDirective, PortalModule],
-  declarations: [TooltipComponent, TooltipDirective],
-  entryComponents: [TooltipComponent]
+    imports: [CommonModule, OverlayModule, PortalModule],
+    exports: [TooltipComponent, TooltipDirective, PortalModule],
+    declarations: [TooltipComponent, TooltipDirective]
 })
 
 export class VCLTooltipModule { }

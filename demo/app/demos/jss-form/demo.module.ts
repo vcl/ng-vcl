@@ -42,25 +42,24 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DemoModule,
-    VCLCounterModule,
-    VCLIcogramModule,
-    VCLButtonModule,
-    VCLFormControlGroupModule,
-    VCLRadioButtonModule,
-    VCLJssFormModule,
-    VCLNotifierModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ JssFormDemoComponent, FormFieldCounterComponent ],
-  declarations: [ JssFormDemoComponent, FormFieldCounterComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DemoModule,
+        VCLCounterModule,
+        VCLIcogramModule,
+        VCLButtonModule,
+        VCLFormControlGroupModule,
+        VCLRadioButtonModule,
+        VCLJssFormModule,
+        VCLNotifierModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [JssFormDemoComponent, FormFieldCounterComponent]
 })
 export class VCLJssFormDemoModule { }

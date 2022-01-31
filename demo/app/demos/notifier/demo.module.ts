@@ -29,20 +29,19 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLNotifierModule,
-    VCLButtonGroupModule,
-    VCLButtonModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ NotifierDemoComponent ],
-  declarations: [ NotifierDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLNotifierModule,
+        VCLButtonGroupModule,
+        VCLButtonModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [NotifierDemoComponent]
 })
 export class NotifierDemoModule { }

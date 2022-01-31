@@ -28,17 +28,16 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLProgressBarModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ ProgressBarDemoComponent ],
-  declarations: [ ProgressBarDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLProgressBarModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [ProgressBarDemoComponent]
 })
 export class ProgressBarDemoModule { }

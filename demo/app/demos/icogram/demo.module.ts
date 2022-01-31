@@ -29,18 +29,17 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoModule,
-    VCLIcogramModule,
-    VCLIconModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: { demo }
-    }]),
-  ],
-  entryComponents: [ IcogramDemoComponent ],
-  declarations: [ IcogramDemoComponent ]
+    imports: [
+        CommonModule,
+        DemoModule,
+        VCLIcogramModule,
+        VCLIconModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [IcogramDemoComponent]
 })
 export class IcogramDemoModule { }

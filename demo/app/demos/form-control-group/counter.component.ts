@@ -141,15 +141,14 @@ export class CounterComponent implements ControlValueAccessor, FormControlGroupI
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    VCLIcogramModule,
-    VCLButtonModule,
-  ],
-  entryComponents: [ CounterComponent ],
-  declarations: [ CounterComponent ],
-  exports: [ CounterComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        VCLIcogramModule,
+        VCLButtonModule,
+    ],
+    declarations: [CounterComponent],
+    exports: [CounterComponent]
 })
 export class VCLCounterModule { }

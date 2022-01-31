@@ -29,20 +29,19 @@ export function demo() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLPanelModule,
-    VCLButtonModule,
-    VCLIconModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
-  ],
-  entryComponents: [ PanelDemoComponent ],
-  declarations: [ PanelDemoComponent ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        DemoModule,
+        VCLPanelModule,
+        VCLButtonModule,
+        VCLIconModule,
+        RouterModule.forChild([{
+                path: '',
+                component: DemoComponent,
+                data: { demo }
+            }]),
+    ],
+    declarations: [PanelDemoComponent]
 })
 export class PanelDemoModule { }
