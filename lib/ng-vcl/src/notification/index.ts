@@ -8,7 +8,7 @@ import { VCLIconModule } from '../icon/index';
 import { NotificationComponent, NotificationFooterDirective, NotificationHeaderDirective, NotificationTitleDirective } from './notification.component';
 import { NotificationType, NOTIFICATION_TYPE_CLASS_MAP } from './types';
 
-export { NotificationComponent, NotificationType, NOTIFICATION_TYPE_CLASS_MAP };
+export { NotificationComponent, NotificationType, NOTIFICATION_TYPE_CLASS_MAP, NotificationTitleDirective, NotificationHeaderDirective, NotificationFooterDirective };
 
 @NgModule({
   imports: [

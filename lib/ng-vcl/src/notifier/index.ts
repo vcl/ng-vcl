@@ -13,7 +13,7 @@ import { NotifierOptions, NotifierPosition,
   NOTIFIER_CONFIG_DEFAULTS, NOTIFIER_CONFIG_TOKEN, NOTIFIER_ANIMATION_PARAMS_DEFAULTS, NOTIFIER_ANIMATION_PARAMS_TOKEN, NotifierConfig, NotificationAnimationParams } from './types';
 import { NotifierHandlerService } from './notifier-handler.service';
 
-export { NotifierComponent, NotifierService, NotifierOptions, NotifierPosition, NOTIFIER_CONFIG_TOKEN, NotifierConfig, NOTIFIER_ANIMATION_PARAMS_TOKEN, NotificationAnimationParams };
+export { NotifierComponent, NotifierService, NotifierOptions, NotifierPosition, NOTIFIER_CONFIG_TOKEN, NotifierConfig, NOTIFIER_ANIMATION_PARAMS_TOKEN, NotificationAnimationParams, NotifierDirective };
 
 @NgModule({
     imports: [

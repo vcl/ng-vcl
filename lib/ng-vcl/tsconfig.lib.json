@@ -25,8 +25,7 @@
     "enableResourceInlining": true
   },
   "files": [
-    "main.ts",
-    "polyfills.ts"
+    "src/public_api.ts"
   ],
   "exclude": [
     "src/test.ts",

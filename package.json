@@ -90,5 +90,26 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "browserslist": [
+    "android 97",
+    "chrome 97",
+    "chrome 96",
+    "chrome 95",
+    "chrome 94",
+    "edge 97",
+    "edge 96",
+    "firefox 96",
+    "firefox 95",
+    "firefox 94",
+    "firefox 91",
+    "firefox 78",
+    "ios_saf 15.0-15.1",
+    "ios_saf 14.0-14.4",
+    "kaios 2.5",
+    "opera 82",
+    "safari 13.1",
+    "samsung 16.0",
+    "samsung 15.0"
+  ]
 }
