@@ -2,12 +2,7 @@ import { Component } from '@angular/core';
 import { DateAdapter } from '@vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'demo.component.html',
-  styles: [`
-    .100px{
-      width: 100px;
-    }
-  `]
+  templateUrl: 'demo.component.html'
 })
 export class DatePickerDemoComponent {
 

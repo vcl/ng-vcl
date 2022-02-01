@@ -40,7 +40,7 @@
     "@angular/router": "^13.2.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@mdi/font": "^6.5.95",
-    "@vcl/vcl": "^2.1.10",
+    "@vcl/vcl": "^2.1.12",
     "core-js": "^3.20.3",
     "document-register-element": "^1.14.10",
     "fuse.js": "^6.5.3",
@@ -50,20 +50,20 @@
     "normalize.css": "^8.0.1",
     "raw-loader": "^4.0.2",
     "rxjs": "^7.5.2",
-    "sass": "^1.49.0",
+    "sass": "^1.49.4",
     "sass-loader": "^12.4.0",
     "tslib": "^2.3.1",
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.2.0",
-    "@angular-devkit/core": "^13.2.0",
-    "@angular/cli": "^13.2.0",
+    "@angular-devkit/build-angular": "^13.2.1",
+    "@angular-devkit/core": "^13.2.1",
+    "@angular/cli": "^13.2.1",
     "@angular/compiler-cli": "^13.2.0",
     "@angular/language-service": "^13.2.0",
     "@types/jasmine": "~3.10.3",
     "@types/jasminewd2": "~2.0.10",
-    "@types/node": "^17.0.13",
+    "@types/node": "^17.0.14",
     "codelyzer": "^6.0.2",
     "conventional-changelog-cli": "^2.2.2",
     "cross-env": "^7.0.3",
@@ -72,7 +72,7 @@
     "git-directory-deploy": "^1.5.1",
     "jasmine-core": "~4.0.0",
     "jasmine-spec-reporter": "~7.0.0",
-    "karma": "^6.3.12",
+    "karma": "^6.3.13",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-jasmine": "~4.0.1",
@@ -90,26 +90,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "browserslist": [
-    "android 97",
-    "chrome 97",
-    "chrome 96",
-    "chrome 95",
-    "chrome 94",
-    "edge 97",
-    "edge 96",
-    "firefox 96",
-    "firefox 95",
-    "firefox 94",
-    "firefox 91",
-    "firefox 78",
-    "ios_saf 15.0-15.1",
-    "ios_saf 14.0-14.4",
-    "kaios 2.5",
-    "opera 82",
-    "safari 13.1",
-    "samsung 16.0",
-    "samsung 15.0"
-  ]
+  }
 }

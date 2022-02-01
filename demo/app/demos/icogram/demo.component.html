@@ -1,25 +1,26 @@
 <vcl-icogram >
   <vcl-icon vclPrepend icon="fas:chevron-right"></vcl-icon>
-  icogram with accessible link
+  icogram with accessible link xxx
 </vcl-icogram>
 <br><br>
+
 <vcl-icogram>
   <vcl-icon vclPrepend icon="fas:chevron-right"></vcl-icon>
-  prep/app icons
+  <div class="text">prep/app icons</div>
   <vcl-icon vclAppend icon="fas:chevron-right"></vcl-icon>
 </vcl-icogram>
 <br><br>
 
 <a vcl-icogram href="'https://github.com/ng-vcl/ng-vcl'" target="'_blank'">
   <vcl-icon vclPrepend icon="fas:link"></vcl-icon>
-   external link with appended icon
+  <div class="text">external link with appended icon</div>
 </a>
 <br><br>
-  
+
 <a vcl-a-icogram
   [href]="'this is not considered when the link is disabled'"
   [disabled]="true">
   <vcl-icon vclPrepend icon="fas:link"></vcl-icon>
-  Disabled link
+  <div class="text">Disabled link</div>
 </a>
 <br><br>

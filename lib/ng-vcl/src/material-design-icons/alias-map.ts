@@ -5,7 +5,7 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   'close': 'mdi mdi-close',
   'busy': 'mdi mdi-loading mdi-spin',
   'box': 'mdi mdi-checkbox-blank-outline',
-  'box-checked': 'mdi mdi-check-box-outline',
+  'box-checked': 'mdi mdi-checkbox-outline',
   'circle': 'mdi mdi-radiobox-blank',
   'circle-checked': 'mdi mdi-radiobox-marked',
   'question': 'mdi mdi-help-circle-outline',
