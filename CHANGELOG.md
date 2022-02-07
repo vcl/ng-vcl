@@ -1,3 +1,38 @@
+## [2.1.8](https://github.com/vcl/ng-vcl/compare/v2.0.2...v2.1.8) (2022-02-07)
+
+
+### Bug Fixes
+
+* **alert:** prefill input with provided value if exists ([c7452fc](https://github.com/vcl/ng-vcl/commit/c7452fc59774e4ac22e3127925680db83036529b))
+* **button:** fix vclPrepend and vclAppend for icogram ([792a86b](https://github.com/vcl/ng-vcl/commit/792a86b0745ac3deeae05177ab12177b8a344986))
+* fix build for ng 13 ([991ea8a](https://github.com/vcl/ng-vcl/commit/991ea8a5941bab69df5e946361764ce4b6654d20))
+* ts errors ([fdc20b6](https://github.com/vcl/ng-vcl/commit/fdc20b63bf90ce977f9441eb5fd1b08698887afa))
+
+
+### Features
+
+* angular 12 ([4985e85](https://github.com/vcl/ng-vcl/commit/4985e856e4bfe047e4a93f2773afd440bb715662))
+
+
+
+## [2.1.8](https://github.com/vcl/ng-vcl/compare/v2.0.2...v2.1.8) (2022-02-07)
+
+
+### Bug Fixes
+
+* **alert:** prefill input with provided value if exists ([c7452fc](https://github.com/vcl/ng-vcl/commit/c7452fc59774e4ac22e3127925680db83036529b))
+* **button:** fix vclPrepend and vclAppend for icogram ([792a86b](https://github.com/vcl/ng-vcl/commit/792a86b0745ac3deeae05177ab12177b8a344986))
+* fix build for ng 13 ([991ea8a](https://github.com/vcl/ng-vcl/commit/991ea8a5941bab69df5e946361764ce4b6654d20))
+* ts errors ([fdc20b6](https://github.com/vcl/ng-vcl/commit/fdc20b63bf90ce977f9441eb5fd1b08698887afa))
+* use ivy compiler fully ([0fe50b2](https://github.com/vcl/ng-vcl/commit/0fe50b250cf2508ec80bf57e44ae862b458dee65))
+
+
+### Features
+
+* angular 12 ([4985e85](https://github.com/vcl/ng-vcl/commit/4985e856e4bfe047e4a93f2773afd440bb715662))
+
+
+
 ## [2.1.6](https://github.com/vcl/ng-vcl/compare/v2.0.2...v2.1.6) (2022-02-06)
 
 
