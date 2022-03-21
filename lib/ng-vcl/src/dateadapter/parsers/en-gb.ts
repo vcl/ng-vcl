@@ -30,31 +30,33 @@ export class DateAdapterParserENGB implements DateAdapterParser {
   }
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return `${pad(date.getDate(), 2)}/${pad(date.getMonth(), 2)}/${pad(date.getFullYear(), 4)}`;
       }
-      case "month": {
-        return `${pad(date.getMonth(), 2)}/${pad(date.getFullYear(), 4)}`;
+      case 'month': {
+        return `${date.toLocaleString(
+          this.supportedLocales[0], { month: 'long' }
+        )}`;
       }
-      case "time": {
+      case 'time': {
         return `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}`;
       }
       default: {
         return intlFallback('en-gb', date, format);
       }
     }
-  }  
+  }
   pattern(format: DateAdapterBaseParseFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return `DD/MM/YYYY`;
       }
-      case "month": {
+      case 'month': {
         return `MM/YYYY`;
       }
-      case "time": {
+      case 'time': {
         return `HH:mm`;
       }
-    }  
-  }    
+    }
+  }
 }

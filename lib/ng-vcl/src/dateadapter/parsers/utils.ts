@@ -53,7 +53,7 @@ const DEFAULT_DISPLAY_FORMATS = {
   hour: {
     hour: 'numeric',
   } as const
-};  
+};
 
 export function intlFallback(locale: string, date: Date, type: DateAdapterBaseDisplayFormats) {
   if (DEFAULT_DISPLAY_FORMATS[type]) {

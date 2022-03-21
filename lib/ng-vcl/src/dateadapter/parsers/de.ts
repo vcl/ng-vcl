@@ -31,16 +31,18 @@ export class DateAdapterParserDE implements DateAdapterParser {
   }
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return `${pad(date.getDate(), 2)}.${pad(date.getMonth(), 2)}.${pad(date.getFullYear(), 4)}`;
       }
-      case "month": {
-          return `${pad(date.getMonth(), 2)}.${pad(date.getFullYear(), 4)}`;
-        }
-      case "time": {
+      case 'month': {
+        return `${date.toLocaleString(
+          this.supportedLocales[0], { month: 'long' }
+        )}`;
+      }
+      case 'time': {
         return `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}`;
       }
-      case "weekday": {
+      case 'weekday': {
         return new Intl.DateTimeFormat('de', {
             weekday: 'short'
         }).format(date);
@@ -52,19 +54,15 @@ export class DateAdapterParserDE implements DateAdapterParser {
   }
   pattern(format: DateAdapterBaseParseFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return `DD.MM.JJJJ`;
       }
-      case "month": {
+      case 'month': {
         return `MM.JJJJ`;
       }
-      case "time": {
+      case 'time': {
         return `HH:mm`;
       }
-    }  
+    }
   }
 }
-
-
-
-

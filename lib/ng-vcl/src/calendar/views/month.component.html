@@ -17,7 +17,7 @@
 </div>
 <div class="d-g-row" role="row" *ngFor="let week of calendar.weeks">
   <div *ngIf="showWeekOfTheYear" class="d-g-cell weekday-label" role="columnheader">{{week.weekOfTheYear}}</div>
-  <div *ngFor="let day of week.days" class="d-g-cell cal-item d0" 
+  <div *ngFor="let day of week.days" class="d-g-cell cal-item d0"
                                 [class.selected]="day.selected === true || day.selected === 'range'"
                                 [class.selected-alt]="day.selected === 'range-partial'"
                                 [class.selected-beg]="day.selected === 'range-start' || day.selected === 'range-start-end'"
@@ -26,7 +26,7 @@
                                 [class.today]="day.isToday"
                                 [class.disabled]="day.disabled || disabled"
                                 [ngClass]="day.class"
-                                role="gridcell" 
+                                role="gridcell"
                                 tabindex="0"
                                 (click)="onSelectDay(day)"
                                 >{{day.label}}</div>

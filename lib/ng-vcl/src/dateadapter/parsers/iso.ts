@@ -26,13 +26,13 @@ export class DateAdapterParserISO implements DateAdapterParser {
   }
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return date.toISOString().slice(0, 10);
       }
-      case "month": {
+      case 'month': {
         return date.toISOString().slice(0, 7);
       }
-      case "time": {
+      case 'time': {
         return `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}`;
       }
       default: {
@@ -42,15 +42,15 @@ export class DateAdapterParserISO implements DateAdapterParser {
   }
   pattern(format: DateAdapterBaseParseFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return `YYYY-MM-DD`;
       }
-      case "month": {
+      case 'month': {
         return `YYYY-MM`;
       }
-      case "time": {
+      case 'time': {
         return `HH:mm`;
       }
-    }  
-  }      
+    }
+  }
 }

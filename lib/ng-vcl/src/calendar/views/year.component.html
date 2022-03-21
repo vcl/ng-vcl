@@ -14,16 +14,16 @@
 </div>
 <div class="d-g-row" role="row" *ngFor="let group of calendar.months">
   <div *ngFor="let month of group"
-       class="d-g-cell cal-item" 
+       class="d-g-cell cal-item"
        [class.today]="month.isCurrentMonth"
        [class.selected]="month.selected === true || month.selected === 'range'"
        [class.selected-alt]="month.selected === 'range-partial'"
        [class.selected-beg]="month.selected === 'range-start' || month.selected === 'range-start-end'"
        [class.selected-end]="month.selected === 'range-end' || month.selected === 'range-start-end'"
        [class.disabled]="month.disabled || disabled"
-       [ngClass]="month.class"       
-       role="gridcell" 
-       tabindex="0" 
+       [ngClass]="month.class"
+       role="gridcell"
+       tabindex="0"
        (click)="onSelectMonth(month)"
        >{{month.label}}</div>
 </div>

@@ -47,13 +47,15 @@ export class DateAdapterParserEN implements DateAdapterParser {
   }
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return `${pad(date.getMonth(), 2)}/${pad(date.getDate(), 2)}/${pad(date.getFullYear(), 4)}`;
       }
-      case "month": {
-        return `${pad(date.getMonth(), 2)}/${pad(date.getFullYear(), 4)}`;
+      case 'month': {
+        return `${date.toLocaleString(
+          this.supportedLocales[0], { month: 'long' }
+        )}`;
       }
-      case "time": {
+      case 'time': {
         return formatENTime(date);
       }
       default: {
@@ -63,15 +65,15 @@ export class DateAdapterParserEN implements DateAdapterParser {
   }
   pattern(format: DateAdapterBaseParseFormats): string {
     switch(format) {
-      case "date": {
+      case 'date': {
         return `MM/DD/YYYY`;
       }
-      case "month": {
+      case 'month': {
         return `MM/YYYY`;
       }
-      case "time": {
+      case 'time': {
         return `hh:mm am/pm`;
       }
-    }  
-  }  
+    }
+  }
 }
