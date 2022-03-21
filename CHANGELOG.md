@@ -1,3 +1,21 @@
+## [2.1.10](https://github.com/vcl/ng-vcl/compare/v2.0.1...v2.1.10) (2022-03-21)
+
+
+### Bug Fixes
+
+* **alert:** prefill input with provided value if exists ([c7452fc](https://github.com/vcl/ng-vcl/commit/c7452fc59774e4ac22e3127925680db83036529b))
+* **button:** fix vclPrepend and vclAppend for icogram ([792a86b](https://github.com/vcl/ng-vcl/commit/792a86b0745ac3deeae05177ab12177b8a344986))
+* fix build for ng 13 ([991ea8a](https://github.com/vcl/ng-vcl/commit/991ea8a5941bab69df5e946361764ce4b6654d20))
+* ts errors ([fdc20b6](https://github.com/vcl/ng-vcl/commit/fdc20b63bf90ce977f9441eb5fd1b08698887afa))
+
+
+### Features
+
+* add search capability to select and select-list ([7e67972](https://github.com/vcl/ng-vcl/commit/7e67972ae6eeb9ce8f3213e41da7a6f97d19e0ce))
+* angular 12 ([4985e85](https://github.com/vcl/ng-vcl/commit/4985e856e4bfe047e4a93f2773afd440bb715662))
+
+
+
 ## [2.1.9](https://github.com/vcl/ng-vcl/compare/v2.0.2...v2.1.9) (2022-02-28)
 
 
