@@ -354,6 +354,7 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
         params: {
           placeholder: 'Select perks',
           selectionMode: 'multiple',
+          search: true,
           options: [{
             label: 'Snake Eater',
             sublabel: 'It gives you a 25% increase to your poison resistance.',

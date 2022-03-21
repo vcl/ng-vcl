@@ -86,6 +86,7 @@ export interface VCLFormFieldSchemaSelectParams {
   selectionMode?: 'multiple' | 'single';
   options: VCLFormFieldSchemaOptions[];
   placeholder?: string;
+  search?: boolean;
 }
 
 export interface VCLFormFieldSchemaSelect extends VCLFormFieldControlSchema {

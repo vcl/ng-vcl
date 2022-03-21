@@ -9,6 +9,9 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
   get placeholder()  {
     return this.params.placeholder || '';
   }
+  get search()  {
+    return this.params.search || false;
+  }
   get options()  {
     return this.params.options || [];
   }
@@ -19,12 +22,12 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
 }
 
 @Component({
-  selector: 'vcl-jss-form-select',  
+  selector: 'vcl-jss-form-select',
   template: `
   <vcl-form-control-group [errorStateAgent]="field.errorStateAgent" *ngIf="field.visible">
     <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
     <vcl-jss-form-input-wrapper>
-      <vcl-select [placeholder]="field.placeholder">
+      <vcl-select [placeholder]="field.placeholder" [search]="field.search">
         <vcl-select-list [formControl]="field.control" [selectionMode]="field.selectionMode">
           <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
             <vcl-label>{{option.label}}</vcl-label>
