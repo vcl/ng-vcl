@@ -1,3 +1,12 @@
+## [2.1.12](https://github.com/vcl/ng-vcl/compare/v2.1.11...v2.1.12) (2022-03-21)
+
+
+### Bug Fixes
+
+* add search field to JSS select ([ee20752](https://github.com/vcl/ng-vcl/commit/ee2075251a081fc9e8ecfa6e0cfbd043350b28ce))
+
+
+
 ## [2.1.11](https://github.com/vcl/ng-vcl/compare/v2.1.10...v2.1.11) (2022-03-21)
 
 
