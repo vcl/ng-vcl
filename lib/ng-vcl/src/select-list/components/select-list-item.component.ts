@@ -15,7 +15,7 @@ export class SelectListLabelDirective {
 @Directive({
   selector: 'vcl-select-list-sublabel',
 })
-export class SelectListSublabelDirective { 
+export class SelectListSublabelDirective {
   ngOnInit() {
     console.warn('vcl-select-list-sublabel is deprecated. Use vcl-sub-label instead');
   }
@@ -67,6 +67,11 @@ export class SelectListItemComponent implements SelectListItem {
   @HostBinding('class.selected')
   get isSelected() {
     return this.selectList.isItemSelected(this);
+  }
+
+  @HostBinding('class.hide')
+  get isHidden() {
+    return this.selectList.isItemHidden(this);
   }
 
   @Input()

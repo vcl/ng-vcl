@@ -30,7 +30,8 @@ A select control. Wraps the vcl-select-list to render a list of selectable items
 
 #### vcl-select attributes
 
-Name                  | Type                        | Default  | Description
---------------------- | ---------------             | -------  | --------------------------------------------------------------------------------
-`placeholder`         | string                      |          | 
-`tabindex`            | number                      | 0        | The tabindex of the select
+Name                  | Type     | Default | Description
+--------------------- |----------|---------| --------------------------------------------------------------------------------
+`placeholder`         | string   |         |
+`tabindex`            | number   | 0       | The tabindex of the select
+`search`              | booolean | false   | Enable search capability

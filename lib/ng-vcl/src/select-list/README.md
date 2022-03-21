@@ -20,10 +20,11 @@ A list consisting of items which can be selected.
 
 ### vcl-select-list attributes
 
-Name            | Type                             | Default     | Description
-----------      | -------                          | -------     | --------------------------------------
-`value`         | any                              |             | Current value
+Name            | Type       | Default     | Description
+----------      |------------| -------     | --------------------------------------
+`value`         | any        |             | Current value
 `selectionMode` | 'single' \| 'multiple' \| 'none' | 'single'    | `single` allows only one item to be selected. `multi` allows multiple items to be selected.
+`search`        | string     |             | Value to search for in all results
 
 ### vcl-select-list events
 

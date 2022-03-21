@@ -8,4 +8,5 @@ export class SelectDemoComponent {
   value1 = undefined;
   value2 = [];
   value3 = undefined;
+  value4 = undefined;
 }

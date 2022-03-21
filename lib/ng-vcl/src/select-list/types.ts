@@ -10,6 +10,7 @@ export interface SelectList {
   readonly isDisabled: boolean;
   isItemHighlighted(item: SelectListItem): boolean;
   isItemSelected(item: SelectListItem): boolean;
+  isItemHidden(item: SelectListItem): boolean;
   selectItem(item: SelectListItem): void;
   onItemFocus(item: SelectListItem): void;
   onItemBlur(item: SelectListItem): void;

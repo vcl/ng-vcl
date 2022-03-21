@@ -103,3 +103,36 @@
     </vcl-select-list>
   </vcl-select>
 </vcl-form-control-group>
+
+<h3>Select with search</h3>
+<vcl-form-control-group>
+  <vcl-label>Select country</vcl-label>
+  <vcl-select [search]="true">
+    <vcl-select-list [(value)]="value4">
+      <vcl-select-list-item value="gr">
+        Greece
+        <vcl-sub-label>A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
+      </vcl-select-list-item>
+      <vcl-select-list-item value="fr">
+        France
+      </vcl-select-list-item>
+      <vcl-select-list-item value="de">
+        Germany
+      </vcl-select-list-item>
+      <vcl-select-list-item value="gb" label="United Kingdom">
+        The United Kingdom of Great Britain and Northern Ireland
+      </vcl-select-list-item>
+      <vcl-select-list-item value="jp">
+        Japan
+      </vcl-select-list-item>
+      <vcl-select-list-item value="cn">
+        China
+      </vcl-select-list-item>
+      <vcl-select-list-item value="th">
+        Thailand
+      </vcl-select-list-item>
+    </vcl-select-list>
+  </vcl-select>
+</vcl-form-control-group>
+
+<p> Selected value: {{value4}}</p>

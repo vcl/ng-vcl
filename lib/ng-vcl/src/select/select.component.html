@@ -1,12 +1,14 @@
-<input #input 
+<input #input
        [placeholder]="placeholder || ''"
        [value]="inputValue"
        [attr.tabindex]="-1"
        [disabled]="isDisabled"
        [class.disabled]="isDisabled"
-       class="input app-item readonly"
+       [class.readonly]="!search"
+       class="input app-item"
        role="listbox"
-       readonly
+       [readonly]="!search"
+       (keyup)="inputChange($event)"
        >
 <button #btn
         vcl-button square

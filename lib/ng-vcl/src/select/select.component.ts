@@ -99,6 +99,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   @Input()
   placeholder?: string;
 
+  @Input()
+  search = false;
+
   @Output()
   afterClose = new EventEmitter<any | any[]>();
 
@@ -142,10 +145,12 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   @HostListener('focus')
   onFocus() {
+    console.log('FOCUS')
     if (this.isDisabled) {
       return;
     }
     this._focused = true;
+    this.selectList.search = undefined;
     if (!this.isAttached) {
       this.open();
     }
@@ -155,7 +160,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   @HostListener('blur')
   onBlur() {
     this._focused = false;
+    this.selectList.search = undefined;
     this.selectList.onTouched();
+    this.selectList.selectHighlighted();
     this.stateChangedEmitter.next();
   }
 
@@ -204,6 +211,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       return '';
     }
 
+    if (this.search && this.isFocused) {
+      return this.selectList.search || '';
+    }
+
     if (this.selectList.selectionMode === 'single') {
       const items = this.selectList.getItems();
       const item = items.find(_item => this.selectList.value === _item.value);
@@ -225,6 +236,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     if (this.isDisabled) {
       return;
     }
+    this.selectList.search = undefined;
     if (!this.isAttached) {
       this.open();
     } else {
@@ -310,5 +322,17 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   ngOnDestroy() {
     this._valueChangeSub && this._valueChangeSub.unsubscribe();
     this.destroy();
+  }
+
+  inputChange(event: KeyboardEvent) {
+    if (event.code === 'Enter') {
+      const firstNotHidden = this.selectList.items.find((i) => !this.selectList.isItemHidden(i));
+      if (firstNotHidden) {
+        this.selectList.selectItem(firstNotHidden);
+        this.input.nativeElement.blur();
+      }
+    } else {
+      this.selectList.search = this.input.nativeElement.value;
+    }
   }
 }

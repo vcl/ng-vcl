@@ -70,6 +70,9 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   @Input()
   disabled = false;
 
+  @Input()
+  search?: string;
+
   @Output()
   valueChange =  new EventEmitter<any | any[]>();
 
@@ -124,6 +127,18 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
   isItemSelected(item: SelectListItem): boolean {
     return this._valueAsArray.includes(item.value);
+  }
+
+  isItemHidden(item: SelectListItem): boolean {
+    if (this.search) {
+      if (item.value && item.value.toLowerCase().indexOf(this.search.toLowerCase()) >= 0) {
+        return false;
+      } else if (item.label && item.label.toLowerCase().indexOf(this.search.toLowerCase()) >= 0) {
+        return false;
+      }
+      return true;
+    }
+    return false;
   }
 
   selectHighlighted(): void {
