@@ -6,7 +6,7 @@ import { CounterSchema } from './jss-form-extended';
 export type ExtendedFormFieldSchemaRoot = VCLFormFieldSchemaRoot<CounterSchema>;
 
 export interface HeroSchemaConfig {
-  datepickerPlaceholder: string;
+  datePickerPlaceholder: string;
 }
 
 export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSchemaRoot {
@@ -50,11 +50,11 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
         }
       },
       {
-        type: 'datepicker',
+        type: 'date-picker',
         name: 'dob',
         label: 'Date of Birth',
         params: {
-          placeholder: config.datepickerPlaceholder
+          placeholder: config.datePickerPlaceholder
         },
         help: {
           title: 'Date of Birth title',

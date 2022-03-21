@@ -4,7 +4,7 @@ import { TextareaDirective } from './textarea.directive';
 import { Subscription, Subject } from 'rxjs';
 import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from './embedded-label.directive';
 
-@Component({ 
+@Component({
   selector: 'vcl-input-field',
   template: `<ng-content select="input[vclInput], textarea[vclInput], vcl-icon, button[vcl-button]"></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +29,7 @@ export class InputFieldComponent implements AfterContentInit, OnDestroy, Embedde
 
   @ContentChild(InputDirective)
   inputDirective?: InputDirective;
-  
+
   @ContentChild(TextareaDirective)
   textareaDirective?: TextareaDirective;
 
@@ -58,7 +58,7 @@ export class InputFieldComponent implements AfterContentInit, OnDestroy, Embedde
     });
     this.updateState();
   }
-  
+
   updateState() {
     if (this.input) {
       this.isFocused = this.input.isFocused;

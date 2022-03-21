@@ -15,7 +15,7 @@ import { VCLPasswordInputModule } from '../password-input/index';
 import { VCLTokenModule } from '../token/index';
 import { VCLIconModule } from '../icon/index';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
-import { VCLDatepickerModule } from '../datepicker/index';
+import { VCLDatePickerModule } from '../date-picker/index';
 import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
@@ -57,7 +57,7 @@ let fieldsInitialized = false;
         VCLTokenModule,
         VCLIconModule,
         VCLFormControlGroupModule,
-        VCLDatepickerModule,
+        VCLDatePickerModule,
         VCLSelectModule,
         VCLSelectListModule,
         VCLFileInputModule,
@@ -92,7 +92,7 @@ let fieldsInitialized = false;
     ],
     providers: []
 })
-export class VCLJssFormModule { 
+export class VCLJssFormModule {
   constructor() {
     if (!fieldsInitialized) {
       initializeFields();

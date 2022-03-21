@@ -12,7 +12,7 @@ import { VCLButtonModule, VCLButtonGroupModule,
          VCLRatingModule,
          VCLNotifierModule,
          VCLPasswordInputModule,
-         VCLDatepickerModule,
+         VCLDatePickerModule,
          VCLTooltipModule,
          VCLLayerModule,
          VCLPanelModule} from '@vcl/ng-vcl';
@@ -67,7 +67,7 @@ export function demo() {
         VCLTokenModule,
         VCLTooltipModule,
         VCLNotifierModule,
-        VCLDatepickerModule,
+        VCLDatePickerModule,
         VCLFormControlGroupModule,
         RouterModule.forChild([{
                 path: '',

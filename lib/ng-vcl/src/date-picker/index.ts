@@ -5,8 +5,8 @@ import { VCLIconModule } from '../icon/index';
 import { VCLCalendarModule, VCLCalendarHandler } from '../calendar/index';
 import { VCLInputModule } from '../input/index';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
-import { DatepickerComponent, DatepickerPick } from './datepicker.component';
-import { DatepickerTimeHandler } from './datepicker-calendar.handlers';
+import { DatepickerComponent, DatepickerPick } from './date-picker.component';
+import { DatepickerTimeHandler } from './date-picker-calendar.handlers';
 
 export { DatepickerComponent, DatepickerPick, DatepickerTimeHandler };
 
@@ -20,4 +20,4 @@ export { DatepickerComponent, DatepickerPick, DatepickerTimeHandler };
     multi: true
   }],
 })
-export class VCLDatepickerModule { }
+export class VCLDatePickerModule { }

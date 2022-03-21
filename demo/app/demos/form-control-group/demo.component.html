@@ -7,8 +7,8 @@
       {{text}}
       <button vcl-button vclPanelFooterButton class="transparent outline" (click)="help.close()">OK</button>
     </vcl-panel-dialog>
-  </ng-template> 
- 
+  </ng-template>
+
   <vcl-form-control-group>
     <vcl-label>Name</vcl-label>
     <div class="help-wrapper">
@@ -33,10 +33,10 @@
   <div class="row gutterx-4">
     <vcl-form-control-group class="flex">
       <vcl-label>Date of Birth</vcl-label>
-      <vcl-datepicker formControlName="dob" [placeholder]="datePattern"></vcl-datepicker>
+      <vcl-date-picker formControlName="dob" [placeholder]="datePattern"></vcl-date-picker>
       <vcl-hint-error error="required">Date of Birth is required</vcl-hint-error>
     </vcl-form-control-group>
-  
+
     <vcl-form-control-group class="flex">
       <vcl-label>Email</vcl-label>
       <vcl-input-field>
@@ -48,7 +48,7 @@
     </vcl-form-control-group>
   </div>
 
-  
+
   <vcl-form-control-group>
     <vcl-label>Password</vcl-label>
     <vcl-password-input>
@@ -183,7 +183,7 @@
         <vcl-select-list-item [value]="'explorer'">
           Explorer
           <vcl-sub-label>You'll get more random encounters with this perk.</vcl-sub-label>
-        </vcl-select-list-item> 
+        </vcl-select-list-item>
       </vcl-select-list>
     </vcl-select>
     <vcl-hint-error error="perks">You must select two perks</vcl-hint-error>
@@ -214,4 +214,3 @@
     <pre>value: {{ form.value | json }}</pre>
   </div>
 </form>
-  

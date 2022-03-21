@@ -21,7 +21,7 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.heroSchema = buildHeroSchema({
-      datepickerPlaceholder: this.da.pattern('date')
+      datePickerPlaceholder: this.da.pattern('date')
     });
   }
 

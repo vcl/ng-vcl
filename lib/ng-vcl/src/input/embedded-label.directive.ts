@@ -86,7 +86,7 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
 
   @HostBinding('style.--prepended-elements')
   prependedElements: number = 0;
-  
+
   ngAfterViewInit() {
     // This workaround disables animations for initial rendering.
     // An initial value provided via ngModel triggers a floating state update shortly after the element is rendered into the DOM

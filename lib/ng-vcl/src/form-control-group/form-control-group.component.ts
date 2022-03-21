@@ -29,7 +29,7 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
     @Inject(FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN)
     @Optional()
     private _errorStateAgent?: FormControlErrorStateAgent,
-  ) { 
+  ) {
     this.form = form ?? new FormDirective(undefined, undefined);
   }
 
@@ -68,7 +68,7 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
   };
 
   controlType?: string;
-  
+
   @HostBinding('class.disabled')
   isDisabled: boolean = false;
 

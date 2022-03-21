@@ -4,7 +4,7 @@ import { FormFieldButtonGroupComponent, FormFieldButtonGroup } from './button-gr
 import { FormFieldButtonComponent, FormFieldButton } from './button';
 import { FormFieldButtonsComponent, FormFieldButtons } from './buttons';
 import { FormFieldCheckboxComponent, FormFieldCheckbox } from './checkbox';
-import { FormFieldDatepickerComponent, FormFieldDatePicker } from './datepicker';
+import { FormFieldDatepickerComponent, FormFieldDatePicker } from './date-picker';
 import { FormFieldFileInputComponent, FormFieldFileInput } from './file-input';
 import { FormFieldHiddenComponent, FormFieldHidden } from './hidden';
 import { FormFieldInputComponent, FormFieldInput } from './input';
@@ -27,7 +27,7 @@ export const initializeFields = () => {
   FormFieldControl.register('array', FormFieldArrayComponent, FormFieldArray);
   FormFieldControl.register('button-group', FormFieldButtonGroupComponent, FormFieldButtonGroup);
   FormFieldControl.register('checkbox', FormFieldCheckboxComponent, FormFieldCheckbox);
-  FormFieldControl.register('datepicker', FormFieldDatepickerComponent, FormFieldDatePicker);
+  FormFieldControl.register('date-picker', FormFieldDatepickerComponent, FormFieldDatePicker);
   FormFieldControl.register('file-input', FormFieldFileInputComponent, FormFieldFileInput);
   FormFieldControl.register('hidden', FormFieldHiddenComponent, FormFieldHidden);
   FormFieldControl.register('input', FormFieldInputComponent, FormFieldInput);
@@ -57,7 +57,7 @@ export * from './slider';
 export * from './checkbox';
 export * from './radio-group';
 export * from './token';
-export * from './datepicker';
+export * from './date-picker';
 export * from './file-input';
 export * from './button-group';
 export * from './hidden';

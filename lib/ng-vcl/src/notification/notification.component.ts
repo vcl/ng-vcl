@@ -45,10 +45,10 @@ export class NotificationFooterDirective {
 export class NotificationComponent {
 
   constructor(
-    @Self() 
+    @Self()
     private ngClass: NgClass
   ) { }
- 
+
   @HostBinding('class.notification')
   hostClasses = true;
 
@@ -87,7 +87,7 @@ export class NotificationComponent {
 
   ngAfterContentInit(): void {
     merge(
-      this.notificationTitle ? this.notificationTitle.changes : NEVER, 
+      this.notificationTitle ? this.notificationTitle.changes : NEVER,
     ).pipe(
       startWith(undefined)
     ).subscribe(() => {

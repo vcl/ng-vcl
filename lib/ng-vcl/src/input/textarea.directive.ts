@@ -23,7 +23,7 @@ export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, D
   constructor(
     public elementRef: ElementRef<HTMLTextAreaElement>,
     private injector: Injector,
-  ) { 
+  ) {
   }
 
   private stateChangedEmitter = new Subject<void>();

@@ -17,7 +17,7 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
 
   @HostBinding('class.panel')
   hostClasses = true;
-  
+
   @HostBinding('class.warning')
   get warning() {
     return this.type === 'warning';
@@ -54,7 +54,7 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
 
   @ContentChildren(PanelFooterButtonDirective)
   panelFooterButtons?: QueryList<PanelFooterButtonDirective>;
-  
+
   @ContentChildren(PanelTitleDirective)
   panelTitle: QueryList<PanelTitleDirective>;
 
@@ -67,8 +67,8 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     merge(
-      this.panelTitle ? this.panelTitle.changes : NEVER, 
-      this.panelFooterButtons ? this.panelFooterButtons.changes : NEVER, 
+      this.panelTitle ? this.panelTitle.changes : NEVER,
+      this.panelFooterButtons ? this.panelFooterButtons.changes : NEVER,
     ).pipe(
       startWith(undefined)
     ).subscribe(() => {

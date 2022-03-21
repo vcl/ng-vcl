@@ -9,7 +9,7 @@ let UNIQUE_ID = 0;
   selector: 'vcl-flip-switch',
   templateUrl: 'flip-switch.component.html',
   styleUrls: ['flip-switch.component.scss'],
-  encapsulation: ViewEncapsulation.None,  
+  encapsulation: ViewEncapsulation.None,
   exportAs: 'vclFlipSwitch',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

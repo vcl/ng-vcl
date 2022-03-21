@@ -27,7 +27,7 @@ export {
   NativeDateAdapterParserDE,
   NativeDateAdapterParserEN,
   NativeDateAdapterParserENGB,
-  NativeDateAdapterParserISO  
+  NativeDateAdapterParserISO
 };
 
 @NgModule({
@@ -57,10 +57,10 @@ export {
       provide: VCL_DATE_ADAPTER_PARSER,
       useClass: DateAdapterParserDE,
       multi: true
-    }      
+    }
   ],
 })
-export class VCLDateAdapterModule { 
+export class VCLDateAdapterModule {
   constructor(
     @Optional()
     @SkipSelf()

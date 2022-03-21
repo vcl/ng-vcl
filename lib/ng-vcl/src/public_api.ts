@@ -24,7 +24,7 @@ export * from './progress-bar/index';
 export * from './radio-button/index';
 export * from './checkbox/index';
 export * from './off-click/index';
-export * from './datepicker/index';
+export * from './date-picker/index';
 export * from './calendar/index';
 export * from './token/index';
 export * from './slider/index';

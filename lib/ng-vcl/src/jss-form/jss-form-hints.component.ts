@@ -18,9 +18,9 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
   constructor(
     @Inject(FORM_CONTROL_GROUP_FORM)
     private form: FormControlGroupForm,
-    @Optional() 
+    @Optional()
     private field?: FormField<any>,
-    @Optional() @Inject(FORM_CONTROL_GROUP_STATE) 
+    @Optional() @Inject(FORM_CONTROL_GROUP_STATE)
     private fcgs?: FormControlGroupState,
   ) { }
 

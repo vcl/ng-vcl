@@ -115,7 +115,7 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
       rbtn.setDisabled(this.isDisabled);
     });
   }
-  
+
   ngAfterContentInit() {
     // Syncs changed radio buttons checked state to be in line with the current group value
     this.radioButtonsSub = this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {

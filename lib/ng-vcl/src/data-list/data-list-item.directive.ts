@@ -53,7 +53,7 @@ export class DataListItemDirective implements DataListItem, OnDestroy {
 
   @HostBinding('class.disabled')
   get classDisabled() {
-    return this.isDisabled; 
+    return this.isDisabled;
   }
 
   @HostBinding('class.selected')

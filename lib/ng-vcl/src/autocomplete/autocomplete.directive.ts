@@ -140,7 +140,7 @@ export class AutocompleteDirective extends TemplateLayerRef implements OnDestroy
       this.close(value);
     });
   }
-  
+
   ngOnDestroy() {
     this.destroy();
   }
@@ -154,7 +154,7 @@ export class AutocompleteSelectListDirective {
   constructor(
     @Optional() @Host() autocomplete: AutocompleteDirective,
     @Optional() @Self() selectList: SelectListComponent
-  ) { 
+  ) {
     autocomplete.registerSelectList(selectList);
   }
 }

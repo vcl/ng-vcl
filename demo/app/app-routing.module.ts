@@ -101,7 +101,7 @@ export const routes: Routes = [
   },
   {
     loadChildren: () => import('./demos/date-picker/demo.module').then(m => m.DatepickerDemoModule),
-    path: 'datepicker',
+    path: 'date-picker',
     data: {
       demo: {
         label: 'Date Picker',

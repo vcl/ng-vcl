@@ -36,7 +36,7 @@ export interface ScalePoint {
   selector: 'vcl-slider',
   templateUrl: 'slider.component.html',
   styleUrls: ['slider.component.scss'],
-  encapsulation: ViewEncapsulation.None,  
+  encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

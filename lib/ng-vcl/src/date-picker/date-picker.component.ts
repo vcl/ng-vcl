@@ -33,8 +33,8 @@ let UNIQUE_ID = 0;
 export type DatepickerPick = 'date' | 'month' | 'time';
 
 @Component({
-  selector: 'vcl-datepicker',
-  templateUrl: 'datepicker.component.html',
+  selector: 'vcl-date-picker',
+  templateUrl: 'date-picker.component.html',
   exportAs: 'vclDatepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -52,13 +52,8 @@ export type DatepickerPick = 'date' | 'month' | 'time';
       multi: true,
     }
   ],
-  styleUrls: ['datepicker.component.scss'],
+  styleUrls: ['date-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  // styles: [`
-  //   /* .pop-over.date-picker > .cCalendar {
-  //     width: 100%
-  //   } */
-  // `]
 })
 export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>> implements OnDestroy, ControlValueAccessor, OnChanges, AfterViewInit, FormControlGroupInputState, EmbeddedInputFieldLabelInput {
 

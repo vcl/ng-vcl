@@ -81,7 +81,7 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
         overlayX: 'start',
         overlayY: 'top',
       }])
-    }, ...configs)    
+    }, ...configs)
   }
 
   open(config?: LayerConfig) {
