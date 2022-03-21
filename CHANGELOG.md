@@ -1,3 +1,12 @@
+## [2.1.11](https://github.com/vcl/ng-vcl/compare/v2.1.10...v2.1.11) (2022-03-21)
+
+
+### Bug Fixes
+
+* bump rxjs version ([0532b57](https://github.com/vcl/ng-vcl/commit/0532b574de8df94efe88830e95addbecc692b8ad))
+
+
+
 ## [2.1.10](https://github.com/vcl/ng-vcl/compare/v2.0.1...v2.1.10) (2022-03-21)
 
 
