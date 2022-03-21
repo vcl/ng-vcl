@@ -100,11 +100,11 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/datepicker/demo.module').then(m => m.DatepickerDemoModule),
+    loadChildren: () => import('./demos/date-picker/demo.module').then(m => m.DatepickerDemoModule),
     path: 'datepicker',
     data: {
       demo: {
-        label: 'Datepicker',
+        label: 'Date Picker',
         category: CAT_FORM_CONTROLS,
       }
     }
@@ -375,7 +375,7 @@ export const routes: Routes = [
     data: {
       demo: {
         label: 'Calendar',
-        category: CAT_FORM_CONTROLS, 
+        category: CAT_FORM_CONTROLS,
       }
     }
   },
