@@ -7,10 +7,11 @@ vcl-select {
   &.pop-over {
     padding: 0;
   }
-  
+
   .select-list {
     border: 0;
     margin-bottom: 0;
+    max-height: 100%;
   }
 }
 

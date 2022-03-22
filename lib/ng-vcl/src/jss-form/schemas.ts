@@ -34,6 +34,7 @@ export interface VCLFormFieldSchemaInputParams {
   autocomplete?: string;
   appendedIcon?: string | string[];
   prependedIcon?: string | string[];
+  spinner?: boolean;
 }
 
 export interface VCLFormFieldSchemaInput extends VCLFormFieldControlSchema {
@@ -87,6 +88,7 @@ export interface VCLFormFieldSchemaSelectParams {
   options: VCLFormFieldSchemaOptions[];
   placeholder?: string;
   search?: boolean;
+  maxHeight?: number;
 }
 
 export interface VCLFormFieldSchemaSelect extends VCLFormFieldControlSchema {

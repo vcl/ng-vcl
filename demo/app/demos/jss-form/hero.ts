@@ -422,7 +422,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
               name: 'item_quantity',
               label: 'Quantity',
               params: {
-                inputType: 'number'
+                inputType: 'number',
+                spinner: true
               },
               validators: [ Validators.required, Validators.min(1), Validators.max(10)],
               required: true,

@@ -39,12 +39,16 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
     return [];
   }
 
+  get spinner(): boolean {
+    return this.params.spinner || false;
+  }
+
 }
 
 @Component({
   selector: 'vcl-jss-form-input',
   template: `
-    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
+    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent" [spinner]="field.spinner">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-jss-form-input-wrapper>
         <vcl-input-field>
@@ -53,11 +57,31 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
           <vcl-icon *ngFor="let icon of field.appendedIcons" vclPrepended [icon]="icon"></vcl-icon>
         </vcl-input-field>
       </vcl-jss-form-input-wrapper>
+      <vcl-spinner *ngIf="field.spinner" [(ngModel)]="value"></vcl-spinner>
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `
 })
 export class FormFieldInputComponent {
-  constructor(public field: FormFieldInput) { }
+
+  private _value = '';
+
+  get value(): any {
+    return this._value;
+  }
+
+  set value(value: any) {
+    const wasNull = this._value === null;
+    this._value = value;
+    this.field.control.setValue(value);
+    if (!wasNull) {
+      this.field.control.markAllAsTouched();
+    }
+  }
+
+  constructor(public field: FormFieldInput) {
+    this._value = field.defaultValue;
+    field.control.valueChanges.subscribe((change) => this._value = change);
+  }
 }
 

@@ -80,6 +80,16 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
   @ContentChild(FORM_CONTROL_GROUP_INPUT_STATE as any)
   input: FormControlGroupInputState;
 
+  @Input()
+  spinner = false;
+
+  @HostBinding('class.input-group')
+  @HostBinding('class.spinner')
+  @HostBinding('style.flex-direction')
+  get flexDirection() {
+    return this.spinner ? 'row' : 'column';
+  }
+
   get hasError() {
     const ngControl = this.input?.ngControl;
     const form = this.form;

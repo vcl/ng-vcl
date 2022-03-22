@@ -418,6 +418,16 @@ export const routes: Routes = [
         category: CAT_MISC,
       }
     }
+  },
+  {
+    loadChildren: () => import('./demos/spinner/demo.module').then(m => m.SpinnerDemoModule),
+    path: 'spinner',
+    data: {
+      demo: {
+        label: 'Spinner',
+        category: CAT_FORM_CONTROLS,
+      }
+    }
   }
 
 ];

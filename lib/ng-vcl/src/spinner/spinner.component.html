@@ -1,0 +1,8 @@
+<div class="button-group" [class.vertical]="direction === 'vertical'">
+  <button vcl-button type="button" (click)="this.writeValue(this.value+1)">
+    <vcl-icon icon="fas:chevron-up"></vcl-icon>
+  </button>
+  <button vcl-button type="button" (click)="this.writeValue(this.value-1)">
+    <vcl-icon icon="fas:chevron-down"></vcl-icon>
+  </button>
+</div>

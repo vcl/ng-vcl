@@ -44,3 +44,4 @@ export * from './notifier/index';
 export * from './autocomplete/index';
 export * from './jss-form/index';
 export * from './tooltip/index';
+export * from './spinner/index';
