@@ -21,7 +21,7 @@ import { VCLFileInputModule } from '../file-input/index';
 import { VCLRatingModule } from '../rating/index';
 import { VCLLayerModule } from '../layer/index';
 import { VCLPanelModule } from '../panel/index';
-import { VCLSpinnerModule } from '@vcl/ng-vcl/spinner';
+import { VCLSpinnerModule } from '../spinner';
 
 import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';

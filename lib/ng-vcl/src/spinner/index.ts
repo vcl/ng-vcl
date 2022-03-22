@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLIconModule } from '../icon/index';
 import { SpinnerComponent } from './spinner.component';
-import { VCLButtonGroupModule } from '@vcl/ng-vcl/button-group';
+import { VCLButtonGroupModule } from '../button-group';
 
 export { SpinnerComponent };
 
