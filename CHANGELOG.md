@@ -1,3 +1,18 @@
+## [2.1.13](https://github.com/vcl/ng-vcl/compare/v2.1.12...v2.1.13) (2022-03-22)
+
+
+### Bug Fixes
+
+* limit select dropdown height ([c351ab7](https://github.com/vcl/ng-vcl/commit/c351ab796e718921569ed6626a4a14b29478553b))
+
+
+### Features
+
+* refactor data picker name (breaking) ([7f43b2d](https://github.com/vcl/ng-vcl/commit/7f43b2df8581df14c34a2356b9395dadba2fad02))
+* use localized month names for month picker ([4bd4412](https://github.com/vcl/ng-vcl/commit/4bd4412069093aa30cdd64f701b3665d861e851a))
+
+
+
 ## [2.1.12](https://github.com/vcl/ng-vcl/compare/v2.1.11...v2.1.12) (2022-03-21)
 
 
