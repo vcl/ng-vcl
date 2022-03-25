@@ -107,7 +107,7 @@
 <h3>Select with search</h3>
 <vcl-form-control-group>
   <vcl-label>Select country</vcl-label>
-  <vcl-select [search]="true">
+  <vcl-select [search]="true" (searchValue)="search = $event">
     <vcl-select-list [(value)]="value4">
       <vcl-select-list-item value="gr">
         Greece
@@ -136,3 +136,4 @@
 </vcl-form-control-group>
 
 <p> Selected value: {{value4}}</p>
+<p> Search value: {{search}}</p>

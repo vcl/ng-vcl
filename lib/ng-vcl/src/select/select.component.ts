@@ -105,6 +105,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   @Output()
   afterClose = new EventEmitter<any | any[]>();
 
+  @Output()
+  searchValue = new EventEmitter<string | undefined>(undefined);
+
   get stateChanged() {
     return this.stateChangedEmitter.asObservable();
   }
@@ -333,6 +336,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       }
     } else {
       this.selectList.search = this.input.nativeElement.value;
+      this.searchValue.next(this.input.nativeElement.value);
     }
   }
 }
