@@ -1,3 +1,12 @@
+## [2.1.14](https://github.com/vcl/ng-vcl/compare/v2.1.13...v2.1.14) (2022-03-25)
+
+
+### Features
+
+* output search value from select ([385fe65](https://github.com/vcl/ng-vcl/commit/385fe6510586905c03fc538ae4d305294fd21ada))
+
+
+
 ## [2.1.13](https://github.com/vcl/ng-vcl/compare/v2.1.12...v2.1.13) (2022-03-22)
 
 
