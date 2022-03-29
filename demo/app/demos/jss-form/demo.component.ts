@@ -10,7 +10,19 @@ import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
 })
 export class JssFormDemoComponent implements AfterViewInit, OnInit {
 
-  constructor(private notifier: NotifierService, private da: DateAdapter) { }
+  private _disabled = false;
+
+  get disabled(): boolean {
+    return this._disabled;
+  }
+
+  set disabled(value: boolean) {
+    this._disabled = value;
+    this.ngOnInit();
+  }
+
+  constructor(private notifier: NotifierService, private da: DateAdapter) {
+  }
 
   @ViewChild('heroForm')
   heroForm: JssFormComponent;
@@ -22,7 +34,7 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.heroSchema = buildHeroSchema({
       datePickerPlaceholder: this.da.pattern('date')
-    });
+    }, this.disabled);
   }
 
   onSubmit() {

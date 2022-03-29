@@ -118,6 +118,10 @@ export class FormFieldArrayComponent {
   items: ({field: FormField, portal: Portal<any>, label: string})[] = [];
 
   addItem() {
+    if (this.field.disabled) {
+      return;
+    }
+
     const { index, field }  = this.field.addField();
     const portal = field.createPortal(this.injector, []);
     this.items = [ ...this.items, {

@@ -18,7 +18,7 @@ export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextar
 }
 
 @Component({
-  selector: 'vcl-jss-form-textarea',  
+  selector: 'vcl-jss-form-textarea',
   template: `
     <vcl-form-control-group [errorStateAgent]="field.errorStateAgent" *ngIf="field.visible">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
@@ -29,7 +29,8 @@ export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextar
                     [attr.placeholder]="field.placeholder"
                     [autogrow]="true"
                     [minRows]="field.minRows || 3"
-                    [maxRows]="field.minRows || 10"></textarea>
+                    [maxRows]="field.minRows || 10"
+                    [disabled]="field.disabled"></textarea>
         </vcl-input-field>
       </vcl-jss-form-input-wrapper>
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>

@@ -1,10 +1,13 @@
+<h2>Disable all inputs</h2>
+<vcl-flip-switch [(value)]="disabled"></vcl-flip-switch>
+
 <h2>Create a hero</h2>
 
-<vcl-jss-form 
+<vcl-jss-form
   style="max-width: 40em;"
   #heroForm="vclJssForm"
-  [schema]="heroSchema" 
-  (formSubmit)="onSubmit()" 
+  [schema]="heroSchema"
+  (formSubmit)="onSubmit()"
   (formAction)="onAction($event)">
 </vcl-jss-form>
 

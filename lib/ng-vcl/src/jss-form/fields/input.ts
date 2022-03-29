@@ -53,7 +53,7 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
       <vcl-jss-form-input-wrapper>
         <vcl-input-field>
           <vcl-icon *ngFor="let icon of field.prependedIcons" vclPrepended [icon]="icon"></vcl-icon>
-          <input [type]="field.inputType" vclInput [formControl]="field.control" [attr.placeholder]="field.placeholder" [attr.autocomplete]="field.autocomplete">
+          <input [type]="field.inputType" vclInput [formControl]="field.control" [attr.placeholder]="field.placeholder" [attr.autocomplete]="field.autocomplete" [disabled]="field.disabled">
           <vcl-icon *ngFor="let icon of field.appendedIcons" vclPrepended [icon]="icon"></vcl-icon>
         </vcl-input-field>
       </vcl-jss-form-input-wrapper>

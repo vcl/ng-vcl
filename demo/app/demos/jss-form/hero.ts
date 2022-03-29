@@ -9,7 +9,7 @@ export interface HeroSchemaConfig {
   datePickerPlaceholder: string;
 }
 
-export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSchemaRoot {
+export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean): ExtendedFormFieldSchemaRoot {
   return {
     type: 'form',
     fields: [
@@ -39,7 +39,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             error: 'minlength',
             message: 'Name must have a length of at least 2 characters'
           }
-        ]
+        ],
+        disabled
       },
       {
         type: 'textarea',
@@ -47,7 +48,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
         label: 'Description',
         params: {
           placeholder: 'The hero\'s Description',
-        }
+        },
+        disabled
       },
       {
         type: 'date-picker',
@@ -63,6 +65,7 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
           layerWidth: '15em',
           icon: 'vcl:question'
         },
+        disabled
       },
       {
         type: 'password-input',
@@ -111,7 +114,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             error: 'pattern',
             message: '- Contain a special character'
           }
-        ]
+        ],
+        disabled
       },
       {
         type: 'counter',
@@ -121,7 +125,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
         params: {
           min: 1,
           max: 10
-        }
+        },
+        disabled
       },
       {
         type: 'switch',
@@ -140,7 +145,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
         params: {
           offLabel: 'No',
           onLabel: 'Yes',
-        }
+        },
+        disabled
       },
       {
         type: 'file-input',
@@ -149,7 +155,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
         params: {
           multiple: false,
           placeholder: 'Picture of the hero'
-        }
+        },
+        disabled
       },
       {
         type: 'input',
@@ -171,7 +178,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             error: 'email',
             message: 'Invalid Email address'
           }
-        ]
+        ],
+        disabled
       },
       {
         type: 'radio-group',
@@ -189,7 +197,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             label: 'Genderless',
             value: 'g'
           }],
-        }
+        },
+        disabled
       },
       {
         type: 'button-group',
@@ -206,7 +215,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             label: 'Evil',
             value: -1
           }]
-        }
+        },
+        disabled
       },
       {
         type: 'hidden',
@@ -229,7 +239,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             label: 'Rogue',
             value: 'rogue'
           }]
-        }
+        },
+        disabled
       },
       {
         type: 'slider',
@@ -276,6 +287,7 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
               items: ['1', '2', '3', '4', '5'],
               valueLabel: (label) => `Strength (${label})`,
             },
+            disabled
           },
           {
             type: 'rating',
@@ -285,6 +297,7 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
               items: ['1', '2', '3', '4', '5'],
               valueLabel: (label) => `Agility (${label})`,
             },
+            disabled
           },
           {
             type: 'rating',
@@ -294,6 +307,7 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
               items: ['1', '2', '3', '4', '5'],
               valueLabel: (label) => `Intelligence (${label})`,
             },
+            disabled
           },
         ],
         validators: [(control: AbstractControl) => {
@@ -326,7 +340,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
               };
             }
           })
-        ]
+        ],
+        disabled
       },
       {
         type: 'token',
@@ -346,6 +361,7 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
         validators: [(control: AbstractControl) => {
           return Array.isArray(control.value) && control.value.length > 1 ? null : { minLength: true };
         }],
+        disabled
       },
       {
         type: 'select',
@@ -391,6 +407,7 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
           error: 'perks',
           message: 'You must select two perks'
         }],
+        disabled
       },
       {
         type: 'array',
@@ -415,7 +432,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
                   error: 'required',
                   message: 'Item name is required'
                 },
-              ]
+              ],
+              disabled
             },
             {
               type: 'input',
@@ -443,10 +461,12 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
                   error: 'max',
                   message: 'Maximum is 10'
                 },
-              ]
+              ],
+              disabled
             }
           ]
-        }
+        },
+        disabled
       },
       {
         type: 'checkbox',
@@ -471,7 +491,8 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             message: 'You must agree to our Terms'
           }
         ],
-        errorStateAgent: (host, input) => input.control.invalid && host.submitted
+        errorStateAgent: (host, input) => input.control.invalid && host.submitted,
+        disabled
       },
       {
         type: 'buttons',
@@ -480,12 +501,14 @@ export function buildHeroSchema(config: HeroSchemaConfig): ExtendedFormFieldSche
             type: 'submit',
             label: 'Submit',
             class: 'emphasized',
-            appIcon: 'fas:arrow-circle-right'
+            appIcon: 'fas:arrow-circle-right',
+            disabled
           },
           {
             type: 'button',
             label: 'Reset',
-            action: 'reset'
+            action: 'reset',
+            disabled
           }
         ]
       }
