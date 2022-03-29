@@ -1,3 +1,12 @@
+## [2.1.15](https://github.com/vcl/ng-vcl/compare/v2.1.14...v2.1.15) (2022-03-29)
+
+
+### Bug Fixes
+
+* disable inputs correctly in jss ([f5854b1](https://github.com/vcl/ng-vcl/commit/f5854b11a73a660ece90900d385ab4412d2516cf))
+
+
+
 ## [2.1.14](https://github.com/vcl/ng-vcl/compare/v2.1.13...v2.1.14) (2022-03-25)
 
 
