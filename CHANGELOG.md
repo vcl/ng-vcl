@@ -1,3 +1,12 @@
+## [2.1.17](https://github.com/vcl/ng-vcl/compare/v2.1.16...v2.1.17) (2022-03-30)
+
+
+### Bug Fixes
+
+* add data to jss select ([35773eb](https://github.com/vcl/ng-vcl/commit/35773eb03cb442ed39acceb3fdc0261cd084c186))
+
+
+
 ## [2.1.16](https://github.com/vcl/ng-vcl/compare/v2.1.15...v2.1.16) (2022-03-30)
 
 
