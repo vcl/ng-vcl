@@ -1,3 +1,12 @@
+## [2.1.16](https://github.com/vcl/ng-vcl/compare/v2.1.15...v2.1.16) (2022-03-30)
+
+
+### Bug Fixes
+
+* correct keyboard input, scrolling into view, empty handler ([d3710c2](https://github.com/vcl/ng-vcl/commit/d3710c2e40a5697e0e4ce844c05130e3da0cd731))
+
+
+
 ## [2.1.15](https://github.com/vcl/ng-vcl/compare/v2.1.14...v2.1.15) (2022-03-29)
 
 
