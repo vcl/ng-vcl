@@ -23,5 +23,8 @@
 <ng-template>
   <div style="width: 100%">
     <ng-content></ng-content>
+    <ng-container *ngIf="listEmpty">
+      <ng-content select="[empty]"></ng-content>
+    </ng-container>
   </div>
 </ng-template>

@@ -134,6 +134,14 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   controlType = 'select';
   materialModifierClass = undefined;
 
+  get listEmpty(): boolean {
+    if (this.selectList) {
+      return this.selectList.allItemsHidden();
+    }
+
+    return false;
+  }
+
   get elementId() {
     return this.selectList.elementId;
   }
@@ -148,7 +156,6 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   @HostListener('focus')
   onFocus() {
-    console.log('FOCUS')
     if (this.isDisabled) {
       return;
     }
@@ -328,6 +335,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   inputChange(event: KeyboardEvent) {
+    if (!this.search) {
+      return;
+    }
+
     if (event.code === 'Enter') {
       const firstNotHidden = this.selectList.items.find((i) => !this.selectList.isItemHidden(i));
       if (firstNotHidden) {

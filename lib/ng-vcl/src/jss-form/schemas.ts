@@ -89,6 +89,7 @@ export interface VCLFormFieldSchemaSelectParams {
   placeholder?: string;
   search?: boolean;
   maxHeight?: number;
+  emptyComponent?: any;
 }
 
 export interface VCLFormFieldSchemaSelect extends VCLFormFieldControlSchema {

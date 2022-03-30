@@ -108,6 +108,9 @@
 <vcl-form-control-group>
   <vcl-label>Select country</vcl-label>
   <vcl-select [search]="true" (searchValue)="search = $event">
+    <ng-container empty>
+      No countries found!
+    </ng-container>
     <vcl-select-list [(value)]="value4">
       <vcl-select-list-item value="gr">
         Greece

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, Directive, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { VCLFormFieldSchemaSelect, VCLFormFieldSchemaSelectParams } from '../schemas';
 import { FormFieldControl } from './field';
 
@@ -15,6 +15,9 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
   get maxHeight()  {
     return this.params.maxHeight || undefined;
   }
+  get emptyComponent()  {
+    return this.params.emptyComponent || undefined;
+  }
   get options()  {
     return this.params.options || [];
   }
@@ -24,6 +27,13 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
 
 }
 
+@Directive({
+  selector: '[vclEmptyHost]',
+})
+export class EmptyDirective {
+  constructor(public viewContainerRef: ViewContainerRef) { }
+}
+
 @Component({
   selector: 'vcl-jss-form-select',
   template: `
@@ -31,6 +41,9 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
     <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
     <vcl-jss-form-input-wrapper>
       <vcl-select [placeholder]="field.placeholder" [search]="field.search" [maxHeight]="field.maxHeight">
+        <ng-container empty #empty>
+          <ng-template vclEmptyHost></ng-template>
+        </ng-container>
         <vcl-select-list [formControl]="field.control" [selectionMode]="field.selectionMode">
           <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
             <vcl-label>{{option.label}}</vcl-label>
@@ -43,7 +56,18 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
   </vcl-form-control-group>
   `
 })
-export class FormFieldSelectComponent {
+export class FormFieldSelectComponent implements AfterViewInit {
+
+  @ViewChild(EmptyDirective, {static: false})
+  emptyHost!: EmptyDirective;
+
   constructor(public field: FormFieldSelect) { }
+
+  ngAfterViewInit() {
+    if (this.field.emptyComponent) {
+      this.emptyHost.viewContainerRef.clear();
+      this.emptyHost.viewContainerRef.createComponent(this.field.emptyComponent);
+    }
+  }
 }
 

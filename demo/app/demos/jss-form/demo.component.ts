@@ -4,6 +4,11 @@ import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
 
+@Component({
+  selector: 'demo-empty-component',
+  template: `<span>No skills found!</span>`
+})
+export class SampleEmptyComponent {}
 
 @Component({
   templateUrl: 'demo.component.html'
@@ -34,7 +39,7 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.heroSchema = buildHeroSchema({
       datePickerPlaceholder: this.da.pattern('date')
-    }, this.disabled);
+    }, this.disabled, SampleEmptyComponent);
   }
 
   onSubmit() {

@@ -141,6 +141,10 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     return false;
   }
 
+  allItemsHidden(): boolean {
+    return this._items && !this._items.some(item => !this.isItemHidden(item));
+  }
+
   selectHighlighted(): void {
     if (this._highlightedItem) {
       this.selectItem(this._highlightedItem);
@@ -189,10 +193,12 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     this._highlightedItem = this._items.find((item) => item.value === value);
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
+    this._highlightedItem && this._highlightedItem.scrollIntoView();
   }
 
   highlightIndex(idx: any) {
     this._highlightedItem = this._items.find((item, _idx) => idx === _idx);
+    this._highlightedItem && this._highlightedItem.scrollIntoView();
   }
 
   highlightPrev() {
@@ -208,13 +214,12 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
       } else {
         const highlightedItem = this._items.toArray().reverse().find((item, thisRevId, items) => {
           const thisIdx = (items.length - 1) - thisRevId;
-          return thisIdx < currIdx;
+          return thisIdx < currIdx && !this.isItemHidden(item);
         });
         if (highlightedItem) {
           this._highlightedItem = highlightedItem;
-        } else {
-          this._highlightedItem = this._items.first;
         }
+        this._highlightedItem.scrollIntoView();
       }
     }
   }
@@ -228,9 +233,10 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
       const currIdx = this._items.toArray().findIndex((item) => item === this._highlightedItem);
 
-      const highlightedItem = this._items.toArray().find((item, thisIdx) => thisIdx > currIdx);
+      const highlightedItem = this._items.toArray().find((item, thisIdx) => thisIdx > currIdx && !this.isItemHidden(item));
       if (highlightedItem) {
         this._highlightedItem = highlightedItem;
+        this._highlightedItem.scrollIntoView();
       }
     }
   }

@@ -4,6 +4,7 @@ export interface SelectListItem {
   value: any;
   label: string;
   isFocused: boolean;
+  scrollIntoView(): void;
 }
 
 export interface SelectList {

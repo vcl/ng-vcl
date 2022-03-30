@@ -25,11 +25,13 @@ import { VCLSpinnerModule } from '../spinner';
 
 import { JssFormComponent } from './jss-form.component';
 import { JssFormHintsComponent } from './jss-form-hints.component';
-import { FormFieldInputComponent, FormFieldButtonComponent, FormFieldSwitchComponent,
-         FormFieldObjectComponent, FormFieldRatingComponent, FormFieldControl,
-         FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
-         FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent,
-         FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent, FormFieldPasswordInputComponent, FormFieldDatepickerComponent } from './fields/index';
+import {
+  FormFieldInputComponent, FormFieldButtonComponent, FormFieldSwitchComponent,
+  FormFieldObjectComponent, FormFieldRatingComponent, FormFieldControl,
+  FormField, FormFieldButtonsComponent, FormFieldTextareaComponent, FormFieldSelectComponent, FormFieldSliderComponent,
+  FormFieldCheckboxComponent, FormFieldRadioGroupComponent, FormFieldTokenComponent,
+  FormFieldFileInputComponent, FormFieldHiddenComponent, FormFieldButtonGroupComponent, FormFieldSelectListComponent, FormFieldArrayComponent, FormFieldPasswordInputComponent, FormFieldDatepickerComponent, EmptyDirective
+} from './fields/index';
 import { initializeFields  } from './fields/index';
 import { JssFormInputWrapperComponent } from './jss-form-input-wrapper.component';
 
@@ -77,6 +79,7 @@ let fieldsInitialized = false;
         FormFieldInputComponent,
         FormFieldTextareaComponent,
         FormFieldSelectComponent,
+        EmptyDirective,
         FormFieldSelectListComponent,
         FormFieldSwitchComponent,
         FormFieldSliderComponent,
