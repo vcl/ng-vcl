@@ -6,9 +6,11 @@ import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
 
 @Component({
   selector: 'demo-empty-component',
-  template: `<span>No skills found!</span>`
+  template: `<span>{{data}}</span>`
 })
-export class SampleEmptyComponent {}
+export class SampleEmptyComponent {
+  data: string;
+}
 
 @Component({
   templateUrl: 'demo.component.html'

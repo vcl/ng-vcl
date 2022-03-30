@@ -371,7 +371,10 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
           placeholder: 'Select perks',
           selectionMode: 'multiple',
           search: true,
-          emptyComponent,
+          emptyComponent: {
+            component: emptyComponent,
+            data: 'No skills found!'
+          },
           options: [{
             label: 'Snake Eater',
             sublabel: 'It gives you a 25% increase to your poison resistance.',

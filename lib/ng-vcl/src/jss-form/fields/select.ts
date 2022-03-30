@@ -66,7 +66,12 @@ export class FormFieldSelectComponent implements AfterViewInit {
   ngAfterViewInit() {
     if (this.field.emptyComponent) {
       this.emptyHost.viewContainerRef.clear();
-      this.emptyHost.viewContainerRef.createComponent(this.field.emptyComponent);
+      if (typeof this.field.emptyComponent === 'object') {
+        const ref = this.emptyHost.viewContainerRef.createComponent(this.field.emptyComponent.component);
+        ref.instance.data = this.field.emptyComponent.data;
+      } else {
+        this.emptyHost.viewContainerRef.createComponent(this.field.emptyComponent);
+      }
     }
   }
 }
