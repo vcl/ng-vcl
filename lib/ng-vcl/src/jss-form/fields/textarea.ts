@@ -23,7 +23,7 @@ export class FormFieldTextarea extends FormFieldControl<VCLFormFieldSchemaTextar
     <vcl-form-control-group [errorStateAgent]="field.errorStateAgent" *ngIf="field.visible">
       <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
       <vcl-jss-form-input-wrapper>
-        <vcl-input-field>
+        <vcl-input-field class="auto-height">
           <textarea vclInput
                     [formControl]="field.control"
                     [attr.placeholder]="field.placeholder"
