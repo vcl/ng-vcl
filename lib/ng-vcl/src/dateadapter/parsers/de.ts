@@ -32,7 +32,7 @@ export class DateAdapterParserDE implements DateAdapterParser {
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
       case 'date': {
-        return `${pad(date.getDate(), 2)}.${pad(date.getMonth(), 2)}.${pad(date.getFullYear(), 4)}`;
+        return `${pad(date.getDate() + 1, 2)}.${pad(date.getMonth(), 2)}.${pad(date.getFullYear(), 4)}`;
       }
       case 'month': {
         return `${date.toLocaleString(

@@ -48,7 +48,7 @@ export class DateAdapterParserEN implements DateAdapterParser {
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
       case 'date': {
-        return `${pad(date.getMonth(), 2)}/${pad(date.getDate(), 2)}/${pad(date.getFullYear(), 4)}`;
+        return `${pad(date.getMonth() + 1, 2)}/${pad(date.getDate(), 2)}/${pad(date.getFullYear(), 4)}`;
       }
       case 'month': {
         return `${date.toLocaleString(
