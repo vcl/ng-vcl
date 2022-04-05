@@ -16,7 +16,7 @@ import { FormDirective, FORM_CONTROL_GROUP_FORM } from '../form-control-group/in
 export class JssFormComponent implements JssForm, AfterContentInit, AfterViewInit, OnDestroy, OnInit, OnChanges {
 
   constructor(
-    private cdRef: ChangeDetectorRef, 
+    private cdRef: ChangeDetectorRef,
     private injector: Injector,
     @Optional()
     @Inject(JSS_FORM_HELP_CONFIG_TOKEN)
@@ -25,6 +25,9 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
 
   @Input()
   schema?: VCLFormFieldSchemaRoot;
+
+  @Input()
+  autocomplete = '';
 
   _help: HelpConfig;
 
@@ -80,11 +83,11 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
         {
           provide: JSS_FORM_TOKEN,
           useExisting: JssFormComponent
-        }, 
+        },
         {
           provide: FORM_CONTROL_GROUP_FORM,
           useValue: this.form
-        }, 
+        },
       ]);
     }
   }

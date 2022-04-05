@@ -176,8 +176,8 @@ export interface  VCLFormFieldSchemaButtonGroup extends VCLFormFieldControlSchem
 }
 
 export interface VCLFormFieldSchemaToken extends VCLFormFieldControlSchema {
-  params?: {} | Conditional<{}>;
   type: 'token';
+  params?: VCLFormFieldSchemaInputParams | Conditional<VCLFormFieldSchemaInputParams>;
 }
 
 export interface VCLFormFieldSchemaDatePickerParams {
