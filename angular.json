@@ -21,6 +21,9 @@
             "main": "demo/main.ts",
             "polyfills": "demo/polyfills.ts",
             "tsConfig": "demo/tsconfig.app.json",
+            "sourceMap": true,
+            "optimization": false,
+            "buildOptimizer": false,
             "assets": [
               {
                 "glob": "**/*",

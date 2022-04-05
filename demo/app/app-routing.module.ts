@@ -120,16 +120,6 @@ export const routes: Routes = [
     }
   },
   {
-    loadChildren: () => import('./demos/autocomplete/demo.module').then(m => m.AutocompleteDemoModule),
-    path: 'autocomplete',
-    data: {
-      demo: {
-        label: 'Autocomplete',
-        category: CAT_OVERLAYS,
-      }
-    }
-  },
-  {
     loadChildren: () => import('./demos/select/demo.module').then(m => m.SelectDemoModule),
     path: 'select',
     data: {
