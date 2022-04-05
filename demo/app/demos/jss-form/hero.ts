@@ -18,7 +18,8 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         type: 'input',
         label: 'Name',
         params: {
-          placeholder: 'The hero\'s name'
+          placeholder: 'The hero\'s name',
+          autocomplete: 'off'
         },
         validators: [
           Validators.required, Validators.minLength(2)
@@ -346,7 +347,10 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
       {
         type: 'token',
         name: 'attributes',
-        label: 'Attributes',
+        label: 'Attributes (Tokens)',
+        params: {
+          autocomplete: 'off'
+        },
         hints: [
           {
             type: 'default',
