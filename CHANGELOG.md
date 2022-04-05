@@ -1,3 +1,12 @@
+# [2.2.0](https://github.com/vcl/ng-vcl/compare/v2.1.17...v2.2.0) (2022-04-05)
+
+
+### Bug Fixes
+
+* month picker ([f8af278](https://github.com/vcl/ng-vcl/commit/f8af2784c19d31f7372e1177fc9cd91207b4a1c4))
+
+
+
 ## [2.1.17](https://github.com/vcl/ng-vcl/compare/v2.1.16...v2.1.17) (2022-03-30)
 
 
