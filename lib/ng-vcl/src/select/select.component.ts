@@ -226,12 +226,13 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     }
 
     if (this.selectList.selectionMode === 'single') {
-      const items = this.selectList.getItems();
+      const items = this.selectList.items;
       const item = items.find(_item => this.selectList.value === _item.value);
+      const val = item?.label;
       return item ? item.label : (this.placeholder || '');
     } else {
       const value = Array.isArray(this.selectList.value) ? this.selectList.value : [];
-      const items = this.selectList.getItems();
+      const items = this.selectList.items;
       const labels = items.filter(item => value.includes(item.value)).map(item => item.label);
       return labels.length === 0 ? '' : labels.join(', ');
     }

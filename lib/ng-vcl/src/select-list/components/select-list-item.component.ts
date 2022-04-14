@@ -96,7 +96,8 @@ export class SelectListItemComponent implements SelectListItem {
     } else if (this._labelDirective) {
       return this._labelDirective.label;
     } else if (this._labelElementRef) {
-      return this._labelElementRef.nativeElement.innerText;
+      // Trim is required due to template induced white spaces
+      return this._labelElementRef.nativeElement.innerText.trim();
     } else {
       return this.elementRef.nativeElement.innerText || ''
     }
