@@ -1,29 +1,19 @@
 <h3>Vertical</h3>
 
-<div class="spinner">
-  <vcl-spinner [(ngModel)]="data1"></vcl-spinner>
-</div>
+<vcl-form-control-group [spinner]="true">
+  <vcl-label>Vertical</vcl-label>
+  <vcl-input-field>
+    <input vclInput [(ngModel)]="data1" type="number" />
+    <vcl-spinner [(ngModel)]="data1" orientation="vertical"></vcl-spinner>
+  </vcl-input-field>
+</vcl-form-control-group>
 
 <h3>Horizontal</h3>
 
-<vcl-spinner [(ngModel)]="data2" direction="horizontal"></vcl-spinner>
-
-<h3>Vertical inside input</h3>
-
 <vcl-form-control-group [spinner]="true">
-  <vcl-label>Vertical inside input</vcl-label>
-  <vcl-input-field>
-    <input vclInput [(ngModel)]="data1" type="number" />
-  </vcl-input-field>
-  <vcl-spinner [(ngModel)]="data1"></vcl-spinner>
-</vcl-form-control-group>
-
-<h3>Horizontal inside input</h3>
-
-<vcl-form-control-group [spinner]="true">
-  <vcl-label>Horizontal inside input</vcl-label>
+  <vcl-label>Horizontal</vcl-label>
   <vcl-input-field>
     <input vclInput [(ngModel)]="data2" type="number" />
+    <vcl-spinner [(ngModel)]="data2" orientation="Horizontal"></vcl-spinner>
   </vcl-input-field>
-  <vcl-spinner [(ngModel)]="data2" direction="horizontal"></vcl-spinner>
 </vcl-form-control-group>

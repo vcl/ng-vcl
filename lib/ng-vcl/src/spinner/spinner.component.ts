@@ -14,11 +14,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class SpinnerComponent implements ControlValueAccessor {
 
   @Input()
-  direction: 'horizontal' | 'vertical' = 'vertical';
+  orientation: 'horizontal' | 'vertical' = 'vertical';
 
-  @HostBinding('class.input-group-button')
-  get classInputGroupButton() {
-    return this.direction === 'vertical';
+  @HostBinding('class.button-group')
+  get classButtonGroupButton() {
+    return this.orientation === 'vertical';
   }
 
   value = 0;

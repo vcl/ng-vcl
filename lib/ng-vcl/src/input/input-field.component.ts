@@ -6,7 +6,7 @@ import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from 
 
 @Component({
   selector: 'vcl-input-field',
-  template: `<ng-content select="input[vclInput], textarea[vclInput], vcl-icon, button[vcl-button]"></ng-content>`,
+  template: `<ng-content select="input[vclInput], textarea[vclInput], vcl-icon, vcl-spinner, button[vcl-button]"></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {

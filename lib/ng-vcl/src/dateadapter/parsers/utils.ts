@@ -14,7 +14,9 @@ export function extractInt(value: string, regEx: RegExp): number[] | undefined {
 }
 
 export function pad(value: number, size: number) {
-  return ('0000' + value).substr(-size);
+  const str = ('0000' + value);
+  const strLen = str.length;
+  return ('0000' + value).substring(strLen - size, strLen);
 }
 
 const DEFAULT_DISPLAY_FORMATS = {

@@ -39,5 +39,4 @@ export class AppComponent {
 
 | Name                | Type           | Default  | Description
 | ------------        |----------------| -------- |------------
-| `direction`         | 'horizontal' \| 'vertical'     | 'vertical' | Direction the buttons are placed in
-
+| `orientation`       | 'horizontal' \| 'vertical'     | 'vertical' | Orientation the buttons are placed in

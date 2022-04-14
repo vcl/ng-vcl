@@ -35,6 +35,7 @@ export class DateAdapterParserEN implements DateAdapterParser {
   parse(value: string, format: DateAdapterBaseParseFormats): Date {
     if (format === 'date') {
       const result = extractInt(value, REGEX_DATE);
+      console.log('====', result);
       return result ? new Date(result[2], result[0], result[1]) : undefined;
     } else if (format === 'month') {
       const result = extractInt(value, REGEX_MONTH);
