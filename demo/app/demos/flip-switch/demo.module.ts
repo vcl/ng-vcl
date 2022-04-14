@@ -9,7 +9,7 @@ import README from '!raw-loader!@vcl/ng-vcl/flip-switch/README.md';
 
 export function demo() {
   return {
-    label: 'Flip-Switch',
+    label: 'Flip Switch',
     tabs: {
       Demo: FlipSwitchDemoComponent,
       'README.md': {

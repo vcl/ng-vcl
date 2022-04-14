@@ -20,6 +20,7 @@ export class AppComponent {}
   <vcl-date-picker [value]="value" (valueChange)="onValueChange($event)"></vcl-date-picker>
 </vcl-form-control-group>
 ```
+
 ```html
 <vcl-form-control-group>
   <vcl-label>Month picker</vcl-label>
@@ -36,7 +37,7 @@ export class AppComponent {}
 
 ### Date representation
 
-The datepicker uses the `DateAdapterBase` for date representation.
+The date picker uses the `DateAdapterBase` for date representation.
 Check the [`DateAdapterBase` docs](#/dateadapter) for further information.
 
 ### API
@@ -47,12 +48,14 @@ Name                | Type                                            | Default 
 ------------        | -------                                         | ------- | -----------------------------------------------
 `value`             | VCLDate                                         |         | Current value
 `viewDate`          | VCLDate                                         | today   | The currently shown date in the calendar
-`disabled`          | boolean                                         | false   | Disables the datepicker when true
-`pick`              | 'date' \| 'month' \| 'time'                     | 'date'  | Datepicker mode
+`disabled`          | boolean                                         | false   | Disables the date picker when true
+`pick`              | 'date' \| 'month' \| 'time'                     | 'date'  | Parse format for date inputs
+`displayFormat`     | See `DateAdapterBaseDisplayFormats`             | 'date'  | Display format of dates
 `dateModifier`      | VCLCalendarDateModifier[]                       |         | See vcl-calendar
 `showWeekOfTheYear` | boolean                                         | false   | See vcl-calendar
 
 #### vcl-date-picker events
+
 Name                | Type       | Description
 ---------------     | -------    | -----------------------------------------------
 `valueChange`       | VCLDate    | Triggered when a new date is selected

@@ -12,10 +12,10 @@ export class DateAdapterParserISO implements DateAdapterParser {
   parse(value: string, format: DateAdapterBaseParseFormats): Date {
     if (format === 'date') {
       const result = extractInt(value, REGEX_DATE);
-      return result ? new Date(result[0], result[1], result[2]) : undefined;
+      return result ? new Date(result[0], result[1] - 1, result[2]) : undefined;
     } else if (format === 'month') {
       const result = extractInt(value, REGEX_MONTH);
-      return result ? new Date(result[0], result[1], 1) : undefined;
+      return result ? new Date(result[0], result[1] - 1, 1) : undefined;
     } else if (format === 'time') {
       const result = extractInt(value, REGEX_TIME);
       const now = new Date();

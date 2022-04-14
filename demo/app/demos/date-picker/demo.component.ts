@@ -10,6 +10,7 @@ export class DatePickerDemoComponent {
 
   date = new Date();
   month = new Date();
+  monthAlt = new Date();
   time = new Date();
 
   datePattern = this.da.pattern('date');

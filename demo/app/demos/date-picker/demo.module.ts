@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 export function demo() {
   return {
-    label: 'Datepicker',
+    label: 'Date Picker',
     tabs: {
       Demo: DatePickerDemoComponent,
       'README.md': {

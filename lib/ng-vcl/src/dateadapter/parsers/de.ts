@@ -17,10 +17,10 @@ export class DateAdapterParserDE implements DateAdapterParser {
   parse(value: string, format: DateAdapterBaseParseFormats): Date {
     if (format === 'date') {
       const result = extractInt(value, REGEX_DATE);
-      return result ? new Date(result[2], result[1], result[0]) : undefined;
+      return result ? new Date(result[2], result[1] - 1, result[0]) : undefined;
     } else if (format === 'month') {
       const result = extractInt(value, REGEX_MONTH);
-      return result ? new Date(result[1], result[0], 1) : undefined;
+      return result ? new Date(result[1], result[0] - 1, 1) : undefined;
     } else if (format === 'time') {
       const result = extractInt(value, REGEX_TIME);
       const now = new Date();
@@ -32,7 +32,7 @@ export class DateAdapterParserDE implements DateAdapterParser {
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
     switch(format) {
       case 'date': {
-        return `${pad(date.getDate() + 1, 2)}.${pad(date.getMonth(), 2)}.${pad(date.getFullYear(), 4)}`;
+        return `${pad(date.getDate(), 2)}.${pad(date.getMonth() + 1, 2)}.${pad(date.getFullYear(), 4)}`;
       }
       case 'month': {
         return `${date.toLocaleString(

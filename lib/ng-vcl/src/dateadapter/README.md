@@ -10,8 +10,8 @@ import { VCLDateAdapterModule } from '@vcl/ng-vcl';;
   ...
 })
 export class AppComponent {}
-
 ```
+
 ```ts
 import { DateAdapter } from '@vcl/ng-vcl';;
 
@@ -26,12 +26,12 @@ export class MyComponent {
 
 Check the `DateAdapterBase` [abstract class](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/dateadapter-base.ts) for an overview of methods and properties.
 
-### Date representation
+## Date Representation
 
 The DateAdapter and components use the `VCLDate` generic type. The exact type is defined by the `DateAdapterBase`.
 The default implementation is using the native javascript date object.
 
-#### Date range
+### Date range
 
 A date range is defined by a start and an end date.
 
@@ -42,7 +42,7 @@ export interface VCLDateRange<VCLDate> {
 }
 ```
 
-### Localization
+## Localization
 
 The default date adapter uses the javascript `Intl` interfaces for localization.
 The angular `LOCALE_ID` token is used to determine the application locale.
@@ -61,7 +61,7 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
 
 Check the [official docs](https://angular.io/guide/i18n) for further information.
 
-#### Parsing and formatting input controls
+### Parsing and formatting input controls
 
 One shortcomings of the native Date object is the lack of parsing support for specific locales.
 The default data adapter expresses date and time for inputs in `ISO 8601`. e.g. `2019-08-08` or `18:11`
@@ -94,7 +94,7 @@ export class DateAdapterParserFR implements DateAdapterParser {
 export class MyApp {}
 ```
 
-### Weekday offset
+## Weekday offset
 
 The default first day of the week is Sunday.
 Add the following provider for a weekday offset.
@@ -111,7 +111,7 @@ import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from '@vcl/ng-vcl';
 export class MyApp {}
 ```
 
-### Custom date adapter
+## Custom date adapter
 
 A custom adapter must extend from `DateAdapterBase` and implement the abstract methods.
 

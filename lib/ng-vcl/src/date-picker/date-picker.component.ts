@@ -24,13 +24,14 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { FORM_CONTROL_GROUP_INPUT_STATE, FormControlGroupInputState } from '../form-control-group/index';
-import { VCLDateRange, DateAdapterBase, DateAdapterBaseParseFormats } from '../dateadapter/index';
+import { VCLDateRange, DateAdapterBase, DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '../dateadapter/index';
 import { InputDirective, FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from '../input/index';
 import { VCLCalendarDateModifier } from '../calendar/index';
 
 let UNIQUE_ID = 0;
 
 export type DatepickerPick = 'date' | 'month' | 'time';
+export type DatepickerDisplay = 'date' | 'month' | 'time';
 
 @Component({
   selector: 'vcl-date-picker',
@@ -110,7 +111,10 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   viewDate?: VCLDate;
 
   @Input()
-  pick: DatepickerPick = 'date';
+  pick: DateAdapterBaseParseFormats = 'date';
+
+  @Input()
+  displayFormat: DateAdapterBaseDisplayFormats = this.pick;
 
   @Output()
   afterClose = new EventEmitter<any | any[]>();
@@ -220,7 +224,8 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   updateInput() {
     if (this.input && this.value) {
-      this.input.value = this.dateAdapter.format(this.value, this.parseFormat);
+      console.log('FORMATTING');
+      this.input.value = this.dateAdapter.format(this.value, this.displayFormat);
     } else if (this.input) {
       this.input.value = '';
     }
