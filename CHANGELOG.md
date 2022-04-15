@@ -1,3 +1,12 @@
+## [2.2.2](https://github.com/vcl/ng-vcl/compare/v2.2.1...v2.2.2) (2022-04-15)
+
+
+### Bug Fixes
+
+* remove debug code ([fe5cf5c](https://github.com/vcl/ng-vcl/commit/fe5cf5c2e859f932f98f5e9b273c3665660f6fd5))
+
+
+
 ## [2.2.1](https://github.com/vcl/ng-vcl/compare/v2.2.0...v2.2.1) (2022-04-14)
 
 
