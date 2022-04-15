@@ -114,7 +114,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   pick: DateAdapterBaseParseFormats = 'date';
 
   @Input()
-  displayFormat: DateAdapterBaseDisplayFormats = this.pick;
+  displayFormat: DateAdapterBaseDisplayFormats = null;
 
   @Output()
   afterClose = new EventEmitter<any | any[]>();
@@ -150,6 +150,14 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
       return 'time';
     } else {
       throw new Error('Datepicker: Unsupported pick value: ' + this.pick);
+    }
+  }
+
+  get displayFormatName(): DateAdapterBaseDisplayFormats {
+    if (this.displayFormat) {
+      return this.displayFormat;
+    } else {
+      return this.pick;
     }
   }
 
@@ -224,8 +232,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   updateInput() {
     if (this.input && this.value) {
-      console.log('FORMATTING');
-      this.input.value = this.dateAdapter.format(this.value, this.displayFormat);
+      this.input.value = this.dateAdapter.format(this.value, this.displayFormatName);
     } else if (this.input) {
       this.input.value = '';
     }

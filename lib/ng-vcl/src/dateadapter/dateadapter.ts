@@ -22,8 +22,6 @@ export class DateAdapter extends DateAdapterBase<Date> {
     parsers?: DateAdapterParser[],
   ) {
     super();
-    locale = 'en';
-    console.log('=====>', locale);
     this.locale = locale || undefined;
     if (this.locale && Array.isArray(parsers)) {
       this.parser = parsers.find(p =>  p.supportedLocales.some(l => l.toLowerCase() === this.locale.toLowerCase()));
