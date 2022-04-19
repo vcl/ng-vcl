@@ -5,12 +5,13 @@ import { FormField, FormFieldControl } from './field';
 import { VCLFormFieldSchemaObject } from '../schemas';
 
 export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, {}> {
-  constructor(schema: VCLFormFieldSchemaObject, parent?: FormField) {
+  constructor(schema: VCLFormFieldSchemaObject, parent?: FormField, initialValue?: any) {
     super(schema, parent);
 
     this._fields = schema.fields.map(fieldSchema => {
       return FormField.createInstance({
         schema: fieldSchema,
+        initialValue: (initialValue && 'name' in fieldSchema) ? initialValue[fieldSchema.name] : undefined,
         parent: this
       });
     });

@@ -27,6 +27,9 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
   schema?: VCLFormFieldSchemaRoot;
 
   @Input()
+  initialValues?: any;
+
+  @Input()
   autocomplete = '';
 
   _help: HelpConfig;
@@ -78,7 +81,7 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
         name: 'root',
         type: 'object',
         visible: true
-      });
+      }, undefined, this.initialValues);
       this.portal = this.field.createPortal(this.injector, [
         {
           provide: JSS_FORM_TOKEN,

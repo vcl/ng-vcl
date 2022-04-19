@@ -69,12 +69,17 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     };
   }
 
-  static createInstance({schema, parent}: {
+  static createInstance({schema, parent, initialValue}: {
     schema: VCLFormFieldSchema;
     parent?: FormField;
+    initialValue?: any;
   }) {
     const meta = this.lookup(schema.type);
-    return new meta.fieldClass(schema, parent);
+    const instance = new meta.fieldClass(schema, parent);
+    if (initialValue && instance instanceof FormFieldControl) {
+      instance.control.setValue(initialValue)
+    }
+    return instance;
   }
 
   createConditionalStream<TConditional>(conditional: Conditional<TConditional>) {
