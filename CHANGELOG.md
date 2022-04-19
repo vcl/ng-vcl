@@ -1,3 +1,16 @@
+## [2.2.3](https://github.com/vcl/ng-vcl/compare/v2.2.0...v2.2.3) (2022-04-19)
+
+
+### Bug Fixes
+
+* Date parsing and formatting in date adapter ([db5e2c1](https://github.com/vcl/ng-vcl/commit/db5e2c15ad20e7e650a3f8555db861172520a60e))
+* remove debug code ([fe5cf5c](https://github.com/vcl/ng-vcl/commit/fe5cf5c2e859f932f98f5e9b273c3665660f6fd5))
+* **select-list:** emit update on value change ([d1df241](https://github.com/vcl/ng-vcl/commit/d1df241d041c80a5a98ec290a93cb389bb8d311e))
+* spinner ([42baa19](https://github.com/vcl/ng-vcl/commit/42baa190670062e197819a3906d4ac47eab8d209))
+* trim white space induced gap in labels of select ([3883cda](https://github.com/vcl/ng-vcl/commit/3883cda1c967c10818dadc167cd7d556a0ecc641))
+
+
+
 ## [2.2.2](https://github.com/vcl/ng-vcl/compare/v2.2.1...v2.2.2) (2022-04-15)
 
 
