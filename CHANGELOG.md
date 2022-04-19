@@ -1,3 +1,12 @@
+# [2.3.0](https://github.com/vcl/ng-vcl/compare/v2.2.3...v2.3.0) (2022-04-19)
+
+
+### Features
+
+* **jss-form:** add initial values input ([d3c0994](https://github.com/vcl/ng-vcl/commit/d3c0994f116095576ed58da2047889eaaf19f37f))
+
+
+
 ## [2.2.3](https://github.com/vcl/ng-vcl/compare/v2.2.0...v2.2.3) (2022-04-19)
 
 
