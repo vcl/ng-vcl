@@ -64,8 +64,17 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   @Input()
   selectionMode: 'single' | 'multiple' = 'single';
 
+  private _value: any | any[];
+
+  get value(): any | any[] {
+    return this._value;
+  }
+
   @Input()
-  value: any | any[];
+  set value(value: any | any[] ) {
+    this._value = value;
+    this.valueChange.emit(value);
+  }
 
   @Input()
   disabled = false;
