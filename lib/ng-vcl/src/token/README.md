@@ -82,7 +82,7 @@ Name                 | Type     | Default              | Description
 `selectable`         | boolean  | false                | tokens are selectable if true
 `allowDuplicates`    | boolean  | false                | tokens with matching values are not added
 `addOnEnter`         | boolean  | true                 | New token will be added when pressing enter
-`preselect`          | boolean  | true                 | tokens are preselected after being added if true
+`preselect`          | boolean  | true                 | tokens are selected after being added if true
 `tokenClass`         | string   |                      | additional css class for tokens
 `tabindex`           | number   | 0                    | The tabindex of the token-input
 

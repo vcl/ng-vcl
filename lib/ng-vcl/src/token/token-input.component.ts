@@ -89,7 +89,7 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
   allowDuplicates = false;
 
   @Input()
-  preselect = true;
+  preselect = false;
 
   @Input()
   removeToken = true;

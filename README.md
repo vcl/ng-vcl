@@ -1,12 +1,12 @@
 # [ng-vcl](https://vcl.github.io/ng-vcl/master/)
 
-A comprehensive library of components for Angular 11+ with [VCL](http://vcl.github.io/) based styling.
+A comprehensive library of components for Angular 14+ with [VCL](http://vcl.github.io/) based styling.
 
-**[Browse master demo](https://vcl.github.io/ng-vcl/master)** 
+**[Browse master demo](https://vcl.github.io/ng-vcl/master)**
 
 ![Build](https://github.com/vcl/ng-vcl/workflows/Build/badge.svg?branch=master)
 
-**[Browse dev demo](https://vcl.github.io/ng-vcl/dev)** 
+**[Browse dev demo](https://vcl.github.io/ng-vcl/dev)**
 
 ![Build](https://github.com/vcl/ng-vcl/workflows/Build/badge.svg?branch=dev)
 
@@ -15,7 +15,7 @@ A comprehensive library of components for Angular 11+ with [VCL](http://vcl.gith
 - Theming/styling through the [VCL](http://vcl.github.io/)
 - Highly accessible HTML honoring [WAI-ARIA](https://www.w3.org/WAI/intro/aria) recommendations
 - Feature complete, we want you to be able to build standard apps using 80% ng-vcl components
-- Extensibility, it is possible to extend components to accomodate custom features
+- Extensibility, it is possible to extend components to accommodate custom features
 - Straightforward APIs
 - Mix, match, extend, mash-up components
 
