@@ -58,6 +58,9 @@ export class InputDirective implements OnDestroy, FormControlGroupInputState<str
   @HostBinding('class.input')
   hostClasses = true;
 
+  @HostBinding('class.error')
+  hasError = false;
+
   @HostBinding('class.disabled')
   get isDisabled() {
     return this.disabled ?? this._disabled ?? false;
@@ -92,6 +95,7 @@ export class InputDirective implements OnDestroy, FormControlGroupInputState<str
   @HostListener('blur')
   onBlur() {
     this._focused = false;
+    this.ngControl?.control.markAsTouched();
     this.stateChangedEmitter.next();
   }
 
@@ -99,11 +103,12 @@ export class InputDirective implements OnDestroy, FormControlGroupInputState<str
     this.focus();
   }
 
-  @HostBinding('class.error')
-  hasError = false;
-
   setErrorState(error: boolean): void {
+    const oldState = this.hasError;
     this.hasError = error;
+    if (oldState !== error) {
+      this.stateChangedEmitter.next();
+    }
   }
 
   get value() {

@@ -44,9 +44,9 @@ export class FormControlGroupDemoComponent {
     picture: new FormControl(null, []),
     level: new FormControl(this.defaultValues.level, []),
     leader: new FormControl(this.defaultValues.leader, []),
-    email: new FormControl('', [
-      Validators.email,
-    ]),
+    email: new FormControl('', {
+      validators: [ Validators.email ],
+    }),
     terms: new FormControl(false, [
       (control) => {
         if (!control.value) {
@@ -65,7 +65,8 @@ export class FormControlGroupDemoComponent {
     agility: new FormControl(this.defaultValues.agility, [ Validators.min(1), Validators.max(10)]),
     intelligence: new FormControl(this.defaultValues.intelligence, [ Validators.min(1), Validators.max(10)]),
     perks: new FormControl(this.defaultValues.perks, [ this.validatePerks.bind(this) ])
-  }, [
+  },
+  [
     this.validateSkills.bind(this)
   ]);
 
@@ -118,7 +119,6 @@ export class FormControlGroupDemoComponent {
     this.form.resetForm(this.defaultValues);
     this.notifier.info('Hero reset');
   }
-
 
   helpLayerConfig: LayerConfig = {
     maxWidth: '25em',

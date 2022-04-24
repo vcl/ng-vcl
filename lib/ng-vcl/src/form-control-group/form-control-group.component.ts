@@ -93,7 +93,7 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
   get hasError() {
     const ngControl = this.input?.ngControl;
     const form = this.form;
-    return (ngControl && form) ? this.errorStateAgent(form, ngControl) : false;
+    return this.errorStateAgent(form, ngControl);
   }
 
   getError(errorCode: string, path?: string | (string | number)[]) {
@@ -122,9 +122,9 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
 
   ngAfterContentInit() {
     this.updateState();
-    // TODO: Add warning
-    // if (!this.input) {
-    // }
+    if (!this.input) {
+      console.error('Missing input');
+    }
     merge(this.form.statusChanges, this.form.ngSubmit, this.input?.stateChanged ?? NEVER).subscribe(() => {
       this.updateState();
       this._stateChangedEmitter.next();
