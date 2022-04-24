@@ -1,3 +1,13 @@
+## [2.3.1](https://github.com/vcl/ng-vcl/compare/v2.3.0...v2.3.1) (2022-04-24)
+
+
+### Bug Fixes
+
+* error state of input visually reflected ([0a62cb9](https://github.com/vcl/ng-vcl/commit/0a62cb9794313a7bea7d53ee15c2cce879c1795e))
+* radio button highlighting ([d2018b4](https://github.com/vcl/ng-vcl/commit/d2018b4ddc33ec1eb1656a265e6484eead47f12a))
+
+
+
 # [2.3.0](https://github.com/vcl/ng-vcl/compare/v2.2.3...v2.3.0) (2022-04-19)
 
 
