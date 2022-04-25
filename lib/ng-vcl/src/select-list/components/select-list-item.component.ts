@@ -3,24 +3,6 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { SelectList, SELECT_LIST_TOKEN, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from '../types';
 import { LabelDirective } from '../../core/index';
 
-@Directive({
-  selector: 'vcl-select-list-label',
-})
-export class SelectListLabelDirective {
-  ngOnInit() {
-    console.warn('vcl-select-list-label is deprecated. Use vcl-label instead');
-  }
-}
-
-@Directive({
-  selector: 'vcl-select-list-sublabel',
-})
-export class SelectListSublabelDirective {
-  ngOnInit() {
-    console.warn('vcl-select-list-sublabel is deprecated. Use vcl-sub-label instead');
-  }
-}
-
 @Component({
   selector: 'vcl-select-list-item',
   exportAs: 'vclSelectListItem',

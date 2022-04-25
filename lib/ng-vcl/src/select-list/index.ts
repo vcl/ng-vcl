@@ -10,17 +10,17 @@ import { VCLCoreLabelModule } from '../core/index';
 
 import { SelectListComponent } from './select-list.component';
 import { SelectListHeaderComponent } from './components/select-list-header.component';
-import { SelectListItemComponent, SelectListLabelDirective, SelectListSublabelDirective } from './components/select-list-item.component';
+import { SelectListItemComponent } from './components/select-list-item.component';
 import { SelectListSeparatorComponent } from './components/select-list-separator.component';
 import { SelectListContentComponent } from './components/select-list-content.component';
 import {  SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from './types';
 
-export { SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN, SelectListLabelDirective, SelectListSublabelDirective };
+export { SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN };
 
 @NgModule({
   imports: [CommonModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLFormControlGroupModule, VCLCoreLabelModule],
-  exports: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SelectListLabelDirective, SelectListSublabelDirective, VCLCoreLabelModule],
-  declarations: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SelectListLabelDirective, SelectListSublabelDirective],
+  exports: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, VCLCoreLabelModule],
+  declarations: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent ],
   providers: [],
 })
 export class VCLSelectListModule { }
