@@ -48,10 +48,6 @@ header {
   top: 25px;
 }
 
-.docWelcome {
-  margin: 3em;
-}
-
 .docDemo {
   margin-top: 15px;
   margin-bottom: 40px;
@@ -77,12 +73,8 @@ header {
   margin-left: 1.5em;
 }
 
-.docNav > .navigation .navigation-item .navigation-item-label {
-  font-weight: bold !important;
-}
-
-.docNav .navigation .navigation-item .navigation .navigation-item-label {
-  padding-left: 4.5em !important;
+.docNav > .drawer-inner > .navigation > div > .navigation-item > .navigation-item-label {
+  font-weight: bold;
 }
 
 .docEditDemoButton {
