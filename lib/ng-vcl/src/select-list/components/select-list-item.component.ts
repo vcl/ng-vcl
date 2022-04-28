@@ -114,5 +114,4 @@ export class SelectListItemComponent implements SelectListItem {
   scrollIntoView() {
     this.elementRef.nativeElement.scrollIntoView();
   }
-
 }

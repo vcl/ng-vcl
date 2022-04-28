@@ -163,6 +163,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this.selectList.search = undefined;
     if (!this.isAttached) {
       this.open();
+      this.selectList.manageScroll();
     }
     this.stateChangedEmitter.next();
   }
@@ -192,6 +193,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       } else {
         if (!this.isAttached) {
           this.open();
+          this.selectList.manageScroll();
         }
       }
       event.preventDefault();
@@ -250,6 +252,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this.selectList.search = undefined;
     if (!this.isAttached) {
       this.open();
+      this.selectList.manageScroll();
     } else {
       this.close();
     }
@@ -290,6 +293,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       return;
     }
     this.open();
+    this.selectList.manageScroll();
   }
 
   ngAfterContentInit(): void {

@@ -183,6 +183,11 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
     this.onChange(this.value);
   }
 
+  // Make sure the first selected item is visible in the scolling area
+  manageScroll() {
+    this.selectedItems.at(0)?.scrollIntoView();
+  }
+
   onItemFocus(item: SelectListItem) {
     this.stateChangedEmitter.next();
   }
