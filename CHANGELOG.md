@@ -1,3 +1,17 @@
+## [2.3.2](https://github.com/vcl/ng-vcl/compare/v2.3.0...v2.3.2) (2022-04-28)
+
+
+### Bug Fixes
+
+* error state of input visually reflected ([0a62cb9](https://github.com/vcl/ng-vcl/commit/0a62cb9794313a7bea7d53ee15c2cce879c1795e))
+* no need to set a button in a select disabled when parent select is disabled ([8927d98](https://github.com/vcl/ng-vcl/commit/8927d98a5d9d394fab06dcd705b94a5eb88ea835))
+* radio button highlighting ([d2018b4](https://github.com/vcl/ng-vcl/commit/d2018b4ddc33ec1eb1656a265e6484eead47f12a))
+* replace backdrops with offclick ([cf4afa7](https://github.com/vcl/ng-vcl/commit/cf4afa7d2e8e8424b9ea0dcacccc6620445284ac))
+* **select-list:** fix build error ([c6fe5bc](https://github.com/vcl/ng-vcl/commit/c6fe5bc1efefea14a96766978cb90d65e3fb7f66))
+* **sellect:** make sure the first selected item is visible when scrolling is in play ([99d1c96](https://github.com/vcl/ng-vcl/commit/99d1c96d567170eead531a1049a7621adf134ca2))
+
+
+
 ## [2.3.1](https://github.com/vcl/ng-vcl/compare/v2.3.0...v2.3.1) (2022-04-24)
 
 
