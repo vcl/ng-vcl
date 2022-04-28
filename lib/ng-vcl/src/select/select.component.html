@@ -21,7 +21,7 @@
 </button>
 
 <ng-template>
-  <div style="width: 100%">
+  <div style="width: 100%" (vclOffClick)="close()">
     <ng-content></ng-content>
     <ng-container *ngIf="listEmpty">
       <ng-content select="[empty]"></ng-content>

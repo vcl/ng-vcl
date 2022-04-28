@@ -258,7 +258,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
     return super.createLayerConfig({
       closeOnEscape: true,
-      hasBackdrop: true,
+      hasBackdrop: false,
       closeOnBackdropClick: true,
       scrollStrategy: this.overlay.scrollStrategies.reposition({
         autoClose: true
