@@ -1,13 +1,11 @@
 @use "~@vcl/vcl/theme" as *;
 
-html, body {
+html,
+.viewport,
+.app {
   min-height: 100%;
   height: 100%;
-}
-
-body {
   margin: 0;
-  overflow: hidden;
 }
 
 header {
@@ -20,14 +18,12 @@ header {
   }
 }
 
-.docMain {
-  height: 100%;
+.content-area {
+  overflow: hidden;
 }
 
 .docContent {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  max-height: 100%;
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -73,17 +69,17 @@ header {
   margin-left: 1.5em;
 }
 
-.docNav > .drawer-inner > .navigation > div > .navigation-item > .navigation-item-label {
+.docNav
+  > .drawer-inner
+  > .navigation
+  > div
+  > .navigation-item
+  > .navigation-item-label {
   font-weight: bold;
 }
 
 .docEditDemoButton {
   float: right;
-}
-
-.content-area {
-  overflow: hidden;
-  min-height: 100%;
 }
 
 .cal-item.selected.bgGreen {

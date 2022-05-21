@@ -1,5 +1,10 @@
 @use "~normalize.css" as normalize;
 @use "@angular/cdk/overlay-prebuilt.css";
+
+@use "~@vcl/vcl/theme" with (
+  $app-area-max-width: 100%
+);
+
 @use "~@vcl/vcl";
 
 @use "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
@@ -17,4 +22,3 @@
 @use "./styles/demo.scss";
 @use "./styles/md.css";
 @use "./styles/prism.scss";
- 
