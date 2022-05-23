@@ -1,12 +1,15 @@
-<label 
+<label
   class="checkbox-label"
-  [id]="elementId" 
-  [tabindex]="tabindex" 
+  [id]="elementId"
+  [tabindex]="tabindex"
   (click)="onLabelClick()"
   (keyup)="onKeyup($event)"
   (blur)="onBlur()"
   (focus)="onFocus()"
-  >
-  <vcl-icon [icon]="checked ? 'vcl:box-checked' : 'vcl:box'"></vcl-icon>
+>
+  <div class="checkbox-input" [ngClass]="{ checked: checked }">
+    <!-- The Icon is now a checkmark! -->
+    <vcl-icon *ngIf="checked" icon="vcl:box-checked"></vcl-icon>
+  </div>
   <ng-content></ng-content>
 </label>
