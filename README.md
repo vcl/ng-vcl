@@ -45,8 +45,7 @@ import { VCLIconModule } from '@vcl/ng-vcl';
 
 ## Demo / Docs
 
-Open [https://vcl.github.io/ng-vcl/master](https://ng-vcl.github.io/ng-vcl/master) for master
-and [https://vcl.github.io/ng-vcl/dev](https://ng-vcl.github.io/ng-vcl/dev) for dev
+[https://vcl.github.io/ng-vcl/master](https://vcl.github.io/ng-vcl/master)
 
 OR
 
