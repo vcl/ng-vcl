@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { FormArray, AbstractControl, FormGroup } from '@angular/forms';
+import { UntypedFormArray, AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { Portal } from '@angular/cdk/portal';
 import { VCLFormFieldSchemaArray } from '../schemas';
 import { FormField, FormFieldControl } from './field';
@@ -25,11 +25,11 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
     if (!(this.parent instanceof FormFieldObject))  {
       throw new Error('jss-form: array must be direct member of an object');
     }
-    return this.parent.control as FormGroup;
+    return this.parent.control as UntypedFormGroup;
   }
 
   protected createControl(): AbstractControl {
-    return new FormArray([], this.validators);
+    return new UntypedFormArray([], this.validators);
   }
 
   createFieldLabel(index: number) {
@@ -37,7 +37,7 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
   }
 
   addField() {
-    const control = this.control as FormArray;
+    const control = this.control as UntypedFormArray;
     const index = this.fields.length;
     const schema = this.schema.field;
 
@@ -62,7 +62,7 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
     field.destroy();
     const idx = this.fields.indexOf(field);
     this.fields = this.fields.filter(_field => _field !== field);
-    const control = this.control as FormArray;
+    const control = this.control as UntypedFormArray;
     control.removeAt(idx);
   }
 

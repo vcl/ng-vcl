@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Component, Injector } from '@angular/core';
 import { Portal } from '@angular/cdk/portal';
 import { FormField, FormFieldControl } from './field';
@@ -65,7 +65,7 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, 
     this.fields.forEach(f => f.destroy());
   }
 
-  protected createControl(): FormGroup {
+  protected createControl(): UntypedFormGroup {
     const param =  this.fields.reduce((group, field) => {
       if (field instanceof FormFieldControl) {
         return field.control ? {
@@ -75,7 +75,7 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, 
       }
       return group;
     }, {} as any);
-    return new FormGroup(param, this.validators);
+    return new UntypedFormGroup(param, this.validators);
   }
 
 }

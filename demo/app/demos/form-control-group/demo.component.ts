@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, Validators, AbstractControl, FormControl, NgForm } from '@angular/forms';
+import { UntypedFormGroup, Validators, AbstractControl, UntypedFormControl, NgForm } from '@angular/forms';
 import { NotifierService, FormControlErrorStateAgent, LayerConfig, DateAdapter } from '@vcl/ng-vcl';
 
 @Component({
@@ -28,26 +28,26 @@ export class FormControlGroupDemoComponent {
     perks: []
   };
 
-  formGroup = new FormGroup({
-    name: new FormControl('', [
+  formGroup = new UntypedFormGroup({
+    name: new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(2),
     ]),
-    description: new FormControl('', []),
-    dob: new FormControl(null, [
+    description: new UntypedFormControl('', []),
+    dob: new UntypedFormControl(null, [
       Validators.required
     ]),
-    password: new FormControl('', [
+    password: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'),
     ]),
-    picture: new FormControl(null, []),
-    level: new FormControl(this.defaultValues.level, []),
-    leader: new FormControl(this.defaultValues.leader, []),
-    email: new FormControl('', {
+    picture: new UntypedFormControl(null, []),
+    level: new UntypedFormControl(this.defaultValues.level, []),
+    leader: new UntypedFormControl(this.defaultValues.leader, []),
+    email: new UntypedFormControl('', {
       validators: [ Validators.email ],
     }),
-    terms: new FormControl(false, [
+    terms: new UntypedFormControl(false, [
       (control) => {
         if (!control.value) {
           return {
@@ -57,14 +57,14 @@ export class FormControlGroupDemoComponent {
         return null;
       }
     ]),
-    gender: new FormControl(null, Validators.required),
-    class: new FormControl(null, [ Validators.required ]),
-    alignment: new FormControl(null, [ Validators.required ]),
-    hitpoints: new FormControl(this.defaultValues.hitpoints, [ Validators.min(1), Validators.max(100)]),
-    strength: new FormControl(this.defaultValues.strength, [ Validators.min(1), Validators.max(10)]),
-    agility: new FormControl(this.defaultValues.agility, [ Validators.min(1), Validators.max(10)]),
-    intelligence: new FormControl(this.defaultValues.intelligence, [ Validators.min(1), Validators.max(10)]),
-    perks: new FormControl(this.defaultValues.perks, [ this.validatePerks.bind(this) ])
+    gender: new UntypedFormControl(null, Validators.required),
+    class: new UntypedFormControl(null, [ Validators.required ]),
+    alignment: new UntypedFormControl(null, [ Validators.required ]),
+    hitpoints: new UntypedFormControl(this.defaultValues.hitpoints, [ Validators.min(1), Validators.max(100)]),
+    strength: new UntypedFormControl(this.defaultValues.strength, [ Validators.min(1), Validators.max(10)]),
+    agility: new UntypedFormControl(this.defaultValues.agility, [ Validators.min(1), Validators.max(10)]),
+    intelligence: new UntypedFormControl(this.defaultValues.intelligence, [ Validators.min(1), Validators.max(10)]),
+    perks: new UntypedFormControl(this.defaultValues.perks, [ this.validatePerks.bind(this) ])
   },
   [
     this.validateSkills.bind(this)

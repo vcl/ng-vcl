@@ -1,5 +1,5 @@
 import { VCLFormFieldSchema, VCLFormFieldControlSchema } from '../schemas';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormControl } from '@angular/forms';
 import { combineLatest, Subject, Subscription, ReplaySubject } from 'rxjs';
 import { Conditional, InternalConditional, HelpObject } from '../types';
 import { map, startWith, switchMap } from 'rxjs/operators';
@@ -237,7 +237,7 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
   }
 
   protected createControl(): AbstractControl {
-    return new FormControl(this.defaultValue, this.validators);
+    return new UntypedFormControl(this.defaultValue, this.validators);
   }
 
   protected createDefaultValue() {

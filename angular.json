@@ -133,6 +133,5 @@
         }
       }
     }
-  },
-  "defaultProject": "ng-vcl-demo"
+  }
 }
