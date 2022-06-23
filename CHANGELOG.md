@@ -1,3 +1,7 @@
+## [2.3.3](https://github.com/vcl/ng-vcl/compare/v2.3.2...v2.3.3) (2022-06-23)
+
+
+
 ## [2.3.2](https://github.com/vcl/ng-vcl/compare/v2.3.0...v2.3.2) (2022-04-28)
 
 
