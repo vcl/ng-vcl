@@ -1,3 +1,12 @@
+## [2.3.4](https://github.com/vcl/ng-vcl/compare/v2.3.2...v2.3.4) (2022-07-04)
+
+
+### Features
+
+* add clearable selection ([a206c50](https://github.com/vcl/ng-vcl/commit/a206c505f26dbb5746e506a10038012cf96ed423))
+
+
+
 ## [2.3.3](https://github.com/vcl/ng-vcl/compare/v2.3.2...v2.3.3) (2022-06-23)
 
 
