@@ -71,10 +71,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   @ViewChild('input', { read: ElementRef, static: true })
   input: ElementRef<HTMLInputElement>;
 
-  @ViewChild('btn', { read: ElementRef, static: true })
-  button: ElementRef<HTMLInputElement>;
-
-  @ViewChild(TemplateRef, { static: true })
+  @ViewChild('innerList', { static: true })
   templateRef: TemplateRef<any>;
 
   @HostBinding('attr.role')
@@ -107,6 +104,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   @Output()
   searchValue = new EventEmitter<string | undefined>(undefined);
+
+  @Input()
+  clearable = false;
 
   get stateChanged() {
     return this.stateChangedEmitter.asObservable();
@@ -253,6 +253,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     if (!this.isAttached) {
       this.open();
       this.selectList.manageScroll();
+      this.input.nativeElement.focus();
     } else {
       this.close();
     }
@@ -354,5 +355,12 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       this.selectList.search = this.input.nativeElement.value;
       this.searchValue.next(this.input.nativeElement.value);
     }
+  }
+
+  clearSelection(event: MouseEvent) {
+    this.selectList.value = undefined;
+    this.close()
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

@@ -11,8 +11,16 @@
        [readonly]="!search"
        (keyup)="inputChange($event)"
        >
-<button #btn
+<button *ngIf="clearable"
         vcl-button square
+        type="button"
+        tabindex="-1"
+        class="appended"
+        (click)="clearSelection($event)"
+>
+  <vcl-icon icon="vcl:close"></vcl-icon>
+</button>
+<button vcl-button square
         type="button"
         tabindex="-1"
         class="appended"
@@ -20,7 +28,7 @@
       <vcl-icon icon="vcl:arrow-down"></vcl-icon>
 </button>
 
-<ng-template>
+<ng-template #innerList>
   <div style="width: 100%" (vclOffClick)="close()">
     <ng-content></ng-content>
     <ng-container *ngIf="listEmpty">
