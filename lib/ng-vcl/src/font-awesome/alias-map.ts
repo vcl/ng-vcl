@@ -31,5 +31,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   'remove': 'fas fa-minus',
   'calendar': 'fas fa-calendar',
   'clock': 'fas fa-clock',
-  'menu': 'fas fa-bars'
+  'menu': 'fas fa-bars',
+  'clear': 'fas fa-times'
 };

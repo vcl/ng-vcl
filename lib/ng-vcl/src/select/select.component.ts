@@ -359,8 +359,12 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   clearSelection(event: MouseEvent) {
     this.selectList.value = undefined;
-    this.close()
+    this.close();
     event.preventDefault();
     event.stopPropagation();
+    if ('blur' in document.activeElement) {
+      // @ts-ignore
+      document.activeElement.blur();
+    }
   }
 }

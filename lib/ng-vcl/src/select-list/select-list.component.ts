@@ -140,9 +140,12 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
   isItemHidden(item: SelectListItem): boolean {
     if (this.search) {
-      if (item.value && item.value.toLowerCase().indexOf(this.search.toLowerCase()) >= 0) {
+      const searchLower = this.search.toLowerCase();
+      if (item.value && item.value.toLowerCase().indexOf(searchLower) >= 0) {
         return false;
-      } else if (item.label && item.label.toLowerCase().indexOf(this.search.toLowerCase()) >= 0) {
+      } else if (item.label && item.label.toLowerCase().indexOf(searchLower) >= 0) {
+        return false;
+      } else if (item.subLabel && item.subLabel.toLowerCase().indexOf(searchLower) >= 0) {
         return false;
       }
       return true;

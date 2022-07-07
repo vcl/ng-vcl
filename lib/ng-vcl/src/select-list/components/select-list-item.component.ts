@@ -1,7 +1,7 @@
 import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef, ChangeDetectionStrategy, forwardRef, ViewChild } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { SelectList, SELECT_LIST_TOKEN, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from '../types';
-import { LabelDirective } from '../../core/index';
+import { LabelDirective, SubLabelDirective } from '../../core/index';
 
 @Component({
   selector: 'vcl-select-list-item',
@@ -72,6 +72,9 @@ export class SelectListItemComponent implements SelectListItem {
   @ViewChild('label', { read: ElementRef })
   _labelElementRef?: ElementRef<HTMLElement>;
 
+  @ContentChild(SubLabelDirective)
+  _subLabel: SubLabelDirective;
+
   get label() {
     if (this._label) {
       return this._label;
@@ -82,6 +85,12 @@ export class SelectListItemComponent implements SelectListItem {
       return this._labelElementRef.nativeElement.innerText.trim();
     } else {
       return this.elementRef.nativeElement.innerText || ''
+    }
+  }
+
+  get subLabel() {
+    if (this._subLabel) {
+      return this._subLabel.label;
     }
   }
 

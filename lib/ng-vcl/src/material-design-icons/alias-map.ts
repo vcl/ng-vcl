@@ -31,5 +31,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   'remove': 'mdi mdi-minus',
   'calendar': 'mdi mdi-calendar',
   'clock': 'mdi mdi-clock-outline',
-  'menu': 'mdi mdi-menu'
+  'menu': 'mdi mdi-menu',
+  'clear': 'mdi mdi-close'
 };

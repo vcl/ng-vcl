@@ -1,8 +1,9 @@
-import { ElementRef, InjectionToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 export interface SelectListItem {
   value: any;
   label: string;
+  subLabel: string;
   isFocused: boolean;
   scrollIntoView(): void;
 }

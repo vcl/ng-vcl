@@ -177,15 +177,38 @@
 <vcl-form-control-group>
   <vcl-label>Select country</vcl-label>
   <vcl-select [clearable]="true">
-    <vcl-select-list [(value)]="value5">
+    <vcl-select-list [(value)]="value5" [disabled]="true">
+      <vcl-select-list-header>Europe</vcl-select-list-header>
       <vcl-select-list-item value="Greece">
         Greece
+        <vcl-sub-label>Sub-Label: A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas</vcl-sub-label>
       </vcl-select-list-item>
       <vcl-select-list-item value="France">
         France
+        <vcl-sub-label>Sub-Label</vcl-sub-label>
       </vcl-select-list-item>
       <vcl-select-list-item value="Germany">
         Germany
+      </vcl-select-list-item>
+      <vcl-select-list-item value="The United Kingdom">
+        The United Kingdom of Great Britain and Northern Ireland
+      </vcl-select-list-item>
+      <vcl-select-list-header>Amercia</vcl-select-list-header>
+      <vcl-select-list-item value="United States of America">
+        United States of America
+      </vcl-select-list-item>
+      <vcl-select-list-item value="Brazil">
+        Brazil
+      </vcl-select-list-item>
+      <vcl-select-list-header>Asia</vcl-select-list-header>
+      <vcl-select-list-item value="Japan">
+        Japan
+      </vcl-select-list-item>
+      <vcl-select-list-item value="China">
+        China
+      </vcl-select-list-item>
+      <vcl-select-list-item value="Thailand">
+        Thailand
       </vcl-select-list-item>
     </vcl-select-list>
   </vcl-select>
