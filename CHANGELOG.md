@@ -1,3 +1,12 @@
+## [2.3.5](https://github.com/vcl/ng-vcl/compare/v2.3.4...v2.3.5) (2022-07-07)
+
+
+### Bug Fixes
+
+* disable clear button on select when input disabled ([31df549](https://github.com/vcl/ng-vcl/commit/31df5493e64e9dc4832d90a0170042d3a00aed83))
+
+
+
 ## [2.3.4](https://github.com/vcl/ng-vcl/compare/v2.3.2...v2.3.4) (2022-07-04)
 
 
