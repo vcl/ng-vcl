@@ -9,7 +9,9 @@ export class SelectDemoComponent {
   value2 = [];
   value3 = undefined;
   value4 = undefined;
-  search = '';
+  search1 = '';
   value5 = undefined;
+  search2 = '';
+  value6 = undefined;
 
 }
