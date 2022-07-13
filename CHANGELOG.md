@@ -1,3 +1,12 @@
+## [2.3.7](https://github.com/vcl/ng-vcl/compare/v2.3.6...v2.3.7) (2022-07-13)
+
+
+### Bug Fixes
+
+* **select:** hide clear button if no value is selected ([8f14001](https://github.com/vcl/ng-vcl/commit/8f14001fa8655a534bd5b95439897cedb9426b7d))
+
+
+
 ## [2.3.6](https://github.com/vcl/ng-vcl/compare/v2.3.5...v2.3.6) (2022-07-12)
 
 
