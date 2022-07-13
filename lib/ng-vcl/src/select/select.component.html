@@ -11,7 +11,7 @@
        [readonly]="!search"
        (keyup)="inputChange($event)"
        >
-<button *ngIf="clearable"
+<button *ngIf="clearable && inputValue"
         vcl-button square
         type="button"
         tabindex="-1"
