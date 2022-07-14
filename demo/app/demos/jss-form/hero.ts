@@ -372,6 +372,7 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         name: 'perks',
         label: 'Perks',
         params: {
+          clearable: true,
           placeholder: 'Select perks',
           selectionMode: 'multiple',
           search: true,

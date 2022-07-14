@@ -93,8 +93,10 @@ export interface VCLFormFieldSchemaSelectParams<T = any> {
   options: VCLFormFieldSchemaOptions[];
   placeholder?: string;
   search?: boolean;
+  searchValue?: boolean;
   maxHeight?: number;
   emptyComponent?: EmptyComponent<T> | (new() => object);
+  clearable?: boolean;
 }
 
 export interface VCLFormFieldSchemaSelect extends VCLFormFieldControlSchema {

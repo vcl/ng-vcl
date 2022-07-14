@@ -12,6 +12,9 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
   get search()  {
     return this.params.search || false;
   }
+  get searchValue()  {
+    return this.params.searchValue || false;
+  }
   get maxHeight()  {
     return this.params.maxHeight || undefined;
   }
@@ -20,6 +23,9 @@ export class FormFieldSelect extends FormFieldControl<VCLFormFieldSchemaSelect, 
   }
   get options()  {
     return this.params.options || [];
+  }
+  get clearable()  {
+    return this.params.clearable || false;
   }
   protected createDefaultValue() {
     return this.selectionMode === 'single' ? null : [];
@@ -40,11 +46,11 @@ export class EmptyDirective {
   <vcl-form-control-group [errorStateAgent]="field.errorStateAgent" *ngIf="field.visible">
     <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
     <vcl-jss-form-input-wrapper>
-      <vcl-select [placeholder]="field.placeholder" [search]="field.search" [maxHeight]="field.maxHeight">
+      <vcl-select [placeholder]="field.placeholder" [search]="field.search" [maxHeight]="field.maxHeight" [clearable]="field.clearable">
         <ng-container empty #empty>
           <ng-template vclEmptyHost></ng-template>
         </ng-container>
-        <vcl-select-list [formControl]="field.control" [selectionMode]="field.selectionMode">
+        <vcl-select-list [formControl]="field.control" [selectionMode]="field.selectionMode" [searchValue]="field.searchValue">
           <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
             <vcl-label>{{option.label}}</vcl-label>
             <vcl-sub-label *ngIf="option.sublabel">{{option.sublabel}}</vcl-sub-label>
