@@ -1,3 +1,12 @@
+## [2.3.8](https://github.com/vcl/ng-vcl/compare/v2.3.7...v2.3.8) (2022-07-14)
+
+
+### Bug Fixes
+
+* **jss:** add clearable and searchvalue support to select ([af58c12](https://github.com/vcl/ng-vcl/commit/af58c1232da3f747f22a64241270f9b7ffb106d3))
+
+
+
 ## [2.3.7](https://github.com/vcl/ng-vcl/compare/v2.3.6...v2.3.7) (2022-07-13)
 
 
