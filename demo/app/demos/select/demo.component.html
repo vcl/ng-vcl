@@ -247,3 +247,35 @@
 </vcl-form-control-group>
 
 <p> Selected value: {{value6}}</p>
+
+<h3>Select with search (using hidden values)</h3>
+<vcl-form-control-group>
+  <form autocomplete="off">
+    <vcl-label>Select country</vcl-label>
+    <vcl-select [search]="true" (searchValue)="search3 = $event">
+      <ng-container empty>
+        No numbers found!
+      </ng-container>
+      <vcl-select-list [(value)]="value7">
+        <vcl-select-list-item value="1" searchValue="a">
+          One
+        </vcl-select-list-item>
+        <vcl-select-list-item value="2" searchValue="b">
+          Two
+        </vcl-select-list-item>
+        <vcl-select-list-item value="3" searchValue="c">
+          Three
+        </vcl-select-list-item>
+        <vcl-select-list-item value="4" searchValue="d">
+          Four
+        </vcl-select-list-item>
+        <vcl-select-list-item value="5" searchValue="e">
+          Five
+        </vcl-select-list-item>
+      </vcl-select-list>
+    </vcl-select>
+  </form>
+</vcl-form-control-group>
+
+<p> Selected value: {{value7}}</p>
+<p> Search value: {{search3}}</p>

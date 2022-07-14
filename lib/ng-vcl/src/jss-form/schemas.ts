@@ -81,6 +81,7 @@ export interface VCLFormFieldSchemaOptions {
   label: string;
   sublabel?: string;
   value: any;
+  searchValue?: string;
 }
 
 export interface EmptyComponent<T> {

@@ -62,6 +62,9 @@ export class SelectListItemComponent implements SelectListItem {
   @Input()
   value: any;
 
+  @Input()
+  searchValue?: string;
+
   // tslint:disable-next-line:no-input-rename
   @Input('label')
   _label?: string;

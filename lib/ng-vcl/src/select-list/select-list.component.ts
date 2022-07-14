@@ -150,6 +150,8 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
         return false;
       } else if (item.subLabel && item.subLabel.toLowerCase().indexOf(searchLower) >= 0) {
         return false;
+      } else if (item.searchValue && item.searchValue.toLowerCase().indexOf(searchLower) >= 0) {
+        return false;
       }
       return true;
     }

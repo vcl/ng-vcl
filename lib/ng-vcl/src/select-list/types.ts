@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 
 export interface SelectListItem {
   value: any;
+  searchValue?: string;
   label: string;
   subLabel: string;
   isFocused: boolean;

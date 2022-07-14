@@ -15,13 +15,13 @@ export class FormFieldSelectList extends FormFieldControl<VCLFormFieldSchemaSele
 }
 
 @Component({
-  selector: 'vcl-jss-form-select-list',  
+  selector: 'vcl-jss-form-select-list',
   template: `
   <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
     <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
     <vcl-jss-form-input-wrapper>
       <vcl-select-list [formControl]="field.control" [selectionMode]="field.selectionMode">
-        <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value">
+        <vcl-select-list-item *ngFor="let option of field.options" [value]="option.value" [searchValue]="option.searchValue">
           <vcl-label>{{option.label}}</vcl-label>
           <vcl-sub-label *ngIf="option.sublabel">{{option.sublabel}}</vcl-sub-label>
         </vcl-select-list-item>
