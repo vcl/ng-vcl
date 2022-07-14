@@ -1,3 +1,12 @@
+## [2.3.9](https://github.com/vcl/ng-vcl/compare/v2.3.8...v2.3.9) (2022-07-14)
+
+
+### Features
+
+* **select:** add hidden search value ([4c57fa4](https://github.com/vcl/ng-vcl/commit/4c57fa42fe51ebef56d90b3a1dbb0a8fd3c66a7f))
+
+
+
 ## [2.3.8](https://github.com/vcl/ng-vcl/compare/v2.3.7...v2.3.8) (2022-07-14)
 
 
