@@ -25,6 +25,16 @@ Building and deploying the docs is done automatically via GH Actions for the bra
 
 ## Releasing
 
+### Automatic
+
+Use script at `.github/release.sh` and replace `X.X.X` with the version:
+
+```
+./.github/release.sh X.X.X
+```
+
+### Manual
+
 0. Make sure you're in a clean git state (`git status` should report "nothing to commit").
 1. Bump the version numbers in both `package.json` and `lib/ng-vcl/package.json`.
 2. Run `npm run changelog` to update `CHANGELOG.md`.
