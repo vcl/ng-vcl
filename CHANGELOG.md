@@ -1,3 +1,12 @@
+## [2.3.10](https://github.com/vcl/ng-vcl/compare/v2.3.9...v2.3.10) (2022-07-15)
+
+
+### Bug Fixes
+
+* **select:** propagate clear event ([4109309](https://github.com/vcl/ng-vcl/commit/4109309a538fd588544233369e40739eb9305ad5))
+
+
+
 ## [2.3.9](https://github.com/vcl/ng-vcl/compare/v2.3.8...v2.3.9) (2022-07-14)
 
 
