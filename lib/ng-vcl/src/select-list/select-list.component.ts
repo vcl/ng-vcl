@@ -175,13 +175,17 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
 
   selectItem(item: SelectListItem): void {
     if (this.selectionMode === 'single') {
-      this.value = item.value;
+      this.value = item ? item.value : undefined;
     } else {
       const values = this._valueAsArray;
-      if (values.includes(item.value)) {
-        this.value = values.filter(_value => _value !== item.value);
+      if (item) {
+        if (values.includes(item.value)) {
+          this.value = values.filter(_value => _value !== item.value);
+        } else {
+          this.value = [...values, item.value];
+        }
       } else {
-        this.value = [...values, item.value];
+        this.value = [];
       }
     }
 
