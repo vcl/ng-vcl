@@ -16,24 +16,29 @@ import {
   Injector,
   forwardRef,
   AfterContentInit,
-  ViewEncapsulation} from '@angular/core';
-import { Subscription, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { Overlay } from '@angular/cdk/overlay';
-import { Directionality } from '@angular/cdk/bidi';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TemplateLayerRef, LayerConfig } from '../layer/index';
-import { SelectListItem, SelectListComponent } from '../select-list/index';
-import { EmbeddedInputFieldLabelInput, FORM_CONTROL_EMBEDDED_LABEL_INPUT } from '../input/index';
+  ViewEncapsulation,
+  OnInit,
+} from "@angular/core";
+import { Subscription, Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from "@angular/cdk/keycodes";
+import { Overlay } from "@angular/cdk/overlay";
+import { Directionality } from "@angular/cdk/bidi";
+import { TemplatePortal } from "@angular/cdk/portal";
+import { NG_VALUE_ACCESSOR } from "@angular/forms";
+import { TemplateLayerRef, LayerConfig } from "../layer/index";
+import { SelectListItem, SelectListComponent } from "../select-list/index";
+import {
+  EmbeddedInputFieldLabelInput,
+  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+} from "../input/index";
 
 @Component({
-  selector: 'vcl-select',
-  templateUrl: 'select.component.html',
-  styleUrls: ['select.component.scss'],
+  selector: "vcl-select",
+  templateUrl: "select.component.html",
+  styleUrls: ["select.component.scss"],
   encapsulation: ViewEncapsulation.None,
-  exportAs: 'vclSelect',
+  exportAs: "vclSelect",
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     // FormControlState,
@@ -44,19 +49,21 @@ import { EmbeddedInputFieldLabelInput, FORM_CONTROL_EMBEDDED_LABEL_INPUT } from 
     },
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => SelectComponent)
+      useExisting: forwardRef(() => SelectComponent),
     },
-  ]
+  ],
 })
-export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput {
-
+export class SelectComponent
+  extends TemplateLayerRef<any, SelectListItem>
+  implements OnInit, AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput
+{
   constructor(
     injector: Injector,
     private _dir: Directionality,
     private overlay: Overlay,
     protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
-    private cdRef: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -64,21 +71,22 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   private stateChangedEmitter = new Subject<void>();
   private _valueChangeSub?: Subscription;
   private _focused = false;
+  prependedElements = 0;
 
   @ContentChild(SelectListComponent)
   selectList: SelectListComponent;
 
-  @ViewChild('input', { read: ElementRef, static: true })
+  @ViewChild("input", { read: ElementRef, static: true })
   input: ElementRef<HTMLInputElement>;
 
-  @ViewChild('innerList', { static: true })
+  @ViewChild("innerList", { static: true })
   templateRef: TemplateRef<any>;
 
-  @HostBinding('attr.role')
-  attrRole = 'listbox';
+  @HostBinding("attr.role")
+  attrRole = "listbox";
 
-  @HostBinding('class.select')
-  @HostBinding('class.input-field')
+  @HostBinding("class.select")
+  @HostBinding("class.input-field")
   _hostClasses = true;
 
   @Input()
@@ -112,17 +120,17 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     return this.stateChangedEmitter.asObservable();
   }
 
-  @HostBinding('attr.tabindex')
+  @HostBinding("attr.tabindex")
   get attrTabindex() {
     return this.isDisabled ? undefined : this.tabindex;
   }
 
-  @HostBinding('class.focused')
+  @HostBinding("class.focused")
   get isFocused() {
     return this._focused || this.isAttached;
   }
 
-  @HostBinding('class.disabled')
+  @HostBinding("class.disabled")
   get isDisabled() {
     return this.selectList.isDisabled;
   }
@@ -131,7 +139,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     return !this.isAttached && this.inputValue.length === 0;
   }
 
-  controlType = 'select';
+  controlType = "select";
   materialModifierClass = undefined;
 
   get listEmpty(): boolean {
@@ -149,12 +157,12 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     return this.selectList.value;
   }
 
-  @HostBinding('class.error')
+  @HostBinding("class.error")
   get hasError() {
     return this.selectList.hasError;
   }
 
-  @HostListener('focus')
+  @HostListener("focus")
   onFocus() {
     if (this.isDisabled) {
       return;
@@ -168,7 +176,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this.stateChangedEmitter.next();
   }
 
-  @HostListener('blur')
+  @HostListener("blur")
   onBlur() {
     this._focused = false;
     this.selectList.search = undefined;
@@ -177,7 +185,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this.stateChangedEmitter.next();
   }
 
-  @HostListener('keyup', ['$event'])
+  @HostListener("keyup", ["$event"])
   onKeyUp(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === ESCAPE) {
@@ -201,7 +209,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     }
   }
 
-  @HostListener('keydown', ['$event'])
+  @HostListener("keydown", ["$event"])
   onKeyDown(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === TAB) {
@@ -209,10 +217,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     }
   }
 
-  @HostListener('keypress', ['$event'])
+  @HostListener("keypress", ["$event"])
   onKeyPress(event: KeyboardEvent) {
     const code = event.code || event.key;
-    if (this.selectList && code === 'Enter') {
+    if (this.selectList && code === "Enter") {
       event.preventDefault();
       this.selectList.selectHighlighted();
     }
@@ -220,23 +228,27 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   get inputValue() {
     if (!this.selectList) {
-      return '';
+      return "";
     }
 
     if (this.search && this.isFocused) {
-      return this.selectList.search || '';
+      return this.selectList.search || "";
     }
 
-    if (this.selectList.selectionMode === 'single') {
+    if (this.selectList.selectionMode === "single") {
       const items = this.selectList.items;
-      const item = items.find(_item => this.selectList.value === _item.value);
+      const item = items.find((_item) => this.selectList.value === _item.value);
       const val = item?.label;
-      return item ? item.label : (this.placeholder || '');
+      return item ? item.label : this.placeholder || "";
     } else {
-      const value = Array.isArray(this.selectList.value) ? this.selectList.value : [];
+      const value = Array.isArray(this.selectList.value)
+        ? this.selectList.value
+        : [];
       const items = this.selectList.items;
-      const labels = items.filter(item => value.includes(item.value)).map(item => item.label);
-      return labels.length === 0 ? '' : labels.join(', ');
+      const labels = items
+        .filter((item) => value.includes(item.value))
+        .map((item) => item.label);
+      return labels.length === 0 ? "" : labels.join(", ");
     }
   }
 
@@ -244,7 +256,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     return new TemplatePortal(this.templateRef, this.viewContainerRef);
   }
 
-  @HostListener('click')
+  @HostListener("click")
   onClick() {
     if (this.isDisabled) {
       return;
@@ -260,33 +272,44 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
-    return super.createLayerConfig({
-      closeOnEscape: true,
-      hasBackdrop: false,
-      closeOnBackdropClick: true,
-      scrollStrategy: this.overlay.scrollStrategies.reposition({
-        autoClose: true
-      }),
-      direction: this._dir,
-      width: this.width !== undefined ? this.width : this.elementRef.nativeElement.getBoundingClientRect().width,
-      height: this.height,
-      maxHeight: this.maxHeight || '20em',
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      panelClass: ['vcl-select-overlay', 'pop-over'],
-      positionStrategy: this.overlay.position()
-      .flexibleConnectedTo(this.elementRef)
-      .withPositions([{
-        originX: 'start',
-        originY: 'bottom',
-        overlayX: 'start',
-        overlayY: 'top'
-      }, {
-        originX: 'start',
-        originY: 'top',
-        overlayX: 'start',
-        overlayY: 'bottom'
-      }]).withPush(false)
-    }, ...configs)
+    return super.createLayerConfig(
+      {
+        closeOnEscape: true,
+        hasBackdrop: false,
+        closeOnBackdropClick: true,
+        scrollStrategy: this.overlay.scrollStrategies.reposition({
+          autoClose: true,
+        }),
+        direction: this._dir,
+        width:
+          this.width !== undefined
+            ? this.width
+            : this.elementRef.nativeElement.getBoundingClientRect().width,
+        height: this.height,
+        maxHeight: this.maxHeight || "20em",
+        backdropClass: "cdk-overlay-transparent-backdrop",
+        panelClass: ["vcl-select-overlay", "pop-over"],
+        positionStrategy: this.overlay
+          .position()
+          .flexibleConnectedTo(this.elementRef)
+          .withPositions([
+            {
+              originX: "start",
+              originY: "bottom",
+              overlayX: "start",
+              overlayY: "top",
+            },
+            {
+              originX: "start",
+              originY: "top",
+              overlayX: "start",
+              overlayY: "bottom",
+            },
+          ])
+          .withPush(false),
+      },
+      ...configs
+    );
   }
 
   onLabelClick(): void {
@@ -297,6 +320,17 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this.selectList.manageScroll();
   }
 
+  ngOnInit(): void {
+    if (this.input) {
+      let prependedElements = 0;
+      let sibling: Element = this.input.nativeElement;
+      while ((sibling = sibling.previousElementSibling)) {
+        prependedElements++;
+      }
+      this.prependedElements = prependedElements;
+    }
+  }
+
   ngAfterContentInit(): void {
     this._valueChangeSub = this.selectList.valueChange.subscribe(() => {
       this.cdRef.markForCheck();
@@ -305,19 +339,19 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   protected afterAttached(): void {
-    this.selectList.valueChange.pipe(
-      takeUntil(this.afterClose)
-    ).subscribe((value) => {
-      if (this.isAttached) {
-        if (this.selectList.selectionMode === 'single') {
-          this.close(value);
-        } else {
-          this.cdRef.markForCheck();
+    this.selectList.valueChange
+      .pipe(takeUntil(this.afterClose))
+      .subscribe((value) => {
+        if (this.isAttached) {
+          if (this.selectList.selectionMode === "single") {
+            this.close(value);
+          } else {
+            this.cdRef.markForCheck();
+          }
+          this.stateChangedEmitter.next();
         }
-        this.stateChangedEmitter.next();
-      }
-      this.cdRef.markForCheck();
-    });
+        this.cdRef.markForCheck();
+      });
     this.stateChangedEmitter.next();
   }
 
@@ -345,8 +379,10 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       return;
     }
 
-    if (event.code === 'Enter') {
-      const firstNotHidden = this.selectList.items.find((i) => !this.selectList.isItemHidden(i));
+    if (event.code === "Enter") {
+      const firstNotHidden = this.selectList.items.find(
+        (i) => !this.selectList.isItemHidden(i)
+      );
       if (firstNotHidden) {
         this.selectList.selectItem(firstNotHidden);
         this.input.nativeElement.blur();
@@ -362,7 +398,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     this.close();
     event.preventDefault();
     event.stopPropagation();
-    if ('blur' in document.activeElement) {
+    if ("blur" in document.activeElement) {
       // @ts-ignore
       document.activeElement.blur();
     }
