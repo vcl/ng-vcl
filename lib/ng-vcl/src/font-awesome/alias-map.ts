@@ -32,5 +32,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   'calendar': 'fas fa-calendar',
   'clock': 'fas fa-clock',
   'menu': 'fas fa-bars',
-  'clear': 'fas fa-times'
+  'clear': 'fas fa-times',
+  'search': 'fas fa-search',
 };

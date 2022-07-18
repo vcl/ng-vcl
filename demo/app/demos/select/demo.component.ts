@@ -15,5 +15,5 @@ export class SelectDemoComponent {
   value6 = undefined;
   value7 = undefined;
   search3 = '';
-
+  value8 = undefined;
 }

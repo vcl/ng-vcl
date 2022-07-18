@@ -64,6 +64,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   private stateChangedEmitter = new Subject<void>();
   private _valueChangeSub?: Subscription;
   private _focused = false;
+  prependedElements = 0;
 
   @ContentChild(SelectListComponent)
   selectList: SelectListComponent;
@@ -329,6 +330,17 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       this.cdRef.detectChanges();
     }
     this.stateChangedEmitter.next();
+  }
+
+  ngOnInit(): void {
+    if (this.input) {
+      let prependedElements = 0;
+      let sibling: Element = this.input.nativeElement;
+      while ((sibling = sibling.previousElementSibling)) {
+        prependedElements++;
+      }
+      this.prependedElements = prependedElements;
+    }
   }
 
   ngAfterViewInit() {
