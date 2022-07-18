@@ -18,27 +18,27 @@ import {
   AfterContentInit,
   ViewEncapsulation,
   OnInit,
-} from "@angular/core";
-import { Subscription, Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from "@angular/cdk/keycodes";
-import { Overlay } from "@angular/cdk/overlay";
-import { Directionality } from "@angular/cdk/bidi";
-import { TemplatePortal } from "@angular/cdk/portal";
-import { NG_VALUE_ACCESSOR } from "@angular/forms";
-import { TemplateLayerRef, LayerConfig } from "../layer/index";
-import { SelectListItem, SelectListComponent } from "../select-list/index";
+} from '@angular/core';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
+import { Overlay } from '@angular/cdk/overlay';
+import { Directionality } from '@angular/cdk/bidi';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TemplateLayerRef, LayerConfig } from '../layer/index';
+import { SelectListItem, SelectListComponent } from '../select-list/index';
 import {
   EmbeddedInputFieldLabelInput,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-} from "../input/index";
+} from '../input/index';
 
 @Component({
-  selector: "vcl-select",
-  templateUrl: "select.component.html",
-  styleUrls: ["select.component.scss"],
+  selector: 'vcl-select',
+  templateUrl: 'select.component.html',
+  styleUrls: ['select.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  exportAs: "vclSelect",
+  exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     // FormControlState,
@@ -76,17 +76,17 @@ export class SelectComponent
   @ContentChild(SelectListComponent)
   selectList: SelectListComponent;
 
-  @ViewChild("input", { read: ElementRef, static: true })
+  @ViewChild('input', { read: ElementRef, static: true })
   input: ElementRef<HTMLInputElement>;
 
-  @ViewChild("innerList", { static: true })
+  @ViewChild('innerList', { static: true })
   templateRef: TemplateRef<any>;
 
-  @HostBinding("attr.role")
-  attrRole = "listbox";
+  @HostBinding('attr.role')
+  attrRole = 'listbox';
 
-  @HostBinding("class.select")
-  @HostBinding("class.input-field")
+  @HostBinding('class.select')
+  @HostBinding('class.input-field')
   _hostClasses = true;
 
   @Input()
@@ -120,17 +120,17 @@ export class SelectComponent
     return this.stateChangedEmitter.asObservable();
   }
 
-  @HostBinding("attr.tabindex")
+  @HostBinding('attr.tabindex')
   get attrTabindex() {
     return this.isDisabled ? undefined : this.tabindex;
   }
 
-  @HostBinding("class.focused")
+  @HostBinding('class.focused')
   get isFocused() {
     return this._focused || this.isAttached;
   }
 
-  @HostBinding("class.disabled")
+  @HostBinding('class.disabled')
   get isDisabled() {
     return this.selectList.isDisabled;
   }
@@ -139,7 +139,7 @@ export class SelectComponent
     return !this.isAttached && this.inputValue.length === 0;
   }
 
-  controlType = "select";
+  controlType = 'select';
   materialModifierClass = undefined;
 
   get listEmpty(): boolean {
@@ -157,12 +157,12 @@ export class SelectComponent
     return this.selectList.value;
   }
 
-  @HostBinding("class.error")
+  @HostBinding('class.error')
   get hasError() {
     return this.selectList.hasError;
   }
 
-  @HostListener("focus")
+  @HostListener('focus')
   onFocus() {
     if (this.isDisabled) {
       return;
@@ -176,7 +176,7 @@ export class SelectComponent
     this.stateChangedEmitter.next();
   }
 
-  @HostListener("blur")
+  @HostListener('blur')
   onBlur() {
     this._focused = false;
     this.selectList.search = undefined;
@@ -185,7 +185,7 @@ export class SelectComponent
     this.stateChangedEmitter.next();
   }
 
-  @HostListener("keyup", ["$event"])
+  @HostListener('keyup', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === ESCAPE) {
@@ -209,7 +209,7 @@ export class SelectComponent
     }
   }
 
-  @HostListener("keydown", ["$event"])
+  @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     const code = event.keyCode;
     if (code === TAB) {
@@ -217,10 +217,10 @@ export class SelectComponent
     }
   }
 
-  @HostListener("keypress", ["$event"])
+  @HostListener('keypress', ['$event'])
   onKeyPress(event: KeyboardEvent) {
     const code = event.code || event.key;
-    if (this.selectList && code === "Enter") {
+    if (this.selectList && code === 'Enter') {
       event.preventDefault();
       this.selectList.selectHighlighted();
     }
@@ -228,18 +228,18 @@ export class SelectComponent
 
   get inputValue() {
     if (!this.selectList) {
-      return "";
+      return '';
     }
 
     if (this.search && this.isFocused) {
-      return this.selectList.search || "";
+      return this.selectList.search || '';
     }
 
-    if (this.selectList.selectionMode === "single") {
+    if (this.selectList.selectionMode === 'single') {
       const items = this.selectList.items;
       const item = items.find((_item) => this.selectList.value === _item.value);
       const val = item?.label;
-      return item ? item.label : this.placeholder || "";
+      return item ? item.label : this.placeholder || '';
     } else {
       const value = Array.isArray(this.selectList.value)
         ? this.selectList.value
@@ -248,7 +248,7 @@ export class SelectComponent
       const labels = items
         .filter((item) => value.includes(item.value))
         .map((item) => item.label);
-      return labels.length === 0 ? "" : labels.join(", ");
+      return labels.length === 0 ? '' : labels.join(', ');
     }
   }
 
@@ -256,7 +256,7 @@ export class SelectComponent
     return new TemplatePortal(this.templateRef, this.viewContainerRef);
   }
 
-  @HostListener("click")
+  @HostListener('click')
   onClick() {
     if (this.isDisabled) {
       return;
@@ -286,24 +286,24 @@ export class SelectComponent
             ? this.width
             : this.elementRef.nativeElement.getBoundingClientRect().width,
         height: this.height,
-        maxHeight: this.maxHeight || "20em",
-        backdropClass: "cdk-overlay-transparent-backdrop",
-        panelClass: ["vcl-select-overlay", "pop-over"],
+        maxHeight: this.maxHeight || '20em',
+        backdropClass: 'cdk-overlay-transparent-backdrop',
+        panelClass: ['vcl-select-overlay', 'pop-over'],
         positionStrategy: this.overlay
           .position()
           .flexibleConnectedTo(this.elementRef)
           .withPositions([
             {
-              originX: "start",
-              originY: "bottom",
-              overlayX: "start",
-              overlayY: "top",
+              originX: 'start',
+              originY: 'bottom',
+              overlayX: 'start',
+              overlayY: 'top',
             },
             {
-              originX: "start",
-              originY: "top",
-              overlayX: "start",
-              overlayY: "bottom",
+              originX: 'start',
+              originY: 'top',
+              overlayX: 'start',
+              overlayY: 'bottom',
             },
           ])
           .withPush(false),
@@ -343,7 +343,7 @@ export class SelectComponent
       .pipe(takeUntil(this.afterClose))
       .subscribe((value) => {
         if (this.isAttached) {
-          if (this.selectList.selectionMode === "single") {
+          if (this.selectList.selectionMode === 'single') {
             this.close(value);
           } else {
             this.cdRef.markForCheck();
@@ -379,7 +379,7 @@ export class SelectComponent
       return;
     }
 
-    if (event.code === "Enter") {
+    if (event.code === 'Enter') {
       const firstNotHidden = this.selectList.items.find(
         (i) => !this.selectList.isItemHidden(i)
       );
@@ -398,7 +398,7 @@ export class SelectComponent
     this.close();
     event.preventDefault();
     event.stopPropagation();
-    if ("blur" in document.activeElement) {
+    if ('blur' in document.activeElement) {
       // @ts-ignore
       document.activeElement.blur();
     }
