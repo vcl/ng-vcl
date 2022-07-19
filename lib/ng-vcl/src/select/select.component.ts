@@ -65,7 +65,7 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   private _valueChangeSub?: Subscription;
   private _focused = false;
   prependedElements = 0;
-
+  
   @ContentChild(SelectListComponent)
   selectList: SelectListComponent;
 
@@ -77,10 +77,6 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   @HostBinding('attr.role')
   attrRole = 'listbox';
-
-  @HostBinding('class.select')
-  @HostBinding('class.input-field')
-  _hostClasses = true;
 
   @Input()
   tabindex = 0;
@@ -99,6 +95,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
 
   @Input()
   search = false;
+
+  @Input()
+  showSearchIcon = false;
 
   @Output()
   afterClose = new EventEmitter<any | any[]>();
@@ -333,13 +332,8 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   ngOnInit(): void {
-    if (this.input) {
-      let prependedElements = 0;
-      let sibling: Element = this.input.nativeElement;
-      while ((sibling = sibling.previousElementSibling)) {
-        prependedElements++;
-      }
-      this.prependedElements = prependedElements;
+    if (this.showSearchIcon) {
+      this.prependedElements = 1;
     }
   }
 

@@ -284,8 +284,7 @@
 <h3>Select with prepended icon</h3>
 <vcl-form-control-group>
   <vcl-label>Select country</vcl-label>
-  <vcl-select>
-    <vcl-icon prepend icon="vcl:search"></vcl-icon>
+  <vcl-select [showSearchIcon]="true">
     <vcl-select-list [(value)]="value8">
       <vcl-select-list-header>Europe</vcl-select-list-header>
       <vcl-select-list-item value="Greece">

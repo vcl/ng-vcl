@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy, HostBinding, ContentChild, AfterContentInit, forwardRef, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { InputDirective } from './input.directive';
 import { TextareaDirective } from './textarea.directive';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from './embedded-label.directive';
 
 @Component({
