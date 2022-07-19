@@ -35,3 +35,4 @@ Name                  | Type     | Default | Description
 `placeholder`         | string   |         |
 `tabindex`            | number   | 0       | The tabindex of the select
 `search`              | booolean | false   | Enable search capability
+`showSearchIcon`      | boolean  | false   | Prepend search icon to the select input-field input
