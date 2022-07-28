@@ -6,19 +6,24 @@ import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from 
 
 @Component({
   selector: 'vcl-input-field',
-  template: `<ng-content select="input[vclInput], textarea[vclInput], vcl-icon, vcl-spinner, button[vcl-button]"></ng-content>`,
+  template: `
+    <ng-content vclPrepend select='[vclPrepend]'></ng-content>
+    <ng-content
+      select='input[vclInput], textarea[vclInput], vcl-icon, vcl-spinner, button[vcl-button]'
+    ></ng-content>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => InputFieldComponent)
+      useExisting: forwardRef(() => InputFieldComponent),
     },
-  ]
+  ],
 })
-export class InputFieldComponent implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput {
-  constructor(
-    private cdRef: ChangeDetectorRef,
-  ) { }
+export class InputFieldComponent
+  implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput
+{
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   private stateChangedEmitter = new Subject<void>();
 
@@ -68,7 +73,7 @@ export class InputFieldComponent implements AfterContentInit, OnDestroy, Embedde
 
       let prependedElements = 0;
       let sibling: Element = this.input.elementRef.nativeElement;
-      while (sibling = sibling.previousElementSibling) {
+      while ((sibling = sibling.previousElementSibling)) {
         prependedElements++;
       }
       this.prependedElements = prependedElements;
