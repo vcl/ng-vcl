@@ -9,8 +9,9 @@ import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from 
   template: `
     <ng-content vclPrepend select='[vclPrepend]'></ng-content>
     <ng-content
-      select='input[vclInput], textarea[vclInput], vcl-icon, vcl-spinner, button[vcl-button]'
+      select='input[vclInput], textarea[vclInput]'
     ></ng-content>
+    <ng-content vclAppend select="[vclAppend]"></ng-content>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
