@@ -7,6 +7,7 @@ export type EmbeddedInputFieldLabelMode = 'float' | 'static' | 'disabled';
 export interface EmbeddedInputFieldLabelInput {
   readonly stateChanged: Observable<void>;
   readonly isLabelFloating: boolean;
+  readonly isFocused: boolean;
   readonly prependedElements?: number;
 }
 
@@ -81,11 +82,17 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   @HostBinding('class.floating')
   floating = false;
 
+  @HostBinding('class.focused')
+  focused = false;
+
   @HostBinding('class.disable-animations')
   disableAnimations = true;
 
   @HostBinding('style.--prepended-elements')
   prependedElements: number = 0;
+
+  @HostBinding('style.--floating-label-padding')
+  labelOffSet = '0em';
 
   ngAfterViewInit() {
     // This workaround disables animations for initial rendering.
@@ -99,9 +106,13 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   private updateState() {
     if (this.inputField && this.enabled) {
       this.floating = this.inputField?.isLabelFloating ?? false;
+      this.focused = this.inputField?.isFocused ?? false;;
       this.prependedElements = this.inputField.prependedElements ?? 0;
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
+      if (this.prependedElements === 0) {
+        this.labelOffSet = '0.6em';
+      }
     }
   }
 

@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
 })
 export class InputDemoComponent {
   data1 = '';
+  data2 = '';
 }
