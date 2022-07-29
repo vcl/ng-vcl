@@ -91,6 +91,9 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   @HostBinding('style.--prepended-elements')
   prependedElements: number = 0;
 
+  @HostBinding('style.--label-offset-x')
+  labelOffSet = '0em';
+
   ngAfterViewInit() {
     // This workaround disables animations for initial rendering.
     // An initial value provided via ngModel triggers a floating state update shortly after the element is rendered into the DOM
@@ -107,6 +110,9 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
       this.prependedElements = this.inputField.prependedElements ?? 0;
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
+      if (this.prependedElements === 0) {
+        this.labelOffSet = '0.6em';
+      }
     }
   }
 
