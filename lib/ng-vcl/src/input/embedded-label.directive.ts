@@ -7,6 +7,7 @@ export type EmbeddedInputFieldLabelMode = 'float' | 'static' | 'disabled';
 export interface EmbeddedInputFieldLabelInput {
   readonly stateChanged: Observable<void>;
   readonly isLabelFloating: boolean;
+  readonly isFocused: boolean;
   readonly prependedElements?: number;
 }
 
@@ -81,6 +82,9 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   @HostBinding('class.floating')
   floating = false;
 
+  @HostBinding('class.focused')
+  focused = false;
+
   @HostBinding('class.disable-animations')
   disableAnimations = true;
 
@@ -99,6 +103,7 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   private updateState() {
     if (this.inputField && this.enabled) {
       this.floating = this.inputField?.isLabelFloating ?? false;
+      this.focused = this.inputField?.isFocused ?? false;;
       this.prependedElements = this.inputField.prependedElements ?? 0;
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
