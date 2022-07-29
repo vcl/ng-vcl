@@ -91,7 +91,7 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   @HostBinding('style.--prepended-elements')
   prependedElements: number = 0;
 
-  @HostBinding('style.--label-offset-x')
+  @HostBinding('style.--floating-label-padding')
   labelOffSet = '0em';
 
   ngAfterViewInit() {
