@@ -1,34 +1,37 @@
-<ng-content select="vcl-icon[prepend]"></ng-content>
-<input #input
-       [placeholder]="placeholder || ''"
-       [value]="inputValue"
-       [attr.tabindex]="-1"
-       [disabled]="isDisabled"
-       [class.disabled]="isDisabled"
-       [class.readonly]="!search"
-       class="input app-item"
-       role="listbox"
-       autocomplete="off"
-       [readonly]="!search"
-       (keyup)="inputChange($event)"
-       >
-<button *ngIf="clearable && inputValue"
-        vcl-button square
-        type="button"
-        tabindex="-1"
-        class="appended"
-        [disabled]="isDisabled"
-        (click)="clearSelection($event)"
->
-  <vcl-icon icon="vcl:close"></vcl-icon>
-</button>
-<button vcl-button square
-        type="button"
-        tabindex="-1"
-        class="appended"
-      >
-      <vcl-icon icon="vcl:arrow-down"></vcl-icon>
-</button>
+<vcl-input-field>
+  <ng-content vclPrepend select="[vclPrepend]"></ng-content>
+  <input
+    #input
+    vclInput
+    [placeholder]="placeholder || ''"
+    [value]="inputValue"
+    [attr.tabindex]="-1"
+    [disabled]="isDisabled"
+    [class.disabled]="isDisabled"
+    [class.readonly]="!search"
+    class="input app-item"
+    role="listbox"
+    autocomplete="off"
+    [readonly]="!search"
+    (keyup)="inputChange($event)"
+  />
+  <button
+    *ngIf="clearable && inputValue"
+    vclAppend
+    vcl-button
+    square
+    type="button"
+    tabindex="-1"
+    class="appended"
+    [disabled]="isDisabled"
+    (click)="clearSelection($event)"
+  >
+    <vcl-icon icon="vcl:close"></vcl-icon>
+  </button>
+  <button vclAppend vcl-button square type="button" tabindex="-1" class="appended">
+    <vcl-icon icon="vcl:arrow-down"></vcl-icon>
+  </button>
+</vcl-input-field>
 
 <ng-template #innerList>
   <div style="width: 100%" (vclOffClick)="close()">
