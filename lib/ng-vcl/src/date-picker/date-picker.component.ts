@@ -205,7 +205,8 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   protected createLayerConfig(...configs: LayerConfig[]): LayerConfig {
     return super.createLayerConfig({
       closeOnEscape: true,
-      hasBackdrop: false,
+      hasBackdrop: true,
+      closeOnBackdropClick: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this.overlay.scrollStrategies.reposition({
         autoClose: true
