@@ -252,7 +252,6 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   }
 
   onSelect(date: VCLDate) {
-    console.log('something has happened!');
     this.value = date;
     this.updateInput();
     this.valueChange.emit(date);

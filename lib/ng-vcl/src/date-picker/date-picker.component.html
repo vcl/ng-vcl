@@ -25,5 +25,6 @@
                 [dateModifiers]="dateModifier"
                 [viewDate]="viewDate"
                 [value]="value"
-                (valueChange)="onSelect($event)"></vcl-calendar>
+                (valueChange)="onSelect($event)"
+                (vclOffClick)="onOffClick($event)"></vcl-calendar>
 </ng-template>
