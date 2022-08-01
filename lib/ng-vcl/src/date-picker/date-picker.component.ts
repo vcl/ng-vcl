@@ -86,6 +86,9 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   @ViewChild(TemplateRef, { static: true })
   templateRef: TemplateRef<any>;
 
+  @ViewChild('calendarEl', { static: false, read: ElementRef })
+  calendarEl: ElementRef;
+
   @Input()
   placeholder?: string;
 
@@ -298,5 +301,17 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   }
   setDisabledState?(isDisabled: boolean): void {
     this._cvaDisabled = isDisabled;
+  }
+
+  checkClose(event: MouseEvent | TouchEvent) {
+    if (event && event instanceof PointerEvent) {
+      for (const target of event.composedPath()) {
+        if (target === this.calendarEl.nativeElement) {
+          // Do not close if event is inside the overlay
+          return;
+        }
+      }
+    }
+    this.close();
   }
 }

@@ -20,11 +20,12 @@
 
 <!-- VCL OFF Click -->
 <ng-template>
-  <vcl-calendar [selectionMode]="pick"
+  <vcl-calendar #calendarEl
+                [selectionMode]="pick"
                 [showWeekOfTheYear]="showWeekOfTheYear"
                 [dateModifiers]="dateModifier"
                 [viewDate]="viewDate"
                 [value]="value"
                 (valueChange)="onSelect($event)"
-                (vclOffClick)="onOffClick($event)"></vcl-calendar>
+                (vclOffClick)="checkClose($event)"></vcl-calendar>
 </ng-template>
