@@ -1,3 +1,20 @@
+## [2.3.11](https://github.com/vcl/ng-vcl/compare/v2.3.10...v2.3.11) (2022-08-01)
+
+
+### Bug Fixes
+
+* add bindings value to checkbox demo page ([080b149](https://github.com/vcl/ng-vcl/commit/080b14924aa984eb2a70305dfd35b88ff8dc5800))
+* add vclAppend to the input-field's ng-content ([999ac93](https://github.com/vcl/ng-vcl/commit/999ac93120f4afe9f3c91a403cfb5317758e19f7))
+* **demo:** add a separate binding for email on the input page ([983d1b8](https://github.com/vcl/ng-vcl/commit/983d1b8fd679aabc862a30df2242a4fbe1bc86ec))
+* **embedded-label:** inline label-offset-x to input ([2d8bada](https://github.com/vcl/ng-vcl/commit/2d8badaa4513c3247199483181cf0448b502e6ca))
+* **embedded-label:** inline label-offset-x to input ([5a11b0b](https://github.com/vcl/ng-vcl/commit/5a11b0bba3d9281e1399697f6170177605bd8fca))
+* update the embedded label when input's focus value toggles ([c975698](https://github.com/vcl/ng-vcl/commit/c975698635126949fe26051c2a595d33b81b972d))
+* utilize the vcl-input-field on the vcl-select ([7d8fc9b](https://github.com/vcl/ng-vcl/commit/7d8fc9b6a61bf155fc3b0c2b1e77072126a710e3))
+* **vcl-date-picker:** fix off click triggering when changing years ([363128b](https://github.com/vcl/ng-vcl/commit/363128b007f5739bac5d0f19894f66ca45659957))
+* **vcl-date-picker:** remove vclOffClick that hinders selection in data picker ([e6b3815](https://github.com/vcl/ng-vcl/commit/e6b38151e46a2e9d4450632586baa3701c7a3578))
+
+
+
 ## [2.3.10](https://github.com/vcl/ng-vcl/compare/v2.3.9...v2.3.10) (2022-07-15)
 
 
