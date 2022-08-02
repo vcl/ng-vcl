@@ -79,6 +79,8 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   attrRole = 'listbox';
 
   @HostBinding('class.select')
+  @HostBinding('class.input-field')
+  @HostBinding('class.no-border')
   _hostClasses = true;
 
   @Input()
