@@ -1,3 +1,12 @@
+## [2.3.12](https://github.com/vcl/ng-vcl/compare/v2.3.11...v2.3.12) (2022-08-02)
+
+
+### Bug Fixes
+
+* **select:** fix select styling ([66911ba](https://github.com/vcl/ng-vcl/commit/66911ba29e5d6a28917d5605efba123911f36a42))
+
+
+
 ## [2.3.11](https://github.com/vcl/ng-vcl/compare/v2.3.10...v2.3.11) (2022-08-01)
 
 
