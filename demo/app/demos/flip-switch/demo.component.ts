@@ -6,4 +6,5 @@ import { Component, OnInit } from '@angular/core';
 export class FlipSwitchDemoComponent {
   value1 = false;
   value2 = false;
+  value3 = true;
 }

@@ -1,31 +1,35 @@
-<input #input
-       vclInput
-       [disabled]="isDisabled"
-       [placeholder]="placeholder || ''"
-       class="app-item"
-       [class.error]="hasError"
-       (focus)="onFocus()"
-       (blur)="onBlur()"
-       >
-<button #btn
-        vcl-button square
-        type="button"
-        tabindex="-1"
-        [disabled]="isDisabled"
-        class="appended"
-        (click)="onButtonClick()"
-      >
-      <vcl-icon [icon]="pick === 'time' ? 'vcl:clock' : 'vcl:calendar'"></vcl-icon>
+<input
+  #input
+  vclInput
+  [disabled]="isDisabled"
+  [placeholder]="placeholder || ''"
+  class="app-item"
+  [class.error]="hasError"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+/>
+<button
+  #btn
+  vcl-button
+  square
+  type="button"
+  tabindex="-1"
+  [disabled]="isDisabled"
+  class="appended"
+  (click)="onButtonClick()"
+>
+  <vcl-icon [icon]="pick === 'time' ? 'vcl:clock' : 'vcl:calendar'"></vcl-icon>
 </button>
 
 <!-- VCL OFF Click -->
-<ng-template>
-  <vcl-calendar #calendarEl
-                [selectionMode]="pick"
-                [showWeekOfTheYear]="showWeekOfTheYear"
-                [dateModifiers]="dateModifier"
-                [viewDate]="viewDate"
-                [value]="value"
-                (valueChange)="onSelect($event)"
-                (vclOffClick)="checkClose($event)"></vcl-calendar>
+<ng-template (backdropClick)="close()">
+  <vcl-calendar
+    [selectionMode]="pick"
+    [showWeekOfTheYear]="showWeekOfTheYear"
+    [dateModifiers]="dateModifier"
+    [viewDate]="viewDate"
+    [value]="value"
+    (valueChange)="onSelect($event)"
+  ></vcl-calendar>
 </ng-template>
+
