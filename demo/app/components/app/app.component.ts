@@ -96,7 +96,8 @@ export class AppComponent implements OnInit, OnDestroy {
       keys: ['items.label']
     }).search(text)
       .reduce<any[]>((p: any[], demoGroup: any) => {
-        return p.concat(new Fuse(demoGroup.items, { keys: ['label'] }).search(text));
+        const subSearch = new Fuse(demoGroup.item.items, { keys: ['label'] }).search(text);
+        return p.concat(subSearch.map(searchedItem => searchedItem.item));
       }, []);
   }
 }
