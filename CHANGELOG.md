@@ -1,3 +1,20 @@
+## [2.3.13](https://github.com/vcl/ng-vcl/compare/v2.3.11...v2.3.13) (2022-08-23)
+
+
+### Bug Fixes
+
+* ability to change date format on date-picker ([4f158ee](https://github.com/vcl/ng-vcl/commit/4f158ee3ccd35c14e7d49db5acee18409ff7ecd4))
+* remove binding for disabled flip-switch ([d78023e](https://github.com/vcl/ng-vcl/commit/d78023ef0d609be24cb846e3dad3365676ba0d7a))
+* searching functionality on ng-vcl demo page ([cee5962](https://github.com/vcl/ng-vcl/commit/cee59620095dd000f803aeb2527fd8f4b1f6ed57))
+* **select:** fix select styling ([66911ba](https://github.com/vcl/ng-vcl/commit/66911ba29e5d6a28917d5605efba123911f36a42))
+
+
+### Features
+
+* add rounded modifier attribute to flipswitch component ([f6612b5](https://github.com/vcl/ng-vcl/commit/f6612b57fa6699ad94518be97478afbe127e260e))
+
+
+
 ## [2.3.12](https://github.com/vcl/ng-vcl/compare/v2.3.11...v2.3.12) (2022-08-02)
 
 
