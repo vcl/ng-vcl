@@ -39,6 +39,10 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlGro
   @HostBinding('attr.touch-action')
   _attrTouchAction = 'pan-y';
 
+  @Input()
+  @HostBinding('class.rounded')
+  rounded = false;
+
   private uniqueId = 'vcl_flipswitch_' + UNIQUE_ID++;
 
   private _disabled = false;
