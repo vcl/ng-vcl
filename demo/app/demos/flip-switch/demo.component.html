@@ -2,6 +2,14 @@
 <vcl-flip-switch [(value)]="value1"></vcl-flip-switch><br>
 Current value: {{value1}}
 
+<h3>Without labels</h3>
+<vcl-flip-switch onLabel="" offLabel="" [(value)]="value4"></vcl-flip-switch><br>
+Current value: {{value3}}
+
+<h3>Round flipswitch</h3>
+<vcl-flip-switch onLabel="" offLabel="" [(value)]="value5" [rounded]="true"></vcl-flip-switch><br>
+Current value: {{value3}}
+
 <h3>With custom labels</h3>
 <vcl-flip-switch onLabel="Yes" offLabel="No" [(value)]="value2"></vcl-flip-switch><br>
 Current value: {{value2}}

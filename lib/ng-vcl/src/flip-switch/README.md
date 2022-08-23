@@ -15,6 +15,7 @@ Name          | Type    | Default | Description
 `value`       | boolean | false   | set the value
 `onLabel`     | string  | 'On'    | The label for "on"
 `offLabel`    | string  | 'Off'   | The label for "off"
+`rounded`     | boolean | false   | Round version of the flipswitch
 
 #### Events
 
