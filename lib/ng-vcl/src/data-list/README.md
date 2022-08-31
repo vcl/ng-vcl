@@ -25,7 +25,7 @@ Name            | Type                                          | Default     | 
 `value`         | any                                           |             | Current value
 `divider`       | boolean                                       | false       | Show a vertical divider (border) between items when true
 `noBorder`      | boolean                                       | false       | No top/ bottom borders when true
-`mode`          | 'single' \| 'multiple' \| 'none' \| 'content' | 'single'    | `single` allows only one item to be selected. `multi` allows multiple items to be selected. `content` disables item interaction.
+`mode`          | 'single' \| 'multiple' \| 'none'              | 'single'    | `single` allows only one item to be selected. `multi` allows multiple items to be selected. `none` disables item interaction.
 
 ### vcl-data-list events
 

@@ -57,7 +57,7 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
 
   readonly itemsChange = this._itemsChangeEmitter.asObservable();
 
-  @Input()
+  @Input('mode')
   selectionMode: DataListMode = 'single';
 
   @Input()
