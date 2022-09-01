@@ -1,3 +1,17 @@
+# [2.4.0](https://github.com/vcl/ng-vcl/compare/v2.3.13...v2.4.0) (2022-09-01)
+
+
+### Bug Fixes
+
+* **vcl-data-list:** none mode to remove item iteraction ([14bc3ac](https://github.com/vcl/ng-vcl/commit/14bc3acd2f984f9de98a2464f75e17f6963fd31a))
+
+
+### Features
+
+* ng 14.2 upgrade ([2f49535](https://github.com/vcl/ng-vcl/commit/2f49535734e97d93cdede9aa5184046597579dc5))
+
+
+
 ## [2.3.13](https://github.com/vcl/ng-vcl/compare/v2.3.11...v2.3.13) (2022-08-23)
 
 
