@@ -2,7 +2,8 @@ markdown ::ng-deep table {
   display: block;
   width: 100%;
   overflow: auto;
-  th, td {
+  th,
+  td {
     padding: 6px 13px;
     border: 1px solid #dfe2e5;
   }

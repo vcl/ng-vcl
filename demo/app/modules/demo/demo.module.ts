@@ -12,8 +12,8 @@ export { DemoComponent };
     CommonModule,
     VCLTabNavModule,
     PortalModule,
-    MarkdownModule.forChild()
+    MarkdownModule.forChild(),
   ],
-  declarations: [ DemoComponent, ]
+  declarations: [DemoComponent],
 })
-export class DemoModule { }
+export class DemoModule {}
