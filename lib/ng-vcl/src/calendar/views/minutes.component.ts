@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarMinutes } from '../interfaces';
 
@@ -6,12 +14,10 @@ import { VCLCalendarMinutes } from '../interfaces';
   selector: 'vcl-calendar-view-minutes',
   templateUrl: 'minutes.component.html',
   exportAs: 'vclCalendarViewMinutes',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarViewMinutesComponent<VCLDate> implements OnChanges {
-  constructor(
-    private dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(private dateAdapter: DateAdapterBase<VCLDate>) {
     this.updateCalendarMinutes();
   }
 
@@ -48,7 +54,8 @@ export class CalendarViewMinutesComponent<VCLDate> implements OnChanges {
 
     if (typeof minute === 'number') {
       this.minute = minute;
-      const date = this.dateAdapter.toDate(this.value) || this.dateAdapter.today();
+      const date =
+        this.dateAdapter.toDate(this.value) || this.dateAdapter.today();
       const datetime = this.dateAdapter.createDateTime(
         this.dateAdapter.getYear(date),
         this.dateAdapter.getMonth(date),
@@ -65,15 +72,16 @@ export class CalendarViewMinutesComponent<VCLDate> implements OnChanges {
     this.labelClick.emit();
   }
 
-
   updateCalendarMinutes() {
-    const minutes = Array.from(new Array(6)).map((_, i) => Array.from(new Array(10)).map((__, j) => {
-      const minute = i * 10 + j;
-      return {
-        minute,
-        label: minute.toString()
-      };
-    }));
+    const minutes = Array.from(new Array(6)).map((_, i) =>
+      Array.from(new Array(10)).map((__, j) => {
+        const minute = i * 10 + j;
+        return {
+          minute,
+          label: minute.toString(),
+        };
+      })
+    );
 
     this.calendar = {
       minutes,

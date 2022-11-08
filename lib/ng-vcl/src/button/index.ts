@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLIconModule } from '../icon/index';
-import { ButtonComponent, ButtonHost, BUTTON_HOST_TOKEN } from './button.component';
+import {
+  ButtonComponent,
+  ButtonHost,
+  BUTTON_HOST_TOKEN,
+} from './button.component';
 
 export { ButtonComponent, ButtonHost, BUTTON_HOST_TOKEN };
 
@@ -12,4 +16,4 @@ export { ButtonComponent, ButtonHost, BUTTON_HOST_TOKEN };
   declarations: [ButtonComponent],
   providers: [],
 })
-export class VCLButtonModule { }
+export class VCLButtonModule {}

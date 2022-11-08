@@ -1,6 +1,21 @@
-import { Directive, ElementRef, HostBinding, Input, HostListener, forwardRef, Optional, Inject, OnDestroy, InjectionToken, Injector } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  Input,
+  HostListener,
+  forwardRef,
+  Optional,
+  Inject,
+  OnDestroy,
+  InjectionToken,
+  Injector,
+} from '@angular/core';
 import { Subject } from 'rxjs';
-import { FORM_CONTROL_GROUP_INPUT_STATE, FormControlGroupInputState } from '../form-control-group/index';
+import {
+  FORM_CONTROL_GROUP_INPUT_STATE,
+  FormControlGroupInputState,
+} from '../form-control-group/index';
 import { NgControl } from '@angular/forms';
 
 export let UNIQUE_ID = 0;
@@ -11,16 +26,17 @@ export let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => InputDirective)
-    }
+      useExisting: forwardRef(() => InputDirective),
+    },
   ],
 })
-export class InputDirective implements OnDestroy, FormControlGroupInputState<string> {
+export class InputDirective
+  implements OnDestroy, FormControlGroupInputState<string>
+{
   constructor(
     public elementRef: ElementRef<HTMLInputElement>,
     private injector: Injector
-  ) {
-   }
+  ) {}
 
   private uniqueId = 'vcl_input_' + UNIQUE_ID++;
 

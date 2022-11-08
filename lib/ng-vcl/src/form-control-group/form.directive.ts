@@ -1,4 +1,12 @@
-import { Directive, HostBinding, Optional, Self, forwardRef, OnInit, OnDestroy } from "@angular/core";
+import {
+  Directive,
+  HostBinding,
+  Optional,
+  Self,
+  forwardRef,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { FormGroupDirective, NgForm } from '@angular/forms';
 import { NEVER, Subject } from 'rxjs';
 import { FormControlGroupForm, FORM_CONTROL_GROUP_FORM } from './interfaces';
@@ -9,12 +17,11 @@ import { FormControlGroupForm, FORM_CONTROL_GROUP_FORM } from './interfaces';
   providers: [
     {
       provide: FORM_CONTROL_GROUP_FORM,
-      useExisting: forwardRef(() => FormDirective)
-    }
-  ]
+      useExisting: forwardRef(() => FormDirective),
+    },
+  ],
 })
 export class FormDirective implements FormControlGroupForm {
-
   @HostBinding('class.form')
   hostClasses = true;
 
@@ -24,7 +31,7 @@ export class FormDirective implements FormControlGroupForm {
     formGroup?: FormGroupDirective,
     @Optional()
     @Self()
-    ngForm?: NgForm,
+    ngForm?: NgForm
   ) {
     this.form = ngForm ?? formGroup;
   }

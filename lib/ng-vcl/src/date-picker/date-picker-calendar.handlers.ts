@@ -1,22 +1,31 @@
 import { Injectable } from '@angular/core';
 import { DateAdapterBase } from '../dateadapter/index';
-import { VCLCalendarHandler, CalendarComponent, VCLCalendarView, VCLCalendar } from '../calendar/index';
+import {
+  VCLCalendarHandler,
+  CalendarComponent,
+  VCLCalendarView,
+  VCLCalendar,
+} from '../calendar/index';
 
 @Injectable()
-export class DatepickerTimeHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
-  constructor(
-    protected dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+export class DatepickerTimeHandler<
+  VCLDate
+> extends VCLCalendarHandler<VCLDate> {
+  constructor(protected dateAdapter: DateAdapterBase<VCLDate>) {
     super();
   }
 
   readonly mode = 'time';
 
-  init(calendar: VCLCalendar<VCLDate>, ) {
+  init(calendar: VCLCalendar<VCLDate>) {
     calendar.setView('hours');
   }
 
-  handleValueChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, date: VCLDate) {
+  handleValueChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    date: VCLDate
+  ) {
     if (source === 'hours') {
       calendar.setView('minutes');
       calendar.setValue(date, false);
@@ -28,7 +37,11 @@ export class DatepickerTimeHandler<VCLDate> extends VCLCalendarHandler<VCLDate> 
     }
   }
 
-  handleViewDateChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
+  handleViewDateChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    viewDate: VCLDate
+  ) {
     calendar.setViewDate(viewDate, true);
   }
 

@@ -20,4 +20,6 @@ export interface SelectList {
 }
 export const SELECT_LIST_TOKEN = new InjectionToken<SelectList>('select-list');
 
-export const SELECT_LIST_CONTENT_TOKEN = new InjectionToken('select-list-content');
+export const SELECT_LIST_CONTENT_TOKEN = new InjectionToken(
+  'select-list-content'
+);

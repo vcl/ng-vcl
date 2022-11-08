@@ -14,34 +14,36 @@ export function demo() {
       Demo: InputDemoComponent,
       'README.md': {
         type: 'md',
-        content: README
+        content: README,
       },
       'demo.component.html': {
         type: 'html',
-        content: require('!raw-loader!./demo.component.html')
+        content: require('!raw-loader!./demo.component.html'),
       },
       'demo.component.ts': {
         type: 'ts',
-        content: require('!raw-loader!./demo.component.ts')
+        content: require('!raw-loader!./demo.component.ts'),
       },
     },
   };
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        DemoModule,
-        VCLInputModule,
-        VCLIconModule,
-        VCLButtonModule,
-        RouterModule.forChild([{
-                path: '',
-                component: DemoComponent,
-                data: { demo }
-            }]),
-    ],
-    declarations: [InputDemoComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    DemoModule,
+    VCLInputModule,
+    VCLIconModule,
+    VCLButtonModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoComponent,
+        data: { demo },
+      },
+    ]),
+  ],
+  declarations: [InputDemoComponent],
 })
-export class InputDemoModule { }
+export class InputDemoModule {}

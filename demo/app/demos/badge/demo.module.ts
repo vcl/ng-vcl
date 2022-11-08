@@ -13,31 +13,33 @@ export function demo() {
       Demo: BadgeDemoComponent,
       'README.md': {
         type: 'md',
-        content: README
+        content: README,
       },
       'demo.component.html': {
         type: 'html',
-        content: require('!raw-loader!./demo.component.html')
+        content: require('!raw-loader!./demo.component.html'),
       },
       'demo.component.ts': {
         type: 'ts',
-        content: require('!raw-loader!./demo.component.ts')
-      }
-    }
+        content: require('!raw-loader!./demo.component.ts'),
+      },
+    },
   };
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DemoModule,
-        VCLBadgeModule,
-        RouterModule.forChild([{
-                path: '',
-                component: DemoComponent,
-                data: { demo }
-            }]),
-    ],
-    declarations: [BadgeDemoComponent]
+  imports: [
+    CommonModule,
+    DemoModule,
+    VCLBadgeModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoComponent,
+        data: { demo },
+      },
+    ]),
+  ],
+  declarations: [BadgeDemoComponent],
 })
-export class BadgeDemoModule { }
+export class BadgeDemoModule {}

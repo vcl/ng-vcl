@@ -1,4 +1,21 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef, Directive, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  EventEmitter,
+  forwardRef,
+  QueryList,
+  Input,
+  Output,
+  ContentChildren,
+  HostBinding,
+  AfterContentInit,
+  OnDestroy,
+  Optional,
+  Inject,
+  Component,
+  ChangeDetectorRef,
+  Directive,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
@@ -30,15 +47,17 @@ export class DataListFooterDirective {
   providers: [
     {
       provide: DATA_LIST_TOKEN,
-      useExisting: forwardRef(() => DataListComponent)
-    }
-  ]
+      useExisting: forwardRef(() => DataListComponent),
+    },
+  ],
 })
-export class DataListComponent implements DataList, AfterContentInit, OnDestroy, ControlValueAccessor {
+export class DataListComponent
+  implements DataList, AfterContentInit, OnDestroy, ControlValueAccessor
+{
   constructor(
     @Optional()
-    public ngControl?: NgControl,
-    ) {
+    public ngControl?: NgControl
+  ) {
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
@@ -75,7 +94,7 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
   noBorder = false;
 
   @Output()
-  valueChange =  new EventEmitter<any | any[]>();
+  valueChange = new EventEmitter<any | any[]>();
 
   @ContentChildren(DataListItemDirective)
   private _items?: QueryList<DataListItem>;
@@ -114,9 +133,7 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
     this.stateChange.next();
   }
 
-  onItemFocus(item: DataListItem) {
-
-  }
+  onItemFocus(item: DataListItem) {}
 
   onItemBlur(item: DataListItem) {
     if (this._items.last === item) {
@@ -125,7 +142,9 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
   }
 
   ngAfterContentInit() {
-    this._itemsChangeSub = this._items.changes.subscribe(this._itemsChangeEmitter);
+    this._itemsChangeSub = this._items.changes.subscribe(
+      this._itemsChangeEmitter
+    );
   }
 
   ngOnDestroy() {
@@ -153,5 +172,4 @@ export class DataListComponent implements DataList, AfterContentInit, OnDestroy,
   setDisabledState?(isDisabled: boolean): void {
     this._cvaDisabled = isDisabled;
   }
-
 }

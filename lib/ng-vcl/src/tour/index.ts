@@ -11,9 +11,15 @@ import { TourComponent } from './tour.component';
 export { TourService, TourOptions, TourComponent, TourOverlayComponent };
 
 @NgModule({
-  imports: [CommonModule, VCLPopoverModule, VCLButtonModule, VCLIcogramModule, VCLIconModule],
+  imports: [
+    CommonModule,
+    VCLPopoverModule,
+    VCLButtonModule,
+    VCLIcogramModule,
+    VCLIconModule,
+  ],
   exports: [TourComponent, TourOverlayComponent],
   declarations: [TourComponent, TourOverlayComponent],
   providers: [TourService],
 })
-export class VCLTourModule { }
+export class VCLTourModule {}

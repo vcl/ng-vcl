@@ -11,12 +11,33 @@ import { TokenInputContainerComponent } from './token-input.component';
 import { TokenListComponent } from './token-list.component';
 import { Token } from './interfaces';
 
-export { TokenComponent, TokenInputContainerComponent, TokenListComponent, Token };
+export {
+  TokenComponent,
+  TokenInputContainerComponent,
+  TokenListComponent,
+  Token,
+};
 
 @NgModule({
-  imports: [CommonModule, VCLInputModule, VCLButtonModule, FormsModule, VCLIconModule, VCLIcogramModule],
-  exports: [TokenComponent, TokenListComponent, TokenInputContainerComponent, VCLInputModule ],
-  declarations: [TokenComponent, TokenListComponent, TokenInputContainerComponent ],
+  imports: [
+    CommonModule,
+    VCLInputModule,
+    VCLButtonModule,
+    FormsModule,
+    VCLIconModule,
+    VCLIcogramModule,
+  ],
+  exports: [
+    TokenComponent,
+    TokenListComponent,
+    TokenInputContainerComponent,
+    VCLInputModule,
+  ],
+  declarations: [
+    TokenComponent,
+    TokenListComponent,
+    TokenInputContainerComponent,
+  ],
   providers: [],
 })
-export class VCLTokenModule { }
+export class VCLTokenModule {}

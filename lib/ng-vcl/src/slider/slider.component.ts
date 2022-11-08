@@ -15,16 +15,24 @@ import {
   forwardRef,
   OnDestroy,
   Injector,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { Subject } from 'rxjs';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 
 let UNIQUE_ID = 0;
 
 export enum MoveDirection {
-  Left, Right
+  Left,
+  Right,
 }
 
 export interface ScalePoint {
@@ -45,17 +53,20 @@ export interface ScalePoint {
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => SliderComponent)
-    }
+      useExisting: forwardRef(() => SliderComponent),
+    },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SliderComponent implements ControlValueAccessor, AfterContentInit, OnChanges, FormControlGroupInputState, OnDestroy {
-
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-    ) { }
+export class SliderComponent
+  implements
+    ControlValueAccessor,
+    AfterContentInit,
+    OnChanges,
+    FormControlGroupInputState,
+    OnDestroy
+{
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   @HostBinding('class.slider')
   classVclSlider = true;
@@ -141,7 +152,9 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   }
 
   validateValue(value: number) {
-    return typeof value === 'number' && value >= this.pmin && value <= this.pmax;
+    return (
+      typeof value === 'number' && value >= this.pmin && value <= this.pmax
+    );
   }
 
   @HostBinding('class.error')
@@ -152,15 +165,19 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   }
 
   get showScale() {
-    return Array.isArray(this.scale) || typeof this.scale === 'number' || (typeof this.scale === 'boolean' && this.scale);
+    return (
+      Array.isArray(this.scale) ||
+      typeof this.scale === 'number' ||
+      (typeof this.scale === 'boolean' && this.scale)
+    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ('min' in  changes || 'max' in  changes || 'scale' in  changes) {
+    if ('min' in changes || 'max' in changes || 'scale' in changes) {
       this.updateScalePoints();
       this.updatePercentLeftKnob();
     }
-    if ('value' in  changes) {
+    if ('value' in changes) {
       this.updatePercentLeftKnob();
     }
   }
@@ -191,7 +208,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
 
   percentToValue(per: number): number {
     const rangeLength = this.pmax - this.pmin;
-    const newVal = ((rangeLength / 100) * per) + this.pmin;
+    const newVal = (rangeLength / 100) * per + this.pmin;
     return Math.round(newVal);
   }
 
@@ -201,7 +218,7 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
       this.scalePoints = this.scale.map((label, idx) => {
         return {
           label,
-          percent: (100 / (steps - 1)) * idx
+          percent: (100 / (steps - 1)) * idx,
         };
       });
     } else {
@@ -211,11 +228,11 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
       } else {
         steps = this.pmax - this.pmin + 1;
       }
-      this.scalePoints = Array.from(Array(steps).keys()).map((i) => {
-        const percent = (100 / (steps - 1)) * (i);
+      this.scalePoints = Array.from(Array(steps).keys()).map(i => {
+        const percent = (100 / (steps - 1)) * i;
         return {
           label: this.percentToValue(percent).toString(),
-          percent
+          percent,
         };
       });
     }
@@ -268,7 +285,9 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
     }
 
     const percentLeftKnob = this.deltaPxToPercent(railX);
-    this.percentLeftKnob = this.lock ? this.closestScalePoint(percentLeftKnob) : percentLeftKnob;
+    this.percentLeftKnob = this.lock
+      ? this.closestScalePoint(percentLeftKnob)
+      : percentLeftKnob;
     const value = this.percentToValue(this.percentLeftKnob);
     this.setValue(value, false);
   }
@@ -290,8 +309,12 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   }
 
   moveToPoint(direction: MoveDirection) {
-    const currentPointValue = this.closestScalePoint(this.calculatePercentLeftKnob(this.value));
-    const currentPoint = this.scalePoints.find(p => p.percent === currentPointValue);
+    const currentPointValue = this.closestScalePoint(
+      this.calculatePercentLeftKnob(this.value)
+    );
+    const currentPoint = this.scalePoints.find(
+      p => p.percent === currentPointValue
+    );
     let i = currentPoint ? this.scalePoints.indexOf(currentPoint) : 0;
     let nextPoint;
     if (direction === MoveDirection.Right) {
@@ -377,7 +400,8 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
 
     const deltaPx = ev.deltaX;
 
-    let percentLeftKnob = this.lastPercentLeftKnob + this.deltaPxToPercent(deltaPx);
+    let percentLeftKnob =
+      this.lastPercentLeftKnob + this.deltaPxToPercent(deltaPx);
     if (percentLeftKnob < 0) {
       percentLeftKnob = 0;
     } else if (percentLeftKnob > 100) {
@@ -404,7 +428,6 @@ export class SliderComponent implements ControlValueAccessor, AfterContentInit, 
   ngOnDestroy() {
     this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
-
 
   /**
    * things needed for ControlValueAccessor-Interface

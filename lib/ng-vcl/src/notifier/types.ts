@@ -27,7 +27,6 @@ export interface NotifierOptions {
   context?: any;
 }
 
-
 export interface NotifierConfig {
   timeout: number;
   offset: number;
@@ -35,11 +34,12 @@ export interface NotifierConfig {
 
 export const NOTIFIER_CONFIG_DEFAULTS: NotifierConfig = {
   timeout: 3000,
-  offset: 10
+  offset: 10,
 };
 
-export const NOTIFIER_CONFIG_TOKEN = new InjectionToken<NotifierConfig>('vcl-notification-config');
-
+export const NOTIFIER_CONFIG_TOKEN = new InjectionToken<NotifierConfig>(
+  'vcl-notification-config'
+);
 
 export interface NotificationAnimationParams {
   voidOpenTime: number;
@@ -48,7 +48,8 @@ export interface NotificationAnimationParams {
 
 export const NOTIFIER_ANIMATION_PARAMS_DEFAULTS: NotificationAnimationParams = {
   voidOpenTime: 300,
-  openClosingTime: 300
+  openClosingTime: 300,
 };
 
-export const NOTIFIER_ANIMATION_PARAMS_TOKEN = new InjectionToken<NotifierConfig>('vcl-notification-animation-config');
+export const NOTIFIER_ANIMATION_PARAMS_TOKEN =
+  new InjectionToken<NotifierConfig>('vcl-notification-animation-config');

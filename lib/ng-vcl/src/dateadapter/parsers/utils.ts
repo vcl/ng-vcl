@@ -14,36 +14,36 @@ export function extractInt(value: string, regEx: RegExp): number[] | undefined {
 }
 
 export function pad(value: number, size: number) {
-  const str = ('0000' + value);
+  const str = '0000' + value;
   const strLen = str.length;
   return ('0000' + value).substring(strLen - size, strLen);
 }
 
 const DEFAULT_DISPLAY_FORMATS = {
   day: {
-    day: 'numeric'
+    day: 'numeric',
   } as const,
   month: {
-    month: 'long'
+    month: 'long',
   } as const,
   year: {
-    year: 'numeric'
+    year: 'numeric',
   } as const,
   yearMonthLong: {
     year: 'numeric',
-    month: 'long'
+    month: 'long',
   } as const,
   yearMonth: {
     year: 'numeric',
     month: '2-digit',
   } as const,
   weekday: {
-    weekday: 'short'
+    weekday: 'short',
   } as const,
   date: {
     year: 'numeric',
     month: '2-digit',
-    day: '2-digit'
+    day: '2-digit',
   } as const,
   time: {
     hour: 'numeric',
@@ -54,12 +54,19 @@ const DEFAULT_DISPLAY_FORMATS = {
   } as const,
   hour: {
     hour: 'numeric',
-  } as const
+  } as const,
 };
 
-export function intlFallback(locale: string, date: Date, type: DateAdapterBaseDisplayFormats) {
+export function intlFallback(
+  locale: string,
+  date: Date,
+  type: DateAdapterBaseDisplayFormats
+) {
   if (DEFAULT_DISPLAY_FORMATS[type]) {
-    return new Intl.DateTimeFormat(locale, DEFAULT_DISPLAY_FORMATS[type]).format(date);
+    return new Intl.DateTimeFormat(
+      locale,
+      DEFAULT_DISPLAY_FORMATS[type]
+    ).format(date);
   }
-  unsupportedFormat(type)
+  unsupportedFormat(type);
 }

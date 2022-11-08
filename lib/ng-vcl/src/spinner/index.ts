@@ -8,10 +8,19 @@ import { VCLButtonGroupModule } from '../button-group';
 export { SpinnerComponent };
 
 @NgModule({
-  imports: [CommonModule, VCLIconModule, VCLIcogramModule, VCLButtonGroupModule],
-  exports: [SpinnerComponent, VCLIconModule, VCLIcogramModule, VCLButtonGroupModule],
+  imports: [
+    CommonModule,
+    VCLIconModule,
+    VCLIcogramModule,
+    VCLButtonGroupModule,
+  ],
+  exports: [
+    SpinnerComponent,
+    VCLIconModule,
+    VCLIcogramModule,
+    VCLButtonGroupModule,
+  ],
   declarations: [SpinnerComponent],
   providers: [],
 })
-export class VCLSpinnerModule {
-}
+export class VCLSpinnerModule {}

@@ -8,7 +8,10 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
 
   constructor(a1, a2) {
     super(a1, a2);
-    this.registerConditional(this.schema.disabled, (disabled) => this._disabled = !!disabled);
+    this.registerConditional(
+      this.schema.disabled,
+      disabled => (this._disabled = !!disabled)
+    );
   }
 
   private _disabled: boolean;
@@ -20,38 +23,47 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
   get label() {
     return this.schema.label;
   }
-  get prepIcon(): string | undefined  {
+  get prepIcon(): string | undefined {
     return this.schema.prepIcon;
   }
-  get appIcon(): string | undefined  {
+  get appIcon(): string | undefined {
     return this.schema.appIcon;
   }
-  get class(): string | undefined  {
+  get class(): string | undefined {
     return this.schema.class;
   }
-  get action(): string  {
+  get action(): string {
     return this.schema.action;
   }
-
 }
 
 @Component({
   selector: 'vcl-jss-form-button',
   template: `
-   <button vcl-button [ngClass]="field.class" [disabled]="field.disabled" [type]="field.type" (click)="onAction(field)">
-     <vcl-icogram>
-       <vcl-icon *ngIf="field.prepIcon" vclPrepend [icon]="">field.prepIcon</vcl-icon>
-       {{field.label}}
-       <vcl-icon *ngIf="field.appIcon" vclAppend [icon]="field.appIcon"></vcl-icon>
-     </vcl-icogram>
-   </button>
-  `
+    <button
+      vcl-button
+      [ngClass]="field.class"
+      [disabled]="field.disabled"
+      [type]="field.type"
+      (click)="onAction(field)">
+      <vcl-icogram>
+        <vcl-icon *ngIf="field.prepIcon" vclPrepend [icon]=""
+          >field.prepIcon</vcl-icon
+        >
+        {{ field.label }}
+        <vcl-icon
+          *ngIf="field.appIcon"
+          vclAppend
+          [icon]="field.appIcon"></vcl-icon>
+      </vcl-icogram>
+    </button>
+  `,
 })
 export class FormFieldButtonComponent {
   constructor(
     public field: FormFieldButton,
-    @Inject(JSS_FORM_TOKEN) private jssForm: JssForm,
-  ) { }
+    @Inject(JSS_FORM_TOKEN) private jssForm: JssForm
+  ) {}
 
   onAction(button: FormFieldButton) {
     if (button.type === 'button') {

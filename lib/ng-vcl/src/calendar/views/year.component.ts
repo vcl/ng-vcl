@@ -1,5 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnInit } from '@angular/core';
-import { VCLCalendarYear, VCLCalendarDateModifier, VCLCalendarMonth, VCLCalendarYearMonth } from '../interfaces';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
+import {
+  VCLCalendarYear,
+  VCLCalendarDateModifier,
+  VCLCalendarMonth,
+  VCLCalendarYearMonth,
+} from '../interfaces';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { compare } from '../utils';
 
@@ -7,13 +21,10 @@ import { compare } from '../utils';
   selector: 'vcl-calendar-view-year',
   templateUrl: 'year.component.html',
   exportAs: 'vclCalendarViewYear',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
-
-  constructor(
-    private dateAdapter: DateAdapterBase<VCLDate>,
-  ) { }
+  constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}
 
   @Input()
   disabled = false;
@@ -40,7 +51,7 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.value || changes.viewDate) {
-      if (changes.value && changes.value.currentValue && (!this.viewDate)) {
+      if (changes.value && changes.value.currentValue && !this.viewDate) {
         this.viewDate = this.dateAdapter.toDate(changes.value.currentValue);
       }
       this.updateCalendarYear();
@@ -85,11 +96,20 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
     const compareMonth = this.dateAdapter.compareMonth.bind(this.dateAdapter);
 
     const months = Array.from(Array(12).keys()).map(i => {
-      const monthDate = this.dateAdapter.createDate(this.dateAdapter.getYear(viewDate), i, 1);
+      const monthDate = this.dateAdapter.createDate(
+        this.dateAdapter.getYear(viewDate),
+        i,
+        1
+      );
 
-      const dateModifier = !!Array.isArray(this.dateModifiers) && this.dateModifiers.find(_dm => {
-        return (!_dm.view || _dm.view === 'year') && !!compare(this.dateAdapter, _dm.match, monthDate, compareMonth);
-      });
+      const dateModifier =
+        !!Array.isArray(this.dateModifiers) &&
+        this.dateModifiers.find(_dm => {
+          return (
+            (!_dm.view || _dm.view === 'year') &&
+            !!compare(this.dateAdapter, _dm.match, monthDate, compareMonth)
+          );
+        });
 
       const dateClass = dateModifier ? dateModifier.class : undefined;
       const disabled = !!dateModifier && !!dateModifier.disabled;
@@ -97,10 +117,18 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
       return {
         label: this.dateAdapter.format(monthDate, 'month'),
         date: monthDate,
-        isCurrentMonth: this.dateAdapter.isSameMonth(this.dateAdapter.today(), monthDate),
-        selected: compare(this.dateAdapter, this.value, monthDate, compareMonth),
+        isCurrentMonth: this.dateAdapter.isSameMonth(
+          this.dateAdapter.today(),
+          monthDate
+        ),
+        selected: compare(
+          this.dateAdapter,
+          this.value,
+          monthDate,
+          compareMonth
+        ),
         class: dateClass,
-        disabled
+        disabled,
       };
     });
     this.calendar = {
@@ -111,5 +139,4 @@ export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
       label: this.dateAdapter.format(viewDate, 'year'),
     };
   }
-
 }

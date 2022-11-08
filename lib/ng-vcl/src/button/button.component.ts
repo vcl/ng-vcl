@@ -1,4 +1,19 @@
-import { HostBinding, Input, HostListener, ElementRef, Component, SkipSelf, Inject, Output, EventEmitter, Optional, InjectionToken, ChangeDetectorRef, ChangeDetectionStrategy, Directive} from '@angular/core';
+import {
+  HostBinding,
+  Input,
+  HostListener,
+  ElementRef,
+  Component,
+  SkipSelf,
+  Inject,
+  Output,
+  EventEmitter,
+  Optional,
+  InjectionToken,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  Directive,
+} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export interface ButtonHost {
@@ -8,16 +23,17 @@ export interface ButtonHost {
   notifyButtonBlur(btn: ButtonComponent): void;
 }
 
-export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>('vcl_button_host');
+export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>(
+  'vcl_button_host'
+);
 
 @Component({
   selector: 'button[vcl-button], a[vcl-button]',
   exportAs: 'vclButton',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'button.component.html'
+  templateUrl: 'button.component.html',
 })
 export class ButtonComponent {
-
   constructor(
     private cdRef: ChangeDetectorRef,
     private elementRef: ElementRef<HTMLButtonElement>,
@@ -25,7 +41,7 @@ export class ButtonComponent {
     @Optional()
     @Inject(BUTTON_HOST_TOKEN)
     private host?: ButtonHost
-  ) { }
+  ) {}
 
   private _focused = false;
 
@@ -38,8 +54,12 @@ export class ButtonComponent {
   private _square: boolean;
   @HostBinding('class.square')
   @Input()
-  get square() { return this._square; }
-  set square(value: any) { this._square = coerceBooleanProperty(value); }
+  get square() {
+    return this._square;
+  }
+  set square(value: any) {
+    this._square = coerceBooleanProperty(value);
+  }
 
   @HostBinding('attr.type')
   get attrType() {
@@ -49,7 +69,7 @@ export class ButtonComponent {
   @HostBinding('class.disabled')
   @HostBinding('attr.disabled')
   get isDisabled(): boolean | null {
-    return (this.disabled || (this.host && this.host.isDisabled)) ? true : null;
+    return this.disabled || (this.host && this.host.isDisabled) ? true : null;
   }
 
   @HostBinding('class.button')

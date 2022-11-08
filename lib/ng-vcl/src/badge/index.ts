@@ -9,4 +9,4 @@ export { BadgeComponent, BadgeRoundedDirective };
   declarations: [BadgeComponent, BadgeRoundedDirective],
   providers: [],
 })
-export class VCLBadgeModule { }
+export class VCLBadgeModule {}

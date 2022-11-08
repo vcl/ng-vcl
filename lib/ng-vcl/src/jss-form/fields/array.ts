@@ -1,16 +1,24 @@
 import { Component, Injector } from '@angular/core';
-import { UntypedFormArray, AbstractControl, UntypedFormGroup } from '@angular/forms';
+import {
+  UntypedFormArray,
+  AbstractControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { Portal } from '@angular/cdk/portal';
 import { VCLFormFieldSchemaArray } from '../schemas';
 import { FormField, FormFieldControl } from './field';
 import { FormFieldObject } from './object';
 
-export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}> {
-
+export class FormFieldArray extends FormFieldControl<
+  VCLFormFieldSchemaArray,
+  {}
+> {
   fields: FormField[] = [];
 
   get initialFields() {
-    return typeof this.schema.initialFields === 'number' ? this.schema.initialFields : 1;
+    return typeof this.schema.initialFields === 'number'
+      ? this.schema.initialFields
+      : 1;
   }
 
   get noFieldsLabel() {
@@ -22,7 +30,7 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
   }
 
   get parentControl() {
-    if (!(this.parent instanceof FormFieldObject))  {
+    if (!(this.parent instanceof FormFieldObject)) {
       throw new Error('jss-form: array must be direct member of an object');
     }
     return this.parent.control as UntypedFormGroup;
@@ -33,7 +41,9 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
   }
 
   createFieldLabel(index: number) {
-    return typeof this.fieldLabel === 'function' ? this.fieldLabel(index) : this.fieldLabel;
+    return typeof this.fieldLabel === 'function'
+      ? this.fieldLabel(index)
+      : this.fieldLabel;
   }
 
   addField() {
@@ -43,18 +53,18 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
 
     const field = FormField.createInstance({
       schema,
-      parent: this
+      parent: this,
     });
 
     this.fields.push(field);
 
-    if ((field instanceof FormFieldControl)) {
+    if (field instanceof FormFieldControl) {
       control.push(field.control);
     }
 
     return {
       index,
-      field
+      field,
     };
   }
 
@@ -74,18 +84,30 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
 @Component({
   selector: 'vcl-jss-form-array',
   template: `
-  <ng-container [formGroup]="field.parentControl">
-    <fieldset class="fieldset mb-form-control" [formArrayName]="field.name">
-      <legend>{{field.label}} <vcl-icon class="vcl-jss-form-add" icon="vcl:add" (click)="addItem()"></vcl-icon></legend>
-      <ng-container *ngIf="items.length === 0">
-        {{field.noFieldsLabel}}
-      </ng-container>
-      <ng-container *ngFor="let item of items; let i = index">
-        <fieldset class="mb-form-control">
-          <legend>{{item.label}} <vcl-icon class="vcl-jss-form-remove" icon="vcl:remove" (click)="removeItem(i)"></vcl-icon></legend>
-          <ng-template [cdkPortalOutlet]="item.portal"></ng-template>
-        </fieldset>
-      </ng-container>
+    <ng-container [formGroup]="field.parentControl">
+      <fieldset class="fieldset mb-form-control" [formArrayName]="field.name">
+        <legend>
+          {{ field.label }}
+          <vcl-icon
+            class="vcl-jss-form-add"
+            icon="vcl:add"
+            (click)="addItem()"></vcl-icon>
+        </legend>
+        <ng-container *ngIf="items.length === 0">
+          {{ field.noFieldsLabel }}
+        </ng-container>
+        <ng-container *ngFor="let item of items; let i = index">
+          <fieldset class="mb-form-control">
+            <legend>
+              {{ item.label }}
+              <vcl-icon
+                class="vcl-jss-form-remove"
+                icon="vcl:remove"
+                (click)="removeItem(i)"></vcl-icon>
+            </legend>
+            <ng-template [cdkPortalOutlet]="item.portal"></ng-template>
+          </fieldset>
+        </ng-container>
       </fieldset>
     </ng-container>
   `,
@@ -102,33 +124,33 @@ export class FormFieldArray extends FormFieldControl<VCLFormFieldSchemaArray, {}
         color: red;
         cursor: pointer;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class FormFieldArrayComponent {
-  constructor(
-    public field: FormFieldArray,
-    private injector: Injector
-  ) {
+  constructor(public field: FormFieldArray, private injector: Injector) {
     for (let i = 0; i < this.field.initialFields; i++) {
       this.addItem();
     }
   }
 
-  items: ({field: FormField, portal: Portal<any>, label: string})[] = [];
+  items: { field: FormField; portal: Portal<any>; label: string }[] = [];
 
   addItem() {
     if (this.field.disabled) {
       return;
     }
 
-    const { index, field }  = this.field.addField();
+    const { index, field } = this.field.addField();
     const portal = field.createPortal(this.injector, []);
-    this.items = [ ...this.items, {
-      portal,
-      field,
-      label: this.field.createFieldLabel(index)
-    }];
+    this.items = [
+      ...this.items,
+      {
+        portal,
+        field,
+        label: this.field.createFieldLabel(index),
+      },
+    ];
   }
 
   removeItem(i: number) {
@@ -138,5 +160,3 @@ export class FormFieldArrayComponent {
     this.items = this.items.filter(_item => _item !== item);
   }
 }
-
-

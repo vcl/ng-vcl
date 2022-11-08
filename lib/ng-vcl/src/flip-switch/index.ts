@@ -9,6 +9,6 @@ import { FlipSwitchComponent } from './flip-switch.component';
   declarations: [FlipSwitchComponent],
   providers: [],
 })
-export class VCLFlipSwitchModule { }
+export class VCLFlipSwitchModule {}
 
 export { FlipSwitchComponent };

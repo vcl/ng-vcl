@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IconResolverService, IconAliasResolverServiceBase } from '../icon/index';
+import {
+  IconResolverService,
+  IconAliasResolverServiceBase,
+} from '../icon/index';
 import { ALIAS_MAP } from './alias-map';
 
 // The font-awesome name resolver following the CSS class name conventions of
@@ -7,11 +10,10 @@ import { ALIAS_MAP } from './alias-map';
 // `fas:user` into `fas fa-user`
 @Injectable()
 export class FontAwesomeIconResolverService extends IconResolverService {
-
   private FA_REGEX = /^(fa[bsrl]):([a-z0-9-_]+)$/;
 
   resolve(icon: string) {
-    const result =  this.FA_REGEX.exec(icon);
+    const result = this.FA_REGEX.exec(icon);
     if (result) {
       const [, prefix, value] = result;
       return `${prefix} fa-${value}`;

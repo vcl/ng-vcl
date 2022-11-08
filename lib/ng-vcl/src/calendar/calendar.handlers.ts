@@ -3,19 +3,21 @@ import { DateAdapterBase } from '../dateadapter/index';
 import { VCLCalendarView, VCLCalendarHandler, VCLCalendar } from './interfaces';
 
 export abstract class DateHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
-  constructor(
-    protected dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(protected dateAdapter: DateAdapterBase<VCLDate>) {
     super();
   }
 
-  readonly abstract mode: string;
+  abstract readonly mode: string;
 
-  init(calendar: VCLCalendar<VCLDate>, ) {
+  init(calendar: VCLCalendar<VCLDate>) {
     calendar.setView('month');
   }
 
-  handleValueChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, date: VCLDate) {
+  handleValueChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    date: VCLDate
+  ) {
     if (source === 'years') {
       calendar.setView('year');
       calendar.setViewDate(date, true);
@@ -29,9 +31,16 @@ export abstract class DateHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
     }
   }
 
-  abstract handleMonthValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate): void;
+  abstract handleMonthValueChange(
+    calendar: VCLCalendar<VCLDate>,
+    date: VCLDate
+  ): void;
 
-  handleViewDateChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
+  handleViewDateChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    viewDate: VCLDate
+  ) {
     calendar.setViewDate(viewDate, true);
   }
 
@@ -48,9 +57,7 @@ export abstract class DateHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
 
 @Injectable()
 export class DateSingleHandler<VCLDate> extends DateHandler<VCLDate> {
-  constructor(
-    dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(dateAdapter: DateAdapterBase<VCLDate>) {
     super(dateAdapter);
   }
 
@@ -64,9 +71,7 @@ export class DateSingleHandler<VCLDate> extends DateHandler<VCLDate> {
 
 @Injectable()
 export class DateMultipleHandler<VCLDate> extends DateHandler<VCLDate> {
-  constructor(
-    dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(dateAdapter: DateAdapterBase<VCLDate>) {
     super(dateAdapter);
   }
 
@@ -76,20 +81,25 @@ export class DateMultipleHandler<VCLDate> extends DateHandler<VCLDate> {
     if (!this.dateAdapter.isDateArray(calendar.value)) {
       calendar.setValue([date], true);
     } else {
-      const idx = calendar.value.findIndex(d => this.dateAdapter.isSameDay(d, date));
+      const idx = calendar.value.findIndex(d =>
+        this.dateAdapter.isSameDay(d, date)
+      );
       if (idx >= 0) {
         const tmpValue = [...calendar.value];
         tmpValue.splice(idx, 1);
         calendar.setValue(tmpValue, true);
       } else {
-        const maxSelectableDates = typeof calendar.maxSelectableDates === 'number' ? calendar.maxSelectableDates : Infinity;
+        const maxSelectableDates =
+          typeof calendar.maxSelectableDates === 'number'
+            ? calendar.maxSelectableDates
+            : Infinity;
         // If less than max selectable items
         if (calendar.value.length < maxSelectableDates) {
           // Add date element as the last element
           calendar.setValue([...calendar.value, date], true);
         } else {
           // Remove element and add date as the last element
-          calendar.setValue([...([...calendar.value].splice(1)), date], true);
+          calendar.setValue([...[...calendar.value].splice(1), date], true);
         }
       }
     }
@@ -99,9 +109,7 @@ export class DateMultipleHandler<VCLDate> extends DateHandler<VCLDate> {
 
 @Injectable()
 export class DateRangeHandler<VCLDate> extends DateHandler<VCLDate> {
-  constructor(
-    dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(dateAdapter: DateAdapterBase<VCLDate>) {
     super(dateAdapter);
   }
 
@@ -113,7 +121,10 @@ export class DateRangeHandler<VCLDate> extends DateHandler<VCLDate> {
 
   handleMonthValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
     if (this.dateAdapter.isPartialRange(calendar.value)) {
-      calendar.setValue(this.dateAdapter.createRange(calendar.value.start, date), true);
+      calendar.setValue(
+        this.dateAdapter.createRange(calendar.value.start, date),
+        true
+      );
     } else {
       calendar.setValue(this.dateAdapter.createRange(date, null), false);
     }
@@ -121,20 +132,24 @@ export class DateRangeHandler<VCLDate> extends DateHandler<VCLDate> {
   }
 }
 
-export abstract class MonthHandler<VCLDate> extends VCLCalendarHandler<VCLDate> {
-  constructor(
-    protected dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+export abstract class MonthHandler<
+  VCLDate
+> extends VCLCalendarHandler<VCLDate> {
+  constructor(protected dateAdapter: DateAdapterBase<VCLDate>) {
     super();
   }
 
-  readonly abstract mode: string;
+  abstract readonly mode: string;
 
-  init(calendar: VCLCalendar<VCLDate>, ) {
+  init(calendar: VCLCalendar<VCLDate>) {
     calendar.setView('year');
   }
 
-  handleValueChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, date: VCLDate) {
+  handleValueChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    date: VCLDate
+  ) {
     if (source === 'years') {
       calendar.setView('year');
       calendar.setViewDate(date, true);
@@ -145,9 +160,16 @@ export abstract class MonthHandler<VCLDate> extends VCLCalendarHandler<VCLDate> 
     }
   }
 
-  abstract handleYearValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate): void;
+  abstract handleYearValueChange(
+    calendar: VCLCalendar<VCLDate>,
+    date: VCLDate
+  ): void;
 
-  handleViewDateChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, viewDate: VCLDate) {
+  handleViewDateChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    viewDate: VCLDate
+  ) {
     calendar.setViewDate(viewDate, true);
   }
 
@@ -162,9 +184,7 @@ export abstract class MonthHandler<VCLDate> extends VCLCalendarHandler<VCLDate> 
 
 @Injectable()
 export class MonthSingleHandler<VCLDate> extends MonthHandler<VCLDate> {
-  constructor(
-    dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(dateAdapter: DateAdapterBase<VCLDate>) {
     super(dateAdapter);
   }
 
@@ -177,9 +197,7 @@ export class MonthSingleHandler<VCLDate> extends MonthHandler<VCLDate> {
 
 @Injectable()
 export class MonthMultipleHandler<VCLDate> extends MonthHandler<VCLDate> {
-  constructor(
-    dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(dateAdapter: DateAdapterBase<VCLDate>) {
     super(dateAdapter);
   }
 
@@ -189,20 +207,25 @@ export class MonthMultipleHandler<VCLDate> extends MonthHandler<VCLDate> {
     if (!this.dateAdapter.isDateArray(calendar.value)) {
       calendar.setValue([date], true);
     } else {
-      const idx = calendar.value.findIndex(d => this.dateAdapter.isSameMonth(d, date));
+      const idx = calendar.value.findIndex(d =>
+        this.dateAdapter.isSameMonth(d, date)
+      );
       if (idx >= 0) {
         const tmpValue = [...calendar.value];
         tmpValue.splice(idx, 1);
         calendar.setValue(tmpValue, true);
       } else {
         // If less than max selectable items
-        const maxSelectableDates = typeof calendar.maxSelectableDates === 'number' ? calendar.maxSelectableDates : Infinity;
+        const maxSelectableDates =
+          typeof calendar.maxSelectableDates === 'number'
+            ? calendar.maxSelectableDates
+            : Infinity;
         if (calendar.value.length < maxSelectableDates) {
           // Add date element as the last element
           calendar.setValue([...calendar.value, date], true);
         } else {
           // Remove element and add date as the last element
-          calendar.setValue([...([...calendar.value].splice(1)), date], true);
+          calendar.setValue([...[...calendar.value].splice(1), date], true);
         }
       }
     }
@@ -211,9 +234,7 @@ export class MonthMultipleHandler<VCLDate> extends MonthHandler<VCLDate> {
 
 @Injectable()
 export class MonthRangeHandler<VCLDate> extends MonthHandler<VCLDate> {
-  constructor(
-    dateAdapter: DateAdapterBase<VCLDate>,
-  ) {
+  constructor(dateAdapter: DateAdapterBase<VCLDate>) {
     super(dateAdapter);
   }
 
@@ -225,7 +246,10 @@ export class MonthRangeHandler<VCLDate> extends MonthHandler<VCLDate> {
 
   handleYearValueChange(calendar: VCLCalendar<VCLDate>, date: VCLDate) {
     if (this.dateAdapter.isPartialRange(calendar.value)) {
-      calendar.setValue(this.dateAdapter.createRange(calendar.value.start, date), true);
+      calendar.setValue(
+        this.dateAdapter.createRange(calendar.value.start, date),
+        true
+      );
     } else {
       calendar.setValue(this.dateAdapter.createRange(date, null), false);
     }

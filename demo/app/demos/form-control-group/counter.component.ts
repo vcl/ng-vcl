@@ -1,6 +1,27 @@
-import { Component, Input, forwardRef, HostBinding, Optional, Self, Inject, NgModule, Injector } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { VCLIcogramModule, VCLButtonModule, FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '@vcl/ng-vcl';
+import {
+  Component,
+  Input,
+  forwardRef,
+  HostBinding,
+  Optional,
+  Self,
+  Inject,
+  NgModule,
+  Injector,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms';
+import {
+  VCLIcogramModule,
+  VCLButtonModule,
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '@vcl/ng-vcl';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -8,24 +29,42 @@ let uniqueID = 0;
 
 @Component({
   selector: 'demo-counter',
-  styles: [`
-    :host {
-      display: flex;
-      align-items: center;
-    }
-    :host > span {
-      font-size: 2em;
-      user-select: none;
-      padding-left: 0.2em;
-      padding-right: 0.2em;
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: flex;
+        align-items: center;
+      }
+      :host > span {
+        font-size: 2em;
+        user-select: none;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+      }
+    `,
+  ],
   template: `
-    <button vcl-button square class="transparent" type="button" (click)="decrement()" (keydown.enter)="decrement(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(false)">
+    <button
+      vcl-button
+      square
+      class="transparent"
+      type="button"
+      (click)="decrement()"
+      (keydown.enter)="decrement(); $event.preventDefault()"
+      (focus)="onFocus()"
+      (focus)="onBlur(false)">
       <vcl-icon icon="fas:minus"></vcl-icon>
     </button>
-    <span>{{value}}</span>
-    <button vcl-button square class="transparent" type="button" (click)="increment()" (keydown.enter)="increment(); $event.preventDefault()" (focus)="onFocus()" (focus)="onBlur(true)">
+    <span>{{ value }}</span>
+    <button
+      vcl-button
+      square
+      class="transparent"
+      type="button"
+      (click)="increment()"
+      (keydown.enter)="increment(); $event.preventDefault()"
+      (focus)="onFocus()"
+      (focus)="onBlur(true)">
       <vcl-icon icon="fas:plus"></vcl-icon>
     </button>
   `,
@@ -37,15 +76,14 @@ let uniqueID = 0;
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => CounterComponent)
-    }
-  ]
+      useExisting: forwardRef(() => CounterComponent),
+    },
+  ],
 })
-export class CounterComponent implements ControlValueAccessor, FormControlGroupInputState {
-
-  constructor(
-    private injector: Injector
-  ) { }
+export class CounterComponent
+  implements ControlValueAccessor, FormControlGroupInputState
+{
+  constructor(private injector: Injector) {}
 
   _hostClasses = true;
 
@@ -61,7 +99,7 @@ export class CounterComponent implements ControlValueAccessor, FormControlGroupI
 
   get ngControl() {
     return this.injector.get(NgControl, null);
-  };
+  }
 
   @Input()
   id?: string;
@@ -141,14 +179,14 @@ export class CounterComponent implements ControlValueAccessor, FormControlGroupI
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        VCLIcogramModule,
-        VCLButtonModule,
-    ],
-    declarations: [CounterComponent],
-    exports: [CounterComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    VCLIcogramModule,
+    VCLButtonModule,
+  ],
+  declarations: [CounterComponent],
+  exports: [CounterComponent],
 })
-export class VCLCounterModule { }
+export class VCLCounterModule {}

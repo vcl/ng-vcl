@@ -3,6 +3,4 @@ import { Component } from '@angular/core';
 @Component({
   templateUrl: 'demo.component.html',
 })
-export class PopoverDemoComponent {
-
-}
+export class PopoverDemoComponent {}

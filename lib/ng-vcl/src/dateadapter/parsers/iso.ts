@@ -1,4 +1,7 @@
-import { DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '../interfaces';
+import {
+  DateAdapterBaseParseFormats,
+  DateAdapterBaseDisplayFormats,
+} from '../interfaces';
 import { DateAdapterParser } from './types';
 import { extractInt, unsupportedFormat, pad, intlFallback } from './utils';
 
@@ -19,13 +22,22 @@ export class DateAdapterParserISO implements DateAdapterParser {
     } else if (format === 'time') {
       const result = extractInt(value, REGEX_TIME);
       const now = new Date();
-      return result ? new Date(now.getFullYear(), now.getMonth(), now.getDate(), result[0], result[1], 0) : undefined;
+      return result
+        ? new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            result[0],
+            result[1],
+            0
+          )
+        : undefined;
     } else {
       unsupportedFormat(format);
     }
   }
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
-    switch(format) {
+    switch (format) {
       case 'date': {
         return date.toISOString().slice(0, 10);
       }
@@ -41,7 +53,7 @@ export class DateAdapterParserISO implements DateAdapterParser {
     }
   }
   pattern(format: DateAdapterBaseParseFormats): string {
-    switch(format) {
+    switch (format) {
       case 'date': {
         return `YYYY-MM-DD`;
       }

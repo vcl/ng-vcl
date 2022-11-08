@@ -1,10 +1,20 @@
-import { Component, HostBinding, Input, HostListener, SkipSelf, Inject, Optional, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  HostListener,
+  SkipSelf,
+  Inject,
+  Optional,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+} from '@angular/core';
 import { NAVIGATION_TOKEN, Navigation } from './types';
 
 @Component({
   selector: 'vcl-navigation-label',
   template: '<ng-content></ng-content>',
-  exportAs: 'vclNavigationLabel'
+  exportAs: 'vclNavigationLabel',
 })
 export class NavigationLabelComponent {
   @HostBinding('class.navigation-item-label')
@@ -15,12 +25,11 @@ export class NavigationLabelComponent {
   selector: 'vcl-navigation-item',
   templateUrl: 'navigation-item.component.html',
   styleUrls: ['navigation-item.component.scss'],
-  encapsulation: ViewEncapsulation.None,  
+  encapsulation: ViewEncapsulation.None,
   exportAs: 'vclNavigationItem',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationItemComponent {
-
   constructor(
     @SkipSelf()
     @Inject(NAVIGATION_TOKEN)
@@ -29,7 +38,7 @@ export class NavigationItemComponent {
     @SkipSelf()
     @Inject(NavigationItemComponent)
     public parentNavItem: NavigationItemComponent
-    ) { }
+  ) {}
 
   @HostBinding('class.navigation-item')
   classVclNavigationItem = true;

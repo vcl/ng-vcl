@@ -1,12 +1,17 @@
-import { Input, HostBinding, Component, ChangeDetectionStrategy, Directive } from '@angular/core';
+import {
+  Input,
+  HostBinding,
+  Component,
+  ChangeDetectionStrategy,
+  Directive,
+} from '@angular/core';
 
 @Component({
   selector: 'vcl-badge',
   template: '<ng-content></ng-content>',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BadgeComponent {
-
   @Input()
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
 
@@ -36,7 +41,7 @@ export class BadgeComponent {
 }
 
 @Directive({
-  selector: 'vcl-badge[vclRounded]'
+  selector: 'vcl-badge[vclRounded]',
 })
 export class BadgeRoundedDirective {
   @HostBinding('class.rounded')

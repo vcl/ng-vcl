@@ -1,4 +1,16 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input, InjectionToken, Inject, HostListener, ViewChild, TemplateRef, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  HostBinding,
+  Input,
+  InjectionToken,
+  Inject,
+  HostListener,
+  ViewChild,
+  TemplateRef,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { HostIconRendererService } from '../icon/index';
 
@@ -23,13 +35,12 @@ export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
   providers: [HostIconRendererService],
 })
 export class RatingItemComponent implements AfterViewInit {
-
   constructor(
     @Inject(RATING_TOKEN)
     private _rating: Rating,
     private elementRef: ElementRef,
     private hostIconRenderer: HostIconRendererService
-  ) { }
+  ) {}
 
   @ViewChild('labelTemplate', { read: TemplateRef })
   labelTemplateRef?: TemplateRef<any>;

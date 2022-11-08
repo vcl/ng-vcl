@@ -1,6 +1,30 @@
-import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter, ViewChild, forwardRef, HostBinding, HostListener, ChangeDetectorRef, Self, Optional, Inject, OnDestroy, Injector, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import {
+  Component,
+  Input,
+  Output,
+  ChangeDetectionStrategy,
+  EventEmitter,
+  ViewChild,
+  forwardRef,
+  HostBinding,
+  HostListener,
+  ChangeDetectorRef,
+  Self,
+  Optional,
+  Inject,
+  OnDestroy,
+  Injector,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -15,20 +39,19 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => FlipSwitchComponent)
-    }, {
+      useExisting: forwardRef(() => FlipSwitchComponent),
+    },
+    {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => FlipSwitchComponent),
       multi: true,
-    }
-  ]
+    },
+  ],
 })
-export class FlipSwitchComponent implements ControlValueAccessor, FormControlGroupInputState, OnDestroy {
-
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-  ) { }
+export class FlipSwitchComponent
+  implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
+{
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   @HostBinding('class.flip-switch')
   _hostClasses = true;
@@ -103,7 +126,7 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlGro
   }
 
   private onTouchedCallback: () => void = () => {};
-  private onChangeCallback: (_: any) => void =  () => {};
+  private onChangeCallback: (_: any) => void = () => {};
 
   @HostListener('click')
   onClick() {
@@ -123,7 +146,6 @@ export class FlipSwitchComponent implements ControlValueAccessor, FormControlGro
     this.onTouchedCallback();
     this.stateChangedEmitter.next();
   }
-
 
   @HostListener('keydown', ['$event'])
   keydown(ev) {

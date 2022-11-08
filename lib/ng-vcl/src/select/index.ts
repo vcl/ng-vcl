@@ -15,9 +15,24 @@ import { SelectComponent } from './select.component';
 export { SelectComponent };
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLSelectListModule, VCLFormControlGroupModule, VCLOffClickModule],
-  exports: [SelectComponent, VCLSelectListModule, VCLFormControlGroupModule, VCLInputModule],
+  imports: [
+    CommonModule,
+    OverlayModule,
+    VCLInputModule,
+    VCLIconModule,
+    VCLIcogramModule,
+    VCLButtonModule,
+    VCLSelectListModule,
+    VCLFormControlGroupModule,
+    VCLOffClickModule,
+  ],
+  exports: [
+    SelectComponent,
+    VCLSelectListModule,
+    VCLFormControlGroupModule,
+    VCLInputModule,
+  ],
   declarations: [SelectComponent],
   providers: [],
 })
-export class VCLSelectModule { }
+export class VCLSelectModule {}

@@ -1,11 +1,18 @@
 import { Injectable, Injector, Inject, ComponentRef } from '@angular/core';
-import { NotifierPosition, NotifierConfig, NOTIFIER_CONFIG_TOKEN } from './types';
+import {
+  NotifierPosition,
+  NotifierConfig,
+  NOTIFIER_CONFIG_TOKEN,
+} from './types';
 import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { NotifierComponent } from './notifier.component';
 import { NotifierOptions } from './types';
 import { take } from 'rxjs/operators';
-import { NotifierOverlayRef, NotifierOverlayRefHandler } from './notifier-overlay-ref';
+import {
+  NotifierOverlayRef,
+  NotifierOverlayRefHandler,
+} from './notifier-overlay-ref';
 
 interface Notification {
   notificationRef: NotifierOverlayRef;
@@ -14,15 +21,15 @@ interface Notification {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotifierHandlerService implements NotifierOverlayRefHandler {
   constructor(
     private _overlay: Overlay,
     private _injector: Injector,
     @Inject(NOTIFIER_CONFIG_TOKEN)
-    private _config: NotifierConfig,
-  ) { }
+    private _config: NotifierConfig
+  ) {}
 
   private _notifications: Notification[] = [];
 
@@ -36,11 +43,12 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
     const componentRef = overlayRef.attach(portal);
 
     if (opts.hasBackdrop && (opts.closeOnBackdrop ?? true)) {
-      overlayRef.backdropClick().pipe(
-        take(1),
-      ).subscribe(() => {
-        overlayRef.detach();
-      });
+      overlayRef
+        .backdropClick()
+        .pipe(take(1))
+        .subscribe(() => {
+          overlayRef.detach();
+        });
     }
 
     this._notifications.push({ notificationRef, overlayRef, componentRef });
@@ -49,18 +57,24 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
   }
 
   close(notificationRef: NotifierOverlayRef): void {
-    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    const notification = this._notifications.find(
+      n => n.notificationRef === notificationRef
+    );
     if (notification) {
       notification.componentRef.instance.onCloseClick();
     }
   }
 
   destroy(notificationRef: NotifierOverlayRef): void {
-    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    const notification = this._notifications.find(
+      n => n.notificationRef === notificationRef
+    );
     if (notification) {
       notification.overlayRef.dispose();
     }
-    this._notifications = this._notifications.filter((n) => n.notificationRef !== notificationRef);
+    this._notifications = this._notifications.filter(
+      n => n.notificationRef !== notificationRef
+    );
   }
 
   isDestroyed(notificationRef: NotifierOverlayRef): boolean {
@@ -73,15 +87,22 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
   }
 
   getNotifications(pos?: NotifierPosition): NotifierOverlayRef[] {
-    return this._notifications.filter((n) => (pos ? n.notificationRef.position === pos : true)).map((n) => n.notificationRef);
+    return this._notifications
+      .filter(n => (pos ? n.notificationRef.position === pos : true))
+      .map(n => n.notificationRef);
   }
 
   getOverlayRef(notificationRef: NotifierOverlayRef) {
-    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    const notification = this._notifications.find(
+      n => n.notificationRef === notificationRef
+    );
     return notification && notification.overlayRef;
   }
 
-  private _createPortal(notificationRef: NotifierOverlayRef, overlayRef: OverlayRef) {
+  private _createPortal(
+    notificationRef: NotifierOverlayRef,
+    overlayRef: OverlayRef
+  ) {
     const tokens = new WeakMap();
     tokens.set(NotifierOverlayRef, notificationRef);
     tokens.set(OverlayRef, overlayRef);
@@ -90,7 +111,9 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
   }
 
   updatePosition(notificationRef: NotifierOverlayRef) {
-    const notification = this._notifications.find((n) => n.notificationRef === notificationRef);
+    const notification = this._notifications.find(
+      n => n.notificationRef === notificationRef
+    );
     if (!notification) {
       return;
     }
@@ -102,10 +125,12 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
       const notifications = this.getNotifications(notificationRef.position);
       const idx = notifications.indexOf(notificationRef);
       const queue = notifications.splice(0, idx);
-  
+
       const nOffset = queue.reduce((height, _notificationRef) => {
         const _overlayRef = this.getOverlayRef(_notificationRef);
-        return height + _overlayRef.overlayElement.getBoundingClientRect().height;
+        return (
+          height + _overlayRef.overlayElement.getBoundingClientRect().height
+        );
       }, 0);
       const offset = (Math.floor(nOffset) || this._config.offset) + 'px';
       switch (notificationRef.position) {
@@ -161,11 +186,17 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
     return this._overlay.position().global().bottom(offset).left('1em');
   }
   private posStrategyBottom(offset: string) {
-    return this._overlay.position().global().bottom(offset).centerHorizontally();
+    return this._overlay
+      .position()
+      .global()
+      .bottom(offset)
+      .centerHorizontally();
   }
   private posStrategyCenter() {
-    return this._overlay.position().global().centerVertically().centerHorizontally();
+    return this._overlay
+      .position()
+      .global()
+      .centerVertically()
+      .centerHorizontally();
   }
-
-
 }

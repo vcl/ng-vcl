@@ -1,14 +1,21 @@
-
-import { Output, Input, EventEmitter, ElementRef, OnInit, AfterViewInit, Directive, HostBinding } from '@angular/core';
+import {
+  Output,
+  Input,
+  EventEmitter,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+  Directive,
+  HostBinding,
+} from '@angular/core';
 import { AlertOptions, AlertInput } from './types';
 
 // TODO: support text, password, textarea, select, radio, checkbox file.
 @Directive({
-  selector: '[vclInputAlert]'
+  selector: '[vclInputAlert]',
 })
 export class AlertInputDirective implements OnInit, AfterViewInit {
-
-  constructor(private elementRef: ElementRef<HTMLInputElement>) { }
+  constructor(private elementRef: ElementRef<HTMLInputElement>) {}
 
   get input() {
     return this.elementRef.nativeElement;
@@ -36,7 +43,8 @@ export class AlertInputDirective implements OnInit, AfterViewInit {
 
   get control(): string | null {
     switch (this.alert.input) {
-      case AlertInput.Text: return 'input';
+      case AlertInput.Text:
+        return 'input';
     }
     return null;
   }
@@ -45,7 +53,6 @@ export class AlertInputDirective implements OnInit, AfterViewInit {
   get placeholder() {
     return this.alert.inputPlaceholder || '';
   }
-
 
   inputValueChange(value: string) {
     this.valueChange.emit(value);

@@ -1,29 +1,36 @@
-<button vcl-button (click)="someAction($event)">Button</button>
-<br><br>
-<button vcl-button (click)="someAction($event)" disabled=true>Disabled button</button>
-<br><br>
-<button vcl-button (click)="someAction($event)" class="emphasized">Emphasized label button</button>
-<br><br>
-<a vcl-button (click)="someAction($event)">Button (a-tag)</a>
-<br><br>
-<button vcl-button square title="Square Button" (click)="someAction($event)">
-  <vcl-icon icon="fas:bolt"></vcl-icon>
-</button>
-<br><br>
-<button vcl-button (click)="someAction($event)" >
-  Appended icon
-  <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
-</button>
-<br><br>
-<button vcl-button (click)="someAction($event)">
-  <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
-  Prepended icon
-</button>
-<br><br>
-<button vcl-button (click)="someAction($event)">
-  <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
-  Prepended and appended icon
-  <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
-</button>
-<br><br>
-<button vcl-button [selectable]="true" (click)="someAction($event.selected)">Selectable button</button>
+<div class="wrapper gutter-2">
+  <button vcl-button (click)="someAction($event)">Button</button>
+  <button vcl-button (click)="someAction($event)" disabled="true">
+    Disabled button
+  </button>
+
+  <button vcl-button (click)="someAction($event)" class="emphasized">
+    Emphasized label button
+  </button>
+
+  <a vcl-button (click)="someAction($event)">Button (a-tag)</a>
+
+  <button vcl-button square title="Square Button" (click)="someAction($event)">
+    <vcl-icon icon="fas:bolt"></vcl-icon>
+  </button>
+
+  <button vcl-button (click)="someAction($event)">
+    Appended icon
+    <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
+  </button>
+
+  <button vcl-button (click)="someAction($event)">
+    <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
+    Prepended icon
+  </button>
+
+  <button vcl-button (click)="someAction($event)">
+    <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
+    Prepended and appended icon
+    <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
+  </button>
+
+  <button vcl-button [selectable]="true" (click)="someAction($event.selected)">
+    Selectable button
+  </button>
+</div>

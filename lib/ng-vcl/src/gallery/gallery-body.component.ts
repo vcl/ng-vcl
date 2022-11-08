@@ -1,13 +1,21 @@
-import {AfterContentChecked, AfterViewInit, Component, ElementRef, Input, Optional, ViewChild, HostListener} from '@angular/core';
-import {GalleryComponent} from './gallery.component';
+import {
+  AfterContentChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  Optional,
+  ViewChild,
+  HostListener,
+} from '@angular/core';
+import { GalleryComponent } from './gallery.component';
 
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
-  host: {'class': 'gallery-body-norow'}
+  host: { class: 'gallery-body-norow' },
 })
 export class GalleryBodyComponent implements AfterContentChecked {
-
   @Input()
   target: GalleryComponent;
 
@@ -24,23 +32,27 @@ export class GalleryBodyComponent implements AfterContentChecked {
   private swipeCoord?: [number, number];
   private swipeTime?: number;
 
-  constructor(@Optional() parent: GalleryComponent, private elementRef: ElementRef, public elem: ElementRef) {
+  constructor(
+    @Optional() parent: GalleryComponent,
+    private elementRef: ElementRef,
+    public elem: ElementRef
+  ) {
     if (this.target == null) {
       this.target = parent;
     }
   }
 
   @HostListener('swipeleft')
-  onSwipeLeft( ) {
+  onSwipeLeft() {
     this.selectNext();
   }
 
   @HostListener('swiperight')
-  onSwipeRight( ) {
+  onSwipeRight() {
     this.selectPrevious();
   }
 
-  @HostListener('window:resize') function(){
+  @HostListener('window:resize') function() {
     this.imageLoaded();
     this.ngAfterContentChecked();
   }
@@ -64,15 +76,17 @@ export class GalleryBodyComponent implements AfterContentChecked {
   private reload(): void {
     let leftPos = 0;
     this.imgS.forEach((image, i) => {
-      image.style.left = Math.round(leftPos) + 
-      ((this.imageContainer.nativeElement.clientWidth - image.clientWidth)/2) + 
-      'px';
+      image.style.left =
+        Math.round(leftPos) +
+        (this.imageContainer.nativeElement.clientWidth - image.clientWidth) /
+          2 +
+        'px';
       leftPos += this.imageContainer.nativeElement.clientWidth;
     });
     if (this.galleryContent.nativeElement.offsetHeight === 0) {
       this.reloadUnwrapped();
-    } else (
-      this.containerHeight = this.galleryContent.nativeElement.offsetHeight)
+    } else
+      this.containerHeight = this.galleryContent.nativeElement.offsetHeight;
   }
 
   private reloadUnwrapped(): void {
@@ -83,9 +97,11 @@ export class GalleryBodyComponent implements AfterContentChecked {
         maxHeight = image.clientHeight;
       }
 
-      image.style.left = Math.round(leftPos) + 
-      ((this.imageContainer.nativeElement.clientWidth - image.clientWidth)/2) + 
-      'px';
+      image.style.left =
+        Math.round(leftPos) +
+        (this.imageContainer.nativeElement.clientWidth - image.clientWidth) /
+          2 +
+        'px';
       leftPos += this.imageContainer.nativeElement.clientWidth;
     });
 
@@ -97,11 +113,10 @@ export class GalleryBodyComponent implements AfterContentChecked {
       return 0;
     }
 
-    let result = 0
+    let result = 0;
     for (let i = 0; i < this.target.selectedImage; i++) {
       result -= this.imageContainer.nativeElement.clientWidth;
     }
-
 
     return result;
   }
@@ -110,7 +125,10 @@ export class GalleryBodyComponent implements AfterContentChecked {
     return {
       height: this.containerHeight + 'px',
       transform: 'translateX(' + this.translatePosition + 'px)',
-      transition: this.loadedCount === (this.target.images && this.target.images.length) ? 'transform 0.5s' : ''
+      transition:
+        this.loadedCount === (this.target.images && this.target.images.length)
+          ? 'transform 0.5s'
+          : '',
     };
   }
 
@@ -123,20 +141,29 @@ export class GalleryBodyComponent implements AfterContentChecked {
   }
 
   swipe(e: TouchEvent, when: string): void {
-    const coord: [number, number] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
+    const coord: [number, number] = [
+      e.changedTouches[0].clientX,
+      e.changedTouches[0].clientY,
+    ];
     const time = new Date().getTime();
 
     if (when === 'start') {
       this.swipeCoord = coord;
       this.swipeTime = time;
     } else if (when === 'end') {
-      const direction = [coord[0] - this.swipeCoord[0], coord[1] - this.swipeCoord[1]];
+      const direction = [
+        coord[0] - this.swipeCoord[0],
+        coord[1] - this.swipeCoord[1],
+      ];
       const duration = time - this.swipeTime;
 
-      if (duration < 1000
-        && Math.abs(direction[0]) > 30
-        && Math.abs(direction[0]) > Math.abs(direction[1] * 3)) {
-          const swipe = direction[0] < 0 ? this.selectNext() : this.selectPrevious();
+      if (
+        duration < 1000 &&
+        Math.abs(direction[0]) > 30 &&
+        Math.abs(direction[0]) > Math.abs(direction[1] * 3)
+      ) {
+        const swipe =
+          direction[0] < 0 ? this.selectNext() : this.selectPrevious();
       }
     }
   }

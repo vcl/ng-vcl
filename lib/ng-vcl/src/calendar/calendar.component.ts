@@ -1,22 +1,43 @@
-import { Component, Input, EventEmitter, Output, HostBinding, Inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  HostBinding,
+  Inject,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { VCLDateRange } from '../dateadapter/index';
-import { VCLCalendarView, VCLCalendarDateModifier, VCLCalendarHandler, VCLCalendar } from './interfaces';
+import {
+  VCLCalendarView,
+  VCLCalendarDateModifier,
+  VCLCalendarHandler,
+  VCLCalendar,
+} from './interfaces';
 
-export type VCLCalendarSelectionMode = 'date' | 'multiple' | 'range' | 'month' | 'month-multiple' | 'month-range';
+export type VCLCalendarSelectionMode =
+  | 'date'
+  | 'multiple'
+  | 'range'
+  | 'month'
+  | 'month-multiple'
+  | 'month-range';
 
 @Component({
   selector: 'vcl-calendar',
   templateUrl: 'calendar.component.html',
-  exportAs: 'vclCalendar'
+  exportAs: 'vclCalendar',
 })
-export class CalendarComponent<VCLDate> implements OnInit, ControlValueAccessor, VCLCalendar<VCLDate> {
-
+export class CalendarComponent<VCLDate>
+  implements OnInit, ControlValueAccessor, VCLCalendar<VCLDate>
+{
   constructor(
     @Inject(VCLCalendarHandler)
     private handlers: VCLCalendarHandler<VCLDate>[],
     private cdRef: ChangeDetectorRef
-  ) { }
+  ) {}
 
   @HostBinding('class.data-grid')
   @HostBinding('class.d-g-v-align-middle')
@@ -70,7 +91,9 @@ export class CalendarComponent<VCLDate> implements OnInit, ControlValueAccessor,
   }
 
   ngOnInit(): void {
-    this.handler = this.handlers.find(handler => handler.mode === this.selectionMode);
+    this.handler = this.handlers.find(
+      handler => handler.mode === this.selectionMode
+    );
     if (!this.handler) {
       throw new Error('No CalendarHandler found for ' + this.selectionMode);
     }
@@ -82,7 +105,10 @@ export class CalendarComponent<VCLDate> implements OnInit, ControlValueAccessor,
     this.handler.handleLabelClick(this, source);
   }
 
-  setValue(value: VCLDate | VCLDate[] | VCLDateRange<VCLDate>, propagate: boolean): void {
+  setValue(
+    value: VCLDate | VCLDate[] | VCLDateRange<VCLDate>,
+    propagate: boolean
+  ): void {
     this.value = value;
     if (propagate) {
       this.valueChange.emit(this.value);
@@ -102,7 +128,7 @@ export class CalendarComponent<VCLDate> implements OnInit, ControlValueAccessor,
 
   // cva implementation
 
-  onChange: (value) => void = (_) => null;
+  onChange: (value) => void = _ => null;
   onTouched: () => void = () => null;
 
   writeValue(value: any): void {

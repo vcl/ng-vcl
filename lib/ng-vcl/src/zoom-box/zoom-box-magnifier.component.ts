@@ -1,12 +1,11 @@
-import {Component, ElementRef, Optional, Renderer2} from '@angular/core';
-import {ZoomBoxContainerComponent} from './zoom-box-container.component';
+import { Component, ElementRef, Optional, Renderer2 } from '@angular/core';
+import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({
   selector: 'vcl-zoom-box-magnifier',
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
 })
 export class ZoomBoxMagnifierComponent {
-
   parent: ZoomBoxContainerComponent;
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
@@ -19,12 +18,11 @@ export class ZoomBoxMagnifierComponent {
       left: this.parent.x + 'px',
       width: this.parent.width + 'px',
       height: this.parent.height + 'px',
-      display: (!this.parent.hiding && !this.parent.invisible) ? 'block' : 'none',
-      'pointer-events': 'none'
+      display: !this.parent.hiding && !this.parent.invisible ? 'block' : 'none',
+      'pointer-events': 'none',
     };
     Object.keys(styles).forEach(style => {
       this.renderer.setStyle(this.element.nativeElement, style, styles[style]);
     });
   }
-
 }

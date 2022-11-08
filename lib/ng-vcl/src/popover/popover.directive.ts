@@ -1,5 +1,20 @@
-import { TemplateRef, OnDestroy, EventEmitter, Output, Input, Injector, ElementRef, ViewContainerRef, Inject, Directive } from '@angular/core';
-import { Overlay, ConnectedPosition, ScrollStrategy } from '@angular/cdk/overlay';
+import {
+  TemplateRef,
+  OnDestroy,
+  EventEmitter,
+  Output,
+  Input,
+  Injector,
+  ElementRef,
+  ViewContainerRef,
+  Inject,
+  Directive,
+} from '@angular/core';
+import {
+  Overlay,
+  ConnectedPosition,
+  ScrollStrategy,
+} from '@angular/cdk/overlay';
 import { LayerConfig, TemplateLayerRef } from '../layer/index';
 import { createOffClickStream } from '../off-click/index';
 import { Subscription } from 'rxjs';
@@ -7,7 +22,7 @@ import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[vclPopover]',
-  exportAs: 'vclPopover'
+  exportAs: 'vclPopover',
 })
 export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
   constructor(
@@ -65,23 +80,33 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
       throw new Error('Popover has no target');
     }
 
-    return super.createLayerConfig({
-      hasBackdrop: false,
-      scrollStrategy: this.scrollStrategy || this.overlay.scrollStrategies.reposition({
-        autoClose: false,
-      }),
-      closeOnBackdropClick: false,
-      closeOnEscape: this.closeOnEscape || false,
-      panelClass: this.panelClass,
-      positionStrategy: this.overlay.position()
-      .flexibleConnectedTo(this.target)
-      .withPositions(this.positions || [{
-        originX: 'start',
-        originY: 'bottom',
-        overlayX: 'start',
-        overlayY: 'top',
-      }])
-    }, ...configs)
+    return super.createLayerConfig(
+      {
+        hasBackdrop: false,
+        scrollStrategy:
+          this.scrollStrategy ||
+          this.overlay.scrollStrategies.reposition({
+            autoClose: false,
+          }),
+        closeOnBackdropClick: false,
+        closeOnEscape: this.closeOnEscape || false,
+        panelClass: this.panelClass,
+        positionStrategy: this.overlay
+          .position()
+          .flexibleConnectedTo(this.target)
+          .withPositions(
+            this.positions || [
+              {
+                originX: 'start',
+                originY: 'bottom',
+                overlayX: 'start',
+                overlayY: 'top',
+              },
+            ]
+          ),
+      },
+      ...configs
+    );
   }
 
   open(config?: LayerConfig) {
@@ -93,16 +118,19 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
 
     return super.open({
       ...inputConfig,
-      ...(config || {})
+      ...(config || {}),
     });
   }
 
   protected afterAttached(): void {
     this.visibleChange.emit(this.visible);
     if (this.closeOnOffClick) {
-      this._popoverAttachedSub = createOffClickStream([this.overlayRef.overlayElement], {
-        document: this.document
-      }).subscribe(() => {
+      this._popoverAttachedSub = createOffClickStream(
+        [this.overlayRef.overlayElement],
+        {
+          document: this.document,
+        }
+      ).subscribe(() => {
         this.close();
       });
     }

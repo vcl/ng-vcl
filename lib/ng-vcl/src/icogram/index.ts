@@ -11,4 +11,4 @@ export { IcogramComponent, IcogramLinkComponent };
   declarations: [IcogramComponent, IcogramLinkComponent],
   providers: [],
 })
-export class VCLIcogramModule { }
+export class VCLIcogramModule {}
