@@ -14,33 +14,35 @@ export function demo() {
       Demo: RadioButtonDemoComponent,
       'README.md': {
         type: 'md',
-        content: README
+        content: README,
       },
       'demo.component.html': {
         type: 'html',
-        content: require('!raw-loader!./demo.component.html')
+        content: require('!raw-loader!./demo.component.html'),
       },
       'demo.component.ts': {
         type: 'ts',
-        content: require('!raw-loader!./demo.component.ts')
-      }
-    }
+        content: require('!raw-loader!./demo.component.ts'),
+      },
+    },
   };
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        DemoModule,
-        VCLRadioButtonModule,
-        VCLIcogramModule,
-        RouterModule.forChild([{
-                path: '',
-                component: DemoComponent,
-                data: { demo }
-            }]),
-    ],
-    declarations: [RadioButtonDemoComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    DemoModule,
+    VCLRadioButtonModule,
+    VCLIcogramModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoComponent,
+        data: { demo },
+      },
+    ]),
+  ],
+  declarations: [RadioButtonDemoComponent],
 })
-export class RadioButtonDemoModule { }
+export class RadioButtonDemoModule {}

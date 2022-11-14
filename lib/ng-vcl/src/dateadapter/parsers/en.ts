@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '../interfaces';
+import {
+  DateAdapterBaseParseFormats,
+  DateAdapterBaseDisplayFormats,
+} from '../interfaces';
 import { DateAdapterParser } from './types';
 import { extractInt, unsupportedFormat, pad, intlFallback } from './utils';
 
-const REGEX_DATE = /^\s*(1[012]|0?[1-9])\/(3[01]|[12][0-9]|0?[1-9])\/(\d{4})\s*$/;
+const REGEX_DATE =
+  /^\s*(1[012]|0?[1-9])\/(3[01]|[12][0-9]|0?[1-9])\/(\d{4})\s*$/;
 const REGEX_MONTH = /^\s*(1[012]|0?[1-9])\/(\d{4})\s*$/;
 
 function parseENTime(time: string) {
@@ -20,14 +24,14 @@ function parseENTime(time: string) {
 }
 
 function formatENTime(date: Date) {
-  const hours = pad((date.getHours() % 12) || 12, 2);
+  const hours = pad(date.getHours() % 12 || 12, 2);
   const minutes = pad(date.getMinutes(), 2);
   const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
   return `${hours}:${minutes} ${ampm}`;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DateAdapterParserEN implements DateAdapterParser {
   supportedLocales = ['en', 'en-us'];
@@ -46,14 +50,17 @@ export class DateAdapterParserEN implements DateAdapterParser {
     }
   }
   format(date: Date, format: DateAdapterBaseDisplayFormats): string {
-    switch(format) {
+    switch (format) {
       case 'date': {
-        return `${pad(date.getMonth() + 1, 2)}/${pad(date.getDate(), 2)}/${pad(date.getFullYear(), 4)}`;
+        return `${pad(date.getMonth() + 1, 2)}/${pad(date.getDate(), 2)}/${pad(
+          date.getFullYear(),
+          4
+        )}`;
       }
       case 'month': {
-        return `${date.toLocaleString(
-          this.supportedLocales[0], { month: 'long' }
-        )}`;
+        return `${date.toLocaleString(this.supportedLocales[0], {
+          month: 'long',
+        })}`;
       }
       case 'time': {
         return formatENTime(date);
@@ -64,7 +71,7 @@ export class DateAdapterParserEN implements DateAdapterParser {
     }
   }
   pattern(format: DateAdapterBaseParseFormats): string {
-    switch(format) {
+    switch (format) {
       case 'date': {
         return `MM/DD/YYYY`;
       }

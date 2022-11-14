@@ -1,4 +1,14 @@
-import { Component, Input, HostBinding, Optional, Inject, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  HostBinding,
+  Optional,
+  Inject,
+  ElementRef,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
 
 @Component({
@@ -9,16 +19,14 @@ import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
   encapsulation: ViewEncapsulation.None,
 })
 export class FormControlHintComponent {
-
   constructor(
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
     @Optional()
-    private fcgs?: FormControlGroupState,
-  ) {
-  }
-  
+    private fcgs?: FormControlGroupState
+  ) {}
+
   ngOnInit() {
     this.fcgs?.stateChanged.subscribe(() => {
       this.cdRef.detectChanges();
@@ -31,12 +39,16 @@ export class FormControlHintComponent {
 
   @HostBinding('class.warning')
   get classVCLWarning() {
-    return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-warning';
+    return (
+      this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-warning'
+    );
   }
 
   @HostBinding('class.success')
   get classVCLSuccess() {
-    return this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-success';
+    return (
+      this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-success'
+    );
   }
 }
 
@@ -46,13 +58,12 @@ export class FormControlHintComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormControlHintErrorComponent {
-
   constructor(
     private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
     @Optional()
-    private fcgs?: FormControlGroupState,
-  ) { }
+    private fcgs?: FormControlGroupState
+  ) {}
 
   ngOnInit() {
     this.fcgs?.stateChanged.subscribe(() => {

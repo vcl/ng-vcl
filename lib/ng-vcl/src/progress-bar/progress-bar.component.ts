@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  HostBinding,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   selector: 'vcl-progress-bar',
@@ -6,10 +12,9 @@ import { ChangeDetectionStrategy, Component, Input, HostBinding, ViewEncapsulati
   exportAs: 'vclProgressBar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['progress-bar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProgressBarComponent {
-
   @HostBinding('attr.role')
   _hostAttrRole = 'progressbar';
 
@@ -55,12 +60,16 @@ export class ProgressBarComponent {
   }
 
   get transformValue(): string {
-    const value = this.validateValue(this.value) ? this.scaleValue(this.value) : 0;
+    const value = this.validateValue(this.value)
+      ? this.scaleValue(this.value)
+      : 0;
     return `scaleX(${value})`;
   }
 
   get transformSecondaryValue(): string {
-    const value = this.validateValue(this.secondaryValue) ? this.scaleValue(this.secondaryValue) : 0;
+    const value = this.validateValue(this.secondaryValue)
+      ? this.scaleValue(this.secondaryValue)
+      : 0;
     return `scaleX(${value})`;
   }
 
@@ -78,9 +87,9 @@ export class ProgressBarComponent {
   }
 
   validateValue(value: number): boolean {
-    return this.isNumber(value) &&
-           value >= this.minValue &&
-           value <= this.maxValue;
+    return (
+      this.isNumber(value) && value >= this.minValue && value <= this.maxValue
+    );
   }
 
   isNumber(value: number): boolean {

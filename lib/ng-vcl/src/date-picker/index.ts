@@ -12,13 +12,28 @@ import { VCLOffClickModule } from '../off-click';
 export { DatepickerComponent, DatepickerPick, DatepickerTimeHandler };
 
 @NgModule({
-  imports: [CommonModule, VCLCalendarModule, VCLButtonModule, VCLIconModule, VCLInputModule, VCLFormControlGroupModule, VCLOffClickModule],
-  exports: [DatepickerComponent, VCLCalendarModule, VCLInputModule, VCLFormControlGroupModule],
+  imports: [
+    CommonModule,
+    VCLCalendarModule,
+    VCLButtonModule,
+    VCLIconModule,
+    VCLInputModule,
+    VCLFormControlGroupModule,
+    VCLOffClickModule,
+  ],
+  exports: [
+    DatepickerComponent,
+    VCLCalendarModule,
+    VCLInputModule,
+    VCLFormControlGroupModule,
+  ],
   declarations: [DatepickerComponent],
-  providers: [{
-    provide: VCLCalendarHandler,
-    useClass: DatepickerTimeHandler,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: VCLCalendarHandler,
+      useClass: DatepickerTimeHandler,
+      multi: true,
+    },
+  ],
 })
-export class VCLDatePickerModule { }
+export class VCLDatePickerModule {}

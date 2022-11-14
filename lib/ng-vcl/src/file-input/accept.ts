@@ -1,8 +1,8 @@
 export function accept(file: File, acceptedFiles: string | string[]) {
   if (file && acceptedFiles) {
-    const acceptedFilesArray = (Array.isArray(acceptedFiles) ?
-                                    acceptedFiles :
-                                    acceptedFiles.split(','));
+    const acceptedFilesArray = Array.isArray(acceptedFiles)
+      ? acceptedFiles
+      : acceptedFiles.split(',');
 
     const fileName = file.name || '';
     const mimeType = file.type || '';

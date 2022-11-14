@@ -1,6 +1,20 @@
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren,
-         ElementRef, EventEmitter, OnDestroy, Optional, Output, QueryList, HostBinding, forwardRef, ViewEncapsulation } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  Optional,
+  Output,
+  QueryList,
+  HostBinding,
+  forwardRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { DrawerComponent } from './drawer.component';
@@ -16,12 +30,13 @@ import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
   providers: [
     {
       provide: DRAWER_CONTAINER_HOST,
-      useExisting: forwardRef(() => DrawerContainerComponent)
-    }
-  ]
+      useExisting: forwardRef(() => DrawerContainerComponent),
+    },
+  ],
 })
-export class DrawerContainerComponent implements AfterContentInit, OnDestroy, DrawerContainer {
-
+export class DrawerContainerComponent
+  implements AfterContentInit, OnDestroy, DrawerContainer
+{
   @HostBinding('class.drawer-container')
   _hostClasses = true;
 
@@ -43,14 +58,20 @@ export class DrawerContainerComponent implements AfterContentInit, OnDestroy, Dr
 
   // Backdrop enabled for push and over
   get hasBackdrop() {
-    return !this.leftDrawer || this.leftDrawer.mode !== 'side' || !this.rightDrawer || this.rightDrawer.mode !== 'side';
+    return (
+      !this.leftDrawer ||
+      this.leftDrawer.mode !== 'side' ||
+      !this.rightDrawer ||
+      this.rightDrawer.mode !== 'side'
+    );
   }
 
   constructor(
     @Optional()
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
-    viewportRuler: ViewportRuler) {
+    viewportRuler: ViewportRuler
+  ) {
     // Recalc margin on viewport change
     this.viewportRulerSub = viewportRuler.change().subscribe(() => {
       this.updateContentMargins();
@@ -120,7 +141,13 @@ export class DrawerContainerComponent implements AfterContentInit, OnDestroy, Dr
   }
 
   get showBackdrop(): boolean {
-    return  (!!this.leftDrawer && this.leftDrawer.opened && this.leftDrawer.hasBackdrop) ||
-            (!!this.rightDrawer && this.rightDrawer.opened && this.rightDrawer.hasBackdrop);
+    return (
+      (!!this.leftDrawer &&
+        this.leftDrawer.opened &&
+        this.leftDrawer.hasBackdrop) ||
+      (!!this.rightDrawer &&
+        this.rightDrawer.opened &&
+        this.rightDrawer.hasBackdrop)
+    );
   }
 }

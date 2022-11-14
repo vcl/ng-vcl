@@ -7,7 +7,9 @@ import { FormFieldButton } from './button';
 export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
   constructor(schema: VCLFormFieldSchemaButtons, parent?: FormField) {
     super(schema, parent);
-    this._buttons = (this.schema.buttons || []).map((btn) => new FormFieldButton(btn, this));
+    this._buttons = (this.schema.buttons || []).map(
+      btn => new FormFieldButton(btn, this)
+    );
   }
   private _buttons: FormFieldButton[];
 
@@ -24,25 +26,35 @@ export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
   //   <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
   // </div>
   // `
-  selector: 'vcl-jss-form-buttons',  
+  selector: 'vcl-jss-form-buttons',
   template: `
-  <div class="loose-button-group">
-    <ng-container *ngFor="let buttonField of field.buttons">
-      <button vcl-button [ngClass]="buttonField.class" [disabled]="buttonField.disabled" [type]="buttonField.type" (click)="onAction(buttonField)">
-        <vcl-icogram>
-          <vcl-icon *ngIf="buttonField.prepIcon" vclPrepend [icon]="">buttonField.prepIcon</vcl-icon>
-          {{buttonField.label}}
-          <vcl-icon *ngIf="buttonField.appIcon" vclAppend [icon]="buttonField.appIcon"></vcl-icon>
-        </vcl-icogram>
-      </button>
-    </ng-container>
-  </div>
-  `
+    <div class="loose-button-group">
+      <ng-container *ngFor="let buttonField of field.buttons">
+        <button
+          vcl-button
+          [ngClass]="buttonField.class"
+          [disabled]="buttonField.disabled"
+          [type]="buttonField.type"
+          (click)="onAction(buttonField)">
+          <vcl-icogram>
+            <vcl-icon *ngIf="buttonField.prepIcon" vclPrepend [icon]=""
+              >buttonField.prepIcon</vcl-icon
+            >
+            {{ buttonField.label }}
+            <vcl-icon
+              *ngIf="buttonField.appIcon"
+              vclAppend
+              [icon]="buttonField.appIcon"></vcl-icon>
+          </vcl-icogram>
+        </button>
+      </ng-container>
+    </div>
+  `,
 })
 export class FormFieldButtonsComponent {
   constructor(
     public field: FormFieldButtons,
-    @Inject(JSS_FORM_TOKEN) private jssForm: JssForm,
+    @Inject(JSS_FORM_TOKEN) private jssForm: JssForm
   ) {
     // this.portals = this.field.buttons.map(_field => _field.createPortal(injector, []));
   }

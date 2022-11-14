@@ -18,13 +18,24 @@ import {
   AfterViewInit,
   AfterContentInit,
   HostListener,
-  Injector
+  Injector,
 } from '@angular/core';
-import {ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR} from '@angular/forms';
-import { RatingItemComponent, Rating, RATING_TOKEN } from './rating-item.component';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import {
+  RatingItemComponent,
+  Rating,
+  RATING_TOKEN,
+} from './rating-item.component';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 import { Subject } from 'rxjs';
-import { map,  debounceTime } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 
 let UNIQUE_ID = 0;
 
@@ -41,27 +52,32 @@ let UNIQUE_ID = 0;
     },
     {
       provide: RATING_TOKEN,
-      useExisting: forwardRef(() => RatingComponent)
+      useExisting: forwardRef(() => RatingComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => RatingComponent)
-    }
+      useExisting: forwardRef(() => RatingComponent),
+    },
   ],
   styles: [
     `
       :host.rating-vertical {
         flex-direction: column;
       }
-    `
-  ]
+    `,
+  ],
 })
-export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChanges, AfterContentInit, AfterViewInit, Rating, FormControlGroupInputState {
-
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-  ) { }
+export class RatingComponent
+  implements
+    ControlValueAccessor,
+    OnDestroy,
+    OnChanges,
+    AfterContentInit,
+    AfterViewInit,
+    Rating,
+    FormControlGroupInputState
+{
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   private cvaDisabled = false;
   private generatedId = 'vcl_rating_' + UNIQUE_ID++;
@@ -74,15 +90,15 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
     debounceTime(10), // TODO: use scheduler to avoid change detection probs
     map(() => {
       return this.label;
-    }
-  ));
+    })
+  );
 
   labelTemplateChange = this.labelChangeEmitter.pipe(
     map(() => {
       const item = this.currentHoveredItem || this.currentItem;
       return item && item.labelTemplateRef;
-    }
-  ));
+    })
+  );
 
   get label() {
     const item = this.currentHoveredItem || this.currentItem;
@@ -131,14 +147,19 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   ratingItemContentChildren: QueryList<RatingItemComponent>;
 
   get hasContent() {
-    return this.ratingItemContentChildren && this.ratingItemContentChildren.length > 0;
+    return (
+      this.ratingItemContentChildren &&
+      this.ratingItemContentChildren.length > 0
+    );
   }
 
   get ratingItems() {
     if (this.hasContent) {
       return this.ratingItemContentChildren.toArray();
     } else {
-      return this.ratingItemViewChildren ? this.ratingItemViewChildren.toArray() : [];
+      return this.ratingItemViewChildren
+        ? this.ratingItemViewChildren.toArray()
+        : [];
     }
   }
 
@@ -190,7 +211,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   }
 
   get currentHoveredItem() {
-    if (this._hoveredValue  === undefined) {
+    if (this._hoveredValue === undefined) {
       return undefined;
     }
     const idx = Math.floor(this._hoveredValue) - 1;
@@ -232,7 +253,7 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   }
 
   isHalf(item: number, value: number): boolean {
-    return (Math.round(value * 2) / 2) === item - 0.5;
+    return Math.round(value * 2) / 2 === item - 0.5;
   }
 
   round(x: number): number {
@@ -242,8 +263,9 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   sync() {
     this.ratingItems.forEach((ri, idx) => {
       const current = idx + 1;
-      const value = this._hoveredValue === undefined ? this.value : this._hoveredValue;
-      const isHalf = (Math.round(value * 2) / 2) === current - 0.5;
+      const value =
+        this._hoveredValue === undefined ? this.value : this._hoveredValue;
+      const isHalf = Math.round(value * 2) / 2 === current - 0.5;
 
       if (this.round(value) >= current && !isHalf) {
         ri.setState('full');
@@ -290,7 +312,11 @@ export class RatingComponent implements ControlValueAccessor, OnDestroy, OnChang
   }
 
   get ratingItemsArray() {
-    return this.ratingItemCount === undefined ? undefined : Array(this.ratingItemCount).fill(0).map((x, i) => i + 1);
+    return this.ratingItemCount === undefined
+      ? undefined
+      : Array(this.ratingItemCount)
+          .fill(0)
+          .map((x, i) => i + 1);
   }
 
   /**

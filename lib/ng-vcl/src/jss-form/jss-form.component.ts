@@ -1,9 +1,35 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterContentInit, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy, SimpleChanges, OnInit, OnChanges, ViewEncapsulation, Inject, Optional} from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  ViewChild,
+  AfterContentInit,
+  Injector,
+  ChangeDetectorRef,
+  AfterViewInit,
+  OnDestroy,
+  SimpleChanges,
+  OnInit,
+  OnChanges,
+  ViewEncapsulation,
+  Inject,
+  Optional,
+} from '@angular/core';
 import { Portal } from '@angular/cdk/portal';
 import { FormFieldObject } from './fields/index';
-import { JSS_FORM_TOKEN, JssForm, HelpConfig, JSS_FORM_HELP_CONFIG_TOKEN } from './types';
+import {
+  JSS_FORM_TOKEN,
+  JssForm,
+  HelpConfig,
+  JSS_FORM_HELP_CONFIG_TOKEN,
+} from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
-import { FormDirective, FORM_CONTROL_GROUP_FORM } from '../form-control-group/index';
+import {
+  FormDirective,
+  FORM_CONTROL_GROUP_FORM,
+} from '../form-control-group/index';
 
 @Component({
   selector: 'vcl-jss-form',
@@ -11,17 +37,24 @@ import { FormDirective, FORM_CONTROL_GROUP_FORM } from '../form-control-group/in
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['jss-form.component.scss'],
-  exportAs: 'vclJssForm'
+  exportAs: 'vclJssForm',
 })
-export class JssFormComponent implements JssForm, AfterContentInit, AfterViewInit, OnDestroy, OnInit, OnChanges {
-
+export class JssFormComponent
+  implements
+    JssForm,
+    AfterContentInit,
+    AfterViewInit,
+    OnDestroy,
+    OnInit,
+    OnChanges
+{
   constructor(
     private cdRef: ChangeDetectorRef,
     private injector: Injector,
     @Optional()
     @Inject(JSS_FORM_HELP_CONFIG_TOKEN)
     private helpConfig: HelpConfig
-  ) { }
+  ) {}
 
   @Input()
   schema?: VCLFormFieldSchemaRoot;
@@ -76,20 +109,24 @@ export class JssFormComponent implements JssForm, AfterContentInit, AfterViewIni
 
     if (schema) {
       // Treat root as a FormFieldObject
-      this.field = new FormFieldObject({
-        ...schema,
-        name: 'root',
-        type: 'object',
-        visible: true
-      }, undefined, this.initialValues);
+      this.field = new FormFieldObject(
+        {
+          ...schema,
+          name: 'root',
+          type: 'object',
+          visible: true,
+        },
+        undefined,
+        this.initialValues
+      );
       this.portal = this.field.createPortal(this.injector, [
         {
           provide: JSS_FORM_TOKEN,
-          useExisting: JssFormComponent
+          useExisting: JssFormComponent,
         },
         {
           provide: FORM_CONTROL_GROUP_FORM,
-          useValue: this.form
+          useValue: this.form,
         },
       ]);
     }

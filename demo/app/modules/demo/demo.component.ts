@@ -5,12 +5,11 @@ import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   templateUrl: 'demo.component.html',
-  styleUrls: [`demo.component.scss`] 
+  styleUrls: [`demo.component.scss`],
 })
 export class DemoComponent implements OnInit {
-
   title: string;
-  tabs: {name: string, type: string, content: any }[] = [];
+  tabs: { name: string; type: string; content: any }[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,7 +26,11 @@ export class DemoComponent implements OnInit {
           let content;
           if (typeof data.tabs[key] === 'object' && data.tabs[key]) {
             type = data.tabs[key].type;
-            if (typeof data.tabs[key].content === 'object' && data.tabs[key].content && data.tabs[key].content.default) {
+            if (
+              typeof data.tabs[key].content === 'object' &&
+              data.tabs[key].content &&
+              data.tabs[key].content.default
+            ) {
               content = data.tabs[key].content.default;
             } else {
               content = data.tabs[key].content;
@@ -43,13 +46,13 @@ export class DemoComponent implements OnInit {
               {
                 name: key,
                 content,
-                type
-              }
-            ]
+                type,
+              },
+            ];
           } else {
             return aggr;
           }
-      }, []);
+        }, []);
       } else {
         this.tabs = [];
       }

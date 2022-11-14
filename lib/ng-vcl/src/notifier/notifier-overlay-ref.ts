@@ -10,7 +10,6 @@ export interface NotifierOverlayRefHandler {
 }
 
 export class NotifierOverlayRef {
-
   constructor(
     private _handler: NotifierOverlayRefHandler,
     opts: NotifierOptions
@@ -24,10 +23,10 @@ export class NotifierOverlayRef {
   readonly icon?: string;
   readonly type: NotificationType = NotificationType.None;
   readonly showCloseButton = false;
-  readonly position: NotifierPosition | PositionStrategy = NotifierPosition.TopRight;
+  readonly position: NotifierPosition | PositionStrategy =
+    NotifierPosition.TopRight;
   readonly timeout: number | boolean = true;
   readonly class: string | undefined = undefined;
-
 
   get contentIsString() {
     return typeof this.content === 'string';

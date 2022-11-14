@@ -4,5 +4,6 @@ export interface Navigation {
   deselectAll(): void;
 }
 
-
-export const NAVIGATION_TOKEN = new InjectionToken<Navigation>('vcl-navigation');
+export const NAVIGATION_TOKEN = new InjectionToken<Navigation>(
+  'vcl-navigation'
+);

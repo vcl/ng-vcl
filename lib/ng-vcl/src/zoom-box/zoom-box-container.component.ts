@@ -1,12 +1,18 @@
-import {Component, Input, ElementRef, ContentChild, AfterContentInit, Renderer2} from '@angular/core';
-import {ZoomBoxMagnifierComponent} from './zoom-box-magnifier.component';
+import {
+  Component,
+  Input,
+  ElementRef,
+  ContentChild,
+  AfterContentInit,
+  Renderer2,
+} from '@angular/core';
+import { ZoomBoxMagnifierComponent } from './zoom-box-magnifier.component';
 
 @Component({
   selector: 'vcl-zoom-box-container',
-  template: '<div><ng-content></ng-content></div>'
+  template: '<div><ng-content></ng-content></div>',
 })
 export class ZoomBoxContainerComponent implements AfterContentInit {
-
   @Input()
   x = 0;
 
@@ -47,7 +53,7 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
     this.magnifier.parent = this;
     this.magnifier.update();
     this.imgContent = this.element.nativeElement.querySelector('img');
-    this.imgContent.onmousemove = (event) => this.onMove(event);
+    this.imgContent.onmousemove = event => this.onMove(event);
     this.imgContent.onmouseover = () => this.onOver();
     this.imgContent.onmouseout = () => this.onOut();
   }
@@ -59,13 +65,13 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
     }
 
     const minX = this.width / 2;
-    const maxX = this.imgContent.width - (this.width / 2);
+    const maxX = this.imgContent.width - this.width / 2;
 
     const minY = this.height / 2;
-    const maxY = this.imgContent.height - (this.height / 2);
+    const maxY = this.imgContent.height - this.height / 2;
 
-    this.x = Math.max(minX, Math.min(maxX, event['layerX'])) - (this.width / 2);
-    this.y = Math.max(minY, Math.min(maxY, event['layerY'])) - (this.height / 2);
+    this.x = Math.max(minX, Math.min(maxX, event['layerX'])) - this.width / 2;
+    this.y = Math.max(minY, Math.min(maxY, event['layerY'])) - this.height / 2;
 
     this.magnifier.update();
   }
@@ -94,5 +100,4 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
   get image() {
     return this.imgContent.getAttribute('src');
   }
-
 }

@@ -13,31 +13,33 @@ export function demo() {
       Demo: ZoomBoxDemoComponent,
       'README.md': {
         type: 'md',
-        content: README
+        content: README,
       },
       'demo.component.html': {
         type: 'html',
-        content: require('!raw-loader!./demo.component.html')
+        content: require('!raw-loader!./demo.component.html'),
       },
       'demo.component.ts': {
         type: 'ts',
-        content: require('!raw-loader!./demo.component.ts')
+        content: require('!raw-loader!./demo.component.ts'),
       },
-    }
+    },
   };
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DemoModule,
-        VCLZoomBoxModule,
-        RouterModule.forChild([{
-                path: '',
-                component: DemoComponent,
-                data: { demo }
-            }]),
-    ],
-    declarations: [ZoomBoxDemoComponent]
+  imports: [
+    CommonModule,
+    DemoModule,
+    VCLZoomBoxModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoComponent,
+        data: { demo },
+      },
+    ]),
+  ],
+  declarations: [ZoomBoxDemoComponent],
 })
-export class ZoomBoxDemoModule { }
+export class ZoomBoxDemoModule {}

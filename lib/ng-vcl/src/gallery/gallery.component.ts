@@ -14,12 +14,18 @@ import {
   ContentChild,
 } from '@angular/core';
 
-import {GalleryImageComponent} from './gallery-image.component';
-import {AnimationBuilder, AnimationFactory, AnimationMetadata} from '@angular/animations';
-import {GalleryBodyComponent} from '../gallery/gallery-body.component';
-import {GalleryThumbnailsComponent} from '../gallery/gallery-thumbnails.component';
+import { GalleryImageComponent } from './gallery-image.component';
+import {
+  AnimationBuilder,
+  AnimationFactory,
+  AnimationMetadata,
+} from '@angular/animations';
+import { GalleryBodyComponent } from '../gallery/gallery-body.component';
+import { GalleryThumbnailsComponent } from '../gallery/gallery-thumbnails.component';
 
-export const GALLERY_ANIMATIONS = new InjectionToken('@vcl/ng-vcl#gallery_animations');
+export const GALLERY_ANIMATIONS = new InjectionToken(
+  '@vcl/ng-vcl#gallery_animations'
+);
 
 export interface GalleryAnimationConfig {
   middleRefade?: AnimationMetadata | AnimationMetadata[];
@@ -29,7 +35,7 @@ export interface GalleryAnimationConfig {
 
 export enum ImageChange {
   PREVIOUS,
-  NEXT
+  NEXT,
 }
 
 @Component({
@@ -37,7 +43,6 @@ export enum ImageChange {
   templateUrl: 'gallery.component.html',
 })
 export class GalleryComponent implements AfterContentInit, AfterViewInit {
-
   @HostBinding('attr.role')
   _hostAttrRole = 'gallery';
 
@@ -69,24 +74,32 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
   nextToMiddleAnimationFactory: AnimationFactory | undefined;
   previousToMiddleAnimationFactory: AnimationFactory | undefined;
 
-  constructor(private builder: AnimationBuilder,
-              @Optional() @Inject(GALLERY_ANIMATIONS) private animations: GalleryAnimationConfig) {
-  }
+  constructor(
+    private builder: AnimationBuilder,
+    @Optional()
+    @Inject(GALLERY_ANIMATIONS)
+    private animations: GalleryAnimationConfig
+  ) {}
 
   ngAfterViewInit() {
     if (this.animations) {
       if (this.animations.middleRefade) {
-        this.middleRefadeAnimationFactory = this.builder.build(this.animations.middleRefade);
+        this.middleRefadeAnimationFactory = this.builder.build(
+          this.animations.middleRefade
+        );
       }
       if (this.animations.nextToMiddle) {
-        this.nextToMiddleAnimationFactory = this.builder.build(this.animations.nextToMiddle);
+        this.nextToMiddleAnimationFactory = this.builder.build(
+          this.animations.nextToMiddle
+        );
       }
       if (this.animations.previousToMiddle) {
-        this.previousToMiddleAnimationFactory = this.builder.build(this.animations.previousToMiddle);
+        this.previousToMiddleAnimationFactory = this.builder.build(
+          this.animations.previousToMiddle
+        );
       }
     }
   }
-
 
   ngAfterContentInit() {
     this.imageArray = this.images ? this.images.toArray() : [];
@@ -95,16 +108,20 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
     let galleryThumbnails = this.galleryThumbnailsComponent.elem.nativeElement;
 
     this.thumbnails = galleryThumbnails.querySelector('div.gallery-thumbs');
-    this.thumbnailsContainer = galleryThumbnails.querySelector('div.gallery-thumbs-container');
+    this.thumbnailsContainer = galleryThumbnails.querySelector(
+      'div.gallery-thumbs-container'
+    );
 
     if (this.row) {
-      galleryBody.classList = "";
+      galleryBody.classList = '';
       galleryBody.classList.add('gallery-body-row');
 
       this.thumbnails.classList.remove('gallery-thumbs');
       this.thumbnails.classList.add('gallery-thumbs-vertical');
       this.thumbnailsContainer.classList.remove('gallery-thumbs-container');
-      this.thumbnailsContainer.classList.add('gallery-thumbs-container-vertical');
+      this.thumbnailsContainer.classList.add(
+        'gallery-thumbs-container-vertical'
+      );
     }
   }
 
@@ -149,5 +166,4 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
   selectPrevious(): void {
     this.selectedImage = this.previousImage();
   }
-
 }

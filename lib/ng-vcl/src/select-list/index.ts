@@ -13,14 +13,50 @@ import { SelectListHeaderComponent } from './components/select-list-header.compo
 import { SelectListItemComponent } from './components/select-list-item.component';
 import { SelectListSeparatorComponent } from './components/select-list-separator.component';
 import { SelectListContentComponent } from './components/select-list-content.component';
-import {  SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from './types';
+import {
+  SELECT_LIST_TOKEN,
+  SelectList,
+  SelectListItem,
+  SELECT_LIST_CONTENT_TOKEN,
+} from './types';
 
-export { SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, SELECT_LIST_TOKEN, SelectList, SelectListItem, SELECT_LIST_CONTENT_TOKEN };
+export {
+  SelectListComponent,
+  SelectListHeaderComponent,
+  SelectListItemComponent,
+  SelectListSeparatorComponent,
+  SelectListContentComponent,
+  SELECT_LIST_TOKEN,
+  SelectList,
+  SelectListItem,
+  SELECT_LIST_CONTENT_TOKEN,
+};
 
 @NgModule({
-  imports: [CommonModule, VCLInputModule, VCLIconModule, VCLIcogramModule, VCLButtonModule, VCLFormControlGroupModule, VCLCoreLabelModule],
-  exports: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent, VCLCoreLabelModule],
-  declarations: [SelectListComponent, SelectListHeaderComponent, SelectListItemComponent, SelectListSeparatorComponent, SelectListContentComponent ],
+  imports: [
+    CommonModule,
+    VCLInputModule,
+    VCLIconModule,
+    VCLIcogramModule,
+    VCLButtonModule,
+    VCLFormControlGroupModule,
+    VCLCoreLabelModule,
+  ],
+  exports: [
+    SelectListComponent,
+    SelectListHeaderComponent,
+    SelectListItemComponent,
+    SelectListSeparatorComponent,
+    SelectListContentComponent,
+    VCLCoreLabelModule,
+  ],
+  declarations: [
+    SelectListComponent,
+    SelectListHeaderComponent,
+    SelectListItemComponent,
+    SelectListSeparatorComponent,
+    SelectListContentComponent,
+  ],
   providers: [],
 })
-export class VCLSelectListModule { }
+export class VCLSelectListModule {}

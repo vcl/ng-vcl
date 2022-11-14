@@ -1,4 +1,9 @@
-import { Component, HostBinding, ChangeDetectionStrategy, forwardRef } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  ChangeDetectionStrategy,
+  forwardRef,
+} from '@angular/core';
 import { SELECT_LIST_CONTENT_TOKEN } from '../types';
 
 @Component({
@@ -6,14 +11,19 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
   exportAs: 'vclSelectListHeader',
   templateUrl: 'select-list-header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: SELECT_LIST_CONTENT_TOKEN,
-    useExisting: forwardRef(() => SelectListHeaderComponent)
-  }],
-  styles: [`
-  :host {
-    display: block
-  }`]
+  providers: [
+    {
+      provide: SELECT_LIST_CONTENT_TOKEN,
+      useExisting: forwardRef(() => SelectListHeaderComponent),
+    },
+  ],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class SelectListHeaderComponent {
   @HostBinding('class.select-list-item-group-header')

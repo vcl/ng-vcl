@@ -6,7 +6,9 @@ export interface LayerData {
   [key: string]: any;
 }
 
-export class LayerConfig<TLayerData extends LayerData = any> extends OverlayConfig {
+export class LayerConfig<
+  TLayerData extends LayerData = any
+> extends OverlayConfig {
   constructor(config: LayerConfig) {
     super(config);
     this.data = config.data;

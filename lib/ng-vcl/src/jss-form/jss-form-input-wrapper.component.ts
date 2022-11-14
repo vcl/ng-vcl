@@ -1,4 +1,10 @@
-import { Component,  ChangeDetectionStrategy, Optional, OnInit, Inject} from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Optional,
+  OnInit,
+  Inject,
+} from '@angular/core';
 import { FormFieldControl } from './fields/field';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 
@@ -8,15 +14,13 @@ import { JSS_FORM_TOKEN, JssForm } from './types';
   styleUrls: ['jss-form-input-wrapper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JssFormInputWrapperComponent  {
-
+export class JssFormInputWrapperComponent {
   constructor(
-    @Inject(JSS_FORM_TOKEN) 
+    @Inject(JSS_FORM_TOKEN)
     private jssForm: JssForm,
-    @Optional() 
-    private field?: FormFieldControl<any>,
-  ) { 
-  }
+    @Optional()
+    private field?: FormFieldControl<any>
+  ) {}
 
   get help() {
     return this.field?.help;
@@ -35,7 +39,11 @@ export class JssFormInputWrapperComponent  {
   }
 
   get confirmButtonLabel() {
-    return this.help?.confirmButtonLabel ?? this.jssForm.help?.confirmButtonLabel ?? 'OK';
+    return (
+      this.help?.confirmButtonLabel ??
+      this.jssForm.help?.confirmButtonLabel ??
+      'OK'
+    );
   }
 
   get layerWidth() {

@@ -1,9 +1,14 @@
-import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  HostBinding,
+} from '@angular/core';
 
 @Component({
   selector: 'vcl-icogram, [vcl-icogram]',
   templateUrl: 'icogram.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IcogramComponent {
   @HostBinding('class.icogram')
@@ -13,10 +18,9 @@ export class IcogramComponent {
 @Component({
   selector: '[vcl-a-icogram]',
   templateUrl: 'icogram.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IcogramLinkComponent extends IcogramComponent {
-
   @HostBinding('class.content-link')
   clsContentLink = true;
 
@@ -41,5 +45,4 @@ export class IcogramLinkComponent extends IcogramComponent {
   get attrHref() {
     return this.disabled ? undefined : this.href;
   }
-
 }

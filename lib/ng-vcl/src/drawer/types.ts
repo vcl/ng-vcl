@@ -3,7 +3,9 @@ import { Observable } from 'rxjs';
 
 export type VclDrawerMode = 'open' | 'close';
 
-export const DRAWER_CONTAINER_HOST = new InjectionToken('DRAWER_CONTAINER_HOST');
+export const DRAWER_CONTAINER_HOST = new InjectionToken(
+  'DRAWER_CONTAINER_HOST'
+);
 
 export interface Drawer {
   readonly opened: boolean;

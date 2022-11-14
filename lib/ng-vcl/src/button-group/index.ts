@@ -12,4 +12,4 @@ export { ButtonGroupComponent };
   declarations: [ButtonGroupComponent],
   providers: [],
 })
-export class VCLButtonGroupModule { }
+export class VCLButtonGroupModule {}

@@ -6,18 +6,18 @@ export enum AlertType {
   Info,
   Success,
   Warning,
-  Error
+  Error,
 }
 
 export enum AlertAlignment {
   Left,
   Center,
-  Right
+  Right,
 }
 
 export enum AlertInput {
   None,
-  Text
+  Text,
 }
 
 export interface AlertOptions {
@@ -45,7 +45,7 @@ export interface AlertOptions {
   inputValue?: any;
   inputPlaceholder?: string;
   inputValidator?: (value: any) => boolean;
-  confirmAction?: ((result: AlertResult) => (Promise<any>)) | Observable<any>;
+  confirmAction?: ((result: AlertResult) => Promise<any>) | Observable<any>;
 }
 
 export const ALERT_DEFAULTS: AlertOptions = {
@@ -66,28 +66,28 @@ export const ALERT_DEFAULTS: AlertOptions = {
 export const TYPE_CLASS_MAP = {
   [AlertType.None]: {
     alertClass: '',
-    iconClass: ''
+    iconClass: '',
   },
   [AlertType.Question]: {
     alertClass: '',
-    iconClass: 'vcl:question'
+    iconClass: 'vcl:question',
   },
   [AlertType.Info]: {
     alertClass: 'info',
-    iconClass: 'vcl:info'
+    iconClass: 'vcl:info',
   },
   [AlertType.Success]: {
     alertClass: 'success',
-    iconClass: 'vcl:success'
+    iconClass: 'vcl:success',
   },
   [AlertType.Warning]: {
     alertClass: 'warning',
-    iconClass: 'vcl:warning'
+    iconClass: 'vcl:warning',
   },
   [AlertType.Error]: {
     alertClass: 'error',
-    iconClass: 'vcl:error'
-  }
+    iconClass: 'vcl:error',
+  },
 };
 
 export interface AlertResult {

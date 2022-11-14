@@ -5,11 +5,11 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
   selector: 'vcl-select-list-content',
   template: '<ng-content></ng-content>',
   exportAs: 'vclSelectListContent',
-  providers: [{
-    provide: SELECT_LIST_CONTENT_TOKEN,
-    useExisting: forwardRef(() => SelectListContentComponent)
-  }]
+  providers: [
+    {
+      provide: SELECT_LIST_CONTENT_TOKEN,
+      useExisting: forwardRef(() => SelectListContentComponent),
+    },
+  ],
 })
-export class SelectListContentComponent {
-
-}
+export class SelectListContentComponent {}

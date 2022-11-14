@@ -1,20 +1,26 @@
-import { Component, Input, HostBinding, SimpleChanges, OnChanges, ChangeDetectionStrategy, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  HostBinding,
+  SimpleChanges,
+  OnChanges,
+  ChangeDetectionStrategy,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { HostIconRendererService } from './host-icon-renderer.service';
 
 @Component({
   selector: 'vcl-icon',
-  providers: [
-    HostIconRendererService
-  ],
+  providers: [HostIconRendererService],
   template: '<ng-content></ng-content>',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent implements OnChanges, AfterViewInit {
-
   constructor(
     private hostIcon: HostIconRendererService,
     private elementRef: ElementRef
-  ) { }
+  ) {}
 
   @Input()
   role?: string;

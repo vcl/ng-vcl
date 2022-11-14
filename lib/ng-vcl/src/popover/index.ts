@@ -7,19 +7,9 @@ import { VCLLayerModule } from '../layer/index';
 export { PopoverDirective };
 
 @NgModule({
-  imports: [
-    CommonModule,
-    VCLOffClickModule,
-    VCLLayerModule,
-  ],
-  providers: [ ],
-  exports: [
-    VCLLayerModule,
-    PopoverDirective
-  ],
-  declarations: [
-    PopoverDirective
-  ]
+  imports: [CommonModule, VCLOffClickModule, VCLLayerModule],
+  providers: [],
+  exports: [VCLLayerModule, PopoverDirective],
+  declarations: [PopoverDirective],
 })
-
-export class VCLPopoverModule { }
+export class VCLPopoverModule {}

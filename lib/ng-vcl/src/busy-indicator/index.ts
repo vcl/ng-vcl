@@ -10,6 +10,6 @@ export { BusyIndicatorCoverComponent, BusyIndicatorComponent };
 @NgModule({
   imports: [CommonModule, VCLIconModule, VCLIcogramModule],
   exports: [BusyIndicatorCoverComponent, BusyIndicatorComponent],
-  declarations: [BusyIndicatorCoverComponent, BusyIndicatorComponent]
+  declarations: [BusyIndicatorCoverComponent, BusyIndicatorComponent],
 })
-export class VCLBusyIndicatorModule { }
+export class VCLBusyIndicatorModule {}

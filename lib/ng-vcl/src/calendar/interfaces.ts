@@ -2,14 +2,21 @@ import { VCLDateRange } from '../dateadapter/index';
 
 export type VCLCalendarView = 'month' | 'year' | 'years' | 'hours' | 'minutes';
 
-export type VCLCalendarSelection = boolean | 'range' | 'range-start' | 'range-end' | 'range-start-end' | 'range-partial';
+export type VCLCalendarSelection =
+  | boolean
+  | 'range'
+  | 'range-start'
+  | 'range-end'
+  | 'range-start-end'
+  | 'range-partial';
 
 export interface VCLCalendarBase<VCLDate> {
   readonly date: VCLDate;
   readonly label: string;
 }
 
-export interface VCLCalendarYearsYear<VCLDate> extends VCLCalendarBase<VCLDate> {
+export interface VCLCalendarYearsYear<VCLDate>
+  extends VCLCalendarBase<VCLDate> {
   readonly isCurrentYear: boolean;
   readonly selected: VCLCalendarSelection;
 }
@@ -18,7 +25,8 @@ export interface VCLCalendarYears<VCLDate> extends VCLCalendarBase<VCLDate> {
   readonly years: ReadonlyArray<ReadonlyArray<VCLCalendarYearsYear<VCLDate>>>;
 }
 
-export interface VCLCalendarYearMonth<VCLDate> extends VCLCalendarBase<VCLDate>  {
+export interface VCLCalendarYearMonth<VCLDate>
+  extends VCLCalendarBase<VCLDate> {
   readonly isCurrentMonth: boolean;
   readonly selected: VCLCalendarSelection;
   readonly disabled: boolean;
@@ -73,9 +81,20 @@ export interface VCLCalendarDateModifier<VCLDate> {
 export abstract class VCLCalendarHandler<VCLDate> {
   abstract readonly mode: string;
   abstract init(calendar: VCLCalendar<VCLDate>): void;
-  abstract handleValueChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, date: VCLDate): void;
-  abstract handleViewDateChange(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView, viewDate: VCLDate): void;
-  abstract handleLabelClick(calendar: VCLCalendar<VCLDate>, source: VCLCalendarView): void;
+  abstract handleValueChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    date: VCLDate
+  ): void;
+  abstract handleViewDateChange(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView,
+    viewDate: VCLDate
+  ): void;
+  abstract handleLabelClick(
+    calendar: VCLCalendar<VCLDate>,
+    source: VCLCalendarView
+  ): void;
 }
 
 export interface VCLCalendar<VCLDate> {
@@ -83,7 +102,10 @@ export interface VCLCalendar<VCLDate> {
   readonly view: VCLCalendarView;
   readonly maxSelectableDates?: number;
   readonly disabled: boolean;
-  setValue(value: VCLDate | VCLDate[] | VCLDateRange<VCLDate>, propagate: boolean): void;
+  setValue(
+    value: VCLDate | VCLDate[] | VCLDateRange<VCLDate>,
+    propagate: boolean
+  ): void;
   setViewDate(date: VCLDate, propagate: boolean): void;
   setView(view: VCLCalendarView): void;
 }

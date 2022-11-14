@@ -5,8 +5,7 @@ import { ComponentLayerRef } from '@vcl/ng-vcl';
   templateUrl: 'bar.component.html',
 })
 export class BarComponent {
-
-  constructor(private layer: ComponentLayerRef) { }
+  constructor(private layer: ComponentLayerRef) {}
 
   get title() {
     return this.layer.data.title;
@@ -14,7 +13,7 @@ export class BarComponent {
 
   close(value?: string) {
     this.layer.close({
-      value
+      value,
     });
   }
 }

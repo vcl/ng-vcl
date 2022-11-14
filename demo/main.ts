@@ -8,8 +8,10 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule, {
-  // providers: [{provide: LOCALE_ID, useValue: 'en-gb' }]
-}).catch(err => console.error(err));
+platformBrowserDynamic()
+  .bootstrapModule(AppModule, {
+    // providers: [{provide: LOCALE_ID, useValue: 'en-gb' }]
+  })
+  .catch(err => console.error(err));
 
-Prism.plugins.customClass.prefix('prism-')
+Prism.plugins.customClass.prefix('prism-');

@@ -1,4 +1,18 @@
-import { Component, HostBinding, ChangeDetectionStrategy, Renderer2, Input, Output, EventEmitter, OnInit, Directive, ContentChildren, QueryList, ElementRef, Self } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  ChangeDetectionStrategy,
+  Renderer2,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  Directive,
+  ContentChildren,
+  QueryList,
+  ElementRef,
+  Self,
+} from '@angular/core';
 import { NEVER, merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { NOTIFICATION_TYPE_CLASS_MAP, NotificationType } from './types';
@@ -7,7 +21,7 @@ import { NgClass } from '@angular/common';
 @Directive({
   selector: 'vcl-notification-title',
 })
-export class NotificationTitleDirective  {
+export class NotificationTitleDirective {
   @HostBinding('class.flex')
   hostClasses = true;
 }
@@ -33,21 +47,22 @@ export class NotificationFooterDirective {
   templateUrl: './notification.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [NgClass],
-  styles: [`
-    :host .notification-header:empty {
-      display: none;
-    }
-    :host .notification-footer:empty {
-      display: none;
-    }
-  `]
+  styles: [
+    `
+      :host .notification-header:empty {
+        display: none;
+      }
+      :host .notification-footer:empty {
+        display: none;
+      }
+    `,
+  ],
 })
 export class NotificationComponent {
-
   constructor(
     @Self()
     private ngClass: NgClass
-  ) { }
+  ) {}
 
   @HostBinding('class.notification')
   hostClasses = true;
@@ -78,7 +93,10 @@ export class NotificationComponent {
   notificationTitle: QueryList<NotificationTitleDirective>;
 
   get hasIcon() {
-    return this.icon !== false && (typeof this.icon === 'string' || typeof this.typeIcon === 'string');
+    return (
+      this.icon !== false &&
+      (typeof this.icon === 'string' || typeof this.typeIcon === 'string')
+    );
   }
 
   onCloseClick() {
@@ -86,12 +104,10 @@ export class NotificationComponent {
   }
 
   ngAfterContentInit(): void {
-    merge(
-      this.notificationTitle ? this.notificationTitle.changes : NEVER,
-    ).pipe(
-      startWith(undefined)
-    ).subscribe(() => {
-      this.hasTitle = this.notificationTitle.length > 0;
-    });
+    merge(this.notificationTitle ? this.notificationTitle.changes : NEVER)
+      .pipe(startWith(undefined))
+      .subscribe(() => {
+        this.hasTitle = this.notificationTitle.length > 0;
+      });
   }
 }

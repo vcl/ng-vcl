@@ -4,14 +4,16 @@ import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  styles: [`
-  vcl-calendar {
-    width: 18em;
-  }
-  `]
+  styles: [
+    `
+      vcl-calendar {
+        width: 18em;
+      }
+    `,
+  ],
 })
 export class CalendarDemoComponent {
-  constructor(private dateAdapter: DateAdapterBase<Date>) { }
+  constructor(private dateAdapter: DateAdapterBase<Date>) {}
 
   date: Date;
   get sdate() {
@@ -20,13 +22,19 @@ export class CalendarDemoComponent {
   dateRange: VCLDateRange<Date>;
   get sdateRange() {
     if (this.dateAdapter.isRange(this.dateRange)) {
-      return this.dateAdapter.format(this.dateRange.start, 'date') + ' - ' + this.dateAdapter.format(this.dateRange.end, 'date');
+      return (
+        this.dateAdapter.format(this.dateRange.start, 'date') +
+        ' - ' +
+        this.dateAdapter.format(this.dateRange.end, 'date')
+      );
     }
     return '-';
   }
   dateArray: Date[] = [];
   get sdateArray() {
-    return this.dateArray.map(d => this.dateAdapter.format(d, 'date')).join(', ');
+    return this.dateArray
+      .map(d => this.dateAdapter.format(d, 'date'))
+      .join(', ');
   }
 
   month: Date;
@@ -36,13 +44,19 @@ export class CalendarDemoComponent {
   monthRange: VCLDateRange<Date>;
   get smonthRange() {
     if (this.dateAdapter.isRange(this.monthRange)) {
-      return this.dateAdapter.format(this.monthRange.start, 'yearMonth') + ' - ' + this.dateAdapter.format(this.monthRange.end, 'yearMonth');
+      return (
+        this.dateAdapter.format(this.monthRange.start, 'yearMonth') +
+        ' - ' +
+        this.dateAdapter.format(this.monthRange.end, 'yearMonth')
+      );
     }
     return '-';
   }
   monthArray: Date[] = [];
   get smonthArray() {
-    return this.monthArray.map(d => this.dateAdapter.format(d, 'yearMonth')).join(', ');
+    return this.monthArray
+      .map(d => this.dateAdapter.format(d, 'yearMonth'))
+      .join(', ');
   }
 
   today = this.dateAdapter.today();
@@ -55,13 +69,14 @@ export class CalendarDemoComponent {
         end: this.dateAdapter.addDays(this.dateAdapter.today(), 14),
       },
       class: 'available',
-      view: 'month' // Limit to month view
-    }, {
+      view: 'month', // Limit to month view
+    },
+    {
       // Set vclUnavailable class and disable on specific range
       match: this.dateAdapter.always(), // Still works as first modifier is prioritized
       class: 'unavailable',
       disabled: true,
-      view: 'month' // Limit to month view
-    }
+      view: 'month', // Limit to month view
+    },
   ];
 }

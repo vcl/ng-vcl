@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
-import {ZoomBoxContainerComponent} from './zoom-box-container.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  HostBinding,
+} from '@angular/core';
+import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({
   selector: 'vcl-zoom-box',
@@ -7,7 +12,6 @@ import {ZoomBoxContainerComponent} from './zoom-box-container.component';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ZoomBoxComponent {
-
   @Input()
   target: ZoomBoxContainerComponent;
 
@@ -59,5 +63,4 @@ export class ZoomBoxComponent {
 
     return this.target.height;
   }
-
 }

@@ -1,9 +1,30 @@
-import { Component,
-  Input, Output, HostListener,
+import {
+  Component,
+  Input,
+  Output,
+  HostListener,
   EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, HostBinding, Optional, Inject, OnDestroy, Self, Injector } from '@angular/core';
-import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  forwardRef,
+  HostBinding,
+  Optional,
+  Inject,
+  OnDestroy,
+  Self,
+  Injector,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NgForm,
+  FormGroupDirective,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -14,22 +35,24 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => CheckboxComponent)
-    }, {
+      useExisting: forwardRef(() => CheckboxComponent),
+    },
+    {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CheckboxComponent),
       multi: true,
-    }
+    },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclCheckbox',
 })
-export class CheckboxComponent implements OnDestroy, ControlValueAccessor, FormControlGroupInputState<boolean> {
-
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-  ) { }
+export class CheckboxComponent
+  implements
+    OnDestroy,
+    ControlValueAccessor,
+    FormControlGroupInputState<boolean>
+{
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   private stateChangedEmitter = new Subject<void>();
 

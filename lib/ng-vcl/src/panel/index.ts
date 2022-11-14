@@ -4,21 +4,43 @@ import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
-import { PanelFooterDirective, PanelHeaderDirective, PanelTitleDirective, PanelFooterButtonDirective, PanelDialogDirective } from './panel.directive';
+import {
+  PanelFooterDirective,
+  PanelHeaderDirective,
+  PanelTitleDirective,
+  PanelFooterButtonDirective,
+  PanelDialogDirective,
+} from './panel.directive';
 import { PanelComponent } from './panel.component';
 
-export { PanelComponent, PanelDialogDirective, PanelTitleDirective, PanelFooterButtonDirective, PanelHeaderDirective, PanelFooterDirective };
+export {
+  PanelComponent,
+  PanelDialogDirective,
+  PanelTitleDirective,
+  PanelFooterButtonDirective,
+  PanelHeaderDirective,
+  PanelFooterDirective,
+};
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
+  imports: [FormsModule, CommonModule, VCLButtonModule, VCLIconModule],
+  exports: [
     VCLButtonModule,
     VCLIconModule,
+    PanelComponent,
+    PanelFooterDirective,
+    PanelHeaderDirective,
+    PanelTitleDirective,
+    PanelFooterButtonDirective,
+    PanelDialogDirective,
   ],
-  exports: [ VCLButtonModule, VCLIconModule, PanelComponent, PanelFooterDirective, PanelHeaderDirective, PanelTitleDirective, PanelFooterButtonDirective, PanelDialogDirective],
-  declarations: [ PanelComponent, PanelFooterDirective, PanelHeaderDirective, PanelTitleDirective, PanelFooterButtonDirective, PanelDialogDirective ],
+  declarations: [
+    PanelComponent,
+    PanelFooterDirective,
+    PanelHeaderDirective,
+    PanelTitleDirective,
+    PanelFooterButtonDirective,
+    PanelDialogDirective,
+  ],
 })
-export class VCLPanelModule {
-
-}
+export class VCLPanelModule {}

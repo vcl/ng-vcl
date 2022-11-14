@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IconResolverService } from '../icon/index';
-import { FontAwesomeIconResolverService, FontAwesomeVCLIconAliasResolverService } from './icon-resolver.service';
+import {
+  FontAwesomeIconResolverService,
+  FontAwesomeVCLIconAliasResolverService,
+} from './icon-resolver.service';
 
-export { FontAwesomeIconResolverService, FontAwesomeVCLIconAliasResolverService };
+export {
+  FontAwesomeIconResolverService,
+  FontAwesomeVCLIconAliasResolverService,
+};
 
 @NgModule({
   providers: [
@@ -10,13 +16,13 @@ export { FontAwesomeIconResolverService, FontAwesomeVCLIconAliasResolverService 
     {
       provide: IconResolverService,
       useExisting: FontAwesomeIconResolverService,
-      multi: true
+      multi: true,
     },
     {
       provide: IconResolverService,
       useClass: FontAwesomeVCLIconAliasResolverService,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class VCLFontAwesomeModule { }
+export class VCLFontAwesomeModule {}

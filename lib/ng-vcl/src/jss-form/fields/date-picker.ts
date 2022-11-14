@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaDatePicker, VCLFormFieldSchemaDatePickerParams } from '../schemas';
+import {
+  VCLFormFieldSchemaDatePicker,
+  VCLFormFieldSchemaDatePickerParams,
+} from '../schemas';
 import { FormFieldControl } from './field';
 import { DatepickerPick } from '../../date-picker/index';
 
-export class FormFieldDatePicker extends FormFieldControl<VCLFormFieldSchemaDatePicker, VCLFormFieldSchemaDatePickerParams> {
+export class FormFieldDatePicker extends FormFieldControl<
+  VCLFormFieldSchemaDatePicker,
+  VCLFormFieldSchemaDatePickerParams
+> {
   protected createDefaultValue() {
     return undefined;
   }
-  get pick(): DatepickerPick  {
+  get pick(): DatepickerPick {
     return this.params.pick || 'date';
   }
-  get placeholder(): string  {
+  get placeholder(): string {
     return this.params.placeholder || '';
   }
 }
@@ -18,16 +24,20 @@ export class FormFieldDatePicker extends FormFieldControl<VCLFormFieldSchemaDate
 @Component({
   selector: 'vcl-jss-form-date-picker',
   template: `
-    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent">
-      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
+    <vcl-form-control-group
+      *ngIf="field.visible"
+      [errorStateAgent]="field.errorStateAgent">
+      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
       <vcl-jss-form-input-wrapper>
-        <vcl-date-picker [formControl]="field.control" [pick]="field.pick" [placeholder]="field.placeholder"></vcl-date-picker>
+        <vcl-date-picker
+          [formControl]="field.control"
+          [pick]="field.pick"
+          [placeholder]="field.placeholder"></vcl-date-picker>
       </vcl-jss-form-input-wrapper>
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
-  `
+  `,
 })
 export class FormFieldDatepickerComponent {
-  constructor(public field: FormFieldDatePicker) { }
+  constructor(public field: FormFieldDatePicker) {}
 }
-

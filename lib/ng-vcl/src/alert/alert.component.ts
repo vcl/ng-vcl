@@ -1,4 +1,12 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ElementRef, OnDestroy, HostBinding } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  AfterViewInit,
+  ElementRef,
+  OnDestroy,
+  HostBinding,
+} from '@angular/core';
 import { Subscription, from } from 'rxjs';
 import { LayerRef } from '../layer/index';
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
@@ -6,22 +14,22 @@ import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 @Component({
   templateUrl: 'alert.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [`
-    :host {
-      outline: none
-    }
-  `]
+  styles: [
+    `
+      :host {
+        outline: none;
+      }
+    `,
+  ],
 })
 export class AlertComponent implements AfterViewInit, OnDestroy {
-
   confirmActionSub?: Subscription;
 
   constructor(
     private elementRef: ElementRef,
     private alertLayer: LayerRef<AlertOptions, AlertResult>,
     private cdRef: ChangeDetectorRef
-  ) {
-  }
+  ) {}
 
   value: any;
   validationError: string;
@@ -35,7 +43,11 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   }
 
   get alertClass() {
-    return TYPE_CLASS_MAP[this.alert.type || AlertType.None].alertClass + ' ' + (this.alert.customClass || '');
+    return (
+      TYPE_CLASS_MAP[this.alert.type || AlertType.None].alertClass +
+      ' ' +
+      (this.alert.customClass || '')
+    );
   }
 
   get iconClass() {
@@ -51,7 +63,9 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   }
 
   confirm() {
-    if (this.loader) { return; }
+    if (this.loader) {
+      return;
+    }
 
     const result: AlertResult = {
       action: 'confirm',
@@ -76,20 +90,27 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
     if (this.alert.confirmAction) {
       this.loader = true;
       this.cdRef.markForCheck();
-      const $ = from(typeof this.alert.confirmAction === 'function' ? this.alert.confirmAction(result) : this.alert.confirmAction);
-      this.confirmActionSub = $.subscribe(value => {
-        const asyncResult: AlertResult = {
-          action: 'confirm',
-          value
-        };
-        this.alertLayer.close(asyncResult);
-      }, err => {
-        const errorResult: AlertResult = {
-          action: 'error',
-          value: err
-        };
-        this.alertLayer.close(errorResult);
-      });
+      const $ = from(
+        typeof this.alert.confirmAction === 'function'
+          ? this.alert.confirmAction(result)
+          : this.alert.confirmAction
+      );
+      this.confirmActionSub = $.subscribe(
+        value => {
+          const asyncResult: AlertResult = {
+            action: 'confirm',
+            value,
+          };
+          this.alertLayer.close(asyncResult);
+        },
+        err => {
+          const errorResult: AlertResult = {
+            action: 'error',
+            value: err,
+          };
+          this.alertLayer.close(errorResult);
+        }
+      );
     } else {
       this.alertLayer.close(result);
     }
@@ -101,14 +122,14 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
     }
 
     const result: AlertResult = {
-      action: 'cancel'
+      action: 'cancel',
     };
     this.alertLayer.close(result);
   }
 
   close() {
     const result: AlertResult = {
-      action: 'close'
+      action: 'close',
     };
     this.alertLayer.close(result);
   }

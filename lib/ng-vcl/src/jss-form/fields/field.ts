@@ -6,8 +6,14 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 import { Injector } from '@angular/core';
 import { ComponentType, ComponentPortal } from '@angular/cdk/portal';
 
-export type FormFieldClass = new (schema: VCLFormFieldSchema, parent: FormField<any>) => FormField<any>;
-export type FormFieldControlClass = new (schema: VCLFormFieldSchema, parent: FormField<any>) => FormFieldControl<any, any>;
+export type FormFieldClass = new (
+  schema: VCLFormFieldSchema,
+  parent: FormField<any>
+) => FormField<any>;
+export type FormFieldControlClass = new (
+  schema: VCLFormFieldSchema,
+  parent: FormField<any>
+) => FormFieldControl<any, any>;
 
 let uniqueId = 0;
 
@@ -19,12 +25,13 @@ interface FieldRegistry {
 }
 
 export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
-
   static registry: FieldRegistry = {};
 
   constructor(public readonly schema: T, public readonly parent?: FormField) {
-    this.id = schema.id || ('vcl-form-input' + uniqueId++);
-    this.registerConditional(this.schema.visible, (visible) => this.updateVisible(visible));
+    this.id = schema.id || 'vcl-form-input' + uniqueId++;
+    this.registerConditional(this.schema.visible, visible =>
+      this.updateVisible(visible)
+    );
   }
 
   private _conditionalSubs?: Subscription[] = [];
@@ -59,17 +66,25 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     return this.registry[type];
   }
 
-  static register(type: string, componentClass: ComponentType<any>, fieldClass?: FormFieldClass) {
+  static register(
+    type: string,
+    componentClass: ComponentType<any>,
+    fieldClass?: FormFieldClass
+  ) {
     if (this.registry[type]) {
       throw new Error('jss-form: Field type already registered: ' + type);
     }
     this.registry[type] = {
       componentClass,
-      fieldClass: fieldClass || FormField
+      fieldClass: fieldClass || FormField,
     };
   }
 
-  static createInstance({schema, parent, initialValue}: {
+  static createInstance({
+    schema,
+    parent,
+    initialValue,
+  }: {
     schema: VCLFormFieldSchema;
     parent?: FormField;
     initialValue?: any;
@@ -77,19 +92,24 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     const meta = this.lookup(schema.type);
     const instance = new meta.fieldClass(schema, parent);
     if (initialValue && instance instanceof FormFieldControl) {
-      instance.control.setValue(initialValue)
+      instance.control.setValue(initialValue);
     }
     return instance;
   }
 
-  createConditionalStream<TConditional>(conditional: Conditional<TConditional>) {
-    const _conditional = conditional as unknown as InternalConditional<TConditional>;
+  createConditionalStream<TConditional>(
+    conditional: Conditional<TConditional>
+  ) {
+    const _conditional =
+      conditional as unknown as InternalConditional<TConditional>;
 
     return this._formReady$.pipe(
       map(() => {
-        return this.root ? _conditional.fields.map(key => {
-          return this.root.control.get(key);
-        }) : [];
+        return this.root
+          ? _conditional.fields.map(key => {
+              return this.root.control.get(key);
+            })
+          : [];
       }),
       switchMap(controls => {
         return combineLatest(controls.map(c => c.valueChanges)).pipe(
@@ -97,13 +117,16 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
           map(() => controls)
         );
       }),
-      map((controls) => _conditional.cb(...controls)),
+      map(controls => _conditional.cb(...controls))
     );
   }
 
-  protected registerConditional<TConditional>(conditional: TConditional | Conditional<TConditional>, cb: (value: TConditional) => void) {
+  protected registerConditional<TConditional>(
+    conditional: TConditional | Conditional<TConditional>,
+    cb: (value: TConditional) => void
+  ) {
     if (conditional instanceof Conditional) {
-      const sub  = this.createConditionalStream(conditional).subscribe((value) => {
+      const sub = this.createConditionalStream(conditional).subscribe(value => {
         cb(value);
         this.stateChangedEmitter.next(undefined);
       });
@@ -131,29 +154,39 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     const type = this.type;
     const meta = FormField.lookup(type);
 
-    const portalProviders: any[] = [{
-      provide: FormField,
-      useValue: this,
-    }, {
-      provide: meta.fieldClass,
-      useValue: this
-    }, ...additionalProviders];
+    const portalProviders: any[] = [
+      {
+        provide: FormField,
+        useValue: this,
+      },
+      {
+        provide: meta.fieldClass,
+        useValue: this,
+      },
+      ...additionalProviders,
+    ];
 
     const componentInjector = Injector.create({
       parent: injector,
-      providers: portalProviders
+      providers: portalProviders,
     });
     return new ComponentPortal(meta.componentClass, null, componentInjector);
   }
 }
 
-export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormFieldControlSchema, TParams = any> extends FormField<T> {
-
+export class FormFieldControl<
+  T extends VCLFormFieldControlSchema = VCLFormFieldControlSchema,
+  TParams = any
+> extends FormField<T> {
   constructor(schema: T, parent?: FormField) {
     super(schema, parent);
     this.name = schema.name;
-    this.registerConditional(this.schema.disabled, (disabled) => this.updateDisabled(disabled));
-    this.registerConditional(this.schema.params, (params) => this.updateParams(params));
+    this.registerConditional(this.schema.disabled, disabled =>
+      this.updateDisabled(disabled)
+    );
+    this.registerConditional(this.schema.params, params =>
+      this.updateParams(params)
+    );
   }
 
   private _disabled = false;
@@ -174,21 +207,25 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
   }
 
   get defaultValue() {
-    return this.schema.defaultValue  === undefined ? this.createDefaultValue() : this.schema.defaultValue;
+    return this.schema.defaultValue === undefined
+      ? this.createDefaultValue()
+      : this.schema.defaultValue;
   }
 
   get help(): HelpObject {
     if (typeof this.schema.help === 'string') {
       return {
-        text: this.schema.help
-      }
+        text: this.schema.help,
+      };
     } else {
       return this.schema.help;
     }
   }
 
   get validators() {
-    return this.schema.validators  === undefined ? undefined : this.schema.validators;
+    return this.schema.validators === undefined
+      ? undefined
+      : this.schema.validators;
   }
 
   get label() {
@@ -200,7 +237,7 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
   }
 
   get params(): TParams {
-    return this._params || {} as TParams;
+    return this._params || ({} as TParams);
   }
 
   get required(): boolean {
@@ -211,13 +248,17 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
     return this.schema.hints;
   }
 
-  static register(type: string, componentClass: ComponentType<any>, fieldClass?: FormFieldControlClass) {
+  static register(
+    type: string,
+    componentClass: ComponentType<any>,
+    fieldClass?: FormFieldControlClass
+  ) {
     if (this.registry[type]) {
       throw new Error('jss-form: Field type already registered: ' + type);
     }
     this.registry[type] = {
       componentClass,
-      fieldClass: fieldClass || FormFieldControl
+      fieldClass: fieldClass || FormFieldControl,
     };
   }
 
@@ -233,7 +274,7 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
   }
 
   private updateParams(params: TParams) {
-    this._params = params || {} as TParams;
+    this._params = params || ({} as TParams);
   }
 
   protected createControl(): AbstractControl {
@@ -248,20 +289,25 @@ export class FormFieldControl<T extends VCLFormFieldControlSchema = VCLFormField
     const type = this.type;
     const meta = FormField.lookup(type);
 
-    const portalProviders: any[] = [{
-      provide: FormField,
-      useValue: this,
-    }, {
-      provide: meta.fieldClass,
-      useValue: this
-    }, {
-      provide: FormFieldControl,
-      useValue: this
-    }, ...additionalProviders];
+    const portalProviders: any[] = [
+      {
+        provide: FormField,
+        useValue: this,
+      },
+      {
+        provide: meta.fieldClass,
+        useValue: this,
+      },
+      {
+        provide: FormFieldControl,
+        useValue: this,
+      },
+      ...additionalProviders,
+    ];
 
     const componentInjector = Injector.create({
       parent: injector,
-      providers: portalProviders
+      providers: portalProviders,
     });
     return new ComponentPortal(meta.componentClass, null, componentInjector);
   }

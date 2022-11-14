@@ -1,23 +1,38 @@
-import { HostBinding, Input, Inject, HostListener, forwardRef, ChangeDetectorRef, OnDestroy, Directive } from '@angular/core';
+import {
+  HostBinding,
+  Input,
+  Inject,
+  HostListener,
+  forwardRef,
+  ChangeDetectorRef,
+  OnDestroy,
+  Directive,
+} from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
-import { DataList, DATA_LIST_TOKEN, DataListItem, DATA_LIST_ITEM_TOKEN } from './types';
+import {
+  DataList,
+  DATA_LIST_TOKEN,
+  DataListItem,
+  DATA_LIST_ITEM_TOKEN,
+} from './types';
 import { Subscription } from 'rxjs';
 
 @Directive({
   selector: 'vcl-data-list-item',
   exportAs: 'vclDataListItem',
-  providers: [{
-    provide: DATA_LIST_ITEM_TOKEN,
-    useExisting: forwardRef(() => DataListItemDirective)
-  }]
+  providers: [
+    {
+      provide: DATA_LIST_ITEM_TOKEN,
+      useExisting: forwardRef(() => DataListItemDirective),
+    },
+  ],
 })
 export class DataListItemDirective implements DataListItem, OnDestroy {
-
   constructor(
     @Inject(DATA_LIST_TOKEN)
     private dataList: DataList,
     private cdRef: ChangeDetectorRef
-  ) { }
+  ) {}
 
   private _focused = false;
 
@@ -39,7 +54,7 @@ export class DataListItemDirective implements DataListItem, OnDestroy {
 
   @HostBinding('class.selectable')
   get classSelectable() {
-    return !this.isDisabled  && this.dataList.selectionMode !== 'none';
+    return !this.isDisabled && this.dataList.selectionMode !== 'none';
   }
 
   get isDisabled() {

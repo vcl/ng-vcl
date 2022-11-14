@@ -16,7 +16,8 @@ import {
   Injector,
   forwardRef,
   AfterContentInit,
-  ViewEncapsulation} from '@angular/core';
+  ViewEncapsulation,
+} from '@angular/core';
 import { Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
@@ -26,7 +27,10 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
 import { SelectListItem, SelectListComponent } from '../select-list/index';
-import { EmbeddedInputFieldLabelInput, FORM_CONTROL_EMBEDDED_LABEL_INPUT } from '../input/index';
+import {
+  EmbeddedInputFieldLabelInput,
+  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+} from '../input/index';
 
 @Component({
   selector: 'vcl-select',
@@ -44,19 +48,21 @@ import { EmbeddedInputFieldLabelInput, FORM_CONTROL_EMBEDDED_LABEL_INPUT } from 
     },
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => SelectComponent)
+      useExisting: forwardRef(() => SelectComponent),
     },
-  ]
+  ],
 })
-export class SelectComponent extends TemplateLayerRef<any, SelectListItem> implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput {
-
+export class SelectComponent
+  extends TemplateLayerRef<any, SelectListItem>
+  implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput
+{
   constructor(
     injector: Injector,
     private _dir: Directionality,
     private overlay: Overlay,
     protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
-    private cdRef: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -233,11 +239,15 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
       const items = this.selectList.items;
       const item = items.find(_item => this.selectList.value === _item.value);
       const val = item?.label;
-      return item ? item.label : (this.placeholder || '');
+      return item ? item.label : this.placeholder || '';
     } else {
-      const value = Array.isArray(this.selectList.value) ? this.selectList.value : [];
+      const value = Array.isArray(this.selectList.value)
+        ? this.selectList.value
+        : [];
       const items = this.selectList.items;
-      const labels = items.filter(item => value.includes(item.value)).map(item => item.label);
+      const labels = items
+        .filter(item => value.includes(item.value))
+        .map(item => item.label);
       return labels.length === 0 ? '' : labels.join(', ');
     }
   }
@@ -262,33 +272,44 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
-    return super.createLayerConfig({
-      closeOnEscape: true,
-      hasBackdrop: false,
-      closeOnBackdropClick: true,
-      scrollStrategy: this.overlay.scrollStrategies.reposition({
-        autoClose: true
-      }),
-      direction: this._dir,
-      width: this.width !== undefined ? this.width : this.elementRef.nativeElement.getBoundingClientRect().width,
-      height: this.height,
-      maxHeight: this.maxHeight || '20em',
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      panelClass: ['vcl-select-overlay', 'pop-over'],
-      positionStrategy: this.overlay.position()
-      .flexibleConnectedTo(this.elementRef)
-      .withPositions([{
-        originX: 'start',
-        originY: 'bottom',
-        overlayX: 'start',
-        overlayY: 'top'
-      }, {
-        originX: 'start',
-        originY: 'top',
-        overlayX: 'start',
-        overlayY: 'bottom'
-      }]).withPush(false)
-    }, ...configs)
+    return super.createLayerConfig(
+      {
+        closeOnEscape: true,
+        hasBackdrop: false,
+        closeOnBackdropClick: true,
+        scrollStrategy: this.overlay.scrollStrategies.reposition({
+          autoClose: true,
+        }),
+        direction: this._dir,
+        width:
+          this.width !== undefined
+            ? this.width
+            : this.elementRef.nativeElement.getBoundingClientRect().width,
+        height: this.height,
+        maxHeight: this.maxHeight || '20em',
+        backdropClass: 'cdk-overlay-transparent-backdrop',
+        panelClass: ['vcl-select-overlay', 'pop-over'],
+        positionStrategy: this.overlay
+          .position()
+          .flexibleConnectedTo(this.elementRef)
+          .withPositions([
+            {
+              originX: 'start',
+              originY: 'bottom',
+              overlayX: 'start',
+              overlayY: 'top',
+            },
+            {
+              originX: 'start',
+              originY: 'top',
+              overlayX: 'start',
+              overlayY: 'bottom',
+            },
+          ])
+          .withPush(false),
+      },
+      ...configs
+    );
   }
 
   onLabelClick(): void {
@@ -307,19 +328,19 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
   }
 
   protected afterAttached(): void {
-    this.selectList.valueChange.pipe(
-      takeUntil(this.afterClose)
-    ).subscribe((value) => {
-      if (this.isAttached) {
-        if (this.selectList.selectionMode === 'single') {
-          this.close(value);
-        } else {
-          this.cdRef.markForCheck();
+    this.selectList.valueChange
+      .pipe(takeUntil(this.afterClose))
+      .subscribe(value => {
+        if (this.isAttached) {
+          if (this.selectList.selectionMode === 'single') {
+            this.close(value);
+          } else {
+            this.cdRef.markForCheck();
+          }
+          this.stateChangedEmitter.next();
         }
-        this.stateChangedEmitter.next();
-      }
-      this.cdRef.markForCheck();
-    });
+        this.cdRef.markForCheck();
+      });
     this.stateChangedEmitter.next();
   }
 
@@ -359,7 +380,9 @@ export class SelectComponent extends TemplateLayerRef<any, SelectListItem> imple
     }
 
     if (event.code === 'Enter') {
-      const firstNotHidden = this.selectList.items.find((i) => !this.selectList.isItemHidden(i));
+      const firstNotHidden = this.selectList.items.find(
+        i => !this.selectList.isItemHidden(i)
+      );
       if (firstNotHidden) {
         this.selectList.selectItem(firstNotHidden);
         this.input.nativeElement.blur();

@@ -1,5 +1,24 @@
-import { HostListener, Injector, ElementRef, Input, InjectionToken, ViewContainerRef, Directive, Injectable, OnChanges, SimpleChanges, Optional, TemplateRef, HostBinding } from '@angular/core';
-import { Overlay, ConnectedPosition, PositionStrategy, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
+import {
+  HostListener,
+  Injector,
+  ElementRef,
+  Input,
+  InjectionToken,
+  ViewContainerRef,
+  Directive,
+  Injectable,
+  OnChanges,
+  SimpleChanges,
+  Optional,
+  TemplateRef,
+  HostBinding,
+} from '@angular/core';
+import {
+  Overlay,
+  ConnectedPosition,
+  PositionStrategy,
+  FlexibleConnectedPositionStrategy,
+} from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, Portal } from '@angular/cdk/portal';
 import { Subject, interval, EMPTY } from 'rxjs';
 import { debounce, take } from 'rxjs/operators';
@@ -9,7 +28,10 @@ import { TOOLTIP_TOKEN, Tooltip, TooltipPosition } from './types';
 
 const DEFAULT_POSITION: TooltipPosition[] = ['top', 'right', 'left', 'bottom'];
 
-const calcPos = (position: TooltipPosition, offset: number): ConnectedPosition => {
+const calcPos = (
+  position: TooltipPosition,
+  offset: number
+): ConnectedPosition => {
   if (position === 'right') {
     return {
       originX: 'end',
@@ -17,7 +39,7 @@ const calcPos = (position: TooltipPosition, offset: number): ConnectedPosition =
       overlayX: 'start',
       overlayY: 'center',
       offsetX: offset,
-      panelClass: 'right'
+      panelClass: 'right',
     };
   } else if (position === 'left') {
     return {
@@ -26,7 +48,7 @@ const calcPos = (position: TooltipPosition, offset: number): ConnectedPosition =
       overlayX: 'end',
       overlayY: 'center',
       offsetX: -offset,
-      panelClass: 'left'
+      panelClass: 'left',
     };
   } else if (position === 'top') {
     return {
@@ -35,7 +57,7 @@ const calcPos = (position: TooltipPosition, offset: number): ConnectedPosition =
       overlayX: 'center',
       overlayY: 'bottom',
       offsetY: -offset,
-      panelClass: 'top'
+      panelClass: 'top',
     };
   } else if (position === 'bottom') {
     return {
@@ -44,7 +66,7 @@ const calcPos = (position: TooltipPosition, offset: number): ConnectedPosition =
       overlayX: 'center',
       overlayY: 'top',
       offsetY: offset,
-      panelClass: 'bottom'
+      panelClass: 'bottom',
     };
   } else {
     throw new Error('Invalid tooltip position');
@@ -58,14 +80,13 @@ export type PositionsArray = Positions[];
   selector: '[vclTooltip]',
 })
 export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
-
   constructor(
     injector: Injector,
     private viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef,
     private overlay: Overlay,
     @Optional()
-    private templateRef?: TemplateRef<any>,
+    private templateRef?: TemplateRef<any>
   ) {
     super(injector);
   }
@@ -79,8 +100,10 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
   private stateChangedEmitter = new Subject();
   stateChanged = this.stateChangedEmitter.asObservable();
 
-  tooltipTrigger = this.mouseOverEmitter.asObservable().pipe(
-      debounce((show) => {
+  tooltipTrigger = this.mouseOverEmitter
+    .asObservable()
+    .pipe(
+      debounce(show => {
         if (show) {
           if (this.showDelay) {
             return interval(this.showDelay).pipe(take(1));
@@ -92,15 +115,15 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
           }
           return EMPTY;
         }
-      }
+      })
     )
-  ).subscribe(visible => {
-    if (visible && !this.isAttached) {
-      this.open();
-    } else if (!visible && this.isAttached) {
-      this.close();
-    }
-  });
+    .subscribe(visible => {
+      if (visible && !this.isAttached) {
+        this.open();
+      } else if (!visible && this.isAttached) {
+        this.close();
+      }
+    });
 
   // tslint:disable-next-line:no-input-rename
   @Input('vclTooltip')
@@ -144,39 +167,59 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ((changes.offset && !changes.offset.firstChange) || (changes.position && !changes.position.firstChange))
-    this.updatePositionStrategy();
+    if (
+      (changes.offset && !changes.offset.firstChange) ||
+      (changes.position && !changes.position.firstChange)
+    )
+      this.updatePositionStrategy();
   }
 
   updatePositionStrategy() {
     const offset = this.offset;
     const position = this.position ?? DEFAULT_POSITION;
-    const connectedPositions = Array.isArray(position) ? position.map(pos => calcPos(pos, offset)) : [calcPos(position, offset)];
-    this.positionStrategy = this.overlay.position().flexibleConnectedTo(this.elementRef).withPositions(connectedPositions);
-    this.positionStrategy.positionChanges.subscribe((change) => {
-      this.arrowPosition = change?.connectionPair?.panelClass as TooltipPosition;
+    const connectedPositions = Array.isArray(position)
+      ? position.map(pos => calcPos(pos, offset))
+      : [calcPos(position, offset)];
+    this.positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(this.elementRef)
+      .withPositions(connectedPositions);
+    this.positionStrategy.positionChanges.subscribe(change => {
+      this.arrowPosition = change?.connectionPair
+        ?.panelClass as TooltipPosition;
       this.stateChangedEmitter.next(undefined);
     });
-
   }
 
   protected createLayerConfig(config?: LayerConfig): LayerConfig {
-    return super.createLayerConfig({
-      hasBackdrop: false,
-      scrollStrategy: this.overlay.scrollStrategies.reposition({
-        autoClose: true
-      }),
-      positionStrategy: this.positionStrategy
-    }, config);
+    return super.createLayerConfig(
+      {
+        hasBackdrop: false,
+        scrollStrategy: this.overlay.scrollStrategies.reposition({
+          autoClose: true,
+        }),
+        positionStrategy: this.positionStrategy,
+      },
+      config
+    );
   }
 
   createPortal() {
     if (this.value) {
-      const injector = Injector.create([{
-        provide: TOOLTIP_TOKEN,
-        useValue: this
-      }], this.injector);
-      return new ComponentPortal(TooltipComponent, this.viewContainerRef, injector);
+      const injector = Injector.create(
+        [
+          {
+            provide: TOOLTIP_TOKEN,
+            useValue: this,
+          },
+        ],
+        this.injector
+      );
+      return new ComponentPortal(
+        TooltipComponent,
+        this.viewContainerRef,
+        injector
+      );
     } else {
       throw new Error('Invalid tooltip property');
     }

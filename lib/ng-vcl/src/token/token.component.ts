@@ -11,20 +11,21 @@ import {
   SkipSelf,
   Inject,
   Optional,
-  ElementRef
+  ElementRef,
 } from '@angular/core';
 import { TokenObserver, Token } from './interfaces';
 
-export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>('vcl_token_observer');
+export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>(
+  'vcl_token_observer'
+);
 
 @Component({
   selector: 'vcl-token',
   templateUrl: 'token.component.html',
   exportAs: 'vclToken',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TokenComponent implements Token {
-
   constructor(
     private cdRef: ChangeDetectorRef,
     private elementRef: ElementRef<HTMLElement>,
@@ -32,7 +33,7 @@ export class TokenComponent implements Token {
     @Optional()
     @Inject(TOKEN_OBSERVER_TOKEN)
     private observer?: TokenObserver
-  ) { }
+  ) {}
 
   @HostBinding('class.token')
   @Input()

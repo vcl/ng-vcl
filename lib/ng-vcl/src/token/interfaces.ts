@@ -1,4 +1,3 @@
-
 export interface Token {
   label: string;
   value: any;

@@ -1,6 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+  OnInit,
+} from '@angular/core';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
-import { VCLCalendarMonth, VCLCalendarDay, VCLCalendarDateModifier } from '../interfaces';
+import {
+  VCLCalendarMonth,
+  VCLCalendarDay,
+  VCLCalendarDateModifier,
+} from '../interfaces';
 import { VCLCalendarWeek } from '../interfaces';
 import { compare } from '../utils';
 
@@ -8,13 +21,10 @@ import { compare } from '../utils';
   selector: 'vcl-calendar-view-month',
   templateUrl: 'month.component.html',
   exportAs: 'vclCalendarViewMonth',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
-
-  constructor(
-    private dateAdapter: DateAdapterBase<VCLDate>,
-  ) { }
+  constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}
 
   @Input()
   showWeekOfTheYear = false;
@@ -44,8 +54,13 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   weekdayLabels = this.dateAdapter.getDayOfWeekNames();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.value || changes.viewDate || changes.dateModifiers || changes.disabled) {
-      if (changes.value && changes.value.currentValue && (!this.viewDate)) {
+    if (
+      changes.value ||
+      changes.viewDate ||
+      changes.dateModifiers ||
+      changes.disabled
+    ) {
+      if (changes.value && changes.value.currentValue && !this.viewDate) {
         this.viewDate = this.dateAdapter.toDate(changes.value.currentValue);
       }
       this.updateCalendarMonth();
@@ -97,41 +112,70 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
     const lastWeekday = this.dateAdapter.getLastWeekdayOfMonth(date);
 
     // Calculate days of prev month shown in the first week
-    let leakingDaysBefore =  beginWeekday - this.dateAdapter.weekDayOffset;
+    let leakingDaysBefore = beginWeekday - this.dateAdapter.weekDayOffset;
     // Check for negative numbers
-    leakingDaysBefore = leakingDaysBefore < 0 ? this.dateAdapter.daysPerWeek + leakingDaysBefore : leakingDaysBefore;
+    leakingDaysBefore =
+      leakingDaysBefore < 0
+        ? this.dateAdapter.daysPerWeek + leakingDaysBefore
+        : leakingDaysBefore;
     // Calculate days of next month shown in the last week
-    let leakingDaysAfter = this.dateAdapter.daysPerWeek - lastWeekday - 1 + this.dateAdapter.weekDayOffset;
+    let leakingDaysAfter =
+      this.dateAdapter.daysPerWeek -
+      lastWeekday -
+      1 +
+      this.dateAdapter.weekDayOffset;
     // Strip if its a whole week
     leakingDaysAfter = leakingDaysAfter % this.dateAdapter.daysPerWeek;
 
     let days: VCLCalendarDay<VCLDate>[];
     let week: VCLCalendarWeek<VCLDate>;
 
-    for (let dayInMonth = 1 - leakingDaysBefore, dayInWeek = 0; dayInMonth <= daysInMonth + leakingDaysAfter; dayInMonth++) {
+    for (
+      let dayInMonth = 1 - leakingDaysBefore, dayInWeek = 0;
+      dayInMonth <= daysInMonth + leakingDaysAfter;
+      dayInMonth++
+    ) {
       if (!week || !days) {
-        const weekDate = this.dateAdapter.createDate(this.dateAdapter.getYear(date), this.dateAdapter.getMonth(date), dayInMonth);
+        const weekDate = this.dateAdapter.createDate(
+          this.dateAdapter.getYear(date),
+          this.dateAdapter.getMonth(date),
+          dayInMonth
+        );
         days = [];
         week = {
           date: weekDate,
           days,
-          label: this.dateAdapter.getWeekOfTheYear(weekDate).toString()
+          label: this.dateAdapter.getWeekOfTheYear(weekDate).toString(),
         };
       }
 
       const compareDate = this.dateAdapter.compareDate.bind(this.dateAdapter);
 
       const inMonth = dayInMonth >= 1 && dayInMonth <= daysInMonth;
-      const dayDate = this.dateAdapter.createDate(this.dateAdapter.getYear(date), this.dateAdapter.getMonth(date), dayInMonth);
+      const dayDate = this.dateAdapter.createDate(
+        this.dateAdapter.getYear(date),
+        this.dateAdapter.getMonth(date),
+        dayInMonth
+      );
 
-      const dateModifier = !!Array.isArray(this.dateModifiers) && this.dateModifiers.find(_dm => {
-        return (!_dm.view || _dm.view === 'month') && !!compare(this.dateAdapter, _dm.match, dayDate, compareDate);
-      });
+      const dateModifier =
+        !!Array.isArray(this.dateModifiers) &&
+        this.dateModifiers.find(_dm => {
+          return (
+            (!_dm.view || _dm.view === 'month') &&
+            !!compare(this.dateAdapter, _dm.match, dayDate, compareDate)
+          );
+        });
 
       const dateClass = dateModifier ? dateModifier.class : undefined;
       const disabled = !!dateModifier && !!dateModifier.disabled;
 
-      let selected = compare(this.dateAdapter, this.value, dayDate, compareDate);
+      let selected = compare(
+        this.dateAdapter,
+        this.value,
+        dayDate,
+        compareDate
+      );
       // Disabled days cannot be selected
       if (disabled && selected) {
         selected = false;
@@ -144,10 +188,11 @@ export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
         selected,
         disabled,
         class: dateClass,
-        isToday: this.dateAdapter.compareDate(dayDate, this.dateAdapter.today()) === 0
+        isToday:
+          this.dateAdapter.compareDate(dayDate, this.dateAdapter.today()) === 0,
       });
 
-      if (dayInWeek === (this.dateAdapter.daysPerWeek - 1)) {
+      if (dayInWeek === this.dateAdapter.daysPerWeek - 1) {
         weeks.push(week);
         week = undefined;
         days = undefined;

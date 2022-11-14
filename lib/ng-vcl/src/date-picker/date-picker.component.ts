@@ -16,16 +16,33 @@ import {
   OnChanges,
   SimpleChanges,
   AfterViewInit,
-  ViewEncapsulation} from '@angular/core';
+  ViewEncapsulation,
+} from '@angular/core';
 import { Subscription, Subject } from 'rxjs';
 import { Overlay } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+} from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
-import { FORM_CONTROL_GROUP_INPUT_STATE, FormControlGroupInputState } from '../form-control-group/index';
-import { VCLDateRange, DateAdapterBase, DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '../dateadapter/index';
-import { InputDirective, FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from '../input/index';
+import {
+  FORM_CONTROL_GROUP_INPUT_STATE,
+  FormControlGroupInputState,
+} from '../form-control-group/index';
+import {
+  VCLDateRange,
+  DateAdapterBase,
+  DateAdapterBaseParseFormats,
+  DateAdapterBaseDisplayFormats,
+} from '../dateadapter/index';
+import {
+  InputDirective,
+  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+  EmbeddedInputFieldLabelInput,
+} from '../input/index';
 import { VCLCalendarDateModifier } from '../calendar/index';
 
 let UNIQUE_ID = 0;
@@ -41,23 +58,31 @@ export type DatepickerDisplay = 'date' | 'month' | 'time';
   providers: [
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => DatepickerComponent)
+      useExisting: forwardRef(() => DatepickerComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => DatepickerComponent)
+      useExisting: forwardRef(() => DatepickerComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => DatepickerComponent),
       multi: true,
-    }
+    },
   ],
   styleUrls: ['date-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>> implements OnDestroy, ControlValueAccessor, OnChanges, AfterViewInit, FormControlGroupInputState, EmbeddedInputFieldLabelInput {
-
+export class DatepickerComponent<VCLDate>
+  extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>>
+  implements
+    OnDestroy,
+    ControlValueAccessor,
+    OnChanges,
+    AfterViewInit,
+    FormControlGroupInputState,
+    EmbeddedInputFieldLabelInput
+{
   constructor(
     injector: Injector,
     private _dir: Directionality,
@@ -65,7 +90,7 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
     protected viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
-    private dateAdapter: DateAdapterBase<VCLDate>,
+    private dateAdapter: DateAdapterBase<VCLDate>
   ) {
     super(injector);
   }
@@ -203,30 +228,38 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
   }
 
   protected createLayerConfig(...configs: LayerConfig[]): LayerConfig {
-    return super.createLayerConfig({
-      closeOnEscape: true,
-      hasBackdrop: true,
-      closeOnBackdropClick: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.reposition({
-        autoClose: true
-      }),
-      direction: this._dir,
-      panelClass: ['pop-over', 'date-picker'],
-      positionStrategy: this.overlay.position()
-      .flexibleConnectedTo(this.elementRef)
-      .withPositions([{
-        originX: 'end',
-        originY: 'bottom',
-        overlayX: 'end',
-        overlayY: 'top'
-      }, {
-        originX: 'end',
-        originY: 'top',
-        overlayX: 'end',
-        overlayY: 'bottom'
-      }]).withPush(false)
-    }, ...configs)
+    return super.createLayerConfig(
+      {
+        closeOnEscape: true,
+        hasBackdrop: true,
+        closeOnBackdropClick: true,
+        backdropClass: 'cdk-overlay-transparent-backdrop',
+        scrollStrategy: this.overlay.scrollStrategies.reposition({
+          autoClose: true,
+        }),
+        direction: this._dir,
+        panelClass: ['pop-over', 'date-picker'],
+        positionStrategy: this.overlay
+          .position()
+          .flexibleConnectedTo(this.elementRef)
+          .withPositions([
+            {
+              originX: 'end',
+              originY: 'bottom',
+              overlayX: 'end',
+              overlayY: 'top',
+            },
+            {
+              originX: 'end',
+              originY: 'top',
+              overlayX: 'end',
+              overlayY: 'bottom',
+            },
+          ])
+          .withPush(false),
+      },
+      ...configs
+    );
   }
 
   ngAfterViewInit() {
@@ -236,7 +269,10 @@ export class DatepickerComponent<VCLDate> extends TemplateLayerRef<any, VCLDate 
 
   updateInput() {
     if (this.input && this.value) {
-      this.input.value = this.dateAdapter.format(this.value, this.displayFormatName);
+      this.input.value = this.dateAdapter.format(
+        this.value,
+        this.displayFormatName
+      );
     } else if (this.input) {
       this.input.value = '';
     }

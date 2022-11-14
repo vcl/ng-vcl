@@ -7,7 +7,10 @@ export const JSS_FORM_TOKEN = new InjectionToken<JssForm>('jss_form');
 export type ConditionalCallback<T> = (...controls: AbstractControl[]) => T;
 
 export class Conditional<T> {
-  constructor(protected fields: string[], protected cb: ConditionalCallback<T>) { }
+  constructor(
+    protected fields: string[],
+    protected cb: ConditionalCallback<T>
+  ) {}
 }
 export interface InternalConditional<T> {
   fields: string[];
@@ -62,4 +65,6 @@ export interface JssForm {
   help?: HelpConfig;
 }
 
-export const JSS_FORM_HELP_CONFIG_TOKEN = new InjectionToken<HelpConfig>('JSS_FORM_HELP_CONFIG');
+export const JSS_FORM_HELP_CONFIG_TOKEN = new InjectionToken<HelpConfig>(
+  'JSS_FORM_HELP_CONFIG'
+);

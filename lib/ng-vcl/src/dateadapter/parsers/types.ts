@@ -1,5 +1,9 @@
 import { InjectionToken } from '@angular/core';
-import { DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats, DateAdapterBasePattern } from '../interfaces';
+import {
+  DateAdapterBaseParseFormats,
+  DateAdapterBaseDisplayFormats,
+  DateAdapterBasePattern,
+} from '../interfaces';
 
 export interface DateAdapterParser {
   readonly supportedLocales: ReadonlyArray<string>;
@@ -8,4 +12,6 @@ export interface DateAdapterParser {
   pattern(format: DateAdapterBasePattern): string;
 }
 
-export const VCL_DATE_ADAPTER_PARSER = new InjectionToken('VCL_DATE_ADAPTER_PARSER');
+export const VCL_DATE_ADAPTER_PARSER = new InjectionToken(
+  'VCL_DATE_ADAPTER_PARSER'
+);

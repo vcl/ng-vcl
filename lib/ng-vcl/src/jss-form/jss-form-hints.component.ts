@@ -1,28 +1,47 @@
-import { Component,  ChangeDetectionStrategy, OnDestroy, OnChanges, AfterViewInit, Optional, Inject} from '@angular/core';
-import { Subject, Observable, merge, Subscription, of, combineLatest } from 'rxjs';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  OnChanges,
+  AfterViewInit,
+  Optional,
+  Inject,
+} from '@angular/core';
+import {
+  Subject,
+  Observable,
+  merge,
+  Subscription,
+  of,
+  combineLatest,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
 import { FormFieldControl, FormField } from './fields/field';
 import { AbstractControl } from '@angular/forms';
-import { FORM_CONTROL_GROUP_STATE, FormControlGroupState, FORM_CONTROL_GROUP_FORM, FormControlGroupForm } from '../form-control-group/exports';
-
+import {
+  FORM_CONTROL_GROUP_STATE,
+  FormControlGroupState,
+  FORM_CONTROL_GROUP_FORM,
+  FormControlGroupForm,
+} from '../form-control-group/exports';
 
 @Component({
   selector: 'vcl-jss-form-hints',
   templateUrl: 'jss-form-hints.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'vclJssFormControl'
+  exportAs: 'vclJssFormControl',
 })
 export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
-
   constructor(
     @Inject(FORM_CONTROL_GROUP_FORM)
     private form: FormControlGroupForm,
     @Optional()
     private field?: FormField<any>,
-    @Optional() @Inject(FORM_CONTROL_GROUP_STATE)
-    private fcgs?: FormControlGroupState,
-  ) { }
+    @Optional()
+    @Inject(FORM_CONTROL_GROUP_STATE)
+    private fcgs?: FormControlGroupState
+  ) {}
 
   ngOnInit() {
     let control: AbstractControl;
@@ -56,17 +75,19 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
 
   hints$: Observable<Hint[]> = this._hintsEmitter.asObservable().pipe(
     switchMap(() => {
-      return combineLatest(...this._hints.map(hint => {
-        if (typeof hint === 'string') {
-          return of({
-            type: 'default',
-            message: hint
-          } as DefaultHint);
-        } else if (hint instanceof Conditional) {
-          return this.field.createConditionalStream(hint);
-        }
-        return of(hint as Hint);
-      }));
+      return combineLatest(
+        ...this._hints.map(hint => {
+          if (typeof hint === 'string') {
+            return of({
+              type: 'default',
+              message: hint,
+            } as DefaultHint);
+          } else if (hint instanceof Conditional) {
+            return this.field.createConditionalStream(hint);
+          }
+          return of(hint as Hint);
+        })
+      );
     })
   );
 
