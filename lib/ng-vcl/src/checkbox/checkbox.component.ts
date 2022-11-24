@@ -2,23 +2,17 @@ import {
   Component,
   Input,
   Output,
-  HostListener,
   EventEmitter,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   forwardRef,
   HostBinding,
-  Optional,
-  Inject,
   OnDestroy,
-  Self,
   Injector,
 } from '@angular/core';
 import {
   ControlValueAccessor,
   NgControl,
-  NgForm,
-  FormGroupDirective,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {

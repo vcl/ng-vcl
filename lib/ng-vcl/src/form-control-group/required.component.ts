@@ -3,7 +3,6 @@ import {
   Input,
   HostBinding,
   ChangeDetectionStrategy,
-  Optional,
   Inject,
 } from '@angular/core';
 import { FORM_CONTROL_GROUP_REQUIRED_INDICATOR } from './interfaces';

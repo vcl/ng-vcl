@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   Output,
-  HostListener,
   EventEmitter,
   ChangeDetectionStrategy,
   ChangeDetectorRef,

@@ -20,7 +20,7 @@ import {
   Subject,
   Subscription,
 } from 'rxjs';
-import { first, skipUntil, filter, switchMap, tap } from 'rxjs/operators';
+import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
 @Directive({

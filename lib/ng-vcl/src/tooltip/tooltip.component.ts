@@ -4,7 +4,6 @@ import {
   Optional,
   Inject,
   ChangeDetectorRef,
-  TemplateRef,
 } from '@angular/core';
 import { TOOLTIP_TOKEN, Tooltip } from './types';
 import { TemplatePortal } from '@angular/cdk/portal';

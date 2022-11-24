@@ -10,9 +10,6 @@ import {
   EventEmitter,
   HostListener,
   ChangeDetectorRef,
-  Optional,
-  Self,
-  Inject,
   OnDestroy,
   Injector,
 } from '@angular/core';

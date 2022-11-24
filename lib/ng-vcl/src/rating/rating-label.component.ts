@@ -1,7 +1,6 @@
 import {
   Input,
   Component,
-  TemplateRef,
   ViewContainerRef,
   ChangeDetectorRef,
   ChangeDetectionStrategy,

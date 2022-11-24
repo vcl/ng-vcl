@@ -2,15 +2,12 @@ import {
   Component,
   HostBinding,
   ChangeDetectionStrategy,
-  Renderer2,
   Input,
   Output,
   EventEmitter,
-  OnInit,
   Directive,
   ContentChildren,
   QueryList,
-  ElementRef,
   Self,
 } from '@angular/core';
 import { NEVER, merge } from 'rxjs';

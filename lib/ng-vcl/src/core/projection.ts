@@ -1,10 +1,6 @@
 import {
   Directive,
   NgModule,
-  ElementRef,
-  Optional,
-  HostBinding,
-  Input,
 } from '@angular/core';
 
 @Directive({ selector: '[vclPrepend]' })

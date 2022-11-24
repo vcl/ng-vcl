@@ -5,7 +5,6 @@ import {
   ViewContainerRef,
   ComponentRef,
   EmbeddedViewRef,
-  EventEmitter,
 } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { take, switchMap, filter, map } from 'rxjs/operators';

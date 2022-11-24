@@ -11,8 +11,6 @@ import {
   QueryList,
   ContentChildren,
   SimpleChanges,
-  Optional,
-  Inject,
   OnDestroy,
   OnChanges,
   AfterViewInit,

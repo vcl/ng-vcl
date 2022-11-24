@@ -11,9 +11,6 @@ import {
   ChangeDetectorRef,
   AfterContentInit,
   HostBinding,
-  Optional,
-  Inject,
-  Self,
   Injector,
 } from '@angular/core';
 import { Subscription, Subject } from 'rxjs';

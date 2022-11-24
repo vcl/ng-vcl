@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {
-  MediaMatcher,
   BreakpointObserver,
   Breakpoints,
 } from '@angular/cdk/layout';

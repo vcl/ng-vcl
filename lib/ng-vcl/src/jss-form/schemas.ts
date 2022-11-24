@@ -1,5 +1,5 @@
 import { ValidatorFn } from '@angular/forms';
-import { Hint, Conditional, Help, HelpConfig } from './types';
+import { Hint, Conditional, Help } from './types';
 import { DatepickerPick } from '../date-picker/index';
 import { FormControlErrorStateAgent } from '../form-control-group/index';
 

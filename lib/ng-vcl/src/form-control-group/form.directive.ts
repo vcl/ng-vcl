@@ -4,11 +4,9 @@ import {
   Optional,
   Self,
   forwardRef,
-  OnInit,
-  OnDestroy,
 } from '@angular/core';
 import { FormGroupDirective, NgForm } from '@angular/forms';
-import { NEVER, Subject } from 'rxjs';
+import { NEVER } from 'rxjs';
 import { FormControlGroupForm, FORM_CONTROL_GROUP_FORM } from './interfaces';
 
 @Directive({

@@ -5,10 +5,7 @@ import {
   Input,
   HostListener,
   forwardRef,
-  Optional,
-  Inject,
   OnDestroy,
-  InjectionToken,
   Injector,
 } from '@angular/core';
 import { Subject } from 'rxjs';

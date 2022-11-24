@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DateAdapterBase } from '../dateadapter/index';
 import {
   VCLCalendarHandler,
-  CalendarComponent,
   VCLCalendarView,
   VCLCalendar,
 } from '../calendar/index';

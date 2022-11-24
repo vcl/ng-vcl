@@ -6,7 +6,6 @@ import {
   ChangeDetectionStrategy,
   ElementRef,
   Renderer2,
-  Optional,
   OnInit,
 } from '@angular/core';
 import { AnimationEvent, useAnimation } from '@angular/animations';
