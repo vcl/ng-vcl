@@ -12,7 +12,7 @@ With image resource
 
 ```html
 <vcl-icon aria-label="Settings">
-  <img src="http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7/36">
+  <img ngSrc="http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7/36">
 </vcl-icon>
 ```
 
