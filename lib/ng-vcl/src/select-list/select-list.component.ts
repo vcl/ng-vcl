@@ -8,12 +8,9 @@ import {
   HostBinding,
   AfterContentInit,
   OnDestroy,
-  Optional,
-  Inject,
   Component,
   ChangeDetectorRef,
   Injector,
-  ContentChild,
   ViewEncapsulation,
 } from '@angular/core';
 import {

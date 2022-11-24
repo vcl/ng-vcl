@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   OnInit,
-  HostBinding,
   ElementRef,
   ViewChild,
   OnChanges,

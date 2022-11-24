@@ -12,7 +12,6 @@ import {
   InjectionToken,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
-  Directive,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 

@@ -1,4 +1,4 @@
-import { Component, forwardRef, Inject, Input, Optional } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { GalleryComponent } from './gallery.component';
 
 @Component({

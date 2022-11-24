@@ -7,16 +7,10 @@ import {
   HostBinding,
   Inject,
   HostListener,
-  ViewContainerRef,
-  AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   OnInit,
-  NgZone,
 } from '@angular/core';
 import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { debounceTime } from 'rxjs/operators';
 
 @Directive({
   selector: 'vcl-tab-label',

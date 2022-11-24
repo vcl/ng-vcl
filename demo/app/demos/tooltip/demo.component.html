@@ -25,11 +25,11 @@
 
   <ng-template cdkPortal #richTT="cdkPortal">
     <div class="row center">
-      <img src="http://lorempixel.com/50/50/cats/" />
+      <img ngSrc="http://lorempixel.com/50/50/cats/" />
       <span class="gutter-margin-l-r"><b>Tooltip</b> with <i>rich</i> content </span>
-    </div>  
+    </div>
   </ng-template>
-  
+
   <div [vclTooltip]="richTT" style="background-color:#A4A4A4;flex:1">
     <p>Tooltip with rich content</p>
   </div>

@@ -20,7 +20,7 @@ import {
 import { TabComponent } from './tab.component';
 import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({

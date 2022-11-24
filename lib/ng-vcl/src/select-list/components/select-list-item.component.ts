@@ -4,7 +4,6 @@ import {
   Component,
   Inject,
   HostListener,
-  Directive,
   ContentChild,
   ElementRef,
   ChangeDetectionStrategy,

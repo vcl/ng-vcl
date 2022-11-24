@@ -3,10 +3,8 @@ import {
   Injector,
   ElementRef,
   Input,
-  InjectionToken,
   ViewContainerRef,
   Directive,
-  Injectable,
   OnChanges,
   SimpleChanges,
   Optional,
@@ -16,10 +14,9 @@ import {
 import {
   Overlay,
   ConnectedPosition,
-  PositionStrategy,
   FlexibleConnectedPositionStrategy,
 } from '@angular/cdk/overlay';
-import { ComponentPortal, TemplatePortal, Portal } from '@angular/cdk/portal';
+import { ComponentPortal, Portal } from '@angular/cdk/portal';
 import { Subject, interval, EMPTY } from 'rxjs';
 import { debounce, take } from 'rxjs/operators';
 import { LayerRef, LayerConfig } from '../layer/index';

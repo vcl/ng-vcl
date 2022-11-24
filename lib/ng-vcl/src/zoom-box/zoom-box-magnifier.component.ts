@@ -1,4 +1,4 @@
-import { Component, ElementRef, Optional, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({

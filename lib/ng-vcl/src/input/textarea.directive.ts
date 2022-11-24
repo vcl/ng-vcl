@@ -9,9 +9,6 @@ import {
   SimpleChanges,
   DoCheck,
   forwardRef,
-  Optional,
-  Inject,
-  ChangeDetectorRef,
   OnDestroy,
   Injector,
 } from '@angular/core';

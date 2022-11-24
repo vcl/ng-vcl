@@ -10,12 +10,23 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2020",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom", "esnext.asynciterable"],
+    "target": "ES2022",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom",
+      "esnext.asynciterable"
+    ],
     "paths": {
-      "@vcl/ng-vcl": ["lib/ng-vcl/src"],
-      "@vcl/ng-vcl/*": ["lib/ng-vcl/src/*"]
-    }
+      "@vcl/ng-vcl": [
+        "lib/ng-vcl/src"
+      ],
+      "@vcl/ng-vcl/*": [
+        "lib/ng-vcl/src/*"
+      ]
+    },
+    "useDefineForClassFields": false
   }
 }

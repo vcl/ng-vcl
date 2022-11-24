@@ -7,7 +7,6 @@ import {
   AfterContentInit,
   forwardRef,
   ChangeDetectorRef,
-  ElementRef,
 } from '@angular/core';
 import { InputDirective } from './input.directive';
 import { TextareaDirective } from './textarea.directive';

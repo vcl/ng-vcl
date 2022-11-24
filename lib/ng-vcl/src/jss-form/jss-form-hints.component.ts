@@ -2,7 +2,6 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnDestroy,
-  OnChanges,
   AfterViewInit,
   Optional,
   Inject,

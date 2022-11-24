@@ -10,7 +10,6 @@ import {
   forwardRef,
   Inject,
   Optional,
-  ElementRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { Subject, merge, NEVER } from 'rxjs';

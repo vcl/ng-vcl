@@ -1,6 +1,5 @@
 import { InjectionToken, TemplateRef } from '@angular/core';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface Tab {
   // portal?: TemplatePortal;
