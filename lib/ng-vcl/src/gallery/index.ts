@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   GalleryComponent,
@@ -23,7 +23,7 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule, VCLButtonModule, VCLIconModule],
+  imports: [CommonModule, NgOptimizedImage, VCLButtonModule, VCLIconModule],
   exports: [
     GalleryComponent,
     GalleryImageComponent,
