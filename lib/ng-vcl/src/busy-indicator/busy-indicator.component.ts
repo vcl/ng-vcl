@@ -1,10 +1,12 @@
-import { DomSanitizer } from '@angular/platform-browser';
+
 import {
   Component,
   Input,
   ChangeDetectionStrategy,
   ViewEncapsulation,
+  SecurityContext,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // tslint:disable-next-line:max-line-length
 const CIRCULAR =
@@ -18,7 +20,7 @@ const CIRCULAR =
   encapsulation: ViewEncapsulation.None,
 })
 export class BusyIndicatorComponent {
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private domSanitizer: DomSanitizer) {}
 
   @Input()
   layout: 'vertical' | 'horizontal' = 'vertical';
@@ -35,5 +37,5 @@ export class BusyIndicatorComponent {
   @Input()
   imageWidth = '3em';
 
-  imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(CIRCULAR);
+  imageSrc = this.domSanitizer.sanitize(SecurityContext.HTML,this.domSanitizer.bypassSecurityTrustHtml(CIRCULAR));
 }
