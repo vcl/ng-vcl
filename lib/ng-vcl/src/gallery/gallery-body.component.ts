@@ -1,6 +1,5 @@
 import {
   AfterContentChecked,
-  AfterViewInit,
   Component,
   ElementRef,
   Input,

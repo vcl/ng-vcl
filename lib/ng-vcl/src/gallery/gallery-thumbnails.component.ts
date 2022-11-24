@@ -1,12 +1,8 @@
 import {
-  AfterContentChecked,
   Component,
   ElementRef,
-  forwardRef,
-  Inject,
   Input,
   Optional,
-  ViewChild,
 } from '@angular/core';
 import { GalleryComponent } from './gallery.component';
 
