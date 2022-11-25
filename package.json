@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@angular/animations": "^15.0.1",
-    "@angular/cdk": "^14.2.0",
+    "@angular/cdk": "^15.0.0",
     "@angular/common": "^15.0.1",
     "@angular/compiler": "^15.0.1",
     "@angular/core": "^15.0.1",
@@ -48,14 +48,14 @@
     "fuse.js": "^6.6.2",
     "hammerjs": "^2.0.8",
     "jsonschema": "^1.4.1",
-    "ngx-markdown": "^14.0.1",
+    "ngx-markdown": "^15.0.0",
     "normalize.css": "^8.0.1",
     "raw-loader": "^4.0.2",
     "rxjs": "^7.5.6",
     "sass": "^1.54.8",
     "sass-loader": "^13.0.2",
     "tslib": "^2.4.0",
-    "zone.js": "^0.11.8"
+    "zone.js": "^0.12.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.0.1",
@@ -79,7 +79,7 @@
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "2.0.0",
-    "lerna": "^5.5.0",
+    "lerna": "^6.0.3",
     "ng-packagr": "^15.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
