@@ -1,6 +1,8 @@
 import { ElementRef } from '@angular/core';
 
-export function hasProjectedContent(element: ElementRef<HTMLElement> | HTMLElement) {
+export function hasProjectedContent(
+  element: ElementRef<HTMLElement> | HTMLElement
+) {
   if (!element) {
     return false;
   }

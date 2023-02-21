@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { MaterialDesignVCLIconAliasResolverService, FontAwesomeVCLIconAliasResolverService, IconService, IconResolverService, MaterialDesignIconResolverService, FontAwesomeIconResolverService } from '@vcl/ng-vcl';
+import {
+  MaterialDesignVCLIconAliasResolverService,
+  FontAwesomeVCLIconAliasResolverService,
+  IconService,
+  IconResolverService,
+  MaterialDesignIconResolverService,
+  FontAwesomeIconResolverService,
+} from '@vcl/ng-vcl';
 
 // Icon resolvers can be set on module or component level by setting providers
 
@@ -11,18 +18,16 @@ import { MaterialDesignVCLIconAliasResolverService, FontAwesomeVCLIconAliasResol
     {
       provide: IconResolverService,
       useClass: MaterialDesignIconResolverService,
-      multi: true
+      multi: true,
     },
     {
       provide: IconResolverService,
       useClass: MaterialDesignVCLIconAliasResolverService,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class DemoMdiIconsComponent {
-
-}
+export class DemoMdiIconsComponent {}
 
 @Component({
   templateUrl: 'icons.component.html',
@@ -32,15 +37,13 @@ export class DemoMdiIconsComponent {
     {
       provide: IconResolverService,
       useClass: FontAwesomeIconResolverService,
-      multi: true
+      multi: true,
     },
     {
       provide: IconResolverService,
       useClass: FontAwesomeVCLIconAliasResolverService,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class DemoFontAwesomeComponent {
-
-}
+export class DemoFontAwesomeComponent {}

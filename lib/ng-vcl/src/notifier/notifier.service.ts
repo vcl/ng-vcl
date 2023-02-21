@@ -4,16 +4,16 @@ import { NotifierHandlerService } from './notifier-handler.service';
 import { NotificationType } from '../notification/index';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotifierService {
-  constructor(private _notificationsHandler: NotifierHandlerService) { }
+  constructor(private _notificationsHandler: NotifierHandlerService) {}
 
   info(opts: NotifierOptions | string) {
     opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
       type: NotificationType.Info,
-      ...opts
+      ...opts,
     });
   }
 
@@ -21,7 +21,7 @@ export class NotifierService {
     opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
       type: NotificationType.Success,
-      ...opts
+      ...opts,
     });
   }
 
@@ -29,7 +29,7 @@ export class NotifierService {
     opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
       type: NotificationType.Warning,
-      ...opts
+      ...opts,
     });
   }
 
@@ -37,7 +37,7 @@ export class NotifierService {
     opts = typeof opts === 'string' ? { content: opts } : opts;
     return this.queue({
       type: NotificationType.Error,
-      ...opts
+      ...opts,
     });
   }
 

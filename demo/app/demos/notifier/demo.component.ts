@@ -1,5 +1,15 @@
-import { NotifierPosition, NotifierService, NotifierOptions } from '@vcl/ng-vcl';
-import { Component, Input, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
+import {
+  NotifierPosition,
+  NotifierService,
+  NotifierOptions,
+} from '@vcl/ng-vcl';
+import {
+  Component,
+  Input,
+  ViewEncapsulation,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 let cnt = 1;
@@ -7,15 +17,16 @@ let cnt = 1;
 @Component({
   templateUrl: 'demo.component.html',
   encapsulation: ViewEncapsulation.None,
-  styles: [`
-    .demoCustomNotifier {
-      background-color: black;
-      color: white;
-    }
-  `]
+  styles: [
+    `
+      .demoCustomNotifier {
+        background-color: black;
+        color: white;
+      }
+    `,
+  ],
 })
 export class NotifierDemoComponent {
-
   constructor(private notifier: NotifierService) {}
 
   positions = NotifierPosition;
@@ -27,7 +38,7 @@ export class NotifierDemoComponent {
   default() {
     this.notifier.queue({
       content: 'A message ' + cnt++,
-      position: this.position
+      position: this.position,
     });
   }
   info() {
@@ -42,21 +53,21 @@ export class NotifierDemoComponent {
     this.notifier.success({
       content: 'A success message ' + cnt++,
       title: 'Success',
-      position: this.position
+      position: this.position,
     });
   }
   warning() {
     this.notifier.warning({
       content: 'A warning ' + cnt++,
       title: 'Warning',
-      position: this.position
+      position: this.position,
     });
   }
   error() {
     this.notifier.error({
       content: 'An error message ' + cnt++,
       title: 'Error',
-      position: this.position
+      position: this.position,
     });
   }
   custom() {
@@ -65,17 +76,16 @@ export class NotifierDemoComponent {
       position: this.position,
       showCloseButton: false,
       timeout: 10000,
-      class: 'demoCustomNotifier'
+      class: 'demoCustomNotifier',
     });
   }
 
   modalNotificationOptions: NotifierOptions = {
-    content: 'I am modal!', 
-    position: NotifierPosition.Center, 
-    title: 'Modal Title', 
-    hasBackdrop: true, 
-    timeout: false, 
-    showCloseButton: true 
-  }
-
+    content: 'I am modal!',
+    position: NotifierPosition.Center,
+    title: 'Modal Title',
+    hasBackdrop: true,
+    timeout: false,
+    showCloseButton: true,
+  };
 }

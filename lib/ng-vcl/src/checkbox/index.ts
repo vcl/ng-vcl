@@ -10,6 +10,6 @@ export { CheckboxComponent };
 @NgModule({
   imports: [CommonModule, VCLIconModule],
   exports: [CheckboxComponent],
-  declarations: [CheckboxComponent]
+  declarations: [CheckboxComponent],
 })
-export class VCLCheckboxModule { }
+export class VCLCheckboxModule {}

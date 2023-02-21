@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -26,6 +26,7 @@
       "@vcl/ng-vcl/*": [
         "lib/ng-vcl/src/*"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   }
 }

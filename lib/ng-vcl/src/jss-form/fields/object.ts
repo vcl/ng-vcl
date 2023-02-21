@@ -4,15 +4,25 @@ import { Portal } from '@angular/cdk/portal';
 import { FormField, FormFieldControl } from './field';
 import { VCLFormFieldSchemaObject } from '../schemas';
 
-export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, {}> {
-  constructor(schema: VCLFormFieldSchemaObject, parent?: FormField, initialValue?: any) {
+export class FormFieldObject extends FormFieldControl<
+  VCLFormFieldSchemaObject,
+  {}
+> {
+  constructor(
+    schema: VCLFormFieldSchemaObject,
+    parent?: FormField,
+    initialValue?: any
+  ) {
     super(schema, parent);
 
     this._fields = schema.fields.map(fieldSchema => {
       return FormField.createInstance({
         schema: fieldSchema,
-        initialValue: (initialValue && 'name' in fieldSchema) ? initialValue[fieldSchema.name] : undefined,
-        parent: this
+        initialValue:
+          initialValue && 'name' in fieldSchema
+            ? initialValue[fieldSchema.name]
+            : undefined,
+        parent: this,
       });
     });
   }
@@ -66,52 +76,53 @@ export class FormFieldObject extends FormFieldControl<VCLFormFieldSchemaObject, 
   }
 
   protected createControl(): UntypedFormGroup {
-    const param =  this.fields.reduce((group, field) => {
+    const param = this.fields.reduce((group, field) => {
       if (field instanceof FormFieldControl) {
-        return field.control ? {
-          ...group,
-          [field.name]: field.control
-        } : group;
+        return field.control
+          ? {
+              ...group,
+              [field.name]: field.control,
+            }
+          : group;
       }
       return group;
     }, {} as any);
     return new UntypedFormGroup(param, this.validators);
   }
-
 }
 
 @Component({
   selector: 'vcl-jss-form-object',
   template: `
-  <ng-container *ngIf="field.visible">
-    <ng-container *ngIf="!field.layout">
-      <div [formGroup]="field.control">
-        <ng-template *ngFor="let portal of portals" [cdkPortalOutlet]="portal"></ng-template>
-      </div>
-      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-    </ng-container>
-    <ng-container *ngIf="field.layout === 'fieldset'">
-      <fieldset [formGroup]="field.control">
-        <legend *ngIf="!!field.label">{{field.label}}</legend>
-        <ng-container *ngFor="let portal of portals">
-          <ng-container *ngIf="true">
-            <ng-template [cdkPortalOutlet]="portal"></ng-template>
-          </ng-container>
-        </ng-container>
+    <ng-container *ngIf="field.visible">
+      <ng-container *ngIf="!field.layout">
+        <div [formGroup]="field.control">
+          <ng-template
+            *ngFor="let portal of portals"
+            [cdkPortalOutlet]="portal"></ng-template>
+        </div>
         <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-      </fieldset>
+      </ng-container>
+      <ng-container *ngIf="field.layout === 'fieldset'">
+        <fieldset [formGroup]="field.control">
+          <legend *ngIf="!!field.label">{{ field.label }}</legend>
+          <ng-container *ngFor="let portal of portals">
+            <ng-container *ngIf="true">
+              <ng-template [cdkPortalOutlet]="portal"></ng-template>
+            </ng-container>
+          </ng-container>
+          <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
+        </fieldset>
+      </ng-container>
     </ng-container>
-  </ng-container>
-  `
+  `,
 })
 export class FormFieldObjectComponent {
-  constructor(
-    public field: FormFieldObject,
-    injector: Injector,
-  ) {
-    this.portals = this.field.fields.map(_field => _field.createPortal(injector, []));
+  constructor(public field: FormFieldObject, injector: Injector) {
+    this.portals = this.field.fields.map(_field =>
+      _field.createPortal(injector, [])
+    );
   }
 
   portals: Portal<any>[];
 }
-

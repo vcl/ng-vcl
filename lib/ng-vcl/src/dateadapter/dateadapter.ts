@@ -1,13 +1,23 @@
 import { Inject, Optional, LOCALE_ID, Injectable } from '@angular/core';
-import { DateAdapterBase, VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from './dateadapter-base';
-import { DateAdapterBaseDisplayFormats, DateAdapterBaseParseFormats, DateAdapterBasePattern } from './interfaces';
-import { VCL_DATE_ADAPTER_PARSER, DateAdapterParser, DateAdapterParserISO } from './parsers/index';
+import {
+  DateAdapterBase,
+  VCL_DATE_ADAPTER_WEEKDAY_OFFSET,
+} from './dateadapter-base';
+import {
+  DateAdapterBaseDisplayFormats,
+  DateAdapterBaseParseFormats,
+  DateAdapterBasePattern,
+} from './interfaces';
+import {
+  VCL_DATE_ADAPTER_PARSER,
+  DateAdapterParser,
+  DateAdapterParserISO,
+} from './parsers/index';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DateAdapter extends DateAdapterBase<Date> {
-
   locale: string;
   weekDayOffset: number;
 
@@ -19,12 +29,16 @@ export class DateAdapter extends DateAdapterBase<Date> {
     locale?: string,
     @Optional()
     @Inject(VCL_DATE_ADAPTER_PARSER)
-    parsers?: DateAdapterParser[],
+    parsers?: DateAdapterParser[]
   ) {
     super();
     this.locale = locale || undefined;
     if (this.locale && Array.isArray(parsers)) {
-      this.parser = parsers.find(p =>  p.supportedLocales.some(l => l.toLowerCase() === this.locale.toLowerCase()));
+      this.parser = parsers.find(p =>
+        p.supportedLocales.some(
+          l => l.toLowerCase() === this.locale.toLowerCase()
+        )
+      );
     }
 
     if (!this.parser) {
@@ -40,9 +54,12 @@ export class DateAdapter extends DateAdapterBase<Date> {
   }
 
   use24hTime(): boolean {
-    return !new Intl.DateTimeFormat(this.locale, { hour: 'numeric', minute: 'numeric' } )
-                    .format(new Date())
-                    .match(/am|pm/i);
+    return !new Intl.DateTimeFormat(this.locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+    })
+      .format(new Date())
+      .match(/am|pm/i);
   }
 
   addMonths(date: Date, months: number): Date {
@@ -58,7 +75,11 @@ export class DateAdapter extends DateAdapterBase<Date> {
   }
 
   addDays(date: Date, days: number): Date {
-    return this.createDate(date.getFullYear(), date.getMonth(), date.getDate() + days);
+    return this.createDate(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() + days
+    );
   }
 
   convertToNativeDate(date: Date): Date {
@@ -66,7 +87,11 @@ export class DateAdapter extends DateAdapterBase<Date> {
   }
 
   getDaysInMonth(date: Date): number {
-    return this.createDate(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    return this.createDate(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate();
   }
 
   getYear(date: Date): number {
@@ -122,14 +147,19 @@ export class DateAdapter extends DateAdapterBase<Date> {
     // Get first day of year
     const yearStart = this.createDate(d.getFullYear(), 0, 1);
     // Calculate full weeks to nearest Thursday
-    const weekNo = Math.ceil((((d.valueOf() - yearStart.valueOf()) / 86400000) + 1) / 7);
+    const weekNo = Math.ceil(
+      ((d.valueOf() - yearStart.valueOf()) / 86400000 + 1) / 7
+    );
     // Return array of year and week number
     return weekNo;
   }
 
   getDayOfWeekNames(): string[] {
     return Array.from(Array(this.daysPerWeek).keys()).map(i => {
-      return this.format(new Date(1970, 0, i + 4 + this.weekDayOffset), 'weekday');
+      return this.format(
+        new Date(1970, 0, i + 4 + this.weekDayOffset),
+        'weekday'
+      );
     });
   }
 
@@ -145,18 +175,30 @@ export class DateAdapter extends DateAdapterBase<Date> {
     return new Date(year, month, day);
   }
 
-  createDateTime(year: number, month: number, day: number, hour: number, minute: number, second: number): Date {
+  createDateTime(
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number,
+    second: number
+  ): Date {
     return new Date(year, month, day, hour, minute, second);
   }
 
   createTime(hour: number, minute: number, second: number): Date {
     const date = this.today();
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute, second);
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      hour,
+      minute,
+      second
+    );
   }
 
   today(): Date {
     return new Date();
   }
 }
-
-

@@ -1,7 +1,28 @@
-import { EventEmitter, forwardRef, QueryList, Input, Output, ContentChildren, HostBinding, AfterContentInit, OnDestroy, Optional, Inject, Component, ChangeDetectorRef, Injector, ContentChild, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  EventEmitter,
+  forwardRef,
+  QueryList,
+  Input,
+  Output,
+  ContentChildren,
+  HostBinding,
+  AfterContentInit,
+  OnDestroy,
+  Component,
+  ChangeDetectorRef,
+  Injector,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 import { SELECT_LIST_TOKEN, SelectList, SelectListItem } from './types';
 import { SelectListItemComponent } from './components/select-list-item.component';
 import { SelectListContentComponent } from './components/select-list-content.component';
@@ -22,19 +43,23 @@ let UNIQUE_ID = 0;
     },
     {
       provide: SELECT_LIST_TOKEN,
-      useExisting: forwardRef(() => SelectListComponent)
+      useExisting: forwardRef(() => SelectListComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => SelectListComponent)
-    }
-  ]
+      useExisting: forwardRef(() => SelectListComponent),
+    },
+  ],
 })
-export class SelectListComponent implements SelectList, AfterContentInit, OnDestroy, ControlValueAccessor, FormControlGroupInputState {
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-    ) { }
+export class SelectListComponent
+  implements
+    SelectList,
+    AfterContentInit,
+    OnDestroy,
+    ControlValueAccessor,
+    FormControlGroupInputState
+{
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   private _cvaDisabled = false;
   private generatedId = 'vcl_select_list_' + UNIQUE_ID++;
@@ -71,7 +96,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   }
 
   @Input()
-  set value(value: any | any[] ) {
+  set value(value: any | any[]) {
     this._value = value;
     this.valueChange.emit(value);
   }
@@ -86,7 +111,7 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   searchValue = false;
 
   @Output()
-  valueChange =  new EventEmitter<any | any[]>();
+  valueChange = new EventEmitter<any | any[]>();
 
   @ContentChildren(SelectListItemComponent)
   private _items?: QueryList<SelectListItem>;
@@ -144,13 +169,26 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   isItemHidden(item: SelectListItem): boolean {
     if (this.search) {
       const searchLower = this.search.toLowerCase();
-      if (this.searchValue && item.value && item.value.toLowerCase().indexOf(searchLower) >= 0) {
+      if (
+        this.searchValue &&
+        item.value &&
+        item.value.toLowerCase().indexOf(searchLower) >= 0
+      ) {
         return false;
-      } else if (item.label && item.label.toLowerCase().indexOf(searchLower) >= 0) {
+      } else if (
+        item.label &&
+        item.label.toLowerCase().indexOf(searchLower) >= 0
+      ) {
         return false;
-      } else if (item.subLabel && item.subLabel.toLowerCase().indexOf(searchLower) >= 0) {
+      } else if (
+        item.subLabel &&
+        item.subLabel.toLowerCase().indexOf(searchLower) >= 0
+      ) {
         return false;
-      } else if (item.searchValue && item.searchValue.toLowerCase().indexOf(searchLower) >= 0) {
+      } else if (
+        item.searchValue &&
+        item.searchValue.toLowerCase().indexOf(searchLower) >= 0
+      ) {
         return false;
       }
       return true;
@@ -212,11 +250,13 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   }
 
   get selectedItems() {
-    return this._items.filter(_item => this._valueAsArray.includes(_item.value));
+    return this._items.filter(_item =>
+      this._valueAsArray.includes(_item.value)
+    );
   }
 
   highlight(value: any) {
-    this._highlightedItem = this._items.find((item) => item.value === value);
+    this._highlightedItem = this._items.find(item => item.value === value);
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
     this._highlightedItem && this._highlightedItem.scrollIntoView();
@@ -234,14 +274,19 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
         this._highlightedItem = selectedItems[0];
       }
 
-      const currIdx = this._items.toArray().findIndex((item) => item === this._highlightedItem);
+      const currIdx = this._items
+        .toArray()
+        .findIndex(item => item === this._highlightedItem);
       if (currIdx < 0) {
         this._highlightedItem = this._items.first;
       } else {
-        const highlightedItem = this._items.toArray().reverse().find((item, thisRevId, items) => {
-          const thisIdx = (items.length - 1) - thisRevId;
-          return thisIdx < currIdx && !this.isItemHidden(item);
-        });
+        const highlightedItem = this._items
+          .toArray()
+          .reverse()
+          .find((item, thisRevId, items) => {
+            const thisIdx = items.length - 1 - thisRevId;
+            return thisIdx < currIdx && !this.isItemHidden(item);
+          });
         if (highlightedItem) {
           this._highlightedItem = highlightedItem;
         }
@@ -257,9 +302,13 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
         this._highlightedItem = selectedItems[0];
       }
 
-      const currIdx = this._items.toArray().findIndex((item) => item === this._highlightedItem);
+      const currIdx = this._items
+        .toArray()
+        .findIndex(item => item === this._highlightedItem);
 
-      const highlightedItem = this._items.toArray().find((item, thisIdx) => thisIdx > currIdx && !this.isItemHidden(item));
+      const highlightedItem = this._items
+        .toArray()
+        .find((item, thisIdx) => thisIdx > currIdx && !this.isItemHidden(item));
       if (highlightedItem) {
         this._highlightedItem = highlightedItem;
         this._highlightedItem.scrollIntoView();
@@ -272,7 +321,9 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   }
 
   ngAfterContentInit() {
-    this._itemsChangeSub = this._items.changes.subscribe(this._itemsChangeEmitter);
+    this._itemsChangeSub = this._items.changes.subscribe(
+      this._itemsChangeEmitter
+    );
   }
 
   ngOnDestroy() {
@@ -300,5 +351,4 @@ export class SelectListComponent implements SelectList, AfterContentInit, OnDest
   setDisabledState?(isDisabled: boolean): void {
     this._cvaDisabled = isDisabled;
   }
-
 }

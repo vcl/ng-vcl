@@ -1,9 +1,26 @@
-import { Component, ContentChildren, QueryList, Input, Output,
-         EventEmitter, ViewChild, HostBinding, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  QueryList,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  HostBinding,
+  ElementRef,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  SimpleChanges,
+  OnChanges,
+  ChangeDetectorRef,
+  ViewContainerRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { TabComponent } from './tab.component';
 import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
@@ -13,17 +30,20 @@ import { TemplatePortal } from '@angular/cdk/portal';
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['tab-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: TAB_NAV_TOKEN,
-    useExisting: TabNavComponent
-  }]
+  providers: [
+    {
+      provide: TAB_NAV_TOKEN,
+      useExisting: TabNavComponent,
+    },
+  ],
 })
-export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChanges {
-
+export class TabNavComponent
+  implements AfterViewInit, OnDestroy, TabNav, OnChanges
+{
   constructor(
     private cdRef: ChangeDetectorRef,
     private viewContainerRef: ViewContainerRef
-  ) { }
+  ) {}
 
   private _currentTabEmitter = new BehaviorSubject<Tab | undefined>(undefined);
 
@@ -101,7 +121,10 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
       return;
     } else {
       this._currentTabEmitter.next(tab);
-      this.portal = new TemplatePortal(tab.contentTemplate, this.viewContainerRef);
+      this.portal = new TemplatePortal(
+        tab.contentTemplate,
+        this.viewContainerRef
+      );
       this.cdRef.detectChanges();
     }
   }
@@ -109,9 +132,11 @@ export class TabNavComponent implements AfterViewInit, OnDestroy, TabNav, OnChan
   ngAfterViewInit() {
     this.selectTabIndex(this.selectedTabIndex);
 
-
     if (this.currentTab) {
-      this.portal = new TemplatePortal(this.currentTab.contentTemplate, this.viewContainerRef);
+      this.portal = new TemplatePortal(
+        this.currentTab.contentTemplate,
+        this.viewContainerRef
+      );
       this.cdRef.detectChanges();
     }
   }

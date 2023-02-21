@@ -1,24 +1,24 @@
-@use "~normalize.css" as normalize;
-@use "@angular/cdk/overlay-prebuilt.css";
+@use '@vcl/vcl/app/normalize' as normalize;
+@use '@angular/cdk/overlay-prebuilt.css';
 
-@use "~@vcl/vcl/theme" with (
+@use '@vcl/vcl/theme' with (
   $app-area-max-width: 100%
 );
 
-@use "~@vcl/vcl";
+@use '@vcl/vcl';
 
-@use "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@use "~@fortawesome/fontawesome-free/scss/brands.scss" with (
-  $fa-font-path: "~@fortawesome/fontawesome-free/webfonts"
+@use '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@use '@fortawesome/fontawesome-free/scss/brands.scss' with (
+  $fa-font-path: '~@fortawesome/fontawesome-free/webfonts'
 );
-@use "~@fortawesome/fontawesome-free/scss/solid.scss" with (
-  $fa-font-path: "~@fortawesome/fontawesome-free/webfonts"
-);
-
-@use "~@mdi/font/scss/materialdesignicons.scss" with (
-  $mdi-font-path: "~@mdi/font/fonts"
+@use '@fortawesome/fontawesome-free/scss/solid.scss' with (
+  $fa-font-path: '~@fortawesome/fontawesome-free/webfonts'
 );
 
-@use "./styles/demo.scss";
-@use "./styles/md.css";
-@use "./styles/prism.scss";
+@use '@mdi/font/scss/materialdesignicons.scss' with (
+  $mdi-font-path: '~@mdi/font/fonts'
+);
+
+@use './styles/demo.scss';
+@use './styles/md.css';
+@use './styles/prism.scss';

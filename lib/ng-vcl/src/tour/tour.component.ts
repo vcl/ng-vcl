@@ -1,15 +1,25 @@
-import { Component, Input, OnInit, HostBinding, ElementRef, ViewChild, OnChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  OnChanges,
+} from '@angular/core';
 import { TourService } from './tour.service';
-import { HorizontalConnectionPos, VerticalConnectionPos, ConnectedPosition } from '@angular/cdk/overlay';
+import {
+  HorizontalConnectionPos,
+  VerticalConnectionPos,
+  ConnectedPosition,
+} from '@angular/cdk/overlay';
 import { PopoverDirective } from '../popover/index';
 
 @Component({
   selector: 'vcl-tour-step',
   templateUrl: './tour.component.html',
-  styleUrls: ['./tour.component.css']
+  styleUrls: ['./tour.component.scss'],
 })
 export class TourComponent implements OnInit, OnChanges {
-
   @ViewChild('popover')
   public readonly popover: PopoverDirective;
 
@@ -33,31 +43,29 @@ export class TourComponent implements OnInit, OnChanges {
   public hasNext = false;
   public hasPrevious = false;
 
-  constructor(public tour: TourService) {
-  }
+  constructor(public tour: TourService) {}
 
   public ngOnInit(): void {
     this.tour.register(this);
   }
 
   public ngOnChanges(): void {
-
-    this.positions = [{
-      originX: this.originX,
-      originY: this.originY,
-      overlayX: this.overlayX,
-      overlayY: this.overlayY,
-      offsetX: this.offsetX,
-      offsetY: this.offsetY
-    }];
-
+    this.positions = [
+      {
+        originX: this.originX,
+        originY: this.originY,
+        overlayX: this.overlayX,
+        overlayY: this.overlayY,
+        offsetX: this.offsetX,
+        offsetY: this.offsetY,
+      },
+    ];
   }
 
   public show(): void {
     const target = this.popover.target;
     const el = target instanceof ElementRef ? target.nativeElement : target;
     if (el) {
-
       el.style.zIndex = `${this.tour.options.zIndex}`;
 
       if (this.tour.options.elementsDisabled) {
@@ -76,7 +84,8 @@ export class TourComponent implements OnInit, OnChanges {
 
   public hide(): void {
     const target = this.popover.target;
-    const highlightedElement = target instanceof ElementRef ? target.nativeElement : target;
+    const highlightedElement =
+      target instanceof ElementRef ? target.nativeElement : target;
 
     if (highlightedElement) {
       highlightedElement.style.zIndex = null;
@@ -110,7 +119,7 @@ export class TourComponent implements OnInit, OnChanges {
   }
 
   private enableHighlight(element: HTMLElement): void {
-    element.setAttribute('position',  element.style.position as string);
+    element.setAttribute('position', element.style.position as string);
     element.style.position = 'relative';
   }
 

@@ -1,13 +1,28 @@
 import {
-  Component, forwardRef, ChangeDetectionStrategy, Input,
-  Output, ViewChild, HostBinding, ElementRef, EventEmitter,
-  HostListener, ChangeDetectorRef, Optional, Self, Inject, OnDestroy, Injector
+  Component,
+  forwardRef,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  ViewChild,
+  HostBinding,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  ChangeDetectorRef,
+  OnDestroy,
+  Injector,
 } from '@angular/core';
 import {
-  ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { accept } from './accept';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
@@ -20,20 +35,19 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => FileInputComponent)
-    }, {
+      useExisting: forwardRef(() => FileInputComponent),
+    },
+    {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => FileInputComponent),
       multi: true,
-    }
-  ]
+    },
+  ],
 })
-export class FileInputComponent implements ControlValueAccessor, FormControlGroupInputState, OnDestroy {
-
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-  ) { }
+export class FileInputComponent
+  implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
+{
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   @HostBinding('class.input')
   @HostBinding('class.file-input')
@@ -145,7 +159,9 @@ export class FileInputComponent implements ControlValueAccessor, FormControlGrou
 
   checkFiles(files: FileList) {
     if (accept) {
-      this.invalidFiles = Array.from(files).some((file: File) => !accept(file, this.accept));
+      this.invalidFiles = Array.from(files).some(
+        (file: File) => !accept(file, this.accept)
+      );
     } else {
       this.invalidFiles = false;
     }
@@ -227,8 +243,8 @@ export class FileInputComponent implements ControlValueAccessor, FormControlGrou
   /**
    * things needed for ControlValueAccessor-Interface
    */
-  private onChange: (_: any) => void = () => { };
-  private onTouched: () => any = () => { };
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
 
   writeValue(files: FileList): void {
     this.value = files;

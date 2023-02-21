@@ -1,5 +1,14 @@
-
-import { Directive, HostBinding, Optional, SkipSelf, ElementRef, Input, Renderer2, ChangeDetectorRef, InjectionToken, ContentChild, AfterContentInit } from '@angular/core';
+import {
+  Directive,
+  HostBinding,
+  Optional,
+  SkipSelf,
+  Input,
+  ChangeDetectorRef,
+  InjectionToken,
+  ContentChild,
+  AfterContentInit,
+} from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
 export type EmbeddedInputFieldLabelMode = 'float' | 'static' | 'disabled';
@@ -11,7 +20,10 @@ export interface EmbeddedInputFieldLabelInput {
   readonly prependedElements?: number;
 }
 
-export const FORM_CONTROL_EMBEDDED_LABEL_INPUT = new InjectionToken<EmbeddedInputFieldLabelInput>('vcl-form-control-embedded-input-field-label');
+export const FORM_CONTROL_EMBEDDED_LABEL_INPUT =
+  new InjectionToken<EmbeddedInputFieldLabelInput>(
+    'vcl-form-control-embedded-input-field-label'
+  );
 
 export class EmbeddedInputFieldLabelConfig {
   constructor(mode?: EmbeddedInputFieldLabelMode) {
@@ -34,10 +46,9 @@ export class EmbeddedInputFieldLabelConfig {
 
 @Directive({
   selector: 'vcl-form-control-group',
-  exportAs: 'vclEmbeddedInputFieldLabel'
+  exportAs: 'vclEmbeddedInputFieldLabel',
 })
 export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
-
   constructor(
     @Optional()
     @SkipSelf()
@@ -106,7 +117,7 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   private updateState() {
     if (this.inputField && this.enabled) {
       this.floating = this.inputField?.isLabelFloating ?? false;
-      this.focused = this.inputField?.isFocused ?? false;;
+      this.focused = this.inputField?.isFocused ?? false;
       this.prependedElements = this.inputField.prependedElements ?? 0;
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();

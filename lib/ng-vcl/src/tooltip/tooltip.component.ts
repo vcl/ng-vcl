@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy, Optional, Inject, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Optional,
+  Inject,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { TOOLTIP_TOKEN, Tooltip } from './types';
 import { TemplatePortal } from '@angular/cdk/portal';
 
@@ -18,12 +24,12 @@ export class TooltipComponent {
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     });
-   }
+  }
 
-   get isString() {
-     return typeof this.tooltip.value === 'string';
-   }
-   get isTemplatePortal() {
-     return this.tooltip.value instanceof TemplatePortal;
-   }
+  get isString() {
+    return typeof this.tooltip.value === 'string';
+  }
+  get isTemplatePortal() {
+    return this.tooltip.value instanceof TemplatePortal;
+  }
 }

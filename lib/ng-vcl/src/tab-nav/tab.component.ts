@@ -1,10 +1,19 @@
-import { Component, ViewChild, Input, Directive, TemplateRef, HostBinding, Inject, HostListener, ViewContainerRef, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  Input,
+  Directive,
+  TemplateRef,
+  HostBinding,
+  Inject,
+  HostListener,
+  ChangeDetectionStrategy,
+  OnInit,
+} from '@angular/core';
 import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { debounceTime } from 'rxjs/operators';
 
 @Directive({
-  selector: 'vcl-tab-label'
+  selector: 'vcl-tab-label',
 })
 export class TabLabelDirective {
   ngOnInit() {
@@ -16,17 +25,16 @@ export class TabLabelDirective {
   selector: 'vcl-tab',
   templateUrl: './tab.component.html',
   exportAs: 'vclTab',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabComponent implements OnInit, Tab {
-
   constructor(
     @Inject(TAB_NAV_TOKEN)
-    private tabNav: TabNav,
-  ) { }
+    private tabNav: TabNav
+  ) {}
 
   ngOnInit() {
-    this.tabNav.currentTab$.subscribe((tab) => {
+    this.tabNav.currentTab$.subscribe(tab => {
       setTimeout(() => {
         this.selected = tab === this;
       }, 0);

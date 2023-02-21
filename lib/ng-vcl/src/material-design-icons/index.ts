@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IconResolverService } from '../icon/index';
-import { MaterialDesignIconResolverService, MaterialDesignVCLIconAliasResolverService } from './icon-resolver.service';
+import {
+  MaterialDesignIconResolverService,
+  MaterialDesignVCLIconAliasResolverService,
+} from './icon-resolver.service';
 
-export { MaterialDesignIconResolverService, MaterialDesignVCLIconAliasResolverService };
+export {
+  MaterialDesignIconResolverService,
+  MaterialDesignVCLIconAliasResolverService,
+};
 
 @NgModule({
   providers: [
@@ -10,13 +16,13 @@ export { MaterialDesignIconResolverService, MaterialDesignVCLIconAliasResolverSe
     {
       provide: IconResolverService,
       useExisting: MaterialDesignIconResolverService,
-      multi: true
+      multi: true,
     },
     {
       provide: IconResolverService,
       useClass: MaterialDesignVCLIconAliasResolverService,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class VCLMaterialDesignModule { }
+export class VCLMaterialDesignModule {}

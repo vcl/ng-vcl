@@ -10,6 +10,6 @@ export { RadioButtonComponent, RadioGroupComponent, VCLFormControlGroupModule };
 @NgModule({
   imports: [CommonModule, VCLIconModule],
   exports: [RadioButtonComponent, RadioGroupComponent],
-  declarations: [RadioButtonComponent, RadioGroupComponent]
+  declarations: [RadioButtonComponent, RadioGroupComponent],
 })
-export class VCLRadioButtonModule { }
+export class VCLRadioButtonModule {}

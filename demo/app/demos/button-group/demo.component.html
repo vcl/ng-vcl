@@ -4,7 +4,7 @@
   <button vcl-button [value]="2">Two</button>
   <button vcl-button [value]="3">Three</button>
 </vcl-button-group>
-<p>Selected value: {{value1}}</p>
+<p>Selected value: {{ value1 }}</p>
 
 <h3>Vertical button group</h3>
 <vcl-button-group class="vertical" style="width: 10em" [(value)]="value2">
@@ -12,7 +12,7 @@
   <button vcl-button [value]="2">Two</button>
   <button vcl-button [value]="3">Three</button>
 </vcl-button-group>
-<p>Selected value: {{value2}}</p>
+<p>Selected value: {{ value2 }}</p>
 
 <h3>Horizontal button group (multiple selection)</h3>
 <vcl-button-group selectionMode="multiple" [(value)]="value3">
@@ -26,8 +26,7 @@
     <vcl-icon icon="fas:underline"></vcl-icon>
   </button>
 </vcl-button-group>
-<p>Selected values: {{value3}}</p>
-
+<p>Selected values: {{ value3 }}</p>
 
 <h3>Disabled button group</h3>
 <vcl-button-group [disabled]="true" selectionMode="multiple">

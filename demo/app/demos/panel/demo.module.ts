@@ -14,34 +14,36 @@ export function demo() {
       Demo: PanelDemoComponent,
       'README.md': {
         type: 'md',
-        content: README
+        content: README,
       },
       'demo.component.html': {
         type: 'html',
-        content: require('!raw-loader!./demo.component.html')
+        content: require('!raw-loader!./demo.component.html'),
       },
       'demo.component.ts': {
         type: 'ts',
-        content: require('!raw-loader!./demo.component.ts')
-      }
-    }
+        content: require('!raw-loader!./demo.component.ts'),
+      },
+    },
   };
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        DemoModule,
-        VCLPanelModule,
-        VCLButtonModule,
-        VCLIconModule,
-        RouterModule.forChild([{
-                path: '',
-                component: DemoComponent,
-                data: { demo }
-            }]),
-    ],
-    declarations: [PanelDemoComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    DemoModule,
+    VCLPanelModule,
+    VCLButtonModule,
+    VCLIconModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoComponent,
+        data: { demo },
+      },
+    ]),
+  ],
+  declarations: [PanelDemoComponent],
 })
-export class PanelDemoModule { }
+export class PanelDemoModule {}

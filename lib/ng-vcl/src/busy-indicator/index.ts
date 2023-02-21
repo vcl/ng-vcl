@@ -4,12 +4,11 @@ import { VCLIconModule } from '../icon/index';
 import { VCLIcogramModule } from '../icogram/index';
 import { BusyIndicatorComponent } from './busy-indicator.component';
 import { BusyIndicatorCoverComponent } from './busy-indicator-cover.component';
-
 export { BusyIndicatorCoverComponent, BusyIndicatorComponent };
 
 @NgModule({
   imports: [CommonModule, VCLIconModule, VCLIcogramModule],
   exports: [BusyIndicatorCoverComponent, BusyIndicatorComponent],
-  declarations: [BusyIndicatorCoverComponent, BusyIndicatorComponent]
+  declarations: [BusyIndicatorCoverComponent, BusyIndicatorComponent],
 })
-export class VCLBusyIndicatorModule { }
+export class VCLBusyIndicatorModule {}

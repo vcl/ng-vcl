@@ -1,8 +1,27 @@
-import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
-import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET, DateAdapterBase } from './dateadapter-base';
+import {
+  NgModule,
+  ModuleWithProviders,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
+import {
+  VCL_DATE_ADAPTER_WEEKDAY_OFFSET,
+  DateAdapterBase,
+} from './dateadapter-base';
 import { DateAdapter } from './dateadapter';
-import { VCL_DATE_ADAPTER_PARSER, DateAdapterParser, DateAdapterParserISO, DateAdapterParserDE, DateAdapterParserEN, DateAdapterParserENGB } from './parsers/index';
-import { DateAdapterBaseDisplayFormats, VCLDateRange, DateAdapterBaseParseFormats } from './interfaces';
+import {
+  VCL_DATE_ADAPTER_PARSER,
+  DateAdapterParser,
+  DateAdapterParserISO,
+  DateAdapterParserDE,
+  DateAdapterParserEN,
+  DateAdapterParserENGB,
+} from './parsers/index';
+import {
+  DateAdapterBaseDisplayFormats,
+  VCLDateRange,
+  DateAdapterBaseParseFormats,
+} from './interfaces';
 
 const VCLDateAdapter = DateAdapter;
 const NativeDateAdapterParserDE = DateAdapterParserDE;
@@ -27,60 +46,63 @@ export {
   NativeDateAdapterParserDE,
   NativeDateAdapterParserEN,
   NativeDateAdapterParserENGB,
-  NativeDateAdapterParserISO
+  NativeDateAdapterParserISO,
 };
 
 @NgModule({
   providers: [
     {
       provide: DateAdapter,
-      useClass: DateAdapter
+      useClass: DateAdapter,
     },
     {
       provide: DateAdapterBase,
-      useExisting: DateAdapter
+      useExisting: DateAdapter,
     },
     {
       // `en`, `en-us`
       provide: VCL_DATE_ADAPTER_PARSER,
       useClass: DateAdapterParserEN,
-      multi: true
+      multi: true,
     },
     {
       // `en-gb
       provide: VCL_DATE_ADAPTER_PARSER,
       useClass: DateAdapterParserENGB,
-      multi: true
-    }  ,
+      multi: true,
+    },
     {
       // `de`, `de-AT`, `de-CH`, `de-DE`, `de-LI`, `de-LU`
       provide: VCL_DATE_ADAPTER_PARSER,
       useClass: DateAdapterParserDE,
-      multi: true
-    }
+      multi: true,
+    },
   ],
 })
 export class VCLDateAdapterModule {
   constructor(
     @Optional()
     @SkipSelf()
-    parentModule?: VCLDateAdapterModule,
+    parentModule?: VCLDateAdapterModule
   ) {
     if (parentModule) {
       throw new Error(
-        'VCLDateAdapterModule is already loaded. Import it in the AppModule only');
+        'VCLDateAdapterModule is already loaded. Import it in the AppModule only'
+      );
     }
   }
 
-  static forRoot(config: {weekDayOffset?: number} = {}):ModuleWithProviders<VCLDateAdapterModule> {
+  static forRoot(
+    config: { weekDayOffset?: number } = {}
+  ): ModuleWithProviders<VCLDateAdapterModule> {
     return {
       ngModule: VCLDateAdapterModule,
       providers: [
         {
           provide: VCL_DATE_ADAPTER_WEEKDAY_OFFSET,
-          useValue: config.weekDayOffset ?? 0
-        }
-      ]
-    }
+          useValue: config.weekDayOffset ?? 0,
+        },
+      ],
+    };
   }
 }

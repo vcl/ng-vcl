@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
-import { VCLFormFieldSchemaInput, VCLFormFieldSchemaInputParams } from '../schemas';
+import {
+  VCLFormFieldSchemaInput,
+  VCLFormFieldSchemaInputParams,
+} from '../schemas';
 import { FormFieldControl } from './field';
 
-export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VCLFormFieldSchemaInputParams> {
+export class FormFieldInput extends FormFieldControl<
+  VCLFormFieldSchemaInput,
+  VCLFormFieldSchemaInputParams
+> {
   get placeholder(): string {
     return this.params.placeholder || null;
   }
@@ -24,7 +30,7 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
     if (typeof prependedIcon === 'string') {
       return [prependedIcon];
     } else if (Array.isArray(prependedIcon)) {
-      return prependedIcon
+      return prependedIcon;
     }
     return [];
   }
@@ -34,7 +40,7 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
     if (typeof appendedIcon === 'string') {
       return [appendedIcon];
     } else if (Array.isArray(appendedIcon)) {
-      return appendedIcon
+      return appendedIcon;
     }
     return [];
   }
@@ -42,28 +48,41 @@ export class FormFieldInput extends FormFieldControl<VCLFormFieldSchemaInput, VC
   get spinner(): boolean {
     return this.params.spinner || false;
   }
-
 }
 
 @Component({
   selector: 'vcl-jss-form-input',
   template: `
-    <vcl-form-control-group *ngIf="field.visible" [errorStateAgent]="field.errorStateAgent" [spinner]="field.spinner">
-      <vcl-label *ngIf="!!field.label">{{field.label}}</vcl-label>
+    <vcl-form-control-group
+      *ngIf="field.visible"
+      [errorStateAgent]="field.errorStateAgent"
+      [spinner]="field.spinner">
+      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
       <vcl-jss-form-input-wrapper>
         <vcl-input-field>
-          <vcl-icon *ngFor="let icon of field.prependedIcons" vclPrepended [icon]="icon"></vcl-icon>
-          <input [type]="field.inputType" vclInput [formControl]="field.control" [attr.placeholder]="field.placeholder" [attr.autocomplete]="field.autocomplete" [disabled]="field.disabled">
-          <vcl-icon *ngFor="let icon of field.appendedIcons" vclPrepended [icon]="icon"></vcl-icon>
+          <vcl-icon
+            *ngFor="let icon of field.prependedIcons"
+            vclPrepended
+            [icon]="icon"></vcl-icon>
+          <input
+            [type]="field.inputType"
+            vclInput
+            [formControl]="field.control"
+            [attr.placeholder]="field.placeholder"
+            [attr.autocomplete]="field.autocomplete"
+            [disabled]="field.disabled" />
+          <vcl-icon
+            *ngFor="let icon of field.appendedIcons"
+            vclPrepended
+            [icon]="icon"></vcl-icon>
           <vcl-spinner *ngIf="field.spinner" [(ngModel)]="value"></vcl-spinner>
         </vcl-input-field>
       </vcl-jss-form-input-wrapper>
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
-  `
+  `,
 })
 export class FormFieldInputComponent {
-
   private _value = '';
 
   get value(): any {
@@ -81,7 +100,6 @@ export class FormFieldInputComponent {
 
   constructor(public field: FormFieldInput) {
     this._value = field.defaultValue;
-    field.control.valueChanges.subscribe((change) => this._value = change);
+    field.control.valueChanges.subscribe(change => (this._value = change));
   }
 }
-

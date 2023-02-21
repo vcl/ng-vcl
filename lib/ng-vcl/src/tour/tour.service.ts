@@ -60,8 +60,9 @@ export class TourService {
   }
 
   public register(tourComponent: TourComponent): void {
-    this._tourComponents = this._tourComponents.includes(tourComponent) ?
-      this._tourComponents : [...this._tourComponents, tourComponent];
+    this._tourComponents = this._tourComponents.includes(tourComponent)
+      ? this._tourComponents
+      : [...this._tourComponents, tourComponent];
   }
 
   public initialize(options: TourOptions = new TourOptions()): void {
@@ -69,24 +70,27 @@ export class TourService {
   }
 
   public start(index: number = 0): void {
-    if (!this.options) { this.initialize(); }
+    if (!this.options) {
+      this.initialize();
+    }
 
-    this.tourComponents = this.options.useOrder ?
-      this._tourComponents.slice().sort((s1, s2) => s1.order - s2.order) :
-      this._tourComponents;
+    this.tourComponents = this.options.useOrder
+      ? this._tourComponents.slice().sort((s1, s2) => s1.order - s2.order)
+      : this._tourComponents;
 
     this.tourComponents.forEach(tourComponent => {
-      tourComponent.offsetX = isNumber(tourComponent.offsetX) ?
-        tourComponent.offsetX : this.options.offsetX;
-      tourComponent.offsetY = isNumber(tourComponent.offsetY) ?
-        tourComponent.offsetY : this.options.offsetY;
+      tourComponent.offsetX = isNumber(tourComponent.offsetX)
+        ? tourComponent.offsetX
+        : this.options.offsetX;
+      tourComponent.offsetY = isNumber(tourComponent.offsetY)
+        ? tourComponent.offsetY
+        : this.options.offsetY;
     });
 
     this.show(index);
   }
 
   public show(index: number): void {
-
     this.tourComponent && this.tourComponent.hide();
 
     const tourComponent: TourComponent = this.tourComponents[index];
@@ -106,13 +110,17 @@ export class TourService {
   }
 
   public showPrevious(): void {
-    if (!this.hasPrevious) { return this.end(); }
+    if (!this.hasPrevious) {
+      return this.end();
+    }
 
     this.show(this.index - 1);
   }
 
   public showNext(): void {
-    if (!this.hasNext) { return this.end(); }
+    if (!this.hasNext) {
+      return this.end();
+    }
 
     this.show(this.index + 1);
   }
@@ -125,6 +133,8 @@ export class TourService {
   }
 
   public onOverlayClick(): void {
-    if (this.options.dismissOnOverlay) { this.showNext(); }
+    if (this.options.dismissOnOverlay) {
+      this.showNext();
+    }
   }
 }

@@ -1,7 +1,20 @@
-import { Input, Component, ChangeDetectionStrategy, ContentChild, AfterContentInit, HostBinding, forwardRef, ViewChild } from '@angular/core';
+import {
+  Input,
+  Component,
+  ChangeDetectionStrategy,
+  ContentChild,
+  AfterContentInit,
+  HostBinding,
+  forwardRef,
+  ViewChild,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputDirective, FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from '../input/index';
+import {
+  InputDirective,
+  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+  EmbeddedInputFieldLabelInput,
+} from '../input/index';
 import { ButtonComponent } from '../button/index';
 
 @Component({
@@ -12,16 +25,18 @@ import { ButtonComponent } from '../button/index';
   providers: [
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => PasswordInputComponent)
+      useExisting: forwardRef(() => PasswordInputComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PasswordInputComponent),
       multi: true,
-    }
-  ]
+    },
+  ],
 })
-export class PasswordInputComponent implements AfterContentInit, EmbeddedInputFieldLabelInput {
+export class PasswordInputComponent
+  implements AfterContentInit, EmbeddedInputFieldLabelInput
+{
   private stateChangedEmitter = new Subject<void>();
 
   @HostBinding('class.input-field')
@@ -40,7 +55,7 @@ export class PasswordInputComponent implements AfterContentInit, EmbeddedInputFi
 
   @HostBinding('class.focused')
   get isFocused() {
-    return !!(this.input?.isFocused) || (!!this.button?.isFocused);
+    return !!this.input?.isFocused || !!this.button?.isFocused;
   }
 
   @HostBinding('class.error')
@@ -69,7 +84,9 @@ export class PasswordInputComponent implements AfterContentInit, EmbeddedInputFi
   }
 
   updateType() {
-    this.input.elementRef.nativeElement.type = this.visible ? 'text' : 'password';
+    this.input.elementRef.nativeElement.type = this.visible
+      ? 'text'
+      : 'password';
   }
 
   ngAfterContentInit() {
@@ -80,6 +97,6 @@ export class PasswordInputComponent implements AfterContentInit, EmbeddedInputFi
     this.input.stateChanged.subscribe(this.stateChangedEmitter);
   }
 
-  notifyInputFocus(btn: InputDirective): void { }
-  notifyInputBlur(btn: InputDirective): void { }
+  notifyInputFocus(btn: InputDirective): void {}
+  notifyInputBlur(btn: InputDirective): void {}
 }

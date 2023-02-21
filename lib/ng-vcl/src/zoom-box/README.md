@@ -6,7 +6,7 @@ Zoom into areas of images.
 
 ```html
 <vcl-zoom-box-container #first [x]="30" [y]="60" [width]="120" [height]="190">
-  <img src="https://picsum.photos/320/320?image=434">
+  <img ngSrc="https://picsum.photos/320/320?image=434">
   <vcl-zoom-box-magnifier></vcl-zoom-box-magnifier>
 </vcl-zoom-box-container>
 <vcl-zoom-box [target]="first"></vcl-zoom-box>

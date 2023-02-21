@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { DateAdapter } from '@vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'demo.component.html'
+  templateUrl: 'demo.component.html',
 })
 export class DatePickerDemoComponent {
-
-  constructor(private da: DateAdapter) { }
+  constructor(private da: DateAdapter) {}
 
   date = new Date();
   month = new Date();

@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, OnChanges, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarYears } from '../interfaces';
 import { compare } from '../utils';
@@ -7,13 +16,10 @@ import { compare } from '../utils';
   selector: 'vcl-calendar-view-years',
   templateUrl: 'years.component.html',
   exportAs: 'vclCalendarViewYear',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
-
-  constructor(
-    private dateAdapter: DateAdapterBase<VCLDate>,
-  ) { }
+  constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}
 
   @Input()
   disabled = false;
@@ -34,7 +40,7 @@ export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.value || changes.viewDate) {
-      if (changes.value && changes.value.currentValue && (!this.viewDate)) {
+      if (changes.value && changes.value.currentValue && !this.viewDate) {
         this.viewDate = this.dateAdapter.toDate(changes.value.currentValue);
       }
       this.updateCalendarYears();
@@ -56,13 +62,19 @@ export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
   }
 
   onGoToPrevYears() {
-    this.viewDate = this.dateAdapter.addYears(this.calendar.date, -(this.calendar.years.length - 1 / 2));
+    this.viewDate = this.dateAdapter.addYears(
+      this.calendar.date,
+      -(this.calendar.years.length - 1 / 2)
+    );
     this.viewDateChange.emit(this.viewDate);
     this.updateCalendarYears();
   }
 
   onGoToNextYears() {
-    this.viewDate = this.dateAdapter.addYears(this.calendar.date, (this.calendar.years.length - 1 / 2));
+    this.viewDate = this.dateAdapter.addYears(
+      this.calendar.date,
+      this.calendar.years.length - 1 / 2
+    );
     this.viewDateChange.emit(this.viewDate);
     this.updateCalendarYears();
   }
@@ -76,27 +88,35 @@ export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
     const compareYear = this.dateAdapter.compareYear.bind(this.dateAdapter);
 
     const years = Array.from(Array(25).keys()).map(i => {
-      const yearDate = this.dateAdapter.createDate(this.dateAdapter.getYear(viewDate) + (i - 12), 0, 1);
+      const yearDate = this.dateAdapter.createDate(
+        this.dateAdapter.getYear(viewDate) + (i - 12),
+        0,
+        1
+      );
       return {
         label: this.dateAdapter.format(yearDate, 'year'),
         date: yearDate,
-        isCurrentYear: this.dateAdapter.isSameYear(this.dateAdapter.today(), yearDate),
-        selected: compare(this.dateAdapter, this.value, yearDate, compareYear)
+        isCurrentYear: this.dateAdapter.isSameYear(
+          this.dateAdapter.today(),
+          yearDate
+        ),
+        selected: compare(this.dateAdapter, this.value, yearDate, compareYear),
       };
     });
 
     const yearStartLabel = this.dateAdapter.format(years[0].date, 'year');
 
-    const yearEndLabel = this.dateAdapter.format(years[years.length - 1].date, 'year');
+    const yearEndLabel = this.dateAdapter.format(
+      years[years.length - 1].date,
+      'year'
+    );
 
     this.calendar = {
       date: viewDate,
       years: years.map((_, index) => {
         return index % 5 === 0 ? years.slice(index, index + 5) : null;
       }),
-      label: `${yearStartLabel} - ${yearEndLabel}`
+      label: `${yearStartLabel} - ${yearEndLabel}`,
     };
   }
-
-
 }

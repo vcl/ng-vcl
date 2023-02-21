@@ -11,4 +11,4 @@ export { FileInputComponent };
   declarations: [FileInputComponent],
   providers: [],
 })
-export class VCLFileInputModule { }
+export class VCLFileInputModule {}

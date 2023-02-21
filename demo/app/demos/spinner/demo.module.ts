@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { VCLInputModule, VCLIconModule, VCLButtonModule, VCLSpinnerModule } from '@vcl/ng-vcl';
+import {
+  VCLInputModule,
+  VCLIconModule,
+  VCLButtonModule,
+  VCLSpinnerModule,
+} from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { SpinnerDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/spinner/README.md';
@@ -14,15 +19,15 @@ export function demo() {
       Demo: SpinnerDemoComponent,
       'README.md': {
         type: 'md',
-        content: README
+        content: README,
       },
       'demo.component.html': {
         type: 'html',
-        content: require('!raw-loader!./demo.component.html')
+        content: require('!raw-loader!./demo.component.html'),
       },
       'demo.component.ts': {
         type: 'ts',
-        content: require('!raw-loader!./demo.component.ts')
+        content: require('!raw-loader!./demo.component.ts'),
       },
     },
   };
@@ -37,13 +42,14 @@ export function demo() {
     VCLSpinnerModule,
     VCLIconModule,
     VCLButtonModule,
-    RouterModule.forChild([{
-      path: '',
-      component: DemoComponent,
-      data: {demo}
-    }]),
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoComponent,
+        data: { demo },
+      },
+    ]),
   ],
-  declarations: [SpinnerDemoComponent]
+  declarations: [SpinnerDemoComponent],
 })
-export class SpinnerDemoModule {
-}
+export class SpinnerDemoModule {}

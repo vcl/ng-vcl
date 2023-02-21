@@ -1,16 +1,27 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, HostBinding, ContentChild, AfterContentInit, forwardRef, ChangeDetectorRef, ElementRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  HostBinding,
+  ContentChild,
+  AfterContentInit,
+  forwardRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { InputDirective } from './input.directive';
 import { TextareaDirective } from './textarea.directive';
 import { Subscription, Subject } from 'rxjs';
-import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from './embedded-label.directive';
+import {
+  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+  EmbeddedInputFieldLabelInput,
+} from './embedded-label.directive';
 
 @Component({
   selector: 'vcl-input-field',
   template: `
-    <ng-content vclPrepend select='[vclPrepend]'></ng-content>
+    <ng-content vclPrepend select="[vclPrepend]"></ng-content>
     <ng-content
-      select='input[vclInput], textarea[vclInput], vcl-spinner'
-    ></ng-content>
+      select="input[vclInput], textarea[vclInput], vcl-spinner"></ng-content>
     <ng-content vclAppend select="[vclAppend]"></ng-content>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

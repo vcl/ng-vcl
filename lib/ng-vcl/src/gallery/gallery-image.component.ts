@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'vcl-gallery-image',
@@ -6,7 +6,6 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryImageComponent {
-
   @Input()
   image: string;
 
@@ -15,5 +14,4 @@ export class GalleryImageComponent {
 
   @Input()
   alt = '';
-
 }

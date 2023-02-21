@@ -6,17 +6,16 @@ import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
 
 @Component({
   selector: 'demo-empty-component',
-  template: `<span>{{data}}</span>`
+  template: `<span>{{ data }}</span>`,
 })
 export class SampleEmptyComponent {
   data: string;
 }
 
 @Component({
-  templateUrl: 'demo.component.html'
+  templateUrl: 'demo.component.html',
 })
 export class JssFormDemoComponent implements AfterViewInit, OnInit {
-
   private _disabled = false;
 
   get disabled(): boolean {
@@ -28,8 +27,7 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
     this.ngOnInit();
   }
 
-  constructor(private notifier: NotifierService, private da: DateAdapter) {
-  }
+  constructor(private notifier: NotifierService, private da: DateAdapter) {}
 
   @ViewChild('heroForm')
   heroForm: JssFormComponent;
@@ -39,9 +37,13 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   state$: Observable<any>;
 
   ngOnInit(): void {
-    this.heroSchema = buildHeroSchema({
-      datePickerPlaceholder: this.da.pattern('date')
-    }, this.disabled, SampleEmptyComponent);
+    this.heroSchema = buildHeroSchema(
+      {
+        datePickerPlaceholder: this.da.pattern('date'),
+      },
+      this.disabled,
+      SampleEmptyComponent
+    );
   }
 
   onSubmit() {
@@ -60,7 +62,11 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    this.state$ = merge(this.heroForm.form.statusChanges, this.heroForm.form.valueChanges as any, this.heroForm.form.ngSubmit as any).pipe(
+    this.state$ = merge(
+      this.heroForm.form.statusChanges,
+      this.heroForm.form.valueChanges as any,
+      this.heroForm.form.ngSubmit as any
+    ).pipe(
       map(() => {
         return {
           status: this.heroForm.form.status,

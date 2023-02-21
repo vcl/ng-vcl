@@ -1,12 +1,13 @@
 import { Observable } from 'rxjs';
 import { OverlayConfig } from '@angular/cdk/overlay';
-import { InjectionToken } from '@angular/core';
 
 export interface LayerData {
   [key: string]: any;
 }
 
-export class LayerConfig<TLayerData extends LayerData = any> extends OverlayConfig {
+export class LayerConfig<
+  TLayerData extends LayerData = any
+> extends OverlayConfig {
   constructor(config: LayerConfig) {
     super(config);
     this.data = config.data;

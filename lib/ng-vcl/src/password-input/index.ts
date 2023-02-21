@@ -9,8 +9,14 @@ import { VCLFormControlGroupModule } from '../form-control-group/index';
 export { PasswordInputComponent };
 
 @NgModule({
-  imports: [ FormsModule, VCLInputModule, VCLButtonModule, VCLIconModule, VCLFormControlGroupModule ],
+  imports: [
+    FormsModule,
+    VCLInputModule,
+    VCLButtonModule,
+    VCLIconModule,
+    VCLFormControlGroupModule,
+  ],
   exports: [PasswordInputComponent],
-  declarations: [PasswordInputComponent]
+  declarations: [PasswordInputComponent],
 })
-export class VCLPasswordInputModule { }
+export class VCLPasswordInputModule {}

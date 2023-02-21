@@ -14,4 +14,6 @@ export interface RadioButtonGroup {
   notifyRadioButtonBlur(rb: RadioButton): void;
 }
 
-export const RADIO_BUTTON_GROUP_TOKEN = new InjectionToken<RadioButtonGroup>('vcl_radio_button_group');
+export const RADIO_BUTTON_GROUP_TOKEN = new InjectionToken<RadioButtonGroup>(
+  'vcl_radio_button_group'
+);

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
 import { LayerService } from '../layer/index';
@@ -8,8 +8,7 @@ import { AlertComponent } from './alert.component';
 
 @Injectable()
 export class AlertService {
-
-  constructor(private layerService: LayerService) { }
+  constructor(private layerService: LayerService) {}
 
   alert(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
     return this.open({ text }, opts);
@@ -32,7 +31,10 @@ export class AlertService {
   }
 
   question(text: string, opts: AlertOptions = {}): Observable<AlertResult> {
-    return this.open({ text, type: AlertType.Question, showCancelButton: true }, opts);
+    return this.open(
+      { text, type: AlertType.Question, showCancelButton: true },
+      opts
+    );
   }
 
   open(...opts: AlertOptions[]): Observable<AlertResult> {
@@ -43,13 +45,19 @@ export class AlertService {
     layer.open({
       closeOnBackdropClick: alert.closeOnBackdropClick,
       closeOnEscape: alert.closeOnEscape,
-      data: alert
+      data: alert,
     });
 
-    return layer.afterClose.pipe(map(result => {
-      return result || {
-        action: 'close'
-      } as AlertResult;
-    }), take(1));
+    return layer.afterClose.pipe(
+      map(result => {
+        return (
+          result ||
+          ({
+            action: 'close',
+          } as AlertResult)
+        );
+      }),
+      take(1)
+    );
   }
 }

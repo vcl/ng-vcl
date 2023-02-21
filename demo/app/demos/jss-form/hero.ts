@@ -9,7 +9,11 @@ export interface HeroSchemaConfig {
   datePickerPlaceholder: string;
 }
 
-export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emptyComponent: any): ExtendedFormFieldSchemaRoot {
+export function buildHeroSchema(
+  config: HeroSchemaConfig,
+  disabled: boolean,
+  emptyComponent: any
+): ExtendedFormFieldSchemaRoot {
   return {
     type: 'form',
     fields: [
@@ -18,12 +22,10 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         type: 'input',
         label: 'Name',
         params: {
-          placeholder: 'The hero\'s name',
-          autocomplete: 'off'
+          placeholder: "The hero's name",
+          autocomplete: 'off',
         },
-        validators: [
-          Validators.required, Validators.minLength(2)
-        ],
+        validators: [Validators.required, Validators.minLength(2)],
         required: true,
         help: {
           title: 'Help title',
@@ -33,40 +35,40 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
           {
             type: 'error',
             error: 'required',
-            message: 'Name is required'
+            message: 'Name is required',
           },
           {
             type: 'error',
             error: 'minlength',
-            message: 'Name must have a length of at least 2 characters'
-          }
+            message: 'Name must have a length of at least 2 characters',
+          },
         ],
-        disabled
+        disabled,
       },
       {
         type: 'textarea',
         name: 'description',
         label: 'Description',
         params: {
-          placeholder: 'The hero\'s Description',
+          placeholder: "The hero's Description",
         },
-        disabled
+        disabled,
       },
       {
         type: 'date-picker',
         name: 'dob',
         label: 'Date of Birth',
         params: {
-          placeholder: config.datePickerPlaceholder
+          placeholder: config.datePickerPlaceholder,
         },
         help: {
           title: 'Date of Birth title',
           text: 'Date of Birth text',
           confirmButtonLabel: 'Confirm',
           layerWidth: '15em',
-          icon: 'vcl:question'
+          icon: 'vcl:question',
         },
-        disabled
+        disabled,
       },
       {
         type: 'password-input',
@@ -77,46 +79,48 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         },
         validators: [
           Validators.required,
-          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'),
+          Validators.pattern(
+            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+          ),
         ],
         hints: [
           {
             type: 'error',
             error: 'required',
-            message: 'Password is required'
+            message: 'Password is required',
           },
           {
             type: 'error',
             error: 'pattern',
-            message: 'Password must...'
+            message: 'Password must...',
           },
           {
             type: 'error',
             error: 'pattern',
-            message: '- At least 8 characters in length'
+            message: '- At least 8 characters in length',
           },
           {
             type: 'error',
             error: 'pattern',
-            message: '- Contain a lowercase letters'
+            message: '- Contain a lowercase letters',
           },
           {
             type: 'error',
             error: 'pattern',
-            message: '- Contain a uppercase letters'
+            message: '- Contain a uppercase letters',
           },
           {
             type: 'error',
             error: 'pattern',
-            message: '- Contain a number'
+            message: '- Contain a number',
           },
           {
             type: 'error',
             error: 'pattern',
-            message: '- Contain a special character'
-          }
+            message: '- Contain a special character',
+          },
         ],
-        disabled
+        disabled,
       },
       {
         type: 'counter',
@@ -125,29 +129,34 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         defaultValue: 1,
         params: {
           min: 1,
-          max: 10
+          max: 10,
         },
-        disabled
+        disabled,
       },
       {
         type: 'switch',
         name: 'leader',
         label: 'Leader',
         defaultValue: false,
-        visible: conditional(['level'], (level: AbstractControl) => level.value >= 5),
-        validators: [(control: AbstractControl) => {
-          if (!control.value) {
-            return {
-              leader: true,
-            };
-          }
-          return null;
-        }],
+        visible: conditional(
+          ['level'],
+          (level: AbstractControl) => level.value >= 5
+        ),
+        validators: [
+          (control: AbstractControl) => {
+            if (!control.value) {
+              return {
+                leader: true,
+              };
+            }
+            return null;
+          },
+        ],
         params: {
           offLabel: 'No',
           onLabel: 'Yes',
         },
-        disabled
+        disabled,
       },
       {
         type: 'file-input',
@@ -155,9 +164,9 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         label: 'Picture',
         params: {
           multiple: false,
-          placeholder: 'Picture of the hero'
+          placeholder: 'Picture of the hero',
         },
-        disabled
+        disabled,
       },
       {
         type: 'input',
@@ -172,15 +181,15 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
           {
             type: 'error',
             error: 'required',
-            message: 'Email is required'
+            message: 'Email is required',
           },
           {
             type: 'error',
             error: 'email',
-            message: 'Invalid Email address'
-          }
+            message: 'Invalid Email address',
+          },
         ],
-        disabled
+        disabled,
       },
       {
         type: 'radio-group',
@@ -188,41 +197,49 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         label: 'Gender',
         defaultValue: 'm',
         params: {
-          options: [{
-            label: 'Male',
-            value: 'm'
-          }, {
-            label: 'Female',
-            value: 'f'
-          }, {
-            label: 'Genderless',
-            value: 'g'
-          }],
+          options: [
+            {
+              label: 'Male',
+              value: 'm',
+            },
+            {
+              label: 'Female',
+              value: 'f',
+            },
+            {
+              label: 'Genderless',
+              value: 'g',
+            },
+          ],
         },
-        disabled
+        disabled,
       },
       {
         type: 'button-group',
         name: 'alignment',
         label: 'Alignment',
         params: {
-          options: [{
-            label: 'Good',
-            value: 1
-          }, {
-            label: 'Neutral',
-            value: 0
-          }, {
-            label: 'Evil',
-            value: -1
-          }]
+          options: [
+            {
+              label: 'Good',
+              value: 1,
+            },
+            {
+              label: 'Neutral',
+              value: 0,
+            },
+            {
+              label: 'Evil',
+              value: -1,
+            },
+          ],
         },
-        disabled
+        disabled,
       },
       {
         type: 'hidden',
         name: 'language',
-        defaultValue: navigator.language
+        defaultValue: navigator.language,
       },
       {
         type: 'select-list',
@@ -230,26 +247,30 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
         label: 'Class',
         defaultValue: null,
         params: {
-          options: [{
-            label: 'Warrior',
-            value: 'warrior'
-          }, {
-            label: 'Mage',
-            value: 'mage'
-          }, {
-            label: 'Rogue',
-            value: 'rogue'
-          }]
+          options: [
+            {
+              label: 'Warrior',
+              value: 'warrior',
+            },
+            {
+              label: 'Mage',
+              value: 'mage',
+            },
+            {
+              label: 'Rogue',
+              value: 'rogue',
+            },
+          ],
         },
-        disabled
+        disabled,
       },
       {
         type: 'slider',
         name: 'hitpoints',
         label: 'Hit Points',
         defaultValue: 15,
-        disabled: conditional(['class'], (c) => !c.value),
-        params: conditional(['class'], (control) => {
+        disabled: conditional(['class'], c => !c.value),
+        params: conditional(['class'], control => {
           if (control.value === 'rogue') {
             return {
               min: 8,
@@ -257,7 +278,7 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
               scale: 11,
               lock: true,
             };
-          }  else if (control.value === 'mage') {
+          } else if (control.value === 'mage') {
             return {
               min: 5,
               max: 15,
@@ -286,9 +307,9 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
             defaultValue: 3,
             params: {
               items: ['1', '2', '3', '4', '5'],
-              valueLabel: (label) => `Strength (${label})`,
+              valueLabel: label => `Strength (${label})`,
             },
-            disabled
+            disabled,
           },
           {
             type: 'rating',
@@ -296,9 +317,9 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
             defaultValue: 3,
             params: {
               items: ['1', '2', '3', '4', '5'],
-              valueLabel: (label) => `Agility (${label})`,
+              valueLabel: label => `Agility (${label})`,
             },
-            disabled
+            disabled,
           },
           {
             type: 'rating',
@@ -306,66 +327,80 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
             defaultValue: 3,
             params: {
               items: ['1', '2', '3', '4', '5'],
-              valueLabel: (label) => `Intelligence (${label})`,
+              valueLabel: label => `Intelligence (${label})`,
             },
-            disabled
+            disabled,
           },
         ],
-        validators: [(control: AbstractControl) => {
-          const s = control.get('strength');
-          const a = control.get('agility');
-          const i = control.get('intelligence');
-          const skillPoints = (s && a && i) ? (s.value + a.value + i.value) : 0;
-          return skillPoints > 10 ? { skills: true } : null;
-        }],
+        validators: [
+          (control: AbstractControl) => {
+            const s = control.get('strength');
+            const a = control.get('agility');
+            const i = control.get('intelligence');
+            const skillPoints = s && a && i ? s.value + a.value + i.value : 0;
+            return skillPoints > 10 ? { skills: true } : null;
+          },
+        ],
         hints: [
-          conditional(['skills', 'skills.strength', 'skills.agility', 'skills.intelligence'], (control, s, a, i) => {
-            const skillPoints = (s && a && i) ? (s.value + a.value + i.value) : 0;
-            const message = `${skillPoints} of 10 skill points used`;
-            if (control.hasError('skills')) {
-              return {
-                type: 'error',
-                message
-              };
-            } else {
-              const skillPointsAvailable = 10 - skillPoints;
-              if (skillPointsAvailable > 0) {
+          conditional(
+            [
+              'skills',
+              'skills.strength',
+              'skills.agility',
+              'skills.intelligence',
+            ],
+            (control, s, a, i) => {
+              const skillPoints = s && a && i ? s.value + a.value + i.value : 0;
+              const message = `${skillPoints} of 10 skill points used`;
+              if (control.hasError('skills')) {
                 return {
-                  type: 'warning',
-                  message
+                  type: 'error',
+                  message,
+                };
+              } else {
+                const skillPointsAvailable = 10 - skillPoints;
+                if (skillPointsAvailable > 0) {
+                  return {
+                    type: 'warning',
+                    message,
+                  };
+                }
+                return {
+                  type: 'default',
+                  message,
                 };
               }
-              return {
-                type: 'default',
-                message
-              };
             }
-          })
+          ),
         ],
-        disabled
+        disabled,
       },
       {
         type: 'token',
         name: 'attributes',
         label: 'Attributes (Tokens)',
         params: {
-          autocomplete: 'off'
+          autocomplete: 'off',
         },
         hints: [
           {
             type: 'default',
-            message: 'Press enter to add attribute'
+            message: 'Press enter to add attribute',
           },
           {
             type: 'error',
             error: 'minLength',
-            message: 'Minimum length is 2'
+            message: 'Minimum length is 2',
           },
         ],
-        validators: [(control: AbstractControl) => {
-          return Array.isArray(control.value) && control.value.length > 1 ? null : { minLength: true };
-        }],
-        disabled
+        validators: [
+          (control: AbstractControl) => {
+            return Array.isArray(control.value) && control.value.length > 1
+              ? null
+              : { minLength: true };
+          },
+        ],
+        disabled,
       },
       {
         type: 'select',
@@ -378,52 +413,63 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
           search: true,
           emptyComponent: {
             component: emptyComponent,
-            data: 'No skills found!'
+            data: 'No skills found!',
           },
-          options: [{
-            label: 'Snake Eater',
-            sublabel: 'It gives you a 25% increase to your poison resistance.',
-            value: 'snakeeater'
-          },
-          {
-            label: 'Swift Learner',
-            sublabel: 'Swift Learner	Whenever you gain experience, you\'ll receive 5% more experience per level of the perk.',
-            value: 'swiftlearner',
-          },
-          {
-            label: 'Toughness',
-            sublabel: 'It adds 10% to your general damage resistance per level.',
-            value: 'toughness'
-          },
-          {
-            label: 'Explorer',
-            sublabel: 'You\'ll get more random encounters with this perk.',
-            value: 'explorer'
-          }],
+          options: [
+            {
+              label: 'Snake Eater',
+              sublabel:
+                'It gives you a 25% increase to your poison resistance.',
+              value: 'snakeeater',
+            },
+            {
+              label: 'Swift Learner',
+              sublabel:
+                "Swift Learner	Whenever you gain experience, you'll receive 5% more experience per level of the perk.",
+              value: 'swiftlearner',
+            },
+            {
+              label: 'Toughness',
+              sublabel:
+                'It adds 10% to your general damage resistance per level.',
+              value: 'toughness',
+            },
+            {
+              label: 'Explorer',
+              sublabel: "You'll get more random encounters with this perk.",
+              value: 'explorer',
+            },
+          ],
         },
         validators: [
           (ctrl: AbstractControl) => {
-            if (ctrl.value && Array.isArray(ctrl.value) && ctrl.value.length === 2) {
+            if (
+              ctrl.value &&
+              Array.isArray(ctrl.value) &&
+              ctrl.value.length === 2
+            ) {
               return null;
             }
             return {
-              perks: true
+              perks: true,
             };
-          }
+          },
         ],
-        hints: [{
-          type: 'error',
-          error: 'perks',
-          message: 'You must select two perks'
-        }],
-        disabled
+        hints: [
+          {
+            type: 'error',
+            error: 'perks',
+            message: 'You must select two perks',
+          },
+        ],
+        disabled,
       },
       {
         type: 'array',
         name: 'items',
         label: 'Items',
         initialFields: 0,
-        fieldLabel: (index) => 'Item ' + (index + 1),
+        fieldLabel: index => 'Item ' + (index + 1),
         noFieldsLabel: 'No items',
         field: {
           type: 'object',
@@ -433,16 +479,16 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
               type: 'input',
               name: 'item_name',
               label: 'Name',
-              validators: [ Validators.required],
+              validators: [Validators.required],
               required: true,
               hints: [
                 {
                   type: 'error',
                   error: 'required',
-                  message: 'Item name is required'
+                  message: 'Item name is required',
                 },
               ],
-              disabled
+              disabled,
             },
             {
               type: 'input',
@@ -450,58 +496,66 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
               label: 'Quantity',
               params: {
                 inputType: 'number',
-                spinner: true
+                spinner: true,
               },
-              validators: [ Validators.required, Validators.min(1), Validators.max(10)],
+              validators: [
+                Validators.required,
+                Validators.min(1),
+                Validators.max(10),
+              ],
               required: true,
               hints: [
                 {
                   type: 'error',
                   error: 'required',
-                  message: 'Item quantity is required'
+                  message: 'Item quantity is required',
                 },
                 {
                   type: 'error',
                   error: 'min',
-                  message: 'Minimum is 1'
+                  message: 'Minimum is 1',
                 },
                 {
                   type: 'error',
                   error: 'max',
-                  message: 'Maximum is 10'
+                  message: 'Maximum is 10',
                 },
               ],
-              disabled
-            }
-          ]
+              disabled,
+            },
+          ],
         },
-        disabled
+        disabled,
       },
       {
         type: 'checkbox',
         name: 'terms',
         label: 'Agree to our terms',
-        validators: [(control: AbstractControl) => {
-          if (!control.value) {
-            return {
-              termsDisagree: true,
-            };
-          }
-          return null;
-        }],
+        validators: [
+          (control: AbstractControl) => {
+            if (!control.value) {
+              return {
+                termsDisagree: true,
+              };
+            }
+            return null;
+          },
+        ],
         hints: [
           {
             type: 'default',
-            message: 'Read the terms to learn how we collect, use and share your data'
+            message:
+              'Read the terms to learn how we collect, use and share your data',
           },
           {
             type: 'error',
             error: 'termsDisagree',
-            message: 'You must agree to our Terms'
-          }
+            message: 'You must agree to our Terms',
+          },
         ],
-        errorStateAgent: (host, input) => input.control.invalid && host.submitted,
-        disabled
+        errorStateAgent: (host, input) =>
+          input.control.invalid && host.submitted,
+        disabled,
       },
       {
         type: 'buttons',
@@ -511,16 +565,16 @@ export function buildHeroSchema(config: HeroSchemaConfig, disabled: boolean, emp
             label: 'Submit',
             class: 'emphasized',
             appIcon: 'fas:arrow-circle-right',
-            disabled
+            disabled,
           },
           {
             type: 'button',
             label: 'Reset',
             action: 'reset',
-            disabled
-          }
-        ]
-      }
-    ]
+            disabled,
+          },
+        ],
+      },
+    ],
   };
 }

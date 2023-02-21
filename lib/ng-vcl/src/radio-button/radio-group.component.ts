@@ -1,10 +1,33 @@
-import { OnDestroy, forwardRef, Input, ContentChildren, QueryList, HostBinding, AfterContentInit, Optional, Inject, Self, EventEmitter, Output, Component, Injector } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  OnDestroy,
+  forwardRef,
+  Input,
+  ContentChildren,
+  QueryList,
+  HostBinding,
+  AfterContentInit,
+  EventEmitter,
+  Output,
+  Component,
+  Injector,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 import { RadioButtonComponent } from './radio-button.component';
-import { RADIO_BUTTON_GROUP_TOKEN, RadioButtonGroup, RadioButton } from './interfaces';
+import {
+  RADIO_BUTTON_GROUP_TOKEN,
+  RadioButtonGroup,
+  RadioButton,
+} from './interfaces';
 
 let UNIQUE_ID = 0;
 
@@ -19,19 +42,23 @@ let UNIQUE_ID = 0;
     },
     {
       provide: RADIO_BUTTON_GROUP_TOKEN,
-      useExisting: forwardRef(() => RadioGroupComponent)
+      useExisting: forwardRef(() => RadioGroupComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => RadioGroupComponent)
-    }
-  ]
+      useExisting: forwardRef(() => RadioGroupComponent),
+    },
+  ],
 })
-export class RadioGroupComponent implements OnDestroy, AfterContentInit, ControlValueAccessor, RadioButtonGroup, FormControlGroupInputState {
-
-  constructor(
-    private injector: Injector,
-  ) { }
+export class RadioGroupComponent
+  implements
+    OnDestroy,
+    AfterContentInit,
+    ControlValueAccessor,
+    RadioButtonGroup,
+    FormControlGroupInputState
+{
+  constructor(private injector: Injector) {}
 
   private stateChangedEmitter = new Subject<void>();
 
@@ -81,7 +108,7 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
   attrRole = 'radiogroup';
 
   @ContentChildren(RadioButtonComponent, {
-    descendants: true
+    descendants: true,
   })
   radioButtons: QueryList<RadioButton>;
 
@@ -118,11 +145,13 @@ export class RadioGroupComponent implements OnDestroy, AfterContentInit, Control
 
   ngAfterContentInit() {
     // Syncs changed radio buttons checked state to be in line with the current group value
-    this.radioButtonsSub = this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {
-      if (this.radioButtons) {
-        this.syncRadioButtons();
-      }
-    });
+    this.radioButtonsSub = this.radioButtons.changes
+      .pipe(startWith(null))
+      .subscribe(() => {
+        if (this.radioButtons) {
+          this.syncRadioButtons();
+        }
+      });
   }
 
   notifyRadioButtonChecked(rb: RadioButton) {

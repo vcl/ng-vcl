@@ -3,18 +3,13 @@ import { Component, ViewEncapsulation } from '@angular/core';
 @Component({
   templateUrl: 'demo.component.html',
   encapsulation: ViewEncapsulation.None,
-  styles: [`
-    .huge img {
-      width: 5em;
-      height: 5em;
-    }
-  `]
+  styleUrls: ['./demo.component.scss'],
 })
 export class BusyDemoComponent {
   isBusy = false;
 
   makeBusy() {
     this.isBusy = true;
-    setTimeout(() => this.isBusy = false, 3000);
+    setTimeout(() => (this.isBusy = false), 3000);
   }
 }

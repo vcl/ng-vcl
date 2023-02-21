@@ -3,7 +3,7 @@ import { Directive, HostBinding } from '@angular/core';
 @Directive({
   selector: 'vcl-panel-dialog',
 })
-export class PanelDialogDirective  {
+export class PanelDialogDirective {
   @HostBinding('class.panel-dialog')
   hostClasses = true;
 }
@@ -11,7 +11,7 @@ export class PanelDialogDirective  {
 @Directive({
   selector: 'vcl-panel-title',
 })
-export class PanelTitleDirective  {
+export class PanelTitleDirective {
   @HostBinding('class.panel-title')
   @HostBinding('class.flex')
   @HostBinding('class.mx-3')

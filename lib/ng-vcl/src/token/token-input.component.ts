@@ -1,6 +1,7 @@
 import {
   Component,
-  Input, Output,
+  Input,
+  Output,
   forwardRef,
   EventEmitter,
   HostListener,
@@ -11,8 +12,13 @@ import {
   AfterContentInit,
   Renderer2,
   ViewChild,
-  Injector} from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+  Injector,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { Token } from './interfaces';
 import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
@@ -31,16 +37,17 @@ let uniqueID = 0;
       multi: true,
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TokenInputContainerComponent implements AfterContentInit, ControlValueAccessor, FormControlGroupInputState {
-
+export class TokenInputContainerComponent
+  implements AfterContentInit, ControlValueAccessor, FormControlGroupInputState
+{
   constructor(
     public elementRef: ElementRef,
     private renderer: Renderer2,
     private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-  ) { }
+    private injector: Injector
+  ) {}
 
   private _stateChangedEmitter = new Subject<void>();
   private _generatedId = 'vcl_token-input_' + uniqueID++;
@@ -141,7 +148,10 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
       ...token,
     };
 
-    if (this.allowDuplicates === false && this.value.some(thisToken => thisToken.value === newToken.value)) {
+    if (
+      this.allowDuplicates === false &&
+      this.value.some(thisToken => thisToken.value === newToken.value)
+    ) {
       return;
     }
 
@@ -191,8 +201,11 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
 
   writeValue(value: any): void {
     if (Array.isArray(value)) {
-      this.value = value.map(t => typeof t === 'string' ? {label: t, selected: this.preselect} : t)
-                          .filter(t => typeof t === 'object' && t);
+      this.value = value
+        .map(t =>
+          typeof t === 'string' ? { label: t, selected: this.preselect } : t
+        )
+        .filter(t => typeof t === 'object' && t);
     } else {
       this.value = [];
     }
@@ -209,9 +222,9 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
     this.disabled = isDisabled;
   }
 
- /**
-  * remove last token on double-backspace
-  */
+  /**
+   * remove last token on double-backspace
+   */
   @HostListener('keydown', ['$event'])
   onKeydown(ev: KeyboardEvent) {
     if (ev.target !== this.inputElementRef.nativeElement) {
@@ -219,7 +232,11 @@ export class TokenInputContainerComponent implements AfterContentInit, ControlVa
     }
     const value = this.inputElementRef.nativeElement.value;
     const keyCode = ev.keyCode;
-    if (keyCode === BACKSPACE && this._lastKeyCode === BACKSPACE && value  === '') {
+    if (
+      keyCode === BACKSPACE &&
+      this._lastKeyCode === BACKSPACE &&
+      value === ''
+    ) {
       // remove last token
       this.removeLastToken();
     } else if (keyCode === ENTER) {

@@ -1,4 +1,11 @@
-import { Input, Component, TemplateRef, ViewContainerRef, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Input,
+  Component,
+  ViewContainerRef,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
 import { RatingComponent } from './rating.component';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
@@ -7,10 +14,13 @@ import { Subscription } from 'rxjs';
   selector: 'vcl-rating-item-label',
   template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>',
   exportAs: 'vclRatingItemLabel',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatingItemLabelComponent implements OnDestroy {
-  constructor(private viewContainerRef: ViewContainerRef, private cdRef: ChangeDetectorRef) { }
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   portal?: TemplatePortal;
 
@@ -25,7 +35,7 @@ export class RatingItemLabelComponent implements OnDestroy {
       this._sub && this._sub.unsubscribe();
       this._sub = undefined;
 
-      this._target.labelTemplateChange.subscribe((tpl) => {
+      this._target.labelTemplateChange.subscribe(tpl => {
         if (tpl) {
           this.portal = new TemplatePortal(tpl, this.viewContainerRef);
         } else {

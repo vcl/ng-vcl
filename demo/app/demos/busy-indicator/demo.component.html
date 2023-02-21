@@ -1,29 +1,32 @@
 <h3>Simple busy indicator</h3>
 <vcl-busy-indicator>Loading...</vcl-busy-indicator>
-<br><br>
 
 <h3>Horizontal busy indicator</h3>
-<vcl-busy-indicator [layout]="'horizontal'" class="huge">Loading...</vcl-busy-indicator>
-<br><br>
+<vcl-busy-indicator [layout]="'horizontal'" class="huge"
+  >Loading...</vcl-busy-indicator
+>
 
 <h3>Busy indicator with text</h3>
-<vcl-busy-indicator>
-    Loading...
-  </vcl-busy-indicator>
-<br><br>
+<vcl-busy-indicator> Loading... </vcl-busy-indicator>
 
 <h3>Indicator using icon font</h3>
-<vcl-busy-indicator  icon="fas fa-circle-notch fa-spin fa-3x fa-fw"></vcl-busy-indicator>
-  <br><br>
+<vcl-busy-indicator
+  icon="fas fa-circle-notch fa-spin fa-3x fa-fw"
+></vcl-busy-indicator>
 
 <h3>Indicator using custom image</h3>
 <vcl-busy-indicator imageSrc="http://www.polidoor.com/assets/img/loading.gif">
   Loading...
 </vcl-busy-indicator>
-<br><br>
 
 <h3>Busy container</h3>
-<div [vcl-busy-indicator-cover]="isBusy" class="container row justify-center" style="height:15em">
+<div
+  [vcl-busy-indicator-cover]="isBusy"
+  class="container row justify-center"
+  style="height: 15em"
+>
   <vcl-busy-indicator></vcl-busy-indicator>
-  <button vcl-button (click)="makeBusy()">Make container busy for 3 secs</button>
+  <button vcl-button (click)="makeBusy()">
+    Make container busy for 3 secs
+  </button>
 </div>

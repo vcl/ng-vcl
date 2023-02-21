@@ -5,6 +5,6 @@ export { createOffClickStream, OffClickDirective };
 
 @NgModule({
   declarations: [OffClickDirective],
-  exports: [OffClickDirective]
+  exports: [OffClickDirective],
 })
 export class VCLOffClickModule {}

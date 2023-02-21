@@ -1,10 +1,25 @@
-import { Component, HostBinding, HostListener, Inject, ChangeDetectionStrategy, ElementRef, Renderer2, Optional, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  HostListener,
+  Inject,
+  ChangeDetectionStrategy,
+  ElementRef,
+  Renderer2,
+  OnInit,
+} from '@angular/core';
 import { AnimationEvent, useAnimation } from '@angular/animations';
-import { trigger, transition, } from '@angular/animations';
+import { trigger, transition } from '@angular/animations';
 import { NOTIFICATION_TYPE_CLASS_MAP } from '../notification/index';
 import { NOTIFIER_CONFIG_TOKEN, NotifierConfig } from './types';
-import { stateVoidOpenAnimation, stateOpenClosingAnimation } from './animations';
-import { NOTIFIER_ANIMATION_PARAMS_TOKEN, NotificationAnimationParams } from './types';
+import {
+  stateVoidOpenAnimation,
+  stateOpenClosingAnimation,
+} from './animations';
+import {
+  NOTIFIER_ANIMATION_PARAMS_TOKEN,
+  NotificationAnimationParams,
+} from './types';
 import { NotifierOverlayRef } from './notifier-overlay-ref';
 
 export type NotificationAnimationState = 'open' | 'closing' | 'closed';
@@ -15,21 +30,22 @@ export type NotificationAnimationState = 'open' | 'closing' | 'closed';
   animations: [
     trigger('stateAnimation', [
       transition('void => open', useAnimation(stateVoidOpenAnimation)),
-      transition('open => closing', useAnimation(stateOpenClosingAnimation))
-    ])
+      transition('open => closing', useAnimation(stateOpenClosingAnimation)),
+    ]),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [`
-    :host .notification-header:empty {
-      display: none;
-    }
-    :host .notification-footer:empty {
-      display: none;
-    }
-  `]
+  styles: [
+    `
+      :host .notification-header:empty {
+        display: none;
+      }
+      :host .notification-footer:empty {
+        display: none;
+      }
+    `,
+  ],
 })
 export class NotifierComponent implements OnInit {
-
   constructor(
     @Inject(NOTIFIER_ANIMATION_PARAMS_TOKEN)
     private _animationParams: NotificationAnimationParams,
@@ -37,14 +53,17 @@ export class NotifierComponent implements OnInit {
     private _config: NotifierConfig,
     private renderer: Renderer2,
     private elementRef: ElementRef,
-    public notifierOverlayRef: NotifierOverlayRef,
+    public notifierOverlayRef: NotifierOverlayRef
   ) {
     this.type = this.notifierOverlayRef.type;
     this.icon = this.notifierOverlayRef.icon;
     this.showCloseButton = notifierOverlayRef.showCloseButton;
 
     let timeout: number | false;
-    if (typeof notifierOverlayRef.timeout === 'number' || notifierOverlayRef.timeout === false) {
+    if (
+      typeof notifierOverlayRef.timeout === 'number' ||
+      notifierOverlayRef.timeout === false
+    ) {
       timeout = notifierOverlayRef.timeout;
     } else {
       timeout = this._config.timeout;
@@ -74,7 +93,10 @@ export class NotifierComponent implements OnInit {
   typeIcon?: string = undefined;
 
   get hasIcon() {
-    return this.icon !== false && (typeof this.icon === 'string' || typeof this.typeIcon === 'string');
+    return (
+      this.icon !== false &&
+      (typeof this.icon === 'string' || typeof this.typeIcon === 'string')
+    );
   }
 
   onCloseClick() {
@@ -87,7 +109,7 @@ export class NotifierComponent implements OnInit {
   get fadeAnimation() {
     return {
       value: this.state,
-      params: this._animationParams
+      params: this._animationParams,
     };
   }
 
@@ -105,7 +127,8 @@ export class NotifierComponent implements OnInit {
 
   @HostListener('@stateAnimation.done', ['$event'])
   onFadeFinished(event: AnimationEvent) {
-    const isClosingOut = (event.toState as NotificationAnimationState) === 'closing';
+    const isClosingOut =
+      (event.toState as NotificationAnimationState) === 'closing';
     const itFinished = this.state === 'closing';
 
     if (isClosingOut && itFinished) {

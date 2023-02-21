@@ -8,8 +8,20 @@ import { CalendarViewYearsComponent } from './views/years.component';
 import { CalendarViewHoursComponent } from './views/hours.component';
 import { CalendarViewMinutesComponent } from './views/minutes.component';
 import { CalendarComponent } from './calendar.component';
-import { VCLCalendarView, VCLCalendarDateModifier, VCLCalendarHandler, VCLCalendar } from './interfaces';
-import { DateSingleHandler, DateMultipleHandler, DateRangeHandler, MonthSingleHandler, MonthMultipleHandler, MonthRangeHandler } from './calendar.handlers';
+import {
+  VCLCalendarView,
+  VCLCalendarDateModifier,
+  VCLCalendarHandler,
+  VCLCalendar,
+} from './interfaces';
+import {
+  DateSingleHandler,
+  DateMultipleHandler,
+  DateRangeHandler,
+  MonthSingleHandler,
+  MonthMultipleHandler,
+  MonthRangeHandler,
+} from './calendar.handlers';
 
 export {
   CalendarComponent,
@@ -21,48 +33,58 @@ export {
   VCLCalendarView,
   VCLCalendarDateModifier,
   VCLCalendarHandler,
-  VCLCalendar
+  VCLCalendar,
 };
 
 @NgModule({
   imports: [CommonModule, VCLButtonModule, VCLIconModule],
-  exports: [CalendarComponent, CalendarViewYearsComponent, CalendarViewYearComponent, CalendarViewMonthComponent, CalendarViewHoursComponent, CalendarViewMinutesComponent],
-  declarations: [CalendarComponent, CalendarViewYearsComponent, CalendarViewYearComponent, CalendarViewMonthComponent, CalendarViewHoursComponent, CalendarViewMinutesComponent],
+  exports: [
+    CalendarComponent,
+    CalendarViewYearsComponent,
+    CalendarViewYearComponent,
+    CalendarViewMonthComponent,
+    CalendarViewHoursComponent,
+    CalendarViewMinutesComponent,
+  ],
+  declarations: [
+    CalendarComponent,
+    CalendarViewYearsComponent,
+    CalendarViewYearComponent,
+    CalendarViewMonthComponent,
+    CalendarViewHoursComponent,
+    CalendarViewMinutesComponent,
+  ],
   providers: [
     {
       provide: VCLCalendarHandler,
       useClass: DateSingleHandler,
-      multi: true
+      multi: true,
     },
     {
       provide: VCLCalendarHandler,
       useClass: DateMultipleHandler,
-      multi: true
-
+      multi: true,
     },
     {
       provide: VCLCalendarHandler,
       useClass: DateRangeHandler,
-      multi: true
+      multi: true,
     },
     {
       provide: VCLCalendarHandler,
       useClass: MonthSingleHandler,
-      multi: true
+      multi: true,
     },
     {
       provide: VCLCalendarHandler,
       useClass: MonthMultipleHandler,
-      multi: true
-
+      multi: true,
     },
     {
       provide: VCLCalendarHandler,
       useClass: MonthRangeHandler,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class VCLCalendarModule {
-
-}
+export class VCLCalendarModule {}

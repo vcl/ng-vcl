@@ -1,4 +1,13 @@
-import { TemplateRef, OnDestroy, EventEmitter, Output, Input, Injector, ViewContainerRef, Directive } from '@angular/core';
+import {
+  TemplateRef,
+  OnDestroy,
+  EventEmitter,
+  Output,
+  Input,
+  Injector,
+  ViewContainerRef,
+  Directive,
+} from '@angular/core';
 import { LayerConfig } from './types';
 import { TemplateLayerRef } from './layer-ref';
 
@@ -34,7 +43,7 @@ export class LayerDirective extends TemplateLayerRef implements OnDestroy {
   // tslint:disable-next-line:no-output-rename
   @Output('afterDetached')
   afterDetachedOutput = new EventEmitter<any>();
-  
+
   @Output('afterAttached')
   afterAttachedOutput = new EventEmitter();
 
@@ -46,7 +55,7 @@ export class LayerDirective extends TemplateLayerRef implements OnDestroy {
     this.visibleChange.emit(this.visible);
     this.afterDetachedOutput.emit(result);
   }
-  
+
   protected afterAttached(): void {
     super.afterAttached();
     this.visibleChange.emit(this.visible);

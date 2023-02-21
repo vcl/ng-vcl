@@ -11,24 +11,26 @@ export function demo() {
     tabs: {
       'README.md': {
         type: 'md',
-        content: README
-      }
+        content: README,
+      },
     },
   };
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DemoModule,
-        VCLButtonModule,
-        VCLCalendarModule,
-        RouterModule.forChild([{
-                path: '',
-                component: DemoComponent,
-                data: { demo }
-            }]),
-    ],
-    declarations: []
+  imports: [
+    CommonModule,
+    DemoModule,
+    VCLButtonModule,
+    VCLCalendarModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoComponent,
+        data: { demo },
+      },
+    ]),
+  ],
+  declarations: [],
 })
-export class DateadapterDemoModule { }
+export class DateadapterDemoModule {}

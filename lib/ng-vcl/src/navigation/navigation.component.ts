@@ -1,4 +1,15 @@
-import { Component, forwardRef, HostBinding, ContentChildren, QueryList, SkipSelf, Optional, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  HostBinding,
+  ContentChildren,
+  QueryList,
+  SkipSelf,
+  Optional,
+  Input,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+} from '@angular/core';
 import { NAVIGATION_TOKEN, Navigation } from './types';
 import { NavigationItemComponent } from './navigation-item.component';
 
@@ -7,22 +18,22 @@ import { NavigationItemComponent } from './navigation-item.component';
   templateUrl: 'navigation.component.html',
   styleUrls: ['navigation.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [{
-    provide: NAVIGATION_TOKEN,
-    useExisting: forwardRef(() => NavigationComponent)
-  }],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [
+    {
+      provide: NAVIGATION_TOKEN,
+      useExisting: forwardRef(() => NavigationComponent),
+    },
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent implements Navigation {
-
   constructor(
     @Optional() @SkipSelf() private parentNav: NavigationComponent,
-    @Optional() @SkipSelf() private parentNavItem: NavigationItemComponent 
+    @Optional() @SkipSelf() private parentNavItem: NavigationItemComponent
   ) {
     if (this.parentNavItem) {
       this.parentNavItem.registerNav(this);
     }
-
   }
 
   @Input()
@@ -32,7 +43,7 @@ export class NavigationComponent implements Navigation {
   classVclNavigation = true;
 
   @ContentChildren(NavigationItemComponent, {
-    descendants: true
+    descendants: true,
   })
   items: QueryList<NavigationItemComponent>;
 

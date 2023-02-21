@@ -1,6 +1,22 @@
-import { HostBinding, Input, Component, Inject, HostListener, Directive, ContentChild, ElementRef, ChangeDetectionStrategy, forwardRef, ViewChild } from '@angular/core';
+import {
+  HostBinding,
+  Input,
+  Component,
+  Inject,
+  HostListener,
+  ContentChild,
+  ElementRef,
+  ChangeDetectionStrategy,
+  forwardRef,
+  ViewChild,
+} from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
-import { SelectList, SELECT_LIST_TOKEN, SelectListItem, SELECT_LIST_CONTENT_TOKEN } from '../types';
+import {
+  SelectList,
+  SELECT_LIST_TOKEN,
+  SelectListItem,
+  SELECT_LIST_CONTENT_TOKEN,
+} from '../types';
 import { LabelDirective, SubLabelDirective } from '../../core/index';
 
 @Component({
@@ -8,18 +24,19 @@ import { LabelDirective, SubLabelDirective } from '../../core/index';
   exportAs: 'vclSelectListItem',
   templateUrl: 'select-list-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: SELECT_LIST_CONTENT_TOKEN,
-    useExisting: forwardRef(() => SelectListItemComponent)
-  }]
+  providers: [
+    {
+      provide: SELECT_LIST_CONTENT_TOKEN,
+      useExisting: forwardRef(() => SelectListItemComponent),
+    },
+  ],
 })
 export class SelectListItemComponent implements SelectListItem {
-
   constructor(
     @Inject(SELECT_LIST_TOKEN)
     private selectList: SelectList,
     private elementRef: ElementRef<HTMLElement>
-  ) { }
+  ) {}
 
   private _focused = false;
 
@@ -87,7 +104,7 @@ export class SelectListItemComponent implements SelectListItem {
       // Trim is required due to template induced white spaces
       return this._labelElementRef.nativeElement.innerText.trim();
     } else {
-      return this.elementRef.nativeElement.innerText || ''
+      return this.elementRef.nativeElement.innerText || '';
     }
   }
 

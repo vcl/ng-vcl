@@ -1,6 +1,28 @@
-import { Component, HostBinding, OnDestroy, ChangeDetectionStrategy, AfterContentInit, ChangeDetectorRef, ContentChild, Input, forwardRef, Inject, Optional, ElementRef, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  AfterContentInit,
+  ChangeDetectorRef,
+  ContentChild,
+  Input,
+  forwardRef,
+  Inject,
+  Optional,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Subject, merge, NEVER } from 'rxjs';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE, FormControlErrorStateAgent, FormControlGroupState, FORM_CONTROL_GROUP_STATE, FORM_CONTROL_GROUP_FORM, FormControlGroupForm, FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN } from './interfaces';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+  FormControlErrorStateAgent,
+  FormControlGroupState,
+  FORM_CONTROL_GROUP_STATE,
+  FORM_CONTROL_GROUP_FORM,
+  FormControlGroupForm,
+  FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN,
+} from './interfaces';
 import { AbstractControl } from '@angular/forms';
 import { defaultFormControlErrorStateAgent } from './error-state-agent';
 import { FormDirective } from './form.directive';
@@ -15,12 +37,13 @@ import { FormDirective } from './form.directive';
   providers: [
     {
       provide: FORM_CONTROL_GROUP_STATE,
-      useExisting: forwardRef(() => FormControlGroupComponent)
-    }
-  ]
+      useExisting: forwardRef(() => FormControlGroupComponent),
+    },
+  ],
 })
-export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy, FormControlGroupState<T> {
-
+export class FormControlGroupComponent<T>
+  implements AfterContentInit, OnDestroy, FormControlGroupState<T>
+{
   constructor(
     private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_FORM)
@@ -28,7 +51,7 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
     form: FormControlGroupForm,
     @Inject(FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN)
     @Optional()
-    private _errorStateAgent?: FormControlErrorStateAgent,
+    private _errorStateAgent?: FormControlErrorStateAgent
   ) {
     this.form = form ?? new FormDirective(undefined, undefined);
   }
@@ -49,7 +72,11 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
   errorStateAgentInput: FormControlErrorStateAgent = undefined;
 
   get errorStateAgent() {
-    return this.errorStateAgentInput ?? this._errorStateAgent ?? defaultFormControlErrorStateAgent;
+    return (
+      this.errorStateAgentInput ??
+      this._errorStateAgent ??
+      defaultFormControlErrorStateAgent
+    );
   }
 
   @Input()
@@ -65,7 +92,7 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
   @HostBinding('class')
   get classAttribute(): string {
     return `form-control-group-${this.controlType}`;
-  };
+  }
 
   controlType?: string;
 
@@ -112,7 +139,7 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
   get isRequired() {
     const control = this.input?.ngControl?.control;
     if (control && control.validator) {
-      const validator = control.validator({} as AbstractControl)
+      const validator = control.validator({} as AbstractControl);
       if (validator && validator.required) {
         return true;
       }
@@ -125,7 +152,11 @@ export class FormControlGroupComponent<T> implements AfterContentInit, OnDestroy
     if (!this.input) {
       console.error('Missing input');
     }
-    merge(this.form.statusChanges, this.form.ngSubmit, this.input?.stateChanged ?? NEVER).subscribe(() => {
+    merge(
+      this.form.statusChanges,
+      this.form.ngSubmit,
+      this.input?.stateChanged ?? NEVER
+    ).subscribe(() => {
       this.updateState();
       this._stateChangedEmitter.next();
       this.cdRef.markForCheck();

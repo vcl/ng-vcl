@@ -1,7 +1,26 @@
-import { Directive, ElementRef, Input, HostBinding, HostListener, AfterViewInit, OnChanges, SimpleChanges, DoCheck, forwardRef, Optional, Inject, ChangeDetectorRef, OnDestroy, Injector } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  HostBinding,
+  HostListener,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+  DoCheck,
+  forwardRef,
+  OnDestroy,
+  Injector,
+} from '@angular/core';
 import { Subject } from 'rxjs';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE,  } from '../form-control-group/index';
-import { FORM_CONTROL_EMBEDDED_LABEL_INPUT, EmbeddedInputFieldLabelInput } from '../input';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
+import {
+  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+  EmbeddedInputFieldLabelInput,
+} from '../input';
 import { NgControl } from '@angular/forms';
 
 let UNIQUE_ID = 0;
@@ -10,21 +29,27 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => TextareaDirective)
+      useExisting: forwardRef(() => TextareaDirective),
     },
     // {
     //   provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
     //   useExisting: forwardRef(() => TextareaDirective)
     // },
-  ]
+  ],
 })
-export class TextareaDirective implements OnDestroy, AfterViewInit, OnChanges, DoCheck, FormControlGroupInputState, EmbeddedInputFieldLabelInput {
-
+export class TextareaDirective
+  implements
+    OnDestroy,
+    AfterViewInit,
+    OnChanges,
+    DoCheck,
+    FormControlGroupInputState,
+    EmbeddedInputFieldLabelInput
+{
   constructor(
     public elementRef: ElementRef<HTMLTextAreaElement>,
-    private injector: Injector,
-  ) {
-  }
+    private injector: Injector
+  ) {}
 
   private stateChangedEmitter = new Subject<void>();
   private _focused = false;

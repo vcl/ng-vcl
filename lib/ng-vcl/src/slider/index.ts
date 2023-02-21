@@ -11,4 +11,4 @@ export { SliderComponent, ScalePoint };
   declarations: [SliderComponent],
   providers: [],
 })
-export class VCLSliderModule { }
+export class VCLSliderModule {}

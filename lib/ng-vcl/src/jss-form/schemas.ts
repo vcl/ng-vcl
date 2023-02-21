@@ -1,19 +1,37 @@
 import { ValidatorFn } from '@angular/forms';
-import { Hint, Conditional, Help, HelpConfig } from './types';
+import { Hint, Conditional, Help } from './types';
 import { DatepickerPick } from '../date-picker/index';
 import { FormControlErrorStateAgent } from '../form-control-group/index';
 
-export type VCLFormFieldSchemaType = 'input' | 'number' | 'password' | 'hidden' |
-                                     'textarea' | 'select' | 'select-list' | 'switch' | 'slider' | 'checkbox' | 'rating' |
-                                     'radio-group' | 'button-group' | 'token' | 'date-picker' | 'file-input' | 'button' | 'submit' | 'buttons' |
-                                     'array' | 'object' | 'form';
+export type VCLFormFieldSchemaType =
+  | 'input'
+  | 'number'
+  | 'password'
+  | 'hidden'
+  | 'textarea'
+  | 'select'
+  | 'select-list'
+  | 'switch'
+  | 'slider'
+  | 'checkbox'
+  | 'rating'
+  | 'radio-group'
+  | 'button-group'
+  | 'token'
+  | 'date-picker'
+  | 'file-input'
+  | 'button'
+  | 'submit'
+  | 'buttons'
+  | 'array'
+  | 'object'
+  | 'form';
 
 export interface VCLFormFieldSchema {
   type: string;
   id?: string;
   visible?: boolean | Conditional<boolean>;
 }
-
 
 export interface VCLFormFieldControlSchema extends VCLFormFieldSchema {
   name: string;
@@ -39,7 +57,9 @@ export interface VCLFormFieldSchemaInputParams {
 
 export interface VCLFormFieldSchemaInput extends VCLFormFieldControlSchema {
   type: 'input';
-  params?: VCLFormFieldSchemaInputParams | Conditional<VCLFormFieldSchemaInputParams>;
+  params?:
+    | VCLFormFieldSchemaInputParams
+    | Conditional<VCLFormFieldSchemaInputParams>;
 }
 
 export interface VCLFormFieldSchemaPasswordInputParams {
@@ -47,19 +67,26 @@ export interface VCLFormFieldSchemaPasswordInputParams {
   autocomplete?: string;
 }
 
-export interface VCLFormFieldSchemaPasswordInput extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaPasswordInput
+  extends VCLFormFieldControlSchema {
   type: 'password-input';
-  params?: VCLFormFieldSchemaPasswordInputParams | Conditional<VCLFormFieldSchemaPasswordInputParams>;
+  params?:
+    | VCLFormFieldSchemaPasswordInputParams
+    | Conditional<VCLFormFieldSchemaPasswordInputParams>;
 }
 
 export interface VCLFormFieldSchemaNumber extends VCLFormFieldControlSchema {
   type: 'number';
-  params?: VCLFormFieldSchemaInputParams | Conditional<VCLFormFieldSchemaInputParams>;
+  params?:
+    | VCLFormFieldSchemaInputParams
+    | Conditional<VCLFormFieldSchemaInputParams>;
 }
 
 export interface VCLFormFieldSchemaPassword extends VCLFormFieldControlSchema {
   type: 'password';
-  params?: VCLFormFieldSchemaInputParams | Conditional<VCLFormFieldSchemaInputParams>;
+  params?:
+    | VCLFormFieldSchemaInputParams
+    | Conditional<VCLFormFieldSchemaInputParams>;
 }
 
 export interface VCLFormFieldSchemaHidden extends VCLFormFieldControlSchema {
@@ -74,7 +101,9 @@ export interface VCLFormFieldSchemaTextareaParams {
 
 export interface VCLFormFieldSchemaTextarea extends VCLFormFieldControlSchema {
   type: 'textarea';
-  params?: VCLFormFieldSchemaTextareaParams | Conditional<VCLFormFieldSchemaTextareaParams>;
+  params?:
+    | VCLFormFieldSchemaTextareaParams
+    | Conditional<VCLFormFieldSchemaTextareaParams>;
 }
 
 export interface VCLFormFieldSchemaOptions {
@@ -85,7 +114,7 @@ export interface VCLFormFieldSchemaOptions {
 }
 
 export interface EmptyComponent<T> {
-  component: new() => { data: T };
+  component: new () => { data: T };
   data: T;
 }
 
@@ -96,18 +125,23 @@ export interface VCLFormFieldSchemaSelectParams<T = any> {
   search?: boolean;
   searchValue?: boolean;
   maxHeight?: number;
-  emptyComponent?: EmptyComponent<T> | (new() => object);
+  emptyComponent?: EmptyComponent<T> | (new () => object);
   clearable?: boolean;
 }
 
 export interface VCLFormFieldSchemaSelect extends VCLFormFieldControlSchema {
   type: 'select';
-  params?: VCLFormFieldSchemaSelectParams | Conditional<VCLFormFieldSchemaSelectParams>;
+  params?:
+    | VCLFormFieldSchemaSelectParams
+    | Conditional<VCLFormFieldSchemaSelectParams>;
 }
 
-export interface VCLFormFieldSchemaSelectList extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaSelectList
+  extends VCLFormFieldControlSchema {
   type: 'select-list';
-  params?: VCLFormFieldSchemaSelectParams | Conditional<VCLFormFieldSchemaSelectParams>;
+  params?:
+    | VCLFormFieldSchemaSelectParams
+    | Conditional<VCLFormFieldSchemaSelectParams>;
 }
 
 export interface VCLFormFieldSchemaSwitchParams {
@@ -116,7 +150,9 @@ export interface VCLFormFieldSchemaSwitchParams {
 }
 
 export interface VCLFormFieldSchemaSwitch extends VCLFormFieldControlSchema {
-  params?: VCLFormFieldSchemaSwitchParams | Conditional<VCLFormFieldSchemaSwitchParams>;
+  params?:
+    | VCLFormFieldSchemaSwitchParams
+    | Conditional<VCLFormFieldSchemaSwitchParams>;
   type: 'switch';
 }
 
@@ -129,7 +165,9 @@ export interface VCLFormFieldSchemaSliderParams {
 
 export interface VCLFormFieldSchemaSlider extends VCLFormFieldControlSchema {
   type: 'slider';
-  params?: VCLFormFieldSchemaSliderParams | Conditional<VCLFormFieldSchemaSliderParams>;
+  params?:
+    | VCLFormFieldSchemaSliderParams
+    | Conditional<VCLFormFieldSchemaSliderParams>;
 }
 
 export interface VCLFormFieldSchemaCheckboxParams {
@@ -138,11 +176,13 @@ export interface VCLFormFieldSchemaCheckboxParams {
 
 export interface VCLFormFieldSchemaCheckbox extends VCLFormFieldControlSchema {
   type: 'checkbox';
-  params?: VCLFormFieldSchemaCheckboxParams | Conditional<VCLFormFieldSchemaCheckboxParams>;
+  params?:
+    | VCLFormFieldSchemaCheckboxParams
+    | Conditional<VCLFormFieldSchemaCheckboxParams>;
 }
 
 export interface VCLFormFieldSchemaRatingParams {
-  layout?:	'horizontal' | 'vertical';
+  layout?: 'horizontal' | 'vertical';
   items?: string[];
   ratingFullIcon?: string;
   ratingHalfIcon?: string;
@@ -153,18 +193,23 @@ export interface VCLFormFieldSchemaRatingParams {
 
 export interface VCLFormFieldSchemaRating extends VCLFormFieldControlSchema {
   type: 'rating';
-  params?: VCLFormFieldSchemaRatingParams | Conditional<VCLFormFieldSchemaRatingParams>;
+  params?:
+    | VCLFormFieldSchemaRatingParams
+    | Conditional<VCLFormFieldSchemaRatingParams>;
 }
 
 export interface VCLFormFieldSchemaRadioGroupParams {
-  layout?:	'horizontal' | 'vertical';
+  layout?: 'horizontal' | 'vertical';
   iconPosition?: 'left' | 'right';
   options: VCLFormFieldSchemaOptions[];
 }
 
-export interface VCLFormFieldSchemaRadioGroup extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaRadioGroup
+  extends VCLFormFieldControlSchema {
   type: 'radio-group';
-  params?: VCLFormFieldSchemaRadioGroupParams | Conditional<VCLFormFieldSchemaRadioGroupParams>;
+  params?:
+    | VCLFormFieldSchemaRadioGroupParams
+    | Conditional<VCLFormFieldSchemaRadioGroupParams>;
 }
 
 export interface VCLFormFieldSchemaButtonGroupParams {
@@ -173,14 +218,19 @@ export interface VCLFormFieldSchemaButtonGroupParams {
   options: VCLFormFieldSchemaOptions[];
 }
 
-export interface  VCLFormFieldSchemaButtonGroup extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaButtonGroup
+  extends VCLFormFieldControlSchema {
   type: 'button-group';
-  params?: VCLFormFieldSchemaButtonGroupParams | Conditional<VCLFormFieldSchemaButtonGroupParams>;
+  params?:
+    | VCLFormFieldSchemaButtonGroupParams
+    | Conditional<VCLFormFieldSchemaButtonGroupParams>;
 }
 
 export interface VCLFormFieldSchemaToken extends VCLFormFieldControlSchema {
   type: 'token';
-  params?: VCLFormFieldSchemaInputParams | Conditional<VCLFormFieldSchemaInputParams>;
+  params?:
+    | VCLFormFieldSchemaInputParams
+    | Conditional<VCLFormFieldSchemaInputParams>;
 }
 
 export interface VCLFormFieldSchemaDatePickerParams {
@@ -188,9 +238,12 @@ export interface VCLFormFieldSchemaDatePickerParams {
   placeholder?: string;
 }
 
-export interface VCLFormFieldSchemaDatePicker extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaDatePicker
+  extends VCLFormFieldControlSchema {
   type: 'date-picker';
-  params?: VCLFormFieldSchemaDatePickerParams | Conditional<VCLFormFieldSchemaDatePickerParams>;
+  params?:
+    | VCLFormFieldSchemaDatePickerParams
+    | Conditional<VCLFormFieldSchemaDatePickerParams>;
 }
 
 export interface VCLFormFieldSchemaFileInputParams {
@@ -201,7 +254,9 @@ export interface VCLFormFieldSchemaFileInputParams {
 
 export interface VCLFormFieldSchemaFileInput extends VCLFormFieldControlSchema {
   type: 'file-input';
-  params?: VCLFormFieldSchemaFileInputParams | Conditional<VCLFormFieldSchemaFileInputParams>;
+  params?:
+    | VCLFormFieldSchemaFileInputParams
+    | Conditional<VCLFormFieldSchemaFileInputParams>;
 }
 
 export interface VCLFormFieldSchemaButton extends VCLFormFieldSchema {
@@ -229,7 +284,9 @@ export interface VCLFormFieldSchemaButtons extends VCLFormFieldSchema {
   buttons: (VCLFormFieldSchemaButton | VCLFormFieldSchemaSubmit)[];
 }
 
-export interface VCLFormFieldSchemaArray<TCustomFields extends VCLFormFieldSchema = never> extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaArray<
+  TCustomFields extends VCLFormFieldSchema = never
+> extends VCLFormFieldControlSchema {
   type: 'array';
   noFieldsLabel?: string;
   fieldLabel?: string | ((index: number) => string);
@@ -237,14 +294,18 @@ export interface VCLFormFieldSchemaArray<TCustomFields extends VCLFormFieldSchem
   field: VCLFormFieldSchemas<TCustomFields>;
 }
 
-export interface VCLFormFieldSchemaObject<TCustomFields extends VCLFormFieldSchema = never> extends VCLFormFieldControlSchema {
+export interface VCLFormFieldSchemaObject<
+  TCustomFields extends VCLFormFieldSchema = never
+> extends VCLFormFieldControlSchema {
   type: 'object';
   fields: VCLFormFieldSchemas<TCustomFields>[];
   validators?: ValidatorFn[];
   layout?: 'fieldset';
 }
 
-export interface VCLFormFieldSchemaRoot<TCustomFields extends VCLFormFieldSchema = never> {
+export interface VCLFormFieldSchemaRoot<
+  TCustomFields extends VCLFormFieldSchema = never
+> {
   type: 'form';
   fields: VCLFormFieldSchemas<TCustomFields>[];
   hints?: (Hint | Conditional<Hint>)[];
@@ -254,13 +315,26 @@ export interface VCLFormFieldSchemaRoot<TCustomFields extends VCLFormFieldSchema
 }
 
 export type VCLFormFieldSchemas<TCustomFields extends VCLFormFieldSchema> =
-                            VCLFormFieldSchemaInput | VCLFormFieldSchemaPasswordInput | VCLFormFieldSchemaNumber | VCLFormFieldSchemaPassword | VCLFormFieldSchemaTextarea
-                          | VCLFormFieldSchemaHidden | VCLFormFieldSchemaFileInput  | VCLFormFieldSchemaObject<TCustomFields>
-                          | VCLFormFieldSchemaCheckbox | VCLFormFieldSchemaSelect | VCLFormFieldSchemaSelectList | VCLFormFieldSchemaButtonGroup
-                          | VCLFormFieldSchemaSwitch | VCLFormFieldSchemaSlider | VCLFormFieldSchemaRating
-                          | VCLFormFieldSchemaRadioGroup | VCLFormFieldSchemaToken | VCLFormFieldSchemaDatePicker
-                          | VCLFormFieldSchemaButton | VCLFormFieldSchemaSubmit | VCLFormFieldSchemaButtons
-                          | VCLFormFieldSchemaArray<TCustomFields>
-                          | TCustomFields
-                          ;
-
+  | VCLFormFieldSchemaInput
+  | VCLFormFieldSchemaPasswordInput
+  | VCLFormFieldSchemaNumber
+  | VCLFormFieldSchemaPassword
+  | VCLFormFieldSchemaTextarea
+  | VCLFormFieldSchemaHidden
+  | VCLFormFieldSchemaFileInput
+  | VCLFormFieldSchemaObject<TCustomFields>
+  | VCLFormFieldSchemaCheckbox
+  | VCLFormFieldSchemaSelect
+  | VCLFormFieldSchemaSelectList
+  | VCLFormFieldSchemaButtonGroup
+  | VCLFormFieldSchemaSwitch
+  | VCLFormFieldSchemaSlider
+  | VCLFormFieldSchemaRating
+  | VCLFormFieldSchemaRadioGroup
+  | VCLFormFieldSchemaToken
+  | VCLFormFieldSchemaDatePicker
+  | VCLFormFieldSchemaButton
+  | VCLFormFieldSchemaSubmit
+  | VCLFormFieldSchemaButtons
+  | VCLFormFieldSchemaArray<TCustomFields>
+  | TCustomFields;

@@ -1,8 +1,19 @@
-import { Component,
-  Input, Output, HostListener,
+import {
+  Component,
+  Input,
+  Output,
   EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, Optional, Inject} from '@angular/core';
-import { RadioButton, RadioButtonGroup, RADIO_BUTTON_GROUP_TOKEN } from './interfaces';
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  HostBinding,
+  Optional,
+  Inject,
+} from '@angular/core';
+import {
+  RadioButton,
+  RadioButtonGroup,
+  RADIO_BUTTON_GROUP_TOKEN,
+} from './interfaces';
 
 let UNIQUE_ID = 0;
 
@@ -13,13 +24,12 @@ let UNIQUE_ID = 0;
   exportAs: 'vclRadioButton',
 })
 export class RadioButtonComponent implements RadioButton {
-
   constructor(
     private cdRef: ChangeDetectorRef,
     @Optional()
     @Inject(RADIO_BUTTON_GROUP_TOKEN)
     private rbg?: RadioButtonGroup
-  ) { }
+  ) {}
 
   private _disabled = false;
   private _focused = false;
@@ -133,5 +143,4 @@ export class RadioButtonComponent implements RadioButton {
     this._disabled = disabled;
     this.cdRef.markForCheck();
   }
-
 }

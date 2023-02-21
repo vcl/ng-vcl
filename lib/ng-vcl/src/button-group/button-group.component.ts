@@ -1,10 +1,34 @@
-import { Component, OnDestroy, Input, ChangeDetectionStrategy, ContentChildren, QueryList, Output, EventEmitter,
-         forwardRef, ChangeDetectorRef, AfterContentInit, HostBinding, Optional, Inject, Self, Injector } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  Input,
+  ChangeDetectionStrategy,
+  ContentChildren,
+  QueryList,
+  Output,
+  EventEmitter,
+  forwardRef,
+  ChangeDetectorRef,
+  AfterContentInit,
+  HostBinding,
+  Injector,
+} from '@angular/core';
 import { Subscription, Subject } from 'rxjs';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NgControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { BUTTON_HOST_TOKEN, ButtonHost, ButtonComponent } from '../button/index';
-import { FormControlGroupInputState, FORM_CONTROL_GROUP_INPUT_STATE } from '../form-control-group/index';
+import {
+  BUTTON_HOST_TOKEN,
+  ButtonHost,
+  ButtonComponent,
+} from '../button/index';
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
 
 let UNIQUE_ID = 0;
 
@@ -14,26 +38,29 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: BUTTON_HOST_TOKEN,
-      useExisting: forwardRef(() => ButtonGroupComponent)
+      useExisting: forwardRef(() => ButtonGroupComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => ButtonGroupComponent)
+      useExisting: forwardRef(() => ButtonGroupComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ButtonGroupComponent),
       multi: true,
-    }
+    },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, AfterContentInit, ButtonHost, FormControlGroupInputState {
-
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private injector: Injector,
-  ) { }
+export class ButtonGroupComponent
+  implements
+    OnDestroy,
+    ControlValueAccessor,
+    AfterContentInit,
+    ButtonHost,
+    FormControlGroupInputState
+{
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   private buttonsSub?: Subscription;
   private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
@@ -97,7 +124,7 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   private toggle(btn: ButtonComponent) {
     if (this.selectionMode === 'multiple') {
       if (Array.isArray(this.value)) {
-        const selectedValue = this.value = [...this.value];
+        const selectedValue = (this.value = [...this.value]);
         const idx = this.value.indexOf(btn.value);
 
         if (idx >= 0) {
@@ -116,17 +143,21 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
 
   private syncButtons() {
     const value = this.value;
-    if (this.buttons && this.selectionMode === 'multiple' && Array.isArray(value)) {
-      this.buttons.forEach((btn) => {
+    if (
+      this.buttons &&
+      this.selectionMode === 'multiple' &&
+      Array.isArray(value)
+    ) {
+      this.buttons.forEach(btn => {
         btn.setSelected(value.includes(btn.value));
       });
     } else if (this.buttons && this.selectionMode === 'single') {
-      this.buttons.forEach((btn) => {
+      this.buttons.forEach(btn => {
         btn.setSelected(value === btn.value);
       });
     }
     if (this.buttons) {
-      this.buttons.forEach((btn) => {
+      this.buttons.forEach(btn => {
         btn.selectable = true;
       });
     }
@@ -150,7 +181,6 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
     this.stateChangedEmitter.next();
   }
 
-
   private triggerChange() {
     this.valueChange.emit(this.value);
     this.onChange(this.value);
@@ -166,12 +196,14 @@ export class ButtonGroupComponent implements OnDestroy, ControlValueAccessor, Af
   ngAfterContentInit() {
     // Syncs changed buttons checked state to be in line with the current group value
     // tslint:disable-next-line:deprecation
-    this.buttonsSub = this.buttons.changes.pipe(startWith(null)).subscribe(() => {
-      if (!this.buttons) {
-        return;
-      }
-      this.syncButtons();
-    });
+    this.buttonsSub = this.buttons.changes
+      .pipe(startWith(null))
+      .subscribe(() => {
+        if (!this.buttons) {
+          return;
+        }
+        this.syncButtons();
+      });
   }
 
   ngOnDestroy() {
