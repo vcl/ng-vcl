@@ -5,7 +5,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { LayerConfig } from './types';
+import { LayerConfig, LayerData } from './types';
 import { ComponentLayerRef, LayerRef, TemplateLayerRef } from './layer-ref';
 
 @Injectable({
@@ -44,7 +44,7 @@ export class LayerService {
     return layer;
   }
 
-  create<TComponent = any, TData = any, TResult = any>(
+  create<TComponent = any, TData extends LayerData = any, TResult = any>(
     component: ComponentType<TComponent>,
     _config?: LayerConfig
   ): LayerRef<TData, TResult> {
@@ -59,7 +59,7 @@ export class LayerService {
     return new DynamicComponentLayerRef(this.injector);
   }
 
-  open<TComponent = any, TData = any, TResult = any>(
+  open<TComponent = any, TData extends LayerData = any, TResult = any>(
     component: ComponentType<TComponent>,
     config?: LayerConfig
   ): LayerRef<TData, TResult> {
