@@ -1,6 +1,7 @@
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HomeComponent } from './components/home/home.component';
 
 const CAT_STATUS_INFORMATION = 'Status Information';
 const CAT_TYPOGRAPHICAL = 'Typographical';
@@ -490,8 +491,8 @@ export const appRoutingProviders: any[] = [];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    useHash: true
-}),
+      useHash: true,
+    }),
   ],
   providers: [...appRoutingProviders],
   exports: [RouterModule],

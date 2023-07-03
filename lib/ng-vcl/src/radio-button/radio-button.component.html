@@ -1,12 +1,11 @@
-<label 
+<label
   class="radio-button-label"
-  [id]="elementId" 
-  [tabindex]="tabindex" 
+  [id]="elementId"
+  [tabindex]="tabindex"
   (click)="onLabelClick()"
   (keyup)="onKeyup($event)"
   (blur)="onBlur()"
-  (focus)="onFocus()"
-  >
+  (focus)="onFocus()">
   <vcl-icon [icon]="checked ? 'vcl:circle-checked' : 'vcl:circle'"></vcl-icon>
   <ng-content></ng-content>
 </label>

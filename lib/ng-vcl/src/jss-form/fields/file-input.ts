@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+
 import {
   VCLFormFieldSchemaFileInput,
   VCLFormFieldSchemaFileInputParams,
 } from '../schemas';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldFileInput extends FormFieldControl<

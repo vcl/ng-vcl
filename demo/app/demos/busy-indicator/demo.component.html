@@ -11,8 +11,7 @@
 
 <h3>Indicator using icon font</h3>
 <vcl-busy-indicator
-  icon="fas fa-circle-notch fa-spin fa-3x fa-fw"
-></vcl-busy-indicator>
+  icon="fas fa-circle-notch fa-spin fa-3x fa-fw"></vcl-busy-indicator>
 
 <h3>Indicator using custom image</h3>
 <vcl-busy-indicator imageSrc="http://www.polidoor.com/assets/img/loading.gif">
@@ -23,8 +22,7 @@
 <div
   [vcl-busy-indicator-cover]="isBusy"
   class="container row justify-center"
-  style="height: 15em"
->
+  style="height: 15em">
   <vcl-busy-indicator></vcl-busy-indicator>
   <button vcl-button (click)="makeBusy()">
     Make container busy for 3 secs

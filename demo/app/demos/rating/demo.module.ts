@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
+import { VCLRatingModule } from '@vcl/ng-vcl';
+
 import { DemoComponent, DemoModule } from './../../modules/demo/demo.module';
 import { RatingDemoComponent } from './demo.component';
-import { VCLRatingModule } from '@vcl/ng-vcl';
+
 import README from '!raw-loader!@vcl/ng-vcl/rating/README.md';
 
 export function demo() {

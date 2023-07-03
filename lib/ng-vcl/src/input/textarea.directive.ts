@@ -12,16 +12,14 @@ import {
   OnDestroy,
   Injector,
 } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
+
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import {
-  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-  EmbeddedInputFieldLabelInput,
-} from '../input';
-import { NgControl } from '@angular/forms';
+import { EmbeddedInputFieldLabelInput } from '../input';
 
 let UNIQUE_ID = 0;
 @Directive({
@@ -158,7 +156,7 @@ export class TextareaDirective
     this.setRows(value);
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(_: Event): void {
     this.elementRef.nativeElement.focus();
   }
 
@@ -175,7 +173,7 @@ export class TextareaDirective
     }
   }
 
-  notifyFormControlLabelClick(event: Event): void {
+  notifyFormControlLabelClick(_: Event): void {
     this.elementRef.nativeElement.focus();
   }
 

@@ -1,4 +1,9 @@
 import {
+  HorizontalConnectionPos,
+  VerticalConnectionPos,
+  ConnectedPosition,
+} from '@angular/cdk/overlay';
+import {
   Component,
   Input,
   OnInit,
@@ -6,13 +11,10 @@ import {
   ViewChild,
   OnChanges,
 } from '@angular/core';
-import { TourService } from './tour.service';
-import {
-  HorizontalConnectionPos,
-  VerticalConnectionPos,
-  ConnectedPosition,
-} from '@angular/cdk/overlay';
+
 import { PopoverDirective } from '../popover/index';
+
+import { TourService } from './tour.service';
 
 @Component({
   selector: 'vcl-tour-step',

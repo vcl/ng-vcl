@@ -5,8 +5,7 @@
       square
       class="transparent"
       *ngIf="xsmall"
-      (click)="drawer.toggle()"
-    >
+      (click)="drawer.toggle()">
       <vcl-icon icon="vcl:menu" class="scale180p"></vcl-icon>
     </button>
     <div role="banner">
@@ -14,8 +13,7 @@
         <img
           class="responsive-image logo"
           role="presentation"
-          src="https://cdn.jsdelivr.net/gh/vcl/ng-vcl/gfx/angular_vcl_logo_square.png"
-        />
+          src="https://cdn.jsdelivr.net/gh/vcl/ng-vcl/gfx/angular_vcl_logo_square.png" />
         <h1 *ngIf="!xsmall" class="app-name">
           Angular VCL Demo Browser (v{{ version
           }}<span *ngIf="gitBranch"> {{ gitBranch }}</span
@@ -41,16 +39,14 @@
           name="search"
           placeholder="Search Modules"
           autocomplete="off"
-          autofocus
-        />
+          autofocus />
 
         <button
           vcl-button
           *ngIf="searchInput.value"
           (tap)="searchInput.value = ''; search('')"
           class="button transparent square appended"
-          icon="fas:times-circle"
-        ></button>
+          icon="fas:times-circle"></button>
       </vcl-input-field>
 
       <vcl-navigation class="scrollable y-on-hover flex">
@@ -60,8 +56,7 @@
             [routerLink]="searchResult.route"
             routerLinkActive
             #rla="routerLinkActive"
-            [selected]="rla.isActive"
-          >
+            [selected]="rla.isActive">
             <vcl-navigation-label>{{
               searchResult.label
             }}</vcl-navigation-label>
@@ -70,16 +65,14 @@
         <ng-template #noSearch>
           <vcl-navigation-item
             *ngFor="let item of GROUPED_DEMOS"
-            #navGroupItem="vclNavigationItem"
-          >
+            #navGroupItem="vclNavigationItem">
             <vcl-navigation-label>
               <vcl-icogram>
                 <vcl-icon
                   vclPrepend
                   [icon]="
                     navGroupItem.opened ? 'fas:angle-down' : 'fas:angle-right'
-                  "
-                ></vcl-icon>
+                  "></vcl-icon>
                 &nbsp;{{ item.label }}
               </vcl-icogram>
             </vcl-navigation-label>
@@ -91,8 +84,7 @@
                 #navItem="vclNavigationItem"
                 #rla="routerLinkActive"
                 [selected]="rla.isActive"
-                (click)="onNavItemClick()"
-              >
+                (click)="onNavItemClick()">
                 <vcl-navigation-label>
                   <vcl-icogram>
                     {{ subitem.label }}
@@ -101,8 +93,7 @@
                       <vcl-icon
                         *ngIf="navItem.selected"
                         vclAppend
-                        icon="vcl:busy"
-                      ></vcl-icon>
+                        icon="vcl:busy"></vcl-icon>
                     </ng-container>
                   </vcl-icogram>
                 </vcl-navigation-label>

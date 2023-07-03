@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   forwardRef,
 } from '@angular/core';
+
 import { SELECT_LIST_CONTENT_TOKEN } from '../types';
 
 @Component({

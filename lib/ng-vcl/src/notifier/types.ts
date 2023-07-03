@@ -1,6 +1,7 @@
 import { PositionStrategy } from '@angular/cdk/overlay';
-import { InjectionToken } from '@angular/core';
 import { Portal } from '@angular/cdk/portal';
+import { InjectionToken } from '@angular/core';
+
 import { NotificationType } from '../notification/index';
 
 export enum NotifierPosition {

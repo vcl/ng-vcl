@@ -1,36 +1,58 @@
-<div style="display: flex; height:100px">
-  <div vclTooltip="Tooltip on the top" style="background-color:#E6E6E6;flex:1">
+<div style="display: flex; height: 100px">
+  <div
+    vclTooltip="Tooltip on the top"
+    style="background-color: #e6e6e6; flex: 1">
     <p>Tooltip on the top</p>
   </div>
-  <div vclTooltip="Tooltip on the right" vclTooltipPosition="right" style="background-color:#D8D8D8;flex:1">
+  <div
+    vclTooltip="Tooltip on the right"
+    vclTooltipPosition="right"
+    style="background-color: #d8d8d8; flex: 1">
     <p>Tooltip on the right</p>
   </div>
-  <div vclTooltip="Tooltip on the left" vclTooltipPosition="left" style="background-color:#BDBDBD;flex:1">
+  <div
+    vclTooltip="Tooltip on the left"
+    vclTooltipPosition="left"
+    style="background-color: #bdbdbd; flex: 1">
     <p>Tooltip on the left</p>
   </div>
-  <div vclTooltip="Tooltip on the bottom" vclTooltipPosition="bottom" style="background-color:#A4A4A4;flex:1">
+  <div
+    vclTooltip="Tooltip on the bottom"
+    vclTooltipPosition="bottom"
+    style="background-color: #a4a4a4; flex: 1">
     <p>Tooltip on the bottom</p>
   </div>
 </div>
-<div style="display: flex; height:100px; padding-top: 2em">
-  <div vclTooltip="Tooltip with no pointer arrow" [vclTooltipArrowPointer]="false" style="background-color:#E6E6E6;flex:1">
+<div style="display: flex; height: 100px; padding-top: 2em">
+  <div
+    vclTooltip="Tooltip with no pointer arrow"
+    [vclTooltipArrowPointer]="false"
+    style="background-color: #e6e6e6; flex: 1">
     <p>Tooltip with no pointer arrow</p>
   </div>
-  <div vclTooltip="Tooltip with delay before showing" [vclTooltipShowDelay]="500" style="background-color:#D8D8D8;flex:1">
+  <div
+    vclTooltip="Tooltip with delay before showing"
+    [vclTooltipShowDelay]="500"
+    style="background-color: #d8d8d8; flex: 1">
     <p>Tooltip with delay before showing</p>
   </div>
-  <div vclTooltip="Tooltip with delay before hiding" [vclTooltipHideDelay]="500" style="background-color:#BDBDBD;flex:1">
+  <div
+    vclTooltip="Tooltip with delay before hiding"
+    [vclTooltipHideDelay]="500"
+    style="background-color: #bdbdbd; flex: 1">
     <p>Tooltip with delay before hiding</p>
   </div>
 
   <ng-template cdkPortal #richTT="cdkPortal">
     <div class="row center">
       <img ngSrc="http://lorempixel.com/50/50/cats/" />
-      <span class="gutter-margin-l-r"><b>Tooltip</b> with <i>rich</i> content </span>
+      <span class="gutter-margin-l-r"
+        ><b>Tooltip</b> with <i>rich</i> content
+      </span>
     </div>
   </ng-template>
 
-  <div [vclTooltip]="richTT" style="background-color:#A4A4A4;flex:1">
+  <div [vclTooltip]="richTT" style="background-color: #a4a4a4; flex: 1">
     <p>Tooltip with rich content</p>
   </div>
 </div>

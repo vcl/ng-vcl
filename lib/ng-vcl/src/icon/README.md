@@ -12,7 +12,8 @@ With image resource
 
 ```html
 <vcl-icon aria-label="Settings">
-  <img ngSrc="http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7/36">
+  <img
+    ngSrc="http://materialdesignicons.com/api/download/icon/png/E4A14909-3821-4DB1-A739-4DA464ABEEB7/36" />
 </vcl-icon>
 ```
 
@@ -20,7 +21,7 @@ With SVG
 
 ```html
 <vcl-icon [class]="'icon-size1'">
-  <svg  ...></svg>
+  <svg ...></svg>
 </vcl-icon>
 ```
 
@@ -28,6 +29,6 @@ With SVG
 
 #### Attributes
 
-| Name                | Type        | Default  | Description
-| ------------        | ----------- | -------- |--------------
-| `icon`              | string      |          | Icon generator lookup via icon class provider
+| Name   | Type   | Default | Description                                   |
+| ------ | ------ | ------- | --------------------------------------------- |
+| `icon` | string |         | Icon generator lookup via icon class provider |

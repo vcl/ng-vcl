@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+
 import { TourComponent } from './tour.component';
 
-function isNumber(v: any): boolean {
-  return !isNaN(Number(v)) && isFinite(v);
+function isNumber(v: unknown): boolean {
+  return typeof v === 'number' && !isNaN(v) && isFinite(v);
 }
 
 export class TourOptions {
@@ -30,46 +31,46 @@ export class TourOptions {
 
 @Injectable()
 export class TourService {
-  public options: TourOptions;
+  options: TourOptions;
+
+  end$: Subject<boolean> = new Subject();
+  tourComponent$: Subject<TourComponent> = new Subject();
+
+  private _showOverlay = false;
+  set showOverlay(showOverlay: boolean) {
+    this._showOverlay = showOverlay;
+  }
+
+  get showOverlay(): boolean {
+    return this._showOverlay;
+  }
+
+  get hasPrevious(): boolean {
+    const hasPrevious: boolean = this.index > 0;
+    return hasPrevious;
+  }
+
+  get hasNext(): boolean {
+    const hasNext: boolean = this.index < this.tourComponents.length - 1;
+    return hasNext;
+  }
 
   private _tourComponents: TourComponent[] = [];
   private tourComponents: TourComponent[] = [];
   private tourComponent: TourComponent | null;
   private index = 0;
 
-  public end$: Subject<boolean> = new Subject();
-  public tourComponent$: Subject<TourComponent> = new Subject();
-
-  private _showOverlay = false;
-  public set showOverlay(showOverlay: boolean) {
-    this._showOverlay = showOverlay;
-  }
-
-  public get showOverlay(): boolean {
-    return this._showOverlay;
-  }
-
-  public get hasPrevious(): boolean {
-    const hasPrevious: boolean = this.index > 0;
-    return hasPrevious;
-  }
-
-  public get hasNext(): boolean {
-    const hasNext: boolean = this.index < this.tourComponents.length - 1;
-    return hasNext;
-  }
-
-  public register(tourComponent: TourComponent): void {
+  register(tourComponent: TourComponent): void {
     this._tourComponents = this._tourComponents.includes(tourComponent)
       ? this._tourComponents
       : [...this._tourComponents, tourComponent];
   }
 
-  public initialize(options: TourOptions = new TourOptions()): void {
+  initialize(options: TourOptions = new TourOptions()): void {
     this.options = Object.assign(new TourOptions(), options);
   }
 
-  public start(index: number = 0): void {
+  start(index: number = 0): void {
     if (!this.options) {
       this.initialize();
     }
@@ -90,7 +91,7 @@ export class TourService {
     this.show(index);
   }
 
-  public show(index: number): void {
+  show(index: number): void {
     this.tourComponent && this.tourComponent.hide();
 
     const tourComponent: TourComponent = this.tourComponents[index];
@@ -109,7 +110,7 @@ export class TourService {
     this.tourComponent$.next(this.tourComponent);
   }
 
-  public showPrevious(): void {
+  showPrevious(): void {
     if (!this.hasPrevious) {
       return this.end();
     }
@@ -117,7 +118,7 @@ export class TourService {
     this.show(this.index - 1);
   }
 
-  public showNext(): void {
+  showNext(): void {
     if (!this.hasNext) {
       return this.end();
     }
@@ -125,14 +126,14 @@ export class TourService {
     this.show(this.index + 1);
   }
 
-  public end(): void {
+  end(): void {
     this.tourComponent && this.tourComponent.hide();
     this.showOverlay = false;
     this.index = 0;
     this.end$.next(true);
   }
 
-  public onOverlayClick(): void {
+  onOverlayClick(): void {
     if (this.options.dismissOnOverlay) {
       this.showNext();
     }

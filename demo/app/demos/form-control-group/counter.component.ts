@@ -1,11 +1,9 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
   forwardRef,
   HostBinding,
-  Optional,
-  Self,
-  Inject,
   NgModule,
   Injector,
 } from '@angular/core';
@@ -16,19 +14,19 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+
 import {
   VCLIcogramModule,
   VCLButtonModule,
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '@vcl/ng-vcl';
-import { Subject } from 'rxjs';
-import { CommonModule } from '@angular/common';
 
 let uniqueID = 0;
 
 @Component({
-  selector: 'demo-counter',
+  selector: 'vcl-app-demo-counter',
   styles: [
     `
       :host {

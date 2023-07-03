@@ -1,19 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
-import { CalendarViewMonthComponent } from './views/month.component';
-import { CalendarViewYearComponent } from './views/year.component';
-import { CalendarViewYearsComponent } from './views/years.component';
-import { CalendarViewHoursComponent } from './views/hours.component';
-import { CalendarViewMinutesComponent } from './views/minutes.component';
+
 import { CalendarComponent } from './calendar.component';
-import {
-  VCLCalendarView,
-  VCLCalendarDateModifier,
-  VCLCalendarHandler,
-  VCLCalendar,
-} from './interfaces';
 import {
   DateSingleHandler,
   DateMultipleHandler,
@@ -22,6 +13,17 @@ import {
   MonthMultipleHandler,
   MonthRangeHandler,
 } from './calendar.handlers';
+import {
+  VCLCalendarView,
+  VCLCalendarDateModifier,
+  VCLCalendarHandler,
+  VCLCalendar,
+} from './interfaces';
+import { CalendarViewHoursComponent } from './views/hours.component';
+import { CalendarViewMinutesComponent } from './views/minutes.component';
+import { CalendarViewMonthComponent } from './views/month.component';
+import { CalendarViewYearComponent } from './views/year.component';
+import { CalendarViewYearsComponent } from './views/years.component';
 
 export {
   CalendarComponent,

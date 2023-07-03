@@ -1,3 +1,4 @@
+import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import {
   Component,
   Input,
@@ -19,11 +20,12 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Token } from './interfaces';
-import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
+
 import { FormControlGroupInputState } from '../form-control-group/index';
 import { InputDirective } from '../input/index';
+
+import { Token } from './interfaces';
 
 let uniqueID = 0;
 
@@ -189,7 +191,7 @@ export class TokenInputContainerComponent
     this.onChange(this.value);
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(_: Event): void {
     this.inputElementRef.nativeElement.focus();
   }
 

@@ -10,7 +10,9 @@ import {
   Output,
   EventEmitter,
   AfterViewChecked,
+  AfterViewInit,
 } from '@angular/core';
+
 import { DRAWER_CONTAINER_HOST, DrawerContainer, Drawer } from './types';
 
 @Component({
@@ -19,7 +21,9 @@ import { DRAWER_CONTAINER_HOST, DrawerContainer, Drawer } from './types';
   templateUrl: 'drawer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
+export class DrawerComponent
+  implements AfterViewInit, AfterViewChecked, OnChanges, Drawer
+{
   @HostBinding('class.drawer')
   hostClasses = true;
 
@@ -52,14 +56,32 @@ export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
     return this.mode === 'over' ? false : true;
   }
 
+  get hasBackdrop() {
+    return this.mode !== 'side';
+  }
+
+  get width(): number {
+    return this.elementRef.nativeElement
+      ? this.elementRef.nativeElement.offsetWidth || 0
+      : 0;
+  }
+
   @Output()
   openedChange = new EventEmitter<boolean>();
 
   constructor(
-    private elementRef: ElementRef<HTMLElement>,
+    private readonly elementRef: ElementRef<HTMLElement>,
     @Inject(DRAWER_CONTAINER_HOST)
-    private container: DrawerContainer
+    private readonly container: DrawerContainer
   ) {}
+
+  ngAfterViewInit() {
+    this.container.updateContentMargins();
+  }
+
+  ngAfterViewChecked(): void {
+    this.container.notifyDrawerStateChange(this, 'check');
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -72,10 +94,6 @@ export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
     }
   }
 
-  ngAfterViewInit() {
-    this.container.updateContentMargins();
-  }
-
   open() {
     return this.toggle(true);
   }
@@ -84,23 +102,9 @@ export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
     return this.toggle(false);
   }
 
-  get hasBackdrop() {
-    return this.mode !== 'side';
-  }
-
   toggle(isOpen: boolean = !this.opened) {
     this.opened = isOpen;
     this.container.notifyDrawerStateChange(this, 'toggle');
     this.openedChange.emit(this.opened);
-  }
-
-  get width(): number {
-    return this.elementRef.nativeElement
-      ? this.elementRef.nativeElement.offsetWidth || 0
-      : 0;
-  }
-
-  ngAfterViewChecked(): void {
-    this.container.notifyDrawerStateChange(this, 'check');
   }
 }

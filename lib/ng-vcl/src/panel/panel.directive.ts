@@ -1,6 +1,7 @@
 import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-panel-dialog',
 })
 export class PanelDialogDirective {
@@ -9,6 +10,7 @@ export class PanelDialogDirective {
 }
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-panel-title',
 })
 export class PanelTitleDirective {
@@ -26,6 +28,7 @@ export class PanelFooterButtonDirective {
 }
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-panel-header',
 })
 export class PanelHeaderDirective {
@@ -34,6 +37,7 @@ export class PanelHeaderDirective {
 }
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-panel-footer',
 })
 export class PanelFooterDirective {

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { NotifierOptions } from './types';
-import { NotifierHandlerService } from './notifier-handler.service';
+
 import { NotificationType } from '../notification/index';
+
+import { NotifierHandlerService } from './notifier-handler.service';
+import { NotifierOptions } from './types';
 
 @Injectable({
   providedIn: 'root',

@@ -16,18 +16,20 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { startWith } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { RadioButtonComponent } from './radio-button.component';
+
 import {
   RADIO_BUTTON_GROUP_TOKEN,
   RadioButtonGroup,
   RadioButton,
 } from './interfaces';
+import { RadioButtonComponent } from './radio-button.component';
 
 let UNIQUE_ID = 0;
 
@@ -169,7 +171,7 @@ export class RadioGroupComponent
     this.stateChangedEmitter.next();
   }
 
-  notifyRadioButtonFocus(rb: RadioButton) {
+  notifyRadioButtonFocus(_: RadioButton) {
     this.stateChangedEmitter.next();
   }
 

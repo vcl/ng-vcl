@@ -1,32 +1,27 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import {
-  BreakpointObserver,
-  Breakpoints,
-} from '@angular/cdk/layout';
 import {
   Router,
   RouteConfigLoadEnd,
   RouteConfigLoadStart,
   RouterEvent,
 } from '@angular/router';
-import { routes } from './../../app-routing.module';
 import Fuse from 'fuse.js';
-import { map, distinctUntilChanged, scan } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { map, distinctUntilChanged, scan } from 'rxjs/operators';
+
 import { DrawerComponent } from '@vcl/ng-vcl';
 
+import { routes } from './../../app-routing.module';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var gitBranch: string;
 
 @Component({
-  selector: 'demo-app',
+  selector: 'vcl-app-demo',
   templateUrl: 'app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {
-  constructor(
-    private router: Router,
-    private breakpointObserver: BreakpointObserver
-  ) {}
-
   @ViewChild('drawer', {
     static: true,
     read: DrawerComponent,
@@ -78,13 +73,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   searchResults = [];
 
-  onNavItemClick() {
-    if (this.xsmall) {
-      this.drawer.close();
-    }
-  }
+  constructor(
+    private readonly router: Router,
+    private readonly breakpointObserver: BreakpointObserver
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.events.subscribe(() => {
       window.scrollTo(0, 0);
     });
@@ -94,11 +88,17 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.breakpointSub && this.breakpointSub.unsubscribe();
   }
 
-  async search(text) {
+  onNavItemClick(): void {
+    if (this.xsmall) {
+      this.drawer.close();
+    }
+  }
+
+  async search(text: string): Promise<void> {
     this.searchResults = new Fuse(this.GROUPED_DEMOS, {
       keys: ['items.label'],
     })

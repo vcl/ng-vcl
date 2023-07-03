@@ -1,16 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import {
   VCLLayerModule,
   VCLButtonModule,
   VCLIconModule,
   VCLPanelModule,
 } from '@vcl/ng-vcl';
+
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
+import { BarComponent } from './bar.component';
 import { LayerDemoComponent } from './demo.component';
 import { NagComponent, NagLayer } from './nag.component';
-import { BarComponent } from './bar.component';
+
 import README from '!raw-loader!@vcl/ng-vcl/layer/README.md';
 
 export function demo() {

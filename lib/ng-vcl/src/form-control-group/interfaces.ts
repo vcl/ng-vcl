@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
 import { NgControl, ValidationErrors } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 export interface FormControlGroupInputState<T = any> {
   readonly stateChanged: Observable<void>;

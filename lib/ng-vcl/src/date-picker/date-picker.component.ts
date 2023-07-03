@@ -1,3 +1,6 @@
+import { Directionality } from '@angular/cdk/bidi';
+import { Overlay } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   Component,
   Input,
@@ -18,20 +21,14 @@ import {
   AfterViewInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subscription, Subject } from 'rxjs';
-import { Overlay } from '@angular/cdk/overlay';
-import { Directionality } from '@angular/cdk/bidi';
-import { TemplatePortal } from '@angular/cdk/portal';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
   NgControl,
 } from '@angular/forms';
-import { TemplateLayerRef, LayerConfig } from '../layer/index';
-import {
-  FORM_CONTROL_GROUP_INPUT_STATE,
-  FormControlGroupInputState,
-} from '../form-control-group/index';
+import { Subscription, Subject } from 'rxjs';
+
+import { VCLCalendarDateModifier } from '../calendar/index';
 import {
   VCLDateRange,
   DateAdapterBase,
@@ -39,11 +36,15 @@ import {
   DateAdapterBaseDisplayFormats,
 } from '../dateadapter/index';
 import {
+  FORM_CONTROL_GROUP_INPUT_STATE,
+  FormControlGroupInputState,
+} from '../form-control-group/index';
+import {
   InputDirective,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
 } from '../input/index';
-import { VCLCalendarDateModifier } from '../calendar/index';
+import { TemplateLayerRef, LayerConfig } from '../layer/index';
 
 let UNIQUE_ID = 0;
 
@@ -83,18 +84,6 @@ export class DatepickerComponent<VCLDate>
     FormControlGroupInputState,
     EmbeddedInputFieldLabelInput
 {
-  constructor(
-    injector: Injector,
-    private _dir: Directionality,
-    private overlay: Overlay,
-    protected viewContainerRef: ViewContainerRef,
-    private elementRef: ElementRef<HTMLElement>,
-    private cdRef: ChangeDetectorRef,
-    private dateAdapter: DateAdapterBase<VCLDate>
-  ) {
-    super(injector);
-  }
-
   private stateChangedEmitter = new Subject<void>();
   private _dropdownOpenedSub?: Subscription;
   private _valueChangeSub?: Subscription;
@@ -198,6 +187,34 @@ export class DatepickerComponent<VCLDate>
   @HostBinding('class.error')
   hasError = false;
 
+  constructor(
+    injector: Injector,
+    private _dir: Directionality,
+    private overlay: Overlay,
+    protected viewContainerRef: ViewContainerRef,
+    private elementRef: ElementRef<HTMLElement>,
+    private cdRef: ChangeDetectorRef,
+    private dateAdapter: DateAdapterBase<VCLDate>
+  ) {
+    super(injector);
+  }
+
+  ngAfterViewInit() {
+    this.updateInput();
+    this.input.stateChanged.subscribe(this.stateChangedEmitter);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.value && !changes.value.isFirstChange()) {
+      this.updateInput();
+    }
+  }
+
+  ngOnDestroy() {
+    this._valueChangeSub && this._valueChangeSub.unsubscribe();
+    this.destroy();
+  }
+
   setErrorState(error: boolean): void {
     this.hasError = error;
     this.cdRef.markForCheck();
@@ -262,11 +279,6 @@ export class DatepickerComponent<VCLDate>
     );
   }
 
-  ngAfterViewInit() {
-    this.updateInput();
-    this.input.stateChanged.subscribe(this.stateChangedEmitter);
-  }
-
   updateInput() {
     if (this.input && this.value) {
       this.input.value = this.dateAdapter.format(
@@ -279,7 +291,7 @@ export class DatepickerComponent<VCLDate>
     this.stateChangedEmitter.next();
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(_: Event): void {
     this.input.focus();
   }
 
@@ -306,17 +318,6 @@ export class DatepickerComponent<VCLDate>
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.value && !changes.value.isFirstChange()) {
-      this.updateInput();
-    }
-  }
-
-  ngOnDestroy() {
-    this._valueChangeSub && this._valueChangeSub.unsubscribe();
-    this.destroy();
   }
 
   /**

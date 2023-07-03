@@ -1,30 +1,44 @@
-
 <vcl-button-group [(value)]="position" mode="single">
-  <button vcl-button square [value]="positions.TopRight"><vcl-icon icon="mdi:arrow-top-right"></vcl-icon></button>
-  <button vcl-button square [value]="positions.Top"><vcl-icon icon="mdi:arrow-up"></vcl-icon></button>
-  <button vcl-button square [value]="positions.TopLeft"><vcl-icon icon="mdi:arrow-top-left"></vcl-icon></button>
-  <button vcl-button square [value]="positions.BottomRight"><vcl-icon icon="mdi:arrow-bottom-right"></vcl-icon></button>
-  <button vcl-button square [value]="positions.Bottom"><vcl-icon icon="mdi:arrow-down"></vcl-icon></button>
-  <button vcl-button square [value]="positions.BottomLeft"><vcl-icon icon="mdi:arrow-bottom-left"></vcl-icon></button>
-  <button vcl-button square [value]="positions.Center"><vcl-icon icon="mdi:arrow-all"></vcl-icon></button>
+  <button vcl-button square [value]="positions.TopRight">
+    <vcl-icon icon="mdi:arrow-top-right"></vcl-icon>
+  </button>
+  <button vcl-button square [value]="positions.Top">
+    <vcl-icon icon="mdi:arrow-up"></vcl-icon>
+  </button>
+  <button vcl-button square [value]="positions.TopLeft">
+    <vcl-icon icon="mdi:arrow-top-left"></vcl-icon>
+  </button>
+  <button vcl-button square [value]="positions.BottomRight">
+    <vcl-icon icon="mdi:arrow-bottom-right"></vcl-icon>
+  </button>
+  <button vcl-button square [value]="positions.Bottom">
+    <vcl-icon icon="mdi:arrow-down"></vcl-icon>
+  </button>
+  <button vcl-button square [value]="positions.BottomLeft">
+    <vcl-icon icon="mdi:arrow-bottom-left"></vcl-icon>
+  </button>
+  <button vcl-button square [value]="positions.Center">
+    <vcl-icon icon="mdi:arrow-all"></vcl-icon>
+  </button>
 </vcl-button-group>
 
-<br><br>
+<br /><br />
 
-<button vcl-button (click)="default()">An message</button><br><br>
-<button vcl-button (click)="info()">An info message</button><br><br>
-<button vcl-button (click)="success()">A success message</button><br><br>
-<button vcl-button (click)="warning()">A warning</button><br><br>
-<button vcl-button (click)="error()">An error message</button><br><br>
-<button vcl-button (click)="custom()">A custom message</button><br><br>
-<button vcl-button (click)="modalNotification.open()">A centered modal message</button><br><br>
+<button vcl-button (click)="default()">An message</button><br /><br />
+<button vcl-button (click)="info()">An info message</button><br /><br />
+<button vcl-button (click)="success()">A success message</button><br /><br />
+<button vcl-button (click)="warning()">A warning</button><br /><br />
+<button vcl-button (click)="error()">An error message</button><br /><br />
+<button vcl-button (click)="custom()">A custom message</button><br /><br />
+<button vcl-button (click)="modalNotification.open()">
+  A centered modal message</button
+><br /><br />
 
-<ng-template 
+<ng-template
   [vclNotifier]="modalNotificationOptions"
   #modalNotification="vclNotifier"
-  let-content="content"
-  >
-  <p>Notification content: <span style="font-style: italic;">{{content}}</span></p>
-
+  let-content="content">
+  <p>
+    Notification content: <span style="font-style: italic">{{ content }}</span>
+  </p>
 </ng-template>
-

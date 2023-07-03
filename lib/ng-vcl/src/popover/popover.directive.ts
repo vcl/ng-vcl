@@ -1,4 +1,10 @@
 import {
+  Overlay,
+  ConnectedPosition,
+  ScrollStrategy,
+} from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
+import {
   TemplateRef,
   OnDestroy,
   EventEmitter,
@@ -10,31 +16,16 @@ import {
   Inject,
   Directive,
 } from '@angular/core';
-import {
-  Overlay,
-  ConnectedPosition,
-  ScrollStrategy,
-} from '@angular/cdk/overlay';
+import { Subscription } from 'rxjs';
+
 import { LayerConfig, TemplateLayerRef } from '../layer/index';
 import { createOffClickStream } from '../off-click/index';
-import { Subscription } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[vclPopover]',
   exportAs: 'vclPopover',
 })
 export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
-  constructor(
-    injector: Injector,
-    public templateRef: TemplateRef<any>,
-    public viewContainerRef: ViewContainerRef,
-    private overlay: Overlay,
-    @Inject(DOCUMENT) private document
-  ) {
-    super(injector);
-  }
-
   private _popoverAttachedSub?: Subscription;
 
   @Input()
@@ -68,12 +59,27 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
     return this.isAttached;
   }
 
-  // tslint:disable-next-line:no-output-rename
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('afterClose')
   afterCloseOutput = this.afterClose;
 
   @Output()
   visibleChange = new EventEmitter<boolean>();
+
+  constructor(
+    injector: Injector,
+    public templateRef: TemplateRef<any>,
+    public viewContainerRef: ViewContainerRef,
+    private readonly overlay: Overlay,
+    @Inject(DOCUMENT) private document
+  ) {
+    super(injector);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy();
+    this._popoverAttachedSub && this._popoverAttachedSub.unsubscribe();
+  }
 
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
     if (!this.target) {
@@ -136,13 +142,8 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
     }
   }
 
-  protected afterDetached(result: any): void {
+  protected afterDetached(_: unknown): void {
     this.visibleChange.emit(this.visible);
-    this._popoverAttachedSub && this._popoverAttachedSub.unsubscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy();
     this._popoverAttachedSub && this._popoverAttachedSub.unsubscribe();
   }
 }

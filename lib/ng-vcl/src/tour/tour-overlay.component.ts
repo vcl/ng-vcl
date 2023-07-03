@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { TourService } from './tour.service';
 
 @Component({

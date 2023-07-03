@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { OffClickDirective, createOffClickStream } from './off-click.directive';
 
 export { createOffClickStream, OffClickDirective };

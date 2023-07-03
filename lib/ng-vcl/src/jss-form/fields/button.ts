@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
+
 import { VCLFormFieldSchemaButton } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
+
 import { FormField } from './field';
 
 export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {

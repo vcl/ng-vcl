@@ -1,5 +1,4 @@
 import { InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
 
 export type VclDrawerMode = 'open' | 'close';
 

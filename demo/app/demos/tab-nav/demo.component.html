@@ -1,12 +1,12 @@
 <h3>Default</h3>
 
-<vcl-tab-nav >
+<vcl-tab-nav>
   <vcl-tab>
     <vcl-label>Tab1</vcl-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-      <vcl-label>Tab2</vcl-label>
+    <vcl-label>Tab2</vcl-label>
     Content2
   </vcl-tab>
   <vcl-tab [disabled]="true">
@@ -15,17 +15,20 @@
   </vcl-tab>
 </vcl-tab-nav>
 
-<hr>
+<hr />
 
 <h3>With layout="right"</h3>
 
-<vcl-tab-nav layout="right" tabContentClass="vclSpan-70p" tabsClass="vclSpan-30p">
+<vcl-tab-nav
+  layout="right"
+  tabContentClass="vclSpan-70p"
+  tabsClass="vclSpan-30p">
   <vcl-tab>
     <vcl-label>Tab1</vcl-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-      <vcl-label>Tab2</vcl-label>
+    <vcl-label>Tab2</vcl-label>
     Content2
   </vcl-tab>
   <vcl-tab [disabled]="true">
@@ -34,17 +37,20 @@
   </vcl-tab>
 </vcl-tab-nav>
 
-<hr>
+<hr />
 
 <h3>With layout="left"</h3>
 
-<vcl-tab-nav layout="left" tabContentClass="vclSpan-70p" tabsClass="vclSpan-30p">
+<vcl-tab-nav
+  layout="left"
+  tabContentClass="vclSpan-70p"
+  tabsClass="vclSpan-30p">
   <vcl-tab>
     <vcl-label>Tab1</vcl-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-      <vcl-label>Tab2</vcl-label>
+    <vcl-label>Tab2</vcl-label>
     Content2
   </vcl-tab>
   <vcl-tab [disabled]="true">
@@ -53,17 +59,17 @@
   </vcl-tab>
 </vcl-tab-nav>
 
-<hr>
+<hr />
 
 <h3>With borders</h3>
 
-<vcl-tab-nav borders=true>
+<vcl-tab-nav borders="true">
   <vcl-tab>
     <vcl-label>Tab1</vcl-label>
     Content1
   </vcl-tab>
   <vcl-tab>
-      <vcl-label>Tab2</vcl-label>
+    <vcl-label>Tab2</vcl-label>
     Content2
   </vcl-tab>
   <vcl-tab [disabled]="true">
@@ -72,8 +78,7 @@
   </vcl-tab>
 </vcl-tab-nav>
 
-<hr>
-
+<hr />
 
 <h3>Shared content</h3>
 
@@ -82,14 +87,13 @@
     <vcl-label>Tab1</vcl-label>
   </vcl-tab>
   <vcl-tab>
-      <vcl-label>Tab2</vcl-label>
+    <vcl-label>Tab2</vcl-label>
   </vcl-tab>
   <vcl-tab [disabled]="true">
     <vcl-label>Tab3</vcl-label>
   </vcl-tab>
-  Shared Content Tab: {{tabIndex}}
+  Shared Content Tab: {{ tabIndex }}
 </vcl-tab-nav>
-
 
 <h3>No content</h3>
 
@@ -98,7 +102,7 @@
     <vcl-label>Tab1</vcl-label>
   </vcl-tab>
   <vcl-tab>
-      <vcl-label>Tab2</vcl-label>
+    <vcl-label>Tab2</vcl-label>
   </vcl-tab>
   <vcl-tab [disabled]="true">
     <vcl-label>Tab3</vcl-label>

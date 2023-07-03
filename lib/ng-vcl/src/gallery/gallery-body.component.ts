@@ -7,11 +7,13 @@ import {
   ViewChild,
   HostListener,
 } from '@angular/core';
+
 import { GalleryComponent } from './gallery.component';
 
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: 'gallery-body-norow' },
 })
 export class GalleryBodyComponent implements AfterContentChecked {
@@ -31,16 +33,6 @@ export class GalleryBodyComponent implements AfterContentChecked {
   private swipeCoord?: [number, number];
   private swipeTime?: number;
 
-  constructor(
-    @Optional() parent: GalleryComponent,
-    private elementRef: ElementRef,
-    public elem: ElementRef
-  ) {
-    if (this.target == null) {
-      this.target = parent;
-    }
-  }
-
   @HostListener('swipeleft')
   onSwipeLeft() {
     this.selectNext();
@@ -54,6 +46,16 @@ export class GalleryBodyComponent implements AfterContentChecked {
   @HostListener('window:resize') function() {
     this.imageLoaded();
     this.ngAfterContentChecked();
+  }
+
+  constructor(
+    @Optional() parent: GalleryComponent,
+    private readonly elementRef: ElementRef,
+    public elem: ElementRef
+  ) {
+    if (this.target == null) {
+      this.target = parent;
+    }
   }
 
   ngAfterContentChecked() {
@@ -74,7 +76,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
 
   private reload(): void {
     let leftPos = 0;
-    this.imgS.forEach((image, i) => {
+    this.imgS.forEach((image: HTMLElement) => {
       image.style.left =
         Math.round(leftPos) +
         (this.imageContainer.nativeElement.clientWidth - image.clientWidth) /
@@ -91,7 +93,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
   private reloadUnwrapped(): void {
     let maxHeight = 0;
     let leftPos = 0;
-    this.imgS.forEach((image, i) => {
+    this.imgS.forEach((image: HTMLElement) => {
       if (image.clientHeight > maxHeight) {
         maxHeight = image.clientHeight;
       }
@@ -161,8 +163,7 @@ export class GalleryBodyComponent implements AfterContentChecked {
         Math.abs(direction[0]) > 30 &&
         Math.abs(direction[0]) > Math.abs(direction[1] * 3)
       ) {
-        const swipe =
-          direction[0] < 0 ? this.selectNext() : this.selectPrevious();
+        direction[0] < 0 ? this.selectNext() : this.selectPrevious();
       }
     }
   }

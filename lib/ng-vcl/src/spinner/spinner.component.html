@@ -1,8 +1,20 @@
-<div class="button-group spinner" [class.vertical]="orientation === 'vertical'" [class.flex]="orientation === 'vertical'" [class.col]="orientation === 'vertical'">
-  <button vcl-button type="button" class="transparent" (click)="this.writeValue(this.value+1)">
+<div
+  class="button-group spinner"
+  [class.vertical]="orientation === 'vertical'"
+  [class.flex]="orientation === 'vertical'"
+  [class.col]="orientation === 'vertical'">
+  <button
+    vcl-button
+    type="button"
+    class="transparent"
+    (click)="this.writeValue(this.value + 1)">
     <vcl-icon icon="vcl:arrow-up"></vcl-icon>
   </button>
-  <button vcl-button type="button" class="transparent" (click)="this.writeValue(this.value-1)">
+  <button
+    vcl-button
+    type="button"
+    class="transparent"
+    (click)="this.writeValue(this.value - 1)">
     <vcl-icon icon="vcl:arrow-down"></vcl-icon>
   </button>
 </div>

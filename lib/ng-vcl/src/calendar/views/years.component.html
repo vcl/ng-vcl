@@ -1,27 +1,43 @@
 <div class="d-g-row">
   <div class="d-g-cell toolbar">
     <div class="flex row justify-between center" role="menubar">
-      <button vcl-button square class="transparent" type="button" (click)="onGoToPrevYears()">
+      <button
+        vcl-button
+        square
+        class="transparent"
+        type="button"
+        (click)="onGoToPrevYears()">
         <vcl-icon icon="vcl:arrow-left"></vcl-icon>
       </button>
-      <span class="cal-header-label">{{calendar.label}}</span>
-      <button vcl-button square class="transparent" type="button" (click)="onGoToNextYears()">
+      <span class="cal-header-label">{{ calendar.label }}</span>
+      <button
+        vcl-button
+        square
+        class="transparent"
+        type="button"
+        (click)="onGoToNextYears()">
         <vcl-icon icon="vcl:arrow-right"></vcl-icon>
       </button>
     </div>
   </div>
 </div>
 <div class="d-g-row" role="row" *ngFor="let group of calendar.years">
-  <div *ngFor="let year of group" 
-       class="d-g-cell cal-item" 
-       [class.today]="year.isCurrentYear"
-       [class.disabled]="disabled"
-       [class.selected]="year.selected === true || year.selected === 'range'"
-       [class.selected-alt]="year.selected === 'range-partial'"
-       [class.selected-beg]="year.selected === 'range-start' || year.selected === 'range-start-end'"
-       [class.selected-end]="year.selected === 'range-end' || year.selected === 'range-start-end'"       
-       role="gridcell" 
-       tabindex="0" 
-       (click)="onSelectYear(year.date)"
-       >{{year.label}}</div>
+  <div
+    *ngFor="let year of group"
+    class="d-g-cell cal-item"
+    [class.today]="year.isCurrentYear"
+    [class.disabled]="disabled"
+    [class.selected]="year.selected === true || year.selected === 'range'"
+    [class.selected-alt]="year.selected === 'range-partial'"
+    [class.selected-beg]="
+      year.selected === 'range-start' || year.selected === 'range-start-end'
+    "
+    [class.selected-end]="
+      year.selected === 'range-end' || year.selected === 'range-start-end'
+    "
+    role="gridcell"
+    tabindex="0"
+    (click)="onSelectYear(year.date)">
+    {{ year.label }}
+  </div>
 </div>

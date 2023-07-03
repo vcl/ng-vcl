@@ -1,7 +1,9 @@
 import { PositionStrategy } from '@angular/cdk/overlay';
-import { NotifierOptions, NotifierPosition } from './types';
 import { Portal } from '@angular/cdk/portal';
+
 import { NotificationType } from '../notification/index';
+
+import { NotifierOptions, NotifierPosition } from './types';
 
 export interface NotifierOverlayRefHandler {
   close(notificationRef: NotifierOverlayRef): void;

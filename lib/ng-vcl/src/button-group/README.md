@@ -26,13 +26,13 @@ export class AppComponent {}
 
 #### Attributes
 
-| Name                  | Type                           | Default  | Description
-| --------------------- | ----------------------         | -------- |--------------
-| `value`               | any &#124; any[]               |          | Index of the selected button(s)
-| `selectionMode`       | `single` \| `multiple`         | `single` | Select only one or multiple buttons
+| Name            | Type                   | Default  | Description                         |
+| --------------- | ---------------------- | -------- | ----------------------------------- |
+| `value`         | any &#124; any[]       |          | Index of the selected button(s)     |
+| `selectionMode` | `single` \| `multiple` | `single` | Select only one or multiple buttons |
 
 #### Events
 
-| Name                  | Type                           | Description
-| -                     | -                              | -
-| `valueChange`         | event (any &#124; any[])       | Triggers when selected buttons change
+| Name          | Type                     | Description                           |
+| ------------- | ------------------------ | ------------------------------------- |
+| `valueChange` | event (any &#124; any[]) | Triggers when selected buttons change |

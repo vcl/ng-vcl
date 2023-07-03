@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
+
 import { FORM_CONTROL_GROUP_REQUIRED_INDICATOR } from './interfaces';
 
 @Component({

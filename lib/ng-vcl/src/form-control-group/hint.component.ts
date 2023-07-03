@@ -8,7 +8,9 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   ViewEncapsulation,
+  OnInit,
 } from '@angular/core';
+
 import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
 
 @Component({
@@ -18,22 +20,7 @@ import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
   styleUrls: ['hint.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class FormControlHintComponent {
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private cdRef: ChangeDetectorRef,
-    @Inject(FORM_CONTROL_GROUP_STATE)
-    @Optional()
-    private fcgs?: FormControlGroupState
-  ) {}
-
-  ngOnInit() {
-    this.fcgs?.stateChanged.subscribe(() => {
-      this.cdRef.detectChanges();
-      this.cdRef.markForCheck();
-    });
-  }
-
+export class FormControlHintComponent implements OnInit {
   @HostBinding('class.form-control-hint')
   classVCLFormControlHint = true;
 
@@ -50,19 +37,12 @@ export class FormControlHintComponent {
       this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-success'
     );
   }
-}
-
-@Component({
-  selector: 'vcl-hint-error',
-  template: `<ng-content></ng-content>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class FormControlHintErrorComponent {
   constructor(
-    private cdRef: ChangeDetectorRef,
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
     @Optional()
-    private fcgs?: FormControlGroupState
+    private readonly fcgs?: FormControlGroupState
   ) {}
 
   ngOnInit() {
@@ -71,7 +51,14 @@ export class FormControlHintErrorComponent {
       this.cdRef.markForCheck();
     });
   }
+}
 
+@Component({
+  selector: 'vcl-hint-error',
+  template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class FormControlHintErrorComponent implements OnInit {
   @HostBinding('class.form-control-hint')
   @HostBinding('class.error')
   classVCLFormControlHint = true;
@@ -97,5 +84,19 @@ export class FormControlHintErrorComponent {
     }
 
     return true;
+  }
+
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    @Inject(FORM_CONTROL_GROUP_STATE)
+    @Optional()
+    private readonly fcgs?: FormControlGroupState
+  ) {}
+
+  ngOnInit() {
+    this.fcgs?.stateChanged.subscribe(() => {
+      this.cdRef.detectChanges();
+      this.cdRef.markForCheck();
+    });
   }
 }

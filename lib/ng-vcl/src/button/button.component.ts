@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   HostBinding,
   Input,
@@ -13,7 +14,6 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export interface ButtonHost {
   readonly isDisabled: boolean;
@@ -27,6 +27,7 @@ export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>(
 );
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'button[vcl-button], a[vcl-button]',
   exportAs: 'vclButton',
   changeDetection: ChangeDetectionStrategy.OnPush,

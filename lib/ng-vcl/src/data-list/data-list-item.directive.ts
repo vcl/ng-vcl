@@ -1,3 +1,4 @@
+import { ENTER } from '@angular/cdk/keycodes';
 import {
   HostBinding,
   Input,
@@ -7,17 +8,19 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   Directive,
+  OnInit,
 } from '@angular/core';
-import { ENTER } from '@angular/cdk/keycodes';
+import { Subscription } from 'rxjs';
+
 import {
   DataList,
   DATA_LIST_TOKEN,
   DataListItem,
   DATA_LIST_ITEM_TOKEN,
 } from './types';
-import { Subscription } from 'rxjs';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-data-list-item',
   exportAs: 'vclDataListItem',
   providers: [
@@ -27,13 +30,7 @@ import { Subscription } from 'rxjs';
     },
   ],
 })
-export class DataListItemDirective implements DataListItem, OnDestroy {
-  constructor(
-    @Inject(DATA_LIST_TOKEN)
-    private dataList: DataList,
-    private cdRef: ChangeDetectorRef
-  ) {}
-
+export class DataListItemDirective implements DataListItem, OnInit, OnDestroy {
   private _focused = false;
 
   @HostBinding('class.data-list-item')
@@ -81,18 +78,6 @@ export class DataListItemDirective implements DataListItem, OnDestroy {
     return this._focused;
   }
 
-  ngOnInit(): void {
-    this.selected = this.dataList.isItemSelected(this);
-    this.sub = this.dataList.stateChange.subscribe(() => {
-      this.selected = this.dataList.isItemSelected(this);
-      this.cdRef.markForCheck();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
-  }
-
   @HostListener('click')
   onClick() {
     if (!this.isDisabled) {
@@ -117,5 +102,23 @@ export class DataListItemDirective implements DataListItem, OnDestroy {
     if (!this.isDisabled && event.keyCode === ENTER) {
       this.dataList.selectItem(this);
     }
+  }
+
+  constructor(
+    @Inject(DATA_LIST_TOKEN)
+    private readonly dataList: DataList,
+    private readonly cdRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.selected = this.dataList.isItemSelected(this);
+    this.sub = this.dataList.stateChange.subscribe(() => {
+      this.selected = this.dataList.isItemSelected(this);
+      this.cdRef.markForCheck();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 }

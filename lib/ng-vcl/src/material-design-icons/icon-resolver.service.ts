@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+
 import {
   IconResolverService,
   IconAliasResolverServiceBase,
 } from '../icon/index';
+
 import { ALIAS_MAP } from './alias-map';
 
 // The mdi name resolver following the CSS class name conventions of

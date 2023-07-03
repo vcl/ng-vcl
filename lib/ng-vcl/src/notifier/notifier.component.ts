@@ -1,3 +1,5 @@
+import { AnimationEvent, useAnimation } from '@angular/animations';
+import { trigger, transition } from '@angular/animations';
 import {
   Component,
   HostBinding,
@@ -8,19 +10,19 @@ import {
   Renderer2,
   OnInit,
 } from '@angular/core';
-import { AnimationEvent, useAnimation } from '@angular/animations';
-import { trigger, transition } from '@angular/animations';
+
 import { NOTIFICATION_TYPE_CLASS_MAP } from '../notification/index';
-import { NOTIFIER_CONFIG_TOKEN, NotifierConfig } from './types';
+
 import {
   stateVoidOpenAnimation,
   stateOpenClosingAnimation,
 } from './animations';
+import { NotifierOverlayRef } from './notifier-overlay-ref';
 import {
   NOTIFIER_ANIMATION_PARAMS_TOKEN,
   NotificationAnimationParams,
 } from './types';
-import { NotifierOverlayRef } from './notifier-overlay-ref';
+import { NOTIFIER_CONFIG_TOKEN, NotifierConfig } from './types';
 
 export type NotificationAnimationState = 'open' | 'closing' | 'closed';
 

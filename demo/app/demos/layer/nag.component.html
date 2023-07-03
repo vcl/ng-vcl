@@ -1,13 +1,22 @@
 <div class="layout-width row center">
   <div class="flex layout-three">
-    Cookies and similar technologies help us deliver our services. By using our services,
-    you agree to our use of cookies. You can find further information about the
-    use of Cookies on this website in our <a href="#">privacy policy</a>.
+    Cookies and similar technologies help us deliver our services. By using our
+    services, you agree to our use of cookies. You can find further information
+    about the use of Cookies on this website in our
+    <a href="#">privacy policy</a>.
   </div>
   <div class="row justify-center center gutter-margin-l-r">
     <div class="loose-button-group">
-      <button *ngIf="layer.data.allowDecline" vcl-button type="button" (click)="decline()">Decline</button>
-      <button vcl-button type="button" class="emphasized" (click)="accept()">Accept</button>
+      <button
+        *ngIf="layer.data.allowDecline"
+        vcl-button
+        type="button"
+        (click)="decline()">
+        Decline
+      </button>
+      <button vcl-button type="button" class="emphasized" (click)="accept()">
+        Accept
+      </button>
     </div>
   </div>
 </div>

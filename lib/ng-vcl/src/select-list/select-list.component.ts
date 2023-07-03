@@ -19,13 +19,15 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
+
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { SELECT_LIST_TOKEN, SelectList, SelectListItem } from './types';
-import { SelectListItemComponent } from './components/select-list-item.component';
+
 import { SelectListContentComponent } from './components/select-list-content.component';
+import { SelectListItemComponent } from './components/select-list-item.component';
+import { SELECT_LIST_TOKEN, SelectList, SelectListItem } from './types';
 
 let UNIQUE_ID = 0;
 
@@ -59,8 +61,6 @@ export class SelectListComponent
     ControlValueAccessor,
     FormControlGroupInputState
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
-
   private _cvaDisabled = false;
   private generatedId = 'vcl_select_list_' + UNIQUE_ID++;
   private stateChangedEmitter = new Subject<void>();
@@ -238,7 +238,7 @@ export class SelectListComponent
     this.selectedItems[0]?.scrollIntoView();
   }
 
-  onItemFocus(item: SelectListItem) {
+  onItemFocus(_: SelectListItem) {
     this.stateChangedEmitter.next();
   }
 
@@ -253,6 +253,22 @@ export class SelectListComponent
     return this._items.filter(_item =>
       this._valueAsArray.includes(_item.value)
     );
+  }
+
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly injector: Injector
+  ) {}
+
+  ngAfterContentInit() {
+    this._itemsChangeSub = this._items.changes.subscribe(
+      this._itemsChangeEmitter
+    );
+  }
+
+  ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
+    this._itemsChangeSub && this._itemsChangeSub.unsubscribe();
   }
 
   highlight(value: any) {
@@ -318,17 +334,6 @@ export class SelectListComponent
 
   getItems() {
     return this._items.toArray();
-  }
-
-  ngAfterContentInit() {
-    this._itemsChangeSub = this._items.changes.subscribe(
-      this._itemsChangeEmitter
-    );
-  }
-
-  ngOnDestroy() {
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
-    this._itemsChangeSub && this._itemsChangeSub.unsubscribe();
   }
 
   /**

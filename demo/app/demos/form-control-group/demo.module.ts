@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
 import {
   VCLButtonModule,
   VCLButtonGroupModule,
@@ -24,9 +25,11 @@ import {
   VCLLayerModule,
   VCLPanelModule,
 } from '@vcl/ng-vcl';
+
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { FormControlGroupDemoComponent } from './demo.component';
 import { VCLCounterModule } from './counter.component';
+import { FormControlGroupDemoComponent } from './demo.component';
+
 import README from '!raw-loader!@vcl/ng-vcl/form-control-group/README.md';
 
 export function demo() {

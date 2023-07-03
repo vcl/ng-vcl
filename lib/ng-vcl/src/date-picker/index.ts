@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { VCLButtonModule } from '../button/index';
-import { VCLIconModule } from '../icon/index';
 import { VCLCalendarModule, VCLCalendarHandler } from '../calendar/index';
-import { VCLInputModule } from '../input/index';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
-import { DatepickerComponent, DatepickerPick } from './date-picker.component';
-import { DatepickerTimeHandler } from './date-picker-calendar.handlers';
+import { VCLIconModule } from '../icon/index';
+import { VCLInputModule } from '../input/index';
 import { VCLOffClickModule } from '../off-click';
+
+import { DatepickerTimeHandler } from './date-picker-calendar.handlers';
+import { DatepickerComponent, DatepickerPick } from './date-picker.component';
 
 export { DatepickerComponent, DatepickerPick, DatepickerTimeHandler };
 

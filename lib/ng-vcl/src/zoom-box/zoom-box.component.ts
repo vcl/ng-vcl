@@ -4,6 +4,7 @@ import {
   Input,
   HostBinding,
 } from '@angular/core';
+
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({

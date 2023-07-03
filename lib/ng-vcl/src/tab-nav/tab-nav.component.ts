@@ -1,3 +1,4 @@
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   Component,
   ContentChildren,
@@ -17,11 +18,12 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { TabComponent } from './tab.component';
-import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
-import { hasProjectedContent } from '../core/index';
 import { BehaviorSubject } from 'rxjs';
-import { TemplatePortal } from '@angular/cdk/portal';
+
+import { hasProjectedContent } from '../core/index';
+
+import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
+import { TabComponent } from './tab.component';
 
 @Component({
   selector: 'vcl-tab-nav',

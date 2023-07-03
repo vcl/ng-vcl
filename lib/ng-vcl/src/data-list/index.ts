@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { VCLIconModule } from '../icon/index';
 import { VCLButtonModule } from '../button/index';
-import { VCLInputModule } from '../input/index';
-import { VCLIcogramModule } from '../icogram/index';
-import { VCLFormControlGroupModule } from '../form-control-group/index';
 import { VCLCoreContentProjectionModule } from '../core/index';
+import { VCLFormControlGroupModule } from '../form-control-group/index';
+import { VCLIcogramModule } from '../icogram/index';
+import { VCLIconModule } from '../icon/index';
+import { VCLInputModule } from '../input/index';
 
+import { DataListItemDirective } from './data-list-item.directive';
 import {
   DataListComponent,
   DataListFooterDirective,
   DataListHeaderDirective,
 } from './data-list.component';
-import { DataListItemDirective } from './data-list-item.directive';
 import {
   DATA_LIST_TOKEN,
   DataList,

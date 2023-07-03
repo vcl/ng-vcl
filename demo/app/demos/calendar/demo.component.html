@@ -1,32 +1,38 @@
 <h3>Basic calendar</h3>
 
 <vcl-calendar [(value)]="date"></vcl-calendar>
-Value: {{sdate}}
+Value: {{ sdate }}
 
 <h3>With selectionMode="range"</h3>
 
 <vcl-calendar [(value)]="dateRange" selectionMode="range"></vcl-calendar>
-Value: {{sdateRange}}
+Value: {{ sdateRange }}
 
 <h3>With selectionMode="multiple", maxSelectableDates=3</h3>
 
-<vcl-calendar [(value)]="dateArray" selectionMode="multiple" [maxSelectableDates]="3"></vcl-calendar>
-Value: {{sdateArray}}
+<vcl-calendar
+  [(value)]="dateArray"
+  selectionMode="multiple"
+  [maxSelectableDates]="3"></vcl-calendar>
+Value: {{ sdateArray }}
 
 <h3>With selectionMode="month"</h3>
 
 <vcl-calendar [(value)]="month" selectionMode="month"></vcl-calendar>
-Value: {{smonth}}
+Value: {{ smonth }}
 
 <h3>With selectionMode="month-range"</h3>
 
 <vcl-calendar [(value)]="monthRange" selectionMode="month-range"></vcl-calendar>
-Value: {{smonthRange}}
+Value: {{ smonthRange }}
 
 <h3>With selectionMode="month-multiple", maxSelectableDates=2</h3>
 
-<vcl-calendar [(value)]="monthArray" selectionMode="month-multiple" [maxSelectableDates]="2"></vcl-calendar>
-Value: {{smonthArray}}
+<vcl-calendar
+  [(value)]="monthArray"
+  selectionMode="month-multiple"
+  [maxSelectableDates]="2"></vcl-calendar>
+Value: {{ smonthArray }}
 
 <h3>Disabled</h3>
 
@@ -42,10 +48,19 @@ Value: {{smonthArray}}
   <div vclCalendarFooter class="d-g-row" *ngIf="c.view === 'month'">
     <div class="d-g-cell toolbar">
       <div class="flex row justify-between center" role="menubar">
-        <button vcl-button class="transparent flex" type="button" (click)="c.viewDate = today">
+        <button
+          vcl-button
+          class="transparent flex"
+          type="button"
+          (click)="c.viewDate = today">
           go to today
         </button>
-        <button vcl-button square class="transparent flex" type="button" (click)="c.viewDate = c.value">
+        <button
+          vcl-button
+          square
+          class="transparent flex"
+          type="button"
+          (click)="c.viewDate = c.value">
           go to selected
         </button>
       </div>

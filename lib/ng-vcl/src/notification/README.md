@@ -8,7 +8,7 @@ Notification messages for events with growl-style support
 import { VCLNotifierModule, VCLLayerModule } from '@vcl/ng-vcl';
 
 @NgModule({
-  imports: [ 
+  imports: [
     VCLNotifierModule,
   ],
   ...
@@ -19,7 +19,7 @@ export class AppComponent {}
 Inline
 
 ```html
-<vcl-notification type="success"> 
+<vcl-notification type="success">
   <span vclNotificationHeader>Success</span>
   An inline success message
   <span vclNotificationFooter>Footer</span>
@@ -27,7 +27,6 @@ Inline
 ```
 
 Growl-style
-
 
 ```ts
 @Component({ ... })
@@ -75,9 +74,7 @@ export class MyComponent {
   <p>Hello</p>
 </ng-template>
 <button (click)="n.open()">Show notification</button>
-
 ```
-
 
 ### API
 
@@ -87,7 +84,7 @@ export enum NotifierType {
   Info,
   Success,
   Warning,
-  Error
+  Error,
 }
 
 export enum NotifierPosition {
@@ -97,7 +94,7 @@ export enum NotifierPosition {
   BottomRight,
   Bottom,
   BottomLeft,
-  Center
+  Center,
 }
 
 export interface NotifierOptions {

@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { merge, NEVER, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
 import {
   PanelFooterButtonDirective,
   PanelTitleDirective,
@@ -63,6 +64,7 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
   showCloseButton: Boolean = false;
 
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-native
   close = new EventEmitter();
 
   @ContentChildren(PanelFooterButtonDirective)
@@ -73,10 +75,6 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
 
   hasFooterButtons = false;
   hasTitle = false;
-
-  onCloseClick() {
-    this.close.emit();
-  }
 
   ngAfterContentInit(): void {
     merge(
@@ -92,5 +90,9 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.contentSub?.unsubscribe();
+  }
+
+  onCloseClick() {
+    this.close.emit();
   }
 }

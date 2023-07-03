@@ -12,7 +12,11 @@ import {
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { Subject, merge, NEVER } from 'rxjs';
+
+import { defaultFormControlErrorStateAgent } from './error-state-agent';
+import { FormDirective } from './form.directive';
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
@@ -23,9 +27,6 @@ import {
   FormControlGroupForm,
   FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN,
 } from './interfaces';
-import { AbstractControl } from '@angular/forms';
-import { defaultFormControlErrorStateAgent } from './error-state-agent';
-import { FormDirective } from './form.directive';
 
 @Component({
   selector: 'vcl-form-control-group',
@@ -44,18 +45,6 @@ import { FormDirective } from './form.directive';
 export class FormControlGroupComponent<T>
   implements AfterContentInit, OnDestroy, FormControlGroupState<T>
 {
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    @Inject(FORM_CONTROL_GROUP_FORM)
-    @Optional()
-    form: FormControlGroupForm,
-    @Inject(FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN)
-    @Optional()
-    private _errorStateAgent?: FormControlErrorStateAgent
-  ) {
-    this.form = form ?? new FormDirective(undefined, undefined);
-  }
-
   form: FormControlGroupForm;
 
   get isLabelClickable() {
@@ -68,6 +57,7 @@ export class FormControlGroupComponent<T>
     }
   }
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('errorStateAgent')
   errorStateAgentInput: FormControlErrorStateAgent = undefined;
 
@@ -121,6 +111,18 @@ export class FormControlGroupComponent<T>
     const ngControl = this.input?.ngControl;
     const form = this.form;
     return this.errorStateAgent(form, ngControl);
+  }
+
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    @Inject(FORM_CONTROL_GROUP_FORM)
+    @Optional()
+    form: FormControlGroupForm,
+    @Inject(FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN)
+    @Optional()
+    private readonly _errorStateAgent?: FormControlErrorStateAgent
+  ) {
+    this.form = form ?? new FormDirective(undefined, undefined);
   }
 
   getError(errorCode: string, path?: string | (string | number)[]) {

@@ -1,10 +1,12 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
+
 import {
   NotificationComponent,
   NotificationFooterDirective,

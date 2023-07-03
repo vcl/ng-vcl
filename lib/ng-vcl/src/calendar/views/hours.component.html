@@ -1,37 +1,45 @@
-  <div class="d-g-row">
+<div class="d-g-row">
+  <div class="d-g-cell">
+    <div
+      class="toolbar flex row justify-between center"
+      role="menubar"
+      aria-level="1">
+      <div class="button-dim"></div>
+      <button
+        vcl-button
+        class="transparent cal-header-label"
+        (click)="onLabelClick()">
+        {{ calendar.use24hTime ? 'Hours' : 'AM' }}
+      </button>
+      <div class="button-dim"></div>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngFor="let hoursRow of calendar.hours; let i = index">
+  <div class="d-g-row" *ngIf="!calendar.use24hTime && i === 2">
     <div class="d-g-cell">
-      <div class="toolbar flex row justify-between center" role="menubar" aria-level="1">
+      <div
+        class="toolbar flex row justify-between center"
+        role="menubar"
+        aria-level="1">
         <div class="button-dim"></div>
-        <button vcl-button class="transparent cal-header-label" (click)="onLabelClick()">
-          {{calendar.use24hTime ? 'Hours' : 'AM' }}
-        </button>
+        <div class="cal-header-label">PM</div>
         <div class="button-dim"></div>
       </div>
     </div>
   </div>
-
-  <ng-container *ngFor="let hoursRow of calendar.hours; let i = index">
-    <div class="d-g-row" *ngIf="!calendar.use24hTime && i === 2">
-      <div class="d-g-cell">
-        <div class="toolbar flex row justify-between center" role="menubar" aria-level="1">
-          <div class="button-dim"></div>
-          <div class="cal-header-label">PM</div>
-          <div class="button-dim"></div>
-        </div>
-      </div>
+  <div class="d-g-row" role="row">
+    <div
+      *ngFor="let h of hoursRow"
+      class="d-g-cell cal-item"
+      [class.disabled]="disabled"
+      role="option"
+      tabindex="0"
+      [class.selected]="hour === h.hour"
+      [attr.aria-selected]="hour === h.hour"
+      (click)="onSelectHour(h.hour)">
+      {{ h.label }}
     </div>
-    <div class="d-g-row" role="row">
-      <div *ngFor="let h of hoursRow" 
-           class="d-g-cell cal-item" 
-           [class.disabled]="disabled"
-           role="option" 
-           tabindex="0" 
-           [class.selected]="hour === h.hour" 
-           [attr.aria-selected]="hour === h.hour" 
-           (click)="onSelectHour(h.hour)">
-        {{h.label}}
-      </div>
-    </div>
-  </ng-container>
-  
-  
+  </div>
+</ng-container>

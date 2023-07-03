@@ -1,8 +1,10 @@
-import { UntypedFormGroup } from '@angular/forms';
-import { Component, Injector } from '@angular/core';
 import { Portal } from '@angular/cdk/portal';
-import { FormField, FormFieldControl } from './field';
+import { Component, Injector } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+
 import { VCLFormFieldSchemaObject } from '../schemas';
+
+import { FormField, FormFieldControl } from './field';
 
 export class FormFieldObject extends FormFieldControl<
   VCLFormFieldSchemaObject,

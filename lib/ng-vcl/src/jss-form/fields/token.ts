@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { VCLFormFieldSchemaToken } from '../schemas';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldToken extends FormFieldControl<

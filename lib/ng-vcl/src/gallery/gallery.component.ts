@@ -1,4 +1,9 @@
 import {
+  AnimationBuilder,
+  AnimationFactory,
+  AnimationMetadata,
+} from '@angular/animations';
+import {
   AfterContentInit,
   AfterViewInit,
   Component,
@@ -14,14 +19,10 @@ import {
   ContentChild,
 } from '@angular/core';
 
-import { GalleryImageComponent } from './gallery-image.component';
-import {
-  AnimationBuilder,
-  AnimationFactory,
-  AnimationMetadata,
-} from '@angular/animations';
 import { GalleryBodyComponent } from '../gallery/gallery-body.component';
 import { GalleryThumbnailsComponent } from '../gallery/gallery-thumbnails.component';
+
+import { GalleryImageComponent } from './gallery-image.component';
 
 export const GALLERY_ANIMATIONS = new InjectionToken(
   '@vcl/ng-vcl#gallery_animations'

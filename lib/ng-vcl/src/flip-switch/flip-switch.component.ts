@@ -17,11 +17,12 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
 
@@ -47,8 +48,6 @@ let UNIQUE_ID = 0;
 export class FlipSwitchComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
-
   @HostBinding('class.flip-switch')
   _hostClasses = true;
 
@@ -165,6 +164,15 @@ export class FlipSwitchComponent
     }
   }
 
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly injector: Injector
+  ) {}
+
+  ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
+  }
+
   toggle() {
     if (this.disabled) {
       return;
@@ -175,12 +183,8 @@ export class FlipSwitchComponent
     this.onChangeCallback && this.onChangeCallback(this.value);
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(_: Event): void {
     this.toggle();
-  }
-
-  ngOnDestroy() {
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   writeValue(value: boolean): void {

@@ -55,7 +55,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
-  providers: [{provide: LOCALE_ID, useValue: 'de' }]
+  providers: [{ provide: LOCALE_ID, useValue: 'de' }],
 });
 ```
 
@@ -105,7 +105,7 @@ import { VCL_DATE_ADAPTER_WEEKDAY_OFFSET } from '@vcl/ng-vcl';
 @NgModule({
   providers: [
     // Calendar week starts on Monday
-    { provide: VCL_DATE_ADAPTER_WEEKDAY_OFFSET, useValue: 1 }
+    { provide: VCL_DATE_ADAPTER_WEEKDAY_OFFSET, useValue: 1 },
   ],
 })
 export class MyApp {}

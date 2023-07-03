@@ -1,13 +1,25 @@
 <ng-template [vclLayer] #helpLayer="vclLayer">
   <vcl-panel-dialog [style.width]="layerWidth">
-    <vcl-panel-title *ngIf="title">{{title}}</vcl-panel-title>
+    <vcl-panel-title *ngIf="title">{{ title }}</vcl-panel-title>
     <span [innerHTML]="text"></span>
-    <button vcl-button vclPanelFooterButton class="transparent outline" (click)="helpLayer.close()">{{confirmButtonLabel}}</button>
+    <button
+      vcl-button
+      vclPanelFooterButton
+      class="transparent outline"
+      (click)="helpLayer.close()">
+      {{ confirmButtonLabel }}
+    </button>
   </vcl-panel-dialog>
-</ng-template> 
+</ng-template>
 
 <ng-content></ng-content>
 <div class="spacer"></div>
-<button *ngIf="help" vcl-button square class="transparent" (click)="helpLayer.open()" type="button">
+<button
+  *ngIf="help"
+  vcl-button
+  square
+  class="transparent"
+  (click)="helpLayer.open()"
+  type="button">
   <vcl-icon class="scale130p" [icon]="icon"></vcl-icon>
 </button>

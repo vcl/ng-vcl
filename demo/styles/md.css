@@ -3,7 +3,8 @@
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
   color: #333;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
@@ -160,7 +161,7 @@
   overflow: visible;
 }
 
-.markdown-body [type="checkbox"] {
+.markdown-body [type='checkbox'] {
   box-sizing: border-box;
   padding: 0;
 }
@@ -200,13 +201,13 @@
 
 .markdown-body hr::before {
   display: table;
-  content: "";
+  content: '';
 }
 
 .markdown-body hr::after {
   display: table;
   clear: both;
-  content: "";
+  content: '';
 }
 
 .markdown-body table {
@@ -292,14 +293,14 @@
 }
 
 .markdown-body code {
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   font-size: 12px;
 }
 
 .markdown-body pre {
   margin-top: 0;
   margin-bottom: 0;
-  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font: 12px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 
 .markdown-body .octicon {
@@ -307,8 +308,8 @@
 }
 
 .markdown-body input {
-  -webkit-font-feature-settings: "liga" 0;
-  font-feature-settings: "liga" 0;
+  -webkit-font-feature-settings: 'liga' 0;
+  font-feature-settings: 'liga' 0;
 }
 
 .markdown-body .anchor {
@@ -347,11 +348,11 @@
   border-left: 0.25em solid #ddd;
 }
 
-.markdown-body blockquote>:first-child {
+.markdown-body blockquote > :first-child {
   margin-top: 0;
 }
 
-.markdown-body blockquote>:last-child {
+.markdown-body blockquote > :last-child {
   margin-bottom: 0;
 }
 
@@ -452,11 +453,11 @@
   margin-bottom: 0;
 }
 
-.markdown-body li>p {
+.markdown-body li > p {
   margin-top: 16px;
 }
 
-.markdown-body li+li {
+.markdown-body li + li {
   margin-top: 0.25em;
 }
 
@@ -514,21 +515,21 @@
   padding-bottom: 0.2em;
   margin: 0;
   font-size: 85%;
-  background-color: rgba(0,0,0,0.04);
+  background-color: rgba(0, 0, 0, 0.04);
   border-radius: 3px;
 }
 
 .markdown-body code::before,
 .markdown-body code::after {
   letter-spacing: -0.2em;
-  content: "\00a0";
+  content: '\00a0';
 }
 
 .markdown-body pre {
   word-wrap: normal;
 }
 
-.markdown-body pre>code {
+.markdown-body pre > code {
   padding: 0;
   margin: 0;
   font-size: 100%;
@@ -610,7 +611,7 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font: 11px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   line-height: 10px;
   color: #555;
   vertical-align: middle;
@@ -621,7 +622,7 @@
   box-shadow: inset 0 -1px 0 #bbb;
 }
 
-.markdown-body :checked+.radio-label {
+.markdown-body :checked + .radio-label {
   position: relative;
   z-index: 1;
   border-color: #4078c0;
@@ -631,7 +632,7 @@
   list-style-type: none;
 }
 
-.markdown-body .task-list-item+.task-list-item {
+.markdown-body .task-list-item + .task-list-item {
   margin-top: 3px;
 }
 

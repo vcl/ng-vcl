@@ -44,12 +44,12 @@ export class AppComponent {}
 
 #### vcl-badge attributes
 
-Name       | Type   | Default | Description
----------- | ------ | ------- | ------------------------------------------------------------
-`type`     | string |         | the badge's type
+| Name   | Type   | Default | Description      |
+| ------ | ------ | ------- | ---------------- |
+| `type` | string |         | the badge's type |
 
 #### vclRounded directive
 
-Name         | Description
-----------   | ------------------------------------------------------------
-`vclRounded` | Enables rounded corners
+| Name         | Description             |
+| ------------ | ----------------------- |
+| `vclRounded` | Enables rounded corners |

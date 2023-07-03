@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs';
-import { AlertService, AlertType, AlertInput } from '@vcl/ng-vcl';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
+
+import { AlertService, AlertType, AlertInput } from '@vcl/ng-vcl';
 
 function createAsyncResult(
   data: any,
@@ -155,7 +156,7 @@ export class AlertDemoComponent {
     const fakeAsyncWithRetries = fakeAsync.pipe(
       retryWhen(errors => {
         return errors.pipe(
-          switchMap(err => {
+          switchMap(_ => {
             return this.alert
               .open({
                 text: 'Retry?',

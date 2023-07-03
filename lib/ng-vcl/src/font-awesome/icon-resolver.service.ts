@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+
 import {
   IconResolverService,
   IconAliasResolverServiceBase,
 } from '../icon/index';
+
 import { ALIAS_MAP } from './alias-map';
 
 // The font-awesome name resolver following the CSS class name conventions of

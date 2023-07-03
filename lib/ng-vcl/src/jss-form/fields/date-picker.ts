@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+
+import { DatepickerPick } from '../../date-picker/index';
 import {
   VCLFormFieldSchemaDatePicker,
   VCLFormFieldSchemaDatePickerParams,
 } from '../schemas';
+
 import { FormFieldControl } from './field';
-import { DatepickerPick } from '../../date-picker/index';
 
 export class FormFieldDatePicker extends FormFieldControl<
   VCLFormFieldSchemaDatePicker,

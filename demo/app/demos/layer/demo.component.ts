@@ -4,8 +4,11 @@ import {
   ViewChild,
   ViewContainerRef,
   TemplateRef,
+  OnDestroy,
 } from '@angular/core';
+
 import { LayerService, LayerRef } from '@vcl/ng-vcl';
+
 import { BarComponent } from './bar.component';
 import { NagLayer } from './nag.component';
 
@@ -14,7 +17,7 @@ let i = 0;
 @Component({
   templateUrl: 'demo.component.html',
 })
-export class LayerDemoComponent implements AfterViewInit {
+export class LayerDemoComponent implements AfterViewInit, OnDestroy {
   barLayer: LayerRef;
 
   @ViewChild('tplLayerRef')
@@ -23,20 +26,25 @@ export class LayerDemoComponent implements AfterViewInit {
   tplLayer: LayerRef;
 
   constructor(
-    private nagLayer: NagLayer,
-    private layerService: LayerService,
-    private viewContainerRef: ViewContainerRef
+    private readonly nagLayer: NagLayer,
+    private readonly layerService: LayerService,
+    private readonly viewContainerRef: ViewContainerRef
   ) {
     this.barLayer = layerService.create(BarComponent, {
       closeOnBackdropClick: false,
       closeOnEscape: false,
     });
   }
+
   ngAfterViewInit(): void {
     this.tplLayer = this.layerService.createTemplateLayer(
       this.tplLayerRef,
       this.viewContainerRef
     );
+  }
+
+  ngOnDestroy() {
+    this.barLayer?.destroy();
   }
 
   openBarComponent() {
@@ -65,9 +73,5 @@ export class LayerDemoComponent implements AfterViewInit {
           console.log('Declined');
         }
       });
-  }
-
-  ngOnDestroy() {
-    this.barLayer?.destroy();
   }
 }

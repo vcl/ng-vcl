@@ -1,3 +1,4 @@
+import { ENTER } from '@angular/cdk/keycodes';
 import {
   HostBinding,
   Input,
@@ -10,14 +11,14 @@ import {
   forwardRef,
   ViewChild,
 } from '@angular/core';
-import { ENTER } from '@angular/cdk/keycodes';
+
+import { LabelDirective, SubLabelDirective } from '../../core/index';
 import {
   SelectList,
   SELECT_LIST_TOKEN,
   SelectListItem,
   SELECT_LIST_CONTENT_TOKEN,
 } from '../types';
-import { LabelDirective, SubLabelDirective } from '../../core/index';
 
 @Component({
   selector: 'vcl-select-list-item',
@@ -82,7 +83,7 @@ export class SelectListItemComponent implements SelectListItem {
   @Input()
   searchValue?: string;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('label')
   _label?: string;
 

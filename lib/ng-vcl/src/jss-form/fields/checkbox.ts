@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+
 import {
   VCLFormFieldSchemaCheckbox,
   VCLFormFieldSchemaCheckboxParams,
 } from '../schemas';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldCheckbox extends FormFieldControl<

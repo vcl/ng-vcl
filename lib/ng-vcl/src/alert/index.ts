@@ -1,17 +1,19 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLIcogramModule } from './../icogram/index';
-import { VCLButtonModule } from './../button/index';
-import { VCLLayerModule } from './../layer/index';
-import { VCLInputModule } from './../input/index';
-import { VCLIconModule } from '../icon/index';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { VCLBusyIndicatorModule } from '../busy-indicator/index';
-import { AlertComponent } from './alert.component';
-import { AlertInputDirective } from './input-alert.directive';
-import { AlertService } from './alert.service';
-import { AlertType, AlertInput, AlertAlignment, AlertResult } from './types';
+import { VCLIconModule } from '../icon/index';
 import { VCLFormControlGroupModule } from '../radio-button/index';
+
+import { VCLButtonModule } from './../button/index';
+import { VCLIcogramModule } from './../icogram/index';
+import { VCLInputModule } from './../input/index';
+import { VCLLayerModule } from './../layer/index';
+import { AlertComponent } from './alert.component';
+import { AlertService } from './alert.service';
+import { AlertInputDirective } from './input-alert.directive';
+import { AlertType, AlertInput, AlertAlignment, AlertResult } from './types';
 
 export { AlertService, AlertType, AlertInput, AlertAlignment, AlertResult };
 

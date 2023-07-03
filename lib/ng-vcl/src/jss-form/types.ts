@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+
 import { FormControlGroupForm } from '../form-control-group/index';
 
 export const JSS_FORM_TOKEN = new InjectionToken<JssForm>('jss_form');

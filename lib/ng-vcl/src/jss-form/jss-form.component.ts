@@ -1,3 +1,4 @@
+import { Portal } from '@angular/cdk/portal';
 import {
   Component,
   Input,
@@ -17,19 +18,20 @@ import {
   Inject,
   Optional,
 } from '@angular/core';
-import { Portal } from '@angular/cdk/portal';
+
+import {
+  FormDirective,
+  FORM_CONTROL_GROUP_FORM,
+} from '../form-control-group/index';
+
 import { FormFieldObject } from './fields/index';
+import { VCLFormFieldSchemaRoot } from './schemas';
 import {
   JSS_FORM_TOKEN,
   JssForm,
   HelpConfig,
   JSS_FORM_HELP_CONFIG_TOKEN,
 } from './types';
-import { VCLFormFieldSchemaRoot } from './schemas';
-import {
-  FormDirective,
-  FORM_CONTROL_GROUP_FORM,
-} from '../form-control-group/index';
 
 @Component({
   selector: 'vcl-jss-form',

@@ -5,7 +5,9 @@ import {
   AfterViewInit,
   Optional,
   Inject,
+  OnInit,
 } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import {
   Subject,
   Observable,
@@ -15,9 +17,7 @@ import {
   combineLatest,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
-import { FormFieldControl, FormField } from './fields/field';
-import { AbstractControl } from '@angular/forms';
+
 import {
   FORM_CONTROL_GROUP_STATE,
   FormControlGroupState,
@@ -25,21 +25,46 @@ import {
   FormControlGroupForm,
 } from '../form-control-group/exports';
 
+import { FormFieldControl, FormField } from './fields/field';
+import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
+
 @Component({
   selector: 'vcl-jss-form-hints',
   templateUrl: 'jss-form-hints.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclJssFormControl',
 })
-export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
+export class JssFormHintsComponent implements OnInit, OnDestroy, AfterViewInit {
+  private _hints: (Hint | Conditional<Hint>)[];
+  private _sub: Subscription;
+  _hintsEmitter = new Subject<void>();
+
+  hints$: Observable<Hint[]> = this._hintsEmitter.asObservable().pipe(
+    switchMap(() => {
+      return combineLatest(
+        ...this._hints.map(hint => {
+          if (typeof hint === 'string') {
+            return of({
+              type: 'default',
+              message: hint,
+            } as DefaultHint);
+          } else if (hint instanceof Conditional) {
+            return this.field.createConditionalStream(hint);
+          }
+          return of(hint as Hint);
+        })
+      );
+    })
+  );
+
   constructor(
     @Inject(FORM_CONTROL_GROUP_FORM)
-    private form: FormControlGroupForm,
+    private readonly form: FormControlGroupForm,
     @Optional()
-    private field?: FormField<any>,
+    private readonly field?: FormField<any>,
     @Optional()
     @Inject(FORM_CONTROL_GROUP_STATE)
-    private fcgs?: FormControlGroupState
+    private readonly fcgs?: FormControlGroupState
   ) {}
 
   ngOnInit() {
@@ -67,28 +92,6 @@ export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
     }
     this._sub = merge(...$).subscribe(this._hintsEmitter);
   }
-
-  private _hints: (Hint | Conditional<Hint>)[];
-  private _sub: Subscription;
-  _hintsEmitter = new Subject<void>();
-
-  hints$: Observable<Hint[]> = this._hintsEmitter.asObservable().pipe(
-    switchMap(() => {
-      return combineLatest(
-        ...this._hints.map(hint => {
-          if (typeof hint === 'string') {
-            return of({
-              type: 'default',
-              message: hint,
-            } as DefaultHint);
-          } else if (hint instanceof Conditional) {
-            return this.field.createConditionalStream(hint);
-          }
-          return of(hint as Hint);
-        })
-      );
-    })
-  );
 
   ngAfterViewInit() {
     this._hintsEmitter.next();

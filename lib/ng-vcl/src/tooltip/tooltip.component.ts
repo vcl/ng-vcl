@@ -1,3 +1,4 @@
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -5,8 +6,8 @@ import {
   Inject,
   ChangeDetectorRef,
 } from '@angular/core';
+
 import { TOOLTIP_TOKEN, Tooltip } from './types';
-import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'vcl-tooltip',

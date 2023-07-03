@@ -6,8 +6,7 @@
   class="app-item"
   [class.error]="hasError"
   (focus)="onFocus()"
-  (blur)="onBlur()"
-/>
+  (blur)="onBlur()" />
 <button
   #btn
   vcl-button
@@ -16,8 +15,7 @@
   tabindex="-1"
   [disabled]="isDisabled"
   class="appended"
-  (click)="onButtonClick()"
->
+  (click)="onButtonClick()">
   <vcl-icon [icon]="pick === 'time' ? 'vcl:clock' : 'vcl:calendar'"></vcl-icon>
 </button>
 
@@ -29,6 +27,5 @@
     [dateModifiers]="dateModifier"
     [viewDate]="viewDate"
     [value]="value"
-    (valueChange)="onSelect($event)"
-  ></vcl-calendar>
+    (valueChange)="onSelect($event)"></vcl-calendar>
 </ng-template>

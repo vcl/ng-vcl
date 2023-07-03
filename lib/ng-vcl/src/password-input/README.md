@@ -6,7 +6,7 @@ A container for the vcl-input which offers a button to toggle visibility of the 
 
 ```html
 <vcl-password-input>
-  <input vclInput [(value)]="password" placeholder="Enter password">
+  <input vclInput [(value)]="password" placeholder="Enter password" />
 </vcl-password-input>
 ```
 
@@ -14,6 +14,6 @@ A container for the vcl-input which offers a button to toggle visibility of the 
 
 #### Attributes
 
-Name            | Type    | Default           | Description
---------------- | ------- | -------           | -----------------------------------------------
-`visible`       | boolean | false             | Input is visible by default when true
+| Name      | Type    | Default | Description                           |
+| --------- | ------- | ------- | ------------------------------------- |
+| `visible` | boolean | false   | Input is visible by default when true |

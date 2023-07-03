@@ -1,4 +1,14 @@
 import {
+  defaultFormControlErrorStateAgent,
+  dirtyFormControlErrorStateAgent,
+} from './error-state-agent';
+import { FormControlGroupComponent } from './form-control-group.component';
+import { FormDirective } from './form.directive';
+import {
+  FormControlHintComponent,
+  FormControlHintErrorComponent,
+} from './hint.component';
+import {
   FormControlGroupInputState,
   FormControlErrorStateAgent,
   FORM_CONTROL_GROUP_INPUT_STATE,
@@ -7,17 +17,7 @@ import {
   FORM_CONTROL_GROUP_FORM,
   FormControlGroupForm,
 } from './interfaces';
-import { FormDirective } from './form.directive';
-import { FormControlGroupComponent } from './form-control-group.component';
-import {
-  FormControlHintComponent,
-  FormControlHintErrorComponent,
-} from './hint.component';
 import { FormControlRequiredComponent } from './required.component';
-import {
-  defaultFormControlErrorStateAgent,
-  dirtyFormControlErrorStateAgent,
-} from './error-state-agent';
 
 export {
   defaultFormControlErrorStateAgent,

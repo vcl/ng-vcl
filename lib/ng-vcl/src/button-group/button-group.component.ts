@@ -13,13 +13,14 @@ import {
   HostBinding,
   Injector,
 } from '@angular/core';
-import { Subscription, Subject } from 'rxjs';
 import {
   ControlValueAccessor,
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { Subscription, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
 import {
   BUTTON_HOST_TOKEN,
   ButtonHost,
@@ -60,8 +61,6 @@ export class ButtonGroupComponent
     ButtonHost,
     FormControlGroupInputState
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
-
   private buttonsSub?: Subscription;
   private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
   private stateChangedEmitter = new Subject<void>();
@@ -121,6 +120,81 @@ export class ButtonGroupComponent
     return this.buttons.some(b => b.isFocused);
   }
 
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly injector: Injector
+  ) {}
+
+  ngAfterContentInit() {
+    // Syncs changed buttons checked state to be in line with the current group value
+    // eslint-disable-next-line import/no-deprecated
+    this.buttonsSub = this.buttons.changes
+      .pipe(startWith(null))
+      .subscribe(() => {
+        if (!this.buttons) {
+          return;
+        }
+        this.syncButtons();
+      });
+  }
+
+  ngOnDestroy() {
+    this.buttonsSub && this.buttonsSub.unsubscribe();
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
+  }
+
+  notifyButtonClick(btn: ButtonComponent) {
+    this.toggle(btn);
+    this.syncButtons();
+    this.triggerChange();
+    this.onTouched();
+  }
+
+  notifyButtonBlur(btn: any) {
+    if (this.buttons.last === btn) {
+      this.onTouched();
+    }
+    this.stateChangedEmitter.next();
+  }
+
+  notifyButtonFocus(_) {
+    this.stateChangedEmitter.next();
+  }
+
+  private triggerChange() {
+    this.valueChange.emit(this.value);
+    this.onChange(this.value);
+  }
+
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
+
+  @HostBinding('class.error')
+  hasError = false;
+
+  setErrorState(error: boolean): void {
+    this.hasError = error;
+  }
+
+  writeValue(value: any): void {
+    this.value = value;
+    this.syncButtons();
+    this.cdRef.markForCheck();
+  }
+  registerOnChange(fn: any) {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
+  }
+  setDisabledState(disabled: boolean) {
+    this.formDisabled = disabled;
+    this.cdRef.markForCheck();
+  }
+
   private toggle(btn: ButtonComponent) {
     if (this.selectionMode === 'multiple') {
       if (Array.isArray(this.value)) {
@@ -161,74 +235,5 @@ export class ButtonGroupComponent
         btn.selectable = true;
       });
     }
-  }
-
-  notifyButtonClick(btn: ButtonComponent) {
-    this.toggle(btn);
-    this.syncButtons();
-    this.triggerChange();
-    this.onTouched();
-  }
-
-  notifyButtonBlur(btn: any) {
-    if (this.buttons.last === btn) {
-      this.onTouched();
-    }
-    this.stateChangedEmitter.next();
-  }
-
-  notifyButtonFocus(btn: any) {
-    this.stateChangedEmitter.next();
-  }
-
-  private triggerChange() {
-    this.valueChange.emit(this.value);
-    this.onChange(this.value);
-  }
-
-  @HostBinding('class.error')
-  hasError = false;
-
-  setErrorState(error: boolean): void {
-    this.hasError = error;
-  }
-
-  ngAfterContentInit() {
-    // Syncs changed buttons checked state to be in line with the current group value
-    // tslint:disable-next-line:deprecation
-    this.buttonsSub = this.buttons.changes
-      .pipe(startWith(null))
-      .subscribe(() => {
-        if (!this.buttons) {
-          return;
-        }
-        this.syncButtons();
-      });
-  }
-
-  ngOnDestroy() {
-    this.buttonsSub && this.buttonsSub.unsubscribe();
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
-  }
-
-  /**
-   * things needed for ControlValueAccessor-Interface
-   */
-  private onChange: (_: any) => void = () => {};
-  private onTouched: () => any = () => {};
-  writeValue(value: any): void {
-    this.value = value;
-    this.syncButtons();
-    this.cdRef.markForCheck();
-  }
-  registerOnChange(fn: any) {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
-  }
-  setDisabledState(disabled: boolean) {
-    this.formDisabled = disabled;
-    this.cdRef.markForCheck();
   }
 }

@@ -4,11 +4,17 @@ import {
   Optional,
   SkipSelf,
 } from '@angular/core';
+
+import { DateAdapter } from './dateadapter';
 import {
   VCL_DATE_ADAPTER_WEEKDAY_OFFSET,
   DateAdapterBase,
 } from './dateadapter-base';
-import { DateAdapter } from './dateadapter';
+import {
+  DateAdapterBaseDisplayFormats,
+  VCLDateRange,
+  DateAdapterBaseParseFormats,
+} from './interfaces';
 import {
   VCL_DATE_ADAPTER_PARSER,
   DateAdapterParser,
@@ -17,11 +23,6 @@ import {
   DateAdapterParserEN,
   DateAdapterParserENGB,
 } from './parsers/index';
-import {
-  DateAdapterBaseDisplayFormats,
-  VCLDateRange,
-  DateAdapterBaseParseFormats,
-} from './interfaces';
 
 const VCLDateAdapter = DateAdapter;
 const NativeDateAdapterParserDE = DateAdapterParserDE;

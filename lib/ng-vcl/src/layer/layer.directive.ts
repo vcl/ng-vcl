@@ -8,22 +8,15 @@ import {
   ViewContainerRef,
   Directive,
 } from '@angular/core';
-import { LayerConfig } from './types';
+
 import { TemplateLayerRef } from './layer-ref';
+import { LayerConfig } from './types';
 
 @Directive({
   selector: '[vclLayer]',
   exportAs: 'vclLayer',
 })
 export class LayerDirective extends TemplateLayerRef implements OnDestroy {
-  constructor(
-    injector: Injector,
-    public templateRef: TemplateRef<any>,
-    public viewContainerRef: ViewContainerRef
-  ) {
-    super(injector);
-  }
-
   @Input('vclLayer')
   config?: LayerConfig;
 
@@ -40,10 +33,11 @@ export class LayerDirective extends TemplateLayerRef implements OnDestroy {
     return super.createLayerConfig(this.config, config);
   }
 
-  // tslint:disable-next-line:no-output-rename
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('afterDetached')
   afterDetachedOutput = new EventEmitter<any>();
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('afterAttached')
   afterAttachedOutput = new EventEmitter();
 
@@ -60,6 +54,14 @@ export class LayerDirective extends TemplateLayerRef implements OnDestroy {
     super.afterAttached();
     this.visibleChange.emit(this.visible);
     this.afterAttachedOutput.emit();
+  }
+
+  constructor(
+    injector: Injector,
+    public templateRef: TemplateRef<any>,
+    public viewContainerRef: ViewContainerRef
+  ) {
+    super(injector);
   }
 
   ngOnDestroy(): void {

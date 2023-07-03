@@ -7,15 +7,17 @@ import {
   HostBinding,
   forwardRef,
   ViewChild,
+  AfterViewInit,
 } from '@angular/core';
-import { Subject } from 'rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subject } from 'rxjs';
+
+import { ButtonComponent } from '../button/index';
 import {
   InputDirective,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
 } from '../input/index';
-import { ButtonComponent } from '../button/index';
 
 @Component({
   templateUrl: 'password-input.component.html',
@@ -35,7 +37,7 @@ import { ButtonComponent } from '../button/index';
   ],
 })
 export class PasswordInputComponent
-  implements AfterContentInit, EmbeddedInputFieldLabelInput
+  implements AfterContentInit, AfterViewInit, EmbeddedInputFieldLabelInput
 {
   private stateChangedEmitter = new Subject<void>();
 
@@ -89,6 +91,9 @@ export class PasswordInputComponent
       : 'password';
   }
 
+  notifyInputFocus(_: InputDirective): void {}
+  notifyInputBlur(_: InputDirective): void {}
+
   ngAfterContentInit() {
     this.updateType();
   }
@@ -96,7 +101,4 @@ export class PasswordInputComponent
   ngAfterViewInit() {
     this.input.stateChanged.subscribe(this.stateChangedEmitter);
   }
-
-  notifyInputFocus(btn: InputDirective): void {}
-  notifyInputBlur(btn: InputDirective): void {}
 }

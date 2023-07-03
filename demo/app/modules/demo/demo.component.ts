@@ -1,7 +1,6 @@
-import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -11,10 +10,7 @@ export class DemoComponent implements OnInit {
   title: string;
   tabs: { name: string; type: string; content: any }[] = [];
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer
-  ) {}
+  constructor(private readonly activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     const data = this.activatedRoute.snapshot.data.demo();

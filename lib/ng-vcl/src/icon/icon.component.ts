@@ -8,6 +8,7 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
+
 import { HostIconRendererService } from './host-icon-renderer.service';
 
 @Component({

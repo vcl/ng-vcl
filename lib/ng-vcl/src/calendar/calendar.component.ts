@@ -9,7 +9,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+
 import { VCLDateRange } from '../dateadapter/index';
+
 import {
   VCLCalendarView,
   VCLCalendarDateModifier,

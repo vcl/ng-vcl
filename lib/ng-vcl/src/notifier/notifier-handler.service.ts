@@ -1,18 +1,19 @@
+import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
+import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector, Inject, ComponentRef } from '@angular/core';
+import { take } from 'rxjs/operators';
+
+import {
+  NotifierOverlayRef,
+  NotifierOverlayRefHandler,
+} from './notifier-overlay-ref';
+import { NotifierComponent } from './notifier.component';
 import {
   NotifierPosition,
   NotifierConfig,
   NOTIFIER_CONFIG_TOKEN,
 } from './types';
-import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
-import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
-import { NotifierComponent } from './notifier.component';
 import { NotifierOptions } from './types';
-import { take } from 'rxjs/operators';
-import {
-  NotifierOverlayRef,
-  NotifierOverlayRefHandler,
-} from './notifier-overlay-ref';
 
 interface Notification {
   notificationRef: NotifierOverlayRef;

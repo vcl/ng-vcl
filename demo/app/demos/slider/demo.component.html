@@ -1,52 +1,36 @@
 <h3>Basic</h3>
 <vcl-slider [(value)]="value1"></vcl-slider>
-Value: {{value1}}
+Value: {{ value1 }}
 
 <h3>With a scale</h3>
-<vcl-slider 
-  [(value)]="value2" 
-  [min]="0" 
-  [max]="100"
-  [scale]="11">
-</vcl-slider>
-Value: {{value2}}
+<vcl-slider [(value)]="value2" [min]="0" [max]="100" [scale]="11"> </vcl-slider>
+Value: {{ value2 }}
 
 <h3>With value locked to the scale</h3>
-<vcl-slider 
-  [(value)]="value3" 
-  [min]="0" 
-  [max]="100"
-  [scale]="11"
-  [lock]="true" >
+<vcl-slider [(value)]="value3" [min]="0" [max]="100" [scale]="11" [lock]="true">
 </vcl-slider>
-Value: {{value3}}
-
+Value: {{ value3 }}
 
 <h3>custom labeled scale</h3>
-<vcl-slider 
-  [(value)]="value4" 
-  [min]="0" 
-  [max]="5" 
-  [enableWheel]="true" 
-  [scale]="['☀','☁','☂','☃','☄','1']">
+<vcl-slider
+  [(value)]="value4"
+  [min]="0"
+  [max]="5"
+  [enableWheel]="true"
+  [scale]="['☀', '☁', '☂', '☃', '☄', '1']">
 </vcl-slider>
-Value: {{value4}}
-
+Value: {{ value4 }}
 
 <h3>disabled</h3>
 
-<vcl-slider 
-  [(value)]="value5" 
-  [min]="0" 
-  [max]="7" 
-  [disabled]="true" 
-  [scale]="['d','i','s','a','b','l', 'e', 'd']">
+<vcl-slider
+  [(value)]="value5"
+  [min]="0"
+  [max]="7"
+  [disabled]="true"
+  [scale]="['d', 'i', 's', 'a', 'b', 'l', 'e', 'd']">
 </vcl-slider>
 
 <h3>With value outer min/max bounds</h3>
-<vcl-slider 
-  [(value)]="value6" 
-  [min]="10" 
-  [max]="100"
-  [scale]="11">
+<vcl-slider [(value)]="value6" [min]="10" [max]="100" [scale]="11">
 </vcl-slider>

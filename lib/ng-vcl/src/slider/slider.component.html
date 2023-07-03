@@ -1,11 +1,26 @@
 <div class="slider-rail">
-  <div class="slider-scale row justify-between" #scale (click)="onRailClick($event)">
-    <div *ngFor="let point of scalePoints" class="slider-scale-point-mark" (click)="onScalePointClick(point); $event.stopPropagation();"></div>
+  <div
+    class="slider-scale row justify-between"
+    #scale
+    (click)="onRailClick($event)">
+    <div
+      *ngFor="let point of scalePoints"
+      class="slider-scale-point-mark"
+      (click)="onScalePointClick(point); $event.stopPropagation()"></div>
   </div>
-  <div class="slider-knob-container" [style.display]="percentLeftKnob >= 0 ? null : 'none'" [style.left]="percentLeftKnob + '%'" (pan)="onPan($event)">
+  <div
+    class="slider-knob-container"
+    [style.display]="percentLeftKnob >= 0 ? null : 'none'"
+    [style.left]="percentLeftKnob + '%'"
+    (pan)="onPan($event)">
     <div class="slider-knob"></div>
   </div>
 </div>
 <div *ngIf="showScale" class="slider-scale row justify-between">
-  <div *ngFor="let point of scalePoints" class="slider-scale-point-label" (click)="onScalePointClick(point)">{{point.label}}</div>
+  <div
+    *ngFor="let point of scalePoints"
+    class="slider-scale-point-label"
+    (click)="onScalePointClick(point)">
+    {{ point.label }}
+  </div>
 </div>

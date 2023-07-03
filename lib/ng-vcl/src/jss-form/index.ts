@@ -1,30 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { VCLButtonModule } from '../button/index';
 import { VCLButtonGroupModule } from '../button-group/index';
-import { VCLSelectListModule } from '../select-list/index';
-import { VCLFlipSwitchModule } from '../flip-switch/index';
-import { VCLSliderModule } from '../slider/index';
 import { VCLCheckboxModule } from '../checkbox/index';
-import { VCLRadioButtonModule } from '../radio-button/index';
-import { VCLInputModule } from '../input/index';
-import { VCLPasswordInputModule } from '../password-input/index';
-import { VCLTokenModule } from '../token/index';
-import { VCLIconModule } from '../icon/index';
-import { VCLFormControlGroupModule } from '../form-control-group/index';
 import { VCLDatePickerModule } from '../date-picker/index';
-import { VCLSelectModule } from '../select/index';
 import { VCLFileInputModule } from '../file-input/index';
-import { VCLRatingModule } from '../rating/index';
+import { VCLFlipSwitchModule } from '../flip-switch/index';
+import { VCLFormControlGroupModule } from '../form-control-group/index';
+import { VCLIconModule } from '../icon/index';
+import { VCLInputModule } from '../input/index';
 import { VCLLayerModule } from '../layer/index';
 import { VCLPanelModule } from '../panel/index';
+import { VCLPasswordInputModule } from '../password-input/index';
+import { VCLRadioButtonModule } from '../radio-button/index';
+import { VCLRatingModule } from '../rating/index';
+import { VCLSelectModule } from '../select/index';
+import { VCLSelectListModule } from '../select-list/index';
+import { VCLSliderModule } from '../slider/index';
 import { VCLSpinnerModule } from '../spinner';
+import { VCLTokenModule } from '../token/index';
 
-import { JssFormComponent } from './jss-form.component';
-import { JssFormHintsComponent } from './jss-form-hints.component';
 import {
   FormFieldInputComponent,
   FormFieldButtonComponent,
@@ -50,7 +48,9 @@ import {
   EmptyDirective,
 } from './fields/index';
 import { initializeFields } from './fields/index';
+import { JssFormHintsComponent } from './jss-form-hints.component';
 import { JssFormInputWrapperComponent } from './jss-form-input-wrapper.component';
+import { JssFormComponent } from './jss-form.component';
 
 export { JssFormComponent };
 export * from './schemas';
