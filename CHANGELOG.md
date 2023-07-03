@@ -1,3 +1,8 @@
+## [2.6.4](https://github.com/vcl/ng-vcl/compare/v2.6.3...v2.6.4) (2023-07-03)
+
+- Migrated TSLint to ESLint
+- Installed and configured Prettier, Husky and Lint-Staged
+
 ## [2.6.3](https://github.com/vcl/ng-vcl/compare/v2.5.0...v2.6.3) (2023-06-23)
 
 ### Bug Fixes
