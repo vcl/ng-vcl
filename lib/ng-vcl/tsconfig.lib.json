@@ -10,10 +10,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "types": [],
-    "lib": [
-      "dom",
-      "es2018"
-    ]
+    "lib": ["dom", "es2018"]
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,
@@ -24,11 +21,6 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true
   },
-  "files": [
-    "src/public_api.ts"
-  ],
-  "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts"
-  ]
+  "files": ["src/public_api.ts"],
+  "exclude": ["src/test.ts", "**/*.spec.ts"]
 }
