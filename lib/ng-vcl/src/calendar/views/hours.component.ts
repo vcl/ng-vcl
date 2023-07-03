@@ -7,6 +7,7 @@ import {
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
+
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarHours } from '../interfaces';
 

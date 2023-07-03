@@ -1,16 +1,15 @@
 <div *ngIf="tooltip.value" class="tooltip" role="tooltip">
   <div *ngIf="isString" class="tooltip-content">
-    {{tooltip.value}}
+    {{ tooltip.value }}
   </div>
   <div *ngIf="isTemplatePortal" class="tooltip-content">
     <ng-template [cdkPortalOutlet]="tooltip.value"></ng-template>
   </div>
-  <div 
-    *ngIf="tooltip.arrowPointer" 
+  <div
+    *ngIf="tooltip.arrowPointer"
     class="arrow-pointer"
     [class.arrow-pointer-right]="tooltip.arrowPosition === 'left'"
     [class.arrow-pointer-left]="tooltip.arrowPosition === 'right'"
     [class.arrow-pointer-top]="tooltip.arrowPosition === 'bottom'"
-    [class.arrow-pointer-bottom]="tooltip.arrowPosition === 'top'"
-  ></div>
+    [class.arrow-pointer-bottom]="tooltip.arrowPosition === 'top'"></div>
 </div>

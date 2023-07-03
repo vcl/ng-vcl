@@ -8,7 +8,7 @@ Notification messages for events with growl-style support
 import { VCLNotifierModule } from '@vcl/ng-vcl';
 
 @NgModule({
-  imports: [ 
+  imports: [
     VCLNotifierModule,
   ],
   ...
@@ -62,9 +62,7 @@ export class MyComponent {
   <p>Hello</p>
 </ng-template>
 <button (click)="n.open()">Show notification</button>
-
 ```
-
 
 ### API
 
@@ -74,7 +72,7 @@ export enum NotifierType {
   Info,
   Success,
   Warning,
-  Error
+  Error,
 }
 
 export enum NotifierPosition {
@@ -84,7 +82,7 @@ export enum NotifierPosition {
   BottomRight,
   Bottom,
   BottomLeft,
-  Center
+  Center,
 }
 
 export interface NotifierOptions {

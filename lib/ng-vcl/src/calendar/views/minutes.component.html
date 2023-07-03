@@ -1,8 +1,14 @@
 <div class="d-g-row">
   <div class="d-g-cell">
-    <div class="toolbar flex row justify-between center" role="menubar" aria-level="1">
+    <div
+      class="toolbar flex row justify-between center"
+      role="menubar"
+      aria-level="1">
       <div class="button-dim"></div>
-      <button vcl-button class="transparent cal-header-label" (click)="onLabelClick()">
+      <button
+        vcl-button
+        class="transparent cal-header-label"
+        (click)="onLabelClick()">
         Minutes
       </button>
       <div class="button-dim"></div>
@@ -11,13 +17,15 @@
 </div>
 
 <div class="d-g-row" role="row" *ngFor="let minutesRow of calendar.minutes">
-  <div *ngFor="let m of minutesRow" 
-       role="option" 
-       tabindex="0" 
-       class="d-g-cell cal-item" 
-       [class.disabled]="disabled"
-       [class.selected]="minute === m.minute" 
-       [attr.aria-selected]="minute === m.minute" 
-       (click)="onSelectMinute(m.minute)">
-       :{{m.label}}</div>
+  <div
+    *ngFor="let m of minutesRow"
+    role="option"
+    tabindex="0"
+    class="d-g-cell cal-item"
+    [class.disabled]="disabled"
+    [class.selected]="minute === m.minute"
+    [attr.aria-selected]="minute === m.minute"
+    (click)="onSelectMinute(m.minute)">
+    :{{ m.label }}
+  </div>
 </div>

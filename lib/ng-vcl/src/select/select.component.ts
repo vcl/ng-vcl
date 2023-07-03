@@ -1,3 +1,7 @@
+import { Directionality } from '@angular/cdk/bidi';
+import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
+import { Overlay } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   Component,
   Input,
@@ -17,20 +21,19 @@ import {
   forwardRef,
   AfterContentInit,
   ViewEncapsulation,
+  AfterViewInit,
+  OnInit,
 } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ESCAPE, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { Overlay } from '@angular/cdk/overlay';
-import { Directionality } from '@angular/cdk/bidi';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TemplateLayerRef, LayerConfig } from '../layer/index';
-import { SelectListItem, SelectListComponent } from '../select-list/index';
+
 import {
   EmbeddedInputFieldLabelInput,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
 } from '../input/index';
+import { TemplateLayerRef, LayerConfig } from '../layer/index';
+import { SelectListItem, SelectListComponent } from '../select-list/index';
 
 @Component({
   selector: 'vcl-select',
@@ -40,7 +43,6 @@ import {
   exportAs: 'vclSelect',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    // FormControlState,
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => SelectComponent),
@@ -54,15 +56,20 @@ import {
 })
 export class SelectComponent
   extends TemplateLayerRef<any, SelectListItem>
-  implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput
+  implements
+    AfterContentInit,
+    OnDestroy,
+    EmbeddedInputFieldLabelInput,
+    AfterViewInit,
+    OnInit
 {
   constructor(
     injector: Injector,
-    private _dir: Directionality,
-    private overlay: Overlay,
-    protected viewContainerRef: ViewContainerRef,
-    private elementRef: ElementRef<HTMLElement>,
-    private cdRef: ChangeDetectorRef
+    private readonly _dir: Directionality,
+    private readonly overlay: Overlay,
+    protected readonly viewContainerRef: ViewContainerRef,
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly cdRef: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -238,7 +245,6 @@ export class SelectComponent
     if (this.selectList.selectionMode === 'single') {
       const items = this.selectList.items;
       const item = items.find(_item => this.selectList.value === _item.value);
-      const val = item?.label;
       return item ? item.label : this.placeholder || '';
     } else {
       const value = Array.isArray(this.selectList.value)
@@ -344,7 +350,7 @@ export class SelectComponent
     this.stateChangedEmitter.next();
   }
 
-  protected afterDetached(result) {
+  protected afterDetached() {
     // this.selectList.highlightSelected(); // TODO uncomment when highlightSelected is implemented
     this.afterClose.emit(this.selectList.value);
     if (!this.isDestroyed) {

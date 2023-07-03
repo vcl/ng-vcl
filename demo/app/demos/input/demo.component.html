@@ -8,7 +8,7 @@
 <vcl-form-control-group>
   <vcl-label>Input (autoselect)</vcl-label>
   <vcl-input-field>
-    <input vclInput autoselect=true />
+    <input vclInput autoselect="true" />
   </vcl-input-field>
 </vcl-form-control-group>
 
@@ -26,14 +26,14 @@
 <vcl-form-control-group>
   <vcl-label>Readonly input</vcl-label>
   <vcl-input-field>
-    <input vclInput value='readonly' [readonly]="true" />
+    <input vclInput value="readonly" [readonly]="true" />
   </vcl-input-field>
 </vcl-form-control-group>
 
 <vcl-form-control-group>
   <vcl-label>Disabled input</vcl-label>
   <vcl-input-field>
-    <input vclInput value='disabled' [disabled]="true" />
+    <input vclInput value="disabled" [disabled]="true" />
   </vcl-input-field>
 </vcl-form-control-group>
 
@@ -47,7 +47,11 @@
 <vcl-form-control-group>
   <vcl-label>Autogrowing textarea</vcl-label>
   <vcl-input-field class="auto-height">
-    <textarea vclInput [autogrow]="true" [minRows]="5" [maxRows]="10"></textarea>
+    <textarea
+      vclInput
+      [autogrow]="true"
+      [minRows]="5"
+      [maxRows]="10"></textarea>
   </vcl-input-field>
 </vcl-form-control-group>
 

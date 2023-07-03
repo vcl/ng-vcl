@@ -1,10 +1,12 @@
 <div class="tabs" [class.tab-style-uni]="!!borders" role="tablist">
   <ng-content select="vcl-tab"></ng-content>
 </div>
-<div [style.display]="hasContent === false ? 'none' : null" class="tab-content" [class.no-border]="!borders">
+<div
+  [style.display]="hasContent === false ? 'none' : null"
+  class="tab-content"
+  [class.no-border]="!borders">
   <div #panel role="tabpanel" class="tab-panel">
     <ng-template *ngIf="portal" [cdkPortalOutlet]="portal"></ng-template>
     <ng-content></ng-content>
   </div>
 </div>
-

@@ -128,31 +128,31 @@ question(text: string, opts?: AlertOptions); // Message with AlertType.Question 
 
 All attributes are optional
 
-| Name                    | Type           | Default         | Description
-| ----------------------- | -------------- | --------------- | --------------
-| `text`                    | string         |                 | The main message
-| `title`                   | string         |                 | A title
-| `html`                    | boolean        | false           | Treats the main message as html when `true`
-| `type`                    | AlertType      | None            | The type. Defines color and icon.
-| `modal`                   | boolean        | true            | Allow closing via ESC and offclick if true
-| `customClass`             | string         |                 | A custom css class for the alert modal
-| `showConfirmButton`       | boolean        | true            | Show the confirmation button
-| `showCancelButton`        | boolean        | false           | Show the cancel button
-| `showCloseButton`         | boolean        | false           | Show the close button
-| `confirmButtonLabel`      | string         | 'OK'            | Changes the confirm button label
-| `confirmButtonClass`      | string         | 'emphasized'    | Adds a class to the confirm button
-| `confirmButtonPrepIcon`   | string         |                 | icon to be prepended to the confirm button label
-| `confirmButtonAppIcon`    | string         |                 | same as `confirmButtonPrepIcon`, but appended
-| `cancelButtonLabel`       | string         | 'Cancel'        | Changes the cancel button label
-| `cancelButtonClass`       | string         | 'danger'        | Adds a class to the cancel button
-| `cancelButtonPrepIcon`    | string         |                 | icon to be prepended to the cancel button label
-| `cancelButtonAppIcon`     | string         |                 | same as `cancelButtonPrepIcon`, but appended
-| `cancelButtonThrowsError` | boolean        |                 | Throw an error instead of passing a result on cancel
-| `confirmAction`           | Observable     |                 | Enables loader and subscribes to observable. Closes alert when the observable completes or errors.
-| `input`                   | AlertInput     | None            | Input element
-| `inputValue`              | any            |                 | Default value for the input
-| `inputPlaceholder`        | string         |                 | A placeholder. Shown in the input element when using AlertInput.Text
-| `inputValidator`          | function       |                 | Input validator callback
+| Name                      | Type       | Default      | Description                                                                                        |
+| ------------------------- | ---------- | ------------ | -------------------------------------------------------------------------------------------------- |
+| `text`                    | string     |              | The main message                                                                                   |
+| `title`                   | string     |              | A title                                                                                            |
+| `html`                    | boolean    | false        | Treats the main message as html when `true`                                                        |
+| `type`                    | AlertType  | None         | The type. Defines color and icon.                                                                  |
+| `modal`                   | boolean    | true         | Allow closing via ESC and offclick if true                                                         |
+| `customClass`             | string     |              | A custom css class for the alert modal                                                             |
+| `showConfirmButton`       | boolean    | true         | Show the confirmation button                                                                       |
+| `showCancelButton`        | boolean    | false        | Show the cancel button                                                                             |
+| `showCloseButton`         | boolean    | false        | Show the close button                                                                              |
+| `confirmButtonLabel`      | string     | 'OK'         | Changes the confirm button label                                                                   |
+| `confirmButtonClass`      | string     | 'emphasized' | Adds a class to the confirm button                                                                 |
+| `confirmButtonPrepIcon`   | string     |              | icon to be prepended to the confirm button label                                                   |
+| `confirmButtonAppIcon`    | string     |              | same as `confirmButtonPrepIcon`, but appended                                                      |
+| `cancelButtonLabel`       | string     | 'Cancel'     | Changes the cancel button label                                                                    |
+| `cancelButtonClass`       | string     | 'danger'     | Adds a class to the cancel button                                                                  |
+| `cancelButtonPrepIcon`    | string     |              | icon to be prepended to the cancel button label                                                    |
+| `cancelButtonAppIcon`     | string     |              | same as `cancelButtonPrepIcon`, but appended                                                       |
+| `cancelButtonThrowsError` | boolean    |              | Throw an error instead of passing a result on cancel                                               |
+| `confirmAction`           | Observable |              | Enables loader and subscribes to observable. Closes alert when the observable completes or errors. |
+| `input`                   | AlertInput | None         | Input element                                                                                      |
+| `inputValue`              | any        |              | Default value for the input                                                                        |
+| `inputPlaceholder`        | string     |              | A placeholder. Shown in the input element when using AlertInput.Text                               |
+| `inputValidator`          | function   |              | Input validator callback                                                                           |
 
 #### Enums
 
@@ -163,11 +163,11 @@ export enum AlertType {
   Info,
   Success,
   Warning,
-  Error
+  Error,
 }
 
 export enum AlertInput {
   None,
-  Text
+  Text,
 }
 ```

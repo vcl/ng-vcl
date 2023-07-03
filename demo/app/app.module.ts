@@ -1,9 +1,9 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, LOCALE_ID, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 import {
@@ -20,10 +20,9 @@ import {
   VCLDateAdapterModule,
 } from '@vcl/ng-vcl';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
-
-import { AppRoutingModule } from './app-routing.module';
 
 export function determineLocale() {
   return (

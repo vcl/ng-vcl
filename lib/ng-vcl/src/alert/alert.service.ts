@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-
-import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
-import { LayerService } from '../layer/index';
+import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+
+import { LayerService } from '../layer/index';
+
 import { AlertComponent } from './alert.component';
+import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
 
 @Injectable()
 export class AlertService {

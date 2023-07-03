@@ -19,8 +19,7 @@ export class AppComponent {}
   <vcl-label>Date picker</vcl-label>
   <vcl-date-picker
     [value]="value"
-    (valueChange)="onValueChange($event)"
-  ></vcl-date-picker>
+    (valueChange)="onValueChange($event)"></vcl-date-picker>
 </vcl-form-control-group>
 ```
 
@@ -30,8 +29,7 @@ export class AppComponent {}
   <vcl-date-picker
     [value]="value"
     (valueChange)="onValueChange($event)"
-    pick="month"
-  ></vcl-date-picker>
+    pick="month"></vcl-date-picker>
 </vcl-form-control-group>
 ```
 
@@ -41,8 +39,7 @@ export class AppComponent {}
   <vcl-date-picker
     [value]="value"
     (valueChange)="onValueChange($event)"
-    pick="time"
-  ></vcl-date-picker>
+    pick="time"></vcl-date-picker>
 </vcl-form-control-group>
 ```
 

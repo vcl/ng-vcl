@@ -15,11 +15,12 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { Subject } from 'rxjs';
 
 let UNIQUE_ID = 0;
 

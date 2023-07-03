@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DateAdapterBase } from '../dateadapter/index';
+
 import {
   VCLCalendarHandler,
   VCLCalendarView,
   VCLCalendar,
 } from '../calendar/index';
+import { DateAdapterBase } from '../dateadapter/index';
 
 @Injectable()
 export class DatepickerTimeHandler<

@@ -6,6 +6,7 @@ import {
   AfterContentInit,
   Renderer2,
 } from '@angular/core';
+
 import { ZoomBoxMagnifierComponent } from './zoom-box-magnifier.component';
 
 @Component({
@@ -37,23 +38,30 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
   @Input()
   invisible = false;
 
-  private startX = -1;
-  private startY = -1;
-
-  private imgContent: any;
+  get image() {
+    return this.imgContent.getAttribute('src');
+  }
 
   @ContentChild(ZoomBoxMagnifierComponent)
   private magnifier: ZoomBoxMagnifierComponent;
 
-  constructor(private element: ElementRef, renderer: Renderer2) {
-    renderer.setStyle(element.nativeElement, 'position', 'relative');
+  private startX = -1;
+  private startY = -1;
+
+  private imgContent: HTMLImageElement;
+
+  constructor(
+    private readonly element: ElementRef,
+    private readonly renderer: Renderer2
+  ) {
+    this.renderer.setStyle(element.nativeElement, 'position', 'relative');
   }
 
   ngAfterContentInit() {
     this.magnifier.parent = this;
     this.magnifier.update();
     this.imgContent = this.element.nativeElement.querySelector('img');
-    this.imgContent.onmousemove = event => this.onMove(event);
+    this.imgContent.onmousemove = (event: MouseEvent) => this.onMove(event);
     this.imgContent.onmouseover = () => this.onOver();
     this.imgContent.onmouseout = () => this.onOut();
   }
@@ -95,9 +103,5 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
     }
 
     this.magnifier.update();
-  }
-
-  get image() {
-    return this.imgContent.getAttribute('src');
   }
 }

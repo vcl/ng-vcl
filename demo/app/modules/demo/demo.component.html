@@ -12,13 +12,13 @@
       <markdown *ngIf="tab.type === 'md'" [data]="tab.content"></markdown>
       <markdown
         *ngIf="tab.type === 'ts'"
-        [data]="tab.content | language: 'typescript'"></markdown>
+        [data]="tab.content | language : 'typescript'"></markdown>
       <markdown
         *ngIf="tab.type === 'html'"
-        [data]="tab.content | language: 'html'"></markdown>
+        [data]="tab.content | language : 'html'"></markdown>
       <markdown
         *ngIf="tab.type === 'scss'"
-        [data]="tab.content | language: 'scss'"></markdown>
+        [data]="tab.content | language : 'scss'"></markdown>
     </vcl-tab>
   </vcl-tab-nav>
 </div>

@@ -1,11 +1,14 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
 import { VCLNotificationModule } from '../notification/index';
+
+import { NotifierHandlerService } from './notifier-handler.service';
 import { NotifierComponent } from './notifier.component';
 import { NotifierDirective } from './notifier.directive';
 import { NotifierService } from './notifier.service';
@@ -19,7 +22,6 @@ import {
   NotifierConfig,
   NotificationAnimationParams,
 } from './types';
-import { NotifierHandlerService } from './notifier-handler.service';
 
 export {
   NotifierComponent,

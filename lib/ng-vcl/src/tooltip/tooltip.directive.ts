@@ -1,4 +1,10 @@
 import {
+  Overlay,
+  ConnectedPosition,
+  FlexibleConnectedPositionStrategy,
+} from '@angular/cdk/overlay';
+import { ComponentPortal, Portal } from '@angular/cdk/portal';
+import {
   HostListener,
   Injector,
   ElementRef,
@@ -10,16 +16,14 @@ import {
   Optional,
   TemplateRef,
   HostBinding,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
-import {
-  Overlay,
-  ConnectedPosition,
-  FlexibleConnectedPositionStrategy,
-} from '@angular/cdk/overlay';
-import { ComponentPortal, Portal } from '@angular/cdk/portal';
 import { Subject, interval, EMPTY } from 'rxjs';
 import { debounce, take } from 'rxjs/operators';
+
 import { LayerRef, LayerConfig } from '../layer/index';
+
 import { TooltipComponent } from './tooltip.component';
 import { TOOLTIP_TOKEN, Tooltip, TooltipPosition } from './types';
 
@@ -76,18 +80,10 @@ export type PositionsArray = Positions[];
 @Directive({
   selector: '[vclTooltip]',
 })
-export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
-  constructor(
-    injector: Injector,
-    private viewContainerRef: ViewContainerRef,
-    private elementRef: ElementRef,
-    private overlay: Overlay,
-    @Optional()
-    private templateRef?: TemplateRef<any>
-  ) {
-    super(injector);
-  }
-
+export class TooltipDirective
+  extends LayerRef
+  implements OnInit, OnChanges, OnDestroy, Tooltip
+{
   @Input('vclTooltipCursor')
   @HostBinding('style.cursor')
   cursor: string = 'help';
@@ -122,27 +118,27 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
       }
     });
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('vclTooltip')
   value?: string | Portal<any>;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('vclTooltipPosition')
   position?: TooltipPosition;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('vclTooltipArrowPointer')
   arrowPointer = true;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('vclTooltipShowDelay')
   showDelay = 0;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('vclTooltipHideDelay')
   hideDelay = 0;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('vclTooltipOffset')
   offset = 10;
 
@@ -159,6 +155,17 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
   positionStrategy: FlexibleConnectedPositionStrategy;
   arrowPosition?: TooltipPosition;
 
+  constructor(
+    injector: Injector,
+    private readonly viewContainerRef: ViewContainerRef,
+    private readonly elementRef: ElementRef,
+    private readonly overlay: Overlay,
+    @Optional()
+    private readonly templateRef?: TemplateRef<any>
+  ) {
+    super(injector);
+  }
+
   ngOnInit() {
     this.updatePositionStrategy();
   }
@@ -169,6 +176,10 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
       (changes.position && !changes.position.firstChange)
     )
       this.updatePositionStrategy();
+  }
+
+  ngOnDestroy() {
+    this.stateChangedEmitter.complete();
   }
 
   updatePositionStrategy() {
@@ -224,9 +235,5 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
 
   updatePortal() {
     return this.portal;
-  }
-
-  ngOnDestroy() {
-    this.stateChangedEmitter.complete();
   }
 }

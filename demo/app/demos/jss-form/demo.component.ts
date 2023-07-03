@@ -1,11 +1,13 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { JssFormComponent, NotifierService, DateAdapter } from '@vcl/ng-vcl';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { JssFormComponent, NotifierService, DateAdapter } from '@vcl/ng-vcl';
+
 import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
 
 @Component({
-  selector: 'demo-empty-component',
+  selector: 'vcl-demo-empty-component',
   template: `<span>{{ data }}</span>`,
 })
 export class SampleEmptyComponent {

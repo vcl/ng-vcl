@@ -10,8 +10,9 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
 } from '@angular/core';
-import { NAVIGATION_TOKEN, Navigation } from './types';
+
 import { NavigationItemComponent } from './navigation-item.component';
+import { NAVIGATION_TOKEN, Navigation } from './types';
 
 @Component({
   selector: 'vcl-navigation',

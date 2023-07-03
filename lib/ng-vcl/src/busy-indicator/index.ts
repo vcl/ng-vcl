@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLIconModule } from '../icon/index';
+import { NgModule } from '@angular/core';
+
 import { VCLIcogramModule } from '../icogram/index';
-import { BusyIndicatorComponent } from './busy-indicator.component';
+import { VCLIconModule } from '../icon/index';
+
 import { BusyIndicatorCoverComponent } from './busy-indicator-cover.component';
+import { BusyIndicatorComponent } from './busy-indicator.component';
 export { BusyIndicatorCoverComponent, BusyIndicatorComponent };
 
 @NgModule({

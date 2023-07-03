@@ -1,15 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
 import {
   VCLInputModule,
   VCLIconModule,
   VCLButtonModule,
   VCLSpinnerModule,
 } from '@vcl/ng-vcl';
+
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { SpinnerDemoComponent } from './demo.component';
+
 import README from '!raw-loader!@vcl/ng-vcl/spinner/README.md';
 
 export function demo() {

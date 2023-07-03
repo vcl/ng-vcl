@@ -2,14 +2,15 @@ import {
   Component,
   ChangeDetectorRef,
   ViewChild,
-  AfterContentInit,
   AfterViewInit,
 } from '@angular/core';
+
+import { RatingComponent } from '../../rating/index';
 import {
   VCLFormFieldSchemaRating,
   VCLFormFieldSchemaRatingParams,
 } from '../schemas';
-import { RatingComponent } from '../../rating/index';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldRating extends FormFieldControl<
@@ -64,16 +65,20 @@ export class FormFieldRating extends FormFieldControl<
   `,
 })
 export class FormFieldRatingComponent implements AfterViewInit {
+  @ViewChild(RatingComponent)
+  rating: RatingComponent;
+
+  get label() {
+    return this._valueLabel || this.field.label;
+  }
+
+  _valueLabel: string;
+
   constructor(public field: FormFieldRating, private cdRef: ChangeDetectorRef) {
     field.stateChanged.subscribe(() => {
       cdRef.markForCheck();
     });
   }
-
-  @ViewChild(RatingComponent)
-  rating: RatingComponent;
-
-  _valueLabel: string;
 
   ngAfterViewInit() {
     this.rating.labelChange.subscribe(label => {
@@ -83,16 +88,10 @@ export class FormFieldRatingComponent implements AfterViewInit {
   }
 
   updateValueLabel(label?: string) {
-    if (this.field.valueLabel) {
-      this._valueLabel = this.field.valueLabel(label);
-    } else {
-      this._valueLabel = undefined;
-    }
+    this._valueLabel = this.field.valueLabel
+      ? this.field.valueLabel(label)
+      : undefined;
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
-  }
-
-  get label() {
-    return this._valueLabel || this.field.label;
   }
 }

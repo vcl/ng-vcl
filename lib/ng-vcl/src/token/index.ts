@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { VCLInputModule } from '../input/index';
-import { VCLIconModule } from '../icon/index';
+
 import { VCLButtonModule } from '../button/index';
 import { VCLIcogramModule } from '../icogram/index';
+import { VCLIconModule } from '../icon/index';
+import { VCLInputModule } from '../input/index';
 
-import { TokenComponent } from './token.component';
+import { Token } from './interfaces';
 import { TokenInputContainerComponent } from './token-input.component';
 import { TokenListComponent } from './token-list.component';
-import { Token } from './interfaces';
+import { TokenComponent } from './token.component';
 
 export {
   TokenComponent,

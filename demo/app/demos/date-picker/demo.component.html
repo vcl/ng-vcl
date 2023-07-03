@@ -1,21 +1,33 @@
 <vcl-form-control-group>
   <vcl-label>Basic Date Picker</vcl-label>
-  <vcl-date-picker [placeholder]="datePattern" [(ngModel)]="date"></vcl-date-picker>
+  <vcl-date-picker
+    [placeholder]="datePattern"
+    [(ngModel)]="date"></vcl-date-picker>
 </vcl-form-control-group>
 
 <vcl-form-control-group>
   <vcl-label>Month Picker</vcl-label>
-  <vcl-date-picker [placeholder]="monthPattern" [(ngModel)]="month" pick="month"></vcl-date-picker>
+  <vcl-date-picker
+    [placeholder]="monthPattern"
+    [(ngModel)]="month"
+    pick="month"></vcl-date-picker>
 </vcl-form-control-group>
 
 <vcl-form-control-group>
   <vcl-label>Month Picker with custom Display Format</vcl-label>
-  <vcl-date-picker [placeholder]="monthPattern" [(ngModel)]="monthAlt" pick="month" displayFormat="yearMonthLong"></vcl-date-picker>
+  <vcl-date-picker
+    [placeholder]="monthPattern"
+    [(ngModel)]="monthAlt"
+    pick="month"
+    displayFormat="yearMonthLong"></vcl-date-picker>
 </vcl-form-control-group>
 
 <vcl-form-control-group>
   <vcl-label>Time Picker</vcl-label>
-  <vcl-date-picker [placeholder]="timePattern" [(ngModel)]="time" pick="time"></vcl-date-picker>
+  <vcl-date-picker
+    [placeholder]="timePattern"
+    [(ngModel)]="time"
+    pick="time"></vcl-date-picker>
 </vcl-form-control-group>
 
 <vcl-form-control-group>

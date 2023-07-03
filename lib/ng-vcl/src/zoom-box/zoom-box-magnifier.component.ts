@@ -1,4 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
+
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({
@@ -8,8 +9,11 @@ import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 export class ZoomBoxMagnifierComponent {
   parent: ZoomBoxContainerComponent;
 
-  constructor(private element: ElementRef, private renderer: Renderer2) {
-    renderer.addClass(element.nativeElement, 'zoom-box-magnifier');
+  constructor(
+    private readonly element: ElementRef,
+    private readonly renderer: Renderer2
+  ) {
+    this.renderer.addClass(element.nativeElement, 'zoom-box-magnifier');
   }
 
   update(): void {

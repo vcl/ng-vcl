@@ -16,10 +16,12 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
+
 import { DataListItemDirective } from './data-list-item.directive';
+import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-data-list-header',
 })
 export class DataListHeaderDirective {
@@ -28,6 +30,7 @@ export class DataListHeaderDirective {
 }
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-data-list-footer',
 })
 export class DataListFooterDirective {
@@ -54,7 +57,7 @@ export class DataListComponent
 {
   constructor(
     @Optional()
-    public ngControl?: NgControl
+    public readonly ngControl?: NgControl
   ) {
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {
@@ -74,6 +77,7 @@ export class DataListComponent
 
   readonly itemsChange = this._itemsChangeEmitter.asObservable();
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('mode')
   selectionMode: DataListMode = 'single';
 
@@ -131,7 +135,7 @@ export class DataListComponent
     this.stateChange.next();
   }
 
-  onItemFocus(item: DataListItem) {}
+  onItemFocus(_: DataListItem) {}
 
   onItemBlur(item: DataListItem) {
     if (this._items.last === item) {

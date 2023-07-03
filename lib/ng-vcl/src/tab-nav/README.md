@@ -36,22 +36,20 @@ export class AppComponent {}
 
 #### vcl-tab-nav attributes
 
-| Name                     | Type        | Default  | Description
-| ------------             | ----------- | -------- |--------------
-| `selectedTabIndex`       | number      |        0 | The index of the currently visible tab
-| `borders`                | boolean     |    false | Enables borders for the tab-nav
-| `layout`                 | string      |          | The layout: `undefined` , `"left"` or `"right"`
+| Name               | Type    | Default | Description                                     |
+| ------------------ | ------- | ------- | ----------------------------------------------- |
+| `selectedTabIndex` | number  | 0       | The index of the currently visible tab          |
+| `borders`          | boolean | false   | Enables borders for the tab-nav                 |
+| `layout`           | string  |         | The layout: `undefined` , `"left"` or `"right"` |
 
 #### Events
 
-| Name                             | Type             | Description
-| ---------------------            | ---------------  | -
-| `selectedTabIndexChange`         | number           | emits the new value when the tab changes
-
+| Name                     | Type   | Description                              |
+| ------------------------ | ------ | ---------------------------------------- |
+| `selectedTabIndexChange` | number | emits the new value when the tab changes |
 
 #### vcl-tab attributes
 
-| Name                     | Type        | Default  | Description
-| ------------             | ----------- | -------- |--------------
-| `disabled`               | boolean     |   false  | Disables the tab when true
-
+| Name       | Type    | Default | Description                |
+| ---------- | ------- | ------- | -------------------------- |
+| `disabled` | boolean | false   | Disables the tab when true |

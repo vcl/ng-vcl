@@ -14,11 +14,11 @@ In indeterminate mode, an animation is shown to indicate an ongoing process whos
 
 #### Attributes
 
-| Name                | Type        | Default            | Description
-| ------------        | ----------- | ------------------ |--------------
-| `value`             | number      |                    | the current primary progress value
-| `secondaryValue`    | number      |                    | the current secondary progress value. hidden unless this value is specified
-| `minValue`          | number      |                    | the minimum value of the progress
-| `maxValue`          | number      |                    | the maximum value of the progress
-| `indeterminate`     | boolean     | false              | show an animiation if the value is not set or invalid
-| `speed`             | number      | 1                  | set custom animation duration/speed in seconds
+| Name             | Type    | Default | Description                                                                 |
+| ---------------- | ------- | ------- | --------------------------------------------------------------------------- |
+| `value`          | number  |         | the current primary progress value                                          |
+| `secondaryValue` | number  |         | the current secondary progress value. hidden unless this value is specified |
+| `minValue`       | number  |         | the minimum value of the progress                                           |
+| `maxValue`       | number  |         | the maximum value of the progress                                           |
+| `indeterminate`  | boolean | false   | show an animiation if the value is not set or invalid                       |
+| `speed`          | number  | 1       | set custom animation duration/speed in seconds                              |

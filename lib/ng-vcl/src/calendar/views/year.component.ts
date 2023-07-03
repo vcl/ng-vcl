@@ -8,13 +8,13 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
+
+import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import {
   VCLCalendarYear,
   VCLCalendarDateModifier,
-  VCLCalendarMonth,
   VCLCalendarYearMonth,
 } from '../interfaces';
-import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { compare } from '../utils';
 
 @Component({

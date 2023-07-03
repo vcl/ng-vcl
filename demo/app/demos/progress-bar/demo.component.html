@@ -1,17 +1,23 @@
 <vcl-progress-bar [value]="80"></vcl-progress-bar>
-<br>
-<vcl-progress-bar [minValue]="10" [maxValue]="20" [value]="15"></vcl-progress-bar>
-<br>
-<vcl-progress-bar [minValue]="10" [maxValue]="20" [value]="30"></vcl-progress-bar>
-<br>
+<br />
+<vcl-progress-bar
+  [minValue]="10"
+  [maxValue]="20"
+  [value]="15"></vcl-progress-bar>
+<br />
+<vcl-progress-bar
+  [minValue]="10"
+  [maxValue]="20"
+  [value]="30"></vcl-progress-bar>
+<br />
 <vcl-progress-bar [value]="40" [secondaryValue]="60"></vcl-progress-bar>
-<br>
+<br />
 <vcl-progress-bar [indeterminate]="true"></vcl-progress-bar>
-<br>
+<br />
 <vcl-progress-bar [indeterminate]="true" [speed]="5"></vcl-progress-bar>
-<br>
+<br />
 <vcl-progress-bar [value]="40" [indeterminate]="true"></vcl-progress-bar>
-<br>
+<br />
 <vcl-progress-bar [value]="110" [indeterminate]="true"></vcl-progress-bar>
-<br>
+<br />
 <vcl-progress-bar [value]="value$ | async" [maxValue]="1000"></vcl-progress-bar>

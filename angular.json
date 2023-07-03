@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": ["@angular-eslint/schematics"]
   },
   "version": 1,
   "newProjectRoot": "lib",
@@ -31,9 +32,7 @@
                 "output": "/"
               }
             ],
-            "styles": [
-              "demo/styles.scss"
-            ],
+            "styles": ["demo/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["node_modules"]
             },
@@ -95,9 +94,7 @@
             "polyfills": "demo/polyfills.ts",
             "tsConfig": "demo/tsconfig.spec.json",
             "karmaConfig": "demo/karma.conf.js",
-            "styles": [
-              "demo/styles.scss"
-            ],
+            "styles": ["demo/styles.scss"],
             "scripts": [],
             "assets": [
               {
@@ -129,6 +126,12 @@
             "main": "lib/ng-vcl/src/test.ts",
             "tsConfig": "lib/ng-vcl/tsconfig.spec.json",
             "karmaConfig": "lib/ng-vcl/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["lib/ng-vcl/**/*.ts", "lib/ng-vcl/**/*.html"]
           }
         }
       }

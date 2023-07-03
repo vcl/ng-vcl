@@ -1,11 +1,13 @@
+import { Portal } from '@angular/cdk/portal';
 import { Component, Injector } from '@angular/core';
 import {
   UntypedFormArray,
   AbstractControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { Portal } from '@angular/cdk/portal';
+
 import { VCLFormFieldSchemaArray } from '../schemas';
+
 import { FormField, FormFieldControl } from './field';
 import { FormFieldObject } from './object';
 

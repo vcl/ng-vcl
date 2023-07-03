@@ -1,3 +1,9 @@
-<form vclForm #form="vclForm" novalidate [autocomplete]="autocomplete" [formGroup]="field.control" (ngSubmit)="formSubmit.emit(form.value)">
+<form
+  vclForm
+  #form="vclForm"
+  novalidate
+  [autocomplete]="autocomplete"
+  [formGroup]="field.control"
+  (ngSubmit)="formSubmit.emit(form.value)">
   <ng-template [cdkPortalOutlet]="portal"></ng-template>
 </form>

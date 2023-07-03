@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
 import { OverlayConfig } from '@angular/cdk/overlay';
+import { Observable } from 'rxjs';
 
 export interface LayerData {
   [key: string]: any;

@@ -13,8 +13,7 @@
     role="listbox"
     autocomplete="off"
     [readonly]="!search"
-    (keyup)="inputChange($event)"
-  />
+    (keyup)="inputChange($event)" />
   <button
     *ngIf="clearable && inputValue"
     vclAppend
@@ -24,11 +23,17 @@
     tabindex="-1"
     class="appended"
     [disabled]="isDisabled"
-    (click)="clearSelection($event)"
-  >
+    (click)="clearSelection($event)">
     <vcl-icon icon="vcl:close"></vcl-icon>
   </button>
-  <button vclAppend vcl-button square type="button" tabindex="-1" class="appended" [disabled]="isDisabled">
+  <button
+    vclAppend
+    vcl-button
+    square
+    type="button"
+    tabindex="-1"
+    class="appended"
+    [disabled]="isDisabled">
     <vcl-icon icon="vcl:arrow-down"></vcl-icon>
   </button>
 </vcl-input-field>

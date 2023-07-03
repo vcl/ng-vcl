@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+
 import {
-  VCLFormFieldSchemaRoot,
   FormFieldControl,
   VCLFormFieldControlSchema,
   Conditional,
@@ -10,10 +10,10 @@ import {
   template: `
     <vcl-form-control-group *ngIf="field.visible">
       <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <demo-counter
+      <vcl-app-demo-counter
         [formControl]="field.control"
         [min]="field.params.min"
-        [max]="field.params.max"></demo-counter>
+        [max]="field.params.max"></vcl-app-demo-counter>
     </vcl-form-control-group>
   `,
 })

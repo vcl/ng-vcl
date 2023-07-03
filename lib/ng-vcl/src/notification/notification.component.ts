@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   HostBinding,
@@ -9,13 +10,15 @@ import {
   ContentChildren,
   QueryList,
   Self,
+  AfterContentInit,
 } from '@angular/core';
 import { NEVER, merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
 import { NOTIFICATION_TYPE_CLASS_MAP, NotificationType } from './types';
-import { NgClass } from '@angular/common';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-notification-title',
 })
 export class NotificationTitleDirective {
@@ -24,6 +27,7 @@ export class NotificationTitleDirective {
 }
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-notification-header',
 })
 export class NotificationHeaderDirective {
@@ -32,6 +36,7 @@ export class NotificationHeaderDirective {
 }
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-notification-footer',
 })
 export class NotificationFooterDirective {
@@ -55,12 +60,7 @@ export class NotificationFooterDirective {
     `,
   ],
 })
-export class NotificationComponent {
-  constructor(
-    @Self()
-    private ngClass: NgClass
-  ) {}
-
+export class NotificationComponent implements AfterContentInit {
   @HostBinding('class.notification')
   hostClasses = true;
 
@@ -84,6 +84,7 @@ export class NotificationComponent {
   showCloseButton?: Boolean = false;
 
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-native
   close = new EventEmitter();
 
   @ContentChildren(NotificationTitleDirective)
@@ -96,9 +97,10 @@ export class NotificationComponent {
     );
   }
 
-  onCloseClick() {
-    this.close.emit();
-  }
+  constructor(
+    @Self()
+    private readonly ngClass: NgClass
+  ) {}
 
   ngAfterContentInit(): void {
     merge(this.notificationTitle ? this.notificationTitle.changes : NEVER)
@@ -106,5 +108,9 @@ export class NotificationComponent {
       .subscribe(() => {
         this.hasTitle = this.notificationTitle.length > 0;
       });
+  }
+
+  onCloseClick() {
+    this.close.emit();
   }
 }

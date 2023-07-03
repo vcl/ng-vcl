@@ -1,33 +1,70 @@
 <div class="d-g-row">
   <div class="d-g-cell toolbar">
     <div class="flex row justify-between center" role="menubar">
-      <button vcl-button square class="transparent" type="button" (click)="onGoToPrevMonth()">
+      <button
+        vcl-button
+        square
+        class="transparent"
+        type="button"
+        (click)="onGoToPrevMonth()">
         <vcl-icon icon="vcl:arrow-left"></vcl-icon>
       </button>
-      <button vcl-button class="transparent cal-header-label" (click)="onLabelClick()">{{calendar.yearAndMonthLabel}}</button>
-      <button vcl-button square class="transparent" type="button" (click)="onGoToNextMonth()">
+      <button
+        vcl-button
+        class="transparent cal-header-label"
+        (click)="onLabelClick()">
+        {{ calendar.yearAndMonthLabel }}
+      </button>
+      <button
+        vcl-button
+        square
+        class="transparent"
+        type="button"
+        (click)="onGoToNextMonth()">
         <vcl-icon icon="vcl:arrow-right"></vcl-icon>
       </button>
     </div>
   </div>
 </div>
 <div class="d-g-row" role="row">
-  <div *ngIf="showWeekOfTheYear" class="d-g-cell weekday-label" role="columnheader">week</div>
-  <div *ngFor="let weekdayLabel of weekdayLabels" class="d-g-cell weekday-label" role="columnheader">{{weekdayLabel}}</div>
+  <div
+    *ngIf="showWeekOfTheYear"
+    class="d-g-cell weekday-label"
+    role="columnheader">
+    week
+  </div>
+  <div
+    *ngFor="let weekdayLabel of weekdayLabels"
+    class="d-g-cell weekday-label"
+    role="columnheader">
+    {{ weekdayLabel }}
+  </div>
 </div>
 <div class="d-g-row" role="row" *ngFor="let week of calendar.weeks">
-  <div *ngIf="showWeekOfTheYear" class="d-g-cell weekday-label" role="columnheader">{{week.weekOfTheYear}}</div>
-  <div *ngFor="let day of week.days" class="d-g-cell cal-item d0"
-                                [class.selected]="day.selected === true || day.selected === 'range'"
-                                [class.selected-alt]="day.selected === 'range-partial'"
-                                [class.selected-beg]="day.selected === 'range-start' || day.selected === 'range-start-end'"
-                                [class.selected-end]="day.selected === 'range-end' || day.selected === 'range-start-end'"
-                                [class.other-month]="!day.inMonth"
-                                [class.today]="day.isToday"
-                                [class.disabled]="day.disabled || disabled"
-                                [ngClass]="day.class"
-                                role="gridcell"
-                                tabindex="0"
-                                (click)="onSelectDay(day)"
-                                >{{day.label}}</div>
+  <div
+    *ngIf="showWeekOfTheYear"
+    class="d-g-cell weekday-label"
+    role="columnheader">
+    {{ week.weekOfTheYear }}
+  </div>
+  <div
+    *ngFor="let day of week.days"
+    class="d-g-cell cal-item d0"
+    [class.selected]="day.selected === true || day.selected === 'range'"
+    [class.selected-alt]="day.selected === 'range-partial'"
+    [class.selected-beg]="
+      day.selected === 'range-start' || day.selected === 'range-start-end'
+    "
+    [class.selected-end]="
+      day.selected === 'range-end' || day.selected === 'range-start-end'
+    "
+    [class.other-month]="!day.inMonth"
+    [class.today]="day.isToday"
+    [class.disabled]="day.disabled || disabled"
+    [ngClass]="day.class"
+    role="gridcell"
+    tabindex="0"
+    (click)="onSelectDay(day)">
+    {{ day.label }}
+  </div>
 </div>

@@ -16,6 +16,7 @@ export class IcogramComponent {
 }
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[vcl-a-icogram]',
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

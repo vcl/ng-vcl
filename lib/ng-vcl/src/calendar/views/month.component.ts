@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   OnInit,
 } from '@angular/core';
+
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import {
   VCLCalendarMonth,

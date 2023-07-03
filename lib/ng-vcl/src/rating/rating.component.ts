@@ -23,17 +23,19 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { map, debounceTime } from 'rxjs/operators';
+
+import {
+  FormControlGroupInputState,
+  FORM_CONTROL_GROUP_INPUT_STATE,
+} from '../form-control-group/index';
+
 import {
   RatingItemComponent,
   Rating,
   RATING_TOKEN,
 } from './rating-item.component';
-import {
-  FormControlGroupInputState,
-  FORM_CONTROL_GROUP_INPUT_STATE,
-} from '../form-control-group/index';
-import { Subject } from 'rxjs';
-import { map, debounceTime } from 'rxjs/operators';
 
 let UNIQUE_ID = 0;
 
@@ -75,8 +77,6 @@ export class RatingComponent
     Rating,
     FormControlGroupInputState
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
-
   private cvaDisabled = false;
   private generatedId = 'vcl_rating_' + UNIQUE_ID++;
   private stateChangedEmitter = new Subject<void>();
@@ -229,6 +229,11 @@ export class RatingComponent
     this.sync();
   }
 
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly injector: Injector
+  ) {}
+
   onRatingItemHover(item: RatingItemComponent) {
     if (this.isDisabled || this.readonly) {
       return;
@@ -298,7 +303,7 @@ export class RatingComponent
     this.labelChangeEmitter.complete();
   }
 
-  onRatingItemFocus(item: RatingItemComponent): void {
+  onRatingItemFocus(_: RatingItemComponent): void {
     this.stateChangedEmitter.next();
   }
 

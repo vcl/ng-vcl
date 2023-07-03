@@ -13,10 +13,10 @@
 <h2>With label</h2>
 
 <label class="form-control-label" for="vInputEx1">
-  Rating: {{rating1.labelChange | async}}
+  Rating: {{ rating1.labelChange | async }}
 </label>
 <vcl-rating [value]="2" #rating1="vclRating">
-  <vcl-rating-item><span style="color: red">Bad</span></vcl-rating-item> 
+  <vcl-rating-item><span style="color: red">Bad</span></vcl-rating-item>
   <vcl-rating-item><span style="color: orange">Average</span></vcl-rating-item>
   <vcl-rating-item><span style="color: green">Good</span></vcl-rating-item>
 </vcl-rating>
@@ -27,10 +27,14 @@
   Rating: <vcl-rating-item-label [target]="rating2"></vcl-rating-item-label>
 </label>
 <vcl-rating [value]="2" #rating2="vclRating">
-  <vcl-rating-item><span style="color: red">Bad</span></vcl-rating-item> 
+  <vcl-rating-item><span style="color: red">Bad</span></vcl-rating-item>
   <vcl-rating-item><span style="color: orange">Average</span></vcl-rating-item>
   <vcl-rating-item><span style="color: green">Good</span></vcl-rating-item>
 </vcl-rating>
 
 <h2>Custom Icons</h2>
-<vcl-rating ratingFullIcon="fas fa-battery-full" ratingHalfIcon="fas fa-battery-half" ratingEmptyIcon="fas fa-battery-empty" [value]="2.5"></vcl-rating>
+<vcl-rating
+  ratingFullIcon="fas fa-battery-full"
+  ratingHalfIcon="fas fa-battery-half"
+  ratingEmptyIcon="fas fa-battery-empty"
+  [value]="2.5"></vcl-rating>

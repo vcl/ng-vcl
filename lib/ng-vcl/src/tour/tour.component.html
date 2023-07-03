@@ -1,13 +1,10 @@
-<ng-template 
+<ng-template
   vclPopover
   #popover="vclPopover"
   [visible]="visible"
   [target]="target"
-  [positions]="positions"
-  >
-
+  [positions]="positions">
   <div class="tour-container">
-
     <div class="tour-container-header" *ngIf="title">
       {{ title }}
     </div>
@@ -17,31 +14,47 @@
     </div>
 
     <div class="tour-container-footer gutterx-3">
-      
-      <button vcl-button type="button" *ngIf="hasPrevious"
+      <button
+        vcl-button
+        type="button"
+        *ngIf="hasPrevious"
         [ngClass]="tour.options?.buttonClass"
         (click)="previous()">
         <vcl-icogram>
-          {{tour.options?.previousLabel}}
-          <vcl-icon vclPrepend *ngIf="tour.options?.previousIcon" [icon]="tour.options?.previousIcon"></vcl-icon>
+          {{ tour.options?.previousLabel }}
+          <vcl-icon
+            vclPrepend
+            *ngIf="tour.options?.previousIcon"
+            [icon]="tour.options?.previousIcon"></vcl-icon>
         </vcl-icogram>
       </button>
 
-      <button vcl-button type="button" *ngIf="hasNext"
+      <button
+        vcl-button
+        type="button"
+        *ngIf="hasNext"
         [ngClass]="tour.options?.buttonClass"
         (click)="next()">
         <vcl-icogram>
-          {{tour.options?.nextLabel}}
-          <vcl-icon vclAppend *ngIf="tour.options?.nextIcon" [icon]="tour.options?.nextIcon"></vcl-icon>
+          {{ tour.options?.nextLabel }}
+          <vcl-icon
+            vclAppend
+            *ngIf="tour.options?.nextIcon"
+            [icon]="tour.options?.nextIcon"></vcl-icon>
         </vcl-icogram>
       </button>
 
-      <button vcl-button type="button"
+      <button
+        vcl-button
+        type="button"
         [ngClass]="tour.options?.buttonClass"
         (click)="exit()">
         <vcl-icogram>
-          <vcl-icon vclPrepend *ngIf="tour.options?.exitIcon" [icon]="tour.options?.exitIcon"></vcl-icon>
-          {{tour.options?.exitLabel}}
+          <vcl-icon
+            vclPrepend
+            *ngIf="tour.options?.exitIcon"
+            [icon]="tour.options?.exitIcon"></vcl-icon>
+          {{ tour.options?.exitLabel }}
         </vcl-icogram>
       </button>
     </div>

@@ -55,13 +55,13 @@ export class AppComponent {}
 
 #### vcl-navigation attributes
 
-| Name                     | Type                           | Default        | Description                                    |
-| ------------------------ | -----------                    | --------       |----------------------------------------------- |
-| `layout`                 | 'horizontal' \| 'vertical'     | 'horizontal'   | 
+| Name     | Type                       | Default      | Description |
+| -------- | -------------------------- | ------------ | ----------- |
+| `layout` | 'horizontal' \| 'vertical' | 'horizontal' |
 
 #### vcl-navigation-item attributes
 
-| Name                     | Type        | Default  | Description                                    |
-| ------------------------ | ----------- | -------- |----------------------------------------------- |
-| `opened`                 | boolean     | false    | if true and nested this opens the subitems     |
-| `selected`               | boolean     | false    | Wether the item is selected                    |
+| Name       | Type    | Default | Description                                |
+| ---------- | ------- | ------- | ------------------------------------------ |
+| `opened`   | boolean | false   | if true and nested this opens the subitems |
+| `selected` | boolean | false   | Wether the item is selected                |

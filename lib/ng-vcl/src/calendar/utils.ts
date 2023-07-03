@@ -1,4 +1,5 @@
 import { DateAdapterBase, VCLDateRange } from '../dateadapter/index';
+
 import { VCLCalendarSelection } from './interfaces';
 
 export function compare<VCLDate>(

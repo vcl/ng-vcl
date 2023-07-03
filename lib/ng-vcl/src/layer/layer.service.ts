@@ -1,12 +1,13 @@
+import { ComponentType } from '@angular/cdk/portal';
 import {
   Injectable,
   Injector,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
-import { LayerConfig, LayerData } from './types';
+
 import { ComponentLayerRef, LayerRef, TemplateLayerRef } from './layer-ref';
+import { LayerConfig, LayerData } from './types';
 
 @Injectable({
   providedIn: 'root',

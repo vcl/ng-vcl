@@ -9,6 +9,7 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
 } from '@angular/core';
+
 import { NAVIGATION_TOKEN, Navigation } from './types';
 
 @Component({

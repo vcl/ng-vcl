@@ -1,8 +1,9 @@
-import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { NotifierOptions } from './types';
-import { NotifierService } from './notifier.service';
+import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
+
 import { NotifierOverlayRef } from './notifier-overlay-ref';
+import { NotifierService } from './notifier.service';
+import { NotifierOptions } from './types';
 
 export interface NotifierDirectiveContext {
   content?: string;

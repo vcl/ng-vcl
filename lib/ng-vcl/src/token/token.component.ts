@@ -13,6 +13,7 @@ import {
   Optional,
   ElementRef,
 } from '@angular/core';
+
 import { TokenObserver, Token } from './interfaces';
 
 export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>(
@@ -27,12 +28,12 @@ export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>(
 })
 export class TokenComponent implements Token {
   constructor(
-    private cdRef: ChangeDetectorRef,
-    private elementRef: ElementRef<HTMLElement>,
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly elementRef: ElementRef<HTMLElement>,
     @SkipSelf()
     @Optional()
     @Inject(TOKEN_OBSERVER_TOKEN)
-    private observer?: TokenObserver
+    private readonly observer?: TokenObserver
   ) {}
 
   @HostBinding('class.token')
@@ -43,13 +44,13 @@ export class TokenComponent implements Token {
   @Input()
   tabindex = 0;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('label')
   _label?: string;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('value')
-  _value?: any;
+  _value?: unknown;
 
   set label(label: string) {
     this._label = label;
@@ -91,12 +92,12 @@ export class TokenComponent implements Token {
   private cvaDisabled = false;
 
   @HostListener('blur', ['$event'])
-  onBlur(e: Event) {
+  onBlur(_: Event) {
     this.observer && this.observer.notifyTokenBlur(this);
   }
 
   @HostListener('click', ['$event'])
-  onClick(e: Event) {
+  onClick(_: Event) {
     if (this.isDisabled || !this.selectable) {
       return;
     }

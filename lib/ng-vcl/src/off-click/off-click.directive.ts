@@ -1,4 +1,4 @@
-// tslint:disable:no-input-rename
+import { DOCUMENT } from '@angular/common';
 import {
   EventEmitter,
   Output,
@@ -21,18 +21,12 @@ import {
   Subscription,
 } from 'rxjs';
 import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[vclOffClick]',
   exportAs: 'vclOffClick',
 })
 export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
-  constructor(
-    @Inject(DOCUMENT) private document: any,
-    private elementRef: ElementRef
-  ) {}
-
   changes$ = new Subject();
   _sub?: Subscription;
 
@@ -47,6 +41,12 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
 
   @Output('vclOffClick')
   offClick = new EventEmitter<MouseEvent | TouchEvent>();
+
+  constructor(
+    @Inject(DOCUMENT)
+    private readonly document: Document,
+    private readonly elementRef: ElementRef
+  ) {}
 
   ngAfterViewInit(): void {
     this._sub = this.changes$
@@ -67,9 +67,10 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
     this.changes$.next(undefined);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_: SimpleChanges): void {
     this.changes$.next(undefined);
   }
+
   ngOnDestroy() {
     this._sub && this._sub.unsubscribe();
   }

@@ -8,7 +8,9 @@ import {
   HostBinding,
 } from '@angular/core';
 import { Subscription, from } from 'rxjs';
+
 import { LayerRef } from '../layer/index';
+
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 
 @Component({

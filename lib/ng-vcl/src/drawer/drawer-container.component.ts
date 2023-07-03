@@ -17,6 +17,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
 import { DrawerComponent } from './drawer.component';
 import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
 

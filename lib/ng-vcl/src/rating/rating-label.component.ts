@@ -1,3 +1,4 @@
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   Input,
   Component,
@@ -6,9 +7,9 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
 } from '@angular/core';
-import { RatingComponent } from './rating.component';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
+
+import { RatingComponent } from './rating.component';
 
 @Component({
   selector: 'vcl-rating-item-label',

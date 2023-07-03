@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  ViewEncapsulation,
-  ViewChild,
-  TemplateRef,
-} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   templateUrl: 'demo.component.html',

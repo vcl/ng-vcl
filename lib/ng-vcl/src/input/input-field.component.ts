@@ -8,13 +8,14 @@ import {
   forwardRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import { InputDirective } from './input.directive';
-import { TextareaDirective } from './textarea.directive';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+
 import {
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
 } from './embedded-label.directive';
+import { InputDirective } from './input.directive';
+import { TextareaDirective } from './textarea.directive';
 
 @Component({
   selector: 'vcl-input-field',
@@ -35,8 +36,6 @@ import {
 export class InputFieldComponent
   implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput
 {
-  constructor(private cdRef: ChangeDetectorRef) {}
-
   private stateChangedEmitter = new Subject<void>();
 
   stateChanged = this.stateChangedEmitter.asObservable();
@@ -66,6 +65,8 @@ export class InputFieldComponent
   isLabelFloating = false;
   prependedElements = 0;
 
+  constructor(private readonly cdRef: ChangeDetectorRef) {}
+
   ngAfterContentInit(): void {
     this.input?.stateChanged.subscribe(() => {
       this.updateState();
@@ -74,6 +75,10 @@ export class InputFieldComponent
       this.stateChangedEmitter.next();
     });
     this.updateState();
+  }
+
+  ngOnDestroy(): void {
+    this.stateChangedEmitter.complete();
   }
 
   updateState() {
@@ -90,9 +95,5 @@ export class InputFieldComponent
       }
       this.prependedElements = prependedElements;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.stateChangedEmitter.complete();
   }
 }

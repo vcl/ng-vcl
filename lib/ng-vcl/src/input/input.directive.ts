@@ -7,13 +7,15 @@ import {
   forwardRef,
   OnDestroy,
   Injector,
+  OnInit,
 } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
+
 import {
   FORM_CONTROL_GROUP_INPUT_STATE,
   FormControlGroupInputState,
 } from '../form-control-group/index';
-import { NgControl } from '@angular/forms';
 
 export let UNIQUE_ID = 0;
 
@@ -28,13 +30,8 @@ export let UNIQUE_ID = 0;
   ],
 })
 export class InputDirective
-  implements OnDestroy, FormControlGroupInputState<string>
+  implements OnInit, OnDestroy, FormControlGroupInputState<string>
 {
-  constructor(
-    public elementRef: ElementRef<HTMLInputElement>,
-    private injector: Injector
-  ) {}
-
   private uniqueId = 'vcl_input_' + UNIQUE_ID++;
 
   private _disabled = false;
@@ -84,13 +81,6 @@ export class InputDirective
     return this.isDisabled ? true : null;
   }
 
-  ngOnInit() {
-    const ngControl = this.ngControl;
-    if (ngControl && ngControl.valueChanges) {
-      this.ngControl.valueChanges.subscribe(this.stateChangedEmitter);
-    }
-  }
-
   focus() {
     this.elementRef.nativeElement.focus();
   }
@@ -112,7 +102,7 @@ export class InputDirective
     this.stateChangedEmitter.next();
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(_: Event): void {
     this.focus();
   }
 
@@ -133,15 +123,27 @@ export class InputDirective
     this.stateChangedEmitter.next();
   }
 
-  ngOnDestroy() {
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
-  }
-
   @HostListener('input')
   @HostListener('change')
   @HostListener('ngModelChange')
   onInput() {
     this.stateChangedEmitter.next();
+  }
+
+  constructor(
+    public elementRef: ElementRef<HTMLInputElement>,
+    private readonly injector: Injector
+  ) {}
+
+  ngOnInit() {
+    const ngControl = this.ngControl;
+    if (ngControl && ngControl.valueChanges) {
+      this.ngControl.valueChanges.subscribe(this.stateChangedEmitter);
+    }
+  }
+
+  ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
   }
 
   setDisabledState(isDisabled: boolean) {

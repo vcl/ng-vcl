@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLOffClickModule } from '../off-click/index';
-import { PopoverDirective } from './popover.directive';
+import { NgModule } from '@angular/core';
+
 import { VCLLayerModule } from '../layer/index';
+import { VCLOffClickModule } from '../off-click/index';
+
+import { PopoverDirective } from './popover.directive';
 
 export { PopoverDirective };
 

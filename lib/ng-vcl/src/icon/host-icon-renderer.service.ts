@@ -1,4 +1,5 @@
 import { ElementRef, Renderer2, Injectable } from '@angular/core';
+
 import { IconService } from './icon.service';
 
 @Injectable()

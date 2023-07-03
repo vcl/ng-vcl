@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
 import {
   VCLJssFormModule,
   VCLNotifierModule,
@@ -12,10 +13,13 @@ import {
   VCLRadioButtonModule,
   VCLFlipSwitchModule,
 } from '@vcl/ng-vcl';
+
+import { VCLCounterModule } from '../form-control-group/counter.component';
+
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { JssFormDemoComponent, SampleEmptyComponent } from './demo.component';
 import { FormFieldCounterComponent } from './jss-form-extended';
-import { VCLCounterModule } from '../form-control-group/counter.component';
+
 import README from '!raw-loader!@vcl/ng-vcl/jss-form/README.md';
 
 // Register counter component as field

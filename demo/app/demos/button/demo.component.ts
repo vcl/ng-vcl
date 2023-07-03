@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['demo.component.scss'],
 })
 export class ButtonDemoComponent {
-  someAction(param) {
+  someAction(param: string) {
     console.log('Action handler, param:', param);
   }
 }

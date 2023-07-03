@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { VCLCoreLabelModule } from '../core/index';
-import { FormDirective } from './form.directive';
+
 import { FormControlGroupComponent } from './form-control-group.component';
+import { FormDirective } from './form.directive';
 import {
   FormControlHintComponent,
   FormControlHintErrorComponent,

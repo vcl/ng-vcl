@@ -12,7 +12,11 @@
   <vcl-navigation-item #products="vclNavigationItem">
     <vcl-navigation-label>
       <vcl-icogram>
-        <vcl-icon vclPrepend [icon]="products.opened ? 'fas:chevron-down' : 'fas:chevron-right'"></vcl-icon>
+        <vcl-icon
+          vclPrepend
+          [icon]="
+            products.opened ? 'fas:chevron-down' : 'fas:chevron-right'
+          "></vcl-icon>
         Products
       </vcl-icogram>
     </vcl-navigation-label>
@@ -38,7 +42,11 @@
   <vcl-navigation-item #contact="vclNavigationItem">
     <vcl-navigation-label>
       <vcl-icogram>
-        <vcl-icon vclPrepend [icon]="contact.opened ? 'fas:chevron-down' : 'fas:chevron-right'"></vcl-icon>
+        <vcl-icon
+          vclPrepend
+          [icon]="
+            contact.opened ? 'fas:chevron-down' : 'fas:chevron-right'
+          "></vcl-icon>
         Contact
       </vcl-icogram>
     </vcl-navigation-label>
@@ -59,7 +67,7 @@
           </vcl-icogram>
         </vcl-navigation-label>
       </vcl-navigation-item>
-    </vcl-navigation>    
+    </vcl-navigation>
   </vcl-navigation-item>
 </vcl-navigation>
 
@@ -91,4 +99,3 @@
     </vcl-navigation-label>
   </vcl-navigation-item>
 </vcl-navigation>
-  

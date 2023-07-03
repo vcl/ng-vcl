@@ -14,12 +14,12 @@ import {
   ChangeDetectionStrategy,
   HostBinding,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
 import { TokenObserver, Token } from './interfaces';
+import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
 
 @Component({
   selector: 'vcl-token-list',
@@ -71,27 +71,26 @@ export class TokenListComponent
   tokensChange = new EventEmitter();
 
   @Input()
-  value: any[] = [];
+  value: Token[] = [];
 
   get isDisabled() {
     return this.disabled || this.cvaDisabled;
   }
 
-  private onChangeCallback = _value => {};
-  private onTouchedCallback = () => {};
+  private onChangeCallback: (value: Token[]) => void = () => {};
+  private onTouchedCallback: () => void = () => {};
 
   private syncTokens() {
     let value = this.value;
     if (!Array.isArray(value)) {
       value = [];
     }
-    this.tokens &&
-      this.tokens.forEach(token => {
-        token.selected = value.includes(token.value);
-        token.selectable = this.selectable;
-        token.removable = this.removable;
-        token.setDisabledState(this.isDisabled);
-      });
+    this.tokens?.forEach((token: Token) => {
+      token.selected = value.includes(token.value);
+      token.selectable = this.selectable;
+      token.removable = this.removable;
+      token.setDisabledState(this.isDisabled);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -100,15 +99,15 @@ export class TokenListComponent
     }
   }
 
-  notifyTokenRemove(token: Token): void {
+  notifyTokenRemove(_: Token): void {
     // this.value = this.tokens.filter(t => t !== token).map(t => t.value);
     this.syncTokens();
   }
 
-  notifyTokenSelect(token: Token): void {
-    this.value = this.tokens
-      ? this.tokens.filter(t => t.selected).map(t => t.value)
-      : [];
+  notifyTokenSelect(_: Token): void {
+    this.value = (
+      this.tokens ? this.tokens.filter(t => t.selected).map(t => t.value) : []
+    ) as Token[];
     this.syncTokens();
     this.onChangeCallback(this.value);
   }
@@ -120,11 +119,9 @@ export class TokenListComponent
   }
 
   ngAfterContentInit() {
-    this.tokenSub =
-      this.tokens &&
-      this.tokens.changes.pipe(startWith(null)).subscribe(() => {
-        this.syncTokens();
-      });
+    this.tokenSub = this.tokens?.changes.pipe(startWith(null)).subscribe(() => {
+      this.syncTokens();
+    });
   }
 
   ngOnDestroy() {
@@ -132,7 +129,7 @@ export class TokenListComponent
   }
 
   dispose() {
-    this.tokenSub && this.tokenSub.unsubscribe();
+    this.tokenSub?.unsubscribe();
   }
 
   writeValue(value: any): void {

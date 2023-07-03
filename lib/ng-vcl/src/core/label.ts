@@ -1,12 +1,10 @@
-// import { Input, HostBinding, HostListener, Inject, Optional, ElementRef, Directive, ChangeDetectorRef, InjectionToken, OnInit, OnDestroy, NgModule, Injectable } from '@angular/core';
-// import { Observable, Subscription } from 'rxjs';
-
 import { NgModule, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({ selector: 'vcl-label, [vclLabel]' })
 export class LabelDirective {
-  constructor(protected elementRef: ElementRef<HTMLElement>) {}
+  constructor(protected readonly elementRef: ElementRef<HTMLElement>) {}
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('label')
   _label?: string;
 
@@ -21,6 +19,7 @@ export class SubLabelDirective extends LabelDirective {
     super(elementRef);
   }
 }
+
 @NgModule({
   exports: [LabelDirective, SubLabelDirective],
   declarations: [LabelDirective, SubLabelDirective],

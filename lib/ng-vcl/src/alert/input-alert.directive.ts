@@ -8,6 +8,7 @@ import {
   Directive,
   HostBinding,
 } from '@angular/core';
+
 import { AlertOptions, AlertInput } from './types';
 
 // TODO: support text, password, textarea, select, radio, checkbox file.

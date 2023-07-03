@@ -1,6 +1,20 @@
-<div style="min-height:500px; width: 100%;">
-  <button vcl-button [selectable]="true" [selected]="popover1.visible" (click)="popover1.toggle()">Toggle Popover</button>
-  <div #target style="position: absolute; top: 300px; left: 200px; padding: 10px; border: 3px double green">
+<div style="min-height: 500px; width: 100%">
+  <button
+    vcl-button
+    [selectable]="true"
+    [selected]="popover1.visible"
+    (click)="popover1.toggle()">
+    Toggle Popover
+  </button>
+  <div
+    #target
+    style="
+      position: absolute;
+      top: 300px;
+      left: 200px;
+      padding: 10px;
+      border: 3px double green;
+    ">
     The target
   </div>
 </div>
@@ -11,10 +25,12 @@
   [target]="target"
   (afterClose)="popover2.close()">
   <div style="width: 400px">
-    Popover is connected to the target <br>
-    <button vcl-button (click)="popover2.open()">Show additional Popover</button>
+    Popover is connected to the target <br />
+    <button vcl-button (click)="popover2.open()">
+      Show additional Popover
+    </button>
     &nbsp;
-    <button vcl-button (click)="popover1.close();">Close Popovers</button>
+    <button vcl-button (click)="popover1.close()">Close Popovers</button>
   </div>
 </ng-template>
 
@@ -23,13 +39,15 @@
   #popover2="vclPopover"
   [closeOnOffClick]="true"
   [target]="target"
-  [positions]="[{
-    originX: 'start',
-    originY: 'top',
-    overlayX: 'start',
-    overlayY: 'bottom'
-  }]">
-  <div style="width: 300px; height: 50px;">
-      Popover is connected to the target<br>
+  [positions]="[
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'bottom'
+    }
+  ]">
+  <div style="width: 300px; height: 50px">
+    Popover is connected to the target<br />
   </div>
 </ng-template>

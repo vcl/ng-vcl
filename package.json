@@ -1,6 +1,6 @@
 {
   "name": "ng-vcl",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "private": true,
   "scripts": {
     "ng": "ng",
@@ -19,7 +19,6 @@
     "format": "prettier --write \"**/*.ts\"",
     "test": "ng test @vcl/ng-vcl --watch=false",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "build:clean": "rimraf dist/ng-vcl",
     "build:ng-vcl": "ng build @vcl/ng-vcl",
     "build": "npm-run-all build:clean build:ng-vcl",
@@ -27,7 +26,8 @@
     "markdownlint": "markdownlint -c markdownlint.json lib/",
     "publish": "cd dist/ng-vcl && npm publish",
     "publish:next": "cd dist/ng-vcl && npm publish --tag next",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@angular/animations": "^15.2.9",
@@ -60,18 +60,27 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.8",
     "@angular-devkit/core": "^15.2.8",
+    "@angular-eslint/builder": "15.2.1",
+    "@angular-eslint/eslint-plugin": "15.2.1",
+    "@angular-eslint/eslint-plugin-template": "15.2.1",
+    "@angular-eslint/schematics": "15.2.1",
+    "@angular-eslint/template-parser": "15.2.1",
     "@angular/cli": "^15.2.8",
     "@angular/compiler-cli": "^15.2.9",
     "@angular/language-service": "^15.2.9",
     "@types/jasmine": "^4.3.1",
     "@types/jasminewd2": "~2.0.10",
     "@types/node": "^18.14.0",
-    "codelyzer": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "5.48.2",
+    "@typescript-eslint/parser": "5.48.2",
     "conventional-changelog-cli": "^2.2.2",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
     "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.33.0",
+    "eslint-plugin-import": "^2.27.5",
     "git-directory-deploy": "^1.5.1",
+    "husky": "^8.0.3",
     "jasmine-core": "^4.3.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "^6.4.0",
@@ -82,10 +91,10 @@
     "lerna": "^6.5.1",
     "ng-packagr": "^15.1.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.4",
+    "prettier": "^2.8.8",
+    "pretty-quick": "^3.1.3",
     "protractor": "^7.0.0",
     "ts-node": "^10.9.1",
-    "tslint": "^6.1.3",
     "typescript": "^4.8.2",
     "webpack": "^5.74.0"
   },
@@ -93,5 +102,12 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "{demo,lib}/**/*.{ts,tsx,js,jsx,html}": [
+      "echo \"[Husky] code pre-commit\"",
+      "pretty-quick --staged",
+      "eslint --max-warnings=0"
+    ]
   }
 }

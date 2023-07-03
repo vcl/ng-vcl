@@ -32,7 +32,7 @@ A layer reference can be created via the `vcl-layer` component or with the `Laye
 
 #### Component layer (ComponentLayerRef)
 
-Any component can inject the ComponentLayerRef class. 
+Any component can inject the ComponentLayerRef class.
 It will be available if the component is opened via the layer service
 
 ```ts
@@ -88,8 +88,14 @@ export interface Layer {
 }
 
 class LayerService {
-  create(component: ComponentType<TComponent>, config?: LayerConfig): ComponentLayerRef;
-  open(component: ComponentType<TComponent>, config?: LayerConfig): ComponentLayerRef;
+  create(
+    component: ComponentType<TComponent>,
+    config?: LayerConfig
+  ): ComponentLayerRef;
+  open(
+    component: ComponentType<TComponent>,
+    config?: LayerConfig
+  ): ComponentLayerRef;
 }
 
 export class LayerConfig<TData = any> extends OverlayConfig {
@@ -97,13 +103,12 @@ export class LayerConfig<TData = any> extends OverlayConfig {
   closeOnBackdropClick?: boolean;
   closeOnEscape?: boolean;
 }
-
 ```
 
 #### vcl-layer attributes
 
-| Name                   | Type                 | Default  | Description
-| ------------           | -----------          | -------- |--------------
-| `closeOnBackdropClick` | boolean              | true     | Wether a the layer should close when clicked outside
-| `closeOnEscape`        | boolean              | true     | Wether a the layer should close when escape is pressed
-| `position`             | PositionStrategy     |          | 
+| Name                   | Type             | Default | Description                                            |
+| ---------------------- | ---------------- | ------- | ------------------------------------------------------ |
+| `closeOnBackdropClick` | boolean          | true    | Wether a the layer should close when clicked outside   |
+| `closeOnEscape`        | boolean          | true    | Wether a the layer should close when escape is pressed |
+| `position`             | PositionStrategy |         |

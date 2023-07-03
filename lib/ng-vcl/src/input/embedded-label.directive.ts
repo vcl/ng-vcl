@@ -8,6 +8,7 @@ import {
   InjectionToken,
   ContentChild,
   AfterContentInit,
+  AfterViewInit,
 } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
@@ -45,28 +46,16 @@ export class EmbeddedInputFieldLabelConfig {
 }
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'vcl-form-control-group',
   exportAs: 'vclEmbeddedInputFieldLabel',
 })
-export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
-  constructor(
-    @Optional()
-    @SkipSelf()
-    config: EmbeddedInputFieldLabelConfig,
-    private cdRef: ChangeDetectorRef
-  ) {
-    if (config) {
-      this.globalMode = config.mode;
-      config.modeChange.subscribe(m => {
-        this.globalMode = m;
-        this.cdRef.markForCheck();
-      });
-    }
-  }
-
+export class EmbeddedInputFieldLabelDirective
+  implements AfterContentInit, AfterViewInit
+{
   globalMode: EmbeddedInputFieldLabelMode;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('vclEmbeddedInputFieldLabelMode')
   localMode: EmbeddedInputFieldLabelMode;
 
@@ -105,6 +94,30 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   @HostBinding('style.--floating-label-padding')
   labelOffSet = '0em';
 
+  constructor(
+    @Optional()
+    @SkipSelf()
+    config: EmbeddedInputFieldLabelConfig,
+    private readonly cdRef: ChangeDetectorRef
+  ) {
+    if (config) {
+      this.globalMode = config.mode;
+      config.modeChange.subscribe(m => {
+        this.globalMode = m;
+        this.cdRef.markForCheck();
+      });
+    }
+  }
+
+  ngAfterContentInit() {
+    this.updateState();
+    if (this.enabled) {
+      this.inputField?.stateChanged.subscribe(() => {
+        this.updateState();
+      });
+    }
+  }
+
   ngAfterViewInit() {
     // This workaround disables animations for initial rendering.
     // An initial value provided via ngModel triggers a floating state update shortly after the element is rendered into the DOM
@@ -124,15 +137,6 @@ export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
       if (this.prependedElements === 0) {
         this.labelOffSet = '0.6em';
       }
-    }
-  }
-
-  ngAfterContentInit() {
-    this.updateState();
-    if (this.enabled) {
-      this.inputField?.stateChanged.subscribe(() => {
-        this.updateState();
-      });
     }
   }
 }

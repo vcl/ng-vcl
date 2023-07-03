@@ -18,12 +18,14 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { accept } from './accept';
+import { Subject } from 'rxjs';
+
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { Subject } from 'rxjs';
+
+import { accept } from './accept';
 
 let UNIQUE_ID = 0;
 
@@ -47,8 +49,6 @@ let UNIQUE_ID = 0;
 export class FileInputComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
-
   @HostBinding('class.input')
   @HostBinding('class.file-input')
   _hostClasses = true;
@@ -143,7 +143,7 @@ export class FileInputComponent
     this.onTouched();
   }
 
-  onLabelClick(event: Event): void {
+  onLabelClick(_: Event): void {
     if (this.disabled) {
       return;
     }
@@ -183,7 +183,7 @@ export class FileInputComponent
   }
 
   @HostListener('click', ['$event.target.value'])
-  onClick(value) {
+  onClick() {
     if (this.disabled) {
       return;
     }
@@ -221,6 +221,21 @@ export class FileInputComponent
     this.onTouched();
   }
 
+  /**
+   * things needed for ControlValueAccessor-Interface
+   */
+  private onChange: (_: any) => void = () => {};
+  private onTouched: () => any = () => {};
+
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly injector: Injector
+  ) {}
+
+  ngOnDestroy() {
+    this.stateChangedEmitter && this.stateChangedEmitter.complete();
+  }
+
   updateFiles(files: FileList) {
     if (files instanceof FileList) {
       let name = files[0].name;
@@ -235,16 +250,6 @@ export class FileInputComponent
       this.onChange(files);
     }
   }
-
-  ngOnDestroy() {
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
-  }
-
-  /**
-   * things needed for ControlValueAccessor-Interface
-   */
-  private onChange: (_: any) => void = () => {};
-  private onTouched: () => any = () => {};
 
   writeValue(files: FileList): void {
     this.value = files;

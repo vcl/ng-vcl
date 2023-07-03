@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { TourService, TourOptions } from '@vcl/ng-vcl';
+
+import { TourService } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',

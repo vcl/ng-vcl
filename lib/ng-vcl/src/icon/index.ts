@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IconComponent } from './icon.component';
-import { IconResolverService } from './icon-resolver.service';
-import { IconService } from './icon.service';
+import { NgModule } from '@angular/core';
+
 import { HostIconRendererService } from './host-icon-renderer.service';
 import {
   IconAliasResolverServiceBase,
   VCLIconAliasMap,
 } from './icon-alias-resolver.service';
+import { IconResolverService } from './icon-resolver.service';
+import { IconComponent } from './icon.component';
+import { IconService } from './icon.service';
 
 export {
   IconComponent,

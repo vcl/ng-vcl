@@ -1,6 +1,6 @@
+import { Portal } from '@angular/cdk/portal';
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Portal } from '@angular/cdk/portal';
 
 export type TooltipPosition = 'left' | 'right' | 'top' | 'bottom';
 export type TooltipPositions = TooltipPosition | [TooltipPosition];

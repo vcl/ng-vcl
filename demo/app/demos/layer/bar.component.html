@@ -1,6 +1,18 @@
 <vcl-panel-dialog [showCloseButton]="true" (close)="close()">
-  <vcl-panel-title>{{title}}</vcl-panel-title>
+  <vcl-panel-title>{{ title }}</vcl-panel-title>
   bar layer content
-  <button vcl-button vclPanelFooterButton class="transparent outline" (click)="close()">Close Layer</button>
-  <button vcl-button vclPanelFooterButton class="emphasized" (click)="close('data')">Close Layer with result</button>
+  <button
+    vcl-button
+    vclPanelFooterButton
+    class="transparent outline"
+    (click)="close()">
+    Close Layer
+  </button>
+  <button
+    vcl-button
+    vclPanelFooterButton
+    class="emphasized"
+    (click)="close('data')">
+    Close Layer with result
+  </button>
 </vcl-panel-dialog>

@@ -2,15 +2,15 @@ import {
   AfterViewInit,
   Component,
   Directive,
-  ElementRef,
-  OnInit,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+
 import {
   VCLFormFieldSchemaSelect,
   VCLFormFieldSchemaSelectParams,
 } from '../schemas';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldSelect extends FormFieldControl<

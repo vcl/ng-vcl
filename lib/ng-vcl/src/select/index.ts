@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { VCLIconModule } from '../icon/index';
 import { VCLButtonModule } from '../button/index';
-import { VCLInputModule } from '../input/index';
-import { VCLIcogramModule } from '../icogram/index';
-import { VCLSelectListModule } from '../select-list/index';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
+import { VCLIcogramModule } from '../icogram/index';
+import { VCLIconModule } from '../icon/index';
+import { VCLInputModule } from '../input/index';
 import { VCLOffClickModule } from '../off-click';
+import { VCLSelectListModule } from '../select-list/index';
 
 import { SelectComponent } from './select.component';
 

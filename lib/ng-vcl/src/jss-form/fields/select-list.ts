@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+
 import {
   VCLFormFieldSchemaSelect,
   VCLFormFieldSchemaSelectParams,
 } from '../schemas';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldSelectList extends FormFieldControl<

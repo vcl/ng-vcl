@@ -1,26 +1,34 @@
 <h3>single tokens</h3>
 <vcl-token>my token</vcl-token>
 <vcl-token [selected]="true">my selected token</vcl-token>
-<vcl-token [removable]="true" (remove)="onRemove($event)">my removable token</vcl-token>
-<vcl-token [removable]="true" (remove)="onRemove($event)">my icon token</vcl-token>
-<br/>
+<vcl-token [removable]="true" (remove)="onRemove($event)"
+  >my removable token</vcl-token
+>
+<vcl-token [removable]="true" (remove)="onRemove($event)"
+  >my icon token</vcl-token
+>
+<br />
 
 <h3>token-list</h3>
-<vcl-token-list [value]="[1]" (valueChange)="onListChange($event);">
+<vcl-token-list [value]="[1]" (valueChange)="onListChange($event)">
   <vcl-token [value]="1">my token 1</vcl-token>
   <vcl-token [value]="2">my token 2</vcl-token>
 </vcl-token-list>
-<br/>
+<br />
 
 <h3>selectable and removable tokenlist</h3>
-<vcl-token-list [value]="[1]" [selectable]="true" [removable]="true" (valueChange)="onListChange($event);">
+<vcl-token-list
+  [value]="[1]"
+  [selectable]="true"
+  [removable]="true"
+  (valueChange)="onListChange($event)">
   <vcl-token [value]="1">my token 1</vcl-token>
   <vcl-token [value]="2">my token 2</vcl-token>
 </vcl-token-list>
-<br/>
+<br />
 
 <h3>token-input</h3>
-<vcl-token-input (valueChange)="onInputChange($event);"></vcl-token-input>
+<vcl-token-input (valueChange)="onInputChange($event)"></vcl-token-input>
 
 <h3>token-input (disabled)</h3>
 <vcl-token-input [disabled]="true"></vcl-token-input>

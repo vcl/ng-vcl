@@ -1,5 +1,6 @@
-import { FormControlGroupForm } from './interfaces';
 import { NgControl } from '@angular/forms';
+
+import { FormControlGroupForm } from './interfaces';
 
 export const defaultFormControlErrorStateAgent = (
   form?: FormControlGroupForm,

@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { VCLIcogramModule } from '../icogram/index';
-import { NavigationComponent } from './navigation.component';
+
 import {
   NavigationItemComponent,
   NavigationLabelComponent,
 } from './navigation-item.component';
+import { NavigationComponent } from './navigation.component';
 
 export {
   NavigationComponent,

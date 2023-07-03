@@ -1,7 +1,4 @@
-import {
-  Directive,
-  NgModule,
-} from '@angular/core';
+import { Directive, NgModule } from '@angular/core';
 
 @Directive({ selector: '[vclPrepend]' })
 export class PrependDirective {

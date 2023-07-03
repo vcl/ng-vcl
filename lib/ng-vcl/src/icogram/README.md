@@ -13,10 +13,8 @@ Also supports the anchor tag
   Label
   <vcl-icon vclAppend icon="fas:chevron-right"></vcl-icon>
 </vcl-icogram>
-  
-<a vcl-icogram
-  [href]="'https://github.com/ng-vcl/ng-vcl'"
-  [disabled]="true">
+
+<a vcl-icogram [href]="'https://github.com/ng-vcl/ng-vcl'" [disabled]="true">
   <vcl-icon vclPrepend icon="fas:link"></vcl-icon>
   Link
 </a>

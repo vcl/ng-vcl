@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+
 import {
   VCLFormFieldSchemaButtonGroup,
   VCLFormFieldSchemaButtonGroupParams,
 } from '../schemas';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldButtonGroup extends FormFieldControl<

@@ -1,8 +1,20 @@
 <vcl-gallery [selectedImage]="1">
-  <vcl-gallery-image image="https://picsum.photos/600/500?image=450" thumbnail="https://picsum.photos/200/200?image=450" alt="Image 1"></vcl-gallery-image>
-  <vcl-gallery-image image="https://picsum.photos/600/500?image=451" thumbnail="https://picsum.photos/200/200?image=451" alt="Image 2"></vcl-gallery-image>
-  <vcl-gallery-image image="https://picsum.photos/600/500?image=452" thumbnail="https://picsum.photos/200/200?image=452" alt="Image 3"></vcl-gallery-image>
-  <vcl-gallery-image image="https://picsum.photos/600/500?image=453" thumbnail="https://picsum.photos/200/200?image=453" alt="Image 4"></vcl-gallery-image>
+  <vcl-gallery-image
+    image="https://picsum.photos/600/500?image=450"
+    thumbnail="https://picsum.photos/200/200?image=450"
+    alt="Image 1"></vcl-gallery-image>
+  <vcl-gallery-image
+    image="https://picsum.photos/600/500?image=451"
+    thumbnail="https://picsum.photos/200/200?image=451"
+    alt="Image 2"></vcl-gallery-image>
+  <vcl-gallery-image
+    image="https://picsum.photos/600/500?image=452"
+    thumbnail="https://picsum.photos/200/200?image=452"
+    alt="Image 3"></vcl-gallery-image>
+  <vcl-gallery-image
+    image="https://picsum.photos/600/500?image=453"
+    thumbnail="https://picsum.photos/200/200?image=453"
+    alt="Image 4"></vcl-gallery-image>
 
   <div class="gallery-header">
     <h2>Simple gallery</h2>
@@ -12,20 +24,32 @@
   <vcl-gallery-footer></vcl-gallery-footer>
   <vcl-gallery-thumbnails></vcl-gallery-thumbnails>
 </vcl-gallery>
-<br><br>
+<br /><br />
 
 <div class="gallery-header">
   <h2>Gallery with row alignment and height restriction</h2>
 </div>
-<div style="height: 600px;">
+<div style="height: 600px">
   <vcl-gallery [selectedImage]="1" [row]="true">
-    <vcl-gallery-image image="https://picsum.photos/600/500?image=440" thumbnail="https://picsum.photos/200/200?image=440" alt="Image 1"></vcl-gallery-image>
-    <vcl-gallery-image image="https://picsum.photos/600/500?image=441" thumbnail="https://picsum.photos/200/200?image=441" alt="Image 2"></vcl-gallery-image>
-    <vcl-gallery-image image="https://picsum.photos/600/500?image=442" thumbnail="https://picsum.photos/200/200?image=442" alt="Image 3"></vcl-gallery-image>
-    <vcl-gallery-image image="https://picsum.photos/600/500?image=443" thumbnail="https://picsum.photos/200/200?image=443" alt="Image 4"></vcl-gallery-image>
+    <vcl-gallery-image
+      image="https://picsum.photos/600/500?image=440"
+      thumbnail="https://picsum.photos/200/200?image=440"
+      alt="Image 1"></vcl-gallery-image>
+    <vcl-gallery-image
+      image="https://picsum.photos/600/500?image=441"
+      thumbnail="https://picsum.photos/200/200?image=441"
+      alt="Image 2"></vcl-gallery-image>
+    <vcl-gallery-image
+      image="https://picsum.photos/600/500?image=442"
+      thumbnail="https://picsum.photos/200/200?image=442"
+      alt="Image 3"></vcl-gallery-image>
+    <vcl-gallery-image
+      image="https://picsum.photos/600/500?image=443"
+      thumbnail="https://picsum.photos/200/200?image=443"
+      alt="Image 4"></vcl-gallery-image>
     <vcl-gallery-body></vcl-gallery-body>
-    <div style="margin-left: 1rem;"></div>
+    <div style="margin-left: 1rem"></div>
     <vcl-gallery-thumbnails></vcl-gallery-thumbnails>
   </vcl-gallery>
 </div>
-<br><br>
+<br /><br />

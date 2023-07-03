@@ -15,7 +15,10 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-jss-form [schema]="mySchema" (formSubmit)="onSubmit($event)" (formAction)="onAction($event)" ></vcl-jss-form>
+<vcl-jss-form
+  [schema]="mySchema"
+  (formSubmit)="onSubmit($event)"
+  (formAction)="onAction($event)"></vcl-jss-form>
 ```
 
 ```ts
@@ -31,22 +34,20 @@ const SCHEMA: VCLFormFieldSchemaRoot = {
       params: {
         placeholder: 'Your name',
       },
-      validators: [
-        Validators.required, Validators.minLength(2)
-      ],
+      validators: [Validators.required, Validators.minLength(2)],
       required: true,
       hints: [
         {
           type: 'error',
           error: 'required',
-          message: 'Name is required'
+          message: 'Name is required',
         },
         {
           type: 'error',
           error: 'minlength',
-          message: 'Name must have a length of at least 2 characters'
-        }
-      ]
+          message: 'Name must have a length of at least 2 characters',
+        },
+      ],
     },
     email: {
       type: 'input',
@@ -57,53 +58,60 @@ const SCHEMA: VCLFormFieldSchemaRoot = {
         {
           type: 'error',
           error: 'email',
-          message: 'Invalid Email address'
-        }
-      ]
+          message: 'Invalid Email address',
+        },
+      ],
     },
     gender: {
       type: 'radio-group',
       label: 'Gender',
       defaultValue: 'm',
       params: {
-        options: [{
-          label: 'Male',
-          value: 'm'
-        }, {
-          label: 'Female',
-          value: 'f'
-        }, {
-          label: 'Genderless',
-          value: 'g'
-        }],
-      }
+        options: [
+          {
+            label: 'Male',
+            value: 'm',
+          },
+          {
+            label: 'Female',
+            value: 'f',
+          },
+          {
+            label: 'Genderless',
+            value: 'g',
+          },
+        ],
+      },
     },
     language: {
       type: 'hidden',
-      defaultValue: navigator.language
+      defaultValue: navigator.language,
     },
     terms: {
       type: 'checkbox',
       label: 'Agree to our terms',
-      validators: [(control: AbstractControl) => {
-        if (!control.value) {
-          return {
-            termsDisagree: true,
-          };
-        }
-        return null;
-      }],
+      validators: [
+        (control: AbstractControl) => {
+          if (!control.value) {
+            return {
+              termsDisagree: true,
+            };
+          }
+          return null;
+        },
+      ],
       hints: [
         {
           type: 'default',
-          message: 'Read the terms to learn how we collect, use and share your data'
+          message:
+            'Read the terms to learn how we collect, use and share your data',
         },
         {
           type: 'error',
           error: 'termsDisagree',
-          message: 'You must agree to our Terms'
-        }
-      ]
+          message: 'You must agree to our Terms',
+        },
+      ],
     },
     submit: {
       type: 'buttons',
@@ -111,15 +119,15 @@ const SCHEMA: VCLFormFieldSchemaRoot = {
         {
           type: 'submit',
           label: 'Submit',
-          class: 'emphasized'
+          class: 'emphasized',
         },
         {
           type: 'button',
           label: 'Reset',
-          action: 'reset'
-        }
-      ]
-    }
+          action: 'reset',
+        },
+      ],
+    },
   },
 };
 ```
@@ -154,12 +162,15 @@ A component used in a custom field must implement the `ControlValueAccessor` int
 ```ts
 @Component({
   template: `
-    <span *ngIf="field.label">{{ field.label }}</span><br>
-    <my-counter [formControl]="field.control" [max]="field.params.max"></my-counter>
-    `
+    <span *ngIf="field.label">{{ field.label }}</span
+    ><br />
+    <my-counter
+      [formControl]="field.control"
+      [max]="field.params.max"></my-counter>
+  `,
 })
 export class CounterFormFieldComponent {
-  constructor(public field: FormFieldControl) { }
+  constructor(public field: FormFieldControl) {}
 }
 
 FormFieldControl.register('counter', CounterFormFieldComponent);
@@ -175,9 +186,9 @@ const SCHEMA: VCLFormFieldSchemaRoot = {
       type: 'counter',
       label: 'Counter',
       params: {
-        max: 10
-      }
-    }
-  }
-}
+        max: 10,
+      },
+    },
+  },
+};
 ```

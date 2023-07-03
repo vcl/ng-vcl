@@ -1,3 +1,4 @@
+import { ENTER } from '@angular/cdk/keycodes';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -11,7 +12,7 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
-import { ENTER } from '@angular/cdk/keycodes';
+
 import { HostIconRendererService } from '../icon/index';
 
 export interface Rating {
@@ -53,7 +54,7 @@ export class RatingItemComponent implements AfterViewInit {
   @Input()
   disabled = false;
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('label')
   _label?: string;
 

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+
 import {
   VCLFormFieldSchemaTextarea,
   VCLFormFieldSchemaTextareaParams,
 } from '../schemas';
+
 import { FormFieldControl } from './field';
 
 export class FormFieldTextarea extends FormFieldControl<

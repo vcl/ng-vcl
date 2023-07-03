@@ -1,3 +1,11 @@
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import {
+  ComponentType,
+  Portal,
+  ComponentPortal,
+  TemplatePortal,
+} from '@angular/cdk/portal';
 import {
   Injector,
   NgZone,
@@ -6,17 +14,10 @@ import {
   ComponentRef,
   EmbeddedViewRef,
 } from '@angular/core';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { take, switchMap, filter, map } from 'rxjs/operators';
 import { merge, NEVER, Subject, Subscription } from 'rxjs';
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { take, switchMap, filter, map } from 'rxjs/operators';
+
 import { Layer, LayerConfig, LayerData } from './types';
-import {
-  ComponentType,
-  Portal,
-  ComponentPortal,
-  TemplatePortal,
-} from '@angular/cdk/portal';
 
 type PortalType<TLayerRefType, TContextOrComponent> =
   TLayerRefType extends 'component'
@@ -38,11 +39,6 @@ export abstract class LayerRef<
   TLayerRefType extends 'component' | 'template' | 'dynamic' = 'dynamic'
 > implements Layer
 {
-  constructor(protected injector: Injector) {
-    this._zone = injector.get(NgZone);
-    this._overlay = injector.get(Overlay);
-  }
-
   private _requestDetachEmitter: Subject<TResult> = new Subject();
   private _attachmentRef?: AttachmentType<TLayerRefType, TContext>;
   private _overlayRef?: OverlayRef;
@@ -84,6 +80,11 @@ export abstract class LayerRef<
 
   protected get isDestroyed() {
     return this._isDestroyed;
+  }
+
+  constructor(protected readonly injector: Injector) {
+    this._zone = injector.get(NgZone);
+    this._overlay = injector.get(Overlay);
   }
 
   toggle() {
@@ -237,7 +238,7 @@ export abstract class LayerRef<
 
   protected afterAttached(): void {}
 
-  protected afterDetached(result?: TResult): void {}
+  protected afterDetached(_?: TResult): void {}
 
   public updatePosition() {
     this._overlayRef.updatePosition();

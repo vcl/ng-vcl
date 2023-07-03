@@ -1,14 +1,11 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  Optional,
-} from '@angular/core';
+import { Component, ElementRef, Input, Optional } from '@angular/core';
+
 import { GalleryComponent } from './gallery.component';
 
 @Component({
   selector: 'vcl-gallery-thumbnails',
   templateUrl: 'gallery-thumbnails.component.html',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: 'gallery-thumbnails-host' },
 })
 export class GalleryThumbnailsComponent {

@@ -1,40 +1,42 @@
 <ng-content select="[vclCalendarHeader]"></ng-content>
-<vcl-calendar-view-years *ngIf="view === 'years'" 
-                    [value]="value" 
-                    [viewDate]="viewDate"
-                    [disabled]="isDisabled"
-                    (valueChange)="onValueChange('years', $event)"
-                    (viewDateChange)="onViewDateChange('years', $event)"
-                    ></vcl-calendar-view-years>
-<vcl-calendar-view-year *ngIf="view === 'year'" 
-                    [value]="value" 
-                    [viewDate]="viewDate" 
-                    [disabled]="isDisabled"
-                    [dateModifiers]="dateModifiers" 
-                    (viewDateChange)="onViewDateChange('year', $event)"
-                    (valueChange)="onValueChange('year', $event)"
-                    (labelClick)="onLabelClick('year')"                    
-                    ></vcl-calendar-view-year>
-<vcl-calendar-view-month *ngIf="view === 'month'" 
-                    [disabled]="isDisabled"
-                    [value]="value" 
-                    [viewDate]="viewDate" 
-                    [dateModifiers]="dateModifiers" 
-                    [showWeekOfTheYear]="showWeekOfTheYear"
-                    (viewDateChange)="onViewDateChange('month', $event)"
-                    (valueChange)="onValueChange('month', $event)"
-                    (labelClick)="onLabelClick('month')"
-                    ></vcl-calendar-view-month>
-<vcl-calendar-view-hours *ngIf="view === 'hours'" 
-                    [value]="value" 
-                    [disabled]="isDisabled"
-                    (labelClick)="onLabelClick('hours')"
-                    (valueChange)="onValueChange('hours', $event)"
-                    ></vcl-calendar-view-hours>                           
-<vcl-calendar-view-minutes *ngIf="view === 'minutes'" 
-                    [value]="value" 
-                    [disabled]="isDisabled"
-                    (labelClick)="onLabelClick('minutes')"
-                    (valueChange)="onValueChange('minutes', $event)"
-                    ></vcl-calendar-view-minutes>                           
-<ng-content select="[vclCalendarFooter]"></ng-content>                      
+<vcl-calendar-view-years
+  *ngIf="view === 'years'"
+  [value]="value"
+  [viewDate]="viewDate"
+  [disabled]="isDisabled"
+  (valueChange)="onValueChange('years', $event)"
+  (viewDateChange)="
+    onViewDateChange('years', $event)
+  "></vcl-calendar-view-years>
+<vcl-calendar-view-year
+  *ngIf="view === 'year'"
+  [value]="value"
+  [viewDate]="viewDate"
+  [disabled]="isDisabled"
+  [dateModifiers]="dateModifiers"
+  (viewDateChange)="onViewDateChange('year', $event)"
+  (valueChange)="onValueChange('year', $event)"
+  (labelClick)="onLabelClick('year')"></vcl-calendar-view-year>
+<vcl-calendar-view-month
+  *ngIf="view === 'month'"
+  [disabled]="isDisabled"
+  [value]="value"
+  [viewDate]="viewDate"
+  [dateModifiers]="dateModifiers"
+  [showWeekOfTheYear]="showWeekOfTheYear"
+  (viewDateChange)="onViewDateChange('month', $event)"
+  (valueChange)="onValueChange('month', $event)"
+  (labelClick)="onLabelClick('month')"></vcl-calendar-view-month>
+<vcl-calendar-view-hours
+  *ngIf="view === 'hours'"
+  [value]="value"
+  [disabled]="isDisabled"
+  (labelClick)="onLabelClick('hours')"
+  (valueChange)="onValueChange('hours', $event)"></vcl-calendar-view-hours>
+<vcl-calendar-view-minutes
+  *ngIf="view === 'minutes'"
+  [value]="value"
+  [disabled]="isDisabled"
+  (labelClick)="onLabelClick('minutes')"
+  (valueChange)="onValueChange('minutes', $event)"></vcl-calendar-view-minutes>
+<ng-content select="[vclCalendarFooter]"></ng-content>

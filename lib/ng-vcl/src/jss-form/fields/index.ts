@@ -1,16 +1,16 @@
-import { FormFieldControl, FormField } from './field';
 import { FormFieldArrayComponent, FormFieldArray } from './array';
+import { FormFieldButtonComponent, FormFieldButton } from './button';
 import {
   FormFieldButtonGroupComponent,
   FormFieldButtonGroup,
 } from './button-group';
-import { FormFieldButtonComponent, FormFieldButton } from './button';
 import { FormFieldButtonsComponent, FormFieldButtons } from './buttons';
 import { FormFieldCheckboxComponent, FormFieldCheckbox } from './checkbox';
 import {
   FormFieldDatepickerComponent,
   FormFieldDatePicker,
 } from './date-picker';
+import { FormFieldControl, FormField } from './field';
 import { FormFieldFileInputComponent, FormFieldFileInput } from './file-input';
 import { FormFieldHiddenComponent, FormFieldHidden } from './hidden';
 import { FormFieldInputComponent, FormFieldInput } from './input';
@@ -21,11 +21,11 @@ import {
 } from './password-input';
 import { FormFieldRadioGroupComponent, FormFieldRadio } from './radio-group';
 import { FormFieldRatingComponent, FormFieldRating } from './rating';
+import { FormFieldSelectComponent, FormFieldSelect } from './select';
 import {
   FormFieldSelectListComponent,
   FormFieldSelectList,
 } from './select-list';
-import { FormFieldSelectComponent, FormFieldSelect } from './select';
 import { FormFieldSliderComponent, FormFieldSlider } from './slider';
 import { FormFieldSwitchComponent, FormFieldSwitch } from './switch';
 import { FormFieldTextareaComponent, FormFieldTextarea } from './textarea';

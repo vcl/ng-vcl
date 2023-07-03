@@ -1,4 +1,5 @@
 import { Injectable, Optional, Inject } from '@angular/core';
+
 import { IconResolverService } from './icon-resolver.service';
 
 @Injectable()
