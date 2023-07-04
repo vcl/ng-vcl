@@ -4,7 +4,7 @@
 
 ## Usage
 
-```js
+```typescript
 import { VCLSpinnerModule } from '@vcl/ng-vcl';
 
 @NgModule({

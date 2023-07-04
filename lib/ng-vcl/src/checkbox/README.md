@@ -4,7 +4,7 @@ A Checkbox utilizing `vcl-icon`
 
 ## Usage
 
-```js
+```typescript
 import { VCLCheckboxModule } from '@vcl/ng-vcl';
 
 @NgModule({

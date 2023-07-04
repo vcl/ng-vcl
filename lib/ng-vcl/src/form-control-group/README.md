@@ -4,7 +4,7 @@ Form control group to handle the error-state of form controls
 
 ## Usage
 
-```js
+```typescript
 import { VCLFormControlGroupModule } from '@vcl/ng-vcl';
 
 @NgModule({

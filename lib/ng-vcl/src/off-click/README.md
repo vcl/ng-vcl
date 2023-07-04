@@ -4,7 +4,7 @@ The offClick event fires when a click event is handled and its source is not(!) 
 
 ## Usage
 
-```js
+```typescript
 import { VCLOffClickModule } from '@vcl/ng-vcl';
 
 @NgModule({

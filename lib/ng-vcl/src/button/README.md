@@ -5,7 +5,7 @@ It is the main control for triggering actions.
 
 ## Usage
 
-```js
+```typescript
 import { VCLButtonModule } from '@vcl/ng-vcl';
 
 @NgModule({

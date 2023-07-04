@@ -13,7 +13,7 @@ npm install @vcl/ng-vcl --save
 
 ## Usage
 
-```js
+```typescript
 import { VCLIconModule, VCLLayerModule } from '@vcl/ng-vcl';
 
 @NgModule({

@@ -4,7 +4,7 @@ A visually highlighted tag to attribute items.
 
 ## Usage
 
-```js
+```typescript
 import { VCLBadgeModule } from '@vcl/ng-vcl';
 
 @NgModule({

@@ -2,7 +2,7 @@
 
 ## Usage
 
-```js
+```typescript
 import { VCLTokenModule } from '@vcl/ng-vcl';
 
 @NgModule({

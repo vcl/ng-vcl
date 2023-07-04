@@ -5,7 +5,7 @@ There is a dialog variant, optimized for modal dialogs.
 
 ## Usage
 
-```js
+```typescript
 import { VCLPanelModule } from '@vcl/ng-vcl';
 
 @NgModule({

@@ -5,7 +5,7 @@ Only one tab is visible at a given time.
 
 ## Usage
 
-```js
+```typescript
 import { VCLTabNavModule } from '@vcl/ng-vcl';
 
 @NgModule({
