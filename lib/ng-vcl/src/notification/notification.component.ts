@@ -11,9 +11,11 @@ import {
   QueryList,
   Self,
   AfterContentInit,
+  OnDestroy,
 } from '@angular/core';
 import { NEVER, merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { NOTIFICATION_TYPE_CLASS_MAP, NotificationType } from './types';
 
@@ -60,7 +62,7 @@ export class NotificationFooterDirective {
     `,
   ],
 })
-export class NotificationComponent implements AfterContentInit {
+export class NotificationComponent implements AfterContentInit, OnDestroy {
   @HostBinding('class.notification')
   hostClasses = true;
 
@@ -97,17 +99,25 @@ export class NotificationComponent implements AfterContentInit {
     );
   }
 
+  private subscriptions = new SubSink();
+
   constructor(
     @Self()
     private readonly ngClass: NgClass
   ) {}
 
   ngAfterContentInit(): void {
-    merge(this.notificationTitle ? this.notificationTitle.changes : NEVER)
+    this.subscriptions.sink = merge(
+      this.notificationTitle ? this.notificationTitle.changes : NEVER
+    )
       .pipe(startWith(undefined))
       .subscribe(() => {
         this.hasTitle = this.notificationTitle.length > 0;
       });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   onCloseClick() {

@@ -6,7 +6,7 @@ Note: For the highlight to work, the target element has to have a background-col
 
 ## Usage
 
-```js
+```typescript
 import { VCLTourModule } from '@vcl/ng-vcl';
 
 @NgModule({
@@ -83,32 +83,34 @@ class AppComponent {
 
 #### Custom options usage
 
-```js
+```typescript
  startTour() {
     this.tour.initialize({elementsDisabled: false}); // TourOptions
     this.tour.start();
   }
 ```
 
+```typescript
 export class TourOptions {
-debug: boolean = false;
-debugTour: boolean = false;
-debugPopover: boolean = false;
+  debug: boolean = false;
+  debugTour: boolean = false;
+  debugPopover: boolean = false;
 
-useOrder: boolean = false;
-elementsDisabled: boolean = true;
-applyRelative: boolean = true;
-dismissOnOverlay: boolean = false;
+  useOrder: boolean = false;
+  elementsDisabled: boolean = true;
+  applyRelative: boolean = true;
+  dismissOnOverlay: boolean = false;
 
-zIndex: number = 20;
+  zIndex: number = 20;
 
-previousLabel: string = 'Previous';
-nextLabel: string = 'Next';
-exitLabel: string = 'Exit';
+  previousLabel: string = 'Previous';
+  nextLabel: string = 'Next';
+  exitLabel: string = 'Exit';
 
-previousIcon: string = 'fas fa-chevron-left';
-nextIcon: string = 'fas fa-chevron-right';
-exitIcon: string = 'fas fa-close';
+  previousIcon: string = 'fas fa-chevron-left';
+  nextIcon: string = 'fas fa-chevron-right';
+  exitIcon: string = 'fas fa-close';
 
-buttonClass: string = '';
+  buttonClass: string = '';
 }
+```

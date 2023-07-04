@@ -1,3 +1,11 @@
+## [2.6.5](https://github.com/vcl/ng-vcl/compare/v2.6.4...v2.6.5) (2023-07-04)
+
+### Bug Fixes
+
+- markdown table format ([06a6654](https://github.com/vcl/ng-vcl/commit/06a66545c7bad3481e6d6f33f09a23451443687c))
+
+* Improved RxJS subscription handling to prevent memory leaks and improve performance.
+
 ## [2.6.4](https://github.com/vcl/ng-vcl/compare/v2.6.3...v2.6.4) (2023-07-03)
 
 - Migrated TSLint to ESLint

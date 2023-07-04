@@ -16,8 +16,9 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import {
   FormControlGroupInputState,
@@ -60,8 +61,6 @@ export class RadioGroupComponent
     RadioButtonGroup,
     FormControlGroupInputState
 {
-  constructor(private injector: Injector) {}
-
   private stateChangedEmitter = new Subject<void>();
 
   stateChanged = this.stateChangedEmitter.asObservable();
@@ -125,10 +124,12 @@ export class RadioGroupComponent
   // Store form disabled state in an extra property to remember the old state after the radio group has been disabled
   private formDisabled = false;
 
-  private radioButtonsSub?: Subscription;
-
   @HostBinding('class.error')
   hasError = false;
+
+  private subscriptions = new SubSink();
+
+  constructor(private readonly injector: Injector) {}
 
   setErrorState(error: boolean): void {
     this.hasError = error;
@@ -147,7 +148,7 @@ export class RadioGroupComponent
 
   ngAfterContentInit() {
     // Syncs changed radio buttons checked state to be in line with the current group value
-    this.radioButtonsSub = this.radioButtons.changes
+    this.subscriptions.sink = this.radioButtons.changes
       .pipe(startWith(null))
       .subscribe(() => {
         if (this.radioButtons) {
@@ -176,8 +177,8 @@ export class RadioGroupComponent
   }
 
   ngOnDestroy(): void {
-    this.radioButtonsSub && this.radioButtonsSub.unsubscribe();
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
+    this.stateChangedEmitter?.complete();
+    this.subscriptions.unsubscribe();
   }
 
   /**

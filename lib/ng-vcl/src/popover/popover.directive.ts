@@ -16,7 +16,6 @@ import {
   Inject,
   Directive,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import { LayerConfig, TemplateLayerRef } from '../layer/index';
 import { createOffClickStream } from '../off-click/index';
@@ -26,8 +25,6 @@ import { createOffClickStream } from '../off-click/index';
   exportAs: 'vclPopover',
 })
 export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
-  private _popoverAttachedSub?: Subscription;
-
   @Input()
   closeOnEscape?: boolean;
 
@@ -78,7 +75,7 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy();
-    this._popoverAttachedSub && this._popoverAttachedSub.unsubscribe();
+    this.subscriptions?.unsubscribe();
   }
 
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
@@ -131,7 +128,7 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
   protected afterAttached(): void {
     this.visibleChange.emit(this.visible);
     if (this.closeOnOffClick) {
-      this._popoverAttachedSub = createOffClickStream(
+      this.subscriptions.sink = createOffClickStream(
         [this.overlayRef.overlayElement],
         {
           document: this.document,
@@ -144,6 +141,6 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
 
   protected afterDetached(_: unknown): void {
     this.visibleChange.emit(this.visible);
-    this._popoverAttachedSub && this._popoverAttachedSub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

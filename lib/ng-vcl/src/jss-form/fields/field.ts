@@ -1,8 +1,9 @@
 import { ComponentType, ComponentPortal } from '@angular/cdk/portal';
 import { Injector } from '@angular/core';
 import { AbstractControl, UntypedFormControl } from '@angular/forms';
-import { combineLatest, Subject, Subscription, ReplaySubject } from 'rxjs';
+import { combineLatest, Subject, ReplaySubject } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { VCLFormFieldSchema, VCLFormFieldControlSchema } from '../schemas';
 import { Conditional, InternalConditional, HelpObject } from '../types';
@@ -28,14 +29,6 @@ interface FieldRegistry {
 export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
   static registry: FieldRegistry = {};
 
-  constructor(public readonly schema: T, public readonly parent?: FormField) {
-    this.id = schema.id || 'vcl-form-input' + uniqueId++;
-    this.registerConditional(this.schema.visible, visible =>
-      this.updateVisible(visible)
-    );
-  }
-
-  private _conditionalSubs?: Subscription[] = [];
   private _visible = true;
   private _formReady$ = new ReplaySubject(1);
 
@@ -98,6 +91,15 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     return instance;
   }
 
+  private subscriptions = new SubSink();
+
+  constructor(public readonly schema: T, public readonly parent?: FormField) {
+    this.id = schema.id || 'vcl-form-input' + uniqueId++;
+    this.registerConditional(this.schema.visible, visible =>
+      this.updateVisible(visible)
+    );
+  }
+
   createConditionalStream<TConditional>(
     conditional: Conditional<TConditional>
   ) {
@@ -127,11 +129,12 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
     cb: (value: TConditional) => void
   ) {
     if (conditional instanceof Conditional) {
-      const sub = this.createConditionalStream(conditional).subscribe(value => {
+      this.subscriptions.sink = this.createConditionalStream(
+        conditional
+      ).subscribe(value => {
         cb(value);
         this.stateChangedEmitter.next(undefined);
       });
-      this._conditionalSubs.push(sub);
     } else {
       cb(conditional);
     }
@@ -147,8 +150,8 @@ export class FormField<T extends VCLFormFieldSchema = VCLFormFieldSchema> {
   }
 
   destroy() {
-    this._conditionalSubs.forEach(sub => sub.unsubscribe());
     this.stateChangedEmitter.complete();
+    this.subscriptions.unsubscribe();
   }
 
   createPortal(injector: Injector, additionalProviders: any[]) {

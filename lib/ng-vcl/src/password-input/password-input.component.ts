@@ -8,9 +8,11 @@ import {
   forwardRef,
   ViewChild,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { ButtonComponent } from '../button/index';
 import {
@@ -37,7 +39,11 @@ import {
   ],
 })
 export class PasswordInputComponent
-  implements AfterContentInit, AfterViewInit, EmbeddedInputFieldLabelInput
+  implements
+    AfterContentInit,
+    AfterViewInit,
+    EmbeddedInputFieldLabelInput,
+    OnDestroy
 {
   private stateChangedEmitter = new Subject<void>();
 
@@ -80,6 +86,8 @@ export class PasswordInputComponent
 
   autocomplete = 'current-password';
 
+  private subscriptions = new SubSink();
+
   toggle() {
     this.visible = !this.visible;
     this.updateType();
@@ -99,6 +107,12 @@ export class PasswordInputComponent
   }
 
   ngAfterViewInit() {
-    this.input.stateChanged.subscribe(this.stateChangedEmitter);
+    this.subscriptions.sink = this.input.stateChanged.subscribe(
+      this.stateChangedEmitter
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

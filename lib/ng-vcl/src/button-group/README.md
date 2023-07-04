@@ -4,7 +4,7 @@ A button group which distributes space for each button equally to occupy 100% ho
 
 ## Usage
 
-```js
+```typescript
 import { VCLButtonGroupModule } from '@vcl/ng-vcl';
 
 @NgModule({

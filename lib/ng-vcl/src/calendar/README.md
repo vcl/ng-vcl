@@ -4,7 +4,7 @@ A calendar to display and select dates
 
 ## Usage
 
-```js
+```typescript
 import { VCLCalendarModule } from '@vcl/ng-vcl';
 
 @NgModule({

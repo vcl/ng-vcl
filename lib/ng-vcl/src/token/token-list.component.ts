@@ -15,8 +15,8 @@ import {
   HostBinding,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { TokenObserver, Token } from './interfaces';
 import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
@@ -45,10 +45,6 @@ export class TokenListComponent
     ControlValueAccessor,
     TokenObserver
 {
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  tokenSub: Subscription | undefined;
-
   private cvaDisabled = false;
 
   @HostBinding('class.token-list')
@@ -93,6 +89,10 @@ export class TokenListComponent
     });
   }
 
+  private subscriptions = new SubSink();
+
+  constructor(private readonly cdRef: ChangeDetectorRef) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.disabled || changes.value) {
       this.syncTokens();
@@ -119,9 +119,11 @@ export class TokenListComponent
   }
 
   ngAfterContentInit() {
-    this.tokenSub = this.tokens?.changes.pipe(startWith(null)).subscribe(() => {
-      this.syncTokens();
-    });
+    this.subscriptions.sink = this.tokens?.changes
+      .pipe(startWith(null))
+      .subscribe(() => {
+        this.syncTokens();
+      });
   }
 
   ngOnDestroy() {
@@ -129,7 +131,7 @@ export class TokenListComponent
   }
 
   dispose() {
-    this.tokenSub?.unsubscribe();
+    this.subscriptions?.unsubscribe();
   }
 
   writeValue(value: any): void {

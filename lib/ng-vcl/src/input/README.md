@@ -4,7 +4,7 @@ Enhanced text input
 
 ## Usage
 
-```js
+```typescript
 import { VCLInputModule } from '@vcl/ng-vcl';
 
 @NgModule({

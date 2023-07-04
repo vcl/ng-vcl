@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { Subject, merge, NEVER } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { defaultFormControlErrorStateAgent } from './error-state-agent';
 import { FormDirective } from './form.directive';
@@ -113,6 +114,19 @@ export class FormControlGroupComponent<T>
     return this.errorStateAgent(form, ngControl);
   }
 
+  get isRequired() {
+    const control = this.input?.ngControl?.control;
+    if (control && control.validator) {
+      const validator = control.validator({} as AbstractControl);
+      if (validator && validator.required) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private subscriptions = new SubSink();
+
   constructor(
     private readonly cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_FORM)
@@ -123,6 +137,28 @@ export class FormControlGroupComponent<T>
     private readonly _errorStateAgent?: FormControlErrorStateAgent
   ) {
     this.form = form ?? new FormDirective(undefined, undefined);
+  }
+
+  ngAfterContentInit() {
+    this.updateState();
+    if (!this.input) {
+      console.error('Missing input');
+    }
+    this.subscriptions.sink = merge(
+      this.form.statusChanges,
+      this.form.ngSubmit,
+      this.input?.stateChanged ?? NEVER
+    ).subscribe(() => {
+      this.updateState();
+      this._stateChangedEmitter.next();
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    });
+  }
+
+  ngOnDestroy() {
+    this._stateChangedEmitter.complete();
+    this.subscriptions.unsubscribe();
   }
 
   getError(errorCode: string, path?: string | (string | number)[]) {
@@ -136,37 +172,5 @@ export class FormControlGroupComponent<T>
     this.isDisabled = this.input?.isDisabled ?? false;
     this.inputId = this.input?.elementId ?? undefined;
     this.input?.setErrorState(this.hasError);
-  }
-
-  get isRequired() {
-    const control = this.input?.ngControl?.control;
-    if (control && control.validator) {
-      const validator = control.validator({} as AbstractControl);
-      if (validator && validator.required) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  ngAfterContentInit() {
-    this.updateState();
-    if (!this.input) {
-      console.error('Missing input');
-    }
-    merge(
-      this.form.statusChanges,
-      this.form.ngSubmit,
-      this.input?.stateChanged ?? NEVER
-    ).subscribe(() => {
-      this.updateState();
-      this._stateChangedEmitter.next();
-      this.cdRef.markForCheck();
-      this.cdRef.detectChanges();
-    });
-  }
-
-  ngOnDestroy() {
-    return this._stateChangedEmitter.complete();
   }
 }

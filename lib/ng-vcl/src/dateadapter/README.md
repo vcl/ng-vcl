@@ -2,7 +2,7 @@
 
 The `DateAdapter` is a service that provides utils for date operations.
 
-```js
+```typescript
 import { VCLDateAdapterModule } from '@vcl/ng-vcl';;
 
 @NgModule({

@@ -6,6 +6,7 @@ import {
   TemplateRef,
   OnDestroy,
 } from '@angular/core';
+import { SubSink } from 'subsink';
 
 import { LayerService, LayerRef } from '@vcl/ng-vcl';
 
@@ -24,6 +25,8 @@ export class LayerDemoComponent implements AfterViewInit, OnDestroy {
   tplLayerRef: TemplateRef<any>;
 
   tplLayer: LayerRef;
+
+  private subscriptions = new SubSink();
 
   constructor(
     private readonly nagLayer: NagLayer,
@@ -45,10 +48,11 @@ export class LayerDemoComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.barLayer?.destroy();
+    this.subscriptions.unsubscribe();
   }
 
   openBarComponent() {
-    this.barLayer
+    this.subscriptions.sink = this.barLayer
       .open({
         data: {
           title: `bar component layer title (${i++})`,
@@ -60,7 +64,7 @@ export class LayerDemoComponent implements AfterViewInit, OnDestroy {
   }
 
   openNagLayer() {
-    this.nagLayer
+    this.subscriptions.sink = this.nagLayer
       .open({
         data: {
           allowDecline: true,

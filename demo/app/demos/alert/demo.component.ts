@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { AlertService, AlertType, AlertInput } from '@vcl/ng-vcl';
 
@@ -26,8 +27,14 @@ function createAsyncResult(
   templateUrl: 'demo.component.html',
   styleUrls: ['demo.component.scss'],
 })
-export class AlertDemoComponent {
+export class AlertDemoComponent implements OnDestroy {
+  private subscriptions = new SubSink();
+
   constructor(private alert: AlertService) {}
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 
   message() {
     this.alert.alert('A message');
@@ -87,7 +94,7 @@ export class AlertDemoComponent {
   }
 
   question() {
-    this.alert
+    this.subscriptions.sink = this.alert
       .open({
         text: 'Do you really want to delete the file?',
         title: 'Delete file?',
@@ -109,7 +116,7 @@ export class AlertDemoComponent {
   }
 
   async() {
-    this.alert
+    this.subscriptions.sink = this.alert
       .open({
         text: 'Determine your user agent?',
         confirmAction: createAsyncResult(window.navigator.userAgent),
@@ -125,7 +132,7 @@ export class AlertDemoComponent {
   }
 
   inputText() {
-    this.alert
+    this.subscriptions.sink = this.alert
       .open({
         text: 'What is your name?',
         input: AlertInput.Text,
@@ -177,7 +184,7 @@ export class AlertDemoComponent {
       })
     );
 
-    this.alert
+    this.subscriptions.sink = this.alert
       .open({
         text: 'Show current time? (will fail the first time)',
         showCancelButton: true,

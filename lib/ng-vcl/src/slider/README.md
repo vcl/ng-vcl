@@ -4,7 +4,7 @@
 
 Note: _HammerJS must be loaded for touch events_
 
-```js
+```typescript
 import { VCLSliderModule } from '@vcl/ng-vcl';
 
 @NgModule({

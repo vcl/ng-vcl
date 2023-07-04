@@ -14,8 +14,9 @@ import {
   ComponentRef,
   EmbeddedViewRef,
 } from '@angular/core';
-import { merge, NEVER, Subject, Subscription } from 'rxjs';
+import { merge, NEVER, Subject } from 'rxjs';
 import { take, switchMap, filter, map } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { Layer, LayerConfig, LayerData } from './types';
 
@@ -47,7 +48,6 @@ export abstract class LayerRef<
 
   private _zone: NgZone;
   private _overlay: Overlay;
-  private _layerOpenedSub?: Subscription;
   private _afterClose = new Subject<TResult | undefined>();
 
   private _currentConfig: LayerConfig;
@@ -81,6 +81,8 @@ export abstract class LayerRef<
   protected get isDestroyed() {
     return this._isDestroyed;
   }
+
+  protected subscriptions = new SubSink();
 
   constructor(protected readonly injector: Injector) {
     this._zone = injector.get(NgZone);
@@ -183,7 +185,7 @@ export abstract class LayerRef<
       this._attachmentRef = this.overlayRef.attach(this._portal);
 
       // @ts-ignore
-      merge<TResult>(
+      this.subscriptions.sink = merge<TResult>(
         // Called when detached via detach() method
         this._requestDetachEmitter.asObservable(),
         // Called when detached from anywhere else
@@ -198,7 +200,8 @@ export abstract class LayerRef<
             this.overlayRef.detach();
           }
           this._attachmentRef = undefined;
-          this._layerOpenedSub && this._layerOpenedSub.unsubscribe();
+          this.subscriptions.sink?.unsubscribe();
+
           // @ts-ignore
           this._afterClose.next(result);
 
@@ -206,7 +209,7 @@ export abstract class LayerRef<
           this.afterDetached(result);
         });
 
-      this._layerOpenedSub = this._zone.onStable
+      this.subscriptions.sink = this._zone.onStable
         .asObservable()
         .pipe(take(1))
         .pipe(

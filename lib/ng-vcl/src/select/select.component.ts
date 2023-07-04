@@ -25,7 +25,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -63,19 +63,7 @@ export class SelectComponent
     AfterViewInit,
     OnInit
 {
-  constructor(
-    injector: Injector,
-    private readonly _dir: Directionality,
-    private readonly overlay: Overlay,
-    protected readonly viewContainerRef: ViewContainerRef,
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cdRef: ChangeDetectorRef
-  ) {
-    super(injector);
-  }
-
   private stateChangedEmitter = new Subject<void>();
-  private _valueChangeSub?: Subscription;
   private _focused = false;
   prependedElements = 0;
 
@@ -258,10 +246,6 @@ export class SelectComponent
     }
   }
 
-  createPortal() {
-    return new TemplatePortal(this.templateRef, this.viewContainerRef);
-  }
-
   @HostListener('click')
   onClick() {
     if (this.isDisabled) {
@@ -275,6 +259,21 @@ export class SelectComponent
     } else {
       this.close();
     }
+  }
+
+  constructor(
+    injector: Injector,
+    private readonly _dir: Directionality,
+    private readonly overlay: Overlay,
+    protected readonly viewContainerRef: ViewContainerRef,
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly cdRef: ChangeDetectorRef
+  ) {
+    super(injector);
+  }
+
+  createPortal() {
+    return new TemplatePortal(this.templateRef, this.viewContainerRef);
   }
 
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
@@ -327,7 +326,7 @@ export class SelectComponent
   }
 
   ngAfterContentInit(): void {
-    this._valueChangeSub = this.selectList.valueChange.subscribe(() => {
+    this.subscriptions.sink = this.selectList.valueChange.subscribe(() => {
       this.cdRef.markForCheck();
       this.stateChangedEmitter.next();
     });
@@ -376,8 +375,8 @@ export class SelectComponent
   }
 
   ngOnDestroy() {
-    this._valueChangeSub && this._valueChangeSub.unsubscribe();
     this.destroy();
+    this.subscriptions.unsubscribe();
   }
 
   inputChange(event: KeyboardEvent) {

@@ -2,6 +2,7 @@ import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector, Inject, ComponentRef } from '@angular/core';
 import { take } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import {
   NotifierOverlayRef,
@@ -25,14 +26,16 @@ interface Notification {
   providedIn: 'root',
 })
 export class NotifierHandlerService implements NotifierOverlayRefHandler {
+  private _notifications: Notification[] = [];
+
+  private subscriptions = new SubSink();
+
   constructor(
     private _overlay: Overlay,
     private _injector: Injector,
     @Inject(NOTIFIER_CONFIG_TOKEN)
     private _config: NotifierConfig
   ) {}
-
-  private _notifications: Notification[] = [];
 
   create(opts: NotifierOptions): NotifierOverlayRef {
     const notificationRef = new NotifierOverlayRef(this, opts);
@@ -44,7 +47,7 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
     const componentRef = overlayRef.attach(portal);
 
     if (opts.hasBackdrop && (opts.closeOnBackdrop ?? true)) {
-      overlayRef
+      this.subscriptions.sink = overlayRef
         .backdropClick()
         .pipe(take(1))
         .subscribe(() => {
@@ -76,6 +79,7 @@ export class NotifierHandlerService implements NotifierOverlayRefHandler {
     this._notifications = this._notifications.filter(
       n => n.notificationRef !== notificationRef
     );
+    this.subscriptions.unsubscribe();
   }
 
   isDestroyed(notificationRef: NotifierOverlayRef): boolean {
