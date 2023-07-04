@@ -14,9 +14,10 @@ import {
   HostBinding,
   forwardRef,
   ViewEncapsulation,
+  OnInit,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { DrawerComponent } from './drawer.component';
 import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
@@ -36,7 +37,7 @@ import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
   ],
 })
 export class DrawerContainerComponent
-  implements AfterContentInit, OnDestroy, DrawerContainer
+  implements AfterContentInit, OnInit, OnDestroy, DrawerContainer
 {
   @HostBinding('class.drawer-container')
   _hostClasses = true;
@@ -50,8 +51,6 @@ export class DrawerContainerComponent
 
   leftDrawer: DrawerComponent | undefined;
   rightDrawer: DrawerComponent | undefined;
-
-  viewportRulerSub: Subscription;
 
   // Margins to be applied to the content.
   marginLeft = 0;
@@ -67,24 +66,30 @@ export class DrawerContainerComponent
     );
   }
 
+  private subscriptions = new SubSink();
+
   constructor(
     @Optional()
-    private elementRef: ElementRef<HTMLElement>,
-    private cdRef: ChangeDetectorRef,
-    viewportRuler: ViewportRuler
-  ) {
-    // Recalc margin on viewport change
-    this.viewportRulerSub = viewportRuler.change().subscribe(() => {
-      this.updateContentMargins();
-    });
-  }
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly viewportRuler: ViewportRuler
+  ) {}
+
   ngAfterContentInit() {
     this._drawers.changes.pipe(startWith(undefined)).subscribe(() => {
       this.assignDrawers();
     });
   }
+
+  ngOnInit() {
+    // Recalc margin on viewport change
+    this.subscriptions.sink = this.viewportRuler.change().subscribe(() => {
+      this.updateContentMargins();
+    });
+  }
+
   ngOnDestroy() {
-    this.viewportRulerSub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   open(): void {

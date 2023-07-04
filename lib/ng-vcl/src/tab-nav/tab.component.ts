@@ -9,7 +9,9 @@ import {
   HostListener,
   ChangeDetectionStrategy,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
+import { SubSink } from 'subsink';
 
 import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
 
@@ -29,7 +31,7 @@ export class TabLabelDirective implements OnInit {
   exportAs: 'vclTab',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabComponent implements OnInit, Tab {
+export class TabComponent implements OnInit, OnDestroy, Tab {
   @ViewChild('contentTemplate', { read: TemplateRef })
   contentTemplate?: TemplateRef<any>;
 
@@ -56,16 +58,22 @@ export class TabComponent implements OnInit, Tab {
     this.tabNav.selectTab(this);
   }
 
+  private subscriptions = new SubSink();
+
   constructor(
     @Inject(TAB_NAV_TOKEN)
     private readonly tabNav: TabNav
   ) {}
 
   ngOnInit() {
-    this.tabNav.currentTab$.subscribe(tab => {
+    this.subscriptions.sink = this.tabNav.currentTab$.subscribe(tab => {
       setTimeout(() => {
         this.selected = tab === this;
       }, 0);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

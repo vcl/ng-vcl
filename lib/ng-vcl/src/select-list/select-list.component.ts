@@ -18,7 +18,8 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import {
   FormControlGroupInputState,
@@ -80,7 +81,6 @@ export class SelectListComponent
   @HostBinding('class.open')
   _hostClasses = true;
 
-  private _itemsChangeSub?: Subscription;
   private _highlightedItem: SelectListItem;
   private _itemsChangeEmitter: Subject<void> = new Subject();
 
@@ -255,20 +255,22 @@ export class SelectListComponent
     );
   }
 
+  private subscriptions = new SubSink();
+
   constructor(
     private readonly cdRef: ChangeDetectorRef,
     private readonly injector: Injector
   ) {}
 
   ngAfterContentInit() {
-    this._itemsChangeSub = this._items.changes.subscribe(
+    this.subscriptions.sink = this._items.changes.subscribe(
       this._itemsChangeEmitter
     );
   }
 
   ngOnDestroy() {
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
-    this._itemsChangeSub && this._itemsChangeSub.unsubscribe();
+    this.stateChangedEmitter?.complete();
+    this.subscriptions?.unsubscribe();
   }
 
   highlight(value: any) {

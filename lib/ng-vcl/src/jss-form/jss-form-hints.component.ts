@@ -8,15 +8,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import {
-  Subject,
-  Observable,
-  merge,
-  Subscription,
-  of,
-  combineLatest,
-} from 'rxjs';
+import { Subject, Observable, merge, of, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import {
   FORM_CONTROL_GROUP_STATE,
@@ -36,7 +30,6 @@ import { Hint, DefaultHint, Conditional, hasFormHints } from './types';
 })
 export class JssFormHintsComponent implements OnInit, OnDestroy, AfterViewInit {
   private _hints: (Hint | Conditional<Hint>)[];
-  private _sub: Subscription;
   _hintsEmitter = new Subject<void>();
 
   hints$: Observable<Hint[]> = this._hintsEmitter.asObservable().pipe(
@@ -57,6 +50,8 @@ export class JssFormHintsComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   );
 
+  private subscriptions = new SubSink();
+
   constructor(
     @Inject(FORM_CONTROL_GROUP_FORM)
     private readonly form: FormControlGroupForm,
@@ -66,6 +61,10 @@ export class JssFormHintsComponent implements OnInit, OnDestroy, AfterViewInit {
     @Inject(FORM_CONTROL_GROUP_STATE)
     private readonly fcgs?: FormControlGroupState
   ) {}
+
+  ngAfterViewInit() {
+    this._hintsEmitter.next();
+  }
 
   ngOnInit() {
     let control: AbstractControl;
@@ -90,14 +89,10 @@ export class JssFormHintsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (control) {
       $.push(control.valueChanges, control.statusChanges);
     }
-    this._sub = merge(...$).subscribe(this._hintsEmitter);
-  }
-
-  ngAfterViewInit() {
-    this._hintsEmitter.next();
+    this.subscriptions.sink = merge(...$).subscribe(this._hintsEmitter);
   }
 
   ngOnDestroy() {
-    this._sub && this._sub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

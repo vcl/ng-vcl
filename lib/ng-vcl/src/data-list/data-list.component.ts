@@ -15,7 +15,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { DataListItemDirective } from './data-list-item.directive';
 import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
@@ -55,16 +56,6 @@ export class DataListFooterDirective {
 export class DataListComponent
   implements DataList, AfterContentInit, OnDestroy, ControlValueAccessor
 {
-  constructor(
-    @Optional()
-    public readonly ngControl?: NgControl
-  ) {
-    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
-
   stateChange = new Subject<void>();
 
   private _cvaDisabled = false;
@@ -72,7 +63,6 @@ export class DataListComponent
   @HostBinding('class.data-list')
   _hostClasses = true;
 
-  private _itemsChangeSub?: Subscription;
   private _itemsChangeEmitter: Subject<void> = new Subject();
 
   readonly itemsChange = this._itemsChangeEmitter.asObservable();
@@ -103,6 +93,29 @@ export class DataListComponent
 
   get isDisabled() {
     return this._cvaDisabled || this.disabled;
+  }
+
+  private subscriptions = new SubSink();
+
+  constructor(
+    @Optional()
+    public readonly ngControl?: NgControl
+  ) {
+    // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  ngAfterContentInit() {
+    this.subscriptions.sink = this._items.changes.subscribe(
+      this._itemsChangeEmitter
+    );
+  }
+
+  ngOnDestroy() {
+    this.stateChange.complete();
+    this.subscriptions.unsubscribe();
   }
 
   isItemSelected(item: DataListItem): boolean {
@@ -141,17 +154,6 @@ export class DataListComponent
     if (this._items.last === item) {
       this.onTouched();
     }
-  }
-
-  ngAfterContentInit() {
-    this._itemsChangeSub = this._items.changes.subscribe(
-      this._itemsChangeEmitter
-    );
-  }
-
-  ngOnDestroy() {
-    this._itemsChangeSub && this._itemsChangeSub.unsubscribe();
-    this.stateChange.complete();
   }
 
   /**

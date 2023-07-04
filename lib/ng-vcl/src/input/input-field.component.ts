@@ -9,6 +9,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import {
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
@@ -65,10 +66,12 @@ export class InputFieldComponent
   isLabelFloating = false;
   prependedElements = 0;
 
+  private subscriptions = new SubSink();
+
   constructor(private readonly cdRef: ChangeDetectorRef) {}
 
   ngAfterContentInit(): void {
-    this.input?.stateChanged.subscribe(() => {
+    this.subscriptions.sink = this.input?.stateChanged.subscribe(() => {
       this.updateState();
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
@@ -79,6 +82,7 @@ export class InputFieldComponent
 
   ngOnDestroy(): void {
     this.stateChangedEmitter.complete();
+    this.subscriptions.unsubscribe();
   }
 
   updateState() {

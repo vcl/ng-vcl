@@ -9,7 +9,9 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
+import { SubSink } from 'subsink';
 
 import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
 
@@ -20,7 +22,7 @@ import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
   styleUrls: ['hint.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class FormControlHintComponent implements OnInit {
+export class FormControlHintComponent implements OnInit, OnDestroy {
   @HostBinding('class.form-control-hint')
   classVCLFormControlHint = true;
 
@@ -37,6 +39,9 @@ export class FormControlHintComponent implements OnInit {
       this.elementRef.nativeElement.tagName.toLowerCase() === 'vcl-hint-success'
     );
   }
+
+  private subscriptions = new SubSink();
+
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly cdRef: ChangeDetectorRef,
@@ -46,10 +51,14 @@ export class FormControlHintComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fcgs?.stateChanged.subscribe(() => {
+    this.subscriptions.sink = this.fcgs?.stateChanged.subscribe(() => {
       this.cdRef.detectChanges();
       this.cdRef.markForCheck();
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }
 
@@ -58,7 +67,7 @@ export class FormControlHintComponent implements OnInit {
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormControlHintErrorComponent implements OnInit {
+export class FormControlHintErrorComponent implements OnInit, OnDestroy {
   @HostBinding('class.form-control-hint')
   @HostBinding('class.error')
   classVCLFormControlHint = true;
@@ -86,6 +95,8 @@ export class FormControlHintErrorComponent implements OnInit {
     return true;
   }
 
+  private subscriptions = new SubSink();
+
   constructor(
     private readonly cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
@@ -94,9 +105,13 @@ export class FormControlHintErrorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fcgs?.stateChanged.subscribe(() => {
+    this.subscriptions.sink = this.fcgs?.stateChanged.subscribe(() => {
       this.cdRef.detectChanges();
       this.cdRef.markForCheck();
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

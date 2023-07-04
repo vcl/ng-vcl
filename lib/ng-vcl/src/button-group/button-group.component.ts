@@ -18,8 +18,9 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import {
   BUTTON_HOST_TOKEN,
@@ -61,7 +62,6 @@ export class ButtonGroupComponent
     ButtonHost,
     FormControlGroupInputState
 {
-  private buttonsSub?: Subscription;
   private _generatedId = 'vcl_button_group_' + UNIQUE_ID++;
   private stateChangedEmitter = new Subject<void>();
 
@@ -120,6 +120,8 @@ export class ButtonGroupComponent
     return this.buttons.some(b => b.isFocused);
   }
 
+  private subscriptions = new SubSink();
+
   constructor(
     private readonly cdRef: ChangeDetectorRef,
     private readonly injector: Injector
@@ -127,8 +129,7 @@ export class ButtonGroupComponent
 
   ngAfterContentInit() {
     // Syncs changed buttons checked state to be in line with the current group value
-    // eslint-disable-next-line import/no-deprecated
-    this.buttonsSub = this.buttons.changes
+    this.subscriptions.sink = this.buttons.changes
       .pipe(startWith(null))
       .subscribe(() => {
         if (!this.buttons) {
@@ -139,8 +140,8 @@ export class ButtonGroupComponent
   }
 
   ngOnDestroy() {
-    this.buttonsSub && this.buttonsSub.unsubscribe();
-    this.stateChangedEmitter && this.stateChangedEmitter.complete();
+    this.stateChangedEmitter?.complete();
+    this.subscriptions?.unsubscribe();
   }
 
   notifyButtonClick(btn: ButtonComponent) {

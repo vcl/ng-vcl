@@ -9,8 +9,11 @@ import {
   ContentChild,
   AfterContentInit,
   AfterViewInit,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 
 export type EmbeddedInputFieldLabelMode = 'float' | 'static' | 'disabled';
 
@@ -51,7 +54,7 @@ export class EmbeddedInputFieldLabelConfig {
   exportAs: 'vclEmbeddedInputFieldLabel',
 })
 export class EmbeddedInputFieldLabelDirective
-  implements AfterContentInit, AfterViewInit
+  implements AfterContentInit, AfterViewInit, OnInit, OnDestroy
 {
   globalMode: EmbeddedInputFieldLabelMode;
 
@@ -94,25 +97,19 @@ export class EmbeddedInputFieldLabelDirective
   @HostBinding('style.--floating-label-padding')
   labelOffSet = '0em';
 
+  private subscriptions = new SubSink();
+
   constructor(
     @Optional()
     @SkipSelf()
-    config: EmbeddedInputFieldLabelConfig,
+    public config: EmbeddedInputFieldLabelConfig,
     private readonly cdRef: ChangeDetectorRef
-  ) {
-    if (config) {
-      this.globalMode = config.mode;
-      config.modeChange.subscribe(m => {
-        this.globalMode = m;
-        this.cdRef.markForCheck();
-      });
-    }
-  }
+  ) {}
 
   ngAfterContentInit() {
     this.updateState();
     if (this.enabled) {
-      this.inputField?.stateChanged.subscribe(() => {
+      this.subscriptions.sink = this.inputField?.stateChanged.subscribe(() => {
         this.updateState();
       });
     }
@@ -125,6 +122,20 @@ export class EmbeddedInputFieldLabelDirective
     setTimeout(() => {
       this.disableAnimations = false;
     }, 5);
+  }
+
+  ngOnInit() {
+    if (this.config) {
+      this.globalMode = this.config.mode;
+      this.subscriptions.sink = this.config.modeChange.subscribe(m => {
+        this.globalMode = m;
+        this.cdRef.markForCheck();
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   private updateState() {

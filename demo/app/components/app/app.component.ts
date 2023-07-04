@@ -7,8 +7,8 @@ import {
   RouterEvent,
 } from '@angular/router';
 import Fuse from 'fuse.js';
-import { Subscription } from 'rxjs';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { DrawerComponent } from '@vcl/ng-vcl';
 
@@ -27,8 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
     read: DrawerComponent,
   })
   drawer: DrawerComponent;
-
-  breakpointSub: Subscription;
 
   xsmall = true;
   left = true;
@@ -73,23 +71,27 @@ export class AppComponent implements OnInit, OnDestroy {
 
   searchResults = [];
 
+  private subscriptions = new SubSink();
+
   constructor(
     private readonly router: Router,
     private readonly breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe(() => {
+    this.subscriptions.sink = this.router.events.subscribe(() => {
       window.scrollTo(0, 0);
     });
 
-    this.breakpointObserver.observe([Breakpoints.XSmall]).subscribe(state => {
-      this.xsmall = state.breakpoints[Breakpoints.XSmall];
-    });
+    this.subscriptions.sink = this.breakpointObserver
+      .observe([Breakpoints.XSmall])
+      .subscribe(state => {
+        this.xsmall = state.breakpoints[Breakpoints.XSmall];
+      });
   }
 
   ngOnDestroy(): void {
-    this.breakpointSub && this.breakpointSub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   onNavItemClick(): void {

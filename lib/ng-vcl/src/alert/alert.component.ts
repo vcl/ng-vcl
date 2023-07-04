@@ -7,7 +7,8 @@ import {
   OnDestroy,
   HostBinding,
 } from '@angular/core';
-import { Subscription, from } from 'rxjs';
+import { from } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { LayerRef } from '../layer/index';
 
@@ -25,14 +26,6 @@ import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
   ],
 })
 export class AlertComponent implements AfterViewInit, OnDestroy {
-  confirmActionSub?: Subscription;
-
-  constructor(
-    private elementRef: ElementRef,
-    private alertLayer: LayerRef<AlertOptions, AlertResult>,
-    private cdRef: ChangeDetectorRef
-  ) {}
-
   value: any;
   validationError: string;
   loader = false;
@@ -56,12 +49,24 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
     return TYPE_CLASS_MAP[this.alert.type || AlertType.None].iconClass;
   }
 
+  private subscriptions = new SubSink();
+
+  constructor(
+    private readonly elementRef: ElementRef,
+    private readonly alertLayer: LayerRef<AlertOptions, AlertResult>,
+    private readonly cdRef: ChangeDetectorRef
+  ) {}
+
   ngAfterViewInit(): void {
     if (this.alert && this.alert.inputValue) {
       this.value = this.alert.inputValue;
     }
 
     this.elementRef.nativeElement.focus();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   confirm() {
@@ -97,7 +102,7 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
           ? this.alert.confirmAction(result)
           : this.alert.confirmAction
       );
-      this.confirmActionSub = $.subscribe(
+      this.subscriptions.sink = $.subscribe(
         value => {
           const asyncResult: AlertResult = {
             action: 'confirm',
@@ -119,9 +124,7 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   }
 
   cancel() {
-    if (this.confirmActionSub) {
-      this.confirmActionSub.unsubscribe();
-    }
+    this.subscriptions.sink?.unsubscribe();
 
     const result: AlertResult = {
       action: 'cancel',
@@ -138,9 +141,5 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
 
   valueChange(value: any) {
     this.value = value;
-  }
-
-  ngOnDestroy() {
-    this.confirmActionSub && this.confirmActionSub.unsubscribe();
   }
 }

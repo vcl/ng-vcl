@@ -10,7 +10,7 @@ import {
   Directive,
   OnInit,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import {
   DataList,
@@ -46,8 +46,6 @@ export class DataListItemDirective implements DataListItem, OnInit, OnDestroy {
   value: any;
 
   selected = false;
-
-  private sub?: Subscription;
 
   @HostBinding('class.selectable')
   get classSelectable() {
@@ -104,6 +102,8 @@ export class DataListItemDirective implements DataListItem, OnInit, OnDestroy {
     }
   }
 
+  private subscriptions = new SubSink();
+
   constructor(
     @Inject(DATA_LIST_TOKEN)
     private readonly dataList: DataList,
@@ -112,13 +112,13 @@ export class DataListItemDirective implements DataListItem, OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.selected = this.dataList.isItemSelected(this);
-    this.sub = this.dataList.stateChange.subscribe(() => {
+    this.subscriptions.sink = this.dataList.stateChange.subscribe(() => {
       this.selected = this.dataList.isItemSelected(this);
       this.cdRef.markForCheck();
     });
   }
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

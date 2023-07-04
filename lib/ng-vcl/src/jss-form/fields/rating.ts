@@ -3,7 +3,10 @@ import {
   ChangeDetectorRef,
   ViewChild,
   AfterViewInit,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
+import { SubSink } from 'subsink';
 
 import { RatingComponent } from '../../rating/index';
 import {
@@ -64,7 +67,9 @@ export class FormFieldRating extends FormFieldControl<
     </vcl-form-control-group>
   `,
 })
-export class FormFieldRatingComponent implements AfterViewInit {
+export class FormFieldRatingComponent
+  implements AfterViewInit, OnInit, OnDestroy
+{
   @ViewChild(RatingComponent)
   rating: RatingComponent;
 
@@ -74,17 +79,28 @@ export class FormFieldRatingComponent implements AfterViewInit {
 
   _valueLabel: string;
 
-  constructor(public field: FormFieldRating, private cdRef: ChangeDetectorRef) {
-    field.stateChanged.subscribe(() => {
-      cdRef.markForCheck();
-    });
-  }
+  private subscriptions = new SubSink();
+
+  constructor(
+    public field: FormFieldRating,
+    private readonly cdRef: ChangeDetectorRef
+  ) {}
 
   ngAfterViewInit() {
     this.rating.labelChange.subscribe(label => {
       this.updateValueLabel(label);
     });
     this.updateValueLabel(this.rating.label);
+  }
+
+  ngOnInit() {
+    this.subscriptions.sink = this.field.stateChanged.subscribe(() => {
+      this.cdRef.markForCheck();
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   updateValueLabel(label?: string) {

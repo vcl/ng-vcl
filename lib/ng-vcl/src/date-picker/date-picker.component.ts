@@ -26,7 +26,7 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl,
 } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { VCLCalendarDateModifier } from '../calendar/index';
 import {
@@ -85,8 +85,6 @@ export class DatepickerComponent<VCLDate>
     EmbeddedInputFieldLabelInput
 {
   private stateChangedEmitter = new Subject<void>();
-  private _dropdownOpenedSub?: Subscription;
-  private _valueChangeSub?: Subscription;
   private _cvaDisabled = false;
 
   private uniqueId = 'vcl_datepicker_' + UNIQUE_ID++;
@@ -201,7 +199,9 @@ export class DatepickerComponent<VCLDate>
 
   ngAfterViewInit() {
     this.updateInput();
-    this.input.stateChanged.subscribe(this.stateChangedEmitter);
+    this.subscriptions.sink = this.input.stateChanged.subscribe(
+      this.stateChangedEmitter
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -211,8 +211,8 @@ export class DatepickerComponent<VCLDate>
   }
 
   ngOnDestroy() {
-    this._valueChangeSub && this._valueChangeSub.unsubscribe();
     this.destroy();
+    this.subscriptions?.unsubscribe();
   }
 
   setErrorState(error: boolean): void {
@@ -296,7 +296,7 @@ export class DatepickerComponent<VCLDate>
   }
 
   protected afterAttached(): void {
-    this.overlayRef.backdropClick().subscribe(() => {
+    this.subscriptions.sink = this.overlayRef.backdropClick().subscribe(() => {
       this.onTouched();
       this.stateChangedEmitter.next();
       this.close();
@@ -312,7 +312,7 @@ export class DatepickerComponent<VCLDate>
   }
 
   protected afterDetached(date) {
-    this._dropdownOpenedSub && this._dropdownOpenedSub.unsubscribe();
+    this.subscriptions.unsubscribe();
     this.afterClose.emit(date);
     if (!this.isDestroyed) {
       this.cdRef.markForCheck();

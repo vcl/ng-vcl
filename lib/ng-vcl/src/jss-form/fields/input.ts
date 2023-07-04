@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SubSink } from 'subsink';
 
 import {
   VCLFormFieldSchemaInput,
@@ -84,7 +85,7 @@ export class FormFieldInput extends FormFieldControl<
     </vcl-form-control-group>
   `,
 })
-export class FormFieldInputComponent {
+export class FormFieldInputComponent implements OnInit, OnDestroy {
   private _value = '';
 
   get value(): any {
@@ -100,8 +101,20 @@ export class FormFieldInputComponent {
     }
   }
 
-  constructor(public field: FormFieldInput) {
-    this._value = field.defaultValue;
-    field.control.valueChanges.subscribe(change => (this._value = change));
+  private subscriptions = new SubSink();
+
+  constructor(public field: FormFieldInput) {}
+
+  ngOnInit() {
+    this._value = this.field.defaultValue;
+    this.subscriptions.sink = this.field.control.valueChanges.subscribe(
+      change => {
+        this._value = change;
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -11,16 +11,9 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import {
-  Observable,
-  timer,
-  fromEvent,
-  merge,
-  NEVER,
-  Subject,
-  Subscription,
-} from 'rxjs';
+import { Observable, timer, fromEvent, merge, NEVER, Subject } from 'rxjs';
 import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 @Directive({
   selector: '[vclOffClick]',
@@ -28,7 +21,6 @@ import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
 })
 export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   changes$ = new Subject();
-  _sub?: Subscription;
 
   @Input('vclOffClickDelay')
   delay?: number = undefined;
@@ -42,6 +34,8 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   @Output('vclOffClick')
   offClick = new EventEmitter<MouseEvent | TouchEvent>();
 
+  private subscriptions = new SubSink();
+
   constructor(
     @Inject(DOCUMENT)
     private readonly document: Document,
@@ -49,7 +43,7 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this._sub = this.changes$
+    this.subscriptions.sink = this.changes$
       .pipe(
         switchMap(() => {
           if (!this.elementRef || !this.listen) {
@@ -72,7 +66,7 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this._sub && this._sub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }
 

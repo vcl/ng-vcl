@@ -180,6 +180,7 @@ export class TooltipDirective
 
   ngOnDestroy() {
     this.stateChangedEmitter.complete();
+    this.subscriptions.unsubscribe();
   }
 
   updatePositionStrategy() {
@@ -192,11 +193,13 @@ export class TooltipDirective
       .position()
       .flexibleConnectedTo(this.elementRef)
       .withPositions(connectedPositions);
-    this.positionStrategy.positionChanges.subscribe(change => {
-      this.arrowPosition = change?.connectionPair
-        ?.panelClass as TooltipPosition;
-      this.stateChangedEmitter.next(undefined);
-    });
+    this.subscriptions.sink = this.positionStrategy.positionChanges.subscribe(
+      change => {
+        this.arrowPosition = change?.connectionPair
+          ?.panelClass as TooltipPosition;
+        this.stateChangedEmitter.next(undefined);
+      }
+    );
   }
 
   protected createLayerConfig(config?: LayerConfig): LayerConfig {
