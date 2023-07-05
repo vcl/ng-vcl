@@ -1,3 +1,7 @@
+# [3.0.0](https://github.com/vcl/ng-vcl/compare/v2.6.5...v3.0.0) (2023-07-05)
+
+- Upgraded Angular version from v15.2.9 to v16.1.3.
+
 ## [2.6.5](https://github.com/vcl/ng-vcl/compare/v2.6.4...v2.6.5) (2023-07-04)
 
 ### Bug Fixes
