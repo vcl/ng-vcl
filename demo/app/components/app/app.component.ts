@@ -4,7 +4,6 @@ import {
   Router,
   RouteConfigLoadEnd,
   RouteConfigLoadStart,
-  RouterEvent,
 } from '@angular/router';
 import Fuse from 'fuse.js';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   left = true;
 
   busy$ = this.router.events.pipe(
-    scan<RouterEvent, number>((cur, event) => {
+    scan((cur, event) => {
       if (event instanceof RouteConfigLoadStart) {
         return cur + 1;
       } else if (event instanceof RouteConfigLoadEnd) {
