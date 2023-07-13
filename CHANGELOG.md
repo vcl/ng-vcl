@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/vcl/ng-vcl/compare/v3.0.0...v3.0.1) (2023-07-13)
+
+### Bug Fixes
+
+- added subsink peer dependency ([793aeb8](https://github.com/vcl/ng-vcl/commit/793aeb82c4803bc128d565663599b1620fb00d5f))
+
 # [3.0.0](https://github.com/vcl/ng-vcl/compare/v2.6.5...v3.0.0) (2023-07-05)
 
 - Upgraded Angular version from v15.2.9 to v16.1.3.
