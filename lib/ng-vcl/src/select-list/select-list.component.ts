@@ -18,8 +18,7 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { SubSink } from 'subsink';
+import { Subject, Subscription } from 'rxjs';
 
 import {
   FormControlGroupInputState,
@@ -216,15 +215,11 @@ export class SelectListComponent
       this.value = item ? item.value : undefined;
     } else {
       const values = this._valueAsArray;
-      if (item) {
-        if (values.includes(item.value)) {
-          this.value = values.filter(_value => _value !== item.value);
-        } else {
-          this.value = [...values, item.value];
-        }
-      } else {
-        this.value = [];
-      }
+      this.value = item
+        ? values.includes(item.value)
+          ? values.filter(v => v !== item.value)
+          : [...values, item.value]
+        : [];
     }
 
     this.valueChange.emit(this.value);
@@ -255,7 +250,7 @@ export class SelectListComponent
     );
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly cdRef: ChangeDetectorRef,
@@ -263,14 +258,14 @@ export class SelectListComponent
   ) {}
 
   ngAfterContentInit() {
-    this.subscriptions.sink = this._items.changes.subscribe(
-      this._itemsChangeEmitter
+    this.subscriptions.push(
+      this._items.changes.subscribe(this._itemsChangeEmitter)
     );
   }
 
   ngOnDestroy() {
     this.stateChangedEmitter?.complete();
-    this.subscriptions?.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   highlight(value: any) {

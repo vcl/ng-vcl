@@ -8,7 +8,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { TOOLTIP_TOKEN, Tooltip } from './types';
 
@@ -25,7 +25,7 @@ export class TooltipComponent implements OnInit, OnDestroy {
     return this.tooltip.value instanceof TemplatePortal;
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Optional()
@@ -35,13 +35,15 @@ export class TooltipComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscriptions.sink = this.tooltip.stateChanged.subscribe(() => {
-      this.cdRef.markForCheck();
-      this.cdRef.detectChanges();
-    });
+    this.subscriptions.push(
+      this.tooltip.stateChanged.subscribe(() => {
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }

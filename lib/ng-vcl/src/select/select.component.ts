@@ -326,10 +326,12 @@ export class SelectComponent
   }
 
   ngAfterContentInit(): void {
-    this.subscriptions.sink = this.selectList.valueChange.subscribe(() => {
-      this.cdRef.markForCheck();
-      this.stateChangedEmitter.next();
-    });
+    this.subscriptions.push(
+      this.selectList.valueChange.subscribe(() => {
+        this.cdRef.markForCheck();
+        this.stateChangedEmitter.next();
+      })
+    );
   }
 
   protected afterAttached(): void {
@@ -376,7 +378,7 @@ export class SelectComponent
 
   ngOnDestroy() {
     this.destroy();
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   inputChange(event: KeyboardEvent) {

@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 import { AlertService, AlertType, AlertInput } from '@vcl/ng-vcl';
 
@@ -28,12 +27,12 @@ function createAsyncResult(
   styleUrls: ['demo.component.scss'],
 })
 export class AlertDemoComponent implements OnDestroy {
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(private alert: AlertService) {}
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   message() {
@@ -94,61 +93,67 @@ export class AlertDemoComponent implements OnDestroy {
   }
 
   question() {
-    this.subscriptions.sink = this.alert
-      .open({
-        text: 'Do you really want to delete the file?',
-        title: 'Delete file?',
-        type: AlertType.Question,
-        showCloseButton: true,
-        showCancelButton: true,
-        cancelButtonLabel: 'No',
-        confirmButtonLabel: 'Yes',
-      })
-      .subscribe(result => {
-        if (result.action === 'confirm') {
-          this.alert.success('File deleted');
-        } else {
-          this.alert.error('Reason: ' + result.action, {
-            title: 'File not deleted',
-          });
-        }
-      });
+    this.subscriptions.push(
+      this.alert
+        .open({
+          text: 'Do you really want to delete the file?',
+          title: 'Delete file?',
+          type: AlertType.Question,
+          showCloseButton: true,
+          showCancelButton: true,
+          cancelButtonLabel: 'No',
+          confirmButtonLabel: 'Yes',
+        })
+        .subscribe(result => {
+          if (result.action === 'confirm') {
+            this.alert.success('File deleted');
+          } else {
+            this.alert.error('Reason: ' + result.action, {
+              title: 'File not deleted',
+            });
+          }
+        })
+    );
   }
 
   async() {
-    this.subscriptions.sink = this.alert
-      .open({
-        text: 'Determine your user agent?',
-        confirmAction: createAsyncResult(window.navigator.userAgent),
-        showCancelButton: true,
-      })
-      .subscribe(result => {
-        if (result.action === 'confirm') {
-          this.alert.info(result.value, {
-            title: 'Your user agent',
-          });
-        }
-      });
+    this.subscriptions.push(
+      this.alert
+        .open({
+          text: 'Determine your user agent?',
+          confirmAction: createAsyncResult(window.navigator.userAgent),
+          showCancelButton: true,
+        })
+        .subscribe(result => {
+          if (result.action === 'confirm') {
+            this.alert.info(result.value, {
+              title: 'Your user agent',
+            });
+          }
+        })
+    );
   }
 
   inputText() {
-    this.subscriptions.sink = this.alert
-      .open({
-        text: 'What is your name?',
-        input: AlertInput.Text,
-        confirmButtonLabel: 'Next',
-        inputValidator: value => {
-          if (typeof value !== 'string' || value.length < 2) {
-            throw new Error('Invalid name!');
+    this.subscriptions.push(
+      this.alert
+        .open({
+          text: 'What is your name?',
+          input: AlertInput.Text,
+          confirmButtonLabel: 'Next',
+          inputValidator: value => {
+            if (typeof value !== 'string' || value.length < 2) {
+              throw new Error('Invalid name!');
+            }
+            return true;
+          },
+        })
+        .subscribe(result => {
+          if (result.action === 'confirm') {
+            this.alert.info('Hello ' + result.value);
           }
-          return true;
-        },
-      })
-      .subscribe(result => {
-        if (result.action === 'confirm') {
-          this.alert.info('Hello ' + result.value);
-        }
-      });
+        })
+    );
   }
 
   retry() {
@@ -184,14 +189,16 @@ export class AlertDemoComponent implements OnDestroy {
       })
     );
 
-    this.subscriptions.sink = this.alert
-      .open({
-        text: 'Show current time? (will fail the first time)',
-        showCancelButton: true,
-        confirmAction: fakeAsyncWithRetries,
-      })
-      .subscribe(result => {
-        this.alert.info(result.value, { title: 'Time' });
-      });
+    this.subscriptions.push(
+      this.alert
+        .open({
+          text: 'Show current time? (will fail the first time)',
+          showCancelButton: true,
+          confirmAction: fakeAsyncWithRetries,
+        })
+        .subscribe(result => {
+          this.alert.info(result.value, { title: 'Time' });
+        })
+    );
   }
 }

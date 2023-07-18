@@ -6,7 +6,7 @@ import {
   TemplateRef,
   OnDestroy,
 } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { LayerService, LayerRef } from '@vcl/ng-vcl';
 
@@ -26,7 +26,7 @@ export class LayerDemoComponent implements AfterViewInit, OnDestroy {
 
   tplLayer: LayerRef;
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly nagLayer: NagLayer,
@@ -48,34 +48,34 @@ export class LayerDemoComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.barLayer?.destroy();
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   openBarComponent() {
-    this.subscriptions.sink = this.barLayer
-      .open({
-        data: {
-          title: `bar component layer title (${i++})`,
-        },
-      })
-      .subscribe(result => {
-        console.log('Bar component result: ' + result?.value);
-      });
+    this.subscriptions.push(
+      this.barLayer
+        .open({
+          data: {
+            title: `bar component layer title (${i++})`,
+          },
+        })
+        .subscribe(result => {
+          console.log('Bar component result: ' + result?.value);
+        })
+    );
   }
 
   openNagLayer() {
-    this.subscriptions.sink = this.nagLayer
-      .open({
-        data: {
-          allowDecline: true,
-        },
-      })
-      .subscribe(result => {
-        if (result.accept) {
-          console.log('Accepted');
-        } else {
-          console.log('Declined');
-        }
-      });
+    this.subscriptions.push(
+      this.nagLayer
+        .open({
+          data: {
+            allowDecline: true,
+          },
+        })
+        .subscribe(result => {
+          console.log(result.accept ? 'Accepted' : 'Declined');
+        })
+    );
   }
 }

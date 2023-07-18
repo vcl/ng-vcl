@@ -10,8 +10,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { SubSink } from 'subsink';
+import { Subject, Subscription } from 'rxjs';
 
 import {
   FORM_CONTROL_GROUP_INPUT_STATE,
@@ -131,7 +130,7 @@ export class InputDirective
     this.stateChangedEmitter.next();
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     public readonly elementRef: ElementRef<HTMLInputElement>,
@@ -141,15 +140,15 @@ export class InputDirective
   ngOnInit() {
     const ngControl = this.ngControl;
     if (ngControl?.valueChanges) {
-      this.subscriptions.sink = this.ngControl.valueChanges.subscribe(
-        this.stateChangedEmitter
+      this.subscriptions.push(
+        this.ngControl.valueChanges.subscribe(this.stateChangedEmitter)
       );
     }
   }
 
   ngOnDestroy() {
     this.stateChangedEmitter?.complete();
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   setDisabledState(isDisabled: boolean) {

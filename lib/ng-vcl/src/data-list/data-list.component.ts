@@ -15,8 +15,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { SubSink } from 'subsink';
+import { Subject, Subscription } from 'rxjs';
 
 import { DataListItemDirective } from './data-list-item.directive';
 import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
@@ -95,7 +94,7 @@ export class DataListComponent
     return this._cvaDisabled || this.disabled;
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Optional()
@@ -108,14 +107,14 @@ export class DataListComponent
   }
 
   ngAfterContentInit() {
-    this.subscriptions.sink = this._items.changes.subscribe(
-      this._itemsChangeEmitter
+    this.subscriptions.push(
+      this._items.changes.subscribe(this._itemsChangeEmitter)
     );
   }
 
   ngOnDestroy() {
     this.stateChange.complete();
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   isItemSelected(item: DataListItem): boolean {

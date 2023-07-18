@@ -16,8 +16,8 @@ import {
   ViewEncapsulation,
   OnInit,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 import { DrawerComponent } from './drawer.component';
 import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
@@ -66,7 +66,7 @@ export class DrawerContainerComponent
     );
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Optional()
@@ -83,13 +83,15 @@ export class DrawerContainerComponent
 
   ngOnInit() {
     // Recalc margin on viewport change
-    this.subscriptions.sink = this.viewportRuler.change().subscribe(() => {
-      this.updateContentMargins();
-    });
+    this.subscriptions.push(
+      this.viewportRuler.change().subscribe(() => {
+        this.updateContentMargins();
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   open(): void {

@@ -75,7 +75,7 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy();
-    this.subscriptions?.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   createLayerConfig(...configs: LayerConfig[]): LayerConfig {
@@ -128,19 +128,18 @@ export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
   protected afterAttached(): void {
     this.visibleChange.emit(this.visible);
     if (this.closeOnOffClick) {
-      this.subscriptions.sink = createOffClickStream(
-        [this.overlayRef.overlayElement],
-        {
+      this.subscriptions.push(
+        createOffClickStream([this.overlayRef.overlayElement], {
           document: this.document,
-        }
-      ).subscribe(() => {
-        this.close();
-      });
+        }).subscribe(() => {
+          this.close();
+        })
+      );
     }
   }
 
   protected afterDetached(_: unknown): void {
     this.visibleChange.emit(this.visible);
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }

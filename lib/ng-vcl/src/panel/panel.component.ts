@@ -11,9 +11,8 @@ import {
   OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
-import { merge, NEVER } from 'rxjs';
+import { merge, NEVER, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 import {
   PanelFooterButtonDirective,
@@ -75,22 +74,24 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
   hasFooterButtons = false;
   hasTitle = false;
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   ngAfterContentInit(): void {
-    this.subscriptions.sink = merge(
-      this.panelTitle ? this.panelTitle.changes : NEVER,
-      this.panelFooterButtons ? this.panelFooterButtons.changes : NEVER
-    )
-      .pipe(startWith(undefined))
-      .subscribe(() => {
-        this.hasFooterButtons = this.panelFooterButtons.length > 0;
-        this.hasTitle = this.panelTitle.length > 0;
-      });
+    this.subscriptions.push(
+      merge(
+        this.panelTitle ? this.panelTitle.changes : NEVER,
+        this.panelFooterButtons ? this.panelFooterButtons.changes : NEVER
+      )
+        .pipe(startWith(undefined))
+        .subscribe(() => {
+          this.hasFooterButtons = this.panelFooterButtons.length > 0;
+          this.hasTitle = this.panelTitle.length > 0;
+        })
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   onCloseClick() {

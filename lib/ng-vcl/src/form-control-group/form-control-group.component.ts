@@ -13,8 +13,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { Subject, merge, NEVER } from 'rxjs';
-import { SubSink } from 'subsink';
+import { Subject, merge, NEVER, Subscription } from 'rxjs';
 
 import { defaultFormControlErrorStateAgent } from './error-state-agent';
 import { FormDirective } from './form.directive';
@@ -125,7 +124,7 @@ export class FormControlGroupComponent<T>
     return false;
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly cdRef: ChangeDetectorRef,
@@ -144,21 +143,23 @@ export class FormControlGroupComponent<T>
     if (!this.input) {
       console.error('Missing input');
     }
-    this.subscriptions.sink = merge(
-      this.form.statusChanges,
-      this.form.ngSubmit,
-      this.input?.stateChanged ?? NEVER
-    ).subscribe(() => {
-      this.updateState();
-      this._stateChangedEmitter.next();
-      this.cdRef.markForCheck();
-      this.cdRef.detectChanges();
-    });
+    this.subscriptions.push(
+      merge(
+        this.form.statusChanges,
+        this.form.ngSubmit,
+        this.input?.stateChanged ?? NEVER
+      ).subscribe(() => {
+        this.updateState();
+        this._stateChangedEmitter.next();
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
+      })
+    );
   }
 
   ngOnDestroy() {
+    this.subscriptions.forEach(s => s?.unsubscribe());
     this._stateChangedEmitter.complete();
-    this.subscriptions.unsubscribe();
   }
 
   getError(errorCode: string, path?: string | (string | number)[]) {

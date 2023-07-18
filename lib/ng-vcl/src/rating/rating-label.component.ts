@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
 } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { RatingComponent } from './rating.component';
 
@@ -18,13 +18,6 @@ import { RatingComponent } from './rating.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatingItemLabelComponent implements OnDestroy {
-  private subscriptions = new SubSink();
-
-  constructor(
-    private viewContainerRef: ViewContainerRef,
-    private cdRef: ChangeDetectorRef
-  ) {}
-
   portal?: TemplatePortal;
 
   _target?: RatingComponent;
@@ -34,22 +27,26 @@ export class RatingItemLabelComponent implements OnDestroy {
     this._target = target;
 
     if (this._target) {
-      this.subscriptions?.unsubscribe();
-      this.subscriptions.sink = this._target.labelTemplateChange.subscribe(
-        tpl => {
-          if (tpl) {
-            this.portal = new TemplatePortal(tpl, this.viewContainerRef);
-          } else {
-            this.portal = undefined;
-          }
+      this.subscriptions.forEach(s => s?.unsubscribe());
+      this.subscriptions.push(
+        this._target.labelTemplateChange.subscribe(tpl => {
+          this.portal = tpl
+            ? new TemplatePortal(tpl, this.viewContainerRef)
+            : undefined;
           this.cdRef.markForCheck();
           this.cdRef.detectChanges();
-        }
+        })
       );
     }
   }
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    private readonly viewContainerRef: ViewContainerRef,
+    private readonly cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }

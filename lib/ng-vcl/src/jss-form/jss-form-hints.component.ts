@@ -8,9 +8,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { Subject, Observable, merge, of, combineLatest } from 'rxjs';
+import {
+  Subject,
+  Observable,
+  merge,
+  of,
+  combineLatest,
+  Subscription,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 import {
   FORM_CONTROL_GROUP_STATE,
@@ -50,7 +56,7 @@ export class JssFormHintsComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   );
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Inject(FORM_CONTROL_GROUP_FORM)
@@ -89,10 +95,10 @@ export class JssFormHintsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (control) {
       $.push(control.valueChanges, control.statusChanges);
     }
-    this.subscriptions.sink = merge(...$).subscribe(this._hintsEmitter);
+    this.subscriptions.push(merge(...$).subscribe(this._hintsEmitter));
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }

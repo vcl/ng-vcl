@@ -12,8 +12,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { SubSink } from 'subsink';
+import { Subject, Observable, Subscription } from 'rxjs';
 
 export type EmbeddedInputFieldLabelMode = 'float' | 'static' | 'disabled';
 
@@ -97,7 +96,7 @@ export class EmbeddedInputFieldLabelDirective
   @HostBinding('style.--floating-label-padding')
   labelOffSet = '0em';
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Optional()
@@ -109,9 +108,11 @@ export class EmbeddedInputFieldLabelDirective
   ngAfterContentInit() {
     this.updateState();
     if (this.enabled) {
-      this.subscriptions.sink = this.inputField?.stateChanged.subscribe(() => {
-        this.updateState();
-      });
+      this.subscriptions.push(
+        this.inputField?.stateChanged.subscribe(() => {
+          this.updateState();
+        })
+      );
     }
   }
 
@@ -127,15 +128,17 @@ export class EmbeddedInputFieldLabelDirective
   ngOnInit() {
     if (this.config) {
       this.globalMode = this.config.mode;
-      this.subscriptions.sink = this.config.modeChange.subscribe(m => {
-        this.globalMode = m;
-        this.cdRef.markForCheck();
-      });
+      this.subscriptions.push(
+        this.config.modeChange.subscribe(m => {
+          this.globalMode = m;
+          this.cdRef.markForCheck();
+        })
+      );
     }
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   private updateState() {

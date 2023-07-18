@@ -14,9 +14,8 @@ import {
   ComponentRef,
   EmbeddedViewRef,
 } from '@angular/core';
-import { merge, NEVER, Subject } from 'rxjs';
+import { merge, NEVER, Subject, Subscription } from 'rxjs';
 import { take, switchMap, filter, map } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 import { Layer, LayerConfig, LayerData } from './types';
 
@@ -82,7 +81,7 @@ export abstract class LayerRef<
     return this._isDestroyed;
   }
 
-  protected subscriptions = new SubSink();
+  protected subscriptions: Subscription[] = [];
 
   constructor(protected readonly injector: Injector) {
     this._zone = injector.get(NgZone);
@@ -90,11 +89,7 @@ export abstract class LayerRef<
   }
 
   toggle() {
-    if (this.isAttached) {
-      this.close();
-    } else {
-      this.open();
-    }
+    this.isAttached ? this.close() : this.open();
   }
 
   protected createLayerConfig(...configs: LayerConfig[]): LayerConfig {
@@ -200,7 +195,7 @@ export abstract class LayerRef<
             this.overlayRef.detach();
           }
           this._attachmentRef = undefined;
-          this.subscriptions.sink?.unsubscribe();
+          this.subscriptions.forEach(sub => sub.unsubscribe());
 
           // @ts-ignore
           this._afterClose.next(result);
@@ -209,30 +204,32 @@ export abstract class LayerRef<
           this.afterDetached(result);
         });
 
-      this.subscriptions.sink = this._zone.onStable
-        .asObservable()
-        .pipe(take(1))
-        .pipe(
-          switchMap(() => {
-            const closeOnEscape = this._currentConfig.closeOnEscape ?? true;
-            const closeOnBackdropClick =
-              this._currentConfig.hasBackdrop &&
-              (this._currentConfig.closeOnBackdropClick ?? true);
-            return merge(
-              closeOnEscape
-                ? this.overlayRef.keydownEvents().pipe(
-                    filter(event => {
-                      return event.keyCode === ESCAPE;
-                    })
-                  )
-                : NEVER,
-              closeOnBackdropClick ? this.overlayRef.backdropClick() : NEVER
-            );
+      this.subscriptions.push(
+        this._zone.onStable
+          .asObservable()
+          .pipe(take(1))
+          .pipe(
+            switchMap(() => {
+              const closeOnEscape = this._currentConfig.closeOnEscape ?? true;
+              const closeOnBackdropClick =
+                this._currentConfig.hasBackdrop &&
+                (this._currentConfig.closeOnBackdropClick ?? true);
+              return merge(
+                closeOnEscape
+                  ? this.overlayRef.keydownEvents().pipe(
+                      filter(event => {
+                        return event.keyCode === ESCAPE;
+                      })
+                    )
+                  : NEVER,
+                closeOnBackdropClick ? this.overlayRef.backdropClick() : NEVER
+              );
+            })
+          )
+          .subscribe(() => {
+            this.close();
           })
-        )
-        .subscribe(() => {
-          this.close();
-        });
+      );
 
       this.afterAttached();
     }

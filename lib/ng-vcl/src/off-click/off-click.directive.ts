@@ -11,9 +11,16 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { Observable, timer, fromEvent, merge, NEVER, Subject } from 'rxjs';
+import {
+  Observable,
+  timer,
+  fromEvent,
+  merge,
+  NEVER,
+  Subject,
+  Subscription,
+} from 'rxjs';
 import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 @Directive({
   selector: '[vclOffClick]',
@@ -34,7 +41,7 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   @Output('vclOffClick')
   offClick = new EventEmitter<MouseEvent | TouchEvent>();
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Inject(DOCUMENT)
@@ -43,21 +50,23 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.subscriptions.sink = this.changes$
-      .pipe(
-        switchMap(() => {
-          if (!this.elementRef || !this.listen) {
-            return NEVER;
-          } else {
-            return createOffClickStream([this.elementRef, ...this.excludes], {
-              delay: this.delay,
-              document: this.document,
-            });
-          }
-        })
-      )
-      .pipe(filter(() => this.listen))
-      .subscribe(this.offClick);
+    this.subscriptions.push(
+      this.changes$
+        .pipe(
+          switchMap(() => {
+            if (!this.elementRef || !this.listen) {
+              return NEVER;
+            } else {
+              return createOffClickStream([this.elementRef, ...this.excludes], {
+                delay: this.delay,
+                document: this.document,
+              });
+            }
+          })
+        )
+        .pipe(filter(() => this.listen))
+        .subscribe(this.offClick)
+    );
     this.changes$.next(undefined);
   }
 
@@ -66,7 +75,7 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }
 

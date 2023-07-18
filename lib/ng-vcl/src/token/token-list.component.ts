@@ -15,8 +15,8 @@ import {
   HostBinding,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 import { TokenObserver, Token } from './interfaces';
 import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
@@ -89,7 +89,7 @@ export class TokenListComponent
     });
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(private readonly cdRef: ChangeDetectorRef) {}
 
@@ -119,11 +119,11 @@ export class TokenListComponent
   }
 
   ngAfterContentInit() {
-    this.subscriptions.sink = this.tokens?.changes
-      .pipe(startWith(null))
-      .subscribe(() => {
+    this.subscriptions.push(
+      this.tokens?.changes.pipe(startWith(null)).subscribe(() => {
         this.syncTokens();
-      });
+      })
+    );
   }
 
   ngOnDestroy() {
@@ -131,7 +131,7 @@ export class TokenListComponent
   }
 
   dispose() {
-    this.subscriptions?.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   writeValue(value: any): void {

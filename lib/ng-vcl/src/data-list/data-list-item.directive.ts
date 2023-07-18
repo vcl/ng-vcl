@@ -10,7 +10,7 @@ import {
   Directive,
   OnInit,
 } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import {
   DataList,
@@ -102,7 +102,7 @@ export class DataListItemDirective implements DataListItem, OnInit, OnDestroy {
     }
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Inject(DATA_LIST_TOKEN)
@@ -112,13 +112,15 @@ export class DataListItemDirective implements DataListItem, OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.selected = this.dataList.isItemSelected(this);
-    this.subscriptions.sink = this.dataList.stateChange.subscribe(() => {
-      this.selected = this.dataList.isItemSelected(this);
-      this.cdRef.markForCheck();
-    });
+    this.subscriptions.push(
+      this.dataList.stateChange.subscribe(() => {
+        this.selected = this.dataList.isItemSelected(this);
+        this.cdRef.markForCheck();
+      })
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }

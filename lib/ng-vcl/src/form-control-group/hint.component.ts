@@ -11,7 +11,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
 
@@ -40,7 +40,7 @@ export class FormControlHintComponent implements OnInit, OnDestroy {
     );
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
@@ -51,14 +51,16 @@ export class FormControlHintComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscriptions.sink = this.fcgs?.stateChanged.subscribe(() => {
-      this.cdRef.detectChanges();
-      this.cdRef.markForCheck();
-    });
+    this.subscriptions.push(
+      this.fcgs?.stateChanged.subscribe(() => {
+        this.cdRef.detectChanges();
+        this.cdRef.markForCheck();
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }
 
@@ -95,7 +97,7 @@ export class FormControlHintErrorComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly cdRef: ChangeDetectorRef,
@@ -105,13 +107,15 @@ export class FormControlHintErrorComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscriptions.sink = this.fcgs?.stateChanged.subscribe(() => {
-      this.cdRef.detectChanges();
-      this.cdRef.markForCheck();
-    });
+    this.subscriptions.push(
+      this.fcgs?.stateChanged.subscribe(() => {
+        this.cdRef.detectChanges();
+        this.cdRef.markForCheck();
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }
