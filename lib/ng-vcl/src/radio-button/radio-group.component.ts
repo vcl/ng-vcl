@@ -16,9 +16,8 @@ import {
   NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 import {
   FormControlGroupInputState,
@@ -127,7 +126,7 @@ export class RadioGroupComponent
   @HostBinding('class.error')
   hasError = false;
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(private readonly injector: Injector) {}
 
@@ -148,13 +147,13 @@ export class RadioGroupComponent
 
   ngAfterContentInit() {
     // Syncs changed radio buttons checked state to be in line with the current group value
-    this.subscriptions.sink = this.radioButtons.changes
-      .pipe(startWith(null))
-      .subscribe(() => {
+    this.subscriptions.push(
+      this.radioButtons.changes.pipe(startWith(null)).subscribe(() => {
         if (this.radioButtons) {
           this.syncRadioButtons();
         }
-      });
+      })
+    );
   }
 
   notifyRadioButtonChecked(rb: RadioButton) {
@@ -178,7 +177,7 @@ export class RadioGroupComponent
 
   ngOnDestroy(): void {
     this.stateChangedEmitter?.complete();
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   /**

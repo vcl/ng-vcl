@@ -6,7 +6,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { RatingComponent } from '../../rating/index';
 import {
@@ -79,7 +79,7 @@ export class FormFieldRatingComponent
 
   _valueLabel: string;
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     public field: FormFieldRating,
@@ -94,13 +94,15 @@ export class FormFieldRatingComponent
   }
 
   ngOnInit() {
-    this.subscriptions.sink = this.field.stateChanged.subscribe(() => {
-      this.cdRef.markForCheck();
-    });
+    this.subscriptions.push(
+      this.field.stateChanged.subscribe(() => {
+        this.cdRef.markForCheck();
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   updateValueLabel(label?: string) {

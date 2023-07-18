@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import {
   VCLFormFieldSchemaInput,
@@ -101,20 +101,20 @@ export class FormFieldInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(public field: FormFieldInput) {}
 
   ngOnInit() {
     this._value = this.field.defaultValue;
-    this.subscriptions.sink = this.field.control.valueChanges.subscribe(
-      change => {
+    this.subscriptions.push(
+      this.field.control.valueChanges.subscribe(change => {
         this._value = change;
-      }
+      })
     );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }

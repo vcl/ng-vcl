@@ -199,8 +199,8 @@ export class DatepickerComponent<VCLDate>
 
   ngAfterViewInit() {
     this.updateInput();
-    this.subscriptions.sink = this.input.stateChanged.subscribe(
-      this.stateChangedEmitter
+    this.subscriptions.push(
+      this.input.stateChanged.subscribe(this.stateChangedEmitter)
     );
   }
 
@@ -212,7 +212,7 @@ export class DatepickerComponent<VCLDate>
 
   ngOnDestroy() {
     this.destroy();
-    this.subscriptions?.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   setErrorState(error: boolean): void {
@@ -236,7 +236,6 @@ export class DatepickerComponent<VCLDate>
     this.onChange(this.value);
     this.onTouched();
     this.stateChangedEmitter.next();
-    // TODO: Change detection is not triggered after blur event?
     this.cdRef.detectChanges();
   }
 
@@ -296,11 +295,13 @@ export class DatepickerComponent<VCLDate>
   }
 
   protected afterAttached(): void {
-    this.subscriptions.sink = this.overlayRef.backdropClick().subscribe(() => {
-      this.onTouched();
-      this.stateChangedEmitter.next();
-      this.close();
-    });
+    this.subscriptions.push(
+      this.overlayRef.backdropClick().subscribe(() => {
+        this.onTouched();
+        this.stateChangedEmitter.next();
+        this.close();
+      })
+    );
   }
 
   onSelect(date: VCLDate) {
@@ -312,7 +313,7 @@ export class DatepickerComponent<VCLDate>
   }
 
   protected afterDetached(date) {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
     this.afterClose.emit(date);
     if (!this.isDestroyed) {
       this.cdRef.markForCheck();

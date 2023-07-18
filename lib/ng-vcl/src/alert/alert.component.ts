@@ -7,8 +7,7 @@ import {
   OnDestroy,
   HostBinding,
 } from '@angular/core';
-import { from } from 'rxjs';
-import { SubSink } from 'subsink';
+import { Subscription, from } from 'rxjs';
 
 import { LayerRef } from '../layer/index';
 
@@ -49,7 +48,7 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
     return TYPE_CLASS_MAP[this.alert.type || AlertType.None].iconClass;
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly elementRef: ElementRef,
@@ -66,7 +65,7 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 
   confirm() {
@@ -102,21 +101,23 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
           ? this.alert.confirmAction(result)
           : this.alert.confirmAction
       );
-      this.subscriptions.sink = $.subscribe(
-        value => {
-          const asyncResult: AlertResult = {
-            action: 'confirm',
-            value,
-          };
-          this.alertLayer.close(asyncResult);
-        },
-        err => {
-          const errorResult: AlertResult = {
-            action: 'error',
-            value: err,
-          };
-          this.alertLayer.close(errorResult);
-        }
+      this.subscriptions.push(
+        $.subscribe(
+          value => {
+            const asyncResult: AlertResult = {
+              action: 'confirm',
+              value,
+            };
+            this.alertLayer.close(asyncResult);
+          },
+          err => {
+            const errorResult: AlertResult = {
+              action: 'error',
+              value: err,
+            };
+            this.alertLayer.close(errorResult);
+          }
+        )
       );
     } else {
       this.alertLayer.close(result);
@@ -124,7 +125,7 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   }
 
   cancel() {
-    this.subscriptions.sink?.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
 
     const result: AlertResult = {
       action: 'cancel',

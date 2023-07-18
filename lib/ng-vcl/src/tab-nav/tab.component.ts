@@ -11,7 +11,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
 
@@ -58,7 +58,7 @@ export class TabComponent implements OnInit, OnDestroy, Tab {
     this.tabNav.selectTab(this);
   }
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     @Inject(TAB_NAV_TOKEN)
@@ -66,14 +66,16 @@ export class TabComponent implements OnInit, OnDestroy, Tab {
   ) {}
 
   ngOnInit() {
-    this.subscriptions.sink = this.tabNav.currentTab$.subscribe(tab => {
-      setTimeout(() => {
-        this.selected = tab === this;
-      }, 0);
-    });
+    this.subscriptions.push(
+      this.tabNav.currentTab$.subscribe(tab => {
+        setTimeout(() => {
+          this.selected = tab === this;
+        }, 0);
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }

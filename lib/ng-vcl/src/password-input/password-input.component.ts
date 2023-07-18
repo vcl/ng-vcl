@@ -11,8 +11,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { SubSink } from 'subsink';
+import { Subject, Subscription } from 'rxjs';
 
 import { ButtonComponent } from '../button/index';
 import {
@@ -86,7 +85,7 @@ export class PasswordInputComponent
 
   autocomplete = 'current-password';
 
-  private subscriptions = new SubSink();
+  private subscriptions: Subscription[] = [];
 
   toggle() {
     this.visible = !this.visible;
@@ -107,12 +106,12 @@ export class PasswordInputComponent
   }
 
   ngAfterViewInit() {
-    this.subscriptions.sink = this.input.stateChanged.subscribe(
-      this.stateChangedEmitter
+    this.subscriptions.push(
+      this.input.stateChanged.subscribe(this.stateChangedEmitter)
     );
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(s => s?.unsubscribe());
   }
 }
