@@ -86,7 +86,7 @@ export class TooltipDirective
 {
   @Input('vclTooltipCursor')
   @HostBinding('style.cursor')
-  cursor: string = 'help';
+  cursor = 'help';
 
   private mouseOverEmitter = new Subject<boolean>();
 
@@ -157,11 +157,11 @@ export class TooltipDirective
 
   constructor(
     injector: Injector,
-    private readonly viewContainerRef: ViewContainerRef,
-    private readonly elementRef: ElementRef,
-    private readonly overlay: Overlay,
+    private viewContainerRef: ViewContainerRef,
+    private elementRef: ElementRef,
+    private overlay: Overlay,
     @Optional()
-    private readonly templateRef?: TemplateRef<any>
+    private templateRef?: TemplateRef<any>
   ) {
     super(injector);
   }

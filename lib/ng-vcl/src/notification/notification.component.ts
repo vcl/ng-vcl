@@ -82,7 +82,7 @@ export class NotificationComponent implements AfterContentInit, OnDestroy {
   icon?: string | boolean;
 
   @Input()
-  showCloseButton?: Boolean = false;
+  showCloseButton?: boolean = false;
 
   @Output()
   // eslint-disable-next-line @angular-eslint/no-output-native
@@ -102,7 +102,7 @@ export class NotificationComponent implements AfterContentInit, OnDestroy {
 
   constructor(
     @Self()
-    private readonly ngClass: NgClass
+    private ngClass: NgClass
   ) {}
 
   ngAfterContentInit(): void {

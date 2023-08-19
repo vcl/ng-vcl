@@ -128,7 +128,7 @@ export class RadioGroupComponent
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private readonly injector: Injector) {}
+  constructor(private injector: Injector) {}
 
   setErrorState(error: boolean): void {
     this.hasError = error;

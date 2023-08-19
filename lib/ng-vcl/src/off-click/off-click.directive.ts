@@ -45,8 +45,8 @@ export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
 
   constructor(
     @Inject(DOCUMENT)
-    private readonly document: Document,
-    private readonly elementRef: ElementRef
+    private document: Document,
+    private elementRef: ElementRef
   ) {}
 
   ngAfterViewInit(): void {

@@ -62,7 +62,7 @@ export class TabComponent implements OnInit, OnDestroy, Tab {
 
   constructor(
     @Inject(TAB_NAV_TOKEN)
-    private readonly tabNav: TabNav
+    private tabNav: TabNav
   ) {}
 
   ngOnInit() {

@@ -91,7 +91,7 @@ export class EmbeddedInputFieldLabelDirective
   disableAnimations = true;
 
   @HostBinding('style.--prepended-elements')
-  prependedElements: number = 0;
+  prependedElements = 0;
 
   @HostBinding('style.--floating-label-padding')
   labelOffSet = '0em';
@@ -102,7 +102,7 @@ export class EmbeddedInputFieldLabelDirective
     @Optional()
     @SkipSelf()
     public config: EmbeddedInputFieldLabelConfig,
-    private readonly cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngAfterContentInit() {

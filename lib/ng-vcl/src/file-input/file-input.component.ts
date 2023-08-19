@@ -227,10 +227,7 @@ export class FileInputComponent
   private onChange: (_: any) => void = () => {};
   private onTouched: () => any = () => {};
 
-  constructor(
-    private readonly cdRef: ChangeDetectorRef,
-    private readonly injector: Injector
-  ) {}
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   ngOnDestroy() {
     this.stateChangedEmitter && this.stateChangedEmitter.complete();

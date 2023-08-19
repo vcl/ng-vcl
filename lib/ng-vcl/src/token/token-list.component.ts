@@ -91,7 +91,7 @@ export class TokenListComponent
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private readonly cdRef: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.disabled || changes.value) {

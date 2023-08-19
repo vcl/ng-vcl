@@ -9,10 +9,7 @@ import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 export class ZoomBoxMagnifierComponent {
   parent: ZoomBoxContainerComponent;
 
-  constructor(
-    private readonly element: ElementRef,
-    private readonly renderer: Renderer2
-  ) {
+  constructor(private element: ElementRef, private renderer: Renderer2) {
     this.renderer.addClass(element.nativeElement, 'zoom-box-magnifier');
   }
 

@@ -83,7 +83,7 @@ export abstract class LayerRef<
 
   protected subscriptions: Subscription[] = [];
 
-  constructor(protected readonly injector: Injector) {
+  constructor(protected injector: Injector) {
     this._zone = injector.get(NgZone);
     this._overlay = injector.get(Overlay);
   }
@@ -179,30 +179,29 @@ export abstract class LayerRef<
     if (!this.isAttached) {
       this._attachmentRef = this.overlayRef.attach(this._portal);
 
-      // @ts-ignore
-      this.subscriptions.sink = merge<TResult>(
-        // Called when detached via detach() method
-        this._requestDetachEmitter.asObservable(),
-        // Called when detached from anywhere else
-        this._overlayRef.detachments().pipe(map(() => undefined))
-      )
-        .pipe(
-          take(1) // Take 1 to make sure cleanup is only done once
+      this.subscriptions.push(
+        merge(
+          // Called when detached via detach() method
+          this._requestDetachEmitter.asObservable(),
+          // Called when detached from anywhere else
+          this._overlayRef.detachments().pipe(map(() => undefined))
         )
-        .subscribe(result => {
-          // The overlay is not detached after an event from the request emitter
-          if (this.overlayRef && this.overlayRef.hasAttached()) {
-            this.overlayRef.detach();
-          }
-          this._attachmentRef = undefined;
-          this.subscriptions.forEach(sub => sub.unsubscribe());
+          .pipe(
+            take(1) // Take 1 to make sure cleanup is only done once
+          )
+          .subscribe(result => {
+            // The overlay is not detached after an event from the request emitter
+            if (this.overlayRef && this.overlayRef.hasAttached()) {
+              this.overlayRef.detach();
+            }
+            this._attachmentRef = undefined;
+            this.subscriptions.forEach(sub => sub.unsubscribe());
 
-          // @ts-ignore
-          this._afterClose.next(result);
+            this._afterClose.next(result);
 
-          // @ts-ignore
-          this.afterDetached(result);
-        });
+            this.afterDetached(result);
+          })
+      );
 
       this.subscriptions.push(
         this._zone.onStable

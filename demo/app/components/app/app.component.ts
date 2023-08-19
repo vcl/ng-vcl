@@ -14,7 +14,7 @@ import { DrawerComponent } from '@vcl/ng-vcl';
 import { routes } from './../../app-routing.module';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-declare var gitBranch: string;
+declare let gitBranch: string;
 
 @Component({
   selector: 'vcl-app-demo',
@@ -43,6 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     distinctUntilChanged()
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   version = require('./../../../../package.json').version;
   gitBranch = window['gitBranch'] ?? undefined;
 

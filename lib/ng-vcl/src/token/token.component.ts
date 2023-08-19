@@ -28,12 +28,12 @@ export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>(
 })
 export class TokenComponent implements Token {
   constructor(
-    private readonly cdRef: ChangeDetectorRef,
-    private readonly elementRef: ElementRef<HTMLElement>,
+    private cdRef: ChangeDetectorRef,
+    private elementRef: ElementRef<HTMLElement>,
     @SkipSelf()
     @Optional()
     @Inject(TOKEN_OBSERVER_TOKEN)
-    private readonly observer?: TokenObserver
+    private observer?: TokenObserver
   ) {}
 
   @HostBinding('class.token')

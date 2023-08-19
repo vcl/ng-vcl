@@ -29,9 +29,9 @@ export class LayerDemoComponent implements AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private readonly nagLayer: NagLayer,
-    private readonly layerService: LayerService,
-    private readonly viewContainerRef: ViewContainerRef
+    private nagLayer: NagLayer,
+    private layerService: LayerService,
+    private viewContainerRef: ViewContainerRef
   ) {
     this.barLayer = layerService.create(BarComponent, {
       closeOnBackdropClick: false,

@@ -70,9 +70,9 @@ export class DrawerContainerComponent
 
   constructor(
     @Optional()
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cdRef: ChangeDetectorRef,
-    private readonly viewportRuler: ViewportRuler
+    private elementRef: ElementRef<HTMLElement>,
+    private cdRef: ChangeDetectorRef,
+    private viewportRuler: ViewportRuler
   ) {}
 
   ngAfterContentInit() {

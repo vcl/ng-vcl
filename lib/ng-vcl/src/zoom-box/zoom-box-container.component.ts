@@ -50,10 +50,7 @@ export class ZoomBoxContainerComponent implements AfterContentInit {
 
   private imgContent: HTMLImageElement;
 
-  constructor(
-    private readonly element: ElementRef,
-    private readonly renderer: Renderer2
-  ) {
+  constructor(private element: ElementRef, private renderer: Renderer2) {
     this.renderer.setStyle(element.nativeElement, 'position', 'relative');
   }
 

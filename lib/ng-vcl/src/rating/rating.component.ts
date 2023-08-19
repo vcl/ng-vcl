@@ -229,10 +229,7 @@ export class RatingComponent
     this.sync();
   }
 
-  constructor(
-    private readonly cdRef: ChangeDetectorRef,
-    private readonly injector: Injector
-  ) {}
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   onRatingItemHover(item: RatingItemComponent) {
     if (this.isDisabled || this.readonly) {
