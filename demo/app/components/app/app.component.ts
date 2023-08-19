@@ -1,8 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import {
-  BreakpointObserver,
-  Breakpoints,
-} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   Router,
   RouteConfigLoadEnd,
@@ -39,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   left = true;
 
   busy$ = this.router.events.pipe(
-    scan<RouterEvent, number>((cur, event) => {
+    scan((cur, event) => {
       if (event instanceof RouteConfigLoadStart) {
         return cur + 1;
       } else if (event instanceof RouteConfigLoadEnd) {

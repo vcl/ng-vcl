@@ -490,8 +490,8 @@ export const appRoutingProviders: any[] = [];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    useHash: true
-}),
+      useHash: true,
+    }),
   ],
   providers: [...appRoutingProviders],
   exports: [RouterModule],
