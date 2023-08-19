@@ -67,7 +67,7 @@ export class InputFieldComponent
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private readonly cdRef: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   ngAfterContentInit(): void {
     this.subscriptions.push(

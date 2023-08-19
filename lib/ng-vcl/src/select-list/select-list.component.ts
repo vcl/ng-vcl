@@ -252,10 +252,7 @@ export class SelectListComponent
 
   private subscriptions: Subscription[] = [];
 
-  constructor(
-    private readonly cdRef: ChangeDetectorRef,
-    private readonly injector: Injector
-  ) {}
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   ngAfterContentInit() {
     this.subscriptions.push(

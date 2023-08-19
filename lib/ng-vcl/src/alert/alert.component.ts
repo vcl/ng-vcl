@@ -51,9 +51,9 @@ export class AlertComponent implements AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private readonly elementRef: ElementRef,
-    private readonly alertLayer: LayerRef<AlertOptions, AlertResult>,
-    private readonly cdRef: ChangeDetectorRef
+    private elementRef: ElementRef,
+    private alertLayer: LayerRef<AlertOptions, AlertResult>,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngAfterViewInit(): void {

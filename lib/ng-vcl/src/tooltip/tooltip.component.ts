@@ -31,7 +31,7 @@ export class TooltipComponent implements OnInit, OnDestroy {
     @Optional()
     @Inject(TOOLTIP_TOKEN)
     public tooltip: Tooltip,
-    private readonly cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {

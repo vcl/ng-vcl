@@ -1,3 +1,3 @@
 declare module '*.md';
 declare module '!*';
-declare var Prism: any;
+declare let Prism: any;

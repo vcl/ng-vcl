@@ -83,7 +83,7 @@ export class FormFieldRatingComponent
 
   constructor(
     public field: FormFieldRating,
-    private readonly cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngAfterViewInit() {

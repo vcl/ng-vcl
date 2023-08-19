@@ -87,10 +87,10 @@ export class FormControlGroupComponent<T>
   controlType?: string;
 
   @HostBinding('class.disabled')
-  isDisabled: boolean = false;
+  isDisabled = false;
 
   @HostBinding('class.focused')
-  isFocused: boolean = false;
+  isFocused = false;
 
   inputId?: string;
 
@@ -127,13 +127,13 @@ export class FormControlGroupComponent<T>
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private readonly cdRef: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_FORM)
     @Optional()
     form: FormControlGroupForm,
     @Inject(FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN)
     @Optional()
-    private readonly _errorStateAgent?: FormControlErrorStateAgent
+    private _errorStateAgent?: FormControlErrorStateAgent
   ) {
     this.form = form ?? new FormDirective(undefined, undefined);
   }

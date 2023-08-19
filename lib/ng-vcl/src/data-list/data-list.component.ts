@@ -98,7 +98,7 @@ export class DataListComponent
 
   constructor(
     @Optional()
-    public readonly ngControl?: NgControl
+    public ngControl?: NgControl
   ) {
     // Set valueAccessor instead of providing it to avoid circular dependency of NgControl
     if (this.ngControl) {

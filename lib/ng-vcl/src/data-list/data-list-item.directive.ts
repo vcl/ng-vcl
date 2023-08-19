@@ -106,8 +106,8 @@ export class DataListItemDirective implements DataListItem, OnInit, OnDestroy {
 
   constructor(
     @Inject(DATA_LIST_TOKEN)
-    private readonly dataList: DataList,
-    private readonly cdRef: ChangeDetectorRef
+    private dataList: DataList,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {

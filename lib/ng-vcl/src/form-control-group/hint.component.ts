@@ -43,11 +43,11 @@ export class FormControlHintComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cdRef: ChangeDetectorRef,
+    private elementRef: ElementRef<HTMLElement>,
+    private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
     @Optional()
-    private readonly fcgs?: FormControlGroupState
+    private fcgs?: FormControlGroupState
   ) {}
 
   ngOnInit() {
@@ -100,7 +100,7 @@ export class FormControlHintErrorComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private readonly cdRef: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
     @Optional()
     private readonly fcgs?: FormControlGroupState

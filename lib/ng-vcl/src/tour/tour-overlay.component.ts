@@ -8,5 +8,5 @@ import { TourService } from './tour.service';
   styleUrls: ['./tour-overlay.component.css'],
 })
 export class TourOverlayComponent {
-  constructor(public readonly tour: TourService) {}
+  constructor(public tour: TourService) {}
 }

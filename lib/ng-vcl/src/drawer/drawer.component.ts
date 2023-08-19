@@ -70,9 +70,9 @@ export class DrawerComponent
   openedChange = new EventEmitter<boolean>();
 
   constructor(
-    private readonly elementRef: ElementRef<HTMLElement>,
+    private elementRef: ElementRef<HTMLElement>,
     @Inject(DRAWER_CONTAINER_HOST)
-    private readonly container: DrawerContainer
+    private container: DrawerContainer
   ) {}
 
   ngAfterViewInit() {
@@ -102,7 +102,7 @@ export class DrawerComponent
     return this.toggle(false);
   }
 
-  toggle(isOpen: boolean = !this.opened) {
+  toggle(isOpen = !this.opened) {
     this.opened = isOpen;
     this.container.notifyDrawerStateChange(this, 'toggle');
     this.openedChange.emit(this.opened);

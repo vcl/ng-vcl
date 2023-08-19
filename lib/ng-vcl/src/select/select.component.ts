@@ -263,11 +263,11 @@ export class SelectComponent
 
   constructor(
     injector: Injector,
-    private readonly _dir: Directionality,
-    private readonly overlay: Overlay,
-    protected readonly viewContainerRef: ViewContainerRef,
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cdRef: ChangeDetectorRef
+    private _dir: Directionality,
+    private overlay: Overlay,
+    protected viewContainerRef: ViewContainerRef,
+    private elementRef: ElementRef<HTMLElement>,
+    private cdRef: ChangeDetectorRef
   ) {
     super(injector);
   }
@@ -405,9 +405,11 @@ export class SelectComponent
     this.close();
     event.preventDefault();
     event.stopPropagation();
-    if ('blur' in document.activeElement) {
-      // @ts-ignore
-      document.activeElement.blur();
+    if (
+      'blur' in document.activeElement &&
+      typeof (document.activeElement as HTMLElement).blur === 'function'
+    ) {
+      (document.activeElement as HTMLElement).blur();
     }
   }
 }

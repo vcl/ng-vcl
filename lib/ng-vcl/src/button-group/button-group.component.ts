@@ -121,10 +121,7 @@ export class ButtonGroupComponent
 
   private subscriptions: Subscription[] = [];
 
-  constructor(
-    private readonly cdRef: ChangeDetectorRef,
-    private readonly injector: Injector
-  ) {}
+  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
 
   ngAfterContentInit() {
     // Syncs changed buttons checked state to be in line with the current group value

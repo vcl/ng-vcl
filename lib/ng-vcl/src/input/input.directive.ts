@@ -133,8 +133,8 @@ export class InputDirective
   private subscriptions: Subscription[] = [];
 
   constructor(
-    public readonly elementRef: ElementRef<HTMLInputElement>,
-    private readonly injector: Injector
+    public elementRef: ElementRef<HTMLInputElement>,
+    private injector: Injector
   ) {}
 
   ngOnInit() {

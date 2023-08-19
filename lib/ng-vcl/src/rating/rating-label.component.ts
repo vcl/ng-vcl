@@ -42,8 +42,8 @@ export class RatingItemLabelComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private readonly viewContainerRef: ViewContainerRef,
-    private readonly cdRef: ChangeDetectorRef
+    private viewContainerRef: ViewContainerRef,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnDestroy() {

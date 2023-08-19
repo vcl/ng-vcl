@@ -2,7 +2,7 @@ import { NgModule, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({ selector: 'vcl-label, [vclLabel]' })
 export class LabelDirective {
-  constructor(protected readonly elementRef: ElementRef<HTMLElement>) {}
+  constructor(protected elementRef: ElementRef<HTMLElement>) {}
 
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('label')

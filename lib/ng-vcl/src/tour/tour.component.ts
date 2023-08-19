@@ -23,7 +23,7 @@ import { TourService } from './tour.service';
 })
 export class TourComponent implements OnInit, OnChanges {
   @ViewChild('popover')
-  public readonly popover: PopoverDirective;
+  public popover: PopoverDirective;
 
   @Input() public title: string;
   @Input() public order: number;
