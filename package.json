@@ -42,7 +42,7 @@
     "@angular/router": "^16.2.1",
     "@fortawesome/fontawesome-free": "^6.3.0",
     "@mdi/font": "^7.1.96",
-    "@vcl/vcl": "^2.5.0",
+    "@vcl/vcl": "^3.0.0",
     "core-js": "^3.28.0",
     "document-register-element": "^1.14.10",
     "fuse.js": "^6.6.2",
