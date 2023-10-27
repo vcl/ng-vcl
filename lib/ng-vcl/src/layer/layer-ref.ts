@@ -143,6 +143,7 @@ export abstract class LayerRef<
     if (!this.isAttached) {
       return;
     }
+
     this._requestDetachEmitter.next(result);
   }
 
@@ -156,6 +157,8 @@ export abstract class LayerRef<
       const injector = this.injector;
       const overlay = injector.get(Overlay);
       this._overlayRef = overlay.create(this._currentConfig);
+      console.log("this._overlayRef.hostElement,", this._overlayRef.hostElement);
+      this._overlayRef.hostElement.setAttribute('class', 'layer');
     } else {
       if (this._currentConfig.scrollStrategy) {
         this._overlayRef.updateScrollStrategy(

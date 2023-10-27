@@ -13,8 +13,8 @@ export class LayerConfig<
     this.data = config.data;
     this.closeOnBackdropClick = config.closeOnBackdropClick;
     this.closeOnEscape = config.closeOnEscape;
-    // this.backdropClass = '';
-    // this.panelClass = '';
+    this.backdropClass = 'layer-cover';
+    this.panelClass = ['layer-box', 'zoom'];
   }
   data?: TLayerData;
   closeOnBackdropClick?: boolean;
