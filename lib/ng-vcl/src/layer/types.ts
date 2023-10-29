@@ -13,9 +13,9 @@ export class LayerConfig<
     this.data = config.data;
     this.closeOnBackdropClick = config.closeOnBackdropClick;
     this.closeOnEscape = config.closeOnEscape;
-    this.backdropClass = 'layer-cover';
-    this.panelClass = ['layer-box', 'zoom'];
+    this.backdropClass = 'layer-cover'; // Set to corresponding .layer-cover in vcl class
   }
+  enablePanelZoomAnimation? = true;
   data?: TLayerData;
   closeOnBackdropClick?: boolean;
   closeOnEscape?: boolean;

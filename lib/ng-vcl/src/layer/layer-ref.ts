@@ -119,19 +119,16 @@ export abstract class LayerRef<
       panelClass.push(...config.panelClass);
     } else if (typeof config.panelClass === 'string') {
       panelClass.push(config.panelClass);
-    } else {
-      panelClass.push('layer-box');
     }
 
-    const backdropClass = [];
-    if (Array.isArray(config.backdropClass)) {
-      backdropClass.push(...config.backdropClass);
-    } else if (typeof config.backdropClass === 'string') {
-      backdropClass.push(config.backdropClass);
+    // set layer-box in any case
+    panelClass.push('layer-box');
+
+    if (config.enablePanelZoomAnimation) {
+      panelClass.push('zoom');
     }
 
-    config.backdropClass = backdropClass;
-    config.panelClass = panelClass;
+   config.panelClass = panelClass;
 
     return new LayerConfig(config);
   }
@@ -153,12 +150,12 @@ export abstract class LayerRef<
     }
 
     this._currentConfig = this.createLayerConfig(config);
+
     if (!this.overlayRef) {
       const injector = this.injector;
       const overlay = injector.get(Overlay);
       this._overlayRef = overlay.create(this._currentConfig);
-      console.log("this._overlayRef.hostElement,", this._overlayRef.hostElement);
-      this._overlayRef.hostElement.setAttribute('class', 'layer');
+
     } else {
       if (this._currentConfig.scrollStrategy) {
         this._overlayRef.updateScrollStrategy(
@@ -180,6 +177,9 @@ export abstract class LayerRef<
     } else {
       this._portal = this.updatePortal();
     }
+
+
+    this._overlayRef.hostElement.setAttribute('class', 'layer');
 
     if (!this.isAttached) {
       this._attachmentRef = this.overlayRef.attach(this._portal);
@@ -228,7 +228,8 @@ export abstract class LayerRef<
               closeOnBackdropClick ? this.overlayRef.backdropClick() : NEVER
             );
           })
-        )
+        ) // TODO Add the zoom down animation class if it set, wait for a bit, before closing it.
+        // You may want to remove the whole css classes after this.
         .subscribe(() => {
           this.close();
         });
