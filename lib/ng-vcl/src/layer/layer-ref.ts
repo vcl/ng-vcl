@@ -228,8 +228,7 @@ export abstract class LayerRef<
               closeOnBackdropClick ? this.overlayRef.backdropClick() : NEVER
             );
           })
-        ) // TODO Add the zoom down animation class if it set, wait for a bit, before closing it.
-        // You may want to remove the whole css classes after this.
+        )
         .subscribe(() => {
           this.close();
         });
