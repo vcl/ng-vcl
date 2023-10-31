@@ -114,22 +114,16 @@ export abstract class LayerRef<
       };
     }, {});
 
-    const panelClass = [];
+    const panelClass = ['layer-box'];
+
     if (Array.isArray(config.panelClass)) {
       panelClass.push(...config.panelClass);
     } else if (typeof config.panelClass === 'string') {
       panelClass.push(config.panelClass);
     }
 
-    // set layer-box in any case
-    panelClass.push('layer-box');
-
-    if (config.enablePanelZoomAnimation) {
-      panelClass.push('zoom');
-    }
-
-   config.panelClass = panelClass;
-
+    config.panelClass = panelClass;
+  
     return new LayerConfig(config);
   }
 
@@ -183,7 +177,7 @@ export abstract class LayerRef<
 
     if (!this.isAttached) {
       this._attachmentRef = this.overlayRef.attach(this._portal);
-
+  
       // @ts-ignore
       merge<TResult>(
         // Called when detached via detach() method

@@ -34,7 +34,6 @@ export class LayerDemoComponent implements AfterViewInit {
     });
 
     this.barLayerWithOutZoom = layerService.create(BarComponent, {
-      enablePanelZoomAnimation: true,
       closeOnBackdropClick: false,
       closeOnEscape: false,
     });
@@ -64,7 +63,7 @@ export class LayerDemoComponent implements AfterViewInit {
         data: {
           title: `bar component layer title (${i++})`,
         },
-        enablePanelZoomAnimation: true,
+        panelClass: 'zoom'
       })
       .subscribe(result => {
         console.log('Bar component result: ' + result?.value);
