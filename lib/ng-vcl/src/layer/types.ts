@@ -15,7 +15,7 @@ export class LayerConfig<
     this.closeOnEscape = config.closeOnEscape;
     this.backdropClass = 'layer-cover'; // Set to corresponding .layer-cover in vcl class
   }
-  enablePanelZoomAnimation? = true;
+  enablePanelZoomAnimation? = false;
   data?: TLayerData;
   closeOnBackdropClick?: boolean;
   closeOnEscape?: boolean;

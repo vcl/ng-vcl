@@ -16,6 +16,7 @@ let i = 0;
 })
 export class LayerDemoComponent implements AfterViewInit {
   barLayer: LayerRef;
+  barLayerWithOutZoom: LayerRef;
 
   @ViewChild('tplLayerRef')
   tplLayerRef: TemplateRef<any>;
@@ -28,6 +29,12 @@ export class LayerDemoComponent implements AfterViewInit {
     private viewContainerRef: ViewContainerRef
   ) {
     this.barLayer = layerService.create(BarComponent, {
+      closeOnBackdropClick: false,
+      closeOnEscape: false,
+    });
+
+    this.barLayerWithOutZoom = layerService.create(BarComponent, {
+      enablePanelZoomAnimation: true,
       closeOnBackdropClick: false,
       closeOnEscape: false,
     });
@@ -45,6 +52,19 @@ export class LayerDemoComponent implements AfterViewInit {
         data: {
           title: `bar component layer title (${i++})`,
         },
+      })
+      .subscribe(result => {
+        console.log('Bar component result: ' + result?.value);
+      });
+  }
+
+  openBarWithZoomAnimationComponent() {
+    this.barLayerWithOutZoom
+      .open({
+        data: {
+          title: `bar component layer title (${i++})`,
+        },
+        enablePanelZoomAnimation: true,
       })
       .subscribe(result => {
         console.log('Bar component result: ' + result?.value);
@@ -69,5 +89,6 @@ export class LayerDemoComponent implements AfterViewInit {
 
   ngOnDestroy() {
     this.barLayer?.destroy();
+    this.barLayerWithOutZoom?.destroy();
   }
 }
