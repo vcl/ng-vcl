@@ -14,6 +14,7 @@ export class LayerConfig<
     this.closeOnBackdropClick = config.closeOnBackdropClick;
     this.closeOnEscape = config.closeOnEscape;
     this.backdropClass = 'layer-cover'; // Set to corresponding .layer-cover in vcl class
+    this.positionStrategy = config.positionStrategy;
   }
   data?: TLayerData;
   closeOnBackdropClick?: boolean;
