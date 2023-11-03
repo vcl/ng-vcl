@@ -100,7 +100,7 @@ export class LayerConfig<TData = any> extends OverlayConfig {
 
 ```
 
-#### vcl-layer attributes
+#### vcl-layer config attributes
 
 | Name                       |   Type               | Default     | Description
 | ------------               | -----------          | --------    | --------------
