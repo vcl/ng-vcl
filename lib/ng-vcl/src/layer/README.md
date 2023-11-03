@@ -106,4 +106,4 @@ export class LayerConfig<TData = any> extends OverlayConfig {
 | ------------               | -----------          | --------    | --------------
 | `closeOnBackdropClick`     | boolean              | true        | Wether a the layer should close when clicked outside
 | `closeOnEscape`            | boolean              | true        | Wether a the layer should close when escape is pressed
-| `positionStrategy`         | PositionStrategy     |  GlobalPositionStrategy     | Strategy with which to position the overlay.
+| `positionStrategy`         | PositionStrategy     |  [GlobalPositionStrategy](https://material.angular.io/cdk/overlay/overview#configuring-an-overlay)     | Strategy with which to position the overlay.
