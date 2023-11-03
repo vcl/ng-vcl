@@ -114,25 +114,16 @@ export abstract class LayerRef<
       };
     }, {});
 
-    const panelClass = [];
+    const panelClass = ['layer-box'];
+
     if (Array.isArray(config.panelClass)) {
       panelClass.push(...config.panelClass);
     } else if (typeof config.panelClass === 'string') {
       panelClass.push(config.panelClass);
-    } else {
-      panelClass.push('layer-box');
     }
 
-    const backdropClass = [];
-    if (Array.isArray(config.backdropClass)) {
-      backdropClass.push(...config.backdropClass);
-    } else if (typeof config.backdropClass === 'string') {
-      backdropClass.push(config.backdropClass);
-    }
-
-    config.backdropClass = backdropClass;
     config.panelClass = panelClass;
-
+  
     return new LayerConfig(config);
   }
 
@@ -143,6 +134,7 @@ export abstract class LayerRef<
     if (!this.isAttached) {
       return;
     }
+
     this._requestDetachEmitter.next(result);
   }
 
@@ -152,10 +144,12 @@ export abstract class LayerRef<
     }
 
     this._currentConfig = this.createLayerConfig(config);
+
     if (!this.overlayRef) {
       const injector = this.injector;
       const overlay = injector.get(Overlay);
       this._overlayRef = overlay.create(this._currentConfig);
+
     } else {
       if (this._currentConfig.scrollStrategy) {
         this._overlayRef.updateScrollStrategy(
@@ -178,9 +172,12 @@ export abstract class LayerRef<
       this._portal = this.updatePortal();
     }
 
+
+    this._overlayRef.hostElement.setAttribute('class', 'layer');
+
     if (!this.isAttached) {
       this._attachmentRef = this.overlayRef.attach(this._portal);
-
+  
       // @ts-ignore
       merge<TResult>(
         // Called when detached via detach() method

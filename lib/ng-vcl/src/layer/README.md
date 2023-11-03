@@ -100,10 +100,10 @@ export class LayerConfig<TData = any> extends OverlayConfig {
 
 ```
 
-#### vcl-layer attributes
+#### vcl-layer config attributes
 
-| Name                   | Type                 | Default  | Description
-| ------------           | -----------          | -------- |--------------
-| `closeOnBackdropClick` | boolean              | true     | Wether a the layer should close when clicked outside
-| `closeOnEscape`        | boolean              | true     | Wether a the layer should close when escape is pressed
-| `position`             | PositionStrategy     |          | 
+| Name                       |   Type               | Default     | Description
+| ------------               | -----------          | --------    | --------------
+| `closeOnBackdropClick`     | boolean              | true        | Wether a the layer should close when clicked outside
+| `closeOnEscape`            | boolean              | true        | Wether a the layer should close when escape is pressed
+| `positionStrategy`         | PositionStrategy     |  [GlobalPositionStrategy](https://material.angular.io/cdk/overlay/overview#configuring-an-overlay)     | Strategy with which to position the overlay.
