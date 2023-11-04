@@ -1,3 +1,27 @@
+## [3.0.6](https://github.com/vcl/ng-vcl/compare/v3.0.5...v3.0.6) (2023-11-04)
+
+## [3.0.4](https://github.com/vcl/ng-vcl/compare/v3.0.3...v3.0.4) (2023-08-19)
+
+## [3.0.3](https://github.com/vcl/ng-vcl/compare/v3.0.2...v3.0.3) (2023-07-18)
+
+## [3.0.2](https://github.com/vcl/ng-vcl/compare/v3.0.1...v3.0.2) (2023-07-17)
+
+## [3.0.1](https://github.com/vcl/ng-vcl/compare/v3.0.0...v3.0.1) (2023-07-13)
+
+### Bug Fixes
+
+* added subsink peer dependencie ([793aeb8](https://github.com/vcl/ng-vcl/commit/793aeb82c4803bc128d565663599b1620fb00d5f))
+
+# [3.0.0](https://github.com/vcl/ng-vcl/compare/v2.6.5...v3.0.0) (2023-07-05)
+
+## [2.6.5](https://github.com/vcl/ng-vcl/compare/v2.6.4...v2.6.5) (2023-07-04)
+
+### Bug Fixes
+
+* markdown table format ([06a6654](https://github.com/vcl/ng-vcl/commit/06a66545c7bad3481e6d6f33f09a23451443687c))
+
+## [2.6.4](https://github.com/vcl/ng-vcl/compare/v2.6.3...v2.6.4) (2023-07-03)
+
 ## [3.0.5](https://github.com/vcl/ng-vcl/compare/v2.6.3...v3.0.5) (2023-08-19)
 
 - Upgraded Angular version from v16.1.3 to 16.2.1.
