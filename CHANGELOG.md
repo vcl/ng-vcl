@@ -1,3 +1,8 @@
+## [3.0.6](https://github.com/vcl/ng-vcl/compare/v3.0.5...v3.0.6) (2023-11-04)
+
+- Upgraded Angular version from 16.2.1 to 16.2.12.
+- Upgraded packages minor versions.
+
 ## [3.0.5](https://github.com/vcl/ng-vcl/compare/v2.6.3...v3.0.5) (2023-08-19)
 
 - Upgraded Angular version from v16.1.3 to 16.2.1.
