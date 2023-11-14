@@ -73,19 +73,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-vcl-demo:build",
-            "port": 3000
+            "port": 3000,
+            "buildTarget": "ng-vcl-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-vcl-demo:build:production"
+              "buildTarget": "ng-vcl-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-vcl-demo:build"
+            "buildTarget": "ng-vcl-demo:build"
           }
         },
         "test": {
