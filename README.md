@@ -4,7 +4,7 @@ A comprehensive library of components for Angular 14+ with [VCL](http://vcl.gith
 
 **[Browse master demo](https://vcl.github.io/ng-vcl/master)**
 
-![Build](https://github.com/vcl/ng-vcl/workflows/Build/badge.svg?branch=master)
+[![Build](https://github.com/vcl/ng-vcl/actions/workflows/build.yml/badge.svg)](https://github.com/vcl/ng-vcl/actions/workflows/build.yml)
 
 **[Browse dev demo](https://vcl.github.io/ng-vcl/dev)**
 
