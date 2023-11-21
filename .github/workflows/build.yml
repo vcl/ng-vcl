@@ -37,7 +37,7 @@ jobs:
         env:
           GIT_BRANCH: ${{ steps.extract_branch.outputs.branch }}
         run: |
-          npm ci
+          npm ci --force
           npm run docs
 
       - name: Deploy
