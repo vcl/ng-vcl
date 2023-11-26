@@ -1,0 +1,44 @@
+<ng-template #countryTemplate let-name="name" let-desc="desc" let-code="code">
+  <div class="country-pane">
+    <div class="row">
+      <div>
+        <img class="responsive-image" ngSrc="https://picsum.photos/90/90" />
+      </div>
+      <div class="gutter-margin flex">
+        <div class="row">
+          <div class="row center flex">
+            <h2 class="m-0">{{ name }}</h2>
+            &nbsp;&nbsp;
+            <span class="badge">Country</span>
+          </div>
+        </div>
+        <div *ngIf="desc">{{ desc }}</div>
+      </div>
+    </div>
+
+    <button (click)="onDeleteCountry(code, $event)" vcl-button class="square transparent hide delete-button">
+      <vcl-icon icon="mdi mdi-trash-can" aria-label="Delete Country"></vcl-icon>
+    </button>
+  </div>
+</ng-template>
+
+<div class="row justify-content-between align-item-center">
+  <h2 class="my-0">Adding and Removing Items in the datalist</h2>
+
+  <button vcl-button (click)="onAddCountry()">Add item</button>
+</div>
+
+<vcl-data-list [(value)]="selectedValues">
+  <vcl-data-list-header>
+    <h2>Countries</h2>
+  </vcl-data-list-header>
+  <ng-container *ngFor="let country of countriesList">
+    <vcl-data-list-item [value]="country.code">
+      <ng-container
+        *ngTemplateOutlet="
+          countryTemplate;
+          context: { name: country.name, desc: country.description, code: country.code }
+        "></ng-container>
+    </vcl-data-list-item>
+  </ng-container>
+</vcl-data-list>
