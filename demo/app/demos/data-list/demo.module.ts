@@ -10,7 +10,8 @@ import {
   VCLInputModule,
   VCLDataListModule,
   VCLLayerModule,
-  VCLPanelModule
+  VCLPanelModule,
+  VCLRadioButtonModule
 } from '@vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
@@ -54,6 +55,7 @@ export function demo() {
     ScrollingModule,
     VCLPanelModule,
     VCLLayerModule,
+    VCLRadioButtonModule,
     RouterModule.forChild([
       {
         path: '',

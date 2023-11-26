@@ -28,12 +28,12 @@
   <button vcl-button (click)="onAddCountry()">Add item</button>
 </div>
 
-<vcl-data-list [(value)]="selectedValues">
+<vcl-data-list [(value)]="selectedValues" [mode]="mode">
   <vcl-data-list-header>
     <h2>Countries</h2>
   </vcl-data-list-header>
   <ng-container *ngFor="let country of countriesList">
-    <vcl-data-list-item [value]="country.code">
+    <vcl-data-list-item [value]="country.code" [disabled]="country.disabled">
       <ng-container
         *ngTemplateOutlet="
           countryTemplate;
@@ -42,3 +42,24 @@
     </vcl-data-list-item>
   </ng-container>
 </vcl-data-list>
+
+<!-- <div class="data-list-item row" role="option" aria-selected="false">
+  <div>
+    <img class="responsive-image" src="https://picsum.photos/180/180">
+  </div>
+  <div class="gutter-margin flex">
+    <div class="row">
+      <div class="row center flex">
+        <h2 class="m-0">Kitty Cat</h2>&nbsp;&nbsp;
+        <span class="badge">Pet</span>
+      </div>
+      <div class="secondary-text-color align-right">
+        <i>September 2, 2023</i><br>
+        <span>Julia</span>
+      </div>
+    </div>
+    <div>
+      Idiosyncratic creature which makes miaow
+    </div>
+  </div>
+</div> -->

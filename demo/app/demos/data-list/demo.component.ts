@@ -7,4 +7,6 @@ export class DataListDemoComponent {
   value1 = 'gr';
   value2 = ['fr'];
   value3 = undefined;
+
+  modeValue = 'single'
 }
