@@ -1,5 +1,14 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { LayerRef, LayerService } from '@vcl/ng-vcl';
+import {
+  AfterViewChecked,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  QueryList,
+  SimpleChanges,
+  ViewChildren,
+} from '@angular/core';
+import { DataListItemDirective, LayerRef, LayerService } from '@vcl/ng-vcl';
 import { Subscription } from 'rxjs';
 import { CreateCountryComponent } from './create-country.component';
 
@@ -48,7 +57,9 @@ const data: CountryData[] = [
   templateUrl: './data-list-add-remove-demo.component.html',
   styleUrls: ['./data-list-add-remove-demo.component.scss'],
 })
-export class DataListAddRemoveDemo implements OnDestroy {
+export class DataListAddRemoveDemo
+  implements OnChanges, OnDestroy
+{
   createCountryLayer: LayerRef;
   countrySub: Subscription;
 
@@ -56,6 +67,8 @@ export class DataListAddRemoveDemo implements OnDestroy {
   countriesList: CountryData[] = data;
 
   @Input() mode!: string;
+  @ViewChildren(DataListItemDirective)
+  dataListItems!: QueryList<DataListItemDirective>;
 
   constructor(private layerService: LayerService) {
     this.createCountryLayer = this.layerService.create(CreateCountryComponent, {
@@ -63,6 +76,18 @@ export class DataListAddRemoveDemo implements OnDestroy {
       closeOnEscape: false,
     });
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const mode = changes['mode'];
+
+    if (!mode.firstChange && mode.currentValue !== mode.previousValue) {
+      this.selectedValues = [];
+
+      // Unselect the item when the mode has changed.
+      this.dataListItems.map(item => (item.selected = false));
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.countrySub) {
       this.countrySub.unsubscribe();
@@ -87,3 +112,4 @@ export class DataListAddRemoveDemo implements OnDestroy {
     );
   }
 }
+// TODO Change the content to match the vcl's

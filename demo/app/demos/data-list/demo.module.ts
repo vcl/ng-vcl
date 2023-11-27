@@ -37,6 +37,18 @@ export function demo() {
         type: 'ts',
         content: require('!raw-loader!./demo.component.ts'),
       },
+      'data-list-add-remove-demo.component.html': {
+        type: 'html',
+        content: require('!raw-loader!./list-add-remove/data-list-add-remove-demo.component.html'),
+      },
+      'data-list-add-remove-demo.component.ts': {
+        type: 'ts',
+        content: require('!raw-loader!./list-add-remove/data-list-add-remove-demo.component.ts'),
+      },
+      'create-country.component.ts': {
+        type: 'ts',
+        content: require('!raw-loader!./list-add-remove/create-country.component.ts'),
+      },
     },
   };
 }
