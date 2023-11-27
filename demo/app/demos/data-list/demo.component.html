@@ -1,126 +1,46 @@
-<ng-template #country let-name="name" let-desc="desc">
-  <div class="row">
-    <div>
-      <img class="responsive-image" ngSrc="https://picsum.photos/90/90">
-    </div>
-    <div class="gutter-margin flex">
-      <div class="row">
-        <div class="row center flex">
-          <h2 class="m-0">{{name}}</h2>&nbsp;&nbsp;
-          <span class="badge">Country</span>
-        </div>
+<ng-template #kittenTemplate>
+  <div class="country-pane">
+    <div class="row">
+      <div>
+        <img class="responsive-image" src="https://picsum.photos/180/180" />
       </div>
-      <div *ngIf="desc">{{desc}}</div>
+      <div class="gutter-margin flex">
+        <div class="row">
+          <div class="row center flex">
+            <h2 class="m-0">Kitty Cat</h2>
+            &nbsp;&nbsp;
+            <span class="badge">Pet</span>
+          </div>
+          <div class="secondary-text-color align-right">
+            <i>September 2, 2023</i><br />
+            <span>Julia</span>
+          </div>
+        </div>
+        <div>Idiosyncratic creature which makes miaow</div>
+      </div>
     </div>
+    <button
+      (click)="onDeleteCountry(id, $event)"
+      vcl-button
+      class="square transparent hide delete-button">
+      <vcl-icon icon="mdi mdi-trash-can" aria-label="Delete Country"></vcl-icon>
+    </button>
   </div>
 </ng-template>
 
-<h3>Basic vcl-data-list</h3>
-
-<vcl-data-list [(value)]="value1">
-  <vcl-data-list-header>
-    <h2>Countries</h2>
-  </vcl-data-list-header>
-  <vcl-data-list-item value="gr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Greece', desc: 'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="fr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="de" [disabled]="true">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany (disabled)' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="gb">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'The United Kingdom of Great Britain and Northern Ireland' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="jp">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Japan' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="ch">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'China' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="th">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Thailand' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-footer class="row justify-end my-2">
-    <button vcl-button>
-      <vcl-icogram>
-        <vcl-icon vclPrepend icon="fas:plus"></vcl-icon>
-        Button
-      </vcl-icogram>
-    </button>
-  </vcl-data-list-footer>
-</vcl-data-list>
-
-
-Value: {{value1}}
-
-<h3>mode="multiple"</h3>
-
-<vcl-data-list [(value)]="value2" mode="multiple">
-  <vcl-data-list-item value="gr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Greece', desc: 'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="fr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="de" [disabled]="true">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany (disabled)' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="gb">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'The United Kingdom of Great Britain and Northern Ireland' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="jp">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Japan' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="ch">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'China' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="th">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Thailand' }"></ng-container>
-  </vcl-data-list-item>
-</vcl-data-list>
-
-Value: {{value2}}
-
-<h3>mode="none"</h3>
-
-<vcl-data-list mode="none">
-  <vcl-data-list-item value="gr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Greece', desc: 'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="fr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="de" [disabled]="true">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Germany (disabled)' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="gb">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'The United Kingdom of Great Britain and Northern Ireland' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="jp">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Japan' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="ch">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'China' }"></ng-container>
-  </vcl-data-list-item>
-  <vcl-data-list-item value="th">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Thailand' }"></ng-container>
-  </vcl-data-list-item>
-</vcl-data-list>
+<data-list-add-remove-demo></data-list-add-remove-demo>
 
 <h3>Mixed in custom content</h3>
 
 <vcl-data-list [(value)]="value3">
   <vcl-data-list-header>
-    <h2>Countries</h2>
+    <h2>Kittens</h2>
   </vcl-data-list-header>
   <vcl-data-list-item value="gr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'Greece', desc: 'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas' }"></ng-container>
+    <ng-container *ngTemplateOutlet="kittenTemplate"></ng-container>
   </vcl-data-list-item>
   <vcl-data-list-item value="fr">
-    <ng-container *ngTemplateOutlet="country; context: {name: 'France' }"></ng-container>
+    <ng-container *ngTemplateOutlet="kittenTemplate"></ng-container>
   </vcl-data-list-item>
   <vcl-busy-indicator class="p-3 w-100p"></vcl-busy-indicator>
 </vcl-data-list>
-

@@ -9,11 +9,16 @@ import {
   VCLIcogramModule,
   VCLInputModule,
   VCLDataListModule,
+  VCLLayerModule,
+  VCLPanelModule,
+  VCLRadioButtonModule
 } from '@vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { DataListDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/data-list/README.md';
+import { DataListAddRemoveDemo } from './list-add-remove/data-list-add-remove-demo.component';
+import { CreateCountryComponent } from './list-add-remove/create-kitten.component';
 
 export function demo() {
   return {
@@ -32,6 +37,22 @@ export function demo() {
         type: 'ts',
         content: require('!raw-loader!./demo.component.ts'),
       },
+      'data-list-add-remove-demo.component.html': {
+        type: 'html',
+        content: require('!raw-loader!./list-add-remove/data-list-add-remove-demo.component.html'),
+      },
+      'data-list-add-remove-demo.component.ts': {
+        type: 'ts',
+        content: require('!raw-loader!./list-add-remove/data-list-add-remove-demo.component.ts'),
+      },
+      'create-kitten.component.ts': {
+        type: 'ts',
+        content: require('!raw-loader!./list-add-remove/create-kitten.component.ts'),
+      },
+      'data.ts': {
+        type: 'ts',
+        content: require('!raw-loader!./list-add-remove/data.ts'),
+      },
     },
   };
 }
@@ -48,6 +69,9 @@ export function demo() {
     VCLIcogramModule,
     VCLBusyIndicatorModule,
     ScrollingModule,
+    VCLPanelModule,
+    VCLLayerModule,
+    VCLRadioButtonModule,
     RouterModule.forChild([
       {
         path: '',
@@ -56,6 +80,6 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [DataListDemoComponent],
+  declarations: [DataListDemoComponent, DataListAddRemoveDemo, CreateCountryComponent],
 })
 export class DataListDemoModule {}
