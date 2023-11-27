@@ -18,7 +18,7 @@ import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
 import { DataListDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/data-list/README.md';
 import { DataListAddRemoveDemo } from './list-add-remove/data-list-add-remove-demo.component';
-import { CreateCountryComponent } from './list-add-remove/create-country.component';
+import { CreateCountryComponent } from './list-add-remove/create-kitten.component';
 
 export function demo() {
   return {
@@ -45,9 +45,13 @@ export function demo() {
         type: 'ts',
         content: require('!raw-loader!./list-add-remove/data-list-add-remove-demo.component.ts'),
       },
-      'create-country.component.ts': {
+      'create-kitten.component.ts': {
         type: 'ts',
-        content: require('!raw-loader!./list-add-remove/create-country.component.ts'),
+        content: require('!raw-loader!./list-add-remove/create-kitten.component.ts'),
+      },
+      'data.ts': {
+        type: 'ts',
+        content: require('!raw-loader!./list-add-remove/data.ts'),
       },
     },
   };

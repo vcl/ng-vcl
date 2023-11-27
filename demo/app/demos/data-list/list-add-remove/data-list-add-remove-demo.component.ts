@@ -1,15 +1,12 @@
 import {
   Component,
-  Input,
-  OnChanges,
   OnDestroy,
   QueryList,
-  SimpleChanges,
   ViewChildren,
 } from '@angular/core';
 import { DataListItemDirective, LayerRef, LayerService } from '@vcl/ng-vcl';
 import { Subscription } from 'rxjs';
-import { CreateCountryComponent } from './create-country.component';
+import { CreateCountryComponent } from './create-kitten.component';
 import { data, Kitten } from './data';
 
 @Component({
@@ -51,7 +48,17 @@ export class DataListAddRemoveDemo implements OnDestroy {
   onAddCountry() {
     this.countrySub = this.createCountryLayer.open().subscribe(result => {
       if (result) {
-        this.kittensList = [...this.kittensList, result.value as Kitten];
+        const newKitten: Kitten = {
+          ...result.value,
+          image: 'https://picsum.photos/180/180',
+          owner: 'Julia',
+          category: 'Pet',
+          active: true,
+          dateOfBirth: 'September 2, 2023',
+          id: Math.floor(Math.random() * 10000)
+        };
+
+        this.kittensList = [...this.kittensList, newKitten];
       }
     });
   }

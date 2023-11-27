@@ -1,8 +1,4 @@
-<div class="row justify-content-between align-item-center">
-  <h2 class="my-0">Adding and Removing Items in the datalist</h2>
-
-  <button vcl-button (click)="onAddCountry()">Add item</button>
-</div>
+<h2>Adding and Removing Items in the datalist</h2>
 
 <div>
   <!-- mode: single, mode: multiple, mode: none -->
@@ -29,7 +25,11 @@
 
 <vcl-data-list [(value)]="selectedValues" [mode]="modeValue">
   <vcl-data-list-header>
-    <h2>Countries</h2>
+    <div
+      class="row justify-content-between align-item-center mb-2">
+      <h2 class="my-0">Kittens</h2>
+      <button vcl-button (click)="onAddCountry()">Add item</button>
+    </div>
   </vcl-data-list-header>
   <ng-container *ngFor="let cat of kittensList">
     <vcl-data-list-item [value]="cat.id" [disabled]="!cat.active">
@@ -63,7 +63,7 @@
       <div>
         <img class="responsive-image" src="https://picsum.photos/180/180" />
       </div>
-      <div class="gutter-margin flex">
+      <div class="gutter-margin flex pl-2">
         <div class="row">
           <div class="row center flex">
             <h2 class="m-0">{{ name }}</h2>
@@ -76,7 +76,7 @@
             <span>{{ owner }}</span>
           </div>
         </div>
-        <div>{{ description }}</div>
+        <div>{{ desc }}</div>
       </div>
     </div>
     <button
