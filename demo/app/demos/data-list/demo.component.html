@@ -16,30 +16,7 @@
   </div>
 </ng-template>
 
-<div>
-  <!-- mode: single, mode: multiple, mode: none -->
-  <h3>Select a mode</h3>
-  <vcl-radio-group [(ngModel)]="modeValue">
-    <vcl-radio-button value="single">
-      <vcl-icogram>
-        <code>single</code>
-      </vcl-icogram>
-    </vcl-radio-button>
-    <vcl-radio-button value="multiple">
-      <vcl-icogram>
-        <code>multiple</code>
-      </vcl-icogram>
-    </vcl-radio-button>
-    <vcl-radio-button value="none">
-      <vcl-icogram>
-        <code>none</code>
-      </vcl-icogram>
-    </vcl-radio-button>
-  </vcl-radio-group>
-  <p><code>mode</code>: {{ modeValue }}</p>
-</div>
-
-<data-list-add-remove-demo [mode]="modeValue"></data-list-add-remove-demo>
+<data-list-add-remove-demo></data-list-add-remove-demo>
 
 <h3>Mixed in custom content</h3>
 

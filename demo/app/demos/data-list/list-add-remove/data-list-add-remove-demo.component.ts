@@ -1,5 +1,4 @@
 import {
-  AfterViewChecked,
   Component,
   Input,
   OnChanges,
@@ -11,62 +10,21 @@ import {
 import { DataListItemDirective, LayerRef, LayerService } from '@vcl/ng-vcl';
 import { Subscription } from 'rxjs';
 import { CreateCountryComponent } from './create-country.component';
-
-interface CountryData {
-  name: string;
-  description: string;
-  code: string;
-  disabled: boolean;
-}
-
-const data: CountryData[] = [
-  {
-    name: 'Greece',
-    description:
-      'A country in southeastern Europe with thousands of islands throughout the Aegean and Ionian seas',
-    code: 'gr',
-    disabled: false,
-  },
-  {
-    name: 'France',
-    description:
-      'France (officially the French Republic (French: République française [ʁepyblik fʁɑ̃sɛːz]),[14] is a country located primarily in Western Europe.',
-    code: 'fr',
-    disabled: false,
-  },
-  {
-    name: 'Germany (disabled)',
-    description:
-      'Germany,[e] officially the Federal Republic of Germany,[f] is a country in the western region of Central Europe.',
-    code: 'de',
-    disabled: true,
-  },
-  {
-    name: 'The United Kingdom of Great Britain and Northern Ireland',
-    description: '',
-    code: 'gb',
-    disabled: false,
-  },
-  { name: 'Japan', description: '', code: 'jp', disabled: false },
-  { name: 'China', description: '', code: 'ch', disabled: false },
-  { name: 'Thailand', description: '', code: 'th', disabled: false },
-];
+import { data, Kitten } from './data';
 
 @Component({
   selector: 'data-list-add-remove-demo',
   templateUrl: './data-list-add-remove-demo.component.html',
   styleUrls: ['./data-list-add-remove-demo.component.scss'],
 })
-export class DataListAddRemoveDemo
-  implements OnChanges, OnDestroy
-{
+export class DataListAddRemoveDemo implements OnDestroy {
   createCountryLayer: LayerRef;
   countrySub: Subscription;
 
+  modeValue = 'single';
   selectedValues = [];
-  countriesList: CountryData[] = data;
+  kittensList: Kitten[] = data;
 
-  @Input() mode!: string;
   @ViewChildren(DataListItemDirective)
   dataListItems!: QueryList<DataListItemDirective>;
 
@@ -77,39 +35,29 @@ export class DataListAddRemoveDemo
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const mode = changes['mode'];
-
-    if (!mode.firstChange && mode.currentValue !== mode.previousValue) {
-      this.selectedValues = [];
-
-      // Unselect the item when the mode has changed.
-      this.dataListItems.map(item => (item.selected = false));
-    }
-  }
-
   ngOnDestroy(): void {
     if (this.countrySub) {
       this.countrySub.unsubscribe();
     }
   }
 
+  onModeChange(val: string) {
+    this.modeValue = val;
+    this.selectedValues = [];
+    this.dataListItems.map(item => (item.selected = false));
+    return;
+  }
+
   onAddCountry() {
     this.countrySub = this.createCountryLayer.open().subscribe(result => {
       if (result) {
-        this.countriesList = [
-          ...this.countriesList,
-          result.value as CountryData,
-        ];
+        this.kittensList = [...this.kittensList, result.value as Kitten];
       }
     });
   }
 
-  onDeleteCountry(code: string, event: Event) {
+  onDeleteCountry(id: number, event: Event) {
     event.stopPropagation();
-    this.countriesList = this.countriesList.filter(
-      country => country.code !== code
-    );
+    this.kittensList = this.kittensList.filter(kit => kit.id !== id);
   }
 }
-// TODO Change the content to match the vcl's

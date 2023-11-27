@@ -1,66 +1,89 @@
-<ng-template #countryTemplate let-name="name" let-desc="desc" let-code="code">
-  <div class="country-pane">
-    <div class="row">
-      <div>
-        <img class="responsive-image" ngSrc="https://picsum.photos/90/90" />
-      </div>
-      <div class="gutter-margin flex">
-        <div class="row">
-          <div class="row center flex">
-            <h2 class="m-0">{{ name }}</h2>
-            &nbsp;&nbsp;
-            <span class="badge">Country</span>
-          </div>
-        </div>
-        <div *ngIf="desc">{{ desc }}</div>
-      </div>
-    </div>
-
-    <button (click)="onDeleteCountry(code, $event)" vcl-button class="square transparent hide delete-button">
-      <vcl-icon icon="mdi mdi-trash-can" aria-label="Delete Country"></vcl-icon>
-    </button>
-  </div>
-</ng-template>
-
 <div class="row justify-content-between align-item-center">
   <h2 class="my-0">Adding and Removing Items in the datalist</h2>
 
   <button vcl-button (click)="onAddCountry()">Add item</button>
 </div>
 
-<vcl-data-list [(value)]="selectedValues" [mode]="mode">
+<div>
+  <!-- mode: single, mode: multiple, mode: none -->
+  <h3>Select a mode</h3>
+  <vcl-radio-group [value]="modeValue" (valueChange)="onModeChange($event)">
+    <vcl-radio-button value="single">
+      <vcl-icogram>
+        <code>single</code>
+      </vcl-icogram>
+    </vcl-radio-button>
+    <vcl-radio-button value="multiple">
+      <vcl-icogram>
+        <code>multiple</code>
+      </vcl-icogram>
+    </vcl-radio-button>
+    <vcl-radio-button value="none">
+      <vcl-icogram>
+        <code>none</code>
+      </vcl-icogram>
+    </vcl-radio-button>
+  </vcl-radio-group>
+  <p><code>mode</code>: {{ modeValue }}</p>
+</div>
+
+<vcl-data-list [(value)]="selectedValues" [mode]="modeValue">
   <vcl-data-list-header>
     <h2>Countries</h2>
   </vcl-data-list-header>
-  <ng-container *ngFor="let country of countriesList">
-    <vcl-data-list-item [value]="country.code" [disabled]="country.disabled">
+  <ng-container *ngFor="let cat of kittensList">
+    <vcl-data-list-item [value]="cat.id" [disabled]="!cat.active">
       <ng-container
         *ngTemplateOutlet="
           countryTemplate;
-          context: { name: country.name, desc: country.description, code: country.code }
+          context: {
+            name: cat.name,
+            desc: cat.description,
+            id: cat.id,
+            birth: cat.dateOfBirth,
+            owner: cat.owner
+          }
         "></ng-container>
     </vcl-data-list-item>
   </ng-container>
 </vcl-data-list>
 
-<p>Selected value: {{ selectedValues | json  }}</p>
-<!-- <div class="data-list-item row" role="option" aria-selected="false">
-  <div>
-    <img class="responsive-image" src="https://picsum.photos/180/180">
-  </div>
-  <div class="gutter-margin flex">
+<p>Selected value: {{ selectedValues | json }}</p>
+
+<ng-template
+  #countryTemplate
+  let-name="name"
+  let-category="category"
+  let-birth="birth"
+  let-desc="desc"
+  let-owner="owner"
+  let-id="id">
+  <div class="country-pane">
     <div class="row">
-      <div class="row center flex">
-        <h2 class="m-0">Kitty Cat</h2>&nbsp;&nbsp;
-        <span class="badge">Pet</span>
+      <div>
+        <img class="responsive-image" src="https://picsum.photos/180/180" />
       </div>
-      <div class="secondary-text-color align-right">
-        <i>September 2, 2023</i><br>
-        <span>Julia</span>
+      <div class="gutter-margin flex">
+        <div class="row">
+          <div class="row center flex">
+            <h2 class="m-0">{{ name }}</h2>
+            &nbsp;&nbsp;
+            <span class="badge">{{ category }}</span>
+          </div>
+          <div class="secondary-text-color align-right">
+            <i>{{ birth }}</i
+            ><br />
+            <span>{{ owner }}</span>
+          </div>
+        </div>
+        <div>{{ description }}</div>
       </div>
     </div>
-    <div>
-      Idiosyncratic creature which makes miaow
-    </div>
+    <button
+      (click)="onDeleteCountry(id, $event)"
+      vcl-button
+      class="square transparent hide delete-button">
+      <vcl-icon icon="mdi mdi-trash-can" aria-label="Delete Country"></vcl-icon>
+    </button>
   </div>
-</div> -->
+</ng-template>
