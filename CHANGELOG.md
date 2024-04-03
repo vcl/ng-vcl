@@ -1,3 +1,16 @@
+## [3.0.7](https://github.com/vcl/ng-vcl/compare/v2.6.2...v3.0.7) (2024-04-03)
+
+
+### Bug Fixes
+
+* added subsink peer dependencie ([793aeb8](https://github.com/vcl/ng-vcl/commit/793aeb82c4803bc128d565663599b1620fb00d5f))
+* markdown table ([7a3066a](https://github.com/vcl/ng-vcl/commit/7a3066a8811146c1e1633883471861eeff849aab))
+* markdown table format ([06a6654](https://github.com/vcl/ng-vcl/commit/06a66545c7bad3481e6d6f33f09a23451443687c))
+* TData type parameter can only be a type that extends or is assignable to LayerData ([33b6a99](https://github.com/vcl/ng-vcl/commit/33b6a996b98e1676176eb6beaec1eebd18e74f94))
+* zone.js legacy deep import ([90208d4](https://github.com/vcl/ng-vcl/commit/90208d444cdaf2ca8e0239247ab728331040fd0c))
+
+
+
 ## [3.0.6](https://github.com/vcl/ng-vcl/compare/v3.0.5...v3.0.6) (2023-11-04)
 
 - Upgraded Angular version from 16.2.1 to 16.2.12.
