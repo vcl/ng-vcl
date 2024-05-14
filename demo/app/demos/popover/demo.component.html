@@ -10,11 +10,12 @@
   #popover1="vclPopover"
   [target]="target"
   (afterClose)="popover2.close()">
-  <div style="width: 400px">
-    Popover is connected to the target <br>
-    <button vcl-button (click)="popover2.open()">Show additional Popover</button>
-    &nbsp;
-    <button vcl-button (click)="popover1.close();">Close Popovers</button>
+  <div class="p-2" style="width: 400px;">
+    Popover is connected to the target
+    <div class="loose-button-group row justify-content-end mt-2">
+      <button vcl-button (click)="popover1.close();">Close Popovers</button>
+      <button vcl-button (click)="popover2.open()">Show additional Popover</button>
+    </div>
   </div>
 </ng-template>
 
