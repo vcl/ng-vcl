@@ -49,6 +49,11 @@ export class DateAdapter extends DateAdapterBase<Date> {
 
   parser: DateAdapterParser;
 
+  setParser(dateParser: DateAdapterParser, locale: string) {
+    this.parser = dateParser;
+    this.locale = locale;
+  }
+
   isDate(date: any): date is Date {
     return date instanceof Date && isFinite(date.getTime());
   }
