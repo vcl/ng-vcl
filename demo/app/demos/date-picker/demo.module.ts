@@ -5,6 +5,7 @@ import {
   VCLDatePickerModule,
   VCLButtonModule,
   VCLFormControlGroupModule,
+  VCLButtonGroupModule,
 } from '@vcl/ng-vcl';
 import { DemoModule, DemoComponent } from '../../modules/demo/demo.module';
 import { DatePickerDemoComponent } from './demo.component';
@@ -38,6 +39,7 @@ export function demo() {
     FormsModule,
     DemoModule,
     VCLButtonModule,
+    VCLButtonGroupModule,
     VCLFormControlGroupModule,
     VCLDatePickerModule,
     RouterModule.forChild([

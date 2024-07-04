@@ -35,16 +35,9 @@
   <vcl-date-picker [disabled]="true"></vcl-date-picker>
 </vcl-form-control-group>
 
-<button
-[selected]="selectedLocale === 'en'"
-  vcl-button
-  (click)="toEnglish()">
-  English
-</button>
-<span class="mx-2"></span>
-<button
-  [selected]="selectedLocale === 'de'"
-  vcl-button
-  (click)="toGerman()">
-  Deutsch
-</button>
+<h3>Select Locale</h3>
+
+<vcl-button-group [(value)]="selectedLocale" mode="single">
+  <button [value]="'en'" vcl-button (click)="toEnglish()">English</button>
+  <button [value]="'de'" vcl-button (click)="toGerman()">Deutsch</button>
+</vcl-button-group>
