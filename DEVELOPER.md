@@ -29,7 +29,7 @@ Building and deploying the docs is done automatically via GH Actions for the bra
 
 Use script at `.github/release.sh` and replace `X.X.X` with the version:
 
-```
+```sh
 ./.github/release.sh X.X.X
 ```
 

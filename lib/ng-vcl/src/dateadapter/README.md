@@ -24,7 +24,7 @@ export class MyComponent {
   }
 ```
 
-Check the `DateAdapterBase` [abstract class](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/dateadapter-base.ts) for an overview of methods and properties.
+Check the `DateAdapterBase` [abstract class](https://github.com/vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/dateadapter-base.ts) for an overview of methods and properties.
 
 ## Date Representation
 
@@ -55,7 +55,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
-  providers: [{provide: LOCALE_ID, useValue: 'de' }]
+  providers: [{ provide: LOCALE_ID, useValue: 'de' }]
 });
 ```
 
@@ -69,7 +69,7 @@ The default data adapter expresses date and time for inputs in `ISO 8601`. e.g. 
 ng-vcl provides parsing support for the following locales: `en`, `en-us`, `en-gb`, `de`, `de-AT`, `de-CH`, `de-DE`, `de-LI` and `de-LU`
 
 Other locales can be added by providing `VCL_DATE_ADAPTER_PARSER` with a class implementing the `DateAdapterParser`
-Check one of the existing [providers](https://github.com/ng-vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/parsers) for a full example.
+Check one of the existing [providers](https://github.com/vcl/ng-vcl/tree/dev/lib/ng-vcl/src/dateadapter/parsers) for a full example.
 
 ```ts
 import { DateAdapterParser, DateAdapterBaseParseFormats, DateAdapterBaseDisplayFormats } from '@vcl/ng-vcl';
