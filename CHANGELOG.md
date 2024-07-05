@@ -1,3 +1,12 @@
+## [3.0.10](https://github.com/vcl/ng-vcl/compare/v3.0.9...v3.0.10) (2024-07-05)
+
+
+### Bug Fixes
+
+* **select-field:** second position of flexible connected overlay ([5c55982](https://github.com/vcl/ng-vcl/commit/5c55982df28eba6964d8eebd15506a31c6c5e358))
+
+
+
 ## [3.0.9](https://github.com/vcl/ng-vcl/compare/v3.0.8...v3.0.9) (2024-07-04)
 
 
