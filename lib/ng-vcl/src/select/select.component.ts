@@ -286,7 +286,7 @@ export class SelectComponent
             ? this.width
             : this.elementRef.nativeElement.getBoundingClientRect().width,
         height: this.height,
-        maxHeight: this.maxHeight || '20em',
+        maxHeight: this.maxHeight,
         backdropClass: 'cdk-overlay-transparent-backdrop',
         panelClass: ['vcl-select-overlay', 'pop-over'],
         positionStrategy: this.overlay
