@@ -1,3 +1,14 @@
+## [3.0.9](https://github.com/vcl/ng-vcl/compare/v3.0.8...v3.0.9) (2024-07-04)
+
+
+### Bug Fixes
+
+* add visual update to datepicker demp page ([83e4db3](https://github.com/vcl/ng-vcl/commit/83e4db35ca065623e9328772b1b4cde74cfb477d))
+* expose a setParser method on dateAdapter class ([2bc28a2](https://github.com/vcl/ng-vcl/commit/2bc28a27c8aa4a902ed9750e2bae9834cc58ba2a))
+* position for actions buttons for popover demo layer ([5f01219](https://github.com/vcl/ng-vcl/commit/5f01219e963c7e4431a2a4b4f16d728f1bc9b283))
+
+
+
 ## [3.0.8](https://github.com/vcl/ng-vcl/compare/v3.0.7...v3.0.8) (2024-04-03)
 
 
