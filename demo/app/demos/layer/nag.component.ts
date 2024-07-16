@@ -3,7 +3,6 @@ import {
   Injector,
   Injectable,
   Inject,
-  forwardRef,
   HostBinding,
 } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
@@ -24,13 +23,6 @@ export interface INagLayer
 
 @Component({
   templateUrl: 'nag.component.html',
-  styles: [
-    `
-      :host {
-        width: 100%;
-      }
-    `,
-  ],
 })
 export class NagComponent {
   // Inject the ComponentLayerRef and use an interface for typings
@@ -65,7 +57,10 @@ export class NagLayer
   extends ComponentLayerRef<NagLayerData, NagLayerResult, NagComponent>
   implements INagLayer
 {
-  constructor(injector: Injector, private overlay: Overlay) {
+  constructor(
+    injector: Injector,
+    private overlay: Overlay
+  ) {
     super(injector);
   }
 
