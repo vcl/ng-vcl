@@ -1,3 +1,13 @@
+## 3.1.0 (2024-07-16)
+
+* fix(nag-layer): remove excess host width ([ea25aba](https://github.com/vcl/ng-vcl/commit/ea25aba))
+* chore: update all packages ([40a6f04](https://github.com/vcl/ng-vcl/commit/40a6f04))
+* chore: update to ng 18 ([5c9de8b](https://github.com/vcl/ng-vcl/commit/5c9de8b))
+* chore: update vcl ([51f19df](https://github.com/vcl/ng-vcl/commit/51f19df))
+* chroe: update cdk ([7881f15](https://github.com/vcl/ng-vcl/commit/7881f15))
+
+
+
 ## [3.0.10](https://github.com/vcl/ng-vcl/compare/v3.0.9...v3.0.10) (2024-07-05)
 
 
