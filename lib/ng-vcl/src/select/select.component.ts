@@ -288,7 +288,7 @@ export class SelectComponent
         height: this.height,
         maxHeight: this.maxHeight,
         backdropClass: 'cdk-overlay-transparent-backdrop',
-        panelClass: ['vcl-select-overlay', 'pop-over'],
+        panelClass: ['pop-over'],
         positionStrategy: this.overlay
           .position()
           .flexibleConnectedTo(this.elementRef)
