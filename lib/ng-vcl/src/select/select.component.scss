@@ -1,15 +1,9 @@
-vcl-select {
-  display: block;
+.pop-over {
+  padding: 0;
 }
 
-.vcl-select-overlay {
-  &.pop-over {
-    padding: 0;
-  }
-
-  .select-list {
-    border: 0;
-    margin-bottom: 0;
-    max-height: 100%;
-  }
+.select-list {
+  border: 0;
+  margin-bottom: 0;
+  max-height: 100%;
 }
