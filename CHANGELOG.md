@@ -1,3 +1,8 @@
+## <small>3.1.2 (2024-09-24)</small>
+
+
+
+
 ## <small>3.1.1 (2024-09-24)</small>
 
 * chore: refactor button and select component ([f4ae5e0](https://github.com/vcl/ng-vcl/commit/f4ae5e0))
