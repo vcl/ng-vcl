@@ -49,7 +49,7 @@
     "fuse.js": "^7.0.0",
     "hammerjs": "^2.0.8",
     "jsonschema": "^1.4.1",
-    "marked": "^14.1.2",
+    "marked": "^13.0.2",
     "ngx-markdown": "^18.0.0",
     "normalize.css": "^8.0.1",
     "raw-loader": "^4.0.2",
@@ -57,7 +57,7 @@
     "sass": "^1.79.3",
     "sass-loader": "^16.0.2",
     "tslib": "^2.7.0",
-    "zone.js": "^0.15.0"
+    "zone.js": "~0.14.10"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.5",
