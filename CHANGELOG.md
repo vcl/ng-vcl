@@ -1,3 +1,10 @@
+## <small>3.1.1 (2024-09-24)</small>
+
+* chore: refactor button and select component ([f4ae5e0](https://github.com/vcl/ng-vcl/commit/f4ae5e0))
+* chore: upgrade deps ([5633346](https://github.com/vcl/ng-vcl/commit/5633346))
+
+
+
 ## 3.1.0 (2024-07-16)
 
 * fix(nag-layer): remove excess host width ([ea25aba](https://github.com/vcl/ng-vcl/commit/ea25aba))
