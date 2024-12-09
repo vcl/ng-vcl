@@ -47,5 +47,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   'chevron-down': 'mdi mdi-chevron-down',
   'chevron-left': 'mdi mdi-chevron-left',
   home: 'mdi mdi-home',
-  bicycle: 'mdi mdi-bicycle'
+  bicycle: 'mdi mdi-bicycle',
+  link: 'mdi mdi-link-variant',
 };

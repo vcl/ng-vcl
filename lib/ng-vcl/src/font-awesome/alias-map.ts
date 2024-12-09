@@ -48,4 +48,5 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   'chevron-left': 'fas fa-chevron-left',
   home: 'fas fa-home',
   bicycle: 'fas fa-bicycle',
+  link: 'fas fa-link',
 };
