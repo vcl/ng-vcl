@@ -49,4 +49,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   home: 'mdi mdi-home',
   bicycle: 'mdi mdi-bicycle',
   link: 'mdi mdi-link-variant',
+  'alert-circle': 'mdi mdi-alert-circle-outline',
+  flag: 'mdi mdi-flag',
 };

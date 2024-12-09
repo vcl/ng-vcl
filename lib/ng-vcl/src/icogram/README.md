@@ -9,15 +9,15 @@ Also supports the anchor tag
 
 ```html
 <vcl-icogram>
-  <vcl-icon vclPrepend icon="fas:chevron-left"></vcl-icon>
+  <vcl-icon vclPrepend icon="vcl:chevron-left"></vcl-icon>
   Label
-  <vcl-icon vclAppend icon="fas:chevron-right"></vcl-icon>
+  <vcl-icon vclAppend icon="vcl:chevron-right"></vcl-icon>
 </vcl-icogram>
   
 <a vcl-icogram
   [href]="'https://github.com/ng-vcl/ng-vcl'"
   [disabled]="true">
-  <vcl-icon vclPrepend icon="fas:link"></vcl-icon>
+  <vcl-icon vclPrepend icon="vcl:link"></vcl-icon>
   Link
 </a>
 ```

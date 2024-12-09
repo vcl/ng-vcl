@@ -19,7 +19,7 @@ export class AppComponent {}
   <vcl-navigation-item>
     <vcl-navigation-label>
       <vcl-icogram>
-        <vcl-icon vclPrepend icon="fas:home"></vcl-icon>
+        <vcl-icon vclPrepend icon="vcl:home"></vcl-icon>
         Home
       </vcl-icogram>
     </vcl-navigation-label>
@@ -27,7 +27,7 @@ export class AppComponent {}
   <vcl-navigation-item>
     <vcl-navigation-label>
       <vcl-icogram>
-        <vcl-icon vclPrepend icon="fas:bicycle"></vcl-icon>
+        <vcl-icon vclPrepend icon="vcl:bicycle"></vcl-icon>
         Products
       </vcl-icogram>
     </vcl-navigation-label>
@@ -43,7 +43,7 @@ export class AppComponent {}
   <vcl-navigation-item>
     <vcl-navigation-label>
       <vcl-icogram>
-        <vcl-icon vclPrepend icon="fas:envelope"></vcl-icon>
+        <vcl-icon vclPrepend icon="vcl:mail"></vcl-icon>
         Contact
       </vcl-icogram>
     </vcl-navigation-label>

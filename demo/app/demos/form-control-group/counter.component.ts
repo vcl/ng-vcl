@@ -53,7 +53,7 @@ let uniqueID = 0;
       (keydown.enter)="decrement(); $event.preventDefault()"
       (focus)="onFocus()"
       (focus)="onBlur(false)">
-      <vcl-icon icon="fas:minus"></vcl-icon>
+      <vcl-icon icon="vcl:remove"></vcl-icon>
     </button>
     <span>{{ value }}</span>
     <button
@@ -65,7 +65,7 @@ let uniqueID = 0;
       (keydown.enter)="increment(); $event.preventDefault()"
       (focus)="onFocus()"
       (focus)="onBlur(true)">
-      <vcl-icon icon="fas:plus"></vcl-icon>
+      <vcl-icon icon="vcl:add"></vcl-icon>
     </button>
   `,
   providers: [
