@@ -34,4 +34,5 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   menu: 'fas fa-bars',
   clear: 'fas fa-times',
   search: 'fas fa-search',
+  bolt: 'fas fa-bolt',
 };

@@ -11,23 +11,23 @@
   <a vcl-button (click)="someAction($event)">Button (a-tag)</a>
 
   <button vcl-button square title="Square Button" (click)="someAction($event)">
-    <vcl-icon icon="fas:bolt"></vcl-icon>
+    <vcl-icon icon="vcl:bolt"></vcl-icon>
   </button>
 
   <button vcl-button (click)="someAction($event)">
     Appended icon
-    <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
+    <vcl-icon vclAppend icon="vcl:bolt"></vcl-icon>
   </button>
 
   <button vcl-button (click)="someAction($event)">
-    <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
+    <vcl-icon vclPrepend icon="vcl:bolt"></vcl-icon>
     Prepended icon
   </button>
 
   <button vcl-button (click)="someAction($event)">
-    <vcl-icon vclPrepend icon="fas:bolt"></vcl-icon>
+    <vcl-icon vclPrepend icon="vcl:bolt"></vcl-icon>
     Prepended and appended icon
-    <vcl-icon vclAppend icon="fas:bolt"></vcl-icon>
+    <vcl-icon vclAppend icon="vcl:bolt"></vcl-icon>
   </button>
 
   <button vcl-button [selectable]="true" (click)="someAction($event.selected)">
