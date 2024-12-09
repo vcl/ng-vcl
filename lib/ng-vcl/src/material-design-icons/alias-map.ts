@@ -42,4 +42,10 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   female: 'mdi mdi-gender-female',
   genderless: 'mdi mdi-gender-non-binary',
   email: 'mdi mdi-email-outline',
+  'chevron-up': 'mdi mdi-chevron-up',
+  'chevron-right': 'mdi mdi-chevron-right',
+  'chevron-down': 'mdi mdi-chevron-down',
+  'chevron-left': 'mdi mdi-chevron-left',
+  home: 'mdi mdi-home',
+  bicycle: 'mdi mdi-bicycle'
 };

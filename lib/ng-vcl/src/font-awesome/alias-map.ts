@@ -42,4 +42,10 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   female: 'fas fa-venus',
   genderless: 'fas fa-genderless',
   email: 'fas fa-envelope',
+  'chevron-up': 'fas fa-chevron-up',
+  'chevron-right': 'fas fa-chevron-right',
+  'chevron-down': 'fas fa-chevron-down',
+  'chevron-left': 'fas fa-chevron-left',
+  home: 'fas fa-home',
+  bicycle: 'fas fa-bicycle',
 };
