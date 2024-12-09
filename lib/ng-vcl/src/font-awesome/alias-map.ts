@@ -38,4 +38,8 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   italic: 'fas fa-italic',
   bold: 'fas fa-bold',
   underline: 'fas fa-underline',
+  male: 'fas fa-mars',
+  female: 'fas fa-venus',
+  genderless: 'fas fa-genderless',
+  email: 'fas fa-envelope',
 };
