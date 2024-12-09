@@ -34,6 +34,9 @@ export interface VCLIconAliasMap {
   clear: string;
   search: string;
   bolt: string;
+  italic: string;
+  bold: string;
+  underline: string;
 }
 
 // The icon resolver replaces icons prefixed with an alias. Usually you should provide only one default icon resolver in your app

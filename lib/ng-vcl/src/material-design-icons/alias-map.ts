@@ -35,4 +35,7 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   clear: 'mdi mdi-close',
   search: 'mdi mdi-magnify',
   bolt: 'mdi mdi-lightning-bolt',
+  italic: 'mdi mdi-format-italic',
+  bold: 'mdi mdi-format-bold',
+  underline: 'mdi mdi-format-underline',
 };
