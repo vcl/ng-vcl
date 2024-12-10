@@ -79,7 +79,7 @@ export class AlertDemoComponent {
       showCloseButton: true,
       showCancelButton: true,
       confirmButtonClass: 'suggestive',
-      confirmButtonPrepIcon: 'fas:bolt',
+      confirmButtonPrepIcon: 'vcl:bolt',
       cancelButtonColor: 'orange',
       customClass: 'scale130p',
     });

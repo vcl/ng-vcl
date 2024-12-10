@@ -27,7 +27,7 @@ export class AppComponent {}
 <vcl-panel-dialog [showCloseButton]="true">
   <vcl-panel-title>Panel Title</vcl-panel-title>
   <div class="row gutterx-3 align-items-center">
-    <vcl-icon icon="fas:exclamation-circle" class="scale300p"></vcl-icon>
+    <vcl-icon icon="vcl:alert-circle" class="scale300p"></vcl-icon>
     <div>Panel Content</div>
   </div>
   <button type="button" vcl-button vclPanelFooterButton class="transparent outline">

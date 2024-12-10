@@ -29,7 +29,7 @@ export class AppComponent { ... }
 
 ```html
 <button vcl-button>
-  <vcl-icogram appIcon="fas:bolt">Action</vcl-icogram>
+  <vcl-icogram appIcon="vcl:bolt">Action</vcl-icogram>
 </button>
 ```
 
@@ -37,7 +37,7 @@ export class AppComponent { ... }
 
 ```html
 <button vcl-button square>
-  <vcl-icon icon="fas:bolt"></vcl-icon>
+  <vcl-icon icon="vcl:bolt"></vcl-icon>
 </button>
 ```
 

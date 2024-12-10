@@ -1,11 +1,27 @@
-<form novalidate [formGroup]="formGroup" #form="ngForm" style="max-width: 40em;" (submit)="onSubmit()" vclForm>
+<form
+  novalidate
+  [formGroup]="formGroup"
+  #form="ngForm"
+  style="max-width: 40em"
+  (submit)="onSubmit()"
+  vclForm>
   <h2>Create a hero</h2>
 
-  <ng-template [vclLayer]="{width: '25em'}" #help="vclLayer" let-header="header" let-text="text">
+  <ng-template
+    [vclLayer]="{ width: '25em' }"
+    #help="vclLayer"
+    let-header="header"
+    let-text="text">
     <vcl-panel-dialog>
-      <vcl-panel-title>{{header}}</vcl-panel-title>
-      {{text}}
-      <button vcl-button vclPanelFooterButton class="transparent outline" (click)="help.close()">OK</button>
+      <vcl-panel-title>{{ header }}</vcl-panel-title>
+      {{ text }}
+      <button
+        vcl-button
+        vclPanelFooterButton
+        class="transparent outline"
+        (click)="help.close()">
+        OK
+      </button>
     </vcl-panel-dialog>
   </ng-template>
 
@@ -13,54 +29,85 @@
     <vcl-label>Name</vcl-label>
     <div class="help-wrapper">
       <vcl-input-field>
-        <input vclInput formControlName="name">
+        <input vclInput formControlName="name" />
       </vcl-input-field>
-      <button vcl-button square class="transparent" (click)="help.open({data: { header: 'Name', text: 'The name of the hero. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi ad excepturi molestiae esse unde repellendus ex accusantium officia placeat voluptatem commodi et, laboriosam laudantium, cum, ratione debitis inventore? Esse, eaque!'}})" type="button">
+      <button
+        vcl-button
+        square
+        class="transparent"
+        (click)="
+          help.open({
+            data: {
+              header: 'Name',
+              text: 'The name of the hero. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi ad excepturi molestiae esse unde repellendus ex accusantium officia placeat voluptatem commodi et, laboriosam laudantium, cum, ratione debitis inventore? Esse, eaque!',
+            },
+          })
+        "
+        type="button">
         <vcl-icon class="scale130p" icon="vcl:info"></vcl-icon>
       </button>
     </div>
     <vcl-hint-error error="required">Name is required</vcl-hint-error>
-    <vcl-hint-error error="minlength">Name must have a length of at least 2 characters</vcl-hint-error>
+    <vcl-hint-error error="minlength"
+      >Name must have a length of at least 2 characters</vcl-hint-error
+    >
   </vcl-form-control-group>
 
   <vcl-form-control-group>
     <vcl-label>Description</vcl-label>
     <vcl-input-field class="auto-height">
-      <textarea vclInput formControlName="description" placeholder="Description of the hero" [autogrow]="true" [minRows]="3" [maxRows]="10"></textarea>
+      <textarea
+        vclInput
+        formControlName="description"
+        placeholder="Description of the hero"
+        [autogrow]="true"
+        [minRows]="3"
+        [maxRows]="10"></textarea>
     </vcl-input-field>
   </vcl-form-control-group>
 
   <div class="row gutterx-4">
     <vcl-form-control-group class="flex">
       <vcl-label>Date of Birth</vcl-label>
-      <vcl-date-picker formControlName="dob" [placeholder]="datePattern"></vcl-date-picker>
-      <vcl-hint-error error="required">Date of Birth is required</vcl-hint-error>
+      <vcl-date-picker
+        formControlName="dob"
+        [placeholder]="datePattern"></vcl-date-picker>
+      <vcl-hint-error error="required"
+        >Date of Birth is required</vcl-hint-error
+      >
     </vcl-form-control-group>
 
     <vcl-form-control-group class="flex">
       <vcl-label>Email</vcl-label>
       <vcl-input-field>
-        <vcl-icon icon="fas:envelope"></vcl-icon>
-        <input vclInput formControlName="email">
+        <vcl-icon icon="vcl:email"></vcl-icon>
+        <input vclInput formControlName="email" />
       </vcl-input-field>
       <vcl-hint-error error="required">Email is required</vcl-hint-error>
       <vcl-hint-error error="email">Invalid Email address</vcl-hint-error>
     </vcl-form-control-group>
   </div>
 
-
   <vcl-form-control-group>
     <vcl-label>Password</vcl-label>
     <vcl-password-input>
-      <input vclInput formControlName="password" placeholder="Enter password">
+      <input vclInput formControlName="password" placeholder="Enter password" />
     </vcl-password-input>
     <vcl-hint-error error="required">Password is required</vcl-hint-error>
     <vcl-hint-error error="pattern">Password must... </vcl-hint-error>
-    <vcl-hint-error error="pattern">- have at least 8 characters in length</vcl-hint-error>
-    <vcl-hint-error error="pattern">- contain a lowercase letters</vcl-hint-error>
-    <vcl-hint-error error="pattern">- contain a uppercase letters</vcl-hint-error>
+    <vcl-hint-error error="pattern"
+      >- have at least 8 characters in length</vcl-hint-error
+    >
+    <vcl-hint-error error="pattern"
+      >- contain a lowercase letters</vcl-hint-error
+    >
+    <vcl-hint-error error="pattern"
+      >- contain a uppercase letters</vcl-hint-error
+    >
     <vcl-hint-error error="pattern">- contain a number</vcl-hint-error>
-    <vcl-hint-error error="pattern">- contain a special character</vcl-hint-error>
+    <vcl-hint-error error="pattern"
+      >- contain a special character</vcl-hint-error
+    >
   </vcl-form-control-group>
 
   <vcl-form-control-group>
@@ -75,24 +122,31 @@
 
   <vcl-form-control-group>
     <vcl-label>Picture</vcl-label>
-    <vcl-file-input [multiple]="false" formControlName="picture">Picture of the hero</vcl-file-input>
+    <vcl-file-input [multiple]="false" formControlName="picture"
+      >Picture of the hero</vcl-file-input
+    >
   </vcl-form-control-group>
 
   <vcl-form-control-group>
     <vcl-label>Gender</vcl-label>
     <vcl-radio-group formControlName="gender">
       <vcl-radio-button value="m">
-        <vcl-icogram>Male<vcl-icon vclAppend icon="fas:mars"></vcl-icon></vcl-icogram>
+        <vcl-icogram
+          >Male<vcl-icon vclAppend icon="vcl:male"></vcl-icon
+        ></vcl-icogram>
       </vcl-radio-button>
       <vcl-radio-button value="f">
-        <vcl-icogram>Female<vcl-icon vclAppend icon="fas:venus"></vcl-icon></vcl-icogram>
+        <vcl-icogram
+          >Female<vcl-icon vclAppend icon="vcl:female"></vcl-icon
+        ></vcl-icogram>
       </vcl-radio-button>
       <vcl-radio-button value="g">
-        <vcl-icogram>Genderless<vcl-icon vclAppend icon="fas:genderless"></vcl-icon></vcl-icogram>
+        <vcl-icogram
+          >Genderless<vcl-icon vclAppend icon="vcl:genderless"></vcl-icon
+        ></vcl-icogram>
       </vcl-radio-button>
       <vcl-hint-error error="required">You must select a gender</vcl-hint-error>
     </vcl-radio-group>
-
   </vcl-form-control-group>
 
   <vcl-form-control-group>
@@ -102,35 +156,39 @@
       <button vcl-button [value]="'neutral'">Neutral</button>
       <button vcl-button [value]="'evil'">Evil</button>
     </vcl-button-group>
-    <vcl-hint-error error="required">You must select an alignment</vcl-hint-error>
+    <vcl-hint-error error="required"
+      >You must select an alignment</vcl-hint-error
+    >
   </vcl-form-control-group>
 
   <vcl-form-control-group>
     <vcl-label>Class</vcl-label>
     <vcl-select-list formControlName="class">
-      <vcl-select-list-item [value]="'warrior'">
-        Warrior
-      </vcl-select-list-item>
-      <vcl-select-list-item [value]="'mage'">
-        Mage
-      </vcl-select-list-item>
-      <vcl-select-list-item [value]="'rogue'">
-        Rogue
-      </vcl-select-list-item>
+      <vcl-select-list-item [value]="'warrior'"> Warrior </vcl-select-list-item>
+      <vcl-select-list-item [value]="'mage'"> Mage </vcl-select-list-item>
+      <vcl-select-list-item [value]="'rogue'"> Rogue </vcl-select-list-item>
     </vcl-select-list>
     <vcl-hint-error error="required">You must select a class</vcl-hint-error>
   </vcl-form-control-group>
 
-
   <vcl-form-control-group>
     <vcl-label>Hit points</vcl-label>
-    <vcl-slider formControlName="hitpoints" [min]="5" [max]="20" [scale]="16" [lock]="true"></vcl-slider>
+    <vcl-slider
+      formControlName="hitpoints"
+      [min]="5"
+      [max]="20"
+      [scale]="16"
+      [lock]="true"></vcl-slider>
   </vcl-form-control-group>
 
   <fieldset>
     <legend>Skills</legend>
     <vcl-form-control-group>
-      <vcl-label>Strength (<vcl-rating-item-label [target]="strengthRating"></vcl-rating-item-label>)</vcl-label>
+      <vcl-label
+        >Strength (<vcl-rating-item-label
+          [target]="strengthRating"></vcl-rating-item-label
+        >)</vcl-label
+      >
       <vcl-rating formControlName="strength" #strengthRating="vclRating">
         <vcl-rating-item>1</vcl-rating-item>
         <vcl-rating-item>2</vcl-rating-item>
@@ -140,7 +198,11 @@
       </vcl-rating>
     </vcl-form-control-group>
     <vcl-form-control-group>
-      <vcl-label>Agility (<vcl-rating-item-label [target]="agilityRating"></vcl-rating-item-label>)</vcl-label>
+      <vcl-label
+        >Agility (<vcl-rating-item-label
+          [target]="agilityRating"></vcl-rating-item-label
+        >)</vcl-label
+      >
       <vcl-rating formControlName="agility" #agilityRating="vclRating">
         <vcl-rating-item>1</vcl-rating-item>
         <vcl-rating-item>2</vcl-rating-item>
@@ -150,8 +212,14 @@
       </vcl-rating>
     </vcl-form-control-group>
     <vcl-form-control-group>
-      <vcl-label>Intelligence (<vcl-rating-item-label [target]="intelligenceRating"></vcl-rating-item-label>)</vcl-label>
-      <vcl-rating formControlName="intelligence" #intelligenceRating="vclRating">
+      <vcl-label
+        >Intelligence (<vcl-rating-item-label
+          [target]="intelligenceRating"></vcl-rating-item-label
+        >)</vcl-label
+      >
+      <vcl-rating
+        formControlName="intelligence"
+        #intelligenceRating="vclRating">
         <vcl-rating-item>1</vcl-rating-item>
         <vcl-rating-item>2</vcl-rating-item>
         <vcl-rating-item>3</vcl-rating-item>
@@ -159,30 +227,49 @@
         <vcl-rating-item>5</vcl-rating-item>
       </vcl-rating>
     </vcl-form-control-group>
-    <vcl-hint *ngIf="!form.hasError('skills') && skillPointsAvailable === 0">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint>
-    <vcl-hint-warning *ngIf="!form.hasError('skills') && skillPointsAvailable > 0">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint-warning>
-    <vcl-hint-error *ngIf="form.hasError('skills')">{{skillPoints}} of {{skillPointsMax}} skill points used</vcl-hint-error>
+    <vcl-hint *ngIf="!form.hasError('skills') && skillPointsAvailable === 0"
+      >{{ skillPoints }} of {{ skillPointsMax }} skill points used</vcl-hint
+    >
+    <vcl-hint-warning
+      *ngIf="!form.hasError('skills') && skillPointsAvailable > 0"
+      >{{ skillPoints }} of {{ skillPointsMax }} skill points
+      used</vcl-hint-warning
+    >
+    <vcl-hint-error *ngIf="form.hasError('skills')"
+      >{{ skillPoints }} of {{ skillPointsMax }} skill points
+      used</vcl-hint-error
+    >
   </fieldset>
 
   <vcl-form-control-group>
     <vcl-label>Perks</vcl-label>
     <vcl-select placeholder="Select perks">
-      <vcl-select-list formControlName="perks"  selectionMode="multiple">
+      <vcl-select-list formControlName="perks" selectionMode="multiple">
         <vcl-select-list-item [value]="'snakeeater'">
           Snake Eater
-          <vcl-sub-label>It gives you a 25% increase to your poison resistance.	</vcl-sub-label>
+          <vcl-sub-label
+            >It gives you a 25% increase to your poison resistance.
+          </vcl-sub-label>
         </vcl-select-list-item>
         <vcl-select-list-item [value]="'swiftlearner'">
           Swift Learner
-          <vcl-sub-label>Swift Learner	Whenever you gain experience, you'll receive 5% more experience per level of the perk.</vcl-sub-label>
+          <vcl-sub-label
+            >Swift Learner Whenever you gain experience, you'll receive 5% more
+            experience per level of the perk.</vcl-sub-label
+          >
         </vcl-select-list-item>
         <vcl-select-list-item [value]="'toughness'">
           Toughness
-          <vcl-sub-label>It adds 10% to your general damage resistance per level.</vcl-sub-label>
+          <vcl-sub-label
+            >It adds 10% to your general damage resistance per
+            level.</vcl-sub-label
+          >
         </vcl-select-list-item>
         <vcl-select-list-item [value]="'explorer'">
           Explorer
-          <vcl-sub-label>You'll get more random encounters with this perk.</vcl-sub-label>
+          <vcl-sub-label
+            >You'll get more random encounters with this perk.</vcl-sub-label
+          >
         </vcl-select-list-item>
       </vcl-select-list>
     </vcl-select>
@@ -190,11 +277,15 @@
   </vcl-form-control-group>
 
   <vcl-form-control-group [errorStateAgent]="termsErrorStateAgent">
-    <vcl-checkbox formControlName="terms" >
-      Agree to our terms
-    </vcl-checkbox>
-    <vcl-hint>Read the <a href="'https://github.com/ng-vcl/ng-vcl'" target="'_blank'">terms</a> to learn how we collect, use and share your data</vcl-hint>
-    <vcl-hint-error error="termsDisagree">You must agree to our Terms</vcl-hint-error>
+    <vcl-checkbox formControlName="terms"> Agree to our terms </vcl-checkbox>
+    <vcl-hint
+      >Read the
+      <a href="'https://github.com/ng-vcl/ng-vcl'" target="'_blank'">terms</a>
+      to learn how we collect, use and share your data</vcl-hint
+    >
+    <vcl-hint-error error="termsDisagree"
+      >You must agree to our Terms</vcl-hint-error
+    >
   </vcl-form-control-group>
 
   <div class="loose-button-group">

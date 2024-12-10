@@ -60,7 +60,7 @@ this.alert.open({
   showCloseButton: true,
   showCancelButton: true,
   confirmButtonClass: 'vclSuggestive',
-  confirmButtonPrepIcon: 'fas:bolt',
+  confirmButtonPrepIcon: 'vcl:bolt',
   cancelButtonColor: 'orange',
   customClass: 'vclScale130p',
 });

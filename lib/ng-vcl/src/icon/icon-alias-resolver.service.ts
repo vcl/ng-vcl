@@ -33,6 +33,25 @@ export interface VCLIconAliasMap {
   menu: string;
   clear: string;
   search: string;
+  bolt: string;
+  italic: string;
+  bold: string;
+  underline: string;
+  male: string;
+  female: string;
+  genderless: string;
+  email: string;
+  'chevron-down': string;
+  'chevron-up': string;
+  'chevron-right': string;
+  'chevron-left': string;
+  home: string;
+  bicycle: string;
+  link: string;
+  'alert-circle': string;
+  flag: string;
+  'close-circle': string;
+  'arrow-right-circle': string;
 }
 
 // The icon resolver replaces icons prefixed with an alias. Usually you should provide only one default icon resolver in your app
