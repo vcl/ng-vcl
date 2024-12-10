@@ -49,7 +49,7 @@ export class MyComponent {
     this.notifier.error({
       content: 'An error message',
       timeout: false,
-      icon: 'fas:warning',
+      icon: 'vcl:error',
       position: NotifierPosition.TopLeft,
       class: 'my-error-message'
     });

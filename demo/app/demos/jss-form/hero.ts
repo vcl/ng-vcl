@@ -564,7 +564,7 @@ export function buildHeroSchema(
             type: 'submit',
             label: 'Submit',
             class: 'emphasized',
-            appIcon: 'fas:arrow-circle-right',
+            appIcon: 'vcl:arrow-right-circle',
             disabled,
           },
           {

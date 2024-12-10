@@ -51,4 +51,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   link: 'fas fa-link',
   'alert-circle': 'fas fa-exclamation-circle',
   flag: 'fas fa-flag',
+  'close-circle': 'fas fa-times-circle',
+  'arrow-right-circle': 'fas fa-arrow-circle-right',
 };

@@ -32,7 +32,7 @@
   <div class="content-area flex row">
     <div class="docNav col">
       <vcl-input-field class="no-border searchInput">
-        <vcl-icon icon="fas:search"></vcl-icon>
+        <vcl-icon icon="vcl:search"></vcl-icon>
         <input
           vclInput
           #searchInput
@@ -49,7 +49,7 @@
           *ngIf="searchInput.value"
           (tap)="searchInput.value = ''; search('')"
           class="button transparent square appended"
-          icon="fas:times-circle"
+          icon="vcl:close-circle"
         ></button>
       </vcl-input-field>
 

@@ -51,4 +51,6 @@ export const ALIAS_MAP: VCLIconAliasMap = {
   link: 'mdi mdi-link-variant',
   'alert-circle': 'mdi mdi-alert-circle-outline',
   flag: 'mdi mdi-flag',
+  'close-circle': 'mdi mdi-close-circle',
+  'arrow-right-circle': 'mdi mdi-arrow-right-circle'
 };
