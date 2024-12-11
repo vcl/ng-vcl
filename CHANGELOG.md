@@ -1,3 +1,18 @@
+# [3.2.0](https://github.com/vcl/ng-vcl/compare/v3.1.2...v3.2.0) (2024-12-11)
+
+
+### Features
+
+* **button:** replace icons in the button group demo ([f1af580](https://github.com/vcl/ng-vcl/commit/f1af5800ec217538fbb9556b4786a81b4c9b37a2))
+* **forms:** replace icons in the forms demo page ([c0de267](https://github.com/vcl/ng-vcl/commit/c0de267861fb0e35feb3080afdfe86da34ce5b97))
+* **icogram:** replace icons in the icogram ([88b65c5](https://github.com/vcl/ng-vcl/commit/88b65c5ec527627c209b884b8a5af5d06eb910d8))
+* **icon:** replace icons ([7071e72](https://github.com/vcl/ng-vcl/commit/7071e72919e8bd58fb61c9f7ab30700a98dd1157))
+* **icon:** replace several icons ([330dbd7](https://github.com/vcl/ng-vcl/commit/330dbd7cded89d03b3691722472ff68aa574dbb0))
+* **navigation:** replace icons in the navigation page ([03a0529](https://github.com/vcl/ng-vcl/commit/03a0529fc72b95ffefb4e75883ed56a2e90ad8b3))
+* use the vcl resolver to resolve icons ([451e746](https://github.com/vcl/ng-vcl/commit/451e7466cd757cde0893ab2dd8d863072fcb969d))
+
+
+
 ## <small>3.1.2 (2024-09-24)</small>
 
 
