@@ -33,24 +33,25 @@ import {
 } from '../input/index';
 
 @Component({
-  selector: 'vcl-select',
-  templateUrl: 'select.component.html',
-  styleUrls: ['select.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  exportAs: 'vclSelect',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    // FormControlState,
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
-      multi: true,
-    },
-    {
-      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => SelectComponent),
-    },
-  ],
+    selector: 'vcl-select',
+    templateUrl: 'select.component.html',
+    styleUrls: ['select.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    exportAs: 'vclSelect',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        // FormControlState,
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => SelectComponent),
+            multi: true,
+        },
+        {
+            provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+            useExisting: forwardRef(() => SelectComponent),
+        },
+    ],
+    standalone: false
 })
 export class SelectComponent
   extends TemplateLayerRef<any, SelectListItem>

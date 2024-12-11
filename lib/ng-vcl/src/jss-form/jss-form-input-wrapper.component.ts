@@ -8,10 +8,11 @@ import { FormFieldControl } from './fields/field';
 import { JSS_FORM_TOKEN, JssForm } from './types';
 
 @Component({
-  selector: 'vcl-jss-form-input-wrapper',
-  templateUrl: 'jss-form-input-wrapper.component.html',
-  styleUrls: ['jss-form-input-wrapper.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-jss-form-input-wrapper',
+    templateUrl: 'jss-form-input-wrapper.component.html',
+    styleUrls: ['jss-form-input-wrapper.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class JssFormInputWrapperComponent {
   constructor(

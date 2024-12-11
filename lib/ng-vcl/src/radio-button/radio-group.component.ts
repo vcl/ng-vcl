@@ -32,23 +32,24 @@ import {
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-radio-group',
-  template: '<ng-content></ng-content>',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RadioGroupComponent),
-      multi: true,
-    },
-    {
-      provide: RADIO_BUTTON_GROUP_TOKEN,
-      useExisting: forwardRef(() => RadioGroupComponent),
-    },
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => RadioGroupComponent),
-    },
-  ],
+    selector: 'vcl-radio-group',
+    template: '<ng-content></ng-content>',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => RadioGroupComponent),
+            multi: true,
+        },
+        {
+            provide: RADIO_BUTTON_GROUP_TOKEN,
+            useExisting: forwardRef(() => RadioGroupComponent),
+        },
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => RadioGroupComponent),
+        },
+    ],
+    standalone: false
 })
 export class RadioGroupComponent
   implements

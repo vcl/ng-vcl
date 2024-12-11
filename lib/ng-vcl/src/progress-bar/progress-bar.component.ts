@@ -7,12 +7,13 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'vcl-progress-bar',
-  templateUrl: 'progress-bar.component.html',
-  exportAs: 'vclProgressBar',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['progress-bar.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'vcl-progress-bar',
+    templateUrl: 'progress-bar.component.html',
+    exportAs: 'vclProgressBar',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['progress-bar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ProgressBarComponent {
   @HostBinding('attr.role')

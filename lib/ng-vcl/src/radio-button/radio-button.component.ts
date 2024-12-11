@@ -18,10 +18,11 @@ import {
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-radio-button',
-  templateUrl: 'radio-button.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'vclRadioButton',
+    selector: 'vcl-radio-button',
+    templateUrl: 'radio-button.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'vclRadioButton',
+    standalone: false
 })
 export class RadioButtonComponent implements RadioButton {
   constructor(

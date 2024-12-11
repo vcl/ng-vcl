@@ -9,9 +9,10 @@ import { TOOLTIP_TOKEN, Tooltip } from './types';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
-  selector: 'vcl-tooltip',
-  templateUrl: './tooltip.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-tooltip',
+    templateUrl: './tooltip.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TooltipComponent {
   constructor(

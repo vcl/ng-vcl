@@ -9,8 +9,9 @@ import {
 import { ZoomBoxMagnifierComponent } from './zoom-box-magnifier.component';
 
 @Component({
-  selector: 'vcl-zoom-box-container',
-  template: '<div><ng-content></ng-content></div>',
+    selector: 'vcl-zoom-box-container',
+    template: '<div><ng-content></ng-content></div>',
+    standalone: false
 })
 export class ZoomBoxContainerComponent implements AfterContentInit {
   @Input()

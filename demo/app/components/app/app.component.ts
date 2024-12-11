@@ -15,8 +15,9 @@ import { DrawerComponent } from '@vcl/ng-vcl';
 declare var gitBranch: string;
 
 @Component({
-  selector: 'demo-app',
-  templateUrl: 'app.component.html',
+    selector: 'demo-app',
+    templateUrl: 'app.component.html',
+    standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(

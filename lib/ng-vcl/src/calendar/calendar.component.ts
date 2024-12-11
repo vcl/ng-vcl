@@ -26,9 +26,10 @@ export type VCLCalendarSelectionMode =
   | 'month-range';
 
 @Component({
-  selector: 'vcl-calendar',
-  templateUrl: 'calendar.component.html',
-  exportAs: 'vclCalendar',
+    selector: 'vcl-calendar',
+    templateUrl: 'calendar.component.html',
+    exportAs: 'vclCalendar',
+    standalone: false
 })
 export class CalendarComponent<VCLDate>
   implements OnInit, ControlValueAccessor, VCLCalendar<VCLDate>

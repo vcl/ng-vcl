@@ -28,21 +28,22 @@ import { Subject } from 'rxjs';
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-file-input',
-  templateUrl: 'file-input.component.html',
-  exportAs: 'vclFileInput',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => FileInputComponent),
-    },
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FileInputComponent),
-      multi: true,
-    },
-  ],
+    selector: 'vcl-file-input',
+    templateUrl: 'file-input.component.html',
+    exportAs: 'vclFileInput',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => FileInputComponent),
+        },
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => FileInputComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class FileInputComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy

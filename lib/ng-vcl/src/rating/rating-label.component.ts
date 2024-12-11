@@ -11,10 +11,11 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'vcl-rating-item-label',
-  template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>',
-  exportAs: 'vclRatingItemLabel',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-rating-item-label',
+    template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>',
+    exportAs: 'vclRatingItemLabel',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RatingItemLabelComponent implements OnDestroy {
   constructor(

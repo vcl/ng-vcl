@@ -3,14 +3,15 @@ import { VCLDateRange, DateAdapterBase } from '@vcl/ng-vcl';
 import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'demo.component.html',
-  styles: [
-    `
+    templateUrl: 'demo.component.html',
+    styles: [
+        `
       vcl-calendar {
         width: 18em;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class CalendarDemoComponent {
   constructor(private dateAdapter: DateAdapterBase<Date>) {}

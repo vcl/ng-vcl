@@ -12,7 +12,8 @@ import { NagLayer } from './nag.component';
 let i = 0;
 
 @Component({
-  templateUrl: 'demo.component.html',
+    templateUrl: 'demo.component.html',
+    standalone: false
 })
 export class LayerDemoComponent implements AfterViewInit {
   barLayer: LayerRef;

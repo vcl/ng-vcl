@@ -8,16 +8,17 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'vcl-spinner',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'spinner.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SpinnerComponent),
-      multi: true,
-    },
-  ],
+    selector: 'vcl-spinner',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: 'spinner.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => SpinnerComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class SpinnerComponent implements ControlValueAccessor {
   @Input()

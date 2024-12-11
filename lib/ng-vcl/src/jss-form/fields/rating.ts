@@ -40,8 +40,8 @@ export class FormFieldRating extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-rating',
-  template: `
+    selector: 'vcl-jss-form-rating',
+    template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -62,6 +62,7 @@ export class FormFieldRating extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
+    standalone: false
 })
 export class FormFieldRatingComponent implements AfterViewInit {
   constructor(public field: FormFieldRating, private cdRef: ChangeDetectorRef) {

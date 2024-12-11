@@ -21,8 +21,8 @@ export class FormFieldSelectList extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-select-list',
-  template: `
+    selector: 'vcl-jss-form-select-list',
+    template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -45,6 +45,7 @@ export class FormFieldSelectList extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
+    standalone: false
 })
 export class FormFieldSelectListComponent {
   constructor(public field: FormFieldSelectList) {}

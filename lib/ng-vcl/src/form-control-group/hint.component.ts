@@ -12,11 +12,12 @@ import {
 import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
 
 @Component({
-  selector: 'vcl-hint, vcl-hint-warning, vcl-hint-success',
-  template: `<ng-content></ng-content>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['hint.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'vcl-hint, vcl-hint-warning, vcl-hint-success',
+    template: `<ng-content></ng-content>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['hint.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class FormControlHintComponent {
   constructor(
@@ -53,9 +54,10 @@ export class FormControlHintComponent {
 }
 
 @Component({
-  selector: 'vcl-hint-error',
-  template: `<ng-content></ng-content>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-hint-error',
+    template: `<ng-content></ng-content>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FormControlHintErrorComponent {
   constructor(

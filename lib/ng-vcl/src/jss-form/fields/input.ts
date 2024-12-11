@@ -51,8 +51,8 @@ export class FormFieldInput extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-input',
-  template: `
+    selector: 'vcl-jss-form-input',
+    template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent"
@@ -81,6 +81,7 @@ export class FormFieldInput extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
+    standalone: false
 })
 export class FormFieldInputComponent {
   private _value = '';

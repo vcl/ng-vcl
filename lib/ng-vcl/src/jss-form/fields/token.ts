@@ -12,8 +12,8 @@ export class FormFieldToken extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-token',
-  template: `
+    selector: 'vcl-jss-form-token',
+    template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -24,6 +24,7 @@ export class FormFieldToken extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
+    standalone: false
 })
 export class FormFieldTokenComponent {
   constructor(public field: FormFieldToken) {}

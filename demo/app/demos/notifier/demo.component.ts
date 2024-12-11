@@ -25,6 +25,7 @@ let cnt = 1;
       }
     `,
   ],
+  standalone: false,
 })
 export class NotifierDemoComponent {
   constructor(private notifier: NotifierService) {}

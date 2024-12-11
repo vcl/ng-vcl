@@ -17,20 +17,21 @@ import {
 } from './embedded-label.directive';
 
 @Component({
-  selector: 'vcl-input-field',
-  template: `
+    selector: 'vcl-input-field',
+    template: `
     <ng-content vclPrepend select="[vclPrepend]"></ng-content>
     <ng-content
       select="input[vclInput], textarea[vclInput], vcl-spinner"></ng-content>
     <ng-content vclAppend select="[vclAppend]"></ng-content>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => InputFieldComponent),
-    },
-  ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+            useExisting: forwardRef(() => InputFieldComponent),
+        },
+    ],
+    standalone: false
 })
 export class InputFieldComponent
   implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput

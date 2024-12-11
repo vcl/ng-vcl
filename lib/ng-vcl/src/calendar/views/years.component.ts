@@ -13,10 +13,11 @@ import { VCLCalendarYears } from '../interfaces';
 import { compare } from '../utils';
 
 @Component({
-  selector: 'vcl-calendar-view-years',
-  templateUrl: 'years.component.html',
-  exportAs: 'vclCalendarViewYear',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-calendar-view-years',
+    templateUrl: 'years.component.html',
+    exportAs: 'vclCalendarViewYear',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}

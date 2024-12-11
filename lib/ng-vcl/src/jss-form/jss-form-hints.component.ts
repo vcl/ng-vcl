@@ -26,10 +26,11 @@ import {
 } from '../form-control-group/exports';
 
 @Component({
-  selector: 'vcl-jss-form-hints',
-  templateUrl: 'jss-form-hints.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'vclJssFormControl',
+    selector: 'vcl-jss-form-hints',
+    templateUrl: 'jss-form-hints.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'vclJssFormControl',
+    standalone: false
 })
 export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
   constructor(

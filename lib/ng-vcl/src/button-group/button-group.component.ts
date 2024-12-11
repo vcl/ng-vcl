@@ -33,24 +33,25 @@ import {
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-button-group',
-  template: `<ng-content select="button"></ng-content>`,
-  providers: [
-    {
-      provide: BUTTON_HOST_TOKEN,
-      useExisting: forwardRef(() => ButtonGroupComponent),
-    },
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => ButtonGroupComponent),
-    },
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ButtonGroupComponent),
-      multi: true,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-button-group',
+    template: `<ng-content select="button"></ng-content>`,
+    providers: [
+        {
+            provide: BUTTON_HOST_TOKEN,
+            useExisting: forwardRef(() => ButtonGroupComponent),
+        },
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => ButtonGroupComponent),
+        },
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ButtonGroupComponent),
+            multi: true,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ButtonGroupComponent
   implements

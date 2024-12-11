@@ -30,26 +30,27 @@ import { SelectListContentComponent } from './components/select-list-content.com
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-select-list',
-  template: '<ng-content></ng-content>',
-  styleUrls: ['select-list.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  exportAs: 'vclSelectList',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectListComponent),
-      multi: true,
-    },
-    {
-      provide: SELECT_LIST_TOKEN,
-      useExisting: forwardRef(() => SelectListComponent),
-    },
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => SelectListComponent),
-    },
-  ],
+    selector: 'vcl-select-list',
+    template: '<ng-content></ng-content>',
+    styleUrls: ['select-list.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    exportAs: 'vclSelectList',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => SelectListComponent),
+            multi: true,
+        },
+        {
+            provide: SELECT_LIST_TOKEN,
+            useExisting: forwardRef(() => SelectListComponent),
+        },
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => SelectListComponent),
+        },
+    ],
+    standalone: false
 })
 export class SelectListComponent
   implements

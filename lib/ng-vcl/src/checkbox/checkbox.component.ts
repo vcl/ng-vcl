@@ -24,21 +24,22 @@ import { Subject } from 'rxjs';
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-checkbox',
-  templateUrl: 'checkbox.component.html',
-  providers: [
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => CheckboxComponent),
-    },
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CheckboxComponent),
-      multi: true,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'vclCheckbox',
+    selector: 'vcl-checkbox',
+    templateUrl: 'checkbox.component.html',
+    providers: [
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => CheckboxComponent),
+        },
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CheckboxComponent),
+            multi: true,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'vclCheckbox',
+    standalone: false
 })
 export class CheckboxComponent
   implements

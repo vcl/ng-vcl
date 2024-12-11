@@ -28,9 +28,9 @@ import { CommonModule } from '@angular/common';
 let uniqueID = 0;
 
 @Component({
-  selector: 'demo-counter',
-  styles: [
-    `
+    selector: 'demo-counter',
+    styles: [
+        `
       :host {
         display: flex;
         align-items: center;
@@ -42,8 +42,8 @@ let uniqueID = 0;
         padding-right: 0.2em;
       }
     `,
-  ],
-  template: `
+    ],
+    template: `
     <button
       vcl-button
       square
@@ -68,17 +68,18 @@ let uniqueID = 0;
       <vcl-icon icon="vcl:add"></vcl-icon>
     </button>
   `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CounterComponent),
-      multi: true,
-    },
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => CounterComponent),
-    },
-  ],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CounterComponent),
+            multi: true,
+        },
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => CounterComponent),
+        },
+    ],
+    standalone: false
 })
 export class CounterComponent
   implements ControlValueAccessor, FormControlGroupInputState

@@ -38,8 +38,8 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
 }
 
 @Component({
-  selector: 'vcl-jss-form-button',
-  template: `
+    selector: 'vcl-jss-form-button',
+    template: `
     <button
       vcl-button
       [ngClass]="field.class"
@@ -58,6 +58,7 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
       </vcl-icogram>
     </button>
   `,
+    standalone: false
 })
 export class FormFieldButtonComponent {
   constructor(

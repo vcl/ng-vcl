@@ -9,8 +9,9 @@ export interface NotifierDirectiveContext {
 }
 
 @Directive({
-  selector: '[vclNotifier]',
-  exportAs: 'vclNotifier',
+    selector: '[vclNotifier]',
+    exportAs: 'vclNotifier',
+    standalone: false
 })
 export class NotifierDirective implements NotifierOptions {
   constructor(

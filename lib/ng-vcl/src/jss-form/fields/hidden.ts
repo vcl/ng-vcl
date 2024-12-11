@@ -8,8 +8,9 @@ export class FormFieldHidden extends FormFieldControl<
 > {}
 
 @Component({
-  selector: 'vcl-jss-form-hidden',
-  template: ``,
+    selector: 'vcl-jss-form-hidden',
+    template: ``,
+    standalone: false
 })
 export class FormFieldHiddenComponent {
   constructor(public field: FormFieldHidden) {}

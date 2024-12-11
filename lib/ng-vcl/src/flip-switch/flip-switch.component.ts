@@ -26,23 +26,24 @@ import { Subject } from 'rxjs';
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-flip-switch',
-  templateUrl: 'flip-switch.component.html',
-  styleUrls: ['flip-switch.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  exportAs: 'vclFlipSwitch',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => FlipSwitchComponent),
-    },
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FlipSwitchComponent),
-      multi: true,
-    },
-  ],
+    selector: 'vcl-flip-switch',
+    templateUrl: 'flip-switch.component.html',
+    styleUrls: ['flip-switch.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    exportAs: 'vclFlipSwitch',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => FlipSwitchComponent),
+        },
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => FlipSwitchComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class FlipSwitchComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy

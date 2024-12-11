@@ -92,8 +92,8 @@ export class FormFieldObject extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-object',
-  template: `
+    selector: 'vcl-jss-form-object',
+    template: `
     <ng-container *ngIf="field.visible">
       <ng-container *ngIf="!field.layout">
         <div [formGroup]="field.control">
@@ -116,6 +116,7 @@ export class FormFieldObject extends FormFieldControl<
       </ng-container>
     </ng-container>
   `,
+    standalone: false
 })
 export class FormFieldObjectComponent {
   constructor(public field: FormFieldObject, injector: Injector) {

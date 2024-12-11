@@ -27,8 +27,8 @@ export class FormFieldSlider extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-slider',
-  template: `
+    selector: 'vcl-jss-form-slider',
+    template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -44,6 +44,7 @@ export class FormFieldSlider extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
+    standalone: false
 })
 export class FormFieldSliderComponent {
   constructor(public field: FormFieldSlider) {}

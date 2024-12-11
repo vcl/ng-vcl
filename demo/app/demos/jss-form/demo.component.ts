@@ -5,15 +5,17 @@ import { map } from 'rxjs/operators';
 import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
 
 @Component({
-  selector: 'demo-empty-component',
-  template: `<span>{{ data }}</span>`,
+    selector: 'demo-empty-component',
+    template: `<span>{{ data }}</span>`,
+    standalone: false
 })
 export class SampleEmptyComponent {
   data: string;
 }
 
 @Component({
-  templateUrl: 'demo.component.html',
+    templateUrl: 'demo.component.html',
+    standalone: false
 })
 export class JssFormDemoComponent implements AfterViewInit, OnInit {
   private _disabled = false;

@@ -51,27 +51,28 @@ export type DatepickerPick = 'date' | 'month' | 'time';
 export type DatepickerDisplay = 'date' | 'month' | 'time';
 
 @Component({
-  selector: 'vcl-date-picker',
-  templateUrl: 'date-picker.component.html',
-  exportAs: 'vclDatepicker',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => DatepickerComponent),
-    },
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => DatepickerComponent),
-    },
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DatepickerComponent),
-      multi: true,
-    },
-  ],
-  styleUrls: ['date-picker.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'vcl-date-picker',
+    templateUrl: 'date-picker.component.html',
+    exportAs: 'vclDatepicker',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+            useExisting: forwardRef(() => DatepickerComponent),
+        },
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => DatepickerComponent),
+        },
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => DatepickerComponent),
+            multi: true,
+        },
+    ],
+    styleUrls: ['date-picker.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DatepickerComponent<VCLDate>
   extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>>

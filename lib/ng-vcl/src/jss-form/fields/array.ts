@@ -82,8 +82,8 @@ export class FormFieldArray extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-array',
-  template: `
+    selector: 'vcl-jss-form-array',
+    template: `
     <ng-container [formGroup]="field.parentControl">
       <fieldset class="fieldset mb-form-control" [formArrayName]="field.name">
         <legend>
@@ -111,8 +111,8 @@ export class FormFieldArray extends FormFieldControl<
       </fieldset>
     </ng-container>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         display: block;
       }
@@ -125,7 +125,8 @@ export class FormFieldArray extends FormFieldControl<
         cursor: pointer;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class FormFieldArrayComponent {
   constructor(public field: FormFieldArray, private injector: Injector) {

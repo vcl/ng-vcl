@@ -24,8 +24,8 @@ export class FormFieldRadio extends FormFieldControl<
 }
 
 @Component({
-  selector: 'vcl-jss-form-radio-group',
-  template: `
+    selector: 'vcl-jss-form-radio-group',
+    template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -43,6 +43,7 @@ export class FormFieldRadio extends FormFieldControl<
       </vcl-jss-form-input-wrapper>
     </vcl-form-control-group>
   `,
+    standalone: false
 })
 export class FormFieldRadioGroupComponent {
   constructor(public field: FormFieldRadio) {}

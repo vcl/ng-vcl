@@ -4,8 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
-  templateUrl: 'demo.component.html',
-  styleUrls: [`demo.component.scss`],
+    templateUrl: 'demo.component.html',
+    styleUrls: [`demo.component.scss`],
+    standalone: false
 })
 export class DemoComponent implements OnInit {
   title: string;

@@ -38,32 +38,33 @@ import { map, debounceTime } from 'rxjs/operators';
 let UNIQUE_ID = 0;
 
 @Component({
-  selector: 'vcl-rating',
-  templateUrl: './rating.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'vclRating',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RatingComponent),
-      multi: true,
-    },
-    {
-      provide: RATING_TOKEN,
-      useExisting: forwardRef(() => RatingComponent),
-    },
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => RatingComponent),
-    },
-  ],
-  styles: [
-    `
+    selector: 'vcl-rating',
+    templateUrl: './rating.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'vclRating',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => RatingComponent),
+            multi: true,
+        },
+        {
+            provide: RATING_TOKEN,
+            useExisting: forwardRef(() => RatingComponent),
+        },
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => RatingComponent),
+        },
+    ],
+    styles: [
+        `
       :host.rating-vertical {
         flex-direction: column;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class RatingComponent
   implements
