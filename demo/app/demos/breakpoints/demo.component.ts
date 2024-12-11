@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
 const pickMatches = map((state: BreakpointState) => state.matches);
 
 @Component({
-  templateUrl: 'demo.component.html',
+    templateUrl: 'demo.component.html',
+    standalone: false
 })
 export class BreakpointsDemoComponent {
   constructor(private breakpointObserver: BreakpointObserver) {}

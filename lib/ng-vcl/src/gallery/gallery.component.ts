@@ -39,8 +39,9 @@ export enum ImageChange {
 }
 
 @Component({
-  selector: 'vcl-gallery',
-  templateUrl: 'gallery.component.html',
+    selector: 'vcl-gallery',
+    templateUrl: 'gallery.component.html',
+    standalone: false
 })
 export class GalleryComponent implements AfterContentInit, AfterViewInit {
   @HostBinding('attr.role')

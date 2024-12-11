@@ -7,8 +7,9 @@ import {
 } from '@angular/core';
 
 @Component({
-  templateUrl: 'demo.component.html',
-  encapsulation: ViewEncapsulation.None,
+    templateUrl: 'demo.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class PanelDemoComponent {
   constructor() {}

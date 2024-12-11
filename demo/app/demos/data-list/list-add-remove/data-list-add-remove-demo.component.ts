@@ -10,9 +10,10 @@ import { CreateCountryComponent } from './create-kitten.component';
 import { data, Kitten } from './data';
 
 @Component({
-  selector: 'data-list-add-remove-demo',
-  templateUrl: './data-list-add-remove-demo.component.html',
-  styleUrls: ['./data-list-add-remove-demo.component.scss'],
+    selector: 'data-list-add-remove-demo',
+    templateUrl: './data-list-add-remove-demo.component.html',
+    styleUrls: ['./data-list-add-remove-demo.component.scss'],
+    standalone: false
 })
 export class DataListAddRemoveDemo implements OnDestroy {
   createCountryLayer: LayerRef;

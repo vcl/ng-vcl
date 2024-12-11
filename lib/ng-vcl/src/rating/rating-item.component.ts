@@ -28,11 +28,12 @@ export interface Rating {
 export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
 
 @Component({
-  selector: 'vcl-rating-item',
-  templateUrl: 'rating-item.component.html',
-  exportAs: 'vclRatingItem',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [HostIconRendererService],
+    selector: 'vcl-rating-item',
+    templateUrl: 'rating-item.component.html',
+    exportAs: 'vclRatingItem',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [HostIconRendererService],
+    standalone: false
 })
 export class RatingItemComponent implements AfterViewInit {
   constructor(

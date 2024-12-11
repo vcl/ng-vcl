@@ -19,11 +19,12 @@ import {
 } from './panel.directive';
 
 @Component({
-  selector: 'vcl-panel, vcl-panel-dialog',
-  templateUrl: './panel.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['panel.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'vcl-panel, vcl-panel-dialog',
+    templateUrl: './panel.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['panel.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class PanelComponent implements AfterContentInit, OnDestroy {
   contentSub?: Subscription;

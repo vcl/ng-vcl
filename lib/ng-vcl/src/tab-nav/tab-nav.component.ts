@@ -24,18 +24,19 @@ import { BehaviorSubject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
-  selector: 'vcl-tab-nav',
-  templateUrl: 'tab-nav.component.html',
-  exportAs: 'vclTabNav',
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: ['tab-nav.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TAB_NAV_TOKEN,
-      useExisting: TabNavComponent,
-    },
-  ],
+    selector: 'vcl-tab-nav',
+    templateUrl: 'tab-nav.component.html',
+    exportAs: 'vclTabNav',
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['tab-nav.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TAB_NAV_TOKEN,
+            useExisting: TabNavComponent,
+        },
+    ],
+    standalone: false
 })
 export class TabNavComponent
   implements AfterViewInit, OnDestroy, TabNav, OnChanges

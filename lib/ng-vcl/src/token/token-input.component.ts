@@ -28,16 +28,17 @@ import { InputDirective } from '../input/index';
 let uniqueID = 0;
 
 @Component({
-  selector: 'vcl-token-input',
-  templateUrl: 'token-input.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TokenInputContainerComponent),
-      multi: true,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-token-input',
+    templateUrl: 'token-input.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => TokenInputContainerComponent),
+            multi: true,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TokenInputContainerComponent
   implements AfterContentInit, ControlValueAccessor, FormControlGroupInputState

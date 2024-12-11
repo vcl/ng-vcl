@@ -6,7 +6,8 @@ import {
 } from '@vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'demo.component.html',
+    templateUrl: 'demo.component.html',
+    standalone: false
 })
 export class DatePickerDemoComponent {
   constructor(private da: DateAdapter) {}

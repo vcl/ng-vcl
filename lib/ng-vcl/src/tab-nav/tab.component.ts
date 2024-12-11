@@ -13,7 +13,8 @@ import {
 import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
 
 @Directive({
-  selector: 'vcl-tab-label',
+    selector: 'vcl-tab-label',
+    standalone: false
 })
 export class TabLabelDirective {
   ngOnInit() {
@@ -22,10 +23,11 @@ export class TabLabelDirective {
 }
 
 @Component({
-  selector: 'vcl-tab',
-  templateUrl: './tab.component.html',
-  exportAs: 'vclTab',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-tab',
+    templateUrl: './tab.component.html',
+    exportAs: 'vclTab',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TabComponent implements OnInit, Tab {
   constructor(

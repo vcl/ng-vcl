@@ -15,6 +15,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 let cnt = 1;
 
 @Component({
-  templateUrl: 'demo.component.html',
+    templateUrl: 'demo.component.html',
+    standalone: false
 })
 export class NotificationDemoComponent {}

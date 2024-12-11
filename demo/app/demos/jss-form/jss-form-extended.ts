@@ -7,7 +7,7 @@ import {
 } from '@vcl/ng-vcl';
 
 @Component({
-  template: `
+    template: `
     <vcl-form-control-group *ngIf="field.visible">
       <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
       <demo-counter
@@ -16,6 +16,7 @@ import {
         [max]="field.params.max"></demo-counter>
     </vcl-form-control-group>
   `,
+    standalone: false
 })
 export class FormFieldCounterComponent {
   constructor(public field: FormFieldControl) {}

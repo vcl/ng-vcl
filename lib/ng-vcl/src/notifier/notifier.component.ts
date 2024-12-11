@@ -25,17 +25,17 @@ import { NotifierOverlayRef } from './notifier-overlay-ref';
 export type NotificationAnimationState = 'open' | 'closing' | 'closed';
 
 @Component({
-  selector: 'vcl-notifier-overlay',
-  templateUrl: './notifier.component.html',
-  animations: [
-    trigger('stateAnimation', [
-      transition('void => open', useAnimation(stateVoidOpenAnimation)),
-      transition('open => closing', useAnimation(stateOpenClosingAnimation)),
-    ]),
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
+    selector: 'vcl-notifier-overlay',
+    templateUrl: './notifier.component.html',
+    animations: [
+        trigger('stateAnimation', [
+            transition('void => open', useAnimation(stateVoidOpenAnimation)),
+            transition('open => closing', useAnimation(stateOpenClosingAnimation)),
+        ]),
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styles: [
+        `
       :host .notification-header:empty {
         display: none;
       }
@@ -43,7 +43,8 @@ export type NotificationAnimationState = 'open' | 'closing' | 'closed';
         display: none;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class NotifierComponent implements OnInit {
   constructor(

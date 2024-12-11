@@ -27,10 +27,11 @@ export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>(
 );
 
 @Component({
-  selector: 'button[vcl-button], a[vcl-button]',
-  exportAs: 'vclButton',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'button.component.html',
+    selector: 'button[vcl-button], a[vcl-button]',
+    exportAs: 'vclButton',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: 'button.component.html',
+    standalone: false
 })
 export class ButtonComponent {
   constructor(

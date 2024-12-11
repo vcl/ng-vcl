@@ -10,9 +10,10 @@ import {
 import { GalleryComponent } from './gallery.component';
 
 @Component({
-  selector: 'vcl-gallery-body',
-  templateUrl: 'gallery-body.component.html',
-  host: { class: 'gallery-body-norow' },
+    selector: 'vcl-gallery-body',
+    templateUrl: 'gallery-body.component.html',
+    host: { class: 'gallery-body-norow' },
+    standalone: false
 })
 export class GalleryBodyComponent implements AfterContentChecked {
   @Input()

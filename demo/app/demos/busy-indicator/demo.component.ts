@@ -1,9 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  templateUrl: 'demo.component.html',
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./demo.component.scss'],
+    templateUrl: 'demo.component.html',
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./demo.component.scss'],
+    standalone: false
 })
 export class BusyDemoComponent {
   isBusy = false;

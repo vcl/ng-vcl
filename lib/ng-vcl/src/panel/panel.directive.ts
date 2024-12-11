@@ -1,7 +1,8 @@
 import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: 'vcl-panel-dialog',
+    selector: 'vcl-panel-dialog',
+    standalone: false
 })
 export class PanelDialogDirective {
   @HostBinding('class.panel-dialog')
@@ -9,7 +10,8 @@ export class PanelDialogDirective {
 }
 
 @Directive({
-  selector: 'vcl-panel-title',
+    selector: 'vcl-panel-title',
+    standalone: false
 })
 export class PanelTitleDirective {
   @HostBinding('class.panel-title')
@@ -19,14 +21,16 @@ export class PanelTitleDirective {
 }
 
 @Directive({
-  selector: 'button[vclPanelFooterButton]',
+    selector: 'button[vclPanelFooterButton]',
+    standalone: false
 })
 export class PanelFooterButtonDirective {
   hostClasses = true;
 }
 
 @Directive({
-  selector: 'vcl-panel-header',
+    selector: 'vcl-panel-header',
+    standalone: false
 })
 export class PanelHeaderDirective {
   @HostBinding('class.panel-header')
@@ -34,7 +38,8 @@ export class PanelHeaderDirective {
 }
 
 @Directive({
-  selector: 'vcl-panel-footer',
+    selector: 'vcl-panel-footer',
+    standalone: false
 })
 export class PanelFooterDirective {
   @HostBinding('class.panel-footer')

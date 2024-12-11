@@ -1,7 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
-  templateUrl: 'demo.component.html',
+    templateUrl: 'demo.component.html',
+    standalone: false
 })
 export class SelectListDemoComponent {
   value1 = 'gr';

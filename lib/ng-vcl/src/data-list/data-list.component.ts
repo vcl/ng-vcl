@@ -20,7 +20,8 @@ import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
 import { DataListItemDirective } from './data-list-item.directive';
 
 @Directive({
-  selector: 'vcl-data-list-header',
+    selector: 'vcl-data-list-header',
+    standalone: false
 })
 export class DataListHeaderDirective {
   @HostBinding('class.data-list-header')
@@ -28,7 +29,8 @@ export class DataListHeaderDirective {
 }
 
 @Directive({
-  selector: 'vcl-data-list-footer',
+    selector: 'vcl-data-list-footer',
+    standalone: false
 })
 export class DataListFooterDirective {
   @HostBinding('class.data-list-footer')
@@ -36,18 +38,19 @@ export class DataListFooterDirective {
 }
 
 @Component({
-  selector: 'vcl-data-list',
-  templateUrl: './data-list.component.html',
-  styleUrls: ['./data-list.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  exportAs: 'vclDataList',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: DATA_LIST_TOKEN,
-      useExisting: forwardRef(() => DataListComponent),
-    },
-  ],
+    selector: 'vcl-data-list',
+    templateUrl: './data-list.component.html',
+    styleUrls: ['./data-list.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    exportAs: 'vclDataList',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: DATA_LIST_TOKEN,
+            useExisting: forwardRef(() => DataListComponent),
+        },
+    ],
+    standalone: false
 })
 export class DataListComponent
   implements DataList, AfterContentInit, OnDestroy, ControlValueAccessor

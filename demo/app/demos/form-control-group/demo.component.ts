@@ -14,9 +14,10 @@ import {
 } from '@vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'demo.component.html',
-  styleUrls: ['demo.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    templateUrl: 'demo.component.html',
+    styleUrls: ['demo.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class FormControlGroupDemoComponent {
   constructor(private notifier: NotifierService, private da: DateAdapter) {}

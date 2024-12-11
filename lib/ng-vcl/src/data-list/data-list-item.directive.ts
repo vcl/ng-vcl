@@ -18,14 +18,15 @@ import {
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: 'vcl-data-list-item',
-  exportAs: 'vclDataListItem',
-  providers: [
-    {
-      provide: DATA_LIST_ITEM_TOKEN,
-      useExisting: forwardRef(() => DataListItemDirective),
-    },
-  ],
+    selector: 'vcl-data-list-item',
+    exportAs: 'vclDataListItem',
+    providers: [
+        {
+            provide: DATA_LIST_ITEM_TOKEN,
+            useExisting: forwardRef(() => DataListItemDirective),
+        },
+    ],
+    standalone: false
 })
 export class DataListItemDirective implements DataListItem, OnDestroy {
   constructor(

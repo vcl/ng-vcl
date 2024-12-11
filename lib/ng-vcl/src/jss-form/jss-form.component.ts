@@ -32,12 +32,13 @@ import {
 } from '../form-control-group/index';
 
 @Component({
-  selector: 'vcl-jss-form',
-  templateUrl: 'jss-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: ['jss-form.component.scss'],
-  exportAs: 'vclJssForm',
+    selector: 'vcl-jss-form',
+    templateUrl: 'jss-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['jss-form.component.scss'],
+    exportAs: 'vclJssForm',
+    standalone: false
 })
 export class JssFormComponent
   implements

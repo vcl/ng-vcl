@@ -12,8 +12,9 @@ import { LayerConfig } from './types';
 import { TemplateLayerRef } from './layer-ref';
 
 @Directive({
-  selector: '[vclLayer]',
-  exportAs: 'vclLayer',
+    selector: '[vclLayer]',
+    exportAs: 'vclLayer',
+    standalone: false
 })
 export class LayerDirective extends TemplateLayerRef implements OnDestroy {
   constructor(

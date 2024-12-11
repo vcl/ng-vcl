@@ -20,16 +20,17 @@ import {
 import { LabelDirective, SubLabelDirective } from '../../core/index';
 
 @Component({
-  selector: 'vcl-select-list-item',
-  exportAs: 'vclSelectListItem',
-  templateUrl: 'select-list-item.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: SELECT_LIST_CONTENT_TOKEN,
-      useExisting: forwardRef(() => SelectListItemComponent),
-    },
-  ],
+    selector: 'vcl-select-list-item',
+    exportAs: 'vclSelectListItem',
+    templateUrl: 'select-list-item.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: SELECT_LIST_CONTENT_TOKEN,
+            useExisting: forwardRef(() => SelectListItemComponent),
+        },
+    ],
+    standalone: false
 })
 export class SelectListItemComponent implements SelectListItem {
   constructor(

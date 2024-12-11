@@ -2,8 +2,9 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({
-  selector: 'vcl-zoom-box-magnifier',
-  template: '<ng-content></ng-content>',
+    selector: 'vcl-zoom-box-magnifier',
+    template: '<ng-content></ng-content>',
+    standalone: false
 })
 export class ZoomBoxMagnifierComponent {
   parent: ZoomBoxContainerComponent;

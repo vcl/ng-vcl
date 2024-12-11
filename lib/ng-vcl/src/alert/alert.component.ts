@@ -12,15 +12,16 @@ import { LayerRef } from '../layer/index';
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 
 @Component({
-  templateUrl: 'alert.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
+    templateUrl: 'alert.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styles: [
+        `
       :host {
         outline: none;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class AlertComponent implements AfterViewInit, OnDestroy {
   confirmActionSub?: Subscription;

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ComponentLayerRef } from '@vcl/ng-vcl';
 
 @Component({
-  templateUrl: 'bar.component.html',
+    templateUrl: 'bar.component.html',
+    standalone: false
 })
 export class BarComponent {
   constructor(private layer: ComponentLayerRef) {}

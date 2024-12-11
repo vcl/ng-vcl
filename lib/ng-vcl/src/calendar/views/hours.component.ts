@@ -11,10 +11,11 @@ import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarHours } from '../interfaces';
 
 @Component({
-  selector: 'vcl-calendar-view-hours',
-  templateUrl: 'hours.component.html',
-  exportAs: 'vclCalendarViewHours',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-calendar-view-hours',
+    templateUrl: 'hours.component.html',
+    exportAs: 'vclCalendarViewHours',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {

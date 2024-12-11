@@ -41,22 +41,23 @@ export interface ScalePoint {
 }
 
 @Component({
-  selector: 'vcl-slider',
-  templateUrl: 'slider.component.html',
-  styleUrls: ['slider.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SliderComponent),
-      multi: true,
-    },
-    {
-      provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => SliderComponent),
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-slider',
+    templateUrl: 'slider.component.html',
+    styleUrls: ['slider.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => SliderComponent),
+            multi: true,
+        },
+        {
+            provide: FORM_CONTROL_GROUP_INPUT_STATE,
+            useExisting: forwardRef(() => SliderComponent),
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SliderComponent
   implements

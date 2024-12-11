@@ -3,7 +3,8 @@ import { zip, range, interval, animationFrameScheduler } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  templateUrl: 'demo.component.html',
+    templateUrl: 'demo.component.html',
+    standalone: false
 })
 export class ProgressBarDemoComponent {
   value$ = zip(range(0, 1000), interval(50, animationFrameScheduler)).pipe(

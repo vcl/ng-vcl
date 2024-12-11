@@ -3,12 +3,18 @@ import {
   NgModule,
 } from '@angular/core';
 
-@Directive({ selector: '[vclPrepend]' })
+@Directive({
+    selector: '[vclPrepend]',
+    standalone: false
+})
 export class PrependDirective {
   constructor() {}
 }
 
-@Directive({ selector: '[vclAppend]' })
+@Directive({
+    selector: '[vclAppend]',
+    standalone: false
+})
 export class AppendDirective {
   constructor() {}
 }

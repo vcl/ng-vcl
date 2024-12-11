@@ -18,10 +18,11 @@ import { VCLCalendarWeek } from '../interfaces';
 import { compare } from '../utils';
 
 @Component({
-  selector: 'vcl-calendar-view-month',
-  templateUrl: 'month.component.html',
-  exportAs: 'vclCalendarViewMonth',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-calendar-view-month',
+    templateUrl: 'month.component.html',
+    exportAs: 'vclCalendarViewMonth',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}

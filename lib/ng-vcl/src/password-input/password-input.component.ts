@@ -18,21 +18,22 @@ import {
 import { ButtonComponent } from '../button/index';
 
 @Component({
-  templateUrl: 'password-input.component.html',
-  selector: 'vcl-password-input',
-  exportAs: 'vclPasswordInput',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => PasswordInputComponent),
-    },
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordInputComponent),
-      multi: true,
-    },
-  ],
+    templateUrl: 'password-input.component.html',
+    selector: 'vcl-password-input',
+    exportAs: 'vclPasswordInput',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+            useExisting: forwardRef(() => PasswordInputComponent),
+        },
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => PasswordInputComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class PasswordInputComponent
   implements AfterContentInit, EmbeddedInputFieldLabelInput

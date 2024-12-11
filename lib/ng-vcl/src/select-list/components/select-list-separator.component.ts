@@ -7,16 +7,17 @@ import {
 import { SELECT_LIST_CONTENT_TOKEN } from '../types';
 
 @Component({
-  selector: 'vcl-select-list-separator',
-  exportAs: 'vclSelectListSeparator',
-  templateUrl: 'select-list-separator.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: SELECT_LIST_CONTENT_TOKEN,
-      useExisting: forwardRef(() => SelectListSeparatorComponent),
-    },
-  ],
+    selector: 'vcl-select-list-separator',
+    exportAs: 'vclSelectListSeparator',
+    templateUrl: 'select-list-separator.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: SELECT_LIST_CONTENT_TOKEN,
+            useExisting: forwardRef(() => SelectListSeparatorComponent),
+        },
+    ],
+    standalone: false
 })
 export class SelectListSeparatorComponent {
   @HostBinding('attr.role')

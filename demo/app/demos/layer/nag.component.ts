@@ -22,7 +22,8 @@ export interface INagLayer
 }
 
 @Component({
-  templateUrl: 'nag.component.html',
+    templateUrl: 'nag.component.html',
+    standalone: false
 })
 export class NagComponent {
   // Inject the ComponentLayerRef and use an interface for typings

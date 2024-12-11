@@ -22,20 +22,21 @@ import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
 import { TokenObserver, Token } from './interfaces';
 
 @Component({
-  selector: 'vcl-token-list',
-  template: '<ng-content></ng-content>',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TokenListComponent),
-      multi: true,
-    },
-    {
-      provide: TOKEN_OBSERVER_TOKEN,
-      useExisting: TokenListComponent,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'vcl-token-list',
+    template: '<ng-content></ng-content>',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => TokenListComponent),
+            multi: true,
+        },
+        {
+            provide: TOKEN_OBSERVER_TOKEN,
+            useExisting: TokenListComponent,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TokenListComponent
   implements
