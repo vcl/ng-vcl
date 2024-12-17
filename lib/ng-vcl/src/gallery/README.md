@@ -59,6 +59,13 @@ Name            | Type              | Default  | Description
 --------------- | ----------------- | -------- | ---------------------
 `target`       | GalleryComponent  |          | gallery component (required if outside of it)
 
+### Gallery Body Events  
+
+Name                    | Description
+------------            | ------------------------------------------------------------------------
+`galleryBodyImageClick` | Fired when the selected image on the gallery body is clicked.
+
+
 ### Gallery Footer Attributes
 
 Name            | Type              | Default  | Description
