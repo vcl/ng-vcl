@@ -4,7 +4,7 @@
   </button>
 
   <div #imageContainer [ngStyle]="imageContainerStyle" class="gallery-images-container">
-    <img *ngFor="let img of target.imageArray; let i = index" [attr.data-index]="i" (click)="target.selectImage(i)" (load)="imageLoaded()" [src]="img.image" [alt]="img.alt" class="gallery-image">
+    <img *ngFor="let img of target.imageArray; let i = index" [attr.data-index]="i" (click)="target.selectImage(i);  galleryImageClick.emit(img)" (load)="imageLoaded()" [src]="img.image" [alt]="img.alt" class="gallery-image">
   </div>
 
   <button *ngIf="target.selectedImage < (target.images ? target.images.length - 1 : 0) || target.wrap" vcl-button type="button" class="gallery-next-button" (click)="selectNext()" aria-label="Next" >

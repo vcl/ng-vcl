@@ -6,18 +6,23 @@ import {
   Optional,
   ViewChild,
   HostListener,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { GalleryComponent } from './gallery.component';
+import { GalleryImageComponent } from './gallery-image.component';
 
 @Component({
-    selector: 'vcl-gallery-body',
-    templateUrl: 'gallery-body.component.html',
-    host: { class: 'gallery-body-norow' },
-    standalone: false
+  selector: 'vcl-gallery-body',
+  templateUrl: 'gallery-body.component.html',
+  host: { class: 'gallery-body-norow' },
+  standalone: false,
 })
 export class GalleryBodyComponent implements AfterContentChecked {
   @Input()
   target: GalleryComponent;
+
+  @Output() galleryImageClick = new EventEmitter<GalleryImageComponent>();
 
   @ViewChild('imageContainer', { static: true })
   imageContainer: ElementRef;
