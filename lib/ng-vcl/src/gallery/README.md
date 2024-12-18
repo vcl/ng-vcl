@@ -29,6 +29,7 @@ Name            | Type    | Default  | Description
 `selectedImage` | number  | 0        | the selected image (optional)
 `wrap`          | string  | false    | whether to wrap around (optional)
 `row`           | boolean | false    | align body and thumbnails in a row
+`hideAndShowButtonsOnHover` | boolean | true | show navigation buttons on hover
 
 #### Gallery Methods
 

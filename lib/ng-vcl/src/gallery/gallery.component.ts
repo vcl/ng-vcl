@@ -56,6 +56,9 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
   @Input()
   row = false;
 
+
+  @Input() hideAndShowButtonsOnHover = true;
+
   @ContentChildren(GalleryImageComponent)
   images?: QueryList<GalleryImageComponent>;
 
