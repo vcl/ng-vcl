@@ -1,3 +1,8 @@
-<div #galleryContainer class="gallery" touch-action="pan-y" [ngStyle]="!row && {'flex-direction': 'column'}">
+<div
+  #galleryContainer
+  class="gallery"
+  [ngClass]="{ 'navigation-buttons-on-hover': hideAndShowButtonsOnHover }"
+  touch-action="pan-y"
+  [ngStyle]="!row && { 'flex-direction': 'column' }">
   <ng-content></ng-content>
 </div>
