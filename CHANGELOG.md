@@ -1,3 +1,13 @@
+## [3.2.1](https://github.com/vcl/ng-vcl/compare/v3.2.0...v3.2.1) (2024-12-18)
+
+
+### Features
+
+* **gallery:** add selected image click output ([3ac5074](https://github.com/vcl/ng-vcl/commit/3ac50746820d76f795edb22ca8b393c161f0f8ef))
+* **gallery:** implement hideAndShowButtonsOnHover from vcl ([7f572e7](https://github.com/vcl/ng-vcl/commit/7f572e7c2e269fac52fc0d5f76b9674a3a640be3))
+
+
+
 # [3.2.0](https://github.com/vcl/ng-vcl/compare/v3.1.2...v3.2.0) (2024-12-11)
 
 
