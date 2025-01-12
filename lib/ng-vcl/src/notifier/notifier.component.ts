@@ -1,12 +1,13 @@
 import {
   Component,
   HostBinding,
-  HostListener,
   Inject,
   ChangeDetectionStrategy,
   ElementRef,
   Renderer2,
   OnInit,
+  HostListener,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { AnimationEvent, useAnimation } from '@angular/animations';
 import { trigger, transition } from '@angular/animations';
@@ -25,17 +26,17 @@ import { NotifierOverlayRef } from './notifier-overlay-ref';
 export type NotificationAnimationState = 'open' | 'closing' | 'closed';
 
 @Component({
-    selector: 'vcl-notifier-overlay',
-    templateUrl: './notifier.component.html',
-    animations: [
-        trigger('stateAnimation', [
-            transition('void => open', useAnimation(stateVoidOpenAnimation)),
-            transition('open => closing', useAnimation(stateOpenClosingAnimation)),
-        ]),
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styles: [
-        `
+  selector: 'vcl-notifier-overlay',
+  templateUrl: './notifier.component.html',
+  animations: [
+    trigger('stateAnimation', [
+      transition('void => open', useAnimation(stateVoidOpenAnimation)),
+      transition('open => closing', useAnimation(stateOpenClosingAnimation)),
+    ]),
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
       :host .notification-header:empty {
         display: none;
       }
@@ -43,8 +44,8 @@ export type NotificationAnimationState = 'open' | 'closing' | 'closed';
         display: none;
       }
     `,
-    ],
-    standalone: false
+  ],
+  standalone: false,
 })
 export class NotifierComponent implements OnInit {
   constructor(
@@ -54,7 +55,8 @@ export class NotifierComponent implements OnInit {
     private _config: NotifierConfig,
     private renderer: Renderer2,
     private elementRef: ElementRef,
-    public notifierOverlayRef: NotifierOverlayRef
+    public notifierOverlayRef: NotifierOverlayRef,
+    private cd: ChangeDetectorRef
   ) {
     this.type = this.notifierOverlayRef.type;
     this.icon = this.notifierOverlayRef.icon;
@@ -73,6 +75,7 @@ export class NotifierComponent implements OnInit {
     if (timeout !== false) {
       setTimeout(() => {
         this.state = 'closing';
+        this.cd.markForCheck();
       }, timeout);
     }
 
