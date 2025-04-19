@@ -23,15 +23,17 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule, NgOptimizedImage, VCLButtonModule, VCLIconModule],
-  exports: [
+  imports: [
+    NgOptimizedImage,
+    VCLButtonModule,
+    VCLIconModule,
     GalleryComponent,
     GalleryImageComponent,
     GalleryBodyComponent,
     GalleryFooterComponent,
     GalleryThumbnailsComponent,
   ],
-  declarations: [
+  exports: [
     GalleryComponent,
     GalleryImageComponent,
     GalleryBodyComponent,

@@ -11,12 +11,13 @@ import {
 } from '@angular/core';
 import { GalleryComponent } from './gallery.component';
 import { GalleryImageComponent } from './gallery-image.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
   host: { class: 'gallery-body-norow' },
-  standalone: false,
+  imports: [CommonModule],
 })
 export class GalleryBodyComponent implements AfterContentChecked {
   @Input()
