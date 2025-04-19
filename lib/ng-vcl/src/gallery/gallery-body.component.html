@@ -1,13 +1,45 @@
-<div #galleryContent class="gallery-content" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
-  <button *ngIf="target.selectedImage > 0 || target.wrap" vcl-button type="button" class="gallery-prev-button" (click)="selectPrevious()" aria-label="Previous">
-    <vcl-icon icon="vcl:arrow-left"></vcl-icon>
-  </button>
+<div
+  #galleryContent
+  class="gallery-content"
+  (touchstart)="swipe($event, 'start')"
+  (touchend)="swipe($event, 'end')">
+  @if (target.selectedImage > 0 || target.wrap) {
+    <button
+      vcl-button
+      type="button"
+      class="gallery-prev-button"
+      (click)="selectPrevious()"
+      aria-label="Previous">
+      <vcl-icon icon="vcl:arrow-left"></vcl-icon>
+    </button>
+  }
 
-  <div #imageContainer [ngStyle]="imageContainerStyle" class="gallery-images-container">
-    <img *ngFor="let img of target.imageArray; let i = index" [attr.data-index]="i" (click)="target.selectImage(i);  galleryImageClick.emit(img)" (load)="imageLoaded()" [src]="img.image" [alt]="img.alt" class="gallery-image">
+  <div
+    #imageContainer
+    [ngStyle]="imageContainerStyle"
+    class="gallery-images-container">
+    @for (item of target.imageArray; track $index) {
+      <img
+        [attr.data-index]="i"
+        (click)="target.selectImage(i); galleryImageClick.emit(img)"
+        (load)="imageLoaded()"
+        [src]="img.image"
+        [alt]="img.alt"
+        class="gallery-image" />
+    }
   </div>
 
-  <button *ngIf="target.selectedImage < (target.images ? target.images.length - 1 : 0) || target.wrap" vcl-button type="button" class="gallery-next-button" (click)="selectNext()" aria-label="Next" >
-    <vcl-icon icon="vcl:arrow-right"></vcl-icon>
-  </button>
+  @if (
+    target.selectedImage < (target.images ? target.images.length - 1 : 0) ||
+    target.wrap
+  ) {
+    <button
+      vcl-button
+      type="button"
+      class="gallery-next-button"
+      (click)="selectNext()"
+      aria-label="Next">
+      <vcl-icon icon="vcl:arrow-right"></vcl-icon>
+    </button>
+  }
 </div>

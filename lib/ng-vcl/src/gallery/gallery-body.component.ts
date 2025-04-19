@@ -39,7 +39,6 @@ export class GalleryBodyComponent implements AfterContentChecked {
 
   constructor(
     @Optional() parent: GalleryComponent,
-    private elementRef: ElementRef,
     public elem: ElementRef
   ) {
     if (this.target == null) {
