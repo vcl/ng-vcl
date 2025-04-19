@@ -1,10 +1,10 @@
 <div #galleryThumbs class="gallery-thumbs" touch-action="pan-y">
   <div class="gallery-thumbs-container">
-    @for (image of target.images; track $index) {
+    @for (image of target.images; track $index; let idx = $index) {
       <div
         class="gallery-thumb-wrapper"
-        [ngClass]="{ selected: i == target.selectedImage }"
-        (click)="target.selectImage(i)">
+        [ngClass]="{ selected: idx == target.selectedImage }"
+        (click)="target.selectImage(idx)">
         <img
           class="gallery-thumb"
           [ngSrc]="image.thumbnail || image.image"

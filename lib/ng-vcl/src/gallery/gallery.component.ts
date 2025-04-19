@@ -22,7 +22,7 @@ import {
 } from '@angular/animations';
 import { GalleryBodyComponent } from '../gallery/gallery-body.component';
 import { GalleryThumbnailsComponent } from '../gallery/gallery-thumbnails.component';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 
 export const GALLERY_ANIMATIONS = new InjectionToken(
   '@vcl/ng-vcl#gallery_animations'
@@ -42,7 +42,7 @@ export enum ImageChange {
 @Component({
   selector: 'vcl-gallery',
   templateUrl: 'gallery.component.html',
-  imports: [CommonModule],
+  imports: [NgStyle, NgClass],
 })
 export class GalleryComponent implements AfterContentInit, AfterViewInit {
   @HostBinding('attr.role')

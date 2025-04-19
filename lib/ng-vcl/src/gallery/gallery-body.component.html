@@ -18,10 +18,10 @@
     #imageContainer
     [ngStyle]="imageContainerStyle"
     class="gallery-images-container">
-    @for (item of target.imageArray; track $index) {
+    @for (img of target?.imageArray; track $index; let idx = $index) {
       <img
-        [attr.data-index]="i"
-        (click)="target.selectImage(i); galleryImageClick.emit(img)"
+        [attr.data-index]="idx"
+        (click)="target.selectImage(idx); galleryImageClick.emit(img)"
         (load)="imageLoaded()"
         [src]="img.image"
         [alt]="img.alt"

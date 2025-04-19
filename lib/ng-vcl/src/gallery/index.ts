@@ -24,9 +24,6 @@ export {
 
 @NgModule({
   imports: [
-    NgOptimizedImage,
-    VCLButtonModule,
-    VCLIconModule,
     GalleryComponent,
     GalleryImageComponent,
     GalleryBodyComponent,
