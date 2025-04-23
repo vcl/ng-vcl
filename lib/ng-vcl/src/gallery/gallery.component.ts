@@ -22,6 +22,7 @@ import {
 } from '@angular/animations';
 import { GalleryBodyComponent } from '../gallery/gallery-body.component';
 import { GalleryThumbnailsComponent } from '../gallery/gallery-thumbnails.component';
+import { NgClass, NgStyle } from '@angular/common';
 
 export const GALLERY_ANIMATIONS = new InjectionToken(
   '@vcl/ng-vcl#gallery_animations'
@@ -39,9 +40,9 @@ export enum ImageChange {
 }
 
 @Component({
-    selector: 'vcl-gallery',
-    templateUrl: 'gallery.component.html',
-    standalone: false
+  selector: 'vcl-gallery',
+  templateUrl: 'gallery.component.html',
+  imports: [NgStyle, NgClass],
 })
 export class GalleryComponent implements AfterContentInit, AfterViewInit {
   @HostBinding('attr.role')
@@ -55,7 +56,6 @@ export class GalleryComponent implements AfterContentInit, AfterViewInit {
 
   @Input()
   row = false;
-
 
   @Input() hideAndShowButtonsOnHover = true;
 

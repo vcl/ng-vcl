@@ -11,12 +11,15 @@ import {
 } from '@angular/core';
 import { GalleryComponent } from './gallery.component';
 import { GalleryImageComponent } from './gallery-image.component';
+import { NgStyle } from '@angular/common';
+import { VCLButtonModule } from '../button';
+import { VCLIconModule } from '../icon';
 
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
   host: { class: 'gallery-body-norow' },
-  standalone: false,
+  imports: [NgStyle, VCLButtonModule, VCLIconModule],
 })
 export class GalleryBodyComponent implements AfterContentChecked {
   @Input()
@@ -39,7 +42,6 @@ export class GalleryBodyComponent implements AfterContentChecked {
 
   constructor(
     @Optional() parent: GalleryComponent,
-    private elementRef: ElementRef,
     public elem: ElementRef
   ) {
     if (this.target == null) {
