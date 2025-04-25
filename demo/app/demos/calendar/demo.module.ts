@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLCalendarModule, VCLButtonModule } from '@vcl/ng-vcl';
-import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
+import { DemoComponent } from './../../modules/demo/demo.module';
 import { CalendarDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/calendar/README.md';
 
