@@ -11,18 +11,20 @@ import {
 import {
   VCLCalendarYear,
   VCLCalendarDateModifier,
-  VCLCalendarMonth,
   VCLCalendarYearMonth,
 } from '../interfaces';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { compare } from '../utils';
+import { VCLIconModule } from '@vcl/ng-vcl/icon';
+import { CommonModule } from '@angular/common';
+import { VCLButtonModule } from '@vcl/ng-vcl/button';
 
 @Component({
-    selector: 'vcl-calendar-view-year',
-    templateUrl: 'year.component.html',
-    exportAs: 'vclCalendarViewYear',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-calendar-view-year',
+  templateUrl: 'year.component.html',
+  exportAs: 'vclCalendarViewYear',
+  imports: [VCLIconModule, CommonModule, VCLButtonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}

@@ -1,17 +1,23 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { VCLDateRange, DateAdapterBase } from '@vcl/ng-vcl';
+import {
+  VCLDateRange,
+  DateAdapterBase,
+  VCLCalendarModule,
+  VCLButtonModule,
+} from '@vcl/ng-vcl';
 import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    styles: [
-        `
+  templateUrl: 'demo.component.html',
+  styles: [
+    `
       vcl-calendar {
         width: 18em;
       }
     `,
-    ],
-    standalone: false
+  ],
+  imports: [VCLCalendarModule, NgIf, VCLButtonModule],
 })
 export class CalendarDemoComponent {
   constructor(private dateAdapter: DateAdapterBase<Date>) {}

@@ -37,8 +37,7 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule, VCLButtonModule, VCLIconModule],
-  exports: [
+  imports: [
     CalendarComponent,
     CalendarViewYearsComponent,
     CalendarViewYearComponent,
@@ -46,7 +45,7 @@ export {
     CalendarViewHoursComponent,
     CalendarViewMinutesComponent,
   ],
-  declarations: [
+  exports: [
     CalendarComponent,
     CalendarViewYearsComponent,
     CalendarViewYearComponent,
