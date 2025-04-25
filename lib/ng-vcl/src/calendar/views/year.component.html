@@ -1,29 +1,52 @@
-
 <div class="d-g-row">
   <div class="d-g-cell toolbar">
     <div class="flex row justify-between center" role="menubar">
-      <button vcl-button square class="transparent" type="button" (click)="onGoToPrevYear()">
-        <vcl-icon icon="vcl:arrow-left"></vcl-icon>
+      <button
+        vcl-button
+        square
+        class="transparent"
+        type="button"
+        (click)="onGoToPrevYear()">
+        <vcl-icon icon="vcl:arrow-left" />
       </button>
-      <button vcl-button class="transparent cal-header-label" (click)="onLabelClick()">{{calendar.label}}</button>
-      <button vcl-button square class="transparent" type="button" (click)="onGoToNextYear()">
-        <vcl-icon icon="vcl:arrow-right"></vcl-icon>
+      <button
+        vcl-button
+        class="transparent cal-header-label"
+        (click)="onLabelClick()">
+        {{ calendar.label }}
+      </button>
+      <button
+        vcl-button
+        square
+        class="transparent"
+        type="button"
+        (click)="onGoToNextYear()">
+        <vcl-icon icon="vcl:arrow-right" />
       </button>
     </div>
   </div>
 </div>
-<div class="d-g-row" role="row" *ngFor="let group of calendar.months">
-  <div *ngFor="let month of group"
-       class="d-g-cell cal-item"
-       [class.today]="month.isCurrentMonth"
-       [class.selected]="month.selected === true || month.selected === 'range'"
-       [class.selected-alt]="month.selected === 'range-partial'"
-       [class.selected-beg]="month.selected === 'range-start' || month.selected === 'range-start-end'"
-       [class.selected-end]="month.selected === 'range-end' || month.selected === 'range-start-end'"
-       [class.disabled]="month.disabled || disabled"
-       [ngClass]="month.class"
-       role="gridcell"
-       tabindex="0"
-       (click)="onSelectMonth(month)"
-       >{{month.label}}</div>
-</div>
+
+@for (group of calendar.months; track $index) {
+  <div class="d-g-row" role="row">
+    @for (month of group; track $index) {}
+    <div
+      class="d-g-cell cal-item"
+      [class.today]="month.isCurrentMonth"
+      [class.selected]="month.selected === true || month.selected === 'range'"
+      [class.selected-alt]="month.selected === 'range-partial'"
+      [class.selected-beg]="
+        month.selected === 'range-start' || month.selected === 'range-start-end'
+      "
+      [class.selected-end]="
+        month.selected === 'range-end' || month.selected === 'range-start-end'
+      "
+      [class.disabled]="month.disabled || disabled"
+      [ngClass]="month.class"
+      role="gridcell"
+      tabindex="0"
+      (click)="onSelectMonth(month)">
+      {{ month.label }}
+    </div>
+  </div>
+}
