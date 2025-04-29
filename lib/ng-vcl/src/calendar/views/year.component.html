@@ -29,24 +29,26 @@
 
 @for (group of calendar.months; track $index) {
   <div class="d-g-row" role="row">
-    @for (month of group; track $index) {}
-    <div
-      class="d-g-cell cal-item"
-      [class.today]="month.isCurrentMonth"
-      [class.selected]="month.selected === true || month.selected === 'range'"
-      [class.selected-alt]="month.selected === 'range-partial'"
-      [class.selected-beg]="
-        month.selected === 'range-start' || month.selected === 'range-start-end'
-      "
-      [class.selected-end]="
-        month.selected === 'range-end' || month.selected === 'range-start-end'
-      "
-      [class.disabled]="month.disabled || disabled"
-      [ngClass]="month.class"
-      role="gridcell"
-      tabindex="0"
-      (click)="onSelectMonth(month)">
-      {{ month.label }}
-    </div>
+    @for (month of group; track $index) {
+      <div
+        class="d-g-cell cal-item"
+        [class.today]="month.isCurrentMonth"
+        [class.selected]="month.selected === true || month.selected === 'range'"
+        [class.selected-alt]="month.selected === 'range-partial'"
+        [class.selected-beg]="
+          month.selected === 'range-start' ||
+          month.selected === 'range-start-end'
+        "
+        [class.selected-end]="
+          month.selected === 'range-end' || month.selected === 'range-start-end'
+        "
+        [class.disabled]="month.disabled || disabled"
+        [ngClass]="month.class"
+        role="gridcell"
+        tabindex="0"
+        (click)="onSelectMonth(month)">
+        {{ month.label }}
+      </div>
+    }
   </div>
 }
