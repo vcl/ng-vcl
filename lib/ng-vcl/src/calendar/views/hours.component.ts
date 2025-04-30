@@ -9,13 +9,14 @@ import {
 } from '@angular/core';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarHours } from '../interfaces';
+import { VCLButtonModule } from '@vcl/ng-vcl/button';
 
 @Component({
-    selector: 'vcl-calendar-view-hours',
-    templateUrl: 'hours.component.html',
-    exportAs: 'vclCalendarViewHours',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-calendar-view-hours',
+  templateUrl: 'hours.component.html',
+  exportAs: 'vclCalendarViewHours',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [VCLButtonModule],
 })
 export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {

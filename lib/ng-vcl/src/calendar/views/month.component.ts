@@ -16,13 +16,16 @@ import {
 } from '../interfaces';
 import { VCLCalendarWeek } from '../interfaces';
 import { compare } from '../utils';
+import { VCLIconModule } from '@vcl/ng-vcl/icon';
+import { CommonModule } from '@angular/common';
+import { VCLButtonModule } from '@vcl/ng-vcl/button';
 
 @Component({
-    selector: 'vcl-calendar-view-month',
-    templateUrl: 'month.component.html',
-    exportAs: 'vclCalendarViewMonth',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-calendar-view-month',
+  templateUrl: 'month.component.html',
+  exportAs: 'vclCalendarViewMonth',
+  imports: [VCLIconModule, CommonModule, VCLButtonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarViewMonthComponent<VCLDate> implements OnChanges, OnInit {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}

@@ -14,6 +14,8 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { VCLIconModule } from '../icon';
+import { VCLIcogramModule } from '../icogram';
 
 export interface ButtonHost {
   readonly isDisabled: boolean;
@@ -26,12 +28,13 @@ export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>(
   'vcl_button_host'
 );
 
+// TODO vclButton 
 @Component({
-    selector: 'button[vcl-button], a[vcl-button]',
-    exportAs: 'vclButton',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: 'button.component.html',
-    standalone: false
+  selector: 'button[vcl-button], a[vcl-button]',
+  exportAs: 'vclButton',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: 'button.component.html',
+  imports: [VCLIconModule, VCLIcogramModule],
 })
 export class ButtonComponent {
   constructor(
