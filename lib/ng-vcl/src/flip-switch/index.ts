@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { VCLFormControlGroupModule } from '../form-control-group/index';
 import { FlipSwitchComponent } from './flip-switch.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [CommonModule, VCLFormControlGroupModule],
+  imports: [FlipSwitchComponent],
   exports: [FlipSwitchComponent],
-  declarations: [FlipSwitchComponent],
   providers: [],
 })
 export class VCLFlipSwitchModule {}
