@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { VCLCheckboxModule } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [VCLCheckboxModule],
 })
 export class CheckboxDemoComponent {
   value1 = false;
