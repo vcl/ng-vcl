@@ -30,10 +30,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLFileInputModule,
     RouterModule.forChild([
       {
         path: '',
@@ -42,6 +38,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [FileInputDemoComponent],
 })
 export class FileInputDemoModule {}
