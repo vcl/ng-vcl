@@ -1,8 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { VCLIconModule, VCLSelectListModule } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [VCLSelectListModule, VCLIconModule],
 })
 export class SelectListDemoComponent {
   value1 = 'gr';
