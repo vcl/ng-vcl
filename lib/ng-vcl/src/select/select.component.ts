@@ -30,28 +30,32 @@ import { SelectListItem, SelectListComponent } from '../select-list/index';
 import {
   EmbeddedInputFieldLabelInput,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+  VCLInputModule,
 } from '../input/index';
+import { VCLIconModule } from '../icon';
+import { VCLButtonModule } from '../button';
+import { VCLOffClickModule } from '../off-click';
 
 @Component({
-    selector: 'vcl-select',
-    templateUrl: 'select.component.html',
-    styleUrls: ['select.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'vclSelect',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        // FormControlState,
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => SelectComponent),
-            multi: true,
-        },
-        {
-            provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-            useExisting: forwardRef(() => SelectComponent),
-        },
-    ],
-    standalone: false
+  selector: 'vcl-select',
+  templateUrl: 'select.component.html',
+  styleUrls: ['select.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'vclSelect',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    // FormControlState,
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectComponent),
+      multi: true,
+    },
+    {
+      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+      useExisting: forwardRef(() => SelectComponent),
+    },
+  ],
+  imports: [VCLInputModule, VCLIconModule, VCLButtonModule, VCLOffClickModule],
 })
 export class SelectComponent
   extends TemplateLayerRef<any, SelectListItem>
