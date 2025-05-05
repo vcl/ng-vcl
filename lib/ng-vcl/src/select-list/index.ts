@@ -41,6 +41,11 @@ export {
     VCLButtonModule,
     VCLFormControlGroupModule,
     VCLCoreLabelModule,
+    SelectListComponent,
+    SelectListHeaderComponent,
+    SelectListItemComponent,
+    SelectListSeparatorComponent,
+    SelectListContentComponent,
   ],
   exports: [
     SelectListComponent,
@@ -49,13 +54,6 @@ export {
     SelectListSeparatorComponent,
     SelectListContentComponent,
     VCLCoreLabelModule,
-  ],
-  declarations: [
-    SelectListComponent,
-    SelectListHeaderComponent,
-    SelectListItemComponent,
-    SelectListSeparatorComponent,
-    SelectListContentComponent,
   ],
   providers: [],
 })

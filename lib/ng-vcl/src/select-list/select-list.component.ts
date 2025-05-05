@@ -30,27 +30,26 @@ import { SelectListContentComponent } from './components/select-list-content.com
 let UNIQUE_ID = 0;
 
 @Component({
-    selector: 'vcl-select-list',
-    template: '<ng-content></ng-content>',
-    styleUrls: ['select-list.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'vclSelectList',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => SelectListComponent),
-            multi: true,
-        },
-        {
-            provide: SELECT_LIST_TOKEN,
-            useExisting: forwardRef(() => SelectListComponent),
-        },
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => SelectListComponent),
-        },
-    ],
-    standalone: false
+  selector: 'vcl-select-list',
+  template: '<ng-content></ng-content>',
+  styleUrls: ['select-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'vclSelectList',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectListComponent),
+      multi: true,
+    },
+    {
+      provide: SELECT_LIST_TOKEN,
+      useExisting: forwardRef(() => SelectListComponent),
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => SelectListComponent),
+    },
+  ],
 })
 export class SelectListComponent
   implements
@@ -60,7 +59,10 @@ export class SelectListComponent
     ControlValueAccessor,
     FormControlGroupInputState
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private injector: Injector
+  ) {}
 
   private _cvaDisabled = false;
   private generatedId = 'vcl_select_list_' + UNIQUE_ID++;
