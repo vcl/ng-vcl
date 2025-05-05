@@ -7,6 +7,7 @@ import { VCLFormControlGroupModule } from '../form-control-group/index';
 import { VCLOffClickModule } from '../off-click';
 
 import { SelectComponent } from './select.component';
+import { VCLIconModule } from '../icon';
 
 export { SelectComponent };
 
@@ -23,6 +24,7 @@ export { SelectComponent };
     VCLSelectListModule,
     VCLFormControlGroupModule,
     VCLInputModule,
+    VCLIconModule,
   ],
   providers: [],
 })
