@@ -19,9 +19,8 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   exports: [IconComponent],
-  declarations: [IconComponent],
   providers: [IconService],
 })
 export class VCLIconModule {}
