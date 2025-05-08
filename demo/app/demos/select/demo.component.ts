@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { VCLSelectModule } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [VCLSelectModule],
 })
 export class SelectDemoComponent {
   value1 = undefined;

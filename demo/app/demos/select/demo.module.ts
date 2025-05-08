@@ -31,12 +31,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLSelectModule,
-    ScrollingModule,
-    VCLIconModule,
     RouterModule.forChild([
       {
         path: '',
@@ -45,6 +39,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [SelectDemoComponent],
 })
 export class SelectDemoModule {}

@@ -11,11 +11,10 @@ import {
 import { HostIconRendererService } from './host-icon-renderer.service';
 
 @Component({
-    selector: 'vcl-icon',
-    providers: [HostIconRendererService],
-    template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-icon',
+  providers: [HostIconRendererService],
+  template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent implements OnChanges, AfterViewInit {
   constructor(

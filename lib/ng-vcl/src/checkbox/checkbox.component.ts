@@ -20,26 +20,28 @@ import {
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { VCLIconModule } from '../icon';
 
 let UNIQUE_ID = 0;
 
 @Component({
-    selector: 'vcl-checkbox',
-    templateUrl: 'checkbox.component.html',
-    providers: [
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => CheckboxComponent),
-        },
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => CheckboxComponent),
-            multi: true,
-        },
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs: 'vclCheckbox',
-    standalone: false
+  selector: 'vcl-checkbox',
+  templateUrl: 'checkbox.component.html',
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => CheckboxComponent),
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CheckboxComponent),
+      multi: true,
+    },
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, VCLIconModule],
+  exportAs: 'vclCheckbox',
 })
 export class CheckboxComponent
   implements
@@ -47,7 +49,10 @@ export class CheckboxComponent
     ControlValueAccessor,
     FormControlGroupInputState<boolean>
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private injector: Injector
+  ) {}
 
   private stateChangedEmitter = new Subject<void>();
 

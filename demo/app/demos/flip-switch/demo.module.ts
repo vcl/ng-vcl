@@ -30,10 +30,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLFlipSwitchModule,
     RouterModule.forChild([
       {
         path: '',
@@ -42,6 +38,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [FlipSwitchDemoComponent],
 })
 export class FlipSwitchDemoModule {}

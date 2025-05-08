@@ -20,35 +20,40 @@ import {
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
+  VCLFormControlGroupModule,
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 let UNIQUE_ID = 0;
 
 @Component({
-    selector: 'vcl-flip-switch',
-    templateUrl: 'flip-switch.component.html',
-    styleUrls: ['flip-switch.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'vclFlipSwitch',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => FlipSwitchComponent),
-        },
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => FlipSwitchComponent),
-            multi: true,
-        },
-    ],
-    standalone: false
+  selector: 'vcl-flip-switch',
+  templateUrl: 'flip-switch.component.html',
+  styleUrls: ['flip-switch.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'vclFlipSwitch',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => FlipSwitchComponent),
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FlipSwitchComponent),
+      multi: true,
+    },
+  ],
+  imports: [CommonModule, VCLFormControlGroupModule],
 })
 export class FlipSwitchComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private injector: Injector
+  ) {}
 
   @HostBinding('class.flip-switch')
   _hostClasses = true;

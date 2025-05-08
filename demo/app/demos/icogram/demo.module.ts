@@ -29,10 +29,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    DemoModule,
-    VCLIcogramModule,
-    VCLIconModule,
     RouterModule.forChild([
       {
         path: '',
@@ -41,6 +37,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [IcogramDemoComponent],
 })
 export class IcogramDemoModule {}

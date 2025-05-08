@@ -6,9 +6,12 @@ import { IcogramComponent, IcogramLinkComponent } from './icogram.component';
 export { IcogramComponent, IcogramLinkComponent };
 
 @NgModule({
-  imports: [CommonModule, VCLIconModule],
+  imports: [
+    CommonModule,
+    VCLIconModule,
+    IcogramComponent,
+    IcogramLinkComponent,
+  ],
   exports: [IcogramComponent, IcogramLinkComponent, VCLIconModule],
-  declarations: [IcogramComponent, IcogramLinkComponent],
-  providers: [],
 })
 export class VCLIcogramModule {}

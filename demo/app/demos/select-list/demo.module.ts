@@ -9,6 +9,7 @@ import {
   VCLIcogramModule,
   VCLInputModule,
   VCLSelectModule,
+  VCLSelectListModule,
 } from '@vcl/ng-vcl';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
@@ -38,16 +39,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLSelectModule,
-    VCLIconModule,
-    VCLInputModule,
-    VCLIcogramModule,
-    VCLBusyIndicatorModule,
-    ScrollingModule,
     RouterModule.forChild([
       {
         path: '',
@@ -56,6 +47,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [SelectListDemoComponent],
 })
 export class SelectListDemoModule {}

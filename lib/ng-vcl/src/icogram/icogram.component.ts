@@ -6,10 +6,9 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'vcl-icogram, [vcl-icogram]',
-    templateUrl: 'icogram.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-icogram, [vcl-icogram]',
+  templateUrl: 'icogram.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IcogramComponent {
   @HostBinding('class.icogram')
@@ -17,10 +16,9 @@ export class IcogramComponent {
 }
 
 @Component({
-    selector: '[vcl-a-icogram]',
-    templateUrl: 'icogram.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: '[vcl-a-icogram]',
+  templateUrl: 'icogram.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IcogramLinkComponent extends IcogramComponent {
   @HostBinding('class.content-link')
