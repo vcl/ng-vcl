@@ -26,17 +26,15 @@ export {
     FormsModule,
     VCLIconModule,
     VCLIcogramModule,
+    TokenComponent,
+    TokenListComponent,
+    TokenInputContainerComponent,
   ],
   exports: [
     TokenComponent,
     TokenListComponent,
     TokenInputContainerComponent,
     VCLInputModule,
-  ],
-  declarations: [
-    TokenComponent,
-    TokenListComponent,
-    TokenInputContainerComponent,
   ],
   providers: [],
 })

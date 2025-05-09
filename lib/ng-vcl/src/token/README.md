@@ -5,9 +5,9 @@
 ```js
 import { VCLTokenModule } from '@vcl/ng-vcl';
 
-@NgModule({
-  imports: [ VCLTokenModule ],
+@Component({
   ...
+  imports: [ VCLTokenModule ],
 })
 export class AppComponent {}
 ```

@@ -20,11 +20,10 @@ export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>(
 );
 
 @Component({
-    selector: 'vcl-token',
-    templateUrl: 'token.component.html',
-    exportAs: 'vclToken',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-token',
+  templateUrl: 'token.component.html',
+  exportAs: 'vclToken',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TokenComponent implements Token {
   constructor(
