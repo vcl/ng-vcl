@@ -10,15 +10,14 @@ import { NEVER } from 'rxjs';
 import { FormControlGroupForm, FORM_CONTROL_GROUP_FORM } from './interfaces';
 
 @Directive({
-    selector: '[vclForm]',
-    exportAs: 'vclForm',
-    providers: [
-        {
-            provide: FORM_CONTROL_GROUP_FORM,
-            useExisting: forwardRef(() => FormDirective),
-        },
-    ],
-    standalone: false
+  selector: '[vclForm]',
+  exportAs: 'vclForm',
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_FORM,
+      useExisting: forwardRef(() => FormDirective),
+    },
+  ],
 })
 export class FormDirective implements FormControlGroupForm {
   @HostBinding('class.form')

@@ -12,20 +12,21 @@ import { FormControlRequiredComponent } from './required.component';
 export * from './exports';
 
 @NgModule({
-  imports: [CommonModule, VCLCoreLabelModule],
+  imports: [
+    CommonModule,
+    VCLCoreLabelModule,
+    FormControlGroupComponent,
+    FormControlHintComponent,
+    FormControlHintErrorComponent,
+    FormControlRequiredComponent,
+    FormDirective,
+  ],
   exports: [
     FormControlGroupComponent,
     FormControlHintComponent,
     FormControlHintErrorComponent,
     FormControlRequiredComponent,
     VCLCoreLabelModule,
-    FormDirective,
-  ],
-  declarations: [
-    FormControlGroupComponent,
-    FormControlHintComponent,
-    FormControlHintErrorComponent,
-    FormControlRequiredComponent,
     FormDirective,
   ],
 })

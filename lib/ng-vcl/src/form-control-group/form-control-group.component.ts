@@ -40,7 +40,6 @@ import { FormDirective } from './form.directive';
             useExisting: forwardRef(() => FormControlGroupComponent),
         },
     ],
-    standalone: false
 })
 export class FormControlGroupComponent<T>
   implements AfterContentInit, OnDestroy, FormControlGroupState<T>
