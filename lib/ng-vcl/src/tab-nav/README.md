@@ -8,9 +8,9 @@ Only one tab is visible at a given time.
 ```js
 import { VCLTabNavModule } from '@vcl/ng-vcl';
 
-@NgModule({
-  imports: [ VCLTabNavModule ],
+@Component({
   ...
+  imports: [ VCLTabNavModule ],
 })
 export class AppComponent {}
 ```

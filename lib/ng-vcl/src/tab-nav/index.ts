@@ -9,14 +9,20 @@ import { TabComponent, TabLabelDirective } from './tab.component';
 export { TabComponent, TabLabelDirective, TabNavComponent };
 
 @NgModule({
-  imports: [CommonModule, PortalModule, ObserversModule, VCLCoreLabelModule],
+  imports: [
+    CommonModule,
+    PortalModule,
+    ObserversModule,
+    VCLCoreLabelModule,
+    TabComponent,
+    TabLabelDirective,
+    TabNavComponent,
+  ],
   exports: [
     TabComponent,
     TabLabelDirective,
     TabNavComponent,
     VCLCoreLabelModule,
   ],
-  declarations: [TabComponent, TabLabelDirective, TabNavComponent],
-  providers: [],
 })
 export class VCLTabNavModule {}
