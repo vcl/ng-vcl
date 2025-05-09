@@ -11,13 +11,13 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule],
-  exports: [
+  imports: [
+    CommonModule,
     ZoomBoxComponent,
     ZoomBoxMagnifierComponent,
     ZoomBoxContainerComponent,
   ],
-  declarations: [
+  exports: [
     ZoomBoxComponent,
     ZoomBoxMagnifierComponent,
     ZoomBoxContainerComponent,

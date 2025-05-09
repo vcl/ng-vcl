@@ -7,10 +7,9 @@ import {
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({
-    selector: 'vcl-zoom-box',
-    templateUrl: 'zoom-box.component.html',
-    changeDetection: ChangeDetectionStrategy.Default,
-    standalone: false
+  selector: 'vcl-zoom-box',
+  templateUrl: 'zoom-box.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ZoomBoxComponent {
   @Input()
