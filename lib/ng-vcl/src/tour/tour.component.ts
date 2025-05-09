@@ -15,10 +15,9 @@ import {
 import { PopoverDirective } from '../popover/index';
 
 @Component({
-    selector: 'vcl-tour-step',
-    templateUrl: './tour.component.html',
-    styleUrls: ['./tour.component.scss'],
-    standalone: false
+  selector: 'vcl-tour-step',
+  templateUrl: './tour.component.html',
+  styleUrls: ['./tour.component.scss'],
 })
 export class TourComponent implements OnInit, OnChanges {
   @ViewChild('popover')

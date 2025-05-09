@@ -17,9 +17,10 @@ export { TourService, TourOptions, TourComponent, TourOverlayComponent };
     VCLButtonModule,
     VCLIcogramModule,
     VCLIconModule,
+    TourComponent,
+    TourOverlayComponent,
   ],
   exports: [TourComponent, TourOverlayComponent],
-  declarations: [TourComponent, TourOverlayComponent],
   providers: [TourService],
 })
 export class VCLTourModule {}
