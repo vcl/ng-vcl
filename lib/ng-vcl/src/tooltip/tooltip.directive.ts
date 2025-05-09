@@ -74,8 +74,7 @@ export type Positions = 'left' | 'right' | 'top' | 'bottom';
 export type PositionsArray = Positions[];
 
 @Directive({
-    selector: '[vclTooltip]',
-    standalone: false
+  selector: '[vclTooltip]',
 })
 export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
   constructor(
