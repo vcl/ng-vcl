@@ -12,7 +12,6 @@ export {
 
 @NgModule({
   imports: [
-    CommonModule,
     ZoomBoxComponent,
     ZoomBoxMagnifierComponent,
     ZoomBoxContainerComponent,

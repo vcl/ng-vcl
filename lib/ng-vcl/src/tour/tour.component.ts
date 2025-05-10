@@ -12,12 +12,13 @@ import {
   VerticalConnectionPos,
   ConnectedPosition,
 } from '@angular/cdk/overlay';
-import { PopoverDirective } from '../popover/index';
+import { PopoverDirective, VCLPopoverModule } from '../popover/index';
 
 @Component({
   selector: 'vcl-tour-step',
   templateUrl: './tour.component.html',
   styleUrls: ['./tour.component.scss'],
+  imports: [VCLPopoverModule],
 })
 export class TourComponent implements OnInit, OnChanges {
   @ViewChild('popover')
