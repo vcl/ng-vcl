@@ -26,7 +26,9 @@ import { Subject } from 'rxjs';
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
+  VCLFormControlGroupModule,
 } from '../form-control-group/index';
+import { NgFor, NgIf } from '@angular/common';
 
 let UNIQUE_ID = 0;
 
@@ -41,23 +43,23 @@ export interface ScalePoint {
 }
 
 @Component({
-    selector: 'vcl-slider',
-    templateUrl: 'slider.component.html',
-    styleUrls: ['slider.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => SliderComponent),
-            multi: true,
-        },
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => SliderComponent),
-        },
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-slider',
+  templateUrl: 'slider.component.html',
+  styleUrls: ['slider.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SliderComponent),
+      multi: true,
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => SliderComponent),
+    },
+  ],
+  imports: [NgIf, NgFor, VCLFormControlGroupModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SliderComponent
   implements
@@ -67,7 +69,10 @@ export class SliderComponent
     FormControlGroupInputState,
     OnDestroy
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private injector: Injector
+  ) {}
 
   @HostBinding('class.slider')
   classVclSlider = true;

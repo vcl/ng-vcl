@@ -7,7 +7,7 @@ _Note: HammerJS must be loaded for touch events_
 ```js
 import { VCLSliderModule } from '@vcl/ng-vcl';
 
-@NgModule({
+@Component({
   imports: [ VCLSliderModule ],
   ...
 })
