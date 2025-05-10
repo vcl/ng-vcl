@@ -17,14 +17,15 @@ import {
   PanelFooterButtonDirective,
   PanelTitleDirective,
 } from './panel.directive';
+import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'vcl-panel, vcl-panel-dialog',
-    templateUrl: './panel.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['panel.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'vcl-panel, vcl-panel-dialog',
+  templateUrl: './panel.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['panel.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [NgIf],
 })
 export class PanelComponent implements AfterContentInit, OnDestroy {
   contentSub?: Subscription;

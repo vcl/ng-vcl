@@ -1,6 +1,6 @@
 # vcl-panel
 
-A panel consisting a body, header and footer. All elements are optional. 
+A panel consisting a body, header and footer. All elements are optional.
 There is a dialog variant, optimized for modal dialogs.
 
 ## Usage
@@ -8,8 +8,8 @@ There is a dialog variant, optimized for modal dialogs.
 ```js
 import { VCLPanelModule } from '@vcl/ng-vcl';
 
-@NgModule({
-  imports: [ 
+@Component({
+  imports: [
     VCLPanelModule
   ],
   ...
@@ -18,7 +18,7 @@ export class AppComponent {}
 ```
 
 ```html
-<vcl-panel> 
+<vcl-panel>
   <vcl-panel-title>Panel Title</vcl-panel-title>
   Panel Content
   <vcl-panel-footer>Panel Footer</vcl-panel-footer>
@@ -30,7 +30,11 @@ export class AppComponent {}
     <vcl-icon icon="vcl:alert-circle" class="scale300p"></vcl-icon>
     <div>Panel Content</div>
   </div>
-  <button type="button" vcl-button vclPanelFooterButton class="transparent outline">
+  <button
+    type="button"
+    vcl-button
+    vclPanelFooterButton
+    class="transparent outline">
     Cancel
   </button>
   <button type="button" vcl-button vclPanelFooterButton class="emphasized">
@@ -43,13 +47,13 @@ export class AppComponent {}
 
 #### Attributes
 
-Name                | Type                                                     | Default                  | Description
-------------------- | ---------------------------                              | -------------------      | ------------------- 
-`showCloseButton`   | boolean                                                  | false                    | Shows a close button in the header
-`type`              | 'success' \| 'danger' \| 'warning' \| 'error' \| 'info'  |                          | Semantic coloring
-  
-#### Events  
+| Name              | Type                                                    | Default | Description                        |
+| ----------------- | ------------------------------------------------------- | ------- | ---------------------------------- |
+| `showCloseButton` | boolean                                                 | false   | Shows a close button in the header |
+| `type`            | 'success' \| 'danger' \| 'warning' \| 'error' \| 'info' |         | Semantic coloring                  |
 
-Name             | Description
-------------     | --------------------------------------------------------------------------
-`close`          | Fired when the close button is clicked
+#### Events
+
+| Name    | Description                            |
+| ------- | -------------------------------------- |
+| `close` | Fired when the close button is clicked |
