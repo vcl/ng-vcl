@@ -45,9 +45,8 @@ export class EmbeddedInputFieldLabelConfig {
 }
 
 @Directive({
-    selector: 'vcl-form-control-group',
-    exportAs: 'vclEmbeddedInputFieldLabel',
-    standalone: false
+  selector: 'vcl-form-control-group',
+  exportAs: 'vclEmbeddedInputFieldLabel',
 })
 export class EmbeddedInputFieldLabelDirective implements AfterContentInit {
   constructor(

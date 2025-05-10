@@ -19,7 +19,12 @@ export {
 };
 
 @NgModule({
-  imports: [VCLFormControlGroupModule],
+  imports: [
+    InputDirective,
+    TextareaDirective,
+    InputFieldComponent,
+    EmbeddedInputFieldLabelDirective,
+  ],
   exports: [
     InputDirective,
     TextareaDirective,
@@ -27,12 +32,5 @@ export {
     VCLFormControlGroupModule,
     EmbeddedInputFieldLabelDirective,
   ],
-  declarations: [
-    InputDirective,
-    TextareaDirective,
-    InputFieldComponent,
-    EmbeddedInputFieldLabelDirective,
-  ],
-  providers: [],
 })
 export class VCLInputModule {}
