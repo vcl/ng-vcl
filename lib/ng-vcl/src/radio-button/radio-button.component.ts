@@ -14,15 +14,16 @@ import {
   RadioButtonGroup,
   RADIO_BUTTON_GROUP_TOKEN,
 } from './interfaces';
+import { VCLIconModule } from '../icon';
 
 let UNIQUE_ID = 0;
 
 @Component({
-    selector: 'vcl-radio-button',
-    templateUrl: 'radio-button.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs: 'vclRadioButton',
-    standalone: false
+  selector: 'vcl-radio-button',
+  templateUrl: 'radio-button.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  exportAs: 'vclRadioButton',
+  imports: [VCLIconModule],
 })
 export class RadioButtonComponent implements RadioButton {
   constructor(
