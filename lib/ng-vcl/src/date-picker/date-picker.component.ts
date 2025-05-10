@@ -42,8 +42,12 @@ import {
   InputDirective,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
+  VCLInputModule,
 } from '../input/index';
-import { VCLCalendarDateModifier } from '../calendar/index';
+import { VCLCalendarDateModifier, VCLCalendarModule } from '../calendar/index';
+import { VCLButtonModule } from '../button';
+import { VCLIcogramModule } from '../icogram';
+import { VCLOffClickModule } from '../off-click';
 
 let UNIQUE_ID = 0;
 
@@ -51,28 +55,34 @@ export type DatepickerPick = 'date' | 'month' | 'time';
 export type DatepickerDisplay = 'date' | 'month' | 'time';
 
 @Component({
-    selector: 'vcl-date-picker',
-    templateUrl: 'date-picker.component.html',
-    exportAs: 'vclDatepicker',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-            useExisting: forwardRef(() => DatepickerComponent),
-        },
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => DatepickerComponent),
-        },
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => DatepickerComponent),
-            multi: true,
-        },
-    ],
-    styleUrls: ['date-picker.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'vcl-date-picker',
+  templateUrl: 'date-picker.component.html',
+  exportAs: 'vclDatepicker',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+      useExisting: forwardRef(() => DatepickerComponent),
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => DatepickerComponent),
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatepickerComponent),
+      multi: true,
+    },
+  ],
+  styleUrls: ['date-picker.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [
+    VCLButtonModule,
+    VCLIcogramModule,
+    VCLInputModule,
+    VCLCalendarModule,
+    VCLOffClickModule,
+  ],
 })
 export class DatepickerComponent<VCLDate>
   extends TemplateLayerRef<any, VCLDate | VCLDateRange<VCLDate>>

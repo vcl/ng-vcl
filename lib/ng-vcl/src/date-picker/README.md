@@ -7,7 +7,7 @@ Lets users pick dates and time comfortably.
 ```js
 import { VCLDatePickerModule } from '@vcl/ng-vcl';;
 
-@NgModule({
+@Component({
   imports: [ VCLDatePickerModule ],
   ...
 })
