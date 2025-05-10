@@ -8,7 +8,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VCLIconModule } from '../icon';
 import { VCLButtonGroupModule } from '../button-group';
-import { CommonModule, NgClass, NgStyle } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'vcl-spinner',
