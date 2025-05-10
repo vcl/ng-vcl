@@ -1,11 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { VCLIconModule } from '../icon/index';
-import { VCLButtonModule } from '../button/index';
-import { VCLInputModule } from '../input/index';
-import { VCLIcogramModule } from '../icogram/index';
-import { VCLFormControlGroupModule } from '../form-control-group/index';
 import { VCLCoreLabelModule } from '../core/index';
 
 import { SelectListComponent } from './select-list.component';
@@ -34,13 +27,6 @@ export {
 
 @NgModule({
   imports: [
-    CommonModule,
-    VCLInputModule,
-    VCLIconModule,
-    VCLIcogramModule,
-    VCLButtonModule,
-    VCLFormControlGroupModule,
-    VCLCoreLabelModule,
     SelectListComponent,
     SelectListHeaderComponent,
     SelectListItemComponent,
@@ -55,6 +41,5 @@ export {
     SelectListContentComponent,
     VCLCoreLabelModule,
   ],
-  providers: [],
 })
 export class VCLSelectListModule {}
