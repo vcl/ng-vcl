@@ -24,9 +24,8 @@ import { first, skipUntil, filter, switchMap } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
 @Directive({
-    selector: '[vclOffClick]',
-    exportAs: 'vclOffClick',
-    standalone: false
+  selector: '[vclOffClick]',
+  exportAs: 'vclOffClick',
 })
 export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   constructor(
