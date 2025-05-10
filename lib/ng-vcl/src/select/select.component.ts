@@ -35,6 +35,8 @@ import {
 import { VCLIconModule } from '../icon';
 import { VCLButtonModule } from '../button';
 import { VCLOffClickModule } from '../off-click';
+import { VCLFormControlGroupModule } from '../form-control-group';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'vcl-select',
@@ -55,7 +57,14 @@ import { VCLOffClickModule } from '../off-click';
       useExisting: forwardRef(() => SelectComponent),
     },
   ],
-  imports: [VCLInputModule, VCLIconModule, VCLButtonModule, VCLOffClickModule],
+  imports: [
+    NgIf,
+    VCLInputModule,
+    VCLIconModule,
+    VCLButtonModule,
+    VCLOffClickModule,
+    VCLFormControlGroupModule,
+  ],
 })
 export class SelectComponent
   extends TemplateLayerRef<any, SelectListItem>

@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { VCLSelectModule } from '@vcl/ng-vcl';
+import {
+  VCLFormControlGroupModule,
+  VCLIconModule,
+  VCLSelectModule,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLSelectModule],
+  imports: [VCLSelectModule, VCLIconModule, VCLFormControlGroupModule],
 })
 export class SelectDemoComponent {
   value1 = undefined;
