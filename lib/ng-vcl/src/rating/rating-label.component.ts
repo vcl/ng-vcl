@@ -7,15 +7,15 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { RatingComponent } from './rating.component';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'vcl-rating-item-label',
-    template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>',
-    exportAs: 'vclRatingItemLabel',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-rating-item-label',
+  template: '<ng-template [cdkPortalOutlet]="portal"></ng-template>',
+  exportAs: 'vclRatingItemLabel',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CdkPortalOutlet],
 })
 export class RatingItemLabelComponent implements OnDestroy {
   constructor(

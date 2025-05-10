@@ -34,37 +34,38 @@ import {
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
+import { NgFor, NgIf } from '@angular/common';
 
 let UNIQUE_ID = 0;
 
 @Component({
-    selector: 'vcl-rating',
-    templateUrl: './rating.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs: 'vclRating',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => RatingComponent),
-            multi: true,
-        },
-        {
-            provide: RATING_TOKEN,
-            useExisting: forwardRef(() => RatingComponent),
-        },
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => RatingComponent),
-        },
-    ],
-    styles: [
-        `
+  selector: 'vcl-rating',
+  templateUrl: './rating.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  exportAs: 'vclRating',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RatingComponent),
+      multi: true,
+    },
+    {
+      provide: RATING_TOKEN,
+      useExisting: forwardRef(() => RatingComponent),
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => RatingComponent),
+    },
+  ],
+  styles: [
+    `
       :host.rating-vertical {
         flex-direction: column;
       }
     `,
-    ],
-    standalone: false
+  ],
+  imports: [NgFor, NgIf],
 })
 export class RatingComponent
   implements
@@ -76,7 +77,10 @@ export class RatingComponent
     Rating,
     FormControlGroupInputState
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private injector: Injector
+  ) {}
 
   private cvaDisabled = false;
   private generatedId = 'vcl_rating_' + UNIQUE_ID++;
