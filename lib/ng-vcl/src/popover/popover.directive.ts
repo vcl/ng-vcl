@@ -21,9 +21,8 @@ import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 
 @Directive({
-    selector: '[vclPopover]',
-    exportAs: 'vclPopover',
-    standalone: false
+  selector: '[vclPopover]',
+  exportAs: 'vclPopover',
 })
 export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
   constructor(
