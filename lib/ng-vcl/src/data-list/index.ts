@@ -1,11 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { VCLIconModule } from '../icon/index';
-import { VCLButtonModule } from '../button/index';
-import { VCLInputModule } from '../input/index';
-import { VCLIcogramModule } from '../icogram/index';
-import { VCLFormControlGroupModule } from '../form-control-group/index';
 import { VCLCoreContentProjectionModule } from '../core/index';
 
 import {
@@ -34,13 +27,11 @@ export {
 
 @NgModule({
   imports: [
-    CommonModule,
-    VCLInputModule,
-    VCLIconModule,
-    VCLIcogramModule,
-    VCLButtonModule,
-    VCLFormControlGroupModule,
     VCLCoreContentProjectionModule,
+    DataListComponent,
+    DataListItemDirective,
+    DataListFooterDirective,
+    DataListHeaderDirective,
   ],
   exports: [
     DataListComponent,
@@ -49,12 +40,5 @@ export {
     DataListFooterDirective,
     DataListHeaderDirective,
   ],
-  declarations: [
-    DataListComponent,
-    DataListItemDirective,
-    DataListFooterDirective,
-    DataListHeaderDirective,
-  ],
-  providers: [],
 })
 export class VCLDataListModule {}

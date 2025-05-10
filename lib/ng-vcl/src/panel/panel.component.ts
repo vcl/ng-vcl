@@ -18,6 +18,7 @@ import {
   PanelTitleDirective,
 } from './panel.directive';
 import { NgIf } from '@angular/common';
+import { VCLButtonModule } from '../button';
 
 @Component({
   selector: 'vcl-panel, vcl-panel-dialog',
@@ -25,7 +26,7 @@ import { NgIf } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['panel.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [NgIf],
+  imports: [NgIf, VCLButtonModule],
 })
 export class PanelComponent implements AfterContentInit, OnDestroy {
   contentSub?: Subscription;
