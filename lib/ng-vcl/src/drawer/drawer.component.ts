@@ -14,11 +14,10 @@ import {
 import { DRAWER_CONTAINER_HOST, DrawerContainer, Drawer } from './types';
 
 @Component({
-    selector: 'vcl-drawer',
-    exportAs: 'vclDrawer',
-    templateUrl: 'drawer.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-drawer',
+  exportAs: 'vclDrawer',
+  templateUrl: 'drawer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
   @HostBinding('class.drawer')

@@ -19,21 +19,22 @@ import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { DrawerComponent } from './drawer.component';
 import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
+import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'vcl-drawer-container',
-    exportAs: 'vclDrawerContainer',
-    templateUrl: 'drawer-container.component.html',
-    styleUrls: ['drawer-container.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: DRAWER_CONTAINER_HOST,
-            useExisting: forwardRef(() => DrawerContainerComponent),
-        },
-    ],
-    standalone: false
+  selector: 'vcl-drawer-container',
+  exportAs: 'vclDrawerContainer',
+  templateUrl: 'drawer-container.component.html',
+  styleUrls: ['drawer-container.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: DRAWER_CONTAINER_HOST,
+      useExisting: forwardRef(() => DrawerContainerComponent),
+    },
+  ],
+  imports: [NgIf],
 })
 export class DrawerContainerComponent
   implements AfterContentInit, OnDestroy, DrawerContainer
