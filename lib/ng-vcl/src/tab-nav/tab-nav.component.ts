@@ -21,7 +21,8 @@ import { TabComponent } from './tab.component';
 import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
 import { BehaviorSubject } from 'rxjs';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'vcl-tab-nav',
@@ -36,6 +37,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
       useExisting: TabNavComponent,
     },
   ],
+  imports: [NgIf, PortalModule],
 })
 export class TabNavComponent
   implements AfterViewInit, OnDestroy, TabNav, OnChanges

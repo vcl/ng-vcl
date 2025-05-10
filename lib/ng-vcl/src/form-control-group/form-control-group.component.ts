@@ -26,20 +26,22 @@ import {
 import { AbstractControl } from '@angular/forms';
 import { defaultFormControlErrorStateAgent } from './error-state-agent';
 import { FormDirective } from './form.directive';
+import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'vcl-form-control-group',
-    templateUrl: 'form-control-group.component.html',
-    exportAs: 'vclFormControlGroup',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['form-control-group.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    providers: [
-        {
-            provide: FORM_CONTROL_GROUP_STATE,
-            useExisting: forwardRef(() => FormControlGroupComponent),
-        },
-    ],
+  selector: 'vcl-form-control-group',
+  templateUrl: 'form-control-group.component.html',
+  exportAs: 'vclFormControlGroup',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['form-control-group.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_STATE,
+      useExisting: forwardRef(() => FormControlGroupComponent),
+    },
+  ],
+  imports: [NgIf],
 })
 export class FormControlGroupComponent<T>
   implements AfterContentInit, OnDestroy, FormControlGroupState<T>

@@ -21,7 +21,7 @@ import { CommonModule, NgClass, NgStyle } from '@angular/common';
       multi: true,
     },
   ],
-  imports: [VCLIconModule, VCLButtonGroupModule, ],
+  imports: [VCLIconModule, VCLButtonGroupModule, CommonModule],
 })
 export class SpinnerComponent implements ControlValueAccessor {
   @Input()
