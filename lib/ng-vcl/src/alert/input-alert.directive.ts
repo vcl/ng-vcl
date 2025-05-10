@@ -12,8 +12,7 @@ import { AlertOptions, AlertInput } from './types';
 
 // TODO: support text, password, textarea, select, radio, checkbox file.
 @Directive({
-    selector: '[vclInputAlert]',
-    standalone: false
+  selector: '[vclInputAlert]',
 })
 export class AlertInputDirective implements OnInit, AfterViewInit {
   constructor(private elementRef: ElementRef<HTMLInputElement>) {}
