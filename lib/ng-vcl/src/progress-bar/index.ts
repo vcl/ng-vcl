@@ -4,8 +4,7 @@ import { ProgressBarComponent } from './progress-bar.component';
 
 export { ProgressBarComponent };
 @NgModule({
-  imports: [CommonModule],
+  imports: [ProgressBarComponent],
   exports: [ProgressBarComponent],
-  declarations: [ProgressBarComponent],
 })
 export class VCLProgressBarModule {}

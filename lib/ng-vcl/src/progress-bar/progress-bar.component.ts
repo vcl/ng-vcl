@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,13 +8,13 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'vcl-progress-bar',
-    templateUrl: 'progress-bar.component.html',
-    exportAs: 'vclProgressBar',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['progress-bar.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'vcl-progress-bar',
+  templateUrl: 'progress-bar.component.html',
+  exportAs: 'vclProgressBar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['progress-bar.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [NgIf],
 })
 export class ProgressBarComponent {
   @HostBinding('attr.role')
