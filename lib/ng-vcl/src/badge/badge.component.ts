@@ -7,10 +7,9 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'vcl-badge',
-    template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-badge',
+  template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BadgeComponent {
   @Input()
@@ -42,8 +41,7 @@ export class BadgeComponent {
 }
 
 @Directive({
-    selector: 'vcl-badge[vclRounded]',
-    standalone: false
+  selector: 'vcl-badge[vclRounded]',
 })
 export class BadgeRoundedDirective {
   @HostBinding('class.rounded')
