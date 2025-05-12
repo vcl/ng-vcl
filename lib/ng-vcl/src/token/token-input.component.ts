@@ -23,7 +23,8 @@ import { Token } from './interfaces';
 import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { FormControlGroupInputState } from '../form-control-group/index';
-import { InputDirective } from '../input/index';
+import { InputDirective, VCLInputModule } from '../input/index';
+import { NgFor } from '@angular/common';
 
 let uniqueID = 0;
 
@@ -38,6 +39,7 @@ let uniqueID = 0;
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgFor, VCLInputModule],
 })
 export class TokenInputContainerComponent
   implements AfterContentInit, ControlValueAccessor, FormControlGroupInputState

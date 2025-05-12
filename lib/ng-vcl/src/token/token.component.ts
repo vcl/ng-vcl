@@ -14,6 +14,8 @@ import {
   ElementRef,
 } from '@angular/core';
 import { TokenObserver, Token } from './interfaces';
+import { VCLButtonModule } from '../button';
+import { NgIf } from '@angular/common';
 
 export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>(
   'vcl_token_observer'
@@ -24,6 +26,7 @@ export const TOKEN_OBSERVER_TOKEN = new InjectionToken<TokenObserver>(
   templateUrl: 'token.component.html',
   exportAs: 'vclToken',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIf, VCLButtonModule],
 })
 export class TokenComponent implements Token {
   constructor(

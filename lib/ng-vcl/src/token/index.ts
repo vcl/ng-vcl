@@ -36,6 +36,5 @@ export {
     TokenInputContainerComponent,
     VCLInputModule,
   ],
-  providers: [],
 })
 export class VCLTokenModule {}

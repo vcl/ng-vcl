@@ -9,7 +9,7 @@ Note: For the highlight to work, the target element has to have a background-col
 ```js
 import { VCLTourModule } from '@vcl/ng-vcl';
 
-@NgModule({
+@Component({
   imports: [ VCLTourModule ],
   ...
 })
