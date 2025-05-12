@@ -1,19 +1,29 @@
+import { Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import {
-  Component,
-  OnDestroy,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
-import { DataListItemDirective, LayerRef, LayerService } from '@vcl/ng-vcl';
+  DataListItemDirective,
+  LayerRef,
+  LayerService,
+  VCLDataListModule,
+  VCLIcogramModule,
+  VCLRadioButtonModule,
+} from '@vcl/ng-vcl';
 import { Subscription } from 'rxjs';
 import { CreateCountryComponent } from './create-kitten.component';
 import { data, Kitten } from './data';
+import { JsonPipe, NgFor, NgTemplateOutlet } from '@angular/common';
 
 @Component({
-    selector: 'data-list-add-remove-demo',
-    templateUrl: './data-list-add-remove-demo.component.html',
-    styleUrls: ['./data-list-add-remove-demo.component.scss'],
-    standalone: false
+  selector: 'data-list-add-remove-demo',
+  templateUrl: './data-list-add-remove-demo.component.html',
+  styleUrls: ['./data-list-add-remove-demo.component.scss'],
+  imports: [
+    NgTemplateOutlet,
+    JsonPipe,
+    NgFor,
+    VCLRadioButtonModule,
+    VCLIcogramModule,
+    VCLDataListModule,
+  ],
 })
 export class DataListAddRemoveDemo implements OnDestroy {
   createCountryLayer: LayerRef;
@@ -56,7 +66,7 @@ export class DataListAddRemoveDemo implements OnDestroy {
           category: 'Pet',
           active: true,
           dateOfBirth: 'September 2, 2023',
-          id: Math.floor(Math.random() * 10000)
+          id: Math.floor(Math.random() * 10000),
         };
 
         this.kittensList = [...this.kittensList, newKitten];

@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import { ComponentLayerRef } from '@vcl/ng-vcl';
+import { FormsModule } from '@angular/forms';
+import {
+  ComponentLayerRef,
+  VCLButtonModule,
+  VCLFormControlGroupModule,
+  VCLInputModule,
+  VCLPanelModule,
+} from '@vcl/ng-vcl';
 
 @Component({
-    selector: 'app-create-country',
-    template: `
+  selector: 'app-create-country',
+  template: `
     <vcl-panel-dialog [showCloseButton]="true" (close)="close()">
       <vcl-panel-title>Add Kitten</vcl-panel-title>
 
@@ -23,12 +30,22 @@ import { ComponentLayerRef } from '@vcl/ng-vcl';
 
       <button (click)="save()" vcl-button vclPanelFooterButton>Save</button>
 
-      <button (click)="close()" vcl-button vclPanelFooterButton class="transparent outline">
+      <button
+        (click)="close()"
+        vcl-button
+        vclPanelFooterButton
+        class="transparent outline">
         Cancel
       </button>
     </vcl-panel-dialog>
   `,
-    standalone: false
+  imports: [
+    FormsModule,
+    VCLButtonModule,
+    VCLPanelModule,
+    VCLFormControlGroupModule,
+    VCLInputModule,
+  ],
 })
 export class CreateCountryComponent {
   name = '';

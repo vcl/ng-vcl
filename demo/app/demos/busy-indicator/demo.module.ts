@@ -37,11 +37,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLIconModule,
-    VCLBusyIndicatorModule,
     RouterModule.forChild([
       {
         path: '',
@@ -50,6 +45,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [BusyDemoComponent],
 })
 export class BusyDemoModule {}
