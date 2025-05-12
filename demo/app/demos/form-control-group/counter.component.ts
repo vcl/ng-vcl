@@ -3,34 +3,26 @@ import {
   Input,
   forwardRef,
   HostBinding,
-  Optional,
-  Self,
-  Inject,
-  NgModule,
   Injector,
 } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
   NgControl,
-  ReactiveFormsModule,
-  FormsModule,
 } from '@angular/forms';
 import {
-  VCLIcogramModule,
   VCLButtonModule,
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '@vcl/ng-vcl';
 import { Subject } from 'rxjs';
-import { CommonModule } from '@angular/common';
 
 let uniqueID = 0;
 
 @Component({
-    selector: 'demo-counter',
-    styles: [
-        `
+  selector: 'demo-counter',
+  styles: [
+    `
       :host {
         display: flex;
         align-items: center;
@@ -42,8 +34,8 @@ let uniqueID = 0;
         padding-right: 0.2em;
       }
     `,
-    ],
-    template: `
+  ],
+  template: `
     <button
       vcl-button
       square
@@ -68,18 +60,18 @@ let uniqueID = 0;
       <vcl-icon icon="vcl:add"></vcl-icon>
     </button>
   `,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => CounterComponent),
-            multi: true,
-        },
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => CounterComponent),
-        },
-    ],
-    standalone: false
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CounterComponent),
+      multi: true,
+    },
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => CounterComponent),
+    },
+  ],
+  imports: [VCLButtonModule],
 })
 export class CounterComponent
   implements ControlValueAccessor, FormControlGroupInputState
@@ -178,16 +170,3 @@ export class CounterComponent
     this._cvaDisabled = isDisabled;
   }
 }
-
-@NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    VCLIcogramModule,
-    VCLButtonModule,
-  ],
-  declarations: [CounterComponent],
-  exports: [CounterComponent],
-})
-export class VCLCounterModule {}

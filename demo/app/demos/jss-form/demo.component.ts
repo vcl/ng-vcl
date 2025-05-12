@@ -1,21 +1,35 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { JssFormComponent, NotifierService, DateAdapter } from '@vcl/ng-vcl';
+import {
+  JssFormComponent,
+  NotifierService,
+  DateAdapter,
+  VCLJssFormModule,
+  VCLFlipSwitchModule,
+  VCLNotifierModule,
+} from '@vcl/ng-vcl';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'demo-empty-component',
-    template: `<span>{{ data }}</span>`,
-    standalone: false
+  selector: 'demo-empty-component',
+  template: `<span>{{ data }}</span>`,
 })
 export class SampleEmptyComponent {
   data: string;
 }
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    JsonPipe,
+    VCLJssFormModule,
+    VCLFlipSwitchModule,
+    VCLNotifierModule,
+  ],
 })
 export class JssFormDemoComponent implements AfterViewInit, OnInit {
   private _disabled = false;
@@ -29,7 +43,10 @@ export class JssFormDemoComponent implements AfterViewInit, OnInit {
     this.ngOnInit();
   }
 
-  constructor(private notifier: NotifierService, private da: DateAdapter) {}
+  constructor(
+    private notifier: NotifierService,
+    private da: DateAdapter
+  ) {}
 
   @ViewChild('heroForm')
   heroForm: JssFormComponent;

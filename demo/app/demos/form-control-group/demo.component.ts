@@ -5,22 +5,73 @@ import {
   AbstractControl,
   UntypedFormControl,
   NgForm,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
   NotifierService,
   FormControlErrorStateAgent,
   LayerConfig,
   DateAdapter,
+  VCLButtonModule,
+  VCLFormControlGroupModule,
+  VCLDatePickerModule,
+  VCLNotifierModule,
+  VCLTooltipModule,
+  VCLTokenModule,
+  VCLSelectModule,
+  VCLSliderModule,
+  VCLRadioButtonModule,
+  VCLIcogramModule,
+  VCLCheckboxModule,
+  VCLPanelModule,
+  VCLIconModule,
+  VCLFlipSwitchModule,
+  VCLLayerModule,
+  VCLFileInputModule,
+  VCLRatingModule,
+  VCLPasswordInputModule,
+  VCLInputModule,
+  VCLButtonGroupModule,
 } from '@vcl/ng-vcl';
+import { CounterComponent } from './counter.component';
+import { JsonPipe, NgIf } from '@angular/common';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    styleUrls: ['demo.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  templateUrl: 'demo.component.html',
+  styleUrls: ['demo.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+    JsonPipe,
+    VCLButtonModule,
+    VCLButtonGroupModule,
+    VCLInputModule,
+    VCLPasswordInputModule,
+    VCLRatingModule,
+    VCLFileInputModule,
+    VCLLayerModule,
+    VCLFlipSwitchModule,
+    VCLIconModule,
+    VCLPanelModule,
+    VCLCheckboxModule,
+    VCLIcogramModule,
+    VCLRadioButtonModule,
+    VCLSliderModule,
+    VCLSelectModule,
+    VCLTokenModule,
+    VCLTooltipModule,
+    VCLNotifierModule,
+    VCLDatePickerModule,
+    VCLFormControlGroupModule,
+    CounterComponent,
+  ],
 })
 export class FormControlGroupDemoComponent {
-  constructor(private notifier: NotifierService, private da: DateAdapter) {}
+  constructor(
+    private notifier: NotifierService,
+    private da: DateAdapter
+  ) {}
 
   @ViewChild('form')
   form: NgForm;

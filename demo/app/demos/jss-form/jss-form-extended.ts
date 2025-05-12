@@ -1,13 +1,16 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
-  VCLFormFieldSchemaRoot,
   FormFieldControl,
   VCLFormFieldControlSchema,
   Conditional,
+  VCLFormControlGroupModule,
 } from '@vcl/ng-vcl';
+import { CounterComponent } from '../form-control-group/counter.component';
 
 @Component({
-    template: `
+  template: `
     <vcl-form-control-group *ngIf="field.visible">
       <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
       <demo-counter
@@ -16,7 +19,12 @@ import {
         [max]="field.params.max"></demo-counter>
     </vcl-form-control-group>
   `,
-    standalone: false
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+    VCLFormControlGroupModule,
+    CounterComponent,
+  ],
 })
 export class FormFieldCounterComponent {
   constructor(public field: FormFieldControl) {}
