@@ -3,12 +3,13 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { VCLBreakpoints } from '@vcl/ng-vcl';
 import { map } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
 
 const pickMatches = map((state: BreakpointState) => state.matches);
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [AsyncPipe],
 })
 export class BreakpointsDemoComponent {
   constructor(private breakpointObserver: BreakpointObserver) {}

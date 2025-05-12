@@ -28,8 +28,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    DemoModule,
     RouterModule.forChild([
       {
         path: '',
@@ -38,6 +36,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [BreakpointsDemoComponent],
 })
 export class BreakpointsDemoModule {}
