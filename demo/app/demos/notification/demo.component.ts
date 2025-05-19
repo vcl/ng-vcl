@@ -1,21 +1,8 @@
-import {
-  NotifierPosition,
-  NotifierService,
-  NotifierOptions,
-} from '@vcl/ng-vcl';
-import {
-  Component,
-  Input,
-  ViewEncapsulation,
-  ViewChild,
-  TemplateRef,
-} from '@angular/core';
-import { TemplatePortal } from '@angular/cdk/portal';
-
-let cnt = 1;
+import { VCLNotificationModule } from '@vcl/ng-vcl';
+import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [VCLNotificationModule],
 })
 export class NotificationDemoComponent {}

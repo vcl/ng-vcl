@@ -6,19 +6,22 @@ import {
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { VCLIconModule } from '../icon';
+import { VCLButtonGroupModule } from '../button-group';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'vcl-spinner',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: 'spinner.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => SpinnerComponent),
-            multi: true,
-        },
-    ],
-    standalone: false
+  selector: 'vcl-spinner',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: 'spinner.component.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SpinnerComponent),
+      multi: true,
+    },
+  ],
+  imports: [VCLIconModule, VCLButtonGroupModule, CommonModule],
 })
 export class SpinnerComponent implements ControlValueAccessor {
   @Input()

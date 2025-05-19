@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLTabNavModule } from '@vcl/ng-vcl';
-import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
+import { DemoComponent } from './../../modules/demo/demo.module';
 import { TabNavDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/tab-nav/README.md';
 
@@ -29,9 +27,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    DemoModule,
-    VCLTabNavModule,
     RouterModule.forChild([
       {
         path: '',
@@ -40,6 +35,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [TabNavDemoComponent],
 })
 export class TabNavDemoModule {}

@@ -1,13 +1,24 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   DateAdapter,
   DateAdapterParserDE,
   DateAdapterParserEN,
+  VCLButtonGroupModule,
+  VCLButtonModule,
+  VCLDatePickerModule,
+  VCLFormControlGroupModule,
 } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [
+    FormsModule,
+    VCLButtonGroupModule,
+    VCLFormControlGroupModule,
+    VCLDatePickerModule,
+    VCLButtonModule,
+  ],
 })
 export class DatePickerDemoComponent {
   constructor(private da: DateAdapter) {}

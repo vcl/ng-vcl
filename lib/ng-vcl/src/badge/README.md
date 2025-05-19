@@ -7,7 +7,7 @@ A visually highlighted tag to attribute items.
 ```js
 import { VCLBadgeModule } from '@vcl/ng-vcl';
 
-@NgModule({
+@Component({
   imports: [ VCLBadgeModule ],
   ...
 })

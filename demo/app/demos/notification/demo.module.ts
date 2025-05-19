@@ -34,12 +34,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLNotificationModule,
-    VCLButtonGroupModule,
-    VCLButtonModule,
     RouterModule.forChild([
       {
         path: '',
@@ -48,6 +42,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [NotificationDemoComponent],
 })
 export class NotificationDemoModule {}

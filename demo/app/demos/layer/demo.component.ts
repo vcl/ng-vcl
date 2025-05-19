@@ -5,15 +5,20 @@ import {
   ViewContainerRef,
   TemplateRef,
 } from '@angular/core';
-import { LayerService, LayerRef } from '@vcl/ng-vcl';
+import {
+  LayerService,
+  LayerRef,
+  VCLLayerModule,
+  VCLButtonModule,
+} from '@vcl/ng-vcl';
 import { BarComponent } from './bar.component';
 import { NagLayer } from './nag.component';
 
 let i = 0;
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [VCLLayerModule, VCLButtonModule],
 })
 export class LayerDemoComponent implements AfterViewInit {
   barLayer: LayerRef;
@@ -64,7 +69,7 @@ export class LayerDemoComponent implements AfterViewInit {
         data: {
           title: `bar component layer title (${i++})`,
         },
-        panelClass: 'zoom'
+        panelClass: 'zoom',
       })
       .subscribe(result => {
         console.log('Bar component result: ' + result?.value);

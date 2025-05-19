@@ -7,9 +7,9 @@
 ```js
 import { VCLSpinnerModule } from '@vcl/ng-vcl';
 
-@NgModule({
-  imports: [VCLSpinnerModule],
+@Component({
   ...
+  imports: [VCLSpinnerModule],
 })
 export class AppComponent {
 }
@@ -27,7 +27,7 @@ export class AppComponent {
 <vcl-form-control-group [spinner]="true">
   <vcl-label>Sample</vcl-label>
   <vcl-input-field>
-    <input vclInput [(ngModel)]="value" type="number"/>
+    <input vclInput [(ngModel)]="value" type="number" />
   </vcl-input-field>
   <vcl-spinner [(ngModel)]="value"></vcl-spinner>
 </vcl-form-control-group>
@@ -37,6 +37,6 @@ export class AppComponent {
 
 #### vcl-spinner square attributes
 
-| Name                | Type           | Default  | Description
-| ------------        |----------------| -------- |------------
-| `orientation`       | 'horizontal' \| 'vertical'     | 'vertical' | Orientation the buttons are placed in
+| Name          | Type                       | Default    | Description                           |
+| ------------- | -------------------------- | ---------- | ------------------------------------- |
+| `orientation` | 'horizontal' \| 'vertical' | 'vertical' | Orientation the buttons are placed in |

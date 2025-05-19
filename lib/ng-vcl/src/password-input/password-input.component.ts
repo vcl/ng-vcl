@@ -15,25 +15,26 @@ import {
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
 } from '../input/index';
-import { ButtonComponent } from '../button/index';
+import { ButtonComponent, VCLButtonModule } from '../button/index';
+import { VCLIconModule } from '../icon';
 
 @Component({
-    templateUrl: 'password-input.component.html',
-    selector: 'vcl-password-input',
-    exportAs: 'vclPasswordInput',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-            useExisting: forwardRef(() => PasswordInputComponent),
-        },
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => PasswordInputComponent),
-            multi: true,
-        },
-    ],
-    standalone: false
+  templateUrl: 'password-input.component.html',
+  selector: 'vcl-password-input',
+  exportAs: 'vclPasswordInput',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+      useExisting: forwardRef(() => PasswordInputComponent),
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PasswordInputComponent),
+      multi: true,
+    },
+  ],
+  imports: [VCLIconModule, VCLButtonModule],
 })
 export class PasswordInputComponent
   implements AfterContentInit, EmbeddedInputFieldLabelInput

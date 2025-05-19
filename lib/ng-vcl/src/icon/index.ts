@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IconComponent } from './icon.component';
 import { IconResolverService } from './icon-resolver.service';
 import { IconService } from './icon.service';
@@ -19,7 +18,7 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule, IconComponent],
+  imports: [IconComponent],
   exports: [IconComponent],
   providers: [IconService],
 })

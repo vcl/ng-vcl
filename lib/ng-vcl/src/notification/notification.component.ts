@@ -13,11 +13,11 @@ import {
 import { NEVER, merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { NOTIFICATION_TYPE_CLASS_MAP, NotificationType } from './types';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
+import { VCLIconModule } from '../icon';
 
 @Directive({
-    selector: 'vcl-notification-title',
-    standalone: false
+  selector: 'vcl-notification-title',
 })
 export class NotificationTitleDirective {
   @HostBinding('class.flex')
@@ -25,8 +25,7 @@ export class NotificationTitleDirective {
 }
 
 @Directive({
-    selector: 'vcl-notification-header',
-    standalone: false
+  selector: 'vcl-notification-header',
 })
 export class NotificationHeaderDirective {
   @HostBinding('class.notification-header')
@@ -34,8 +33,7 @@ export class NotificationHeaderDirective {
 }
 
 @Directive({
-    selector: 'vcl-notification-footer',
-    standalone: false
+  selector: 'vcl-notification-footer',
 })
 export class NotificationFooterDirective {
   @HostBinding('class.notification-footer')
@@ -43,12 +41,12 @@ export class NotificationFooterDirective {
 }
 
 @Component({
-    selector: 'vcl-notification',
-    templateUrl: './notification.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [NgClass],
-    styles: [
-        `
+  selector: 'vcl-notification',
+  templateUrl: './notification.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [NgClass],
+  styles: [
+    `
       :host .notification-header:empty {
         display: none;
       }
@@ -56,8 +54,8 @@ export class NotificationFooterDirective {
         display: none;
       }
     `,
-    ],
-    standalone: false
+  ],
+  imports: [NgIf, VCLIconModule],
 })
 export class NotificationComponent {
   constructor(

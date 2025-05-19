@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { HostIconRendererService } from '../icon/index';
+import { NgTemplateOutlet } from '@angular/common';
 
 export interface Rating {
   ratingFullIcon: string;
@@ -28,12 +29,12 @@ export interface Rating {
 export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
 
 @Component({
-    selector: 'vcl-rating-item',
-    templateUrl: 'rating-item.component.html',
-    exportAs: 'vclRatingItem',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [HostIconRendererService],
-    standalone: false
+  selector: 'vcl-rating-item',
+  templateUrl: 'rating-item.component.html',
+  exportAs: 'vclRatingItem',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [HostIconRendererService],
+  imports: [NgTemplateOutlet],
 })
 export class RatingItemComponent implements AfterViewInit {
   constructor(

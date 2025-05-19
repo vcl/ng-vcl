@@ -18,15 +18,14 @@ import { NgControl } from '@angular/forms';
 export let UNIQUE_ID = 0;
 
 @Directive({
-    selector: 'input[vclInput]',
-    exportAs: 'vclInput',
-    providers: [
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => InputDirective),
-        },
-    ],
-    standalone: false
+  selector: 'input[vclInput]',
+  exportAs: 'vclInput',
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => InputDirective),
+    },
+  ],
 })
 export class InputDirective
   implements OnDestroy, FormControlGroupInputState<string>

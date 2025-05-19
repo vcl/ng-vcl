@@ -33,10 +33,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    DemoModule,
-    VCLAlertModule,
-    VCLButtonModule,
     RouterModule.forChild([
       {
         path: '',
@@ -45,6 +41,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [AlertDemoComponent],
 })
 export class AlertDemoModule {}

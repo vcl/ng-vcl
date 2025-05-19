@@ -5,12 +5,13 @@ import {
   HostBinding,
 } from '@angular/core';
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
+import { NgStyle } from '@angular/common';
 
 @Component({
-    selector: 'vcl-zoom-box',
-    templateUrl: 'zoom-box.component.html',
-    changeDetection: ChangeDetectionStrategy.Default,
-    standalone: false
+  selector: 'vcl-zoom-box',
+  templateUrl: 'zoom-box.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [NgStyle],
 })
 export class ZoomBoxComponent {
   @Input()

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TourService, TourOptions } from '@vcl/ng-vcl';
+import { TourService, VCLTourModule } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [VCLTourModule],
 })
 export class TourDemoComponent {
   constructor(public tour: TourService) {}

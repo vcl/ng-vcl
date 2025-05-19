@@ -26,9 +26,8 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, BidiModule, PortalModule],
+  imports: [LayerDirective],
   exports: [LayerDirective, OverlayModule, BidiModule, PortalModule],
-  declarations: [LayerDirective],
   providers: [LayerService],
 })
 export class VCLLayerModule {}

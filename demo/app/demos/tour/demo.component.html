@@ -1,70 +1,65 @@
 <section class="vlcContentArea">
-    <vcl-tour-overlay></vcl-tour-overlay>
-    
-    <div class="col">
-        <div>
-            <button type="button" class="button" (click)="startTour()">
-                <div class="icogram">
-                    <span class="text">Start tour</span>
-                </div>
-            </button>
-        </div>   
-        <div>
-            <div class="grid-span-25p">
-                <h1 class="container" #heading1>Heading</h1>
-            </div>
-            <div class="grid-span-25p">
-                <br>
-                <p class="container" #heading2>Heading</p>
-            </div>
-            <div class="grid-span-25p">
-                <br>
-                <p class="container" #heading3>Heading</p>
-            </div>
-            <div class="grid-span-25p">
-                <br>
-                <p class="container" #heading4>Heading</p>
-            </div>
+  <vcl-tour-overlay></vcl-tour-overlay>
+
+  <div class="col">
+    <div>
+      <button type="button" class="button" (click)="startTour()">
+        <div class="icogram">
+          <span class="text">Start tour</span>
         </div>
+      </button>
     </div>
+    <div>
+      <div class="grid-span-25p">
+        <h1 class="container" #heading1>Heading</h1>
+      </div>
+      <div class="grid-span-25p">
+        <br />
+        <p class="container" #heading2>Heading</p>
+      </div>
+      <div class="grid-span-25p">
+        <br />
+        <p class="container" #heading3>Heading</p>
+      </div>
+      <div class="grid-span-25p">
+        <br />
+        <p class="container" #heading4>Heading</p>
+      </div>
+    </div>
+  </div>
 
-    <vcl-tour-step
-        [target]="heading1"
-        title="Step Title">
-            Demo tour first step with title
-    </vcl-tour-step>
+  <vcl-tour-step [target]="heading1" title="Step Title">
+    Demo tour first step with title
+  </vcl-tour-step>
 
-    <vcl-tour-step 
-        [target]="heading2"
-        [offsetY]="50">
-            Demo tour second step no title with Y offset
-    </vcl-tour-step>
-    
-    <vcl-tour-step
-        [target]="heading3"
-        [originX]="'center'"
-        [originY]="'top'"
-        [overlayX]="'center'"
-        [overlayY]="'bottom'">
-            Demo tour third step top position
-    </vcl-tour-step>
+  <vcl-tour-step [target]="heading2" [offsetY]="50">
+    Demo tour second step no title with Y offset
+  </vcl-tour-step>
 
-    <vcl-tour-step
-        [target]="heading4"
-        [originX]="'start'"
-        [overlayX]="'end'"
-        [originY]="'center'"
-        [overlayY]="'center'">
-            Demo tour fourth step left position
-    </vcl-tour-step>
+  <vcl-tour-step
+    [target]="heading3"
+    [originX]="'center'"
+    [originY]="'top'"
+    [overlayX]="'center'"
+    [overlayY]="'bottom'">
+    Demo tour third step top position
+  </vcl-tour-step>
 
-    <vcl-tour-step
-        [target]="heading2"
-        [originX]="'end'"
-        [overlayX]="'start'"
-        [originY]="'center'"
-        [overlayY]="'center'">
-            Demo tour fifth step right position
-    </vcl-tour-step>
-    
+  <vcl-tour-step
+    [target]="heading4"
+    [originX]="'start'"
+    [overlayX]="'end'"
+    [originY]="'center'"
+    [overlayY]="'center'">
+    Demo tour fourth step left position
+  </vcl-tour-step>
+
+  <vcl-tour-step
+    [target]="heading2"
+    [originX]="'end'"
+    [overlayX]="'start'"
+    [originY]="'center'"
+    [overlayY]="'center'">
+    Demo tour fifth step right position
+  </vcl-tour-step>
 </section>

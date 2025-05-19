@@ -7,7 +7,7 @@ Enhanced text input
 ```js
 import { VCLInputModule } from '@vcl/ng-vcl';
 
-@NgModule({
+@Component({
   imports: [ VCLInputModule ],
   ...
 })

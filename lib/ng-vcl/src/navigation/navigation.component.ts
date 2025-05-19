@@ -14,18 +14,17 @@ import { NAVIGATION_TOKEN, Navigation } from './types';
 import { NavigationItemComponent } from './navigation-item.component';
 
 @Component({
-    selector: 'vcl-navigation',
-    templateUrl: 'navigation.component.html',
-    styleUrls: ['navigation.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    providers: [
-        {
-            provide: NAVIGATION_TOKEN,
-            useExisting: forwardRef(() => NavigationComponent),
-        },
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-navigation',
+  templateUrl: 'navigation.component.html',
+  styleUrls: ['navigation.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    {
+      provide: NAVIGATION_TOKEN,
+      useExisting: forwardRef(() => NavigationComponent),
+    },
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent implements Navigation {
   constructor(

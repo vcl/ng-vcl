@@ -4,8 +4,7 @@
 import { NgModule, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-    selector: 'vcl-label, [vclLabel]',
-    standalone: false
+  selector: 'vcl-label, [vclLabel]',
 })
 export class LabelDirective {
   constructor(protected elementRef: ElementRef<HTMLElement>) {}
@@ -19,8 +18,7 @@ export class LabelDirective {
 }
 
 @Directive({
-    selector: 'vcl-sub-label, [vclSubLabel]',
-    standalone: false
+  selector: 'vcl-sub-label, [vclSubLabel]',
 })
 export class SubLabelDirective extends LabelDirective {
   constructor(elementRef: ElementRef<HTMLElement>) {
@@ -28,7 +26,7 @@ export class SubLabelDirective extends LabelDirective {
   }
 }
 @NgModule({
+  imports: [LabelDirective, SubLabelDirective],
   exports: [LabelDirective, SubLabelDirective],
-  declarations: [LabelDirective, SubLabelDirective],
 })
 export class VCLCoreLabelModule {}

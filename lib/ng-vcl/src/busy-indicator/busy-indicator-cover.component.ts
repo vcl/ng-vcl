@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -6,11 +7,11 @@ import {
 } from '@angular/core';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: '[vcl-busy-indicator-cover]',
-    templateUrl: 'busy-indicator-cover.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  // tslint:disable-next-line:component-selector
+  selector: '[vcl-busy-indicator-cover]',
+  templateUrl: 'busy-indicator-cover.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIf],
 })
 export class BusyIndicatorCoverComponent {
   // tslint:disable-next-line:no-input-rename

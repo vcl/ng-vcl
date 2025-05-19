@@ -1,21 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {
-  VCLJssFormModule,
-  VCLNotifierModule,
-  VCLButtonModule,
-  VCLIcogramModule,
-  VCLFormControlGroupModule,
-  FormFieldControl,
-  VCLRadioButtonModule,
-  VCLFlipSwitchModule,
-} from '@vcl/ng-vcl';
-import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
-import { JssFormDemoComponent, SampleEmptyComponent } from './demo.component';
+import { FormFieldControl } from '@vcl/ng-vcl';
+import { DemoComponent } from './../../modules/demo/demo.module';
+import { JssFormDemoComponent } from './demo.component';
 import { FormFieldCounterComponent } from './jss-form-extended';
-import { VCLCounterModule } from '../form-control-group/counter.component';
+
 import README from '!raw-loader!@vcl/ng-vcl/jss-form/README.md';
 
 // Register counter component as field
@@ -52,18 +41,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DemoModule,
-    VCLCounterModule,
-    VCLIcogramModule,
-    VCLButtonModule,
-    VCLFormControlGroupModule,
-    VCLRadioButtonModule,
-    VCLJssFormModule,
-    VCLNotifierModule,
-    VCLFlipSwitchModule,
     RouterModule.forChild([
       {
         path: '',
@@ -71,11 +48,6 @@ export function demo() {
         data: { demo },
       },
     ]),
-  ],
-  declarations: [
-    JssFormDemoComponent,
-    FormFieldCounterComponent,
-    SampleEmptyComponent,
   ],
 })
 export class VCLJssFormDemoModule {}

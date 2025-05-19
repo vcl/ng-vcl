@@ -6,7 +6,8 @@ import {
   HostBinding,
 } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentLayerRef, LayerConfig } from '@vcl/ng-vcl';
+import { ComponentLayerRef, LayerConfig, VCLButtonModule } from '@vcl/ng-vcl';
+import { NgIf } from '@angular/common';
 
 export interface NagLayerData {
   allowDecline: boolean;
@@ -22,8 +23,8 @@ export interface INagLayer
 }
 
 @Component({
-    templateUrl: 'nag.component.html',
-    standalone: false
+  templateUrl: 'nag.component.html',
+  imports: [NgIf, VCLButtonModule],
 })
 export class NagComponent {
   // Inject the ComponentLayerRef and use an interface for typings

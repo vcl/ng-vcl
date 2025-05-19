@@ -10,18 +10,30 @@ import {
 import { Subscription, from } from 'rxjs';
 import { LayerRef } from '../layer/index';
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
+import { NgClass, NgIf } from '@angular/common';
+import { VCLButtonModule } from '../button';
+import { VCLInputModule } from '../input';
+import { VCLIcogramModule } from '../icogram';
+import { VCLFormControlGroupModule } from '../form-control-group';
 
 @Component({
-    templateUrl: 'alert.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styles: [
-        `
+  templateUrl: 'alert.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
       :host {
         outline: none;
       }
     `,
-    ],
-    standalone: false
+  ],
+  imports: [
+    NgIf,
+    NgClass,
+    VCLButtonModule,
+    VCLInputModule,
+    VCLIcogramModule,
+    VCLFormControlGroupModule,
+  ],
 })
 export class AlertComponent implements AfterViewInit, OnDestroy {
   confirmActionSub?: Subscription;

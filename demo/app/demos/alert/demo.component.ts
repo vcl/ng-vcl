@@ -1,5 +1,11 @@
 import { Observable } from 'rxjs';
-import { AlertService, AlertType, AlertInput } from '@vcl/ng-vcl';
+import {
+  AlertService,
+  AlertType,
+  AlertInput,
+  VCLAlertModule,
+  VCLButtonModule,
+} from '@vcl/ng-vcl';
 import { Component } from '@angular/core';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
 
@@ -22,9 +28,9 @@ function createAsyncResult(
 }
 
 @Component({
-    templateUrl: 'demo.component.html',
-    styleUrls: ['demo.component.scss'],
-    standalone: false
+  templateUrl: 'demo.component.html',
+  styleUrls: ['demo.component.scss'],
+  imports: [VCLAlertModule, VCLButtonModule],
 })
 export class AlertDemoComponent {
   constructor(private alert: AlertService) {}

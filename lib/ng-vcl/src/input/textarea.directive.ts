@@ -17,26 +17,22 @@ import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import {
-  FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-  EmbeddedInputFieldLabelInput,
-} from '../input';
+import { EmbeddedInputFieldLabelInput } from '../input';
 import { NgControl } from '@angular/forms';
 
 let UNIQUE_ID = 0;
 @Directive({
-    selector: 'textarea[vclInput]',
-    providers: [
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => TextareaDirective),
-        },
-        // {
-        //   provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-        //   useExisting: forwardRef(() => TextareaDirective)
-        // },
-    ],
-    standalone: false
+  selector: 'textarea[vclInput]',
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => TextareaDirective),
+    },
+    // {
+    //   provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
+    //   useExisting: forwardRef(() => TextareaDirective)
+    // },
+  ],
 })
 export class TextareaDirective
   implements

@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { VCLIcogramModule } from '../icogram/index';
 import { NavigationComponent } from './navigation.component';
 import {
   NavigationItemComponent,
@@ -14,17 +12,15 @@ export {
 };
 
 @NgModule({
-  imports: [CommonModule, VCLIcogramModule],
+  imports: [
+    NavigationComponent,
+    NavigationItemComponent,
+    NavigationLabelComponent,
+  ],
   exports: [
     NavigationComponent,
     NavigationItemComponent,
     NavigationLabelComponent,
   ],
-  declarations: [
-    NavigationComponent,
-    NavigationItemComponent,
-    NavigationLabelComponent,
-  ],
-  providers: [],
 })
 export class VCLNavigationModule {}

@@ -16,19 +16,8 @@ import { VCLFormControlGroupModule } from '../radio-button/index';
 export { AlertService, AlertType, AlertInput, AlertAlignment, AlertResult };
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-    VCLButtonModule,
-    VCLFormControlGroupModule,
-    VCLInputModule,
-    VCLIcogramModule,
-    VCLIconModule,
-    VCLBusyIndicatorModule,
-    VCLLayerModule,
-  ],
+  imports: [],
   exports: [],
-  declarations: [AlertComponent, AlertInputDirective],
   providers: [AlertService],
 })
 export class VCLAlertModule {}

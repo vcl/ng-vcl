@@ -8,10 +8,9 @@ import {
 import { FORM_CONTROL_GROUP_REQUIRED_INDICATOR } from './interfaces';
 
 @Component({
-    selector: 'vcl-required',
-    template: `{{ indicator }}`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-required',
+  template: `{{ indicator }}`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormControlRequiredComponent {
   constructor(

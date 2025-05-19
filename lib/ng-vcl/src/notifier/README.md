@@ -7,7 +7,7 @@ Notification messages for events with growl-style support
 ```js
 import { VCLNotifierModule } from '@vcl/ng-vcl';
 
-@NgModule({
+@Component({
   imports: [ 
     VCLNotifierModule,
   ],

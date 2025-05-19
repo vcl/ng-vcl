@@ -24,31 +24,36 @@ import {
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { VCLIconModule } from '../icon';
 
 let UNIQUE_ID = 0;
 
 @Component({
-    selector: 'vcl-file-input',
-    templateUrl: 'file-input.component.html',
-    exportAs: 'vclFileInput',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: FORM_CONTROL_GROUP_INPUT_STATE,
-            useExisting: forwardRef(() => FileInputComponent),
-        },
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => FileInputComponent),
-            multi: true,
-        },
-    ],
-    standalone: false
+  selector: 'vcl-file-input',
+  templateUrl: 'file-input.component.html',
+  exportAs: 'vclFileInput',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: FORM_CONTROL_GROUP_INPUT_STATE,
+      useExisting: forwardRef(() => FileInputComponent),
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FileInputComponent),
+      multi: true,
+    },
+  ],
+  imports: [NgIf, VCLIconModule],
 })
 export class FileInputComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
 {
-  constructor(private cdRef: ChangeDetectorRef, private injector: Injector) {}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private injector: Injector
+  ) {}
 
   @HostBinding('class.input')
   @HostBinding('class.file-input')

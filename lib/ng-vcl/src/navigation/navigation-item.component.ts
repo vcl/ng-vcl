@@ -12,10 +12,9 @@ import {
 import { NAVIGATION_TOKEN, Navigation } from './types';
 
 @Component({
-    selector: 'vcl-navigation-label',
-    template: '<ng-content></ng-content>',
-    exportAs: 'vclNavigationLabel',
-    standalone: false
+  selector: 'vcl-navigation-label',
+  template: '<ng-content></ng-content>',
+  exportAs: 'vclNavigationLabel',
 })
 export class NavigationLabelComponent {
   @HostBinding('class.navigation-item-label')
@@ -23,13 +22,12 @@ export class NavigationLabelComponent {
 }
 
 @Component({
-    selector: 'vcl-navigation-item',
-    templateUrl: 'navigation-item.component.html',
-    styleUrls: ['navigation-item.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'vclNavigationItem',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-navigation-item',
+  templateUrl: 'navigation-item.component.html',
+  styleUrls: ['navigation-item.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'vclNavigationItem',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationItemComponent {
   constructor(

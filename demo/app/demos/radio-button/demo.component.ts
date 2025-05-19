@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { VCLIcogramModule, VCLRadioButtonModule } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    standalone: false
+  templateUrl: 'demo.component.html',
+  imports: [FormsModule, VCLRadioButtonModule, VCLIcogramModule],
 })
 export class RadioButtonDemoComponent {
   isChecked = false;

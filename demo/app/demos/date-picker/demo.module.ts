@@ -1,16 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  VCLDatePickerModule,
-  VCLButtonModule,
-  VCLFormControlGroupModule,
-  VCLButtonGroupModule,
-} from '@vcl/ng-vcl';
-import { DemoModule, DemoComponent } from '../../modules/demo/demo.module';
+import { DemoComponent } from '../../modules/demo/demo.module';
 import { DatePickerDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/date-picker/README.md';
-import { FormsModule } from '@angular/forms';
 
 export function demo() {
   return {
@@ -35,13 +27,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLButtonModule,
-    VCLButtonGroupModule,
-    VCLFormControlGroupModule,
-    VCLDatePickerModule,
     RouterModule.forChild([
       {
         path: '',
@@ -50,6 +35,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [DatePickerDemoComponent],
 })
 export class DatepickerDemoModule {}

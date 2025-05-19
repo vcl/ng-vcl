@@ -12,6 +12,5 @@ export { ButtonComponent, ButtonHost, BUTTON_HOST_TOKEN };
 @NgModule({
   imports: [ButtonComponent],
   exports: [VCLIconModule, VCLIcogramModule, ButtonComponent],
-  providers: [],
 })
 export class VCLButtonModule {}

@@ -2,6 +2,9 @@ import {
   NotifierPosition,
   NotifierService,
   NotifierOptions,
+  VCLButtonModule,
+  VCLButtonGroupModule,
+  VCLNotifierModule,
 } from '@vcl/ng-vcl';
 import {
   Component,
@@ -25,7 +28,7 @@ let cnt = 1;
       }
     `,
   ],
-  standalone: false,
+  imports: [VCLNotifierModule, VCLButtonGroupModule, VCLButtonModule],
 })
 export class NotifierDemoComponent {
   constructor(private notifier: NotifierService) {}
