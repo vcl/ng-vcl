@@ -29,9 +29,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    DemoModule,
-    VCLZoomBoxModule,
     RouterModule.forChild([
       {
         path: '',
@@ -40,6 +37,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [ZoomBoxDemoComponent],
 })
 export class ZoomBoxDemoModule {}

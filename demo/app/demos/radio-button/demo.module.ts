@@ -30,11 +30,6 @@ export function demo() {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DemoModule,
-    VCLRadioButtonModule,
-    VCLIcogramModule,
     RouterModule.forChild([
       {
         path: '',
@@ -43,6 +38,5 @@ export function demo() {
       },
     ]),
   ],
-  declarations: [RadioButtonDemoComponent],
 })
 export class RadioButtonDemoModule {}

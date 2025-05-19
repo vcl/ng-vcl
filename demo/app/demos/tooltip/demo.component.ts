@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
+import { VCLTooltipModule } from '@vcl/ng-vcl';
 
 @Component({
-    templateUrl: './demo.component.html',
-    styles: [
-        `
+  templateUrl: './demo.component.html',
+  styles: [
+    `
       p {
         text-align: center;
         padding-top: 30px;
       }
     `,
-    ],
-    standalone: false
+  ],
+  imports: [VCLTooltipModule],
 })
 export class ToolTipDemoComponent {}
