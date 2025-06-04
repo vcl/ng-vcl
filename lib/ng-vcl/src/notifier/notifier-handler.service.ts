@@ -5,7 +5,7 @@ import {
   NOTIFIER_CONFIG_TOKEN,
 } from './types';
 import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
-import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { NotifierComponent } from './notifier.component';
 import { NotifierOptions } from './types';
 import { take } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import {
   NotifierOverlayRef,
   NotifierOverlayRefHandler,
 } from './notifier-overlay-ref';
+import { PortalInjector } from './portal-injector';
 
 interface Notification {
   notificationRef: NotifierOverlayRef;
