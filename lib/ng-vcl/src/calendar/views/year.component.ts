@@ -15,9 +15,10 @@ import {
 } from '../interfaces';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { compare } from '../utils';
-import { VCLIconModule } from '@vcl/ng-vcl/icon';
 import { CommonModule } from '@angular/common';
-import { VCLButtonModule } from '@vcl/ng-vcl/button';
+
+import { VCLIconModule } from '../../icon/index';
+import { VCLButtonModule } from '../../button/index';
 
 @Component({
   selector: 'vcl-calendar-view-year',

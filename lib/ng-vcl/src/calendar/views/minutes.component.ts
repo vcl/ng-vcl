@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarMinutes } from '../interfaces';
-import { VCLButtonModule } from '@vcl/ng-vcl/button';
+
+import { VCLButtonModule } from '../../button/index';
 
 @Component({
   selector: 'vcl-calendar-view-minutes',

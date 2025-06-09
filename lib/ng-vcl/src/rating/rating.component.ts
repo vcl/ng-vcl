@@ -65,7 +65,7 @@ let UNIQUE_ID = 0;
       }
     `,
   ],
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, RatingItemComponent],
 })
 export class RatingComponent
   implements

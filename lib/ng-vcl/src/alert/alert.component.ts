@@ -15,6 +15,7 @@ import { VCLButtonModule } from '../button';
 import { VCLInputModule } from '../input';
 import { VCLIcogramModule } from '../icogram';
 import { VCLFormControlGroupModule } from '../form-control-group';
+import { AlertInputDirective } from './input-alert.directive';
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -29,6 +30,7 @@ import { VCLFormControlGroupModule } from '../form-control-group';
   imports: [
     NgIf,
     NgClass,
+    AlertInputDirective,
     VCLButtonModule,
     VCLInputModule,
     VCLIcogramModule,

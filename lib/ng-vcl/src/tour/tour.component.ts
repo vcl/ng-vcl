@@ -13,14 +13,14 @@ import {
   ConnectedPosition,
 } from '@angular/cdk/overlay';
 import { PopoverDirective, VCLPopoverModule } from '../popover/index';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { VCLButtonModule } from '../button';
 
 @Component({
   selector: 'vcl-tour-step',
   templateUrl: './tour.component.html',
   styleUrls: ['./tour.component.scss'],
-  imports: [NgIf, VCLButtonModule, VCLPopoverModule],
+  imports: [NgIf, NgClass, VCLButtonModule, VCLPopoverModule],
 })
 export class TourComponent implements OnInit, OnChanges {
   @ViewChild('popover')
