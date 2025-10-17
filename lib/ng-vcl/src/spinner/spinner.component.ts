@@ -9,6 +9,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VCLIconModule } from '../icon';
 import { VCLButtonGroupModule } from '../button-group';
 import { CommonModule } from '@angular/common';
+import { VCLButtonModule } from '../button';
 
 @Component({
   selector: 'vcl-spinner',
@@ -21,7 +22,7 @@ import { CommonModule } from '@angular/common';
       multi: true,
     },
   ],
-  imports: [VCLIconModule, VCLButtonGroupModule, CommonModule],
+  imports: [VCLIconModule, VCLButtonModule, VCLButtonGroupModule, CommonModule],
 })
 export class SpinnerComponent implements ControlValueAccessor {
   @Input()
