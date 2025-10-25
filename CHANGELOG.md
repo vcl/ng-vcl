@@ -1,3 +1,13 @@
+# [3.3.0](https://github.com/vcl/ng-vcl/compare/v3.2.1...v3.3.0) (2025-06-06)
+
+
+### Bug Fixes
+
+* **notifier:** breaking Portal injector class ([6926eca](https://github.com/vcl/ng-vcl/commit/6926eca1af7a198271d4985cfd38dfafe1468844))
+* **notifier:** mark for changes on closing state ([2d04a08](https://github.com/vcl/ng-vcl/commit/2d04a083cb8a529e8467fdd43cb9092b834db73d))
+
+
+
 ## [3.2.1](https://github.com/vcl/ng-vcl/compare/v3.2.0...v3.2.1) (2024-12-18)
 
 
