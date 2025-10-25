@@ -1,3 +1,15 @@
+# [3.4.0](https://github.com/vcl/ng-vcl/compare/v3.2.1...v3.4.0) (2025-10-25)
+
+
+### Bug Fixes
+
+* **build:** resolve failure due to missing entry point exports ([4602de4](https://github.com/vcl/ng-vcl/commit/4602de4dd25cfec41a7667118bd0051ba32f379e))
+* **notifier:** breaking Portal injector class ([6926eca](https://github.com/vcl/ng-vcl/commit/6926eca1af7a198271d4985cfd38dfafe1468844))
+* **notifier:** mark for changes on closing state ([2d04a08](https://github.com/vcl/ng-vcl/commit/2d04a083cb8a529e8467fdd43cb9092b834db73d))
+* **spinner:** vcl-button to spinner ([171065f](https://github.com/vcl/ng-vcl/commit/171065fa516b4d4b368c2da6c7b902d7302e8403))
+
+
+
 # [3.3.0](https://github.com/vcl/ng-vcl/compare/v3.2.1...v3.3.0) (2025-06-06)
 
 
