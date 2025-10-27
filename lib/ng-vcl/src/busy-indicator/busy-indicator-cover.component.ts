@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -11,9 +10,9 @@ import {
   selector: '[vcl-busy-indicator-cover]',
   templateUrl: 'busy-indicator-cover.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf],
+  imports: [],
 })
-export class BusyIndicatorCoverComponent {
+export class VCLBusyIndicatorCoverComponent {
   // tslint:disable-next-line:no-input-rename
   @Input('vcl-busy-indicator-cover')
   @HostBinding('class.loading-layer-container')
