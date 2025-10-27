@@ -14,29 +14,28 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { VCLIconModule } from '../icon';
-import { VCLIcogramModule } from '../icogram';
+import { VCLIcogramComponent } from '../icogram';
 
 export interface ButtonHost {
   readonly isDisabled: boolean;
-  notifyButtonClick(btn: ButtonComponent): void;
-  notifyButtonFocus(btn: ButtonComponent): void;
-  notifyButtonBlur(btn: ButtonComponent): void;
+  notifyButtonClick(btn: VCLButtonComponent): void;
+  notifyButtonFocus(btn: VCLButtonComponent): void;
+  notifyButtonBlur(btn: VCLButtonComponent): void;
 }
 
 export const BUTTON_HOST_TOKEN = new InjectionToken<ButtonHost>(
   'vcl_button_host'
 );
 
-// TODO vclButton 
+// TODO vclButton
 @Component({
   selector: 'button[vcl-button], a[vcl-button]',
   exportAs: 'vclButton',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'button.component.html',
-  imports: [VCLIconModule, VCLIcogramModule],
+  imports: [VCLIcogramComponent],
 })
-export class ButtonComponent {
+export class VCLButtonComponent {
   constructor(
     private cdRef: ChangeDetectorRef,
     private elementRef: ElementRef<HTMLButtonElement>,

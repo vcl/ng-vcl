@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLIconModule } from '../icon/index';
 import {
-  ButtonComponent,
+  VCLButtonComponent,
   ButtonHost,
   BUTTON_HOST_TOKEN,
 } from './button.component';
 
-export { ButtonComponent, ButtonHost, BUTTON_HOST_TOKEN };
+export { VCLButtonComponent, ButtonHost, BUTTON_HOST_TOKEN };
 
 @NgModule({
-  imports: [ButtonComponent],
-  exports: [VCLIconModule, VCLIcogramModule, ButtonComponent],
+  imports: [VCLButtonComponent],
+  exports: [VCLIconModule, VCLIcogramModule, VCLButtonComponent],
 })
 export class VCLButtonModule {}

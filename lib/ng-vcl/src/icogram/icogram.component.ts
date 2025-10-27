@@ -10,7 +10,7 @@ import {
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IcogramComponent {
+export class VCLIcogramComponent {
   @HostBinding('class.icogram')
   hostClasses = true;
 }
@@ -20,7 +20,7 @@ export class IcogramComponent {
   templateUrl: 'icogram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IcogramLinkComponent extends IcogramComponent {
+export class VCLIcogramLinkComponent extends VCLIcogramComponent {
   @HostBinding('class.content-link')
   clsContentLink = true;
 

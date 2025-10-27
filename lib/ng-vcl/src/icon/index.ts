@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { IconComponent } from './icon.component';
+import { VCLIconComponent } from './icon.component';
 import { IconResolverService } from './icon-resolver.service';
 import { IconService } from './icon.service';
 import { HostIconRendererService } from './host-icon-renderer.service';
@@ -9,7 +9,7 @@ import {
 } from './icon-alias-resolver.service';
 
 export {
-  IconComponent,
+  VCLIconComponent,
   HostIconRendererService,
   IconAliasResolverServiceBase,
   VCLIconAliasMap,
@@ -18,8 +18,8 @@ export {
 };
 
 @NgModule({
-  imports: [IconComponent],
-  exports: [IconComponent],
+  imports: [VCLIconComponent],
+  exports: [VCLIconComponent],
   providers: [IconService],
 })
 export class VCLIconModule {}

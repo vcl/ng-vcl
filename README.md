@@ -1,6 +1,6 @@
 # [ng-vcl](https://vcl.github.io/ng-vcl/master/)
 
-A comprehensive library of components for Angular 14+ with [VCL](http://vcl.github.io/) based styling.
+A comprehensive library of components for Angular 20+ with [VCL](http://vcl.github.io/) based styling.
 
 **[Browse master demo](https://vcl.github.io/ng-vcl/master)**
 

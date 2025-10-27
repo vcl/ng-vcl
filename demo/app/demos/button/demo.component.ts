@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { VCLButtonModule, VCLIconModule } from '@vcl/ng-vcl';
+import { VCLButtonComponent, VCLIconComponent } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
   styleUrls: ['demo.component.scss'],
-  imports: [VCLButtonModule],
+  imports: [VCLButtonComponent, VCLIconComponent],
 })
 export class ButtonDemoComponent {
   someAction(param) {
