@@ -3,8 +3,7 @@ import {
   AlertService,
   AlertType,
   AlertInput,
-  VCLAlertModule,
-  VCLButtonModule,
+  VCLButtonComponent,
 } from '@vcl/ng-vcl';
 import { Component } from '@angular/core';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
@@ -30,7 +29,7 @@ function createAsyncResult(
 @Component({
   templateUrl: 'demo.component.html',
   styleUrls: ['demo.component.scss'],
-  imports: [VCLAlertModule, VCLButtonModule],
+  imports: [VCLButtonComponent],
 })
 export class AlertDemoComponent {
   constructor(private alert: AlertService) {}

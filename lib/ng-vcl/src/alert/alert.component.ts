@@ -13,9 +13,9 @@ import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 import { NgClass } from '@angular/common';
 import { VCLButtonComponent } from '../button';
 import { VCLInputModule } from '../input';
-import { VCLIcogramModule } from '../icogram';
 import { VCLFormControlGroupModule } from '../form-control-group';
 import { VCLAlertInputDirective } from './input-alert.directive';
+import { VCLIconComponent } from '../icon';
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -32,7 +32,7 @@ import { VCLAlertInputDirective } from './input-alert.directive';
     VCLAlertInputDirective,
     VCLButtonComponent,
     VCLInputModule,
-    VCLIcogramModule,
+    VCLIconComponent,
     VCLFormControlGroupModule,
   ],
 })
