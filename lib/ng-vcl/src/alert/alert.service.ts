@@ -6,7 +6,7 @@ import { LayerService } from '../layer/index';
 import { map, take } from 'rxjs/operators';
 import { VCLAlertComponent } from './alert.component';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AlertService {
   constructor(private layerService: LayerService) {}
 
