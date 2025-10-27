@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import {
   VCLDateRange,
   DateAdapterBase,
-  VCLCalendarModule,
-  VCLButtonModule,
+  VCLCalendarComponent,
+  VCLButtonComponent,
 } from '@vcl/ng-vcl';
 import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
 
@@ -17,7 +17,7 @@ import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
       }
     `,
   ],
-  imports: [VCLCalendarModule, NgIf, VCLButtonModule],
+  imports: [VCLCalendarComponent, VCLButtonComponent],
 })
 export class CalendarDemoComponent {
   constructor(private dateAdapter: DateAdapterBase<Date>) {}

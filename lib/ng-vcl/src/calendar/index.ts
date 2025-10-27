@@ -1,10 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CalendarViewMonthComponent } from './views/month.component';
-import { CalendarViewYearComponent } from './views/year.component';
-import { CalendarViewYearsComponent } from './views/years.component';
-import { CalendarViewHoursComponent } from './views/hours.component';
-import { CalendarViewMinutesComponent } from './views/minutes.component';
-import { CalendarComponent } from './calendar.component';
+import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
+  NgModule,
+  Provider,
+} from '@angular/core';
+import { VCLCalendarViewMonthComponent } from './views/month.component';
+import { VCLCalendarViewYearComponent } from './views/year.component';
+import { VCLCalendarViewYearsComponent } from './views/years.component';
+import { VCLCalendarViewHoursComponent } from './views/hours.component';
+import { VCLCalendarViewMinutesComponent } from './views/minutes.component';
+import { VCLCalendarComponent } from './calendar.component';
 import {
   VCLCalendarView,
   VCLCalendarDateModifier,
@@ -21,34 +26,52 @@ import {
 } from './calendar.handlers';
 
 export {
-  CalendarComponent,
-  CalendarViewYearsComponent,
-  CalendarViewYearComponent,
-  CalendarViewMonthComponent,
-  CalendarViewHoursComponent,
-  CalendarViewMinutesComponent,
+  VCLCalendarComponent,
+  VCLCalendarViewYearsComponent,
+  VCLCalendarViewYearComponent,
+  VCLCalendarViewMonthComponent,
+  VCLCalendarViewHoursComponent,
+  VCLCalendarViewMinutesComponent,
   VCLCalendarView,
   VCLCalendarDateModifier,
   VCLCalendarHandler,
   VCLCalendar,
 };
 
+export function provideVclCalendar(
+  extraHandlers: Provider[] = []
+): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    { provide: VCLCalendarHandler, useClass: DateSingleHandler, multi: true },
+    { provide: VCLCalendarHandler, useClass: DateMultipleHandler, multi: true },
+    { provide: VCLCalendarHandler, useClass: DateRangeHandler, multi: true },
+    { provide: VCLCalendarHandler, useClass: MonthSingleHandler, multi: true },
+    {
+      provide: VCLCalendarHandler,
+      useClass: MonthMultipleHandler,
+      multi: true,
+    },
+    { provide: VCLCalendarHandler, useClass: MonthRangeHandler, multi: true },
+    ...extraHandlers,
+  ]);
+}
+
 @NgModule({
   imports: [
-    CalendarComponent,
-    CalendarViewYearsComponent,
-    CalendarViewYearComponent,
-    CalendarViewMonthComponent,
-    CalendarViewHoursComponent,
-    CalendarViewMinutesComponent,
+    VCLCalendarComponent,
+    VCLCalendarViewYearsComponent,
+    VCLCalendarViewYearComponent,
+    VCLCalendarViewMonthComponent,
+    VCLCalendarViewHoursComponent,
+    VCLCalendarViewMinutesComponent,
   ],
   exports: [
-    CalendarComponent,
-    CalendarViewYearsComponent,
-    CalendarViewYearComponent,
-    CalendarViewMonthComponent,
-    CalendarViewHoursComponent,
-    CalendarViewMinutesComponent,
+    VCLCalendarComponent,
+    VCLCalendarViewYearsComponent,
+    VCLCalendarViewYearComponent,
+    VCLCalendarViewMonthComponent,
+    VCLCalendarViewHoursComponent,
+    VCLCalendarViewMinutesComponent,
   ],
   providers: [
     {
