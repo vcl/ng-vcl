@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { AlertOptions, AlertType, AlertResult, ALERT_DEFAULTS } from './types';
 import { LayerService } from '../layer/index';
 import { map, take } from 'rxjs/operators';
-import { AlertComponent } from './alert.component';
+import { VCLAlertComponent } from './alert.component';
 
 @Injectable()
 export class AlertService {
@@ -40,7 +40,7 @@ export class AlertService {
   open(...opts: AlertOptions[]): Observable<AlertResult> {
     const alert: AlertOptions = Object.assign({}, ALERT_DEFAULTS, ...opts);
 
-    const layer = this.layerService.create(AlertComponent);
+    const layer = this.layerService.create(VCLAlertComponent);
 
     layer.open({
       closeOnBackdropClick: alert.closeOnBackdropClick,

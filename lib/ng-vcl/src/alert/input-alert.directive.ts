@@ -14,7 +14,7 @@ import { AlertOptions, AlertInput } from './types';
 @Directive({
   selector: '[vclInputAlert]',
 })
-export class AlertInputDirective implements OnInit, AfterViewInit {
+export class VCLAlertInputDirective implements OnInit, AfterViewInit {
   constructor(private elementRef: ElementRef<HTMLInputElement>) {}
 
   get input() {

@@ -10,12 +10,12 @@ import {
 import { Subscription, from } from 'rxjs';
 import { LayerRef } from '../layer/index';
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
-import { NgClass, NgIf } from '@angular/common';
-import { VCLButtonModule } from '../button';
+import { NgClass } from '@angular/common';
+import { VCLButtonComponent } from '../button';
 import { VCLInputModule } from '../input';
 import { VCLIcogramModule } from '../icogram';
 import { VCLFormControlGroupModule } from '../form-control-group';
-import { AlertInputDirective } from './input-alert.directive';
+import { VCLAlertInputDirective } from './input-alert.directive';
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -28,16 +28,15 @@ import { AlertInputDirective } from './input-alert.directive';
     `,
   ],
   imports: [
-    NgIf,
     NgClass,
-    AlertInputDirective,
-    VCLButtonModule,
+    VCLAlertInputDirective,
+    VCLButtonComponent,
     VCLInputModule,
     VCLIcogramModule,
     VCLFormControlGroupModule,
   ],
 })
-export class AlertComponent implements AfterViewInit, OnDestroy {
+export class VCLAlertComponent implements AfterViewInit, OnDestroy {
   confirmActionSub?: Subscription;
 
   constructor(
