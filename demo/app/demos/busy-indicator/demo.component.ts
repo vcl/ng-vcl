@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import {
   VCLBusyIndicatorComponent,
   VCLBusyIndicatorCoverComponent,
-  VCLButtonModule,
+  VCLButtonComponent,
 } from '@vcl/ng-vcl';
 
 @Component({
@@ -12,7 +12,7 @@ import {
   imports: [
     VCLBusyIndicatorComponent,
     VCLBusyIndicatorCoverComponent,
-    VCLButtonModule,
+    VCLButtonComponent,
   ],
 })
 export class BusyDemoComponent {

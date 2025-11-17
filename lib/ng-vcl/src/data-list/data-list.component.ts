@@ -17,12 +17,12 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
-import { DataListItemDirective } from './data-list-item.directive';
+import { VCLDataListItemDirective } from './data-list-item.directive';
 
 @Directive({
   selector: 'vcl-data-list-header',
 })
-export class DataListHeaderDirective {
+export class VCLDataListHeaderDirective {
   @HostBinding('class.data-list-header')
   hostClasses = true;
 }
@@ -30,7 +30,7 @@ export class DataListHeaderDirective {
 @Directive({
   selector: 'vcl-data-list-footer',
 })
-export class DataListFooterDirective {
+export class VCLDataListFooterDirective {
   @HostBinding('class.data-list-footer')
   hostClasses = true;
 }
@@ -45,11 +45,11 @@ export class DataListFooterDirective {
   providers: [
     {
       provide: DATA_LIST_TOKEN,
-      useExisting: forwardRef(() => DataListComponent),
+      useExisting: forwardRef(() => VCLDataListComponent),
     },
   ],
 })
-export class DataListComponent
+export class VCLDataListComponent
   implements DataList, AfterContentInit, OnDestroy, ControlValueAccessor
 {
   constructor(
@@ -94,7 +94,7 @@ export class DataListComponent
   @Output()
   valueChange = new EventEmitter<any | any[]>();
 
-  @ContentChildren(DataListItemDirective)
+  @ContentChildren(VCLDataListItemDirective)
   private _items?: QueryList<DataListItem>;
 
   get isDisabled() {

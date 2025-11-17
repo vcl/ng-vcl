@@ -52,6 +52,7 @@
     "marked": "^16.4.1",
     "ngx-markdown": "^20.1.0",
     "normalize.css": "^8.0.1",
+    "prismjs": "^1.30.0",
     "raw-loader": "^4.0.2",
     "rxjs": "^7.8.2",
     "sass": "^1.93.2",

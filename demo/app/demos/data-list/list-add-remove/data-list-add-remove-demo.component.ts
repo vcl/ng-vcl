@@ -1,16 +1,17 @@
 import { Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import {
-  DataListItemDirective,
+  VCLDataListItemDirective,
   LayerRef,
   LayerService,
-  VCLDataListModule,
   VCLIcogramModule,
   VCLRadioButtonModule,
+  VCLDataListComponent,
+  VCLDataListHeaderDirective,
 } from '@vcl/ng-vcl';
 import { Subscription } from 'rxjs';
 import { CreateCountryComponent } from './create-kitten.component';
 import { data, Kitten } from './data';
-import { JsonPipe, NgFor, NgTemplateOutlet } from '@angular/common';
+import { JsonPipe, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'data-list-add-remove-demo',
@@ -19,10 +20,11 @@ import { JsonPipe, NgFor, NgTemplateOutlet } from '@angular/common';
   imports: [
     NgTemplateOutlet,
     JsonPipe,
-    NgFor,
     VCLRadioButtonModule,
     VCLIcogramModule,
-    VCLDataListModule,
+    VCLDataListItemDirective,
+    VCLDataListComponent,
+    VCLDataListHeaderDirective,
   ],
 })
 export class DataListAddRemoveDemo implements OnDestroy {
@@ -33,8 +35,8 @@ export class DataListAddRemoveDemo implements OnDestroy {
   selectedValues = [];
   kittensList: Kitten[] = data;
 
-  @ViewChildren(DataListItemDirective)
-  dataListItems!: QueryList<DataListItemDirective>;
+  @ViewChildren(VCLDataListItemDirective)
+  dataListItems!: QueryList<VCLDataListItemDirective>;
 
   constructor(private layerService: LayerService) {
     this.createCountryLayer = this.layerService.create(CreateCountryComponent, {

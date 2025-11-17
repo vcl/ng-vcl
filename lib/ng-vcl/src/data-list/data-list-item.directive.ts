@@ -23,11 +23,11 @@ import { Subscription } from 'rxjs';
   providers: [
     {
       provide: DATA_LIST_ITEM_TOKEN,
-      useExisting: forwardRef(() => DataListItemDirective),
+      useExisting: forwardRef(() => VCLDataListItemDirective),
     },
   ],
 })
-export class DataListItemDirective implements DataListItem, OnDestroy {
+export class VCLDataListItemDirective implements DataListItem, OnDestroy {
   constructor(
     @Inject(DATA_LIST_TOKEN)
     private dataList: DataList,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   ComponentLayerRef,
-  VCLButtonModule,
+  VCLButtonComponent,
   VCLFormControlGroupModule,
   VCLInputModule,
   VCLPanelModule,
@@ -41,7 +41,7 @@ import {
   `,
   imports: [
     FormsModule,
-    VCLButtonModule,
+    VCLButtonComponent,
     VCLPanelModule,
     VCLFormControlGroupModule,
     VCLInputModule,

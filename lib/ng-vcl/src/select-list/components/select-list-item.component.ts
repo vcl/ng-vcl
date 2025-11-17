@@ -17,7 +17,7 @@ import {
   SelectListItem,
   SELECT_LIST_CONTENT_TOKEN,
 } from '../types';
-import { LabelDirective, SubLabelDirective } from '../../core/index';
+import { VCLLabelDirective, VCLSubLabelDirective } from '../../core/index';
 
 @Component({
   selector: 'vcl-select-list-item',
@@ -86,14 +86,14 @@ export class SelectListItemComponent implements SelectListItem {
   @Input('label')
   _label?: string;
 
-  @ContentChild(LabelDirective, { read: LabelDirective })
-  _labelDirective?: LabelDirective;
+  @ContentChild(VCLLabelDirective, { read: VCLLabelDirective })
+  _labelDirective?: VCLLabelDirective;
 
   @ViewChild('label', { read: ElementRef })
   _labelElementRef?: ElementRef<HTMLElement>;
 
-  @ContentChild(SubLabelDirective)
-  _subLabel: SubLabelDirective;
+  @ContentChild(VCLSubLabelDirective)
+  _subLabel: VCLSubLabelDirective;
 
   get label() {
     if (this._label) {
