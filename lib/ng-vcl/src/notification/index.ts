@@ -1,33 +1,33 @@
 import { NgModule } from '@angular/core';
 import {
-  NotificationComponent,
-  NotificationFooterDirective,
-  NotificationHeaderDirective,
-  NotificationTitleDirective,
+  VCLNotificationComponent,
+  VCLNotificationFooterDirective,
+  VCLNotificationHeaderDirective,
+  VCLNotificationTitleDirective,
 } from './notification.component';
 import { NotificationType, NOTIFICATION_TYPE_CLASS_MAP } from './types';
 
 export {
-  NotificationComponent,
+  VCLNotificationComponent,
   NotificationType,
   NOTIFICATION_TYPE_CLASS_MAP,
-  NotificationTitleDirective,
-  NotificationHeaderDirective,
-  NotificationFooterDirective,
+  VCLNotificationTitleDirective,
+  VCLNotificationHeaderDirective,
+  VCLNotificationFooterDirective,
 };
 
 @NgModule({
   imports: [
-    NotificationComponent,
-    NotificationFooterDirective,
-    NotificationHeaderDirective,
-    NotificationTitleDirective,
+    VCLNotificationComponent,
+    VCLNotificationFooterDirective,
+    VCLNotificationHeaderDirective,
+    VCLNotificationTitleDirective,
   ],
   exports: [
-    NotificationComponent,
-    NotificationFooterDirective,
-    NotificationHeaderDirective,
-    NotificationTitleDirective,
+    VCLNotificationComponent,
+    VCLNotificationFooterDirective,
+    VCLNotificationHeaderDirective,
+    VCLNotificationTitleDirective,
   ],
 })
 export class VCLNotificationModule {}
