@@ -2,19 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
-import { TooltipComponent } from './tooltip.component';
-import { TooltipDirective } from './tooltip.directive';
+import { VCLTooltipComponent } from './tooltip.component';
+import { VCLTooltipDirective } from './tooltip.directive';
 
-export { TooltipComponent, TooltipDirective };
+export { VCLTooltipComponent, VCLTooltipDirective };
 
 @NgModule({
   imports: [
     CommonModule,
     OverlayModule,
     PortalModule,
-    TooltipComponent,
-    TooltipDirective,
+    VCLTooltipComponent,
+    VCLTooltipDirective,
   ],
-  exports: [TooltipComponent, TooltipDirective, PortalModule],
+  exports: [VCLTooltipComponent, VCLTooltipDirective, PortalModule],
 })
 export class VCLTooltipModule {}
