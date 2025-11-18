@@ -27,7 +27,7 @@ import { DOCUMENT } from '@angular/common';
   selector: '[vclOffClick]',
   exportAs: 'vclOffClick',
 })
-export class OffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
+export class VCLOffClickDirective implements OnDestroy, OnChanges, AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private document: any,
     private elementRef: ElementRef
