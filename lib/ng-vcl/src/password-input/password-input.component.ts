@@ -26,17 +26,17 @@ import { VCLIconModule } from '../icon';
   providers: [
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => PasswordInputComponent),
+      useExisting: forwardRef(() => VCLPasswordInputComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordInputComponent),
+      useExisting: forwardRef(() => VCLPasswordInputComponent),
       multi: true,
     },
   ],
   imports: [VCLIconModule, VCLButtonComponent],
 })
-export class PasswordInputComponent
+export class VCLPasswordInputComponent
   implements AfterContentInit, EmbeddedInputFieldLabelInput
 {
   private stateChangedEmitter = new Subject<void>();
