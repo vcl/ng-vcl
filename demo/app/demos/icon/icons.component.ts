@@ -6,10 +6,8 @@ import {
   IconResolverService,
   MaterialDesignIconResolverService,
   FontAwesomeIconResolverService,
-  VCLIconModule,
+  VCLIconComponent,
 } from '@vcl/ng-vcl';
-
-// Icon resolvers can be set on module or component level by setting providers
 
 @Component({
   templateUrl: 'icons.component.html',
@@ -27,7 +25,7 @@ import {
       multi: true,
     },
   ],
-  imports: [VCLIconModule],
+  imports: [VCLIconComponent],
 })
 export class DemoMdiIconsComponent {}
 
@@ -47,6 +45,6 @@ export class DemoMdiIconsComponent {}
       multi: true,
     },
   ],
-  imports: [VCLIconModule],
+  imports: [VCLIconComponent],
 })
 export class DemoFontAwesomeComponent {}

@@ -17,11 +17,11 @@ import {
   VCLCalendar,
 } from './interfaces';
 import { CommonModule } from '@angular/common';
-import { CalendarViewMinutesComponent } from './views/minutes.component';
-import { CalendarViewHoursComponent } from './views/hours.component';
-import { CalendarViewMonthComponent } from './views/month.component';
-import { CalendarViewYearComponent } from './views/year.component';
-import { CalendarViewYearsComponent } from './views/years.component';
+import { VCLCalendarViewMinutesComponent } from './views/minutes.component';
+import { VCLCalendarViewHoursComponent } from './views/hours.component';
+import { VCLCalendarViewMonthComponent } from './views/month.component';
+import { VCLCalendarViewYearComponent } from './views/year.component';
+import { VCLCalendarViewYearsComponent } from './views/years.component';
 
 export type VCLCalendarSelectionMode =
   | 'date'
@@ -37,14 +37,14 @@ export type VCLCalendarSelectionMode =
   exportAs: 'vclCalendar',
   imports: [
     CommonModule,
-    CalendarViewMinutesComponent,
-    CalendarViewHoursComponent,
-    CalendarViewMonthComponent,
-    CalendarViewYearComponent,
-    CalendarViewYearsComponent,
+    VCLCalendarViewMinutesComponent,
+    VCLCalendarViewHoursComponent,
+    VCLCalendarViewMonthComponent,
+    VCLCalendarViewYearComponent,
+    VCLCalendarViewYearsComponent,
   ],
 })
-export class CalendarComponent<VCLDate>
+export class VCLCalendarComponent<VCLDate>
   implements OnInit, ControlValueAccessor, VCLCalendar<VCLDate>
 {
   constructor(

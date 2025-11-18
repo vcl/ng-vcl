@@ -26,7 +26,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TemplateLayerRef, LayerConfig } from '../layer/index';
-import { SelectListItem, SelectListComponent } from '../select-list/index';
+import { SelectListItem, VCLSelectListComponent } from '../select-list/index';
 import {
   EmbeddedInputFieldLabelInput,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
@@ -49,16 +49,15 @@ import { NgIf } from '@angular/common';
     // FormControlState,
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
+      useExisting: forwardRef(() => VCLSelectComponent),
       multi: true,
     },
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => SelectComponent),
+      useExisting: forwardRef(() => VCLSelectComponent),
     },
   ],
   imports: [
-    NgIf,
     VCLInputModule,
     VCLIconModule,
     VCLButtonModule,
@@ -66,7 +65,7 @@ import { NgIf } from '@angular/common';
     VCLFormControlGroupModule,
   ],
 })
-export class SelectComponent
+export class VCLSelectComponent
   extends TemplateLayerRef<any, SelectListItem>
   implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput
 {
@@ -86,8 +85,8 @@ export class SelectComponent
   private _focused = false;
   prependedElements = 0;
 
-  @ContentChild(SelectListComponent)
-  selectList: SelectListComponent;
+  @ContentChild(VCLSelectListComponent)
+  selectList: VCLSelectListComponent;
 
   @ViewChild('input', { read: ElementRef, static: true })
   input: ElementRef<HTMLInputElement>;

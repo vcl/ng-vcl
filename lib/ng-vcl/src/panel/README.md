@@ -10,7 +10,12 @@ import { VCLPanelModule } from '@vcl/ng-vcl';
 
 @Component({
   imports: [
-    VCLPanelModule
+    VCLPanelComponent,
+    VCLPanelTitleDirective,
+    VCLPanelHeaderDirective
+    VCLPanelFooterDirective
+    VCLPanelFooterButtonDirective,
+    PanelDialogDirective
   ],
   ...
 })

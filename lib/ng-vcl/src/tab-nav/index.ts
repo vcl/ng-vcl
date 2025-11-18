@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { VCLCoreLabelModule } from '../core/index';
-import { TabNavComponent } from './tab-nav.component';
-import { TabComponent, TabLabelDirective } from './tab.component';
+import { VCLTabNavComponent } from './tab-nav.component';
+import { VCLTabComponent, VCLTabLabelDirective } from './tab.component';
 
-export { TabComponent, TabLabelDirective, TabNavComponent };
+export { VCLTabComponent, VCLTabLabelDirective, VCLTabNavComponent };
 
 @NgModule({
   imports: [
     VCLCoreLabelModule,
-    TabComponent,
-    TabLabelDirective,
-    TabNavComponent,
+    VCLTabComponent,
+    VCLTabLabelDirective,
+    VCLTabNavComponent,
   ],
   exports: [
-    TabComponent,
-    TabLabelDirective,
-    TabNavComponent,
+    VCLTabComponent,
+    VCLTabLabelDirective,
+    VCLTabNavComponent,
     VCLCoreLabelModule,
   ],
 })

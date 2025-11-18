@@ -19,7 +19,7 @@ import { VCLButtonModule } from '../../button/index';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [VCLButtonModule],
 })
-export class CalendarViewHoursComponent<VCLDate> implements OnChanges {
+export class VCLCalendarViewHoursComponent<VCLDate> implements OnChanges {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {
     this.updateCalendarHours();
   }

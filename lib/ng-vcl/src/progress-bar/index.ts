@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ProgressBarComponent } from './progress-bar.component';
+import { VCLProgressBarComponent } from './progress-bar.component';
 
-export { ProgressBarComponent };
+export { VCLProgressBarComponent };
 @NgModule({
-  imports: [ProgressBarComponent],
-  exports: [ProgressBarComponent],
+  imports: [VCLProgressBarComponent],
+  exports: [VCLProgressBarComponent],
 })
 export class VCLProgressBarModule {}

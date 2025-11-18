@@ -6,10 +6,10 @@ It is the main control for triggering actions.
 ## Usage
 
 ```js
-import { VCLButtonModule } from '@vcl/ng-vcl';
+import { VCLButtonComponent } from '@vcl/ng-vcl';
 
-@NgModule({
-  imports: [ VCLButtonModule ],
+@Component({
+  imports: [ VCLButtonComponent ],
   ...
 })
 export class AppComponent { ... }

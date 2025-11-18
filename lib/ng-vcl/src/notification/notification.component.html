@@ -1,14 +1,29 @@
 <ng-content select="vcl-notification-header"></ng-content>
-<div class="notification-header title-container row align-items-center" *ngIf="hasTitle || showCloseButton">
-  <ng-content select="vcl-notification-title"></ng-content>
-  <div class="flex"></div>
-  <button vcl-button square *ngIf="showCloseButton" type="button" (click)="onCloseClick()" class="transparent">
-    <vcl-icon icon="vcl:close"></vcl-icon>
-  </button>  
-</div>
-<div *ngIf="hasIcon" class="notification-icon-container">
-  <vcl-icon class="notification-icon" [icon]="icon || typeIcon"></vcl-icon>
-</div>
+
+@if (hasTitle || showCloseButton) {
+  <div class="notification-header title-container row align-items-center">
+    <ng-content select="vcl-notification-title"></ng-content>
+    <div class="flex"></div>
+
+    @if (showCloseButton) {
+      <button
+        vcl-button
+        square
+        type="button"
+        (click)="onCloseClick()"
+        class="transparent">
+        <vcl-icon icon="vcl:close"></vcl-icon>
+      </button>
+    }
+  </div>
+}
+
+@if (hasIcon) {
+  <div class="notification-icon-container">
+    <vcl-icon class="notification-icon" [icon]="icon || typeIcon"></vcl-icon>
+  </div>
+}
+
 <div class="notification-content row">
   <div class="flex">
     <ng-content></ng-content>

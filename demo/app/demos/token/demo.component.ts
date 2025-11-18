@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
-import { VCLTokenModule } from '@vcl/ng-vcl';
+import {
+  VCLTokenComponent,
+  VCLTokenInputContainerComponent,
+  VCLTokenListComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLTokenModule],
+  imports: [
+    VCLTokenComponent,
+    VCLTokenListComponent,
+    VCLTokenInputContainerComponent,
+  ],
 })
 export class TokenDemoComponent {
   onRemove(token) {

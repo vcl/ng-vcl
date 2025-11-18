@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
-import { TokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
+import { VCLTokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
 import { TokenObserver, Token } from './interfaces';
 
 @Component({
@@ -27,17 +27,17 @@ import { TokenObserver, Token } from './interfaces';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TokenListComponent),
+      useExisting: forwardRef(() => VCLTokenListComponent),
       multi: true,
     },
     {
       provide: TOKEN_OBSERVER_TOKEN,
-      useExisting: TokenListComponent,
+      useExisting: VCLTokenListComponent,
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TokenListComponent
+export class VCLTokenListComponent
   implements
     AfterContentInit,
     OnChanges,
@@ -55,8 +55,8 @@ export class TokenListComponent
   @HostBinding('class.token-container')
   _hostClasses = true;
 
-  @ContentChildren(TokenComponent)
-  tokens?: QueryList<TokenComponent>;
+  @ContentChildren(VCLTokenComponent)
+  tokens?: QueryList<VCLTokenComponent>;
 
   @Input()
   disabled = false;

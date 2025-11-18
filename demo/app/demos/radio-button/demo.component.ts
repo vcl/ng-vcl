@@ -1,10 +1,21 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { VCLIcogramModule, VCLRadioButtonModule } from '@vcl/ng-vcl';
+import {
+  VCLIcogramComponent,
+  VCLIconComponent,
+  VCLRadioButtonComponent,
+  VCLRadioGroupComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [FormsModule, VCLRadioButtonModule, VCLIcogramModule],
+  imports: [
+    FormsModule,
+    VCLRadioGroupComponent,
+    VCLRadioButtonComponent,
+    VCLIcogramComponent,
+    VCLIconComponent,
+  ],
 })
 export class RadioButtonDemoComponent {
   isChecked = false;

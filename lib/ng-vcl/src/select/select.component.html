@@ -13,22 +13,30 @@
     role="listbox"
     autocomplete="off"
     [readonly]="!search"
-    (keyup)="inputChange($event)"
-  />
+    (keyup)="inputChange($event)" />
+
+  @if (clearable && inputValue) {
+    <button
+      vclAppend
+      vcl-button
+      square
+      type="button"
+      tabindex="-1"
+      class="appended"
+      [disabled]="isDisabled"
+      (click)="clearSelection($event)">
+      <vcl-icon icon="vcl:close"></vcl-icon>
+    </button>
+  }
+
   <button
-    *ngIf="clearable && inputValue"
     vclAppend
     vcl-button
     square
     type="button"
     tabindex="-1"
     class="appended"
-    [disabled]="isDisabled"
-    (click)="clearSelection($event)"
-  >
-    <vcl-icon icon="vcl:close"></vcl-icon>
-  </button>
-  <button vclAppend vcl-button square type="button" tabindex="-1" class="appended" [disabled]="isDisabled">
+    [disabled]="isDisabled">
     <vcl-icon icon="vcl:arrow-down"></vcl-icon>
   </button>
 </vcl-input-field>
@@ -36,8 +44,8 @@
 <ng-template #innerList>
   <div style="width: 100%" (vclOffClick)="close()">
     <ng-content></ng-content>
-    <ng-container *ngIf="listEmpty">
+    @if (listEmpty) {
       <ng-content select="[empty]"></ng-content>
-    </ng-container>
+    }
   </div>
 </ng-template>

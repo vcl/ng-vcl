@@ -10,14 +10,14 @@ import { routes } from './../../app-routing.module';
 import Fuse from 'fuse.js';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { DrawerComponent } from '@vcl/ng-vcl';
+import { VCLDrawerComponent } from '@vcl/ng-vcl';
 
 declare var gitBranch: string;
 
 @Component({
-    selector: 'demo-app',
-    templateUrl: 'app.component.html',
-    standalone: false
+  selector: 'demo-app',
+  templateUrl: 'app.component.html',
+  standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(
@@ -27,9 +27,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer', {
     static: true,
-    read: DrawerComponent,
+    read: VCLDrawerComponent,
   })
-  drawer: DrawerComponent;
+  drawer: VCLDrawerComponent;
 
   breakpointSub: Subscription;
 

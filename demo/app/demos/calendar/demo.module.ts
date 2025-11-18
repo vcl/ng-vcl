@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { DemoComponent } from './../../modules/demo/demo.module';
 import { CalendarDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/calendar/README.md';
+import { provideVclCalendar } from '@vcl/ng-vcl';
 
 export function demo() {
   return {
@@ -32,6 +33,7 @@ export function demo() {
         path: '',
         component: DemoComponent,
         data: { demo },
+        providers: [provideVclCalendar()],
       },
     ]),
   ],

@@ -16,7 +16,7 @@ import { HostIconRendererService } from './host-icon-renderer.service';
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IconComponent implements OnChanges, AfterViewInit {
+export class VCLIconComponent implements OnChanges, AfterViewInit {
   constructor(
     private hostIcon: HostIconRendererService,
     private elementRef: ElementRef

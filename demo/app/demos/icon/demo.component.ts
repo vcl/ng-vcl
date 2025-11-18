@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { VCLIconModule } from '@vcl/ng-vcl';
+import { VCLIconComponent } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLIconModule],
+  imports: [VCLIconComponent],
 })
 export class IconDemoComponent {}

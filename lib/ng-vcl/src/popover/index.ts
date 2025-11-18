@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { PopoverDirective } from './popover.directive';
+import { VCLPopoverDirective } from './popover.directive';
 
-export { PopoverDirective };
+export { VCLPopoverDirective };
 
 @NgModule({
-  imports: [PopoverDirective],
-  exports: [PopoverDirective],
+  imports: [VCLPopoverDirective],
+  exports: [VCLPopoverDirective],
 })
 export class VCLPopoverModule {}

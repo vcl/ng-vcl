@@ -6,7 +6,7 @@ import { NgModule, Directive, ElementRef, Input } from '@angular/core';
 @Directive({
   selector: 'vcl-label, [vclLabel]',
 })
-export class LabelDirective {
+export class VCLLabelDirective {
   constructor(protected elementRef: ElementRef<HTMLElement>) {}
 
   @Input('label')
@@ -20,13 +20,13 @@ export class LabelDirective {
 @Directive({
   selector: 'vcl-sub-label, [vclSubLabel]',
 })
-export class SubLabelDirective extends LabelDirective {
+export class VCLSubLabelDirective extends VCLLabelDirective {
   constructor(elementRef: ElementRef<HTMLElement>) {
     super(elementRef);
   }
 }
 @NgModule({
-  imports: [LabelDirective, SubLabelDirective],
-  exports: [LabelDirective, SubLabelDirective],
+  imports: [VCLLabelDirective, VCLSubLabelDirective],
+  exports: [VCLLabelDirective, VCLSubLabelDirective],
 })
 export class VCLCoreLabelModule {}

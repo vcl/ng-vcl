@@ -1,10 +1,9 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { VCLOffClickModule } from '@vcl/ng-vcl';
+import { VCLOffClickDirective } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [NgIf, VCLOffClickModule],
+  imports: [VCLOffClickDirective],
 })
 export class OffClickDemoComponent {
   clicks = 0;

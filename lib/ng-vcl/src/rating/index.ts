@@ -1,11 +1,23 @@
 import { NgModule } from '@angular/core';
-import { RatingComponent } from './rating.component';
-import { RatingItemComponent } from './rating-item.component';
-import { RatingItemLabelComponent } from './rating-label.component';
+import { VCLRatingComponent } from './rating.component';
+import { VCLRatingItemComponent } from './rating-item.component';
+import { VCLRatingItemLabelComponent } from './rating-label.component';
 
-export { RatingComponent, RatingItemComponent, RatingItemLabelComponent };
+export {
+  VCLRatingComponent,
+  VCLRatingItemComponent,
+  VCLRatingItemLabelComponent,
+};
 @NgModule({
-  imports: [RatingComponent, RatingItemComponent, RatingItemLabelComponent],
-  exports: [RatingComponent, RatingItemComponent, RatingItemLabelComponent],
+  imports: [
+    VCLRatingComponent,
+    VCLRatingItemComponent,
+    VCLRatingItemLabelComponent,
+  ],
+  exports: [
+    VCLRatingComponent,
+    VCLRatingItemComponent,
+    VCLRatingItemLabelComponent,
+  ],
 })
 export class VCLRatingModule {}

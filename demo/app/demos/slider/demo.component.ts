@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { VCLSliderModule } from '@vcl/ng-vcl';
+import { VCLSliderComponent } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLSliderModule],
+  imports: [VCLSliderComponent],
 })
 export class SliderDemoComponent {
   value1 = 0;

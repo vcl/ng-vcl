@@ -7,14 +7,14 @@
  */
 
 import { NgModule } from '@angular/core';
-import { DrawerContainerComponent } from './drawer-container.component';
-import { DrawerComponent } from './drawer.component';
+import { VCLDrawerContainerComponent } from './drawer-container.component';
+import { VCLDrawerComponent } from './drawer.component';
 
-export { DrawerComponent, DrawerContainerComponent };
+export { VCLDrawerComponent, VCLDrawerContainerComponent };
 
 @NgModule({
-  imports: [DrawerComponent, DrawerContainerComponent],
-  exports: [DrawerComponent, DrawerContainerComponent],
+  imports: [VCLDrawerComponent, VCLDrawerContainerComponent],
+  exports: [VCLDrawerComponent, VCLDrawerContainerComponent],
   declarations: [],
 })
 export class VCLDrawerModule {}

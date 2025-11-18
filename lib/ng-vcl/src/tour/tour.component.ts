@@ -12,7 +12,7 @@ import {
   VerticalConnectionPos,
   ConnectedPosition,
 } from '@angular/cdk/overlay';
-import { PopoverDirective, VCLPopoverModule } from '../popover/index';
+import { VCLPopoverDirective, VCLPopoverModule } from '../popover/index';
 import { NgClass, NgIf } from '@angular/common';
 import { VCLButtonModule } from '../button';
 
@@ -24,7 +24,7 @@ import { VCLButtonModule } from '../button';
 })
 export class TourComponent implements OnInit, OnChanges {
   @ViewChild('popover')
-  public readonly popover: PopoverDirective;
+  public readonly popover: VCLPopoverDirective;
 
   @Input() public title: string;
   @Input() public order: number;

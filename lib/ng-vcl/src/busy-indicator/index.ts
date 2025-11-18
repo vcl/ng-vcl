@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { BusyIndicatorComponent } from './busy-indicator.component';
-import { BusyIndicatorCoverComponent } from './busy-indicator-cover.component';
+import { VCLBusyIndicatorComponent } from './busy-indicator.component';
+import { VCLBusyIndicatorCoverComponent } from './busy-indicator-cover.component';
 
-export { BusyIndicatorCoverComponent, BusyIndicatorComponent };
+export { VCLBusyIndicatorCoverComponent, VCLBusyIndicatorComponent };
 
 @NgModule({
-  imports: [BusyIndicatorCoverComponent, BusyIndicatorComponent],
-  exports: [BusyIndicatorCoverComponent, BusyIndicatorComponent],
+  imports: [VCLBusyIndicatorComponent, VCLBusyIndicatorCoverComponent],
+  exports: [VCLBusyIndicatorComponent, VCLBusyIndicatorCoverComponent],
 })
 export class VCLBusyIndicatorModule {}

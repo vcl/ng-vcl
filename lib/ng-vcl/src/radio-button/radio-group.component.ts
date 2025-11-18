@@ -22,7 +22,7 @@ import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { RadioButtonComponent } from './radio-button.component';
+import { VCLRadioButtonComponent } from './radio-button.component';
 import {
   RADIO_BUTTON_GROUP_TOKEN,
   RadioButtonGroup,
@@ -37,20 +37,20 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RadioGroupComponent),
+      useExisting: forwardRef(() => VCLRadioGroupComponent),
       multi: true,
     },
     {
       provide: RADIO_BUTTON_GROUP_TOKEN,
-      useExisting: forwardRef(() => RadioGroupComponent),
+      useExisting: forwardRef(() => VCLRadioGroupComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => RadioGroupComponent),
+      useExisting: forwardRef(() => VCLRadioGroupComponent),
     },
   ],
 })
-export class RadioGroupComponent
+export class VCLRadioGroupComponent
   implements
     OnDestroy,
     AfterContentInit,
@@ -107,7 +107,7 @@ export class RadioGroupComponent
   @HostBinding('attr.role')
   attrRole = 'radiogroup';
 
-  @ContentChildren(RadioButtonComponent, {
+  @ContentChildren(VCLRadioButtonComponent, {
     descendants: true,
   })
   radioButtons: QueryList<RadioButton>;

@@ -1,26 +1,26 @@
 import { NgModule } from '@angular/core';
-import { NavigationComponent } from './navigation.component';
+import { VCLNavigationComponent } from './navigation.component';
 import {
-  NavigationItemComponent,
-  NavigationLabelComponent,
+  VCLNavigationItemComponent,
+  VCLNavigationLabelComponent,
 } from './navigation-item.component';
 
 export {
-  NavigationComponent,
-  NavigationItemComponent,
-  NavigationLabelComponent,
+  VCLNavigationComponent,
+  VCLNavigationItemComponent,
+  VCLNavigationLabelComponent,
 };
 
 @NgModule({
   imports: [
-    NavigationComponent,
-    NavigationItemComponent,
-    NavigationLabelComponent,
+    VCLNavigationComponent,
+    VCLNavigationItemComponent,
+    VCLNavigationLabelComponent,
   ],
   exports: [
-    NavigationComponent,
-    NavigationItemComponent,
-    NavigationLabelComponent,
+    VCLNavigationComponent,
+    VCLNavigationItemComponent,
+    VCLNavigationLabelComponent,
   ],
 })
 export class VCLNavigationModule {}

@@ -11,7 +11,7 @@ import {
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BadgeComponent {
+export class VCLBadgeComponent {
   @Input()
   type: 'primary' | 'success' | 'info' | 'warning' | 'error' | undefined;
 
@@ -43,7 +43,7 @@ export class BadgeComponent {
 @Directive({
   selector: 'vcl-badge[vclRounded]',
 })
-export class BadgeRoundedDirective {
+export class VCLBadgeRoundedDirective {
   @HostBinding('class.rounded')
   rounded = true;
 }

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { ButtonGroupComponent } from './button-group.component';
+import { VCLButtonGroupComponent } from './button-group.component';
 
-export { ButtonGroupComponent };
+export { VCLButtonGroupComponent };
 
 @NgModule({
-  imports: [ButtonGroupComponent],
-  exports: [ButtonGroupComponent],
+  imports: [VCLButtonGroupComponent],
+  exports: [VCLButtonGroupComponent],
 })
 export class VCLButtonGroupModule {}

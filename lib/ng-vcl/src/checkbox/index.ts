@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CheckboxComponent } from './checkbox.component';
+import { VCLCheckboxComponent } from './checkbox.component';
 // import { CheckboxInputGroupComponent } from './checkbox-input-group.component';
 // import { CheckboxLabelDirective } from './checkbox-label.directive';
 
-export { CheckboxComponent };
+export { VCLCheckboxComponent };
 
 @NgModule({
-  imports: [CheckboxComponent],
-  exports: [CheckboxComponent],
+  imports: [VCLCheckboxComponent],
+  exports: [VCLCheckboxComponent],
 })
 export class VCLCheckboxModule {}

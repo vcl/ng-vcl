@@ -7,15 +7,14 @@ import {
 } from '@angular/core';
 import { TOOLTIP_TOKEN, Tooltip } from './types';
 import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'vcl-tooltip',
   templateUrl: './tooltip.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, CdkPortalOutlet],
+  imports: [CdkPortalOutlet],
 })
-export class TooltipComponent {
+export class VCLTooltipComponent {
   constructor(
     @Optional()
     @Inject(TOOLTIP_TOKEN)

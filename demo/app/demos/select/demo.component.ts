@@ -2,12 +2,22 @@ import { Component } from '@angular/core';
 import {
   VCLFormControlGroupModule,
   VCLIconModule,
+  VCLSelectListComponent,
+  VCLSelectListHeaderComponent,
+  VCLSelectListItemComponent,
   VCLSelectModule,
 } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLSelectModule, VCLIconModule, VCLFormControlGroupModule],
+  imports: [
+    VCLSelectModule,
+    VCLIconModule,
+    VCLFormControlGroupModule,
+    VCLSelectListComponent,
+    VCLSelectListHeaderComponent,
+    VCLSelectListItemComponent,
+  ],
 })
 export class SelectDemoComponent {
   value1 = undefined;

@@ -1,13 +1,20 @@
 <div class="token-container">
-  <vcl-token *ngFor="let token of value"
-             (remove)="onTokenRemove(token)"
-             (click)="select(token)"
-             [disabled]="disabled"
-             [ngClass]="tokenClass"
-             [selected]="token.selected"
-             [removable]="true"
-             [attr.tabindex]="-1">
-    {{token.label}}
-  </vcl-token>
+  @for (token of value; track $index) {
+    <vcl-token
+      (remove)="onTokenRemove(token)"
+      (click)="select(token)"
+      [disabled]="disabled"
+      [ngClass]="tokenClass"
+      [selected]="token.selected"
+      [removable]="true"
+      [attr.tabindex]="-1">
+      {{ token.label }}
+    </vcl-token>
+  }
 </div>
-<input vclInput [disabled]="isDisabled" (focus)="onInputFocus()" (blur)="onInputBlur()" class="flex">
+<input
+  vclInput
+  [disabled]="isDisabled"
+  (focus)="onInputFocus()"
+  (blur)="onInputBlur()"
+  class="flex" />

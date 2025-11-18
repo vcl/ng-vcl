@@ -14,11 +14,10 @@ import {
 import { merge, NEVER, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import {
-  PanelFooterButtonDirective,
-  PanelTitleDirective,
+  VCLPanelFooterButtonDirective,
+  VCLPanelTitleDirective,
 } from './panel.directive';
-import { NgIf } from '@angular/common';
-import { VCLButtonModule } from '../button';
+import { VCLButtonComponent } from '../button';
 
 @Component({
   selector: 'vcl-panel, vcl-panel-dialog',
@@ -26,9 +25,9 @@ import { VCLButtonModule } from '../button';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['panel.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [NgIf, VCLButtonModule],
+  imports: [VCLButtonComponent],
 })
-export class PanelComponent implements AfterContentInit, OnDestroy {
+export class VCLPanelComponent implements AfterContentInit, OnDestroy {
   contentSub?: Subscription;
 
   @HostBinding('class.panel')
@@ -68,11 +67,11 @@ export class PanelComponent implements AfterContentInit, OnDestroy {
   @Output()
   close = new EventEmitter();
 
-  @ContentChildren(PanelFooterButtonDirective)
-  panelFooterButtons?: QueryList<PanelFooterButtonDirective>;
+  @ContentChildren(VCLPanelFooterButtonDirective)
+  panelFooterButtons?: QueryList<VCLPanelFooterButtonDirective>;
 
-  @ContentChildren(PanelTitleDirective)
-  panelTitle: QueryList<PanelTitleDirective>;
+  @ContentChildren(VCLPanelTitleDirective)
+  panelTitle: QueryList<VCLPanelTitleDirective>;
 
   hasFooterButtons = false;
   hasTitle = false;

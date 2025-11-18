@@ -1,62 +1,109 @@
-<div class="panel panel-dialog m-0" [ngClass]="alertClass" style="min-width: 25em" role="dialog">
-  <div *ngIf="alert.title" class="panel-header no-bg row justify-between align-items-center">
-    <h3 class="panel-title">{{alert.title}}</h3>
-    <button *ngIf="alert.showCloseButton" vcl-button square class="transparent" (click)="close()">
-      <vcl-icon icon="vcl:close"></vcl-icon>
-    </button>
-  </div>
+<div
+  class="panel panel-dialog m-0"
+  [ngClass]="alertClass"
+  style="min-width: 25em"
+  role="dialog">
+  @if (alert.title) {
+    <div class="panel-header no-bg row justify-between align-items-center">
+      <h3 class="panel-title">{{ alert.title }}</h3>
+      @if (alert.showCloseButton) {
+        <button vcl-button square class="transparent" (click)="close()">
+          <vcl-icon icon="vcl:close"></vcl-icon>
+        </button>
+      }
+    </div>
+  }
 
   <div class="panel-body">
     <div class="panel-content">
       <div class="icogram">
-        <vcl-icon *ngIf="iconClass" class="scale300p" [icon]="iconClass" aria-hidden="true" role="img"></vcl-icon>
-        <div *ngIf="alert.text && !alert.html">{{alert.text}}</div>
-        <div [innerHtml]="alert.text" *ngIf="alert.text && alert.html"></div>
+        @if (iconClass) {
+          <vcl-icon
+            class="scale300p"
+            [icon]="iconClass"
+            aria-hidden="true"
+            role="img"></vcl-icon>
+        }
+
+        @if (alert.text && !alert.html) {
+          <div>{{ alert.text }}</div>
+        }
+
+        @if (alert.text && alert.html) {
+          <div [innerHtml]="alert.text"></div>
+        }
       </div>
 
-      <vcl-form-control-group *ngIf="alert.input">
-        <vcl-input-field>
-          <input vclInput vclInputAlert [class.error]="validationError" [alert]="alert"
-                 (input)="valueChange($event.target.value)" [value]="alert.inputValue ? alert.inputValue : ''">
-        </vcl-input-field>
-        <vcl-hint-error *ngIf="validationError">{{validationError}}</vcl-hint-error>
-      </vcl-form-control-group>
+      @if (alert.input) {
+        <vcl-form-control-group>
+          <vcl-input-field>
+            <input
+              vclInput
+              vclInputAlert
+              [class.error]="validationError"
+              [alert]="alert"
+              (input)="valueChange($event.target.value)"
+              [value]="alert.inputValue ? alert.inputValue : ''" />
+          </vcl-input-field>
+          @if (validationError) {
+            <vcl-hint-error>{{ validationError }}</vcl-hint-error>
+          }
+        </vcl-form-control-group>
+      }
     </div>
   </div>
 
   <div class="panel-footer no-bg row justify-between align-items-center">
     <div></div>
     <div class="loose-button-group">
+      @if (!!alert.showCancelButton) {
+        <button
+          vcl-button
+          type="button"
+          [style.background-color]="!!alert.cancelButtonColor"
+          [ngClass]="alert.cancelButtonClass"
+          [disabled]="!alert.showConfirmButton && !!loader"
+          (click)="cancel()">
+          <vcl-icogram>
+            @if (alert.cancelButtonPrepIcon) {
+              <vcl-icon prepIcon [icon]="alert.cancelButtonPrepIcon"></vcl-icon>
+            }
 
-      <button vcl-button
-        *ngIf="!!alert.showCancelButton"
-        type="button"
-        [style.background-color]="!!alert.cancelButtonColor"
-        [ngClass]="alert.cancelButtonClass"
-        [disabled]="(!alert.showConfirmButton && !!loader)"
-        (click)="cancel()"
-        >
-        <vcl-icogram>
-          <vcl-icon *ngIf="alert.cancelButtonPrepIcon" prepIcon [icon]="alert.cancelButtonPrepIcon"></vcl-icon>
-          {{alert.cancelButtonLabel}}
-          <vcl-icon *ngIf="alert.cancelButtonAppIcon" appIcon [icon]="alert.cancelButtonAppIcon"></vcl-icon>
-        </vcl-icogram>
-      </button>
+            {{ alert.cancelButtonLabel }}
 
-      <button vcl-button
-        *ngIf="!!alert.showConfirmButton"
-        type="button"
-        (click)="confirm()"
-        [style.background-color]="alert.confirmButtonColor"
-        [ngClass]="alert.confirmButtonClass"
-        [disabled]="loader"
-        >
-        <vcl-icogram>
-          <vcl-icon *ngIf="alert.confirmButtonPrepIcon" prepIcon [icon]="loader ? null : alert.confirmButtonPrepIcon"></vcl-icon>
-          {{alert.confirmButtonLabel}}
-          <vcl-icon *ngIf="alert.confirmButtonAppIcon || loader" appIcon [icon]="loader ? 'vcl:busy' : alert.confirmButtonAppIcon"></vcl-icon>
-        </vcl-icogram>
-      </button>
+            @if (alert.cancelButtonAppIcon) {
+              <vcl-icon appIcon [icon]="alert.cancelButtonAppIcon"></vcl-icon>
+            }
+          </vcl-icogram>
+        </button>
+      }
+
+      @if (!!alert.showConfirmButton) {
+        <button
+          vcl-button
+          type="button"
+          (click)="confirm()"
+          [style.background-color]="alert.confirmButtonColor"
+          [ngClass]="alert.confirmButtonClass"
+          [disabled]="loader">
+          <vcl-icogram>
+            @if (alert.confirmButtonPrepIcon) {
+              <vcl-icon
+                prepIcon
+                [icon]="loader ? null : alert.confirmButtonPrepIcon"></vcl-icon>
+            }
+            {{ alert.confirmButtonLabel }}
+
+            @if (alert.confirmButtonAppIcon || loader) {
+              <vcl-icon
+                appIcon
+                [icon]="
+                  loader ? 'vcl:busy' : alert.confirmButtonAppIcon
+                "></vcl-icon>
+            }
+          </vcl-icogram>
+        </button>
+      }
     </div>
   </div>
 </div>

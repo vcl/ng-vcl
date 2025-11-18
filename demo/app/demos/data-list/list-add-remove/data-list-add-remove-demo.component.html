@@ -25,13 +25,13 @@
 
 <vcl-data-list [(value)]="selectedValues" [mode]="modeValue">
   <vcl-data-list-header>
-    <div
-      class="row justify-content-between align-item-center mb-2">
+    <div class="row justify-content-between align-item-center mb-2">
       <h2 class="my-0">Kittens</h2>
       <button vcl-button (click)="onAddCountry()">Add item</button>
     </div>
   </vcl-data-list-header>
-  <ng-container *ngFor="let cat of kittensList">
+
+  @for (cat of kittensList; track $index) {
     <vcl-data-list-item [value]="cat.id" [disabled]="!cat.active">
       <ng-container
         *ngTemplateOutlet="
@@ -41,11 +41,11 @@
             desc: cat.description,
             id: cat.id,
             birth: cat.dateOfBirth,
-            owner: cat.owner
+            owner: cat.owner,
           }
         "></ng-container>
     </vcl-data-list-item>
-  </ng-container>
+  }
 </vcl-data-list>
 
 <p>Selected value: {{ selectedValues | json }}</p>

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { SliderComponent, ScalePoint } from './slider.component';
+import { VCLSliderComponent, ScalePoint } from './slider.component';
 
-export { SliderComponent, ScalePoint };
+export { VCLSliderComponent, ScalePoint };
 
 @NgModule({
-  imports: [SliderComponent],
-  exports: [SliderComponent],
+  imports: [VCLSliderComponent],
+  exports: [VCLSliderComponent],
 })
 export class VCLSliderModule {}

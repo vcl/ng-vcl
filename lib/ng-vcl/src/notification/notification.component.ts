@@ -13,13 +13,13 @@ import {
 import { NEVER, merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { NOTIFICATION_TYPE_CLASS_MAP, NotificationType } from './types';
-import { NgClass, NgIf } from '@angular/common';
-import { VCLIconModule } from '../icon';
+import { NgClass } from '@angular/common';
+import { VCLIconComponent } from '../icon';
 
 @Directive({
   selector: 'vcl-notification-title',
 })
-export class NotificationTitleDirective {
+export class VCLNotificationTitleDirective {
   @HostBinding('class.flex')
   hostClasses = true;
 }
@@ -27,7 +27,7 @@ export class NotificationTitleDirective {
 @Directive({
   selector: 'vcl-notification-header',
 })
-export class NotificationHeaderDirective {
+export class VCLNotificationHeaderDirective {
   @HostBinding('class.notification-header')
   hostClasses = true;
 }
@@ -35,7 +35,7 @@ export class NotificationHeaderDirective {
 @Directive({
   selector: 'vcl-notification-footer',
 })
-export class NotificationFooterDirective {
+export class VCLNotificationFooterDirective {
   @HostBinding('class.notification-footer')
   hostClasses = true;
 }
@@ -55,9 +55,9 @@ export class NotificationFooterDirective {
       }
     `,
   ],
-  imports: [NgIf, VCLIconModule],
+  imports: [VCLIconComponent],
 })
-export class NotificationComponent {
+export class VCLNotificationComponent {
   constructor(
     @Self()
     private ngClass: NgClass
@@ -88,8 +88,8 @@ export class NotificationComponent {
   @Output()
   close = new EventEmitter();
 
-  @ContentChildren(NotificationTitleDirective)
-  notificationTitle: QueryList<NotificationTitleDirective>;
+  @ContentChildren(VCLNotificationTitleDirective)
+  notificationTitle: QueryList<VCLNotificationTitleDirective>;
 
   get hasIcon() {
     return (

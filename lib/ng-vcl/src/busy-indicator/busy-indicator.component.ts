@@ -19,9 +19,9 @@ const CIRCULAR =
   styleUrls: ['busy-indicator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [NgIf, VCLIconModule],
+  imports: [VCLIconModule],
 })
-export class BusyIndicatorComponent {
+export class VCLBusyIndicatorComponent {
   constructor(private domSanitizer: DomSanitizer) {}
 
   @Input()

@@ -1,16 +1,15 @@
-<div
-  *ngIf="hasBackdrop"
-  class="drawer-backdrop"
-  [class.drawer-backdrop-visible]="showBackdrop"
-  (click)="onBackdropClick()"
-></div>
+@if (hasBackdrop) {
+  <div
+    class="drawer-backdrop"
+    [class.drawer-backdrop-visible]="showBackdrop"
+    (click)="onBackdropClick()"></div>
+}
 
 <ng-content select="vcl-drawer"></ng-content>
 
 <div
   class="drawer-content"
   [style.margin-left.px]="marginLeft"
-  [style.margin-right.px]="marginRight"
->
+  [style.margin-right.px]="marginRight">
   <ng-content></ng-content>
 </div>

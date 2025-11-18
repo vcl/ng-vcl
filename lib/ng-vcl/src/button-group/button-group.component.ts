@@ -23,7 +23,7 @@ import { startWith } from 'rxjs/operators';
 import {
   BUTTON_HOST_TOKEN,
   ButtonHost,
-  ButtonComponent,
+  VCLButtonComponent,
 } from '../button/index';
 import {
   FormControlGroupInputState,
@@ -38,21 +38,21 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: BUTTON_HOST_TOKEN,
-      useExisting: forwardRef(() => ButtonGroupComponent),
+      useExisting: forwardRef(() => VCLButtonGroupComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => ButtonGroupComponent),
+      useExisting: forwardRef(() => VCLButtonGroupComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ButtonGroupComponent),
+      useExisting: forwardRef(() => VCLButtonGroupComponent),
       multi: true,
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonGroupComponent
+export class VCLButtonGroupComponent
   implements
     OnDestroy,
     ControlValueAccessor,
@@ -93,8 +93,8 @@ export class ButtonGroupComponent
     return this.injector.get(NgControl, null);
   }
 
-  @ContentChildren(ButtonComponent)
-  buttons?: QueryList<ButtonComponent>;
+  @ContentChildren(VCLButtonComponent)
+  buttons?: QueryList<VCLButtonComponent>;
 
   private _disabled = false;
 
@@ -124,7 +124,7 @@ export class ButtonGroupComponent
     return this.buttons.some(b => b.isFocused);
   }
 
-  private toggle(btn: ButtonComponent) {
+  private toggle(btn: VCLButtonComponent) {
     if (this.selectionMode === 'multiple') {
       if (Array.isArray(this.value)) {
         const selectedValue = (this.value = [...this.value]);
@@ -166,7 +166,7 @@ export class ButtonGroupComponent
     }
   }
 
-  notifyButtonClick(btn: ButtonComponent) {
+  notifyButtonClick(btn: VCLButtonComponent) {
     this.toggle(btn);
     this.syncButtons();
     this.triggerChange();

@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { VCLBusyIndicatorModule, VCLDataListModule } from '@vcl/ng-vcl';
+import {
+  VCLBusyIndicatorComponent,
+  VCLDataListComponent,
+  VCLDataListHeaderDirective,
+  VCLDataListItemDirective,
+} from '@vcl/ng-vcl';
 import { DataListAddRemoveDemo } from './list-add-remove/data-list-add-remove-demo.component';
 import { NgTemplateOutlet } from '@angular/common';
 
@@ -7,9 +12,11 @@ import { NgTemplateOutlet } from '@angular/common';
   templateUrl: 'demo.component.html',
   imports: [
     NgTemplateOutlet,
-    VCLDataListModule,
-    VCLBusyIndicatorModule,
+    VCLDataListComponent,
+    VCLDataListHeaderDirective,
+    VCLDataListItemDirective,
     DataListAddRemoveDemo,
+    VCLBusyIndicatorComponent,
   ],
 })
 export class DataListDemoComponent {

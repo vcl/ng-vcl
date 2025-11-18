@@ -16,7 +16,7 @@ import { NAVIGATION_TOKEN, Navigation } from './types';
   template: '<ng-content></ng-content>',
   exportAs: 'vclNavigationLabel',
 })
-export class NavigationLabelComponent {
+export class VCLNavigationLabelComponent {
   @HostBinding('class.navigation-item-label')
   classVclNavigationItemLabel = true;
 }
@@ -29,15 +29,15 @@ export class NavigationLabelComponent {
   exportAs: 'vclNavigationItem',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigationItemComponent {
+export class VCLNavigationItemComponent {
   constructor(
     @SkipSelf()
     @Inject(NAVIGATION_TOKEN)
     public nav: Navigation,
     @Optional()
     @SkipSelf()
-    @Inject(NavigationItemComponent)
-    public parentNavItem: NavigationItemComponent
+    @Inject(VCLNavigationItemComponent)
+    public parentNavItem: VCLNavigationItemComponent
   ) {}
 
   @HostBinding('class.navigation-item')

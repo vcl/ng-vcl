@@ -1,11 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { VCLBusyIndicatorModule, VCLButtonModule } from '@vcl/ng-vcl';
+import {
+  VCLBusyIndicatorComponent,
+  VCLBusyIndicatorCoverComponent,
+  VCLButtonComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./demo.component.scss'],
-  imports: [VCLBusyIndicatorModule, VCLButtonModule],
+  imports: [
+    VCLBusyIndicatorComponent,
+    VCLBusyIndicatorCoverComponent,
+    VCLButtonComponent,
+  ],
 })
 export class BusyDemoComponent {
   isBusy = false;

@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
 } from '@angular/core';
-import { RatingComponent } from './rating.component';
+import { VCLRatingComponent } from './rating.component';
 import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CdkPortalOutlet],
 })
-export class RatingItemLabelComponent implements OnDestroy {
+export class VCLRatingItemLabelComponent implements OnDestroy {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private cdRef: ChangeDetectorRef
@@ -25,11 +25,11 @@ export class RatingItemLabelComponent implements OnDestroy {
 
   portal?: TemplatePortal;
 
-  _target?: RatingComponent;
+  _target?: VCLRatingComponent;
   _sub?: Subscription;
 
   @Input()
-  set target(target: RatingComponent) {
+  set target(target: VCLRatingComponent) {
     this._target = target;
 
     if (this._target) {

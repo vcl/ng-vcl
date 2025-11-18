@@ -8,7 +8,13 @@ The navigation groups navigation items to form a navigation menu.
 import { VCLNavigationModule } from '@vcl/ng-vcl';
 
 @Component({
-  imports: [ VCLNavigationModule ],
+  imports: [ 
+    VCLNavigationComponent,
+    VCLNavigationItemComponent,
+    VCLNavigationLabelComponent,
+    VCLIcogramComponent
+    VCLIconComponent
+  ],
   ...
 })
 export class AppComponent {}

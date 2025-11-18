@@ -1,12 +1,16 @@
 <span class="token-label">
   <ng-content></ng-content>
 </span>
-<button vcl-button square
-        type="button"
-        [disabled]="isDisabled"
-        *ngIf="removable" 
-        class="transparent"
-        title="Remove"
-        (click)="onRemoveClick($event)">
+
+@if (removable) {
+  <button
+    vcl-button
+    square
+    type="button"
+    [disabled]="isDisabled"
+    class="transparent"
+    title="Remove"
+    (click)="onRemoveClick($event)">
     <vcl-icon [icon]="'vcl:close'"></vcl-icon>
-</button>
+  </button>
+}

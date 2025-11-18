@@ -23,7 +23,7 @@ import {VCLButtonModule} from '../../button/index';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [VCLIconModule, CommonModule, VCLButtonModule],
 })
-export class CalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
+export class VCLCalendarViewYearsComponent<VCLDate> implements OnChanges, OnInit {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}
 
   @Input()

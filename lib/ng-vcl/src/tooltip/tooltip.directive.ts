@@ -20,7 +20,7 @@ import { ComponentPortal, Portal } from '@angular/cdk/portal';
 import { Subject, interval, EMPTY } from 'rxjs';
 import { debounce, take } from 'rxjs/operators';
 import { LayerRef, LayerConfig } from '../layer/index';
-import { TooltipComponent } from './tooltip.component';
+import { VCLTooltipComponent } from './tooltip.component';
 import { TOOLTIP_TOKEN, Tooltip, TooltipPosition } from './types';
 
 const DEFAULT_POSITION: TooltipPosition[] = ['top', 'right', 'left', 'bottom'];
@@ -76,7 +76,10 @@ export type PositionsArray = Positions[];
 @Directive({
   selector: '[vclTooltip]',
 })
-export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
+export class VCLTooltipDirective
+  extends LayerRef
+  implements OnChanges, Tooltip
+{
   constructor(
     injector: Injector,
     private viewContainerRef: ViewContainerRef,
@@ -213,7 +216,7 @@ export class TooltipDirective extends LayerRef implements OnChanges, Tooltip {
         this.injector
       );
       return new ComponentPortal(
-        TooltipComponent,
+        VCLTooltipComponent,
         this.viewContainerRef,
         injector
       );

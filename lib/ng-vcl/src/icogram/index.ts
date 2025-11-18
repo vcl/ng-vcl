@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { VCLIconModule } from '../icon/index';
-import { IcogramComponent, IcogramLinkComponent } from './icogram.component';
+import {
+  VCLIcogramComponent,
+  VCLIcogramLinkComponent,
+} from './icogram.component';
 
-export { IcogramComponent, IcogramLinkComponent };
+export { VCLIcogramComponent, VCLIcogramLinkComponent };
 
 @NgModule({
-  imports: [VCLIconModule, IcogramComponent, IcogramLinkComponent],
-  exports: [IcogramComponent, IcogramLinkComponent, VCLIconModule],
+  imports: [VCLIconModule, VCLIcogramComponent, VCLIcogramLinkComponent],
+  exports: [VCLIcogramComponent, VCLIcogramLinkComponent, VCLIconModule],
 })
 export class VCLIcogramModule {}

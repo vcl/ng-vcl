@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { VCLCoreContentProjectionModule } from '../core/index';
 
 import {
-  DataListComponent,
-  DataListFooterDirective,
-  DataListHeaderDirective,
+  VCLDataListComponent,
+  VCLDataListFooterDirective,
+  VCLDataListHeaderDirective,
 } from './data-list.component';
-import { DataListItemDirective } from './data-list-item.directive';
+import { VCLDataListItemDirective } from './data-list-item.directive';
 import {
   DATA_LIST_TOKEN,
   DataList,
@@ -15,30 +15,30 @@ import {
 } from './types';
 
 export {
-  DataListComponent,
-  DataListItemDirective,
+  VCLDataListComponent,
+  VCLDataListItemDirective,
   DATA_LIST_TOKEN,
   DataList,
   DataListItem,
   DATA_LIST_ITEM_TOKEN,
-  DataListFooterDirective,
-  DataListHeaderDirective,
+  VCLDataListFooterDirective,
+  VCLDataListHeaderDirective,
 };
 
 @NgModule({
   imports: [
     VCLCoreContentProjectionModule,
-    DataListComponent,
-    DataListItemDirective,
-    DataListFooterDirective,
-    DataListHeaderDirective,
+    VCLDataListComponent,
+    VCLDataListItemDirective,
+    VCLDataListFooterDirective,
+    VCLDataListHeaderDirective,
   ],
   exports: [
-    DataListComponent,
-    DataListItemDirective,
+    VCLDataListComponent,
+    VCLDataListItemDirective,
     VCLCoreContentProjectionModule,
-    DataListFooterDirective,
-    DataListHeaderDirective,
+    VCLDataListFooterDirective,
+    VCLDataListHeaderDirective,
   ],
 })
 export class VCLDataListModule {}

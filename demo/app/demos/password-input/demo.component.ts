@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import {
   VCLFormControlGroupModule,
   VCLInputModule,
-  VCLPasswordInputModule,
+  VCLPasswordInputComponent,
 } from '@vcl/ng-vcl';
 
 @Component({
@@ -12,7 +12,7 @@ import {
     FormsModule,
     VCLFormControlGroupModule,
     VCLInputModule,
-    VCLPasswordInputModule,
+    VCLPasswordInputComponent,
   ],
 })
 export class PasswordInputDemoComponent {

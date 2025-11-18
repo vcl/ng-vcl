@@ -1,4 +1,17 @@
-<div *ngIf="showValue" class="progress primary layout-fit" [style.transform]="transformValue"></div>
-<div *ngIf="showSecondaryValue" class="progress secondary layout-fit" [style.transform]="transformSecondaryValue"></div>
-<div *ngIf="showIndeterminate" class="progress primary layout-fit" [style.animation-duration]="animationDurationValue"></div>
+@if (showValue) {
+  <div
+    class="progress primary layout-fit"
+    [style.transform]="transformValue"></div>
+}
 
+@if (showSecondaryValue) {
+  <div
+    class="progress secondary layout-fit"
+    [style.transform]="transformSecondaryValue"></div>
+}
+
+@if (showIndeterminate) {
+  <div
+    class="progress primary layout-fit"
+    [style.animation-duration]="animationDurationValue"></div>
+}

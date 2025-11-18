@@ -15,7 +15,7 @@ import {
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
 } from '../input/index';
-import { ButtonComponent, VCLButtonModule } from '../button/index';
+import { VCLButtonComponent } from '../button/index';
 import { VCLIconModule } from '../icon';
 
 @Component({
@@ -26,17 +26,17 @@ import { VCLIconModule } from '../icon';
   providers: [
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => PasswordInputComponent),
+      useExisting: forwardRef(() => VCLPasswordInputComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordInputComponent),
+      useExisting: forwardRef(() => VCLPasswordInputComponent),
       multi: true,
     },
   ],
-  imports: [VCLIconModule, VCLButtonModule],
+  imports: [VCLIconModule, VCLButtonComponent],
 })
-export class PasswordInputComponent
+export class VCLPasswordInputComponent
   implements AfterContentInit, EmbeddedInputFieldLabelInput
 {
   private stateChangedEmitter = new Subject<void>();
@@ -72,8 +72,8 @@ export class PasswordInputComponent
   @ContentChild(InputDirective, { read: InputDirective })
   input?: InputDirective;
 
-  @ViewChild(ButtonComponent, { read: ButtonComponent })
-  button?: ButtonComponent;
+  @ViewChild(VCLButtonComponent, { read: VCLButtonComponent })
+  button?: VCLButtonComponent;
 
   @Input()
   visible = false;

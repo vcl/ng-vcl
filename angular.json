@@ -31,18 +31,11 @@
                 "output": "/"
               }
             ],
-            "styles": [
-              "demo/styles.scss"
-            ],
+            "styles": ["demo/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["node_modules"]
             },
-            "scripts": [
-              "node_modules/marked/lib/marked.esm.js",
-              "node_modules/prismjs/prism.js",
-              "node_modules/prismjs/plugins/custom-class/prism-custom-class.min.js",
-              "node_modules/prismjs/components/prism-typescript.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -95,9 +88,7 @@
             "polyfills": "demo/polyfills.ts",
             "tsConfig": "demo/tsconfig.spec.json",
             "karmaConfig": "demo/karma.conf.js",
-            "styles": [
-              "demo/styles.scss"
-            ],
+            "styles": ["demo/styles.scss"],
             "scripts": [],
             "assets": [
               {

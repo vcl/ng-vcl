@@ -21,7 +21,7 @@ import {
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { VCLIconModule } from '../icon';
+import { VCLIconComponent } from '../icon';
 
 let UNIQUE_ID = 0;
 
@@ -31,19 +31,19 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => CheckboxComponent),
+      useExisting: forwardRef(() => VCLCheckboxComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CheckboxComponent),
+      useExisting: forwardRef(() => VCLCheckboxComponent),
       multi: true,
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, VCLIconModule],
+  imports: [CommonModule, VCLIconComponent],
   exportAs: 'vclCheckbox',
 })
-export class CheckboxComponent
+export class VCLCheckboxComponent
   implements
     OnDestroy,
     ControlValueAccessor,

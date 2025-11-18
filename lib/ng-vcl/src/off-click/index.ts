@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
-import { OffClickDirective, createOffClickStream } from './off-click.directive';
+import {
+  VCLOffClickDirective,
+  createOffClickStream,
+} from './off-click.directive';
 
-export { createOffClickStream, OffClickDirective };
+export { createOffClickStream, VCLOffClickDirective };
 
 @NgModule({
-  imports: [OffClickDirective],
-  exports: [OffClickDirective],
+  imports: [VCLOffClickDirective],
+  exports: [VCLOffClickDirective],
 })
 export class VCLOffClickModule {}

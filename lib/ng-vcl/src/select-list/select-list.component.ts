@@ -24,8 +24,8 @@ import {
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
 import { SELECT_LIST_TOKEN, SelectList, SelectListItem } from './types';
-import { SelectListItemComponent } from './components/select-list-item.component';
-import { SelectListContentComponent } from './components/select-list-content.component';
+import { VCLSelectListItemComponent } from './components/select-list-item.component';
+import { VCLSelectListContentComponent } from './components/select-list-content.component';
 
 let UNIQUE_ID = 0;
 
@@ -38,20 +38,20 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectListComponent),
+      useExisting: forwardRef(() => VCLSelectListComponent),
       multi: true,
     },
     {
       provide: SELECT_LIST_TOKEN,
-      useExisting: forwardRef(() => SelectListComponent),
+      useExisting: forwardRef(() => VCLSelectListComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => SelectListComponent),
+      useExisting: forwardRef(() => VCLSelectListComponent),
     },
   ],
 })
-export class SelectListComponent
+export class VCLSelectListComponent
   implements
     SelectList,
     AfterContentInit,
@@ -116,10 +116,10 @@ export class SelectListComponent
   @Output()
   valueChange = new EventEmitter<any | any[]>();
 
-  @ContentChildren(SelectListItemComponent)
+  @ContentChildren(VCLSelectListItemComponent)
   private _items?: QueryList<SelectListItem>;
 
-  @ContentChildren(SelectListContentComponent)
+  @ContentChildren(VCLSelectListContentComponent)
   _content: QueryList<any> | undefined;
 
   get hasContent() {
