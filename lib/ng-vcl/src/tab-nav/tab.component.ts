@@ -15,7 +15,7 @@ import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
 @Directive({
   selector: 'vcl-tab-label',
 })
-export class TabLabelDirective {
+export class VCLTabLabelDirective {
   ngOnInit() {
     console.warn('vcl-tab-label is deprecated. Use vcl-label instead');
   }
@@ -27,7 +27,7 @@ export class TabLabelDirective {
   exportAs: 'vclTab',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabComponent implements OnInit, Tab {
+export class VCLTabComponent implements OnInit, Tab {
   constructor(
     @Inject(TAB_NAV_TOKEN)
     private tabNav: TabNav

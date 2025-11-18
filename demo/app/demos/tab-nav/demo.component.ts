@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { VCLTabNavModule } from '@vcl/ng-vcl';
+import {
+  VCLLabelDirective,
+  VCLTabComponent,
+  VCLTabNavComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLTabNavModule],
+  imports: [VCLTabNavComponent, VCLTabComponent, VCLLabelDirective],
 })
 export class TabNavDemoComponent {
   tabIndex = 0;

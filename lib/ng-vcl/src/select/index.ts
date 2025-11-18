@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { VCLSelectListModule } from '../select-list/index';
-import { SelectComponent } from './select.component';
+import { VCLSelectComponent } from './select.component';
 
-export { SelectComponent };
+export { VCLSelectComponent };
 
 @NgModule({
-  imports: [SelectComponent, VCLSelectListModule],
-  exports: [SelectComponent, VCLSelectListModule],
+  imports: [VCLSelectComponent],
+  exports: [VCLSelectComponent],
 })
 export class VCLSelectModule {}

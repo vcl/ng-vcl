@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
-import { RadioButtonComponent } from './radio-button.component';
-import { RadioGroupComponent } from './radio-group.component';
+import { VCLRadioButtonComponent } from './radio-button.component';
+import { VCLRadioGroupComponent } from './radio-group.component';
 import { VCLFormControlGroupModule } from '../form-control-group/index';
 
-export { RadioButtonComponent, RadioGroupComponent, VCLFormControlGroupModule };
+export {
+  VCLRadioButtonComponent,
+  VCLRadioGroupComponent,
+  VCLFormControlGroupModule,
+};
 
 @NgModule({
-  imports: [RadioButtonComponent, RadioGroupComponent],
-  exports: [RadioButtonComponent, RadioGroupComponent],
+  imports: [VCLRadioButtonComponent, VCLRadioGroupComponent],
+  exports: [VCLRadioButtonComponent, VCLRadioGroupComponent],
 })
 export class VCLRadioButtonModule {}

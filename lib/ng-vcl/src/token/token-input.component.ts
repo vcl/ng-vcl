@@ -24,8 +24,8 @@ import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { FormControlGroupInputState } from '../form-control-group/index';
 import { InputDirective, VCLInputModule } from '../input/index';
-import { NgClass, NgFor } from '@angular/common';
-import { TokenComponent } from './token.component';
+import { NgClass } from '@angular/common';
+import { VCLTokenComponent } from './token.component';
 
 let uniqueID = 0;
 
@@ -35,14 +35,14 @@ let uniqueID = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TokenInputContainerComponent),
+      useExisting: forwardRef(() => VCLTokenInputContainerComponent),
       multi: true,
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgFor, NgClass, VCLInputModule, TokenComponent],
+  imports: [NgClass, VCLInputModule, VCLTokenComponent],
 })
-export class TokenInputContainerComponent
+export class VCLTokenInputContainerComponent
   implements AfterContentInit, ControlValueAccessor, FormControlGroupInputState
 {
   constructor(

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { VCLButtonModule, VCLPopoverModule } from '@vcl/ng-vcl';
+import { VCLButtonComponent, VCLPopoverDirective } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLPopoverModule, VCLButtonModule],
+  imports: [VCLPopoverDirective, VCLButtonComponent],
 })
 export class PopoverDemoComponent {}

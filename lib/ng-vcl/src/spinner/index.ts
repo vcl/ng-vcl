@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { SpinnerComponent } from './spinner.component';
+import { VCLSpinnerComponent } from './spinner.component';
 
-export { SpinnerComponent };
+export { VCLSpinnerComponent };
 
 @NgModule({
-  imports: [SpinnerComponent],
-  exports: [SpinnerComponent],
+  imports: [VCLSpinnerComponent],
+  exports: [VCLSpinnerComponent],
 })
 export class VCLSpinnerModule {}

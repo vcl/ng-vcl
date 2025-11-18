@@ -14,11 +14,11 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
   providers: [
     {
       provide: SELECT_LIST_CONTENT_TOKEN,
-      useExisting: forwardRef(() => SelectListSeparatorComponent),
+      useExisting: forwardRef(() => VCLSelectListSeparatorComponent),
     },
   ],
 })
-export class SelectListSeparatorComponent {
+export class VCLSelectListSeparatorComponent {
   @HostBinding('attr.role')
   attrRole = 'separator';
 }

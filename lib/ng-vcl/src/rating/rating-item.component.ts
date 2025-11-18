@@ -20,10 +20,10 @@ export interface Rating {
   ratingHalfIcon: string;
   ratingEmptyIcon: string;
   isDisabled: boolean;
-  onRatingItemClick(item: RatingItemComponent): void;
-  onRatingItemHover(item: RatingItemComponent): void;
-  onRatingItemBlur(item: RatingItemComponent): void;
-  onRatingItemFocus(item: RatingItemComponent): void;
+  onRatingItemClick(item: VCLRatingItemComponent): void;
+  onRatingItemHover(item: VCLRatingItemComponent): void;
+  onRatingItemBlur(item: VCLRatingItemComponent): void;
+  onRatingItemFocus(item: VCLRatingItemComponent): void;
 }
 
 export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
@@ -36,7 +36,7 @@ export const RATING_TOKEN = new InjectionToken<Rating>('vcl_rating');
   providers: [HostIconRendererService],
   imports: [NgTemplateOutlet],
 })
-export class RatingItemComponent implements AfterViewInit {
+export class VCLRatingItemComponent implements AfterViewInit {
   constructor(
     @Inject(RATING_TOKEN)
     private _rating: Rating,

@@ -17,7 +17,7 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { TabComponent } from './tab.component';
+import { VCLTabComponent } from './tab.component';
 import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
 import { BehaviorSubject } from 'rxjs';
@@ -34,12 +34,12 @@ import { NgIf } from '@angular/common';
   providers: [
     {
       provide: TAB_NAV_TOKEN,
-      useExisting: TabNavComponent,
+      useExisting: VCLTabNavComponent,
     },
   ],
-  imports: [NgIf, PortalModule],
+  imports: [PortalModule],
 })
-export class TabNavComponent
+export class VCLTabNavComponent
   implements AfterViewInit, OnDestroy, TabNav, OnChanges
 {
   constructor(
@@ -68,7 +68,7 @@ export class TabNavComponent
     return this.layout === 'right';
   }
 
-  @ContentChildren(TabComponent)
+  @ContentChildren(VCLTabComponent)
   tabs?: QueryList<Tab>;
 
   @Input()

@@ -32,6 +32,7 @@ import {
   VCLPasswordInputModule,
   VCLInputModule,
   VCLButtonGroupModule,
+  VCLSelectListModule,
 } from '@vcl/ng-vcl';
 import { CounterComponent } from './counter.component';
 import { JsonPipe, NgIf } from '@angular/common';
@@ -59,6 +60,7 @@ import { JsonPipe, NgIf } from '@angular/common';
     VCLRadioButtonModule,
     VCLSliderModule,
     VCLSelectModule,
+    VCLSelectListModule,
     VCLTokenModule,
     VCLTooltipModule,
     VCLNotifierModule,

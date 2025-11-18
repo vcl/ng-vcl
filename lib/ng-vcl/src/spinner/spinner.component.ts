@@ -18,13 +18,13 @@ import { VCLButtonModule } from '../button';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SpinnerComponent),
+      useExisting: forwardRef(() => VCLSpinnerComponent),
       multi: true,
     },
   ],
   imports: [VCLIconModule, VCLButtonModule, VCLButtonGroupModule, CommonModule],
 })
-export class SpinnerComponent implements ControlValueAccessor {
+export class VCLSpinnerComponent implements ControlValueAccessor {
   @Input()
   orientation: 'horizontal' | 'vertical' = 'vertical';
 

@@ -14,7 +14,7 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
   providers: [
     {
       provide: SELECT_LIST_CONTENT_TOKEN,
-      useExisting: forwardRef(() => SelectListHeaderComponent),
+      useExisting: forwardRef(() => VCLSelectListHeaderComponent),
     },
   ],
   styles: [
@@ -25,7 +25,7 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
     `,
   ],
 })
-export class SelectListHeaderComponent {
+export class VCLSelectListHeaderComponent {
   @HostBinding('class.select-list-item-group-header')
   _hostClasses = true;
 }

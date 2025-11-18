@@ -8,8 +8,8 @@ import { SELECT_LIST_CONTENT_TOKEN } from '../types';
   providers: [
     {
       provide: SELECT_LIST_CONTENT_TOKEN,
-      useExisting: forwardRef(() => SelectListContentComponent),
+      useExisting: forwardRef(() => VCLSelectListContentComponent),
     },
   ],
 })
-export class SelectListContentComponent {}
+export class VCLSelectListContentComponent {}

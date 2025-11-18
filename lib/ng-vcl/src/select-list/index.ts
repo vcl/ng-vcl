@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { VCLCoreLabelModule } from '../core/index';
 
-import { SelectListComponent } from './select-list.component';
-import { SelectListHeaderComponent } from './components/select-list-header.component';
-import { SelectListItemComponent } from './components/select-list-item.component';
-import { SelectListSeparatorComponent } from './components/select-list-separator.component';
-import { SelectListContentComponent } from './components/select-list-content.component';
+import { VCLSelectListComponent } from './select-list.component';
+import { VCLSelectListHeaderComponent } from './components/select-list-header.component';
+import { VCLSelectListItemComponent } from './components/select-list-item.component';
+import { VCLSelectListSeparatorComponent } from './components/select-list-separator.component';
+import { VCLSelectListContentComponent } from './components/select-list-content.component';
 import {
   SELECT_LIST_TOKEN,
   SelectList,
@@ -14,11 +14,11 @@ import {
 } from './types';
 
 export {
-  SelectListComponent,
-  SelectListHeaderComponent,
-  SelectListItemComponent,
-  SelectListSeparatorComponent,
-  SelectListContentComponent,
+  VCLSelectListComponent,
+  VCLSelectListHeaderComponent,
+  VCLSelectListItemComponent,
+  VCLSelectListSeparatorComponent,
+  VCLSelectListContentComponent,
   SELECT_LIST_TOKEN,
   SelectList,
   SelectListItem,
@@ -27,18 +27,18 @@ export {
 
 @NgModule({
   imports: [
-    SelectListComponent,
-    SelectListHeaderComponent,
-    SelectListItemComponent,
-    SelectListSeparatorComponent,
-    SelectListContentComponent,
+    VCLSelectListComponent,
+    VCLSelectListHeaderComponent,
+    VCLSelectListItemComponent,
+    VCLSelectListSeparatorComponent,
+    VCLSelectListContentComponent,
   ],
   exports: [
-    SelectListComponent,
-    SelectListHeaderComponent,
-    SelectListItemComponent,
-    SelectListSeparatorComponent,
-    SelectListContentComponent,
+    VCLSelectListComponent,
+    VCLSelectListHeaderComponent,
+    VCLSelectListItemComponent,
+    VCLSelectListSeparatorComponent,
+    VCLSelectListContentComponent,
     VCLCoreLabelModule,
   ],
 })

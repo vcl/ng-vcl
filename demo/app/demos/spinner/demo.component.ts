@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { VCLInputModule, VCLSpinnerModule } from '@vcl/ng-vcl';
+import {
+  VCLInputModule,
+  VCLSpinnerComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [FormsModule, VCLInputModule, VCLSpinnerModule],
+  imports: [FormsModule, VCLInputModule, VCLSpinnerComponent],
 })
 export class SpinnerDemoComponent {
   data1 = 0;

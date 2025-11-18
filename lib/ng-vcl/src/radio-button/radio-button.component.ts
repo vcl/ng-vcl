@@ -25,7 +25,7 @@ let UNIQUE_ID = 0;
   exportAs: 'vclRadioButton',
   imports: [VCLIconModule],
 })
-export class RadioButtonComponent implements RadioButton {
+export class VCLRadioButtonComponent implements RadioButton {
   constructor(
     private cdRef: ChangeDetectorRef,
     @Optional()

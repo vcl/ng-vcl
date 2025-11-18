@@ -1,4 +1,7 @@
-<ng-container *ngIf="!hasContent">
-  <vcl-rating-item *ngFor="let ratingItem of ratingItemsArray"></vcl-rating-item>
-</ng-container>
+@if (!hasContent) {
+  @for (ratingItem of ratingItemsArray; track $index) {
+    <vcl-rating-item></vcl-rating-item>
+  }
+}
+
 <ng-content></ng-content>

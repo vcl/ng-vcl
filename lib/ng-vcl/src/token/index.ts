@@ -6,15 +6,15 @@ import { VCLIconModule } from '../icon/index';
 import { VCLButtonModule } from '../button/index';
 import { VCLIcogramModule } from '../icogram/index';
 
-import { TokenComponent } from './token.component';
-import { TokenInputContainerComponent } from './token-input.component';
-import { TokenListComponent } from './token-list.component';
+import { VCLTokenComponent } from './token.component';
+import { VCLTokenInputContainerComponent } from './token-input.component';
+import { VCLTokenListComponent } from './token-list.component';
 import { Token } from './interfaces';
 
 export {
-  TokenComponent,
-  TokenInputContainerComponent,
-  TokenListComponent,
+  VCLTokenComponent,
+  VCLTokenInputContainerComponent,
+  VCLTokenListComponent,
   Token,
 };
 
@@ -26,14 +26,14 @@ export {
     FormsModule,
     VCLIconModule,
     VCLIcogramModule,
-    TokenComponent,
-    TokenListComponent,
-    TokenInputContainerComponent,
+    VCLTokenComponent,
+    VCLTokenListComponent,
+    VCLTokenInputContainerComponent,
   ],
   exports: [
-    TokenComponent,
-    TokenListComponent,
-    TokenInputContainerComponent,
+    VCLTokenComponent,
+    VCLTokenListComponent,
+    VCLTokenInputContainerComponent,
     VCLInputModule,
   ],
 })

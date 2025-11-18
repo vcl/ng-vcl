@@ -24,7 +24,7 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
-  RatingItemComponent,
+  VCLRatingItemComponent,
   Rating,
   RATING_TOKEN,
 } from './rating-item.component';
@@ -46,16 +46,16 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RatingComponent),
+      useExisting: forwardRef(() => VCLRatingComponent),
       multi: true,
     },
     {
       provide: RATING_TOKEN,
-      useExisting: forwardRef(() => RatingComponent),
+      useExisting: forwardRef(() => VCLRatingComponent),
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => RatingComponent),
+      useExisting: forwardRef(() => VCLRatingComponent),
     },
   ],
   styles: [
@@ -65,9 +65,8 @@ let UNIQUE_ID = 0;
       }
     `,
   ],
-  imports: [NgFor, NgIf, RatingItemComponent],
 })
-export class RatingComponent
+export class VCLRatingComponent
   implements
     ControlValueAccessor,
     OnDestroy,
@@ -143,11 +142,11 @@ export class RatingComponent
     return this.injector.get(NgControl, null);
   }
 
-  @ViewChildren(RatingItemComponent)
-  ratingItemViewChildren: QueryList<RatingItemComponent>;
+  @ViewChildren(VCLRatingItemComponent)
+  ratingItemViewChildren: QueryList<VCLRatingItemComponent>;
 
-  @ContentChildren(RatingItemComponent)
-  ratingItemContentChildren: QueryList<RatingItemComponent>;
+  @ContentChildren(VCLRatingItemComponent)
+  ratingItemContentChildren: QueryList<VCLRatingItemComponent>;
 
   get hasContent() {
     return (
@@ -234,7 +233,7 @@ export class RatingComponent
     this.sync();
   }
 
-  onRatingItemHover(item: RatingItemComponent) {
+  onRatingItemHover(item: VCLRatingItemComponent) {
     if (this.isDisabled || this.readonly) {
       return;
     }
@@ -243,7 +242,7 @@ export class RatingComponent
     this.sync();
   }
 
-  onRatingItemClick(item: RatingItemComponent) {
+  onRatingItemClick(item: VCLRatingItemComponent) {
     if (this.isDisabled || this.readonly) {
       return;
     }
@@ -303,11 +302,11 @@ export class RatingComponent
     this.labelChangeEmitter.complete();
   }
 
-  onRatingItemFocus(item: RatingItemComponent): void {
+  onRatingItemFocus(item: VCLRatingItemComponent): void {
     this.stateChangedEmitter.next();
   }
 
-  onRatingItemBlur(item: RatingItemComponent): void {
+  onRatingItemBlur(item: VCLRatingItemComponent): void {
     if (this.ratingItems.pop() === item) {
       this.onTouchedCallback();
     }

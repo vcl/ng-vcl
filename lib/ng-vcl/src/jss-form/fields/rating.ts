@@ -9,7 +9,7 @@ import {
   VCLFormFieldSchemaRating,
   VCLFormFieldSchemaRatingParams,
 } from '../schemas';
-import { RatingComponent } from '../../rating/index';
+import { VCLRatingComponent } from '../../rating/index';
 import { FormFieldControl } from './field';
 
 export class FormFieldRating extends FormFieldControl<
@@ -40,8 +40,8 @@ export class FormFieldRating extends FormFieldControl<
 }
 
 @Component({
-    selector: 'vcl-jss-form-rating',
-    template: `
+  selector: 'vcl-jss-form-rating',
+  template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -62,17 +62,20 @@ export class FormFieldRating extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
-    standalone: false
+  standalone: false,
 })
 export class FormFieldRatingComponent implements AfterViewInit {
-  constructor(public field: FormFieldRating, private cdRef: ChangeDetectorRef) {
+  constructor(
+    public field: FormFieldRating,
+    private cdRef: ChangeDetectorRef
+  ) {
     field.stateChanged.subscribe(() => {
       cdRef.markForCheck();
     });
   }
 
-  @ViewChild(RatingComponent)
-  rating: RatingComponent;
+  @ViewChild(VCLRatingComponent)
+  rating: VCLRatingComponent;
 
   _valueLabel: string;
 

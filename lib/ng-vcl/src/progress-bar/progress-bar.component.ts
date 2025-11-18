@@ -14,9 +14,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['progress-bar.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [NgIf],
 })
-export class ProgressBarComponent {
+export class VCLProgressBarComponent {
   @HostBinding('attr.role')
   _hostAttrRole = 'progressbar';
 

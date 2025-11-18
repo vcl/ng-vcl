@@ -50,18 +50,18 @@ export interface ScalePoint {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SliderComponent),
+      useExisting: forwardRef(() => VCLSliderComponent),
       multi: true,
     },
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => SliderComponent),
+      useExisting: forwardRef(() => VCLSliderComponent),
     },
   ],
-  imports: [NgIf, NgFor, VCLFormControlGroupModule],
+  imports: [VCLFormControlGroupModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SliderComponent
+export class VCLSliderComponent
   implements
     ControlValueAccessor,
     AfterContentInit,

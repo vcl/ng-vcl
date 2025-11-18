@@ -27,11 +27,11 @@ import { VCLLabelDirective, VCLSubLabelDirective } from '../../core/index';
   providers: [
     {
       provide: SELECT_LIST_CONTENT_TOKEN,
-      useExisting: forwardRef(() => SelectListItemComponent),
+      useExisting: forwardRef(() => VCLSelectListItemComponent),
     },
   ],
 })
-export class SelectListItemComponent implements SelectListItem {
+export class VCLSelectListItemComponent implements SelectListItem {
   constructor(
     @Inject(SELECT_LIST_TOKEN)
     private selectList: SelectList,

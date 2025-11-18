@@ -24,7 +24,7 @@ import { DOCUMENT } from '@angular/common';
   selector: '[vclPopover]',
   exportAs: 'vclPopover',
 })
-export class PopoverDirective extends TemplateLayerRef implements OnDestroy {
+export class VCLPopoverDirective extends TemplateLayerRef implements OnDestroy {
   constructor(
     injector: Injector,
     public templateRef: TemplateRef<any>,
