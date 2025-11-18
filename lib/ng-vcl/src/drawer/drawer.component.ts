@@ -19,7 +19,7 @@ import { DRAWER_CONTAINER_HOST, DrawerContainer, Drawer } from './types';
   templateUrl: 'drawer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DrawerComponent implements OnChanges, AfterViewChecked, Drawer {
+export class VCLDrawerComponent implements OnChanges, AfterViewChecked, Drawer {
   @HostBinding('class.drawer')
   hostClasses = true;
 

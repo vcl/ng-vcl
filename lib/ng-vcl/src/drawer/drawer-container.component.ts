@@ -17,9 +17,8 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { DrawerComponent } from './drawer.component';
+import { VCLDrawerComponent } from './drawer.component';
 import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'vcl-drawer-container',
@@ -31,26 +30,26 @@ import { NgIf } from '@angular/common';
   providers: [
     {
       provide: DRAWER_CONTAINER_HOST,
-      useExisting: forwardRef(() => DrawerContainerComponent),
+      useExisting: forwardRef(() => VCLDrawerContainerComponent),
     },
   ],
-  imports: [NgIf],
+  imports: [],
 })
-export class DrawerContainerComponent
+export class VCLDrawerContainerComponent
   implements AfterContentInit, OnDestroy, DrawerContainer
 {
   @HostBinding('class.drawer-container')
   _hostClasses = true;
 
-  @ContentChildren(DrawerComponent)
-  _drawers: QueryList<DrawerComponent>;
+  @ContentChildren(VCLDrawerComponent)
+  _drawers: QueryList<VCLDrawerComponent>;
 
   // Backdrop click event
   @Output()
   backdropClick: EventEmitter<void> = new EventEmitter<void>();
 
-  leftDrawer: DrawerComponent | undefined;
-  rightDrawer: DrawerComponent | undefined;
+  leftDrawer: VCLDrawerComponent | undefined;
+  rightDrawer: VCLDrawerComponent | undefined;
 
   viewportRulerSub: Subscription;
 
@@ -111,7 +110,7 @@ export class DrawerContainerComponent
   // 1. For drawers in `over` mode, they don't affect the content.
   // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
   //    left margin (for left drawer) or right margin (for right the drawer).
-  private getContentMargin(drawer: DrawerComponent) {
+  private getContentMargin(drawer: VCLDrawerComponent) {
     if (drawer && drawer.opened && drawer.mode === 'side') {
       return drawer.width;
     }
