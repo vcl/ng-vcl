@@ -2,41 +2,41 @@ import { NgModule } from '@angular/core';
 import { VCLButtonModule } from '../button/index';
 import { VCLIconModule } from '../icon/index';
 import {
-  PanelFooterDirective,
-  PanelHeaderDirective,
-  PanelTitleDirective,
-  PanelFooterButtonDirective,
-  PanelDialogDirective,
+  VCLPanelDialogDirective,
+  VCLPanelTitleDirective,
+  VCLPanelFooterButtonDirective,
+  VCLPanelHeaderDirective,
+  VCLPanelFooterDirective,
 } from './panel.directive';
-import { PanelComponent } from './panel.component';
+import { VCLPanelComponent } from './panel.component';
 
 export {
-  PanelComponent,
-  PanelDialogDirective,
-  PanelTitleDirective,
-  PanelFooterButtonDirective,
-  PanelHeaderDirective,
-  PanelFooterDirective,
+  VCLPanelComponent,
+  VCLPanelDialogDirective,
+  VCLPanelTitleDirective,
+  VCLPanelFooterButtonDirective,
+  VCLPanelHeaderDirective,
+  VCLPanelFooterDirective,
 };
 
 @NgModule({
   imports: [
-    PanelComponent,
-    PanelFooterDirective,
-    PanelHeaderDirective,
-    PanelTitleDirective,
-    PanelFooterButtonDirective,
-    PanelDialogDirective,
+    VCLPanelComponent,
+    VCLPanelDialogDirective,
+    VCLPanelTitleDirective,
+    VCLPanelFooterButtonDirective,
+    VCLPanelHeaderDirective,
+    VCLPanelFooterDirective,
   ],
   exports: [
     VCLButtonModule,
     VCLIconModule,
-    PanelComponent,
-    PanelFooterDirective,
-    PanelHeaderDirective,
-    PanelTitleDirective,
-    PanelFooterButtonDirective,
-    PanelDialogDirective,
+    VCLPanelComponent,
+    VCLPanelFooterDirective,
+    VCLPanelHeaderDirective,
+    VCLPanelTitleDirective,
+    VCLPanelFooterButtonDirective,
+    VCLPanelDialogDirective,
   ],
 })
 export class VCLPanelModule {}
