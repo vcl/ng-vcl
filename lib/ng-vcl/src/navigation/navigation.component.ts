@@ -11,7 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NAVIGATION_TOKEN, Navigation } from './types';
-import { NavigationItemComponent } from './navigation-item.component';
+import { VCLNavigationItemComponent } from './navigation-item.component';
 
 @Component({
   selector: 'vcl-navigation',
@@ -21,15 +21,15 @@ import { NavigationItemComponent } from './navigation-item.component';
   providers: [
     {
       provide: NAVIGATION_TOKEN,
-      useExisting: forwardRef(() => NavigationComponent),
+      useExisting: forwardRef(() => VCLNavigationComponent),
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigationComponent implements Navigation {
+export class VCLNavigationComponent implements Navigation {
   constructor(
-    @Optional() @SkipSelf() private parentNav: NavigationComponent,
-    @Optional() @SkipSelf() private parentNavItem: NavigationItemComponent
+    @Optional() @SkipSelf() private parentNav: VCLNavigationComponent,
+    @Optional() @SkipSelf() private parentNavItem: VCLNavigationItemComponent
   ) {
     if (this.parentNavItem) {
       this.parentNavItem.registerNav(this);
@@ -42,10 +42,10 @@ export class NavigationComponent implements Navigation {
   @HostBinding('class.navigation')
   classVclNavigation = true;
 
-  @ContentChildren(NavigationItemComponent, {
+  @ContentChildren(VCLNavigationItemComponent, {
     descendants: true,
   })
-  items: QueryList<NavigationItemComponent>;
+  items: QueryList<VCLNavigationItemComponent>;
 
   deselectAll() {
     this.parentNav && this.parentNav.deselectAll();

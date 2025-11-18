@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
 import {
-  VCLButtonModule,
-  VCLIcogramModule,
-  VCLNavigationModule,
+  VCLNavigationComponent,
+  VCLNavigationItemComponent,
+  VCLNavigationLabelComponent,
+  VCLIcogramComponent,
+  VCLIconComponent
 } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
-  imports: [VCLButtonModule, VCLNavigationModule, VCLIcogramModule],
+  imports: [
+    VCLNavigationComponent,
+    VCLNavigationItemComponent,
+    VCLNavigationLabelComponent,
+    VCLIcogramComponent,
+    VCLIconComponent
+  ],
 })
 export class NavigationDemoComponent {
   hoverName?: string;
