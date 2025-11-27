@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
 import {
   VCLFormControlGroupModule,
-  VCLIconModule,
+  VCLIconComponent,
+  VCLInputModule,
+  VCLSelectComponent,
   VCLSelectListComponent,
   VCLSelectListHeaderComponent,
   VCLSelectListItemComponent,
-  VCLSelectModule,
 } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
   imports: [
-    VCLSelectModule,
-    VCLIconModule,
+    VCLSelectComponent,
     VCLFormControlGroupModule,
+    VCLInputModule,
     VCLSelectListComponent,
     VCLSelectListHeaderComponent,
+    VCLIconComponent,
     VCLSelectListItemComponent,
   ],
 })

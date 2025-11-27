@@ -32,11 +32,9 @@ import {
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   VCLInputModule,
 } from '../input/index';
-import { VCLIconModule } from '../icon';
-import { VCLButtonModule } from '../button';
-import { VCLOffClickModule } from '../off-click';
-import { VCLFormControlGroupModule } from '../form-control-group';
-import { NgIf } from '@angular/common';
+import { VCLIconComponent } from '../icon';
+import { VCLButtonComponent } from '../button';
+import { VCLOffClickDirective } from '../off-click';
 
 @Component({
   selector: 'vcl-select',
@@ -59,10 +57,9 @@ import { NgIf } from '@angular/common';
   ],
   imports: [
     VCLInputModule,
-    VCLIconModule,
-    VCLButtonModule,
-    VCLOffClickModule,
-    VCLFormControlGroupModule,
+    VCLIconComponent,
+    VCLButtonComponent,
+    VCLOffClickDirective,
   ],
 })
 export class VCLSelectComponent
