@@ -24,6 +24,7 @@
             "sourceMap": true,
             "optimization": false,
             "buildOptimizer": false,
+            "allowedCommonJsDependencies": ["prismjs"],
             "assets": [
               {
                 "glob": "**/*",
