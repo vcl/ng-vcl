@@ -43,7 +43,7 @@
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@mdi/font": "^7.4.47",
     "@types/marked": "^6.0.0",
-    "@vcl/vcl": "^3.3.0",
+    "@vcl/vcl": "^3.4.4",
     "core-js": "^3.46.0",
     "document-register-element": "^1.14.10",
     "fuse.js": "^7.1.0",

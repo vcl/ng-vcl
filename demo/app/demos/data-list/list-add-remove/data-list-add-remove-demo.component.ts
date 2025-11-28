@@ -7,6 +7,7 @@ import {
   VCLRadioButtonModule,
   VCLDataListComponent,
   VCLDataListHeaderDirective,
+  VCLButtonComponent,
 } from '@vcl/ng-vcl';
 import { Subscription } from 'rxjs';
 import { CreateCountryComponent } from './create-kitten.component';
@@ -25,6 +26,7 @@ import { JsonPipe, NgTemplateOutlet } from '@angular/common';
     VCLDataListItemDirective,
     VCLDataListComponent,
     VCLDataListHeaderDirective,
+    VCLButtonComponent,
   ],
 })
 export class DataListAddRemoveDemo implements OnDestroy {

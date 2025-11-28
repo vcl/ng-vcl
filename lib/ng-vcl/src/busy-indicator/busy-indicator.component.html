@@ -1,8 +1,24 @@
-<div class="justify-center icogram" [class.col]="layout == 'vertical'" [class.row]="layout == 'horizontal'" role="status">
-  <vcl-icon *ngIf="!icon" class="self-center" [attr.aria-label]="label">
-    <img [src]="imageSrc" role="presentation" [style.width]="imageWidth" [style.height]="imageHeight">
-  </vcl-icon>
-  <vcl-icon *ngIf="icon" class="self-center" [attr.aria-label]="label" [icon]="icon"></vcl-icon>
+<div
+  class="justify-center icogram"
+  [class.col]="layout == 'vertical'"
+  [class.row]="layout == 'horizontal'"
+  role="status">
+  @if (!icon) {
+    <vcl-icon class="self-center" [attr.aria-label]="label">
+      <img
+        [src]="imageSrc"
+        role="presentation"
+        [style.width]="imageWidth"
+        [style.height]="imageHeight" />
+    </vcl-icon>
+  }
+
+  @if (icon) {
+    <vcl-icon
+      class="self-center"
+      [attr.aria-label]="label"
+      [icon]="icon"></vcl-icon>
+  }
 
   <div class="self-center">
     <ng-content></ng-content>
