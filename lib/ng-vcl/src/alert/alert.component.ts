@@ -16,6 +16,7 @@ import { VCLInputModule } from '../input';
 import { VCLFormControlGroupModule } from '../form-control-group';
 import { VCLAlertInputDirective } from './input-alert.directive';
 import { VCLIconComponent } from '../icon';
+import { VCLIcogramComponent } from '../icogram';
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -33,6 +34,7 @@ import { VCLIconComponent } from '../icon';
     VCLButtonComponent,
     VCLInputModule,
     VCLIconComponent,
+    VCLIcogramComponent,
     VCLFormControlGroupModule,
   ],
 })

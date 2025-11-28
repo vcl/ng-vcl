@@ -18,6 +18,7 @@ import {
   VCLPanelTitleDirective,
 } from './panel.directive';
 import { VCLButtonComponent } from '../button';
+import { VCLIconComponent } from '../icon';
 
 @Component({
   selector: 'vcl-panel, vcl-panel-dialog',
@@ -25,7 +26,7 @@ import { VCLButtonComponent } from '../button';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['panel.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [VCLButtonComponent],
+  imports: [VCLButtonComponent, VCLIconComponent],
 })
 export class VCLPanelComponent implements AfterContentInit, OnDestroy {
   contentSub?: Subscription;

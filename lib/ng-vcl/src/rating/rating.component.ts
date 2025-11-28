@@ -43,6 +43,7 @@ let UNIQUE_ID = 0;
   templateUrl: './rating.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclRating',
+  imports: [VCLRatingItemComponent],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
