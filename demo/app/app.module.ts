@@ -7,7 +7,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MarkdownModule, MARKED_OPTIONS } from 'ngx-markdown';
+import { MarkdownModule, MARKED_OPTIONS, SANITIZE } from 'ngx-markdown';
 
 import {
   VCLIconModule,
@@ -64,7 +64,10 @@ export function determineWeekdayOffset() {
     }),
     ScrollingModule,
     MarkdownModule.forRoot({
-      sanitize: SecurityContext.NONE,
+      sanitize: {
+       provide: SANITIZE,
+       useValue:  SecurityContext.NONE,
+      },
       markedOptions: {
         provide: MARKED_OPTIONS,
         useValue: {
