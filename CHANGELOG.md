@@ -1,3 +1,12 @@
+## [3.4.2](https://github.com/vcl/ng-vcl/compare/v3.4.1...v3.4.2) (2025-11-28)
+
+
+### Bug Fixes
+
+* align TS/Angular setup with bundler and new ngx-markdown API ([d88adf5](https://github.com/vcl/ng-vcl/commit/d88adf56b7c60db230eb04c5c9d55f844ae446be))
+
+
+
 # [3.4.0](https://github.com/vcl/ng-vcl/compare/v3.2.1...v3.4.0) (2025-10-25)
 
 
