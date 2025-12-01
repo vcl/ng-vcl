@@ -23,6 +23,7 @@
       tabindex="-1"
       class="appended"
       [disabled]="isDisabled"
+      [class.disabled]="isDisabled"
       (click)="clearSelection($event)">
       <vcl-icon icon="vcl:close"></vcl-icon>
     </button>
@@ -35,6 +36,7 @@
     type="button"
     tabindex="-1"
     class="appended"
+    [class.disabled]="isDisabled"
     [disabled]="isDisabled">
     <vcl-icon icon="vcl:arrow-down"></vcl-icon>
   </button>
