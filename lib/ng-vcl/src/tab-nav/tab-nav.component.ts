@@ -22,7 +22,6 @@ import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
 import { BehaviorSubject } from 'rxjs';
 import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'vcl-tab-nav',
