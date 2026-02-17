@@ -1,6 +1,10 @@
 <h3>Basic navigation</h3>
 
 <vcl-navigation>
+  <vcl-navigation-heading class="scale115p"
+    >ADMINISTRATION</vcl-navigation-heading
+  >
+
   <vcl-navigation-item>
     <vcl-navigation-label>
       <vcl-icogram>
@@ -9,17 +13,18 @@
       </vcl-icogram>
     </vcl-navigation-label>
   </vcl-navigation-item>
+
   <vcl-navigation-item #products="vclNavigationItem">
     <vcl-navigation-label>
       <vcl-icogram>
         <vcl-icon
           vclPrepend
-          [icon]="
-            products.opened ? 'vcl:chevron-down' : 'vcl:chevron-right'
-          "></vcl-icon>
+          [icon]="products.opened ? 'vcl:chevron-down' : 'vcl:chevron-right'">
+        </vcl-icon>
         Products
       </vcl-icogram>
     </vcl-navigation-label>
+
     <vcl-navigation>
       <vcl-navigation-item>
         <vcl-navigation-label>
@@ -29,6 +34,7 @@
           </vcl-icogram>
         </vcl-navigation-label>
       </vcl-navigation-item>
+
       <vcl-navigation-item>
         <vcl-navigation-label>
           <vcl-icogram>
@@ -39,17 +45,21 @@
       </vcl-navigation-item>
     </vcl-navigation>
   </vcl-navigation-item>
+
+  <!-- Heading 2 -->
+  <vcl-navigation-heading class="scale115p">SUPPORT</vcl-navigation-heading>
+
   <vcl-navigation-item #contact="vclNavigationItem">
     <vcl-navigation-label>
       <vcl-icogram>
         <vcl-icon
           vclPrepend
-          [icon]="
-            contact.opened ? 'vcl:chevron-down' : 'vcl:chevron-right'
-          "></vcl-icon>
+          [icon]="contact.opened ? 'vcl:chevron-down' : 'vcl:chevron-right'">
+        </vcl-icon>
         Contact
       </vcl-icogram>
     </vcl-navigation-label>
+
     <vcl-navigation>
       <vcl-navigation-item>
         <vcl-navigation-label>
@@ -59,6 +69,7 @@
           </vcl-icogram>
         </vcl-navigation-label>
       </vcl-navigation-item>
+
       <vcl-navigation-item>
         <vcl-navigation-label>
           <vcl-icogram>

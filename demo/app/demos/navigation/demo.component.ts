@@ -4,17 +4,19 @@ import {
   VCLNavigationItemComponent,
   VCLNavigationLabelComponent,
   VCLIcogramComponent,
-  VCLIconComponent
+  VCLIconComponent,
+  VCLNavigationHeadingComponent,
 } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
   imports: [
     VCLNavigationComponent,
+    VCLNavigationHeadingComponent,
     VCLNavigationItemComponent,
     VCLNavigationLabelComponent,
     VCLIcogramComponent,
-    VCLIconComponent
+    VCLIconComponent,
   ],
 })
 export class NavigationDemoComponent {

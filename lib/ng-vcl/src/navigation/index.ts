@@ -4,11 +4,13 @@ import {
   VCLNavigationItemComponent,
   VCLNavigationLabelComponent,
 } from './navigation-item.component';
+import { VCLNavigationHeadingComponent } from './navigation-headnig.component';
 
 export {
   VCLNavigationComponent,
   VCLNavigationItemComponent,
   VCLNavigationLabelComponent,
+  VCLNavigationHeadingComponent,
 };
 
 @NgModule({
@@ -16,11 +18,13 @@ export {
     VCLNavigationComponent,
     VCLNavigationItemComponent,
     VCLNavigationLabelComponent,
+    VCLNavigationHeadingComponent,
   ],
   exports: [
     VCLNavigationComponent,
     VCLNavigationItemComponent,
     VCLNavigationLabelComponent,
+    VCLNavigationHeadingComponent,
   ],
 })
 export class VCLNavigationModule {}
