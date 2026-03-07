@@ -1,3 +1,17 @@
+## [3.4.4](https://github.com/vcl/ng-vcl/compare/v3.4.3...v3.4.4) (2026-03-07)
+
+
+### Bug Fixes
+
+* **panel:** replace ngIf with for ([1e6d80b](https://github.com/vcl/ng-vcl/commit/1e6d80ba645c2fcb32d07cae5c9c05947c8bd617))
+* **select:** remove readonly class ([0f55e6a](https://github.com/vcl/ng-vcl/commit/0f55e6a15e63bf00ad8768c5fe12f1643f24dc16))
+* **select:** remove useragent popover style and add disable style to buttons ([a68475d](https://github.com/vcl/ng-vcl/commit/a68475d8f97430778fa92ea0a49237f4b7910d78))
+* **vcl-tabs:** resolve double selection and NG0100 change detection error ([7154be9](https://github.com/vcl/ng-vcl/commit/7154be94493ad2af3ff225fe9d215df6dc724d5e))
+
+
+### Features
+
+* **navigation:** add header to navigation ([918dc10](https://github.com/vcl/ng-vcl/commit/918dc10ff12e3a434694f5c2e918cf0013e6553f))
 ## [3.4.3](https://github.com/vcl/ng-vcl/compare/v3.4.1...v3.4.3) (2025-11-28)
 
 
