@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLDateRange,
   DateAdapterBase,
@@ -17,6 +17,7 @@ import { VCLCalendarDateModifier } from '@vcl/ng-vcl';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLCalendarComponent, VCLButtonComponent],
 })
 export class CalendarDemoComponent {

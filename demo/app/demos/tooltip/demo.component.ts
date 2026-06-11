@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { VCLTooltipModule } from '@vcl/ng-vcl';
 
 @Component({
@@ -11,6 +11,7 @@ import { VCLTooltipModule } from '@vcl/ng-vcl';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLTooltipModule],
 })
 export class ToolTipDemoComponent {}

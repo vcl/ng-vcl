@@ -10,7 +10,7 @@ import { NgStyle } from '@angular/common';
 @Component({
   selector: 'vcl-zoom-box',
   templateUrl: 'zoom-box.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgStyle],
 })
 export class ZoomBoxComponent {

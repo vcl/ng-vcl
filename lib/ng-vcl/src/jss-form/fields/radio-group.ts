@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLFormFieldSchemaRadioGroup,
   VCLFormFieldSchemaRadioGroupParams,
@@ -24,8 +24,8 @@ export class FormFieldRadio extends FormFieldControl<
 }
 
 @Component({
-    selector: 'vcl-jss-form-radio-group',
-    template: `
+  selector: 'vcl-jss-form-radio-group',
+  template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -43,7 +43,8 @@ export class FormFieldRadio extends FormFieldControl<
       </vcl-jss-form-input-wrapper>
     </vcl-form-control-group>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldRadioGroupComponent {
   constructor(public field: FormFieldRadio) {}

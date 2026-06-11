@@ -14,6 +14,7 @@ import { NAVIGATION_TOKEN, Navigation } from './types';
 @Component({
   selector: 'vcl-navigation-label',
   template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   exportAs: 'vclNavigationLabel',
 })
 export class VCLNavigationLabelComponent {

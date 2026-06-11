@@ -1,8 +1,9 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'vcl-navigation-heading',
   template: '<span><ng-content></ng-content></span>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   exportAs: 'vclNavigationHeading',
 })
 export class VCLNavigationHeadingComponent {

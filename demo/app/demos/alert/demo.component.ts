@@ -5,7 +5,7 @@ import {
   AlertInput,
   VCLButtonComponent,
 } from '@vcl/ng-vcl';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
 
 function createAsyncResult(
@@ -29,6 +29,7 @@ function createAsyncResult(
 @Component({
   templateUrl: 'demo.component.html',
   styleUrls: ['demo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLButtonComponent],
 })
 export class AlertDemoComponent {

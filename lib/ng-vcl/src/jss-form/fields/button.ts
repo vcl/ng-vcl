@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { VCLFormFieldSchemaButton } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
 import { FormField } from './field';
@@ -38,8 +38,8 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
 }
 
 @Component({
-    selector: 'vcl-jss-form-button',
-    template: `
+  selector: 'vcl-jss-form-button',
+  template: `
     <button
       vcl-button
       [ngClass]="field.class"
@@ -58,7 +58,8 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
       </vcl-icogram>
     </button>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldButtonComponent {
   constructor(

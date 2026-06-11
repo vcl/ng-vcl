@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   FormFieldControl,
@@ -19,6 +19,7 @@ import { CounterComponent } from '../form-control-group/counter.component';
         [max]="field.params.max"></demo-counter>
     </vcl-form-control-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgIf,
     ReactiveFormsModule,

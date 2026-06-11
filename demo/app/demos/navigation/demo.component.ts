@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLNavigationComponent,
   VCLNavigationItemComponent,
@@ -10,6 +10,7 @@ import {
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     VCLNavigationComponent,
     VCLNavigationHeadingComponent,

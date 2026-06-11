@@ -1,4 +1,9 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   UntypedFormGroup,
   Validators,
@@ -41,6 +46,7 @@ import { JsonPipe, NgIf } from '@angular/common';
   templateUrl: 'demo.component.html',
   styleUrls: ['demo.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgIf,
     ReactiveFormsModule,

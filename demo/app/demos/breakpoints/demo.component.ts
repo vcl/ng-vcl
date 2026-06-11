@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { VCLBreakpoints } from '@vcl/ng-vcl';
@@ -9,6 +9,7 @@ const pickMatches = map((state: BreakpointState) => state.matches);
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe],
 })
 export class BreakpointsDemoComponent {

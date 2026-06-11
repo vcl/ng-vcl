@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLBusyIndicatorComponent,
   VCLDataListComponent,
@@ -10,6 +10,7 @@ import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgTemplateOutlet,
     VCLDataListComponent,

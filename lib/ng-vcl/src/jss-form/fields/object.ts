@@ -1,5 +1,5 @@
 import { UntypedFormGroup } from '@angular/forms';
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { Portal } from '@angular/cdk/portal';
 import { FormField, FormFieldControl } from './field';
 import { VCLFormFieldSchemaObject } from '../schemas';
@@ -92,8 +92,8 @@ export class FormFieldObject extends FormFieldControl<
 }
 
 @Component({
-    selector: 'vcl-jss-form-object',
-    template: `
+  selector: 'vcl-jss-form-object',
+  template: `
     <ng-container *ngIf="field.visible">
       <ng-container *ngIf="!field.layout">
         <div [formGroup]="field.control">
@@ -116,10 +116,14 @@ export class FormFieldObject extends FormFieldControl<
       </ng-container>
     </ng-container>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldObjectComponent {
-  constructor(public field: FormFieldObject, injector: Injector) {
+  constructor(
+    public field: FormFieldObject,
+    injector: Injector
+  ) {
     this.portals = this.field.fields.map(_field =>
       _field.createPortal(injector, [])
     );

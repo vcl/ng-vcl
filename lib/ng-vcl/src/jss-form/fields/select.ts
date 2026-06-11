@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   VCLFormFieldSchemaSelect,
@@ -47,16 +48,16 @@ export class FormFieldSelect extends FormFieldControl<
 }
 
 @Directive({
-    selector: '[vclEmptyHost]',
-    standalone: false
+  selector: '[vclEmptyHost]',
+  standalone: false,
 })
 export class EmptyDirective {
   constructor(public viewContainerRef: ViewContainerRef) {}
 }
 
 @Component({
-    selector: 'vcl-jss-form-select',
-    template: `
+  selector: 'vcl-jss-form-select',
+  template: `
     <vcl-form-control-group
       [errorStateAgent]="field.errorStateAgent"
       *ngIf="field.visible">
@@ -88,7 +89,8 @@ export class EmptyDirective {
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldSelectComponent implements AfterViewInit {
   @ViewChild(EmptyDirective, { static: false })

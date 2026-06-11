@@ -12,6 +12,7 @@ import {
   ChangeDetectorRef,
   Injector,
   ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -35,6 +36,7 @@ let UNIQUE_ID = 0;
   styleUrls: ['select-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
   exportAs: 'vclSelectList',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -1,12 +1,13 @@
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
-    templateUrl: 'demo.component.html',
-    styleUrls: [`demo.component.scss`],
-    standalone: false
+  templateUrl: 'demo.component.html',
+  styleUrls: [`demo.component.scss`],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class DemoComponent implements OnInit {
   title: string;

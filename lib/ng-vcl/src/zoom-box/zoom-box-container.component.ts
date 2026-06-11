@@ -5,11 +5,13 @@ import {
   ContentChild,
   AfterContentInit,
   Renderer2,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ZoomBoxMagnifierComponent } from './zoom-box-magnifier.component';
 
 @Component({
   selector: 'vcl-zoom-box-container',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<div><ng-content></ng-content></div>',
 })
 export class ZoomBoxContainerComponent implements AfterContentInit {

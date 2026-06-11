@@ -1,4 +1,10 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   JssFormComponent,
   NotifierService,
@@ -14,6 +20,7 @@ import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'demo-empty-component',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<span>{{ data }}</span>`,
 })
 export class SampleEmptyComponent {
@@ -22,6 +29,7 @@ export class SampleEmptyComponent {
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgIf,
     AsyncPipe,

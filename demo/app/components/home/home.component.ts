@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import README from '!raw-loader!../../../../README.md';
 
 @Component({
-    templateUrl: 'home.component.html',
-    standalone: false
+  templateUrl: 'home.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class HomeComponent {
   constructor(private sanitizer: DomSanitizer) {}

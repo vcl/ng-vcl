@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLFormFieldSchemaCheckbox,
   VCLFormFieldSchemaCheckboxParams,
@@ -18,8 +18,8 @@ export class FormFieldCheckbox extends FormFieldControl<
 }
 
 @Component({
-    selector: 'vcl-jss-form-checkbox',
-    template: `
+  selector: 'vcl-jss-form-checkbox',
+  template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -31,7 +31,8 @@ export class FormFieldCheckbox extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldCheckboxComponent {
   constructor(public field: FormFieldCheckbox) {}

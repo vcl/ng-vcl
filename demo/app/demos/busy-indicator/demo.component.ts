@@ -1,4 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   VCLBusyIndicatorComponent,
   VCLBusyIndicatorCoverComponent,
@@ -9,6 +13,7 @@ import {
   templateUrl: 'demo.component.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./demo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     VCLBusyIndicatorComponent,
     VCLBusyIndicatorCoverComponent,

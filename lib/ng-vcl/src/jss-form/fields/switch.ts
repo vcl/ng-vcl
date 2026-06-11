@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLFormFieldSchemaSwitch,
   VCLFormFieldSchemaSwitchParams,
@@ -21,8 +21,8 @@ export class FormFieldSwitch extends FormFieldControl<
 }
 
 @Component({
-    selector: 'vcl-jss-form-switch',
-    template: `
+  selector: 'vcl-jss-form-switch',
+  template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -33,7 +33,8 @@ export class FormFieldSwitch extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldSwitchComponent {
   constructor(public field: FormFieldSwitch) {}

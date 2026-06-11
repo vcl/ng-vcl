@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { VCLFlipSwitchModule } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLFlipSwitchModule],
 })
 export class FlipSwitchDemoComponent {

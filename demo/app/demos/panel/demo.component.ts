@@ -1,4 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   VCLIconComponent,
   VCLPanelComponent,
@@ -10,6 +14,7 @@ import {
 @Component({
   templateUrl: 'demo.component.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     VCLPanelComponent,
     VCLPanelTitleDirective,
