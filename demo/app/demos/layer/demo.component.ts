@@ -4,6 +4,7 @@ import {
   ViewChild,
   ViewContainerRef,
   TemplateRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   LayerService,
@@ -18,6 +19,7 @@ let i = 0;
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLLayerModule, VCLButtonModule],
 })
 export class LayerDemoComponent implements AfterViewInit {

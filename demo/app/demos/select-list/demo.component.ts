@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { VCLIconModule, VCLSelectListModule } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLSelectListModule, VCLIconModule],
 })
 export class SelectListDemoComponent {

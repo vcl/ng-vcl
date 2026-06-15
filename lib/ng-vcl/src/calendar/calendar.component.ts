@@ -7,6 +7,7 @@ import {
   Inject,
   OnInit,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { VCLDateRange } from '../dateadapter/index';
@@ -35,6 +36,7 @@ export type VCLCalendarSelectionMode =
   selector: 'vcl-calendar',
   templateUrl: 'calendar.component.html',
   exportAs: 'vclCalendar',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     VCLCalendarViewMinutesComponent,

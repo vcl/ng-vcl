@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLFormFieldSchemaFileInput,
   VCLFormFieldSchemaFileInputParams,
@@ -21,8 +21,8 @@ export class FormFieldFileInput extends FormFieldControl<
 }
 
 @Component({
-    selector: 'vcl-jss-form-file-input',
-    template: `
+  selector: 'vcl-jss-form-file-input',
+  template: `
     <vcl-form-control-group
       *ngIf="field.visible"
       [errorStateAgent]="field.errorStateAgent">
@@ -38,7 +38,8 @@ export class FormFieldFileInput extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldFileInputComponent {
   constructor(public field: FormFieldFileInput) {}

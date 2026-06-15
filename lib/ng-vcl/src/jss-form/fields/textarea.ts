@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLFormFieldSchemaTextarea,
   VCLFormFieldSchemaTextareaParams,
@@ -24,8 +24,8 @@ export class FormFieldTextarea extends FormFieldControl<
 }
 
 @Component({
-    selector: 'vcl-jss-form-textarea',
-    template: `
+  selector: 'vcl-jss-form-textarea',
+  template: `
     <vcl-form-control-group
       [errorStateAgent]="field.errorStateAgent"
       *ngIf="field.visible">
@@ -45,7 +45,8 @@ export class FormFieldTextarea extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class FormFieldTextareaComponent {
   constructor(public field: FormFieldTextarea) {}

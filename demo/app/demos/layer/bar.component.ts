@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   ComponentLayerRef,
   VCLButtonModule,
@@ -7,6 +7,7 @@ import {
 
 @Component({
   templateUrl: 'bar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLPanelModule, VCLButtonModule],
 })
 export class BarComponent {

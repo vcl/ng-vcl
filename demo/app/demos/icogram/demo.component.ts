@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLIcogramComponent,
   VCLIcogramLinkComponent,
@@ -7,6 +7,7 @@ import {
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLIcogramComponent, VCLIconComponent, VCLIcogramLinkComponent],
 })
 export class IcogramDemoComponent {}

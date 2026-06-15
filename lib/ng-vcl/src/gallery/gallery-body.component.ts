@@ -8,6 +8,7 @@ import {
   HostListener,
   Output,
   EventEmitter,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { GalleryComponent } from './gallery.component';
 import { GalleryImageComponent } from './gallery-image.component';
@@ -19,6 +20,7 @@ import { VCLIconModule } from '../icon';
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
   host: { class: 'gallery-body-norow' },
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgStyle, VCLButtonModule, VCLIconModule],
 })
 export class GalleryBodyComponent implements AfterContentChecked {

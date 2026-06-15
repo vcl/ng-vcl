@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   ComponentLayerRef,
@@ -39,6 +39,7 @@ import {
       </button>
     </vcl-panel-dialog>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FormsModule,
     VCLButtonComponent,

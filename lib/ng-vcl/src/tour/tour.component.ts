@@ -5,6 +5,7 @@ import {
   ElementRef,
   ViewChild,
   OnChanges,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { TourService } from './tour.service';
 import {
@@ -20,6 +21,7 @@ import { VCLButtonModule } from '../button';
   selector: 'vcl-tour-step',
   templateUrl: './tour.component.html',
   styleUrls: ['./tour.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgIf, NgClass, VCLButtonModule, VCLPopoverModule],
 })
 export class TourComponent implements OnInit, OnChanges {

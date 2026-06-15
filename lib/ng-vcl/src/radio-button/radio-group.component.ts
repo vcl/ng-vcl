@@ -10,6 +10,7 @@ import {
   Output,
   Component,
   Injector,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -34,6 +35,7 @@ let UNIQUE_ID = 0;
 @Component({
   selector: 'vcl-radio-group',
   template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

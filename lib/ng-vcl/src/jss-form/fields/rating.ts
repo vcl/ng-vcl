@@ -4,6 +4,7 @@ import {
   ViewChild,
   AfterContentInit,
   AfterViewInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   VCLFormFieldSchemaRating,
@@ -62,6 +63,7 @@ export class FormFieldRating extends FormFieldControl<
       <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
     </vcl-form-control-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FormFieldRatingComponent implements AfterViewInit {

@@ -4,6 +4,7 @@ import {
   forwardRef,
   HostBinding,
   Injector,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -71,6 +72,7 @@ let uniqueID = 0;
       useExisting: forwardRef(() => CounterComponent),
     },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLButtonModule],
 })
 export class CounterComponent

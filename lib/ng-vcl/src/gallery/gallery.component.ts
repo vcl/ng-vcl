@@ -12,6 +12,7 @@ import {
   ElementRef,
   ViewChild,
   ContentChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { GalleryImageComponent } from './gallery-image.component';
@@ -42,6 +43,7 @@ export enum ImageChange {
 @Component({
   selector: 'vcl-gallery',
   templateUrl: 'gallery.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgStyle, NgClass],
 })
 export class GalleryComponent implements AfterContentInit, AfterViewInit {

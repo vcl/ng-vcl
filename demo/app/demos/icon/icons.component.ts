@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   MaterialDesignVCLIconAliasResolverService,
   FontAwesomeVCLIconAliasResolverService,
@@ -25,6 +25,7 @@ import {
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLIconComponent],
 })
 export class DemoMdiIconsComponent {}
@@ -45,6 +46,7 @@ export class DemoMdiIconsComponent {}
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLIconComponent],
 })
 export class DemoFontAwesomeComponent {}

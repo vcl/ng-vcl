@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MarkdownModule, MARKED_OPTIONS, SANITIZE } from 'ngx-markdown';
@@ -65,8 +66,8 @@ export function determineWeekdayOffset() {
     ScrollingModule,
     MarkdownModule.forRoot({
       sanitize: {
-       provide: SANITIZE,
-       useValue:  SecurityContext.NONE,
+        provide: SANITIZE,
+        useValue: SecurityContext.NONE,
       },
       markedOptions: {
         provide: MARKED_OPTIONS,
@@ -87,7 +88,7 @@ export function determineWeekdayOffset() {
       provide: LOCALE_ID,
       useFactory: determineLocale,
     },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
 })
 export class AppModule {}

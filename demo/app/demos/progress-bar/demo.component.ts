@@ -1,11 +1,12 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { VCLProgressBarComponent } from '@vcl/ng-vcl';
 import { zip, range, interval, animationFrameScheduler } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: 'demo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe, VCLProgressBarComponent],
 })
 export class ProgressBarDemoComponent {

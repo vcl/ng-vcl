@@ -1,4 +1,10 @@
-import { Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  QueryList,
+  ViewChildren,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   VCLDataListItemDirective,
   LayerRef,
@@ -18,6 +24,7 @@ import { JsonPipe, NgTemplateOutlet } from '@angular/common';
   selector: 'data-list-add-remove-demo',
   templateUrl: './data-list-add-remove-demo.component.html',
   styleUrls: ['./data-list-add-remove-demo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgTemplateOutlet,
     JsonPipe,

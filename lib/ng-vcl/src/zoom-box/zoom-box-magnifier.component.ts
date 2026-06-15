@@ -1,8 +1,14 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Renderer2,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ZoomBoxContainerComponent } from './zoom-box-container.component';
 
 @Component({
   selector: 'vcl-zoom-box-magnifier',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<ng-content></ng-content>',
 })
 export class ZoomBoxMagnifierComponent {

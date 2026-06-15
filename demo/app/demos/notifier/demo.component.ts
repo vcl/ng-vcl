@@ -12,6 +12,7 @@ import {
   ViewEncapsulation,
   ViewChild,
   TemplateRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 
@@ -28,6 +29,7 @@ let cnt = 1;
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLNotifierModule, VCLButtonGroupModule, VCLButtonModule],
 })
 export class NotifierDemoComponent {

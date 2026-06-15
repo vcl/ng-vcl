@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, Optional } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  Optional,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { GalleryComponent } from './gallery.component';
 import { NgClass, NgOptimizedImage } from '@angular/common';
 
@@ -6,6 +12,7 @@ import { NgClass, NgOptimizedImage } from '@angular/common';
   selector: 'vcl-gallery-thumbnails',
   templateUrl: 'gallery-thumbnails.component.html',
   host: { class: 'gallery-thumbnails-host' },
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgOptimizedImage, NgClass],
 })
 export class GalleryThumbnailsComponent {

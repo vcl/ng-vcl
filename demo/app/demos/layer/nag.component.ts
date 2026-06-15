@@ -4,6 +4,7 @@ import {
   Injectable,
   Inject,
   HostBinding,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentLayerRef, LayerConfig, VCLButtonModule } from '@vcl/ng-vcl';
@@ -17,13 +18,17 @@ export interface NagLayerResult {
   accept: boolean;
 }
 
-export interface INagLayer
-  extends ComponentLayerRef<NagLayerData, NagLayerResult, NagComponent> {
+export interface INagLayer extends ComponentLayerRef<
+  NagLayerData,
+  NagLayerResult,
+  NagComponent
+> {
   nag(): void;
 }
 
 @Component({
   templateUrl: 'nag.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgIf, VCLButtonModule],
 })
 export class NagComponent {
