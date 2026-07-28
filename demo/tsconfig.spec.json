@@ -5,14 +5,5 @@
     "types": ["jasmine", "node"]
   },
   "files": ["test.ts", "polyfills.ts"],
-  "include": ["**/*.spec.ts", "**/*.d.ts"],
-  "angularCompilerOptions": {
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    },
-    "strictTemplates": false
-  }
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
