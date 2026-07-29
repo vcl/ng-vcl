@@ -11,12 +11,25 @@ import {
   RouteConfigLoadEnd,
   RouteConfigLoadStart,
   RouterEvent,
+  RouterLinkActive,
+  RouterLink,
+  RouterOutlet,
 } from '@angular/router';
 import { routes } from './../../app-routing.module';
 import Fuse from 'fuse.js';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { VCLDrawerComponent } from '@vcl/ng-vcl';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { VCLIconComponent } from '../../../../lib/ng-vcl/src/icon/icon.component';
+import { VCLInputFieldComponent } from '../../../../lib/ng-vcl/src/input/input-field.component';
+import { VCLInputDirective } from '../../../../lib/ng-vcl/src/input/input.directive';
+import { VCLNavigationComponent } from '../../../../lib/ng-vcl/src/navigation/navigation.component';
+import {
+  VCLNavigationItemComponent,
+  VCLNavigationLabelComponent,
+} from '../../../../lib/ng-vcl/src/navigation/navigation-item.component';
+import { VCLIcogramComponent } from '../../../../lib/ng-vcl/src/icogram/icogram.component';
 
 declare var gitBranch: string;
 
@@ -24,7 +37,21 @@ declare var gitBranch: string;
   selector: 'demo-app',
   templateUrl: 'app.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    VCLIconComponent,
+    VCLInputFieldComponent,
+    VCLInputDirective,
+    VCLNavigationComponent,
+    NgFor,
+    VCLNavigationItemComponent,
+    RouterLinkActive,
+    RouterLink,
+    VCLNavigationLabelComponent,
+    VCLIcogramComponent,
+    RouterOutlet,
+    AsyncPipe,
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(
