@@ -2,6 +2,10 @@ import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { VCLFormFieldSchemaButton } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
 import { FormField } from './field';
+import { VCLButtonComponent } from '../../button/button.component';
+import { NgClass, NgIf } from '@angular/common';
+import { VCLIcogramComponent } from '../../icogram/icogram.component';
+import { VCLIconComponent } from '../../icon/icon.component';
 
 export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
   field: 'button' | 'submit';
@@ -59,7 +63,13 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
     </button>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    VCLButtonComponent,
+    NgClass,
+    VCLIcogramComponent,
+    NgIf,
+    VCLIconComponent,
+  ],
 })
 export class FormFieldButtonComponent {
   constructor(

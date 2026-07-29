@@ -13,7 +13,7 @@ export { DemoComponent };
     VCLTabNavModule,
     PortalModule,
     MarkdownModule.forChild(),
+    DemoComponent,
   ],
-  declarations: [DemoComponent],
 })
 export class DemoModule {}

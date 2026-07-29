@@ -11,7 +11,6 @@ export class FormFieldHidden extends FormFieldControl<
   selector: 'vcl-jss-form-hidden',
   template: ``,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
 })
 export class FormFieldHiddenComponent {
   constructor(public field: FormFieldHidden) {}

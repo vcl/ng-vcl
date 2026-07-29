@@ -4,6 +4,15 @@ import {
   VCLFormFieldSchemaInputParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
+import { NgIf } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { VCLLabelDirective } from '../../core/label';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { VCLPasswordInputComponent } from '../../password-input/password-input.component';
+import { InputDirective } from '../../input/input.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldPasswordInput extends FormFieldControl<
   VCLFormFieldSchemaInput,
@@ -42,7 +51,18 @@ export class FormFieldPasswordInput extends FormFieldControl<
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    VCLLabelDirective,
+    JssFormInputWrapperComponent,
+    VCLPasswordInputComponent,
+    InputDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldPasswordInputComponent {
   constructor(public field: FormFieldPasswordInput) {}

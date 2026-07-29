@@ -1,13 +1,27 @@
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal, CdkPortalOutlet } from '@angular/cdk/portal';
+import { NgIf, NgFor } from '@angular/common';
+import { VCLTabNavComponent } from '../../../../lib/ng-vcl/src/tab-nav/tab-nav.component';
+import { VCLTabComponent } from '../../../../lib/ng-vcl/src/tab-nav/tab.component';
+import { VCLLabelDirective } from '../../../../lib/ng-vcl/src/core/label';
+import { MarkdownComponent, LanguagePipe } from 'ngx-markdown';
 
 @Component({
   templateUrl: 'demo.component.html',
   styleUrls: [`demo.component.scss`],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    VCLTabNavComponent,
+    NgFor,
+    VCLTabComponent,
+    VCLLabelDirective,
+    CdkPortalOutlet,
+    MarkdownComponent,
+    LanguagePipe,
+  ],
 })
 export class DemoComponent implements OnInit {
   title: string;

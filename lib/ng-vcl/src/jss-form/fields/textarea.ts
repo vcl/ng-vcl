@@ -4,6 +4,15 @@ import {
   VCLFormFieldSchemaTextareaParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
+import { NgIf } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { VCLLabelDirective } from '../../core/label';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { InputFieldComponent } from '../../input/input-field.component';
+import { TextareaDirective } from '../../input/textarea.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldTextarea extends FormFieldControl<
   VCLFormFieldSchemaTextarea,
@@ -46,7 +55,18 @@ export class FormFieldTextarea extends FormFieldControl<
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    VCLLabelDirective,
+    JssFormInputWrapperComponent,
+    InputFieldComponent,
+    TextareaDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldTextareaComponent {
   constructor(public field: FormFieldTextarea) {}

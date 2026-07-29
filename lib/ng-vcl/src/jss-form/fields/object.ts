@@ -1,8 +1,14 @@
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { Portal } from '@angular/cdk/portal';
+import { Portal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { FormField, FormFieldControl } from './field';
 import { VCLFormFieldSchemaObject } from '../schemas';
+import { NgIf, NgFor } from '@angular/common';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldObject extends FormFieldControl<
   VCLFormFieldSchemaObject,
@@ -117,7 +123,14 @@ export class FormFieldObject extends FormFieldControl<
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    CdkPortalOutlet,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldObjectComponent {
   constructor(

@@ -3,11 +3,15 @@ import {
   UntypedFormArray,
   AbstractControl,
   UntypedFormGroup,
+  FormsModule,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { Portal } from '@angular/cdk/portal';
+import { Portal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { VCLFormFieldSchemaArray } from '../schemas';
 import { FormField, FormFieldControl } from './field';
 import { FormFieldObject } from './object';
+import { VCLIconComponent } from '../../icon/icon.component';
+import { NgIf, NgFor } from '@angular/common';
 
 export class FormFieldArray extends FormFieldControl<
   VCLFormFieldSchemaArray,
@@ -127,7 +131,14 @@ export class FormFieldArray extends FormFieldControl<
     `,
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    VCLIconComponent,
+    NgIf,
+    NgFor,
+    CdkPortalOutlet,
+  ],
 })
 export class FormFieldArrayComponent {
   constructor(

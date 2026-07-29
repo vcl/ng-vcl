@@ -12,6 +12,15 @@ import {
 } from '../schemas';
 import { VCLRatingComponent } from '../../rating/index';
 import { FormFieldControl } from './field';
+import { NgIf, NgFor } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { VCLLabelDirective } from '../../core/label';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { VCLRatingComponent as VCLRatingComponent_1 } from '../../rating/rating.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VCLRatingItemComponent } from '../../rating/rating-item.component';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldRating extends FormFieldControl<
   VCLFormFieldSchemaRating,
@@ -64,7 +73,19 @@ export class FormFieldRating extends FormFieldControl<
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    VCLLabelDirective,
+    JssFormInputWrapperComponent,
+    VCLRatingComponent_1,
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    VCLRatingItemComponent,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldRatingComponent implements AfterViewInit {
   constructor(

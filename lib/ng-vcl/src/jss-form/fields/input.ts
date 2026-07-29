@@ -4,6 +4,17 @@ import {
   VCLFormFieldSchemaInputParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
+import { NgIf, NgFor } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { VCLLabelDirective } from '../../core/label';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { InputFieldComponent } from '../../input/input-field.component';
+import { VCLIconComponent } from '../../icon/icon.component';
+import { InputDirective } from '../../input/input.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VCLSpinnerComponent } from '../../spinner/spinner.component';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldInput extends FormFieldControl<
   VCLFormFieldSchemaInput,
@@ -82,7 +93,21 @@ export class FormFieldInput extends FormFieldControl<
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    VCLLabelDirective,
+    JssFormInputWrapperComponent,
+    InputFieldComponent,
+    NgFor,
+    VCLIconComponent,
+    InputDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    VCLSpinnerComponent,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldInputComponent {
   private _value = '';

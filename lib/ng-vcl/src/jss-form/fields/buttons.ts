@@ -3,6 +3,10 @@ import { VCLFormFieldSchemaButtons } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
 import { FormField } from './field';
 import { FormFieldButton } from './button';
+import { NgFor, NgClass, NgIf } from '@angular/common';
+import { VCLButtonComponent } from '../../button/button.component';
+import { VCLIcogramComponent } from '../../icogram/icogram.component';
+import { VCLIconComponent } from '../../icon/icon.component';
 
 export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
   constructor(schema: VCLFormFieldSchemaButtons, parent?: FormField) {
@@ -51,7 +55,14 @@ export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgFor,
+    VCLButtonComponent,
+    NgClass,
+    VCLIcogramComponent,
+    NgIf,
+    VCLIconComponent,
+  ],
 })
 export class FormFieldButtonsComponent {
   constructor(

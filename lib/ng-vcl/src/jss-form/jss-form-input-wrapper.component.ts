@@ -6,13 +6,32 @@ import {
 } from '@angular/core';
 import { FormFieldControl } from './fields/field';
 import { JSS_FORM_TOKEN, JssForm } from './types';
+import { LayerDirective } from '../layer/layer.directive';
+import { VCLPanelComponent } from '../panel/panel.component';
+import {
+  VCLPanelDialogDirective,
+  VCLPanelTitleDirective,
+  VCLPanelFooterButtonDirective,
+} from '../panel/panel.directive';
+import { NgIf } from '@angular/common';
+import { VCLButtonComponent } from '../button/button.component';
+import { VCLIconComponent } from '../icon/icon.component';
 
 @Component({
-    selector: 'vcl-jss-form-input-wrapper',
-    templateUrl: 'jss-form-input-wrapper.component.html',
-    styleUrls: ['jss-form-input-wrapper.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'vcl-jss-form-input-wrapper',
+  templateUrl: 'jss-form-input-wrapper.component.html',
+  styleUrls: ['jss-form-input-wrapper.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    LayerDirective,
+    VCLPanelComponent,
+    VCLPanelDialogDirective,
+    NgIf,
+    VCLPanelTitleDirective,
+    VCLButtonComponent,
+    VCLPanelFooterButtonDirective,
+    VCLIconComponent,
+  ],
 })
 export class JssFormInputWrapperComponent {
   constructor(

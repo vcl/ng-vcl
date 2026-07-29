@@ -4,6 +4,15 @@ import {
   VCLFormFieldSchemaSelectParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
+import { NgIf, NgFor } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { VCLLabelDirective, VCLSubLabelDirective } from '../../core/label';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { VCLSelectListComponent } from '../../select-list/select-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VCLSelectListItemComponent } from '../../select-list/components/select-list-item.component';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldSelectList extends FormFieldControl<
   VCLFormFieldSchemaSelect,
@@ -46,7 +55,20 @@ export class FormFieldSelectList extends FormFieldControl<
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    VCLLabelDirective,
+    JssFormInputWrapperComponent,
+    VCLSelectListComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    VCLSelectListItemComponent,
+    VCLSubLabelDirective,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldSelectListComponent {
   constructor(public field: FormFieldSelectList) {}

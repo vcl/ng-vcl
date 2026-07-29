@@ -4,6 +4,13 @@ import {
   VCLFormFieldSchemaCheckboxParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
+import { NgIf } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { VCLCheckboxComponent } from '../../checkbox/checkbox.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldCheckbox extends FormFieldControl<
   VCLFormFieldSchemaCheckbox,
@@ -32,7 +39,16 @@ export class FormFieldCheckbox extends FormFieldControl<
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    JssFormInputWrapperComponent,
+    VCLCheckboxComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldCheckboxComponent {
   constructor(public field: FormFieldCheckbox) {}

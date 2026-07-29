@@ -85,9 +85,6 @@ let fieldsInitialized = false;
     VCLLayerModule,
     VCLPanelModule,
     VCLSpinnerModule,
-  ],
-  exports: [JssFormComponent],
-  declarations: [
     JssFormComponent,
     JssFormHintsComponent,
     JssFormInputWrapperComponent,
@@ -112,6 +109,7 @@ let fieldsInitialized = false;
     FormFieldArrayComponent,
     FormFieldPasswordInputComponent,
   ],
+  exports: [JssFormComponent],
   providers: [],
 })
 export class VCLJssFormModule {

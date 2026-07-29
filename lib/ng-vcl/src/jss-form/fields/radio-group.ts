@@ -4,6 +4,14 @@ import {
   VCLFormFieldSchemaRadioGroupParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
+import { NgIf, NgFor } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { VCLLabelDirective } from '../../core/label';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { VCLRadioGroupComponent } from '../../radio-button/radio-group.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VCLRadioButtonComponent } from '../../radio-button/radio-button.component';
 
 export class FormFieldRadio extends FormFieldControl<
   VCLFormFieldSchemaRadioGroup,
@@ -44,7 +52,18 @@ export class FormFieldRadio extends FormFieldControl<
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    VCLLabelDirective,
+    JssFormInputWrapperComponent,
+    VCLRadioGroupComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    VCLRadioButtonComponent,
+  ],
 })
 export class FormFieldRadioGroupComponent {
   constructor(public field: FormFieldRadio) {}

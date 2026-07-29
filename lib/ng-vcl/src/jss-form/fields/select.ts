@@ -13,6 +13,16 @@ import {
   VCLFormFieldSchemaSelectParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
+import { NgIf, NgFor } from '@angular/common';
+import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
+import { VCLLabelDirective, VCLSubLabelDirective } from '../../core/label';
+import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
+import { VCLSelectComponent } from '../../select/select.component';
+import { VCLSelectListComponent } from '../../select-list/select-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VCLSelectListItemComponent } from '../../select-list/components/select-list-item.component';
+import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldSelect extends FormFieldControl<
   VCLFormFieldSchemaSelect,
@@ -47,10 +57,7 @@ export class FormFieldSelect extends FormFieldControl<
   }
 }
 
-@Directive({
-  selector: '[vclEmptyHost]',
-  standalone: false,
-})
+@Directive({ selector: '[vclEmptyHost]' })
 export class EmptyDirective {
   constructor(public viewContainerRef: ViewContainerRef) {}
 }
@@ -90,7 +97,22 @@ export class EmptyDirective {
     </vcl-form-control-group>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    NgIf,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
+    VCLLabelDirective,
+    JssFormInputWrapperComponent,
+    VCLSelectComponent,
+    EmptyDirective,
+    VCLSelectListComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    VCLSelectListItemComponent,
+    VCLSubLabelDirective,
+    JssFormHintsComponent,
+  ],
 })
 export class FormFieldSelectComponent implements AfterViewInit {
   @ViewChild(EmptyDirective, { static: false })

@@ -17,7 +17,7 @@ import {
   Inject,
   Optional,
 } from '@angular/core';
-import { Portal } from '@angular/cdk/portal';
+import { Portal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { FormFieldObject } from './fields/index';
 import {
   JSS_FORM_TOKEN,
@@ -30,15 +30,17 @@ import {
   FormDirective,
   FORM_CONTROL_GROUP_FORM,
 } from '../form-control-group/index';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormDirective as FormDirective_1 } from '../form-control-group/form.directive';
 
 @Component({
-    selector: 'vcl-jss-form',
-    templateUrl: 'jss-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['jss-form.component.scss'],
-    exportAs: 'vclJssForm',
-    standalone: false
+  selector: 'vcl-jss-form',
+  templateUrl: 'jss-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['jss-form.component.scss'],
+  exportAs: 'vclJssForm',
+  imports: [FormsModule, FormDirective_1, ReactiveFormsModule, CdkPortalOutlet],
 })
 export class JssFormComponent
   implements

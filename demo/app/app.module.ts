@@ -43,7 +43,7 @@ export function determineWeekdayOffset() {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent],
   bootstrap: [AppComponent],
   imports: [
     FormsModule,
@@ -75,13 +75,13 @@ export function determineWeekdayOffset() {
           gfm: true,
           breaks: true,
           pedantic: false,
-
           // smartLists: true,
           // smartypants: false,
           // tables: true,
         },
       },
     }),
+    HomeComponent,
   ],
   providers: [
     {
