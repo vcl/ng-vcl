@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { VCLInputModule } from '../input/index';
+
 import { VCLIconModule } from '../icon/index';
-import { VCLButtonModule } from '../button/index';
+
 import { VCLIcogramModule } from '../icogram/index';
 
 import { VCLTokenComponent } from './token.component';
@@ -21,8 +21,6 @@ export {
 @NgModule({
   imports: [
     CommonModule,
-    VCLInputModule,
-    VCLButtonModule,
     FormsModule,
     VCLIconModule,
     VCLIcogramModule,
@@ -34,7 +32,6 @@ export {
     VCLTokenComponent,
     VCLTokenListComponent,
     VCLTokenInputContainerComponent,
-    VCLInputModule,
   ],
 })
 export class VCLTokenModule {}

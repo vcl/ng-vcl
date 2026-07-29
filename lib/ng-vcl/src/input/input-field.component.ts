@@ -8,7 +8,7 @@ import {
   forwardRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import { InputDirective } from './input.directive';
+import { VCLInputDirective } from './input.directive';
 import { TextareaDirective } from './textarea.directive';
 import { Subject } from 'rxjs';
 import {
@@ -28,11 +28,11 @@ import {
   providers: [
     {
       provide: FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-      useExisting: forwardRef(() => InputFieldComponent),
+      useExisting: forwardRef(() => VCLInputFieldComponent),
     },
   ],
 })
-export class InputFieldComponent
+export class VCLInputFieldComponent
   implements AfterContentInit, OnDestroy, EmbeddedInputFieldLabelInput
 {
   constructor(private cdRef: ChangeDetectorRef) {}
@@ -44,8 +44,8 @@ export class InputFieldComponent
   @HostBinding('class.input-field')
   hostClasses = true;
 
-  @ContentChild(InputDirective)
-  inputDirective?: InputDirective;
+  @ContentChild(VCLInputDirective)
+  inputDirective?: VCLInputDirective;
 
   @ContentChild(TextareaDirective)
   textareaDirective?: TextareaDirective;

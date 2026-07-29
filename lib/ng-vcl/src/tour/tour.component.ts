@@ -13,16 +13,27 @@ import {
   VerticalConnectionPos,
   ConnectedPosition,
 } from '@angular/cdk/overlay';
-import { VCLPopoverDirective, VCLPopoverModule } from '../popover/index';
+import { VCLPopoverDirective } from '../popover/index';
 import { NgClass, NgIf } from '@angular/common';
-import { VCLButtonModule } from '../button';
+
+import { VCLButtonComponent } from '../button/button.component';
+import { VCLPopoverDirective as VCLPopoverDirective_1 } from '../popover/popover.directive';
+import { VCLIconComponent } from '../icon';
+import { VCLIcogramComponent } from '../icogram';
 
 @Component({
   selector: 'vcl-tour-step',
   templateUrl: './tour.component.html',
   styleUrls: ['./tour.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [NgIf, NgClass, VCLButtonModule, VCLPopoverModule],
+  imports: [
+    NgIf,
+    NgClass,
+    VCLButtonComponent,
+    VCLPopoverDirective_1,
+    VCLIconComponent,
+    VCLIcogramComponent,
+  ],
 })
 export class TourComponent implements OnInit, OnChanges {
   @ViewChild('popover')

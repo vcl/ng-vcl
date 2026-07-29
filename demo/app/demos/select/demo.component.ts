@@ -1,21 +1,25 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
-  VCLFormControlGroupModule,
   VCLIconComponent,
-  VCLInputModule,
+  VCLLabelDirective,
   VCLSelectComponent,
   VCLSelectListComponent,
   VCLSelectListHeaderComponent,
   VCLSelectListItemComponent,
+  VCLSubLabelDirective,
 } from '@vcl/ng-vcl';
+import { FormControlGroupComponent } from '../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
+import { EmbeddedInputFieldLabelDirective } from '../../../../lib/ng-vcl/src/input/embedded-label.directive';
 
 @Component({
   templateUrl: 'demo.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
+    VCLSubLabelDirective,
+    VCLLabelDirective,
     VCLSelectComponent,
-    VCLFormControlGroupModule,
-    VCLInputModule,
+    FormControlGroupComponent,
+    EmbeddedInputFieldLabelDirective,
     VCLSelectListComponent,
     VCLSelectListHeaderComponent,
     VCLIconComponent,

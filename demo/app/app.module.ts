@@ -12,16 +12,16 @@ import { MarkdownModule, MARKED_OPTIONS, SANITIZE } from 'ngx-markdown';
 
 import {
   VCLIconModule,
-  VCLNavigationModule,
-  VCLButtonModule,
   VCLLayerModule,
   VCLFontAwesomeModule,
   VCLMaterialDesignModule,
   VCLIcogramModule,
-  VCLBusyIndicatorModule,
-  VCLDrawerModule,
-  VCLInputModule,
   VCLDateAdapterModule,
+  VCLNavigationComponent,
+  VCLNavigationItemComponent,
+  VCLNavigationLabelComponent,
+  VCLInputDirective,
+  VCLInputFieldComponent,
 } from '@vcl/ng-vcl';
 
 import { AppComponent } from './components/app/app.component';
@@ -50,16 +50,16 @@ export function determineWeekdayOffset() {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    VCLInputModule,
-    VCLButtonModule,
     VCLIconModule,
     VCLIcogramModule,
     VCLFontAwesomeModule,
     VCLMaterialDesignModule,
-    VCLNavigationModule,
-    VCLBusyIndicatorModule,
     VCLLayerModule,
-    VCLDrawerModule,
+    VCLNavigationComponent,
+    VCLNavigationItemComponent,
+    VCLNavigationLabelComponent,
+    VCLInputDirective,
+    VCLInputFieldComponent,
     VCLDateAdapterModule.forRoot({
       weekDayOffset: determineWeekdayOffset(),
     }),

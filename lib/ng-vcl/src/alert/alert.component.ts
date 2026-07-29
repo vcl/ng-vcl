@@ -12,11 +12,15 @@ import { LayerRef } from '../layer/index';
 import { AlertResult, AlertType, TYPE_CLASS_MAP, AlertOptions } from './types';
 import { NgClass } from '@angular/common';
 import { VCLButtonComponent } from '../button';
-import { VCLInputModule } from '../input';
-import { VCLFormControlGroupModule } from '../form-control-group';
+
 import { VCLAlertInputDirective } from './input-alert.directive';
 import { VCLIconComponent } from '../icon';
 import { VCLIcogramComponent } from '../icogram';
+import { VCLInputDirective } from '../input/input.directive';
+import { VCLInputFieldComponent } from '../input/input-field.component';
+import { EmbeddedInputFieldLabelDirective } from '../input/embedded-label.directive';
+import { FormControlGroupComponent } from '../form-control-group/form-control-group.component';
+import { FormControlHintErrorComponent } from '../form-control-group/hint.component';
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -32,10 +36,13 @@ import { VCLIcogramComponent } from '../icogram';
     NgClass,
     VCLAlertInputDirective,
     VCLButtonComponent,
-    VCLInputModule,
+    VCLInputDirective,
+    VCLInputFieldComponent,
+    EmbeddedInputFieldLabelDirective,
     VCLIconComponent,
     VCLIcogramComponent,
-    VCLFormControlGroupModule,
+    FormControlGroupComponent,
+    FormControlHintErrorComponent,
   ],
 })
 export class VCLAlertComponent implements AfterViewInit, OnDestroy {

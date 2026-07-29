@@ -30,11 +30,12 @@ import { SelectListItem, VCLSelectListComponent } from '../select-list/index';
 import {
   EmbeddedInputFieldLabelInput,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
-  VCLInputModule,
 } from '../input/index';
 import { VCLIconComponent } from '../icon';
 import { VCLButtonComponent } from '../button';
 import { VCLOffClickDirective } from '../off-click';
+import { VCLInputDirective } from '../input/input.directive';
+import { VCLInputFieldComponent } from '../input/input-field.component';
 
 @Component({
   selector: 'vcl-select',
@@ -56,7 +57,8 @@ import { VCLOffClickDirective } from '../off-click';
     },
   ],
   imports: [
-    VCLInputModule,
+    VCLInputDirective,
+    VCLInputFieldComponent,
     VCLIconComponent,
     VCLButtonComponent,
     VCLOffClickDirective,

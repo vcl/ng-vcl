@@ -12,11 +12,12 @@ import {
   NgControl,
 } from '@angular/forms';
 import {
-  VCLButtonModule,
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
+  VCLIconComponent,
 } from '@vcl/ng-vcl';
 import { Subject } from 'rxjs';
+import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
 
 let uniqueID = 0;
 
@@ -73,7 +74,7 @@ let uniqueID = 0;
     },
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [VCLButtonModule],
+  imports: [VCLButtonComponent, VCLIconComponent],
 })
 export class CounterComponent
   implements ControlValueAccessor, FormControlGroupInputState

@@ -23,11 +23,11 @@ export let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => InputDirective),
+      useExisting: forwardRef(() => VCLInputDirective),
     },
   ],
 })
-export class InputDirective
+export class VCLInputDirective
   implements OnDestroy, FormControlGroupInputState<string>
 {
   constructor(

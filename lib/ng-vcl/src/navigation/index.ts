@@ -12,19 +12,3 @@ export {
   VCLNavigationLabelComponent,
   VCLNavigationHeadingComponent,
 };
-
-@NgModule({
-  imports: [
-    VCLNavigationComponent,
-    VCLNavigationItemComponent,
-    VCLNavigationLabelComponent,
-    VCLNavigationHeadingComponent,
-  ],
-  exports: [
-    VCLNavigationComponent,
-    VCLNavigationItemComponent,
-    VCLNavigationLabelComponent,
-    VCLNavigationHeadingComponent,
-  ],
-})
-export class VCLNavigationModule {}

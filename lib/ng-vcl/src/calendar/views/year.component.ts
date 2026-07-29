@@ -18,16 +18,19 @@ import { compare } from '../utils';
 import { CommonModule } from '@angular/common';
 
 import { VCLIconModule } from '../../icon/index';
-import { VCLButtonModule } from '../../button/index';
+
+import { VCLButtonComponent } from '../../button/button.component';
 
 @Component({
   selector: 'vcl-calendar-view-year',
   templateUrl: 'year.component.html',
   exportAs: 'vclCalendarViewYear',
-  imports: [VCLIconModule, CommonModule, VCLButtonModule],
+  imports: [VCLIconModule, CommonModule, VCLButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VCLCalendarViewYearComponent<VCLDate> implements OnChanges, OnInit {
+export class VCLCalendarViewYearComponent<VCLDate>
+  implements OnChanges, OnInit
+{
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {}
 
   @Input()

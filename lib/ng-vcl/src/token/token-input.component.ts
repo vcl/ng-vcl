@@ -23,7 +23,7 @@ import { Token } from './interfaces';
 import { BACKSPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { FormControlGroupInputState } from '../form-control-group/index';
-import { InputDirective, VCLInputModule } from '../input/index';
+import { VCLInputDirective } from '../input/index';
 import { NgClass } from '@angular/common';
 import { VCLTokenComponent } from './token.component';
 
@@ -40,7 +40,7 @@ let uniqueID = 0;
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgClass, VCLInputModule, VCLTokenComponent],
+  imports: [NgClass, VCLInputDirective, VCLTokenComponent],
 })
 export class VCLTokenInputContainerComponent
   implements AfterContentInit, ControlValueAccessor, FormControlGroupInputState
@@ -123,10 +123,10 @@ export class VCLTokenInputContainerComponent
   @Output()
   confirm = new EventEmitter<Token[]>();
 
-  @ViewChild(InputDirective, { read: InputDirective })
-  input: InputDirective;
+  @ViewChild(VCLInputDirective, { read: VCLInputDirective })
+  input: VCLInputDirective;
 
-  @ViewChild(InputDirective, { read: ElementRef })
+  @ViewChild(VCLInputDirective, { read: ElementRef })
   inputElementRef: ElementRef<HTMLInputElement>;
 
   @HostBinding('class.error')

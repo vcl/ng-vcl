@@ -11,10 +11,3 @@ import { VCLDrawerContainerComponent } from './drawer-container.component';
 import { VCLDrawerComponent } from './drawer.component';
 
 export { VCLDrawerComponent, VCLDrawerContainerComponent };
-
-@NgModule({
-  imports: [VCLDrawerComponent, VCLDrawerContainerComponent],
-  exports: [VCLDrawerComponent, VCLDrawerContainerComponent],
-  declarations: [],
-})
-export class VCLDrawerModule {}

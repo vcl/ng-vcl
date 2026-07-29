@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { VCLFileInputModule } from '@vcl/ng-vcl';
+
+import { FileInputComponent } from '../../../../lib/ng-vcl/src/file-input/file-input.component';
 
 @Component({
   templateUrl: 'demo.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [VCLFileInputModule],
+  imports: [FileInputComponent],
 })
 export class FileInputDemoComponent {}

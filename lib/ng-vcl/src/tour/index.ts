@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VCLButtonModule } from '../button/index';
-import { VCLPopoverModule } from '../popover/index';
+
 import { VCLIcogramModule } from '../icogram/index';
 import { VCLIconModule } from '../icon/index';
 import { TourOverlayComponent } from './tour-overlay.component';
@@ -13,8 +12,6 @@ export { TourService, TourOptions, TourComponent, TourOverlayComponent };
 @NgModule({
   imports: [
     CommonModule,
-    VCLPopoverModule,
-    VCLButtonModule,
     VCLIcogramModule,
     VCLIconModule,
     TourComponent,

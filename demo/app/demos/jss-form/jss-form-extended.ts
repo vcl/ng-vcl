@@ -5,9 +5,9 @@ import {
   FormFieldControl,
   VCLFormFieldControlSchema,
   Conditional,
-  VCLFormControlGroupModule,
 } from '@vcl/ng-vcl';
 import { CounterComponent } from '../form-control-group/counter.component';
+import { FormControlGroupComponent } from '../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
 
 @Component({
   template: `
@@ -23,7 +23,7 @@ import { CounterComponent } from '../form-control-group/counter.component';
   imports: [
     NgIf,
     ReactiveFormsModule,
-    VCLFormControlGroupModule,
+    FormControlGroupComponent,
     CounterComponent,
   ],
 })

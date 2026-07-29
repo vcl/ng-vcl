@@ -13,15 +13,16 @@ import {
 import { GalleryComponent } from './gallery.component';
 import { GalleryImageComponent } from './gallery-image.component';
 import { NgStyle } from '@angular/common';
-import { VCLButtonModule } from '../button';
+
 import { VCLIconModule } from '../icon';
+import { VCLButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'vcl-gallery-body',
   templateUrl: 'gallery-body.component.html',
   host: { class: 'gallery-body-norow' },
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [NgStyle, VCLButtonModule, VCLIconModule],
+  imports: [NgStyle, VCLButtonComponent, VCLIconModule],
 })
 export class GalleryBodyComponent implements AfterContentChecked {
   @Input()

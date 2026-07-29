@@ -9,9 +9,9 @@ import { FormControlGroupComponent } from '../../form-control-group/form-control
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
-import { InputFieldComponent } from '../../input/input-field.component';
+import { VCLInputFieldComponent } from '../../input/input-field.component';
 import { VCLIconComponent } from '../../icon/icon.component';
-import { InputDirective } from '../../input/input.directive';
+import { VCLInputDirective } from '../../input/input.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VCLSpinnerComponent } from '../../spinner/spinner.component';
 import { JssFormHintsComponent } from '../jss-form-hints.component';
@@ -99,10 +99,10 @@ export class FormFieldInput extends FormFieldControl<
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
     JssFormInputWrapperComponent,
-    InputFieldComponent,
+    VCLInputFieldComponent,
     NgFor,
     VCLIconComponent,
-    InputDirective,
+    VCLInputDirective,
     FormsModule,
     ReactiveFormsModule,
     VCLSpinnerComponent,

@@ -15,19 +15,3 @@ export {
   VCLNotificationHeaderDirective,
   VCLNotificationFooterDirective,
 };
-
-@NgModule({
-  imports: [
-    VCLNotificationComponent,
-    VCLNotificationFooterDirective,
-    VCLNotificationHeaderDirective,
-    VCLNotificationTitleDirective,
-  ],
-  exports: [
-    VCLNotificationComponent,
-    VCLNotificationFooterDirective,
-    VCLNotificationHeaderDirective,
-    VCLNotificationTitleDirective,
-  ],
-})
-export class VCLNotificationModule {}

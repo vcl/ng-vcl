@@ -1,10 +1,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { VCLButtonGroupModule, VCLButtonModule } from '@vcl/ng-vcl';
+
+import { VCLButtonGroupComponent } from '../../../../lib/ng-vcl/src/button-group/button-group.component';
+import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
+import { VCLIconModule } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [VCLButtonGroupModule, VCLButtonModule],
+  imports: [VCLButtonGroupComponent, VCLButtonComponent, VCLIconModule],
 })
 export class ButtonGroupDemoComponent {
   value1 = 2;

@@ -24,8 +24,9 @@ import {
 import { NotifierOverlayRef } from './notifier-overlay-ref';
 import { NgIf } from '@angular/common';
 import { VCLIconModule } from '../icon';
-import { VCLButtonModule } from '../button';
+
 import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { VCLButtonComponent } from '../button/button.component';
 
 export type NotificationAnimationState = 'open' | 'closing' | 'closed';
 
@@ -49,7 +50,7 @@ export type NotificationAnimationState = 'open' | 'closing' | 'closed';
       }
     `,
   ],
-  imports: [NgIf, CdkPortalOutlet, VCLButtonModule, VCLIconModule],
+  imports: [NgIf, CdkPortalOutlet, VCLButtonComponent, VCLIconModule],
 })
 export class NotifierComponent implements OnInit {
   constructor(

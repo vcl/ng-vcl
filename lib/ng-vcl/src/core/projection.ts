@@ -13,9 +13,3 @@ export class VCLPrependDirective {
 export class VCLAppendDirective {
   constructor() {}
 }
-
-@NgModule({
-  imports: [VCLPrependDirective, VCLAppendDirective],
-  exports: [VCLPrependDirective, VCLAppendDirective],
-})
-export class VCLCoreContentProjectionModule {}

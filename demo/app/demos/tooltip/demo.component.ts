@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { VCLTooltipModule } from '@vcl/ng-vcl';
+
+import { VCLTooltipDirective } from '../../../../lib/ng-vcl/src/tooltip/tooltip.directive';
+import { PortalModule } from '@angular/cdk/portal';
 
 @Component({
   templateUrl: './demo.component.html',
@@ -12,6 +14,6 @@ import { VCLTooltipModule } from '@vcl/ng-vcl';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [VCLTooltipModule],
+  imports: [VCLTooltipDirective, PortalModule],
 })
 export class ToolTipDemoComponent {}

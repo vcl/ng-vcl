@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PortalModule } from '@angular/cdk/portal';
-import { VCLNotificationModule } from '../notification/index';
+
 import { NotifierComponent } from './notifier.component';
 import { NotifierDirective } from './notifier.directive';
 import { NotifierService } from './notifier.service';
@@ -30,12 +30,7 @@ export {
 
 @NgModule({
   imports: [NotifierComponent, NotifierDirective],
-  exports: [
-    PortalModule,
-    NotifierDirective,
-    NotifierComponent,
-    VCLNotificationModule,
-  ],
+  exports: [PortalModule, NotifierDirective, NotifierComponent],
   providers: [
     NotifierService,
     NotifierHandlerService,

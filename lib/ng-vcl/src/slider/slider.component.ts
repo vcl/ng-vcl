@@ -26,7 +26,6 @@ import { Subject } from 'rxjs';
 import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
-  VCLFormControlGroupModule,
 } from '../form-control-group/index';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -58,7 +57,7 @@ export interface ScalePoint {
       useExisting: forwardRef(() => VCLSliderComponent),
     },
   ],
-  imports: [VCLFormControlGroupModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VCLSliderComponent

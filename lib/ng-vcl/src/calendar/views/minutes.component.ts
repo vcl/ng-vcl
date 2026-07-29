@@ -10,14 +10,14 @@ import {
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarMinutes } from '../interfaces';
 
-import { VCLButtonModule } from '../../button/index';
+import { VCLButtonComponent } from '../../button/button.component';
 
 @Component({
   selector: 'vcl-calendar-view-minutes',
   templateUrl: 'minutes.component.html',
   exportAs: 'vclCalendarViewMinutes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [VCLButtonModule],
+  imports: [VCLButtonComponent],
 })
 export class VCLCalendarViewMinutesComponent<VCLDate> implements OnChanges {
   constructor(private dateAdapter: DateAdapterBase<VCLDate>) {

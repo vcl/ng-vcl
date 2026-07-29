@@ -1,6 +1,6 @@
 <h3>Vertical</h3>
 
-<vcl-form-control-group [spinner]="true">
+<vcl-form-control-group>
   <vcl-label>Vertical</vcl-label>
   <vcl-input-field>
     <input vclInput [(ngModel)]="data1" type="number" />
@@ -10,10 +10,10 @@
 
 <h3>Horizontal</h3>
 
-<vcl-form-control-group [spinner]="true">
+<vcl-form-control-group>
   <vcl-label>Horizontal</vcl-label>
   <vcl-input-field>
     <input vclInput [(ngModel)]="data2" type="number" />
-    <vcl-spinner [(ngModel)]="data2" orientation="Horizontal"></vcl-spinner>
+    <vcl-spinner [(ngModel)]="data2" orientation="horizontal"></vcl-spinner>
   </vcl-input-field>
 </vcl-form-control-group>

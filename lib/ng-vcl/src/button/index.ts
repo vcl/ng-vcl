@@ -8,9 +8,3 @@ import {
 } from './button.component';
 
 export { VCLButtonComponent, ButtonHost, BUTTON_HOST_TOKEN };
-
-@NgModule({
-  imports: [VCLButtonComponent],
-  exports: [VCLIconModule, VCLIcogramModule, VCLButtonComponent],
-})
-export class VCLButtonModule {}

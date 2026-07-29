@@ -4,6 +4,7 @@ import {
   VCLDataListComponent,
   VCLDataListHeaderDirective,
   VCLDataListItemDirective,
+  VCLIconComponent,
 } from '@vcl/ng-vcl';
 import { DataListAddRemoveDemo } from './list-add-remove/data-list-add-remove-demo.component';
 import { NgTemplateOutlet } from '@angular/common';
@@ -18,6 +19,7 @@ import { NgTemplateOutlet } from '@angular/common';
     VCLDataListItemDirective,
     DataListAddRemoveDemo,
     VCLBusyIndicatorComponent,
+    VCLIconComponent
   ],
 })
 export class DataListDemoComponent {

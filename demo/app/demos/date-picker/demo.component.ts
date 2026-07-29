@@ -4,21 +4,23 @@ import {
   DateAdapter,
   DateAdapterParserDE,
   DateAdapterParserEN,
-  VCLButtonGroupModule,
-  VCLButtonModule,
   VCLDatePickerModule,
-  VCLFormControlGroupModule,
+  VCLLabelDirective,
 } from '@vcl/ng-vcl';
+import { VCLButtonGroupComponent } from '../../../../lib/ng-vcl/src/button-group/button-group.component';
+import { FormControlGroupComponent } from '../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
+import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
 
 @Component({
   templateUrl: 'demo.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FormsModule,
-    VCLButtonGroupModule,
-    VCLFormControlGroupModule,
+    VCLButtonGroupComponent,
+    FormControlGroupComponent,
     VCLDatePickerModule,
-    VCLButtonModule,
+    VCLButtonComponent,
+    VCLLabelDirective
   ],
 })
 export class DatePickerDemoComponent {

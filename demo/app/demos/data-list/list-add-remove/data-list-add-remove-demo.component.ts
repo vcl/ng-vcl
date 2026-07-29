@@ -10,7 +10,6 @@ import {
   LayerRef,
   LayerService,
   VCLIcogramModule,
-  VCLRadioButtonModule,
   VCLDataListComponent,
   VCLDataListHeaderDirective,
   VCLButtonComponent,
@@ -19,6 +18,9 @@ import { Subscription } from 'rxjs';
 import { CreateCountryComponent } from './create-kitten.component';
 import { data, Kitten } from './data';
 import { JsonPipe, NgTemplateOutlet } from '@angular/common';
+import { VCLRadioButtonComponent } from '../../../../../lib/ng-vcl/src/radio-button/radio-button.component';
+import { VCLRadioGroupComponent } from '../../../../../lib/ng-vcl/src/radio-button/radio-group.component';
+import { DataListMode } from '@vcl/ng-vcl/data-list/types';
 
 @Component({
   selector: 'data-list-add-remove-demo',
@@ -28,7 +30,8 @@ import { JsonPipe, NgTemplateOutlet } from '@angular/common';
   imports: [
     NgTemplateOutlet,
     JsonPipe,
-    VCLRadioButtonModule,
+    VCLRadioButtonComponent,
+    VCLRadioGroupComponent,
     VCLIcogramModule,
     VCLDataListItemDirective,
     VCLDataListComponent,
@@ -40,7 +43,7 @@ export class DataListAddRemoveDemo implements OnDestroy {
   createCountryLayer: LayerRef;
   countrySub: Subscription;
 
-  modeValue = 'single';
+  modeValue = 'single' as DataListMode;
   selectedValues = [];
   kittensList: Kitten[] = data;
 
@@ -60,7 +63,7 @@ export class DataListAddRemoveDemo implements OnDestroy {
     }
   }
 
-  onModeChange(val: string) {
+  onModeChange(val: DataListMode) {
     this.modeValue = val;
     this.selectedValues = [];
     this.dataListItems.map(item => (item.selected = false));

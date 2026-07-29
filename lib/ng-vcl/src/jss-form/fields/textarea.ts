@@ -9,7 +9,7 @@ import { FormControlGroupComponent } from '../../form-control-group/form-control
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
-import { InputFieldComponent } from '../../input/input-field.component';
+import { VCLInputFieldComponent } from '../../input/input-field.component';
 import { TextareaDirective } from '../../input/textarea.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JssFormHintsComponent } from '../jss-form-hints.component';
@@ -61,7 +61,7 @@ export class FormFieldTextarea extends FormFieldControl<
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
     JssFormInputWrapperComponent,
-    InputFieldComponent,
+    VCLInputFieldComponent,
     TextareaDirective,
     FormsModule,
     ReactiveFormsModule,

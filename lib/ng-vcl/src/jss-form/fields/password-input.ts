@@ -10,7 +10,7 @@ import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.dir
 import { VCLLabelDirective } from '../../core/label';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
 import { VCLPasswordInputComponent } from '../../password-input/password-input.component';
-import { InputDirective } from '../../input/input.directive';
+import { VCLInputDirective } from '../../input/input.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JssFormHintsComponent } from '../jss-form-hints.component';
 
@@ -58,7 +58,7 @@ export class FormFieldPasswordInput extends FormFieldControl<
     VCLLabelDirective,
     JssFormInputWrapperComponent,
     VCLPasswordInputComponent,
-    InputDirective,
+    VCLInputDirective,
     FormsModule,
     ReactiveFormsModule,
     JssFormHintsComponent,

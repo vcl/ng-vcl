@@ -9,17 +9,3 @@ export {
   ZoomBoxMagnifierComponent,
   ZoomBoxContainerComponent,
 };
-
-@NgModule({
-  imports: [
-    ZoomBoxComponent,
-    ZoomBoxMagnifierComponent,
-    ZoomBoxContainerComponent,
-  ],
-  exports: [
-    ZoomBoxComponent,
-    ZoomBoxMagnifierComponent,
-    ZoomBoxContainerComponent,
-  ],
-})
-export class VCLZoomBoxModule {}

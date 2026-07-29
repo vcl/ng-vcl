@@ -39,15 +39,15 @@ import {
   DateAdapterBaseDisplayFormats,
 } from '../dateadapter/index';
 import {
-  InputDirective,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
-  VCLInputModule,
 } from '../input/index';
 import { VCLCalendarDateModifier, VCLCalendarModule } from '../calendar/index';
-import { VCLButtonModule } from '../button';
+
 import { VCLIcogramModule } from '../icogram';
-import { VCLOffClickModule } from '../off-click';
+
+import { VCLButtonComponent } from '../button/button.component';
+import { VCLInputDirective } from '../input/input.directive';
 
 let UNIQUE_ID = 0;
 
@@ -77,11 +77,10 @@ export type DatepickerDisplay = 'date' | 'month' | 'time';
   styleUrls: ['date-picker.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    VCLButtonModule,
+    VCLButtonComponent,
     VCLIcogramModule,
-    VCLInputModule,
+    VCLInputDirective,
     VCLCalendarModule,
-    VCLOffClickModule,
   ],
 })
 export class DatepickerComponent<VCLDate>
@@ -113,8 +112,8 @@ export class DatepickerComponent<VCLDate>
 
   private uniqueId = 'vcl_datepicker_' + UNIQUE_ID++;
 
-  @ViewChild('input', { read: InputDirective, static: true })
-  input: InputDirective;
+  @ViewChild('input', { read: VCLInputDirective, static: true })
+  input: VCLInputDirective;
 
   @HostBinding('class.input-field')
   _hostClasses = true;

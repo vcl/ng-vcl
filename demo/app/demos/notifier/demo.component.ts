@@ -2,9 +2,9 @@ import {
   NotifierPosition,
   NotifierService,
   NotifierOptions,
-  VCLButtonModule,
-  VCLButtonGroupModule,
   VCLNotifierModule,
+  VCLIcogramComponent,
+  VCLIconComponent,
 } from '@vcl/ng-vcl';
 import {
   Component,
@@ -15,6 +15,8 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { VCLButtonGroupComponent } from '../../../../lib/ng-vcl/src/button-group/button-group.component';
+import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
 
 let cnt = 1;
 
@@ -30,7 +32,12 @@ let cnt = 1;
     `,
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [VCLNotifierModule, VCLButtonGroupModule, VCLButtonModule],
+  imports: [
+    VCLNotifierModule,
+    VCLButtonGroupComponent,
+    VCLButtonComponent,
+    VCLIconComponent,
+  ],
 })
 export class NotifierDemoComponent {
   constructor(private notifier: NotifierService) {}

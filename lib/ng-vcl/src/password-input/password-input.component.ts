@@ -11,7 +11,7 @@ import {
 import { Subject } from 'rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-  InputDirective,
+  VCLInputDirective,
   FORM_CONTROL_EMBEDDED_LABEL_INPUT,
   EmbeddedInputFieldLabelInput,
 } from '../input/index';
@@ -69,8 +69,8 @@ export class VCLPasswordInputComponent
     return this.input.value;
   }
 
-  @ContentChild(InputDirective, { read: InputDirective })
-  input?: InputDirective;
+  @ContentChild(VCLInputDirective, { read: VCLInputDirective })
+  input?: VCLInputDirective;
 
   @ViewChild(VCLButtonComponent, { read: VCLButtonComponent })
   button?: VCLButtonComponent;
@@ -99,6 +99,6 @@ export class VCLPasswordInputComponent
     this.input.stateChanged.subscribe(this.stateChangedEmitter);
   }
 
-  notifyInputFocus(btn: InputDirective): void {}
-  notifyInputBlur(btn: InputDirective): void {}
+  notifyInputFocus(btn: VCLInputDirective): void {}
+  notifyInputBlur(btn: VCLInputDirective): void {}
 }

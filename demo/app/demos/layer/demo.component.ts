@@ -6,21 +6,17 @@ import {
   TemplateRef,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  LayerService,
-  LayerRef,
-  VCLLayerModule,
-  VCLButtonModule,
-} from '@vcl/ng-vcl';
+import { LayerService, LayerRef, VCLLayerModule } from '@vcl/ng-vcl';
 import { BarComponent } from './bar.component';
 import { NagLayer } from './nag.component';
+import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
 
 let i = 0;
 
 @Component({
   templateUrl: 'demo.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [VCLLayerModule, VCLButtonModule],
+  imports: [VCLLayerModule, VCLButtonComponent],
 })
 export class LayerDemoComponent implements AfterViewInit {
   barLayer: LayerRef;
