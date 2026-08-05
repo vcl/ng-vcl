@@ -130,9 +130,7 @@ export class VCLRadioButtonComponent implements RadioButton {
     this.rbg && this.rbg.notifyRadioButtonChecked(this);
 
     // radio-buttons cannot be 'unchecked' by definition from user interaction
-    this.checked = true;
-    this.cdRef.markForCheck();
-    this.checkedChange.emit(this.checked);
+    this.setChecked(true);
   }
 
   setChecked(checked: boolean) {

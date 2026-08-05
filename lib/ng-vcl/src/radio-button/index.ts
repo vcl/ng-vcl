@@ -3,3 +3,9 @@ import { VCLRadioButtonComponent } from './radio-button.component';
 import { VCLRadioGroupComponent } from './radio-group.component';
 
 export { VCLRadioButtonComponent, VCLRadioGroupComponent };
+
+@NgModule({
+  imports: [VCLRadioButtonComponent, VCLRadioGroupComponent],
+  exports: [VCLRadioButtonComponent, VCLRadioGroupComponent],
+})
+export class VCLRadioButtonModule {}
