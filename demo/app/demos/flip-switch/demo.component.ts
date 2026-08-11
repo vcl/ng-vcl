@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
-import { FlipSwitchComponent } from '../../../../lib/ng-vcl/src/flip-switch/flip-switch.component';
+import { FlipSwitchComponent } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',

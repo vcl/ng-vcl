@@ -1,16 +1,18 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ComponentLayerRef, VCLButtonComponent, VCLLabelDirective } from '@vcl/ng-vcl';
-import { VCLPanelComponent } from '../../../../../lib/ng-vcl/src/panel/panel.component';
 import {
-  VCLPanelTitleDirective,
-  VCLPanelFooterButtonDirective,
+  ComponentLayerRef,
+  VCLButtonComponent,
+  VCLLabelDirective,
+  VCLPanelComponent,
   VCLPanelDialogDirective,
-} from '../../../../../lib/ng-vcl/src/panel/panel.directive';
-import { FormControlGroupComponent } from '../../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
-import { VCLInputDirective } from '../../../../../lib/ng-vcl/src/input/input.directive';
-import { VCLInputFieldComponent } from '../../../../../lib/ng-vcl/src/input/input-field.component';
-import { EmbeddedInputFieldLabelDirective } from '../../../../../lib/ng-vcl/src/input/embedded-label.directive';
+  VCLPanelFooterButtonDirective,
+  VCLPanelTitleDirective,
+  EmbeddedInputFieldLabelDirective,
+  FormControlGroupComponent,
+  VCLInputDirective,
+  VCLInputFieldComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   selector: 'app-create-country',
@@ -55,7 +57,7 @@ import { EmbeddedInputFieldLabelDirective } from '../../../../../lib/ng-vcl/src/
     VCLInputDirective,
     VCLInputFieldComponent,
     EmbeddedInputFieldLabelDirective,
-    VCLLabelDirective
+    VCLLabelDirective,
   ],
 })
 export class CreateCountryComponent {

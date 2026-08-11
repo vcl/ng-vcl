@@ -15,9 +15,9 @@ import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
   VCLIconComponent,
+  VCLButtonComponent,
 } from '@vcl/ng-vcl';
 import { Subject } from 'rxjs';
-import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
 
 let uniqueID = 0;
 

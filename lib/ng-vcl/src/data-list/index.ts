@@ -11,10 +11,11 @@ import {
   DataList,
   DataListItem,
   DATA_LIST_ITEM_TOKEN,
-  DataListMode
+  DataListMode,
 } from './types';
 
 export {
+  DataListMode,
   VCLDataListComponent,
   VCLDataListItemDirective,
   DATA_LIST_TOKEN,

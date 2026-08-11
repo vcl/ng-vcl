@@ -11,12 +11,12 @@ import {
   DateAdapter,
   VCLJssFormModule,
   VCLNotifierModule,
+  FlipSwitchComponent,
 } from '@vcl/ng-vcl';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { buildHeroSchema, ExtendedFormFieldSchemaRoot } from './hero';
-import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
-import { FlipSwitchComponent } from '../../../../lib/ng-vcl/src/flip-switch/flip-switch.component';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'demo-empty-component',
@@ -31,7 +31,6 @@ export class SampleEmptyComponent {
   templateUrl: 'demo.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     AsyncPipe,
     JsonPipe,
     VCLJssFormModule,

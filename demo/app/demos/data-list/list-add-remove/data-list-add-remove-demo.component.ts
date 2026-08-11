@@ -13,14 +13,14 @@ import {
   VCLDataListComponent,
   VCLDataListHeaderDirective,
   VCLButtonComponent,
+  VCLRadioButtonComponent,
+  VCLRadioGroupComponent,
+  DataListMode,
 } from '@vcl/ng-vcl';
 import { Subscription } from 'rxjs';
 import { CreateCountryComponent } from './create-kitten.component';
 import { data, Kitten } from './data';
 import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { VCLRadioButtonComponent } from '../../../../../lib/ng-vcl/src/radio-button/radio-button.component';
-import { VCLRadioGroupComponent } from '../../../../../lib/ng-vcl/src/radio-button/radio-group.component';
-import { DataListMode } from '@vcl/ng-vcl/data-list/types';
 
 @Component({
   selector: 'data-list-add-remove-demo',

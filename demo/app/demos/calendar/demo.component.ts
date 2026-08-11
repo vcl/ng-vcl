@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   VCLDateRange,

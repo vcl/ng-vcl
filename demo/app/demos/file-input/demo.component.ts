@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
-import { FileInputComponent } from '../../../../lib/ng-vcl/src/file-input/file-input.component';
+import { FileInputComponent } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',

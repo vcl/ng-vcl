@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentLayerRef } from '@vcl/ng-vcl';
-import { VCLPanelComponent } from '../../../../lib/ng-vcl/src/panel/panel.component';
 import {
+  ComponentLayerRef,
+  VCLPanelComponent,
   VCLPanelTitleDirective,
   VCLPanelFooterButtonDirective,
   VCLPanelDialogDirective,
-} from '../../../../lib/ng-vcl/src/panel/panel.directive';
-import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
+  VCLButtonComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'bar.component.html',

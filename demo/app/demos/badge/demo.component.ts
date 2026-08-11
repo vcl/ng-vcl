@@ -1,9 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
-import {
-  VCLBadgeComponent,
-  VCLBadgeRoundedDirective,
-} from '../../../../lib/ng-vcl/src/badge/badge.component';
+import { VCLBadgeComponent, VCLBadgeRoundedDirective } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',

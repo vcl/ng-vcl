@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { VCLIconModule } from '@vcl/ng-vcl';
-import { DemoModule, DemoComponent } from './../../modules/demo/demo.module';
+import { DemoComponent } from './../../modules/demo/demo.module';
 import { BusyDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/busy-indicator/README.md';
 
