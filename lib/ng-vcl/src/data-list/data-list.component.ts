@@ -85,7 +85,7 @@ export class VCLDataListComponent
 
   @Input()
   @HostBinding('class.divider')
-  dividier = false;
+  divider = false;
 
   @Input()
   @HostBinding('class.no-border')
