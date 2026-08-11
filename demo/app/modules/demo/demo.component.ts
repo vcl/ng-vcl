@@ -2,10 +2,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentPortal, CdkPortalOutlet } from '@angular/cdk/portal';
-import { NgIf, NgFor } from '@angular/common';
-import { VCLTabNavComponent } from '../../../../lib/ng-vcl/src/tab-nav/tab-nav.component';
-import { VCLTabComponent } from '../../../../lib/ng-vcl/src/tab-nav/tab.component';
-import { VCLLabelDirective } from '../../../../lib/ng-vcl/src/core/label';
+import {
+  VCLTabNavComponent,
+  VCLTabComponent,
+  VCLLabelDirective,
+} from '@vcl/ng-vcl';
 import { MarkdownComponent, LanguagePipe } from 'ngx-markdown';
 
 @Component({
@@ -13,9 +14,7 @@ import { MarkdownComponent, LanguagePipe } from 'ngx-markdown';
   styleUrls: [`demo.component.scss`],
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     VCLTabNavComponent,
-    NgFor,
     VCLTabComponent,
     VCLLabelDirective,
     CdkPortalOutlet,

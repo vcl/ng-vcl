@@ -1,24 +1,39 @@
 <h2 class="article-header">{{ title }}</h2>
-<div *ngIf="tabs.length > 0">
-  <vcl-tab-nav borders="true">
-    <vcl-tab *ngFor="let tab of tabs">
-      <vcl-label>{{ tab.name }}</vcl-label>
-      <div *ngIf="tab.type === 'component'">
-        <ng-template [cdkPortalOutlet]="tab.content"></ng-template>
-      </div>
-      <div *ngIf="tab.type === 'text'">
-        <pre>{{ tab.content }}</pre>
-      </div>
-      <markdown *ngIf="tab.type === 'md'" [data]="tab.content"></markdown>
-      <markdown
-        *ngIf="tab.type === 'ts'"
-        [data]="tab.content | language: 'typescript'"></markdown>
-      <markdown
-        *ngIf="tab.type === 'html'"
-        [data]="tab.content | language: 'html'"></markdown>
-      <markdown
-        *ngIf="tab.type === 'scss'"
-        [data]="tab.content | language: 'scss'"></markdown>
-    </vcl-tab>
-  </vcl-tab-nav>
-</div>
+@if (tabs.length > 0) {
+  <div>
+    <vcl-tab-nav [borders]="true">
+      @for (tab of tabs; track $index) {
+        <vcl-tab>
+          <vcl-label>{{ tab.name }}</vcl-label>
+          @if (tab.type === 'component') {
+            <div>
+              <ng-template [cdkPortalOutlet]="tab.content"></ng-template>
+            </div>
+          }
+
+          @if (tab.type === 'text') {
+            <div>
+              <pre>{{ tab.content }}</pre>
+            </div>
+          }
+
+          @if (tab.type === 'md') {
+            <markdown [data]="tab.content"></markdown>
+          }
+
+          @if (tab.type === 'ts') {
+            <markdown [data]="tab.content | language: 'typescript'"></markdown>
+          }
+
+          @if (tab.type === 'html') {
+            <markdown [data]="tab.content | language: 'html'"></markdown>
+          }
+
+          @if (tab.type === 'scss') {
+            <markdown [data]="tab.content | language: 'scss'"></markdown>
+          }
+        </vcl-tab>
+      }
+    </vcl-tab-nav>
+  </div>
+}

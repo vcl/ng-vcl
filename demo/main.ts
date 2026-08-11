@@ -11,7 +11,6 @@ import 'prismjs/plugins/custom-class/prism-custom-class';
 // import any languages you need:
 import 'prismjs/components/prism-typescript.min';
 
-import { determineLocale, determineWeekdayOffset } from './app/app.module';
 import { environment } from './environments/environment';
 import {
   provideHttpClient,
@@ -34,7 +33,18 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MarkdownModule, SANITIZE, MARKED_OPTIONS } from 'ngx-markdown';
 import { AppComponent } from './app/components/app/app.component';
 
-const locale = determineLocale();
+export function determineLocale() {
+  return (
+    (navigator.languages && navigator.languages[0]) ??
+    navigator?.language ??
+    'en-us'
+  ).toLowerCase();
+}
+
+export function determineWeekdayOffset() {
+  const locale = determineLocale();
+  return locale.startsWith('de') ? 1 : 0;
+}
 
 if (environment.production) {
   enableProdMode();
