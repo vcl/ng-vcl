@@ -7,9 +7,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentLayerRef, LayerConfig } from '@vcl/ng-vcl';
-import { NgIf } from '@angular/common';
-import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
+import { ComponentLayerRef, LayerConfig, VCLButtonComponent } from '@vcl/ng-vcl';
 
 export interface NagLayerData {
   allowDecline: boolean;
@@ -30,7 +28,7 @@ export interface INagLayer extends ComponentLayerRef<
 @Component({
   templateUrl: 'nag.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [NgIf, VCLButtonComponent],
+  imports: [VCLButtonComponent],
 })
 export class NagComponent {
   // Inject the ComponentLayerRef and use an interface for typings

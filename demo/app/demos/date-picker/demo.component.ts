@@ -4,12 +4,12 @@ import {
   DateAdapter,
   DateAdapterParserDE,
   DateAdapterParserEN,
+  FormControlGroupComponent,
+  VCLButtonComponent,
+  VCLButtonGroupComponent,
   VCLDatePickerModule,
   VCLLabelDirective,
 } from '@vcl/ng-vcl';
-import { VCLButtonGroupComponent } from '../../../../lib/ng-vcl/src/button-group/button-group.component';
-import { FormControlGroupComponent } from '../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
-import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -20,7 +20,7 @@ import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.com
     FormControlGroupComponent,
     VCLDatePickerModule,
     VCLButtonComponent,
-    VCLLabelDirective
+    VCLLabelDirective,
   ],
 })
 export class DatePickerDemoComponent {

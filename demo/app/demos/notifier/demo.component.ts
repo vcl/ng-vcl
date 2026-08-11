@@ -3,20 +3,17 @@ import {
   NotifierService,
   NotifierOptions,
   VCLNotifierModule,
-  VCLIcogramComponent,
   VCLIconComponent,
+  VCLButtonGroupComponent,
+  VCLButtonComponent,
 } from '@vcl/ng-vcl';
 import {
   Component,
-  Input,
   ViewEncapsulation,
   ViewChild,
-  TemplateRef,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { VCLButtonGroupComponent } from '../../../../lib/ng-vcl/src/button-group/button-group.component';
-import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
 
 let cnt = 1;
 

@@ -26,39 +26,35 @@ import {
   VCLLayerModule,
   VCLLabelDirective,
   VCLSubLabelDirective,
+  FormDirective,
+  FormControlHintErrorComponent,
+  FormControlHintComponent,
+  FormControlGroupComponent,
+  VCLSelectListItemComponent,
+  VCLSelectListComponent,
+  VCLSliderComponent,
+  VCLRadioGroupComponent,
+  VCLRadioButtonComponent,
+  VCLCheckboxComponent,
+  VCLPanelDialogDirective,
+  VCLPanelFooterButtonDirective,
+  VCLPanelTitleDirective,
+  VCLPanelComponent,
+  FlipSwitchComponent,
+  FileInputComponent,
+  VCLRatingItemLabelComponent,
+  VCLRatingItemComponent,
+  VCLRatingComponent,
+  VCLPasswordInputComponent,
+  EmbeddedInputFieldLabelDirective,
+  VCLInputFieldComponent,
+  TextareaDirective,
+  VCLInputDirective,
+  VCLButtonGroupComponent,
+  VCLButtonComponent,
 } from '@vcl/ng-vcl';
 import { CounterComponent } from './counter.component';
-import { JsonPipe, NgIf } from '@angular/common';
-import { VCLButtonComponent } from '../../../../lib/ng-vcl/src/button/button.component';
-import { VCLButtonGroupComponent } from '../../../../lib/ng-vcl/src/button-group/button-group.component';
-import { VCLInputDirective } from '../../../../lib/ng-vcl/src/input/input.directive';
-import { TextareaDirective } from '../../../../lib/ng-vcl/src/input/textarea.directive';
-import { VCLInputFieldComponent } from '../../../../lib/ng-vcl/src/input/input-field.component';
-import { EmbeddedInputFieldLabelDirective } from '../../../../lib/ng-vcl/src/input/embedded-label.directive';
-import { VCLPasswordInputComponent } from '../../../../lib/ng-vcl/src/password-input/password-input.component';
-import { VCLRatingComponent } from '../../../../lib/ng-vcl/src/rating/rating.component';
-import { VCLRatingItemComponent } from '../../../../lib/ng-vcl/src/rating/rating-item.component';
-import { VCLRatingItemLabelComponent } from '../../../../lib/ng-vcl/src/rating/rating-label.component';
-import { FileInputComponent } from '../../../../lib/ng-vcl/src/file-input/file-input.component';
-import { FlipSwitchComponent } from '../../../../lib/ng-vcl/src/flip-switch/flip-switch.component';
-import { VCLPanelComponent } from '../../../../lib/ng-vcl/src/panel/panel.component';
-import {
-  VCLPanelTitleDirective,
-  VCLPanelFooterButtonDirective,
-  VCLPanelDialogDirective,
-} from '../../../../lib/ng-vcl/src/panel/panel.directive';
-import { VCLCheckboxComponent } from '../../../../lib/ng-vcl/src/checkbox/checkbox.component';
-import { VCLRadioButtonComponent } from '../../../../lib/ng-vcl/src/radio-button/radio-button.component';
-import { VCLRadioGroupComponent } from '../../../../lib/ng-vcl/src/radio-button/radio-group.component';
-import { VCLSliderComponent } from '../../../../lib/ng-vcl/src/slider/slider.component';
-import { VCLSelectListComponent } from '../../../../lib/ng-vcl/src/select-list/select-list.component';
-import { VCLSelectListItemComponent } from '../../../../lib/ng-vcl/src/select-list/components/select-list-item.component';
-import { FormControlGroupComponent } from '../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
-import {
-  FormControlHintComponent,
-  FormControlHintErrorComponent,
-} from '../../../../lib/ng-vcl/src/form-control-group/hint.component';
-import { FormDirective } from '../../../../lib/ng-vcl/src/form-control-group/form.directive';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   templateUrl: 'demo.component.html',
@@ -66,7 +62,6 @@ import { FormDirective } from '../../../../lib/ng-vcl/src/form-control-group/for
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     ReactiveFormsModule,
     JsonPipe,
     VCLButtonComponent,
@@ -104,7 +99,7 @@ import { FormDirective } from '../../../../lib/ng-vcl/src/form-control-group/for
     FormDirective,
     CounterComponent,
     VCLLabelDirective,
-    VCLSubLabelDirective
+    VCLSubLabelDirective,
   ],
 })
 export class FormControlGroupDemoComponent {
