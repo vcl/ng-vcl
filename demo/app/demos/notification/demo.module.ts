@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DemoComponent, DemoModule } from '../../modules/demo/demo.module';
+import { DemoComponent } from '../../modules/demo/demo.module';
 import { NotificationDemoComponent } from './demo.component';
 import README from '!raw-loader!@vcl/ng-vcl/notification/README.md';
 

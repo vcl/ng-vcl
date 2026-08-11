@@ -1,9 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { VCLIconModule, VCLSubLabelDirective } from '@vcl/ng-vcl';
-import { VCLSelectListComponent } from '../../../../lib/ng-vcl/src/select-list/select-list.component';
-import { VCLSelectListHeaderComponent } from '../../../../lib/ng-vcl/src/select-list/components/select-list-header.component';
-import { VCLSelectListItemComponent } from '../../../../lib/ng-vcl/src/select-list/components/select-list-item.component';
-
+import {
+  VCLIconModule,
+  VCLSubLabelDirective,
+  VCLSelectListComponent,
+  VCLSelectListHeaderComponent,
+  VCLSelectListItemComponent,
+} from '@vcl/ng-vcl';
 @Component({
   templateUrl: 'demo.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,

@@ -1,9 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
-import { VCLRatingComponent } from '../../../../lib/ng-vcl/src/rating/rating.component';
-import { VCLRatingItemComponent } from '../../../../lib/ng-vcl/src/rating/rating-item.component';
-import { VCLRatingItemLabelComponent } from '../../../../lib/ng-vcl/src/rating/rating-label.component';
+import {
+  VCLRatingComponent,
+  VCLRatingItemComponent,
+  VCLRatingItemLabelComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',

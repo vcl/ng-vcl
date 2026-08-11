@@ -1,4 +1,5 @@
 import {
+  NotificationType,
   VCLNotificationComponent,
   VCLNotificationTitleDirective,
 } from '@vcl/ng-vcl';
@@ -9,4 +10,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [VCLNotificationComponent, VCLNotificationTitleDirective],
 })
-export class NotificationDemoComponent {}
+export class NotificationDemoComponent {
+  NotificationType = NotificationType;
+}

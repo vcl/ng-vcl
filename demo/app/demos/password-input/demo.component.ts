@@ -1,9 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { VCLLabelDirective, VCLPasswordInputComponent } from '@vcl/ng-vcl';
-import { FormControlGroupComponent } from '../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
-import { VCLInputDirective } from '../../../../lib/ng-vcl/src/input/input.directive';
-import { EmbeddedInputFieldLabelDirective } from '../../../../lib/ng-vcl/src/input/embedded-label.directive';
+import {
+  FormControlGroupComponent,
+  VCLInputDirective,
+  EmbeddedInputFieldLabelDirective,
+  VCLLabelDirective,
+  VCLPasswordInputComponent,
+} from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: 'demo.component.html',

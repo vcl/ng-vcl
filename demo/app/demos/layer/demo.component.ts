@@ -13,6 +13,8 @@ import {
   VCLLayerModule,
   VCLPanelDialogDirective,
   VCLPanelTitleDirective,
+  VCLPanelComponent,
+  LayerDirective,
 } from '@vcl/ng-vcl';
 import { BarComponent } from './bar.component';
 import { NagLayer } from './nag.component';
@@ -24,7 +26,9 @@ let i = 0;
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     VCLPanelDialogDirective,
+    VCLPanelComponent,
     VCLLayerModule,
+    LayerDirective,
     VCLButtonComponent,
     VCLPanelTitleDirective,
   ],

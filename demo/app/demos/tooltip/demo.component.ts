@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
-import { VCLTooltipDirective } from '../../../../lib/ng-vcl/src/tooltip/tooltip.directive';
 import { PortalModule } from '@angular/cdk/portal';
+import { VCLTooltipDirective } from '@vcl/ng-vcl';
 
 @Component({
   templateUrl: './demo.component.html',

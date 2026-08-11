@@ -20,7 +20,7 @@
 <br /><br />
 <button vcl-button (click)="openNagLayer()">Open nag layer</button>
 
-<ng-template vclLayer #inlineLayer="vclLayer" let-title="title">
+<ng-template [vclLayer] #inlineLayer="vclLayer" let-title="title">
   <vcl-panel-dialog [showCloseButton]="true" (close)="inlineLayer.close()">
     <vcl-panel-title>{{ title }}</vcl-panel-title>
     Press escape or click outside of layer to close<br /><br />

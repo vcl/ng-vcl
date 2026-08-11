@@ -7,9 +7,9 @@ import {
   VCLSelectListHeaderComponent,
   VCLSelectListItemComponent,
   VCLSubLabelDirective,
+  FormControlGroupComponent,
+  EmbeddedInputFieldLabelDirective,
 } from '@vcl/ng-vcl';
-import { FormControlGroupComponent } from '../../../../lib/ng-vcl/src/form-control-group/form-control-group.component';
-import { EmbeddedInputFieldLabelDirective } from '../../../../lib/ng-vcl/src/input/embedded-label.directive';
 
 @Component({
   templateUrl: 'demo.component.html',
