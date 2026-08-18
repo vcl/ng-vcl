@@ -25,3 +25,21 @@ export {
   VCLDataListFooterDirective,
   VCLDataListHeaderDirective,
 };
+
+@NgModule({
+  imports: [
+    VCLDataListComponent,
+    VCLDataListItemDirective,
+    VCLDataListFooterDirective,
+    VCLDataListHeaderDirective,
+  ],
+  exports: [
+    VCLDataListComponent,
+    VCLDataListItemDirective,
+    VCLDataListFooterDirective,
+    VCLDataListHeaderDirective,
+  ],
+  declarations: [],
+  providers: [],
+})
+export class VCLDataListModule {}
