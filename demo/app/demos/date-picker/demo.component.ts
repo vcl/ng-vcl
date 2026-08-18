@@ -4,7 +4,7 @@ import {
   DateAdapter,
   DateAdapterParserDE,
   DateAdapterParserEN,
-  FormControlGroupComponent,
+  VCLFormControlGroupComponent,
   VCLButtonComponent,
   VCLButtonGroupComponent,
   VCLDatePickerModule,
@@ -17,7 +17,7 @@ import {
   imports: [
     FormsModule,
     VCLButtonGroupComponent,
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     VCLDatePickerModule,
     VCLButtonComponent,
     VCLLabelDirective,

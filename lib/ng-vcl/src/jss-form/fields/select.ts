@@ -14,7 +14,7 @@ import {
 } from '../schemas';
 import { FormFieldControl } from './field';
 
-import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { VCLFormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective, VCLSubLabelDirective } from '../../core/label';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
@@ -100,7 +100,7 @@ export class EmptyDirective {
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
     JssFormInputWrapperComponent,

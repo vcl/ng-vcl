@@ -1,4 +1,11 @@
 import { NgModule } from '@angular/core';
-import { FlipSwitchComponent } from './flip-switch.component';
+import { VCLFlipSwitchComponent } from './flip-switch.component';
 
-export { FlipSwitchComponent };
+export { VCLFlipSwitchComponent };
+
+@NgModule({
+  imports: [VCLFlipSwitchComponent],
+  exports: [VCLFlipSwitchComponent],
+  providers: [],
+})
+export class VCLFlipSwitchModule {}

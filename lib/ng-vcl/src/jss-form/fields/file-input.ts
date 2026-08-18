@@ -5,11 +5,11 @@ import {
 } from '../schemas';
 import { FormFieldControl } from './field';
 
-import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { VCLFormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
-import { FileInputComponent } from '../../file-input/file-input.component';
+import { VCLFileInputComponent } from '../../file-input/file-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JssFormHintsComponent } from '../jss-form-hints.component';
 
@@ -50,11 +50,11 @@ export class FormFieldFileInput extends FormFieldControl<
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
     JssFormInputWrapperComponent,
-    FileInputComponent,
+    VCLFileInputComponent,
     FormsModule,
     ReactiveFormsModule,
     JssFormHintsComponent,

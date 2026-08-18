@@ -11,7 +11,7 @@ import {
   DateAdapter,
   VCLJssFormModule,
   VCLNotifierModule,
-  FlipSwitchComponent,
+  VCLFlipSwitchComponent,
 } from '@vcl/ng-vcl';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -34,7 +34,7 @@ export class SampleEmptyComponent {
     AsyncPipe,
     JsonPipe,
     VCLJssFormModule,
-    FlipSwitchComponent,
+    VCLFlipSwitchComponent,
     VCLNotifierModule,
   ],
 })

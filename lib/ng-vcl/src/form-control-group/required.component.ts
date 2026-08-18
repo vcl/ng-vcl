@@ -12,7 +12,7 @@ import { FORM_CONTROL_GROUP_REQUIRED_INDICATOR } from './interfaces';
   template: `{{ indicator }}`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormControlRequiredComponent {
+export class VCLFormControlRequiredComponent {
   constructor(
     @Inject(FORM_CONTROL_GROUP_REQUIRED_INDICATOR)
     private _indicator?: string

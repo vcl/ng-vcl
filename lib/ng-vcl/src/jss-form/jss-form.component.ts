@@ -27,11 +27,11 @@ import {
 } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';
 import {
-  FormDirective,
+  VCLFormDirective,
   FORM_CONTROL_GROUP_FORM,
 } from '../form-control-group/index';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormDirective as FormDirective_1 } from '../form-control-group/form.directive';
+import { VCLFormDirective as FormDirective_1 } from '../form-control-group/form.directive';
 
 @Component({
   selector: 'vcl-jss-form',
@@ -139,8 +139,8 @@ export class JssFormComponent
     return this.field?.defaultValue;
   }
 
-  @ViewChild('form', { static: true, read: FormDirective })
-  form: FormDirective;
+  @ViewChild('form', { static: true, read: VCLFormDirective })
+  form: VCLFormDirective;
 
   ngAfterContentInit() {
     // TODO: workaround to avoid ExpressionChangedAfterItHasBeenCheckedError on ngForm

@@ -15,11 +15,11 @@ import { FormControlGroupForm, FORM_CONTROL_GROUP_FORM } from './interfaces';
   providers: [
     {
       provide: FORM_CONTROL_GROUP_FORM,
-      useExisting: forwardRef(() => FormDirective),
+      useExisting: forwardRef(() => VCLFormDirective),
     },
   ],
 })
-export class FormDirective implements FormControlGroupForm {
+export class VCLFormDirective implements FormControlGroupForm {
   @HostBinding('class.form')
   hostClasses = true;
 

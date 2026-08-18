@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-  FormControlGroupComponent,
+  VCLFormControlGroupComponent,
   VCLInputDirective,
   EmbeddedInputFieldLabelDirective,
   VCLLabelDirective,
@@ -14,7 +14,7 @@ import {
   imports: [
     FormsModule,
     VCLLabelDirective,
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     VCLInputDirective,
     EmbeddedInputFieldLabelDirective,
     VCLPasswordInputComponent,

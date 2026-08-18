@@ -19,8 +19,8 @@ import { VCLIcogramComponent } from '../icogram';
 import { VCLInputDirective } from '../input/input.directive';
 import { VCLInputFieldComponent } from '../input/input-field.component';
 import { EmbeddedInputFieldLabelDirective } from '../input/embedded-label.directive';
-import { FormControlGroupComponent } from '../form-control-group/form-control-group.component';
-import { FormControlHintErrorComponent } from '../form-control-group/hint.component';
+import { VCLFormControlGroupComponent } from '../form-control-group/form-control-group.component';
+import { VCLFormControlHintErrorComponent } from '../form-control-group/hint.component';
 
 @Component({
   templateUrl: 'alert.component.html',
@@ -41,8 +41,8 @@ import { FormControlHintErrorComponent } from '../form-control-group/hint.compon
     EmbeddedInputFieldLabelDirective,
     VCLIconComponent,
     VCLIcogramComponent,
-    FormControlGroupComponent,
-    FormControlHintErrorComponent,
+    VCLFormControlGroupComponent,
+    VCLFormControlHintErrorComponent,
   ],
 })
 export class VCLAlertComponent implements AfterViewInit, OnDestroy {

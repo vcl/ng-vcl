@@ -13,7 +13,7 @@ import {
 import { VCLRatingComponent } from '../../rating/index';
 import { FormFieldControl } from './field';
 
-import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { VCLFormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
@@ -76,7 +76,7 @@ export class FormFieldRating extends FormFieldControl<
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
     JssFormInputWrapperComponent,

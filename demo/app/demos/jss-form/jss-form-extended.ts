@@ -4,7 +4,7 @@ import {
   FormFieldControl,
   VCLFormFieldControlSchema,
   Conditional,
-  FormControlGroupComponent,
+  VCLFormControlGroupComponent,
   VCLLabelDirective,
 } from '@vcl/ng-vcl';
 import { CounterComponent } from '../form-control-group/counter.component';
@@ -26,7 +26,7 @@ import { CounterComponent } from '../form-control-group/counter.component';
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     CounterComponent,
     VCLLabelDirective,
     FormsModule,

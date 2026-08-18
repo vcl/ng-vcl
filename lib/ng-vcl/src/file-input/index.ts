@@ -1,4 +1,12 @@
 import { NgModule } from '@angular/core';
-import { FileInputComponent } from './file-input.component';
+import { VCLFileInputComponent } from './file-input.component';
 
-export { FileInputComponent };
+export { VCLFileInputComponent };
+
+@NgModule({
+  imports: [VCLFileInputComponent],
+  exports: [VCLFileInputComponent],
+  declarations: [],
+  providers: [],
+})
+export class VCLFileInputModule {}

@@ -7,7 +7,7 @@ import {
   VCLSelectListHeaderComponent,
   VCLSelectListItemComponent,
   VCLSubLabelDirective,
-  FormControlGroupComponent,
+  VCLFormControlGroupComponent,
   EmbeddedInputFieldLabelDirective,
 } from '@vcl/ng-vcl';
 
@@ -18,7 +18,7 @@ import {
     VCLSubLabelDirective,
     VCLLabelDirective,
     VCLSelectComponent,
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLSelectListComponent,
     VCLSelectListHeaderComponent,

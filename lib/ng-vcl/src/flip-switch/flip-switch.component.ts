@@ -35,17 +35,17 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => FlipSwitchComponent),
+      useExisting: forwardRef(() => VCLFlipSwitchComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FlipSwitchComponent),
+      useExisting: forwardRef(() => VCLFlipSwitchComponent),
       multi: true,
     },
   ],
   imports: [],
 })
-export class FlipSwitchComponent
+export class VCLFlipSwitchComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
 {
   constructor(

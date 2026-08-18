@@ -7,13 +7,13 @@ import {
   FORM_CONTROL_GROUP_FORM,
   FormControlGroupForm,
 } from './interfaces';
-import { FormDirective } from './form.directive';
-import { FormControlGroupComponent } from './form-control-group.component';
+import { VCLFormDirective } from './form.directive';
+import { VCLFormControlGroupComponent } from './form-control-group.component';
 import {
-  FormControlHintComponent,
-  FormControlHintErrorComponent,
+  VCLFormControlHintComponent,
+  VCLFormControlHintErrorComponent,
 } from './hint.component';
-import { FormControlRequiredComponent } from './required.component';
+import { VCLFormControlRequiredComponent } from './required.component';
 import {
   defaultFormControlErrorStateAgent,
   dirtyFormControlErrorStateAgent,
@@ -25,13 +25,13 @@ export {
   FORM_CONTROL_GROUP_FORM,
   FORM_CONTROL_GROUP_INPUT_STATE,
   FORM_CONTROL_GROUP_STATE,
-  FormControlGroupComponent,
-  FormControlHintComponent,
-  FormControlHintErrorComponent,
+  VCLFormControlGroupComponent,
+  VCLFormControlHintComponent,
+  VCLFormControlHintErrorComponent,
   FormControlGroupInputState,
   FormControlGroupState,
   FormControlErrorStateAgent,
-  FormControlRequiredComponent,
-  FormDirective,
+  VCLFormControlRequiredComponent,
+  VCLFormDirective,
   FormControlGroupForm,
 };

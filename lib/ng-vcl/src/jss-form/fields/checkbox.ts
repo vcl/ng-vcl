@@ -5,7 +5,7 @@ import {
 } from '../schemas';
 import { FormFieldControl } from './field';
 
-import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
+import { VCLFormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
 import { VCLCheckboxComponent } from '../../checkbox/checkbox.component';
@@ -40,7 +40,7 @@ export class FormFieldCheckbox extends FormFieldControl<
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    FormControlGroupComponent,
+    VCLFormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     JssFormInputWrapperComponent,
     VCLCheckboxComponent,

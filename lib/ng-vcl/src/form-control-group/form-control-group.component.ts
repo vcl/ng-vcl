@@ -25,7 +25,7 @@ import {
 } from './interfaces';
 import { AbstractControl } from '@angular/forms';
 import { defaultFormControlErrorStateAgent } from './error-state-agent';
-import { FormDirective } from './form.directive';
+import { VCLFormDirective } from './form.directive';
 
 @Component({
   selector: 'vcl-form-control-group',
@@ -37,12 +37,12 @@ import { FormDirective } from './form.directive';
   providers: [
     {
       provide: FORM_CONTROL_GROUP_STATE,
-      useExisting: forwardRef(() => FormControlGroupComponent),
+      useExisting: forwardRef(() => VCLFormControlGroupComponent),
     },
   ],
   imports: [],
 })
-export class FormControlGroupComponent<T>
+export class VCLFormControlGroupComponent<T>
   implements AfterContentInit, OnDestroy, FormControlGroupState<T>
 {
   constructor(
@@ -54,7 +54,7 @@ export class FormControlGroupComponent<T>
     @Optional()
     private _errorStateAgent?: FormControlErrorStateAgent
   ) {
-    this.form = form ?? new FormDirective(undefined, undefined);
+    this.form = form ?? new VCLFormDirective(undefined, undefined);
   }
 
   form: FormControlGroupForm;

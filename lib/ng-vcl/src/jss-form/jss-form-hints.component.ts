@@ -26,8 +26,8 @@ import {
 } from '../form-control-group/exports';
 import { AsyncPipe } from '@angular/common';
 import {
-  FormControlHintComponent,
-  FormControlHintErrorComponent,
+  VCLFormControlHintComponent,
+  VCLFormControlHintErrorComponent,
 } from '../form-control-group/hint.component';
 
 @Component({
@@ -35,7 +35,11 @@ import {
   templateUrl: 'jss-form-hints.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'vclJssFormControl',
-  imports: [FormControlHintComponent, FormControlHintErrorComponent, AsyncPipe],
+  imports: [
+    VCLFormControlHintComponent,
+    VCLFormControlHintErrorComponent,
+    AsyncPipe,
+  ],
 })
 export class JssFormHintsComponent implements OnDestroy, AfterViewInit {
   constructor(

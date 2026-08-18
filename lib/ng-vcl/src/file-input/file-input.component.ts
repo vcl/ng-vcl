@@ -37,17 +37,17 @@ let UNIQUE_ID = 0;
   providers: [
     {
       provide: FORM_CONTROL_GROUP_INPUT_STATE,
-      useExisting: forwardRef(() => FileInputComponent),
+      useExisting: forwardRef(() => VCLFileInputComponent),
     },
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FileInputComponent),
+      useExisting: forwardRef(() => VCLFileInputComponent),
       multi: true,
     },
   ],
   imports: [VCLIconModule],
 })
-export class FileInputComponent
+export class VCLFileInputComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy
 {
   constructor(

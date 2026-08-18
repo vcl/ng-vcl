@@ -18,7 +18,7 @@ import { FormControlGroupState, FORM_CONTROL_GROUP_STATE } from './interfaces';
   styleUrls: ['hint.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class FormControlHintComponent {
+export class VCLFormControlHintComponent {
   constructor(
     private elementRef: ElementRef<HTMLElement>,
     private cdRef: ChangeDetectorRef,
@@ -57,7 +57,7 @@ export class FormControlHintComponent {
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormControlHintErrorComponent {
+export class VCLFormControlHintErrorComponent {
   constructor(
     private cdRef: ChangeDetectorRef,
     @Inject(FORM_CONTROL_GROUP_STATE)
