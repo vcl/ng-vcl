@@ -1,5 +1,15 @@
+import { NgModule } from '@angular/core';
+import { VCLAlertComponent } from './alert.component';
 import { AlertService } from './alert.service';
-import { AlertType, AlertInput, AlertAlignment, AlertResult } from './types';
+import { VCLAlertInputDirective } from './input-alert.directive';
+import { AlertAlignment, AlertInput, AlertResult, AlertType } from './types';
 
-export { AlertService, AlertType, AlertInput, AlertAlignment, AlertResult };
-export * from './alert.service';
+export { AlertAlignment, AlertInput, AlertResult, AlertService, AlertType };
+
+@NgModule({
+  imports: [VCLAlertComponent, VCLAlertInputDirective],
+  exports: [VCLAlertComponent, VCLAlertInputDirective],
+  declarations: [],
+  providers: [],
+})
+export class VCLAlertModule {}

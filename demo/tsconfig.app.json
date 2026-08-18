@@ -5,7 +5,7 @@
     "types": ["node"]
   },
   "files": ["./main.ts", "./polyfills.ts"],
-  "include": ["./**/*.d.ts"],
+  "include": ["./**/*.ts", "./**/*.d.ts"],
   "exclude": ["test.ts", "**/*.spec.ts"],
   "angularCompilerOptions": {
     "strictTemplates": false
