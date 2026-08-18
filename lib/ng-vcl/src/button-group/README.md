@@ -5,10 +5,10 @@ A button group which distributes space for each button equally to occupy 100% ho
 ## Usage
 
 ```js
-import { VCLButtonGroupComponent } from '@vcl/ng-vcl';
+import { VCLButtonGroupComponent VCLButtonComponent } from '@vcl/ng-vcl';
 
-@NgModule({
-  imports: [ VCLButtonGroupComponent ],
+@Component({
+  imports: [ VCLButtonGroupComponent, VCLButtonComponent ],
   ...
 })
 export class AppComponent {}

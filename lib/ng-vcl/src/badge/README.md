@@ -5,10 +5,10 @@ A visually highlighted tag to attribute items.
 ## Usage
 
 ```js
-import { VCLBadgeModule } from '@vcl/ng-vcl';
+import { VCLBadgeComponent } from '@vcl/ng-vcl';
 
 @Component({
-  imports: [ VCLBadgeModule ],
+  imports: [ VCLBadgeComponent ],
   ...
 })
 export class AppComponent {}

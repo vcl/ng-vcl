@@ -5,10 +5,10 @@ A calendar to display and select dates
 ## Usage
 
 ```js
-import { VCLCalendarModule } from '@vcl/ng-vcl';
+import { VCLCalendarComponent } from '@vcl/ng-vcl';
 
-@NgModule({
-  imports: [ VCLCalendarModule ],
+@Component({
+  imports: [ VCLCalendarComponent ],
   ...
 })
 export class AppComponent {}

@@ -5,10 +5,10 @@ Lets users pick dates and time comfortably.
 ## Usage
 
 ```js
-import { VCLDatePickerModule } from '@vcl/ng-vcl';;
+import { DatepickerComponent } from '@vcl/ng-vcl';;
 
 @Component({
-  imports: [ VCLDatePickerModule ],
+  imports: [ DatepickerComponent ],
   ...
 })
 export class AppComponent {}

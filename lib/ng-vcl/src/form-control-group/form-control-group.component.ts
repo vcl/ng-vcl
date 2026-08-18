@@ -41,7 +41,7 @@ import { NgIf } from '@angular/common';
       useExisting: forwardRef(() => FormControlGroupComponent),
     },
   ],
-  imports: [NgIf],
+  imports: [],
 })
 export class FormControlGroupComponent<T>
   implements AfterContentInit, OnDestroy, FormControlGroupState<T>

@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { AlertService } from './alert.service';
 import { AlertType, AlertInput, AlertAlignment, AlertResult } from './types';
 
