@@ -3,7 +3,7 @@ import { VCLFormFieldSchemaButton } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
 import { FormField } from './field';
 import { VCLButtonComponent } from '../../button/button.component';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { VCLIcogramComponent } from '../../icogram/icogram.component';
 import { VCLIconComponent } from '../../icon/icon.component';
 
@@ -51,25 +51,18 @@ export class FormFieldButton extends FormField<VCLFormFieldSchemaButton> {
       [type]="field.type"
       (click)="onAction(field)">
       <vcl-icogram>
-        <vcl-icon *ngIf="field.prepIcon" vclPrepend [icon]=""
-          >field.prepIcon</vcl-icon
-        >
+        @if (field.prepIcon) {
+          <vcl-icon vclPrepend [icon]="">field.prepIcon</vcl-icon>
+        }
         {{ field.label }}
-        <vcl-icon
-          *ngIf="field.appIcon"
-          vclAppend
-          [icon]="field.appIcon"></vcl-icon>
+        @if (field.appIcon) {
+          <vcl-icon vclAppend [icon]="field.appIcon"></vcl-icon>
+        }
       </vcl-icogram>
     </button>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [
-    VCLButtonComponent,
-    NgClass,
-    VCLIcogramComponent,
-    NgIf,
-    VCLIconComponent,
-  ],
+  imports: [VCLButtonComponent, NgClass, VCLIcogramComponent, VCLIconComponent],
 })
 export class FormFieldButtonComponent {
   constructor(

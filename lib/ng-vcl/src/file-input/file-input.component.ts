@@ -24,7 +24,7 @@ import {
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
-import { NgIf } from '@angular/common';
+
 import { VCLIconModule } from '../icon';
 
 let UNIQUE_ID = 0;
@@ -45,7 +45,7 @@ let UNIQUE_ID = 0;
       multi: true,
     },
   ],
-  imports: [NgIf, VCLIconModule],
+  imports: [VCLIconModule],
 })
 export class FileInputComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy

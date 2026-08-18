@@ -11,13 +11,17 @@ import { CounterComponent } from '../form-control-group/counter.component';
 
 @Component({
   template: `
-    <vcl-form-control-group *ngIf="field.visible">
-      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <demo-counter
-        [formControl]="formControl"
-        [min]="field.params.min"
-        [max]="field.params.max"></demo-counter>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group>
+        @if (!!field.label) {
+          <vcl-label>{{ field.label }}</vcl-label>
+        }
+        <demo-counter
+          [formControl]="formControl"
+          [min]="field.params.min"
+          [max]="field.params.max"></demo-counter>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [

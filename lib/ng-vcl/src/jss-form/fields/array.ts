@@ -11,7 +11,6 @@ import { VCLFormFieldSchemaArray } from '../schemas';
 import { FormField, FormFieldControl } from './field';
 import { FormFieldObject } from './object';
 import { VCLIconComponent } from '../../icon/icon.component';
-import { NgIf, NgFor } from '@angular/common';
 
 export class FormFieldArray extends FormFieldControl<
   VCLFormFieldSchemaArray,
@@ -97,10 +96,10 @@ export class FormFieldArray extends FormFieldControl<
             icon="vcl:add"
             (click)="addItem()"></vcl-icon>
         </legend>
-        <ng-container *ngIf="items.length === 0">
+        @if (items.length === 0) {
           {{ field.noFieldsLabel }}
-        </ng-container>
-        <ng-container *ngFor="let item of items; let i = index">
+        }
+        @for (item of items; track item; let i = $index) {
           <fieldset class="mb-form-control">
             <legend>
               {{ item.label }}
@@ -111,7 +110,7 @@ export class FormFieldArray extends FormFieldControl<
             </legend>
             <ng-template [cdkPortalOutlet]="item.portal"></ng-template>
           </fieldset>
-        </ng-container>
+        }
       </fieldset>
     </ng-container>
   `,
@@ -135,8 +134,6 @@ export class FormFieldArray extends FormFieldControl<
     FormsModule,
     ReactiveFormsModule,
     VCLIconComponent,
-    NgIf,
-    NgFor,
     CdkPortalOutlet,
   ],
 })

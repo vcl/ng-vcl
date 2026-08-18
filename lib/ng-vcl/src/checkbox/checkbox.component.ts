@@ -20,7 +20,7 @@ import {
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { VCLIconComponent } from '../icon';
 
 let UNIQUE_ID = 0;
@@ -40,7 +40,7 @@ let UNIQUE_ID = 0;
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, VCLIconComponent],
+  imports: [VCLIconComponent],
   exportAs: 'vclCheckbox',
 })
 export class VCLCheckboxComponent

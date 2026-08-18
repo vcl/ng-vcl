@@ -17,7 +17,7 @@ import {
   VCLCalendarHandler,
   VCLCalendar,
 } from './interfaces';
-import { CommonModule } from '@angular/common';
+
 import { VCLCalendarViewMinutesComponent } from './views/minutes.component';
 import { VCLCalendarViewHoursComponent } from './views/hours.component';
 import { VCLCalendarViewMonthComponent } from './views/month.component';
@@ -25,12 +25,7 @@ import { VCLCalendarViewYearComponent } from './views/year.component';
 import { VCLCalendarViewYearsComponent } from './views/years.component';
 
 export type VCLCalendarSelectionMode =
-  | 'date'
-  | 'multiple'
-  | 'range'
-  | 'month'
-  | 'month-multiple'
-  | 'month-range';
+  'date' | 'multiple' | 'range' | 'month' | 'month-multiple' | 'month-range';
 
 @Component({
   selector: 'vcl-calendar',
@@ -38,7 +33,6 @@ export type VCLCalendarSelectionMode =
   exportAs: 'vclCalendar',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    CommonModule,
     VCLCalendarViewMinutesComponent,
     VCLCalendarViewHoursComponent,
     VCLCalendarViewMonthComponent,

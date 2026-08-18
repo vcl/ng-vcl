@@ -3,7 +3,7 @@ import { VCLFormFieldSchemaButtons } from '../schemas';
 import { JSS_FORM_TOKEN, JssForm } from '../types';
 import { FormField } from './field';
 import { FormFieldButton } from './button';
-import { NgFor, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { VCLButtonComponent } from '../../button/button.component';
 import { VCLIcogramComponent } from '../../icogram/icogram.component';
 import { VCLIconComponent } from '../../icon/icon.component';
@@ -33,7 +33,7 @@ export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
   selector: 'vcl-jss-form-buttons',
   template: `
     <div class="loose-button-group">
-      <ng-container *ngFor="let buttonField of field.buttons">
+      @for (buttonField of field.buttons; track buttonField) {
         <button
           vcl-button
           [ngClass]="buttonField.class"
@@ -41,28 +41,20 @@ export class FormFieldButtons extends FormField<VCLFormFieldSchemaButtons> {
           [type]="buttonField.type"
           (click)="onAction(buttonField)">
           <vcl-icogram>
-            <vcl-icon *ngIf="buttonField.prepIcon" vclPrepend [icon]=""
-              >buttonField.prepIcon</vcl-icon
-            >
+            @if (buttonField.prepIcon) {
+              <vcl-icon vclPrepend [icon]="">buttonField.prepIcon</vcl-icon>
+            }
             {{ buttonField.label }}
-            <vcl-icon
-              *ngIf="buttonField.appIcon"
-              vclAppend
-              [icon]="buttonField.appIcon"></vcl-icon>
+            @if (buttonField.appIcon) {
+              <vcl-icon vclAppend [icon]="buttonField.appIcon"></vcl-icon>
+            }
           </vcl-icogram>
         </button>
-      </ng-container>
+      }
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [
-    NgFor,
-    VCLButtonComponent,
-    NgClass,
-    VCLIcogramComponent,
-    NgIf,
-    VCLIconComponent,
-  ],
+  imports: [VCLButtonComponent, NgClass, VCLIcogramComponent, VCLIconComponent],
 })
 export class FormFieldButtonsComponent {
   constructor(

@@ -4,7 +4,7 @@ import {
   VCLFormFieldSchemaCheckboxParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
-import { NgIf } from '@angular/common';
+
 import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { JssFormInputWrapperComponent } from '../jss-form-input-wrapper.component';
@@ -27,20 +27,19 @@ export class FormFieldCheckbox extends FormFieldControl<
 @Component({
   selector: 'vcl-jss-form-checkbox',
   template: `
-    <vcl-form-control-group
-      *ngIf="field.visible"
-      [errorStateAgent]="field.errorStateAgent">
-      <vcl-jss-form-input-wrapper>
-        <vcl-checkbox [formControl]="field.control">{{
-          field.label
-        }}</vcl-checkbox>
-      </vcl-jss-form-input-wrapper>
-      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group [errorStateAgent]="field.errorStateAgent">
+        <vcl-jss-form-input-wrapper>
+          <vcl-checkbox [formControl]="field.control">{{
+            field.label
+          }}</vcl-checkbox>
+        </vcl-jss-form-input-wrapper>
+        <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     JssFormInputWrapperComponent,

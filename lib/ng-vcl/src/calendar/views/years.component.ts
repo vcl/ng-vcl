@@ -11,7 +11,6 @@ import {
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';
 import { VCLCalendarYears } from '../interfaces';
 import { compare } from '../utils';
-import { CommonModule } from '@angular/common';
 
 import { VCLIconModule } from '../../icon/index';
 
@@ -22,7 +21,7 @@ import { VCLButtonComponent } from '../../button/button.component';
   templateUrl: 'years.component.html',
   exportAs: 'vclCalendarViewYear',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [VCLIconModule, CommonModule, VCLButtonComponent],
+  imports: [VCLIconModule, VCLButtonComponent],
 })
 export class VCLCalendarViewYearsComponent<VCLDate>
   implements OnChanges, OnInit

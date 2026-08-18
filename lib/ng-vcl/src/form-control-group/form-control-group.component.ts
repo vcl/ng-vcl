@@ -26,7 +26,6 @@ import {
 import { AbstractControl } from '@angular/forms';
 import { defaultFormControlErrorStateAgent } from './error-state-agent';
 import { FormDirective } from './form.directive';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'vcl-form-control-group',

@@ -7,7 +7,7 @@ import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { Portal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { FormField, FormFieldControl } from './field';
 import { VCLFormFieldSchemaObject } from '../schemas';
-import { NgIf, NgFor } from '@angular/common';
+
 import { JssFormHintsComponent } from '../jss-form-hints.component';
 
 export class FormFieldObject extends FormFieldControl<
@@ -100,34 +100,34 @@ export class FormFieldObject extends FormFieldControl<
 @Component({
   selector: 'vcl-jss-form-object',
   template: `
-    <ng-container *ngIf="field.visible">
-      <ng-container *ngIf="!field.layout">
+    @if (field.visible) {
+      @if (!field.layout) {
         <div [formGroup]="field.control">
-          <ng-template
-            *ngFor="let portal of portals"
-            [cdkPortalOutlet]="portal"></ng-template>
+          @for (portal of portals; track portal) {
+            <ng-template [cdkPortalOutlet]="portal"></ng-template>
+          }
         </div>
         <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-      </ng-container>
-      <ng-container *ngIf="field.layout === 'fieldset'">
+      }
+      @if (field.layout === 'fieldset') {
         <fieldset [formGroup]="field.control">
-          <legend *ngIf="!!field.label">{{ field.label }}</legend>
-          <ng-container *ngFor="let portal of portals">
-            <ng-container *ngIf="true">
+          @if (!!field.label) {
+            <legend>{{ field.label }}</legend>
+          }
+          @for (portal of portals; track portal) {
+            @if (true) {
               <ng-template [cdkPortalOutlet]="portal"></ng-template>
-            </ng-container>
-          </ng-container>
+            }
+          }
           <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
         </fieldset>
-      </ng-container>
-    </ng-container>
+      }
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormsModule,
     ReactiveFormsModule,
-    NgFor,
     CdkPortalOutlet,
     JssFormHintsComponent,
   ],

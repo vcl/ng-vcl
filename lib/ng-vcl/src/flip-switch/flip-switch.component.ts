@@ -22,7 +22,6 @@ import {
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
-import { CommonModule } from '@angular/common';
 
 let UNIQUE_ID = 0;
 
@@ -44,7 +43,7 @@ let UNIQUE_ID = 0;
       multi: true,
     },
   ],
-  imports: [CommonModule],
+  imports: [],
 })
 export class FlipSwitchComponent
   implements ControlValueAccessor, FormControlGroupInputState, OnDestroy

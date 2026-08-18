@@ -20,7 +20,7 @@ import Fuse from 'fuse.js';
 import { map, distinctUntilChanged, scan } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { VCLDrawerComponent } from '@vcl/ng-vcl';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { VCLIconComponent } from '../../../../lib/ng-vcl/src/icon/icon.component';
 import { VCLInputFieldComponent } from '../../../../lib/ng-vcl/src/input/input-field.component';
 import { VCLInputDirective } from '../../../../lib/ng-vcl/src/input/input.directive';
@@ -38,12 +38,10 @@ declare var gitBranch: string;
   templateUrl: 'app.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     VCLIconComponent,
     VCLInputFieldComponent,
     VCLInputDirective,
     VCLNavigationComponent,
-    NgFor,
     VCLNavigationItemComponent,
     RouterLinkActive,
     RouterLink,

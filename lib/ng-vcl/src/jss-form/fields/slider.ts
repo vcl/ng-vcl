@@ -4,7 +4,7 @@ import {
   VCLFormFieldSchemaSliderParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
-import { NgIf } from '@angular/common';
+
 import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
@@ -37,24 +37,25 @@ export class FormFieldSlider extends FormFieldControl<
 @Component({
   selector: 'vcl-jss-form-slider',
   template: `
-    <vcl-form-control-group
-      *ngIf="field.visible"
-      [errorStateAgent]="field.errorStateAgent">
-      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <vcl-jss-form-input-wrapper>
-        <vcl-slider
-          [formControl]="field.control"
-          [min]="field.min"
-          [max]="field.max"
-          [scale]="field.scale"
-          [lock]="field.lock"></vcl-slider>
-      </vcl-jss-form-input-wrapper>
-      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group [errorStateAgent]="field.errorStateAgent">
+        @if (!!field.label) {
+          <vcl-label>{{ field.label }}</vcl-label>
+        }
+        <vcl-jss-form-input-wrapper>
+          <vcl-slider
+            [formControl]="field.control"
+            [min]="field.min"
+            [max]="field.max"
+            [scale]="field.scale"
+            [lock]="field.lock"></vcl-slider>
+        </vcl-jss-form-input-wrapper>
+        <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,

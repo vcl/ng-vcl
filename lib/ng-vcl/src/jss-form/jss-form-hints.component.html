@@ -1,5 +1,11 @@
-<ng-container *ngFor="let hint of hints$ | async">
-  <vcl-hint *ngIf="hint.type === 'default'">{{ hint.message }}</vcl-hint>
-  <vcl-hint-warning *ngIf="hint.type === 'warning'" >{{ hint.message }}</vcl-hint-warning>
-  <vcl-hint-error *ngIf="hint.type === 'error'" [error]="hint.error">{{ hint.message }}</vcl-hint-error>
-</ng-container>
+@for (hint of hints$ | async; track hint) {
+  @if (hint.type === 'default') {
+    <vcl-hint>{{ hint.message }}</vcl-hint>
+  }
+  @if (hint.type === 'warning') {
+    <vcl-hint-warning>{{ hint.message }}</vcl-hint-warning>
+  }
+  @if (hint.type === 'error') {
+    <vcl-hint-error [error]="hint.error">{{ hint.message }}</vcl-hint-error>
+  }
+}

@@ -1,26 +1,25 @@
 <div class="col app">
   <header class="application-header row center justify-between">
-    <button
-      vcl-button
-      square
-      class="transparent"
-      *ngIf="xsmall"
-      (click)="drawer.toggle()"
-    >
-      <vcl-icon icon="vcl:menu" class="scale180p"></vcl-icon>
-    </button>
+    @if (xsmall) {
+      <button vcl-button square class="transparent" (click)="drawer.toggle()">
+        <vcl-icon icon="vcl:menu" class="scale180p"></vcl-icon>
+      </button>
+    }
     <div role="banner">
       <a href="#" class="row center">
         <img
           class="responsive-image logo"
           role="presentation"
-          src="https://cdn.jsdelivr.net/gh/vcl/ng-vcl/gfx/angular_vcl_logo_square.png"
-        />
-        <h1 *ngIf="!xsmall" class="app-name">
-          Angular VCL Demo Browser (v{{ version
-          }}<span *ngIf="gitBranch"> {{ gitBranch }}</span
-          >)
-        </h1>
+          src="https://cdn.jsdelivr.net/gh/vcl/ng-vcl/gfx/angular_vcl_logo_square.png" />
+        @if (!xsmall) {
+          <h1 class="app-name">
+            Angular VCL Demo Browser (v{{ version }}
+            @if (gitBranch) {
+              <span> {{ gitBranch }}</span>
+            }
+            )
+          </h1>
+        }
       </a>
     </div>
     <div class="github">
@@ -41,76 +40,74 @@
           name="search"
           placeholder="Search Modules"
           autocomplete="off"
-          autofocus
-        />
+          autofocus />
 
-        <button
-          vcl-button
-          *ngIf="searchInput.value"
-          (tap)="searchInput.value = ''; search('')"
-          class="button transparent square appended"
-          icon="vcl:close-circle"
-        ></button>
+        @if (searchInput.value) {
+          <button
+            vcl-button
+            (tap)="searchInput.value = ''; search('')"
+            class="button transparent square appended"
+            icon="vcl:close-circle"></button>
+        }
       </vcl-input-field>
 
       <vcl-navigation class="scrollable y-on-hover flex">
-        <ng-container *ngIf="searchResults.length; else noSearch">
-          <vcl-navigation-item
-            *ngFor="let searchResult of searchResults"
-            [routerLink]="searchResult.route"
-            routerLinkActive
-            #rla="routerLinkActive"
-            [selected]="rla.isActive"
-          >
-            <vcl-navigation-label>{{
-              searchResult.label
-            }}</vcl-navigation-label>
-          </vcl-navigation-item>
-        </ng-container>
-        <ng-template #noSearch>
-          <vcl-navigation-item
-            *ngFor="let item of GROUPED_DEMOS"
-            #navGroupItem="vclNavigationItem"
-          >
-            <vcl-navigation-label>
-              <vcl-icogram>
-                <vcl-icon
-                  vclPrepend
-                  class="scale155p m-0"
-                  [icon]="
-                    navGroupItem.opened ? 'vcl:chevron-down' : 'vcl:chevron-right'
-                  "
-                ></vcl-icon>
-                &nbsp;{{ item.label }}
-              </vcl-icogram>
-            </vcl-navigation-label>
-            <vcl-navigation *ngIf="item.items">
-              <vcl-navigation-item
-                *ngFor="let subitem of item.items"
-                [routerLink]="subitem.route"
-                routerLinkActive
-                #navItem="vclNavigationItem"
-                #rla="routerLinkActive"
-                [selected]="rla.isActive"
-                (click)="onNavItemClick()"
-              >
-                <vcl-navigation-label>
-                  <vcl-icogram>
-                    {{ subitem.label }}
-                    <!-- Router loading animation -->
-                    <ng-container *ngIf="busy$ | async">
-                      <vcl-icon
-                        *ngIf="navItem.selected"
-                        vclAppend
-                        icon="vcl:busy"
-                      ></vcl-icon>
-                    </ng-container>
-                  </vcl-icogram>
-                </vcl-navigation-label>
-              </vcl-navigation-item>
-            </vcl-navigation>
-          </vcl-navigation-item>
-        </ng-template>
+        @if (searchResults.length) {
+          @for (searchResult of searchResults; track searchResult) {
+            <vcl-navigation-item
+              [routerLink]="searchResult.route"
+              routerLinkActive
+              #rla="routerLinkActive"
+              [selected]="rla.isActive">
+              <vcl-navigation-label>{{
+                searchResult.label
+              }}</vcl-navigation-label>
+            </vcl-navigation-item>
+          }
+        } @else {
+          @for (item of GROUPED_DEMOS; track item) {
+            <vcl-navigation-item #navGroupItem="vclNavigationItem">
+              <vcl-navigation-label>
+                <vcl-icogram>
+                  <vcl-icon
+                    vclPrepend
+                    class="scale155p m-0"
+                    [icon]="
+                      navGroupItem.opened
+                        ? 'vcl:chevron-down'
+                        : 'vcl:chevron-right'
+                    "></vcl-icon>
+                  &nbsp;{{ item.label }}
+                </vcl-icogram>
+              </vcl-navigation-label>
+              @if (item.items) {
+                <vcl-navigation>
+                  @for (subitem of item.items; track subitem) {
+                    <vcl-navigation-item
+                      [routerLink]="subitem.route"
+                      routerLinkActive
+                      #navItem="vclNavigationItem"
+                      #rla="routerLinkActive"
+                      [selected]="rla.isActive"
+                      (click)="onNavItemClick()">
+                      <vcl-navigation-label>
+                        <vcl-icogram>
+                          {{ subitem.label }}
+                          <!-- Router loading animation -->
+                          @if (busy$ | async) {
+                            @if (navItem.selected) {
+                              <vcl-icon vclAppend icon="vcl:busy"></vcl-icon>
+                            }
+                          }
+                        </vcl-icogram>
+                      </vcl-navigation-label>
+                    </vcl-navigation-item>
+                  }
+                </vcl-navigation>
+              }
+            </vcl-navigation-item>
+          }
+        }
       </vcl-navigation>
     </div>
 

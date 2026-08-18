@@ -13,7 +13,7 @@ import {
   VCLFormFieldSchemaSelectParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
-import { NgIf, NgFor } from '@angular/common';
+
 import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective, VCLSubLabelDirective } from '../../core/label';
@@ -65,40 +65,41 @@ export class EmptyDirective {
 @Component({
   selector: 'vcl-jss-form-select',
   template: `
-    <vcl-form-control-group
-      [errorStateAgent]="field.errorStateAgent"
-      *ngIf="field.visible">
-      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <vcl-jss-form-input-wrapper>
-        <vcl-select
-          [placeholder]="field.placeholder"
-          [search]="field.search"
-          [maxHeight]="field.maxHeight"
-          [clearable]="field.clearable">
-          <ng-container empty #empty>
-            <ng-template vclEmptyHost></ng-template>
-          </ng-container>
-          <vcl-select-list
-            [formControl]="field.control"
-            [selectionMode]="field.selectionMode"
-            [searchValue]="field.searchValue">
-            <vcl-select-list-item
-              *ngFor="let option of field.options"
-              [value]="option.value">
-              <vcl-label>{{ option.label }}</vcl-label>
-              <vcl-sub-label *ngIf="option.sublabel">{{
-                option.sublabel
-              }}</vcl-sub-label>
-            </vcl-select-list-item>
-          </vcl-select-list>
-        </vcl-select>
-      </vcl-jss-form-input-wrapper>
-      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group [errorStateAgent]="field.errorStateAgent">
+        @if (!!field.label) {
+          <vcl-label>{{ field.label }}</vcl-label>
+        }
+        <vcl-jss-form-input-wrapper>
+          <vcl-select
+            [placeholder]="field.placeholder"
+            [search]="field.search"
+            [maxHeight]="field.maxHeight"
+            [clearable]="field.clearable">
+            <ng-container empty #empty>
+              <ng-template vclEmptyHost></ng-template>
+            </ng-container>
+            <vcl-select-list
+              [formControl]="field.control"
+              [selectionMode]="field.selectionMode"
+              [searchValue]="field.searchValue">
+              @for (option of field.options; track option) {
+                <vcl-select-list-item [value]="option.value">
+                  <vcl-label>{{ option.label }}</vcl-label>
+                  @if (option.sublabel) {
+                    <vcl-sub-label>{{ option.sublabel }}</vcl-sub-label>
+                  }
+                </vcl-select-list-item>
+              }
+            </vcl-select-list>
+          </vcl-select>
+        </vcl-jss-form-input-wrapper>
+        <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
@@ -108,7 +109,6 @@ export class EmptyDirective {
     VCLSelectListComponent,
     FormsModule,
     ReactiveFormsModule,
-    NgFor,
     VCLSelectListItemComponent,
     VCLSubLabelDirective,
     JssFormHintsComponent,

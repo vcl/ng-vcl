@@ -4,7 +4,7 @@
 <h2>Create a hero</h2>
 
 <vcl-jss-form
-  style="max-width: 40em;"
+  style="max-width: 40em"
   autocomplete="off"
   #heroForm="vclJssForm"
   [schema]="heroSchema"
@@ -12,7 +12,9 @@
   (formAction)="onAction($event)">
 </vcl-jss-form>
 
-<div class="value" *ngIf="state$ | async as formState">
-  <h4>Form</h4>
-  <pre>{{formState | json}}</pre>
-</div>
+@if (state$ | async; as formState) {
+  <div class="value">
+    <h4>Form</h4>
+    <pre>{{ formState | json }}</pre>
+  </div>
+}

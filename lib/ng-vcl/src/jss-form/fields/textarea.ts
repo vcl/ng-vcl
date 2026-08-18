@@ -4,7 +4,7 @@ import {
   VCLFormFieldSchemaTextareaParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
-import { NgIf } from '@angular/common';
+
 import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
@@ -35,28 +35,29 @@ export class FormFieldTextarea extends FormFieldControl<
 @Component({
   selector: 'vcl-jss-form-textarea',
   template: `
-    <vcl-form-control-group
-      [errorStateAgent]="field.errorStateAgent"
-      *ngIf="field.visible">
-      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <vcl-jss-form-input-wrapper>
-        <vcl-input-field class="auto-height">
-          <textarea
-            vclInput
-            [formControl]="field.control"
-            [attr.placeholder]="field.placeholder"
-            [autogrow]="true"
-            [minRows]="field.minRows || 3"
-            [maxRows]="field.minRows || 10"
-            [disabled]="field.disabled"></textarea>
-        </vcl-input-field>
-      </vcl-jss-form-input-wrapper>
-      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group [errorStateAgent]="field.errorStateAgent">
+        @if (!!field.label) {
+          <vcl-label>{{ field.label }}</vcl-label>
+        }
+        <vcl-jss-form-input-wrapper>
+          <vcl-input-field class="auto-height">
+            <textarea
+              vclInput
+              [formControl]="field.control"
+              [attr.placeholder]="field.placeholder"
+              [autogrow]="true"
+              [minRows]="field.minRows || 3"
+              [maxRows]="field.minRows || 10"
+              [disabled]="field.disabled"></textarea>
+          </vcl-input-field>
+        </vcl-jss-form-input-wrapper>
+        <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,

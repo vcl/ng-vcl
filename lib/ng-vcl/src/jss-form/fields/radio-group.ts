@@ -4,7 +4,7 @@ import {
   VCLFormFieldSchemaRadioGroupParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
-import { NgIf, NgFor } from '@angular/common';
+
 import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
@@ -34,26 +34,27 @@ export class FormFieldRadio extends FormFieldControl<
 @Component({
   selector: 'vcl-jss-form-radio-group',
   template: `
-    <vcl-form-control-group
-      *ngIf="field.visible"
-      [errorStateAgent]="field.errorStateAgent">
-      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <vcl-jss-form-input-wrapper>
-        <vcl-radio-group
-          [formControl]="field.control"
-          [disabled]="field.disabled">
-          <vcl-radio-button
-            *ngFor="let option of field.options"
-            [value]="option.value"
-            >{{ option.label }}</vcl-radio-button
-          >
-        </vcl-radio-group>
-      </vcl-jss-form-input-wrapper>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group [errorStateAgent]="field.errorStateAgent">
+        @if (!!field.label) {
+          <vcl-label>{{ field.label }}</vcl-label>
+        }
+        <vcl-jss-form-input-wrapper>
+          <vcl-radio-group
+            [formControl]="field.control"
+            [disabled]="field.disabled">
+            @for (option of field.options; track option) {
+              <vcl-radio-button [value]="option.value">{{
+                option.label
+              }}</vcl-radio-button>
+            }
+          </vcl-radio-group>
+        </vcl-jss-form-input-wrapper>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
@@ -61,7 +62,6 @@ export class FormFieldRadio extends FormFieldControl<
     VCLRadioGroupComponent,
     FormsModule,
     ReactiveFormsModule,
-    NgFor,
     VCLRadioButtonComponent,
   ],
 })

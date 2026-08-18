@@ -5,48 +5,54 @@
   [target]="target"
   [positions]="positions">
   <div class="tour-container">
-    <div class="tour-container-header" *ngIf="title">
-      {{ title }}
-    </div>
+    @if (title) {
+      <div class="tour-container-header">
+        {{ title }}
+      </div>
+    }
 
     <div class="tour-container-content">
       <ng-content></ng-content>
     </div>
 
     <div class="tour-container-footer gutterx-3">
-      <button
-        vcl-button
-        type="button"
-        *ngIf="hasPrevious"
-        [ngClass]="$safeNavigationMigration(tour.options?.buttonClass)"
-        (click)="previous()">
-        <vcl-icogram>
-          {{ tour.options?.previousLabel }}
-          <vcl-icon
-            vclPrepend
-            *ngIf="tour.options?.previousIcon"
-            [icon]="
-              $safeNavigationMigration(tour.options?.previousIcon)
-            "></vcl-icon>
-        </vcl-icogram>
-      </button>
+      @if (hasPrevious) {
+        <button
+          vcl-button
+          type="button"
+          [ngClass]="$safeNavigationMigration(tour.options?.buttonClass)"
+          (click)="previous()">
+          <vcl-icogram>
+            {{ tour.options?.previousLabel }}
+            @if (tour.options?.previousIcon) {
+              <vcl-icon
+                vclPrepend
+                [icon]="
+                  $safeNavigationMigration(tour.options?.previousIcon)
+                "></vcl-icon>
+            }
+          </vcl-icogram>
+        </button>
+      }
 
-      <button
-        vcl-button
-        type="button"
-        *ngIf="hasNext"
-        [ngClass]="$safeNavigationMigration(tour.options?.buttonClass)"
-        (click)="next()">
-        <vcl-icogram>
-          {{ tour.options?.nextLabel }}
-          <vcl-icon
-            vclAppend
-            *ngIf="tour.options?.nextIcon"
-            [icon]="
-              $safeNavigationMigration(tour.options?.nextIcon)
-            "></vcl-icon>
-        </vcl-icogram>
-      </button>
+      @if (hasNext) {
+        <button
+          vcl-button
+          type="button"
+          [ngClass]="$safeNavigationMigration(tour.options?.buttonClass)"
+          (click)="next()">
+          <vcl-icogram>
+            {{ tour.options?.nextLabel }}
+            @if (tour.options?.nextIcon) {
+              <vcl-icon
+                vclAppend
+                [icon]="
+                  $safeNavigationMigration(tour.options?.nextIcon)
+                "></vcl-icon>
+            }
+          </vcl-icogram>
+        </button>
+      }
 
       <button
         vcl-button
@@ -54,12 +60,13 @@
         [ngClass]="$safeNavigationMigration(tour.options?.buttonClass)"
         (click)="exit()">
         <vcl-icogram>
-          <vcl-icon
-            vclPrepend
-            *ngIf="tour.options?.exitIcon"
-            [icon]="
-              $safeNavigationMigration(tour.options?.exitIcon)
-            "></vcl-icon>
+          @if (tour.options?.exitIcon) {
+            <vcl-icon
+              vclPrepend
+              [icon]="
+                $safeNavigationMigration(tour.options?.exitIcon)
+              "></vcl-icon>
+          }
           {{ tour.options?.exitLabel }}
         </vcl-icogram>
       </button>

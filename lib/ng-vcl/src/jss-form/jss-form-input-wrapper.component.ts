@@ -13,7 +13,7 @@ import {
   VCLPanelTitleDirective,
   VCLPanelFooterButtonDirective,
 } from '../panel/panel.directive';
-import { NgIf } from '@angular/common';
+
 import { VCLButtonComponent } from '../button/button.component';
 import { VCLIconComponent } from '../icon/icon.component';
 
@@ -26,7 +26,6 @@ import { VCLIconComponent } from '../icon/icon.component';
     LayerDirective,
     VCLPanelComponent,
     VCLPanelDialogDirective,
-    NgIf,
     VCLPanelTitleDirective,
     VCLButtonComponent,
     VCLPanelFooterButtonDirective,

@@ -4,7 +4,7 @@ import {
   VCLFormFieldSchemaButtonGroupParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
-import { NgIf, NgFor } from '@angular/common';
+
 import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
@@ -31,33 +31,32 @@ export class FormFieldButtonGroup extends FormFieldControl<
 @Component({
   selector: 'vcl-jss-form-button-group',
   template: `
-    <vcl-form-control-group
-      *ngIf="field.visible"
-      [errorStateAgent]="field.errorStateAgent">
-      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <vcl-button-group
-        [formControl]="field.control"
-        [selectionMode]="field.selectionMode">
-        <button
-          vcl-button
-          *ngFor="let option of field.options"
-          [value]="option.value">
-          {{ option.label }}
-        </button>
-      </vcl-button-group>
-      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group [errorStateAgent]="field.errorStateAgent">
+        @if (!!field.label) {
+          <vcl-label>{{ field.label }}</vcl-label>
+        }
+        <vcl-button-group
+          [formControl]="field.control"
+          [selectionMode]="field.selectionMode">
+          @for (option of field.options; track option) {
+            <button vcl-button [value]="option.value">
+              {{ option.label }}
+            </button>
+          }
+        </vcl-button-group>
+        <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
     VCLButtonGroupComponent,
     FormsModule,
     ReactiveFormsModule,
-    NgFor,
     VCLButtonComponent,
     JssFormHintsComponent,
   ],

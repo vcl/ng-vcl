@@ -14,7 +14,7 @@ import {
   ConnectedPosition,
 } from '@angular/cdk/overlay';
 import { VCLPopoverDirective } from '../popover/index';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 import { VCLButtonComponent } from '../button/button.component';
 import { VCLPopoverDirective as VCLPopoverDirective_1 } from '../popover/popover.directive';
@@ -27,7 +27,6 @@ import { VCLIcogramComponent } from '../icogram';
   styleUrls: ['./tour.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     NgClass,
     VCLButtonComponent,
     VCLPopoverDirective_1,

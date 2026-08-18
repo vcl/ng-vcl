@@ -27,7 +27,6 @@ import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { NgFor, NgIf } from '@angular/common';
 
 let UNIQUE_ID = 0;
 

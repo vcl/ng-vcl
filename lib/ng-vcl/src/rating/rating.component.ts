@@ -34,7 +34,6 @@ import {
 } from '../form-control-group/index';
 import { Subject } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
-import { NgFor, NgIf } from '@angular/common';
 
 let UNIQUE_ID = 0;
 

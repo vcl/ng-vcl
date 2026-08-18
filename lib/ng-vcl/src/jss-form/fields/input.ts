@@ -4,7 +4,7 @@ import {
   VCLFormFieldSchemaInputParams,
 } from '../schemas';
 import { FormFieldControl } from './field';
-import { NgIf, NgFor } from '@angular/common';
+
 import { FormControlGroupComponent } from '../../form-control-group/form-control-group.component';
 import { EmbeddedInputFieldLabelDirective } from '../../input/embedded-label.directive';
 import { VCLLabelDirective } from '../../core/label';
@@ -64,43 +64,44 @@ export class FormFieldInput extends FormFieldControl<
 @Component({
   selector: 'vcl-jss-form-input',
   template: `
-    <vcl-form-control-group
-      *ngIf="field.visible"
-      [errorStateAgent]="field.errorStateAgent"
-      [spinner]="field.spinner">
-      <vcl-label *ngIf="!!field.label">{{ field.label }}</vcl-label>
-      <vcl-jss-form-input-wrapper>
-        <vcl-input-field>
-          <vcl-icon
-            *ngFor="let icon of field.prependedIcons"
-            vclPrepended
-            [icon]="icon"></vcl-icon>
-          <input
-            [type]="field.inputType"
-            vclInput
-            [formControl]="field.control"
-            [attr.placeholder]="field.placeholder"
-            [attr.autocomplete]="field.autocomplete"
-            [disabled]="field.disabled" />
-          <vcl-icon
-            *ngFor="let icon of field.appendedIcons"
-            vclPrepended
-            [icon]="icon"></vcl-icon>
-          <vcl-spinner *ngIf="field.spinner" [(ngModel)]="value"></vcl-spinner>
-        </vcl-input-field>
-      </vcl-jss-form-input-wrapper>
-      <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
-    </vcl-form-control-group>
+    @if (field.visible) {
+      <vcl-form-control-group
+        [errorStateAgent]="field.errorStateAgent"
+        [spinner]="field.spinner">
+        @if (!!field.label) {
+          <vcl-label>{{ field.label }}</vcl-label>
+        }
+        <vcl-jss-form-input-wrapper>
+          <vcl-input-field>
+            @for (icon of field.prependedIcons; track icon) {
+              <vcl-icon vclPrepended [icon]="icon"></vcl-icon>
+            }
+            <input
+              [type]="field.inputType"
+              vclInput
+              [formControl]="field.control"
+              [attr.placeholder]="field.placeholder"
+              [attr.autocomplete]="field.autocomplete"
+              [disabled]="field.disabled" />
+            @for (icon of field.appendedIcons; track icon) {
+              <vcl-icon vclPrepended [icon]="icon"></vcl-icon>
+            }
+            @if (field.spinner) {
+              <vcl-spinner [(ngModel)]="value"></vcl-spinner>
+            }
+          </vcl-input-field>
+        </vcl-jss-form-input-wrapper>
+        <vcl-jss-form-hints vclHint></vcl-jss-form-hints>
+      </vcl-form-control-group>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    NgIf,
     FormControlGroupComponent,
     EmbeddedInputFieldLabelDirective,
     VCLLabelDirective,
     JssFormInputWrapperComponent,
     VCLInputFieldComponent,
-    NgFor,
     VCLIconComponent,
     VCLInputDirective,
     FormsModule,

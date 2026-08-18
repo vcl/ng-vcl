@@ -115,10 +115,12 @@
     <demo-counter formControlName="level" [min]="1" [max]="10"></demo-counter>
   </vcl-form-control-group>
 
-  <vcl-form-control-group *ngIf="level >= 5">
-    <vcl-label>Leader</vcl-label>
-    <vcl-flip-switch formControlName="leader"></vcl-flip-switch>
-  </vcl-form-control-group>
+  @if (level >= 5) {
+    <vcl-form-control-group>
+      <vcl-label>Leader</vcl-label>
+      <vcl-flip-switch formControlName="leader"></vcl-flip-switch>
+    </vcl-form-control-group>
+  }
 
   <vcl-form-control-group>
     <vcl-label>Picture</vcl-label>
@@ -227,18 +229,23 @@
         <vcl-rating-item>5</vcl-rating-item>
       </vcl-rating>
     </vcl-form-control-group>
-    <vcl-hint *ngIf="!form.hasError('skills') && skillPointsAvailable === 0"
-      >{{ skillPoints }} of {{ skillPointsMax }} skill points used</vcl-hint
-    >
-    <vcl-hint-warning
-      *ngIf="!form.hasError('skills') && skillPointsAvailable > 0"
-      >{{ skillPoints }} of {{ skillPointsMax }} skill points
-      used</vcl-hint-warning
-    >
-    <vcl-hint-error *ngIf="form.hasError('skills')"
-      >{{ skillPoints }} of {{ skillPointsMax }} skill points
-      used</vcl-hint-error
-    >
+    @if (!form.hasError('skills') && skillPointsAvailable === 0) {
+      <vcl-hint
+        >{{ skillPoints }} of {{ skillPointsMax }} skill points used</vcl-hint
+      >
+    }
+    @if (!form.hasError('skills') && skillPointsAvailable > 0) {
+      <vcl-hint-warning
+        >{{ skillPoints }} of {{ skillPointsMax }} skill points
+        used</vcl-hint-warning
+      >
+    }
+    @if (form.hasError('skills')) {
+      <vcl-hint-error
+        >{{ skillPoints }} of {{ skillPointsMax }} skill points
+        used</vcl-hint-error
+      >
+    }
   </fieldset>
 
   <vcl-form-control-group>
