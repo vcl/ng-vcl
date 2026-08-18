@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { VCLIcogramModule } from '../icogram/index';
-import { VCLIconModule } from '../icon/index';
+
 import {
   VCLButtonComponent,
   ButtonHost,
@@ -8,3 +7,10 @@ import {
 } from './button.component';
 
 export { VCLButtonComponent, ButtonHost, BUTTON_HOST_TOKEN };
+
+@NgModule({
+  imports: [VCLButtonComponent],
+  exports: [VCLButtonComponent],
+  providers: [],
+})
+export class VCLButtonModule {}
