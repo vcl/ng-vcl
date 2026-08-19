@@ -151,8 +151,9 @@ export class VCLFormControlGroupComponent<T>
   ngAfterContentInit() {
     this.updateState();
     if (!this.input) {
-      console.error('Missing input');
+      // console.error('Missing input');
     }
+
     merge(
       this.form.statusChanges,
       this.form.ngSubmit,

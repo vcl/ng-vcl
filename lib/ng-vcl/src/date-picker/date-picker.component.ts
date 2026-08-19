@@ -121,9 +121,6 @@ export class DatepickerComponent<VCLDate>
   @ViewChild(TemplateRef, { static: true })
   templateRef: TemplateRef<any>;
 
-  @ViewChild('calendarEl', { static: false, read: ElementRef })
-  calendarEl: ElementRef;
-
   @Input()
   placeholder?: string;
 
@@ -350,15 +347,16 @@ export class DatepickerComponent<VCLDate>
     this._cvaDisabled = isDisabled;
   }
 
-  checkClose(event: MouseEvent | TouchEvent) {
-    if (event && event instanceof PointerEvent) {
-      for (const target of event.composedPath()) {
-        if (target === this.calendarEl.nativeElement) {
-          // Do not close if event is inside the overlay
-          return;
-        }
-      }
-    }
-    this.close();
-  }
+  // TODO get rid of this...
+  // checkClose(event: MouseEvent | TouchEvent) {
+  //   if (event && event instanceof PointerEvent) {
+  //     for (const target of event.composedPath()) {
+  //       if (target === this.calendarEl.nativeElement) {
+  //         // Do not close if event is inside the overlay
+  //         return;
+  //       }
+  //     }
+  //   }
+  //   this.close();
+  // }
 }
