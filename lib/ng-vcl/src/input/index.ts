@@ -17,3 +17,19 @@ export {
   EmbeddedInputFieldLabelDirective,
   TextareaDirective,
 };
+
+@NgModule({
+  imports: [
+    VCLInputDirective,
+    VCLInputFieldComponent,
+    EmbeddedInputFieldLabelDirective,
+    TextareaDirective,
+  ],
+  exports: [
+    VCLInputDirective,
+    VCLInputFieldComponent,
+    EmbeddedInputFieldLabelDirective,
+    TextareaDirective,
+  ],
+})
+export class VCLInputModule {}

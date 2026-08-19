@@ -18,3 +18,21 @@ export {
   GalleryFooterComponent,
   GalleryThumbnailsComponent,
 };
+
+@NgModule({
+  imports: [
+    GalleryComponent,
+    GalleryImageComponent,
+    GalleryBodyComponent,
+    GalleryFooterComponent,
+    GalleryThumbnailsComponent,
+  ],
+  exports: [
+    GalleryComponent,
+    GalleryImageComponent,
+    GalleryBodyComponent,
+    GalleryFooterComponent,
+    GalleryThumbnailsComponent,
+  ],
+})
+export class VCLGalleryModule {}

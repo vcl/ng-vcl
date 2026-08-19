@@ -1,28 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { OverlayModule } from '@angular/cdk/overlay';
 import { BidiModule } from '@angular/cdk/bidi';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
+import { NgModule } from '@angular/core';
 
+import {
+  ComponentLayerRef,
+  DynamicLayerParams,
+  LayerRef,
+  TemplateLayerRef,
+} from './layer-ref';
 import { LayerDirective } from './layer.directive';
 import { LayerService } from './layer.service';
-import {
-  LayerRef,
-  TemplateLayerRef,
-  ComponentLayerRef,
-  DynamicLayerParams,
-} from './layer-ref';
-import { LayerConfig, Layer } from './types';
+import { Layer, LayerConfig } from './types';
 
 export {
-  Layer,
-  LayerDirective,
-  LayerRef,
-  TemplateLayerRef,
   ComponentLayerRef,
-  DynamicLayerParams,
-  LayerService,
-  LayerConfig,
+  DynamicLayerParams, Layer, LayerConfig, LayerDirective,
+  LayerRef, LayerService, TemplateLayerRef
 };
 
 @NgModule({

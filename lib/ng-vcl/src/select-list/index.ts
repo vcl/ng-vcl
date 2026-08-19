@@ -23,3 +23,21 @@ export {
   SelectListItem,
   SELECT_LIST_CONTENT_TOKEN,
 };
+
+@NgModule({
+  imports: [
+    VCLSelectListComponent,
+    VCLSelectListHeaderComponent,
+    VCLSelectListItemComponent,
+    VCLSelectListSeparatorComponent,
+    VCLSelectListContentComponent,
+  ],
+  exports: [
+    VCLSelectListComponent,
+    VCLSelectListHeaderComponent,
+    VCLSelectListItemComponent,
+    VCLSelectListSeparatorComponent,
+    VCLSelectListContentComponent,
+  ],
+})
+export class VCLSelectListModule {}

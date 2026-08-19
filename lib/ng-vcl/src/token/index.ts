@@ -20,10 +20,6 @@ export {
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    VCLIconModule,
-    VCLIcogramModule,
     VCLTokenComponent,
     VCLTokenListComponent,
     VCLTokenInputContainerComponent,

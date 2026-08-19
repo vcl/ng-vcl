@@ -18,3 +18,23 @@ export {
   VCLPanelHeaderDirective,
   VCLPanelFooterDirective,
 };
+
+@NgModule({
+  imports: [
+    VCLPanelComponent,
+    VCLPanelDialogDirective,
+    VCLPanelTitleDirective,
+    VCLPanelFooterButtonDirective,
+    VCLPanelHeaderDirective,
+    VCLPanelFooterDirective,
+  ],
+  exports: [
+    VCLPanelComponent,
+    VCLPanelDialogDirective,
+    VCLPanelTitleDirective,
+    VCLPanelFooterButtonDirective,
+    VCLPanelHeaderDirective,
+    VCLPanelFooterDirective,
+  ],
+})
+export class VCLPanelModule {}

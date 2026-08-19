@@ -8,3 +8,17 @@ export {
   VCLRatingItemComponent,
   VCLRatingItemLabelComponent,
 };
+
+@NgModule({
+  imports: [
+    VCLRatingComponent,
+    VCLRatingItemComponent,
+    VCLRatingItemLabelComponent,
+  ],
+  exports: [
+    VCLRatingComponent,
+    VCLRatingItemComponent,
+    VCLRatingItemLabelComponent,
+  ],
+})
+export class VCLRatingModule {}
