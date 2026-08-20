@@ -5,16 +5,3 @@ vcl-date-picker {
 .date-picker > .calendar {
   width: 100%;
 }
-
-.cdk-overlay-connected-position-bounding-box {
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* Fallback ensuring the CDK transparent backdrop remains truly invisible */
-.cdk-overlay-backdrop-showing {
-  opacity: 0 !important;
-  background: transparent !important;
-}
