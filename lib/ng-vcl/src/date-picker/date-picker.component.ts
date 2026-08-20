@@ -346,17 +346,4 @@ export class DatepickerComponent<VCLDate>
   setDisabledState?(isDisabled: boolean): void {
     this._cvaDisabled = isDisabled;
   }
-
-  // TODO get rid of this...
-  // checkClose(event: MouseEvent | TouchEvent) {
-  //   if (event && event instanceof PointerEvent) {
-  //     for (const target of event.composedPath()) {
-  //       if (target === this.calendarEl.nativeElement) {
-  //         // Do not close if event is inside the overlay
-  //         return;
-  //       }
-  //     }
-  //   }
-  //   this.close();
-  // }
 }

@@ -112,11 +112,11 @@ export const routes: Routes = [
     },
   },
   {
-    loadChildren: () =>
-      import('./demos/date-picker/demo.module').then(
-        m => m.DatepickerDemoModule
-      ),
     path: 'date-picker',
+    loadChildren: () =>
+      import('./demos/date-picker/demo.routes').then(
+        m => m.DATE_PICKER_DEMO_ROUTES
+      ),
     data: {
       demo: {
         label: 'Date Picker',

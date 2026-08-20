@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import README from '!raw-loader!@vcl/ng-vcl/date-picker/README.md';
+import { Routes } from '@angular/router';
+
 import { DemoComponent } from '../../modules/demo/demo.module';
 import { DatePickerDemoComponent } from './demo.component';
-import README from '!raw-loader!@vcl/ng-vcl/date-picker/README.md';
 
 export function demo() {
   return {
@@ -25,15 +25,10 @@ export function demo() {
   };
 }
 
-@NgModule({
-  imports: [
-    RouterModule.forChild([
-      {
-        path: '',
-        component: DemoComponent,
-        data: { demo },
-      },
-    ]),
-  ],
-})
-export class DatepickerDemoModule {}
+export const DATE_PICKER_DEMO_ROUTES: Routes = [
+  {
+    path: '',
+    component: DemoComponent,
+    data: { demo },
+  },
+];
