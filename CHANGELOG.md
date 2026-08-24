@@ -1,3 +1,47 @@
+
+## [3.4.5](https://github.com/vcl/ng-vcl/compare/v3.4.4...v3.4.5) (2026-08-24)
+
+### Bug Fixes
+
+* **date-picker:** styling for overlay border and background-color ([02729e4](https://github.com/vcl/ng-vcl/commit/02729e47da528be6eeee27f097abf45985ecc551))
+* **data-list:** fix input typo `dividier` ([b90ffba](https://github.com/vcl/ng-vcl/commit/b90ffbaf9fbc18945bee9617a5d20625410e4fa7))
+* fix relative imports in demos ([bfdbf47](https://github.com/vcl/ng-vcl/commit/bfdbf4757a4f0b4e30f82c1ebb975e86d1561d05))
+
+### Features
+
+* add backward compatible NgModule support to ng-vcl modules ([e3d1d6e](https://github.com/vcl/ng-vcl/commit/e3d1d6e30008410aa9fa0f1e7af97fced226a451))
+
+### Chores
+
+* update Angular CDK ([0091563](https://github.com/vcl/ng-vcl/commit/00915638607f13a9592cb41a21a8ac90edec8863))
+* update Angular ([0904e6e](https://github.com/vcl/ng-vcl/commit/0904e6eaa6f94f8c79d36c03f9b0c9ce71f75b68))
+* fix overlay CDK styles ([d41ea0c](https://github.com/vcl/ng-vcl/commit/d41ea0c271a453bdecc0b05a7916379d02968a65))
+* **date-picker:** update demo route ([a8af97a](https://github.com/vcl/ng-vcl/commit/a8af97a37bca4076f00293f6cd415d5e22b7d3e1))
+* rename control name ([917289a](https://github.com/vcl/ng-vcl/commit/917289aa4eadbb2811cfb421e6d0f2572ac09d11))
+* **data-list:** add backward compatible module ([fb48636](https://github.com/vcl/ng-vcl/commit/fb4863683a1d8992cef8148d840a4ab7b719d40c))
+* **checkbox:** add backward compatible module ([0759d47](https://github.com/vcl/ng-vcl/commit/0759d47abed7aafae2bab3d5890fd3b1edda61ff))
+* **button:** add backward compatible module ([a8070c2](https://github.com/vcl/ng-vcl/commit/a8070c2f94958734060a01e9fb478e557f58c329))
+* **busy-indicator:** add backward compatible module ([564f3fa](https://github.com/vcl/ng-vcl/commit/564f3faf9acf8933afea54ab4de9b6ef5d175145))
+* **badge:** add backward compatible module ([0f39286](https://github.com/vcl/ng-vcl/commit/0f3928688ab9c8b3615a129a61338d28d0025c94))
+* **alert:** add backward compatible module ([dedaa78](https://github.com/vcl/ng-vcl/commit/dedaa781a358fea05c2574986a55933c1d8c7a79))
+* convert `*ngIf` and `*ngFor` usages to `@if` and `@for` ([768d9d8](https://github.com/vcl/ng-vcl/commit/768d9d808ab5825b265a77156e94d73ed7a44344))
+* update README and remove unused export ([f4a7bcf](https://github.com/vcl/ng-vcl/commit/f4a7bcf7c8286fc02351ab692b6a9410be4d3841))
+* update demo component to use `@if` ([a8b8295](https://github.com/vcl/ng-vcl/commit/a8b82955a2129eab77b7461ff388516d982688e8))
+* fix relative imports ([a5e8451](https://github.com/vcl/ng-vcl/commit/a5e8451825230dbcaa8b4ef33507dae436321fb2))
+* fix import statements in demos ([4ac7f5b](https://github.com/vcl/ng-vcl/commit/4ac7f5bdcc39d6ba42055dab796f580f009fcd19))
+* **radio-button:** refactor duplicate code and NgModule ([6c9ee3b](https://github.com/vcl/ng-vcl/commit/6c9ee3b297f99a567e5b897e18171ec0c40c51f5))
+* bootstrap using standalone APIs ([3f5d019](https://github.com/vcl/ng-vcl/commit/3f5d019014ceebece5fe04bef86f9cb4e28fa724))
+* refactor to standalone ([bde1654](https://github.com/vcl/ng-vcl/commit/bde1654ebec04a9bde9577b4e8b40c2de1a593f1))
+* convert component directives to standalone ([5dddfc1](https://github.com/vcl/ng-vcl/commit/5dddfc1ceb19caae16a1e264fa0cf0ec5ab0b169))
+* update packages and TypeScript configuration ([0d82fc7](https://github.com/vcl/ng-vcl/commit/0d82fc714362a31a65741238f491e563a443ec81))
+* install ESLint and Prettier tooling ([d40005d](https://github.com/vcl/ng-vcl/commit/d40005dbf20b245aa85f2516daf9ab6d76b97a22))
+* update `ngx-markdown` ([998b033](https://github.com/vcl/ng-vcl/commit/998b033b0323d56191d7e36a511be35c965e614a))
+* loosen compiler checks and resolve build configuration errors ([a6121f3](https://github.com/vcl/ng-vcl/commit/a6121f38cc79d19f0e6e970430045615eb6209b9))
+* upgrade Angular CLI to v22 ([a4ee0b9](https://github.com/vcl/ng-vcl/commit/a4ee0b93eba0f542ffe3f743fc5ed223fd36138b))
+* reinstall dependencies ([546cc2e](https://github.com/vcl/ng-vcl/commit/546cc2e46970dc23a45ee30e70704cb600d3e689))
+* sync `package-lock.json` ([eeb2ec3](https://github.com/vcl/ng-vcl/commit/eeb2ec39d8d311b7587a776dddc87964a979c406))
+
+
 ## [3.4.4](https://github.com/vcl/ng-vcl/compare/v3.4.3...v3.4.4) (2026-03-07)
 
 
