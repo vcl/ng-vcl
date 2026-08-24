@@ -173,7 +173,7 @@ export abstract class LayerRef<
     }
 
 
-    this._overlayRef.hostElement.setAttribute('class', 'layer');
+    this._overlayRef.hostElement.classList.add('layer');
 
     if (!this.isAttached) {
       this._attachmentRef = this.overlayRef.attach(this._portal);
