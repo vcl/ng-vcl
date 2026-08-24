@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { Directive, NgModule } from '@angular/core';
 
 @Directive({
   selector: '[vclPrepend]',
@@ -13,3 +13,9 @@ export class VCLPrependDirective {
 export class VCLAppendDirective {
   constructor() {}
 }
+
+@NgModule({
+  exports: [VCLPrependDirective, VCLAppendDirective],
+  imports: [VCLPrependDirective, VCLAppendDirective],
+})
+export class VCLCoreContentProjectionModule {}

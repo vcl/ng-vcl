@@ -25,3 +25,9 @@ export class VCLSubLabelDirective extends VCLLabelDirective {
     super(elementRef);
   }
 }
+
+@NgModule({
+  imports: [VCLLabelDirective, VCLSubLabelDirective],
+  exports: [VCLLabelDirective, VCLSubLabelDirective],
+})
+export class VCLCoreLabelModule {}

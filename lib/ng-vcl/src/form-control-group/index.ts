@@ -6,6 +6,7 @@ import {
   VCLFormControlHintErrorComponent,
 } from './hint.component';
 import { VCLFormControlGroupComponent } from './form-control-group.component';
+import { VCLCoreLabelModule } from '../core';
 
 export * from './exports';
 
@@ -16,6 +17,7 @@ export * from './exports';
     VCLFormControlHintErrorComponent,
     VCLFormControlRequiredComponent,
     VCLFormDirective,
+    VCLCoreLabelModule
   ],
   exports: [
     VCLFormControlGroupComponent,
@@ -23,6 +25,7 @@ export * from './exports';
     VCLFormControlHintErrorComponent,
     VCLFormControlRequiredComponent,
     VCLFormDirective,
+    VCLCoreLabelModule
   ],
 })
 export class VCLFormControlGroupModule {}
