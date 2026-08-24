@@ -13,6 +13,7 @@ import {
   DATA_LIST_ITEM_TOKEN,
   DataListMode,
 } from './types';
+import { VCLCoreContentProjectionModule } from '../core';
 
 export {
   DataListMode,
@@ -32,12 +33,14 @@ export {
     VCLDataListItemDirective,
     VCLDataListFooterDirective,
     VCLDataListHeaderDirective,
+    VCLCoreContentProjectionModule,
   ],
   exports: [
     VCLDataListComponent,
     VCLDataListItemDirective,
     VCLDataListFooterDirective,
     VCLDataListHeaderDirective,
+    VCLCoreContentProjectionModule,
   ],
   declarations: [],
   providers: [],
