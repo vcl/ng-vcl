@@ -62,8 +62,16 @@ export class VCLInputDirective
     return this._focused;
   }
 
+  private _disabledInput = false;
+
   @Input()
-  disabled = false;
+  set disabled(disabled: boolean) {
+    this._disabledInput = disabled;
+    this.stateChangedEmitter.next();
+  }
+  get disabled(): boolean {
+    return this._disabledInput;
+  }
 
   @Input()
   autoselect = false;
