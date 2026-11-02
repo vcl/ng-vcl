@@ -100,6 +100,7 @@ export class VCLTabNavComponent
     const tabs = this.tabs.toArray();
     const tabIndex = tabs.findIndex(_tab => _tab === tab);
     this.selectTabIndex(tabIndex);
+    this.selectedTabIndexChange.emit(tabIndex);
   }
 
   selectTabIndex(idx: number) {
