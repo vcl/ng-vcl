@@ -80,9 +80,13 @@ export class VCLButtonComponent {
   @HostBinding('class.hovered')
   hovered = false; // `true` if a pointer device is hovering the button (CSS' :hover)
 
-  @HostBinding('attr.aria-pressed')
   @Input()
   selectable = false;
+
+  @HostBinding('attr.aria-pressed')
+  get attrAriaPressed(): boolean | null {
+    return this.selectable ? this.selected : null;
+  }
 
   @Input()
   type?: string;
