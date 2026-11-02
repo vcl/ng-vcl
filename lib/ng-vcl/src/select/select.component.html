@@ -12,6 +12,7 @@
     role="listbox"
     autocomplete="off"
     [readonly]="!search"
+    (input)="searchChange()"
     (keyup)="inputChange($event)" />
 
   @if (clearable && inputValue) {

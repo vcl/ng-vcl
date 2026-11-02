@@ -182,6 +182,7 @@ export class VCLSelectComponent
     this._focused = true;
     this.selectList.search = undefined;
     if (!this.isAttached) {
+      this.clearSearchInput();
       this.open();
       this.selectList.manageScroll();
     }
@@ -275,6 +276,7 @@ export class VCLSelectComponent
     }
     this.selectList.search = undefined;
     if (!this.isAttached) {
+      this.clearSearchInput();
       this.open();
       this.selectList.manageScroll();
       this.input.nativeElement.focus();
@@ -399,9 +401,20 @@ export class VCLSelectComponent
         this.selectList.selectItem(firstNotHidden);
         this.input.nativeElement.blur();
       }
-    } else {
-      this.selectList.search = this.input.nativeElement.value;
-      this.searchValue.next(this.input.nativeElement.value);
+    }
+  }
+
+  searchChange() {
+    if (!this.search) {
+      return;
+    }
+    this.selectList.search = this.input.nativeElement.value;
+    this.searchValue.next(this.input.nativeElement.value);
+  }
+
+  private clearSearchInput() {
+    if (this.search) {
+      this.input.nativeElement.value = '';
     }
   }
 
