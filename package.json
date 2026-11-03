@@ -70,7 +70,7 @@
     "@types/jasmine": "^6.0.0",
     "@types/jasminewd2": "^2.0.13",
     "@types/node": "^25.3.5",
-    "angular-eslint": "22.1.0",
+    "angular-eslint": "22.6.0",
     "codelyzer": "^6.0.2",
     "conventional-changelog-cli": "^5.0.0",
     "cross-env": "^10.1.0",
