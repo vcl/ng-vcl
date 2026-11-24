@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import {
-  SelectList,
+  type SelectList,
   SELECT_LIST_TOKEN,
   SelectListItem,
   SELECT_LIST_CONTENT_TOKEN,

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {
   RadioButton,
-  RadioButtonGroup,
+  type RadioButtonGroup,
   RADIO_BUTTON_GROUP_TOKEN,
 } from './interfaces';
 import { VCLIconModule } from '../icon';

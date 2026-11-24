@@ -9,7 +9,7 @@ import {
   ChangeDetectorRef,
   AfterContentInit,
   OnChanges,
-  SimpleChanges,
+  type SimpleChanges,
   OnDestroy,
   ChangeDetectionStrategy,
   HostBinding,
@@ -19,7 +19,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 import { VCLTokenComponent, TOKEN_OBSERVER_TOKEN } from './token.component';
-import { TokenObserver, Token } from './interfaces';
+import { TokenObserver, type Token } from './interfaces';
 
 @Component({
   selector: 'vcl-token-list',

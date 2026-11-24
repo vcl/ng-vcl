@@ -4,7 +4,7 @@ import {
   EventEmitter,
   Input,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
   OnChanges,
   OnInit,
 } from '@angular/core';

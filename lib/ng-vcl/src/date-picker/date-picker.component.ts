@@ -14,7 +14,7 @@ import {
   Injector,
   forwardRef,
   OnChanges,
-  SimpleChanges,
+  type SimpleChanges,
   AfterViewInit,
   ViewEncapsulation,
 } from '@angular/core';

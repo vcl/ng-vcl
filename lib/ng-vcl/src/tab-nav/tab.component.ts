@@ -12,7 +12,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { Tab, TAB_NAV_TOKEN, TabNav } from './interfaces';
+import { Tab, TAB_NAV_TOKEN, type TabNav } from './interfaces';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 
 @Directive({

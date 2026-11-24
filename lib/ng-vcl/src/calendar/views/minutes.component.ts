@@ -4,7 +4,7 @@ import {
   EventEmitter,
   Input,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
   OnChanges,
 } from '@angular/core';
 import { DateAdapterBase, VCLDateRange } from '../../dateadapter/index';

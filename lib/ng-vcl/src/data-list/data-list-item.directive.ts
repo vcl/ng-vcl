@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import {
-  DataList,
+  type DataList,
   DATA_LIST_TOKEN,
   DataListItem,
   DATA_LIST_ITEM_TOKEN,

@@ -2,7 +2,7 @@ import {
   Component,
   Input,
   HostBinding,
-  SimpleChanges,
+  type SimpleChanges,
   OnChanges,
   ChangeDetectionStrategy,
   ElementRef,

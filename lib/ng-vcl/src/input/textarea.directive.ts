@@ -6,7 +6,7 @@ import {
   HostListener,
   AfterViewInit,
   OnChanges,
-  SimpleChanges,
+  type SimpleChanges,
   DoCheck,
   forwardRef,
   OnDestroy,

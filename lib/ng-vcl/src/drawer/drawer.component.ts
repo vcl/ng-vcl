@@ -6,12 +6,12 @@ import {
   ElementRef,
   Inject,
   OnChanges,
-  SimpleChanges,
+  type SimpleChanges,
   Output,
   EventEmitter,
   AfterViewChecked,
 } from '@angular/core';
-import { DRAWER_CONTAINER_HOST, DrawerContainer, Drawer } from './types';
+import { DRAWER_CONTAINER_HOST, type DrawerContainer, Drawer } from './types';
 
 @Component({
   selector: 'vcl-drawer',

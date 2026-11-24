@@ -11,14 +11,14 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  SimpleChanges,
+  type SimpleChanges,
   OnChanges,
   ChangeDetectorRef,
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { VCLTabComponent } from './tab.component';
-import { TAB_NAV_TOKEN, Tab, TabNav } from './interfaces';
+import { TAB_NAV_TOKEN, type Tab, TabNav } from './interfaces';
 import { hasProjectedContent } from '../core/index';
 import { BehaviorSubject } from 'rxjs';
 import { PortalModule, TemplatePortal } from '@angular/cdk/portal';

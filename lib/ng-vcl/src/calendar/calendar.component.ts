@@ -12,8 +12,8 @@ import {
 import { ControlValueAccessor } from '@angular/forms';
 import { VCLDateRange } from '../dateadapter/index';
 import {
-  VCLCalendarView,
-  VCLCalendarDateModifier,
+  type VCLCalendarView,
+  type VCLCalendarDateModifier,
   VCLCalendarHandler,
   VCLCalendar,
 } from './interfaces';

@@ -10,7 +10,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   OnDestroy,
-  SimpleChanges,
+  type SimpleChanges,
   OnInit,
   OnChanges,
   ViewEncapsulation,
@@ -22,7 +22,7 @@ import { FormFieldObject } from './fields/index';
 import {
   JSS_FORM_TOKEN,
   JssForm,
-  HelpConfig,
+  type HelpConfig,
   JSS_FORM_HELP_CONFIG_TOKEN,
 } from './types';
 import { VCLFormFieldSchemaRoot } from './schemas';

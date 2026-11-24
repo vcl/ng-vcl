@@ -14,13 +14,13 @@ import {
 } from '@angular/core';
 import { Subject, merge, NEVER } from 'rxjs';
 import {
-  FormControlGroupInputState,
+  type FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
-  FormControlErrorStateAgent,
+  type FormControlErrorStateAgent,
   FormControlGroupState,
   FORM_CONTROL_GROUP_STATE,
   FORM_CONTROL_GROUP_FORM,
-  FormControlGroupForm,
+  type FormControlGroupForm,
   FORM_CONTROL_GROUP_ERROR_STATE_AGENT_TOKEN,
 } from './interfaces';
 import { AbstractControl } from '@angular/forms';

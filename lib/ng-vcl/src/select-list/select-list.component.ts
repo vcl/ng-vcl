@@ -24,7 +24,7 @@ import {
   FormControlGroupInputState,
   FORM_CONTROL_GROUP_INPUT_STATE,
 } from '../form-control-group/index';
-import { SELECT_LIST_TOKEN, SelectList, SelectListItem } from './types';
+import { SELECT_LIST_TOKEN, SelectList, type SelectListItem } from './types';
 import { VCLSelectListItemComponent } from './components/select-list-item.component';
 import { VCLSelectListContentComponent } from './components/select-list-content.component';
 

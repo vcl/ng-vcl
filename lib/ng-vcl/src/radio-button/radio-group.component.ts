@@ -27,7 +27,7 @@ import { VCLRadioButtonComponent } from './radio-button.component';
 import {
   RADIO_BUTTON_GROUP_TOKEN,
   RadioButtonGroup,
-  RadioButton,
+  type RadioButton,
 } from './interfaces';
 
 let UNIQUE_ID = 0;

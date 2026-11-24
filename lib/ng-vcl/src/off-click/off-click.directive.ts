@@ -9,7 +9,7 @@ import {
   OnDestroy,
   Inject,
   OnChanges,
-  SimpleChanges,
+  type SimpleChanges,
 } from '@angular/core';
 import {
   Observable,

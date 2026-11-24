@@ -1,8 +1,8 @@
 import {
-  EnvironmentProviders,
+  type EnvironmentProviders,
   makeEnvironmentProviders,
   NgModule,
-  Provider,
+  type Provider,
 } from '@angular/core';
 import { VCLCalendarViewMonthComponent } from './views/month.component';
 import { VCLCalendarViewYearComponent } from './views/year.component';

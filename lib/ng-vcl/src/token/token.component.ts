@@ -13,7 +13,7 @@ import {
   Optional,
   ElementRef,
 } from '@angular/core';
-import { TokenObserver, Token } from './interfaces';
+import { type TokenObserver, Token } from './interfaces';
 
 import { VCLButtonComponent } from '../button';
 import { VCLIconComponent } from '../icon';

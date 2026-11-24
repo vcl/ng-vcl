@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
   Directive,
   OnChanges,
-  SimpleChanges,
+  type SimpleChanges,
   Optional,
   TemplateRef,
   HostBinding,
@@ -21,7 +21,7 @@ import { Subject, interval, EMPTY } from 'rxjs';
 import { debounce, take } from 'rxjs/operators';
 import { LayerRef, LayerConfig } from '../layer/index';
 import { VCLTooltipComponent } from './tooltip.component';
-import { TOOLTIP_TOKEN, Tooltip, TooltipPosition } from './types';
+import { TOOLTIP_TOKEN, Tooltip, type TooltipPosition } from './types';
 
 const DEFAULT_POSITION: TooltipPosition[] = ['top', 'right', 'left', 'bottom'];
 

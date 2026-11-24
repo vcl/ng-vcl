@@ -10,7 +10,7 @@ import {
   ViewChildren,
   QueryList,
   ContentChildren,
-  SimpleChanges,
+  type SimpleChanges,
   OnDestroy,
   OnChanges,
   AfterViewInit,

@@ -18,7 +18,7 @@ import {
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { VCLDrawerComponent } from './drawer.component';
-import { DrawerContainer, DRAWER_CONTAINER_HOST, Drawer } from './types';
+import { DrawerContainer, DRAWER_CONTAINER_HOST, type Drawer } from './types';
 
 @Component({
   selector: 'vcl-drawer-container',

@@ -4,7 +4,7 @@ import {
   HostListener,
   ChangeDetectionStrategy,
   HostBinding,
-  SimpleChanges,
+  type SimpleChanges,
   Output,
   EventEmitter,
   ViewChild,

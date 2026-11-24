@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { DATA_LIST_TOKEN, DataList, DataListItem, DataListMode } from './types';
+import { DATA_LIST_TOKEN, DataList, type DataListItem, type DataListMode } from './types';
 import { VCLDataListItemDirective } from './data-list-item.directive';
 
 @Directive({
